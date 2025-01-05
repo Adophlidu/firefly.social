@@ -1,18 +1,18 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 
 import { MuteType, Source, SourceInURL } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import type { NextPageProps } from '@/types/index.js';
 
-interface PageProps {
-    params: Promise<{
+interface Props
+    extends NextPageProps<{
         source: SourceInURL;
         type: MuteType;
-    }>;
-}
+    }> {}
 
-export async function generateMetadata(props: PageProps) {
+export async function generateMetadata(props: Props) {
     const params = await props.params;
     const { source, type } = params;
 

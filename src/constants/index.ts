@@ -160,6 +160,7 @@ export const FOLLOWING_SOURCES: FollowingSource[] = [
     Source.Article,
     Source.DAOs,
 ] as const;
+export const REQUIRE_LOGIN_SOURCES = [Source.Twitter];
 
 export const DEFAULT_EXPLORE_TYPE = ExploreType.TopProfiles;
 

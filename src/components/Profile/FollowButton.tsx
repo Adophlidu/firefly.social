@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { memo, useCallback, useState } from 'react';
 
 import FollowIcon from '@/assets/follow-bold.svg';

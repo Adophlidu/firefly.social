@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 
 import { BridgeMethodButton } from '@/app/(developers)/components/BridgeMethodButton.js';

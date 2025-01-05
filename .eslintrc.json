@@ -5,7 +5,6 @@
         "eslint-plugin-simple-import-sort",
         "@typescript-eslint/eslint-plugin",
         "eslint-plugin-react",
-        "eslint-plugin-react-hooks",
         "eslint-plugin-unicorn",
         "eslint-plugin-import",
         "unused-imports"

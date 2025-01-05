@@ -1,5 +1,4 @@
 import { notFound } from 'next/navigation.js';
-import { type PropsWithChildren } from 'react';
 
 import { ProfilePageLayout } from '@/app/(normal)/profile/pages/ProfilePageLayout.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
@@ -14,15 +13,11 @@ import { setupTwitterSession } from '@/helpers/setupTwitterSession.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
+import type { NextPageProps } from '@/types/index.js';
 
-export default async function Layout(
-    props: PropsWithChildren<{
-        params: Promise<{
-            id: string;
-            source: SourceInURL;
-        }>;
-    }>,
-) {
+interface Props extends NextPageProps<{ id: string; source: SourceInURL }> {}
+
+export default async function Layout(props: Props) {
     const params = await props.params;
     const { children } = props;
 

@@ -1,6 +1,7 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { compact, first, flatten } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
 import { memo, useMemo } from 'react';

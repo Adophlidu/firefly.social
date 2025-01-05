@@ -1,6 +1,6 @@
 'use client';
 
-import { useLingui } from '@lingui/react/macro';
+import { t } from '@lingui/core/macro';
 import { type HTMLProps, useRef } from 'react';
 
 import { ClearButton } from '@/components/IconButton.js';
@@ -11,7 +11,6 @@ interface SearchInputProps extends HTMLProps<HTMLInputElement> {
 }
 
 export function SearchInput({ onClear, ref, ...rest }: SearchInputProps) {
-    const { t } = useLingui();
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (

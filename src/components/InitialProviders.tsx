@@ -10,7 +10,7 @@ import { v4 as uuid } from 'uuid';
 
 import { sentryClient } from '@/configs/sentryClient.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useLocale } from '@/helpers/getFromCookies.js';
+import { useLocale } from '@/helpers/getCookie.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { setLocale } from '@/i18n/index.js';

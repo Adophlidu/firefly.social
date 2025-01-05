@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { memo, type ReactNode, useState } from 'react';
 import { useAsyncFn } from 'react-use';

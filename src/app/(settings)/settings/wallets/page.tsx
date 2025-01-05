@@ -1,6 +1,7 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 
 import { AddWalletButton } from '@/app/(settings)/components/AddWalletButton.js';

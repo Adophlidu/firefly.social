@@ -1,5 +1,6 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { Link, useRouter } from '@tanstack/react-router';
 import { useState } from 'react';

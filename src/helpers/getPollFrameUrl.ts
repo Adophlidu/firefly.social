@@ -1,8 +1,8 @@
 import urlcat from 'urlcat';
 
 import { type SocialSource } from '@/constants/enum.js';
+import { getLocaleFromCookiesAsync } from '@/helpers/getCookie.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
-import { getLocaleFromCookiesAsync } from '@/helpers/getFromCookies.js';
 import { getMeaningfulThemeMode } from '@/helpers/getMeaningfulThemeMode.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { parseUrl } from '@/helpers/parseUrl.js';

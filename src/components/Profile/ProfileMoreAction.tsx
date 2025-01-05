@@ -1,5 +1,5 @@
 import { MenuItem, type MenuProps } from '@headlessui/react';
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 

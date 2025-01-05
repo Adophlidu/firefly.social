@@ -1,5 +1,6 @@
-import { Plural } from '@lingui/macro';
+import { Plural } from '@lingui/react/macro';
 import { isUndefined } from 'lodash-es';
+import type { Components } from 'react-markdown';
 
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
@@ -16,7 +17,6 @@ import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import type { Components } from 'react-markdown';
 
 interface ProfileInListProps {
     profile: Profile;

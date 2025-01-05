@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { isServer } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import type {

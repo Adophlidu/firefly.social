@@ -1,28 +1,34 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
-import { useMemo, use } from 'react';
+import { Trans } from '@lingui/react/macro';
+import { use, useMemo } from 'react';
 
 import FullLogo from '@/assets/logo-full.svg';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { bom } from '@/helpers/bom.js';
 import { DeviceType } from '@/types/device.js';
+import type { NextPageProps } from '@/types/index.js';
 
-interface PageProps {
-    searchParams: Promise<{ session?: string }>;
-}
+interface Props
+    extends NextPageProps<
+        {},
+        {
+            session?: string;
+        }
+    > {}
 
-export default function Page(props: PageProps) {
+export default function Page(props: Props) {
     const searchParams = use(props.searchParams);
     const href = bom.location?.href;
+
+    const { session } = searchParams;
+
     const schemes = useMemo(() => {
-        const sessionId = searchParams.session;
-        if (!sessionId) return;
         return {
             [DeviceType.IOS]: href?.replace(/^https/, 'firefly') ?? '',
-            [DeviceType.Android]: `firefly://LoginToDesktop/ConfirmDialog?session=${sessionId}`,
+            [DeviceType.Android]: `firefly://LoginToDesktop/ConfirmDialog?session=${session}`,
         };
-    }, [searchParams, href]);
+    }, [session, href]);
 
     return (
         <div className="absolute inset-0 flex flex-col items-center gap-[178px] bg-white pt-20 dark:bg-black md:pt-[124px]">

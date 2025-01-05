@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { redirect, RedirectType } from 'next/navigation.js';
 
 import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';

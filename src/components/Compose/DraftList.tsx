@@ -1,4 +1,5 @@
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
 import dayjs from 'dayjs';
 import { compact, first, orderBy, values } from 'lodash-es';

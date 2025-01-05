@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { useIsMutating, useMutation } from '@tanstack/react-query';
 

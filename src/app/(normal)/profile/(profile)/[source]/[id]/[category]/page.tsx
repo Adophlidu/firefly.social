@@ -2,25 +2,19 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
-import { Suspense, useMemo, use } from 'react';
+import { Suspense, use, useMemo } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfilePageTimeline } from '@/components/Profile/ProfilePageTimeline.js';
 import { type ProfileCategory, Source, SourceInURL } from '@/constants/enum.js';
+import { REQUIRE_LOGIN_SOURCES } from '@/constants/index.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { getProfileById } from '@/services/getProfileById.js';
+import type { NextPageProps } from '@/types/index.js';
 
-interface Props {
-    params: Promise<{
-        id: string;
-        category: ProfileCategory;
-        source: SourceInURL;
-    }>;
-}
-
-const REQUIRE_LOGIN_SOURCES = [Source.Twitter];
+interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: SourceInURL }> {}
 
 export default function Page(props: Props) {
     const params = use(props.params);

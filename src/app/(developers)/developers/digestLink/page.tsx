@@ -1,7 +1,8 @@
 'use client';
 
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -15,8 +16,6 @@ import { getCollectionFromUrl } from '@/services/getCollectionFromUrl.js';
 import { getNFTFromUrl } from '@/services/getNFTFromUrl.js';
 
 export default function Page() {
-    const { t } = useLingui();
-
     const [url, setUrl] = useState('');
 
     const [{ error, loading, value }, onSubmit] = useAsyncFn(async () => {

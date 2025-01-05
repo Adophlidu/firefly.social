@@ -3,7 +3,7 @@
 import '@/assets/css/limo.css';
 import '@/assets/css/paragraph.css';
 
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import DOMPurify from 'dompurify';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';

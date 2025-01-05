@@ -1,4 +1,5 @@
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 import { rootRouteId, useRouteContext } from '@tanstack/react-router';
 import { useAsyncFn } from 'react-use';

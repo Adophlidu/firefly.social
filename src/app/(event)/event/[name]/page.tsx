@@ -1,8 +1,8 @@
 'use client';
-import { use } from 'react';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
+import { use } from 'react';
 
 import { ActivityElex24Provider } from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
 import { ActivityEndedDialog } from '@/components/Activity/ActivityEndedDialog.js';
@@ -11,12 +11,11 @@ import { ActivityNavigationBar } from '@/components/Activity/ActivityNavigationB
 import { ActivityTasks } from '@/components/Activity/ActivityTasks/index.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
+import type { NextPageProps } from '@/types/index.js';
 
-export default function Page(props: {
-    params: Promise<{
-        name: string;
-    }>;
-}) {
+interface Props extends NextPageProps<{ name: string }> {}
+
+export default function Page(props: Props) {
     const params = use(props.params);
     const { name } = params;
 

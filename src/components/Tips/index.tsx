@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { motion } from 'framer-motion';
 import { forwardRef, type HTMLProps } from 'react';
 import { useAsyncFn } from 'react-use';

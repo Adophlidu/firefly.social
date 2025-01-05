@@ -2,8 +2,8 @@ import { isServer } from '@tanstack/react-query';
 import { cookies } from 'next/headers.js';
 
 import { FIREFLY_DEV_ROOT_URL, FIREFLY_ROOT_URL, FRAME_DEV_SERVER_URL, FRAME_SERVER_URL } from '@/constants/index.js';
-import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 import { getDOMCookie } from '@/helpers/getCookie.js';
+import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
 // this value will be set on server.
 let IS_DEV = isServer ? false : useDeveloperSettingsState.getState().developmentAPI;

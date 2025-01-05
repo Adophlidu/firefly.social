@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { forwardRef, type HTMLProps } from 'react';
 import urlcat from 'urlcat';
 

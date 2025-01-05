@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { safeUnreachable } from '@masknet/kit';
 
 import { ChannelList } from '@/components/Channel/ChannelList.js';

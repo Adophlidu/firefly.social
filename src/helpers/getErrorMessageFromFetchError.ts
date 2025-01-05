@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { StatusCodes } from 'http-status-codes';
 
 import type { FetchError } from '@/constants/error.js';

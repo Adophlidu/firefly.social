@@ -1,20 +1,14 @@
 import { notFound } from 'next/navigation.js';
-import type { PropsWithChildren } from 'react';
 
 import { EngagementLayout } from '@/app/(normal)/post/[source]/[id]/pages/EngagementLayout.js';
 import type { EngagementType } from '@/constants/enum.js';
 import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import type { NextPageProps } from '@/types/index.js';
 
-export default async function Layout(
-    props: PropsWithChildren<{
-        params: Promise<{
-            source: string;
-            id: string;
-            type: EngagementType;
-        }>;
-    }>,
-) {
+interface Props extends NextPageProps<{ source: string; id: string; type: EngagementType }> {}
+
+export default async function Layout(props: Props) {
     const params = await props.params;
     const { children } = props;
 

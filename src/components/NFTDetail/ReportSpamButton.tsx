@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 
 import ReportSpamIcon from '@/assets/report-spam.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';

@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { useRouter } from 'next/navigation.js';
 import { useEffect } from 'react';
 

@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import type { AuthOptions } from 'next-auth';
 import type { Provider } from 'next-auth/providers/index';
 

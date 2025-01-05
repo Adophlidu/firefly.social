@@ -1,6 +1,7 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import type { Address } from 'viem';

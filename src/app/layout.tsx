@@ -5,13 +5,13 @@ import '@dialectlabs/blinks/index.css';
 
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Inter } from 'next/font/google';
+import { cookies } from 'next/headers.js';
 
 import { LayoutBody } from '@/app/layout-body.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { prepareSettingsForSSR } from '@/settings/index.js';
-import { cookies } from 'next/headers.js';
 
 const inter = Inter({
     subsets: ['latin'],

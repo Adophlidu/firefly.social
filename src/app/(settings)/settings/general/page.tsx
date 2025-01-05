@@ -1,6 +1,7 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
 import { isServer } from '@tanstack/react-query';
 import { useMediaQuery } from 'usehooks-ts';
@@ -11,7 +12,7 @@ import { OptionButton } from '@/app/(settings)/components/OptionButton.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
 import { Locale, type ThemeMode } from '@/constants/enum.js';
-import { useCookie } from '@/helpers/getFromCookies.js';
+import { useCookie } from '@/helpers/getCookie.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { setLocale, supportedLocales } from '@/i18n/index.js';
 import { useLocale } from '@/store/useLocale.js';

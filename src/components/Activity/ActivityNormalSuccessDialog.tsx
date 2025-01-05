@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 
 import SuccessShieldIcon from '@/assets/success-shield.svg';
 import { useActivityCompose } from '@/components/Activity/hooks/useActivityCompose.js';

@@ -1,24 +1,24 @@
 'use client';
-import { use } from 'react';
 import 'swiper/css';
 import 'swiper/css/keyboard';
 import 'swiper/css/navigation';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation.js';
+import { use } from 'react';
 
 import { PreviewMedia } from '@/components/PreviewMedia/index.js';
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import type { NextPageProps } from '@/types/index.js';
 
-interface Props {
-    params: Promise<{
+interface Props
+    extends NextPageProps<{
         id: string;
         index: string;
         source: SocialSourceInURL;
-    }>;
-}
+    }> {}
 
 export default function PreviewPhotoModal(props: Props) {
     const params = use(props.params);

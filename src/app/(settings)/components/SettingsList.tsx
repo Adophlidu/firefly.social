@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 
 import { TextLink } from '@/app/(settings)/components/TextLink.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';

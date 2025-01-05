@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 
 import { readChars } from '@/helpers/chars.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';

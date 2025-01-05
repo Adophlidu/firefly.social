@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { isValidChainId as isSolanaChainId } from '@masknet/web3-shared-solana';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { last } from 'lodash-es';
 
 import { NumberSelector } from '@/components/Poll/NumberSelector.js';

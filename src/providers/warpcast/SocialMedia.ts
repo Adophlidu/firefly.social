@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 

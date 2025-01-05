@@ -1,6 +1,7 @@
 'use client';
 
-import { Select, t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Select, Trans } from '@lingui/react/macro';
 import { useForkRef } from '@mui/material';
 import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';

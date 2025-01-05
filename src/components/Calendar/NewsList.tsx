@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 
 import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';

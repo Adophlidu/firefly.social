@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import React, { forwardRef } from 'react';
 
 import type { FrameInput } from '@/types/frame.js';

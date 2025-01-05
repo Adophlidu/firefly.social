@@ -2,14 +2,9 @@ import { redirect } from 'next/navigation.js';
 import urlcat from 'urlcat';
 
 import type { SocialSourceInURL } from '@/constants/enum.js';
+import type { NextPageProps } from '@/types/index.js';
 
-interface Props {
-    params: Promise<{
-        id: string;
-        index: string;
-    }>;
-    searchParams: Promise<{ source: SocialSourceInURL }>;
-}
+interface Props extends NextPageProps<{ id: string; index: string }, { source: SocialSourceInURL }> {}
 
 export default async function Photo(props: Props) {
     const searchParams = await props.searchParams;

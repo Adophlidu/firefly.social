@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { usePathname } from 'next/navigation.js';
 
 import RightArrowIcon from '@/assets/right-arrow.svg';

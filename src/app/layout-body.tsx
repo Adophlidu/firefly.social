@@ -3,7 +3,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { BeforeUnload } from '@/components/Compose/BeforeUnload.js';
 import { IfHostname } from '@/components/IfHostname.js';
 import { IfPathname } from '@/components/IfPathname.js';
-import { NoSSR } from '@/components/NoSSR.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
@@ -22,11 +21,6 @@ export function LayoutBody({ children }: { children: React.ReactNode }) {
                             <SideBar />
                         </IfPathname>
                     </IfHostname>
-                    <IfPathname isNotOneOf={['/frame']}>
-                        <NoSSR>
-                            <mask-page-inspector />
-                        </NoSSR>
-                    </IfPathname>
                 </div>
 
                 <Modals />

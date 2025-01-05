@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 
 import { FileMimeType, type SocialSource } from '@/constants/enum.js';
 import { formatFileSize } from '@/helpers/formatFileSize.js';

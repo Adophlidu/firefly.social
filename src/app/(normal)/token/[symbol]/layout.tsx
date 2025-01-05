@@ -3,12 +3,12 @@ import type { PropsWithChildren } from 'react';
 import { Comeback } from '@/components/Comeback.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getTokenFromCoinGecko } from '@/services/getTokenFromCoinGecko.js';
+import type { NextPageProps } from '@/types/index.js';
 
-interface Props {
-    params: Promise<{
+interface Props
+    extends NextPageProps<{
         symbol: string;
-    }>;
-}
+    }> {}
 
 export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
     const params = await props.params;

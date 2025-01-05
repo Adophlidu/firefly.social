@@ -1,4 +1,5 @@
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';

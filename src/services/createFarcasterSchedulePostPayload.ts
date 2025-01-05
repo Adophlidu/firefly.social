@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { toInteger, uniqBy } from 'lodash-es';
 import { toBytes } from 'viem';
 

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { first, uniqBy } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';

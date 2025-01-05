@@ -1,7 +1,7 @@
 /* cspell:disable */
 
 import { CastAddBody, CastRemoveBody, Factories, ReactionType, UserDataType } from '@farcaster/core';
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
 import { toBytes } from 'viem';

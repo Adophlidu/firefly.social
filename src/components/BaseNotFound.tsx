@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { type HTMLProps, memo } from 'react';
 
 import { Image } from '@/esm/Image.js';

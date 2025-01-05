@@ -6,7 +6,7 @@ import {
     type SignMessageVerificationOptions,
     verifySignMessageData,
 } from '@dialectlabs/blinks';
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';

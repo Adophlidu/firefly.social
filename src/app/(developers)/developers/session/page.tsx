@@ -1,7 +1,8 @@
 'use client';
 
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -16,8 +17,6 @@ import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export default function Page() {
-    const { t } = useLingui();
-
     const [serializedSession, setSerializedSession] = useState('');
     const [profile, setProfile] = useState<Profile | null>(null);
 

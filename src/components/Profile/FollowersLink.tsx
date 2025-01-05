@@ -1,4 +1,4 @@
-import { plural } from '@lingui/macro';
+import { plural } from '@lingui/core/macro';
 import { type HTMLProps, memo } from 'react';
 
 import { Link } from '@/components/Link.js';

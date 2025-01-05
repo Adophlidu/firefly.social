@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import type { HTMLProps } from 'react';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';

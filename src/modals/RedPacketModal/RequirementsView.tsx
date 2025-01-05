@@ -1,4 +1,5 @@
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
 import { useRouter } from '@tanstack/react-router';
 import React, { useCallback, useContext } from 'react';

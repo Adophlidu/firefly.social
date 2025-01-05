@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { memo, useState } from 'react';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';

@@ -1,5 +1,5 @@
 import { MenuItem } from '@headlessui/react';
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { memo } from 'react';
 import { useEnsName } from 'wagmi';
 

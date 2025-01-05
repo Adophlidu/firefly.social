@@ -6,7 +6,8 @@ import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPl
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin.js';
 import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin.js';
 import { $dfs } from '@lexical/utils';
-import { Select, t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Select, Trans } from '@lingui/react/macro';
 import type { EditorState } from 'lexical';
 import { compact, debounce } from 'lodash-es';
 import { memo, useMemo, useTransition } from 'react';

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { ChainId } from '@masknet/web3-shared-solana';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';

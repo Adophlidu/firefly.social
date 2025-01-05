@@ -1,4 +1,4 @@
-import { Plural } from '@lingui/macro';
+import { Plural } from '@lingui/react/macro';
 import { isUndefined } from 'lodash-es';
 
 import { ToggleMutedChannelButton } from '@/components/Actions/ToggleMutedChannelButton.js';

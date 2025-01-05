@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { useCallback, useState } from 'react';
 
 import EditProfileIcon from '@/assets/edit-profile.svg';

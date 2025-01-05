@@ -1,4 +1,4 @@
-import { Plural } from '@lingui/macro';
+import { Plural } from '@lingui/react/macro';
 import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
 

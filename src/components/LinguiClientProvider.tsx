@@ -3,9 +3,9 @@
 import { I18nProvider } from '@lingui/react';
 import { type PropsWithChildren } from 'react';
 
-import { getI18nInstance } from '@/i18n/index.js';
 import { bom } from '@/helpers/bom.js';
-import { getLocaleFromCookiesAsync, useLocale } from '@/helpers/getFromCookies.js';
+import { getLocaleFromCookiesAsync, useLocale } from '@/helpers/getCookie.js';
+import { getI18nInstance } from '@/i18n/index.js';
 
 type LinguiClientProviderProps = PropsWithChildren<{}>;
 

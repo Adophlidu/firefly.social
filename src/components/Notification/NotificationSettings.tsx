@@ -1,7 +1,7 @@
 'use client';
 
 import { Popover, PopoverButton, PopoverPanel, Switch } from '@headlessui/react';
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';

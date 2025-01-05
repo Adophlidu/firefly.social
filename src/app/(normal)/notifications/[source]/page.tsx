@@ -1,9 +1,9 @@
 'use client';
 
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { type Dispatch, type SetStateAction, useCallback, useState, use } from 'react';
+import { type Dispatch, type SetStateAction, use, useCallback, useState } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { NotificationFilter } from '@/components/Notification/NotificationFilter.js';
@@ -17,6 +17,7 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { useNotificationSettings } from '@/hooks/useNotificationSettings.js';
 import { type Notification as NotificationObject, NotificationType } from '@/providers/types/SocialMedia.js';
+import type { NextPageProps } from '@/types/index.js';
 
 function useNotificationTypes(source: SocialSource) {
     const [typesMap, setTypesMap] = useState<Record<SocialSource, NotificationType[]>>({
@@ -44,7 +45,9 @@ const getNotificationItemContent = (index: number, notification: NotificationObj
     return <NotificationItem key={notification.notificationId} notification={notification} />;
 };
 
-export default function Notification(props: { params: Promise<{ source: SourceInURL }> }) {
+interface Props extends NextPageProps<{ source: SourceInURL }> {}
+
+export default function Notification(props: Props) {
     const params = use(props.params);
     const source = resolveSource(params.source) as SocialDiscoverSource;
     const profile = useCurrentProfile(source);

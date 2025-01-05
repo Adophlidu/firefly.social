@@ -6,11 +6,11 @@ import type { SocialSourceInURL } from '@/constants/enum.js';
 import { SITE_NAME, SITE_URL } from '@/constants/index.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { getLocaleFromCookiesAsync } from '@/helpers/getCookie.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { getI18nInstance } from '@/i18n/index.js';
-import { getLocaleFromCookiesAsync } from '@/helpers/getFromCookies.js';
 
 export async function createMetadataPostById(source: SocialSourceInURL, postId: string) {
     const i18n = getI18nInstance(await getLocaleFromCookiesAsync());

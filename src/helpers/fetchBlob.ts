@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 
 import { fetch } from '@/helpers/fetch.js';
 import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';

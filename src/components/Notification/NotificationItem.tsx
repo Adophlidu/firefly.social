@@ -1,6 +1,6 @@
 'use client';
 
-import { Plural, Select, Trans } from '@lingui/macro';
+import { Plural, Select, Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { first, uniqBy } from 'lodash-es';

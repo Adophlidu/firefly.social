@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { useLocation } from '@tanstack/react-router';
 import { memo, Suspense, useState } from 'react';
 import { useMount } from 'react-use';

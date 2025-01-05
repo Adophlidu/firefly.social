@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { forwardRef } from 'react';
 
 import BookmarkActiveIcon from '@/assets/bookmark.selected.svg';

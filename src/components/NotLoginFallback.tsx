@@ -1,5 +1,5 @@
 'use client';
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';

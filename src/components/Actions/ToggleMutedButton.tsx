@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { useMemo, useRef } from 'react';
 import { useHover } from 'usehooks-ts';
 

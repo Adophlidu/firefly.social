@@ -1,7 +1,7 @@
 'use client';
 
 import { notFound, redirect, RedirectType } from 'next/navigation.js';
-import { type PropsWithChildren, useEffect, use } from 'react';
+import { use, useEffect } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
@@ -16,16 +16,11 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
+import type { NextPageProps } from '@/types/index.js';
 
-export default function Page(
-    props: PropsWithChildren<{
-        params: Promise<{
-            id: string;
-            category: ProfileCategory;
-            source: SourceInURL;
-        }>;
-    }>,
-) {
+interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: SourceInURL }> {}
+
+export default function Page(props: Props) {
     const params = use(props.params);
     const source = resolveSourceFromUrl(params.source);
     if (!isSocialSource(source)) notFound();

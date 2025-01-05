@@ -1,5 +1,4 @@
 import { notFound } from 'next/navigation.js';
-import type { PropsWithChildren } from 'react';
 
 import { FollowPageLayout } from '@/app/(normal)/profile/pages/FollowPageLayout.js';
 import { Title } from '@/components/Profile/Title.js';
@@ -9,16 +8,11 @@ import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import type { NextPageProps } from '@/types/index.js';
 
-export default async function Layout(
-    props: PropsWithChildren<{
-        params: Promise<{
-            id: string;
-            category: ProfileCategory;
-            source: SourceInURL;
-        }>;
-    }>,
-) {
+interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: SourceInURL }> {}
+
+export default async function Layout(props: Props) {
     const params = await props.params;
     const { children } = props;
 

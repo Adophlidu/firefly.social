@@ -1,7 +1,7 @@
 'use client';
 
 import { PlusIcon } from '@heroicons/react/24/outline';
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';

@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { EthereumMethodType } from '@masknet/web3-shared-evm';
 import { first } from 'lodash-es';
 import { useAsyncFn } from 'react-use';

@@ -1,3 +1,6 @@
+import type { PropsWithChildren } from 'react';
+import type React from 'react';
+
 import { ServerErrorCodes } from '@/helpers/createResponseJSON.js';
 
 export type ResponseJSON<T> =
@@ -34,3 +37,9 @@ export interface Nothing {}
 
 // We discard boolean as the default type.
 export type LiteralUnion<U, T = U extends string ? string : U extends number ? number : never> = U | (T & Nothing);
+
+export interface NextPageProps<Params = never, SearchParams = never> extends PropsWithChildren {
+    params: Params extends never ? never : Promise<Params>;
+    searchParams: SearchParams extends never ? never : Promise<SearchParams>;
+    children: React.ReactNode;
+}

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { useAsyncFn } from 'react-use';
 

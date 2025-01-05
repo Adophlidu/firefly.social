@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 import { Reorder } from 'framer-motion';
 import { noop } from 'lodash-es';

@@ -28,7 +28,7 @@ import {
     MetadataAttributeType,
     profile as createProfileMetadata,
 } from '@lens-protocol/metadata';
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { isServer } from '@tanstack/react-query';
 import { compact, first, flatMap, omit, uniq, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';

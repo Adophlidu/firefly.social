@@ -1,1 +1,1 @@
-export { useLocale } from '@/helpers/getFromCookies.js';
+export { useLocale } from '@/helpers/getCookie.js';

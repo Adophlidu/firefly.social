@@ -4,10 +4,9 @@ import { ShareLinkPage, type ShareLinkProps } from '@/app/(normal)/intent/compos
 import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { trimify } from '@/helpers/trimify.js';
+import type { NextPageProps } from '@/types/index.js';
 
-interface Props {
-    searchParams: Promise<ShareLinkProps>;
-}
+interface Props extends NextPageProps<{}, ShareLinkProps> {}
 
 export default async function Page(props: Props) {
     const searchParams = await props.searchParams;

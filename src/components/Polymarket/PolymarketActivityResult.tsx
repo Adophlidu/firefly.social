@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 
 import { classNames } from '@/helpers/classNames.js';
 import { computeVolume } from '@/helpers/polymarket.js';

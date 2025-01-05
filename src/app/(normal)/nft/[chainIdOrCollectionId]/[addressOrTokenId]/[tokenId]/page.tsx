@@ -4,22 +4,25 @@ import { NFTDetailPage } from '@/app/(normal)/nft/pages/NFTDetailPage.js';
 import { createMetadataNFT } from '@/helpers/createMetadataNFT.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { parseChainId } from '@/helpers/parseChainId.js';
+import type { NextPageProps } from '@/types/index.js';
 
-interface Props {
-    params: {
+interface Props
+    extends NextPageProps<{
         addressOrTokenId: string;
         tokenId: string;
         chainIdOrCollectionId: string;
-    };
-}
+    }> {}
 
-export async function generateMetadata({ params: { addressOrTokenId, tokenId, ...params } }: Props) {
-    const chainId = parseChainId(params.chainIdOrCollectionId);
+export async function generateMetadata(props: Props) {
+    const params = await props.params;
+    const { addressOrTokenId, tokenId, chainIdOrCollectionId } = params;
+    const chainId = parseChainId(chainIdOrCollectionId);
     if (chainId) return createMetadataNFT(addressOrTokenId, tokenId, chainId);
     return createSiteMetadata();
 }
 
-export default function Page({ params: { addressOrTokenId, tokenId, ...params } }: Props) {
+export default async function Page(props: Props) {
+    const { addressOrTokenId, tokenId, ...params } = await props.params;
     const chainId = parseChainId(params.chainIdOrCollectionId);
     if (!chainId) notFound();
     return <NFTDetailPage chainId={chainId} tokenId={tokenId} address={addressOrTokenId} />;

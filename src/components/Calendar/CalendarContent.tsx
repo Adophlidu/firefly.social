@@ -1,7 +1,7 @@
 'use client';
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 
 import { DatePickerTab } from '@/components/Calendar/DatePickerTab.js';

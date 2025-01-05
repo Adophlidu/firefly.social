@@ -1,6 +1,7 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 
 import { TextLink } from '@/app/(settings)/components/TextLink.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';

@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
 
 import EnsIcon from '@/assets/ens.svg';

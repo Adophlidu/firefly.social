@@ -1,12 +1,12 @@
 import { Dialog } from '@headlessui/react';
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { Outlet, rootRouteId, useRouteContext, useRouter } from '@tanstack/react-router';
+import type { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { CloseButton } from '@/components/IconButton.js';
 import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
-import type { JSX } from 'react';
 
 export interface ProfileFormValues extends Omit<ProfileEditable, 'pfp'> {
     pfp?: File;

@@ -1,5 +1,5 @@
 import { UserDataType } from '@farcaster/core';
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { uniq } from 'lodash-es';
 
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';

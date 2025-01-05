@@ -1,4 +1,5 @@
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
 import { useQueries } from '@tanstack/react-query';
 import { sortBy } from 'lodash-es';

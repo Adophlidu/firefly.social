@@ -1,21 +1,15 @@
-import type { ReactNode } from 'react';
-
 import { ActivityProvider } from '@/components/Activity/ActivityContext.js';
 import { KeyType } from '@/constants/enum.js';
 import { createMetadataEventDetailPage } from '@/helpers/createMetadataEventDetailPage.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
+import type { NextPageProps } from '@/types/index.js';
 
 const createPageMetadata = memoizeWithRedis(createMetadataEventDetailPage, {
     key: KeyType.CreateMetadataEvent,
 });
 
-interface Props {
-    params: Promise<{
-        name: string;
-    }>;
-    children: ReactNode;
-}
+interface Props extends NextPageProps<{ name: string }> {}
 
 export async function generateMetadata(props: Props) {
     const params = await props.params;

@@ -1,7 +1,8 @@
 'use client';
 
 import { Menu } from '@headlessui/react';
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
 import { type MouseEvent, useContext } from 'react';

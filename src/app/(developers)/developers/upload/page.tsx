@@ -1,6 +1,7 @@
 'use client';
 
-import { Trans, useLingui } from '@lingui/react/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -16,8 +17,6 @@ import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { uploadToDirectory } from '@/services/uploadToS3.js';
 
 export default function Page() {
-    const { t } = useLingui();
-
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [directory, setDirectory] = useState('');
     const [name, setName] = useState('');
@@ -30,7 +29,7 @@ export default function Page() {
             const url = await uploadToDirectory(file, directory, () => name);
             setUrl(url);
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to upload.`);
+            enqueueMessageFromError(error, 'Failed to upload.');
             throw error;
         }
     }, [file, directory, name, setUrl]);

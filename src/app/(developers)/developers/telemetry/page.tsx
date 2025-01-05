@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 
 import { TelemetryMethodButton } from '@/app/(developers)/components/TelemetryMethodButton.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';

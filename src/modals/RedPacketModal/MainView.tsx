@@ -1,6 +1,7 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { type FungibleToken, isLessThan } from '@masknet/web3-shared-base';
 import { type ChainId, SchemaType, useRedPacketConstants } from '@masknet/web3-shared-evm';
 import { useRouter } from '@tanstack/react-router';

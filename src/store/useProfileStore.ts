@@ -1,5 +1,5 @@
 'use client';
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { getSession, signOut } from 'next-auth/react';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';

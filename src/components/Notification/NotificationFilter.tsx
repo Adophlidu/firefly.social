@@ -1,4 +1,4 @@
-import { select, t } from '@lingui/macro';
+import { select, t } from '@lingui/core/macro';
 import { type Dispatch, type HTMLProps, type SetStateAction, useMemo } from 'react';
 
 import NotificationIcon from '@/assets/notification.svg';

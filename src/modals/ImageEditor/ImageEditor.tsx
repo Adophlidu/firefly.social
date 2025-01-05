@@ -1,5 +1,5 @@
 import { DialogTitle } from '@headlessui/react';
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { EMPTY_OBJECT } from '@masknet/shared-base';
 import { Ranger, useRanger } from '@tanstack/react-ranger';
 import { Fragment, useCallback, useRef, useState } from 'react';

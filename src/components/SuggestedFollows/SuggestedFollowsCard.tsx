@@ -3,7 +3,7 @@ import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/effect-coverflow';
 
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { Autoplay, EffectCoverflow } from 'swiper/modules';

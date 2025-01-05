@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { AuthType, connect, SolanaWallet } from '@particle-network/auth-core';
 import type { SendTransactionOptions, WalletName } from '@solana/wallet-adapter-base';
 import {

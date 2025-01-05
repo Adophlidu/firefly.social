@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { type PropsWithChildren, useMemo } from 'react';
 

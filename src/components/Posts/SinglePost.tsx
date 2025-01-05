@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';

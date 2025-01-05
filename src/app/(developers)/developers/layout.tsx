@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 
 import { ToolkitList } from '@/app/(developers)/components/ToolkitList.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';

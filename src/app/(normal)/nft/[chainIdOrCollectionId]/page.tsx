@@ -1,11 +1,8 @@
 import { NFTCollectionPageById } from '@/app/(normal)/nft/pages/NFTCollectionPage.js';
 import { createMetadataNFTCollectionById } from '@/helpers/createMetadataNFT.js';
+import type { NextPageProps } from '@/types/index.js';
 
-interface Props {
-    params: Promise<{
-        chainIdOrCollectionId: string;
-    }>;
-}
+interface Props extends NextPageProps<{ chainIdOrCollectionId: string }> {}
 
 export async function generateMetadata(props: Props) {
     const params = await props.params;

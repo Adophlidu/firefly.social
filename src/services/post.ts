@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import dayjs from 'dayjs';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';

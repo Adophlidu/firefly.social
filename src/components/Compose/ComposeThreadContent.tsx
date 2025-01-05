@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 
 import YesIcon from '@/assets/green-yes.svg';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
 import { memo, useState } from 'react';
 import { useAsyncFn, useMount } from 'react-use';

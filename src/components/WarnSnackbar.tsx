@@ -1,5 +1,5 @@
 import { ClipboardDocumentCheckIcon, ClipboardDocumentIcon, XCircleIcon } from '@heroicons/react/24/solid';
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { SnackbarContent, type SnackbarMessage, useSnackbar } from 'notistack';
 import { forwardRef, useCallback, useState } from 'react';
 

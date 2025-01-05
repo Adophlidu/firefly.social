@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { use } from 'react';
 
 import { ArticleDetailPage } from '@/app/(normal)/article/[id]/pages/DetailPage.js';
 import { KeyType } from '@/constants/enum.js';
@@ -6,17 +7,13 @@ import { createMetadataArticleById } from '@/helpers/createMetadataArticleById.j
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { use } from 'react';
+import type { NextPageProps } from '@/types/index.js';
 
 const createPageMetadata = memoizeWithRedis(createMetadataArticleById, {
     key: KeyType.CreateMetadataArticleById,
 });
 
-interface Props {
-    params: Promise<{
-        id: string;
-    }>;
-}
+interface Props extends NextPageProps<{ id: string }> {}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const params = await props.params;

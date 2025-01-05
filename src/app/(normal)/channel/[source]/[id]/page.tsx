@@ -8,21 +8,23 @@ import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import type { NextPageProps } from '@/types/index.js';
 
 const createPageMetadata = memoizeWithRedis(createMetadataChannelById, {
     key: KeyType.CreateMetadataChannelById,
 });
 
-interface Props {
-    params: Promise<{
-        id: string;
-        source: SocialSourceInURL;
-    }>;
-    searchParams: Promise<{
-        source: SocialSourceInURL;
-        channel_tab?: ChannelTabType;
-    }>;
-}
+interface Props
+    extends NextPageProps<
+        {
+            id: string;
+            source: SocialSourceInURL;
+        },
+        {
+            source: SocialSourceInURL;
+            channel_tab?: ChannelTabType;
+        }
+    > {}
 
 function isChannelTabType(value?: string): value is ChannelTabType {
     return Object.values(ChannelTabType).includes(value as ChannelTabType);
@@ -37,9 +39,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default async function Page(props: Props) {
+    if (await isBotRequest()) return null;
+
     const searchParams = await props.searchParams;
     const params = await props.params;
-    if (await isBotRequest()) return null;
 
     const sourceFromQuery = isSocialSourceInUrl(searchParams.source)
         ? resolveSocialSource(searchParams.source)

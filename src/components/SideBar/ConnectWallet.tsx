@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import LoadingIcon from '@/assets/loading.svg';

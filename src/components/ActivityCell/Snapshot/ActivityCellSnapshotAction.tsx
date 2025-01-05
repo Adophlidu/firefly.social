@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import type { PropsWithChildren } from 'react';
 
 import VoteIcon from '@/assets/vote.svg';

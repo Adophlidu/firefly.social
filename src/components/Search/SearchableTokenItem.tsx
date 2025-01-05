@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 
 import PriceArrow from '@/assets/price-arrow.svg';
 import { Image } from '@/components/Image.js';

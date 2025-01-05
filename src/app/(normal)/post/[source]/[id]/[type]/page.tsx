@@ -9,12 +9,14 @@ import { RepostList } from '@/components/Engagement/RepostList.js';
 import { Loading } from '@/components/Loading.js';
 import { EngagementType, type SocialSource, type SocialSourceInURL } from '@/constants/enum.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import type { NextPageProps } from '@/types/index.js';
 
 interface ContentListProps {
     postId: string;
     type: Awaited<Props['params']>['type'];
     source: SocialSource;
 }
+
 const ContentList = memo(function ContentList(props: ContentListProps) {
     switch (props.type) {
         case EngagementType.Likes:
@@ -30,13 +32,7 @@ const ContentList = memo(function ContentList(props: ContentListProps) {
     }
 });
 
-interface Props {
-    params: Promise<{
-        id: string;
-        type: EngagementType;
-        source: SocialSourceInURL;
-    }>;
-}
+interface Props extends NextPageProps<{ id: string; type: EngagementType; source: SocialSourceInURL }> {}
 
 export default function Page(props: Props) {
     const params = use(props.params);

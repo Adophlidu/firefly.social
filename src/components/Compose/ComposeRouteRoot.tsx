@@ -1,5 +1,6 @@
 import { Dialog } from '@headlessui/react';
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { Outlet, rootRouteId, useMatch, useRouter } from '@tanstack/react-router';
 
 import DraftIcon from '@/assets/draft.svg';

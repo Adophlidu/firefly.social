@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useInterval } from 'usehooks-ts';

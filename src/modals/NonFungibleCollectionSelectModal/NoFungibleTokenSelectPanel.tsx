@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { useNonFungibleCollections } from '@masknet/web3-hooks-base';
 import { SchemaType } from '@masknet/web3-shared-evm';
 import Fuse from 'fuse.js';

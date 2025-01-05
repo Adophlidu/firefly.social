@@ -1,10 +1,10 @@
-import { i18n, type Messages, setupI18n } from '@lingui/core';
-import type { I18n } from '@lingui/core' with { 'resolution-mode': 'require' };
+import type { I18n, Messages } from '@lingui/core' with { 'resolution-mode': 'require' };
+import { i18n, setupI18n } from '@lingui/core';
 import { setI18n } from '@lingui/react/server';
 import dayjs from 'dayjs';
 
 import { Locale } from '@/constants/enum.js';
-import { getLocaleFromCookiesAsync } from '@/helpers/getFromCookies.js';
+import { getLocaleFromCookiesAsync } from '@/helpers/getCookie.js';
 // @ts-expect-error
 import { messages as en } from '@/locales/en/messages.mjs';
 // @ts-expect-error

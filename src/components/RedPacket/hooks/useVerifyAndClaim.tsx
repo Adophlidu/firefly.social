@@ -1,4 +1,5 @@
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useRedPacketConstants } from '@masknet/web3-shared-evm';
 import { last } from 'lodash-es';
 import { useCallback } from 'react';

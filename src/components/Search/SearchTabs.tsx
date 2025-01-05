@@ -1,8 +1,8 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { usePathname } from 'next/navigation.js';
-import { memo, useMemo, type JSX } from 'react';
+import { type JSX, memo, useMemo } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { SearchType, type SocialSource, Source } from '@/constants/enum.js';

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { useRouter } from '@tanstack/react-router';
 import { memo } from 'react';
 

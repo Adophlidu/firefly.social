@@ -1,5 +1,5 @@
 import { DialogTitle } from '@headlessui/react';
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { forwardRef, useCallback, useState } from 'react';
 
 import { CloseButton } from '@/components/IconButton.js';

@@ -1,6 +1,6 @@
 'use client';
 
-import { Plural, Trans } from '@lingui/macro';
+import { Plural, Trans } from '@lingui/react/macro';
 
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';

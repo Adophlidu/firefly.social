@@ -1,6 +1,6 @@
 import 'plyr-react/plyr.css';
 
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import Music from '@/assets/music.svg';

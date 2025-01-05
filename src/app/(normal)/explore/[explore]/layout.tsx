@@ -1,5 +1,5 @@
-import { t, Trans } from '@lingui/macro';
-import type { PropsWithChildren } from 'react';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
@@ -9,6 +9,7 @@ import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
+import type { NextPageProps } from '@/types/index.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
@@ -16,7 +17,9 @@ export async function generateMetadata() {
     });
 }
 
-export default async function Layout(props: PropsWithChildren<{ params: Promise<{ explore: ExploreType }> }>) {
+interface Props extends NextPageProps<{ explore: ExploreType }> {}
+
+export default async function Layout(props: Props) {
     const params = await props.params;
     const { children } = props;
 

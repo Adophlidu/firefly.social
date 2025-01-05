@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { Outlet, useRouter, useRouterState } from '@tanstack/react-router';
 
 import HistoryIcon from '@/assets/history.svg';

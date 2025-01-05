@@ -1,5 +1,5 @@
 import { image, link, MediaImageMimeType, MediaVideoMimeType, textOnly, video } from '@lens-protocol/metadata';
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { first } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 

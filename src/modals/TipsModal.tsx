@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { RouterProvider } from '@tanstack/react-router';
 import { forwardRef, useCallback } from 'react';

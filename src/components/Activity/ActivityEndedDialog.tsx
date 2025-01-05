@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { useRouter } from 'next/navigation.js';
 import { useCallback, useEffect } from 'react';
 

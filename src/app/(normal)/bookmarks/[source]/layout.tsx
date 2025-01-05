@@ -1,6 +1,6 @@
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { notFound } from 'next/navigation.js';
-import { type PropsWithChildren } from 'react';
 
 import { NoSSR } from '@/components/NoSSR.js';
 import { SolidSourceTabs } from '@/components/Tabs/SolidSourceTabs.js';
@@ -11,6 +11,7 @@ import { isBookmarkSource } from '@/helpers/isBookmarkSource.js';
 import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
+import type { NextPageProps } from '@/types/index.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
@@ -18,7 +19,9 @@ export async function generateMetadata() {
     });
 }
 
-export default async function Layout(props: PropsWithChildren<{ params: Promise<{ source: string }> }>) {
+interface Props extends NextPageProps<{ source: string }> {}
+
+export default async function Layout(props: Props) {
     const params = await props.params;
     const { children } = props;
 

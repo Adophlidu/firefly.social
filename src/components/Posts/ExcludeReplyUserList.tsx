@@ -1,7 +1,7 @@
 'use client';
 
 import { Popover } from '@headlessui/react';
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { type PropsWithChildren } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';

@@ -1,5 +1,5 @@
 import { DialogTitle } from '@headlessui/react';
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { type FungibleToken } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { forwardRef, useState } from 'react';

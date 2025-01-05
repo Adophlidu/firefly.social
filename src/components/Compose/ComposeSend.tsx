@@ -1,4 +1,5 @@
-import { Plural, t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Plural, Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 import { ConnectorNotConnectedError } from '@wagmi/core';
 import { compact, values } from 'lodash-es';

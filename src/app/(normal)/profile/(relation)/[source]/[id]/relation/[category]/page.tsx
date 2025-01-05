@@ -6,14 +6,11 @@ import { MutualFollowersList } from '@/app/(normal)/profile/pages/MutualFollower
 import { FollowCategory, type ProfileCategory, SourceInURL } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import type { NextPageProps } from '@/types/index.js';
 
-export default async function Page(props: {
-    params: Promise<{
-        id: string;
-        category: ProfileCategory;
-        source: SourceInURL;
-    }>;
-}) {
+interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: SourceInURL }> {}
+
+export default async function Page(props: Props) {
     const params = await props.params;
     const source = resolveSourceFromUrl(params.source);
     const identity = { source, id: params.id };

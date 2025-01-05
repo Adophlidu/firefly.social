@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { forwardRef, type HTMLProps, useCallback } from 'react';
 

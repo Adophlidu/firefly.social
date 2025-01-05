@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 import urlcat from 'urlcat';

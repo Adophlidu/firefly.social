@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';

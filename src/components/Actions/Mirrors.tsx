@@ -1,6 +1,7 @@
 'use client';
 
-import { plural, t, Trans } from '@lingui/macro';
+import { plural, t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { memo, useMemo, useState } from 'react';

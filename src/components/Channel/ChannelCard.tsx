@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation.js';
 import { memo, type MouseEvent, useCallback } from 'react';

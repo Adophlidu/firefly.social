@@ -1,5 +1,5 @@
 import { MenuItem } from '@headlessui/react';
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';

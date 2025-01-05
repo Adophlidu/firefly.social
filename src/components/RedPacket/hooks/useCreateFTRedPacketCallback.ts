@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { type FungibleToken, toFixed } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType, useRedPacketConstants, useTokenConstants } from '@masknet/web3-shared-evm';
 import { first, omit, pick } from 'lodash-es';

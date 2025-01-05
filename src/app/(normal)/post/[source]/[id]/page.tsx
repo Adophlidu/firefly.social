@@ -16,6 +16,7 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { setupTwitterSession } from '@/helpers/setupTwitterSession.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
+import type { NextPageProps } from '@/types/index.js';
 
 export const revalidate = 60;
 
@@ -23,12 +24,7 @@ const createPageMetadata = memoizeWithRedis(createMetadataPostById, {
     key: KeyType.CreateMetadataPostById,
 });
 
-interface Props {
-    params: Promise<{
-        id: string;
-        source: SocialSourceInURL;
-    }>;
-}
+interface Props extends NextPageProps<{ id: string; source: SocialSourceInURL }> {}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const params = await props.params;

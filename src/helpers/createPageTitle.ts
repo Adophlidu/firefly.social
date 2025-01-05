@@ -1,5 +1,5 @@
 import { SITE_NAME } from '@/constants/index.js';
-import { getLocaleFromCookiesAsync } from '@/helpers/getFromCookies.js';
+import { getLocaleFromCookiesAsync } from '@/helpers/getCookie.js';
 import { getLocale } from '@/i18n/index.js';
 
 export function createPageTitle(title: string) {

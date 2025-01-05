@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
 import { compact, first } from 'lodash-es';
 import React, { memo, type ReactNode } from 'react';

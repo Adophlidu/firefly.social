@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import type { NonFungibleTokenTrait } from '@masknet/web3-shared-base';
 
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';

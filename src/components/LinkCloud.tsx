@@ -1,6 +1,7 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { useRef } from 'react';
 import { useMount } from 'react-use';

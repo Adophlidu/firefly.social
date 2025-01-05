@@ -11,13 +11,9 @@ import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
+import type { NextPageProps } from '@/types/index.js';
 
-interface Props {
-    params: Promise<{
-        addressOrTokenId: string;
-        chainIdOrCollectionId: string;
-    }>;
-}
+interface Props extends NextPageProps<{ addressOrTokenId: string; chainIdOrCollectionId: string }> {}
 
 function isNFTDetailPage(chainIdOrCollectionId: string, addressOrTokenId: string) {
     const isChainId = isValidChainId(+chainIdOrCollectionId) || isValidSolanaChainId(+chainIdOrCollectionId);

@@ -1,6 +1,7 @@
 import { Tab } from '@headlessui/react';
 import { IS_APPLE, IS_SAFARI } from '@lexical/utils';
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 
 import ActiveIcon from '@/assets/snapshot-active.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';

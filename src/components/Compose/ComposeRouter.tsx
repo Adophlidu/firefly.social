@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { createMemoryHistory, createRootRoute, createRoute, createRouter } from '@tanstack/react-router';
 
 import { ComposeRouteRoot } from '@/components/Compose/ComposeRouteRoot.js';

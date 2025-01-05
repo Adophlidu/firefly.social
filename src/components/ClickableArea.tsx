@@ -1,6 +1,6 @@
 'use client';
 
-import { createElement, forwardRef, type HTMLProps, type MouseEvent, type JSX } from 'react';
+import { createElement, forwardRef, type HTMLProps, type JSX, type MouseEvent } from 'react';
 
 interface ClickableAreaProps extends HTMLProps<HTMLDivElement> {
     disabled?: boolean;

@@ -1,6 +1,5 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { notFound } from 'next/navigation.js';
-import type { PropsWithChildren } from 'react';
 
 import { ChannelInfo } from '@/components/Channel/ChannelInfo.js';
 import { ChannelProvider } from '@/components/Channel/ChannelProvider.js';
@@ -18,16 +17,16 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
+import type { NextPageProps } from '@/types/index.js';
 
 export const revalidate = 60; // revalidate every 60 seconds
 
-type Props = PropsWithChildren<{
-    params: Promise<{
+interface Props
+    extends NextPageProps<{
         id: string;
         type: ChannelTabType;
         source: SocialSourceInURL;
-    }>;
-}>;
+    }> {}
 
 export async function generateMetadata(props: Props) {
     const params = await props.params;

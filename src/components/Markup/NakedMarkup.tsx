@@ -1,7 +1,7 @@
 'use client';
 
 import { compact } from 'lodash-es';
-import { memo, useMemo, type DetailedHTMLProps, type OlHTMLAttributes } from 'react';
+import { type DetailedHTMLProps, memo, type OlHTMLAttributes, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 // @ts-expect-error
@@ -16,9 +16,9 @@ import { isChannelSupported } from '@/helpers/isChannelSupported.js';
 
 const trimify = (value: string): string => value.replace(/\n\n\s*\n/g, '\n\n').trim();
 
-const Ol = (props: DetailedHTMLProps<OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>) => (
-    <ol {...props} style={{ counterReset: `list-counter ${props.start ? props.start - 1 : ''}` }} />
-);
+function Ol(props: DetailedHTMLProps<OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>) {
+    return <ol {...props} style={{ counterReset: `list-counter ${props.start ? props.start - 1 : ''}` }} />;
+}
 export const Markup = memo<MarkupProps>(function Markup({ children, post, ...rest }) {
     const plugins = useMemo(() => {
         if (!post?.mentions?.length)

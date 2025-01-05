@@ -1,5 +1,5 @@
 import { Dialog } from '@headlessui/react';
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';

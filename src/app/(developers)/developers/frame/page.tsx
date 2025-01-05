@@ -1,7 +1,8 @@
 'use client';
 
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
@@ -17,7 +18,6 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
 
 export default function Page() {
-    const { t } = useLingui();
     const [url, setUrl] = useState('');
     const post = useMemo(() => createDummyPost(Source.Farcaster, '', url, [url]), [url]);
 

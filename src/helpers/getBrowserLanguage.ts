@@ -1,7 +1,7 @@
 import { find } from 'lodash-es';
 
 import { bom } from '@/helpers/bom.js';
-import { getLocaleFromCookiesAsync } from '@/helpers/getFromCookies.js';
+import { getLocaleFromCookiesAsync } from '@/helpers/getCookie.js';
 import { Language } from '@/services/translate.js';
 
 const getBrowserLanguage = () => {

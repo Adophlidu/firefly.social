@@ -1,10 +1,11 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation.js';
-import { useMemo, use } from 'react';
+import { use, useMemo } from 'react';
 import { useAsync } from 'react-use';
 
 import FullLogo from '@/assets/logo-full.svg';
@@ -20,12 +21,11 @@ import { addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
 import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 import { DeviceType } from '@/types/device.js';
+import type { NextPageProps } from '@/types/index.js';
 
-interface PageProps {
-    searchParams: Promise<{ token?: string; os?: string }>;
-}
+interface Props extends NextPageProps<{}, { token?: string; os?: string }> {}
 
-export default function Page(props: PageProps) {
+export default function Page(props: Props) {
     const searchParams = use(props.searchParams);
     const router = useRouter();
     const { os, token } = searchParams;

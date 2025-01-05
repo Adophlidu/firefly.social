@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 
 import { ProfileLink } from '@/components/Notification/ProfileLink.js';
 import { UserListTippy } from '@/components/Notification/UserListTippy.js';

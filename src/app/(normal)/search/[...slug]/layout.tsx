@@ -1,12 +1,12 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { last } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
-import { type PropsWithChildren } from 'react';
 
 import { SearchTabs } from '@/components/Search/SearchTabs.js';
 import { SearchType, SourceInURL } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import type { NextPageProps } from '@/types/index.js';
 
 function checkSlug(slug: string[]) {
     if (slug.length === 1) {
@@ -23,9 +23,7 @@ function checkSlug(slug: string[]) {
     return false;
 }
 
-type Props = PropsWithChildren<{
-    params: Promise<{ slug: string[] }>;
-}>;
+interface Props extends NextPageProps<{ slug: string[] }> {}
 
 export async function generateMetadata(props: Props) {
     const params = await props.params;

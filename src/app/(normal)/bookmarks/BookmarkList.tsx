@@ -1,5 +1,5 @@
 'use client';
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';

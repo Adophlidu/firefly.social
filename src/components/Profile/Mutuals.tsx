@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { AvatarGroup } from '@/components/AvatarGroup.js';

@@ -1,4 +1,4 @@
-import { plural, t } from '@lingui/macro';
+import { plural, t } from '@lingui/core/macro';
 import { produce } from 'immer';
 import { compact } from 'lodash-es';
 

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { forwardRef } from 'react';
 
 import FollowUserIcon from '@/assets/follow-user.svg';

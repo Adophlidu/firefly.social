@@ -1,5 +1,5 @@
 import { Popover, Transition } from '@headlessui/react';
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { Fragment, type HTMLProps, useState } from 'react';
 
 import FarcasterIcon from '@/assets/farcaster.svg';

@@ -5,15 +5,11 @@ import { MutedListPage } from '@/app/(settings)/settings/mutes/[source]/[type]/p
 import type { MuteType, SourceInURL } from '@/constants/enum.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useMuteMenuList } from '@/hooks/useMuteMenuList.js';
+import type { NextPageProps } from '@/types/index.js';
 
-interface PageProps {
-    params: Promise<{
-        source: SourceInURL;
-        type: MuteType;
-    }>;
-}
+interface Props extends NextPageProps<{ source: SourceInURL; type: MuteType }> {}
 
-export default function Page(props: PageProps) {
+export default function Page(props: Props) {
     const params = use(props.params);
     const { source, type } = params;
 

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation.js';
-import type { PropsWithChildren } from 'react';
 
 import { ProfileCategoryTabs } from '@/app/(normal)/profile/pages/ProfileCategoryTabs.js';
 import {
@@ -17,14 +16,9 @@ import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSourceFromUrl, resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import type { NextPageProps } from '@/types/index.js';
 
-interface Props {
-    params: Promise<{
-        id: string;
-        category: ProfileCategory;
-        source: SourceInURL;
-    }>;
-}
+interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: SourceInURL }> {}
 
 const createPageMetadata = memoizeWithRedis(createMetadataProfileById, {
     key: KeyType.CreateMetadataProfileById,
@@ -37,15 +31,14 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     return createSiteMetadata();
 }
 
-export default async function Layout(
-    props: PropsWithChildren<{
-        params: Promise<{
-            id: string;
-            category: SocialProfileCategory | WalletProfileCategory;
-            source: SourceInURL;
-        }>;
-    }>,
-) {
+interface LayoutProps
+    extends NextPageProps<{
+        id: string;
+        category: SocialProfileCategory | WalletProfileCategory;
+        source: SourceInURL;
+    }> {}
+
+export default async function Layout(props: LayoutProps) {
     const params = await props.params;
     const { children } = props;
 

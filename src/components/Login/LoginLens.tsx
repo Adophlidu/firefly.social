@@ -1,7 +1,8 @@
 'use client';
 
 import { Switch } from '@headlessui/react';
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 import { first } from 'lodash-es';
 import { useEffect, useState } from 'react';

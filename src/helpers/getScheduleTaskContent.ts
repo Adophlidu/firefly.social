@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { compact } from 'lodash-es';
 
 import { readChars } from '@/helpers/chars.js';

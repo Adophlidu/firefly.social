@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { Ranger, useRanger } from '@tanstack/react-ranger';
 import { useRouter } from '@tanstack/react-router';
 import { Fragment, useRef, useState } from 'react';

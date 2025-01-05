@@ -1,6 +1,6 @@
-import { memo, type ComponentType } from 'react';
-import ReactMarkdown from 'react-markdown';
+import { type ComponentType, memo } from 'react';
 import type { Options } from 'react-markdown';
+import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 // @ts-expect-error
 import linkifyRegex from 'remark-linkify-regex';
@@ -40,7 +40,7 @@ export const SnapshotMarkup: ComponentType<Options> = memo<Options>(function Sna
             remarkPlugins={plugins}
             components={{
                 code: Code,
-                img: img,
+                img,
                 ...rest.components,
             }}
         >

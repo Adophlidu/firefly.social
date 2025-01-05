@@ -1,6 +1,7 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { SchemaType } from '@masknet/web3-shared-evm';
 import { isValidChainId as isValidSolanaChainId, SchemaType as SolanaSchemaType } from '@masknet/web3-shared-solana';
 import { type ReactNode, useMemo } from 'react';

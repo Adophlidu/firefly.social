@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { PauseIcon, PlayIcon } from '@livepeer/react/assets';
 import * as Player from '@livepeer/react/player';
 

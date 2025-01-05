@@ -1,6 +1,7 @@
 'use client';
 
-import { Plural, plural, t, Trans } from '@lingui/macro';
+import { plural, t } from '@lingui/core/macro';
+import { Plural, Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { compact, sumBy } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';

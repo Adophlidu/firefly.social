@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { forwardRef, useState } from 'react';
 
 import { SchedulePostSettings } from '@/components/Compose/SchedulePostSettings.js';

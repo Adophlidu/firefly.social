@@ -1,7 +1,7 @@
 'use client';
 
 import { exposeToIframe, type ReadyOptions } from '@farcaster/frame-host';
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
 
@@ -16,12 +16,11 @@ import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { SupportedMethod } from '@/types/bridge.js';
 import type { FrameV2, FrameV2Host } from '@/types/frame.js';
+import type { NextPageProps } from '@/types/index.js';
 
-interface PageProps {
-    searchParams: {};
-}
+interface Props extends NextPageProps {}
 
-export default function Page({ searchParams }: PageProps) {
+export default function Page(props: Props) {
     const [ready, setReady] = useState(false);
 
     const { loading: loadingSupported, value: supported = false } = useFireflyBridgeSupported();

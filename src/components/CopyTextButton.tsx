@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import type { TippyProps } from '@tippyjs/react';
 import { type HTMLProps } from 'react';
 
