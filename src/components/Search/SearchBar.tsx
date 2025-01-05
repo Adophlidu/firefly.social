@@ -29,7 +29,7 @@ const SearchBar = memo(function SearchBar({ slot, className, ...rest }: SearchBa
     const pathname = usePathname();
     const isSearchPage = isRoutePathname(pathname, PageRoute.Search);
     const isExplorePage = isRoutePathname(pathname, PageRoute.Explore);
-    const rootRef = useRef(null);
+    const rootRef = useRef<HTMLDivElement>(null!);
     const inputRef = useRef<HTMLInputElement>(null);
     const [inputText, setInputText] = useState(searchKeyword);
 

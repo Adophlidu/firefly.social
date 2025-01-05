@@ -16,6 +16,7 @@ import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import type { Components } from 'react-markdown';
 
 interface ProfileInListProps {
     profile: Profile;
@@ -24,7 +25,7 @@ interface ProfileInListProps {
     index?: number;
 }
 
-const overrideComponents = {
+const overrideComponents: Components = {
     p: PlainParagraph,
     br: VoidLineBreak,
 };

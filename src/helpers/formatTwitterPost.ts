@@ -80,13 +80,13 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
                 asset: attachments?.[0],
                 attachments,
             },
-            // @ts-ignore twitter-api-v2 doesn't have `tweet.article` yet
+            // @ts-expect-error twitter-api-v2 doesn't have `tweet.article` yet
             article: item.article
                 ? {
                       cover: urlcat(SITE_URL, '/api/twitter/article/:id/image', {
                           id: item.id,
                       }),
-                      // @ts-ignore twitter-api-v2 doesn't have `tweet.article` yet
+                      // @ts-expect-error twitter-api-v2 doesn't have `tweet.article` yet
                       title: item.article.title,
                   }
                 : undefined,
@@ -123,13 +123,13 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         if (retweetedTweet) {
             ret.mirrorOn = tweetV2ToPost(retweetedTweet, includes);
             ret.postId = retweetedTweet.id;
-            // @ts-ignore twitter-api-v2 doesn't have `tweet.article` yet
+            // @ts-expect-error twitter-api-v2 doesn't have `tweet.article` yet
             ret.metadata.article = retweetedTweet.article
                 ? {
                       cover: urlcat(SITE_URL, '/api/twitter/article/:id/image', {
                           id: retweetedTweet.id,
                       }),
-                      // @ts-ignore twitter-api-v2 doesn't have `tweet.article` yet
+                      // @ts-expect-error twitter-api-v2 doesn't have `tweet.article` yet
                       title: retweetedTweet.article.title,
                   }
                 : undefined;

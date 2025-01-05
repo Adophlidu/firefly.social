@@ -37,7 +37,7 @@ import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/red-pack
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { TokenType } from '@/types/rp.js';
 
-// @ts-ignore
+// @ts-expect-error
 const HelveticaFont = localFont({
     src: '../../../public/font/Helvetica.ttf',
 });

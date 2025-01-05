@@ -78,7 +78,7 @@ export async function getPostBlinkAction(url: string): Promise<Action | null> {
     if (!response.data) return null;
     setProxyUrl(urlcat(location.origin, '/api/blink/proxy'));
     const action = await Action.fetch(response.data.actionApiUrl);
-    // @ts-ignore _data is private, fix the URL after proxy
+    // @ts-expect-error _data is private, fix the URL after proxy
     const data = action._data as ActionGetResponse;
     return new Proxy(action, {
         get(target, prop, receiver) {

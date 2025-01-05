@@ -1,7 +1,7 @@
 'use client';
 
 import { compact } from 'lodash-es';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, type DetailedHTMLProps, type OlHTMLAttributes } from 'react';
 import ReactMarkdown, { type Options as ReactMarkdownOptions } from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 // @ts-expect-error
@@ -27,6 +27,9 @@ export interface MarkupProps extends Omit<ReactMarkdownOptions, 'children'> {
     post?: Post;
 }
 
+const Ol = (props: DetailedHTMLProps<OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>) => (
+    <ol {...props} style={{ counterReset: `list-counter ${props.start ? props.start - 1 : ''}` }} />
+);
 export const Markup = memo<MarkupProps>(function Markup({ children, post, ...rest }) {
     const plugins = useMemo(() => {
         if (!post?.mentions?.length)
@@ -67,15 +70,10 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             {...rest}
             remarkPlugins={plugins}
             components={{
-                // @ts-ignore
                 // eslint-disable-next-line react/no-unstable-nested-components
-                a: (props) => <MarkupLink title={props.title} post={post} source={post.source} />,
+                a: (props) => <MarkupLink title={props.title} post={post} source={post?.source} />,
                 code: Code,
-                // @ts-ignore
-                // eslint-disable-next-line react/no-unstable-nested-components
-                ol: (props) => (
-                    <ol {...props} style={{ counterReset: `list-counter ${props.start ? props.start - 1 : ''}` }} />
-                ),
+                ol: Ol,
                 ...rest.components,
             }}
         >

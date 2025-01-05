@@ -8,7 +8,7 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
-interface Props extends Omit<ClickableButtonProps, 'children'> {
+interface Props extends Omit<ClickableButtonProps, 'children' | 'onToggle'> {
     channel: Channel;
     onToggle?(channel: Channel): Promise<boolean>;
 }

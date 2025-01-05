@@ -115,9 +115,9 @@ export const authOptions: AuthOptions = {
                 token.id_token = account.id_token;
             }
 
-            // @ts-ignore
+            // @ts-expect-error
             if (rest.profile?.nonce) {
-                // @ts-ignore
+                // @ts-expect-error
                 token.nonce = rest.profile.nonce;
             }
 

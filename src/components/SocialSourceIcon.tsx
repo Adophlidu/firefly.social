@@ -1,7 +1,5 @@
 'use client';
 
-import type { FunctionComponent, SVGAttributes, SVGProps } from 'react';
-
 import FarcasterIcon from '@/assets/farcaster.svg';
 import FarcasterFillIcon from '@/assets/farcaster-fill.svg';
 import LensIcon from '@/assets/lens.svg';
@@ -11,23 +9,23 @@ import { XIcon } from '@/components/XIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 
-interface SocialSourceIconProps extends SVGProps<SVGSVGElement> {
+interface SocialSourceIconProps extends React.SVGAttributes<SVGElement> {
     size?: number;
     source: SocialSource;
     /** Monochrome */
     mono?: boolean;
 }
 
-const ColorIconMap: Record<SocialSource, FunctionComponent<SVGAttributes<SVGElement>>> = {
+const ColorIconMap = {
     [Source.Lens]: LensIcon,
     [Source.Farcaster]: FarcasterIcon,
     [Source.Twitter]: XIcon,
-};
-const MonochromeIconMap: Record<SocialSource, FunctionComponent<SVGAttributes<SVGElement>>> = {
+} as const;
+const MonochromeIconMap = {
     [Source.Lens]: LensFillIcon,
     [Source.Farcaster]: FarcasterFillIcon,
     [Source.Twitter]: XFillIcon,
-};
+} as const;
 
 export function SocialSourceIcon({ source, size = 20, mono, ...props }: SocialSourceIconProps) {
     const style = useSizeStyle(size, props.style);

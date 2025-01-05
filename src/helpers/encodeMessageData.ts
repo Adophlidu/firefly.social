@@ -17,7 +17,7 @@ export async function encodeMessageData(
     const signer = new NobleEd25519Signer(toBytes(token));
     const fid = Number.parseInt(profileId, 10);
 
-    // @ts-ignore timestamp is not needed
+    // @ts-expect-error timestamp is not needed
     const messageData: MessageData = {
         fid,
         network: FarcasterNetwork.MAINNET,

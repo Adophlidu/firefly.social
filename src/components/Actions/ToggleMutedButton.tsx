@@ -27,7 +27,7 @@ export function ToggleMutedButton({
     ref,
     ...rest
 }: ToggleMutedButtonProps) {
-    const hoverRef = useRef<HTMLButtonElement>(null);
+    const hoverRef = useRef<HTMLButtonElement>(null!);
     const isHover = useHover(hoverRef);
     const buttonState = isHover ? MuteLabel.Unmute : MuteLabel.Muted;
 

@@ -9,7 +9,7 @@ import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-interface MuteProfileButtonProps extends Omit<ClickableButtonProps, 'children'> {
+interface MuteProfileButtonProps extends Omit<ClickableButtonProps, 'children' | 'onToggle'> {
     profile: Profile;
     onConfirm?(): void;
     onToggle?(profile: Profile): Promise<boolean>;

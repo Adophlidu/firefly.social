@@ -17,8 +17,8 @@ export function ExclusiveEvents() {
     const pathname = usePathname();
     const isSelected = isRoutePathname(pathname, PageRoute.Events);
     const isDarkMode = useIsDarkMode();
-    const linkRef = useRef<HTMLAnchorElement | null>(null);
-    const videoRef = useRef<HTMLVideoElement | null>(null);
+    const linkRef = useRef<HTMLAnchorElement>(null!);
+    const videoRef = useRef<HTMLVideoElement | null>(null!);
     const isHovering = useHover(linkRef);
 
     if (!mounted) return;

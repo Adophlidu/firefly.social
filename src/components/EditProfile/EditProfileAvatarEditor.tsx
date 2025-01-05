@@ -50,7 +50,6 @@ export function EditProfileAvatarEditor() {
     return (
         <div className="flex w-full flex-1 flex-col">
             <div className="flex w-full flex-col space-y-5 p-4">
-                {/* @ts-ignore fix react-avatar-editor type */}
                 <AvatarEditor
                     className="!h-auto !w-full rounded-lg"
                     ref={editorRef}

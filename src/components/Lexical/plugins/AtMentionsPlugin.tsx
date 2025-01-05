@@ -8,7 +8,7 @@ import {
 } from '@lexical/react/LexicalTypeaheadMenuPlugin.js';
 import { useQuery } from '@tanstack/react-query';
 import type { TextNode } from 'lexical';
-import { memo, useCallback, useMemo, useRef, useState } from 'react';
+import { memo, useCallback, useMemo, useRef, useState, type JSX } from 'react';
 import { createPortal } from 'react-dom';
 import { useDebounce, useOnClickOutside } from 'usehooks-ts';
 
@@ -166,7 +166,7 @@ const MentionsTypeaheadMenuItem = memo<MentionsTypeaheadMenuItemProps>(function 
     );
 });
 export function MentionsPlugin(): JSX.Element | null {
-    const ref = useRef<HTMLDivElement>(null);
+    const ref = useRef<HTMLDivElement>(null!);
     const [open, setOpen] = useState(false);
     const currentProfileAll = useCurrentProfileAll();
     const isUpdatingMentionTag = useRef(false);

@@ -1,6 +1,6 @@
-import { memo } from 'react';
+import { memo, type ComponentType } from 'react';
 import ReactMarkdown from 'react-markdown';
-import type { ReactMarkdownOptions } from 'react-markdown/lib/react-markdown.js';
+import type { Options } from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 // @ts-expect-error
 import linkifyRegex from 'remark-linkify-regex';
@@ -19,7 +19,11 @@ import { classNames } from '@/helpers/classNames.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { trimify } from '@/helpers/trimify.js';
 
-export const SnapshotMarkup = memo<ReactMarkdownOptions>(function SnapshotMarkup({ children, ...rest }) {
+const img = (props: React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>) => {
+    const src = sanitizeDStorageUrl(props.src, SNAPSHOT_IPFS_GATEWAY_URL);
+    return <ImageAsset {...props} src={src} alt={src} width={1000} height={1000} />;
+};
+export const SnapshotMarkup: ComponentType<Options> = memo<Options>(function SnapshotMarkup({ children, ...rest }) {
     const plugins = [
         remarkBreaks,
         linkifyRegex(MENTION_REGEX),
@@ -36,16 +40,11 @@ export const SnapshotMarkup = memo<ReactMarkdownOptions>(function SnapshotMarkup
             remarkPlugins={plugins}
             components={{
                 code: Code,
-                // @ts-ignore
-                // eslint-disable-next-line react/no-unstable-nested-components
-                img: (props) => {
-                    const src = sanitizeDStorageUrl(props.src, SNAPSHOT_IPFS_GATEWAY_URL);
-                    return <ImageAsset {...props} src={src} alt={src} width={1000} height={1000} />;
-                },
+                img: img,
                 ...rest.components,
             }}
         >
-            {trimify(children)}
+            {trimify(children || '')}
         </ReactMarkdown>
     );
 });

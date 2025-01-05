@@ -48,11 +48,9 @@ export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({
             {...rest}
             remarkPlugins={PLUGINS}
             components={{
-                // @ts-ignore
                 // eslint-disable-next-line react/no-unstable-nested-components
                 a: (props) => <MarkupLink title={props.title} {...linkProps} />,
                 code: Code,
-                // @ts-ignore
                 // eslint-disable-next-line react/no-unstable-nested-components
                 img: (props) => {
                     if (!props.src || disableImage) return null;
