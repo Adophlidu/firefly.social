@@ -24,7 +24,7 @@ export function SecondTabs<T extends keyof any>({ items, current }: SecondTabsPr
                                 href={tab.link}
                                 className={classNames(
                                     current === tab.value ? 'border-b-4 border-highlight text-highlight' : 'text-third',
-                                    'h-[45px] px-4 text-center text-base font-bold leading-[45px] hover:cursor-pointer hover:text-highlight',
+                                    'h-[45px] whitespace-nowrap px-4 text-center text-base font-bold leading-[45px] hover:cursor-pointer hover:text-highlight',
                                 )}
                             >
                                 {tab.title}
