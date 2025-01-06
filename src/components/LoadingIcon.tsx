@@ -1,5 +1,6 @@
 import type { HTMLProps } from 'react';
 
+import Loading from '@/assets/loading.svg';
 import { classNames } from '@/helpers/classNames.js';
 
 interface LoadingIconProps extends HTMLProps<SVGElement> {
@@ -9,7 +10,7 @@ interface LoadingIconProps extends HTMLProps<SVGElement> {
 
 export function LoadingIcon({ size = 24, animate = true, className, ...rest }: LoadingIconProps) {
     return (
-        <LoadingIcon
+        <Loading
             {...rest}
             width={size}
             height={size}
