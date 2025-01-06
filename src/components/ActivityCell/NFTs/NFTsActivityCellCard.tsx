@@ -120,7 +120,7 @@ export function NFTsActivityCellCard(props: Props) {
                     <PoapIcon width={32} height={32} className="absolute left-[14px] top-3" />
                 ) : (
                     <div className="absolute left-[14px] top-3 flex size-8 items-center justify-center rounded-xl bg-black/25">
-                        <ChainIcon chainId={chainId} size={24} />
+                        <ChainIcon className="rounded-full" chainId={chainId} size={24} />
                     </div>
                 )}
                 {data?.collection?.floorPrices?.length ? (

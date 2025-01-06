@@ -67,13 +67,13 @@ export function CollectionInfo(props: CollectionInfoProps) {
                         <CollectionMore collectionId={collectionId} externalUrl={externalUrl} />
                     </div>
                     {address ? (
-                        <div className="text-normal flex items-center text-base leading-[14px] text-secondary">
+                        <div className="text-normal flex items-center text-[14px] leading-[14px] text-secondary">
                             <ChainIcon className="mr-1 shrink-0" chainId={chainId} size={14} />
                             <span className="hidden min-w-0 truncate sm:inline">{address}</span>
                             <span className="inline sm:hidden">{formatAddress(address, 4)}</span>
-                            <CopyTextButton text={address} />
-                            <a className="ml-1 h-3 w-3" href={resolveAddressLink(chainId, address)} target="_blank">
-                                <LinkIcon className="h-3 w-3 text-secondary" />
+                            <CopyTextButton size={14} text={address} />
+                            <a className="ml-1 h-3.5 w-3.5" href={resolveAddressLink(chainId, address)} target="_blank">
+                                <LinkIcon className="h-3.5 w-3.5 text-secondary" />
                             </a>
                         </div>
                     ) : null}
