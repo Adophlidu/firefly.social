@@ -2,12 +2,14 @@
 
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
+import { isAddress } from 'viem';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
 import { TokenMarketData } from '@/components/TokenProfile/TokenMarketData.js';
 import { NetworkPluginID, ScrollListKey } from '@/constants/enum.js';
+import { trimify } from '@/helpers/trimify.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import type { SearchableToken } from '@/providers/types/Firefly.js';
 import { searchTokens, type TokenWithMarket } from '@/services/searchTokens.js';
@@ -44,12 +46,13 @@ const getSearchItemContent = (token: TokenWithMarket) => {
 export function SearchTokenContent() {
     const { searchKeyword, searchType, source } = useSearchStateStore();
 
+    const keyword = isAddress(trimify(searchKeyword || '')) ? searchKeyword.toLowerCase() : searchKeyword;
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['search', searchType, searchKeyword, source],
+        queryKey: ['search', searchType, keyword, source],
         queryFn: async () => {
-            if (!searchKeyword) return;
+            if (!keyword) return;
 
-            return searchTokens(searchKeyword);
+            return searchTokens(keyword);
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {
@@ -61,7 +64,7 @@ export function SearchTokenContent() {
         },
     });
 
-    const listKey = `${ScrollListKey.Search}:${searchType}:${searchKeyword}:${source}`;
+    const listKey = `${ScrollListKey.Search}:${searchType}:${keyword}:${source}`;
 
     return (
         <ListInPage
