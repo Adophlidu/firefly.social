@@ -2314,6 +2314,9 @@ msgstr ""
 msgid "Minutes"
 msgstr "分鐘"
 
+msgid "Sorry, today's free mint quota has been reached."
+msgstr ""
+
 msgid "Floor Price"
 msgstr "地板價格"
 
@@ -2523,6 +2526,9 @@ msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} 
 msgstr ""
 
 msgid "Failed to repost."
+msgstr ""
+
+msgid "Sorry, today's free collect quota has been reached."
 msgstr ""
 
 msgid "Mirrored"

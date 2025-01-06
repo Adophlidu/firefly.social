@@ -2314,6 +2314,9 @@ msgstr "{0, plural, one {发帖} other {全部发帖}}"
 msgid "Minutes"
 msgstr "分钟"
 
+msgid "Sorry, today's free mint quota has been reached."
+msgstr ""
+
 msgid "Floor Price"
 msgstr "地板价"
 
@@ -2524,6 +2527,9 @@ msgstr "🤑 刚刚通过 @{0} 在 {postUrl} 领取了一个 #FireflyLuckyDrop �
 
 msgid "Failed to repost."
 msgstr "转帖失败。"
+
+msgid "Sorry, today's free collect quota has been reached."
+msgstr ""
 
 msgid "Mirrored"
 msgstr "已转发"

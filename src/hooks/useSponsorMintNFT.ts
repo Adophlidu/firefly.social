@@ -39,10 +39,21 @@ export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: num
                 wallet_address: options.walletAddress.toLowerCase(),
                 NFT_id: mintTarget.collectionId || '',
             };
+            let hasBalance = true;
             if (latestParams.gasStatus) {
-                await FireflyEndpointProvider.mintNFTBySponsor(options);
-                captureMintNFTEvent({ ...eventOptions, free_mint: true });
-            } else {
+                try {
+                    await FireflyEndpointProvider.mintNFTBySponsor(options);
+                    captureMintNFTEvent({ ...eventOptions, free_mint: true });
+                } catch (error) {
+                    if (error instanceof Error && error.message.includes('insufficient funds')) {
+                        hasBalance = false;
+                        enqueueWarningMessage(t`Sorry, today's free mint quota has been reached.`);
+                    } else {
+                        throw error;
+                    }
+                }
+            }
+            if (!latestParams.gasStatus || !hasBalance) {
                 const hash = await sendTransaction(config, {
                     data: latestParams.txData.inputData as Hex,
                     to: latestParams.txData.to as Address,

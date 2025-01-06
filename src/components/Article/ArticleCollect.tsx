@@ -13,7 +13,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { MintStatus } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { openWindow } from '@/helpers/openWindow.js';
@@ -65,15 +65,26 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
 
             setModalSessionCollected(true);
 
+            let hasBalance = true;
             if (isFree) {
-                const result = await FireflyEndpointProvider.freeCollectArticle(
-                    article.id,
-                    account.address || '',
-                    platform,
-                );
-                hash = result.hash;
-                captureCollectArticleEvent({ ...eventOptions, free_mint: true });
-            } else {
+                try {
+                    const result = await FireflyEndpointProvider.freeCollectArticle(
+                        article.id,
+                        account.address || '',
+                        platform,
+                    );
+                    hash = result.hash;
+                    captureCollectArticleEvent({ ...eventOptions, free_mint: true });
+                } catch (error) {
+                    if (error instanceof Error && error.message.includes('insufficient funds')) {
+                        hasBalance = false;
+                        enqueueWarningMessage(t`Sorry, today's free collect quota has been reached.`);
+                    } else {
+                        throw error;
+                    }
+                }
+            }
+            if (!isFree || !hasBalance) {
                 const confirmation = await provider.collect(data);
                 if (!confirmation) return;
                 hash = confirmation.transactionHash;

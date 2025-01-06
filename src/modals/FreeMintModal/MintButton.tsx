@@ -95,7 +95,7 @@ export const MintButton = memo<MintButtonProps>(function MintButton({
                     </ClickableButton>
                     <input
                         readOnly={inputDisabled}
-                        className="h-8 w-[62px] rounded-full border border-lightSecond text-center text-main focus:border-highlight"
+                        className="h-8 w-[62px] rounded-full border border-secondaryLine bg-transparent text-center text-main focus:border-highlight"
                         value={count}
                         onChange={(e) => changeMintCount(e.target.value)}
                         onBlur={onInputBlur}

@@ -75,7 +75,7 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
             ) : null}
             <li className="flex w-full items-center justify-between">
                 <span>{priceLabel || <Trans>Mint price</Trans>}</span>
-                <span className="text-lightSecond">
+                <span className="text-secondary">
                     {isFree || isZero(mintPrice) ? <Trans>FREE</Trans> : renderPrice(mintPrice, decimals, symbol)}
                 </span>
             </li>
@@ -83,13 +83,13 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
                 <span>
                     <Trans>Platform fee</Trans>
                 </span>
-                <span className="text-lightSecond">{renderPrice(platformFee || '0', decimals, symbol)}</span>
+                <span className="text-secondary">{renderPrice(platformFee || '0', decimals, symbol)}</span>
             </li>
             <li className="flex w-full items-center justify-between">
                 <span>
                     <Trans>Network cost</Trans>
                 </span>
-                <span className={classNames('text-lightSecond', isLoading ? 'h-6 w-24 animate-pulse bg-third' : '')}>
+                <span className={classNames('text-secondary', isLoading ? 'h-6 w-24 animate-pulse bg-third' : '')}>
                     {isLoading ? '' : renderPrice(gasFee, decimals, symbol)}
                 </span>
             </li>
@@ -99,7 +99,7 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
                 </span>
                 <span className="flex items-center gap-3">
                     <span
-                        className={classNames('text-lightSecond', {
+                        className={classNames('text-secondary', {
                             'line-through': isFree,
                             'h-6 w-24 animate-pulse bg-third': isLoading,
                         })}
@@ -108,7 +108,7 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
                         {totalCostInUsd && !isLoading ? `($${totalCostInUsd})` : ''}
                     </span>
                     {isFree ? (
-                        <span className="rounded bg-[#E8E8FF] px-2 py-1 text-sm text-highlight">
+                        <span className="rounded bg-[#E8E8FF] px-2 py-1 text-sm text-[#464D9D]">
                             <Trans>Free</Trans>
                         </span>
                     ) : null}
