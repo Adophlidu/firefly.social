@@ -3,6 +3,7 @@ import { forwardRef } from 'react';
 import type { Address } from 'viem';
 
 import FollowIcon from '@/assets/follow-user.svg';
+import LoadingIcon from '@/assets/loading.svg';
 import UnfollowIcon from '@/assets/unfollow-user.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
@@ -19,7 +20,7 @@ export const WatchWalletButton = forwardRef<HTMLButtonElement, Props>(function W
     { handleOrEnsOrAddress, address, isFollowing, ...rest }: Props,
     ref,
 ) {
-    const { data } = useIsFollowingWallet(address, isFollowing === undefined);
+    const { data, isLoading } = useIsFollowingWallet(address, isFollowing === undefined);
     const following = isFollowing || data;
 
     const mutation = useToggleWatchWallet({ handleOrEnsOrAddress, address, following: !!following });
@@ -27,13 +28,20 @@ export const WatchWalletButton = forwardRef<HTMLButtonElement, Props>(function W
     return (
         <MenuButton
             {...rest}
+            disabled={isLoading}
             onClick={async (event) => {
                 await mutation.mutateAsync();
                 rest.onClick?.(event);
             }}
             ref={ref}
         >
-            {following ? <UnfollowIcon width={18} height={18} /> : <FollowIcon width={18} height={18} />}
+            {isLoading ? (
+                <LoadingIcon className="animate-spin" width={18} height={18} />
+            ) : following ? (
+                <UnfollowIcon width={18} height={18} />
+            ) : (
+                <FollowIcon width={18} height={18} />
+            )}
             <span className="font-bold leading-[22px] text-main">
                 {following ? (
                     <Trans>Unwatch {handleOrEnsOrAddress}</Trans>
