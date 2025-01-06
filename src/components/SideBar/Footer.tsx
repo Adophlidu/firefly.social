@@ -4,8 +4,8 @@ import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
@@ -54,11 +54,7 @@ export function Footer({ collapsed = false }: FooterProps) {
                                 },
                             )}
                         >
-                            {isLoading ? (
-                                <LoadingIcon className="mr-2 animate-spin" width={24} height={24} />
-                            ) : (
-                                <Trans>Login</Trans>
-                            )}
+                            {isLoading ? <LoadingIcon className="mr-2" /> : <Trans>Login</Trans>}
                         </ClickableButton>
                     )
                 ) : null}

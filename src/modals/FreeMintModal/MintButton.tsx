@@ -4,9 +4,9 @@ import { type ChangeEvent, memo, useCallback, useMemo } from 'react';
 import { useAccount, useBalance } from 'wagmi';
 
 import AddIcon from '@/assets/add-number.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import MinusIcon from '@/assets/minus-number.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { isGreaterThan, multipliedBy, plus } from '@/helpers/number.js';
 import { useSponsorMintNFT } from '@/hooks/useSponsorMintNFT.js';
 import type { MintMetadata, SponsorMintOptions } from '@/providers/types/Firefly.js';
@@ -115,7 +115,7 @@ export const MintButton = memo<MintButtonProps>(function MintButton({
                 className="h-8 flex-1 rounded-full bg-main text-center text-sm font-bold !leading-8 text-lightBottom dark:text-darkBottom"
             >
                 {showLoading ? (
-                    <LoadingIcon className="inline-block animate-spin" width={24} height={24} />
+                    <LoadingIcon className="inline-block" />
                 ) : !mintParams.gasStatus && !hasBalance ? (
                     <Trans>Insufficient Balance</Trans>
                 ) : (

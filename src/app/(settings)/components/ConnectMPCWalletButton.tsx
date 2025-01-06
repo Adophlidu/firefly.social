@@ -8,8 +8,8 @@ import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 import { connect, disconnect } from 'wagmi/actions';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { config, particleConnector } from '@/configs/wagmiClient.js';
 import { ParticleSolanaWalletAdapter } from '@/connectors/ParticleSolanaWallet.js';
 import { STATUS } from '@/constants/enum.js';
@@ -76,7 +76,7 @@ export function ConnectMPCWalletButton({ connection }: ConnectMPCWalletButtonPro
     if (env.external.NEXT_PUBLIC_PARTICLE !== STATUS.Enabled) return null;
 
     const isConnecting = connection.platform === 'solana' ? wallet.connecting : account.isConnecting;
-    if (loading || isConnecting) return <LoadingIcon className="animate-spin" width={20} height={20} />;
+    if (loading || isConnecting) return <LoadingIcon size={20} />;
 
     const connected = resolveValue(() => {
         switch (connection.platform) {

@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Fragment, useState } from 'react';
 import { useDebounce } from 'usehooks-ts';
 
-import LoadingIcon from '@/assets/loading.svg';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { inputClassName } from '@/helpers/inputClassName.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 
@@ -27,9 +27,7 @@ export function FarcasterLocationInput() {
                         onChange={(e) => setInputValue(e.target.value)}
                         value={inputValue}
                     />
-                    {isLoading ? (
-                        <LoadingIcon width={24} height={24} className="absolute right-2 top-3 animate-spin" />
-                    ) : null}
+                    {isLoading ? <LoadingIcon className="absolute right-2 top-3" /> : null}
                 </div>
                 {data ? (
                     <Transition

@@ -13,12 +13,12 @@ import { polygon } from 'viem/chains';
 import { useAccount, useBalance } from 'wagmi';
 
 import LinkIcon from '@/assets/link.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import MirrorLargeIcon from '@/assets/mirror-large.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SuperFollow } from '@/components/Posts/SuperFollow.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { config } from '@/configs/wagmiClient.js';
@@ -403,11 +403,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                                 onClose?.();
                             }}
                         >
-                            {!mirrorLoading ? (
-                                <MirrorLargeIcon width={15} height={15} />
-                            ) : (
-                                <LoadingIcon className="animate-spin" width={15} height={15} />
-                            )}
+                            {!mirrorLoading ? <MirrorLargeIcon width={15} height={15} /> : <LoadingIcon size={15} />}
                             {collectModule.referralFee}%
                         </ClickableButton>
                     </Tooltip>

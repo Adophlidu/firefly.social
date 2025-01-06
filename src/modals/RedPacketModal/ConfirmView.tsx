@@ -12,9 +12,9 @@ import ArrowLeftIcon from '@/assets/arrow-circle-left.svg';
 import ArrowRightIcon from '@/assets/arrow-circle-right.svg';
 import ArrowDownIcon from '@/assets/arrow-down.svg';
 import InfoIcon from '@/assets/info.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import QuestionIcon from '@/assets/question.svg';
 import { ActionButton } from '@/components/ActionButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { useCreateFTRedPacketCallback } from '@/components/RedPacket/hooks/useCreateFTRedPacketCallback.js';
 import { RedPacketEnvelope } from '@/components/RedPacket/RedPacketEnvelope.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
@@ -332,7 +332,7 @@ export function ConfirmView() {
                         </h2>
                         {creatingTheme ? (
                             <div className="flex h-[154px] w-[220px] items-center justify-center">
-                                <LoadingIcon className="animate-spin" width={24} height={24} />
+                                <LoadingIcon />
                             </div>
                         ) : theme ? (
                             <div className="flex flex-col gap-2">

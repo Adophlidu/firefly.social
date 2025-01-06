@@ -6,10 +6,10 @@ import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { memo, useMemo, useState } from 'react';
 
-import LoadingIcon from '@/assets/loading.svg';
 import MirrorIcon from '@/assets/mirror.svg';
 import MirrorLargeIcon from '@/assets/mirror-large.svg';
 import QuoteDownIcon from '@/assets/quote-down.svg';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { Tippy } from '@/esm/Tippy.js';
@@ -183,7 +183,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                 >
                     <span className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-secondarySuccess/[.20]">
                         {loading ? (
-                            <LoadingIcon className="animate-spin text-lightSecond" width={16} height={16} />
+                            <LoadingIcon className="text-lightSecond" size={16} />
                         ) : (
                             <MirrorIcon
                                 width={16}

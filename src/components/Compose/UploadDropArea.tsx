@@ -2,7 +2,7 @@ import { useForkRef } from '@mui/material';
 import { compact } from 'lodash-es';
 import { forwardRef, type HTMLProps, memo, useEffect, useRef, useState } from 'react';
 
-import LoadingIcon from '@/assets/loading.svg';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
@@ -93,7 +93,7 @@ export const UploadDropArea = memo(
                 {children}
                 {loading ? (
                     <div className="absolute inset-0 flex items-center justify-center bg-white/10 text-secondary">
-                        <LoadingIcon className="animate-spin" width={40} height={40} />
+                        <LoadingIcon size={40} />
                     </div>
                 ) : null}
             </div>

@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 import { forwardRef, type HTMLProps } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import LoadingIcon from '@/assets/loading.svg';
 import TipsIcon from '@/assets/tips.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -98,11 +98,7 @@ export const Tips = forwardRef<HTMLButtonElement, TipsProps>(function Tips(
                         handleClick();
                     }}
                 >
-                    {loading ? (
-                        <LoadingIcon className="animate-spin" width={18} height={18} />
-                    ) : (
-                        <TipsIcon width={18} height={18} />
-                    )}
+                    {loading ? <LoadingIcon size={18} /> : <TipsIcon width={18} height={18} />}
                     {label ? <span className="ml-2 font-bold">{label}</span> : null}
                 </motion.button>
             </Tooltip>

@@ -10,9 +10,9 @@ import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
 import GhostHoleIcon from '@/assets/ghost.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
@@ -175,11 +175,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                         className="flex h-10 w-[120px] items-center justify-center gap-2 rounded-[99px] bg-lightMain text-sm font-bold text-primaryBottom"
                         onClick={() => login(signless)}
                     >
-                        {loading ? (
-                            <LoadingIcon className="animate-spin" width={24} height={24} />
-                        ) : (
-                            <Trans>Sign</Trans>
-                        )}
+                        {loading ? <LoadingIcon /> : <Trans>Sign</Trans>}
                     </ClickableButton>
                 </div>
             </div>

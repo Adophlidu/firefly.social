@@ -7,10 +7,10 @@ import { useAsyncFn } from 'react-use';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
@@ -70,7 +70,7 @@ export default function Page() {
                 disabled={!file || !directory || !name || loading}
                 onClick={handleUpload}
             >
-                {loading ? <LoadingIcon className="animate-spin" width={24} height={24} /> : <Trans>Upload</Trans>}
+                {loading ? <LoadingIcon /> : <Trans>Upload</Trans>}
             </ClickableButton>
             {url ? (
                 <Link href={url} target="_blank" className="mt-2 text-base font-bold text-highlight">

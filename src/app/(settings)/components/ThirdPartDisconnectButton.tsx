@@ -1,8 +1,8 @@
 import { useAsyncFn } from 'react-use';
 
 import DisconnectIcon from '@/assets/disconnect.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { DisconnectFireflyAccountModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 
@@ -20,7 +20,7 @@ export function ThirdPartDisconnectButton({ account, onSucceed }: Props) {
     }, [account, onSucceed]);
 
     if (loading) {
-        return <LoadingIcon width={24} height={24} className="animate-spin text-lightMain" />;
+        return <LoadingIcon className="text-lightMain" />;
     }
 
     return (

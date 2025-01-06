@@ -4,8 +4,8 @@ import { safeUnreachable } from '@masknet/kit';
 import { signIn } from 'next-auth/react';
 import { useAsyncFn } from 'react-use';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Source, type ThirdPartySource } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
@@ -38,7 +38,7 @@ export function ThirdPartConnectButton({ source }: Props) {
     }, []);
 
     if (loading) {
-        return <LoadingIcon width={24} height={24} className="animate-spin text-lightMain" />;
+        return <LoadingIcon className="text-lightMain" />;
     }
 
     return (

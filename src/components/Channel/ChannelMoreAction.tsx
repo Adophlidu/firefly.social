@@ -4,11 +4,11 @@ import { MenuItem, type MenuProps } from '@headlessui/react';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
-import LoadingIcon from '@/assets/loading.svg';
 import MoreCircleIcon from '@/assets/more-circle.svg';
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { ToggleJoinChannel } from '@/components/Actions/ToggleJoinChannel.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Source } from '@/constants/enum.js';
@@ -39,7 +39,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
             button={
                 channelBlocking ? (
                     <span className="inline-flex h-8 w-8 animate-spin items-center justify-center">
-                        <LoadingIcon width={16} height={16} />
+                        <LoadingIcon size={16} />
                     </span>
                 ) : (
                     <MoreCircleIcon width={32} height={32} />

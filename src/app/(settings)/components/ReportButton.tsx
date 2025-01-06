@@ -3,7 +3,7 @@ import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
 import { waitForSelectReportReason } from '@/app/(settings)/components/waitForSelectReportReason.js';
-import LoadingIcon from '@/assets/loading.svg';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
@@ -28,7 +28,7 @@ export function ReportButton({ connection }: ReportButtonProps) {
     }, [connection]);
 
     if (loading) {
-        return <LoadingIcon className="animate-spin" width={20} height={20} />;
+        return <LoadingIcon size={20} />;
     }
 
     return (

@@ -2,8 +2,8 @@ import { t } from '@lingui/core/macro';
 import { useMutation } from '@tanstack/react-query';
 import { memo, useState } from 'react';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { classNames } from '@/helpers/classNames.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
@@ -55,7 +55,7 @@ export const ToggleMuteWalletButton = memo(function ToggleMuteWalletButton({
                 mutation.mutate();
             }}
         >
-            {loading ? <LoadingIcon width={16} height={16} className="mr-2 animate-spin" /> : null}
+            {loading ? <LoadingIcon size={16} className="mr-2" /> : null}
             {buttonText}
         </ClickableButton>
     );

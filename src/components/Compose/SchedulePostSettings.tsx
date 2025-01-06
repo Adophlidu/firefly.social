@@ -5,10 +5,10 @@ import { memo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import CalendarIcon from '@/assets/calendar.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import TimerIcon from '@/assets/timer.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { DatePicker } from '@/components/DatePicker.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { TimePicker } from '@/components/TimePicker.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { CreateScheduleError } from '@/constants/error.js';
@@ -132,7 +132,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                             onClick={handleSet}
                             className="flex flex-1 items-center justify-center gap-2 rounded-full bg-main py-2 font-bold text-primaryBottom"
                         >
-                            {loading ? <LoadingIcon width={16} height={16} className="animate-spin" /> : null}
+                            {loading ? <LoadingIcon size={16} /> : null}
                             <Trans>Update</Trans>
                         </ClickableButton>
                     </>

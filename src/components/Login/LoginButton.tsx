@@ -1,5 +1,5 @@
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { type ProfileSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -29,13 +29,7 @@ export function LoginButton(props: LoginButtonProps) {
                     ) : null}
                 </div>
             </div>
-            {loading ? (
-                <LoadingIcon
-                    className="absolute inset-0 m-auto h-6 w-6 animate-spin text-primaryBottom"
-                    width={24}
-                    height={24}
-                />
-            ) : null}
+            {loading ? <LoadingIcon className="absolute inset-0 m-auto text-primaryBottom" /> : null}
         </ClickableButton>
     );
 }

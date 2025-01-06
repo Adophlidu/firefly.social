@@ -1,7 +1,7 @@
 import type { HTMLProps } from 'react';
 import { type FieldPath, type FieldValues, useFormContext, useWatch } from 'react-hook-form';
 
-import LoadingIcon from '@/assets/loading.svg';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { classNames } from '@/helpers/classNames.js';
 
 export interface FormInputContainerProps<
@@ -25,9 +25,7 @@ export function FormInputContainer<
     return (
         <div className={classNames('relative', className)} {...props}>
             {children}
-            {isLoading ? (
-                <LoadingIcon width={24} height={24} className="absolute bottom-2 right-2 animate-spin" />
-            ) : null}
+            {isLoading ? <LoadingIcon className="absolute bottom-2 right-2" /> : null}
             {maxLength && value && value.length > maxLength ? (
                 <div className="absolute bottom-2 right-3 text-medium font-normal leading-6 text-fail">
                     {value.length}/{maxLength}

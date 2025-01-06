@@ -8,8 +8,8 @@ import { useAsyncFn, useMount, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 import { UserRejectedRequestError } from 'viem';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { FarcasterSignType, FarcasterSignType as SignType, Source } from '@/constants/enum.js';
@@ -246,7 +246,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
         <div className="box-border flex flex-col rounded-xl p-6 pt-0 md:w-[500px]">
             {IS_MOBILE_DEVICE ? (
                 <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-4">
-                    {count !== 0 ? <LoadingIcon className="animate-spin" width={24} height={24} /> : null}
+                    {count !== 0 ? <LoadingIcon /> : null}
                     <div className="mt-2 text-center text-sm leading-[16px] text-lightSecond">
                         {count !== 0 ? (
                             <Trans>Please confirm the login with Warpcast.</Trans>
@@ -294,7 +294,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                 <ScannableQRCode url={url} scanned={scanned} countdown={count} />
                                 {scanned ? (
                                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                        <LoadingIcon className="animate-spin" width={24} height={24} />
+                                        <LoadingIcon />
                                     </div>
                                 ) : null}
                             </div>
@@ -338,7 +338,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                         </>
                     ) : (
                         <div className="flex min-h-[200px] flex-col items-center justify-center">
-                            <LoadingIcon className="animate-spin" width={24} height={24} />
+                            <LoadingIcon />
                         </div>
                     )}
                 </div>

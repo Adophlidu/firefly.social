@@ -4,8 +4,8 @@ import { Popover, PopoverButton, PopoverPanel, Switch } from '@headlessui/react'
 import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
-import LoadingIcon from '@/assets/loading.svg';
 import SettingsIcon from '@/assets/setting.svg';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { useNotificationSettings } from '@/hooks/useNotificationSettings.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -64,9 +64,7 @@ export function NotificationSettings({ source }: { source: SocialSource }) {
                         className="group inline-flex h-[22px] w-11 items-center rounded-full bg-second transition data-[checked]:bg-lightHighlight dark:bg-bg data-[checked]:dark:bg-lightHighlight"
                     >
                         <span className="flex size-4 translate-x-1 items-center justify-center rounded-full bg-white transition group-data-[checked]:translate-x-6">
-                            {loading || isLoading ? (
-                                <LoadingIcon className="size-3 animate-spin text-darkBottom" width={12} height={12} />
-                            ) : null}
+                            {loading || isLoading ? <LoadingIcon className="text-darkBottom" size={12} /> : null}
                         </span>
                     </Switch>
                 </div>

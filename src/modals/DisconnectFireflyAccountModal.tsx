@@ -5,9 +5,9 @@ import { Trans } from '@lingui/react/macro';
 import { forwardRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { Modal } from '@/components/Modal.js';
 import type { ThirdPartySource } from '@/constants/enum.js';
@@ -114,11 +114,7 @@ export const DisconnectFireflyAccountModal = forwardRef<SingletonModalRefCreator
                             disabled={loading}
                             onClick={() => confirm()}
                         >
-                            {loading ? (
-                                <LoadingIcon width={20} height={20} className="h-5 w-5 shrink-0 animate-spin" />
-                            ) : (
-                                <Trans>Confirm</Trans>
-                            )}
+                            {loading ? <LoadingIcon size={20} /> : <Trans>Confirm</Trans>}
                         </ClickableButton>
                     </div>
                 </div>

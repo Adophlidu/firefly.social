@@ -4,8 +4,8 @@ import { type ChangeEvent, Fragment, useRef } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import ImageIcon from '@/assets/image.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import VideoIcon from '@/assets/video.svg';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { FileMimeType } from '@/constants/enum.js';
 import { ALLOWED_IMAGES_MIMES, SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -119,11 +119,7 @@ export function Media({ close }: MediaProps) {
                         videoInputRef.current?.click();
                     }}
                 >
-                    {loading ? (
-                        <LoadingIcon className="animate-spin" width={24} height={24} />
-                    ) : (
-                        <VideoIcon width={24} height={24} />
-                    )}
+                    {loading ? <LoadingIcon /> : <VideoIcon width={24} height={24} />}
                     <span className="font-bold">
                         <Trans>Video</Trans>
                     </span>

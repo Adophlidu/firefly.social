@@ -1,7 +1,7 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
 import type { HTMLProps } from 'react';
 
-import LoadingIcon from '@/assets/loading.svg';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -41,7 +41,7 @@ export function ProfileAvatarAdd({ source, loading, ...props }: ProfileAvatarAdd
             </div>
             {isLoading ? (
                 <div className="absolute left-0 top-0">
-                    <LoadingIcon className="animate-spin text-primaryBottom" width={size} height={size} />
+                    <LoadingIcon className="text-primaryBottom" size={size} />
                 </div>
             ) : null}
             <PlusIcon

@@ -3,7 +3,7 @@ import { useAsyncFn } from 'react-use';
 
 import { waitForDisconnectConfirmation } from '@/app/(settings)/components/waitForDisconnectConfirmation.js';
 import DisconnectIcon from '@/assets/disconnect.svg';
-import LoadingIcon from '@/assets/loading.svg';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { disconnectFirefly } from '@/services/disconnectFirefly.js';
@@ -30,7 +30,7 @@ export function DisconnectButton({ connection }: DisconnectButtonProps) {
     return (
         <span>
             {loading ? (
-                <LoadingIcon className="animate-spin" width={20} height={20} />
+                <LoadingIcon size={20} />
             ) : (
                 <DisconnectIcon onClick={disconnectWallet} className="cursor-pointer" width={20} height={20} />
             )}

@@ -1,11 +1,11 @@
 import { memo } from 'react';
 
-import LoadingIcon from '@/assets/loading.svg';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 
 export const LoadingStatus = memo(function LoadingStatus() {
     return (
         <div className="flex flex-col items-center justify-center p-[2px]">
-            <LoadingIcon className="animate-spin" width={24} height={24} />
+            <LoadingIcon />
         </div>
     );
 });

@@ -5,8 +5,8 @@ import { memo, useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { resolveCurrentFireflyAccountId, resolveFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
@@ -102,7 +102,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             {!connected ? (
                 t`Connect Wallet`
             ) : isSending || isValidating ? (
-                <LoadingIcon className="animate-spin" width={24} height={24} />
+                <LoadingIcon />
             ) : error ? (
                 t`Validate failed, please check your input.`
             ) : (

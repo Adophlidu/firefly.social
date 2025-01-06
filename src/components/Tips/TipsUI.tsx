@@ -3,8 +3,8 @@ import { Trans } from '@lingui/react/macro';
 import { memo, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SendWithEVM, SendWithSolana } from '@/components/Tips/SendTipsButton.js';
 import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';
 import { TokenSelectorEntry } from '@/components/Tips/TokenSelector.js';
@@ -84,11 +84,7 @@ export const TipsUI = memo(function TipsUI() {
                                 disabled={isSending || loading}
                                 onClick={handleUseMaxBalance}
                             >
-                                {loading ? (
-                                    <LoadingIcon className="animate-spin" width={24} height={24} />
-                                ) : (
-                                    <Trans>Max</Trans>
-                                )}
+                                {loading ? <LoadingIcon /> : <Trans>Max</Trans>}
                             </ClickableButton>
                         ) : null}
                     </div>

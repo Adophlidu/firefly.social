@@ -9,9 +9,9 @@ import { useAsyncFn } from 'react-use';
 
 import Close from '@/assets/close.svg';
 import Info from '@/assets/info.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import Trash from '@/assets/trash2.svg';
 import { SchedulePostSettings } from '@/components/Compose/SchedulePostSettings.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -99,7 +99,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
                     {title}
                 </div>
                 {removeLoading ? (
-                    <LoadingIcon className="h-5 w-5 animate-spin cursor-pointer text-secondary" />
+                    <LoadingIcon size={20} className="cursor-pointer text-secondary" />
                 ) : (
                     <Tooltip content={t`Delete`}>
                         <Trash className="h-5 w-5 cursor-pointer text-secondary" onClick={handleRemove} />

@@ -3,10 +3,10 @@ import { forwardRef } from 'react';
 import type { Address } from 'viem';
 
 import FollowIcon from '@/assets/follow-user.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import UnfollowIcon from '@/assets/unfollow-user.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { useIsFollowingWallet } from '@/hooks/useIsFollowingWallet.js';
 import { useToggleWatchWallet } from '@/hooks/useToggleWatchWallet.js';
 
@@ -36,7 +36,7 @@ export const WatchWalletButton = forwardRef<HTMLButtonElement, Props>(function W
             ref={ref}
         >
             {isLoading ? (
-                <LoadingIcon className="animate-spin" width={18} height={18} />
+                <LoadingIcon size={18} />
             ) : following ? (
                 <UnfollowIcon width={18} height={18} />
             ) : (

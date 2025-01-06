@@ -1,8 +1,8 @@
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolvePollProvider } from '@/helpers/resolvePollProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -48,7 +48,7 @@ export function VoteButton({ option, post, frameUrl }: VoteButtonProps) {
                 className="flex h-10 w-full items-center justify-center rounded-[10px] border border-lightMain text-base font-bold leading-10 text-lightMain hover:border-lightHighlight hover:text-highlight disabled:!cursor-default disabled:!opacity-100"
                 onClick={handleVote}
             >
-                {loading ? <LoadingIcon className="animate-spin" width={24} height={24} /> : option.label}
+                {loading ? <LoadingIcon /> : option.label}
             </ClickableButton>
         </div>
     );

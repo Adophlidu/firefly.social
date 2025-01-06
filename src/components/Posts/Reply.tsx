@@ -3,8 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
 import { memo, useMemo, useState } from 'react';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { Editor } from '@/components/Compose/Editor.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ExcludeReplyUserListModal } from '@/components/Posts/ExcludeReplyUserList.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
@@ -92,8 +92,7 @@ export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
                         {isLoading ? (
                             <p className="mt-3 flex min-h-[20px] items-center text-medium text-placeholder">
                                 <Trans>
-                                    <LoadingIcon className="mr-1 flex-shrink-0 animate-spin" width={16} height={16} />{' '}
-                                    Loading
+                                    <LoadingIcon className="mr-1" size={16} /> Loading
                                 </Trans>
                             </p>
                         ) : (

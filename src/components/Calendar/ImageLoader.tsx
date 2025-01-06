@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { Image } from '@/components/Image.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
 interface ImageLoaderProps {
@@ -36,7 +36,7 @@ export function ImageLoader({ src }: ImageLoaderProps) {
             )}
             {!loaded && !failed ? (
                 <div className="absolute left-1/2 top-1/2 text-main">
-                    <LoadingIcon className="animate-spin" width={20} height={20} />
+                    <LoadingIcon size={20} />
                 </div>
             ) : null}
         </div>

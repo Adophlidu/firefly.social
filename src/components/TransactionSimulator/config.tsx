@@ -5,13 +5,13 @@ import type { FunctionComponent, JSX, SVGAttributes } from 'react';
 import { fromHex, isHex } from 'viem';
 import { getAccount } from 'wagmi/actions';
 
-import LoadingIcon from '@/assets/loading.svg';
 import ReceiveIcon from '@/assets/receive-token.svg';
 import SendIcon from '@/assets/send-token.svg';
 import TradeInfo from '@/assets/trade-info.svg';
 import TradeSecurity from '@/assets/trade-security.svg';
 import WarningIcon from '@/assets/warning.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { config } from '@/configs/wagmiClient.js';
 import { SimulateStatus, SimulateType } from '@/constants/enum.js';
@@ -151,7 +151,6 @@ export function getStatusConfig(): StatusConfig[] {
             status: SimulateStatus.Pending,
             icon: LoadingIcon,
             className: 'bg-lightBg text-lightSecond',
-            iconClassName: 'animate-spin',
             text: () => <Trans>Simulating</Trans>,
         },
         {

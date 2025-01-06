@@ -7,9 +7,9 @@ import { useAccount, useChains } from 'wagmi';
 
 import CollectFillIcon from '@/assets/collect-fill.svg';
 import LinkIcon from '@/assets/link-square.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { MintStatus } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -126,7 +126,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
     if (queryDetailLoading) {
         return (
             <div className="flex h-[198px] w-full items-center justify-center">
-                <LoadingIcon className="animate-spin text-main" width={24} height={24} />
+                <LoadingIcon className="text-main" />
             </div>
         );
     }

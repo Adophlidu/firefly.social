@@ -6,9 +6,9 @@ import { useAsyncFn } from 'react-use';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
 
-import LoadingIcon from '@/assets/loading.svg';
 import MuteIcon from '@/assets/mute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Source } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
@@ -62,11 +62,7 @@ function MuteAllProfileBase({ handleOrEnsOrAddress, identity, onClose }: MuteAll
 
     return (
         <MenuButton onClick={handleMuteAll} disabled={loading}>
-            {loading ? (
-                <LoadingIcon className="animate-spin" width={18} height={18} />
-            ) : (
-                <MuteIcon width={18} height={18} />
-            )}
+            {loading ? <LoadingIcon size={18} /> : <MuteIcon width={18} height={18} />}
             <span className="font-bold leading-[22px] text-main">
                 <Trans>Mute all</Trans>
             </span>

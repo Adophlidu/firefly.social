@@ -5,8 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 import { forwardRef, type HTMLProps } from 'react';
 
 import DownloadIcon from '@/assets/download-round.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 
 interface DownloadImageButtonProps extends HTMLProps<HTMLButtonElement> {
     url: string;
@@ -40,11 +40,7 @@ export const DownloadImageButton = forwardRef<HTMLButtonElement, DownloadImageBu
                 onClick?.();
             }}
         >
-            {isLoading ? (
-                <LoadingIcon className="animate-spin" width={18} height={18} />
-            ) : (
-                <DownloadIcon width={18} height={18} />
-            )}
+            {isLoading ? <LoadingIcon size={18} /> : <DownloadIcon width={18} height={18} />}
             <span className="font-bold leading-[22px] text-main">
                 <Trans>Download media</Trans>
             </span>

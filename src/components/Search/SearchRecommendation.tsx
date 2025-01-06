@@ -7,12 +7,12 @@ import { first, uniqBy } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
 import { useDebounce } from 'usehooks-ts';
 
-import LoadingIcon from '@/assets/loading.svg';
 import SearchIcon from '@/assets/search.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ClearButton } from '@/components/IconButton.js';
 import { Link } from '@/components/Link.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { PageRoute, SearchType, Source } from '@/constants/enum.js';
 import { MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/index.js';
@@ -124,7 +124,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
 
                 {isLoading ? (
                     <div className="flex flex-col items-center space-y-2 px-4 pb-5 pt-2 text-center text-sm font-bold">
-                        <LoadingIcon className="animate-spin" width={24} height={24} />
+                        <LoadingIcon />
                         <div className="font-bold">
                             <Trans>Searching channel</Trans>
                         </div>

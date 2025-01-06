@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 
-import LoadingIcon from '@/assets/loading.svg';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { VirtualListFooterBottomText } from '@/components/VirtualList/VirtualListFooterBottomText.js';
 
 export interface VirtualListFooterProps {
@@ -33,7 +33,7 @@ export const VirtualListFooter = memo<VirtualListFooterProps>(function VirtualLi
 
     return (
         <div className="flex items-center justify-center p-2" ref={observe}>
-            <LoadingIcon width={16} height={16} className="animate-spin" />
+            <LoadingIcon size={16} />
         </div>
     );
 });

@@ -17,9 +17,9 @@ import { useAsync, useUpdateEffect } from 'react-use';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { router } from '@/components/Compose/ComposeRouter.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { FileMimeType, type SocialSource } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
@@ -313,7 +313,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                     {/* Loading */}
                     {encryptRedPacketLoading ? (
                         <div className="absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
-                            <LoadingIcon className="animate-spin" width={24} height={24} />
+                            <LoadingIcon />
                         </div>
                     ) : null}
 

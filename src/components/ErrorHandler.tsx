@@ -3,8 +3,8 @@
 import { Trans } from '@lingui/react/macro';
 import type { HTMLProps } from 'react';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { FetchError } from '@/constants/error.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -30,7 +30,7 @@ export function ErrorHandler({ error, reset, className }: ErrorHandlerProps) {
                 className="mt-6 whitespace-nowrap rounded-2xl bg-main px-4 py-1 text-sm font-semibold leading-6 text-primaryBottom"
                 onClick={() => reset()}
             >
-                <LoadingIcon width={16} height={16} className="mr-2 inline-block" />
+                <LoadingIcon size={16} animate={false} className="mr-2 inline-block" />
                 <Trans>Refresh</Trans>
             </ClickableButton>
         </div>

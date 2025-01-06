@@ -5,11 +5,11 @@ import { type FunctionComponent, memo, type ReactNode, type SVGAttributes } from
 
 import CalendarIcon from '@/assets/calendar.svg';
 import EmptyStatusIcon from '@/assets/empty-status.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import MicrophoneIcon from '@/assets/microphone.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Link } from '@/components/Link.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { Source } from '@/constants/enum.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
@@ -59,7 +59,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
     if (isLoading) {
         return (
             <div className="mt-3 flex min-h-[128px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
-                <LoadingIcon className="animate-spin" width={24} height={24} />
+                <LoadingIcon />
             </div>
         );
     }

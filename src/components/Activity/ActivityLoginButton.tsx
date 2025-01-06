@@ -2,10 +2,10 @@
 
 import { Trans } from '@lingui/react/macro';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
 import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInActivity.js';
 import { useLoginInActivity } from '@/components/Activity/hooks/useLoginInActivity.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -32,7 +32,7 @@ export function ActivityLoginButton({ source }: { source: SocialSource }) {
         >
             {isLoading ? (
                 <span className="left-0 top-0 flex h-full w-full items-center justify-center">
-                    <LoadingIcon className="animate-spin" width={16} height={16} />
+                    <LoadingIcon size={16} />
                 </span>
             ) : null}
             <span

@@ -3,7 +3,6 @@ import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useMatch, useRouter } from '@tanstack/react-router';
 import { useFormContext } from 'react-hook-form';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { EditProfileAvatar } from '@/components/EditProfile/EditProfileAvatar.js';
 import type { ProfileFormValues } from '@/components/EditProfile/EditProfileRouteRoot.js';
@@ -11,6 +10,7 @@ import { ErrorMessage } from '@/components/Form/ErrorMessage.js';
 import { FormInput } from '@/components/Form/FormInput.js';
 import { FormInputContainer } from '@/components/Form/FormInputContainer.js';
 import { FormTextarea } from '@/components/Form/FormTextarea.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Source } from '@/constants/enum.js';
 import { ALLOWED_IMAGES_MIMES } from '@/constants/index.js';
 import {
@@ -195,11 +195,7 @@ export function EditProfileForm() {
                     disabled={!isDirty || !isValid || isSubmitting}
                     className="flex h-10 w-[120px] items-center justify-center rounded-full bg-main text-medium font-bold leading-10 text-primaryBottom"
                 >
-                    {isSubmitting ? (
-                        <LoadingIcon width={16} height={16} className="animate-spin" />
-                    ) : (
-                        <Trans>Save</Trans>
-                    )}
+                    {isSubmitting ? <LoadingIcon size={16} /> : <Trans>Save</Trans>}
                 </ClickableButton>
             </div>
         </form>

@@ -4,8 +4,8 @@ import { forwardRef, memo } from 'react';
 
 import BookmarkActiveIcon from '@/assets/bookmark.selected.svg';
 import BookmarkIcon from '@/assets/bookmark.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { FireflyPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useHasBookmarked } from '@/hooks/useHasBookmarked.js';
@@ -63,7 +63,7 @@ export const BookmarkButton = forwardRef<HTMLButtonElement, BookmarkButtonProps>
 
 function BookmarkButtonIcon({ hasBookmarked, isLoading }: { hasBookmarked: boolean; isLoading: boolean }) {
     return isLoading ? (
-        <LoadingIcon width={20} height={20} className="animate-spin" />
+        <LoadingIcon size={20} />
     ) : hasBookmarked ? (
         <BookmarkActiveIcon width={20} height={20} className="text-warn" />
     ) : (
@@ -84,7 +84,7 @@ export const BookmarkInIcon = memo(function BookmarkInIcon({ ...rest }: Bookmark
                     )}
                 >
                     {isLoading || fetching ? (
-                        <LoadingIcon className="animate-spin" width={20} height={20} />
+                        <LoadingIcon size={20} />
                     ) : (
                         <BookmarkIcon
                             fill={bookmarked ? 'rgb(var(--color-warn))' : 'none'}

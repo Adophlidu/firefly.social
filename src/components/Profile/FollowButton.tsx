@@ -5,10 +5,10 @@ import { memo, useCallback, useState } from 'react';
 
 import FollowIcon from '@/assets/follow-bold.svg';
 import FollowedIcon from '@/assets/followed.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import MutualFollowIcon from '@/assets/mutual-follow.svg';
 import { ToggleMutedProfileButton } from '@/components/Actions/ToggleMutedProfileButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { BaseToggleFollowButton } from '@/components/Profile/BaseToggleFollowButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
@@ -43,7 +43,7 @@ export const FollowButton = memo(function FollowButton({
 
     const buttonLabelRender = useCallback(
         (showSuperFollow: boolean, loading: boolean) => {
-            if (loading) return <LoadingIcon className="animate-spin" width={16} height={16} />;
+            if (loading) return <LoadingIcon size={16} />;
             if (variant === 'text') {
                 if (isFollowing) return hovering && !loading ? t`Unfollow` : t`Following`;
                 return showSuperFollow ? t`Super Follow` : isFollowedBy ? t`Follow Back` : t`Follow`;

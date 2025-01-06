@@ -8,12 +8,12 @@ import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-sol
 import { type MouseEvent, useContext } from 'react';
 
 import AddCircleIcon from '@/assets/add-circle.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { useActivityBindAddress } from '@/components/Activity/hooks/useActivityBindAddress.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
 import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInActivity.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -64,7 +64,7 @@ export function ActivityPremiumAddressVerifyButton({ source, chainId }: { source
                 >
                     {isRefetching || isLoading ? (
                         <span className="absolute left-0 top-0 flex h-full w-full items-center justify-center">
-                            <LoadingIcon className="animate-spin" width={16} height={16} />
+                            <LoadingIcon size={16} />
                         </span>
                     ) : null}
                     <span

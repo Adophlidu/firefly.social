@@ -5,7 +5,7 @@ import type { HTMLProps } from 'react';
 import { useEffectOnce } from 'react-use';
 import urlcat from 'urlcat';
 
-import LoadingIcon from '@/assets/loading.svg';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { PageRoute } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -32,7 +32,7 @@ export function LoginTwitter(props: Props) {
                 props.className,
             )}
         >
-            <LoadingIcon className="animate-spin" width={24} height={24} />
+            <LoadingIcon />
             <div className="mt-2 text-center text-sm leading-[16px] text-lightSecond">
                 <Trans>Please confirm the login with X.</Trans>
             </div>

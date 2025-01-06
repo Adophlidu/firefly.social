@@ -7,10 +7,10 @@ import { useAsyncFn } from 'react-use';
 import type { Address } from 'viem';
 import { useAccount, useChainId, useSwitchChain } from 'wagmi';
 
-import LoadingIcon from '@/assets/loading.svg';
 import WebsiteIcon from '@/assets/website-circle.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { MintStatus } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -129,11 +129,7 @@ export function FreeMintButton({
                 disabled={disabled}
                 onClick={handleClick}
             >
-                {loading ? (
-                    <LoadingIcon width={20} height={20} className="animate-spin" />
-                ) : (
-                    getMintButtonText(connected, isSupportedChain, data?.mintStatus)
-                )}
+                {loading ? <LoadingIcon size={20} /> : getMintButtonText(connected, isSupportedChain, data?.mintStatus)}
             </ClickableButton>
             {externalUrl ? (
                 <Link

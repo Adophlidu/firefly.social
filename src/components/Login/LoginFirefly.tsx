@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { useAsyncFn, useMount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { Link } from '@/components/Link.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { AbortError, MalformedError, TimeoutError } from '@/constants/error.js';
@@ -99,7 +99,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
         <div className="flex flex-col rounded-[12px]">
             {IS_MOBILE_DEVICE ? (
                 <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-3">
-                    <LoadingIcon className="animate-spin" width={24} height={24} />
+                    <LoadingIcon />
                     <div className="mt-2 text-center text-sm leading-[16px] text-lightSecond">
                         <Trans>Please confirm the login with Firefly.</Trans>
                     </div>
@@ -133,7 +133,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
                             <ScannableQRCode url={url} scanned={scanned} countdown={count} />
                             {scanned ? (
                                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                    <LoadingIcon className="animate-spin" width={24} height={24} />
+                                    <LoadingIcon />
                                 </div>
                             ) : null}
                         </div>

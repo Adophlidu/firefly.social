@@ -3,11 +3,11 @@ import { Trans } from '@lingui/react/macro';
 import { Fragment, type HTMLProps, useState } from 'react';
 
 import FarcasterIcon from '@/assets/farcaster.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import SearchIcon from '@/assets/search.svg';
 import UserIcon from '@/assets/user.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -56,7 +56,7 @@ export function ChannelSearchPanel({ onSelected, className, ...rest }: ChannelSe
         <div className={classNames('no-scrollbar overflow-auto', className)} {...rest}>
             {isLoading ? (
                 <div className="m-auto flex h-[100px] items-center justify-center text-center text-sm text-main">
-                    <LoadingIcon className="animate-spin" width={24} height={24} />
+                    <LoadingIcon />
                 </div>
             ) : isError ? (
                 <div className="m-auto flex h-[100px] items-center justify-center text-center text-sm text-main">

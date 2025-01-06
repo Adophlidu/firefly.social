@@ -2,7 +2,7 @@ import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/re
 import { Fragment, type PropsWithChildren, type ReactNode, useEffect, useRef, useState } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
-import LoadingIcon from '@/assets/loading.svg';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { classNames } from '@/helpers/classNames.js';
 
@@ -153,7 +153,7 @@ export function SearchContentPanel<T, F>({
             <div ref={listRef} className="no-scrollbar mt-2 min-h-0 flex-1 overflow-y-auto">
                 {isLoading ? (
                     <div className="flex h-full items-center justify-center">
-                        <LoadingIcon className="animate-spin" width={24} height={24} />
+                        <LoadingIcon />
                     </div>
                 ) : null}
                 {itemRenderer

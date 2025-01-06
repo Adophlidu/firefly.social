@@ -4,10 +4,10 @@ import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
 import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
 import { forwardRef, memo, type ReactNode } from 'react';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { Image } from '@/components/Image.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { NetworkPluginID } from '@/constants/enum.js';
@@ -42,7 +42,7 @@ export const ConnectWalletModalUI = memo<ConnectWalletModalUIProps>(function Con
 
     const content = loading ? (
         <div className="flex h-[156px] items-center justify-center">
-            <LoadingIcon className="animate-spin" width={24} height={24} />
+            <LoadingIcon />
         </div>
     ) : (
         <div className="grid grid-cols-1 gap-3 p-4 text-sm font-bold leading-5 text-second md:grid-cols-2">

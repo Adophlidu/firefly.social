@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { classNames } from '@/helpers/classNames.js';
 
 export interface ActionButtonProps extends ClickableButtonProps {
@@ -31,7 +31,7 @@ export const ActionButton = memo<ActionButtonProps>(function ActionButton({
                 props.className,
             )}
         >
-            {loading ? <LoadingIcon className="animate-spin" width={24} height={24} /> : children}
+            {loading ? <LoadingIcon /> : children}
         </ClickableButton>
     );
 });

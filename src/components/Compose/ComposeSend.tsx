@@ -7,12 +7,12 @@ import { type HTMLProps, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import AddThread from '@/assets/add-thread.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import SendIcon from '@/assets/send.svg';
 import Send2Icon from '@/assets/send2.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { measureChars } from '@/helpers/chars.js';
@@ -110,7 +110,7 @@ export function ComposeSend(props: ComposeSendProps) {
                     onClick={() => handlePost(!!hasError)}
                 >
                     {loading ? (
-                        <LoadingIcon width={24} height={24} className="animate-spin text-main" />
+                        <LoadingIcon className="text-main" />
                     ) : (
                         <Send2Icon
                             className={classNames('text-tabLine', {

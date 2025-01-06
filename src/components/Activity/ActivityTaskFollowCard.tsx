@@ -4,13 +4,13 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, type ReactNode } from 'react';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
 import { useActivityFollowProfile } from '@/components/Activity/hooks/useActivityFollowProfile.js';
 import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
 import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInActivity.js';
 import { useLoginInActivity } from '@/components/Activity/hooks/useLoginInActivity.js';
 import { Link } from '@/components/Activity/Link.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
@@ -41,7 +41,7 @@ function Button({ children, loading = false, isLoggedIn, onClick, className, sou
         >
             {loading ? (
                 <span className="absolute left-0 top-0 flex h-full w-full items-center justify-center">
-                    <LoadingIcon className="animate-spin" width={16} height={16} />
+                    <LoadingIcon size={16} />
                 </span>
             ) : null}
             <span

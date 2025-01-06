@@ -1,8 +1,8 @@
 import type { HTMLProps } from 'react';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -48,7 +48,7 @@ export function ProfileAvatar({
             </div>
             {loading ? (
                 <div className="absolute left-0 top-0 z-10">
-                    <LoadingIcon className="animate-spin text-primaryBottom" width={size} height={size} />
+                    <LoadingIcon className="text-primaryBottom" size={size} />
                 </div>
             ) : null}
             {enableSourceIcon ? (

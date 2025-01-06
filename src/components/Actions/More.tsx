@@ -6,7 +6,6 @@ import { memo, useCallback } from 'react';
 
 import EngagementIcon from '@/assets/engagement.svg';
 import FollowUserIcon from '@/assets/follow-user.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import MoreIcon from '@/assets/more.svg';
 import TrashIcon from '@/assets/trash.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
@@ -16,6 +15,7 @@ import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
 import { ReportPostButton } from '@/components/Actions/ReportPostButton.js';
 import { Link } from '@/components/Link.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { BaseToggleFollowButton } from '@/components/Profile/BaseToggleFollowButton.js';
@@ -57,7 +57,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
     const followButtonLabelRender = useCallback(
         (showSuperFollow: boolean, loading: boolean) => {
             const icon = loading ? (
-                <LoadingIcon width={18} height={18} className="animate-spin" />
+                <LoadingIcon size={18} />
             ) : isFollowing ? (
                 <UnFollowUserIcon width={18} height={18} />
             ) : (
@@ -111,7 +111,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                 }}
                             >
                                 {deleting ? (
-                                    <LoadingIcon width={18} height={18} className="animate-spin text-danger" />
+                                    <LoadingIcon size={18} className="text-danger" />
                                 ) : (
                                     <TrashIcon width={18} height={18} className="text-danger" />
                                 )}

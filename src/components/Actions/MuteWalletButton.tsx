@@ -4,11 +4,11 @@ import { useMutation } from '@tanstack/react-query';
 import { forwardRef } from 'react';
 import type { Address } from 'viem';
 
-import LoadingIcon from '@/assets/loading.svg';
 import MuteIcon from '@/assets/mute.svg';
 import UnmuteIcon from '@/assets/unmute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
@@ -71,7 +71,7 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
             ref={ref}
         >
             {mutation.isPending ? (
-                <LoadingIcon width={18} height={18} className="mx-1 animate-spin" />
+                <LoadingIcon size={18} className="mx-1" />
             ) : isMuted ? (
                 <UnmuteIcon width={18} height={18} />
             ) : (

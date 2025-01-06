@@ -3,11 +3,11 @@
 import { Trans } from '@lingui/react/macro';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import WalletSelectedIcon from '@/assets/wallet.selected.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useConnections } from '@/hooks/useConnections.js';
@@ -34,7 +34,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
 
     const icon =
         !collapsed && connections.some((connection) => connection.isLoading) ? (
-            <LoadingIcon className="shrink-0 animate-spin" width={20} height={20} />
+            <LoadingIcon size={20} />
         ) : (
             <div className="h-5 w-5 flex-shrink-0">
                 {collapsed ? <WalletSelectedIcon width={20} height={20} /> : <WalletIcon width={20} height={20} />}

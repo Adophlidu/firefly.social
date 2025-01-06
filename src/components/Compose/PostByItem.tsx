@@ -4,10 +4,10 @@ import { delay } from '@masknet/kit';
 import { rootRouteId, useRouteContext } from '@tanstack/react-router';
 import { useAsyncFn } from 'react-use';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -123,11 +123,7 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
                         disabled={loading}
                         onClick={() => login({ profile, session })}
                     >
-                        {loading ? (
-                            <LoadingIcon className="animate-spin" width={24} height={24} />
-                        ) : (
-                            <Trans>Switch</Trans>
-                        )}
+                        {loading ? <LoadingIcon /> : <Trans>Switch</Trans>}
                     </ClickableButton>
                 )}
             </div>

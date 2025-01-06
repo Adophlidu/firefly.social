@@ -2,10 +2,10 @@ import { t } from '@lingui/core/macro';
 import { forwardRef } from 'react';
 
 import FollowUserIcon from '@/assets/follow-user.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import type { ClickableButtonProps } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { useToggleJoinChannel } from '@/hooks/useToggleJoinChannel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
@@ -32,11 +32,7 @@ export const ToggleJoinChannel = forwardRef<HTMLButtonElement, Props>(function T
             }}
             ref={ref}
         >
-            {isMutating ? (
-                <LoadingIcon className="animate-spin" width={18} height={18} />
-            ) : (
-                <Icon width={18} height={18} />
-            )}
+            {isMutating ? <LoadingIcon size={18} /> : <Icon width={18} height={18} />}
             <span className="font-bold leading-[22px] text-main">
                 {joined ? t`Leave /${channel.id}` : t`Join /${channel.id}`}
             </span>

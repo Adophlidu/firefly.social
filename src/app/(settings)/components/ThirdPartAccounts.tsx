@@ -7,8 +7,8 @@ import { ThirdPartConnectButton } from '@/app/(settings)/components/ThirdPartCon
 import { ThirdPartDisconnectButton } from '@/app/(settings)/components/ThirdPartDisconnectButton.js';
 import AppleIcon from '@/assets/apple-small.svg';
 import GoogleIcon from '@/assets/google-small.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import TelegramIcon from '@/assets/telegram.svg';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Source, SourceInURL, type ThirdPartySource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
@@ -54,7 +54,7 @@ function ThirdPartItem({
                 ) : null}
             </div>
             {loading ? (
-                <LoadingIcon width={24} height={24} className="animate-spin text-lightMain" />
+                <LoadingIcon className="text-lightMain" />
             ) : connected ? (
                 <ThirdPartDisconnectButton account={account} onSucceed={onDisconnected} />
             ) : (

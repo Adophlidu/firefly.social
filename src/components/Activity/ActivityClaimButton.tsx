@@ -7,11 +7,11 @@ import { ChainId } from '@masknet/web3-shared-evm';
 import { type ReactNode, useContext, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { ActivityMintSuccessDialog } from '@/components/Activity/ActivityMintSuccessDialog.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import type { SocialSource } from '@/constants/enum.js';
 import type { Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -111,7 +111,7 @@ export function ActivityClaimButton({
             >
                 {loading ? (
                     <span className="absolute left-0 top-0 flex h-full w-full items-center justify-center">
-                        <LoadingIcon className="animate-spin" width={16} height={16} />
+                        <LoadingIcon size={16} />
                     </span>
                 ) : null}
                 <span

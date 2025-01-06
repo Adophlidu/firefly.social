@@ -4,10 +4,10 @@ import { memo, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
-import LoadingIcon from '@/assets/loading.svg';
 import UserIcon from '@/assets/user.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
@@ -125,11 +125,7 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
                 className="mt-6 flex h-10 w-full items-center justify-center rounded-[20px] bg-lightMain text-medium font-bold text-primaryBottom"
                 onClick={handleFollow}
             >
-                {loading || isFollowing ? (
-                    <LoadingIcon className="animate-spin" width={24} height={24} />
-                ) : (
-                    <span>{buttonLabel}</span>
-                )}
+                {loading || isFollowing ? <LoadingIcon /> : <span>{buttonLabel}</span>}
             </ClickableButton>
         </div>
     );

@@ -5,7 +5,7 @@ import { useLocation, useRouter } from '@tanstack/react-router';
 import { memo } from 'react';
 import { useAccount } from 'wagmi';
 
-import LoadingIcon from '@/assets/loading.svg';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { LoginLens } from '@/components/Login/LoginLens.js';
 import { config } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
@@ -63,7 +63,7 @@ export const LensView = memo(function LensView() {
     if (isLoading || !account.address)
         return (
             <div className="flex h-full min-h-[30vh] w-full items-center justify-center md:h-[462px] md:w-[500px]">
-                <LoadingIcon className="animate-spin" width={24} height={24} />
+                <LoadingIcon />
             </div>
         );
 

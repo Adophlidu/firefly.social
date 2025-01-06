@@ -8,8 +8,8 @@ import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
 import DisconnectIcon from '@/assets/disconnect.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -61,7 +61,7 @@ function DisconnectButton({ account }: { account: Account }) {
                 onClick={disconnect}
             >
                 {loading ? (
-                    <LoadingIcon width={20} height={20} className="h-5 w-5 shrink-0 animate-spin" />
+                    <LoadingIcon size={20} />
                 ) : (
                     <DisconnectIcon width={20} height={20} className="h-5 w-5 shrink-0" />
                 )}
