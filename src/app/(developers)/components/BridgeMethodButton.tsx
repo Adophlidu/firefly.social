@@ -150,12 +150,98 @@ export function BridgeMethodButton({ item }: Props) {
                         disableNativeGestures: true,
                     });
                     break;
-                case SupportedMethod.REQUEST: {
-                    const balance = await fireflyBridgeProvider.request(SupportedMethod.REQUEST, {
-                        method: 'eth_getBalance',
-                        params: ['0x934b510d4c9103e6a87aef13b816fb080286d649', 'latest'],
+                case SupportedMethod.ADD_ETHEREUM_CHAIN: {
+                    const added = await fireflyBridgeProvider.request(SupportedMethod.ADD_ETHEREUM_CHAIN, {
+                        chainId: '0x64',
+                        chainName: 'Gnosis',
+                        rpcUrls: ['https://rpc.gnosischain.com'],
+                        iconUrls: [
+                            'https://xdaichain.com/fake/example/url/xdai.svg',
+                            'https://xdaichain.com/fake/example/url/xdai.png',
+                        ],
+                        nativeCurrency: {
+                            name: 'XDAI',
+                            symbol: 'XDAI',
+                            decimals: 18,
+                        },
+                        blockExplorerUrls: ['https://blockscout.com/poa/xdai/'],
                     });
-                    enqueueInfoMessage(`Balance: ${balance}`);
+                    enqueueInfoMessage(`Added: ${added}`);
+                    break;
+                }
+                case SupportedMethod.SWITCH_ETHEREUM_CHAIN: {
+                    const switched = await fireflyBridgeProvider.request(SupportedMethod.SWITCH_ETHEREUM_CHAIN, {
+                        chainId: '0x64',
+                    });
+                    enqueueInfoMessage(`Switched: ${switched}`);
+                    break;
+                }
+                case SupportedMethod.SIGN_TRANSACTION: {
+                    const rawTransaction = await fireflyBridgeProvider.request(SupportedMethod.SIGN_TRANSACTION, {
+                        type: '0x2',
+                        nonce: '0x1',
+                        to: '0x0c54fccd2e384b4bb6f2e405bf5cbc15a017aafb',
+                        from: '0x660265edc169bab511a40c0e049cc1e33774443d',
+                        value: '0x0',
+                        data: '0x',
+                        gasLimit: '0x5208',
+                        maxPriorityFeePerGas: '0x3b9aca00',
+                        maxFeePerGas: '0x2540be400',
+                        chainId: '0xaa36a7',
+                    });
+                    enqueueInfoMessage(`Raw Transaction: ${rawTransaction}`);
+                    break;
+                }
+                case SupportedMethod.SIGN_MESSAGE: {
+                    const signed = await fireflyBridgeProvider.request(SupportedMethod.SIGN_MESSAGE, {
+                        address: '0x660265edc169bab511a40c0e049cc1e33774443d',
+                        message: 'hello world',
+                    });
+                    enqueueInfoMessage(`Signed Message: ${signed}`);
+                    break;
+                }
+                case SupportedMethod.SIGN_TYPED_DATA: {
+                    const signed = await fireflyBridgeProvider.request(SupportedMethod.SIGN_TYPED_DATA, {
+                        address: '0x660265edc169bab511a40c0e049cc1e33774443d',
+                        message: JSON.stringify({
+                            types: {
+                                EIP712Domain: [
+                                    { name: 'name', type: 'string' },
+                                    { name: 'version', type: 'string' },
+                                    { name: 'chainId', type: 'uint256' },
+                                    { name: 'verifyingContract', type: 'address' },
+                                ],
+                                Person: [
+                                    { name: 'name', type: 'string' },
+                                    { name: 'wallet', type: 'address' },
+                                ],
+                                Mail: [
+                                    { name: 'from', type: 'Person' },
+                                    { name: 'to', type: 'Person' },
+                                    { name: 'contents', type: 'string' },
+                                ],
+                            },
+                            primaryType: 'Mail',
+                            domain: {
+                                name: 'Ether Mail',
+                                version: '1',
+                                chainId: 1,
+                                verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC',
+                            },
+                            message: {
+                                from: {
+                                    name: 'Cow',
+                                    wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
+                                },
+                                to: {
+                                    name: 'Bob',
+                                    wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
+                                },
+                                contents: 'Hello, Bob!',
+                            },
+                        }),
+                    });
+                    enqueueInfoMessage(`Signed Typed Data: ${signed}`);
                     break;
                 }
                 case SupportedMethod.GET_FRAME_CONTEXT: {

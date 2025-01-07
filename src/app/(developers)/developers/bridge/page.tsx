@@ -125,15 +125,39 @@ const items: Item[] = [
     },
     {
         type: 'method',
-        name: SupportedMethod.REQUEST,
-        title: 'Request',
-        description: 'Send an EVM RPC request.',
-    },
-    {
-        type: 'method',
         name: SupportedMethod.GET_FRAME_CONTEXT,
         title: 'Get Frame Context',
         description: 'Get frame context.',
+    },
+    {
+        type: 'method',
+        name: SupportedMethod.SIGN_MESSAGE,
+        title: 'Sign Message',
+        description: 'Sign a message.',
+    },
+    {
+        type: 'method',
+        name: SupportedMethod.SIGN_TRANSACTION,
+        title: 'Sign Transaction',
+        description: 'Sign a transaction.',
+    },
+    {
+        type: 'method',
+        name: SupportedMethod.SIGN_TYPED_DATA,
+        title: 'Sign Typed Data',
+        description: 'Sign typed data.',
+    },
+    {
+        type: 'method',
+        name: SupportedMethod.ADD_ETHEREUM_CHAIN,
+        title: 'Add Ethereum Chain',
+        description: 'Add an ethereum chain.',
+    },
+    {
+        type: 'method',
+        name: SupportedMethod.SWITCH_ETHEREUM_CHAIN,
+        title: 'Switch Ethereum Chain',
+        description: 'Switch an ethereum chain.',
     },
 ];
 

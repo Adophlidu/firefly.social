@@ -41,7 +41,37 @@ export enum SupportedMethod {
     SET_PRIMARY_BUTTON = 'setPrimaryButton',
     GET_FRAME_CONTEXT = 'getFrameContext',
     SET_FRAME_READY_OPTIONS = 'setFrameReadyOptions',
-    REQUEST = 'request',
+    SIGN_TRANSACTION = 'signTransaction',
+    SIGN_MESSAGE = 'signMessage',
+    SIGN_TYPED_DATA = 'signTypedData',
+    ADD_ETHEREUM_CHAIN = 'addEthereumChain',
+    SWITCH_ETHEREUM_CHAIN = 'switchEthereumChain',
+}
+
+export interface Transaction {
+    type: '0x1' | '0x2';
+    nonce: string;
+    from: string;
+    to: string;
+    value: string;
+    data: string;
+    gasLimit: string;
+    maxPriorityFeePerGas: string;
+    maxFeePerGas: string;
+    chainId: string;
+}
+
+export interface Chain {
+    chainId: string;
+    blockExplorerUrls: string[];
+    chainName: string;
+    iconUrls: string[];
+    nativeCurrency: {
+        decimals: number;
+        name: string;
+        symbol: string;
+    };
+    rpcUrls: string[];
 }
 
 export interface MentionProfile {
@@ -107,9 +137,18 @@ export interface RequestArguments {
     };
     [SupportedMethod.SET_FRAME_READY_OPTIONS]: Partial<ReadyOptions>;
     [SupportedMethod.GET_FRAME_CONTEXT]: {};
-    [SupportedMethod.REQUEST]: {
-        method: string;
-        params: unknown[];
+    [SupportedMethod.SIGN_TRANSACTION]: Transaction;
+    [SupportedMethod.SIGN_MESSAGE]: {
+        address: string;
+        message: string;
+    };
+    [SupportedMethod.SIGN_TYPED_DATA]: {
+        address: string;
+        message: string;
+    };
+    [SupportedMethod.ADD_ETHEREUM_CHAIN]: Chain;
+    [SupportedMethod.SWITCH_ETHEREUM_CHAIN]: {
+        chainId: string;
     };
 }
 
@@ -143,7 +182,11 @@ export interface RequestResult {
             originalUrl: string;
         };
     };
-    [SupportedMethod.REQUEST]: unknown;
+    [SupportedMethod.SIGN_TRANSACTION]: string;
+    [SupportedMethod.SIGN_MESSAGE]: string;
+    [SupportedMethod.SIGN_TYPED_DATA]: string;
+    [SupportedMethod.ADD_ETHEREUM_CHAIN]: true;
+    [SupportedMethod.SWITCH_ETHEREUM_CHAIN]: true;
 }
 
 export type MethodItem<T extends SupportedMethod = SupportedMethod> = {

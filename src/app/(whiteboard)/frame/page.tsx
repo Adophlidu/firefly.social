@@ -4,17 +4,20 @@ import { exposeToIframe, type ReadyOptions } from '@farcaster/frame-host';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
+import { getWalletClient } from 'wagmi/actions';
 
 import { FramePage, FramePageBody, FramePageTitle } from '@/app/(whiteboard)/components/FramePage.js';
 import { GhostError } from '@/app/(whiteboard)/components/GhostError.js';
 import FireflyLogo from '@/assets/firefly.logo.svg';
+import { config } from '@/configs/wagmiClient.js';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
+import { EthereumMethodType } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
-import { SupportedMethod } from '@/types/bridge.js';
+import { type Chain, Network, SupportedMethod, type Transaction } from '@/types/bridge.js';
 import type { RequestArguments } from '@/types/ethereum.js';
 import type { FrameV2, FrameV2Host } from '@/types/frame.js';
 import type { NextPageProps } from '@/types/index.js';
@@ -74,8 +77,55 @@ export default function Page(props: Props) {
             iframe: frameRef.current,
             sdk: frameHost,
             ethProvider: createEIP1193Provider(async function request<T>(requestArguments: RequestArguments) {
-                const result = await fireflyBridgeProvider.request(SupportedMethod.REQUEST, requestArguments);
-                return result as T;
+                const { method, params } = requestArguments;
+                switch (method) {
+                    case EthereumMethodType.ETH_REQUEST_ACCOUNTS:
+                        return fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
+                            type: Network.EVM,
+                        });
+                    case EthereumMethodType.ETH_SIGN_TRANSACTION: {
+                        const transaction = params[0] as Transaction;
+                        return fireflyBridgeProvider.request(SupportedMethod.SIGN_TRANSACTION, transaction);
+                    }
+                    case EthereumMethodType.ETH_SIGN: {
+                        const [address, message] = params as [string, string];
+                        return fireflyBridgeProvider.request(SupportedMethod.SIGN_MESSAGE, {
+                            address,
+                            message,
+                        });
+                    }
+                    case EthereumMethodType.ETH_SIGN_TYPED_DATA: {
+                        const [address, data] = params as [string, {}];
+                        return fireflyBridgeProvider.request(SupportedMethod.SIGN_TYPED_DATA, {
+                            address,
+                            message: JSON.stringify(data),
+                        });
+                    }
+                    case EthereumMethodType.ETH_SEND_TRANSACTION: {
+                        const transaction = params[0] as Transaction;
+                        const rawTransaction = await fireflyBridgeProvider.request(
+                            SupportedMethod.SIGN_TRANSACTION,
+                            transaction,
+                        );
+                        const client = await getWalletClient(config);
+                        return client.sendRawTransaction({
+                            serializedTransaction: rawTransaction as `0x${string}`,
+                        });
+                    }
+                    case EthereumMethodType.WALLET_ADD_ETHEREUM_CHAIN: {
+                        const chain = params[0] as Chain;
+                        return fireflyBridgeProvider.request(SupportedMethod.ADD_ETHEREUM_CHAIN, chain);
+                    }
+                    case EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN: {
+                        return fireflyBridgeProvider.request(SupportedMethod.SWITCH_ETHEREUM_CHAIN, {
+                            chainId: params[0] as string,
+                        });
+                    }
+                    default: {
+                        const client = await getWalletClient(config);
+                        return client.request(requestArguments as Parameters<typeof client.request>[0]);
+                    }
+                }
             }),
             frameOrigin: '*',
         });
