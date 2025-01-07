@@ -357,6 +357,7 @@ export class FireflySocialMedia implements Provider {
                 size: 20,
                 cursor: indicator?.id,
                 sourceFid: session?.profileId,
+                needRootParentHash: 1,
             });
             const response = await fireflySessionHolder.fetch<CastsResponse>(url);
             const data = resolveFireflyResponseData(response);
