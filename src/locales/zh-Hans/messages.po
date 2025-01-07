@@ -247,7 +247,7 @@ msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryp
 msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市场中可发行股票的最大数量相当。</0><1>最大供应量 = 理论最大值</1>"
 
 msgid "This token is a gas abuser."
-msgstr "该通证是一个燃料滥用者。<<<<<<< HEAD======="
+msgstr "该通证是一个燃料滥用者。"
 
 msgid "Ended"
 msgstr "已结束"
@@ -269,6 +269,10 @@ msgstr "查找用户中"
 
 msgid "Fake KYC."
 msgstr "虚假 KYC。"
+
+#. placeholder {0}: u.host
+msgid "Requested from <0>{0}</0>"
+msgstr ""
 
 msgid "Airdrop Scam"
 msgstr "空投骗局"
@@ -939,6 +943,9 @@ msgstr "合约拥有者在交易冷却期上没有限制。"
 msgid "Connect Wallet"
 msgstr "连接钱包"
 
+msgid "Review Transaction"
+msgstr ""
+
 #. placeholder {0}: error.url
 msgid "Not Found. Please check your URL[{0}]."
 msgstr "未找到。请检查你的 URL [{0}]。"
@@ -1484,7 +1491,7 @@ msgid "This token contract is open source. You can check the contract code for d
 msgstr "此通证合约是开源代码。您可以检查合约代码了解详情。 未知来源的通证合同很可能带有恶意的功能来欺诈其用户的资产。"
 
 msgid "Darkweb transactions found."
-msgstr "发现暗网交易。<<<<<<< HEAD======="
+msgstr "发现暗网交易。"
 
 #. placeholder {0}: humanize(count)
 msgid "{0} Comments"
@@ -1886,11 +1893,11 @@ msgid "Standard"
 msgstr "标准"
 
 msgid "No darkweb transactions found."
-msgstr "未发现暗网交易。<<<<<<< HEAD"
+msgstr "未发现暗网交易。"
 
 #. placeholder {0}: channel.id
 msgid "Joined /{0} on {sourceName}."
-msgstr "======="
+msgstr ""
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "You need to connect your {0} account to use this feature."
@@ -2142,7 +2149,7 @@ msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"
 
 msgid "Article removed from your Bookmarks"
-msgstr "文章已经从您的收藏中移除<<<<<<< HEAD======="
+msgstr "文章已经从您的收藏中移除"
 
 msgid "Powered by Tenderly and GoPlus"
 msgstr "Powered by Tenderly and GoPlus"
@@ -3601,7 +3608,7 @@ msgid "Snapshot removed from your Bookmarks"
 msgstr "投票已经从您的收藏中移除"
 
 msgid "Max Supply"
-msgstr "最大供应量<<<<<<< HEAD======="
+msgstr "最大供应量"
 
 #. placeholder {0}: post.author.displayName
 msgid "Posted by {0} via Firefly"
@@ -3787,7 +3794,7 @@ msgid "Failed to update scheduled post."
 msgstr "更新定时任务失败"
 
 msgid "Login"
-msgstr "登录<<<<<<< HEAD======="
+msgstr "登录"
 
 #. placeholder {0}: post.author.handle
 #. placeholder {1}: resolveSourceName(post.source)

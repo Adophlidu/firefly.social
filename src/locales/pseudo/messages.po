@@ -242,7 +242,7 @@ msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryp
 msgstr ""
 
 msgid "This token is a gas abuser."
-msgstr "<<<<<<< HEAD======="
+msgstr ""
 
 msgid "Ended"
 msgstr ""
@@ -263,6 +263,10 @@ msgid "Searching users"
 msgstr ""
 
 msgid "Fake KYC."
+msgstr ""
+
+#. placeholder {0}: u.host
+msgid "Requested from <0>{0}</0>"
 msgstr ""
 
 msgid "Airdrop Scam"
@@ -934,6 +938,9 @@ msgstr ""
 msgid "Connect Wallet"
 msgstr ""
 
+msgid "Review Transaction"
+msgstr ""
+
 #. placeholder {0}: error.url
 msgid "Not Found. Please check your URL[{0}]."
 msgstr ""
@@ -1479,7 +1486,7 @@ msgid "This token contract is open source. You can check the contract code for d
 msgstr ""
 
 msgid "Darkweb transactions found."
-msgstr "<<<<<<< HEAD======="
+msgstr ""
 
 #. placeholder {0}: humanize(count)
 msgid "{0} Comments"
@@ -1881,11 +1888,11 @@ msgid "Standard"
 msgstr ""
 
 msgid "No darkweb transactions found."
-msgstr "<<<<<<< HEAD"
+msgstr ""
 
 #. placeholder {0}: channel.id
 msgid "Joined /{0} on {sourceName}."
-msgstr "======="
+msgstr ""
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "You need to connect your {0} account to use this feature."
@@ -2137,7 +2144,7 @@ msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
 msgid "Article removed from your Bookmarks"
-msgstr "<<<<<<< HEAD======="
+msgstr ""
 
 msgid "Powered by Tenderly and GoPlus"
 msgstr ""
@@ -3596,7 +3603,7 @@ msgid "Snapshot removed from your Bookmarks"
 msgstr ""
 
 msgid "Max Supply"
-msgstr "<<<<<<< HEAD======="
+msgstr ""
 
 #. placeholder {0}: post.author.displayName
 msgid "Posted by {0} via Firefly"
@@ -3782,7 +3789,7 @@ msgid "Failed to update scheduled post."
 msgstr ""
 
 msgid "Login"
-msgstr "<<<<<<< HEAD======="
+msgstr ""
 
 #. placeholder {0}: post.author.handle
 #. placeholder {1}: resolveSourceName(post.source)
