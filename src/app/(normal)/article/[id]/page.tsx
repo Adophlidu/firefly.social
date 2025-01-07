@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { use } from 'react';
 
 import { ArticleDetailPage } from '@/app/(normal)/article/[id]/pages/DetailPage.js';
 import { KeyType } from '@/constants/enum.js';
@@ -23,6 +22,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function Page(props: Props) {
     if (await isBotRequest()) return null;
     await setupLocaleForSSR();
-    const param = use(props.params);
+    const param = await props.params;
     return <ArticleDetailPage id={param.id} />;
 }
