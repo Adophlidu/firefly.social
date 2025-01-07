@@ -76,7 +76,7 @@ export default function Page(props: Props) {
             debug: IS_DEVELOPMENT,
             iframe: frameRef.current,
             sdk: frameHost,
-            ethProvider: createEIP1193Provider(async function request<T>(requestArguments: RequestArguments) {
+            ethProvider: createEIP1193Provider(async function request(requestArguments: RequestArguments) {
                 const { method, params } = requestArguments;
                 switch (method) {
                     case EthereumMethodType.ETH_REQUEST_ACCOUNTS: {

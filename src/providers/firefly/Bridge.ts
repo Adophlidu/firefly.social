@@ -75,8 +75,8 @@ class FireflyBridgeProvider {
         const requestId = uniqueId('bridge');
 
         if (NO_RETURN_METHODS.includes(method)) {
-            callNativeMethod(method, requestId, params as RequestArguments[T]);
-            return Promise.resolve() as unknown as RequestResult[T];
+            callNativeMethod(method, requestId, params);
+            return Promise.resolve() as unknown as Promise<RequestResult[T]>;
         }
 
         return timeout(
@@ -89,6 +89,8 @@ class FireflyBridgeProvider {
                     if (error) reject(error);
                     else resolve(result as RequestResult[T]);
                 });
+
+                // install the callback
                 this.installCallbacks();
 
                 // dispatch the request to the native app
