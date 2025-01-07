@@ -1190,7 +1190,7 @@ export type SearchableToken = {
     api_symbol: string;
     id: string;
     large: string;
-    market_cap_rank: number;
+    market_cap_rank?: number;
     name: string;
     symbol: string;
     thumb: string;
@@ -1334,3 +1334,39 @@ export type GetFollowingCountByNFTResponse = Response<{
 export type GetCollectStatusResponse = Response<MintMetadata>;
 
 export type CollectArticleResponse = Response<FreeMintResult>;
+
+export type DetectAddressResponse = Response<{
+    list: Array<{
+        type: 'eth' | 'solana';
+        chain: string;
+        chain_id: string;
+        address_type: 'eoa' | 'soa' | 'contract';
+        contract_type: 'ERC20' | 'ERC721' | 'ERC1155' | 'token' | 'nft' | 'program';
+        contract_info: {
+            id: string;
+            type: string;
+            attributes: {
+                address: string;
+                name: string;
+                symbol: string;
+                decimals: number;
+                image_url: string;
+                coingecko_coin_id: string;
+                total_supply: string;
+                price_usd: string;
+                fdv_usd: string;
+                total_reserve_in_usd: string;
+                volume_usd: { h24: string };
+                market_cap_usd: string;
+            };
+            relationships: {
+                top_pools: {
+                    data: Array<{
+                        id: string;
+                        type: `${string}_${Address}`;
+                    }>;
+                };
+            };
+        };
+    }>;
+}>;

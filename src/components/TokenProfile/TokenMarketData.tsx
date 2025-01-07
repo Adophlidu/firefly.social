@@ -92,9 +92,11 @@ export function TokenMarketData({ linkable, token }: TokenMarketDataProps) {
                         ) : (
                             baseInfo
                         )}
-                        <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
-                            <Trans>Rank #{token.rank}</Trans>
-                        </span>
+                        {token.rank ? (
+                            <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
+                                <Trans>Rank #{token.rank}</Trans>
+                            </span>
+                        ) : null}
                     </div>
                     <div className="line-height-[22px] flex items-center gap-1">
                         <strong className="text-2xl font-bold">${renderShrankPrice(formatPrice(price) ?? '-')}</strong>

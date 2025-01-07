@@ -1,6 +1,9 @@
 import { first } from 'lodash-es';
+import { isAddress } from 'viem';
 
-import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
+import { EMPTY_LIST } from '@/constants/index.js';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { trimify } from '@/helpers/trimify.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { CoinGeckoCoinMarketInfo } from '@/providers/types/CoinGecko.js';
@@ -13,8 +16,10 @@ function isSameTokenSymbol(symbol: string, keyword: string) {
 }
 
 function sortTokensByKeyword(tokens: SearchableToken[], keyword: string) {
+    if (!tokens.length) return tokens;
+
     // fast path
-    if (isSameTokenSymbol(tokens[0]?.symbol || '', keyword)) {
+    if (isSameTokenSymbol(tokens[0]?.symbol || '', keyword) || isAddress(trimify(keyword))) {
         const [firstToken, ...rest] = tokens;
         return [{ ...firstToken, hit: true }, ...rest];
     }
@@ -37,16 +42,44 @@ function sortTokensByKeyword(tokens: SearchableToken[], keyword: string) {
     return tokens;
 }
 
+async function searchTokensByAddress(address: string): Promise<Pageable<SearchableToken, PageIndicator>> {
+    const { list } = await FireflyEndpointProvider.detectAddress(address);
+    if (!Array.isArray(list) || !list.length) return createPageable(EMPTY_LIST, createIndicator());
+
+    const tokens = list.filter((x) => x.contract_info.type === 'token');
+    return createPageable(
+        tokens.map((x) => {
+            const attributes = x.contract_info.attributes;
+            return {
+                api_symbol: attributes.symbol,
+                id: attributes.coingecko_coin_id,
+                large: attributes.image_url,
+                name: attributes.name,
+                symbol: attributes.symbol,
+                thumb: attributes.image_url,
+            };
+        }),
+        createIndicator(),
+    );
+}
+
 export async function searchTokens(searchKeyword: string): Promise<Pageable<TokenWithMarket, PageIndicator>> {
-    const res = await FireflyEndpointProvider.searchTokens(searchKeyword);
+    const trimmed = trimify(searchKeyword);
+    const res = isAddress(trimmed)
+        ? await searchTokensByAddress(trimmed)
+        : await FireflyEndpointProvider.searchTokens(searchKeyword);
     const ids = res.data.map((x) => x.id);
     const marketData = await CoinGecko.getCoinsByIds(ids);
 
     return {
         ...res,
-        data: sortTokensByKeyword(res.data || [], searchKeyword).map((x) => ({
-            ...x,
-            market: marketData.find((market) => market.id === x.id),
-        })),
+        data: sortTokensByKeyword(res.data || [], searchKeyword).map((x) => {
+            const market = marketData.find((market) => market.id === x.id);
+            return {
+                ...x,
+                market_cap_rank: x.market_cap_rank ?? market?.market_cap_rank,
+                market,
+            };
+        }),
     };
 }

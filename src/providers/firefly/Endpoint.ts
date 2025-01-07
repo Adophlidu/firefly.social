@@ -47,6 +47,7 @@ import {
     type BlockUserResponse,
     type CollectArticleResponse,
     type DebankTokensResponse,
+    type DetectAddressResponse,
     type EmptyResponse,
     type FireflyIdentity,
     type FireflyProfile,
@@ -898,6 +899,16 @@ export class FireflyEndpoint {
             language: locale === Locale.en ? 'en' : 'cn',
         });
         const response = await fetchJSON<ProjectResponse>(url, { method: 'GET' });
+
+        return resolveFireflyResponseData(response);
+    }
+
+    async detectAddress(address: string, chainId?: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/detect', {
+            address,
+            chainId,
+        });
+        const response = await fireflySessionHolder.fetch<DetectAddressResponse>(url, { method: 'GET' });
 
         return resolveFireflyResponseData(response);
     }
