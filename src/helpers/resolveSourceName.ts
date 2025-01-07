@@ -16,6 +16,7 @@ export const resolveSourceName = createLookupTableResolver<Source, string>(
         [Source.Telegram]: 'Telegram',
         [Source.Google]: 'Google',
         [Source.Apple]: 'Apple',
+        [Source.Posts]: 'Posts',
     },
     (source) => {
         throw new UnreachableError('source', source);

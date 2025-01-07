@@ -2,24 +2,63 @@
 
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { getPostsSelector } from '@/helpers/getPostsSelector.js';
-import { createIndicator } from '@/helpers/pageable.js';
+import { ScrollListKey, type SocialDiscoverSource, type SocialSource, Source } from '@/constants/enum.js';
+import { EMPTY_LIST, SOCIAL_DISCOVER_SOURCE, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { getPostsSelector, getPostsSelectorWithoutSource } from '@/helpers/getPostsSelector.js';
+import { multiQueryPageable } from '@/helpers/multiQueryPageable.js';
+import { createIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { sortMultiSourcePosts } from '@/helpers/sortMultiSourcePosts.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
+async function discoverPostsById(
+    source: SocialSource | Source.Posts,
+    profileAll: Record<SocialSource, Profile | null>,
+    indicator: PageIndicator,
+) {
+    if (source === Source.Posts) {
+        const pageable = await multiQueryPageable(
+            SOCIAL_DISCOVER_SOURCE.filter((x) => profileAll[x]),
+            async (source, indicatorId) => {
+                const profile = profileAll[source]!;
+                return resolveSocialMediaProvider(source).discoverPostsById(
+                    profile?.profileId,
+                    createIndicator(undefined, indicatorId ?? ''),
+                );
+            },
+            indicator,
+        );
+        return {
+            ...pageable,
+            data: sortMultiSourcePosts(pageable.data),
+        };
+    }
+    const provider = resolveSocialMediaProvider(source);
+    const profile = profileAll[source];
+    if (!profile) return createPageable(EMPTY_LIST, indicator);
+    return provider.discoverPostsById(profile.profileId, indicator);
+}
+
+function useIsLoginDiscoverNeed(source: SocialDiscoverSource | Source.Posts) {
+    const currentProfileAll = useCurrentProfileAll();
+
+    return useMemo(() => {
+        if (source !== Source.Posts) return !!currentProfileAll[source]?.profileId;
+        return SOCIAL_DISCOVER_SOURCE.some((x) => !!currentProfileAll[x]?.profileId);
+    }, [source, currentProfileAll]);
+}
+
 export const FollowingPostList = memo<{
-    source: SocialSource;
+    source: SocialDiscoverSource | Source.Posts;
 }>(function FollowingPostList({ source }) {
-    const isLogin = useIsLogin(source);
+    const isLogin = useIsLoginDiscoverNeed(source);
 
     const currentProfileAll = useCurrentProfileAll();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
@@ -34,21 +73,11 @@ export const FollowingPostList = memo<{
         ],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return;
-
-            const currentProfile = currentProfileAll[source];
-            if (!currentProfile?.profileId) return;
-
-            const provider = resolveSocialMediaProvider(source);
-            const posts = await provider.discoverPostsById(
-                currentProfile.profileId,
-                createIndicator(undefined, pageParam),
-            );
-
+            const posts = await discoverPostsById(source, currentProfileAll, createIndicator(undefined, pageParam));
             if (source === Source.Lens) {
                 const ids = posts.data.flatMap((x) => [x.postId]);
                 fetchAndStoreViews(ids);
             }
-
             return posts;
         },
         initialPageParam: '',
@@ -56,7 +85,10 @@ export const FollowingPostList = memo<{
             if (lastPage?.data.length === 0) return;
             return lastPage?.nextIndicator?.id;
         },
-        select: getPostsSelector(source),
+        select: (data) => {
+            if (source === Source.Posts) return getPostsSelectorWithoutSource(data);
+            return getPostsSelector(source)(data);
+        },
     });
 
     return (

@@ -3,8 +3,7 @@
 import { useRouter } from 'next/navigation.js';
 import { useEffect } from 'react';
 
-import { DiscoverPage } from '@/app/(normal)/discover/pages/Discover.js';
-import { FireflyPlatform, Source } from '@/constants/enum.js';
+import { FireflyPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { CHAR_TAG } from '@/helpers/chars.js';
 import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
@@ -113,5 +112,5 @@ export function ShareLinkPage(props: ShareLinkProps) {
         openCompose(props, () => router.replace('/'));
     }, [isLogin, props, router]);
 
-    return <DiscoverPage source={Source.Farcaster} />;
+    return null;
 }

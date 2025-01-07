@@ -2811,6 +2811,9 @@ msgstr "Owner can change balance"
 msgid "Non-contract address found."
 msgstr "Non-contract address found."
 
+msgid "Home"
+msgstr "Home"
+
 msgid "Confirm to disconnect this account from Firefly’s social graph?"
 msgstr "Confirm to disconnect this account from Firefly’s social graph?"
 

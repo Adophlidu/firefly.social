@@ -14,6 +14,7 @@ import {
     type ProfilePageSource,
     SearchType,
     type SocialDiscoverSource,
+    type SocialNotificationSource,
     SocialProfileCategory,
     type SocialSource,
     Source,
@@ -142,19 +143,17 @@ export const SORTED_MEDIA_SOURCES: MediaSource[] = [
 export const SORTED_EXPLORE_SOURCES: ExploreSource[] = [Source.Farcaster, Source.Lens];
 export const SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES = [Source.Farcaster];
 
-export const DEFAULT_SOCIAL_SOURCE = Source.Farcaster;
+export const DEFAULT_SOCIAL_SOURCE = Source.Posts;
+export const DEFAULT_BOOKMARK_SOURCE = Source.Farcaster;
+export const DEFAULT_NOTIFICATION_SOURCE = Source.Farcaster;
 export const SUPPORTED_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 export const SUPPORTED_PREVIEW_MEDIA_TYPES: Array<Attachment['type']> = ['Image', 'AnimatedGif'];
 export const SUPPORTED_VIDEO_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 export const SOCIAL_DISCOVER_SOURCE: SocialDiscoverSource[] = [Source.Farcaster, Source.Lens] as const;
-export const DISCOVER_SOURCES: DiscoverSource[] = [
-    ...SOCIAL_DISCOVER_SOURCE,
-    Source.NFTs,
-    Source.Article,
-    Source.DAOs,
-] as const;
+export const SOCIAL_NOTIFICATION_SOURCE: SocialNotificationSource[] = [Source.Farcaster, Source.Lens];
+export const DISCOVER_SOURCES: DiscoverSource[] = [Source.Posts, Source.NFTs, Source.Article, Source.DAOs] as const;
 export const FOLLOWING_SOURCES: FollowingSource[] = [
-    ...SOCIAL_DISCOVER_SOURCE,
+    Source.Posts,
     Source.Polymarket,
     Source.NFTs,
     Source.Article,

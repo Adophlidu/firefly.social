@@ -1,7 +1,7 @@
 import { t } from '@lingui/core/macro';
 import { redirect, RedirectType } from 'next/navigation.js';
 
-import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
+import { DEFAULT_BOOKMARK_SOURCE } from '@/constants/index.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
@@ -13,5 +13,5 @@ export async function generateMetadata() {
 }
 
 export default function Page() {
-    redirect(resolveBookmarkUrl(DEFAULT_SOCIAL_SOURCE), RedirectType.replace);
+    redirect(resolveBookmarkUrl(DEFAULT_BOOKMARK_SOURCE), RedirectType.replace);
 }

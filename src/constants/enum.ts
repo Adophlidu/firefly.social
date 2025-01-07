@@ -43,7 +43,8 @@ export enum Locale {
 
 export enum PageRoute {
     Home = '/',
-    Following = '/following',
+    Following = '/following/:source',
+    Discover = '/:source',
     Explore = '/explore',
     Notifications = '/notifications',
     Profile = '/profile',
@@ -74,6 +75,7 @@ export enum Source {
     Google = 'Google',
     Apple = 'Apple',
     DAOs = 'DAOs',
+    Posts = 'Posts',
 }
 
 export enum SourceInURL {
@@ -89,6 +91,7 @@ export enum SourceInURL {
     Google = 'google',
     Apple = 'apple',
     DAOs = 'daos',
+    Posts = 'posts',
 }
 
 export enum FireflyPlatform {
@@ -122,7 +125,8 @@ export type LoginSource = SocialSource | ThirdPartySource;
 export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Wallet;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
-export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article | Source.DAOs;
+export type SocialNotificationSource = Source.Farcaster | Source.Lens;
+export type DiscoverSource = Source.Posts | Source.NFTs | Source.Article | Source.DAOs;
 export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.DAOs | Source.NFTs;
 export type FollowingSource = DiscoverSource | Source.Polymarket;
 export type ExploreSource = Source.Farcaster | Source.Lens | TrendingType;
@@ -408,4 +412,9 @@ export enum MintStatus {
     Ended = 4,
     Minted = 5,
     SoldOut = 6,
+}
+
+export enum HomeTab {
+    Discover = 'discover',
+    Following = 'following',
 }

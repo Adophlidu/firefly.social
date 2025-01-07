@@ -6,18 +6,37 @@ import { memo } from 'react';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
-import { getPostsSelector } from '@/helpers/getPostsSelector.js';
+import { SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
+import { getPostsSelector, getPostsSelectorWithoutSource } from '@/helpers/getPostsSelector.js';
+import { multiQueryPageable } from '@/helpers/multiQueryPageable.js';
 import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { sortMultiSourcePosts } from '@/helpers/sortMultiSourcePosts.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
-async function discoverPosts(source: SocialSource, indicator: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+async function discoverPosts(
+    source: SocialSource | Source.Posts,
+    indicator: PageIndicator,
+): Promise<Pageable<Post, PageIndicator>> {
+    if (source === Source.Posts) {
+        const pageable = await multiQueryPageable(
+            SOCIAL_DISCOVER_SOURCE,
+            async (source, indicatorId) => {
+                return resolveSocialMediaProvider(source).discoverPosts(createIndicator(undefined, indicatorId ?? ''));
+            },
+            indicator,
+        );
+        return {
+            ...pageable,
+            data: sortMultiSourcePosts(pageable.data),
+        };
+    }
     const provider = resolveSocialMediaProvider(source);
     return provider.discoverPosts(indicator);
 }
 
-export const DiscoverPostList = memo<{ source: SocialSource }>(function DiscoverPostList({ source }) {
+export const DiscoverPostList = memo<{ source: SocialSource | Source.Posts }>(function DiscoverPostList({ source }) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'discover'],
@@ -30,7 +49,10 @@ export const DiscoverPostList = memo<{ source: SocialSource }>(function Discover
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: getPostsSelector(source),
+        select: (data) => {
+            if (source === Source.Posts) return getPostsSelectorWithoutSource(data);
+            return getPostsSelector(source)(data);
+        },
     });
 
     return (

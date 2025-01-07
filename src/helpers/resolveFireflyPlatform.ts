@@ -16,6 +16,7 @@ export const resolveFireflyPlatform = createLookupTableResolver<Source, FireflyP
         [Source.Telegram]: null,
         [Source.Google]: null,
         [Source.Apple]: null,
+        [Source.Posts]: null,
     },
     (source) => {
         throw new UnreachableError('source', source);

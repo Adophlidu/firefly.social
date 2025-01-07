@@ -45,7 +45,7 @@ export function NFTDetailPage({ chainId, address, tokenId }: { chainId: ChainId;
             <div className="space-y-4 px-4 py-3">
                 <NFTInfo
                     imageURL={data.metadata.imageURL ?? ''}
-                    video={data.metadata.video}
+                    video={data.metadata?.video}
                     name={data.metadata.name ?? ''}
                     tokenId={data.metadata.tokenId ?? ''}
                     ownerAddress={data.contract?.schema === SchemaType.ERC1155 ? undefined : data.owner?.address}

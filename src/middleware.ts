@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse, userAgent } from 'next/server.js';
 import urlcat from 'urlcat';
 
-import { DEFAULT_SOCIAL_SOURCE, SITE_URL } from '@/constants/index.js';
+import { HomeTab, Source } from '@/constants/enum.js';
+import { SITE_URL } from '@/constants/index.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
-import { isMatchedDiscoverPage } from '@/helpers/isMatchedDiscoverPage.js';
 import { parseOldDiscoverUrl } from '@/helpers/parseDiscoverUrl.js';
 import { parseOldEngagementUrl } from '@/helpers/parseEngagementUrl.js';
 import { parseOldBookmarkUrl } from '@/helpers/parseOldBookmarkUrl.js';
@@ -18,6 +18,7 @@ import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { resolveEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
+import { resolveHomeUrl } from '@/helpers/resolveHomeUrl.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
@@ -33,13 +34,7 @@ export async function middleware(request: NextRequest) {
     }
 
     if (pathname === '/') {
-        return NextResponse.redirect(new URL(resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE), request.url));
-    }
-
-    if (isMatchedDiscoverPage(pathname)) {
-        return NextResponse.rewrite(new URL(`/discover${pathname}`, request.url), {
-            request,
-        });
+        return NextResponse.redirect(new URL(resolveHomeUrl(HomeTab.Discover, Source.Posts), request.url));
     }
 
     const parsedOldDiscoverUrl = parseOldDiscoverUrl(request.nextUrl);

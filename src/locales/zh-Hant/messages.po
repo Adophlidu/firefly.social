@@ -138,7 +138,7 @@ msgid "Communities"
 msgstr "社群"
 
 msgid "Discover"
-msgstr "發現"
+msgstr ""
 
 msgid "Ask a question"
 msgstr "提問"
@@ -1020,7 +1020,7 @@ msgstr ""
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Follow more friends to continue exploring on {0}."
-msgstr "追蹤更多朋友 以繼續探索 {0}"
+msgstr ""
 
 msgid "No fake KYC involved."
 msgstr ""
@@ -1057,7 +1057,7 @@ msgid "<0>Sold</0> an NFT"
 msgstr "<0>已售賣</0>一個 NFT"
 
 msgid "Follow System"
-msgstr "預設"
+msgstr ""
 
 msgid "Failed to mirror."
 msgstr "鏡像失敗"
@@ -1482,7 +1482,7 @@ msgid "Mint NFT"
 msgstr ""
 
 msgid "Follow"
-msgstr "追蹤"
+msgstr ""
 
 msgid "Sorry, this wallet is already linked to another Firefly account. Please try a different one."
 msgstr ""
@@ -1836,7 +1836,7 @@ msgid "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>@{2}</2> on {3}"
 msgstr ""
 
 msgid "Follow Back"
-msgstr "立即回關"
+msgstr ""
 
 msgid "Are you sure you want to report this article?"
 msgstr "是否確定要檢舉這篇文章？"
@@ -2434,7 +2434,7 @@ msgid "Available Balance"
 msgstr ""
 
 msgid "Follow @thefireflyapp on X"
-msgstr "在 X 上追蹤@thefireflyapp"
+msgstr ""
 
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr ""
@@ -2655,7 +2655,7 @@ msgid "POAPs"
 msgstr "POAPs"
 
 msgid "Follow @realMaskNetwork on X"
-msgstr "在 X 上跟隨 @realMaskNetwork"
+msgstr ""
 
 msgid "Leaving Firefly"
 msgstr "離開 Firefly"
@@ -2809,6 +2809,9 @@ msgid "Owner can change balance"
 msgstr ""
 
 msgid "Non-contract address found."
+msgstr ""
+
+msgid "Home"
 msgstr ""
 
 msgid "Confirm to disconnect this account from Firefly’s social graph?"
@@ -3421,7 +3424,7 @@ msgstr "移除"
 
 #. placeholder {0}: author.handle
 msgid "Follow @{0}"
-msgstr "追蹤 @{0}"
+msgstr ""
 
 msgid "Cancel Recast"
 msgstr ""

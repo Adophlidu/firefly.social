@@ -2811,6 +2811,9 @@ msgstr ""
 msgid "Non-contract address found."
 msgstr ""
 
+msgid "Home"
+msgstr ""
+
 msgid "Confirm to disconnect this account from Firefly’s social graph?"
 msgstr ""
 

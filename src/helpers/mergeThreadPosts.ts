@@ -7,7 +7,7 @@ import { isSamePost } from '@/helpers/isSamePost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
-function mergeThreadPostsFOrTweet(posts: Post[]) {
+function mergeThreadPostsForTweet(posts: Post[]) {
     const record = new Set();
     const filtered = posts.filter((post) => {
         if (post.type !== 'Comment') return true;
@@ -132,9 +132,128 @@ export function mergeThreadPosts(source: SocialSource, posts: Post[]): Post[] {
         case Source.Farcaster:
             return mergeThreadPostsForFarcaster(posts);
         case Source.Twitter:
-            return mergeThreadPostsFOrTweet(posts);
+            return mergeThreadPostsForTweet(posts);
         default:
             safeUnreachable(source);
             return posts;
     }
+}
+
+export function mergeThreadPostsWithoutSource(posts: Post[]): Post[] {
+    const record = new Set();
+    const threads = compact(
+        posts.map((x) =>
+            x.threads?.length && x.threads.length >= MIN_POST_SIZE_PER_THREAD - 1 && x.type !== 'Mirror'
+                ? x
+                : undefined,
+        ),
+    );
+    const filtered = posts.filter((post, index, arr) => {
+        switch (post.source) {
+            case Source.Twitter: {
+                if (post.type !== 'Comment') return true;
+                if (record.has(post.postId) || record.has(post.commentOn?.postId) || record.has(post.postId))
+                    return false;
+
+                if (
+                    post.root &&
+                    isSameProfile(post.commentOn?.author, post.author) &&
+                    isSameProfile(post.author, post.root.author) &&
+                    !record.has(post.root.postId)
+                ) {
+                    record.add(post.root.postId);
+                    return true;
+                }
+
+                return true;
+            }
+            case Source.Farcaster: {
+                if (post.type !== 'Comment') return true;
+                if (
+                    (post.root?.postId &&
+                        threads.some(
+                            (thread) => isSamePost(thread, post.root) && isSameProfile(thread.author, post.author),
+                        )) ||
+                    (post.commentOn?.postId &&
+                        threads.some(
+                            (thread) => isSamePost(thread, post.commentOn) && isSameProfile(thread.author, post.author),
+                        ))
+                )
+                    return false;
+
+                return true;
+            }
+            case Source.Lens: {
+                if (post.type !== 'Comment') return true;
+
+                if (
+                    !post.root &&
+                    isSameProfile(post.author, post.commentOn?.author) &&
+                    arr.some((x) => isSamePost(x.root, post.commentOn))
+                )
+                    return false;
+
+                return true;
+            }
+            default:
+                safeUnreachable(post.source);
+                return true;
+        }
+    });
+
+    return uniqBy(filtered, (x) => {
+        if (x.type === 'Mirror') return `Mirror:${x.publicationId}`;
+        if (x.type !== 'Comment' || !x.root) return x.publicationId;
+
+        return x.root.publicationId;
+    }).map((post) => {
+        switch (post.source) {
+            case Source.Twitter: {
+                if (record.has(post.root?.postId))
+                    return {
+                        ...post,
+                        isThread: true,
+                    };
+
+                return post;
+            }
+            case Source.Farcaster: {
+                if (
+                    post.threads?.length &&
+                    post.threads.length >= MIN_POST_SIZE_PER_THREAD - 1 &&
+                    post.type !== 'Mirror'
+                ) {
+                    const current = post.threads.length === 2 ? last(post.threads) : first(post.threads);
+                    const parent = post.threads.length === 2 ? first(post.threads) : undefined;
+                    if (!current) return post;
+                    return {
+                        ...current,
+                        isThread: true,
+                        commentOn: parent,
+                        root: post,
+                    };
+                }
+
+                return post;
+            }
+            case Source.Lens: {
+                if (
+                    post.type === 'Comment' &&
+                    isSamePost(post.firstComment, post) &&
+                    isSameProfile(post.commentOn?.author, post.author) &&
+                    isSameProfile(post.root?.author, post.author)
+                ) {
+                    return {
+                        ...post,
+                        isThread: true,
+                    };
+                }
+
+                return post;
+            }
+            default:
+                safeUnreachable(post.source);
+                return post;
+        }
+    });
 }

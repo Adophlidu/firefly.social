@@ -23,6 +23,7 @@ export function getStampAvatarByProfileId(source: Source, profileId: string) {
         case Source.Telegram:
         case Source.Google:
         case Source.Apple:
+        case Source.Posts:
             return '';
         default:
             safeUnreachable(source);

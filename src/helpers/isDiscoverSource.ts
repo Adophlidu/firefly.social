@@ -2,7 +2,7 @@ import { type DiscoverSource, type SocialDiscoverSource } from '@/constants/enum
 import { DISCOVER_SOURCES, SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
 
 export function isDiscoverSource(source: string): source is DiscoverSource {
-    return DISCOVER_SOURCES.includes(source as SocialDiscoverSource);
+    return (DISCOVER_SOURCES as string[]).includes(source);
 }
 
 export function isSocialDiscoverSource(source: string): source is SocialDiscoverSource {

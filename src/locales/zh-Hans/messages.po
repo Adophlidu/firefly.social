@@ -138,7 +138,7 @@ msgid "Communities"
 msgstr "社区"
 
 msgid "Discover"
-msgstr "发现"
+msgstr ""
 
 msgid "Ask a question"
 msgstr "询问"
@@ -546,7 +546,7 @@ msgstr "收起"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Follow <0>@{handle}</0> on {0}"
-msgstr "在 {0} 上关注 <0>@{handle}</0>"
+msgstr ""
 
 msgid "Proxy contract."
 msgstr "代理合约。"
@@ -711,7 +711,7 @@ msgid "Only up to 2 images can be chosen."
 msgstr "至多可以选择 2 张图片。"
 
 msgid "Follow to Collect"
-msgstr "关注并且收集"
+msgstr ""
 
 msgid "This message is a e2e encrypted message. You can only decrypt this message when it is encrypted to you and decrypt it with Mask Network extension."
 msgstr "这条消息是端到端加密的消息。只有当它被加密发送给您时，您才能解密，并使用 Mask Network 插件进行解密。"
@@ -1020,7 +1020,7 @@ msgstr "[照片]"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Follow more friends to continue exploring on {0}."
-msgstr "在 {0} 上去关注更多的人来继续浏览吧。"
+msgstr ""
 
 msgid "No fake KYC involved."
 msgstr "不涉及虚假 KYC。"
@@ -1057,7 +1057,7 @@ msgid "<0>Sold</0> an NFT"
 msgstr "<0>出售</0> 一个 NFT"
 
 msgid "Follow System"
-msgstr "跟随系统"
+msgstr ""
 
 msgid "Failed to mirror."
 msgstr "转帖失败。"
@@ -1482,7 +1482,7 @@ msgid "Mint NFT"
 msgstr ""
 
 msgid "Follow"
-msgstr "关注"
+msgstr ""
 
 msgid "Sorry, this wallet is already linked to another Firefly account. Please try a different one."
 msgstr "抱歉，此钱包已链接到另一个 Firefly 账户。请尝试使用其他钱包。"
@@ -1578,7 +1578,7 @@ msgid "[Poll]"
 msgstr "[投票]"
 
 msgid "Allow Follow Module"
-msgstr "允许关注"
+msgstr ""
 
 msgid "Allow replies from"
 msgstr "允许回复"
@@ -1836,7 +1836,7 @@ msgid "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>@{2}</2> on {3}"
 msgstr ""
 
 msgid "Follow Back"
-msgstr "回关"
+msgstr ""
 
 msgid "Are you sure you want to report this article?"
 msgstr "您确定要举报这篇文章吗？"
@@ -1941,7 +1941,7 @@ msgid "{0} followings owned"
 msgstr ""
 
 msgid "Follow me"
-msgstr "关注我"
+msgstr ""
 
 #. placeholder {0}: resolveSourceName(source)
 #. placeholder {0}: resolveSourceName(post.source)
@@ -2035,7 +2035,7 @@ msgid "Unverified"
 msgstr "未验证"
 
 msgid "Follow for {feeAmount} ${feeSymbol}"
-msgstr "关注需付出 {feeAmount} ${feeSymbol}"
+msgstr ""
 
 #. placeholder {0}: profile.handle
 msgid "Posts from @{0} will now be hidden in your home timeline"
@@ -2119,7 +2119,7 @@ msgid "Your schedule thread has created successfully."
 msgstr "你设定的定时 thread 已经成功。"
 
 msgid "Super Follow"
-msgstr "超级关注"
+msgstr ""
 
 msgid "Cryptocurrency mixer found."
 msgstr "发现加密货币混合器。"
@@ -2434,7 +2434,7 @@ msgid "Available Balance"
 msgstr "可用余额"
 
 msgid "Follow @thefireflyapp on X"
-msgstr "在 X 上关注 @thefireflyapp"
+msgstr ""
 
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr "从公开可验证数据注册表中或我们的实体算法中检索到的钱包可以被举报从而断开连接。"
@@ -2655,7 +2655,7 @@ msgid "POAPs"
 msgstr "POAPs"
 
 msgid "Follow @realMaskNetwork on X"
-msgstr "在 X 上关注 @realMaskNetwork"
+msgstr ""
 
 msgid "Leaving Firefly"
 msgstr "即将离开 Firefly"
@@ -2810,6 +2810,9 @@ msgstr "所有者可以更改余额"
 
 msgid "Non-contract address found."
 msgstr "发现非合约地址。"
+
+msgid "Home"
+msgstr ""
 
 msgid "Confirm to disconnect this account from Firefly’s social graph?"
 msgstr "确认将此账户从 Firefly 的社交图谱中断开连接吗？"
@@ -3421,7 +3424,7 @@ msgstr "移除"
 
 #. placeholder {0}: author.handle
 msgid "Follow @{0}"
-msgstr "关注 @{0}"
+msgstr ""
 
 msgid "Cancel Recast"
 msgstr "取消转帖"
