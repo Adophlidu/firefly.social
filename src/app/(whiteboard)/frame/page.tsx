@@ -79,10 +79,12 @@ export default function Page(props: Props) {
             ethProvider: createEIP1193Provider(async function request<T>(requestArguments: RequestArguments) {
                 const { method, params } = requestArguments;
                 switch (method) {
-                    case EthereumMethodType.ETH_REQUEST_ACCOUNTS:
-                        return fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
+                    case EthereumMethodType.ETH_REQUEST_ACCOUNTS: {
+                        const account = await fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
                             type: Network.EVM,
                         });
+                        return [account];
+                    }
                     case EthereumMethodType.ETH_SIGN_TRANSACTION: {
                         const transaction = params[0] as Transaction;
                         return fireflyBridgeProvider.request(SupportedMethod.SIGN_TRANSACTION, transaction);
