@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import type { ImageProps as NextImageProps } from 'next/image.js';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 
 import { Image as NextImage } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -25,6 +25,7 @@ export interface AvatarProps extends Omit<NextImageProps, 'src'> {
 
 export const Avatar = memo(function Avatar({ src, size, className, fallbackUrl, ...rest }: AvatarProps) {
     const isDarkMode = useIsDarkMode();
+    const [hasError, setHasError] = useState(false);
 
     const isNormalUrl = !!src && !src.startsWith('data:image/') && !isDomainOrSubdomainOf(src, 'warpcast.com');
     const { data: url } = useQuery({
@@ -34,7 +35,7 @@ export const Avatar = memo(function Avatar({ src, size, className, fallbackUrl, 
     });
 
     const defaultFallbackUrl = isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
-    const imageSrc = (isNormalUrl ? url : src) || src || defaultFallbackUrl;
+    const imageSrc = hasError ? defaultFallbackUrl : (isNormalUrl ? url : src) || src || defaultFallbackUrl;
 
     return (
         <NextImage
@@ -52,6 +53,7 @@ export const Avatar = memo(function Avatar({ src, size, className, fallbackUrl, 
             width={size}
             height={size}
             alt={rest.alt}
+            onError={() => setHasError(true)}
         />
     );
 });
