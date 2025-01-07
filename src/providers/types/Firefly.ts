@@ -287,7 +287,14 @@ export type CastsResponse = Response<{
     cursor: string;
 }>;
 
-export type SearchCastsResponse = Response<Cast[]>;
+export type SearchCastsResponse = Response<
+    | Cast[]
+    | {
+          casts: Cast[];
+          currentPage: number;
+          pageSize: string;
+      }
+>;
 
 export type SearchProfileResponse = Response<{
     list: Array<Record<SocialSourceInURL | 'eth' | 'solana' | 'ens', Profile[] | null>>;

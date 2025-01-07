@@ -750,16 +750,25 @@ export class FireflySocialMedia implements Provider {
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const { handle, content } = resolveSearchKeyword(q);
         return farcasterSessionHolder.withSession(async (session) => {
+            const page = indicator?.id || '1';
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/search', {
                 keyword: content,
                 fidHandle: handle,
                 limit: 25,
                 sourceFid: session?.profileId,
+                page,
             });
             const response = await fireflySessionHolder.fetch<SearchCastsResponse>(url);
-            const casts = resolveFireflyResponseData(response);
-            const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
-            return createPageable(await Promise.all(data), createIndicator(indicator), undefined);
+            const data = resolveFireflyResponseData(response);
+            const casts = Array.isArray(data) ? data : data.casts;
+            const result = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
+            return createPageable(
+                await Promise.all(result),
+                createIndicator(indicator),
+                !Array.isArray(data) && casts.length === 25
+                    ? createNextIndicator(indicator, `${+page + 1}`)
+                    : undefined,
+            );
         });
     }
 
