@@ -53,7 +53,7 @@ export function Title({
 
     const comeback = useComeBack();
     const { identity: cachedIdentity } = useFireflyIdentityState();
-    const identity = cachedIdentity.id ? cachedIdentity : fallbackIdentity || cachedIdentity;
+    const identity = fallbackIdentity?.id ? fallbackIdentity : cachedIdentity;
 
     const isOthersProfile = !currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
 
