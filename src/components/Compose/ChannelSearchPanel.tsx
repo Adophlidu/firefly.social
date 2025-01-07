@@ -1,4 +1,4 @@
-import { Popover, Transition } from '@headlessui/react';
+import { PopoverPanel, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { Fragment, type HTMLProps, useState } from 'react';
 
@@ -9,6 +9,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isSameChannel } from '@/helpers/isSameChannel.js';
@@ -21,16 +22,17 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ChannelSearchPanelProps extends HTMLProps<HTMLDivElement> {
     onSelected?: () => void;
+    source: SocialSource;
 }
 
-export function ChannelSearchPanel({ onSelected, className, ...rest }: ChannelSearchPanelProps) {
+export function ChannelSearchPanel({ onSelected, className, source, ...rest }: ChannelSearchPanelProps) {
     const isMedium = useIsMedium();
 
     const [inputText, setInputText] = useState('');
     const { updateChannel } = useComposeStateStore();
     const { channel: selectedChannel, typedMessage } = useCompositePost();
 
-    const { data, isLoading, isError } = useSearchChannels(inputText, hasRpPayload(typedMessage) ?? false);
+    const { data, isLoading, isError } = useSearchChannels(inputText, source, hasRpPayload(typedMessage) ?? false);
 
     const InputBox = (
         <div className="relative mx-0 flex h-10 flex-grow items-center rounded-xl bg-lightBg px-3 text-main md:mx-3">
@@ -130,9 +132,13 @@ export function ChannelSearchPanel({ onSelected, className, ...rest }: ChannelSe
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0 translate-y-1"
             >
-                <Popover.Panel className="absolute bottom-full right-0 z-10 w-[350px] -translate-y-3 rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none">
+                <PopoverPanel
+                    portal
+                    anchor="top"
+                    className="absolute bottom-full right-0 z-10 w-[350px] -translate-y-3 rounded-lg bg-lightBottom py-3 text-medium shadow-popover [--anchor-max-height:256px] dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:[--anchor-max-height:256px]"
+                >
                     {content}
-                </Popover.Panel>
+                </PopoverPanel>
             </Transition>
         );
 

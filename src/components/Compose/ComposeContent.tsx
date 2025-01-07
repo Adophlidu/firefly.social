@@ -22,7 +22,7 @@ export function ComposeContent(props: ComposeContentProps) {
     const replying = type === 'reply' && !!post;
 
     return (
-        <div className="relative flex flex-1 flex-col">
+        <div className="relative flex flex-1 flex-col md:min-h-[288px]">
             {replying ? <Reply post={post} compositePost={props.post} /> : null}
 
             {!replying ? (

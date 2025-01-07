@@ -4,7 +4,7 @@ import { first } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
+import { ORB_CLUB_TAG_PREFIX, SITE_URL } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
@@ -14,6 +14,7 @@ import { uploadVideoCover } from '@/helpers/uploadVideoCover.js';
 import { LensPollProvider } from '@/providers/lens/Poll.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
@@ -30,6 +31,7 @@ interface BaseMetadata {
         description: string;
         external_url: string;
     };
+    tags?: string[];
 }
 
 interface Attachments {
@@ -163,6 +165,7 @@ async function publishPostForLens(
     content: string,
     images: MediaObject[],
     video: MediaObject | null,
+    channel?: Channel | null,
 ) {
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
     const title = `Post by #${profile.handle}`;
@@ -175,6 +178,7 @@ async function publishPostForLens(
                 description: content,
                 external_url: SITE_URL,
             },
+            tags: channel ? [`${ORB_CLUB_TAG_PREFIX}${channel.id}`] : undefined,
         },
         await createPayloadAttachments(images, video),
     );
@@ -261,7 +265,7 @@ async function quotePostForLens(
 }
 
 export async function postToLens(type: ComposeType, compositePost: CompositePost, signal?: AbortSignal) {
-    const { chars, images, postId, parentPost, video, poll } = compositePost;
+    const { chars, images, postId, parentPost, video, poll, channel } = compositePost;
 
     const lensPostId = postId.Lens;
     const lensParentPost = parentPost.Lens;
@@ -301,7 +305,13 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         },
         compose(images, videos) {
             const video = first(videos) ?? null;
-            return publishPostForLens(currentProfile.profileId, readChars(chars, 'both', Source.Lens), images, video);
+            return publishPostForLens(
+                currentProfile.profileId,
+                readChars(chars, 'both', Source.Lens),
+                images,
+                video,
+                channel[Source.Lens],
+            );
         },
         reply(images, videos) {
             if (!lensParentPost) throw new Error(t`No parent post found.`);

@@ -192,9 +192,6 @@ msgstr ""
 msgid "Display Name"
 msgstr ""
 
-msgid "Debug Connection"
-msgstr ""
-
 msgid "Blackmail activities found."
 msgstr ""
 
@@ -419,9 +416,6 @@ msgid "The minimum amount for each share is {0} {1}"
 msgstr ""
 
 msgid "Trending Channels"
-msgstr ""
-
-msgid "Debug Console"
 msgstr ""
 
 msgid "Profile Switched"
@@ -1419,6 +1413,10 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr ""
 
+#. placeholder {0}: posts.length
+msgid "{0, plural, one {Send} other {Send}}"
+msgstr ""
+
 msgid "<0>Revised</0><1>an article on <2/></1>"
 msgstr ""
 
@@ -1573,9 +1571,6 @@ msgid "[Poll]"
 msgstr ""
 
 msgid "Allow Follow Module"
-msgstr ""
-
-msgid "Allow replies from"
 msgstr ""
 
 msgid "No one likes this post yet."
@@ -1850,6 +1845,9 @@ msgid "<0>Acquired</0> an NFT"
 msgstr ""
 
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
+msgstr ""
+
+msgid "Post your reply"
 msgstr ""
 
 msgid "View on Explorer"
@@ -2307,10 +2305,6 @@ msgid "Random Split"
 msgstr ""
 
 msgid "Remove Poll"
-msgstr ""
-
-#. placeholder {0}: posts.length
-msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
 
 msgid "Minutes"
@@ -2888,6 +2882,9 @@ msgstr ""
 msgid "<0>Sold</0><1/>"
 msgstr ""
 
+msgid "Everyone can reply"
+msgstr ""
+
 msgid "Failed to create scheduled post."
 msgstr ""
 
@@ -3048,9 +3045,6 @@ msgid "Money laundering found."
 msgstr ""
 
 msgid "Log out all"
-msgstr ""
-
-msgid "LuckyDrop"
 msgstr ""
 
 #. placeholder {0}: firstProfile.displayName
@@ -3299,9 +3293,6 @@ msgid "News"
 msgstr ""
 
 msgid "NFT ID"
-msgstr ""
-
-msgid "Farcaster channel"
 msgstr ""
 
 msgid "Failed to send tip. Please try again later."

@@ -1,4 +1,4 @@
-import { Popover, Transition } from '@headlessui/react';
+import { PopoverPanel, Transition } from '@headlessui/react';
 import { uniq } from 'lodash-es';
 import { Fragment, useMemo } from 'react';
 
@@ -26,7 +26,7 @@ export function PostBy(props: PostByProps) {
     }, [availableSources, images, poll, type]);
 
     const content = (
-        <div>
+        <div className="no-scrollbar flex max-h-[275px] flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[370px]">
             {SORTED_SOCIAL_SOURCES.map((source, index) => (
                 <PostByItem key={source} source={source} disabled={postByDisabled[index]} />
             ))}
@@ -46,9 +46,15 @@ export function PostBy(props: PostByProps) {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0 translate-y-1"
             >
-                <Popover.Panel className="no-scrollbar absolute bottom-full right-0 z-10 flex max-h-[275px] w-[280px] -translate-y-3 flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[370px]">
+                <PopoverPanel
+                    anchor="right"
+                    portal
+                    modal
+                    static
+                    className="absolute bottom-full right-0 z-10 !min-h-0 w-[280px] -translate-y-3 [--anchor-max-height:275px] md:[--anchor-max-height:370px]"
+                >
                     {content}
-                </Popover.Panel>
+                </PopoverPanel>
             </Transition>
         );
     return content;

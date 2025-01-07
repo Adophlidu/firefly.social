@@ -10,7 +10,7 @@ interface ReplyRestrictionTextProps {
 export function ReplyRestrictionText({ type }: ReplyRestrictionTextProps) {
     switch (type) {
         case RestrictionType.Everyone:
-            return <Trans>Everyone</Trans>;
+            return <Trans>Everyone can reply</Trans>;
         case RestrictionType.OnlyPeopleYouFollow:
             return <Trans>Only people you follow</Trans>;
         case RestrictionType.MentionedProfiles:

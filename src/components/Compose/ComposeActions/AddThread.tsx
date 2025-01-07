@@ -1,0 +1,55 @@
+import { t } from '@lingui/core/macro';
+import { memo } from 'react';
+
+import AddThreadIcon from '@/assets/add-thread.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
+import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
+import { Tooltip } from '@/components/Tooltip.js';
+import { MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
+import { measureChars } from '@/helpers/chars.js';
+import { useCompositePost } from '@/hooks/useCompositePost.js';
+import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
+
+export const AddThread = memo(function AddThread() {
+    const post = useCompositePost();
+    const { type, posts, addPostInThread } = useComposeStateStore();
+
+    const { usedLength, availableLength } = measureChars(post);
+
+    const setEditorContent = useSetEditorContent();
+
+    const hasThread = (post.images.length > 0 || usedLength) && type === 'compose';
+
+    return (
+        <>
+            {usedLength && post.availableSources.length ? (
+                <div className="flex items-center gap-[10px] whitespace-nowrap text-medium text-main">
+                    <CountdownCircle width={24} height={24} className="flex-shrink-0" />
+                    <span className={usedLength > availableLength ? 'text-danger' : ''}>
+                        {usedLength} / {availableLength}
+                    </span>
+                </div>
+            ) : null}
+
+            {hasThread ? (
+                <ClickableButton
+                    className="text-main"
+                    disabled={posts.length >= MAX_POST_SIZE_PER_THREAD}
+                    onClick={() => {
+                        addPostInThread();
+                        setEditorContent('');
+                    }}
+                >
+                    {posts.length >= MAX_POST_SIZE_PER_THREAD ? (
+                        <AddThreadIcon width={24} height={24} className="text-highlight outline-none" />
+                    ) : (
+                        <Tooltip content={t`Add`} placement="top">
+                            <AddThreadIcon width={24} height={24} className="text-highlight outline-none" />
+                        </Tooltip>
+                    )}
+                </ClickableButton>
+            ) : null}
+        </>
+    );
+});

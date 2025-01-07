@@ -1,5 +1,5 @@
-import { Popover } from '@headlessui/react';
-import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import { Popover, PopoverButton } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { memo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -31,10 +31,12 @@ export const PlatformAction = memo(function PlatformAction({ hasError }: ActionP
                 {availableSources
                     .filter((x) => !!currentProfileAll[x] && SORTED_SOCIAL_SOURCES.includes(x))
                     .map((y) => (
-                        <SocialSourceIcon key={y} source={y} size={20} />
+                        <SocialSourceIcon key={y} source={y} size={14} />
                     ))}
             </span>
-            {type === 'compose' && !hasError ? <ChevronRightIcon className="h-5 w-5" aria-hidden="true" /> : null}
+            {type === 'compose' && !hasError ? (
+                <ChevronDownIcon className="h-4 w-4 text-secondary" aria-hidden="true" />
+            ) : null}
         </>
     );
 
@@ -43,12 +45,12 @@ export const PlatformAction = memo(function PlatformAction({ hasError }: ActionP
     if (isMedium)
         return (
             <Popover as="div" className="relative">
-                <Popover.Button
-                    className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-default"
+                <PopoverButton
+                    className="flex cursor-pointer items-center gap-1 text-main focus:outline-none disabled:cursor-default"
                     disabled={disabled}
                 >
                     {buttonContent}
-                </Popover.Button>
+                </PopoverButton>
                 <PostBy />
             </Popover>
         );

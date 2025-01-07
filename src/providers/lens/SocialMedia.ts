@@ -155,8 +155,21 @@ export class LensSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getChannelsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new NotImplementedError();
+    async getChannelsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Channel, PageIndicator>> {
+        const response = await OrbClubProvider.fetchClubs({
+            profile_id: profileId,
+            limit: 20,
+            skip: indicator?.id ? parseInt(indicator.id, 10) : undefined,
+        });
+
+        return createPageable(
+            response?.items.map(formatOrbClubToChannel) ?? EMPTY_LIST,
+            createIndicator(indicator),
+            response?.pageInfo.next ? createNextIndicator(indicator, `${response.pageInfo.next}`) : undefined,
+        );
     }
 
     discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
@@ -186,6 +199,8 @@ export class LensSocialMedia implements Provider {
         const response = await OrbClubProvider.fetchClubs({
             query: q,
             profile_id: profile?.profileId,
+            limit: 20,
+            skip: indicator?.id ? parseInt(indicator.id, 10) : undefined,
         });
 
         return createPageable(

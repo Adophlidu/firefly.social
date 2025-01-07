@@ -5,7 +5,6 @@ import { useAsyncFn } from 'react-use';
 
 import { ComposeActions } from '@/components/Compose/ComposeActions/index.js';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
-import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.js';
 import { SchedulePostEntryButton } from '@/components/Compose/SchedulePostEntryButton.js';
 import { UploadDropArea } from '@/components/Compose/UploadDropArea.js';
@@ -87,7 +86,7 @@ export const ComposeUI = memo(function ComposeUI() {
                 )}
             >
                 <UploadDropArea
-                    className="flex h-full flex-1 flex-col overflow-y-auto overflow-x-hidden rounded-lg border bg-bg px-4 py-[14px]"
+                    className="flex h-full flex-1 flex-col overflow-y-auto overflow-x-hidden rounded-lg border bg-bg p-[14px]"
                     loading={loading}
                     onDropFiles={handleDropFiles}
                 >
@@ -99,8 +98,6 @@ export const ComposeUI = memo(function ComposeUI() {
             </div>
 
             <ComposeActions />
-
-            {isMedium ? <ComposeSend /> : null}
         </>
     );
 });

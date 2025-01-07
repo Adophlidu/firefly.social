@@ -197,9 +197,6 @@ msgstr "该空间不存在。"
 msgid "Display Name"
 msgstr "显示名称"
 
-msgid "Debug Connection"
-msgstr "诊断网络"
-
 msgid "Blackmail activities found."
 msgstr "发现勒索行为。"
 
@@ -425,9 +422,6 @@ msgstr "每个份额的最小金额为 {0} {1}"
 
 msgid "Trending Channels"
 msgstr "流行频道"
-
-msgid "Debug Console"
-msgstr "诊断命令行"
 
 msgid "Profile Switched"
 msgstr "已切换个人资料"
@@ -1424,6 +1418,10 @@ msgstr "打开 Firefly App"
 msgid "Privacy Policy"
 msgstr "隐私条款"
 
+#. placeholder {0}: posts.length
+msgid "{0, plural, one {Send} other {Send}}"
+msgstr ""
+
 msgid "<0>Revised</0><1>an article on <2/></1>"
 msgstr "<0>更新</0><1>一篇文章于 <2/></1>"
 
@@ -1579,9 +1577,6 @@ msgstr "[投票]"
 
 msgid "Allow Follow Module"
 msgstr ""
-
-msgid "Allow replies from"
-msgstr "允许回复"
 
 msgid "No one likes this post yet."
 msgstr "还未有人点赞。"
@@ -1856,6 +1851,9 @@ msgstr "<0>获取</0> 一个 NFT"
 
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
 msgstr "确认断开此账户及相关钱包与 Firefly 社交图谱的连接吗？"
+
+msgid "Post your reply"
+msgstr ""
 
 msgid "View on Explorer"
 msgstr "在 Explorer 上查看"
@@ -2313,10 +2311,6 @@ msgstr "随机金额"
 
 msgid "Remove Poll"
 msgstr "删除投票"
-
-#. placeholder {0}: posts.length
-msgid "{0, plural, one {Post} other {Post All}}"
-msgstr "{0, plural, one {发帖} other {全部发帖}}"
 
 msgid "Minutes"
 msgstr "分钟"
@@ -2893,6 +2887,9 @@ msgstr "帖子将在 {1} {0} 上发送 <0>查看</0>"
 msgid "<0>Sold</0><1/>"
 msgstr "<0>出售</0><1/>"
 
+msgid "Everyone can reply"
+msgstr ""
+
 msgid "Failed to create scheduled post."
 msgstr "创建定时任务失败"
 
@@ -3054,9 +3051,6 @@ msgstr "被识别为洗钱。"
 
 msgid "Log out all"
 msgstr "登出所有"
-
-msgid "LuckyDrop"
-msgstr "红包"
 
 #. placeholder {0}: firstProfile.displayName
 msgid "{0} and others"
@@ -3305,9 +3299,6 @@ msgstr "新闻"
 
 msgid "NFT ID"
 msgstr "NFT ID"
-
-msgid "Farcaster channel"
-msgstr "Farcaster 频道"
 
 msgid "Failed to send tip. Please try again later."
 msgstr "打赏失败，请稍后重试。"

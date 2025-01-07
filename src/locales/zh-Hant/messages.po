@@ -197,9 +197,6 @@ msgstr ""
 msgid "Display Name"
 msgstr "展示姓名"
 
-msgid "Debug Connection"
-msgstr "除錯連接"
-
 msgid "Blackmail activities found."
 msgstr ""
 
@@ -425,9 +422,6 @@ msgstr ""
 
 msgid "Trending Channels"
 msgstr "熱門頻道"
-
-msgid "Debug Console"
-msgstr ""
 
 msgid "Profile Switched"
 msgstr ""
@@ -1424,6 +1418,10 @@ msgstr "在 Firefly 應用程式中打開"
 msgid "Privacy Policy"
 msgstr "隱私政策"
 
+#. placeholder {0}: posts.length
+msgid "{0, plural, one {Send} other {Send}}"
+msgstr ""
+
 msgid "<0>Revised</0><1>an article on <2/></1>"
 msgstr ""
 
@@ -1579,9 +1577,6 @@ msgstr "[投票]"
 
 msgid "Allow Follow Module"
 msgstr ""
-
-msgid "Allow replies from"
-msgstr "允許來自 的回覆"
 
 msgid "No one likes this post yet."
 msgstr "還沒有人按讚這條貼文"
@@ -1855,6 +1850,9 @@ msgid "<0>Acquired</0> an NFT"
 msgstr "<0>獲取了</0>一個 NFT"
 
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
+msgstr ""
+
+msgid "Post your reply"
 msgstr ""
 
 msgid "View on Explorer"
@@ -2313,10 +2311,6 @@ msgstr ""
 
 msgid "Remove Poll"
 msgstr "移除投票"
-
-#. placeholder {0}: posts.length
-msgid "{0, plural, one {Post} other {Post All}}"
-msgstr ""
 
 msgid "Minutes"
 msgstr "分鐘"
@@ -2893,6 +2887,9 @@ msgstr ""
 msgid "<0>Sold</0><1/>"
 msgstr ""
 
+msgid "Everyone can reply"
+msgstr ""
+
 msgid "Failed to create scheduled post."
 msgstr ""
 
@@ -3054,9 +3051,6 @@ msgstr ""
 
 msgid "Log out all"
 msgstr "退出所有登錄"
-
-msgid "LuckyDrop"
-msgstr ""
 
 #. placeholder {0}: firstProfile.displayName
 msgid "{0} and others"
@@ -3305,9 +3299,6 @@ msgstr "资讯"
 
 msgid "NFT ID"
 msgstr "NFT ID"
-
-msgid "Farcaster channel"
-msgstr "Farcaster 頻道"
 
 msgid "Failed to send tip. Please try again later."
 msgstr ""

@@ -192,9 +192,6 @@ msgstr "This space does not exist."
 msgid "Display Name"
 msgstr "Display Name"
 
-msgid "Debug Connection"
-msgstr "Debug Connection"
-
 msgid "Blackmail activities found."
 msgstr "Blackmail activities found."
 
@@ -420,9 +417,6 @@ msgstr "The minimum amount for each share is {0} {1}"
 
 msgid "Trending Channels"
 msgstr "Trending Channels"
-
-msgid "Debug Console"
-msgstr "Debug Console"
 
 msgid "Profile Switched"
 msgstr "Profile Switched"
@@ -1419,6 +1413,10 @@ msgstr "Open in Firefly App"
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
 
+#. placeholder {0}: posts.length
+msgid "{0, plural, one {Send} other {Send}}"
+msgstr "{0, plural, one {Send} other {Send}}"
+
 msgid "<0>Revised</0><1>an article on <2/></1>"
 msgstr "<0>Revised</0><1>an article on <2/></1>"
 
@@ -1574,9 +1572,6 @@ msgstr "[Poll]"
 
 msgid "Allow Follow Module"
 msgstr "Allow Follow Module"
-
-msgid "Allow replies from"
-msgstr "Allow replies from"
 
 msgid "No one likes this post yet."
 msgstr "No one likes this post yet."
@@ -1856,6 +1851,9 @@ msgstr "<0>Acquired</0> an NFT"
 
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
 msgstr "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
+
+msgid "Post your reply"
+msgstr "Post your reply"
 
 msgid "View on Explorer"
 msgstr "View on Explorer"
@@ -2313,10 +2311,6 @@ msgstr "Random Split"
 
 msgid "Remove Poll"
 msgstr "Remove Poll"
-
-#. placeholder {0}: posts.length
-msgid "{0, plural, one {Post} other {Post All}}"
-msgstr "{0, plural, one {Post} other {Post All}}"
 
 msgid "Minutes"
 msgstr "Minutes"
@@ -2893,6 +2887,9 @@ msgstr "Your post will be sent on {0} at {1} <0>View</0>"
 msgid "<0>Sold</0><1/>"
 msgstr "<0>Sold</0><1/>"
 
+msgid "Everyone can reply"
+msgstr "Everyone can reply"
+
 msgid "Failed to create scheduled post."
 msgstr "Failed to create scheduled post."
 
@@ -3054,9 +3051,6 @@ msgstr "Money laundering found."
 
 msgid "Log out all"
 msgstr "Log out all"
-
-msgid "LuckyDrop"
-msgstr "LuckyDrop"
 
 #. placeholder {0}: firstProfile.displayName
 msgid "{0} and others"
@@ -3305,9 +3299,6 @@ msgstr "News"
 
 msgid "NFT ID"
 msgstr "NFT ID"
-
-msgid "Farcaster channel"
-msgstr "Farcaster channel"
 
 msgid "Failed to send tip. Please try again later."
 msgstr "Failed to send tip. Please try again later."

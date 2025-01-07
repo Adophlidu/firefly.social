@@ -4,7 +4,6 @@ import { useDebounce } from 'usehooks-ts';
 
 import { FF_GARDEN_CHANNEL, HOME_CHANNEL } from '@/constants/channel.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_CHANNEL_SOURCES } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 
@@ -19,10 +18,14 @@ async function searchChannels(source: SocialSource, keyword: string, { hasRedPac
     const provider = resolveSocialMediaProvider(source);
     if (!keyword && profileId) {
         const profileChannels = await provider.getChannelsByProfileId(profileId);
-        const commonChannels = [
-            ...profileChannels.data.slice(0, PROFILE_CHANNELS_LIMIT),
-            ...(await provider.discoverChannels()).data,
-        ];
+        const commonChannels =
+            source === Source.Farcaster
+                ? [
+                      ...profileChannels.data.slice(0, PROFILE_CHANNELS_LIMIT),
+                      ...(await provider.discoverChannels()).data,
+                  ]
+                : profileChannels.data;
+
         if (source === Source.Farcaster) {
             return uniqBy(
                 compact([
@@ -44,19 +47,14 @@ async function searchChannels(source: SocialSource, keyword: string, { hasRedPac
     return response.data;
 }
 
-export function useSearchChannels(keyword: string, hasRedPacket: boolean) {
+export function useSearchChannels(keyword: string, source: SocialSource, hasRedPacket: boolean) {
     const debouncedKeyword = useDebounce(keyword, 300);
     const profiles = useCurrentProfileAll();
 
     return useQuery({
         queryKey: ['searchChannels', debouncedKeyword, `${hasRedPacket}`],
         queryFn: async () => {
-            const allSettled = await Promise.allSettled(
-                SORTED_CHANNEL_SOURCES.map((x) =>
-                    searchChannels(x, debouncedKeyword, { hasRedPacket, profileId: profiles[x]?.profileId }),
-                ),
-            );
-            return allSettled.flatMap((x) => (x.status === 'fulfilled' ? x.value : []));
+            return searchChannels(source, debouncedKeyword, { hasRedPacket, profileId: profiles[source]?.profileId });
         },
     });
 }

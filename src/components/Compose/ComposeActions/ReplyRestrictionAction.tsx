@@ -1,5 +1,5 @@
-import { Popover } from '@headlessui/react';
-import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import { Popover, PopoverButton } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { memo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -25,10 +25,10 @@ export const ReplyRestrictionAction = memo(function ReplyRestrictionAction({ has
 
     const buttonContent = (
         <>
-            <span className="text-medium font-bold">
+            <span className="text-[14px] leading-[18px]">
                 <ReplyRestrictionText type={restriction} />
             </span>
-            {!disabled ? <ChevronRightIcon className="h-5 w-5" aria-hidden="true" /> : null}
+            {!disabled ? <ChevronDownIcon className="h-4 w-4 text-secondary" aria-hidden="true" /> : null}
         </>
     );
 
@@ -37,12 +37,12 @@ export const ReplyRestrictionAction = memo(function ReplyRestrictionAction({ has
     if (isMedium) {
         return (
             <Popover as="div" className="relative">
-                <Popover.Button
-                    className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                <PopoverButton
+                    className="flex cursor-pointer items-center gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                     disabled={hasError}
                 >
                     {buttonContent}
-                </Popover.Button>
+                </PopoverButton>
                 <ReplyRestriction restriction={restriction} setRestriction={updateRestriction} />
             </Popover>
         );

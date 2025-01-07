@@ -1,31 +1,30 @@
-import { Popover } from '@headlessui/react';
-import { ChevronRightIcon } from '@heroicons/react/24/outline';
-import { compact } from 'lodash-es';
+import { Popover, PopoverButton } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { memo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ChannelSearchPanel } from '@/components/Compose/ChannelSearchPanel.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 interface ActionProps {
     hasError: boolean;
+    source: SocialSource;
 }
-export const ChooseChannelAction = memo(function ChooseChannelAction({ hasError }: ActionProps) {
+export const ChooseChannelAction = memo(function ChooseChannelAction({ hasError, source }: ActionProps) {
     const isMedium = useIsMedium();
     const { channel } = useCompositePost();
     const [open, setOpen] = useState(false);
 
     const buttonContent = (
         <>
-            <span className="text-medium font-bold">
-                {compact(
-                    SORTED_SOCIAL_SOURCES.filter((source) => !!channel[source]).map((source) => channel[source]?.name),
-                ).join(',')}
-            </span>
-            {!hasError ? <ChevronRightIcon className="h-5 w-5" aria-hidden="true" /> : null}
+            <SocialSourceIcon className="h-4 w-4 text-secondary" mono width={20} height={20} source={source} />
+
+            <span className="text-[14px] leading-[18px]">/{channel[source]?.name}</span>
+            {!hasError ? <ChevronDownIcon className="h-4 w-4 text-secondary" aria-hidden="true" /> : null}
         </>
     );
 
@@ -34,13 +33,13 @@ export const ChooseChannelAction = memo(function ChooseChannelAction({ hasError 
             <Popover as="div" className="relative">
                 {({ close }) => (
                     <>
-                        <Popover.Button
+                        <PopoverButton
                             className="flex cursor-pointer items-center gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                             disabled={hasError}
                         >
                             {buttonContent}
-                        </Popover.Button>
-                        <ChannelSearchPanel onSelected={close} className="md:max-h-[192px]" />
+                        </PopoverButton>
+                        <ChannelSearchPanel source={source} onSelected={close} className="md:max-h-[192px]" />
                     </>
                 )}
             </Popover>
@@ -55,7 +54,7 @@ export const ChooseChannelAction = memo(function ChooseChannelAction({ hasError 
                 {buttonContent}
             </ClickableButton>
             <PopoverModal open={open} onClose={() => setOpen(false)}>
-                <ChannelSearchPanel onSelected={() => setOpen(false)} className="md:max-h-[192px]" />
+                <ChannelSearchPanel source={source} onSelected={() => setOpen(false)} className="md:max-h-[192px]" />
             </PopoverModal>
         </>
     );

@@ -7,6 +7,7 @@ import { Suspense } from 'react';
 
 import { PostActionsWithGrid } from '@/components/Actions/index.js';
 import { PostStatistics } from '@/components/Actions/PostStatistics.js';
+import { QuickReply } from '@/components/Actions/QuickReply.js';
 import { ChannelInfo } from '@/components/Channel/ChannelInfo.js';
 import { Comeback } from '@/components/Comeback.js';
 import { CommentList } from '@/components/Comments/index.js';
@@ -90,6 +91,11 @@ export function PostDetailPage({ id: postId, source }: Props) {
                                     className="!mt-0 border-b border-t border-line py-3 pl-2 pr-4"
                                 />
                             ) : null}
+                        </NoSSR>
+                    </Section>
+                    <Section title="Reply Post">
+                        <NoSSR>
+                            <QuickReply source={source} post={post} />
                         </NoSSR>
                     </Section>
                 </>
