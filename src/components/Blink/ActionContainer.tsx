@@ -1,3 +1,5 @@
+'use client';
+
 import { Action, Blink } from '@dialectlabs/blinks';
 import { memo } from 'react';
 

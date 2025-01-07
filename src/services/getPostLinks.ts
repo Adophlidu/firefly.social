@@ -1,4 +1,4 @@
-import { Action, setProxyUrl } from '@dialectlabs/blinks';
+import { Action, ActionsRegistry, setProxyUrl } from '@dialectlabs/blinks';
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
@@ -78,6 +78,13 @@ export async function getPostBlinkAction(url: string): Promise<Action | null> {
     if (!response.data) return null;
     setProxyUrl(urlcat(location.origin, '/api/blink/proxy'));
     const action = await Action.fetch(response.data.actionApiUrl);
+    const host = parseUrl(action.url)?.host;
+    const instance = ActionsRegistry.getInstance();
+    // @ts-ignore fix the blink registry state
+    if (instance.websitesByHost && typeof instance.websitesByHost === 'object' && host) {
+        // @ts-ignore
+        instance.websitesByHost[host] = { host, state: response.data.state };
+    }
     // @ts-expect-error _data is private, fix the URL after proxy
     const data = action._data as ActionGetResponse;
     return new Proxy(action, {
