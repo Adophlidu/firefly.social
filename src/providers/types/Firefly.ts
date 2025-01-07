@@ -15,6 +15,7 @@ import {
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 import type { SnapshotChoice } from '@/providers/snapshot/type.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
+import type { CoinGeckoAsset } from '@/providers/types/CoinGecko.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -1342,31 +1343,6 @@ export type DetectAddressResponse = Response<{
         chain_id: string;
         address_type: 'eoa' | 'soa' | 'contract';
         contract_type: 'ERC20' | 'ERC721' | 'ERC1155' | 'token' | 'nft' | 'program';
-        contract_info: {
-            id: string;
-            type: string;
-            attributes: {
-                address: string;
-                name: string;
-                symbol: string;
-                decimals: number;
-                image_url: string;
-                coingecko_coin_id: string;
-                total_supply: string;
-                price_usd: string;
-                fdv_usd: string;
-                total_reserve_in_usd: string;
-                volume_usd: { h24: string };
-                market_cap_usd: string;
-            };
-            relationships: {
-                top_pools: {
-                    data: Array<{
-                        id: string;
-                        type: `${string}_${Address}`;
-                    }>;
-                };
-            };
-        };
+        contract_info: CoinGeckoAsset;
     }>;
 }>;

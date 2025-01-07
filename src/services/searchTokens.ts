@@ -1,5 +1,5 @@
+import { isValidAddress } from '@masknet/web3-shared-evm';
 import { first } from 'lodash-es';
-import { isAddress } from 'viem';
 
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
@@ -8,6 +8,7 @@ import { CoinGecko } from '@/providers/coingecko/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { CoinGeckoCoinMarketInfo } from '@/providers/types/CoinGecko.js';
 import type { SearchableToken } from '@/providers/types/Firefly.js';
+import { searchTokenByAddress } from '@/services/searchTokenByAddress.js';
 
 export type TokenWithMarket = SearchableToken & { market?: Partial<CoinGeckoCoinMarketInfo>; hit?: boolean };
 
@@ -19,7 +20,7 @@ function sortTokensByKeyword(tokens: SearchableToken[], keyword: string) {
     if (!tokens.length) return tokens;
 
     // fast path
-    if (isSameTokenSymbol(tokens[0]?.symbol || '', keyword) || isAddress(trimify(keyword))) {
+    if (isSameTokenSymbol(tokens[0]?.symbol || '', keyword) || isValidAddress(trimify(keyword).toLowerCase())) {
         const [firstToken, ...rest] = tokens;
         return [{ ...firstToken, hit: true }, ...rest];
     }
@@ -43,29 +44,31 @@ function sortTokensByKeyword(tokens: SearchableToken[], keyword: string) {
 }
 
 async function searchTokensByAddress(address: string): Promise<Pageable<SearchableToken, PageIndicator>> {
-    const { list } = await FireflyEndpointProvider.detectAddress(address);
-    if (!Array.isArray(list) || !list.length) return createPageable(EMPTY_LIST, createIndicator());
+    try {
+        const token = await searchTokenByAddress(address);
 
-    const tokens = list.filter((x) => x.contract_info.type === 'token');
-    return createPageable(
-        tokens.map((x) => {
-            const attributes = x.contract_info.attributes;
-            return {
-                api_symbol: attributes.symbol,
-                id: attributes.coingecko_coin_id,
-                large: attributes.image_url,
-                name: attributes.name,
-                symbol: attributes.symbol,
-                thumb: attributes.image_url,
-            };
-        }),
-        createIndicator(),
-    );
+        const attributes = token.attributes;
+        return createPageable(
+            [
+                {
+                    api_symbol: attributes.symbol,
+                    id: attributes.coingecko_coin_id,
+                    large: attributes.image_url,
+                    name: attributes.name,
+                    symbol: attributes.symbol,
+                    thumb: attributes.image_url,
+                },
+            ],
+            createIndicator(),
+        );
+    } catch {
+        return createPageable(EMPTY_LIST, createIndicator());
+    }
 }
 
 export async function searchTokens(searchKeyword: string): Promise<Pageable<TokenWithMarket, PageIndicator>> {
-    const trimmed = trimify(searchKeyword);
-    const res = isAddress(trimmed)
+    const trimmed = trimify(searchKeyword).toLowerCase();
+    const res = isValidAddress(trimmed)
         ? await searchTokensByAddress(trimmed)
         : await FireflyEndpointProvider.searchTokens(searchKeyword);
     const ids = res.data.map((x) => x.id);

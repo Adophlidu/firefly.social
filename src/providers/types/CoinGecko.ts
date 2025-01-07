@@ -1,3 +1,5 @@
+import type { Address } from 'viem';
+
 import type { NetworkPluginID } from '@/constants/enum.js';
 import type { Runtime } from '@/providers/types/Trending.js';
 
@@ -188,3 +190,30 @@ export enum CurrencyType {
 }
 
 export type Price = Partial<Record<CurrencyType, string>>;
+
+export interface CoinGeckoAsset {
+    id: string;
+    type: string;
+    attributes: {
+        address: string;
+        name: string;
+        symbol: string;
+        decimals: number;
+        image_url: string;
+        coingecko_coin_id: string;
+        total_supply: string;
+        price_usd: string;
+        fdv_usd: string;
+        total_reserve_in_usd: string;
+        volume_usd: { h24: string };
+        market_cap_usd: string;
+    };
+    relationships: {
+        top_pools: {
+            data: Array<{
+                id: string;
+                type: `${string}_${Address}`;
+            }>;
+        };
+    };
+}

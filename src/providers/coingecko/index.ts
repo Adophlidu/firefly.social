@@ -8,6 +8,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCommunityLink } from '@/helpers/getCommunityLink.js';
 import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
 import type {
+    CoinGeckoAsset,
     CoinGeckoCoinInfo,
     CoinGeckoCoinMarketInfo,
     CoinGeckoCoinTrending,
@@ -264,5 +265,18 @@ export class CoinGecko {
             'avalanche-2': ChainId.Avalanche,
         };
         return CoinIdToChainId[coinId];
+    }
+
+    static async getTokenByAddress(address: string, network: string, signal?: AbortSignal) {
+        const url = urlcat(COINGECKO_URL_BASE, '/onchain/networks/:network/tokens/:address', {
+            address: address.toLowerCase(),
+            network,
+        });
+
+        const response = await fetchJSON<{ data: CoinGeckoAsset }>(url, {
+            signal,
+        });
+
+        return response.data;
     }
 }
