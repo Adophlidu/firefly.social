@@ -24,7 +24,7 @@ export function OptionButton({ darkMode = false, selected, label, onClick, ...pr
             )}
             onClick={onClick}
         >
-            <div className="flex items-center gap-5">
+            <div className="flex w-[135px] items-center gap-5">
                 {selected ? (
                     <div
                         className="h-2 w-2 rounded-full bg-success"
@@ -33,7 +33,7 @@ export function OptionButton({ darkMode = false, selected, label, onClick, ...pr
                 ) : (
                     <div className="h-2 w-2" />
                 )}
-                <div className="text-medium font-bold leading-[18px]">{label}</div>
+                <div className="flex-1 text-left text-medium font-bold leading-[18px]">{label}</div>
             </div>
         </ClickableButton>
     );
