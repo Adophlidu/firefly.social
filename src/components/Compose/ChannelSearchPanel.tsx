@@ -9,7 +9,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
-import { type SocialSource,Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isSameChannel } from '@/helpers/isSameChannel.js';

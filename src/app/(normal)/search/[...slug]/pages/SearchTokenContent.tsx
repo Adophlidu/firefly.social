@@ -7,29 +7,10 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
 import { TokenMarketData } from '@/components/TokenProfile/TokenMarketData.js';
-import { NetworkPluginID, ScrollListKey } from '@/constants/enum.js';
-import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
-import type { SearchableToken } from '@/providers/types/Firefly.js';
+import { ScrollListKey } from '@/constants/enum.js';
+import { formatMarketToken } from '@/helpers/formatMarketToken.js';
 import { searchTokens, type TokenWithMarket } from '@/services/searchTokens.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
-
-function formatMarketToken(token: SearchableToken) {
-    return {
-        pluginID: NetworkPluginID.PLUGIN_EVM,
-        id: token.id,
-        symbol: token.symbol,
-        name: token.name,
-        source: '',
-        type: 'FungibleToken',
-        logoURL: token.thumb,
-        rank: token.market_cap_rank,
-        socialLinks: {
-            website: '',
-            twitter: '',
-            telegram: '',
-        },
-    } as CoinGeckoToken;
-}
 
 const getSearchItemContent = (token: TokenWithMarket) => {
     return token.hit ? (
