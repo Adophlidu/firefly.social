@@ -7,7 +7,7 @@ import { MirrorABI, MirrorFactoryABI, OldMirrorABI } from '@/abis/Mirror.js';
 import { config } from '@/configs/wagmiClient.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { MIRROR_COLLECT_FEE, MIRROR_COLLECT_FEE_IN_POLYGON, MIRROR_OLD_FACTOR_ADDRESSES } from '@/constants/index.js';
-import { createPublicViemClient } from '@/helpers/createPublicViemClient.js';
+import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { rightShift } from '@/helpers/number.js';
@@ -86,7 +86,7 @@ class Mirror implements Provider {
 
     async estimateCollectGas(article: ArticleCollectable) {
         const account = getAccount(config);
-        const client = createPublicViemClient(article.chainId);
+        const client = createWagmiPublicClient(article.chainId);
 
         const price = article.price ? BigInt(rightShift(article.price, 18).toString()) : 0n;
 

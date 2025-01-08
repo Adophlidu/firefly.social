@@ -1,5 +1,5 @@
+import { ChainId } from '@masknet/web3-shared-evm';
 import { StatusCodes } from 'http-status-codes';
-import { polygon } from 'viem/chains';
 
 import { LensHub } from '@/abis/LensHub.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, LENS_HUB_PROXY_ADDRESS } from '@/constants/index.js';
@@ -14,7 +14,7 @@ export async function GET(request: Request) {
     if (!id) return createErrorResponseJSON('Missing id', { status: StatusCodes.BAD_REQUEST });
 
     try {
-        const client = createWagmiPublicClient(polygon);
+        const client = createWagmiPublicClient(ChainId.Polygon);
         const data = await client.readContract({
             abi: LensHub,
             address: LENS_HUB_PROXY_ADDRESS,

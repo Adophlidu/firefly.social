@@ -23,7 +23,7 @@ import { Timer } from '@/components/RedPacket/Timer.js';
 import { SITE_URL } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
-import { createPublicViemClient } from '@/helpers/createPublicViemClient.js';
+import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { fetch } from '@/helpers/fetch.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { minus, ZERO } from '@/helpers/number.js';
@@ -80,7 +80,7 @@ export function RedPacketCard({ payload, post }: Props) {
     const { value: estimateGas = ZERO, loading: estimateLoading } = useAsync(async () => {
         if (!canClaim || !parsedChainId || !password || !account) return;
 
-        const client = createPublicViemClient(parsedChainId);
+        const client = createWagmiPublicClient(parsedChainId);
 
         return runInSafeAsync(async () => {
             return client.estimateContractGas({

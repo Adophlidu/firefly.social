@@ -11,7 +11,7 @@ import {
     type ParamsObjType,
     type RedPacketSettings,
 } from '@/components/RedPacket/hooks/useCreateCallback.js';
-import { createPublicViemClient } from '@/helpers/createPublicViemClient.js';
+import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { ZERO } from '@/helpers/number.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { type ChainContextOverride, useChainContext } from '@/hooks/useChainContext.js';
@@ -63,7 +63,7 @@ export function useDefaultCreateGas(
 
         const value = toFixed(paramsObj.token?.schema === SchemaType.Native ? total : 0);
 
-        const client = createPublicViemClient(chainId);
+        const client = createWagmiPublicClient(chainId);
         const result = await runInSafeAsync(async () => {
             return client.estimateContractGas({
                 address: redpacketContractAddress as Address,
