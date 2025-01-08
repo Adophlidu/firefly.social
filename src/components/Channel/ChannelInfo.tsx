@@ -14,6 +14,7 @@ import { SITE_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
+import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
@@ -24,9 +25,16 @@ interface InfoProps extends HTMLProps<HTMLDivElement> {
     isChannelPage?: boolean;
 }
 
+const getChannelById = memoizePromise(
+    async (source: SocialSource, id: string) => {
+        return resolveSocialMediaProvider(source).getChannelById(id);
+    },
+    (source, id) => `${source}-${id}`,
+);
+
 export async function ChannelInfo({ channel: unresolvedChannel, source, isChannelPage = false, ...rest }: InfoProps) {
     const channel = unresolvedChannel.__lazy__
-        ? await runInSafeAsync(() => resolveSocialMediaProvider(source).getChannelById(unresolvedChannel.id))
+        ? await runInSafeAsync(() => getChannelById(source, unresolvedChannel.id))
         : unresolvedChannel;
 
     if (!channel) return null;

@@ -30,6 +30,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
 
     const { data } = useQuery({
         queryKey: ['channel', channel.source, channel.id, profile?.profileId],
+        staleTime: 1000 * 60 * 5, // 5 minutes
         queryFn: () => runInSafeAsync(() => resolveSocialMediaProvider(channel.source).getChannelById(channel.id)),
     });
 
