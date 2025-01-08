@@ -234,7 +234,8 @@
         "BARMSTRONG",
         "hdel",
         "rootdataurl",
-        "rootdata"
+        "rootdata",
+        "geometrychange"
     ],
     "flagWords": [],
     "ignorePaths": [

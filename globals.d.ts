@@ -39,3 +39,12 @@ declare module '*.svg?url' {
     const content: string;
     export default content;
 }
+
+interface Navigator {
+    virtualKeyboard: {
+        boundingRect: DOMRect;
+        overlaysContent: boolean;
+        addEventListener: (type: string, listener: (event: { target: { boundingRect: DOMRect } }) => void) => void;
+        removeEventListener: (type: string, listener: (event: { target: { boundingRect: DOMRect } }) => void) => void;
+    };
+}

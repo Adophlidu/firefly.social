@@ -17,6 +17,7 @@ import { isImageFileType, isMediaFileType, isVideoFileType } from '@/helpers/isM
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { isValidPostImage, isValidPostVideo } from '@/helpers/validatePostFile.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
+import { useKeyboardHeight } from '@/hooks/useKeyboardHeight.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -46,6 +47,8 @@ export const ComposeUI = memo(function ComposeUI() {
 
     const availableSources = compositePost.availableSources;
     const maxImageCount = getCurrentPostImageLimits(type, availableSources);
+
+    const { available, keyboardHeight } = useKeyboardHeight();
 
     const [{ loading }, handleDropFiles] = useAsyncFn(
         async (files: File[]) => {
@@ -82,7 +85,7 @@ export const ComposeUI = memo(function ComposeUI() {
             <div
                 className={classNames(
                     'flex flex-col overflow-auto px-4 pb-4',
-                    isMedium ? 'h-full' : 'max-h-[300px] min-h-[300px]',
+                    isMedium ? 'h-full' : available ? 'flex-1' : 'max-h-[300px] min-h-[300px]',
                 )}
             >
                 <UploadDropArea
@@ -98,6 +101,8 @@ export const ComposeUI = memo(function ComposeUI() {
             </div>
 
             <ComposeActions />
+
+            {available ? <div style={{ height: keyboardHeight + 56 }} /> : null}
         </>
     );
 });
