@@ -72,6 +72,8 @@ export default function Page(props: Props) {
         if (!frameRef.current) return;
         if (!frameHost) return;
 
+        alert('Export to iframe!');
+
         const result = exposeToIframe({
             debug: IS_DEVELOPMENT,
             iframe: frameRef.current,
@@ -83,6 +85,9 @@ export default function Page(props: Props) {
                         const account = await fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
                             type: Network.EVM,
                         });
+
+                        alert('Account: ' + account);
+
                         return [account];
                     }
                     case EthereumMethodType.ETH_SIGN_TRANSACTION: {
@@ -116,12 +121,18 @@ export default function Page(props: Props) {
                     }
                     case EthereumMethodType.WALLET_ADD_ETHEREUM_CHAIN: {
                         const chain = params[0] as Chain;
-                        return fireflyBridgeProvider.request(SupportedMethod.ADD_ETHEREUM_CHAIN, chain);
+                        const added = await fireflyBridgeProvider.request(SupportedMethod.ADD_ETHEREUM_CHAIN, chain);
+                        alert('Chain Added: ' + added);
+                        if (added === true) return null;
+                        throw new Error(`Failed to add chain name = ${chain.chainName}`);
                     }
                     case EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN: {
-                        return fireflyBridgeProvider.request(SupportedMethod.SWITCH_ETHEREUM_CHAIN, {
+                        const switched = await fireflyBridgeProvider.request(SupportedMethod.SWITCH_ETHEREUM_CHAIN, {
                             chainId: params[0] as string,
                         });
+                        alert('Chain Switched: ' + switched);
+                        if (switched === true) return null;
+                        throw new Error(`Failed to switch chain id = ${params[0]}`);
                     }
                     default: {
                         const client = await getWalletClient(config);
