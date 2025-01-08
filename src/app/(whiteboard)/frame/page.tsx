@@ -4,7 +4,6 @@ import { exposeToIframe, type ReadyOptions } from '@farcaster/frame-host';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
-import { base } from 'viem/chains';
 import { getWalletClient } from 'wagmi/actions';
 
 import { FramePage, FramePageBody, FramePageTitle } from '@/app/(whiteboard)/components/FramePage.js';
@@ -92,8 +91,7 @@ export default function Page(props: Props) {
                 const { method, params } = requestArguments;
                 switch (method) {
                     case EthereumMethodType.ETH_CHAIN_ID:
-                        // return fireflyBridgeProvider.request(SupportedMethod.GET_CHAIN_ID, {});
-                        return `0x${base.id.toString(16)}`;
+                        return fireflyBridgeProvider.request(SupportedMethod.GET_CHAIN_ID, {});
                     case EthereumMethodType.ETH_REQUEST_ACCOUNTS: {
                         const account = await fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
                             type: Network.EVM,
@@ -158,8 +156,7 @@ export default function Page(props: Props) {
     }, [supported, frame, frameHost]);
 
     const onReload = () => {
-        if (supported) retry();
-        else bom.location?.reload();
+        bom.location?.reload();
     };
 
     const onClose = () => {
