@@ -43,8 +43,8 @@ export function HomeTabs() {
     }, [pathname]);
 
     return (
-        <div className="flex w-full flex-col">
-            <SourceTabs>
+        <>
+            <SourceTabs className="sticky top-0">
                 {getEnumAsArray(HomeTab).map(({ value: tab }) => {
                     const type = types[tab].includes(source) ? source : types[tab][0];
                     return (
@@ -59,7 +59,7 @@ export function HomeTabs() {
                     );
                 })}
             </SourceTabs>
-            <div className="px-4 py-3">
+            <div className="w-full px-4 py-3">
                 <SolidTabs<Source>
                     data={types[currentTab]}
                     link={(x) => resolveHomeUrl(currentTab, x)}
@@ -67,6 +67,6 @@ export function HomeTabs() {
                     itemRender={(x) => resolveSourceName(x)}
                 />
             </div>
-        </div>
+        </>
     );
 }

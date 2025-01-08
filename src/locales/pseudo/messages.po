@@ -1201,10 +1201,6 @@ msgstr ""
 msgid "You are not eligible to decrypt this post, try again with eligible {sourceName} account."
 msgstr ""
 
-#. placeholder {0}: post.source
-msgid "Failed to submit report on {0}"
-msgstr ""
-
 #. placeholder {0}: profile.handle
 msgid "Failed to mute @{0} on {sourceName}."
 msgstr ""

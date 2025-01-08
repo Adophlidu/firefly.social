@@ -1,7 +1,7 @@
 import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { SearchType, type Source } from '@/constants/enum.js';
+import { SearchType, Source } from '@/constants/enum.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 type Patcher = (old: Draft<Post>) => void;
@@ -46,4 +46,5 @@ export function patchPostQueryData(source: Source, postId: Matcher, patcher: Pat
 
     queryClient.setQueriesData<Data>({ queryKey: ['posts', source] }, PostsPatcher);
     queryClient.setQueriesData<Data>({ queryKey: ['search', SearchType.Posts] }, PostsPatcher);
+    queryClient.setQueriesData<Data>({ queryKey: ['posts', Source.Posts] }, PostsPatcher);
 }

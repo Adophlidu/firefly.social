@@ -1201,10 +1201,6 @@ msgstr "Failed to un-bookmark post."
 msgid "You are not eligible to decrypt this post, try again with eligible {sourceName} account."
 msgstr "You are not eligible to decrypt this post, try again with eligible {sourceName} account."
 
-#. placeholder {0}: post.source
-msgid "Failed to submit report on {0}"
-msgstr "Failed to submit report on {0}"
-
 #. placeholder {0}: profile.handle
 msgid "Failed to mute @{0} on {sourceName}."
 msgstr "Failed to mute @{0} on {sourceName}."

@@ -96,7 +96,7 @@ export const FollowingPostList = memo<{
             source={source}
             key={source}
             queryResult={queryResult}
-            loginRequired
+            loginRequired={!isLogin}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Following}:${source}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,

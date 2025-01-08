@@ -5,7 +5,6 @@ import { forwardRef } from 'react';
 import FlagIcon from '@/assets/flag.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -33,9 +32,7 @@ export const ReportPostButton = forwardRef<HTMLButtonElement, Props>(function Re
                     variant: 'normal',
                 });
                 if (!confirmed || !onReport) return;
-                const result = await onReport(post);
-                if (result) return;
-                enqueueErrorMessage(t`Failed to submit report on ${post.source}`);
+                await onReport(post);
             }}
             ref={ref}
         >
