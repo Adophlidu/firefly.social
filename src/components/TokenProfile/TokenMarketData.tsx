@@ -4,7 +4,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useAppKitProvider } from '@reown/appkit/react';
 import { first } from 'lodash-es';
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 import PriceArrow from '@/assets/price-arrow.svg';
 import SwapIcon from '@/assets/swap.svg';
@@ -17,6 +17,7 @@ import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
+import { isZero } from '@/helpers/number.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useCoinPrice24hStats, useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
@@ -64,6 +65,12 @@ export function TokenMarketData({ linkable, token }: TokenMarketDataProps) {
     const { data: priceStats = EMPTY_LIST, isPending } = useCoinPriceStats(token.id, days);
     const { isUp } = useCoinPrice24hStats(token.id);
 
+    usePriceLineChart(chartRef, priceStats, dimension, `price-chart-${token.symbol}`);
+
+    const noValidData = useMemo(() => {
+        return priceStats.length === 0 || priceStats.every((item) => isZero(item.value));
+    }, [priceStats]);
+
     const baseInfo = (
         <>
             <Image
@@ -77,8 +84,6 @@ export function TokenMarketData({ linkable, token }: TokenMarketDataProps) {
             <span className="font-inter text-medium font-bold uppercase">{token.symbol}</span>
         </>
     );
-
-    usePriceLineChart(chartRef, priceStats, dimension, `price-chart-${token.symbol}`);
 
     return (
         <>
@@ -136,6 +141,10 @@ export function TokenMarketData({ linkable, token }: TokenMarketDataProps) {
             >
                 {isPending ? (
                     <div className="mx-2 h-40 flex-grow rounded-lg bg-gray-100 dark:bg-gray-800" />
+                ) : noValidData ? (
+                    <div className="mx-2 h-40 flex-grow rounded-lg">
+                        <Trans>There is no data available to display</Trans>
+                    </div>
                 ) : (
                     <svg ref={chartRef} width="100%" height={175} viewBox="0 0 543 175" />
                 )}

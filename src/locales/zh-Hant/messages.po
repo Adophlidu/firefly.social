@@ -1050,6 +1050,9 @@ msgstr "無代理"
 msgid "<0>Sold</0> an NFT"
 msgstr "<0>已售賣</0>一個 NFT"
 
+msgid "There is no data available to display"
+msgstr ""
+
 msgid "Follow System"
 msgstr ""
 

@@ -1045,6 +1045,9 @@ msgstr "No proxy"
 msgid "<0>Sold</0> an NFT"
 msgstr "<0>Sold</0> an NFT"
 
+msgid "There is no data available to display"
+msgstr "There is no data available to display"
+
 msgid "Follow System"
 msgstr "Follow System"
 

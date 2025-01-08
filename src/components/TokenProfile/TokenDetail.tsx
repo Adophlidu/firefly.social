@@ -32,6 +32,10 @@ interface InfoRowProps {
     extra?: ReactNode;
 }
 
+function renderZero(value?: string) {
+    return !value || value.replace('$', '') === '0' ? '-' : value;
+}
+
 function InfoRow({ title, description, amount, asInfinite, value, extra }: InfoRowProps) {
     return (
         <div className="flex items-center text-medium">
@@ -50,7 +54,11 @@ function InfoRow({ title, description, amount, asInfinite, value, extra }: InfoR
                         asInfinite ? 'text-2xl leading-[22.5px]' : 'text-medium',
                     )}
                 >
-                    {asInfinite ? '∞' : isNumber(value) ? `$${formatPrice(+value)}` : (formatPrice(amount) ?? '-')}
+                    {asInfinite
+                        ? '∞'
+                        : isNumber(value)
+                          ? renderZero(`$${formatPrice(+value)}`)
+                          : renderZero(formatPrice(amount) ?? '-')}
                 </div>
             )}
         </div>

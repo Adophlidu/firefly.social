@@ -1050,6 +1050,9 @@ msgstr ""
 msgid "<0>Sold</0> an NFT"
 msgstr ""
 
+msgid "There is no data available to display"
+msgstr ""
+
 msgid "Follow System"
 msgstr ""
 
