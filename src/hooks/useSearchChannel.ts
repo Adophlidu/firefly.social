@@ -52,7 +52,7 @@ export function useSearchChannels(keyword: string, source: SocialSource, hasRedP
     const profiles = useCurrentProfileAll();
 
     return useQuery({
-        queryKey: ['searchChannels', debouncedKeyword, `${hasRedPacket}`],
+        queryKey: ['searchChannels', debouncedKeyword, source, `${hasRedPacket}`],
         queryFn: async () => {
             return searchChannels(source, debouncedKeyword, { hasRedPacket, profileId: profiles[source]?.profileId });
         },

@@ -46,5 +46,6 @@ const memoryHistory = createMemoryHistory({
 export const router = createRouter({
     routeTree,
     history: memoryHistory,
-    defaultPendingMinMs: 0,
+    defaultPendingMinMs: 200,
+    defaultPendingComponent: ComposeUI,
 });

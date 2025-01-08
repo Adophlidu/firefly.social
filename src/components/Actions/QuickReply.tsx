@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
+import SendIcon from '@/assets/send.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
@@ -34,8 +35,9 @@ export const QuickReply = memo<QuickReplyProps>(function QuickReply({ source, po
             <div className="flex-1 p-3 text-[20px] text-secondary">
                 <Trans>Post your reply</Trans>
             </div>
-            <ActionButton disabled>
-                <Trans>Reply</Trans>
+            <ActionButton disabled className="flex-0 px-6 py-3">
+                <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
+                <Trans>Send</Trans>
             </ActionButton>
         </ClickableArea>
     );

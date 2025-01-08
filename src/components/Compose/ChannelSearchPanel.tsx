@@ -9,7 +9,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
-import type { SocialSource } from '@/constants/enum.js';
+import { type SocialSource,Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isSameChannel } from '@/helpers/isSameChannel.js';
@@ -116,7 +116,7 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
 
     const content = (
         <div className="flex flex-col gap-2 md:bg-lightBottom md:dark:bg-darkBottom">
-            {InputBox}
+            {source === Source.Farcaster ? InputBox : null}
             {ListBox}
         </div>
     );
@@ -135,7 +135,13 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
                 <PopoverPanel
                     portal
                     anchor="top"
-                    className="absolute bottom-full right-0 z-10 w-[350px] -translate-y-3 rounded-lg bg-lightBottom py-3 text-medium shadow-popover [--anchor-max-height:256px] dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:[--anchor-max-height:256px]"
+                    className={classNames(
+                        'absolute bottom-full right-0 z-10 w-[350px] -translate-y-3 rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none',
+                        {
+                            '[--anchor-max-height:264px]': source === Source.Farcaster,
+                            '[--anchor-max-height:224px]': source === Source.Lens,
+                        },
+                    )}
                 >
                     {content}
                 </PopoverPanel>

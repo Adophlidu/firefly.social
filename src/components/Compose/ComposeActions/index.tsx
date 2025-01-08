@@ -1,4 +1,5 @@
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { compact, values } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -91,10 +92,11 @@ export function ComposeActions() {
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-x-3">
                     <MediaAction />
-                    <EmojiAction />
                     {env.external.NEXT_PUBLIC_COMPOSE_GIF === STATUS.Enabled ? (
                         <GifEntryButton disabled={mediaDisabled} />
                     ) : null}
+                    <EmojiAction />
+
                     {type === 'compose' && env.external.NEXT_PUBLIC_POLL === STATUS.Enabled ? <PollButton /> : null}
 
                     {env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled && !rpPayload ? (
