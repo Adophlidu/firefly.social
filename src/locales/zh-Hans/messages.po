@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-12-22 12:01\n"
+"PO-Revision-Date: 2025-01-07 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -138,7 +138,7 @@ msgid "Communities"
 msgstr "社区"
 
 msgid "Discover"
-msgstr ""
+msgstr "发现"
 
 msgid "Ask a question"
 msgstr "询问"
@@ -540,7 +540,7 @@ msgstr "收起"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Follow <0>@{handle}</0> on {0}"
-msgstr ""
+msgstr "在 {0} 上关注 <0>@{handle}</0>"
 
 msgid "Proxy contract."
 msgstr "代理合约。"
@@ -705,7 +705,7 @@ msgid "Only up to 2 images can be chosen."
 msgstr "至多可以选择 2 张图片。"
 
 msgid "Follow to Collect"
-msgstr ""
+msgstr "关注并且收集"
 
 msgid "This message is a e2e encrypted message. You can only decrypt this message when it is encrypted to you and decrypt it with Mask Network extension."
 msgstr "这条消息是端到端加密的消息。只有当它被加密发送给您时，您才能解密，并使用 Mask Network 插件进行解密。"
@@ -1014,7 +1014,7 @@ msgstr "[照片]"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Follow more friends to continue exploring on {0}."
-msgstr ""
+msgstr "在 {0} 上去关注更多的人来继续浏览吧。"
 
 msgid "No fake KYC involved."
 msgstr "不涉及虚假 KYC。"
@@ -1054,7 +1054,7 @@ msgid "There is no data available to display"
 msgstr ""
 
 msgid "Follow System"
-msgstr ""
+msgstr "跟随系统"
 
 msgid "Failed to mirror."
 msgstr "转帖失败。"
@@ -1483,7 +1483,7 @@ msgid "Mint NFT"
 msgstr ""
 
 msgid "Follow"
-msgstr ""
+msgstr "关注"
 
 msgid "Sorry, this wallet is already linked to another Firefly account. Please try a different one."
 msgstr "抱歉，此钱包已链接到另一个 Firefly 账户。请尝试使用其他钱包。"
@@ -1579,7 +1579,7 @@ msgid "[Poll]"
 msgstr "[投票]"
 
 msgid "Allow Follow Module"
-msgstr ""
+msgstr "允许关注"
 
 msgid "No one likes this post yet."
 msgstr "还未有人点赞。"
@@ -1834,7 +1834,7 @@ msgid "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>@{2}</2> on {3}"
 msgstr ""
 
 msgid "Follow Back"
-msgstr ""
+msgstr "回关"
 
 msgid "Are you sure you want to report this article?"
 msgstr "您确定要举报这篇文章吗？"
@@ -1942,7 +1942,7 @@ msgid "{0} followings owned"
 msgstr ""
 
 msgid "Follow me"
-msgstr ""
+msgstr "关注我"
 
 #. placeholder {0}: resolveSourceName(source)
 #. placeholder {0}: resolveSourceName(post.source)
@@ -2036,7 +2036,7 @@ msgid "Unverified"
 msgstr "未验证"
 
 msgid "Follow for {feeAmount} ${feeSymbol}"
-msgstr ""
+msgstr "关注需付出 {feeAmount} ${feeSymbol}"
 
 #. placeholder {0}: profile.handle
 msgid "Posts from @{0} will now be hidden in your home timeline"
@@ -2120,7 +2120,7 @@ msgid "Your schedule thread has created successfully."
 msgstr "你设定的定时 thread 已经成功。"
 
 msgid "Super Follow"
-msgstr ""
+msgstr "超级关注"
 
 msgid "Cryptocurrency mixer found."
 msgstr "发现加密货币混合器。"
@@ -2431,7 +2431,7 @@ msgid "Available Balance"
 msgstr "可用余额"
 
 msgid "Follow @thefireflyapp on X"
-msgstr ""
+msgstr "在 X 上关注 @thefireflyapp"
 
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr "从公开可验证数据注册表中或我们的实体算法中检索到的钱包可以被举报从而断开连接。"
@@ -2652,7 +2652,7 @@ msgid "POAPs"
 msgstr "POAPs"
 
 msgid "Follow @realMaskNetwork on X"
-msgstr ""
+msgstr "在 X 上关注 @realMaskNetwork"
 
 msgid "Leaving Firefly"
 msgstr "即将离开 Firefly"
@@ -3418,7 +3418,7 @@ msgstr "移除"
 
 #. placeholder {0}: author.handle
 msgid "Follow @{0}"
-msgstr ""
+msgstr "关注 @{0}"
 
 msgid "Cancel Recast"
 msgstr "取消转帖"

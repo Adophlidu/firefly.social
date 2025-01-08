@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-12-20 12:01\n"
+"PO-Revision-Date: 2025-01-07 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -138,7 +138,7 @@ msgid "Communities"
 msgstr "社群"
 
 msgid "Discover"
-msgstr ""
+msgstr "發現"
 
 msgid "Ask a question"
 msgstr "提問"
@@ -1014,7 +1014,7 @@ msgstr ""
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Follow more friends to continue exploring on {0}."
-msgstr ""
+msgstr "追蹤更多朋友 以繼續探索 {0}"
 
 msgid "No fake KYC involved."
 msgstr ""
@@ -1054,7 +1054,7 @@ msgid "There is no data available to display"
 msgstr ""
 
 msgid "Follow System"
-msgstr ""
+msgstr "預設"
 
 msgid "Failed to mirror."
 msgstr "鏡像失敗"
@@ -1483,7 +1483,7 @@ msgid "Mint NFT"
 msgstr ""
 
 msgid "Follow"
-msgstr ""
+msgstr "追蹤"
 
 msgid "Sorry, this wallet is already linked to another Firefly account. Please try a different one."
 msgstr ""
@@ -1834,7 +1834,7 @@ msgid "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>@{2}</2> on {3}"
 msgstr ""
 
 msgid "Follow Back"
-msgstr ""
+msgstr "立即回關"
 
 msgid "Are you sure you want to report this article?"
 msgstr "是否確定要檢舉這篇文章？"
@@ -2431,7 +2431,7 @@ msgid "Available Balance"
 msgstr ""
 
 msgid "Follow @thefireflyapp on X"
-msgstr ""
+msgstr "在 X 上追蹤@thefireflyapp"
 
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr ""
@@ -2652,7 +2652,7 @@ msgid "POAPs"
 msgstr "POAPs"
 
 msgid "Follow @realMaskNetwork on X"
-msgstr ""
+msgstr "在 X 上跟隨 @realMaskNetwork"
 
 msgid "Leaving Firefly"
 msgstr "離開 Firefly"
@@ -3418,7 +3418,7 @@ msgstr "移除"
 
 #. placeholder {0}: author.handle
 msgid "Follow @{0}"
-msgstr ""
+msgstr "追蹤 @{0}"
 
 msgid "Cancel Recast"
 msgstr ""
