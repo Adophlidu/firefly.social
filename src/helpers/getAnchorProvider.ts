@@ -1,6 +1,6 @@
 import { AnchorProvider } from '@coral-xyz/anchor';
 import { ChainId } from '@masknet/web3-shared-solana';
-import { type Cluster,clusterApiUrl, Connection } from '@solana/web3.js';
+import { type Cluster, clusterApiUrl, Connection } from '@solana/web3.js';
 
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';

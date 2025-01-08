@@ -102,6 +102,10 @@ export function NFTInfo(props: NFTInfoProps) {
               : '';
     }, [collection?.id, contractAddress, chainId]);
 
+    const nftUrl = useMemo(() => {
+        return contractAddress ? resolveNftUrl(chainId, contractAddress, tokenId || '0') : '';
+    }, [contractAddress, chainId, tokenId]);
+
     const poapTraits = usePoapTraits(traits);
 
     const action = isPoap ? null : (
@@ -172,11 +176,7 @@ export function NFTInfo(props: NFTInfoProps) {
                                     </div>
                                 </TextOverflowTooltip>
                             </Link>
-                            <NFTDetailsMore
-                                collectionId={collection.id}
-                                collectionUrl={collectionUrl}
-                                nftImage={imageURL}
-                            />
+                            <NFTDetailsMore collectionId={collection.id} nftUrl={nftUrl} nftImage={imageURL} />
                         </div>
                     ) : null}
                     <div className="flex w-full justify-between">
@@ -191,11 +191,7 @@ export function NFTInfo(props: NFTInfoProps) {
                             </div>
                         </TextOverflowTooltip>
                         {isPoap && collection ? (
-                            <NFTDetailsMore
-                                collectionId={collection.id}
-                                collectionUrl={collectionUrl}
-                                nftImage={imageURL}
-                            />
+                            <NFTDetailsMore collectionId={collection.id} nftUrl={nftUrl} nftImage={imageURL} />
                         ) : null}
                     </div>
                     {isPoap ? (

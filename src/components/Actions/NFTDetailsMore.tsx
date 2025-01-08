@@ -12,13 +12,13 @@ import { Tooltip } from '@/components/Tooltip.js';
 
 export interface NFTDetailsMoreProps extends HTMLProps<HTMLDivElement> {
     collectionId?: string;
-    collectionUrl?: string;
+    nftUrl?: string;
     nftImage?: string;
 }
 
 export const NFTDetailsMore = memo<NFTDetailsMoreProps>(function NFTDetailsMore({
     collectionId,
-    collectionUrl = '',
+    nftUrl = '',
     nftImage,
     className,
 }) {
@@ -37,9 +37,7 @@ export const NFTDetailsMore = memo<NFTDetailsMoreProps>(function NFTDetailsMore(
                         {({ close }) => <NFTReportSpamButton onClick={close} collectionId={collectionId} />}
                     </MenuItem>
                 ) : null}
-                {collectionUrl ? (
-                    <MenuItem>{({ close }) => <CopyLinkButton link={collectionUrl} onClick={close} />}</MenuItem>
-                ) : null}
+                {nftUrl ? <MenuItem>{({ close }) => <CopyLinkButton link={nftUrl} onClick={close} />}</MenuItem> : null}
                 {nftImage ? (
                     <MenuItem>{({ close }) => <DownloadImageButton url={nftImage} onClick={close} />}</MenuItem>
                 ) : null}
