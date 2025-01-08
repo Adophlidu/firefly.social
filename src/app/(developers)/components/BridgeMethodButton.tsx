@@ -150,6 +150,11 @@ export function BridgeMethodButton({ item }: Props) {
                         disableNativeGestures: true,
                     });
                     break;
+                case SupportedMethod.GET_CHAIN_ID: {
+                    const chainId = await fireflyBridgeProvider.request(SupportedMethod.GET_CHAIN_ID, {});
+                    enqueueInfoMessage(`Chain ID: ${chainId}`);
+                    break;
+                }
                 case SupportedMethod.ADD_ETHEREUM_CHAIN: {
                     const added = await fireflyBridgeProvider.request(SupportedMethod.ADD_ETHEREUM_CHAIN, {
                         chainId: '0x64',

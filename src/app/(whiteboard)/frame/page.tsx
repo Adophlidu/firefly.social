@@ -4,6 +4,7 @@ import { exposeToIframe, type ReadyOptions } from '@farcaster/frame-host';
 import { Trans } from '@lingui/react/macro';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
+import { base } from 'viem/chains';
 import { getWalletClient } from 'wagmi/actions';
 
 import { FramePage, FramePageBody, FramePageTitle } from '@/app/(whiteboard)/components/FramePage.js';
@@ -81,6 +82,9 @@ export default function Page(props: Props) {
             ethProvider: createEIP1193Provider(async function request(requestArguments: RequestArguments) {
                 const { method, params } = requestArguments;
                 switch (method) {
+                    case EthereumMethodType.ETH_CHAIN_ID:
+                        // return fireflyBridgeProvider.request(SupportedMethod.GET_CHAIN_ID, {});
+                        return `0x${base.id.toString(16)}`;
                     case EthereumMethodType.ETH_REQUEST_ACCOUNTS: {
                         const account = await fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
                             type: Network.EVM,
@@ -122,7 +126,6 @@ export default function Page(props: Props) {
                     case EthereumMethodType.WALLET_ADD_ETHEREUM_CHAIN: {
                         const chain = params[0] as Chain;
                         const added = await fireflyBridgeProvider.request(SupportedMethod.ADD_ETHEREUM_CHAIN, chain);
-                        alert('Chain Added: ' + added);
                         if (added === true) return null;
                         throw new Error(`Failed to add chain name = ${chain.chainName}`);
                     }
@@ -130,7 +133,6 @@ export default function Page(props: Props) {
                         const switched = await fireflyBridgeProvider.request(SupportedMethod.SWITCH_ETHEREUM_CHAIN, {
                             chainId: params[0] as string,
                         });
-                        alert('Chain Switched: ' + switched);
                         if (switched === true) return null;
                         throw new Error(`Failed to switch chain id = ${params[0]}`);
                     }

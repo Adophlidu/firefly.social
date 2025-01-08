@@ -41,6 +41,7 @@ export enum SupportedMethod {
     SET_PRIMARY_BUTTON = 'setPrimaryButton',
     GET_FRAME_CONTEXT = 'getFrameContext',
     SET_FRAME_READY_OPTIONS = 'setFrameReadyOptions',
+    GET_CHAIN_ID = 'getChainId',
     SIGN_TRANSACTION = 'signTransaction',
     SIGN_MESSAGE = 'signMessage',
     SIGN_TYPED_DATA = 'signTypedData',
@@ -137,6 +138,7 @@ export interface RequestArguments {
     };
     [SupportedMethod.SET_FRAME_READY_OPTIONS]: Partial<ReadyOptions>;
     [SupportedMethod.GET_FRAME_CONTEXT]: {};
+    [SupportedMethod.GET_CHAIN_ID]: {};
     [SupportedMethod.SIGN_TRANSACTION]: Transaction;
     [SupportedMethod.SIGN_MESSAGE]: {
         address: string;
@@ -182,6 +184,7 @@ export interface RequestResult {
             originalUrl: string;
         };
     };
+    [SupportedMethod.GET_CHAIN_ID]: string; // hex string
     [SupportedMethod.SIGN_TRANSACTION]: string;
     [SupportedMethod.SIGN_MESSAGE]: string;
     [SupportedMethod.SIGN_TYPED_DATA]: string;

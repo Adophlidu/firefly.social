@@ -131,6 +131,12 @@ const items: Item[] = [
     },
     {
         type: 'method',
+        name: SupportedMethod.GET_CHAIN_ID,
+        title: 'Get Chain ID',
+        description: 'Get chain ID.',
+    },
+    {
+        type: 'method',
         name: SupportedMethod.SIGN_MESSAGE,
         title: 'Sign Message',
         description: 'Sign a message.',
