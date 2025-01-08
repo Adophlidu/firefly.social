@@ -44,9 +44,14 @@ export default function Page(props: Props) {
             },
         };
 
+        console.log('DEBUG fetch frame context:', context);
+
         return {
-            url: result.frame.originalUrl,
-            frame: result.frame.content,
+            frame: {
+                ...result.frame.content,
+                x_url: result.frame.originalUrl,
+                x_version: 2,
+            },
             frameHost: new FarcasterFrameHost(context, {
                 ready: (options?: Partial<ReadyOptions>) => {
                     if (options) {
@@ -59,7 +64,6 @@ export default function Page(props: Props) {
                     fireflyBridgeProvider.request(SupportedMethod.SET_PRIMARY_BUTTON, options),
             }),
         } satisfies {
-            url: string;
             frame: FrameV2;
             frameHost: FrameV2Host;
         };
@@ -73,7 +77,12 @@ export default function Page(props: Props) {
         if (!frameRef.current) return;
         if (!frameHost) return;
 
-        alert('Export to iframe!');
+        console.log('DEBUG: expose to iframe');
+        console.log({
+            supported,
+            current: frameRef.current,
+            frameHost,
+        });
 
         const result = exposeToIframe({
             debug: IS_DEVELOPMENT,
@@ -89,8 +98,6 @@ export default function Page(props: Props) {
                         const account = await fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
                             type: Network.EVM,
                         });
-
-                        alert('Account: ' + account);
 
                         return [account];
                     }
