@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-import { HOME_CHANNEL } from '@/constants/channel.js';
+import { HOME_CHANNEL, HOME_CLUB } from '@/constants/channel.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
 import {
     EMPTY_LIST,
@@ -162,7 +162,7 @@ export function createInitSinglePostState(cursor: Cursor): CompositePost {
         rpPayload: null,
         channel: {
             [Source.Farcaster]: HOME_CHANNEL,
-            [Source.Lens]: null,
+            [Source.Lens]: HOME_CLUB,
             [Source.Twitter]: null,
         },
         poll: null,

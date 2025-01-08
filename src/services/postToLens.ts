@@ -3,6 +3,7 @@ import { t } from '@lingui/core/macro';
 import { first } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 
+import { HOME_CLUB } from '@/constants/channel.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { ORB_CLUB_TAG_PREFIX, SITE_URL } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
@@ -178,7 +179,7 @@ async function publishPostForLens(
                 description: content,
                 external_url: SITE_URL,
             },
-            tags: channel ? [`${ORB_CLUB_TAG_PREFIX}${channel.id}`] : undefined,
+            tags: channel && channel.id !== HOME_CLUB.id ? [`${ORB_CLUB_TAG_PREFIX}${channel.id}`] : undefined,
         },
         await createPayloadAttachments(images, video),
     );

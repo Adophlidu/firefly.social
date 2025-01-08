@@ -12,6 +12,17 @@ export const HOME_CHANNEL: Channel = {
     source: Source.Farcaster,
 };
 
+export const HOME_CLUB: Channel = {
+    name: 'Home',
+    id: 'home', // the channel id is fake
+    imageUrl: '',
+    url: '',
+    parentUrl: '',
+    followerCount: 0,
+    timestamp: 0,
+    source: Source.Lens,
+};
+
 export const FF_GARDEN_CHANNEL: Channel = {
     name: 'firefly-garden',
     id: 'firefly-garden',

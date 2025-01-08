@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { compact, uniqBy } from 'lodash-es';
 import { useDebounce } from 'usehooks-ts';
 
-import { FF_GARDEN_CHANNEL, HOME_CHANNEL } from '@/constants/channel.js';
+import { FF_GARDEN_CHANNEL, HOME_CHANNEL, HOME_CLUB } from '@/constants/channel.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
@@ -40,6 +40,8 @@ async function searchChannels(source: SocialSource, keyword: string, { hasRedPac
                 ]),
                 'id',
             );
+        } else if (source === Source.Lens) {
+            return uniqBy(compact([HOME_CLUB, ...commonChannels]), 'id');
         }
         return uniqBy(compact(commonChannels), 'id');
     }

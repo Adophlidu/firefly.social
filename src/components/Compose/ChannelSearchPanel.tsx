@@ -2,13 +2,13 @@ import { PopoverPanel, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { Fragment, type HTMLProps, useState } from 'react';
 
-import FarcasterIcon from '@/assets/farcaster.svg';
 import SearchIcon from '@/assets/search.svg';
 import UserIcon from '@/assets/user.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -47,7 +47,7 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
     );
     const renderChannelIcon = (channel: Channel) => {
         if (channel.id === 'home' && !channel.imageUrl) {
-            return <FarcasterIcon className="mr-2 h-6 w-6" />;
+            return <SocialSourceIcon source={channel.source} className="mr-2 h-6 w-6" />;
         }
         return (
             <Avatar className="mr-2 shrink-0 rounded-full border" src={channel.imageUrl} size={24} alt={channel.name} />
