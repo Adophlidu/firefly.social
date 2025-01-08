@@ -13,6 +13,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
+import { squashCallback } from '@/helpers/squashCallback.js';
 import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
 import { EthereumMethodType } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
@@ -21,6 +22,16 @@ import { type Chain, Network, SupportedMethod, type Transaction } from '@/types/
 import type { RequestArguments } from '@/types/ethereum.js';
 import type { FrameV2, FrameV2Host } from '@/types/frame.js';
 import type { NextPageProps } from '@/types/index.js';
+
+const connectWalletSquashed = squashCallback(
+    () =>
+        fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
+            type: Network.EVM,
+        }),
+    {
+        resolver: () => 'connect-wallet',
+    },
+);
 
 interface Props extends NextPageProps {}
 
@@ -91,12 +102,16 @@ export default function Page(props: Props) {
                 const { method, params } = requestArguments;
                 switch (method) {
                     case EthereumMethodType.ETH_CHAIN_ID:
-                        return fireflyBridgeProvider.request(SupportedMethod.GET_CHAIN_ID, {});
-                    case EthereumMethodType.ETH_REQUEST_ACCOUNTS: {
-                        const account = await fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
+                        return fireflyBridgeProvider.request(SupportedMethod.GET_CHAIN_ID, {
                             type: Network.EVM,
                         });
+                    case EthereumMethodType.ETH_REQUEST_ACCOUNTS: {
+                        const accounts = await fireflyBridgeProvider.request(SupportedMethod.GET_WALLET_ADDRESS, {
+                            type: Network.EVM,
+                        });
+                        if (accounts.length) return accounts;
 
+                        const account = await connectWalletSquashed();
                         return [account];
                     }
                     case EthereumMethodType.ETH_SIGN_TRANSACTION: {

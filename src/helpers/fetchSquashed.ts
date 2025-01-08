@@ -43,7 +43,7 @@ async function defaultResolver(request: Request) {
     return `${request.method} ${request.url} ${request.method === 'POST' ? await request.text() : 'NULL'}`;
 }
 
-export async function stableSquashedCached(
+export async function staleSquashedCached(
     info: RequestInfo | URL,
     init?: RequestInit,
     resolver = defaultResolver,

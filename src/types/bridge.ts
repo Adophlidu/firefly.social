@@ -95,6 +95,9 @@ export interface RequestArguments {
     [SupportedMethod.GET_AUTHORIZATION]: {};
     [SupportedMethod.GET_THEME]: {};
     [SupportedMethod.GET_LANGUAGE]: {};
+    [SupportedMethod.GET_CHAIN_ID]: {
+        type: Network;
+    };
     [SupportedMethod.GET_WALLET_ADDRESS]: {
         type: Network;
     };
@@ -138,7 +141,6 @@ export interface RequestArguments {
     };
     [SupportedMethod.SET_FRAME_READY_OPTIONS]: Partial<ReadyOptions>;
     [SupportedMethod.GET_FRAME_CONTEXT]: {};
-    [SupportedMethod.GET_CHAIN_ID]: {};
     [SupportedMethod.SIGN_TRANSACTION]: Transaction;
     [SupportedMethod.SIGN_MESSAGE]: {
         address: string;

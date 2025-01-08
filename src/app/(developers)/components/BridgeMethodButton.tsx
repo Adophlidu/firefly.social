@@ -151,7 +151,9 @@ export function BridgeMethodButton({ item }: Props) {
                     });
                     break;
                 case SupportedMethod.GET_CHAIN_ID: {
-                    const chainId = await fireflyBridgeProvider.request(SupportedMethod.GET_CHAIN_ID, {});
+                    const chainId = await fireflyBridgeProvider.request(SupportedMethod.GET_CHAIN_ID, {
+                        type: Network.EVM,
+                    });
                     enqueueInfoMessage(`Chain ID: ${chainId}`);
                     break;
                 }
