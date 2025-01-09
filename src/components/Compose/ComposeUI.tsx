@@ -103,7 +103,7 @@ export const ComposeUI = memo(function ComposeUI() {
 
             <ComposeActions />
 
-            {available ? <div style={{ height: keyboardHeight + 56 }} /> : null}
+            {available && !isMedium ? <div style={{ height: keyboardHeight + 56 }} /> : null}
         </>
     );
 });
