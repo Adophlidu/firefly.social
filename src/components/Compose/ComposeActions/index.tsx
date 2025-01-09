@@ -105,7 +105,7 @@ export function ComposeActions() {
                         </Tooltip>
                     ) : null}
 
-                    {!scheduleTime && !mediaDisabled ? (
+                    {!scheduleTime && !mediaDisabled && isMedium ? (
                         <ClickableButton
                             className={classNames('h-5 w-5', {
                                 'cursor-wait opacity-50': loading,
