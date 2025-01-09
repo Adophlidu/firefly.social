@@ -1855,7 +1855,7 @@ msgstr ""
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr ""
 
-#. placeholder {0}: handle || recipient?.displayName
+#. placeholder {0}: mentionHandle || recipient?.displayName
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr ""
 

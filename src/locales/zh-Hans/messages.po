@@ -1860,7 +1860,7 @@ msgstr "在 Explorer 上查看"
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr "所有者可以为每个指定地址设置不同的税率。"
 
-#. placeholder {0}: handle || recipient?.displayName
+#. placeholder {0}: mentionHandle || recipient?.displayName
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr "在帖子中标记 {0}，让他们知道你已经向他们的钱包发打赏了一笔小费。"
 

@@ -2,7 +2,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
 import { uniqBy } from 'lodash-es';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
@@ -17,16 +17,7 @@ import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
 export function TipSuccess() {
-    const {
-        amount,
-        token,
-        recipient,
-        handle,
-        hash: hashUrl,
-        socialProfiles,
-        post,
-        pureWallet,
-    } = TipsContext.useContainer();
+    const { amount, token, recipient, handle, hash: hashUrl, socialProfiles, post } = TipsContext.useContainer();
     const currentChannel = useCurrentVisitingChannel();
     const { context } = useMatch({ from: rootRouteId });
 
@@ -34,20 +25,23 @@ export function TipSuccess() {
         const __origin__ = recipient?.__origin__ as WalletProfile;
         if (!handle || !__origin__?.verifiedSources?.length || !socialProfiles.length) return { canShare: false };
         return {
-            canShare: !pureWallet,
+            canShare: true,
             walletName: __origin__.primary_ens || formatEthereumAddress(__origin__.address, 4),
         };
-    }, [recipient, handle, socialProfiles, pureWallet]);
+    }, [recipient, handle, socialProfiles]);
 
-    const onShare = () => {
+    const profiles = uniqBy(socialProfiles, 'platform');
+    const mentionHandle = profiles.find((x) => x.handle === handle) ? handle : profiles[0]?.handle;
+
+    const onShare = useCallback(() => {
         const expectedSources = getCurrentAvailableSources().filter((source) =>
             post
                 ? post.source === source
-                : socialProfiles.some((profile) => resolveSocialSourceFromFireflyPlatform(profile.platform) === source),
+                : profiles.some((profile) => resolveSocialSourceFromFireflyPlatform(profile.platform) === source),
         );
         if (!expectedSources.length) {
             LoginModalRef.open({
-                source: post ? post.source : resolveSocialSourceFromFireflyPlatform(socialProfiles[0].platform),
+                source: post ? post.source : resolveSocialSourceFromFireflyPlatform(profiles[0].platform),
             });
             return;
         }
@@ -62,14 +56,14 @@ export function TipSuccess() {
                 {
                     tag: CHAR_TAG.MENTION,
                     visible: true,
-                    content: `@${handle}`,
-                    profiles: uniqBy(socialProfiles, 'platform'),
+                    content: `@${mentionHandle}`,
+                    profiles,
                 },
                 ' ! Try it now on ',
                 ' https://firefly.social/ .',
             ],
         });
-    };
+    }, [amount, token, post, currentChannel, walletName, context, mentionHandle, profiles]);
 
     return (
         <>
@@ -79,8 +73,8 @@ export function TipSuccess() {
                     <p>
                         {canShare ? (
                             <Trans>
-                                Tag {handle || recipient?.displayName} in a post to let them know you’ve sent an onchain
-                                tip to their wallet.
+                                Tag {mentionHandle || recipient?.displayName} in a post to let them know you’ve sent an
+                                onchain tip to their wallet.
                             </Trans>
                         ) : (
                             <Trans>
