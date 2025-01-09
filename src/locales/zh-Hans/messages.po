@@ -2521,6 +2521,9 @@ msgstr "将在 {0} {1} 发送"
 msgid "Failed to like the post."
 msgstr "点赞失败。"
 
+msgid "Enter the amount that each winner can claim"
+msgstr ""
+
 #. placeholder {0}: post.author.handle
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 msgstr "🤑 刚刚通过 @{0} 在 {postUrl} 领取了一个 #FireflyLuckyDrop 🧧💰✨ ！"

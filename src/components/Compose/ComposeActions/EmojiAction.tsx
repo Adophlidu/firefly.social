@@ -1,4 +1,3 @@
-import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { t } from '@lingui/core/macro';
 import { Theme } from 'emoji-picker-react';
@@ -10,6 +9,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { EmojiPicker } from '@/esm/EmojiPicker.js';
+import { Tippy } from '@/esm/Tippy.js';
 import { writeChars } from '@/helpers/chars.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -31,9 +31,10 @@ export const EmojiAction = memo(function EmojiAction() {
 
     if (isMedium) {
         return (
-            <Popover as="div" className="relative">
-                <PopoverButton className="flex cursor-pointer">{buttonContent}</PopoverButton>
-                <PopoverPanel portal modal unmount={false} anchor="top">
+            <Tippy
+                visible={open}
+                onClickOutside={() => setOpen(false)}
+                content={
                     <EmojiPicker
                         skinTonesDisabled
                         lazyLoadEmojis
@@ -53,10 +54,19 @@ export const EmojiAction = memo(function EmojiAction() {
                             });
 
                             updateChars((chars) => writeChars(chars, emoji));
+                            setOpen(false);
                         }}
                     />
-                </PopoverPanel>
-            </Popover>
+                }
+                placement="top"
+                className="tippy-card"
+                duration={200}
+                arrow={false}
+                interactive
+                appendTo={() => document.body}
+            >
+                <div onClick={() => setOpen(true)}>{buttonContent}</div>
+            </Tippy>
         );
     }
     return (

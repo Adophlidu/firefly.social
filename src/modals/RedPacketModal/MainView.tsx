@@ -273,6 +273,7 @@ export function MainView() {
                     onAmountChange={setRawAmount}
                     balance={balance.toString()}
                     maxAmountShares={isRandom || shares === 0 ? 1 : shares}
+                    placeholder={randomType === 'equal' ? t`Enter the amount that each winner can claim` : undefined}
                 />
 
                 <label className="self-start text-[14px] font-bold leading-[18px]">

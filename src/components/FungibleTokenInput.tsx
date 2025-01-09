@@ -21,7 +21,7 @@ const MAX_AMOUNT_LENGTH = 79;
 
 export interface FungibleTokenInputProps {
     token?: FungibleToken<ChainId, SchemaType>;
-
+    placeholder?: string;
     onTokenChange: (token: FungibleToken<ChainId, SchemaType>) => void;
     amount: string;
     maxAmount?: string;
@@ -38,6 +38,7 @@ export const FungibleTokenInput = memo<FungibleTokenInputProps>(function Fungibl
     maxAmount,
     balance,
     amount,
+    placeholder,
 }) {
     const account = useAccount();
 
@@ -109,7 +110,7 @@ export const FungibleTokenInput = memo<FungibleTokenInputProps>(function Fungibl
                     autoComplete="off"
                     autoCorrect="off"
                     spellCheck="false"
-                    placeholder={t`Total amount shared among all winners`}
+                    placeholder={placeholder ?? t`Total amount shared among all winners`}
                     inputMode="decimal"
                     min={0}
                     minLength={MIN_AMOUNT_LENGTH}

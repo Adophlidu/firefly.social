@@ -84,7 +84,7 @@ export const ComposeUI = memo(function ComposeUI() {
         <>
             <div
                 className={classNames(
-                    'flex flex-col overflow-auto px-4 pb-4',
+                    'flex min-h-[318px] flex-col overflow-auto px-4 pb-4',
                     isMedium ? 'h-full' : available ? 'flex-1' : 'max-h-[300px] min-h-[300px]',
                 )}
                 style={{ maxHeight: isMedium ? 'calc(100vh - 184px)' : undefined }}
