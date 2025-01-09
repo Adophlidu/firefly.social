@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-01-07 12:01\n"
+"PO-Revision-Date: 2025-01-09 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -56,7 +56,7 @@ msgid "Disconnect"
 msgstr "断开"
 
 msgid "No frame found."
-msgstr ""
+msgstr "为找到 frame。"
 
 msgid "Undo mirror"
 msgstr "取消转帖"
@@ -269,7 +269,7 @@ msgstr "虚假 KYC。"
 
 #. placeholder {0}: u.host
 msgid "Requested from <0>{0}</0>"
-msgstr ""
+msgstr "已向 <0>{0}</0> 发送请求"
 
 msgid "Airdrop Scam"
 msgstr "空投骗局"
@@ -287,7 +287,7 @@ msgid "<0>Burned</0><1/>"
 msgstr "<0>已销毁</0><1/>"
 
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
-msgstr ""
+msgstr "刚刚在 {postUrl} 上领取了一个 #FireflyLuckyDrop 🧧💰✨"
 
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
@@ -302,7 +302,7 @@ msgid "{followerCount, plural, one {Member} other {Members}}"
 msgstr "{followerCount, plural, one {成员} other {成员}}"
 
 msgid "Mint Ended"
-msgstr ""
+msgstr "活动已结束"
 
 #. placeholder {0}: post.mirrors.length - 1
 msgid "<0>You</0> and {0} others recasted"
@@ -330,13 +330,13 @@ msgid "FAILED POST"
 msgstr "发帖失败"
 
 msgid "Post engagements"
-msgstr ""
+msgstr "查看互动"
 
 msgid "No financial crime found."
 msgstr "未识别到金融犯罪。"
 
 msgid "Muted {handleOrEnsOrAddress}."
-msgstr ""
+msgstr "隐藏 {handleOrEnsOrAddress}"
 
 msgid "The token can be bought."
 msgstr "该代币可以被购买。"
@@ -349,7 +349,7 @@ msgid "Log out @{0}"
 msgstr "登出 @{0}"
 
 msgid "DAOs"
-msgstr ""
+msgstr "DAOs"
 
 msgid "MAX"
 msgstr "最大"
@@ -405,7 +405,7 @@ msgstr "您的账户已连接。"
 
 #. placeholder {0}: formatAmount(usdcSize)
 msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
-msgstr ""
+msgstr "<0>出售了一个投注</0><1>在 Polymarket 上价值 ${0}</1>"
 
 #. placeholder {0}: profile.source
 #. placeholder {0}: post.source
@@ -438,7 +438,7 @@ msgid "Donald Trump"
 msgstr "唐纳德·特朗普"
 
 msgid "Mint"
-msgstr ""
+msgstr "铸造"
 
 msgid "Our transaction simulation and security detection found no issues. However, it is always crucial to double-check and proceed with caution."
 msgstr "我们的交易模拟和安全检测未发现问题。不过，始终仔细检查并谨慎操作是至关重要的。"
@@ -555,7 +555,7 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, selec
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了你的} Farcaster {转帖了你的} other {转帖了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</4>"
 
 msgid "Total"
-msgstr ""
+msgstr "总额"
 
 msgid "Signer key not found. Please approve a new one for us in Warpcast."
 msgstr "未找到签名密钥。请在 Warpcast 中为我们批准一个新的密钥。"
@@ -787,7 +787,7 @@ msgstr "可能是钓鱼地址。"
 
 #. placeholder {0}: session.type
 msgid "Your {0} account is now connected"
-msgstr ""
+msgstr "您的 {0} 账户已连接。"
 
 msgid "Time Out"
 msgstr "过期"
@@ -893,7 +893,7 @@ msgstr "收藏文章失败。"
 
 #. placeholder {0}: formatAmount(usdcSize)
 msgid "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
-msgstr ""
+msgstr "<0>进行一个投注</0><1>在 Polymarket 上价值 ${0}</1>"
 
 msgid "The event has ended, but you can explore others in Exclusive Events."
 msgstr "活动已结束，但您可以在独家活动中探索其他活动。"
@@ -938,7 +938,7 @@ msgid "Connect Wallet"
 msgstr "连接钱包"
 
 msgid "Review Transaction"
-msgstr ""
+msgstr "交易审核"
 
 #. placeholder {0}: error.url
 msgid "Not Found. Please check your URL[{0}]."
@@ -1051,7 +1051,7 @@ msgid "<0>Sold</0> an NFT"
 msgstr "<0>出售</0> 一个 NFT"
 
 msgid "There is no data available to display"
-msgstr ""
+msgstr "没有可显示的数据"
 
 msgid "Follow System"
 msgstr "跟随系统"
@@ -1154,7 +1154,7 @@ msgid "No content for the last two weeks."
 msgstr "最近两周没有内容。"
 
 msgid "Participate Now"
-msgstr ""
+msgstr "立即参加"
 
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr "这个通证合约提到它不能出售。也许这是一个欺诈行为。"
@@ -1258,7 +1258,7 @@ msgid "The current connected wallet does not match, Please switch to {0}"
 msgstr "当前连接的钱包不匹配，请切换到 {0}。"
 
 msgid "Mint price"
-msgstr ""
+msgstr "铸造价格"
 
 msgid "Cost"
 msgstr "成本"
@@ -1307,7 +1307,7 @@ msgid "Enter amount"
 msgstr "输入金额"
 
 msgid "Platform fee"
-msgstr ""
+msgstr "平台费用"
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
@@ -1331,7 +1331,7 @@ msgid "Are you sure you want to report this post?"
 msgstr "您确定要举报这个帖子吗？"
 
 msgid "Oops... Something went wrong. Please try again"
-msgstr ""
+msgstr "哎呀！出错了。 请再试一次。"
 
 msgid "No fake KYC found."
 msgstr "不涉及虚假 KYC。"
@@ -1419,7 +1419,7 @@ msgstr "隐私条款"
 
 #. placeholder {0}: posts.length
 msgid "{0, plural, one {Send} other {Send}}"
-msgstr ""
+msgstr "{0, plural, one {发送} other {发送}}"
 
 msgid "<0>Revised</0><1>an article on <2/></1>"
 msgstr "<0>更新</0><1>一篇文章于 <2/></1>"
@@ -1440,7 +1440,7 @@ msgid "Participation Blocked"
 msgstr "禁止参与"
 
 msgid "Collected by"
-msgstr ""
+msgstr "收藏人"
 
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查您的权限。"
@@ -1470,13 +1470,13 @@ msgid "No financial crime involved."
 msgstr "未识别到金融犯罪。"
 
 msgid "View on Website"
-msgstr ""
+msgstr "在网站上查看"
 
 msgid "Club"
-msgstr ""
+msgstr "社团"
 
 msgid "Mint NFT"
-msgstr ""
+msgstr "铸造 NFT"
 
 msgid "Follow"
 msgstr "关注"
@@ -1523,7 +1523,7 @@ msgid "Failed to unmute @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消隐藏 @{0} 失败。"
 
 msgid "Others in the conversation"
-msgstr ""
+msgstr "对话中的其他人"
 
 msgid "Insufficient Balance"
 msgstr "余额不足"
@@ -1623,10 +1623,10 @@ msgstr "登录失败。"
 
 #. placeholder {0}: post.source
 msgid "Claim on {0}:"
-msgstr ""
+msgstr "在 {0}: 领取"
 
 msgid "Failed to mint NFT."
-msgstr ""
+msgstr "铸造 NFT 失败。"
 
 msgid "Unlike"
 msgstr "取消点赞"
@@ -1635,7 +1635,7 @@ msgid "No blacklist"
 msgstr "无黑名单"
 
 msgid "<0>Collected</0><1/>"
-msgstr ""
+msgstr "<0>已收藏</0><1/>"
 
 msgid "Post was deleted"
 msgstr "帖子已被删除"
@@ -1644,7 +1644,7 @@ msgid "Website"
 msgstr "网站"
 
 msgid "Your TG account is now connected"
-msgstr ""
+msgstr "您的 TG 账户已连接。"
 
 #. placeholder {0}: article.title
 #. placeholder {0}: profile.handle
@@ -1808,7 +1808,7 @@ msgid "NFT contract cant restrict the approval, resulting in NFT can not be trad
 msgstr "NFT 合约无法限制授权，导致NFT无法在NFT去中心化交易所（DEX）上交易。"
 
 msgid "NFT minted successfully!"
-msgstr ""
+msgstr "NFT 铸造成功！"
 
 msgid "<0>Collected</0> a POAP"
 msgstr "<0>已收集</0>一个 POAP"
@@ -1852,7 +1852,7 @@ msgid "Confirm to disconnect this account and related wallets from Firefly’s s
 msgstr "确认断开此账户及相关钱包与 Firefly 社交图谱的连接吗？"
 
 msgid "Post your reply"
-msgstr ""
+msgstr "发送你的回复"
 
 msgid "View on Explorer"
 msgstr "在 Explorer 上查看"
@@ -1935,7 +1935,7 @@ msgstr "文章"
 
 #. placeholder {0}: nFormatter(data.count)
 msgid "{0} followings owned"
-msgstr ""
+msgstr "{0} 关注拥有"
 
 msgid "Follow me"
 msgstr "关注我"
@@ -1955,7 +1955,7 @@ msgid "Font Color"
 msgstr "字体颜色"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
-msgstr ""
+msgstr "在 Firefly 上使用 Lucky Drop，提升你的粉丝量和互动率！"
 
 msgid "Unsent posts"
 msgstr "未发送的帖子"
@@ -1979,7 +1979,7 @@ msgid "Unmute {handleOrEnsOrAddress}"
 msgstr "取消隐藏 {handleOrEnsOrAddress}"
 
 msgid "Participated"
-msgstr ""
+msgstr "已参加"
 
 msgid "Failed to disconnect wallet from your social graph."
 msgstr "未能从您的社交图谱中断链。"
@@ -2039,7 +2039,7 @@ msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr "@{0} 的帖子会从您的时间线中隐藏"
 
 msgid "Replying to"
-msgstr ""
+msgstr "正在回复"
 
 msgid "commented"
 msgstr "已回复"
@@ -2057,7 +2057,7 @@ msgid "Minting Date"
 msgstr "铸造日期"
 
 msgid "Unsupported Chain"
-msgstr ""
+msgstr "未支持的链"
 
 msgid "Failed to create red packet"
 msgstr "创建红包失败"
@@ -2155,7 +2155,7 @@ msgid "Publications"
 msgstr "帖子"
 
 msgid "Download media"
-msgstr ""
+msgstr "下载媒体"
 
 msgid "Unable to read image."
 msgstr "获取图片失败。"
@@ -2240,7 +2240,7 @@ msgid "GIFs"
 msgstr "动图"
 
 msgid "Loading..."
-msgstr ""
+msgstr "加载中..."
 
 msgid "%Of supply owned"
 msgstr "% 总的拥有人"
@@ -2276,7 +2276,7 @@ msgid "Quote"
 msgstr "引用"
 
 msgid "Collect Price"
-msgstr ""
+msgstr "收藏费用"
 
 msgid "View engagements"
 msgstr "查看互动"
@@ -2315,7 +2315,7 @@ msgid "Minutes"
 msgstr "分钟"
 
 msgid "Sorry, today's free mint quota has been reached."
-msgstr ""
+msgstr "抱歉，今天的免费领取额度已用完。"
 
 msgid "Floor Price"
 msgstr "地板价"
@@ -2434,7 +2434,7 @@ msgstr "从公开可验证数据注册表中或我们的实体算法中检索到
 
 #. placeholder {0}: channel.id
 msgid "Left /{0} on {sourceName}."
-msgstr ""
+msgstr "在 {sourceName} 上离开 @{0}"
 
 msgid "Step 2 Connect Wallet"
 msgstr "第 2 步 连接钱包"
@@ -2466,7 +2466,7 @@ msgstr "在 2024 年 10 月 12 日之前在 X 上关注了 <0>@{handle}</0>，�
 #. placeholder {1}: filteredProfiles[1].handle
 #. placeholder {2}: resolveSourceName(post.source)
 msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
-msgstr ""
+msgstr "正在回复<0>@{0}</0> 和 <1>@{1}</1> on {2}"
 
 msgid "Connect your wallet to follow"
 msgstr "连接钱包并关注"
@@ -2522,7 +2522,7 @@ msgid "Failed to like the post."
 msgstr "点赞失败。"
 
 msgid "Enter the amount that each winner can claim"
-msgstr ""
+msgstr "输入每个获奖者可以领取的金额"
 
 #. placeholder {0}: post.author.handle
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
@@ -2532,7 +2532,7 @@ msgid "Failed to repost."
 msgstr "转帖失败。"
 
 msgid "Sorry, today's free collect quota has been reached."
-msgstr ""
+msgstr "抱歉，今天的免费收藏额度已用完。"
 
 msgid "Mirrored"
 msgstr "已转发"
@@ -2684,7 +2684,7 @@ msgid "Powered by"
 msgstr "技术支持来自"
 
 msgid "So sorry, we are not able to mint this NFT at the moment."
-msgstr ""
+msgstr "很抱歉，我们目前无法铸造此 NFT。"
 
 #. placeholder {0}: first(post.mirrors)?.displayName
 msgid "<0>{0}</0> mirrored"
@@ -2698,7 +2698,7 @@ msgid "Please try switching to {0}"
 msgstr "请切换到 {0}"
 
 msgid "Your browser does not support the Firefly Bridge."
-msgstr ""
+msgstr "您的浏览器不支持 Firefly Bridge。"
 
 msgid "Mobile App"
 msgstr "手机应用"
@@ -2808,7 +2808,7 @@ msgid "Non-contract address found."
 msgstr "发现非合约地址。"
 
 msgid "Home"
-msgstr ""
+msgstr "首页"
 
 msgid "Confirm to disconnect this account from Firefly’s social graph?"
 msgstr "确认将此账户从 Firefly 的社交图谱中断开连接吗？"
@@ -2829,7 +2829,7 @@ msgid "Failed to claim token"
 msgstr "领取通证失败"
 
 msgid "Top 40 Projects powered by Rootdata"
-msgstr ""
+msgstr "由 Rootdata 提供支持的前 40 个项目"
 
 msgid "Notifications"
 msgstr "通知"
@@ -2890,7 +2890,7 @@ msgid "<0>Sold</0><1/>"
 msgstr "<0>出售</0><1/>"
 
 msgid "Everyone can reply"
-msgstr ""
+msgstr "所有人可评论"
 
 msgid "Failed to create scheduled post."
 msgstr "创建定时任务失败"
@@ -2934,7 +2934,7 @@ msgid "{0, plural, one {comment} other {comments}}"
 msgstr "{0, plural, one {评论} other {评论}}"
 
 msgid "<0/> Loading"
-msgstr ""
+msgstr "<0/> 加载中"
 
 msgid "Pinned"
 msgstr "已置顶"
@@ -2943,7 +2943,7 @@ msgid "The contract owner may contain the authority to modify the transaction ta
 msgstr "合约所有人也许拥有修改交易费用的权力。如果交易费用增加到超过49%，通证将无法交易（欺诈风险）。"
 
 msgid "Unknown status"
-msgstr ""
+msgstr "未知状态"
 
 msgid "<0>Minted</0> an NFT for free"
 msgstr "免费<0>铸造</0> 了一个 NFT"
@@ -3065,7 +3065,7 @@ msgid "No money laundering involved."
 msgstr "不涉及洗钱。"
 
 msgid "<0>Posted</0><1>an article on <2/></1>"
-msgstr ""
+msgstr "<0>发布了</0><1>一篇文章于 <2/></1>"
 
 msgid "Claims"
 msgstr "领取"
@@ -3088,14 +3088,14 @@ msgid "Failed to join /{0} on {sourceName}."
 msgstr "未能在 {sourceName} 上加入 @{0}。"
 
 msgid "Mint Again"
-msgstr ""
+msgstr "再次铸造"
 
 msgid "Repost"
 msgstr "转帖"
 
 #. placeholder {0}: data.price
 msgid "Collect for {0} {nativeSymbol}"
-msgstr ""
+msgstr "收藏 {0} {nativeSymbol}"
 
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr "请输入 blink 链接来验证。 <0>URL格式</0>"
@@ -3523,7 +3523,7 @@ msgstr "<0>销毁</0> 一个 NFT"
 #. placeholder {1}: timeLeft.minutes
 #. placeholder {2}: timeLeft.seconds
 msgid "{0}h: {1}m: {2}s"
-msgstr ""
+msgstr "{0}时: {1}分: {2}秒"
 
 msgid "Download App"
 msgstr "下载应用"
@@ -3533,7 +3533,7 @@ msgstr "获取状态失败。请稍后重试。"
 
 #. placeholder {0}: getMintButtonText(true, true, mintStatus)
 msgid "So sorry, we cant mint this NFT with the current status: {0}"
-msgstr ""
+msgstr "抱歉，今天的免费铸造额度已用完。我们无法在当前状态下铸造此 NFT：{0}。"
 
 msgid "Profile"
 msgstr "个人信息"
@@ -3572,7 +3572,7 @@ msgid "Unmuted {walletHandle}."
 msgstr "取消屏蔽 {walletHandle}。"
 
 msgid "Club {id} could not be found."
-msgstr ""
+msgstr "未发现社团 {id} 。"
 
 msgid "Ignore the warnings to continue"
 msgstr "忽略警告以继续"
@@ -3589,7 +3589,7 @@ msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{t
 msgstr ""
 
 msgid "View on website"
-msgstr ""
+msgstr "在网站上查看"
 
 msgid "Profiles"
 msgstr "个人信息"
@@ -3692,7 +3692,7 @@ msgid "Continue"
 msgstr "继续"
 
 msgid "Copy frame URL"
-msgstr ""
+msgstr "复制 Frame URL"
 
 msgid "Cybercrime."
 msgstr "网络犯罪。"
@@ -3702,7 +3702,7 @@ msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>发送</0> 一个 NFT 至 <1>{0}</1>"
 
 msgid "Unmuted {handleOrEnsOrAddress}."
-msgstr ""
+msgstr "取消屏蔽 {handleOrEnsOrAddress}"
 
 msgid "The metadata of this NFT is not stored in IPFS, AR, generated by contract, or another decentralized way."
 msgstr "此NFT的元数据未存储在 IPFS、AR、合约生成或其他去中心化方式中。"
@@ -3824,7 +3824,7 @@ msgid "Blink Validator"
 msgstr "Blink 验证器"
 
 msgid "Minted"
-msgstr ""
+msgstr "已铸造"
 
 msgid "Golden"
 msgstr "金色的"
