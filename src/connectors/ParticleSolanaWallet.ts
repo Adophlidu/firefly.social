@@ -1,3 +1,4 @@
+import { web3 } from '@coral-xyz/anchor';
 import { t } from '@lingui/core/macro';
 import { AuthType, connect, SolanaWallet } from '@particle-network/auth-core';
 import type { SendTransactionOptions, WalletName } from '@solana/wallet-adapter-base';
@@ -17,14 +18,6 @@ import {
     WalletSignMessageError,
     WalletSignTransactionError,
 } from '@solana/wallet-adapter-base';
-import type {
-    Connection,
-    Transaction,
-    TransactionSignature,
-    TransactionVersion,
-    VersionedTransaction,
-} from '@solana/web3.js';
-import { PublicKey } from '@solana/web3.js';
 
 import { WalletSource } from '@/constants/enum.js';
 import {
@@ -70,11 +63,11 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
     name = ParticleSolanaWalletName;
     url = 'https://firefly.social/';
     icon = '/firefly.png';
-    supportedTransactionVersions: ReadonlySet<TransactionVersion> = new Set(['legacy', 0]);
+    supportedTransactionVersions: ReadonlySet<web3.TransactionVersion> = new Set(['legacy', 0]);
 
     private _connecting: boolean;
     private _wallet: SolanaWallet | null;
-    private _publicKey: PublicKey | null;
+    private _publicKey: web3.PublicKey | null;
     private _readyState: WalletReadyState =
         typeof window === 'undefined' || typeof document === 'undefined'
             ? WalletReadyState.Unsupported
@@ -171,9 +164,9 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
 
             if (!wallet.publicKey) throw new WalletAccountError();
 
-            let publicKey: PublicKey;
+            let publicKey: web3.PublicKey;
             try {
-                publicKey = new PublicKey(wallet.publicKey.toBytes());
+                publicKey = new web3.PublicKey(wallet.publicKey.toBytes());
             } catch (error: unknown) {
                 throw new WalletPublicKeyError(formatError(error), error);
             }
@@ -214,11 +207,11 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
         this.emit('disconnect');
     }
 
-    override async sendTransaction<T extends Transaction | VersionedTransaction>(
+    override async sendTransaction<T extends web3.Transaction | web3.VersionedTransaction>(
         transaction: T,
-        connection: Connection,
+        connection: web3.Connection,
         options: SendTransactionOptions = {},
-    ): Promise<TransactionSignature> {
+    ): Promise<web3.TransactionSignature> {
         try {
             const wallet = this._wallet;
             if (!wallet) throw new WalletNotConnectedError();
@@ -230,7 +223,7 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
                     signers?.length && transaction.sign(signers);
                 } else {
                     transaction = (await this.prepareTransaction(transaction, connection, sendOptions)) as T;
-                    signers?.length && (transaction as Transaction).partialSign(...signers);
+                    signers?.length && (transaction as web3.Transaction).partialSign(...signers);
                 }
 
                 sendOptions.preflightCommitment = sendOptions.preflightCommitment || connection.commitment;
@@ -247,7 +240,7 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
         }
     }
 
-    async signTransaction<T extends Transaction | VersionedTransaction>(transaction: T): Promise<T> {
+    async signTransaction<T extends web3.Transaction | web3.VersionedTransaction>(transaction: T): Promise<T> {
         try {
             const wallet = this._wallet;
             if (!wallet) throw new WalletNotConnectedError();
@@ -263,7 +256,9 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
         }
     }
 
-    override async signAllTransactions<T extends Transaction | VersionedTransaction>(transactions: T[]): Promise<T[]> {
+    override async signAllTransactions<T extends web3.Transaction | web3.VersionedTransaction>(
+        transactions: T[],
+    ): Promise<T[]> {
         try {
             const wallet = this._wallet;
             if (!wallet) throw new WalletNotConnectedError();
@@ -309,12 +304,12 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
         }
     };
 
-    private _accountChanged = (newPublicKey: PublicKey) => {
+    private _accountChanged = (newPublicKey: web3.PublicKey) => {
         const publicKey = this._publicKey;
         if (!publicKey) return;
 
         try {
-            newPublicKey = new PublicKey(newPublicKey.toBytes());
+            newPublicKey = new web3.PublicKey(newPublicKey.toBytes());
         } catch (error: unknown) {
             this.emit('error', new WalletPublicKeyError(formatError(error), error));
             return;

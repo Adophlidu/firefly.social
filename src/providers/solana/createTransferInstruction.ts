@@ -1,7 +1,6 @@
+import { BN,web3 } from '@coral-xyz/anchor';
 import { blob, struct, u8 } from '@solana/buffer-layout';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
-import { type AccountMeta, type PublicKey, type Signer, TransactionInstruction } from '@solana/web3.js';
-import BN from 'bn.js';
 
 enum TokenInstruction {
     InitializeMint = 0,
@@ -40,13 +39,13 @@ enum TokenInstruction {
  * @return Instruction to add to a transaction
  */
 export function createTransferInstruction(
-    source: PublicKey,
-    destination: PublicKey,
-    owner: PublicKey,
+    source: web3.PublicKey,
+    destination: web3.PublicKey,
+    owner: web3.PublicKey,
     amount: number,
-    multiSigners: Signer[] = [],
-    programId: PublicKey = TOKEN_PROGRAM_ID,
-): TransactionInstruction {
+    multiSigners: web3.Signer[] = [],
+    programId: web3.PublicKey = TOKEN_PROGRAM_ID,
+): web3.TransactionInstruction {
     const dataLayout = struct<{ instruction: number; amount: Uint8Array }>([u8('instruction'), blob(8, 'amount')]);
 
     const keys = addSigners(
@@ -67,10 +66,14 @@ export function createTransferInstruction(
         data,
     );
 
-    return new TransactionInstruction({ keys, programId, data });
+    return new web3.TransactionInstruction({ keys, programId, data });
 }
 
-function addSigners(keys: AccountMeta[], ownerOrAuthority: PublicKey, multiSigners: Signer[]): AccountMeta[] {
+function addSigners(
+    keys: web3.AccountMeta[],
+    ownerOrAuthority: web3.PublicKey,
+    multiSigners: web3.Signer[],
+): web3.AccountMeta[] {
     if (multiSigners.length) {
         keys.push({ pubkey: ownerOrAuthority, isSigner: false, isWritable: false });
         for (const signer of multiSigners) {

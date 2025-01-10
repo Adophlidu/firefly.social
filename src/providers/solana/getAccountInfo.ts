@@ -1,5 +1,5 @@
+import { web3 } from '@coral-xyz/anchor';
 import { AccountLayout, TOKEN_PROGRAM_ID } from '@solana/spl-token';
-import type { Commitment, Connection, PublicKey } from '@solana/web3.js';
 
 enum AccountState {
     Uninitialized = 0,
@@ -8,10 +8,10 @@ enum AccountState {
 }
 
 export async function getAccountInfo(
-    connection: Connection,
-    address: PublicKey,
-    commitment?: Commitment,
-    programId: PublicKey = TOKEN_PROGRAM_ID,
+    connection: web3.Connection,
+    address: web3.PublicKey,
+    commitment?: web3.Commitment,
+    programId: web3.PublicKey = TOKEN_PROGRAM_ID,
 ) {
     const info = await connection.getAccountInfo(address, commitment);
     if (!info) throw new Error('TokenAccountNotFoundError');

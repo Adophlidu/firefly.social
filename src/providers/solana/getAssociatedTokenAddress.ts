@@ -1,16 +1,16 @@
+import { web3 } from '@coral-xyz/anchor';
 import { ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token';
-import { PublicKey } from '@solana/web3.js';
 
 export async function getAssociatedTokenAddress(
-    mint: PublicKey,
-    owner: PublicKey,
+    mint: web3.PublicKey,
+    owner: web3.PublicKey,
     allowOwnerOffCurve = false,
-    programId: PublicKey = TOKEN_PROGRAM_ID,
-    associatedTokenProgramId: PublicKey = ASSOCIATED_TOKEN_PROGRAM_ID,
-): Promise<PublicKey> {
-    if (!allowOwnerOffCurve && !PublicKey.isOnCurve(owner.toBuffer())) throw new Error('TokenOwnerOffCurveError');
+    programId: web3.PublicKey = TOKEN_PROGRAM_ID,
+    associatedTokenProgramId: web3.PublicKey = ASSOCIATED_TOKEN_PROGRAM_ID,
+): Promise<web3.PublicKey> {
+    if (!allowOwnerOffCurve && !web3.PublicKey.isOnCurve(owner.toBuffer())) throw new Error('TokenOwnerOffCurveError');
 
-    const [address] = PublicKey.findProgramAddressSync(
+    const [address] = web3.PublicKey.findProgramAddressSync(
         [owner.toBuffer(), programId.toBuffer(), mint.toBuffer()],
         associatedTokenProgramId,
     );

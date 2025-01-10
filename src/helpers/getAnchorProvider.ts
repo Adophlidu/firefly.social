@@ -1,11 +1,10 @@
-import { AnchorProvider } from '@coral-xyz/anchor';
+import { AnchorProvider, web3 } from '@coral-xyz/anchor';
 import { ChainId } from '@masknet/web3-shared-solana';
-import { type Cluster, clusterApiUrl, Connection } from '@solana/web3.js';
 
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';
 
-const resolveCluster = createLookupTableResolver<ChainId, Cluster>(
+const resolveCluster = createLookupTableResolver<ChainId, web3.Cluster>(
     {
         [ChainId.Mainnet]: 'mainnet-beta',
         [ChainId.Testnet]: 'testnet',
@@ -18,7 +17,7 @@ const resolveCluster = createLookupTableResolver<ChainId, Cluster>(
 export function getAnchorProvider(chainId = ChainId.Mainnet): AnchorProvider {
     const adaptor = getWalletAdaptorConnected();
     const cluster = resolveCluster(chainId);
-    const connection = new Connection(clusterApiUrl(cluster), 'confirmed');
+    const connection = new web3.Connection(web3.clusterApiUrl(cluster), 'confirmed');
     const wallet = {
         publicKey: adaptor.publicKey,
         signTransaction: adaptor.signTransaction,

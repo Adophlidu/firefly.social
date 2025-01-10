@@ -1,4 +1,4 @@
-import { PublicKey } from '@solana/web3.js';
+import { web3 } from '@coral-xyz/anchor';
 import { type Address, isAddress, isAddressEqual } from 'viem';
 
 export function isSameEthereumAddress(address?: string, otherAddress?: string): boolean {
@@ -10,7 +10,7 @@ export function isSameEthereumAddress(address?: string, otherAddress?: string): 
 export function isSameSolanaAddress(address?: string, otherAddress?: string): boolean {
     try {
         if (!address || !otherAddress) return false;
-        return new PublicKey(address).equals(new PublicKey(otherAddress));
+        return new web3.PublicKey(address).equals(new web3.PublicKey(otherAddress));
     } catch {
         return false;
     }

@@ -1,20 +1,20 @@
+import { web3 } from '@coral-xyz/anchor';
 import { ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token';
-import { type Commitment, type Connection, type PublicKey, Transaction } from '@solana/web3.js';
 
 import { createAssociatedTokenAccountInstruction } from '@/providers/solana/createAssociatedTokenAccountInstruction.js';
 import { getAccountInfo } from '@/providers/solana/getAccountInfo.js';
 import { getAssociatedTokenAddress } from '@/providers/solana/getAssociatedTokenAddress.js';
 
 export async function getOrCreateAssociatedTokenAccount(
-    connection: Connection,
-    payer: PublicKey,
-    mint: PublicKey,
-    owner: PublicKey,
-    signTransaction: (tx: Transaction) => Promise<Transaction>,
+    connection: web3.Connection,
+    payer: web3.PublicKey,
+    mint: web3.PublicKey,
+    owner: web3.PublicKey,
+    signTransaction: (tx: web3.Transaction) => Promise<web3.Transaction>,
     allowOwnerOffCurve = false,
-    commitment: Commitment = 'single',
-    programId: PublicKey = TOKEN_PROGRAM_ID,
-    associatedTokenProgramId: PublicKey = ASSOCIATED_TOKEN_PROGRAM_ID,
+    commitment: web3.Commitment = 'single',
+    programId: web3.PublicKey = TOKEN_PROGRAM_ID,
+    associatedTokenProgramId: web3.PublicKey = ASSOCIATED_TOKEN_PROGRAM_ID,
 ) {
     const associatedToken = await getAssociatedTokenAddress(
         mint,
@@ -36,7 +36,7 @@ export async function getOrCreateAssociatedTokenAccount(
         if (error.message === 'TokenAccountNotFoundError' || error.message === 'TokenInvalidAccountOwnerError') {
             // As this isn't atomic, it's possible others can create associated accounts meanwhile.
             try {
-                const transaction = new Transaction().add(
+                const transaction = new web3.Transaction().add(
                     createAssociatedTokenAccountInstruction(
                         payer,
                         associatedToken,

@@ -1,10 +1,10 @@
 /* cspell:disable */
 
+import { web3 } from '@coral-xyz/anchor';
 import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { type SignerWalletAdapter } from '@solana/wallet-adapter-base';
 import { CoinbaseWalletAdapter, CoinbaseWalletName } from '@solana/wallet-adapter-coinbase';
 import { PhantomWalletAdapter, PhantomWalletName } from '@solana/wallet-adapter-phantom';
-import type { PublicKey } from '@solana/web3.js';
 
 import { UnreachableError } from '@/constants/error.js';
 import { SOLANA_WALLET_CACHE_KEY } from '@/constants/index.js';
@@ -35,5 +35,5 @@ export function getWalletAdaptorConnected() {
     const adaptor = getWalletAdapter();
     if (!adaptor.publicKey) throw new WalletNotConnectedError();
 
-    return adaptor as SignerWalletAdapter & { publicKey: PublicKey };
+    return adaptor as SignerWalletAdapter & { publicKey: web3.PublicKey };
 }

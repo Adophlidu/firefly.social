@@ -1,5 +1,5 @@
+import { web3 } from '@coral-xyz/anchor';
 import { ChainId, isNativeTokenAddress } from '@masknet/web3-shared-solana';
-import { Connection, PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
 
 import { env } from '@/constants/env.js';
 import { isGreaterThan, rightShift } from '@/helpers/number.js';
@@ -11,7 +11,7 @@ import { SolanaNetwork } from '@/providers/solana/Network.js';
 import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';
 
 class Provider implements TransferProvider<ChainId> {
-    private connection = new Connection(env.external.NEXT_PUBLIC_SOLANA_RPC_URL, 'confirmed');
+    private connection = new web3.Connection(env.external.NEXT_PUBLIC_SOLANA_RPC_URL, 'confirmed');
 
     async transfer(options: TransactionOptions<ChainId>): Promise<string> {
         const { token } = options;
@@ -39,7 +39,7 @@ class Provider implements TransferProvider<ChainId> {
 
     async validateGas(options: TransactionOptions<ChainId>): Promise<boolean> {
         const nativeBalance = await getNativeTokenBalance(await SolanaNetwork.getAccount(), ChainId.Mainnet);
-        let transaction: Transaction;
+        let transaction: web3.Transaction;
         if (this.isNativeToken(options.token)) {
             transaction = await this.getNativeTransferTransaction(options);
         } else {
@@ -61,7 +61,7 @@ class Provider implements TransferProvider<ChainId> {
 
         const transaction = await this.getNativeTransferTransaction(options);
         const blockHash = await this.connection.getLatestBlockhash();
-        transaction.feePayer = new PublicKey(account);
+        transaction.feePayer = new web3.PublicKey(account);
         transaction.recentBlockhash = blockHash.blockhash;
 
         const signature = await adapter.sendTransaction(transaction, this.connection);
@@ -76,7 +76,7 @@ class Provider implements TransferProvider<ChainId> {
 
         const transaction = await this.getSplTransferTransaction(options);
         const blockHash = await this.connection.getLatestBlockhash();
-        transaction.feePayer = new PublicKey(account);
+        transaction.feePayer = new web3.PublicKey(account);
         transaction.recentBlockhash = blockHash.blockhash;
 
         const signature = await adapter.sendTransaction(transaction, this.connection);
@@ -86,10 +86,10 @@ class Provider implements TransferProvider<ChainId> {
     }
 
     private async getNativeTransferTransaction(options: TransactionOptions<ChainId>) {
-        return new Transaction().add(
-            SystemProgram.transfer({
-                fromPubkey: new PublicKey(await SolanaNetwork.getAccount()),
-                toPubkey: new PublicKey(options.to),
+        return new web3.Transaction().add(
+            web3.SystemProgram.transfer({
+                fromPubkey: new web3.PublicKey(await SolanaNetwork.getAccount()),
+                toPubkey: new web3.PublicKey(options.to),
                 lamports: Number.parseInt(options.amount, 10),
             }),
         );
@@ -97,11 +97,11 @@ class Provider implements TransferProvider<ChainId> {
 
     private async getSplTransferTransaction(options: TransactionOptions<ChainId>) {
         const adapter = getWalletAdapter();
-        const accountPublicKey = new PublicKey(await SolanaNetwork.getAccount());
+        const accountPublicKey = new web3.PublicKey(await SolanaNetwork.getAccount());
 
-        const recipientPubkey = new PublicKey(options.to);
-        const mintPubkey = new PublicKey(options.token.id);
-        function signTransaction(transaction: Transaction) {
+        const recipientPubkey = new web3.PublicKey(options.to);
+        const mintPubkey = new web3.PublicKey(options.token.id);
+        function signTransaction(transaction: web3.Transaction) {
             return adapter.signTransaction(transaction);
         }
         const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
@@ -119,7 +119,7 @@ class Provider implements TransferProvider<ChainId> {
             signTransaction,
         );
 
-        return new Transaction().add(
+        return new web3.Transaction().add(
             createTransferInstruction(
                 fromTokenAccount.address,
                 toTokenAccount.address,

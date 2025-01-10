@@ -1,4 +1,4 @@
-import { PublicKey } from '@solana/web3.js';
+import { web3 } from '@coral-xyz/anchor';
 import bs58 from 'bs58';
 
 function isTronAddress(address: string): boolean {
@@ -10,7 +10,7 @@ export function isValidSolanaAddress(address?: string, strict?: boolean): addres
     if (!length || length < 32 || length > 44) return false;
     try {
         const buffer = bs58.decode(address);
-        return strict === false ? true : PublicKey.isOnCurve(buffer) && !isTronAddress(address);
+        return strict === false ? true : web3.PublicKey.isOnCurve(buffer) && !isTronAddress(address);
     } catch {
         return false;
     }

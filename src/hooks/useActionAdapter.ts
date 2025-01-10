@@ -1,3 +1,4 @@
+import { web3 } from '@coral-xyz/anchor';
 import {
     ActionConfig as RawActionConfig,
     BlockchainIds,
@@ -10,7 +11,6 @@ import { t } from '@lingui/core/macro';
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
-import { VersionedTransaction } from '@solana/web3.js';
 import bs58 from 'bs58';
 import { pick } from 'lodash-es';
 import { useCallback, useMemo } from 'react';
@@ -30,7 +30,7 @@ import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 class ActionConfig extends RawActionConfig {
     override async confirmTransaction(signature: string) {
         const signatureJSON = parseJSON(signature) as { txHash: string; chainId: ChainId } | null;
-        if (signatureJSON && signatureJSON.chainId && isHex(signatureJSON.txHash)) {
+        if (signatureJSON?.chainId && isHex(signatureJSON.txHash)) {
             await waitForEthereumTransaction(signatureJSON.chainId, signatureJSON.txHash);
             return;
         }
@@ -79,7 +79,7 @@ export function useActionAdapter(url?: string) {
         async (txData: string) => {
             try {
                 const tx = await wallet.sendTransaction(
-                    VersionedTransaction.deserialize(Buffer.from(txData, 'base64')),
+                    web3.VersionedTransaction.deserialize(Buffer.from(txData, 'base64')),
                     connection,
                 );
                 return { signature: tx };
