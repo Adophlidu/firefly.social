@@ -24,25 +24,27 @@ export function PolymarketActivityRate({ activity }: ActivityRateProps) {
                             style={{
                                 width: `${rate}%`,
                                 background: isFirst
-                                    ? `linear-gradient(to right, ${isFirst ? '#3DC233' : '#FF3545'}, ${isFirst ? '#3DC233' : '#FF3545'} 20px, transparent 20px)`
+                                    ? `linear-gradient(to right, ${isFirst ? '#C1E7BD' : '#FFD5D2'}, ${isFirst ? '#C1E7BD' : '#FFD5D2'} 20px, transparent 20px)`
                                     : isLast
-                                      ? `linear-gradient(to left, ${isFirst ? '#3DC233' : '#FF3545'}, ${isFirst ? '#3DC233' : '#FF3545'} 20px, transparent 20px)`
+                                      ? `linear-gradient(to left, ${isFirst ? '#C1E7BD' : '#FFD5D2'}, ${isFirst ? '#C1E7BD' : '#FFD5D2'} 20px, transparent 20px)`
                                       : 'transparent',
                             }}
                             key={outcome}
                         >
                             <div
                                 className={classNames('h-full skew-x-[-30deg] rounded-lg', {
-                                    'bg-success': isFirst,
-                                    'bg-danger': !isFirst,
+                                    'bg-[#C1E7BD]': isFirst,
+                                    'bg-[#FFD5D2]': !isFirst,
                                 })}
                             />
                             <div
                                 className={classNames(
-                                    'absolute bottom-0 top-0 flex max-w-full flex-col justify-center font-bold text-white',
+                                    'absolute bottom-0 top-0 flex max-w-full flex-col justify-center font-bold',
                                     {
                                         'right-0 pr-7 text-right': isLast,
                                         'left-0 pl-7': !isLast,
+                                        'text-success': isFirst,
+                                        'text-danger': !isFirst,
                                     },
                                 )}
                             >
