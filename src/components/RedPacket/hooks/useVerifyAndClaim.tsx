@@ -78,7 +78,7 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
         ConfirmModalRef.open({
             title: t`Lucky Drop`,
             content: (
-                <div className="flex h-[276px] w-[388px] flex-col items-center">
+                <div className="flex h-[276px] w-[388px] flex-col items-center max-md:w-auto">
                     <CircleSuccessIcon width={90} height={90} />
                     <div className="mt-3 text-xl font-bold leading-6 text-success">
                         <Trans>Congratulations!</Trans>

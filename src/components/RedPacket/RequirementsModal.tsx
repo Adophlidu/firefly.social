@@ -115,7 +115,7 @@ export function RequirementsModal({
 
     return (
         <Modal open={open} onClose={onClose}>
-            <div className="flex min-h-[344px] min-w-[476px] transform flex-col rounded-xl bg-primaryBottom transition-all">
+            <div className="flex min-h-[344px] transform flex-col bg-primaryBottom transition-all max-md:h-[100vh] max-md:w-[100vw] md:min-w-[476px] md:rounded-xl">
                 <div className="flex items-center justify-center gap-2 rounded-t-xl p-4">
                     <CloseButton
                         className="h-6 w-6 shrink-0"
