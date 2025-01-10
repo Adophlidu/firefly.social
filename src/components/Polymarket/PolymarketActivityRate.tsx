@@ -1,5 +1,6 @@
 import { classNames } from '@/helpers/classNames.js';
 import { computeVolume, toFixedTrimmed } from '@/helpers/polymarket.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import type { PolymarketActivity } from '@/providers/types/Firefly.js';
 
 interface ActivityRateProps {
@@ -7,6 +8,7 @@ interface ActivityRateProps {
 }
 
 export function PolymarketActivityRate({ activity }: ActivityRateProps) {
+    const isDarkMode = useIsDarkMode();
     return (
         <>
             <div className="mt-2 flex h-12 gap-x-2 overflow-hidden rounded-full">
@@ -22,19 +24,23 @@ export function PolymarketActivityRate({ activity }: ActivityRateProps) {
                                 'rounded-r-full': isLast,
                             })}
                             style={{
+                                ...{
+                                    '--success-color': isDarkMode ? '#1F4B1A' : '#C1E7BD',
+                                    '--danger-color': isDarkMode ? '#66120D' : '#FFD5D2',
+                                },
                                 width: `${rate}%`,
                                 background: isFirst
-                                    ? `linear-gradient(to right, ${isFirst ? '#C1E7BD' : '#FFD5D2'}, ${isFirst ? '#C1E7BD' : '#FFD5D2'} 20px, transparent 20px)`
+                                    ? `linear-gradient(to right, ${isFirst ? 'var(--success-color)' : 'var(--danger-color)'}, ${isFirst ? 'var(--success-color)' : 'var(--danger-color)'} 20px, transparent 20px)`
                                     : isLast
-                                      ? `linear-gradient(to left, ${isFirst ? '#C1E7BD' : '#FFD5D2'}, ${isFirst ? '#C1E7BD' : '#FFD5D2'} 20px, transparent 20px)`
+                                      ? `linear-gradient(to left, ${isFirst ? 'var(--success-color)' : 'var(--danger-color)'}, ${isFirst ? 'var(--success-color)' : 'var(--danger-color)'} 20px, transparent 20px)`
                                       : 'transparent',
                             }}
                             key={outcome}
                         >
                             <div
                                 className={classNames('h-full skew-x-[-30deg] rounded-lg', {
-                                    'bg-[#C1E7BD]': isFirst,
-                                    'bg-[#FFD5D2]': !isFirst,
+                                    'bg-[var(--success-color)]': isFirst,
+                                    'bg-[var(--danger-color)]': !isFirst,
                                 })}
                             />
                             <div
