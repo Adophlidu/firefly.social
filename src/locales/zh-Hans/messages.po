@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-01-09 12:01\n"
+"PO-Revision-Date: 2025-01-10 00:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1658,6 +1658,11 @@ msgid ""
 "\n"
 "#PENGU #FireflySocial"
 msgstr ""
+"刚刚提交了我的钱包地址来领取圣诞礼物。让我们一起带着 $PENGU 滑入假日季吧 {fireflyMention}！\n"
+"\n"
+"提交地址：{shareUrl}\n"
+"\n"
+"#PENGU #FireflySocial"
 
 msgid "Enable logging telemetry events"
 msgstr "启用日志侦测时间"
@@ -1699,7 +1704,7 @@ msgid "Report article"
 msgstr "举报文章"
 
 msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly"
-msgstr ""
+msgstr "使用 <0>Firefly 移动应用</0> 或 <1>相机应用</1> 扫描二维码即可即时登录。"
 
 msgid "Everyone"
 msgstr "任何人"
@@ -1827,7 +1832,7 @@ msgstr "获取收藏失败。"
 #. placeholder {2}: filteredProfiles[2].handle
 #. placeholder {3}: resolveSourceName(post.source)
 msgid "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>@{2}</2> on {3}"
-msgstr ""
+msgstr "正在回复<0>@{0}</0> ,<1>@{1}</1> 和 <2>@{2}</2> on {3}"
 
 msgid "Follow Back"
 msgstr "回关"
@@ -2454,7 +2459,7 @@ msgstr "金额不足"
 #. placeholder {2}: filteredProfiles.length - 2
 #. placeholder {3}: resolveSourceName(post.source)
 msgid "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>{2} others</2> on {3}"
-msgstr ""
+msgstr "正在回复 <0>@{0}</0> ,<1>@{1}</1> 和 <2>{2} 其他</2> on {3}"
 
 msgid "No phishing site."
 msgstr "未发现钓鱼网站。"
@@ -2868,7 +2873,7 @@ msgid "{handleOrEnsOrAddress} unwatched"
 msgstr "{handleOrEnsOrAddress} 取消关注"
 
 msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
-msgstr ""
+msgstr "🤑 在 {postUrl} 上快来看看这个 #FireflyLuckyDrop 🧧💰✨"
 
 #. placeholder {0}: dayjs(task.created_at).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.created_at).format('hh:mm A')
@@ -3586,7 +3591,7 @@ msgstr "签名以启用无签名功能"
 #. placeholder {0}: formatBalance(claim_amounts, token_decimal, { significant: 2, isPrecise: true, })
 #. placeholder {1}: formatBalance(total_amounts, token_decimal ?? 18, { significant: 2, isPrecise: true, })
 msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
-msgstr ""
+msgstr "<0>已领取: </0><1>{claim_numbers}/{total_numbers}</1> <2>{0}/{1}</2> <3>{token_symbol}</3>"
 
 msgid "View on website"
 msgstr "在网站上查看"
