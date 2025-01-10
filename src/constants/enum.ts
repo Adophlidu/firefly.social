@@ -48,7 +48,7 @@ export enum PageRoute {
     Explore = '/explore',
     Notifications = '/notifications',
     Profile = '/profile',
-    Bookmarks = '/bookmarks',
+    Bookmarks = '/bookmarks/:source',
     Settings = '/settings',
     Developers = '/developers',
     Search = '/search',

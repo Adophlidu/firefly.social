@@ -11,7 +11,7 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
-import { Source } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -49,6 +49,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const isPostPage = isRoutePathname(pathname, '/post/:source');
     const isProfilePage = isRoutePathname(pathname, '/profile/:source');
     const isChannelPage = isRoutePathname(pathname, '/channel/:detail');
+    const isBookmarkPage = isRoutePathname(pathname, PageRoute.Bookmarks);
     const postLink = getPostUrl(post);
     const muted = useIsProfileMuted(post.author.source, post.author.profileId) || post.channel?.blocked;
 
@@ -109,7 +110,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 {showPostAction ? (
                     <PostActions
                         post={post}
-                        disabled={post.isHidden}
+                        disabled={!isBookmarkPage && post.isHidden}
                         showChannelTag={!isComment && !isChannelPage && showChannelTag}
                         onSetScrollIndex={() => {
                             if (listKey && !isUndefined(index))

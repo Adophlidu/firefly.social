@@ -80,7 +80,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 name: <Trans>Bookmarks</Trans>,
                                 icon: BookmarkIcon,
                                 selectedIcon: BookmarkSelectedIcon,
-                                match: () => pathname.startsWith(PageRoute.Bookmarks),
+                                match: () => isRoutePathname(pathname, PageRoute.Bookmarks),
                             },
                             {
                                 href: '/profile',
