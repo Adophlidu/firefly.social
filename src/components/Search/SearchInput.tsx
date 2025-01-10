@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, useRef } from 'react';
 
 import { ClearButton } from '@/components/IconButton.js';
@@ -14,13 +14,12 @@ export function SearchInput({ onClear, ref, ...rest }: SearchInputProps) {
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
-        <label className="flex w-full flex-1 items-center">
+        <label className="relative flex w-full flex-1 items-center">
             <input
                 type="search"
                 name="searchText"
                 autoComplete="off"
                 spellCheck="false"
-                placeholder={t`Search...`}
                 ref={inputRef}
                 {...rest}
                 className={classNames(
@@ -28,6 +27,11 @@ export function SearchInput({ onClear, ref, ...rest }: SearchInputProps) {
                     rest.className,
                 )}
             />
+            {!rest.value ? (
+                <span className="absolute left-0 pl-3 text-secondary sm:text-sm sm:leading-6">
+                    <Trans>Search...</Trans>
+                </span>
+            ) : null}
             {rest.value ? (
                 <ClearButton
                     type="button"
