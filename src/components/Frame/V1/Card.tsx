@@ -1,13 +1,11 @@
 import { useRef } from 'react';
 
+import { FootnoteLink } from '@/components/FootnoteLink.js';
 import { Button } from '@/components/Frame/V1/Button.js';
 import { Input } from '@/components/Frame/V1/Input.js';
 import { Image } from '@/components/Image.js';
-import { Link } from '@/components/Link.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
-import { stopPropagation } from '@/helpers/stopEvent.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { ActionType, type FrameButton, type FrameV1 } from '@/types/frame.js';
 
@@ -21,7 +19,6 @@ interface CardProps {
 
 export function Card({ frame, source, readonly = false, loading = false, onButtonClick }: CardProps) {
     const inputRef = useRef<HTMLInputElement>(null);
-    const hostname = parseUrl(frame.url)?.hostname;
 
     return (
         <div className="mt-4 flex flex-col">
@@ -81,16 +78,7 @@ export function Card({ frame, source, readonly = false, loading = false, onButto
                     </div>
                 ) : null}
             </div>
-            {hostname ? (
-                <Link
-                    href={frame.url}
-                    target="_blank"
-                    onClick={stopPropagation}
-                    className="ml-auto mt-1 flex justify-end text-sm text-secondary hover:underline"
-                >
-                    {hostname}
-                </Link>
-            ) : null}
+            <FootnoteLink href={frame.url} />
         </div>
     );
 }

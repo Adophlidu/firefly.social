@@ -2,6 +2,7 @@ import type { FrameContext, SetPrimaryButton } from '@farcaster/frame-host';
 import { memo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { FootnoteLink } from '@/components/FootnoteLink.js';
 import { Image } from '@/components/Image.js';
 import { Source } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/index.js';
@@ -76,24 +77,27 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
     };
 
     return (
-        <div className="flex flex-col overflow-hidden rounded-xl">
-            <Image
-                className="h-auto w-full"
-                style={{ backgroundColor: frame.button.action.splashBackgroundColor }}
-                width={530}
-                height={350}
-                src={frame.imageUrl}
-                alt={frame.x_url}
-            />
-            {primaryButton?.hidden ? null : (
-                <ClickableButton
-                    className="bg-lightBg px-1 py-3 font-bold text-lightHighlight dark:bg-fireflyBrand dark:text-white"
-                    disabled={primaryButton?.loading || primaryButton?.disabled}
-                    onClick={onClick}
-                >
-                    {primaryButton?.text || frame.button.title || frame.button.action.name}
-                </ClickableButton>
-            )}
+        <div className="flex flex-col">
+            <div className="flex flex-col overflow-hidden rounded-xl">
+                <Image
+                    className="h-auto w-full"
+                    style={{ backgroundColor: frame.button.action.splashBackgroundColor }}
+                    width={530}
+                    height={350}
+                    src={frame.imageUrl}
+                    alt={frame.x_url}
+                />
+                {primaryButton?.hidden ? null : (
+                    <ClickableButton
+                        className="bg-lightBg px-1 py-3 font-bold text-lightHighlight dark:bg-fireflyBrand dark:text-white"
+                        disabled={primaryButton?.loading || primaryButton?.disabled}
+                        onClick={onClick}
+                    >
+                        {primaryButton?.text || frame.button.title || frame.button.action.name}
+                    </ClickableButton>
+                )}
+            </div>
+            <FootnoteLink href={frame.x_url} />
         </div>
     );
 });
