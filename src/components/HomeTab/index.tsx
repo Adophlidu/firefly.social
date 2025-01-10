@@ -3,7 +3,7 @@
 import { Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
 import { usePathname } from 'next/navigation.js';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
@@ -21,6 +21,10 @@ const types = {
 
 export function HomeTabs() {
     const pathname = usePathname();
+    const [tabSource, setTabSource] = useState<Record<HomeTab, Source>>({
+        [HomeTab.Discover]: types[HomeTab.Discover][0],
+        [HomeTab.Following]: types[HomeTab.Following][0],
+    });
     const { tab: currentTab, source } = useMemo(() => {
         const parsedFollowingPageUrl = parseFollowingPageUrl(pathname);
         if (parsedFollowingPageUrl) {
@@ -43,10 +47,10 @@ export function HomeTabs() {
     }, [pathname]);
 
     return (
-        <>
-            <SourceTabs className="sticky top-0">
+        <div className="sticky top-[54px] z-20 flex w-full flex-col bg-primaryBottom md:top-0">
+            <SourceTabs>
                 {getEnumAsArray(HomeTab).map(({ value: tab }) => {
-                    const type = types[tab].includes(source) ? source : types[tab][0];
+                    const type = types[tab].includes(tabSource[tab]) ? tabSource[tab] : types[tab][0];
                     return (
                         <SourceTab key={tab} href={resolveHomeUrl(tab, type)} isActive={tab === currentTab}>
                             {
@@ -65,8 +69,14 @@ export function HomeTabs() {
                     link={(x) => resolveHomeUrl(currentTab, x)}
                     isSelected={(x) => x === source}
                     itemRender={(x) => resolveSourceName(x)}
+                    onChange={(source) => {
+                        setTabSource((x) => ({
+                            ...x,
+                            [currentTab]: source,
+                        }));
+                    }}
                 />
             </div>
-        </>
+        </div>
     );
 }

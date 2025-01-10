@@ -28,7 +28,12 @@ export function SolidTabs<T = unknown>({ data, link, isSelected, itemRender, onC
                     );
 
                     return (
-                        <li key={index} className="shrink-0" aria-current={isActive ? 'page' : undefined}>
+                        <li
+                            key={index}
+                            className="shrink-0"
+                            aria-current={isActive ? 'page' : undefined}
+                            onClick={() => onChange?.(value)}
+                        >
                             {link ? (
                                 <Link className={className} href={link(value)}>
                                     {itemRender(value)}
