@@ -1345,6 +1345,9 @@ msgstr "<0>Price</0><1>${0}</1><2/>{1}"
 msgid "Collected"
 msgstr "Collected"
 
+msgid "Show more users"
+msgstr "Show more users"
+
 msgid "Try again"
 msgstr "Try again"
 
@@ -1491,6 +1494,9 @@ msgstr "{0} Comments"
 
 msgid "Schedule Post"
 msgstr "Schedule Post"
+
+msgid "Searching tokens"
+msgstr "Searching tokens"
 
 msgid "No channel found with the id {channelId}"
 msgstr "No channel found with the id {channelId}"
@@ -2123,6 +2129,9 @@ msgstr "Cryptocurrency mixer found."
 
 msgid "General"
 msgstr "General"
+
+msgid "Show more tokens"
+msgstr "Show more tokens"
 
 msgid "Page not found. Please try again."
 msgstr "Page not found. Please try again."
@@ -2892,6 +2901,9 @@ msgstr "<0>Sold</0><1/>"
 msgid "Everyone can reply"
 msgstr "Everyone can reply"
 
+msgid "No matching token"
+msgstr "No matching token"
+
 msgid "Failed to create scheduled post."
 msgstr "Failed to create scheduled post."
 
@@ -2952,6 +2964,9 @@ msgstr "<0>Minted</0> an NFT for free"
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "Will send on <0>{0} at <1>{1}</1></0>"
+
+msgid "Show more channels"
+msgstr "Show more channels"
 
 msgid "Snapshot added to your Bookmarks"
 msgstr "Snapshot added to your Bookmarks"
@@ -3590,9 +3605,6 @@ msgstr "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{
 
 msgid "View on website"
 msgstr "View on website"
-
-msgid "Profiles"
-msgstr "Profiles"
 
 msgid "No parent post found."
 msgstr "No parent post found."

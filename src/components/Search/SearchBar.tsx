@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation.js';
-import { type HTMLProps, memo, useLayoutEffect, useRef, useState } from 'react';
+import { type HTMLProps, memo, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
@@ -12,15 +12,17 @@ import { Section } from '@/components/Semantic/Section.js';
 import { PageRoute } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { resolveSearchTypeFromQuery } from '@/helpers/resolveSearchTypeFromQuery.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
 
 interface SearchBarProps extends HTMLProps<HTMLDivElement> {
     slot: 'header' | 'secondary';
+    autoSearchType?: boolean;
 }
 
-const SearchBar = memo(function SearchBar({ slot, className, ...rest }: SearchBarProps) {
+const SearchBar = memo(function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchBarProps) {
     const [showRecommendation, setShowRecommendation] = useState(false);
 
     const { searchKeyword, updateState } = useSearchStateStore();
@@ -48,6 +50,8 @@ const SearchBar = memo(function SearchBar({ slot, className, ...rest }: SearchBa
     useLayoutEffect(() => {
         setInputText(searchKeyword);
     }, [searchKeyword]);
+
+    const closeRecommendation = useCallback(() => setShowRecommendation(false), []);
 
     if (slot === 'header' && !isSearchPage && !isExplorePage) return null;
     if (slot === 'secondary' && (isSearchPage || isExplorePage)) return null;
@@ -77,7 +81,10 @@ const SearchBar = memo(function SearchBar({ slot, className, ...rest }: SearchBa
                     className="w-full flex-1"
                     onSubmit={(ev) => {
                         ev.preventDefault();
-                        handleInputSubmit({ q: inputText });
+                        handleInputSubmit({
+                            q: inputText,
+                            type: autoSearchType ? resolveSearchTypeFromQuery(inputText) : undefined,
+                        });
                     }}
                 >
                     <SearchInput
@@ -90,9 +97,10 @@ const SearchBar = memo(function SearchBar({ slot, className, ...rest }: SearchBa
                 </form>
                 {showRecommendation ? (
                     <SearchRecommendation
+                        autoSearchType
                         keyword={inputText}
-                        onSearch={() => setShowRecommendation(false)}
-                        onSelect={() => setShowRecommendation(false)}
+                        onSearch={closeRecommendation}
+                        onSelect={closeRecommendation}
                         onClear={() => inputRef.current?.focus()}
                     />
                 ) : null}
@@ -113,7 +121,7 @@ export function AsideSearchBar() {
     const isSearchPage = !isRoutePathname(pathname, PageRoute.Search);
     return isSearchPage ? (
         <Section title="Search Bar">
-            <SearchBar slot="secondary" />
+            <SearchBar slot="secondary" autoSearchType />
         </Section>
     ) : null;
 }

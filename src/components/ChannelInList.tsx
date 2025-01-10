@@ -1,5 +1,6 @@
 import { Plural } from '@lingui/react/macro';
 import { isUndefined } from 'lodash-es';
+import type { HTMLProps } from 'react';
 
 import { ToggleMutedChannelButton } from '@/components/Actions/ToggleMutedChannelButton.js';
 import { Avatar } from '@/components/Avatar.js';
@@ -16,13 +17,14 @@ import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-interface ChannelInListProps {
+interface ChannelInListProps extends HTMLProps<HTMLDivElement> {
     channel: Channel;
     listKey?: string;
     index?: number;
     dense?: boolean;
     noFollowButton?: boolean;
     noMuteButton?: boolean;
+    hideDescription?: boolean;
 }
 
 const overrideComponents = {
@@ -34,8 +36,11 @@ export function ChannelInList({
     noFollowButton = true,
     noMuteButton = true,
     dense = false,
+    hideDescription = false,
     listKey,
     index,
+    className,
+    onClick,
 }: ChannelInListProps) {
     const isSmall = useIsSmall('max');
     const setScrollIndex = useGlobalState.use.setScrollIndex();
@@ -48,7 +53,9 @@ export function ChannelInList({
                     'border-b p-3': !dense,
                     'px-4 py-2': dense,
                 },
+                className,
             )}
+            onClick={onClick}
         >
             <Link
                 className="flex-start flex flex-1 items-center overflow-auto"
@@ -94,7 +101,7 @@ export function ChannelInList({
                             </span>
                         </data>
                     </div>
-                    {!dense && channel.description ? (
+                    {!dense && channel.description && !hideDescription ? (
                         <BioMarkup
                             className="mt-1.5 truncate text-sm"
                             components={overrideComponents}

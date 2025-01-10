@@ -1,22 +1,28 @@
-import { memo } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 import WalletIcon from '@/assets/wallet-circle.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { FireflyPlatform, Source } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSocialSourceFromFireflyPlatform, resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
-interface CrossProfileItemProps {
+interface CrossProfileItemProps extends HTMLProps<HTMLAnchorElement> {
     profile: Profile;
     related: Profile[];
 }
 
-export const SearchableProfileItem = memo<CrossProfileItemProps>(function SearchableProfileItem({ profile, related }) {
+export const SearchableProfileItem = memo<CrossProfileItemProps>(function SearchableProfileItem({
+    profile,
+    related,
+    className,
+    onClick,
+}) {
     const platformSource = resolveSourceFromFireflyPlatform(profile.platform);
     const source = platformSource === Source.Wallet ? Source.Wallet : narrowToSocialSource(platformSource);
     const avatar = profile.avatar ?? getStampAvatarByProfileId(source, profile.platform_id);
@@ -26,8 +32,9 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
 
     return (
         <Link
-            className="flex items-center gap-x-2 border-b border-line p-3 hover:bg-bg"
+            className={classNames('flex items-center gap-x-2 border-b border-line p-3 hover:bg-bg', className)}
             href={resolveProfileUrl(source, source === Source.Lens ? profile.handle : profile.platform_id)}
+            onClick={onClick}
         >
             <Avatar alt={profile.handle} className="h-7 w-7 rounded-full" src={avatar} size={44} />
             <div className="min-w-0 flex-1">

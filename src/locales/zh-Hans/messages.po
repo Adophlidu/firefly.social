@@ -1350,6 +1350,9 @@ msgstr "<0>价格</0><1>${0}</1><2/>{1}"
 msgid "Collected"
 msgstr "已收藏"
 
+msgid "Show more users"
+msgstr ""
+
 msgid "Try again"
 msgstr "请重试"
 
@@ -1496,6 +1499,9 @@ msgstr "{0} 评论"
 
 msgid "Schedule Post"
 msgstr "定时任务"
+
+msgid "Searching tokens"
+msgstr ""
 
 msgid "No channel found with the id {channelId}"
 msgstr "未找到 ID 为 {channelId} 的频道"
@@ -2128,6 +2134,9 @@ msgstr "发现加密货币混合器。"
 
 msgid "General"
 msgstr "通用"
+
+msgid "Show more tokens"
+msgstr ""
 
 msgid "Page not found. Please try again."
 msgstr "未找到页面。请重试。"
@@ -2897,6 +2906,9 @@ msgstr "<0>出售</0><1/>"
 msgid "Everyone can reply"
 msgstr "所有人可评论"
 
+msgid "No matching token"
+msgstr ""
+
 msgid "Failed to create scheduled post."
 msgstr "创建定时任务失败"
 
@@ -2957,6 +2969,9 @@ msgstr "免费<0>铸造</0> 了一个 NFT"
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "将在 <0>{0} <1>{1}</1></0> 发送"
+
+msgid "Show more channels"
+msgstr ""
 
 msgid "Snapshot added to your Bookmarks"
 msgstr "Snapshot 已经添加到您的收藏中"
@@ -3595,9 +3610,6 @@ msgstr "<0>已领取: </0><1>{claim_numbers}/{total_numbers}</1> <2>{0}/{1}</2> 
 
 msgid "View on website"
 msgstr "在网站上查看"
-
-msgid "Profiles"
-msgstr "个人信息"
 
 msgid "No parent post found."
 msgstr "未找到上级帖子。"

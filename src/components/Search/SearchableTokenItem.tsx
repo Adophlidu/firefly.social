@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/react/macro';
+import type { HTMLProps } from 'react';
 
 import PriceArrow from '@/assets/price-arrow.svg';
 import { Image } from '@/components/Image.js';
@@ -8,17 +9,19 @@ import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import type { TokenWithMarket } from '@/services/searchTokens.js';
 
-interface SearchableTokenItemProps {
+interface SearchableTokenItemProps extends HTMLProps<HTMLAnchorElement> {
     token: TokenWithMarket;
+    showRate?: boolean;
 }
 
-export function SearchableTokenItem({ token }: SearchableTokenItemProps) {
+export function SearchableTokenItem({ token, className, showRate = true, onClick }: SearchableTokenItemProps) {
     const priceChange = token.market?.price_change_percentage_24h ?? 0;
 
     return (
         <Link
-            className="flex items-center gap-x-2 border-b border-line p-3 hover:bg-bg"
+            className={classNames('flex items-center gap-x-2 border-b border-line p-3 hover:bg-bg', className)}
             href={resolveTokenPageUrl(token.id)}
+            onClick={onClick}
         >
             <Image
                 className="h-11 w-11 shrink-0 rounded-full"
@@ -41,25 +44,27 @@ export function SearchableTokenItem({ token }: SearchableTokenItemProps) {
                     ${renderShrankPrice(formatPrice(token.market?.current_price) ?? '')}
                 </div>
             </div>
-            <data
-                className={classNames(
-                    'flex h-8 shrink-0 items-center justify-center gap-x-1 rounded px-1 text-medium font-bold text-white max-md:h-auto max-md:w-auto max-md:min-w-[60px] max-md:px-2 max-md:py-1 max-md:text-[10px] max-md:leading-[12px]',
-                    {
-                        'bg-success': priceChange >= 0,
-                        'bg-danger': priceChange < 0,
-                    },
-                )}
-            >
-                {priceChange !== 0 ? (
-                    <PriceArrow
-                        className={classNames(
-                            'h-5 w-5 max-md:h-[10px] max-md:w-[10px]',
-                            priceChange < 0 ? 'rotate-180' : '',
-                        )}
-                    />
-                ) : null}
-                {priceChange.toFixed(1).replace('-', '')}%
-            </data>
+            {showRate ? (
+                <data
+                    className={classNames(
+                        'flex h-8 shrink-0 items-center justify-center gap-x-1 rounded px-1 text-medium font-bold text-white max-md:h-auto max-md:w-auto max-md:min-w-[60px] max-md:px-2 max-md:py-1 max-md:text-[10px] max-md:leading-[12px]',
+                        {
+                            'bg-success': priceChange >= 0,
+                            'bg-danger': priceChange < 0,
+                        },
+                    )}
+                >
+                    {priceChange !== 0 ? (
+                        <PriceArrow
+                            className={classNames(
+                                'h-5 w-5 max-md:h-[10px] max-md:w-[10px]',
+                                priceChange < 0 ? 'rotate-180' : '',
+                            )}
+                        />
+                    ) : null}
+                    {priceChange.toFixed(1).replace('-', '')}%
+                </data>
+            ) : null}
         </Link>
     );
 }

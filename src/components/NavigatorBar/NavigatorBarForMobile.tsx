@@ -2,7 +2,7 @@
 
 import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { memo, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import FireflyIcon from '@/assets/firefly.svg';
 import MagnifierIcon from '@/assets/magnifier.svg';
@@ -76,6 +76,8 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
             window.removeEventListener('touchmove', onTouchMove);
         };
     }, []);
+
+    const closeRecommendation = useCallback(() => setShowRecommendation(false), []);
 
     return (
         <>
@@ -165,8 +167,8 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                 <SearchRecommendation
                     fullScreen
                     keyword={searchKeyword}
-                    onSearch={() => setShowRecommendation(false)}
-                    onSelect={() => setShowRecommendation(false)}
+                    onSearch={closeRecommendation}
+                    onSelect={closeRecommendation}
                     onClear={() => inputRef.current?.focus()}
                 />
             ) : null}
