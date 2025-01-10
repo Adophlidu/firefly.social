@@ -1,4 +1,4 @@
-import { BN,web3 } from '@coral-xyz/anchor';
+import { BN, web3 } from '@coral-xyz/anchor';
 import { blob, struct, u8 } from '@solana/buffer-layout';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 

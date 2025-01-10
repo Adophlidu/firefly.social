@@ -1,5 +1,6 @@
 import { Popover, PopoverButton } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { Trans } from '@lingui/react/macro';
 import { memo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -27,6 +28,9 @@ export const PlatformAction = memo(function PlatformAction({ hasError }: ActionP
 
     const buttonContent = (
         <>
+            <div className="text-nowrap text-[14px] leading-[18px] text-main">
+                <Trans>Share to</Trans>
+            </div>
             <span className="flex items-center gap-x-1 font-bold">
                 {availableSources
                     .filter((x) => !!currentProfileAll[x] && SORTED_SOCIAL_SOURCES.includes(x))

@@ -1,5 +1,4 @@
 import { t } from '@lingui/core/macro';
-import { Trans } from '@lingui/react/macro';
 import { compact, values } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -66,9 +65,6 @@ export function ComposeActions() {
         <div className="px-4 pb-4">
             <div className="mb-2 flex flex-wrap gap-2">
                 <div className="flex items-center gap-x-1 rounded-[6px] border border-secondaryLine p-2">
-                    <div className="text-nowrap text-[14px] leading-[18px] text-main">
-                        <Trans>Share to</Trans>
-                    </div>
                     <PlatformAction hasError={hasError} />
                 </div>
                 {showReplyScope ? (

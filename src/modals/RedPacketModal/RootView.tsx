@@ -21,6 +21,7 @@ export function RootView() {
             <div className="flex items-center justify-center gap-2 rounded-t-[12px] p-4">
                 {isMain ? (
                     <CloseButton
+                        className="!p-0"
                         onClick={() => {
                             RedPacketModalRef.close();
                         }}
