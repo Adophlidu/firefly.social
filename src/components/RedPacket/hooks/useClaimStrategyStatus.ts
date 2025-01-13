@@ -19,8 +19,10 @@ export function useClaimStrategyStatus(payload: RedPacketJSONPayload, source: So
         enabled: !signedMessage,
         queryKey: ['red-packet', 'claim-strategy', rpid, account],
         queryFn: async () => {
+            if (!account) return null;
+
             const profile = await getCurrentClaimProfile(source);
-            if (!account || !profile) return null;
+            if (!profile) return null;
 
             return FireflyRedPacketEndpoint.checkClaimStrategyStatus({
                 rpid,

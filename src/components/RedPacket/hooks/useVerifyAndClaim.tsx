@@ -26,7 +26,7 @@ import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialSource, post: Post) {
-    const account = useAccount().address;
+    const { address: account } = useAccount();
     const { data, isFetching, refetch: recheckClaimStatus } = useClaimStrategyStatus(payload, source);
 
     const [{ loading: isClaiming }, claimCallback] = useClaimCallback(account ?? '', payload, source);

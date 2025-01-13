@@ -24,16 +24,23 @@ export function useAvailability(
         queryKey: ['red-packet', 'check-availability', chainId, version, id, account],
         queryFn: async () => {
             if (!id) return null;
-            const data = (await readContract(config, {
+            const data = await readContract(config, {
                 abi: HappyRedPacketV4ABI,
                 functionName: 'check_availability',
                 address: getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4') as Address,
                 args: [id],
                 account: account as Address,
                 chainId,
-            })) as [string, bigint, bigint, bigint, boolean, bigint];
+            });
 
-            const [token_address, balance, total, claimed, expired, claimed_amount] = data;
+            const [token_address, balance, total, claimed, expired, claimed_amount] = data as [
+                string,
+                bigint,
+                bigint,
+                bigint,
+                boolean,
+                bigint,
+            ];
             return {
                 token_address,
                 balance: balance.toString(),

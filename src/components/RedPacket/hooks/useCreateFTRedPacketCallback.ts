@@ -109,7 +109,7 @@ export function useCreateFTRedPacketCallback(
             const value = toFixed(params.params.token?.schema === SchemaType.Native ? total : 0);
 
             const result = await writeContract(config, {
-                address: getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4') as Address,
+                address: HAPPY_RED_PACKET_ADDRESS_V4 as Address,
                 abi: HappyRedPacketV4ABI,
                 functionName: 'create_red_packet',
                 args: params.methodParams,

@@ -17,9 +17,6 @@ export function useDefaultCreateGas(context: CreateRedPacketContext) {
     });
 
     return useAsync(async () => {
-        const HAPPY_RED_PACKET_ADDRESS_V4 = getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4');
-        if (!HAPPY_RED_PACKET_ADDRESS_V4) return ZERO;
-
         const { total, token } = context;
         if (!token) return ZERO;
 
@@ -34,7 +31,7 @@ export function useDefaultCreateGas(context: CreateRedPacketContext) {
         const client = createWagmiPublicClient(chainId);
         const result = await runInSafeAsync(async () => {
             return client.estimateContractGas({
-                address: HAPPY_RED_PACKET_ADDRESS_V4 as Address,
+                address: getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4') as Address,
                 abi: HappyRedPacketV4ABI,
                 functionName: 'create_red_packet',
                 args: params.methodParams,

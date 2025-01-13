@@ -175,17 +175,16 @@ class Provider {
     }
 
     async claimRedPacket(context: ClaimRedPacketContext) {
-        const { account, source, contextChainId, payload } = context;
+        const rpid = context.payload.rpid;
+        if (!rpid) return;
 
+        const { account, source, contextChainId, payload } = context;
         const payloadChainId = payload.token?.chainId;
-        const rpid = payload.rpid;
         const chainIdByName = EVMChainResolver.chainId('network' in payload ? payload.network! : '');
         const chainId = payloadChainId || chainIdByName || contextChainId;
-        const HAPPY_RED_PACKET_ADDRESS_V4 = getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4');
 
         const globalChainId = getChainId(config);
         if (globalChainId !== chainId) await switchChain(config, { chainId });
-        if (!HAPPY_RED_PACKET_ADDRESS_V4 || !rpid) return;
 
         const claimWithSponsorHash = await runInSafeAsync(async () => {
             const me = await getCurrentClaimProfile(source);
@@ -208,7 +207,7 @@ class Provider {
             abi: HappyRedPacketV4ABI,
             functionName: 'claim',
             args: [payload.rpid, await signClaimMessage(context), account],
-            address: HAPPY_RED_PACKET_ADDRESS_V4 as Address,
+            address: getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4') as Address,
             account: account as Address,
         });
 
