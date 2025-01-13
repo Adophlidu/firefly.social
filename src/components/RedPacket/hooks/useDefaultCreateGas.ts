@@ -1,5 +1,5 @@
 import { toFixed } from '@masknet/web3-shared-base';
-import { getTokenConstants, SchemaType } from '@masknet/web3-shared-evm';
+import { getRedPacketConstant, getTokenConstant, SchemaType } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
 import { useAsync } from 'react-use';
 import { type Address } from 'viem';
@@ -17,14 +17,14 @@ export function useDefaultCreateGas(context: CreateRedPacketContext) {
     });
 
     return useAsync(async () => {
-        const HAPPY_RED_PACKET_ADDRESS_V4 = getTokenConstants(chainId);
+        const HAPPY_RED_PACKET_ADDRESS_V4 = getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4');
         if (!HAPPY_RED_PACKET_ADDRESS_V4) return ZERO;
 
         const { total, token } = context;
         if (!token) return ZERO;
 
-        const { NATIVE_TOKEN_ADDRESS } = getTokenConstants(chainId);
-        const tokenAddress = token!.schema === SchemaType.Native ? NATIVE_TOKEN_ADDRESS : token!.address;
+        const NATIVE_TOKEN_ADDRESS = getTokenConstant(chainId, 'NATIVE_TOKEN_ADDRESS');
+        const tokenAddress = token.schema === SchemaType.Native ? NATIVE_TOKEN_ADDRESS : token.address;
         if (!tokenAddress) return ZERO;
 
         const params = await RedPacketProvider.createRedPacketParams(context);

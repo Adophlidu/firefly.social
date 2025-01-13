@@ -77,20 +77,20 @@ class Provider {
 
         const contract = createRedPacketContract(chainId, version);
         const NATIVE_TOKEN_ADDRESS = getTokenConstant(chainId, 'NATIVE_TOKEN_ADDRESS');
-        const tokenAddress = token!.schema === SchemaType.Native ? NATIVE_TOKEN_ADDRESS : token!.address;
+        const tokenAddress = token?.schema === SchemaType.Native ? NATIVE_TOKEN_ADDRESS : token?.address;
 
         if (!tokenAddress) {
             if (process.env.NODE_ENV === 'development' && !NATIVE_TOKEN_ADDRESS) {
                 console.error(
                     'Not native token address for chain %s. Do you forget to configure it in token.json file?',
-                    token!.chainId,
+                    token?.chainId,
                 );
             }
             return null;
         }
 
         const params: CreateRedPacketParams = {
-            tokenType: token!.schema === SchemaType.Native ? 0 : 1,
+            tokenType: token?.schema === SchemaType.Native ? 0 : 1,
             tokenAddress,
             publicKey,
             shares,
@@ -195,11 +195,11 @@ class Provider {
                 needLensAndFarcasterHandle: true,
                 platform: resolveRedPacketPlatformType(source),
                 profileId: me.profileId,
-                handle: me?.handle,
-                lensToken: me?.lensToken,
-                farcasterMessage: me?.farcasterMessage as HexString,
-                farcasterSigner: me?.farcasterSigner as HexString,
-                farcasterSignature: me?.farcasterSignature as HexString,
+                handle: me.handle,
+                lensToken: me.lensToken,
+                farcasterMessage: me.farcasterMessage as HexString,
+                farcasterSigner: me.farcasterSigner as HexString,
+                farcasterSignature: me.farcasterSignature as HexString,
             });
         });
         if (claimWithSponsorHash) return claimWithSponsorHash;

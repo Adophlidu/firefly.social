@@ -1,5 +1,5 @@
 import { ChainId, type NetworkType } from '@masknet/web3-shared-evm';
-import { useQuery, type QueryObserverResult, type RefetchOptions } from '@tanstack/react-query';
+import { type QueryObserverResult, type RefetchOptions, useQuery } from '@tanstack/react-query';
 import { compact, first } from 'lodash-es';
 import { useCallback } from 'react';
 
@@ -11,9 +11,9 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { EVMNetworkResolver } from '@/mask/index.js';
+import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 
 /**
  * Fetch the red packet info from the chain
