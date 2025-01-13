@@ -3,8 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 
 import { useCurrentClaimProfile } from '@/components/RedPacket/hooks/useCurrentClaimProfile.js';
 import { type SocialSource } from '@/constants/enum.js';
-import { FireflyRedPacket } from '@/providers/red-packet/index.js';
-import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
+import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
+import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 
 export function useSignedMessage(
     account: string,
@@ -24,7 +24,7 @@ export function useSignedMessage(
             if (password) return signMessage(account, password as string).signature;
             if (!profile || !account) return '';
 
-            return FireflyRedPacket.createClaimSignature({
+            return FireflyRedPacketEndpoint.createClaimSignature({
                 rpid,
                 profile,
                 wallet: {

@@ -34,7 +34,7 @@ import { useRefundCallback } from '@/hooks/useRefundCallback.js';
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import { EVMChainResolver } from '@/mask/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
-import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/red-packet/types.js';
+import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { TokenType } from '@/types/rp.js';
 

@@ -5,7 +5,7 @@ import type { SocialSource } from '@/constants/enum.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
-import { FireflyRedPacket } from '@/providers/red-packet/index.js';
+import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 
 /**
  * Parse RedPacket with post info.
@@ -22,7 +22,7 @@ export function useParseRedPacket(chainId: ChainId, source: SocialSource, image?
         queryKey: ['red-packet', 'parse', source, image, account, currentProfile?.profileId],
         queryFn: async () => {
             if (!image) return;
-            return FireflyRedPacket.parse({
+            return FireflyRedPacketEndpoint.parse({
                 image: {
                     imageUrl: image,
                 },

@@ -11,8 +11,8 @@ import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';
 import { RedPacketDetailItem } from '@/modals/RedPacketModal/RedPacketDetailItem.js';
-import { FireflyRedPacket } from '@/providers/red-packet/index.js';
-import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
+import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
+import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 function ClaimHistoryItem({ data, chainId }: { data: FireflyRedPacketAPI.ClaimList; chainId?: number }) {
     const { data: ens } = useEnsName({ address: data.creator as Address });
@@ -50,7 +50,10 @@ export function HistoryDetailView() {
         queryKey: ['fireflyClaimHistory', rpid],
         initialPageParam: '',
         queryFn: async ({ pageParam }) => {
-            const res = await FireflyRedPacket.getClaimHistory(rpid, createIndicator(undefined, pageParam as string));
+            const res = await FireflyRedPacketEndpoint.getClaimHistory(
+                rpid,
+                createIndicator(undefined, pageParam as string),
+            );
             return res;
         },
         getNextPageParam: (lastPage) => lastPage?.cursor,

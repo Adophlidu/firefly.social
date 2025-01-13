@@ -9,7 +9,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { type ChainContextOverride, useChainContext } from '@/hooks/useChainContext.js';
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';
-import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
+import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 export function useRefundCallback(id?: string, overrideChainContext?: ChainContextOverride) {
     const { chainId, account } = useChainContext(overrideChainContext);

@@ -7,7 +7,7 @@ import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { ProfileIdentifier } from '@/mask/index.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
+import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { generateSignaturePacket } from '@/services/generateSignaturePacket.js';
 
 export function useCurrentClaimProfile(source: SocialSource) {

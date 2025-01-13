@@ -18,10 +18,10 @@ import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
-import { FireflyRedPacket } from '@/providers/red-packet/index.js';
-import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/red-packet/types.js';
+import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { capturePollEvent } from '@/providers/telemetry/capturePollEvent.js';
+import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { commitPoll } from '@/services/poll.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
@@ -89,7 +89,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
             }),
         );
 
-        await FireflyRedPacket.updateClaimStrategy(
+        await FireflyRedPacketEndpoint.updateClaimStrategy(
             rpPayloadFromMeta.rpid,
             reactions,
             claimPlatforms,

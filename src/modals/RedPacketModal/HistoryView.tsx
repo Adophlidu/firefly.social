@@ -9,7 +9,7 @@ import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js
 import { ScrollListKey } from '@/constants/enum.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketDetailItem } from '@/modals/RedPacketModal/RedPacketDetailItem.js';
-import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
+import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 function getRedPacketHistoryItem(
     history: FireflyRedPacketAPI.RedPacketClaimedInfo | FireflyRedPacketAPI.RedPacketSentInfo,

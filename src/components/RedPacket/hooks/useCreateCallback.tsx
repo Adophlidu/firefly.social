@@ -56,6 +56,7 @@ export function checkParams(paramsObj: ParamsObjType) {
 }
 
 export type MethodParameters = Parameters<HappyRedPacketV4['methods']['create_red_packet']>;
+
 interface CreateParams {
     gas: string | undefined;
     params: MethodParameters;

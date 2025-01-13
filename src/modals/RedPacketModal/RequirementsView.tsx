@@ -17,7 +17,7 @@ import { Image } from '@/components/Image.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { NonFungibleTokenCollectionSelectModalRef } from '@/modals/controls.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
-import { RequirementType } from '@/providers/red-packet/types.js';
+import { RequirementType } from '@/providers/types/FireflyRedPacket.js';
 
 export const REQUIREMENT_ICON_MAP: Record<RequirementType, React.FunctionComponent<React.SVGAttributes<SVGElement>>> = {
     [RequirementType.Follow]: AddUser,

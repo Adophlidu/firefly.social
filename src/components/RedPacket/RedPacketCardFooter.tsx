@@ -9,7 +9,7 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { ConnectModalRef, LoginModalRef } from '@/modals/controls.js';
-import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
+import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface Props {

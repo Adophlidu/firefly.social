@@ -13,8 +13,8 @@ import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import { EVMChainResolver } from '@/mask/index.js';
-import { FireflyRedPacket } from '@/providers/red-packet/index.js';
-import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
+import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
+import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 
 /**
  * Claim fungible token red packet.
@@ -40,9 +40,9 @@ export function useClaimCallback(
         if (!redpacketContractAddress || !rpid) return;
 
         const claimWithSponsorHash = await runInSafeAsync(async () => {
-            const sponsorable = await FireflyRedPacket.checkGasFreeStatus(chainId, account);
+            const sponsorable = await FireflyRedPacketEndpoint.checkGasFreeStatus(chainId, account);
             if (!sponsorable || !me?.profileId) return;
-            return FireflyRedPacket.claimForGasFree(rpid, account, {
+            return FireflyRedPacketEndpoint.claimForGasFree(rpid, account, {
                 needLensAndFarcasterHandle: true,
                 platform: resolveRedPacketPlatformType(source),
                 profileId: me.profileId,

@@ -1,5 +1,5 @@
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
-import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
+import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 interface MessageTextProps {
     theme: FireflyRedPacketAPI.ThemeGroupSettings;

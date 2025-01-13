@@ -23,7 +23,7 @@ import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
 import { EVMChainResolver } from '@/mask/index.js';
 import type { FireflyRedPacketAPI } from '@/maskbook/packages/web3-providers/src/entry-types.js';
-import { RequirementType } from '@/providers/red-packet/types.js';
+import { RequirementType } from '@/providers/types/FireflyRedPacket.js';
 
 export const redPacketRandomTabs = [
     {

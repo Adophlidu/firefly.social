@@ -15,7 +15,7 @@ import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';
 import { RedPacketActionButton } from '@/modals/RedPacketModal/RedPacketActionButton.js';
-import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
+import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 interface HistoryInfo {
     rp_msg: string;

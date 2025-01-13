@@ -2,8 +2,8 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import type { Hex } from 'viem';
 
 import { createIndicator } from '@/helpers/pageable.js';
-import { FireflyRedPacket } from '@/providers/red-packet/index.js';
-import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
+import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
+import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 export function useRedPacketHistory(
     address: string,
@@ -14,7 +14,7 @@ export function useRedPacketHistory(
         queryKey: ['redpacket-history', address, historyType],
         initialPageParam: createIndicator(undefined, ''),
         queryFn: async ({ pageParam }) => {
-            const res = await FireflyRedPacket.getHistory(
+            const res = await FireflyRedPacketEndpoint.getHistory(
                 historyType,
                 address as Hex,
                 platform ? platform : FireflyRedPacketAPI.SourceType.All,

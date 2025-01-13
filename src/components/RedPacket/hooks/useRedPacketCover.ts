@@ -4,8 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
 import { bom } from '@/helpers/bom.js';
-import { FireflyRedPacket } from '@/providers/red-packet/index.js';
-import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/red-packet/types.js';
+import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
+import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 
 /** pass rpid or themeId */
 export interface RedPacketCoverOptions {
@@ -41,7 +41,10 @@ export function useRedPacketCover({
         queryKey: ['red-packet', 'theme', rpid, themeId],
         queryFn: async () => {
             if (!rpid && !themeId) return null;
-            const theme = await FireflyRedPacket.getTheme({ rpid, themeId } as FireflyRedPacketAPI.ThemeByIdOptions);
+            const theme = await FireflyRedPacketEndpoint.getTheme({
+                rpid,
+                themeId,
+            } as FireflyRedPacketAPI.ThemeByIdOptions);
             return theme;
         },
         select(theme) {

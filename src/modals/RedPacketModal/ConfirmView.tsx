@@ -36,8 +36,8 @@ import {
 } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { REQUIREMENT_ICON_MAP } from '@/modals/RedPacketModal/RequirementsView.js';
 import { ShareAccountsPopover } from '@/modals/RedPacketModal/ShareAccountsPopover.js';
-import { FireflyRedPacket } from '@/providers/red-packet/index.js';
-import { FireflyRedPacketAPI, RequirementType } from '@/providers/red-packet/types.js';
+import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
+import { FireflyRedPacketAPI, RequirementType } from '@/providers/types/FireflyRedPacket.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 
 interface ThemeVariant {
@@ -164,7 +164,7 @@ export function ConfirmView() {
             : EMPTY_LIST;
 
         return {
-            publicKey: await FireflyRedPacket.createPublicKey(themeId, account, payload),
+            publicKey: await FireflyRedPacketEndpoint.createPublicKey(themeId, account, payload),
             claimRequirements: payload,
         };
     }, [
@@ -214,12 +214,12 @@ export function ConfirmView() {
             const url = await uploadToS3(blob, 'red-packet-cover');
             // Create two variants for each custom theme
             const [themeId, goldenThemeId] = await Promise.all([
-                FireflyRedPacket.createTheme({ font_color: '#ffffff', image: url }),
-                FireflyRedPacket.createTheme({ font_color: '#FFE4A6', image: url }),
+                FireflyRedPacketEndpoint.createTheme({ font_color: '#ffffff', image: url }),
+                FireflyRedPacketEndpoint.createTheme({ font_color: '#FFE4A6', image: url }),
             ]);
             const [theme, goldenTheme] = await Promise.all([
-                FireflyRedPacket.getTheme({ themeId }),
-                FireflyRedPacket.getTheme({ themeId: goldenThemeId }),
+                FireflyRedPacketEndpoint.getTheme({ themeId }),
+                FireflyRedPacketEndpoint.getTheme({ themeId: goldenThemeId }),
             ]);
             if (goldenTheme) {
                 themeVariantsMapRef.current.set(url, {

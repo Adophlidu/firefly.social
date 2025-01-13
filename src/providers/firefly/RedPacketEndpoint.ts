@@ -13,13 +13,13 @@ import {
 } from '@/helpers/pageable.js';
 import { toFixed } from '@/maskbook/packages/web3-shared/base/src/index.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
+import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { settings } from '@/settings/index.js';
 
 const SITE_URL = bom.location?.origin ?? '';
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
-export class FireflyRedPacket {
+export class FireflyRedPacketEndpoint {
     static async parse(options: FireflyRedPacketAPI.ParseOptions) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/redpacket/parse');
         const { data } = await fetchJSON<FireflyRedPacketAPI.ParseResponse>(url, {
@@ -43,7 +43,7 @@ export class FireflyRedPacket {
         decimals?: number,
         message?: string,
     ) {
-        const themes = await FireflyRedPacket.getThemes();
+        const themes = await FireflyRedPacketEndpoint.getThemes();
 
         return themes.map((theme) => ({
             themeId: theme.tid,
@@ -120,7 +120,7 @@ export class FireflyRedPacket {
         remainingAmount?: string,
         remainingShares?: string,
     ) {
-        const theme = await FireflyRedPacket.getTheme({ rpid });
+        const theme = await FireflyRedPacketEndpoint.getTheme({ rpid });
 
         return {
             themeId: theme.tid,

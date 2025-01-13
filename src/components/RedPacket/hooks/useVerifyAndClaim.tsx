@@ -21,8 +21,8 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
-import { FireflyRedPacket } from '@/providers/red-packet/index.js';
-import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
+import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
+import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialSource, post: Post) {
@@ -42,7 +42,7 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
 
         const hash = await claimCallback();
         if (hash && currentClaimProfile?.profileId && currentClaimProfile.handle) {
-            await FireflyRedPacket.finishClaiming(
+            await FireflyRedPacketEndpoint.finishClaiming(
                 payload.rpid,
                 currentClaimProfile.platform,
                 currentClaimProfile.profileId,

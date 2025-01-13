@@ -5,7 +5,7 @@ import { Ed25519Program, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { sign } from 'tweetnacl';
 
 import { NotImplementedError } from '@/constants/error.js';
-import { createRedPacketProgram } from '@/programs/index.js';
+import { createRedPacketProgram } from '@/providers/solana/createRedPacketProgram.js';
 
 /**
  * Context for creating a red packet with native token.
