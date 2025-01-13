@@ -14,31 +14,13 @@ import { Link } from '@/components/Link.js';
 import { ProfileSlide } from '@/components/SuggestedFollows/ProfileSlide.js';
 import { ExploreType, Source } from '@/constants/enum.js';
 import { isSocialDiscoverSource } from '@/helpers/isDiscoverSource.js';
+import { mergeLists } from '@/helpers/mergeLists.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
 import { getSuggestedFollowsInCard } from '@/services/getSuggestedFollows.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-
-function sortProfiles(farcasterProfiles: Profile[], lensProfiles: Profile[]) {
-    const results: Profile[] = [];
-    let farcasterIndex = 0;
-    let lensIndex = 0;
-    while (farcasterIndex < farcasterProfiles.length || lensIndex < lensProfiles.length) {
-        if (farcasterIndex < farcasterProfiles.length) {
-            results.push(farcasterProfiles[farcasterIndex]);
-            farcasterIndex += 1;
-        }
-        if (lensIndex < lensProfiles.length) {
-            results.push(lensProfiles[lensIndex]);
-            lensIndex += 1;
-        }
-    }
-
-    return results;
-}
 
 export function SuggestedFollowsCard() {
     const isLarge = useIsLarge('min');
@@ -52,7 +34,7 @@ export function SuggestedFollowsCard() {
                 runInSafeAsync(() => getSuggestedFollowsInCard(Source.Farcaster)),
                 runInSafeAsync(() => getSuggestedFollowsInCard(Source.Lens)),
             ]);
-            return sortProfiles(farcasterData ?? [], lensData ?? []);
+            return mergeLists(farcasterData ?? [], lensData ?? []);
         },
     });
 
