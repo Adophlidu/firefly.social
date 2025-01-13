@@ -262,7 +262,7 @@ export type Redpacket = {
             args: [
                 {
                     name: 'totalNumber';
-                    type: 'u64';
+                    type: 'u8';
                 },
                 {
                     name: 'totalAmount';
@@ -283,6 +283,14 @@ export type Redpacket = {
                 {
                     name: 'pubkeyForClaimSignature';
                     type: 'pubkey';
+                },
+                {
+                    name: 'name';
+                    type: 'string';
+                },
+                {
+                    name: 'message';
+                    type: 'string';
                 },
             ];
         },
@@ -443,7 +451,7 @@ export type Redpacket = {
             args: [
                 {
                     name: 'totalNumber';
-                    type: 'u64';
+                    type: 'u8';
                 },
                 {
                     name: 'totalAmount';
@@ -464,6 +472,14 @@ export type Redpacket = {
                 {
                     name: 'pubkeyForClaimSignature';
                     type: 'pubkey';
+                },
+                {
+                    name: 'name';
+                    type: 'string';
+                },
+                {
+                    name: 'message';
+                    type: 'string';
                 },
             ];
         },
@@ -708,68 +724,68 @@ export type Redpacket = {
         },
         {
             code: 6003;
-            name: 'invalidTotalNumberOrAmount';
-            msg: 'Invalid total number or amount.';
+            name: 'invalidTotalNumber';
+            msg: 'Invalid total number.';
         },
         {
             code: 6004;
+            name: 'invalidTotalAmount';
+            msg: 'Invalid total amount.';
+        },
+        {
+            code: 6005;
+            name: 'insufficientTokenBalance';
+            msg: 'Insufficient token balance.';
+        },
+        {
+            code: 6006;
             name: 'invalidTokenType';
             msg: 'Invalid token type.';
         },
         {
-            code: 6005;
-            name: 'invalidTokenAmount';
-            msg: 'Invalid token amount.';
-        },
-        {
-            code: 6006;
+            code: 6007;
             name: 'invalidAccountForNativeToken';
             msg: 'Invalid account for native token.';
         },
         {
-            code: 6007;
+            code: 6008;
             name: 'invalidInitialParamsForTokenAccount';
             msg: 'Invalid initial params for token account.';
         },
         {
-            code: 6008;
+            code: 6009;
             name: 'redPacketExpired';
             msg: 'The red packet has expired.';
         },
         {
-            code: 6009;
+            code: 6010;
             name: 'invalidSignature';
             msg: 'Invalid signature.';
         },
         {
-            code: 6010;
+            code: 6011;
             name: 'invalidClaimAmount';
             msg: 'The claim amount is invalid.';
         },
         {
-            code: 6011;
+            code: 6012;
             name: 'redPacketNotExpired';
             msg: 'The red packet has not yet expired.';
         },
         {
-            code: 6012;
+            code: 6013;
             name: 'redPacketClaimed';
             msg: 'The red packet has been claimed.';
         },
         {
-            code: 6013;
+            code: 6014;
             name: 'redPacketAllClaimed';
             msg: 'All the red packet has been claimed.';
         },
         {
-            code: 6014;
+            code: 6015;
             name: 'unauthorized';
             msg: 'You are not authorized to perform this action.';
-        },
-        {
-            code: 6015;
-            name: 'redPacketWithdrawn';
-            msg: 'The red packet has been withdrawn.';
         },
     ];
     types: [
@@ -784,11 +800,11 @@ export type Redpacket = {
                     },
                     {
                         name: 'totalNumber';
-                        type: 'u64';
+                        type: 'u8';
                     },
                     {
                         name: 'claimedNumber';
-                        type: 'u64';
+                        type: 'u8';
                     },
                     {
                         name: 'totalAmount';
@@ -831,12 +847,16 @@ export type Redpacket = {
                         };
                     },
                     {
-                        name: 'withdrawStatus';
-                        type: 'u8';
-                    },
-                    {
                         name: 'pubkeyForClaimSignature';
                         type: 'pubkey';
+                    },
+                    {
+                        name: 'name';
+                        type: 'string';
+                    },
+                    {
+                        name: 'message';
+                        type: 'string';
                     },
                 ];
             };

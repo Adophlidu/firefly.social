@@ -196,7 +196,7 @@
             "args": [
                 {
                     "name": "total_number",
-                    "type": "u64"
+                    "type": "u8"
                 },
                 {
                     "name": "total_amount",
@@ -217,6 +217,14 @@
                 {
                     "name": "pubkey_for_claim_signature",
                     "type": "pubkey"
+                },
+                {
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "name": "message",
+                    "type": "string"
                 }
             ]
         },
@@ -317,7 +325,7 @@
             "args": [
                 {
                     "name": "total_number",
-                    "type": "u64"
+                    "type": "u8"
                 },
                 {
                     "name": "total_amount",
@@ -338,6 +346,14 @@
                 {
                     "name": "pubkey_for_claim_signature",
                     "type": "pubkey"
+                },
+                {
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "name": "message",
+                    "type": "string"
                 }
             ]
         },
@@ -522,68 +538,68 @@
         },
         {
             "code": 6003,
-            "name": "InvalidTotalNumberOrAmount",
-            "msg": "Invalid total number or amount."
+            "name": "InvalidTotalNumber",
+            "msg": "Invalid total number."
         },
         {
             "code": 6004,
+            "name": "InvalidTotalAmount",
+            "msg": "Invalid total amount."
+        },
+        {
+            "code": 6005,
+            "name": "InsufficientTokenBalance",
+            "msg": "Insufficient token balance."
+        },
+        {
+            "code": 6006,
             "name": "InvalidTokenType",
             "msg": "Invalid token type."
         },
         {
-            "code": 6005,
-            "name": "InvalidTokenAmount",
-            "msg": "Invalid token amount."
-        },
-        {
-            "code": 6006,
+            "code": 6007,
             "name": "InvalidAccountForNativeToken",
             "msg": "Invalid account for native token."
         },
         {
-            "code": 6007,
+            "code": 6008,
             "name": "InvalidInitialParamsForTokenAccount",
             "msg": "Invalid initial params for token account."
         },
         {
-            "code": 6008,
+            "code": 6009,
             "name": "RedPacketExpired",
             "msg": "The red packet has expired."
         },
         {
-            "code": 6009,
+            "code": 6010,
             "name": "InvalidSignature",
             "msg": "Invalid signature."
         },
         {
-            "code": 6010,
+            "code": 6011,
             "name": "InvalidClaimAmount",
             "msg": "The claim amount is invalid."
         },
         {
-            "code": 6011,
+            "code": 6012,
             "name": "RedPacketNotExpired",
             "msg": "The red packet has not yet expired."
         },
         {
-            "code": 6012,
+            "code": 6013,
             "name": "RedPacketClaimed",
             "msg": "The red packet has been claimed."
         },
         {
-            "code": 6013,
+            "code": 6014,
             "name": "RedPacketAllClaimed",
             "msg": "All the red packet has been claimed."
         },
         {
-            "code": 6014,
+            "code": 6015,
             "name": "Unauthorized",
             "msg": "You are not authorized to perform this action."
-        },
-        {
-            "code": 6015,
-            "name": "RedPacketWithdrawn",
-            "msg": "The red packet has been withdrawn."
         }
     ],
     "types": [
@@ -598,11 +614,11 @@
                     },
                     {
                         "name": "total_number",
-                        "type": "u64"
+                        "type": "u8"
                     },
                     {
                         "name": "claimed_number",
-                        "type": "u64"
+                        "type": "u8"
                     },
                     {
                         "name": "total_amount",
@@ -645,12 +661,16 @@
                         }
                     },
                     {
-                        "name": "withdraw_status",
-                        "type": "u8"
-                    },
-                    {
                         "name": "pubkey_for_claim_signature",
                         "type": "pubkey"
+                    },
+                    {
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "message",
+                        "type": "string"
                     }
                 ]
             }
