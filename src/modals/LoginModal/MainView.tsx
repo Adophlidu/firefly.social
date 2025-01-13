@@ -66,7 +66,7 @@ export function MainView() {
                         </p>
                     </>
                 ) : null}
-                <div className="flex w-full flex-col md:flex-row md:gap-5">
+                <div className="grid w-full grid-cols-3 max-md:gap-y-1 md:flex md:flex-row md:gap-5">
                     {SORTED_SOCIAL_SOURCES.map((source) => (
                         <LoginButton key={source} source={source} onClick={() => onClick(source)} />
                     ))}
