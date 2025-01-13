@@ -2,6 +2,7 @@
 
 import { exposeToIframe, type ReadyOptions } from '@farcaster/frame-host';
 import { Trans } from '@lingui/react/macro';
+import { EthereumMethodType } from '@masknet/web3-shared-evm';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
 
@@ -14,7 +15,6 @@ import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { createWagmiMockClient } from '@/helpers/createWagmiMockClient.js';
 import { squashCallback } from '@/helpers/squashCallback.js';
 import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
-import { EthereumMethodType } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { Network, SupportedMethod, type Transaction } from '@/types/bridge.js';

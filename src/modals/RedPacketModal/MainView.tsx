@@ -3,12 +3,13 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { type FungibleToken, isLessThan } from '@masknet/web3-shared-base';
-import { type ChainId, SchemaType, useRedPacketConstants } from '@masknet/web3-shared-evm';
+import { type ChainId, getRedPacketConstant, SchemaType } from '@masknet/web3-shared-evm';
 import { useRouter } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
 import { isUndefined, omit } from 'lodash-es';
 import { type ChangeEvent, useCallback, useContext, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
+import type { Address } from 'viem';
 import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
 import QuestionIcon from '@/assets/question.svg';
@@ -54,43 +55,37 @@ export function MainView() {
         setRawAmount,
     } = useContext(RedPacketContext);
 
-    const { chainId: contextChainId } = useChainContext();
+    const { account, chainId: contextChainId } = useChainContext();
     const chainId = token?.chainId || contextChainId;
     const nativeToken = useMemo(() => EVMChainResolver.nativeCurrency(chainId), [chainId]);
     const { data: nativeTokenPrice = 0, isLoading: priceLoading } = useNativeTokenPrice({ chainId });
-    const { HAPPY_RED_PACKET_ADDRESS_V4: redpacketContractAddress } = useRedPacketConstants(chainId);
 
     const isRandom = randomType === 'random';
 
     const { account: publicKey } = useMemo(createAccount, []);
-    const { value: defaultGas = ZERO, loading: gasLoading } = useDefaultCreateGas(
-        {
-            duration: RED_PACKET_DURATION,
-            isRandom: randomType === 'random',
-            name: 'Unknown User',
-            message: message || t`Best Wishes!`,
-            shares: shares || 0,
-            token: token
-                ? (omit(token, ['logoURI']) as FungibleToken<ChainId, SchemaType.ERC20 | SchemaType.Native>)
-                : undefined,
-            total: rightShift(0.0001, token.decimals).toFixed(),
-        },
-        RED_PACKET_CONTRACT_VERSION,
+    const { value: defaultGas = ZERO, loading: gasLoading } = useDefaultCreateGas({
+        creator: account,
+        version: RED_PACKET_CONTRACT_VERSION,
+        chainId,
         publicKey,
-        { chainId },
-    );
+        duration: RED_PACKET_DURATION,
+        isRandom: randomType === 'random',
+        name: 'Unknown User',
+        message: message || t`Best Wishes!`,
+        shares: shares || 0,
+        token: token
+            ? (omit(token, ['logoURI']) as FungibleToken<ChainId, SchemaType.ERC20 | SchemaType.Native>)
+            : undefined,
+        total: rightShift(0.0001, token.decimals).toFixed(),
+    });
 
-    const balanceResult = useAvailableBalance(token.address as `0x${string}`, defaultGas.toNumber(), { chainId });
+    const balanceResult = useAvailableBalance(token.address as Address, defaultGas.toNumber(), { chainId });
     const { gasFee, value: balance = ZERO, origin: originBalance, insufficientGas } = balanceResult ?? {};
 
     const amount = rightShift(rawAmount || '0', token?.decimals);
-    const rawTotalAmount = useMemo(
-        () => (isRandom || !rawAmount ? rawAmount : multipliedBy(rawAmount, shares).toFixed()),
-        [rawAmount, isRandom, shares],
-    );
-
-    const totalAmount = useMemo(() => multipliedBy(amount, isRandom ? 1 : shares), [amount, shares, isRandom]);
-    const minTotalAmount = useMemo(() => new BigNumber(isRandom ? 1 : shares), [shares, isRandom]);
+    const rawTotalAmount = isRandom || !rawAmount ? rawAmount : multipliedBy(rawAmount, shares).toFixed();
+    const totalAmount = multipliedBy(amount, isRandom ? 1 : shares);
+    const minTotalAmount = new BigNumber(isRandom ? 1 : shares);
     const isDivisible = !totalAmount.dividedBy(shares).isLessThan(1);
 
     const handleTokenChange = useCallback(
@@ -121,7 +116,7 @@ export function MainView() {
         data: allowance,
         isLoading: allowanceLoading,
         refetch: refetchAllowance,
-    } = useERC20TokenAllowance(token.address as `0x${string}`, redpacketContractAddress, {
+    } = useERC20TokenAllowance(token.address as Address, getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4'), {
         chainId,
     });
 
@@ -136,7 +131,6 @@ export function MainView() {
     const isNotEnoughAllowance = !isUndefined(allowance) && !isGreaterThan(allowance.toString(), totalAmount);
 
     const disabled = noShares || isGteMaxShares || insufficientBalance || noAmount || !isDivisible || insufficientGas;
-
     const loading = priceLoading || gasLoading || allowanceLoading;
     // #endregion
 
@@ -204,10 +198,10 @@ export function MainView() {
         if (isNotEnoughAllowance) {
             const result = await writeContract(config, {
                 chainId,
-                abi: getTokenAbiForWagmi(chainId, token.address as `0x${string}`),
-                address: token.address as `0x${string}`,
+                abi: getTokenAbiForWagmi(chainId, token.address as Address),
+                address: token.address as Address,
                 functionName: 'approve',
-                args: [redpacketContractAddress as `0x${string}`, originBalance.value],
+                args: [getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4') as Address, originBalance.value],
             });
             await waitForEthereumTransaction(chainId, result);
             refetchAllowance();
@@ -215,15 +209,7 @@ export function MainView() {
         }
 
         history.push('/requirements');
-    }, [
-        originBalance,
-        chainId,
-        isNotEnoughAllowance,
-        history,
-        token.address,
-        redpacketContractAddress,
-        refetchAllowance,
-    ]);
+    }, [originBalance, chainId, isNotEnoughAllowance, history, token.address, refetchAllowance]);
     // #endregion
 
     return (

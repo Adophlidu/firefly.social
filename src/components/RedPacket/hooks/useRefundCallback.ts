@@ -1,30 +1,68 @@
-import { type ChainId, ContractTransaction } from '@masknet/web3-shared-evm';
-import { useState } from 'react';
+import { getRedPacketConstant } from '@masknet/web3-shared-evm';
+import { produce } from 'immer';
 import { useAsyncFn } from 'react-use';
+import type { Address } from 'viem';
+import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
-import { useRedPacketContract } from '@/components/RedPacket/hooks/useRedPacketContract.js';
-import { useChainContext } from '@/hooks/useChainContext.js';
-import { EVMWeb3 } from '@/mask/index.js';
+import { queryClient } from '@/configs/queryClient.js';
+import { config } from '@/configs/wagmiClient.js';
+import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
+import { type ChainContextOverride, useChainContext } from '@/hooks/useChainContext.js';
+import { HappyRedPacketV4ABI } from '@/mask/constants.js';
+import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
-export function useRefundCallback(version: number, from: string, id?: string, expectedChainId?: ChainId) {
-    const { chainId } = useChainContext({ chainId: expectedChainId });
-    const [isRefunded, setIsRefunded] = useState(false);
-    const redPacketContract = useRedPacketContract(chainId, version);
+export function useRefundCallback(id?: string, overrideChainContext?: ChainContextOverride) {
+    const { chainId, account } = useChainContext(overrideChainContext);
 
-    const [state, refundCallback] = useAsyncFn(async () => {
-        if (!redPacketContract || !id) return;
+    return useAsyncFn(async () => {
+        if (!id) return;
 
-        setIsRefunded(false);
+        const globalChainId = getChainId(config);
+        if (globalChainId !== chainId) await switchChain(config, { chainId });
 
-        const tx = await new ContractTransaction(redPacketContract).fillAll(redPacketContract.methods.refund(id), {
-            from,
-        });
-        const hash = await EVMWeb3.sendTransaction(tx, {
+        const hash = await writeContract(config, {
+            abi: HappyRedPacketV4ABI,
+            functionName: 'refund',
+            address: getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4') as Address,
+            args: [id],
             chainId,
         });
-        setIsRefunded(true);
-        return hash;
-    }, [id, redPacketContract, chainId, from]);
 
-    return [state, isRefunded, refundCallback] as const;
+        await waitForEthereumTransaction(chainId, hash);
+
+        queryClient.setQueriesData(
+            { queryKey: ['redpacket-history', account, FireflyRedPacketAPI.ActionType.Send] },
+            (
+                old:
+                    | {
+                          pages: Array<{
+                              data: Array<
+                                  FireflyRedPacketAPI.RedPacketClaimedInfo | FireflyRedPacketAPI.RedPacketSentInfo
+                              >;
+                          }>;
+                      }
+                    | undefined,
+            ) => {
+                if (!old?.pages) return old;
+
+                return produce(old, (draft) => {
+                    for (const page of draft.pages) {
+                        if (!page) continue;
+                        for (const item of page.data) {
+                            if (item.redpacket_id === id)
+                                item.redpacket_status = FireflyRedPacketAPI.RedPacketStatus.Refund;
+                        }
+                    }
+                });
+            },
+        );
+
+        queryClient.refetchQueries({
+            queryKey: ['red-packet', 'claim', id],
+        });
+
+        queryClient.refetchQueries({
+            queryKey: ['red-packet', 'check-availability', chainId, 4, id, account],
+        });
+    }, [id, chainId, account]);
 }

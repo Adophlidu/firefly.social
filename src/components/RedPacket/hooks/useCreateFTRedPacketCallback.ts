@@ -1,18 +1,13 @@
 import { t } from '@lingui/core/macro';
 import { type FungibleToken, toFixed } from '@masknet/web3-shared-base';
-import { ChainId, SchemaType, useRedPacketConstants, useTokenConstants } from '@masknet/web3-shared-evm';
+import { ChainId, getRedPacketConstant, getTokenConstant, SchemaType } from '@masknet/web3-shared-evm';
 import { first, omit, pick } from 'lodash-es';
 import { useContext, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
-import { type Address, decodeEventLog, type Hex, keccak256, parseEventLogs } from 'viem';
+import { type Address, decodeEventLog, parseEventLogs } from 'viem';
 import { getTransactionReceipt, writeContract } from 'wagmi/actions';
 
-import {
-    checkParams,
-    type MethodParameters,
-    type ParamsObjType,
-} from '@/components/RedPacket/hooks/useCreateCallback.js';
 import { config } from '@/configs/wagmiClient.js';
 import { EMPTY_LIST, SITE_URL } from '@/constants/index.js';
 import {
@@ -31,6 +26,7 @@ import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import { EVMChainResolver } from '@/mask/index.js';
 import { RedPacketModalRef } from '@/modals/controls.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
+import { RedPacketProvider } from '@/providers/ethereum/RedPacket.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -80,50 +76,43 @@ export function useCreateFTRedPacketCallback(
     );
 
     const { chainId, account } = useChainContext({ chainId: token.chainId });
-    const { HAPPY_RED_PACKET_ADDRESS_V4: redpacketContractAddress } = useRedPacketConstants(chainId);
-    const { NATIVE_TOKEN_ADDRESS } = useTokenConstants(chainId);
 
     return useAsyncFn(async () => {
-        if (!redPacketSettings || !redpacketContractAddress) return;
-        const { duration, isRandom, message, name: senderName, shares, total, token } = redPacketSettings;
-        if (!token) return;
-        const seed = Math.random().toString();
-        const tokenType = token!.schema === SchemaType.Native ? 0 : 1;
-        const tokenAddress = token!.schema === SchemaType.Native ? NATIVE_TOKEN_ADDRESS : token!.address;
-        if (!tokenAddress) {
-            return;
-        }
-
-        const paramsObj: ParamsObjType = {
-            publicKey,
-            shares,
-            isRandom,
-            duration,
-            seed: keccak256(seed as Hex),
-            message,
-            name: senderName,
-            tokenType,
-            tokenAddress,
-            total,
-            token,
-        };
-
         try {
-            checkParams(paramsObj);
-        } catch {
-            return;
-        }
+            if (!redPacketSettings) return;
 
-        try {
-            const params = Object.values(omit(paramsObj, ['token'])) as MethodParameters;
+            const HAPPY_RED_PACKET_ADDRESS_V4 = getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4');
+            if (!HAPPY_RED_PACKET_ADDRESS_V4) return;
 
-            const value = toFixed(paramsObj.token?.schema === SchemaType.Native ? total : 0);
+            const { duration, isRandom, message, name: senderName, shares, total, token } = redPacketSettings;
+            if (!token) return;
+
+            const tokenAddress =
+                token.schema === SchemaType.Native ? getTokenConstant(chainId, 'NATIVE_TOKEN_ADDRESS') : token.address;
+            if (!tokenAddress) return;
+
+            const params = await RedPacketProvider.createRedPacketParams({
+                creator: account,
+                duration,
+                isRandom,
+                message,
+                name: senderName,
+                shares,
+                total,
+                token,
+                chainId,
+                version: RED_PACKET_CONTRACT_VERSION,
+                publicKey,
+            });
+            if (!params) return;
+
+            const value = toFixed(params.params.token?.schema === SchemaType.Native ? total : 0);
 
             const result = await writeContract(config, {
-                address: redpacketContractAddress as Address,
+                address: getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4') as Address,
                 abi: HappyRedPacketV4ABI,
                 functionName: 'create_red_packet',
-                args: params,
+                args: params.methodParams,
                 value: BigInt(value),
                 account: account as Address,
                 chainId,
@@ -172,7 +161,6 @@ export function useCreateFTRedPacketCallback(
                 duration: number;
                 ifrandom: boolean;
             };
-
             if (!id) return;
 
             const payload = {
@@ -190,7 +178,7 @@ export function useCreateFTRedPacketCallback(
                 creation_time: Number.parseInt(creation_time, 10) * 1000,
                 token,
                 network: EVMChainResolver.chainName(chainId),
-                contract_address: redpacketContractAddress,
+                contract_address: HAPPY_RED_PACKET_ADDRESS_V4,
                 contract_version: RED_PACKET_CONTRACT_VERSION,
                 txid: receipt.transactionHash,
             };
@@ -221,14 +209,5 @@ export function useCreateFTRedPacketCallback(
                 enqueueMessageFromError(error, t`Failed to create red packet`);
             }
         }
-    }, [
-        redPacketSettings,
-        redpacketContractAddress,
-        NATIVE_TOKEN_ADDRESS,
-        publicKey,
-        account,
-        chainId,
-        coverImage,
-        claimRequirements,
-    ]);
+    }, [redPacketSettings, publicKey, account, chainId, coverImage, claimRequirements]);
 }

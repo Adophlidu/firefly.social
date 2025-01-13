@@ -1,5 +1,5 @@
 import { ChainId, type NetworkType } from '@masknet/web3-shared-evm';
-import type { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
+import { useQuery, type QueryObserverResult, type RefetchOptions } from '@tanstack/react-query';
 import { compact, first } from 'lodash-es';
 import { useCallback } from 'react';
 
@@ -7,13 +7,13 @@ import { useAvailability } from '@/components/RedPacket/hooks/useAvailability.js
 import { useCheckSponsorableGasFee } from '@/components/RedPacket/hooks/useCheckSponsorableGasFee.js';
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
 import { useParseRedPacket } from '@/components/RedPacket/hooks/useParseRedPacket.js';
-import { useSignedMessage } from '@/components/RedPacket/hooks/useSignedMessage.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { EVMNetworkResolver } from '@/mask/index.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 
 /**
  * Fetch the red packet info from the chain
@@ -52,7 +52,18 @@ export function useAvailabilityComputed(payload: RedPacketJSONPayload, post: Pos
         options?: RefetchOptions,
     ) => Promise<QueryObserverResult<typeof availability>>;
 
-    const { data: password } = useSignedMessage(account, payload, post.source);
+    const { data: password } = useQuery({
+        queryKey: ['red-packet', 'signed-message', account, post.source],
+        queryFn: async () => {
+            const signed = await signClaimMessage({
+                account,
+                contextChainId: parsedChainId,
+                source: post.source,
+                payload,
+            });
+            return signed;
+        },
+    });
 
     const { data, refetch, isFetching, isLoading } = useClaimStrategyStatus(payload, post.source);
 

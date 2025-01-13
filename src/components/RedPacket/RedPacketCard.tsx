@@ -2,7 +2,7 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useRedPacketConstants } from '@masknet/web3-shared-evm';
+import { getRedPacketConstant } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
 import localFont from 'next/font/local';
 import { useCallback, useMemo, useState } from 'react';
@@ -16,6 +16,7 @@ import { Loading } from '@/components/Loading.js';
 import { AmountProgressText } from '@/components/RedPacket/AmountProgressText.js';
 import { useAvailabilityComputed } from '@/components/RedPacket/hooks/useAvailabilityComputed.js';
 import { useRedPacketCover } from '@/components/RedPacket/hooks/useRedPacketCover.js';
+import { useRefundCallback } from '@/components/RedPacket/hooks/useRefundCallback.js';
 import { useVerifyAndClaim } from '@/components/RedPacket/hooks/useVerifyAndClaim.js';
 import { RedPacketCardFooter } from '@/components/RedPacket/RedPacketCardFooter.js';
 import { RequirementsModal } from '@/components/RedPacket/RequirementsModal.js';
@@ -30,7 +31,6 @@ import { minus, ZERO } from '@/helpers/number.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { useRefundCallback } from '@/hooks/useRefundCallback.js';
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import { EVMChainResolver } from '@/mask/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
@@ -64,8 +64,6 @@ export function RedPacketCard({ payload, post }: Props) {
     } = useAvailabilityComputed(payload, post);
     // #endregion
 
-    const { HAPPY_RED_PACKET_ADDRESS_V4: redpacketContractAddress } = useRedPacketConstants(parsedChainId);
-
     const { account } = useChainContext();
 
     const { data: cover } = useRedPacketCover({
@@ -81,17 +79,16 @@ export function RedPacketCard({ payload, post }: Props) {
         if (!canClaim || !parsedChainId || !password || !account) return;
 
         const client = createWagmiPublicClient(parsedChainId);
-
         return runInSafeAsync(async () => {
             return client.estimateContractGas({
                 abi: HappyRedPacketV4ABI,
                 functionName: 'claim',
                 args: [payload.rpid, password, account],
-                address: redpacketContractAddress as Address,
+                address: getRedPacketConstant(parsedChainId, 'HAPPY_RED_PACKET_ADDRESS_V4') as Address,
                 account: account as Address,
             });
         });
-    }, [account, canClaim, parsedChainId, redpacketContractAddress, payload.rpid, password]);
+    }, [account, canClaim, parsedChainId, payload.rpid, password]);
 
     const nativeToken = useMemo(() => EVMChainResolver.nativeCurrency(parsedChainId), [parsedChainId]);
 

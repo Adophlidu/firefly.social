@@ -1,7 +1,7 @@
 import { t } from '@lingui/core/macro';
 
 import { ActionButton } from '@/components/ActionButton.js';
-import { useRefundCallback } from '@/hooks/useRefundCallback.js';
+import { useRefundCallback } from '@/components/RedPacket/hooks/useRefundCallback.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 interface Props {

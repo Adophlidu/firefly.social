@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useRedPacketConstants } from '@masknet/web3-shared-evm';
+import { getRedPacketConstant } from '@masknet/web3-shared-evm';
 import { last } from 'lodash-es';
 import { useCallback } from 'react';
 import urlcat from 'urlcat';
@@ -11,7 +11,6 @@ import { readContract } from 'wagmi/actions';
 import CircleSuccessIcon from '@/assets/circle-success.svg';
 import { useClaimCallback } from '@/components/RedPacket/hooks/useClaimCallback.js';
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
-import { useCurrentClaimProfile } from '@/components/RedPacket/hooks/useCurrentClaimProfile.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import type { SocialSource } from '@/constants/enum.js';
@@ -21,6 +20,7 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
+import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -29,9 +29,7 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
     const account = useAccount().address;
     const { data, isFetching, refetch: recheckClaimStatus } = useClaimStrategyStatus(payload, source);
 
-    const { data: currentClaimProfile } = useCurrentClaimProfile(source);
     const [{ loading: isClaiming }, claimCallback] = useClaimCallback(account ?? '', payload, source);
-    const { HAPPY_RED_PACKET_ADDRESS_V4: redpacketContractAddress } = useRedPacketConstants(payload.chainId);
 
     const verifyAndClaim = useCallback(async () => {
         const { data } = await recheckClaimStatus();
@@ -39,6 +37,8 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
             enqueueErrorMessage(t`Oops... Not all the requirements have been met`);
             return false;
         }
+
+        const currentClaimProfile = await getCurrentClaimProfile(source);
 
         const hash = await claimCallback();
         if (hash && currentClaimProfile?.profileId && currentClaimProfile.handle) {
@@ -63,16 +63,14 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
         const availability = (await readContract(config, {
             abi: HappyRedPacketV4ABI,
             functionName: 'check_availability',
-            address: redpacketContractAddress as Address,
+            address: getRedPacketConstant(payload.chainId!, 'HAPPY_RED_PACKET_ADDRESS_V4') as Address,
             args: [payload.rpid],
             account: account as Address,
             chainId: payload.chainId,
         })) as [string, bigint, bigint, bigint, boolean, bigint];
 
         const claimed_amount = last(availability) as bigint;
-
         const amount = formatBalance(claimed_amount.toString(), payload.token?.decimals, { significant: 2 });
-
         const postUrl = urlcat(SITE_URL, getPostUrl(post));
 
         ConfirmModalRef.open({
@@ -115,15 +113,11 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
         post,
         account,
         claimCallback,
-        currentClaimProfile?.handle,
-        currentClaimProfile?.platform,
-        currentClaimProfile?.profileId,
         payload.rpid,
         payload.token?.decimals,
         payload.token?.symbol,
         payload.chainId,
         recheckClaimStatus,
-        redpacketContractAddress,
         source,
     ]);
 

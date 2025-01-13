@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { useCurrentClaimProfile } from '@/components/RedPacket/hooks/useCurrentClaimProfile.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
+import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 
@@ -14,13 +14,14 @@ export function useClaimStrategyStatus(payload: RedPacketJSONPayload, source: So
     });
 
     const signedMessage = 'privateKey' in payload ? payload.privateKey : payload.password;
-    const { data: profile } = useCurrentClaimProfile(source);
 
     return useQuery({
         enabled: !signedMessage,
-        queryKey: ['red-packet', 'claim-strategy', rpid, profile?.profileId, account],
+        queryKey: ['red-packet', 'claim-strategy', rpid, account],
         queryFn: async () => {
-            if (!profile || !account) return null;
+            const profile = await getCurrentClaimProfile(source);
+            if (!account || !profile) return null;
+
             return FireflyRedPacketEndpoint.checkClaimStrategyStatus({
                 rpid,
                 profile,

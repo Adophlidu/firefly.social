@@ -1,4 +1,4 @@
-import { type ChainId, useRedPacketConstants } from '@masknet/web3-shared-evm';
+import { type ChainId, getRedPacketConstant } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import type { Address } from 'viem';
 import { readContract } from 'wagmi/actions';
@@ -19,16 +19,15 @@ export function useAvailability(
         account: options?.account,
         chainId: options?.chainId,
     });
-    const { HAPPY_RED_PACKET_ADDRESS_V4: redpacketContractAddress } = useRedPacketConstants(chainId);
 
     return useQuery({
-        queryKey: ['red-packet', 'check-availability', chainId, version, id, account, redpacketContractAddress],
+        queryKey: ['red-packet', 'check-availability', chainId, version, id, account],
         queryFn: async () => {
-            if (!id || !redpacketContractAddress) return null;
+            if (!id) return null;
             const data = (await readContract(config, {
                 abi: HappyRedPacketV4ABI,
                 functionName: 'check_availability',
-                address: redpacketContractAddress as Address,
+                address: getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4') as Address,
                 args: [id],
                 account: account as Address,
                 chainId,
