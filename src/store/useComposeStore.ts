@@ -80,6 +80,9 @@ export interface ComposeBaseState {
     cursor: Cursor;
     // tracking the current applied draft id
     currentDraftId?: string;
+
+    // editor focus state
+    focused: boolean;
 }
 
 interface ComposeState extends ComposeBaseState {
@@ -134,6 +137,8 @@ interface ComposeState extends ComposeBaseState {
     // reset the editor
     apply: (state: ComposeBaseState) => void;
     clear: () => void;
+
+    updateFocused: (focused: boolean) => void;
 }
 
 export function createInitPostState(): Record<SocialSource, null> {
@@ -183,6 +188,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
     immer((set, get) => ({
         type: 'compose',
         cursor: initialPostCursor,
+        focused: false,
         posts: [createInitSinglePostState(initialPostCursor)],
         computed: {
             get nextAvailablePost() {
@@ -623,10 +629,15 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     type: state.type,
                     cursor: id,
                     currentDraftId: undefined,
+                    focused: false,
                     posts: [createInitSinglePostState(id)],
                 } satisfies ComposeBaseState;
 
                 Object.assign(state, nextState);
+            }),
+        updateFocused: (focused) =>
+            set((state) => {
+                state.focused = focused;
             }),
     })),
 );

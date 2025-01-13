@@ -144,7 +144,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
 export const DraftList = memo(function DraftList() {
     const currentProfileAll = useCurrentProfileAll();
     const { drafts, removeDraft } = useComposeDraftStateStore();
-    const { updateChars, apply, currentDraftId, clear } = useComposeStateStore();
+    const { updateChars, apply, focused, currentDraftId, clear } = useComposeStateStore();
     const { updateScheduleTime } = useComposeScheduleStateStore();
     const setEditorContent = useSetEditorContent();
 
@@ -191,6 +191,7 @@ export const DraftList = memo(function DraftList() {
             );
             apply({
                 ...draft,
+                focused,
                 posts: draft.posts.map((x) => ({
                     ...x,
                     ...(full
@@ -211,7 +212,7 @@ export const DraftList = memo(function DraftList() {
             if (draft.scheduleTime) updateScheduleTime(draft.scheduleTime);
             router.history.push('/');
         },
-        [apply, router, setEditorContent, updateChars, updateScheduleTime, currentProfileAll],
+        [apply, router, setEditorContent, updateChars, updateScheduleTime, currentProfileAll, focused],
     );
 
     if (!drafts.length) {

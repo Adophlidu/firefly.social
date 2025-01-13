@@ -47,7 +47,7 @@ interface EditorProps {
 }
 
 export const Editor = memo(function Editor({ post, replying }: EditorProps) {
-    const { type, posts, updateChars, loadComponentsFromChars } = useComposeStateStore();
+    const { type, posts, updateChars, updateFocused, loadComponentsFromChars } = useComposeStateStore();
     const [, startTransition] = useTransition();
 
     const { chars } = post;
@@ -103,6 +103,8 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
                 contentEditable={
                     <ContentEditable
                         key="editable"
+                        onFocus={() => updateFocused(true)}
+                        onBlur={() => updateFocused(false)}
                         className="flex-1 flex-shrink-0 cursor-text resize-none appearance-none border-none bg-transparent p-0 pb-2 text-left text-[16px] leading-6 text-main outline-none outline-0 focus:ring-0"
                     />
                 }

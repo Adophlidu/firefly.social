@@ -1,11 +1,10 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
-import { Select, Trans } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
 import { useForkRef } from '@mui/material';
 import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { forwardRef, type HTMLProps, useMemo, useState } from 'react';
+import { forwardRef, useMemo, useState } from 'react';
 import { useAsync } from 'react-use';
 
 import { TwitterArticleBody } from '@/components/Article/TwitterArticleBody.js';
@@ -17,6 +16,7 @@ import { PollCard } from '@/components/Poll/PollCard.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ContentTranslator } from '@/components/Posts/ContentTranslator.js';
+import { PostBodyReplyContent } from '@/components/Posts/PostBodyReplyContent.js';
 import { PostLinks } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { RedPacketInspector } from '@/components/RedPacket/RedPacketInspector.js';
@@ -24,11 +24,9 @@ import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, RP_HASH_TAG } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatUrl } from '@/helpers/formatUrl.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { isValidUrl } from '@/helpers/isValidUrl.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
 import { resolvePostArticleUrl } from '@/helpers/resolvePostArticleUrl.js';
 import { trimify } from '@/helpers/trimify.js';
@@ -49,12 +47,6 @@ export interface PostBodyContentProps {
     disablePadding?: boolean;
     showTranslate?: boolean;
 }
-
-const overrideComponents = {
-    a: function Anchor({ title }: HTMLProps<HTMLAnchorElement>) {
-        return <span>{title && isValidUrl(title) ? formatUrl(title, 30) : title}</span>;
-    },
-};
 
 function canSkipWaitingForPayload(post: Post) {
     const content = post.metadata.content?.content;
@@ -181,37 +173,7 @@ export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(
         );
     }
 
-    if (isReply) {
-        return (
-            <div>
-                <NakedMarkup
-                    post={post}
-                    className={classNames(
-                        'single-post line-clamp-3 w-full self-stretch break-words text-base text-main',
-                        {
-                            'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
-                        },
-                    )}
-                    components={overrideComponents}
-                >
-                    {liteRawContent}
-                </NakedMarkup>
-                <div className="flex flex-col text-base text-main">
-                    {post.metadata.content?.asset?.type ? (
-                        <Select
-                            value={post.metadata.content.asset.type}
-                            _Image="[Image]"
-                            _Video="[Video]"
-                            _Audio="[Audio]"
-                            _Poll="[Poll]"
-                            other=""
-                        />
-                    ) : null}
-                    {post.quoteOn ? <span>{t`[Quote]`}</span> : null}
-                </div>
-            </div>
-        );
-    }
+    if (isReply) return <PostBodyReplyContent post={post} />;
 
     return (
         <article
