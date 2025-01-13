@@ -145,7 +145,6 @@
         "@lingui/cli": "^5.1.2",
         "@lingui/conf": "^5.1.2",
         "@lingui/loader": "^5.1.2",
-        "@lingui/macro": "^5.1.2",
         "@lingui/swc-plugin": "^5.0.2",
         "@sinonjs/text-encoding": "^0.7.3",
         "@svgr/webpack": "^8.1.0",

@@ -1,5 +1,5 @@
 import { Transition } from '@headlessui/react';
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import React, { Fragment, memo } from 'react';
 
 import { Image } from '@/components/Image.js';

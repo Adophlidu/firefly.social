@@ -31,7 +31,6 @@ export default {
     fallbackLocales: {
         pseudo: 'en',
     },
-    format: 'po',
     formatOptions: {
         origins: true,
         lineNumbers: false,

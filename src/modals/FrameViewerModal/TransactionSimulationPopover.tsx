@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { forwardRef, useState } from 'react';
 
 import { TransactionSimulator } from '@/components/TransactionSimulator/SimulatorContent.js';
