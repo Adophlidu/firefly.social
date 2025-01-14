@@ -26,7 +26,7 @@ export function PostBy(props: PostByProps) {
     }, [availableSources, images, poll, type]);
 
     const content = (
-        <div className="no-scrollbar flex max-h-[184px] flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[184px]">
+        <div className="no-scrollbar flex max-h-[184px] flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[208px]">
             {SORTED_SOCIAL_SOURCES.map((source, index) => (
                 <PostByItem key={source} source={source} disabled={postByDisabled[index]} />
             ))}
@@ -51,7 +51,7 @@ export function PostBy(props: PostByProps) {
                     portal
                     modal
                     static
-                    className="absolute bottom-full right-0 z-10 !min-h-0 w-[280px] -translate-y-3 [--anchor-max-height:184px] md:[--anchor-max-height:184px]"
+                    className="absolute bottom-full right-0 z-10 !min-h-0 w-[280px] -translate-y-3 [--anchor-max-height:184px] md:[--anchor-max-height:208px]"
                 >
                     {content}
                 </PopoverPanel>

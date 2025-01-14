@@ -35,7 +35,7 @@ export const QuickReply = memo<QuickReplyProps>(function QuickReply({ source, po
             <div className="flex-1 p-3 text-[20px] text-secondary">
                 <Trans>Post your reply</Trans>
             </div>
-            <ActionButton disabled className="!flex-[0] text-nowrap px-6 py-[6px]">
+            <ActionButton disabled className="!flex-[0] text-nowrap px-6 py-[4px]">
                 <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
                 <Trans>Send</Trans>
             </ActionButton>
