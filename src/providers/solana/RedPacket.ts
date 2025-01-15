@@ -272,6 +272,20 @@ class Provider {
     async getRedPacketsByReceiver(receiver: web3.PublicKey) {
         throw new NotImplementedError();
     }
+
+    async getClaimedRecord(accountId: web3.PublicKey, receiver: web3.PublicKey) {
+        try {
+            const claimAccount = web3.PublicKey.findProgramAddressSync(
+                [Buffer.from('claim_record'), accountId.toBuffer(), receiver.toBuffer()],
+                this.program.programId,
+            )[0];
+            const record = await this.program.account.claimRecord.fetch(claimAccount);
+            return record;
+        } catch {
+            // if no record found an error will be thrown
+            return null;
+        }
+    }
 }
 
 export const SolanaRedPacket = new Provider();

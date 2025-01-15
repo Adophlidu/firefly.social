@@ -1,6 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
 import { t } from '@lingui/core/macro';
-import { isSameAddress } from '@masknet/web3-shared-base';
 import { isNativeTokenAddress } from '@masknet/web3-shared-solana';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
@@ -67,13 +66,12 @@ export function useVerifyAndClaimSolana(payload: RedPacketJSONPayload, post: Pos
             await queryClient.refetchQueries({
                 queryKey: ['red-packet', 'solana-availability', payload.rpid, account],
             });
-            const data = await SolanaRedPacket.getRedPacket(new web3.PublicKey(accountId));
-            const userIndex = data.claimedUsers.findIndex((claimedKey) =>
-                isSameAddress(claimedKey.toBase58(), account),
+
+            const claimedRecord = await SolanaRedPacket.getClaimedRecord(
+                new web3.PublicKey(accountId),
+                new web3.PublicKey(account),
             );
-            const records = data.claimedAmountRecords;
-            const rawAmount = userIndex >= 0 && userIndex < records.length ? records[userIndex]?.toString() : '';
-            const amount = formatBalance(rawAmount || '0', payload.token.decimals);
+            const amount = formatBalance(claimedRecord?.amount.toString() || '0', payload.token.decimals);
 
             sharePostAfterClaimed(post, amount, payload.token.symbol);
             enqueueSuccessMessage(

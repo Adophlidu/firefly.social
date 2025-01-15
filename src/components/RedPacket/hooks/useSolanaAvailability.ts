@@ -1,5 +1,4 @@
 import { web3 } from '@coral-xyz/anchor';
-import { isSameAddress } from '@masknet/web3-shared-base';
 import { useQuery } from '@tanstack/react-query';
 
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
@@ -19,20 +18,24 @@ export function useSolanaAvailability(payload: RedPacketJSONPayload, chainId: nu
             const accountId = resolveSolanaAccountId(payload.rpid, payload.accountId);
             if (!accountId) return null;
 
-            const data = await SolanaRedPacket.getRedPacket(new web3.PublicKey(accountId));
-            const isExpired = data.duration.add(data.createTime).muln(1000).ltn(Date.now());
-            const isEmpty = data.claimedAmount.gt(data.totalAmount);
-            const isClaimed = data.claimedUsers.some((claimedKey) => isSameAddress(claimedKey.toBase58(), account));
+            const redPacket = await SolanaRedPacket.getRedPacket(new web3.PublicKey(accountId));
+            const claimedRecord = await SolanaRedPacket.getClaimedRecord(
+                new web3.PublicKey(accountId),
+                new web3.PublicKey(account),
+            );
+            const isExpired = redPacket.duration.add(redPacket.createTime).muln(1000).ltn(Date.now());
+            const isEmpty = redPacket.claimedAmount.gt(redPacket.totalAmount);
+            const isClaimed = !!claimedRecord;
 
             return {
-                token_address: data.tokenAddress.toBase58(),
-                balance: minus(data.totalAmount.toString(), data.claimedAmount.toString()).toString(),
-                total: data.totalAmount.toString(),
-                claimed: data.claimedNumber.toString(),
+                token_address: redPacket.tokenAddress.toBase58(),
+                balance: minus(redPacket.totalAmount.toString(), redPacket.claimedAmount.toString()).toString(),
+                total: redPacket.totalAmount.toString(),
+                claimed: redPacket.claimedNumber.toString(),
                 expired: isExpired,
                 isEmpty,
-                claimed_amount: data.claimedAmount.toString(),
-                publicKey: data.pubkeyForClaimSignature,
+                claimed_amount: redPacket.claimedAmount.toString(),
+                publicKey: redPacket.pubkeyForClaimSignature,
                 isClaimed,
             };
         },
