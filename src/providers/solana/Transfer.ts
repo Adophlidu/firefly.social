@@ -1,7 +1,7 @@
 import { web3 } from '@coral-xyz/anchor';
 import { ChainId, isNativeTokenAddress } from '@masknet/web3-shared-solana';
 
-import { env } from '@/constants/env.js';
+import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { isGreaterThan, rightShift } from '@/helpers/number.js';
 import { createTransferInstruction } from '@/providers/solana/createTransferInstruction.js';
 import { getOrCreateAssociatedTokenAccount } from '@/providers/solana/getOrCreateAssociatedTokenAccount.js';
@@ -11,7 +11,7 @@ import { SolanaNetwork } from '@/providers/solana/Network.js';
 import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';
 
 class Provider implements TransferProvider<ChainId> {
-    private connection = new web3.Connection(env.external.NEXT_PUBLIC_SOLANA_RPC_URL, 'confirmed');
+    private connection = new web3.Connection(getSolanaRPCUrl(), 'confirmed');
 
     async transfer(options: TransactionOptions<ChainId>): Promise<string> {
         const { token } = options;

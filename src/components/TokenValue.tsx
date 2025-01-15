@@ -4,6 +4,7 @@ import { BigNumber } from 'bignumber.js';
 import { type HTMLProps, useMemo } from 'react';
 
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
+import type { NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatFungibleTokenToDebankToken } from '@/helpers/formatToken.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
@@ -13,14 +14,16 @@ interface Props extends HTMLProps<HTMLDivElement> {
     amount?: string;
     token?: FungibleToken<ChainId, SchemaType> | null;
     chainId?: number;
+    networkType: NetworkType;
 }
 
-export function TokenValue({ className, token, amount, chainId: overrideChainId, ...rest }: Props) {
+export function TokenValue({ className, token, amount, chainId: overrideChainId, networkType, ...rest }: Props) {
     const { chainId } = useChainContext({
         chainId: overrideChainId,
+        networkType,
     });
 
-    const { data: tokenPrice = 0 } = useFungibleTokenPrice(token?.address, { chainId });
+    const { data: tokenPrice = 0 } = useFungibleTokenPrice(token?.address, { chainId, networkType });
 
     const priceUSD = useMemo(() => {
         if (!tokenPrice || !amount) return;

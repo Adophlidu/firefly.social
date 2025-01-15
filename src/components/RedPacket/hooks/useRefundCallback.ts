@@ -11,11 +11,11 @@ import { type ChainContextOverride, useChainContext } from '@/hooks/useChainCont
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
-export function useRefundCallback(id?: string, overrideChainContext?: ChainContextOverride) {
-    const { chainId, account } = useChainContext(overrideChainContext);
+export function useRefundCallback(rpid?: string, overrides?: ChainContextOverride) {
+    const { chainId, account } = useChainContext(overrides);
 
     return useAsyncFn(async () => {
-        if (!id) return;
+        if (!rpid) return;
 
         const globalChainId = getChainId(config);
         if (globalChainId !== chainId) await switchChain(config, { chainId });
@@ -24,7 +24,7 @@ export function useRefundCallback(id?: string, overrideChainContext?: ChainConte
             abi: HappyRedPacketV4ABI,
             functionName: 'refund',
             address: getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4') as Address,
-            args: [id],
+            args: [rpid],
             chainId,
         });
 
@@ -49,7 +49,7 @@ export function useRefundCallback(id?: string, overrideChainContext?: ChainConte
                     for (const page of draft.pages) {
                         if (!page) continue;
                         for (const item of page.data) {
-                            if (item.redpacket_id === id)
+                            if (item.redpacket_id === rpid)
                                 item.redpacket_status = FireflyRedPacketAPI.RedPacketStatus.Refund;
                         }
                     }
@@ -58,11 +58,11 @@ export function useRefundCallback(id?: string, overrideChainContext?: ChainConte
         );
 
         queryClient.refetchQueries({
-            queryKey: ['red-packet', 'claim', id],
+            queryKey: ['red-packet', 'claim', rpid],
         });
 
         queryClient.refetchQueries({
-            queryKey: ['red-packet', 'check-availability', chainId, 4, id, account],
+            queryKey: ['red-packet', 'check-availability', chainId, 4, rpid, account],
         });
-    }, [id, chainId, account]);
+    }, [rpid, chainId, account]);
 }

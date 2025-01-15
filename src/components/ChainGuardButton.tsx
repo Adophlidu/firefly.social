@@ -1,43 +1,67 @@
 import { Trans } from '@lingui/react/macro';
+import { unreachable } from '@masknet/kit';
+import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { memo, type MouseEvent } from 'react';
 import { useAsyncFn } from 'react-use';
-import { useAccount } from 'wagmi';
 import { switchChain } from 'wagmi/actions';
 
 import { ActionButton, type ActionButtonProps } from '@/components/ActionButton.js';
 import { config } from '@/configs/wagmiClient.js';
+import { NetworkType } from '@/constants/enum.js';
+import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
 import { ConnectModalRef } from '@/modals/controls.js';
 
 interface ChainGuardButtonProps extends ActionButtonProps {
     targetChainId?: number;
+    networkType?: NetworkType;
 }
 
 export const ChainGuardButton = memo<ChainGuardButtonProps>(function ChainBoundary({
     targetChainId,
+    networkType = NetworkType.Ethereum,
     children,
     onClick,
     ...props
 }) {
-    const account = useAccount();
+    const account = useAccountByNetwork(networkType);
+
+    const solanaWalletModal = useWalletModal();
 
     const [{ loading }, handleClick] = useAsyncFn(
         async (event: MouseEvent<HTMLButtonElement>) => {
-            if (targetChainId && account.chainId !== targetChainId) {
-                await switchChain(config, { chainId: targetChainId });
+            switch (networkType) {
+                case NetworkType.Ethereum:
+                    if (targetChainId && account.chainId !== targetChainId) {
+                        await switchChain(config, { chainId: targetChainId });
+                    }
+                    onClick?.(event);
+                    break;
+                case NetworkType.Solana:
+                    onClick?.(event);
+                    break;
+                default:
+                    unreachable(networkType);
             }
-
-            return onClick?.(event);
         },
-        [targetChainId, account.chainId, onClick],
+        [targetChainId, account.chainId, networkType, onClick],
     );
 
-    if (!account.isConnected || !account.address) {
+    if (!account.isConnected) {
         return (
             <ActionButton
                 {...props}
                 disabled={false}
                 onClick={() => {
-                    ConnectModalRef.open();
+                    switch (networkType) {
+                        case NetworkType.Ethereum:
+                            ConnectModalRef.open();
+                            break;
+                        case NetworkType.Solana:
+                            solanaWalletModal.setVisible(true);
+                            break;
+                        default:
+                            unreachable(networkType);
+                    }
                 }}
             >
                 <Trans>Connect Wallet</Trans>

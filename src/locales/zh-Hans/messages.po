@@ -86,6 +86,9 @@ msgstr "图片格式 X 不支持。上传失败。"
 msgid "Report @{0}"
 msgstr "报告 @{0}"
 
+msgid "Failed to setup red packet program"
+msgstr ""
+
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
 msgstr "售卖税率: {0}%"
@@ -130,6 +133,9 @@ msgstr "模版"
 
 msgid "Failed to collect article."
 msgstr "收集文章失败。"
+
+msgid "Token is required."
+msgstr ""
 
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr "稍等！满足以下任一条件以解锁优质 NFT："
@@ -239,6 +245,9 @@ msgstr "发现恶意挖矿行为。"
 
 msgid "Functions that can suspend trading"
 msgstr "可以暂停交易的功能"
+
+msgid "Claimed successfully."
+msgstr ""
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市场中可发行股票的最大数量相当。</0><1>最大供应量 = 理论最大值</1>"
@@ -406,6 +415,9 @@ msgstr "您的账户已连接。"
 #. placeholder {0}: formatAmount(usdcSize)
 msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
 msgstr "<0>出售了一个投注</0><1>在 Polymarket 上价值 ${0}</1>"
+
+msgid "The number of people who can claim the lucky drop should be less than {RED_PACKET_MAX_SHARES_FOR_SOLANA}."
+msgstr ""
 
 #. placeholder {0}: profile.source
 #. placeholder {0}: post.source
@@ -1131,6 +1143,9 @@ msgstr "哎呀... 并未满足所有要求"
 msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
 msgstr "您是 <0>Pudgy Penguins</0> 或 <1>Lil Pudgy</1> NFT 系列的持有者"
 
+msgid "Failed to get token account."
+msgstr ""
+
 msgid "No restricted approval."
 msgstr "没有限制性批准。"
 
@@ -1518,6 +1533,9 @@ msgstr "代理合约"
 msgid "Total amount shared among all winners"
 msgstr "在所有获奖者之间分配的总金额"
 
+msgid "Token is missing"
+msgstr ""
+
 msgid "Enter number of winners"
 msgstr "输入获奖人数"
 
@@ -1551,6 +1569,9 @@ msgstr "当前结果"
 
 msgid "Comment"
 msgstr "评论"
+
+msgid "Failed to create red packet."
+msgstr ""
 
 msgid "Only people you mention"
 msgstr "只有你提及的人"
@@ -1601,10 +1622,6 @@ msgstr "其他"
 
 msgid "Muted wallets"
 msgstr "已隐藏的钱包"
-
-#. placeholder {0}: payload.token?.symbol
-msgid "Your claimed {amount} {0}."
-msgstr "您领取了{amount} {0}。"
 
 msgid "All wallets and accounts are muted."
 msgstr "已隐藏所有的钱包和账户。"
@@ -2174,6 +2191,9 @@ msgstr "下载媒体"
 msgid "Unable to read image."
 msgstr "获取图片失败。"
 
+msgid "Failed to claim red packet"
+msgstr ""
+
 msgid "NFT Holder of <0/>"
 msgstr "<0/>的 NFT持有者"
 
@@ -2605,6 +2625,9 @@ msgstr "{0}{1}<0> 地板</0>"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>收集了你的 </4><5>{1, select, Post {发帖} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</5>"
 
+msgid "Claimed lucky drop successfully"
+msgstr ""
+
 msgid "Rejected"
 msgstr "已拒绝"
 
@@ -2714,6 +2737,9 @@ msgstr "请切换到 {0}"
 msgid "Your browser does not support the Firefly Bridge."
 msgstr "您的浏览器不支持 Firefly Bridge。"
 
+msgid "At least {RED_PACKET_MIN_SHARES} person should be able to claim the lucky drop."
+msgstr ""
+
 msgid "Mobile App"
 msgstr "手机应用"
 
@@ -2746,6 +2772,9 @@ msgstr "定时"
 
 msgid "No cybercrime involved."
 msgstr "不涉及网络犯罪。"
+
+msgid "Your claimed {amount} {symbol}."
+msgstr ""
 
 msgid "Sent"
 msgstr "发送"
@@ -2905,6 +2934,9 @@ msgstr "<0>出售</0><1/>"
 
 msgid "Everyone can reply"
 msgstr "所有人可评论"
+
+msgid "Invalid red packet"
+msgstr ""
 
 msgid "No matching token"
 msgstr ""
@@ -3166,6 +3198,9 @@ msgstr "1年"
 
 msgid "Something went wrong"
 msgstr "发生未知错误。"
+
+msgid "Token mint address is required."
+msgstr ""
 
 msgid "Create time:"
 msgstr "创建时间："

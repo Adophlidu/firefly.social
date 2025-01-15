@@ -1,14 +1,15 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { type FungibleToken } from '@masknet/web3-shared-base';
-import { type ChainId, isNativeTokenAddress, SchemaType, ZERO_ADDRESS } from '@masknet/web3-shared-evm';
+import { type FungibleToken, isSameAddress } from '@masknet/web3-shared-base';
+import { isNativeTokenAddress, ZERO_ADDRESS } from '@masknet/web3-shared-evm';
+import { isNativeTokenAddress as isNativeTokenAddressSolana } from '@masknet/web3-shared-solana';
 import { BigNumber } from 'bignumber.js';
 import { type ChangeEvent, memo, useCallback, useMemo } from 'react';
 import { isAddress } from 'viem';
-import { useAccount } from 'wagmi';
 
 import ArrowDown from '@/assets/arrow-down.svg';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
+import { NetworkType } from '@/constants/enum.js';
 import { NUMERIC_INPUT_REGEXP_PATTERN } from '@/constants/regexp.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { formatFungibleTokenToDebankToken } from '@/helpers/formatToken.js';
@@ -20,14 +21,16 @@ const MIN_AMOUNT_LENGTH = 1;
 const MAX_AMOUNT_LENGTH = 79;
 
 export interface FungibleTokenInputProps {
-    token?: FungibleToken<ChainId, SchemaType>;
+    token?: FungibleToken<number, number>;
     placeholder?: string;
-    onTokenChange: (token: FungibleToken<ChainId, SchemaType>) => void;
+    onTokenChange: (token: FungibleToken<number, number>) => void;
     amount: string;
     maxAmount?: string;
     maxAmountShares?: number;
     onAmountChange: (amount: string) => void;
     balance: string;
+    networkType: NetworkType;
+    account: string;
 }
 
 export const FungibleTokenInput = memo<FungibleTokenInputProps>(function FungibleTokenInput({
@@ -39,23 +42,34 @@ export const FungibleTokenInput = memo<FungibleTokenInputProps>(function Fungibl
     balance,
     amount,
     placeholder,
+    networkType,
+    account,
 }) {
-    const account = useAccount();
-
     const handleTokenChange = useCallback(async () => {
-        if (!account.address) return;
+        if (!account) return;
         const picked = await TokenSelectorModalRef.openAndWaitForClose({
-            address: account.address,
+            networkType,
+            address: account,
             isSelected: (item) => {
-                const address = isAddress(item.id) ? item.id : ZERO_ADDRESS;
-                return isSameEthereumAddress(address, token?.address) && item.chainId === token?.chainId;
+                switch (networkType) {
+                    case NetworkType.Ethereum:
+                        return (
+                            isSameEthereumAddress(isAddress(item.id) ? item.id : ZERO_ADDRESS, token?.address) &&
+                            item.chainId === token?.chainId
+                        );
+                    case NetworkType.Solana:
+                        return isSameAddress(item.id, token?.address);
+                    default:
+                        return false;
+                }
             },
         });
         if (!picked) return;
         onTokenChange(picked);
-    }, [account.address, token, onTokenChange]);
+    }, [account, token, networkType, onTokenChange]);
 
-    const isNativeToken = isNativeTokenAddress(token?.address);
+    const isSolana = networkType === NetworkType.Solana;
+    const isNativeToken = isSolana ? isNativeTokenAddressSolana(token?.address) : isNativeTokenAddress(token?.address);
 
     const { RE_MATCH_WHOLE_AMOUNT, RE_MATCH_FRACTION_AMOUNT } = useMemo(
         () => ({

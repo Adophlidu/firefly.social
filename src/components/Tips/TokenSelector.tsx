@@ -4,7 +4,7 @@ import { useAsync } from 'react-use';
 
 import ArrowDown from '@/assets/arrow-down.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { SearchTokenPanel } from '@/components/Search/SearchTokenPanel.js';
+import { SearchTokenPanelEVM } from '@/components/Search/SearchTokenPanelEVM.js';
 import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
@@ -37,7 +37,7 @@ export const TokenSelector = memo(function TokenSelector() {
             <TipsModalHeader back title={t`Select Token`} />
             {address ? (
                 <div className="h-[50vh] md:h-[526px]">
-                    <SearchTokenPanel address={address} onSelected={onTokenSelected} isSelected={isSelected} />
+                    <SearchTokenPanelEVM address={address} onSelected={onTokenSelected} isSelected={isSelected} />
                 </div>
             ) : null}
         </>

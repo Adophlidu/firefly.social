@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { type FungibleToken, multipliedBy, type NonFungibleCollection } from '@masknet/web3-shared-base';
-import type { ChainId, SchemaType } from '@masknet/web3-shared-evm';
+import { type ChainId, type SchemaType } from '@masknet/web3-shared-evm';
 import { compact, first, flatten, noop, uniqBy } from 'lodash-es';
 import {
     createContext,
@@ -15,13 +15,14 @@ import { mainnet } from 'viem/chains';
 import { useAccount, useEnsName } from 'wagmi';
 
 import WalletIcon from '@/assets/wallet2.svg';
+import { useNativeToken } from '@/components/RedPacket/hooks/useNativeToken.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { NetworkType } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { RED_PACKET_DEFAULT_SHARES } from '@/constants/rp.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
-import { EVMChainResolver } from '@/mask/index.js';
 import type { FireflyRedPacketAPI } from '@/maskbook/packages/web3-providers/src/entry-types.js';
 import { RequirementType } from '@/providers/types/FireflyRedPacket.js';
 
@@ -58,13 +59,24 @@ export const redPacketFontColorTabs = [
     },
 ] as const;
 
+export const redPacketTypeTabs = [
+    {
+        label: <Trans>EVM</Trans>,
+        value: NetworkType.Ethereum,
+    },
+    {
+        label: <Trans>Solana</Trans>,
+        value: NetworkType.Solana,
+    },
+];
+
 type RandomType = (typeof redPacketRandomTabs)[number]['value'];
 type CoverTabType = (typeof redPacketCoverTabs)[number]['value'];
 type FontColorTabType = (typeof redPacketFontColorTabs)[number]['value'];
 
 interface RedPacketContextValue {
     message: string;
-    token: FungibleToken<ChainId, SchemaType>;
+    token: FungibleToken<number, number>;
     randomType: RandomType;
     shares: number;
     coverType: CoverTabType;
@@ -78,7 +90,7 @@ interface RedPacketContextValue {
     requireCollection?: NonFungibleCollection<ChainId, SchemaType>;
     setRequireCollection: Dispatch<SetStateAction<NonFungibleCollection<ChainId, SchemaType> | undefined>>;
     setRules: Dispatch<SetStateAction<RequirementType[]>>;
-    setToken: Dispatch<SetStateAction<FungibleToken<ChainId, SchemaType> | undefined>>;
+    setToken: Dispatch<SetStateAction<FungibleToken<number, number> | undefined>>;
     setRandomType: Dispatch<SetStateAction<RandomType>>;
     setMessage: Dispatch<SetStateAction<string>>;
     setShares: Dispatch<SetStateAction<number>>;
@@ -90,9 +102,12 @@ interface RedPacketContextValue {
     themes: FireflyRedPacketAPI.ThemeGroupSettings[];
     theme: FireflyRedPacketAPI.ThemeGroupSettings;
     setTheme: Dispatch<SetStateAction<FireflyRedPacketAPI.ThemeGroupSettings | undefined>>;
+    networkType: NetworkType;
+    setNetworkType: Dispatch<SetStateAction<NetworkType>>;
 }
 
 export const initialRedPacketContextValue: RedPacketContextValue = {
+    networkType: NetworkType.Ethereum,
     message: '',
     shares: RED_PACKET_DEFAULT_SHARES,
     randomType: redPacketRandomTabs[0].value,
@@ -119,13 +134,14 @@ export const initialRedPacketContextValue: RedPacketContextValue = {
     themes: EMPTY_LIST,
     theme: null!,
     setTheme: noop,
+    setNetworkType: noop,
 };
 
 export const RedPacketContext = createContext<RedPacketContextValue>(initialRedPacketContextValue);
 
 export function RedPacketProvider({ children }: PropsWithChildren) {
-    const account = useAccount();
-    const { data: ensName } = useEnsName({ address: account.address, chainId: mainnet.id });
+    const evmAccount = useAccount();
+    const { data: ensName } = useEnsName({ address: evmAccount.address, chainId: mainnet.id });
     const allProfile = useProfileStoreAll();
     const [message, setMessage] = useState('');
     const [shares, setShares] = useState<number>(RED_PACKET_DEFAULT_SHARES);
@@ -133,10 +149,11 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
     const [customThemes, setCustomThemes] = useState<FireflyRedPacketAPI.ThemeGroupSettings[]>([]);
     const { data: themes = EMPTY_LIST } = useRedPacketThemes();
     const [theme = themes[0], setTheme] = useState<FireflyRedPacketAPI.ThemeGroupSettings>();
+    const [networkType, setNetworkType] = useState<NetworkType>(NetworkType.Ethereum);
 
-    const { chainId } = useChainContext();
-    const nativeToken = useMemo(() => EVMChainResolver.nativeCurrency(chainId), [chainId]);
-    const [token = nativeToken, setToken] = useState<FungibleToken<ChainId, SchemaType>>();
+    const { chainId, account } = useChainContext({ networkType });
+    const nativeToken = useNativeToken(chainId, networkType);
+    const [token = nativeToken, setToken] = useState<FungibleToken<number, number>>();
     const [coverType, setCoverType] = useState<CoverTabType>('default');
     const [fontColor, setFontColor] = useState<FontColorTabType>('golden');
     const [shareFrom, setShareFrom] = useState<string>('');
@@ -152,6 +169,7 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
         [rawAmount, isRandom, shares],
     );
 
+    const isEVM = networkType === NetworkType.Ethereum;
     const accounts = useMemo(() => {
         return uniqBy(
             compact(
@@ -162,7 +180,7 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
 
                         return [
                             { icon: <SocialSourceIcon source={source} size={24} />, name: profile.handle },
-                            profile.ownedBy
+                            profile.ownedBy && isEVM
                                 ? {
                                       icon: <WalletIcon width={24} height={24} />,
                                       name: profile.ownedBy.address,
@@ -170,17 +188,17 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
                                 : undefined,
                         ];
                     }),
-                    account.address
+                    account
                         ? {
                               icon: <WalletIcon width={24} height={24} />,
-                              name: ensName || account.address || '',
+                              name: isEVM ? ensName || account : account,
                           }
                         : undefined,
                 ]),
             ),
             (x) => x.name.toLowerCase(),
         );
-    }, [allProfile, ensName, account.address]);
+    }, [allProfile, ensName, account, isEVM]);
 
     const ctxValue = useMemo(
         () => ({
@@ -211,6 +229,8 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
             themes,
             theme,
             setTheme,
+            networkType,
+            setNetworkType,
         }),
         [
             message,
@@ -228,6 +248,7 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
             customThemes,
             themes,
             theme,
+            networkType,
         ],
     );
 

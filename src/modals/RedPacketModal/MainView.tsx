@@ -17,10 +17,12 @@ import RedPacketIcon from '@/assets/red-packet.svg';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { FungibleTokenInput } from '@/components/FungibleTokenInput.js';
 import { useDefaultCreateGas } from '@/components/RedPacket/hooks/useDefaultCreateGas.js';
+import { useNativeToken } from '@/components/RedPacket/hooks/useNativeToken.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { TokenValue } from '@/components/TokenValue.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { config } from '@/configs/wagmiClient.js';
+import { NetworkType } from '@/constants/enum.js';
 import {
     RED_PACKET_CONTRACT_VERSION,
     RED_PACKET_DURATION,
@@ -36,8 +38,8 @@ import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useERC20TokenAllowance } from '@/hooks/useERC20Allowance.js';
 import { useNativeTokenPrice } from '@/hooks/useNativeTokenPrice.js';
-import { EVMChainResolver } from '@/mask/index.js';
 import { RedPacketContext, redPacketRandomTabs } from '@/modals/RedPacketModal/RedPacketContext.js';
+import { TypeTabs } from '@/modals/RedPacketModal/TypeTabs.js';
 
 export function MainView() {
     const { history } = useRouter();
@@ -53,42 +55,51 @@ export function MainView() {
         setToken,
         rawAmount,
         setRawAmount,
+        networkType,
     } = useContext(RedPacketContext);
 
-    const { account, chainId: contextChainId } = useChainContext();
+    const { chainId: contextChainId, account } = useChainContext({ networkType });
     const chainId = token?.chainId || contextChainId;
-    const nativeToken = useMemo(() => EVMChainResolver.nativeCurrency(chainId), [chainId]);
-    const { data: nativeTokenPrice = 0, isLoading: priceLoading } = useNativeTokenPrice({ chainId });
+    const nativeToken = useNativeToken(chainId, networkType);
+    const { data: nativeTokenPrice = 0, isLoading: priceLoading } = useNativeTokenPrice({ chainId, networkType });
 
     const isRandom = randomType === 'random';
 
     const { account: publicKey } = useMemo(createAccount, []);
-    const { value: defaultGas = ZERO, loading: gasLoading } = useDefaultCreateGas({
-        creator: account,
-        version: RED_PACKET_CONTRACT_VERSION,
-        chainId,
-        publicKey,
-        duration: RED_PACKET_DURATION,
-        isRandom: randomType === 'random',
-        name: 'Unknown User',
-        message: message || t`Best Wishes!`,
-        shares: shares || 0,
-        token: token
-            ? (omit(token, ['logoURI']) as FungibleToken<ChainId, SchemaType.ERC20 | SchemaType.Native>)
-            : undefined,
-        total: rightShift(0.0001, token.decimals).toFixed(),
-    });
+    const { data: defaultGas = ZERO, isLoading: gasLoading } = useDefaultCreateGas(
+        {
+            networkType,
+            creator: account,
+            version: RED_PACKET_CONTRACT_VERSION,
+            chainId,
+            publicKey,
+            duration: RED_PACKET_DURATION,
+            isRandom,
+            name: 'Unknown User',
+            message: message || t`Best Wishes!`,
+            shares: shares || 0,
+            token: token
+                ? (omit(token, ['logoURI']) as FungibleToken<ChainId, SchemaType.ERC20 | SchemaType.Native>)
+                : undefined,
+            total: rightShift(0.0001, token.decimals).toFixed(),
+        },
+        networkType === NetworkType.Ethereum,
+    );
 
-    const balanceResult = useAvailableBalance(token.address as Address, defaultGas.toNumber(), { chainId });
-    const { gasFee, value: balance = ZERO, origin: originBalance, insufficientGas } = balanceResult ?? {};
+    const balanceResult = useAvailableBalance(token.address as Address, defaultGas.toNumber(), {
+        chainId,
+        networkType,
+    });
+    const { gasFee, value: balance = ZERO, origin: originBalance, insufficientGas } = balanceResult || {};
 
     const amount = rightShift(rawAmount || '0', token?.decimals);
     const rawTotalAmount = isRandom || !rawAmount ? rawAmount : multipliedBy(rawAmount, shares).toFixed();
     const totalAmount = multipliedBy(amount, isRandom ? 1 : shares);
     const minTotalAmount = new BigNumber(isRandom ? 1 : shares);
     const isDivisible = !totalAmount.dividedBy(shares).isLessThan(1);
+    const isEVM = networkType === NetworkType.Ethereum;
 
-    const handleTokenChange = useCallback(
+    const onTokenChange = useCallback(
         (token: FungibleToken<ChainId, SchemaType>) => {
             setToken(token);
             setRawAmount('');
@@ -116,9 +127,15 @@ export function MainView() {
         data: allowance,
         isLoading: allowanceLoading,
         refetch: refetchAllowance,
-    } = useERC20TokenAllowance(token.address as Address, getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4'), {
-        chainId,
-    });
+    } = useERC20TokenAllowance(
+        token.address as Address,
+        getRedPacketConstant(chainId, 'HAPPY_RED_PACKET_ADDRESS_V4'),
+        {
+            chainId,
+            networkType,
+        },
+        isEVM,
+    );
 
     const cost = gasFee ? leftShift(gasFee, nativeToken.decimals).multipliedBy(nativeTokenPrice) : ZERO;
 
@@ -191,11 +208,11 @@ export function MainView() {
         const globalChainId = getChainId(config);
         if (!originBalance || isZero(originBalance.value.toString())) return;
 
-        if (globalChainId !== chainId) {
+        if (isEVM && globalChainId !== chainId) {
             await switchChain(config, { chainId });
         }
 
-        if (isNotEnoughAllowance) {
+        if (isEVM && isNotEnoughAllowance) {
             const result = await writeContract(config, {
                 chainId,
                 abi: getTokenAbiForWagmi(chainId, token.address as Address),
@@ -208,20 +225,23 @@ export function MainView() {
             return;
         }
 
-        history.push('/requirements');
-    }, [originBalance, chainId, isNotEnoughAllowance, history, token.address, refetchAllowance]);
+        history.push(isEVM ? '/requirements' : '/confirm');
+    }, [originBalance, chainId, isNotEnoughAllowance, history, token.address, isEVM, refetchAllowance]);
     // #endregion
 
     return (
         <>
             <div className="flex flex-1 flex-col gap-y-4 bg-primaryBottom px-4 pt-2">
-                <Tabs value={randomType} onChange={setRandomType} variant="solid" className="self-start">
-                    {redPacketRandomTabs.map((tab) => (
-                        <Tab value={tab.value} key={tab.value}>
-                            {tab.label}
-                        </Tab>
-                    ))}
-                </Tabs>
+                <div className="flex gap-2">
+                    <Tabs value={randomType} onChange={setRandomType} variant="solid" className="self-start">
+                        {redPacketRandomTabs.map((tab) => (
+                            <Tab value={tab.value} key={tab.value}>
+                                {tab.label}
+                            </Tab>
+                        ))}
+                    </Tabs>
+                    <TypeTabs />
+                </div>
 
                 <div className="flex items-center rounded-xl border border-transparent bg-bg pr-3 focus-within:border-highlight focus-within:bg-bottom">
                     <form className="w-full flex-1">
@@ -255,9 +275,11 @@ export function MainView() {
                             : undefined
                     }
                     token={token}
-                    onTokenChange={handleTokenChange}
+                    onTokenChange={onTokenChange}
                     onAmountChange={setRawAmount}
                     balance={balance.toString()}
+                    networkType={networkType}
+                    account={account}
                     maxAmountShares={isRandom || shares === 0 ? 1 : shares}
                     placeholder={randomType === 'equal' ? t`Enter the amount that each winner can claim` : undefined}
                 />
@@ -295,12 +317,13 @@ export function MainView() {
                 ) : null}
 
                 {rawTotalAmount && !isZero(rawTotalAmount) ? (
-                    <TokenValue token={token} amount={rawTotalAmount} chainId={chainId} />
+                    <TokenValue token={token} amount={rawTotalAmount} chainId={chainId} networkType={networkType} />
                 ) : null}
             </div>
             <div className="flex-grow" />
             <div className="w-full bg-lightBottom80 p-4 shadow-primary backdrop-blur-lg dark:shadow-primaryDark">
                 <ChainGuardButton
+                    networkType={networkType}
                     targetChainId={chainId}
                     className="rounded-lg"
                     disabled={disabled}

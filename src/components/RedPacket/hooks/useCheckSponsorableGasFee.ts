@@ -3,8 +3,9 @@ import { useQuery } from '@tanstack/react-query';
 
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 
-export function useCheckSponsorableGasFee(chainId: ChainId, walletAddress?: string) {
+export function useCheckSponsorableGasFee(chainId: ChainId, walletAddress?: string, enabled = true) {
     return useQuery({
+        enabled,
         queryKey: ['firefly-red-packet-sponsorable-gas-fee', walletAddress, chainId],
         queryFn() {
             if (!walletAddress || !chainId) return false;

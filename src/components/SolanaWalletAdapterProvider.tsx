@@ -14,6 +14,7 @@ import { ParticleSolanaWalletAdapter } from '@/connectors/ParticleSolanaWallet.j
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SOLANA_WALLET_CACHE_KEY } from '@/constants/index.js';
+import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { captureConnectWalletEvent } from '@/providers/telemetry/captureConnectWalletEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -34,7 +35,7 @@ export type SolanaWalletAdapterProviderProps = PropsWithChildren<{
 
 export function SolanaWalletAdapterProvider(props: SolanaWalletAdapterProviderProps) {
     return (
-        <ConnectionProvider endpoint={env.external.NEXT_PUBLIC_SOLANA_RPC_URL}>
+        <ConnectionProvider endpoint={getSolanaRPCUrl()}>
             <WalletProvider wallets={wallets} autoConnect localStorageKey={SOLANA_WALLET_CACHE_KEY}>
                 <WalletModalProvider>
                     {props.children}

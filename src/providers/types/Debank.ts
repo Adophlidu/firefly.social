@@ -10,7 +10,7 @@ export interface Token<AddressLike = string> {
     logo_url: string;
     name: string;
     optimized_symbol: string;
-    price: number;
+    price: string;
     price_24h_change: number;
     protocol_id: string;
     raw_amount: string;

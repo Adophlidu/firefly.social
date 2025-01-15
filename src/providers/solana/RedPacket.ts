@@ -4,7 +4,10 @@ import { ASSOCIATED_TOKEN_PROGRAM_ID, getAssociatedTokenAddressSync } from '@sol
 import { Ed25519Program, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { sign } from 'tweetnacl';
 
+import { STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { multipliedBy } from '@/helpers/number.js';
 import { createRedPacketProgram } from '@/providers/solana/createRedPacketProgram.js';
 
 /**
@@ -54,7 +57,11 @@ export interface RefundSplTokenContext extends RefundNativeTokenContext {
 }
 
 class Provider {
-    private program = createRedPacketProgram(ChainId.Devnet);
+    private get program() {
+        return createRedPacketProgram(
+            env.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled ? ChainId.Devnet : ChainId.Mainnet,
+        );
+    }
 
     private get creator() {
         if (!this.program.provider.publicKey) throw new Error('No creator found.');
@@ -72,7 +79,7 @@ class Provider {
         const signature = await this.program.methods
             .createRedPacketWithNativeToken(
                 context.owners,
-                new BN(context.totalAmount).muln(LAMPORTS_PER_SOL),
+                new BN(multipliedBy(context.totalAmount, LAMPORTS_PER_SOL).toString()),
                 new BN(createTime),
                 new BN(context.duration),
                 context.ifSpiltRandom,
@@ -202,7 +209,7 @@ class Provider {
                 commitment: 'confirmed',
             });
 
-        return signature;
+        return { signature, accountId };
     }
 
     async refundNativeToken(accountId: web3.PublicKey) {

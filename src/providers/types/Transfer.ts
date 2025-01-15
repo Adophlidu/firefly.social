@@ -1,3 +1,4 @@
+import type { NetworkType } from '@/constants/enum.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 
 export type Token<ChainIdLike = number, AddressLike = string> = DebankToken<AddressLike> & {
@@ -5,6 +6,7 @@ export type Token<ChainIdLike = number, AddressLike = string> = DebankToken<Addr
     balance: string;
     usdValue: number;
     chainLogoUrl?: string;
+    networkType: NetworkType;
 };
 
 export interface TransactionOptions<ChainIdLike = number, AddressLike = string> {

@@ -33,20 +33,19 @@ import { retry } from '@/helpers/retry.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 
+export function getParticleSolanaProvider() {
+    if (typeof window === 'undefined') throw new AbortError();
+    if (typeof window.particle === 'undefined') throw new InvalidResultError();
+    if (typeof window.particle.solana === 'undefined') throw new InvalidResultError();
+    return window.particle.solana as SolanaWallet;
+}
+
 async function getProvider(signal?: AbortSignal) {
-    return retry(
-        async () => {
-            if (typeof window === 'undefined') throw new AbortError();
-            if (typeof window.particle === 'undefined') throw new InvalidResultError();
-            if (typeof window.particle.solana === 'undefined') throw new InvalidResultError();
-            return window.particle.solana as SolanaWallet;
-        },
-        {
-            times: 5,
-            interval: 300,
-            signal,
-        },
-    );
+    return retry(async () => getParticleSolanaProvider(), {
+        times: 5,
+        interval: 300,
+        signal,
+    });
 }
 
 export interface ParticleSolanaWalletAdapterConfig {}

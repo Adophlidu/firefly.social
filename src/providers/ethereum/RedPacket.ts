@@ -14,7 +14,7 @@ import { type Address, type Hex, keccak256 } from 'viem';
 import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
-import type { SocialSource } from '@/constants/enum.js';
+import type { NetworkType, SocialSource } from '@/constants/enum.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
@@ -28,6 +28,7 @@ import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 
 export interface CreateRedPacketContext {
+    networkType: NetworkType;
     creator: string;
     chainId: ChainId;
     version: number;

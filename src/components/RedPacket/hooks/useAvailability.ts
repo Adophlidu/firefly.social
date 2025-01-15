@@ -4,24 +4,22 @@ import type { Address } from 'viem';
 import { readContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
-import { useChainContext } from '@/hooks/useChainContext.js';
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 
 export function useAvailability(
     id: string,
     version: number,
-    options?: {
-        account?: string;
-        chainId?: ChainId;
+    options: {
+        account: string;
+        chainId: ChainId;
     },
+    enabled = true,
 ) {
-    const { account, chainId } = useChainContext({
-        account: options?.account,
-        chainId: options?.chainId,
-    });
+    const { account, chainId } = options;
 
     return useQuery({
         queryKey: ['red-packet', 'check-availability', chainId, version, id, account],
+        enabled,
         queryFn: async () => {
             if (!id) return null;
             const data = await readContract(config, {

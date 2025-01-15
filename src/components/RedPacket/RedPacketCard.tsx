@@ -5,7 +5,7 @@ import { Trans } from '@lingui/react/macro';
 import { getRedPacketConstant } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
 import localFont from 'next/font/local';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useAsync } from 'react-use';
 import urlcat from 'urlcat';
 import type { Address } from 'viem';
@@ -15,24 +15,26 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Loading } from '@/components/Loading.js';
 import { AmountProgressText } from '@/components/RedPacket/AmountProgressText.js';
 import { useAvailabilityComputed } from '@/components/RedPacket/hooks/useAvailabilityComputed.js';
+import { useNativeToken } from '@/components/RedPacket/hooks/useNativeToken.js';
 import { useRedPacketCover } from '@/components/RedPacket/hooks/useRedPacketCover.js';
 import { useRefundCallback } from '@/components/RedPacket/hooks/useRefundCallback.js';
 import { useVerifyAndClaim } from '@/components/RedPacket/hooks/useVerifyAndClaim.js';
 import { RedPacketCardFooter } from '@/components/RedPacket/RedPacketCardFooter.js';
 import { RequirementsModal } from '@/components/RedPacket/RequirementsModal.js';
 import { Timer } from '@/components/RedPacket/Timer.js';
+import { NetworkType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { fetch } from '@/helpers/fetch.js';
+import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { minus, ZERO } from '@/helpers/number.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';
-import { EVMChainResolver } from '@/mask/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -49,6 +51,8 @@ interface Props {
 }
 
 export function RedPacketCard({ payload, post }: Props) {
+    const networkType = getNetworkTypeFromRpPayload(payload);
+
     const [requirementOpen, setRequirementOpen] = useState(false);
 
     // #region token detailed
@@ -64,7 +68,7 @@ export function RedPacketCard({ payload, post }: Props) {
     } = useAvailabilityComputed(payload, post);
     // #endregion
 
-    const { account } = useChainContext();
+    const { account } = useChainContext({ networkType });
 
     const { data: cover } = useRedPacketCover({
         ...payload,
@@ -76,7 +80,7 @@ export function RedPacketCard({ payload, post }: Props) {
     });
 
     const { value: estimateGas = ZERO, loading: estimateLoading } = useAsync(async () => {
-        if (!canClaim || !parsedChainId || !password || !account) return;
+        if (!canClaim || !parsedChainId || !password || !account || networkType === NetworkType.Solana) return;
 
         const client = createWagmiPublicClient(parsedChainId);
         return runInSafeAsync(async () => {
@@ -88,15 +92,16 @@ export function RedPacketCard({ payload, post }: Props) {
                 account: account as Address,
             });
         });
-    }, [account, canClaim, parsedChainId, payload.rpid, password]);
+    }, [account, canClaim, parsedChainId, payload.rpid, password, networkType]);
 
-    const nativeToken = useMemo(() => EVMChainResolver.nativeCurrency(parsedChainId), [parsedChainId]);
+    const nativeToken = useNativeToken(parsedChainId, networkType);
 
     const balanceResult = useAvailableBalance(
         nativeToken.address as Address,
         new BigNumber(estimateGas.toString()).toNumber(),
         {
             chainId: parsedChainId,
+            networkType,
         },
     );
 
@@ -117,7 +122,10 @@ export function RedPacketCard({ payload, post }: Props) {
         });
     }, [post, isClaimed]);
 
-    const [{ loading: refundLoading }, refund] = useRefundCallback(payload.rpid, { chainId: parsedChainId });
+    const [{ loading: refundLoading }, refund] = useRefundCallback(payload.rpid, {
+        chainId: parsedChainId,
+        networkType,
+    });
 
     const { loading: imageLoading } = useAsync(async () => {
         if (!cover?.backgroundImageUrl) return;

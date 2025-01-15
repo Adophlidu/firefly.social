@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 import { chains } from '@/configs/wagmiClient.js';
+import { NetworkType } from '@/constants/enum.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isGreaterThan, multipliedBy } from '@/helpers/number.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -30,6 +31,7 @@ export const useTipsTokens = (address?: string) => {
                         ...acc,
                         {
                             ...token,
+                            networkType: NetworkType.Ethereum,
                             chainId: token.chainId,
                             balance: formatBalance(token.raw_amount, token.decimals, { isFixed: true }),
                             usdValue: +multipliedBy(token.price, token.amount).toFixed(2),

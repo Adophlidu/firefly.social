@@ -19,16 +19,18 @@ import { useCreateFTRedPacketCallback } from '@/components/RedPacket/hooks/useCr
 import { RedPacketEnvelope } from '@/components/RedPacket/RedPacketEnvelope.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { NetworkType } from '@/constants/enum.js';
 import { ALLOWED_COVER_MIMES, EMPTY_LIST } from '@/constants/index.js';
 import { DEFAULT_THEME_ID } from '@/constants/rp.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useSelectFiles } from '@/hooks/useSelectFiles.js';
-import { ImageEditorRef } from '@/modals/controls.js';
+import { ImageEditorRef, RedPacketModalRef } from '@/modals/controls.js';
 import {
     RedPacketContext,
     redPacketCoverTabs,
@@ -73,27 +75,30 @@ export function ConfirmView() {
         themes,
         theme,
         setTheme,
+        networkType,
     } = useContext(RedPacketContext);
-    const { chainId, account } = useChainContext();
+    const { chainId, account } = useChainContext({ networkType });
+
     const themeId = theme?.tid || DEFAULT_THEME_ID;
     const isCustomTheme = customThemes.some((t) => t.cover.bg_image === theme.cover.bg_image);
     const themeIndex = themes.indexOf(theme);
+    const isRandom = randomType === 'random';
+    const isEVM = networkType === NetworkType.Ethereum;
 
     const {
         Lens: { currentProfile: currentLensProfile },
         Farcaster: { currentProfile: currentFarcasterProfile },
         Twitter: { currentProfile: currentTwitterProfile },
     } = useProfileStoreAll();
-    const { data: tokenPrice = 0 } = useFungibleTokenPrice(token?.address, { chainId });
+    const { data: tokenPrice = 0 } = useFungibleTokenPrice(token?.address, { chainId, networkType });
 
     const { data: shareFromEnsName } = useEnsName({
         address: shareFrom as `0x${string}`,
         query: {
-            enabled: isValidAddress(shareFrom),
+            enabled: isEVM && isValidAddress(shareFrom),
         },
     });
 
-    const isRandom = randomType === 'random';
     const totalAmount = useMemo(
         () => (isRandom || !rawAmount ? rawAmount : multipliedBy(rawAmount, shares).toFixed()),
         [rawAmount, isRandom, shares],
@@ -108,60 +113,61 @@ export function ConfirmView() {
     const { value, loading } = useAsync(async () => {
         const postReactions = rules.filter((x) => x !== RequirementType.Follow && x !== RequirementType.NFTHolder);
 
-        const payload = rules
-            ? compact([
-                  rules.includes(RequirementType.Follow)
-                      ? {
-                            type: FireflyRedPacketAPI.StrategyType.profileFollow,
-                            payload: compact([
-                                currentLensProfile
-                                    ? {
-                                          platform: FireflyRedPacketAPI.PlatformType.lens,
-                                          profileId: currentLensProfile.profileId,
-                                      }
-                                    : undefined,
-                                currentFarcasterProfile
-                                    ? {
-                                          platform: FireflyRedPacketAPI.PlatformType.farcaster,
-                                          profileId: currentFarcasterProfile.profileId,
-                                      }
-                                    : undefined,
-                                currentTwitterProfile
-                                    ? {
-                                          platform: FireflyRedPacketAPI.PlatformType.twitter,
-                                          profileId: currentTwitterProfile.profileId,
-                                      }
-                                    : undefined,
-                            ]),
-                        }
-                      : undefined,
-                  postReactions?.length
-                      ? {
-                            type: FireflyRedPacketAPI.StrategyType.postReaction,
-                            payload: {
-                                reactions: flatten(
-                                    postReactions.map((x) => {
-                                        if (x === RequirementType.Repost) return ['repost', 'quote'];
-                                        return x.toLowerCase();
-                                    }),
-                                ),
-                            },
-                        }
-                      : undefined,
-                  rules.includes(RequirementType.NFTHolder) && requireCollection?.address
-                      ? {
-                            type: FireflyRedPacketAPI.StrategyType.nftOwned,
-                            payload: [
-                                {
-                                    chainId: requireCollection.chainId ?? chainId,
-                                    contractAddress: requireCollection.address,
-                                    collectionName: requireCollection.name,
+        const payload =
+            rules && isEVM
+                ? compact([
+                      rules.includes(RequirementType.Follow)
+                          ? {
+                                type: FireflyRedPacketAPI.StrategyType.profileFollow,
+                                payload: compact([
+                                    currentLensProfile
+                                        ? {
+                                              platform: FireflyRedPacketAPI.PlatformType.lens,
+                                              profileId: currentLensProfile.profileId,
+                                          }
+                                        : undefined,
+                                    currentFarcasterProfile
+                                        ? {
+                                              platform: FireflyRedPacketAPI.PlatformType.farcaster,
+                                              profileId: currentFarcasterProfile.profileId,
+                                          }
+                                        : undefined,
+                                    currentTwitterProfile
+                                        ? {
+                                              platform: FireflyRedPacketAPI.PlatformType.twitter,
+                                              profileId: currentTwitterProfile.profileId,
+                                          }
+                                        : undefined,
+                                ]),
+                            }
+                          : undefined,
+                      postReactions?.length
+                          ? {
+                                type: FireflyRedPacketAPI.StrategyType.postReaction,
+                                payload: {
+                                    reactions: flatten(
+                                        postReactions.map((x) => {
+                                            if (x === RequirementType.Repost) return ['repost', 'quote'];
+                                            return x.toLowerCase();
+                                        }),
+                                    ),
                                 },
-                            ],
-                        }
-                      : undefined,
-              ])
-            : EMPTY_LIST;
+                            }
+                          : undefined,
+                      rules.includes(RequirementType.NFTHolder) && requireCollection?.address
+                          ? {
+                                type: FireflyRedPacketAPI.StrategyType.nftOwned,
+                                payload: [
+                                    {
+                                        chainId: requireCollection.chainId ?? chainId,
+                                        contractAddress: requireCollection.address,
+                                        collectionName: requireCollection.name,
+                                    },
+                                ],
+                            }
+                          : undefined,
+                  ])
+                : EMPTY_LIST;
 
         return {
             publicKey: await FireflyRedPacketEndpoint.createPublicKey(themeId, account, payload),
@@ -178,11 +184,13 @@ export function ConfirmView() {
         chainId,
         themeId,
         account,
+        isEVM,
     ]);
 
-    const shareFromName = isValidAddress(shareFrom)
-        ? (shareFromEnsName ?? formatAddress(shareFrom, 4))
-        : `${shareFrom}`;
+    const shareFromName =
+        isValidSolanaAddress(shareFrom) || isValidAddress(shareFrom)
+            ? (shareFromEnsName ?? formatAddress(shareFrom, 4))
+            : `${shareFrom}`;
 
     const [{ loading: creatingRedPacket }, handleCreate] = useCreateFTRedPacketCallback(
         shareFromName,
@@ -318,7 +326,7 @@ export function ConfirmView() {
                         >
                             <div className="flex cursor-pointer items-center justify-between rounded-lg bg-bg p-3">
                                 <span className="text-sm font-bold">
-                                    {isValidAddress(shareFrom)
+                                    {isValidAddress(shareFrom) || isValidSolanaAddress(shareFrom)
                                         ? (shareFromEnsName ?? formatAddress(shareFrom, 4))
                                         : `@${shareFrom}`}
                                 </span>
@@ -409,7 +417,7 @@ export function ConfirmView() {
                     </span>
                 </div>
 
-                {rules.length ? (
+                {rules.length && isEVM ? (
                     <div className="flex justify-between text-sm font-bold leading-[18px]">
                         <label>
                             <Trans>Claim requirements</Trans>
@@ -448,7 +456,10 @@ export function ConfirmView() {
             <div className="w-full bg-lightBottom80 p-4 shadow-primary backdrop-blur-lg dark:shadow-primaryDark">
                 <ActionButton
                     className="rounded-lg"
-                    onClick={handleCreate}
+                    onClick={async () => {
+                        await handleCreate();
+                        RedPacketModalRef.close();
+                    }}
                     loading={creatingRedPacket || creatingTheme || loading}
                 >
                     <Trans>Next</Trans>

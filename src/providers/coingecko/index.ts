@@ -1,4 +1,9 @@
 import { ChainId, getCoinGeckoConstants, isNativeTokenAddress, isValidAddress } from '@masknet/web3-shared-evm';
+import {
+    getCoinGeckoConstants as getCoinGeckoConstantsSolana,
+    isNativeTokenAddress as isNativeTokenAddressSolana,
+    isValidChainId as isValidSolanaChainId,
+} from '@masknet/web3-shared-solana';
 import { uniq, uniqBy } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -7,6 +12,7 @@ import { COINGECKO_URL_BASE, CORS_HOST, DSEARCH_BASE_URL } from '@/constants/ind
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCommunityLink } from '@/helpers/getCommunityLink.js';
 import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
+import { isSameAddress } from '@/maskbook/packages/web3-shared/base/src/index.js';
 import type {
     CoinGeckoAsset,
     CoinGeckoCoinInfo,
@@ -49,10 +55,16 @@ export class CoinGecko {
         return price[coinId]?.usd;
     }
 
-    static getFungibleTokenPrice(chainId: ChainId, address: string) {
-        const { PLATFORM_ID = '', COIN_ID = '' } = getCoinGeckoConstants(chainId);
+    static getFungibleTokenPrice(chainId: number, address: string) {
+        const isSolana = isValidSolanaChainId(chainId);
+        const { PLATFORM_ID = '', COIN_ID = '' } = isSolana
+            ? getCoinGeckoConstantsSolana(chainId)
+            : getCoinGeckoConstants(chainId);
 
-        if (isNativeTokenAddress(address) || !isValidAddress(address)) {
+        const isNative = isSolana
+            ? isNativeTokenAddressSolana(address)
+            : isNativeTokenAddress(address) || !isValidAddress(address);
+        if (isNative) {
             return CoinGecko.getTokenPrice(COIN_ID);
         }
         return CoinGecko.getTokenPriceByAddress(PLATFORM_ID, address);
@@ -60,7 +72,9 @@ export class CoinGecko {
 
     static async getTokenPriceByAddress(platform_id: string, address: string) {
         const price = await CoinGecko.getTokenPrices(platform_id, [address]);
-        const currencies = price[address.toLowerCase()];
+        const currencies = Object.entries(price).find(([key, value]) => {
+            return isSameAddress(key, address) ? value : undefined;
+        })?.[1];
         return currencies?.usd ? Number(currencies.usd) : undefined;
     }
 
@@ -274,6 +288,19 @@ export class CoinGecko {
         });
 
         const response = await fetchJSON<{ data: CoinGeckoAsset }>(url, {
+            signal,
+        });
+
+        return response.data;
+    }
+
+    static async getTokenByAddressList(addresses: string[], network: string, signal?: AbortSignal) {
+        const url = urlcat(COINGECKO_URL_BASE, '/onchain/networks/:network/tokens/multi/:addresses', {
+            addresses: addresses.join(','),
+            network,
+        });
+
+        const response = await fetchJSON<{ data: CoinGeckoAsset[] }>(url, {
             signal,
         });
 

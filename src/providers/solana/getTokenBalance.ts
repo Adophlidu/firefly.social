@@ -42,13 +42,16 @@ export async function getSplTokenBalance(tokenAddress: string, address: string, 
         return account.mint === tokenAddress;
     });
 
-    if (!tokenProgram) return { value: '0' };
-
-    return { value: tokenProgram.account.data.parsed.info.tokenAmount.amount };
+    return tokenProgram?.account.data.parsed.info;
 }
 
 export async function getTokenBalance(token: Token<ChainId>, address: string, chainId: number) {
-    return isNativeTokenAddress(token.id)
-        ? await getNativeTokenBalance(address, chainId)
-        : await getSplTokenBalance(token.id, address, chainId);
+    if (isNativeTokenAddress(token.id)) {
+        return getNativeTokenBalance(address, chainId);
+    }
+
+    const tokenAccount = await getSplTokenBalance(token.id, address, chainId);
+    return {
+        value: tokenAccount?.tokenAmount.amount.toString() || '0',
+    };
 }

@@ -48,6 +48,9 @@ export interface RedPacketJSONPayload extends RedPacketBasic {
      */
     token_type?: 0 | number;
     total_remaining?: string;
+    // For solana
+    accountId?: string;
+    tokenProgram?: string;
 }
 
 export namespace FireflyRedPacketAPI {

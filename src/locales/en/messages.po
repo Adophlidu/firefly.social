@@ -81,6 +81,9 @@ msgstr "Failed to upload. File type is not supported on X."
 msgid "Report @{0}"
 msgstr "Report @{0}"
 
+msgid "Failed to setup red packet program"
+msgstr "Failed to setup red packet program"
+
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
 msgstr "Sell Tax: {0}%"
@@ -125,6 +128,9 @@ msgstr "Template"
 
 msgid "Failed to collect article."
 msgstr "Failed to collect article."
+
+msgid "Token is required."
+msgstr "Token is required."
 
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr "Hold on! Meet any of the following to unlock a premium collectible:"
@@ -234,6 +240,9 @@ msgstr "Malicious mining activities found."
 
 msgid "Functions that can suspend trading"
 msgstr "Functions that can suspend trading"
+
+msgid "Claimed successfully."
+msgstr "Claimed successfully."
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
@@ -401,6 +410,9 @@ msgstr "Your account is now connected."
 #. placeholder {0}: formatAmount(usdcSize)
 msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
 msgstr "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
+
+msgid "The number of people who can claim the lucky drop should be less than {RED_PACKET_MAX_SHARES_FOR_SOLANA}."
+msgstr "The number of people who can claim the lucky drop should be less than {RED_PACKET_MAX_SHARES_FOR_SOLANA}."
 
 #. placeholder {0}: profile.source
 #. placeholder {0}: post.source
@@ -1126,6 +1138,9 @@ msgstr "Oops... Not all the requirements have been met"
 msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
 msgstr "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
 
+msgid "Failed to get token account."
+msgstr "Failed to get token account."
+
 msgid "No restricted approval."
 msgstr "No restricted approval."
 
@@ -1513,6 +1528,9 @@ msgstr "Proxy contract"
 msgid "Total amount shared among all winners"
 msgstr "Total amount shared among all winners"
 
+msgid "Token is missing"
+msgstr "Token is missing"
+
 msgid "Enter number of winners"
 msgstr "Enter number of winners"
 
@@ -1546,6 +1564,9 @@ msgstr "Current Results"
 
 msgid "Comment"
 msgstr "Comment"
+
+msgid "Failed to create red packet."
+msgstr "Failed to create red packet."
 
 msgid "Only people you mention"
 msgstr "Only people you mention"
@@ -1596,10 +1617,6 @@ msgstr "Others"
 
 msgid "Muted wallets"
 msgstr "Muted wallets"
-
-#. placeholder {0}: payload.token?.symbol
-msgid "Your claimed {amount} {0}."
-msgstr "Your claimed {amount} {0}."
 
 msgid "All wallets and accounts are muted."
 msgstr "All wallets and accounts are muted."
@@ -2169,6 +2186,9 @@ msgstr "Download media"
 msgid "Unable to read image."
 msgstr "Unable to read image."
 
+msgid "Failed to claim red packet"
+msgstr "Failed to claim red packet"
+
 msgid "NFT Holder of <0/>"
 msgstr "NFT Holder of <0/>"
 
@@ -2600,6 +2620,9 @@ msgstr "{0}{1}<0> Floor</0>"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 
+msgid "Claimed lucky drop successfully"
+msgstr "Claimed lucky drop successfully"
+
 msgid "Rejected"
 msgstr "Rejected"
 
@@ -2709,6 +2732,9 @@ msgstr "Please try switching to {0}"
 msgid "Your browser does not support the Firefly Bridge."
 msgstr "Your browser does not support the Firefly Bridge."
 
+msgid "At least {RED_PACKET_MIN_SHARES} person should be able to claim the lucky drop."
+msgstr "At least {RED_PACKET_MIN_SHARES} person should be able to claim the lucky drop."
+
 msgid "Mobile App"
 msgstr "Mobile App"
 
@@ -2741,6 +2767,9 @@ msgstr "Schedule"
 
 msgid "No cybercrime involved."
 msgstr "No cybercrime involved."
+
+msgid "Your claimed {amount} {symbol}."
+msgstr "Your claimed {amount} {symbol}."
 
 msgid "Sent"
 msgstr "Sent"
@@ -2900,6 +2929,9 @@ msgstr "<0>Sold</0><1/>"
 
 msgid "Everyone can reply"
 msgstr "Everyone can reply"
+
+msgid "Invalid red packet"
+msgstr "Invalid red packet"
 
 msgid "No matching token"
 msgstr "No matching token"
@@ -3161,6 +3193,9 @@ msgstr "1y"
 
 msgid "Something went wrong"
 msgstr "Something went wrong"
+
+msgid "Token mint address is required."
+msgstr "Token mint address is required."
 
 msgid "Create time:"
 msgstr "Create time:"

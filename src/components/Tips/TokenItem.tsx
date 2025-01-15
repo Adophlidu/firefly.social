@@ -1,13 +1,14 @@
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
-import { multipliedBy } from '@/helpers/number.js';
+import { isZero, multipliedBy } from '@/helpers/number.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
 interface TokenItemProps {
     token: Token;
+    disableChainIcon?: boolean;
 }
 
-export function TokenItem({ token }: TokenItemProps) {
+export function TokenItem({ token, disableChainIcon }: TokenItemProps) {
     const usdtValue = +multipliedBy(token.price, token.amount).toFixed(2);
 
     return (
@@ -17,14 +18,14 @@ export function TokenItem({ token }: TokenItemProps) {
             enablePropagate
         >
             <div className="flex items-center gap-x-2.5">
-                <TokenIcon token={token} />
+                <TokenIcon disableChainIcon={disableChainIcon} token={token} />
                 <div className="text-left">
                     <span>{token.name}</span>
                     <br />
                     <span className="text-[13px] text-lightSecond">{`${token.balance} ${token.symbol}`}</span>
                 </div>
             </div>
-            <span>{Number.isNaN(usdtValue) ? '' : `$${usdtValue}`}</span>
+            <span>{Number.isNaN(usdtValue) || isZero(usdtValue) ? '' : `$${usdtValue}`}</span>
         </ClickableButton>
     );
 }

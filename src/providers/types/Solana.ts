@@ -3,22 +3,24 @@ interface RpcResponse<T> {
     result: T | null;
 }
 
+export interface TokenAccount {
+    isNative: false;
+    mint: string;
+    owner: string;
+    state: string;
+    tokenAmount: {
+        amount: number;
+        decimals: number;
+        uiAmount: number;
+        uiAmountString: string;
+    };
+}
+
 interface ProgramAccount {
     account: {
         data: {
             parsed: {
-                info: {
-                    isNative: false;
-                    mint: string;
-                    owner: string;
-                    state: string;
-                    tokenAmount: {
-                        amount: string;
-                        decimals: number;
-                        uiAmount: number;
-                        uiAmountString: string;
-                    };
-                };
+                info: TokenAccount;
             };
             program: 'spl-token';
             space: number;
@@ -34,3 +36,18 @@ interface ProgramAccount {
 export type GetBalanceResponse = RpcResponse<{ value: number }>;
 
 export type GetProgramAccountsResponse = RpcResponse<ProgramAccount[]>;
+
+export interface SplToken {
+    chainId: number;
+    address: string;
+    symbol: string;
+    name: string;
+    decimals: number;
+    logoURI: string;
+    tags: string[];
+    extensions: {
+        facebook: string;
+        twitter: string;
+        website: string;
+    };
+}

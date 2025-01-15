@@ -238,7 +238,9 @@
         "hdel",
         "rootdataurl",
         "rootdata",
-        "geometrychange"
+        "geometrychange",
+        "Raydium",
+        "idls"
     ],
     "flagWords": [],
     "ignorePaths": [

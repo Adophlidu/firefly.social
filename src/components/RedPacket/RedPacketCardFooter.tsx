@@ -1,9 +1,13 @@
 import { Trans } from '@lingui/react/macro';
-import { memo } from 'react';
+import { safeUnreachable } from '@masknet/kit';
+import { useWalletModal } from '@solana/wallet-adapter-react-ui';
+import { memo, useCallback } from 'react';
 
 import SendIcon from '@/assets/send.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { ActionButton } from '@/components/ActionButton.js';
+import { NetworkType } from '@/constants/enum.js';
+import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -43,11 +47,29 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
     refundLoading,
     balance,
     estimateLoading,
+    payload,
     onClaim,
 }) {
+    const networkType = getNetworkTypeFromRpPayload(payload);
+
     const { currentProfile } = useProfileStore(post.source);
     const isLogin = useIsLogin();
-    const { account } = useChainContext();
+    const { account } = useChainContext({ networkType });
+    const solanaModal = useWalletModal();
+
+    const connectWallet = useCallback(() => {
+        switch (networkType) {
+            case NetworkType.Solana:
+                solanaModal.setVisible(true);
+                break;
+            case NetworkType.Ethereum:
+                ConnectModalRef.open();
+                break;
+            default:
+                safeUnreachable(networkType);
+                break;
+        }
+    }, [networkType, solanaModal]);
 
     if (!currentProfile)
         return (
@@ -60,10 +82,7 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
     if (!account && canClaim) {
         return (
             <div className="light">
-                <ActionButton
-                    className="flex w-full items-center justify-center gap-1"
-                    onClick={() => ConnectModalRef.open()}
-                >
+                <ActionButton className="flex w-full items-center justify-center gap-1" onClick={connectWallet}>
                     <WalletIcon width={16} height={14} />
                     <Trans>Connect Wallet</Trans>
                 </ActionButton>

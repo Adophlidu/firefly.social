@@ -6,6 +6,7 @@ import { useEnsName } from 'wagmi';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 
 interface ShareAccountsPopoverProps extends PropsWithChildren {
     accounts: Array<{ icon: ReactNode; name: string }>;
@@ -66,7 +67,7 @@ export function ShareAccountsPopover({ accounts, children, onClick, className, s
 
 function formatAccountName(account?: string) {
     if (!account) return account;
-    if (isValidAddress(account)) return formatAddress(account, 4);
+    if (isValidAddress(account) || isValidSolanaAddress(account)) return formatAddress(account, 4);
     if (isValidDomain(account)) return account;
     return `@${account}`;
 }

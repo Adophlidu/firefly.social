@@ -24,4 +24,8 @@ export {
     EVMExplorerResolver,
     EVMNetworkResolver,
 } from '@/maskbook/packages/web3-providers/src/Web3/EVM/apis/ResolverAPI.js';
-export { SolanaExplorerResolver } from '@/maskbook/packages/web3-providers/src/Web3/Solana/apis/ResolverAPI.js';
+export {
+    SolanaChainResolver,
+    SolanaExplorerResolver,
+    SolanaNetworkResolver,
+} from '@/maskbook/packages/web3-providers/src/Web3/Solana/apis/ResolverAPI.js';

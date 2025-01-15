@@ -129,6 +129,12 @@ const config: NextConfig = {
             {
                 hostname: 'imagedelivery.net',
             },
+            {
+                hostname: 'raw.githubusercontent.com',
+            },
+            {
+                hostname: 'assets.coingecko.com',
+            },
         ],
     },
     async headers() {
