@@ -186,7 +186,7 @@ export function ScheduleTaskList() {
     }
 
     return (
-        <div className="no-scrollbar box-border flex flex-grow flex-col gap-1 overflow-auto p-3">
+        <div className="no-scrollbar box-border flex min-h-[478px] flex-grow flex-col gap-1 overflow-auto p-3">
             {preferences.SHOW_SCHEDULE_POST_TIP ? (
                 <div className="flex items-center gap-1.5 rounded-[4px] bg-bg p-3">
                     <Info width={20} height={20} className="shrink-0 text-main" />
@@ -212,7 +212,7 @@ export function ScheduleTaskList() {
                 components={{
                     Footer: VirtualListFooter,
                 }}
-                className="no-scrollbar schedule-task-list box-border h-full min-h-0"
+                className="no-scrollbar schedule-task-list box-border h-full min-h-0 flex-1"
                 listKey={`$${ScrollListKey.SchedulePosts}`}
                 computeItemKey={(index, item) => item.uuid}
                 itemContent={(index, task) => getScheduleTaskItemContent(task)}
