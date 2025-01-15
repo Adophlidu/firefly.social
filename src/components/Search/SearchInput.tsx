@@ -10,7 +10,7 @@ interface SearchInputProps extends HTMLProps<HTMLInputElement> {
     onClear?: () => void;
 }
 
-export function SearchInput({ onClear, ref, ...rest }: SearchInputProps) {
+export function SearchInput({ onClear, ref, placeholder, ...rest }: SearchInputProps) {
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
@@ -29,7 +29,7 @@ export function SearchInput({ onClear, ref, ...rest }: SearchInputProps) {
             />
             {!rest.value ? (
                 <span className="absolute left-0 pl-3 text-secondary sm:text-sm sm:leading-6">
-                    <Trans>Search...</Trans>
+                    {placeholder || <Trans>Search...</Trans>}
                 </span>
             ) : null}
             {rest.value ? (
