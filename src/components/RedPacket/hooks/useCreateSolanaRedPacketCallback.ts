@@ -78,7 +78,7 @@ export function useCreateSolanaRedPacketCallback(
                 | undefined;
             let tokenProgram: web3.PublicKey | undefined;
             if (isNativeToken) {
-                result = await SolanaRedPacket.createWithNativeToken({ ...baseParams });
+                result = await SolanaRedPacket.createWithNativeToken(baseParams);
             } else {
                 const tokenAccount = await getTokenAccountByMint(chainId, account, token.address);
                 if (!tokenAccount) throw new Error(t`Failed to get token account.`);

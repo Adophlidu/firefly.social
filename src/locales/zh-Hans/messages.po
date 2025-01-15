@@ -86,9 +86,6 @@ msgstr "图片格式 X 不支持。上传失败。"
 msgid "Report @{0}"
 msgstr "报告 @{0}"
 
-msgid "Failed to setup red packet program"
-msgstr ""
-
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
 msgstr "售卖税率: {0}%"

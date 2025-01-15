@@ -81,9 +81,6 @@ msgstr "Failed to upload. File type is not supported on X."
 msgid "Report @{0}"
 msgstr "Report @{0}"
 
-msgid "Failed to setup red packet program"
-msgstr "Failed to setup red packet program"
-
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
 msgstr "Sell Tax: {0}%"

@@ -81,9 +81,6 @@ msgstr ""
 msgid "Report @{0}"
 msgstr ""
 
-msgid "Failed to setup red packet program"
-msgstr ""
-
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
 msgstr ""

@@ -86,9 +86,6 @@ msgstr "上傳失敗。X 暫不支持該文件類型。"
 msgid "Report @{0}"
 msgstr "檢舉 @{0}"
 
-msgid "Failed to setup red packet program"
-msgstr ""
-
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
 msgstr ""

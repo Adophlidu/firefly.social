@@ -1,7 +1,7 @@
 import { web3 } from '@coral-xyz/anchor';
 import { t } from '@lingui/core/macro';
 import { isSameAddress } from '@masknet/web3-shared-base';
-import { ChainId, isNativeTokenAddress } from '@masknet/web3-shared-solana';
+import { isNativeTokenAddress } from '@masknet/web3-shared-solana';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useAsyncFn } from 'react-use';
@@ -11,10 +11,8 @@ import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueu
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { resolveSolanaAccountId } from '@/helpers/resolveSolanaAccountId.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
 import { sharePostAfterClaimed } from '@/helpers/sharePostAfterClaimed.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { createRedPacketProgram } from '@/providers/solana/createRedPacketProgram.js';
 import { type ClaimNativeTokenContext, SolanaRedPacket } from '@/providers/solana/RedPacket.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -28,10 +26,9 @@ export function useVerifyAndClaimSolana(payload: RedPacketJSONPayload, post: Pos
 
     const [{ loading }, handleClaim] = useAsyncFn(async () => {
         try {
-            const rpProgram = runInSafe(() => createRedPacketProgram(ChainId.Mainnet));
             const accountId = resolveSolanaAccountId(payload.rpid, payload.accountId);
 
-            if (!rpProgram && !wallet.publicKey) {
+            if (!wallet.publicKey) {
                 walletModal.setVisible(true);
                 return true;
             }
@@ -41,9 +38,6 @@ export function useVerifyAndClaimSolana(payload: RedPacketJSONPayload, post: Pos
             }
             if (!accountId || !payload.password || (!isNativeToken && !payload.tokenProgram)) {
                 throw new Error(t`Invalid red packet`);
-            }
-            if (!rpProgram) {
-                throw new Error(t`Failed to setup red packet program`);
             }
 
             const baseParams: ClaimNativeTokenContext = {
@@ -73,7 +67,7 @@ export function useVerifyAndClaimSolana(payload: RedPacketJSONPayload, post: Pos
             await queryClient.refetchQueries({
                 queryKey: ['red-packet', 'solana-availability', payload.rpid, account],
             });
-            const data = await rpProgram.account.redPacket.fetch(accountId, 'confirmed');
+            const data = await SolanaRedPacket.getRedPacket(new web3.PublicKey(accountId));
             const userIndex = data.claimedUsers.findIndex((claimedKey) =>
                 isSameAddress(claimedKey.toBase58(), account),
             );
