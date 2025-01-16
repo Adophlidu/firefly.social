@@ -6,7 +6,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { NODE_ENV, type SocialSource } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
-import { RedPacketMetaKey } from '@/constants/rp.js';
+import { SupportedMetaKeys } from '@/constants/rp.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -49,9 +49,16 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
         }
     }
 
-    if (hasRpPayload(typedMessage) && SORTED_SOCIAL_SOURCES.some((x) => postId[x]) && rpPayload?.publicKey) {
+    const rpMetaKey = SupportedMetaKeys.find((x) => !!typedMessage?.meta?.get(x));
+    if (
+        hasRpPayload(typedMessage) &&
+        SORTED_SOCIAL_SOURCES.some((x) => postId[x]) &&
+        rpPayload?.publicKey &&
+        !!rpMetaKey
+    ) {
         const currentProfileAll = getCurrentProfileAll();
-        const rpPayloadFromMeta = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
+
+        const rpPayloadFromMeta = typedMessage?.meta?.get(rpMetaKey) as RedPacketJSONPayload;
 
         const reactions = compact(
             SORTED_SOCIAL_SOURCES.map((x) => {

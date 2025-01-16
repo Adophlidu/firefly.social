@@ -6,7 +6,10 @@ import { PluginID } from '@masknet/shared-base';
  * !! Please make sure it also be able to recognize the old key.
  */
 export const RedPacketMetaKey = `${PluginID.RedPacket}:1`;
+export const SolanaRedPacketMetaKey = `${PluginID.RedPacket}_solana:1`;
 export const RedPacketEncryptedKey = `${RedPacketMetaKey}:encrypted`;
+
+export const SupportedMetaKeys = [RedPacketMetaKey, SolanaRedPacketMetaKey];
 
 export const RED_PACKET_DEFAULT_SHARES = 5;
 export const RED_PACKET_MIN_SHARES = 1;

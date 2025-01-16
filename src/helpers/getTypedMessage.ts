@@ -1,7 +1,7 @@
 import { isTypedMessageText, makeTypedMessageText } from '@masknet/typed-message';
 import { editTypedMessageMeta } from '@masknet/typed-message-react';
 
-import { RedPacketMetaKey } from '@/constants/rp.js';
+import { SupportedMetaKeys } from '@/constants/rp.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 
 export function getTypedMessageText(metas?: Record<string, unknown>) {
@@ -24,7 +24,7 @@ export function getTypedMessageRedPacket(metas?: Record<string, unknown>) {
 
     editTypedMessageMeta(message, (map) => {
         map.forEach((_, key) => {
-            if (key !== RedPacketMetaKey) map.delete(key);
+            if (!SupportedMetaKeys.includes(key)) map.delete(key);
         });
     });
 

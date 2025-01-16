@@ -1,14 +1,15 @@
 import type { TypedMessage } from '@masknet/typed-message';
+import { first } from 'lodash-es';
 
-import { RedPacketEncryptedKey, RedPacketMetaKey } from '@/constants/rp.js';
+import { RedPacketEncryptedKey, SupportedMetaKeys } from '@/constants/rp.js';
 import type { RedPacketMetadata } from '@/types/rp.js';
 
 export function hasRpPayload(message: TypedMessage | null) {
-    return message?.meta?.has(RedPacketMetaKey);
+    return SupportedMetaKeys.some((key) => !!message?.meta?.get(key));
 }
 
 export function getRpMetadata(message: TypedMessage | null) {
-    const metadata = message?.meta?.get(RedPacketMetaKey) ?? null;
+    const metadata = first(SupportedMetaKeys.map((key) => message?.meta?.get(key)).filter(Boolean)) ?? null;
     return metadata as RedPacketMetadata | null;
 }
 

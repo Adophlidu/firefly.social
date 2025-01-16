@@ -1,17 +1,26 @@
+import type { TypedMessage } from '@masknet/typed-message';
 import { createRenderWithMetadata, createTypedMessageMetadataReader } from '@masknet/typed-message-react';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Ok, type Result } from 'ts-results-es';
 
-import { RedPacketMetaKey } from '@/constants/rp.js';
+import { SOLANA_PREFIX, SolanaRedPacketMetaKey, SupportedMetaKeys } from '@/constants/rp.js';
 import { EVMChainResolver } from '@/mask/index.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import Schema from '@/schemas/rp.json' with { type: 'json' };
 
-const reader = createTypedMessageMetadataReader<RedPacketJSONPayload>(RedPacketMetaKey, Schema);
+type ReaderCacheMap = Record<string, (meta: TypedMessage['meta']) => Result<RedPacketJSONPayload, void>>;
+const readerCache = SupportedMetaKeys.reduce<ReaderCacheMap>((acc, key) => {
+    acc[key] = createTypedMessageMetadataReader<RedPacketJSONPayload>(key, Schema);
+    return acc;
+}, {});
 
 export function RedPacketMetadataReader(
     metadata: ReadonlyMap<string, unknown> | undefined,
 ): Result<RedPacketJSONPayload, void> {
+    const metaKey = SupportedMetaKeys.find((key) => !!metadata?.get(key));
+    const reader = readerCache[metaKey ?? ''];
+    if (!reader) throw new Error(`Unsupported rp meta key: ${metaKey}`);
+
     const result = reader(metadata);
     if (result.isOk()) {
         const payload = result.value;
@@ -20,8 +29,13 @@ export function RedPacketMetadataReader(
             const chainId = payload.network === 'Mainnet' ? ChainId.Mainnet : undefined;
             if (!chainId) return result;
 
+            const rpid =
+                metaKey === SolanaRedPacketMetaKey && !payload.rpid.startsWith(SOLANA_PREFIX)
+                    ? `${SOLANA_PREFIX}${payload.rpid}`
+                    : payload.rpid;
             return Ok({
                 ...payload,
+                rpid,
                 token: EVMChainResolver.nativeCurrency(chainId),
             });
         }

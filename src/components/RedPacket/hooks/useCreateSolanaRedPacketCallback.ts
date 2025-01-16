@@ -17,8 +17,8 @@ import {
     RED_PACKET_DURATION,
     RED_PACKET_MAX_SHARES_FOR_SOLANA,
     RED_PACKET_MIN_SHARES,
-    RedPacketMetaKey,
     SOLANA_PREFIX,
+    SolanaRedPacketMetaKey,
 } from '@/constants/rp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getTypedMessageRedPacket } from '@/helpers/getTypedMessage.js';
@@ -42,11 +42,21 @@ export function useCreateSolanaRedPacketCallback(
     shareFromName: string,
     claimRequirements?: FireflyRedPacketAPI.StrategyPayload[],
 ) {
-    const { randomType, message, shares, token, totalAmount, theme, networkType } = useContext(RedPacketContext);
+    const {
+        randomType,
+        message: originalMessage,
+        shares,
+        token,
+        totalAmount,
+        theme,
+        networkType,
+    } = useContext(RedPacketContext);
     const { chainId, account } = useChainContext({ chainId: token.chainId, networkType });
+
     const isNativeToken = isNativeTokenAddress(token.address);
     const total = rightShift(totalAmount, token?.decimals);
     const themeId = theme?.tid ?? DEFAULT_THEME_ID;
+    const message = originalMessage || t`Best Wishes!`;
 
     return useAsyncFn(async () => {
         try {
@@ -119,7 +129,7 @@ export function useCreateSolanaRedPacketCallback(
             };
 
             const typedMessage = getTypedMessageRedPacket({
-                [RedPacketMetaKey]: reduceUselessPayloadInfo(payload),
+                [SolanaRedPacketMetaKey]: reduceUselessPayloadInfo(payload),
             });
 
             const { updateTypedMessage, updateRpPayload } = useComposeStateStore.getState();
