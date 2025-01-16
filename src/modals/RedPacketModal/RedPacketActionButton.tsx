@@ -2,6 +2,7 @@ import { t } from '@lingui/core/macro';
 
 import { ActionButton } from '@/components/ActionButton.js';
 import { useRefundCallback } from '@/components/RedPacket/hooks/useRefundCallback.js';
+import type { NetworkType } from '@/constants/enum.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 interface Props {
@@ -9,11 +10,11 @@ interface Props {
     account: string;
     redpacketStatus: FireflyRedPacketAPI.RedPacketStatus;
     chainId: number;
+    // TODO: mark this required
+    networkType?: NetworkType;
 }
 
-export function RedPacketActionButton(props: Props) {
-    const { rpid, redpacketStatus, chainId } = props;
-
+export function RedPacketActionButton({ rpid, redpacketStatus, chainId, networkType }: Props) {
     const statusToTransMap = {
         [FireflyRedPacketAPI.RedPacketStatus.Send]: t`Send`,
         [FireflyRedPacketAPI.RedPacketStatus.Expired]: t`Expired`,
@@ -23,7 +24,7 @@ export function RedPacketActionButton(props: Props) {
         [FireflyRedPacketAPI.RedPacketStatus.Refunding]: t`Refund`,
     };
 
-    const [{ loading: refundLoading }, refund] = useRefundCallback(rpid, { chainId });
+    const [{ loading: refundLoading }, refund] = useRefundCallback(rpid, { chainId, networkType });
 
     if (
         redpacketStatus === FireflyRedPacketAPI.RedPacketStatus.Send ||

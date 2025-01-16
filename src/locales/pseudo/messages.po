@@ -771,6 +771,9 @@ msgstr ""
 msgid "Claim requirements"
 msgstr ""
 
+msgid "Failed to refund red packet."
+msgstr ""
+
 msgid "Host"
 msgstr ""
 
@@ -3780,6 +3783,9 @@ msgid "Contract address."
 msgstr ""
 
 msgid "No malicious mining activities involved."
+msgstr ""
+
+msgid "Refund successfully."
 msgstr ""
 
 msgid "Related by platforms"

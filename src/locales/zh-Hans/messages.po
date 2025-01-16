@@ -776,6 +776,9 @@ msgstr "黑名单地址。"
 msgid "Claim requirements"
 msgstr "领取条件"
 
+msgid "Failed to refund red packet."
+msgstr ""
+
 msgid "Host"
 msgstr "主持人"
 
@@ -3791,6 +3794,9 @@ msgstr "合约地址。"
 
 msgid "No malicious mining activities involved."
 msgstr "未发现可以的挖矿活动。"
+
+msgid "Refund successfully."
+msgstr ""
 
 msgid "Related by platforms"
 msgstr "相关平台"

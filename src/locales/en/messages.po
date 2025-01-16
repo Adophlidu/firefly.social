@@ -771,6 +771,9 @@ msgstr "Sanctioned address."
 msgid "Claim requirements"
 msgstr "Claim requirements"
 
+msgid "Failed to refund red packet."
+msgstr "Failed to refund red packet."
+
 msgid "Host"
 msgstr "Host"
 
@@ -3786,6 +3789,9 @@ msgstr "Contract address."
 
 msgid "No malicious mining activities involved."
 msgstr "No malicious mining activities involved."
+
+msgid "Refund successfully."
+msgstr "Refund successfully."
 
 msgid "Related by platforms"
 msgstr "Related by platforms"

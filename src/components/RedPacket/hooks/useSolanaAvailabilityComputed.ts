@@ -13,14 +13,14 @@ export function useSolanaAvailabilityComputed(payload: RedPacketJSONPayload, pos
     const { data } = useSolanaAvailability(payload, chainId, enabled);
     const { account } = useChainContext({ networkType: getNetworkTypeFromRpPayload(payload) });
 
-    const isEmpty = data?.isEmpty || false;
-    const isExpired = data?.expired || false;
-    const isClaimed = data?.isClaimed || false;
+    const isEmpty = data?.isEmpty ?? false;
+    const isExpired = data?.expired ?? false;
+    const isClaimed = data?.isClaimed ?? false;
 
     const isCreator = isSameAddress(payload.sender?.address ?? '', account);
     const canRefund = isExpired && !isEmpty && isCreator;
     const canClaim = !isExpired && !isEmpty && !isClaimed;
-    const isRefunded = isEmpty && (data?.hasShares ?? false);
+    const isRefunded = data?.isRefunded || (isEmpty && (data?.hasShares ?? false));
 
     return {
         isSponsorable: false,
