@@ -5,7 +5,6 @@ import { useContext } from 'react';
 import HistoryIcon from '@/assets/history.svg';
 import { BackButton } from '@/components/BackButton.js';
 import { CloseButton } from '@/components/IconButton.js';
-import { NetworkType } from '@/constants/enum.js';
 import { RedPacketModalRef } from '@/modals/controls.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 
@@ -40,7 +39,7 @@ export function RootView() {
 
                 <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">{title}</div>
                 <div className="relative h-6 w-6">
-                    {isMain && networkType === NetworkType.Ethereum ? (
+                    {isMain ? (
                         <HistoryIcon className="cursor-pointer" onClick={() => router.history.push('/history')} />
                     ) : null}
                 </div>

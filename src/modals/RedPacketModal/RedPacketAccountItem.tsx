@@ -3,16 +3,18 @@ import { memo } from 'react';
 import { mainnet } from 'viem/chains';
 
 import LinkOut from '@/assets/link.svg';
+import { NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { openWindow } from '@/helpers/openWindow.js';
-import { EVMExplorerResolver } from '@/mask/index.js';
+import { EVMExplorerResolver, SolanaExplorerResolver } from '@/mask/index.js';
 
 interface Props {
     address: string;
     ens?: string;
     chainId?: number;
     isDarkFont?: boolean;
+    networkType?: NetworkType;
 }
 
 export const RedPacketAccountItem = memo(function RedPacketAccountItem({
@@ -20,7 +22,14 @@ export const RedPacketAccountItem = memo(function RedPacketAccountItem({
     ens,
     chainId = mainnet.id,
     isDarkFont,
+    networkType = NetworkType.Ethereum,
 }: Props) {
+    const isAddress = networkType === NetworkType.Ethereum ? isValidAddress(address) : true;
+    const addressLink =
+        networkType === NetworkType.Ethereum
+            ? EVMExplorerResolver.addressLink(chainId, address)
+            : SolanaExplorerResolver.addressLink(chainId, address);
+
     return (
         <div
             className={classNames('flex items-center gap-1 text-[14px] leading-[18px]', {
@@ -32,8 +41,7 @@ export const RedPacketAccountItem = memo(function RedPacketAccountItem({
                 type="button"
                 className="h-4 cursor-pointer border-none bg-none p-0"
                 onClick={() => {
-                    if (isValidAddress(address))
-                        openWindow(EVMExplorerResolver.addressLink(chainId, address), '_blank');
+                    if (isAddress) openWindow(addressLink, '_blank');
                 }}
             >
                 <LinkOut className="h-4 w-4 text-lightSecond" />

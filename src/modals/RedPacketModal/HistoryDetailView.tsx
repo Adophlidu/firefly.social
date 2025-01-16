@@ -1,17 +1,15 @@
-import { createIndicator } from '@masknet/shared-base';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useLocation } from '@tanstack/react-router';
-import { first } from 'lodash-es';
-import { useCallback, useMemo } from 'react';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
 
+import { useClaimedInfo } from '@/components/RedPacket/hooks/useClaimedInfo.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
+import { NetworkType } from '@/constants/enum.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';
 import { RedPacketDetailItem } from '@/modals/RedPacketModal/RedPacketDetailItem.js';
-import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 function ClaimHistoryItem({ data, chainId }: { data: FireflyRedPacketAPI.ClaimList; chainId?: number }) {
@@ -31,45 +29,18 @@ function ClaimHistoryItem({ data, chainId }: { data: FireflyRedPacketAPI.ClaimLi
     );
 }
 
-function getClaimHistoryListItem(data: FireflyRedPacketAPI.ClaimList, chainId?: number) {
-    return <ClaimHistoryItem key={data.creator} data={data} chainId={chainId} />;
+function getClaimHistoryListItem(data?: FireflyRedPacketAPI.ClaimList, chainId?: number) {
+    return data ? <ClaimHistoryItem key={data.creator} data={data} chainId={chainId} /> : null;
 }
 
 export function HistoryDetailView() {
-    const { rpid } = useLocation().search as {
+    const { rpid, networkType } = useLocation().search as {
         rpid: string;
+        networkType: NetworkType;
     };
+    const { account } = useChainContext({ networkType });
 
-    const {
-        data: claimData,
-        fetchNextPage,
-        hasNextPage,
-        isFetching,
-        isFetchingNextPage,
-    } = useSuspenseInfiniteQuery({
-        queryKey: ['fireflyClaimHistory', rpid],
-        initialPageParam: '',
-        queryFn: async ({ pageParam }) => {
-            const res = await FireflyRedPacketEndpoint.getClaimHistory(
-                rpid,
-                createIndicator(undefined, pageParam as string),
-            );
-            return res;
-        },
-        getNextPageParam: (lastPage) => lastPage?.cursor,
-    });
-
-    const onEndReached = useCallback(async () => {
-        if (!hasNextPage || isFetching || isFetchingNextPage) {
-            return;
-        }
-        await fetchNextPage();
-    }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
-
-    const { claimInfo, claimList } = useMemo(
-        () => ({ claimList: claimData?.pages.flatMap((x) => x?.list) ?? [], claimInfo: first(claimData?.pages) }),
-        [claimData],
-    );
+    const { claimInfo, claimList, onEndReached } = useClaimedInfo(rpid, account, networkType);
 
     return (
         <div className="flex flex-grow flex-col overflow-auto px-4 py-3">
@@ -81,7 +52,7 @@ export function HistoryDetailView() {
                     components={{ Footer: VirtualListFooter }}
                     className="no-scrollbar box-border h-full min-h-0 flex-1"
                     listKey={`redpacket_${rpid}`}
-                    computeItemKey={(index, item) => item.creator || 'Unknown User'}
+                    computeItemKey={(index, item) => item?.creator || 'Unknown User'}
                     itemContent={(index, item) => getClaimHistoryListItem(item, claimInfo?.chain_id)}
                 />
             ) : (

@@ -1,6 +1,8 @@
 import type { FungibleToken } from '@masknet/web3-shared-base';
 import type { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 
+import type { NetworkType } from '@/constants/enum.js';
+
 type WithoutChainId<T> = Omit<T, 'chain_id'>;
 type WithNumberChainId<T> = WithoutChainId<T> & { chain_id: number };
 
@@ -159,6 +161,7 @@ export namespace FireflyRedPacketAPI {
         claim_strategy: StrategyPayload[];
         theme_id: string;
         share_from: string;
+        networkType?: NetworkType;
     }
 
     export interface RedPacketClaimedInfoItem {
@@ -175,6 +178,7 @@ export namespace FireflyRedPacketAPI {
         chain_id: string;
         redpacket_status: RedPacketStatus;
         ens_name: string;
+        networkType?: NetworkType;
     }
 
     export interface RedPacketClaimedInfo extends WithNumberChainId<RedPacketClaimedInfoItem> {}

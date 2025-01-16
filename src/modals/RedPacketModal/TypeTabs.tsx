@@ -6,7 +6,11 @@ import { NetworkType } from '@/constants/enum.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { RedPacketContext, redPacketTypeTabs } from '@/modals/RedPacketModal/RedPacketContext.js';
 
-export const TypeTabs = memo(function TypeTabs() {
+interface TypeTabsProps {
+    onChange?: (newType: NetworkType) => void;
+}
+
+export const TypeTabs = memo<TypeTabsProps>(function TypeTabs({ onChange }) {
     const { networkType, setNetworkType, setToken, setRawAmount } = useContext(RedPacketContext);
     const { ethereum, solana } = useWalletAccountAll();
 
@@ -31,8 +35,9 @@ export const TypeTabs = memo(function TypeTabs() {
             setToken(undefined);
             setRawAmount('');
             setNetworkType(newType);
+            onChange?.(newType);
         },
-        [ethereum, solana, setNetworkType, setToken, setRawAmount],
+        [ethereum, solana, setNetworkType, setToken, setRawAmount, onChange],
     );
 
     return (

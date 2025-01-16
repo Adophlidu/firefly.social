@@ -1,11 +1,12 @@
 import { Trans } from '@lingui/react/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { useRouter } from '@tanstack/react-router';
 import dayjs from 'dayjs';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { FireflyPlatform, NetworkPluginID, type SocialSource } from '@/constants/enum.js';
+import { FireflyPlatform, NetworkPluginID, NetworkType, type SocialSource } from '@/constants/enum.js';
 import { SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -42,6 +43,7 @@ interface HistoryInfo {
         postId: string;
         handle?: string;
     }>;
+    networkType?: NetworkType;
 }
 
 interface Props {
@@ -70,6 +72,18 @@ const PlatformButton = memo(function PlatformButton(props: {
     );
 });
 
+function resolvePluginId(networkType = NetworkType.Ethereum) {
+    switch (networkType) {
+        case NetworkType.Ethereum:
+            return NetworkPluginID.PLUGIN_EVM;
+        case NetworkType.Solana:
+            return NetworkPluginID.PLUGIN_SOLANA;
+        default:
+            safeUnreachable(networkType);
+            return NetworkPluginID.PLUGIN_EVM;
+    }
+}
+
 export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
     isDetail,
 
@@ -91,11 +105,12 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
         total_numbers,
         token_logo,
         token_amounts,
+        networkType,
     },
 }) {
     const { history } = useRouter();
-    const { account } = useChainContext();
-    const networkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chain_id);
+    const { account } = useChainContext({ networkType });
+    const networkDescriptor = getNetworkDescriptor(resolvePluginId(networkType), chain_id);
 
     return (
         <div className="mb-3 flex w-full flex-col rounded-lg bg-white p-0">
@@ -155,6 +170,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                         address={creator}
                                         ens={ens_name}
                                         chainId={chain_id}
+                                        networkType={networkType}
                                         isDarkFont
                                     />
                                 </div>
@@ -260,6 +276,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                     history.push(
                                         urlcat('/detail', {
                                             rpid: redpacket_id,
+                                            networkType: networkType || NetworkType.Ethereum,
                                         }),
                                     );
                                 }}

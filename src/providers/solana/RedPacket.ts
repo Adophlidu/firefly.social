@@ -7,6 +7,7 @@ import { sign } from 'tweetnacl';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { createRedPacketProgram } from '@/providers/solana/createRedPacketProgram.js';
 
@@ -284,6 +285,21 @@ class Provider {
         } catch {
             // if no record found an error will be thrown
             return null;
+        }
+    }
+
+    async getClaimedRecords(accountId: web3.PublicKey) {
+        try {
+            return await this.program.account.claimRecord.all([
+                {
+                    memcmp: {
+                        offset: 8, // Adjust the offset based on your account structure
+                        bytes: accountId.toBase58(),
+                    },
+                },
+            ]);
+        } catch (error) {
+            return EMPTY_LIST;
         }
     }
 }

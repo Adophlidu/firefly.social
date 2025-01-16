@@ -5,13 +5,13 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
-export function useRedPacketHistory(
+export function useEvmRedPacketHistory(
     address: string,
     historyType: FireflyRedPacketAPI.ActionType,
-    platform?: FireflyRedPacketAPI.SourceType,
+    platform = FireflyRedPacketAPI.SourceType.All,
 ) {
     return useSuspenseInfiniteQuery({
-        queryKey: ['redpacket-history', address, historyType],
+        queryKey: ['redpacket-history', 'evm', address, historyType],
         initialPageParam: createIndicator(undefined, ''),
         queryFn: async ({ pageParam }) => {
             const res = await FireflyRedPacketEndpoint.getHistory(

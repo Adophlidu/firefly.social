@@ -1,68 +1,51 @@
 import { Trans } from '@lingui/react/macro';
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
-import { NoResultsFallback } from '@/components/NoResultsFallback.js';
-import { useRedPacketHistory } from '@/components/RedPacket/hooks/useRedPacketHistory.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
-import { VirtualList } from '@/components/VirtualList/VirtualList.js';
-import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
-import { ScrollListKey } from '@/constants/enum.js';
+import { NetworkType } from '@/constants/enum.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { RedPacketDetailItem } from '@/modals/RedPacketModal/RedPacketDetailItem.js';
+import { EvmHistoryList } from '@/modals/RedPacketModal/EvmHistoryList.js';
+import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
+import { SolanaHistoryList } from '@/modals/RedPacketModal/SolanaHistoryList.js';
+import { TypeTabs } from '@/modals/RedPacketModal/TypeTabs.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
-function getRedPacketHistoryItem(
-    history: FireflyRedPacketAPI.RedPacketClaimedInfo | FireflyRedPacketAPI.RedPacketSentInfo,
-) {
-    return <RedPacketDetailItem history={history} key={history.redpacket_id} />;
-}
-
 export function HistoryView() {
+    const { networkType } = useContext(RedPacketContext);
     const [historyType, setHistoryType] = useState<FireflyRedPacketAPI.ActionType>(
-        FireflyRedPacketAPI.ActionType.Claim,
+        networkType === NetworkType.Ethereum
+            ? FireflyRedPacketAPI.ActionType.Claim
+            : FireflyRedPacketAPI.ActionType.Send,
     );
-    const { account } = useChainContext();
-    const {
-        data: historiesData,
-        fetchNextPage,
-        isFetching,
-        isFetchingNextPage,
-        hasNextPage,
-    } = useRedPacketHistory(account, historyType);
+    const { account } = useChainContext({ networkType });
 
-    const onEndReached = useCallback(async () => {
-        if (!hasNextPage || isFetching || isFetchingNextPage) {
-            return;
+    const onNetworkTypeChange = useCallback((newType: NetworkType) => {
+        if (newType === NetworkType.Solana) {
+            setHistoryType(FireflyRedPacketAPI.ActionType.Send);
         }
-        await fetchNextPage();
-    }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
+    }, []);
 
     return (
         <div className="flex flex-1 flex-grow flex-col bg-primaryBottom px-4 py-2">
-            <Tabs value={historyType} onChange={setHistoryType} variant="solid" className="self-start">
-                <Tab value={FireflyRedPacketAPI.ActionType.Claim} key="claimed">
-                    <Trans>Claimed</Trans>
-                </Tab>
-                <Tab value={FireflyRedPacketAPI.ActionType.Send} key="sent">
-                    <Trans>Sent</Trans>
-                </Tab>
-            </Tabs>
+            <div className="flex gap-2">
+                <Tabs value={historyType} onChange={setHistoryType} variant="solid" className="self-start">
+                    {networkType === NetworkType.Ethereum ? (
+                        <Tab value={FireflyRedPacketAPI.ActionType.Claim} key="claimed">
+                            <Trans>Claimed</Trans>
+                        </Tab>
+                    ) : null}
+                    <Tab value={FireflyRedPacketAPI.ActionType.Send} key="sent">
+                        <Trans>Sent</Trans>
+                    </Tab>
+                </Tabs>
+                <TypeTabs onChange={onNetworkTypeChange} />
+            </div>
 
             <div className="no-scrollbar box-border flex flex-grow flex-col gap-1 overflow-auto p-3">
-                {historiesData.length ? (
-                    <VirtualList
-                        data={historiesData}
-                        endReached={onEndReached}
-                        components={{
-                            Footer: VirtualListFooter,
-                        }}
-                        className="no-scrollbar box-border h-full min-h-0 flex-1"
-                        listKey={`${ScrollListKey.RedPacketHistory}`}
-                        computeItemKey={(index, item) => item.redpacket_id}
-                        itemContent={(index, history) => getRedPacketHistoryItem(history)}
-                    />
+                {networkType === NetworkType.Solana ? (
+                    <SolanaHistoryList address={account} historyType={historyType} />
                 ) : (
-                    <NoResultsFallback className="h-[478px] justify-center" />
+                    <EvmHistoryList address={account} historyType={historyType} />
                 )}
             </div>
         </div>

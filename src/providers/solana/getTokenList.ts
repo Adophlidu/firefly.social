@@ -18,7 +18,7 @@ import type { CoinGeckoAsset } from '@/providers/types/CoinGecko.js';
 import type { GetProgramAccountsResponse, SplToken } from '@/providers/types/Solana.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
-const getAllSolanaTokens = memoizePromise(
+export const getAllSolanaTokens = memoizePromise(
     async () => {
         const result = await fetchJSON<{ data: SplToken[] }>('/api/rp/solana-tokens', { cache: 'force-cache' });
         return result.data;
