@@ -114,7 +114,7 @@ class Provider {
             return null;
         }
 
-        const methodParams = omit(params, ['token']);
+        const methodParams = omit(params, ['token']) as Omit<CreateRedPacketParams, 'token'>;
         let gasError: Error | null = null;
         const value = toFixed(params.token?.schema === SchemaType.Native ? total : 0);
 
@@ -155,7 +155,18 @@ class Provider {
 
         // estimate gas and compose transaction
         const tx = await new ContractTransaction(contract).fillAll(
-            contract.methods.create_red_packet(...params.methodParams),
+            contract.methods.create_red_packet(
+                params.methodParams.publicKey,
+                params.methodParams.shares,
+                params.methodParams.isRandom,
+                params.methodParams.duration,
+                params.methodParams.seed,
+                params.methodParams.message,
+                params.methodParams.name,
+                params.methodParams.tokenType,
+                params.methodParams.tokenAddress,
+                params.methodParams.total,
+            ),
             {
                 from: creator,
                 value: toFixed(token?.schema === SchemaType.Native ? params.params.total : 0),
