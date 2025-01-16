@@ -1,27 +1,38 @@
-import { useWallet } from '@solana/wallet-adapter-react';
-import { useWalletModal } from '@solana/wallet-adapter-react-ui';
+import { unreachable } from '@masknet/kit';
 import { memo, useCallback, useContext } from 'react';
 
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { NetworkType } from '@/constants/enum.js';
+import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { RedPacketContext, redPacketTypeTabs } from '@/modals/RedPacketModal/RedPacketContext.js';
 
 export const TypeTabs = memo(function TypeTabs() {
     const { networkType, setNetworkType, setToken, setRawAmount } = useContext(RedPacketContext);
-    const wallet = useWallet();
-    const solanaModal = useWalletModal();
+    const { ethereum, solana } = useWalletAccountAll();
 
     const onTypeChange = useCallback(
         (newType: NetworkType) => {
-            if (newType === NetworkType.Solana && !wallet.connected) {
-                solanaModal.setVisible(true);
-                return;
+            switch (newType) {
+                case NetworkType.Solana:
+                    if (!solana.address) {
+                        solana.connect();
+                        return;
+                    }
+                    break;
+                case NetworkType.Ethereum:
+                    if (!ethereum.address) {
+                        ethereum.connect();
+                        return;
+                    }
+                    break;
+                default:
+                    unreachable(newType);
             }
             setToken(undefined);
             setRawAmount('');
             setNetworkType(newType);
         },
-        [wallet.connected, solanaModal, setNetworkType, setToken, setRawAmount],
+        [ethereum, solana, setNetworkType, setToken, setRawAmount],
     );
 
     return (

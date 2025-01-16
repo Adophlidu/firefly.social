@@ -11,8 +11,9 @@ import {
     useMemo,
     useState,
 } from 'react';
+import type { Address } from 'viem';
 import { mainnet } from 'viem/chains';
-import { useAccount, useEnsName } from 'wagmi';
+import { useEnsName } from 'wagmi';
 
 import WalletIcon from '@/assets/wallet2.svg';
 import { useNativeToken } from '@/components/RedPacket/hooks/useNativeToken.js';
@@ -20,6 +21,7 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { NetworkType } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { RED_PACKET_DEFAULT_SHARES } from '@/constants/rp.js';
+import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
@@ -140,8 +142,9 @@ export const initialRedPacketContextValue: RedPacketContextValue = {
 export const RedPacketContext = createContext<RedPacketContextValue>(initialRedPacketContextValue);
 
 export function RedPacketProvider({ children }: PropsWithChildren) {
-    const evmAccount = useAccount();
-    const { data: ensName } = useEnsName({ address: evmAccount.address, chainId: mainnet.id });
+    const { ethereum, solana } = useWalletAccountAll();
+
+    const { data: ensName } = useEnsName({ address: ethereum.address as Address, chainId: mainnet.id });
     const allProfile = useProfileStoreAll();
     const [message, setMessage] = useState('');
     const [shares, setShares] = useState<number>(RED_PACKET_DEFAULT_SHARES);
@@ -149,9 +152,15 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
     const [customThemes, setCustomThemes] = useState<FireflyRedPacketAPI.ThemeGroupSettings[]>([]);
     const { data: themes = EMPTY_LIST } = useRedPacketThemes();
     const [theme = themes[0], setTheme] = useState<FireflyRedPacketAPI.ThemeGroupSettings>();
-    const [networkType, setNetworkType] = useState<NetworkType>(NetworkType.Ethereum);
 
+    const initialNetworkType = ethereum.address
+        ? NetworkType.Ethereum
+        : solana.address
+          ? NetworkType.Solana
+          : NetworkType.Ethereum;
+    const [networkType, setNetworkType] = useState<NetworkType>(initialNetworkType);
     const { chainId, account } = useChainContext({ networkType });
+
     const nativeToken = useNativeToken(chainId, networkType);
     const [token = nativeToken, setToken] = useState<FungibleToken<number, number>>();
     const [coverType, setCoverType] = useState<CoverTabType>('default');

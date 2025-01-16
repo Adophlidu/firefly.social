@@ -2,7 +2,6 @@ import { t } from '@lingui/core/macro';
 import { compact, values } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
-import { useAccount } from 'wagmi';
 
 import RedPacketIcon from '@/assets/red-packet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -21,15 +20,16 @@ import { Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
+import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { ConnectModalRef, RedPacketModalRef } from '@/modals/controls.js';
+import { RedPacketModalRef } from '@/modals/controls.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export function ComposeActions() {
     const isMedium = useIsMedium();
-    const account = useAccount();
+    const { ethereum, solana } = useWalletAccountAll();
 
     const post = useCompositePost();
     const { type, posts } = useComposeStateStore();
@@ -39,13 +39,13 @@ export function ComposeActions() {
     const { scheduleTime } = useComposeScheduleStateStore();
 
     const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
-        if (!account.isConnected) {
-            ConnectModalRef.open();
+        if (!ethereum.address && !solana.address) {
+            ethereum.connect();
             return;
         }
 
         RedPacketModalRef.open();
-    }, [account.isConnected]);
+    }, [solana.address, ethereum]);
 
     const maxImageCount = getCurrentPostImageLimits(type, availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;
