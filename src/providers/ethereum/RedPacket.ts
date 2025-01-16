@@ -91,8 +91,6 @@ class Provider {
         }
 
         const params: CreateRedPacketParams = {
-            tokenType: token?.schema === SchemaType.Native ? 0 : 1,
-            tokenAddress,
             publicKey,
             shares,
             isRandom,
@@ -100,6 +98,8 @@ class Provider {
             seed: keccak256(Math.random().toString() as Hex),
             message,
             name,
+            tokenType: token?.schema === SchemaType.Native ? 0 : 1,
+            tokenAddress,
             total,
             token,
         };
@@ -114,15 +114,23 @@ class Provider {
             return null;
         }
 
-        const methodParams = Object.values(omit(params, ['token'])) as Parameters<
-            HappyRedPacketV4['methods']['create_red_packet']
-        >;
-
+        const methodParams = omit(params, ['token']);
         let gasError: Error | null = null;
         const value = toFixed(params.token?.schema === SchemaType.Native ? total : 0);
 
         const gas = await (contract as HappyRedPacketV4).methods
-            .create_red_packet(...methodParams)
+            .create_red_packet(
+                methodParams.publicKey,
+                methodParams.shares,
+                methodParams.isRandom,
+                methodParams.duration,
+                methodParams.seed,
+                methodParams.message,
+                methodParams.name,
+                methodParams.tokenType,
+                methodParams.tokenAddress,
+                methodParams.total,
+            )
             .estimateGas({ from: creator, value })
             .catch((error: Error) => {
                 gasError = error;
