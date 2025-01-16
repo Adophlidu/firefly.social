@@ -38,13 +38,14 @@ function isTrustedUrl(href: LinkProps['href']) {
 export const Link: LinkComponent = forwardRef(function Link({ href, onClick, ...rest }, ref) {
     const { data: internalLink } = useQuery({
         queryKey: ['link-transform', href],
+        enabled: typeof href === 'string' && href.startsWith('/'),
         staleTime: Infinity,
         queryFn: async () => {
             try {
-                if (typeof href !== 'string' || !href.startsWith('http')) return;
+                if (typeof href !== 'string' || !href.startsWith('http')) return '';
                 return formatExternalLink(href);
             } catch {
-                return;
+                return '';
             }
         },
     });

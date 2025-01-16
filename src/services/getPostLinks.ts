@@ -30,7 +30,7 @@ import type { LinkDigested } from '@/types/og.js';
 // We are confident that these hosts will not be used for frame links
 const IGNORE_HOSTS = [/^.+\.mask\.social$/, 'localhost:3000', 'x.com'];
 
-function isValidPostLink(url: string) {
+function isValidPostLink(url: string, enableFilter = false) {
     const parsed = parseUrl(url);
     if (!parsed) return false;
 
@@ -43,6 +43,7 @@ function isValidPostLink(url: string) {
 
     // ignore hosts
     if (
+        enableFilter &&
         IGNORE_HOSTS.some((pattern) =>
             typeof pattern === 'string' ? pattern === parsed.host : pattern.test(parsed.host),
         )
@@ -55,7 +56,7 @@ function isValidPostLink(url: string) {
 
 export async function getPostFrame(url: string): Promise<Frame | null> {
     if (env.external.NEXT_PUBLIC_FRAME !== STATUS.Enabled) return null;
-    if (!url || !isValidPostLink(url)) return null;
+    if (!url || !isValidPostLink(url, true)) return null;
     const response = await fetchJSON<ResponseJSON<LinkDigestedResponse>>(
         urlcat('/api/frame', {
             link: (await resolveTCOLink(url)) ?? url,
