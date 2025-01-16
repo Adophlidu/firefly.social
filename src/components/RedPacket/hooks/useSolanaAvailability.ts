@@ -1,4 +1,4 @@
-import { web3 } from '@coral-xyz/anchor';
+import { BN, web3 } from '@coral-xyz/anchor';
 import { useQuery } from '@tanstack/react-query';
 
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
@@ -24,7 +24,7 @@ export function useSolanaAvailability(payload: RedPacketJSONPayload, chainId: nu
                 new web3.PublicKey(account),
             );
             const isExpired = redPacket.duration.add(redPacket.createTime).muln(1000).ltn(Date.now());
-            const isEmpty = redPacket.claimedAmount.gt(redPacket.totalAmount);
+            const isEmpty = redPacket.claimedAmount.gte(redPacket.totalAmount) || redPacket.totalAmount.lte(new BN(0));
             const isClaimed = !!claimedRecord;
 
             return {
@@ -37,6 +37,7 @@ export function useSolanaAvailability(payload: RedPacketJSONPayload, chainId: nu
                 claimed_amount: redPacket.claimedAmount.toString(),
                 publicKey: redPacket.pubkeyForClaimSignature,
                 isClaimed,
+                hasShares: redPacket.claimedNumber < redPacket.totalNumber,
             };
         },
         refetchInterval(query) {
