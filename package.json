@@ -47,7 +47,6 @@
         "@livepeer/react": "4.2.9",
         "@masknet/kit": "^0.4.2",
         "@mui/lab": "5.0.0-alpha.167",
-        "@mui/material": "5.15.12",
         "@mui/x-date-pickers": "^7.18.0",
         "@napi-rs/image": "1.7.0",
         "@next/third-parties": "15.1.3",

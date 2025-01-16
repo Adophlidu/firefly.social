@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { useForkRef } from '@mui/material';
 import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { forwardRef, useMemo, useState } from 'react';
@@ -31,6 +30,7 @@ import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
 import { resolvePostArticleUrl } from '@/helpers/resolvePostArticleUrl.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
+import { useForkRef } from '@/hooks/useForkRef.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

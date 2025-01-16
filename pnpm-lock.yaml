@@ -143,12 +143,9 @@ importers:
       '@mui/lab':
         specifier: 5.0.0-alpha.167
         version: 5.0.0-alpha.167(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@mui/material@5.15.12)(@types/react@19.0.2)(react-dom@19.0.0)(react@19.0.0)
-      '@mui/material':
-        specifier: 5.15.12
-        version: 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@19.0.2)(react-dom@19.0.0)(react@19.0.0)
       '@mui/x-date-pickers':
         specifier: ^7.18.0
-        version: 7.18.0(@mui/material@5.15.12)(@mui/system@6.1.6)(@types/react@19.0.2)(date-fns@2.30.0)(dayjs@1.11.13)(react-dom@19.0.0)(react@19.0.0)
+        version: 7.18.0(@mui/system@6.1.6)(@types/react@19.0.2)(date-fns@2.30.0)(dayjs@1.11.13)(react-dom@19.0.0)(react@19.0.0)
       '@napi-rs/image':
         specifier: 1.7.0
         version: 1.7.0
@@ -310,7 +307,7 @@ importers:
         version: 2.3.14
       notistack:
         specifier: 2.0.8
-        version: 2.0.8(@emotion/react@11.11.1)(@mui/material@5.15.12)(react-dom@19.0.0)(react@19.0.0)
+        version: 2.0.8(@emotion/react@11.11.1)(react-dom@19.0.0)(react@19.0.0)
       plyr-react:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.7.8)(react@19.0.0)
@@ -1151,7 +1148,7 @@ importers:
         version: 7.0.0
       notistack:
         specifier: 2.0.8
-        version: 2.0.8(@emotion/react@11.11.1)(@mui/material@5.15.12)(react-dom@19.0.0)(react@19.0.0)
+        version: 2.0.8(@emotion/react@11.11.1)(react-dom@19.0.0)(react@19.0.0)
       react-use:
         specifier: 17.5.1
         version: 17.5.1(patch_hash=jdgfodh3ixpexpgf3fwrwvcmtq)(react-dom@19.0.0)(react@19.0.0)
@@ -9181,7 +9178,7 @@ packages:
       react-is: 18.3.1
     dev: false
 
-  /@mui/x-date-pickers@7.18.0(@mui/material@5.15.12)(@mui/system@6.1.6)(@types/react@19.0.2)(date-fns@2.30.0)(dayjs@1.11.13)(react-dom@19.0.0)(react@19.0.0):
+  /@mui/x-date-pickers@7.18.0(@mui/system@6.1.6)(@types/react@19.0.2)(date-fns@2.30.0)(dayjs@1.11.13)(react-dom@19.0.0)(react@19.0.0):
     resolution: {integrity: sha512-12tXIoMj9vpS8fS/bS3kWPCoVrH38vNGCxgplI0vOnUrN9rJuYJz3agLPJe1S0xciTw+9W8ZSe3soaW+owoz1Q==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -9225,7 +9222,6 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.26.0
-      '@mui/material': 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@19.0.2)(react-dom@19.0.0)(react@19.0.0)
       '@mui/system': 6.1.6(@types/react@19.0.2)(react@19.0.0)
       '@mui/utils': 5.16.6(@types/react@19.0.2)(react@19.0.0)
       '@mui/x-internals': 7.18.0(@types/react@19.0.2)(react@19.0.0)
@@ -25704,7 +25700,7 @@ packages:
     engines: {node: '>=14.16'}
     dev: true
 
-  /notistack@2.0.8(@emotion/react@11.11.1)(@mui/material@5.15.12)(react-dom@19.0.0)(react@19.0.0):
+  /notistack@2.0.8(@emotion/react@11.11.1)(react-dom@19.0.0)(react@19.0.0):
     resolution: {integrity: sha512-/IY14wkFp5qjPgKNvAdfL5Jp6q90+MjgKTPh4c81r/lW70KeuX6b9pE/4f8L4FG31cNudbN9siiFS5ql1aSLRw==}
     peerDependencies:
       '@emotion/react': ^11.4.1
@@ -25725,7 +25721,6 @@ packages:
         optional: true
     dependencies:
       '@emotion/react': 11.11.1(@types/react@19.0.2)(react@19.0.0)
-      '@mui/material': 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@19.0.2)(react-dom@19.0.0)(react@19.0.0)
       clsx: 1.2.1
       hoist-non-react-statics: 3.3.2
       react: 19.0.0

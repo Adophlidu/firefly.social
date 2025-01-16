@@ -1,4 +1,3 @@
-import { useForkRef } from '@mui/material';
 import { compact } from 'lodash-es';
 import { forwardRef, type HTMLProps, memo, useEffect, useRef, useState } from 'react';
 
@@ -8,6 +7,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { isImageFileType, isMediaFileType, isVideoFileType } from '@/helpers/isMediaFileType.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
+import { useForkRef } from '@/hooks/useForkRef.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface UploadDropAreaProps extends HTMLProps<HTMLDivElement> {
