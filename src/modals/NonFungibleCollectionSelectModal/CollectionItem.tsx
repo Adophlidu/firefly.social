@@ -1,14 +1,22 @@
 import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { type NonFungibleCollection } from '@masknet/web3-shared-base';
-import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { EVMExplorerResolver } from '@/mask/index.js';
 
+export interface Collection
+    extends Pick<
+        NonFungibleCollection<number, unknown>,
+        'chainId' | 'address' | 'name' | 'iconURL' | 'ownersTotal' | 'id'
+    > {
+    custom?: boolean;
+}
+
 interface CollectionProps {
-    collection: NonFungibleCollection<ChainId, SchemaType>;
+    collection: Collection;
 }
 export function CollectionItem({ collection }: CollectionProps) {
     const link = EVMExplorerResolver.addressLink(collection.chainId, collection.address!);
@@ -34,7 +42,13 @@ export function CollectionItem({ collection }: CollectionProps) {
                 </div>
             </div>
             <a href={link} target="_blank" className="ml-1 inline-block" onClick={(e) => e.stopPropagation()}>
-                <LinkIcon className="h-3 w-3" />
+                {collection.custom ? (
+                    <span className="text-medium font-bold text-main">
+                        <Trans>Added</Trans>
+                    </span>
+                ) : (
+                    <LinkIcon className="h-5 w-5" />
+                )}
             </a>
         </ClickableButton>
     );

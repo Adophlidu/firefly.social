@@ -668,6 +668,9 @@ msgstr "The self-destruct function is not included. If there is a self-destruct 
 msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
 msgstr "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
 
+msgid "Added successfully"
+msgstr "Added successfully"
+
 msgid "Honeypot related address."
 msgstr "Honeypot related address."
 
@@ -1915,6 +1918,9 @@ msgstr "Standard"
 msgid "No darkweb transactions found."
 msgstr "No darkweb transactions found."
 
+msgid "Contract address"
+msgstr "Contract address"
+
 #. placeholder {0}: channel.id
 msgid "Joined /{0} on {sourceName}."
 msgstr "Joined /{0} on {sourceName}."
@@ -2826,6 +2832,9 @@ msgstr "Settled as {0}"
 msgid "No available wallet."
 msgstr "No available wallet."
 
+msgid "Added"
+msgstr "Added"
+
 msgid "No phishing activities found."
 msgstr "No phishing activities found."
 
@@ -2968,6 +2977,9 @@ msgstr "Cancel repost successfully"
 
 msgid "Collect Post"
 msgstr "Collect Post"
+
+msgid "Sorry, we are not able to find this token"
+msgstr "Sorry, we are not able to find this token"
 
 msgid "Muting..."
 msgstr "Muting..."
@@ -3528,6 +3540,9 @@ msgstr "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quot
 
 msgid "Final results"
 msgstr "Final results"
+
+msgid "Select chain"
+msgstr "Select chain"
 
 msgid "Suspended account"
 msgstr "Suspended account"

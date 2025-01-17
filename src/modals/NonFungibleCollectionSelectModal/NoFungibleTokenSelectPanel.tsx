@@ -11,9 +11,10 @@ import { SearchContentPanel } from '@/components/Search/SearchContentPanel.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { NetworkPluginID } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { formatCustomSimpleHashCollection } from '@/helpers/formatCustomSimpleHashCollection.js';
+import { useCustomNonFungibleTokens } from '@/hooks/useCustomNonFungibleTokens.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { CollectionItem } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
-import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/types.js';
+import { type Collection, CollectionItem } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 
 interface FungibleTokenSelectPanelProps {
     onSelected?: (selected: Collection) => void;
@@ -34,9 +35,14 @@ export const NonFungibleCollectionSelectPanel = memo<FungibleTokenSelectPanelPro
             schemaType: SchemaType.ERC721,
             account: account.address,
         });
+        const { data: customNonFungibleTokens = [] } = useCustomNonFungibleTokens();
         const collections = useMemo(
-            () => (chainId ? allCollections.filter((x) => x.chainId === chainId) : allCollections),
-            [allCollections, chainId],
+            () =>
+                customNonFungibleTokens
+                    .map((x) => formatCustomSimpleHashCollection(x))
+                    .concat(allCollections)
+                    .filter((x) => (chainId ? x.chainId === chainId : true)),
+            [allCollections, chainId, customNonFungibleTokens],
         );
         const chainIds = useMemo(() => {
             return uniq(allCollections.map((collection) => collection.chainId)).filter((chainId) =>

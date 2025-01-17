@@ -57,3 +57,5 @@ export const NonFungibleTokenCollectionSelectModalRef = new SingletonModal<
 export const ImageEditorRef = new SingletonModal<ImageEditorOpenProps, ImageEditorCloseProps>();
 export const FreeMintModalRef = new SingletonModal<FreeMintModalOpenProps>();
 export const FrameViewerModalRef = new SingletonModal<FrameViewerModalOpenProps, FrameViewerModalCloseProps>();
+export const AddCustomERC20ModalRef = new SingletonModal();
+export const AddCustomERC721ModalRef = new SingletonModal();

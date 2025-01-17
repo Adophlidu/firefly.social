@@ -673,6 +673,9 @@ msgstr "未包含自毁功能。如果存在自毁功能，项目所有者可能
 msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
 msgstr "铸造功能是透明的或不存在的。隐藏的铸造功能可能会增加通证的流通量并影响通证的价格。"
 
+msgid "Added successfully"
+msgstr ""
+
 msgid "Honeypot related address."
 msgstr "可能是钓鱼地址。"
 
@@ -1920,6 +1923,9 @@ msgstr "标准"
 msgid "No darkweb transactions found."
 msgstr "未发现暗网交易。"
 
+msgid "Contract address"
+msgstr ""
+
 #. placeholder {0}: channel.id
 msgid "Joined /{0} on {sourceName}."
 msgstr ""
@@ -2831,6 +2837,9 @@ msgstr "确定为 {0}"
 msgid "No available wallet."
 msgstr "没有可用的钱包。"
 
+msgid "Added"
+msgstr ""
+
 msgid "No phishing activities found."
 msgstr "未发现钓鱼活动。"
 
@@ -2973,6 +2982,9 @@ msgstr "取消转帖成功"
 
 msgid "Collect Post"
 msgstr "收集帖子"
+
+msgid "Sorry, we are not able to find this token"
+msgstr ""
 
 msgid "Muting..."
 msgstr "隐藏中..."
@@ -3533,6 +3545,9 @@ msgstr "<0/> 评论了你的 <1>{0, select, Post {帖子} Comment {评论} Quote
 
 msgid "Final results"
 msgstr "最终结果"
+
+msgid "Select chain"
+msgstr ""
 
 msgid "Suspended account"
 msgstr "被冻结账户"

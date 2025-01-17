@@ -249,6 +249,14 @@ class SimpleHashFactory {
         return response.collections[0];
     }
 
+    async getCollectionByIds(collectionIds: string[]): Promise<SimpleHash.Collection[]> {
+        const path = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/collections/ids', {
+            collection_ids: collectionIds.join(','),
+        });
+        const response = await fetchJSON<{ collections: SimpleHash.Collection[] }>(path);
+        return response.collections;
+    }
+
     async getTopCollectors(collectionId: string, options?: BaseHubOptions<number>) {
         const indicator = options?.indicator;
         const path = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/top_collectors/collection/:collectionId', {

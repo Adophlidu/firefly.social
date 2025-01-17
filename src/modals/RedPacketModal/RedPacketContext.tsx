@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { type FungibleToken, multipliedBy, type NonFungibleCollection } from '@masknet/web3-shared-base';
-import { type ChainId, type SchemaType } from '@masknet/web3-shared-evm';
+import { type FungibleToken, multipliedBy } from '@masknet/web3-shared-base';
 import { compact, first, flatten, noop, uniqBy } from 'lodash-es';
 import {
     createContext,
@@ -26,6 +25,7 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
 import type { FireflyRedPacketAPI } from '@/maskbook/packages/web3-providers/src/entry-types.js';
+import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 import { RequirementType } from '@/providers/types/FireflyRedPacket.js';
 
 export const redPacketRandomTabs = [
@@ -89,8 +89,8 @@ interface RedPacketContextValue {
     setRawAmount: Dispatch<SetStateAction<string>>;
     totalAmount: string;
     rules: RequirementType[];
-    requireCollection?: NonFungibleCollection<ChainId, SchemaType>;
-    setRequireCollection: Dispatch<SetStateAction<NonFungibleCollection<ChainId, SchemaType> | undefined>>;
+    requireCollection?: Collection;
+    setRequireCollection: Dispatch<SetStateAction<Collection | undefined>>;
     setRules: Dispatch<SetStateAction<RequirementType[]>>;
     setToken: Dispatch<SetStateAction<FungibleToken<number, number> | undefined>>;
     setRandomType: Dispatch<SetStateAction<RandomType>>;
@@ -167,9 +167,7 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
     const [fontColor, setFontColor] = useState<FontColorTabType>('golden');
     const [shareFrom, setShareFrom] = useState<string>('');
     const [rules, setRules] = useState<RequirementType[]>([RequirementType.Follow]);
-    const [requireCollection, setRequireCollection] = useState<
-        NonFungibleCollection<ChainId, SchemaType> | undefined
-    >();
+    const [requireCollection, setRequireCollection] = useState<Collection | undefined>();
 
     const [rawAmount, setRawAmount] = useState('');
     const isRandom = randomType === 'random';

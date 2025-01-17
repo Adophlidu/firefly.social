@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { uniq } from 'lodash-es';
+import { compact, uniq } from 'lodash-es';
 import { memo, useCallback, useMemo, useState } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
@@ -10,9 +10,9 @@ import { SearchContentPanel } from '@/components/Search/SearchContentPanel.js';
 import { TokenItem } from '@/components/Tips/TokenItem.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { isGreaterThan, isLessThan } from '@/helpers/number.js';
+import { type Token, useCustomFungibleTokens } from '@/hooks/useCustomFungibleTokens.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useTipsTokens } from '@/hooks/useTipsTokens.js';
-import type { Token } from '@/providers/types/Transfer.js';
 
 interface SearchTokenPanelProps {
     address: string;
@@ -30,7 +30,6 @@ export const SearchTokenPanelEVM = memo<SearchTokenPanelProps>(function SearchTo
     isSelected,
 }) {
     const [showSmall, setShowSmall] = useState(false);
-    const [showMore, setShowMore] = useState(false);
     const isMedium = useIsMedium('max');
     const { tokens, isLoading } = useTipsTokens(address);
     const chainIds = uniq(tokens.map((token) => token.chainId));
@@ -57,21 +56,31 @@ export const SearchTokenPanelEVM = memo<SearchTokenPanelProps>(function SearchTo
 
     const [chainId, setChainId] = useState<number>();
     const [keyword, setKeyword] = useState('');
-    const filteredTokens = useMemo(() => {
-        const result = tokens.filter(
-            (token) =>
-                [token.name, token.symbol, token.id].some((value) =>
-                    value.toLowerCase().includes(keyword.toLowerCase()),
-                ) &&
-                (!chainId || token.chainId === chainId),
-        );
-        const canExpand =
-            result.some((token) => isGreaterThan(token.usdValue, 1)) &&
-            result.some((token) => isLessThan(token.usdValue, 1));
-        setShowMore(canExpand);
+    const customFungibleTokensQueries = useCustomFungibleTokens(chainId);
+    const customTokens = compact(customFungibleTokensQueries.flatMap((x) => x.data));
 
-        return showSmall || !canExpand ? result : result.filter((token) => isGreaterThan(token.usdValue, 1));
-    }, [tokens, showSmall, chainId, keyword]);
+    const filteredTokens: Token[] = useMemo(() => {
+        return customTokens.concat(
+            tokens.filter(
+                (token) =>
+                    [token.name, token.symbol, token.id].some((value) =>
+                        value.toLowerCase().includes(keyword.toLowerCase()),
+                    ) &&
+                    (!chainId || token.chainId === chainId),
+            ),
+        );
+    }, [chainId, customTokens, keyword, tokens]);
+    const canExpand = useMemo(() => {
+        return (
+            filteredTokens.some((token) => isGreaterThan(token.usdValue, 1)) &&
+            filteredTokens.some((token) => isLessThan(token.usdValue, 1))
+        );
+    }, [filteredTokens]);
+
+    const data =
+        showSmall || !canExpand
+            ? filteredTokens
+            : filteredTokens.filter((token) => (token.custom ? true : isGreaterThan(token.usdValue, 1)));
 
     return (
         <SearchContentPanel<Token, number>
@@ -88,13 +97,13 @@ export const SearchTokenPanelEVM = memo<SearchTokenPanelProps>(function SearchTo
             }}
             keyword={keyword}
             onSearch={setKeyword}
-            data={filteredTokens}
-            itemRenderer={(token) => getTokenItem(token)}
+            data={data}
+            itemRenderer={getTokenItem}
             onSelected={onSelected}
             listKey={(token) => token.id}
             isSelected={isSelected}
         >
-            {showMore ? (
+            {canExpand ? (
                 <ClickableButton
                     className="mt-2 flex w-full items-center justify-center gap-0.5 rounded-lg py-2 text-sm font-bold text-highlight hover:bg-lightBg"
                     onClick={() => setShowSmall((prev) => !prev)}

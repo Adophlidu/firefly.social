@@ -136,6 +136,10 @@ const config: NextConfig = {
                 hostname: 'imagedelivery.net',
             },
             {
+                protocol: 'https',
+                hostname: 'coin-images.coingecko.com',
+            },
+            {
                 hostname: 'raw.githubusercontent.com',
             },
             {

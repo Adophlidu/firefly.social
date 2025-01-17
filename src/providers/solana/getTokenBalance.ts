@@ -45,7 +45,7 @@ export async function getSplTokenBalance(tokenAddress: string, address: string, 
     return tokenProgram?.account.data.parsed.info;
 }
 
-export async function getTokenBalance(token: Token<ChainId>, address: string, chainId: number) {
+export async function getTokenBalance(token: Pick<Token<ChainId>, 'id'>, address: string, chainId: number) {
     if (isNativeTokenAddress(token.id)) {
         return getNativeTokenBalance(address, chainId);
     }

@@ -30,7 +30,7 @@ interface SearchContentPanelProps<T, F = never> {
     isSelected?: (item: T) => boolean;
 }
 
-function FilterPopover<F>({
+export function FilterPopover<F>({
     placeholder,
     data,
     selected,

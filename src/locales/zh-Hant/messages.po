@@ -673,6 +673,9 @@ msgstr ""
 msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
 msgstr ""
 
+msgid "Added successfully"
+msgstr ""
+
 msgid "Honeypot related address."
 msgstr ""
 
@@ -1915,6 +1918,9 @@ msgstr ""
 msgid "No darkweb transactions found."
 msgstr ""
 
+msgid "Contract address"
+msgstr ""
+
 #. placeholder {0}: channel.id
 msgid "Joined /{0} on {sourceName}."
 msgstr ""
@@ -2826,6 +2832,9 @@ msgstr ""
 msgid "No available wallet."
 msgstr "沒有可用的錢包。"
 
+msgid "Added"
+msgstr ""
+
 msgid "No phishing activities found."
 msgstr ""
 
@@ -2967,6 +2976,9 @@ msgid "Cancel repost successfully"
 msgstr ""
 
 msgid "Collect Post"
+msgstr ""
+
+msgid "Sorry, we are not able to find this token"
 msgstr ""
 
 msgid "Muting..."
@@ -3527,6 +3539,9 @@ msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote
 msgstr ""
 
 msgid "Final results"
+msgstr ""
+
+msgid "Select chain"
 msgstr ""
 
 msgid "Suspended account"

@@ -1,21 +1,24 @@
+'use client';
+
 import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { type NonFungibleCollection } from '@masknet/web3-shared-base';
-import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { forwardRef, useCallback, useState } from 'react';
 
+import AddIcon from '@/assets/add.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Modal } from '@/components/Modal.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { AddCustomERC721ModalRef } from '@/modals/controls.js';
+import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 import { NonFungibleCollectionSelectPanel } from '@/modals/NonFungibleCollectionSelectModal/NoFungibleTokenSelectPanel.js';
-import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/types.js';
 
 export interface NonFungibleCollectionSelectModalOpenProps {
-    selected?: NonFungibleCollection<ChainId, SchemaType>;
+    selected?: Collection;
 }
 
-export type NonFungibleCollectionSelectModalCloseProps = NonFungibleCollection<ChainId, SchemaType> | null;
+export type NonFungibleCollectionSelectModalCloseProps = Collection | null;
 
 export const NonFungibleCollectionSelectModal = forwardRef<
     SingletonModalRefCreator<NonFungibleCollectionSelectModalOpenProps, NonFungibleCollectionSelectModalCloseProps>
@@ -48,6 +51,17 @@ export const NonFungibleCollectionSelectModal = forwardRef<
                     <span className="flex h-full w-full items-center justify-center text-lg font-bold text-main">
                         <Trans>Select Collection</Trans>
                     </span>
+                    <ClickableButton
+                        className="text-md absolute right-0 top-1/2 flex -translate-y-1/2 cursor-pointer items-center space-x-2 text-main"
+                        onClick={() => {
+                            AddCustomERC721ModalRef.open();
+                        }}
+                    >
+                        <AddIcon width={20} height={20} className="h-5 w-5 shrink-0" />
+                        <span>
+                            <Trans>Add</Trans>
+                        </span>
+                    </ClickableButton>
                 </DialogTitle>
                 <div className="min-h-0 flex-1 overflow-hidden">
                     <NonFungibleCollectionSelectPanel

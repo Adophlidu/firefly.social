@@ -5,7 +5,7 @@ function abbreviationForZero(str: string, zeroCount: number) {
     return str.replace(`${new Array(zeroCount).fill('0').join('')}`, `0{${zeroCount}}`);
 }
 
-function removeTrailingZeros(str: string) {
+export function removeTrailingZeros(str: string) {
     const result = str.replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '');
     return result === '0' ? '0' : result;
 }

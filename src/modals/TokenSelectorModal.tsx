@@ -6,6 +6,7 @@ import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { forwardRef, useCallback, useState } from 'react';
 
+import AddIcon from '@/assets/add.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Modal } from '@/components/Modal.js';
@@ -15,7 +16,7 @@ import { formatDebankTokenToFungibleToken } from '@/helpers/formatToken.js';
 import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { ConnectModalRef } from '@/modals/controls.js';
+import { AddCustomERC20ModalRef, ConnectModalRef } from '@/modals/controls.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
 export interface TokenSelectorModalOpenProps {
@@ -63,8 +64,21 @@ export const TokenSelectorModal = forwardRef<
                     <span className="flex h-full w-full items-center justify-center text-lg font-bold text-main">
                         <Trans>Select Token</Trans>
                     </span>
+                    {[NetworkType.Ethereum].includes(props.networkType) ? (
+                        <ClickableButton
+                            className="text-md absolute right-0 top-1/2 flex -translate-y-1/2 cursor-pointer items-center space-x-2 text-main"
+                            onClick={() => {
+                                AddCustomERC20ModalRef.open();
+                            }}
+                        >
+                            <AddIcon width={20} height={20} className="h-5 w-5 shrink-0" />
+                            <span>
+                                <Trans>Add</Trans>
+                            </span>
+                        </ClickableButton>
+                    ) : null}
                 </DialogTitle>
-                <div className="min-h-0 flex-1 overflow-hidden">
+                <div className="min-h-0 flex-1">
                     {account.isConnected ? (
                         <SearchTokenPanel
                             networkType={props.networkType}

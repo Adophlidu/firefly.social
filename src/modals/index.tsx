@@ -4,6 +4,8 @@ import { memo } from 'react';
 
 import { SolanaAccountModal } from '@/components/SolanaAccountModal.js';
 import { AccountModal } from '@/modals/AccountModal.js';
+import { AddCustomERC20Modal } from '@/modals/AddCustomERC20Modal.js';
+import { AddCustomERC721Modal } from '@/modals/AddCustomERC721Modal.js';
 import { AddWalletModal } from '@/modals/AddWalletModal.js';
 import { CollectArticleModal } from '@/modals/CollectArticleModal.js';
 import { CollectPostModal } from '@/modals/CollectPostModal.js';
@@ -63,6 +65,8 @@ export const Modals = memo(function Modals() {
             <ImageEditorModal ref={controls.ImageEditorRef.register} />
             <FreeMintModal ref={controls.FreeMintModalRef.register} />
             <FrameViewerModal ref={controls.FrameViewerModalRef.register} />
+            <AddCustomERC20Modal ref={controls.AddCustomERC20ModalRef.register} />
+            <AddCustomERC721Modal ref={controls.AddCustomERC721ModalRef.register} />
         </>
     );
 });
