@@ -987,6 +987,9 @@ msgstr ""
 msgid "Log telemetry events to the console."
 msgstr ""
 
+msgid "The number of people who can claim the lucky drop should be less than {maxShares}."
+msgstr ""
+
 msgid "Failed to un-bookmark NFT."
 msgstr ""
 
@@ -1234,9 +1237,6 @@ msgstr "查看來源"
 #. placeholder {0}: author.handle
 #. placeholder {1}: resolveSourceName(source)
 msgid "You cannot reply to @{0} on {1}."
-msgstr ""
-
-msgid "The number of people who can claim the lucky drop should be less than {RED_PACKET_MAX_SHARES}."
 msgstr ""
 
 msgid "Are you sure you want to report this collection?"

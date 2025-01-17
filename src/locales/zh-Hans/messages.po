@@ -987,6 +987,9 @@ msgstr "完全稀释估值"
 msgid "Log telemetry events to the console."
 msgstr "日志侦测技术至控制台"
 
+msgid "The number of people who can claim the lucky drop should be less than {maxShares}."
+msgstr ""
+
 msgid "Failed to un-bookmark NFT."
 msgstr "取消收藏 NFT 失败。"
 
@@ -1235,9 +1238,6 @@ msgstr "查看原文"
 #. placeholder {1}: resolveSourceName(source)
 msgid "You cannot reply to @{0} on {1}."
 msgstr "您不能在 {1} 上评论 @{0}。"
-
-msgid "The number of people who can claim the lucky drop should be less than {RED_PACKET_MAX_SHARES}."
-msgstr ""
 
 msgid "Are you sure you want to report this collection?"
 msgstr "您确定要举报这个 NFT 吗？"

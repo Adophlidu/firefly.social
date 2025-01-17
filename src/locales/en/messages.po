@@ -982,6 +982,9 @@ msgstr "Market Cap / FDV"
 msgid "Log telemetry events to the console."
 msgstr "Log telemetry events to the console."
 
+msgid "The number of people who can claim the lucky drop should be less than {maxShares}."
+msgstr "The number of people who can claim the lucky drop should be less than {maxShares}."
+
 msgid "Failed to un-bookmark NFT."
 msgstr "Failed to un-bookmark NFT."
 
@@ -1230,9 +1233,6 @@ msgstr "View Source"
 #. placeholder {1}: resolveSourceName(source)
 msgid "You cannot reply to @{0} on {1}."
 msgstr "You cannot reply to @{0} on {1}."
-
-msgid "The number of people who can claim the lucky drop should be less than {RED_PACKET_MAX_SHARES}."
-msgstr "The number of people who can claim the lucky drop should be less than {RED_PACKET_MAX_SHARES}."
 
 msgid "Are you sure you want to report this collection?"
 msgstr "Are you sure you want to report this collection?"

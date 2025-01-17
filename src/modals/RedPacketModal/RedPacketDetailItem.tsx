@@ -1,8 +1,9 @@
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
+import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
 import { useRouter } from '@tanstack/react-router';
 import dayjs from 'dayjs';
-import { memo } from 'react';
+import { memo, useContext } from 'react';
 import urlcat from 'urlcat';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
@@ -16,6 +17,7 @@ import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';
 import { RedPacketActionButton } from '@/modals/RedPacketModal/RedPacketActionButton.js';
+import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 interface HistoryInfo {
@@ -43,7 +45,6 @@ interface HistoryInfo {
         postId: string;
         handle?: string;
     }>;
-    networkType?: NetworkType;
 }
 
 interface Props {
@@ -105,12 +106,15 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
         total_numbers,
         token_logo,
         token_amounts,
-        networkType,
     },
 }) {
     const { history } = useRouter();
+    const { networkType } = useContext(RedPacketContext);
     const { account } = useChainContext({ networkType });
-    const networkDescriptor = getNetworkDescriptor(resolvePluginId(networkType), chain_id);
+    const networkDescriptor = getNetworkDescriptor(
+        resolvePluginId(networkType),
+        networkType === NetworkType.Solana ? SolanaChainId.Mainnet : chain_id,
+    );
 
     return (
         <div className="mb-3 flex w-full flex-col rounded-lg bg-white p-0">
@@ -206,6 +210,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                 rpid={redpacket_id}
                                 account={account}
                                 chainId={chain_id}
+                                networkType={networkType}
                             />
                         ) : null}
                     </div>
@@ -276,7 +281,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                     history.push(
                                         urlcat('/detail', {
                                             rpid: redpacket_id,
-                                            networkType: networkType || NetworkType.Ethereum,
+                                            networkType,
                                         }),
                                     );
                                 }}

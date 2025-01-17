@@ -5,7 +5,7 @@ import { useCallback, useMemo } from 'react';
 import { createIndicator } from '@/helpers/pageable.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 
-export function useEvmClaimedInfo(rpid: string, enabled = true) {
+export function useEvmClaimedInfo(rpid: string) {
     const {
         data: claimData,
         fetchNextPage,
@@ -16,7 +16,6 @@ export function useEvmClaimedInfo(rpid: string, enabled = true) {
         queryKey: ['fireflyClaimHistory', rpid],
         initialPageParam: '',
         queryFn: async ({ pageParam }) => {
-            if (!enabled) return;
             return await FireflyRedPacketEndpoint.getClaimHistory(
                 rpid,
                 createIndicator(undefined, pageParam as string),

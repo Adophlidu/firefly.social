@@ -1,6 +1,6 @@
 import { memo, useCallback } from 'react';
 
-import { useSolanaRedPacketHistory } from '@/components/RedPacket/hooks/useSolanaRedPacketHistory.js';
+import { useRedPacketHistory } from '@/components/RedPacket/hooks/useRedPacketHistory.js';
 import { HistoryList } from '@/modals/RedPacketModal/HistoryList.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
@@ -15,7 +15,7 @@ export const SolanaHistoryList = memo<SolanaHistoryListProps>(function EvmHistor
     historyType,
     platform,
 }) {
-    const { data, fetchNextPage, isFetching, isFetchingNextPage, hasNextPage } = useSolanaRedPacketHistory(
+    const { data, fetchNextPage, isFetching, isFetchingNextPage, hasNextPage } = useRedPacketHistory(
         address,
         historyType,
         platform,

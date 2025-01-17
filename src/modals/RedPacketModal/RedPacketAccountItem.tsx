@@ -1,4 +1,5 @@
 import { isValidAddress } from '@masknet/web3-shared-evm';
+import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
 import { memo } from 'react';
 import { mainnet } from 'viem/chains';
 
@@ -25,10 +26,12 @@ export const RedPacketAccountItem = memo(function RedPacketAccountItem({
     networkType = NetworkType.Ethereum,
 }: Props) {
     const isAddress = networkType === NetworkType.Ethereum ? isValidAddress(address) : true;
+    const fixedChainId = networkType === NetworkType.Ethereum ? chainId : SolanaChainId.Mainnet;
+
     const addressLink =
         networkType === NetworkType.Ethereum
-            ? EVMExplorerResolver.addressLink(chainId, address)
-            : SolanaExplorerResolver.addressLink(chainId, address);
+            ? EVMExplorerResolver.addressLink(fixedChainId, address)
+            : SolanaExplorerResolver.addressLink(fixedChainId, address);
 
     return (
         <div

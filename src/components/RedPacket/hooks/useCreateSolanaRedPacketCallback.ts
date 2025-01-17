@@ -15,12 +15,12 @@ import {
     DEFAULT_THEME_ID,
     RED_PACKET_CONTRACT_VERSION,
     RED_PACKET_DURATION,
-    RED_PACKET_MAX_SHARES,
     RED_PACKET_MIN_SHARES,
     SOLANA_PREFIX,
     SolanaRedPacketMetaKey,
 } from '@/constants/rp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getRpMaxShares } from '@/helpers/getRpMaxShares.js';
 import { getTypedMessageRedPacket } from '@/helpers/getTypedMessage.js';
 import { rightShift } from '@/helpers/number.js';
 import { getRpMetadata } from '@/helpers/rpPayload.js';
@@ -57,6 +57,7 @@ export function useCreateSolanaRedPacketCallback(
     const total = rightShift(totalAmount, token?.decimals);
     const themeId = theme?.tid ?? DEFAULT_THEME_ID;
     const message = originalMessage || t`Best Wishes!`;
+    const maxShares = getRpMaxShares(networkType);
 
     return useAsyncFn(async () => {
         try {
@@ -64,10 +65,8 @@ export function useCreateSolanaRedPacketCallback(
             if (!isNativeToken && !token.address) throw new Error(t`Token mint address is required.`);
             if (shares < RED_PACKET_MIN_SHARES)
                 throw new Error(t`At least ${RED_PACKET_MIN_SHARES} person should be able to claim the lucky drop.`);
-            if (shares > RED_PACKET_MAX_SHARES)
-                throw new Error(
-                    t`The number of people who can claim the lucky drop should be less than ${RED_PACKET_MAX_SHARES}.`,
-                );
+            if (shares > maxShares)
+                throw new Error(t`The number of people who can claim the lucky drop should be less than ${maxShares}.`);
 
             const claimer = web3.Keypair.generate();
             const baseParams: CreateWithNativeTokenContext = {
@@ -172,5 +171,6 @@ export function useCreateSolanaRedPacketCallback(
         claimRequirements,
         total,
         themeId,
+        maxShares,
     ]);
 }

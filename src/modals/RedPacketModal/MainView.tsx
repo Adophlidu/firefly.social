@@ -23,14 +23,10 @@ import { TokenValue } from '@/components/TokenValue.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { config } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
-import {
-    RED_PACKET_CONTRACT_VERSION,
-    RED_PACKET_DURATION,
-    RED_PACKET_MAX_SHARES,
-    RED_PACKET_MIN_SHARES,
-} from '@/constants/rp.js';
+import { RED_PACKET_CONTRACT_VERSION, RED_PACKET_DURATION, RED_PACKET_MIN_SHARES } from '@/constants/rp.js';
 import { createAccount } from '@/helpers/createAccount.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
+import { getRpMaxShares } from '@/helpers/getRpMaxShares.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { isGreaterThan, isZero, leftShift, multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
@@ -104,20 +100,21 @@ export function MainView() {
         [setRawAmount, setToken],
     );
 
+    const maxShares = getRpMaxShares(networkType);
     const onShareChange = useCallback(
         (ev: ChangeEvent<HTMLInputElement>) => {
             const inputShares = ev.currentTarget.value.replaceAll(/[,.]/g, '');
             if (inputShares === '') setShares(0);
             else if (/^[1-9]+\d*$/.test(inputShares)) {
                 const parsed = Number.parseInt(inputShares, 10);
-                if (parsed >= RED_PACKET_MIN_SHARES && parsed <= RED_PACKET_MAX_SHARES) {
+                if (parsed >= RED_PACKET_MIN_SHARES && parsed <= maxShares) {
                     setShares(Number.parseInt(inputShares, 10));
-                } else if (parsed > RED_PACKET_MAX_SHARES) {
-                    setShares(RED_PACKET_MAX_SHARES);
+                } else if (parsed > maxShares) {
+                    setShares(maxShares);
                 }
             }
         },
-        [setShares],
+        [maxShares, setShares],
     );
 
     const {

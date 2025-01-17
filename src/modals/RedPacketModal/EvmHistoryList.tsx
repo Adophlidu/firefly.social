@@ -1,6 +1,6 @@
 import { memo, useCallback } from 'react';
 
-import { useEvmRedPacketHistory } from '@/components/RedPacket/hooks/useEvmRedPacketHistory.js';
+import { useRedPacketHistory } from '@/components/RedPacket/hooks/useRedPacketHistory.js';
 import { HistoryList } from '@/modals/RedPacketModal/HistoryList.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
@@ -11,7 +11,7 @@ interface EvmHistoryListProps {
 }
 
 export const EvmHistoryList = memo<EvmHistoryListProps>(function EvmHistoryList({ address, historyType, platform }) {
-    const { data, fetchNextPage, isFetching, isFetchingNextPage, hasNextPage } = useEvmRedPacketHistory(
+    const { data, fetchNextPage, isFetching, isFetchingNextPage, hasNextPage } = useRedPacketHistory(
         address,
         historyType,
         platform,
