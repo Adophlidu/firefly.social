@@ -15,9 +15,9 @@ export function PolymarketActivityResult({ activity }: ActivityResultProps) {
     return (
         <div className="mt-2 text-center">
             <div
-                className={classNames('h-12 rounded-full text-sm font-bold leading-[48px] text-lightBottom', {
-                    'bg-success': isLeft,
-                    'bg-danger': !isLeft,
+                className={classNames('h-12 rounded-full text-sm font-bold leading-[48px]', {
+                    'bg-[var(--success-color)] text-success': isLeft,
+                    'bg-[var(--danger-color)] text-danger': !isLeft,
                 })}
             >
                 <Trans>Settled as {outcome.toUpperCase()}</Trans>

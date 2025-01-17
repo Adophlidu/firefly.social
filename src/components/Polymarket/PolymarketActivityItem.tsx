@@ -1,5 +1,5 @@
 import { first } from 'lodash-es';
-import { memo } from 'react';
+import { type CSSProperties, memo } from 'react';
 import type { Address } from 'viem';
 
 import PolymarketIcon from '@/assets/polymarket.svg';
@@ -17,6 +17,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatAmount } from '@/helpers/polymarket.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import type { PolymarketActivity } from '@/providers/types/Firefly.js';
 
@@ -37,6 +38,8 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
     const isLeft = activity.outcomeIndex === 0;
     const outcome = activity.conditionOutcomes[activity.outcomeIndex] || activity.outcome;
 
+    const isDarkMode = useIsDarkMode();
+
     return (
         <div className="border-b border-line px-4 py-3">
             {activity.followingSources?.length ? <FeedFollowSource source={first(activity.followingSources)} /> : null}
@@ -51,7 +54,15 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                         />
                     </Link>
                 </div>
-                <div className="min-w-0 flex-1 overflow-hidden">
+                <div
+                    className="min-w-0 flex-1 overflow-hidden"
+                    style={
+                        {
+                            '--success-color': isDarkMode ? '#1F4B1A' : '#C1E7BD',
+                            '--danger-color': isDarkMode ? '#66120D' : '#FFD5D2',
+                        } as CSSProperties
+                    }
+                >
                     <div className="flex items-center gap-x-1 text-medium text-lightSecond">
                         <Link href={profileUrl} className="min-w-0 truncate font-bold text-lightMain">
                             {activity.displayInfo.ensHandle || addressName}
