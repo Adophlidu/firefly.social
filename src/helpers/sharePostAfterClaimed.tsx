@@ -30,7 +30,9 @@ export function sharePostAfterClaimed(post: Post, amount: string, symbol?: strin
                 </div>
             </div>
         ),
-        modalClass: 'md:w-auto',
+        resetSize: true,
+        contentStyle: { height: 'calc(100% - 56px)', justifyContent: 'space-between' },
+        modalStyle: { width: 420, height: 420, maxWidth: '80%', maxHeight: '80%' },
         enableConfirmButton: true,
         variant: 'normal',
         confirmButtonText: t`Share`,

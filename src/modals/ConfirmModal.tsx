@@ -13,8 +13,11 @@ import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 export interface ConfirmModalOpenProps {
     title?: string;
     content: React.ReactNode;
+    resetSize?: boolean;
     contentClass?: string;
+    contentStyle?: React.CSSProperties;
     modalClass?: string;
+    modalStyle?: React.CSSProperties;
     confirmButtonClass?: string;
     confirmButtonText?: string;
     cancelButtonText?: string;
@@ -61,9 +64,11 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
             >
                 <div
                     className={classNames(
-                        'relative w-[320px] max-w-[clamp(386px,90vw,95vw)] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950 md:w-[355px]',
+                        'relative rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950',
+                        props.resetSize ? '' : 'w-[320px] max-w-[clamp(386px,90vw,95vw)] md:w-[355px]',
                         props.modalClass,
                     )}
+                    style={props.modalStyle}
                     onClick={stopEvent}
                 >
                     <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] p-4">
@@ -81,7 +86,10 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                         {props.enableCloseButton ? <div className="relative h-6 w-6" /> : null}
                     </div>
 
-                    <div className={classNames('flex flex-col gap-2 p-6 max-md:pt-0', props.contentClass)}>
+                    <div
+                        style={props.contentStyle}
+                        className={classNames('flex flex-col gap-2 p-6 max-md:pt-0', props.contentClass)}
+                    >
                         {props.content}
                         {props.enableCancelButton || props.enableConfirmButton ? (
                             <div className="flex flex-col-reverse gap-4 md:flex-row md:gap-3">
