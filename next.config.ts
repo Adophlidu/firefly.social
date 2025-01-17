@@ -48,6 +48,12 @@ export const POLICY_SETTINGS = Object.entries(cspConfig)
     .join('; ');
 
 const config: NextConfig = {
+    transpilePackages: [
+        '@masknet/base',
+        '@masknet/encryption',
+        '@masknet/typed-message',
+        '@masknet/typed-message-react',
+    ],
     productionBrowserSourceMaps: false,
 
     // Note: we run tsc and eslint in other places

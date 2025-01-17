@@ -15,7 +15,6 @@ cd -
 # Create symbolic links for packages
 # It makes maskbook repo to share the same packages with the primary repo
 ./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "@tanstack+"
-./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "@mui/material"
 ./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "@dimensiondev+holoflows-kit"
 ./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "react-use@17.4.0"
 ./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "react-markdown@9.0.1"

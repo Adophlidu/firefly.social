@@ -2,10 +2,10 @@
 
 // source: https://github.com/mui/material-ui/blob/bc483df19196832a250328dc97a5483ddea16546/packages/mui-utils/src/useForkRef/useForkRef.ts#L21
 
-import * as React from 'react';
+import { useMemo } from 'react';
 
-export default function setRef<T>(
-    ref: React.MutableRefObject<T | null> | ((instance: T | null) => void) | null | undefined,
+function setRef<T>(
+    ref: React.RefObject<T | null> | ((instance: T | null) => void) | null | undefined,
     value: T | null,
 ): void {
     if (typeof ref === 'function') {
@@ -39,7 +39,7 @@ export function useForkRef<Instance>(
      * This means react will call the old forkRef with `null` and the new forkRef
      * with the ref. Cleanup naturally emerges from this behavior.
      */
-    return React.useMemo(() => {
+    return useMemo(() => {
         // eslint-disable-next-line eqeqeq
         if (refs.every((ref) => ref == null)) {
             return null;

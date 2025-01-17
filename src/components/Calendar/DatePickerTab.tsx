@@ -1,11 +1,11 @@
 import { eachDayOfInterval, endOfWeek, startOfWeek } from 'date-fns';
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
+import { useClickAway } from 'react-use';
 
 import CalendarIcon from '@/assets/calendar.svg';
 import { DatePicker, type DatePickerProps } from '@/components/Calendar/DatePicker.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useClickAwayListener } from '@/hooks/useClickAwayListener.js';
 
 interface DatePickerTabProps extends DatePickerProps {}
 
@@ -14,7 +14,8 @@ export function DatePickerTab(props: DatePickerTabProps) {
     const days = useMemo(() => {
         return eachDayOfInterval({ start: startOfWeek(date), end: endOfWeek(date) });
     }, [date]);
-    const clickAwayListenerRef = useClickAwayListener<HTMLDivElement>(useCallback(() => onToggle(false), [onToggle]));
+    const clickAwayListenerRef = useRef<HTMLDivElement>(null);
+    useClickAway(clickAwayListenerRef, () => onToggle(false));
 
     return (
         <div className="relative flex items-center justify-between border-x border-line p-3">

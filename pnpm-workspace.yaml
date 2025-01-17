@@ -1,9 +1,6 @@
 packages:
     - 'src/maskbook/'
     - 'src/maskbook/packages/*'
-    - 'src/maskbook/packages/typed-message/base'
-    - 'src/maskbook/packages/typed-message/react'
-    - 'src/maskbook/packages/plugins/*'
     - 'src/maskbook/packages/polyfills/types'
     - 'src/maskbook/packages/web3-hooks/base'
     - 'src/maskbook/packages/web3-hooks/evm'
