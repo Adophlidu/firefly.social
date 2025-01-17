@@ -1576,6 +1576,9 @@ msgstr "評論"
 msgid "Failed to create red packet."
 msgstr ""
 
+msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
+msgstr ""
+
 msgid "Only people you mention"
 msgstr "僅限你提及的帳戶"
 
@@ -2524,9 +2527,6 @@ msgstr ""
 msgid "There is no data available for display."
 msgstr "沒有可供展示的數據"
 
-msgid "Customize Lucky Drop sender. Select either Lens or Farcaster handle, or use the currently connected wallet."
-msgstr ""
-
 msgid "Cancel"
 msgstr "取消"
 
@@ -3065,6 +3065,9 @@ msgstr ""
 msgid "Firefly Wallets"
 msgstr ""
 
+msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
+msgstr ""
+
 #. placeholder {0}: formatEthereumAddress(toAddress, 4)
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr ""
@@ -3408,9 +3411,6 @@ msgid "Cancel mirror successfully"
 msgstr ""
 
 msgid "Cannot continue due to wallet mismatch."
-msgstr ""
-
-msgid "You can withdraw any unclaimed amount 24 hours after sending this lucky drop."
 msgstr ""
 
 msgid "your.email@example.org"

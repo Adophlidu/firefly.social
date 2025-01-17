@@ -309,8 +309,8 @@ export function ConfirmView() {
                                 placement="top"
                                 content={
                                     <Trans>
-                                        Customize Lucky Drop sender. Select either Lens or Farcaster handle, or use the
-                                        currently connected wallet.
+                                        Customize your Lucky Drop sender: Choose from your social account handles or
+                                        wallets.
                                     </Trans>
                                 }
                             >
@@ -441,7 +441,9 @@ export function ConfirmView() {
                     <InfoIcon width={20} height={20} />
                     <div className="flex flex-col gap-[10px] text-start text-[13px] leading-[18px]">
                         <div>
-                            <Trans>You can withdraw any unclaimed amount 24 hours after sending this lucky drop.</Trans>
+                            <Trans>
+                                You can withdraw any unclaimed amount 24 hours after creating this lucky drop.
+                            </Trans>
                         </div>
                         <div className="text-danger">
                             By clicking &quot;Next&quot;, you acknowledge the risk associated with decentralized
