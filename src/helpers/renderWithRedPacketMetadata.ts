@@ -29,17 +29,20 @@ export function RedPacketMetadataReader(
             const chainId = payload.network === 'Mainnet' ? ChainId.Mainnet : undefined;
             if (!chainId) return result;
 
-            const rpid =
-                metaKey === SolanaRedPacketMetaKey && !payload.rpid.startsWith(SOLANA_PREFIX)
-                    ? `${SOLANA_PREFIX}${payload.rpid}`
-                    : payload.rpid;
             return Ok({
                 ...payload,
-                rpid,
                 token: EVMChainResolver.nativeCurrency(chainId),
             });
         }
-        return result;
+
+        const rpid =
+            metaKey === SolanaRedPacketMetaKey && !payload.rpid.startsWith(SOLANA_PREFIX)
+                ? `${SOLANA_PREFIX}${payload.rpid}`
+                : payload.rpid;
+        return Ok({
+            ...payload,
+            rpid,
+        });
     }
     return result;
 }
