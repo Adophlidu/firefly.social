@@ -25,22 +25,23 @@ export function getWalletAdapter() {
     const currentName = parseJSON<string>(localStorage.getItem(SOLANA_WALLET_CACHE_KEY));
     if (!currentName) throw new WalletNotConnectedError();
 
-    // Phantom is a built-in wallet
-    if (currentName === PhantomWalletName) {
-        const phantom: { solana?: SignerWalletAdapter } = Reflect.get(window, 'phantom');
-        if (!phantom?.solana) throw new WalletNotConnectedError();
-        return phantom.solana;
+    switch (currentName) {
+        case PhantomWalletName: // built-in
+            const phantom: { solana?: SignerWalletAdapter } = Reflect.get(window, 'phantom');
+            if (!phantom?.solana) throw new WalletNotConnectedError();
+            return phantom.solana;
+        case ParticleSolanaWalletName: // built-in
+            const wallet = getParticleSolanaProvider();
+            return wallet as unknown as SignerWalletAdapter;
+        case 'OKX Wallet': // built-in
+            const okx: { solana?: SignerWalletAdapter } = Reflect.get(window, 'okxwallet');
+            if (!okx?.solana) throw new WalletNotConnectedError();
+            return okx.solana;
+        default:
+            const adapter = resolveSolanaWalletAdapter(currentName);
+            if (!adapter) throw new WalletNotConnectedError();
+            return adapter;
     }
-
-    if (currentName === ParticleSolanaWalletName) {
-        const wallet = getParticleSolanaProvider();
-        return wallet as unknown as SignerWalletAdapter;
-    }
-
-    const adapter = resolveSolanaWalletAdapter(currentName);
-    if (!adapter) throw new WalletNotConnectedError();
-
-    return adapter;
 }
 
 export function getWalletAdaptorConnected() {

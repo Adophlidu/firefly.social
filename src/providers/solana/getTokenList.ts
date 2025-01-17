@@ -94,7 +94,7 @@ export async function getSolanaTokenList(chainId: number, account: string): Prom
     });
     const nativeToken = await runInSafeAsync(() => getNativeTokenData(chainId, account));
 
-    if (!programs?.result?.length) return [];
+    if (!programs?.result?.length) return compact([nativeToken]);
 
     const addressList = programs.result.map((program) => program.account.data.parsed.info.mint);
     const marketData =

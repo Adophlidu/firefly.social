@@ -66,25 +66,22 @@ export function MainView() {
     const isRandom = randomType === 'random';
 
     const { account: publicKey } = useMemo(createAccount, []);
-    const { data: defaultGas = ZERO, isLoading: gasLoading } = useDefaultCreateGas(
-        {
-            networkType,
-            creator: account,
-            version: RED_PACKET_CONTRACT_VERSION,
-            chainId,
-            publicKey,
-            duration: RED_PACKET_DURATION,
-            isRandom,
-            name: 'Unknown User',
-            message: message || t`Best Wishes!`,
-            shares: shares || 0,
-            token: token
-                ? (omit(token, ['logoURI']) as FungibleToken<ChainId, SchemaType.ERC20 | SchemaType.Native>)
-                : undefined,
-            total: rightShift(0.0001, token.decimals).toFixed(),
-        },
-        networkType === NetworkType.Ethereum,
-    );
+    const { data: defaultGas = ZERO, isLoading: gasLoading } = useDefaultCreateGas({
+        networkType,
+        creator: account,
+        version: RED_PACKET_CONTRACT_VERSION,
+        chainId,
+        publicKey,
+        duration: RED_PACKET_DURATION,
+        isRandom,
+        name: 'Unknown User',
+        message: message || t`Best Wishes!`,
+        shares: shares || 0,
+        token: token
+            ? (omit(token, ['logoURI']) as FungibleToken<ChainId, SchemaType.ERC20 | SchemaType.Native>)
+            : undefined,
+        total: rightShift(0.0001, token.decimals).toFixed(),
+    });
 
     const balanceResult = useAvailableBalance(token.address as Address, defaultGas.toNumber(), {
         chainId,

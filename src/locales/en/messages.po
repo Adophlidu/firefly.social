@@ -408,9 +408,6 @@ msgstr "Your account is now connected."
 msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
 msgstr "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
 
-msgid "The number of people who can claim the lucky drop should be less than {RED_PACKET_MAX_SHARES_FOR_SOLANA}."
-msgstr "The number of people who can claim the lucky drop should be less than {RED_PACKET_MAX_SHARES_FOR_SOLANA}."
-
 #. placeholder {0}: profile.source
 #. placeholder {0}: post.source
 msgid "Report submitted on {0}"
@@ -1227,6 +1224,9 @@ msgstr "View Source"
 #. placeholder {1}: resolveSourceName(source)
 msgid "You cannot reply to @{0} on {1}."
 msgstr "You cannot reply to @{0} on {1}."
+
+msgid "The number of people who can claim the lucky drop should be less than {RED_PACKET_MAX_SHARES}."
+msgstr "The number of people who can claim the lucky drop should be less than {RED_PACKET_MAX_SHARES}."
 
 msgid "Are you sure you want to report this collection?"
 msgstr "Are you sure you want to report this collection?"

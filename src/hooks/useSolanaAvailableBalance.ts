@@ -4,8 +4,9 @@ import { useMemo } from 'react';
 
 import { useNativeToken } from '@/components/RedPacket/hooks/useNativeToken.js';
 import { NetworkType } from '@/constants/enum.js';
+import { SOLANA_DEFAULT_CREATE_GAS } from '@/constants/rp.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { isGreaterThan, ZERO } from '@/helpers/number.js';
+import { isGreaterThan } from '@/helpers/number.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { type ChainContextOverride, useChainContext } from '@/hooks/useChainContext.js';
 import { getNativeTokenBalance, getSplTokenBalance } from '@/providers/solana/getTokenBalance.js';
@@ -45,7 +46,7 @@ export function useSolanaAvailableBalance(
             }),
     });
 
-    const gasFee = ZERO;
+    const gasFee = SOLANA_DEFAULT_CREATE_GAS;
 
     return useMemo(() => {
         if (!balance || !enabled) return;
