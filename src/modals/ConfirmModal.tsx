@@ -5,6 +5,7 @@ import React, { forwardRef, useState } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -28,6 +29,7 @@ export interface ConfirmModalOpenProps {
     onConfirm?: () => void;
     onCancel?: () => void;
     variant?: 'normal' | 'secondary' | 'danger';
+    textOverflowTooltip?: boolean;
 }
 
 /** Dismissing dialog returns null */
@@ -46,6 +48,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                     enableCancelButton: props.enableCancelButton ?? false,
                     enableCloseButton: props.enableCloseButton ?? true,
                     disableBackdropClose: props.disableBackdropClose ?? false,
+                    textOverflowTooltip: props.textOverflowTooltip ?? true,
                 });
             },
             onClose: () => setProps(undefined),
@@ -71,7 +74,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                     style={props.modalStyle}
                     onClick={stopEvent}
                 >
-                    <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] p-4">
+                    <div className="inline-flex h-auto w-full items-center justify-center gap-4 rounded-t-[12px] p-6">
                         {props.enableCloseButton ? (
                             <CloseButton
                                 onClick={() => {
@@ -80,15 +83,24 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                                 }}
                             />
                         ) : null}
-                        <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
-                            {props.title ? props.title : <Trans>Confirmation</Trans>}
-                        </div>
+                        {props.textOverflowTooltip && props.title ? (
+                            <TextOverflowTooltip content={props.title}>
+                                <div className="shrink grow basis-0 truncate text-center text-lg font-bold leading-snug text-main">
+                                    {props.title}
+                                </div>
+                            </TextOverflowTooltip>
+                        ) : (
+                            <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
+                                {props.title ? props.title : <Trans>Confirmation</Trans>}
+                            </div>
+                        )}
+
                         {props.enableCloseButton ? <div className="relative h-6 w-6" /> : null}
                     </div>
 
                     <div
                         style={props.contentStyle}
-                        className={classNames('flex flex-col gap-2 p-6 max-md:pt-0', props.contentClass)}
+                        className={classNames('flex flex-col gap-6 p-6 pt-0', props.contentClass)}
                     >
                         {props.content}
                         {props.enableCancelButton || props.enableConfirmButton ? (

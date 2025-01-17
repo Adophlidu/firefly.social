@@ -760,6 +760,9 @@ msgstr "也许这个通证是一个陷阱。"
 msgid "Followed by {0}"
 msgstr "被 {0} 关注"
 
+msgid "All activities from {handleOrEnsOrAddress} will be hidden from you"
+msgstr ""
+
 #. placeholder {0}: profile.handle
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消关注 @{0} 失败。"
@@ -1329,6 +1332,10 @@ msgstr "平台费用"
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
+
+#. placeholder {0}: profile.handle
+msgid "All posts from @{0} will be hidden from you"
+msgstr ""
 
 msgid "Your vote is in!"
 msgstr "投票成功！"
@@ -1902,9 +1909,6 @@ msgstr "在帖子中标记 {0}，让他们知道你已经向他们的钱包发�
 msgid "{0}<0> Items</0>"
 msgstr "{0}<0> 项目</0>"
 
-msgid "Articles from {handleOrEnsOrAddress} will now be hidden in your home timeline"
-msgstr "{handleOrEnsOrAddress} 的文章会从您的时间线中隐藏。"
-
 msgid "liked"
 msgstr "点赞"
 
@@ -2030,9 +2034,6 @@ msgstr "确认中"
 msgid "No preview found for shared link"
 msgstr "无法预加载"
 
-msgid "All wallets and social accounts associated with {handleOrEnsOrAddress} will be muted."
-msgstr "{handleOrEnsOrAddress} 相关的所有钱包和社交账号都将会被隐藏。"
-
 msgid "Suspected malicious address found."
 msgstr "发现疑似恶意地址。"
 
@@ -2071,15 +2072,14 @@ msgstr "未验证"
 msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr "关注需付出 {feeAmount} ${feeSymbol}"
 
-#. placeholder {0}: profile.handle
-msgid "Posts from @{0} will now be hidden in your home timeline"
-msgstr "@{0} 的帖子会从您的时间线中隐藏"
-
 msgid "Replying to"
 msgstr "正在回复"
 
 msgid "commented"
 msgstr "已回复"
+
+msgid "All posts and activities from this user will be hidden from you"
+msgstr ""
 
 msgid "Unknown Collection"
 msgstr "未知搜藏品"
@@ -2522,6 +2522,10 @@ msgstr "免费收集"
 
 msgid "Delete"
 msgstr "删除"
+
+#. placeholder {0}: channel.id
+msgid "All posts from /{0} will be hidden from you"
+msgstr ""
 
 msgid "The content of this account is currently unavailable"
 msgstr "无法获取这个账户的内容"
@@ -3100,10 +3104,6 @@ msgstr "<0>购买</0> 一个 NFT 价值 {costEl}"
 
 msgid "Enter Number of Winners"
 msgstr "输入获奖人数"
-
-#. placeholder {0}: channel.id
-msgid "Post from /{0} will be hidden in your home timeline"
-msgstr "来自 /{0} 的帖子会从您的时间线中隐藏"
 
 msgid "Add"
 msgstr "添加"

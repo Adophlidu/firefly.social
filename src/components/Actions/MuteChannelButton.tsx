@@ -27,10 +27,10 @@ export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function M
                 onClick?.(event);
                 const confirmed = !muted
                     ? await ConfirmModalRef.openAndWaitForClose({
-                          title: muted ? t`Unmute` : t`Mute`,
+                          title: muted ? t`Unmute /${channel.id}` : t`Mute /${channel.id}`,
                           content: (
                               <div className="text-main">
-                                  <Trans>Post from /{channel.id} will be hidden in your home timeline</Trans>
+                                  <Trans>All posts from /{channel.id} will be hidden from you</Trans>
                               </div>
                           ),
                           variant: 'normal',

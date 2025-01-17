@@ -58,9 +58,7 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
                         variant: 'normal',
                         content: (
                             <div className="text-main">
-                                <Trans>
-                                    Articles from {handleOrEnsOrAddress} will now be hidden in your home timeline
-                                </Trans>
+                                <Trans>All activities from {handleOrEnsOrAddress} will be hidden from you</Trans>
                             </div>
                         ),
                     });

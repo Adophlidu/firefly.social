@@ -31,7 +31,7 @@ function waitForConfirmation(handleOrEnsOrAddress: string) {
         title: t`Mute all`,
         content: (
             <p className="-mt-4 mb-4 text-lightMain">
-                <Trans>All wallets and social accounts associated with {handleOrEnsOrAddress} will be muted.</Trans>
+                <Trans>All posts and activities from this user will be hidden from you</Trans>
             </p>
         ),
         variant: 'normal',

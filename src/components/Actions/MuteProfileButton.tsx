@@ -32,7 +32,7 @@ export const MuteProfileButton = forwardRef<HTMLButtonElement, MuteProfileButton
                         variant: 'normal',
                         content: (
                             <div className="text-main">
-                                <Trans>Posts from @{profile.handle} will now be hidden in your home timeline</Trans>
+                                <Trans>All posts from @{profile.handle} will be hidden from you</Trans>
                             </div>
                         ),
                     });

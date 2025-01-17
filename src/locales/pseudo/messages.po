@@ -755,6 +755,9 @@ msgstr ""
 msgid "Followed by {0}"
 msgstr ""
 
+msgid "All activities from {handleOrEnsOrAddress} will be hidden from you"
+msgstr ""
+
 #. placeholder {0}: profile.handle
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr ""
@@ -1325,6 +1328,10 @@ msgstr ""
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
+#. placeholder {0}: profile.handle
+msgid "All posts from @{0} will be hidden from you"
+msgstr ""
+
 msgid "Your vote is in!"
 msgstr ""
 
@@ -1892,9 +1899,6 @@ msgstr ""
 msgid "{0}<0> Items</0>"
 msgstr ""
 
-msgid "Articles from {handleOrEnsOrAddress} will now be hidden in your home timeline"
-msgstr ""
-
 msgid "liked"
 msgstr ""
 
@@ -2020,9 +2024,6 @@ msgstr ""
 msgid "No preview found for shared link"
 msgstr ""
 
-msgid "All wallets and social accounts associated with {handleOrEnsOrAddress} will be muted."
-msgstr ""
-
 msgid "Suspected malicious address found."
 msgstr ""
 
@@ -2061,14 +2062,13 @@ msgstr ""
 msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr ""
 
-#. placeholder {0}: profile.handle
-msgid "Posts from @{0} will now be hidden in your home timeline"
-msgstr ""
-
 msgid "Replying to"
 msgstr ""
 
 msgid "commented"
+msgstr ""
+
+msgid "All posts and activities from this user will be hidden from you"
 msgstr ""
 
 msgid "Unknown Collection"
@@ -2511,6 +2511,10 @@ msgid "Free Collect"
 msgstr ""
 
 msgid "Delete"
+msgstr ""
+
+#. placeholder {0}: channel.id
+msgid "All posts from /{0} will be hidden from you"
 msgstr ""
 
 msgid "The content of this account is currently unavailable"
@@ -3089,10 +3093,6 @@ msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr ""
 
 msgid "Enter Number of Winners"
-msgstr ""
-
-#. placeholder {0}: channel.id
-msgid "Post from /{0} will be hidden in your home timeline"
 msgstr ""
 
 msgid "Add"
