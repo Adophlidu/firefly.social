@@ -1,7 +1,9 @@
 import { useLocation } from '@tanstack/react-router';
+import { Suspense } from 'react';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
 
+import { Loading } from '@/components/Loading.js';
 import { useEvmClaimedInfo } from '@/components/RedPacket/hooks/useEvmClaimedInfo.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
@@ -43,7 +45,7 @@ function getClaimHistoryListItem(networkType: NetworkType, data?: FireflyRedPack
     ) : null;
 }
 
-export function HistoryDetailView() {
+function HistoryDetail() {
     const { rpid, networkType } = useLocation().search as {
         rpid: string;
         networkType: NetworkType;
@@ -68,5 +70,13 @@ export function HistoryDetailView() {
                 <div />
             )}
         </div>
+    );
+}
+
+export function HistoryDetailView() {
+    return (
+        <Suspense fallback={<Loading className="!min-h-52" />}>
+            <HistoryDetail />
+        </Suspense>
     );
 }

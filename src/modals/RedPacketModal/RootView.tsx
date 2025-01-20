@@ -1,17 +1,14 @@
 import { Trans } from '@lingui/react/macro';
 import { Outlet, useRouter, useRouterState } from '@tanstack/react-router';
-import { useContext } from 'react';
 
 import HistoryIcon from '@/assets/history.svg';
 import { BackButton } from '@/components/BackButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { RedPacketModalRef } from '@/modals/controls.js';
-import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 
 export function RootView() {
     const router = useRouter();
     const { matches, location } = useRouterState();
-    const { networkType } = useContext(RedPacketContext);
 
     const isMain = location.pathname === '/main';
 

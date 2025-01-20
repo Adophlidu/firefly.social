@@ -67,7 +67,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
             >
                 <div
                     className={classNames(
-                        'relative rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950',
+                        'relative flex flex-col rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950',
                         props.resetSize ? '' : 'w-[320px] max-w-[clamp(386px,90vw,95vw)] md:w-[355px]',
                         props.modalClass,
                     )}
@@ -100,7 +100,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
 
                     <div
                         style={props.contentStyle}
-                        className={classNames('flex flex-col gap-6 p-6 pt-0', props.contentClass)}
+                        className={classNames('flex flex-1 flex-col gap-6 p-6 pt-0', props.contentClass)}
                     >
                         {props.content}
                         {props.enableCancelButton || props.enableConfirmButton ? (

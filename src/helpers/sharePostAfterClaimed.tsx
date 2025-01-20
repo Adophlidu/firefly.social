@@ -31,7 +31,7 @@ export function sharePostAfterClaimed(post: Post, amount: string, symbol?: strin
             </div>
         ),
         resetSize: true,
-        contentStyle: { height: 'calc(100% - 56px)', justifyContent: 'space-between' },
+        contentStyle: { justifyContent: 'space-between' },
         modalStyle: { width: 420, height: 420, maxWidth: '80%', maxHeight: '80%' },
         enableConfirmButton: true,
         variant: 'normal',
