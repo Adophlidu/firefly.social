@@ -1169,6 +1169,7 @@ export type SearchableNFT = {
     twitter?: string;
     verified: boolean;
     website?: string;
+    chain_id?: number;
 };
 
 export type Project = {

@@ -13,10 +13,12 @@ interface NFTItemProps {
 }
 
 export function SearchableNFTItem({ nft }: NFTItemProps) {
+    const chainId = nft.chain_id || ChainId.Mainnet;
+
     return (
         <Link
             className="flex items-center gap-x-2.5 border-b border-line p-3 hover:bg-bg"
-            href={resolveNftUrl(ChainId.Mainnet, nft.contract_address)}
+            href={resolveNftUrl(chainId, nft.contract_address)}
         >
             <Image
                 className="h-[50px] w-[50px] shrink-0 rounded-lg object-cover"
@@ -28,7 +30,7 @@ export function SearchableNFTItem({ nft }: NFTItemProps) {
             <div>
                 <div className="flex items-center gap-x-1">
                     <span className="text-lg font-bold leading-6 text-lightMain">{nft.name}</span>
-                    <ChainIcon size={18} className="shrink-0" chainId={ChainId.Mainnet} />
+                    <ChainIcon size={18} className="shrink-0" chainId={chainId} />
                 </div>
                 <div className="mt-1 flex items-center gap-x-2">
                     <span className="text-medium font-bold leading-[22px] text-lightMain">
