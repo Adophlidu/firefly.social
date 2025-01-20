@@ -4,20 +4,20 @@ import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-sol
 import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';
-import { NetworkPluginID } from '@/constants/enum.js';
+import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 
 interface ChainIconProps extends HTMLProps<HTMLImageElement> {
+    networkType?: NetworkType;
     chainId: number;
     size?: number;
 }
 
-export function ChainIcon(props: ChainIconProps) {
-    const { chainId, size = 22, className } = props;
-
-    const networkDescriptor = isValidSolanaChainId(chainId)
-        ? getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, chainId)
-        : getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chainId);
+export function ChainIcon({ chainId, size = 22, className, networkType }: ChainIconProps) {
+    const networkDescriptor =
+        isValidSolanaChainId(chainId) || networkType === NetworkType.Solana
+            ? getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, chainId)
+            : getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chainId);
 
     return (
         <Image
@@ -28,7 +28,7 @@ export function ChainIcon(props: ChainIconProps) {
                 width: `${size}px`,
                 height: `${size}px`,
             }}
-            alt={`Blockchain: ${props.chainId}`}
+            alt={`Blockchain: ${chainId}`}
             className={className}
         />
     );

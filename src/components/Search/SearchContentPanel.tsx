@@ -103,7 +103,7 @@ export function FilterPopover<F>({
     );
 }
 
-export function SearchContentPanel<T, F>({
+export function SearchContentPanel<T, F = void>({
     showFilter = true,
     isLoading,
     filterProps,
@@ -120,7 +120,7 @@ export function SearchContentPanel<T, F>({
     const [selectedFilter, setSelectedFilter] = useState<F>();
     const listRef = useRef<HTMLDivElement>(null);
 
-    const selectedIndex = data?.findIndex((item) => isSelected?.(item)) ?? -1;
+    const selectedIndex = data.findIndex((item) => isSelected?.(item)) ?? -1;
 
     useEffect(() => {
         // Scroll to the first selected item

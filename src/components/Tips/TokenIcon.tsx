@@ -1,5 +1,4 @@
-import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
-import { Image } from '@/esm/Image.js';
+import { TokenIcon as GenericTokenIcon } from '@/components/TokenIcon.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
 interface TokenIconProps {
@@ -11,46 +10,14 @@ interface TokenIconProps {
 
 export function TokenIcon({ token, tokenSize = 30, chainSize = 12, disableChainIcon = false }: TokenIconProps) {
     return (
-        <span className="relative">
-            {token.logo_url ? (
-                <Image
-                    unoptimized
-                    className="rounded-full"
-                    alt={token.name}
-                    src={token.logo_url}
-                    width={tokenSize}
-                    height={tokenSize}
-                />
-            ) : (
-                <span
-                    className="block rounded-full bg-lightBg"
-                    style={{
-                        width: tokenSize,
-                        height: tokenSize,
-                    }}
-                />
-            )}
-            {!disableChainIcon ? (
-                <span
-                    className="absolute -bottom-[1px] overflow-hidden rounded-full bg-lightBottom p-[1px]"
-                    style={{
-                        right: -chainSize / 2,
-                    }}
-                >
-                    {token.chainLogoUrl ? (
-                        <Image
-                            unoptimized
-                            className="rounded-full"
-                            src={token.chainLogoUrl}
-                            width={chainSize}
-                            height={chainSize}
-                            alt={token.chain}
-                        />
-                    ) : (
-                        <ChainIcon size={chainSize} chainId={token.chainId} />
-                    )}
-                </span>
-            ) : null}
-        </span>
+        <GenericTokenIcon
+            chainId={token.chainId}
+            name={token.name}
+            icon={token.logo_url}
+            badgeIcon={token.chainLogoUrl}
+            size={tokenSize}
+            badgeSize={chainSize}
+            disableBadge={disableChainIcon}
+        />
     );
 }

@@ -144,16 +144,16 @@ export class FireflyRedPacketEndpoint {
     static async createPublicKey(
         themeId: string,
         shareFrom: string,
-        payloads: FireflyRedPacketAPI.StrategyPayload[],
+        strategies: FireflyRedPacketAPI.ClaimStrategy[],
     ): Promise<HexString> {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/createPublicKey');
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/redpacket/createPublicKey');
         const { data } = await fetchJSON<FireflyRedPacketAPI.PublicKeyResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
                 themeId,
                 shareFrom,
                 claimFrom: FireflyRedPacketAPI.SourceType.FireflyPC,
-                claimStrategy: JSON.stringify(payloads),
+                claimStrategy: JSON.stringify(strategies),
             }),
         });
         return data.publicKey;
@@ -237,7 +237,7 @@ export class FireflyRedPacketEndpoint {
     }
 
     static async checkClaimStrategyStatus(options: FireflyRedPacketAPI.CheckClaimStrategyStatusOptions) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/checkClaimStrategyStatus');
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/redpacket/checkClaimStrategyStatus');
         return fetchJSON<FireflyRedPacketAPI.CheckClaimStrategyStatusResponse>(url, {
             method: 'POST',
             body: JSON.stringify(options),

@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { type FungibleToken, multipliedBy } from '@masknet/web3-shared-base';
+import type { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { compact, first, flatten, noop, uniqBy } from 'lodash-es';
 import {
     createContext,
@@ -27,6 +28,7 @@ import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
 import type { FireflyRedPacketAPI } from '@/maskbook/packages/web3-providers/src/entry-types.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 import { RequirementType } from '@/providers/types/FireflyRedPacket.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export const redPacketRandomTabs = [
     {
@@ -89,8 +91,14 @@ interface RedPacketContextValue {
     setRawAmount: Dispatch<SetStateAction<string>>;
     totalAmount: string;
     rules: RequirementType[];
-    requireCollection?: Collection;
-    setRequireCollection: Dispatch<SetStateAction<Collection | undefined>>;
+    requireCollections: Collection[];
+    setRequireCollections: Dispatch<SetStateAction<Collection[]>>;
+    requireTokens: Array<{ token: FungibleToken<ChainId, SchemaType>; quantity: string }>;
+    setRequireTokens: Dispatch<SetStateAction<Array<{ token: FungibleToken<ChainId, SchemaType>; quantity: string }>>>;
+    requireChannel: Channel | undefined;
+    setRequireChannel: Dispatch<SetStateAction<Channel | undefined>>;
+    requireClub: Channel | undefined;
+    setRequireClub: Dispatch<SetStateAction<Channel | undefined>>;
     setRules: Dispatch<SetStateAction<RequirementType[]>>;
     setToken: Dispatch<SetStateAction<FungibleToken<number, number> | undefined>>;
     setRandomType: Dispatch<SetStateAction<RandomType>>;
@@ -119,7 +127,14 @@ export const initialRedPacketContextValue: RedPacketContextValue = {
     shareFrom: '',
     token: null!,
     totalAmount: '',
-    setRequireCollection: noop,
+    requireCollections: EMPTY_LIST,
+    setRequireCollections: noop,
+    requireTokens: EMPTY_LIST,
+    setRequireTokens: noop,
+    requireChannel: undefined,
+    setRequireChannel: noop,
+    requireClub: undefined,
+    setRequireClub: noop,
     rules: EMPTY_LIST,
     setRules: noop,
     setShareFrom: noop,
@@ -167,9 +182,13 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
     const [fontColor, setFontColor] = useState<FontColorTabType>('golden');
     const [shareFrom, setShareFrom] = useState<string>('');
     const [rules, setRules] = useState<RequirementType[]>([RequirementType.Follow]);
-    const [requireCollection, setRequireCollection] = useState<Collection | undefined>();
+    const [requireCollections, setRequireCollections] =
+        useState<RedPacketContextValue['requireCollections']>(EMPTY_LIST);
+    const [requireTokens, setRequireTokens] = useState<RedPacketContextValue['requireTokens']>(EMPTY_LIST);
+    const [requireChannel, setRequireChannel] = useState<RedPacketContextValue['requireChannel']>();
+    const [requireClub, setRequireClub] = useState<RedPacketContextValue['requireClub']>();
 
-    const [rawAmount, setRawAmount] = useState('');
+    const [rawAmount, setRawAmount] = useState('0.001');
     const isRandom = randomType === 'random';
     const totalAmount = useMemo(
         () => (isRandom || !rawAmount ? rawAmount : multipliedBy(rawAmount, shares).toFixed()),
@@ -227,8 +246,14 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
             totalAmount,
             rules,
             setRules,
-            requireCollection,
-            setRequireCollection,
+            requireCollections,
+            setRequireCollections,
+            requireTokens,
+            setRequireTokens,
+            requireChannel,
+            setRequireChannel,
+            requireClub,
+            setRequireClub,
             rawAmount,
             setRawAmount,
             customThemes,
@@ -250,7 +275,10 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
             shareFrom,
             totalAmount,
             rules,
-            requireCollection,
+            requireCollections,
+            requireTokens,
+            requireChannel,
+            requireClub,
             rawAmount,
             customThemes,
             themes,

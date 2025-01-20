@@ -692,7 +692,7 @@ msgid "Custom"
 msgstr "自定义"
 
 msgid "Select NFT collection to gate access"
-msgstr "选择 NFT 系列以限制访问权限"
+msgstr ""
 
 msgid "Password"
 msgstr "密码"
@@ -767,6 +767,9 @@ msgstr "搜索"
 
 msgid "Perhaps the token is a honeypot."
 msgstr "也许这个通证是一个陷阱。"
+
+msgid "Minimum token amount"
+msgstr ""
 
 #. placeholder {0}: mutuals[0].displayName
 msgid "Followed by {0}"
@@ -1834,6 +1837,10 @@ msgstr "遥测"
 msgid "Show more tokens with small balances"
 msgstr "展示更多的小额通证"
 
+#. placeholder {0}: status.payload.farcasterChannelId
+msgid "Member of <0>/{0}</0>"
+msgstr ""
+
 msgid "Requirements"
 msgstr "条件"
 
@@ -1913,6 +1920,9 @@ msgstr "无法对帖子进行投票。"
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
+
+msgid "NFT holder of any one below"
+msgstr ""
 
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
 msgstr "确认断开此账户及相关钱包与 Firefly 社交图谱的连接吗？"
@@ -2236,11 +2246,11 @@ msgstr "获取图片失败。"
 msgid "Failed to claim red packet"
 msgstr ""
 
-msgid "NFT Holder of <0/>"
-msgstr "<0/>的 NFT持有者"
-
 msgid "Collectible could not be found."
 msgstr "未找到相关 NFT。"
+
+msgid "Token holder of any one below"
+msgstr ""
 
 msgid "Step 3 Select to vote"
 msgstr "第 3 步 选择候选人"
@@ -2281,6 +2291,9 @@ msgstr "投票权：通过社区治理参与关键决策，塑造平台的发展
 #. placeholder {0}: formatEthereumAddress(address, 4)
 msgid "Please switch to {0}"
 msgstr "请切换到 {0}"
+
+msgid "Farcaster channel member"
+msgstr ""
 
 msgid "Non-honeypot related address."
 msgstr "非钓鱼地址。"
@@ -2563,6 +2576,9 @@ msgstr ""
 msgid "The content of this account is currently unavailable"
 msgstr "无法获取这个账户的内容"
 
+msgid "Select Club"
+msgstr ""
+
 msgid "Wallet added successfully"
 msgstr "添加钱包成功"
 
@@ -2709,6 +2725,7 @@ msgid "Upload to change"
 msgstr "上传以修改"
 
 #. placeholder {0}: collection.ownersTotal
+#. placeholder {0}: channel.followerCount
 msgid "{0} items"
 msgstr "{0} 项目"
 
@@ -2887,6 +2904,11 @@ msgstr "未涉及加密货币混合器。"
 msgid "<0>{0}</0><1>reposted</1>"
 msgstr "<0>{0}</0><1>转帖</1>"
 
+#. placeholder {0}: x.symbol
+#. placeholder {1}: formatBalance(x.amount, x.decimals)
+msgid "<0>${0}</0><1>no less than {1}</1>"
+msgstr ""
+
 msgid "Login to enable all features"
 msgstr "登录以启用所有功能"
 
@@ -3063,11 +3085,17 @@ msgstr ""
 msgid "Snapshot added to your Bookmarks"
 msgstr "Snapshot 已经添加到您的收藏中"
 
+msgid "Select token to gate access"
+msgstr ""
+
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "无法继续。请允许 Lens Manager 执行操作，而无需对每笔交易进行签名。"
 
 msgid "Results"
 msgstr "结果"
+
+msgid "Lens Club member"
+msgstr ""
 
 msgid "Properties"
 msgstr "属性"
@@ -3643,6 +3671,9 @@ msgstr "下载应用"
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr "获取状态失败。请稍后重试。"
 
+msgid "Token holder"
+msgstr ""
+
 #. placeholder {0}: getMintButtonText(true, true, mintStatus)
 msgid "So sorry, we cant mint this NFT with the current status: {0}"
 msgstr "抱歉，今天的免费铸造额度已用完。我们无法在当前状态下铸造此 NFT：{0}。"
@@ -3708,6 +3739,9 @@ msgstr "在网站上查看"
 
 msgid "No parent post found."
 msgstr "未找到上级帖子。"
+
+msgid "Select Channel"
+msgstr ""
 
 msgid "Please confirm the login with X."
 msgstr "请在 X 确认登陆。"

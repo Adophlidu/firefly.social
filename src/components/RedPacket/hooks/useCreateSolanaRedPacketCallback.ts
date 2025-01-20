@@ -40,7 +40,7 @@ function reduceUselessPayloadInfo(payload: RedPacketJSONPayload): RedPacketJSONP
 
 export function useCreateSolanaRedPacketCallback(
     shareFromName: string,
-    claimRequirements?: FireflyRedPacketAPI.StrategyPayload[],
+    claimRequirements?: FireflyRedPacketAPI.ClaimStrategy[],
 ) {
     const {
         randomType,

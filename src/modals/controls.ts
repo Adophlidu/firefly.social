@@ -1,5 +1,6 @@
 import { SingletonModal } from '@/libs/SingletonModal.js';
 import type { AddWalletModalCloseProps, AddWalletModalProps } from '@/modals/AddWalletModal.js';
+import type { ChannelSelectModalCloseProps, ChannelSelectModalOpenProps } from '@/modals/ChannelSelectModal/index.jsx';
 import type { CollectArticleModalOpenProps } from '@/modals/CollectArticleModal.js';
 import type { CollectPostModalOpenProps } from '@/modals/CollectPostModal.js';
 import type { ComposeModalCloseProps, ComposeModalOpenProps } from '@/modals/ComposeModal.js';
@@ -59,3 +60,5 @@ export const FreeMintModalRef = new SingletonModal<FreeMintModalOpenProps>();
 export const FrameViewerModalRef = new SingletonModal<FrameViewerModalOpenProps, FrameViewerModalCloseProps>();
 export const AddCustomERC20ModalRef = new SingletonModal();
 export const AddCustomERC721ModalRef = new SingletonModal();
+export const ChannelSelectModalRef = new SingletonModal<ChannelSelectModalOpenProps, ChannelSelectModalCloseProps>();
+export const ClubSelectModalRef = new SingletonModal<ChannelSelectModalOpenProps, ChannelSelectModalCloseProps>();

@@ -4,6 +4,7 @@ import { useDebounce } from 'usehooks-ts';
 
 import { FF_GARDEN_CHANNEL, HOME_CHANNEL, HOME_CLUB } from '@/constants/channel.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { SORTED_CHANNEL_SOURCES } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 
@@ -52,9 +53,10 @@ async function searchChannels(source: SocialSource, keyword: string, { hasRedPac
 export function useSearchChannels(keyword: string, source: SocialSource, hasRedPacket: boolean) {
     const debouncedKeyword = useDebounce(keyword, 300);
     const profiles = useCurrentProfileAll();
+    const profileIds = SORTED_CHANNEL_SOURCES.map((x) => profiles[x]?.profileId);
 
     return useQuery({
-        queryKey: ['searchChannels', debouncedKeyword, source, `${hasRedPacket}`],
+        queryKey: ['search-channels', source, debouncedKeyword, profileIds, hasRedPacket],
         queryFn: async () => {
             return searchChannels(source, debouncedKeyword, { hasRedPacket, profileId: profiles[source]?.profileId });
         },

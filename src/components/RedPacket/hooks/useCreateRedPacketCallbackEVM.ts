@@ -41,7 +41,7 @@ function reduceUselessPayloadInfo(payload: RedPacketJSONPayload): RedPacketJSONP
 export function useCreateRedPacketCallbackEVM(
     shareFromName: string,
     publicKey: string,
-    claimRequirements?: FireflyRedPacketAPI.StrategyPayload[],
+    claimRequirements?: FireflyRedPacketAPI.ClaimStrategy[],
 ) {
     const { randomType, message, shares, token, totalAmount, theme, networkType } = useContext(RedPacketContext);
 

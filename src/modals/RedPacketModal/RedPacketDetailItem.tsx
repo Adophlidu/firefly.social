@@ -37,7 +37,7 @@ interface HistoryInfo {
     create_time?: number;
     redpacket_status?: FireflyRedPacketAPI.RedPacketStatus;
     ens_name?: string;
-    claim_strategy?: FireflyRedPacketAPI.StrategyPayload[];
+    claim_strategy?: FireflyRedPacketAPI.ClaimStrategy[];
     share_from?: string;
     theme_id?: string;
     post_on?: Array<{

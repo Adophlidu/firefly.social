@@ -20,7 +20,7 @@ import { RedPacketEnvelope } from '@/components/RedPacket/RedPacketEnvelope.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkType } from '@/constants/enum.js';
-import { ALLOWED_COVER_MIMES, EMPTY_LIST } from '@/constants/index.js';
+import { ALLOWED_COVER_MIMES } from '@/constants/index.js';
 import { DEFAULT_THEME_ID } from '@/constants/rp.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -31,12 +31,12 @@ import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useSelectFiles } from '@/hooks/useSelectFiles.js';
 import { ImageEditorRef, RedPacketModalRef } from '@/modals/controls.js';
+import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedPacketModal/common.js';
 import {
     RedPacketContext,
     redPacketCoverTabs,
     redPacketFontColorTabs,
 } from '@/modals/RedPacketModal/RedPacketContext.js';
-import { REQUIREMENT_ICON_MAP } from '@/modals/RedPacketModal/RequirementsView.js';
 import { ShareAccountsPopover } from '@/modals/RedPacketModal/ShareAccountsPopover.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import { FireflyRedPacketAPI, RequirementType } from '@/providers/types/FireflyRedPacket.js';
@@ -47,14 +47,9 @@ interface ThemeVariant {
     golden: FireflyRedPacketAPI.ThemeGroupSettings;
 }
 
+const PostReactionTypes = [RequirementType.Like, RequirementType.Repost, RequirementType.Comment];
+
 export function ConfirmView() {
-    const REQUIREMENT_TITLE_MAP: Record<RequirementType, React.ReactNode> = {
-        [RequirementType.Follow]: t`Follow me`,
-        [RequirementType.Like]: t`Like`,
-        [RequirementType.Repost]: t`Repost`,
-        [RequirementType.Comment]: t`Comment`,
-        [RequirementType.NFTHolder]: t`NFT holder`,
-    };
     const {
         message,
         coverType,
@@ -69,7 +64,10 @@ export function ConfirmView() {
         token,
         rawAmount,
         rules,
-        requireCollection,
+        requireCollections,
+        requireTokens,
+        requireChannel,
+        requireClub,
         customThemes,
         setCustomThemes,
         themes,
@@ -111,80 +109,107 @@ export function ConfirmView() {
     }, [totalAmount, tokenPrice]);
 
     const { value, loading } = useAsync(async () => {
-        const postReactions = rules.filter((x) => x !== RequirementType.Follow && x !== RequirementType.NFTHolder);
+        const postReactions = rules.filter((x) => PostReactionTypes.includes(x));
 
-        const payload =
-            rules && isEVM
-                ? compact([
-                      rules.includes(RequirementType.Follow)
-                          ? {
-                                type: FireflyRedPacketAPI.StrategyType.profileFollow,
-                                payload: compact([
-                                    currentLensProfile
-                                        ? {
-                                              platform: FireflyRedPacketAPI.PlatformType.lens,
-                                              profileId: currentLensProfile.profileId,
-                                          }
-                                        : undefined,
-                                    currentFarcasterProfile
-                                        ? {
-                                              platform: FireflyRedPacketAPI.PlatformType.farcaster,
-                                              profileId: currentFarcasterProfile.profileId,
-                                          }
-                                        : undefined,
-                                    currentTwitterProfile
-                                        ? {
-                                              platform: FireflyRedPacketAPI.PlatformType.twitter,
-                                              profileId: currentTwitterProfile.profileId,
-                                          }
-                                        : undefined,
-                                ]),
-                            }
-                          : undefined,
-                      postReactions?.length
-                          ? {
-                                type: FireflyRedPacketAPI.StrategyType.postReaction,
-                                payload: {
-                                    reactions: flatten(
-                                        postReactions.map((x) => {
-                                            if (x === RequirementType.Repost) return ['repost', 'quote'];
-                                            return x.toLowerCase();
-                                        }),
-                                    ),
-                                },
-                            }
-                          : undefined,
-                      rules.includes(RequirementType.NFTHolder) && requireCollection?.address
-                          ? {
-                                type: FireflyRedPacketAPI.StrategyType.nftOwned,
-                                payload: [
-                                    {
-                                        chainId: requireCollection.chainId ?? chainId,
-                                        contractAddress: requireCollection.address,
-                                        collectionName: requireCollection.name,
-                                    },
-                                ],
-                            }
-                          : undefined,
-                  ])
-                : EMPTY_LIST;
+        const StrategyType = FireflyRedPacketAPI.StrategyType;
+        const strategies: FireflyRedPacketAPI.ClaimStrategy[] = [];
+        if (rules && isEVM) {
+            if (rules.includes(RequirementType.Follow)) {
+                strategies.push({
+                    type: StrategyType.profileFollow,
+                    payload: compact([
+                        currentLensProfile
+                            ? {
+                                  platform: FireflyRedPacketAPI.PlatformType.lens,
+                                  profileId: currentLensProfile.profileId,
+                              }
+                            : undefined,
+                        currentFarcasterProfile
+                            ? {
+                                  platform: FireflyRedPacketAPI.PlatformType.farcaster,
+                                  profileId: currentFarcasterProfile.profileId,
+                              }
+                            : undefined,
+                        currentTwitterProfile
+                            ? {
+                                  platform: FireflyRedPacketAPI.PlatformType.twitter,
+                                  profileId: currentTwitterProfile.profileId,
+                              }
+                            : undefined,
+                    ]),
+                });
+            }
+            if (postReactions.length) {
+                strategies.push({
+                    type: StrategyType.postReaction,
+                    payload: {
+                        reactions: flatten(
+                            postReactions.map((x) => {
+                                if (x === RequirementType.Repost) return ['repost', 'quote'];
+                                return x.toLowerCase();
+                            }),
+                        ),
+                    },
+                });
+            }
+            if (rules.includes(RequirementType.NFTHolder) && requireCollections.length) {
+                strategies.push({
+                    type: StrategyType.nftOwned,
+                    payload: requireCollections.map((collection) => ({
+                        chainId: (collection.chainId ?? chainId).toString(),
+                        contractAddress: collection.address!,
+                        collectionName: collection.name,
+                        icon: collection.iconURL!,
+                    })),
+                });
+            }
+            if (rules.includes(RequirementType.TokenHolder) && requireTokens.length) {
+                strategies.push({
+                    type: StrategyType.tokens,
+                    payload: requireTokens.map(({ token, quantity }) => {
+                        return {
+                            chainId: (token.chainId ?? chainId).toString(),
+                            contractAddress: token.address,
+                            name: token.name,
+                            symbol: token.symbol,
+                            decimals: token.decimals,
+                            icon: token.logoURL!,
+                            amount: quantity ? rightShift(quantity, token.decimals).toString() : '0',
+                        };
+                    }),
+                });
+            }
+            if (
+                (rules.includes(RequirementType.FarcasterChannelMember) && requireChannel?.id) ||
+                (rules.includes(RequirementType.LensClubMember) && requireClub?.id)
+            ) {
+                strategies.push({
+                    type: StrategyType.channel,
+                    payload: {
+                        farcasterChannelId: requireChannel?.id,
+                        lensOrbClubHandle: requireClub?.id,
+                    },
+                });
+            }
+        }
 
         return {
-            publicKey: await FireflyRedPacketEndpoint.createPublicKey(themeId, account, payload),
-            claimRequirements: payload,
+            publicKey: await FireflyRedPacketEndpoint.createPublicKey(themeId, account, strategies),
+            claimRequirements: strategies,
         };
     }, [
         rules,
+        isEVM,
+        themeId,
+        account,
+        requireCollections,
+        requireTokens,
         currentLensProfile,
         currentFarcasterProfile,
         currentTwitterProfile,
-        requireCollection?.address,
-        requireCollection?.chainId,
-        requireCollection?.name,
         chainId,
-        themeId,
-        account,
-        isEVM,
+        requireChannel?.id,
+        requireClub?.id,
     ]);
 
     const shareFromName =

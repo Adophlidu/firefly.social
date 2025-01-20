@@ -8,6 +8,7 @@ import AddIcon from '@/assets/add.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Modal } from '@/components/Modal.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { AddCustomERC721ModalRef } from '@/modals/controls.js';
@@ -15,7 +16,7 @@ import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/Colle
 import { NonFungibleCollectionSelectPanel } from '@/modals/NonFungibleCollectionSelectModal/NoFungibleTokenSelectPanel.js';
 
 export interface NonFungibleCollectionSelectModalOpenProps {
-    selected?: Collection;
+    selected?: Collection | Collection[];
 }
 
 export type NonFungibleCollectionSelectModalCloseProps = Collection | null;
@@ -33,7 +34,16 @@ export const NonFungibleCollectionSelectModal = forwardRef<
     const isSelected = useCallback(
         (collection: Collection) => {
             if (!props?.selected) return false;
-            return collection.chainId === props.selected.chainId && collection.address === props.selected.address;
+            const selected = props.selected;
+            if (Array.isArray(selected)) {
+                return selected.some(
+                    (item) =>
+                        item.chainId === collection.chainId && isSameEthereumAddress(item.address, collection.address),
+                );
+            }
+            return (
+                collection.chainId === selected.chainId && isSameEthereumAddress(collection.address, selected.address)
+            );
         },
         [props?.selected],
     );

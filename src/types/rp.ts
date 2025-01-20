@@ -13,7 +13,7 @@ export enum UsageType {
 export interface RedPacketPayload {
     publicKey?: string;
     payloadImage: string;
-    claimRequirements: FireflyRedPacketAPI.StrategyPayload[];
+    claimRequirements: FireflyRedPacketAPI.ClaimStrategy[];
 }
 
 export interface RedPacketMetadata {

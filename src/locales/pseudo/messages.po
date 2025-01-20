@@ -763,6 +763,9 @@ msgstr ""
 msgid "Perhaps the token is a honeypot."
 msgstr ""
 
+msgid "Minimum token amount"
+msgstr ""
+
 #. placeholder {0}: mutuals[0].displayName
 msgid "Followed by {0}"
 msgstr ""
@@ -1824,6 +1827,10 @@ msgstr ""
 msgid "Show more tokens with small balances"
 msgstr ""
 
+#. placeholder {0}: status.payload.farcasterChannelId
+msgid "Member of <0>/{0}</0>"
+msgstr ""
+
 msgid "Requirements"
 msgstr ""
 
@@ -1902,6 +1909,9 @@ msgid "Failed to upvote post."
 msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
+msgstr ""
+
+msgid "NFT holder of any one below"
 msgstr ""
 
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
@@ -2226,10 +2236,10 @@ msgstr ""
 msgid "Failed to claim red packet"
 msgstr ""
 
-msgid "NFT Holder of <0/>"
+msgid "Collectible could not be found."
 msgstr ""
 
-msgid "Collectible could not be found."
+msgid "Token holder of any one below"
 msgstr ""
 
 msgid "Step 3 Select to vote"
@@ -2270,6 +2280,9 @@ msgstr ""
 
 #. placeholder {0}: formatEthereumAddress(address, 4)
 msgid "Please switch to {0}"
+msgstr ""
+
+msgid "Farcaster channel member"
 msgstr ""
 
 msgid "Non-honeypot related address."
@@ -2553,6 +2566,9 @@ msgstr ""
 msgid "The content of this account is currently unavailable"
 msgstr ""
 
+msgid "Select Club"
+msgstr ""
+
 msgid "Wallet added successfully"
 msgstr ""
 
@@ -2699,6 +2715,7 @@ msgid "Upload to change"
 msgstr ""
 
 #. placeholder {0}: collection.ownersTotal
+#. placeholder {0}: channel.followerCount
 msgid "{0} items"
 msgstr ""
 
@@ -2877,6 +2894,11 @@ msgstr ""
 msgid "<0>{0}</0><1>reposted</1>"
 msgstr ""
 
+#. placeholder {0}: x.symbol
+#. placeholder {1}: formatBalance(x.amount, x.decimals)
+msgid "<0>${0}</0><1>no less than {1}</1>"
+msgstr ""
+
 msgid "Login to enable all features"
 msgstr ""
 
@@ -3053,10 +3075,16 @@ msgstr ""
 msgid "Snapshot added to your Bookmarks"
 msgstr ""
 
+msgid "Select token to gate access"
+msgstr ""
+
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr ""
 
 msgid "Results"
+msgstr ""
+
+msgid "Lens Club member"
 msgstr ""
 
 msgid "Properties"
@@ -3633,6 +3661,9 @@ msgstr ""
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr ""
 
+msgid "Token holder"
+msgstr ""
+
 #. placeholder {0}: getMintButtonText(true, true, mintStatus)
 msgid "So sorry, we cant mint this NFT with the current status: {0}"
 msgstr ""
@@ -3697,6 +3728,9 @@ msgid "View on website"
 msgstr ""
 
 msgid "No parent post found."
+msgstr ""
+
+msgid "Select Channel"
 msgstr ""
 
 msgid "Please confirm the login with X."

@@ -1,60 +1,77 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
+import { useAppKitAccount } from '@reown/appkit/react';
 import { useRouter } from '@tanstack/react-router';
-import React, { useCallback, useContext } from 'react';
+import { Fragment, useCallback, useContext } from 'react';
 
-import AddUser from '@/assets/add-user.svg';
 import ArrowDown from '@/assets/arrow-down.svg';
-import Comment from '@/assets/comment-rp.svg';
 import InfoIcon from '@/assets/info.svg';
-import Like from '@/assets/like.svg';
-import NFTHolder from '@/assets/nft-holder.svg';
-import Repost from '@/assets/repost.svg';
+import MinusIcon from '@/assets/minus.svg';
 import { ActionButton } from '@/components/ActionButton.js';
-import { ClickableArea } from '@/components/ClickableArea.js';
 import { Image } from '@/components/Image.js';
+import { TokenIcon } from '@/components/TokenIcon.js';
+import { NetworkType, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { NonFungibleTokenCollectionSelectModalRef } from '@/modals/controls.js';
+import { formatDebankTokenToFungibleToken } from '@/helpers/formatToken.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import {
+    ChannelSelectModalRef,
+    NonFungibleTokenCollectionSelectModalRef,
+    TokenSelectorModalRef,
+} from '@/modals/controls.js';
+import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedPacketModal/common.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { RequirementType } from '@/providers/types/FireflyRedPacket.js';
 
-export const REQUIREMENT_ICON_MAP: Record<RequirementType, React.FunctionComponent<React.SVGAttributes<SVGElement>>> = {
-    [RequirementType.Follow]: AddUser,
-    [RequirementType.Like]: Like,
-    [RequirementType.Repost]: Repost,
-    [RequirementType.Comment]: Comment,
-    [RequirementType.NFTHolder]: NFTHolder,
-};
-
 export function RequirementsView() {
-    const REQUIREMENT_TITLE_MAP: Record<RequirementType, React.ReactNode> = {
-        [RequirementType.Follow]: t`Follow me`,
-        [RequirementType.Like]: t`Like`,
-        [RequirementType.Repost]: t`Repost`,
-        [RequirementType.Comment]: t`Comment`,
-        [RequirementType.NFTHolder]: t`NFT holder`,
-    };
-
     const { history } = useRouter();
-    const { rules, setRules, requireCollection, setRequireCollection } = useContext(RedPacketContext);
+    const {
+        rules,
+        setRules,
+        requireCollections,
+        setRequireCollections,
+        requireTokens,
+        setRequireTokens,
+        requireChannel,
+        setRequireChannel,
+        requireClub,
+        setRequireClub,
+    } = useContext(RedPacketContext);
 
-    const hasNFTHolder = rules.includes(RequirementType.NFTHolder);
+    const disabled = rules.includes(RequirementType.NFTHolder) && !requireCollections;
 
-    const disabled = rules.includes(RequirementType.NFTHolder) && !requireCollection;
-
-    const handleClick = useCallback(async () => {
+    const handleSelectCollection = useCallback(async () => {
         const result = await NonFungibleTokenCollectionSelectModalRef.openAndWaitForClose({
-            selected: requireCollection,
+            selected: requireCollections,
         });
         if (!result) return;
-        setRequireCollection(result);
-    }, [requireCollection, setRequireCollection]);
+        setRequireCollections((collections) => [...collections, result]);
+    }, [requireCollections, setRequireCollections]);
+
+    const account = useAppKitAccount();
+    const selectToken = async () => {
+        if (!account.address) return;
+        const picked = await TokenSelectorModalRef.openAndWaitForClose({
+            address: account.address,
+            disableBackdropClose: true,
+            networkType: NetworkType.Ethereum,
+            isSelected: (item) => {
+                const token = formatDebankTokenToFungibleToken(item);
+                return requireTokens.some(({ token: t }) => {
+                    return isSameEthereumAddress(t.address, token.address) && t.chainId === item.chainId;
+                });
+            },
+        });
+        if (picked) {
+            setRequireTokens((tokens) => [...tokens, { token: picked, quantity: '' }]);
+        }
+    };
 
     return (
         <>
-            <div className="flex flex-1 flex-col gap-y-4 bg-primaryBottom px-4 pt-2">
-                <div className="flex max-w-[568px] gap-x-[6px] rounded-[4px] bg-bg p-3">
+            <div className="flex flex-1 flex-col gap-y-4 bg-primaryBottom px-4 py-2">
+                <div className="flex gap-x-[6px] rounded-[4px] bg-bg p-3">
                     <InfoIcon width={20} height={20} />
                     <div className="flex flex-col gap-[10px] text-start text-[13px] leading-[18px]">
                         <div>
@@ -63,13 +80,13 @@ export function RequirementsView() {
                     </div>
                 </div>
 
-                <div className="mt-4 flex flex-col gap-2">
+                <div className="mt-4 flex max-w-[568px] flex-col gap-2">
                     {getEnumAsArray(RequirementType).map(({ value }) => {
                         const checked = rules.includes(value);
                         const Icon = REQUIREMENT_ICON_MAP[value];
                         const title = REQUIREMENT_TITLE_MAP[value];
 
-                        return (
+                        const item = (
                             <div className="flex items-center gap-x-2 px-3 py-1" key={value}>
                                 <Icon width={20} height={20} />
                                 <div className="flex-1 text-start font-bold">{title}</div>
@@ -78,8 +95,8 @@ export function RequirementsView() {
                                     checked={checked}
                                     className="h-5 w-5 cursor-pointer rounded-[4px] text-highlight"
                                     onChange={(event) => {
-                                        if (!checked && value === RequirementType.NFTHolder) {
-                                            setRequireCollection(undefined);
+                                        if (!event.currentTarget.checked && value === RequirementType.NFTHolder) {
+                                            setRequireCollections(EMPTY_LIST);
                                         }
 
                                         setRules(
@@ -91,39 +108,213 @@ export function RequirementsView() {
                                 />
                             </div>
                         );
+                        if (!checked) return item;
+                        if (value === RequirementType.NFTHolder) {
+                            return (
+                                <Fragment key={value}>
+                                    {item}
+                                    <div className="mx-3 flex flex-col gap-2">
+                                        {requireCollections.map((collection) => (
+                                            <div
+                                                key={`${collection.chainId}-${collection.address}`}
+                                                className="flex max-w-full gap-2 rounded-lg bg-input p-3 text-second"
+                                            >
+                                                <MinusIcon
+                                                    className="h-6 w-6 shrink-0 text-main"
+                                                    onClick={() => {
+                                                        setRequireCollections((collections) =>
+                                                            collections.filter((x) => x !== collection),
+                                                        );
+                                                    }}
+                                                />
+                                                <div className="flex min-w-0 flex-grow items-center gap-2">
+                                                    <TokenIcon
+                                                        chainId={collection.chainId}
+                                                        icon={collection.iconURL!}
+                                                        name={collection.name}
+                                                        size={24}
+                                                        disableBadge
+                                                        className="h-6 w-6 rounded-full"
+                                                    />
+                                                    {collection.name ? (
+                                                        <div className="min-w-0 flex-grow truncate text-left text-medium leading-5 text-main">
+                                                            {collection.name}
+                                                        </div>
+                                                    ) : null}
+                                                </div>
+                                                {collection.iconURL ? null : (
+                                                    <div className="items-center text-second">
+                                                        <Trans>Select token to gate access</Trans>
+                                                    </div>
+                                                )}
+                                                <ArrowDown className="h-6 w-6" />
+                                            </div>
+                                        ))}
+                                        {requireCollections.length < 3 ? (
+                                            <div
+                                                className="flex cursor-pointer justify-between gap-2 rounded-lg bg-input p-3 text-second"
+                                                onClick={handleSelectCollection}
+                                            >
+                                                <div className="items-center text-second">
+                                                    <Trans>Select NFT collection to gate access</Trans>
+                                                </div>
+                                                <ArrowDown className="ml-auto h-6 w-6" />
+                                            </div>
+                                        ) : null}
+                                    </div>
+                                </Fragment>
+                            );
+                        }
+                        if (value === RequirementType.TokenHolder) {
+                            return (
+                                <Fragment key={value}>
+                                    {item}
+                                    <div className="mx-3 flex flex-col gap-2">
+                                        {requireTokens.map(({ token, quantity }) => (
+                                            <div className="flex gap-2" key={`${token.chainId}-${token.address}`}>
+                                                <div className="flex flex-grow gap-2 rounded-lg bg-input p-3 text-second">
+                                                    <MinusIcon
+                                                        className="h-6 w-6 shrink-0 cursor-pointer text-main"
+                                                        onClick={() => {
+                                                            setRequireTokens((tokens) =>
+                                                                tokens.filter((t) => t.token !== token),
+                                                            );
+                                                        }}
+                                                    />
+                                                    <div className="flex min-w-0 items-center gap-2">
+                                                        <TokenIcon
+                                                            size={24}
+                                                            networkType={NetworkType.Ethereum}
+                                                            chainId={token.chainId}
+                                                            icon={token.logoURL}
+                                                            name={token.name}
+                                                            className="h-6 w-6 rounded-full"
+                                                        />
+                                                        {token.name ? (
+                                                            <div className="flex-grow truncate text-medium leading-5 text-main">
+                                                                {token.name}
+                                                            </div>
+                                                        ) : null}
+                                                    </div>
+                                                    <ArrowDown className="ml-auto h-6 w-6" />
+                                                </div>
+                                                <input
+                                                    className="w-[200px] shrink-0 rounded-lg border-0 bg-input p-3 text-second outline-0 focus:ring-0"
+                                                    type="number"
+                                                    placeholder={t`Minimum token amount`}
+                                                    value={quantity}
+                                                    onChange={(e) => {
+                                                        setRequireTokens((tokens) =>
+                                                            tokens.map((t) => {
+                                                                if (t.token === token) {
+                                                                    return { ...t, quantity: e.target.value };
+                                                                }
+                                                                return t;
+                                                            }),
+                                                        );
+                                                    }}
+                                                />
+                                            </div>
+                                        ))}
+                                        {requireTokens.length < 3 ? (
+                                            <div
+                                                className="flex cursor-pointer justify-between rounded-lg bg-input p-3 text-second"
+                                                onClick={selectToken}
+                                            >
+                                                <div className="items-center gap-y-2 text-second">
+                                                    <Trans>Select token to gate access</Trans>
+                                                </div>
+                                                <ArrowDown className="ml-auto h-6 w-6" />
+                                            </div>
+                                        ) : null}
+                                    </div>
+                                </Fragment>
+                            );
+                        }
+
+                        if (value === RequirementType.FarcasterChannelMember) {
+                            return (
+                                <Fragment key={value}>
+                                    {item}
+                                    <div
+                                        className="mx-3 flex max-w-full cursor-pointer gap-2 rounded-lg bg-input p-3 text-second"
+                                        onClick={async () => {
+                                            const picked = await ChannelSelectModalRef.openAndWaitForClose({
+                                                selected: requireChannel,
+                                                source: Source.Farcaster,
+                                            });
+                                            if (picked) {
+                                                setRequireChannel(picked);
+                                            }
+                                        }}
+                                    >
+                                        {requireChannel ? (
+                                            <div className="flex min-w-0 flex-grow items-center gap-2">
+                                                <Image
+                                                    className="h-6 w-6 rounded-full"
+                                                    src={requireChannel.imageUrl}
+                                                    alt={requireChannel.name}
+                                                    width={24}
+                                                    height={24}
+                                                />
+                                                <div className="min-w-0 flex-grow truncate text-left text-medium leading-5 text-main">
+                                                    {requireChannel.name}
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <div className="items-center text-second">
+                                                <Trans>Select token to gate access</Trans>
+                                            </div>
+                                        )}
+                                        <ArrowDown className="ml-auto h-6 w-6" />
+                                    </div>
+                                </Fragment>
+                            );
+                        }
+                        if (value === RequirementType.LensClubMember) {
+                            return (
+                                <Fragment key={value}>
+                                    {item}
+                                    <div
+                                        className="mx-3 flex max-w-full cursor-pointer gap-2 rounded-lg bg-input p-3 text-second"
+                                        onClick={async () => {
+                                            const picked = await ChannelSelectModalRef.openAndWaitForClose({
+                                                selected: requireClub,
+                                                source: Source.Lens,
+                                            });
+                                            if (picked) {
+                                                setRequireClub(picked);
+                                            }
+                                        }}
+                                    >
+                                        {requireClub ? (
+                                            <div className="flex min-w-0 flex-grow items-center gap-2">
+                                                <Image
+                                                    className="h-6 w-6 rounded-full"
+                                                    src={requireClub.imageUrl}
+                                                    alt={requireClub.name}
+                                                    width={24}
+                                                    height={24}
+                                                />
+                                                <div className="min-w-0 flex-grow truncate text-left text-medium leading-5 text-main">
+                                                    {requireClub.name}
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <div className="items-center text-second">
+                                                <Trans>Select token to gate access</Trans>
+                                            </div>
+                                        )}
+                                        <ArrowDown className="ml-auto h-6 w-6" />
+                                    </div>
+                                </Fragment>
+                            );
+                        }
+
+                        return item;
                     })}
                 </div>
 
-                {hasNFTHolder ? (
-                    <ClickableArea
-                        className="flex cursor-pointer items-center justify-between rounded-lg bg-bg p-3"
-                        onClick={handleClick}
-                    >
-                        {requireCollection ? (
-                            <div className="flex items-center gap-2">
-                                {requireCollection?.iconURL ? (
-                                    <Image
-                                        width={24}
-                                        height={24}
-                                        alt={requireCollection.name}
-                                        className="h-6 w-6 rounded-full"
-                                        src={requireCollection.iconURL}
-                                    />
-                                ) : null}
-                                {requireCollection?.name ? (
-                                    <div className="text-[15px] font-bold leading-[20px] text-main">
-                                        {requireCollection.name}
-                                    </div>
-                                ) : null}
-                            </div>
-                        ) : (
-                            <div className="text-[15px] leading-[20px] text-third">
-                                <Trans>Select NFT collection to gate access</Trans>
-                            </div>
-                        )}
-                        <ArrowDown width={18} height={18} />
-                    </ClickableArea>
-                ) : null}
                 <div className="flex justify-end">
                     <div
                         className="cursor-pointer text-base font-bold leading-[20px] text-highlight"

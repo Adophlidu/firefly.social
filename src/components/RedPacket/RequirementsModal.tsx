@@ -8,7 +8,11 @@ import { Fragment, useMemo } from 'react';
 import AddUser from '@/assets/add-user.svg';
 import CloseSquareIcon from '@/assets/close-square.svg';
 import Comment from '@/assets/comment-rp.svg';
+import ETHIcon from '@/assets/eth-linear.svg';
+import FarcasterIcon from '@/assets/farcaster-fill.svg';
+import LensIcon from '@/assets/lens-fill.svg';
 import Like from '@/assets/like.svg';
+import LinkIcon from '@/assets/link-square.svg';
 import LoadingIcon from '@/assets/loader2.svg';
 import Repost from '@/assets/repost.svg';
 import NFTHolder from '@/assets/rp-nft-holder.svg';
@@ -16,22 +20,22 @@ import TickSquareIcon from '@/assets/tick-square.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { Link } from '@/components/Link.js';
-import { Loading } from '@/components/Loading.js';
 import { Modal } from '@/components/Modal.js';
 import { MentionLink } from '@/components/RedPacket/MentionLink.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
+import { TokenIcon } from '@/components/TokenIcon.js';
+import { NetworkType, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatBalance } from '@/helpers/formatBalance.js';
+import { isGreaterThan } from '@/helpers/number.js';
+import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { EVMExplorerResolver, NFTScanNonFungibleTokenEVM } from '@/mask/index.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface NFTListProps {
-    nfts: Array<{
-        chainId: number;
-        contractAddress: string;
-        collectionName?: string;
-    }>;
+    nfts: FireflyRedPacketAPI.NftOwnedStrategyPayload[];
 }
 function NFTList({ nfts }: NFTListProps) {
     const queries = useQueries({
@@ -39,26 +43,41 @@ function NFTList({ nfts }: NFTListProps) {
             queryKey: ['nft-contract', nft.chainId, nft.contractAddress],
             queryFn: async () => {
                 return NFTScanNonFungibleTokenEVM.getCollectionRaw(nft.contractAddress, {
-                    chainId: nft.chainId,
+                    chainId: +nft.chainId,
                 });
             },
         })),
     });
     return (
-        <span className="mx-1">
+        <div className="mx-1 flex flex-col gap-1 text-left text-sm text-main">
             {queries.map((query, index) => {
                 const { data } = query;
                 const nft = nfts[index];
-                if (!data) return <Fragment key={nft.chainId + nft.contractAddress}>{nft.collectionName}</Fragment>;
-                const url = EVMExplorerResolver.addressLink(nft.chainId, nft.contractAddress);
-                const name = nft.collectionName || data.name || data.symbol;
-                return (
-                    <Link key={index} href={url!} target="_blank">
+                const name = nft.collectionName || data?.name || data?.symbol;
+                const url = EVMExplorerResolver.addressLink(+nft.chainId, nft.contractAddress);
+                const node = (
+                    <Fragment key={`${nft.chainId}-${nft.contractAddress}`}>
+                        <TokenIcon
+                            className="inline-block"
+                            chainId={+nft.chainId}
+                            name={name}
+                            icon={nft.icon || data?.logo_url || ''}
+                            size={18}
+                            disableBadge
+                        />
                         {name}
-                    </Link>
+                    </Fragment>
+                );
+                if (!url) return node;
+                return (
+                    <TextOverflowTooltip key={`${nft.chainId}-${nft.contractAddress}`} content={name}>
+                        <Link href={url!} target="_blank" className="inline-flex gap-1 truncate text-highlight">
+                            {node}
+                        </Link>
+                    </TextOverflowTooltip>
                 );
             })}
-        </span>
+        </div>
     );
 }
 
@@ -91,6 +110,7 @@ interface RequirementsModalProps {
     onClose: () => void;
     onVerifyAndClaim: () => void;
 }
+const StrategyType = FireflyRedPacketAPI.StrategyType;
 export function RequirementsModal({
     open,
     post,
@@ -110,13 +130,20 @@ export function RequirementsModal({
     };
 
     const requirements = useMemo(() => {
-        const orders = getEnumAsArray(FireflyRedPacketAPI.StrategyType).map((x) => x.value);
+        const orders = getEnumAsArray(StrategyType).map((x) => x.value);
         return sortBy(claimStrategyStatus, (x) => orders.indexOf(x.type as FireflyRedPacketAPI.StrategyType));
     }, [claimStrategyStatus]);
 
     return (
         <Modal open={open} onClose={onClose}>
-            <div className="flex min-h-[344px] transform flex-col bg-primaryBottom transition-all max-md:h-[100vh] max-md:w-[100vw] md:min-w-[476px] md:rounded-xl">
+            <div
+                className={classNames(
+                    'group flex min-h-[344px] transform flex-col bg-primaryBottom transition-all max-md:h-[100vh] max-md:w-[100vw] md:min-w-[476px] md:rounded-xl',
+                    {
+                        unclaimed: showResults,
+                    },
+                )}
+            >
                 <div className="flex items-center justify-center gap-2 rounded-t-xl p-4">
                     <CloseButton
                         className="h-6 w-6 shrink-0"
@@ -130,39 +157,222 @@ export function RequirementsModal({
                     <div className="relative h-6 w-6" />
                 </div>
                 <div className="flex flex-1 flex-col gap-2 rounded-b-xl bg-primaryBottom px-6 pb-4 pt-6">
-                    {isVerifying && !requirements.length ? (
-                        <Loading className="!min-h-[200px]" />
-                    ) : (
-                        requirements.flatMap((status) => {
-                            if (status.type === FireflyRedPacketAPI.StrategyType.profileFollow) {
-                                const payloads = status.payload.filter(
-                                    (x) => x.platform === resolveRedPacketPlatformType(post.source),
-                                );
+                    {requirements.flatMap((status) => {
+                        const platform = resolveRedPacketPlatformType(post.source);
+                        if (status.type === StrategyType.profileFollow) {
+                            const payloads = status.payload.filter((x) => x.platform === platform);
 
+                            return (
+                                <div
+                                    className={classNames(
+                                        'flex items-center gap-x-[10px] rounded-lg px-2 py-3 text-base leading-[18px]',
+                                        !isVerifying && status.result
+                                            ? 'group-[.unclaimed]:bg-success/10 dark:group-[.unclaimed]:bg-success/20'
+                                            : 'group-[.unclaimed]:bg-bg',
+                                    )}
+                                    key={StrategyType.profileFollow}
+                                >
+                                    <AddUser width={16} height={16} />
+                                    <span className="flex max-w-[352px] flex-1 items-center gap-1 truncate">
+                                        <Trans>Follow</Trans>
+                                        {payloads.map((x) => (
+                                            <MentionLink key={x.profileId} {...x} />
+                                        ))}
+                                    </span>
+
+                                    {showResults ? (
+                                        isVerifying && !status.result ? (
+                                            <LoadingIcon
+                                                className="animate-spin text-secondary"
+                                                width={24}
+                                                height={24}
+                                            />
+                                        ) : (
+                                            <ResultIcon result={status.result} />
+                                        )
+                                    ) : null}
+                                </div>
+                            );
+                        }
+
+                        if (status.type === StrategyType.postReaction && typeof status.result === 'object') {
+                            const conditions = status.result.conditions.filter((x) => x.key !== 'collect');
+                            const hasRepost = !!conditions.find(
+                                (x) => (x.key === 'quote' || x.key === 'repost') && x.value,
+                            );
+                            const postId = status.payload.params.find((x) => x.platform === platform)?.postId;
+                            const postUrl = postId ? resolvePostUrl(post.source, postId) : null;
+                            let hasRepostCondition = false;
+                            return conditions
+                                .reduce((arr: typeof conditions, condition) => {
+                                    if (condition.key === 'quote' || condition.key === 'repost') {
+                                        if (hasRepostCondition) return arr;
+                                        hasRepostCondition = true;
+                                        return [
+                                            ...arr,
+                                            { ...condition, key: 'repost', value: hasRepost },
+                                        ] as typeof conditions;
+                                    }
+                                    return [...arr, condition];
+                                }, [])
+                                .map((condition) => {
+                                    const Icon = IconMap[condition.key];
+
+                                    return (
+                                        <div
+                                            className={classNames(
+                                                'flex items-center gap-x-[10px] rounded-lg px-2 py-4 text-base leading-[18px]',
+                                                !isVerifying && condition.value
+                                                    ? 'group-[.unclaimed]:bg-success/10 dark:group-[.unclaimed]:bg-success/20'
+                                                    : 'group-[.unclaimed]:bg-bg',
+                                            )}
+                                            key={condition.key}
+                                        >
+                                            <Icon width={16} height={16} />
+                                            <span className="flex max-w-[352px] flex-1 items-center gap-1 truncate">
+                                                {TitleMap[condition.key]}
+                                                {postUrl ? (
+                                                    <Link href={postUrl} className="text-main">
+                                                        <LinkIcon width={16} height={16} />
+                                                    </Link>
+                                                ) : null}
+                                            </span>
+                                            {showResults ? (
+                                                isVerifying && !condition.value ? (
+                                                    <LoadingIcon
+                                                        className="animate-spin text-secondary"
+                                                        width={24}
+                                                        height={24}
+                                                    />
+                                                ) : (
+                                                    <ResultIcon result={condition.value} />
+                                                )
+                                            ) : null}
+                                        </div>
+                                    );
+                                });
+                        }
+
+                        if (status.type === StrategyType.nftOwned) {
+                            return (
+                                <div
+                                    className={classNames(
+                                        'flex items-center gap-x-[10px] rounded-lg px-2 py-4 text-base leading-[18px]',
+                                        !isVerifying && status.result.hasPassed
+                                            ? 'group-[.unclaimed]:bg-success/10 dark:group-[.unclaimed]:bg-success/20'
+                                            : 'group-[.unclaimed]:bg-bg',
+                                    )}
+                                    key={status.type}
+                                >
+                                    <NFTHolder width={16} height={16} />
+                                    <div className="flex flex-1 flex-col gap-1">
+                                        <div className="text-left text-base">
+                                            <Trans>NFT holder of any one below</Trans>
+                                        </div>
+                                        <NFTList nfts={status.payload} />
+                                    </div>
+                                    {showResults ? (
+                                        isVerifying && !status.result ? (
+                                            <LoadingIcon
+                                                className="animate-spin text-secondary"
+                                                width={24}
+                                                height={24}
+                                            />
+                                        ) : (
+                                            <ResultIcon result={status.result.hasPassed} />
+                                        )
+                                    ) : null}
+                                </div>
+                            );
+                        }
+
+                        if (status.type === StrategyType.tokens) {
+                            return (
+                                <div
+                                    className={classNames(
+                                        'flex items-center gap-x-[10px] rounded-lg px-2 py-4 text-base leading-[18px]',
+                                        !isVerifying && status.result.hasPassed
+                                            ? '.group-[.unclaimed]:bg-success/10 dark:group-[.unclaimed]:bg-success/20'
+                                            : 'group-[.unclaimed]:bg-bg',
+                                    )}
+                                    key={status.type}
+                                >
+                                    <ETHIcon width={16} height={16} />
+                                    <div className="flex flex-1 flex-col gap-1">
+                                        <div className="text-left text-base">
+                                            <Trans>Token holder of any one below</Trans>
+                                        </div>
+                                        {status.payload.map((x) => {
+                                            return (
+                                                <div
+                                                    key={`${x.chainId}-${x.contractAddress}`}
+                                                    className="flex items-center text-sm"
+                                                >
+                                                    <TokenIcon
+                                                        networkType={NetworkType.Ethereum}
+                                                        chainId={+x.chainId}
+                                                        icon={x.icon}
+                                                        name={x.name}
+                                                        size={18}
+                                                        badgeSize={7.5}
+                                                    />
+                                                    {isGreaterThan(x.amount, x.amount || 0) ? (
+                                                        <Trans>
+                                                            <span className="ml-1">${x.symbol}</span>
+                                                            <span>
+                                                                no less than {formatBalance(x.amount, x.decimals)}
+                                                            </span>
+                                                        </Trans>
+                                                    ) : (
+                                                        <span className="ml-1">${x.symbol}</span>
+                                                    )}
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                    {showResults ? (
+                                        isVerifying && !status.result ? (
+                                            <LoadingIcon
+                                                className="animate-spin text-secondary"
+                                                width={24}
+                                                height={24}
+                                            />
+                                        ) : (
+                                            <ResultIcon result={status.result.hasPassed} />
+                                        )
+                                    ) : null}
+                                </div>
+                            );
+                        }
+                        if (status.type === 'channel') {
+                            if (post.source === Source.Farcaster && status.payload.farcasterChannelId) {
                                 return (
                                     <div
                                         className={classNames(
                                             'flex items-center gap-x-[10px] rounded-lg px-2 py-4 text-base leading-[18px]',
-                                            {
-                                                'bg-bg': showResults && isVerifying,
-                                                'bg-success/10 dark:bg-success/20':
-                                                    showResults && !isVerifying && status.result,
-                                            },
+                                            !isVerifying && status.result
+                                                ? 'group-[.unclaimed]:bg-success/10 dark:group-[.unclaimed]:bg-success/20'
+                                                : 'group-[.unclaimed]:bg-bg',
                                         )}
-                                        key={FireflyRedPacketAPI.StrategyType.profileFollow}
+                                        key={status.type}
                                     >
-                                        <AddUser width={16} height={16} />
-                                        <span className="flex max-w-[352px] flex-1 items-center gap-1 truncate">
-                                            <Trans>Follow</Trans>
-                                            {payloads.map((x) => {
-                                                return <MentionLink key={x.profileId} {...x} />;
-                                            })}
-                                        </span>
-
+                                        <FarcasterIcon width={16} height={16} />
+                                        <div className="flex flex-1">
+                                            <Trans>
+                                                Member of{' '}
+                                                <Link
+                                                    href={`/channel/farcaster/${status.payload.farcasterChannelId}`}
+                                                    className="truncate text-highlight"
+                                                    target="_blank"
+                                                >
+                                                    /{status.payload.farcasterChannelId}
+                                                </Link>
+                                            </Trans>
+                                        </div>
                                         {showResults ? (
                                             isVerifying && !status.result ? (
                                                 <LoadingIcon
-                                                    className="h-6 w-6 animate-spin text-secondary"
+                                                    className="animate-spin text-secondary"
                                                     width={24}
                                                     height={24}
                                                 />
@@ -172,93 +382,30 @@ export function RequirementsModal({
                                         ) : null}
                                     </div>
                                 );
-                            }
-
-                            if (
-                                status.type === FireflyRedPacketAPI.StrategyType.postReaction &&
-                                typeof status.result === 'object'
-                            ) {
-                                const conditions = status.result.conditions.filter((x) => x.key !== 'collect');
-                                const hasRepost = !!conditions.find(
-                                    (x) => (x.key === 'quote' || x.key === 'repost') && x.value,
-                                );
-
-                                let hasRepostCondition = false;
-                                return conditions
-                                    .reduce((arr: typeof conditions, condition) => {
-                                        if (condition.key === 'quote' || condition.key === 'repost') {
-                                            if (hasRepostCondition) return arr;
-                                            hasRepostCondition = true;
-                                            return [
-                                                ...arr,
-                                                { ...condition, key: 'repost', value: hasRepost },
-                                            ] as typeof conditions;
-                                        }
-                                        return [...arr, condition];
-                                    }, [])
-                                    .map((condition) => {
-                                        const Icon = IconMap[condition.key];
-
-                                        return (
-                                            <div
-                                                className={classNames(
-                                                    'flex items-center gap-x-[10px] rounded-lg px-2 py-4 text-base leading-[18px]',
-                                                    {
-                                                        'bg-bg': showResults && isVerifying,
-                                                        'bg-success/10 dark:bg-success/20':
-                                                            showResults && !isVerifying && condition.value,
-                                                    },
-                                                )}
-                                                key={condition.key}
-                                            >
-                                                <Icon width={16} height={16} />
-                                                <span className="flex max-w-[352px] flex-1 gap-1 truncate">
-                                                    {TitleMap[condition.key]}
-                                                </span>
-                                                {showResults ? (
-                                                    isVerifying && !condition.value ? (
-                                                        <LoadingIcon
-                                                            className="animate-spin text-secondary"
-                                                            width={24}
-                                                            height={24}
-                                                        />
-                                                    ) : (
-                                                        <ResultIcon result={condition.value} />
-                                                    )
-                                                ) : null}
-                                            </div>
-                                        );
-                                    });
-                            }
-
-                            if (status.type === 'nftOwned') {
+                            } else if (post.source === Source.Lens && status.payload.lensOrbClubHandle) {
                                 return (
                                     <div
                                         className={classNames(
                                             'flex items-center gap-x-[10px] rounded-lg px-2 py-4 text-base leading-[18px]',
-                                            {
-                                                'bg-bg': showResults && isVerifying,
-                                                'bg-success/10 dark:bg-success/20':
-                                                    showResults && !isVerifying && status.result,
-                                            },
+                                            !isVerifying && status.result
+                                                ? 'group-[.unclaimed]:bg-success/10 dark:group-[.unclaimed]:bg-success/20'
+                                                : 'group-[.unclaimed]:bg-bg',
                                         )}
                                         key={status.type}
                                     >
-                                        <NFTHolder width={16} height={16} />
-
-                                        <TextOverflowTooltip
-                                            content={
-                                                <Trans>
-                                                    NFT Holder of <NFTList nfts={status.payload} />
-                                                </Trans>
-                                            }
-                                        >
-                                            <span className="flex flex-1 gap-1 truncate">
-                                                <Trans>
-                                                    NFT Holder of <NFTList nfts={status.payload} />
-                                                </Trans>
-                                            </span>
-                                        </TextOverflowTooltip>
+                                        <LensIcon width={16} height={16} />
+                                        <div className="flex flex-1">
+                                            <Trans>
+                                                Member of{' '}
+                                                <Link
+                                                    href={`/channel/lens/${status.payload.lensOrbClubHandle}`}
+                                                    className="truncate text-highlight"
+                                                    target="_blank"
+                                                >
+                                                    /{status.payload.farcasterChannelId}
+                                                </Link>
+                                            </Trans>
+                                        </div>
                                         {showResults ? (
                                             isVerifying && !status.result ? (
                                                 <LoadingIcon
@@ -273,10 +420,10 @@ export function RequirementsModal({
                                     </div>
                                 );
                             }
+                        }
 
-                            return null;
-                        })
-                    )}
+                        return null;
+                    })}
                     <div className="flex-grow" />
                     {showResults ? (
                         <ActionButton

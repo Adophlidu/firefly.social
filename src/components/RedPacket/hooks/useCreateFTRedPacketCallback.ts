@@ -10,7 +10,7 @@ import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js'
 export function useCreateFTRedPacketCallback(
     shareFromName: string,
     publicKey: string,
-    claimRequirements?: FireflyRedPacketAPI.StrategyPayload[],
+    claimRequirements?: FireflyRedPacketAPI.ClaimStrategy[],
 ) {
     const { networkType } = useContext(RedPacketContext);
     const createEvmRedPacket = useCreateRedPacketCallbackEVM(shareFromName, publicKey, claimRequirements);

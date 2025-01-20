@@ -12,6 +12,9 @@ export enum RequirementType {
     Repost = 'Repost',
     Comment = 'Comment',
     NFTHolder = 'NFTHolder',
+    TokenHolder = 'TokenHolder',
+    FarcasterChannelMember = 'FarcasterChannelMember',
+    LensClubMember = 'LensClubMember',
 }
 
 export enum RedPacketStatus {
@@ -87,12 +90,31 @@ export namespace FireflyRedPacketAPI {
         profileFollow = 'profileFollow',
         postReaction = 'postReaction',
         nftOwned = 'nftOwned',
+        tokens = 'tokens',
+        channel = 'channel',
     }
 
-    export interface StrategyPayload {
-        type: StrategyType;
-        payload: Array<ProfileFollowStrategyPayload | NftOwnedStrategyPayload> | PostReactionStrategyPayload;
-    }
+    export type ClaimStrategy =
+        | {
+              type: StrategyType.profileFollow;
+              payload: ProfileFollowStrategyPayload[];
+          }
+        | {
+              type: StrategyType.postReaction;
+              payload: PostReactionStrategyPayload;
+          }
+        | {
+              type: StrategyType.nftOwned;
+              payload: NftOwnedStrategyPayload[];
+          }
+        | {
+              type: StrategyType.tokens;
+              payload: TokensStrategyPayload[];
+          }
+        | {
+              type: StrategyType.channel;
+              payload: ChannelStrategyPayload;
+          };
 
     export interface ProfileFollowStrategyPayload {
         platform: PlatformType;
@@ -114,8 +136,26 @@ export namespace FireflyRedPacketAPI {
     }
 
     export interface NftOwnedStrategyPayload {
-        chainId: number;
+        /** instead of number, it's string */
+        chainId: string;
         contractAddress: string;
+        collectionName: string;
+        icon?: string;
+    }
+    export interface TokensStrategyPayload {
+        /** instead of number, it's string */
+        chainId: string;
+        contractAddress: string;
+        name: string;
+        symbol: string;
+        decimals: number;
+        amount: string;
+        icon?: string;
+    }
+
+    export interface ChannelStrategyPayload {
+        farcasterChannelId?: string;
+        lensOrbClubHandle?: string;
     }
 
     export interface PostReaction {
@@ -158,7 +198,7 @@ export namespace FireflyRedPacketAPI {
         log_idx: number;
         chain_id: string;
         redpacket_status: RedPacketStatus;
-        claim_strategy: StrategyPayload[];
+        claim_strategy: ClaimStrategy[];
         theme_id: string;
         share_from: string;
         networkType?: NetworkType;
@@ -318,23 +358,15 @@ export namespace FireflyRedPacketAPI {
         };
     };
     export type PostReactionKind = 'like' | 'repost' | 'quote' | 'comment' | 'collect';
+
     export type ClaimStrategyStatus =
         | {
-              type: 'profileFollow';
+              type: StrategyType.profileFollow;
               payload: Array<{ platform: PlatformType; profileId: string; handle: string }>;
               result: boolean;
           }
         | {
-              type: 'nftOwned';
-              payload: Array<{
-                  chainId: number;
-                  contractAddress: HexString;
-                  collectionName: string;
-              }>;
-              result: boolean;
-          }
-        | {
-              type: 'postReaction';
+              type: StrategyType.postReaction;
               payload: {
                   reactions: PostReactionKind[];
                   params: Array<
@@ -352,6 +384,39 @@ export namespace FireflyRedPacketAPI {
                         hasPassed: boolean;
                     }
                   | boolean;
+          }
+        | {
+              type: StrategyType.nftOwned;
+              payload: NftOwnedStrategyPayload[];
+              result: {
+                  hasPassed: boolean;
+                  nfts: {
+                      /** instead of number, it's string */
+                      chainId: string;
+                      contractAddress: HexString;
+                      tokenIds: string[];
+                  };
+              };
+          }
+        | {
+              type: StrategyType.tokens;
+              payload: TokensStrategyPayload[];
+              result: {
+                  hasPassed: boolean;
+                  tokens: {
+                      hasPassed: boolean;
+                      /** instead of number, it's string */
+                      chainId: string;
+                      contractAddress: HexString;
+                      decimals: number;
+                      amount: string;
+                  };
+              };
+          }
+        | {
+              type: StrategyType.channel;
+              payload: ChannelStrategyPayload;
+              result: boolean;
           };
 
     export type CheckClaimStrategyStatusResponse = Response<{
