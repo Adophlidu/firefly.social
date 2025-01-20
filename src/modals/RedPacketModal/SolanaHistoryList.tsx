@@ -10,7 +10,7 @@ interface SolanaHistoryListProps {
     platform?: FireflyRedPacketAPI.SourceType;
 }
 
-export const SolanaHistoryList = memo<SolanaHistoryListProps>(function EvmHistoryList({
+export const SolanaHistoryList = memo<SolanaHistoryListProps>(function SolanaHistoryList({
     address,
     historyType,
     platform,

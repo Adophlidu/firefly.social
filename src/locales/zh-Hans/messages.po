@@ -478,10 +478,6 @@ msgstr "🙌 刚刚在 ‘{1}’上投了 ‘{0}’ 票"
 msgid "Stealing attack."
 msgstr "窃取攻击。"
 
-#. placeholder {0}: payload.token?.symbol
-msgid "Claimed lucky drop with {amount} {0} successfully"
-msgstr "成功认领 红包 {amount}{0}"
-
 msgid "Failed to like the comment."
 msgstr "点赞失败。"
 
@@ -1417,6 +1413,10 @@ msgstr "提交反馈"
 
 msgid "More details"
 msgstr "详细信息"
+
+#. placeholder {0}: result.amount
+msgid "Claimed lucky drop with {0} {symbol} successfully"
+msgstr ""
 
 msgid "No voting power"
 msgstr "没有投票权"

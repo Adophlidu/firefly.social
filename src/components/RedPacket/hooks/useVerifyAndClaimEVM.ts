@@ -11,12 +11,9 @@ import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStr
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import type { SocialSource } from '@/constants/enum.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { sharePostAfterClaimed } from '@/helpers/sharePostAfterClaimed.js';
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';
-import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
-import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -30,21 +27,10 @@ export function useVerifyAndClaimEVM(payload: RedPacketJSONPayload, source: Soci
         const { data } = await recheckClaimStatus();
         if (!data?.data.canClaim) {
             enqueueErrorMessage(t`Oops... Not all the requirements have been met`);
-            return false;
+            return { canClaim: false };
         }
-
-        const currentClaimProfile = await getCurrentClaimProfile(source);
 
         const hash = await claimCallback();
-        if (hash && currentClaimProfile?.profileId && currentClaimProfile.handle) {
-            await FireflyRedPacketEndpoint.finishClaiming(
-                payload.rpid,
-                currentClaimProfile.platform,
-                currentClaimProfile.profileId,
-                currentClaimProfile.handle,
-                hash,
-            );
-        }
 
         await Promise.allSettled([
             queryClient.refetchQueries({
@@ -67,21 +53,8 @@ export function useVerifyAndClaimEVM(payload: RedPacketJSONPayload, source: Soci
         const claimed_amount = last(availability) as bigint;
         const amount = formatBalance(claimed_amount.toString(), payload.token?.decimals, { significant: 2 });
 
-        sharePostAfterClaimed(post, amount, payload.token?.symbol);
-        enqueueSuccessMessage(t`Claimed lucky drop with ${amount} ${payload.token?.symbol} successfully`);
-
-        return true;
-    }, [
-        post,
-        account,
-        claimCallback,
-        payload.rpid,
-        payload.token?.decimals,
-        payload.token?.symbol,
-        payload.chainId,
-        recheckClaimStatus,
-        source,
-    ]);
+        return { canClaim: true, amount, tx: hash };
+    }, [account, claimCallback, payload.rpid, payload.token?.decimals, payload.chainId, recheckClaimStatus, source]);
 
     return [
         {

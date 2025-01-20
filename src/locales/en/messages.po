@@ -473,10 +473,6 @@ msgstr "🙌  Just voted “{0}” on “{1}”"
 msgid "Stealing attack."
 msgstr "Stealing attack."
 
-#. placeholder {0}: payload.token?.symbol
-msgid "Claimed lucky drop with {amount} {0} successfully"
-msgstr "Claimed lucky drop with {amount} {0} successfully"
-
 msgid "Failed to like the comment."
 msgstr "Failed to like the comment."
 
@@ -1412,6 +1408,10 @@ msgstr "Send Feedback"
 
 msgid "More details"
 msgstr "More details"
+
+#. placeholder {0}: result.amount
+msgid "Claimed lucky drop with {0} {symbol} successfully"
+msgstr "Claimed lucky drop with {0} {symbol} successfully"
 
 msgid "No voting power"
 msgstr "No voting power"
