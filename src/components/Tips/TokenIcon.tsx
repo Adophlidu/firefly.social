@@ -14,6 +14,7 @@ export function TokenIcon({ token, tokenSize = 30, chainSize = 12, disableChainI
         <span className="relative">
             {token.logo_url ? (
                 <Image
+                    unoptimized
                     className="rounded-full"
                     alt={token.name}
                     src={token.logo_url}
@@ -38,6 +39,7 @@ export function TokenIcon({ token, tokenSize = 30, chainSize = 12, disableChainI
                 >
                     {token.chainLogoUrl ? (
                         <Image
+                            unoptimized
                             className="rounded-full"
                             src={token.chainLogoUrl}
                             width={chainSize}
