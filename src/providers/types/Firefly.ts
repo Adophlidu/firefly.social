@@ -829,6 +829,7 @@ export type AllConnections = {
         Array<{
             address: string;
             twitters: TwitterConnection[];
+            handle: string;
         }>
     >;
     wallet: Record<'connected' | 'unconnected', WalletConnection[]>;

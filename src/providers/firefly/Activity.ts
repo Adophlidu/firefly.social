@@ -2,7 +2,8 @@ import { IS_IOS } from '@lexical/utils';
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource, Source, STATUS, WalletSource } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -41,10 +42,9 @@ class FireflyActivity implements Provider {
             premiumAddress?: string;
         },
     ) {
-        const params =
-            name === 'pengu'
-                ? { name, solAddress: address || '0x', evmAddress: options?.premiumAddress || '0x' }
-                : { name, address, ...options };
+        const params = ['trump', 'pengu'].includes(name)
+            ? { name, solAddress: address || '0x', evmAddress: options?.premiumAddress || '0x' }
+            : { name, address, ...options };
         const url = urlcat(settings.FIREFLY_ROOT_URL, `/v1/activity/check/:name`, params);
         const response = await fireflySessionHolder.fetchWithSession<CheckResponse>(url);
         return resolveFireflyResponseData(response);
@@ -131,6 +131,11 @@ class FireflyActivity implements Provider {
             method: 'GET',
         });
         const connections = resolveFireflyResponseData(response);
+        if (env.external.NEXT_PUBLIC_ACTIVITY_PARTICLE === STATUS.Disabled) {
+            connections.wallet.connected = connections.wallet.connected.filter(
+                (x) => x.source !== WalletSource.Particle,
+            );
+        }
         return {
             connected: formatWalletConnections(connections.wallet.connected, connections),
             related: formatWalletConnections(connections.wallet.unconnected, connections),

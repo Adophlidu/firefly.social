@@ -56,27 +56,28 @@ interface ExcludeReplyUserListProps {
 }
 
 export function ExcludeReplyUserList({ post, profiles, excluded = [], onClickProfile }: ExcludeReplyUserListProps) {
+    const otherProfiles = profiles.filter((profile) => !isSameProfile(profile, post.author));
     return (
         <div className="flex flex-col gap-2">
             <h4 className="py-1 text-medium font-bold leading-5">
                 <Trans>Replying to</Trans>
             </h4>
             <ExcludeReplyUserListItem profile={post.author} checked disabled />
-            <h4 className="py-1 text-medium font-bold leading-5">
-                <Trans>Others in the conversation</Trans>
-            </h4>
-            {profiles
-                .filter((profile) => !isSameProfile(profile, post.author))
-                .map((profile: Profile) => {
-                    return (
-                        <ExcludeReplyUserListItem
-                            profile={profile}
-                            key={profile.profileId}
-                            onClickProfile={onClickProfile}
-                            checked={!excluded.includes(profile.profileId)}
-                        />
-                    );
-                })}
+            {otherProfiles.length > 0 ? (
+                <h4 className="py-1 text-medium font-bold leading-5">
+                    <Trans>Others in the conversation</Trans>
+                </h4>
+            ) : null}
+            {otherProfiles.map((profile: Profile) => {
+                return (
+                    <ExcludeReplyUserListItem
+                        profile={profile}
+                        key={profile.profileId}
+                        onClickProfile={onClickProfile}
+                        checked={!excluded.includes(profile.profileId)}
+                    />
+                );
+            })}
         </div>
     );
 }

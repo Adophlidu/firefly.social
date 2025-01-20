@@ -5,14 +5,25 @@ import { first } from 'lodash-es';
 import { useAsyncRetry } from 'react-use';
 
 import { RedPacketCard } from '@/components/RedPacket/RedPacketCard.js';
+import { STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
 import { RedPacketMetadataReader } from '@/helpers/renderWithRedPacketMetadata.js';
+import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { decryptPayload } from '@/services/decryptPayload.js';
 
 interface Props {
     post: Post;
     payloads?: EncryptedPayload[];
+}
+
+function isValidPayload(payload: RedPacketJSONPayload) {
+    if (payload.rpid.startsWith('solana-') && env.external.NEXT_PUBLIC_SOLANA_RP === STATUS.Disabled) {
+        return false;
+    }
+
+    return true;
 }
 
 export function RedPacketInspector({ payloads, post }: Props) {
@@ -46,6 +57,8 @@ export function RedPacketInspector({ payloads, post }: Props) {
     const result = RedPacketMetadataReader(meta);
     if (result.isOk()) {
         const payload = result.unwrap();
+        if (!isValidPayload(payload)) return null;
+
         return <RedPacketCard payload={payload} post={post} />;
     }
 

@@ -5,6 +5,7 @@ import { ActivityElex24Tasks } from '@/components/Activity/ActivityTasks/Activit
 import { ActivityFrensgivingTasks } from '@/components/Activity/ActivityTasks/ActivityFrensgivingTasks.js';
 import { ActivityHlblTasks } from '@/components/Activity/ActivityTasks/ActivityHlblTasks.js';
 import { ActivityPenguTasks } from '@/components/Activity/ActivityTasks/ActivityPenguTasks.js';
+import { ActivityTrumpTasks } from '@/components/Activity/ActivityTasks/ActivityTrumpTasks.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
 interface Props {
@@ -24,6 +25,12 @@ export function ActivityTasks({ name, data }: Props) {
             return (
                 <ActivityMobileOnly>
                     <ActivityPenguTasks data={data} />
+                </ActivityMobileOnly>
+            );
+        case 'trump':
+            return (
+                <ActivityMobileOnly>
+                    <ActivityTrumpTasks data={data} />
                 </ActivityMobileOnly>
             );
         default:

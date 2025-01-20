@@ -81,6 +81,15 @@ export const PUDGY_PENGUINS_TWITTER_PROFILE: Profile = {
     score: 0.07142878,
 };
 
+export const TRUMP_TWITTER_PROFILE: Profile = {
+    platform_id: '25073877',
+    platform: FireflyPlatform.Twitter,
+    handle: 'realDonaldTrump',
+    name: 'realDonaldTrump',
+    hit: true,
+    score: 0.07142878,
+};
+
 export const PUDGY_PENGUINS_MENTION = {
     tag: CHAR_TAG.MENTION,
     visible: true,

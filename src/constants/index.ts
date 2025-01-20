@@ -55,6 +55,7 @@ export const SNAPSHOT_RELAY_URL = 'https://relayer.snapshot.org';
 export const SNAPSHOT_IPFS_GATEWAY_URL = 'https://snapshot.4everland.link/ipfs/';
 export const SIMPLE_HASH_URL = 'https://simplehash-proxy.r2d2.to';
 export const ORB_CLUB_URL = 'https://us-central1-orbapp.cloudfunctions.net';
+export const FIREFLY_TELEGRAM_URL = 'https://t.me/fireflyapp';
 
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
 export const ADVERTISEMENT_JSON_URL_DEV = 'https://media.firefly.land/advertisement/web-dev.json';
@@ -142,6 +143,7 @@ export const SORTED_MEDIA_SOURCES: MediaSource[] = [
 ];
 export const SORTED_EXPLORE_SOURCES: ExploreSource[] = [Source.Farcaster, Source.Lens];
 export const SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES = [Source.Farcaster];
+export const EXCLUDE_REPLY_SOURCES = [Source.Twitter];
 
 export const DEFAULT_SOCIAL_SOURCE = Source.Posts;
 export const DEFAULT_BOOKMARK_SOURCE = Source.Farcaster;

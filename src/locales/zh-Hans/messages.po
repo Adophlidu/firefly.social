@@ -76,6 +76,9 @@ msgstr "使用 Warpcast 连接"
 msgid "You have been detected as a loyal Farcaster user"
 msgstr "您被检测到为 Farcaster 忠实用户"
 
+msgid "Read this <0>disclaimer</0> before participation. All rights reserved by Firefly."
+msgstr ""
+
 msgid "Edit Image"
 msgstr "编辑图片"
 
@@ -132,6 +135,9 @@ msgid "Failed to collect article."
 msgstr "收集文章失败。"
 
 msgid "Token is required."
+msgstr ""
+
+msgid "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
 msgstr ""
 
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
@@ -582,6 +588,10 @@ msgstr "在 {0} 上关注 @{handle} 失败。"
 msgid "Bookmarks"
 msgstr "收藏"
 
+#. placeholder {0}: followTrumpTwitterProfile.handle
+msgid "Followed <0>@{0}</0> on X before Jan 18, 2025"
+msgstr ""
+
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
 #. placeholder {2}: mutualCount - 2
@@ -610,6 +620,9 @@ msgstr "举报 @{0} 失败"
 
 msgid "Restricted approval."
 msgstr "限制性批准。"
+
+msgid "Read this <0>disclaimer</0> before participation. For any inquiries, please <1>contact us</1>. All rights reserved by Firefly."
+msgstr ""
 
 msgid "Report submitted"
 msgstr "举报已经提交"
@@ -709,6 +722,9 @@ msgstr "探索"
 msgid "Only up to 2 images can be chosen."
 msgstr "至多可以选择 2 张图片。"
 
+msgid "submit a wallet to receive $TRUMP"
+msgstr ""
+
 msgid "Follow to Collect"
 msgstr "关注并且收集"
 
@@ -795,6 +811,9 @@ msgstr "发现疑似恶意地址。"
 
 msgid "Honeypot related address found."
 msgstr "可能是钓鱼地址。"
+
+msgid "All rights reserved by Firefly. For any inquiries, please <0>contact us.</0>"
+msgstr ""
 
 #. placeholder {0}: session.type
 msgid "Your {0} account is now connected"
@@ -973,6 +992,9 @@ msgstr "上传失败。图片格式不支持"
 #. placeholder {0}: formatFileSize(maxImageSize)
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "上传失败。图片超过最大限制 {0}"
+
+msgid "Done"
+msgstr ""
 
 msgid "Recasts"
 msgstr "转帖"
@@ -1605,6 +1627,9 @@ msgstr "此通证不是由其声明的团队发布的。某些骗子将创建一
 msgid "Search post"
 msgstr "搜索帖子"
 
+msgid "Eligible for Premium?"
+msgstr ""
+
 msgid "Set"
 msgstr "设置"
 
@@ -2111,6 +2136,14 @@ msgstr "没有匹配到频道"
 #. placeholder {0}: failedPlatforms.length
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。请点击重试。}}"
+
+msgid ""
+"Just joined this exclusive raffle event \"🇺🇸 Winning with $TRUMP 🇺🇸\" from {fireflyMention}\n"
+"\n"
+"Check your eligibility and participate here {shareUrl}\n"
+"\n"
+"#TRUMP #FireflySocial"
+msgstr ""
 
 msgid "Cybercrime found."
 msgstr "发现网络犯罪。"
@@ -2887,6 +2920,9 @@ msgstr "领取通证失败"
 msgid "Top 40 Projects powered by Rootdata"
 msgstr "由 Rootdata 提供支持的前 40 个项目"
 
+msgid "Disclaimer"
+msgstr ""
+
 msgid "Notifications"
 msgstr "通知"
 
@@ -3415,6 +3451,9 @@ msgstr "帖子已经添加到您的收藏中"
 msgid "Preview"
 msgstr "预览"
 
+msgid "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
+msgstr ""
+
 msgid "Cancel mirror successfully"
 msgstr "取消转发成功"
 
@@ -3634,6 +3673,9 @@ msgstr "{hours, plural, one {1 小时剩余} other {{hours} 小时剩余}}"
 
 msgid "Language"
 msgstr "语言"
+
+msgid "Meet any of the following to unlock premium status and get more $Trump:"
+msgstr ""
 
 msgid "Address on Watching Lists"
 msgstr "已关注地址列表"

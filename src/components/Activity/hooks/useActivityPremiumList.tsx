@@ -129,6 +129,30 @@ export function useActivityPremiumList(source: SocialSource) {
                     verified: data?.nft?.ownPudgy || data?.nft?.ownPenguPins,
                 },
             ];
+        case 'trump':
+            return [
+                {
+                    label: <Trans>Your X account holds Premium status</Trans>,
+                    verified: data?.x.valid && data?.x?.level === Level.Lv2,
+                },
+                {
+                    label: (
+                        <p>
+                            <Trans>
+                                You are holder of{' '}
+                                <Link
+                                    href={resolveNftUrl(ChainId.Base, '0x70553bbec6f7d2c5e6e1bc02f821f6863546d11e')}
+                                    className="inline text-highlight"
+                                >
+                                    Presidential Election 2024
+                                </Link>{' '}
+                                NFT and voted Trump
+                            </Trans>
+                        </p>
+                    ),
+                    verified: data?.nft?.valid && data?.nft?.level === Level.Lv2,
+                },
+            ];
         default:
             return [];
     }

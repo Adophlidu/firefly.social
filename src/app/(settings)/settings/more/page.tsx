@@ -14,6 +14,7 @@ import MaskRoundIcon from '@/assets/mask.round.svg';
 import SecurityIcon from '@/assets/security.svg';
 import TelegramIcon from '@/assets/telegram.svg';
 import { XIcon } from '@/components/XIcon.js';
+import { FIREFLY_TELEGRAM_URL } from '@/constants/index.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 
 function SmallXIcon() {
@@ -68,7 +69,7 @@ export default function More() {
                     },
                     {
                         title: <Trans>Join our Telegram</Trans>,
-                        link: 'https://t.me/fireflyapp',
+                        link: FIREFLY_TELEGRAM_URL,
                         logo: TelegramIcon,
                     },
                 ].map(({ title, link, logo }) => (

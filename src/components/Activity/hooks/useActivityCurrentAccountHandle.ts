@@ -9,7 +9,7 @@ export function useActivityCurrentAccountHandle(source: SocialSource) {
     const { data } = useActivityConnections();
     switch (source) {
         case Source.Twitter:
-            return data?.rawConnections.twitter.connected[0]?.twitters?.[0].handle;
+            return data?.rawConnections.twitter.connected[0]?.handle;
         case Source.Lens:
             return data?.rawConnections.lens.connected[0]?.lens?.[0].fullHandle;
         case Source.Farcaster:

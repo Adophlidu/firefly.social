@@ -11,6 +11,7 @@ interface PopoverProps {
     enableBackdrop?: boolean;
     enableOverflow?: boolean;
     dialogPanelClassName?: string;
+    hiddenTopLine?: boolean;
 }
 
 export function Popover({
@@ -20,6 +21,7 @@ export function Popover({
     enableBackdrop = true,
     enableOverflow = true,
     dialogPanelClassName,
+    hiddenTopLine = false,
 }: PopoverProps) {
     const { setRef } = useDisableScrollPassive();
 
@@ -60,12 +62,17 @@ export function Popover({
                         )}
                         style={{ overflow: !enableOverflow ? 'unset' : 'hidden' }}
                     >
-                        <div className="absolute inset-x-0 top-0.5 z-10 m-auto flex w-20 cursor-pointer justify-center p-2">
-                            <div className="h-1 w-12 rounded-full bg-main" />
-                        </div>
+                        {!hiddenTopLine ? (
+                            <div className="absolute inset-x-0 top-0.5 z-10 m-auto flex w-20 cursor-pointer justify-center p-2">
+                                <div className="h-1 w-12 rounded-full bg-main" />
+                            </div>
+                        ) : null}
                         <div
                             className="no-scrollbar flex max-h-[50vh] w-full flex-shrink-0 flex-col overflow-y-auto"
-                            style={{ overflow: !enableOverflow ? 'unset' : undefined }}
+                            style={{
+                                overflow: !enableOverflow ? 'unset' : undefined,
+                                maxHeight: !enableOverflow ? 'unset' : undefined,
+                            }}
                         >
                             {children}
                         </div>

@@ -3,6 +3,7 @@ import { forwardRef, type HTMLProps, type PropsWithChildren } from 'react';
 import urlcat from 'urlcat';
 
 import { Link as RawLink } from '@/components/Link.js';
+import { IS_ANDROID } from '@/constants/bowser.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { SupportedMethod } from '@/types/bridge.js';
 
@@ -17,13 +18,15 @@ export const Link = forwardRef<
             data-disable-nprogress
             onClick={(event) => {
                 if (fireflyBridgeProvider.supported) {
-                    event.preventDefault();
                     const url = !props.href.startsWith('https')
                         ? urlcat(window.location.origin, props.href)
                         : props.href;
-                    fireflyBridgeProvider.request(SupportedMethod.OPEN_URL, {
-                        url,
-                    });
+                    if (!IS_ANDROID) {
+                        event.preventDefault();
+                        fireflyBridgeProvider.request(SupportedMethod.OPEN_URL, {
+                            url,
+                        });
+                    }
                 } else {
                     props.onClick?.(event);
                 }

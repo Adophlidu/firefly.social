@@ -21,6 +21,7 @@ export interface X {
     valid: boolean;
     level: Level;
     followingPudge?: boolean;
+    followingTrump?: boolean;
 }
 
 export interface Farcaster {

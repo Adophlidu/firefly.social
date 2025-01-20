@@ -71,6 +71,9 @@ msgstr ""
 msgid "You have been detected as a loyal Farcaster user"
 msgstr ""
 
+msgid "Read this <0>disclaimer</0> before participation. All rights reserved by Firefly."
+msgstr ""
+
 msgid "Edit Image"
 msgstr ""
 
@@ -127,6 +130,9 @@ msgid "Failed to collect article."
 msgstr ""
 
 msgid "Token is required."
+msgstr ""
+
+msgid "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
 msgstr ""
 
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
@@ -577,6 +583,10 @@ msgstr ""
 msgid "Bookmarks"
 msgstr ""
 
+#. placeholder {0}: followTrumpTwitterProfile.handle
+msgid "Followed <0>@{0}</0> on X before Jan 18, 2025"
+msgstr ""
+
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
 #. placeholder {2}: mutualCount - 2
@@ -604,6 +614,9 @@ msgid "Failed to report @{0}"
 msgstr ""
 
 msgid "Restricted approval."
+msgstr ""
+
+msgid "Read this <0>disclaimer</0> before participation. For any inquiries, please <1>contact us</1>. All rights reserved by Firefly."
 msgstr ""
 
 msgid "Report submitted"
@@ -704,6 +717,9 @@ msgstr ""
 msgid "Only up to 2 images can be chosen."
 msgstr ""
 
+msgid "submit a wallet to receive $TRUMP"
+msgstr ""
+
 msgid "Follow to Collect"
 msgstr ""
 
@@ -789,6 +805,9 @@ msgid "Suspected malicious address."
 msgstr ""
 
 msgid "Honeypot related address found."
+msgstr ""
+
+msgid "All rights reserved by Firefly. For any inquiries, please <0>contact us.</0>"
 msgstr ""
 
 #. placeholder {0}: session.type
@@ -967,6 +986,9 @@ msgstr ""
 
 #. placeholder {0}: formatFileSize(maxImageSize)
 msgid "Failed to upload. Image size exceeds {0}"
+msgstr ""
+
+msgid "Done"
 msgstr ""
 
 msgid "Recasts"
@@ -1600,6 +1622,9 @@ msgstr ""
 msgid "Search post"
 msgstr ""
 
+msgid "Eligible for Premium?"
+msgstr ""
+
 msgid "Set"
 msgstr ""
 
@@ -2100,6 +2125,14 @@ msgstr ""
 
 #. placeholder {0}: failedPlatforms.length
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+msgstr ""
+
+msgid ""
+"Just joined this exclusive raffle event \"🇺🇸 Winning with $TRUMP 🇺🇸\" from {fireflyMention}\n"
+"\n"
+"Check your eligibility and participate here {shareUrl}\n"
+"\n"
+"#TRUMP #FireflySocial"
 msgstr ""
 
 msgid "Cybercrime found."
@@ -2877,6 +2910,9 @@ msgstr ""
 msgid "Top 40 Projects powered by Rootdata"
 msgstr ""
 
+msgid "Disclaimer"
+msgstr ""
+
 msgid "Notifications"
 msgstr ""
 
@@ -3405,6 +3441,9 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
+msgid "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
+msgstr ""
+
 msgid "Cancel mirror successfully"
 msgstr ""
 
@@ -3623,6 +3662,9 @@ msgid "{hours, plural, one {1 hour left} other {{hours} hours left}}"
 msgstr ""
 
 msgid "Language"
+msgstr ""
+
+msgid "Meet any of the following to unlock premium status and get more $Trump:"
 msgstr ""
 
 msgid "Address on Watching Lists"
