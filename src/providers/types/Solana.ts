@@ -51,3 +51,12 @@ export interface SplToken {
         website: string;
     };
 }
+
+export interface JupToken extends SplToken {
+    daily_volume: number;
+    created_at: string;
+    freeze_authority: string;
+    mint_authority: string;
+    permanent_delegate: string;
+    minted_at: string;
+}
