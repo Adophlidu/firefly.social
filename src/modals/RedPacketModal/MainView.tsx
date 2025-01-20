@@ -298,14 +298,18 @@ export function MainView() {
                 {gasFee && !isZero(gasFee) ? (
                     <div className="flex justify-between">
                         <label className="text-[14px] font-bold leading-[18px]">
-                            <Trans>Network cost</Trans>
+                            {networkType === NetworkType.Ethereum ? (
+                                <Trans>Network cost</Trans>
+                            ) : (
+                                <Trans>Estimated network fee</Trans>
+                            )}
                         </label>
                         <div className="flex gap-x-1 text-[14px] font-bold leading-[18px] text-secondary">
                             <span>
                                 {formatBalance(gasFee, nativeToken.decimals)} {nativeToken.symbol}
                             </span>
                             <span>≈</span>
-                            <span>{isLessThan(cost, 0.01) ? '< $0.01' : cost.toFixed(2)}</span>
+                            <span>{isLessThan(cost, 0.01) ? '< $0.01' : `$${cost.toFixed(2)}`}</span>
                         </div>
                     </div>
                 ) : null}

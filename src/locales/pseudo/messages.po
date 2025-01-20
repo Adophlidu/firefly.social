@@ -2895,6 +2895,9 @@ msgstr ""
 msgid "Connect"
 msgstr ""
 
+msgid "Estimated network fee"
+msgstr ""
+
 msgid "View transaction on explorer"
 msgstr ""
 

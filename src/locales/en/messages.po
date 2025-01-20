@@ -2900,6 +2900,9 @@ msgstr "Posting..."
 msgid "Connect"
 msgstr "Connect"
 
+msgid "Estimated network fee"
+msgstr "Estimated network fee"
+
 msgid "View transaction on explorer"
 msgstr "View transaction on explorer"
 

@@ -2900,6 +2900,9 @@ msgstr "正在發布"
 msgid "Connect"
 msgstr "連接"
 
+msgid "Estimated network fee"
+msgstr ""
+
 msgid "View transaction on explorer"
 msgstr ""
 
