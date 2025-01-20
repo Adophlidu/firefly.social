@@ -19,6 +19,7 @@ import { Link } from '@/components/Link.js';
 import { Loading } from '@/components/Loading.js';
 import { Modal } from '@/components/Modal.js';
 import { MentionLink } from '@/components/RedPacket/MentionLink.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { EVMExplorerResolver, NFTScanNonFungibleTokenEVM } from '@/mask/index.js';
@@ -151,7 +152,7 @@ export function RequirementsModal({
                                         key={FireflyRedPacketAPI.StrategyType.profileFollow}
                                     >
                                         <AddUser width={16} height={16} />
-                                        <span className="flex flex-1 gap-1 truncate">
+                                        <span className="flex max-w-[352px] flex-1 items-center gap-1 truncate">
                                             <Trans>Follow</Trans>
                                             {payloads.map((x) => {
                                                 return <MentionLink key={x.profileId} {...x} />;
@@ -161,7 +162,7 @@ export function RequirementsModal({
                                         {showResults ? (
                                             isVerifying && !status.result ? (
                                                 <LoadingIcon
-                                                    className="animate-spin text-secondary"
+                                                    className="h-6 w-6 animate-spin text-secondary"
                                                     width={24}
                                                     height={24}
                                                 />
@@ -211,7 +212,7 @@ export function RequirementsModal({
                                                 key={condition.key}
                                             >
                                                 <Icon width={16} height={16} />
-                                                <span className="flex flex-1 gap-1 truncate">
+                                                <span className="flex max-w-[352px] flex-1 gap-1 truncate">
                                                     {TitleMap[condition.key]}
                                                 </span>
                                                 {showResults ? (
@@ -244,11 +245,20 @@ export function RequirementsModal({
                                         key={status.type}
                                     >
                                         <NFTHolder width={16} height={16} />
-                                        <span className="flex flex-1 gap-1 truncate">
-                                            <Trans>
-                                                NFT Holder of <NFTList nfts={status.payload} />
-                                            </Trans>
-                                        </span>
+
+                                        <TextOverflowTooltip
+                                            content={
+                                                <Trans>
+                                                    NFT Holder of <NFTList nfts={status.payload} />
+                                                </Trans>
+                                            }
+                                        >
+                                            <span className="flex flex-1 gap-1 truncate">
+                                                <Trans>
+                                                    NFT Holder of <NFTList nfts={status.payload} />
+                                                </Trans>
+                                            </span>
+                                        </TextOverflowTooltip>
                                         {showResults ? (
                                             isVerifying && !status.result ? (
                                                 <LoadingIcon
