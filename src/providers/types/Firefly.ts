@@ -17,6 +17,7 @@ import type { SnapshotChoice } from '@/providers/snapshot/type.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 import type { CoinGeckoAsset } from '@/providers/types/CoinGecko.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
+import type { NFTScan } from '@/providers/types/NFTScan.js';
 import type { ComposeType } from '@/types/compose.js';
 
 export enum EmbedMediaType {
@@ -1137,42 +1138,6 @@ export type PolymarketActivityTimeline = Response<{
     cursor?: string;
 }>;
 
-export type SearchableNFT = {
-    amounts_total: number;
-    attributes: unknown[];
-    banner_url?: string;
-    collections_with_same_name: unknown[];
-    contract_address: string;
-    deploy_block_number: number;
-    description: string;
-    discord?: string;
-    email?: string;
-    erc_type: string;
-    featured_url: string;
-    floor_price: number;
-    github?: string;
-    instagram?: string;
-    is_spam: boolean;
-    items_total: number;
-    large_image_url: string;
-    logo_url: string;
-    medium?: string;
-    name: string;
-    opensea_floor_price: number;
-    opensea_slug: string;
-    opensea_verified: boolean;
-    owner: string;
-    owners_total: number;
-    price_symbol: string;
-    royalty: number;
-    symbol: string;
-    telegram?: string;
-    twitter?: string;
-    verified: boolean;
-    website?: string;
-    chain_id?: number;
-};
-
 export type Project = {
     eval: number;
     project_id: number;
@@ -1186,7 +1151,7 @@ export type Project = {
 };
 
 export type SearchNFTResponse = Response<{
-    list: SearchableNFT[];
+    list: NFTScan.Collection[];
 }>;
 
 export type SearchableToken = {

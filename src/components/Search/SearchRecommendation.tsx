@@ -11,6 +11,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ClearButton } from '@/components/IconButton.js';
 import { Link } from '@/components/Link.js';
 import { SuggestChannelList } from '@/components/Search/SuggestChannelList.js';
+import { SuggestCollectionList } from '@/components/Search/SuggestCollectionList.js';
 import { SuggestProfileList } from '@/components/Search/SuggestProfileList.js';
 import { SuggestTokenList } from '@/components/Search/SuggestTokenList.js';
 import { PageRoute, SearchType, Source } from '@/constants/enum.js';
@@ -56,6 +57,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
         },
     );
 
+    const isSymbol = debouncedKeyword?.startsWith('$');
     if (keyword && !isSearchPage) {
         return (
             <div className={containerClasses}>
@@ -73,11 +75,14 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                     }
                 >
                     <SearchIcon width={18} height={18} className="shrink-0" />
-                    <span className="ml-4 text-ellipsis">{keyword}</span>
+                    <span className="ml-4 min-w-0 truncate">{keyword}</span>
                 </Link>
 
-                {debouncedKeyword && (debouncedKeyword.startsWith('$') || isAddress(debouncedKeyword.toLowerCase())) ? (
-                    <SuggestTokenList query={debouncedKeyword} onSelect={onSelect} />
+                {debouncedKeyword && (isSymbol || isAddress(debouncedKeyword.toLowerCase())) ? (
+                    <>
+                        <SuggestTokenList query={debouncedKeyword} onSelect={onSelect} />
+                        {!isSymbol ? <SuggestCollectionList query={debouncedKeyword} onSelect={onSelect} /> : null}
+                    </>
                 ) : (
                     <>
                         <SuggestChannelList query={debouncedKeyword} onSelect={onSelect} />

@@ -5,26 +5,26 @@ import { compact } from 'lodash-es';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
-import { SearchableNFTItem } from '@/components/Search/SearchableNFTItem.js';
+import { SearchableCollectionItem } from '@/components/Search/SearchableCollectionItem.js';
 import { ScrollListKey } from '@/constants/enum.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { SearchableNFT } from '@/providers/types/Firefly.js';
+import type { NFTScan } from '@/providers/types/NFTScan.js';
+import { searchCollections } from '@/services/searchCollections.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
-const getSearchItemContent = (nft: SearchableNFT) => {
-    return <SearchableNFTItem key={nft.contract_address} nft={nft} />;
+const getSearchItemContent = (collection: NFTScan.Collection) => {
+    return <SearchableCollectionItem key={collection.contract_address} collection={collection} />;
 };
 
-function filterAndSortNFTs(nfts: SearchableNFT[], keyword: string) {
-    return nfts
-        .filter((nft) => nft.owners_total >= 100)
+function filterAndSortCollections(collections: NFTScan.Collection[], keyword: string) {
+    return collections
+        .filter((collection) => collection.owners_total >= 100)
         .sort((a, b) => {
             if (a.name.toLowerCase() === keyword.toLowerCase()) return -1;
             return b.items_total - a.items_total;
         });
 }
 
-export function SearchNFTContent() {
+export function SearchCollectionContent() {
     const { searchKeyword, searchType, source } = useSearchStateStore();
 
     const queryResult = useSuspenseInfiniteQuery({
@@ -32,7 +32,7 @@ export function SearchNFTContent() {
         queryFn: async () => {
             if (!searchKeyword) return;
 
-            return FireflyEndpointProvider.searchNFTs(searchKeyword);
+            return searchCollections(searchKeyword);
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {
@@ -40,7 +40,7 @@ export function SearchNFTContent() {
             return lastPage?.nextIndicator?.id;
         },
         select(data) {
-            return filterAndSortNFTs(compact(data.pages.flatMap((x) => x?.data ?? [])), searchKeyword);
+            return filterAndSortCollections(compact(data.pages.flatMap((x) => x?.data ?? [])), searchKeyword);
         },
     });
 
@@ -53,8 +53,8 @@ export function SearchNFTContent() {
             queryResult={queryResult}
             VirtualListProps={{
                 listKey,
-                computeItemKey: (index, nft) => `${nft.contract_address}_${index}`,
-                itemContent: (_, nft) => getSearchItemContent(nft),
+                computeItemKey: (index, collection) => `${collection.contract_address}_${index}`,
+                itemContent: (_, collection) => getSearchItemContent(collection),
             }}
             NoResultsFallbackProps={{
                 message: <Empty keyword={searchKeyword} />,

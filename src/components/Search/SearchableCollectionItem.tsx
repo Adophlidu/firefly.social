@@ -1,51 +1,54 @@
 import { Trans } from '@lingui/react/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
+import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
-import type { SearchableNFT } from '@/providers/types/Firefly.js';
+import type { NFTScan } from '@/providers/types/NFTScan.js';
 
-interface NFTItemProps {
-    nft: SearchableNFT;
+interface CollectionItemProps extends HTMLProps<HTMLAnchorElement> {
+    collection: NFTScan.Collection;
 }
 
-export function SearchableNFTItem({ nft }: NFTItemProps) {
-    const chainId = nft.chain_id || ChainId.Mainnet;
+export function SearchableCollectionItem({ collection, className, onClick }: CollectionItemProps) {
+    const chainId = collection.chain_id || ChainId.Mainnet;
 
     return (
         <Link
-            className="flex items-center gap-x-2.5 border-b border-line p-3 hover:bg-bg"
-            href={resolveNftUrl(chainId, nft.contract_address)}
+            className={classNames('flex items-center gap-x-2.5 border-b border-line p-3 hover:bg-bg', className)}
+            href={resolveNftUrl(chainId, collection.contract_address)}
+            onClick={onClick}
         >
             <Image
                 className="h-[50px] w-[50px] shrink-0 rounded-lg object-cover"
                 width={50}
                 height={50}
-                alt={nft.description}
-                src={nft.logo_url}
+                alt={collection.description}
+                src={collection.logo_url}
             />
             <div>
                 <div className="flex items-center gap-x-1">
-                    <span className="text-lg font-bold leading-6 text-lightMain">{nft.name}</span>
+                    <span className="text-lg font-bold leading-6 text-lightMain">{collection.name}</span>
                     <ChainIcon size={18} className="shrink-0" chainId={chainId} />
                 </div>
                 <div className="mt-1 flex items-center gap-x-2">
                     <span className="text-medium font-bold leading-[22px] text-lightMain">
                         <Trans>
-                            {nFormatter(nft.items_total || 0)}
+                            {nFormatter(collection.items_total || 0)}
                             <span className="font-normal text-lightSecond"> Items</span>
                         </Trans>
                     </span>
-                    {nft.floor_price && nft.price_symbol ? (
+                    {collection.floor_price && collection.price_symbol ? (
                         <>
                             <span className="text-lightSecond">·</span>
                             <span className="text-medium font-bold leading-[22px] text-lightMain">
                                 <Trans>
-                                    {nft.floor_price}
-                                    {nft.price_symbol}
+                                    {collection.floor_price}
+                                    {collection.price_symbol}
                                     <span className="font-normal text-lightSecond"> Floor</span>
                                 </Trans>
                             </span>

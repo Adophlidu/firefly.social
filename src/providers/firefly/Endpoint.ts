@@ -771,7 +771,7 @@ export class FireflyEndpoint {
         return createPageable(data.coins ?? EMPTY_LIST, createIndicator(undefined));
     }
 
-    async searchNFTs(keyword: string) {
+    async searchCollections(keyword: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/collectible', {
             keyword,
         });
