@@ -145,7 +145,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                 ) : null}
                             </>
                         ) : null}
-                        {channel && currentProfile && source === Source.Farcaster ? (
+                        {channel && source === Source.Farcaster ? (
                             <MenuItem>
                                 {({ close }) => (
                                     <MuteChannelButton
