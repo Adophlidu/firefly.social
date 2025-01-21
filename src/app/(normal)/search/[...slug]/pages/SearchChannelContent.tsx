@@ -7,7 +7,7 @@ import { ChannelInList } from '@/components/ChannelInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchSources } from '@/components/Search/SearchSources.js';
-import { ScrollListKey } from '@/constants/enum.js';
+import { ScrollListKey, Source } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -29,7 +29,12 @@ export function SearchChannelContent() {
             const provider = resolveSocialMediaProvider(currentSocialSource);
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
-            return provider.searchChannels(searchKeyword, indicator);
+            const channels = await provider.searchChannels(searchKeyword.replace(/^\//, ''), indicator);
+            if (!indicator?.id && currentSocialSource === Source.Lens) {
+                channels.data.reverse();
+            }
+
+            return channels;
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {

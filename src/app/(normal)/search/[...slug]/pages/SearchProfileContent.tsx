@@ -68,11 +68,11 @@ export function SearchProfileContent() {
                           indicator: fireflyIndicator,
                       })
                     : createPageable([], createIndicator());
+
+            const trimmed = searchKeyword.trim().replace(/^@/, '');
             const twitterProfiles =
-                isTwitterLogin && pageParam.twitter !== noNextPage
-                    ? await runInSafeAsync(() =>
-                          TwitterSocialMediaProvider.searchProfiles(searchKeyword, twitterIndicator),
-                      )
+                isTwitterLogin && pageParam.twitter !== noNextPage && trimmed
+                    ? await runInSafeAsync(() => TwitterSocialMediaProvider.searchProfiles(trimmed, twitterIndicator))
                     : undefined;
             return {
                 ...data,
