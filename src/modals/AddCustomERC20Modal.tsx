@@ -4,11 +4,12 @@ import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { isValidAddress } from '@masknet/web3-shared-evm';
-import { forwardRef, useCallback, useEffect, useState } from 'react';
+import { forwardRef, useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { type Address, erc20Abi } from 'viem';
-import { useAccount, useChainId } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { readContracts } from 'wagmi/actions';
+import { degen as wagmiDegen } from 'wagmi/chains';
 
 import CloseIcon from '@/assets/close.svg';
 import { ActionButton } from '@/components/ActionButton.js';
@@ -25,10 +26,10 @@ import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { searchTokenLogoURI } from '@/services/searchTokenLogoURI.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
 
-function AddCustomERC20ModalContent({ onClose }: { onClose: () => void }) {
+function AddCustomERC20ModalContent({ onClose, initialChainId }: { onClose: () => void; initialChainId: number }) {
     const account = useAccount();
     const isMedium = useIsMedium('max');
-    const chainIds: number[] = chains.map((x) => x.id);
+    const chainIds: number[] = chains.map((x) => x.id).filter((x) => !([wagmiDegen.id] as number[]).includes(x));
     const getChainItem = useCallback(
         (chainId: number, isTag?: boolean) => {
             const chain = chains.find((chain) => chain.id === chainId);
@@ -48,11 +49,7 @@ function AddCustomERC20ModalContent({ onClose }: { onClose: () => void }) {
         [isMedium],
     );
     const [contractAddress, setContractAddress] = useState('');
-    const chainId = useChainId();
-    const [selectedChain, setSelectedChain] = useState(chainId);
-    useEffect(() => {
-        setSelectedChain(chainId);
-    }, [chainId]);
+    const [selectedChain, setSelectedChain] = useState(initialChainId);
 
     const { tokens, isLoading } = useTipsTokens();
     const addCustomToken = useCustomTokenStore((state) => state.addToken);
@@ -137,6 +134,7 @@ function AddCustomERC20ModalContent({ onClose }: { onClose: () => void }) {
                             className="!py-1.5 px-3"
                             onChange={(e) => setContractAddress(e.currentTarget.value)}
                             value={contractAddress}
+                            onClear={() => setContractAddress('')}
                         />
                     </div>
                 </div>
@@ -148,24 +146,40 @@ function AddCustomERC20ModalContent({ onClose }: { onClose: () => void }) {
     );
 }
 
-export const AddCustomERC20Modal = forwardRef<SingletonModalRefCreator>(function AddTokenModal(_, ref) {
-    const [open, dispatch] = useSingletonModal(ref);
-    const onClose = () => dispatch?.close();
+export interface AddCustomERC20ModalOpenProps {
+    initialChainId: number;
+}
 
-    return (
-        <Modal open={open} onClose={onClose} dialogClassName="z-50">
-            <div className="z-50 flex h-auto w-[calc(100%-40px)] flex-col rounded-md bg-lightBottom p-4 pt-0 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:w-[450px] md:rounded-xl">
-                <DialogTitle as="h3" className="relative h-14 shrink-0 pt-safe">
-                    <CloseIcon
-                        onClick={onClose}
-                        className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer text-main"
-                    />
-                    <span className="flex h-full w-full items-center justify-center text-lg font-bold text-main">
-                        <Trans>Select Token</Trans>
-                    </span>
-                </DialogTitle>
-                <AddCustomERC20ModalContent onClose={onClose} />
-            </div>
-        </Modal>
-    );
-});
+export const AddCustomERC20Modal = forwardRef<SingletonModalRefCreator<AddCustomERC20ModalOpenProps>>(
+    function AddTokenModal(_, ref) {
+        const [props, setProps] = useState<AddCustomERC20ModalOpenProps | undefined>();
+        const [open, dispatch] = useSingletonModal(ref, {
+            onOpen(props) {
+                setProps(props);
+            },
+            onClose() {
+                setProps(undefined);
+            },
+        });
+        const onClose = () => dispatch?.close();
+
+        return (
+            <Modal open={open} onClose={onClose} dialogClassName="z-50">
+                <div className="z-50 flex h-auto w-[calc(100%-40px)] flex-col rounded-md bg-lightBottom p-4 pt-0 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:w-[450px] md:rounded-xl">
+                    <DialogTitle as="h3" className="relative h-14 shrink-0 pt-safe">
+                        <CloseIcon
+                            onClick={onClose}
+                            className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer text-main"
+                        />
+                        <span className="flex h-full w-full items-center justify-center text-lg font-bold text-main">
+                            <Trans>Add Token</Trans>
+                        </span>
+                    </DialogTitle>
+                    {props ? (
+                        <AddCustomERC20ModalContent onClose={onClose} initialChainId={props?.initialChainId} />
+                    ) : null}
+                </div>
+            </Modal>
+        );
+    },
+);

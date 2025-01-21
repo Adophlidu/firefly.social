@@ -37,6 +37,7 @@ export function RequirementsView() {
         setRequireChannel,
         requireClub,
         setRequireClub,
+        token,
     } = useContext(RedPacketContext);
 
     const disabled = rules.includes(RequirementType.NFTHolder) && !requireCollections;
@@ -44,10 +45,11 @@ export function RequirementsView() {
     const handleSelectCollection = useCallback(async () => {
         const result = await NonFungibleTokenCollectionSelectModalRef.openAndWaitForClose({
             selected: requireCollections,
+            initialAddTokenChainId: token.chainId,
         });
         if (!result) return;
         setRequireCollections((collections) => [...collections, result]);
-    }, [requireCollections, setRequireCollections]);
+    }, [requireCollections, setRequireCollections, token.chainId]);
 
     const account = useAppKitAccount();
     const selectToken = async () => {

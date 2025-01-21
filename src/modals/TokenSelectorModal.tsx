@@ -5,6 +5,7 @@ import { type FungibleToken } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { forwardRef, useCallback, useState } from 'react';
+import { useChainId } from 'wagmi';
 
 import AddIcon from '@/assets/add.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
@@ -24,6 +25,7 @@ export interface TokenSelectorModalOpenProps {
     networkType: NetworkType;
     disableBackdropClose?: boolean;
     isSelected?: (item: Token) => boolean;
+    initialAddTokenChainId?: number;
 }
 
 export type TokenSelectorModalCloseProps = FungibleToken<ChainId, SchemaType> | null;
@@ -45,6 +47,8 @@ export const TokenSelectorModal = forwardRef<
         (token: Token) => dispatch?.close(formatDebankTokenToFungibleToken(token)),
         [dispatch],
     );
+
+    const chainId = useChainId();
 
     if (!props) return null;
 
@@ -68,7 +72,9 @@ export const TokenSelectorModal = forwardRef<
                         <ClickableButton
                             className="text-md absolute right-0 top-1/2 flex -translate-y-1/2 cursor-pointer items-center space-x-2 text-main"
                             onClick={() => {
-                                AddCustomERC20ModalRef.open();
+                                AddCustomERC20ModalRef.open({
+                                    initialChainId: props.initialAddTokenChainId ?? chainId,
+                                });
                             }}
                         >
                             <AddIcon width={20} height={20} className="h-5 w-5 shrink-0" />

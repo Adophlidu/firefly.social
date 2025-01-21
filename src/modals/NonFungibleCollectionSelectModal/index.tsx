@@ -3,6 +3,7 @@
 import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { forwardRef, useCallback, useState } from 'react';
+import { useChainId } from 'wagmi';
 
 import AddIcon from '@/assets/add.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
@@ -17,6 +18,7 @@ import { NonFungibleCollectionSelectPanel } from '@/modals/NonFungibleCollection
 
 export interface NonFungibleCollectionSelectModalOpenProps {
     selected?: Collection | Collection[];
+    initialAddTokenChainId?: number;
 }
 
 export type NonFungibleCollectionSelectModalCloseProps = Collection | null;
@@ -48,6 +50,8 @@ export const NonFungibleCollectionSelectModal = forwardRef<
         [props?.selected],
     );
 
+    const chainId = useChainId();
+
     if (!props) return null;
 
     return (
@@ -64,7 +68,9 @@ export const NonFungibleCollectionSelectModal = forwardRef<
                     <ClickableButton
                         className="text-md absolute right-0 top-1/2 flex -translate-y-1/2 cursor-pointer items-center space-x-2 text-main"
                         onClick={() => {
-                            AddCustomERC721ModalRef.open();
+                            AddCustomERC721ModalRef.open({
+                                initialChainId: props.initialAddTokenChainId ?? chainId,
+                            });
                         }}
                     >
                         <AddIcon width={20} height={20} className="h-5 w-5 shrink-0" />

@@ -63,6 +63,7 @@ export const FungibleTokenInput = memo<FungibleTokenInputProps>(function Fungibl
                         return false;
                 }
             },
+            initialAddTokenChainId: token?.chainId,
         });
         if (!picked) return;
         onTokenChange(picked);

@@ -329,6 +329,9 @@ msgstr "更換錢包"
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
 msgstr ""
 
+msgid "Add Collection"
+msgstr ""
+
 msgid "Location should not exceed {maxLocationSize} characters"
 msgstr ""
 
@@ -3508,6 +3511,9 @@ msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop {prom
 msgstr ""
 
 msgid "*Note: Each NFT can only be used once."
+msgstr ""
+
+msgid "Add Token"
 msgstr ""
 
 #. placeholder {0}: resolveSourceName(source)
