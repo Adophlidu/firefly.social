@@ -2,6 +2,7 @@ import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { SearchType, type SocialSource } from '@/constants/enum.js';
+import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { type Channel, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
@@ -23,9 +24,10 @@ function setBlockStatus(source: SocialSource, channelId: string, status: boolean
         });
     };
 
+    const profile = getCurrentProfile(source);
     queryClient.setQueriesData<Channel>({ queryKey: ['channels'] }, updater);
     queryClient.setQueriesData<Channel>({ queryKey: ['search', SearchType.Channels] }, updater);
-    queryClient.setQueryData<Channel>(['channel', source, channelId], updater);
+    queryClient.setQueryData<Channel>(['channel', source, channelId, profile?.profileId], updater);
     queryClient.setQueryData<Channel>(['suggest-channels', source], updater);
 }
 

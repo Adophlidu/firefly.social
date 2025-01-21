@@ -51,7 +51,8 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const isChannelPage = isRoutePathname(pathname, '/channel/:detail');
     const isBookmarkPage = isRoutePathname(pathname, PageRoute.Bookmarks);
     const postLink = getPostUrl(post);
-    const muted = useIsProfileMuted(post.author.source, post.author.profileId) || post.channel?.blocked;
+    const muted =
+        useIsProfileMuted(post.author.source, post.author.profileId) || (!!post.channel?.blocked && !isChannelPage);
 
     const show = useMemo(() => {
         if (post.source === Source.Twitter) return false;

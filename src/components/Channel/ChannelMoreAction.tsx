@@ -16,6 +16,7 @@ import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
@@ -26,6 +27,7 @@ interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
 
 export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ channel }) {
     const profile = useCurrentProfile(channel.source);
+    const isLogin = useIsLogin();
     const [{ loading: channelBlocking }, toggleBlockChannel] = useToggleMutedChannel();
 
     const { data } = useQuery({
@@ -49,23 +51,17 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
         >
             <MenuGroup>
                 <MenuItem>{({ close }) => <CopyLinkButton link={getChannelUrl(channel)} onClick={close} />}</MenuItem>
+                {isLogin && data?.source === Source.Farcaster ? (
+                    <MenuItem>
+                        {({ close }) => (
+                            <MuteChannelButton channel={data} onToggle={toggleBlockChannel} onClick={close} />
+                        )}
+                    </MenuItem>
+                ) : null}
                 {profile?.profileId ? (
-                    <>
-                        {channel.source === Source.Farcaster ? (
-                            <MenuItem>
-                                {({ close }) => (
-                                    <MuteChannelButton
-                                        channel={channel}
-                                        onToggle={toggleBlockChannel}
-                                        onClick={close}
-                                    />
-                                )}
-                            </MenuItem>
-                        ) : null}
-                        {channel.source === Source.Lens && data?.canJoin ? (
-                            <MenuItem>{({ close }) => <ToggleJoinChannel channel={data} onClick={close} />}</MenuItem>
-                        ) : null}
-                    </>
+                    channel.source === Source.Lens && data?.canJoin ? (
+                        <MenuItem>{({ close }) => <ToggleJoinChannel channel={data} onClick={close} />}</MenuItem>
+                    ) : null
                 ) : null}
             </MenuGroup>
         </MoreActionMenu>

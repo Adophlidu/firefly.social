@@ -9,6 +9,7 @@ import { ChannelPageContext } from '@/hooks/useChannelPageContext.js';
 
 export function ChannelContentListPage({ type }: { type: ChannelTabType }) {
     const { channel } = ChannelPageContext.useContainer();
+
     if (!channel) return null;
 
     return (
