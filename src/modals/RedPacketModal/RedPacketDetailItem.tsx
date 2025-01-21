@@ -140,7 +140,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                             <div className="flex w-full">
                                 <div
                                     className={classNames(
-                                        'text-[14px] font-bold text-lightTextMain',
+                                        'break-all text-[14px] font-bold text-lightTextMain',
                                         isDetail ? 'text-left' : 'truncate',
                                     )}
                                 >
