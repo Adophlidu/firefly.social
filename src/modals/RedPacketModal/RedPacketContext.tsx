@@ -188,7 +188,7 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
     const [requireChannel, setRequireChannel] = useState<RedPacketContextValue['requireChannel']>();
     const [requireClub, setRequireClub] = useState<RedPacketContextValue['requireClub']>();
 
-    const [rawAmount, setRawAmount] = useState('0.001');
+    const [rawAmount, setRawAmount] = useState('');
     const isRandom = randomType === 'random';
     const totalAmount = useMemo(
         () => (isRandom || !rawAmount ? rawAmount : multipliedBy(rawAmount, shares).toFixed()),

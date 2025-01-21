@@ -9,14 +9,12 @@ import ArrowDown from '@/assets/arrow-down.svg';
 import InfoIcon from '@/assets/info.svg';
 import MinusIcon from '@/assets/minus.svg';
 import { ActionButton } from '@/components/ActionButton.js';
-import { Image } from '@/components/Image.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
-import { NetworkType, Source } from '@/constants/enum.js';
+import { NetworkType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { formatDebankTokenToFungibleToken } from '@/helpers/formatToken.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import {
-    ChannelSelectModalRef,
     NonFungibleTokenCollectionSelectModalRef,
     TokenSelectorModalRef,
 } from '@/modals/controls.js';
@@ -229,85 +227,6 @@ export function RequirementsView() {
                                                 <ArrowDown className="ml-auto h-6 w-6" />
                                             </div>
                                         ) : null}
-                                    </div>
-                                </Fragment>
-                            );
-                        }
-
-                        if (value === RequirementType.FarcasterChannelMember) {
-                            return (
-                                <Fragment key={value}>
-                                    {item}
-                                    <div
-                                        className="mx-3 flex max-w-full cursor-pointer gap-2 rounded-lg bg-input p-3 text-second"
-                                        onClick={async () => {
-                                            const picked = await ChannelSelectModalRef.openAndWaitForClose({
-                                                selected: requireChannel,
-                                                source: Source.Farcaster,
-                                            });
-                                            if (picked) {
-                                                setRequireChannel(picked);
-                                            }
-                                        }}
-                                    >
-                                        {requireChannel ? (
-                                            <div className="flex min-w-0 flex-grow items-center gap-2">
-                                                <Image
-                                                    className="h-6 w-6 rounded-full"
-                                                    src={requireChannel.imageUrl}
-                                                    alt={requireChannel.name}
-                                                    width={24}
-                                                    height={24}
-                                                />
-                                                <div className="min-w-0 flex-grow truncate text-left text-medium leading-5 text-main">
-                                                    {requireChannel.name}
-                                                </div>
-                                            </div>
-                                        ) : (
-                                            <div className="items-center text-second">
-                                                <Trans>Select token to gate access</Trans>
-                                            </div>
-                                        )}
-                                        <ArrowDown className="ml-auto h-6 w-6" />
-                                    </div>
-                                </Fragment>
-                            );
-                        }
-                        if (value === RequirementType.LensClubMember) {
-                            return (
-                                <Fragment key={value}>
-                                    {item}
-                                    <div
-                                        className="mx-3 flex max-w-full cursor-pointer gap-2 rounded-lg bg-input p-3 text-second"
-                                        onClick={async () => {
-                                            const picked = await ChannelSelectModalRef.openAndWaitForClose({
-                                                selected: requireClub,
-                                                source: Source.Lens,
-                                            });
-                                            if (picked) {
-                                                setRequireClub(picked);
-                                            }
-                                        }}
-                                    >
-                                        {requireClub ? (
-                                            <div className="flex min-w-0 flex-grow items-center gap-2">
-                                                <Image
-                                                    className="h-6 w-6 rounded-full"
-                                                    src={requireClub.imageUrl}
-                                                    alt={requireClub.name}
-                                                    width={24}
-                                                    height={24}
-                                                />
-                                                <div className="min-w-0 flex-grow truncate text-left text-medium leading-5 text-main">
-                                                    {requireClub.name}
-                                                </div>
-                                            </div>
-                                        ) : (
-                                            <div className="items-center text-second">
-                                                <Trans>Select token to gate access</Trans>
-                                            </div>
-                                        )}
-                                        <ArrowDown className="ml-auto h-6 w-6" />
                                     </div>
                                 </Fragment>
                             );

@@ -66,8 +66,6 @@ export function ConfirmView() {
         rules,
         requireCollections,
         requireTokens,
-        requireChannel,
-        requireClub,
         customThemes,
         setCustomThemes,
         themes,
@@ -179,18 +177,6 @@ export function ConfirmView() {
                     }),
                 });
             }
-            if (
-                (rules.includes(RequirementType.FarcasterChannelMember) && requireChannel?.id) ||
-                (rules.includes(RequirementType.LensClubMember) && requireClub?.id)
-            ) {
-                strategies.push({
-                    type: StrategyType.channel,
-                    payload: {
-                        farcasterChannelId: requireChannel?.id,
-                        lensOrbClubHandle: requireClub?.id,
-                    },
-                });
-            }
         }
 
         return {
@@ -208,8 +194,6 @@ export function ConfirmView() {
         currentFarcasterProfile,
         currentTwitterProfile,
         chainId,
-        requireChannel?.id,
-        requireClub?.id,
     ]);
 
     const shareFromName =

@@ -2298,9 +2298,6 @@ msgstr "Voting Rights: Participate in key decisions and shape the platform’s d
 msgid "Please switch to {0}"
 msgstr "Please switch to {0}"
 
-msgid "Farcaster channel member"
-msgstr "Farcaster channel member"
-
 msgid "Non-honeypot related address."
 msgstr "Non-honeypot related address."
 
@@ -3105,9 +3102,6 @@ msgstr "Failed to continue. Please allow Lens Manager for performing actions wit
 
 msgid "Results"
 msgstr "Results"
-
-msgid "Lens Club member"
-msgstr "Lens Club member"
 
 msgid "Properties"
 msgstr "Properties"

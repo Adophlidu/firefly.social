@@ -2298,9 +2298,6 @@ msgstr "投票权：通过社区治理参与关键决策，塑造平台的发展
 msgid "Please switch to {0}"
 msgstr "请切换到 {0}"
 
-msgid "Farcaster channel member"
-msgstr ""
-
 msgid "Non-honeypot related address."
 msgstr "非钓鱼地址。"
 
@@ -3105,9 +3102,6 @@ msgstr "无法继续。请允许 Lens Manager 执行操作，而无需对每笔�
 
 msgid "Results"
 msgstr "结果"
-
-msgid "Lens Club member"
-msgstr ""
 
 msgid "Properties"
 msgstr "属性"

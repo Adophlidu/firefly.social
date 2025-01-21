@@ -2293,9 +2293,6 @@ msgstr ""
 msgid "Please switch to {0}"
 msgstr ""
 
-msgid "Farcaster channel member"
-msgstr ""
-
 msgid "Non-honeypot related address."
 msgstr ""
 
@@ -3099,9 +3096,6 @@ msgid "Failed to continue. Please allow Lens Manager for performing actions with
 msgstr ""
 
 msgid "Results"
-msgstr ""
-
-msgid "Lens Club member"
 msgstr ""
 
 msgid "Properties"

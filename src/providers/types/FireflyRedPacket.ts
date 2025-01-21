@@ -13,8 +13,6 @@ export enum RequirementType {
     Comment = 'Comment',
     NFTHolder = 'NFTHolder',
     TokenHolder = 'TokenHolder',
-    FarcasterChannelMember = 'FarcasterChannelMember',
-    LensClubMember = 'LensClubMember',
 }
 
 export enum RedPacketStatus {
@@ -369,14 +367,10 @@ export namespace FireflyRedPacketAPI {
               type: StrategyType.postReaction;
               payload: {
                   reactions: PostReactionKind[];
-                  params: Array<
-                      [
-                          {
-                              platform: PlatformType;
-                              postId: string;
-                          },
-                      ]
-                  >;
+                  params: Array<{
+                      platform: PlatformType;
+                      postId: string;
+                  }>;
               };
               result:
                   | {
