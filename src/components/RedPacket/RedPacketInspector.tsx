@@ -9,7 +9,7 @@ import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
 import { RedPacketMetadataReader } from '@/helpers/renderWithRedPacketMetadata.js';
-import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
+import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { decryptPayload } from '@/services/decryptPayload.js';
 

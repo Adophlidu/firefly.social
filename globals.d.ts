@@ -4,6 +4,15 @@
 /// <reference types="./src/maskbook/packages/polyfills/types/firefox.d.ts" />
 /// <reference types="./src/maskbook/packages/web3-telemetry/src/env.d.ts" />
 
+declare module 'dompurify' {
+    class DOMPurity {
+        sanitize: (html: string) => string;
+    }
+
+    declare const purity: DOMPurity;
+    export default purity;
+}
+
 declare module 'dayjs-twitter' {
     import type { PluginFunc } from 'dayjs';
 

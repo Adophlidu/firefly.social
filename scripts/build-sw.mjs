@@ -15,3 +15,5 @@ esbuild.build({
     bundle: true,
     minify: true,
 });
+
+console.log(`Service worker built to ${outfile}.`);

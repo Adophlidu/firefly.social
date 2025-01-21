@@ -5,9 +5,6 @@
             "path": "./src/maskbook/packages/shared-base/tsconfig.json"
         },
         {
-            "path": "./src/service-workers/tsconfig.json"
-        },
-        {
             "path": "./src/maskbook/packages/web3-hooks/base/tsconfig.json"
         },
         {
@@ -21,6 +18,7 @@
         }
     ],
     "compilerOptions": {
+        "types": [],
         "noEmit": true,
         "sourceMap": false,
         "experimentalDecorators": true,
@@ -54,7 +52,7 @@
             "@masknet/web3-shared-solana": ["./src/maskbook/packages/web3-shared/solana/src/index.ts"]
         }
     },
-    "include": ["**/*.ts", "**/*.tsx", "csp.js", "globals.d.ts", "next-auth.d.ts", ".next/types/**/*.ts"],
+    "include": ["src/**/*.ts", "src/**/*.tsx", "csp.js", "globals.d.ts", "next-auth.d.ts", ".next/types/**/*.ts"],
     "exclude": [
         "node_modules",
         "src/service-workers",
