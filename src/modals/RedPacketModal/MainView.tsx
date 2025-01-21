@@ -26,7 +26,7 @@ import { NetworkType } from '@/constants/enum.js';
 import { RED_PACKET_CONTRACT_VERSION, RED_PACKET_DURATION, RED_PACKET_MIN_SHARES } from '@/constants/rp.js';
 import { createAccount } from '@/helpers/createAccount.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { getRpMaxShares } from '@/helpers/getRpMaxShares.js';
+import { getRpMaxShares, getRpMessageMaxLength } from '@/helpers/getRpLimitations.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { isGreaterThan, isZero, leftShift, multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
@@ -223,6 +223,15 @@ export function MainView() {
     }, [originBalance, chainId, isNotEnoughAllowance, history, token.address, isEVM, refetchAllowance]);
     // #endregion
 
+    const messageMaxLength = getRpMessageMaxLength(networkType);
+    const onMessageChange = useCallback(
+        (e: ChangeEvent<HTMLInputElement>) => {
+            const value = e.target.value;
+            setMessage(value.slice(0, messageMaxLength));
+        },
+        [messageMaxLength, setMessage],
+    );
+
     return (
         <>
             <div className="flex flex-1 flex-col gap-y-4 bg-primaryBottom px-4 pt-2">
@@ -287,7 +296,7 @@ export function MainView() {
                         <label className="flex w-full flex-1 items-center">
                             <input
                                 value={message}
-                                onChange={(e) => setMessage(e.target.value)}
+                                onChange={onMessageChange}
                                 placeholder={t`Best Wishes!`}
                                 className="w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0"
                             />

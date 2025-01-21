@@ -20,7 +20,7 @@ import {
     SolanaRedPacketMetaKey,
 } from '@/constants/rp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getRpMaxShares } from '@/helpers/getRpMaxShares.js';
+import { getRpMaxShares } from '@/helpers/getRpLimitations.js';
 import { getTypedMessageRedPacket } from '@/helpers/getTypedMessage.js';
 import { rightShift } from '@/helpers/number.js';
 import { getRpMetadata } from '@/helpers/rpPayload.js';

@@ -136,9 +136,14 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                         }}
                     />
                     <div className="flex justify-between">
-                        <div>
+                        <div className="w-full">
                             <div className="flex w-full">
-                                <div className="truncate text-[14px] font-bold text-lightTextMain">
+                                <div
+                                    className={classNames(
+                                        'text-[14px] font-bold text-lightTextMain',
+                                        isDetail ? 'text-left' : 'truncate',
+                                    )}
+                                >
                                     {!rp_msg ? <Trans>Best Wishes!</Trans> : rp_msg}
                                 </div>
                             </div>

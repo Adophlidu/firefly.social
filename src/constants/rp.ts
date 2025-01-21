@@ -14,6 +14,9 @@ export const RedPacketEncryptedKey = `${RedPacketMetaKey}:encrypted`;
 
 export const SupportedMetaKeys = [RedPacketMetaKey, SolanaRedPacketMetaKey];
 
+export const MESSAGE_MAX_LENGTH = 100;
+export const MESSAGE_MAX_LENGTH_SOLANA = 200;
+
 export const RED_PACKET_DEFAULT_SHARES = 5;
 export const RED_PACKET_MIN_SHARES = 1;
 export const RED_PACKET_MAX_SHARES = 255;

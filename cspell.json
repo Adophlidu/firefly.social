@@ -243,7 +243,8 @@
         "Raydium",
         "idls",
         "BSCT",
-        "Moonriver"
+        "Moonriver",
+        "chainid"
     ],
     "flagWords": [],
     "ignorePaths": [
