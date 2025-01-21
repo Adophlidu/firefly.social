@@ -2,9 +2,10 @@
 
 import { web3 } from '@coral-xyz/anchor';
 import { type SignerWalletAdapter, WalletNotConnectedError } from '@solana/wallet-adapter-base';
-import { CoinbaseWalletAdapter, CoinbaseWalletName } from '@solana/wallet-adapter-coinbase';
-import { PhantomWalletAdapter, PhantomWalletName } from '@solana/wallet-adapter-phantom';
+import { PhantomWalletName } from '@solana/wallet-adapter-phantom';
+import { WalletConnectWalletName } from '@solana/wallet-adapter-walletconnect';
 
+import { walletConnectAdapter } from '@/configs/solanaWallets.js';
 import { getParticleSolanaProvider, ParticleSolanaWalletName } from '@/connectors/ParticleSolanaWallet.js';
 import { UnreachableError } from '@/constants/error.js';
 import { SOLANA_WALLET_CACHE_KEY } from '@/constants/index.js';
@@ -13,8 +14,7 @@ import { parseJSON } from '@/helpers/parseJSON.js';
 
 const resolveSolanaWalletAdapter = createLookupTableResolver(
     {
-        [PhantomWalletName]: new PhantomWalletAdapter(),
-        [CoinbaseWalletName]: new CoinbaseWalletAdapter(),
+        [WalletConnectWalletName]: walletConnectAdapter,
     } as unknown as Record<string, SignerWalletAdapter>,
     (walletName: string) => {
         throw new UnreachableError('Solana wallet', walletName);
