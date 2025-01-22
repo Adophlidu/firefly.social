@@ -5,7 +5,7 @@ import { fetchSquashedJSON } from '@/helpers/fetchJSON.js';
 export const NFTSCAN_URL = 'https://nftscan-proxy.r2d2.to';
 
 export async function fetchFromNFTScan<T>(pathname: string, chainId?: number, init?: RequestInit) {
-    return fetchSquashedJSON<T>(urlcat(NFTSCAN_URL, pathname), {
+    return fetchSquashedJSON<T>(urlcat(NFTSCAN_URL, pathname, { chainId }), {
         ...init,
         headers: {
             'content-type': 'application/json',
