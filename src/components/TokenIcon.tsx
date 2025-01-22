@@ -34,14 +34,7 @@ export function TokenIcon({
     return (
         <span className={classNames('relative', className)} {...rest}>
             {icon ? (
-                <Image
-                    unoptimized
-                    className="rounded-full"
-                    alt={name || 'Token icon'}
-                    src={icon}
-                    width={size}
-                    height={size}
-                />
+                <Image unoptimized className="rounded-full" alt={''} src={icon} width={size} height={size} />
             ) : (
                 <span
                     className="block rounded-full bg-lightBg"

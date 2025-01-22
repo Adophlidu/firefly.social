@@ -1,8 +1,10 @@
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
+import { t } from '@lingui/core/macro';
 import { Fragment, type PropsWithChildren, type ReactNode, useEffect, useRef, useState } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoResultsFallback.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { classNames } from '@/helpers/classNames.js';
 
@@ -24,6 +26,7 @@ interface SearchContentPanelProps<T, F = never> {
     keyword: string;
     onSearch: (searchText: string) => void;
     data: T[];
+    fallbackProps?: NoResultsFallbackProps;
     itemRenderer?: (item: T) => ReactNode;
     onSelected?: (selected: T) => void;
     listKey?: (item: T) => string;
@@ -113,6 +116,7 @@ export function SearchContentPanel<T, F = void>({
     keyword,
     onSearch,
     data,
+    fallbackProps,
     onSelected,
     listKey,
     isSelected,
@@ -155,20 +159,23 @@ export function SearchContentPanel<T, F = void>({
                     <div className="flex h-full items-center justify-center">
                         <LoadingIcon />
                     </div>
-                ) : null}
-                {itemRenderer
-                    ? data.map((item, i) => (
-                          <div
-                              key={listKey ? listKey(item) : i}
-                              onClick={() => onSelected?.(item)}
-                              className={classNames('cursor-pointer hover:bg-lightBg', {
-                                  'opacity-50': isSelected?.(item) ?? false,
-                              })}
-                          >
-                              {itemRenderer(item)}
-                          </div>
-                      ))
-                    : null}
+                ) : data.length ? (
+                    itemRenderer ? (
+                        data.map((item, i) => (
+                            <div
+                                key={listKey ? listKey(item) : i}
+                                onClick={() => onSelected?.(item)}
+                                className={classNames('cursor-pointer hover:bg-lightBg', {
+                                    'opacity-50': isSelected?.(item) ?? false,
+                                })}
+                            >
+                                {itemRenderer(item)}
+                            </div>
+                        ))
+                    ) : null
+                ) : (
+                    <NoResultsFallback message={t`There is no data available to select.`} {...fallbackProps} />
+                )}
                 {children}
             </div>
         </div>
