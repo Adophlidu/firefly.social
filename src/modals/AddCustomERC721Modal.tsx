@@ -3,7 +3,9 @@
 import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { isValidAddress } from '@masknet/web3-shared-evm';
+import { useNonFungibleCollections } from '@masknet/web3-hooks-base';
+import { isSameAddress } from '@masknet/web3-shared-base';
+import { isValidAddress, SchemaType } from '@masknet/web3-shared-evm';
 import { forwardRef, useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { type Address } from 'viem';
@@ -17,6 +19,8 @@ import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { FilterPopover } from '@/components/Search/SearchContentPanel.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { chains } from '@/configs/wagmiClient.js';
+import { NetworkPluginID } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -50,11 +54,19 @@ function AddCustomERC721Content({ onClose, initialChainId }: { onClose: () => vo
     const [contractAddress, setContractAddress] = useState('');
     const [selectedChain, setSelectedChain] = useState(initialChainId);
 
+    const { data: allCollections = EMPTY_LIST, isLoading } = useNonFungibleCollections(NetworkPluginID.PLUGIN_EVM, {
+        schemaType: SchemaType.ERC721,
+        account: account.address,
+    });
     const addCustomToken = useCustomTokenStore((state) => state.addToken);
     const [{ loading }, onAdd] = useAsyncFn(async () => {
         try {
             if (!account.address) return;
             const address = contractAddress as Address;
+            if (allCollections.some((x) => x.chainId === selectedChain && isSameAddress(x.address, contractAddress))) {
+                onClose();
+                return;
+            }
             const collection = await SimpleHashProvider.getCollection(address, {
                 chainId: selectedChain,
             });
@@ -75,7 +87,7 @@ function AddCustomERC721Content({ onClose, initialChainId }: { onClose: () => vo
             enqueueWarningMessage(t`Sorry, we are not able to find this token`);
             throw error;
         }
-    }, [account.address, contractAddress, selectedChain, addCustomToken, onClose]);
+    }, [account.address, contractAddress, allCollections, selectedChain, addCustomToken, onClose]);
 
     const disabledAdd = [contractAddress, selectedChain, isValidAddress(contractAddress), account.address].some(
         (x) => !x,
@@ -107,7 +119,7 @@ function AddCustomERC721Content({ onClose, initialChainId }: { onClose: () => vo
                     </div>
                 </div>
             </div>
-            <ActionButton disabled={disabledAdd} loading={loading} onClick={onAdd} className="h-10">
+            <ActionButton disabled={disabledAdd} loading={loading || isLoading} onClick={onAdd} className="h-10">
                 <Trans>Add</Trans>
             </ActionButton>
         </>
