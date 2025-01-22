@@ -1864,6 +1864,9 @@ msgstr ""
 msgid "Failed to recast."
 msgstr ""
 
+msgid "Add another token gate"
+msgstr ""
+
 msgid "No post found"
 msgstr ""
 
@@ -2110,6 +2113,9 @@ msgid "Replying to"
 msgstr ""
 
 msgid "commented"
+msgstr ""
+
+msgid "Add another NFT gate"
 msgstr ""
 
 msgid "All posts and activities from this user will be hidden from you"

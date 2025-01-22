@@ -1869,6 +1869,9 @@ msgstr "A measure of a cryptocurrency trading volume across all tracked platform
 msgid "Failed to recast."
 msgstr "Failed to recast."
 
+msgid "Add another token gate"
+msgstr "Add another token gate"
+
 msgid "No post found"
 msgstr "No post found"
 
@@ -2116,6 +2119,9 @@ msgstr "Replying to"
 
 msgid "commented"
 msgstr "commented"
+
+msgid "Add another NFT gate"
+msgstr "Add another NFT gate"
 
 msgid "All posts and activities from this user will be hidden from you"
 msgstr "All posts and activities from this user will be hidden from you"

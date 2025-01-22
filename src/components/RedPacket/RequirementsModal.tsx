@@ -27,7 +27,7 @@ import { TokenIcon } from '@/components/TokenIcon.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { isGreaterThan } from '@/helpers/number.js';
+import { isZero } from '@/helpers/number.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { EVMExplorerResolver, NFTScanNonFungibleTokenEVM } from '@/mask/index.js';
@@ -316,15 +316,15 @@ export function RequirementsModal({
                                                         size={18}
                                                         badgeSize={7.5}
                                                     />
-                                                    {isGreaterThan(x.amount, x.amount || 0) ? (
+                                                    {isZero(x.amount || 0) ? (
+                                                        <span className="ml-1">${x.symbol}</span>
+                                                    ) : (
                                                         <Trans>
                                                             <span className="ml-1">${x.symbol}</span>
                                                             <span>
                                                                 no less than {formatBalance(x.amount, x.decimals)}
                                                             </span>
                                                         </Trans>
-                                                    ) : (
-                                                        <span className="ml-1">${x.symbol}</span>
                                                     )}
                                                 </div>
                                             );

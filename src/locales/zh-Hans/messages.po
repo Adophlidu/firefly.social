@@ -1874,6 +1874,9 @@ msgstr "衡量过去 24 小时内所有平台上加密货币交易量的指标�
 msgid "Failed to recast."
 msgstr "转帖失败。"
 
+msgid "Add another token gate"
+msgstr ""
+
 msgid "No post found"
 msgstr "未找到帖子"
 
@@ -2121,6 +2124,9 @@ msgstr "正在回复"
 
 msgid "commented"
 msgstr "已回复"
+
+msgid "Add another NFT gate"
+msgstr ""
 
 msgid "All posts and activities from this user will be hidden from you"
 msgstr ""

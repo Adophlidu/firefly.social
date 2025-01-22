@@ -1869,6 +1869,9 @@ msgstr ""
 msgid "Failed to recast."
 msgstr ""
 
+msgid "Add another token gate"
+msgstr ""
+
 msgid "No post found"
 msgstr "未找到貼文"
 
@@ -2116,6 +2119,9 @@ msgstr ""
 
 msgid "commented"
 msgstr "已評論"
+
+msgid "Add another NFT gate"
+msgstr ""
 
 msgid "All posts and activities from this user will be hidden from you"
 msgstr ""
