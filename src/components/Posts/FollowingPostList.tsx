@@ -9,6 +9,7 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { ScrollListKey, type SocialDiscoverSource, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SOCIAL_DISCOVER_SOURCE, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { getPostsSelector, getPostsSelectorWithoutSource } from '@/helpers/getPostsSelector.js';
+import { mergeThreadPostsWithoutSource } from '@/helpers/mergeThreadPosts.js';
 import { multiQueryPageable } from '@/helpers/multiQueryPageable.js';
 import { createIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -86,7 +87,7 @@ export const FollowingPostList = memo<{
             return lastPage?.nextIndicator?.id;
         },
         select: (data) => {
-            if (source === Source.Posts) return getPostsSelectorWithoutSource(data);
+            if (source === Source.Posts) return mergeThreadPostsWithoutSource(getPostsSelectorWithoutSource(data));
             return getPostsSelector(source)(data);
         },
     });

@@ -353,12 +353,13 @@ export class FireflySocialMedia implements Provider {
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/farcaster/timeline', {
+            const query: Record<string, string | number | undefined> = {
                 size: 20,
-                cursor: indicator?.id,
                 sourceFid: session?.profileId,
                 needRootParentHash: 1,
-            });
+            };
+            if (indicator?.id) query.cursor = indicator?.id;
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/farcaster/timeline', query);
             const response = await fireflySessionHolder.fetch<CastsResponse>(url);
             const data = resolveFireflyResponseData(response);
             const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
