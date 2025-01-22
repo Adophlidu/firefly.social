@@ -2909,11 +2909,6 @@ msgstr ""
 msgid "<0>{0}</0><1>reposted</1>"
 msgstr ""
 
-#. placeholder {0}: x.symbol
-#. placeholder {1}: formatBalance(x.amount, x.decimals)
-msgid "<0>${0}</0><1>no less than {1}</1>"
-msgstr ""
-
 msgid "Login to enable all features"
 msgstr ""
 
@@ -3249,6 +3244,10 @@ msgid "Meet any of the following to unlock a premium collectible and get more $A
 msgstr ""
 
 msgid "Non-sanctioned address."
+msgstr ""
+
+#. placeholder {0}: formatBalance(x.amount, x.decimals)
+msgid "no less than {0}"
 msgstr ""
 
 msgid "Failed to quote post."

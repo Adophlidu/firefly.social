@@ -58,23 +58,29 @@ function NFTList({ nfts }: NFTListProps) {
                 const node = (
                     <Fragment key={`${nft.chainId}-${nft.contractAddress}`}>
                         <TokenIcon
-                            className="inline-block"
+                            className="inline-block shrink-0"
                             chainId={+nft.chainId}
                             name={name}
                             icon={nft.icon || data?.logo_url || ''}
                             size={18}
                             disableBadge
                         />
-                        {name}
+
+                        <TextOverflowTooltip content={name}>
+                            <span className="truncate">{name}</span>
+                        </TextOverflowTooltip>
                     </Fragment>
                 );
                 if (!url) return node;
                 return (
-                    <TextOverflowTooltip key={`${nft.chainId}-${nft.contractAddress}`} content={name}>
-                        <Link href={url!} target="_blank" className="inline-flex gap-1 truncate text-highlight">
-                            {node}
-                        </Link>
-                    </TextOverflowTooltip>
+                    <Link
+                        key={`${nft.chainId}-${nft.contractAddress}`}
+                        href={url!}
+                        target="_blank"
+                        className="inline-flex gap-1 truncate text-highlight"
+                    >
+                        {node}
+                    </Link>
                 );
             })}
         </div>
@@ -265,7 +271,7 @@ export function RequirementsModal({
                                     key={status.type}
                                 >
                                     <NFTHolder width={16} height={16} />
-                                    <div className="flex flex-1 flex-col gap-1">
+                                    <div className="flex max-w-[352px] flex-1 flex-col gap-1">
                                         <div className="text-left text-base">
                                             <Trans>NFT holder of any one below</Trans>
                                         </div>
@@ -292,13 +298,13 @@ export function RequirementsModal({
                                     className={classNames(
                                         'flex items-center gap-x-[10px] rounded-lg px-2 py-4 text-base leading-[18px]',
                                         !isVerifying && status.result.hasPassed
-                                            ? '.group-[.unclaimed]:bg-success/10 dark:group-[.unclaimed]:bg-success/20'
+                                            ? 'group-[.unclaimed]:bg-success/10 dark:group-[.unclaimed]:bg-success/20'
                                             : 'group-[.unclaimed]:bg-bg',
                                     )}
                                     key={status.type}
                                 >
                                     <ETHIcon width={16} height={16} />
-                                    <div className="flex flex-1 flex-col gap-1">
+                                    <div className="flex max-w-[352px] flex-1 flex-col gap-1">
                                         <div className="text-left text-base">
                                             <Trans>Token holder of any one below</Trans>
                                         </div>
@@ -306,9 +312,10 @@ export function RequirementsModal({
                                             return (
                                                 <div
                                                     key={`${x.chainId}-${x.contractAddress}`}
-                                                    className="flex items-center text-sm"
+                                                    className="flex items-center gap-1 truncate text-sm"
                                                 >
                                                     <TokenIcon
+                                                        className="shrink-0"
                                                         networkType={NetworkType.Ethereum}
                                                         chainId={+x.chainId}
                                                         icon={x.icon}
@@ -317,14 +324,36 @@ export function RequirementsModal({
                                                         badgeSize={7.5}
                                                     />
                                                     {isZero(x.amount || 0) ? (
-                                                        <span className="ml-1">${x.symbol}</span>
+                                                        <Link
+                                                            className="ml-1 text-highlight"
+                                                            href={`/search/tokens?q=${x.contractAddress}`}
+                                                        >
+                                                            ${x.symbol}
+                                                        </Link>
                                                     ) : (
-                                                        <Trans>
-                                                            <span className="ml-1">${x.symbol}</span>
-                                                            <span>
-                                                                no less than {formatBalance(x.amount, x.decimals)}
-                                                            </span>
-                                                        </Trans>
+                                                        <>
+                                                            <Link
+                                                                className="ml-1 text-highlight"
+                                                                href={`/search/tokens?q=${x.contractAddress}`}
+                                                            >
+                                                                ${x.symbol}
+                                                            </Link>
+                                                            <TextOverflowTooltip
+                                                                content={
+                                                                    <Trans>
+                                                                        no less than{' '}
+                                                                        {formatBalance(x.amount, x.decimals)}
+                                                                    </Trans>
+                                                                }
+                                                            >
+                                                                <span className="truncate">
+                                                                    <Trans>
+                                                                        no less than{' '}
+                                                                        {formatBalance(x.amount, x.decimals)}
+                                                                    </Trans>
+                                                                </span>
+                                                            </TextOverflowTooltip>
+                                                        </>
                                                     )}
                                                 </div>
                                             );

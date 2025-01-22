@@ -1,6 +1,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
+import { type FungibleToken } from '@masknet/web3-shared-base';
 import { useAppKitAccount } from '@reown/appkit/react';
 import { useRouter } from '@tanstack/react-router';
 import { Fragment, useCallback, useContext, useState } from 'react';
@@ -16,6 +17,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { formatDebankTokenToFungibleToken } from '@/helpers/formatToken.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { NonFungibleTokenCollectionSelectModalRef, TokenSelectorModalRef } from '@/modals/controls.js';
+import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.jsx';
 import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedPacketModal/common.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { RequirementType } from '@/providers/types/FireflyRedPacket.js';
@@ -32,24 +34,27 @@ export function RequirementsView() {
     });
 
     const disabled =
-        (rules.includes(RequirementType.NFTHolder) && !requireCollections.length) ||
-        (rules.includes(RequirementType.TokenHolder) && !requireTokens.length);
+        (rules.includes(RequirementType.NFTHolder) && (!requireCollections.length || !!collectionSlots.length)) ||
+        (rules.includes(RequirementType.TokenHolder) && (!requireTokens.length || !!tokenSlots.length));
 
     const handleSelectCollection = useCallback(
-        async (slot: number) => {
+        async (slot: number, previous?: Collection) => {
             const result = await NonFungibleTokenCollectionSelectModalRef.openAndWaitForClose({
                 selected: requireCollections,
                 initialAddTokenChainId: token.chainId,
             });
             if (!result) return;
-            setRequireCollections((collections) => [...collections, result]);
+            setRequireCollections((collections) => [
+                ...collections.filter((x) => (previous ? x !== previous : true)),
+                result,
+            ]);
             setCollectionSlots((slots) => slots.filter((s) => s !== slot));
         },
         [requireCollections, setRequireCollections, token.chainId],
     );
 
     const account = useAppKitAccount();
-    const selectToken = async (slot: number) => {
+    const selectToken = async (slot: number, previous?: FungibleToken<number, number>) => {
         if (!account.address) return;
         const picked = await TokenSelectorModalRef.openAndWaitForClose({
             address: account.address,
@@ -63,7 +68,10 @@ export function RequirementsView() {
             },
         });
         if (picked) {
-            setRequireTokens((tokens) => [...tokens, { token: picked, quantity: '' }]);
+            setRequireTokens((tokens) => [
+                ...tokens.filter((x) => (previous ? x.token !== previous : true)),
+                { token: picked, quantity: '' },
+            ]);
             setTokenSlots((slots) => slots.filter((s) => s !== slot));
         }
     };
@@ -96,16 +104,15 @@ export function RequirementsView() {
                                     className="h-5 w-5 cursor-pointer rounded-[4px] text-highlight"
                                     onChange={(event) => {
                                         const checked = event.currentTarget.checked;
-                                        if (!checked && value === RequirementType.NFTHolder) {
-                                            setRequireCollections(EMPTY_LIST);
-                                        }
-
                                         setRules(checked ? [...rules, value] : rules.filter((x) => x !== value));
-                                        if (!checked) return;
-                                        if (value === RequirementType.TokenHolder) {
-                                            setTokenSlots([Date.now()]);
-                                        } else if (value === RequirementType.NFTHolder) {
+                                        if (checked) return;
+                                        if (value === RequirementType.NFTHolder) {
+                                            setRequireCollections(EMPTY_LIST);
                                             setCollectionSlots([Date.now()]);
+                                        }
+                                        if (value === RequirementType.TokenHolder) {
+                                            setRequireTokens(EMPTY_LIST);
+                                            setTokenSlots([Date.now()]);
                                         }
                                     }}
                                 />
@@ -120,7 +127,7 @@ export function RequirementsView() {
                                         {requireCollections.map((collection) => (
                                             <div
                                                 key={`${collection.chainId}-${collection.address}`}
-                                                className="flex max-w-full gap-2 rounded-lg bg-input p-3 text-second"
+                                                className="flex max-w-full gap-2 rounded-lg bg-input p-3 text-second dark:bg-bg"
                                             >
                                                 <MinusIcon
                                                     className="h-6 w-6 shrink-0 text-main"
@@ -139,7 +146,7 @@ export function RequirementsView() {
                                                         name={collection.name}
                                                         size={24}
                                                         disableBadge
-                                                        className="h-6 w-6 rounded-full"
+                                                        className="h-6 w-6 shrink-0 rounded-full"
                                                     />
                                                     {collection.name ? (
                                                         <div className="min-w-0 flex-grow truncate text-left text-medium leading-5 text-main">
@@ -147,18 +154,16 @@ export function RequirementsView() {
                                                         </div>
                                                     ) : null}
                                                 </div>
-                                                {collection.iconURL ? null : (
-                                                    <div className="items-center text-second">
-                                                        <Trans>Select token to gate access</Trans>
-                                                    </div>
-                                                )}
-                                                <ArrowDown className="h-6 w-6" />
+                                                <ArrowDown
+                                                    className="h-6 w-6"
+                                                    onClick={() => handleSelectCollection(0, collection)}
+                                                />
                                             </div>
                                         ))}
                                         {collectionSlots.map((slot) => (
                                             <div
                                                 key={slot}
-                                                className="flex cursor-pointer justify-between gap-2 rounded-lg bg-input p-3 text-second"
+                                                className="flex cursor-pointer justify-between gap-2 rounded-lg bg-input p-3 text-second dark:bg-bg"
                                                 onClick={() => handleSelectCollection(slot)}
                                             >
                                                 <MinusIcon
@@ -200,7 +205,7 @@ export function RequirementsView() {
                                     <div className="mx-3 flex flex-col gap-2">
                                         {requireTokens.map(({ token, quantity }) => (
                                             <div className="flex gap-2" key={`${token.chainId}-${token.address}`}>
-                                                <div className="flex flex-grow gap-2 rounded-lg bg-input p-3 text-second">
+                                                <div className="flex flex-grow gap-2 rounded-lg bg-input p-3 text-second dark:bg-bg">
                                                     <MinusIcon
                                                         className="h-6 w-6 shrink-0 cursor-pointer text-main"
                                                         onClick={(e) => {
@@ -222,7 +227,7 @@ export function RequirementsView() {
                                                             className="h-6 w-6 rounded-full"
                                                         />
                                                         {token.name ? (
-                                                            <div className="flex-grow truncate text-medium leading-5 text-main">
+                                                            <div className="flex-grow truncate text-medium font-bold leading-5 text-main">
                                                                 {token.name}
                                                             </div>
                                                         ) : null}
@@ -230,7 +235,7 @@ export function RequirementsView() {
                                                     <ArrowDown className="ml-auto h-6 w-6" />
                                                 </div>
                                                 <input
-                                                    className="w-[200px] shrink-0 rounded-lg border-0 bg-input p-3 text-second outline-0 focus:ring-0"
+                                                    className="w-[200px] shrink-0 rounded-lg border-0 bg-input p-3 text-medium font-bold text-second outline-0 focus:ring-0 dark:bg-bg"
                                                     placeholder={t`Minimum token amount`}
                                                     value={quantity}
                                                     pattern="^[1-9]|^0(?![0-9])[.,]?[0-9]*$"
@@ -267,7 +272,7 @@ export function RequirementsView() {
                                         {tokenSlots.map((slot) => (
                                             <div
                                                 key={slot}
-                                                className="flex cursor-pointer justify-between gap-2 rounded-lg bg-input p-3 text-second"
+                                                className="flex cursor-pointer justify-between gap-2 rounded-lg bg-input p-3 text-second dark:bg-bg"
                                                 onClick={() => selectToken(slot)}
                                             >
                                                 <MinusIcon
@@ -312,6 +317,10 @@ export function RequirementsView() {
                         className="cursor-pointer text-base font-bold leading-[20px] text-highlight"
                         onClick={() => {
                             setRules(EMPTY_LIST);
+                            setRequireTokens(EMPTY_LIST);
+                            setRequireCollections(EMPTY_LIST);
+                            setTokenSlots(EMPTY_LIST);
+                            setCollectionSlots(EMPTY_LIST);
                         }}
                     >
                         <Trans>Clear all requirements</Trans>

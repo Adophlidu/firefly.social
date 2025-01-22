@@ -42,12 +42,12 @@ export function TokenIcon({
     }, [defaultFallbackUrl]);
 
     return (
-        <span className={classNames('relative', className)} {...rest}>
+        <span className={classNames('relative', className)} style={{ width: size, height: size }} {...rest}>
             {tokenIcon ? (
                 <Image
                     unoptimized
-                    className="rounded-full"
-                    alt={''}
+                    className="h-full w-full rounded-full object-cover"
+                    alt=""
                     src={tokenIcon}
                     width={size}
                     height={size}

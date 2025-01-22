@@ -2919,11 +2919,6 @@ msgstr "No cryptocurrency mixer involved."
 msgid "<0>{0}</0><1>reposted</1>"
 msgstr "<0>{0}</0><1>reposted</1>"
 
-#. placeholder {0}: x.symbol
-#. placeholder {1}: formatBalance(x.amount, x.decimals)
-msgid "<0>${0}</0><1>no less than {1}</1>"
-msgstr "<0>${0}</0><1>no less than {1}</1>"
-
 msgid "Login to enable all features"
 msgstr "Login to enable all features"
 
@@ -3260,6 +3255,10 @@ msgstr "Meet any of the following to unlock a premium collectible and get more $
 
 msgid "Non-sanctioned address."
 msgstr "Non-sanctioned address."
+
+#. placeholder {0}: formatBalance(x.amount, x.decimals)
+msgid "no less than {0}"
+msgstr "no less than {0}"
 
 msgid "Failed to quote post."
 msgstr "Failed to quote post."
