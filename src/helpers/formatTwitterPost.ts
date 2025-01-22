@@ -158,6 +158,9 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
                 status: ProfileStatus.Active,
                 verified: false,
                 source: Source.Twitter,
+                viewerContext: {
+                    following: author?.connection_status?.some((status) => status === 'following'),
+                },
             };
         }
         if (ret.metadata.content) ret.metadata.content.content = content;
