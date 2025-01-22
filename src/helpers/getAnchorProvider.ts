@@ -20,8 +20,8 @@ export function getAnchorProvider(chainId = ChainId.Mainnet): AnchorProvider {
     const connection = new web3.Connection(getSolanaRPCUrl(), 'confirmed');
     const wallet = {
         publicKey: adaptor.publicKey,
-        signTransaction: adaptor.signTransaction,
-        signAllTransactions: adaptor.signAllTransactions,
+        signTransaction: adaptor.signTransaction.bind(adaptor),
+        signAllTransactions: adaptor.signAllTransactions.bind(adaptor),
     };
 
     return new AnchorProvider(connection, wallet);
