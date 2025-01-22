@@ -1,9 +1,10 @@
-import type { HTMLProps } from 'react';
+import { type HTMLProps, useCallback, useState } from 'react';
 
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import type { NetworkType } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
 interface TokenIconProps extends HTMLProps<HTMLSpanElement> {
     networkType?: NetworkType;
@@ -30,11 +31,28 @@ export function TokenIcon({
     className,
     ...rest
 }: TokenIconProps) {
+    const isDarkMode = useIsDarkMode();
+
     const defaultBadgeSize = Math.max(24, Math.floor(size / 2));
+    const defaultFallbackUrl = isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
+
+    const [tokenIcon, setTokenIcon] = useState(icon || defaultFallbackUrl);
+    const onLoadError = useCallback(() => {
+        setTokenIcon(defaultFallbackUrl);
+    }, [defaultFallbackUrl]);
+
     return (
         <span className={classNames('relative', className)} {...rest}>
-            {icon ? (
-                <Image unoptimized className="rounded-full" alt={''} src={icon} width={size} height={size} />
+            {tokenIcon ? (
+                <Image
+                    unoptimized
+                    className="rounded-full"
+                    alt={''}
+                    src={tokenIcon}
+                    width={size}
+                    height={size}
+                    onError={onLoadError}
+                />
             ) : (
                 <span
                     className="block rounded-full bg-lightBg"

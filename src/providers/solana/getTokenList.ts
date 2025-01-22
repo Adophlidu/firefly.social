@@ -112,7 +112,10 @@ export async function getSolanaTokenList(chainId: number, account: string): Prom
             const tokenAmount = leftShift(tokenAccount.tokenAmount.amount, attributes?.decimals);
             const splToken = splTokens?.find((token) => isSameAddress(token.address, tokenAccount.mint));
 
-            const symbol = attributes?.symbol || splToken?.symbol || '-';
+            const symbol = attributes?.symbol || splToken?.symbol;
+            const logoImage = splToken?.logoURI || attributes?.image_url || '';
+
+            if (!symbol) return null;
 
             return {
                 chainId: ChainId.Mainnet,
@@ -126,7 +129,7 @@ export async function getSolanaTokenList(chainId: number, account: string): Prom
                 is_core: false,
                 is_verified: true,
                 is_wallet: false,
-                logo_url: attributes?.image_url || splToken?.logoURI || '',
+                logo_url: logoImage !== 'missing.png' ? logoImage : '',
                 name: attributes?.name || splToken?.name || '-',
                 optimized_symbol: symbol,
                 price: attributes?.price_usd || '0',
