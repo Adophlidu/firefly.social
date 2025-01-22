@@ -21,12 +21,12 @@ const SEARCH_CHAIN_ID_LIST = [
 
 const searchCollectionByAddress = memoizePromise(
     function searchCollectionByAddress(address: string) {
-        const singal = new AbortController();
+        const controller = new AbortController();
         return Promise.any(
             SEARCH_CHAIN_ID_LIST.map(async (chainId) => {
-                const result = await NFTScanProvider.getCollectionByAddress(address, chainId, singal.signal);
+                const result = await NFTScanProvider.getCollectionByAddress(address, chainId, controller.signal);
                 if (result) {
-                    singal.abort();
+                    controller.abort();
                     return result;
                 }
 
