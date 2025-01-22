@@ -14,10 +14,7 @@ import { NetworkType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { formatDebankTokenToFungibleToken } from '@/helpers/formatToken.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import {
-    NonFungibleTokenCollectionSelectModalRef,
-    TokenSelectorModalRef,
-} from '@/modals/controls.js';
+import { NonFungibleTokenCollectionSelectModalRef, TokenSelectorModalRef } from '@/modals/controls.js';
 import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedPacketModal/common.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { RequirementType } from '@/providers/types/FireflyRedPacket.js';
