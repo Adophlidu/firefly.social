@@ -64,7 +64,12 @@ export function useEVMAvailabilityComputed(payload: RedPacketJSONPayload, post: 
         },
     });
 
-    const { data, refetch, isFetching, isLoading } = useClaimStrategyStatus(payload, post.source, enabled);
+    const signedMessage = 'privateKey' in payload ? payload.privateKey : payload.password;
+    const { data, refetch, isFetching, isLoading } = useClaimStrategyStatus(
+        payload,
+        post.source,
+        enabled && !signedMessage,
+    );
 
     const recheckClaimStatus = useCallback(async () => {
         const { data } = await refetch();

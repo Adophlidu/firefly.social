@@ -268,7 +268,7 @@ export function RedPacketCard({ payload, post }: Props) {
                         estimateLoading={estimateLoading}
                         onClaim={async () => {
                             const result = await verifyAndClaim();
-                            if (!result) setRequirementOpen(true);
+                            if (!result && !!claimStrategyStatus?.length) setRequirementOpen(true);
                         }}
                     />
                 </>

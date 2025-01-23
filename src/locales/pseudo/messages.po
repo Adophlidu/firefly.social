@@ -2269,6 +2269,9 @@ msgstr ""
 msgid "Failed to claim red packet"
 msgstr ""
 
+msgid "You are not eligible to claim this red packet"
+msgstr ""
+
 msgid "Collectible could not be found."
 msgstr ""
 

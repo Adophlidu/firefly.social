@@ -5,7 +5,9 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useAsyncFn } from 'react-use';
 
+import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { resolveSolanaAccountId } from '@/helpers/resolveSolanaAccountId.js';
@@ -20,6 +22,7 @@ export function useVerifyAndClaimSolana(payload: RedPacketJSONPayload, post: Pos
     const wallet = useWallet();
     const walletModal = useWalletModal();
     const { account } = useChainContext({ networkType: getNetworkTypeFromRpPayload(payload) });
+    const { data, isFetching, refetch: recheckClaimStatus } = useClaimStrategyStatus(payload, post.source, enabled);
 
     const [{ loading }, handleClaim] = useAsyncFn(async () => {
         const accountId = resolveSolanaAccountId(payload.rpid, payload.accountId);
@@ -34,6 +37,17 @@ export function useVerifyAndClaimSolana(payload: RedPacketJSONPayload, post: Pos
         }
         if (!accountId || !payload.password || (!isNativeToken && !payload.tokenProgram)) {
             throw new Error(t`Invalid red packet`);
+        }
+
+        const { data } = await recheckClaimStatus();
+        if (data?.data && !data.data.canClaim) {
+            const hasRequirements = !!data?.data.claimStrategyStatus.length;
+            enqueueErrorMessage(
+                hasRequirements
+                    ? t`Oops... Not all the requirements have been met`
+                    : t`You are not eligible to claim this red packet`,
+            );
+            return { canClaim: false };
         }
 
         const baseParams: ClaimNativeTokenContext = {
@@ -81,14 +95,15 @@ export function useVerifyAndClaimSolana(payload: RedPacketJSONPayload, post: Pos
         account,
         wallet.publicKey,
         walletModal,
+        recheckClaimStatus,
     ]);
 
     return [
         {
-            isVerifying: false,
+            isVerifying: isFetching,
             isClaiming: loading,
-            claimStrategyStatus: undefined,
-            recheckClaimStatus: () => Promise.resolve({}),
+            claimStrategyStatus: data?.data.claimStrategyStatus,
+            recheckClaimStatus,
         },
         handleClaim,
     ] as const;

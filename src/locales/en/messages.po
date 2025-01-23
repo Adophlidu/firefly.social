@@ -2279,6 +2279,9 @@ msgstr "Unable to read image."
 msgid "Failed to claim red packet"
 msgstr "Failed to claim red packet"
 
+msgid "You are not eligible to claim this red packet"
+msgstr "You are not eligible to claim this red packet"
+
 msgid "Collectible could not be found."
 msgstr "Collectible could not be found."
 

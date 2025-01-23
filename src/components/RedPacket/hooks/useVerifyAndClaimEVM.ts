@@ -19,7 +19,13 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useVerifyAndClaimEVM(payload: RedPacketJSONPayload, source: SocialSource, post: Post, enabled = true) {
     const { address: account } = useAccount();
-    const { data, isFetching, refetch: recheckClaimStatus } = useClaimStrategyStatus(payload, source, enabled);
+
+    const signedMessage = 'privateKey' in payload ? payload.privateKey : payload.password;
+    const {
+        data,
+        isFetching,
+        refetch: recheckClaimStatus,
+    } = useClaimStrategyStatus(payload, source, enabled && !signedMessage);
 
     const [{ loading: isClaiming }, claimCallback] = useClaimCallback(account ?? '', payload, source);
 
