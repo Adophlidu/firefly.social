@@ -13,6 +13,7 @@ import type { Address } from 'viem';
 import RedPacketIcon from '@/assets/red-packet.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Loading } from '@/components/Loading.js';
+import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { AmountProgressText } from '@/components/RedPacket/AmountProgressText.js';
 import { useAvailabilityComputed } from '@/components/RedPacket/hooks/useAvailabilityComputed.js';
 import { useRedPacketCover } from '@/components/RedPacket/hooks/useRedPacketCover.js';
@@ -35,7 +36,8 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';
-import { ComposeModalRef } from '@/modals/controls.js';
+import { EVMChainResolver } from '@/mask/index.js';
+import { ComposeModalRef, RedPacketModalRef } from '@/modals/controls.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { TokenType } from '@/types/rp.js';
@@ -153,7 +155,22 @@ export function RedPacketCard({ payload, post }: Props) {
                         <Trans>Lucky Drop</Trans>
                     </strong>
                 </div>
-                <Timer endTime={payload.creation_time + payload.duration * 1000} />
+                {isEmpty || isClaimed || isExpired ? (
+                    <ClickableArea
+                        className="flex cursor-pointer items-center justify-center text-nowrap rounded-full bg-[#E8E8FF] px-[13px] py-[7px] text-xs leading-4 opacity-75 backdrop-blur-[5px]"
+                        onClick={() => {
+                            RedPacketModalRef.open({
+                                initialPath: '/detail',
+                                rpid: payload.rpid,
+                                networkType,
+                            });
+                        }}
+                    >
+                        <Trans>View detail</Trans>
+                    </ClickableArea>
+                ) : (
+                    <Timer endTime={payload.creation_time + payload.duration * 1000} />
+                )}
             </div>
 
             {cover && !imageLoading ? (
@@ -186,18 +203,21 @@ export function RedPacketCard({ payload, post }: Props) {
                                 height={48}
                             />
                         ) : null}
-                        {listOfStatus.length ? (
-                            <ClickableArea
-                                className="absolute right-5 top-4 z-20 flex cursor-pointer items-center rounded-full px-3 py-[6px] text-xs leading-3 text-white disabled:cursor-not-allowed"
-                                style={{ background: 'rgba(0, 0, 0, 0.25)', backdropFilter: 'blur(5px)' }}
-                                disabled={isVerifying}
-                                onClick={async () => {
-                                    if (claimStrategyStatus?.length) setRequirementOpen(true);
-                                }}
-                            >
-                                <span>{resolveRedPacketStatus(listOfStatus)}</span>
-                            </ClickableArea>
-                        ) : null}
+                        <ClickableArea
+                            className="absolute right-5 top-4 z-20 flex cursor-pointer items-center gap-1 rounded-full px-3 py-[6px] text-xs leading-3 text-white disabled:cursor-not-allowed"
+                            style={{ background: 'rgba(0, 0, 0, 0.25)', backdropFilter: 'blur(5px)' }}
+                            disabled={isVerifying}
+                            onClick={async () => {
+                                if (claimStrategyStatus?.length) setRequirementOpen(true);
+                            }}
+                        >
+                            <ChainIcon chainId={parsedChainId} size={14} />
+                            <span>
+                                {resolveRedPacketStatus(listOfStatus) || networkType === NetworkType.Ethereum
+                                    ? EVMChainResolver.chainName(parsedChainId)
+                                    : 'Solana'}
+                            </span>
+                        </ClickableArea>
                         <div
                             style={{
                                 borderWidth: 0,

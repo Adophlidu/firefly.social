@@ -1414,6 +1414,9 @@ msgstr "已收藏"
 msgid "Show more users"
 msgstr ""
 
+msgid "View detail"
+msgstr ""
+
 msgid "Try again"
 msgstr "请重试"
 

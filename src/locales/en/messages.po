@@ -1409,6 +1409,9 @@ msgstr "Collected"
 msgid "Show more users"
 msgstr "Show more users"
 
+msgid "View detail"
+msgstr "View detail"
+
 msgid "Try again"
 msgstr "Try again"
 

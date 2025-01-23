@@ -2,9 +2,11 @@
 
 import { createMemoryHistory, createRouter, RouterProvider, useRouterState } from '@tanstack/react-router';
 import { forwardRef, useRef } from 'react';
+import urlcat from 'urlcat';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
+import type { NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -39,7 +41,11 @@ function createRedPacketRouter() {
     });
 }
 
-export interface RedPacketModalOpenProps {}
+export interface RedPacketModalOpenProps {
+    initialPath?: string;
+    rpid?: string;
+    networkType?: NetworkType;
+}
 
 export const RedPacketModal = forwardRef<SingletonModalRefCreator<RedPacketModalOpenProps | void>>(
     function RedPacketModal(_, ref) {
@@ -47,7 +53,14 @@ export const RedPacketModal = forwardRef<SingletonModalRefCreator<RedPacketModal
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: async (props) => {
                 routerRef.current = createRedPacketRouter();
-                routerRef.current.history.push('/main');
+                routerRef.current.history.push(
+                    props?.initialPath
+                        ? urlcat(props.initialPath, {
+                              rpid: props.rpid,
+                              networkType: props.networkType,
+                          })
+                        : '/main',
+                );
             },
         });
 

@@ -1409,6 +1409,9 @@ msgstr ""
 msgid "Show more users"
 msgstr ""
 
+msgid "View detail"
+msgstr ""
+
 msgid "Try again"
 msgstr ""
 
