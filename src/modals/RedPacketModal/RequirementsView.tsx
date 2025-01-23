@@ -73,8 +73,9 @@ export function RequirementsView() {
             setRequireTokens((tokens) =>
                 tokens.map((x) => (x.token === previous ? { ...x, token: picked, quantity: '' } : x)),
             );
+        } else {
+            setRequireTokens((tokens) => [...tokens, { token: picked, quantity: '' }]);
         }
-        setRequireTokens((tokens) => [...tokens, { token: picked, quantity: '' }]);
         setTokenSlots((slots) => slots.filter((s) => s !== slot));
     };
 
