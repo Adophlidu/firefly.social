@@ -1,7 +1,7 @@
 import type { TypedMessage } from '@masknet/typed-message';
 import { createRenderWithMetadata, createTypedMessageMetadataReader } from '@masknet/typed-message-react';
 import { ChainId } from '@masknet/web3-shared-evm';
-import { Ok, type Result } from 'ts-results-es';
+import { Err, Ok, type Result } from 'ts-results-es';
 
 import { SOLANA_PREFIX, SolanaRedPacketMetaKey, SupportedMetaKeys } from '@/constants/rp.js';
 import { EVMChainResolver } from '@/mask/index.js';
@@ -19,7 +19,7 @@ export function RedPacketMetadataReader(
 ): Result<RedPacketJSONPayload, void> {
     const metaKey = SupportedMetaKeys.find((key) => !!metadata?.get(key));
     const reader = readerCache[metaKey ?? ''];
-    if (!reader) throw new Error(`Unsupported rp meta key: ${metaKey}`);
+    if (!reader) return Err.EMPTY;
 
     const result = reader(metadata);
     if (result.isOk()) {
