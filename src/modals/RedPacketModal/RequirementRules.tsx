@@ -33,14 +33,6 @@ export function RequirementRulesView() {
                     <Trans>Users must hold at least one NFT from the collections you specify.</Trans>
                 </div>
             </div>
-            <div className="flex flex-col gap-3">
-                <h2 className="text-base font-bold leading-4">
-                    <Trans>Token holder</Trans>
-                </h2>
-                <div className="text-sm leading-[18px]">
-                    <Trans>Users must hold a minimum number of tokens as specified.</Trans>
-                </div>
-            </div>
         </div>
     );
 }

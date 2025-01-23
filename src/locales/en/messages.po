@@ -775,9 +775,6 @@ msgstr "Search"
 msgid "Perhaps the token is a honeypot."
 msgstr "Perhaps the token is a honeypot."
 
-msgid "Minimum token amount"
-msgstr "Minimum token amount"
-
 #. placeholder {0}: mutuals[0].displayName
 msgid "Followed by {0}"
 msgstr "Followed by {0}"
@@ -1627,9 +1624,6 @@ msgstr "You can withdraw any unclaimed amount 24 hours after creating this lucky
 msgid "Only people you mention"
 msgstr "Only people you mention"
 
-msgid "Users must hold a minimum number of tokens as specified."
-msgstr "Users must hold a minimum number of tokens as specified."
-
 #. placeholder {0}: space.participant_count?.toLocaleString()
 msgid "{0} turned in"
 msgstr "{0} turned in"
@@ -1883,9 +1877,6 @@ msgstr "A measure of a cryptocurrency trading volume across all tracked platform
 
 msgid "Failed to recast."
 msgstr "Failed to recast."
-
-msgid "Add another token gate"
-msgstr "Add another token gate"
 
 msgid "No post found"
 msgstr "No post found"
@@ -2432,9 +2423,6 @@ msgstr "Random Split"
 
 msgid "Remove Poll"
 msgstr "Remove Poll"
-
-msgid "{totalCount, plural, one {{unsatisfiedCount} of {totalCount} requirements not met} other {{unsatisfiedCount} of {totalCount} requirements not met}}"
-msgstr "{totalCount, plural, one {{unsatisfiedCount} of {totalCount} requirements not met} other {{unsatisfiedCount} of {totalCount} requirements not met}}"
 
 msgid "Minutes"
 msgstr "Minutes"
@@ -3122,9 +3110,6 @@ msgstr "Show more channels"
 msgid "Snapshot added to your Bookmarks"
 msgstr "Snapshot added to your Bookmarks"
 
-msgid "Select token to gate access"
-msgstr "Select token to gate access"
-
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 
@@ -3714,9 +3699,6 @@ msgstr "Download App"
 
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr "Failed to fetch the latest state after several attempts. Please try again later."
-
-msgid "Token holder"
-msgstr "Token holder"
 
 #. placeholder {0}: getMintButtonText(true, true, mintStatus)
 msgid "So sorry, we cant mint this NFT with the current status: {0}"

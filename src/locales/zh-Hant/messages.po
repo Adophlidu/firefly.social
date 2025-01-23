@@ -780,9 +780,6 @@ msgstr "搜尋"
 msgid "Perhaps the token is a honeypot."
 msgstr ""
 
-msgid "Minimum token amount"
-msgstr ""
-
 #. placeholder {0}: mutuals[0].displayName
 msgid "Followed by {0}"
 msgstr ""
@@ -1632,9 +1629,6 @@ msgstr ""
 msgid "Only people you mention"
 msgstr "僅限你提及的帳戶"
 
-msgid "Users must hold a minimum number of tokens as specified."
-msgstr ""
-
 #. placeholder {0}: space.participant_count?.toLocaleString()
 msgid "{0} turned in"
 msgstr ""
@@ -1882,9 +1876,6 @@ msgid "A measure of a cryptocurrency trading volume across all tracked platforms
 msgstr ""
 
 msgid "Failed to recast."
-msgstr ""
-
-msgid "Add another token gate"
 msgstr ""
 
 msgid "No post found"
@@ -2427,9 +2418,6 @@ msgstr ""
 
 msgid "Remove Poll"
 msgstr "移除投票"
-
-msgid "{totalCount, plural, one {{unsatisfiedCount} of {totalCount} requirements not met} other {{unsatisfiedCount} of {totalCount} requirements not met}}"
-msgstr ""
 
 msgid "Minutes"
 msgstr "分鐘"
@@ -3117,9 +3105,6 @@ msgstr ""
 msgid "Snapshot added to your Bookmarks"
 msgstr ""
 
-msgid "Select token to gate access"
-msgstr ""
-
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr ""
 
@@ -3709,9 +3694,6 @@ msgstr "下載應用程式"
 
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr "在多次嘗試後仍無法獲取最新動態。請稍候再嘗試。"
-
-msgid "Token holder"
-msgstr ""
 
 #. placeholder {0}: getMintButtonText(true, true, mintStatus)
 msgid "So sorry, we cant mint this NFT with the current status: {0}"

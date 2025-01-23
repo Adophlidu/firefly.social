@@ -12,7 +12,6 @@ export enum RequirementType {
     Repost = 'Repost',
     Comment = 'Comment',
     NFTHolder = 'NFTHolder',
-    TokenHolder = 'TokenHolder',
 }
 
 export enum RedPacketStatus {
@@ -88,8 +87,8 @@ export namespace FireflyRedPacketAPI {
         profileFollow = 'profileFollow',
         postReaction = 'postReaction',
         nftOwned = 'nftOwned',
-        tokens = 'tokens',
         channel = 'channel',
+        tokens = 'tokens',
     }
 
     export type ClaimStrategy =

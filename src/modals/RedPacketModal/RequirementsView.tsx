@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
 import { type FungibleToken } from '@masknet/web3-shared-base';
@@ -34,8 +33,7 @@ export function RequirementsView() {
     });
 
     const disabled =
-        (rules.includes(RequirementType.NFTHolder) && (!requireCollections.length || !!collectionSlots.length)) ||
-        (rules.includes(RequirementType.TokenHolder) && (!requireTokens.length || !!tokenSlots.length));
+        rules.includes(RequirementType.NFTHolder) && (!requireCollections.length || !!collectionSlots.length);
 
     const handleSelectCollection = useCallback(
         async (slot: number, previous?: Collection) => {
@@ -112,10 +110,6 @@ export function RequirementsView() {
                                         if (value === RequirementType.NFTHolder) {
                                             setRequireCollections(EMPTY_LIST);
                                             setCollectionSlots([Date.now()]);
-                                        }
-                                        if (value === RequirementType.TokenHolder) {
-                                            setRequireTokens(EMPTY_LIST);
-                                            setTokenSlots([Date.now()]);
                                         }
                                     }}
                                 />
@@ -195,118 +189,6 @@ export function RequirementsView() {
                                             >
                                                 <AddIcon className="h-5 w-5" />
                                                 <Trans>Add another NFT gate</Trans>
-                                            </div>
-                                        ) : null}
-                                    </div>
-                                </Fragment>
-                            );
-                        }
-                        if (value === RequirementType.TokenHolder) {
-                            return (
-                                <Fragment key={value}>
-                                    {item}
-                                    <div className="mx-3 flex flex-col gap-2">
-                                        {requireTokens.map(({ token, quantity }) => (
-                                            <div className="flex gap-2" key={`${token.chainId}-${token.address}`}>
-                                                <div className="flex flex-grow gap-2 rounded-lg bg-input p-3 text-second dark:bg-bg">
-                                                    <MinusIcon
-                                                        className="h-6 w-6 shrink-0 cursor-pointer text-main"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            const list = requireTokens.filter((t) => t.token !== token);
-                                                            setRequireTokens(list);
-                                                            if (list.length === 0 && tokenSlots.length === 0) {
-                                                                setRules((rules) => rules.filter((x) => x !== value));
-                                                            }
-                                                        }}
-                                                    />
-                                                    <div className="flex min-w-0 items-center gap-2">
-                                                        <TokenIcon
-                                                            size={24}
-                                                            networkType={NetworkType.Ethereum}
-                                                            chainId={token.chainId}
-                                                            icon={token.logoURL}
-                                                            name={token.name}
-                                                            className="h-6 w-6 rounded-full"
-                                                        />
-                                                        {token.name ? (
-                                                            <div className="flex-grow truncate text-medium font-bold leading-5 text-main">
-                                                                {token.name}
-                                                            </div>
-                                                        ) : null}
-                                                    </div>
-                                                    <ArrowDown
-                                                        className="ml-auto h-6 w-6 cursor-pointer"
-                                                        onClick={() => selectToken(0, token)}
-                                                    />
-                                                </div>
-                                                <input
-                                                    className="w-[200px] shrink-0 rounded-lg border-0 bg-input p-3 text-medium font-bold text-second outline-0 focus:ring-0 dark:bg-bg"
-                                                    placeholder={t`Minimum token amount`}
-                                                    value={quantity}
-                                                    pattern="^[1-9]|^0(?![0-9])[.,]?[0-9]*$"
-                                                    inputMode="decimal"
-                                                    min={0}
-                                                    onChange={(e) => {
-                                                        setRequireTokens((tokens) =>
-                                                            tokens.map((t) => {
-                                                                if (t.token === token) {
-                                                                    const FRACTION_AMOUNT_RE = new RegExp(
-                                                                        `^\\.\\d{0,${token.decimals}}$`,
-                                                                    );
-                                                                    // d.ddd...d
-                                                                    const WHOLE_AMOUNT_RE = new RegExp(
-                                                                        `^\\d*\\.?\\d{0,${token.decimals}}$`,
-                                                                    );
-
-                                                                    const raw = e.target.value.replace(/,/g, '');
-                                                                    if (FRACTION_AMOUNT_RE.test(raw)) {
-                                                                        return { ...t, quantity: `0${raw}` };
-                                                                    }
-                                                                    if (WHOLE_AMOUNT_RE.test(raw) || raw === '') {
-                                                                        return { ...t, quantity: raw };
-                                                                    }
-                                                                    return t;
-                                                                }
-                                                                return t;
-                                                            }),
-                                                        );
-                                                    }}
-                                                />
-                                            </div>
-                                        ))}
-                                        {tokenSlots.map((slot) => (
-                                            <div
-                                                key={slot}
-                                                className="flex cursor-pointer justify-between gap-2 rounded-lg bg-input p-3 text-second dark:bg-bg"
-                                                onClick={() => selectToken(slot)}
-                                            >
-                                                <MinusIcon
-                                                    className="h-6 w-6 shrink-0 text-main"
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        const list = tokenSlots.filter((x) => x !== slot);
-                                                        setTokenSlots(list);
-                                                        if (list.length === 0 && requireTokens.length === 0) {
-                                                            setRules((rules) => rules.filter((x) => x !== value));
-                                                        }
-                                                    }}
-                                                />
-                                                <div className="items-center gap-y-2 text-second">
-                                                    <Trans>Select token to gate access</Trans>
-                                                </div>
-                                                <ArrowDown className="ml-auto h-6 w-6" />
-                                            </div>
-                                        ))}
-                                        {requireTokens.length + tokenSlots.length < 3 ? (
-                                            <div
-                                                className="flex cursor-pointer items-center justify-end gap-2 text-base text-main"
-                                                onClick={() => {
-                                                    setTokenSlots((slots) => [...slots, Date.now()]);
-                                                }}
-                                            >
-                                                <AddIcon className="h-5 w-5" />
-                                                <Trans>Add another token gate</Trans>
                                             </div>
                                         ) : null}
                                     </div>

@@ -65,7 +65,6 @@ export function ConfirmView() {
         rawAmount,
         rules,
         requireCollections,
-        requireTokens,
         customThemes,
         setCustomThemes,
         themes,
@@ -161,22 +160,6 @@ export function ConfirmView() {
                     })),
                 });
             }
-            if (rules.includes(RequirementType.TokenHolder) && requireTokens.length) {
-                strategies.push({
-                    type: StrategyType.tokens,
-                    payload: requireTokens.map(({ token, quantity }) => {
-                        return {
-                            chainId: (token.chainId ?? chainId).toString(),
-                            contractAddress: token.address,
-                            name: token.name,
-                            symbol: token.symbol,
-                            decimals: token.decimals,
-                            icon: token.logoURL!,
-                            amount: quantity ? rightShift(quantity, token.decimals).toString() : '0',
-                        };
-                    }),
-                });
-            }
         }
 
         return {
@@ -189,7 +172,6 @@ export function ConfirmView() {
         themeId,
         account,
         requireCollections,
-        requireTokens,
         currentLensProfile,
         currentFarcasterProfile,
         currentTwitterProfile,
