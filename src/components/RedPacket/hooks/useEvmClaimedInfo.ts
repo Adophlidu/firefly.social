@@ -16,18 +16,13 @@ export function useEvmClaimedInfo(rpid: string) {
         queryKey: ['fireflyClaimHistory', rpid],
         initialPageParam: '',
         queryFn: async ({ pageParam }) => {
-            return await FireflyRedPacketEndpoint.getClaimHistory(
-                rpid,
-                createIndicator(undefined, pageParam as string),
-            );
+            return FireflyRedPacketEndpoint.getClaimHistory(rpid, createIndicator(undefined, pageParam as string));
         },
         getNextPageParam: (lastPage) => lastPage?.cursor,
     });
 
     const onEndReached = useCallback(async () => {
-        if (!hasNextPage || isFetching || isFetchingNextPage) {
-            return;
-        }
+        if (!hasNextPage || isFetching || isFetchingNextPage) return;
         await fetchNextPage();
     }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 

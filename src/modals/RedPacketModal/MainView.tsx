@@ -17,7 +17,6 @@ import RedPacketIcon from '@/assets/red-packet.svg';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { FungibleTokenInput } from '@/components/FungibleTokenInput.js';
 import { useDefaultCreateGas } from '@/components/RedPacket/hooks/useDefaultCreateGas.js';
-import { useNativeToken } from '@/components/RedPacket/hooks/useNativeToken.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { TokenValue } from '@/components/TokenValue.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -26,6 +25,7 @@ import { NetworkType } from '@/constants/enum.js';
 import { RED_PACKET_CONTRACT_VERSION, RED_PACKET_DURATION, RED_PACKET_MIN_SHARES } from '@/constants/rp.js';
 import { createAccount } from '@/helpers/createAccount.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
+import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { getRpMaxShares, getRpMessageMaxLength } from '@/helpers/getRpLimitations.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { isGreaterThan, isZero, leftShift, multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
@@ -56,7 +56,6 @@ export function MainView() {
 
     const { chainId: contextChainId, account } = useChainContext({ networkType });
     const chainId = token?.chainId || contextChainId;
-    const nativeToken = useNativeToken(chainId, networkType);
     const { data: nativeTokenPrice = 0, isLoading: priceLoading } = useNativeTokenPrice({ chainId, networkType });
 
     const isRandom = randomType === 'random';
@@ -131,6 +130,7 @@ export function MainView() {
         isEVM,
     );
 
+    const nativeToken = getNativeToken(networkType, chainId);
     const cost = gasFee ? leftShift(gasFee, nativeToken.decimals).multipliedBy(nativeTokenPrice) : ZERO;
 
     // #region validation

@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { type ChainContextOverride, useChainContext } from '@/hooks/useChainContext.js';
+import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 
-export function useFungibleTokenPrice(address?: string, override?: ChainContextOverride) {
+export function useFungibleTokenPrice(address?: string, override?: ChainContextOverrides) {
     const { chainId } = useChainContext(override);
 
     return useQuery({

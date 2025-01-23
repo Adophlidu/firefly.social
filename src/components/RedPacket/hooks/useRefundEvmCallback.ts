@@ -6,10 +6,10 @@ import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
-import { type ChainContextOverride, useChainContext } from '@/hooks/useChainContext.js';
+import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 
-export function useRefundEvmCallback(rpid?: string, overrides?: ChainContextOverride) {
+export function useRefundEvmCallback(rpid?: string, overrides?: ChainContextOverrides) {
     const { chainId, account } = useChainContext(overrides);
 
     return useAsyncFn(async () => {

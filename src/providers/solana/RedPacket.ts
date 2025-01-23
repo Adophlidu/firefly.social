@@ -6,7 +6,6 @@ import { sign } from 'tweetnacl';
 
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { multipliedBy } from '@/helpers/number.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -65,7 +64,7 @@ type MethodsBuilder = {
 };
 async function runRPC(builder: MethodsBuilder) {
     try {
-        return builder.rpc({ commitment: 'confirmed' });
+        return await builder.rpc({ commitment: 'confirmed' });
     } catch (error) {
         if (error instanceof TransactionExpiredTimeoutError && error.signature) {
             const result = await runInSafeAsync(() =>
@@ -273,22 +272,6 @@ class Provider {
         return redPacket;
     }
 
-    async getRedPacketsByCreator(creator: web3.PublicKey) {
-        const redPackets = await this.program.account.redPacket.all([
-            {
-                memcmp: {
-                    offset: 8, // Adjust the offset based on your account structure
-                    bytes: creator.toBase58(),
-                },
-            },
-        ]);
-        return redPackets;
-    }
-
-    async getRedPacketsByReceiver(receiver: web3.PublicKey) {
-        throw new NotImplementedError();
-    }
-
     async getClaimedRecord(accountId: web3.PublicKey, receiver: web3.PublicKey) {
         try {
             const claimAccount = web3.PublicKey.findProgramAddressSync(
@@ -313,7 +296,7 @@ class Provider {
                     },
                 },
             ]);
-        } catch (error) {
+        } catch {
             return EMPTY_LIST;
         }
     }

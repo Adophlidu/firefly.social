@@ -15,7 +15,6 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Loading } from '@/components/Loading.js';
 import { AmountProgressText } from '@/components/RedPacket/AmountProgressText.js';
 import { useAvailabilityComputed } from '@/components/RedPacket/hooks/useAvailabilityComputed.js';
-import { useNativeToken } from '@/components/RedPacket/hooks/useNativeToken.js';
 import { useRedPacketCover } from '@/components/RedPacket/hooks/useRedPacketCover.js';
 import { useRefundCallback } from '@/components/RedPacket/hooks/useRefundCallback.js';
 import { useVerifyAndClaim } from '@/components/RedPacket/hooks/useVerifyAndClaim.js';
@@ -28,6 +27,7 @@ import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { fetch } from '@/helpers/fetch.js';
+import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { minus, ZERO } from '@/helpers/number.js';
@@ -94,7 +94,7 @@ export function RedPacketCard({ payload, post }: Props) {
         });
     }, [account, canClaim, parsedChainId, payload.rpid, password, networkType]);
 
-    const nativeToken = useNativeToken(parsedChainId, networkType);
+    const nativeToken = getNativeToken(networkType, parsedChainId);
 
     const balanceResult = useAvailableBalance(
         nativeToken.address as Address,

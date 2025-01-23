@@ -8,10 +8,10 @@ import { useRefundSolanaCallback } from '@/components/RedPacket/hooks/useRefundS
 import { queryClient } from '@/configs/queryClient.js';
 import { NetworkType } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { type ChainContextOverride, useChainContext } from '@/hooks/useChainContext.js';
+import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
-export function useRefundCallback(rpid?: string, overrides?: ChainContextOverride) {
+export function useRefundCallback(rpid?: string, overrides?: ChainContextOverrides) {
     const [, refundEVM] = useRefundEvmCallback(rpid, overrides);
     const [, refundSolana] = useRefundSolanaCallback(rpid, overrides);
     const { account } = useChainContext(overrides);

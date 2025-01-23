@@ -1583,9 +1583,6 @@ msgstr ""
 msgid "Total amount shared among all winners"
 msgstr ""
 
-msgid "Token is missing"
-msgstr ""
-
 msgid "Enter number of winners"
 msgstr ""
 
@@ -3027,9 +3024,6 @@ msgid "Show more collections"
 msgstr ""
 
 msgid "Everyone can reply"
-msgstr ""
-
-msgid "Invalid red packet"
 msgstr ""
 
 msgid "No matching token"

@@ -1583,9 +1583,6 @@ msgstr "代理合约"
 msgid "Total amount shared among all winners"
 msgstr "在所有获奖者之间分配的总金额"
 
-msgid "Token is missing"
-msgstr ""
-
 msgid "Enter number of winners"
 msgstr "输入获奖人数"
 
@@ -3033,9 +3030,6 @@ msgstr ""
 
 msgid "Everyone can reply"
 msgstr "所有人可评论"
-
-msgid "Invalid red packet"
-msgstr ""
 
 msgid "No matching token"
 msgstr ""

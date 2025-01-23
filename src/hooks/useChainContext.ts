@@ -7,13 +7,13 @@ import { useAccount, useChainId } from 'wagmi';
 import { NetworkType } from '@/constants/enum.js';
 import { EVMChainResolver } from '@/mask/index.js';
 
-export interface ChainContextOverride {
+export interface ChainContextOverrides {
     chainId?: number;
     account?: string;
     networkType?: NetworkType;
 }
 
-export function useChainContext(overrides?: ChainContextOverride) {
+export function useChainContext(overrides?: ChainContextOverrides) {
     const account = useAccount();
     const chainId = useChainId();
 

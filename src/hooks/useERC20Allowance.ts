@@ -4,12 +4,12 @@ import { readContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
-import { type ChainContextOverride, useChainContext } from '@/hooks/useChainContext.js';
+import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
 
 export function useERC20TokenAllowance(
     address?: `0x${string}`,
     spender?: string,
-    overrides?: ChainContextOverride,
+    overrides?: ChainContextOverrides,
     enabled = true,
 ) {
     const { account, chainId } = useChainContext(overrides);

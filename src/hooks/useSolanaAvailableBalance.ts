@@ -2,24 +2,22 @@ import { isNativeTokenAddress } from '@masknet/web3-shared-solana';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
-import { useNativeToken } from '@/components/RedPacket/hooks/useNativeToken.js';
-import { NetworkType } from '@/constants/enum.js';
 import { SOLANA_DEFAULT_CREATE_GAS } from '@/constants/rp.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isGreaterThan } from '@/helpers/number.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { type ChainContextOverride, useChainContext } from '@/hooks/useChainContext.js';
+import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
+import { SolanaChainResolver } from '@/mask/index.js';
 import { getNativeTokenBalance, getSplTokenBalance } from '@/providers/solana/getTokenBalance.js';
 
 export function useSolanaAvailableBalance(
     address: string,
     gas: number,
-    overrides?: ChainContextOverride,
+    overrides?: ChainContextOverrides,
     enabled = true,
 ) {
     const isNativeToken = isNativeTokenAddress(address);
     const { chainId, account } = useChainContext(overrides);
-    const nativeToken = useNativeToken(chainId, NetworkType.Solana);
 
     const { data: nativeBalance } = useQuery({
         queryKey: ['solana', 'balance', account],
@@ -33,6 +31,7 @@ export function useSolanaAvailableBalance(
         queryFn: () =>
             runInSafeAsync(async () => {
                 if (isNativeToken) {
+                    const nativeToken = SolanaChainResolver.nativeCurrency(chainId);
                     const data = await getNativeTokenBalance(account, chainId);
                     return {
                         amount: data?.value,

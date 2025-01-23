@@ -16,11 +16,11 @@ import { mainnet } from 'viem/chains';
 import { useEnsName } from 'wagmi';
 
 import WalletIcon from '@/assets/wallet2.svg';
-import { useNativeToken } from '@/components/RedPacket/hooks/useNativeToken.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { NetworkType } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { RED_PACKET_DEFAULT_SHARES } from '@/constants/rp.js';
+import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
@@ -176,7 +176,7 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
     const [networkType, setNetworkType] = useState<NetworkType>(initialNetworkType);
     const { chainId, account } = useChainContext({ networkType });
 
-    const nativeToken = useNativeToken(chainId, networkType);
+    const nativeToken = getNativeToken(networkType, chainId);
     const [token = nativeToken, setToken] = useState<FungibleToken<number, number>>();
     const [coverType, setCoverType] = useState<CoverTabType>('default');
     const [fontColor, setFontColor] = useState<FontColorTabType>('golden');

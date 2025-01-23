@@ -32,12 +32,9 @@ export function useVerifyAndClaimSolana(payload: RedPacketJSONPayload, post: Pos
             return { canClaim: true };
         }
 
-        if (!payload.token) {
-            throw new Error(t`Token is missing`);
-        }
-        if (!accountId || !payload.password || (!isNativeToken && !payload.tokenProgram)) {
-            throw new Error(t`Invalid red packet`);
-        }
+        if (!payload.token) throw new Error('Token is missing');
+        if (!accountId || !payload.password || (!isNativeToken && !payload.tokenProgram))
+            throw new Error('Invalid red packet');
 
         const { data } = await recheckClaimStatus();
         if (data?.data && !data.data.canClaim) {
@@ -70,9 +67,7 @@ export function useVerifyAndClaimSolana(payload: RedPacketJSONPayload, post: Pos
                 tokenProgram: new web3.PublicKey(payload.tokenProgram || ''),
             });
         }
-        if (!result) {
-            throw new Error(t`Failed to claim red packet`);
-        }
+        if (!result) throw new Error('Failed to claim red packet');
 
         await queryClient.refetchQueries({
             queryKey: ['red-packet', 'solana-availability', payload.rpid, account],

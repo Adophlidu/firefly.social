@@ -1578,9 +1578,6 @@ msgstr "Proxy contract"
 msgid "Total amount shared among all winners"
 msgstr "Total amount shared among all winners"
 
-msgid "Token is missing"
-msgstr "Token is missing"
-
 msgid "Enter number of winners"
 msgstr "Enter number of winners"
 
@@ -3033,9 +3030,6 @@ msgstr "Show more collections"
 
 msgid "Everyone can reply"
 msgstr "Everyone can reply"
-
-msgid "Invalid red packet"
-msgstr "Invalid red packet"
 
 msgid "No matching token"
 msgstr "No matching token"

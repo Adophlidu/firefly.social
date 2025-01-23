@@ -4,11 +4,11 @@ import { useAsyncFn } from 'react-use';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { resolveSolanaAccountId } from '@/helpers/resolveSolanaAccountId.js';
-import type { ChainContextOverride } from '@/hooks/useChainContext.js';
+import type { ChainContextOverrides } from '@/hooks/useChainContext.js';
 import { getTokenAccountByMint } from '@/providers/solana/getTokenAccountByMint.js';
 import { SolanaRedPacket } from '@/providers/solana/RedPacket.js';
 
-export function useRefundSolanaCallback(rpid?: string, overrides?: ChainContextOverride) {
+export function useRefundSolanaCallback(rpid?: string, overrides?: ChainContextOverrides) {
     const chainId = overrides?.chainId || ChainId.Mainnet;
     const rpAccountId = rpid ? resolveSolanaAccountId(rpid) : null;
 

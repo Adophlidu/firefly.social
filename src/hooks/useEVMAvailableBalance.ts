@@ -1,4 +1,5 @@
 'use client';
+
 import { isNativeTokenAddress } from '@masknet/web3-shared-evm';
 import { useMemo } from 'react';
 import { useBalance, useEstimateFeesPerGas } from 'wagmi';
@@ -6,12 +7,12 @@ import { useBalance, useEstimateFeesPerGas } from 'wagmi';
 import { config } from '@/configs/wagmiClient.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isGreaterThan, multipliedBy, ZERO } from '@/helpers/number.js';
-import { type ChainContextOverride, useChainContext } from '@/hooks/useChainContext.js';
+import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
 
 export function useEVMAvailableBalance(
     address: `0x${string}`,
     gas: number,
-    overrides?: ChainContextOverride,
+    overrides?: ChainContextOverrides,
     enabled = true,
 ) {
     const isNativeToken = isNativeTokenAddress(address);
