@@ -1,4 +1,4 @@
-import { type HTMLProps, useCallback, useState } from 'react';
+import { type HTMLProps, useCallback, useMemo, useState } from 'react';
 
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import type { NetworkType } from '@/constants/enum.js';
@@ -36,10 +36,14 @@ export function TokenIcon({
     const defaultBadgeSize = Math.max(24, Math.floor(size / 2));
     const defaultFallbackUrl = isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
 
-    const [tokenIcon, setTokenIcon] = useState(icon || defaultFallbackUrl);
+    const [hasError, setHasError] = useState(false);
     const onLoadError = useCallback(() => {
-        setTokenIcon(defaultFallbackUrl);
-    }, [defaultFallbackUrl]);
+        setHasError(true);
+    }, []);
+
+    const tokenIcon = useMemo(() => {
+        return !icon || hasError || icon === 'missing.png' ? defaultFallbackUrl : icon;
+    }, [icon, hasError, defaultFallbackUrl]);
 
     return (
         <span className={classNames('relative', className)} style={{ width: size, height: size }} {...rest}>

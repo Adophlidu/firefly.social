@@ -116,6 +116,8 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
         networkType === NetworkType.Solana ? SolanaChainId.Mainnet : chain_id,
     );
 
+    const logoUrl = token_logo !== 'missing.png' ? token_logo : undefined;
+
     return (
         <div className="mb-3 flex w-full flex-col rounded-lg bg-white p-0">
             <section className="flex items-center justify-between">
@@ -243,11 +245,11 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                         <span>{token_symbol}</span>
                                     </Trans>
                                 </div>
-                                {token_logo ? (
+                                {logoUrl ? (
                                     <Image
                                         className="ml-[6px] rounded-full"
-                                        alt={token_logo}
-                                        src={token_logo}
+                                        alt={token_symbol}
+                                        src={logoUrl}
                                         width={18}
                                         height={18}
                                     />
@@ -266,11 +268,11 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                     })}{' '}
                                     {token_symbol}
                                 </div>
-                                {token_logo ? (
+                                {logoUrl ? (
                                     <Image
                                         className="ml-[6px] rounded-full"
-                                        alt={token_logo}
-                                        src={token_logo}
+                                        alt={token_symbol}
+                                        src={logoUrl}
                                         width={18}
                                         height={18}
                                     />
