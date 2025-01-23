@@ -430,6 +430,9 @@ msgstr "<0>出售了一个投注</0><1>在 Polymarket 上价值 ${0}</1>"
 msgid "Report submitted on {0}"
 msgstr "举报已提交 {0}"
 
+msgid "Users must follow your account."
+msgstr ""
+
 msgid "Failed to create custom theme."
 msgstr "创建自定义封面失败。"
 
@@ -716,6 +719,9 @@ msgstr "{0, plural, one {转帖} other {转帖}}"
 msgid "Type something here..."
 msgstr "从这里开始..."
 
+msgid "Users must like, repost/quote, or comment on your post containing the Lucky Drop."
+msgstr ""
+
 msgid "Save Post?"
 msgstr "保存草稿？"
 
@@ -782,6 +788,9 @@ msgid "Followed by {0}"
 msgstr "被 {0} 关注"
 
 msgid "All activities from {handleOrEnsOrAddress} will be hidden from you"
+msgstr ""
+
+msgid "<0>Note:</0> If you cross-post a Lucky Drop to multiple social platforms, following your account on any one platform qualifies users to claim."
 msgstr ""
 
 #. placeholder {0}: profile.handle
@@ -1623,6 +1632,9 @@ msgstr ""
 msgid "Only people you mention"
 msgstr "只有你提及的人"
 
+msgid "Users must hold a minimum number of tokens as specified."
+msgstr ""
+
 #. placeholder {0}: space.participant_count?.toLocaleString()
 msgid "{0} turned in"
 msgstr "{0} 提交了"
@@ -1687,6 +1699,9 @@ msgstr "隐藏更多的评论"
 
 msgid "Malformed session."
 msgstr "会话格式错误。"
+
+msgid "Like / Repost / Comment"
+msgstr ""
 
 msgid "Upload"
 msgstr "上传"
@@ -2090,6 +2105,9 @@ msgstr "合约源代码未验证"
 msgid "NFT removed from your Bookmarks"
 msgstr "NFT 已经从您的收藏中移除"
 
+msgid "Users must hold at least one NFT from the collections you specify."
+msgstr ""
+
 msgid "Not Started"
 msgstr "尚未开始"
 
@@ -2411,6 +2429,9 @@ msgstr "随机金额"
 
 msgid "Remove Poll"
 msgstr "删除投票"
+
+msgid "{totalCount, plural, one {{unsatisfiedCount} of {totalCount} requirements not met} other {{unsatisfiedCount} of {totalCount} requirements not met}}"
+msgstr ""
 
 msgid "Minutes"
 msgstr "分钟"

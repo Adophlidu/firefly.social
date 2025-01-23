@@ -1,5 +1,5 @@
-import { isValidAddress } from '@masknet/web3-shared-evm';
 import { first } from 'lodash-es';
+import { isAddress } from 'viem/utils';
 
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
@@ -20,7 +20,7 @@ function sortTokensByKeyword(tokens: SearchableToken[], keyword: string) {
     if (!tokens.length) return tokens;
 
     // fast path
-    if (isSameTokenSymbol(tokens[0]?.symbol || '', keyword) || isValidAddress(trimify(keyword).toLowerCase())) {
+    if (isSameTokenSymbol(tokens[0]?.symbol || '', keyword) || isAddress(trimify(keyword).toLowerCase())) {
         const [firstToken, ...rest] = tokens;
         return [{ ...firstToken, hit: true }, ...rest];
     }
@@ -43,7 +43,7 @@ function sortTokensByKeyword(tokens: SearchableToken[], keyword: string) {
     return tokens;
 }
 
-async function searchTokensByAddress(address: string): Promise<Pageable<SearchableToken, PageIndicator>> {
+export async function searchTokensByAddress(address: string): Promise<Pageable<SearchableToken, PageIndicator>> {
     try {
         const token = await searchTokenByAddress(address);
 
@@ -68,7 +68,7 @@ async function searchTokensByAddress(address: string): Promise<Pageable<Searchab
 
 export async function searchTokens(searchKeyword: string): Promise<Pageable<TokenWithMarket, PageIndicator>> {
     const trimmed = trimify(searchKeyword).toLowerCase();
-    const res = isValidAddress(trimmed)
+    const res = isAddress(trimmed)
         ? await searchTokensByAddress(trimmed)
         : await FireflyEndpointProvider.searchTokens(searchKeyword);
     const ids = res.data.map((x) => x.id);

@@ -425,6 +425,9 @@ msgstr "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
 msgid "Report submitted on {0}"
 msgstr "Report submitted on {0}"
 
+msgid "Users must follow your account."
+msgstr "Users must follow your account."
+
 msgid "Failed to create custom theme."
 msgstr "Failed to create custom theme."
 
@@ -711,6 +714,9 @@ msgstr "{0, plural, one {mirror} other {mirrors}}"
 msgid "Type something here..."
 msgstr "Type something here..."
 
+msgid "Users must like, repost/quote, or comment on your post containing the Lucky Drop."
+msgstr "Users must like, repost/quote, or comment on your post containing the Lucky Drop."
+
 msgid "Save Post?"
 msgstr "Save Post?"
 
@@ -778,6 +784,9 @@ msgstr "Followed by {0}"
 
 msgid "All activities from {handleOrEnsOrAddress} will be hidden from you"
 msgstr "All activities from {handleOrEnsOrAddress} will be hidden from you"
+
+msgid "<0>Note:</0> If you cross-post a Lucky Drop to multiple social platforms, following your account on any one platform qualifies users to claim."
+msgstr "<0>Note:</0> If you cross-post a Lucky Drop to multiple social platforms, following your account on any one platform qualifies users to claim."
 
 #. placeholder {0}: profile.handle
 msgid "Failed to unfollow @{0} on {sourceName}."
@@ -1618,6 +1627,9 @@ msgstr "You can withdraw any unclaimed amount 24 hours after creating this lucky
 msgid "Only people you mention"
 msgstr "Only people you mention"
 
+msgid "Users must hold a minimum number of tokens as specified."
+msgstr "Users must hold a minimum number of tokens as specified."
+
 #. placeholder {0}: space.participant_count?.toLocaleString()
 msgid "{0} turned in"
 msgstr "{0} turned in"
@@ -1682,6 +1694,9 @@ msgstr "Hide more comments"
 
 msgid "Malformed session."
 msgstr "Malformed session."
+
+msgid "Like / Repost / Comment"
+msgstr "Like / Repost / Comment"
 
 msgid "Upload"
 msgstr "Upload"
@@ -2085,6 +2100,9 @@ msgstr "Contract source code not verified"
 msgid "NFT removed from your Bookmarks"
 msgstr "NFT removed from your Bookmarks"
 
+msgid "Users must hold at least one NFT from the collections you specify."
+msgstr "Users must hold at least one NFT from the collections you specify."
+
 msgid "Not Started"
 msgstr "Not Started"
 
@@ -2411,6 +2429,9 @@ msgstr "Random Split"
 
 msgid "Remove Poll"
 msgstr "Remove Poll"
+
+msgid "{totalCount, plural, one {{unsatisfiedCount} of {totalCount} requirements not met} other {{unsatisfiedCount} of {totalCount} requirements not met}}"
+msgstr "{totalCount, plural, one {{unsatisfiedCount} of {totalCount} requirements not met} other {{unsatisfiedCount} of {totalCount} requirements not met}}"
 
 msgid "Minutes"
 msgstr "Minutes"

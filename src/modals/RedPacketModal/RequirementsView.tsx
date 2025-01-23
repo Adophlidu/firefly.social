@@ -39,15 +39,16 @@ export function RequirementsView() {
 
     const handleSelectCollection = useCallback(
         async (slot: number, previous?: Collection) => {
-            const result = await NonFungibleTokenCollectionSelectModalRef.openAndWaitForClose({
+            const picked = await NonFungibleTokenCollectionSelectModalRef.openAndWaitForClose({
                 selected: requireCollections,
                 initialAddTokenChainId: token.chainId,
             });
-            if (!result) return;
-            setRequireCollections((collections) => [
-                ...collections.filter((x) => (previous ? x !== previous : true)),
-                result,
-            ]);
+            if (!picked) return;
+            if (previous) {
+                setRequireCollections((collections) => collections.map((x) => (x === previous ? picked : x)));
+            } else {
+                setRequireCollections((collections) => [...collections, picked]);
+            }
             setCollectionSlots((slots) => slots.filter((s) => s !== slot));
         },
         [requireCollections, setRequireCollections, token.chainId],
@@ -67,13 +68,14 @@ export function RequirementsView() {
                 });
             },
         });
-        if (picked) {
-            setRequireTokens((tokens) => [
-                ...tokens.filter((x) => (previous ? x.token !== previous : true)),
-                { token: picked, quantity: '' },
-            ]);
-            setTokenSlots((slots) => slots.filter((s) => s !== slot));
+        if (!picked) return;
+        if (previous) {
+            setRequireTokens((tokens) =>
+                tokens.map((x) => (x.token === previous ? { ...x, token: picked, quantity: '' } : x)),
+            );
         }
+        setRequireTokens((tokens) => [...tokens, { token: picked, quantity: '' }]);
+        setTokenSlots((slots) => slots.filter((s) => s !== slot));
     };
 
     return (
@@ -155,7 +157,7 @@ export function RequirementsView() {
                                                     ) : null}
                                                 </div>
                                                 <ArrowDown
-                                                    className="h-6 w-6"
+                                                    className="h-6 w-6 cursor-pointer"
                                                     onClick={() => handleSelectCollection(0, collection)}
                                                 />
                                             </div>
@@ -232,7 +234,10 @@ export function RequirementsView() {
                                                             </div>
                                                         ) : null}
                                                     </div>
-                                                    <ArrowDown className="ml-auto h-6 w-6" />
+                                                    <ArrowDown
+                                                        className="ml-auto h-6 w-6 cursor-pointer"
+                                                        onClick={() => selectToken(0, token)}
+                                                    />
                                                 </div>
                                                 <input
                                                     className="w-[200px] shrink-0 rounded-lg border-0 bg-input p-3 text-medium font-bold text-second outline-0 focus:ring-0 dark:bg-bg"

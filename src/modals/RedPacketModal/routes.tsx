@@ -5,6 +5,7 @@ import { ConfirmView } from '@/modals/RedPacketModal/ConfirmView.js';
 import { HistoryDetailView } from '@/modals/RedPacketModal/HistoryDetailView.js';
 import { HistoryView } from '@/modals/RedPacketModal/HistoryView.js';
 import { MainView } from '@/modals/RedPacketModal/MainView.js';
+import { RequirementRulesView } from '@/modals/RedPacketModal/RequirementRules.js';
 import { RequirementsView } from '@/modals/RedPacketModal/RequirementsView.js';
 import { RootView } from '@/modals/RedPacketModal/RootView.js';
 
@@ -56,6 +57,17 @@ const requirementsRoute = createRoute({
     },
 });
 
+const requirementRulesRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    component: RequirementRulesView,
+    path: '/requirement-rules',
+    beforeLoad: () => {
+        return {
+            title: <Trans>Claim Requirements</Trans>,
+        };
+    },
+});
+
 const historyDetailRoute = createRoute({
     getParentRoute: () => rootRoute,
     component: HistoryDetailView,
@@ -73,4 +85,5 @@ export const routeTree = rootRoute.addChildren([
     historyRoute,
     requirementsRoute,
     historyDetailRoute,
+    requirementRulesRoute,
 ]);

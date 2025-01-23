@@ -1,5 +1,5 @@
 import { t } from '@lingui/core/macro';
-import { Trans } from '@lingui/react/macro';
+import { Plural, Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
 import { useQueries } from '@tanstack/react-query';
 import { sortBy } from 'lodash-es';
@@ -139,6 +139,20 @@ export function RequirementsModal({
         const orders = getEnumAsArray(StrategyType).map((x) => x.value);
         return sortBy(claimStrategyStatus, (x) => orders.indexOf(x.type as FireflyRedPacketAPI.StrategyType));
     }, [claimStrategyStatus]);
+    const { unsatisfiedCount: unsatisfiedCount, totalCount } = useMemo(() => {
+        let unsatisfiedCount = 0;
+        let totalCount = 0;
+        requirements.forEach((status) => {
+            if (status.type === StrategyType.postReaction && typeof status.result === 'object') {
+                totalCount += status.result.conditions.length;
+                unsatisfiedCount += status.result.conditions.filter((x) => !x.value).length;
+            } else {
+                totalCount += 1;
+                if (!status.result) unsatisfiedCount += 1;
+            }
+        });
+        return { unsatisfiedCount, totalCount };
+    }, [requirements]);
 
     return (
         <Modal open={open} onClose={onClose}>
@@ -326,7 +340,7 @@ export function RequirementsModal({
                                                     {isZero(x.amount || 0) ? (
                                                         <Link
                                                             className="ml-1 text-highlight"
-                                                            href={`/search/tokens?q=${x.contractAddress}`}
+                                                            href={`/token/${x.contractAddress}?chainId=${x.chainId}`}
                                                         >
                                                             ${x.symbol}
                                                         </Link>
@@ -334,7 +348,7 @@ export function RequirementsModal({
                                                         <>
                                                             <Link
                                                                 className="ml-1 text-highlight"
-                                                                href={`/search/tokens?q=${x.contractAddress}`}
+                                                                href={`/token/${x.contractAddress}?chainId=${x.chainId}`}
                                                             >
                                                                 ${x.symbol}
                                                             </Link>
@@ -456,12 +470,30 @@ export function RequirementsModal({
                     <div className="flex-grow" />
                     {showResults ? (
                         <ActionButton
-                            className="w-full flex-none"
+                            className={classNames('w-full flex-none', {
+                                'text-danger': unsatisfiedCount < totalCount && !isVerifying,
+                            })}
                             onClick={onVerifyAndClaim}
                             loading={isClaiming || isVerifying}
                             disabled={isVerifying}
                         >
-                            <Trans>Verify and Claim</Trans>
+                            {unsatisfiedCount < totalCount ? (
+                                <Plural
+                                    value={totalCount}
+                                    one={
+                                        <Trans>
+                                            {unsatisfiedCount} of {totalCount} requirements not met
+                                        </Trans>
+                                    }
+                                    other={
+                                        <Trans>
+                                            {unsatisfiedCount} of {totalCount} requirements not met
+                                        </Trans>
+                                    }
+                                />
+                            ) : (
+                                <Trans>Verify and Claim</Trans>
+                            )}
                         </ActionButton>
                     ) : null}
                 </div>
