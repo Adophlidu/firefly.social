@@ -38,7 +38,7 @@ function isTrustedUrl(href: LinkProps['href']) {
 export const Link: LinkComponent = forwardRef(function Link({ href, onClick, ...rest }, ref) {
     const { data: internalLink } = useQuery({
         queryKey: ['link-transform', href],
-        enabled: typeof href === 'string' && href.startsWith('/'),
+        enabled: typeof href === 'string' && href.startsWith('http'),
         staleTime: Infinity,
         queryFn: async () => {
             try {
