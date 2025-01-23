@@ -1,7 +1,7 @@
 import { BN, web3 } from '@coral-xyz/anchor';
 import { ChainId } from '@masknet/web3-shared-solana';
 import { ASSOCIATED_TOKEN_PROGRAM_ID, getAssociatedTokenAddressSync } from '@solana/spl-token';
-import { Ed25519Program, LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { Ed25519Program, LAMPORTS_PER_SOL, TransactionExpiredTimeoutError } from '@solana/web3.js';
 import { sign } from 'tweetnacl';
 
 import { STATUS } from '@/constants/enum.js';
@@ -9,7 +9,10 @@ import { env } from '@/constants/env.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { multipliedBy } from '@/helpers/number.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { createRedPacketProgram } from '@/providers/solana/createRedPacketProgram.js';
+import { requestRPC } from '@/providers/solana/requestRPC.js';
+import type { GetTransactionResponse } from '@/providers/types/Solana.js';
 
 /**
  * Context for creating a red packet with native token.
@@ -57,6 +60,28 @@ export interface RefundSplTokenContext extends RefundNativeTokenContext {
     tokenAccount: web3.PublicKey;
 }
 
+type MethodsBuilder = {
+    rpc: (options?: web3.ConfirmOptions) => Promise<string>;
+};
+async function runRPC(builder: MethodsBuilder) {
+    try {
+        return builder.rpc({ commitment: 'confirmed' });
+    } catch (error) {
+        if (error instanceof TransactionExpiredTimeoutError && error.signature) {
+            const result = await runInSafeAsync(() =>
+                requestRPC<GetTransactionResponse>(ChainId.Mainnet, {
+                    method: 'getTransaction',
+                    params: [error.signature, 'jsonParsed'],
+                }),
+            );
+            if (result?.result && result.result.meta?.status?.Ok === null) {
+                return error.signature;
+            }
+        }
+        throw error;
+    }
+}
+
 class Provider {
     private get program() {
         return createRedPacketProgram(
@@ -77,26 +102,25 @@ class Provider {
             this.program.programId,
         )[0];
 
-        const signature = await this.program.methods
-            .createRedPacketWithNativeToken(
-                context.owners,
-                new BN(multipliedBy(context.totalAmount, LAMPORTS_PER_SOL).toString()),
-                new BN(createTime),
-                new BN(context.duration),
-                context.ifSpiltRandom,
-                context.publicKeyForClaimSignature,
-                context.authorDisplayName,
-                context.message,
-            )
-            .accounts({
-                signer: this.creator,
-                // @ts-expect-error missing type
-                redPacket: nativeTokenRedPacket,
-                systemProgram: web3.SystemProgram.programId,
-            })
-            .rpc({
-                commitment: 'confirmed',
-            });
+        const signature = await runRPC(
+            this.program.methods
+                .createRedPacketWithNativeToken(
+                    context.owners,
+                    new BN(multipliedBy(context.totalAmount, LAMPORTS_PER_SOL).toString()),
+                    new BN(createTime),
+                    new BN(context.duration),
+                    context.ifSpiltRandom,
+                    context.publicKeyForClaimSignature,
+                    context.authorDisplayName,
+                    context.message,
+                )
+                .accounts({
+                    signer: this.creator,
+                    // @ts-expect-error missing type
+                    redPacket: nativeTokenRedPacket,
+                    systemProgram: web3.SystemProgram.programId,
+                }),
+        );
 
         return {
             accountId: nativeTokenRedPacket,
@@ -113,31 +137,30 @@ class Provider {
 
         const vault = getAssociatedTokenAddressSync(context.tokenMint, splTokenRedPacket, true, context.tokenProgram);
 
-        const signature = await this.program.methods
-            .createRedPacketWithSplToken(
-                context.owners,
-                new BN(context.totalAmount),
-                new BN(createTime),
-                new BN(context.duration),
-                context.ifSpiltRandom,
-                context.publicKeyForClaimSignature,
-                context.authorDisplayName,
-                context.message,
-            )
-            .accounts({
-                signer: this.creator,
-                // @ts-expect-error missing type
-                redPacket: splTokenRedPacket,
-                tokenMint: context.tokenMint,
-                tokenAccount: context.tokenAccount,
-                vault,
-                tokenProgram: context.tokenProgram,
-                associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
-                systemProgram: web3.SystemProgram.programId,
-            })
-            .rpc({
-                commitment: 'confirmed',
-            });
+        const signature = await runRPC(
+            this.program.methods
+                .createRedPacketWithSplToken(
+                    context.owners,
+                    new BN(context.totalAmount),
+                    new BN(createTime),
+                    new BN(context.duration),
+                    context.ifSpiltRandom,
+                    context.publicKeyForClaimSignature,
+                    context.authorDisplayName,
+                    context.message,
+                )
+                .accounts({
+                    signer: this.creator,
+                    // @ts-expect-error missing type
+                    redPacket: splTokenRedPacket,
+                    tokenMint: context.tokenMint,
+                    tokenAccount: context.tokenAccount,
+                    vault,
+                    tokenProgram: context.tokenProgram,
+                    associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
+                    systemProgram: web3.SystemProgram.programId,
+                }),
+        );
 
         return {
             accountId: splTokenRedPacket,
@@ -158,18 +181,17 @@ class Provider {
             signature: claimerSignature,
         });
 
-        const signature = await this.program.methods
-            .claimWithNativeToken()
-            .accounts({
-                signer: receiver,
-                // @ts-expect-error missing type
-                redPacket: accountId,
-                systemProgram: web3.SystemProgram.programId,
-            })
-            .preInstructions([ed25519Instruction])
-            .rpc({
-                commitment: 'confirmed',
-            });
+        const signature = await runRPC(
+            this.program.methods
+                .claimWithNativeToken()
+                .accounts({
+                    signer: receiver,
+                    // @ts-expect-error missing type
+                    redPacket: accountId,
+                    systemProgram: web3.SystemProgram.programId,
+                })
+                .preInstructions([ed25519Instruction]),
+        );
 
         return {
             accountId,
@@ -191,40 +213,36 @@ class Provider {
             signature: sign.detached(message, claimer.secretKey),
         });
 
-        const signature = await this.program.methods
-            .claimWithSplToken()
-            .accounts({
-                signer: receiver,
-                // @ts-expect-error missing type
-                redPacket: accountId,
-                tokenMint,
-                tokenProgram,
-                tokenAccount: receiverTokenAccount,
-                vault,
-                associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
-                systemProgram: web3.SystemProgram.programId,
-                instructionSysvar: web3.SYSVAR_INSTRUCTIONS_PUBKEY,
-            })
-            .preInstructions([ed25519Instruction])
-            .rpc({
-                commitment: 'confirmed',
-            });
+        const signature = await runRPC(
+            this.program.methods
+                .claimWithSplToken()
+                .accounts({
+                    signer: receiver,
+                    // @ts-expect-error missing type
+                    redPacket: accountId,
+                    tokenMint,
+                    tokenProgram,
+                    tokenAccount: receiverTokenAccount,
+                    vault,
+                    associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
+                    systemProgram: web3.SystemProgram.programId,
+                    instructionSysvar: web3.SYSVAR_INSTRUCTIONS_PUBKEY,
+                })
+                .preInstructions([ed25519Instruction]),
+        );
 
         return { signature, accountId };
     }
 
     async refundNativeToken(accountId: web3.PublicKey) {
-        const signature = await this.program.methods
-            .withdrawWithNativeToken()
-            .accounts({
+        const signature = await runRPC(
+            this.program.methods.withdrawWithNativeToken().accounts({
                 // @ts-expect-error missing type
                 redPacket: accountId,
                 signer: this.creator,
                 systemProgram: web3.SystemProgram.programId,
-            })
-            .rpc({
-                commitment: 'confirmed',
-            });
+            }),
+        );
 
         return signature;
     }
@@ -234,9 +252,8 @@ class Provider {
 
         const vault = getAssociatedTokenAddressSync(tokenMint, accountId, true, tokenProgram);
 
-        const signature = await this.program.methods
-            .withdrawWithSplToken()
-            .accounts({
+        const signature = await runRPC(
+            this.program.methods.withdrawWithSplToken().accounts({
                 // @ts-expect-error missing type
                 redPacket: accountId,
                 signer: this.creator,
@@ -245,10 +262,8 @@ class Provider {
                 tokenMint,
                 tokenProgram,
                 associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
-            })
-            .rpc({
-                commitment: 'confirmed',
-            });
+            }),
+        );
 
         return signature;
     }

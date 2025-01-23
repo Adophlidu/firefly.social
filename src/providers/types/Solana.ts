@@ -60,3 +60,19 @@ export interface JupToken extends SplToken {
     permanent_delegate: string;
     minted_at: string;
 }
+
+export type GetTransactionResponse = RpcResponse<{
+    meta: {
+        err: string | null;
+        fee: number;
+        innerInstructions: unknown[];
+        postBalances: number[];
+        postTokenBalances: unknown[];
+        preBalances: number[];
+        preTokenBalances: unknown[];
+        rewards: unknown[];
+        status: {
+            Ok: null;
+        };
+    };
+}>;

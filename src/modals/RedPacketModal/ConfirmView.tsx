@@ -180,7 +180,7 @@ export function ConfirmView() {
         }
 
         return {
-            publicKey: await FireflyRedPacketEndpoint.createPublicKey(themeId, account, strategies),
+            publicKey: isEVM ? await FireflyRedPacketEndpoint.createPublicKey(themeId, account, strategies) : '',
             claimRequirements: strategies,
         };
     }, [
