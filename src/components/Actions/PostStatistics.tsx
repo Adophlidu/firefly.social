@@ -13,6 +13,7 @@ import { ChannelAnchor } from '@/components/Posts/ChannelAnchor.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { EngagementType, PageRoute, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getPollTimeLeft } from '@/helpers/getPollTimeLeft.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
@@ -106,7 +107,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                 'hover:underline': post.source !== Source.Twitter,
             })}
         >
-            <span className="mr-[2px] font-bold">{post.stats.comments}</span>
+            <span className="mr-[2px] font-bold">{nFormatter(post.stats.comments)}</span>
             {plural(post.stats.comments, {
                 one: 'comment',
                 other: 'comments',
@@ -116,7 +117,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     const likes = post.stats?.reactions ? (
         <EngagementLink post={post} type={EngagementType.Likes} onSetScrollIndex={onSetScrollIndex}>
             <data value={post.stats.reactions}>
-                <span className="mr-[2px] font-bold">{post.stats.reactions}</span>
+                <span className="mr-[2px] font-bold">{nFormatter(post.stats.reactions)}</span>
                 {plural(post.stats.reactions, {
                     one: 'like',
                     other: 'likes',

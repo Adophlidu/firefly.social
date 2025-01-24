@@ -5,6 +5,7 @@ import type React from 'react';
 
 import { PostDetailPage } from '@/app/(normal)/post/[source]/[id]/pages/DetailPage.js';
 import { Comeback } from '@/components/Comeback.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { KeyType, type SocialSourceInURL, Source } from '@/constants/enum.js';
 import { createMetadataPostById } from '@/helpers/createMetadataPostById.js';
@@ -55,6 +56,14 @@ export default async function Page(props: Props) {
                 </header>
                 <NotLoginFallback source={source} />
             </article>
+        );
+    }
+
+    if (source === Source.Twitter) {
+        return (
+            <NoSSR>
+                <PostDetailPage id={params.id} source={source} />
+            </NoSSR>
         );
     }
 

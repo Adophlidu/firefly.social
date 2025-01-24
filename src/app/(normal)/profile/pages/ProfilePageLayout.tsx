@@ -1,4 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
+import { uniqBy } from 'lodash-es';
 import { type PropsWithChildren } from 'react';
 
 import { NoSSR } from '@/components/NoSSR.js';
@@ -38,7 +39,10 @@ export async function ProfilePageLayout({
 
         return (
             <>
-                <ProfileSourceTabs profiles={profiles} identity={identity} />
+                <ProfileSourceTabs
+                    profiles={uniqBy(profiles, (x) => `${x.identity.source}_${x.identity.id}`)}
+                    identity={identity}
+                />
                 {profile || walletProfile ? (
                     <Title profile={profile} profiles={profiles} fallbackIdentity={identity} />
                 ) : null}

@@ -136,7 +136,7 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
                     portal
                     anchor="top"
                     className={classNames(
-                        'absolute bottom-full right-0 z-10 w-[350px] -translate-y-3 rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none',
+                        'no-scrollbar absolute bottom-full right-0 z-10 w-[350px] -translate-y-3 rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none',
                         {
                             '[--anchor-max-height:264px]': source === Source.Farcaster,
                             '[--anchor-max-height:224px]': source === Source.Lens,

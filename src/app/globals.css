@@ -829,3 +829,13 @@ body.not-support .fixed.inset-y-0 {
 .MuiInputBase-input:focus {
     box-shadow: none;
 }
+
+/* emoji picker */
+.epr-body {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.epr-body::-webkit-scrollbar {
+    display: none;
+}

@@ -16,6 +16,7 @@ import {
     metis,
     optimism,
     polygon,
+    scroll,
     xLayer,
     zora,
 } from '@reown/appkit/networks';
@@ -35,6 +36,7 @@ import {
     metis as wagmiMetis,
     optimism as wagmiOptimism,
     polygon as wagmiPolygon,
+    scroll as wagmiScroll,
     xLayer as wagmiXLayer,
     zora as wagmiZora,
 } from 'wagmi/chains';
@@ -61,6 +63,7 @@ const networks = [
     xLayer,
     metis,
     zora,
+    scroll,
 ] as [AppKitNetwork, ...AppKitNetwork[]];
 
 export const chains = [
@@ -79,6 +82,7 @@ export const chains = [
     wagmiXLayer,
     wagmiMetis,
     wagmiZora,
+    wagmiScroll,
 ] as const;
 
 export const particleConnector = createParticleConnector({
