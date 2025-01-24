@@ -27,7 +27,7 @@ export interface ClassType<T> extends Function {
 
 // learn more: https://nextjs.org/docs/app/api-reference/file-conventions/route#context-optional
 export interface NextRequestContext {
-    params: Record<string, string | undefined>;
+    params: Promise<Record<string, string | undefined>>;
 }
 
 export type NonUndefined<T> = T extends undefined ? never : T;

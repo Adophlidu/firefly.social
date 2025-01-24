@@ -16,6 +16,7 @@ import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
 const cache = new Map<string, AESCryptoKey>();
 
 async function parsePayloadText(encoded: string) {
+    if (encoded.startsWith('🎼')) return (await parsePayload(encoded)).unwrapOr(null);
     const content = encoded.endsWith('%40')
         ? encoded
         : encodeURI(encoded).replaceAll(/@$/g, '%40').replaceAll('%2F', '/').replaceAll('%3D', '=');
@@ -97,8 +98,11 @@ export async function decryptPayload([data, version]: EncryptedPayload): Promise
     const getResult = async () => {
         if (version !== '1' && version !== '2') return false;
 
-        const payload =
-            version === '1' && typeof data === 'string' ? await parsePayloadText(data) : await parsePayloadBinary(data);
+        let payload;
+        if (typeof data === 'string' && data.startsWith('🎼')) payload = await parsePayloadText(data);
+        else if (version === '1' && typeof data === 'string') payload = await parsePayloadText(data);
+        else payload = await parsePayloadBinary(data);
+
         if (!payload) return false;
 
         if (payload.encryption.isOk() && payload.encryption.value.type === 'E2E')

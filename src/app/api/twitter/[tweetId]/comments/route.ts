@@ -16,7 +16,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
     async (request, context) => {
-        const tweetId = context?.params.tweetId;
+        const tweetId = (await context?.params)?.tweetId;
         if (!tweetId) throw new MalformedError('tweetId not found');
 
         const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);

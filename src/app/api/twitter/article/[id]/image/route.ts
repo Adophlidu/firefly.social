@@ -14,7 +14,7 @@ export const GET = compose(
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
     async (request: NextRequest, context?: NextRequestContext) => {
-        const articleId = context?.params.id;
+        const articleId = (await context?.params)?.id;
         if (!articleId) throw new MalformedError('articleId not found');
 
         // simulate bot request to get og image

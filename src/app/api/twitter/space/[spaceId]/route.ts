@@ -13,7 +13,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
     async (request, context) => {
-        const spaceId = context?.params.spaceId;
+        const spaceId = (await context?.params)?.spaceId;
         if (!spaceId) throw new MalformedError('spaceId not found');
         const client = await createAppOnlyTwitterClientV2(request);
         const space = await client.v2.space(spaceId, {

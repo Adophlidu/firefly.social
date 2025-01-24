@@ -13,7 +13,7 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
     async (request, context) => {
-        const targetId = context?.params.targetId;
+        const targetId = (await context?.params)?.targetId;
         if (!targetId) throw new MalformedError('targetId not found');
 
         const client = await createTwitterClientV2(request);
@@ -37,7 +37,7 @@ export const DELETE = compose<(request: NextRequest, context?: NextRequestContex
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
     async (request, context) => {
-        const targetId = context?.params.targetId;
+        const targetId = (await context?.params)?.targetId;
         if (!targetId) throw new MalformedError('targetId not found');
 
         const client = await createTwitterClientV2(request);

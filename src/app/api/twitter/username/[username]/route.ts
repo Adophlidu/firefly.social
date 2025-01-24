@@ -13,7 +13,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
     async (request, context) => {
-        const username = context?.params.username;
+        const username = (await context?.params)?.username;
         if (!username) throw new MalformedError('username not found');
 
         const client = await createTwitterClientV2(request);

@@ -44,8 +44,8 @@ function resolveAttachmentsSrc(asset?: Attachment) {
 export const GET = compose(
     withRequestErrorHandler({ throwError: true }),
     async (request: NextRequest, context?: NextRequestContext) => {
-        const postId = context?.params.postId;
-        const source = narrowToSocialSourceInURL(context?.params.source as SourceInURL);
+        const postId = (await context?.params)?.postId;
+        const source = narrowToSocialSourceInURL((await context?.params)?.source as SourceInURL);
         const provider = resolveSocialMediaProvider(resolveSocialSource(source));
         const post = postId ? await provider.getPostById(postId).catch(() => null) : null;
 

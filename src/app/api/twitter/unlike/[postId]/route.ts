@@ -13,7 +13,7 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
     async (request, context) => {
-        const postId = context?.params.postId;
+        const postId = (await context?.params)?.postId;
         if (!postId) throw new MalformedError('postId not found');
 
         const client = await createTwitterClientV2(request);
