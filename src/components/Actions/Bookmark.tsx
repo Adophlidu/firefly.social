@@ -5,6 +5,7 @@ import { memo } from 'react';
 import BookmarkActiveIcon from '@/assets/bookmark.selected.svg';
 import BookmarkIcon from '@/assets/bookmark.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -14,6 +15,7 @@ interface BookmarkProps {
     disabled?: boolean;
     hasBookmarked?: boolean;
     hiddenCount?: boolean;
+    loading?: boolean;
     onClick: () => void;
 }
 
@@ -22,6 +24,7 @@ export const Bookmark = memo<BookmarkProps>(function Bookmark({
     disabled = false,
     hasBookmarked,
     hiddenCount = false,
+    loading = false,
     onClick,
 }) {
     return (
@@ -42,7 +45,9 @@ export const Bookmark = memo<BookmarkProps>(function Bookmark({
                     className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-warn/[.20] hover:text-warn"
                     aria-label="Bookmark"
                 >
-                    {hasBookmarked ? (
+                    {loading ? (
+                        <LoadingIcon width={20} height={20} />
+                    ) : hasBookmarked ? (
                         <BookmarkActiveIcon width={20} height={20} className="text-warn" />
                     ) : (
                         <BookmarkIcon width={20} height={20} />

@@ -1,6 +1,7 @@
 'use client';
 
 import { t } from '@lingui/core/macro';
+import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 import urlcat from 'urlcat';
@@ -20,18 +21,27 @@ import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
 import { CollectArticleModalRef, DraggablePopoverRef } from '@/modals/controls.js';
+import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 interface ArticleActionsProps {
     article: Article;
 }
 
-export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions({ article }) {
+export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions({ article: oldArticle }) {
     const mutation = useToggleArticleBookmark();
-    const identity = useFireflyIdentity(Source.Wallet, article.author.id);
-    const { data: ens } = useEnsName({ address: article.author.id });
+    const identity = useFireflyIdentity(Source.Wallet, oldArticle.author.id);
+    const { data: ens } = useEnsName({ address: oldArticle.author.id });
     const isMedium = useIsMedium();
-    const url = urlcat(location.origin, getArticleUrl(article));
+    const url = urlcat(location.origin, getArticleUrl(oldArticle));
+
+    const { data, isLoading } = useQuery({
+        queryKey: ['article-detail', oldArticle.id],
+        queryFn: () => FireflyArticleProvider.getArticleById(oldArticle.id),
+    });
+
+    const article = data || oldArticle;
+
     return (
         <div className="flex items-center justify-end">
             <div className="flex items-center">
@@ -63,7 +73,12 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                         </Tooltip>
                     ) : null}
                 </ClickableArea>
-                <Bookmark hiddenCount hasBookmarked={article.hasBookmarked} onClick={() => mutation.mutate(article)} />
+                <Bookmark
+                    loading={isLoading}
+                    hiddenCount
+                    hasBookmarked={article.hasBookmarked}
+                    onClick={() => mutation.mutate(article)}
+                />
                 <Tips
                     identity={identity}
                     handle={article.author.handle || ens}
