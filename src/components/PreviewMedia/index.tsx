@@ -54,7 +54,7 @@ export function PreviewMedia({ post, source, medias, index, open, showAction = t
                 onClick={isMedium ? onClose : undefined}
             >
                 <div className="absolute left-4 top-4 z-50 cursor-pointer text-main">
-                    <CloseButton onClick={onClose} />
+                    <CloseButton onClick={onClose} IconProps={{ className: '!text-white' }} />
                 </div>
                 <div className="flex w-full text-main">
                     <Swiper
