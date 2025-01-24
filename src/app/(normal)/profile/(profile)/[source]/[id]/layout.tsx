@@ -1,3 +1,4 @@
+import { uniqBy } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
 
 import { ProfilePageLayout } from '@/app/(normal)/profile/pages/ProfilePageLayout.js';
@@ -42,7 +43,10 @@ export default async function Layout(props: Props) {
     }
 
     return (
-        <ProfilePageLayout identity={identity} profiles={profiles}>
+        <ProfilePageLayout
+            identity={identity}
+            profiles={uniqBy(profiles, (x) => `${x.identity.source}_${x.identity.id}`)}
+        >
             {children}
         </ProfilePageLayout>
     );

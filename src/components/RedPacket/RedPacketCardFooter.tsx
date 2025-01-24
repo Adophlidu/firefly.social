@@ -79,7 +79,7 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
                 </ActionButton>
             </div>
         );
-    if (!account && canClaim) {
+    if (!account) {
         return (
             <div className="light">
                 <ActionButton className="flex w-full items-center justify-center gap-1" onClick={connectWallet}>

@@ -18,8 +18,9 @@ import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { Section } from '@/components/Semantic/Section.js';
 import { type SocialSource } from '@/constants/enum.js';
-import { MIN_POST_SIZE_PER_THREAD } from '@/constants/index.js';
+import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { getThreads } from '@/services/getThreads.js';
 
 interface Props {
@@ -30,21 +31,26 @@ interface Props {
 export function PostDetailPage({ id: postId, source }: Props) {
     if (!postId) notFound();
 
+    const isSyncing = useAsyncStatus(source);
+
     const { data: post } = useSuspenseQuery({
-        queryKey: [source, 'post-detail', postId],
+        queryKey: [source, 'post-detail', postId, isSyncing],
         queryFn: async () => {
+            if (isSyncing) return null;
             const provider = resolveSocialMediaProvider(source);
             return provider.getPostById(postId);
         },
     });
+
     const { data: threads } = useSuspenseQuery({
-        queryKey: [source, 'post-thread', postId],
+        queryKey: [source, 'post-thread', postId, isSyncing],
         queryFn: async () => {
-            if (!post) return;
+            if (!post || isSyncing) return { data: EMPTY_LIST };
             return getThreads(post, source);
         },
     });
 
+    if (isSyncing) return <Loading />;
     if (!post) notFound();
 
     const allPosts = threads?.data || [];
