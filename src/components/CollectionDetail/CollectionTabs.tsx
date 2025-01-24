@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Suspense, useState } from 'react';
 
@@ -19,11 +19,11 @@ interface CollectionTabsProps {
 export function CollectionTabs({ address, chainId, totalQuantity, collectionId }: CollectionTabsProps) {
     const tabs = [
         {
-            label: t`Items`,
+            label: <Trans>Items</Trans>,
             value: 'items',
         },
         {
-            label: t`Top Collectors`,
+            label: <Trans>Top Collectors</Trans>,
             value: 'topCollectors',
         },
     ] as const;

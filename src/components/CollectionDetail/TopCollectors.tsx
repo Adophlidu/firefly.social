@@ -53,7 +53,7 @@ function getTopCollectorsItemContent(
                         height={30}
                         className="mr-2 min-w-[30px] shrink-0 rounded-full"
                     />
-                    <div className="flex max-w-[calc(100%-38px)] items-center text-left">
+                    <div className="flex min-w-0 items-center text-left">
                         {item.owner_ens_name ? (
                             <TextOverflowTooltip content={addressOrEns} placement="right">
                                 <div className="w-full truncate">{item.owner_ens_name}</div>
@@ -63,13 +63,13 @@ function getTopCollectorsItemContent(
                                 <div className="truncate">{formatAddress(item.owner_address, 4)}</div>
                             </Tooltip>
                         )}
-                        <LinkIcon className="ml-1.5 h-3 w-3 text-secondary" />
+                        <LinkIcon className="ml-1.5 h-3 w-3 shrink-0 text-secondary" />
                     </div>
                 </Link>
             </td>
             <td
-                className={classNames('px-2 pb-2 text-right', {
-                    'sm:text-center': !!totalQuantity,
+                className={classNames('pb-2 pl-2 text-right lg:pr-2', {
+                    'lg:text-center': !!totalQuantity,
                 })}
             >
                 <div className="truncate">
@@ -79,7 +79,7 @@ function getTopCollectorsItemContent(
                 </div>
             </td>
             {totalQuantity ? (
-                <td className="hidden pb-5 pl-2 text-right sm:table-cell">
+                <td className="hidden pb-5 pl-2 text-right lg:table-cell">
                     {formatPercentage(item.distinct_nfts_owned / totalQuantity)}
                 </td>
             ) : null}
@@ -119,14 +119,14 @@ export function TopCollectors(props: TopCollectorsProps) {
                                 <Trans>Address</Trans>
                             </th>
                             <th
-                                className={classNames('w-[100px] px-2 pb-2 text-right', {
-                                    'sm:text-center': !!totalQuantity,
+                                className={classNames('w-[100px] pb-2 pl-2 text-right lg:pr-2', {
+                                    'lg:text-center': !!totalQuantity,
                                 })}
                             >
                                 <Trans>Owned</Trans>
                             </th>
                             {totalQuantity ? (
-                                <th className="hidden w-[160px] whitespace-nowrap pb-2 pl-2 text-right sm:table-cell">
+                                <th className="hidden w-[150px] whitespace-nowrap pb-2 pl-2 text-right lg:table-cell">
                                     <Trans>%Of supply owned</Trans>
                                 </th>
                             ) : null}
