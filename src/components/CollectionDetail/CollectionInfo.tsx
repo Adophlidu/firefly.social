@@ -13,6 +13,7 @@ import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 interface CollectionInfoProps {
     address: string;
@@ -42,6 +43,8 @@ export function CollectionInfo(props: CollectionInfoProps) {
         collectionId,
         externalUrl,
     } = props;
+    const isMedium = useIsMedium();
+
     return (
         <div className="w-full">
             <Image
@@ -69,8 +72,7 @@ export function CollectionInfo(props: CollectionInfoProps) {
                     {address ? (
                         <div className="text-normal flex items-center text-[14px] leading-[14px] text-secondary">
                             <ChainIcon className="mr-1 shrink-0" chainId={chainId} size={14} />
-                            <span className="hidden min-w-0 truncate sm:inline">{address}</span>
-                            <span className="inline sm:hidden">{formatAddress(address, 4)}</span>
+                            <span className="min-w-0 truncate">{isMedium ? address : formatAddress(address, 4)}</span>
                             <CopyTextButton size={14} text={address} />
                             <a className="ml-1 h-3.5 w-3.5" href={resolveAddressLink(chainId, address)} target="_blank">
                                 <LinkIcon className="h-3.5 w-3.5 text-secondary" />
