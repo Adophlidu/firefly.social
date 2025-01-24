@@ -244,7 +244,8 @@
         "idls",
         "BSCT",
         "Moonriver",
-        "chainid"
+        "chainid",
+        "Solflare"
     ],
     "flagWords": [],
     "ignorePaths": [

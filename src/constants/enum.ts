@@ -1,3 +1,7 @@
+import { PhantomWalletName } from '@solana/wallet-adapter-phantom';
+
+import { ParticleSolanaWalletName } from '@/connectors/ParticleSolanaWallet.js';
+
 export enum NODE_ENV {
     Production = 'production',
     Development = 'development',
@@ -406,3 +410,10 @@ export enum HomeTab {
     Discover = 'discover',
     Following = 'following',
 }
+
+export const SolanaWalletName = {
+    Phantom: PhantomWalletName,
+    Particle: ParticleSolanaWalletName,
+    Okx: 'OKX Wallet',
+    Solflare: 'Solflare',
+};
