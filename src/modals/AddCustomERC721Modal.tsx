@@ -71,7 +71,7 @@ function AddCustomERC721Content({ onClose, initialChainId }: { onClose: () => vo
                 chainId: selectedChain,
             });
             if (!collection) {
-                enqueueWarningMessage(t`Sorry, we are not able to find this token`);
+                enqueueWarningMessage(t`Sorry, we are not able to find this collection`);
                 return;
             }
             addCustomToken({
@@ -84,7 +84,7 @@ function AddCustomERC721Content({ onClose, initialChainId }: { onClose: () => vo
             enqueueSuccessMessage(t`Added successfully`);
             onClose?.();
         } catch (error) {
-            enqueueWarningMessage(t`Sorry, we are not able to find this token`);
+            enqueueWarningMessage(t`Sorry, we are not able to find this collection`);
             throw error;
         }
     }, [account.address, contractAddress, allCollections, selectedChain, addCustomToken, onClose]);

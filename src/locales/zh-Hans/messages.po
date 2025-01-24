@@ -2988,6 +2988,9 @@ msgstr "连接"
 msgid "Estimated network fee"
 msgstr ""
 
+msgid "Sorry, we are not able to find this collection"
+msgstr ""
+
 msgid "View transaction on explorer"
 msgstr "查看交易详情"
 

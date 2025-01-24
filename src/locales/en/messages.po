@@ -2988,6 +2988,9 @@ msgstr "Connect"
 msgid "Estimated network fee"
 msgstr "Estimated network fee"
 
+msgid "Sorry, we are not able to find this collection"
+msgstr "Sorry, we are not able to find this collection"
+
 msgid "View transaction on explorer"
 msgstr "View transaction on explorer"
 
