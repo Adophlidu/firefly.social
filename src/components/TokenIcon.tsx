@@ -34,6 +34,7 @@ export function TokenIcon({
     const isDarkMode = useIsDarkMode();
 
     const defaultBadgeSize = Math.max(24, Math.floor(size / 2));
+    const chainSize = badgeSize || defaultBadgeSize;
     const defaultFallbackUrl = isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
 
     const [hasError, setHasError] = useState(false);
@@ -50,11 +51,12 @@ export function TokenIcon({
             {tokenIcon ? (
                 <Image
                     unoptimized
-                    className="h-full w-full rounded-full object-cover"
+                    className="rounded-full object-cover"
                     alt=""
                     src={tokenIcon}
                     width={size}
                     height={size}
+                    style={{ width: size, height: size }}
                     onError={onLoadError}
                 />
             ) : (
@@ -78,8 +80,9 @@ export function TokenIcon({
                             unoptimized
                             className="rounded-full"
                             src={badgeIcon}
-                            width={badgeSize || defaultBadgeSize}
-                            height={badgeSize || defaultBadgeSize}
+                            width={chainSize}
+                            height={chainSize}
+                            style={{ width: chainSize, height: chainSize }}
                             alt="chain"
                         />
                     ) : (
