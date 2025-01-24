@@ -41,7 +41,7 @@ function InfoRow({ title, description, amount, asInfinite, value, extra }: InfoR
         <div className="flex items-center text-medium">
             <span className="text-second">{title}</span>
             {description ? (
-                <Tooltip placement="top" content={description}>
+                <Tooltip placement="top" content={description} touch>
                     <QuestionIcon className="ml-1 cursor-pointer text-second" width={14} height={14} />
                 </Tooltip>
             ) : null}
@@ -215,7 +215,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                                                 height={16}
                                             />
                                         ) : null}
-                                        <Tooltip content={contracts[0].address} placement="top">
+                                        <Tooltip content={contracts[0].address} placement="top" touch>
                                             <span className="overflow-hidden text-ellipsis text-medium font-bold text-main">
                                                 {formatContractAddress(contracts[0])}
                                             </span>

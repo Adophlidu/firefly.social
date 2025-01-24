@@ -98,7 +98,7 @@ export function TokenMarketData({ linkable, token }: TokenMarketDataProps) {
                             baseInfo
                         )}
                         {token.rank ? (
-                            <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
+                            <span className="inline-flex h-[14px] items-center whitespace-nowrap rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
                                 <Trans>Rank #{token.rank}</Trans>
                             </span>
                         ) : null}

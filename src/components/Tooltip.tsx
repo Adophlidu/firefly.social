@@ -20,7 +20,7 @@ export const Tooltip = memo<TooltipProps>(function Tooltip({
     ...props
 }) {
     // disable tooltips on mobile devices
-    if (IS_MOBILE_DEVICE) return children;
+    if (IS_MOBILE_DEVICE && !props.touch) return children;
 
     return (
         <Tippy
