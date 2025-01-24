@@ -213,9 +213,10 @@ export function RedPacketCard({ payload, post }: Props) {
                         >
                             <ChainIcon chainId={parsedChainId} size={14} />
                             <span>
-                                {resolveRedPacketStatus(listOfStatus) || networkType === NetworkType.Ethereum
-                                    ? EVMChainResolver.chainName(parsedChainId)
-                                    : 'Solana'}
+                                {resolveRedPacketStatus(listOfStatus) ||
+                                    (networkType === NetworkType.Ethereum
+                                        ? EVMChainResolver.chainName(parsedChainId)
+                                        : 'Solana')}
                             </span>
                         </ClickableArea>
                         <div
