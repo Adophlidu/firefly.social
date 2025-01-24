@@ -16,7 +16,6 @@ import {
     RED_PACKET_CONTRACT_VERSION,
     RED_PACKET_DURATION,
     RED_PACKET_MIN_SHARES,
-    SOLANA_PREFIX,
     SolanaRedPacketMetaKey,
 } from '@/constants/rp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -114,12 +113,12 @@ export function useCreateSolanaRedPacketCallback(
                 is_random: randomType === 'random',
                 shares,
                 password,
-                rpid: `${SOLANA_PREFIX}${result.accountId.toBase58()}`,
+                rpid: result.accountId.toBase58(),
                 total: total.toString(),
                 duration: baseParams.duration,
                 creation_time: Date.now(),
                 token,
-                network: env.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled ? 'devnet' : 'mainnet',
+                network: env.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled ? 'devnet' : 'mainnet-beta',
                 contract_address: RedPacketIDL.address,
                 contract_version: RED_PACKET_CONTRACT_VERSION,
                 txid: result.signature,

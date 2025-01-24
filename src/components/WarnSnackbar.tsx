@@ -1,3 +1,5 @@
+'use client';
+
 import { ClipboardDocumentCheckIcon, ClipboardDocumentIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Trans } from '@lingui/react/macro';
 import { SnackbarContent, type SnackbarMessage, useSnackbar } from 'notistack';
