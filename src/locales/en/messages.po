@@ -3642,9 +3642,6 @@ msgstr "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quot
 msgid "Final results"
 msgstr "Final results"
 
-msgid "Select chain"
-msgstr "Select chain"
-
 msgid "Suspended account"
 msgstr "Suspended account"
 

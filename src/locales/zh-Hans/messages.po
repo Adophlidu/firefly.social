@@ -3642,9 +3642,6 @@ msgstr "<0/> 评论了你的 <1>{0, select, Post {帖子} Comment {评论} Quote
 msgid "Final results"
 msgstr "最终结果"
 
-msgid "Select chain"
-msgstr ""
-
 msgid "Suspended account"
 msgstr "被冻结账户"
 

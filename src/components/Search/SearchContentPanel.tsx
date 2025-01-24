@@ -9,7 +9,7 @@ import { SearchInput } from '@/components/Search/SearchInput.js';
 import { classNames } from '@/helpers/classNames.js';
 
 interface FilterPopoverProps<F> {
-    placeholder: string;
+    placeholder?: string;
     data: F[];
     selected?: F;
     popoverClassName?: string;

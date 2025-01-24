@@ -3,6 +3,7 @@
 import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import { delay } from '@masknet/kit';
 import { isValidAddress } from '@masknet/web3-shared-evm';
 import { forwardRef, useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -118,12 +119,12 @@ function AddCustomERC20ModalContent({ onClose, initialChainId }: { onClose: () =
             <div className="mb-6 flex w-full flex-col">
                 <div className="flex items-center gap-2.5">
                     <FilterPopover
-                        placeholder={t`Select chain`}
                         data={chainIds}
                         popoverClassName="w-[150px]"
                         onSelected={(x) => {
                             if (x) setSelectedChain(x);
                         }}
+                        isSelected={(item, current) => item === current}
                         selected={selectedChain}
                         itemRenderer={getChainItem}
                     />
@@ -157,7 +158,8 @@ export const AddCustomERC20Modal = forwardRef<SingletonModalRefCreator<AddCustom
             onOpen(props) {
                 setProps(props);
             },
-            onClose() {
+            async onClose() {
+                await delay(300); // Wait exit animation
                 setProps(undefined);
             },
         });

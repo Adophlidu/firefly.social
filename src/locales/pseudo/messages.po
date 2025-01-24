@@ -3632,9 +3632,6 @@ msgstr ""
 msgid "Final results"
 msgstr ""
 
-msgid "Select chain"
-msgstr ""
-
 msgid "Suspended account"
 msgstr ""
 
