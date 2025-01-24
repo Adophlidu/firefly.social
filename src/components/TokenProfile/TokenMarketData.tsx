@@ -2,16 +2,16 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useAppKitProvider } from '@reown/appkit/react';
 import { first } from 'lodash-es';
-import { useMemo, useRef, useState } from 'react';
+import { useContext, useMemo, useRef, useState } from 'react';
 
 import PriceArrow from '@/assets/price-arrow.svg';
-import SwapIcon from '@/assets/swap.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { SwapModal } from '@/components/SwapModal/index.js';
+import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
+import { TokenContext } from '@/components/TokenProfile/TokenContext.js';
 import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurityBar.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -25,7 +25,6 @@ import type { Dimension } from '@/hooks/useLineChart.js';
 import { usePriceLineChart } from '@/hooks/usePriceLineChart.js';
 import { useTokenPrice } from '@/hooks/useTokenPrice.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
-import { ConnectModalRef } from '@/modals/controls.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 
 interface TokenMarketDataProps {
@@ -49,9 +48,10 @@ export function TokenMarketData({ linkable, token }: TokenMarketDataProps) {
     const { market, contracts } = trending ?? {};
     const contract = first(contracts);
     const { data: security } = useTokenSecurity(contract?.chainId, contract?.address);
-    const [openTrader, setOpenTrader] = useState(false);
+    const { openTrader, setOpenTrader, setTradable } = useContext(TokenContext);
     const tradeInfo = useTradeInfo(token);
-    const appKitProvider = useAppKitProvider('eip155');
+
+    setTradable(tradeInfo.tradable);
 
     const ranges = [
         { label: t`24h`, days: 1 },
@@ -118,20 +118,7 @@ export function TokenMarketData({ linkable, token }: TokenMarketDataProps) {
                     </div>
                     <TokenSecurityBar security={security} />
                 </div>
-                <ClickableButton
-                    className="ml-auto inline-flex gap-[10px] rounded-full bg-main px-5 py-2 text-[15px] leading-4 text-primaryBottom"
-                    disabled={!tradeInfo.tradable}
-                    onClick={() => {
-                        if (!appKitProvider.walletProvider) {
-                            ConnectModalRef.open();
-                            return;
-                        }
-                        setOpenTrader(true);
-                    }}
-                >
-                    <SwapIcon width={16} height={16} />
-                    {t`Swap`}
-                </ClickableButton>
+                <SwapButton className="sm:hidden md:inline-flex" />
             </div>
             <div
                 className={classNames(
