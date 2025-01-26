@@ -6,6 +6,7 @@ import { compact } from 'lodash-es';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
+import { TokenContextProvider } from '@/components/TokenProfile/TokenContext.js';
 import { TokenMarketData } from '@/components/TokenProfile/TokenMarketData.js';
 import { ScrollListKey } from '@/constants/enum.js';
 import { formatMarketToken } from '@/helpers/formatMarketToken.js';
@@ -15,7 +16,9 @@ import { useSearchStateStore } from '@/store/useSearchStore.js';
 const getSearchItemContent = (token: TokenWithMarket) => {
     return token.hit ? (
         <div className="p-3">
-            <TokenMarketData linkable token={formatMarketToken(token)} />
+            <TokenContextProvider>
+                <TokenMarketData linkable token={formatMarketToken(token)} />
+            </TokenContextProvider>
         </div>
     ) : (
         <SearchableTokenItem key={token.id} token={token} />
