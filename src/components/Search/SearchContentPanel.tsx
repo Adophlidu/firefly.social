@@ -148,6 +148,7 @@ export function SearchContentPanel<T, F = void>({
                     <SearchInput
                         placeholder={placeholder}
                         className="!py-1.5 px-3"
+                        iconClassName="!text-highlight"
                         value={keyword}
                         onChange={(event) => onSearch(event.currentTarget.value)}
                         onClear={() => onSearch('')}

@@ -8,9 +8,10 @@ import { classNames } from '@/helpers/classNames.js';
 
 interface SearchInputProps extends HTMLProps<HTMLInputElement> {
     onClear?: () => void;
+    iconClassName?: string;
 }
 
-export function SearchInput({ onClear, ref, placeholder, ...rest }: SearchInputProps) {
+export function SearchInput({ onClear, ref, placeholder, iconClassName, ...rest }: SearchInputProps) {
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
@@ -35,8 +36,7 @@ export function SearchInput({ onClear, ref, placeholder, ...rest }: SearchInputP
             {rest.value ? (
                 <ClearButton
                     type="button"
-                    className="text-highlight"
-                    IconProps={{ className: 'text-inherit' }}
+                    IconProps={{ className: iconClassName ?? '!text-inherit' }}
                     size={16}
                     onClick={() => {
                         onClear?.();

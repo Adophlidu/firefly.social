@@ -246,7 +246,7 @@ export function MainView() {
                     <TypeTabs />
                 </div>
 
-                <div className="flex items-center rounded-xl border border-transparent bg-bg pr-3 focus-within:border-highlight focus-within:bg-bottom">
+                <div className="flex items-center rounded-xl border border-transparent bg-bg pr-3 focus-within:border-highlight focus-within:bg-primaryBottom focus-within:bg-bottom">
                     <form className="w-full flex-1">
                         <label className="flex w-full flex-1 items-center">
                             <input
@@ -291,7 +291,7 @@ export function MainView() {
                     <Trans>Message</Trans>
                 </label>
 
-                <div className="flex items-center rounded-xl border border-transparent bg-bg pr-3 focus-within:border-highlight focus-within:bg-bottom">
+                <div className="flex items-center rounded-xl border border-transparent bg-bg pr-3 focus-within:border-highlight focus-within:bg-primaryBottom focus-within:bg-bottom">
                     <form className="w-full flex-1">
                         <label className="flex w-full flex-1 items-center">
                             <input

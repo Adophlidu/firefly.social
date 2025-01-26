@@ -43,9 +43,7 @@ export function sharePostAfterClaimed(post: Post, amount: string, symbol?: strin
                 chars: [
                     t`🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on ${postUrl} from @${post.author.handle} !`,
                     ' \n\n',
-                    t`Claim on ${post.source}:`,
-                    ' \n',
-                    postUrl,
+                    t`Grow your followers and engagement with Lucky Drop on Firefly!`,
                 ],
             });
         },

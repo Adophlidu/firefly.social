@@ -1700,10 +1700,6 @@ msgstr "上传"
 msgid "Failed to login."
 msgstr "登录失败。"
 
-#. placeholder {0}: post.source
-msgid "Claim on {0}:"
-msgstr "在 {0}: 领取"
-
 msgid "Failed to mint NFT."
 msgstr "铸造 NFT 失败。"
 

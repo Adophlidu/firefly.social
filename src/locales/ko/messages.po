@@ -1700,10 +1700,6 @@ msgstr ""
 msgid "Failed to login."
 msgstr ""
 
-#. placeholder {0}: post.source
-msgid "Claim on {0}:"
-msgstr ""
-
 msgid "Failed to mint NFT."
 msgstr ""
 
