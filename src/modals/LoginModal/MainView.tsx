@@ -25,7 +25,7 @@ export function MainView() {
         const signType = source === Source.Farcaster && isMedium ? FarcasterSignType.RelayService : undefined;
         const path = urlcat('/:source', {
             source: resolveSourceInUrl(source),
-            signType: signType || undefined,
+            signType,
         });
 
         // history.back() is buggy, use .replace() instead.
@@ -40,12 +40,10 @@ export function MainView() {
                     const url = await FireflyEndpointProvider.getTelegramLoginUrl();
                     if (!url) return;
                     window.location.href = url;
-
                     break;
                 case Source.Apple:
                 case Source.Google:
                     await signIn(resolveSourceInUrl(source));
-
                     break;
                 default:
                     safeUnreachable(source);

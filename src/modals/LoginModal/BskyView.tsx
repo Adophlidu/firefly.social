@@ -1,6 +1,6 @@
-import { LoginBsky } from "@/components/Login/LoginBsky.jsx";
-import { Trans } from "@lingui/react/macro";
+import { Trans } from '@lingui/react/macro';
 
+import { LoginBsky } from '@/components/Login/LoginBsky.js';
 
 export const BskyViewBeforeLoad = () => {
     return {
@@ -11,7 +11,6 @@ export const BskyViewBeforeLoad = () => {
 function Title() {
     return <Trans>Sign in</Trans>;
 }
-
 
 export function BskyView() {
     return <LoginBsky />;

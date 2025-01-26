@@ -1,12 +1,12 @@
 import { Trans } from '@lingui/react/macro';
 import { createRootRoute, createRoute } from '@tanstack/react-router';
 
+import { BskyView, BskyViewBeforeLoad } from '@/modals/LoginModal/BskyView.js';
 import { FarcasterView, FarcasterViewBeforeLoad } from '@/modals/LoginModal/FarcasterView.js';
 import { LensView, LensViewBeforeLoad } from '@/modals/LoginModal/LensView.js';
 import { MainView } from '@/modals/LoginModal/MainView.js';
 import { RootView } from '@/modals/LoginModal/RootView.js';
 import { TwitterView } from '@/modals/LoginModal/TwitterView.js';
-import { BskyView, BskyViewBeforeLoad } from '@/modals/LoginModal/BskyView.js';
 
 const rootRoute = createRootRoute({
     component: RootView,

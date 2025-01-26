@@ -100,6 +100,10 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_PARTICLE_CLIENT_KEY: z.string().optional(),
 
     NEXT_PUBLIC_ORB_CLUB_API_TOKEN: z.string().default('invalid_orb_club_api_token'),
+
+    // bsky
+    NEXT_PUBLIC_BSKY_IDENTIFIER: z.string().optional(),
+    NEXT_PUBLIC_BSKY_PASSWORD: z.string().optional(),
 });
 
 export const env = {

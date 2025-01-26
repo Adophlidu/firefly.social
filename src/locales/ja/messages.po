@@ -3358,7 +3358,7 @@ msgstr ""
 
 #. placeholder {0}: resolveSourceName(Source.Lens)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
-#. placeholder {0}: resolveSourceName(account.profile.source)
+#. placeholder {0}: resolveSourceName(Source.Bsky)
 msgid "Your {0} account is now connected."
 msgstr ""
 
