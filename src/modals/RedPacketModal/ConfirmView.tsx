@@ -117,19 +117,19 @@ export function ConfirmView() {
                     payload: compact([
                         currentLensProfile
                             ? {
-                                  platform: FireflyRedPacketAPI.PlatformType.lens,
+                                  platform: FireflyRedPacketAPI.PlatformType.Lens,
                                   profileId: currentLensProfile.profileId,
                               }
                             : undefined,
                         currentFarcasterProfile
                             ? {
-                                  platform: FireflyRedPacketAPI.PlatformType.farcaster,
+                                  platform: FireflyRedPacketAPI.PlatformType.Farcaster,
                                   profileId: currentFarcasterProfile.profileId,
                               }
                             : undefined,
                         currentTwitterProfile
                             ? {
-                                  platform: FireflyRedPacketAPI.PlatformType.twitter,
+                                  platform: FireflyRedPacketAPI.PlatformType.Twitter,
                                   profileId: currentTwitterProfile.profileId,
                               }
                             : undefined,

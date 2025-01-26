@@ -12,6 +12,7 @@ const resolveReferralAccountPlatformFromSocialSource = createLookupTableResolver
         [Source.Twitter]: ReferralAccountPlatform.X,
         [Source.Farcaster]: ReferralAccountPlatform.Farcaster,
         [Source.Lens]: ReferralAccountPlatform.Lens,
+        [Source.Bsky]: ReferralAccountPlatform.Bsky,
     },
     (source) => {
         throw new UnreachableError('social source', source);

@@ -24,6 +24,7 @@ function useNotificationTypes(source: SocialSource) {
         [Source.Farcaster]: [],
         [Source.Lens]: [],
         [Source.Twitter]: [],
+        [Source.Bsky]: [],
     });
 
     const types = typesMap[source];

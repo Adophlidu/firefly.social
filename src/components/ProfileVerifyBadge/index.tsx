@@ -36,12 +36,14 @@ export function ProfileVerifyBadge({ profile, className }: Props) {
                     return icon.href ? <Link href={icon.href}>{iconEl}</Link> : iconEl;
                 }
                 switch (icon.source) {
-                    case Source.Twitter:
-                        const color = (icon.color ? presetColors[icon.color] : undefined) ?? 'text-twitterVerified';
-                        return <VerifyIcon key={i} className={classNames('h-4 w-4 shrink-0', color)} />;
                     case Source.Farcaster:
                         return <PowerUserIcon key={i} className="h-4 w-4 shrink-0" width={16} height={16} />;
                     case Source.Lens:
+                        return null;
+                    case Source.Twitter:
+                        const color = (icon.color ? presetColors[icon.color] : undefined) ?? 'text-twitterVerified';
+                        return <VerifyIcon key={i} className={classNames('h-4 w-4 shrink-0', color)} />;
+                    case Source.Bsky:
                         return null;
                     default:
                         safeUnreachable(icon.source);

@@ -33,7 +33,7 @@ export const MASK_SOCIAL_DETAIL_REGEX =
 export const MASK_SOCIAL_POST_PATH_REGEX = /\/post\/([\w-]+)/i;
 
 export const BIO_TWITTER_PROFILE_REGEX = /([^\s]+)\.twitter/;
-/* cspell:disable */
+// cspell: disable-next-line
 export const TWITTER_NORMAL_AVATAR = /^https:\/\/pbs\.twimg\.com.*_normal(\.\w+)$/;
 
 export const NUMBER_STRING_REGEX = /^[0-9\s+-,]+$/m;
@@ -49,6 +49,7 @@ export const LENS_HANDLE_REGEXP = /^[a-zA-Z_][a-zA-Z0-9_]{2,26}\.lens$/;
 
 export const NUMERIC_INPUT_REGEXP_PATTERN = '^[1-9]|^0(?![0-9])[.,。]?[0-9]*$';
 
+// cspell: disable-next-line
 export const LIMO_REGEXP = /^https:\/\/vitalik\.eth\.limo\/general\//;
 
 export const MIRROR_ARTICLE_REGEXP = /https?:\/\/mirror\.xyz\/[^/]+\/([^/]+)/;

@@ -168,6 +168,8 @@ export async function getPostLinks(url: string, post: Post) {
                         return isFrameV1(frame) && frame.protocol === FrameProtocol.OpenFrame ? { frame } : null;
                     case Source.Twitter:
                         return null;
+                    case Source.Bsky:
+                        return null;
                     default:
                         safeUnreachable(post.source);
                         return null;

@@ -12,12 +12,6 @@ function calculateLengthForFarcaster(text: string) {
     return encodedText.length;
 }
 
-// learn more: https://github.com/twitter/twitter-text/tree/master/js
-function calculateLengthForTwitter(text: string) {
-    const { weightedLength } = twitter.parseTweet(text);
-    return weightedLength;
-}
-
 function calculateLengthForLens(text: string) {
     return Array.from(text).reduce((acc, char) => {
         if (char.charCodeAt(0) > 128) {
@@ -28,11 +22,22 @@ function calculateLengthForLens(text: string) {
     }, 0);
 }
 
+// learn more: https://github.com/twitter/twitter-text/tree/master/js
+function calculateLengthForTwitter(text: string) {
+    const { weightedLength } = twitter.parseTweet(text);
+    return weightedLength;
+}
+
+function calculateLengthForBsky(text: string) {
+    return text.length;
+}
+
 export const resolveLengthCalculator = createLookupTableResolver<SocialSource, (text: string) => number>(
     {
         [Source.Lens]: calculateLengthForLens,
         [Source.Farcaster]: calculateLengthForFarcaster,
         [Source.Twitter]: calculateLengthForTwitter,
+        [Source.Bsky]: calculateLengthForBsky,
     },
     (source: SocialSource) => {
         throw new NotImplementedError(`Length calculator for ${source} is not implemented`);

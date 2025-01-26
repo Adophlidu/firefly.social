@@ -159,13 +159,6 @@ class FireflyActivity implements Provider {
     ) {
         if (fireflyBridgeProvider.supported) {
             switch (source) {
-                case Source.Lens:
-                    throw new NotImplementedError();
-                case Source.Twitter:
-                    await fireflyBridgeProvider.request(SupportedMethod.FOLLOW_TWITTER_USER, {
-                        id: profileId,
-                    });
-                    return;
                 case Source.Farcaster:
                     await fireflySessionHolder.fetchWithSession(
                         urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/follow'),
@@ -178,6 +171,15 @@ class FireflyActivity implements Provider {
                         },
                     );
                     return;
+                case Source.Lens:
+                    throw new NotImplementedError();
+                case Source.Twitter:
+                    await fireflyBridgeProvider.request(SupportedMethod.FOLLOW_TWITTER_USER, {
+                        id: profileId,
+                    });
+                    return;
+                case Source.Bsky:
+                    throw new NotImplementedError();
                 default:
                     safeUnreachable(source);
                     return;
@@ -222,6 +224,9 @@ class FireflyActivity implements Provider {
                 }
                 const profile = await getProfileById(source, profileId);
                 return profile?.viewerContext?.following ?? false;
+            }
+            case Source.Bsky: {
+                return false;
             }
         }
     }

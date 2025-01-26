@@ -19,6 +19,7 @@ const resolveConnectButtonClass = createLookupTableResolver<LoginFallbackSource,
         [Source.Farcaster]:
             'text-farcasterPrimary ring-farcasterPrimary hover:bg-fireflyBrand/20 hover:shadow-[0_0_16px_0_rgba(101,119,134,0.20)]',
         [Source.Twitter]: 'w-[203px] text-main ring-main hover:bg-main/20 hover:shadow-[rgba(101,119,134,0.20)]',
+        [Source.Bsky]: 'w-[203px] text-main ring-main hover:bg-main/20 hover:shadow-[rgba(101,119,134,0.20)]',
         [Source.Article]:
             'w-[203px] text-[#AD7BFF] ring-[#AD7BFF] shadow-[0_0_16px_0_rgba(101,119,134,0.2)] hover:bg-[#AD7BFF33]/20',
         [Source.DAOs]:

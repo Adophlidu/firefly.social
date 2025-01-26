@@ -30,6 +30,7 @@ const resolvePlatform = createLookupTableResolver<SocialSource, string>(
         [Source.Farcaster]: 'farcaster',
         [Source.Lens]: 'lens',
         [Source.Twitter]: 'twitter',
+        [Source.Bsky]: 'bsky',
     },
     (source) => {
         throw new UnreachableError('source', source);

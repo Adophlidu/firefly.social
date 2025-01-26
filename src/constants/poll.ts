@@ -26,10 +26,12 @@ export const POLL_OPTIONS_MAX_COUNT: Record<SocialSource, number> = {
     [Source.Lens]: 4,
     [Source.Farcaster]: 4,
     [Source.Twitter]: 4,
+    [Source.Bsky]: 4,
 };
 
 export const POLL_ACTION_ENABLED: Record<SocialSource, boolean> = {
     [Source.Lens]: true,
     [Source.Farcaster]: true,
     [Source.Twitter]: false,
+    [Source.Bsky]: false,
 };

@@ -18,6 +18,7 @@ const useChannelStore = create<ChannelState, [['zustand/persist', ChannelState],
                 [Source.Farcaster]: {},
                 [Source.Lens]: {},
                 [Source.Twitter]: {},
+                [Source.Bsky]: {},
             },
             addChannel: (source: SocialSource, key: string, channel: Channel | null) => {
                 set((state) => {

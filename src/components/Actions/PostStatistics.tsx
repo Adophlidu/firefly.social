@@ -151,6 +151,10 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                         one: 'repost',
                         other: 'reposts',
                     }),
+                    [Source.Bsky]: plural(post.stats.mirrors, {
+                        one: 'repost',
+                        other: 'reposts',
+                    }),
                 }[post.source] ?? null}
             </data>
         </EngagementLink>

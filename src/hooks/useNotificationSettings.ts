@@ -35,6 +35,8 @@ export function useNotificationSettings(source: SocialSource) {
                 );
             case Source.Twitter:
                 return false;
+            case Source.Bsky:
+                return false;
             default:
                 safeUnreachable(source);
                 return false;

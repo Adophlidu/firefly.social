@@ -95,6 +95,8 @@ async function getNextFrame(
                 });
             case Source.Twitter:
                 return null;
+            case Source.Bsky:
+                return null;
             default:
                 safeUnreachable(source);
                 return null;

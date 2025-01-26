@@ -13,6 +13,8 @@ export function useIsLoginInActivity(source: SocialSource) {
             return data.rawConnections.lens.connected.length > 0;
         case Source.Twitter:
             return data.rawConnections.twitter.connected.length > 0;
+        case Source.Bsky:
+            return data.rawConnections.bsky.connected.length > 0;
         default:
             safeUnreachable(source);
             return false;

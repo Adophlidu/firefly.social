@@ -9,10 +9,11 @@ export enum Theme {
     Dark = 'dark',
 }
 export enum Platform {
-    LENS = 'lens',
-    FIREFLY = 'firefly',
-    TWITTER = 'twitter',
-    FARCASTER = 'farcaster',
+    Lens = 'lens',
+    Firefly = 'firefly',
+    Twitter = 'twitter',
+    Farcaster = 'farcaster',
+    Bluesky = 'bsky',
 }
 
 export enum Network {

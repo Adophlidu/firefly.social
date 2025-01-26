@@ -351,6 +351,18 @@ const useTwitterStateBase = createState(
     },
 );
 
+const useBskyStateBase = createState(
+    {},
+    {
+        name: 'bsky-state',
+        onRehydrateStorage: () => async (state) => {
+            if (!bom.window || !state) return;
+
+            state.upgrade();
+        },
+    },
+);
+
 const useThirdPartyStateBase = createState(
     {},
     {
@@ -462,5 +474,6 @@ const useFireflyStateBase = createState(
 export const useLensStateStore = createSelectors(useLensStateBase);
 export const useFarcasterStateStore = createSelectors(useFarcasterStateBase);
 export const useTwitterStateStore = createSelectors(useTwitterStateBase);
+export const useBskyStateStore = createSelectors(useBskyStateBase);
 export const useThirdPartyStateStore = createSelectors(useThirdPartyStateBase);
 export const useFireflyStateStore = createSelectors(useFireflyStateBase);

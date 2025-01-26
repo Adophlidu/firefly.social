@@ -4,6 +4,7 @@ export enum ReferralAccountPlatform {
     X = 'x',
     Farcaster = 'f',
     Lens = 'l',
+    Bsky = 'b',
 }
 
 export function resolveActivityUrl(

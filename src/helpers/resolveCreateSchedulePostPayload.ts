@@ -27,6 +27,7 @@ export const resolveCreateSchedulePostPayload = createLookupTableResolver<Social
         [Source.Lens]: createLensSchedulePostPayload,
         [Source.Farcaster]: createFarcasterSchedulePostPayload,
         [Source.Twitter]: createTwitterSchedulePostPayload,
+        [Source.Bsky]: createTwitterSchedulePostPayload,
     },
     (source: SocialSource) => {
         throw new UnreachableError('source', source);

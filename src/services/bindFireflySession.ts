@@ -5,6 +5,7 @@ import {
     AuthenticationError,
     FarcasterAlreadyBoundError,
     NotAllowedError,
+    NotImplementedError,
     UnreachableError,
 } from '@/constants/error.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
@@ -163,6 +164,8 @@ async function bindFireflySession(session: Session, signal?: AbortSignal) {
             return await bindLensToFirefly(session as LensSession, signal);
         case SessionType.Twitter:
             return await bindTwitterSessionToFirefly(session as TwitterSession, signal);
+        case SessionType.Bsky:
+            throw new NotImplementedError();
         case SessionType.Firefly:
             throw new NotAllowedError();
         case SessionType.Apple:

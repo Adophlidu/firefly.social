@@ -5,6 +5,7 @@ import { useAsyncFn } from 'react-use';
 import { Source } from '@/constants/enum.js';
 import { checkFarcasterInvalidSignerKey } from '@/helpers/checkFarcasterInvalidSignerKey.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
@@ -36,12 +37,20 @@ export function useMirror(post: Post) {
                         enqueueSuccessMessage(unmirror ? t`Cancel mirror successfully` : t`Mirrored`);
                         return result;
                     }
-                    case Source.Twitter:
+                    case Source.Twitter: {
                         const result = await (hasMirrored
                             ? TwitterSocialMediaProvider.unmirrorPost(postId)
                             : TwitterSocialMediaProvider.mirrorPost(postId));
                         enqueueSuccessMessage(hasMirrored ? t`Cancel repost successfully` : t`Reposted`);
                         return result;
+                    }
+                    case Source.Bsky: {
+                        const result = await (hasMirrored
+                            ? BskySocialMediaProvider.unmirrorPost(postId)
+                            : BskySocialMediaProvider.mirrorPost(postId));
+                        enqueueSuccessMessage(hasMirrored ? t`Cancel repost successfully` : t`Reposted`);
+                        return result;
+                    }
                     default:
                         safeUnreachable(source);
                         return;
@@ -61,6 +70,9 @@ export function useMirror(post: Post) {
                         enqueueMessageFromError(error, t`Failed to mirror.`);
                         break;
                     case Source.Twitter:
+                        enqueueMessageFromError(error, t`Failed to repost.`);
+                        break;
+                    case Source.Bsky:
                         enqueueMessageFromError(error, t`Failed to repost.`);
                         break;
                     default:

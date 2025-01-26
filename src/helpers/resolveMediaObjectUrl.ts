@@ -79,6 +79,7 @@ const resolveImageSources = createLookupTableResolver<SocialSource, MediaSource[
         [Source.Lens]: [MediaSource.IPFS, MediaSource.S3, MediaSource.Giphy],
         [Source.Farcaster]: [MediaSource.S3, MediaSource.Giphy],
         [Source.Twitter]: [MediaSource.Twimg],
+        [Source.Bsky]: [MediaSource.S3],
     },
     (source) => {
         throw new UnreachableError('source', source);
@@ -90,6 +91,7 @@ const resolveVideoSources = createLookupTableResolver<SocialSource, MediaSource[
         [Source.Lens]: [MediaSource.S3],
         [Source.Farcaster]: [MediaSource.S3],
         [Source.Twitter]: [MediaSource.Twimg],
+        [Source.Bsky]: [MediaSource.S3],
     },
     (source) => {
         throw new UnreachableError('source', source);

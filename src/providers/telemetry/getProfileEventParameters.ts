@@ -5,6 +5,7 @@ import { UnreachableError } from '@/constants/error.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import {
+    type BskyEventParameters,
     type FarcasterEventParameters,
     type LensEventParameters,
     type TwitterEventParameters,
@@ -30,6 +31,11 @@ export function getSelfProfileEventParameters(source: SocialSource) {
             return {
                 x_id: selfProfile.profileId,
                 x_handle: selfProfile.handle,
+            };
+        case Source.Bsky:
+            return {
+                bsky_id: selfProfile.profileId,
+                bsky_handle: selfProfile.handle,
             };
         default:
             safeUnreachable(source);
@@ -72,6 +78,14 @@ export function getProfileEventParameters(profile: Profile) {
                 target_x_id: profile.profileId,
                 target_x_handle: profile.handle,
             } satisfies TwitterEventParameters;
+        case Source.Bsky:
+            return {
+                source_firefly_account_id: fireflyAccountId,
+                source_bsky_handle: selfProfile.handle,
+                source_bsky_id: selfProfile.profileId,
+                target_bsky_id: profile.profileId,
+                target_bsky_handle: profile.handle,
+            } satisfies BskyEventParameters;
         default:
             safeUnreachable(source);
             throw new UnreachableError('source', source);

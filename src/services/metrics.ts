@@ -125,6 +125,8 @@ async function uploadSessionsByMerge(session: FireflySession, sessions: Session[
                     return true;
                 case SessionType.Twitter:
                     return true;
+                case SessionType.Bsky:
+                    return false;
                 case SessionType.Firefly:
                     return false;
                 case SessionType.Apple:

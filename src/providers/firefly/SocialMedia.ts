@@ -538,6 +538,13 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
+    async getCollectedPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     async getLikedPostsByProfileId(profileId: string, indicator?: PageIndicator) {
         return farcasterSessionHolder.withSession(async (session) => {
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster/likes');

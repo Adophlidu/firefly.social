@@ -57,6 +57,18 @@ const resolvePostActionEventIds = createLookupTableResolver<SocialSource, Record
             bookmark: EventId.X_POST_BOOKMARK_SUCCESS,
             unbookmark: EventId.X_POST_UNBOOKMARK_SUCCESS,
         },
+        [Source.Bsky]: {
+            like: EventId.BSKY_POST_LIKE_SUCCESS,
+            unlike: EventId.BSKY_POST_UNLIKE_SUCCESS,
+            reply: EventId.BSKY_POST_REPLY_SUCCESS,
+            quote: EventId.BSKY_POST_QUOTE_SUCCESS,
+            delete: EventId.BSKY_POST_DELETE_SUCCESS,
+            share: EventId.BSKY_POST_SHARE_SUCCESS,
+            repost: EventId.BSKY_POST_REPOST_SUCCESS,
+            undo_repost: EventId.BSKY_POST_UNDO_REPOST_SUCCESS,
+            bookmark: EventId.BSKY_POST_BOOKMARK_SUCCESS,
+            unbookmark: EventId.BSKY_POST_UNBOOKMARK_SUCCESS,
+        },
     },
     (source) => {
         throw new UnreachableError('source', source);

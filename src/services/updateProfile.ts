@@ -6,11 +6,17 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
+import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
-import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
+import {
+    useBskyStateStore,
+    useFarcasterStateStore,
+    useLensStateStore,
+    useTwitterStateStore,
+} from '@/store/useProfileStore.js';
 
 function setCurrentProfileInPosts(profile: Pick<Profile, 'profileId' | 'source'>, params: ProfileEditable) {
     if (!profile) return;
@@ -29,6 +35,7 @@ function updateCurrentProfileInState(source: SocialSource, params: ProfileEditab
         [Source.Farcaster]: useFarcasterStateStore,
         [Source.Lens]: useLensStateStore,
         [Source.Twitter]: useTwitterStateStore,
+        [Source.Bsky]: useBskyStateStore,
     }[source];
     stateStore.getState().updateCurrentProfile(params);
 }
@@ -49,6 +56,9 @@ export async function updateProfile(profile: Profile, profileEditable: ProfileEd
             break;
         case Source.Twitter:
             await TwitterSocialMediaProvider.updateProfile(profileEditable);
+            break;
+        case Source.Bsky:
+            await BskySocialMediaProvider.updateProfile(profileEditable);
             break;
         default:
             safeUnreachable(profile.source);

@@ -15,6 +15,7 @@ const resolveLoginEventId = createLookupTableResolver<LoginSource, EventId>(
         [Source.Farcaster]: EventId.FARCASTER_LOG_IN_SUCCESS,
         [Source.Lens]: EventId.LENS_ACCOUNT_LOG_IN_SUCCESS,
         [Source.Twitter]: EventId.X_ACCOUNT_LOG_IN_SUCCESS,
+        [Source.Bsky]: EventId.BSKY_ACCOUNT_LOG_IN_SUCCESS,
         [Source.Google]: EventId.GOOGLE_ACCOUNT_LOG_IN_SUCCESS,
         [Source.Apple]: EventId.APPLE_ACCOUNT_LOG_IN_SUCCESS,
         [Source.Telegram]: EventId.TELEGRAM_ACCOUNT_LOG_IN_SUCCESS,
@@ -29,6 +30,7 @@ const resolveLogoutEventId = createLookupTableResolver<LoginSource, EventId>(
         [Source.Farcaster]: EventId.FARCASTER_LOG_OUT_SUCCESS,
         [Source.Lens]: EventId.LENS_ACCOUNT_LOG_OUT_SUCCESS,
         [Source.Twitter]: EventId.X_ACCOUNT_LOG_OUT_SUCCESS,
+        [Source.Bsky]: EventId.BSKY_ACCOUNT_LOG_OUT_SUCCESS,
         [Source.Apple]: EventId.APPLE_ACCOUNT_LOG_OUT_SUCCESS,
         [Source.Google]: EventId.GOOGLE_ACCOUNT_LOG_OUT_SUCCESS,
         [Source.Telegram]: EventId.TELEGRAM_ACCOUNT_LOG_OUT_SUCCESS,
@@ -43,6 +45,7 @@ const resolveDisconnectEventId = createLookupTableResolver<LoginSource, EventId>
         [Source.Farcaster]: EventId.FARCASTER_ACCOUNT_DISCONNECT_SUCCESS,
         [Source.Lens]: EventId.LENS_ACCOUNT_DISCONNECT_SUCCESS,
         [Source.Twitter]: EventId.X_ACCOUNT_DISCONNECT_SUCCESS,
+        [Source.Bsky]: EventId.BSKY_ACCOUNT_DISCONNECT_SUCCESS,
         [Source.Apple]: EventId.APPLE_ACCOUNT_DISCONNECT_SUCCESS,
         [Source.Google]: EventId.GOOGLE_ACCOUNT_DISCONNECT_SUCCESS,
         [Source.Telegram]: EventId.TELEGRAM_ACCOUNT_DISCONNECT_SUCCESS,
@@ -75,6 +78,13 @@ export function getAccountEventParameters(account: Account) {
                 lens_accounts: accounts,
             };
         case Source.Twitter:
+            return {
+                is_token_sync: account.origin === 'sync',
+                x_id: account.profile.profileId,
+                x_handle: account.profile.handle,
+                x_accounts: accounts,
+            };
+        case Source.Bsky:
             return {
                 is_token_sync: account.origin === 'sync',
                 x_id: account.profile.profileId,

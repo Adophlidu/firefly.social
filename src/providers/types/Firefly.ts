@@ -511,6 +511,9 @@ export interface FarcasterProfile {
     id: number;
 }
 
+// TODO: bluesky profile
+export interface BskyProfile {}
+
 export interface FireflyFarcasterProfile {
     addresses: Address[];
     followers: number;
@@ -559,7 +562,7 @@ export type WalletProfileResponse = Response<WalletProfiles>;
 export interface FireflyProfile {
     identity: FireflyIdentity;
     displayName: string;
-    __origin__: WalletProfile | LensV3Profile | FarcasterProfile | TwitterProfile | null;
+    __origin__: WalletProfile | LensV3Profile | FarcasterProfile | TwitterProfile | BskyProfile | null;
 }
 
 export interface Relation {
@@ -830,6 +833,14 @@ export type AllConnections = {
         Array<{
             address: string;
             twitters: TwitterConnection[];
+            handle: string;
+        }>
+    >;
+    bsky: Record<
+        'connected' | 'unconnected',
+        Array<{
+            address: string;
+            bsky: TwitterConnection[];
             handle: string;
         }>
     >;

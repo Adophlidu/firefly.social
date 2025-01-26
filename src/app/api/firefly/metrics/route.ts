@@ -173,6 +173,8 @@ async function convertSessionToMetadata(session: Session): Promise<Metrics[0]['l
                 consumer_key: payload.consumerKey,
                 consumer_secret: payload.consumerSecret,
             };
+        case SessionType.Bsky:
+            throw new NotAllowedError();
         case SessionType.Firefly:
             throw new NotAllowedError();
         case SessionType.Apple:

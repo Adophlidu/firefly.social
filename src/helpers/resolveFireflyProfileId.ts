@@ -11,11 +11,14 @@ export function resolveFireflyProfileId(profile: Pick<Profile, 'handle' | 'profi
     if (!profile) return;
 
     switch (profile.source) {
+        case Source.Farcaster:
+            return profile.profileId;
         case Source.Lens:
             return profile.handle;
         case Source.Twitter:
             return profile.profileId;
-        case Source.Farcaster:
+
+        case Source.Bsky:
             return profile.profileId;
         default:
             safeUnreachable(profile.source);

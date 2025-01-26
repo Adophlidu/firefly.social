@@ -18,6 +18,7 @@ export function useCurrentFireflyProfiles() {
         const currentFarcasterProfile = currentProfileAll[Source.Farcaster];
         const currentLensProfile = currentProfileAll[Source.Lens];
         const currentTwitterProfile = currentProfileAll[Source.Twitter];
+        const currentBskyProfile = currentProfileAll[Source.Bsky];
 
         return compact([
             currentFarcasterProfile
@@ -50,6 +51,16 @@ export function useCurrentFireflyProfiles() {
                       __origin__: null,
                   }
                 : undefined,
+            currentBskyProfile
+                ? {
+                      identity: {
+                          id: currentBskyProfile.profileId,
+                          source: Source.Bsky,
+                      },
+                      displayName: currentBskyProfile.handle,
+                      __origin__: null,
+                  }
+                : undefined,
         ]).sort(
             (a, b) =>
                 SORTED_SOCIAL_SOURCES.indexOf(a.identity.source as SocialSource) -
@@ -65,6 +76,9 @@ export function useCurrentFireflyProfilesAll() {
     const lensIdentity = resolveFireflyProfileId(currentProfileAll[Source.Lens]);
     const farcasterIdentity = resolveFireflyProfileId(currentProfileAll[Source.Farcaster]);
     const twitterIdentity = resolveFireflyProfileId(currentProfileAll[Source.Twitter]);
+
+    // TODO: add bluesky
+    const bskyIdentity = resolveFireflyProfileId(currentProfileAll[Source.Bsky]);
 
     const queryEnabled = !!lensIdentity || !!farcasterIdentity || !!twitterIdentity;
 

@@ -21,6 +21,7 @@ export const createPoll = (): CompositePoll => {
             [Source.Farcaster]: null,
             [Source.Lens]: null,
             [Source.Twitter]: null,
+            [Source.Bsky]: null,
         },
         duration: {
             days: POLL_DEFAULT_VALID_IN_DAYS,

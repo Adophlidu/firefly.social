@@ -1,5 +1,6 @@
 'use client';
 
+import BskyIcon from '@/assets/bsky-circle.svg';
 import FarcasterIcon from '@/assets/farcaster.svg';
 import FarcasterFillIcon from '@/assets/farcaster-fill.svg';
 import LensIcon from '@/assets/lens.svg';
@@ -20,11 +21,13 @@ const ColorIconMap = {
     [Source.Lens]: LensIcon,
     [Source.Farcaster]: FarcasterIcon,
     [Source.Twitter]: XIcon,
+    [Source.Bsky]: BskyIcon,
 } as const;
 const MonochromeIconMap = {
     [Source.Lens]: LensFillIcon,
     [Source.Farcaster]: FarcasterFillIcon,
     [Source.Twitter]: XFillIcon,
+    [Source.Bsky]: BskyIcon,
 } as const;
 
 export function SocialSourceIcon({ source, size = 20, mono, ...props }: SocialSourceIconProps) {

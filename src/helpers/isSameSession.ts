@@ -1,6 +1,7 @@
 import { safeUnreachable } from '@masknet/kit';
 
 import { UnreachableError } from '@/constants/error.js';
+import type { BskySession } from '@/providers/bsky/Session.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import type { TwitterSession } from '@/providers/twitter/Session.js';
 import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
@@ -30,6 +31,10 @@ export function isSameSession(session: Session | null, otherSession: Session | n
             const twitterSession = session as TwitterSession;
             const otherTwitterSession = otherSession as TwitterSession;
             return isSameSessionPayload(twitterSession.payload, otherTwitterSession.payload);
+        case SessionType.Bsky:
+            const bskySession = session as BskySession;
+            const otherBskySession = otherSession as BskySession;
+            return bskySession.profileId === otherBskySession.profileId && bskySession.token === otherBskySession.token;
         case SessionType.Firefly:
             return session.token === otherSession.token;
 

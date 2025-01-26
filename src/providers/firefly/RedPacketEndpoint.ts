@@ -281,20 +281,24 @@ export class FireflyRedPacketEndpoint {
         address: string,
         profile: (
             | {
-                  platform: FireflyRedPacketAPI.PlatformType.farcaster;
+                  platform: FireflyRedPacketAPI.PlatformType.Farcaster;
                   profileId: string;
                   farcasterSignature: string;
                   farcasterSigner: string;
                   farcasterMessage: string;
               }
             | {
-                  platform: FireflyRedPacketAPI.PlatformType.twitter;
+                  platform: FireflyRedPacketAPI.PlatformType.Lens;
+                  profileId: string;
+                  lensToken?: string;
+              }
+            | {
+                  platform: FireflyRedPacketAPI.PlatformType.Twitter;
                   profileId: string;
               }
             | {
-                  platform: FireflyRedPacketAPI.PlatformType.lens;
+                  platform: FireflyRedPacketAPI.PlatformType.Bsky;
                   profileId: string;
-                  lensToken?: string;
               }
         ) & {
             needLensAndFarcasterHandle: boolean;

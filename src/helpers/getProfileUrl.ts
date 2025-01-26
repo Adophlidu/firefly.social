@@ -15,6 +15,9 @@ export function getProfileUrl(profile: Profile) {
         case Source.Twitter:
             if (!profile.profileId) return '';
             return resolveProfileUrl(profile.source, profile.profileId);
+        case Source.Bsky:
+            if (!profile.profileId) return '';
+            return resolveProfileUrl(profile.source, profile.profileId);
         default:
             safeUnreachable(profile.source);
             return '';

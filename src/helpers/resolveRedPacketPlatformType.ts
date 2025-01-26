@@ -5,9 +5,10 @@ import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 export const resolveRedPacketPlatformType = createLookupTableResolver<SocialSource, FireflyRedPacketAPI.PlatformType>(
     {
-        [Source.Lens]: FireflyRedPacketAPI.PlatformType.lens,
-        [Source.Farcaster]: FireflyRedPacketAPI.PlatformType.farcaster,
-        [Source.Twitter]: FireflyRedPacketAPI.PlatformType.twitter,
+        [Source.Lens]: FireflyRedPacketAPI.PlatformType.Lens,
+        [Source.Farcaster]: FireflyRedPacketAPI.PlatformType.Farcaster,
+        [Source.Twitter]: FireflyRedPacketAPI.PlatformType.Twitter,
+        [Source.Bsky]: FireflyRedPacketAPI.PlatformType.Bsky,
     },
     (source) => {
         throw new UnreachableError('source', source);

@@ -19,6 +19,7 @@ export function NotificationSettings({ source }: { source: SocialSource }) {
                 [Source.Farcaster]: NotificationPushType.Priority,
                 [Source.Lens]: NotificationPushType.Lens,
                 [Source.Twitter]: undefined,
+                [Source.Bsky]: undefined,
             };
             const pushType = pushTypes[source];
             if (!pushType) return;
@@ -54,6 +55,7 @@ export function NotificationSettings({ source }: { source: SocialSource }) {
                             {
                                 [Source.Farcaster]: <Trans>Quality Filter</Trans>,
                                 [Source.Lens]: <Trans>Quality Filter</Trans>,
+                                [Source.Bsky]: <Trans>Quality Filter</Trans>,
                             }[source]
                         }
                     </div>

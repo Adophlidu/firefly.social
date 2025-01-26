@@ -1,5 +1,3 @@
-import type { OpenActionModuleType } from '@lens-protocol/client';
-
 import {
     type BookmarkType,
     type FireflyPlatform,
@@ -20,6 +18,7 @@ export enum SessionType {
     Lens = 'Lens',
     Farcaster = 'Farcaster',
     Firefly = 'Firefly',
+    Bsky = 'Bsky',
 }
 
 export enum NetworkType {
@@ -446,7 +445,7 @@ export interface Provider {
     /**
      * Act a post with the specified post ID.
      */
-    actPost: (postId: string, options: { type: OpenActionModuleType; signRequire?: boolean }) => Promise<void>;
+    actPost: (postId: string, options: unknown) => Promise<void>;
 
     /**
      * Upvotes a post with the specified post ID.
@@ -573,6 +572,14 @@ export interface Provider {
      * @returns A promise that resolves to a pageable list of Post objects.
      */
     getPostsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
+
+    /**
+     * Retrieves collected posts by a specific profile ID.
+     * @param profileId
+     * @param indicator
+     * @returns
+     */
+    getCollectedPostsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
     /**
      * Retrieves liked posts by a specific profile ID.

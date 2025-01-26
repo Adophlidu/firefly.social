@@ -2,7 +2,7 @@ import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
-import { NotAllowedError, TimeoutError, UnreachableError } from '@/constants/error.js';
+import { NotAllowedError, NotImplementedError, TimeoutError, UnreachableError } from '@/constants/error.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
@@ -104,6 +104,8 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             const data = resolveFireflyResponseData(response);
             return new FireflySession(data.accountId, data.accessToken, session, null, data.isNew);
         }
+        case SessionType.Bsky:
+            throw new NotImplementedError();
         case SessionType.Firefly:
             throw new NotAllowedError('[restoreFireflySession] Firefly session is not allowed.');
         case SessionType.Apple:

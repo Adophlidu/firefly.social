@@ -12,6 +12,8 @@ export function getChannelUrl(channel: Channel) {
             return resolveChannelUrl(channel.id, undefined, channel.source);
         case Source.Twitter:
             return '';
+        case Source.Bsky:
+            return '';
         default:
             safeUnreachable(channel.source);
             return '';

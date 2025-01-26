@@ -23,6 +23,10 @@ const resolveProfileActionEventIds = createLookupTableResolver<SocialSource, Rec
             follow: EventId.X_PROFILE_FOLLOW_SUCCESS,
             unfollow: EventId.X_PROFILE_UNFOLLOW_SUCCESS,
         },
+        [Source.Bsky]: {
+            follow: EventId.BSKY_PROFILE_FOLLOW_SUCCESS,
+            unfollow: EventId.BSKY_PROFILE_UNFOLLOW_SUCCESS,
+        },
     },
     (source) => {
         throw new UnreachableError('source', source);

@@ -5,6 +5,7 @@ import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 
+import BskySVG from '@/assets/bsky-circle.svg?url';
 import FarcasterSVG from '@/assets/farcaster.svg?url';
 import FireflyAvatarSVG from '@/assets/firefly-avatar.svg?url';
 import LensSVG from '@/assets/lens.svg?url';
@@ -25,6 +26,7 @@ function resolveSourceIcon(source: SocialSource) {
         [Source.Farcaster]: FarcasterSVG,
         [Source.Lens]: LensSVG,
         [Source.Twitter]: TwitterSVG,
+        [Source.Bsky]: BskySVG,
     }[source];
 }
 

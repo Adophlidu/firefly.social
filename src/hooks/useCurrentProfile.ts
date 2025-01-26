@@ -4,7 +4,12 @@ import { useMemo } from 'react';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
+import {
+    useBskyStateStore,
+    useFarcasterStateStore,
+    useLensStateStore,
+    useTwitterStateStore,
+} from '@/store/useProfileStore.js';
 
 export function useCurrentProfile(source: SocialSource) {
     const all = useCurrentProfileAll();
@@ -20,13 +25,15 @@ export function useCurrentProfileAll() {
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
+    const currentBskyProfile = useBskyStateStore.use.currentProfile();
 
     return useMemo<Record<SocialSource, Profile | null>>(
         () => ({
             [Source.Farcaster]: currentFarcasterProfile,
             [Source.Lens]: currentLensProfile,
             [Source.Twitter]: currentTwitterProfile,
+            [Source.Bsky]: currentBskyProfile,
         }),
-        [currentFarcasterProfile, currentLensProfile, currentTwitterProfile],
+        [currentFarcasterProfile, currentLensProfile, currentTwitterProfile, currentBskyProfile],
     );
 }

@@ -487,13 +487,11 @@ export class LensSocialMedia implements Provider {
         if (result.isFailure()) throw new Error(`Something went wrong: ${JSON.stringify(result.isFailure())}`);
     }
 
-    async actPost(
-        postId: string,
-        options: {
+    async actPost(postId: string, _options: unknown) {
+        const options = _options as {
             type: OpenActionModuleType;
             signRequire?: boolean;
-        },
-    ) {
+        };
         const actWithSign = async () => {
             await assertLensAccountOwner();
             const walletClient = await getWalletClientRequired(config);

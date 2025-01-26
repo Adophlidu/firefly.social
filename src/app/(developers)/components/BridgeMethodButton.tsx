@@ -88,7 +88,7 @@ export function BridgeMethodButton({ item }: Props) {
                 }
                 case SupportedMethod.LOGIN: {
                     const result = await fireflyBridgeProvider.request(SupportedMethod.LOGIN, {
-                        platform: Platform.FARCASTER,
+                        platform: Platform.Farcaster,
                     });
                     enqueueInfoMessage(`Success: ${result}`);
                     break;
@@ -106,7 +106,7 @@ export function BridgeMethodButton({ item }: Props) {
                                 profiles: [
                                     {
                                         platform_id: '0x01d86b',
-                                        platform: Platform.LENS,
+                                        platform: Platform.Lens,
                                         handle: 'brian',
                                         name: 'brian',
                                         namespace: 'lens',
@@ -115,7 +115,7 @@ export function BridgeMethodButton({ item }: Props) {
                                     },
                                     {
                                         platform_id: '20',
-                                        platform: Platform.FARCASTER,
+                                        platform: Platform.Farcaster,
                                         handle: 'barmstrong',
                                         name: 'Brian Armstrong',
                                         namespace: '',
@@ -124,7 +124,7 @@ export function BridgeMethodButton({ item }: Props) {
                                     },
                                     {
                                         platform_id: '14379660',
-                                        platform: Platform.TWITTER,
+                                        platform: Platform.Twitter,
                                         handle: 'brian_armstrong',
                                         name: 'brian_armstrong',
                                         namespace: '',

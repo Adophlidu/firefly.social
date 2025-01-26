@@ -1,7 +1,12 @@
 import { useMemo } from 'react';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
+import {
+    useBskyStateStore,
+    useFarcasterStateStore,
+    useLensStateStore,
+    useTwitterStateStore,
+} from '@/store/useProfileStore.js';
 
 export function useProfileStoreAll() {
     const lensStatus = useLensStateStore.use.status();
@@ -18,6 +23,11 @@ export function useProfileStoreAll() {
     const twitterAccounts = useTwitterStateStore.use.accounts();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
     const currentTwitterProfileSession = useTwitterStateStore.use.currentProfileSession();
+
+    const bskyStatus = useBskyStateStore.use.status();
+    const bskyAccounts = useBskyStateStore.use.accounts();
+    const currentBskyProfile = useBskyStateStore.use.currentProfile();
+    const currentBskyProfileSession = useBskyStateStore.use.currentProfileSession();
 
     return useMemo(() => {
         const store = {
@@ -42,21 +52,39 @@ export function useProfileStoreAll() {
                 accounts: twitterAccounts,
                 profiles: twitterAccounts.map((x) => x.profile),
             },
+            [Source.Bsky]: {
+                status: bskyStatus,
+                currentProfile: currentBskyProfile,
+                currentProfileSession: currentBskyProfileSession,
+                accounts: bskyAccounts,
+                profiles: bskyAccounts.map((x) => x.profile),
+            },
         };
         return store as Record<SocialSource, (typeof store)[SocialSource]>;
     }, [
+        // farcaster
         farcasterStatus,
         currentFarcasterProfile,
         currentFarcasterProfileSession,
         farcasterAccounts,
+
+        // lens
         lensStatus,
         currentLensProfile,
         currentLensProfileSession,
         lensAccounts,
+
+        // twitter
         twitterStatus,
         currentTwitterProfile,
         currentTwitterProfileSession,
         twitterAccounts,
+
+        // bluesky
+        bskyStatus,
+        currentBskyProfile,
+        currentBskyProfileSession,
+        bskyAccounts,
     ]);
 }
 

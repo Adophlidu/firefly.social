@@ -23,6 +23,7 @@ export function ProfileSourceIcon({ source, size = 20, ...props }: ProfileSource
         case Source.Lens:
         case Source.Farcaster:
         case Source.Twitter:
+        case Source.Bsky:
             return <SocialSourceIcon {...props} source={source} style={style} width={size} height={size} />;
         case Source.Firefly:
             return (

@@ -4,6 +4,7 @@ import z from 'zod';
 
 import { UnreachableError } from '@/constants/error.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
+import { BskySession } from '@/providers/bsky/Session.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession, type FireflySessionSignature } from '@/providers/firefly/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
@@ -76,15 +77,6 @@ export class SessionFactory {
 
         const createSessionFor = (type: SessionType): Session => {
             switch (type) {
-                case SessionType.Lens:
-                    return new LensSession(
-                        session.profileId,
-                        session.token,
-                        session.createdAt,
-                        session.expiresAt,
-                        secondPart, // refresh token
-                        thirdPart, // wallet address
-                    );
                 case SessionType.Farcaster:
                     return new FarcasterSession(
                         session.profileId,
@@ -94,6 +86,15 @@ export class SessionFactory {
                         secondPart, // signer request token
                         thirdPart, // channel token
                         fourthPart, // sponsorship signature
+                    );
+                case SessionType.Lens:
+                    return new LensSession(
+                        session.profileId,
+                        session.token,
+                        session.createdAt,
+                        session.expiresAt,
+                        secondPart, // refresh token
+                        thirdPart, // wallet address
                     );
                 case SessionType.Twitter: {
                     const parsed = TwitterSessionPayloadSchema.safeParse(parseJSON(atob(secondPart)));
@@ -106,6 +107,8 @@ export class SessionFactory {
                         parsed.data, // payload
                     );
                 }
+                case SessionType.Bsky:
+                    return new BskySession(session.profileId, session.token, session.createdAt, session.expiresAt);
                 case SessionType.Firefly:
                     return new FireflySession(
                         session.profileId,

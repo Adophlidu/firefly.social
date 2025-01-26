@@ -41,6 +41,7 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
                 [Source.Farcaster]: AsyncStatus.Idle,
                 [Source.Lens]: AsyncStatus.Idle,
                 [Source.Twitter]: AsyncStatus.Idle,
+                [Source.Bsky]: AsyncStatus.Idle,
             },
             setAsyncStatus: (source: SocialSource, status: AsyncStatus) =>
                 set((state) => {

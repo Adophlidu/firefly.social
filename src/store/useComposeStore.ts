@@ -146,6 +146,7 @@ export function createInitPostState(): Record<SocialSource, null> {
         [Source.Farcaster]: null,
         [Source.Lens]: null,
         [Source.Twitter]: null,
+        [Source.Bsky]: null,
     };
 }
 
@@ -169,6 +170,7 @@ export function createInitSinglePostState(cursor: Cursor): CompositePost {
             [Source.Farcaster]: HOME_CHANNEL,
             [Source.Lens]: HOME_CLUB,
             [Source.Twitter]: null,
+            [Source.Bsky]: null,
         },
         poll: null,
     };
@@ -296,6 +298,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                             [Source.Lens]: null,
                             [Source.Farcaster]: null,
                             [Source.Twitter]: null,
+                            [Source.Bsky]: null,
                             // a post can only have one parent post in specific platform
                             [source]: parentPost,
                         },

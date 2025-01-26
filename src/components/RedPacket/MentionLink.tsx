@@ -8,12 +8,15 @@ import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
 function resolveProfileUrl(platform: FireflyRedPacketAPI.PlatformType, handle: string) {
     switch (platform) {
-        case FireflyRedPacketAPI.PlatformType.farcaster:
+        case FireflyRedPacketAPI.PlatformType.Farcaster:
             return `/profile/farcaster/${handle}`;
-        case FireflyRedPacketAPI.PlatformType.lens:
+        case FireflyRedPacketAPI.PlatformType.Lens:
             return `/profile/lens/${handle}`;
-        case FireflyRedPacketAPI.PlatformType.twitter:
+        case FireflyRedPacketAPI.PlatformType.Twitter:
             return `/${handle}`;
+        case FireflyRedPacketAPI.PlatformType.Bsky:
+            return `/profile/bsky/${handle}`;
+
         default:
             safeUnreachable(platform);
             return '';
@@ -27,7 +30,7 @@ interface MentionLinkProps {
 }
 
 export function MentionLink({ platform, profileId, handle }: MentionLinkProps) {
-    const isTwitter = platform === FireflyRedPacketAPI.PlatformType.twitter;
+    const isTwitter = platform === FireflyRedPacketAPI.PlatformType.Twitter;
     const { data: twitterHandle, isLoading } = useQuery({
         enabled: isTwitter && !handle,
         queryKey: ['twitter-user-info', profileId],
@@ -46,7 +49,7 @@ export function MentionLink({ platform, profileId, handle }: MentionLinkProps) {
         <Link
             href={resolveProfileUrl(
                 platform,
-                platform === FireflyRedPacketAPI.PlatformType.farcaster ? profileId : screenName,
+                platform === FireflyRedPacketAPI.PlatformType.Farcaster ? profileId : screenName,
             )}
             target="_blank"
             className="text-base leading-[18px] text-highlight"

@@ -6,11 +6,13 @@ import { FIREFLY_STAMP_URL } from '@/constants/index.js';
 
 export function getStampAvatarByProfileId(source: Source, profileId: string) {
     switch (source) {
-        case Source.Lens:
-            return urlcat(FIREFLY_STAMP_URL, '/lens/:id', { id: profileId });
         case Source.Farcaster:
             return urlcat(FIREFLY_STAMP_URL, '/farcaster/:id', { id: profileId });
+        case Source.Lens:
+            return urlcat(FIREFLY_STAMP_URL, '/lens/:id', { id: profileId });
         case Source.Twitter:
+            return '';
+        case Source.Bsky:
             return '';
         case Source.Firefly:
             return '';

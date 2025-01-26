@@ -39,6 +39,9 @@ export function SquareSourceIcon({ source, size = 20, forceLight, ...props }: Sq
             ) : (
                 <XSquareDarkIcon {...props} style={style} width={size} height={size} />
             );
+        case Source.Bsky:
+            // TODO: Add Bluesky icon
+            return null;
         case Source.Firefly:
             return <FireflyIcon {...props} style={style} width={size} height={size} />;
         case Source.NFTs:

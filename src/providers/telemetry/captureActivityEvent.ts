@@ -21,6 +21,7 @@ const resolveActivityLoginEventId = createLookupTableResolver<SocialSource, Even
         [Source.Twitter]: EventId.EVENT_X_LOG_IN_SUCCESS,
         [Source.Farcaster]: EventId.EVENT_FARCASTER_LOG_IN_SUCCESS,
         [Source.Lens]: EventId.EVENT_LENS_LOG_IN_SUCCESS,
+        [Source.Bsky]: EventId.EVENT_BSKY_LOG_IN_SUCCESS,
     },
     (source) => {
         throw new UnreachableError('source', source);

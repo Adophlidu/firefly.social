@@ -1,0 +1,18 @@
+import { NotImplementedError } from '@/constants/error.js';
+import type { CompositePoll, Poll, PollOption, Provider, VoteResponseData } from '@/providers/types/Poll.js';
+
+class BskyPoll implements Provider {
+    async createPoll(poll: CompositePoll): Promise<Poll> {
+        throw new NotImplementedError();
+    }
+
+    vote(options: { postId: string; pollId: string; frameUrl: string; option: PollOption }): Promise<VoteResponseData> {
+        throw new NotImplementedError();
+    }
+
+    getPollById(pollId: string): Promise<Poll> {
+        throw new NotImplementedError();
+    }
+}
+
+export const BskyPollProvider = new BskyPoll();

@@ -54,6 +54,7 @@ export enum Source {
     Farcaster = 'Farcaster',
     Lens = 'Lens',
     Twitter = 'Twitter',
+    Bsky = 'Bsky',
     Firefly = 'Firefly',
     Article = 'Article',
     Wallet = 'Wallet',
@@ -70,6 +71,7 @@ export enum SourceInURL {
     Farcaster = 'farcaster',
     Lens = 'lens',
     Twitter = 'twitter',
+    Bsky = 'bsky',
     Firefly = 'firefly',
     Article = 'article',
     Wallet = 'wallet',
@@ -86,6 +88,7 @@ export enum FireflyPlatform {
     Farcaster = 'farcaster',
     Lens = 'lens',
     Twitter = 'twitter',
+    Bsky = 'bsky',
     Firefly = 'firefly',
     Article = 'article',
     Wallet = 'wallet',
@@ -94,7 +97,7 @@ export enum FireflyPlatform {
     Polymarket = 'polymarket',
 }
 
-export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
+export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Bsky;
 
 export type ThirdPartySource = Source.Telegram | Source.Apple | Source.Google;
 
@@ -103,6 +106,7 @@ export type ProfileSource =
     | Source.Farcaster
     | Source.Lens
     | Source.Twitter
+    | Source.Bsky
     | Source.Firefly
     | Source.Telegram
     | Source.Apple
@@ -110,15 +114,15 @@ export type ProfileSource =
 
 export type LoginSource = SocialSource | ThirdPartySource;
 
-export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Wallet;
-export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
-export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
+export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Bsky | Source.Wallet;
+export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter | SourceInURL.Bsky;
+export type SocialDiscoverSource = Source.Farcaster | Source.Lens | Source.Bsky;
 export type SocialNotificationSource = Source.Farcaster | Source.Lens;
 export type DiscoverSource = Source.Posts | Source.NFTs | Source.Article | Source.DAOs;
 export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.DAOs | Source.NFTs;
 export type FollowingSource = DiscoverSource | Source.Polymarket;
-export type ExploreSource = Source.Farcaster | Source.Lens | TrendingType;
-export type ExploreSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | TrendingType;
+export type ExploreSource = Source.Farcaster | Source.Lens | Source.Bsky | TrendingType;
+export type ExploreSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Bsky | TrendingType;
 export type LoginFallbackSource = SocialSource | Source.Article | Source.DAOs | Source.Polymarket;
 
 export enum ExploreType {

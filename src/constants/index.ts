@@ -90,6 +90,7 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory
         SocialProfileCategory.Channels,
     ],
     [Source.Twitter]: [SocialProfileCategory.Feed, SocialProfileCategory.Replies],
+    [Source.Bsky]: [SocialProfileCategory.Feed, SocialProfileCategory.Replies],
 };
 export const WALLET_PROFILE_TAB_TYPES: Record<NetworkType, WalletProfileCategory[]> = {
     [NetworkType.Ethereum]: [
@@ -107,16 +108,19 @@ export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> 
     // TODO No API to fetch recasts for now.
     [Source.Farcaster]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Recasts],
     [Source.Twitter]: [EngagementType.Likes, EngagementType.Quotes],
+    [Source.Bsky]: [EngagementType.Likes, EngagementType.Quotes],
 };
 export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
     [Source.Lens]: [SearchType.Posts, SearchType.Profiles, SearchType.Channels],
     [Source.Farcaster]: [SearchType.Posts, SearchType.Profiles, SearchType.Channels],
     [Source.Twitter]: [SearchType.Posts, SearchType.Profiles],
+    [Source.Bsky]: [SearchType.Posts, SearchType.Profiles],
 };
 export const CHANNEL_TAB_TYPE: Record<SocialSource, ChannelTabType[]> = {
     [Source.Farcaster]: [ChannelTabType.Recent, ChannelTabType.Trending],
     [Source.Lens]: [ChannelTabType.Recent],
     [Source.Twitter]: [],
+    [Source.Bsky]: [],
 };
 export const SORTED_HOME_SOURCES = [Source.Farcaster, Source.Lens, Source.NFTs, Source.Article] as const;
 export const SORTED_PROFILE_SOURCES: ProfilePageSource[] = [
@@ -125,7 +129,7 @@ export const SORTED_PROFILE_SOURCES: ProfilePageSource[] = [
     Source.Twitter,
     Source.Wallet,
 ];
-export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter] as const;
+export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Bsky] as const;
 export const SORTED_THIRD_PARTY_SOURCES = [Source.Google, Source.Telegram, Source.Apple] as const;
 export const SORTED_BOOKMARK_SOURCES =
     env.shared.NODE_ENV === NODE_ENV.Development

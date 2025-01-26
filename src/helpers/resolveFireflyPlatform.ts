@@ -7,6 +7,7 @@ export const resolveFireflyPlatform = createLookupTableResolver<Source, FireflyP
         [Source.Farcaster]: FireflyPlatform.Farcaster,
         [Source.Lens]: FireflyPlatform.Lens,
         [Source.Twitter]: FireflyPlatform.Twitter,
+        [Source.Bsky]: FireflyPlatform.Bsky,
         [Source.Firefly]: FireflyPlatform.Firefly,
         [Source.Article]: FireflyPlatform.Article,
         [Source.Wallet]: FireflyPlatform.Wallet,

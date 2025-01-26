@@ -15,6 +15,7 @@ export const resolveSourceInUrl = createLookupTableResolver<Source, SourceInURL>
         [Source.Farcaster]: SourceInURL.Farcaster,
         [Source.Lens]: SourceInURL.Lens,
         [Source.Twitter]: SourceInURL.Twitter,
+        [Source.Bsky]: SourceInURL.Bsky,
         [Source.Firefly]: SourceInURL.Firefly,
         [Source.Article]: SourceInURL.Article,
         [Source.Wallet]: SourceInURL.Wallet,
@@ -35,6 +36,7 @@ export const resolveSocialSourceInUrl = createLookupTableResolver<SocialSource, 
     {
         [Source.Farcaster]: SourceInURL.Farcaster,
         [Source.Lens]: SourceInURL.Lens,
+        [Source.Bsky]: SourceInURL.Bsky,
         [Source.Twitter]: SourceInURL.Twitter,
     },
     (source) => {
@@ -46,6 +48,7 @@ export const resolveExploreSourceInURL = createLookupTableResolver<ExploreSource
     {
         [Source.Farcaster]: SourceInURL.Farcaster,
         [Source.Lens]: SourceInURL.Lens,
+        [Source.Bsky]: SourceInURL.Bsky,
         [TrendingType.TopGainers]: TrendingType.TopGainers,
         [TrendingType.TopLosers]: TrendingType.TopLosers,
         [TrendingType.Trending]: TrendingType.Trending,
@@ -60,6 +63,7 @@ export const resolveExploreSource = createLookupTableResolver<ExploreSourceInURL
     {
         [SourceInURL.Farcaster]: Source.Farcaster,
         [SourceInURL.Lens]: Source.Lens,
+        [SourceInURL.Bsky]: Source.Bsky,
         [TrendingType.TopGainers]: TrendingType.TopGainers,
         [TrendingType.TopLosers]: TrendingType.TopLosers,
         [TrendingType.Trending]: TrendingType.Trending,

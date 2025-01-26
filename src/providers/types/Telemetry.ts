@@ -118,6 +118,24 @@ export enum EventId {
     X_PROFILE_FOLLOW_SUCCESS = 'x_follow_success', // ✅
     X_PROFILE_UNFOLLOW_SUCCESS = 'x_unfollow_success', // ✅
 
+    // bsky
+    BSKY_ACCOUNT_LOG_IN_SUCCESS = 'bsky_log_in_success', // ✅
+    BSKY_ACCOUNT_LOG_OUT_SUCCESS = 'bsky_log_out_success', // ✅
+    BSKY_ACCOUNT_DISCONNECT_SUCCESS = 'account_bsky_disconnect_success',
+    BSKY_POST_SEND_SUCCESS = 'bsky_post_send_success', // ✅
+    BSKY_POST_LIKE_SUCCESS = 'bsky_post_like_success', // ✅
+    BSKY_POST_UNLIKE_SUCCESS = 'bsky_post_unlike_success', // ✅
+    BSKY_POST_REPLY_SUCCESS = 'bsky_post_reply_success', // ✅
+    BSKY_POST_REPOST_SUCCESS = 'bsky_post_repost_success', // ✅
+    BSKY_POST_UNDO_REPOST_SUCCESS = 'bsky_post_undo_repost_success', // ✅
+    BSKY_POST_DELETE_SUCCESS = 'bsky_post_delete_success', // ✅
+    BSKY_POST_QUOTE_SUCCESS = 'bsky_post_quote_success', // ✅
+    BSKY_POST_SHARE_SUCCESS = 'bsky_post_share_success', // ✅
+    BSKY_POST_BOOKMARK_SUCCESS = 'bsky_post_bookmark_success', // ✅
+    BSKY_POST_UNBOOKMARK_SUCCESS = 'bsky_post_unbookmark_success', // ✅
+    BSKY_PROFILE_FOLLOW_SUCCESS = 'bsky_follow_success', // ✅
+    BSKY_PROFILE_UNFOLLOW_SUCCESS = 'bsky_unfollow_success', // ✅
+
     // apple
     APPLE_ACCOUNT_LOG_IN_SUCCESS = 'apple_log_in_success',
     APPLE_ACCOUNT_LOG_OUT_SUCCESS = 'apple_log_out_success',
@@ -135,9 +153,10 @@ export enum EventId {
 
     // activity
     EVENT_SHARE_CLICK = 'event_share_click',
-    EVENT_X_LOG_IN_SUCCESS = 'event_x_log_in_success',
     EVENT_FARCASTER_LOG_IN_SUCCESS = 'event_far_log_in_success',
     EVENT_LENS_LOG_IN_SUCCESS = 'event_lens_log_in_success',
+    EVENT_X_LOG_IN_SUCCESS = 'event_x_log_in_success',
+    EVENT_BSKY_LOG_IN_SUCCESS = 'event_bsky_log_in_success',
     EVENT_CONNECT_WALLET_SUCCESS = 'event_connect_wallet_success',
     EVENT_CHANGE_WALLET_SUCCESS = 'event_change_wallet_success',
     EVENT_CLAIM_BASIC_SUCCESS = 'event_claim_basic_success',
@@ -195,6 +214,14 @@ export interface TwitterEventParameters {
 
 export interface TwitterPostEventParameters extends TwitterEventParameters {
     target_x_post_id: string;
+}
+
+export interface BskyEventParameters {
+    source_firefly_account_id: string;
+    source_bsky_id: string;
+    source_bsky_handle: string;
+    target_bsky_id: string;
+    target_bsky_handle: string;
 }
 
 export interface ConnectWalletEventParameters {

@@ -50,6 +50,7 @@ const resolveProfileTabColor = createLookupTableResolver<
             borderColor: '#ffffff',
         },
         [Source.Twitter]: {},
+        [Source.Bsky]: {},
         [Source.Firefly]: {},
         [Source.Article]: {},
         [Source.Wallet]: {},

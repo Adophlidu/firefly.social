@@ -24,6 +24,8 @@ export async function validateMessage(messageBytes: string, source: SocialSource
             return true;
         case Source.Twitter:
             return true;
+        case Source.Bsky:
+            return true;
         default:
             safeUnreachable(source);
             return false;

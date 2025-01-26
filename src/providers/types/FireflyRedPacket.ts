@@ -57,9 +57,10 @@ export interface RedPacketJSONPayload extends RedPacketBasic {
 
 export namespace FireflyRedPacketAPI {
     export enum PlatformType {
-        lens = 'lens',
-        farcaster = 'farcaster',
-        twitter = 'twitter',
+        Lens = 'lens',
+        Farcaster = 'farcaster',
+        Twitter = 'twitter',
+        Bsky = 'bsky',
     }
 
     export enum ActionType {

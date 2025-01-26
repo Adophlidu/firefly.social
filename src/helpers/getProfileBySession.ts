@@ -5,6 +5,7 @@ import { NotAllowedError, UnreachableError } from '@/constants/error.js';
 import { createLensSDKForSession, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
 import { refreshLensSession } from '@/helpers/refreshLensSession.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import type { BskySession } from '@/providers/bsky/Session.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
@@ -14,13 +15,10 @@ import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export async function getProfileBySession(session: Session, signal?: AbortSignal) {
     switch (session.type) {
-        case SessionType.Twitter: {
-            const twitterSession = session as TwitterSession;
-            return TwitterSocialMediaProvider.getProfileByIdWithSessionPayload(
-                twitterSession.profileId,
-                twitterSession.payload,
-            );
-        }
+        case SessionType.Farcaster:
+            const farcasterSession = session as FarcasterSession;
+            const provider = resolveSocialMediaProvider(Source.Farcaster);
+            return provider.getProfileById(farcasterSession.profileId);
         case SessionType.Lens: {
             const lensSession = session as LensSession;
             if (!lensSession.refreshToken) return null;
@@ -39,10 +37,18 @@ export async function getProfileBySession(session: Session, signal?: AbortSignal
             const provider = resolveSocialMediaProvider(Source.Lens);
             return provider.getProfileById(lensSession.profileId);
         }
-        case SessionType.Farcaster:
-            const farcasterSession = session as FarcasterSession;
-            const provider = resolveSocialMediaProvider(Source.Farcaster);
-            return provider.getProfileById(farcasterSession.profileId);
+        case SessionType.Twitter: {
+            const twitterSession = session as TwitterSession;
+            return TwitterSocialMediaProvider.getProfileByIdWithSessionPayload(
+                twitterSession.profileId,
+                twitterSession.payload,
+            );
+        }
+        case SessionType.Bsky: {
+            const bskySession = session as BskySession;
+            const provider = resolveSocialMediaProvider(Source.Bsky);
+            return provider.getProfileById(bskySession.profileId);
+        }
         case SessionType.Firefly:
             throw new NotAllowedError();
         case SessionType.Apple:

@@ -25,6 +25,7 @@ const resolveComposeEventId = createLookupTableResolver<SocialSource, EventId>(
         [Source.Farcaster]: EventId.FARCASTER_POST_SEND_SUCCESS,
         [Source.Lens]: EventId.LENS_POST_SEND_SUCCESS,
         [Source.Twitter]: EventId.X_POST_SEND_SUCCESS,
+        [Source.Bsky]: EventId.BSKY_POST_SEND_SUCCESS,
     },
     (source) => {
         throw new UnreachableError('source', source);
@@ -36,6 +37,7 @@ const resolveReplyEventId = createLookupTableResolver<SocialSource, EventId>(
         [Source.Farcaster]: EventId.FARCASTER_POST_REPLY_SUCCESS,
         [Source.Lens]: EventId.LENS_POST_REPLY_SUCCESS,
         [Source.Twitter]: EventId.X_POST_REPLY_SUCCESS,
+        [Source.Bsky]: EventId.BSKY_POST_REPLY_SUCCESS,
     },
     (source) => {
         throw new UnreachableError('source', source);
@@ -47,6 +49,7 @@ const resolveQuoteEventId = createLookupTableResolver<SocialSource, EventId>(
         [Source.Farcaster]: EventId.FARCASTER_POST_QUOTE_SUCCESS,
         [Source.Lens]: EventId.LENS_POST_QUOTE_SUCCESS,
         [Source.Twitter]: EventId.X_POST_QUOTE_SUCCESS,
+        [Source.Bsky]: EventId.BSKY_POST_QUOTE_SUCCESS,
     },
     (source) => {
         throw new UnreachableError('source', source);
@@ -87,6 +90,11 @@ export function getSelfPostEventParameters(post: Post) {
                 ...parameters,
                 x_post_id: postId,
             };
+        case Source.Bsky:
+            return {
+                ...parameters,
+                bsky_post_id: postId,
+            };
         default:
             safeUnreachable(source);
             throw new UnreachableError('source', source);
@@ -113,6 +121,11 @@ export function getPostEventParameters(post: Post) {
                 ...(parameters as TwitterEventParameters),
                 target_x_post_id: postId,
             } satisfies TwitterPostEventParameters;
+        case Source.Bsky:
+            return {
+                ...parameters,
+                target_bsky_post_id: postId,
+            };
         default:
             safeUnreachable(source);
             throw new UnreachableError('source', source);

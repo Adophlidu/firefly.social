@@ -1,6 +1,7 @@
 import { type ProfileSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import {
+    useBskyStateStore,
     useFarcasterStateStore,
     useFireflyStateStore,
     useLensStateStore,
@@ -13,6 +14,7 @@ export function getProfileState(source: ProfileSource) {
         [Source.Farcaster]: useFarcasterStateStore,
         [Source.Lens]: useLensStateStore,
         [Source.Twitter]: useTwitterStateStore,
+        [Source.Bsky]: useBskyStateStore,
         [Source.Firefly]: useFireflyStateStore,
         [Source.Google]: useThirdPartyStateStore,
         [Source.Apple]: useThirdPartyStateStore,

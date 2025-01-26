@@ -2,6 +2,7 @@ import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
+import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
@@ -15,6 +16,7 @@ export const resolveSessionHolder = createLookupTableResolver<SocialSource, Sess
         [Source.Farcaster]: farcasterSessionHolder,
         [Source.Lens]: lensSessionHolder,
         [Source.Twitter]: twitterSessionHolder,
+        [Source.Bsky]: bskySessionHolder,
     },
     (source) => {
         throw new UnreachableError('source', source);
@@ -27,6 +29,7 @@ export const resolveSessionHolderFromProfileSource = createLookupTableResolver<P
         [Source.Lens]: lensSessionHolder,
         [Source.Twitter]: twitterSessionHolder,
         [Source.Firefly]: fireflySessionHolder,
+        [Source.Bsky]: bskySessionHolder,
         [Source.Google]: thirdPartySessionHolder,
         [Source.Apple]: thirdPartySessionHolder,
         [Source.Telegram]: thirdPartySessionHolder,
@@ -42,6 +45,7 @@ export const resolveSessionHolderFromSessionType = createLookupTableResolver<Ses
         [SessionType.Lens]: lensSessionHolder,
         [SessionType.Firefly]: fireflySessionHolder,
         [SessionType.Twitter]: twitterSessionHolder,
+        [SessionType.Bsky]: bskySessionHolder,
         [SessionType.Apple]: thirdPartySessionHolder,
         [SessionType.Google]: thirdPartySessionHolder,
         [SessionType.Telegram]: thirdPartySessionHolder,
