@@ -3272,6 +3272,9 @@ msgstr ""
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
 msgstr ""
 
+msgid "Username or email address"
+msgstr ""
+
 #. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null
 msgid "<0>Minted</0><1/>{0}"
 msgstr ""
