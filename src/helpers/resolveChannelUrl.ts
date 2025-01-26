@@ -1,12 +1,11 @@
 import urlcat from 'urlcat';
 
-import { ChannelTabType, type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
-export function resolveChannelUrl(id: string, type: ChannelTabType = ChannelTabType.Recent, source?: SocialSource) {
-    return urlcat(`/channel/:source/:id/:type`, {
+export function resolveChannelUrl(id: string, source?: SocialSource) {
+    return urlcat(`/channel/:source/:id`, {
         id,
-        type,
         source: resolveSocialSourceInUrl(source ?? Source.Farcaster),
     });
 }

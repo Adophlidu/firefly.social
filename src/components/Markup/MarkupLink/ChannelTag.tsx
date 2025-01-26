@@ -23,7 +23,7 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
 
     useEffect(() => {
         if (!title) return;
-        router.prefetch(resolveChannelUrl(title.trim().slice(1), undefined, source));
+        router.prefetch(resolveChannelUrl(title.trim().slice(1), source));
     }, [title, router, source]);
 
     const data = useQuery({
@@ -51,7 +51,7 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
                 className="cursor-pointer text-highlight hover:underline"
                 as="span"
                 onClick={() => {
-                    router.push(resolveChannelUrl(channelId, undefined, source));
+                    router.push(resolveChannelUrl(channelId, source));
                 }}
             >
                 {title}

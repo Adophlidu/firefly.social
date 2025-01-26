@@ -1,13 +1,18 @@
 import type { Metadata } from 'next';
-import { redirect } from 'next/navigation.js';
+import { notFound } from 'next/navigation.js';
 
+import { ChannelInfo } from '@/components/Channel/ChannelInfo.js';
+import { ChannelProvider } from '@/components/Channel/ChannelProvider.js';
+import { PostList } from '@/components/Channel/PostList.js';
+import { Title } from '@/components/Channel/Title.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { ChannelTabType, KeyType, type SocialSourceInURL, SourceInURL } from '@/constants/enum.js';
 import { createMetadataChannelById } from '@/helpers/createMetadataChannel.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
-import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
-import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import type { NextPageProps } from '@/types/index.js';
 
 const createPageMetadata = memoizeWithRedis(createMetadataChannelById, {
@@ -26,39 +31,30 @@ interface Props
         }
     > {}
 
-function isChannelTabType(value?: string): value is ChannelTabType {
-    return Object.values(ChannelTabType).includes(value as ChannelTabType);
-}
-
 export async function generateMetadata(props: Props): Promise<Metadata> {
-    const searchParams = await props.searchParams;
     const params = await props.params;
-    const source = isChannelTabType(params.id) ? searchParams.source : params.source;
-    const id = isChannelTabType(params.id) ? searchParams.source : params.id;
-    return createPageMetadata(source || SourceInURL.Farcaster, id);
+    return createPageMetadata(params.source || SourceInURL.Farcaster, params.id);
 }
 
 export default async function Page(props: Props) {
     if (await isBotRequest()) return null;
-
-    const searchParams = await props.searchParams;
     const params = await props.params;
+    const source = resolveSocialSource(params.source);
+    const provider = resolveSocialMediaProvider(source);
+    const channel = await runInSafeAsync(() => provider.getChannelById(params.id));
 
-    const sourceFromQuery = isSocialSourceInUrl(searchParams.source)
-        ? resolveSocialSource(searchParams.source)
-        : undefined;
-    const typeFromQuery = isChannelTabType(searchParams.channel_tab) ? searchParams.channel_tab : undefined;
+    if (!channel) notFound();
 
-    if (isChannelTabType(params.id)) {
-        // /channel/:id/:type
-        redirect(resolveChannelUrl(params.source, params.id, sourceFromQuery));
-    } else {
-        redirect(
-            resolveChannelUrl(
-                params.id,
-                typeFromQuery,
-                isSocialSourceInUrl(params.source) ? resolveSocialSource(params.source) : undefined,
-            ),
-        );
-    }
+    return (
+        <>
+            <Title channel={channel} />
+            <ChannelInfo channel={channel} source={channel.source} isChannelPage />
+            <hr className="divider w-full border-line" />
+            <NoSSR>
+                <ChannelProvider channel={channel}>
+                    <PostList source={source} channel={channel} />
+                </ChannelProvider>
+            </NoSSR>
+        </>
+    );
 }

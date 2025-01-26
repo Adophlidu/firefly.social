@@ -9,7 +9,7 @@ export function getChannelUrl(channel: Channel) {
         case Source.Lens:
         case Source.Farcaster:
             if (!channel.id) return '';
-            return resolveChannelUrl(channel.id, undefined, channel.source);
+            return resolveChannelUrl(channel.id, channel.source);
         case Source.Twitter:
             return '';
         case Source.Bsky:

@@ -24,7 +24,7 @@ export async function createMetadataChannel(source: SocialSourceInURL, channelId
             description,
             images,
             type: 'profile',
-            url: resolveChannelUrl(channelId, undefined, socialSource),
+            url: resolveChannelUrl(channelId, socialSource),
         },
         twitter: {
             card: 'summary',
@@ -56,7 +56,7 @@ export async function createMetadataChannelById(source: SocialSourceInURL, chann
         title,
         openGraph: {
             type: 'website',
-            url: resolveChannelUrl(channel.id, undefined, socialSource),
+            url: resolveChannelUrl(channel.id, socialSource),
             title,
             description,
             images,

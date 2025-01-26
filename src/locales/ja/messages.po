@@ -359,9 +359,6 @@ msgstr ""
 msgid "The token can be bought."
 msgstr ""
 
-msgid "Trending"
-msgstr ""
-
 #. placeholder {0}: currentProfile.handle
 msgid "Log out @{0}"
 msgstr ""

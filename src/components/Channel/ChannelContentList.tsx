@@ -1,3 +1,5 @@
+'use client';
+
 import { safeUnreachable } from '@masknet/kit';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { memo } from 'react';
