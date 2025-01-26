@@ -89,8 +89,10 @@ export interface Profile {
     };
     /** the social media source that the profile belongs to */
     source: SocialSource;
-    // Farcaster only
+    /** flag the power user - farcaster only */
     isPowerUser?: boolean;
+    /** flag the social media service url - bsky only */
+    serviceUrl?: string;
     website?: string;
     location?: string;
 }

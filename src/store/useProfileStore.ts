@@ -19,6 +19,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession, isSameSessionPayload } from '@/helpers/isSameSession.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -256,7 +257,7 @@ const useLensStateBase = createState(
                 const profileId = state.currentProfile?.profileId;
                 const clientProfileId = await lensSessionHolder.sdk.authentication.getProfileId();
 
-                if (!clientProfileId || (profileId && clientProfileId !== profileId)) {
+                if (!clientProfileId || !profileId || clientProfileId !== profileId) {
                     console.warn('[lens store] clean the local store because the client cannot recover properly');
                     state.clear();
                     return;
@@ -359,6 +360,29 @@ const useBskyStateBase = createState(
             if (!bom.window || !state) return;
 
             state.upgrade();
+
+            try {
+                const did = state.currentProfile?.profileId;
+                if (!did) {
+                    console.warn('[bsky store] clean the local store because no did found.');
+                    state.clear();
+                    return;
+                }
+
+                const profile = await bskySessionHolder.agent.getProfile({
+                    actor: did,
+                });
+                console.log('[bsky store] profile', profile);
+
+                if (!profile.success || profile.data.did !== did) {
+                    console.warn('[bsky store] clean the local store because the client cannot recover properly');
+                    state.clear();
+                    return;
+                }
+            } catch (error) {
+                if (error instanceof FetchError) return;
+                state.clear();
+            }
         },
     },
 );

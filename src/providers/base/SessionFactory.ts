@@ -4,6 +4,7 @@ import z from 'zod';
 
 import { UnreachableError } from '@/constants/error.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
+import { parseURL } from '@/maskbook/packages/shared-base/src/index.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession, type FireflySessionSignature } from '@/providers/firefly/Session.js';
@@ -35,6 +36,18 @@ const ThirdPartySessionPayload = z.object({
     isNew: z.boolean().optional(),
 });
 
+const BskySessionPayload = z.object({
+    refreshJwt: z.string(),
+    accessJwt: z.string(),
+    handle: z.string(),
+    did: z.string(),
+    email: z.string().optional(),
+    emailConfirmed: z.boolean().optional(),
+    emailAuthFactor: z.boolean().optional(),
+    active: z.boolean(),
+    status: z.string().optional(),
+});
+
 export class SessionFactory {
     /**
      * Creates a session instance based on the serialized session in string.
@@ -51,10 +64,12 @@ export class SessionFactory {
         // for twitter session, the second part is payload in base64 encoded
         // for firefly session, the second part is the parent session in base64 encoded
         // for third party session, the second part is the payload in base64 encoded
+        // for bsky session, the second part is the service url
         const secondPart = fragments[2] ?? '';
         // for lens session, the third part is the wallet address
         // for farcaster session, the third part is the channel token
         // for firefly session, the third part is the signature in base64 encoded
+        // for bsky session, the third part is the atp session payload in base64 encoded
         const thirdPart = fragments[3] ?? '';
         // for farcaster session, the fourth part is the sponsorship signature
         // for firefly session, the fourth part is the isNew flag
@@ -107,8 +122,22 @@ export class SessionFactory {
                         parsed.data, // payload
                     );
                 }
-                case SessionType.Bsky:
-                    return new BskySession(session.profileId, session.token, session.createdAt, session.expiresAt);
+                case SessionType.Bsky: {
+                    const u = parseURL(secondPart);
+                    if (!u) throw new Error('Failed to parse service URL.');
+
+                    const parsed = BskySessionPayload.safeParse(parseJSON(atob(thirdPart)));
+                    if (!parsed.success) throw new Error(parsed.error.message);
+
+                    return new BskySession(
+                        session.profileId,
+                        session.token,
+                        session.createdAt,
+                        session.expiresAt,
+                        u.href,
+                        parsed.data,
+                    );
+                }
                 case SessionType.Firefly:
                     return new FireflySession(
                         session.profileId,

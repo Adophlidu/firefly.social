@@ -1,26 +1,29 @@
 /* cspell:disable */
 
 import { AtpAgent } from '@atproto/api';
+import { memoize } from 'lodash-es';
 
 import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
-import { NotImplementedError } from '@/constants/error.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 
-class BskySessionHolder extends SessionHolder<BskySession> {
-    private _agent: AtpAgent | null = null;
+export const createAgent: (serviceUrl: string) => AtpAgent = memoize((serviceUrl: string) => {
+    return new AtpAgent({
+        service: serviceUrl,
+        persistSession: (evt, session) => {
+            console.log(evt, session);
+        },
+    });
+});
 
+class BskySessionHolder extends SessionHolder<BskySession> {
     get agent() {
-        if (!this._agent) {
-            this._agent = new AtpAgent({
-                service: DEFAULT_SERVICE_URL,
-            });
-        }
-        return this._agent;
+        return createAgent(this.session?.serviceUrl ?? DEFAULT_SERVICE_URL);
     }
 
-    override resumeSession(session: BskySession): void {
-        throw new NotImplementedError();
+    override async resumeSession(session: BskySession): Promise<void> {
+        await this.agent.sessionManager.resumeSession(session.sessionPayload);
+        super.resumeSession(session);
     }
 }
 

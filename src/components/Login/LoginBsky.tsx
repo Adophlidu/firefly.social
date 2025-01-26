@@ -1,7 +1,7 @@
 /* cspell:disable */
 
-import { AtpAgent } from '@atproto/api';
 import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -11,40 +11,84 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
 import { Source } from '@/constants/enum.js';
-import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/controls.js';
+import { BskySession } from '@/providers/bsky/Session.js';
+import { createAgent } from '@/providers/bsky/SessionHolder.js';
+import type { Account } from '@/providers/types/Account.js';
+import { type AccountOptions, addAccount } from '@/services/account.js';
 
-export function LoginBsky() {
-    const [account, setAccount] = useState('');
-    const [password, setPassword] = useState('');
-    const [{ loading }, login] = useAsyncFn(async (account: string, password: string) => {
-        const agent = new AtpAgent({
-            service: DEFAULT_SERVICE_URL,
-        });
+async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
+    try {
+        const account = await createAccount();
+        console.log('DEBUG: login bsky', account);
 
-        const response = await agent.login({
-            identifier: account,
-            password,
-        });
-
-        console.log('DEBUG: login response', response);
-
-        if (response.success) {
-            enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Bsky)} account is now connected.`);
-
-            // #region DEBUG
-            const suji = await agent.getProfile({
-                actor: 'suji',
-            });
-            console.log('DEBUG: suji', suji);
-            // #endregion
-
-            // TODO: persist the session
-        }
+        const done = await addAccount(account, options);
+        if (done) enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Farcaster)} account is now connected.`);
 
         LoginModalRef.close();
-    }, []);
+    } catch (error) {
+        throw error;
+    }
+}
+
+export function LoginBsky() {
+    const controller = useAbortController();
+
+    const [account, setAccount] = useState('');
+    const [password, setPassword] = useState('');
+    const [{ loading }, login] = useAsyncFn(
+        async (username: string, password: string, serviceUrl: string) => {
+            await loginBsky(
+                async () => {
+                    controller.current.renew();
+                    try {
+                        const agent = createAgent(serviceUrl);
+
+                        const response = await agent.login({
+                            identifier: username,
+                            password,
+                        });
+                        if (!response.success) throw new Error(`Failed to login username = ${username}.`);
+
+                        const profileResponse = await agent.getProfile({
+                            actor: response.data.did,
+                        });
+                        if (!profileResponse.success)
+                            throw new Error(`Failed to get profile id = ${response.data.did}.`);
+
+                        const session = new BskySession(response.data.did, response.data.refreshJwt, 0, 0, serviceUrl, {
+                            active: true,
+                            ...response.data,
+                        });
+
+                        return {
+                            session,
+                            profile: {
+                                ...formatBskyProfile(profileResponse.data),
+                                serviceUrl,
+                            },
+                        } satisfies Account;
+                    } catch (error) {
+                        enqueueMessageFromError(error, t`Failed to login.`);
+                        throw error;
+                    }
+                },
+                {
+                    skipBelongsToCheck: true,
+                    skipResumeFireflyAccounts: true,
+                    skipResumeFireflySession: true,
+                    skipUploadFireflySession: true,
+                    skipReportFarcasterSigner: true,
+                    signal: controller.current.signal,
+                },
+            );
+        },
+        [controller],
+    );
 
     return (
         <form className="flex w-[400px] flex-col gap-3 p-6">
@@ -79,10 +123,10 @@ export function LoginBsky() {
             <ClickableButton
                 className="mt-1 flex h-[42px] w-full items-center justify-center rounded-md border border-line"
                 disabled={loading || !account || !password}
-                onClick={() => login(account, password)}
+                onClick={() => login(account, password, DEFAULT_SERVICE_URL)}
             >
                 {loading ? <LoadingIcon className="text-main" /> : null}
-                Login
+                <Trans>Login</Trans>
             </ClickableButton>
         </form>
     );

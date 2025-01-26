@@ -11,8 +11,8 @@ export class LensSession extends BaseSession implements Session {
         token: string,
         createdAt: number,
         expiresAt: number,
-        public refreshToken?: string,
-        public address?: string,
+        public refreshToken: string,
+        public address: string,
     ) {
         super(SessionType.Lens, profileId, token, createdAt, expiresAt);
     }
