@@ -6,6 +6,7 @@ import { LensView, LensViewBeforeLoad } from '@/modals/LoginModal/LensView.js';
 import { MainView } from '@/modals/LoginModal/MainView.js';
 import { RootView } from '@/modals/LoginModal/RootView.js';
 import { TwitterView } from '@/modals/LoginModal/TwitterView.js';
+import { BskyView, BskyViewBeforeLoad } from '@/modals/LoginModal/BskyView.js';
 
 const rootRoute = createRootRoute({
     component: RootView,
@@ -42,4 +43,11 @@ const twitterRoute = createRoute({
     path: '/twitter',
 });
 
-export const routeTree = rootRoute.addChildren([mainRoute, farcasterRoute, lensRoute, twitterRoute]);
+const bskyRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    component: BskyView,
+    path: '/bsky',
+    beforeLoad: BskyViewBeforeLoad,
+});
+
+export const routeTree = rootRoute.addChildren([mainRoute, farcasterRoute, lensRoute, twitterRoute, bskyRoute]);

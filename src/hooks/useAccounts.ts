@@ -27,6 +27,6 @@ export function useAccountsAll() {
             [Source.Twitter]: twitterAccounts,
             [Source.Bsky]: bskyAccounts,
         }),
-        [lensAccounts, farcasterAccounts, twitterAccounts],
+        [lensAccounts, farcasterAccounts, twitterAccounts, bskyAccounts],
     );
 }
