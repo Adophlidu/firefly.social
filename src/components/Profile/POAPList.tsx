@@ -91,6 +91,7 @@ function NFTItemContent({
                     <NFTImage
                         width={500}
                         height={500}
+                        unoptimized={false}
                         className="h-full w-full rounded-lg object-cover"
                         src={item.metadata?.imageURL ?? ''}
                         alt="nft_image"

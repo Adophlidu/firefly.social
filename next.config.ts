@@ -145,6 +145,9 @@ const config: NextConfig = {
             {
                 hostname: 'assets.coingecko.com',
             },
+            {
+                hostname: 'cdn.simplehash.com',
+            },
         ],
     },
     async headers() {

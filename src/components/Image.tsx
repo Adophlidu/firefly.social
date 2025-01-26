@@ -55,10 +55,10 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
         // But we can't predict the origin of all images.
         // eslint-disable-next-line @next/next/no-img-element
         <NextImage
-            {...props}
             unoptimized
             loading="lazy"
             priority={false}
+            {...props}
             onLoad={handleLoad}
             src={
                 isFailed
