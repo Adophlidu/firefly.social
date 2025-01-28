@@ -17,12 +17,16 @@ export const createAgent: (serviceUrl: string) => AtpAgent = memoize((serviceUrl
 });
 
 class BskySessionHolder extends SessionHolder<BskySession> {
+    private _agent: AtpAgent | null = null;
+
     get agent() {
-        return createAgent(this.session?.serviceUrl ?? DEFAULT_SERVICE_URL);
+        if (!this._agent) throw new Error('Agent is not initialized');
+        return this._agent;
     }
 
     override async resumeSession(session: BskySession): Promise<void> {
-        await this.agent.sessionManager.resumeSession(session.sessionPayload);
+        this._agent = createAgent(this.session?.serviceUrl ?? DEFAULT_SERVICE_URL);
+        await this._agent.sessionManager.resumeSession(session.sessionPayload);
         super.resumeSession(session);
     }
 }

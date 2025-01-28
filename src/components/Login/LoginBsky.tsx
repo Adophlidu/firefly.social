@@ -11,6 +11,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
 import { Source } from '@/constants/enum.js';
+import { AbortError } from '@/constants/error.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -31,6 +32,9 @@ async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<A
 
         LoginModalRef.close();
     } catch (error) {
+        // skip if the error is abort error
+        if (AbortError.is(error)) return;
+
         throw error;
     }
 }
