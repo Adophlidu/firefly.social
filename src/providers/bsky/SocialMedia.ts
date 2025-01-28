@@ -10,7 +10,9 @@ import { SetQueryDataForJoinChannel } from '@/decorators/SetQueryDataForJoinChan
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
+import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
+import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 import {
     type Channel,
@@ -87,7 +89,10 @@ export class BskySocialMedia implements Provider {
         throw new NotImplementedError();
     }
     async getProfileById(profileId: string): Promise<Profile> {
-        throw new NotImplementedError();
+        const response = await bskySessionHolder.agent.getProfile({ actor: profileId });
+        if (!response.success) throw new Error(`Failed to get profile id = ${profileId}.`);
+
+        return formatBskyProfile(response.data);
     }
     async getProfileByHandle(handle: string): Promise<Profile> {
         throw new NotImplementedError();

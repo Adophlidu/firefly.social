@@ -20,7 +20,7 @@ export class BskySession extends BaseSession implements Session {
     }
 
     override serialize(): `${SessionType}:${string}` {
-        return `${super.serialize()}:${this.serviceUrl}:${btoa(JSON.stringify(this.sessionPayload))}`;
+        return `${super.serialize()}:${btoa(this.serviceUrl)}:${btoa(JSON.stringify(this.sessionPayload))}`;
     }
 
     override refresh(): Promise<void> {

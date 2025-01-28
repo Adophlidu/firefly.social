@@ -67,10 +67,7 @@ export function LoginBsky() {
 
                         return {
                             session,
-                            profile: {
-                                ...formatBskyProfile(profileResponse.data),
-                                serviceUrl,
-                            },
+                            profile: formatBskyProfile(profileResponse.data),
                         } satisfies Account;
                     } catch (error) {
                         enqueueMessageFromError(error, t`Failed to login.`);
@@ -125,7 +122,7 @@ export function LoginBsky() {
                 disabled={loading || !account || !password}
                 onClick={() => login(account, password, DEFAULT_SERVICE_URL)}
             >
-                {loading ? <LoadingIcon className="text-main" /> : null}
+                {loading ? <LoadingIcon className="mr-2 text-main" /> : null}
                 <Trans>Login</Trans>
             </ClickableButton>
         </form>

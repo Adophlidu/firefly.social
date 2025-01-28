@@ -123,7 +123,7 @@ export class SessionFactory {
                     );
                 }
                 case SessionType.Bsky: {
-                    const u = parseURL(secondPart);
+                    const u = parseURL(atob(secondPart));
                     if (!u) throw new Error('Failed to parse service URL.');
 
                     const parsed = BskySessionPayload.safeParse(parseJSON(atob(thirdPart)));

@@ -19,7 +19,9 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession, isSameSessionPayload } from '@/helpers/isSameSession.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import type { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
+import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -185,6 +187,7 @@ function createState(
                         });
                     });
                 },
+                // internal use only
                 __setStatus__: (status) =>
                     set((state) => {
                         state.status = status;
@@ -319,7 +322,8 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                runInSafeAsync(async () => {
+                // hotfix for the missing verified badge
+                await runInSafeAsync(async () => {
                     const badges = await TwitterSocialMediaProvider.getProfileBadges(profile);
                     if (badges.length > 0) profile.verified = true;
                 });
@@ -353,7 +357,9 @@ const useTwitterStateBase = createState(
 );
 
 const useBskyStateBase = createState(
-    {},
+    {
+        getUpdatedProfile: (profile: Profile) => BskySocialMediaProvider.getProfileById(profile.profileId),
+    },
     {
         name: 'bsky-state',
         onRehydrateStorage: () => async (state) => {
@@ -363,11 +369,17 @@ const useBskyStateBase = createState(
 
             try {
                 const did = state.currentProfile?.profileId;
-                if (!did) {
-                    console.warn('[bsky store] clean the local store because no did found.');
+                const currentProfileSession = state.currentProfileSession;
+                if (!did || !currentProfileSession) {
+                    console.warn('[bsky store] clean the local store because the client cannot recover properly');
                     state.clear();
                     return;
                 }
+
+                state.__setStatus__(AsyncStatus.Pending);
+
+                // set temporary session for getProfileById
+                await bskySessionHolder.resumeSession(currentProfileSession as BskySession);
 
                 const profile = await bskySessionHolder.agent.getProfile({
                     actor: did,
@@ -377,11 +389,15 @@ const useBskyStateBase = createState(
                 if (!profile.success || profile.data.did !== did) {
                     console.warn('[bsky store] clean the local store because the client cannot recover properly');
                     state.clear();
+                    bskySessionHolder.removeSession();
                     return;
                 }
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();
+                bskySessionHolder.removeSession();
+            } finally {
+                state.__setStatus__(AsyncStatus.Idle);
             }
         },
     },
