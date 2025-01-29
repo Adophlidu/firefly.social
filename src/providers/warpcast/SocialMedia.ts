@@ -96,7 +96,7 @@ class WarpcastSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    quotePost(postId: string, post: Post): Promise<string> {
+    quotePost(postId: string, post: Post): Promise<{ postId: string }> {
         throw new NotImplementedError();
     }
 
@@ -521,7 +521,7 @@ class WarpcastSocialMedia implements Provider {
         );
     }
 
-    async publishPost(post: Post): Promise<string> {
+    async publishPost(post: Post): Promise<{ postId: string }> {
         const url = urlcat(WARPCAST_ROOT_URL, '/casts');
         const {
             result: { cast },
@@ -541,7 +541,7 @@ class WarpcastSocialMedia implements Provider {
             },
         );
 
-        return cast.hash;
+        return { postId: cast.hash };
     }
 
     async deletePost(postId: string) {
@@ -589,7 +589,7 @@ class WarpcastSocialMedia implements Provider {
         );
     }
 
-    async commentPost(postId: string, post: Post) {
+    async commentPost(postId: string, post: Post): Promise<{ postId: string }> {
         const comment = post.metadata.content?.content;
         if (!comment) throw new Error(t`Comment cannot be empty.`);
 
@@ -604,7 +604,7 @@ class WarpcastSocialMedia implements Provider {
                 withSession: true,
             },
         );
-        return response.result.cast.hash;
+        return { postId: response.result.cast.hash };
     }
 
     async mirrorPost(postId: string) {

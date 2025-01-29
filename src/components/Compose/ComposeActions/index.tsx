@@ -18,6 +18,7 @@ import { PollButton } from '@/components/Poll/PollButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { ENABLE_SCHEDULE_POST_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
@@ -97,7 +98,10 @@ export function ComposeActions() {
 
                     {env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled && !rpPayload ? (
                         <Tooltip content={t`Schedule`} placement="top">
-                            <SchedulePostEntryButton className="text-main" />
+                            <SchedulePostEntryButton
+                                className="text-main"
+                                disabled={availableSources.some((x) => !ENABLE_SCHEDULE_POST_SOURCES.includes(x))}
+                            />
                         </Tooltip>
                     ) : null}
 

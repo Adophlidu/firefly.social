@@ -1,3 +1,5 @@
+import type { BlobRef } from '@atproto/api';
+
 export type ComposeType = 'compose' | 'quote' | 'reply';
 
 export enum MediaSource {
@@ -16,4 +18,8 @@ export interface MediaObject {
     urls?: Partial<Record<MediaSource, string>>;
     uploadIds?: Partial<Record<MediaSource, string>>;
     isRpPayloadImage?: boolean;
+    // For bsky
+    blobRef?: BlobRef;
+    width?: number;
+    height?: number;
 }

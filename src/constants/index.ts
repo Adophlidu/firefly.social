@@ -137,6 +137,7 @@ export const SORTED_BOOKMARK_SOURCES =
         : [Source.Farcaster, Source.Lens, Source.Article];
 export const SORTED_CHANNEL_SOURCES: SocialSource[] = [Source.Farcaster];
 export const SORTED_POLL_SOURCES: SocialSource[] = [Source.Twitter, Source.Farcaster, Source.Lens];
+export const ENABLE_SCHEDULE_POST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 export const SORTED_MEDIA_SOURCES: MediaSource[] = [
     MediaSource.Twimg,
     MediaSource.S3,
@@ -154,7 +155,7 @@ export const DEFAULT_BOOKMARK_SOURCE = Source.Farcaster;
 export const DEFAULT_NOTIFICATION_SOURCE = Source.Farcaster;
 export const SUPPORTED_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 export const SUPPORTED_PREVIEW_MEDIA_TYPES: Array<Attachment['type']> = ['Image', 'AnimatedGif'];
-export const SUPPORTED_VIDEO_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
+export const SUPPORTED_VIDEO_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Bsky];
 export const SOCIAL_DISCOVER_SOURCE: SocialDiscoverSource[] = [Source.Farcaster, Source.Lens] as const;
 export const SOCIAL_NOTIFICATION_SOURCE: SocialNotificationSource[] = [Source.Farcaster, Source.Lens];
 export const DISCOVER_SOURCES: DiscoverSource[] = [Source.Posts, Source.NFTs, Source.Article, Source.DAOs] as const;

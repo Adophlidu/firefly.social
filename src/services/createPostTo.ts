@@ -13,7 +13,14 @@ import type { ComposeType, MediaObject } from '@/types/compose.js';
 
 type Options = Record<
     ComposeType,
-    (images: MediaObject[], videos: MediaObject[], polls?: Poll[]) => Promise<string>
+    (
+        images: MediaObject[],
+        videos: MediaObject[],
+        polls?: Poll[],
+    ) => Promise<{
+        postId: string;
+        contentURI?: string;
+    }>
 > & {
     uploadPolls?: () => Promise<Poll[]>;
     uploadImages?: () => Promise<MediaObject[]>;
@@ -56,13 +63,17 @@ export function createPostTo(source: SocialSource, options: Options) {
             }
         };
 
-        const postId = await postTo();
+        const { postId, contentURI } = await postTo();
 
         updatePostInThread(post.id, (post) => ({
             ...post,
             postId: {
                 ...post.postId,
                 [source]: postId,
+            },
+            postContentURI: {
+                ...post.postContentURI,
+                [source]: contentURI,
             },
         }));
 

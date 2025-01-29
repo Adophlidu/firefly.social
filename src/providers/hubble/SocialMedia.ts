@@ -83,7 +83,7 @@ class HubbleSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    commentPost(postId: string, post: Post): Promise<string> {
+    commentPost(postId: string, post: Post): Promise<{ postId: string }> {
         return this.publishPost(post);
     }
 
@@ -315,7 +315,7 @@ class HubbleSocialMedia implements Provider {
         }
     }
 
-    async quotePost(postId: string, post: Post, profileId?: string): Promise<string> {
+    async quotePost(postId: string, post: Post, profileId?: string): Promise<{ postId: string }> {
         const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
         if (!postId || !post || !profileId) throw new Error(t`Failed to quote post.`);
 
@@ -364,10 +364,10 @@ class HubbleSocialMedia implements Provider {
         );
 
         const { hash } = await this.submitMessage<{ hash: string }>(messageBytes);
-        return hash;
+        return { postId: hash };
     }
 
-    async publishPost(post: Post): Promise<string> {
+    async publishPost(post: Post): Promise<{ postId: string }> {
         const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
         const { messageBytes } = await encodeMessageData(
             () => {
@@ -406,7 +406,7 @@ class HubbleSocialMedia implements Provider {
         );
 
         const { hash } = await this.submitMessage<{ hash: string }>(messageBytes);
-        return hash;
+        return { postId: hash };
     }
 
     async deletePost(postId: string): Promise<boolean> {

@@ -6,14 +6,14 @@ export const MAX_CHAR_SIZE_PER_POST: Limitation = {
     [Source.Farcaster]: 1024,
     [Source.Lens]: 5000,
     [Source.Twitter]: 280,
-    [Source.Bsky]: 280,
+    [Source.Bsky]: 300,
 };
 
 export const MAX_CHAR_SIZE_VERIFY_PER_POST: Limitation = {
     [Source.Farcaster]: 1024,
     [Source.Lens]: 5000,
     [Source.Twitter]: 25000,
-    [Source.Bsky]: 25000,
+    [Source.Bsky]: 300,
 };
 
 export const MAX_IMAGE_SIZE_PER_POST: Limitation = {
@@ -42,7 +42,7 @@ export const MAX_FILE_SIZE_PER_VIDEO: Limitation = {
     [Source.Lens]: 1024 * 1024 * 1024, // 1GB
     [Source.Farcaster]: 1024 * 1024 * 1024, // 1GB
     [Source.Twitter]: 512 * 1024 * 1024, // 512MB
-    [Source.Bsky]: 512 * 1024 * 1024, // 512MB
+    [Source.Bsky]: 50 * 1024 * 1024, // 50MB
 };
 
 export const MIN_DURATION_PER_VIDEO: Limitation = {
@@ -56,7 +56,7 @@ export const MAX_DURATION_PER_VIDEO: Limitation = {
     [Source.Lens]: Infinity,
     [Source.Farcaster]: Infinity,
     [Source.Twitter]: Infinity,
-    [Source.Bsky]: Infinity,
+    [Source.Bsky]: 60,
 };
 
 export const MIN_WIDTH_PER_VIDEO: Limitation = {

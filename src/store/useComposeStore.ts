@@ -46,6 +46,7 @@ export interface CompositePost {
 
     // tracking the post id in specific platform if it's posted
     postId: Record<SocialSource, string | null>;
+    postContentURI: Record<SocialSource, string | null>;
     // tracking the parent post in specific platform (runtime only)
     parentPost: Record<SocialSource, OrphanPost | null>;
     // tracking error
@@ -156,6 +157,7 @@ export function createInitSinglePostState(cursor: Cursor): CompositePost {
         postId: createInitPostState(),
         postError: createInitPostState(),
         parentPost: createInitPostState(),
+        postContentURI: createInitPostState(),
         availableSources: getCurrentAvailableSources(),
         restriction: RestrictionType.Everyone,
         chars: '',

@@ -243,7 +243,7 @@ export class LensSocialMedia implements Provider {
         return response.isSuccess().valueOf();
     }
 
-    async publishPost(post: Post): Promise<string> {
+    async publishPost(post: Post): Promise<{ postId: string }> {
         if (!post.metadata.contentURI) throw new Error(t`No content to publish.`);
 
         if (post.author.signless) {
@@ -255,7 +255,7 @@ export class LensSocialMedia implements Provider {
             if (result.isFailure() || resultValue.__typename === 'LensProfileManagerRelayError')
                 throw new Error(`Something went wrong: ${JSON.stringify(resultValue)}`);
 
-            return resultValue.id;
+            return { postId: resultValue.id };
         } else {
             await assertLensAccountOwner();
             const walletClient = await getWalletClientRequired(config);
@@ -284,7 +284,7 @@ export class LensSocialMedia implements Provider {
                 throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
             }
 
-            return broadcastValue.id;
+            return { postId: broadcastValue.id };
         }
     }
 
@@ -465,15 +465,15 @@ export class LensSocialMedia implements Provider {
     }
 
     // intro is the contentURI of the post
-    async quotePost(postId: string, post: Post, signless?: boolean): Promise<string> {
+    async quotePost(postId: string, post: Post, signless?: boolean): Promise<{ postId: string }> {
         const intro = post.metadata.content?.content ?? '';
         try {
             const result = await this.quotePostOnMomoka(postId, intro, signless);
-            return result;
+            return { postId: result };
         } catch (error) {
             if (error instanceof Error && error.message.includes(MOMOKA_ERROR_MSG)) {
                 const result = await this.quotePostOnChain(postId, intro);
-                return result;
+                return { postId: result };
             }
             throw error;
         }
@@ -630,15 +630,15 @@ export class LensSocialMedia implements Provider {
     }
 
     // comment is the contentURI of the post
-    async commentPost(postId: string, post: Post, signless?: boolean): Promise<string> {
+    async commentPost(postId: string, post: Post, signless?: boolean): Promise<{ postId: string }> {
         const comment = post.metadata.content?.content ?? '';
         try {
             const result = await this.commentPostOnMomoka(postId, comment, signless);
-            return result;
+            return { postId: result };
         } catch (error) {
             if (error instanceof Error && error.message.includes(MOMOKA_ERROR_MSG)) {
                 const result = await this.commentPostOnChain(postId, comment);
-                return result;
+                return { postId: result };
             }
             throw error;
         }

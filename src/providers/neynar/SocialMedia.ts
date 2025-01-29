@@ -94,7 +94,7 @@ class NeynarSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    quotePost(postId: string, post: Post): Promise<string> {
+    quotePost(postId: string, post: Post): Promise<{ postId: string }> {
         throw new NotImplementedError();
     }
 
@@ -110,7 +110,7 @@ class NeynarSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    commentPost(postId: string, post: Post): Promise<string> {
+    commentPost(postId: string, post: Post): Promise<{ postId: string }> {
         throw new NotImplementedError();
     }
 
@@ -166,7 +166,7 @@ class NeynarSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    publishPost(post: Post): Promise<string> {
+    publishPost(post: Post): Promise<{ postId: string }> {
         throw new NotImplementedError();
     }
 

@@ -26,7 +26,7 @@ export function SetQueryDataForCommentPost(source: SocialSource) {
             value: async (postId: string, post: Post, ...args: unknown[]) => {
                 const computedPostId = postId || post.commentOn?.postId || '';
 
-                const m = method as (postId: string, post: Post, ...args: unknown[]) => Promise<string>;
+                const m = method as (postId: string, post: Post, ...args: unknown[]) => Promise<{ postId: string }>;
                 const result = await m?.call(target.prototype, computedPostId, post, ...args);
 
                 if (computedPostId) commentPost(source, computedPostId);

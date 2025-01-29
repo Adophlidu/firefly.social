@@ -26,7 +26,7 @@ function shouldCrossPost(index: number, post: CompositePost) {
     );
 }
 
-async function getParentPostById(source: SocialSource, postId: string) {
+async function getParentPostById(source: SocialSource, postId: string, contentURI?: string) {
     if (!postId) throw new Error(`Failed to get parent post by id: ${postId}.`);
     switch (source) {
         case Source.Farcaster: {
@@ -51,7 +51,7 @@ async function getParentPostById(source: SocialSource, postId: string) {
             return { postId } as unknown as Post;
         case Source.Bsky:
             await delay(1000);
-            return { postId } as unknown as Post;
+            return { postId, metadata: { contentURI } } as unknown as Post;
         default:
             safeUnreachable(source);
             return null;
@@ -70,7 +70,7 @@ async function recompositePost(index: number, post: CompositePost, posts: Compos
         const parentPostId = previousPost.postId[x];
 
         if (post.availableSources.includes(x) && parentPostId && !post.parentPost[x]) {
-            all.push(getParentPostById(x, parentPostId));
+            all.push(getParentPostById(x, parentPostId, previousPost.postContentURI?.[x] ?? ''));
         } else {
             all.push(Promise.resolve(null));
         }

@@ -1,3 +1,5 @@
+import type { BlobRef } from '@atproto/api';
+
 import {
     type BookmarkType,
     type FireflyPlatform,
@@ -103,6 +105,11 @@ export interface MediaObject {
     // for twitter media_id
     id?: string;
     url: string;
+    // for bsky
+    blobRef?: BlobRef;
+    type?: 'Image' | 'Video';
+    width?: number;
+    height?: number;
 }
 
 export interface Attachment {
@@ -126,6 +133,9 @@ export interface Post {
     /** It's `hash` for Farcaster */
     postId: string;
     parentPostId?: string;
+    parentContentURI?: string;
+    rootPostId?: string;
+    rootContentURI?: string;
     parentAuthor?: Profile;
     /** time in milliseconds */
     timestamp?: number;
@@ -385,7 +395,7 @@ export interface Provider {
      * @param post The post to be published.
      * @returns A promise that resolves to post id.
      */
-    publishPost: (post: Post) => Promise<string>;
+    publishPost: (post: Post) => Promise<{ postId: string; contentURI?: string }>;
 
     /**
      * Delete a post with the specified post ID.
@@ -422,7 +432,7 @@ export interface Provider {
      * @param post The introduction post for the quote.
      * @returns A promise that resolves to post id.
      */
-    quotePost?: (postId: string, post: Post) => Promise<string>;
+    quotePost?: (postId: string, post: Post) => Promise<{ postId: string; contentURI?: string }>;
 
     /**
      * Comments on a post with the specified post ID and comment text.
@@ -431,7 +441,7 @@ export interface Provider {
      * @param post The comment post.
      * @returns A promise that resolves to comment id.
      */
-    commentPost: (postId: string, post: Post) => Promise<string>;
+    commentPost: (postId: string, post: Post) => Promise<{ postId: string; contentURI?: string }>;
 
     /**
      * Collects a post with the specified post ID.

@@ -53,11 +53,11 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 @SetQueryDataForActPost(Source.Farcaster)
 @SetQueryDataForPosts
 class FarcasterSocialMedia implements Provider {
-    quotePost(postId: string, post: Post, profileId?: string): Promise<string> {
+    quotePost(postId: string, post: Post, profileId?: string): Promise<{ postId: string }> {
         return HubbleSocialMediaProvider.quotePost(postId, post, profileId);
     }
 
-    commentPost(postId: string, post: Post): Promise<string> {
+    commentPost(postId: string, post: Post): Promise<{ postId: string }> {
         return HubbleSocialMediaProvider.commentPost(postId, post);
     }
 
@@ -228,7 +228,7 @@ class FarcasterSocialMedia implements Provider {
         return WarpcastSocialMediaProvider.getPostsBeMentioned(profileId, indicator);
     }
 
-    async publishPost(post: Post): Promise<string> {
+    async publishPost(post: Post): Promise<{ postId: string }> {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.publishPost(post);
         if (isGrantByPermission) return HubbleSocialMediaProvider.publishPost(post);

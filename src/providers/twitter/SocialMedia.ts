@@ -82,7 +82,7 @@ class TwitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    commentPost(postId: string, post: Post): Promise<string> {
+    commentPost(postId: string, post: Post): Promise<{ postId: string }> {
         throw new NotImplementedError();
     }
 
@@ -447,7 +447,7 @@ class TwitterSocialMedia implements Provider {
         });
     }
 
-    async quotePost(postId: string, post: Post): Promise<string> {
+    async quotePost(postId: string, post: Post): Promise<{ postId: string }> {
         const response = await twitterSessionHolder.fetch<
             ResponseJSON<{
                 id: string;
@@ -466,7 +466,7 @@ class TwitterSocialMedia implements Provider {
         });
 
         if (!response.success) throw new Error(t`Failed to quote post.`);
-        return response.data.id;
+        return { postId: response.data.id };
     }
 
     async publishPost(
@@ -474,7 +474,7 @@ class TwitterSocialMedia implements Provider {
         options: {
             excludeReplyProfileIds?: string[];
         } = {},
-    ): Promise<string> {
+    ): Promise<{ postId: string }> {
         const response = await twitterSessionHolder.fetch<
             ResponseJSON<{
                 id: string;
@@ -500,7 +500,7 @@ class TwitterSocialMedia implements Provider {
         });
 
         if (!response.success) throw new Error(t`Failed to publish post.`);
-        return response.data.id;
+        return { postId: response.data.id };
     }
 
     async deletePost(tweetId: string): Promise<boolean> {

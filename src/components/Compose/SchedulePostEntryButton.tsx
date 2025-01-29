@@ -11,14 +11,17 @@ import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js
 
 interface SchedulePostEntryButtonProps extends HTMLProps<HTMLDivElement> {
     showText?: boolean;
+    disabled?: boolean;
 }
 
 export const SchedulePostEntryButton = forwardRef<HTMLDivElement, SchedulePostEntryButtonProps>(
-    function SchedulePostEntryButton({ className, showText }: SchedulePostEntryButtonProps, ref) {
+    function SchedulePostEntryButton({ className, showText, disabled = false }: SchedulePostEntryButtonProps, ref) {
         const isMedium = useIsMedium();
         const { scheduleTime } = useComposeScheduleStateStore();
 
         const handleClick = useCallback(() => {
+            if (disabled) return;
+
             const action = scheduleTime ? 'update' : 'create';
 
             if (isMedium) {
@@ -31,12 +34,15 @@ export const SchedulePostEntryButton = forwardRef<HTMLDivElement, SchedulePostEn
                     enableOverflow: false,
                 });
             }
-        }, [scheduleTime, isMedium]);
+        }, [scheduleTime, isMedium, disabled]);
 
         if (showText) {
             return (
                 <div
-                    className="mb-3 flex items-center gap-[10px] text-[13px] text-second"
+                    className={classNames(
+                        'mb-3 flex items-center gap-[10px] text-[13px] text-second',
+                        disabled ? 'opacity-50' : '',
+                    )}
                     onClick={handleClick}
                     ref={ref}
                 >
@@ -56,7 +62,10 @@ export const SchedulePostEntryButton = forwardRef<HTMLDivElement, SchedulePostEn
 
         return (
             <div className="flex items-center gap-[10px] text-[13px] text-second" ref={ref}>
-                <ScheduleIcon className={classNames('cursor-pointer', className)} onClick={handleClick} />
+                <ScheduleIcon
+                    className={classNames('cursor-pointer', disabled ? 'opacity-50' : '', className)}
+                    onClick={handleClick}
+                />
             </div>
         );
     },

@@ -1,3 +1,5 @@
+import { RichText } from '@atproto/api';
+
 import { type BookmarkType, type FireflyPlatform, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
@@ -12,6 +14,7 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
+import { resolveBskyEmbed } from '@/helpers/resolveBskyEmbed.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 import {
@@ -42,8 +45,36 @@ export class BskySocialMedia implements Provider {
         return SessionType.Bsky;
     }
 
-    async publishPost(post: Post): Promise<string> {
-        throw new NotImplementedError();
+    async publishPost(post: Post) {
+        const text = post.metadata.content?.content;
+        const richText = text ? new RichText({ text }) : undefined;
+        if (richText) {
+            await richText.detectFacets(bskySessionHolder.agent);
+        }
+        const result = await bskySessionHolder.agent.post({
+            text: richText ? richText.text : text,
+            createdAt: new Date().toISOString(),
+            facets: richText ? richText.facets : undefined,
+            embed: resolveBskyEmbed(post),
+            reply:
+                post.parentPostId && post.parentContentURI
+                    ? {
+                          parent: { cid: post.parentPostId, uri: post.parentContentURI },
+                          root:
+                              post.rootPostId && post.rootContentURI
+                                  ? {
+                                        cid: post.rootPostId,
+                                        uri: post.rootContentURI,
+                                    }
+                                  : { cid: post.parentPostId, uri: post.parentContentURI },
+                      }
+                    : undefined,
+        });
+
+        return {
+            postId: result.cid,
+            contentURI: result.uri,
+        };
     }
 
     async deletePost(postId: string): Promise<boolean> {
@@ -55,10 +86,10 @@ export class BskySocialMedia implements Provider {
     async unmirrorPost(postId: string, authorId?: number): Promise<void> {
         throw new NotImplementedError();
     }
-    async quotePost(postId: string, post: Post): Promise<string> {
+    async quotePost(postId: string, post: Post): Promise<{ postId: string; contentURI?: string }> {
         throw new NotImplementedError();
     }
-    async commentPost(postId: string, post: Post): Promise<string> {
+    async commentPost(postId: string, post: Post): Promise<{ postId: string; contentURI?: string }> {
         throw new NotImplementedError();
     }
     async collectPost(postId: string, collectionId?: string): Promise<void> {
