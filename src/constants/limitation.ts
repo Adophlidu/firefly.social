@@ -23,6 +23,13 @@ export const MAX_IMAGE_SIZE_PER_POST: Limitation = {
     [Source.Bsky]: 4,
 };
 
+export const MAX_GIF_SIZE_PER_POST: Limitation = {
+    [Source.Farcaster]: 2,
+    [Source.Lens]: 20,
+    [Source.Twitter]: 4,
+    [Source.Bsky]: 1,
+};
+
 export const MAX_FILE_SIZE_PER_IMAGE: Limitation = {
     [Source.Lens]: 100 * 1024 * 1024, // 100MB
     [Source.Farcaster]: 100 * 1024 * 1024, // 100MB

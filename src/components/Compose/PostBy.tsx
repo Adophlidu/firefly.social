@@ -3,8 +3,9 @@ import { uniq } from 'lodash-es';
 import { Fragment, useMemo } from 'react';
 
 import { PostByItem } from '@/components/Compose/PostByItem.js';
+import { FileMimeType } from '@/constants/enum.js';
 import { ENABLE_SCHEDULE_POST_SOURCES, SORTED_POLL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
+import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
@@ -23,7 +24,11 @@ export function PostBy(props: PostByProps) {
             if (scheduleTime && !ENABLE_SCHEDULE_POST_SOURCES.includes(source)) return true;
 
             const maxImageCount = getCurrentPostImageLimits(type, uniq([...availableSources, source]));
-            return images.length > maxImageCount;
+            const maxGifCount = getCurrentPostGifLimits(uniq([...availableSources, source]));
+            return (
+                images.length > maxImageCount ||
+                images.filter((x) => x.file.type === FileMimeType.GIF).length > maxGifCount
+            );
         });
     }, [availableSources, images, poll, type, scheduleTime]);
 

@@ -7,7 +7,7 @@ import { readChars } from '@/helpers/chars.js';
 import { downloadMediaObjects } from '@/helpers/downloadMediaObjects.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getVideoMetadata } from '@/helpers/getVideoMetadata.js';
-import { createBskyMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
+import { createBskyMediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
@@ -62,7 +62,9 @@ export async function postToBsky(
             mediaObjects: [
                 ...images.map((media) => ({
                     blobRef: media.blobRef,
-                    url: media.blobRef?.ref,
+                    url: resolveImageUrl(Source.Bsky, media),
+                    mimeType: media.mimeType || media.file.type,
+                    title: media.file.name,
                     type: 'Image' as const,
                 })),
                 ...videos.map((media) => ({

@@ -10,7 +10,7 @@ import { FileMimeType } from '@/constants/enum.js';
 import { ALLOWED_IMAGES_MIMES, SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
+import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { isValidPostImage, isValidPostVideo } from '@/helpers/validatePostFile.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
@@ -27,6 +27,7 @@ export function Media({ close }: MediaProps) {
     const { type, updateVideo, updateImages } = useComposeStateStore();
     const { availableSources, video, images } = useCompositePost();
 
+    const maxGifCount = getCurrentPostGifLimits(availableSources);
     const maxImageCount = getCurrentPostImageLimits(type, availableSources);
 
     const [, handleImageChange] = useAsyncFn(
@@ -76,7 +77,8 @@ export function Media({ close }: MediaProps) {
 
     const disableVideo =
         !!video || images.length > 0 || availableSources.some((source) => !SUPPORTED_VIDEO_SOURCES.includes(source));
-    const disableImage = images.length >= maxImageCount;
+    const disableImage =
+        images.length >= maxImageCount || images.filter((x) => x.file.type === FileMimeType.GIF).length >= maxGifCount;
 
     const content = (
         <div>

@@ -1,5 +1,5 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
+import { MAX_GIF_SIZE_PER_POST, MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
 import type { ComposeType } from '@/types/compose.js';
 
 export function getCurrentPostImageLimits(type: ComposeType, availableSources: SocialSource[]) {
@@ -10,4 +10,10 @@ export function getCurrentPostImageLimits(type: ComposeType, availableSources: S
             return source === Source.Farcaster && type === 'quote' ? max - 1 : max;
         }),
     );
+}
+
+export function getCurrentPostGifLimits(availableSources: SocialSource[]) {
+    if (availableSources.length === 0) return MAX_GIF_SIZE_PER_POST[Source.Farcaster];
+
+    return Math.min(...availableSources.map((x) => MAX_GIF_SIZE_PER_POST[x]));
 }

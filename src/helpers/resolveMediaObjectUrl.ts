@@ -94,7 +94,7 @@ const resolveImageSources = createLookupTableResolver<SocialSource, MediaSource[
         [Source.Lens]: [MediaSource.IPFS, MediaSource.S3, MediaSource.Giphy],
         [Source.Farcaster]: [MediaSource.S3, MediaSource.Giphy],
         [Source.Twitter]: [MediaSource.Twimg],
-        [Source.Bsky]: [MediaSource.S3],
+        [Source.Bsky]: [MediaSource.S3, MediaSource.Giphy],
     },
     (source) => {
         throw new UnreachableError('source', source);

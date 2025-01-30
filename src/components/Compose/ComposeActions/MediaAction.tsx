@@ -7,8 +7,9 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Media } from '@/components/Compose/Media.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { FileMimeType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
+import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -16,11 +17,17 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 export const MediaAction = memo(function MediaAction() {
     const isMedium = useIsMedium();
     const post = useCompositePost();
-    const { availableSources, images, video, poll } = post;
     const { type } = useComposeStateStore();
-    const maxImageCount = getCurrentPostImageLimits(type, availableSources);
-    const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;
     const [open, setOpen] = useState(false);
+
+    const { availableSources, images, video, poll } = post;
+    const maxGifCount = getCurrentPostGifLimits(availableSources);
+    const maxImageCount = getCurrentPostImageLimits(type, availableSources);
+    const mediaDisabled =
+        !!video ||
+        images.length >= maxImageCount ||
+        !!poll ||
+        images.filter((x) => x.file.type === FileMimeType.GIF).length >= maxGifCount;
 
     const buttonContent = (
         <Tooltip content={t`Media`} placement="top" disabled={mediaDisabled}>

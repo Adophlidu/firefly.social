@@ -138,6 +138,7 @@ export const SORTED_BOOKMARK_SOURCES =
 export const SORTED_CHANNEL_SOURCES: SocialSource[] = [Source.Farcaster];
 export const SORTED_POLL_SOURCES: SocialSource[] = [Source.Twitter, Source.Farcaster, Source.Lens];
 export const ENABLE_SCHEDULE_POST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
+export const DISABLE_REPLY_SETTINGS_POST_SOURCES: SocialSource[] = [Source.Bsky];
 export const SORTED_MEDIA_SOURCES: MediaSource[] = [
     MediaSource.Twimg,
     MediaSource.S3,

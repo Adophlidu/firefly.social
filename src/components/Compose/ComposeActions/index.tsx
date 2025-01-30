@@ -18,9 +18,9 @@ import { PollButton } from '@/components/Poll/PollButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { ENABLE_SCHEDULE_POST_SOURCES } from '@/constants/index.js';
+import { DISABLE_REPLY_SETTINGS_POST_SOURCES, ENABLE_SCHEDULE_POST_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
+import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -48,8 +48,13 @@ export function ComposeActions() {
         RedPacketModalRef.open();
     }, [solana.address, ethereum]);
 
-    const maxImageCount = getCurrentPostImageLimits(type, availableSources);
+    const maxImageCount = Math.min(
+        getCurrentPostImageLimits(type, availableSources),
+        getCurrentPostGifLimits(availableSources),
+    );
+
     const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;
+    const scheduleDisabled = availableSources.some((x) => !ENABLE_SCHEDULE_POST_SOURCES.includes(x));
 
     const hasError = useMemo(() => {
         return posts.some((x) => !!compact(values(x.postError)).length);
@@ -60,7 +65,10 @@ export function ComposeActions() {
 
     const showLensChannel = availableSources.includes(Source.Lens) && type === 'compose';
 
-    const showReplyScope = type !== 'reply' && !(type === 'quote' && availableSources.includes(Source.Farcaster));
+    const showReplyScope =
+        type !== 'reply' &&
+        !(type === 'quote' && availableSources.includes(Source.Farcaster)) &&
+        availableSources.every((x) => !DISABLE_REPLY_SETTINGS_POST_SOURCES.includes(x));
 
     return (
         <div className="px-4 pb-4">
@@ -97,11 +105,8 @@ export function ComposeActions() {
                     {type === 'compose' && env.external.NEXT_PUBLIC_POLL === STATUS.Enabled ? <PollButton /> : null}
 
                     {env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled && !rpPayload ? (
-                        <Tooltip content={t`Schedule`} placement="top">
-                            <SchedulePostEntryButton
-                                className="text-main"
-                                disabled={availableSources.some((x) => !ENABLE_SCHEDULE_POST_SOURCES.includes(x))}
-                            />
+                        <Tooltip content={t`Schedule`} placement="top" disabled={scheduleDisabled}>
+                            <SchedulePostEntryButton className="text-main" disabled={scheduleDisabled} />
                         </Tooltip>
                     ) : null}
 
