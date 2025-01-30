@@ -12,6 +12,7 @@ import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
@@ -20,7 +21,7 @@ import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 type ProfileWithRelated = { profile: FireflyProfile; related: FireflyProfile[] };
 
-function composeTwitterProfiles(identities: ProfileWithRelated[], xProfiles: Profile[]) {
+function composeProfiles(identities: ProfileWithRelated[], xProfiles: Profile[], bskyProfiles: Profile[]) {
     return compact([
         ...identities,
         ...xProfiles.map((x) => {
@@ -39,6 +40,18 @@ function composeTwitterProfiles(identities: ProfileWithRelated[], xProfiles: Pro
                 avatar: x.pfp,
             };
             return { profile: matched, related: [matched] };
+        }),
+        ...bskyProfiles.map((x) => {
+            const bskyProfile = {
+                platform: FireflyPlatform.Bsky as const,
+                platform_id: x.profileId,
+                handle: x.handle,
+                name: x.displayName,
+                hit: true,
+                score: 0,
+                avatar: x.pfp,
+            };
+            return { profile: bskyProfile, related: [bskyProfile] };
         }),
     ]);
 }
@@ -60,6 +73,7 @@ export function SearchProfileContent() {
             if (!searchKeyword) return;
             const fireflyIndicator = pageParam.firefly ? createIndicator(undefined, pageParam.firefly) : undefined;
             const twitterIndicator = pageParam.twitter ? createIndicator(undefined, pageParam.twitter) : undefined;
+            const bskyIndicator = pageParam.bsky ? createIndicator(undefined, pageParam.bsky) : undefined;
 
             const data =
                 pageParam.firefly !== noNextPage
@@ -74,18 +88,30 @@ export function SearchProfileContent() {
                 isTwitterLogin && pageParam.twitter !== noNextPage && trimmed
                     ? await runInSafeAsync(() => TwitterSocialMediaProvider.searchProfiles(trimmed, twitterIndicator))
                     : undefined;
+
+            const bskyProfiles =
+                pageParam.bsky !== noNextPage
+                    ? await runInSafeAsync(() => BskySocialMediaProvider.searchProfiles(searchKeyword, bskyIndicator))
+                    : undefined;
+
             return {
                 ...data,
                 twitterNextIndicator: twitterProfiles?.nextIndicator,
-                data: composeTwitterProfiles(formatSearchIdentities(data.data), twitterProfiles?.data || []),
+                bskyNextIndicator: bskyProfiles?.nextIndicator,
+                data: composeProfiles(
+                    formatSearchIdentities(data.data),
+                    twitterProfiles?.data || [],
+                    bskyProfiles?.data || [],
+                ),
             };
         },
-        initialPageParam: { firefly: '', twitter: '' },
+        initialPageParam: { firefly: '', twitter: '', bsky: '' },
         getNextPageParam: (lastPage) => {
             if (lastPage?.data.length === 0) return;
             return {
                 firefly: lastPage?.nextIndicator?.id || noNextPage,
                 twitter: lastPage?.twitterNextIndicator?.id || noNextPage,
+                bsky: lastPage?.bskyNextIndicator?.id || noNextPage,
             };
         },
         select(data) {
