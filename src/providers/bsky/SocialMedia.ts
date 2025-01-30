@@ -13,7 +13,7 @@ import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
-import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
+import { createNextIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveBskyEmbed } from '@/helpers/resolveBskyEmbed.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
@@ -227,8 +227,21 @@ export class BskySocialMedia implements Provider {
     ): Promise<Pageable<Notification, PageIndicator>> {
         throw new NotImplementedError();
     }
-    async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
+    async getSuggestedFollows(indicator?: PageIndicator) {
+        const size = 25;
+        const res = await bskySessionHolder.agent.getSuggestions({
+            limit: size,
+            cursor: indicator?.id,
+        });
+        const detailedRes = await bskySessionHolder.agent.getProfiles({
+            actors: res.data.actors.map((x) => x.did),
+        });
+        const profiles = detailedRes.data.profiles.map(formatBskyProfile);
+        return createPageable(
+            profiles,
+            indicator,
+            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+        );
     }
     async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new NotImplementedError();

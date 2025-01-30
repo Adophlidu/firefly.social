@@ -178,7 +178,7 @@ export const EXPLORE_TYPES: ExploreType[] = [
 ];
 
 export const EXPLORE_SOURCES: Partial<Record<ExploreType, ExploreSource[]>> = {
-    [ExploreType.TopProfiles]: [Source.Farcaster, Source.Lens],
+    [ExploreType.TopProfiles]: [Source.Farcaster, Source.Lens, Source.Bsky],
     [ExploreType.CryptoTrends]: [
         TrendingType.TopGainers,
         TrendingType.TopLosers,
