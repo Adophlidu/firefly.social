@@ -17,7 +17,7 @@ export function getProfileUrl(profile: Profile) {
             return resolveProfileUrl(profile.source, profile.profileId);
         case Source.Bsky:
             if (!profile.profileId) return '';
-            return resolveProfileUrl(profile.source, profile.profileId);
+            return resolveProfileUrl(profile.source, profile.handle);
         default:
             safeUnreachable(profile.source);
             return '';

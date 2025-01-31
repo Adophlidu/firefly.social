@@ -61,18 +61,22 @@ export function ProfileAvatar({
         </div>
     );
 
-    return linkable ? (
-        <Link
-            className={classNames('flex items-start justify-start md:mx-auto lg:m-0', {
-                'cursor-pointer': clickable,
-            })}
-            style={style}
-            href={getProfileUrl(profile)}
-            {...props}
-        >
-            {content}
-        </Link>
-    ) : (
+    if (linkable) {
+        return (
+            <Link
+                className={classNames('flex items-start justify-start md:mx-auto lg:m-0', {
+                    'cursor-pointer': clickable,
+                })}
+                style={style}
+                href={getProfileUrl(profile)}
+                {...props}
+            >
+                {content}
+            </Link>
+        );
+    }
+
+    return (
         <div
             className={classNames('flex items-start justify-start md:mx-auto lg:m-0', {
                 'cursor-pointer': clickable,
