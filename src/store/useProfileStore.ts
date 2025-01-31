@@ -381,17 +381,18 @@ const useBskyStateBase = createState(
                 // set temporary session for getProfileById
                 await bskySessionHolder.resumeSession(currentProfileSession as BskySession);
 
-                const profile = await bskySessionHolder.agent.getProfile({
-                    actor: did,
-                });
+                const profile = await BskySocialMediaProvider.getProfileById(did);
                 console.log('[bsky store] profile', profile);
 
-                if (!profile.success || profile.data.did !== did) {
+                if (profile.handle !== did) {
                     console.warn('[bsky store] clean the local store because the client cannot recover properly');
                     state.clear();
                     bskySessionHolder.removeSession();
                     return;
                 }
+
+                // update the profile
+                state.updateCurrentProfile(profile);
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();

@@ -8,7 +8,7 @@ export function formatBskyProfile(profile: AppBskyActorDefs.ProfileViewDetailed)
         profileId: profile.did,
         source: Source.Bsky,
         profileSource: Source.Bsky,
-        displayName: profile.displayName ?? '',
+        displayName: profile.displayName ?? profile.handle ?? '',
         bio: profile.description ?? '',
         handle: profile.handle,
         fullHandle: profile.handle,
