@@ -11,6 +11,7 @@ import { type ProfileCategory, Source, SourceInURL } from '@/constants/enum.js';
 import { REQUIRE_LOGIN_SOURCES } from '@/constants/index.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import { getProfileById } from '@/services/getProfileById.js';
 import type { NextPageProps } from '@/types/index.js';
 
@@ -31,7 +32,7 @@ export default function Page(props: Props) {
     });
 
     const identity = useMemo(
-        () => ({ id: profile?.profileId ?? params.id, source }),
+        () => resolveSpecialProfileIdentity({ id: profile?.profileId ?? params.id, source }),
         [profile?.profileId, params.id, source],
     );
 

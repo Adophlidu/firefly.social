@@ -7,6 +7,7 @@ import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import type { NextPageProps } from '@/types/index.js';
 
@@ -20,7 +21,7 @@ export default async function Layout(props: Props) {
     const id = params.id;
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isSocialSource(source) || source === Source.Twitter) notFound();
-    const identity = { source, id };
+    const identity = resolveSpecialProfileIdentity({ source, id });
     const profile = await runInSafeAsync(() => resolveSocialMediaProvider(source).getProfileById(id));
 
     if (!profile) notFound();

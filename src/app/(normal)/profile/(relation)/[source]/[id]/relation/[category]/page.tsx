@@ -6,6 +6,7 @@ import { MutualFollowersList } from '@/app/(normal)/profile/pages/MutualFollower
 import { FollowCategory, type ProfileCategory, SourceInURL } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import type { NextPageProps } from '@/types/index.js';
 
 interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: SourceInURL }> {}
@@ -13,7 +14,7 @@ interface Props extends NextPageProps<{ id: string; category: ProfileCategory; s
 export default async function Page(props: Props) {
     const params = await props.params;
     const source = resolveSourceFromUrl(params.source);
-    const identity = { source, id: params.id };
+    const identity = resolveSpecialProfileIdentity({ source, id: params.id });
     if (!params.category || !identity) return null;
     switch (params.category) {
         case FollowCategory.Following:

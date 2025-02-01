@@ -126,6 +126,7 @@ export const SORTED_HOME_SOURCES = [Source.Farcaster, Source.Lens, Source.NFTs, 
 export const SORTED_PROFILE_SOURCES: ProfilePageSource[] = [
     Source.Farcaster,
     Source.Lens,
+    Source.Bsky,
     Source.Twitter,
     Source.Wallet,
 ];

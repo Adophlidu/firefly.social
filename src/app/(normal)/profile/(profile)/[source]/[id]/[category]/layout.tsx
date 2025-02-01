@@ -16,6 +16,7 @@ import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSourceFromUrl, resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import type { NextPageProps } from '@/types/index.js';
 
 interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: SourceInURL }> {}
@@ -44,7 +45,7 @@ export default async function Layout(props: LayoutProps) {
 
     const id = params.id;
     const source = resolveSourceFromUrl(params.source);
-    const identity = { source, id };
+    const identity = resolveSpecialProfileIdentity({ source, id });
 
     if (!source || isFollowCategory(params.category)) notFound();
 

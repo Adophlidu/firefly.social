@@ -1,7 +1,10 @@
 import { RichText } from '@atproto/api';
+import { isThreadViewPost, type PostView } from '@atproto/api/dist/client/types/app/bsky/feed/defs.js';
+import { compact } from 'lodash-es';
 
 import { type BookmarkType, type FireflyPlatform, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
@@ -12,6 +15,7 @@ import { SetQueryDataForJoinChannel } from '@/decorators/SetQueryDataForJoinChan
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
+import { formatBskyPost, formatBskyThreadPosts } from '@/helpers/formatBskyPost.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import {
     createIndicator,
@@ -20,6 +24,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
+import { decodeBskyPostId , resolveBskyAtUri } from '@/helpers/resolveBskyAtUri.js';
 import { resolveBskyEmbed } from '@/helpers/resolveBskyEmbed.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
@@ -84,13 +89,16 @@ export class BskySocialMedia implements Provider {
     }
 
     async deletePost(postId: string): Promise<boolean> {
-        throw new NotImplementedError();
+        await bskySessionHolder.agent.deletePost(resolveBskyAtUri(postId));
+        return true;
     }
     async mirrorPost(postId: string, options?: { onMomoka?: boolean; authorId?: number }): Promise<string> {
-        throw new NotImplementedError();
+        const post = await this.getPostById(postId);
+        const res = await bskySessionHolder.agent.repost(post.postId, post.publicationId);
+        return res.uri;
     }
     async unmirrorPost(postId: string, authorId?: number): Promise<void> {
-        throw new NotImplementedError();
+        await bskySessionHolder.agent.deleteRepost(postId);
     }
     async quotePost(postId: string, post: Post): Promise<{ postId: string; contentURI?: string }> {
         throw new NotImplementedError();
@@ -111,16 +119,19 @@ export class BskySocialMedia implements Provider {
         throw new NotImplementedError();
     }
     async upvotePost(postId: string): Promise<void> {
-        throw new NotImplementedError();
+        const { cid } = decodeBskyPostId(postId);
+        await bskySessionHolder.agent.like(resolveBskyAtUri(postId), cid);
     }
     async unvotePost(postId: string): Promise<void> {
-        throw new NotImplementedError();
+        await bskySessionHolder.agent.deleteLike(resolveBskyAtUri(postId));
     }
     async getProfilesByAddress(address: string): Promise<Profile[]> {
         throw new NotImplementedError();
     }
     async getProfilesByIds(ids: string[]): Promise<Profile[]> {
-        throw new NotImplementedError();
+        const response = await bskySessionHolder.agent.getProfiles({ actors: ids });
+        if (!response.success) throw new Error(`Failed to get profile ids = ${ids.join(',')}.`);
+        return response.data.profiles.map((profile) => formatBskyProfile(profile));
     }
     async getChannelsByIds(ids: string[]): Promise<Channel[]> {
         throw new NotImplementedError();
@@ -128,14 +139,18 @@ export class BskySocialMedia implements Provider {
     async getProfileById(profileId: string): Promise<Profile> {
         const response = await bskySessionHolder.agent.getProfile({ actor: profileId });
         if (!response.success) throw new Error(`Failed to get profile id = ${profileId}.`);
-
         return formatBskyProfile(response.data);
     }
     async getProfileByHandle(handle: string): Promise<Profile> {
-        throw new NotImplementedError();
+        return this.getProfileById(handle);
     }
     async getPostById(postId: string): Promise<Post> {
-        throw new NotImplementedError();
+        const res = await bskySessionHolder.agent.getPostThread({
+            uri: resolveBskyAtUri(postId),
+            depth: 10,
+        });
+        if (!res.success || !isThreadViewPost(res.data.thread)) throw new Error(`Failed to getPostById = ${postId}.`);
+        return formatBskyPost(res.data.thread);
     }
     async getChannelById(channelId: string): Promise<Channel> {
         throw new NotImplementedError();
@@ -153,7 +168,22 @@ export class BskySocialMedia implements Provider {
         throw new NotImplementedError();
     }
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
+        postId = decodeURIComponent(postId);
+        const res = await bskySessionHolder.agent.getPostThread({
+            uri: postId,
+            depth: 10,
+        });
+        if (!res.success) throw new Error(`Failed to getCommentsById = ${postId}.`);
+        if (!isThreadViewPost(res.data.thread)) {
+            return createPageable(EMPTY_LIST, createIndicator(indicator));
+        }
+        const replies = compact(
+            res.data.thread.replies?.map((x) => {
+                if (!isThreadViewPost(x)) return null;
+                return formatBskyPost(x);
+            }),
+        );
+        return createPageable(replies, createIndicator(indicator));
     }
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new NotImplementedError();
@@ -165,7 +195,17 @@ export class BskySocialMedia implements Provider {
         throw new NotImplementedError();
     }
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
+        const res = await bskySessionHolder.agent.getAuthorFeed({
+            actor: profileId,
+            filter: 'posts_and_author_threads',
+            cursor: indicator?.id,
+        });
+        if (!res.success) throw new Error(`Failed to get post by profile id = ${profileId}.`);
+        return createPageable(
+            res.data.feed.map((post) => formatBskyPost(post)),
+            createIndicator(indicator),
+            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+        );
     }
     async getLikedPostsByProfileId(
         profileId: string,
@@ -270,7 +310,14 @@ export class BskySocialMedia implements Provider {
         throw new NotImplementedError();
     }
     async getThreadByPostId(postId: string, localPost?: Post): Promise<Post[]> {
-        throw new NotImplementedError();
+        postId = resolveBskyAtUri(postId);
+        const res = await bskySessionHolder.agent.getPostThread({
+            uri: (localPost?.__original__ as PostView).uri || postId,
+            depth: 10,
+        });
+        if (!res.success || !isThreadViewPost(res.data.thread))
+            throw new Error(`Failed to getThreadByPostId = ${postId}.`);
+        return formatBskyThreadPosts(res.data.thread);
     }
     async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new NotImplementedError();

@@ -4,16 +4,17 @@ import { notFound } from 'next/navigation.js';
 import { ProfilePageLayout } from '@/app/(normal)/profile/pages/ProfilePageLayout.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
-import { Source, SourceInURL } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { type LoginFallbackSource, SourceInURL } from '@/constants/enum.js';
+import { EMPTY_LIST, REQUIRE_LOGIN_SOURCES } from '@/constants/index.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
+import { isSocialSource } from '@/helpers/isSocialSource.js';
+import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupTwitterSession } from '@/helpers/setupTwitterSession.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { NextPageProps } from '@/types/index.js';
 
 interface Props extends NextPageProps<{ id: string; source: SourceInURL }> {}
@@ -33,11 +34,14 @@ export default async function Layout(props: Props) {
         (await runInSafeAsync(() => FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false))) ??
         EMPTY_LIST;
 
-    if (source === Source.Twitter && !twitterSessionHolder.session) {
+    if (
+        isSocialSource(source) &&
+        REQUIRE_LOGIN_SOURCES.some((x) => x === source && !resolveSessionHolder(source).session)
+    ) {
         return (
             <>
                 <ProfileSourceTabs profiles={profiles} identity={identity} />
-                <NotLoginFallback source={source} />
+                <NotLoginFallback source={source as LoginFallbackSource} />
             </>
         );
     }

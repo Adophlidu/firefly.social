@@ -24,8 +24,15 @@ export function SetQueryDataForPosts<T extends ClassType<Provider>>(target: T): 
                 result.data.forEach((post) => {
                     queryClient.setQueryData([post.source, 'post-detail', post.postId], post);
                     if (post.source !== Source.Farcaster) {
-                        queryClient.setQueryData(['profile', post.source, post.author.profileId], post.author);
-                        queryClient.setQueryData(['profile', post.source, post.author.handle], post.author);
+                        const profileIdQueryKey = ['profile', post.source, post.author.profileId];
+                        const handleQueryKey = ['profile', post.source, post.author.handle];
+
+                        if (!queryClient.getQueryData(profileIdQueryKey)) {
+                            queryClient.setQueryData(profileIdQueryKey, post.author);
+                        }
+                        if (!queryClient.getQueryData(handleQueryKey)) {
+                            queryClient.setQueryData(handleQueryKey, post.author);
+                        }
                     }
                 });
 
