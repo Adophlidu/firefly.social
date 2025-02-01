@@ -28,9 +28,18 @@ export function Footer({ collapsed = false }: FooterProps) {
 
     return (
         <footer className={classNames('absolute -left-2 -right-2 bottom-20')}>
-            <div className="mb-4 flex justify-center">
-                {!isLogin ? (
-                    collapsed ? (
+            {isLogin ? (
+                <div
+                    className={classNames('flex text-center', {
+                        'justify-start': isLogin,
+                        'justify-center': !isLogin && isLoginFirefly,
+                    })}
+                >
+                    <LoginStatusBar collapsed={collapsed} />
+                </div>
+            ) : (
+                <div className="mb-4 flex justify-center">
+                    {collapsed ? (
                         <ClickableButton
                             onClick={() => {
                                 LoginModalRef.open();
@@ -56,20 +65,9 @@ export function Footer({ collapsed = false }: FooterProps) {
                         >
                             {isLoading ? <LoadingIcon className="mr-2" /> : <Trans>Login</Trans>}
                         </ClickableButton>
-                    )
-                ) : null}
-            </div>
-
-            {isLoginFirefly ? (
-                <div
-                    className={classNames('flex text-center', {
-                        'justify-start': isLogin,
-                        'justify-center': !isLogin && isLoginFirefly,
-                    })}
-                >
-                    <LoginStatusBar collapsed={collapsed} />
+                    )}
                 </div>
-            ) : null}
+            )}
         </footer>
     );
 }
