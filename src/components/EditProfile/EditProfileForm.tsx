@@ -1,5 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { rootRouteId, useMatch, useRouter } from '@tanstack/react-router';
 import { useFormContext } from 'react-hook-form';
 
@@ -11,8 +12,8 @@ import { FormInput } from '@/components/Form/FormInput.js';
 import { FormInputContainer } from '@/components/Form/FormInputContainer.js';
 import { FormTextarea } from '@/components/Form/FormTextarea.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { Source } from '@/constants/enum.js';
-import { ALLOWED_IMAGES_MIMES } from '@/constants/index.js';
+import { ProfileEditableField } from '@/constants/enum.js';
+import { ALLOWED_IMAGES_MIMES, EDIT_PROFILE_FIELDS } from '@/constants/index.js';
 import {
     MAX_PROFILE_BIO_SIZE,
     MAX_PROFILE_DISPLAY_NAME_SIZE,
@@ -26,6 +27,128 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 import { updateProfile } from '@/services/updateProfile.js';
 import { uploadProfileAvatar } from '@/services/uploadProfileAvatar.js';
+
+function FormField({ field, profile }: { field: ProfileEditableField; profile: Profile }) {
+    const resolveLengthCalculatorFn = resolveLengthCalculator(profile.source);
+    switch (field) {
+        case ProfileEditableField.DisplayName:
+            const maxDisplayNameSize = MAX_PROFILE_DISPLAY_NAME_SIZE[profile.source] ?? 0;
+            return (
+                <div className="space-y-1.5">
+                    <div className="flex w-full flex-row items-center space-x-1">
+                        <label className="min-w-[110px] text-sm font-bold text-main">
+                            <Trans>Display Name</Trans>
+                        </label>
+                        <FormInputContainer name="displayName" className="flex-1">
+                            <FormInput
+                                name="displayName"
+                                options={{
+                                    required: true,
+                                    minLength: {
+                                        value: 1,
+                                        message: t`Display Name should not be blank`,
+                                    },
+                                    validate(value: string) {
+                                        if (resolveLengthCalculatorFn(value) > maxDisplayNameSize) {
+                                            return t`Display Name should not exceed ${maxDisplayNameSize} characters`;
+                                        }
+                                        return true;
+                                    },
+                                }}
+                            />
+                        </FormInputContainer>
+                    </div>
+                    <ErrorMessage name="displayName" className="ml-[114px]" />
+                </div>
+            );
+        case ProfileEditableField.Website:
+            const maxWebsiteSize = MAX_PROFILE_WEBSITE_SIZE[profile.source] ?? 0;
+            return (
+                <div className="space-y-1.5">
+                    <div className="flex w-full flex-row items-center space-x-1">
+                        <label className="min-w-[110px] text-sm font-bold text-main">
+                            <Trans>Website</Trans>
+                        </label>
+                        <FormInputContainer name="website" className="flex-1">
+                            <FormInput
+                                name="website"
+                                options={{
+                                    pattern: {
+                                        value: URL_INPUT_REGEX,
+                                        message: t`Invalid website format`,
+                                    },
+                                    maxLength: {
+                                        value: maxWebsiteSize,
+                                        message: t`Website should not exceed ${maxWebsiteSize} characters`,
+                                    },
+                                }}
+                            />
+                        </FormInputContainer>
+                    </div>
+                    <ErrorMessage name="website" className="ml-[114px]" />
+                </div>
+            );
+        case ProfileEditableField.Location:
+            const maxLocationSize = MAX_PROFILE_LOCATION_SIZE[profile.source] ?? 0;
+            return (
+                <div className="space-y-1.5">
+                    <div className="flex w-full flex-row items-center space-x-1">
+                        <label className="min-w-[110px] text-sm font-bold text-main">
+                            <Trans>Location</Trans>
+                        </label>
+                        <FormInputContainer name="location" className="flex-1">
+                            <FormInput
+                                name="location"
+                                options={{
+                                    validate(value: string) {
+                                        if (resolveLengthCalculatorFn(value) > maxLocationSize) {
+                                            return t`Location should not exceed ${maxLocationSize} characters`;
+                                        }
+                                        return true;
+                                    },
+                                }}
+                            />
+                        </FormInputContainer>
+                    </div>
+                    <ErrorMessage name="location" className="ml-[114px]" />
+                </div>
+            );
+        case ProfileEditableField.Bio:
+            const maxBioSize = MAX_PROFILE_BIO_SIZE[profile.source] ?? 0;
+            const minBioSize = MIN_PROFILE_BIO_SIZE[profile.source] ?? 0;
+            return (
+                <div className="space-y-1.5">
+                    <div className="flex w-full flex-row items-start space-x-1">
+                        <label className="leading-12 h-12 min-w-[110px] text-sm font-bold text-main">
+                            <Trans>Bio</Trans>
+                        </label>
+                        <FormInputContainer name="bio" className="h-[100px] flex-1">
+                            <FormTextarea
+                                name="bio"
+                                className="no-scrollbar h-[100px] resize-none"
+                                options={{
+                                    validate(value: string) {
+                                        const length = resolveLengthCalculatorFn(value);
+                                        if (length < minBioSize) {
+                                            return t`Bio should be at least ${minBioSize} characters`;
+                                        }
+                                        if (length > maxBioSize) {
+                                            return t`Bio should not exceed ${maxBioSize} characters`;
+                                        }
+                                        return true;
+                                    },
+                                }}
+                            />
+                        </FormInputContainer>
+                    </div>
+                    <ErrorMessage name="bio" className="ml-[114px]" />
+                </div>
+            );
+        default:
+            safeUnreachable(field);
+            return null;
+    }
+}
 
 export function EditProfileForm() {
     const { context } = useMatch({ from: rootRouteId });
@@ -50,12 +173,7 @@ export function EditProfileForm() {
         }
     };
 
-    const resolveLengthCalculatorFn = resolveLengthCalculator(profile.source);
-    const maxDisplayNameSize = MAX_PROFILE_DISPLAY_NAME_SIZE[profile.source] ?? 0;
-    const maxLocationSize = MAX_PROFILE_LOCATION_SIZE[profile.source] ?? 0;
-    const maxWebsiteSize = MAX_PROFILE_WEBSITE_SIZE[profile.source] ?? 0;
-    const maxBioSize = MAX_PROFILE_BIO_SIZE[profile.source] ?? 0;
-    const minBioSize = MIN_PROFILE_BIO_SIZE[profile.source] ?? 0;
+    const fields = EDIT_PROFILE_FIELDS[profile.source] ?? [];
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-1 flex-col text-left">
@@ -83,109 +201,9 @@ export function EditProfileForm() {
                         />
                     </div>
                 </div>
-                <div className="space-y-1.5">
-                    <div className="flex w-full flex-row items-center space-x-1">
-                        <label className="min-w-[110px] text-sm font-bold text-main">
-                            <Trans>Display Name</Trans>
-                        </label>
-                        <FormInputContainer name="displayName" className="flex-1">
-                            <FormInput
-                                name="displayName"
-                                options={{
-                                    required: true,
-                                    minLength: {
-                                        value: 1,
-                                        message: t`Display Name should not be blank`,
-                                    },
-                                    validate(value: string) {
-                                        if (resolveLengthCalculatorFn(value) > maxDisplayNameSize) {
-                                            return t`Display Name should not exceed ${maxDisplayNameSize} characters`;
-                                        }
-                                        return true;
-                                    },
-                                }}
-                            />
-                        </FormInputContainer>
-                    </div>
-                    <ErrorMessage name="displayName" className="ml-[114px]" />
-                </div>
-
-                {profile.source !== Source.Farcaster ? (
-                    <div className="space-y-1.5">
-                        <div className="flex w-full flex-row items-center space-x-1">
-                            <label className="min-w-[110px] text-sm font-bold text-main">
-                                <Trans>Website</Trans>
-                            </label>
-                            <FormInputContainer name="website" className="flex-1">
-                                <FormInput
-                                    name="website"
-                                    options={{
-                                        pattern: {
-                                            value: URL_INPUT_REGEX,
-                                            message: t`Invalid website format`,
-                                        },
-                                        maxLength: {
-                                            value: maxWebsiteSize,
-                                            message: t`Website should not exceed ${maxWebsiteSize} characters`,
-                                        },
-                                    }}
-                                />
-                            </FormInputContainer>
-                        </div>
-                        <ErrorMessage name="website" className="ml-[114px]" />
-                    </div>
-                ) : null}
-
-                {profile.source !== Source.Farcaster ? (
-                    <div className="space-y-1.5">
-                        <div className="flex w-full flex-row items-center space-x-1">
-                            <label className="min-w-[110px] text-sm font-bold text-main">
-                                <Trans>Location</Trans>
-                            </label>
-                            <FormInputContainer name="location" className="flex-1">
-                                <FormInput
-                                    name="location"
-                                    options={{
-                                        validate(value: string) {
-                                            if (resolveLengthCalculatorFn(value) > maxLocationSize) {
-                                                return t`Location should not exceed ${maxLocationSize} characters`;
-                                            }
-                                            return true;
-                                        },
-                                    }}
-                                />
-                            </FormInputContainer>
-                        </div>
-                        <ErrorMessage name="location" className="ml-[114px]" />
-                    </div>
-                ) : null}
-
-                <div className="space-y-1.5">
-                    <div className="flex w-full flex-row items-start space-x-1">
-                        <label className="leading-12 h-12 min-w-[110px] text-sm font-bold text-main">
-                            <Trans>Bio</Trans>
-                        </label>
-                        <FormInputContainer name="bio" className="h-[100px] flex-1">
-                            <FormTextarea
-                                name="bio"
-                                className="no-scrollbar h-[100px] resize-none"
-                                options={{
-                                    validate(value: string) {
-                                        const length = resolveLengthCalculatorFn(value);
-                                        if (length < minBioSize) {
-                                            return t`Bio should be at least ${minBioSize} characters`;
-                                        }
-                                        if (length > maxBioSize) {
-                                            return t`Bio should not exceed ${maxBioSize} characters`;
-                                        }
-                                        return true;
-                                    },
-                                }}
-                            />
-                        </FormInputContainer>
-                    </div>
-                    <ErrorMessage name="bio" className="ml-[114px]" />
-                </div>
+                {fields.map((field) => (
+                    <FormField key={field} field={field} profile={profile} />
+                ))}
             </div>
             <div className="mt-auto flex w-full justify-end p-4 shadow-accountCardShadowLight">
                 <ClickableButton

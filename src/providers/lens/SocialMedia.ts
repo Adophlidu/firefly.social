@@ -1672,7 +1672,7 @@ export class LensSocialMedia implements Provider {
         return await OrbClubProvider.leaveClub(club.id);
     }
 
-    async getPinnedPost(profileId: string): Promise<Post> {
+    async getPinnedPost(profileId: string): Promise<Post | null> {
         throw new NotImplementedError();
     }
 

@@ -248,7 +248,8 @@
         "BSCT",
         "Moonriver",
         "chainid",
-        "Solflare"
+        "Solflare",
+        "rkey"
     ],
     "flagWords": [],
     "ignorePaths": [

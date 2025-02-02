@@ -955,10 +955,15 @@ export interface Provider {
     /**
      * Get Pinned Post
      */
-    getPinnedPost: (profileId: string) => Promise<Post>;
+    getPinnedPost: (profileId: string) => Promise<Post | null>;
 
     /**
      * Decrypt post
      */
     decryptPost: (post: Post) => Promise<Post | null>;
+
+    /**
+     * Media Posts
+     */
+    getMediaPostsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 }

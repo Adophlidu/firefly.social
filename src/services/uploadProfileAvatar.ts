@@ -3,8 +3,12 @@ import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 
 export async function uploadProfileAvatar(source: SocialSource, file: File) {
-    if (source === Source.Twitter) {
-        return await TwitterSocialMediaProvider.uploadProfileAvatar(file);
+    switch (source) {
+        case Source.Twitter:
+            return TwitterSocialMediaProvider.uploadProfileAvatar(file);
+        case Source.Bsky:
+            return URL.createObjectURL(file);
+        default:
+            return uploadToS3(file, SourceInURL.Lens);
     }
-    return await uploadToS3(file, SourceInURL.Lens);
 }

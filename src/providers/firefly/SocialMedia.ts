@@ -1120,7 +1120,7 @@ export class FireflySocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async getPinnedPost(profileId: string): Promise<Post> {
+    async getPinnedPost(profileId: string): Promise<Post | null> {
         throw new NotImplementedError();
     }
 
@@ -1172,6 +1172,13 @@ export class FireflySocialMedia implements Provider {
     }
 
     async decryptPost(post: Post): Promise<Post> {
+        throw new NotImplementedError();
+    }
+
+    async getMediaPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
         throw new NotImplementedError();
     }
 }

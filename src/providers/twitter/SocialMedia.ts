@@ -664,13 +664,20 @@ class TwitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async getPinnedPost(profileId: string): Promise<Post> {
+    async getPinnedPost(profileId: string): Promise<Post | null> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<Post>>(`/api/twitter/user/${profileId}/pinned`);
         if (!response.success) throw new Error(response.error.message);
         return response.data;
     }
 
     async decryptPost(post: Post): Promise<Post> {
+        throw new NotImplementedError();
+    }
+
+    async getMediaPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
         throw new NotImplementedError();
     }
 }

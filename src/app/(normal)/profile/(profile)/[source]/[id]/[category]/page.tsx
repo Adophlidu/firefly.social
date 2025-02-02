@@ -10,6 +10,7 @@ import { ProfilePageTimeline } from '@/components/Profile/ProfilePageTimeline.js
 import { type ProfileCategory, Source, SourceInURL } from '@/constants/enum.js';
 import { REQUIRE_LOGIN_SOURCES } from '@/constants/index.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
+import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import { getProfileById } from '@/services/getProfileById.js';
@@ -42,7 +43,7 @@ export default function Page(props: Props) {
         </Suspense>
     );
 
-    if (REQUIRE_LOGIN_SOURCES.includes(source)) {
+    if (isSocialSource(source) && REQUIRE_LOGIN_SOURCES.includes(source)) {
         return (
             <LoginRequiredGuard source={source} className="md:!pt-0">
                 {content}

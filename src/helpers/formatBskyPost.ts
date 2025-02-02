@@ -52,7 +52,7 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
     const record = original.record as { langs: string[]; text: string; embed: [] };
     const oembedUrls = getEmbedUrls(record.text, []);
     return {
-        publicationId: original.uri,
+        publicationId: original.cid,
         postId: encodeBskyPostId(original.author.handle, original.uri),
         type: 'Post',
         source: Source.Bsky,

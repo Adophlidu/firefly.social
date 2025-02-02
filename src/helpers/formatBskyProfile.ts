@@ -17,5 +17,10 @@ export function formatBskyProfile(profile: AppBskyActorDefs.ProfileViewDetailed)
         followingCount: profile.followsCount ?? 0,
         status: (profile.active ?? true) ? ProfileStatus.Active : ProfileStatus.Inactive,
         verified: true,
+        viewerContext: {
+            following: !!profile.viewer?.following,
+            followedBy: !!profile.viewer?.followedBy,
+            blocking: profile.viewer?.blockedBy,
+        },
     };
 }

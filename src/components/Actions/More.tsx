@@ -22,7 +22,7 @@ import { BaseToggleFollowButton } from '@/components/Profile/BaseToggleFollowBut
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { EngagementType, type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
+import { ENABLED_BOOKMARK_SOURCES, SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
@@ -177,7 +177,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                         ) : null}
                     </>
                 )}
-                {post && post.source !== Source.Twitter ? (
+                {post && ENABLED_BOOKMARK_SOURCES.includes(post.source) ? (
                     <MenuItem>{({ close }) => <BookmarkButton post={post} onClick={close} />}</MenuItem>
                 ) : null}
                 {post?.postId && post.source !== Source.Twitter ? (

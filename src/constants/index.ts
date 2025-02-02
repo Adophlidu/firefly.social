@@ -11,6 +11,7 @@ import {
     type FollowingSource,
     NetworkType,
     NODE_ENV,
+    ProfileEditableField,
     type ProfilePageSource,
     SearchType,
     type SocialDiscoverSource,
@@ -90,7 +91,18 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory
         SocialProfileCategory.Channels,
     ],
     [Source.Twitter]: [SocialProfileCategory.Feed, SocialProfileCategory.Replies],
-    [Source.Bsky]: [SocialProfileCategory.Feed, SocialProfileCategory.Replies],
+    [Source.Bsky]: [
+        SocialProfileCategory.Feed,
+        SocialProfileCategory.Replies,
+        SocialProfileCategory.Media,
+        SocialProfileCategory.Likes,
+    ],
+};
+export const SORTED_PROFILE_TAB_TYPE_REQUIRE_LOGIN: Record<SocialSource, SocialProfileCategory[]> = {
+    [Source.Lens]: [],
+    [Source.Farcaster]: [],
+    [Source.Twitter]: [],
+    [Source.Bsky]: [SocialProfileCategory.Likes],
 };
 export const WALLET_PROFILE_TAB_TYPES: Record<NetworkType, WalletProfileCategory[]> = {
     [NetworkType.Ethereum]: [
@@ -168,7 +180,7 @@ export const FOLLOWING_SOURCES: FollowingSource[] = [
     Source.Article,
     Source.DAOs,
 ] as const;
-export const REQUIRE_LOGIN_SOURCES = [Source.Twitter];
+export const REQUIRE_LOGIN_SOURCES: SocialSource[] = [Source.Twitter];
 
 export const DEFAULT_EXPLORE_TYPE = ExploreType.TopProfiles;
 
@@ -321,3 +333,23 @@ export const MIRROR_OLD_FACTOR_ADDRESSES = [
     '0x302f746eE2fDC10DDff63188f71639094717a766',
     '0x2d4b7Ec9923b9cf22d87Ced721e69E1f8eD96a0A',
 ];
+
+export const EDIT_PROFILE_FIELDS: Record<SocialSource, ProfileEditableField[]> = {
+    [Source.Farcaster]: [ProfileEditableField.DisplayName, ProfileEditableField.Bio],
+    [Source.Lens]: [
+        ProfileEditableField.DisplayName,
+        ProfileEditableField.Website,
+        ProfileEditableField.Location,
+        ProfileEditableField.Bio,
+    ],
+    [Source.Twitter]: [
+        ProfileEditableField.DisplayName,
+        ProfileEditableField.Website,
+        ProfileEditableField.Location,
+        ProfileEditableField.Bio,
+    ],
+    [Source.Bsky]: [ProfileEditableField.DisplayName, ProfileEditableField.Bio],
+};
+
+export const ENABLED_FOLLOWING_LIST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Bsky];
+export const ENABLED_BOOKMARK_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];

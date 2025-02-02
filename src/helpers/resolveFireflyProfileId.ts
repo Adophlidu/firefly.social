@@ -17,9 +17,8 @@ export function resolveFireflyProfileId(profile: Pick<Profile, 'handle' | 'profi
             return profile.handle;
         case Source.Twitter:
             return profile.profileId;
-
         case Source.Bsky:
-            return profile.profileId;
+            return profile.handle;
         default:
             safeUnreachable(profile.source);
             throw new UnreachableError('source', profile.source);

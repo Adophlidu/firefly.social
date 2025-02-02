@@ -16,6 +16,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tips } from '@/components/Tips/index.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { NotFoundError } from '@/constants/error.js';
+import { ENABLED_BOOKMARK_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
@@ -93,7 +94,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
         identity.id ? (
             <Tips key="tips" post={post} identity={identity} disabled={disabled} handle={post.author.handle} />
         ) : null,
-        post.source !== Source.Twitter ? (
+        ENABLED_BOOKMARK_SOURCES.includes(post.source) ? (
             <Bookmark
                 key="bookmark"
                 count={post.stats?.bookmarks}

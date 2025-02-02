@@ -6,7 +6,7 @@ import { ScrollListKey, SocialProfileCategory, type SocialSource, Source } from 
 import { EMPTY_LIST } from '@/constants/index.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
@@ -22,9 +22,9 @@ export function MediaList({ profileId, source }: MediaListProps) {
         queryKey: ['posts', source, 'posts-of', 'medias', profileId],
 
         queryFn: async ({ pageParam }) => {
-            if (!profileId || source !== Source.Lens) return createPageable<Post>(EMPTY_LIST, createIndicator());
+            if (!profileId) return createPageable<Post>(EMPTY_LIST, createIndicator());
 
-            const posts = await LensSocialMediaProvider.getMediaPostsByProfileId(
+            const posts = await resolveSocialMediaProvider(source).getMediaPostsByProfileId(
                 profileId,
                 createIndicator(undefined, pageParam),
             );

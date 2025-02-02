@@ -99,7 +99,7 @@ export const MAX_PROFILE_BIO_SIZE: Limitation = {
     [Source.Farcaster]: 160,
     [Source.Lens]: 260,
     [Source.Twitter]: 160,
-    [Source.Bsky]: 160,
+    [Source.Bsky]: 256,
 };
 
 export const MIN_PROFILE_BIO_SIZE: Limitation = {
@@ -113,19 +113,19 @@ export const MAX_PROFILE_DISPLAY_NAME_SIZE: Limitation = {
     [Source.Farcaster]: 32,
     [Source.Lens]: 100,
     [Source.Twitter]: 50,
-    [Source.Bsky]: 50,
+    [Source.Bsky]: 64,
 };
 
 export const MAX_PROFILE_LOCATION_SIZE: Limitation = {
     [Source.Farcaster]: 0,
     [Source.Lens]: 100,
     [Source.Twitter]: 30,
-    [Source.Bsky]: 30,
+    [Source.Bsky]: 0,
 };
 
 export const MAX_PROFILE_WEBSITE_SIZE: Limitation = {
     [Source.Farcaster]: 0,
     [Source.Lens]: 100,
     [Source.Twitter]: 100,
-    [Source.Bsky]: 100,
+    [Source.Bsky]: 0,
 };

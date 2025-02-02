@@ -423,3 +423,10 @@ export enum BskyEmbedType {
     Video = 'app.bsky.embed.video',
     External = 'app.bsky.embed.external',
 }
+
+export enum ProfileEditableField {
+    DisplayName = 'displayName',
+    Website = 'website',
+    Location = 'location',
+    Bio = 'Bio',
+}

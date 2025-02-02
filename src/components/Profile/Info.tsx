@@ -12,9 +12,11 @@ import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { FollowCategory, Source } from '@/constants/enum.js';
+import { ENABLED_FOLLOWING_LIST_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getLargeTwitterAvatar } from '@/helpers/getLargeTwitterAvatar.js';
+import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useRefreshedProfile } from '@/hooks/useRefreshedProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -66,9 +68,9 @@ export function Info(props: InfoProps) {
 
                 <div className="flex gap-3 text-medium leading-[22px]">
                     <Link
-                        href={resolveProfileUrl(source, profileId, FollowCategory.Following)}
+                        href={resolveProfileUrl(source, resolveFireflyProfileId(profile), FollowCategory.Following)}
                         className={classNames('gap-1 hover:underline', {
-                            'pointer-events-none': source !== Source.Farcaster && source !== Source.Lens,
+                            'pointer-events-none': !ENABLED_FOLLOWING_LIST_SOURCES.includes(source),
                         })}
                     >
                         <data value={followingCount}>
@@ -80,9 +82,9 @@ export function Info(props: InfoProps) {
                     </Link>
 
                     <Link
-                        href={resolveProfileUrl(source, profileId, FollowCategory.Followers)}
+                        href={resolveProfileUrl(source, resolveFireflyProfileId(profile), FollowCategory.Followers)}
                         className={classNames('gap-1 hover:underline', {
-                            'pointer-events-none': source !== Source.Farcaster && source !== Source.Lens,
+                            'pointer-events-none': !ENABLED_FOLLOWING_LIST_SOURCES.includes(source),
                         })}
                     >
                         <data value={followerCount}>
