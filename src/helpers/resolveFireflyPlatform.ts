@@ -7,7 +7,8 @@ export const resolveFireflyPlatform = createLookupTableResolver<Source, FireflyP
         [Source.Farcaster]: FireflyPlatform.Farcaster,
         [Source.Lens]: FireflyPlatform.Lens,
         [Source.Twitter]: FireflyPlatform.Twitter,
-        [Source.Bsky]: FireflyPlatform.Bsky,
+        // return null to disable mute detection for Bsky
+        [Source.Bsky]: null,
         [Source.Firefly]: FireflyPlatform.Firefly,
         [Source.Article]: FireflyPlatform.Article,
         [Source.Wallet]: FireflyPlatform.Wallet,
