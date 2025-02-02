@@ -8,15 +8,19 @@ import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import type { NextPageProps } from '@/types/index.js';
 
+const ENABLED_SINGLE_SEARCH_TYPES = [SearchType.Profiles, SearchType.NFTs, SearchType.Tokens];
+const ENABLED_DOUBLE_SEARCH_TYPES = [SearchType.Profiles, SearchType.Posts, SearchType.Channels];
+const ENABLED_SOURCES = [SourceInURL.Farcaster, SourceInURL.Lens, SourceInURL.Twitter, SourceInURL.Bsky];
+
 function checkSlug(slug: string[]) {
     if (slug.length === 1) {
-        return [SearchType.Profiles, SearchType.NFTs, SearchType.Tokens].includes(slug[0] as SearchType);
+        return ENABLED_SINGLE_SEARCH_TYPES.includes(slug[0] as SearchType);
     }
 
     if (slug.length === 2) {
         return (
-            [SourceInURL.Farcaster, SourceInURL.Lens, SourceInURL.Twitter].includes(slug[0] as SourceInURL) &&
-            [SearchType.Profiles, SearchType.Posts, SearchType.Channels].includes(slug[1] as SearchType)
+            ENABLED_SOURCES.includes(slug[0] as SourceInURL) &&
+            ENABLED_DOUBLE_SEARCH_TYPES.includes(slug[1] as SearchType)
         );
     }
 

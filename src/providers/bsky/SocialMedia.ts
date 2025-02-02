@@ -355,7 +355,19 @@ export class BskySocialMedia implements Provider {
         );
     }
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
+        const res = await bskySessionHolder.agent.app.bsky.feed.searchPosts({
+            q,
+            sort: 'latest',
+            limit: 25,
+            cursor: indicator?.id,
+        });
+        if (!res.success) throw new Error(`Failed to search posts by query = ${q}.`);
+
+        return createPageable(
+            res.data.posts.map((x) => formatBskyPost({ post: x })),
+            createIndicator(indicator),
+            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+        );
     }
     async searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         throw new NotImplementedError();
