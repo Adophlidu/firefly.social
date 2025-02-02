@@ -3,7 +3,7 @@ import { type HTMLProps, memo } from 'react';
 
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { RemoveButton } from '@/components/RemoveButton.js';
-import { ATTACHMENT } from '@/constants/index.js';
+import { IMAGE_KIT_ATTACHMENT } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
@@ -88,8 +88,8 @@ export const ComposeImages = memo(function ComposeImages({ images, readonly = fa
                         <img
                             className="h-full shrink-0 cursor-pointer rounded-lg object-cover"
                             loading="lazy"
-                            src={formatImageUrl(uri, ATTACHMENT)}
-                            alt={formatImageUrl(uri, ATTACHMENT)}
+                            src={formatImageUrl(uri, IMAGE_KIT_ATTACHMENT)}
+                            alt={formatImageUrl(uri, IMAGE_KIT_ATTACHMENT)}
                         />
                         {isLast && moreImageCount > 0 ? (
                             <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center rounded-lg bg-mainLight/50 text-white">

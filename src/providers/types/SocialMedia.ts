@@ -584,6 +584,11 @@ export interface Provider {
     getPostsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
     /**
+     * Retrieves media posts by a specific profile ID.
+     */
+    getMediaPostsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
+
+    /**
      * Retrieves collected posts by a specific profile ID.
      * @param profileId
      * @param indicator
@@ -961,9 +966,4 @@ export interface Provider {
      * Decrypt post
      */
     decryptPost: (post: Post) => Promise<Post | null>;
-
-    /**
-     * Media Posts
-     */
-    getMediaPostsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 }

@@ -4,7 +4,7 @@ import { Fragment, useMemo } from 'react';
 
 import { PostByItem } from '@/components/Compose/PostByItem.js';
 import { FileMimeType } from '@/constants/enum.js';
-import { ENABLE_SCHEDULE_POST_SOURCES, SORTED_POLL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { ENABLED_SCHEDULE_POST_SOURCES, SORTED_POLL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -21,7 +21,7 @@ export function PostBy(props: PostByProps) {
     const postByDisabled = useMemo(() => {
         return SORTED_SOCIAL_SOURCES.map((source) => {
             if (poll && !SORTED_POLL_SOURCES.includes(source)) return true;
-            if (scheduleTime && !ENABLE_SCHEDULE_POST_SOURCES.includes(source)) return true;
+            if (scheduleTime && !ENABLED_SCHEDULE_POST_SOURCES.includes(source)) return true;
 
             const maxImageCount = getCurrentPostImageLimits(type, uniq([...availableSources, source]));
             const maxGifCount = getCurrentPostGifLimits(uniq([...availableSources, source]));

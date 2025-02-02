@@ -10,7 +10,7 @@ import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { VideoAsset } from '@/components/Posts/VideoAsset.js';
 import { WithPreviewLink } from '@/components/Posts/WithPreviewLink.js';
 import { Source } from '@/constants/enum.js';
-import { ATTACHMENT, SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/index.js';
+import { IMAGE_KIT_ATTACHMENT, SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
@@ -145,8 +145,8 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                 width={minimal ? 120 : 1000}
                                 height={minimal ? 120 : 1000}
                                 onError={handleImageError}
-                                src={formatImageUrl(asset.uri, ATTACHMENT)}
-                                alt={formatImageUrl(asset.uri, ATTACHMENT)}
+                                src={formatImageUrl(asset.uri, IMAGE_KIT_ATTACHMENT)}
+                                alt={formatImageUrl(asset.uri, IMAGE_KIT_ATTACHMENT)}
                             />
                         </div>
                     ) : (
@@ -206,8 +206,8 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                                 maxHeight: isSoloImage && minimal ? 288 : undefined,
                                             }}
                                             onError={({ currentTarget }) => (currentTarget.src = uri)}
-                                            src={formatImageUrl(uri, ATTACHMENT)}
-                                            alt={formatImageUrl(uri, ATTACHMENT)}
+                                            src={formatImageUrl(uri, IMAGE_KIT_ATTACHMENT)}
+                                            alt={formatImageUrl(uri, IMAGE_KIT_ATTACHMENT)}
                                         />
                                     ) : (
                                         <div className="flex h-full w-full flex-col overflow-hidden rounded-lg">

@@ -15,6 +15,7 @@ import { SetQueryDataForJoinChannel } from '@/decorators/SetQueryDataForJoinChan
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
+import { fetchBlob } from '@/helpers/fetchBlob.js';
 import { formatBskyPost, formatBskyThreadPosts } from '@/helpers/formatBskyPost.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import {
@@ -204,7 +205,7 @@ export class BskySocialMedia implements Provider {
         });
         if (!res.success) throw new Error(`Failed to get post by profile id = ${profileId}.`);
         return createPageable(
-            res.data.feed.map((post) => formatBskyPost(post)),
+            res.data.feed.map(formatBskyPost),
             createIndicator(indicator),
             res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
         );
@@ -219,7 +220,7 @@ export class BskySocialMedia implements Provider {
         });
         if (!res.success) throw new Error(`Failed to get liked post by profile id = ${profileId}.`);
         return createPageable(
-            res.data.feed.map((post) => formatBskyPost(post)),
+            res.data.feed.map(formatBskyPost),
             createIndicator(indicator),
             res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
         );
@@ -235,7 +236,7 @@ export class BskySocialMedia implements Provider {
         });
         if (!res.success) throw new Error(`Failed to get replies post by profile id = ${profileId}.`);
         return createPageable(
-            res.data.feed.map((post) => formatBskyPost(post)).filter((x) => x.type !== 'Mirror'),
+            res.data.feed.map(formatBskyPost).filter((x) => x.type !== 'Mirror'),
             createIndicator(indicator),
             res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
         );
@@ -453,8 +454,9 @@ export class BskySocialMedia implements Provider {
             displayName: profile.displayName,
         };
         if (profile.pfp) {
-            const avatarBlob = await fetch(profile.pfp).then((r) => r.blob());
-            record.avatar = await bskySessionHolder.agent.uploadBlob(avatarBlob).then((r) => r.data.blob);
+            const avatarBlob = await fetchBlob(profile.pfp);
+            const avatarBlobUploaded = await bskySessionHolder.agent.uploadBlob(avatarBlob);
+            record.avatar = avatarBlobUploaded.data.blob;
         }
         await bskySessionHolder.agent.com.atproto.repo.putRecord({
             ...params,
@@ -497,7 +499,7 @@ export class BskySocialMedia implements Provider {
         });
         if (!res.success) throw new Error(`Failed to get media post by profile id = ${profileId}.`);
         return createPageable(
-            res.data.feed.map((post) => formatBskyPost(post)),
+            res.data.feed.map(formatBskyPost),
             createIndicator(indicator),
             res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
         );

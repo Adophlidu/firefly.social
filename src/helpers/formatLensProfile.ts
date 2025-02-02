@@ -1,14 +1,14 @@
 import type { HandleInfoFragment, ProfileFragment } from '@lens-protocol/client';
 
 import { Source } from '@/constants/enum.js';
-import { AVATAR } from '@/constants/index.js';
+import { IMAGE_KIT_AVATAR } from '@/constants/index.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { getLennyUrl } from '@/helpers/getLennyUrl.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import type { LensV3Profile } from '@/providers/types/Firefly.js';
 import { NetworkType, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
-function getAvatar(profile: ProfileFragment, namedTransform = AVATAR) {
+function getAvatar(profile: ProfileFragment, namedTransform = IMAGE_KIT_AVATAR) {
     let avatarUrl = (profile as { avatar?: string }).avatar;
 
     if (profile?.metadata?.picture?.__typename === 'NftImage') {

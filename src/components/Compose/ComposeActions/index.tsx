@@ -18,7 +18,7 @@ import { PollButton } from '@/components/Poll/PollButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { DISABLE_REPLY_SETTINGS_POST_SOURCES, ENABLE_SCHEDULE_POST_SOURCES } from '@/constants/index.js';
+import { ENABLED_REPLY_SETTINGS_POST_SOURCES, ENABLED_SCHEDULE_POST_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
@@ -54,7 +54,7 @@ export function ComposeActions() {
     );
 
     const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;
-    const scheduleDisabled = availableSources.some((x) => !ENABLE_SCHEDULE_POST_SOURCES.includes(x));
+    const scheduleDisabled = availableSources.some((x) => !ENABLED_SCHEDULE_POST_SOURCES.includes(x));
 
     const hasError = useMemo(() => {
         return posts.some((x) => !!compact(values(x.postError)).length);
@@ -68,7 +68,7 @@ export function ComposeActions() {
     const showReplyScope =
         type !== 'reply' &&
         !(type === 'quote' && availableSources.includes(Source.Farcaster)) &&
-        availableSources.every((x) => !DISABLE_REPLY_SETTINGS_POST_SOURCES.includes(x));
+        availableSources.every((x) => ENABLED_REPLY_SETTINGS_POST_SOURCES.includes(x));
 
     return (
         <div className="px-4 pb-4">

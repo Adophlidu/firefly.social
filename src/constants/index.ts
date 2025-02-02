@@ -8,6 +8,7 @@ import {
     type ExploreSource,
     ExploreType,
     FileMimeType,
+    FollowCategory,
     type FollowingSource,
     NetworkType,
     NODE_ENV,
@@ -45,7 +46,7 @@ export const FIREFLY_STAMP_URL = 'https://stamp.firefly.land/avatar';
 export const HEY_IPFS_GW_URL = 'https://gw.ipfs-lens.dev/ipfs';
 export const DSEARCH_BASE_URL = 'https://dsearch.mask.r2d2.to';
 export const CORS_HOST = 'https://cors-next.r2d2.to';
-export const COINGECKO_URL_BASE = 'https://coingecko-agent.r2d2.to/api/v3';
+export const COINGECKO_ROOT_URL = 'https://coingecko-agent.r2d2.to/api/v3';
 export const GO_PLUS_LABS_ROOT_URL = 'https://gopluslabs.r2d2.to';
 export const DEBANK_OPEN_API = 'https://debank-proxy.r2d2.to';
 export const TWITTER_UPLOAD_MEDIA_URL = 'https://upload.twitter.com/1.1/media/upload.json';
@@ -57,6 +58,8 @@ export const SNAPSHOT_IPFS_GATEWAY_URL = 'https://snapshot.4everland.link/ipfs/'
 export const SIMPLE_HASH_URL = 'https://simplehash-proxy.r2d2.to';
 export const ORB_CLUB_URL = 'https://us-central1-orbapp.cloudfunctions.net';
 export const FIREFLY_TELEGRAM_URL = 'https://t.me/fireflyapp';
+export const NEYNAR_URL = 'https://api.neynar.com';
+export const HUBBLE_URL = env.internal.HUBBLE_URL ?? env.external.NEXT_PUBLIC_HUBBLE_URL;
 
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
 export const ADVERTISEMENT_JSON_URL_DEV = 'https://media.firefly.land/advertisement/web-dev.json';
@@ -67,9 +70,6 @@ export const FIREFLY_APP_GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/d
 export const FARCASTER_REPLY_COUNTDOWN = 50; // in seconds
 export const FIREFLY_SCAN_QR_CODE_COUNTDOWN = 5 * 60; // in seconds
 
-export const HUBBLE_URL = env.internal.HUBBLE_URL ?? env.external.NEXT_PUBLIC_HUBBLE_URL;
-
-export const NEYNAR_URL = 'https://api.neynar.com';
 export const RP_HASH_TAG = '#FireflyLuckyDrop';
 
 export const HIDDEN_SECRET = '[HIDE_FROM_CLIENT]';
@@ -150,8 +150,6 @@ export const SORTED_BOOKMARK_SOURCES =
         : [Source.Farcaster, Source.Lens, Source.Article];
 export const SORTED_CHANNEL_SOURCES: SocialSource[] = [Source.Farcaster];
 export const SORTED_POLL_SOURCES: SocialSource[] = [Source.Twitter, Source.Farcaster, Source.Lens];
-export const ENABLE_SCHEDULE_POST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
-export const DISABLE_REPLY_SETTINGS_POST_SOURCES: SocialSource[] = [Source.Bsky];
 export const SORTED_MEDIA_SOURCES: MediaSource[] = [
     MediaSource.Twimg,
     MediaSource.S3,
@@ -162,13 +160,21 @@ export const SORTED_MEDIA_SOURCES: MediaSource[] = [
 ];
 export const SORTED_EXPLORE_SOURCES: ExploreSource[] = [Source.Farcaster, Source.Lens];
 export const SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES = [Source.Farcaster];
-export const EXCLUDE_REPLY_SOURCES = [Source.Twitter];
+
+export const ENABLED_SCHEDULE_POST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
+export const ENABLED_REPLY_SOURCES = [Source.Farcaster, Source.Lens, Source.Bsky];
+export const ENABLED_REPLY_SETTINGS_POST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
+export const ENABLED_FOLLOWING_LIST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Bsky];
+export const ENABLED_BOOKMARK_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
+export const ENABLED_DECRYPT_SOURCES = [Source.Lens];
 
 export const DEFAULT_SOCIAL_SOURCE = Source.Posts;
 export const DEFAULT_BOOKMARK_SOURCE = Source.Farcaster;
 export const DEFAULT_NOTIFICATION_SOURCE = Source.Farcaster;
-export const SUPPORTED_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
+export const DEFAULT_EXPLORE_TYPE = ExploreType.TopProfiles;
+
 export const SUPPORTED_PREVIEW_MEDIA_TYPES: Array<Attachment['type']> = ['Image', 'AnimatedGif'];
+export const SUPPORTED_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 export const SUPPORTED_VIDEO_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Bsky];
 export const SOCIAL_DISCOVER_SOURCE: SocialDiscoverSource[] = [Source.Farcaster, Source.Lens] as const;
 export const SOCIAL_NOTIFICATION_SOURCE: SocialNotificationSource[] = [Source.Farcaster, Source.Lens];
@@ -180,9 +186,8 @@ export const FOLLOWING_SOURCES: FollowingSource[] = [
     Source.Article,
     Source.DAOs,
 ] as const;
+export const FOLLOWING_CATEGORY = [FollowCategory.Followers, FollowCategory.Mutuals, FollowCategory.Following] as const;
 export const REQUIRE_LOGIN_SOURCES: SocialSource[] = [Source.Twitter];
-
-export const DEFAULT_EXPLORE_TYPE = ExploreType.TopProfiles;
 
 export const EXPLORE_TYPES: ExploreType[] = [
     ExploreType.TopProfiles,
@@ -216,8 +221,6 @@ export const BOOKMARK_SOURCES: BookmarkSource[] = [
     Source.DAOs,
 ];
 
-export const ENABLED_DECRYPT_SOURCES = [Source.Lens];
-
 export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum];
 
 // Lens
@@ -229,9 +232,9 @@ export const HEY_API_URL = 'https://api.hey.xyz';
 export const HEY_IMAGEKIT_URL = 'https://ik.imagekit.io/lensterimg';
 
 // Named transforms for ImageKit
-export const AVATAR = 'tr:w-300,h-300';
-export const COVER = 'tr:w-1500,h-500';
-export const ATTACHMENT = 'tr:w-1000';
+export const IMAGE_KIT_AVATAR = 'tr:w-300,h-300';
+export const IMAGE_KIT_COVER = 'tr:w-1500,h-500';
+export const IMAGE_KIT_ATTACHMENT = 'tr:w-1000';
 
 export const IS_PRODUCTION = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Production;
 export const IS_DEVELOPMENT = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Development;
@@ -239,6 +242,7 @@ export const IS_PREVIEW = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Pre
 
 export const EVER_API = 'https://endpoint.4everland.co';
 
+// polls
 export const FRAME_SERVER_URL = 'https://polls.firefly.social';
 export const FRAME_DEV_SERVER_URL = 'https://polls-staging.firefly.social';
 
@@ -350,6 +354,3 @@ export const EDIT_PROFILE_FIELDS: Record<SocialSource, ProfileEditableField[]> =
     ],
     [Source.Bsky]: [ProfileEditableField.DisplayName, ProfileEditableField.Bio],
 };
-
-export const ENABLED_FOLLOWING_LIST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Bsky];
-export const ENABLED_BOOKMARK_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];

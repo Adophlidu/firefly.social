@@ -8,7 +8,7 @@ import { uniq, uniqBy } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { TrendingType } from '@/constants/enum.js';
-import { COINGECKO_URL_BASE, CORS_HOST, DSEARCH_BASE_URL } from '@/constants/index.js';
+import { COINGECKO_ROOT_URL, CORS_HOST, DSEARCH_BASE_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCommunityLink } from '@/helpers/getCommunityLink.js';
 import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
@@ -50,7 +50,7 @@ export class CoinGecko {
     }
 
     static async getTokenPrice(coinId: string): Promise<number | undefined> {
-        const url = urlcat(COINGECKO_URL_BASE, '/simple/price', { ids: coinId, vs_currencies: 'usd' });
+        const url = urlcat(COINGECKO_ROOT_URL, '/simple/price', { ids: coinId, vs_currencies: 'usd' });
         const price = await fetchJSON<Record<string, Record<string, number>>>(url);
         return price[coinId]?.usd;
     }
@@ -79,7 +79,7 @@ export class CoinGecko {
     }
 
     static async getTokenPrices(platform_id: string, contractAddresses: string[]) {
-        const url = urlcat(COINGECKO_URL_BASE, '/simple/token_price/:platform_id', {
+        const url = urlcat(COINGECKO_ROOT_URL, '/simple/token_price/:platform_id', {
             platform_id,
             contract_addresses: contractAddresses.join(','),
             vs_currencies: 'usd',
@@ -90,7 +90,7 @@ export class CoinGecko {
 
     static async getPriceStats(coinId: string, days?: number) {
         type Stat = [number, number];
-        const url = urlcat(COINGECKO_URL_BASE, `/coins/${coinId}/market_chart`, {
+        const url = urlcat(COINGECKO_ROOT_URL, `/coins/${coinId}/market_chart`, {
             vs_currency: 'usd',
             days: days || 11430,
         });
@@ -107,7 +107,7 @@ export class CoinGecko {
                   error: string;
               };
         return fetchJSON<CoinInfoResponse>(
-            urlcat(COINGECKO_URL_BASE, `/coins/${coinId}`, {
+            urlcat(COINGECKO_ROOT_URL, `/coins/${coinId}`, {
                 developer_data: false,
                 community_data: false,
                 localization: false,
@@ -115,7 +115,7 @@ export class CoinGecko {
         );
     }
     private static async getSupportedPlatforms() {
-        const response = await fetchJSON<CoinGeckoPlatform[]>(`${COINGECKO_URL_BASE}/asset_platforms`);
+        const response = await fetchJSON<CoinGeckoPlatform[]>(`${COINGECKO_ROOT_URL}/asset_platforms`);
         return response.filter((x) => x.id && x.chain_identifier) ?? [];
     }
 
@@ -199,7 +199,7 @@ export class CoinGecko {
 
     static async getCoinsByIds(coinIds: string[]) {
         return fetchJSON<CoinGeckoCoinMarketInfo[]>(
-            urlcat(COINGECKO_URL_BASE, '/coins/markets', {
+            urlcat(COINGECKO_ROOT_URL, '/coins/markets', {
                 ids: coinIds.join(','),
                 vs_currency: 'usd',
                 per_page: 250,
@@ -214,7 +214,7 @@ export class CoinGecko {
         const response = await fetchJSON<{
             top_gainers: CoinGeckoGainsLoserInfo[];
             top_losers: CoinGeckoGainsLoserInfo[];
-        }>(urlcat(COINGECKO_URL_BASE, '/coins/top_gainers_losers', { vs_currency: 'usd' }));
+        }>(urlcat(COINGECKO_ROOT_URL, '/coins/top_gainers_losers', { vs_currency: 'usd' }));
 
         const data = type === TrendingType.TopGainers ? response.top_gainers : response.top_losers;
         return data.map(formatGainsOrLoser);
@@ -222,7 +222,7 @@ export class CoinGecko {
 
     static async getTopTrendingCoins() {
         const response = await fetchJSON<{ coins: Array<{ item: CoinGeckoCoinTrending }> }>(
-            urlcat(COINGECKO_URL_BASE, '/search/trending'),
+            urlcat(COINGECKO_ROOT_URL, '/search/trending'),
         );
 
         return response.coins.map(({ item: info }) => {
@@ -244,7 +244,7 @@ export class CoinGecko {
 
     static async getTopMemeCoins() {
         const response = await fetchJSON<CoinGeckoMemeCoinTrending[]>(
-            urlcat(COINGECKO_URL_BASE, '/coins/markets', {
+            urlcat(COINGECKO_ROOT_URL, '/coins/markets', {
                 vs_currency: 'usd',
                 category: 'meme-token',
                 per_page: 50,
@@ -282,7 +282,7 @@ export class CoinGecko {
     }
 
     static async getTokenByAddress(address: string, network: string, signal?: AbortSignal) {
-        const url = urlcat(COINGECKO_URL_BASE, '/onchain/networks/:network/tokens/:address', {
+        const url = urlcat(COINGECKO_ROOT_URL, '/onchain/networks/:network/tokens/:address', {
             address: address.toLowerCase(),
             network,
         });
@@ -295,7 +295,7 @@ export class CoinGecko {
     }
 
     static async getTokenByAddressList(addresses: string[], network: string, signal?: AbortSignal) {
-        const url = urlcat(COINGECKO_URL_BASE, '/onchain/networks/:network/tokens/multi/:addresses', {
+        const url = urlcat(COINGECKO_ROOT_URL, '/onchain/networks/:network/tokens/multi/:addresses', {
             addresses: addresses.join(','),
             network,
         });
