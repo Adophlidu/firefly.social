@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-01-24 09:17\n"
+"PO-Revision-Date: 2025-02-03 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -77,7 +77,7 @@ msgid "You have been detected as a loyal Farcaster user"
 msgstr "您被检测到为 Farcaster 忠实用户"
 
 msgid "Read this <0>disclaimer</0> before participation. All rights reserved by Firefly."
-msgstr ""
+msgstr "在参与前请阅读此<0>免责声明</0>。Firefly保留所有权利。"
 
 msgid "Edit Image"
 msgstr "编辑图片"
@@ -138,7 +138,7 @@ msgid "Token is required."
 msgstr "请选择代币。"
 
 msgid "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
-msgstr ""
+msgstr "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
 
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr "稍等！满足以下任一条件以解锁优质 NFT："
@@ -590,7 +590,7 @@ msgstr "收藏"
 
 #. placeholder {0}: followTrumpTwitterProfile.handle
 msgid "Followed <0>@{0}</0> on X before Jan 18, 2025"
-msgstr ""
+msgstr "您在2024年12月18日快照中识别为 X 账号 <0>@{0}</0> 的关注者"
 
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
@@ -622,7 +622,7 @@ msgid "Restricted approval."
 msgstr "限制性批准。"
 
 msgid "Read this <0>disclaimer</0> before participation. For any inquiries, please <1>contact us</1>. All rights reserved by Firefly."
-msgstr ""
+msgstr "请在参与前阅读此<0>免责声明</0>。如有任何疑问，请<1>联系我们</1>。Firefly保留所有权利。"
 
 msgid "Report submitted"
 msgstr "举报已经提交"
