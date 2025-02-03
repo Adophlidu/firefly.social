@@ -64,7 +64,7 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
             mirrors: original.repostCount ?? 0,
             quotes: original.quoteCount ?? 0,
         },
-        timestamp: original.created_at ? new Date(original.indexedAt).getTime() : Date.now(),
+        timestamp: original.indexedAt ? new Date(original.indexedAt).getTime() : Date.now(),
         metadata: {
             locale: record.langs?.[0] ?? 'en',
             content: {

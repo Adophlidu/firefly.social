@@ -2,6 +2,7 @@ import { AppBskyActorProfile, RichText } from '@atproto/api';
 import { isThreadViewPost, type PostView } from '@atproto/api/dist/client/types/app/bsky/feed/defs.js';
 import { compact } from 'lodash-es';
 
+import { DISCOVER_AT_URI } from '@/constants/bsky.js';
 import { type BookmarkType, type FireflyPlatform, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -171,7 +172,7 @@ export class BskySocialMedia implements Provider {
         throw new NotImplementedError();
     }
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        postId = decodeURIComponent(postId);
+        postId = resolveBskyAtUri(postId);
         const res = await bskySessionHolder.agent.getPostThread({
             uri: postId,
             depth: 10,
@@ -189,13 +190,27 @@ export class BskySocialMedia implements Provider {
         return createPageable(replies, createIndicator(indicator));
     }
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
+        const res = await bskySessionHolder.agent.app.bsky.feed.getFeed({
+            feed: DISCOVER_AT_URI,
+        });
+        if (!res.success) throw new Error(`Failed to discoverPosts`);
+        return createPageable(
+            res.data.feed.map(formatBskyPost),
+            createIndicator(indicator),
+            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+        );
     }
     async discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         throw new NotImplementedError();
     }
     async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
+        const res = await bskySessionHolder.agent.getTimeline();
+        if (!res.success) throw new Error(`Failed to discoverPosts`);
+        return createPageable(
+            res.data.feed.map(formatBskyPost),
+            createIndicator(indicator),
+            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+        );
     }
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const res = await bskySessionHolder.agent.getAuthorFeed({
