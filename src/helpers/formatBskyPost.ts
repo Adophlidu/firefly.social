@@ -51,6 +51,8 @@ function formatBskyMedia(embed: unknown): Post['metadata']['content'] {
 function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
     const record = original.record as { langs: string[]; text: string; embed: [] };
     const oembedUrls = getEmbedUrls(record.text, []);
+    const createdAt = original.createdAt || original.indexedAt;
+
     return {
         publicationId: original.cid,
         postId: encodeBskyPostId(original.author.handle, original.uri),
@@ -64,7 +66,7 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
             mirrors: original.repostCount ?? 0,
             quotes: original.quoteCount ?? 0,
         },
-        timestamp: original.indexedAt ? new Date(original.indexedAt).getTime() : Date.now(),
+        timestamp: createdAt && typeof createdAt === 'string' ? new Date(createdAt).getTime() : Date.now(),
         metadata: {
             locale: record.langs?.[0] ?? 'en',
             content: {

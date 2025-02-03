@@ -184,6 +184,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                             value={notification.source}
                             _Lens="mirrored your"
                             _Farcaster="recasted your"
+                            _Bsky="reposted your"
                             other="mirrored your"
                         />{' '}
                         <strong>

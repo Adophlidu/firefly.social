@@ -562,12 +562,6 @@ msgstr ""
 msgid "Verification unsuccessful"
 msgstr ""
 
-#. placeholder {0}: mirrors.length
-#. placeholder {1}: notification.source
-#. placeholder {2}: notification.post.type
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
-msgstr ""
-
 msgid "Total"
 msgstr ""
 
@@ -707,6 +701,12 @@ msgid "Liked"
 msgstr "已喜歡"
 
 msgid "Token ID"
+msgstr ""
+
+#. placeholder {0}: mirrors.length
+#. placeholder {1}: notification.source
+#. placeholder {2}: notification.post.type
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} Bsky {reposted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr ""
 
 #. placeholder {0}: post.stats.mirrors
@@ -3339,7 +3339,7 @@ msgstr "文章已加入你的書籤"
 msgid "Create a Post"
 msgstr ""
 
-#. placeholder {0}: source === Source.Lens ? t`Mirrors` : t`Recasts`
+#. placeholder {0}: source === Source.Lens ? t`Mirrors` : source === Source.Bsky ? t`Reposts` : t`Recasts`
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr ""
 
@@ -3472,6 +3472,9 @@ msgid "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
 msgstr ""
 
 msgid "Post collected successfully!"
+msgstr ""
+
+msgid "Reposts"
 msgstr ""
 
 #. placeholder {0}: resolveSourceName(x)

@@ -249,7 +249,8 @@
         "Moonriver",
         "chainid",
         "Solflare",
-        "rkey"
+        "rkey",
+        "starterpack"
     ],
     "flagWords": [],
     "ignorePaths": [

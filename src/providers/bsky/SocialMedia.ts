@@ -1,5 +1,6 @@
 import { AppBskyActorProfile, RichText } from '@atproto/api';
 import { isThreadViewPost, type PostView } from '@atproto/api/dist/client/types/app/bsky/feed/defs.js';
+import { safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 
 import { DISCOVER_AT_URI } from '@/constants/bsky.js';
@@ -32,16 +33,32 @@ import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 import {
     type Channel,
+    type CommentNotification,
+    type FollowNotification,
     type Friendship,
+    type MentionNotification,
+    type MirrorNotification,
     NetworkType,
     type Notification,
+    NotificationType,
     type Post,
     type Profile,
     type ProfileBadge,
     type ProfileEditable,
     type Provider,
+    type QuoteNotification,
+    type ReactionNotification,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+
+async function getSinglePost(uri: string) {
+    const res = await bskySessionHolder.agent.getPostThread({
+        uri,
+        depth: 10,
+    });
+    if (!res.success || !isThreadViewPost(res.data.thread)) throw new Error(`Failed to getPostById = ${uri}.`);
+    return formatBskyPost(res.data.thread);
+}
 
 @SetQueryDataForLikePost(Source.Bsky)
 @SetQueryDataForBookmarkPost(Source.Bsky)
@@ -149,12 +166,7 @@ export class BskySocialMedia implements Provider {
         return this.getProfileById(handle);
     }
     async getPostById(postId: string): Promise<Post> {
-        const res = await bskySessionHolder.agent.getPostThread({
-            uri: resolveBskyAtUri(postId),
-            depth: 10,
-        });
-        if (!res.success || !isThreadViewPost(res.data.thread)) throw new Error(`Failed to getPostById = ${postId}.`);
-        return formatBskyPost(res.data.thread);
+        return getSinglePost(resolveBskyAtUri(postId));
     }
     async getChannelById(channelId: string): Promise<Channel> {
         throw new NotImplementedError();
@@ -337,7 +349,104 @@ export class BskySocialMedia implements Provider {
         indicator?: PageIndicator,
         highSignalFilter?: boolean,
     ): Promise<Pageable<Notification, PageIndicator>> {
-        throw new NotImplementedError();
+        const res = await bskySessionHolder.agent.listNotifications({
+            limit: 25,
+            cursor: indicator?.id,
+        });
+        if (!res.success) throw new Error(`Failed to get notifications.`);
+
+        const notifications = compact(
+            await Promise.all(
+                res.data.notifications.map(async (x) => {
+                    const timestamp = x.indexedAt ? new Date(x.indexedAt).getTime() : undefined;
+
+                    switch (x.reason) {
+                        case 'follow':
+                            return {
+                                source: Source.Bsky,
+                                notificationId: x.cid,
+                                type: NotificationType.Follow,
+                                followers: [formatBskyProfile(x.author)],
+                            } satisfies FollowNotification;
+                        case 'like':
+                            return {
+                                source: Source.Bsky,
+                                notificationId: x.cid,
+                                type: NotificationType.Reaction,
+                                reactors: [formatBskyProfile(x.author)],
+                                post: await getSinglePost((x.record as { subject: { uri: string } }).subject.uri),
+                                timestamp,
+                            } satisfies ReactionNotification;
+                        case 'reply':
+                            const parentUri = (x.record as { reply: { parent: { uri: string } } })?.reply?.parent?.uri;
+                            if (!parentUri) return null;
+
+                            const comment = formatBskyPost({ post: x });
+                            const parentPost = await getSinglePost(parentUri);
+
+                            return {
+                                source: Source.Bsky,
+                                notificationId: x.cid,
+                                type: NotificationType.Comment,
+                                comment: {
+                                    ...comment,
+                                    type: 'Comment',
+                                    commentOn: parentPost,
+                                },
+                                post: parentPost,
+                                timestamp,
+                            } satisfies CommentNotification;
+                        case 'mention':
+                            return {
+                                source: Source.Bsky,
+                                notificationId: x.cid,
+                                type: NotificationType.Mention,
+                                post: formatBskyPost({ post: x }),
+                                timestamp,
+                            } satisfies MentionNotification;
+                        case 'quote':
+                            if (!x.reasonSubject) return null;
+
+                            const quote = formatBskyPost({ post: x });
+                            const targetPost = await getSinglePost(x.reasonSubject);
+
+                            return {
+                                source: Source.Bsky,
+                                notificationId: x.cid,
+                                type: NotificationType.Quote,
+                                quote: {
+                                    ...quote,
+                                    type: 'Quote',
+                                    quoteOn: targetPost,
+                                },
+                                post: targetPost,
+                                timestamp,
+                            } satisfies QuoteNotification;
+                        case 'repost':
+                            if (!x.reasonSubject) return null;
+                            return {
+                                source: Source.Bsky,
+                                notificationId: x.cid,
+                                type: NotificationType.Mirror,
+                                mirrors: [formatBskyProfile(x.author)],
+                                post: await getSinglePost(x.reasonSubject),
+                                timestamp,
+                            } satisfies MirrorNotification;
+                        case 'starterpack-joined':
+                            return null;
+                        default:
+                            safeUnreachable(x.reason as never);
+                            return null;
+                    }
+                }),
+            ),
+        );
+
+        return createPageable(
+            notifications,
+            createIndicator(indicator),
+            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+        );
     }
     async getSuggestedFollows(indicator?: PageIndicator) {
         const size = 25;

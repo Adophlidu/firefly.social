@@ -562,12 +562,6 @@ msgstr "代理合约。"
 msgid "Verification unsuccessful"
 msgstr "验证不成功"
 
-#. placeholder {0}: mirrors.length
-#. placeholder {1}: notification.source
-#. placeholder {2}: notification.post.type
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了你的} Farcaster {转帖了你的} other {转帖了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</4>"
-
 msgid "Total"
 msgstr "总额"
 
@@ -708,6 +702,12 @@ msgstr "已点赞"
 
 msgid "Token ID"
 msgstr "通证 ID"
+
+#. placeholder {0}: mirrors.length
+#. placeholder {1}: notification.source
+#. placeholder {2}: notification.post.type
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} Bsky {reposted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
+msgstr ""
 
 #. placeholder {0}: post.stats.mirrors
 msgid "{0, plural, one {mirror} other {mirrors}}"
@@ -3349,7 +3349,7 @@ msgstr "文章已经添加到您的收藏中"
 msgid "Create a Post"
 msgstr "创建帖子"
 
-#. placeholder {0}: source === Source.Lens ? t`Mirrors` : t`Recasts`
+#. placeholder {0}: source === Source.Lens ? t`Mirrors` : source === Source.Bsky ? t`Reposts` : t`Recasts`
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr "{type, select, comment {评论} mirror {{0}} reaction {点赞} act {收藏} other {其他}}"
 
@@ -3483,6 +3483,9 @@ msgstr "上传失败。视频时间超过限制 {minDuration}秒 ~ {maxDuration}
 
 msgid "Post collected successfully!"
 msgstr "成功收集文章！"
+
+msgid "Reposts"
+msgstr ""
 
 #. placeholder {0}: resolveSourceName(x)
 msgid "Your post have published successfully on {0}."

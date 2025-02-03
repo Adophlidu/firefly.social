@@ -17,9 +17,9 @@ interface Props extends HTMLProps<HTMLDivElement> {
 
 export function NotificationFilter({ source, className, types, onTypesChange: setTypes, ...props }: Props) {
     const allTypes = useMemo(() => {
-        return source === Source.Farcaster
-            ? [NotificationType.Comment, NotificationType.Mirror, NotificationType.Reaction]
-            : [NotificationType.Comment, NotificationType.Mirror, NotificationType.Reaction, NotificationType.Act];
+        const baseTypes = [NotificationType.Comment, NotificationType.Mirror, NotificationType.Reaction] as const;
+
+        return [Source.Farcaster, Source.Bsky].includes(source) ? baseTypes : [...baseTypes, NotificationType.Act];
     }, [source]);
 
     const tabs = useMemo(() => {
@@ -57,7 +57,12 @@ export function NotificationFilter({ source, className, types, onTypesChange: se
                         <span>
                             {select(type, {
                                 comment: 'Comments',
-                                mirror: source === Source.Lens ? t`Mirrors` : t`Recasts`,
+                                mirror:
+                                    source === Source.Lens
+                                        ? t`Mirrors`
+                                        : source === Source.Bsky
+                                          ? t`Reposts`
+                                          : t`Recasts`,
                                 reaction: 'Likes',
                                 act: 'Collects',
                                 other: 'Other',
@@ -73,9 +78,11 @@ export function NotificationFilter({ source, className, types, onTypesChange: se
             <div className={classNames('no-scrollbar flex w-full gap-x-2 overflow-x-auto', className)} {...props}>
                 {tabs}
             </div>
-            <div className="ml-auto pr-2">
-                <NotificationSettings source={source} />
-            </div>
+            {source === Source.Bsky ? null : (
+                <div className="ml-auto pr-2">
+                    <NotificationSettings source={source} />
+                </div>
+            )}
         </div>
     );
 }
