@@ -30,7 +30,7 @@ import {
 } from '@lens-protocol/metadata';
 import { t } from '@lingui/core/macro';
 import { isServer } from '@tanstack/react-query';
-import { compact, first, flatMap, omit, uniq, uniqWith } from 'lodash-es';
+import { compact, first, flatMap, omit, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 import type { Address, Hex, TypedDataDomain } from 'viem';
@@ -87,7 +87,6 @@ import { writeLensHubContract } from '@/helpers/writeLensHubContract.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import { LensOpenRankProvider } from '@/providers/openrank/Lens.js';
 import { OrbClubProvider } from '@/providers/orb/Club.js';
 import {
     type LastLoggedInProfileRequest,
@@ -1566,26 +1565,6 @@ export class LensSocialMedia implements Provider {
         return success;
     }
 
-    async getRecentPosts(indicator?: PageIndicator) {
-        const offset = parseInt(indicator?.id ?? '0', 10) || 0;
-        const limit = 50;
-        const items = await LensOpenRankProvider.feed('recent', {
-            offset,
-            limit,
-        });
-        const result = await lensSessionHolder.sdk.publication.fetchAll({
-            where: {
-                publicationIds: uniq(items.map((x) => x.postId)),
-            },
-        });
-        if (!result) createPageable(EMPTY_LIST, undefined);
-
-        return createPageable(
-            await Promise.all(result.items.map(formatLensPost)),
-            createIndicator(indicator),
-            createNextIndicator(indicator, `${offset + limit}`),
-        );
-    }
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
         const attributes: MetadataAttribute[] = compact([
             profile.website ? { type: MetadataAttributeType.STRING, key: 'website', value: profile.website } : null,

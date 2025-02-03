@@ -23,11 +23,8 @@ export function MediaList({ profileId, source }: MediaListProps) {
 
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable<Post>(EMPTY_LIST, createIndicator());
-
-            const posts = await resolveSocialMediaProvider(source).getMediaPostsByProfileId(
-                profileId,
-                createIndicator(undefined, pageParam),
-            );
+            const provider = resolveSocialMediaProvider(source);
+            const posts = await provider.getMediaPostsByProfileId(profileId, createIndicator(undefined, pageParam));
 
             if (source === Source.Lens) {
                 const ids = posts.data.flatMap((x) => [x.postId]);

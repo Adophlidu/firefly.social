@@ -923,16 +923,6 @@ export interface Provider {
     reportChannel?: (channelId: string) => Promise<boolean>;
 
     /**
-     * Get for you posts
-     */
-    getForYouPosts?: (indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
-
-    /**
-     * Get recent feed posts
-     */
-    getRecentPosts?: (indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
-
-    /**
      * Update profile
      */
     updateProfile: (profile: ProfileEditable) => Promise<boolean>;

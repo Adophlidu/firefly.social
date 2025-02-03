@@ -111,14 +111,6 @@ export class FireflySocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getForYouPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    getRecentPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
     getChannelById(channelId: string): Promise<Channel> {
         return this.getChannelByHandle(channelId);
     }

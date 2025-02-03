@@ -571,12 +571,6 @@ export class BskySocialMedia implements Provider {
     async reportChannel(channelId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
-    async getForYouPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-    async getRecentPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
         const params = {
             repo: bskySessionHolder.sessionRequired.did,

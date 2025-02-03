@@ -71,14 +71,6 @@ class HubbleSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getForYouPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    getRecentPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
     getFriendship(profileId: string): Promise<Friendship | null> {
         throw new NotImplementedError();
     }

@@ -27,8 +27,7 @@ export function HideComments(props: ShowMoreCommentsProps) {
         async queryFn({ pageParam }) {
             if (!postId) return createPageable<Post>(EMPTY_LIST, createIndicator());
             const provider = resolveSocialMediaProvider(source);
-
-            return await provider.getHiddenComments(postId, createIndicator(undefined, pageParam));
+            return provider.getHiddenComments(postId, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,

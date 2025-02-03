@@ -1,6 +1,5 @@
 import { UserDataType } from '@farcaster/core';
 import { t } from '@lingui/core/macro';
-import { uniq } from 'lodash-es';
 
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
@@ -16,9 +15,6 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { getFarcasterSessionType } from '@/helpers/getFarcasterSessionType.js';
 import {
-    createIndicator,
-    createNextIndicator,
-    createPageable,
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
@@ -26,7 +22,6 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
-import { FarcasterOpenRankProvider } from '@/providers/openrank/Farcaster.js';
 import {
     type Channel,
     type Friendship,
@@ -364,15 +359,6 @@ class FarcasterSocialMedia implements Provider {
     }
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return FireflySocialMediaProvider.getBookmarks(indicator);
-    }
-    async getForYouPosts(indicator?: PageIndicator) {
-        const offset = parseInt(indicator?.id ?? '0', 10) || 0;
-        const limit = 50;
-        const result = await FarcasterOpenRankProvider.forYouByAuthorship({ offset, limit });
-        const postIds = uniq(result.map((x) => x.cast_hash));
-        const getAllPostsResult = await Promise.allSettled(postIds.map((id) => this.getPostById(id))); // TODO: replace to multiple queries
-        const posts = getAllPostsResult.filter((x) => x.status === 'fulfilled').map((x) => x.value);
-        return createPageable(posts, createIndicator(indicator), createNextIndicator(indicator, `${offset + limit}`));
     }
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
         await Promise.all([
