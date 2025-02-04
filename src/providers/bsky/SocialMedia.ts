@@ -18,6 +18,7 @@ import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { fetchBlob } from '@/helpers/fetchBlob.js';
+import { formatBskyChannels } from '@/helpers/formatBskyChannels.js';
 import { formatBskyPost, formatBskyThreadPosts } from '@/helpers/formatBskyPost.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import {
@@ -213,7 +214,16 @@ export class BskySocialMedia implements Provider {
         );
     }
     async discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new NotImplementedError();
+        const res = await bskySessionHolder.agent.app.bsky.unspecced.getPopularFeedGenerators({
+            cursor: indicator?.id,
+            limit: 20,
+        });
+        if (!res.success) throw new Error(`Failed to discoverChannels`);
+        return createPageable(
+            res.data.feeds.map(formatBskyChannels),
+            createIndicator(indicator),
+            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+        );
     }
     async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const res = await bskySessionHolder.agent.getTimeline();

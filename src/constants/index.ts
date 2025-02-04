@@ -204,6 +204,7 @@ export const EXPLORE_SOURCES: Partial<Record<ExploreType, ExploreSource[]>> = {
         TrendingType.Trending,
         TrendingType.Meme,
     ],
+    [ExploreType.TopChannels]: [Source.Farcaster, Source.Bsky],
 };
 
 export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource | undefined> = {

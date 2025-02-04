@@ -14,10 +14,7 @@ import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { getFarcasterSessionType } from '@/helpers/getFarcasterSessionType.js';
-import {
-    type Pageable,
-    type PageIndicator,
-} from '@/helpers/pageable.js';
+import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';

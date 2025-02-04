@@ -250,7 +250,8 @@
         "chainid",
         "Solflare",
         "rkey",
-        "starterpack"
+        "starterpack",
+        "unspecced"
     ],
     "flagWords": [],
     "ignorePaths": [

@@ -10,6 +10,7 @@ import { Link } from '@/components/Link.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { PlainParagraph, VoidLineBreak } from '@/components/Markup/overrides.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
@@ -88,10 +89,15 @@ export function ChannelInList({
                         />
                     </div>
                     <div className="flex items-center gap-2 text-medium text-sm leading-[24px] text-secondary">
-                        <ChannelTippy channel={channel}>
-                            <p className="truncate text-[15px] leading-[22px]">/{channel.id}</p>
-                        </ChannelTippy>
-                        <span className="leading-[22px] text-secondary">·</span>
+                        {channel.source === Source.Farcaster ? (
+                            <>
+                                <ChannelTippy channel={channel}>
+                                    <p className="truncate text-[15px] leading-[22px]">/{channel.id}</p>
+                                </ChannelTippy>
+                                <span className="leading-[22px] text-secondary">·</span>
+                            </>
+                        ) : null}
+
                         <data value={channel.followerCount}>
                             <span className="font-bold leading-[22px] text-lightMain">
                                 {nFormatter(channel.followerCount)}{' '}
