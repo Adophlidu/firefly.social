@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
+import { compact } from 'lodash-es';
 import { memo } from 'react';
 
 import { Link } from '@/components/Link.js';
@@ -7,7 +8,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchableProfileItem } from '@/components/Search/SearchableProfileItem.js';
 import { SearchType } from '@/constants/enum.js';
 import { MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/index.js';
-import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
+import { formatSearchProfile } from '@/helpers/formatSearchProfile.js';
 import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -26,8 +27,7 @@ export const SuggestProfileList = memo<SuggestProfileListProps>(function Suggest
                 size: 5,
                 indicator: undefined,
             });
-
-            return formatSearchIdentities(result.data);
+            return compact(result.data.map(formatSearchProfile));
         },
         enabled: !!query,
     });

@@ -1,12 +1,13 @@
 'use client';
 
+import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { useEffect } from 'react';
 
 import { FireflyPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { CHAR_TAG } from '@/helpers/chars.js';
-import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
+import { formatSearchProfile } from '@/helpers/formatSearchProfile.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { trimify } from '@/helpers/trimify.js';
@@ -57,7 +58,7 @@ async function searchIdentities(query: string) {
     const data = await FireflyEndpointProvider.searchIdentity(query);
     if (!data.data.length) return [];
 
-    return formatSearchIdentities(data.data);
+    return compact(data.data.map(formatSearchProfile));
 }
 
 async function openCompose(props: ShareLinkProps, onFinished: () => void) {

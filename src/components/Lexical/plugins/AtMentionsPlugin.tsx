@@ -8,6 +8,7 @@ import {
 } from '@lexical/react/LexicalTypeaheadMenuPlugin.js';
 import { useQuery } from '@tanstack/react-query';
 import type { TextNode } from 'lexical';
+import { compact } from 'lodash-es';
 import { type JSX, memo, useCallback, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useDebounce, useOnClickOutside } from 'usehooks-ts';
@@ -19,7 +20,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { composeFireflyProfiles, formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
+import { composeSearchProfiles, formatSearchProfile } from '@/helpers/formatSearchProfile.js';
 import { getSafeMentionQueryText } from '@/helpers/getMentionOriginalText.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
@@ -198,7 +199,7 @@ export function MentionsPlugin(): JSX.Element | null {
                 : undefined;
 
             if (!data?.data && !bskyProfiles?.data) return EMPTY_LIST;
-            return composeFireflyProfiles(formatSearchIdentities(data.data), bskyProfiles?.data || []);
+            return composeSearchProfiles(compact(data.data.map(formatSearchProfile)), bskyProfiles?.data || []);
         },
     });
 

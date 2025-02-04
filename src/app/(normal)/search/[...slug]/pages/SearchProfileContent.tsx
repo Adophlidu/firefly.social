@@ -7,7 +7,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchableProfileItem } from '@/components/Search/SearchableProfileItem.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
-import { composeFireflyProfiles, formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
+import { composeSearchProfiles, formatSearchProfile } from '@/helpers/formatSearchProfile.js';
 import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -59,8 +59,8 @@ export function SearchProfileContent() {
                 ...data,
                 twitterNextIndicator: twitterProfiles?.nextIndicator,
                 bskyNextIndicator: bskyProfiles?.nextIndicator,
-                data: composeFireflyProfiles(
-                    formatSearchIdentities(data.data),
+                data: composeSearchProfiles(
+                    compact(data.data.map(formatSearchProfile)),
                     twitterProfiles?.data || [],
                     bskyProfiles?.data || [],
                 ),

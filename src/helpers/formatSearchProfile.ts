@@ -22,39 +22,37 @@ function fixProfilePlatform(profile: FireflyProfile) {
     return profile;
 }
 
-export function formatSearchIdentities(
-    identities: Required<SearchProfileResponse>['data']['list'],
-): Array<{ profile: FireflyProfile; related: FireflyProfile[] }> {
-    return identities
-        .map((x) => {
-            const target = Object.values(x)
-                .flat()
-                .find((x) => x?.hit);
-            if (!target) return;
-
-            const allProfile = compact(
-                SORTED_PROFILE_SOURCES.map((source) => {
-                    const profile =
-                        source === Source.Wallet
-                            ? first(x.ens || x.eth || x.solana)
-                            : first(x[resolveSocialSourceInUrl(source)]);
-                    if (target.platform === profile?.platform) return fixProfilePlatform(target);
-                    return profile ? fixProfilePlatform(profile) : null;
-                }),
-            );
-
-            return {
-                profile: fixProfilePlatform(target),
-                related: allProfile,
-            };
-        })
-        .filter((handle) => !!handle);
+interface SearchProfile {
+    profile: FireflyProfile;
+    related: FireflyProfile[];
 }
 
-export function composeFireflyProfiles(
-    identities: Array<{ profile: FireflyProfile; related: FireflyProfile[] }>,
-    ...rest: Profile[][]
-): Array<{ profile: FireflyProfile; related: FireflyProfile[] }> {
+export function formatSearchProfile(
+    identity: Required<SearchProfileResponse>['data']['list'][0],
+): SearchProfile | null {
+    const target = Object.values(identity)
+        .flat()
+        .find((x) => x?.hit);
+    if (!target) return null;
+
+    const allProfile = compact(
+        SORTED_PROFILE_SOURCES.map((source) => {
+            const profile =
+                source === Source.Wallet
+                    ? first(identity.ens || identity.eth || identity.solana)
+                    : first(identity[resolveSocialSourceInUrl(source)]);
+            if (target.platform === profile?.platform) return fixProfilePlatform(target);
+            return profile ? fixProfilePlatform(profile) : null;
+        }),
+    );
+
+    return {
+        profile: fixProfilePlatform(target),
+        related: allProfile,
+    };
+}
+
+export function composeSearchProfiles(identities: SearchProfile[], ...rest: Profile[][]): SearchProfile[] {
     return compact([
         ...identities,
         ...rest.flatMap((profiles) => {
