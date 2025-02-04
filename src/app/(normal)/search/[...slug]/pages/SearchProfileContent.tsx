@@ -6,8 +6,8 @@ import { compact, uniqBy } from 'lodash-es';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchableProfileItem } from '@/components/Search/SearchableProfileItem.js';
-import { FireflyPlatform, ScrollListKey, Source } from '@/constants/enum.js';
-import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
+import { ScrollListKey, Source } from '@/constants/enum.js';
+import { composeFireflyProfiles, formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
 import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -16,48 +16,9 @@ import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
-type ProfileWithRelated = { profile: FireflyProfile; related: FireflyProfile[] };
-
-function composeProfiles(identities: ProfileWithRelated[], xProfiles: Profile[], bskyProfiles: Profile[]) {
-    return compact([
-        ...identities,
-        ...xProfiles.map((x) => {
-            const existed = identities.some(
-                ({ profile }) => profile.platform === FireflyPlatform.Twitter && profile.platform_id === x.profileId,
-            );
-            if (existed) return null;
-
-            const matched = {
-                platform: FireflyPlatform.Twitter as const,
-                platform_id: x.profileId,
-                handle: x.handle,
-                name: x.displayName,
-                hit: true,
-                score: 0,
-                avatar: x.pfp,
-            };
-            return { profile: matched, related: [matched] };
-        }),
-        ...bskyProfiles.map((x) => {
-            const bskyProfile = {
-                platform: FireflyPlatform.Bsky as const,
-                platform_id: x.profileId,
-                handle: x.handle,
-                name: x.displayName,
-                hit: true,
-                score: 0,
-                avatar: x.pfp,
-            };
-            return { profile: bskyProfile, related: [bskyProfile] };
-        }),
-    ]);
-}
-
-const getSearchItemContent = (item: ProfileWithRelated) => {
-    const { profile, related } = item;
+const getSearchItemContent = ({ profile, related }: { profile: FireflyProfile; related: FireflyProfile[] }) => {
     return <SearchableProfileItem profile={profile} related={related} key={toFireflyPlatformId(profile)} />;
 };
 
@@ -98,7 +59,7 @@ export function SearchProfileContent() {
                 ...data,
                 twitterNextIndicator: twitterProfiles?.nextIndicator,
                 bskyNextIndicator: bskyProfiles?.nextIndicator,
-                data: composeProfiles(
+                data: composeFireflyProfiles(
                     formatSearchIdentities(data.data),
                     twitterProfiles?.data || [],
                     bskyProfiles?.data || [],

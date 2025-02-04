@@ -16,15 +16,16 @@ import { Avatar } from '@/components/Avatar.js';
 import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { FireflyPlatform, type SocialSource } from '@/constants/enum.js';
+import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
+import { composeFireflyProfiles, formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
 import { getSafeMentionQueryText } from '@/helpers/getMentionOriginalText.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
@@ -131,9 +132,9 @@ const MentionsTypeaheadMenuItem = memo<MentionsTypeaheadMenuItemProps>(function 
                 )}
             >
                 <Avatar alt={option.handle} className="h-7 w-7 rounded-full" src={option.pfp} size={32} />
-                <div className="flex flex-1 justify-between">
+                <div className="flex min-w-0 flex-1 justify-between">
                     <div className="flex flex-col truncate">
-                        <div className="flex items-center text-sm">
+                        <div className="truncate text-sm">
                             <span>{option.displayName}</span>
                         </div>
                         <span className="text-xs">@{option.handle}</span>
@@ -192,9 +193,12 @@ export function MentionsPlugin(): JSX.Element | null {
             const data = await FireflyEndpointProvider.searchIdentity(debounceQuery, {
                 platforms: availableSources,
             });
+            const bskyProfiles = availableSources.includes(Source.Bsky)
+                ? await BskySocialMediaProvider.searchProfiles(debounceQuery)
+                : undefined;
 
-            if (!data) return EMPTY_LIST;
-            return formatSearchIdentities(data.data);
+            if (!data?.data && !bskyProfiles?.data) return EMPTY_LIST;
+            return composeFireflyProfiles(formatSearchIdentities(data.data), bskyProfiles?.data || []);
         },
     });
 
@@ -208,7 +212,7 @@ export function MentionsPlugin(): JSX.Element | null {
                     profile.platform_id,
                     profile.name,
                     profile.handle,
-                    getStampAvatarByProfileId(source, profile.platform_id),
+                    getStampAvatarByProfileId(source, profile.platform_id) || profile.avatar || '',
                     source,
                     related,
                 );
