@@ -5,7 +5,6 @@ import { NotImplementedError } from '@/constants/error.js';
 import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
 import { readChars } from '@/helpers/chars.js';
 import { downloadMediaObjects } from '@/helpers/downloadMediaObjects.js';
-import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getVideoMetadata } from '@/helpers/getVideoMetadata.js';
 import { createBskyMediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -24,13 +23,10 @@ export async function postToBsky(
     compositePost: CompositePost,
     signal?: AbortSignal,
 ): Promise<string | undefined> {
-    const { id, chars, images, video, postId, parentPost } = compositePost;
+    const { chars, images, video, postId, parentPost } = compositePost;
 
-    const bskyPostId = postId.Bsky;
     const bskyParentPost = parentPost.Bsky;
-    const rootPost = getCompositePost(id)?.rootPost;
-    const bskyRootPostId = rootPost?.postId?.Bsky;
-    const bskyRootContentURI = rootPost?.postContentURI?.Bsky;
+    const bskyPostId = postId.Bsky;
     const sourceName = resolveSourceName(Source.Bsky);
 
     if (bskyPostId) return;
@@ -38,7 +34,7 @@ export async function postToBsky(
     const { currentProfile } = useBskyStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
-    const composeDraft = (postType: PostType, images: MediaObject[], videos: MediaObject[], polls?: Poll[]) => {
+    const composeDraft = async (postType: PostType, images: MediaObject[], videos: MediaObject[], polls?: Poll[]) => {
         if (images.some((media) => !media.blobRef)) {
             throw new Error('There are images that were not uploaded successfully.');
         }
@@ -49,10 +45,10 @@ export async function postToBsky(
             postId: '',
             source: Source.Bsky,
             author: currentProfile,
-            parentPostId: bskyParentPost?.postId ?? '',
+            parentPostId: bskyParentPost?.publicationId ?? '',
             parentContentURI: bskyParentPost?.metadata?.contentURI ?? '',
-            rootPostId: bskyRootPostId ?? '',
-            rootContentURI: bskyRootContentURI ?? '',
+            rootPostId: bskyParentPost?.rootPostId ?? bskyParentPost?.publicationId ?? '',
+            rootContentURI: bskyParentPost?.rootContentURI ?? bskyParentPost?.metadata?.contentURI ?? '',
             metadata: {
                 locale: '',
                 content: {
@@ -105,18 +101,15 @@ export async function postToBsky(
         uploadPolls: async () => {
             return [];
         },
-        compose: async (images, videos) => {
-            return BskySocialMediaProvider.publishPost(composeDraft('Post', images, videos));
+        async compose(images, videos) {
+            const draft = await composeDraft('Post', images, videos);
+            return BskySocialMediaProvider.publishPost(draft);
         },
-        reply(images, videos) {
-            if (
-                !bskyParentPost?.postId ||
-                !bskyParentPost.metadata?.contentURI ||
-                !bskyRootPostId ||
-                !bskyRootContentURI
-            )
+        async reply(images, videos) {
+            if (!bskyParentPost?.postId || !bskyParentPost.metadata?.contentURI)
                 throw new Error(t`No parent post found.`);
-            return BskySocialMediaProvider.publishPost(composeDraft('Comment', images, videos));
+            const draft = await composeDraft('Comment', images, videos);
+            return BskySocialMediaProvider.publishPost(draft);
         },
         quote(images, videos) {
             if (!bskyParentPost?.postId || !bskyParentPost.metadata?.contentURI)

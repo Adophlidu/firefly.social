@@ -68,6 +68,7 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
         },
         timestamp: createdAt && typeof createdAt === 'string' ? new Date(createdAt).getTime() : Date.now(),
         metadata: {
+            contentURI: original.uri,
             locale: record.langs?.[0] ?? 'en',
             content: {
                 content: record.text,
@@ -107,6 +108,11 @@ function formatBskyViewRecordWithMedia(post: Post, original: AppBskyEmbedRecordW
 export function formatBskyPost(original: AppBskyFeedDefs.FeedViewPost): Post {
     let post: Post = formatBskyPostView(original.post);
     post.__original__ = original;
+    if (original.reply?.root && isPostView(original.reply?.root)) {
+        post.root = formatBskyPostView(original.reply.root);
+        post.rootPostId = original.reply.root.cid;
+        post.rootContentURI = original.reply.root.uri;
+    }
     if (original.reply && isPostView(original.reply.parent)) {
         post.type = 'Comment';
         post.commentOn = formatBskyPostView(original.reply.parent);
