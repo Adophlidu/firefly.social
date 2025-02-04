@@ -30,7 +30,8 @@ export function formatBskyProfile(profile: AppBskyActorDefs.ProfileViewDetailed)
         viewerContext: {
             following: !!profile.viewer?.following,
             followedBy: !!profile.viewer?.followedBy,
-            blocking: profile.viewer?.blockedBy,
+            // .blockedBy will block data request as well.
+            blocking: profile.viewer?.muted,
         },
     };
 }

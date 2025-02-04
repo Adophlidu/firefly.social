@@ -1,5 +1,6 @@
 import { AppBskyActorProfile, RichText } from '@atproto/api';
 import { isThreadViewPost, type PostView } from '@atproto/api/dist/client/types/app/bsky/feed/defs.js';
+import { BlockedActorError } from '@atproto/api/dist/client/types/app/bsky/feed/getAuthorFeed.js';
 import { safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 
@@ -235,17 +236,24 @@ export class BskySocialMedia implements Provider {
         );
     }
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const res = await bskySessionHolder.agent.getAuthorFeed({
-            actor: profileId,
-            filter: 'posts_and_author_threads',
-            cursor: indicator?.id,
-        });
-        if (!res.success) throw new Error(`Failed to get post by profile id = ${profileId}.`);
-        return createPageable(
-            res.data.feed.map(formatBskyPost),
-            createIndicator(indicator),
-            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
-        );
+        try {
+            const res = await bskySessionHolder.agent.getAuthorFeed({
+                actor: profileId,
+                filter: 'posts_and_author_threads',
+                cursor: indicator?.id,
+            });
+            if (!res.success) throw new Error(`Failed to get post by profile id = ${profileId}.`);
+            return createPageable(
+                res.data.feed.map(formatBskyPost),
+                createIndicator(indicator),
+                res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+            );
+        } catch (err) {
+            if (err instanceof BlockedActorError) {
+                return createPageable([], createIndicator(indicator), undefined);
+            }
+            throw err;
+        }
     }
     async getLikedPostsByProfileId(
         profileId: string,
@@ -459,7 +467,10 @@ export class BskySocialMedia implements Provider {
         );
     }
     async getSuggestedFollows(indicator?: PageIndicator) {
-        const size = 25;
+        if (!bskySessionHolder.session) {
+            return createPageable([], indicator);
+        }
+        const size = 20;
         const res = await bskySessionHolder.agent.getSuggestions({
             limit: size,
             cursor: indicator?.id,
@@ -555,10 +566,12 @@ export class BskySocialMedia implements Provider {
         throw new NotImplementedError();
     }
     async blockProfile(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
+        const res = await bskySessionHolder.agent.mute(profileId);
+        return res.success;
     }
     async unblockProfile(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
+        const res = await bskySessionHolder.agent.unmute(profileId);
+        return res.success;
     }
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new NotImplementedError();

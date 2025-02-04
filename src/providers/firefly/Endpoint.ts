@@ -35,6 +35,7 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
+import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Article, ArticlePlatform } from '@/providers/types/Article.js';
@@ -574,6 +575,11 @@ export class FireflyEndpoint {
     }
 
     async isProfileMuted(platform: FireflyPlatform, profileId: string): Promise<boolean> {
+        // TODO firefly doesn't support bsky yet.
+        if (platform === FireflyPlatform.Bsky) {
+            const profile = await BskySocialMediaProvider.getProfileById(profileId);
+            return !!profile.viewerContext?.blocking;
+        }
         const blockRelationList = await this.getBlockRelation([
             {
                 snsPlatform: platform,
