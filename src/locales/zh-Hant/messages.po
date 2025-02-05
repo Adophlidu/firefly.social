@@ -267,6 +267,9 @@ msgstr ""
 msgid "No cryptocurrency mixer found."
 msgstr ""
 
+msgid "Feeds"
+msgstr ""
+
 msgid "More"
 msgstr "更多"
 
@@ -3249,6 +3252,9 @@ msgstr "分享至"
 
 msgid "Meet any of the following to unlock a premium collectible and get more $ANON:"
 msgstr "滿足以下任意條件即可解鎖高級版本的NFT和獲得更多的$ANON: "
+
+msgid "Trending Posts"
+msgstr ""
 
 msgid "Non-sanctioned address."
 msgstr ""

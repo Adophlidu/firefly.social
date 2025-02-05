@@ -9,6 +9,7 @@ import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
 import { Section } from '@/components/Semantic/Section.js';
 import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
+import { TrendingPosts } from '@/components/Trending/TrendingPosts.js';
 import { WithinDiscover } from '@/components/WithinDiscover.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 
@@ -60,6 +61,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                         otherwise={
                             <>
                                 <SuggestedFollowsCard />
+                                <TrendingPosts />
                                 <SuggestedChannels source={Source.Farcaster} />
                             </>
                         }

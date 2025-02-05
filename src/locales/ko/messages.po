@@ -267,6 +267,9 @@ msgstr ""
 msgid "No cryptocurrency mixer found."
 msgstr ""
 
+msgid "Feeds"
+msgstr ""
+
 msgid "More"
 msgstr ""
 
@@ -3248,6 +3251,9 @@ msgid "Share to"
 msgstr ""
 
 msgid "Meet any of the following to unlock a premium collectible and get more $ANON:"
+msgstr ""
+
+msgid "Trending Posts"
 msgstr ""
 
 msgid "Non-sanctioned address."

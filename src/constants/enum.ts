@@ -130,6 +130,7 @@ export enum ExploreType {
     Projects = 'project',
     TopProfiles = 'top-profiles',
     TopChannels = 'top-channels',
+    Feeds = 'feeds',
 }
 
 export enum TrendingType {
@@ -219,6 +220,7 @@ export enum ScrollListKey {
     Activity = 'activity',
     Polymarket = 'polymarket-list',
     RedPacketHistory = 'redpacket-history',
+    TrendingFeeds = 'trending-feeds',
 }
 
 export enum FarcasterSignType {
