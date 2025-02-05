@@ -10,9 +10,11 @@ export function decodeBskyPostId(postId: string) {
     };
 }
 
+export function formatAtUri(did: string, cid: string, host = 'app.bsky.feed.post') {
+    return `at://${did}/${host}/${cid}`;
+}
+
 export function resolveBskyAtUri(postId: string) {
     const { handle, cid } = decodeBskyPostId(postId);
-    const host = 'app.bsky.feed.post';
-
-    return `at://${handle}/${host}/${cid}`;
+    return formatAtUri(handle, cid);
 }

@@ -251,7 +251,8 @@
         "Solflare",
         "rkey",
         "starterpack",
-        "unspecced"
+        "unspecced",
+        "prefs"
     ],
     "flagWords": [],
     "ignorePaths": [

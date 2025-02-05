@@ -7,7 +7,7 @@ import {
     AppBskyFeedDefs,
 } from '@atproto/api';
 import { isViewRecord } from '@atproto/api/dist/client/types/app/bsky/embed/record.js';
-import { isPostView, isThreadViewPost } from '@atproto/api/dist/client/types/app/bsky/feed/defs.js';
+import { isPostView, isThreadViewPost, type PostView } from '@atproto/api/dist/client/types/app/bsky/feed/defs.js';
 import { produce } from 'immer';
 import { first, isUndefined, omitBy } from 'lodash-es';
 
@@ -105,7 +105,21 @@ function formatBskyViewRecordWithMedia(post: Post, original: AppBskyEmbedRecordW
     });
 }
 
-export function formatBskyPost(original: AppBskyFeedDefs.FeedViewPost): Post {
+export function formatBskyPost(original: PostView) {
+    let post: Post = formatBskyPostView(original);
+    post.__original__ = original;
+    if (AppBskyEmbedRecord.isView(original.embed) && isViewRecord(original.embed.record)) {
+        post.type = 'Quote';
+        post.quoteOn = formatBskyViewRecord(original.embed.record);
+    }
+    if (AppBskyEmbedRecordWithMedia.isView(original.embed)) {
+        post.type = 'Quote';
+        post = formatBskyViewRecordWithMedia(post, original.embed);
+    }
+    return post;
+}
+
+export function formatBskyFeedPost(original: AppBskyFeedDefs.FeedViewPost): Post {
     let post: Post = formatBskyPostView(original.post);
     post.__original__ = original;
     if (original.reply?.root && isPostView(original.reply?.root)) {

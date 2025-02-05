@@ -1,5 +1,4 @@
-import { AppBskyActorProfile, RichText } from '@atproto/api';
-import { isThreadViewPost, type PostView } from '@atproto/api/dist/client/types/app/bsky/feed/defs.js';
+import { AppBskyActorProfile, AppBskyFeedDefs, moderatePost, RichText } from '@atproto/api';
 import { BlockedActorError } from '@atproto/api/dist/client/types/app/bsky/feed/getAuthorFeed.js';
 import { safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
@@ -20,7 +19,7 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { fetchBlob } from '@/helpers/fetchBlob.js';
 import { formatBskyChannels } from '@/helpers/formatBskyChannels.js';
-import { formatBskyPost, formatBskyThreadPosts } from '@/helpers/formatBskyPost.js';
+import { formatBskyFeedPost, formatBskyPost, formatBskyThreadPosts } from '@/helpers/formatBskyFeedPost.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import {
     createIndicator,
@@ -29,7 +28,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
-import { resolveBskyAtUri } from '@/helpers/resolveBskyAtUri.js';
+import { decodeBskyPostId, formatAtUri, resolveBskyAtUri } from '@/helpers/resolveBskyAtUri.js';
 import { resolveBskyEmbed } from '@/helpers/resolveBskyEmbed.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
@@ -58,8 +57,9 @@ async function getSinglePost(uri: string) {
         uri,
         depth: 10,
     });
-    if (!res.success || !isThreadViewPost(res.data.thread)) throw new Error(`Failed to getPostById = ${uri}.`);
-    return formatBskyPost(res.data.thread);
+    if (!res.success || !AppBskyFeedDefs.isThreadViewPost(res.data.thread))
+        throw new Error(`Failed to getPostById = ${uri}.`);
+    return formatBskyFeedPost(res.data.thread);
 }
 
 @SetQueryDataForLikePost(Source.Bsky)
@@ -115,7 +115,8 @@ export class BskySocialMedia implements Provider {
     }
     async mirrorPost(postId: string, options?: { onMomoka?: boolean; authorId?: number }): Promise<string> {
         const post = await this.getPostById(postId);
-        if (!isThreadViewPost(post.__original__)) throw new Error(`Failed to like post postId = ${postId}`);
+        if (!AppBskyFeedDefs.isThreadViewPost(post.__original__))
+            throw new Error(`Failed to like post postId = ${postId}`);
         const res = await bskySessionHolder.agent.repost(post.__original__.post.uri, post.__original__.post.cid);
         return res.uri;
     }
@@ -142,7 +143,8 @@ export class BskySocialMedia implements Provider {
     }
     async upvotePost(postId: string): Promise<void> {
         const post = await this.getPostById(postId);
-        if (!isThreadViewPost(post.__original__)) throw new Error(`Failed to like post postId = ${postId}`);
+        if (!AppBskyFeedDefs.isThreadViewPost(post.__original__))
+            throw new Error(`Failed to like post postId = ${postId}`);
         await bskySessionHolder.agent.like(post.__original__.post.uri, post.__original__.post.cid);
     }
     async unvotePost(postId: string): Promise<void> {
@@ -192,13 +194,20 @@ export class BskySocialMedia implements Provider {
             depth: 10,
         });
         if (!res.success) throw new Error(`Failed to getCommentsById = ${postId}.`);
-        if (!isThreadViewPost(res.data.thread)) {
+        const did = bskySessionHolder.session?.did;
+        if (!AppBskyFeedDefs.isThreadViewPost(res.data.thread)) {
             return createPageable(EMPTY_LIST, createIndicator(indicator));
         }
+        const preferences = await bskySessionHolder.agent.getPreferences();
         const replies = compact(
             res.data.thread.replies?.map((x) => {
-                if (!isThreadViewPost(x)) return null;
-                return formatBskyPost(x);
+                if (!AppBskyFeedDefs.isThreadViewPost(x)) return null;
+                const moderationDecision = moderatePost(x.post, {
+                    userDid: did,
+                    prefs: preferences.moderationPrefs,
+                });
+                if (moderationDecision.causes.length) return null;
+                return formatBskyFeedPost(x);
             }),
         );
         return createPageable(replies, createIndicator(indicator));
@@ -209,7 +218,7 @@ export class BskySocialMedia implements Provider {
         });
         if (!res.success) throw new Error(`Failed to discoverPosts`);
         return createPageable(
-            res.data.feed.map(formatBskyPost),
+            res.data.feed.map(formatBskyFeedPost),
             createIndicator(indicator),
             res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
         );
@@ -230,7 +239,7 @@ export class BskySocialMedia implements Provider {
         const res = await bskySessionHolder.agent.getTimeline();
         if (!res.success) throw new Error(`Failed to discoverPosts`);
         return createPageable(
-            res.data.feed.map(formatBskyPost),
+            res.data.feed.map(formatBskyFeedPost),
             createIndicator(indicator),
             res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
         );
@@ -244,7 +253,7 @@ export class BskySocialMedia implements Provider {
             });
             if (!res.success) throw new Error(`Failed to get post by profile id = ${profileId}.`);
             return createPageable(
-                res.data.feed.map(formatBskyPost),
+                res.data.feed.map(formatBskyFeedPost),
                 createIndicator(indicator),
                 res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
             );
@@ -265,7 +274,7 @@ export class BskySocialMedia implements Provider {
         });
         if (!res.success) throw new Error(`Failed to get liked post by profile id = ${profileId}.`);
         return createPageable(
-            res.data.feed.map(formatBskyPost),
+            res.data.feed.map(formatBskyFeedPost),
             createIndicator(indicator),
             res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
         );
@@ -281,7 +290,7 @@ export class BskySocialMedia implements Provider {
         });
         if (!res.success) throw new Error(`Failed to get replies post by profile id = ${profileId}.`);
         return createPageable(
-            res.data.feed.map(formatBskyPost).filter((x) => x.type !== 'Mirror'),
+            res.data.feed.map(formatBskyFeedPost).filter((x) => x.type !== 'Mirror'),
             createIndicator(indicator),
             res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
         );
@@ -399,7 +408,7 @@ export class BskySocialMedia implements Provider {
                             const parentUri = (x.record as { reply: { parent: { uri: string } } })?.reply?.parent?.uri;
                             if (!parentUri) return null;
 
-                            const comment = formatBskyPost({ post: x });
+                            const comment = formatBskyFeedPost({ post: x });
                             const parentPost = await getSinglePost(parentUri);
 
                             return {
@@ -419,13 +428,13 @@ export class BskySocialMedia implements Provider {
                                 source: Source.Bsky,
                                 notificationId: x.cid,
                                 type: NotificationType.Mention,
-                                post: formatBskyPost({ post: x }),
+                                post: formatBskyFeedPost({ post: x }),
                                 timestamp,
                             } satisfies MentionNotification;
                         case 'quote':
                             if (!x.reasonSubject) return null;
 
-                            const quote = formatBskyPost({ post: x });
+                            const quote = formatBskyFeedPost({ post: x });
                             const targetPost = await getSinglePost(x.reasonSubject);
 
                             return {
@@ -509,7 +518,7 @@ export class BskySocialMedia implements Provider {
         if (!res.success) throw new Error(`Failed to search posts by query = ${q}.`);
 
         return createPageable(
-            res.data.posts.map((x) => formatBskyPost({ post: x })),
+            res.data.posts.map((x) => formatBskyFeedPost({ post: x })),
             createIndicator(indicator),
             res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
         );
@@ -519,22 +528,42 @@ export class BskySocialMedia implements Provider {
     }
     async getThreadByPostId(postId: string, localPost?: Post): Promise<Post[]> {
         postId = resolveBskyAtUri(postId);
+        const uri = AppBskyFeedDefs.isPostView(localPost?.__original__) ? localPost?.__original__.uri : postId;
         const res = await bskySessionHolder.agent.getPostThread({
-            uri: (localPost?.__original__ as PostView).uri || postId,
+            uri,
             depth: 10,
         });
-        if (!res.success || !isThreadViewPost(res.data.thread))
+        if (!res.success || !AppBskyFeedDefs.isThreadViewPost(res.data.thread))
             throw new Error(`Failed to getThreadByPostId = ${postId}.`);
         return formatBskyThreadPosts(res.data.thread);
     }
     async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
+        const { handle, cid } = decodeBskyPostId(postId);
+        const profile = await this.getProfileByHandle(handle);
+        const res = await bskySessionHolder.agent.getLikes({
+            uri: formatAtUri(profile.profileId, cid),
+            cursor: indicator?.id,
+        });
+        return createPageable(
+            res.data.likes.map((x) => formatBskyProfile(x.actor)),
+            createIndicator(indicator),
+            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+        );
     }
     async getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new NotImplementedError();
     }
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
+        const { handle, cid } = decodeBskyPostId(postId);
+        const profile = await this.getProfileByHandle(handle);
+        const res = await bskySessionHolder.agent.app.bsky.feed.getQuotes({
+            uri: formatAtUri(profile.profileId, cid),
+        });
+        return createPageable(
+            res.data.posts.map((x) => formatBskyPost(x)),
+            createIndicator(indicator),
+            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+        );
     }
     async bookmark(
         postId: string,
@@ -617,8 +646,31 @@ export class BskySocialMedia implements Provider {
         });
         return true;
     }
+
     async getHiddenComments(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
+        postId = resolveBskyAtUri(postId);
+        const res = await bskySessionHolder.agent.getPostThread({
+            uri: postId,
+            depth: 10,
+        });
+        if (!res.success) throw new Error(`Failed to getHiddenComments = ${postId}.`);
+        const did = bskySessionHolder.session?.did;
+        if (!AppBskyFeedDefs.isThreadViewPost(res.data.thread) || !did) {
+            return createPageable(EMPTY_LIST, createIndicator(indicator));
+        }
+        const preferences = await bskySessionHolder.agent.getPreferences();
+        const replies = compact(
+            res.data.thread.replies?.map((x) => {
+                if (!AppBskyFeedDefs.isThreadViewPost(x)) return null;
+                const moderationDecision = moderatePost(x.post, {
+                    userDid: did,
+                    prefs: preferences.moderationPrefs,
+                });
+                if (!moderationDecision.causes.length) return null;
+                return formatBskyFeedPost(x);
+            }),
+        );
+        return createPageable(replies, createIndicator(indicator));
     }
     async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
         throw new NotImplementedError();
@@ -635,8 +687,8 @@ export class BskySocialMedia implements Provider {
         const postThreadRes = await bskySessionHolder.agent.getPostThread({
             uri: response.data.pinnedPost?.uri,
         });
-        if (!postThreadRes.success || !isThreadViewPost(postThreadRes.data.thread)) return null;
-        return formatBskyPost(postThreadRes.data.thread);
+        if (!postThreadRes.success || !AppBskyFeedDefs.isThreadViewPost(postThreadRes.data.thread)) return null;
+        return formatBskyFeedPost(postThreadRes.data.thread);
     }
     async decryptPost(post: Post): Promise<Post | null> {
         throw new NotImplementedError();
@@ -652,7 +704,7 @@ export class BskySocialMedia implements Provider {
         });
         if (!res.success) throw new Error(`Failed to get media post by profile id = ${profileId}.`);
         return createPageable(
-            res.data.feed.map(formatBskyPost),
+            res.data.feed.map(formatBskyFeedPost),
             createIndicator(indicator),
             res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
         );
