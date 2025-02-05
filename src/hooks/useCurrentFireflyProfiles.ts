@@ -54,7 +54,7 @@ export function useCurrentFireflyProfiles() {
             currentBskyProfile
                 ? {
                       identity: {
-                          id: currentBskyProfile.profileId,
+                          id: currentBskyProfile.handle,
                           source: Source.Bsky,
                       },
                       displayName: currentBskyProfile.handle,
