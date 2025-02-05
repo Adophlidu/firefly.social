@@ -358,7 +358,15 @@ export class BskySocialMedia implements Provider {
         );
     }
     async getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
+        const res = await bskySessionHolder.agent.app.bsky.graph.getKnownFollowers({
+            actor: profileId,
+            cursor: indicator?.id,
+        });
+        return createPageable(
+            res.data.followers.map((profile) => formatBskyProfile(profile)),
+            createIndicator(indicator),
+            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+        );
     }
     async isFollowedByMe(profileId: string): Promise<boolean> {
         const res = await bskySessionHolder.agent.getProfile({
