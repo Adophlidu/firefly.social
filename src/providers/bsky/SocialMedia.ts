@@ -586,7 +586,18 @@ export class BskySocialMedia implements Provider {
         );
     }
     async searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new NotImplementedError();
+        const res = await bskySessionHolder.agent.app.bsky.unspecced.getPopularFeedGenerators({
+            limit: 20,
+            query: q,
+            cursor: indicator?.id,
+        });
+        if (!res.success) throw new Error(`Failed to search channels by query = ${q}.`);
+
+        return createPageable(
+            res.data.feeds.map(formatBskyChannel),
+            createIndicator(indicator),
+            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+        );
     }
     async getThreadByPostId(postId: string, localPost?: Post): Promise<Post[]> {
         postId = resolveBskyAtUri(postId);

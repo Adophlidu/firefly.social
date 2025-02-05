@@ -22,7 +22,7 @@ function sortChannels(list: Channel[][]) {
 
 export async function getSuggestedChannels(
     query: string,
-    sources = [Source.Farcaster, Source.Lens] as SocialSource[],
+    sources = [Source.Farcaster, Source.Lens, Source.Bsky] as SocialSource[],
     count = Math.min(sources.length, 2),
 ) {
     if (!query || !sources.length) return [];

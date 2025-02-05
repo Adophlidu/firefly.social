@@ -126,7 +126,7 @@ export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
     [Source.Lens]: [SearchType.Posts, SearchType.Profiles, SearchType.Channels],
     [Source.Farcaster]: [SearchType.Posts, SearchType.Profiles, SearchType.Channels],
     [Source.Twitter]: [SearchType.Posts, SearchType.Profiles],
-    [Source.Bsky]: [SearchType.Posts, SearchType.Profiles],
+    [Source.Bsky]: [SearchType.Posts, SearchType.Profiles, SearchType.Channels],
 };
 export const CHANNEL_TAB_TYPE: Record<SocialSource, ChannelTabType[]> = {
     [Source.Farcaster]: [ChannelTabType.Recent, ChannelTabType.Trending],
