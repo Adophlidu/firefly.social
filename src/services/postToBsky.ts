@@ -1,7 +1,6 @@
 import { t } from '@lingui/core/macro';
 
 import { Source } from '@/constants/enum.js';
-import { NotImplementedError } from '@/constants/error.js';
 import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
 import { readChars } from '@/helpers/chars.js';
 import { downloadMediaObjects } from '@/helpers/downloadMediaObjects.js';
@@ -112,10 +111,11 @@ export async function postToBsky(
             const draft = await composeDraft('Comment', images, videos);
             return BskySocialMediaProvider.publishPost(draft);
         },
-        quote(images, videos) {
+        async quote(images, videos) {
             if (!bskyParentPost?.postId || !bskyParentPost.metadata?.contentURI)
                 throw new Error(t`No parent post found.`);
-            throw new NotImplementedError('quote');
+            const draft = await composeDraft('Quote', images, videos);
+            return BskySocialMediaProvider.quotePost(bskyParentPost.postId, draft);
         },
     });
 
