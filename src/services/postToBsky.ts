@@ -14,6 +14,7 @@ import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import type { Post, PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
+import { uploadVideoToBsky } from '@/services/uploadVideoToBsky.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useBskyStateStore } from '@/store/useProfileStore.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
@@ -92,8 +93,8 @@ export async function postToBsky(
             const results = await Promise.all(
                 downloaded.map(async (media) => {
                     const videoInfo = await runInSafeAsync(() => getVideoMetadata(media.file));
-                    const { data } = await bskySessionHolder.agent.uploadBlob(media.file);
-                    return createBskyMediaObject(media, data.blob, videoInfo?.width, videoInfo?.height);
+                    const blobRef = await uploadVideoToBsky(media.file);
+                    return createBskyMediaObject(media, blobRef, videoInfo?.width, videoInfo?.height);
                 }),
             );
             return results;
