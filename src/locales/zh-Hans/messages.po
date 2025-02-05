@@ -180,6 +180,9 @@ msgstr "删除帖子"
 msgid "You can sign in to Farcaster with the following options."
 msgstr "您可以使用以下方式登录 Farcaster。"
 
+msgid "Join /{name}"
+msgstr ""
+
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr "隐藏 @{0}"
@@ -515,10 +518,6 @@ msgstr "<0>已创建的通证数量减去已销毁（从流通中移除）的通
 msgid "Username is required."
 msgstr "用户名为必填。"
 
-#. placeholder {0}: channel.id
-msgid "Failed to leave /{0} on {sourceName}."
-msgstr "未能在 {sourceName} 上离开 /{0}。"
-
 msgid "<0>Sent</0> an NFT"
 msgstr "<0>发送了</0> 一个 NFT"
 
@@ -603,6 +602,9 @@ msgstr "被 {0} , {1}, 和 {2} 个其他的你正在关注的人关注"
 
 msgid "Confirm to disconnect this wallet from Firefly’s social graph?"
 msgstr "确认从 Firefly 的社交图谱中断链这个钱包？"
+
+msgid "Failed to leave /{name} on {sourceName}."
+msgstr ""
 
 msgid "Confirm"
 msgstr "确认"
@@ -1038,6 +1040,9 @@ msgstr "视频还未支持上传。"
 msgid "Whitelist function"
 msgstr "白名单功能"
 
+msgid "Left /{name} on {sourceName}."
+msgstr ""
+
 msgid "Profile could not be found."
 msgstr "未找到相关个人信息。"
 
@@ -1087,10 +1092,6 @@ msgstr "Frame 验证器"
 
 msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
 msgstr "优先访问：持有者将获得对未来项目、测试版和空投的提前访问权。同时，他们还将优先体验最新功能和内容。"
-
-#. placeholder {0}: channel.id
-msgid "Join /{0}"
-msgstr "加入 /{0}"
 
 msgid "The token can not be bought."
 msgstr "该代币无法购买。"
@@ -1152,10 +1153,6 @@ msgstr "所有者不能更改余额"
 
 msgid "Join our Telegram"
 msgstr "加入我们的 Telegram"
-
-#. placeholder {0}: channel.id
-msgid "Leave /{0}"
-msgstr "离开 /{0}"
 
 msgid "Non-contract address."
 msgstr "非合约地址。"
@@ -1970,6 +1967,9 @@ msgstr "描述问题或者提出建议"
 msgid "Cryptocurrency mixer."
 msgstr "加密货币混合器。"
 
+msgid "Joined /{name} on {sourceName}."
+msgstr ""
+
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
@@ -1981,10 +1981,6 @@ msgstr "未发现暗网交易。"
 
 msgid "Contract address"
 msgstr "合约地址"
-
-#. placeholder {0}: channel.id
-msgid "Joined /{0} on {sourceName}."
-msgstr ""
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "You need to connect your {0} account to use this feature."
@@ -2141,6 +2137,9 @@ msgstr "未知搜藏品"
 
 msgid "Validate failed, please check your input."
 msgstr "验证失败，请检查您的输入。"
+
+msgid "Failed to join /{name} on {sourceName}."
+msgstr ""
 
 msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
 msgstr "<0>当前市值与满足最大供应量时的市值之比。</0><1>Mkt Cap/FDV 越接近 1，当前市值越接近其完全稀释估值，反之亦然。</1>"
@@ -2545,10 +2544,6 @@ msgstr "在 X 上关注 @thefireflyapp"
 
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr "从公开可验证数据注册表中或我们的实体算法中检索到的钱包可以被举报从而断开连接。"
-
-#. placeholder {0}: channel.id
-msgid "Left /{0} on {sourceName}."
-msgstr "在 {sourceName} 上离开 @{0}"
 
 msgid "Step 2 Connect Wallet"
 msgstr "第 2 步 连接钱包"
@@ -3071,6 +3066,9 @@ msgstr "没有白名单"
 msgid "Cancel repost successfully"
 msgstr "取消转帖成功"
 
+msgid "Leave /{name}"
+msgstr ""
+
 msgid "Collect Post"
 msgstr "收集帖子"
 
@@ -3236,10 +3234,6 @@ msgstr "投票失败。 {0}"
 
 msgid "Confirm to log out all accounts?"
 msgstr "确认登出这些账户？"
-
-#. placeholder {0}: channel.id
-msgid "Failed to join /{0} on {sourceName}."
-msgstr "未能在 {sourceName} 上加入 @{0}。"
 
 msgid "Mint Again"
 msgstr "再次铸造"

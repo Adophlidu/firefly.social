@@ -8,11 +8,10 @@ export function getChannelUrl(channel: Channel) {
     switch (channel.source) {
         case Source.Lens:
         case Source.Farcaster:
+        case Source.Bsky:
             if (!channel.id) return '';
             return resolveChannelUrl(channel.id, channel.source);
         case Source.Twitter:
-            return '';
-        case Source.Bsky:
             return '';
         default:
             safeUnreachable(channel.source);

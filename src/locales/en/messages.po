@@ -175,6 +175,9 @@ msgstr "Delete post"
 msgid "You can sign in to Farcaster with the following options."
 msgstr "You can sign in to Farcaster with the following options."
 
+msgid "Join /{name}"
+msgstr "Join /{name}"
+
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr "Mute @{0}"
@@ -510,10 +513,6 @@ msgstr "<0>The amount of coins that have already been created, minus any coins t
 msgid "Username is required."
 msgstr "Username is required."
 
-#. placeholder {0}: channel.id
-msgid "Failed to leave /{0} on {sourceName}."
-msgstr "Failed to leave /{0} on {sourceName}."
-
 msgid "<0>Sent</0> an NFT"
 msgstr "<0>Sent</0> an NFT"
 
@@ -598,6 +597,9 @@ msgstr "Followed by {0} , {1}, and {2} others you follow"
 
 msgid "Confirm to disconnect this wallet from Firefly’s social graph?"
 msgstr "Confirm to disconnect this wallet from Firefly’s social graph?"
+
+msgid "Failed to leave /{name} on {sourceName}."
+msgstr "Failed to leave /{name} on {sourceName}."
 
 msgid "Confirm"
 msgstr "Confirm"
@@ -1033,6 +1035,9 @@ msgstr "Failed to upload. Video is not supported yet."
 msgid "Whitelist function"
 msgstr "Whitelist function"
 
+msgid "Left /{name} on {sourceName}."
+msgstr "Left /{name} on {sourceName}."
+
 msgid "Profile could not be found."
 msgstr "Profile could not be found."
 
@@ -1082,10 +1087,6 @@ msgstr "Frame Validator"
 
 msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
 msgstr "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
-
-#. placeholder {0}: channel.id
-msgid "Join /{0}"
-msgstr "Join /{0}"
 
 msgid "The token can not be bought."
 msgstr "The token can not be bought."
@@ -1147,10 +1148,6 @@ msgstr "Owner can't change balance"
 
 msgid "Join our Telegram"
 msgstr "Join our Telegram"
-
-#. placeholder {0}: channel.id
-msgid "Leave /{0}"
-msgstr "Leave /{0}"
 
 msgid "Non-contract address."
 msgstr "Non-contract address."
@@ -1965,6 +1962,9 @@ msgstr "Describe a bug or suggest an improvement"
 msgid "Cryptocurrency mixer."
 msgstr "Cryptocurrency mixer."
 
+msgid "Joined /{name} on {sourceName}."
+msgstr "Joined /{name} on {sourceName}."
+
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 
@@ -1976,10 +1976,6 @@ msgstr "No darkweb transactions found."
 
 msgid "Contract address"
 msgstr "Contract address"
-
-#. placeholder {0}: channel.id
-msgid "Joined /{0} on {sourceName}."
-msgstr "Joined /{0} on {sourceName}."
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "You need to connect your {0} account to use this feature."
@@ -2136,6 +2132,9 @@ msgstr "Unknown Collection"
 
 msgid "Validate failed, please check your input."
 msgstr "Validate failed, please check your input."
+
+msgid "Failed to join /{name} on {sourceName}."
+msgstr "Failed to join /{name} on {sourceName}."
 
 msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
 msgstr "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
@@ -2540,10 +2539,6 @@ msgstr "Follow @thefireflyapp on X"
 
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
-
-#. placeholder {0}: channel.id
-msgid "Left /{0} on {sourceName}."
-msgstr "Left /{0} on {sourceName}."
 
 msgid "Step 2 Connect Wallet"
 msgstr "Step 2 Connect Wallet"
@@ -3066,6 +3061,9 @@ msgstr "No whitelist"
 msgid "Cancel repost successfully"
 msgstr "Cancel repost successfully"
 
+msgid "Leave /{name}"
+msgstr "Leave /{name}"
+
 msgid "Collect Post"
 msgstr "Collect Post"
 
@@ -3231,10 +3229,6 @@ msgstr "Failed to vote. {0}"
 
 msgid "Confirm to log out all accounts?"
 msgstr "Confirm to log out all accounts?"
-
-#. placeholder {0}: channel.id
-msgid "Failed to join /{0} on {sourceName}."
-msgstr "Failed to join /{0} on {sourceName}."
 
 msgid "Mint Again"
 msgstr "Mint Again"

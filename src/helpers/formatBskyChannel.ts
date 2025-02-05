@@ -2,12 +2,13 @@ import type { AppBskyFeedDefs } from '@atproto/api';
 
 import { Source } from '@/constants/enum.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
+import { encodeBskyChannelId } from '@/helpers/resolveBskyAtUri.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
-export function formatBskyChannels(original: AppBskyFeedDefs.GeneratorView): Channel {
+export function formatBskyChannel(original: AppBskyFeedDefs.GeneratorView): Channel {
     return {
         source: Source.Bsky,
-        id: original.did,
+        id: encodeBskyChannelId(original.uri),
         name: original.displayName,
         description: original.description,
         imageUrl: original.avatar || '',

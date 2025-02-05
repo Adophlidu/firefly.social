@@ -13,6 +13,7 @@ import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/index.js';
 
 const createPageMetadata = memoizeWithRedis(createMetadataChannelById, {
@@ -33,11 +34,13 @@ interface Props
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const params = await props.params;
+
     return createPageMetadata(params.source || SourceInURL.Farcaster, params.id);
 }
 
 export default async function Page(props: Props) {
     if (await isBotRequest()) return null;
+    await setupLocaleForSSR();
     const params = await props.params;
     const source = resolveSocialSource(params.source);
     const provider = resolveSocialMediaProvider(source);

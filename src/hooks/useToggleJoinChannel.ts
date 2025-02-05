@@ -1,6 +1,8 @@
 import { t } from '@lingui/core/macro';
 import { useIsMutating, useMutation } from '@tanstack/react-query';
 
+import { queryClient } from '@/configs/queryClient.js';
+import { Source } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -25,23 +27,27 @@ export function useToggleJoinChannel(channel: Channel) {
             const joined = !!channel.isMember;
             const sourceName = resolveSourceName(channel.source);
 
+            const name = channel.source === Source.Bsky ? channel.name : channel.id;
             try {
                 const provider = resolveSocialMediaProvider(source);
                 const result = joined ? await provider.leaveChannel(channel) : await provider.joinChannel(channel);
                 if (!result) {
                     throw new Error(`Failed to ${joined ? 'leave' : 'join'} channel`);
                 }
-
+                queryClient.removeQueries({ queryKey: ['preferences', source, profile.profileId] });
+                await queryClient.invalidateQueries({
+                    queryKey: ['preferences', source, profile.profileId],
+                });
                 enqueueSuccessMessage(
-                    joined ? t`Left /${channel.id} on ${sourceName}.` : t`Joined /${channel.id} on ${sourceName}.`,
+                    joined ? t`Left /${name} on ${sourceName}.` : t`Joined /${name} on ${sourceName}.`,
                 );
                 return result;
             } catch (error) {
                 enqueueMessageFromError(
                     error,
                     joined
-                        ? t`Failed to leave /${channel.id} on ${sourceName}.`
-                        : t`Failed to join /${channel.id} on ${sourceName}.`,
+                        ? t`Failed to leave /${name} on ${sourceName}.`
+                        : t`Failed to join /${name} on ${sourceName}.`,
                 );
                 throw error;
             }

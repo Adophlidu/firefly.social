@@ -18,7 +18,7 @@ import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { fetchBlob } from '@/helpers/fetchBlob.js';
-import { formatBskyChannels } from '@/helpers/formatBskyChannels.js';
+import { formatBskyChannel } from '@/helpers/formatBskyChannel.js';
 import { formatBskyFeedPost, formatBskyPost, formatBskyThreadPosts } from '@/helpers/formatBskyFeedPost.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import {
@@ -28,7 +28,12 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
-import { decodeBskyPostId, formatAtUri, resolveBskyAtUri } from '@/helpers/resolveBskyAtUri.js';
+import {
+    decodeBskyPostId,
+    formatAtUri,
+    resolveBskyAtUri,
+    resolveBskyChannelAtUri,
+} from '@/helpers/resolveBskyAtUri.js';
 import { resolveBskyEmbed } from '@/helpers/resolveBskyEmbed.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
@@ -202,7 +207,14 @@ export class BskySocialMedia implements Provider {
         return getSinglePost(resolveBskyAtUri(postId));
     }
     async getChannelById(channelId: string): Promise<Channel> {
-        throw new NotImplementedError();
+        const atUri = resolveBskyChannelAtUri(channelId);
+
+        if (!atUri) throw new Error(`Failed to get channel by id.`);
+        const res = await bskySessionHolder.agent.app.bsky.feed.getFeedGenerator({
+            feed: atUri,
+        });
+        if (!res.success) throw new Error(`Failed to query channel.`);
+        return formatBskyChannel(res.data.view);
     }
     async getChannelByHandle(channelHandle: string): Promise<Channel> {
         throw new NotImplementedError();
@@ -259,7 +271,7 @@ export class BskySocialMedia implements Provider {
         });
         if (!res.success) throw new Error(`Failed to discoverChannels`);
         return createPageable(
-            res.data.feeds.map(formatBskyChannels),
+            res.data.feeds.map(formatBskyChannel),
             createIndicator(indicator),
             res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
         );
@@ -325,7 +337,20 @@ export class BskySocialMedia implements Provider {
         );
     }
     async getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
+        const atUri = resolveBskyChannelAtUri(channelId);
+        if (!atUri) throw new Error('Failed to get posts.');
+
+        const res = await bskySessionHolder.agent.app.bsky.feed.getFeed({
+            feed: atUri,
+            cursor: indicator?.id,
+        });
+
+        if (!res.success) throw new Error('Failed to get posts');
+        return createPageable(
+            res.data.feed.map(formatBskyFeedPost),
+            createIndicator(indicator),
+            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+        );
     }
     async getPostsByChannelHandle(
         channelHandle: string,
@@ -713,10 +738,24 @@ export class BskySocialMedia implements Provider {
         throw new NotImplementedError();
     }
     async joinChannel(channel: Channel): Promise<boolean> {
-        throw new NotImplementedError();
+        const res = await bskySessionHolder.agent.addSavedFeeds([
+            {
+                pinned: true,
+                type: 'feed',
+                value: channel.url,
+            },
+        ]);
+
+        return !!res.find((x) => x.value === channel.url);
     }
     async leaveChannel(channel: Channel): Promise<boolean> {
-        throw new NotImplementedError();
+        const res = await bskySessionHolder.agent.getPreferences();
+        const result = res.savedFeeds.find((x) => x.value === channel.url);
+        if (!result) return false;
+
+        await bskySessionHolder.agent.removeSavedFeeds([result.id]);
+
+        return true;
     }
     async getPinnedPost(profileId: string): Promise<Post | null> {
         const response = await bskySessionHolder.agent.getProfile({ actor: profileId });

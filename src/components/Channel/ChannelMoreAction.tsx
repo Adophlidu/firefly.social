@@ -59,7 +59,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                     </MenuItem>
                 ) : null}
                 {profile?.profileId ? (
-                    channel.source === Source.Lens && data?.canJoin ? (
+                    (channel.source === Source.Lens || channel.source === Source.Bsky) && data?.canJoin ? (
                         <MenuItem>{({ close }) => <ToggleJoinChannel channel={data} onClick={close} />}</MenuItem>
                     ) : null
                 ) : null}

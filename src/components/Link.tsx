@@ -43,7 +43,7 @@ export const Link: LinkComponent = forwardRef(function Link({ href, onClick, ...
         queryFn: async () => {
             try {
                 if (typeof href !== 'string' || !href.startsWith('http')) return '';
-                return formatExternalLink(href);
+                return formatExternalLink(href) ?? '';
             } catch {
                 return '';
             }

@@ -9,7 +9,7 @@ import { ChannelInfoBio } from '@/components/Channel/ChannelInfoBio.js';
 import { Link } from '@/components/Link.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type SocialSource } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -64,7 +64,9 @@ export async function ChannelInfo({ channel: unresolvedChannel, source, isChanne
                         <SocialSourceIcon mono source={source} size={20} />
                     </h1>
                     <div className="flex flex-row gap-1">
-                        <span className="text-medium text-secondary">/{channel.id}</span>
+                        {channel.source === Source.Farcaster ? (
+                            <span className="text-medium text-secondary">/{channel.id}</span>
+                        ) : null}
                         <data value={followerCount} className="flex items-center gap-1">
                             <UserIcon width={18} height={18} />
                             <span className="text-lightMain">{nFormatter(followerCount)}</span>

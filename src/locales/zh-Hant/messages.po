@@ -180,6 +180,9 @@ msgstr "刪除貼文"
 msgid "You can sign in to Farcaster with the following options."
 msgstr ""
 
+msgid "Join /{name}"
+msgstr ""
+
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr "將 @{0} 靜音"
@@ -515,10 +518,6 @@ msgstr ""
 msgid "Username is required."
 msgstr "需要用戶名"
 
-#. placeholder {0}: channel.id
-msgid "Failed to leave /{0} on {sourceName}."
-msgstr ""
-
 msgid "<0>Sent</0> an NFT"
 msgstr "<0>發送</0>一個 NFT"
 
@@ -603,6 +602,9 @@ msgstr "已被你跟隨的 {0}、{1} 和其他{2} 人跟隨"
 
 msgid "Confirm to disconnect this wallet from Firefly’s social graph?"
 msgstr "確認從 Firefly 的社交圖譜上取消該錢包的連接？"
+
+msgid "Failed to leave /{name} on {sourceName}."
+msgstr ""
 
 msgid "Confirm"
 msgstr "確認"
@@ -1038,6 +1040,9 @@ msgstr "上傳失敗。暫不接受影片上傳。"
 msgid "Whitelist function"
 msgstr "白名單功能"
 
+msgid "Left /{name} on {sourceName}."
+msgstr ""
+
 msgid "Profile could not be found."
 msgstr "無法找到個人資料"
 
@@ -1086,10 +1091,6 @@ msgid "Frame Validator"
 msgstr "Frame 驗證器"
 
 msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
-msgstr ""
-
-#. placeholder {0}: channel.id
-msgid "Join /{0}"
 msgstr ""
 
 msgid "The token can not be bought."
@@ -1152,10 +1153,6 @@ msgstr "所有者無法更改餘額"
 
 msgid "Join our Telegram"
 msgstr "加入我們的 Telegram 社群"
-
-#. placeholder {0}: channel.id
-msgid "Leave /{0}"
-msgstr ""
 
 msgid "Non-contract address."
 msgstr ""
@@ -1965,6 +1962,9 @@ msgstr "描述錯誤或提供改進建議"
 msgid "Cryptocurrency mixer."
 msgstr ""
 
+msgid "Joined /{name} on {sourceName}."
+msgstr ""
+
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
@@ -1975,10 +1975,6 @@ msgid "No darkweb transactions found."
 msgstr ""
 
 msgid "Contract address"
-msgstr ""
-
-#. placeholder {0}: channel.id
-msgid "Joined /{0} on {sourceName}."
 msgstr ""
 
 #. placeholder {0}: resolveSourceName(source)
@@ -2135,6 +2131,9 @@ msgid "Unknown Collection"
 msgstr ""
 
 msgid "Validate failed, please check your input."
+msgstr ""
+
+msgid "Failed to join /{name} on {sourceName}."
 msgstr ""
 
 msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
@@ -2534,10 +2533,6 @@ msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上追蹤@thefireflyapp"
 
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
-msgstr ""
-
-#. placeholder {0}: channel.id
-msgid "Left /{0} on {sourceName}."
 msgstr ""
 
 msgid "Step 2 Connect Wallet"
@@ -3061,6 +3056,9 @@ msgstr "無白名單"
 msgid "Cancel repost successfully"
 msgstr ""
 
+msgid "Leave /{name}"
+msgstr ""
+
 msgid "Collect Post"
 msgstr ""
 
@@ -3225,10 +3223,6 @@ msgid "Failed to vote. {0}"
 msgstr ""
 
 msgid "Confirm to log out all accounts?"
-msgstr ""
-
-#. placeholder {0}: channel.id
-msgid "Failed to join /{0} on {sourceName}."
 msgstr ""
 
 msgid "Mint Again"
