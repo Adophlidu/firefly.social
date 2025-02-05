@@ -424,6 +424,8 @@ export enum BskyEmbedType {
     Images = 'app.bsky.embed.images',
     Video = 'app.bsky.embed.video',
     External = 'app.bsky.embed.external',
+    Record = 'app.bsky.embed.record',
+    RecordWithMedia = 'app.bsky.embed.recordWithMedia',
 }
 
 export enum BskyFacetType {

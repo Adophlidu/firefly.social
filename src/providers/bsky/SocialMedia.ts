@@ -4,7 +4,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 
 import { DISCOVER_AT_URI } from '@/constants/bsky.js';
-import { type BookmarkType, type FireflyPlatform, Source } from '@/constants/enum.js';
+import { type BookmarkType, BskyEmbedType, type FireflyPlatform, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
@@ -115,16 +115,45 @@ export class BskySocialMedia implements Provider {
     }
     async mirrorPost(postId: string, options?: { onMomoka?: boolean; authorId?: number }): Promise<string> {
         const post = await this.getPostById(postId);
-        if (!AppBskyFeedDefs.isThreadViewPost(post.__original__))
-            throw new Error(`Failed to like post postId = ${postId}`);
-        const res = await bskySessionHolder.agent.repost(post.__original__.post.uri, post.__original__.post.cid);
+        if (!post.metadata.contentURI) throw new Error(`Failed to mirror post postId = ${postId}`);
+        const res = await bskySessionHolder.agent.repost(post.metadata.contentURI, post.publicationId);
         return res.uri;
     }
     async unmirrorPost(postId: string, authorId?: number): Promise<void> {
         await bskySessionHolder.agent.deleteRepost(postId);
     }
     async quotePost(postId: string, post: Post): Promise<{ postId: string; contentURI?: string }> {
-        throw new NotImplementedError();
+        const text = post.metadata.content?.content;
+        const richText = text ? new RichText({ text }) : undefined;
+        if (richText) {
+            await richText.detectFacets(bskySessionHolder.agent);
+        }
+        const embed = await resolveBskyEmbed(post, richText);
+        const result = await bskySessionHolder.agent.post({
+            text: richText ? richText.text : text,
+            createdAt: new Date().toISOString(),
+            facets: richText ? richText.facets : undefined,
+            embed: embed
+                ? {
+                      $type: BskyEmbedType.RecordWithMedia,
+                      record: {
+                          uri: post.parentContentURI,
+                          cid: post.parentPostId,
+                      },
+                      media: embed,
+                  }
+                : {
+                      $type: BskyEmbedType.Record,
+                      record: {
+                          uri: post.parentContentURI,
+                          cid: post.parentPostId,
+                      },
+                  },
+        });
+        return {
+            postId: result.cid,
+            contentURI: result.uri,
+        };
     }
     async commentPost(postId: string, post: Post): Promise<{ postId: string; contentURI?: string }> {
         throw new NotImplementedError();
