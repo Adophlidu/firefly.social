@@ -87,7 +87,7 @@ export class BskySocialMedia implements Provider {
             text: richText ? richText.text : text,
             createdAt: new Date().toISOString(),
             facets: richText ? richText.facets : undefined,
-            embed: resolveBskyEmbed(post),
+            embed: await resolveBskyEmbed(post, richText),
             reply:
                 post.parentPostId && post.parentContentURI
                     ? {

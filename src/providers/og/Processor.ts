@@ -42,7 +42,7 @@ class Processor {
                     url,
                     width: img.width ?? 0,
                     height: img.height ?? 0,
-                    base64: url,
+                    base64: url as `data:${string}`,
                 };
             }
 

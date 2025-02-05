@@ -5,7 +5,7 @@ import type { Cast } from '@/providers/types/Warpcast.js';
 
 export interface OpenGraphImage {
     url: string;
-    base64?: string;
+    base64?: `data:${string}`;
     width?: number;
     height?: number;
 }
@@ -54,7 +54,7 @@ export interface ImageDigested {
     url: string;
     width: number;
     height: number;
-    base64: string;
+    base64: `data:${string}`;
 }
 
 export interface LinkDigested {

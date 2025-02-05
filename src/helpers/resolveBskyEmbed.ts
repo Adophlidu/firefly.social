@@ -1,10 +1,14 @@
-import type { AppBskyEmbedExternal, AppBskyEmbedImages, AppBskyEmbedVideo } from '@atproto/api';
+import type { AppBskyEmbedExternal, AppBskyEmbedImages, AppBskyEmbedVideo, RichText } from '@atproto/api';
 import { first } from 'lodash-es';
 
-import { BskyEmbedType, FileMimeType } from '@/constants/enum.js';
+import { BskyEmbedType, BskyFacetType, FileMimeType } from '@/constants/enum.js';
+import { base64ToFile } from '@/helpers/base64ToFile.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { getPostOembed } from '@/services/getPostLinks.js';
 
-export function resolveBskyEmbed(post: Post) {
+export async function resolveBskyEmbed(post: Post, richText?: RichText) {
     const images = post.mediaObjects?.filter((media) => media.type === 'Image' && !!media.blobRef);
     const gifs = post.mediaObjects?.filter(
         (media) => media.type === 'Image' && media.mimeType === FileMimeType.GIF && !!media.blobRef,
@@ -41,6 +45,27 @@ export function resolveBskyEmbed(post: Post) {
             video: video.blobRef!,
             aspectRatio: video.width && video.height ? { width: video.width, height: video.height } : undefined,
         } satisfies AppBskyEmbedVideo.Main;
+    }
+
+    const linkFacet = richText?.facets?.find((facet) =>
+        facet.features.some((feature) => feature.$type === BskyFacetType.Link),
+    );
+    const linkFeature = linkFacet?.features.find((feature) => feature.$type === BskyFacetType.Link);
+    const link = linkFeature?.uri && typeof linkFeature.uri === 'string' ? linkFeature.uri : undefined;
+    if (link) {
+        const urlData = await runInSafeAsync(() => getPostOembed(link));
+        const ogImage = urlData?.og?.image?.base64;
+        const thumbBlob = ogImage ? await bskySessionHolder.agent.uploadBlob(base64ToFile(ogImage, link)) : undefined;
+
+        return {
+            $type: BskyEmbedType.External,
+            external: {
+                title: urlData?.og?.title || '',
+                description: urlData?.og?.description || '',
+                uri: link,
+                thumb: thumbBlob?.data.blob,
+            },
+        } satisfies AppBskyEmbedExternal.Main;
     }
 
     return undefined;

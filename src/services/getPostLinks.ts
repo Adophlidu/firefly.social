@@ -9,6 +9,7 @@ import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isFrameV1 } from '@/helpers/frame.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
+import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
@@ -96,17 +97,20 @@ export async function getPostBlinkAction(url: string): Promise<Action | null> {
     });
 }
 
-export async function getPostOembed(url: string, post?: Pick<Post, 'quoteOn'>): Promise<LinkDigested | null> {
-    if (env.external.NEXT_PUBLIC_OPENGRAPH !== STATUS.Enabled) return null;
-    if (!url || !isValidPostLink(url)) return null;
-    if (post?.quoteOn) return null;
-    const linkDigested = await fetchJSON<ResponseJSON<LinkDigested>>(
-        urlcat('/api/oembed', {
-            link: (await resolveTCOLink(url)) ?? url,
-        }),
-    );
-    return linkDigested.success ? linkDigested.data : null;
-}
+export const getPostOembed = memoizePromise(
+    async function getPostOembed(url: string, post?: Pick<Post, 'quoteOn'>): Promise<LinkDigested | null> {
+        if (env.external.NEXT_PUBLIC_OPENGRAPH !== STATUS.Enabled) return null;
+        if (!url || !isValidPostLink(url)) return null;
+        if (post?.quoteOn) return null;
+        const linkDigested = await fetchJSON<ResponseJSON<LinkDigested>>(
+            urlcat('/api/oembed', {
+                link: (await resolveTCOLink(url)) ?? url,
+            }),
+        );
+        return linkDigested.success ? linkDigested.data : null;
+    },
+    (url, post) => `${url}${post?.quoteOn?.postId}`,
+);
 
 export async function getPostLinks(url: string, post: Post) {
     return attemptUntil<{

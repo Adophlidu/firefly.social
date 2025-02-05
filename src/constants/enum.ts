@@ -426,6 +426,10 @@ export enum BskyEmbedType {
     External = 'app.bsky.embed.external',
 }
 
+export enum BskyFacetType {
+    Link = 'app.bsky.richtext.facet#link',
+}
+
 export enum ProfileEditableField {
     DisplayName = 'displayName',
     Website = 'website',
