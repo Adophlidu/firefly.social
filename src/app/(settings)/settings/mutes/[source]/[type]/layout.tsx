@@ -22,6 +22,7 @@ export async function generateMetadata(props: Props) {
         [`${SourceInURL.Lens}_${MuteType.Profile}`]: t`${resolveSourceName(Source.Lens)} Users`,
         [`${SourceInURL.Twitter}_${MuteType.Profile}`]: t`${resolveSourceName(Source.Twitter)} Users`,
         [`${SourceInURL.Firefly}_${MuteType.Wallet}`]: t`Wallets`,
+        [`${SourceInURL.Bsky}_${MuteType.Profile}`]: t`${resolveSourceName(Source.Bsky)} Users`,
     };
     return createSiteMetadata({
         title: await createPageTitleSSR(menuNameMap[`${source}_${type}`]),

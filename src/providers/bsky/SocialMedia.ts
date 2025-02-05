@@ -665,7 +665,16 @@ export class BskySocialMedia implements Provider {
         return res.success;
     }
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
+        const res = await bskySessionHolder.agent.app.bsky.graph.getMutes({
+            cursor: indicator?.id,
+        });
+
+        if (!res.success) throw new Error(`Failed to get blocked profiles.`);
+        return createPageable(
+            res.data.mutes.map(formatBskyProfile),
+            createIndicator(indicator),
+            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+        );
     }
     async blockChannel(channelId: string): Promise<boolean> {
         throw new NotImplementedError();

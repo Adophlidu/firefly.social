@@ -48,6 +48,12 @@ export const useMuteMenuList = (): MuteMenu[] => {
                 type: MuteType.Wallet,
                 shouldHide: () => Object.values(profiles).every((profile) => !profile?.profileId),
             },
+            {
+                name: t`${resolveSourceName(Source.Bsky)} muted users`,
+                source: Source.Bsky,
+                type: MuteType.Profile,
+                shouldHide: () => !profiles[Source.Bsky],
+            },
         ];
         return filter(fullMuteMenuList, (menu) => !menu.shouldHide());
     }, [profiles]);
