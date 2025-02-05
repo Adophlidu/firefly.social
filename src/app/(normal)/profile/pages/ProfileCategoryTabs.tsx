@@ -12,10 +12,12 @@ import {
     Source,
     WalletProfileCategory,
 } from '@/constants/enum.js';
-import { SORTED_PROFILE_TAB_TYPE, WALLET_PROFILE_TAB_TYPES } from '@/constants/index.js';
+import { LOGIN_SORTED_PROFILE_TAB_TYPE, SORTED_PROFILE_TAB_TYPE, WALLET_PROFILE_TAB_TYPES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
+import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 
 export function ProfileCategoryTabs({
     source,
@@ -26,6 +28,9 @@ export function ProfileCategoryTabs({
     id: string;
     category: WalletProfileCategory | SocialProfileCategory;
 }) {
+    const currentProfiles = useCurrentFireflyProfilesAll();
+    const isCurrentProfile = currentProfiles.some((x) => isSameFireflyIdentity(x.identity, { id, source }));
+
     const tabTitles: Record<WalletProfileCategory, ReactNode> = useMemo(
         () => ({
             [WalletProfileCategory.Activities]: <Trans>Activities</Trans>,
@@ -73,8 +78,12 @@ export function ProfileCategoryTabs({
                 type: SocialProfileCategory.Channels,
                 title: <Trans>Channels</Trans>,
             },
-        ].filter((x) => SORTED_PROFILE_TAB_TYPE[source as SocialSource].includes(x.type));
-    }, [id, source, tabTitles]);
+        ].filter((x) =>
+            (isCurrentProfile ? LOGIN_SORTED_PROFILE_TAB_TYPE : SORTED_PROFILE_TAB_TYPE)[
+                source as SocialSource
+            ].includes(x.type),
+        );
+    }, [id, source, tabTitles, isCurrentProfile]);
 
     return (
         <nav className="scrollable-tab flex gap-1.5 border-b border-lightLineSecond px-3 dark:border-line">
@@ -82,7 +91,7 @@ export function ProfileCategoryTabs({
                 return (
                     <div key={type} className="flex flex-col">
                         <Link
-                            href={resolveProfileUrl(source, id, type)}
+                            href={resolveProfileUrl(source, id, type, isCurrentProfile)}
                             replace
                             className={classNames(
                                 'flex h-[45px] items-center whitespace-nowrap px-3 font-extrabold transition-all hover:text-highlight',

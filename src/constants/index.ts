@@ -91,6 +91,22 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory
         SocialProfileCategory.Channels,
     ],
     [Source.Twitter]: [SocialProfileCategory.Feed, SocialProfileCategory.Replies],
+    [Source.Bsky]: [SocialProfileCategory.Feed, SocialProfileCategory.Replies, SocialProfileCategory.Media],
+};
+export const LOGIN_SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory[]> = {
+    [Source.Lens]: [
+        SocialProfileCategory.Feed,
+        SocialProfileCategory.Replies,
+        SocialProfileCategory.Media,
+        SocialProfileCategory.Collected,
+    ],
+    [Source.Farcaster]: [
+        SocialProfileCategory.Feed,
+        SocialProfileCategory.Replies,
+        SocialProfileCategory.Likes,
+        SocialProfileCategory.Channels,
+    ],
+    [Source.Twitter]: [SocialProfileCategory.Feed, SocialProfileCategory.Replies],
     [Source.Bsky]: [
         SocialProfileCategory.Feed,
         SocialProfileCategory.Replies,
@@ -98,6 +114,7 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory
         SocialProfileCategory.Likes,
     ],
 };
+
 export const SORTED_PROFILE_TAB_TYPE_REQUIRE_LOGIN: Record<SocialSource, SocialProfileCategory[]> = {
     [Source.Lens]: [],
     [Source.Farcaster]: [],
