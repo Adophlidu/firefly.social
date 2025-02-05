@@ -16,6 +16,7 @@ import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
+import { searchWalletAddress } from '@/services/searchWalletAddress.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 const getSearchItemContent = ({ profile, related }: { profile: FireflyProfile; related: FireflyProfile[] }) => {
@@ -32,6 +33,7 @@ export function SearchProfileContent() {
         queryKey: ['search', searchType, searchKeyword, source],
         queryFn: async ({ pageParam }) => {
             if (!searchKeyword) return;
+
             const fireflyIndicator = pageParam.firefly ? createIndicator(undefined, pageParam.firefly) : undefined;
             const twitterIndicator = pageParam.twitter ? createIndicator(undefined, pageParam.twitter) : undefined;
             const bskyIndicator = pageParam.bsky ? createIndicator(undefined, pageParam.bsky) : undefined;
@@ -55,15 +57,28 @@ export function SearchProfileContent() {
                     ? await runInSafeAsync(() => BskySocialMediaProvider.searchProfiles(searchKeyword, bskyIndicator))
                     : undefined;
 
+            const socialProfiles = composeSearchProfiles(
+                compact(data.data.map(formatSearchProfile)),
+                twitterProfiles?.data || [],
+                bskyProfiles?.data || [],
+            );
+
+            const walletProfile = !socialProfiles.length ? await searchWalletAddress(searchKeyword) : undefined;
+
             return {
                 ...data,
                 twitterNextIndicator: twitterProfiles?.nextIndicator,
                 bskyNextIndicator: bskyProfiles?.nextIndicator,
-                data: composeSearchProfiles(
-                    compact(data.data.map(formatSearchProfile)),
-                    twitterProfiles?.data || [],
-                    bskyProfiles?.data || [],
-                ),
+                data: socialProfiles.length
+                    ? socialProfiles
+                    : walletProfile
+                      ? [
+                            {
+                                profile: walletProfile,
+                                related: [walletProfile],
+                            },
+                        ]
+                      : [],
             };
         },
         initialPageParam: { firefly: '', twitter: '', bsky: '' },
