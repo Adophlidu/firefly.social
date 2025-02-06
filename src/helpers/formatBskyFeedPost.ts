@@ -5,19 +5,18 @@ import {
     AppBskyEmbedRecordWithMedia,
     AppBskyEmbedVideo,
     AppBskyFeedDefs,
+    AppBskyFeedPost,
+    AppBskyRichtextFacet,
 } from '@atproto/api';
-import { isViewRecord } from '@atproto/api/dist/client/types/app/bsky/embed/record.js';
-import { isPostView, isThreadViewPost, type PostView } from '@atproto/api/dist/client/types/app/bsky/feed/defs.js';
 import { parseURL } from '@masknet/shared-base';
 import { produce } from 'immer';
 import { first, isUndefined, omitBy } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
-import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
-import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
+import { type Attachment, type Post, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 function parseBskyGifUri(uri: string): boolean {
     const parsedURL = parseURL(uri);
@@ -67,11 +66,10 @@ function formatBskyMedia(embed: unknown): Post['metadata']['content'] {
 }
 
 function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
-    const record = original.record as { langs: string[]; text: string; embed: [] };
-    const oembedUrls = getEmbedUrls(record.text, []);
+    const record = AppBskyFeedPost.isRecord(original.record) ? original.record : { text: '', langs: ['en'] };
     const createdAt = original.createdAt || original.indexedAt;
 
-    return {
+    const post: Post = {
         publicationId: original.cid,
         postId: PostAtUri.from(original.uri).toId(),
         type: 'Post',
@@ -88,16 +86,63 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
         hasMirrored: !!original.viewer?.repost,
         timestamp: createdAt && typeof createdAt === 'string' ? new Date(createdAt).getTime() : Date.now(),
         metadata: {
-            contentURI: original.uri,
             locale: record.langs?.[0] ?? 'en',
             content: {
                 content: record.text,
-                oembedUrls,
-                oembedUrl: first(oembedUrls),
                 ...formatBskyMedia(original.embed),
             },
         },
     };
+    if (AppBskyFeedPost.isRecord(original.record)) {
+        let content = record.text;
+        const oembedUrls: string[] = [];
+        const mentions: Profile[] = [];
+        if (original.record.facets) {
+            original.record.facets?.forEach((facet, i) => {
+                const feature = facet.features[0];
+                if (AppBskyRichtextFacet.isLink(feature)) {
+                    content = content.replaceAll(
+                        record.text.substring(facet.index.byteStart, facet.index.byteEnd),
+                        feature.uri,
+                    );
+                    oembedUrls.push(feature.uri);
+                }
+                if (AppBskyRichtextFacet.isMention(feature)) {
+                    const handle = record.text.substring(facet.index.byteStart, facet.index.byteEnd);
+                    mentions.push({
+                        profileId: feature.did,
+                        profileSource: Source.Bsky,
+                        displayName: handle,
+                        handle,
+                        fullHandle: handle,
+                        pfp: '',
+                        source: Source.Bsky,
+                        followerCount: 0,
+                        followingCount: 0,
+                        status: ProfileStatus.Active,
+                        verified: true,
+                    });
+                }
+            });
+        }
+        post.mentions = mentions;
+        post.metadata.content = {
+            ...formatBskyMedia(original.embed),
+            content,
+            oembedUrls,
+            oembedUrl: first(oembedUrls),
+        };
+        if (original.record.reply?.parent.uri) {
+            post.parentPostId = PostAtUri.from(original.record.reply.parent.uri).toId();
+            post.parentContentURI = original.record.reply.parent.uri;
+        }
+        if (original.record.reply?.root.uri) {
+            post.rootPostId = PostAtUri.from(original.record.reply.parent.uri).toId();
+            post.rootContentURI = original.record.reply.parent.uri;
+        }
+    }
+
+    return post;
 }
 
 function formatBskyViewRecord(original: AppBskyEmbedRecord.ViewRecord) {
@@ -109,11 +154,15 @@ function formatBskyViewRecord(original: AppBskyEmbedRecord.ViewRecord) {
 
 function formatBskyViewRecordWithMedia(post: Post, original: AppBskyEmbedRecordWithMedia.View) {
     return produce(post, (draft) => {
-        if (isViewRecord(original.record.record)) {
+        if (AppBskyEmbedRecord.isViewRecord(original.record.record)) {
             draft.quoteOn = formatBskyPostView({
                 ...original.record.record,
                 record: original.record.record.value,
             });
+            draft.parentPostId = draft.quoteOn.postId;
+            draft.parentContentURI = draft.quoteOn.metadata.contentURI;
+            draft.rootPostId = draft.quoteOn.postId;
+            draft.rootContentURI = draft.quoteOn.metadata.contentURI;
         }
         if (draft.metadata.content) {
             draft.metadata.content = {
@@ -125,10 +174,10 @@ function formatBskyViewRecordWithMedia(post: Post, original: AppBskyEmbedRecordW
     });
 }
 
-export function formatBskyPost(original: PostView) {
+export function formatBskyPost(original: AppBskyFeedDefs.PostView) {
     let post: Post = formatBskyPostView(original);
     post.__original__ = original;
-    if (AppBskyEmbedRecord.isView(original.embed) && isViewRecord(original.embed.record)) {
+    if (AppBskyEmbedRecord.isView(original.embed) && AppBskyEmbedRecord.isViewRecord(original.embed.record)) {
         post.type = 'Quote';
         post.quoteOn = formatBskyViewRecord(original.embed.record);
     }
@@ -142,15 +191,11 @@ export function formatBskyPost(original: PostView) {
 export function formatBskyFeedPost(original: AppBskyFeedDefs.FeedViewPost): Post {
     let post: Post = formatBskyPostView(original.post);
     post.__original__ = original;
-    if (original.reply?.root && isPostView(original.reply?.root)) {
-        post.root = formatBskyPostView(original.reply.root);
-        post.rootPostId = original.reply.root.cid;
-        post.rootContentURI = original.reply.root.uri;
-    }
-    if (original.reply && isPostView(original.reply.parent)) {
+    if (original.reply && AppBskyFeedDefs.isPostView(original.reply.parent)) {
         post.type = 'Comment';
         post.commentOn = formatBskyPostView(original.reply.parent);
-        if (isPostView(original.reply.root)) post.root = formatBskyPostView(original.reply.root);
+        post.parentPostId = PostAtUri.from(original.reply.parent.uri).toId();
+        post.parentContentURI = original.reply.parent.uri;
         if (isSamePost(post.commentOn, post.root)) {
             delete post.commentOn;
         }
@@ -162,9 +207,13 @@ export function formatBskyFeedPost(original: AppBskyFeedDefs.FeedViewPost): Post
             post.reporter = formatBskyProfile(original.reason.by);
         }
     }
-    if (AppBskyEmbedRecord.isView(original.post.embed) && isViewRecord(original.post.embed.record)) {
+    if (AppBskyEmbedRecord.isView(original.post.embed) && AppBskyEmbedRecord.isViewRecord(original.post.embed.record)) {
         post.type = 'Quote';
         post.quoteOn = formatBskyViewRecord(original.post.embed.record);
+        post.parentPostId = post.quoteOn.postId;
+        post.parentContentURI = post.quoteOn.metadata.contentURI;
+        post.rootPostId = post.quoteOn.postId;
+        post.rootContentURI = post.quoteOn.metadata.contentURI;
     }
     if (AppBskyEmbedRecordWithMedia.isView(original.post.embed)) {
         post.type = 'Quote';
@@ -174,7 +223,7 @@ export function formatBskyFeedPost(original: AppBskyFeedDefs.FeedViewPost): Post
 }
 
 export function formatBskyThreadPosts(thread: AppBskyFeedDefs.ThreadViewPost, posts: Post[] = []): Post[] {
-    if (!thread.parent || !isThreadViewPost(thread.parent)) return posts;
+    if (!thread.parent || !AppBskyFeedDefs.isThreadViewPost(thread.parent)) return posts;
     const post = formatBskyPostView(thread.post);
     if (posts.length) {
         post.type = 'Comment';

@@ -51,7 +51,7 @@ async function getParentPostById(source: SocialSource, postId: string, contentUR
             return { postId } as unknown as Post;
         case Source.Bsky:
             await delay(1000);
-            return { postId, metadata: { contentURI } } as unknown as Post;
+            return { postId, metadata: { contentURI }, publicationId: postId } as unknown as Post;
         default:
             safeUnreachable(source);
             return null;
