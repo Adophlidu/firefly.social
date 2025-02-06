@@ -8,6 +8,7 @@ import {
 } from '@atproto/api';
 import { isViewRecord } from '@atproto/api/dist/client/types/app/bsky/embed/record.js';
 import { isPostView, isThreadViewPost, type PostView } from '@atproto/api/dist/client/types/app/bsky/feed/defs.js';
+import { parseURL } from '@masknet/shared-base';
 import { produce } from 'immer';
 import { first, isUndefined, omitBy } from 'lodash-es';
 
@@ -17,6 +18,15 @@ import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
+
+function parseBskyGifUri(uri: string): boolean {
+    const parsedURL = parseURL(uri);
+    if (!parsedURL) return false;
+    const height = parsedURL.searchParams.get('hh');
+    const width = parsedURL.searchParams.get('ww');
+    const isEndOfGIF = parsedURL.pathname.endsWith('.gif');
+    return isEndOfGIF && !!height && !!width;
+}
 
 function formatBskyMedia(embed: unknown): Post['metadata']['content'] {
     const attachments: Attachment[] = [];
@@ -29,6 +39,14 @@ function formatBskyMedia(embed: unknown): Post['metadata']['content'] {
                 };
             }),
         );
+    }
+    if (AppBskyEmbedExternal.isView(embed) && parseBskyGifUri(embed.external.uri) && embed.external.thumb) {
+        attachments.push({
+            type: 'AnimatedGif',
+            uri: embed.external.uri,
+            coverUri: embed.external.thumb,
+            title: embed.external.title,
+        });
     }
     if (AppBskyEmbedVideo.isView(embed)) {
         attachments.push({
@@ -66,6 +84,8 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
             mirrors: original.repostCount ?? 0,
             quotes: original.quoteCount ?? 0,
         },
+        hasLiked: !!original.viewer?.like,
+        hasMirrored: !!original.viewer?.repost,
         timestamp: createdAt && typeof createdAt === 'string' ? new Date(createdAt).getTime() : Date.now(),
         metadata: {
             contentURI: original.uri,
