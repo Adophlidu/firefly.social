@@ -27,7 +27,7 @@ function filterMPCWallets(connections: FireflyWalletConnection[], noMPC = false)
 }
 
 export default function Wallets() {
-    useNavigatorTitle(t`Associated wallets`);
+    useNavigatorTitle(t`Connected wallets`);
 
     const {
         data: { connected = EMPTY_LIST, related = EMPTY_LIST } = {},

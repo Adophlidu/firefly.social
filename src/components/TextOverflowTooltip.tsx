@@ -17,6 +17,7 @@ interface TextOverflowTooltipProps extends Omit<TippyProps, 'ref' | 'title' | 'c
 export const TextOverflowTooltip = memo(function TextOverflowTooltip({
     children,
     withDelay,
+    className,
     ...rest
 }: TextOverflowTooltipProps) {
     const [overflow, ref] = useDetectOverflow();
@@ -25,6 +26,7 @@ export const TextOverflowTooltip = memo(function TextOverflowTooltip({
             className={classNames(
                 'hidden !rounded-lg !text-xs !leading-6 tracking-wide',
                 overflow ? 'sm:block' : 'hidden',
+                className,
             )}
             // disable tooltip by setting very large delay.
             delay={overflow ? [withDelay ? 500 : 0, 0] : [1000_000_000, 0]}

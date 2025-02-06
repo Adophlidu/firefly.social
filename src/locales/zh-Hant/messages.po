@@ -30,6 +30,9 @@ msgstr ""
 msgid "Do you want to retry with the full or remaining content?"
 msgstr "您想用全部內容還是剩餘內容重試？"
 
+msgid "Connected wallets"
+msgstr ""
+
 msgid "Login required to post on {sourceName}."
 msgstr "需要登入後在{sourceName} 發佈貼文"
 
@@ -75,9 +78,6 @@ msgstr "通過 Warpcast 的新連接"
 
 msgid "You have been detected as a loyal Farcaster user"
 msgstr "您被檢測到為 Farcaster 忠實用戶"
-
-msgid "Read this <0>disclaimer</0> before participation. All rights reserved by Firefly."
-msgstr ""
 
 msgid "Edit Image"
 msgstr "編輯圖片"

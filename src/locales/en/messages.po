@@ -25,6 +25,9 @@ msgstr "{days, plural, one {1 day left} other {{days} days left}}"
 msgid "Do you want to retry with the full or remaining content?"
 msgstr "Do you want to retry with the full or remaining content?"
 
+msgid "Connected wallets"
+msgstr "Connected wallets"
+
 msgid "Login required to post on {sourceName}."
 msgstr "Login required to post on {sourceName}."
 
@@ -70,9 +73,6 @@ msgstr "New connect with Warpcast"
 
 msgid "You have been detected as a loyal Farcaster user"
 msgstr "You have been detected as a loyal Farcaster user"
-
-msgid "Read this <0>disclaimer</0> before participation. All rights reserved by Firefly."
-msgstr "Read this <0>disclaimer</0> before participation. All rights reserved by Firefly."
 
 msgid "Edit Image"
 msgstr "Edit Image"

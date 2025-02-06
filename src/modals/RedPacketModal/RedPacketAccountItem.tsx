@@ -1,19 +1,16 @@
 import { isValidAddress } from '@masknet/web3-shared-evm';
-import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
 import { memo } from 'react';
-import { mainnet } from 'viem/chains';
 
 import LinkOut from '@/assets/link.svg';
-import { NetworkType } from '@/constants/enum.js';
+import { NetworkType, Source } from '@/constants/enum.js';
+import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { openWindow } from '@/helpers/openWindow.js';
-import { EVMExplorerResolver, SolanaExplorerResolver } from '@/mask/index.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 
 interface Props {
     address: string;
     ens?: string;
-    chainId?: number;
     isDarkFont?: boolean;
     networkType?: NetworkType;
 }
@@ -21,17 +18,11 @@ interface Props {
 export const RedPacketAccountItem = memo(function RedPacketAccountItem({
     address,
     ens,
-    chainId = mainnet.id,
     isDarkFont,
     networkType = NetworkType.Ethereum,
 }: Props) {
     const isAddress = networkType === NetworkType.Ethereum ? isValidAddress(address) : true;
-    const fixedChainId = networkType === NetworkType.Ethereum ? chainId : SolanaChainId.Mainnet;
-
-    const addressLink =
-        networkType === NetworkType.Ethereum
-            ? EVMExplorerResolver.addressLink(fixedChainId, address)
-            : SolanaExplorerResolver.addressLink(fixedChainId, address);
+    const addressLink = isAddress ? resolveProfileUrl(Source.Wallet, address) : null;
 
     return (
         <div
@@ -40,15 +31,16 @@ export const RedPacketAccountItem = memo(function RedPacketAccountItem({
             })}
         >
             <div>{ens ? ens : formatAddress(address, 4)}</div>
-            <button
-                type="button"
-                className="h-4 cursor-pointer border-none bg-none p-0"
-                onClick={() => {
-                    if (isAddress) openWindow(addressLink, '_blank');
-                }}
-            >
-                <LinkOut className="h-4 w-4 text-lightSecond" />
-            </button>
+            {addressLink ? (
+                <Link
+                    type="button"
+                    className="h-4 cursor-pointer border-none bg-none p-0"
+                    href={addressLink}
+                    target="_blank"
+                >
+                    <LinkOut className="h-4 w-4 text-lightSecond" />
+                </Link>
+            ) : null}
         </div>
     );
 });

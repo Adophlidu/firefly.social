@@ -7,6 +7,7 @@ import { memo, useContext } from 'react';
 import urlcat from 'urlcat';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { FireflyPlatform, NetworkPluginID, NetworkType, type SocialSource } from '@/constants/enum.js';
 import { SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
@@ -117,6 +118,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
     );
 
     const logoUrl = token_logo !== 'missing.png' ? token_logo : undefined;
+    const message = rp_msg || <Trans>Best Wishes!</Trans>;
 
     return (
         <div className="mb-3 flex w-full flex-col rounded-lg bg-white p-0">
@@ -138,16 +140,18 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                         }}
                     />
                     <div className="flex justify-between">
-                        <div className="w-full">
+                        <div className="min-w-0 flex-grow">
                             <div className="flex w-full">
-                                <div
-                                    className={classNames(
-                                        'break-all text-[14px] font-bold text-lightTextMain',
-                                        isDetail ? 'text-left' : 'truncate',
-                                    )}
-                                >
-                                    {!rp_msg ? <Trans>Best Wishes!</Trans> : rp_msg}
-                                </div>
+                                <TextOverflowTooltip content={message} className="break-all">
+                                    <div
+                                        className={classNames(
+                                            'break-all text-[14px] font-bold text-lightTextMain',
+                                            isDetail ? 'text-left' : 'truncate',
+                                        )}
+                                    >
+                                        {message}
+                                    </div>
+                                </TextOverflowTooltip>
                             </div>
                             <div className="flex w-full text-[14px] leading-[18px]">
                                 <div className="mr-1 truncate text-lightSecond">
@@ -180,7 +184,6 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                     <RedPacketAccountItem
                                         address={creator}
                                         ens={ens_name}
-                                        chainId={chain_id}
                                         networkType={networkType}
                                         isDarkFont
                                     />

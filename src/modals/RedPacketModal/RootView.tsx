@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { Outlet, useRouter, useRouterState } from '@tanstack/react-router';
+import { Outlet, useLocation, useRouter, useRouterState } from '@tanstack/react-router';
 
 import HistoryIcon from '@/assets/history.svg';
 import QuestionIcon from '@/assets/question.svg';
@@ -13,6 +13,7 @@ export function RootView() {
     const { matches, location } = useRouterState();
 
     const isMain = location.pathname === '/main';
+    const isFinalView = !!useLocation().search._FINAL_VIEW_;
     const isRequirements = location.pathname === '/requirements';
 
     const contextTitle = [...matches].find((x) => x.context.title)?.context.title;
@@ -29,7 +30,7 @@ export function RootView() {
             )}
         >
             <div className="flex items-center justify-center gap-2 rounded-t-[12px] p-4">
-                {isMain ? (
+                {isMain || isFinalView ? (
                     <CloseButton
                         className="!p-0"
                         onClick={() => {

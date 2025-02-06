@@ -104,9 +104,9 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
         ) : null;
     }
 
-    if (isRefunded) return null;
+    if (isRefunded || isEmpty) return null;
 
-    if ((!canClaim || isClaimed || isEmpty || isExpired) && isLogin && !canRefund) {
+    if ((!canClaim || isClaimed || isExpired) && isLogin && !canRefund) {
         return (
             <div className="light">
                 <ActionButton

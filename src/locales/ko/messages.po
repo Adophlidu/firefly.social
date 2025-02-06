@@ -30,6 +30,9 @@ msgstr ""
 msgid "Do you want to retry with the full or remaining content?"
 msgstr ""
 
+msgid "Connected wallets"
+msgstr ""
+
 msgid "Login required to post on {sourceName}."
 msgstr ""
 
@@ -74,9 +77,6 @@ msgid "New connect with Warpcast"
 msgstr ""
 
 msgid "You have been detected as a loyal Farcaster user"
-msgstr ""
-
-msgid "Read this <0>disclaimer</0> before participation. All rights reserved by Firefly."
 msgstr ""
 
 msgid "Edit Image"

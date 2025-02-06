@@ -193,27 +193,17 @@ Check your eligibility and participate here ${shareUrl}
                 </div>
             </div>
             <p className="mb-4 w-full px-6 text-center text-[10px]">
-                {IS_ANDROID ? (
-                    <Trans>
-                        Read this{' '}
-                        <ClickableButton className="inline text-highlight" onClick={() => setOpenDisclaimer(true)}>
-                            disclaimer
-                        </ClickableButton>{' '}
-                        before participation. All rights reserved by Firefly.
-                    </Trans>
-                ) : (
-                    <Trans>
-                        Read this{' '}
-                        <ClickableButton className="inline text-highlight" onClick={() => setOpenDisclaimer(true)}>
-                            disclaimer
-                        </ClickableButton>{' '}
-                        before participation. For any inquiries, please{' '}
-                        <Link href={FIREFLY_TELEGRAM_URL} target="_blank" className="inline text-highlight">
-                            contact us
-                        </Link>
-                        . All rights reserved by Firefly.
-                    </Trans>
-                )}
+                <Trans>
+                    Read this{' '}
+                    <ClickableButton className="inline text-highlight" onClick={() => setOpenDisclaimer(true)}>
+                        disclaimer
+                    </ClickableButton>{' '}
+                    before participation. For any inquiries, please{' '}
+                    <Link href={FIREFLY_TELEGRAM_URL} target="_blank" className="inline text-highlight">
+                        contact us
+                    </Link>
+                    . All rights reserved by Firefly.
+                </Trans>
             </p>
             <div
                 className={classNames(

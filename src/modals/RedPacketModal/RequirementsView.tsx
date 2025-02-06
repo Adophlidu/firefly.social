@@ -106,7 +106,7 @@ export function RequirementsView() {
                                     onChange={(event) => {
                                         const checked = event.currentTarget.checked;
                                         setRules(checked ? [...rules, value] : rules.filter((x) => x !== value));
-                                        if (checked) return;
+                                        if (!checked) return;
                                         if (value === RequirementType.NFTHolder) {
                                             setRequireCollections(EMPTY_LIST);
                                             setCollectionSlots([Date.now()]);

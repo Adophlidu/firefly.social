@@ -14,20 +14,12 @@ import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountIt
 import { RedPacketDetailItem } from '@/modals/RedPacketModal/RedPacketDetailItem.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 
-function ClaimHistoryItem({
-    data,
-    chainId,
-    networkType,
-}: {
-    data: FireflyRedPacketAPI.ClaimList;
-    chainId?: number;
-    networkType: NetworkType;
-}) {
+function ClaimHistoryItem({ data, networkType }: { data: FireflyRedPacketAPI.ClaimList; networkType: NetworkType }) {
     const { data: ens } = useEnsName({ address: data.creator as Address });
 
     return (
         <div className="mt-3 flex items-center justify-between px-3 text-[14px] font-bold leading-[18px]">
-            <RedPacketAccountItem ens={ens ?? ''} address={data.creator} chainId={chainId} networkType={networkType} />
+            <RedPacketAccountItem ens={ens ?? ''} address={data.creator} networkType={networkType} />
             <div className="flex gap-1">
                 {formatBalance(data.token_amounts, data.token_decimal, {
                     significant: 6,
@@ -39,10 +31,8 @@ function ClaimHistoryItem({
     );
 }
 
-function getClaimHistoryListItem(networkType: NetworkType, data?: FireflyRedPacketAPI.ClaimList, chainId?: number) {
-    return data ? (
-        <ClaimHistoryItem networkType={networkType} key={data.creator} data={data} chainId={chainId} />
-    ) : null;
+function getClaimHistoryListItem(networkType: NetworkType, data?: FireflyRedPacketAPI.ClaimList) {
+    return data ? <ClaimHistoryItem networkType={networkType} key={data.creator} data={data} /> : null;
 }
 
 function HistoryDetail() {
@@ -64,7 +54,7 @@ function HistoryDetail() {
                     className="no-scrollbar box-border h-full min-h-0 flex-1"
                     listKey={`redpacket_${rpid}`}
                     computeItemKey={(index, item) => item?.creator || 'Unknown User'}
-                    itemContent={(index, item) => getClaimHistoryListItem(networkType, item, claimInfo?.chain_id)}
+                    itemContent={(index, item) => getClaimHistoryListItem(networkType, item)}
                 />
             ) : (
                 <div />

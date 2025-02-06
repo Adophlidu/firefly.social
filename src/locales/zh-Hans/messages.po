@@ -30,6 +30,9 @@ msgstr "{days, plural, one {1 天剩余} other {{days} 天剩余}}"
 msgid "Do you want to retry with the full or remaining content?"
 msgstr "您想尝试重新发送或者仅发送剩余部分吗？"
 
+msgid "Connected wallets"
+msgstr ""
+
 msgid "Login required to post on {sourceName}."
 msgstr "请先登录 {sourceName}。"
 
@@ -75,9 +78,6 @@ msgstr "使用 Warpcast 连接"
 
 msgid "You have been detected as a loyal Farcaster user"
 msgstr "您被检测到为 Farcaster 忠实用户"
-
-msgid "Read this <0>disclaimer</0> before participation. All rights reserved by Firefly."
-msgstr "在参与前请阅读此<0>免责声明</0>。Firefly保留所有权利。"
 
 msgid "Edit Image"
 msgstr "编辑图片"

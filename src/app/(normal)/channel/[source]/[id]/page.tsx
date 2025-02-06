@@ -34,7 +34,6 @@ interface Props
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const params = await props.params;
-
     return createPageMetadata(params.source || SourceInURL.Farcaster, params.id);
 }
 

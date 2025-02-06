@@ -157,12 +157,14 @@ export function RedPacketCard({ payload, post }: Props) {
                 </div>
                 {isEmpty || isClaimed || isExpired ? (
                     <ClickableArea
-                        className="flex cursor-pointer items-center justify-center text-nowrap rounded-full bg-[#E8E8FF] px-[13px] py-[7px] text-xs leading-4 opacity-75 backdrop-blur-[5px]"
+                        className="flex cursor-pointer items-center justify-center text-nowrap rounded-full bg-[#E8E8FF] px-[13px] py-[7px] text-sm leading-4 opacity-75 backdrop-blur-[5px]"
                         onClick={() => {
                             RedPacketModalRef.open({
-                                initialPath: '/detail',
-                                rpid: payload.rpid,
-                                networkType,
+                                initialPath: urlcat('/detail', {
+                                    rpid: payload.rpid,
+                                    networkType,
+                                    _FINAL_VIEW_: true,
+                                }),
                             });
                         }}
                     >
@@ -198,9 +200,9 @@ export function RedPacketCard({ payload, post }: Props) {
                                 alt="gasless"
                                 arial-label="gasless"
                                 src="/image/gasless.png"
-                                className="absolute left-0 top-0 h-[48px] w-[48px] rounded-tl-[18px]"
-                                width={48}
-                                height={48}
+                                className="pointer-events-none absolute left-0 top-0 h-[100px] w-[100px] overflow-hidden rounded-tl-[18px]"
+                                width={100}
+                                height={100}
                             />
                         ) : null}
                         <ClickableArea

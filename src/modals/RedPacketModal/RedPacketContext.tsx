@@ -181,7 +181,7 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
     const [coverType, setCoverType] = useState<CoverTabType>('default');
     const [fontColor, setFontColor] = useState<FontColorTabType>('golden');
     const [shareFrom, setShareFrom] = useState<string>('');
-    const [rules, setRules] = useState<RequirementType[]>([RequirementType.Follow]);
+    const [rules, setRules] = useState<RequirementType[]>([]);
     const [requireCollections, setRequireCollections] =
         useState<RedPacketContextValue['requireCollections']>(EMPTY_LIST);
     const [requireTokens, setRequireTokens] = useState<RedPacketContextValue['requireTokens']>(EMPTY_LIST);
