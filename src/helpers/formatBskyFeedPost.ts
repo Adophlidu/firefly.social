@@ -15,7 +15,7 @@ import { Source } from '@/constants/enum.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
-import { encodeBskyPostId } from '@/helpers/resolveBskyAtUri.js';
+import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
 function formatBskyMedia(embed: unknown): Post['metadata']['content'] {
@@ -55,7 +55,7 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
 
     return {
         publicationId: original.cid,
-        postId: encodeBskyPostId(original.author.handle, original.uri),
+        postId: PostAtUri.from(original.uri).toId(),
         type: 'Post',
         source: Source.Bsky,
         canComment: true,
