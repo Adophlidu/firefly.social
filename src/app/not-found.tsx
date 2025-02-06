@@ -39,6 +39,7 @@ export default async function NotFound() {
                 <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
                     <IfPathname isNotOneOf={[PageRoute.Home]} exact>
                         <SuggestedFollowsCard />
+                        <SuggestedChannels source={Source.Bsky} />
                         <SuggestedChannels source={Source.Farcaster} />
                     </IfPathname>
                     <LinkCloud />

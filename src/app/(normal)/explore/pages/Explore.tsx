@@ -6,7 +6,6 @@ import { safeUnreachable } from '@masknet/kit';
 import { ChannelList } from '@/components/Channel/ChannelList.js';
 import SuggestedFollowUsersList from '@/components/SuggestedFollows/SuggestedFollowUsersList.js';
 import { TokenTrendingList } from '@/components/TokenTrendingList.js';
-import { TrendingPostsFullList } from '@/components/Trending/TrendingPostsFullList.js';
 import { type ExploreSource, ExploreType, type SocialSource, TrendingType } from '@/constants/enum.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 
@@ -27,8 +26,6 @@ export function ExplorePage({ source, type }: Props) {
             return <TokenTrendingList type={source as TrendingType} />;
         case ExploreType.Projects:
             return null;
-        case ExploreType.Feeds:
-            return <TrendingPostsFullList />;
         default:
             safeUnreachable(type);
             return null;

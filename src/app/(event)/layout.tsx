@@ -34,6 +34,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
                     <AsideSearchBar />
                     <SuggestedFollowsCard />
+                    <SuggestedChannels source={Source.Bsky} />
                     <SuggestedChannels source={Source.Farcaster} />
                     <LinkCloud />
                 </div>

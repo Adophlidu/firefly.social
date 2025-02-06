@@ -211,7 +211,6 @@ export const EXPLORE_TYPES: ExploreType[] = [
     ExploreType.Projects,
     ExploreType.CryptoTrends,
     ExploreType.TopChannels,
-    ExploreType.Feeds,
 ];
 
 export const EXPLORE_SOURCES: Partial<Record<ExploreType, ExploreSource[]>> = {
@@ -230,7 +229,6 @@ export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource | undefin
     [ExploreType.Projects]: undefined,
     [ExploreType.CryptoTrends]: TrendingType.Trending,
     [ExploreType.TopChannels]: Source.Farcaster,
-    [ExploreType.Feeds]: Source.Bsky,
 };
 
 export const BOOKMARK_SOURCES: BookmarkSource[] = [

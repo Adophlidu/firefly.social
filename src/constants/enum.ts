@@ -130,7 +130,6 @@ export enum ExploreType {
     Projects = 'project',
     TopProfiles = 'top-profiles',
     TopChannels = 'top-channels',
-    Feeds = 'feeds',
 }
 
 export enum TrendingType {
