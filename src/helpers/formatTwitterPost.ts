@@ -26,8 +26,9 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
             return media ? formatTwitterMedia(media) : null;
         }),
     );
-    let entitiesUrls = item.entities?.urls;
+    let entitiesUrls = item.note_tweet?.entities?.urls ?? item.entities?.urls;
     let content = item.note_tweet?.text || item.text || '';
+    const mentions = item?.note_tweet?.entities?.mentions ?? item?.entities?.mentions;
 
     const ret: Post = {
         publicationId: item.id,
@@ -58,7 +59,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
             quotes: item.public_metrics?.quote_count ?? 0,
         },
         timestamp: item?.created_at ? new Date(item.created_at).getTime() : Date.now(),
-        mentions: item?.entities?.mentions?.map((mention) => {
+        mentions: mentions?.map((mention) => {
             return {
                 profileId: mention.id,
                 profileSource: Source.Twitter,
@@ -136,7 +137,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
             content = retweetedTweet.note_tweet?.text || retweetedTweet.text;
             if (retweetedTweet.entities?.urls) entitiesUrls = retweetedTweet.entities?.urls;
         }
-        const mention = item.entities?.mentions.sort((a, b) => a.start - b.start)?.[0];
+        const mention = mentions?.sort((a, b) => a.start - b.start)?.[0];
         if (mention) {
             if (content?.startsWith('RT @')) {
                 let newContent = content.substring(mention.end);
