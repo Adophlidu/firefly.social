@@ -25,7 +25,8 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
 }) {
     const platformSource = resolveSourceFromFireflyPlatform(profile.platform);
     const source = platformSource === Source.Wallet ? Source.Wallet : narrowToSocialSource(platformSource);
-    const avatar = profile.avatar ?? getStampAvatarByProfileId(source, profile.platform_id);
+    const avatar = profile.avatar || getStampAvatarByProfileId(source, profile.platform_id);
+    const profileId = [Source.Lens, Source.Bsky].includes(source) ? profile.handle : profile.platform_id;
 
     // keep the matched profile at the first place
     const sortedRelated = related.sort((a, b) => (a.platform === profile.platform ? -1 : 1));
@@ -33,7 +34,7 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
     return (
         <Link
             className={classNames('flex items-center gap-x-2 border-b border-line p-3 hover:bg-bg', className)}
-            href={resolveProfileUrl(source, source === Source.Lens ? profile.handle : profile.platform_id)}
+            href={resolveProfileUrl(source, profileId)}
             onClick={onClick}
         >
             <Avatar alt={profile.handle} className="h-7 w-7 rounded-full" src={avatar} size={44} />
