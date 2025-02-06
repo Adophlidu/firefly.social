@@ -289,7 +289,6 @@ export class BskySocialMedia implements Provider {
         try {
             const res = await bskySessionHolder.agent.getAuthorFeed({
                 actor: profileId,
-                filter: 'posts_and_author_threads',
                 cursor: indicator?.id,
             });
             if (!res.success) throw new Error(`Failed to get post by profile id = ${profileId}.`);

@@ -6,6 +6,8 @@ import { PollCreatorCard } from '@/components/Poll/PollCreatorCard.js';
 import { PostLinksInCompose } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { Reply } from '@/components/Posts/Reply.js';
+import type { SocialSource } from '@/constants/enum.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeContentProps {
@@ -18,7 +20,10 @@ export function ComposeContent(props: ComposeContentProps) {
     const { id, parentPost, images, poll, availableSources, chars } = props.post;
 
     // in reply and quote mode, there could be only one parent post
-    const post = parentPost.Farcaster || parentPost.Lens || parentPost.Twitter;
+    const [, post] =
+        Object.entries(parentPost).find(
+            ([source, value]) => value && SORTED_SOCIAL_SOURCES.includes(source as SocialSource),
+        ) ?? [];
     const replying = type === 'reply' && !!post;
 
     return (
