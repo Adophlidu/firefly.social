@@ -26,6 +26,7 @@ const mainRoute = createRoute({
 const farcasterRoute = createRoute({
     getParentRoute: () => rootRoute,
     component: FarcasterView,
+    pendingComponent: FarcasterView,
     path: '/farcaster',
     beforeLoad: FarcasterViewBeforeLoad,
 });
@@ -33,6 +34,7 @@ const farcasterRoute = createRoute({
 const lensRoute = createRoute({
     getParentRoute: () => rootRoute,
     component: LensView,
+    pendingComponent: LensView,
     path: '/lens',
     beforeLoad: LensViewBeforeLoad,
 });
@@ -40,12 +42,14 @@ const lensRoute = createRoute({
 const twitterRoute = createRoute({
     getParentRoute: () => rootRoute,
     component: TwitterView,
+    pendingComponent: TwitterView,
     path: '/twitter',
 });
 
 const bskyRoute = createRoute({
     getParentRoute: () => rootRoute,
     component: BskyView,
+    pendingComponent: BskyView,
     path: '/bsky',
     beforeLoad: BskyViewBeforeLoad,
 });

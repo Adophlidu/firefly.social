@@ -12,9 +12,21 @@ import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { MainView } from '@/modals/LoginModal/MainView.js';
 import { routeTree } from '@/modals/LoginModal/routes.js';
 
-function createLoginRouter() {
+interface LoginRouterOptions {
+    initialEntries?: string[];
+    initialIndex?: number;
+}
+
+const defaultLoginRouterOptions = {
+    initialEntries: ['/main'],
+    initialIndex: 0,
+} satisfies LoginRouterOptions;
+
+function createLoginRouter(options: LoginRouterOptions = defaultLoginRouterOptions) {
+    const { initialEntries = defaultLoginRouterOptions.initialEntries, initialIndex = 0 } = options;
     const memoryHistory = createMemoryHistory({
-        initialEntries: ['/main'],
+        initialEntries,
+        initialIndex,
     });
 
     const router = createRouter({
@@ -45,14 +57,16 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProp
     const routerRef = useRef(createLoginRouter());
 
     const [open, dispatch] = useSingletonModal(ref, {
-        onOpen: async (props) => {
-            routerRef.current = createLoginRouter();
-
-            if (!props?.source) {
-                routerRef.current.history.push('/main');
+        onOpen: (props) => {
+            if (props?.source) {
+                const initialEntries = ['/main', urlcat(`/${resolveSourceInUrl(props.source)}`, props.options ?? {})];
+                routerRef.current = createLoginRouter({
+                    initialEntries,
+                    initialIndex: 1,
+                });
             } else {
-                const path = urlcat(`/${resolveSourceInUrl(props.source)}`, props.options ?? {});
-                routerRef.current.history.push(path);
+                routerRef.current = createLoginRouter();
+                routerRef.current.history.replace('/main');
             }
         },
     });

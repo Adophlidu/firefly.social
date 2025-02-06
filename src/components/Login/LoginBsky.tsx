@@ -100,6 +100,7 @@ export function LoginBsky() {
                 <input
                     type="text"
                     name="account"
+                    autoFocus
                     autoComplete="off"
                     spellCheck="false"
                     placeholder={t`Username or email address`}
