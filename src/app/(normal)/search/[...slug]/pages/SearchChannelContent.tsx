@@ -1,7 +1,7 @@
 'use client';
 
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { compact } from 'lodash-es';
+import { compact, uniqBy } from 'lodash-es';
 
 import { ChannelInList } from '@/components/ChannelInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
@@ -42,7 +42,10 @@ export function SearchChannelContent() {
             return lastPage?.nextIndicator?.id;
         },
         select(data) {
-            return compact(data.pages.flatMap((x) => x?.data ?? []));
+            return uniqBy(
+                compact(data.pages.flatMap((x) => x?.data ?? [])),
+                (channel) => `${channel.source}:${channel.id}`,
+            );
         },
     });
 
