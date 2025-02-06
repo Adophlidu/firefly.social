@@ -173,6 +173,7 @@ export const SORTED_MEDIA_SOURCES: MediaSource[] = [
     MediaSource.IPFS,
     MediaSource.Imgur,
     MediaSource.Giphy,
+    MediaSource.Tenor,
     MediaSource.Local,
 ];
 export const SORTED_EXPLORE_SOURCES: ExploreSource[] = [Source.Farcaster, Source.Lens];

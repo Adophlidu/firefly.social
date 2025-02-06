@@ -6,10 +6,13 @@ async function downloadUrl(url: string, name: string) {
     return new File([blob], name, { type: blob.type });
 }
 
-export async function downloadMediaObjects(medias: MediaObject[]) {
+export async function downloadMediaObjects(medias: MediaObject[], useThumb = false) {
     return await Promise.all(
         medias.map(async (media) => {
-            const url = resolveMediaObjectUrl(media, [MediaSource.Giphy]);
+            const url =
+                useThumb && media.thumb
+                    ? media.thumb
+                    : resolveMediaObjectUrl(media, [MediaSource.Giphy, MediaSource.Tenor]);
             return {
                 ...media,
                 file: url ? await downloadUrl(url, media.file.name) : media.file,

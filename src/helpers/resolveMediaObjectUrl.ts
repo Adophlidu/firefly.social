@@ -22,14 +22,17 @@ export function createLocalMediaObject(file: File, isRpPayloadImage = false): Me
     };
 }
 
-export function createGiphyMediaObject(gif: IGif): MediaObject {
+export function createGifMediaObject(gif: IGif): MediaObject {
     return {
         id: gif.id.toString(),
+        width: gif.images.original.width,
+        height: gif.images.original.height,
         file: new File([], gif.title, { type: FileMimeType.GIF }),
         mimeType: FileMimeType.GIF,
         urls: {
-            [MediaSource.Giphy]: gif.images.original.url,
+            [gif.source]: gif.images.original.url,
         },
+        thumb: gif.source === MediaSource.Tenor ? gif.images.preview.url : undefined,
     };
 }
 
@@ -91,10 +94,10 @@ export const resolveMediaObjectUploadId = resolveMediaObjectBy('uploadIds');
 
 const resolveImageSources = createLookupTableResolver<SocialSource, MediaSource[]>(
     {
-        [Source.Lens]: [MediaSource.IPFS, MediaSource.S3, MediaSource.Giphy],
-        [Source.Farcaster]: [MediaSource.S3, MediaSource.Giphy],
+        [Source.Lens]: [MediaSource.IPFS, MediaSource.S3, MediaSource.Giphy, MediaSource.Tenor],
+        [Source.Farcaster]: [MediaSource.S3, MediaSource.Giphy, MediaSource.Tenor],
         [Source.Twitter]: [MediaSource.Twimg],
-        [Source.Bsky]: [MediaSource.S3, MediaSource.Giphy],
+        [Source.Bsky]: [MediaSource.S3, MediaSource.Giphy, MediaSource.Tenor],
     },
     (source) => {
         throw new UnreachableError('source', source);

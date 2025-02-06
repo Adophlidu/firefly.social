@@ -9,6 +9,7 @@ export enum MediaSource {
     Imgur = 'imgur',
     S3 = 's3',
     Giphy = 'giphy',
+    Tenor = 'tenor',
 }
 
 export interface MediaObject {
@@ -22,4 +23,5 @@ export interface MediaObject {
     blobRef?: BlobRef;
     width?: number;
     height?: number;
+    thumb?: string;
 }

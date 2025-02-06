@@ -62,6 +62,8 @@ export async function postToBsky(
                     mimeType: media.mimeType || media.file.type,
                     title: media.file.name,
                     type: 'Image' as const,
+                    width: media.width,
+                    height: media.height,
                 })),
                 ...videos.map((media) => ({
                     blobRef: media.blobRef,
@@ -77,11 +79,11 @@ export async function postToBsky(
     const postTo = createPostTo(Source.Bsky, {
         uploadImages: async () => {
             if (!images.length) return [];
-            const downloaded = await downloadMediaObjects(images);
+            const downloaded = await downloadMediaObjects(images, true);
             const results = await Promise.all(
                 downloaded.map(async (media) => {
                     const { data } = await bskySessionHolder.agent.uploadBlob(media.file);
-                    return createBskyMediaObject(media, data.blob);
+                    return createBskyMediaObject(media, data.blob, media.width, media.height);
                 }),
             );
             return results;

@@ -1,18 +1,32 @@
 import { Grid, SearchContext, SuggestionBar } from '@giphy/react-components';
 import { memo, useContext } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import { LoadingIndicator } from '@/components/Gif/LoadingIndicator.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { MediaSource } from '@/types/compose.js';
 import type { IGif } from '@/types/giphy.js';
 
-interface GifListProps {
+interface GiphyGifListProps {
     width: number;
     onSelected: (gif: IGif) => void;
 }
 
-export const GifList = memo<GifListProps>(function GifList({ width, onSelected }) {
+export const GiphyGifList = memo<GiphyGifListProps>(function GiphyGifList({ width, onSelected }) {
     const { isFetching, fetchGifs, searchKey } = useContext(SearchContext);
     const isMedium = useIsMedium();
+
+    const [, fetchGiphyGifs] = useAsyncFn(
+        async (offset: number) => {
+            const result = await fetchGifs(offset);
+
+            return {
+                ...result,
+                data: result.data.map((gif) => ({ ...gif, source: MediaSource.Giphy })),
+            };
+        },
+        [fetchGifs],
+    );
 
     return (
         <div className="relative h-full rounded">
@@ -25,7 +39,7 @@ export const GifList = memo<GifListProps>(function GifList({ width, onSelected }
                     key={searchKey}
                     columns={isMedium ? 3 : 2}
                     width={width}
-                    fetchGifs={fetchGifs}
+                    fetchGifs={fetchGiphyGifs}
                     onGifClick={onSelected}
                 />
             </div>

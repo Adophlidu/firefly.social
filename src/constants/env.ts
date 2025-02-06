@@ -88,8 +88,9 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_FIREFLY_IOS_HOME: z.string().default('firefly://'),
     NEXT_PUBLIC_FIREFLY_ANDROID_HOME: z.string().default('firefly://home'),
 
-    // giphy
+    // gif
     NEXT_PUBLIC_GIPHY_API_KEY: z.string().default('invalid_giphy_api_key'),
+    NEXT_PUBLIC_TENOR_API_KEY: z.string().default('LIVDSRZULELA'),
 
     // w3m
     NEXT_PUBLIC_W3M_PROJECT_ID: z.string().default('invalid_w3m_project_id'),
@@ -151,8 +152,9 @@ export const env = {
         NEXT_PUBLIC_FIREFLY_IOS_HOME: process.env.NEXT_PUBLIC_FIREFLY_IOS_HOME,
         NEXT_PUBLIC_FIREFLY_ANDROID_HOME: process.env.NEXT_PUBLIC_FIREFLY_ANDROID_HOME,
 
-        // giphy
+        // gif
         NEXT_PUBLIC_GIPHY_API_KEY: process.env.NEXT_PUBLIC_GIPHY_API_KEY,
+        NEXT_PUBLIC_TENOR_API_KEY: process.env.NEXT_PUBLIC_TENOR_API_KEY,
 
         // w3m
         NEXT_PUBLIC_W3M_PROJECT_ID: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,

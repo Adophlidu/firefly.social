@@ -1,5 +1,6 @@
 import type { AppBskyEmbedExternal, AppBskyEmbedImages, AppBskyEmbedVideo, RichText } from '@atproto/api';
 import { first } from 'lodash-es';
+import urlcat from 'urlcat';
 
 import { BskyEmbedType, BskyFacetType, FileMimeType } from '@/constants/enum.js';
 import { base64ToFile } from '@/helpers/base64ToFile.js';
@@ -21,8 +22,8 @@ export async function resolveBskyEmbed(post: Post, richText?: RichText) {
             $type: BskyEmbedType.External,
             external: {
                 title: gif.title || '',
-                description: gif.title || '',
-                uri: gif.url,
+                description: `ALT: ${gif.title || ''}`,
+                uri: urlcat(gif.url, { ww: gif.width, hh: gif.height }),
                 thumb: gif.blobRef,
             },
         } satisfies AppBskyEmbedExternal.Main;

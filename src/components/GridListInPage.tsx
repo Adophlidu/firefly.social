@@ -23,6 +23,7 @@ export interface GridListInPageProps<T = unknown, C = unknown> {
     };
     NoResultsFallbackProps?: NoResultsFallbackProps;
     className?: string;
+    hiddenFooter?: boolean;
 }
 
 export function GridListInPage<T = unknown, C = unknown>({
@@ -31,6 +32,7 @@ export function GridListInPage<T = unknown, C = unknown>({
     noResultsFallbackRequired = true,
     VirtualGridListProps,
     NoResultsFallbackProps,
+    hiddenFooter = false,
     className,
 }: GridListInPageProps<T, C>) {
     const currentSource = useGlobalState.use.currentSource();
@@ -78,7 +80,7 @@ export function GridListInPage<T = unknown, C = unknown>({
                 components={Components}
                 className={classNames('max-md:no-scrollbar', VirtualGridListProps?.className)}
             />
-            <VirtualListFooter context={Context} />
+            {hiddenFooter ? null : <VirtualListFooter context={Context} />}
         </div>
     );
 }
