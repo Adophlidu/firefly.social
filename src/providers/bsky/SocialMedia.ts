@@ -157,7 +157,7 @@ export class BskySocialMedia implements Provider {
         };
     }
     async commentPost(postId: string, post: Post): Promise<{ postId: string; contentURI?: string }> {
-        throw new NotImplementedError();
+        return this.publishPost(post);
     }
     async collectPost(postId: string, collectionId?: string): Promise<void> {
         throw new NotImplementedError();
