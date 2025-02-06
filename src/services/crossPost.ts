@@ -1,6 +1,6 @@
-import { plural, t } from '@lingui/core/macro';
+import { t } from '@lingui/core/macro';
 import { produce } from 'immer';
-import { compact } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { NODE_ENV, type SocialSource } from '@/constants/enum.js';
@@ -256,11 +256,7 @@ export async function crossPost(
             const firstPlatform = failedPlatforms[0] ? resolveSourceName(failedPlatforms[0]) : '';
             const secondPlatform = failedPlatforms[1] ? resolveSourceName(failedPlatforms[1]) : '';
 
-            const message = plural(failedPlatforms.length, {
-                one: `Your post failed to publish on ${firstPlatform} due to an error. Click 'Retry' to attempt posting again.`,
-                two: `Your post failed to publish on ${firstPlatform} and ${secondPlatform} due to an error. Click 'Retry' to attempt posting again.`,
-                other: "Your post failed to publish due to an error. Click 'Retry' to attempt posting again.",
-            });
+            const message = t`Your post failed to send to ${failedPlatforms.map(resolveSourceName).join('/')}. Click 'Retry' to attempt posting again.`;
 
             enqueueErrorsMessage(message, {
                 errors: compact(allErrors),
@@ -273,7 +269,12 @@ export async function crossPost(
                 ].join('\n'),
             );
         } else {
-            enqueueSuccessMessage(t`Your post has published successfully.`);
+            if (availableSources.length === 1) {
+                const target = first(availableSources);
+                enqueueSuccessMessage(t`Your post was sent to ${resolveSourceName(target!)}`);
+            } else {
+                enqueueSuccessMessage(t`Your post was sent`);
+            }
         }
     }
 

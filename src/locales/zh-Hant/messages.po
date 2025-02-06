@@ -1191,10 +1191,6 @@ msgstr ""
 msgid "Unmuting..."
 msgstr "正在靜音中"
 
-#. placeholder {0}: failedPlatforms.length
-msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-msgstr ""
-
 msgid "Log in with your X account to view"
 msgstr ""
 
@@ -1739,9 +1735,6 @@ msgstr ""
 
 msgid "Post with link"
 msgstr ""
-
-msgid "Your post has published successfully."
-msgstr "你的貼文已成功發佈"
 
 msgid "Login with Farcaster"
 msgstr "通過 Farcaster 登錄"
@@ -2459,6 +2452,10 @@ msgstr ""
 #. placeholder {0}: author.handle
 msgid "Unfollow @{0}"
 msgstr "取消追蹤 @{0}"
+
+#. placeholder {0}: failedPlatforms.map(resolveSourceName).join('/')
+msgid "Your post failed to send to {0}. Click 'Retry' to attempt posting again."
+msgstr ""
 
 msgid "Not my wallet address."
 msgstr ""
@@ -3447,6 +3444,10 @@ msgstr ""
 msgid "Proposal"
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(target!)
+msgid "Your post was sent to {0}"
+msgstr ""
+
 msgid "News"
 msgstr "资讯"
 
@@ -3568,6 +3569,9 @@ msgstr ""
 #. placeholder {0}: profile.handle
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "在{sourceName} 上已取消對 @{0} 的追蹤"
+
+msgid "Your post was sent"
+msgstr ""
 
 msgid "Remove"
 msgstr "移除"

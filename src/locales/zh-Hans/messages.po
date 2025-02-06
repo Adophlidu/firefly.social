@@ -1191,10 +1191,6 @@ msgstr "没有限制性批准。"
 msgid "Unmuting..."
 msgstr "取消隐藏中..."
 
-#. placeholder {0}: failedPlatforms.length
-msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。请点击重试。}}"
-
 msgid "Log in with your X account to view"
 msgstr "使用您的X账户登录以查看"
 
@@ -1744,9 +1740,6 @@ msgstr "启用日志侦测时间"
 
 msgid "Post with link"
 msgstr "发布带链接的帖子"
-
-msgid "Your post has published successfully."
-msgstr "发布成功。"
 
 msgid "Login with Farcaster"
 msgstr "使用 Farcaster 登录"
@@ -2469,6 +2462,10 @@ msgstr "我们无法模拟该交易或完成所有安全检测。请谨慎操作
 #. placeholder {0}: author.handle
 msgid "Unfollow @{0}"
 msgstr "取消关注 @{0}"
+
+#. placeholder {0}: failedPlatforms.map(resolveSourceName).join('/')
+msgid "Your post failed to send to {0}. Click 'Retry' to attempt posting again."
+msgstr ""
 
 msgid "Not my wallet address."
 msgstr "不是我的钱包地址。"
@@ -3457,6 +3454,10 @@ msgstr "未能链接 Firefly"
 msgid "Proposal"
 msgstr "提案"
 
+#. placeholder {0}: resolveSourceName(target!)
+msgid "Your post was sent to {0}"
+msgstr ""
+
 msgid "News"
 msgstr "新闻"
 
@@ -3578,6 +3579,9 @@ msgstr "黑名单地址。"
 #. placeholder {0}: profile.handle
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "在 {sourceName} 取消关注 @{0}"
+
+msgid "Your post was sent"
+msgstr ""
 
 msgid "Remove"
 msgstr "移除"

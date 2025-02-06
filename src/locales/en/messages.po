@@ -1186,10 +1186,6 @@ msgstr "No restricted approval."
 msgid "Unmuting..."
 msgstr "Unmuting..."
 
-#. placeholder {0}: failedPlatforms.length
-msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-
 msgid "Log in with your X account to view"
 msgstr "Log in with your X account to view"
 
@@ -1739,9 +1735,6 @@ msgstr "Enable logging telemetry events"
 
 msgid "Post with link"
 msgstr "Post with link"
-
-msgid "Your post has published successfully."
-msgstr "Your post has published successfully."
 
 msgid "Login with Farcaster"
 msgstr "Login with Farcaster"
@@ -2464,6 +2457,10 @@ msgstr "We were unable to simulate the transaction or complete all security dete
 #. placeholder {0}: author.handle
 msgid "Unfollow @{0}"
 msgstr "Unfollow @{0}"
+
+#. placeholder {0}: failedPlatforms.map(resolveSourceName).join('/')
+msgid "Your post failed to send to {0}. Click 'Retry' to attempt posting again."
+msgstr "Your post failed to send to {0}. Click 'Retry' to attempt posting again."
 
 msgid "Not my wallet address."
 msgstr "Not my wallet address."
@@ -3452,6 +3449,10 @@ msgstr "Failed to connect to Firefly."
 msgid "Proposal"
 msgstr "Proposal"
 
+#. placeholder {0}: resolveSourceName(target!)
+msgid "Your post was sent to {0}"
+msgstr "Your post was sent to {0}"
+
 msgid "News"
 msgstr "News"
 
@@ -3573,6 +3574,9 @@ msgstr "Sanctioned address found."
 #. placeholder {0}: profile.handle
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "Unfollowed @{0} on {sourceName}"
+
+msgid "Your post was sent"
+msgstr "Your post was sent"
 
 msgid "Remove"
 msgstr "Remove"
