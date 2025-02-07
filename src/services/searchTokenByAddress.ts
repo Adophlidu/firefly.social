@@ -24,12 +24,12 @@ const networks = [
 
 export const searchTokenByAddress = memoizePromise(
     async function searchTokenByAddress(address: string) {
-        const singal = new AbortController();
+        const signal = new AbortController();
         return Promise.any(
             networks.map(async (network) => {
-                const result = await CoinGecko.getTokenByAddress(address, network, singal.signal);
+                const result = await CoinGecko.getTokenByAddress(address, network, signal.signal);
                 if (result?.attributes.coingecko_coin_id) {
-                    singal.abort();
+                    signal.abort();
                     return result;
                 }
 
