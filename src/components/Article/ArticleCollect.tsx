@@ -116,13 +116,14 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
     const isSoldOut = !!data?.quantity && data.soldCount >= data.quantity;
 
     const buttonText = useMemo(() => {
+        if (collectLoading) return t`Collecting`;
         if (isSoldOut) return t`Sold Out`;
         if ((data?.isCollected && platform !== ArticlePlatform.Paragraph) || modalSessionCollected) return t`Collected`;
         if (isFree) return t`Collect`;
         if (insufficientBalance) return t`Insufficient Balance`;
         if (!data?.price) return t`Collect`;
         return t`Collect for ${data.price} ${nativeSymbol}`;
-    }, [data, nativeSymbol, isSoldOut, insufficientBalance, platform, modalSessionCollected, isFree]);
+    }, [data, nativeSymbol, isSoldOut, insufficientBalance, platform, modalSessionCollected, isFree, collectLoading]);
 
     if (!queryDetailLoading && !data) {
         return (
@@ -199,6 +200,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
                     disabled ? 'cursor-not-allowed opacity-50' : '',
                 )}
                 loading={loading}
+                onlyLoading={!collectLoading}
                 onClick={disabled ? undefined : handleCollect}
             >
                 {buttonText}

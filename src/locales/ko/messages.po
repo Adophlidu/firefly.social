@@ -252,6 +252,9 @@ msgstr ""
 msgid "Malicious mining activities found."
 msgstr ""
 
+msgid "Collecting"
+msgstr ""
+
 msgid "Functions that can suspend trading"
 msgstr ""
 
@@ -762,6 +765,9 @@ msgstr ""
 #. placeholder {0}: space.name
 #. placeholder {1}: ensHandle.data || formatEthereumAddress(snapshot.author, 4)
 msgid "<0>{0}</0> by <1>{1}</1>"
+msgstr ""
+
+msgid "Sending"
 msgstr ""
 
 msgid "Limo"
@@ -3335,6 +3341,9 @@ msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Coll
 msgstr ""
 
 msgid "Unverified: Failed to simulate, <0>try again</0>"
+msgstr ""
+
+msgid "Minting"
 msgstr ""
 
 msgid "You may lose your assets if giving approval to the website of this token."

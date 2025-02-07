@@ -252,6 +252,9 @@ msgstr "查询频道中"
 msgid "Malicious mining activities found."
 msgstr "发现恶意挖矿行为。"
 
+msgid "Collecting"
+msgstr ""
+
 msgid "Functions that can suspend trading"
 msgstr "可以暂停交易的功能"
 
@@ -763,6 +766,9 @@ msgstr "已连接的账户"
 #. placeholder {1}: ensHandle.data || formatEthereumAddress(snapshot.author, 4)
 msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr "<0>{0}</0> 由 <1>{1}</1>"
+
+msgid "Sending"
+msgstr ""
 
 msgid "Limo"
 msgstr "Limo"
@@ -3346,6 +3352,9 @@ msgstr "{type, select, comment {评论} mirror {{0}} reaction {点赞} act {收�
 
 msgid "Unverified: Failed to simulate, <0>try again</0>"
 msgstr "未验证：模拟失败，请重试。"
+
+msgid "Minting"
+msgstr ""
 
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "如果您授权此通证给这个网站，您可能会丢失您的资产。"

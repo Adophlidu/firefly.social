@@ -6,7 +6,6 @@ import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { resolveCurrentFireflyAccountId, resolveFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
@@ -98,16 +97,16 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             className="mt-6 flex h-10 w-full items-center justify-center rounded-[20px] bg-lightMain text-lightBottom dark:text-darkBottom"
             disabled={!connected ? false : isValidating || isSending || !!value?.disabled || !!error}
             onClick={handleSendTips}
+            loading={isSending || isValidating}
+            onlyLoading={isValidating}
         >
-            {!connected ? (
-                t`Connect Wallet`
-            ) : isSending || isValidating ? (
-                <LoadingIcon />
-            ) : error ? (
-                t`Validate failed, please check your input.`
-            ) : (
-                value?.label
-            )}
+            {!connected
+                ? t`Connect Wallet`
+                : isSending
+                  ? t`Sending`
+                  : error
+                    ? t`Validate failed, please check your input.`
+                    : value?.label}
         </ClickableButton>
     );
 });

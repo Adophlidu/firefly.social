@@ -1,3 +1,4 @@
+import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
 import { type ChangeEvent, memo, useCallback, useMemo } from 'react';
@@ -6,7 +7,6 @@ import { useAccount, useBalance } from 'wagmi';
 import AddIcon from '@/assets/add-number.svg';
 import MinusIcon from '@/assets/minus-number.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { isGreaterThan, multipliedBy, plus } from '@/helpers/number.js';
 import { useSponsorMintNFT } from '@/hooks/useSponsorMintNFT.js';
 import type { MintMetadata, SponsorMintOptions } from '@/providers/types/Firefly.js';
@@ -112,10 +112,12 @@ export const MintButton = memo<MintButtonProps>(function MintButton({
             <ClickableButton
                 disabled={mintDisabled}
                 onClick={onMint}
+                loading={showLoading}
+                onlyLoading={!loading}
                 className="h-8 flex-1 rounded-full bg-main text-center text-sm font-bold !leading-8 text-lightBottom dark:text-darkBottom"
             >
-                {showLoading ? (
-                    <LoadingIcon className="inline-block" />
+                {loading ? (
+                    t`Minting`
                 ) : !mintParams.gasStatus && !hasBalance ? (
                     <Trans>Insufficient Balance</Trans>
                 ) : (

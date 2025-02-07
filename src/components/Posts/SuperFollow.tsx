@@ -7,7 +7,6 @@ import { useAccount } from 'wagmi';
 import UserIcon from '@/assets/user.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
-import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
@@ -35,26 +34,6 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
     const feeAmount = parseFloat(followModule?.amount?.value || '0');
     const feeSymbol = followModule?.amount?.asset.symbol;
 
-    const buttonLabel = useMemo(() => {
-        if (!followModule) {
-            return t`This profile doesn't enable super follow`;
-        }
-        if (!isConnected) {
-            return t`Connect your wallet to follow`;
-        }
-        if (wrongAddress) {
-            return t`Please switch to ${formatEthereumAddress(address, 4)}`;
-        }
-        if (!hasAmount) {
-            return t`Insufficient Balance`;
-        }
-        if (!hasAllowance) {
-            return t`Allow Follow Module`;
-        }
-
-        return t`Follow for ${feeAmount} $${feeSymbol}`;
-    }, [isConnected, hasAmount, hasAllowance, followModule, wrongAddress, address, feeAmount, feeSymbol]);
-
     const [{ loading: isFollowing }, handleFollow] = useAsyncFn(async () => {
         try {
             if (!followModule || !allowanceModule) return;
@@ -78,6 +57,27 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
             throw error;
         }
     }, [followModule, allowanceModule, isConnected, hasAllowance, profile.profileId, profile.handle, onClose]);
+
+    const buttonLabel = useMemo(() => {
+        if (isFollowing) return t`Following`;
+        if (!followModule) {
+            return t`This profile doesn't enable super follow`;
+        }
+        if (!isConnected) {
+            return t`Connect your wallet to follow`;
+        }
+        if (wrongAddress) {
+            return t`Please switch to ${formatEthereumAddress(address, 4)}`;
+        }
+        if (!hasAmount) {
+            return t`Insufficient Balance`;
+        }
+        if (!hasAllowance) {
+            return t`Allow Follow Module`;
+        }
+
+        return t`Follow for ${feeAmount} $${feeSymbol}`;
+    }, [isConnected, hasAmount, hasAllowance, followModule, wrongAddress, address, feeAmount, feeSymbol, isFollowing]);
 
     const disabled =
         loading || isFollowing || (isConnected && (!followModule || !allowanceModule || !hasAmount || wrongAddress));
@@ -124,8 +124,10 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
                 disabled={disabled}
                 className="mt-6 flex h-10 w-full items-center justify-center rounded-[20px] bg-lightMain text-medium font-bold text-primaryBottom"
                 onClick={handleFollow}
+                loading={loading || isFollowing}
+                onlyLoading={!isFollowing}
             >
-                {loading || isFollowing ? <LoadingIcon /> : <span>{buttonLabel}</span>}
+                <span>{buttonLabel}</span>
             </ClickableButton>
         </div>
     );
