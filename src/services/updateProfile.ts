@@ -1,5 +1,6 @@
 import { safeUnreachable } from '@masknet/kit';
 import { produce } from 'immer';
+import { pickBy } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
@@ -40,16 +41,14 @@ function updateCurrentProfileInState(source: SocialSource, params: ProfileEditab
     stateStore.getState().updateCurrentProfile(params);
 }
 
+function pickProfileDiff(profile: Profile, profileEditable: ProfileEditable): ProfileEditable {
+    return pickBy(profileEditable, (value, key) => value !== profile[key as keyof ProfileEditable]);
+}
+
 export async function updateProfile(profile: Profile, profileEditable: ProfileEditable) {
     switch (profile.source) {
         case Source.Farcaster:
-            const diffUpdateParams: ProfileEditable = Object.keys(profileEditable).reduce<ProfileEditable>((acc, k) => {
-                const key = k as keyof ProfileEditable;
-                if (typeof profileEditable[key] === 'string' && profileEditable[key] !== profile[key])
-                    acc[key] = profileEditable[key];
-                return acc;
-            }, {});
-            await FarcasterSocialMediaProvider.updateProfile(diffUpdateParams);
+            await FarcasterSocialMediaProvider.updateProfile(pickProfileDiff(profile, profileEditable));
             break;
         case Source.Lens:
             await LensSocialMediaProvider.updateProfile(profileEditable);
@@ -58,7 +57,7 @@ export async function updateProfile(profile: Profile, profileEditable: ProfileEd
             await TwitterSocialMediaProvider.updateProfile(profileEditable);
             break;
         case Source.Bsky:
-            await BskySocialMediaProvider.updateProfile(profileEditable);
+            await BskySocialMediaProvider.updateProfile(pickProfileDiff(profile, profileEditable));
             break;
         default:
             safeUnreachable(profile.source);
