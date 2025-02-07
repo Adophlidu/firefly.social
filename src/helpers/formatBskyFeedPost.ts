@@ -87,6 +87,7 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
         timestamp: createdAt && typeof createdAt === 'string' ? new Date(createdAt).getTime() : Date.now(),
         metadata: {
             locale: record.langs?.[0] ?? 'en',
+            contentURI: original.uri,
             content: {
                 content: record.text,
                 ...formatBskyMedia(original.embed),
