@@ -179,7 +179,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                             hiddenCount
                         />
                     ) : null}
-                    {post.source !== Source.Twitter ? (
+                    {ENABLED_BOOKMARK_SOURCES.includes(post.source) ? (
                         <Bookmark
                             onClick={() => {
                                 mutation.mutate(post);
