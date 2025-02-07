@@ -142,7 +142,10 @@ export interface RequestArguments {
     };
     [SupportedMethod.SET_FRAME_READY_OPTIONS]: Partial<ReadyOptions>;
     [SupportedMethod.GET_FRAME_CONTEXT]: {};
-    [SupportedMethod.SIGN_TRANSACTION]: Transaction;
+    [SupportedMethod.SIGN_TRANSACTION]: {
+        chainId: string;
+        transaction: Transaction;
+    };
     [SupportedMethod.SIGN_MESSAGE]: {
         address: string;
         message: string;

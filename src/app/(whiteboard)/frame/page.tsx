@@ -5,6 +5,7 @@ import { Trans } from '@lingui/react/macro';
 import { EthereumMethodType } from '@masknet/web3-shared-evm';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
+import { toHex } from 'viem';
 
 import { FramePage, FramePageBody, FramePageTitle } from '@/app/(whiteboard)/components/FramePage.js';
 import { GhostError } from '@/app/(whiteboard)/components/GhostError.js';
@@ -125,16 +126,24 @@ export default function Page(props: Props) {
                         });
                     }
                     case EthereumMethodType.ETH_SIGN_TRANSACTION: {
+                        const client = await createWagmiMockClient();
+                        const chainId = await client.getChainId();
+
                         const transaction = params[0] as Transaction;
-                        return fireflyBridgeProvider.request(SupportedMethod.SIGN_TRANSACTION, transaction);
+                        return fireflyBridgeProvider.request(SupportedMethod.SIGN_TRANSACTION, {
+                            chainId: toHex(chainId),
+                            transaction,
+                        });
                     }
                     case EthereumMethodType.ETH_SEND_TRANSACTION: {
-                        const transaction = params[0] as Transaction;
-                        const rawTransaction = await fireflyBridgeProvider.request(
-                            SupportedMethod.SIGN_TRANSACTION,
-                            transaction,
-                        );
                         const client = await createWagmiMockClient();
+                        const chainId = await client.getChainId();
+
+                        const transaction = params[0] as Transaction;
+                        const rawTransaction = await fireflyBridgeProvider.request(SupportedMethod.SIGN_TRANSACTION, {
+                            chainId: toHex(chainId),
+                            transaction,
+                        });
                         return client.sendRawTransaction({
                             serializedTransaction: rawTransaction as `0x${string}`,
                         });
