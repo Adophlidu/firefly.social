@@ -38,3 +38,7 @@ export const resolveExploreSourceName = createLookupTableResolver<ExploreSource,
         throw new UnreachableError('source', source);
     },
 );
+
+export function resolveSourcesName(sources: Source[], separator = ', '): string {
+    return sources.map(resolveSourceName).join(separator);
+}

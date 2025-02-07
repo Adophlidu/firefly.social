@@ -16,7 +16,7 @@ import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { getPostFailedAt } from '@/helpers/getPostFailedAt.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
@@ -253,10 +253,7 @@ export async function crossPost(
                 }
             });
 
-            const firstPlatform = failedPlatforms[0] ? resolveSourceName(failedPlatforms[0]) : '';
-            const secondPlatform = failedPlatforms[1] ? resolveSourceName(failedPlatforms[1]) : '';
-
-            const message = t`Your post failed to send to ${failedPlatforms.map(resolveSourceName).join('/')}. Click 'Retry' to attempt posting again.`;
+            const message = t`Your post failed to send to ${resolveSourcesName(failedPlatforms, '/')}. Click 'Retry' to attempt posting again.`;
 
             enqueueErrorsMessage(message, {
                 errors: compact(allErrors),
@@ -264,7 +261,7 @@ export async function crossPost(
             });
             throw new Error(
                 [
-                    `Failed to post on: ${failedPlatforms.map(resolveSourceName).join(', ')}`,
+                    `Failed to post on: ${resolveSourcesName(failedPlatforms)}`,
                     ...compact(allErrors).map(getDetailedErrorMessage),
                 ].join('\n'),
             );

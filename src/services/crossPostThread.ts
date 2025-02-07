@@ -6,7 +6,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getThreadFailedAt } from '@/helpers/getThreadFailedAt.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { resolveSourceName, resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
@@ -151,7 +151,7 @@ export async function crossPostThread({ progressCallback, isRetry = false, signa
             errors: compact(allErrors),
             persist: true,
         });
-        throw new Error(`Failed to post on: ${failedPlatforms.map(resolveSourceName).join(' ')}.`);
+        throw new Error(`Failed to post on: ${resolveSourcesName(failedPlatforms)}.`);
     } else {
         enqueueSuccessMessage(t`Your posts have published successfully.`);
     }

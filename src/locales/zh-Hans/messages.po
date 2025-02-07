@@ -221,6 +221,10 @@ msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>市值 = 当前价格 x 流通供应量</0><1>指加密货币流通供应量的总市值。它类似于股票市场的衡量标准，即将每股价格乘以市场上流通的股票（未被内部人员、政府持有和锁定）</1>"
 
+#. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
+msgid "GIF source not supported. Supported sources: {0}."
+msgstr ""
+
 msgid "Confirm to sync accounts"
 msgstr "确认登陆"
 
@@ -507,10 +511,6 @@ msgstr "使用<0>摄像头</0> 在 {count} 内<1/> 来扫描您的二维码。�
 
 msgid "No malicious mining activities found."
 msgstr "未发现恶意挖矿活动。"
-
-#. placeholder {0}: SORTED_POLL_SOURCES.map(resolveSourceName).join(', ')
-msgid "Poll is currently only supported on {0}"
-msgstr "投票目前仅支持 {0}"
 
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>已创建的通证数量减去已销毁（从流通中移除）的通证数量。它相当于股票市场上的流通股。</0><1>总供应量 = 链上供应量 - 已销毁的通证</1>"
@@ -2033,6 +2033,9 @@ msgstr "你认识的关注者"
 msgid "Settings"
 msgstr "设置"
 
+msgid "GIF count limit reached."
+msgstr ""
+
 msgid "Font Color"
 msgstr "字体颜色"
 
@@ -2381,6 +2384,10 @@ msgstr "该 NFT 合约有代理合约。"
 msgid "Top Collectors"
 msgstr "热门收藏者"
 
+#. placeholder {0}: resolveSourcesName(SORTED_POLL_SOURCES)
+msgid "Polls are only available on {0}."
+msgstr ""
+
 msgid "Quote"
 msgstr "引用"
 
@@ -2450,6 +2457,10 @@ msgstr "个人简介应至少包含 {minBioSize} 个字符"
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
 
+#. placeholder {0}: resolveSourcesName(SORTED_POLL_SOURCES)
+msgid "Poll is currently only supported on {0}."
+msgstr ""
+
 msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1> or <2>sync</2> through the app"
 msgstr "第一次连接到 Firefly 吗？<0/>请批准与 <1>Warpcast的新连接</1> 或者通过应用进行 <2>同步</2> 。"
 
@@ -2466,7 +2477,7 @@ msgstr "我们无法模拟该交易或完成所有安全检测。请谨慎操作
 msgid "Unfollow @{0}"
 msgstr "取消关注 @{0}"
 
-#. placeholder {0}: failedPlatforms.map(resolveSourceName).join('/')
+#. placeholder {0}: resolveSourcesName(failedPlatforms, '/')
 msgid "Your post failed to send to {0}. Click 'Retry' to attempt posting again."
 msgstr ""
 
@@ -3067,6 +3078,9 @@ msgid "Cancel repost successfully"
 msgstr "取消转帖成功"
 
 msgid "Leave /{name}"
+msgstr ""
+
+msgid "Image count limit reached."
 msgstr ""
 
 msgid "Collect Post"
@@ -3701,6 +3715,10 @@ msgstr "<0>销毁</0> 一个 NFT"
 #. placeholder {2}: timeLeft.seconds
 msgid "{0}h: {1}m: {2}s"
 msgstr "{0}时: {1}分: {2}秒"
+
+#. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES)
+msgid "Scheduled posts are only available on {0}."
+msgstr ""
 
 msgid "Download App"
 msgstr "下载应用"

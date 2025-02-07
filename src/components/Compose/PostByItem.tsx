@@ -4,11 +4,13 @@ import { delay } from '@masknet/kit';
 import { rootRouteId, useRouteContext } from '@tanstack/react-router';
 import { useAsyncFn } from 'react-use';
 
+import InfoIcon from '@/assets/info.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -26,9 +28,10 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 interface PostByItemProps {
     source: SocialSource;
     disabled?: boolean;
+    reason?: string;
 }
 
-export function PostByItem({ source, disabled = false }: PostByItemProps) {
+export function PostByItem({ source, disabled = false, reason }: PostByItemProps) {
     const routeContext = useRouteContext({ from: rootRouteId });
     const accounts = useAccounts(source);
     const currentProfile = useCurrentProfile(source);
@@ -92,10 +95,10 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
             }}
         >
             <div
-                className={classNames(
-                    'box-content flex h-12 items-center justify-between px-3',
-                    disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-bg',
-                )}
+                className={classNames('box-content flex h-12 items-center justify-between px-3', {
+                    'cursor-pointer hover:bg-bg': !disabled,
+                    'cursor-not-allowed opacity-50': disabled && !reason,
+                })}
             >
                 <div className="flex items-center gap-2">
                     <div className="relative">
@@ -116,7 +119,13 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
                     </span>
                 </div>
                 {isSameProfile(currentProfile, profile) ? (
-                    <CircleCheckboxIcon checked={availableSources.includes(currentProfile.source)} />
+                    disabled && reason ? (
+                        <Tooltip placement="top-end" content={reason}>
+                            <InfoIcon width={20} height={20} className="cursor-pointer text-warn" />
+                        </Tooltip>
+                    ) : (
+                        <CircleCheckboxIcon checked={availableSources.includes(currentProfile.source)} />
+                    )
                 ) : (
                     <ClickableButton
                         className="font-bold text-farcasterPrimary"

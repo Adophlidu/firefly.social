@@ -1,13 +1,13 @@
 import { Popover, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { type ChangeEvent, Fragment, useRef } from 'react';
+import { type ChangeEvent, Fragment, useMemo, useRef } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { FileMimeType } from '@/constants/enum.js';
-import { ALLOWED_IMAGES_MIMES, SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
+import { ALLOWED_IMAGES_MIMES, GIF_MEDIA_SOURCE_CONFIG, SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
@@ -16,6 +16,7 @@ import { isValidPostImage, isValidPostVideo } from '@/helpers/validatePostFile.j
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { MediaSource } from '@/types/compose.js';
 
 interface MediaProps {
     close: () => void;
@@ -75,6 +76,11 @@ export function Media({ close }: MediaProps) {
         [availableSources, close, updateVideo],
     );
 
+    const allowedImagesMimes = useMemo(() => {
+        const disableLocalGif = availableSources.some((x) => !GIF_MEDIA_SOURCE_CONFIG[x].includes(MediaSource.Local));
+        return disableLocalGif ? ALLOWED_IMAGES_MIMES.filter((x) => x !== FileMimeType.GIF) : ALLOWED_IMAGES_MIMES;
+    }, [availableSources]);
+
     const disableVideo =
         !!video || images.length > 0 || availableSources.some((source) => !SUPPORTED_VIDEO_SOURCES.includes(source));
     const disableImage =
@@ -102,7 +108,7 @@ export function Media({ close }: MediaProps) {
 
                 <input
                     type="file"
-                    accept={ALLOWED_IMAGES_MIMES.join(', ')}
+                    accept={allowedImagesMimes.join(', ')}
                     multiple
                     ref={imageInputRef}
                     className="hidden"

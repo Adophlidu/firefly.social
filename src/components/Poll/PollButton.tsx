@@ -5,7 +5,7 @@ import PollIcon from '@/assets/poll.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SORTED_POLL_SOURCES } from '@/constants/index.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -22,7 +22,7 @@ export const PollButton = memo(function PollButton() {
         <Tooltip
             content={
                 !isPollSupported
-                    ? t`Poll is currently only supported on ${SORTED_POLL_SOURCES.map(resolveSourceName).join(', ')}`
+                    ? t`Poll is currently only supported on ${resolveSourcesName(SORTED_POLL_SOURCES)}.`
                     : t`Poll`
             }
             placement="top"

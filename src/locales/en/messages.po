@@ -216,6 +216,10 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 
+#. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
+msgid "GIF source not supported. Supported sources: {0}."
+msgstr "GIF source not supported. Supported sources: {0}."
+
 msgid "Confirm to sync accounts"
 msgstr "Confirm to sync accounts"
 
@@ -502,10 +506,6 @@ msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Appr
 
 msgid "No malicious mining activities found."
 msgstr "No malicious mining activities found."
-
-#. placeholder {0}: SORTED_POLL_SOURCES.map(resolveSourceName).join(', ')
-msgid "Poll is currently only supported on {0}"
-msgstr "Poll is currently only supported on {0}"
 
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
@@ -2028,6 +2028,9 @@ msgstr "Followers you know"
 msgid "Settings"
 msgstr "Settings"
 
+msgid "GIF count limit reached."
+msgstr "GIF count limit reached."
+
 msgid "Font Color"
 msgstr "Font Color"
 
@@ -2376,6 +2379,10 @@ msgstr "This NFT contract has a proxy contract."
 msgid "Top Collectors"
 msgstr "Top Collectors"
 
+#. placeholder {0}: resolveSourcesName(SORTED_POLL_SOURCES)
+msgid "Polls are only available on {0}."
+msgstr "Polls are only available on {0}."
+
 msgid "Quote"
 msgstr "Quote"
 
@@ -2445,6 +2452,10 @@ msgstr "Bio should be at least {minBioSize} characters"
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
 
+#. placeholder {0}: resolveSourcesName(SORTED_POLL_SOURCES)
+msgid "Poll is currently only supported on {0}."
+msgstr "Poll is currently only supported on {0}."
+
 msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1> or <2>sync</2> through the app"
 msgstr "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1> or <2>sync</2> through the app"
 
@@ -2461,7 +2472,7 @@ msgstr "We were unable to simulate the transaction or complete all security dete
 msgid "Unfollow @{0}"
 msgstr "Unfollow @{0}"
 
-#. placeholder {0}: failedPlatforms.map(resolveSourceName).join('/')
+#. placeholder {0}: resolveSourcesName(failedPlatforms, '/')
 msgid "Your post failed to send to {0}. Click 'Retry' to attempt posting again."
 msgstr "Your post failed to send to {0}. Click 'Retry' to attempt posting again."
 
@@ -3063,6 +3074,9 @@ msgstr "Cancel repost successfully"
 
 msgid "Leave /{name}"
 msgstr "Leave /{name}"
+
+msgid "Image count limit reached."
+msgstr "Image count limit reached."
 
 msgid "Collect Post"
 msgstr "Collect Post"
@@ -3696,6 +3710,10 @@ msgstr "<0>Burned</0> an NFT"
 #. placeholder {2}: timeLeft.seconds
 msgid "{0}h: {1}m: {2}s"
 msgstr "{0}h: {1}m: {2}s"
+
+#. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES)
+msgid "Scheduled posts are only available on {0}."
+msgstr "Scheduled posts are only available on {0}."
 
 msgid "Download App"
 msgstr "Download App"

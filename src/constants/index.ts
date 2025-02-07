@@ -151,6 +151,13 @@ export const CHANNEL_TAB_TYPE: Record<SocialSource, ChannelTabType[]> = {
     [Source.Twitter]: [],
     [Source.Bsky]: [],
 };
+export const GIF_MEDIA_SOURCE_CONFIG: Record<SocialSource, MediaSource[]> = {
+    [Source.Farcaster]: [MediaSource.Giphy, MediaSource.Tenor, MediaSource.Local],
+    [Source.Lens]: [MediaSource.Giphy, MediaSource.Tenor, MediaSource.Local],
+    [Source.Twitter]: [MediaSource.Giphy, MediaSource.Tenor, MediaSource.Local],
+    [Source.Bsky]: [MediaSource.Tenor],
+};
+
 export const SORTED_HOME_SOURCES = [Source.Farcaster, Source.Lens, Source.NFTs, Source.Article] as const;
 export const SORTED_PROFILE_SOURCES: ProfilePageSource[] = [
     Source.Farcaster,
