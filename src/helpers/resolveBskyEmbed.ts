@@ -35,6 +35,7 @@ export async function resolveBskyEmbed(post: Post, richText?: RichText) {
             images: images.map((image) => ({
                 image: image.blobRef!,
                 alt: image.title || '',
+                aspectRatio: image.width && image.height ? { width: image.width, height: image.height } : undefined,
             })),
         } satisfies AppBskyEmbedImages.Main;
     }

@@ -2,12 +2,12 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ChannelInList } from '@/components/ChannelInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
-import { ScrollListKey, Source, type SocialSource } from '@/constants/enum.js';
+import { ScrollListKey, type SocialSource,Source } from '@/constants/enum.js';
+import { BSKY_LOGIN_REQUIRED_FEEDS } from '@/constants/index.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { BSKY_LOGIN_REQUIRED_FEEDS } from '@/constants/index.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 
 const getChannelItemContent = (index: number, channel: Channel, listKey: string) => {
     return <ChannelInList key={channel.id} channel={channel} listKey={listKey} index={index} />;

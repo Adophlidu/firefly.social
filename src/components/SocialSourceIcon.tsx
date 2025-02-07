@@ -1,9 +1,9 @@
 'use client';
 
 import BskyIcon from '@/assets/bsky-circle.svg';
+import BskyFillIcon from '@/assets/bsky-fill.svg';
 import FarcasterIcon from '@/assets/farcaster.svg';
 import FarcasterFillIcon from '@/assets/farcaster-fill.svg';
-import BskyFillIcon from '@/assets/bsky-fill.svg';
 import LensIcon from '@/assets/lens.svg';
 import LensFillIcon from '@/assets/lens-fill.svg';
 import XFillIcon from '@/assets/x-fill.svg';

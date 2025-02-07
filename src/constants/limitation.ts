@@ -129,3 +129,9 @@ export const MAX_PROFILE_WEBSITE_SIZE: Limitation = {
     [Source.Twitter]: 100,
     [Source.Bsky]: 0,
 };
+
+export const BSKY_IMAGE_LIMITATION = {
+    maxWidth: 2000,
+    maxHeight: 2000,
+    maxSize: 1000000,
+};

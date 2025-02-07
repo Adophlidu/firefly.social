@@ -1,8 +1,9 @@
 import { t } from '@lingui/core/macro';
 
-import { Source } from '@/constants/enum.js';
-import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
+import { FileMimeType, Source } from '@/constants/enum.js';
+import { BSKY_IMAGE_LIMITATION, MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
 import { readChars } from '@/helpers/chars.js';
+import { compressImage } from '@/helpers/compressImage.js';
 import { downloadMediaObjects } from '@/helpers/downloadMediaObjects.js';
 import { getVideoMetadata } from '@/helpers/getVideoMetadata.js';
 import { createBskyMediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
@@ -82,8 +83,21 @@ export async function postToBsky(
             const downloaded = await downloadMediaObjects(images, true);
             const results = await Promise.all(
                 downloaded.map(async (media) => {
-                    const { data } = await bskySessionHolder.agent.uploadBlob(media.file);
-                    return createBskyMediaObject(media, data.blob, media.width, media.height);
+                    const { file, width, height } = await compressImage(media.file, {
+                        ...BSKY_IMAGE_LIMITATION,
+                        format: FileMimeType.JPEG,
+                    });
+                    const { data } = await bskySessionHolder.agent.uploadBlob(file);
+                    return createBskyMediaObject(
+                        {
+                            ...media,
+                            file,
+                            mimeType: file.type,
+                        },
+                        data.blob,
+                        width,
+                        height,
+                    );
                 }),
             );
             return results;
