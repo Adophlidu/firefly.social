@@ -16,7 +16,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tips } from '@/components/Tips/index.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { NotFoundError } from '@/constants/error.js';
-import { ENABLED_BOOKMARK_SOURCES } from '@/constants/index.js';
+import { ENABLED_BOOKMARK_SOURCES, ENABLED_TIPS_POST_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
@@ -91,7 +91,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
         <div key="like">
             <Like isComment={isComment} post={post} disabled={disabled} hiddenCount />
         </div>,
-        identity.id ? (
+        identity.id && ENABLED_TIPS_POST_SOURCES.includes(post.source) ? (
             <Tips key="tips" post={post} identity={identity} disabled={disabled} handle={post.author.handle} />
         ) : null,
         ENABLED_BOOKMARK_SOURCES.includes(post.source) ? (
@@ -190,7 +190,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                             hiddenCount
                         />
                     ) : null}
-                    {identity.id ? (
+                    {identity.id && ENABLED_TIPS_POST_SOURCES.includes(post.source) ? (
                         <Tips post={post} identity={identity} disabled={disabled} handle={post.author.handle} />
                     ) : null}
                     <Share key="share" disabled={disabled} post={post} />
