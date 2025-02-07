@@ -4,12 +4,14 @@ import { useRouter } from 'next/navigation.js';
 import { memo, type MouseEvent, useCallback } from 'react';
 
 import UserIcon from '@/assets/user.svg';
+import LikeIcon from '@/assets/heart.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
+import { Source } from '@/constants/enum.js';
 
 interface ChannelCardProps {
     channel?: Channel;
@@ -82,9 +84,19 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                         onClick={handleNavigateToDetail}
                         className="flex cursor-pointer items-center gap-2 text-medium text-secondary"
                     >
-                        <span className="min-w-0 truncate whitespace-nowrap"> /{channel?.id}</span>
+                        {channel.source === Source.Farcaster ? (
+                            <span className="min-w-0 truncate whitespace-nowrap">/{channel?.id}</span>
+                        ) : (
+                            <span className="min-w-0 truncate whitespace-nowrap">
+                                <Trans>By @{channel.lead?.handle}</Trans>
+                            </span>
+                        )}
                         <div className="flex items-center gap-2">
-                            <UserIcon width={18} height={18} />
+                            {channel.source === Source.Farcaster ? (
+                                <UserIcon width={18} height={18} />
+                            ) : (
+                                <LikeIcon className="text-secondary" />
+                            )}
                             <data value={followerCount} className="text-medium leading-6 text-lightMain">
                                 {nFormatter(followerCount)}
                             </data>

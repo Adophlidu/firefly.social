@@ -381,3 +381,8 @@ export const EDIT_PROFILE_FIELDS: Record<SocialSource, ProfileEditableField[]> =
     ],
     [Source.Bsky]: [ProfileEditableField.DisplayName, ProfileEditableField.Bio],
 };
+
+export const BSKY_LOGIN_REQUIRED_FEEDS = [
+    'at://did:plc:z72i7hdynmk6r22z27h6tvur/app.bsky.feed.generator/with-friends',
+    'at://did:plc:tenurhgjptubkk5zf5qhi3og/app.bsky.feed.generator/mutuals',
+];

@@ -742,6 +742,10 @@ msgstr ""
 msgid "Follow to Collect"
 msgstr ""
 
+#. placeholder {0}: channel.followerCount
+msgid "{0, plural, one {Like} other {Likes}}"
+msgstr ""
+
 msgid "This message is a e2e encrypted message. You can only decrypt this message when it is encrypted to you and decrypt it with Mask Network extension."
 msgstr ""
 
@@ -2227,6 +2231,9 @@ msgid "Delegate Signing"
 msgstr ""
 
 msgid "Failed to disconnect."
+msgstr ""
+
+msgid "{followerCount, plural, one {Like} other {Likes}}"
 msgstr ""
 
 msgid "No stealing attack involved."
@@ -3733,6 +3740,10 @@ msgid "Collect"
 msgstr "收集"
 
 msgid "Mirrors"
+msgstr ""
+
+#. placeholder {0}: channel.lead?.handle
+msgid "By @{0}"
 msgstr ""
 
 msgid "Video"

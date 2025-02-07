@@ -1,4 +1,4 @@
-import { Plural } from '@lingui/react/macro';
+import { Plural, Trans } from '@lingui/react/macro';
 import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
 
@@ -63,15 +63,25 @@ export async function ChannelInfo({ channel: unresolvedChannel, source, isChanne
                         {isChannelPage ? name : <Link href={url}>{name}</Link>}
                         <SocialSourceIcon mono source={source} size={20} />
                     </h1>
+
                     <div className="flex flex-row gap-1">
                         {channel.source === Source.Farcaster ? (
                             <span className="text-medium text-secondary">/{channel.id}</span>
-                        ) : null}
+                        ) : (
+                            <span className="text-medium text-secondary">
+                                <Trans>By @{channel.lead?.handle}</Trans>
+                            </span>
+                        )}
+
                         <data value={followerCount} className="flex items-center gap-1">
                             <UserIcon width={18} height={18} />
                             <span className="text-lightMain">{nFormatter(followerCount)}</span>
                             <span className="text-secondary">
-                                <Plural value={followerCount} one="Member" other="Members" />
+                                {channel.source === Source.Farcaster ? (
+                                    <Plural value={followerCount} one="Member" other="Members" />
+                                ) : (
+                                    <Plural value={followerCount} one="Like" other="Likes" />
+                                )}
                             </span>
                         </data>
                     </div>

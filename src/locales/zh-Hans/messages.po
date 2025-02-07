@@ -742,6 +742,10 @@ msgstr "提交您的钱包以领取您的 $TRUMP"
 msgid "Follow to Collect"
 msgstr "关注并且收集"
 
+#. placeholder {0}: channel.followerCount
+msgid "{0, plural, one {Like} other {Likes}}"
+msgstr ""
+
 msgid "This message is a e2e encrypted message. You can only decrypt this message when it is encrypted to you and decrypt it with Mask Network extension."
 msgstr "这条消息是端到端加密的消息。只有当它被加密发送给您时，您才能解密，并使用 Mask Network 插件进行解密。"
 
@@ -2238,6 +2242,9 @@ msgstr "代理签名"
 
 msgid "Failed to disconnect."
 msgstr "断连失败。"
+
+msgid "{followerCount, plural, one {Like} other {Likes}}"
+msgstr ""
 
 msgid "No stealing attack involved."
 msgstr "未涉及盗窃攻击。"
@@ -3744,6 +3751,10 @@ msgstr "收藏"
 
 msgid "Mirrors"
 msgstr "转帖"
+
+#. placeholder {0}: channel.lead?.handle
+msgid "By @{0}"
+msgstr ""
 
 msgid "Video"
 msgstr "视频"

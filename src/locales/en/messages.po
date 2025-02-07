@@ -737,6 +737,10 @@ msgstr "submit a wallet to receive $TRUMP"
 msgid "Follow to Collect"
 msgstr "Follow to Collect"
 
+#. placeholder {0}: channel.followerCount
+msgid "{0, plural, one {Like} other {Likes}}"
+msgstr "{0, plural, one {Like} other {Likes}}"
+
 msgid "This message is a e2e encrypted message. You can only decrypt this message when it is encrypted to you and decrypt it with Mask Network extension."
 msgstr "This message is a e2e encrypted message. You can only decrypt this message when it is encrypted to you and decrypt it with Mask Network extension."
 
@@ -2233,6 +2237,9 @@ msgstr "Delegate Signing"
 
 msgid "Failed to disconnect."
 msgstr "Failed to disconnect."
+
+msgid "{followerCount, plural, one {Like} other {Likes}}"
+msgstr "{followerCount, plural, one {Like} other {Likes}}"
 
 msgid "No stealing attack involved."
 msgstr "No stealing attack involved."
@@ -3739,6 +3746,10 @@ msgstr "Collect"
 
 msgid "Mirrors"
 msgstr "Mirrors"
+
+#. placeholder {0}: channel.lead?.handle
+msgid "By @{0}"
+msgstr "By @{0}"
 
 msgid "Video"
 msgstr "Video"

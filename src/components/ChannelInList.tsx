@@ -1,4 +1,4 @@
-import { Plural } from '@lingui/react/macro';
+import { Plural, Trans } from '@lingui/react/macro';
 import { isUndefined } from 'lodash-es';
 import type { HTMLProps } from 'react';
 
@@ -89,21 +89,27 @@ export function ChannelInList({
                         />
                     </div>
                     <div className="flex items-center gap-2 text-medium text-sm leading-[24px] text-secondary">
-                        {channel.source === Source.Farcaster ? (
-                            <>
-                                <ChannelTippy channel={channel}>
-                                    <p className="truncate text-[15px] leading-[22px]">/{channel.id}</p>
-                                </ChannelTippy>
-                                <span className="leading-[22px] text-secondary">·</span>
-                            </>
-                        ) : null}
+                        <ChannelTippy channel={channel}>
+                            {channel.source === Source.Farcaster ? (
+                                <p className="truncate text-[15px] leading-[22px]">/{channel.id}</p>
+                            ) : (
+                                <p className="truncate text-[15px] leading-[22px]">
+                                    <Trans>By @{channel.lead?.handle}</Trans>
+                                </p>
+                            )}
+                        </ChannelTippy>
+                        <span className="leading-[22px] text-secondary">·</span>
 
                         <data value={channel.followerCount}>
                             <span className="font-bold leading-[22px] text-lightMain">
                                 {nFormatter(channel.followerCount)}{' '}
                             </span>
                             <span className="leading-[22px] text-secondary">
-                                <Plural value={channel.followerCount} one="Member" other="Members" />
+                                {channel.source === Source.Farcaster ? (
+                                    <Plural value={channel.followerCount} one="Member" other="Members" />
+                                ) : (
+                                    <Plural value={channel.followerCount} one="Like" other="Likes" />
+                                )}
                             </span>
                         </data>
                     </div>
