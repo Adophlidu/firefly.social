@@ -17,10 +17,9 @@ function containImage(
 async function loadImageFile(file: File) {
     return new Promise<HTMLImageElement>((resolve, reject) => {
         const image = new Image();
-        image.src = URL.createObjectURL(file);
-
         image.onload = () => resolve(image);
         image.onerror = () => reject(new Error('Failed to load image'));
+        image.src = URL.createObjectURL(file);
     });
 }
 
