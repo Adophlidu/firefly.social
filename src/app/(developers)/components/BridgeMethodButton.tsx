@@ -12,6 +12,32 @@ import { enqueueInfoMessage, enqueueMessageFromError } from '@/helpers/enqueueMe
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { type Mention, type MethodItem, Network, Platform, SupportedMethod } from '@/types/bridge.js';
 
+const ETHEREUM_CHAIN = {
+    chainId: '0x64',
+    chainName: 'Gnosis',
+    rpcUrls: ['https://rpc.gnosischain.com'],
+    iconUrls: ['https://xdaichain.com/fake/example/url/xdai.svg', 'https://xdaichain.com/fake/example/url/xdai.png'],
+    nativeCurrency: {
+        name: 'XDAI',
+        symbol: 'XDAI',
+        decimals: 18,
+    },
+    blockExplorerUrls: ['https://blockscout.com/poa/xdai/'],
+};
+
+const RAW_TRANSACTION = {
+    type: '0x2',
+    nonce: '0x1',
+    to: '0x0c54fccd2e384b4bb6f2e405bf5cbc15a017aafb',
+    from: '0x660265edc169bab511a40c0e049cc1e33774443d',
+    value: '0x0',
+    data: '0x',
+    gasLimit: '0x5208',
+    maxPriorityFeePerGas: '0x3b9aca00',
+    maxFeePerGas: '0x2540be400',
+    chainId: '0xaa36a7',
+} as const;
+
 interface Props {
     item: MethodItem;
 }
@@ -158,21 +184,10 @@ export function BridgeMethodButton({ item }: Props) {
                     break;
                 }
                 case SupportedMethod.ADD_ETHEREUM_CHAIN: {
-                    const added = await fireflyBridgeProvider.request(SupportedMethod.ADD_ETHEREUM_CHAIN, {
-                        chainId: '0x64',
-                        chainName: 'Gnosis',
-                        rpcUrls: ['https://rpc.gnosischain.com'],
-                        iconUrls: [
-                            'https://xdaichain.com/fake/example/url/xdai.svg',
-                            'https://xdaichain.com/fake/example/url/xdai.png',
-                        ],
-                        nativeCurrency: {
-                            name: 'XDAI',
-                            symbol: 'XDAI',
-                            decimals: 18,
-                        },
-                        blockExplorerUrls: ['https://blockscout.com/poa/xdai/'],
-                    });
+                    const added = await fireflyBridgeProvider.request(
+                        SupportedMethod.ADD_ETHEREUM_CHAIN,
+                        ETHEREUM_CHAIN,
+                    );
                     enqueueInfoMessage(`Added: ${added}`);
                     break;
                 }
@@ -185,21 +200,18 @@ export function BridgeMethodButton({ item }: Props) {
                 }
                 case SupportedMethod.SIGN_TRANSACTION: {
                     const rawTransaction = await fireflyBridgeProvider.request(SupportedMethod.SIGN_TRANSACTION, {
-                        chainId: '0xaa36a7',
-                        transaction: {
-                            type: '0x2',
-                            nonce: '0x1',
-                            to: '0x0c54fccd2e384b4bb6f2e405bf5cbc15a017aafb',
-                            from: '0x660265edc169bab511a40c0e049cc1e33774443d',
-                            value: '0x0',
-                            data: '0x',
-                            gasLimit: '0x5208',
-                            maxPriorityFeePerGas: '0x3b9aca00',
-                            maxFeePerGas: '0x2540be400',
-                            chainId: '0xaa36a7',
-                        },
+                        chainId: RAW_TRANSACTION.chainId,
+                        transaction: RAW_TRANSACTION,
                     });
                     enqueueInfoMessage(`Raw Transaction: ${rawTransaction}`);
+                    break;
+                }
+                case SupportedMethod.SEND_TRANSACTION: {
+                    const hash = await fireflyBridgeProvider.request(SupportedMethod.SIGN_TRANSACTION, {
+                        chainId: RAW_TRANSACTION.chainId,
+                        transaction: RAW_TRANSACTION,
+                    });
+                    enqueueInfoMessage(`Transaction Hash: ${hash}`);
                     break;
                 }
                 case SupportedMethod.SIGN_MESSAGE: {

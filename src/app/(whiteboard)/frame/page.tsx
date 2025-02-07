@@ -13,7 +13,7 @@ import FireflyLogo from '@/assets/firefly.logo.svg';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
-import { createWagmiMockClient } from '@/helpers/createWagmiMockClient.js';
+import { createWagmiLimitedClient } from '@/helpers/createWagmiLimitedClient.js';
 import { squashCallback } from '@/helpers/squashCallback.js';
 import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
@@ -53,8 +53,6 @@ export default function Page(props: Props) {
                 ...result.client,
             },
         };
-
-        console.log('DEBUG fetch frame context:', context);
 
         return {
             frame: {
@@ -126,7 +124,7 @@ export default function Page(props: Props) {
                         });
                     }
                     case EthereumMethodType.ETH_SIGN_TRANSACTION: {
-                        const client = await createWagmiMockClient();
+                        const client = await createWagmiLimitedClient();
                         const chainId = await client.getChainId();
 
                         const transaction = params[0] as Transaction;
@@ -136,20 +134,18 @@ export default function Page(props: Props) {
                         });
                     }
                     case EthereumMethodType.ETH_SEND_TRANSACTION: {
-                        const client = await createWagmiMockClient();
+                        const client = await createWagmiLimitedClient();
                         const chainId = await client.getChainId();
 
                         const transaction = params[0] as Transaction;
-                        const rawTransaction = await fireflyBridgeProvider.request(SupportedMethod.SIGN_TRANSACTION, {
+                        const hash = await fireflyBridgeProvider.request(SupportedMethod.SEND_TRANSACTION, {
                             chainId: toHex(chainId),
                             transaction,
                         });
-                        return client.sendRawTransaction({
-                            serializedTransaction: rawTransaction as `0x${string}`,
-                        });
+                        return hash;
                     }
                     default: {
-                        const client = await createWagmiMockClient();
+                        const client = await createWagmiLimitedClient();
                         return client.request(requestArguments as Parameters<typeof client.request>[0]);
                     }
                 }

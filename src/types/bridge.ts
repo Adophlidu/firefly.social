@@ -44,6 +44,7 @@ export enum SupportedMethod {
     SET_FRAME_READY_OPTIONS = 'setFrameReadyOptions',
     GET_CHAIN_ID = 'getChainId',
     SIGN_TRANSACTION = 'signTransaction',
+    SEND_TRANSACTION = 'sendTransaction',
     SIGN_MESSAGE = 'signMessage',
     SIGN_TYPED_DATA = 'signTypedData',
     ADD_ETHEREUM_CHAIN = 'addEthereumChain',
@@ -146,6 +147,10 @@ export interface RequestArguments {
         chainId: string;
         transaction: Transaction;
     };
+    [SupportedMethod.SEND_TRANSACTION]: {
+        chainId: string;
+        transaction: Transaction;
+    };
     [SupportedMethod.SIGN_MESSAGE]: {
         address: string;
         message: string;
@@ -192,6 +197,7 @@ export interface RequestResult {
     };
     [SupportedMethod.GET_CHAIN_ID]: string; // hex string
     [SupportedMethod.SIGN_TRANSACTION]: string;
+    [SupportedMethod.SEND_TRANSACTION]: string;
     [SupportedMethod.SIGN_MESSAGE]: string;
     [SupportedMethod.SIGN_TYPED_DATA]: string;
     [SupportedMethod.ADD_ETHEREUM_CHAIN]: true;
