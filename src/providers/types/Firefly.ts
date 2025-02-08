@@ -102,6 +102,9 @@ export interface Profile {
     score: number;
     avatar?: string;
     owner?: string;
+    // wallet profile
+    resolved_address?: string;
+    primary_address?: string;
 }
 
 export interface UsersData {

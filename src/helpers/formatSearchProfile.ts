@@ -14,8 +14,8 @@ function fixProfilePlatform(profile: FireflyProfile) {
         return {
             ...profile,
             platform: FireflyPlatform.Wallet,
-            // we use owner as platform_id for ens
-            platform_id: profile.owner || profile.platform_id,
+            // for ens matched
+            platform_id: profile.resolved_address || profile.primary_address || profile.platform_id,
         } as FireflyProfile;
     }
 
