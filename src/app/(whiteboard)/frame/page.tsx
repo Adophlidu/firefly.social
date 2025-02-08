@@ -99,6 +99,9 @@ export default function Page(props: Props) {
             ethProvider: createEIP1193Provider(async function request(requestArguments: RequestArguments) {
                 const { method, params } = requestArguments;
 
+                const client = await createWagmiLimitedClient();
+                const chainId = await client.getChainId();
+
                 switch (method) {
                     case EthereumMethodType.ETH_REQUEST_ACCOUNTS: {
                         const accounts = await fireflyBridgeProvider.request(SupportedMethod.GET_WALLET_ADDRESS, {
@@ -112,6 +115,7 @@ export default function Page(props: Props) {
                     case EthereumMethodType.ETH_SIGN: {
                         const [address, message] = params as [string, string];
                         return fireflyBridgeProvider.request(SupportedMethod.SIGN_MESSAGE, {
+                            chainId: toHex(chainId),
                             address,
                             message,
                         });
@@ -119,14 +123,12 @@ export default function Page(props: Props) {
                     case EthereumMethodType.ETH_SIGN_TYPED_DATA: {
                         const [address, data] = params as [string, {}];
                         return fireflyBridgeProvider.request(SupportedMethod.SIGN_TYPED_DATA, {
+                            chainId: toHex(chainId),
                             address,
                             message: JSON.stringify(data),
                         });
                     }
                     case EthereumMethodType.ETH_SIGN_TRANSACTION: {
-                        const client = await createWagmiLimitedClient();
-                        const chainId = await client.getChainId();
-
                         const transaction = params[0] as Transaction;
                         return fireflyBridgeProvider.request(SupportedMethod.SIGN_TRANSACTION, {
                             chainId: toHex(chainId),
@@ -134,9 +136,6 @@ export default function Page(props: Props) {
                         });
                     }
                     case EthereumMethodType.ETH_SEND_TRANSACTION: {
-                        const client = await createWagmiLimitedClient();
-                        const chainId = await client.getChainId();
-
                         const transaction = params[0] as Transaction;
                         const hash = await fireflyBridgeProvider.request(SupportedMethod.SEND_TRANSACTION, {
                             chainId: toHex(chainId),

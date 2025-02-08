@@ -152,10 +152,12 @@ export interface RequestArguments {
         transaction: Transaction;
     };
     [SupportedMethod.SIGN_MESSAGE]: {
+        chainId: string;
         address: string;
         message: string;
     };
     [SupportedMethod.SIGN_TYPED_DATA]: {
+        chainId: string;
         address: string;
         message: string;
     };
