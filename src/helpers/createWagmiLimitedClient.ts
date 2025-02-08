@@ -1,12 +1,13 @@
 import { ChainId, EthereumMethodType } from '@masknet/web3-shared-evm';
 import localforage from 'localforage';
+import { toHex } from 'viem';
 
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import type { Chain } from '@/types/bridge.js';
 import type { RequestArguments } from '@/types/ethereum.js';
 
 const storage = localforage.createInstance({
-    name: 'wagmi-mock-client',
+    name: 'wagmi-limited-client',
 });
 
 async function createClient() {
@@ -31,7 +32,7 @@ export async function createWagmiLimitedClient() {
 
             switch (requestArguments.method) {
                 case EthereumMethodType.ETH_CHAIN_ID:
-                    return chainId;
+                    return toHex(chainId);
                 case EthereumMethodType.WALLET_ADD_ETHEREUM_CHAIN:
                 case EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN: {
                     const chain = requestArguments.params[0] as Chain;

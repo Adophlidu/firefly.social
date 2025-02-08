@@ -216,6 +216,7 @@ export function BridgeMethodButton({ item }: Props) {
                 }
                 case SupportedMethod.SIGN_MESSAGE: {
                     const signed = await fireflyBridgeProvider.request(SupportedMethod.SIGN_MESSAGE, {
+                        chainId: '0x1',
                         address: '0x660265edc169bab511a40c0e049cc1e33774443d',
                         message: 'hello world',
                     });
@@ -224,6 +225,7 @@ export function BridgeMethodButton({ item }: Props) {
                 }
                 case SupportedMethod.SIGN_TYPED_DATA: {
                     const signed = await fireflyBridgeProvider.request(SupportedMethod.SIGN_TYPED_DATA, {
+                        chainId: '0x1',
                         address: '0x660265edc169bab511a40c0e049cc1e33774443d',
                         message: JSON.stringify({
                             types: {

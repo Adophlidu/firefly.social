@@ -73,7 +73,8 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                             return client.request(parameters as Parameters<typeof client.request>[0]);
                         }
                         default:
-                            return client.request(parameters as Parameters<typeof client.request>[0]);
+                            const result = await client.request(parameters as Parameters<typeof client.request>[0]);
+                            return result;
                     }
                 }),
                 frameOrigin: '*',
