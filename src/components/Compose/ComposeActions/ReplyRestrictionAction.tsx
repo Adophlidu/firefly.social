@@ -6,6 +6,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';
+import { ENABLED_REPLY_SETTINGS_POST_SOURCES } from '@/constants/index.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -20,7 +21,10 @@ export const ReplyRestrictionAction = memo(function ReplyRestrictionAction({ has
     const { updateRestriction } = useComposeStateStore();
     const { restriction, availableSources } = post;
 
-    const disabled = hasError || availableSources.length > 1;
+    const disabled =
+        hasError ||
+        availableSources.length > 1 ||
+        availableSources.some((x) => !ENABLED_REPLY_SETTINGS_POST_SOURCES.includes(x));
     const [open, setOpen] = useState(false);
 
     const buttonContent = (

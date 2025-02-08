@@ -18,7 +18,7 @@ import { PollButton } from '@/components/Poll/PollButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { ENABLED_REPLY_SETTINGS_POST_SOURCES, ENABLED_SCHEDULE_POST_SOURCES } from '@/constants/index.js';
+import { ENABLED_SCHEDULE_POST_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
@@ -65,10 +65,7 @@ export function ComposeActions() {
 
     const showLensChannel = availableSources.includes(Source.Lens) && type === 'compose';
 
-    const showReplyScope =
-        type !== 'reply' &&
-        !(type === 'quote' && availableSources.includes(Source.Farcaster)) &&
-        availableSources.every((x) => ENABLED_REPLY_SETTINGS_POST_SOURCES.includes(x));
+    const showReplyScope = type !== 'reply' && !(type === 'quote' && availableSources.includes(Source.Farcaster));
 
     return (
         <div className="px-4 pb-4">

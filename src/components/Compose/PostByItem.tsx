@@ -2,6 +2,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 import { rootRouteId, useRouteContext } from '@tanstack/react-router';
+import { useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import InfoIcon from '@/assets/info.svg';
@@ -11,7 +12,8 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
+import { ENABLED_REPLY_SETTINGS_POST_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -22,6 +24,7 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { CloseAction } from '@/modals/ComposeModal.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { switchAccount } from '@/services/account.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -36,7 +39,7 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
     const accounts = useAccounts(source);
     const currentProfile = useCurrentProfile(source);
 
-    const { enableSource, disableSource } = useComposeStateStore();
+    const { enableSource, disableSource, updateRestriction } = useComposeStateStore();
     const { availableSources, images } = useCompositePost();
 
     const [{ loading }, login] = useAsyncFn(async (account: Account) => {
@@ -48,6 +51,21 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
             throw error;
         }
     }, []);
+
+    const toggleSource = useCallback(
+        (profile: Profile) => {
+            if (!isSameProfile(currentProfile, profile) || disabled || !currentProfile) return;
+            if (availableSources.includes(currentProfile.source)) {
+                disableSource(currentProfile.source);
+            } else {
+                enableSource(currentProfile.source);
+                if (!ENABLED_REPLY_SETTINGS_POST_SOURCES.includes(currentProfile.source)) {
+                    updateRestriction(RestrictionType.Everyone);
+                }
+            }
+        },
+        [availableSources, currentProfile, disabled, disableSource, enableSource, updateRestriction],
+    );
 
     if (!currentProfile || !accounts?.length)
         return (
@@ -85,15 +103,7 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
         );
 
     return accounts.map(({ profile, session }) => (
-        <div
-            className="shrink-0"
-            key={profile.profileId}
-            onClick={() => {
-                if (!isSameProfile(currentProfile, profile) || disabled) return;
-                if (availableSources.includes(currentProfile.source)) disableSource(currentProfile.source);
-                else enableSource(currentProfile.source);
-            }}
-        >
+        <div className="shrink-0" key={profile.profileId} onClick={() => toggleSource(profile)}>
             <div
                 className={classNames('box-content flex h-12 items-center justify-between px-3', {
                     'cursor-pointer hover:bg-bg': !disabled,
