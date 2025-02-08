@@ -60,6 +60,7 @@ export const ORB_CLUB_URL = 'https://us-central1-orbapp.cloudfunctions.net';
 export const FIREFLY_TELEGRAM_URL = 'https://t.me/fireflyapp';
 export const NEYNAR_URL = 'https://api.neynar.com';
 export const HUBBLE_URL = env.internal.HUBBLE_URL ?? env.external.NEXT_PUBLIC_HUBBLE_URL;
+export const BSKY_VIDEO_ENDPOINT = 'https://video.bsky.app/xrpc';
 
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
 export const ADVERTISEMENT_JSON_URL_DEV = 'https://media.firefly.land/advertisement/web-dev.json';

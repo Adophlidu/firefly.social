@@ -1,11 +1,142 @@
-import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
+import type { BlobRef } from '@atproto/api';
+import { delay } from '@masknet/kit';
+import urlcat from 'urlcat';
+import { v4 as uuid } from 'uuid';
 
-export async function uploadVideoToBsky(file: File) {
-    const result = await bskySessionHolder.agent.uploadBlob(file);
-    const blobRef = result.data?.blob;
-    if (!result.success || !blobRef) {
-        throw new Error('Failed to upload video');
+import { FileMimeType, Source } from '@/constants/enum.js';
+import { BSKY_VIDEO_ENDPOINT } from '@/constants/index.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { resolveExtFromMimeType } from '@/helpers/resolveExtFromMimeType.js';
+import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
+
+interface UploadLimits {
+    canUpload: boolean;
+    message: string;
+    remainingDailyBytes: number;
+    remainingDailyVideos: number;
+    error?: string;
+}
+interface UploadJob {
+    jobId: string;
+    state: 'JOB_STATE_COMPLETED' | 'JOB_STATE_FAILED';
+    message: string;
+    error?: string;
+}
+type UploadJobStatus = {
+    jobStatus: UploadJob & { blob: BlobRef };
+};
+
+async function getServiceAuthToken(
+    { aud, lxm, exp }: { aud: string; lxm: string; exp?: number },
+    signal?: AbortSignal,
+) {
+    const authToken = await bskySessionHolder.agent.com.atproto.server.getServiceAuth(
+        {
+            aud,
+            lxm,
+            exp,
+        },
+        { signal },
+    );
+    if (!authToken.success || !authToken.data?.token) {
+        throw new Error('Failed to get auth token');
     }
 
-    return blobRef;
+    return authToken.data.token;
+}
+
+async function checkUploadLimits(file: File, signal?: AbortSignal) {
+    const getLimitsAuthToken = await getServiceAuthToken(
+        {
+            aud: 'did:web:video.bsky.app',
+            lxm: 'app.bsky.video.getUploadLimits',
+        },
+        signal,
+    );
+    const limits = await fetchJSON<UploadLimits>(urlcat(BSKY_VIDEO_ENDPOINT, '/app.bsky.video.getUploadLimits'), {
+        headers: { Authorization: `Bearer ${getLimitsAuthToken}` },
+        signal,
+    });
+    if (!limits?.canUpload) {
+        throw new Error(limits?.error || limits?.message || 'Failed to get upload limits');
+    }
+
+    const { remainingDailyBytes = 0, remainingDailyVideos = 0 } = limits;
+    if (remainingDailyBytes < file.size || remainingDailyVideos < 1) {
+        throw new Error(
+            `Daily upload limit reached: ${remainingDailyBytes} bytes remaining, ${remainingDailyVideos} videos remaining`,
+        );
+    }
+}
+
+async function setupUploadJob(file: File, bskyProfile: Profile, signal?: AbortSignal) {
+    const uploadAuthToken = await getServiceAuthToken(
+        {
+            aud: 'did:web:suillus.us-west.host.bsky.network',
+            lxm: 'com.atproto.repo.uploadBlob',
+            exp: Date.now() / 1000 + 60 * 30, // 30 minutes
+        },
+        signal,
+    );
+    const job = await fetchJSON<UploadJob>(
+        urlcat(BSKY_VIDEO_ENDPOINT, '/app.bsky.video.uploadVideo', {
+            did: bskyProfile.profileId,
+            name: `${uuid()}.${resolveExtFromMimeType(file.type as FileMimeType)}`,
+        }),
+        {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${uploadAuthToken}`,
+                'Content-Type': file.type,
+            },
+            body: file,
+            signal,
+        },
+        { noStrictOK: true },
+    );
+    if (!job.jobId || job.state === 'JOB_STATE_FAILED') {
+        throw new Error(job.error || job.message || 'Failed to setup upload job');
+    }
+
+    return job.jobId;
+}
+
+async function waitForJobCompletion(jobId: string, signal?: AbortSignal) {
+    let retryCount = 100;
+
+    signal?.addEventListener('abort', () => {
+        retryCount = 0;
+    });
+
+    while (retryCount > 0) {
+        const { jobStatus } = await fetchJSON<UploadJobStatus>(
+            urlcat(BSKY_VIDEO_ENDPOINT, '/app.bsky.video.getJobStatus', { jobId }),
+            { signal },
+        );
+        if (jobStatus.state === 'JOB_STATE_FAILED') {
+            throw new Error(jobStatus.error || jobStatus.message || 'Failed to get job status');
+        }
+        if (jobStatus.state === 'JOB_STATE_COMPLETED' && jobStatus.blob) {
+            return jobStatus.blob;
+        }
+
+        retryCount -= 1;
+        await delay(300);
+    }
+
+    throw new Error('Failed to upload video');
+}
+
+export async function uploadVideoToBsky(file: File, signal?: AbortSignal) {
+    const bskyProfile = getCurrentProfile(Source.Bsky);
+    if (!bskyProfile) {
+        throw new Error('No Bsky profile found');
+    }
+
+    await checkUploadLimits(file, signal);
+
+    const jobId = await setupUploadJob(file, bskyProfile, signal);
+    return waitForJobCompletion(jobId, signal);
 }

@@ -117,7 +117,7 @@ export async function postToBsky(
             const results = await Promise.all(
                 downloaded.map(async (media) => {
                     const videoInfo = await runInSafeAsync(() => getVideoMetadata(media.file));
-                    const blobRef = await uploadVideoToBsky(media.file);
+                    const blobRef = await uploadVideoToBsky(media.file, signal);
                     return createBskyMediaObject(media, blobRef, videoInfo?.width, videoInfo?.height);
                 }),
             );
