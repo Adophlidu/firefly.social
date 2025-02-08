@@ -32,16 +32,12 @@ export async function createWagmiLimitedClient() {
             switch (requestArguments.method) {
                 case EthereumMethodType.ETH_CHAIN_ID:
                     return chainId;
-                case EthereumMethodType.WALLET_ADD_ETHEREUM_CHAIN: {
-                    const chain = requestArguments.params[0] as Chain;
-                    if (!isValidChainId(Number.parseInt(chain.chainId, 16))) throw new Error('Invalid chain ID');
-                    await storage.setItem('chainId', chain.chainId);
-                    return null;
-                }
+                case EthereumMethodType.WALLET_ADD_ETHEREUM_CHAIN:
                 case EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN: {
-                    const newChainId = Number.parseInt(requestArguments.params[0] as string, 16);
+                    const chain = requestArguments.params[0] as Chain;
+                    const newChainId = Number.parseInt(chain.chainId, 16);
                     if (!isValidChainId(newChainId)) throw new Error('Invalid chain ID');
-                    if (chainId !== newChainId) await storage.setItem('chainId', newChainId);
+                    if (chainId !== newChainId) await storage.setItem('chainId', chain.chainId);
                     return null;
                 }
                 default:
