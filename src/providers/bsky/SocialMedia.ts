@@ -480,7 +480,7 @@ export class BskySocialMedia implements Provider {
                             const parentUri = (x.record as { reply: { parent: { uri: string } } })?.reply?.parent?.uri;
                             if (!parentUri) return null;
 
-                            const comment = formatBskyFeedPost({ post: x });
+                            const comment = await getSinglePost(x.uri);
                             const parentPost = await getSinglePost(parentUri);
 
                             return {
@@ -506,7 +506,7 @@ export class BskySocialMedia implements Provider {
                         case 'quote':
                             if (!x.reasonSubject) return null;
 
-                            const quote = formatBskyFeedPost({ post: x });
+                            const quote = await getSinglePost(x.uri);
                             const targetPost = await getSinglePost(x.reasonSubject);
 
                             return {
