@@ -14,6 +14,7 @@ import { first, isUndefined, omitBy } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
+import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { type Attachment, type Post, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
@@ -134,12 +135,12 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
             oembedUrl: first(oembedUrls),
         };
         if (original.record.reply?.parent.uri) {
-            post.parentPostId = PostAtUri.from(original.record.reply.parent.uri).toId();
+            post.parentPostId = original.record.reply.parent.cid;
             post.parentContentURI = original.record.reply.parent.uri;
         }
         if (original.record.reply?.root.uri) {
-            post.rootPostId = PostAtUri.from(original.record.reply.parent.uri).toId();
-            post.rootContentURI = original.record.reply.parent.uri;
+            post.rootPostId = original.record.reply.root.cid;
+            post.rootContentURI = original.record.reply.root.uri;
         }
     }
 
@@ -206,6 +207,7 @@ export function formatBskyFeedPost(original: AppBskyFeedDefs.FeedViewPost): Post
         post.mirrorOn = formatBskyPostView(original.post);
         if (AppBskyFeedDefs.isReasonRepost(original.reason)) {
             post.reporter = formatBskyProfile(original.reason.by);
+            post.hasMirrored = post.reporter.profileId === getCurrentProfile(Source.Bsky)?.profileId;
         }
     }
     if (AppBskyEmbedRecord.isView(original.post.embed) && AppBskyEmbedRecord.isViewRecord(original.post.embed.record)) {

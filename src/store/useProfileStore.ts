@@ -1,5 +1,6 @@
 'use client';
 import { t } from '@lingui/core/macro';
+import type { WritableDraft } from 'immer';
 import { getSession, signOut } from 'next-auth/react';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
@@ -126,13 +127,18 @@ function createState(
                     }),
                 updateCurrentProfile: (params) =>
                     set((state) => {
-                        if (state.currentProfile) {
-                            if (params.pfp) state.currentProfile.pfp = params.pfp;
-                            if (typeof params.displayName === 'string')
-                                state.currentProfile.displayName = params.displayName;
-                            if (typeof params.bio === 'string') state.currentProfile.bio = params.bio;
-                            if (typeof params.location === 'string') state.currentProfile.location = params.location;
-                            if (typeof params.website === 'string') state.currentProfile.website = params.website;
+                        if (!state.currentProfile) return;
+                        function update(original: WritableDraft<Profile>) {
+                            if (params.pfp) original.pfp = params.pfp;
+                            if (typeof params.displayName === 'string') original.displayName = params.displayName;
+                            if (typeof params.bio === 'string') original.bio = params.bio;
+                            if (typeof params.location === 'string') original.location = params.location;
+                            if (typeof params.website === 'string') original.website = params.website;
+                        }
+                        update(state.currentProfile);
+                        for (const account of state.accounts) {
+                            if (account.profile.profileId !== state.currentProfile.profileId) continue;
+                            update(account.profile);
                         }
                     }),
                 resetCurrentAccount: () =>

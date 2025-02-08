@@ -96,7 +96,11 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
                     </span>
                 </div>
             ) : null}
-            {post.type === 'Mirror' && post.reporter && post.source !== Source.Twitter && !isPostPage ? (
+            {post.type === 'Mirror' &&
+            post.reporter &&
+            post.source !== Source.Twitter &&
+            post.source !== Source.Bsky &&
+            !isPostPage ? (
                 <div className="mb-3 flex items-center space-x-2 text-medium text-secondary">
                     <MirrorIcon width={16} height={16} className="flex-shrink-0" />
                     <Link href={getProfileUrl(post.reporter)} className="flex min-w-0 space-x-1">
@@ -113,7 +117,10 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
                     </Link>
                 </div>
             ) : null}
-            {post.type === 'Mirror' && post.reporter && post.source === Source.Twitter && !isPostPage ? (
+            {post.type === 'Mirror' &&
+            post.reporter &&
+            (post.source === Source.Twitter || post.source === Source.Bsky) &&
+            !isPostPage ? (
                 <div className="mb-3 flex items-center space-x-2 text-medium text-secondary">
                     <MirrorIcon width={16} height={16} className="flex-shrink-0" />
                     <Link href={getProfileUrl(post.reporter)} className="flex min-w-0 space-x-1">

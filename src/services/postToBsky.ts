@@ -5,6 +5,7 @@ import { BSKY_IMAGE_LIMITATION, MAX_IMAGE_SIZE_PER_POST } from '@/constants/limi
 import { readChars } from '@/helpers/chars.js';
 import { compressImage } from '@/helpers/compressImage.js';
 import { downloadMediaObjects } from '@/helpers/downloadMediaObjects.js';
+import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getVideoMetadata } from '@/helpers/getVideoMetadata.js';
 import { createBskyMediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -24,10 +25,18 @@ export async function postToBsky(
     compositePost: CompositePost,
     signal?: AbortSignal,
 ): Promise<string | undefined> {
-    const { chars, images, video, postId, parentPost } = compositePost;
+    const { id, chars, images, video, postId, parentPost } = compositePost;
 
     const bskyParentPost = parentPost.Bsky;
     const bskyPostId = postId.Bsky;
+    const rootPost = getCompositePost(id);
+    const bskyRootPostId =
+        rootPost?.rootPost.postId.Bsky ?? bskyParentPost?.rootPostId ?? bskyParentPost?.publicationId ?? '';
+    const bskyRootPostContentURI =
+        rootPost?.rootPost.postContentURI.Bsky ??
+        bskyParentPost?.rootContentURI ??
+        bskyParentPost?.metadata?.contentURI ??
+        '';
     const sourceName = resolveSourceName(Source.Bsky);
 
     if (bskyPostId) return;
@@ -48,8 +57,8 @@ export async function postToBsky(
             author: currentProfile,
             parentPostId: bskyParentPost?.publicationId ?? '',
             parentContentURI: bskyParentPost?.metadata?.contentURI ?? '',
-            rootPostId: bskyParentPost?.rootPostId ?? bskyParentPost?.publicationId ?? '',
-            rootContentURI: bskyParentPost?.rootContentURI ?? bskyParentPost?.metadata?.contentURI ?? '',
+            rootPostId: bskyRootPostId,
+            rootContentURI: bskyRootPostContentURI,
             metadata: {
                 locale: '',
                 content: {
@@ -122,13 +131,23 @@ export async function postToBsky(
             return BskySocialMediaProvider.publishPost(draft);
         },
         async reply(images, videos) {
-            if (!bskyParentPost?.postId || !bskyParentPost.metadata?.contentURI)
+            if (
+                !bskyParentPost?.postId ||
+                !bskyParentPost.metadata?.contentURI ||
+                !bskyRootPostId ||
+                !bskyRootPostContentURI
+            )
                 throw new Error(t`No parent post found.`);
             const draft = await composeDraft('Comment', images, videos);
             return BskySocialMediaProvider.publishPost(draft);
         },
         async quote(images, videos) {
-            if (!bskyParentPost?.postId || !bskyParentPost.metadata?.contentURI)
+            if (
+                !bskyParentPost?.postId ||
+                !bskyParentPost.metadata?.contentURI ||
+                !bskyRootPostId ||
+                !bskyRootPostContentURI
+            )
                 throw new Error(t`No parent post found.`);
             const draft = await composeDraft('Quote', images, videos);
             return BskySocialMediaProvider.quotePost(bskyParentPost.postId, draft);

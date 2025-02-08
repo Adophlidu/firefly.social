@@ -9,6 +9,7 @@ import { FollowCategory } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
+import { resolveFireflyMutualProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -45,7 +46,7 @@ export function Mutuals({ profile }: { profile: Profile }) {
             <AvatarGroup profiles={mutuals.slice(0, 3)} AvatarProps={{ size: 30 }} />
             <Link
                 className="text-sm text-secondary"
-                href={resolveProfileUrl(source, profileId, FollowCategory.Mutuals)}
+                href={resolveProfileUrl(source, resolveFireflyMutualProfileId(profile), FollowCategory.Mutuals)}
             >
                 {mutualCount === 1 ? (
                     <Trans>Followed by {mutuals[0].displayName}</Trans>

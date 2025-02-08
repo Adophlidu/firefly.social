@@ -29,6 +29,7 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { resolveBskyEmbed } from '@/helpers/resolveBskyEmbed.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { ChannelAtUri, PostAtUri } from '@/providers/bsky/AtUri.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
@@ -121,7 +122,13 @@ export class BskySocialMedia implements Provider {
         return res.uri;
     }
     async unmirrorPost(postId: string, authorId?: number): Promise<void> {
-        await bskySessionHolder.agent.deleteRepost(postId);
+        const res = await bskySessionHolder.agent.getPostThread({
+            uri: PostAtUri.fromId(postId).toUri(),
+            depth: 0,
+        });
+        if (!res.success || !AppBskyFeedDefs.isThreadViewPost(res.data.thread) || !res.data.thread.post.viewer?.repost)
+            throw new Error(`Failed to unmirror post postId = ${postId}`);
+        await bskySessionHolder.agent.deleteRepost(res.data.thread.post.viewer.repost);
     }
     async quotePost(postId: string, post: Post): Promise<{ postId: string; contentURI?: string }> {
         const text = post.metadata.content?.content;
@@ -138,8 +145,11 @@ export class BskySocialMedia implements Provider {
                 ? {
                       $type: BskyEmbedType.RecordWithMedia,
                       record: {
-                          uri: post.parentContentURI,
-                          cid: post.parentPostId,
+                          $type: BskyEmbedType.Record,
+                          record: {
+                              uri: post.parentContentURI,
+                              cid: post.parentPostId,
+                          },
                       },
                       media: embed,
                   }
@@ -178,8 +188,13 @@ export class BskySocialMedia implements Provider {
         await bskySessionHolder.agent.like(post.__original__.post.uri, post.__original__.post.cid);
     }
     async unvotePost(postId: string): Promise<void> {
-        const atUri = PostAtUri.fromId(postId).toUri();
-        await bskySessionHolder.agent.deleteLike(atUri);
+        const res = await bskySessionHolder.agent.getPostThread({
+            uri: PostAtUri.fromId(postId).toUri(),
+            depth: 0,
+        });
+        if (!res.success || !AppBskyFeedDefs.isThreadViewPost(res.data.thread) || !res.data.thread.post.viewer?.like)
+            throw new Error(`Failed to unlike post postId = ${postId}`);
+        await bskySessionHolder.agent.deleteLike(res.data.thread.post.viewer.like);
     }
     async getProfilesByAddress(address: string): Promise<Profile[]> {
         throw new NotImplementedError();
@@ -235,15 +250,17 @@ export class BskySocialMedia implements Provider {
         if (!AppBskyFeedDefs.isThreadViewPost(res.data.thread)) {
             return createPageable(EMPTY_LIST, createIndicator(indicator));
         }
-        const preferences = await bskySessionHolder.agent.getPreferences();
+        const preferences = await runInSafeAsync(() => bskySessionHolder.agent.getPreferences());
         const replies = compact(
             res.data.thread.replies?.map((x) => {
                 if (!AppBskyFeedDefs.isThreadViewPost(x)) return null;
-                const moderationDecision = moderatePost(x.post, {
-                    userDid: did,
-                    prefs: preferences.moderationPrefs,
-                });
-                if (moderationDecision.causes.length) return null;
+                if (preferences) {
+                    const moderationDecision = moderatePost(x.post, {
+                        userDid: did,
+                        prefs: preferences.moderationPrefs,
+                    });
+                    if (moderationDecision.causes.length) return null;
+                }
                 return formatBskyFeedPost(x);
             }),
         );
@@ -285,6 +302,7 @@ export class BskySocialMedia implements Provider {
         try {
             const res = await bskySessionHolder.agent.getAuthorFeed({
                 actor: profileId,
+                filter: 'posts_and_author_threads',
                 cursor: indicator?.id,
             });
             if (!res.success) throw new Error(`Failed to get post by profile id = ${profileId}.`);
@@ -731,7 +749,10 @@ export class BskySocialMedia implements Provider {
         if (!AppBskyFeedDefs.isThreadViewPost(res.data.thread) || !did) {
             return createPageable(EMPTY_LIST, createIndicator(indicator));
         }
-        const preferences = await bskySessionHolder.agent.getPreferences();
+        const preferences = await runInSafeAsync(() => bskySessionHolder.agent.getPreferences());
+        if (!preferences) {
+            return createPageable(EMPTY_LIST, createIndicator(indicator));
+        }
         const replies = compact(
             res.data.thread.replies?.map((x) => {
                 if (!AppBskyFeedDefs.isThreadViewPost(x)) return null;
