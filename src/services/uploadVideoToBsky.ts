@@ -123,7 +123,7 @@ async function waitForJobCompletion(jobId: string, signal?: AbortSignal) {
         }
 
         retryCount -= 1;
-        await delay(300);
+        await delay(1000);
     }
 
     throw new Error('Failed to upload video');
