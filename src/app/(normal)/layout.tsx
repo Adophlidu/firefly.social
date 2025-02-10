@@ -10,7 +10,7 @@ import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.j
 import { Section } from '@/components/Semantic/Section.js';
 import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
 import { WithinDiscover } from '@/components/WithinDiscover.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { PageRoute } from '@/constants/enum.js';
 
 export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
     return (
@@ -60,8 +60,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                         otherwise={
                             <>
                                 <SuggestedFollowsCard />
-                                <SuggestedChannels source={Source.Bsky} />
-                                <SuggestedChannels source={Source.Farcaster} />
+                                <SuggestedChannels />
                             </>
                         }
                     >

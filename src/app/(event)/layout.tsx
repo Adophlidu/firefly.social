@@ -10,7 +10,7 @@ import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { PageRoute } from '@/constants/enum.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -34,8 +34,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
                     <AsideSearchBar />
                     <SuggestedFollowsCard />
-                    <SuggestedChannels source={Source.Bsky} />
-                    <SuggestedChannels source={Source.Farcaster} />
+                    <SuggestedChannels />
                     <LinkCloud />
                 </div>
             </aside>

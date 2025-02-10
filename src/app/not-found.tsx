@@ -8,7 +8,7 @@ import { Link } from '@/components/Link.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
 import { AsideSearchBar } from '@/components/Search/SearchBar.js';
 import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { PageRoute } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
@@ -39,8 +39,7 @@ export default async function NotFound() {
                 <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
                     <IfPathname isNotOneOf={[PageRoute.Home]} exact>
                         <SuggestedFollowsCard />
-                        <SuggestedChannels source={Source.Bsky} />
-                        <SuggestedChannels source={Source.Farcaster} />
+                        <SuggestedChannels />
                     </IfPathname>
                     <LinkCloud />
                 </div>

@@ -54,6 +54,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
     if (!channel) return;
 
     const followerCount = channel.followerCount ?? 0;
+    const isBsky = channel.source === Source.Bsky;
 
     return (
         <div className="w-[350px] rounded-2xl border border-secondaryLine bg-primaryBottom p-4">
@@ -84,7 +85,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                         onClick={handleNavigateToDetail}
                         className="flex cursor-pointer items-center gap-2 text-medium text-secondary"
                     >
-                        {channel.source === Source.Farcaster ? (
+                        {!isBsky ? (
                             <span className="min-w-0 truncate whitespace-nowrap">/{channel?.id}</span>
                         ) : (
                             <span className="min-w-0 truncate whitespace-nowrap">
@@ -92,11 +93,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                             </span>
                         )}
                         <div className="flex items-center gap-2">
-                            {channel.source === Source.Farcaster ? (
-                                <UserIcon width={18} height={18} />
-                            ) : (
-                                <LikeIcon className="text-secondary" />
-                            )}
+                            {!isBsky ? <UserIcon width={18} height={18} /> : <LikeIcon className="text-secondary" />}
                             <data value={followerCount} className="text-medium leading-6 text-lightMain">
                                 {nFormatter(followerCount)}
                             </data>

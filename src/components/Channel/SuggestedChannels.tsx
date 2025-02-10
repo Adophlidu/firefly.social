@@ -2,36 +2,66 @@
 
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
+import { compact } from 'lodash-es';
 
 import { AsideTitle } from '@/components/AsideTitle.js';
-import { ChannelInList } from '@/components/ChannelInList.js';
+import { Avatar } from '@/components/Avatar.js';
+import { ChannelTippy } from '@/components/Channel/ChannelTippy.js';
 import { Link } from '@/components/Link.js';
-import { type ExploreSource, ExploreType, type SocialSource } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { ExploreType, Source } from '@/constants/enum.js';
+import { getChannelUrl } from '@/helpers/getChannelUrl.js';
+import { mergeLists } from '@/helpers/mergeLists.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 
 const SHOW_LENGTH = 3;
 
-interface SuggestedChannelsProps {
-    source: SocialSource;
+function SuggestedChannelItem({ channel }: { channel: Channel }) {
+    return (
+        <ChannelTippy channel={channel}>
+            <Link
+                className="inline-flex h-6 items-center gap-1 rounded-full bg-lightBottom px-3 dark:bg-primaryBottom"
+                href={getChannelUrl(channel)}
+            >
+                <Avatar className="rounded-full" src={channel.imageUrl} size={15} alt={channel.name} />
+                <span className="text-medium font-bold text-main">{channel.name}</span>
+                <SocialSourceIcon mono source={channel.source} size={15} className="flex-shrink-0 text-secondary" />
+            </Link>
+        </ChannelTippy>
+    );
 }
 
-export function SuggestedChannels({ source }: SuggestedChannelsProps) {
+async function getOrbSuggestClubs() {
+    return compact(
+        await Promise.all(
+            ['orb', 'defi', 'lens'].map((handle) =>
+                runInSafeAsync(() => LensSocialMediaProvider.getChannelById(handle)),
+            ),
+        ),
+    );
+}
+
+export function SuggestedChannels() {
     const { data, isLoading, isError } = useQuery({
-        queryKey: ['suggest-channels', source],
+        queryKey: ['suggest-channels'],
+        staleTime: 1000 * 60 * 5, // 5 minutes
         queryFn: async () => {
-            return resolveSocialMediaProvider(source).discoverChannels();
+            const results = await Promise.all(
+                ([Source.Farcaster, Source.Bsky] as const).map(async (source) => {
+                    const channels = await runInSafeAsync(() => resolveSocialMediaProvider(source).discoverChannels());
+                    return channels?.data.slice(0, SHOW_LENGTH) || [];
+                }),
+            );
+            const orbClubs = await getOrbSuggestClubs();
+            return mergeLists(...results, orbClubs);
         },
     });
 
-    if (isError || isLoading) return null;
-
-    const channels = data?.data?.filter((channel) => !channel.blocked) ?? EMPTY_LIST;
-    const showMore = channels.length > SHOW_LENGTH;
-    const suggestedChannels = channels.slice(0, SHOW_LENGTH);
-
-    if (!suggestedChannels.length) return null;
+    if (isError || isLoading || !data?.length) return null;
 
     return (
         <section>
@@ -39,18 +69,16 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
                 <span className="text-xl">
                     <Trans>Trending Channels</Trans>
                 </span>
-                {showMore ? (
-                    <Link
-                        className="text-medium text-highlight"
-                        href={resolveExploreUrl(ExploreType.TopChannels, source as ExploreSource)}
-                    >
-                        <Trans>More</Trans>
-                    </Link>
-                ) : null}
+                <Link
+                    className="text-medium text-highlight"
+                    href={resolveExploreUrl(ExploreType.TopChannels, Source.Farcaster)}
+                >
+                    <Trans>More</Trans>
+                </Link>
             </AsideTitle>
-            <div className="flex flex-col rounded-xl bg-lightBg py-[18px]">
-                {suggestedChannels.map((channel) => (
-                    <ChannelInList key={channel.id} channel={channel} noFollowButton dense />
+            <div className="flex flex-wrap gap-2.5 rounded-xl bg-lightBg p-3">
+                {data.map((channel) => (
+                    <SuggestedChannelItem key={channel.id} channel={channel} />
                 ))}
             </div>
         </section>
