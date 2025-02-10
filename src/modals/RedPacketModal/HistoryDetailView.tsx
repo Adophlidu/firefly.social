@@ -1,4 +1,5 @@
 import { useLocation } from '@tanstack/react-router';
+import { first } from 'lodash-es';
 import { Suspense } from 'react';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
@@ -19,7 +20,12 @@ function ClaimHistoryItem({ data, networkType }: { data: FireflyRedPacketAPI.Cla
 
     return (
         <div className="mt-3 flex items-center justify-between px-3 text-[14px] font-bold leading-[18px]">
-            <RedPacketAccountItem ens={ens ?? ''} address={data.creator} networkType={networkType} />
+            <RedPacketAccountItem
+                ens={ens ?? ''}
+                address={data.creator}
+                shareFrom={first(data.claim_platform)?.platform_handle}
+                networkType={networkType}
+            />
             <div className="flex gap-1">
                 {formatBalance(data.token_amounts, data.token_decimal, {
                     significant: 6,

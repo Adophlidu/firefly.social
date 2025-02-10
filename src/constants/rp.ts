@@ -19,7 +19,7 @@ export const MESSAGE_MAX_LENGTH_SOLANA = 40;
 
 export const RED_PACKET_DEFAULT_SHARES = 5;
 export const RED_PACKET_MIN_SHARES = 1;
-export const RED_PACKET_MAX_SHARES = 255;
+export const RED_PACKET_MAX_SHARES = 500;
 export const RED_PACKET_MAX_SHARES_SOLANA = 200;
 export const RED_PACKET_DURATION = 60 * 60 * 24;
 export const RED_PACKET_CONTRACT_VERSION = 4;

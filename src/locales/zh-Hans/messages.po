@@ -2206,9 +2206,6 @@ msgstr "正在发生..."
 msgid "Connect your wallet to claim your NFT"
 msgstr "连接钱包并且领取你的 NFT"
 
-msgid "At most 255 recipients"
-msgstr "最多 255 个领取者"
-
 msgid "24h"
 msgstr "24小时"
 
@@ -2242,6 +2239,10 @@ msgstr "超级关注"
 
 msgid "Cryptocurrency mixer found."
 msgstr "发现加密货币混合器。"
+
+#. placeholder {0}: getRpMaxShares(networkType)
+msgid "At most {0} recipients"
+msgstr ""
 
 msgid "General"
 msgstr "通用"

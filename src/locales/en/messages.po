@@ -2201,9 +2201,6 @@ msgstr "What's happening..."
 msgid "Connect your wallet to claim your NFT"
 msgstr "Connect your wallet to claim your NFT"
 
-msgid "At most 255 recipients"
-msgstr "At most 255 recipients"
-
 msgid "24h"
 msgstr "24h"
 
@@ -2237,6 +2234,10 @@ msgstr "Super Follow"
 
 msgid "Cryptocurrency mixer found."
 msgstr "Cryptocurrency mixer found."
+
+#. placeholder {0}: getRpMaxShares(networkType)
+msgid "At most {0} recipients"
+msgstr "At most {0} recipients"
 
 msgid "General"
 msgstr "General"

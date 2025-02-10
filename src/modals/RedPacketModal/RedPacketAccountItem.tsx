@@ -12,12 +12,14 @@ interface Props {
     address: string;
     ens?: string;
     isDarkFont?: boolean;
+    shareFrom?: string;
     networkType?: NetworkType;
 }
 
 export const RedPacketAccountItem = memo(function RedPacketAccountItem({
     address,
     ens,
+    shareFrom,
     isDarkFont,
     networkType = NetworkType.Ethereum,
 }: Props) {
@@ -30,7 +32,7 @@ export const RedPacketAccountItem = memo(function RedPacketAccountItem({
                 'text-lightTextMain': !!isDarkFont,
             })}
         >
-            <div>{ens ? ens : formatAddress(address, 4)}</div>
+            <div>{shareFrom ? `@${shareFrom}` : ens ? ens : formatAddress(address, 4)}</div>
             {addressLink ? (
                 <Link
                     type="button"

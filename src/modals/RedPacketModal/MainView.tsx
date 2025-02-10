@@ -135,7 +135,7 @@ export function MainView() {
 
     // #region validation
     const noShares = shares === 0;
-    const isGteMaxShares = shares > 255;
+    const isGteMaxShares = shares > maxShares;
     const insufficientBalance =
         isGreaterThan(minTotalAmount, balance.toString()) || isGreaterThan(totalAmount, balance.toString());
     const noAmount = isZero(amount);
@@ -148,7 +148,7 @@ export function MainView() {
     // #region button
     const buttonText = useMemo(() => {
         if (noShares) return <Trans>Enter Number of Winners</Trans>;
-        if (isGteMaxShares) return <Trans>At most 255 recipients</Trans>;
+        if (isGteMaxShares) return <Trans>At most {getRpMaxShares(networkType)} recipients</Trans>;
         if (insufficientBalance) return <Trans>Insufficient Balance</Trans>;
         if (noAmount) {
             return isRandom ? <Trans>Enter Total Amount</Trans> : <Trans>Enter Amount Each</Trans>;
@@ -196,6 +196,7 @@ export function MainView() {
         insufficientGas,
         isNotEnoughAllowance,
         isRandom,
+        networkType,
     ]);
 
     const [{ loading: interactionLoading }, handleClick] = useAsyncFn(async () => {

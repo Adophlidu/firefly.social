@@ -107,6 +107,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
         total_numbers,
         token_logo,
         token_amounts,
+        share_from,
     },
 }) {
     const { history } = useRouter();
@@ -184,6 +185,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                     <RedPacketAccountItem
                                         address={creator}
                                         ens={ens_name}
+                                        shareFrom={share_from}
                                         networkType={networkType}
                                         isDarkFont
                                     />

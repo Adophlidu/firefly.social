@@ -163,7 +163,7 @@ export function ConfirmView() {
         }
 
         return {
-            publicKey: isEVM ? await FireflyRedPacketEndpoint.createPublicKey(themeId, account, strategies) : '',
+            publicKey: isEVM ? await FireflyRedPacketEndpoint.createPublicKey(themeId, shareFrom, strategies) : '',
             claimRequirements: strategies,
         };
     }, [
@@ -176,6 +176,7 @@ export function ConfirmView() {
         currentFarcasterProfile,
         currentTwitterProfile,
         chainId,
+        shareFrom,
     ]);
 
     const shareFromName =
