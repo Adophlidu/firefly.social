@@ -8,18 +8,14 @@ import { Link } from '@/components/Link.js';
 import { FollowCategory } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyMutualProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function Mutuals({ profile }: { profile: Profile }) {
-    const currentSource = useGlobalState.use.currentSource();
-    const currentSocialSource = narrowToSocialSource(currentSource);
-    const myProfile = useCurrentProfile(currentSocialSource);
+    const myProfile = useCurrentProfile(profile.source);
     const myProfileId = myProfile?.profileId;
 
     const enabledMutuals = !isSameProfile(myProfile, profile);
