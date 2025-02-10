@@ -473,25 +473,29 @@ export class BskySocialMedia implements Provider {
                                 notificationId: x.cid,
                                 type: NotificationType.Reaction,
                                 reactors: [formatBskyProfile(x.author)],
-                                post: await getSinglePost((x.record as { subject: { uri: string } }).subject.uri),
+                                post: await runInSafeAsync(() =>
+                                    getSinglePost((x.record as { subject: { uri: string } }).subject.uri),
+                                ),
                                 timestamp,
                             } satisfies ReactionNotification;
                         case 'reply':
                             const parentUri = (x.record as { reply: { parent: { uri: string } } })?.reply?.parent?.uri;
                             if (!parentUri) return null;
 
-                            const comment = await getSinglePost(x.uri);
-                            const parentPost = await getSinglePost(parentUri);
+                            const comment = await runInSafeAsync(() => getSinglePost(x.uri));
+                            const parentPost = await runInSafeAsync(() => getSinglePost(parentUri));
 
                             return {
                                 source: Source.Bsky,
                                 notificationId: x.cid,
                                 type: NotificationType.Comment,
-                                comment: {
-                                    ...comment,
-                                    type: 'Comment',
-                                    commentOn: parentPost,
-                                },
+                                comment: comment
+                                    ? {
+                                          ...comment,
+                                          type: 'Comment',
+                                          commentOn: parentPost,
+                                      }
+                                    : null,
                                 post: parentPost,
                                 timestamp,
                             } satisfies CommentNotification;
@@ -506,8 +510,9 @@ export class BskySocialMedia implements Provider {
                         case 'quote':
                             if (!x.reasonSubject) return null;
 
-                            const quote = await getSinglePost(x.uri);
-                            const targetPost = await getSinglePost(x.reasonSubject);
+                            const quote = await runInSafeAsync(() => getSinglePost(x.uri));
+                            const targetPost = await runInSafeAsync(() => getSinglePost(x.reasonSubject as string));
+                            if (!quote || !targetPost) return null;
 
                             return {
                                 source: Source.Bsky,
@@ -528,7 +533,7 @@ export class BskySocialMedia implements Provider {
                                 notificationId: x.cid,
                                 type: NotificationType.Mirror,
                                 mirrors: [formatBskyProfile(x.author)],
-                                post: await getSinglePost(x.reasonSubject),
+                                post: await runInSafeAsync(() => getSinglePost(x.reasonSubject as string)),
                                 timestamp,
                             } satisfies MirrorNotification;
                         case 'starterpack-joined':
