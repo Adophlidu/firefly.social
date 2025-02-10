@@ -13,6 +13,7 @@ import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { toMilliseconds, toUnix } from '@/helpers/ts.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
+import { BskySession, type BskySessionPayload } from '@/providers/bsky/Session.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
@@ -33,18 +34,17 @@ const CryptoUsageSchema = z.union([
     }),
 ]);
 
-const TwitterMetricsSchema = z.object({
+const FarcasterMetricsSchema = z.object({
     account_id: z.string(),
-    platform: z.literal('twitter'),
+    platform: z.literal('farcaster'),
     client_os: z.string(),
     login_metadata: z.array(
         z.object({
-            client_id: z.string(), // '635682749'
+            fid: z.number(),
             login_time: z.number(),
-            access_token: z.string(),
-            access_token_secret: z.string(),
-            consumer_key: z.string(),
-            consumer_secret: z.string(),
+            access_token: z.string().optional(),
+            signer_public_key: z.string().optional(),
+            signer_private_key: z.string(),
         }),
     ),
 });
@@ -66,27 +66,45 @@ const LensMetricsSchema = z.object({
     ),
 });
 
-const FarcasterMetricsSchema = z.object({
+const TwitterMetricsSchema = z.object({
     account_id: z.string(),
-    platform: z.literal('farcaster'),
+    platform: z.literal('twitter'),
     client_os: z.string(),
     login_metadata: z.array(
         z.object({
-            fid: z.number(),
+            client_id: z.string(), // '635682749'
             login_time: z.number(),
-            access_token: z.string().optional(),
-            signer_public_key: z.string().optional(),
-            signer_private_key: z.string(),
+            access_token: z.string(),
+            access_token_secret: z.string(),
+            consumer_key: z.string(),
+            consumer_secret: z.string(),
         }),
     ),
 });
 
-const MetricsSchema = z.array(z.union([TwitterMetricsSchema, LensMetricsSchema, FarcasterMetricsSchema]));
+const BskyMetricsSchema = z.object({
+    account_id: z.string(),
+    platform: z.literal('bsky'),
+    client_os: z.string(),
+    login_metadata: z.array(
+        z.object({
+            did: z.string(),
+            login_time: z.number(),
+            service_url: z.string(),
+            session_payload: z.unknown(),
+        }),
+    ),
+});
+
+const MetricsSchema = z.array(
+    z.union([FarcasterMetricsSchema, LensMetricsSchema, TwitterMetricsSchema, BskyMetricsSchema]),
+);
 
 export type Metrics = z.infer<typeof MetricsSchema>;
 export type TwitterMetric = z.infer<typeof TwitterMetricsSchema>;
 export type LensMetric = z.infer<typeof LensMetricsSchema>;
 export type FarcasterMetric = z.infer<typeof FarcasterMetricsSchema>;
+export type BskyMetric = z.infer<typeof BskyMetricsSchema>;
 
 function convertMetricToSession(metric: Metrics[0]) {
     const platform = metric.platform;
@@ -127,6 +145,17 @@ function convertMetricToSession(metric: Metrics[0]) {
                         accessToken: x.access_token,
                         accessTokenSecret: x.access_token_secret,
                     }),
+            );
+        case 'bsky':
+            return metric.login_metadata.map(
+                (x) =>
+                    new BskySession(
+                        x.did,
+                        toMilliseconds(x.login_time),
+                        toMilliseconds(x.login_time),
+                        x.service_url,
+                        x.session_payload as BskySessionPayload,
+                    ),
             );
         default:
             safeUnreachable(platform);
@@ -174,7 +203,13 @@ async function convertSessionToMetadata(session: Session): Promise<Metrics[0]['l
                 consumer_secret: payload.consumerSecret,
             };
         case SessionType.Bsky:
-            throw new NotAllowedError();
+            const bskySession = session as BskySession;
+            return {
+                did: bskySession.did,
+                login_time: bskySession.createdAt,
+                service_url: bskySession.serviceUrl,
+                session_payload: bskySession.sessionPayload,
+            };
         case SessionType.Firefly:
             throw new NotAllowedError();
         case SessionType.Apple:
@@ -220,7 +255,7 @@ export async function POST(request: Request) {
                 return createErrorResponseJSON(metrics.error.message, { status: StatusCodes.INTERNAL_SERVER_ERROR });
 
             // convert to sessions
-            const sessions = metrics.data.flatMap<FarcasterSession | LensSession | TwitterSession>(
+            const sessions = metrics.data.flatMap<FarcasterSession | LensSession | TwitterSession | BskySession>(
                 convertMetricToSession,
             );
 

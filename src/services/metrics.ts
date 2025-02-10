@@ -126,13 +126,13 @@ async function uploadSessionsByMerge(session: FireflySession, sessions: Session[
                 case SessionType.Twitter:
                     return true;
                 case SessionType.Bsky:
-                    return false;
-                case SessionType.Firefly:
-                    return false;
+                    return true;
                 case SessionType.Apple:
                 case SessionType.Google:
                 case SessionType.Telegram:
                     return true;
+                case SessionType.Firefly:
+                    return false;
                 default:
                     safeUnreachable(x.type);
                     throw new UnreachableError('session type', x);

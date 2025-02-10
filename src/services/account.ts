@@ -266,8 +266,8 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         // report farcaster signer
         if (
             !skipReportFarcasterSigner &&
-            account.session.type === SessionType.Farcaster &&
-            fireflySessionHolder.session
+            fireflySessionHolder.session &&
+            account.session.type === SessionType.Farcaster
         ) {
             console.warn('[addAccount] report farcaster signer');
             await FireflyEndpointProvider.reportFarcasterSigner(account.session as FireflySession);

@@ -85,13 +85,6 @@ export default function Page(props: Props) {
         if (!frameRef.current) return;
         if (!frameHost) return;
 
-        console.log('DEBUG: expose to iframe');
-        console.log({
-            supported,
-            current: frameRef.current,
-            frameHost,
-        });
-
         const result = exposeToIframe({
             debug: IS_DEVELOPMENT,
             iframe: frameRef.current,

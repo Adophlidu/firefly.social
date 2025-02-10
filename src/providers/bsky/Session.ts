@@ -7,16 +7,21 @@ import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
+const BSKY_SESSION_PLACEHOLDER = '[BSKY_SESSION_PLACEHOLDER]';
+
+export type BskySessionPayload = AtpSessionData & {
+    didDoc?: {};
+};
+
 export class BskySession extends BaseSession implements Session {
     constructor(
         public did: string,
-        public refreshJwt: string,
         createdAt: number,
         expiresAt: number,
         public serviceUrl: string,
-        public sessionPayload: AtpSessionData,
+        public sessionPayload: BskySessionPayload,
     ) {
-        super(SessionType.Bsky, did, refreshJwt, createdAt, expiresAt);
+        super(SessionType.Bsky, did, BSKY_SESSION_PLACEHOLDER, createdAt, expiresAt);
     }
 
     override serialize(): `${SessionType}:${string}` {

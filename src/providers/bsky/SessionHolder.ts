@@ -11,7 +11,7 @@ export const createAgent: (serviceUrl: string) => AtpAgent = memoize((serviceUrl
     return new AtpAgent({
         service: serviceUrl,
         persistSession: (evt, session) => {
-            console.log(evt, session);
+            console.log('DEBUG: persist bsky agent', evt, session);
         },
     });
 });

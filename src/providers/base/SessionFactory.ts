@@ -41,6 +41,7 @@ const BskySessionPayload = z.object({
     accessJwt: z.string(),
     handle: z.string(),
     did: z.string(),
+    didDoc: z.object({}).optional(),
     email: z.string().optional(),
     emailConfirmed: z.boolean().optional(),
     emailAuthFactor: z.boolean().optional(),
@@ -131,7 +132,6 @@ export class SessionFactory {
 
                     return new BskySession(
                         session.profileId,
-                        session.token,
                         session.createdAt,
                         session.expiresAt,
                         u.href,

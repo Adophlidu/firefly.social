@@ -5,12 +5,13 @@ import {
     AuthenticationError,
     FarcasterAlreadyBoundError,
     NotAllowedError,
-    NotImplementedError,
     UnreachableError,
 } from '@/constants/error.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { getDidServiceHost } from '@/helpers/getDidServiceHost.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import type { BskySession } from '@/providers/bsky/Session.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
@@ -101,6 +102,23 @@ async function bindTwitterSessionToFirefly(session: TwitterSession, signal?: Abo
     return data;
 }
 
+async function bindBskySessionToFirefly(session: BskySession, signal?: AbortSignal) {
+    const response = await fireflySessionHolder.fetch<BindResponse>(
+        urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/bsky/binding'),
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                did: session.did,
+                host: getDidServiceHost(session.sessionPayload.didDoc),
+                token: session.sessionPayload.accessJwt,
+            }),
+        },
+    );
+
+    const data = resolveFireflyResponseData(response);
+    return data;
+}
+
 async function bindAppleSessionToFirefly(session: ThirdPartySession, signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetch<BindResponse>(
         urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindApple'),
@@ -165,7 +183,7 @@ async function bindFireflySession(session: Session, signal?: AbortSignal) {
         case SessionType.Twitter:
             return await bindTwitterSessionToFirefly(session as TwitterSession, signal);
         case SessionType.Bsky:
-            throw new NotImplementedError();
+            return await bindBskySessionToFirefly(session as BskySession, signal);
         case SessionType.Firefly:
             throw new NotAllowedError();
         case SessionType.Apple:

@@ -26,7 +26,6 @@ import { type AccountOptions, addAccount } from '@/services/account.js';
 async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
     try {
         const account = await createAccount();
-        console.log('DEBUG: login bsky', account);
 
         const done = await addAccount(account, options);
         if (done) enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Bsky)} account is now connected.`);
@@ -45,12 +44,16 @@ export function LoginBsky() {
 
     const [account, setAccount] = useState('');
     const [password, setPassword] = useState('');
+
+    const accountRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
+
     const [{ loading }, login] = useAsyncFn(
         async (username: string, password: string, serviceUrl: string) => {
-            await loginBsky(
-                async () => {
-                    controller.current.renew();
-                    try {
+            controller.current.renew();
+            try {
+                await loginBsky(
+                    async () => {
                         const agent = createAgent(serviceUrl);
 
                         const response = await agent.login({
@@ -59,40 +62,38 @@ export function LoginBsky() {
                         });
                         if (!response.success) throw new Error(`Failed to login username = ${username}.`);
 
-                        const profileResponse = await agent.getProfile({
-                            actor: response.data.did,
-                        });
+                        const profileResponse = await agent.getProfile(
+                            {
+                                actor: response.data.did,
+                            },
+                            {
+                                signal: controller.current.signal,
+                            },
+                        );
                         if (!profileResponse.success)
                             throw new Error(`Failed to get profile id = ${response.data.did}.`);
 
-                        const session = new BskySession(response.data.did, response.data.refreshJwt, 0, 0, serviceUrl, {
-                            active: true,
-                            ...response.data,
-                        });
+                        const now = Date.now();
 
                         return {
-                            session,
+                            session: new BskySession(response.data.did, now, now, serviceUrl, {
+                                active: true,
+                                ...response.data,
+                            }),
                             profile: formatBskyProfile(profileResponse.data),
                         } satisfies Account;
-                    } catch (error) {
-                        enqueueMessageFromError(error, t`Oops… Something went wrong. Please try again`);
-                        throw error;
-                    }
-                },
-                {
-                    skipBelongsToCheck: true,
-                    skipResumeFireflyAccounts: true,
-                    skipResumeFireflySession: true,
-                    skipUploadFireflySession: true,
-                    skipReportFarcasterSigner: true,
-                    signal: controller.current.signal,
-                },
-            );
+                    },
+                    {
+                        signal: controller.current.signal,
+                    },
+                );
+            } catch (error) {
+                enqueueMessageFromError(error, t`Oops… Something went wrong. Please try again`);
+                throw error;
+            }
         },
         [controller],
     );
-    const accountRef = useRef<HTMLInputElement>(null);
-    const passwordRef = useRef<HTMLInputElement>(null);
 
     return (
         <form className="box-border flex w-[500px] flex-col items-center gap-3 p-6">

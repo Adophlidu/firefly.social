@@ -1,8 +1,6 @@
 import { WalletError } from '@solana/wallet-adapter-base';
 import { parseHTML } from 'linkedom';
 
-import { resolveValue } from '@/helpers/resolveValue.js';
-
 export class AbortError extends Error {
     constructor(message = 'Aborted') {
         super(message);
@@ -22,6 +20,19 @@ export class MalformedError extends Error {
 export class UnauthorizedError extends Error {
     constructor(message?: string) {
         super(message ?? 'Unauthorized');
+    }
+}
+
+async function getResponseText(response: Response): Promise<string> {
+    try {
+        const text = await response.clone().text();
+        if (response.headers.get('content-type')?.includes('text/html')) {
+            const dom = parseHTML(text);
+            return dom.querySelector('title')?.textContent || 'Internal service error';
+        }
+        return text;
+    } catch {
+        return '';
     }
 }
 
@@ -45,19 +56,8 @@ export class FetchError extends Error {
     }
 
     static async from(input: RequestInfo | URL | string, response: Response, message?: string) {
-        const text = await resolveValue(async () => {
-            try {
-                const text = await response.clone().text();
-                if (response.headers.get('content-type')?.includes('text/html')) {
-                    const dom = parseHTML(text);
-                    return dom.querySelector('title')?.textContent || 'Internal service error';
-                }
-                return text;
-            } catch {
-                return '';
-            }
-        });
         const method = typeof input === 'string' ? 'GET' : input instanceof URL ? 'GET' : input.method.toUpperCase();
+        const text = await getResponseText(response);
 
         return new FetchError(
             message ??

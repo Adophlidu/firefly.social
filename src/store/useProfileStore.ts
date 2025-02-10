@@ -388,8 +388,6 @@ const useBskyStateBase = createState(
                 await bskySessionHolder.resumeSession(currentProfileSession as BskySession);
 
                 const profile = await BskySocialMediaProvider.getProfileById(did);
-                console.log('[bsky store] profile', profile);
-
                 if (profile.profileId !== did) {
                     console.warn('[bsky store] clean the local store because the client cannot recover properly');
                     state.clear();

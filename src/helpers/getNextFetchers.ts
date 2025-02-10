@@ -17,7 +17,13 @@ export interface NextFetchersOptions {
 
 export function getNextFetchers({ squashExpiration = 0, cacheDuration = 0, resolver }: NextFetchersOptions = {}) {
     const fetchers: Fetcher[] = [];
-    if (squashExpiration > 0) fetchers.push((...args) => fetchSquashed(...args, resolver, squashExpiration));
-    if (cacheDuration > 0) fetchers.push((...args) => fetchCached(...args, cacheDuration));
+    if (squashExpiration > 0)
+        fetchers.push((input: RequestInfo | URL, init?: RequestInit, next?: Fetcher) =>
+            fetchSquashed(input, init, next, resolver, squashExpiration),
+        );
+    if (cacheDuration > 0)
+        fetchers.push((input: RequestInfo | URL, init?: RequestInit, next?: Fetcher) =>
+            fetchCached(input, init, next, cacheDuration),
+        );
     return fetchers;
 }
