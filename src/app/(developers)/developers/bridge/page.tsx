@@ -149,6 +149,12 @@ const items: Item[] = [
     },
     {
         type: 'method',
+        name: SupportedMethod.SEND_TRANSACTION,
+        title: 'Send Transaction',
+        description: 'Send a transaction.',
+    },
+    {
+        type: 'method',
         name: SupportedMethod.SIGN_TYPED_DATA,
         title: 'Sign Typed Data',
         description: 'Sign typed data.',
