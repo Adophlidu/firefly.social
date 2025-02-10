@@ -60,3 +60,5 @@ export const SNAPSHOT_PROPOSAL_REGEXP = /https:\/\/snapshot\.org\/#\/.+?\/propos
 export const SNAPSHOT_NEW_PROPOSAL_REGEXP = /https:\/\/snapshot\.box\/#\/s:(.+)\/proposal\/(0x[a-fA-F0-9]{64})$/;
 
 export const TWITTER_PROFILE_REGEX = /https:\/\/(x\.com|twitter\.com)\/([a-zA-Z0-9_]*)\/?/;
+
+export const TENOR_GIF_REGEXP = /^https:\/\/media\.tenor\.com\/([^/]+)\/([^/]+)\.gif/;

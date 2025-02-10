@@ -13,6 +13,7 @@ import { produce } from 'immer';
 import { first, isUndefined, omitBy } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
+import { TENOR_GIF_REGEXP } from '@/constants/regexp.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
@@ -40,13 +41,22 @@ function formatBskyMedia(embed: unknown): Post['metadata']['content'] {
             }),
         );
     }
-    if (AppBskyEmbedExternal.isView(embed) && parseBskyGifUri(embed.external.uri) && embed.external.thumb) {
-        attachments.push({
-            type: 'AnimatedGif',
-            uri: embed.external.uri,
-            coverUri: embed.external.thumb,
-            title: embed.external.title,
-        });
+    if (AppBskyEmbedExternal.isView(embed) && parseBskyGifUri(embed.external.uri)) {
+        const [, ns = '', name = ''] = embed.external.uri.match(TENOR_GIF_REGEXP) || [];
+        if (ns.endsWith('AC') && name && embed.external.thumb) {
+            attachments.push({
+                type: 'AnimatedGif',
+                // gif -> webm
+                uri: `https://media.tenor.com/${ns.replace(/AC$/, 'P3')}/${name}.webm`,
+                coverUri: embed.external.thumb,
+                title: embed.external.title,
+            });
+        } else {
+            attachments.push({
+                type: 'Image',
+                uri: embed.external.uri,
+            });
+        }
     }
     if (AppBskyEmbedVideo.isView(embed)) {
         attachments.push({
