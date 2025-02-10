@@ -93,6 +93,9 @@ msgstr ""
 msgid "Sell Tax: {0}%"
 msgstr ""
 
+msgid "Retweet"
+msgstr ""
+
 msgid "Failed to translate post. Please retry later."
 msgstr ""
 

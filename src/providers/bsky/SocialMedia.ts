@@ -639,7 +639,16 @@ export class BskySocialMedia implements Provider {
         );
     }
     async getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
+        const atUri = PostAtUri.fromId(postId).toUri();
+        const res = await bskySessionHolder.agent.getRepostedBy({
+            uri: atUri,
+            cursor: indicator?.id,
+        });
+        return createPageable(
+            res.data.repostedBy.map((x) => formatBskyProfile(x)),
+            createIndicator(indicator),
+            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+        );
     }
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const atUri = PostAtUri.fromId(postId).toUri();
