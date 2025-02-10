@@ -9,7 +9,7 @@ export const BskyViewBeforeLoad = () => {
 };
 
 function Title() {
-    return <Trans>Sign in</Trans>;
+    return <Trans>Log in to Bluesky</Trans>;
 }
 
 export function BskyView() {

@@ -2,12 +2,13 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import AtIcon from '@/assets/at.svg';
 import LockIcon from '@/assets/lock.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { ClearButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
 import { Source } from '@/constants/enum.js';
@@ -28,7 +29,7 @@ async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<A
         console.log('DEBUG: login bsky', account);
 
         const done = await addAccount(account, options);
-        if (done) enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Farcaster)} account is now connected.`);
+        if (done) enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Bsky)} account is now connected.`);
 
         LoginModalRef.close();
     } catch (error) {
@@ -74,7 +75,7 @@ export function LoginBsky() {
                             profile: formatBskyProfile(profileResponse.data),
                         } satisfies Account;
                     } catch (error) {
-                        enqueueMessageFromError(error, t`Failed to login.`);
+                        enqueueMessageFromError(error, t`Oops… Something went wrong. Please try again`);
                         throw error;
                     }
                 },
@@ -90,46 +91,78 @@ export function LoginBsky() {
         },
         [controller],
     );
+    const accountRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
 
     return (
-        <form className="flex w-[400px] flex-col gap-3 p-6">
-            <h1 className="mx-2 text-lg">Enter your username and password</h1>
+        <form className="box-border flex w-[500px] flex-col items-center gap-3 p-6">
+            <div className="flex w-[300px] flex-col gap-5">
+                <h1 className="whitespace-nowrap text-xs text-second">
+                    Enter your username and password to log in instantly
+                </h1>
 
-            <div className="relative mx-0 flex h-10 flex-grow items-center rounded-xl bg-lightBg px-3 text-main focus-within:border-fireflyBrand">
-                <AtIcon width={18} height={18} className="shrink-0" />
-                <input
-                    type="text"
-                    name="account"
-                    autoFocus
-                    autoComplete="off"
-                    spellCheck="false"
-                    placeholder={t`Username or email address`}
-                    className="w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
-                    value={account}
-                    onChange={(ev) => setAccount(ev.currentTarget.value)}
-                />
+                <div className="group relative mx-0 flex h-10 flex-grow items-center rounded-xl border border-transparent bg-lightBg px-3 text-main focus-within:border-highlight focus-within:bg-bottom">
+                    <AtIcon width={18} height={18} className="shrink-0" />
+                    <input
+                        ref={accountRef}
+                        type="text"
+                        name="account"
+                        autoFocus
+                        autoComplete="off"
+                        spellCheck="false"
+                        placeholder={t`Username or email address`}
+                        className="w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
+                        value={account}
+                        onChange={(ev) => setAccount(ev.currentTarget.value)}
+                    />
+                    {account ? (
+                        <ClearButton
+                            type="button"
+                            className="hidden group-focus-within:inline-block group-hover:inline-block"
+                            IconProps={{ className: 'group-hover:text-highlight group-focus-within:text-highlight' }}
+                            size={16}
+                            onClick={() => {
+                                setAccount('');
+                                accountRef.current?.focus();
+                            }}
+                        />
+                    ) : null}
+                </div>
+                <div className="group relative mx-0 flex h-10 flex-grow items-center rounded-xl border border-transparent bg-lightBg px-3 text-main focus-within:border-highlight focus-within:bg-bottom">
+                    <LockIcon width={18} height={18} className="shrink-0" />
+                    <input
+                        ref={passwordRef}
+                        type="password"
+                        name="password"
+                        autoComplete="off"
+                        spellCheck="false"
+                        placeholder={t`Password`}
+                        className="w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
+                        value={password}
+                        onChange={(ev) => setPassword(ev.currentTarget.value)}
+                    />
+                    {password ? (
+                        <ClearButton
+                            type="button"
+                            className="hidden group-focus-within:inline-block group-hover:inline-block"
+                            IconProps={{ className: 'group-hover:text-highlight group-focus-within:text-highlight' }}
+                            size={16}
+                            onClick={() => {
+                                setPassword('');
+                                passwordRef.current?.focus();
+                            }}
+                        />
+                    ) : null}
+                </div>
+                <ClickableButton
+                    className="flex h-[42px] w-full items-center justify-center gap-1 rounded-full border border-line bg-lightMain text-primaryBottom"
+                    disabled={loading || !account || !password}
+                    onClick={() => login(account, password, DEFAULT_SERVICE_URL)}
+                >
+                    <Trans>Login</Trans>
+                    {loading ? <LoadingIcon className="h-[18px] w-[18px] text-primaryBottom" /> : null}
+                </ClickableButton>
             </div>
-            <div className="relative mx-0 flex h-10 flex-grow items-center rounded-xl bg-lightBg px-3 text-main focus-within:border-fireflyBrand">
-                <LockIcon width={18} height={18} className="shrink-0" />
-                <input
-                    type="password"
-                    name="password"
-                    autoComplete="off"
-                    spellCheck="false"
-                    placeholder={t`Password`}
-                    className="w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
-                    value={password}
-                    onChange={(ev) => setPassword(ev.currentTarget.value)}
-                />
-            </div>
-            <ClickableButton
-                className="mt-1 flex h-[42px] w-full items-center justify-center rounded-md border border-line"
-                disabled={loading || !account || !password}
-                onClick={() => login(account, password, DEFAULT_SERVICE_URL)}
-            >
-                {loading ? <LoadingIcon className="mr-2 text-main" /> : null}
-                <Trans>Login</Trans>
-            </ClickableButton>
         </form>
     );
 }

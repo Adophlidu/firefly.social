@@ -1552,6 +1552,9 @@ msgstr "社团"
 msgid "Mint NFT"
 msgstr "铸造 NFT"
 
+msgid "Oops… Something went wrong. Please try again"
+msgstr ""
+
 msgid "Follow"
 msgstr "关注"
 
@@ -2081,6 +2084,9 @@ msgstr "未发现外部调用风险。"
 
 msgid "Pending"
 msgstr "确认中"
+
+msgid "Log in to Bluesky"
+msgstr ""
 
 msgid "No preview found for shared link"
 msgstr "无法预加载"
@@ -3391,7 +3397,7 @@ msgstr "您可以设置一个或多个规则，作为获奖者的条件。"
 
 #. placeholder {0}: resolveSourceName(Source.Lens)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
-#. placeholder {0}: resolveSourceName(account.profile.source)
+#. placeholder {0}: resolveSourceName(Source.Bsky)
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 账户已连接。"
 

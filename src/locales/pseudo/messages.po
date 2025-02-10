@@ -1547,6 +1547,9 @@ msgstr ""
 msgid "Mint NFT"
 msgstr ""
 
+msgid "Oops… Something went wrong. Please try again"
+msgstr ""
+
 msgid "Follow"
 msgstr ""
 
@@ -2070,6 +2073,9 @@ msgid "No external call risk found."
 msgstr ""
 
 msgid "Pending"
+msgstr ""
+
+msgid "Log in to Bluesky"
 msgstr ""
 
 msgid "No preview found for shared link"
@@ -3376,7 +3382,7 @@ msgstr ""
 
 #. placeholder {0}: resolveSourceName(Source.Lens)
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
-#. placeholder {0}: resolveSourceName(account.profile.source)
+#. placeholder {0}: resolveSourceName(Source.Bsky)
 msgid "Your {0} account is now connected."
 msgstr ""
 
