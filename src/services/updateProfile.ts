@@ -6,7 +6,6 @@ import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -63,7 +62,7 @@ export async function updateProfile(profile: Profile, profileEditable: ProfileEd
             safeUnreachable(profile.source);
     }
 
-    queryClient.setQueryData(['profile', profile.source, resolveFireflyProfileId(profile)], (old: Profile) => {
+    function queryClientUpdater(old: Profile) {
         if (!old) return old;
         return produce(old, (state: Profile) => {
             if (typeof profileEditable.displayName === 'string') state.displayName = profileEditable.displayName;
@@ -72,7 +71,10 @@ export async function updateProfile(profile: Profile, profileEditable: ProfileEd
             if (typeof profileEditable.website === 'string') state.website = profileEditable.website;
             state.pfp = profileEditable.pfp ?? getStampAvatarByProfileId(profile.source, profile.profileId);
         });
-    });
+    }
+
+    queryClient.setQueryData(['profile', profile.source, profile.profileId], queryClientUpdater);
+    queryClient.setQueryData(['profile', profile.source, profile.handle], queryClientUpdater);
 
     setCurrentProfileInPosts(profile, profileEditable);
     updateCurrentProfileInState(profile.source, profileEditable);
