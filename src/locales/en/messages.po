@@ -658,6 +658,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> follo
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr "{0, plural, one {Follower} other {Followers}}"
 
+msgid "Oops! Your account is currently blocked. Reach out to support for more details."
+msgstr "Oops! Your account is currently blocked. Reach out to support for more details."
+
 msgid "Mutes"
 msgstr "Mutes"
 
@@ -2145,6 +2148,9 @@ msgstr "Unknown Collection"
 msgid "Validate failed, please check your input."
 msgstr "Validate failed, please check your input."
 
+msgid "Access Denied"
+msgstr "Access Denied"
+
 msgid "Failed to join /{name} on {sourceName}."
 msgstr "Failed to join /{name} on {sourceName}."
 
@@ -3565,9 +3571,6 @@ msgstr "Claim Requirements"
 msgid "Oversupply minting."
 msgstr "Oversupply minting."
 
-msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop {promoteLink} !"
-msgstr "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop {promoteLink} !"
-
 msgid "*Note: Each NFT can only be used once."
 msgstr "*Note: Each NFT can only be used once."
 
@@ -3743,6 +3746,9 @@ msgstr "So sorry, we cant mint this NFT with the current status: {0}"
 
 msgid "Profile"
 msgstr "Profile"
+
+msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop!"
+msgstr "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop!"
 
 msgid "QUOTE"
 msgstr "QUOTE"

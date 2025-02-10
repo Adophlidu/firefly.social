@@ -87,7 +87,7 @@ export function readChars(chars: Chars, strategy: 'both' | 'visible' | 'invisibl
         .map((x) => {
             if (typeof x === 'string') {
                 if (strategy === 'invisible') return '';
-                return promoteLink && specifiedUrl ? x.replace(promoteLink, specifiedUrl) : x;
+                return x;
             }
             if (x.visible && strategy === 'invisible') return '';
             if (!x.visible && strategy === 'visible') return '';
@@ -108,7 +108,9 @@ export function readChars(chars: Chars, strategy: 'both' | 'visible' | 'invisibl
                     if (source === Source.Lens) return ` ${getPollFrameUrl(x.id || `poll-${uuid()}`, source)}\n`;
                     return '';
                 case CHAR_TAG.PROMOTE_LINK:
-                    return '';
+                    const result = `\n ${x.content}`;
+
+                    return promoteLink && specifiedUrl ? result.replace(promoteLink, specifiedUrl) : result;
                 default:
                     safeUnreachable(x);
                     return '';

@@ -258,7 +258,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                     SteganographyPreset.Preset2023_Firefly,
                 );
 
-                const promoteMessage = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop ${promoteLink} !`;
+                const promoteMessage = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop!`;
 
                 const chars: Chars = [
                     {
@@ -266,13 +266,13 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                         content: RP_HASH_TAG,
                         visible: false,
                     },
+                    ...(compositePost ? compositePost.chars : []),
+                    promoteMessage,
                     {
                         tag: CHAR_TAG.PROMOTE_LINK,
                         content: promoteLink,
                         visible: false,
                     },
-                    ...(compositePost ? compositePost.chars : []),
-                    promoteMessage,
                 ];
 
                 updateChars(chars);

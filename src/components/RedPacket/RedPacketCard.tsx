@@ -64,6 +64,7 @@ export function RedPacketCard({ payload, post }: Props) {
         availability,
         password,
         isExpired,
+        isBlacklist,
         computed: { canClaim, canRefund, listOfStatus },
         isEmpty,
         isClaimed,
@@ -276,6 +277,7 @@ export function RedPacketCard({ payload, post }: Props) {
                     </div>
                     <RedPacketCardFooter
                         post={post}
+                        isBlacklist={!!isBlacklist}
                         payload={payload}
                         isClaimed={isClaimed}
                         isEmpty={isEmpty}

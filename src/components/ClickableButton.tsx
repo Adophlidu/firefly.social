@@ -31,10 +31,11 @@ export const ClickableButton = forwardRef<HTMLButtonElement, ClickableButtonProp
     return (
         <button
             {...props}
+            disabled={props.disabled || loading}
             type={props.type as 'button'}
             className={classNames(props.className, {
                 'outline-none': !enableOutline,
-                'disabled:cursor-not-allowed disabled:opacity-50': !!props.disabled,
+                'disabled:cursor-not-allowed disabled:opacity-50': !!props.disabled || loading,
                 'flex items-center justify-center gap-1': loading,
             })}
             ref={ref}

@@ -3,9 +3,11 @@ import { safeUnreachable } from '@masknet/kit';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { memo, useCallback } from 'react';
 
+import QuestionIcon from '@/assets/question.svg';
 import SendIcon from '@/assets/send.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { ActionButton } from '@/components/ActionButton.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkType } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -24,6 +26,7 @@ interface Props {
     isExpired: boolean;
     isClaiming: boolean;
     isRefunded: boolean;
+    isBlacklist: boolean;
     canRefund: boolean;
     handleShare: () => void;
     handleRefund: () => void;
@@ -41,6 +44,7 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
     isExpired,
     isClaiming,
     isRefunded,
+    isBlacklist,
     canRefund,
     handleShare,
     handleRefund,
@@ -116,6 +120,37 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
                 >
                     <SendIcon width={16} height={16} />
                     <Trans>Share</Trans>
+                </ActionButton>
+            </div>
+        );
+    }
+
+    if (isBlacklist) {
+        return (
+            <div className="light flex gap-3">
+                <ActionButton
+                    variant="secondary"
+                    className="flex w-full items-center justify-center gap-x-1 text-sm leading-[18px]"
+                    onClick={handleShare}
+                >
+                    <SendIcon width={16} height={16} />
+                    <Trans>Share</Trans>
+                </ActionButton>
+                <ActionButton
+                    disabled
+                    className="flex w-full items-center justify-center gap-x-1 text-sm leading-[18px]"
+                >
+                    <Tooltip
+                        placement="top"
+                        content={
+                            <Trans>
+                                Oops! Your account is currently blocked. Reach out to support for more details.
+                            </Trans>
+                        }
+                    >
+                        <QuestionIcon width={14} height={14} />
+                    </Tooltip>
+                    <Trans>Access Denied</Trans>
                 </ActionButton>
             </div>
         );

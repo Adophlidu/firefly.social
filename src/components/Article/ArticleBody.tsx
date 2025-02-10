@@ -14,7 +14,6 @@ import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { PreviewMediaModalRef } from '@/modals/controls.js';
@@ -71,22 +70,6 @@ export function ArticleBody({ cover, article, onClick }: Props) {
             >
                 {article.title}
             </h1>
-            <div className="flex items-center">
-                {article.slug ? (
-                    <div
-                        className="cursor-pointer rounded-lg bg-primaryBottom px-1 py-2 text-xs text-second hover:underline"
-                        onClick={(event) => {
-                            event.stopPropagation();
-                            event.preventDefault();
-
-                            scrollTo(0, 0);
-                            router.push(resolveSearchUrl(article.slug || '', undefined, Source.Article));
-                        }}
-                    >
-                        #{article.slug}
-                    </div>
-                ) : null}
-            </div>
             <div className="flex items-center justify-between border-b border-secondaryLine pb-[10px]">
                 <ArticleAuthor article={article} />
                 {isMedium ? <ArticleActions article={article} /> : null}

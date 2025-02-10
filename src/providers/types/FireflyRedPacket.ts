@@ -333,6 +333,7 @@ export namespace FireflyRedPacketAPI {
             isEmpty: boolean;
             isExpired: boolean;
             isRefunded: boolean;
+            isBlacklist: boolean;
             claimedNumber: number;
             claimedAmount: string;
         } | null;

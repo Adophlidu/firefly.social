@@ -663,6 +663,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}}<4> 关�
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr "{0, plural, one {关注者} other {关注者}}"
 
+msgid "Oops! Your account is currently blocked. Reach out to support for more details."
+msgstr ""
+
 msgid "Mutes"
 msgstr "隐藏"
 
@@ -2150,6 +2153,9 @@ msgstr "未知搜藏品"
 msgid "Validate failed, please check your input."
 msgstr "验证失败，请检查您的输入。"
 
+msgid "Access Denied"
+msgstr ""
+
 msgid "Failed to join /{name} on {sourceName}."
 msgstr ""
 
@@ -3570,9 +3576,6 @@ msgstr "领取条件"
 msgid "Oversupply minting."
 msgstr "超出最大铸造数量。"
 
-msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop {promoteLink} !"
-msgstr "在 Firefly 移动端或者 {promoteLink} 打开我的红包🧧💰✨ ！"
-
 msgid "*Note: Each NFT can only be used once."
 msgstr "*注意：每个NFT只能使用一次。"
 
@@ -3748,6 +3751,9 @@ msgstr "抱歉，今天的免费铸造额度已用完。我们无法在当前状
 
 msgid "Profile"
 msgstr "个人信息"
+
+msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop!"
+msgstr ""
 
 msgid "QUOTE"
 msgstr "引用"

@@ -49,6 +49,7 @@ export function useAvailabilityComputed(payload: RedPacketJSONPayload, post: Pos
         case NetworkType.Solana:
             return {
                 ...solanaAvailability,
+                isBlacklist: false,
                 parsedChainId: solanaChainId,
             };
         default:
