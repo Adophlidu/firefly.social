@@ -207,7 +207,7 @@ export function BridgeMethodButton({ item }: Props) {
                     break;
                 }
                 case SupportedMethod.SEND_TRANSACTION: {
-                    const hash = await fireflyBridgeProvider.request(SupportedMethod.SIGN_TRANSACTION, {
+                    const hash = await fireflyBridgeProvider.request(SupportedMethod.SEND_TRANSACTION, {
                         chainId: RAW_TRANSACTION.chainId,
                         transaction: RAW_TRANSACTION,
                     });
