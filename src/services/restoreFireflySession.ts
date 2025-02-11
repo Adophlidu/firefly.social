@@ -104,8 +104,8 @@ async function restoreFireflySessionFromBsky(session: BskySession, signal?: Abor
         method: 'POST',
         body: JSON.stringify({
             did: session.did,
-            host: getDidServiceHost(session.sessionPayload.didDoc),
             token: session.sessionPayload.accessJwt,
+            serviceEndpoint: getDidServiceHost(session.sessionPayload.didDoc),
         }),
         signal,
     });
