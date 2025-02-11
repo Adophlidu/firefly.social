@@ -7,6 +7,7 @@ import { FileMimeType, Source } from '@/constants/enum.js';
 import { BSKY_VIDEO_ENDPOINT } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveExtFromMimeType } from '@/helpers/resolveExtFromMimeType.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -28,13 +29,24 @@ type UploadJobStatus = {
     jobStatus: UploadJob & { blob: BlobRef };
 };
 
+function getServiceAuthAudFromUrl(url: URL | string) {
+    const parsed = url instanceof URL ? url : parseUrl(url);
+
+    return parsed ? `did:web:${parsed.hostname}` : null;
+}
+
 async function getServiceAuthToken(
-    { aud, lxm, exp }: { aud: string; lxm: string; exp?: number },
+    { aud, lxm, exp }: { aud?: string; lxm: string; exp?: number },
     signal?: AbortSignal,
 ) {
+    const pdsAud = getServiceAuthAudFromUrl(bskySessionHolder.agent.dispatchUrl);
+    if (!pdsAud) {
+        throw new Error('Agent does not have a PDS URL');
+    }
+
     const authToken = await bskySessionHolder.agent.com.atproto.server.getServiceAuth(
         {
-            aud,
+            aud: aud || pdsAud,
             lxm,
             exp,
         },
@@ -74,7 +86,6 @@ async function checkUploadLimits(file: File, signal?: AbortSignal) {
 async function setupUploadJob(file: File, bskyProfile: Profile, signal?: AbortSignal) {
     const uploadAuthToken = await getServiceAuthToken(
         {
-            aud: 'did:web:suillus.us-west.host.bsky.network',
             lxm: 'com.atproto.repo.uploadBlob',
             exp: Date.now() / 1000 + 60 * 30, // 30 minutes
         },
