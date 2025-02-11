@@ -10,6 +10,7 @@ import stripMarkdown from 'strip-markdown';
 
 import { Code } from '@/components/Code.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
+import { UrlPlugin } from '@/components/Markup/plugins/UrlPlugin.js';
 import {
     CHANNEL_REGEX,
     EMAIL_REGEX,
@@ -37,7 +38,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
                 [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'list', 'listItem'] }],
                 remarkBreaks,
                 linkifyRegex(EMAIL_REGEX),
-                linkifyRegex(URL_REGEX),
+                UrlPlugin,
                 // parsing handle after url
                 // for example https://images.lens.phaver.com/insecure/raw:t/plain/3daf21dbbf8ce530685bbfabf5de325d
                 linkifyRegex(LENS_HANDLE_REGEXP),

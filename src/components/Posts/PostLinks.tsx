@@ -110,7 +110,11 @@ export function PostLinksInCompose({
 }) {
     const post = useMemo(() => {
         const content = readChars(chars, 'visible');
-        const oembedUrls = content.match(LINK_MARK_RE) || [];
+        const oembedUrls = (content.match(LINK_MARK_RE) || []).filter((url) => {
+            const index = content.indexOf(url);
+            if (['@'].includes(content[index - 1]) && !url.startsWith('http')) return false;
+            return true;
+        });
         const oembedUrl = last(oembedUrls);
 
         return {
