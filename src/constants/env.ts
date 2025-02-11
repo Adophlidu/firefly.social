@@ -70,7 +70,6 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_TELEMETRY: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_TELEMETRY_DEBUG: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_FIREFLY_DEV_API: z.nativeEnum(STATUS).default(STATUS.Disabled),
-    NEXT_PUBLIC_PARTICLE: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_THIRD_PARTY_AUTH: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_SOLANA_DEV: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_ACTIVITY_PARTICLE: z.nativeEnum(STATUS).default(STATUS.Disabled),
@@ -94,11 +93,6 @@ const ExternalEnvSchema = z.object({
 
     // w3m
     NEXT_PUBLIC_W3M_PROJECT_ID: z.string().default('invalid_w3m_project_id'),
-
-    // particle
-    NEXT_PUBLIC_PARTICLE_APP_ID: z.string().optional(),
-    NEXT_PUBLIC_PARTICLE_PROJECT_ID: z.string().optional(),
-    NEXT_PUBLIC_PARTICLE_CLIENT_KEY: z.string().optional(),
 
     NEXT_PUBLIC_ORB_CLUB_API_TOKEN: z.string().default('invalid_orb_club_api_token'),
 });
@@ -137,7 +131,6 @@ export const env = {
         NEXT_PUBLIC_TELEMETRY_DEBUG: process.env.NEXT_PUBLIC_TELEMETRY_DEBUG,
         NEXT_PUBLIC_DEVELOPERS: process.env.NEXT_PUBLIC_DEVELOPERS,
         NEXT_PUBLIC_FIREFLY_DEV_API: process.env.NEXT_PUBLIC_FIREFLY_DEV_API,
-        NEXT_PUBLIC_PARTICLE: process.env.NEXT_PUBLIC_PARTICLE,
 
         // hubble
         NEXT_PUBLIC_HUBBLE_URL: process.env.NEXT_PUBLIC_HUBBLE_URL,
@@ -158,11 +151,6 @@ export const env = {
 
         // w3m
         NEXT_PUBLIC_W3M_PROJECT_ID: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
-
-        // particle
-        NEXT_PUBLIC_PARTICLE_APP_ID: process.env.NEXT_PUBLIC_PARTICLE_APP_ID,
-        NEXT_PUBLIC_PARTICLE_PROJECT_ID: process.env.NEXT_PUBLIC_PARTICLE_PROJECT_ID,
-        NEXT_PUBLIC_PARTICLE_CLIENT_KEY: process.env.NEXT_PUBLIC_PARTICLE_CLIENT_KEY,
 
         NEXT_PUBLIC_ORB_CLUB_API_TOKEN: process.env.NEXT_PUBLIC_ORB_CLUB_API_TOKEN,
         NEXT_PUBLIC_SOLANA_DEV: process.env.NEXT_PUBLIC_SOLANA_DEV,

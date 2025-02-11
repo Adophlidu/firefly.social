@@ -1845,9 +1845,6 @@ msgstr "邮箱（可选）"
 msgid "NFT Contract"
 msgstr "NFT 合约"
 
-msgid "Failed to connect MPC wallet"
-msgstr "连接 MPC 钱包失败。"
-
 msgid "Phishing activities."
 msgstr "钓鱼活动。"
 
@@ -2648,9 +2645,6 @@ msgstr "进行中"
 msgid "Send on schedule"
 msgstr "发送定时任务"
 
-msgid "You haven't generated a Firefly wallet yet."
-msgstr "您还没有生成 Firefly 钱包。"
-
 msgid "Post on"
 msgstr "发帖者"
 
@@ -2843,10 +2837,6 @@ msgstr "<0>{0}</0> 已转发"
 
 msgid "All notifications"
 msgstr "通知"
-
-#. placeholder {0}: formatSolanaAddress(connection.address)
-msgid "Please try switching to {0}"
-msgstr "请切换到 {0}"
 
 msgid "Your browser does not support the Firefly Bridge."
 msgstr "您的浏览器不支持 Firefly Bridge。"
@@ -3493,9 +3483,6 @@ msgstr "立即转帖以获得 25% 的推荐佣金！"
 
 msgid "Hide tokens with small balances"
 msgstr "隐藏小额代币"
-
-msgid "Failed to connect to Firefly."
-msgstr "未能链接 Firefly"
 
 msgid "Proposal"
 msgstr "提案"

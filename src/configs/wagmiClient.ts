@@ -41,7 +41,6 @@ import {
     zora as wagmiZora,
 } from 'wagmi/chains';
 
-import { createParticleConnector } from '@/connectors/ParticleConnector.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -85,13 +84,8 @@ export const chains = [
     wagmiScroll,
 ] as const;
 
-export const particleConnector = createParticleConnector({
-    chains,
-});
-
 export const adapter = new WagmiAdapter({
     projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
-    connectors: particleConnector ? [particleConnector] : [],
     networks,
 });
 

@@ -6,23 +6,16 @@ import '@solana/wallet-adapter-react-ui/styles.css';
 
 import { type Adapter } from '@solana/wallet-adapter-base';
 import { ConnectionProvider, useWallet, WalletProvider } from '@solana/wallet-adapter-react';
-import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { compact } from 'lodash-es';
 import { type PropsWithChildren, useEffect } from 'react';
 
-import { particleAdapter, walletConnectAdapter } from '@/configs/solanaWallets.js';
-import { STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { walletConnectAdapter } from '@/configs/solanaWallets.js';
 import { SOLANA_WALLET_CACHE_KEY } from '@/constants/index.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { captureConnectWalletEvent } from '@/providers/telemetry/captureConnectWalletEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
-const wallets: Adapter[] = compact([
-    env.external.NEXT_PUBLIC_PARTICLE === STATUS.Enabled ? particleAdapter : null,
-    walletConnectAdapter,
-]);
+const wallets: Adapter[] = [walletConnectAdapter];
 
 export type SolanaWalletAdapterProviderProps = PropsWithChildren<{
     enableInsights?: boolean;
@@ -32,10 +25,8 @@ export function SolanaWalletAdapterProvider(props: SolanaWalletAdapterProviderPr
     return (
         <ConnectionProvider endpoint={getSolanaRPCUrl()}>
             <WalletProvider wallets={wallets} autoConnect localStorageKey={SOLANA_WALLET_CACHE_KEY}>
-                <WalletModalProvider>
-                    {props.children}
-                    {props.enableInsights ? <Insights /> : null}
-                </WalletModalProvider>
+                {props.children}
+                {props.enableInsights ? <Insights /> : null}
             </WalletProvider>
         </ConnectionProvider>
     );

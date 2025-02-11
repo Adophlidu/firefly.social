@@ -5,7 +5,6 @@ import { type SignerWalletAdapter, WalletNotConnectedError } from '@solana/walle
 import { WalletConnectWalletName } from '@solana/wallet-adapter-walletconnect';
 
 import { walletConnectAdapter } from '@/configs/solanaWallets.js';
-import { getParticleSolanaProvider } from '@/connectors/ParticleSolanaWallet.js';
 import { SolanaWalletName } from '@/constants/enum.js';
 import { SOLANA_WALLET_CACHE_KEY } from '@/constants/index.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
@@ -29,9 +28,6 @@ export function getWalletAdapter() {
             const phantom: { solana?: SignerWalletAdapter } = Reflect.get(window, 'phantom');
             if (!phantom?.solana) throw new WalletNotConnectedError();
             return phantom.solana;
-        case SolanaWalletName.Particle: // built-in
-            const wallet = getParticleSolanaProvider();
-            return wallet as unknown as SignerWalletAdapter;
         case SolanaWalletName.Okx: // built-in
             const okx: { solana?: SignerWalletAdapter } = Reflect.get(window, 'okxwallet');
             if (!okx?.solana) throw new WalletNotConnectedError();

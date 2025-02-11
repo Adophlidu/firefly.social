@@ -1835,9 +1835,6 @@ msgstr ""
 msgid "NFT Contract"
 msgstr ""
 
-msgid "Failed to connect MPC wallet"
-msgstr ""
-
 msgid "Phishing activities."
 msgstr ""
 
@@ -2633,9 +2630,6 @@ msgstr ""
 msgid "Send on schedule"
 msgstr ""
 
-msgid "You haven't generated a Firefly wallet yet."
-msgstr ""
-
 msgid "Post on"
 msgstr ""
 
@@ -2827,10 +2821,6 @@ msgid "<0>{0}</0> mirrored"
 msgstr ""
 
 msgid "All notifications"
-msgstr ""
-
-#. placeholder {0}: formatSolanaAddress(connection.address)
-msgid "Please try switching to {0}"
 msgstr ""
 
 msgid "Your browser does not support the Firefly Bridge."
@@ -3477,9 +3467,6 @@ msgid "Mirror now to get 25% referral fee!"
 msgstr ""
 
 msgid "Hide tokens with small balances"
-msgstr ""
-
-msgid "Failed to connect to Firefly."
 msgstr ""
 
 msgid "Proposal"

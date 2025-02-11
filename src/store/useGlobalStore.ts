@@ -25,9 +25,6 @@ interface GlobalState {
     collapsedConnectWallet: boolean;
     updateCollapsedConnectWallet: (collapsed: boolean) => void;
 
-    particleReconnecting: boolean;
-    updateParticleReconnecting: (reconnecting: boolean) => void;
-
     web3StateAsyncStatus: AsyncStatus;
     setWeb3StateAsyncStatus: (status: AsyncStatus) => void;
 }
@@ -83,13 +80,6 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
                 });
             },
 
-            particleReconnecting: false,
-            updateParticleReconnecting(reconnecting) {
-                set((state) => {
-                    state.particleReconnecting = reconnecting;
-                });
-            },
-
             web3StateAsyncStatus: AsyncStatus.Pending,
             setWeb3StateAsyncStatus(status) {
                 set((state) => {
@@ -102,7 +92,6 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
             storage: createJSONStorage(() => sessionStorage),
             partialize: (state) => ({
                 routeChanged: state.routeChanged,
-                particleReconnecting: state.particleReconnecting,
             }),
         },
     ),
