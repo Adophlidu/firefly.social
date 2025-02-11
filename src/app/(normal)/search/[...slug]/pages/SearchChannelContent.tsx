@@ -15,7 +15,15 @@ import type { Channel } from '@/providers/types/SocialMedia.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 const getSearchItemContent = (channel: Channel, index: number, listKey: string) => {
-    return <ChannelInList key={channel.id} channel={channel} listKey={listKey} index={index} />;
+    return (
+        <ChannelInList
+            showSourceAvatarWhenNoAvatar
+            key={channel.id}
+            channel={channel}
+            listKey={listKey}
+            index={index}
+        />
+    );
 };
 
 export function SearchChannelContent() {

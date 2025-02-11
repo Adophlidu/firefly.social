@@ -26,6 +26,7 @@ interface ChannelInListProps extends HTMLProps<HTMLDivElement> {
     noFollowButton?: boolean;
     noMuteButton?: boolean;
     hideDescription?: boolean;
+    showSourceAvatarWhenNoAvatar?: boolean;
 }
 
 const overrideComponents = {
@@ -38,6 +39,7 @@ export function ChannelInList({
     noMuteButton = true,
     dense = false,
     hideDescription = false,
+    showSourceAvatarWhenNoAvatar = false,
     listKey,
     index,
     className,
@@ -45,6 +47,8 @@ export function ChannelInList({
 }: ChannelInListProps) {
     const isSmall = useIsSmall('max');
     const setScrollIndex = useGlobalState.use.setScrollIndex();
+
+    const avatarSize = isSmall || dense ? 40 : 44;
 
     return (
         <div
@@ -67,12 +71,16 @@ export function ChannelInList({
             >
                 <div className="mr-[10px] shrink-0 self-start">
                     <ChannelTippy channel={channel}>
-                        <Avatar
-                            className="rounded-full border"
-                            src={channel.imageUrl}
-                            size={isSmall || dense ? 40 : 44}
-                            alt={channel.name}
-                        />
+                        {!channel.imageUrl && showSourceAvatarWhenNoAvatar ? (
+                            <SocialSourceIcon className="rounded-full" source={channel.source} size={avatarSize} />
+                        ) : (
+                            <Avatar
+                                className="rounded-full border"
+                                src={channel.imageUrl}
+                                size={avatarSize}
+                                alt={channel.name}
+                            />
+                        )}
                     </ChannelTippy>
                 </div>
 
