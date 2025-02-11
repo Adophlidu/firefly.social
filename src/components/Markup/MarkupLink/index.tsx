@@ -108,7 +108,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                 return (
                     <ProfileTippy
                         identity={{
-                            source: Source.Twitter,
+                            source: Source.Bsky,
                             id: profile.profileId,
                         }}
                     >

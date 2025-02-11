@@ -120,7 +120,7 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
                     oembedUrls.push(feature.uri);
                 }
                 if (AppBskyRichtextFacet.isMention(feature)) {
-                    const handle = record.text.substring(facet.index.byteStart, facet.index.byteEnd);
+                    const handle = record.text.substring(facet.index.byteStart, facet.index.byteEnd).replace(/^@/, '');
                     mentions.push({
                         profileId: feature.did,
                         profileSource: Source.Bsky,
