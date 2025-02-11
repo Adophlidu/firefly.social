@@ -118,6 +118,10 @@ msgstr "Refunded"
 msgid "Send a tip"
 msgstr "Send a tip"
 
+#. placeholder {0}: resolveSourceName(x)
+msgid "Your post was sent to {0}."
+msgstr "Your post was sent to {0}."
+
 #. placeholder {0}: channel.name
 #. placeholder {0}: channel.id
 msgid "Mute /{0}"
@@ -3515,10 +3519,6 @@ msgstr "Post collected successfully!"
 
 msgid "Reposts"
 msgstr "Reposts"
-
-#. placeholder {0}: resolveSourceName(x)
-msgid "Your post have published successfully on {0}."
-msgstr "Your post have published successfully on {0}."
 
 msgid "The contract owner has no restrictions on anti whale."
 msgstr "The contract owner has no restrictions on anti whale."

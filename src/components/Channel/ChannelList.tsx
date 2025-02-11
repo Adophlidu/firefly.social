@@ -31,7 +31,7 @@ export function ChannelList({ source, useWindowScroll = true }: ChannelListProps
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
         select: (data) => {
             const result = data.pages.flatMap((x) => x.data);
-            if (source === Source.Bsky && !currentProfile) {
+            if (source === Source.Bsky && currentProfile) {
                 return result.filter((x) => !BSKY_LOGIN_REQUIRED_FEEDS.includes(x.url));
             }
             return result;

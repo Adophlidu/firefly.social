@@ -148,7 +148,7 @@ export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(
 
     if (isQuote) {
         return (
-            <div className="my-2 break-words text-base text-main">
+            <div className="my-2 break-words text-base text-main" ref={mergedRef}>
                 <NakedMarkup
                     post={post}
                     className={classNames(

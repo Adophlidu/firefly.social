@@ -123,6 +123,10 @@ msgstr ""
 msgid "Send a tip"
 msgstr "發送小費"
 
+#. placeholder {0}: resolveSourceName(x)
+msgid "Your post was sent to {0}."
+msgstr ""
+
 #. placeholder {0}: channel.name
 #. placeholder {0}: channel.id
 msgid "Mute /{0}"
@@ -3510,10 +3514,6 @@ msgstr ""
 
 msgid "Reposts"
 msgstr ""
-
-#. placeholder {0}: resolveSourceName(x)
-msgid "Your post have published successfully on {0}."
-msgstr "你的貼文已成功發布在 {0} 上。"
 
 msgid "The contract owner has no restrictions on anti whale."
 msgstr ""

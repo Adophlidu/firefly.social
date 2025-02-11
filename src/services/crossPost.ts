@@ -249,7 +249,7 @@ export async function crossPost(
                 const rootPost = compositePost;
                 if (!rootPost.availableSources.includes(x)) return;
                 if (!isRetry) {
-                    enqueueSuccessMessage(t`Your post have published successfully on ${resolveSourceName(x)}.`);
+                    enqueueSuccessMessage(t`Your post was sent to ${resolveSourceName(x)}.`);
                 }
             });
 
