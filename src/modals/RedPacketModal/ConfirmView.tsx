@@ -170,7 +170,6 @@ export function ConfirmView() {
         rules,
         isEVM,
         themeId,
-        account,
         requireCollections,
         currentLensProfile,
         currentFarcasterProfile,
