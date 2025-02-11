@@ -89,9 +89,9 @@ export const Mirror = memo<MirrorProps>(function Mirror({
             case Source.Farcaster:
                 return mirrored ? t`Cancel Recast` : t`Recast`;
             case Source.Twitter:
-                return t`Repost`;
+                return mirrored ? t`Cancel Retweet` : t`Retweet`;
             case Source.Bsky:
-                return t`Repost`;
+                return mirrored ? t`Cancel Repost` : t`Repost`;
             default:
                 safeUnreachable(source);
                 return '';

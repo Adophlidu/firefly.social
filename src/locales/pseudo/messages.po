@@ -2872,6 +2872,9 @@ msgstr ""
 msgid "Schedule"
 msgstr ""
 
+msgid "Cancel Repost"
+msgstr ""
+
 msgid "No cybercrime involved."
 msgstr ""
 
@@ -2934,6 +2937,9 @@ msgid "No available wallet."
 msgstr ""
 
 msgid "Added"
+msgstr ""
+
+msgid "Cancel Retweet"
 msgstr ""
 
 msgid "No phishing activities found."

@@ -2887,6 +2887,9 @@ msgstr "报告"
 msgid "Schedule"
 msgstr "定时"
 
+msgid "Cancel Repost"
+msgstr ""
+
 msgid "No cybercrime involved."
 msgstr "不涉及网络犯罪。"
 
@@ -2950,6 +2953,9 @@ msgstr "没有可用的钱包。"
 
 msgid "Added"
 msgstr "已添加"
+
+msgid "Cancel Retweet"
+msgstr ""
 
 msgid "No phishing activities found."
 msgstr "未发现钓鱼活动。"

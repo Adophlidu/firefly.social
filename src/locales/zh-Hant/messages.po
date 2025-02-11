@@ -2877,6 +2877,9 @@ msgstr "檢舉"
 msgid "Schedule"
 msgstr ""
 
+msgid "Cancel Repost"
+msgstr ""
+
 msgid "No cybercrime involved."
 msgstr ""
 
@@ -2939,6 +2942,9 @@ msgid "No available wallet."
 msgstr "沒有可用的錢包。"
 
 msgid "Added"
+msgstr ""
+
+msgid "Cancel Retweet"
 msgstr ""
 
 msgid "No phishing activities found."
