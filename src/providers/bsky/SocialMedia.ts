@@ -631,9 +631,15 @@ export class BskySocialMedia implements Provider {
         const res = await bskySessionHolder.agent.getLikes({
             uri: atUri,
             cursor: indicator?.id,
+            limit: 25,
         });
+        const likes = res.data.likes || [];
+        const profiles = likes.length
+            ? await runInSafeAsync(() => BskySocialMediaProvider.getProfilesByIds(likes.map((x) => x.actor.did)))
+            : [];
+
         return createPageable(
-            res.data.likes.map((x) => formatBskyProfile(x.actor)),
+            profiles?.length ? profiles : likes.map((x) => formatBskyProfile(x.actor)),
             createIndicator(indicator),
             res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
         );
@@ -643,9 +649,15 @@ export class BskySocialMedia implements Provider {
         const res = await bskySessionHolder.agent.getRepostedBy({
             uri: atUri,
             cursor: indicator?.id,
+            limit: 25,
         });
+        const repostedBy = res.data.repostedBy || [];
+        const profiles = repostedBy.length
+            ? await runInSafeAsync(() => BskySocialMediaProvider.getProfilesByIds(repostedBy.map((x) => x.did)))
+            : [];
+
         return createPageable(
-            res.data.repostedBy.map((x) => formatBskyProfile(x)),
+            profiles?.length ? profiles : repostedBy.map((x) => formatBskyProfile(x)),
             createIndicator(indicator),
             res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
         );
