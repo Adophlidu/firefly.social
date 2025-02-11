@@ -3,6 +3,7 @@ import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
 
 import { DisconnectButton } from '@/app/(settings)/components/DisconnectButton.js';
 import { ReportButton } from '@/app/(settings)/components/ReportButton.js';
+import FireflyLogo from '@/assets/firefly.round.svg';
 import LinkIcon from '@/assets/link-square.svg';
 import WalletIcon from '@/assets/wallet-circle.svg';
 import VerifiedDarkIcon from '@/assets/wallet-circle-verified.dark.svg';
@@ -10,7 +11,7 @@ import VerifiedLightIcon from '@/assets/wallet-circle-verified.light.svg';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
-import { NetworkPluginID } from '@/constants/enum.js';
+import { NetworkPluginID, WalletSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress, formatSolanaAddress } from '@/helpers/formatAddress.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
@@ -42,7 +43,15 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
             ? BlockScanExplorerResolver.addressLink(EVMChainId.Mainnet, connection.address)
             : null;
 
-    const Icon = !connection.canReport ? (isDark ? VerifiedDarkIcon : VerifiedLightIcon) : WalletIcon;
+    const isMPCWallet = connection.source === WalletSource.Particle;
+
+    const Icon = isMPCWallet
+        ? FireflyLogo
+        : !connection.canReport
+          ? isDark
+              ? VerifiedDarkIcon
+              : VerifiedLightIcon
+          : WalletIcon;
 
     return (
         <div className="mb-3 inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 text-medium text-lightMain shadow-primary backdrop-blur dark:bg-bg">
@@ -77,7 +86,9 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
                 </div>
             </div>
             {noAction ? null : !connection.canReport ? (
-                <DisconnectButton connection={connection} />
+                isMPCWallet ? null : (
+                    <DisconnectButton connection={connection} />
+                )
             ) : (
                 <ReportButton connection={connection} />
             )}
