@@ -799,7 +799,7 @@ export class BskySocialMedia implements Provider {
         const result = res.savedFeeds.find((x) => x.value === channel.url);
         if (!result) return false;
 
-        await bskySessionHolder.agent.removeSavedFeeds([result.id]);
+        await bskySessionHolder.agent.overwriteSavedFeeds(res.savedFeeds.filter((x) => x.value !== channel.url));
 
         return true;
     }
