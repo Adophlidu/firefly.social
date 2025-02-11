@@ -34,7 +34,7 @@ export function useMirror(post: Post) {
                         const result = await (unmirror
                             ? LensSocialMediaProvider.unmirrorPost(post.publicationId)
                             : LensSocialMediaProvider.mirrorPost(postId));
-                        enqueueSuccessMessage(unmirror ? t`Cancel mirror successfully` : t`Mirrored`);
+                        enqueueSuccessMessage(unmirror ? t`Cancel repost successfully` : t`Reposted`);
                         return result;
                     }
                     case Source.Twitter: {
@@ -67,7 +67,7 @@ export function useMirror(post: Post) {
                         enqueueMessageFromError(error, t`Failed to recast.`);
                         break;
                     case Source.Lens:
-                        enqueueMessageFromError(error, t`Failed to mirror.`);
+                        enqueueMessageFromError(error, t`Failed to repost.`);
                         break;
                     case Source.Twitter:
                         enqueueMessageFromError(error, t`Failed to repost.`);

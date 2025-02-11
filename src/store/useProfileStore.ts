@@ -296,6 +296,14 @@ const useTwitterStateBase = createState(
             state.upgrade();
 
             try {
+                const authSession = (await getSession()) as unknown as ThirdPartySessionType;
+                // avoid invalid requests
+                if (
+                    authSession.type === SessionType.Twitter &&
+                    authSession.user?.id === state.currentProfile?.profileId
+                )
+                    return;
+
                 const session = state.currentProfileSession as TwitterSession | null;
 
                 // clean the local store if the consumer secret is not hidden

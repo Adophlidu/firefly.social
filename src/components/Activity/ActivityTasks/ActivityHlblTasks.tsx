@@ -10,8 +10,9 @@ import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { ActivityFollowTargetCard } from '@/components/Activity/ActivityFollowTargetCard.js';
 import { ActivityLoginButton } from '@/components/Activity/ActivityLoginButton.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
+import { ActivityPremiumListProvider } from '@/components/Activity/ActivityPremiumListContext.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
-import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
+import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
 import { Source } from '@/constants/enum.js';
 import {
@@ -21,10 +22,25 @@ import {
     FIREFLY_TWITTER_PROFILE,
 } from '@/constants/mentions.js';
 import { type Chars } from '@/helpers/chars.js';
+import { Level } from '@/providers/types/CZ.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
 export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoResponse>['data'], 'status'> }) {
-    const list = useActivityPremiumList(Source.Twitter);
+    const { data: claimCondition } = useActivityClaimCondition(Source.Twitter);
+    const list = [
+        {
+            label: <Trans>Your X account holds Premium status</Trans>,
+            verified: claimCondition?.x?.level === Level.Lv2,
+        },
+        {
+            label: <Trans>Your Farcaster account holds Power Badge</Trans>,
+            verified: claimCondition?.farcaster.isPowerUser,
+        },
+        {
+            label: <Trans>Your assets on Base Chain are worth over US$10,000</Trans>,
+            verified: claimCondition?.balance?.level === Level.Lv2,
+        },
+    ];
     const isPremium = list.some((x) => x.verified);
     const shareContent = !isPremium
         ? [
@@ -55,7 +71,7 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
     );
 
     return (
-        <>
+        <ActivityPremiumListProvider list={list}>
             <div className="mb-4 w-full space-y-4 px-6 py-4">
                 <div className="flex w-full flex-col space-y-2">
                     <div className="flex h-8 items-center justify-between">
@@ -94,7 +110,6 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
                     </h2>
                     <ActivityPremiumConditionList
                         title={<Trans>Hold on! Meet any of the following to unlock a premium collectible:</Trans>}
-                        source={Source.Twitter}
                     />
                 </div>
             </div>
@@ -107,6 +122,6 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
                     source={Source.Twitter}
                 />
             </div>
-        </>
+        </ActivityPremiumListProvider>
     );
 }

@@ -4,13 +4,13 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { ChainId } from '@masknet/web3-shared-evm';
-import { type ReactNode, useContext, useState } from 'react';
+import { type ReactNode, use, useContext, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { ActivityMintSuccessDialog } from '@/components/Activity/ActivityMintSuccessDialog.js';
+import { ActivityPremiumListContext } from '@/components/Activity/ActivityPremiumListContext.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
-import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import type { SocialSource } from '@/constants/enum.js';
 import type { Chars } from '@/helpers/chars.js';
@@ -46,7 +46,7 @@ export function ActivityClaimButton({
     const { data, refetch } = useActivityClaimCondition(source);
     const [hash, setHash] = useState<string | undefined>(undefined);
     const [chainId, setChainId] = useState<ChainId | 'solana' | undefined>(undefined);
-    const list = useActivityPremiumList(source);
+    const { list } = use(ActivityPremiumListContext);
 
     const isPremium = list.some((x) => x.verified);
     const disabled = status === ActivityStatus.Ended || !data?.canClaim || !address || rest.disabled;

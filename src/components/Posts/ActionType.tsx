@@ -50,7 +50,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
     const combinedDescription = useMemo(() => {
         if (!combined) return;
         const actions = compact([
-            post.mirrors?.length ? t`mirrored` : undefined,
+            post.mirrors?.length ? t`reposted` : undefined,
             post.reactions?.length ? t`liked` : undefined,
             post.comments?.length ? t`commented` : undefined,
         ]);
@@ -106,12 +106,12 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
                     <Link href={getProfileUrl(post.reporter)} className="flex min-w-0 space-x-1">
                         {isSameProfile(post.reporter, currentProfile) ? (
                             <Trans>
-                                <strong className="mr-1">You</strong> mirrored
+                                <strong className="mr-1">You</strong> reposted
                             </Trans>
                         ) : (
                             <Trans>
                                 <strong className="truncate">{post.reporter.displayName}</strong>
-                                <span className="flex-shrink-0">mirrored</span>
+                                <span className="flex-shrink-0">reposted</span>
                             </Trans>
                         )}
                     </Link>
@@ -163,7 +163,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
                                 )
                             ) : (
                                 <Trans>
-                                    <strong>You</strong> mirrored
+                                    <strong>You</strong> reposted
                                 </Trans>
                             )
                         ) : post.source === Source.Farcaster ? (
@@ -172,7 +172,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
                             </Trans>
                         ) : (
                             <Trans>
-                                <strong>{first(post.mirrors)?.displayName}</strong> mirrored
+                                <strong>{first(post.mirrors)?.displayName}</strong> reposted
                             </Trans>
                         )}
                     </Link>

@@ -81,6 +81,16 @@ export interface NFT {
     participationBlocked: boolean;
 }
 
+export interface Lens {
+    valid: boolean;
+    level: Level;
+    alreadyClaimed: boolean;
+    lensId: string;
+    handle: string;
+    isActiveUser: boolean;
+    isTopUser: boolean;
+}
+
 export type CheckResponse = Response<{
     alreadyClaimed: boolean;
     canClaim: boolean;
@@ -88,6 +98,7 @@ export type CheckResponse = Response<{
     nft?: NFT;
     participationBlocked?: boolean;
     farcaster: Farcaster;
+    lens?: Lens;
     assets: Assets;
     balance: Balance;
     firefly: Firefly;

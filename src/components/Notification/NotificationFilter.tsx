@@ -57,12 +57,7 @@ export function NotificationFilter({ source, className, types, onTypesChange: se
                         <span>
                             {select(type, {
                                 comment: 'Comments',
-                                mirror:
-                                    source === Source.Lens
-                                        ? t`Mirrors`
-                                        : source === Source.Bsky
-                                          ? t`Reposts`
-                                          : t`Recasts`,
+                                mirror: source === Source.Farcaster ? t`Recasts` : t`Reposts`,
                                 reaction: 'Likes',
                                 act: 'Collects',
                                 other: 'Other',

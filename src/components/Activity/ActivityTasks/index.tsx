@@ -1,6 +1,7 @@
 'use client';
 
 import { ActivityMobileOnly } from '@/components/Activity/ActivityMobileOnly.js';
+import { ActivityButtrflyTasks } from '@/components/Activity/ActivityTasks/ActivityButtrflyTasks.js';
 import { ActivityElex24Tasks } from '@/components/Activity/ActivityTasks/ActivityElex24Tasks.js';
 import { ActivityFrensgivingTasks } from '@/components/Activity/ActivityTasks/ActivityFrensgivingTasks.js';
 import { ActivityHlblTasks } from '@/components/Activity/ActivityTasks/ActivityHlblTasks.js';
@@ -33,6 +34,8 @@ export function ActivityTasks({ name, data }: Props) {
                     <ActivityTrumpTasks data={data} />
                 </ActivityMobileOnly>
             );
+        case 'buttrfly':
+            return <ActivityButtrflyTasks data={data} />;
         default:
             return null;
     }

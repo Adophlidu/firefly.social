@@ -144,8 +144,8 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                         other: 'recasts',
                     }),
                     [Source.Lens]: plural(post.stats.mirrors, {
-                        one: 'mirror',
-                        other: 'mirrors',
+                        one: 'repost',
+                        other: 'reposts',
                     }),
                     [Source.Twitter]: plural(post.stats.mirrors, {
                         one: 'repost',

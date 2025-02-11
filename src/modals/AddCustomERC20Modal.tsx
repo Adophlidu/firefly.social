@@ -4,6 +4,7 @@ import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
+import { isSameAddress } from '@masknet/web3-shared-base';
 import { isValidAddress } from '@masknet/web3-shared-evm';
 import { forwardRef, useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -52,13 +53,13 @@ function AddCustomERC20ModalContent({ onClose, initialChainId }: { onClose: () =
     const [contractAddress, setContractAddress] = useState('');
     const [selectedChain, setSelectedChain] = useState(initialChainId);
 
-    const { tokens, isLoading } = useTipsTokens();
+    const { tokens, isLoading } = useTipsTokens(account.address);
     const addCustomToken = useCustomTokenStore((state) => state.addToken);
     const [{ loading }, onAdd] = useAsyncFn(async () => {
         try {
             if (!account.address) return;
             const address = contractAddress as Address;
-            if (tokens.some((x) => x.id === address)) {
+            if (tokens.some((x) => isSameAddress(x.id, address))) {
                 onClose?.();
                 return;
             }

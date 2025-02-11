@@ -40,6 +40,12 @@ msgstr "Be the first one to comment!"
 msgid "Failed to mute all wallets and accounts."
 msgstr "Failed to mute all wallets and accounts."
 
+#. placeholder {0}: mirrors.length
+#. placeholder {1}: notification.source
+#. placeholder {2}: notification.post.type
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {reposted your} Farcaster {recasted your} Bsky {reposted your} other {reposted your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</4>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {reposted your} Farcaster {recasted your} Bsky {reposted your} other {reposted your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</4>"
+
 #. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
 msgid "Tomorrow at {0}"
 msgstr "Tomorrow at {0}"
@@ -56,9 +62,6 @@ msgstr "Disconnect"
 msgid "No frame found."
 msgstr "No frame found."
 
-msgid "Undo mirror"
-msgstr "Undo mirror"
-
 msgid "FAILED THREAD POST"
 msgstr "FAILED THREAD POST"
 
@@ -73,6 +76,10 @@ msgstr "New connect with Warpcast"
 
 msgid "You have been detected as a loyal Farcaster user"
 msgstr "You have been detected as a loyal Farcaster user"
+
+#. placeholder {0}: notification.quote.quoteOn.type
+msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
+msgstr "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
 
 msgid "Edit Image"
 msgstr "Edit Image"
@@ -150,6 +157,9 @@ msgstr "Communities"
 
 msgid "Discover"
 msgstr "Discover"
+
+msgid "{shares, plural, one {Repost or Quote} other {Reposts or Quotes}}"
+msgstr "{shares, plural, one {Repost or Quote} other {Reposts or Quotes}}"
 
 msgid "Ask a question"
 msgstr "Ask a question"
@@ -459,11 +469,6 @@ msgstr "Profile Switched"
 msgid "Adding..."
 msgstr "Adding..."
 
-#. placeholder {0}: notification.reactors.length
-#. placeholder {1}: notification.post.type
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
-
 msgid "Donald Trump"
 msgstr "Donald Trump"
 
@@ -493,6 +498,10 @@ msgstr "Profile not found"
 
 msgid "NFT Standard"
 msgstr "NFT Standard"
+
+#. placeholder {0}: first(post.mirrors)?.displayName
+msgid "<0>{0}</0> reposted"
+msgstr "<0>{0}</0> reposted"
 
 #. placeholder {0}: formatSnapshotChoice(selectedChoices, type, choices)
 #. placeholder {1}: snapshot.title
@@ -560,6 +569,9 @@ msgstr "Show less"
 msgid "Follow <0>@{handle}</0> on {0}"
 msgstr "Follow <0>@{handle}</0> on {0}"
 
+msgid "Undo repost"
+msgstr "Undo repost"
+
 msgid "Proxy contract."
 msgstr "Proxy contract."
 
@@ -577,10 +589,6 @@ msgstr "Trading cooldown function."
 
 msgid "Event Ended!"
 msgstr "Event Ended!"
-
-#. placeholder {0}: post.reporter.displayName
-msgid "<0>{0}</0><1>mirrored</1>"
-msgstr "<0>{0}</0><1>mirrored</1>"
 
 msgid "True Token"
 msgstr "True Token"
@@ -712,16 +720,6 @@ msgstr "Liked"
 
 msgid "Token ID"
 msgstr "Token ID"
-
-#. placeholder {0}: mirrors.length
-#. placeholder {1}: notification.source
-#. placeholder {2}: notification.post.type
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} Bsky {reposted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} Bsky {reposted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
-
-#. placeholder {0}: post.stats.mirrors
-msgid "{0, plural, one {mirror} other {mirrors}}"
-msgstr "{0, plural, one {mirror} other {mirrors}}"
 
 msgid "Type something here..."
 msgstr "Type something here..."
@@ -878,9 +876,6 @@ msgstr "POST"
 
 msgid "Failed to unlike the post."
 msgstr "Failed to unlike the post."
-
-msgid "Mirror again"
-msgstr "Mirror again"
 
 msgid "There are images or videos that were not uploaded successfully."
 msgstr "There are images or videos that were not uploaded successfully."
@@ -1102,6 +1097,9 @@ msgstr "Failed to avatar."
 msgid "Frame Validator"
 msgstr "Frame Validator"
 
+msgid "Repost again"
+msgstr "Repost again"
+
 msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
 msgstr "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
 
@@ -1122,9 +1120,6 @@ msgstr "There is no data available to display"
 
 msgid "Follow System"
 msgstr "Follow System"
-
-msgid "Failed to mirror."
-msgstr "Failed to mirror."
 
 msgid "The contract owner has restrictions on buying."
 msgstr "The contract owner has restrictions on buying."
@@ -1174,6 +1169,14 @@ msgstr "Darkweb transactions."
 
 msgid "Anti_whale(Limited number of transactions)"
 msgstr "Anti_whale(Limited number of transactions)"
+
+#. placeholder {0}: notification.reactors.length
+#. placeholder {1}: notification.post.type
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
+
+msgid "reposted"
+msgstr "reposted"
 
 #. placeholder {0}: handle || recipient.displayName
 msgid "Send a tip to {0}"
@@ -1308,10 +1311,6 @@ msgstr "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
 msgid "Submit a wallet to receive NFT and $ANON"
 msgstr "Submit a wallet to receive NFT and $ANON"
 
-#. placeholder {0}: notification.post.type
-msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
-msgstr "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
-
 msgid "<0>Bought</0><1/>"
 msgstr "<0>Bought</0><1/>"
 
@@ -1348,9 +1347,6 @@ msgstr "Lucky Drop"
 
 msgid "Reply"
 msgstr "Reply"
-
-msgid "Mirror or Quote"
-msgstr "Mirror or Quote"
 
 msgid "Add an existing account"
 msgstr "Add an existing account"
@@ -1424,9 +1420,6 @@ msgstr "View detail"
 
 msgid "Try again"
 msgstr "Try again"
-
-msgid "<0>You</0> mirrored"
-msgstr "<0>You</0> mirrored"
 
 msgid "Failed to create image payload."
 msgstr "Failed to create image payload."
@@ -1690,6 +1683,15 @@ msgstr "Muted wallets"
 msgid "All wallets and accounts are muted."
 msgstr "All wallets and accounts are muted."
 
+msgid ""
+"Just earned $MASK by minting the Buttrfly Fren 🦋 collectible from {fireflyMention} \n"
+"\n"
+"Claim here {shareUrl}"
+msgstr ""
+"Just earned $MASK by minting the Buttrfly Fren 🦋 collectible from {fireflyMention} \n"
+"\n"
+"Claim here {shareUrl}"
+
 msgid "Disconnected from your social graph"
 msgstr "Disconnected from your social graph"
 
@@ -1831,6 +1833,10 @@ msgstr "Confirm you want to mute @{0}?"
 msgid "Compose"
 msgstr "Compose"
 
+#. placeholder {0}: notification.post.type
+msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
+msgstr "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
+
 #. placeholder {0}: first(post.reactions)?.displayName
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> liked"
@@ -1892,6 +1898,11 @@ msgstr "Clear All"
 
 msgid "There are videos that were not uploaded successfully."
 msgstr "There are videos that were not uploaded successfully."
+
+#. placeholder {0}: notification.actions.length
+#. placeholder {1}: notification.post.type
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 
 msgid "NFT contract cant restrict the approval, resulting in NFT can not be traded on the NFT DEX."
 msgstr "NFT contract cant restrict the approval, resulting in NFT can not be traded on the NFT DEX."
@@ -1960,6 +1971,10 @@ msgstr "Tag {0} in a post to let them know you’ve sent an onchain tip to their
 msgid "{0}<0> Items</0>"
 msgstr "{0}<0> Items</0>"
 
+#. placeholder {0}: notification.comment.commentOn.type
+msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
+msgstr "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
+
 msgid "liked"
 msgstr "liked"
 
@@ -1975,8 +1990,8 @@ msgstr "Cryptocurrency mixer."
 msgid "Joined /{name} on {sourceName}."
 msgstr "Joined /{name} on {sourceName}."
 
-msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
-msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
+msgid "Submit a wallet to receive a collectible and $MASK airdrop"
+msgstr "Submit a wallet to receive a collectible and $MASK airdrop"
 
 msgid "Standard"
 msgstr "Standard"
@@ -2273,6 +2288,9 @@ msgstr "This can’t be undone and you’ll lose your draft."
 msgid "Article removed from your Bookmarks"
 msgstr "Article removed from your Bookmarks"
 
+msgid "Posted to Lens on Buttrfly since August 1, 2024"
+msgstr "Posted to Lens on Buttrfly since August 1, 2024"
+
 msgid "Powered by Tenderly and GoPlus"
 msgstr "Powered by Tenderly and GoPlus"
 
@@ -2373,9 +2391,6 @@ msgstr "GIFs"
 msgid "Loading..."
 msgstr "Loading..."
 
-msgid "%Of supply owned"
-msgstr "%Of supply owned"
-
 msgid "Approve"
 msgstr "Approve"
 
@@ -2445,6 +2460,9 @@ msgstr "Random Split"
 
 msgid "Remove Poll"
 msgstr "Remove Poll"
+
+msgid "Top 500 Buttrfly Points Leaderboard"
+msgstr "Top 500 Buttrfly Points Leaderboard"
 
 msgid "Minutes"
 msgstr "Minutes"
@@ -2674,9 +2692,6 @@ msgstr "Failed to repost."
 msgid "Sorry, today's free collect quota has been reached."
 msgstr "Sorry, today's free collect quota has been reached."
 
-msgid "Mirrored"
-msgstr "Mirrored"
-
 msgid "Muted contents"
 msgstr "Muted contents"
 
@@ -2725,11 +2740,6 @@ msgstr "The user rejected the request."
 #. placeholder {1}: collection.price_symbol
 msgid "{0}{1}<0> Floor</0>"
 msgstr "{0}{1}<0> Floor</0>"
-
-#. placeholder {0}: notification.actions.length
-#. placeholder {1}: notification.post.type
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 
 msgid "Claimed lucky drop successfully"
 msgstr "Claimed lucky drop successfully"
@@ -2829,10 +2839,6 @@ msgstr "Powered by"
 
 msgid "So sorry, we are not able to mint this NFT at the moment."
 msgstr "So sorry, we are not able to mint this NFT at the moment."
-
-#. placeholder {0}: first(post.mirrors)?.displayName
-msgid "<0>{0}</0> mirrored"
-msgstr "<0>{0}</0> mirrored"
 
 msgid "All notifications"
 msgstr "All notifications"
@@ -3273,7 +3279,7 @@ msgstr "Mint Again"
 msgid "Repost"
 msgstr "Repost"
 
-#. placeholder {0}: data.price
+#. placeholder {0}: collectParams.mintPrice
 msgid "Collect for {0} {nativeSymbol}"
 msgstr "Collect for {0} {nativeSymbol}"
 
@@ -3331,6 +3337,9 @@ msgstr "Passed"
 msgid "1y"
 msgstr "1y"
 
+msgid "Unlock a premium collectible and a larger $MASK airdrop "
+msgstr "Unlock a premium collectible and a larger $MASK airdrop "
+
 msgid "Something went wrong"
 msgstr "Something went wrong"
 
@@ -3378,7 +3387,7 @@ msgstr "Article added to your Bookmarks"
 msgid "Create a Post"
 msgstr "Create a Post"
 
-#. placeholder {0}: source === Source.Lens ? t`Mirrors` : source === Source.Bsky ? t`Reposts` : t`Recasts`
+#. placeholder {0}: source === Source.Farcaster ? t`Recasts` : t`Reposts`
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 
@@ -3428,10 +3437,6 @@ msgstr "All chains"
 
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "Display Name should not exceed {maxDisplayNameSize} characters"
-
-#. placeholder {0}: notification.quote.quoteOn.type
-msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
-msgstr "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 
 msgid "Failed to send tip."
 msgstr "Failed to send tip."
@@ -3493,6 +3498,9 @@ msgstr "Your post was sent to {0}"
 msgid "News"
 msgstr "News"
 
+msgid "Repost or Quote"
+msgstr "Repost or Quote"
+
 msgid "NFT ID"
 msgstr "NFT ID"
 
@@ -3537,9 +3545,6 @@ msgstr "Preview"
 
 msgid "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
 msgstr "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
-
-msgid "Cancel mirror successfully"
-msgstr "Cancel mirror successfully"
 
 msgid "Cannot continue due to wallet mismatch."
 msgstr "Cannot continue due to wallet mismatch."
@@ -3668,9 +3673,8 @@ msgstr "Events"
 msgid "{0} Users"
 msgstr "{0} Users"
 
-#. placeholder {0}: notification.comment.commentOn.type
-msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
-msgstr "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
+msgid "%Owned"
+msgstr "%Owned"
 
 msgid "Final results"
 msgstr "Final results"
@@ -3752,9 +3756,6 @@ msgstr "Swap"
 
 msgid "Collect"
 msgstr "Collect"
-
-msgid "Mirrors"
-msgstr "Mirrors"
 
 #. placeholder {0}: channel.lead?.handle
 msgid "By @{0}"
@@ -3971,9 +3972,6 @@ msgstr "Post"
 msgid "Creator:"
 msgstr "Creator:"
 
-msgid "mirrored"
-msgstr "mirrored"
-
 msgid "Following"
 msgstr "Following"
 
@@ -3982,6 +3980,9 @@ msgstr "Your X account holds Premium status"
 
 msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
 msgstr "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
+
+msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
+msgstr "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
 
 msgid "Hours"
 msgstr "Hours"

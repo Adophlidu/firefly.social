@@ -42,9 +42,24 @@ class FireflyActivity implements Provider {
             premiumAddress?: string;
         },
     ) {
-        const params = ['trump', 'pengu'].includes(name)
-            ? { name, solAddress: address || '0x', evmAddress: options?.premiumAddress || '0x' }
-            : { name, address, ...options };
+        const params: Partial<{
+            solAddress: string;
+            evmAddress: string;
+            address: string;
+        }> & {
+            name: string;
+        } = {
+            name,
+            ...options,
+        };
+        if (['trump', 'pengu'].includes(name)) {
+            params.solAddress = address || '0x';
+            params.evmAddress = options?.premiumAddress || '0x';
+        } else if (['buttrfly'].includes(name)) {
+            params.evmAddress = address || '0x';
+        } else {
+            params.address = address || '0x';
+        }
         const url = urlcat(settings.FIREFLY_ROOT_URL, `/v1/activity/check/:name`, params);
         const response = await fireflySessionHolder.fetchWithSession<CheckResponse>(url);
         return resolveFireflyResponseData(response);

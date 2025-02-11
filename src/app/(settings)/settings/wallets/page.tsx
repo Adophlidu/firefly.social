@@ -40,7 +40,7 @@ export default function Wallets() {
     return (
         <Section className="max-h-screen overflow-y-auto">
             <Headline>
-                <Trans>Associated wallets</Trans>
+                <Trans>Connected wallets</Trans>
                 {isRefetching ? <LoadingIcon className="ml-1 inline-block" size={20} /> : null}
             </Headline>
             {!isLoading && connected.length === 0 && related.length === 0 ? (

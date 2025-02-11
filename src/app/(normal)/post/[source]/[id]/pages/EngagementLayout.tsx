@@ -4,7 +4,6 @@ import { Trans } from '@lingui/react/macro';
 import { type PropsWithChildren, useMemo } from 'react';
 
 import { Comeback } from '@/components/Comeback.js';
-import { ActionName } from '@/components/Posts/ActionName.js';
 import { SecondTabs } from '@/components/Tabs/SecondTabs.js';
 import { EngagementType, type SocialSource } from '@/constants/enum.js';
 import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
@@ -25,7 +24,7 @@ export function EngagementLayout({
             [
                 {
                     value: EngagementType.Mirrors,
-                    title: <ActionName source={source} />,
+                    title: <Trans>Reposts</Trans>,
                     link: resolveEngagementUrl(id, source, EngagementType.Mirrors),
                 },
                 {

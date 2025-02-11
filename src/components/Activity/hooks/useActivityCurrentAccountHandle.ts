@@ -8,6 +8,10 @@ import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 export function useActivityCurrentAccountHandle(source: SocialSource) {
     const { data } = useActivityConnections();
     switch (source) {
+        case Source.Twitter:
+            return data?.rawConnections.twitter.connected[0]?.handle;
+        case Source.Lens:
+            return data?.rawConnections.lens.connected[0]?.lens?.[0].localName;
         case Source.Farcaster:
             return data?.rawConnections.farcaster.connected[0]?.username;
         case Source.Lens:

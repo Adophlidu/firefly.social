@@ -39,7 +39,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function Page(props: Props) {
     if (await isBotRequest()) return null;
+
     await setupLocaleForSSR();
+
     const params = await props.params;
     const source = resolveSocialSource(params.source);
     const provider = resolveSocialMediaProvider(source);

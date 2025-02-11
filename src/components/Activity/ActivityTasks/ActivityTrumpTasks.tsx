@@ -13,10 +13,10 @@ import { ActivityLoginButton } from '@/components/Activity/ActivityLoginButton.j
 import { ActivityNormalSuccessDialog } from '@/components/Activity/ActivityNormalSuccessDialog.js';
 import { ActivityPremiumAddressVerifyCard } from '@/components/Activity/ActivityPremiumAddressVerifyCard.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
+import { ActivityPremiumListProvider } from '@/components/Activity/ActivityPremiumListContext.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
-import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
 import { useActivityShareUrl } from '@/components/Activity/hooks/useActivityShareUrl.js';
 import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
 import { Link } from '@/components/Activity/Link.js';
@@ -29,9 +29,11 @@ import { FIREFLY_MENTION, FIREFLY_TWITTER_PROFILE, TRUMP_TWITTER_PROFILE } from 
 import type { Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { replaceObjectInStringArray } from '@/helpers/replaceObjectInStringArray.js';
+import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
+import { Level } from '@/providers/types/CZ.js';
 import { type ActivityInfoResponse, ActivityStatus } from '@/providers/types/Firefly.js';
 
 function DisclaimerDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -78,7 +80,29 @@ export function ActivityTrumpTasks({
 }) {
     const { address, premiumAddress } = useContext(ActivityContext);
     const { data: claimCondition } = useActivityClaimCondition(Source.Twitter);
-    const list = useActivityPremiumList(Source.Twitter);
+    const list = [
+        {
+            label: <Trans>Your X account holds Premium status</Trans>,
+            verified: claimCondition?.x.valid && claimCondition?.x?.level === Level.Lv2,
+        },
+        {
+            label: (
+                <p>
+                    <Trans>
+                        You are holder of{' '}
+                        <Link
+                            href={resolveNftUrl(ChainId.Base, '0x70553bbec6f7d2c5e6e1bc02f821f6863546d11e')}
+                            className="inline text-highlight"
+                        >
+                            Presidential Election 2024
+                        </Link>{' '}
+                        NFT and voted Trump
+                    </Trans>
+                </p>
+            ),
+            verified: claimCondition?.nft?.valid && claimCondition?.nft?.level === Level.Lv2,
+        },
+    ];
     const isPremium = list.some((x) => x.verified);
     const followTrumpTwitterProfile = {
         handle: TRUMP_TWITTER_PROFILE.handle,
@@ -130,7 +154,7 @@ Check your eligibility and participate here ${shareUrl}
     const [openDisclaimer, setOpenDisclaimer] = useState(false);
 
     return (
-        <>
+        <ActivityPremiumListProvider list={list}>
             <DisclaimerDialog open={openDisclaimer} onClose={() => setOpenDisclaimer(false)} />
             <div className="mb-4 w-full space-y-4 px-6 pt-4">
                 <div className="flex w-full flex-col space-y-2">
@@ -188,7 +212,6 @@ Check your eligibility and participate here ${shareUrl}
                 <div className="flex w-full flex-col space-y-2 text-sm font-semibold leading-6">
                     <ActivityPremiumConditionList
                         title={<Trans>Meet any of the following to unlock premium status and get more $Trump:</Trans>}
-                        source={Source.Twitter}
                     />
                 </div>
             </div>
@@ -236,6 +259,6 @@ Check your eligibility and participate here ${shareUrl}
                     onClose={() => setIsSuccessParticipate(false)}
                 />
             </div>
-        </>
+        </ActivityPremiumListProvider>
     );
 }

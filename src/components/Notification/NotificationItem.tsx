@@ -81,7 +81,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                 _Post="post"
                                 _Comment="comment"
                                 _Quote="quote"
-                                _Mirror="mirror"
+                                _Mirror="repost"
                                 other="post"
                             />
                         </strong>
@@ -99,7 +99,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                 _Post="post"
                                 _Comment="comment"
                                 _Quote="quote"
-                                _Mirror="mirror"
+                                _Mirror="repost"
                                 other="post"
                             />
                         </strong>
@@ -138,7 +138,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                 _Post="post"
                                 _Comment="comment"
                                 _Quote="quote"
-                                _Mirror="mirror"
+                                _Mirror="repost"
                                 other="post"
                             />
                         </strong>
@@ -156,7 +156,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                 _Post="post"
                                 _Comment="comment"
                                 _Quote="quote"
-                                _Mirror="mirror"
+                                _Mirror="repost"
                                 other="post"
                             />
                         </strong>
@@ -182,10 +182,10 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                         />{' '}
                         <Select
                             value={notification.source}
-                            _Lens="mirrored your"
+                            _Lens="reposted your"
                             _Farcaster="recasted your"
                             _Bsky="reposted your"
-                            other="mirrored your"
+                            other="reposted your"
                         />{' '}
                         <strong>
                             <Select
@@ -193,7 +193,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                 _Post="post"
                                 _Comment="comment"
                                 _Quote="quote"
-                                _Mirror="mirror"
+                                _Mirror="repost"
                                 other="post"
                             />
                         </strong>
@@ -223,7 +223,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                 _Post="post"
                                 _Comment="comment"
                                 _Quote="quote"
-                                _Mirror="mirror"
+                                _Mirror="repost"
                                 other="post"
                             />
                         </strong>

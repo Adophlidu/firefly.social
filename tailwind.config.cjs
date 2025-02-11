@@ -48,6 +48,7 @@ module.exports = {
                 commonDanger: 'var(--m-common-danger)',
                 commonWarn: 'rgb(var(--m-common-warn) / <alpha-value>)',
                 lightSecond: '#767F8D',
+                deactivate: '#9ea1b0',
                 lightLineSecond: '#E6E7E8',
                 foreground: 'rgb(var(--foreground-rgb) / <alpha-value>)',
                 placeholder: 'var(--plyr-range-fill-background)',

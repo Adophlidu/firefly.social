@@ -48,7 +48,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
         if (shares === 0) {
             switch (source) {
                 case Source.Lens:
-                    return t`Mirror or Quote`;
+                    return t`Repost or Quote`;
                 case Source.Farcaster:
                     return t`Recast or Quote`;
                 case Source.Twitter:
@@ -64,8 +64,8 @@ export const Mirror = memo<MirrorProps>(function Mirror({
         switch (source) {
             case Source.Lens:
                 return plural(shares, {
-                    one: 'Mirror or Quote',
-                    other: 'Mirrors or Quotes',
+                    one: 'Repost or Quote',
+                    other: 'Reposts or Quotes',
                 });
             case Source.Farcaster:
                 return plural(shares, {
@@ -85,7 +85,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
     const mirrorActionText = useMemo(() => {
         switch (source) {
             case Source.Lens:
-                return mirrored ? t`Mirror again` : t`Mirror`;
+                return mirrored ? t`Repost again` : t`Repost`;
             case Source.Farcaster:
                 return mirrored ? t`Cancel Recast` : t`Recast`;
             case Source.Twitter:
@@ -136,7 +136,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                         >
                             <MirrorLargeIcon width={18} height={18} />
                             <span className="font-medium">
-                                <Trans>Undo mirror</Trans>
+                                <Trans>Undo repost</Trans>
                             </span>
                         </div>
                     ) : null}
@@ -162,7 +162,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
         >
             <motion.div
                 whileTap={{ scale: 0.9 }}
-                aria-label="Mirror"
+                aria-label="Repost"
                 onClick={(event) => {
                     event.preventDefault();
                     event.stopPropagation();

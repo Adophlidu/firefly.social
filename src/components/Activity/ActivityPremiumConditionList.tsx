@@ -1,18 +1,14 @@
 'use client';
 
 import type { PropsWithChildren, ReactNode } from 'react';
+import { use } from 'react';
 
+import { ActivityPremiumListContext } from '@/components/Activity/ActivityPremiumListContext.js';
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
-import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 
-export function ActivityPremiumConditionList({
-    title,
-    source,
-    children,
-}: PropsWithChildren<{ title: ReactNode; source: SocialSource }>) {
-    const list = useActivityPremiumList(source);
+export function ActivityPremiumConditionList({ title, children }: PropsWithChildren<{ title: ReactNode }>) {
+    const { list } = use(ActivityPremiumListContext);
 
     return (
         <div
@@ -25,7 +21,9 @@ export function ActivityPremiumConditionList({
             <ul className="list-disc pl-4 text-sm font-normal leading-6">
                 {list.map((item, i) => (
                     <li key={i}>
-                        <ActivityVerifyText verified={item.verified}>{item.label}</ActivityVerifyText>
+                        <ActivityVerifyText verified={item.verified} hasFailedIcon>
+                            {item.label}
+                        </ActivityVerifyText>
                     </li>
                 ))}
             </ul>

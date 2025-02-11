@@ -119,15 +119,15 @@ export function TopCollectors(props: TopCollectorsProps) {
                                 <Trans>Address</Trans>
                             </th>
                             <th
-                                className={classNames('w-[100px] pb-2 pl-2 text-right lg:pr-2', {
+                                className={classNames('w-[80px] pb-2 pl-2 text-right lg:pr-2', {
                                     'lg:text-center': !!totalQuantity,
                                 })}
                             >
                                 <Trans>Owned</Trans>
                             </th>
                             {totalQuantity ? (
-                                <th className="hidden w-[150px] whitespace-nowrap pb-2 pl-2 text-right lg:table-cell">
-                                    <Trans>%Of supply owned</Trans>
+                                <th className="hidden w-[80px] whitespace-nowrap pb-2 pl-2 text-right lg:table-cell">
+                                    <Trans>%Owned</Trans>
                                 </th>
                             ) : null}
                         </tr>

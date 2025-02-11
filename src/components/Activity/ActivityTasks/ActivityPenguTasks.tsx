@@ -12,18 +12,25 @@ import { ActivityLoginButton } from '@/components/Activity/ActivityLoginButton.j
 import { ActivityNormalSuccessDialog } from '@/components/Activity/ActivityNormalSuccessDialog.js';
 import { ActivityPremiumAddressVerifyCard } from '@/components/Activity/ActivityPremiumAddressVerifyCard.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
+import { ActivityPremiumListProvider } from '@/components/Activity/ActivityPremiumListContext.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
-import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
 import { useActivityShareUrl } from '@/components/Activity/hooks/useActivityShareUrl.js';
 import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
 import { Link } from '@/components/Activity/Link.js';
 import { Source } from '@/constants/enum.js';
+import {
+    LIL_PUDGY_NFT_ADDRESS,
+    PENGU_PINS_NFT_ADDRESS,
+    PUDGY_PENGUINS_NFT_ADDRESS,
+    TRUE_PENGU_NFT_ADDRESS,
+} from '@/constants/index.js';
 import { FIREFLY_MENTION, FIREFLY_TWITTER_PROFILE, PUDGY_PENGUINS_TWITTER_PROFILE } from '@/constants/mentions.js';
 import { type Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { replaceObjectInStringArray } from '@/helpers/replaceObjectInStringArray.js';
+import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { type ActivityInfoResponse, ActivityStatus } from '@/providers/types/Firefly.js';
@@ -35,7 +42,56 @@ export function ActivityPenguTasks({
 }) {
     const { address, premiumAddress } = useContext(ActivityContext);
     const { data: claimCondition } = useActivityClaimCondition(Source.Twitter);
-    const list = useActivityPremiumList(Source.Twitter);
+    const list = [
+        {
+            label: (
+                <p>
+                    <Trans>
+                        You are holder of{' '}
+                        <Link
+                            href={resolveNftUrl(ChainId.Mainnet, PUDGY_PENGUINS_NFT_ADDRESS)}
+                            className="inline text-highlight"
+                        >
+                            Pudgy Penguins
+                        </Link>{' '}
+                        or{' '}
+                        <Link
+                            href={resolveNftUrl(ChainId.Mainnet, LIL_PUDGY_NFT_ADDRESS)}
+                            className="inline text-highlight"
+                        >
+                            Lil Pudgy
+                        </Link>{' '}
+                        NFTs
+                    </Trans>
+                </p>
+            ),
+            verified: claimCondition?.nft?.ownPudgy || claimCondition?.nft?.ownLil,
+        },
+        {
+            label: (
+                <p>
+                    <Trans>
+                        You are holder of{' '}
+                        <Link
+                            href={resolveNftUrl(ChainId.Mainnet, TRUE_PENGU_NFT_ADDRESS)}
+                            className="inline text-highlight"
+                        >
+                            truePengu
+                        </Link>{' '}
+                        or{' '}
+                        <Link
+                            href={resolveNftUrl(ChainId.Mainnet, PENGU_PINS_NFT_ADDRESS)}
+                            className="inline text-highlight"
+                        >
+                            penguPins
+                        </Link>{' '}
+                        Soulbound NFTs
+                    </Trans>
+                </p>
+            ),
+            verified: claimCondition?.nft?.ownPudgy || claimCondition?.nft?.ownPenguPins,
+        },
+    ];
     const isPremium = list.some((x) => x.verified);
     const followPenguTwitterProfile = {
         handle: PUDGY_PENGUINS_TWITTER_PROFILE.handle,
@@ -86,7 +142,58 @@ Submit here ${shareUrl}
     const [isSuccessParticipate, setIsSuccessParticipate] = useState(false);
 
     return (
-        <>
+        <ActivityPremiumListProvider
+            list={[
+                {
+                    label: (
+                        <p>
+                            <Trans>
+                                You are holder of{' '}
+                                <Link
+                                    href={resolveNftUrl(ChainId.Mainnet, PUDGY_PENGUINS_NFT_ADDRESS)}
+                                    className="inline text-highlight"
+                                >
+                                    Pudgy Penguins
+                                </Link>{' '}
+                                or{' '}
+                                <Link
+                                    href={resolveNftUrl(ChainId.Mainnet, LIL_PUDGY_NFT_ADDRESS)}
+                                    className="inline text-highlight"
+                                >
+                                    Lil Pudgy
+                                </Link>{' '}
+                                NFTs
+                            </Trans>
+                        </p>
+                    ),
+                    verified: claimCondition?.nft?.ownPudgy || claimCondition?.nft?.ownLil,
+                },
+                {
+                    label: (
+                        <p>
+                            <Trans>
+                                You are holder of{' '}
+                                <Link
+                                    href={resolveNftUrl(ChainId.Mainnet, TRUE_PENGU_NFT_ADDRESS)}
+                                    className="inline text-highlight"
+                                >
+                                    truePengu
+                                </Link>{' '}
+                                or{' '}
+                                <Link
+                                    href={resolveNftUrl(ChainId.Mainnet, PENGU_PINS_NFT_ADDRESS)}
+                                    className="inline text-highlight"
+                                >
+                                    penguPins
+                                </Link>{' '}
+                                Soulbound NFTs
+                            </Trans>
+                        </p>
+                    ),
+                    verified: claimCondition?.nft?.ownPudgy || claimCondition?.nft?.ownPenguPins,
+                },
+            ]}
+        >
             <div className="mb-4 w-full space-y-4 px-6 py-4">
                 <div className="flex w-full flex-col space-y-2">
                     <div className="flex h-8 items-center justify-between">
@@ -143,7 +250,6 @@ Submit here ${shareUrl}
                 <div className="flex w-full flex-col space-y-2 text-sm font-semibold leading-6">
                     <ActivityPremiumConditionList
                         title={<Trans>Meet any of the following to unlock a premium collectible:</Trans>}
-                        source={Source.Twitter}
                     >
                         <p className="pt-4 text-sm font-normal leading-6">
                             <Trans>*Note: Each NFT can only be used once.</Trans>
@@ -175,6 +281,6 @@ Submit here ${shareUrl}
                     onClose={() => setIsSuccessParticipate(false)}
                 />
             </div>
-        </>
+        </ActivityPremiumListProvider>
     );
 }

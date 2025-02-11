@@ -7,9 +7,9 @@ import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.j
 import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
 import { ActivityLoginButton } from '@/components/Activity/ActivityLoginButton.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
+import { ActivityPremiumListProvider } from '@/components/Activity/ActivityPremiumListContext.js';
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
-import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
 import { useActivityShareUrl } from '@/components/Activity/hooks/useActivityShareUrl.js';
 import { Source } from '@/constants/enum.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
@@ -34,11 +34,22 @@ export function ActivityFrensgivingTasks({
     const verifiedBasic =
         claimCondition &&
         (!!claimCondition.farcaster.hasThirdpartSigner || Number.parseInt(claimCondition.farcaster.fid, 10) <= 100_000);
-    const list = useActivityPremiumList(Source.Farcaster);
+    const list = [
+        {
+            label: <Trans>Your Farcaster account holds Power Badge</Trans>,
+            verified: claimCondition?.farcaster.isPowerUser,
+        },
+        {
+            label: <Trans>You have been detected as a loyal Farcaster user</Trans>,
+            verified:
+                claimCondition?.farcaster.isSupercast ||
+                (claimCondition && parseInt(claimCondition.farcaster.fid, 10) <= 10000),
+        },
+    ];
     const isPremium = list.some((x) => x.verified);
 
     return (
-        <>
+        <ActivityPremiumListProvider list={list}>
             <div className="mb-4 w-full space-y-4 px-6 py-4">
                 <div className="flex w-full flex-col space-y-2">
                     <div className="flex h-8 items-center justify-between">
@@ -77,7 +88,6 @@ export function ActivityFrensgivingTasks({
                         title={
                             <Trans>Meet any of the following to unlock a premium collectible and get more $ANON:</Trans>
                         }
-                        source={Source.Farcaster}
                     />
                 </div>
             </div>
@@ -89,6 +99,6 @@ export function ActivityFrensgivingTasks({
                     claimType={isPremium ? 'premium' : 'base'}
                 />
             </div>
-        </>
+        </ActivityPremiumListProvider>
     );
 }

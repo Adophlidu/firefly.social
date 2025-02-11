@@ -1,8 +1,5 @@
-import { isServer } from '@tanstack/react-query';
-
 import { NotAllowedError } from '@/constants/error.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
-import { ThirdPartyAuthProvider } from '@/providers/third-party/Auth.js';
 import type { ThirdPartySession } from '@/providers/third-party/Session.js';
 
 class ThirdPartySessionHolder extends SessionHolder<ThirdPartySession> {
@@ -21,7 +18,6 @@ class ThirdPartySessionHolder extends SessionHolder<ThirdPartySession> {
     override removeSession(): void {
         this.session?.destroy();
         super.removeSession();
-        if (!isServer) ThirdPartyAuthProvider.logout();
     }
 }
 

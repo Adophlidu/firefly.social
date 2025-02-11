@@ -56,7 +56,7 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
         // eslint-disable-next-line @next/next/no-img-element
         <NextImage
             unoptimized
-            loading="lazy"
+            loading={props.priority ? 'eager' : 'lazy'}
             priority={false}
             {...props}
             onLoad={handleLoad}

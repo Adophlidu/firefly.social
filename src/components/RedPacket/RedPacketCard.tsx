@@ -158,7 +158,7 @@ export function RedPacketCard({ payload, post }: Props) {
                 </div>
                 {isEmpty || isClaimed || isExpired ? (
                     <ClickableArea
-                        className="flex cursor-pointer items-center justify-center text-nowrap rounded-full bg-[#E8E8FF] px-[13px] py-[7px] text-sm leading-4 opacity-75 backdrop-blur-[5px]"
+                        className="flex cursor-pointer items-center justify-center text-nowrap rounded-full bg-[#E8E8FF] px-[13px] py-[7px] text-sm font-bold leading-4 opacity-75 backdrop-blur-[5px]"
                         onClick={() => {
                             RedPacketModalRef.open({
                                 initialPath: urlcat('/detail', {
