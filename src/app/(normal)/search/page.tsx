@@ -9,7 +9,7 @@ import type { NextPageProps } from '@/types/index.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: await createPageTitleSSR(t`Search`),
+        title: await createPageTitleSSR(() => t`Search`),
     });
 }
 

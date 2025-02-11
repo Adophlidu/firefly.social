@@ -35,20 +35,20 @@ export async function generateMetadata(props: Props) {
 
     if (!checkSlug(slug)) {
         return createSiteMetadata({
-            title: await createPageTitleSSR(t`Search`),
+            title: await createPageTitleSSR(() => t`Search`),
         });
     }
 
     const searchTypeTitle = {
-        [SearchType.Profiles]: t`Search user`,
-        [SearchType.Posts]: t`Search post`,
-        [SearchType.Channels]: t`Search channel`,
-        [SearchType.NFTs]: t`Search nft`,
-        [SearchType.Tokens]: t`Search token`,
+        [SearchType.Profiles]: () => t`Search user`,
+        [SearchType.Posts]: () => t`Search post`,
+        [SearchType.Channels]: () => t`Search channel`,
+        [SearchType.NFTs]: () => t`Search nft`,
+        [SearchType.Tokens]: () => t`Search token`,
     }[last(slug) as SearchType];
 
     return createSiteMetadata({
-        title: await createPageTitleSSR(searchTypeTitle || t`Search`),
+        title: await createPageTitleSSR(searchTypeTitle || (() => t`Search`)),
     });
 }
 

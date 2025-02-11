@@ -6,14 +6,11 @@ import type { SocialSourceInURL } from '@/constants/enum.js';
 import { SITE_NAME, SITE_URL } from '@/constants/index.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { getLocaleFromCookiesAsync } from '@/helpers/getCookie.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { getI18nInstance } from '@/i18n/index.js';
 
 export async function createMetadataPostById(source: SocialSourceInURL, postId: string) {
-    const i18n = getI18nInstance(await getLocaleFromCookiesAsync());
     const provider = resolveSocialMediaProvider(resolveSocialSource(source));
     const post = await provider.getPostById(postId).catch(() => null);
     if (!post) return createSiteMetadata();
@@ -37,7 +34,7 @@ export async function createMetadataPostById(source: SocialSourceInURL, postId: 
     });
 
     const title = post?.author.displayName
-        ? await createPageTitleSSR(t(i18n)`Posted by ${post.author.displayName} via Firefly`)
+        ? await createPageTitleSSR(() => t`Posted by ${post.author.displayName} via Firefly`)
         : SITE_NAME;
 
     return createSiteMetadata({

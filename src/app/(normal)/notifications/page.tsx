@@ -8,7 +8,7 @@ import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: await createPageTitleSSR(t`Notifications`),
+        title: await createPageTitleSSR(() => t`Notifications`),
     });
 }
 

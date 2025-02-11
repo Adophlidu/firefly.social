@@ -13,7 +13,7 @@ import type { NextPageProps } from '@/types/index.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: await createPageTitleSSR(t`Explore`),
+        title: await createPageTitleSSR(() => t`Explore`),
     });
 }
 

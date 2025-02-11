@@ -16,13 +16,13 @@ export async function generateMetadata(props: Props) {
     const params = await props.params;
     const { source, type } = params;
 
-    const menuNameMap: Record<string, string> = {
-        [`${SourceInURL.Farcaster}_${MuteType.Profile}`]: t`${resolveSourceName(Source.Farcaster)} Users`,
-        [`${SourceInURL.Farcaster}_${MuteType.Channel}`]: t`${resolveSourceName(Source.Farcaster)} Channels`,
-        [`${SourceInURL.Lens}_${MuteType.Profile}`]: t`${resolveSourceName(Source.Lens)} Users`,
-        [`${SourceInURL.Twitter}_${MuteType.Profile}`]: t`${resolveSourceName(Source.Twitter)} Users`,
-        [`${SourceInURL.Firefly}_${MuteType.Wallet}`]: t`Wallets`,
-        [`${SourceInURL.Bsky}_${MuteType.Profile}`]: t`${resolveSourceName(Source.Bsky)} Users`,
+    const menuNameMap: Record<string, () => string> = {
+        [`${SourceInURL.Farcaster}_${MuteType.Profile}`]: () => t`${resolveSourceName(Source.Farcaster)} Users`,
+        [`${SourceInURL.Farcaster}_${MuteType.Channel}`]: () => t`${resolveSourceName(Source.Farcaster)} Channels`,
+        [`${SourceInURL.Lens}_${MuteType.Profile}`]: () => t`${resolveSourceName(Source.Lens)} Users`,
+        [`${SourceInURL.Twitter}_${MuteType.Profile}`]: () => t`${resolveSourceName(Source.Twitter)} Users`,
+        [`${SourceInURL.Firefly}_${MuteType.Wallet}`]: () => t`Wallets`,
+        [`${SourceInURL.Bsky}_${MuteType.Profile}`]: () => t`${resolveSourceName(Source.Bsky)} Users`,
     };
     return createSiteMetadata({
         title: await createPageTitleSSR(menuNameMap[`${source}_${type}`]),

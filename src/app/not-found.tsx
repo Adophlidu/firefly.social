@@ -15,7 +15,7 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: await createPageTitleSSR(t`Page not found`),
+        title: await createPageTitleSSR(() => t`Page not found`),
     });
 }
 
