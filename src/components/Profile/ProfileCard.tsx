@@ -31,7 +31,8 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
 
     const { data: profile, isLoading } = useQuery({
         enabled: !!id && !!source,
-        queryKey: ['profile', id, source],
+        queryKey: ['profile', source, id],
+        staleTime: 1000 * 60 * 5, // 5 minutes
         queryFn: async () => {
             if (defaultProfile) return defaultProfile;
             if (!id || !source) return;

@@ -17,6 +17,7 @@ import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
+import { Source } from '@/constants/enum.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { toProfileId } from '@/helpers/isSameProfile.js';
 import { resolveNotificationIcon } from '@/helpers/resolveNotificationIcon.js';
@@ -311,8 +312,11 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                         post={notification.comment}
                     />
                 );
-            case NotificationType.Mention:
+
             case NotificationType.Quote:
+                const post = notification.source === Source.Bsky ? notification.quote : notification.post;
+                return !post ? null : <MoreAction source={post.source} author={post.author} post={post} />;
+            case NotificationType.Mention:
             case NotificationType.Act:
                 if (!notification.post) return null;
                 return (
