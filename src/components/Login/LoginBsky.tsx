@@ -22,6 +22,7 @@ import { BskySession } from '@/providers/bsky/Session.js';
 import { createAgent } from '@/providers/bsky/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import { type AccountOptions, addAccount } from '@/services/account.js';
+import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
 
 async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
     try {
@@ -74,13 +75,17 @@ export function LoginBsky() {
                             throw new Error(`Failed to get profile id = ${response.data.did}.`);
 
                         const now = Date.now();
+                        const session = new BskySession(response.data.did, now, now, serviceUrl, {
+                            active: true,
+                            ...response.data,
+                        });
+
+                        const fireflySession = await bindOrRestoreFireflySession(session, controller.current.signal);
 
                         return {
-                            session: new BskySession(response.data.did, now, now, serviceUrl, {
-                                active: true,
-                                ...response.data,
-                            }),
+                            session,
                             profile: formatBskyProfile(profileResponse.data),
+                            fireflySession,
                         } satisfies Account;
                     },
                     {
