@@ -23,27 +23,21 @@ export const Link = forwardRef<
         async (event: React.MouseEvent<HTMLAnchorElement>) => {
             const isTrusted = isTrustedUrl(href);
             if (!isTrusted && !internalLink && typeof href === 'string') {
-                event.preventDefault();
                 const intercepted = await interceptExternalUrl(href);
                 if (intercepted) return;
-
+                event.preventDefault();
                 const confirmed = await ConfirmLeavingModalRef.openAndWaitForClose(href);
-                if (confirmed) {
-                    if (fireflyBridgeProvider.supported) {
-                        const url = !props.href.startsWith('https')
-                            ? urlcat(window.location.origin, props.href)
-                            : props.href;
-                        if (!IS_ANDROID) {
-                            event.preventDefault();
-                            await fireflyBridgeProvider.request(SupportedMethod.OPEN_URL, {
-                                url,
-                            });
-                        }
-                    } else {
-                        openWindow(props.href);
-                    }
+                if (!confirmed) return;
+                if (fireflyBridgeProvider.supported && !IS_ANDROID) {
+                    const url = !props.href.startsWith('https')
+                        ? urlcat(window.location.origin, props.href)
+                        : props.href;
+                    await fireflyBridgeProvider.request(SupportedMethod.OPEN_URL, {
+                        url,
+                    });
+                    return;
                 }
-                return;
+                openWindow(props.href);
             }
             props.onClick?.(event);
         },

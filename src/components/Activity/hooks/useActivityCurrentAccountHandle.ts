@@ -11,7 +11,10 @@ export function useActivityCurrentAccountHandle(source: SocialSource) {
         case Source.Twitter:
             return data?.rawConnections.twitter.connected[0]?.handle;
         case Source.Lens:
-            return data?.rawConnections.lens.connected[0]?.lens?.[0].localName;
+            return (
+                data?.rawConnections.lens.connected[0]?.lens?.[0]?.localName ||
+                data?.rawConnections.lens.connected[0]?.lens?.[0]?.fullHandle
+            );
         case Source.Farcaster:
             return data?.rawConnections.farcaster.connected[0]?.username;
         case Source.Lens:

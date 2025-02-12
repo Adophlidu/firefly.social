@@ -296,16 +296,7 @@ const useTwitterStateBase = createState(
             state.upgrade();
 
             try {
-                const authSession = (await getSession()) as unknown as ThirdPartySessionType;
-                // avoid invalid requests
-                if (
-                    authSession.type === SessionType.Twitter &&
-                    authSession.user?.id === state.currentProfile?.profileId
-                )
-                    return;
-
                 const session = state.currentProfileSession as TwitterSession | null;
-
                 // clean the local store if the consumer secret is not hidden
                 if (session?.payload.consumerSecret && session.payload.consumerSecret !== HIDDEN_SECRET) {
                     state.clear();
@@ -314,6 +305,15 @@ const useTwitterStateBase = createState(
 
                 // set temporary session for getProfileById
                 if (session) twitterSessionHolder.resumeSession(session);
+
+                const authSession = (await getSession()) as unknown as ThirdPartySessionType | null;
+                // avoid invalid requests
+                if (
+                    authSession &&
+                    authSession.type === SessionType.Twitter &&
+                    authSession.user?.id === state.currentProfile?.profileId
+                )
+                    return;
 
                 const sessionPayloadFromServer = await TwitterAuthProvider.login();
                 const foundNewSessionFromServer = !!(
