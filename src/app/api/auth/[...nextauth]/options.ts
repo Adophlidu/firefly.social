@@ -72,6 +72,15 @@ export const authOptions: AuthOptions = {
     },
     callbacks: {
         session: async ({ session, token, user }) => {
+            console.log('DEBUG: session');
+            console.log({
+                user_id: token.sub,
+                token_id: token.id_token,
+                token_nonce: token.nonce,
+                createdAt: token.iat,
+                expiresAt: token.exp,
+            });
+
             return {
                 ...session,
                 user: {
