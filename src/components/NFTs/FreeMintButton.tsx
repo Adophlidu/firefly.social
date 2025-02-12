@@ -14,6 +14,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { MintStatus } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
 import { ConnectModalRef, FreeMintModalRef } from '@/modals/controls.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
@@ -66,6 +67,7 @@ export function FreeMintButton({
     const account = useAccount();
     const currentChainId = useChainId();
     const { switchChainAsync } = useSwitchChain();
+    const isLogin = useIsLogin();
 
     const mintTarget = useMemo(
         () => ({
@@ -78,7 +80,7 @@ export function FreeMintButton({
         }),
         [account.address, contractAddress, tokenId, chainId, contract],
     );
-    const { isLoading, isRefetching, data, refetch } = useSponsorMintStatus(mintTarget);
+    const { isLoading, isRefetching, data, refetch } = useSponsorMintStatus(mintTarget, isLogin);
 
     const connected = !!account.address;
     const [{ loading: handlerLoading }, handleClick] = useAsyncFn(async () => {
@@ -101,7 +103,7 @@ export function FreeMintButton({
         });
     }, [account.address, connected, mintTarget, data, currentChainId, collectionId, refetch, switchChainAsync]);
 
-    if (data?.mintStatus === MintStatus.NotSupported) {
+    if (data?.mintStatus === MintStatus.NotSupported || !isLogin) {
         return externalUrl ? (
             <Link
                 href={externalUrl}

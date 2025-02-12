@@ -13,7 +13,8 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
-import { TipsModalRef } from '@/modals/controls.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { LoginModalRef, TipsModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -43,10 +44,15 @@ export const Tips = forwardRef<HTMLButtonElement, TipsProps>(function Tips(
     },
     ref,
 ) {
+    const isLogin = useIsLogin(post?.source);
     const profiles = useCurrentFireflyProfilesAll();
 
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         try {
+            if (!isLogin) {
+                LoginModalRef.open({ source: post?.source });
+                return;
+            }
             const relatedProfiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, true);
             if (!relatedProfiles?.some((profile) => profile.identity.source === Source.Wallet)) {
                 throw new Error('No available profiles');
@@ -63,7 +69,7 @@ export const Tips = forwardRef<HTMLButtonElement, TipsProps>(function Tips(
             enqueueInfoMessage(t`Sorry, we are not able to find a wallet for ${handle ? '@' + handle : identity.id}.`);
             throw error;
         }
-    }, [identity, onClick, handle, pureWallet, post]);
+    }, [identity, onClick, handle, pureWallet, post, isLogin]);
 
     if (
         env.external.NEXT_PUBLIC_TIPS !== STATUS.Enabled ||

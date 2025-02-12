@@ -14,7 +14,7 @@ import {
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { formatSnapshotActivityFromFirefly } from '@/helpers/formatSnapshotFromFirefly.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getCurrentProfile, getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
@@ -1148,6 +1148,9 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getBookmarksByIds(platform: FireflyPlatform, ids: string[], postType = BookmarkType.All) {
+        const profiles = getCurrentProfileAll();
+        if (!Object.values(profiles).some((x) => !!x?.profileId)) return EMPTY_LIST;
+
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/query/ids');
 
         const response = await fireflySessionHolder.fetch<GetBookmarksResponse>(url, {
