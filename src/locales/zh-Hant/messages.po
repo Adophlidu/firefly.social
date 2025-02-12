@@ -522,6 +522,9 @@ msgstr "按讚留言失敗"
 msgid "Sign in"
 msgstr ""
 
+msgid "Signing in"
+msgstr ""
+
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 msgstr "使用手機<0>相機</0>在 {count} 秒內掃描 QR碼。允許新的 Farcaster 簽名使用 Firefly。"
 

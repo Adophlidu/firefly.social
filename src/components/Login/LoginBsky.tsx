@@ -160,8 +160,14 @@ export function LoginBsky() {
                     disabled={loading || !account || !password}
                     onClick={() => login(account, password, DEFAULT_SERVICE_URL)}
                 >
-                    <Trans>Login</Trans>
-                    {loading ? <LoadingIcon className="h-[18px] w-[18px] text-primaryBottom" /> : null}
+                    {loading ? (
+                        <>
+                            <Trans>Signing in</Trans>
+                            <LoadingIcon className="h-[18px] w-[18px] text-primaryBottom" />
+                        </>
+                    ) : (
+                        <Trans>Sign in</Trans>
+                    )}
                 </ClickableButton>
             </div>
         </form>

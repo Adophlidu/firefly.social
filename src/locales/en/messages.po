@@ -517,6 +517,9 @@ msgstr "Failed to like the comment."
 msgid "Sign in"
 msgstr "Sign in"
 
+msgid "Signing in"
+msgstr "Signing in"
+
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 
