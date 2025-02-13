@@ -49,6 +49,7 @@ export function ChannelInList({
     const setScrollIndex = useGlobalState.use.setScrollIndex();
 
     const avatarSize = isSmall || dense ? 40 : 44;
+    const isBsky = channel.source === Source.Bsky;
 
     return (
         <div
@@ -98,7 +99,7 @@ export function ChannelInList({
                     </div>
                     <div className="flex items-center gap-2 text-medium text-sm leading-[24px] text-secondary">
                         <ChannelTippy channel={channel}>
-                            {channel.source === Source.Farcaster ? (
+                            {!isBsky ? (
                                 <p className="truncate text-[15px] leading-[22px]">/{channel.id}</p>
                             ) : (
                                 <p className="truncate text-[15px] leading-[22px]">
@@ -113,7 +114,7 @@ export function ChannelInList({
                                 {nFormatter(channel.followerCount)}{' '}
                             </span>
                             <span className="leading-[22px] text-secondary">
-                                {channel.source === Source.Farcaster ? (
+                                {!isBsky ? (
                                     <Plural value={channel.followerCount} one="Member" other="Members" />
                                 ) : (
                                     <Plural value={channel.followerCount} one="Like" other="Likes" />

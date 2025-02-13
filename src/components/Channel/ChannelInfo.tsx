@@ -40,6 +40,7 @@ export async function ChannelInfo({ channel: unresolvedChannel, source, isChanne
     if (!channel) return null;
 
     const followerCount = channel.followerCount ?? 0;
+    const isBsky = channel.source === Source.Bsky;
 
     const url = urlcat(SITE_URL, getChannelUrl(channel));
     const avatar = channel.imageUrl ? (
@@ -65,7 +66,7 @@ export async function ChannelInfo({ channel: unresolvedChannel, source, isChanne
                     </h1>
 
                     <div className="flex flex-row gap-1">
-                        {channel.source === Source.Farcaster ? (
+                        {!isBsky ? (
                             <span className="text-medium text-secondary">/{channel.id}</span>
                         ) : (
                             <span className="text-medium text-secondary">
@@ -77,7 +78,7 @@ export async function ChannelInfo({ channel: unresolvedChannel, source, isChanne
                             <UserIcon width={18} height={18} />
                             <span className="text-lightMain">{nFormatter(followerCount)}</span>
                             <span className="text-secondary">
-                                {channel.source === Source.Farcaster ? (
+                                {!isBsky ? (
                                     <Plural value={followerCount} one="Member" other="Members" />
                                 ) : (
                                     <Plural value={followerCount} one="Like" other="Likes" />
