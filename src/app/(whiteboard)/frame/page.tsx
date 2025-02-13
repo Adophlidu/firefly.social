@@ -10,11 +10,13 @@ import { toHex } from 'viem';
 import { FramePage, FramePageBody, FramePageTitle } from '@/app/(whiteboard)/components/FramePage.js';
 import { GhostError } from '@/app/(whiteboard)/components/GhostError.js';
 import FireflyLogo from '@/assets/firefly.logo.svg';
+import { IS_IOS } from '@/constants/bowser.js';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { createWagmiLimitedClient } from '@/helpers/createWagmiLimitedClient.js';
 import { squashCallback } from '@/helpers/squashCallback.js';
+import { waitForLoadEvent } from '@/helpers/waitForLoadEvent.js';
 import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
@@ -42,6 +44,9 @@ export default function Page(props: Props) {
 
     const { loading, error, value } = useAsyncRetry(async () => {
         if (!supported) return;
+
+        // iOS needs to wait for the load event to be able to communicate with the bridge
+        if (IS_IOS) await waitForLoadEvent();
 
         const result = await fireflyBridgeProvider.request(SupportedMethod.GET_FRAME_CONTEXT, {});
         const context = {
