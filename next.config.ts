@@ -1,6 +1,5 @@
 /* cspell:disable */
 
-import { withSentryConfig } from '@sentry/nextjs';
 import { execSync } from 'child_process';
 import CopyPlugin from 'copy-webpack-plugin';
 import { createRequire } from 'module';
@@ -32,21 +31,6 @@ const cspConfig = {
     'report-uri': [] as string[],
 };
 
-const sentryWebpackPluginOptions: import('@sentry/nextjs').SentryBuildOptions = {
-    org: 'dimension',
-    project: 'firefly-mask-social',
-    authToken: process.env.SENTRY_AUTH_TOKEN,
-    silent: true,
-    // uploadSourceMaps: true,
-    // include: '.next',
-    // ignore: ['node_modules'],
-    // cleanArtifacts: true,
-    // environment: process.env.NODE_ENV,
-    sourcemaps: {
-        deleteSourcemapsAfterUpload: true,
-    },
-};
-
 // Add Sentry DSN to CSP report-uri
 if (process.env.NEXT_PUBLIC_SENTRY_REPORT_URL) {
     cspConfig['report-uri'] = [process.env.NEXT_PUBLIC_SENTRY_REPORT_URL];
@@ -70,7 +54,7 @@ const config: NextConfig = {
         '@masknet/typed-message',
         '@masknet/typed-message-react',
     ],
-    productionBrowserSourceMaps: true,
+    productionBrowserSourceMaps: false,
 
     // Note: we run tsc and eslint in other places
     typescript: {
@@ -94,13 +78,12 @@ const config: NextConfig = {
     experimental: {
         esmExternals: true,
         scrollRestoration: true,
-        serverSourceMaps: true,
+        serverSourceMaps: false,
         webpackBuildWorker: true,
         swcPlugins: [['@lingui/swc-plugin', {}]],
         serverActions: {
             bodySizeLimit: '80mb',
         },
-        webpackMemoryOptimizations: true,
     },
     images: {
         dangerouslyAllowSVG: false,
@@ -205,7 +188,6 @@ const config: NextConfig = {
         if (!config.plugins) config.plugins = [];
         if (!config.module.rules) config.module.rules = [];
         config.output.environment = { asyncFunction: true };
-        config.devtool = 'eval-cheap-source-map';
 
         config.plugins.push(
             ...[
@@ -226,6 +208,11 @@ const config: NextConfig = {
                 }),
             ],
         );
+
+        config.optimization = {
+            ...config.optimization,
+            usedExports: false,
+        };
 
         config.experiments = {
             ...config.experiments,

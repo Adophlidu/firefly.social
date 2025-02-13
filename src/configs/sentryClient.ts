@@ -1,10 +1,9 @@
-import { feedbackIntegration } from '@sentry/browser';
-import * as Sentry from '@sentry/nextjs';
+import { feedbackIntegration, init, onLoad, setTag } from '@sentry/browser';
 
 import { env } from '@/constants/env.js';
 import { settings } from '@/settings/index.js';
 
-export const feedback: ReturnType<typeof feedbackIntegration> = feedbackIntegration({
+export const feedback = feedbackIntegration({
     id: 'sentry-feedback',
     colorScheme: 'system',
     isNameRequired: false,
@@ -26,26 +25,29 @@ class SentryClient {
             rootURL: settings.FIREFLY_ROOT_URL,
         };
 
-        Sentry.init({
-            dsn: env.external.NEXT_PUBLIC_SENTRY_DSN,
+        onLoad(() => {
+            init({
+                dsn: env.external.NEXT_PUBLIC_SENTRY_DSN,
 
-            release: process.version,
-            environment: env.shared.NODE_ENV,
-            integrations: [feedback],
+                release: process.version,
+                environment: env.shared.NODE_ENV,
+                integrations: [feedback],
 
-            tracesSampleRate: 1.0,
-            tracePropagationTargets: [],
+                tracesSampleRate: 1.0,
+                tracePropagationTargets: [],
 
-            replaysSessionSampleRate: 1.0,
-            replaysOnErrorSampleRate: 1.0,
+                replaysSessionSampleRate: 1.0,
+                replaysOnErrorSampleRate: 1.0,
+            });
+
+            // set initial tags
+            Object.entries(tags).forEach(([key, value]) => {
+                setTag(key, value);
+            });
+
+            this.initialized = true;
+            console.log(`[sentry] Initialized with DSN: ${env.external.NEXT_PUBLIC_SENTRY_DSN}`);
         });
-        // set initial tags
-        Object.entries(tags).forEach(([key, value]) => {
-            Sentry.setTag(key, value);
-        });
-
-        this.initialized = true;
-        console.log(`[sentry] Initialized with DSN: ${env.external.NEXT_PUBLIC_SENTRY_DSN}`);
     }
 }
 
