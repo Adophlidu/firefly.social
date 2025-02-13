@@ -1,12 +1,12 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import { updateQueryForLensPosts } from '@/helpers/updateQueryForLensPosts.js';
+import { updateQueryForPosts } from '@/helpers/updateQueryForPosts.js';
 import type { Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
 function deletePostFromQueryData(source: SocialSource, postId: string) {
     if (source === Source.Lens) {
-        updateQueryForLensPosts((posts) => {
+        updateQueryForPosts(source, (posts) => {
             const index = posts.findIndex((p) => p.postId === postId);
             if (index !== -1) posts.splice(index, 1);
         });
