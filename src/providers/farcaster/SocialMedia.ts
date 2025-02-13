@@ -85,6 +85,10 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.getChannelByHandle(channelId);
     }
 
+    getChannelsByIds(ids: string[]): Promise<Channel[]> {
+        return NeynarSocialMediaProvider.getChannelsByIds(ids);
+    }
+
     getChannelByHandle(channelHandle: string): Promise<Channel> {
         return FireflySocialMediaProvider.getChannelByHandle(channelHandle);
     }

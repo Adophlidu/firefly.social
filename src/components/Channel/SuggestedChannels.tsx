@@ -2,7 +2,6 @@
 
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { compact } from 'lodash-es';
 
 import { AsideTitle } from '@/components/AsideTitle.js';
 import { Avatar } from '@/components/Avatar.js';
@@ -11,14 +10,10 @@ import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { ExploreType, Source } from '@/constants/enum.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
-import { mergeLists } from '@/helpers/mergeLists.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
-
-const SHOW_LENGTH = 3;
+import { getTrendingChannels } from '@/services/getTrendingChannels.js';
 
 function SuggestedChannelItem({ channel }: { channel: Channel }) {
     return (
@@ -35,30 +30,17 @@ function SuggestedChannelItem({ channel }: { channel: Channel }) {
     );
 }
 
-async function getOrbSuggestClubs() {
-    return compact(
-        await Promise.all(
-            ['orb', 'defi', 'lens'].map((handle) =>
-                runInSafeAsync(() => LensSocialMediaProvider.getChannelById(handle)),
-            ),
-        ),
-    );
-}
-
 export function SuggestedChannels() {
+    const profiles = useCurrentProfileAll();
     const { data, isLoading, isError } = useQuery({
-        queryKey: ['suggest-channels'],
+        queryKey: [
+            'suggest-channels',
+            ...Object.values(profiles)
+                .filter(Boolean)
+                .map((x) => x?.profileId),
+        ],
         staleTime: 1000 * 60 * 5, // 5 minutes
-        queryFn: async () => {
-            const results = await Promise.all(
-                ([Source.Farcaster, Source.Bsky] as const).map(async (source) => {
-                    const channels = await runInSafeAsync(() => resolveSocialMediaProvider(source).discoverChannels());
-                    return channels?.data.slice(0, SHOW_LENGTH) || [];
-                }),
-            );
-            const orbClubs = await getOrbSuggestClubs();
-            return mergeLists(...results, orbClubs);
-        },
+        queryFn: () => getTrendingChannels([Source.Farcaster, Source.Bsky, Source.Lens]),
     });
 
     if (isError || isLoading || !data?.length) return null;
