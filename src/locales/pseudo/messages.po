@@ -2884,6 +2884,9 @@ msgstr ""
 msgid "Sent"
 msgstr ""
 
+msgid "Enable priority notifications"
+msgstr ""
+
 msgid "Casts + Replies"
 msgstr ""
 

@@ -89,6 +89,12 @@ import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { OrbClubProvider } from '@/providers/orb/Club.js';
 import {
+    NotificationPlatform,
+    NotificationPushType,
+    type NotificationSettings,
+    NotificationTitle,
+} from '@/providers/types/Firefly.js';
+import {
     type LastLoggedInProfileRequest,
     profilesManagedQuery,
     type ProfilesManagedRequest,
@@ -1346,6 +1352,31 @@ export class LensSocialMedia implements Provider {
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
+    }
+
+    async getNotificationSettings(): Promise<NotificationSettings> {
+        const settings = await FireflySocialMediaProvider.getNotificationPushSwitch();
+        const current = settings.list.find((x) => x.title === NotificationTitle.NotificationsMode);
+
+        return {
+            priority:
+                current?.list.find(
+                    (x) => x.platform === NotificationPlatform.Priority && x.push_type === NotificationPushType.Lens,
+                )?.state ?? false,
+        };
+    }
+
+    async setNotificationSettings(settings: NotificationSettings) {
+        await FireflySocialMediaProvider.setNotificationPushSwitch({
+            list: [
+                {
+                    platform: NotificationPlatform.Priority,
+                    push_type: NotificationPushType.Lens,
+                    state: settings.priority,
+                },
+            ],
+        });
+        return true;
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {

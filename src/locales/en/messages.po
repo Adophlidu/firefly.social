@@ -2897,6 +2897,9 @@ msgstr "Your claimed {amount} {symbol}."
 msgid "Sent"
 msgstr "Sent"
 
+msgid "Enable priority notifications"
+msgstr "Enable priority notifications"
+
 msgid "Casts + Replies"
 msgstr "Casts + Replies"
 

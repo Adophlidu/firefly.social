@@ -20,6 +20,12 @@ import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import {
+    NotificationPlatform,
+    NotificationPushType,
+    type NotificationSettings,
+    NotificationTitle,
+} from '@/providers/types/Firefly.js';
+import {
     type Channel,
     type Friendship,
     type Notification,
@@ -302,6 +308,32 @@ class FarcasterSocialMedia implements Provider {
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getNotifications(indicator);
         if (isGrantByPermission) return FireflySocialMediaProvider.getNotifications(indicator);
         throw new Error('No session found.');
+    }
+
+    async getNotificationSettings(): Promise<NotificationSettings> {
+        const settings = await FireflySocialMediaProvider.getNotificationPushSwitch();
+        const current = settings.list.find((x) => x.title === NotificationTitle.NotificationsMode);
+
+        return {
+            priority:
+                current?.list.find(
+                    (x) =>
+                        x.platform === NotificationPlatform.Priority && x.push_type === NotificationPushType.Priority,
+                )?.state ?? false,
+        };
+    }
+
+    async setNotificationSettings(settings: NotificationSettings) {
+        await FireflySocialMediaProvider.setNotificationPushSwitch({
+            list: [
+                {
+                    platform: NotificationPlatform.Priority,
+                    push_type: NotificationPushType.Priority,
+                    state: settings.priority,
+                },
+            ],
+        });
+        return true;
     }
 
     async getThreadByPostId(postId: string, localPost?: Post) {

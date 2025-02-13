@@ -1327,3 +1327,7 @@ export type DetectAddressResponse = Response<{
         contract_info: CoinGeckoAsset;
     }>;
 }>;
+
+export interface NotificationSettings {
+    priority: boolean;
+}

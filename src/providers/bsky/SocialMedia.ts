@@ -32,7 +32,7 @@ import { resolveBskyEmbed } from '@/helpers/resolveBskyEmbed.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { ChannelAtUri, PostAtUri } from '@/providers/bsky/AtUri.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import type { WalletProfile } from '@/providers/types/Firefly.js';
+import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import {
     type Channel,
     type CommentNotification,
@@ -557,6 +557,26 @@ export class BskySocialMedia implements Provider {
             res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
         );
     }
+
+    async getNotificationSettings(): Promise<NotificationSettings> {
+        const res = await bskySessionHolder.agent.listNotifications({
+            limit: 1,
+        });
+
+        return {
+            priority: res.data?.priority ?? false,
+        };
+    }
+
+    async setNotificationSettings(settings: NotificationSettings): Promise<boolean> {
+        const res = await bskySessionHolder.agent.app.bsky.notification.putPreferences({
+            priority: settings.priority,
+        });
+        if (!res.success) return false;
+
+        return true;
+    }
+
     async getSuggestedFollows(indicator?: PageIndicator) {
         if (!bskySessionHolder.session) {
             return createPageable([], indicator);

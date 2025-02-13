@@ -13,7 +13,7 @@ import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import type { WalletProfile } from '@/providers/types/Firefly.js';
+import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Response } from '@/providers/types/Hubble.js';
 import {
     type Channel,
@@ -140,6 +140,14 @@ class HubbleSocialMedia implements Provider {
     }
 
     getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getNotificationSettings(): Promise<NotificationSettings> {
+        throw new NotImplementedError();
+    }
+
+    async setNotificationSettings(settings: NotificationSettings): Promise<boolean> {
         throw new NotImplementedError();
     }
 

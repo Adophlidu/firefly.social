@@ -6,34 +6,22 @@ import { useAsyncFn } from 'react-use';
 
 import SettingsIcon from '@/assets/setting.svg';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useNotificationSettings } from '@/hooks/useNotificationSettings.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { NotificationPlatform, NotificationPushType } from '@/providers/types/Firefly.js';
 
 export function NotificationSettings({ source }: { source: SocialSource }) {
     const { enabled, isLoading, refetch } = useNotificationSettings(source);
     const [{ loading }, onSwitch] = useAsyncFn(
         async (state: boolean) => {
-            const pushTypes: Record<SocialSource, NotificationPushType | undefined> = {
-                [Source.Farcaster]: NotificationPushType.Priority,
-                [Source.Lens]: NotificationPushType.Lens,
-                [Source.Twitter]: undefined,
-                [Source.Bsky]: undefined,
-            };
-            const pushType = pushTypes[source];
-            if (!pushType) return;
-
-            await FireflySocialMediaProvider.setNotificationPushSwitch({
-                list: [
-                    {
-                        platform: NotificationPlatform.Priority,
-                        push_type: pushType,
-                        state,
-                    },
-                ],
+            const result = await resolveSocialMediaProvider(source).setNotificationSettings({
+                priority: state,
             });
+            if (!result) throw new Error('Failed to update notification settings');
+
             await refetch();
+            queryClient.refetchQueries({ queryKey: ['notifications', source] });
         },
         [refetch, source],
     );
@@ -47,7 +35,7 @@ export function NotificationSettings({ source }: { source: SocialSource }) {
             </PopoverButton>
             <PopoverPanel
                 anchor="bottom end"
-                className="flex flex-col rounded-lg bg-lightBottom p-3 text-main shadow-lightS3 dark:bg-darkBottom"
+                className="z-50 flex flex-col rounded-lg bg-lightBottom p-3 text-main shadow-lightS3 dark:bg-darkBottom"
             >
                 <div className="flex items-center">
                     <div className="mr-3 text-sm font-bold leading-[18px]">
@@ -55,7 +43,7 @@ export function NotificationSettings({ source }: { source: SocialSource }) {
                             {
                                 [Source.Farcaster]: <Trans>Quality Filter</Trans>,
                                 [Source.Lens]: <Trans>Quality Filter</Trans>,
-                                [Source.Bsky]: <Trans>Quality Filter</Trans>,
+                                [Source.Bsky]: <Trans>Enable priority notifications</Trans>,
                             }[source]
                         }
                     </div>

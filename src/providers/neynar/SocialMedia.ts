@@ -9,7 +9,7 @@ import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFi
 import { formatFarcasterProfileFromNeynar } from '@/helpers/formatFarcasterProfileFromNeynar.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import type { Channel as FireflyChannel, WalletProfile } from '@/providers/types/Firefly.js';
+import type { Channel as FireflyChannel, NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile as NeynarProfile } from '@/providers/types/Neynar.js';
 import {
     type Channel,
@@ -239,6 +239,14 @@ class NeynarSocialMedia implements Provider {
     }
 
     getNotifications(): Promise<Pageable<Notification>> {
+        throw new NotImplementedError();
+    }
+
+    async getNotificationSettings(): Promise<NotificationSettings> {
+        throw new NotImplementedError();
+    }
+
+    async setNotificationSettings(settings: NotificationSettings): Promise<boolean> {
         throw new NotImplementedError();
     }
 

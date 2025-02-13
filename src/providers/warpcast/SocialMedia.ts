@@ -18,7 +18,7 @@ import {
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { toFid } from '@/helpers/toFid.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import type { WalletProfile } from '@/providers/types/Firefly.js';
+import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import {
     type Channel,
     type Friendship,
@@ -773,6 +773,14 @@ class WarpcastSocialMedia implements Provider {
             createIndicator(indicator),
             next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
         );
+    }
+
+    async getNotificationSettings(): Promise<NotificationSettings> {
+        throw new NotImplementedError();
+    }
+
+    async setNotificationSettings(settings: NotificationSettings): Promise<boolean> {
+        throw new NotImplementedError();
     }
 
     /**

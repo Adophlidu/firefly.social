@@ -2899,6 +2899,9 @@ msgstr "您领取了{amount} {symbol}。"
 msgid "Sent"
 msgstr "发送"
 
+msgid "Enable priority notifications"
+msgstr ""
+
 msgid "Casts + Replies"
 msgstr "帖子+回复"
 

@@ -54,6 +54,7 @@ import {
     type GetBookmarksResponse,
     type NotificationPushSwitchResponse,
     type NotificationResponse,
+    type NotificationSettings,
     NotificationType as FireflyNotificationType,
     type PostQuotesResponse,
     type ReactorsResponse,
@@ -660,6 +661,14 @@ export class FireflySocialMedia implements Provider {
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
+    }
+
+    async getNotificationSettings(): Promise<NotificationSettings> {
+        throw new NotImplementedError();
+    }
+
+    async setNotificationSettings(settings: NotificationSettings): Promise<boolean> {
+        throw new NotImplementedError();
     }
 
     async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

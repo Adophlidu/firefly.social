@@ -36,7 +36,11 @@ import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
-import { TwitterUserInfoProfileImageShape, TwitterUserInfoVerifiedType } from '@/providers/types/Firefly.js';
+import {
+    type NotificationSettings,
+    TwitterUserInfoProfileImageShape,
+    TwitterUserInfoVerifiedType,
+} from '@/providers/types/Firefly.js';
 import {
     type Channel,
     type Friendship,
@@ -151,6 +155,14 @@ class TwitterSocialMedia implements Provider {
     }
 
     getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getNotificationSettings(): Promise<NotificationSettings> {
+        throw new NotImplementedError();
+    }
+
+    async setNotificationSettings(settings: NotificationSettings): Promise<boolean> {
         throw new NotImplementedError();
     }
 

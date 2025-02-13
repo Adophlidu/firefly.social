@@ -8,7 +8,7 @@ import {
     type SocialSource,
 } from '@/constants/enum.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
-import type { WalletProfile } from '@/providers/types/Firefly.js';
+import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Poll } from '@/providers/types/Poll.js';
 
 // Strictly match the ProfileSource
@@ -737,6 +737,19 @@ export interface Provider {
      * @returns A promise that resolves to a pageable list of Notification objects.
      */
     getNotifications: (indicator?: PageIndicator, highSignalFilter?: boolean) => Promise<Pageable<Notification>>;
+
+    /**
+     * Retrieves notification settings.
+     * @returns A promise that resolves to settings object.
+     */
+    getNotificationSettings: () => Promise<NotificationSettings>;
+
+    /**
+     * Sets notification settings.
+     * @param settings
+     * @returns
+     */
+    setNotificationSettings: (settings: NotificationSettings) => Promise<boolean>;
 
     /**
      * Retrieves suggested user profiles to follow.

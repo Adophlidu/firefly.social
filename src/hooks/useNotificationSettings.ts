@@ -1,50 +1,19 @@
-import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
-import { useMemo } from 'react';
 
-import { type SocialSource, Source } from '@/constants/enum.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { NotificationPlatform, NotificationPushType, NotificationTitle } from '@/providers/types/Firefly.js';
+import { type SocialSource } from '@/constants/enum.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 
 export function useNotificationSettings(source: SocialSource) {
     const { data, isLoading, refetch } = useQuery({
-        queryKey: ['notification-push-switch'],
+        queryKey: ['notification-push-switch', source],
+        staleTime: 1000 * 60 * 3, // 3 minutes
         async queryFn() {
-            return FireflySocialMediaProvider.getNotificationPushSwitch();
+            return resolveSocialMediaProvider(source).getNotificationSettings();
         },
     });
 
-    const enabled = useMemo(() => {
-        const item = data?.list.find((x) => x.title === NotificationTitle.NotificationsMode);
-
-        switch (source) {
-            case Source.Farcaster:
-                return (
-                    item?.list.find(
-                        (x) =>
-                            x.platform === NotificationPlatform.Priority &&
-                            x.push_type === NotificationPushType.Priority,
-                    )?.state ?? false
-                );
-            case Source.Lens:
-                return (
-                    item?.list.find(
-                        (x) =>
-                            x.platform === NotificationPlatform.Priority && x.push_type === NotificationPushType.Lens,
-                    )?.state ?? false
-                );
-            case Source.Twitter:
-                return false;
-            case Source.Bsky:
-                return false;
-            default:
-                safeUnreachable(source);
-                return false;
-        }
-    }, [data?.list, source]);
-
     return {
-        enabled,
+        enabled: data?.priority ?? false,
         isLoading,
         refetch,
     };
