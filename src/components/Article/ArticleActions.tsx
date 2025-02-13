@@ -79,13 +79,7 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                     hasBookmarked={article.hasBookmarked}
                     onClick={() => mutation.mutate(article)}
                 />
-                <Tips
-                    identity={identity}
-                    handle={article.author.handle || ens}
-                    tooltipDisabled
-                    onClick={close}
-                    pureWallet
-                />
+                <Tips identity={identity} handle={article.author.handle || ens} onClick={close} pureWallet />
                 {url ? <ShareAction link={url} /> : null}
             </div>
         </div>
