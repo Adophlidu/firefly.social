@@ -1,8 +1,9 @@
 import urlcat from 'urlcat';
 
-import { FollowCategory, NetworkType, type ProfileCategory, type ProfilePageSource, Source } from '@/constants/enum.js';
+import { NetworkType, type ProfileCategory, type ProfilePageSource, Source } from '@/constants/enum.js';
 import { LOGIN_SORTED_PROFILE_TAB_TYPE, SORTED_PROFILE_TAB_TYPE, WALLET_PROFILE_TAB_TYPES } from '@/constants/index.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
+import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 function getDefaultProfileCategory(source: ProfilePageSource, handle?: string, isCurrentProfile = false) {
@@ -24,13 +25,7 @@ function resolveProfileCategory(
         return getDefaultProfileCategory(source, handle);
     }
 
-    // filter out follow categories
-    if (
-        [FollowCategory.Followers, FollowCategory.Following, FollowCategory.Mutuals].includes(
-            category as FollowCategory,
-        )
-    )
-        return category;
+    if (isFollowCategory(category)) return category;
 
     const supportedCategories: string[] =
         source === Source.Wallet

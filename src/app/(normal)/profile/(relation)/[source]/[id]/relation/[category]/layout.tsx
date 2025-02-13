@@ -1,8 +1,10 @@
 import { notFound } from 'next/navigation.js';
 
 import { FollowPageLayout } from '@/app/(normal)/profile/pages/FollowPageLayout.js';
+import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { Title } from '@/components/Profile/Title.js';
 import { type ProfileCategory, Source, SourceInURL } from '@/constants/enum.js';
+import { REQUIRE_LOGIN_FOLLOWING_CATEGORY } from '@/constants/index.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -38,7 +40,13 @@ export default async function Layout(props: Props) {
             />
             <div className="h-12" />
             <FollowPageLayout profile={profile} identity={identity} category={params.category}>
-                {children}
+                <LoginRequiredGuard
+                    className="lg:!pt-0"
+                    source={profile.source}
+                    required={REQUIRE_LOGIN_FOLLOWING_CATEGORY.includes(params.category)}
+                >
+                    {children}
+                </LoginRequiredGuard>
             </FollowPageLayout>
         </>
     );

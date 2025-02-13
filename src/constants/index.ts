@@ -214,6 +214,7 @@ export const FOLLOWING_SOURCES: FollowingSource[] = [
     Source.DAOs,
 ] as const;
 export const FOLLOWING_CATEGORY = [FollowCategory.Followers, FollowCategory.Mutuals, FollowCategory.Following] as const;
+export const REQUIRE_LOGIN_FOLLOWING_CATEGORY = [FollowCategory.Mutuals];
 export const REQUIRE_LOGIN_SOURCES: SocialSource[] = [Source.Twitter];
 
 export const EXPLORE_TYPES: ExploreType[] = [
