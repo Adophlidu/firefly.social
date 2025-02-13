@@ -1214,6 +1214,9 @@ msgstr "没有限制性批准。"
 msgid "Unmuting..."
 msgstr "取消隐藏中..."
 
+msgid "Failed to show more."
+msgstr ""
+
 msgid "Log in with your X account to view"
 msgstr "使用您的X账户登录以查看"
 
@@ -1347,6 +1350,10 @@ msgstr "启用开发环境接口"
 msgid "<0>Sent</0><1/>"
 msgstr "<0>发送</0><1/>"
 
+#. placeholder {0}: (err as Error).message
+msgid "Failed to show more. {0}"
+msgstr ""
+
 msgid "Voted"
 msgstr "已投票"
 
@@ -1416,6 +1423,9 @@ msgstr "发送"
 #. placeholder {1}: market?.price_change_percentage_24h_in_currency !== undefined ? ( <span className={isUp ? 'text-success' : 'text-fail'}> {market.price_change_percentage_24h_in_currency.toFixed(2)}% </span> ) : null
 msgid "<0>Price</0><1>${0}</1><2/>{1}"
 msgstr "<0>价格</0><1>${0}</1><2/>{1}"
+
+msgid "Sign in to Bluesky"
+msgstr ""
 
 msgid "Collected"
 msgstr "已收藏"
@@ -2103,9 +2113,6 @@ msgstr "未发现外部调用风险。"
 
 msgid "Pending"
 msgstr "确认中"
-
-msgid "Log in to Bluesky"
-msgstr ""
 
 msgid "No preview found for shared link"
 msgstr "无法预加载"

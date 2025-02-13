@@ -22,6 +22,7 @@ import { formatLensProfileFromSuggestedFollow } from '@/helpers/formatLensProfil
 import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
+import { extractIpfsCID } from '@/helpers/ipfs.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isZero } from '@/helpers/number.js';
 import {
@@ -76,6 +77,7 @@ import {
     type SearchProfileResponse,
     type SearchTokenResponse,
     type SponsorMintOptions,
+    type TakoExternalHostedData,
     type TelegramLoginBotResponse,
     type TelegramLoginResponse,
     type TwitterUserInfoResponse,
@@ -917,6 +919,13 @@ export class FireflyEndpoint {
         const response = await fireflySessionHolder.fetch<DetectAddressResponse>(url, { method: 'GET' });
 
         return resolveFireflyResponseData(response);
+    }
+
+    async getTakoExternalHostedData(ipfs: string) {
+        const cid = extractIpfsCID(ipfs);
+        const url = urlcat(settings.FIREFLY_ROOT_URL, `v2/farcaster-hub/ipfs/${cid}`);
+        const response = await fetchJSON<TakoExternalHostedData>(url);
+        return response.data;
     }
 }
 

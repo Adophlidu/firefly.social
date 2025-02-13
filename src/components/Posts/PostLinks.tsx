@@ -54,12 +54,12 @@ export function PostLinks({ post, setContent, isInCompose = false }: Props) {
         },
     });
 
+    const content = post.metadata.content?.content;
     useEffect(() => {
-        const content = post.metadata.content?.content;
         if (data && url && content) {
             setContent?.(removeAtEnd(content, url));
         }
-    }, [data, setContent, post, url]);
+    }, [data, setContent, url, content]);
 
     if (!url || isLoading || error || !data) return null;
 

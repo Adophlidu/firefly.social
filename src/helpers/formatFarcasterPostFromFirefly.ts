@@ -6,6 +6,7 @@ import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFi
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { composePollFrameUrl } from '@/helpers/getPollFrameUrl.js';
+import { isIpfs } from '@/helpers/ipfs.js';
 import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl, resolveEmbedMediaType } from '@/helpers/resolveEmbedMediaType.js';
@@ -40,7 +41,7 @@ async function formatContent(cast: Cast): Promise<Post['metadata']['content']> {
                 cast.text,
                 compact(
                     embedUrls
-                        ?.filter((x) => (x.type ? [EmbedMediaType.TEXT, EmbedMediaType.FRAME].includes(x.type) : true))
+                        .filter((x) => (x.type ? [EmbedMediaType.TEXT, EmbedMediaType.FRAME].includes(x.type) : true))
                         .map((x) => x.url),
                 ),
             ).map((x) => {
@@ -104,6 +105,11 @@ function getPostTypeByCast(cast: Cast) {
  */
 export async function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Promise<Post> {
     const postType = type ?? getPostTypeByCast(cast);
+    const content = await formatContent(cast);
+    const incomplete =
+        cast.sendFrom?.display_name === 'tako-protocol' &&
+        !!content?.content?.endsWith('...') &&
+        isIpfs(cast.embeds[0]?.url);
     return {
         publicationId: cast.hash,
         type: postType,
@@ -115,7 +121,7 @@ export async function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType
         isHidden: !!cast.deleted_at,
         metadata: {
             locale: '',
-            content: await formatContent(cast),
+            content,
         },
         stats: {
             comments: Number(cast.replyCount),
@@ -153,6 +159,9 @@ export async function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType
             displayName: cast.sendFrom?.display_name ?? cast.sendFrom?.name,
             name: cast.sendFrom?.name,
         },
+        incomplete,
+        partialContent: incomplete ? content?.content : undefined,
+        fullContent: incomplete ? undefined : content?.content,
         __original__: cast,
     };
 }

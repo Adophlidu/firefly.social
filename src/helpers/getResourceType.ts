@@ -20,6 +20,11 @@ export function getResourceType(urlString: string) {
         if (extension) fileExtension = extension;
     }
 
+    // cspell: ignore takocdn
+    if (parsedURL.hostname === 'takocdn.xyz' && parsedURL.pathname.startsWith('/images/')) {
+        return 'Image';
+    }
+
     if (['png', 'jpeg', 'gif', 'webp', 'bmp', 'jpg'].includes(fileExtension)) {
         return 'Image';
     } else if (['mp4', 'webm', 'ogg', 'm3u8', 'mov'].includes(fileExtension)) {

@@ -72,7 +72,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             remarkPlugins={plugins}
             components={{
                 // eslint-disable-next-line react/no-unstable-nested-components
-                a: (props) => <MarkupLink title={props.title} post={post} source={post?.source} />,
+                a: (props) => <MarkupLink {...props} post={post} source={post?.source} />,
                 code: Code,
                 ol: Ol,
                 ...rest.components,

@@ -276,6 +276,10 @@ export interface Post {
         // Lens Only
         type?: string;
     };
+    partialContent?: string;
+    fullContent?: string;
+    /** Post from tako could be incomplete, the full content is stored in embedded ipfs */
+    incomplete?: boolean;
     __original__?: unknown;
 }
 

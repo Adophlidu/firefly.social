@@ -16,7 +16,7 @@ const resolver = memoizePromise(
         const provider = resolveSocialMediaProvider(post.source);
         return provider.decryptPost(post);
     },
-    (post) => `${post.source}-${post.postId}`,
+    (post) => `${post.metadata.content?.content}-${post.source}-${post.postId}`,
 );
 
 export function useDecryptPost(post: Post) {

@@ -1,0 +1,66 @@
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
+import { type HTMLProps, memo, useCallback, useState } from 'react';
+
+import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { queryClient } from '@/configs/queryClient.js';
+import { classNames } from '@/helpers/classNames.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
+
+interface Props extends HTMLProps<HTMLSpanElement> {
+    post: Post;
+}
+
+export const ToggleMore = memo<Props>(function ToggleMore({ post, ...rest }) {
+    const collapsed = !!post.incomplete && post.metadata.content?.content !== post.fullContent;
+    const [loading, setLoading] = useState(false);
+    const toggleQueryData = useCallback(async (post: Post, collapsed: boolean) => {
+        try {
+            setLoading(true);
+            let content = post.fullContent;
+            if (!content || !collapsed) {
+                const result = await queryClient.fetchQuery({
+                    queryKey: ['load-external-host-data', post.source, post.postId],
+                    queryFn: async () => {
+                        const ipfs = (post.__original__ as any).embeds[0].url;
+                        if (!ipfs) return null;
+                        const result = await FireflyEndpointProvider.getTakoExternalHostedData(ipfs);
+                        return result;
+                    },
+                });
+                content = result?.content;
+            }
+            if (!content) {
+                enqueueErrorMessage(t`Failed to show more.`);
+                return;
+            }
+            patchPostQueryData(post.source, post.postId, (draft) => {
+                draft.fullContent = content;
+                if (draft.partialContent && draft.metadata.content) {
+                    draft.metadata.content.content = collapsed ? content : draft.partialContent;
+                }
+            });
+        } catch (err) {
+            enqueueErrorMessage(t`Failed to show more. ${(err as Error).message}`);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+    return (
+        <span
+            {...rest}
+            className={classNames(rest.className, 'cursor-pointer font-bold text-highlight hover:underline')}
+            onClick={async (e) => {
+                e.stopPropagation();
+                toggleQueryData(post, collapsed);
+            }}
+        >
+            {loading ? <LoadingIcon className="mr-1 inline-block h-[12px] w-[12px]" /> : null}
+            {collapsed ? <Trans>Show more</Trans> : <Trans>Show less</Trans>}
+        </span>
+    );
+});

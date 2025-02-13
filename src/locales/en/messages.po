@@ -1209,6 +1209,9 @@ msgstr "No restricted approval."
 msgid "Unmuting..."
 msgstr "Unmuting..."
 
+msgid "Failed to show more."
+msgstr "Failed to show more."
+
 msgid "Log in with your X account to view"
 msgstr "Log in with your X account to view"
 
@@ -1342,6 +1345,10 @@ msgstr "Enable development API version"
 msgid "<0>Sent</0><1/>"
 msgstr "<0>Sent</0><1/>"
 
+#. placeholder {0}: (err as Error).message
+msgid "Failed to show more. {0}"
+msgstr "Failed to show more. {0}"
+
 msgid "Voted"
 msgstr "Voted"
 
@@ -1411,6 +1418,9 @@ msgstr "Send"
 #. placeholder {1}: market?.price_change_percentage_24h_in_currency !== undefined ? ( <span className={isUp ? 'text-success' : 'text-fail'}> {market.price_change_percentage_24h_in_currency.toFixed(2)}% </span> ) : null
 msgid "<0>Price</0><1>${0}</1><2/>{1}"
 msgstr "<0>Price</0><1>${0}</1><2/>{1}"
+
+msgid "Sign in to Bluesky"
+msgstr "Sign in to Bluesky"
 
 msgid "Collected"
 msgstr "Collected"
@@ -2101,9 +2111,6 @@ msgstr "No external call risk found."
 
 msgid "Pending"
 msgstr "Pending"
-
-msgid "Log in to Bluesky"
-msgstr "Log in to Bluesky"
 
 msgid "No preview found for shared link"
 msgstr "No preview found for shared link"

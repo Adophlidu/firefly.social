@@ -2,7 +2,7 @@
 
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
-import { memo } from 'react';
+import { type AnchorHTMLAttributes, memo } from 'react';
 import urlcat from 'urlcat';
 
 import { Link } from '@/components/Link.js';
@@ -14,6 +14,7 @@ import { NFTCard } from '@/components/Markup/MarkupLink/NFTCard.js';
 import { NFTCollection } from '@/components/Markup/MarkupLink/NFTCollection.js';
 import { SymbolTag } from '@/components/Markup/MarkupLink/SymbolTag.js';
 import { TcoLink } from '@/components/Markup/MarkupLink/TcoLink.js';
+import { ToggleMore } from '@/components/Markup/MarkupLink/ToggleMore.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
@@ -28,14 +29,14 @@ import { stopPropagation } from '@/helpers/stopEvent.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
-export interface MarkupLinkProps {
+export interface MarkupLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
     title?: string;
     post?: Post;
     source?: SocialSource;
     sourceLink?: string;
 }
 
-export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post, source, sourceLink }) {
+export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post, source, sourceLink, ...rest }) {
     const { data: fallbackProfile } = useQuery({
         // We only have handle in user bio.
         enabled: !post && source === Source.Farcaster && title?.startsWith('@'),
@@ -124,13 +125,17 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
 
     const trimmed = title.trim();
     const tagPadding = title.startsWith(' ') ? ' ' : null;
-    if (trimmed.startsWith('#'))
+    if (trimmed.startsWith('#')) {
+        if (trimmed === '#SYSTOGGLEMORE' && post) {
+            return <ToggleMore post={post} />;
+        }
         return (
             <>
                 {tagPadding}
                 <Hashtag title={trimmed} source={source} />
             </>
         );
+    }
     if (trimmed.startsWith('$'))
         return (
             <>

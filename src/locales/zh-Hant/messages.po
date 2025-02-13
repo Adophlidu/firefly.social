@@ -1214,6 +1214,9 @@ msgstr ""
 msgid "Unmuting..."
 msgstr "正在靜音中"
 
+msgid "Failed to show more."
+msgstr ""
+
 msgid "Log in with your X account to view"
 msgstr ""
 
@@ -1347,6 +1350,10 @@ msgstr "開啟開發API版本"
 msgid "<0>Sent</0><1/>"
 msgstr ""
 
+#. placeholder {0}: (err as Error).message
+msgid "Failed to show more. {0}"
+msgstr ""
+
 msgid "Voted"
 msgstr ""
 
@@ -1415,6 +1422,9 @@ msgstr ""
 #. placeholder {0}: renderShrankPrice(formatPrice(price) ?? '-')
 #. placeholder {1}: market?.price_change_percentage_24h_in_currency !== undefined ? ( <span className={isUp ? 'text-success' : 'text-fail'}> {market.price_change_percentage_24h_in_currency.toFixed(2)}% </span> ) : null
 msgid "<0>Price</0><1>${0}</1><2/>{1}"
+msgstr ""
+
+msgid "Sign in to Bluesky"
 msgstr ""
 
 msgid "Collected"
@@ -2097,9 +2107,6 @@ msgid "No external call risk found."
 msgstr ""
 
 msgid "Pending"
-msgstr ""
-
-msgid "Log in to Bluesky"
 msgstr ""
 
 msgid "No preview found for shared link"

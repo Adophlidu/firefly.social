@@ -68,7 +68,7 @@ export interface Cast {
     root_parent_hash?: string;
     threads?: Cast[];
     quotedCast?: Cast;
-    sendFrom: {
+    sendFrom?: {
         display_name: string;
         name: string;
         bio: string;
@@ -1331,3 +1331,7 @@ export type DetectAddressResponse = Response<{
 export interface NotificationSettings {
     priority: boolean;
 }
+
+export type TakoExternalHostedData = Response<{
+    content: string;
+}>;

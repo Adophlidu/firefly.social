@@ -17,7 +17,7 @@ export function PostMarkup({ post, content, canShowMore }: PostMarkupProps) {
                 'markup linkify break-words text-medium',
             )}
         >
-            {content}
+            {`${content}${post.incomplete ? ` #SYSTOGGLEMORE` : ''}`}
         </Markup>
     );
 }

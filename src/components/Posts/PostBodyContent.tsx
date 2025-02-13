@@ -73,7 +73,7 @@ export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(
     const liteRawContent = metadata.content?.content?.slice(0, 2000);
     const canShowMore = !!(postRawContent && postRawContent.length > 450) && showMore;
 
-    const [postContent, setPostContent] = useState(postRawContent ?? '');
+    const [postContent = postRawContent ?? '', setPostContent] = useState<string>();
     const [seen, seenRef] = useEverSeen({ rootMargin: '300px 0px' });
     const mergedRef = useForkRef(ref, seenRef);
 
