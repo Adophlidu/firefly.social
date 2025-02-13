@@ -4,6 +4,7 @@ import { ToolkitList } from '@/app/(developers)/components/ToolkitList.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
@@ -11,7 +12,9 @@ export async function generateMetadata() {
     });
 }
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({ children }: { children: React.ReactNode }) {
+    await setupLocaleForSSR();
+
     return (
         <>
             {/* desktop */}

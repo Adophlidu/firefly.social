@@ -5,12 +5,9 @@ import dayjs from 'dayjs';
 
 import { Locale } from '@/constants/enum.js';
 import { getLocaleFromCookiesAsync } from '@/helpers/getCookie.js';
-// @ts-expect-error
-import { messages as en } from '@/locales/en/messages.mjs';
-// @ts-expect-error
-import { messages as zhHans } from '@/locales/zh-Hans/messages.mjs';
-// @ts-expect-error
-import { messages as zhHant } from '@/locales/zh-Hant/messages.mjs';
+import { messages as en } from '@/locales/en/messages.js';
+import { messages as zhHans } from '@/locales/zh-Hans/messages.js';
+import { messages as zhHant } from '@/locales/zh-Hant/messages.js';
 
 const messages: Record<Locale, Messages> = {
     [Locale.en]: en,
@@ -39,13 +36,17 @@ export const supportedLocales: Record<Locale, string> = {
 
 export const defaultLocale = Locale.en;
 
+export async function getI18n(): Promise<I18n> {
+    return getI18nInstance(await getLocaleFromCookiesAsync());
+}
+
 export async function setupLocaleForSSR() {
-    const i18n = allLocales[await getLocaleFromCookiesAsync()];
-    setI18n(i18n as any);
+    const i18n = await getI18n();
+    setI18n(i18n);
 }
 
 export function getI18nInstance(locale: Locale): I18n {
-    return allLocales[locale] as any;
+    return (allLocales[locale] ?? allLocales[Locale.en]!) as unknown as I18n;
 }
 
 /**
