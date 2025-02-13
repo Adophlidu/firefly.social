@@ -182,6 +182,10 @@ class TwitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    getChannelsByIds(ids: string[]): Promise<Channel[]> {
+        throw new NotImplementedError();
+    }
+
     getChannelByHandle(channelHandle: string): Promise<Channel> {
         throw new NotImplementedError();
     }

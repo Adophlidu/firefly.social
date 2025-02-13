@@ -150,6 +150,10 @@ export class LensSocialMedia implements Provider {
         throw new Error(t`No channel found with the id ${channelId}`);
     }
 
+    async getChannelsByIds(ids: string[]): Promise<Channel[]> {
+        return Promise.all(ids.map((id) => this.getChannelById(id)));
+    }
+
     getChannelByHandle(channelHandle: string): Promise<Channel> {
         throw new NotImplementedError();
     }

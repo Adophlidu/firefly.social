@@ -205,7 +205,12 @@ export class BskySocialMedia implements Provider {
         return response.data.profiles.map((profile) => formatBskyProfile(profile));
     }
     async getChannelsByIds(ids: string[]): Promise<Channel[]> {
-        throw new NotImplementedError();
+        const result = await bskySessionHolder.agent.app.bsky.feed.getFeedGenerators({
+            feeds: ids.map((id) => ChannelAtUri.fromId(id).toUri()),
+        });
+        if (!result.success) throw new Error(`Failed to get channels ids = ${ids.join(',')}.`);
+
+        return result.data.feeds.map(formatBskyChannel);
     }
     async getProfileById(profileId: string): Promise<Profile> {
         const response = await bskySessionHolder.agent.getProfile({ actor: profileId });

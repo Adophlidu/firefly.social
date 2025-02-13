@@ -489,7 +489,7 @@ export interface Provider {
      * @params ids Array of channel id
      * @returns A promise that resolves to Channels array by ids.
      */
-    getChannelsByIds?: (ids: string[]) => Promise<Channel[]>;
+    getChannelsByIds: (ids: string[]) => Promise<Channel[]>;
 
     /**
      * Retrieves a user's profile by their profile ID.
