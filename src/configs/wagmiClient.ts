@@ -22,6 +22,7 @@ import {
 } from '@reown/appkit/networks';
 import { createAppKit } from '@reown/appkit/react';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
+import { http } from 'wagmi';
 import {
     arbitrum as wagmiArbitrum,
     aurora as wagmiAurora,
@@ -87,6 +88,9 @@ export const chains = [
 export const adapter = new WagmiAdapter({
     projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
     networks,
+    transports: {
+        [fantom.id]: http('https://rpc.ftm.tools'),
+    },
 });
 
 const metadata = {

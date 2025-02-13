@@ -35,7 +35,7 @@ export function FollowingNFTList({ walletAddress }: { walletAddress?: string }) 
     });
 
     if (!walletAddress && !profileIds.length) {
-        return <NotLoginFallback source={Source.Farcaster} />;
+        return <NotLoginFallback source={Source.NFTs} />;
     }
 
     return (

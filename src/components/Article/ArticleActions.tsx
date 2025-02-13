@@ -18,9 +18,10 @@ import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
-import { CollectArticleModalRef, DraggablePopoverRef } from '@/modals/controls.js';
+import { CollectArticleModalRef, DraggablePopoverRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
@@ -29,6 +30,7 @@ interface ArticleActionsProps {
 }
 
 export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions({ article: oldArticle }) {
+    const isLogin = useIsLoginFirefly();
     const mutation = useToggleArticleBookmark();
     const identity = useFireflyIdentity(Source.Wallet, oldArticle.author.id);
     const { data: ens } = useEnsName({ address: oldArticle.author.id });
@@ -55,6 +57,10 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                         <Tooltip content={t`Collect`} placement="top">
                             <motion.button
                                 onClick={() => {
+                                    if (!isLogin) {
+                                        LoginModalRef.open();
+                                        return;
+                                    }
                                     if (isMedium) {
                                         CollectArticleModalRef.open({
                                             article,

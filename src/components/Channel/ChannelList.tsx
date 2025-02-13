@@ -2,8 +2,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ChannelInList } from '@/components/ChannelInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
-import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
-import { BSKY_LOGIN_REQUIRED_FEEDS } from '@/constants/index.js';
+import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -22,7 +21,7 @@ export function ChannelList({ source, useWindowScroll = true }: ChannelListProps
     const currentProfile = useCurrentProfile(source);
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['channels', source, 'trending'],
+        queryKey: ['channels', source, 'trending', currentProfile?.profileId],
         queryFn: async ({ pageParam }) => {
             const provider = resolveSocialMediaProvider(source);
             return provider.discoverChannels(createIndicator(undefined, pageParam));
@@ -30,11 +29,7 @@ export function ChannelList({ source, useWindowScroll = true }: ChannelListProps
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
         select: (data) => {
-            const result = data.pages.flatMap((x) => x.data);
-            if (source === Source.Bsky && currentProfile) {
-                return result.filter((x) => !BSKY_LOGIN_REQUIRED_FEEDS.includes(x.url));
-            }
-            return result;
+            return data.pages.flatMap((x) => x.data);
         },
     });
 

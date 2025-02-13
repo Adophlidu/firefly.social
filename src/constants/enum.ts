@@ -123,7 +123,13 @@ export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | S
 export type FollowingSource = DiscoverSource | Source.Polymarket;
 export type ExploreSource = Source.Farcaster | Source.Lens | Source.Bsky | TrendingType;
 export type ExploreSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Bsky | TrendingType;
-export type LoginFallbackSource = SocialSource | Source.Article | Source.DAOs | Source.Polymarket;
+export type LoginFallbackSource =
+    | SocialSource
+    | Source.Article
+    | Source.DAOs
+    | Source.Polymarket
+    | Source.Posts
+    | Source.NFTs;
 
 export enum ExploreType {
     CryptoTrends = 'crypto-trends',

@@ -8,7 +8,7 @@ import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoR
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { VirtualList, type VirtualListProps } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
-import { Source } from '@/constants/enum.js';
+import { type LoginFallbackSource,Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -35,7 +35,7 @@ export function ListInPage<T = unknown, C = unknown>({
     className,
     source,
 }: ListInPageProps<T, C>) {
-    const isNotSocialSource = source === Source.Article || source === Source.DAOs;
+    const isNotSocialSource = [Source.Article, Source.DAOs, Source.Posts, Source.NFTs].includes(source);
 
     const { virtuosoState, setVirtuosoState } = useGlobalState();
     const currentSocialSource = narrowToSocialSource(source);
@@ -55,7 +55,7 @@ export function ListInPage<T = unknown, C = unknown>({
     }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 
     if (loginRequired && !isLogin) {
-        return <NotLoginFallback source={isNotSocialSource ? source : currentSocialSource} />;
+        return <NotLoginFallback source={isNotSocialSource ? (source as LoginFallbackSource) : currentSocialSource} />;
     }
 
     if (noResultsFallbackRequired && !data.length) {

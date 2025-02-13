@@ -33,6 +33,7 @@ export function SuggestedFollowsCard() {
             const [farcasterData, lensData] = await Promise.all([
                 runInSafeAsync(() => getSuggestedFollowsInCard(Source.Farcaster)),
                 runInSafeAsync(() => getSuggestedFollowsInCard(Source.Lens)),
+                runInSafeAsync(() => getSuggestedFollowsInCard(Source.Bsky)),
             ]);
             return mergeLists(farcasterData ?? [], lensData ?? []);
         },

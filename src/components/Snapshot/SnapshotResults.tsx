@@ -42,7 +42,7 @@ export const SnapshotResults = memo<SnapshotResultsProps>(function SnapshotResul
                                     <div className="overflow-hidden overflow-ellipsis whitespace-nowrap">{choice}</div>
                                 </TextOverflowTooltip>
                                 <div className="flex gap-1 whitespace-nowrap">
-                                    <span>{nFormatter(score)}</span>
+                                    <span>{score > 1 ? nFormatter(score) : score.toFixed(2)}</span>
                                     <span>{symbol}</span>
                                     <span>{scoreTotal ? formatPercentage(score / scoreTotal) : '0%'}</span>
                                 </div>

@@ -6,7 +6,7 @@ import { compact } from 'lodash-es';
 import { DISCOVER_AT_URI } from '@/constants/bsky.js';
 import { type BookmarkType, BskyEmbedType, type FireflyPlatform, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { BSKY_LOGIN_REQUIRED_FEEDS, EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
@@ -105,7 +105,7 @@ export class BskySocialMedia implements Provider {
         });
 
         return {
-            postId: result.cid,
+            postId: PostAtUri.from(result.uri).toId(),
             contentURI: result.uri,
         };
     }
@@ -288,8 +288,12 @@ export class BskySocialMedia implements Provider {
             limit: 20,
         });
         if (!res.success) throw new Error(`Failed to discoverChannels`);
+        console.log(bskySessionHolder.session);
+        const result = bskySessionHolder.session
+            ? res.data.feeds
+            : res.data.feeds.filter((x) => !BSKY_LOGIN_REQUIRED_FEEDS.includes(x.uri));
         return createPageable(
-            res.data.feeds.map(formatBskyChannel),
+            result.map(formatBskyChannel),
             createIndicator(indicator),
             res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
         );
