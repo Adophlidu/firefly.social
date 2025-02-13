@@ -34,7 +34,7 @@ export function isSameSession(session: Session | null, otherSession: Session | n
         case SessionType.Bsky:
             const bskySession = session as BskySession;
             const otherBskySession = otherSession as BskySession;
-            return bskySession.profileId === otherBskySession.profileId && bskySession.token === otherBskySession.token;
+            return bskySession.profileId === otherBskySession.profileId;
         case SessionType.Firefly:
             return session.token === otherSession.token;
 
