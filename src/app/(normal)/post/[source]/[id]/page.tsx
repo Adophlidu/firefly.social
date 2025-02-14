@@ -14,6 +14,7 @@ import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { setupServerTwitterSession } from '@/helpers/setupTwitterSession.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { NextPageProps } from '@/types/index.js';
@@ -28,6 +29,7 @@ interface Props extends NextPageProps<{ id: string; source: SocialSourceInURL }>
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const params = await props.params;
+
     if (isSocialSourceInUrl(params.source)) {
         return createPageMetadata(params.source, params.id);
     }
@@ -35,9 +37,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default async function Page(props: Props) {
-    await setupLocaleForSSR();
-
     if (await isBotRequest()) return null;
+
+    await setupLocaleForSSR();
+    await setupServerTwitterSession();
 
     const params = await props.params;
     if (!isSocialSourceInUrl(params.source)) notFound();

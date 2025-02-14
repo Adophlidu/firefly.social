@@ -314,6 +314,7 @@ const useTwitterStateBase = createState(
                 const sessionPayload = await TwitterAuthProvider.login();
                 if (!sessionPayload) {
                     state.clear();
+                    twitterSessionHolder.removeSession();
                     return;
                 }
 
@@ -390,14 +391,12 @@ const useThirdPartyStateBase = createState(
                           },
                       )
                     : null;
-
                 if (!thirdPartySession) return;
 
                 const foundNewSessionFromServer = !!(
                     thirdPartySession &&
                     !state.accounts.some((x) => isSameSession(thirdPartySession, x.session as ThirdPartySession))
                 );
-
                 if (!foundNewSessionFromServer) return;
 
                 state.__setStatus__(AsyncStatus.Pending);
@@ -429,7 +428,6 @@ const useThirdPartyStateBase = createState(
                         skipUploadFireflySession: !foundNewSessionFromServer,
                     },
                 );
-
                 if (!result) return;
 
                 enqueueSuccessMessage(t`Your ${session.type} account is now connected`);
@@ -439,8 +437,8 @@ const useThirdPartyStateBase = createState(
 
                 enqueueMessageFromError(error, t`Oops... Something went wrong. Please try again`);
                 state.clear();
-                signOut({ redirect: false });
                 thirdPartySessionHolder.removeSession();
+                await signOut({ redirect: false });
             } finally {
                 state.__setStatus__(AsyncStatus.Idle);
             }

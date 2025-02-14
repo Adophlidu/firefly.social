@@ -221,8 +221,6 @@ export async function bindOrRestoreFireflySession(session: Session, signal?: Abo
             throw new AuthenticationError('[bindOrRestoreFireflySession] Firefly session is not available.');
         }
     } catch (error) {
-        console.error(`[bindOrRestoreFireflySession] failed to bind firefly session ${error}`);
-
         // enqueue error message later
         if (error instanceof FarcasterAlreadyBoundError) {
             throw error;
