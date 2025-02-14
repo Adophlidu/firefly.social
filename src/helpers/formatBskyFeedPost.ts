@@ -235,13 +235,41 @@ export function formatBskyFeedPost(original: AppBskyFeedDefs.FeedViewPost): Post
     return post;
 }
 
-export function formatBskyThreadPosts(thread: AppBskyFeedDefs.ThreadViewPost, posts: Post[] = []): Post[] {
-    if (!thread.parent || !AppBskyFeedDefs.isThreadViewPost(thread.parent)) return posts;
-    const post = formatBskyPostView(thread.post);
-    if (posts.length) {
-        post.type = 'Comment';
-        post.root = posts[0];
-        post.commentOn = posts.at(-1);
+function formatBskyThreadParentPosts(thread: AppBskyFeedDefs.ThreadViewPost, posts: Post[] = []): Post[] {
+    if (!thread.parent || !AppBskyFeedDefs.isThreadViewPost(thread.parent)) {
+        return thread.post ? [formatBskyPostView(thread.post), ...posts] : posts;
     }
-    return formatBskyThreadPosts(thread.parent, [post, ...posts]);
+    const post = formatBskyPostView(thread.post);
+    post.type = 'Comment';
+    return formatBskyThreadParentPosts(thread.parent, [post, ...posts]);
+}
+
+function formatBskyThreadReplyPosts(
+    keyPost: AppBskyFeedDefs.PostView,
+    thread: AppBskyFeedDefs.ThreadViewPost,
+    posts: Post[] = [],
+): Post[] {
+    if (!thread.replies) return posts;
+    const reply = thread.replies.find(
+        (reply) => AppBskyFeedDefs.isThreadViewPost(reply) && reply.post.author.did === keyPost.author.did,
+    );
+    if (!reply || !AppBskyFeedDefs.isThreadViewPost(reply)) return posts;
+    const post = formatBskyPostView(reply.post);
+    post.type = 'Comment';
+    return formatBskyThreadReplyPosts(keyPost, reply, [...posts, post]);
+}
+
+/**
+ * Converts a thread of posts from the Bluesky platform, originally in a linked list structure,
+ * into a formatted array of post objects.
+ */
+export function formatBskyThreadPosts(thread: AppBskyFeedDefs.ThreadViewPost): Post[] {
+    const parentPosts = formatBskyThreadParentPosts(thread);
+    const posts = formatBskyThreadReplyPosts(thread.post, thread, parentPosts);
+    return posts.map((post, i, arr) => {
+        if (i === 0) return post;
+        post.root = arr[0];
+        post.commentOn = arr[i - 1];
+        return post;
+    });
 }
