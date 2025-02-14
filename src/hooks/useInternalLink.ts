@@ -11,7 +11,7 @@ export function useInternalLink(href: string | UrlObject) {
         queryFn: async () => {
             try {
                 if (typeof href !== 'string' || !href.startsWith('http')) return '';
-                return formatExternalLink(href);
+                return (await formatExternalLink(href)) ?? '';
             } catch {
                 return '';
             }
