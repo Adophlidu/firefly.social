@@ -1431,9 +1431,6 @@ msgstr ""
 msgid "<0>Price</0><1>${0}</1><2/>{1}"
 msgstr ""
 
-msgid "Sign in to Bluesky"
-msgstr ""
-
 msgid "Collected"
 msgstr ""
 
@@ -3514,6 +3511,9 @@ msgid "Repost or Quote"
 msgstr ""
 
 msgid "NFT ID"
+msgstr ""
+
+msgid "Sign in with Bluesky"
 msgstr ""
 
 msgid "Failed to send tip. Please try again later."
