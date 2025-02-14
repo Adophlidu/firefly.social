@@ -319,6 +319,9 @@ msgstr "空投骗局"
 msgid "Metadata frozen."
 msgstr "元数据已冻结。"
 
+msgid "Sorry, the username or password you entered is incorrect"
+msgstr ""
+
 msgid "Overwrite"
 msgstr "覆盖"
 

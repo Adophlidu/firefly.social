@@ -319,6 +319,9 @@ msgstr ""
 msgid "Metadata frozen."
 msgstr ""
 
+msgid "Sorry, the username or password you entered is incorrect"
+msgstr ""
+
 msgid "Overwrite"
 msgstr ""
 

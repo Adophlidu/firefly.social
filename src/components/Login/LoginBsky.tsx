@@ -13,7 +13,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
 import { Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
-import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
@@ -93,6 +93,11 @@ export function LoginBsky() {
                     },
                 );
             } catch (error) {
+                if ((error as Error).message === 'Invalid identifier or password') {
+                    enqueueWarningMessage(t`Sorry, the username or password you entered is incorrect`);
+                    accountRef.current?.focus();
+                    return;
+                }
                 enqueueMessageFromError(error, t`Oops… Something went wrong. Please try again`);
                 throw error;
             }
@@ -107,10 +112,11 @@ export function LoginBsky() {
                     Enter your username and password to log in instantly
                 </h1>
 
-                <div className="group relative mx-0 flex h-10 flex-grow items-center rounded-xl border border-transparent bg-lightBg px-3 text-main focus-within:border-highlight focus-within:bg-bottom">
+                <div className="group relative mx-0 box-border flex h-10 flex-grow items-center rounded-xl bg-lightBg p-[1px] px-3 text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
                     <AtIcon width={18} height={18} className="shrink-0" />
                     <input
                         ref={accountRef}
+                        disabled={loading}
                         type="text"
                         name="account"
                         autoFocus
@@ -134,10 +140,11 @@ export function LoginBsky() {
                         />
                     ) : null}
                 </div>
-                <div className="group relative mx-0 flex h-10 flex-grow items-center rounded-xl border border-transparent bg-lightBg px-3 text-main focus-within:border-highlight focus-within:bg-bottom">
+                <div className="group relative mx-0 box-border flex h-10 flex-grow items-center rounded-xl bg-lightBg p-[1px] px-3 text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
                     <LockIcon width={18} height={18} className="shrink-0" />
                     <input
                         ref={passwordRef}
+                        disabled={loading}
                         type="password"
                         name="password"
                         autoComplete="off"

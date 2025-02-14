@@ -314,6 +314,9 @@ msgstr "Airdrop Scam"
 msgid "Metadata frozen."
 msgstr "Metadata frozen."
 
+msgid "Sorry, the username or password you entered is incorrect"
+msgstr "Sorry, the username or password you entered is incorrect"
+
 msgid "Overwrite"
 msgstr "Overwrite"
 
