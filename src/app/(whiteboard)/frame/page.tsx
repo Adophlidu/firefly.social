@@ -120,11 +120,11 @@ export default function Page(props: Props) {
                         return signed;
                     }
                     case EthereumMethodType.ETH_SIGN_TYPED_DATA: {
-                        const [address, data] = params as [string, {}];
+                        const [address, data] = params as [string, {} | string];
                         const signed = await fireflyBridgeProvider.request(SupportedMethod.SIGN_TYPED_DATA, {
                             chainId: toHex(chainId),
                             address,
-                            message: JSON.stringify(data),
+                            message: typeof data === 'string' ? data : JSON.stringify(data),
                         });
                         return signed;
                     }
