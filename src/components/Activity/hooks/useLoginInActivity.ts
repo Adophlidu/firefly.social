@@ -1,9 +1,10 @@
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 
-import { resolveFireflyBridgePlatformFromSocialSource } from '@/components/Activity/helpers/resolveFireflyBridgePlatformFromSocialSource.js';
 import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
-import { type SocialSource } from '@/constants/enum.js';
+import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
+import { UnreachableError } from '@/constants/error.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
@@ -11,6 +12,18 @@ import { LoginModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { captureActivityLoginEventBySocialSource } from '@/providers/telemetry/captureActivityEvent.js';
 import { SupportedMethod } from '@/types/bridge.js';
+
+const resolveFireflyBridgePlatformFromSocialSource = createLookupTableResolver<SocialSource, FireflyPlatform>(
+    {
+        [Source.Twitter]: FireflyPlatform.Twitter,
+        [Source.Farcaster]: FireflyPlatform.Farcaster,
+        [Source.Lens]: FireflyPlatform.Lens,
+        [Source.Bsky]: FireflyPlatform.Lens,
+    },
+    (source) => {
+        throw new UnreachableError('social source', source);
+    },
+);
 
 export function useLoginInActivity() {
     const queryFireflyBridgeAuthorization = useFireflyBridgeAuthorization();

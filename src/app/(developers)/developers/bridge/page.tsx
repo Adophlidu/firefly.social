@@ -1,13 +1,14 @@
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 
+import { BridgeEventCard } from '@/app/(developers)/components/BridgeEventCard.js';
 import { BridgeMethodButton } from '@/app/(developers)/components/BridgeMethodButton.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { classNames } from '@/helpers/classNames.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { type MethodItem, SupportedMethod } from '@/types/bridge.js';
+import { type EventItem, type MethodItem, SupportedMethod } from '@/types/bridge.js';
 
 type Item = MethodItem & {
     title: string;
@@ -176,12 +177,14 @@ const items: Item[] = [
 export default async function Page() {
     await setupLocaleForSSR();
 
-    const renderItem = (item: (typeof items)[0]) => {
+    const renderItem = (item: MethodItem | EventItem) => {
         const type = item.type;
 
         switch (type) {
             case 'method':
                 return <BridgeMethodButton item={item} />;
+            case 'event':
+                return <BridgeEventCard item={item} />;
             default:
                 safeUnreachable(type);
                 return null;

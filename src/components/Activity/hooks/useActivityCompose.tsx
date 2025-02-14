@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { type Chars } from '@/helpers/chars.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { type Mention, Platform, type RequestArguments, SupportedMethod } from '@/types/bridge.js';
+import { type Mention, type RequestArguments, SupportedMethod } from '@/types/bridge.js';
 
 export function useActivityCompose() {
     return useCallback((chars: Chars) => {
@@ -20,7 +20,7 @@ export function useActivityCompose() {
                                       content: part.content,
                                       profiles: part.profiles.map((profile) => ({
                                           ...profile,
-                                          platform: profile.platform as unknown as Platform,
+                                          platform: profile.platform,
                                       })),
                                   } as Mention);
                               }

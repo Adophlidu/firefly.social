@@ -7,10 +7,12 @@ import { safeUnreachable } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { FireflyPlatform } from '@/constants/enum.js';
 import { SITE_DESCRIPTION, SITE_NAME } from '@/constants/index.js';
+import { BRIAN_FARCASTER_PROFILE, BRIAN_LENS_PROFILE, BRIAN_TWITTER_PROFILE } from '@/constants/mentions.js';
 import { enqueueInfoMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { type Mention, type MethodItem, Network, Platform, SupportedMethod } from '@/types/bridge.js';
+import { type Mention, type MethodItem, Network, SupportedMethod } from '@/types/bridge.js';
 
 const ETHEREUM_CHAIN = {
     chainId: '0x64',
@@ -37,6 +39,44 @@ const RAW_TRANSACTION = {
     maxFeePerGas: '0x2540be400',
     chainId: '0xaa36a7',
 } as const;
+
+const RAW_TYPED_DATA = {
+    types: {
+        EIP712Domain: [
+            { name: 'name', type: 'string' },
+            { name: 'version', type: 'string' },
+            { name: 'chainId', type: 'uint256' },
+            { name: 'verifyingContract', type: 'address' },
+        ],
+        Person: [
+            { name: 'name', type: 'string' },
+            { name: 'wallet', type: 'address' },
+        ],
+        Mail: [
+            { name: 'from', type: 'Person' },
+            { name: 'to', type: 'Person' },
+            { name: 'contents', type: 'string' },
+        ],
+    },
+    primaryType: 'Mail',
+    domain: {
+        name: 'Ether Mail',
+        version: '1',
+        chainId: 1,
+        verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC',
+    },
+    message: {
+        from: {
+            name: 'Cow',
+            wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
+        },
+        to: {
+            name: 'Bob',
+            wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
+        },
+        contents: 'Hello, Bob!',
+    },
+};
 
 interface Props {
     item: MethodItem;
@@ -114,7 +154,7 @@ export function BridgeMethodButton({ item }: Props) {
                 }
                 case SupportedMethod.LOGIN: {
                     const result = await fireflyBridgeProvider.request(SupportedMethod.LOGIN, {
-                        platform: Platform.Farcaster,
+                        platform: FireflyPlatform.Farcaster,
                     });
                     enqueueInfoMessage(`Success: ${result}`);
                     break;
@@ -129,35 +169,7 @@ export function BridgeMethodButton({ item }: Props) {
                         mentions: [
                             {
                                 content: '@thefireflyapp',
-                                profiles: [
-                                    {
-                                        platform_id: '0x01d86b',
-                                        platform: Platform.Lens,
-                                        handle: 'brian',
-                                        name: 'brian',
-                                        namespace: 'lens',
-                                        hit: false,
-                                        score: 0,
-                                    },
-                                    {
-                                        platform_id: '20',
-                                        platform: Platform.Farcaster,
-                                        handle: 'barmstrong',
-                                        name: 'Brian Armstrong',
-                                        namespace: '',
-                                        hit: false,
-                                        score: 0,
-                                    },
-                                    {
-                                        platform_id: '14379660',
-                                        platform: Platform.Twitter,
-                                        handle: 'brian_armstrong',
-                                        name: 'brian_armstrong',
-                                        namespace: '',
-                                        hit: true,
-                                        score: 0.062500186,
-                                    },
-                                ],
+                                profiles: [BRIAN_LENS_PROFILE, BRIAN_FARCASTER_PROFILE, BRIAN_TWITTER_PROFILE],
                             },
                         ] as Mention[],
                     });
@@ -227,43 +239,7 @@ export function BridgeMethodButton({ item }: Props) {
                     const signed = await fireflyBridgeProvider.request(SupportedMethod.SIGN_TYPED_DATA, {
                         chainId: '0x1',
                         address: '0x660265edc169bab511a40c0e049cc1e33774443d',
-                        message: JSON.stringify({
-                            types: {
-                                EIP712Domain: [
-                                    { name: 'name', type: 'string' },
-                                    { name: 'version', type: 'string' },
-                                    { name: 'chainId', type: 'uint256' },
-                                    { name: 'verifyingContract', type: 'address' },
-                                ],
-                                Person: [
-                                    { name: 'name', type: 'string' },
-                                    { name: 'wallet', type: 'address' },
-                                ],
-                                Mail: [
-                                    { name: 'from', type: 'Person' },
-                                    { name: 'to', type: 'Person' },
-                                    { name: 'contents', type: 'string' },
-                                ],
-                            },
-                            primaryType: 'Mail',
-                            domain: {
-                                name: 'Ether Mail',
-                                version: '1',
-                                chainId: 1,
-                                verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC',
-                            },
-                            message: {
-                                from: {
-                                    name: 'Cow',
-                                    wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
-                                },
-                                to: {
-                                    name: 'Bob',
-                                    wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
-                                },
-                                contents: 'Hello, Bob!',
-                            },
-                        }),
+                        message: JSON.stringify(RAW_TYPED_DATA),
                     });
                     enqueueInfoMessage(`Signed Typed Data: ${signed}`);
                     break;

@@ -1,5 +1,6 @@
 import type { FrameContext, ReadyOptions } from '@farcaster/frame-host';
 
+import type { FireflyPlatform } from '@/constants/enum.js';
 import type { FrameV2 } from '@/types/frame.js';
 import type { PartialWith } from '@/types/index.js';
 
@@ -7,13 +8,6 @@ export enum Theme {
     Auto = 'auto',
     Light = 'light',
     Dark = 'dark',
-}
-export enum Platform {
-    Lens = 'lens',
-    Firefly = 'firefly',
-    Twitter = 'twitter',
-    Farcaster = 'farcaster',
-    Bluesky = 'bsky',
 }
 
 export enum Network {
@@ -51,6 +45,12 @@ export enum SupportedMethod {
     SWITCH_ETHEREUM_CHAIN = 'switchEthereumChain',
 }
 
+export enum SupportedEvent {
+    CHANGE_ACCOUNT = 'changeAccount',
+    CHANGE_CHAIN_ID = 'changeChainId',
+    WEBVIEW_DID_FINISH_LOAD = 'webviewDidFinishLoad',
+}
+
 export interface Transaction {
     type: '0x1' | '0x2';
     nonce: string;
@@ -79,7 +79,7 @@ export interface Chain {
 
 export interface MentionProfile {
     platform_id: string;
-    platform: Platform;
+    platform: FireflyPlatform;
     handle: string;
     name: string;
     namespace: string;
@@ -123,7 +123,7 @@ export interface RequestArguments {
         url: string;
     };
     [SupportedMethod.LOGIN]: {
-        platform: Platform;
+        platform: FireflyPlatform;
     };
     [SupportedMethod.SHARE]: {
         text: string;
@@ -169,7 +169,7 @@ export interface RequestArguments {
 
 type StringifyBoolean = 'true' | 'false';
 
-export interface RequestResult {
+export interface ResponseResult {
     [SupportedMethod.GET_SUPPORTED_METHODS]: SupportedMethod[];
     [SupportedMethod.GET_AUTHORIZATION]: string;
     [SupportedMethod.GET_THEME]: Theme;
@@ -206,7 +206,24 @@ export interface RequestResult {
     [SupportedMethod.SWITCH_ETHEREUM_CHAIN]: true;
 }
 
+export interface EventPayload {
+    [SupportedEvent.CHANGE_ACCOUNT]: {
+        type: Network;
+        address: string;
+    };
+    [SupportedEvent.CHANGE_CHAIN_ID]: {
+        type: Network;
+        chainId: string;
+    };
+    [SupportedEvent.WEBVIEW_DID_FINISH_LOAD]: {};
+}
+
 export type MethodItem<T extends SupportedMethod = SupportedMethod> = {
     type: 'method';
+    name: T;
+};
+
+export type EventItem<T extends SupportedEvent = SupportedEvent> = {
+    type: 'event';
     name: T;
 };

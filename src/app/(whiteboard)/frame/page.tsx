@@ -16,7 +16,7 @@ import { bom } from '@/helpers/bom.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { createWagmiLimitedClient } from '@/helpers/createWagmiLimitedClient.js';
 import { squashCallback } from '@/helpers/squashCallback.js';
-import { waitForLoadEvent } from '@/helpers/waitForLoadEvent.js';
+import { waitForWebviewDidLoadEvent } from '@/helpers/waitForWebviewDidLoadEvent.js';
 import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
@@ -46,7 +46,7 @@ export default function Page(props: Props) {
         if (!supported) return;
 
         // iOS needs to wait for the load event to be able to communicate with the bridge
-        if (IS_IOS) await waitForLoadEvent();
+        if (IS_IOS) await waitForWebviewDidLoadEvent();
 
         const result = await fireflyBridgeProvider.request(SupportedMethod.GET_FRAME_CONTEXT, {});
         const context = {

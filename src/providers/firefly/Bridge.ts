@@ -2,9 +2,15 @@ import { timeout } from '@masknet/kit';
 import { uniqueId } from 'lodash-es';
 
 import { parseJSON } from '@/helpers/parseJSON.js';
-import { type RequestArguments, type RequestResult, SupportedMethod } from '@/types/bridge.js';
+import {
+    type EventPayload,
+    type RequestArguments,
+    type ResponseResult,
+    SupportedEvent,
+    SupportedMethod,
+} from '@/types/bridge.js';
 
-const NO_RETURN_METHODS = [
+const REQUEST_ONLY_METHODS = [
     SupportedMethod.SHARE,
     SupportedMethod.COMPOSE,
     SupportedMethod.BACK,
@@ -14,6 +20,11 @@ const NO_RETURN_METHODS = [
     SupportedMethod.SET_PRIMARY_BUTTON,
     SupportedMethod.SET_FRAME_READY_OPTIONS,
 ];
+
+interface Payload {
+    result?: unknown;
+    error?: string;
+}
 
 function callNativeMethod<T extends SupportedMethod>(method: T, id: string, params: RequestArguments[T]) {
     // android
@@ -36,21 +47,22 @@ function callNativeMethod<T extends SupportedMethod>(method: T, id: string, para
 }
 
 class FireflyBridgeProvider {
-    private callbacks = new Map();
+    private callbacks = new Map<string, (payload: Payload) => void>();
+    private events = new Map<string, Set<(payload: Payload) => void>>();
 
     private installCallbacks() {
         Reflect.set(
             window,
             'callJsMethod',
-            <T extends SupportedMethod>(
-                method: T,
-                id: string,
-                response: {
-                    result?: RequestResult[T];
-                    error?: string;
-                },
-            ) => {
-                this.callbacks.get(id)?.(response);
+            <T extends SupportedMethod | SupportedEvent>(eventOrMethod: T, id: string, payload: string) => {
+                const parsed = parseJSON<Payload>(payload);
+                if (!parsed) throw new Error(`[bridge] failed to parse response: ${payload}`);
+
+                if (this.callbacks.has(id)) {
+                    this.callbacks.get(id)?.(parsed);
+                } else {
+                    this.events.get(eventOrMethod)?.forEach((listener) => listener(parsed));
+                }
             },
         );
     }
@@ -74,20 +86,17 @@ class FireflyBridgeProvider {
     request<T extends SupportedMethod>(method: T, params: RequestArguments[T]) {
         const requestId = uniqueId('bridge');
 
-        if (NO_RETURN_METHODS.includes(method)) {
+        if (REQUEST_ONLY_METHODS.includes(method)) {
             callNativeMethod(method, requestId, params);
-            return Promise.resolve() as unknown as Promise<RequestResult[T]>;
+            return Promise.resolve() as unknown as Promise<ResponseResult[T]>;
         }
 
         return timeout(
-            new Promise<RequestResult[T]>((resolve, reject) => {
-                this.callbacks.set(requestId, (response: string) => {
-                    const parsed = parseJSON<{ result?: RequestResult[T]; error?: string }>(response);
-                    if (!parsed) throw new Error(`[bridge] failed to parse response: ${response}`);
-
-                    const { error, result } = parsed;
+            new Promise<ResponseResult[T]>((resolve, reject) => {
+                this.callbacks.set(requestId, (payload: Payload) => {
+                    const { error, result } = payload;
                     if (error) reject(error);
-                    else resolve(result as RequestResult[T]);
+                    else resolve(result as ResponseResult[T]);
                 });
 
                 // install the callback
@@ -101,6 +110,18 @@ class FireflyBridgeProvider {
         ).finally(() => {
             this.callbacks.delete(requestId);
         });
+    }
+
+    on<T extends SupportedEvent>(event: T, listener: (payload: EventPayload[T]) => void) {
+        type Listener = (payload: Payload) => void;
+        const listeners = this.events.get(event) ?? new Set();
+        listeners.add(listener as Listener);
+
+        this.events.set(event, listeners);
+
+        return () => {
+            listeners.delete(listener as Listener);
+        };
     }
 }
 
