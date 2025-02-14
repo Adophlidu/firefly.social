@@ -653,9 +653,6 @@ msgstr "请在参与前阅读此<0>免责声明</0>。如有任何疑问，请<1
 msgid "Report submitted"
 msgstr "举报已经提交"
 
-msgid "Username"
-msgstr "用户名"
-
 msgid "Switch to the development API version for testing new features."
 msgstr "切换到开发环境接口。"
 

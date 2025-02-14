@@ -18,10 +18,9 @@ import { createSessionStorage } from '@/helpers/createSessionStorage.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { isSameSession, isSameSessionPayload } from '@/helpers/isSameSession.js';
+import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { BskySession } from '@/providers/bsky/Session.js';
+import type { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -36,12 +35,12 @@ import { thirdPartySessionHolder } from '@/providers/third-party/SessionHolder.j
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import { type Profile, type ProfileEditable, ProfileStatus, SessionType } from '@/providers/types/SocialMedia.js';
 import type { ThirdPartySessionType } from '@/providers/types/ThirdParty.js';
 import { addAccount } from '@/services/account.js';
+import { addTwitterAccount } from '@/services/addTwitterAccount.js';
 import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
 
@@ -304,62 +303,23 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                // set temporary session for getProfileById
-                if (session) twitterSessionHolder.resumeSession(session);
-
-                const authSession = (await getSession()) as unknown as ThirdPartySessionType | null;
-                // avoid invalid requests
-                if (
-                    authSession &&
-                    authSession.type === SessionType.Twitter &&
-                    authSession.user?.id === state.currentProfile?.profileId
-                )
-                    return;
-
-                const sessionPayloadFromServer = await TwitterAuthProvider.login();
-                const foundNewSessionFromServer = !!(
-                    sessionPayloadFromServer &&
-                    !state.accounts.some((x) =>
-                        isSameSessionPayload(sessionPayloadFromServer, (x.session as TwitterSession).payload),
-                    )
-                );
-
-                // show indicator if the session is from the server
-                if (foundNewSessionFromServer) state.__setStatus__(AsyncStatus.Pending);
-
-                const payload = foundNewSessionFromServer ? sessionPayloadFromServer : (session?.payload ?? null);
-                const profile = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
-
-                if (!profile || !payload) {
-                    console.warn('[twitter store] clean the local store because no session found from the server.');
-                    state.clear();
-                    twitterSessionHolder.removeSession();
+                // resume the session if it exists
+                if (session) {
+                    twitterSessionHolder.resumeSession(session);
+                    await addTwitterAccount(session.payload, false);
                     return;
                 }
 
-                // hotfix for the missing verified badge
-                await runInSafeAsync(async () => {
-                    const badges = await TwitterSocialMediaProvider.getProfileBadges(profile);
-                    if (badges.length > 0) profile.verified = true;
-                });
+                // no remote session found
+                const sessionPayload = await TwitterAuthProvider.login();
+                if (!sessionPayload) {
+                    state.clear();
+                    return;
+                }
 
-                const twitterSession = TwitterSession.from(profile.profileId, payload);
-
-                await addAccount(
-                    {
-                        profile,
-                        session: twitterSession,
-                        fireflySession: foundNewSessionFromServer
-                            ? await bindOrRestoreFireflySession(twitterSession)
-                            : undefined,
-                    },
-                    {
-                        skipBelongsToCheck: !foundNewSessionFromServer,
-                        skipResumeFireflyAccounts: !foundNewSessionFromServer,
-                        skipResumeFireflySession: !foundNewSessionFromServer,
-                        skipUploadFireflySession: !foundNewSessionFromServer,
-                    },
-                );
+                // show indicator if the session is from the server
+                state.__setStatus__(AsyncStatus.Pending);
+                await addTwitterAccount(sessionPayload, true);
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();
@@ -416,17 +376,17 @@ const useThirdPartyStateBase = createState(
 
             try {
                 const session = (await getSession()) as unknown as ThirdPartySessionType;
-                if (!session?.user || session.type === SessionType.Twitter) return;
+                if (!session?.user || !session.token || session.type === SessionType.Twitter) return;
 
                 const thirdPartySession = session.user?.id
                     ? new ThirdPartySession(
                           session.type,
                           session.user.id,
-                          session.id_token,
-                          session.createdAt,
-                          session.expiresAt,
+                          session.token.id_token,
+                          session.token.createdAt,
+                          session.token.expiresAt,
                           {
-                              nonce: session.nonce,
+                              nonce: session.token.nonce,
                           },
                       )
                     : null;

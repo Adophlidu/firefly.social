@@ -1,13 +1,11 @@
 /* cspell:disable */
 
-import { t } from '@lingui/core/macro';
 import type { AuthOptions } from 'next-auth';
 import type { Provider } from 'next-auth/providers/index';
 
 import { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { AppleProvider } from '@/esm/AppleProvider.js';
-import { CredentialsProvider } from '@/esm/CredentialsProvider.js';
 import { GoogleProvider } from '@/esm/GoogleProvider.js';
 import { TwitterProvider } from '@/esm/TwitterProvider.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
@@ -29,23 +27,6 @@ const providers: Provider[] = [
         clientSecret: env.internal.GOOGLE_CLIENT_SECRET,
     }),
 ];
-
-if (env.shared.NODE_ENV === NODE_ENV.Development) {
-    providers.push(
-        CredentialsProvider({
-            id: 'credentials',
-            name: 'Credentials',
-            credentials: {
-                username: { label: t`Username`, type: 'text', placeholder: 'firefly' },
-                password: { label: t`Password`, type: '' },
-            },
-            async authorize(credentials: Record<'username' | 'password', string> | undefined) {
-                const user = { id: '1', name: 'firefly', email: 'firefly@mask.io' };
-                return credentials?.username === user.name && credentials?.password === '' ? user : null;
-            },
-        }),
-    );
-}
 
 export const authOptions: AuthOptions = {
     debug: env.shared.NODE_ENV === NODE_ENV.Development,
@@ -71,53 +52,38 @@ export const authOptions: AuthOptions = {
         },
     },
     callbacks: {
-        session: async ({ session, token, user }) => {
-            console.log('DEBUG: session');
-            console.log({
-                user_id: token.sub,
-                token_id: token.id_token,
-                token_nonce: token.nonce,
-                createdAt: token.iat,
-                expiresAt: token.exp,
-            });
+        session: async (options) => {
+            const { session, token } = options;
 
             return {
                 ...session,
+                type: token.type,
                 user: {
                     ...session.user,
                     id: token.sub,
                 },
-                nonce: token.nonce,
-                id_token: token.id_token,
-                createdAt: token.iat,
-                expiresAt: token.exp,
-                type: token.type,
+                token: {
+                    id_token: token.id_token,
+                    nonce: token.nonce,
+                    createdAt: token.iat,
+                    expiresAt: token.exp,
+                },
             };
         },
         jwt: async ({ token, account, session, ...rest }) => {
-            if (process.env.NODE_ENV === NODE_ENV.Development) {
-                console.log('[jwt]:', { token, account, session, ...rest });
-            }
-
-            // export tokens to session
-            if (account && session) {
-                session[account.provider] = {
-                    ...session[account.provider],
-                    oauthToken: account.oauth_token,
-                    oauthTokenSecret: account.oauth_token_secret,
-                };
+            if (account?.provider) {
+                token.type = resolveSourceFromUrl(account.provider);
             }
 
             if (account?.provider && !token[account.provider]) {
                 token[account.provider] = {};
             }
 
-            if (account?.oauth_token) {
-                token[account.provider].oauthToken = account.oauth_token;
-            }
-
-            if (account?.oauth_token_secret) {
-                token[account.provider].oauthTokenSecret = account.oauth_token_secret!;
+            if (account?.oauth_token && account?.oauth_token_secret) {
+                token[account.provider] = {
+                    oauthToken: account.oauth_token,
+                    oauthTokenSecret: account.oauth_token_secret,
+                };
             }
 
             if (account?.id_token) {
@@ -128,10 +94,6 @@ export const authOptions: AuthOptions = {
             if (rest.profile?.nonce) {
                 // @ts-expect-error
                 token.nonce = rest.profile.nonce;
-            }
-
-            if (account?.provider) {
-                token.type = resolveSourceFromUrl(account.provider);
             }
 
             return token;

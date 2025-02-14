@@ -653,9 +653,6 @@ msgstr ""
 msgid "Report submitted"
 msgstr "檢舉已提交"
 
-msgid "Username"
-msgstr "用戶名"
-
 msgid "Switch to the development API version for testing new features."
 msgstr "切換至開發 API 版本用以測試新功能。"
 

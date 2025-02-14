@@ -12,7 +12,6 @@ import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { setupTwitterSession } from '@/helpers/setupTwitterSession.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { NextPageProps } from '@/types/index.js';
@@ -24,7 +23,6 @@ export default async function Layout(props: Props) {
     const { children } = props;
 
     await setupLocaleForSSR();
-    await setupTwitterSession();
     const id = params.id;
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isProfilePageSource(source)) notFound();

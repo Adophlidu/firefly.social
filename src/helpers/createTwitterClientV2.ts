@@ -2,11 +2,11 @@ import type { NextRequest } from 'next/server.js';
 import { TwitterApi } from 'twitter-api-v2';
 
 import { UnauthorizedError } from '@/constants/error.js';
-import { createTwitterSessionPayload } from '@/helpers/createTwitterSessionPayload.js';
+import { createTwitterSessionAfterLogin } from '@/helpers/createTwitterSessionPayload.js';
 
 // OAuth 1.0a (User context)
 export async function createTwitterClientV2(request: NextRequest) {
-    const payload = await createTwitterSessionPayload(request);
+    const payload = await createTwitterSessionAfterLogin();
     if (!payload) throw new UnauthorizedError();
 
     return new TwitterApi({
@@ -20,6 +20,5 @@ export async function createTwitterClientV2(request: NextRequest) {
 // OAuth2 (app-only or user context)
 export async function createAppOnlyTwitterClientV2(request: NextRequest) {
     const client = await createTwitterClientV2(request);
-
-    return await client.appLogin();
+    return client.appLogin();
 }

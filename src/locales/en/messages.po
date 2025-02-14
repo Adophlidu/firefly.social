@@ -648,9 +648,6 @@ msgstr "Read this <0>disclaimer</0> before participation. For any inquiries, ple
 msgid "Report submitted"
 msgstr "Report submitted"
 
-msgid "Username"
-msgstr "Username"
-
 msgid "Switch to the development API version for testing new features."
 msgstr "Switch to the development API version for testing new features."
 

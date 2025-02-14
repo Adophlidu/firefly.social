@@ -39,9 +39,9 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
         });
     }
 
-    override removeSession(): void {
+    override async removeSession() {
+        if (!isServer) await TwitterAuthProvider.logout();
         super.removeSession();
-        if (!isServer) TwitterAuthProvider.logout();
     }
 }
 

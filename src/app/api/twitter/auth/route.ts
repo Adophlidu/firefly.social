@@ -3,7 +3,7 @@ import { NextRequest } from 'next/server.js';
 import { UnauthorizedError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
-import { createTwitterSessionPayload } from '@/helpers/createTwitterSessionPayload.js';
+import { createTwitterSessionBeforeLogin } from '@/helpers/createTwitterSessionPayload.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
 import { encrypt } from '@/services/crypto.js';
@@ -13,7 +13,7 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
     async (request) => {
-        const payload = await createTwitterSessionPayload(request);
+        const payload = await createTwitterSessionBeforeLogin(request);
         if (!payload) throw new UnauthorizedError();
 
         const data = encrypt(

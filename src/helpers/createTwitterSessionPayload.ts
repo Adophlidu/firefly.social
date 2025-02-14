@@ -6,6 +6,11 @@ import { env } from '@/constants/env.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { type SessionPayload, TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
 
+interface TwitterAuthPayload {
+    oauthToken?: string;
+    oauthTokenSecret?: string;
+}
+
 async function createTwitterSessionPayloadFromHeaders(request: NextRequest) {
     const payload = TwitterSession.payloadFromHeaders(request.headers);
     if (!payload) return null;
@@ -13,36 +18,47 @@ async function createTwitterSessionPayloadFromHeaders(request: NextRequest) {
     return TwitterSessionPayload.revealPayload(payload);
 }
 
-export async function createTwitterSessionPayloadFromJWT(request: NextRequest) {
+async function createTwitterSessionPayloadFromJWT(request: NextRequest): Promise<SessionPayload | null> {
     const token: JWT | null = await getToken({
         req: request,
         secret: env.internal.NEXTAUTH_SECRET,
     });
-    if (!token?.twitter?.oauthToken || !token?.twitter?.oauthTokenSecret) return null;
+    const payload = token?.twitter as TwitterAuthPayload | undefined;
+    if (!payload?.oauthToken || !payload?.oauthTokenSecret) return null;
 
     return {
-        clientId: token.twitter.oauthToken.split('-')[0],
+        clientId: payload.oauthToken.split('-')[0],
         consumerKey: env.internal.TWITTER_CLIENT_ID,
         consumerSecret: env.internal.TWITTER_CLIENT_SECRET,
-        accessToken: token.twitter.oauthToken,
-        accessTokenSecret: token.twitter.oauthTokenSecret,
+        accessToken: payload.oauthToken,
+        accessTokenSecret: payload.oauthTokenSecret,
     };
 }
 
-export async function createTwitterSessionPayload(request: NextRequest) {
+async function createTwitterSessionPayloadFromCookies() {
+    const tokenFromCookie = (await cookies()).get('twitterToken');
+    if (!tokenFromCookie?.value) return null;
+
+    const token = JSON.parse(atob(tokenFromCookie.value)) as SessionPayload;
+    return TwitterSessionPayload.revealPayload(token);
+}
+
+export async function createTwitterSessionBeforeLogin(request: NextRequest) {
+    // before login, the client sends session in headers
     const fromHeaders = await createTwitterSessionPayloadFromHeaders(request);
     if (fromHeaders) return fromHeaders;
 
+    // before login succeed, retrieve session from JWT
     const fromJWT = await createTwitterSessionPayloadFromJWT(request);
     if (fromJWT) return fromJWT;
 
     return null;
 }
 
-export async function createTwitterSessionPayloadFromCookie() {
-    const tokenFromCookie = (await cookies()).get('twitterToken');
-    if (!tokenFromCookie?.value) return null;
+export async function createTwitterSessionAfterLogin() {
+    // after login, the session will be stored in cookies
+    const fromCookies = await createTwitterSessionPayloadFromCookies();
+    if (fromCookies) return fromCookies;
 
-    const token = JSON.parse(atob(tokenFromCookie.value)) as SessionPayload;
-    return TwitterSessionPayload.revealPayload(token);
+    return null;
 }

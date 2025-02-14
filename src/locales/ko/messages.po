@@ -653,9 +653,6 @@ msgstr ""
 msgid "Report submitted"
 msgstr ""
 
-msgid "Username"
-msgstr ""
-
 msgid "Switch to the development API version for testing new features."
 msgstr ""
 
