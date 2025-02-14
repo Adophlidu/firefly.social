@@ -6,6 +6,7 @@ import '@solana/wallet-adapter-react-ui/styles.css';
 
 import { type Adapter } from '@solana/wallet-adapter-base';
 import { ConnectionProvider, useWallet, WalletProvider } from '@solana/wallet-adapter-react';
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { type PropsWithChildren, useEffect } from 'react';
 
 import { walletConnectAdapter } from '@/configs/solanaWallets.js';
@@ -25,8 +26,10 @@ export function SolanaWalletAdapterProvider(props: SolanaWalletAdapterProviderPr
     return (
         <ConnectionProvider endpoint={getSolanaRPCUrl()}>
             <WalletProvider wallets={wallets} autoConnect localStorageKey={SOLANA_WALLET_CACHE_KEY}>
-                {props.children}
-                {props.enableInsights ? <Insights /> : null}
+                <WalletModalProvider>
+                    {props.children}
+                    {props.enableInsights ? <Insights /> : null}
+                </WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>
     );
