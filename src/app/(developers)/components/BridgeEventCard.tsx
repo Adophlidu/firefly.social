@@ -20,7 +20,6 @@ export function BridgeEventCard({ item }: Props) {
 
     return (
         <div>
-            <h3>{item.name}</h3>
             <pre>{payload}</pre>
         </div>
     );

@@ -8,14 +8,32 @@ import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { classNames } from '@/helpers/classNames.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { type EventItem, type MethodItem, SupportedMethod } from '@/types/bridge.js';
+import { type EventItem, type MethodItem, SupportedEvent, SupportedMethod } from '@/types/bridge.js';
 
-type Item = MethodItem & {
+type Item = (MethodItem | EventItem) & {
     title: string;
     description: string;
 };
 
 const items: Item[] = [
+    {
+        type: 'event',
+        name: SupportedEvent.CHANGE_ACCOUNT,
+        title: 'Change Account',
+        description: 'Event when account changed.',
+    },
+    {
+        type: 'event',
+        name: SupportedEvent.CHANGE_CHAIN_ID,
+        title: 'Change Chain ID',
+        description: 'Event when chain ID changed.',
+    },
+    {
+        type: 'event',
+        name: SupportedEvent.WEBVIEW_DID_FINISH_LOAD,
+        title: 'Webview Did Finish Load',
+        description: 'Event when webview did finish load.',
+    },
     {
         type: 'method',
         name: SupportedMethod.GET_SUPPORTED_METHODS,
