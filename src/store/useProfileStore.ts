@@ -1,4 +1,5 @@
 'use client';
+
 import { t } from '@lingui/core/macro';
 import type { WritableDraft } from 'immer';
 import { getSession, signOut } from 'next-auth/react';
@@ -20,7 +21,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession, isSameSessionPayload } from '@/helpers/isSameSession.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import type { BskySession } from '@/providers/bsky/Session.js';
+import { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -390,27 +391,15 @@ const useBskyStateBase = createState(
                     return;
                 }
 
-                state.__setStatus__(AsyncStatus.Pending);
-
-                // set temporary session for getProfileById
-                await bskySessionHolder.resumeSession(currentProfileSession as BskySession);
+                const bskySession = currentProfileSession as BskySession;
+                await bskySessionHolder.resumeSession(bskySession);
 
                 const profile = await BskySocialMediaProvider.getProfileById(did);
-                if (profile.profileId !== did) {
-                    console.warn('[bsky store] clean the local store because the client cannot recover properly');
-                    state.clear();
-                    bskySessionHolder.removeSession();
-                    return;
-                }
-
-                // update the profile
                 state.updateCurrentProfile(profile);
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();
                 bskySessionHolder.removeSession();
-            } finally {
-                state.__setStatus__(AsyncStatus.Idle);
             }
         },
     },

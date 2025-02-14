@@ -132,7 +132,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
         if (insufficientBalance && !isFree) return t`Insufficient Balance`;
         if (!collectParams?.mintPrice || isZero(collectParams.mintPrice)) return t`Collect`;
         return t`Collect for ${collectParams.mintPrice} ${nativeSymbol}`;
-    }, [nativeSymbol, collectParams?.mintPrice, insufficientBalance, isFree, isSoldOut, isCollected]);
+    }, [nativeSymbol, collectParams?.mintPrice, insufficientBalance, isFree, isSoldOut, isCollected, collectLoading]);
 
     if (!paramsLoading && !collectParams) {
         return (
