@@ -105,7 +105,7 @@ export class BskySocialMedia implements Provider {
         });
 
         return {
-            postId: PostAtUri.from(result.uri).toId(),
+            postId: result.cid,
             contentURI: result.uri,
         };
     }

@@ -6,6 +6,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { mergeMediaObjects } from '@/helpers/mergeMediaObjects.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -82,6 +83,6 @@ export function createPostTo(source: SocialSource, options: Options) {
             if (tweet?.poll?.id) updateTwitterPollId(tweet.poll.id);
         }
 
-        return postId;
+        return source === Source.Bsky && contentURI ? PostAtUri.from(contentURI).toId() : postId;
     };
 }
