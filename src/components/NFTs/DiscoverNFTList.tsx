@@ -1,6 +1,5 @@
 'use client';
 
-import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
@@ -8,6 +7,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { getSingleNFTFeedItemContent } from '@/components/NFTs/VirtualListHelper.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
+import { resolveNFTFeedChainId } from '@/helpers/resolveNFTFeedChainId.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { useInvalidNFTStore } from '@/store/useInvalidNFTStore.js';
 
@@ -30,7 +30,7 @@ export function DiscoverNFTList() {
         const invalidNFTStore = useInvalidNFTStore.getState();
         return nftQueryResult.data.filter((feed) => {
             const tokenId = feed.trans.token_list?.[0]?.id ?? '';
-            return !invalidNFTStore.has(ChainId.Mainnet, feed.trans.token_address, tokenId);
+            return !invalidNFTStore.has(resolveNFTFeedChainId(feed), feed.trans.token_address, tokenId);
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nftQueryResult.data, invalidNFTCount]);
@@ -43,7 +43,7 @@ export function DiscoverNFTList() {
                 listKey: `${ScrollListKey.Discover}:${Source.NFTs}`,
                 computeItemKey: (index, nftFeed) => `${nftFeed.id}-${index}`,
                 itemContent: (index, nftFeed) =>
-                    getSingleNFTFeedItemContent(index, nftFeed, ChainId.Mainnet, {
+                    getSingleNFTFeedItemContent(index, nftFeed, resolveNFTFeedChainId(nftFeed), {
                         listKey: `${ScrollListKey.Discover}:${Source.NFTs}`,
                     }),
                 overscan: 2000,

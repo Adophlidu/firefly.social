@@ -25,7 +25,7 @@ interface SingleNFTFeedProps {
     disableAnimate?: boolean;
     listKey?: string;
     index?: number;
-    tokenList: NFTFeedBodyProps['tokenList'];
+    tokenList: Array<NFTFeedBodyProps['tokenList'][number] & { bookmarked?: boolean }>;
     chainId: ChainId;
     displayInfo: NFTOwnerDisplayInfo;
     time: number | string | Date;
@@ -96,7 +96,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
                         tokenCount={tokenList.length}
                     />
                     <div className="mt-1.5 flex w-full space-x-3 overflow-x-auto overflow-y-hidden">
-                        {tokenList.map(({ id, action, contractAddress }) => {
+                        {tokenList.map(({ id, action, contractAddress, bookmarked }) => {
                             return (
                                 <NFTsActivityCellCard
                                     key={`${id}-${contractAddress}-${chainId}`}
@@ -105,6 +105,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
                                     ownerAddress={ownerAddress}
                                     chainId={chainId}
                                     tokenId={id}
+                                    bookmarked={bookmarked}
                                 />
                             );
                         })}

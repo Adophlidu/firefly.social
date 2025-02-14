@@ -42,6 +42,7 @@ export interface NFTFeed {
         token_list: Array<{
             id: string;
             cnt: number;
+            bookmarked?: boolean;
         }>;
         token_address: Address;
         token_name: string;

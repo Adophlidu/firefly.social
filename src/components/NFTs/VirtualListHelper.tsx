@@ -23,9 +23,10 @@ export function getSingleNFTFeedItemContent(
             chainId={chainId}
             index={index}
             displayInfo={feed.displayInfo}
-            tokenList={feed.trans.token_list.map(({ id }) => ({
+            tokenList={feed.trans.token_list.map(({ id, bookmarked }) => ({
                 id,
                 contractAddress: feed.trans.token_address,
+                bookmarked,
                 action: {
                     action: feed.trans.action,
                     cost:

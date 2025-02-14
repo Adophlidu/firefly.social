@@ -33,12 +33,16 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import { resolveNFTFeedChainId } from '@/helpers/resolveNFTFeedChainId.js';
+import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Article, ArticlePlatform } from '@/providers/types/Article.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import {
@@ -499,9 +503,28 @@ export class FireflyEndpoint {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
+        const nftIds = data.nfts.flatMap((feed) =>
+            feed.trans.token_list.map((x) => resolveNFTId(resolveNFTFeedChainId(feed), feed.trans.token_address, x.id)),
+        );
+        const bookmarks = nftIds.length
+            ? await runInSafeAsync(() => FireflySocialMediaProvider.getBookmarksByIds(FireflyPlatform.NFTs, nftIds))
+            : [];
 
         return createPageable(
-            data.nfts,
+            data.nfts.map((feed) => ({
+                ...feed,
+                trans: {
+                    ...feed.trans,
+                    token_list: feed.trans.token_list.map((token) => ({
+                        ...token,
+                        bookmarked: bookmarks?.find(
+                            (x) =>
+                                x.post_id ===
+                                resolveNFTId(resolveNFTFeedChainId(feed), feed.trans.token_address, token.id),
+                        )?.has_book_marked,
+                    })),
+                },
+            })),
             indicator,
             data.hasMore && data.cursor ? createIndicator(undefined, data.cursor) : undefined,
         );

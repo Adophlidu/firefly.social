@@ -2,10 +2,12 @@ import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { FireflyPlatform } from '@/constants/enum.js';
-import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
+import { resolveNFTFeedChainId } from '@/helpers/resolveNFTFeedChainId.js';
+import { resolveNFTId, resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
+import type { NFTFeed } from '@/providers/types/NFTs.js';
 import type { ClassType } from '@/types/index.js';
 
 const METHODS_BE_OVERRIDDEN = ['bookmarkNFT', 'unbookmarkNFT'] as const;
@@ -32,6 +34,16 @@ function toggleBlock(id: string, status: boolean) {
         createUpdater<SimpleHash.LiteCollection>((collection) => {
             collection.nftPreviews?.forEach((preview) => {
                 if (preview.nft_id === id) preview.hasBookmarked = status;
+            });
+        }),
+    );
+    queryClient.setQueriesData<PageData<NFTFeed>>(
+        { queryKey: ['nfts', 'discover'] },
+        createUpdater<NFTFeed>((feed) => {
+            feed.trans.token_list.forEach((token) => {
+                if (resolveNFTId(resolveNFTFeedChainId(feed), feed.trans.token_address, token.id) === id) {
+                    token.bookmarked = status;
+                }
             });
         }),
     );

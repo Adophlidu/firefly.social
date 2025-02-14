@@ -30,6 +30,7 @@ interface Props {
     chainId: ChainId;
     action: NFTFeedTransAction;
     ownerAddress: string;
+    bookmarked?: boolean;
 }
 
 const PoapTags = memo(function PoapTags({ asset }: { asset: NonFungibleAsset<ChainId, SchemaType> }) {
@@ -63,7 +64,7 @@ const PoapTags = memo(function PoapTags({ asset }: { asset: NonFungibleAsset<Cha
 });
 
 export function NFTsActivityCellCard(props: Props) {
-    const { address, tokenId, chainId, action, ownerAddress } = props;
+    const { address, tokenId, chainId, action, ownerAddress, bookmarked } = props;
     const { data, isLoading } = useNFTDetail(address, tokenId, chainId);
     const metadata = data?.metadata;
     const imageURL = metadata?.previewImageURL || metadata?.imageURL || '';
@@ -138,7 +139,11 @@ export function NFTsActivityCellCard(props: Props) {
                 ) : null}
             </Link>
             <div className="absolute right-[14px] top-3">
-                <BookmarkInIcon nftId={resolveNFTId(chainId, address, tokenId)} ownerAddress={ownerAddress} />
+                <BookmarkInIcon
+                    nftId={resolveNFTId(chainId, address, tokenId)}
+                    ownerAddress={ownerAddress}
+                    bookmarked={bookmarked}
+                />
             </div>
         </div>
     );
