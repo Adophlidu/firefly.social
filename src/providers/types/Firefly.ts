@@ -1206,7 +1206,7 @@ export enum NotificationPlatform {
 }
 
 export enum NotificationTitle {
-    NotificationsMode = 'Notifications Mode',
+    NotificationsMode = 'Notifications mode',
     Farcaster = 'Farcaster',
     Lens = 'Lens',
 }

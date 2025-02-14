@@ -6,7 +6,6 @@ import { useAsyncFn } from 'react-use';
 
 import SettingsIcon from '@/assets/setting.svg';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useNotificationSettings } from '@/hooks/useNotificationSettings.js';
@@ -21,7 +20,6 @@ export function NotificationSettings({ source }: { source: SocialSource }) {
             if (!result) throw new Error('Failed to update notification settings');
 
             await refetch();
-            queryClient.refetchQueries({ queryKey: ['notifications', source] });
         },
         [refetch, source],
     );
