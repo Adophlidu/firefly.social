@@ -1243,6 +1243,10 @@ msgstr "Directory"
 msgid "Cannot choose due to account mismatch."
 msgstr "Cannot choose due to account mismatch."
 
+#. placeholder {0}: resolveSourcesName(ENABLED_RP_SOURCES)
+msgid "Red packet is only available on {0}."
+msgstr "Red packet is only available on {0}."
+
 msgid "Search Filter"
 msgstr "Search Filter"
 

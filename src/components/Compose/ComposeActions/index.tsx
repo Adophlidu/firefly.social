@@ -18,7 +18,7 @@ import { PollButton } from '@/components/Poll/PollButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { ENABLED_SCHEDULE_POST_SOURCES } from '@/constants/index.js';
+import { ENABLED_RP_SOURCES, ENABLED_SCHEDULE_POST_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
@@ -107,7 +107,10 @@ export function ComposeActions() {
                         </Tooltip>
                     ) : null}
 
-                    {!scheduleTime && !mediaDisabled && isMedium ? (
+                    {!scheduleTime &&
+                    !mediaDisabled &&
+                    isMedium &&
+                    availableSources.every((x) => ENABLED_RP_SOURCES.includes(x)) ? (
                         <ClickableButton
                             className={classNames('h-5 w-5', {
                                 'cursor-wait opacity-50': loading,

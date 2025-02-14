@@ -6,6 +6,7 @@ import { Fragment, useMemo } from 'react';
 import { PostByItem } from '@/components/Compose/PostByItem.js';
 import { FileMimeType } from '@/constants/enum.js';
 import {
+    ENABLED_RP_SOURCES,
     ENABLED_SCHEDULE_POST_SOURCES,
     GIF_MEDIA_SOURCE_CONFIG,
     SORTED_POLL_SOURCES,
@@ -20,7 +21,7 @@ import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export function PostBy() {
-    const { poll, availableSources, images } = useCompositePost();
+    const { poll, availableSources, images, rpPayload } = useCompositePost();
     const { type } = useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
 
@@ -58,9 +59,16 @@ export function PostBy() {
                     reason: t`GIF source not supported. Supported sources: ${GIF_MEDIA_SOURCE_CONFIG[source].join(', ')}.`,
                 };
 
+            if (!ENABLED_RP_SOURCES.includes(source) && rpPayload) {
+                return {
+                    disabled: true,
+                    reason: t`Red packet is only available on ${resolveSourcesName(ENABLED_RP_SOURCES)}.`,
+                };
+            }
+
             return { disabled: false };
         });
-    }, [availableSources, images, poll, type, scheduleTime]);
+    }, [availableSources, images, poll, type, scheduleTime, rpPayload]);
 
     const content = (
         <div className="no-scrollbar flex max-h-[184px] flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[208px]">

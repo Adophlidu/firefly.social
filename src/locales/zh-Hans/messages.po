@@ -1248,6 +1248,10 @@ msgstr "目录"
 msgid "Cannot choose due to account mismatch."
 msgstr "账户不匹配导致选择失败。"
 
+#. placeholder {0}: resolveSourcesName(ENABLED_RP_SOURCES)
+msgid "Red packet is only available on {0}."
+msgstr ""
+
 msgid "Search Filter"
 msgstr "查询规则"
 

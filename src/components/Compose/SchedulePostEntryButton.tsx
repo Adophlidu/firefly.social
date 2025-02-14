@@ -41,7 +41,7 @@ export const SchedulePostEntryButton = forwardRef<HTMLDivElement, SchedulePostEn
                 <div
                     className={classNames(
                         'mb-3 flex items-center gap-[10px] text-[13px] text-second',
-                        disabled ? 'opacity-50' : '',
+                        disabled ? 'cursor-not-allowed opacity-50' : '',
                     )}
                     onClick={handleClick}
                     ref={ref}
@@ -63,7 +63,7 @@ export const SchedulePostEntryButton = forwardRef<HTMLDivElement, SchedulePostEn
         return (
             <div className="flex items-center gap-[10px] text-[13px] text-second" ref={ref}>
                 <ScheduleIcon
-                    className={classNames('cursor-pointer', disabled ? 'opacity-50' : '', className)}
+                    className={classNames(disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer', className)}
                     onClick={handleClick}
                 />
             </div>
