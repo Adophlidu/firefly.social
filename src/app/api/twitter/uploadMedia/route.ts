@@ -35,7 +35,7 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
         const parsedOptions = options ? UploadSchema.safeParse(options) : undefined;
         if (parsedOptions && !parsedOptions.success) throw new Error(parsedOptions.error.message);
 
-        const client = await createTwitterClientV2(request);
+        const client = await createTwitterClientV2();
         const response = await client.v1.uploadMedia(Buffer.from(await file.arrayBuffer()), {
             mimeType: file.type,
             ...(parsedOptions ? parsedOptions.data : {}),

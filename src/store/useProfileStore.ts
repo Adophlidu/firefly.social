@@ -9,7 +9,7 @@ import { immer } from 'zustand/middleware/immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
-import { FetchError } from '@/constants/error.js';
+import { AuthenticationError, FetchError } from '@/constants/error.js';
 import { EMPTY_LIST, HIDDEN_SECRET } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
@@ -323,6 +323,7 @@ const useTwitterStateBase = createState(
                 await addTwitterAccount(sessionPayload, true);
             } catch (error) {
                 if (error instanceof FetchError) return;
+                if (error instanceof AuthenticationError) await signOut({ redirect: false });
                 state.clear();
                 twitterSessionHolder.removeSession();
             } finally {

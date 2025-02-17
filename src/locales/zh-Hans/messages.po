@@ -188,9 +188,6 @@ msgstr "在 {sourceName} 上关注 @{0}"
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {关注者} other {关注者}}"
 
-msgid "Failed to unbookmark post."
-msgstr "取消收藏失败。"
-
 msgid "Delete post"
 msgstr "删除帖子"
 
@@ -1099,9 +1096,6 @@ msgstr "会话验证器"
 msgid "THREAD POST"
 msgstr "THREAD 发帖"
 
-msgid "Failed to avatar."
-msgstr "上传头像失败。"
-
 msgid "Frame Validator"
 msgstr "Frame 验证器"
 
@@ -1401,9 +1395,6 @@ msgstr "用户已取消操作。"
 
 msgid "Your Farcaster account holds Power Badge"
 msgstr "您的 Farcaster 账户拥有 Power Badge"
-
-msgid "Failed to fetch space \"{id}\"."
-msgstr "无法获取空间 \"{id}\"。"
 
 msgid "Owned By"
 msgstr "属于"
@@ -2729,9 +2720,6 @@ msgstr "这看起来不像是一个陷阱。"
 
 msgid "Are you sure you want to remove this NFT from your bookmark?"
 msgstr "您确定要从书签中移除此 NFT 吗？"
-
-msgid "Failed to publish post."
-msgstr "发布帖子失败"
 
 msgid "Voted successfully."
 msgstr "投票成功。"

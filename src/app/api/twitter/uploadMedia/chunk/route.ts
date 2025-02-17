@@ -22,7 +22,7 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
     async (request) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, FinishUploadSchema);
 
-        const client = await createTwitterClientV2(request);
+        const client = await createTwitterClientV2();
         const data = await client.post<GetUploadStatusResponse>(
             urlcat(TWITTER_UPLOAD_MEDIA_URL, { ...queryParams, command: 'FINALIZE' }),
         );
@@ -38,7 +38,7 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
     async (request) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, FinishUploadSchema);
 
-        const client = await createTwitterClientV2(request);
+        const client = await createTwitterClientV2();
         const data = await client.get<GetUploadStatusResponse>(
             urlcat(TWITTER_UPLOAD_MEDIA_URL, { ...queryParams, command: 'STATUS' }),
         );

@@ -25,6 +25,7 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
             },
             {
                 noDefaultContentType: true,
+                noStrictOK: true,
                 ...options,
             },
         );
@@ -35,6 +36,7 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
 
         return fetchJSON<T>(input, init, {
             noDefaultContentType: true,
+            noStrictOK: true,
             ...options,
         });
     }

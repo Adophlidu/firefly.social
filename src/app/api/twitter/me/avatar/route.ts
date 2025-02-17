@@ -19,7 +19,7 @@ export const PUT = compose<(request: NextRequest, context?: NextRequestContext) 
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
     async (request) => {
-        const client = await createTwitterClientV2(request);
+        const client = await createTwitterClientV2();
         const formData = await request.formData().catch((error) => {
             throw new ContentTypeError(error.message);
         });

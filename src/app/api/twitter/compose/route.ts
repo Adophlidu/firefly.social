@@ -81,7 +81,7 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
     async (request) => {
-        const client = await createTwitterClientV2(request);
+        const client = await createTwitterClientV2();
         const tweet = await composeTweet(await request.json());
         const { data, errors } = await client.v2.tweet(tweet);
         if (errors?.length) {

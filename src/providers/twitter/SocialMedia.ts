@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { isServer } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import type {
@@ -30,6 +29,7 @@ import { createIndicator, createPageable, type Pageable, type PageIndicator } fr
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
+import { resolveTwitterResponseData } from '@/helpers/resolveTwitterResponseData.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -181,8 +181,8 @@ class TwitterSocialMedia implements Provider {
                     withSession: true,
                 },
             );
-            if (!response.success) throw new Error(response.error.message);
-            return formatTwitterProfilePage(response.data, indicator);
+            const data = resolveTwitterResponseData(response);
+            return formatTwitterProfilePage(data, indicator);
         });
     }
 
@@ -236,14 +236,14 @@ class TwitterSocialMedia implements Provider {
         const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/unretweet/${postId}`, {
             method: 'POST',
         });
-        if (!response.success) throw new Error(response.error.message);
+        const data = resolveTwitterResponseData(response);
     }
 
     async mirrorPost(postId: string): Promise<string> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/retweet/${postId}`, {
             method: 'POST',
         });
-        if (!response.success) throw new Error(response.error.message);
+        const data = resolveTwitterResponseData(response);
         return postId;
     }
 
@@ -257,17 +257,17 @@ class TwitterSocialMedia implements Provider {
                 ids,
             }),
         });
-        if (!response.success) throw new Error(response.error.message);
-        if (!response.data?.length) return EMPTY_LIST;
+        const data = resolveTwitterResponseData(response);
+        if (!data.length) return EMPTY_LIST;
 
-        return response.data.map(formatTwitterProfile);
+        return data.map(formatTwitterProfile);
     }
 
     async follow(profileId: string): Promise<boolean> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/follow/${profileId}`, {
             method: 'POST',
         });
-        if (!response.success) throw new Error(response.error.message);
+        const data = resolveTwitterResponseData(response);
         return true;
     }
 
@@ -275,7 +275,7 @@ class TwitterSocialMedia implements Provider {
         const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/unfollow/${profileId}`, {
             method: 'POST',
         });
-        if (!response.success) throw new Error(response.error.message);
+        const data = resolveTwitterResponseData(response);
         return true;
     }
 
@@ -291,46 +291,37 @@ class TwitterSocialMedia implements Provider {
                 withSession: true,
             },
         );
-        if (!response.success) throw new Error(response.error.message);
-        return formatTweetsPage(response.data, indicator);
+        const data = resolveTwitterResponseData(response);
+        return formatTweetsPage(data, indicator);
     }
 
     async getPostById(postId: string): Promise<Post> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<Post>>(`/api/twitter/${postId}`);
-        if (!response.success) throw new Error(response.error.message);
-        return response.data;
+        const data = resolveTwitterResponseData(response);
+        return data;
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`);
-        if (!response.success) throw new Error(response.error.message);
-        response.data.url =
-            response.data.url && !isServer
-                ? ((await resolveTCOLink(response.data.url)) ?? response.data.url)
-                : response.data.url;
-        return formatTwitterProfile(response.data);
+        const data = resolveTwitterResponseData(response);
+        data.url = data.url && !isServer ? ((await resolveTCOLink(data.url)) ?? data.url) : data.url;
+        return formatTwitterProfile(data);
     }
 
     async getProfileByIdWithSessionPayload(profileId: string, payload: SessionPayload): Promise<Profile> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`, {
             headers: TwitterSession.payloadToHeaders(payload),
         });
-        if (!response.success) throw new Error(response.error.message);
-        response.data.url =
-            response.data.url && !isServer
-                ? ((await resolveTCOLink(response.data.url)) ?? response.data.url)
-                : response.data.url;
-        return formatTwitterProfile(response.data);
+        const data = resolveTwitterResponseData(response);
+        data.url = data.url && !isServer ? ((await resolveTCOLink(data.url)) ?? data.url) : data.url;
+        return formatTwitterProfile(data);
     }
 
     async getProfileByHandle(handle: string): Promise<Profile> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/username/${handle}`);
-        if (!response.success) throw new Error(response.error.message);
-        response.data.url =
-            response.data.url && !isServer
-                ? ((await resolveTCOLink(response.data.url)) ?? response.data.url)
-                : response.data.url;
-        return formatTwitterProfile(response.data);
+        const data = resolveTwitterResponseData(response);
+        data.url = data.url && !isServer ? ((await resolveTCOLink(data.url)) ?? data.url) : data.url;
+        return formatTwitterProfile(data);
     }
 
     getCollectedPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -349,8 +340,8 @@ class TwitterSocialMedia implements Provider {
                 withSession: true,
             },
         );
-        if (!response.success) throw new Error(response.error.message);
-        return formatTweetsPage(response.data, indicator);
+        const data = resolveTwitterResponseData(response);
+        return formatTweetsPage(data, indicator);
     }
 
     async getLikedPostsByProfileId(
@@ -368,9 +359,8 @@ class TwitterSocialMedia implements Provider {
                 withSession: true,
             },
         );
-        if (!response.success) throw new Error(response.error.message);
-
-        const postWithPageable = formatTweetsPage(response.data, indicator);
+        const data = resolveTwitterResponseData(response);
+        const postWithPageable = formatTweetsPage(data, indicator);
         return { ...postWithPageable, data: postWithPageable.data.map((post) => ({ ...post, hasLiked: true })) };
     }
 
@@ -389,8 +379,8 @@ class TwitterSocialMedia implements Provider {
                 withSession: true,
             },
         );
-        if (!response.success) throw new Error(response.error.message);
-        return formatTweetsPage(response.data, indicator);
+        const data = resolveTwitterResponseData(response);
+        return formatTweetsPage(data, indicator);
     }
 
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -405,8 +395,8 @@ class TwitterSocialMedia implements Provider {
                 withSession: true,
             },
         );
-        if (!response.success) throw new Error(response.error.message);
-        return formatTweetsPage(response.data, indicator);
+        const data = resolveTwitterResponseData(response);
+        return formatTweetsPage(data, indicator);
     }
 
     async getThreadByPostId(postId: string): Promise<Post[]> {
@@ -417,15 +407,15 @@ class TwitterSocialMedia implements Provider {
                 withSession: true,
             },
         );
-        if (!response.success) throw new Error(response.error.message);
-        return response.data;
+        const data = resolveTwitterResponseData(response);
+        return data;
     }
 
     async upvotePost(postId: string): Promise<void> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/like/${postId}`, {
             method: 'POST',
         });
-        if (!response.success) throw new Error(response.error.message);
+        const data = resolveTwitterResponseData(response);
         const session = twitterSessionHolder.session;
         if (session?.profileId) {
             useTwitterLikeStore.getState().like(session.profileId, postId);
@@ -436,7 +426,7 @@ class TwitterSocialMedia implements Provider {
         const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/unlike/${postId}`, {
             method: 'POST',
         });
-        if (!response.success) throw new Error(response.error.message);
+        const data = resolveTwitterResponseData(response);
         const session = twitterSessionHolder.session;
         if (session?.profileId) {
             useTwitterLikeStore.getState().unlike(session.profileId, postId);
@@ -458,8 +448,8 @@ class TwitterSocialMedia implements Provider {
                     withSession: true,
                 },
             );
-            if (!response.success) throw new Error(response.error.message);
-            return formatTweetsPage(response.data, indicator);
+            const data = resolveTwitterResponseData(response);
+            return formatTweetsPage(data, indicator);
         });
     }
 
@@ -481,8 +471,8 @@ class TwitterSocialMedia implements Provider {
             }),
         });
 
-        if (!response.success) throw new Error(t`Failed to quote post.`);
-        return { postId: response.data.id };
+        const data = resolveTwitterResponseData(response, 'Failed to quote post.');
+        return { postId: data.id };
     }
 
     async publishPost(
@@ -515,8 +505,8 @@ class TwitterSocialMedia implements Provider {
             }),
         });
 
-        if (!response.success) throw new Error(t`Failed to publish post.`);
-        return { postId: response.data.id };
+        const data = resolveTwitterResponseData(response, 'Failed to publish post.');
+        return { postId: data.id };
     }
 
     async deletePost(tweetId: string): Promise<boolean> {
@@ -531,8 +521,8 @@ class TwitterSocialMedia implements Provider {
             },
         });
 
-        if (!response.success) throw new Error(t`Failed to publish post.`);
-        return response.data.deleted;
+        const data = resolveTwitterResponseData(response, 'Failed to publish post.');
+        return data.deleted;
     }
     async blockProfile(profileId: string): Promise<boolean> {
         const result = await FireflyEndpointProvider.blockProfileFor(FireflyPlatform.Twitter, profileId);
@@ -579,8 +569,8 @@ class TwitterSocialMedia implements Provider {
             },
         });
 
-        if (!response.success) throw new Error(t`Failed to bookmark post.`);
-        return response.data;
+        const data = resolveTwitterResponseData(response, 'Failed to bookmark post.');
+        return data;
     }
     async unbookmark(tweetId: string): Promise<boolean> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<boolean>>(`/api/twitter/bookmark/${tweetId}`, {
@@ -590,8 +580,8 @@ class TwitterSocialMedia implements Provider {
             },
         });
 
-        if (!response.success) throw new Error(t`Failed to unbookmark post.`);
-        return response.data;
+        const data = resolveTwitterResponseData(response, 'Failed to unbookmark post.');
+        return data;
     }
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat('/api/twitter/bookmarks', {
@@ -599,8 +589,8 @@ class TwitterSocialMedia implements Provider {
             limit: 25,
         });
         const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
-        if (!response.success) throw new Error(t`Failed to fetch bookmarks.`);
-        return formatTweetsPage(response.data, indicator);
+        const data = resolveTwitterResponseData(response, 'Failed to fetch bookmarks.');
+        return formatTweetsPage(data, indicator);
     }
     async reportProfile(profileId: string): Promise<boolean> {
         throw new NotImplementedError();
@@ -615,7 +605,7 @@ class TwitterSocialMedia implements Provider {
             method: 'PUT',
             body: formData,
         });
-        if (!res.success) throw new Error(t`Failed to avatar.`);
+        if (!res.success) throw new Error('Failed to avatar.');
         return res.data.pfp;
     }
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
@@ -668,8 +658,8 @@ class TwitterSocialMedia implements Provider {
         const response = await twitterSessionHolder.fetch<ResponseJSON<SpaceV2SingleResult>>(
             urlcat('/api/twitter/space/:id', { id }),
         );
-        if (!response.success) throw new Error(t`Failed to fetch space "${id}".`);
-        return response.data;
+        const data = resolveTwitterResponseData(response, 'Failed to fetch space "${id}".');
+        return data;
     }
 
     async joinChannel(channel: Channel): Promise<boolean> {
@@ -682,8 +672,8 @@ class TwitterSocialMedia implements Provider {
 
     async getPinnedPost(profileId: string): Promise<Post | null> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<Post>>(`/api/twitter/user/${profileId}/pinned`);
-        if (!response.success) throw new Error(response.error.message);
-        return response.data;
+        const data = resolveTwitterResponseData(response);
+        return data;
     }
 
     async decryptPost(post: Post): Promise<Post> {

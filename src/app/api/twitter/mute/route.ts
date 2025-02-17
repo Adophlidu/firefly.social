@@ -15,7 +15,7 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
     async (request: NextRequest) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);
 
-        const client = await createTwitterClientV2(request);
+        const client = await createTwitterClientV2();
         const { data: me, errors } = await client.v2.me();
         if (errors?.length) console.error('[twitter] v2.me', errors);
 

@@ -16,7 +16,7 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
         const targetId = (await context?.params)?.targetId;
         if (!targetId) throw new MalformedError('targetId not found');
 
-        const client = await createTwitterClientV2(request);
+        const client = await createTwitterClientV2();
         const { data: me, errors } = await client.v2.me();
         if (errors?.length) {
             console.error('[twitter] v2.me', errors);
@@ -40,7 +40,7 @@ export const DELETE = compose<(request: NextRequest, context?: NextRequestContex
         const targetId = (await context?.params)?.targetId;
         if (!targetId) throw new MalformedError('targetId not found');
 
-        const client = await createTwitterClientV2(request);
+        const client = await createTwitterClientV2();
         const { data: me, errors } = await client.v2.me();
         if (errors?.length) {
             console.error('[twitter] v2.me', errors);

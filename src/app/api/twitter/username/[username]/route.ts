@@ -16,7 +16,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         const username = (await context?.params)?.username;
         if (!username) throw new MalformedError('username not found');
 
-        const client = await createTwitterClientV2(request);
+        const client = await createTwitterClientV2();
         const { data, errors } = await client.v2.userByUsername(username, {
             ...TWITTER_USER_OPTIONS,
         });

@@ -20,7 +20,7 @@ export const DELETE = compose(
         const tweetId = (await context?.params)?.tweetId;
         if (!tweetId) throw new MalformedError('tweetId not found');
 
-        const client = await createTwitterClientV2(request);
+        const client = await createTwitterClientV2();
         const { data, errors } = await client.v2.deleteTweet(tweetId);
 
         if (errors?.length) {
@@ -39,7 +39,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         const tweetId = (await context?.params)?.tweetId;
         if (!tweetId) throw new MalformedError('tweetId not found');
 
-        const client = await createTwitterClientV2(request);
+        const client = await createTwitterClientV2();
         const {
             data,
             includes = {},

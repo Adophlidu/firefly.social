@@ -18,7 +18,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         const userId = (await context?.params)?.userId;
         if (!userId) throw new MalformedError('userId not found');
 
-        const client = await createTwitterClientV2(request);
+        const client = await createTwitterClientV2();
         const user = await client.v2.user(userId, {
             'user.fields': ['pinned_tweet_id'],
             expansions: ['pinned_tweet_id'],

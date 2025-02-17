@@ -21,7 +21,7 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
         if (!parsedBody.success) throw new Error(parsedBody.error.message);
         const { ids } = parsedBody.data;
 
-        const client = await createTwitterClientV2(request);
+        const client = await createTwitterClientV2();
         const { data, errors } = await client.v2.users(ids, {
             ...TWITTER_USER_OPTIONS,
         });

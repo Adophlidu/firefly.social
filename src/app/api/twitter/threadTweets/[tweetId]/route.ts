@@ -17,7 +17,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         const tweetId = (await context?.params)?.tweetId;
         if (!tweetId) throw new MalformedError('tweetId not found');
 
-        const client = await createTwitterClientV2(request);
+        const client = await createTwitterClientV2();
         const { data, includes, errors } = await getThreadTweets(client, tweetId);
         if (errors?.length) console.error('[twitter] v2.tweets', errors);
 

@@ -183,9 +183,6 @@ msgstr "Followed @{0} on {sourceName}"
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {Follower} other {Followers}}"
 
-msgid "Failed to unbookmark post."
-msgstr "Failed to unbookmark post."
-
 msgid "Delete post"
 msgstr "Delete post"
 
@@ -1094,9 +1091,6 @@ msgstr "Session Validator"
 msgid "THREAD POST"
 msgstr "THREAD POST"
 
-msgid "Failed to avatar."
-msgstr "Failed to avatar."
-
 msgid "Frame Validator"
 msgstr "Frame Validator"
 
@@ -1396,9 +1390,6 @@ msgstr "The user canceled the operation."
 
 msgid "Your Farcaster account holds Power Badge"
 msgstr "Your Farcaster account holds Power Badge"
-
-msgid "Failed to fetch space \"{id}\"."
-msgstr "Failed to fetch space \"{id}\"."
 
 msgid "Owned By"
 msgstr "Owned By"
@@ -2727,9 +2718,6 @@ msgstr "This does not appear to be a honeypot."
 
 msgid "Are you sure you want to remove this NFT from your bookmark?"
 msgstr "Are you sure you want to remove this NFT from your bookmark?"
-
-msgid "Failed to publish post."
-msgstr "Failed to publish post."
 
 msgid "Voted successfully."
 msgstr "Voted successfully."

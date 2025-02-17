@@ -26,7 +26,7 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
         const file = formData.get('media') as File | null;
         if (!file) throw new MalformedError('file not found');
 
-        const client = await createTwitterClientV2(request);
+        const client = await createTwitterClientV2();
         await client.post(
             urlcat(TWITTER_UPLOAD_MEDIA_URL, {
                 ...queryParams,

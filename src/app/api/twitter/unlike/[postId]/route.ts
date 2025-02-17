@@ -16,7 +16,7 @@ export const POST = compose<(request: NextRequest, context?: NextRequestContext)
         const postId = (await context?.params)?.postId;
         if (!postId) throw new MalformedError('postId not found');
 
-        const client = await createTwitterClientV2(request);
+        const client = await createTwitterClientV2();
         const { data: me, errors } = await client.v2.me();
         if (errors?.length) {
             console.error('[twitter] v2.me', errors);

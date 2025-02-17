@@ -38,7 +38,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
             max_results: queryParams.limit,
         });
 
-        const client = await createTwitterClientV2(request);
+        const client = await createTwitterClientV2();
         const data: UserV2TimelineResult = await client.v2.get(url);
 
         return createSuccessResponseJSON(data);

@@ -15,7 +15,7 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
     async (request) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);
 
-        const client = await createTwitterClientV2(request);
+        const client = await createTwitterClientV2();
         const { data, errors } = await client.v2.homeTimeline({
             ...TWITTER_TIMELINE_OPTIONS,
             pagination_token: queryParams.cursor ? queryParams.cursor : undefined,
