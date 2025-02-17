@@ -71,7 +71,7 @@ export function PostBy() {
     }, [availableSources, images, poll, type, scheduleTime, rpPayload]);
 
     const content = (
-        <div className="no-scrollbar flex max-h-[184px] flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[208px]">
+        <div className="no-scrollbar flex max-h-[156px] flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[188px]">
             {SORTED_SOCIAL_SOURCES.map((source, index) => (
                 <PostByItem key={source} source={source} {...postByDisabled[index]} />
             ))}
@@ -96,7 +96,7 @@ export function PostBy() {
                     portal
                     modal
                     static
-                    className="absolute bottom-full right-0 z-10 !min-h-0 w-[280px] -translate-y-3 [--anchor-max-height:184px] md:[--anchor-max-height:208px]"
+                    className="absolute bottom-full right-0 z-10 !min-h-0 w-[280px] -translate-y-3 [--anchor-max-height:156px] md:[--anchor-max-height:188px]"
                 >
                     {content}
                 </PopoverPanel>

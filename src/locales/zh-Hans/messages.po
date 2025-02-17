@@ -21,6 +21,9 @@ msgstr ""
 msgid "The gas abuse function is included. The project owner may have the ability to control the contract."
 msgstr "包含燃气滥用功能。项目所有者可能有能力控制合约。"
 
+msgid "Failed to sign in."
+msgstr ""
+
 msgid "Projects"
 msgstr "项目"
 

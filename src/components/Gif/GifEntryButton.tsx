@@ -5,7 +5,6 @@ import { memo } from 'react';
 import GifIcon from '@/assets/gif.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface GifEntryButtonProps {
     disabled?: boolean;
@@ -21,11 +20,7 @@ export const GifEntryButton = memo(function GifEntryButton({ disabled = false }:
                 disabled={disabled}
                 onClick={() => history.push('/gif')}
             >
-                <GifIcon
-                    width={24}
-                    height={24}
-                    className={classNames('text-main', disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer')}
-                />
+                <GifIcon width={24} height={24} />
             </ClickableButton>
         </Tooltip>
     );

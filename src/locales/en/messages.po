@@ -16,6 +16,9 @@ msgstr ""
 msgid "The gas abuse function is included. The project owner may have the ability to control the contract."
 msgstr "The gas abuse function is included. The project owner may have the ability to control the contract."
 
+msgid "Failed to sign in."
+msgstr "Failed to sign in."
+
 msgid "Projects"
 msgstr "Projects"
 

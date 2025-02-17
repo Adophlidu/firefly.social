@@ -10,5 +10,5 @@ const restrictionConfig: Record<RestrictionType, SocialSource[]> = {
 export function isValidRestrictionType(type: RestrictionType, availableSources: SocialSource[]) {
     if (!restrictionConfig[type]?.length || !availableSources.length) return false;
 
-    return availableSources.some((source) => restrictionConfig[type].includes(source));
+    return availableSources.every((source) => restrictionConfig[type].includes(source));
 }

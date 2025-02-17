@@ -47,7 +47,7 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
             await switchAccount(account);
             enqueueSuccessMessage(t`Your ${resolveSourceName(account.profile.source)} account is now connected.`);
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to login.`);
+            enqueueMessageFromError(error, t`Failed to sign in.`);
             throw error;
         }
     }, []);
@@ -70,14 +70,14 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
     if (!currentProfile || !accounts?.length)
         return (
             <div className="shrink-0">
-                <div className="box-content flex h-12 items-center justify-between px-3 hover:bg-bg">
+                <div className="box-content flex h-8 items-center justify-between px-3 hover:bg-bg">
                     <div className="flex items-center gap-2 text-main">
                         <SocialSourceIcon size={24} source={source} />
                         <span className="font-bold text-main">{resolveSourceName(source)}</span>
                     </div>
 
                     <ClickableButton
-                        className="font-bold text-farcasterPrimary"
+                        className="font-bold text-highlight"
                         onClick={async () => {
                             if (source === Source.Farcaster && images.length > 2) {
                                 enqueueErrorMessage(t`Only up to 2 images can be chosen.`);
@@ -96,56 +96,53 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
                             });
                         }}
                     >
-                        <Trans>Login</Trans>
+                        <Trans>Sign in</Trans>
                     </ClickableButton>
                 </div>
             </div>
         );
 
-    return accounts.map(({ profile, session }) => (
-        <div className="shrink-0" key={profile.profileId} onClick={() => toggleSource(profile)}>
-            <div
-                className={classNames('box-content flex h-12 items-center justify-between px-3', {
-                    'cursor-pointer hover:bg-bg': !disabled,
-                    'cursor-not-allowed opacity-50': disabled && !reason,
-                })}
-            >
-                <div className="flex items-center gap-2">
-                    <div className="relative">
-                        <Avatar src={profile.pfp} size={24} alt={profile.handle} />
-                        <SocialSourceIcon
-                            className="absolute -bottom-1 -right-1 z-10 rounded-full border border-white dark:border-gray-900"
-                            source={profile.source}
-                            size={12}
-                        />
+    return accounts.map(({ profile, session }) => {
+        const checked = availableSources.includes(currentProfile.source);
+
+        return (
+            <div className="shrink-0" key={profile.profileId} onClick={() => toggleSource(profile)}>
+                <div
+                    className={classNames('box-content flex h-8 items-center justify-between px-3', {
+                        'cursor-pointer hover:bg-bg': !disabled,
+                        'cursor-not-allowed opacity-50': disabled && !reason,
+                    })}
+                >
+                    <div className="flex items-center gap-2">
+                        <div className="relative">
+                            <Avatar src={profile.pfp} size={24} alt={profile.handle} />
+                            <SocialSourceIcon
+                                className="absolute -bottom-1 -right-1 z-10 rounded-full border border-white dark:border-gray-900"
+                                source={profile.source}
+                                size={12}
+                            />
+                        </div>
+                        <span className={classNames(checked ? 'text-main' : 'text-secondary')}>@{profile.handle}</span>
                     </div>
-                    <span
-                        className={classNames(
-                            'font-bold',
-                            isSameProfile(currentProfile, profile) ? 'text-main' : 'text-secondary',
-                        )}
-                    >
-                        @{profile.handle}
-                    </span>
-                </div>
-                {isSameProfile(currentProfile, profile) ? (
-                    disabled && reason ? (
-                        <Tooltip placement="top-end" content={reason}>
-                            <InfoIcon width={20} height={20} className="cursor-pointer text-warn" />
-                        </Tooltip>
+                    {isSameProfile(currentProfile, profile) ? (
+                        disabled && reason ? (
+                            <Tooltip placement="top" content={reason}>
+                                <InfoIcon width={22} height={22} className="cursor-pointer text-second" />
+                            </Tooltip>
+                        ) : (
+                            <CircleCheckboxIcon size={18} checked={checked} />
+                        )
                     ) : (
-                        <CircleCheckboxIcon checked={availableSources.includes(currentProfile.source)} />
-                    )
-                ) : (
-                    <ClickableButton
-                        className="font-bold text-farcasterPrimary"
-                        disabled={loading}
-                        onClick={() => login({ profile, session })}
-                    >
-                        {loading ? <LoadingIcon /> : <Trans>Switch</Trans>}
-                    </ClickableButton>
-                )}
+                        <ClickableButton
+                            className="font-bold text-highlight"
+                            disabled={loading}
+                            onClick={() => login({ profile, session })}
+                        >
+                            {loading ? <LoadingIcon /> : <Trans>Switch</Trans>}
+                        </ClickableButton>
+                    )}
+                </div>
             </div>
-        </div>
-    ));
+        );
+    });
 }
