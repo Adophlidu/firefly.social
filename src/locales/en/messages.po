@@ -496,6 +496,9 @@ msgstr "Anti whale can be modified."
 msgid "Profile not found"
 msgstr "Profile not found"
 
+msgid "Posted to Lens or Farcaster on Yup or posted to Lens on Phaver since August 1, 2024. New Firefly users only."
+msgstr "Posted to Lens or Farcaster on Yup or posted to Lens on Phaver since August 1, 2024. New Firefly users only."
+
 msgid "NFT Standard"
 msgstr "NFT Standard"
 
@@ -2541,6 +2544,7 @@ msgid "Unknown transaction method: {method}."
 msgstr "Unknown transaction method: {method}."
 
 #. placeholder {0}: resolveSourceName(source)
+#. placeholder {0}: resolveSourceName(Array.isArray(source) ? source[0] : source)
 msgid "Please sign in with {0} to continue"
 msgstr "Please sign in with {0} to continue"
 
@@ -3212,6 +3216,15 @@ msgstr "Money laundering found."
 
 msgid "Log out all"
 msgstr "Log out all"
+
+msgid ""
+"Just earned $MASK by minting the Inviting Yup & Phaver frens🌟 collectible from {fireflyMention}  \n"
+"\n"
+"Claim here {shareUrl}"
+msgstr ""
+"Just earned $MASK by minting the Inviting Yup & Phaver frens🌟 collectible from {fireflyMention}  \n"
+"\n"
+"Claim here {shareUrl}"
 
 #. placeholder {0}: firstProfile.displayName
 msgid "{0} and others"

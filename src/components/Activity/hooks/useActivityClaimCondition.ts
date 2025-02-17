@@ -6,7 +6,7 @@ import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInAc
 import { type SocialSource } from '@/constants/enum.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 
-export function useActivityClaimCondition(source: SocialSource) {
+export function useActivityClaimCondition(source: SocialSource | SocialSource[]) {
     const { address, name, premiumAddress } = useContext(ActivityContext);
     const isLoggedIn = useIsLoginInActivity(source);
     return useQuery({

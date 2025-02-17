@@ -25,7 +25,7 @@ import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
-export function ActivityConnectButton({ source, chainId }: { source: SocialSource; chainId: number }) {
+export function ActivityConnectButton({ source, chainId }: { source: SocialSource | SocialSource[]; chainId: number }) {
     const { onChangeAddress, address } = useContext(ActivityContext);
     const { refetch: refetchActivityClaimCondition, isRefetching } = useActivityClaimCondition(source);
     const isLoggedIn = useIsLoginInActivity(source);
@@ -50,18 +50,21 @@ export function ActivityConnectButton({ source, chainId }: { source: SocialSourc
         <div className="relative inline">
             <Menu>
                 <Menu.Button
-                    className={
+                    className={classNames(
+                        'relative inline-flex items-center rounded-lg',
                         address
-                            ? 'relative inline-flex items-center rounded-full border border-current bg-transparent px-4 leading-[30px] text-main'
-                            : 'relative inline-flex items-center rounded-full bg-main px-4 leading-8 text-primaryBottom'
-                    }
+                            ? 'border border-current bg-transparent px-4 leading-[30px] text-main'
+                            : 'bg-main px-4 leading-8 text-primaryBottom',
+                    )}
                     onClick={(e: MouseEvent<HTMLButtonElement>) => {
                         if (isLoggedIn) {
                             refetch();
                             return;
                         }
                         e.preventDefault();
-                        enqueueWarningMessage(t`Please sign in with ${resolveSourceName(source)} to continue`);
+                        enqueueWarningMessage(
+                            t`Please sign in with ${resolveSourceName(Array.isArray(source) ? source[0] : source)} to continue`,
+                        );
                     }}
                 >
                     {isRefetching || isLoading ? (

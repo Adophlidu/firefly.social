@@ -501,6 +501,9 @@ msgstr ""
 msgid "Profile not found"
 msgstr ""
 
+msgid "Posted to Lens or Farcaster on Yup or posted to Lens on Phaver since August 1, 2024. New Firefly users only."
+msgstr ""
+
 msgid "NFT Standard"
 msgstr ""
 
@@ -2533,6 +2536,7 @@ msgid "Unknown transaction method: {method}."
 msgstr ""
 
 #. placeholder {0}: resolveSourceName(source)
+#. placeholder {0}: resolveSourceName(Array.isArray(source) ? source[0] : source)
 msgid "Please sign in with {0} to continue"
 msgstr ""
 
@@ -3203,6 +3207,12 @@ msgid "Money laundering found."
 msgstr ""
 
 msgid "Log out all"
+msgstr ""
+
+msgid ""
+"Just earned $MASK by minting the Inviting Yup & Phaver frens🌟 collectible from {fireflyMention}  \n"
+"\n"
+"Claim here {shareUrl}"
 msgstr ""
 
 #. placeholder {0}: firstProfile.displayName

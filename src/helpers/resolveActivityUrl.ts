@@ -1,5 +1,10 @@
 import urlcat from 'urlcat';
 
+import { type SocialSource, Source } from '@/constants/enum.js';
+import { UnreachableError } from '@/constants/error.js';
+import { SITE_URL } from '@/constants/index.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+
 export enum ReferralAccountPlatform {
     X = 'x',
     Farcaster = 'f',
@@ -19,4 +24,26 @@ export function resolveActivityUrl(
         p: options?.platform,
         r: options?.referralCode,
     });
+}
+
+const resolveReferralAccountPlatformFromSocialSource = createLookupTableResolver<SocialSource, ReferralAccountPlatform>(
+    {
+        [Source.Twitter]: ReferralAccountPlatform.X,
+        [Source.Farcaster]: ReferralAccountPlatform.Farcaster,
+        [Source.Lens]: ReferralAccountPlatform.Lens,
+        [Source.Bsky]: ReferralAccountPlatform.Bsky,
+    },
+    (source) => {
+        throw new UnreachableError('social source', source);
+    },
+);
+
+export function resolveActivityShareUrl(name: string, source: SocialSource, handle?: string) {
+    return urlcat(
+        SITE_URL,
+        resolveActivityUrl(name, {
+            referralCode: handle,
+            platform: resolveReferralAccountPlatformFromSocialSource(source),
+        }),
+    );
 }

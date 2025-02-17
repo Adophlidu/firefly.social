@@ -1,5 +1,3 @@
-'use client';
-
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
@@ -9,57 +7,55 @@ import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.j
 import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
 import { ActivityContactUs } from '@/components/Activity/ActivityContactUs.js';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
-import { ActivityLoginButton } from '@/components/Activity/ActivityLoginButton.js';
-import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
-import { ActivityPremiumListProvider } from '@/components/Activity/ActivityPremiumListContext.js';
+import { ActivityLoginButtonWithMultipleSources } from '@/components/Activity/ActivityLoginButton.js';
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
-import { useActivityShareUrl } from '@/components/Activity/hooks/useActivityShareUrl.js';
+import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
 import { IS_ANDROID } from '@/constants/bowser.js';
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import type { Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { replaceObjectInStringArray } from '@/helpers/replaceObjectInStringArray.js';
+import { resolveActivityShareUrl } from '@/helpers/resolveActivityUrl.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
-export function ActivityButtrflyTasks({
+const sources: SocialSource[] = [Source.Lens, Source.Farcaster];
+
+export function ActivitySocialFrensTasks({
     data,
 }: {
     data: Pick<Required<ActivityInfoResponse>['data'], 'status' | 'name'>;
 }) {
-    const { address } = useContext(ActivityContext);
-    const { data: claimCondition } = useActivityClaimCondition(Source.Lens);
-    const list = [
-        {
-            label: <Trans>Top 500 Buttrfly Points Leaderboard</Trans>,
-            verified: claimCondition?.lens?.isTopUser,
-        },
-    ];
-    const shareUrl = useActivityShareUrl(data.name);
+    const { name, address } = useContext(ActivityContext);
+    const { data: claimCondition } = useActivityClaimCondition(sources);
+    const farHandle = useActivityCurrentAccountHandle(Source.Farcaster);
+    const lensHandle = useActivityCurrentAccountHandle(Source.Lens);
+    const primarySource = lensHandle ? Source.Lens : Source.Farcaster;
+
     const shareContent = useMemo(() => {
         const fireflyMention = 'FIREFLY_MENTION';
+        const shareUrl = resolveActivityShareUrl(name, primarySource, lensHandle ? lensHandle : farHandle);
         return replaceObjectInStringArray(
-            t`Just earned $MASK by minting the Buttrfly Fren 🦋 collectible from ${fireflyMention} 
+            t`Just earned $MASK by minting the Inviting Yup & Phaver frens🌟 collectible from ${fireflyMention}  
 
 Claim here ${shareUrl}`,
             {
                 [fireflyMention]: FIREFLY_MENTION,
             },
         );
-    }, [shareUrl]);
-    const isPremium = list.some((x) => x.verified);
+    }, [farHandle, lensHandle, name, primarySource]);
 
     return (
-        <ActivityPremiumListProvider list={list}>
+        <>
             <div className="mb-4 w-full space-y-4 px-6 py-4">
                 <div className="flex w-full flex-col space-y-2">
                     <div className="flex h-8 items-center justify-between">
                         <h2 className="text-base font-semibold leading-6">
                             <Trans>Check Eligibility</Trans>
                         </h2>
-                        <ActivityLoginButton source={Source.Lens} />
+                        <ActivityLoginButtonWithMultipleSources sources={sources} />
                     </div>
                 </div>
                 <div
@@ -70,7 +66,10 @@ Claim here ${shareUrl}`,
                 >
                     <ActivityVerifyText verified={claimCondition?.lens?.isActiveUser} hasFailedIcon>
                         <h3>
-                            <Trans>Posted to Lens on Buttrfly since August 1, 2024</Trans>
+                            <Trans>
+                                Posted to Lens or Farcaster on Yup or posted to Lens on Phaver since August 1, 2024. New
+                                Firefly users only.
+                            </Trans>
                         </h3>
                     </ActivityVerifyText>
                 </div>
@@ -79,7 +78,7 @@ Claim here ${shareUrl}`,
                 </h2>
                 <ActivityConnectCard
                     chainId={ChainId.Polygon}
-                    source={Source.Lens}
+                    source={sources}
                     label={
                         address ? (
                             <Trans>Wallet submitted</Trans>
@@ -88,14 +87,6 @@ Claim here ${shareUrl}`,
                         )
                     }
                 />
-                <div className="mb-4 flex w-full flex-col space-y-2 text-sm font-semibold leading-6">
-                    <h2 className="text-base font-semibold leading-6">
-                        <Trans>Eligible for Premium?</Trans>
-                    </h2>
-                    <ActivityPremiumConditionList
-                        title={<Trans>Unlock a premium collectible and a larger $MASK airdrop </Trans>}
-                    />
-                </div>
                 <ActivityContactUs />
             </div>
             <div
@@ -110,9 +101,9 @@ Claim here ${shareUrl}`,
                     status={data.status}
                     shareContent={shareContent as Chars}
                     source={Source.Lens}
-                    claimType={isPremium ? 'premium' : 'base'}
+                    claimType={primarySource}
                 />
             </div>
-        </ActivityPremiumListProvider>
+        </>
     );
 }

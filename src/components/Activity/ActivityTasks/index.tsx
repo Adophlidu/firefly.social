@@ -6,6 +6,7 @@ import { ActivityElex24Tasks } from '@/components/Activity/ActivityTasks/Activit
 import { ActivityFrensgivingTasks } from '@/components/Activity/ActivityTasks/ActivityFrensgivingTasks.js';
 import { ActivityHlblTasks } from '@/components/Activity/ActivityTasks/ActivityHlblTasks.js';
 import { ActivityPenguTasks } from '@/components/Activity/ActivityTasks/ActivityPenguTasks.js';
+import { ActivitySocialFrensTasks } from '@/components/Activity/ActivityTasks/ActivitySocialFrensTasks.js';
 import { ActivityTrumpTasks } from '@/components/Activity/ActivityTasks/ActivityTrumpTasks.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
@@ -36,6 +37,8 @@ export function ActivityTasks({ name, data }: Props) {
             );
         case 'buttrfly':
             return <ActivityButtrflyTasks data={data} />;
+        case 'socialfrens':
+            return <ActivitySocialFrensTasks data={data} />;
         default:
             return null;
     }

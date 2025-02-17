@@ -13,7 +13,7 @@ export function ActivityConnectCard({
     label,
     chainId,
 }: {
-    source: SocialSource;
+    source: SocialSource | SocialSource[];
     label?: ReactNode;
     chainId: number;
 }) {

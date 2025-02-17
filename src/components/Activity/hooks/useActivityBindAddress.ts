@@ -16,7 +16,7 @@ import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent
 import { EventId } from '@/providers/types/Telemetry.js';
 import { Network, SupportedMethod } from '@/types/bridge.js';
 
-export function useActivityBindAddress(source: SocialSource, chainId: number) {
+export function useActivityBindAddress(source: SocialSource | SocialSource[], chainId: number) {
     const { onChangeAddress } = useContext(ActivityContext);
     const { refetch: refetchActivityClaimCondition } = useActivityClaimCondition(source);
     const { data: { connected = EMPTY_LIST } = {}, refetch } = useActivityConnections();

@@ -2,22 +2,8 @@ import urlcat from 'urlcat';
 
 import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
 import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
 import { SITE_URL } from '@/constants/index.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { ReferralAccountPlatform, resolveActivityUrl } from '@/helpers/resolveActivityUrl.js';
-
-const resolveReferralAccountPlatformFromSocialSource = createLookupTableResolver<SocialSource, ReferralAccountPlatform>(
-    {
-        [Source.Twitter]: ReferralAccountPlatform.X,
-        [Source.Farcaster]: ReferralAccountPlatform.Farcaster,
-        [Source.Lens]: ReferralAccountPlatform.Lens,
-        [Source.Bsky]: ReferralAccountPlatform.Bsky,
-    },
-    (source) => {
-        throw new UnreachableError('social source', source);
-    },
-);
+import { resolveActivityShareUrl } from '@/helpers/resolveActivityUrl.js';
 
 export function useActivityShareUrl(name?: string) {
     const source =
@@ -35,11 +21,5 @@ export function useActivityShareUrl(name?: string) {
             : undefined) ?? Source.Twitter;
     const handle = useActivityCurrentAccountHandle(source);
     if (!name) return urlcat(SITE_URL, PageRoute.Events);
-    return urlcat(
-        SITE_URL,
-        resolveActivityUrl(name, {
-            referralCode: handle,
-            platform: resolveReferralAccountPlatformFromSocialSource(source),
-        }),
-    );
+    return resolveActivityShareUrl(name, source, handle);
 }

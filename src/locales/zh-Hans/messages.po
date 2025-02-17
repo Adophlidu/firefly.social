@@ -501,6 +501,9 @@ msgstr "反鲸鱼机制可以被修改。"
 msgid "Profile not found"
 msgstr "未找到个人信息"
 
+msgid "Posted to Lens or Farcaster on Yup or posted to Lens on Phaver since August 1, 2024. New Firefly users only."
+msgstr ""
+
 msgid "NFT Standard"
 msgstr "NFT 标准"
 
@@ -2543,6 +2546,7 @@ msgid "Unknown transaction method: {method}."
 msgstr "未知交易方法：{method}。"
 
 #. placeholder {0}: resolveSourceName(source)
+#. placeholder {0}: resolveSourceName(Array.isArray(source) ? source[0] : source)
 msgid "Please sign in with {0} to continue"
 msgstr "请登陆 {0} 以继续"
 
@@ -3214,6 +3218,12 @@ msgstr "被识别为洗钱。"
 
 msgid "Log out all"
 msgstr "登出所有"
+
+msgid ""
+"Just earned $MASK by minting the Inviting Yup & Phaver frens🌟 collectible from {fireflyMention}  \n"
+"\n"
+"Claim here {shareUrl}"
+msgstr ""
 
 #. placeholder {0}: firstProfile.displayName
 msgid "{0} and others"
