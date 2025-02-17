@@ -14,9 +14,6 @@ cd src/maskbook
 # Install dependencies using pnpm
 pnpm install
 
-# Run Gulp tasks for polyfill
-npx gulp polyfill
-
 # Run TypeScript compiler for the submodule
 npx tsc -b ./
 
@@ -24,9 +21,6 @@ npx tsc -b ./
 cd -
 
 pnpm install
-
-# Patch packages
-# pnpm run postinstall
 
 # Run a type checking script using npm
 pnpm run typecheck
