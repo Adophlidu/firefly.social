@@ -30,31 +30,35 @@ export function SuggestedFollowsCard() {
         queryKey: ['suggested-follows-lite'],
         staleTime: 1000 * 60 * 2,
         queryFn: async () => {
-            const [farcasterData, lensData] = await Promise.all([
+            const [farcasterData, lensData, bskyData] = await Promise.all([
                 runInSafeAsync(() => getSuggestedFollowsInCard(Source.Farcaster)),
                 runInSafeAsync(() => getSuggestedFollowsInCard(Source.Lens)),
                 runInSafeAsync(() => getSuggestedFollowsInCard(Source.Bsky)),
             ]);
-            return mergeLists(farcasterData ?? [], lensData ?? []);
+            return mergeLists(farcasterData ?? [], lensData ?? [], bskyData ?? []);
         },
     });
 
     const showMoreUrl = useMemo(() => {
-        const isOnlyFarcaster = !!profileAll.Farcaster && !profileAll.Lens;
-        const isOnlyLens = !profileAll.Farcaster && !!profileAll.Lens;
+        const isOnlyFarcaster = !!profileAll.Farcaster && !profileAll.Lens && !profileAll.Bsky;
+        const isOnlyLens = !profileAll.Farcaster && !!profileAll.Lens && !profileAll.Bsky;
+        const isOnlyBsky = !!profileAll.Bsky && !profileAll.Farcaster && !profileAll.Lens;
         if (isOnlyFarcaster) {
             return resolveExploreUrl(ExploreType.TopProfiles, Source.Farcaster);
         }
         if (isOnlyLens) {
             return resolveExploreUrl(ExploreType.TopProfiles, Source.Lens);
         }
+        if (isOnlyBsky) {
+            return resolveExploreUrl(ExploreType.TopProfiles, Source.Bsky);
+        }
         return resolveExploreUrl(
             ExploreType.TopProfiles,
             isSocialDiscoverSource(currentSource) ? currentSource : Source.Farcaster,
         );
-    }, [currentSource, profileAll.Farcaster, profileAll.Lens]);
+    }, [currentSource, profileAll.Farcaster, profileAll.Lens, profileAll.Bsky]);
 
-    if (!profileAll.Farcaster && !profileAll.Lens) return null;
+    if (!profileAll.Farcaster && !profileAll.Lens && !profileAll.Bsky) return null;
 
     if (isLoading) {
         return (

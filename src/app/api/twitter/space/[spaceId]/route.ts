@@ -15,7 +15,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
     async (request, context) => {
         const spaceId = (await context?.params)?.spaceId;
         if (!spaceId) throw new MalformedError('spaceId not found');
-        const client = await createAppOnlyTwitterClientV2(request);
+        const client = await createAppOnlyTwitterClientV2();
         const space = await client.v2.space(spaceId, {
             ...SPACE_OPTIONS,
         });

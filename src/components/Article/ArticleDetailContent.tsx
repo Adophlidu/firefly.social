@@ -17,7 +17,6 @@ import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { openWindow } from '@/helpers/openWindow.js';
-import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { PreviewMediaModalRef } from '@/modals/controls.js';
@@ -77,21 +76,6 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                         >
                             <Trans>View Source</Trans>
                         </Link>
-                    ) : null}
-
-                    {article.slug ? (
-                        <div
-                            className="cursor-pointer rounded-lg bg-primaryBottom px-1 py-2 text-xs text-second hover:underline"
-                            onClick={(event) => {
-                                event.stopPropagation();
-                                event.preventDefault();
-
-                                scrollTo(0, 0);
-                                router.push(resolveSearchUrl(article.slug || '', undefined, Source.Article));
-                            }}
-                        >
-                            #{article.slug}
-                        </div>
                     ) : null}
                 </div>
                 <div className="my-5 mt-2 border-b border-line">

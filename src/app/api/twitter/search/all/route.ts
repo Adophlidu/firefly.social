@@ -38,7 +38,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
     async (request) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, SearchPageable);
 
-        const client = await createAppOnlyTwitterClientV2(request);
+        const client = await createAppOnlyTwitterClientV2();
         const { data, errors } = await client.v2.searchAll(removeUnknownOperator(queryParams.query), {
             ...TWITTER_TIMELINE_OPTIONS,
             next_token: queryParams.cursor ? queryParams.cursor : undefined,

@@ -41,7 +41,9 @@ interface NotLoginFallbackProps extends HTMLProps<HTMLDivElement> {
 
 export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFallback({ source, className }) {
     const fallbackImageUrl = resolveFallbackImageUrl(source);
-    const isNotSocialSource = [Source.Article, Source.DAOs, Source.Polymarket].includes(source);
+    const isNotSocialSource = [Source.Article, Source.DAOs, Source.Polymarket, Source.NFTs, Source.Posts].includes(
+        source,
+    );
 
     const asyncStatusTwitter = useAsyncStatus(Source.Twitter);
     const isTwitterConnecting = source === Source.Twitter && asyncStatusTwitter;

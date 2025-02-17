@@ -21,7 +21,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
 
         const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);
 
-        const client = await createAppOnlyTwitterClientV2(request);
+        const client = await createAppOnlyTwitterClientV2();
         const { data, errors } = await client.v2.searchAll(`conversation_id:${tweetId} -is:retweet`, {
             ...TWITTER_TIMELINE_OPTIONS,
             next_token: queryParams.cursor ? queryParams.cursor : undefined,
