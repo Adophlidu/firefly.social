@@ -59,7 +59,7 @@ export async function postToBsky(
             parentContentURI: bskyParentPost?.metadata?.contentURI ?? '',
             rootPostId: bskyRootPostId,
             rootContentURI: bskyRootPostContentURI,
-            restriction,
+            restrictions: restriction ? [restriction] : undefined,
             metadata: {
                 locale: '',
                 content: {

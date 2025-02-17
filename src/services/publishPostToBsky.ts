@@ -121,11 +121,7 @@ export async function publishPostToBsky(
         },
     ];
 
-    if (
-        post.type !== 'Comment' &&
-        post.restriction &&
-        (post.restriction as RestrictionType) !== RestrictionType.Everyone
-    ) {
+    if (post.type !== 'Comment' && post.restrictions?.some((x) => x !== RestrictionType.Everyone)) {
         writes.push({
             $type: 'com.atproto.repo.applyWrites#create',
             collection: 'app.bsky.feed.threadgate',
@@ -134,7 +130,7 @@ export async function publishPostToBsky(
                 $type: 'app.bsky.feed.threadgate',
                 post: uri,
                 createdAt: new Date().toISOString(),
-                allow: resolveRestriction([post.restriction]),
+                allow: resolveRestriction(post.restrictions),
                 hiddenReplies: [],
             },
         });

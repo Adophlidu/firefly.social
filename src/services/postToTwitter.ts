@@ -58,7 +58,7 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
                 })),
                 'id',
             ),
-            restriction,
+            restrictions: restriction ? [restriction] : undefined,
             parentPostId: twitterParentPost?.postId ?? '',
             source: Source.Twitter,
             poll: first(polls),

@@ -465,7 +465,9 @@ class TwitterSocialMedia implements Provider {
             },
             body: JSON.stringify({
                 quoteTwitterId: post.parentPostId,
-                replySettings: post.restriction ? resolveTwitterReplyRestriction(post.restriction) : undefined,
+                replySettings: post.restrictions?.length
+                    ? resolveTwitterReplyRestriction(post.restrictions[0])
+                    : undefined,
                 text: post.metadata.content?.content ?? '',
                 mediaIds: compact(post.mediaObjects?.map((x) => x.id)),
             }),
@@ -493,7 +495,9 @@ class TwitterSocialMedia implements Provider {
             body: JSON.stringify({
                 ...options,
                 inReplyToTweetId: post.parentPostId,
-                replySettings: post.restriction ? resolveTwitterReplyRestriction(post.restriction) : undefined,
+                replySettings: post.restrictions?.length
+                    ? resolveTwitterReplyRestriction(post.restrictions[0])
+                    : undefined,
                 text: post.metadata.content?.content ?? '',
                 mediaIds: compact(post.mediaObjects?.map((x) => x.id)),
                 poll: post.poll

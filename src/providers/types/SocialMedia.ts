@@ -147,7 +147,7 @@ export interface Post {
     isHidden?: boolean;
     isEncrypted?: boolean;
     isEncryptedByMask?: boolean;
-    restriction?: RestrictionType;
+    restrictions?: RestrictionType[];
     metadata: {
         locale: string;
         description?: string;

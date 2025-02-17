@@ -6,13 +6,14 @@ import {
     AppBskyEmbedVideo,
     AppBskyFeedDefs,
     AppBskyFeedPost,
+    AppBskyFeedThreadgate,
     RichText,
 } from '@atproto/api';
 import { parseURL } from '@masknet/shared-base';
 import { produce } from 'immer';
-import { first, isUndefined, omitBy } from 'lodash-es';
+import { compact, first, isUndefined, omitBy } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
+import { RestrictionType, Source } from '@/constants/enum.js';
 import { TENOR_GIF_REGEXP } from '@/constants/regexp.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
@@ -76,6 +77,29 @@ function formatBskyMedia(embed: unknown): Post['metadata']['content'] {
     );
 }
 
+function resolveRestrictions(gatedPost: AppBskyFeedDefs.ThreadgateView) {
+    if (AppBskyFeedThreadgate.isRecord(gatedPost.record)) {
+        const { allow } = gatedPost.record;
+        if (!allow || !Array.isArray(allow)) return;
+        if (allow.length === 0) return [RestrictionType.Nobody];
+
+        return compact(
+            allow.map((rule) => {
+                if (AppBskyFeedThreadgate.isFollowingRule(rule)) {
+                    return RestrictionType.OnlyPeopleYouFollow;
+                }
+                if (AppBskyFeedThreadgate.isMentionRule(rule)) {
+                    return RestrictionType.MentionedProfiles;
+                }
+
+                return null;
+            }),
+        );
+    }
+
+    return;
+}
+
 function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
     const record = AppBskyFeedPost.isRecord(original.record) ? original.record : { text: '', langs: ['en'] };
     const createdAt = original.createdAt || original.indexedAt;
@@ -86,6 +110,7 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
         type: 'Post',
         source: Source.Bsky,
         canComment: true,
+        restrictions: original.threadgate ? resolveRestrictions(original.threadgate) : undefined,
         author: formatBskyProfile(original.author),
         stats: {
             reactions: original.likeCount ?? 0,
