@@ -6,7 +6,7 @@ import {
     AppBskyEmbedVideo,
     AppBskyFeedDefs,
     AppBskyFeedPost,
-    AppBskyRichtextFacet,
+    RichText,
 } from '@atproto/api';
 import { parseURL } from '@masknet/shared-base';
 import { produce } from 'immer';
@@ -106,23 +106,22 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
         },
     };
     if (AppBskyFeedPost.isRecord(original.record)) {
-        let content = record.text;
-        const oembedUrls: string[] = [];
-        const mentions: Profile[] = [];
-        if (original.record.facets) {
-            original.record.facets?.forEach((facet, i) => {
-                const feature = facet.features[0];
-                if (AppBskyRichtextFacet.isLink(feature)) {
-                    content = content.replaceAll(
-                        record.text.substring(facet.index.byteStart, facet.index.byteEnd),
-                        feature.uri,
-                    );
-                    oembedUrls.push(feature.uri);
+        const { contentArr, mentions, oembedUrls } = [
+            ...new RichText({ text: record.text, facets: original.record.facets }).segments(),
+        ].reduce<{
+            mentions: Profile[];
+            oembedUrls: string[];
+            contentArr: string[];
+        }>(
+            (acc, segment) => {
+                acc.contentArr.push(segment.isLink() && segment.link?.uri ? segment.link.uri : segment.text);
+                if (segment.isLink() && segment.link?.uri) {
+                    acc.oembedUrls.push(segment.link.uri);
                 }
-                if (AppBskyRichtextFacet.isMention(feature)) {
-                    const handle = record.text.substring(facet.index.byteStart, facet.index.byteEnd).replace(/^@/, '');
-                    mentions.push({
-                        profileId: feature.did,
+                if (segment.isMention() && segment.mention?.did) {
+                    const handle = segment.text.replace(/^@/, '');
+                    acc.mentions.push({
+                        profileId: segment.mention.did,
                         profileSource: Source.Bsky,
                         displayName: handle,
                         handle,
@@ -135,8 +134,15 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
                         verified: true,
                     });
                 }
-            });
-        }
+                return acc;
+            },
+            {
+                mentions: [],
+                oembedUrls: [],
+                contentArr: [],
+            },
+        );
+        const content = contentArr.join(' ');
         post.mentions = mentions;
         post.metadata.content = {
             ...formatBskyMedia(original.embed),
