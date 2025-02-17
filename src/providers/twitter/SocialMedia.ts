@@ -658,7 +658,7 @@ class TwitterSocialMedia implements Provider {
         const response = await twitterSessionHolder.fetch<ResponseJSON<SpaceV2SingleResult>>(
             urlcat('/api/twitter/space/:id', { id }),
         );
-        const data = resolveTwitterResponseData(response, 'Failed to fetch space "${id}".');
+        const data = resolveTwitterResponseData(response, `Failed to fetch space "${id}".`);
         return data;
     }
 

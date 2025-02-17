@@ -16,7 +16,7 @@ export function BridgeEventCard({ item }: Props) {
         return fireflyBridgeProvider.on(item.name, (payload) => {
             setPayload(JSON.stringify(payload, null, 2));
         });
-    }, []);
+    }, [item.name]);
 
     return (
         <div>
