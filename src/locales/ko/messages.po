@@ -3409,6 +3409,9 @@ msgstr ""
 msgid "Unfollow"
 msgstr ""
 
+msgid "No one can reply"
+msgstr ""
+
 msgid "You can set one or multiple rules to be eligible to win a Lucky Drop."
 msgstr ""
 

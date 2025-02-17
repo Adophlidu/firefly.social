@@ -15,6 +15,8 @@ export function ReplyRestrictionText({ type }: ReplyRestrictionTextProps) {
             return <Trans>Only people you follow</Trans>;
         case RestrictionType.MentionedProfiles:
             return <Trans>Only people you mention</Trans>;
+        case RestrictionType.Nobody:
+            return <Trans>No one can reply</Trans>;
         default:
             safeUnreachable(type);
             return null;

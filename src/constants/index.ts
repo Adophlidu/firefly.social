@@ -189,7 +189,12 @@ export const SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES = [Source.Farcaster];
 
 export const ENABLED_SCHEDULE_POST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 export const ENABLED_REPLY_SOURCES = [Source.Farcaster, Source.Lens, Source.Bsky];
-export const ENABLED_REPLY_SETTINGS_POST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
+export const ENABLED_REPLY_SETTINGS_POST_SOURCES: SocialSource[] = [
+    Source.Farcaster,
+    Source.Lens,
+    Source.Twitter,
+    Source.Bsky,
+];
 export const ENABLED_FOLLOWING_LIST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Bsky];
 export const ENABLED_BOOKMARK_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 export const ENABLED_DECRYPT_SOURCES = [Source.Lens];

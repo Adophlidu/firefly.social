@@ -1,10 +1,10 @@
-import { AppBskyActorProfile, AppBskyFeedDefs, moderatePost, RichText } from '@atproto/api';
+import { AppBskyActorProfile, AppBskyFeedDefs, moderatePost } from '@atproto/api';
 import { BlockedActorError } from '@atproto/api/dist/client/types/app/bsky/feed/getAuthorFeed.js';
 import { safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 
 import { DISCOVER_AT_URI } from '@/constants/bsky.js';
-import { type BookmarkType, BskyEmbedType, type FireflyPlatform, Source } from '@/constants/enum.js';
+import { type BookmarkType, type FireflyPlatform, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { BSKY_LOGIN_REQUIRED_FEEDS, EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
@@ -28,7 +28,6 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
-import { resolveBskyEmbed } from '@/helpers/resolveBskyEmbed.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { ChannelAtUri, PostAtUri } from '@/providers/bsky/AtUri.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
@@ -52,6 +51,7 @@ import {
     type ReactionNotification,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { publishPostToBsky } from '@/services/publishPostToBsky.js';
 
 async function getSinglePost(uri: string) {
     const res = await bskySessionHolder.agent.getPostThread({
@@ -79,30 +79,7 @@ export class BskySocialMedia implements Provider {
     }
 
     async publishPost(post: Post) {
-        const text = post.metadata.content?.content;
-        const richText = text ? new RichText({ text }) : undefined;
-        if (richText) {
-            await richText.detectFacets(bskySessionHolder.agent);
-        }
-        const result = await bskySessionHolder.agent.post({
-            text: richText ? richText.text : text,
-            createdAt: new Date().toISOString(),
-            facets: richText ? richText.facets : undefined,
-            embed: await resolveBskyEmbed(post, richText),
-            reply:
-                post.parentPostId && post.parentContentURI
-                    ? {
-                          parent: { cid: post.parentPostId, uri: post.parentContentURI },
-                          root:
-                              post.rootPostId && post.rootContentURI
-                                  ? {
-                                        cid: post.rootPostId,
-                                        uri: post.rootContentURI,
-                                    }
-                                  : { cid: post.parentPostId, uri: post.parentContentURI },
-                      }
-                    : undefined,
-        });
+        const result = await publishPostToBsky(post, false);
 
         return {
             postId: result.cid,
@@ -131,36 +108,8 @@ export class BskySocialMedia implements Provider {
         await bskySessionHolder.agent.deleteRepost(res.data.thread.post.viewer.repost);
     }
     async quotePost(postId: string, post: Post): Promise<{ postId: string; contentURI?: string }> {
-        const text = post.metadata.content?.content;
-        const richText = text ? new RichText({ text }) : undefined;
-        if (richText) {
-            await richText.detectFacets(bskySessionHolder.agent);
-        }
-        const embed = await resolveBskyEmbed(post, richText);
-        const result = await bskySessionHolder.agent.post({
-            text: richText ? richText.text : text,
-            createdAt: new Date().toISOString(),
-            facets: richText ? richText.facets : undefined,
-            embed: embed
-                ? {
-                      $type: BskyEmbedType.RecordWithMedia,
-                      record: {
-                          $type: BskyEmbedType.Record,
-                          record: {
-                              uri: post.parentContentURI,
-                              cid: post.parentPostId,
-                          },
-                      },
-                      media: embed,
-                  }
-                : {
-                      $type: BskyEmbedType.Record,
-                      record: {
-                          uri: post.parentContentURI,
-                          cid: post.parentPostId,
-                      },
-                  },
-        });
+        const result = await publishPostToBsky(post, true);
+
         return {
             postId: result.cid,
             contentURI: result.uri,

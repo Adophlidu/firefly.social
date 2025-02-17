@@ -3417,6 +3417,9 @@ msgstr "You may lose your assets if giving approval to the website of this token
 msgid "Unfollow"
 msgstr "Unfollow"
 
+msgid "No one can reply"
+msgstr "No one can reply"
+
 msgid "You can set one or multiple rules to be eligible to win a Lucky Drop."
 msgstr "You can set one or multiple rules to be eligible to win a Lucky Drop."
 

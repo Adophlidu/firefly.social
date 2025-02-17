@@ -25,7 +25,7 @@ export async function postToBsky(
     compositePost: CompositePost,
     signal?: AbortSignal,
 ): Promise<string | undefined> {
-    const { id, chars, images, video, postId, parentPost } = compositePost;
+    const { id, chars, images, video, postId, parentPost, restriction } = compositePost;
 
     const bskyParentPost = parentPost.Bsky;
     const bskyPostId = postId.Bsky;
@@ -59,6 +59,7 @@ export async function postToBsky(
             parentContentURI: bskyParentPost?.metadata?.contentURI ?? '',
             rootPostId: bskyRootPostId,
             rootContentURI: bskyRootPostContentURI,
+            restriction,
             metadata: {
                 locale: '',
                 content: {

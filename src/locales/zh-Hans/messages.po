@@ -3419,6 +3419,9 @@ msgstr "如果您授权此通证给这个网站，您可能会丢失您的资产
 msgid "Unfollow"
 msgstr "取消关注"
 
+msgid "No one can reply"
+msgstr ""
+
 msgid "You can set one or multiple rules to be eligible to win a Lucky Drop."
 msgstr "您可以设置一个或多个规则，作为获奖者的条件。"
 
