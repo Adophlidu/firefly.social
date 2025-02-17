@@ -534,9 +534,6 @@ msgstr "未发现恶意挖矿活动。"
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>已创建的通证数量减去已销毁（从流通中移除）的通证数量。它相当于股票市场上的流通股。</0><1>总供应量 = 链上供应量 - 已销毁的通证</1>"
 
-msgid "Username is required."
-msgstr "用户名为必填。"
-
 msgid "<0>Sent</0> an NFT"
 msgstr "<0>发送了</0> 一个 NFT"
 
@@ -1307,9 +1304,6 @@ msgstr "未包含隐藏所有者功能。如果存在隐藏所有者，项目所
 msgid "Failed to enable signless"
 msgstr "未能启用无签名功能"
 
-msgid "Comment cannot be empty."
-msgstr "评论不能为空。"
-
 msgid "Days"
 msgstr "天"
 
@@ -1452,9 +1446,6 @@ msgstr "EVM"
 msgid "[LuckyDrop]"
 msgstr "[红包]"
 
-msgid "Failed to unvote post."
-msgstr "无法对帖子进行投票。"
-
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
 msgstr "选项 {0}"
@@ -1582,9 +1573,6 @@ msgstr "定时任务"
 msgid "Searching tokens"
 msgstr "搜索代币中"
 
-msgid "No channel found with the id {channelId}"
-msgstr "未找到 ID 为 {channelId} 的频道"
-
 msgid "Best Wishes!"
 msgstr "最美好的祝愿！"
 
@@ -1670,9 +1658,6 @@ msgstr "[投票]"
 
 msgid "Allow Follow Module"
 msgstr "允许关注"
-
-msgid "No one likes this post yet."
-msgstr "还未有人点赞。"
 
 #. placeholder {0}: resolveSourceName(x)
 msgid "Your posts have published successfully on {0}."
@@ -1894,9 +1879,6 @@ msgstr "衡量过去 24 小时内所有平台上加密货币交易量的指标�
 msgid "Failed to recast."
 msgstr "转帖失败。"
 
-msgid "No post found"
-msgstr "未找到帖子"
-
 msgid "Display Name should not be blank"
 msgstr "显示名称不可以为空"
 
@@ -1948,9 +1930,6 @@ msgstr "NFT持有者无法绕过合约中规定的最大铸造数量限制，继
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr "授予 Lucky Drop 智能合约访问您的 {0} 权限。每个代币只需执行一次。"
-
-msgid "Failed to upvote post."
-msgstr "无法对帖子进行投票。"
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
@@ -2508,9 +2487,6 @@ msgstr "第一次连接到 Firefly 吗？<0/>请批准与 <1>Warpcast的新连�
 msgid "Your website URL"
 msgstr "您网站的 URL"
 
-msgid "No comments found"
-msgstr "未发现评论"
-
 msgid "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
 msgstr "我们无法模拟该交易或完成所有安全检测。请谨慎操作。"
 
@@ -2584,9 +2560,6 @@ msgstr "评论"
 
 msgid "Sign"
 msgstr "签名"
-
-msgid "Failed to recast post"
-msgstr "发帖失败"
 
 msgid "Available Balance"
 msgstr "可用余额"
@@ -2698,9 +2671,6 @@ msgstr "抱歉，今天的免费收藏额度已用完。"
 
 msgid "Muted contents"
 msgstr "已隐藏的内容"
-
-msgid "Unable to retrieve post details."
-msgstr "数据获取失败。"
 
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr "市场上流通并可供公众交易的货币数量。这相当于市场上随时可买到的股票（未被内部人士或政府持有和锁定）。"
@@ -3052,9 +3022,6 @@ msgstr "🤑 在 {postUrl} 上快来看看这个 #FireflyLuckyDrop 🧧💰✨"
 msgid "Saved on {0} at {1}"
 msgstr "保存于 {1} {0}"
 
-msgid "No profile found"
-msgstr "未发现个人信息"
-
 msgid "Invoke"
 msgstr "调用"
 
@@ -3306,9 +3273,6 @@ msgstr "非黑名单地址。"
 msgid "no less than {0}"
 msgstr "不少于 {0}"
 
-msgid "Failed to quote post."
-msgstr "引用帖子失败。"
-
 msgid "{viewCount, plural, one {view} other {views}}"
 msgstr "{viewCount, plural, one {查看} other {查看}}"
 
@@ -3516,9 +3480,6 @@ msgstr ""
 
 msgid "Failed to send tip. Please try again later."
 msgstr "打赏失败，请稍后重试。"
-
-msgid "Failed to unmirror post."
-msgstr "未能取消转帖。"
 
 msgid "Failed to unlike the comment."
 msgstr "取消点赞失败。"
@@ -3939,9 +3900,6 @@ msgstr "多媒体"
 
 msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
 msgstr "您是 <0>truePengu</0> 或 <1>penguPins</1> 灵魂绑定NFT系列的持有者"
-
-msgid "No content to publish."
-msgstr "没有发布的内容。"
 
 msgid "Text"
 msgstr "文本"

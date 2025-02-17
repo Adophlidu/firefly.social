@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -301,7 +300,7 @@ class WarpcastSocialMedia implements Provider {
         if (casts.length > 1 && first(casts)?.castType === 'root-embed') result = casts.slice(1);
 
         const target = result.find((x) => x.hash === postId);
-        if (!target) throw new Error(t`Unable to retrieve post details.`);
+        if (!target) throw new Error('Unable to retrieve post details.');
         const index = result.findIndex((x) => x.hash === postId);
 
         const post = formatWarpcastPost(target);
@@ -380,7 +379,7 @@ class WarpcastSocialMedia implements Provider {
         indicator?: PageIndicator,
         username?: string,
     ): Promise<Pageable<Post, PageIndicator>> {
-        if (!username) throw new Error(t`Username is required.`);
+        if (!username) throw new Error('Username is required.');
 
         const url = urlcat(WARPCAST_CLIENT_URL, '/v2/user-thread-casts', {
             castHashPrefix: parentPostId,
@@ -583,7 +582,7 @@ class WarpcastSocialMedia implements Provider {
 
     async commentPost(postId: string, post: Post): Promise<{ postId: string }> {
         const comment = post.metadata.content?.content;
-        if (!comment) throw new Error(t`Comment cannot be empty.`);
+        if (!comment) throw new Error('Comment cannot be empty.');
 
         const url = urlcat(WARPCAST_ROOT_URL, '/casts', { parent: postId });
         const response = await farcasterSessionHolder.fetch<CastResponse>(

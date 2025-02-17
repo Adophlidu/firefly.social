@@ -1,7 +1,6 @@
 /* cspell:disable */
 
 import { CastAddBody, CastRemoveBody, Factories, ReactionType, UserDataType } from '@farcaster/core';
-import { t } from '@lingui/core/macro';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
 import { toBytes } from 'viem';
@@ -317,7 +316,7 @@ class HubbleSocialMedia implements Provider {
 
     async quotePost(postId: string, post: Post, profileId?: string): Promise<{ postId: string }> {
         const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
-        if (!postId || !post || !profileId) throw new Error(t`Failed to quote post.`);
+        if (!postId || !post || !profileId) throw new Error('Failed to quote post.');
 
         const { messageBytes } = await encodeMessageData(
             () => {
@@ -439,7 +438,7 @@ class HubbleSocialMedia implements Provider {
     }
 
     async upvotePost(postId: string, authorId?: number) {
-        if (!authorId) throw new Error(t`Failed to upvote post.`);
+        if (!authorId) throw new Error('Failed to upvote post.');
 
         const { messageBytes } = await encodeMessageData(
             (fid) => ({
@@ -467,7 +466,7 @@ class HubbleSocialMedia implements Provider {
     }
 
     async unvotePost(postId: string, authorId?: number) {
-        if (!authorId) throw new Error(t`Failed to unvote post.`);
+        if (!authorId) throw new Error('Failed to unvote post.');
 
         const { messageBytes } = await encodeMessageData(
             (fid) => ({
@@ -495,7 +494,7 @@ class HubbleSocialMedia implements Provider {
     }
 
     async mirrorPost(postId: string, options?: { authorId?: number }) {
-        if (!options?.authorId) throw new Error(t`Failed to recast post`);
+        if (!options?.authorId) throw new Error('Failed to recast post');
 
         const reactionBody = {
             type: ReactionType.RECAST,
@@ -528,7 +527,7 @@ class HubbleSocialMedia implements Provider {
     }
 
     async unmirrorPost(postId: string, authorId?: number) {
-        if (!authorId) throw new Error(t`Failed to unmirror post.`);
+        if (!authorId) throw new Error('Failed to unmirror post.');
 
         const { messageBytes } = await encodeMessageData(
             (fid) => ({

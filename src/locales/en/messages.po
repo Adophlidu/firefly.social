@@ -529,9 +529,6 @@ msgstr "No malicious mining activities found."
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 
-msgid "Username is required."
-msgstr "Username is required."
-
 msgid "<0>Sent</0> an NFT"
 msgstr "<0>Sent</0> an NFT"
 
@@ -1302,9 +1299,6 @@ msgstr "The hidden owner function is not included. If there is a hidden owner, t
 msgid "Failed to enable signless"
 msgstr "Failed to enable signless"
 
-msgid "Comment cannot be empty."
-msgstr "Comment cannot be empty."
-
 msgid "Days"
 msgstr "Days"
 
@@ -1447,9 +1441,6 @@ msgstr "EVM"
 msgid "[LuckyDrop]"
 msgstr "[LuckyDrop]"
 
-msgid "Failed to unvote post."
-msgstr "Failed to unvote post."
-
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
 msgstr "Choice {0}"
@@ -1577,9 +1568,6 @@ msgstr "Schedule Post"
 msgid "Searching tokens"
 msgstr "Searching tokens"
 
-msgid "No channel found with the id {channelId}"
-msgstr "No channel found with the id {channelId}"
-
 msgid "Best Wishes!"
 msgstr "Best Wishes!"
 
@@ -1665,9 +1653,6 @@ msgstr "[Poll]"
 
 msgid "Allow Follow Module"
 msgstr "Allow Follow Module"
-
-msgid "No one likes this post yet."
-msgstr "No one likes this post yet."
 
 #. placeholder {0}: resolveSourceName(x)
 msgid "Your posts have published successfully on {0}."
@@ -1892,9 +1877,6 @@ msgstr "A measure of a cryptocurrency trading volume across all tracked platform
 msgid "Failed to recast."
 msgstr "Failed to recast."
 
-msgid "No post found"
-msgstr "No post found"
-
 msgid "Display Name should not be blank"
 msgstr "Display Name should not be blank"
 
@@ -1946,9 +1928,6 @@ msgstr "NFT owner cant bypass the maximum amount of minting specified in the con
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
-
-msgid "Failed to upvote post."
-msgstr "Failed to upvote post."
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>Acquired</0> an NFT"
@@ -2506,9 +2485,6 @@ msgstr "First time connecting to Firefly?<0/>Approve a <1>new connection with Wa
 msgid "Your website URL"
 msgstr "Your website URL"
 
-msgid "No comments found"
-msgstr "No comments found"
-
 msgid "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
 msgstr "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
 
@@ -2582,9 +2558,6 @@ msgstr "REPLY"
 
 msgid "Sign"
 msgstr "Sign"
-
-msgid "Failed to recast post"
-msgstr "Failed to recast post"
 
 msgid "Available Balance"
 msgstr "Available Balance"
@@ -2696,9 +2669,6 @@ msgstr "Sorry, today's free collect quota has been reached."
 
 msgid "Muted contents"
 msgstr "Muted contents"
-
-msgid "Unable to retrieve post details."
-msgstr "Unable to retrieve post details."
 
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
@@ -3050,9 +3020,6 @@ msgstr "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgid "Saved on {0} at {1}"
 msgstr "Saved on {0} at {1}"
 
-msgid "No profile found"
-msgstr "No profile found"
-
 msgid "Invoke"
 msgstr "Invoke"
 
@@ -3304,9 +3271,6 @@ msgstr "Non-sanctioned address."
 msgid "no less than {0}"
 msgstr "no less than {0}"
 
-msgid "Failed to quote post."
-msgstr "Failed to quote post."
-
 msgid "{viewCount, plural, one {view} other {views}}"
 msgstr "{viewCount, plural, one {view} other {views}}"
 
@@ -3514,9 +3478,6 @@ msgstr "Sign in with Bluesky"
 
 msgid "Failed to send tip. Please try again later."
 msgstr "Failed to send tip. Please try again later."
-
-msgid "Failed to unmirror post."
-msgstr "Failed to unmirror post."
 
 msgid "Failed to unlike the comment."
 msgstr "Failed to unlike the comment."
@@ -3937,9 +3898,6 @@ msgstr "Media"
 
 msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
 msgstr "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
-
-msgid "No content to publish."
-msgstr "No content to publish."
 
 msgid "Text"
 msgstr "Text"

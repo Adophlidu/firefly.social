@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { safeUnreachable } from '@masknet/kit';
 import z from 'zod';
 
@@ -83,12 +82,12 @@ export class SessionFactory {
             createdAt: number;
             expiresAt: number;
         }>(json);
-        if (!session) throw new Error(t`Failed to parse session.`);
+        if (!session) throw new Error('Failed to parse session.');
 
         const output = SessionSchema.safeParse(session);
         if (!output.success) {
             console.error([`[session factory] zod validation failure: ${output.error}`]);
-            throw new Error(t`Malformed session.`);
+            throw new Error('Malformed session.');
         }
 
         const createSessionFor = (type: SessionType): Session => {

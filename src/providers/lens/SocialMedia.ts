@@ -28,7 +28,6 @@ import {
     MetadataAttributeType,
     profile as createProfileMetadata,
 } from '@lens-protocol/metadata';
-import { t } from '@lingui/core/macro';
 import { isServer } from '@tanstack/react-query';
 import { compact, first, flatMap, omit, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -153,7 +152,7 @@ export class LensSocialMedia implements Provider {
             return formatOrbClubToChannel(response.items[0]);
         }
 
-        throw new Error(t`No channel found with the id ${channelId}`);
+        throw new Error(`No channel found with the id ${channelId}`);
     }
 
     async getChannelsByIds(ids: string[]): Promise<Channel[]> {
@@ -253,7 +252,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async publishPost(post: Post): Promise<{ postId: string }> {
-        if (!post.metadata.contentURI) throw new Error(t`No content to publish.`);
+        if (!post.metadata.contentURI) throw new Error('No content to publish.');
 
         if (post.author.signless) {
             const result = await lensSessionHolder.sdk.publication.postOnMomoka({
@@ -692,7 +691,7 @@ export class LensSocialMedia implements Provider {
         const result = await lensSessionHolder.sdk.profile.fetch({
             forProfileId: profileId,
         });
-        if (!result) throw new Error(t`No profile found`);
+        if (!result) throw new Error('No profile found');
 
         return formatLensProfile(result);
     }
@@ -716,7 +715,7 @@ export class LensSocialMedia implements Provider {
         const result = await lensSessionHolder.sdk.profile.fetch({
             forHandle: `lens/${handle}`,
         });
-        if (!result) throw new Error(t`No profile found`);
+        if (!result) throw new Error('No profile found');
 
         return formatLensProfile(result);
     }
@@ -725,7 +724,7 @@ export class LensSocialMedia implements Provider {
         const result = await lensSessionHolder.sdk.publication.fetch({
             forId: postId,
         });
-        if (!result) throw new Error(t`No post found`);
+        if (!result) throw new Error('No post found');
 
         const post = formatLensPost(result);
         return post;
@@ -758,7 +757,7 @@ export class LensSocialMedia implements Provider {
             cursor: ensureCursor(indicator),
         });
 
-        if (!result) throw new Error(t`No comments found`);
+        if (!result) throw new Error('No comments found');
 
         return createPageable(
             await Promise.all(result.items.map(formatLensPost)),
@@ -775,7 +774,7 @@ export class LensSocialMedia implements Provider {
             },
         });
 
-        if (!result) throw new Error(t`No comments found`);
+        if (!result) throw new Error('No comments found');
 
         return createPageable(
             await Promise.all(result.items.map(formatLensPost)),
@@ -1476,7 +1475,7 @@ export class LensSocialMedia implements Provider {
                 anyOf: [PublicationReactionType.Upvote],
             },
         });
-        if (!result) throw new Error(t`No one likes this post yet.`);
+        if (!result) throw new Error('No one likes this post yet.');
         const profiles = result.items.map((item) => formatLensProfile(item.profile));
         return createPageable(
             profiles,
@@ -1491,7 +1490,7 @@ export class LensSocialMedia implements Provider {
                 whoMirroredPublication: postId,
             },
         });
-        if (!result) throw new Error(t`No one likes this post yet.`);
+        if (!result) throw new Error('No one likes this post yet.');
         const profiles = result.items.map(formatLensProfile);
         return createPageable(
             profiles,
@@ -1507,7 +1506,7 @@ export class LensSocialMedia implements Provider {
                 quoteOn: postId,
             },
         });
-        if (!result) throw new Error(t`No one likes this post yet.`);
+        if (!result) throw new Error('No one likes this post yet.');
         const posts = result.items.map(formatLensPost);
         return createPageable(
             await Promise.all(posts),
@@ -1557,7 +1556,7 @@ export class LensSocialMedia implements Provider {
             cursor: ensureCursor(indicator),
         });
 
-        if (!result) throw new Error(t`No comments found`);
+        if (!result) throw new Error('No comments found');
 
         return createPageable(
             await Promise.all(result.items.map(formatLensPost)),

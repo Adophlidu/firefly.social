@@ -1,5 +1,4 @@
 import { UserDataType } from '@farcaster/core';
-import { t } from '@lingui/core/macro';
 
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
@@ -198,7 +197,7 @@ class FarcasterSocialMedia implements Provider {
         indicator?: PageIndicator,
         username?: string,
     ): Promise<Pageable<Post, PageIndicator>> {
-        if (!username) throw new Error(t`Username is required.`);
+        if (!username) throw new Error('Username is required.');
         return WarpcastSocialMediaProvider.getPostsByParentPostId(parentPostId, indicator, username);
     }
 

@@ -529,9 +529,6 @@ msgstr ""
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr ""
 
-msgid "Username is required."
-msgstr ""
-
 msgid "<0>Sent</0> an NFT"
 msgstr ""
 
@@ -1302,9 +1299,6 @@ msgstr ""
 msgid "Failed to enable signless"
 msgstr ""
 
-msgid "Comment cannot be empty."
-msgstr ""
-
 msgid "Days"
 msgstr ""
 
@@ -1447,9 +1441,6 @@ msgstr ""
 msgid "[LuckyDrop]"
 msgstr ""
 
-msgid "Failed to unvote post."
-msgstr ""
-
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
 msgstr ""
@@ -1577,9 +1568,6 @@ msgstr ""
 msgid "Searching tokens"
 msgstr ""
 
-msgid "No channel found with the id {channelId}"
-msgstr ""
-
 msgid "Best Wishes!"
 msgstr ""
 
@@ -1664,9 +1652,6 @@ msgid "[Poll]"
 msgstr ""
 
 msgid "Allow Follow Module"
-msgstr ""
-
-msgid "No one likes this post yet."
 msgstr ""
 
 #. placeholder {0}: resolveSourceName(x)
@@ -1884,9 +1869,6 @@ msgstr ""
 msgid "Failed to recast."
 msgstr ""
 
-msgid "No post found"
-msgstr ""
-
 msgid "Display Name should not be blank"
 msgstr ""
 
@@ -1937,9 +1919,6 @@ msgstr ""
 
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
-msgstr ""
-
-msgid "Failed to upvote post."
 msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
@@ -2493,9 +2472,6 @@ msgstr ""
 msgid "Your website URL"
 msgstr ""
 
-msgid "No comments found"
-msgstr ""
-
 msgid "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
 msgstr ""
 
@@ -2568,9 +2544,6 @@ msgid "REPLY"
 msgstr ""
 
 msgid "Sign"
-msgstr ""
-
-msgid "Failed to recast post"
 msgstr ""
 
 msgid "Available Balance"
@@ -2682,9 +2655,6 @@ msgid "Sorry, today's free collect quota has been reached."
 msgstr ""
 
 msgid "Muted contents"
-msgstr ""
-
-msgid "Unable to retrieve post details."
 msgstr ""
 
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
@@ -3037,9 +3007,6 @@ msgstr ""
 msgid "Saved on {0} at {1}"
 msgstr ""
 
-msgid "No profile found"
-msgstr ""
-
 msgid "Invoke"
 msgstr ""
 
@@ -3291,9 +3258,6 @@ msgstr ""
 msgid "no less than {0}"
 msgstr ""
 
-msgid "Failed to quote post."
-msgstr ""
-
 msgid "{viewCount, plural, one {view} other {views}}"
 msgstr ""
 
@@ -3500,9 +3464,6 @@ msgid "Sign in with Bluesky"
 msgstr ""
 
 msgid "Failed to send tip. Please try again later."
-msgstr ""
-
-msgid "Failed to unmirror post."
 msgstr ""
 
 msgid "Failed to unlike the comment."
@@ -3923,9 +3884,6 @@ msgid "Media"
 msgstr ""
 
 msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
-msgstr ""
-
-msgid "No content to publish."
 msgstr ""
 
 msgid "Text"

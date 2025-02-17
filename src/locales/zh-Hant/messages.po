@@ -534,9 +534,6 @@ msgstr ""
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr ""
 
-msgid "Username is required."
-msgstr "需要用戶名"
-
 msgid "<0>Sent</0> an NFT"
 msgstr "<0>發送</0>一個 NFT"
 
@@ -1307,9 +1304,6 @@ msgstr ""
 msgid "Failed to enable signless"
 msgstr ""
 
-msgid "Comment cannot be empty."
-msgstr "評論不可是空白"
-
 msgid "Days"
 msgstr "天"
 
@@ -1452,9 +1446,6 @@ msgstr "EVM"
 msgid "[LuckyDrop]"
 msgstr ""
 
-msgid "Failed to unvote post."
-msgstr "上讚評論失敗"
-
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
 msgstr "選擇 {0}"
@@ -1582,9 +1573,6 @@ msgstr "已定時的貼文"
 msgid "Searching tokens"
 msgstr ""
 
-msgid "No channel found with the id {channelId}"
-msgstr ""
-
 msgid "Best Wishes!"
 msgstr ""
 
@@ -1670,9 +1658,6 @@ msgstr "[投票]"
 
 msgid "Allow Follow Module"
 msgstr ""
-
-msgid "No one likes this post yet."
-msgstr "還沒有人按讚這條貼文"
 
 #. placeholder {0}: resolveSourceName(x)
 msgid "Your posts have published successfully on {0}."
@@ -1889,9 +1874,6 @@ msgstr ""
 msgid "Failed to recast."
 msgstr ""
 
-msgid "No post found"
-msgstr "未找到貼文"
-
 msgid "Display Name should not be blank"
 msgstr ""
 
@@ -1943,9 +1925,6 @@ msgstr ""
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr ""
-
-msgid "Failed to upvote post."
-msgstr "上讚貼文失敗"
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>獲取了</0>一個 NFT"
@@ -2498,9 +2477,6 @@ msgstr ""
 msgid "Your website URL"
 msgstr "你的網站連結"
 
-msgid "No comments found"
-msgstr "未找到評論"
-
 msgid "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
 msgstr ""
 
@@ -2574,9 +2550,6 @@ msgstr "回復"
 
 msgid "Sign"
 msgstr "簽署"
-
-msgid "Failed to recast post"
-msgstr ""
 
 msgid "Available Balance"
 msgstr ""
@@ -2688,9 +2661,6 @@ msgstr ""
 
 msgid "Muted contents"
 msgstr "已靜音的內容"
-
-msgid "Unable to retrieve post details."
-msgstr "無法檢索貼文詳情"
 
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr ""
@@ -3042,9 +3012,6 @@ msgstr ""
 msgid "Saved on {0} at {1}"
 msgstr ""
 
-msgid "No profile found"
-msgstr "未找到人物"
-
 msgid "Invoke"
 msgstr ""
 
@@ -3296,9 +3263,6 @@ msgstr ""
 msgid "no less than {0}"
 msgstr ""
 
-msgid "Failed to quote post."
-msgstr "引用貼文失敗"
-
 msgid "{viewCount, plural, one {view} other {views}}"
 msgstr ""
 
@@ -3506,9 +3470,6 @@ msgstr ""
 
 msgid "Failed to send tip. Please try again later."
 msgstr ""
-
-msgid "Failed to unmirror post."
-msgstr "取消鏡像貼文失敗"
 
 msgid "Failed to unlike the comment."
 msgstr "取消評論點贊失敗"
@@ -3929,9 +3890,6 @@ msgstr "多媒體"
 
 msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
 msgstr ""
-
-msgid "No content to publish."
-msgstr "沒有可發布的內容"
 
 msgid "Text"
 msgstr ""

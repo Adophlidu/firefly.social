@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { last, omit } from 'lodash-es';
 import { getAccount } from 'wagmi/actions';
 
@@ -282,8 +281,7 @@ export class Snapshot {
                 }),
             },
         );
-
-        if (!response.ipfs) throw new Error(t`Failed to vote. ${response.error_description}`);
+        if (!response.ipfs) throw new Error(`Failed to vote. ${response.error_description}`);
 
         return response.ipfs;
     }
