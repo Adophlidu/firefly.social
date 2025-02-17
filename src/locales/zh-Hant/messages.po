@@ -1696,9 +1696,6 @@ msgstr ""
 msgid "Hide more comments"
 msgstr "隱藏更多評論"
 
-msgid "Malformed session."
-msgstr ""
-
 msgid "Like / Repost / Comment"
 msgstr ""
 
@@ -2348,9 +2345,6 @@ msgstr "搜尋..."
 
 msgid "Show more comments"
 msgstr "顯示更多評論"
-
-msgid "Failed to parse session."
-msgstr ""
 
 msgid "Exclusivity"
 msgstr ""
@@ -3236,10 +3230,6 @@ msgstr ""
 
 msgid "Date"
 msgstr "日期"
-
-#. placeholder {0}: response.error_description
-msgid "Failed to vote. {0}"
-msgstr ""
 
 msgid "Confirm to log out all accounts?"
 msgstr ""

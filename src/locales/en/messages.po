@@ -1694,9 +1694,6 @@ msgstr "{attentionFactors, plural, one {# Attention item} other {# Attention ite
 msgid "Hide more comments"
 msgstr "Hide more comments"
 
-msgid "Malformed session."
-msgstr "Malformed session."
-
 msgid "Like / Repost / Comment"
 msgstr "Like / Repost / Comment"
 
@@ -2356,9 +2353,6 @@ msgstr "Search..."
 
 msgid "Show more comments"
 msgstr "Show more comments"
-
-msgid "Failed to parse session."
-msgstr "Failed to parse session."
 
 msgid "Exclusivity"
 msgstr "Exclusivity"
@@ -3247,10 +3241,6 @@ msgstr "Failed to bookmark snapshot."
 
 msgid "Date"
 msgstr "Date"
-
-#. placeholder {0}: response.error_description
-msgid "Failed to vote. {0}"
-msgstr "Failed to vote. {0}"
 
 msgid "Confirm to log out all accounts?"
 msgstr "Confirm to log out all accounts?"

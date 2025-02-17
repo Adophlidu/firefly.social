@@ -1691,9 +1691,6 @@ msgstr ""
 msgid "Hide more comments"
 msgstr ""
 
-msgid "Malformed session."
-msgstr ""
-
 msgid "Like / Repost / Comment"
 msgstr ""
 
@@ -2342,9 +2339,6 @@ msgid "Search..."
 msgstr ""
 
 msgid "Show more comments"
-msgstr ""
-
-msgid "Failed to parse session."
 msgstr ""
 
 msgid "Exclusivity"
@@ -3230,10 +3224,6 @@ msgid "Failed to bookmark snapshot."
 msgstr ""
 
 msgid "Date"
-msgstr ""
-
-#. placeholder {0}: response.error_description
-msgid "Failed to vote. {0}"
 msgstr ""
 
 msgid "Confirm to log out all accounts?"

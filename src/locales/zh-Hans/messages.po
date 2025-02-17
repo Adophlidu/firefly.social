@@ -1696,9 +1696,6 @@ msgstr "{attentionFactors, plural, one {# 风险条目} other {# 风险条目}}"
 msgid "Hide more comments"
 msgstr "隐藏更多的评论"
 
-msgid "Malformed session."
-msgstr "会话格式错误。"
-
 msgid "Like / Repost / Comment"
 msgstr "点赞/转帖/评论"
 
@@ -2358,9 +2355,6 @@ msgstr "查找"
 
 msgid "Show more comments"
 msgstr "展示更多评论"
-
-msgid "Failed to parse session."
-msgstr "未能解析会话"
 
 msgid "Exclusivity"
 msgstr "独特性"
@@ -3246,10 +3240,6 @@ msgstr "收藏 snapshot 失败。"
 
 msgid "Date"
 msgstr "日期"
-
-#. placeholder {0}: response.error_description
-msgid "Failed to vote. {0}"
-msgstr "投票失败。 {0}"
 
 msgid "Confirm to log out all accounts?"
 msgstr "确认登出这些账户？"

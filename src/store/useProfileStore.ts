@@ -7,7 +7,6 @@ import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { queryClient } from '@/configs/queryClient.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
 import { AuthenticationError, FetchError } from '@/constants/error.js';
 import { EMPTY_LIST, HIDDEN_SECRET } from '@/constants/index.js';
@@ -209,9 +208,6 @@ function createState(
                     }),
                 clear: () =>
                     set((state) => {
-                        queryClient.resetQueries({
-                            queryKey: ['profile', 'is-following', Source.Farcaster],
-                        });
                         state.accounts = EMPTY_LIST;
                         state.currentProfile = null;
                         state.currentProfileSession = null;
