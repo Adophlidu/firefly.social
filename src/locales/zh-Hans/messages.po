@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-02-03 12:01\n"
+"PO-Revision-Date: 2025-02-17 09:41\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -104,7 +104,7 @@ msgid "Sell Tax: {0}%"
 msgstr "售卖税率: {0}%"
 
 msgid "Retweet"
-msgstr ""
+msgstr "转帖"
 
 msgid "Failed to translate post. Please retry later."
 msgstr "翻译失败。请稍后重试。"
@@ -179,7 +179,7 @@ msgid "Please be cautious when connecting your wallet, as malicious websites may
 msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问您的钱包资产。"
 
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
-msgstr "<0>完全稀释估值 (FDV) = 当前价格 x 总供应量</0><1>完全稀释估值 (FDV) 是某种货币的全流通时基于当前市场价格的理论市值。FDV 值是理论上的，因为增加货币的流通量可能会影响其市场价格。此外，根据代币经济学、发行计划或货币供应量的锁定期，可能需要相当长的时间才能将其全部供应量释放到流通中。</1>"
+msgstr "<0>完全摊薄估值 (FDV) = 当前价格 x 总供应量</0><1>完全摊薄估值 (FDV) 是某种货币的全流通时基于当前市场价格的理论市值。FDV 值是理论上的，因为增加货币的流通量可能会影响其市场价格。此外，根据代币经济学、发行计划或货币供应量的锁定期，可能需要相当长的时间才能将其全部供应量释放到流通中。</1>"
 
 msgid "Equal Split"
 msgstr "均分金额"
@@ -274,7 +274,7 @@ msgid "Malicious mining activities found."
 msgstr "发现恶意挖矿行为。"
 
 msgid "Collecting"
-msgstr ""
+msgstr "铸造中"
 
 msgid "Functions that can suspend trading"
 msgstr "可以暂停交易的功能"
@@ -672,7 +672,7 @@ msgstr "区块链"
 
 #. placeholder {0}: notification.followers.length
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}}<4> 关注你</4>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}}<4> 关注了你</4>"
 
 #. placeholder {0}: profile.followerCount
 msgid "{0, plural, one {Follower} other {Followers}}"
@@ -1032,7 +1032,7 @@ msgid "Recasts"
 msgstr "转帖"
 
 msgid "Market Cap / FDV"
-msgstr "完全稀释估值"
+msgstr "流通率"
 
 msgid "Log telemetry events to the console."
 msgstr "日志侦测技术至控制台"
@@ -1420,7 +1420,7 @@ msgid "<0>Price</0><1>${0}</1><2/>{1}"
 msgstr "<0>价格</0><1>${0}</1><2/>{1}"
 
 msgid "Collected"
-msgstr "已收藏"
+msgstr "已铸造"
 
 msgid "Show more users"
 msgstr "展示更多用户"
@@ -1718,7 +1718,7 @@ msgid "No blacklist"
 msgstr "无黑名单"
 
 msgid "<0>Collected</0><1/>"
-msgstr "<0>已收藏</0><1/>"
+msgstr "<0>已铸造</0><1/>"
 
 msgid "Post was deleted"
 msgstr "帖子已被删除"
@@ -1903,7 +1903,7 @@ msgid "NFT minted successfully!"
 msgstr "NFT 铸造成功！"
 
 msgid "<0>Collected</0> a POAP"
-msgstr "<0>已收集</0>一个 POAP"
+msgstr "<0>已铸造</0>一个 POAP"
 
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "操作无法回滚，并且定时任务将会被取消。"
@@ -2151,13 +2151,13 @@ msgid "Validate failed, please check your input."
 msgstr "验证失败，请检查您的输入。"
 
 msgid "Access Denied"
-msgstr ""
+msgstr "反问被拒绝"
 
 msgid "Failed to join /{name} on {sourceName}."
 msgstr ""
 
 msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
-msgstr "<0>当前市值与满足最大供应量时的市值之比。</0><1>Mkt Cap/FDV 越接近 1，当前市值越接近其完全稀释估值，反之亦然。</1>"
+msgstr "<0>当前市值与满足最大供应量时的市值之比。</0><1>Mkt Cap/FDV 越接近 1，当前市值越接近其完全摊薄估值（FDV），反之亦然。</1>"
 
 msgid "Minting Date"
 msgstr "铸造日期"
@@ -2409,7 +2409,7 @@ msgid "Quote"
 msgstr "引用"
 
 msgid "Collect Price"
-msgstr "收藏费用"
+msgstr "铸造费"
 
 msgid "View engagements"
 msgstr "查看互动"
@@ -2610,7 +2610,7 @@ msgid "Community"
 msgstr "社区"
 
 msgid "Free Collect"
-msgstr "免费收集"
+msgstr "免费铸造"
 
 msgid "Delete"
 msgstr "删除"
@@ -2641,7 +2641,7 @@ msgid "Send on schedule"
 msgstr "发送定时任务"
 
 msgid "Post on"
-msgstr "发帖者"
+msgstr "发布平台"
 
 msgid "Your transaction will confirm shortly"
 msgstr "您的交易将很快确认"
@@ -2668,7 +2668,7 @@ msgid "Failed to repost."
 msgstr "转帖失败。"
 
 msgid "Sorry, today's free collect quota has been reached."
-msgstr "抱歉，今天的免费收藏额度已用完。"
+msgstr "抱歉，今天的免费铸造额度已用完。"
 
 msgid "Muted contents"
 msgstr "已隐藏的内容"
@@ -2855,7 +2855,7 @@ msgid "Schedule"
 msgstr "定时"
 
 msgid "Cancel Repost"
-msgstr ""
+msgstr "取消转帖"
 
 msgid "No cybercrime involved."
 msgstr "不涉及网络犯罪。"
@@ -2867,7 +2867,7 @@ msgid "Sent"
 msgstr "发送"
 
 msgid "Enable priority notifications"
-msgstr ""
+msgstr "启用优先通知"
 
 msgid "Casts + Replies"
 msgstr "帖子+回复"
@@ -2925,7 +2925,7 @@ msgid "Added"
 msgstr "已添加"
 
 msgid "Cancel Retweet"
-msgstr ""
+msgstr "取消转帖"
 
 msgid "No phishing activities found."
 msgstr "未发现钓鱼活动。"
@@ -3074,13 +3074,13 @@ msgid "Cancel repost successfully"
 msgstr "取消转帖成功"
 
 msgid "Leave /{name}"
-msgstr ""
+msgstr "离开 /{name}"
 
 msgid "Image count limit reached."
 msgstr ""
 
 msgid "Collect Post"
-msgstr "收集帖子"
+msgstr "铸造帖子"
 
 msgid "Sorry, we are not able to find this token"
 msgstr "对不起，我们未找到此代币"
@@ -3164,7 +3164,7 @@ msgid "Ended on {0}"
 msgstr "结束时间 {0}"
 
 msgid "Collect Article"
-msgstr "收集文章"
+msgstr "铸造文章"
 
 msgid "Firefly Wallets"
 msgstr "Firefly 钱包"
@@ -3255,7 +3255,7 @@ msgstr "转帖"
 
 #. placeholder {0}: collectParams.mintPrice
 msgid "Collect for {0} {nativeSymbol}"
-msgstr "收藏 {0} {nativeSymbol}"
+msgstr "铸造 {0} {nativeSymbol}"
 
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr "请输入 blink 链接来验证。 <0>URL格式</0>"
@@ -3289,7 +3289,7 @@ msgid "The account you are trying to log in with is already linked to a differen
 msgstr "您尝试登录的账户已链接到另一个 Firefly 账户。"
 
 msgid "Username or email address"
-msgstr ""
+msgstr "用户名或者邮箱地址"
 
 #. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null
 msgid "<0>Minted</0><1/>{0}"
@@ -3366,7 +3366,7 @@ msgid "Unverified: Failed to simulate, <0>try again</0>"
 msgstr "未验证：模拟失败，请重试。"
 
 msgid "Minting"
-msgstr ""
+msgstr "铸造中"
 
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "如果您授权此通证给这个网站，您可能会丢失您的资产。"
@@ -3375,7 +3375,7 @@ msgid "Unfollow"
 msgstr "取消关注"
 
 msgid "No one can reply"
-msgstr ""
+msgstr "没有人可评论"
 
 msgid "You can set one or multiple rules to be eligible to win a Lucky Drop."
 msgstr "您可以设置一个或多个规则，作为获奖者的条件。"
@@ -3473,13 +3473,13 @@ msgid "News"
 msgstr "新闻"
 
 msgid "Repost or Quote"
-msgstr ""
+msgstr "转发或者引用"
 
 msgid "NFT ID"
 msgstr "NFT ID"
 
 msgid "Sign in with Bluesky"
-msgstr ""
+msgstr "使用 Bluesky 登录"
 
 msgid "Failed to send tip. Please try again later."
 msgstr "打赏失败，请稍后重试。"
@@ -3497,10 +3497,10 @@ msgid "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
 msgstr "上传失败。视频时间超过限制 {minDuration}秒 ~ {maxDuration}秒"
 
 msgid "Post collected successfully!"
-msgstr "成功收集文章！"
+msgstr "成功铸造文章！"
 
 msgid "Reposts"
-msgstr ""
+msgstr "转帖"
 
 msgid "The contract owner has no restrictions on anti whale."
 msgstr "合约所有者对反鲸鱼机制没有限制。"
@@ -3629,7 +3629,7 @@ msgstr "保存"
 
 #. placeholder {0}: profiles.length - 1
 msgid "<0/> and <1>{0} others</1>"
-msgstr "<0/> 和 <1>{0} 其他的</1>"
+msgstr "<0/> 和 <1>{0} 其他的用户</1>"
 
 #. placeholder {0}: dayjs(channel.timestamp).format('MMM DD, YYYY')
 msgid "<0>since </0> <1>{0}</1>"
@@ -3691,7 +3691,7 @@ msgid "No anti_whale(Unlimited number of transactions)"
 msgstr "没有反鲸鱼（无限的交易次数）"
 
 msgid "Failed to collect post."
-msgstr "删除帖子失败。"
+msgstr "铸造帖子失败。"
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>销毁</0> 一个 NFT"
@@ -3729,7 +3729,7 @@ msgid "Swap"
 msgstr "兑换"
 
 msgid "Collect"
-msgstr "收藏"
+msgstr "铸造"
 
 #. placeholder {0}: channel.lead?.handle
 msgid "By @{0}"
@@ -3841,7 +3841,7 @@ msgstr "立即领取"
 #. placeholder {0}: collectModule.amount
 #. placeholder {1}: collectModule.currency
 msgid "Collect for {0} {1}"
-msgstr "收集 {0} {1}"
+msgstr "铸造 {0} {1}"
 
 msgid "Search nft"
 msgstr "搜索 NFT"
