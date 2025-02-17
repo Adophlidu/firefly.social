@@ -72,7 +72,7 @@ export function ConfirmView() {
         setTheme,
         networkType,
     } = useContext(RedPacketContext);
-    const { chainId, account } = useChainContext({ networkType });
+    const { chainId } = useChainContext({ networkType });
 
     const themeId = theme?.tid || DEFAULT_THEME_ID;
     const isCustomTheme = customThemes.some((t) => t.cover.bg_image === theme.cover.bg_image);
@@ -178,10 +178,7 @@ export function ConfirmView() {
         shareFrom,
     ]);
 
-    const shareFromName =
-        isValidSolanaAddress(shareFrom) || isValidAddress(shareFrom)
-            ? (shareFromEnsName ?? formatAddress(shareFrom, 4))
-            : `${shareFrom}`;
+    const shareFromName = shareFromEnsName ?? shareFrom;
 
     const [{ loading: creatingRedPacket }, handleCreate] = useCreateFTRedPacketCallback(
         shareFromName,
@@ -313,7 +310,7 @@ export function ConfirmView() {
                             selected={shareFrom}
                             className="w-full"
                             accounts={accounts}
-                            onClick={(name) => setShareFrom(name)}
+                            onSelect={setShareFrom}
                         >
                             <div className="flex cursor-pointer items-center justify-between rounded-lg bg-bg p-3">
                                 <span className="text-sm font-bold">

@@ -10,12 +10,12 @@ import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 
 interface ShareAccountsPopoverProps extends PropsWithChildren {
     accounts: Array<{ icon: ReactNode; name: string }>;
-    onClick: (name: string) => void;
+    onSelect: (name: string) => void;
     className?: string;
     selected?: string;
 }
 
-export function ShareAccountsPopover({ accounts, children, onClick, className, selected }: ShareAccountsPopoverProps) {
+export function ShareAccountsPopover({ accounts, children, onSelect, className, selected }: ShareAccountsPopoverProps) {
     return (
         <Popover as="div" className="relative">
             {({ close }) => (
@@ -51,7 +51,7 @@ export function ShareAccountsPopover({ accounts, children, onClick, className, s
                                         name={name}
                                         disabled={selected === name}
                                         onClick={(name: string) => {
-                                            onClick(name);
+                                            onSelect(name);
                                             close();
                                         }}
                                     />

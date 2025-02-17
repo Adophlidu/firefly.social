@@ -112,8 +112,8 @@ export function LoginBsky() {
                     Enter your username and password to log in instantly
                 </h1>
 
-                <div className="group relative mx-0 box-border flex h-10 flex-grow items-center rounded-xl bg-lightBg p-[1px] px-3 text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
-                    <AtIcon width={18} height={18} className="shrink-0" />
+                <div className="group relative mx-0 flex h-10 flex-grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
+                    <AtIcon width={18} height={18} className="absolute left-3 shrink-0" />
                     <input
                         ref={accountRef}
                         disabled={loading}
@@ -123,14 +123,14 @@ export function LoginBsky() {
                         autoComplete="off"
                         spellCheck="false"
                         placeholder={t`Username or email address`}
-                        className="w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
+                        className="w-full border-0 bg-transparent py-2 pl-9 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
                         value={account}
                         onChange={(ev) => setAccount(ev.currentTarget.value)}
                     />
                     {account ? (
                         <ClearButton
                             type="button"
-                            className="hidden group-focus-within:inline-block group-hover:inline-block"
+                            className="absolute right-3 hidden group-focus-within:inline-block group-hover:inline-block"
                             IconProps={{ className: 'group-hover:text-highlight group-focus-within:text-highlight' }}
                             size={16}
                             onClick={() => {
@@ -140,8 +140,8 @@ export function LoginBsky() {
                         />
                     ) : null}
                 </div>
-                <div className="group relative mx-0 box-border flex h-10 flex-grow items-center rounded-xl bg-lightBg p-[1px] px-3 text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
-                    <LockIcon width={18} height={18} className="shrink-0" />
+                <div className="group relative mx-0 flex h-10 flex-grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
+                    <LockIcon width={18} height={18} className="absolute left-3 shrink-0" />
                     <input
                         ref={passwordRef}
                         disabled={loading}
@@ -150,14 +150,14 @@ export function LoginBsky() {
                         autoComplete="off"
                         spellCheck="false"
                         placeholder={t`Password`}
-                        className="w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
+                        className="w-full border-0 bg-transparent py-2 pl-9 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
                         value={password}
                         onChange={(ev) => setPassword(ev.currentTarget.value)}
                     />
                     {password ? (
                         <ClearButton
                             type="button"
-                            className="hidden group-focus-within:inline-block group-hover:inline-block"
+                            className="absolute right-3 hidden group-focus-within:inline-block group-hover:inline-block"
                             IconProps={{ className: 'group-hover:text-highlight group-focus-within:text-highlight' }}
                             size={16}
                             onClick={() => {

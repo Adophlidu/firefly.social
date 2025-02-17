@@ -8,11 +8,10 @@ import { type ChangeEvent, memo, useCallback, useMemo } from 'react';
 import { isAddress } from 'viem';
 
 import ArrowDown from '@/assets/arrow-down.svg';
-import { TokenIcon } from '@/components/Tips/TokenIcon.js';
+import { TokenIcon } from '@/components/TokenIcon.js';
 import { NetworkType } from '@/constants/enum.js';
 import { NUMERIC_INPUT_REGEXP_PATTERN } from '@/constants/regexp.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { formatFungibleTokenToDebankToken } from '@/helpers/formatToken.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isZero, leftShift } from '@/helpers/number.js';
 import { TokenSelectorModalRef } from '@/modals/controls.js';
@@ -135,7 +134,7 @@ export const FungibleTokenInput = memo<FungibleTokenInputProps>(function Fungibl
 
                 {token ? (
                     <div className="flex cursor-pointer items-center gap-x-3" onClick={handleTokenChange}>
-                        <TokenIcon token={formatFungibleTokenToDebankToken(token)} />
+                        <TokenIcon key={token.id} chainId={token.chainId} name={token.name} icon={token.logoURL} />
                         <span className="text-sm font-bold leading-[18px]">{token.symbol}</span>
                         <ArrowDown width={24} height={24} />
                     </div>

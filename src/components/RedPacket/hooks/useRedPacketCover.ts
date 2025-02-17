@@ -1,8 +1,8 @@
 import { minus, toFixed } from '@masknet/web3-shared-base';
-import { isValidAddress, isValidDomain } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
+import { formatSenderName } from '@/components/RedPacket/helpers.js';
 import { bom } from '@/helpers/bom.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
@@ -50,7 +50,6 @@ export function useRedPacketCover({
         select(theme) {
             if (!theme) return null;
             const SITE_URL = bom.location?.origin ?? '';
-            const name = sender;
             const remainingAmount = toFixed(minus(total, claimedAmount ?? '0'));
             return {
                 theme,
@@ -65,9 +64,7 @@ export function useRedPacketCover({
                     decimals: token?.decimals ?? 1,
                     shares,
                     amount: toFixed(total),
-                    from: [isValidAddress, isValidDomain, (n: string) => n.startsWith('@')].some((f) => f(name))
-                        ? name
-                        : `@${name}`,
+                    from: formatSenderName(sender),
                     message,
                     'remaining-amount': remainingAmount,
                     'remaining-shares': toFixed(minus(shares, claimed || 0)),

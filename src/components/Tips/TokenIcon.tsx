@@ -11,6 +11,7 @@ interface TokenIconProps {
 export function TokenIcon({ token, tokenSize = 30, chainSize = 12, disableChainIcon = false }: TokenIconProps) {
     return (
         <GenericTokenIcon
+            key={token.id}
             chainId={token.chainId}
             name={token.name}
             icon={token.logo_url}

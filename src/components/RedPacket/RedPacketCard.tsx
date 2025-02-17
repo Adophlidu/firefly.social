@@ -15,6 +15,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Loading } from '@/components/Loading.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { AmountProgressText } from '@/components/RedPacket/AmountProgressText.js';
+import { formatSenderName } from '@/components/RedPacket/helpers.js';
 import { useAvailabilityComputed } from '@/components/RedPacket/hooks/useAvailabilityComputed.js';
 import { useRedPacketCover } from '@/components/RedPacket/hooks/useRedPacketCover.js';
 import { useRefundCallback } from '@/components/RedPacket/hooks/useRefundCallback.js';
@@ -22,16 +23,17 @@ import { useVerifyAndClaim } from '@/components/RedPacket/hooks/useVerifyAndClai
 import { RedPacketCardFooter } from '@/components/RedPacket/RedPacketCardFooter.js';
 import { RequirementsModal } from '@/components/RedPacket/RequirementsModal.js';
 import { Timer } from '@/components/RedPacket/Timer.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkType } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
-import { fetch } from '@/helpers/fetch.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { minus, ZERO } from '@/helpers/number.js';
+import { usePreloadImage } from '@/helpers/preloadImage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
@@ -130,16 +132,16 @@ export function RedPacketCard({ payload, post }: Props) {
         networkType,
     });
 
-    const { loading: imageLoading } = useAsync(async () => {
-        if (!cover?.backgroundImageUrl) return;
-        return fetch(cover.backgroundImageUrl);
-    }, [cover?.backgroundImageUrl]);
+    const { isLoading: imageLoading } = usePreloadImage(cover?.backgroundImageUrl);
 
     const [{ isVerifying, isClaiming, claimStrategyStatus }, verifyAndClaim] = useVerifyAndClaim(
         { ...payload, chainId: parsedChainId },
         post.source,
         post,
     );
+
+    const originSenderName = payload.sender.name;
+    const senderName = formatSenderName(originSenderName);
 
     return (
         <div
@@ -238,7 +240,9 @@ export function RedPacketCard({ payload, post }: Props) {
                             <div className="mb-2 line-clamp-2 max-w-[100%] text-[20px] font-bold">
                                 {payload.sender.message}
                             </div>
-                            <div className="text-[15px] opacity-80">@{payload.sender.name.replace(/^@/, '')}</div>
+                            <Tooltip content={senderName === `@${originSenderName}` ? '' : originSenderName}>
+                                <div className="text-[15px] opacity-80">{senderName}</div>
+                            </Tooltip>
                         </div>
 
                         {cover && payload.token && availability ? (
