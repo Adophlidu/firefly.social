@@ -3588,6 +3588,9 @@ msgstr "{hours}h left"
 msgid "Events"
 msgstr "Events"
 
+msgid "Quote posts disabled"
+msgstr "Quote posts disabled"
+
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 #. placeholder {0}: resolveSourceName(Source.Lens)
 #. placeholder {0}: resolveSourceName(Source.Twitter)

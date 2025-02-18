@@ -66,6 +66,7 @@ async function resolvePostEmbed(post: Post, isQuote: boolean, richText?: RichTex
 interface Options {
     labels?: string[];
     langs?: string[];
+    disableQuote?: boolean;
 }
 
 export async function publishPostToBsky(
@@ -132,6 +133,21 @@ export async function publishPostToBsky(
                 createdAt: new Date().toISOString(),
                 allow: resolveRestriction(post.restrictions),
                 hiddenReplies: [],
+            },
+        });
+    }
+
+    if (post.type !== 'Comment' && options?.disableQuote) {
+        writes.push({
+            $type: 'com.atproto.repo.applyWrites#create',
+            collection: 'app.bsky.feed.postgate',
+            rkey: rKey,
+            value: {
+                $type: 'app.bsky.feed.postgate',
+                createdAt: new Date().toISOString(),
+                post: uri,
+                detachedEmbeddingUris: [],
+                embeddingRules: [{ $type: 'app.bsky.feed.postgate#disableRule' }],
             },
         });
     }

@@ -110,6 +110,7 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
         type: 'Post',
         source: Source.Bsky,
         canComment: true,
+        canMirror: original.viewer?.embeddingDisabled !== true,
         restrictions: original.threadgate ? resolveRestrictions(original.threadgate) : undefined,
         author: formatBskyProfile(original.author),
         stats: {

@@ -9,13 +9,15 @@ import { memo, useMemo, useState } from 'react';
 import MirrorIcon from '@/assets/mirror.svg';
 import MirrorLargeIcon from '@/assets/mirror-large.svg';
 import QuoteDownIcon from '@/assets/quote-down.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { classNames } from '@/helpers/classNames.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useMirror } from '@/hooks/useMirror.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -37,12 +39,17 @@ export const Mirror = memo<MirrorProps>(function Mirror({
     hiddenCount = false,
 }) {
     const [open, setOpen] = useState(false);
-    const isLogin = useIsLogin(source);
+    const profile = useCurrentProfile(source);
+
+    const isLogin = !!profile?.profileId;
     const mirrored = !!post.hasMirrored;
 
     const canUndoMirror = useMemo(() => {
         return post.source === Source.Lens && mirrored && post.publicationId !== post.postId;
     }, [post.source, post.publicationId, post.postId, mirrored]);
+    const mirrorDisabled = useMemo(() => {
+        return post.canMirror === false && !!profile && !isSameProfile(post.author, profile);
+    }, [post.canMirror, post.author, profile]);
 
     const content = useMemo(() => {
         if (shares === 0) {
@@ -141,8 +148,9 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                         </div>
                     ) : null}
 
-                    <div
+                    <ClickableButton
                         className="flex cursor-pointer items-center space-x-1 md:space-x-2"
+                        disabled={mirrorDisabled}
                         onClick={() => {
                             setOpen(false);
                             ComposeModalRef.open({
@@ -154,9 +162,9 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     >
                         <QuoteDownIcon width={17} height={17} />
                         <span className="font-medium">
-                            <Trans>Quote post</Trans>
+                            {mirrorDisabled ? <Trans>Quote posts disabled</Trans> : <Trans>Quote post</Trans>}
                         </span>
-                    </div>
+                    </ClickableButton>
                 </div>
             }
         >
