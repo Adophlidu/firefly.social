@@ -44,7 +44,7 @@ async function createTwitterSessionPayloadFromCookies() {
 }
 
 export async function createTwitterSessionBeforeLogin(request: NextRequest) {
-    // before login, the client sends session in headers
+    // for api requests: retrieve session from headers
     const fromHeaders = await createTwitterSessionPayloadFromHeaders();
     if (fromHeaders) return fromHeaders;
 
@@ -56,11 +56,11 @@ export async function createTwitterSessionBeforeLogin(request: NextRequest) {
 }
 
 export async function createTwitterSessionAfterLogin() {
-    // sometimes the client sends session in headers to override the session in cookies
+    // for api requests: retrieve session from headers
     const fromHeaders = await createTwitterSessionPayloadFromHeaders();
     if (fromHeaders) return fromHeaders;
 
-    // after login, the session will be stored in cookies
+    // for ssr: retrieve session from cookies
     const fromCookies = await createTwitterSessionPayloadFromCookies();
     if (fromCookies) return fromCookies;
 

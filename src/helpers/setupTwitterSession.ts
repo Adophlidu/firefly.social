@@ -8,10 +8,6 @@ export async function setupServerTwitterSession() {
     if (!isServer) return;
 
     const payload = await createTwitterSessionAfterLogin();
-
-    console.log('DEBUG: twitter payload');
-    console.log(JSON.stringify(payload));
-
     if (!payload) {
         await twitterSessionHolder.removeSession();
         return;

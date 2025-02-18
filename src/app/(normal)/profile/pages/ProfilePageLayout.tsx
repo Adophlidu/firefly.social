@@ -35,9 +35,6 @@ export async function ProfilePageLayout({
                 : null;
         if (!profile && !walletProfile && !profiles.length) return <ProfileNotFound />;
 
-        console.log('DEBUG: profile');
-        console.log(JSON.stringify(profile));
-
         return (
             <>
                 <ProfileSourceTabs
