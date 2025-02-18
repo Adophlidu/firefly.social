@@ -361,9 +361,11 @@ export class BskySocialMedia implements Provider {
         const res = await bskySessionHolder.agent.getFollowers({
             actor: profileId,
             cursor: indicator?.id,
+            limit: 25,
         });
+        const data = await this.getProfilesByIds(res.data.followers.map((x) => x.did));
         return createPageable(
-            res.data.followers.map((profile) => formatBskyProfile(profile)),
+            data,
             createIndicator(indicator),
             res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
         );
@@ -372,9 +374,11 @@ export class BskySocialMedia implements Provider {
         const res = await bskySessionHolder.agent.getFollows({
             actor: profileId,
             cursor: indicator?.id,
+            limit: 25,
         });
+        const data = await this.getProfilesByIds(res.data.follows.map((x) => x.did));
         return createPageable(
-            res.data.follows.map((profile) => formatBskyProfile(profile)),
+            data,
             createIndicator(indicator),
             res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
         );
@@ -383,9 +387,11 @@ export class BskySocialMedia implements Provider {
         const res = await bskySessionHolder.agent.app.bsky.graph.getKnownFollowers({
             actor: profileId,
             cursor: indicator?.id,
+            limit: 25,
         });
+        const data = await this.getProfilesByIds(res.data.followers.map((x) => x.did));
         return createPageable(
-            res.data.followers.map((profile) => formatBskyProfile(profile)),
+            data,
             createIndicator(indicator),
             res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
         );
