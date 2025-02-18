@@ -498,6 +498,14 @@ export interface Provider {
     getChannelsByIds: (ids: string[]) => Promise<Channel[]>;
 
     /**
+     * Retrieves a user's profile by their profile ID or handle.
+     *
+     * @param {string} profileIdOrHandle - The unique identifier or handle for the profile to be retrieved.
+     * @returns {Promise<Profile>} A promise that resolves to a Profile object.
+     */
+    getProfileByIdOrHandle: (profileIdOrHandle: string) => Promise<Profile>;
+
+    /**
      * Retrieves a user's profile by their profile ID.
      *
      * @param profileId The ID of the user's profile.

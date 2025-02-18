@@ -335,6 +335,10 @@ class NeynarSocialMedia implements Provider {
         return SessionType.Farcaster;
     }
 
+    getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
+        throw new NotImplementedError();
+    }
+
     async getProfileById(profileId: string): Promise<Profile> {
         const result = await this.getProfilesByIds([profileId]);
         const data = first(result);

@@ -76,6 +76,10 @@ class FarcasterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
+        return FireflySocialMediaProvider.getProfileByIdOrHandle(profileIdOrHandle);
+    }
+
     getProfileByHandle(handle: string): Promise<Profile> {
         return FireflySocialMediaProvider.getProfileByHandle(handle);
     }

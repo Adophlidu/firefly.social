@@ -29,6 +29,7 @@ import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -39,7 +40,6 @@ import { EVMExplorerResolver } from '@/mask/index.js';
 import { DraggablePopoverRef, LoginModalRef, SuperFollowModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getProfileById } from '@/services/getProfileById.js';
 
 function formatTimeLeft(endTime: string) {
     const timeLeft = getTimeLeft(endTime);
@@ -77,7 +77,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
     const { data: profile = null, isLoading: queryProfileLoading } = useQuery({
         queryKey: ['profile', post.source, post.author.profileId],
         queryFn: async () => {
-            return getProfileById(post.source, post.author.handle);
+            return resolveSocialMediaProvider(post.source).getProfileByIdOrHandle(post.author.handle);
         },
         retry(failureCount, error) {
             if (error instanceof FetchError && error.status === StatusCodes.FORBIDDEN) return false;

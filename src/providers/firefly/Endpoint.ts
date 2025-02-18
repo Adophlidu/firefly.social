@@ -1,6 +1,6 @@
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
-import { type Address, type Hex, isAddress } from 'viem';
+import { type Address, type Hex, isAddress, isHex } from 'viem';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { DEBANK_CHAIN_TO_CHAIN_ID_MAP, DEBANK_CHAINS } from '@/constants/chain.js';
@@ -244,6 +244,7 @@ export class FireflyEndpoint {
         const queryKey = resolveValue(() => {
             switch (identity.source) {
                 case Source.Lens:
+                    if (isHex(identity.id)) return 'lensProfileId';
                     return 'lensHandle';
                 case Source.Farcaster:
                     return 'fid';

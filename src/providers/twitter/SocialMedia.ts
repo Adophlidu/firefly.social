@@ -25,6 +25,7 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { formatTweetsPage } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile, formatTwitterProfilePage } from '@/helpers/formatTwitterProfile.js';
 import { getTwitterProfileHandleFromUrl } from '@/helpers/getTwitterProfileHandleFromUrl.js';
+import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
@@ -299,6 +300,15 @@ class TwitterSocialMedia implements Provider {
         const response = await twitterSessionHolder.fetch<ResponseJSON<Post>>(`/api/twitter/${postId}`);
         const data = resolveTwitterResponseData(response);
         return data;
+    }
+
+    async getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
+        if (isNumericalProfileId(profileIdOrHandle)) {
+            // Using runInSafeAsync here to handle cases where a purely numerical handle might be passed
+            const profile = await runInSafeAsync(() => this.getProfileById(profileIdOrHandle));
+            if (profile) return profile;
+        }
+        return this.getProfileByHandle(profileIdOrHandle);
     }
 
     async getProfileById(profileId: string): Promise<Profile> {

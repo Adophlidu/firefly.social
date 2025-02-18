@@ -10,11 +10,11 @@ import { ProfileMoreAction, type ProfileMoreActionProps } from '@/components/Pro
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { getProfileById } from '@/services/getProfileById.js';
 
 interface ProfileActionProps {
     profile: Profile;
@@ -25,7 +25,7 @@ export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps 
     const { data } = useQuery({
         queryKey: ['profile', initialProfile.source, initialProfile.profileId],
         queryFn: async () => {
-            return getProfileById(initialProfile.source, initialProfile.profileId);
+            return resolveSocialMediaProvider(initialProfile.source).getProfileByIdOrHandle(initialProfile.profileId);
         },
     });
 

@@ -6,6 +6,7 @@ import { NotImplementedError } from '@/constants/error.js';
 import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastProfile } from '@/helpers/formatWarpcastProfile.js';
+import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
@@ -320,6 +321,13 @@ class WarpcastSocialMedia implements Provider {
             };
 
         return post;
+    }
+
+    getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
+        if (isNumericalProfileId(profileIdOrHandle)) {
+            return this.getProfileById(profileIdOrHandle);
+        }
+        return this.getProfileByHandle(profileIdOrHandle);
     }
 
     async getProfileById(profileId: string) {

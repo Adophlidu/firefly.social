@@ -2,8 +2,8 @@ import type { UseQueryResult } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
 
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { getProfileById } from '@/services/getProfileById.js';
 
 export function useRefreshedProfile<T extends Profile | null | undefined>(profile?: T): UseQueryResult<T> {
     const handleOrProfileId = resolveFireflyProfileId(profile ?? null);
@@ -12,7 +12,9 @@ export function useRefreshedProfile<T extends Profile | null | undefined>(profil
         async queryFn() {
             try {
                 if (!profile || !handleOrProfileId) return null as T;
-                const refreshed = await getProfileById(profile.source, handleOrProfileId);
+                const refreshed = await resolveSocialMediaProvider(profile.source).getProfileByIdOrHandle(
+                    handleOrProfileId,
+                );
                 return refreshed ?? profile;
             } catch {
                 return profile;

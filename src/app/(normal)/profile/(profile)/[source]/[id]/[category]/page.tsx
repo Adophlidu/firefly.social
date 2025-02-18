@@ -13,7 +13,7 @@ import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
-import { getProfileById } from '@/services/getProfileById.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { NextPageProps } from '@/types/index.js';
 
 interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: SourceInURL }> {}
@@ -28,7 +28,8 @@ export default function Page(props: Props) {
         queryKey: ['profile', source, params.id],
         queryFn: async () => {
             if (source === Source.Wallet) return null;
-            return getProfileById(source, params.id);
+            const provider = resolveSocialMediaProvider(source);
+            return provider.getProfileByIdOrHandle(params.id);
         },
     });
 

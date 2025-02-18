@@ -15,6 +15,7 @@ import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFro
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { formatSnapshotActivityFromFirefly } from '@/helpers/formatSnapshotFromFirefly.js';
 import { getCurrentProfile, getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
+import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
@@ -385,6 +386,13 @@ export class FireflySocialMedia implements Provider {
             if (!post) throw new NotFoundError('Post not found');
             return post;
         });
+    }
+
+    getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
+        if (isNumericalProfileId(profileIdOrHandle)) {
+            return this.getProfileById(profileIdOrHandle);
+        }
+        return this.getProfileByHandle(profileIdOrHandle);
     }
 
     async getProfileById(profileId: string): Promise<Profile> {

@@ -32,7 +32,7 @@ import { isServer } from '@tanstack/react-query';
 import { compact, first, flatMap, omit, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
-import type { Address, Hex, TypedDataDomain } from 'viem';
+import { type Address, type Hex, isHex, type TypedDataDomain } from 'viem';
 import { polygon } from 'viem/chains';
 import { sendTransaction } from 'wagmi/actions';
 
@@ -725,6 +725,11 @@ export class LensSocialMedia implements Provider {
 
     async getProfileBySession(session: Session): Promise<Profile> {
         return getLensProfileBySession(session as LensSession);
+    }
+
+    async getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
+        if (isHex(profileIdOrHandle)) return this.getProfileById(profileIdOrHandle);
+        return this.getProfileByHandle(profileIdOrHandle);
     }
 
     async getPostById(postId: string): Promise<Post> {

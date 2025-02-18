@@ -16,9 +16,9 @@ import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
-import { getProfileById } from '@/services/getProfileById.js';
 
 export async function ProfilePageLayout({
     identity,
@@ -31,7 +31,9 @@ export async function ProfilePageLayout({
     try {
         const profile =
             identity.id && identity.source !== Source.Wallet
-                ? await runInSafeAsync(() => getProfileById(resolvedSource, identity.id))
+                ? await runInSafeAsync(() => {
+                      return resolveSocialMediaProvider(resolvedSource).getProfileByIdOrHandle(identity.id);
+                  })
                 : null;
         if (!profile && !walletProfile && !profiles.length) return <ProfileNotFound />;
 

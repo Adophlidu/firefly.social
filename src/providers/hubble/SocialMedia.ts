@@ -83,6 +83,10 @@ class HubbleSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
+        throw new NotImplementedError();
+    }
+
     getPostById(postId: string): Promise<Post> {
         throw new NotImplementedError();
     }

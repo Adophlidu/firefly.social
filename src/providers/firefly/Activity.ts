@@ -30,7 +30,6 @@ import type {
     VotingResultResponse,
 } from '@/providers/types/Firefly.js';
 import type { Friendship } from '@/providers/types/SocialMedia.js';
-import { getProfileById } from '@/services/getProfileById.js';
 import { settings } from '@/settings/index.js';
 import { SupportedMethod } from '@/types/bridge.js';
 
@@ -212,7 +211,7 @@ class FireflyActivity implements Provider {
     ) {
         switch (source) {
             case Source.Lens: {
-                const profile = await getProfileById(source, profileId);
+                const profile = await resolveSocialMediaProvider(source).getProfileByIdOrHandle(profileId);
                 return profile?.viewerContext?.following ?? false;
             }
             case Source.Farcaster: {
@@ -237,7 +236,7 @@ class FireflyActivity implements Provider {
                         })) === 'true'
                     );
                 }
-                const profile = await getProfileById(source, profileId);
+                const profile = await resolveSocialMediaProvider(source).getProfileByIdOrHandle(profileId);
                 return profile?.viewerContext?.following ?? false;
             }
             case Source.Bsky: {
