@@ -32,11 +32,11 @@ export const BioMarkup = memo<BioMarkupProps>(function BioMarkup({ children, pos
         return compact([
             [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
             remarkBreaks,
+            linkifyRegex(URL_REGEX),
             linkifyRegex(MENTION_REGEX),
             linkifyRegex(HASHTAG_REGEX),
             linkifyRegex(SYMBOL_REGEX),
             linkifyRegex(BIO_TWITTER_PROFILE_REGEX),
-            linkifyRegex(URL_REGEX),
             isChannelSupported(source) ? linkifyRegex(CHANNEL_REGEX) : undefined,
         ]);
     }, [source]);
@@ -45,7 +45,7 @@ export const BioMarkup = memo<BioMarkupProps>(function BioMarkup({ children, pos
         return function Link(props: HTMLProps<HTMLAnchorElement>) {
             const matched = props.title?.startsWith('@') && props.title.endsWith('.');
 
-            const title = matched ? props.title?.slice(0, -1) : props.title;
+            const title = matched ? props.title?.slice(0, -1) : props.title?.trim();
 
             return (
                 <>

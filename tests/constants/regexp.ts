@@ -126,6 +126,10 @@ function matchCorrectUrl(regExp: RegExp) {
                 Alternative clients are important, we should support them!`,
                 'firefly.mask.social/',
             ],
+            [
+                'Random thought about AI n web3\nhttps://paragraph.xyz/@kellyan.eth\nChief Decentralisation Officer@Opencord AI',
+                'https://paragraph.xyz/@kellyan.eth',
+            ],
         ];
 
         cases.forEach(([input, expectedOutput]) => {
@@ -211,7 +215,7 @@ describe('HASHTAG_REGEXP', () => {
 describe('URL_REGEX', () => {
     it('should match a url', matchUrl(URL_REGEX));
 
-    it('should match conrrect url', matchCorrectUrl(URL_REGEX));
+    it('should match correct url', matchCorrectUrl(URL_REGEX));
 });
 
 describe('LINK_MARK_RE', () => {
