@@ -92,7 +92,7 @@ async function recompositePost(index: number, post: CompositePost, posts: Compos
 
 export async function crossPostThread({ progressCallback, isRetry = false, signal }: CrossPostThreadOptions = {}) {
     const { posts } = useComposeStateStore.getState();
-    if (posts.length === 1) throw new Error(t`A thread must have at least two posts.`);
+    if (posts.length === 1) throw new Error('A thread must have at least two posts.');
 
     progressCallback?.(0);
 

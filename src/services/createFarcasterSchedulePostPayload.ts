@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { toInteger, uniqBy } from 'lodash-es';
 import { toBytes } from 'viem';
 
@@ -40,8 +39,7 @@ export async function createFarcasterSchedulePostPayload(
     const farcasterParentPost = parentPost.Farcaster;
     // login required
     const { currentProfile } = useFarcasterStateStore.getState();
-
-    if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
+    if (!currentProfile?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
 
     const imageResults = await Promise.all(
         images.map(async (media) => {

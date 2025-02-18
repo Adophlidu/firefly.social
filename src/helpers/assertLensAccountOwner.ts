@@ -1,5 +1,3 @@
-import { t } from '@lingui/core/macro';
-
 import { config } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
@@ -12,7 +10,7 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 async function checkResolver(address: string, profile: Profile) {
     const profiles = await LensSocialMediaProvider.getProfilesByAddress(address);
     if (!profiles.some((x) => isSameProfile(x, profile))) {
-        throw new Error(t`Cannot continue due to wallet mismatch.`);
+        throw new Error('Cannot continue due to wallet mismatch.');
     }
 
     return true;

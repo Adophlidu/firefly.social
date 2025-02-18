@@ -23,7 +23,7 @@ import { useLensStateStore } from '@/store/useProfileStore.js';
 export async function crossPostScheduleThread(scheduleTime: Date, signal?: AbortSignal) {
     try {
         const { posts, type } = useComposeStateStore.getState();
-        if (posts.length === 1) throw new Error(t`A thread must have at least two posts.`);
+        if (posts.length === 1) throw new Error('A thread must have at least two posts.');
 
         checkScheduleTime(scheduleTime);
 

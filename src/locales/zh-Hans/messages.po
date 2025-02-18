@@ -36,9 +36,6 @@ msgstr "您想尝试重新发送或者仅发送剩余部分吗？"
 msgid "Connected wallets"
 msgstr ""
 
-msgid "Login required to post on {sourceName}."
-msgstr "请先登录 {sourceName}。"
-
 msgid "Stealing attack found."
 msgstr "发现盗窃攻击。"
 
@@ -112,9 +109,6 @@ msgstr "翻译失败。请稍后重试。"
 msgid "Posts"
 msgstr "帖子"
 
-msgid "Failed to fetch as Blob."
-msgstr "获取 Blob 失败。"
-
 msgid "Metadata not frozen."
 msgstr "元数据未冻结。"
 
@@ -150,9 +144,6 @@ msgstr "模版"
 
 msgid "Failed to collect article."
 msgstr "收集文章失败。"
-
-msgid "Token is required."
-msgstr "请选择代币。"
 
 msgid "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
 msgstr "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
@@ -340,9 +331,6 @@ msgstr "加入我们的 Discord"
 msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 msgstr "未包含外部调用功能。如果存在外部调用功能，项目所有者可能有能力控制合约。"
 
-msgid "Found arweaveTxId is empty."
-msgstr "ArweaveTxId 为空。"
-
 msgid "{followerCount, plural, one {Member} other {Members}}"
 msgstr "{followerCount, plural, one {成员} other {成员}}"
 
@@ -500,9 +488,6 @@ msgstr "合约所有者对个人滑点有限制。"
 
 msgid "Anti whale can be modified."
 msgstr "反鲸鱼机制可以被修改。"
-
-msgid "Profile not found"
-msgstr "未找到个人信息"
 
 msgid "Posted to Lens or Farcaster on Yup or posted to Lens on Phaver since August 1, 2024. New Firefly users only."
 msgstr ""
@@ -885,9 +870,6 @@ msgstr "发帖"
 msgid "Failed to unlike the post."
 msgstr "取消点赞失败。"
 
-msgid "There are images or videos that were not uploaded successfully."
-msgstr "图片或者视频上传失败。"
-
 msgid "{addressName} is already connected."
 msgstr "{addressName} 已经连接。"
 
@@ -1036,9 +1018,6 @@ msgstr "流通率"
 
 msgid "Log telemetry events to the console."
 msgstr "日志侦测技术至控制台"
-
-msgid "The number of people who can claim the lucky drop should be less than {maxShares}."
-msgstr "可以领取幸运掉落的人数应少于 {maxShares}。"
 
 msgid "Failed to un-bookmark NFT."
 msgstr "取消收藏 NFT 失败。"
@@ -1201,9 +1180,6 @@ msgstr "哎呀... 并未满足所有要求"
 
 msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
 msgstr "您是 <0>Pudgy Penguins</0> 或 <1>Lil Pudgy</1> NFT 系列的持有者"
-
-msgid "Failed to get token account."
-msgstr "获取代币账户失败。"
 
 msgid "No restricted approval."
 msgstr "没有限制性批准。"
@@ -1481,9 +1457,6 @@ msgstr "卡玛拉·哈里斯"
 msgid "Send telemetry events in debug mode."
 msgstr "在调试模式下发送遥测事件。"
 
-msgid "The chainId mismatch."
-msgstr "chainId 不匹配"
-
 msgid "Failed to connect on {source}"
 msgstr "在 {source} 上连接失败。"
 
@@ -1520,9 +1493,6 @@ msgstr "收藏人"
 
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查您的权限。"
-
-msgid "There are images that were not uploaded successfully."
-msgstr "图片上传失败。"
 
 msgid "No mint function"
 msgstr "没有铸造功能"
@@ -1624,9 +1594,6 @@ msgstr "当前结果"
 
 msgid "Comment"
 msgstr "评论"
-
-msgid "Failed to create red packet."
-msgstr "创建红包失败"
 
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr "您可以在发送红包 24 小时后提取任何未领取的金额。"
@@ -1888,9 +1855,6 @@ msgstr "显示名称不可以为空"
 msgid "Clear All"
 msgstr "全部清除"
 
-msgid "There are videos that were not uploaded successfully."
-msgstr "视频上传失败。"
-
 #. placeholder {0}: notification.actions.length
 #. placeholder {1}: notification.post.type
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
@@ -1997,9 +1961,6 @@ msgstr "您需要连接您的 {0} 账户来使用此功能。"
 
 msgid "Bad Request. Please check your request."
 msgstr "请求错误。请检查你的请求。"
-
-msgid "Login required to schedule post on {sourceName}"
-msgstr "需要先登录 {sourceName} 才能发送定时任务。"
 
 msgid "No blackmail activities found."
 msgstr "未发现勒索行为。"
@@ -2821,9 +2782,6 @@ msgstr "您的浏览器不支持 Firefly Bridge。"
 msgid "No matching collection"
 msgstr "未找到匹配项"
 
-msgid "At least {RED_PACKET_MIN_SHARES} person should be able to claim the lucky drop."
-msgstr "至少应有 {RED_PACKET_MIN_SHARES} 人能够领取红包。"
-
 msgid "Mobile App"
 msgstr "手机应用"
 
@@ -3042,9 +3000,6 @@ msgstr "所有人可评论"
 
 msgid "No matching token"
 msgstr "未匹配到代币"
-
-msgid "Failed to create scheduled post."
-msgstr "创建定时任务失败"
 
 msgid "The contract owner has restrictions on anti whale."
 msgstr "合约所有者对反鲸鱼机制有限制。"
@@ -3314,9 +3269,6 @@ msgstr ""
 msgid "Something went wrong"
 msgstr "发生未知错误。"
 
-msgid "Token mint address is required."
-msgstr "需要提供代币铸造地址。"
-
 msgid "Create time:"
 msgstr "创建时间："
 
@@ -3487,9 +3439,6 @@ msgstr "打赏失败，请稍后重试。"
 msgid "Failed to unlike the comment."
 msgstr "取消点赞失败。"
 
-msgid "Failed to fetch as ArrayBuffer."
-msgstr "Failed to fetch as ArrayBuffer."
-
 msgid "Statistic"
 msgstr "统计"
 
@@ -3519,9 +3468,6 @@ msgstr "预览"
 
 msgid "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
 msgstr "你持有<0>2024年总统选举</0> NFT 并投票给特朗普。"
-
-msgid "Cannot continue due to wallet mismatch."
-msgstr "钱包不匹配无法继续。"
 
 msgid "your.email@example.org"
 msgstr "your.email@example.org"
@@ -3678,9 +3624,6 @@ msgstr "已转发"
 msgid "No phishing activities involved."
 msgstr "未发现钓鱼活动。"
 
-msgid "Failed to parse transaction."
-msgstr "未能解析交易。"
-
 msgid "The metadata of this NFT is stored in IPFS, AR, generated by contract, or another decentralized way."
 msgstr "该 NFT 的元数据存储在 IPFS、AR、合约生成或其他去中心化方式中。"
 
@@ -3708,9 +3651,6 @@ msgstr ""
 
 msgid "Download App"
 msgstr "下载应用"
-
-msgid "Failed to fetch the latest state after several attempts. Please try again later."
-msgstr "获取状态失败。请稍后重试。"
 
 #. placeholder {0}: getMintButtonText(true, true, mintStatus)
 msgid "So sorry, we cant mint this NFT with the current status: {0}"
@@ -3778,9 +3718,6 @@ msgstr "<0>已领取: </0><1>{claim_numbers}/{total_numbers}</1> <2>{0}/{1}</2> 
 
 msgid "View on website"
 msgstr "在网站上查看"
-
-msgid "No parent post found."
-msgstr "未找到上级帖子。"
 
 msgid "Select Channel"
 msgstr "选择频道"
@@ -3974,9 +3911,6 @@ msgstr "<0>{0}</0> 已转发"
 msgid "Close"
 msgstr "关闭"
 
-msgid "Failed to update scheduled post."
-msgstr "更新定时任务失败"
-
 msgid "Login"
 msgstr "登录"
 
@@ -3987,9 +3921,6 @@ msgstr "在 {1} 上回复 <0>@{0}</0>"
 
 msgid "Fake KYC found."
 msgstr "识别为虚假KYC。"
-
-msgid "A thread must have at least two posts."
-msgstr "一条 thread 至少包含 2 个帖子。"
 
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"

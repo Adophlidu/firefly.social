@@ -31,9 +31,6 @@ msgstr "Do you want to retry with the full or remaining content?"
 msgid "Connected wallets"
 msgstr "Connected wallets"
 
-msgid "Login required to post on {sourceName}."
-msgstr "Login required to post on {sourceName}."
-
 msgid "Stealing attack found."
 msgstr "Stealing attack found."
 
@@ -107,9 +104,6 @@ msgstr "Failed to translate post. Please retry later."
 msgid "Posts"
 msgstr "Posts"
 
-msgid "Failed to fetch as Blob."
-msgstr "Failed to fetch as Blob."
-
 msgid "Metadata not frozen."
 msgstr "Metadata not frozen."
 
@@ -145,9 +139,6 @@ msgstr "Template"
 
 msgid "Failed to collect article."
 msgstr "Failed to collect article."
-
-msgid "Token is required."
-msgstr "Token is required."
 
 msgid "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
 msgstr "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
@@ -335,9 +326,6 @@ msgstr "Join our Discord"
 msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 msgstr "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 
-msgid "Found arweaveTxId is empty."
-msgstr "Found arweaveTxId is empty."
-
 msgid "{followerCount, plural, one {Member} other {Members}}"
 msgstr "{followerCount, plural, one {Member} other {Members}}"
 
@@ -495,9 +483,6 @@ msgstr "The contract owner has restrictions on personal slippage."
 
 msgid "Anti whale can be modified."
 msgstr "Anti whale can be modified."
-
-msgid "Profile not found"
-msgstr "Profile not found"
 
 msgid "Posted to Lens or Farcaster on Yup or posted to Lens on Phaver since August 1, 2024. New Firefly users only."
 msgstr "Posted to Lens or Farcaster on Yup or posted to Lens on Phaver since August 1, 2024. New Firefly users only."
@@ -880,9 +865,6 @@ msgstr "POST"
 msgid "Failed to unlike the post."
 msgstr "Failed to unlike the post."
 
-msgid "There are images or videos that were not uploaded successfully."
-msgstr "There are images or videos that were not uploaded successfully."
-
 msgid "{addressName} is already connected."
 msgstr "{addressName} is already connected."
 
@@ -1031,9 +1013,6 @@ msgstr "Market Cap / FDV"
 
 msgid "Log telemetry events to the console."
 msgstr "Log telemetry events to the console."
-
-msgid "The number of people who can claim the lucky drop should be less than {maxShares}."
-msgstr "The number of people who can claim the lucky drop should be less than {maxShares}."
 
 msgid "Failed to un-bookmark NFT."
 msgstr "Failed to un-bookmark NFT."
@@ -1196,9 +1175,6 @@ msgstr "Oops... Not all the requirements have been met"
 
 msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
 msgstr "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
-
-msgid "Failed to get token account."
-msgstr "Failed to get token account."
 
 msgid "No restricted approval."
 msgstr "No restricted approval."
@@ -1476,9 +1452,6 @@ msgstr "Kamala Harris"
 msgid "Send telemetry events in debug mode."
 msgstr "Send telemetry events in debug mode."
 
-msgid "The chainId mismatch."
-msgstr "The chainId mismatch."
-
 msgid "Failed to connect on {source}"
 msgstr "Failed to connect on {source}"
 
@@ -1515,9 +1488,6 @@ msgstr "Collected by"
 
 msgid "Forbidden. Please check your permissions."
 msgstr "Forbidden. Please check your permissions."
-
-msgid "There are images that were not uploaded successfully."
-msgstr "There are images that were not uploaded successfully."
 
 msgid "No mint function"
 msgstr "No mint function"
@@ -1619,9 +1589,6 @@ msgstr "Current Results"
 
 msgid "Comment"
 msgstr "Comment"
-
-msgid "Failed to create red packet."
-msgstr "Failed to create red packet."
 
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
@@ -1886,9 +1853,6 @@ msgstr "Display Name should not be blank"
 msgid "Clear All"
 msgstr "Clear All"
 
-msgid "There are videos that were not uploaded successfully."
-msgstr "There are videos that were not uploaded successfully."
-
 #. placeholder {0}: notification.actions.length
 #. placeholder {1}: notification.post.type
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
@@ -1995,9 +1959,6 @@ msgstr "You need to connect your {0} account to use this feature."
 
 msgid "Bad Request. Please check your request."
 msgstr "Bad Request. Please check your request."
-
-msgid "Login required to schedule post on {sourceName}"
-msgstr "Login required to schedule post on {sourceName}"
 
 msgid "No blackmail activities found."
 msgstr "No blackmail activities found."
@@ -2819,9 +2780,6 @@ msgstr "Your browser does not support the Firefly Bridge."
 msgid "No matching collection"
 msgstr "No matching collection"
 
-msgid "At least {RED_PACKET_MIN_SHARES} person should be able to claim the lucky drop."
-msgstr "At least {RED_PACKET_MIN_SHARES} person should be able to claim the lucky drop."
-
 msgid "Mobile App"
 msgstr "Mobile App"
 
@@ -3040,9 +2998,6 @@ msgstr "Everyone can reply"
 
 msgid "No matching token"
 msgstr "No matching token"
-
-msgid "Failed to create scheduled post."
-msgstr "Failed to create scheduled post."
 
 msgid "The contract owner has restrictions on anti whale."
 msgstr "The contract owner has restrictions on anti whale."
@@ -3315,9 +3270,6 @@ msgstr "Unlock a premium collectible and a larger $MASK airdrop "
 msgid "Something went wrong"
 msgstr "Something went wrong"
 
-msgid "Token mint address is required."
-msgstr "Token mint address is required."
-
 msgid "Create time:"
 msgstr "Create time:"
 
@@ -3488,9 +3440,6 @@ msgstr "Failed to send tip. Please try again later."
 msgid "Failed to unlike the comment."
 msgstr "Failed to unlike the comment."
 
-msgid "Failed to fetch as ArrayBuffer."
-msgstr "Failed to fetch as ArrayBuffer."
-
 msgid "Statistic"
 msgstr "Statistic"
 
@@ -3520,9 +3469,6 @@ msgstr "Preview"
 
 msgid "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
 msgstr "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
-
-msgid "Cannot continue due to wallet mismatch."
-msgstr "Cannot continue due to wallet mismatch."
 
 msgid "your.email@example.org"
 msgstr "your.email@example.org"
@@ -3679,9 +3625,6 @@ msgstr "Recasted"
 msgid "No phishing activities involved."
 msgstr "No phishing activities involved."
 
-msgid "Failed to parse transaction."
-msgstr "Failed to parse transaction."
-
 msgid "The metadata of this NFT is stored in IPFS, AR, generated by contract, or another decentralized way."
 msgstr "The metadata of this NFT is stored in IPFS, AR, generated by contract, or another decentralized way."
 
@@ -3709,9 +3652,6 @@ msgstr "Scheduled posts are only available on {0}."
 
 msgid "Download App"
 msgstr "Download App"
-
-msgid "Failed to fetch the latest state after several attempts. Please try again later."
-msgstr "Failed to fetch the latest state after several attempts. Please try again later."
 
 #. placeholder {0}: getMintButtonText(true, true, mintStatus)
 msgid "So sorry, we cant mint this NFT with the current status: {0}"
@@ -3779,9 +3719,6 @@ msgstr "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{
 
 msgid "View on website"
 msgstr "View on website"
-
-msgid "No parent post found."
-msgstr "No parent post found."
 
 msgid "Select Channel"
 msgstr "Select Channel"
@@ -3975,9 +3912,6 @@ msgstr "<0>{0}</0> recasted"
 msgid "Close"
 msgstr "Close"
 
-msgid "Failed to update scheduled post."
-msgstr "Failed to update scheduled post."
-
 msgid "Login"
 msgstr "Login"
 
@@ -3988,9 +3922,6 @@ msgstr "Replying to <0>@{0}</0> on {1}"
 
 msgid "Fake KYC found."
 msgstr "Fake KYC found."
-
-msgid "A thread must have at least two posts."
-msgstr "A thread must have at least two posts."
 
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"

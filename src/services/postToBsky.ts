@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 
 import { FileMimeType, Source } from '@/constants/enum.js';
 import { BSKY_IMAGE_LIMITATION, MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
@@ -42,7 +41,7 @@ export async function postToBsky(
     if (bskyPostId) return;
 
     const { currentProfile } = useBskyStateStore.getState();
-    if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
+    if (!currentProfile?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
 
     const composeDraft = async (postType: PostType, images: MediaObject[], videos: MediaObject[], polls?: Poll[]) => {
         if (images.some((media) => !media.blobRef)) {
@@ -138,7 +137,7 @@ export async function postToBsky(
                 !bskyRootPostId ||
                 !bskyRootPostContentURI
             )
-                throw new Error(t`No parent post found.`);
+                throw new Error('No parent post found.');
             const draft = await composeDraft('Comment', images, videos);
             return BskySocialMediaProvider.publishPost(draft);
         },
@@ -149,7 +148,7 @@ export async function postToBsky(
                 !bskyRootPostId ||
                 !bskyRootPostContentURI
             )
-                throw new Error(t`No parent post found.`);
+                throw new Error('No parent post found.');
             const draft = await composeDraft('Quote', images, videos);
             return BskySocialMediaProvider.quotePost(bskyParentPost.postId, draft);
         },

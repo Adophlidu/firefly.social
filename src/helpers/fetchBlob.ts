@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 
 import { fetch } from '@/helpers/fetch.js';
 import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
@@ -9,6 +8,6 @@ export async function fetchBlob(
     options?: NextFetchersOptions,
 ): Promise<Blob> {
     const response = await fetch(input, init, options);
-    if (!response.ok) throw new Error(t`Failed to fetch as Blob.`);
+    if (!response.ok) throw new Error('Failed to fetch as Blob.');
     return response.blob();
 }

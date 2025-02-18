@@ -1,5 +1,4 @@
 import { image, link, MediaImageMimeType, MediaVideoMimeType, textOnly, video } from '@lens-protocol/metadata';
-import { t } from '@lingui/core/macro';
 import { first } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 
@@ -62,7 +61,7 @@ export async function createPayloadAttachments(
         images.some((image) => !resolveImageUrl(Source.Lens, image)) ||
         (video && !resolveVideoUrl(Source.Lens, video))
     ) {
-        throw new Error(t`There are images or videos that were not uploaded successfully.`);
+        throw new Error('There are images or videos that were not uploaded successfully.');
     }
 
     const imagesWithIPFS = images as Array<Required<MediaObject>>;
@@ -277,7 +276,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
 
     // login required
     const { currentProfile } = useLensStateStore.getState();
-    if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
+    if (!currentProfile?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
 
     const postTo = createPostTo(Source.Lens, {
         uploadImages() {
@@ -315,7 +314,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             );
         },
         reply(images, videos) {
-            if (!lensParentPost) throw new Error(t`No parent post found.`);
+            if (!lensParentPost) throw new Error('No parent post found.');
             const video = first(videos) ?? null;
             return commentPostForLens(
                 currentProfile.profileId,
@@ -326,7 +325,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             );
         },
         quote(images, videos) {
-            if (!lensParentPost) throw new Error(t`No parent post found.`);
+            if (!lensParentPost) throw new Error('No parent post found.');
             const video = first(videos) ?? null;
             return quotePostForLens(
                 currentProfile.profileId,

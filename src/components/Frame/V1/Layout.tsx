@@ -178,7 +178,7 @@ async function getNextFrame(
                     const client = await getWalletClientRequired(config, {
                         chainId,
                     });
-                    if (client.chain.id !== chainId) throw new Error(t`The chainId mismatch.`);
+                    if (client.chain.id !== chainId) throw new Error('The chainId mismatch.');
                     await simulate({
                         type: SimulateType.Swap,
                         chainId,
@@ -201,17 +201,17 @@ async function getNextFrame(
                 const walletAction = await postAction<z.infer<typeof WalletActionSchema>>({
                     address,
                 });
-                if (!walletAction.success) throw new Error(t`Failed to parse transaction.`);
+                if (!walletAction.success) throw new Error('Failed to parse transaction.');
 
                 const profile = getCurrentProfile(Source.Farcaster);
-                if (!profile) throw new Error(t`Profile not found`);
+                if (!profile) throw new Error('Profile not found');
 
                 const action = WalletActionSchema.parse(walletAction.data);
                 const { chainId } = parseCAIP10(action.chainId);
                 const client = await getWalletClientRequired(config, {
                     chainId,
                 });
-                if (client.chain.id !== chainId) throw new Error(t`The chainId mismatch.`);
+                if (client.chain.id !== chainId) throw new Error('The chainId mismatch.');
 
                 const method = action.method;
                 switch (method) {

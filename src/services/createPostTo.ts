@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { first } from 'lodash-es';
 
@@ -50,11 +49,11 @@ export function createPostTo(source: SocialSource, options: Options) {
                     return postId;
                 }
                 case 'reply':
-                    if (!parentPost) throw new Error(t`No parent post found.`);
+                    if (!parentPost) throw new Error('No parent post found.');
                     const commentId = await options.reply(uploadedImages, uploadedVideos, polls);
                     return commentId;
                 case 'quote': {
-                    if (!parentPost) throw new Error(t`No parent post found.`);
+                    if (!parentPost) throw new Error('No parent post found.');
                     const postId = await options.quote(uploadedImages, uploadedVideos);
                     return postId;
                 }

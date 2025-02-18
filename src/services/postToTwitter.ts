@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { first, uniqBy } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
@@ -29,14 +28,14 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
 
     // login required
     const { currentProfile } = useTwitterStateStore.getState();
-    if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
+    if (!currentProfile?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
 
     const composeDraft = (postType: PostType, images: MediaObject[], videos: MediaObject[], polls?: Poll[]) => {
         if (images.some((media) => !resolveUploadId(Source.Twitter, media))) {
-            throw new Error(t`There are images that were not uploaded successfully.`);
+            throw new Error('There are images that were not uploaded successfully.');
         }
         if (videos.some((media) => !resolveUploadId(Source.Twitter, media))) {
-            throw new Error(t`There are videos that were not uploaded successfully.`);
+            throw new Error('There are videos that were not uploaded successfully.');
         }
 
         return {
@@ -84,13 +83,13 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
         compose: (images, videos, polls) =>
             TwitterSocialMediaProvider.publishPost(composeDraft('Post', images, videos, polls)),
         reply: (images, videos, polls) => {
-            if (!twitterParentPost?.postId) throw new Error(t`No parent post found.`);
+            if (!twitterParentPost?.postId) throw new Error('No parent post found.');
             return TwitterSocialMediaProvider.publishPost(composeDraft('Comment', images, videos, polls), {
                 excludeReplyProfileIds,
             });
         },
         quote: (images, videos) => {
-            if (!twitterParentPost?.postId) throw new Error(t`No parent post found.`);
+            if (!twitterParentPost?.postId) throw new Error('No parent post found.');
             return TwitterSocialMediaProvider.quotePost(
                 twitterParentPost.postId,
                 composeDraft('Quote', images, videos),

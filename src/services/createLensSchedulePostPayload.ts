@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 
 import { config } from '@/configs/wagmiClient.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
@@ -55,7 +54,7 @@ export async function createLensSchedulePostPayload(
         : null;
 
     const { currentProfile } = useLensStateStore.getState();
-    if (!currentProfile?.profileId) throw new Error(t`Login required to schedule post on ${sourceName}`);
+    if (!currentProfile?.profileId) throw new Error(`Login required to schedule post on ${sourceName}`);
 
     // Request the user settings
     const { signless } = await LensSocialMediaProvider.getProfileById(currentProfile?.profileId);
@@ -63,9 +62,8 @@ export async function createLensSchedulePostPayload(
     if (!signless) {
         const { account } = await getWalletClientRequired(config);
         if (!isSameEthereumAddress(currentProfile?.ownedBy?.address, account.address)) {
-            throw new CreateScheduleError(t`Please switch to the wallet consistent with this action`);
+            throw new CreateScheduleError('Please switch to the wallet consistent with this action');
         }
-
         throw new SignlessRequireError('Signless required');
     }
 

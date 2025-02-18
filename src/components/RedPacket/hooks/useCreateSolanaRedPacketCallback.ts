@@ -61,12 +61,12 @@ export function useCreateSolanaRedPacketCallback(
 
     return useAsyncFn(async () => {
         try {
-            if (!token) throw new Error(t`Token is required.`);
-            if (!isNativeToken && !token.address) throw new Error(t`Token mint address is required.`);
+            if (!token) throw new Error('Token is required.');
+            if (!isNativeToken && !token.address) throw new Error('Token mint address is required.');
             if (shares < RED_PACKET_MIN_SHARES)
-                throw new Error(t`At least ${RED_PACKET_MIN_SHARES} person should be able to claim the lucky drop.`);
+                throw new Error(`At least ${RED_PACKET_MIN_SHARES} person should be able to claim the lucky drop.`);
             if (shares > maxShares)
-                throw new Error(t`The number of people who can claim the lucky drop should be less than ${maxShares}.`);
+                throw new Error(`The number of people who can claim the lucky drop should be less than ${maxShares}.`);
 
             const claimer = web3.Keypair.generate();
             const baseParams: CreateWithNativeTokenContext = {
@@ -90,7 +90,7 @@ export function useCreateSolanaRedPacketCallback(
                 result = await SolanaRedPacket.createWithNativeToken(baseParams);
             } else {
                 const tokenAccount = await getTokenAccountByMint(chainId, account, token.address);
-                if (!tokenAccount) throw new Error(t`Failed to get token account.`);
+                if (!tokenAccount) throw new Error('Failed to get token account.');
 
                 tokenProgram = tokenAccount.owner;
                 result = await SolanaRedPacket.createWithSplToken({
@@ -102,7 +102,7 @@ export function useCreateSolanaRedPacketCallback(
                 });
             }
 
-            if (!result) throw new Error(t`Failed to create red packet.`);
+            if (!result) throw new Error('Failed to create red packet.');
 
             const password = Buffer.from(claimer.secretKey).toString('hex');
             const payload = {

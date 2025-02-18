@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import urlcat from 'urlcat';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -29,6 +28,6 @@ export async function uploadToArweave(data: GetPostMetaData, token: string): Pro
         },
         body: JSON.stringify(data),
     });
-    if (!arweaveTxId) throw new Error(t`Found arweaveTxId is empty.`);
+    if (!arweaveTxId) throw new Error('Found arweaveTxId is empty.');
     return arweaveTxId;
 }

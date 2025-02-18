@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import dayjs from 'dayjs';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
@@ -34,7 +33,7 @@ export async function schedulePost(
         },
     );
     if (response.data?.taskId) return response.data.taskId;
-    throw new Error(t`Failed to create scheduled post.`);
+    throw new Error('Failed to create scheduled post.');
 }
 
 export async function updateScheduledPost(id: string, scheduleTime: Date) {
@@ -54,7 +53,7 @@ export async function updateScheduledPost(id: string, scheduleTime: Date) {
         },
     );
     if (response.data) return response.data;
-    throw new Error(t`Failed to update scheduled post.`);
+    throw new Error('Failed to update scheduled post.');
 }
 
 export async function deleteScheduledPost(id: string) {
@@ -72,7 +71,7 @@ export async function deleteScheduledPost(id: string) {
         },
     );
     if (response.data) return true;
-    throw new Error(t`Failed to delete scheduled post.`);
+    throw new Error('Failed to delete scheduled post.');
 }
 
 export async function getScheduledPosts(indicator?: PageIndicator) {

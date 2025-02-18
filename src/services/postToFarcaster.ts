@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { uniqBy } from 'lodash-es';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
@@ -34,14 +33,14 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
 
     // login required
     const { currentProfile } = useFarcasterStateStore.getState();
-    if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
+    if (!currentProfile?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
 
     const composeDraft = (postType: PostType, images: MediaObject[], videos: MediaObject[], polls?: Poll[]) => {
         if (
             images.some((image) => !resolveImageUrl(Source.Farcaster, image)) ||
             videos.some((video) => !resolveVideoUrl(Source.Farcaster, video))
         ) {
-            throw new Error(t`There are images or videos that were not uploaded successfully.`);
+            throw new Error('There are images or videos that were not uploaded successfully.');
         }
 
         const currentChannel = channel[Source.Farcaster];
@@ -116,13 +115,13 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
         },
         reply: async (images, videos, polls) => {
             await validateSignerKey();
-            if (!farcasterParentPost) throw new Error(t`No parent post found.`);
+            if (!farcasterParentPost) throw new Error('No parent post found.');
             // for farcaster, post id is read from post.commentOn.postId
             return FarcasterSocialMediaProvider.commentPost('', composeDraft('Comment', images, videos, polls));
         },
         quote: async (images, videos, polls) => {
             await validateSignerKey();
-            if (!farcasterParentPost) throw new Error(t`No parent post found.`);
+            if (!farcasterParentPost) throw new Error('No parent post found.');
             return FarcasterSocialMediaProvider.quotePost(
                 farcasterParentPost.postId,
                 composeDraft('Quote', images, videos, polls),
