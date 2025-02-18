@@ -43,6 +43,7 @@ export interface PostBodyContentProps {
     isReply?: boolean;
     isDetail?: boolean;
     isComment?: boolean;
+    isInCompose?: boolean;
     showMore?: boolean;
     disablePadding?: boolean;
     showTranslate?: boolean;
@@ -63,6 +64,7 @@ export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(
         showMore = !isDetail,
         disablePadding = false,
         showTranslate = false,
+        isInCompose = false,
     } = props;
 
     const router = useRouter();
@@ -118,12 +120,12 @@ export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(
     const EncryptedContent = useMemo(() => {
         if (post.source === Source.Twitter && !currentTwitterProfileSession) return null;
 
-        if (seen && hasEncryptedPayload) {
+        if (seen && hasEncryptedPayload && !isInCompose) {
             return <RedPacketInspector post={post} payloads={compact(Object.values(payloads))} />;
         }
 
         return null;
-    }, [post, currentTwitterProfileSession, seen, hasEncryptedPayload, payloads]);
+    }, [post, currentTwitterProfileSession, seen, hasEncryptedPayload, payloads, isInCompose]);
 
     const LinksContent = useMemo(
         () =>

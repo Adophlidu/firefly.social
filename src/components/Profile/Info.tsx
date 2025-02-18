@@ -48,7 +48,7 @@ export function Info(props: InfoProps) {
                     <div className="flex w-full items-center gap-2">
                         <SocialSourceIcon className="shrink-0" source={source} size={20} />
                         <TextOverflowTooltip content={profile.displayName} placement="top">
-                            <address className="truncate text-xl font-black not-italic text-lightMain">
+                            <address className="truncate text-lg font-black not-italic leading-6 text-lightMain">
                                 {profile.displayName}
                             </address>
                         </TextOverflowTooltip>

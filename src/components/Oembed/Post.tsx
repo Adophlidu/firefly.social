@@ -10,9 +10,10 @@ import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 interface PostEmbedProps {
     id: string;
     source: SocialSourceInURL;
+    isInCompose?: boolean;
 }
 
-export const PostEmbed = memo<PostEmbedProps>(function PostEmbed({ id, source }) {
+export const PostEmbed = memo<PostEmbedProps>(function PostEmbed({ id, source, isInCompose }) {
     const currentSource = resolveSocialSource(source);
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
@@ -34,5 +35,5 @@ export const PostEmbed = memo<PostEmbedProps>(function PostEmbed({ id, source })
 
     if (!data) return;
 
-    return <Quote post={data} />;
+    return <Quote post={data} isInCompose={isInCompose} />;
 });

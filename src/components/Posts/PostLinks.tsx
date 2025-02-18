@@ -89,7 +89,7 @@ export function PostLinks({ post, setContent, isInCompose = false }: Props) {
             ) : null}
             {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
             {data.action ? <ActionContainer action={data.action} url={url} /> : null}
-            {data.oembed ? <OembedLayout data={data.oembed} post={post} /> : null}
+            {data.oembed ? <OembedLayout data={data.oembed} post={post} isInCompose={isInCompose} /> : null}
             {data.spaceId ? <TweetSpace spaceId={data.spaceId} /> : null}
             {data.nft ? <NFTPreviewer nft={data.nft} /> : null}
             {data.collection ? <CollectionPreviewer collection={data.collection} /> : null}

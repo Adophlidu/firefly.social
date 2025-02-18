@@ -35,6 +35,7 @@ import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/helpers/rpPayload.js';
+import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile, useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
@@ -91,6 +92,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
         const currentSocialSource = narrowToSocialSource(currentSource);
 
         const contentRef = useRef<HTMLDivElement>(null);
+        const controller = useAbortController();
 
         const currentProfileAll = useCurrentProfileAll();
         const profile = useCurrentProfile(currentSocialSource);
@@ -107,13 +109,14 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
             clear,
         } = useComposeStateStore();
         const { clearScheduleTime } = useComposeScheduleStateStore();
-        const { typedMessage, rpPayload, id, availableSources } = useCompositePost();
+        const { typedMessage, rpPayload, availableSources } = useCompositePost();
 
         const [editor] = useLexicalComposerContext();
 
         const setEditorContent = useSetEditorContent();
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: ({ type, source, typedMessage, post, chars, channel, initialPath }) => {
+                controller.current.abort();
                 updateType(type || 'compose');
                 updateAvailableSources(
                     source ? (Array.isArray(source) ? source : [source]) : getCurrentAvailableSources(),
@@ -137,10 +140,11 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                 clearScheduleTime();
                 router.navigate({ to: '/' });
 
+                controller.current.renew();
                 // https://github.com/DimensionDev/firefly.mask.social/pull/1644
                 await delay(1000);
 
-                editor.update(() => $getRoot().clear());
+                if (!controller.current.signal?.aborted) editor.update(() => $getRoot().clear());
             },
         });
 

@@ -48,7 +48,7 @@ export async function ChannelInfo({ channel: unresolvedChannel, source, isChanne
     ) : (
         <SocialSourceIcon className="rounded-full" source={source} size={48} />
     );
-    const name = <span className="text-xl font-black text-lightMain">{channel.name}</span>;
+    const name = <span className="text-lg font-black leading-6 text-lightMain">{channel.name}</span>;
 
     return (
         <article {...rest} className={classNames('flex gap-3 p-3', rest.className)}>
@@ -65,7 +65,7 @@ export async function ChannelInfo({ channel: unresolvedChannel, source, isChanne
                         <SocialSourceIcon mono source={source} size={20} />
                     </h1>
 
-                    <div className="flex flex-row gap-1">
+                    <div className="flex flex-row items-center gap-1">
                         {!isBsky ? (
                             <span className="text-medium text-secondary">/{channel.id}</span>
                         ) : (
@@ -74,8 +74,10 @@ export async function ChannelInfo({ channel: unresolvedChannel, source, isChanne
                             </span>
                         )}
 
+                        {isBsky ? <span className="leading-[22px] text-secondary">·</span> : null}
+
                         <data value={followerCount} className="flex items-center gap-1">
-                            <UserIcon width={18} height={18} />
+                            {!isBsky ? <UserIcon width={18} height={18} /> : null}
                             <span className="text-lightMain">{nFormatter(followerCount)}</span>
                             <span className="text-secondary">
                                 {!isBsky ? (

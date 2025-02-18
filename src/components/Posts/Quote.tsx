@@ -13,9 +13,10 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 interface QuoteProps {
     post: Post;
     className?: string;
+    isInCompose?: boolean;
 }
 
-export const Quote = memo<QuoteProps>(function Quote({ post, className = '' }) {
+export const Quote = memo<QuoteProps>(function Quote({ post, className = '', isInCompose }) {
     const router = useRouter();
     return (
         <motion.article
@@ -32,7 +33,12 @@ export const Quote = memo<QuoteProps>(function Quote({ post, className = '' }) {
             }}
         >
             <PostHeader post={post} isQuote />
-            <PostBody post={post} isQuote disablePadding={post.isHidden || post.isEncrypted} />
+            <PostBody
+                isInCompose={isInCompose}
+                post={post}
+                isQuote
+                disablePadding={post.isHidden || post.isEncrypted}
+            />
         </motion.article>
     );
 });

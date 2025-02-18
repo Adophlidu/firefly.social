@@ -24,36 +24,39 @@ const OembedUI = memo<OembedUIProps>(function OembedUI({ og }) {
     );
 });
 
-export const OembedLayout = memo<{ data: LinkDigested; post?: Post }>(function OembedPayload(props) {
-    const {
-        data: { payload, og },
-        post,
-    } = props;
+export const OembedLayout = memo<{ data: LinkDigested; post?: Post; isInCompose?: boolean }>(
+    function OembedPayload(props) {
+        const {
+            data: { payload, og },
+            post,
+            isInCompose,
+        } = props;
 
-    if (!og.title) return null;
-    if (payload?.type === 'Post' && post?.type === 'Mirror' && post.parentPostId === payload.id) return null;
-    if (payload?.type === 'Post' && payload.id === post?.postId) return null;
+        if (!og.title) return null;
+        if (payload?.type === 'Post' && post?.type === 'Mirror' && post.parentPostId === payload.id) return null;
+        if (payload?.type === 'Post' && payload.id === post?.postId) return null;
 
-    const type = payload?.type;
-    if (!type) return <OembedUI og={og} />;
+        const type = payload?.type;
+        if (!type) return <OembedUI og={og} />;
 
-    switch (type) {
-        case PayloadType.Farcaster:
-            return <Quote post={formatWarpcastPost(payload.cast)} />;
-        case PayloadType.Post:
-            return (
-                <Suspense fallback={null}>
-                    <PostEmbed id={payload.id} source={payload.source} />
-                </Suspense>
-            );
-        case PayloadType.Mirror:
-            // Since it has been processed in PostLinks
-            return;
-        default:
-            safeUnreachable(type);
-            return <OembedUI og={og} />;
-    }
-});
+        switch (type) {
+            case PayloadType.Farcaster:
+                return <Quote post={formatWarpcastPost(payload.cast)} />;
+            case PayloadType.Post:
+                return (
+                    <Suspense fallback={null}>
+                        <PostEmbed id={payload.id} source={payload.source} isInCompose={isInCompose} />
+                    </Suspense>
+                );
+            case PayloadType.Mirror:
+                // Since it has been processed in PostLinks
+                return null;
+            default:
+                safeUnreachable(type);
+                return <OembedUI og={og} />;
+        }
+    },
+);
 
 interface OembedProps {
     post: Post;
