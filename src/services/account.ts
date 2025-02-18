@@ -100,14 +100,10 @@ async function updateState(accounts: Account[], overwrite = false) {
 
             const account = first(state.accounts);
             if (!account) return;
-
+            if (!sessionHolder?.session) sessionHolder?.resumeSession(account.session);
             if (!state.currentProfile) state.updateCurrentAccount(account);
-            if (!sessionHolder?.session) {
-                sessionHolder?.resumeSession(account.session);
-
-                if (x === Source.Twitter && TwitterSession.isNextAuth(account.session)) {
-                    await TwitterAuthProvider.login();
-                }
+            if (!sessionHolder?.session && x === Source.Twitter && TwitterSession.isNextAuth(account.session)) {
+                await TwitterAuthProvider.login();
             }
         }),
     );
@@ -125,13 +121,13 @@ async function resumeFireflySession(account: Account, signal?: AbortSignal): Pro
         session: fireflySession,
     } satisfies Account;
 
+    // restore firefly session
+    fireflySessionHolder.resumeSession(fireflyAccount.session);
+
     // update firefly state
     const state = getProfileState(Source.Firefly);
     state.updateAccounts([fireflyAccount]);
     state.updateCurrentAccount(fireflyAccount);
-
-    // restore firefly session
-    fireflySessionHolder.resumeSession(fireflyAccount.session);
 }
 
 /**
@@ -318,8 +314,8 @@ export async function restoreCurrentAccounts(signal?: AbortSignal) {
 export async function switchAccount(account: Account, signal?: AbortSignal) {
     const { state, sessionHolder } = getContext(account.profile.profileSource);
 
-    state.addAccount(account, true);
     sessionHolder.resumeSession(account.session);
+    state.addAccount(account, true);
 }
 
 async function removeAccount(account: Account, signal?: AbortSignal) {

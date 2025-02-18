@@ -59,10 +59,10 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                     signal: controller.current.signal,
                 });
                 if (done) {
-                    enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
-
                     // after login, move the session storage to local storage
                     lensSessionHolder.resumeSession(account.session);
+
+                    enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
                 }
 
                 LoginModalRef.close();
