@@ -2,9 +2,10 @@ import { AppBskyActorProfile, AppBskyFeedDefs, moderatePost } from '@atproto/api
 import { BlockedActorError } from '@atproto/api/dist/client/types/app/bsky/feed/getAuthorFeed.js';
 import { safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
+import urlcat from 'urlcat';
 
 import { DISCOVER_AT_URI } from '@/constants/bsky.js';
-import { type BookmarkType, type FireflyPlatform, Source } from '@/constants/enum.js';
+import { BookmarkType, FireflyPlatform, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { BSKY_LOGIN_REQUIRED_FEEDS, EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
@@ -32,7 +33,9 @@ import { resolveBskyResponseData } from '@/helpers/resolveBskyResponseData.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { ChannelAtUri, PostAtUri } from '@/providers/bsky/AtUri.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
-import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import type { BookmarkResponse, NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import {
     type Channel,
     type CommentNotification,
@@ -53,6 +56,7 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import { publishPostToBsky } from '@/services/publishPostToBsky.js';
+import { settings } from '@/settings/index.js';
 
 async function getSinglePost(uri: string) {
     const response = await bskySessionHolder.agent.getPostThread({
@@ -63,6 +67,20 @@ async function getSinglePost(uri: string) {
     const thread = AppBskyFeedDefs.isThreadViewPost(data.thread) ? data.thread : null;
     if (!thread) throw new Error(`No thread found uri = ${uri}.`);
     return formatBskyFeedPost(thread);
+}
+
+async function fillBookmarkDataForPosts(posts: Post[]) {
+    const ids = posts.map((x) => x.postId);
+    if (!ids.length) return posts;
+
+    const bookmarks = await runInSafeAsync(() =>
+        FireflySocialMediaProvider.getBookmarksByIds(FireflyPlatform.Bsky, ids, BookmarkType.Text),
+    );
+
+    return posts.map((post) => ({
+        ...post,
+        hasBookmarked: bookmarks?.find((x) => x.post_id === post.postId)?.has_book_marked ?? false,
+    }));
 }
 
 @SetQueryDataForLikePost(Source.Bsky)
@@ -228,8 +246,9 @@ export class BskySocialMedia implements Provider {
             feed: DISCOVER_AT_URI,
         });
         const data = resolveBskyResponseData(response, 'Failed to discoverPosts');
+
         return createPageable(
-            data.feed.map(formatBskyFeedPost),
+            await fillBookmarkDataForPosts(data.feed.map(formatBskyFeedPost)),
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
@@ -255,7 +274,7 @@ export class BskySocialMedia implements Provider {
         });
         const data = resolveBskyResponseData(response, 'Failed to discoverPosts');
         return createPageable(
-            data.feed.map(formatBskyFeedPost),
+            await fillBookmarkDataForPosts(data.feed.map(formatBskyFeedPost)),
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
@@ -269,7 +288,7 @@ export class BskySocialMedia implements Provider {
             });
             const data = resolveBskyResponseData(response, `Failed to get post by profile id = ${profileId}.`);
             return createPageable(
-                data.feed.map(formatBskyFeedPost),
+                await fillBookmarkDataForPosts(data.feed.map(formatBskyFeedPost)),
                 createIndicator(indicator),
                 data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
             );
@@ -674,13 +693,33 @@ export class BskySocialMedia implements Provider {
         profileId?: string,
         postType?: BookmarkType,
     ): Promise<boolean> {
-        throw new NotImplementedError();
+        return FireflySocialMediaProvider.bookmark(postId, FireflyPlatform.Bsky, profileId, postType);
     }
     async unbookmark(postId: string): Promise<boolean> {
-        throw new NotImplementedError();
+        return FireflySocialMediaProvider.unbookmark(postId);
     }
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {
+            post_type: BookmarkType.All,
+            platforms: FireflyPlatform.Bsky,
+            limit: 25,
+            cursor: indicator?.id || undefined,
+        });
+        const response = await fireflySessionHolder.fetch<BookmarkResponse<{}>>(url);
+        const uris = response.data?.list.map((x) => PostAtUri.fromId(x.post_id).toUri()) || [];
+        const posts = uris.length
+            ? resolveBskyResponseData(
+                  await bskySessionHolder.agent.getPosts({
+                      uris,
+                  }),
+              ).posts
+            : [];
+
+        return createPageable(
+            posts.map((x) => ({ ...formatBskyPost(x), hasBookmarked: true })),
+            createIndicator(indicator),
+            response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
+        );
     }
     async blockWallet(address: string, networkType?: NetworkType): Promise<boolean> {
         throw new NotImplementedError();
