@@ -1,6 +1,6 @@
 'use client';
 
-import type { PropsWithChildren } from 'react';
+import { type PropsWithChildren, use } from 'react';
 
 import { SourceNav } from '@/components/SourceNav.js';
 import { type ExploreSourceInURL, ExploreType, Source } from '@/constants/enum.js';
@@ -11,14 +11,14 @@ import { resolveExploreSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 
 interface Props extends PropsWithChildren {
-    params: {
+    params: Promise<{
         explore: ExploreType;
         source: ExploreSourceInURL;
-    };
+    }>;
 }
 
 export default function Layout({ children, params }: Props) {
-    const { explore, source } = params;
+    const { explore, source } = use(params);
     const currentBskyProfile = useCurrentProfile(Source.Bsky);
 
     const sources = EXPLORE_SOURCES[explore];
