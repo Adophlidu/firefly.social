@@ -23,8 +23,8 @@ interface Props extends NextPageProps<{ id: string; source: SourceInURL }> {}
 export default async function Layout(props: Props) {
     if (await isBotRequest()) return null;
 
-    await setupLocaleForSSR();
     await setupServerTwitterSession();
+    await setupLocaleForSSR();
 
     const params = await props.params;
     const id = params.id;

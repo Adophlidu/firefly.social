@@ -39,8 +39,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function Page(props: Props) {
     if (await isBotRequest()) return null;
 
-    await setupLocaleForSSR();
     await setupServerTwitterSession();
+    await setupLocaleForSSR();
 
     const params = await props.params;
     if (!isSocialSourceInUrl(params.source)) notFound();

@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers.js';
+import { cookies, headers } from 'next/headers.js';
 import type { NextRequest } from 'next/server.js';
 import { getToken, type JWT } from 'next-auth/jwt';
 
@@ -11,8 +11,8 @@ interface TwitterAuthPayload {
     oauthTokenSecret?: string;
 }
 
-async function createTwitterSessionPayloadFromHeaders(request: NextRequest) {
-    const payload = TwitterSession.payloadFromHeaders(request.headers);
+async function createTwitterSessionPayloadFromHeaders() {
+    const payload = TwitterSession.payloadFromHeaders(await headers());
     if (!payload) return null;
 
     return TwitterSessionPayload.revealPayload(payload);
@@ -45,7 +45,7 @@ async function createTwitterSessionPayloadFromCookies() {
 
 export async function createTwitterSessionBeforeLogin(request: NextRequest) {
     // before login, the client sends session in headers
-    const fromHeaders = await createTwitterSessionPayloadFromHeaders(request);
+    const fromHeaders = await createTwitterSessionPayloadFromHeaders();
     if (fromHeaders) return fromHeaders;
 
     // before login succeed, retrieve session from JWT
@@ -56,6 +56,10 @@ export async function createTwitterSessionBeforeLogin(request: NextRequest) {
 }
 
 export async function createTwitterSessionAfterLogin() {
+    // sometimes the client sends session in headers to override the session in cookies
+    const fromHeaders = await createTwitterSessionPayloadFromHeaders();
+    if (fromHeaders) return fromHeaders;
+
     // after login, the session will be stored in cookies
     const fromCookies = await createTwitterSessionPayloadFromCookies();
     if (fromCookies) return fromCookies;
