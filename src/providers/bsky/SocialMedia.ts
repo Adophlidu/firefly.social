@@ -248,7 +248,9 @@ export class BskySocialMedia implements Provider {
         );
     }
     async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const res = await bskySessionHolder.agent.getTimeline();
+        const res = await bskySessionHolder.agent.getTimeline({
+            cursor: indicator?.id,
+        });
         if (!res.success) throw new Error(`Failed to discoverPosts`);
         return createPageable(
             res.data.feed.map(formatBskyFeedPost),
