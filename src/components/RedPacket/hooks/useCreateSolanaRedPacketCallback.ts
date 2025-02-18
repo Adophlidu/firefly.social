@@ -8,6 +8,7 @@ import { useContext } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
+import { formatSenderName } from '@/components/RedPacket/helpers.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SITE_URL } from '@/constants/index.js';
@@ -141,7 +142,7 @@ export function useCreateSolanaRedPacketCallback(
                 payloadImage: urlcat(SITE_URL, '/api/rp', {
                     'theme-id': themeId,
                     usage: 'payload',
-                    from: shareFromName,
+                    from: formatSenderName(shareFromName),
                     amount: toFixed(total.toString()),
                     type: 'fungible',
                     symbol: token?.symbol,

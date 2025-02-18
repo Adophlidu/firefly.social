@@ -8,6 +8,7 @@ import urlcat from 'urlcat';
 import { type Address, decodeEventLog, parseEventLogs } from 'viem';
 import { getTransactionReceipt, writeContract } from 'wagmi/actions';
 
+import { formatSenderName } from '@/components/RedPacket/helpers.js';
 import { config } from '@/configs/wagmiClient.js';
 import { EMPTY_LIST, SITE_URL } from '@/constants/index.js';
 import {
@@ -64,7 +65,7 @@ export function useCreateRedPacketCallbackEVM(
             urlcat(SITE_URL, '/api/rp', {
                 'theme-id': theme?.tid ?? DEFAULT_THEME_ID,
                 usage: 'payload',
-                from: shareFromName,
+                from: formatSenderName(shareFromName),
                 amount: toFixed(rightShift(totalAmount, token?.decimals).toString()),
                 type: 'fungible',
                 symbol: token?.symbol,

@@ -71,7 +71,8 @@ export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(
     const postRawContent = metadata.content?.content;
     // ! liteRawContent is used for reply and quote, only shows the first 2000 characters, because the text is foldable
     const liteRawContent = metadata.content?.content?.slice(0, 2000);
-    const canShowMore = !!(postRawContent && postRawContent.length > 450) && showMore;
+    const isExpanded = post.incomplete && post.fullContent === post.metadata.content?.content;
+    const canShowMore = !isExpanded && !!(postRawContent && postRawContent.length > 450) && showMore;
 
     const [postContent = postRawContent ?? '', setPostContent] = useState<string>();
     const [seen, seenRef] = useEverSeen({ rootMargin: '300px 0px' });
