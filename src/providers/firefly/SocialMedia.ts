@@ -813,7 +813,8 @@ export class FireflySocialMedia implements Provider {
                 },
             );
             const data = resolveFireflyResponseData(response);
-            return [post, ...(await Promise.all(data.threads.map((x) => formatFarcasterPostFromFirefly(x))))];
+            const posts = await Promise.all(data.threads.map((x) => formatFarcasterPostFromFirefly(x)));
+            return [post, ...posts];
         });
     }
 

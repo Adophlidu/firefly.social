@@ -22,8 +22,8 @@ export async function generateMetadata(props: Props) {
 }
 
 export default async function Page(props: Props) {
-    const { addressOrTokenId, tokenId, ...params } = await props.params;
-    const chainId = parseChainId(params.chainIdOrCollectionId);
+    const { addressOrTokenId, tokenId, chainIdOrCollectionId } = await props.params;
+    const chainId = parseChainId(chainIdOrCollectionId);
     if (!chainId) notFound();
     return <NFTDetailPage chainId={chainId} tokenId={tokenId} address={addressOrTokenId} />;
 }

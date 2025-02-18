@@ -58,6 +58,17 @@ class FireflyBridgeProvider {
                 const parsed = parseJSON<Payload>(payload);
                 if (!parsed) throw new Error(`[bridge] failed to parse response: ${payload}`);
 
+                console.log('DEBUG: call JS method');
+                console.log(
+                    JSON.stringify({
+                        eventOrMethod,
+                        id,
+                        payload,
+                        keys: this.callbacks.keys(),
+                        exists: this.callbacks.has(id),
+                    }),
+                );
+
                 if (this.callbacks.has(id)) {
                     this.callbacks.get(id)?.(parsed);
                 } else {
