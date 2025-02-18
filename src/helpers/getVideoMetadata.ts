@@ -1,10 +1,5 @@
 import { memoizePromise } from '@/helpers/memoizePromise.js';
-
-interface VideoMetadata {
-    duration: number;
-    width: number;
-    height: number;
-}
+import type { VideoMetadata } from '@/types/compose.js';
 
 function resolver(file: File) {
     return new Promise<VideoMetadata>((resolve, reject) => {

@@ -15,13 +15,14 @@ import {
 import { ensureGifSource } from '@/helpers/checkPostGif.js';
 import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
+import { validateVideoDuration, validateVideoSize } from '@/helpers/validateVideo.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export function PostBy() {
-    const { poll, availableSources, images, rpPayload } = useCompositePost();
+    const { poll, availableSources, images, rpPayload, video } = useCompositePost();
     const { type } = useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
 
@@ -39,14 +40,15 @@ export function PostBy() {
                     reason: t`Scheduled posts are only available on ${resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES)}.`,
                 };
 
-            const maxImageCount = getCurrentPostImageLimits(type, uniq([...availableSources, source]));
+            const sources = uniq([...availableSources, source]);
+            const maxImageCount = getCurrentPostImageLimits(type, sources);
             if (images.length > maxImageCount)
                 return {
                     disabled: true,
                     reason: t`Image count limit reached.`,
                 };
 
-            const maxGifCount = getCurrentPostGifLimits(uniq([...availableSources, source]));
+            const maxGifCount = getCurrentPostGifLimits(sources);
             if (images.filter((x) => x.file.type === FileMimeType.GIF).length > maxGifCount)
                 return {
                     disabled: true,
@@ -66,9 +68,30 @@ export function PostBy() {
                 };
             }
 
+            const videoMetadata =
+                video?.width && video?.height && video?.duration
+                    ? {
+                          width: video.width,
+                          height: video.height,
+                          duration: video.duration,
+                      }
+                    : undefined;
+            if (videoMetadata && !validateVideoDuration(sources, videoMetadata).isValid) {
+                return {
+                    disabled: true,
+                    reason: t`Video duration limit reached.`,
+                };
+            }
+            if (videoMetadata && !validateVideoSize(sources, videoMetadata).isValid) {
+                return {
+                    disabled: true,
+                    reason: t`Video size limit reached.`,
+                };
+            }
+
             return { disabled: false };
         });
-    }, [availableSources, images, poll, type, scheduleTime, rpPayload]);
+    }, [availableSources, images, poll, type, scheduleTime, rpPayload, video?.width, video?.height, video?.duration]);
 
     const content = (
         <div className="no-scrollbar flex max-h-[156px] flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[188px]">

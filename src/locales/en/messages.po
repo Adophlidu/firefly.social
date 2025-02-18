@@ -765,6 +765,9 @@ msgstr "<0>{0}</0> by <1>{1}</1>"
 msgid "Sending"
 msgstr "Sending"
 
+msgid "Video duration limit reached."
+msgstr "Video duration limit reached."
+
 msgid "Limo"
 msgstr "Limo"
 
@@ -2998,6 +3001,9 @@ msgstr "Everyone can reply"
 
 msgid "No matching token"
 msgstr "No matching token"
+
+msgid "Video size limit reached."
+msgstr "Video size limit reached."
 
 msgid "The contract owner has restrictions on anti whale."
 msgstr "The contract owner has restrictions on anti whale."

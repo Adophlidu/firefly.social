@@ -3,6 +3,7 @@ import { t } from '@lingui/core/macro';
 import { FileMimeType, type SocialSource } from '@/constants/enum.js';
 import { formatFileSize } from '@/helpers/formatFileSize.js';
 import { getPostGifSizeLimit, getPostImageSizeLimit, getPostVideoSizeLimit } from '@/helpers/getPostLimitation.js';
+import { getVideoMetadata } from '@/helpers/getVideoMetadata.js';
 import { isMediaFileType } from '@/helpers/isMediaFileType.js';
 import { validateVideoDuration, validateVideoSize } from '@/helpers/validateVideo.js';
 
@@ -12,7 +13,8 @@ export async function isValidPostVideo(availableSources: SocialSource[], file: F
         return t`Failed to upload. Video size exceeds ${formatFileSize(maxVideoSize)}`;
     }
 
-    const { isValid: isDurationValid, minDuration, maxDuration } = await validateVideoDuration(availableSources, file);
+    const metadata = await getVideoMetadata(file);
+    const { isValid: isDurationValid, minDuration, maxDuration } = validateVideoDuration(availableSources, metadata);
     if (!isDurationValid) {
         return t`Failed to upload. Video length exceeds ${minDuration}s ~ ${maxDuration}s`;
     }
@@ -23,7 +25,7 @@ export async function isValidPostVideo(availableSources: SocialSource[], file: F
         minHeight,
         maxWidth,
         maxHeight,
-    } = await validateVideoSize(availableSources, file);
+    } = validateVideoSize(availableSources, metadata);
     if (!isSizeValid) {
         return t`Failed to upload. Video size exceeds ${minWidth}x${minHeight} ~ ${maxWidth}x${maxHeight}`;
     }

@@ -770,6 +770,9 @@ msgstr "<0>{0}</0> 由 <1>{1}</1>"
 msgid "Sending"
 msgstr ""
 
+msgid "Video duration limit reached."
+msgstr ""
+
 msgid "Limo"
 msgstr "Limo"
 
@@ -3000,6 +3003,9 @@ msgstr "所有人可评论"
 
 msgid "No matching token"
 msgstr "未匹配到代币"
+
+msgid "Video size limit reached."
+msgstr ""
 
 msgid "The contract owner has restrictions on anti whale."
 msgstr "合约所有者对反鲸鱼机制有限制。"

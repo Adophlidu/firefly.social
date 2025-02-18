@@ -11,7 +11,9 @@ import { ALLOWED_IMAGES_MIMES, GIF_MEDIA_SOURCE_CONFIG, SUPPORTED_VIDEO_SOURCES 
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
-import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
+import { getVideoMetadata } from '@/helpers/getVideoMetadata.js';
+import { createLocalMediaObject, createVideoMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { isValidPostImage, isValidPostVideo } from '@/helpers/validatePostFile.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -69,7 +71,8 @@ export function Media({ close }: MediaProps) {
                 if (message) {
                     return enqueueErrorMessage(message);
                 }
-                updateVideo(createLocalMediaObject(file));
+                const metadata = await runInSafeAsync(() => getVideoMetadata(file));
+                updateVideo(createVideoMediaObject(file, metadata));
             }
             close();
         },

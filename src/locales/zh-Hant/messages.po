@@ -770,6 +770,9 @@ msgstr ""
 msgid "Sending"
 msgstr ""
 
+msgid "Video duration limit reached."
+msgstr ""
+
 msgid "Limo"
 msgstr ""
 
@@ -2989,6 +2992,9 @@ msgid "Everyone can reply"
 msgstr ""
 
 msgid "No matching token"
+msgstr ""
+
+msgid "Video size limit reached."
 msgstr ""
 
 msgid "The contract owner has restrictions on anti whale."

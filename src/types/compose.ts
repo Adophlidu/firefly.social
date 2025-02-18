@@ -23,5 +23,12 @@ export interface MediaObject {
     blobRef?: BlobRef;
     width?: number;
     height?: number;
+    duration?: number;
     thumb?: string;
+}
+
+export interface VideoMetadata {
+    duration: number;
+    width: number;
+    height: number;
 }
