@@ -12,22 +12,22 @@ import { searchTokenByAddress } from '@/services/searchTokenByAddress.js';
 
 export type TokenWithMarket = SearchableToken & { market?: Partial<CoinGeckoCoinMarketInfo>; hit?: boolean };
 
-function isSameTokenSymbol(symbol: string, keyword: string) {
-    return symbol.toLowerCase() === keyword.replace(/^\$/, '').toLowerCase();
+export function isTokenMatched<T extends { name: string; symbol: string }>(token: T, keyword: string) {
+    return [token.name, token.symbol].some((x) => x.toLowerCase() === keyword.replace(/^\$/, '').toLowerCase());
 }
 
 function sortTokensByKeyword(tokens: SearchableToken[], keyword: string) {
     if (!tokens.length) return tokens;
 
     // fast path
-    if (isSameTokenSymbol(tokens[0]?.symbol || '', keyword) || isAddress(trimify(keyword).toLowerCase())) {
-        const [firstToken, ...rest] = tokens;
+    const [firstToken, ...rest] = tokens;
+    if ((firstToken && isTokenMatched(firstToken, keyword)) || isAddress(trimify(keyword).toLowerCase())) {
         return [{ ...firstToken, hit: true }, ...rest];
     }
 
     const matchedToken = first(
         tokens
-            .filter((x) => isSameTokenSymbol(x.symbol, keyword))
+            .filter((x) => isTokenMatched(x, keyword))
             .sort((a, b) => {
                 if (!a.market_cap_rank || !b.market_cap_rank) {
                     return 0;

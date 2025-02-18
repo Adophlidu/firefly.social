@@ -3,13 +3,14 @@ import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
+import { isTokenMatched } from '@/services/searchTokens.js';
 
 const getTokens = memoizePromise(CoinGecko.getTokens, () => 'CoinGecko.getTokens');
 
 export const getTokenFromCoinGecko = memoizePromise(
     async (symbolOrId: string): Promise<CoinGeckoToken | undefined> => {
         const tokens = await getTokens();
-        const token = tokens.find((x) => x.symbol === symbolOrId.toLowerCase());
+        const token = tokens.find((x) => isTokenMatched(x, symbolOrId));
         if (!token) {
             const marketToken = await runInSafeAsync(() => CoinGecko.getCoinInfo(symbolOrId));
             if (marketToken && 'symbol' in marketToken) {
