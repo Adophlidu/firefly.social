@@ -28,6 +28,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
+import { resolveBskyResponseData } from '@/helpers/resolveBskyResponseData.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { ChannelAtUri, PostAtUri } from '@/providers/bsky/AtUri.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
@@ -54,13 +55,14 @@ import {
 import { publishPostToBsky } from '@/services/publishPostToBsky.js';
 
 async function getSinglePost(uri: string) {
-    const res = await bskySessionHolder.agent.getPostThread({
+    const response = await bskySessionHolder.agent.getPostThread({
         uri,
         depth: 10,
     });
-    if (!res.success || !AppBskyFeedDefs.isThreadViewPost(res.data.thread))
-        throw new Error(`Failed to getPostById = ${uri}.`);
-    return formatBskyFeedPost(res.data.thread);
+    const data = resolveBskyResponseData(response, `Failed to getSinglePost uri = ${uri}.`);
+    const thread = AppBskyFeedDefs.isThreadViewPost(data.thread) ? data.thread : null;
+    if (!thread) throw new Error(`No thread found uri = ${uri}.`);
+    return formatBskyFeedPost(thread);
 }
 
 @SetQueryDataForLikePost(Source.Bsky)
@@ -95,17 +97,18 @@ export class BskySocialMedia implements Provider {
     async mirrorPost(postId: string, options?: { onMomoka?: boolean; authorId?: number }): Promise<string> {
         const post = await this.getPostById(postId);
         if (!post.metadata.contentURI) throw new Error(`Failed to mirror post postId = ${postId}`);
-        const res = await bskySessionHolder.agent.repost(post.metadata.contentURI, post.publicationId);
-        return res.uri;
+        const response = await bskySessionHolder.agent.repost(post.metadata.contentURI, post.publicationId);
+        return response.uri;
     }
     async unmirrorPost(postId: string, authorId?: number): Promise<void> {
-        const res = await bskySessionHolder.agent.getPostThread({
+        const response = await bskySessionHolder.agent.getPostThread({
             uri: PostAtUri.fromId(postId).toUri(),
             depth: 0,
         });
-        if (!res.success || !AppBskyFeedDefs.isThreadViewPost(res.data.thread) || !res.data.thread.post.viewer?.repost)
+        const data = resolveBskyResponseData(response, `Failed to unmirror post postId = ${postId}`);
+        if (!AppBskyFeedDefs.isThreadViewPost(data.thread) || !data.thread.post.viewer?.repost)
             throw new Error(`Failed to unmirror post postId = ${postId}`);
-        await bskySessionHolder.agent.deleteRepost(res.data.thread.post.viewer.repost);
+        await bskySessionHolder.agent.deleteRepost(data.thread.post.viewer.repost);
     }
     async quotePost(postId: string, post: Post): Promise<{ postId: string; contentURI?: string }> {
         const result = await publishPostToBsky(post, true);
@@ -137,34 +140,34 @@ export class BskySocialMedia implements Provider {
         await bskySessionHolder.agent.like(post.__original__.post.uri, post.__original__.post.cid);
     }
     async unvotePost(postId: string): Promise<void> {
-        const res = await bskySessionHolder.agent.getPostThread({
+        const response = await bskySessionHolder.agent.getPostThread({
             uri: PostAtUri.fromId(postId).toUri(),
             depth: 0,
         });
-        if (!res.success || !AppBskyFeedDefs.isThreadViewPost(res.data.thread) || !res.data.thread.post.viewer?.like)
+        const data = resolveBskyResponseData(response, `Failed to unlike post postId = ${postId}`);
+        if (!AppBskyFeedDefs.isThreadViewPost(data.thread) || !data.thread.post.viewer?.like)
             throw new Error(`Failed to unlike post postId = ${postId}`);
-        await bskySessionHolder.agent.deleteLike(res.data.thread.post.viewer.like);
+        await bskySessionHolder.agent.deleteLike(data.thread.post.viewer.like);
     }
     async getProfilesByAddress(address: string): Promise<Profile[]> {
         throw new NotImplementedError();
     }
     async getProfilesByIds(ids: string[]): Promise<Profile[]> {
         const response = await bskySessionHolder.agent.getProfiles({ actors: ids });
-        if (!response.success) throw new Error(`Failed to get profile ids = ${ids.join(',')}.`);
-        return response.data.profiles.map((profile) => formatBskyProfile(profile));
+        const data = resolveBskyResponseData(response, `Failed to get profiles ids = ${ids.join(',')}.`);
+        return data.profiles.map((profile) => formatBskyProfile(profile));
     }
     async getChannelsByIds(ids: string[]): Promise<Channel[]> {
-        const result = await bskySessionHolder.agent.app.bsky.feed.getFeedGenerators({
+        const response = await bskySessionHolder.agent.app.bsky.feed.getFeedGenerators({
             feeds: ids.map((id) => ChannelAtUri.fromId(id).toUri()),
         });
-        if (!result.success) throw new Error(`Failed to get channels ids = ${ids.join(',')}.`);
-
-        return result.data.feeds.map(formatBskyChannel);
+        const data = resolveBskyResponseData(response, `Failed to get channels ids = ${ids.join(',')}.`);
+        return data.feeds.map(formatBskyChannel);
     }
     async getProfileById(profileId: string): Promise<Profile> {
         const response = await bskySessionHolder.agent.getProfile({ actor: profileId });
-        if (!response.success) throw new Error(`Failed to get profile id = ${profileId}.`);
-        return formatBskyProfile(response.data);
+        const data = resolveBskyResponseData(response, `Failed to get profile id = ${profileId}.`);
+        return formatBskyProfile(data);
     }
     async getProfileByHandle(handle: string): Promise<Profile> {
         return this.getProfileById(handle);
@@ -175,11 +178,11 @@ export class BskySocialMedia implements Provider {
     }
     async getChannelById(channelId: string): Promise<Channel> {
         const atUri = ChannelAtUri.fromId(channelId).toUri();
-        const res = await bskySessionHolder.agent.app.bsky.feed.getFeedGenerator({
+        const response = await bskySessionHolder.agent.app.bsky.feed.getFeedGenerator({
             feed: atUri,
         });
-        if (!res.success) throw new Error(`Failed to query channel.`);
-        return formatBskyChannel(res.data.view);
+        const data = resolveBskyResponseData(response, 'Failed to query channel.');
+        return formatBskyChannel(data.view);
     }
     async getChannelByHandle(channelHandle: string): Promise<Channel> {
         throw new NotImplementedError();
@@ -195,18 +198,18 @@ export class BskySocialMedia implements Provider {
     }
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const atUri = PostAtUri.fromId(postId).toUri();
-        const res = await bskySessionHolder.agent.getPostThread({
+        const response = await bskySessionHolder.agent.getPostThread({
             uri: atUri,
             depth: 10,
         });
-        if (!res.success) throw new Error(`Failed to getCommentsById atUri = ${atUri}.`);
+        const data = resolveBskyResponseData(response, `Failed to getCommentsById atUri = ${atUri}.`);
         const did = bskySessionHolder.session?.did;
-        if (!AppBskyFeedDefs.isThreadViewPost(res.data.thread)) {
+        if (!AppBskyFeedDefs.isThreadViewPost(data.thread)) {
             return createPageable(EMPTY_LIST, createIndicator(indicator));
         }
         const preferences = await runInSafeAsync(() => bskySessionHolder.agent.getPreferences());
         const replies = compact(
-            res.data.thread.replies?.map((x) => {
+            data.thread.replies?.map((x) => {
                 if (!AppBskyFeedDefs.isThreadViewPost(x)) return null;
                 if (preferences) {
                     const moderationDecision = moderatePost(x.post, {
@@ -221,105 +224,104 @@ export class BskySocialMedia implements Provider {
         return createPageable(replies, createIndicator(indicator));
     }
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const res = await bskySessionHolder.agent.app.bsky.feed.getFeed({
+        const response = await bskySessionHolder.agent.app.bsky.feed.getFeed({
             feed: DISCOVER_AT_URI,
         });
-        if (!res.success) throw new Error(`Failed to discoverPosts`);
+        const data = resolveBskyResponseData(response, 'Failed to discoverPosts');
         return createPageable(
-            res.data.feed.map(formatBskyFeedPost),
+            data.feed.map(formatBskyFeedPost),
             createIndicator(indicator),
-            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
     }
     async discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        const res = await bskySessionHolder.agent.app.bsky.unspecced.getPopularFeedGenerators({
+        const response = await bskySessionHolder.agent.app.bsky.unspecced.getPopularFeedGenerators({
             cursor: indicator?.id,
             limit: 20,
         });
-        if (!res.success) throw new Error(`Failed to discoverChannels`);
-        console.log(bskySessionHolder.session);
+        const data = resolveBskyResponseData(response, 'Failed to discoverChannels');
         const result = bskySessionHolder.session
-            ? res.data.feeds
-            : res.data.feeds.filter((x) => !BSKY_LOGIN_REQUIRED_FEEDS.includes(x.uri));
+            ? data.feeds
+            : data.feeds.filter((x) => !BSKY_LOGIN_REQUIRED_FEEDS.includes(x.uri));
         return createPageable(
             result.map(formatBskyChannel),
             createIndicator(indicator),
-            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
     }
     async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const res = await bskySessionHolder.agent.getTimeline({
+        const response = await bskySessionHolder.agent.getTimeline({
             cursor: indicator?.id,
         });
-        if (!res.success) throw new Error(`Failed to discoverPosts`);
+        const data = resolveBskyResponseData(response, 'Failed to discoverPosts');
         return createPageable(
-            res.data.feed.map(formatBskyFeedPost),
+            data.feed.map(formatBskyFeedPost),
             createIndicator(indicator),
-            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
     }
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         try {
-            const res = await bskySessionHolder.agent.getAuthorFeed({
+            const response = await bskySessionHolder.agent.getAuthorFeed({
                 actor: profileId,
                 filter: 'posts_and_author_threads',
                 cursor: indicator?.id,
             });
-            if (!res.success) throw new Error(`Failed to get post by profile id = ${profileId}.`);
+            const data = resolveBskyResponseData(response, `Failed to get post by profile id = ${profileId}.`);
             return createPageable(
-                res.data.feed.map(formatBskyFeedPost),
+                data.feed.map(formatBskyFeedPost),
                 createIndicator(indicator),
-                res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+                data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
             );
-        } catch (err) {
-            if (err instanceof BlockedActorError) {
+        } catch (error) {
+            if (error instanceof BlockedActorError) {
                 return createPageable([], createIndicator(indicator), undefined);
             }
-            throw err;
+            throw error;
         }
     }
     async getLikedPostsByProfileId(
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const res = await bskySessionHolder.agent.getActorLikes({
+        const response = await bskySessionHolder.agent.getActorLikes({
             actor: profileId,
             cursor: indicator?.id,
         });
-        if (!res.success) throw new Error(`Failed to get liked post by profile id = ${profileId}.`);
+        const data = resolveBskyResponseData(response, `Failed to get liked post by profile id = ${profileId}.`);
         return createPageable(
-            res.data.feed.map(formatBskyFeedPost),
+            data.feed.map(formatBskyFeedPost),
             createIndicator(indicator),
-            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
     }
     async getRepliesPostsByProfileId(
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const res = await bskySessionHolder.agent.getAuthorFeed({
+        const response = await bskySessionHolder.agent.getAuthorFeed({
             actor: profileId,
             filter: 'posts_with_replies',
             cursor: indicator?.id,
         });
-        if (!res.success) throw new Error(`Failed to get replies post by profile id = ${profileId}.`);
+        const data = resolveBskyResponseData(response, `Failed to get replies post by profile id = ${profileId}.`);
         return createPageable(
-            res.data.feed.map(formatBskyFeedPost).filter((x) => x.type !== 'Mirror'),
+            data.feed.map(formatBskyFeedPost).filter((x) => x.type !== 'Mirror'),
             createIndicator(indicator),
-            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
     }
     async getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const atUri = ChannelAtUri.fromId(channelId).toUri();
-        const res = await bskySessionHolder.agent.app.bsky.feed.getFeed({
+        const response = await bskySessionHolder.agent.app.bsky.feed.getFeed({
             feed: atUri,
             cursor: indicator?.id,
         });
-        if (!res.success) throw new Error('Failed to get posts');
+        const data = resolveBskyResponseData(response, 'Failed to get posts');
         return createPageable(
-            res.data.feed.map(formatBskyFeedPost),
+            data.feed.map(formatBskyFeedPost),
             createIndicator(indicator),
-            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
     }
     async getPostsByChannelHandle(
@@ -351,78 +353,80 @@ export class BskySocialMedia implements Provider {
         return true;
     }
     async unfollow(profileId: string): Promise<boolean> {
-        const res = await bskySessionHolder.agent.getProfile({
+        const response = await bskySessionHolder.agent.getProfile({
             actor: profileId,
         });
-        const followUri = res.data.viewer?.following;
-        if (!followUri) throw new Error(`Failed to unfollow profileId = ${profileId}`);
+        const data = resolveBskyResponseData(response, `Failed to unfollow profileId = ${profileId}`);
+        const followUri = data.viewer?.following;
+        if (!followUri) throw new Error(`No follow uri found profileId = ${profileId}`);
+
         await bskySessionHolder.agent.deleteFollow(followUri);
         return true;
     }
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const res = await bskySessionHolder.agent.getFollowers({
+        const response = await bskySessionHolder.agent.getFollowers({
             actor: profileId,
             cursor: indicator?.id,
             limit: 25,
         });
-        const data = await this.getProfilesByIds(res.data.followers.map((x) => x.did));
+        const data = await this.getProfilesByIds(response.data.followers.map((x) => x.did));
         return createPageable(
             data,
             createIndicator(indicator),
-            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+            response.data.cursor ? createNextIndicator(indicator, response.data.cursor) : undefined,
         );
     }
     async getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const res = await bskySessionHolder.agent.getFollows({
+        const response = await bskySessionHolder.agent.getFollows({
             actor: profileId,
             cursor: indicator?.id,
             limit: 25,
         });
-        const data = await this.getProfilesByIds(res.data.follows.map((x) => x.did));
+        const data = await this.getProfilesByIds(response.data.follows.map((x) => x.did));
         return createPageable(
             data,
             createIndicator(indicator),
-            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+            response.data.cursor ? createNextIndicator(indicator, response.data.cursor) : undefined,
         );
     }
     async getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const res = await bskySessionHolder.agent.app.bsky.graph.getKnownFollowers({
+        const response = await bskySessionHolder.agent.app.bsky.graph.getKnownFollowers({
             actor: profileId,
             cursor: indicator?.id,
             limit: 25,
         });
-        const data = await this.getProfilesByIds(res.data.followers.map((x) => x.did));
+        const data = await this.getProfilesByIds(response.data.followers.map((x) => x.did));
         return createPageable(
             data,
             createIndicator(indicator),
-            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+            response.data.cursor ? createNextIndicator(indicator, response.data.cursor) : undefined,
         );
     }
     async isFollowedByMe(profileId: string): Promise<boolean> {
-        const res = await bskySessionHolder.agent.getProfile({
+        const response = await bskySessionHolder.agent.getProfile({
             actor: profileId,
         });
-        return !!res.data.viewer?.following;
+        return !!response.data.viewer?.following;
     }
     async isFollowingMe(profileId: string): Promise<boolean> {
-        const res = await bskySessionHolder.agent.getProfile({
+        const response = await bskySessionHolder.agent.getProfile({
             actor: profileId,
         });
-        return !!res.data.viewer?.followedBy;
+        return !!response.data.viewer?.followedBy;
     }
     async getNotifications(
         indicator?: PageIndicator,
         highSignalFilter?: boolean,
     ): Promise<Pageable<Notification, PageIndicator>> {
-        const res = await bskySessionHolder.agent.listNotifications({
+        const response = await bskySessionHolder.agent.listNotifications({
             limit: 25,
             cursor: indicator?.id,
         });
-        if (!res.success) throw new Error(`Failed to get notifications.`);
+        const data = resolveBskyResponseData(response, 'Failed to get notifications.');
 
         const notifications = compact(
             await Promise.all(
-                res.data.notifications.map(async (x) => {
+                data.notifications.map(async (x) => {
                     const timestamp = x.indexedAt ? new Date(x.indexedAt).getTime() : undefined;
 
                     switch (x.reason) {
@@ -515,25 +519,25 @@ export class BskySocialMedia implements Provider {
         return createPageable(
             notifications,
             createIndicator(indicator),
-            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
     }
 
     async getNotificationSettings(): Promise<NotificationSettings> {
-        const res = await bskySessionHolder.agent.listNotifications({
+        const response = await bskySessionHolder.agent.listNotifications({
             limit: 1,
         });
 
         return {
-            priority: res.data?.priority ?? false,
+            priority: response.data?.priority ?? false,
         };
     }
 
     async setNotificationSettings(settings: NotificationSettings): Promise<boolean> {
-        const res = await bskySessionHolder.agent.app.bsky.notification.putPreferences({
+        const response = await bskySessionHolder.agent.app.bsky.notification.putPreferences({
             priority: settings.priority,
         });
-        if (!res.success) return false;
+        if (!response.success) return false;
 
         return true;
     }
@@ -543,83 +547,86 @@ export class BskySocialMedia implements Provider {
             return createPageable([], indicator);
         }
         const size = 20;
-        const res = await bskySessionHolder.agent.getSuggestions({
+        const response = await bskySessionHolder.agent.getSuggestions({
             limit: size,
             cursor: indicator?.id,
         });
-        const detailedRes = await bskySessionHolder.agent.getProfiles({
-            actors: res.data.actors.map((x) => x.did),
+        const detailedResponse = await bskySessionHolder.agent.getProfiles({
+            actors: response.data.actors.map((x) => x.did),
         });
-        const profiles = detailedRes.data.profiles.map(formatBskyProfile);
+        const profiles = detailedResponse.data.profiles.map(formatBskyProfile);
         return createPageable(
             profiles,
             indicator,
-            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+            response.data.cursor ? createNextIndicator(indicator, response.data.cursor) : undefined,
         );
     }
     async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const result = await bskySessionHolder.agent.searchActors({
+        const response = await bskySessionHolder.agent.searchActors({
             q,
             limit: 25,
             cursor: indicator?.id,
         });
-        if (!result.success) throw new Error(`Failed to search profiles by query = ${q}.`);
+        const data = resolveBskyResponseData(response, `Failed to search profiles by query = ${q}.`);
 
         return createPageable(
-            result.data.actors.map(formatBskyProfile),
+            data.actors.map(formatBskyProfile),
             createIndicator(indicator),
-            result.data.cursor ? createNextIndicator(indicator, result.data.cursor) : undefined,
+            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
     }
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const res = await bskySessionHolder.agent.app.bsky.feed.searchPosts({
+        const response = await bskySessionHolder.agent.app.bsky.feed.searchPosts({
             q,
             sort: 'latest',
             limit: 25,
             cursor: indicator?.id,
         });
-        if (!res.success) throw new Error(`Failed to search posts by query = ${q}.`);
+        const data = resolveBskyResponseData(response, `Failed to search posts by query = ${q}.`);
 
         return createPageable(
-            res.data.posts.map((x) => formatBskyFeedPost({ post: x })),
+            data.posts.map((x) => formatBskyFeedPost({ post: x })),
             createIndicator(indicator),
-            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
     }
     async searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        const res = await bskySessionHolder.agent.app.bsky.unspecced.getPopularFeedGenerators({
+        const response = await bskySessionHolder.agent.app.bsky.unspecced.getPopularFeedGenerators({
             limit: 20,
             query: q,
             cursor: indicator?.id,
         });
-        if (!res.success) throw new Error(`Failed to search channels by query = ${q}.`);
+        const data = resolveBskyResponseData(response, `Failed to search channels by query = ${q}.`);
 
         return createPageable(
-            res.data.feeds.map(formatBskyChannel),
+            data.feeds.map(formatBskyChannel),
             createIndicator(indicator),
-            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
     }
     async getThreadByPostId(postId: string, localPost?: Post): Promise<Post[]> {
         const uri = AppBskyFeedDefs.isPostView(localPost?.__original__)
             ? localPost?.__original__.uri
             : PostAtUri.fromId(postId).toUri();
-        const res = await bskySessionHolder.agent.getPostThread({
+        const response = await bskySessionHolder.agent.getPostThread({
             uri,
             depth: 10,
         });
-        if (!res.success || !AppBskyFeedDefs.isThreadViewPost(res.data.thread))
-            throw new Error(`Failed to getThreadByPostId uri = ${uri}.`);
-        return formatBskyThreadPosts(res.data.thread);
+        const data = resolveBskyResponseData(response, `Failed to getThreadByPostId uri = ${uri}.`);
+        const thread = AppBskyFeedDefs.isThreadViewPost(data.thread) ? data.thread : null;
+        if (!thread) throw new Error(`No thread found uri = ${uri}.`);
+
+        return formatBskyThreadPosts(thread);
     }
     async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         const atUri = PostAtUri.fromId(postId).toUri();
-        const res = await bskySessionHolder.agent.getLikes({
+        const response = await bskySessionHolder.agent.getLikes({
             uri: atUri,
             cursor: indicator?.id,
             limit: 25,
         });
-        const likes = res.data.likes || [];
+        const data = resolveBskyResponseData(response, `Failed to get like reactors postId = ${postId}.`);
+        const likes = data.likes || [];
         const profiles = likes.length
             ? await runInSafeAsync(() => BskySocialMediaProvider.getProfilesByIds(likes.map((x) => x.actor.did)))
             : [];
@@ -627,17 +634,18 @@ export class BskySocialMedia implements Provider {
         return createPageable(
             profiles?.length ? profiles : likes.map((x) => formatBskyProfile(x.actor)),
             createIndicator(indicator),
-            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+            response.data.cursor ? createNextIndicator(indicator, response.data.cursor) : undefined,
         );
     }
     async getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         const atUri = PostAtUri.fromId(postId).toUri();
-        const res = await bskySessionHolder.agent.getRepostedBy({
+        const response = await bskySessionHolder.agent.getRepostedBy({
             uri: atUri,
             cursor: indicator?.id,
             limit: 25,
         });
-        const repostedBy = res.data.repostedBy || [];
+        const data = resolveBskyResponseData(response, `Failed to get repost reactors postId = ${postId}.`);
+        const repostedBy = data.repostedBy || [];
         const profiles = repostedBy.length
             ? await runInSafeAsync(() => BskySocialMediaProvider.getProfilesByIds(repostedBy.map((x) => x.did)))
             : [];
@@ -645,18 +653,19 @@ export class BskySocialMedia implements Provider {
         return createPageable(
             profiles?.length ? profiles : repostedBy.map((x) => formatBskyProfile(x)),
             createIndicator(indicator),
-            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+            response.data.cursor ? createNextIndicator(indicator, response.data.cursor) : undefined,
         );
     }
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const atUri = PostAtUri.fromId(postId).toUri();
-        const res = await bskySessionHolder.agent.app.bsky.feed.getQuotes({
+        const response = await bskySessionHolder.agent.app.bsky.feed.getQuotes({
             uri: atUri,
         });
+        const data = resolveBskyResponseData(response, `Failed to getPostsQuoteOn postId = ${postId}.`);
         return createPageable(
-            res.data.posts.map((x) => formatBskyPost(x)),
+            data.posts.map((x) => formatBskyPost(x)),
             createIndicator(indicator),
-            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
     }
     async bookmark(
@@ -689,23 +698,22 @@ export class BskySocialMedia implements Provider {
         throw new NotImplementedError();
     }
     async blockProfile(profileId: string): Promise<boolean> {
-        const res = await bskySessionHolder.agent.mute(profileId);
-        return res.success;
+        const response = await bskySessionHolder.agent.mute(profileId);
+        return response.success;
     }
     async unblockProfile(profileId: string): Promise<boolean> {
-        const res = await bskySessionHolder.agent.unmute(profileId);
-        return res.success;
+        const response = await bskySessionHolder.agent.unmute(profileId);
+        return response.success;
     }
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const res = await bskySessionHolder.agent.app.bsky.graph.getMutes({
+        const response = await bskySessionHolder.agent.app.bsky.graph.getMutes({
             cursor: indicator?.id,
         });
-
-        if (!res.success) throw new Error(`Failed to get blocked profiles.`);
+        const data = resolveBskyResponseData(response, 'Failed to get blocked profiles.');
         return createPageable(
-            res.data.mutes.map(formatBskyProfile),
+            data.mutes.map(formatBskyProfile),
             createIndicator(indicator),
-            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
     }
     async blockChannel(channelId: string): Promise<boolean> {
@@ -732,9 +740,9 @@ export class BskySocialMedia implements Provider {
             collection: 'app.bsky.actor.profile',
             rkey: 'self',
         };
-        const res = await bskySessionHolder.agent.com.atproto.repo.getRecord(params);
+        const response = await bskySessionHolder.agent.com.atproto.repo.getRecord(params);
         const record: AppBskyActorProfile.Record = {
-            ...res.data.value,
+            ...response.data.value,
             description: profile.bio,
             displayName: profile.displayName,
         };
@@ -752,13 +760,13 @@ export class BskySocialMedia implements Provider {
 
     async getHiddenComments(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const atUri = PostAtUri.fromId(postId).toUri();
-        const res = await bskySessionHolder.agent.getPostThread({
+        const response = await bskySessionHolder.agent.getPostThread({
             uri: atUri,
             depth: 10,
         });
-        if (!res.success) throw new Error(`Failed to getHiddenComments atUri = ${atUri}.`);
+        const data = resolveBskyResponseData(response, `Failed to getHiddenComments atUri = ${atUri}.`);
         const did = bskySessionHolder.session?.did;
-        if (!AppBskyFeedDefs.isThreadViewPost(res.data.thread) || !did) {
+        if (!AppBskyFeedDefs.isThreadViewPost(data.thread) || !did) {
             return createPageable(EMPTY_LIST, createIndicator(indicator));
         }
         const preferences = await runInSafeAsync(() => bskySessionHolder.agent.getPreferences());
@@ -766,7 +774,7 @@ export class BskySocialMedia implements Provider {
             return createPageable(EMPTY_LIST, createIndicator(indicator));
         }
         const replies = compact(
-            res.data.thread.replies?.map((x) => {
+            data.thread.replies?.map((x) => {
                 if (!AppBskyFeedDefs.isThreadViewPost(x)) return null;
                 const moderationDecision = moderatePost(x.post, {
                     userDid: did,
@@ -782,7 +790,7 @@ export class BskySocialMedia implements Provider {
         throw new NotImplementedError();
     }
     async joinChannel(channel: Channel): Promise<boolean> {
-        const res = await bskySessionHolder.agent.addSavedFeeds([
+        const response = await bskySessionHolder.agent.addSavedFeeds([
             {
                 pinned: true,
                 type: 'feed',
@@ -790,22 +798,25 @@ export class BskySocialMedia implements Provider {
             },
         ]);
 
-        return !!res.find((x) => x.value === channel.url);
+        return !!response.find((x) => x.value === channel.url);
     }
     async leaveChannel(channel: Channel): Promise<boolean> {
-        const res = await bskySessionHolder.agent.getPreferences();
-        const result = res.savedFeeds.find((x) => x.value === channel.url);
+        const response = await bskySessionHolder.agent.getPreferences();
+        const result = response.savedFeeds.find((x) => x.value === channel.url);
         if (!result) return false;
 
-        await bskySessionHolder.agent.overwriteSavedFeeds(res.savedFeeds.filter((x) => x.value !== channel.url));
+        await bskySessionHolder.agent.overwriteSavedFeeds(response.savedFeeds.filter((x) => x.value !== channel.url));
 
         return true;
     }
     async getPinnedPost(profileId: string): Promise<Post | null> {
         const response = await bskySessionHolder.agent.getProfile({ actor: profileId });
-        if (!response.success || !response.data.pinnedPost) return null;
+        const data = resolveBskyResponseData(response, `Failed to get pinned post profileId = ${profileId}.`);
+        const pinnedPost = data.pinnedPost;
+        if (!pinnedPost) return null;
+
         const postThreadRes = await bskySessionHolder.agent.getPostThread({
-            uri: response.data.pinnedPost?.uri,
+            uri: pinnedPost?.uri,
         });
         if (!postThreadRes.success || !AppBskyFeedDefs.isThreadViewPost(postThreadRes.data.thread)) return null;
         return formatBskyFeedPost(postThreadRes.data.thread);
@@ -817,16 +828,16 @@ export class BskySocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const res = await bskySessionHolder.agent.getAuthorFeed({
+        const response = await bskySessionHolder.agent.getAuthorFeed({
             actor: profileId,
             filter: 'posts_with_media',
             cursor: indicator?.id,
         });
-        if (!res.success) throw new Error(`Failed to get media post by profile id = ${profileId}.`);
+        const data = resolveBskyResponseData(response, `Failed to get media post by profile id = ${profileId}.`);
         return createPageable(
-            res.data.feed.map(formatBskyFeedPost),
+            data.feed.map(formatBskyFeedPost),
             createIndicator(indicator),
-            res.data.cursor ? createNextIndicator(indicator, res.data.cursor) : undefined,
+            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
     }
 }
