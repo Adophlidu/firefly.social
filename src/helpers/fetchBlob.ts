@@ -1,4 +1,3 @@
-
 import { fetch } from '@/helpers/fetch.js';
 import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 

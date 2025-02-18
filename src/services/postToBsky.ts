@@ -1,4 +1,3 @@
-
 import { FileMimeType, Source } from '@/constants/enum.js';
 import { BSKY_IMAGE_LIMITATION, MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
 import { readChars } from '@/helpers/chars.js';

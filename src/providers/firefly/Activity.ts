@@ -55,7 +55,7 @@ class FireflyActivity implements Provider {
         if (['trump', 'pengu'].includes(name)) {
             params.solAddress = address || '0x';
             params.evmAddress = options?.premiumAddress || '0x';
-        } else if (['buttrfly'].includes(name)) {
+        } else if (['buttrfly', 'socialfrens'].includes(name)) {
             params.evmAddress = address || '0x';
         } else {
             params.address = address || '0x';

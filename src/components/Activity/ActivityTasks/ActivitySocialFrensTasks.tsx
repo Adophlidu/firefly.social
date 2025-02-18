@@ -47,6 +47,8 @@ Claim here ${shareUrl}`,
         );
     }, [farHandle, lensHandle, name, primarySource]);
 
+    const verified = claimCondition?.lens?.valid || claimCondition?.farcaster.valid;
+
     return (
         <>
             <div className="mb-4 w-full space-y-4 px-6 py-4">
@@ -61,10 +63,10 @@ Claim here ${shareUrl}`,
                 <div
                     className={classNames(
                         'w-full rounded-2xl p-3 text-sm font-normal leading-6',
-                        claimCondition?.lens?.isActiveUser ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
+                        verified ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
                     )}
                 >
-                    <ActivityVerifyText verified={claimCondition?.lens?.isActiveUser} hasFailedIcon>
+                    <ActivityVerifyText verified={verified} hasFailedIcon>
                         <h3>
                             <Trans>
                                 Posted to Lens or Farcaster on Yup or posted to Lens on Phaver since August 1, 2024. New
