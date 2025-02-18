@@ -33,9 +33,10 @@ export async function ProfilePageLayout({
             identity.id && identity.source !== Source.Wallet
                 ? await runInSafeAsync(() => getProfileById(resolvedSource, identity.id))
                 : null;
-        const profileMissing = !profile && !walletProfile && !profiles.length;
+        if (!profile && !walletProfile && !profiles.length) return <ProfileNotFound />;
 
-        if (profileMissing) return <ProfileNotFound />;
+        console.log('DEBUG: profile');
+        console.log(JSON.stringify(profile));
 
         return (
             <>
