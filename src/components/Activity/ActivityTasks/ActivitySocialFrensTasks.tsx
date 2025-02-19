@@ -1,5 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useContext, useMemo } from 'react';
 
@@ -19,7 +20,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { replaceObjectInStringArray } from '@/helpers/replaceObjectInStringArray.js';
 import { resolveActivityShareUrl } from '@/helpers/resolveActivityUrl.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
+import { type ActivityInfoResponse, ActivityStatus } from '@/providers/types/Firefly.js';
 
 const sources: SocialSource[] = [Source.Lens, Source.Farcaster];
 
@@ -48,6 +49,28 @@ Claim here ${shareUrl}`,
     }, [farHandle, lensHandle, name, primarySource]);
 
     const verified = claimCondition?.lens?.valid || claimCondition?.farcaster.valid;
+    const blocked = claimCondition?.lens?.participationBlocked;
+
+    const buttonText = useMemo(() => {
+        if (blocked) {
+            return <Trans>Participation Blocked</Trans>;
+        }
+        const status = data.status;
+        switch (status) {
+            case ActivityStatus.Upcoming:
+                return <Trans>Not Started</Trans>;
+            case ActivityStatus.Ended:
+                return <Trans>Ended</Trans>;
+            case ActivityStatus.Active:
+                if (claimCondition?.alreadyClaimed) {
+                    return <Trans>Claimed</Trans>;
+                }
+                return <Trans>Claim Now</Trans>;
+            default:
+                safeUnreachable(status);
+                return null;
+        }
+    }, [blocked, claimCondition?.alreadyClaimed, data.status]);
 
     return (
         <>
@@ -102,8 +125,10 @@ Claim here ${shareUrl}`,
                 <ActivityClaimButton
                     status={data.status}
                     shareContent={shareContent as Chars}
-                    source={Source.Lens}
+                    source={sources}
                     claimType={primarySource}
+                    disabled={blocked}
+                    buttonText={buttonText}
                 />
             </div>
         </>

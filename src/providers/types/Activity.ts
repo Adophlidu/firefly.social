@@ -89,6 +89,7 @@ export interface Lens {
     handle: string;
     isActiveUser: boolean;
     isTopUser: boolean;
+    participationBlocked?: boolean;
 }
 
 export type CheckResponse = Response<{

@@ -27,7 +27,7 @@ interface Props {
     claimType?: string;
     shareContent: Chars;
     disabled?: boolean;
-    source: SocialSource;
+    source: SocialSource | SocialSource[];
     buttonText?: ReactNode;
     onSuccess?: (tx?: string) => void;
     hasSuccessDialog?: boolean; // TODO: move success dialog to outside
