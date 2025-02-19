@@ -14,7 +14,6 @@ import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { setupServerTwitterSession } from '@/helpers/setupTwitterSession.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { NextPageProps } from '@/types/index.js';
@@ -39,7 +38,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function Page(props: Props) {
     if (await isBotRequest()) return null;
 
-    await setupServerTwitterSession();
     await setupLocaleForSSR();
 
     const params = await props.params;

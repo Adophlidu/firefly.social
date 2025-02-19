@@ -11,9 +11,9 @@ import { type ProfileCategory, Source, SourceInURL } from '@/constants/enum.js';
 import { REQUIRE_LOGIN_SOURCES } from '@/constants/index.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { isSocialSource } from '@/helpers/isSocialSource.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { NextPageProps } from '@/types/index.js';
 
 interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: SourceInURL }> {}

@@ -13,7 +13,6 @@ import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { setupServerTwitterSession } from '@/helpers/setupTwitterSession.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { NextPageProps } from '@/types/index.js';
@@ -23,7 +22,6 @@ interface Props extends NextPageProps<{ id: string; source: SourceInURL }> {}
 export default async function Layout(props: Props) {
     if (await isBotRequest()) return null;
 
-    await setupServerTwitterSession();
     await setupLocaleForSSR();
 
     const params = await props.params;

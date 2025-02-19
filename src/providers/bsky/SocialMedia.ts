@@ -194,7 +194,7 @@ export class BskySocialMedia implements Provider {
         return this.getProfileById(handle);
     }
     async getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
-        throw new NotImplementedError();
+        return this.getProfileById(profileIdOrHandle);
     }
     async getProfileBySession(session: Session): Promise<Profile> {
         return getBskyProfileBySession(session as BskySession);

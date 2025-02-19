@@ -302,6 +302,20 @@ class TwitterSocialMedia implements Provider {
         return data;
     }
 
+    async getProfileById(profileId: string): Promise<Profile> {
+        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`);
+        const data = resolveTwitterResponseData(response);
+        data.url = data.url && !isServer ? ((await resolveTCOLink(data.url)) ?? data.url) : data.url;
+        return formatTwitterProfile(data);
+    }
+
+    async getProfileByHandle(handle: string): Promise<Profile> {
+        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/username/${handle}`);
+        const data = resolveTwitterResponseData(response);
+        data.url = data.url && !isServer ? ((await resolveTCOLink(data.url)) ?? data.url) : data.url;
+        return formatTwitterProfile(data);
+    }
+
     async getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
         if (isNumericalProfileId(profileIdOrHandle)) {
             // Using runInSafeAsync here to handle cases where a purely numerical handle might be passed
@@ -311,25 +325,11 @@ class TwitterSocialMedia implements Provider {
         return this.getProfileByHandle(profileIdOrHandle);
     }
 
-    async getProfileById(profileId: string): Promise<Profile> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`);
-        const data = resolveTwitterResponseData(response);
-        data.url = data.url && !isServer ? ((await resolveTCOLink(data.url)) ?? data.url) : data.url;
-        return formatTwitterProfile(data);
-    }
-
     async getProfileBySession(session: Session): Promise<Profile> {
         const { profileId, payload } = session as TwitterSession;
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`, {
             headers: TwitterSession.payloadToHeaders(payload),
         });
-        const data = resolveTwitterResponseData(response);
-        data.url = data.url && !isServer ? ((await resolveTCOLink(data.url)) ?? data.url) : data.url;
-        return formatTwitterProfile(data);
-    }
-
-    async getProfileByHandle(handle: string): Promise<Profile> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/username/${handle}`);
         const data = resolveTwitterResponseData(response);
         data.url = data.url && !isServer ? ((await resolveTCOLink(data.url)) ?? data.url) : data.url;
         return formatTwitterProfile(data);
