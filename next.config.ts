@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url';
 const require = createRequire(import.meta.url);
 const __dirname = fileURLToPath(dirname(import.meta.url));
 const outputPath = fileURLToPath(new URL('./public', import.meta.url));
+const polyfillsFolderPath = join(outputPath, './js/polyfills');
 
 const cspConfig = {
     'default-src': ["'self'", 'https:', 'wss:', 'data:', 'blob:'],
@@ -195,6 +196,15 @@ const config: NextConfig = {
                 }),
                 new context.webpack.DefinePlugin({
                     'process.version': JSON.stringify(process.env.npm_package_version),
+                }),
+                new CopyPlugin({
+                    patterns: [
+                        {
+                            context: join(__dirname, './src/maskbook/packages/polyfills/dist/'),
+                            from: '*.js',
+                            to: polyfillsFolderPath,
+                        },
+                    ],
                 }),
             ],
         );

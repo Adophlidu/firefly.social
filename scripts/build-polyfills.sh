@@ -1,2 +1,2 @@
 #!/bin/bash
-npx rollup -c ./src/polyfills/rollup.config.mjs src/polyfills/index.js
+npx rollup ./src/polyfills/index.js  -o ./public/js/polyfills/base.js
