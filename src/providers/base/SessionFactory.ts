@@ -35,12 +35,24 @@ const ThirdPartySessionPayload = z.object({
     isNew: z.boolean().optional(),
 });
 
+const BskyDidDoc = z.object({
+    service: z
+        .array(
+            z.object({
+                id: z.string().optional(),
+                type: z.string().optional(),
+                serviceEndpoint: z.string().optional(),
+            }),
+        )
+        .optional(),
+});
+
 const BskySessionPayload = z.object({
     refreshJwt: z.string(),
     accessJwt: z.string(),
     handle: z.string(),
     did: z.string(),
-    didDoc: z.object({}).optional(),
+    didDoc: BskyDidDoc.optional(),
     email: z.string().optional(),
     emailConfirmed: z.boolean().optional(),
     emailAuthFactor: z.boolean().optional(),
