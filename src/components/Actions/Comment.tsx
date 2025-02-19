@@ -12,11 +12,11 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getProfileById } from '@/services/getProfileById.js';
 
 interface CommentProps {
     post: Post;
@@ -34,7 +34,8 @@ export const Comment = memo<CommentProps>(function Comment({ post, disabled = fa
     const { data: authorProfile = null } = useQuery({
         queryKey: ['profile', source, author.profileId],
         queryFn: async () => {
-            return getProfileById(source, author.profileId);
+            const provider = resolveSocialMediaProvider(source);
+            return provider.getProfileById(author.profileId);
         },
         enabled: !disabled && !('canComment' in post),
     });
