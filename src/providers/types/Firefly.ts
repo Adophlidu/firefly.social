@@ -1336,6 +1336,24 @@ export type DetectAddressResponse = Response<{
     }>;
 }>;
 
+export type ParagraphMintMetadata = {
+    blogId: string;
+    noteId: string;
+    createdAt: number;
+    type: string;
+    status: string;
+    version: number;
+    text: string;
+    position: any;
+    costEth: string;
+    supply: string;
+    txHash: string;
+    chain: string;
+    collectorWallet: string;
+};
+
+export type NFTMintingResponse = Response<ParagraphMintMetadata>;
+
 export interface NotificationSettings {
     priority: boolean;
 }

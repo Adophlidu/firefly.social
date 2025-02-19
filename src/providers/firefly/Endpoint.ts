@@ -73,6 +73,7 @@ import {
     type MintBySponsorResponse,
     type MuteAllResponse,
     type NFTCollectionsResponse,
+    type NFTMintingResponse,
     type PlatformIdentityKey,
     type PolymarketActivityTimeline,
     type ProjectResponse,
@@ -969,6 +970,19 @@ export class FireflyEndpoint {
         const url = urlcat(settings.FIREFLY_ROOT_URL, `v2/farcaster-hub/ipfs/${cid}`);
         const response = await fetchJSON<TakoExternalHostedData>(url);
         return response.data;
+    }
+
+    async getArticleMetadata(articleId: string, hash: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_transaction/article/add/metadata');
+        const response = await fireflySessionHolder.fetch<NFTMintingResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                originalId: articleId,
+                hash,
+            }),
+        });
+
+        return resolveFireflyResponseData(response);
     }
 }
 

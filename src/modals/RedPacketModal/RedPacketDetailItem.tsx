@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
+import { isValidAddress } from '@masknet/web3-shared-evm';
 import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
 import { useRouter } from '@tanstack/react-router';
 import dayjs from 'dayjs';
@@ -177,7 +178,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                 </div>
                             </div>
 
-                            {creator ? (
+                            {creator || share_from ? (
                                 <div className="flex items-center text-[14px] leading-[18px]">
                                     <div className="mr-1 text-lightSecond">
                                         <Trans>Creator:</Trans>
@@ -185,7 +186,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                     <RedPacketAccountItem
                                         address={creator}
                                         ens={ens_name}
-                                        shareFrom={share_from}
+                                        shareFrom={!isValidAddress(share_from) ? share_from : undefined}
                                         networkType={networkType}
                                         isDarkFont
                                     />

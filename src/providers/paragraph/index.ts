@@ -15,6 +15,7 @@ import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { resolveParagraphMintContract } from '@/helpers/resolveParagraphMintContract.js';
 import { type ParagraphArticleDetail, ParagraphChain } from '@/providers/paragraph/type.js';
 import type { Article, ArticleCollectable, Provider } from '@/providers/types/Article.js';
+import type { ParagraphMintMetadata } from '@/providers/types/Firefly.js';
 
 const MAX_SUPPLY = '115792089237316195423570985008687907853269984665640564039457584007913129639935';
 
@@ -264,6 +265,15 @@ class Paragraph implements Provider {
             }
             throw error;
         }
+    }
+
+    async addArticleMetadata(metadata: ParagraphMintMetadata) {
+        const response = await fetchJSON<{ success: true; id: string }>('https://api.paragraph.xyz/collectibles', {
+            method: 'POST',
+            body: JSON.stringify(metadata),
+        });
+
+        return response.id;
     }
 }
 

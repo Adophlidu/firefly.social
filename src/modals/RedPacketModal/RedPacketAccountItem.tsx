@@ -9,7 +9,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 
 interface Props {
-    address: string;
+    address?: string;
     ens?: string;
     isDarkFont?: boolean;
     shareFrom?: string;
@@ -26,13 +26,15 @@ export const RedPacketAccountItem = memo(function RedPacketAccountItem({
     const isAddress = networkType === NetworkType.Ethereum ? isValidAddress(address) : true;
     const addressLink = isAddress ? resolveProfileUrl(Source.Wallet, address) : null;
 
+    if (!address && !shareFrom) return null;
+
     return (
         <div
             className={classNames('flex items-center gap-1 text-[14px] leading-[18px]', {
                 'text-lightTextMain': !!isDarkFont,
             })}
         >
-            <div>{shareFrom ? `@${shareFrom}` : ens ? ens : formatAddress(address, 4)}</div>
+            <div>{shareFrom ? `@${shareFrom}` : ens ? ens : address ? formatAddress(address, 4) : null}</div>
             {addressLink ? (
                 <Link
                     type="button"
