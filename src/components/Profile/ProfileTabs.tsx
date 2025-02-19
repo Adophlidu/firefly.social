@@ -114,7 +114,7 @@ export function ProfileTabs({ profiles: otherProfiles, identity }: ProfileTabsPr
                         }}
                         key={index}
                         ref={(node) => {
-                            if (isActive && node) node.scrollIntoView({ block: 'center' });
+                            if (isActive && node) node.scrollIntoView({ inline: 'center' });
                         }}
                     >
                         {isMPC ? (
