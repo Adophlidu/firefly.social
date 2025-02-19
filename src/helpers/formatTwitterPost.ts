@@ -1,8 +1,9 @@
+import { safeUnreachable } from '@masknet/kit';
 import { compact, find, first, last } from 'lodash-es';
 import type { ApiV2Includes, TweetV2, TweetV2PaginableTimelineResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
-import { Source } from '@/constants/enum.js';
+import { RestrictionType, Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { formatTwitterMedia } from '@/helpers/formatTwitterMedia.js';
@@ -11,6 +12,21 @@ import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { type Post, ProfileStatus } from '@/providers/types/SocialMedia.js';
+
+function resolveReplySettings(replySettings?: TweetV2['reply_settings']): RestrictionType[] {
+    if (!replySettings) return [RestrictionType.Everyone];
+    switch (replySettings) {
+        case 'everyone':
+            return [RestrictionType.Everyone];
+        case 'following':
+            return [RestrictionType.OnlyPeopleYouFollow];
+        case 'mentionedUsers':
+            return [RestrictionType.MentionedProfiles];
+        default:
+            safeUnreachable(replySettings);
+            return [RestrictionType.Everyone];
+    }
+}
 
 export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     const user = includes?.users?.find((u) => u.id === item.author_id);
@@ -35,7 +51,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         postId: item.id,
         type: 'Post',
         source: Source.Twitter,
-        canComment: true,
+        restrictions: resolveReplySettings(item.reply_settings),
         author: {
             profileId: item.author_id!,
             profileSource: Source.Twitter,
