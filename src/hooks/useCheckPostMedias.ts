@@ -3,10 +3,12 @@ import { useCallback } from 'react';
 
 import { FileMimeType, Source } from '@/constants/enum.js';
 import { SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
+import { MAX_FILE_SIZE_PER_VIDEO } from '@/constants/limitation.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatFileSize } from '@/helpers/formatFileSize.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { getPostVideoSizeLimit } from '@/helpers/getPostLimitation.js';
+import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -33,7 +35,11 @@ export function useCheckPostMedias() {
 
         const videoSizeLimit = getPostVideoSizeLimit(availableSources);
         if (video?.file && video.file.size > videoSizeLimit) {
-            enqueueErrorMessage(t`Failed to upload. Video size exceeds ${formatFileSize(videoSizeLimit)}`);
+            enqueueErrorMessage(
+                t`Failed to upload on ${resolveSourcesName(
+                    availableSources.filter((x) => MAX_FILE_SIZE_PER_VIDEO[x] === videoSizeLimit),
+                )}. Video size exceeds ${formatFileSize(videoSizeLimit)}`,
+            );
             return true;
         }
 

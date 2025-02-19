@@ -64,7 +64,7 @@ export function PostBy() {
             if (!ENABLED_RP_SOURCES.includes(source) && rpPayload) {
                 return {
                     disabled: true,
-                    reason: t`Red packet is only available on ${resolveSourcesName(ENABLED_RP_SOURCES)}.`,
+                    reason: t`Lucky drop is only available on ${resolveSourcesName(ENABLED_RP_SOURCES)}.`,
                 };
             }
 

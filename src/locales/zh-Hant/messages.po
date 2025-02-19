@@ -196,7 +196,6 @@ msgid "Mute @{0}"
 msgstr "將 @{0} 靜音"
 
 #. placeholder {0}: formatFileSize(maxVideoSize)
-#. placeholder {0}: formatFileSize(videoSizeLimit)
 msgid "Failed to upload. Video size exceeds {0}"
 msgstr ""
 
@@ -1222,10 +1221,6 @@ msgid "Directory"
 msgstr ""
 
 msgid "Cannot choose due to account mismatch."
-msgstr ""
-
-#. placeholder {0}: resolveSourcesName(ENABLED_RP_SOURCES)
-msgid "Red packet is only available on {0}."
 msgstr ""
 
 msgid "Search Filter"
@@ -2394,6 +2389,11 @@ msgstr "書籤標記失敗。"
 #. placeholder {0}: resolveSourceName(Source.Twitter)
 msgid "{0} muted users"
 msgstr "{0} 位已靜音的用戶"
+
+#. placeholder {0}: resolveSourcesName( availableSources.filter((x) => MAX_FILE_SIZE_PER_VIDEO[x] === videoSizeLimit), )
+#. placeholder {1}: formatFileSize(videoSizeLimit)
+msgid "Failed to upload on {0}. Video size exceeds {1}"
+msgstr ""
 
 msgid "Received time:"
 msgstr ""
@@ -3618,6 +3618,10 @@ msgid "Verify"
 msgstr ""
 
 msgid "Hidden owner."
+msgstr ""
+
+#. placeholder {0}: resolveSourcesName(ENABLED_RP_SOURCES)
+msgid "Lucky drop is only available on {0}."
 msgstr ""
 
 msgid "Recasted"

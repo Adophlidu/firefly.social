@@ -191,7 +191,6 @@ msgid "Mute @{0}"
 msgstr "Mute @{0}"
 
 #. placeholder {0}: formatFileSize(maxVideoSize)
-#. placeholder {0}: formatFileSize(videoSizeLimit)
 msgid "Failed to upload. Video size exceeds {0}"
 msgstr "Failed to upload. Video size exceeds {0}"
 
@@ -1218,10 +1217,6 @@ msgstr "Directory"
 
 msgid "Cannot choose due to account mismatch."
 msgstr "Cannot choose due to account mismatch."
-
-#. placeholder {0}: resolveSourcesName(ENABLED_RP_SOURCES)
-msgid "Red packet is only available on {0}."
-msgstr "Red packet is only available on {0}."
 
 msgid "Search Filter"
 msgstr "Search Filter"
@@ -2402,6 +2397,11 @@ msgstr "Failed to bookmark post."
 #. placeholder {0}: resolveSourceName(Source.Twitter)
 msgid "{0} muted users"
 msgstr "{0} muted users"
+
+#. placeholder {0}: resolveSourcesName( availableSources.filter((x) => MAX_FILE_SIZE_PER_VIDEO[x] === videoSizeLimit), )
+#. placeholder {1}: formatFileSize(videoSizeLimit)
+msgid "Failed to upload on {0}. Video size exceeds {1}"
+msgstr "Failed to upload on {0}. Video size exceeds {1}"
 
 msgid "Received time:"
 msgstr "Received time:"
@@ -3630,6 +3630,10 @@ msgstr "Verify"
 
 msgid "Hidden owner."
 msgstr "Hidden owner."
+
+#. placeholder {0}: resolveSourcesName(ENABLED_RP_SOURCES)
+msgid "Lucky drop is only available on {0}."
+msgstr "Lucky drop is only available on {0}."
 
 msgid "Recasted"
 msgstr "Recasted"
