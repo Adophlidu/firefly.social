@@ -14,10 +14,10 @@ import type { NFTAsset } from '@/providers/types/Firefly.js';
 
 class SimpleHashFactory {
     async getWalletsNFTCollections(
-        params: { limit?: number; indicator?: PageIndicator; walletAddress: string },
+        params: { limit?: number; indicator?: PageIndicator; walletAddress: string; skipScoreCheck?: boolean },
         chains: string,
     ) {
-        const { indicator, walletAddress, limit } = params ?? {};
+        const { indicator, walletAddress, limit, skipScoreCheck = false } = params ?? {};
         const url = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/collections_by_wallets_v2', {
             chains,
             wallet_addresses: walletAddress,
@@ -28,8 +28,9 @@ class SimpleHashFactory {
         });
 
         const response = await fetchJSON<{ collections: SimpleHash.LiteCollection[]; next_cursor?: string }>(url);
+        const collections = response?.collections ?? EMPTY_LIST;
         return createPageable(
-            response?.collections ?? EMPTY_LIST,
+            !skipScoreCheck ? collections.filter((x) => x.collection_details.spam_score < 50) : collections,
             createIndicator(indicator),
             response?.next_cursor ? createNextIndicator(indicator, `${response.next_cursor}`) : undefined,
         );
@@ -45,7 +46,7 @@ class SimpleHashFactory {
     }
 
     async getWalletsNFTCollectionsWithNFTs(
-        params: { limit?: number; indicator?: PageIndicator; walletAddress: string },
+        params: { limit?: number; indicator?: PageIndicator; walletAddress: string; skipScoreCheck?: boolean },
         chains: string,
     ) {
         const response = await SimpleHashProvider.getWalletsNFTCollections(params, chains);
