@@ -41,8 +41,11 @@ export function ExclusiveEvents() {
                 muted
                 loop={isHovering}
                 playsInline
+                webkit-playsinline
                 width={20}
                 height={20}
+                disablePictureInPicture
+                disableRemotePlayback
                 className="h-5 w-5"
             />
             <Trans>Exclusive Events</Trans>

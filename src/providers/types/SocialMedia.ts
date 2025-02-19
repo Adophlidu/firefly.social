@@ -63,7 +63,7 @@ export interface Friendship {
     isFollowedBack: boolean;
 }
 
-export interface Profile {
+export interface Profile<O = unknown> {
     /** fid for Farcaster, twitter id for Twitter */
     profileId: string;
     /** the source of profile's session */
@@ -95,6 +95,7 @@ export interface Profile {
     isPowerUser?: boolean;
     website?: string;
     location?: string;
+    __original__?: O;
 }
 
 export type ProfileEditable = Partial<Pick<Profile, 'pfp' | 'bio' | 'location' | 'website' | 'displayName'>>;

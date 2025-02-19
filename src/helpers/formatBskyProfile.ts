@@ -13,7 +13,9 @@ function getDisplayNameFromHandle(handle: string) {
     return first(matched) ?? handle;
 }
 
-export function formatBskyProfile(profile: AppBskyActorDefs.ProfileViewDetailed): Profile {
+export function formatBskyProfile(
+    profile: AppBskyActorDefs.ProfileViewDetailed,
+): Profile<AppBskyActorDefs.ProfileViewDetailed> {
     return {
         profileId: profile.did,
         source: Source.Bsky,
@@ -27,11 +29,14 @@ export function formatBskyProfile(profile: AppBskyActorDefs.ProfileViewDetailed)
         followingCount: profile.followsCount ?? 0,
         status: (profile.active ?? true) ? ProfileStatus.Active : ProfileStatus.Inactive,
         verified: true,
-        viewerContext: {
-            following: !!profile.viewer?.following,
-            followedBy: !!profile.viewer?.followedBy,
-            // .blockedBy will block data request as well.
-            blocking: profile.viewer?.muted,
-        },
+        viewerContext: profile.viewer
+            ? {
+                  following: !!profile.viewer.following,
+                  followedBy: !!profile.viewer.followedBy,
+                  // .blockedBy will block data request as well.
+                  blocking: profile.viewer.muted,
+              }
+            : undefined,
+        __original__: profile,
     };
 }

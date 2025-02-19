@@ -80,13 +80,16 @@ function formatBskyMedia(embed: unknown): Post['metadata']['content'] {
 function resolveRestrictions(gatedPost: AppBskyFeedDefs.ThreadgateView) {
     if (AppBskyFeedThreadgate.isRecord(gatedPost.record)) {
         const { allow } = gatedPost.record;
-        if (!allow || !Array.isArray(allow)) return;
+        if (!allow || !Array.isArray(allow)) return [RestrictionType.Everyone];
         if (allow.length === 0) return [RestrictionType.Nobody];
 
         return compact(
             allow.map((rule) => {
                 if (AppBskyFeedThreadgate.isFollowingRule(rule)) {
                     return RestrictionType.OnlyPeopleYouFollow;
+                }
+                if (AppBskyFeedThreadgate.isFollowerRule(rule)) {
+                    return RestrictionType.YouFollower;
                 }
                 if (AppBskyFeedThreadgate.isMentionRule(rule)) {
                     return RestrictionType.MentionedProfiles;
@@ -97,7 +100,7 @@ function resolveRestrictions(gatedPost: AppBskyFeedDefs.ThreadgateView) {
         );
     }
 
-    return;
+    return [RestrictionType.Everyone];
 }
 
 function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
@@ -109,7 +112,6 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
         postId: PostAtUri.from(original.uri).toId(),
         type: 'Post',
         source: Source.Bsky,
-        canComment: true,
         canMirror: original.viewer?.embeddingDisabled !== true,
         restrictions: original.threadgate ? resolveRestrictions(original.threadgate) : undefined,
         author: formatBskyProfile(original.author),
@@ -185,7 +187,6 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
             post.rootContentURI = original.record.reply.root.uri;
         }
     }
-
     return post;
 }
 

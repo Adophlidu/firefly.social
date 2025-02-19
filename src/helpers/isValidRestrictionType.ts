@@ -2,8 +2,9 @@ import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js'
 
 const restrictionConfig: Record<RestrictionType, SocialSource[]> = {
     [RestrictionType.Everyone]: [Source.Farcaster, Source.Lens, Source.Twitter, Source.Bsky],
-    [RestrictionType.Nobody]: [Source.Bsky],
+    [RestrictionType.Nobody]: [Source.Twitter, Source.Bsky],
     [RestrictionType.OnlyPeopleYouFollow]: [Source.Lens, Source.Twitter, Source.Bsky],
+    [RestrictionType.YouFollower]: [Source.Bsky],
     [RestrictionType.MentionedProfiles]: [Source.Twitter, Source.Bsky],
 };
 

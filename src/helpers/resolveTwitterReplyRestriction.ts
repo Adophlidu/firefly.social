@@ -8,6 +8,7 @@ export const resolveTwitterReplyRestriction = createLookupTableResolver<
     {
         [RestrictionType.Everyone]: undefined,
         [RestrictionType.Nobody]: undefined,
+        [RestrictionType.YouFollower]: undefined,
         [RestrictionType.OnlyPeopleYouFollow]: 'following',
         [RestrictionType.MentionedProfiles]: 'mentionedUsers',
     },

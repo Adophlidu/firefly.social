@@ -60,8 +60,8 @@ importers:
         specifier: ^3.11.8
         version: 3.11.8(@types/react@19.0.2)(graphql@16.9.0)(react-dom@19.0.0)(react@19.0.0)
       '@atproto/api':
-        specifier: ^0.13.31
-        version: 0.13.31
+        specifier: ^0.13.35
+        version: 0.13.35
       '@atproto/common-web':
         specifier: ^0.4.0
         version: 0.4.0
@@ -1235,25 +1235,16 @@ packages:
       - '@types/react'
     dev: false
 
-  /@atproto/api@0.13.31:
-    resolution: {integrity: sha512-i2cUQuwe+3j8rgPJj4YWRjSQeJunGqJ3IzesnvbODjjZh3IS9jB80BZ/pTe/AvNg6JCBbqeWJjWDVKeFHaiZAw==}
+  /@atproto/api@0.13.35:
+    resolution: {integrity: sha512-vsEfBj0C333TLjDppvTdTE0IdKlXuljKSveAeI4PPx/l6eUKNnDTsYxvILtXUVzwUlTDmSRqy5O4Ryh78n1b7g==}
     dependencies:
-      '@atproto/common-web': 0.3.2
-      '@atproto/lexicon': 0.4.5
-      '@atproto/syntax': 0.3.1
-      '@atproto/xrpc': 0.6.6
+      '@atproto/common-web': 0.4.0
+      '@atproto/lexicon': 0.4.6
+      '@atproto/syntax': 0.3.2
+      '@atproto/xrpc': 0.6.8
       await-lock: 2.2.2
       multiformats: 9.9.0
       tlds: 1.255.0
-      zod: 3.23.8
-    dev: false
-
-  /@atproto/common-web@0.3.2:
-    resolution: {integrity: sha512-Vx0JtL1/CssJbFAb0UOdvTrkbUautsDfHNOXNTcX2vyPIxH9xOameSqLLunM1hZnOQbJwyjmQCt6TV+bhnanDg==}
-    dependencies:
-      graphemer: 1.4.0
-      multiformats: 9.9.0
-      uint8arrays: 3.0.0
       zod: 3.23.8
     dev: false
 
@@ -1266,24 +1257,24 @@ packages:
       zod: 3.23.8
     dev: false
 
-  /@atproto/lexicon@0.4.5:
-    resolution: {integrity: sha512-fljWqMGKn+XWtTprBcS3F1hGBREnQYh6qYHv2sjENucc7REms1gtmZXSerB9N6pVeHVNOnXiILdukeAcic5OEw==}
+  /@atproto/lexicon@0.4.6:
+    resolution: {integrity: sha512-RbiwXcnTuLp9vQrNoQ7xly8HyifKkovqCYtbfXVwqdylWYKPhmRsYkRfcPNv/lILhT9Lm0GVnxNwGGwvvgIsfA==}
     dependencies:
-      '@atproto/common-web': 0.3.2
-      '@atproto/syntax': 0.3.1
+      '@atproto/common-web': 0.4.0
+      '@atproto/syntax': 0.3.2
       iso-datestring-validator: 2.2.2
       multiformats: 9.9.0
       zod: 3.23.8
     dev: false
 
-  /@atproto/syntax@0.3.1:
-    resolution: {integrity: sha512-fzW0Mg1QUOVCWUD3RgEsDt6d1OZ6DdFmbKcDdbzUfh0t4rhtRAC05KbZYmxuMPWDAiJ4BbbQ5dkAc/mNypMXkw==}
+  /@atproto/syntax@0.3.2:
+    resolution: {integrity: sha512-JLMhTbXER1Im98RrozfsLAZARGIAzKCZEm+Inh1IF00XU6tHcoGKS+HOw0Uy4R2r04yvxoFs8fswmwAhmMpMdw==}
     dev: false
 
-  /@atproto/xrpc@0.6.6:
-    resolution: {integrity: sha512-umXEYVMo9/pyIBoKmIAIi64RXDW9tSXY+wqztlQ6I2GZtjLfNZqmAWU+wADk3SxUe54mvjxxGyA4TtyGtDMfhA==}
+  /@atproto/xrpc@0.6.8:
+    resolution: {integrity: sha512-+KW0NcwdFyLziccYimX6tPkORiwwxlJPqlkVL9bJyj8nJ0aB8cyqo9HXkziMI+R6ansB1BuWQ0tfdPlLLwrUcA==}
     dependencies:
-      '@atproto/lexicon': 0.4.5
+      '@atproto/lexicon': 0.4.6
       zod: 3.23.8
     dev: false
 
@@ -29164,7 +29155,7 @@ packages:
 
 time:
   /@apollo/client@3.11.8: '2024-09-05T08:37:49.305Z'
-  /@atproto/api@0.13.31: '2025-01-23T14:31:11.388Z'
+  /@atproto/api@0.13.35: '2025-02-06T21:07:47.735Z'
   /@atproto/common-web@0.4.0: '2025-02-05T23:54:07.800Z'
   /@aws-sdk/client-s3@3.658.1: '2024-09-25T19:24:51.340Z'
   /@aws-sdk/lib-storage@3.658.1: '2024-09-25T19:26:22.245Z'

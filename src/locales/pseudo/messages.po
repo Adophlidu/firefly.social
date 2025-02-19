@@ -1498,6 +1498,9 @@ msgstr ""
 msgid "Expired"
 msgstr ""
 
+msgid "Your Follower"
+msgstr ""
+
 msgid "Please choose issue to report this wallet:"
 msgstr ""
 

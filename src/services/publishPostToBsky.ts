@@ -27,6 +27,8 @@ function resolveRestriction(
                     return { $type: 'app.bsky.feed.threadgate#mentionRule' };
                 case RestrictionType.OnlyPeopleYouFollow:
                     return { $type: 'app.bsky.feed.threadgate#followingRule' };
+                case RestrictionType.YouFollower:
+                    return { $type: 'app.bsky.feed.threadgate#followerRule' };
                 case RestrictionType.Everyone:
                 case RestrictionType.Nobody:
                     return null;
