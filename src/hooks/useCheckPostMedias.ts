@@ -4,17 +4,18 @@ import { useCallback } from 'react';
 import { FileMimeType, Source } from '@/constants/enum.js';
 import { SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { formatFileSize } from '@/helpers/formatFileSize.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
+import { getPostVideoSizeLimit } from '@/helpers/getPostLimitation.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export function useCheckPostMedias() {
     const { availableSources, images, video } = useCompositePost();
     const { type } = useComposeStateStore();
-    const hasVideo = !!video;
     const imageCount = images.length;
     return useCallback(() => {
-        if (availableSources.some((source) => !SUPPORTED_VIDEO_SOURCES.includes(source)) && hasVideo) {
+        if (availableSources.some((source) => !SUPPORTED_VIDEO_SOURCES.includes(source)) && video?.file) {
             enqueueErrorMessage(t`Failed to upload. Video is not supported yet.`);
             return true;
         }
@@ -30,6 +31,12 @@ export function useCheckPostMedias() {
             return true;
         }
 
+        const videoSizeLimit = getPostVideoSizeLimit(availableSources);
+        if (video?.file && video.file.size > videoSizeLimit) {
+            enqueueErrorMessage(t`Failed to upload. Video size exceeds ${formatFileSize(videoSizeLimit)}`);
+            return true;
+        }
+
         return false;
-    }, [availableSources, hasVideo, imageCount, type, images]);
+    }, [availableSources, video?.file, imageCount, type, images]);
 }

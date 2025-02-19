@@ -191,6 +191,7 @@ msgid "Mute @{0}"
 msgstr "Mute @{0}"
 
 #. placeholder {0}: formatFileSize(maxVideoSize)
+#. placeholder {0}: formatFileSize(videoSizeLimit)
 msgid "Failed to upload. Video size exceeds {0}"
 msgstr "Failed to upload. Video size exceeds {0}"
 
@@ -3003,9 +3004,6 @@ msgstr "Everyone can reply"
 
 msgid "No matching token"
 msgstr "No matching token"
-
-msgid "Video size limit reached."
-msgstr "Video size limit reached."
 
 msgid "The contract owner has restrictions on anti whale."
 msgstr "The contract owner has restrictions on anti whale."

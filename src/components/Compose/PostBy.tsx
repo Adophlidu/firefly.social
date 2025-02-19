@@ -15,7 +15,7 @@ import {
 import { ensureGifSource } from '@/helpers/checkPostGif.js';
 import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
-import { validateVideoDuration, validateVideoSize } from '@/helpers/validateVideo.js';
+import { validateVideoDuration } from '@/helpers/validateVideo.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
@@ -80,12 +80,6 @@ export function PostBy() {
                 return {
                     disabled: true,
                     reason: t`Video duration limit reached.`,
-                };
-            }
-            if (videoMetadata && !validateVideoSize(sources, videoMetadata).isValid) {
-                return {
-                    disabled: true,
-                    reason: t`Video size limit reached.`,
                 };
             }
 
