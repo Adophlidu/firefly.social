@@ -5,7 +5,7 @@ import { ProfilePageLayout } from '@/app/(normal)/profile/pages/ProfilePageLayou
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { type LoginFallbackSource, SourceInURL } from '@/constants/enum.js';
-import { EMPTY_LIST, REQUIRE_LOGIN_SOURCES } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { isSocialSource } from '@/helpers/isSocialSource.js';
@@ -25,25 +25,25 @@ export default async function Layout(props: Props) {
     await setupLocaleForSSR();
 
     const params = await props.params;
-    const id = params.id;
+
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isProfilePageSource(source)) notFound();
 
-    const identity = resolveSpecialProfileIdentity({ source, id });
+    const identity = resolveSpecialProfileIdentity({ source, id: params.id });
     const profiles =
         (await runInSafeAsync(() => FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false))) ??
         EMPTY_LIST;
 
-    if (
-        isSocialSource(source) &&
-        REQUIRE_LOGIN_SOURCES.some((x) => x === source && !resolveSessionHolder(source).session)
-    ) {
-        return (
-            <>
-                <ProfileSourceTabs profiles={profiles} identity={identity} />
-                <NotLoginFallback source={source as LoginFallbackSource} />
-            </>
-        );
+    if (isSocialSource(source)) {
+        const ensured = await resolveSessionHolder(source).ensureSessionForServer();
+        if (!ensured) {
+            return (
+                <>
+                    <ProfileSourceTabs profiles={profiles} identity={identity} />
+                    <NotLoginFallback source={source as LoginFallbackSource} />
+                </>
+            );
+        }
     }
 
     return (

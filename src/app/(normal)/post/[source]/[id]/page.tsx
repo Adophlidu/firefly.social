@@ -13,9 +13,9 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
+import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { NextPageProps } from '@/types/index.js';
 
 export const revalidate = 60;
@@ -44,7 +44,8 @@ export default async function Page(props: Props) {
     if (!isSocialSourceInUrl(params.source)) notFound();
 
     const source = resolveSocialSource(params.source);
-    if (source === Source.Twitter && !twitterSessionHolder.session) {
+    const ensured = await resolveSessionHolder(source).ensureSessionForServer();
+    if (!ensured) {
         return (
             <article className="min-h-screen">
                 <header className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">

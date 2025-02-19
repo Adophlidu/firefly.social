@@ -69,6 +69,14 @@ export class SessionHolder<T extends Session> {
         return callback(required ? this.sessionRequired : this.session) as ReturnType<K>;
     }
 
+    /**
+     * For those source in REQUIRE_LOGIN_SOURCES that requires session to be created on server-side.
+     * @returns true if session exists
+     */
+    ensureSessionForServer(): Promise<boolean> {
+        return Promise.resolve(true);
+    }
+
     fetchWithSession<T>(url: string, init?: RequestInit, options?: NextFetchersOptions): Promise<T> {
         throw new NotImplementedError();
     }

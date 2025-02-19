@@ -15,8 +15,12 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
         this.internalSession = session;
     }
 
-    override async fetch<T>(url: string, init?: RequestInit, options?: NextFetchersOptions): Promise<T> {
-        await this.resumeSessionForServer();
+    override async fetch<T>(
+        url: string,
+        init?: RequestInit,
+        options?: NextFetchersOptions & { withSession?: boolean },
+    ): Promise<T> {
+        await this.ensureSessionForServer();
         return super.fetch(url, init, options);
     }
 
@@ -52,13 +56,14 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
         super.removeSession();
     }
 
-    private async resumeSessionForServer() {
-        if (!isServer) return;
+    override async ensureSessionForServer() {
+        if (!isServer) throw new Error('This method is only for server-side');
 
         const payload = await createTwitterSessionAfterLogin();
-        if (!payload) return;
+        if (!payload) return false;
 
         this.resumeSession(TwitterSession.from(payload.clientId, payload));
+        return true;
     }
 }
 

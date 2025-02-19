@@ -15,7 +15,6 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
         if (!payload) return createSuccessResponseJSON(null);
 
         const data = await TwitterSessionPayload.concealPayload(payload);
-
         return createSuccessResponseJSON(data, {
             headers: {
                 'Set-Cookie': `twitterToken=${btoa(JSON.stringify(data))}; path=/; Max-Age=31536000; SameSite=Lax; Secure;}`,
