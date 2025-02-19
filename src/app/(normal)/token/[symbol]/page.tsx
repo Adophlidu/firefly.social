@@ -8,7 +8,13 @@ const createPageMetadata = memoizeWithRedis(createMetadataToken, {
     key: KeyType.CreateMetadataToken,
 });
 
-interface Props extends NextPageProps<{ symbol: string }> {}
+interface Props
+    extends NextPageProps<
+        { symbol: string },
+        {
+            isSymbol?: string;
+        }
+    > {}
 
 export async function generateMetadata(props: Props) {
     const params = await props.params;
@@ -16,7 +22,7 @@ export async function generateMetadata(props: Props) {
 }
 
 export default async function TokenPage(props: Props) {
-    const params = await props.params;
-    const { symbol } = params;
-    return <TokenDetail symbol={symbol} />;
+    const { symbol } = await props.params;
+    const { isSymbol } = await props.searchParams;
+    return <TokenDetail symbol={symbol} isCoinId={isSymbol !== 'true'} />;
 }

@@ -250,7 +250,6 @@ msgstr ""
 msgid "{0} listening"
 msgstr ""
 
-#. placeholder {0}: token.rank
 #. placeholder {0}: token.market_cap_rank
 msgid "Rank #{0}"
 msgstr ""
@@ -1716,6 +1715,9 @@ msgid "Enable logging telemetry events"
 msgstr ""
 
 msgid "Post with link"
+msgstr ""
+
+msgid "Rank #{tokenRank}"
 msgstr ""
 
 msgid "Login with Farcaster"

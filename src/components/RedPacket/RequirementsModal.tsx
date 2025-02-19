@@ -30,6 +30,7 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { isZero } from '@/helpers/number.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
+import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { EVMExplorerResolver, NFTScanNonFungibleTokenEVM } from '@/mask/index.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -309,6 +310,7 @@ export function RequirementsModal({
                                             <Trans>Token holder of any one below</Trans>
                                         </div>
                                         {status.payload.map((x) => {
+                                            const tokenLink = resolveTokenPageUrl(x.contractAddress, x.chainId, true);
                                             return (
                                                 <div
                                                     key={`${x.chainId}-${x.contractAddress}`}
@@ -324,18 +326,12 @@ export function RequirementsModal({
                                                         badgeSize={7.5}
                                                     />
                                                     {isZero(x.amount || 0) ? (
-                                                        <Link
-                                                            className="ml-1 text-highlight"
-                                                            href={`/token/${x.contractAddress}?chainId=${x.chainId}`}
-                                                        >
+                                                        <Link className="ml-1 text-highlight" href={tokenLink}>
                                                             ${x.symbol}
                                                         </Link>
                                                     ) : (
                                                         <>
-                                                            <Link
-                                                                className="ml-1 text-highlight"
-                                                                href={`/token/${x.contractAddress}?chainId=${x.chainId}`}
-                                                            >
+                                                            <Link className="ml-1 text-highlight" href={tokenLink}>
                                                                 ${x.symbol}
                                                             </Link>
                                                             <TextOverflowTooltip

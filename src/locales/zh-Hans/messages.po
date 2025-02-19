@@ -250,7 +250,6 @@ msgstr "观察中"
 msgid "{0} listening"
 msgstr "{0} 正在收听"
 
-#. placeholder {0}: token.rank
 #. placeholder {0}: token.market_cap_rank
 msgid "Rank #{0}"
 msgstr "排名 #{0}"
@@ -1722,6 +1721,9 @@ msgstr "启用日志侦测时间"
 
 msgid "Post with link"
 msgstr "发布带链接的帖子"
+
+msgid "Rank #{tokenRank}"
+msgstr ""
 
 msgid "Login with Farcaster"
 msgstr "使用 Farcaster 登录"

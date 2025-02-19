@@ -67,6 +67,7 @@ function InfoRow({ title, description, amount, asInfinite, value, extra }: InfoR
 
 interface Props extends HTMLProps<HTMLDivElement> {
     symbol: string;
+    isCoinId?: boolean;
 }
 
 function getHost(url: string) {
@@ -82,8 +83,8 @@ function formatContractAddress(contract: Contract) {
     return `${contract.address.slice(0, 6)}...${contract.address.slice(-4)}`;
 }
 
-export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, ...rest }) {
-    const { data: token, isLoading } = useTokenInfo(symbol);
+export const TokenDetail = memo<Props>(function TokenDetail({ symbol, isCoinId, children, ...rest }) {
+    const { data: token, isLoading } = useTokenInfo(symbol, isCoinId);
     const { data: trending } = useCoinTrending(token?.id);
     const { market, coin, contracts } = trending ?? {};
 
@@ -101,7 +102,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
     return (
         <>
             <div {...rest} className={classNames('flex flex-col gap-1.5 px-3 py-3 sm:px-6', rest.className)}>
-                <TokenMarketData token={token} />
+                <TokenMarketData token={token} rank={coin?.market_cap_rank} />
 
                 <div className="mt-3 py-3">
                     <h2 className="font-inter font-bold text-main">

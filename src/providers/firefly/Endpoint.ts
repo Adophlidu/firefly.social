@@ -84,6 +84,7 @@ import {
     type TakoExternalHostedData,
     type TelegramLoginBotResponse,
     type TelegramLoginResponse,
+    type TokenWithMarketData,
     type TwitterUserInfoResponse,
     type TwitterUserV2Response,
     type WalletProfile,
@@ -800,6 +801,15 @@ export class FireflyEndpoint {
         const data = resolveFireflyResponseData(response);
 
         return createPageable(data.coins ?? EMPTY_LIST, createIndicator(undefined));
+    }
+
+    async getTokenByCoinId(coinId: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, 'v1/token/single_coins', {
+            coingecko_id: coinId,
+        });
+
+        const response = await fireflySessionHolder.fetch<Response<TokenWithMarketData>>(url);
+        return resolveFireflyResponseData(response);
     }
 
     async searchCollections(keyword: string) {

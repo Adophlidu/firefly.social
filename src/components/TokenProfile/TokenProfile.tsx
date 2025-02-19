@@ -9,6 +9,7 @@ import { Image } from '@/components/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
+import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useCoinPrice24hStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import type { Dimension } from '@/hooks/useLineChart.js';
@@ -97,7 +98,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
             <ClickableButton
                 className="flex h-8 w-full items-center justify-center rounded-full bg-main text-medium font-semibold text-primaryBottom transition-all hover:opacity-80"
                 onClick={() => {
-                    router.push(`/token/${symbol}`);
+                    router.push(resolveTokenPageUrl(token.id));
                 }}
             >
                 {t`Detail`}

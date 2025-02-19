@@ -7,6 +7,7 @@ import { Link } from '@/components/Link.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
 import { useTippyContext } from '@/components/TippyContext/index.js';
 import { TokenProfile } from '@/components/TokenProfile/TokenProfile.js';
+import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag({ title }) {
@@ -27,7 +28,7 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
                 e.stopPropagation();
             }}
             prefetch={false}
-            href={`/token/${symbol}`}
+            href={resolveTokenPageUrl(symbol, undefined, true)}
         >
             {title}
         </Link>

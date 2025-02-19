@@ -30,6 +30,7 @@ import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 interface TokenMarketDataProps {
     token: CoinGeckoToken;
     linkable?: boolean;
+    rank?: number;
 }
 
 const dimension: Dimension = {
@@ -41,7 +42,7 @@ const dimension: Dimension = {
     height: 175,
 };
 
-export function TokenMarketData({ linkable, token }: TokenMarketDataProps) {
+export function TokenMarketData({ linkable, token, rank }: TokenMarketDataProps) {
     const chartRef = useRef<SVGSVGElement>(null);
     const { data: price } = useTokenPrice(token.id);
     const { data: trending } = useCoinTrending(token.id);
@@ -85,6 +86,8 @@ export function TokenMarketData({ linkable, token }: TokenMarketDataProps) {
         </>
     );
 
+    const tokenRank = rank ?? token.rank;
+
     return (
         <>
             <div className="flex items-start">
@@ -97,9 +100,9 @@ export function TokenMarketData({ linkable, token }: TokenMarketDataProps) {
                         ) : (
                             baseInfo
                         )}
-                        {token.rank ? (
+                        {tokenRank ? (
                             <span className="inline-flex h-[14px] items-center whitespace-nowrap rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
-                                <Trans>Rank #{token.rank}</Trans>
+                                <Trans>Rank #{tokenRank}</Trans>
                             </span>
                         ) : null}
                     </div>

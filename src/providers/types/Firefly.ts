@@ -1335,3 +1335,33 @@ export interface NotificationSettings {
 export type TakoExternalHostedData = Response<{
     content: string;
 }>;
+
+export interface TokenWithMarketData {
+    detail_platforms: unknown;
+    id: string;
+    image: Record<'small' | 'thumb' | 'large', string>;
+    links: {
+        homepage: string[];
+        twitter_handle: string;
+    };
+    market_data: {
+        fully_diluted_valuation: number;
+        high_24h_usd: number;
+        low_24h_usd: number;
+        market_cap_usd: number;
+        price_change_percentage_24h: number;
+        token_price_usd: number;
+    };
+    name: string;
+    platforms: unknown;
+    support_swap_platform: {
+        chainIndex: string;
+        decimals: string;
+        tokenContractAddress: string;
+        tokenLogoUrl: string;
+        tokenName: string;
+        tokenSymbol: string;
+    };
+    symbol: string;
+    web_slug: string;
+}
