@@ -11,6 +11,7 @@ import { createIndicator, createPageable, type Pageable, type PageIndicator } fr
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { Channel as FireflyChannel, NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile as NeynarProfile } from '@/providers/types/Neynar.js';
+import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,
@@ -175,6 +176,10 @@ class NeynarSocialMedia implements Provider {
     }
 
     getProfileByHandle(handle: string): Promise<Profile> {
+        throw new NotImplementedError();
+    }
+
+    getProfileBySession(session: Session): Promise<Profile> {
         throw new NotImplementedError();
     }
 

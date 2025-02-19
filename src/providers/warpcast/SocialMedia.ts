@@ -18,6 +18,7 @@ import { parseJSON } from '@/helpers/parseJSON.js';
 import { toFid } from '@/helpers/toFid.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
+import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,
@@ -104,6 +105,10 @@ class WarpcastSocialMedia implements Provider {
     }
 
     getProfileByHandle(handle: string): Promise<Profile> {
+        throw new NotImplementedError();
+    }
+
+    getProfileBySession(session: Session): Promise<Profile> {
         throw new NotImplementedError();
     }
 

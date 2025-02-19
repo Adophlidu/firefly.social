@@ -31,8 +31,6 @@ class BskySessionHolder extends SessionHolder<BskySession> {
     }
 
     override async resumeSession(session: BskySession): Promise<void> {
-        console.log('DEBUG: resume bsky session', session);
-
         const agent = createAgent(session.serviceUrl);
         await agent.resumeSession(session.sessionPayload);
         super.resumeSession(session);

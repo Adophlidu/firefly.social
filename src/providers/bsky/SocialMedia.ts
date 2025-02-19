@@ -22,6 +22,7 @@ import { fetchBlob } from '@/helpers/fetchBlob.js';
 import { formatBskyChannel } from '@/helpers/formatBskyChannel.js';
 import { formatBskyFeedPost, formatBskyPost, formatBskyThreadPosts } from '@/helpers/formatBskyFeedPost.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
+import { getBskyProfileBySession } from '@/helpers/getBskyProfileBySession.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -32,10 +33,12 @@ import {
 import { resolveBskyResponseData } from '@/helpers/resolveBskyResponseData.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { ChannelAtUri, PostAtUri } from '@/providers/bsky/AtUri.js';
+import type { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { BookmarkResponse, NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
+import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type CommentNotification,
@@ -189,6 +192,9 @@ export class BskySocialMedia implements Provider {
     }
     async getProfileByHandle(handle: string): Promise<Profile> {
         return this.getProfileById(handle);
+    }
+    async getProfileBySession(session: Session): Promise<Profile> {
+        return getBskyProfileBySession(session as BskySession);
     }
     async getPostById(postId: string): Promise<Post> {
         const atUri = PostAtUri.fromId(postId).toUri();

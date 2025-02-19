@@ -67,6 +67,7 @@ import {
     type UserResponse,
     type UsersResponse,
 } from '@/providers/types/Firefly.js';
+import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,
@@ -342,6 +343,10 @@ export class FireflySocialMedia implements Provider {
             }
             return formatFireflyFarcasterProfile(response.data);
         });
+    }
+
+    getProfileBySession(session: Session): Promise<Profile> {
+        throw new NotImplementedError();
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

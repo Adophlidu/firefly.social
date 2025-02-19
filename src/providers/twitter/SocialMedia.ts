@@ -35,12 +35,12 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
 import {
     type NotificationSettings,
     TwitterUserInfoProfileImageShape,
     TwitterUserInfoVerifiedType,
 } from '@/providers/types/Firefly.js';
+import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,
@@ -308,7 +308,8 @@ class TwitterSocialMedia implements Provider {
         return formatTwitterProfile(data);
     }
 
-    async getProfileByIdWithSessionPayload(profileId: string, payload: SessionPayload): Promise<Profile> {
+    async getProfileBySession(session: Session): Promise<Profile> {
+        const { profileId, payload } = session as TwitterSession;
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`, {
             headers: TwitterSession.payloadToHeaders(payload),
         });

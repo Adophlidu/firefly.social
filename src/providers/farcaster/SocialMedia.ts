@@ -14,6 +14,7 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { getFarcasterSessionType } from '@/helpers/getFarcasterSessionType.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
@@ -24,6 +25,7 @@ import {
     type NotificationSettings,
     NotificationTitle,
 } from '@/providers/types/Firefly.js';
+import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,
@@ -76,6 +78,11 @@ class FarcasterSocialMedia implements Provider {
 
     getProfileByHandle(handle: string): Promise<Profile> {
         return FireflySocialMediaProvider.getProfileByHandle(handle);
+    }
+
+    getProfileBySession(session: Session): Promise<Profile> {
+        const farcasterSession = session as FarcasterSession;
+        return this.getProfileById(farcasterSession.profileId);
     }
 
     getReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {

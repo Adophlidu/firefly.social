@@ -67,6 +67,7 @@ import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { formatOrbClubToChannel } from '@/helpers/formatOrbClubToChannel.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getLensAllowanceModule } from '@/helpers/getLensAllowanceModule.js';
+import { getLensProfileBySession } from '@/helpers/getLensProfileBySession.js';
 import { getOpenActionActOnKey } from '@/helpers/getOpenActionActOnKey.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
@@ -85,6 +86,7 @@ import { waitUntilComplete } from '@/helpers/waitUntilComplete.js';
 import { writeLensHubContract } from '@/helpers/writeLensHubContract.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import type { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { OrbClubProvider } from '@/providers/orb/Club.js';
 import {
@@ -99,6 +101,7 @@ import {
     type ProfilesManagedRequest,
 } from '@/providers/types/LensGraphql/profileManagers.js';
 import type { Club } from '@/providers/types/Orb.js';
+import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
     type Friendship,
@@ -718,6 +721,10 @@ export class LensSocialMedia implements Provider {
         if (!result) throw new Error('No profile found');
 
         return formatLensProfile(result);
+    }
+
+    async getProfileBySession(session: Session): Promise<Profile> {
+        return getLensProfileBySession(session as LensSession);
     }
 
     async getPostById(postId: string): Promise<Post> {

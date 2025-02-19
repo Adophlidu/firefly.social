@@ -14,7 +14,8 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
+import { PageRoute, type SocialSource } from '@/constants/enum.js';
+import { SUPPORTED_MULTI_ACCOUNT_SOURCES } from '@/constants/index.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -113,7 +114,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
             </Reorder.Group>
 
             <div className="mt-3 flex flex-col space-y-3">
-                {source !== Source.Twitter ? (
+                {SUPPORTED_MULTI_ACCOUNT_SOURCES.includes(source) ? (
                     <ClickableButton
                         className="flex h-6 w-full items-center whitespace-nowrap rounded leading-6 text-main"
                         onClick={() => {

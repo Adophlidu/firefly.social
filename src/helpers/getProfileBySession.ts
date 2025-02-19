@@ -2,52 +2,32 @@ import { safeUnreachable } from '@masknet/kit';
 
 import { Source } from '@/constants/enum.js';
 import { NotAllowedError, UnreachableError } from '@/constants/error.js';
-import { createLensSDKForSession, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
-import { refreshLensSession } from '@/helpers/refreshLensSession.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import type { BskySession } from '@/providers/bsky/Session.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { LensSession } from '@/providers/lens/Session.js';
-import { TwitterSession } from '@/providers/twitter/Session.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
+/**
+ * Verify the session and return the profile.
+ * @param session
+ * @param signal
+ * @returns
+ */
 export async function getProfileBySession(session: Session, signal?: AbortSignal) {
     switch (session.type) {
         case SessionType.Farcaster:
-            const farcasterSession = session as FarcasterSession;
             const provider = resolveSocialMediaProvider(Source.Farcaster);
-            return provider.getProfileById(farcasterSession.profileId);
+            return provider.getProfileBySession(session);
         case SessionType.Lens: {
-            const lensSession = session as LensSession;
-            if (!lensSession.refreshToken) return null;
-
-            const sdk = createLensSDKForSession(new MemoryStorageProvider(), lensSession);
-
-            const profileIdFirstTry = await sdk.authentication.getProfileId();
-            if (!profileIdFirstTry) {
-                // refresh lens session and try again
-                await refreshLensSession(sdk);
-
-                const profileIdSecondTry = await sdk.authentication.getProfileId();
-                if (!profileIdSecondTry) return null;
-            }
-
             const provider = resolveSocialMediaProvider(Source.Lens);
-            return provider.getProfileById(lensSession.profileId);
+            return provider.getProfileBySession(session);
         }
         case SessionType.Twitter: {
-            const twitterSession = session as TwitterSession;
-            return TwitterSocialMediaProvider.getProfileByIdWithSessionPayload(
-                twitterSession.profileId,
-                twitterSession.payload,
-            );
+            const provider = resolveSocialMediaProvider(Source.Twitter);
+            return provider.getProfileBySession(session);
         }
         case SessionType.Bsky: {
-            const bskySession = session as BskySession;
             const provider = resolveSocialMediaProvider(Source.Bsky);
-            return provider.getProfileById(bskySession.profileId);
+            return provider.getProfileBySession(session);
         }
         case SessionType.Firefly:
             throw new NotAllowedError();

@@ -89,7 +89,7 @@ export async function downloadSessions(session: FireflySession, signal?: AbortSi
     const cipher = await downloadMetrics(session, signal);
     if (!cipher) return [];
 
-    return await decryptMetrics(cipher, signal);
+    return decryptMetrics(cipher, signal);
 }
 
 async function uploadSessionsByMerge(session: FireflySession, sessions: Session[], signal?: AbortSignal) {

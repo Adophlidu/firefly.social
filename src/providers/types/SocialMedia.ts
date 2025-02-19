@@ -10,6 +10,7 @@ import {
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Poll } from '@/providers/types/Poll.js';
+import type { Session } from '@/providers/types/Session.js';
 
 // Strictly match the ProfileSource
 export enum SessionType {
@@ -511,6 +512,12 @@ export interface Provider {
      * @returns
      */
     getProfileByHandle: (handle: string) => Promise<Profile>;
+
+    /**
+     * Retrieves a user's profile by their session.
+     * (This api will be used for validating the session.)
+     */
+    getProfileBySession: (session: Session) => Promise<Profile>;
 
     /**
      * Retrieves a post by its post ID.
