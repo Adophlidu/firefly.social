@@ -57,7 +57,8 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
     }
 
     override async ensureSessionForServer() {
-        if (!isServer) throw new Error('This method is only for server-side');
+        if (!isServer) return false;
+        if (this.internalSession) return true;
 
         const payload = await createTwitterSessionAfterLogin();
         if (!payload) return false;
