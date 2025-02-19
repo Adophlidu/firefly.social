@@ -540,6 +540,11 @@ export interface TwitterProfile {
     provider: string;
 }
 
+export interface BskyProfile {
+    did: string;
+    handle: string;
+}
+
 export interface WalletProfiles {
     walletProfiles: WalletProfile[];
     solanaWalletProfiles: WalletProfile[];
@@ -547,6 +552,7 @@ export interface WalletProfiles {
     farcasterProfiles: FarcasterProfile[];
     twitterProfiles: TwitterProfile[];
     fireflyAccountId?: string;
+    bskyProfiles: BskyProfile[];
 }
 
 export type PlatformIdentityKey =
@@ -558,7 +564,9 @@ export type PlatformIdentityKey =
     | 'fid'
     | 'lensProfileId'
     | 'ens'
-    | 'solanaAddress';
+    | 'solanaAddress'
+    | 'bskyDid'
+    | 'bskyHandle';
 
 export type WalletProfileResponse = Response<WalletProfiles>;
 

@@ -46,5 +46,13 @@ export function formatFireflyProfilesFromWalletProfiles(profiles: WalletProfiles
             displayName: x.handle,
             __origin__: x,
         })),
+        ...profiles.bskyProfiles.map((x) => ({
+            identity: {
+                id: x.did,
+                source: Source.Bsky,
+            },
+            displayName: x.handle,
+            __origin__: x,
+        })),
     ]);
 }

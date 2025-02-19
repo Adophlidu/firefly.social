@@ -168,6 +168,8 @@ export enum KeyType {
     CreateMetadataProfileById = '/v2/createMetadataProfileById',
     CreateMetadataChannelById = '/v2/createMetadataChannelById',
     CreateMetadataEvent = '/v2/createMetadataEvent',
+
+    ConvertBskyHandleToDid = '/v1/convertBskyHandleToDid',
 }
 
 export enum SocialProfileCategory {

@@ -23,6 +23,7 @@ import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
 import { extractIpfsCID } from '@/helpers/ipfs.js';
+import { isBskyDid } from '@/helpers/isBskyDid.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isZero } from '@/helpers/number.js';
 import {
@@ -93,6 +94,7 @@ import {
     WatchType,
 } from '@/providers/types/Firefly.js';
 import type { DiscoverNFTResponseV2, GetFollowingNFTResponse } from '@/providers/types/NFTs.js';
+import { convertBskyHandleToDid } from '@/services/convertBskyHandleToDid.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { settings } from '@/settings/index.js';
 
@@ -255,6 +257,9 @@ export class FireflyEndpoint {
                         default:
                             return 'walletAddress';
                     }
+                case Source.Bsky:
+                    if (isBskyDid(identity.id)) return 'bskyDid';
+                    return 'bskyHandle';
                 default:
                     return '';
             }
@@ -363,6 +368,11 @@ export class FireflyEndpoint {
     }
 
     async getAllRelatedProfiles(options?: Partial<Record<PlatformIdentityKey, string>>, isTokenRequired?: boolean) {
+        // Backend does not support using bsky handle directly, so we convert it to a bsky DID for compatibility.
+        if (options?.bskyHandle) {
+            const did = await convertBskyHandleToDid(options.bskyHandle);
+            if (did) options.bskyDid = did;
+        }
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile', { ...options });
         return fireflySessionHolder.fetch<WalletProfileResponse>(
             url,
