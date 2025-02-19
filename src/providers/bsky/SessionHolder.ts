@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import { AtpAgent } from '@atproto/api';
+import { AtpAgent, type AtpSessionData, type AtpSessionEvent } from '@atproto/api';
 import { memoize } from 'lodash-es';
 
 import { PUBLIC_SERVICE_URL } from '@/constants/bsky.js';
@@ -10,6 +10,9 @@ import { BskySession } from '@/providers/bsky/Session.js';
 export const createAgent: (serviceUrl: string) => AtpAgent = memoize((serviceUrl: string) => {
     return new AtpAgent({
         service: serviceUrl,
+        persistSession: (evt: AtpSessionEvent, session?: AtpSessionData) => {
+            console.warn('[AtpAgent] persistSession', evt, session);
+        },
     });
 });
 
@@ -28,8 +31,10 @@ class BskySessionHolder extends SessionHolder<BskySession> {
     }
 
     override async resumeSession(session: BskySession): Promise<void> {
+        console.log('DEBUG: resume bsky session', session);
+
         const agent = createAgent(session.serviceUrl);
-        await agent.sessionManager.resumeSession(session.sessionPayload);
+        await agent.resumeSession(session.sessionPayload);
         super.resumeSession(session);
         this._agent = agent;
     }
