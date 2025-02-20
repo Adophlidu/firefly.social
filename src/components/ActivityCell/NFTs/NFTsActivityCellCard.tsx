@@ -2,8 +2,7 @@
 
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 import { ChainId, type SchemaType } from '@masknet/web3-shared-evm';
-import dayjs from 'dayjs';
-import { compact, isUndefined } from 'lodash-es';
+import { isUndefined } from 'lodash-es';
 import { memo } from 'react';
 
 import CalendarIcon from '@/assets/calendar.svg';
@@ -22,6 +21,7 @@ import { resolveCoinGeckoTokenSymbol } from '@/helpers/resolveCoinGeckoTokenSymb
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
+import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import { NFTFeedTransAction } from '@/providers/types/NFTs.js';
 
 interface Props {
@@ -34,23 +34,14 @@ interface Props {
 }
 
 const PoapTags = memo(function PoapTags({ asset }: { asset: NonFungibleAsset<ChainId, SchemaType> }) {
-    const startDate = asset.traits?.find((trait) => trait.type === 'startDate');
-    const endDate = asset.traits?.find((trait) => trait.type === 'endDate');
-    const date =
-        startDate && endDate
-            ? // cspell: disable-next-line
-              `${dayjs(startDate.value).format('MMMDD')} - ${dayjs(endDate.value).format('MMMDD')}`
-            : null;
-    const city = asset.traits?.find((trait) => trait.type === 'city')?.value;
-    const country = asset.traits?.find((trait) => trait.type === 'country')?.value;
-    const location = compact([city, country]).join(', ');
+    const { date, position } = usePoapTraits(asset.traits || [], 'MMMDD');
 
     return (
         <>
-            {location ? (
+            {position ? (
                 <div className="flex items-center space-x-1 truncate rounded-lg bg-black/25 p-1.5 text-sm font-bold text-white backdrop-blur-lg">
                     <LocationIcon width={15} height={15} className="mr-1 shrink-0" />
-                    {location}
+                    {position}
                 </div>
             ) : null}
             {date ? (

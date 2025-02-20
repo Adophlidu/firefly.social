@@ -37,11 +37,13 @@ export function ProfileAvatar({
     const size = props.size ?? (isLarge ? 40 : 36);
     const style = useSizeStyle(size, props.style);
 
+    const profileSource = profile.profileSource ?? profile.source;
+
     const content = (
         <div className="relative z-0" style={style}>
             <div className="absolute left-0 top-0 rounded-full" style={style}>
                 {!profile.pfp && enableDefaultAvatar ? (
-                    <ProfileSourceIcon size={size} source={profile.profileSource} />
+                    <ProfileSourceIcon size={size} source={profileSource} />
                 ) : (
                     <Avatar src={profile.pfp} size={size} alt={profile.displayName} fallbackUrl={fallbackUrl} />
                 )}
@@ -53,7 +55,7 @@ export function ProfileAvatar({
             ) : null}
             {enableSourceIcon ? (
                 <ProfileSourceIcon
-                    source={profile.profileSource}
+                    source={profileSource}
                     size={16}
                     className="absolute -bottom-[1px] -right-[8px] z-10 h-4 w-4 rounded-full border border-white"
                 />

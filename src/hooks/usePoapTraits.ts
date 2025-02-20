@@ -12,20 +12,20 @@ function findTraitValue(traits: SimpleHash.Attribute[] | NonFungibleTokenTrait[]
     })?.value;
 }
 
-export function usePoapTraits(traits: SimpleHash.Attribute[] | NonFungibleTokenTrait[]) {
+export function usePoapTraits(traits: SimpleHash.Attribute[] | NonFungibleTokenTrait[], dateFormat = 'MMM D, YYYY') {
     return useMemo(() => {
         const startDate = findTraitValue(traits, 'startDate');
         const endDate = findTraitValue(traits, 'endDate');
         const eventURL = findTraitValue(traits, 'eventURL');
         const country = findTraitValue(traits, 'country');
         const city = findTraitValue(traits, 'city');
-        const s = startDate ? dayjs(startDate).format('MMM D, YYYY') : '';
-        const e = endDate ? dayjs(endDate).format('MMM D, YYYY') : '';
+        const s = startDate ? dayjs(startDate).format(dateFormat) : '';
+        const e = endDate ? dayjs(endDate).format(dateFormat) : '';
 
         return {
             date: s && e ? `${s} - ${e}` : s || e,
             eventURL: parseUrl(eventURL || '') || undefined,
             position: country && city ? `${city}, ${country}` : country || city || undefined,
         };
-    }, [traits]);
+    }, [traits, dateFormat]);
 }

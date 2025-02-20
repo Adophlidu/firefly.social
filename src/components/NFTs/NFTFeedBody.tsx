@@ -3,10 +3,9 @@
 import { t } from '@lingui/core/macro';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 import { ChainId, type SchemaType } from '@masknet/web3-shared-evm';
-import dayjs from 'dayjs';
 import { AnimatePresence, motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
-import { type ReactNode, useMemo, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import LinkIcon from '@/assets/link-square.svg';
@@ -24,6 +23,7 @@ import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { usePoapAttendeesCount } from '@/hooks/usePoapAttendeesCount.js';
+import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import { NFTFeedTransAction } from '@/providers/types/NFTs.js';
 
 const variants = {
@@ -83,20 +83,12 @@ function PoapFieldGroups({
     isLoading?: boolean;
 }) {
     const { data: attendeesCount, isLoading: isLoadingAttendeesCount } = usePoapAttendeesCount(eventId);
-    const date = useMemo(() => {
-        if (!asset.traits) return null;
-        const startDate = asset.traits?.find((trait) => trait.type === 'startDate');
-        const endDate = asset.traits?.find((trait) => trait.type === 'endDate');
-        if (!startDate || !endDate) return null;
-        // cspell: disable-next-line
-        return `${dayjs(startDate.value).format('MMMDD')}-${dayjs(endDate.value).format('MMMDD')}`;
-    }, [asset.traits]);
-    const city = useMemo(() => asset.traits?.find((trait) => trait.type === 'city')?.value, [asset.traits]);
+    const { date, position } = usePoapTraits(asset.traits || [], 'MMMDD');
 
     return (
         <>
             <NFTFeedFieldGroup field={t`Date`} value={date} isLoading={isLoading} />
-            <NFTFeedFieldGroup field={t`Location`} value={city} isLoading={isLoading} />
+            <NFTFeedFieldGroup field={t`Location`} value={position} isLoading={isLoading} />
             <NFTFeedFieldGroup
                 isLoading={isLoading || isLoadingAttendeesCount}
                 field={t`Attendees`}
