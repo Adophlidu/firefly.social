@@ -42,7 +42,7 @@ export const Comment = memo<CommentProps>(function Comment({ post, disabled = fa
 
     const commentDisabled = useMemo(() => {
         if (disabled) return true;
-        if ('canComment' in post) return post.canComment;
+        if ('canComment' in post) return !post.canComment;
         if (restrictions) {
             let isDisabled = true;
             for (const restriction of restrictions) {
