@@ -196,9 +196,9 @@ export const ENABLED_REPLY_SETTINGS_POST_SOURCES: SocialSource[] = [
     Source.Bsky,
 ];
 export const ENABLED_FOLLOWING_LIST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Bsky];
-export const ENABLED_BOOKMARK_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Bsky];
+export const ENABLED_BOOKMARK_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 export const ENABLED_DECRYPT_SOURCES = [Source.Lens];
-export const ENABLED_TIPS_POST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Bsky];
+export const ENABLED_TIPS_POST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 export const ENABLED_RP_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 
 export const DEFAULT_SOCIAL_SOURCE = Source.Posts;
@@ -252,7 +252,6 @@ export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource | undefin
 export const BOOKMARK_SOURCES: BookmarkSource[] = [
     Source.Farcaster,
     Source.Lens,
-    Source.Bsky,
     Source.NFTs,
     Source.Article,
     Source.DAOs,

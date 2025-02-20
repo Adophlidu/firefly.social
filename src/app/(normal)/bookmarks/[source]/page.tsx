@@ -23,7 +23,6 @@ function BookmarkListContent({ source }: { source: BookmarkSource }) {
             return <NFTBookmarkList />;
         case Source.Farcaster:
         case Source.Lens:
-        case Source.Bsky:
             return <BookmarkList source={source} />;
         default:
             safeUnreachable(source);
