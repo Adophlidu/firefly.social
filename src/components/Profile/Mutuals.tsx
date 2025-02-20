@@ -24,7 +24,7 @@ export function Mutuals({ profile }: { profile: Profile }) {
 
     // Fetch the first page with useInfiniteQuery, the same as
     // MutualFollowersList, to make it reuseable in MutualFollowersList
-    const { data: mutuals } = useInfiniteQuery({
+    const { data } = useInfiniteQuery({
         enabled: enabledMutuals,
         queryKey: ['profiles', source, 'mutual-followers', myProfileId, profileId],
         queryFn: async () => {
@@ -33,9 +33,14 @@ export function Mutuals({ profile }: { profile: Profile }) {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((page) => page?.data ?? EMPTY_LIST),
+        select: (data) => ({
+            list: data.pages.flatMap((page) => page?.data ?? EMPTY_LIST),
+            total: data.pages[0]?.total,
+        }),
     });
-    const mutualCount = mutuals?.length;
+
+    const mutuals = data?.list || [];
+    const mutualCount = data?.total ?? mutuals.length;
 
     return enabledMutuals && mutualCount ? (
         <div className="break-word col-[1/3] mt-3 flex items-center gap-2 leading-[22px] hover:underline sm:col-[2/3]">

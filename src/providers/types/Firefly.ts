@@ -109,6 +109,7 @@ export interface Profile {
 
 export interface UsersData {
     list: User[];
+    total: number;
     next_cursor: string;
 }
 

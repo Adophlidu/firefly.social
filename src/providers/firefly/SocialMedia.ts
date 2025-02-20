@@ -467,12 +467,13 @@ export class FireflySocialMedia implements Provider {
             const response = await fireflySessionHolder.fetch<UsersResponse>(url, {
                 method: 'GET',
             });
-            const { list, next_cursor } = resolveFireflyResponseData(response);
+            const { list, next_cursor, total } = resolveFireflyResponseData(response);
 
             return createPageable(
                 await ensureFollowersIsNotEmpty(list),
                 createIndicator(indicator),
                 next_cursor ? createNextIndicator(indicator, next_cursor) : undefined,
+                total,
             );
         });
     }
