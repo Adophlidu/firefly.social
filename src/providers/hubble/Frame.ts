@@ -1,8 +1,8 @@
 import { Factories, MessageType } from '@farcaster/core';
-import { omitBy } from 'lodash-es';
 import { toBytes } from 'viem';
 
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
+import { omitUrlcatEmptyParams } from '@/helpers/omitUrlcatEmptyParams.js';
 import type { Provider } from '@/providers/types/Frame.js';
 import type { FrameSignaturePacket } from '@/providers/types/Hubble.js';
 import type { Index } from '@/types/frame.js';
@@ -49,25 +49,22 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
         );
 
         const packet = {
-            untrustedData: omitBy(
-                {
+            untrustedData: omitUrlcatEmptyParams({
+                fid: messageData.fid,
+                url: frameUrl,
+                messageHash: messageDataHash,
+                timestamp: messageData.timestamp,
+                network: messageData.network,
+                buttonIndex: index,
+                inputText: input,
+                state: additional?.state,
+                address: additional?.address,
+                transactionId: additional?.transactionId,
+                castId: {
                     fid: messageData.fid,
-                    url: frameUrl,
-                    messageHash: messageDataHash,
-                    timestamp: messageData.timestamp,
-                    network: messageData.network,
-                    buttonIndex: index,
-                    inputText: input,
-                    state: additional?.state,
-                    address: additional?.address,
-                    transactionId: additional?.transactionId,
-                    castId: {
-                        fid: messageData.fid,
-                        hash: postId,
-                    },
+                    hash: postId,
                 },
-                (x) => typeof x === 'undefined' || x === '',
-            ),
+            }),
             trustedData: {
                 // no 0x prefix
                 messageBytes: Buffer.from(messageBytes).toString('hex'),

@@ -17,6 +17,7 @@ import { formatSnapshotActivityFromFirefly } from '@/helpers/formatSnapshotFromF
 import { getCurrentProfile, getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import { isZero } from '@/helpers/number.js';
+import { omitUrlcatEmptyParams } from '@/helpers/omitUrlcatEmptyParams.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -458,12 +459,13 @@ export class FireflySocialMedia implements Provider {
     }
     async getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/followersmutual', {
+            const params = omitUrlcatEmptyParams({
                 fid: profileId,
-                size: 10,
+                size: 20,
                 cursor: indicator?.id,
                 sourceFid: session?.profileId,
             });
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/followersmutual', params);
             const response = await fireflySessionHolder.fetch<UsersResponse>(url, {
                 method: 'GET',
             });
