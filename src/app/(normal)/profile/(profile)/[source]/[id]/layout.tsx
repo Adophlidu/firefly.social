@@ -5,7 +5,7 @@ import { ProfilePageLayout } from '@/app/(normal)/profile/pages/ProfilePageLayou
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { type LoginFallbackSource, SourceInURL } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST, REQUIRE_LOGIN_SOURCES } from '@/constants/index.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { isSocialSource } from '@/helpers/isSocialSource.js';
@@ -36,7 +36,7 @@ export default async function Layout(props: Props) {
         (await runInSafeAsync(() => FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false))) ??
         EMPTY_LIST;
 
-    if (isSocialSource(source) && !resolveSessionHolder(source).session) {
+    if (isSocialSource(source) && REQUIRE_LOGIN_SOURCES.includes(source) && !resolveSessionHolder(source).session) {
         return (
             <>
                 <ProfileSourceTabs profiles={profiles} identity={identity} />

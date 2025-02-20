@@ -8,6 +8,7 @@ import { Comeback } from '@/components/Comeback.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { KeyType, type SocialSourceInURL, Source } from '@/constants/enum.js';
+import { REQUIRE_LOGIN_SOURCES } from '@/constants/index.js';
 import { createMetadataPostById } from '@/helpers/createMetadataPostById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
@@ -46,7 +47,7 @@ export default async function Page(props: Props) {
     if (!isSocialSourceInUrl(params.source)) notFound();
 
     const source = resolveSocialSource(params.source);
-    if (!resolveSessionHolder(source).session) {
+    if (REQUIRE_LOGIN_SOURCES.includes(source) && !resolveSessionHolder(source).session) {
         return (
             <article className="min-h-screen">
                 <header className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">
