@@ -356,19 +356,6 @@ export class FireflyEndpoint {
         return formatFireflyProfilesFromWalletProfiles(profiles);
     }
 
-    async getAllPlatformProfiles(lensHandle?: string, fid?: string, twitterId?: string): Promise<FireflyProfile[]> {
-        const isTwitterId = /^\d+$/.test(twitterId || '');
-        const response = await FireflyEndpointProvider.getAllRelatedProfiles({
-            twitterId: isTwitterId ? twitterId : undefined,
-            twitterHandle: isTwitterId ? undefined : twitterId,
-            lensHandle,
-            fid,
-        });
-
-        const profiles = resolveFireflyResponseData(response);
-        return formatFireflyProfilesFromWalletProfiles(profiles);
-    }
-
     async getAllRelatedProfiles(options?: Partial<Record<PlatformIdentityKey, string>>, isTokenRequired?: boolean) {
         // Backend does not support using bsky handle directly, so we convert it to a bsky DID for compatibility.
         if (options?.bskyHandle) {

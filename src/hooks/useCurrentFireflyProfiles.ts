@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { toFireflyIdentityId } from '@/helpers/isSameProfile.js';
-import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
+import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
@@ -73,33 +73,21 @@ export function useCurrentFireflyProfilesAll() {
     const currentProfileAll = useCurrentProfileAll();
     const currentFireflyProfiles = useCurrentFireflyProfiles();
 
-    const lensIdentity = resolveFireflyProfileId(currentProfileAll[Source.Lens]);
-    const farcasterIdentity = resolveFireflyProfileId(currentProfileAll[Source.Farcaster]);
-    const twitterIdentity = resolveFireflyProfileId(currentProfileAll[Source.Twitter]);
+    const lensIdentity = resolveFireflyIdentity(currentProfileAll[Source.Lens]);
+    const farcasterIdentity = resolveFireflyIdentity(currentProfileAll[Source.Farcaster]);
+    const twitterIdentity = resolveFireflyIdentity(currentProfileAll[Source.Twitter]);
+    const bskyIdentity = resolveFireflyIdentity(currentProfileAll[Source.Bsky]);
 
-    // TODO: add bluesky
-    const bskyIdentity = resolveFireflyProfileId(currentProfileAll[Source.Bsky]);
-
-    const queryEnabled = !!lensIdentity || !!farcasterIdentity || !!twitterIdentity;
+    const identity = compact([lensIdentity, farcasterIdentity, twitterIdentity, bskyIdentity])[0];
 
     const { data: profiles = EMPTY_LIST } = useQuery({
-        queryKey: ['all-profiles', 'my-own', lensIdentity, farcasterIdentity, twitterIdentity],
-        enabled: queryEnabled,
-        queryFn: async () => {
-            const withTwitterProfiles = twitterIdentity
-                ? await FireflyEndpointProvider.getAllPlatformProfiles(undefined, undefined, twitterIdentity)
-                : [];
-            const connectedProfiles =
-                lensIdentity || farcasterIdentity ? await FireflyEndpointProvider.getAllPlatformProfiles() : [];
-            return [
-                ...connectedProfiles,
-                ...withTwitterProfiles.filter((profile) =>
-                    lensIdentity || farcasterIdentity ? profile.identity.source === Source.Twitter : true,
-                ),
-            ];
+        queryKey: ['all-profiles', 'my-own', identity?.source, identity.id],
+        async queryFn() {
+            if (!identity) return EMPTY_LIST;
+            return await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false);
         },
-        select: (profiles) => uniqBy(profiles, (x) => toFireflyIdentityId(x.identity)),
         staleTime: 1000 * 60 * 5,
+        enabled: !!identity,
     });
 
     return useMemo(() => {
