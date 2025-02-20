@@ -300,11 +300,7 @@ const useTwitterStateBase = createState(
                 }
 
                 // resume the session if it exists
-                if (session) {
-                    twitterSessionHolder.resumeSession(session);
-                    await addTwitterAccount(session.payload, false);
-                    return;
-                }
+                if (session) twitterSessionHolder.resumeSession(session);
 
                 // no remote session found
                 const sessionPayload = await TwitterAuthProvider.login();
