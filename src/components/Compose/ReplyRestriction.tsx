@@ -18,12 +18,14 @@ interface ReplyRestrictionProps {
 export function ReplyRestriction({ restriction, setRestriction }: ReplyRestrictionProps) {
     const { availableSources } = useCompositePost();
 
-    const items = getEnumAsArray(RestrictionType).map(({ value: type }) => {
-        return {
-            type,
-            disabled: !isValidRestrictionType(type, availableSources),
-        };
-    });
+    const items = getEnumAsArray(RestrictionType)
+        .map(({ value: type }) => {
+            return {
+                type,
+                disabled: !isValidRestrictionType(type, availableSources),
+            };
+        })
+        .filter(({ disabled }) => !disabled);
 
     const isMedium = useIsMedium();
 
