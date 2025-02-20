@@ -312,7 +312,7 @@ const useTwitterStateBase = createState(
 
                 // show indicator if the session is from the server
                 state.__setStatus__(AsyncStatus.Pending);
-                await addTwitterAccount(sessionPayload, true);
+                await addTwitterAccount(sessionPayload, !session);
             } catch (error) {
                 if (error instanceof FetchError) return;
                 if (error instanceof AuthenticationError) await signOut({ redirect: false });
