@@ -16,22 +16,19 @@ export const createAgent: (serviceUrl: string) => AtpAgent = memoize((serviceUrl
     });
 });
 
-export function createPublicAgent() {
-    return createAgent(PUBLIC_SERVICE_URL);
-}
-
 class BskySessionHolder extends SessionHolder<BskySession> {
-    private _agent: AtpAgent | null = null;
+    private _agent = createAgent(PUBLIC_SERVICE_URL);
 
     get agent() {
-        if (!this.session) return createPublicAgent();
-
-        if (!this._agent) throw new Error('Agent is not initialized');
         return this._agent;
     }
 
     override async resumeSession(session: BskySession): Promise<void> {
-        const agent = createAgent(session.serviceUrl);
+        const agent =
+            this._agent && this._agent?.serviceUrl.toString() === session.serviceUrl
+                ? this._agent
+                : createAgent(session.serviceUrl);
+
         await agent.resumeSession(session.sessionPayload);
         super.resumeSession(session);
         this._agent = agent;

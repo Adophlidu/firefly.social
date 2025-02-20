@@ -345,16 +345,19 @@ const useBskyStateBase = createState(
                     return;
                 }
 
-                const bskySession = currentProfileSession as BskySession;
                 state.__setStatus__(AsyncStatus.Pending);
+
+                const bskySession = currentProfileSession as BskySession;
                 await bskySessionHolder.resumeSession(bskySession);
-                state.__setStatus__(AsyncStatus.Idle);
+
                 const profile = await BskySocialMediaProvider.getProfileById(did);
                 state.updateCurrentProfile(profile);
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();
                 bskySessionHolder.removeSession();
+            } finally {
+                state.__setStatus__(AsyncStatus.Idle);
             }
         },
     },
