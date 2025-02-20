@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { compact, uniqBy } from 'lodash-es';
+import { compact, first, uniqBy } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
@@ -78,10 +78,10 @@ export function useCurrentFireflyProfilesAll() {
     const twitterIdentity = resolveFireflyIdentity(currentProfileAll[Source.Twitter]);
     const bskyIdentity = resolveFireflyIdentity(currentProfileAll[Source.Bsky]);
 
-    const identity = compact([lensIdentity, farcasterIdentity, twitterIdentity, bskyIdentity])[0];
+    const identity = first(compact([lensIdentity, farcasterIdentity, twitterIdentity, bskyIdentity]));
 
     const { data: profiles = EMPTY_LIST } = useQuery({
-        queryKey: ['all-profiles', 'my-own', identity?.source, identity.id],
+        queryKey: ['all-profiles', 'my-own', identity?.source, identity?.id],
         async queryFn() {
             if (!identity) return EMPTY_LIST;
             return await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false);
