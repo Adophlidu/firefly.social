@@ -49,7 +49,11 @@ Claim here ${shareUrl}`,
     }, [farHandle, lensHandle, name, primarySource]);
 
     const verified = claimCondition?.lens?.valid || claimCondition?.farcaster.valid;
-    const blocked = claimCondition?.lens?.participationBlocked;
+    const blocked =
+        {
+            [Source.Lens]: claimCondition?.lens?.participationBlocked,
+            [Source.Farcaster]: claimCondition?.farcaster?.participationBlocked,
+        }[primarySource] ?? false;
 
     const buttonText = useMemo(() => {
         if (blocked) {

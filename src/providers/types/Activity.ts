@@ -33,6 +33,7 @@ export interface Farcaster {
     isFollowing: boolean;
     isSupercast?: boolean;
     hasThirdpartSigner?: boolean;
+    participationBlocked?: boolean;
 }
 
 export interface BnbId {
