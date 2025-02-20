@@ -66,18 +66,6 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                     />
                 ) : null}
                 {!isMuted ? <div className="line-clamp-5 text-2xl font-semibold">{article.title}</div> : null}
-                <div className="mt-1 flex items-center gap-2">
-                    {article.origin ? (
-                        <Link
-                            href={article.origin}
-                            className="flex items-center gap-1 text-xs text-link hover:underline"
-                            rel="noreferrer noopener"
-                            target="_blank"
-                        >
-                            <Trans>View Source</Trans>
-                        </Link>
-                    ) : null}
-                </div>
                 <div className="my-5 mt-2 border-b border-line">
                     <ArticleHeader article={article} className="items-center pb-2" />
                 </div>
@@ -147,7 +135,18 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                         {article.content}
                     </ArticleMarkup>
                 )}
-
+                <div className="mt-1 flex items-center gap-2">
+                    {article.origin ? (
+                        <Link
+                            href={article.origin}
+                            className="flex items-center gap-1 text-xs text-link hover:underline"
+                            rel="noreferrer noopener"
+                            target="_blank"
+                        >
+                            <Trans>View Source</Trans>
+                        </Link>
+                    ) : null}
+                </div>
                 {/* article bottom padding */}
                 <div className="py-4" />
             </div>
