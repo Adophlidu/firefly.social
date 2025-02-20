@@ -483,9 +483,6 @@ msgstr ""
 msgid "Anti whale can be modified."
 msgstr ""
 
-msgid "Posted to Lens or Farcaster on Yup or posted to Lens on Phaver since August 1, 2024. New Firefly users only."
-msgstr ""
-
 msgid "NFT Standard"
 msgstr ""
 
@@ -1314,6 +1311,9 @@ msgstr ""
 msgid "Enable development API version"
 msgstr ""
 
+msgid "Posted to Lens on <0>Phaver</0>"
+msgstr ""
+
 msgid "<0>Sent</0><1/>"
 msgstr ""
 
@@ -1426,6 +1426,9 @@ msgid "Choice {0}"
 msgstr ""
 
 msgid "Send Feedback"
+msgstr ""
+
+msgid "Posted on the following apps since August 1, 2024, and new Firefly users only:"
 msgstr ""
 
 msgid "More details"
@@ -3163,6 +3166,9 @@ msgid "Money laundering found."
 msgstr ""
 
 msgid "Log out all"
+msgstr ""
+
+msgid "Posted to Lens or Farcaster on <0>Yup</0>"
 msgstr ""
 
 msgid ""

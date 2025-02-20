@@ -488,9 +488,6 @@ msgstr ""
 msgid "Anti whale can be modified."
 msgstr ""
 
-msgid "Posted to Lens or Farcaster on Yup or posted to Lens on Phaver since August 1, 2024. New Firefly users only."
-msgstr ""
-
 msgid "NFT Standard"
 msgstr "NFT 標準"
 
@@ -1319,6 +1316,9 @@ msgstr ""
 msgid "Enable development API version"
 msgstr "開啟開發API版本"
 
+msgid "Posted to Lens on <0>Phaver</0>"
+msgstr ""
+
 msgid "<0>Sent</0><1/>"
 msgstr ""
 
@@ -1432,6 +1432,9 @@ msgstr "選擇 {0}"
 
 msgid "Send Feedback"
 msgstr "發送反饋"
+
+msgid "Posted on the following apps since August 1, 2024, and new Firefly users only:"
+msgstr ""
 
 msgid "More details"
 msgstr ""
@@ -3169,6 +3172,9 @@ msgstr ""
 
 msgid "Log out all"
 msgstr "退出所有登錄"
+
+msgid "Posted to Lens or Farcaster on <0>Yup</0>"
+msgstr ""
 
 msgid ""
 "Just earned $MASK by minting the Inviting Yup & Phaver frens🌟 collectible from {fireflyMention}  \n"

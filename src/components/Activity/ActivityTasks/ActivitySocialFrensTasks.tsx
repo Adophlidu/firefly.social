@@ -1,3 +1,5 @@
+'use client';
+
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
@@ -48,13 +50,13 @@ Claim here ${shareUrl}`,
         );
     }, [farHandle, lensHandle, name, primarySource]);
 
-    const verified = claimCondition?.lens?.valid || claimCondition?.farcaster.valid;
+    const verified =
+        claimCondition?.lens?.valid || claimCondition?.farcaster.valid || claimCondition?.farcaster?.isSupercast;
     const blocked =
         {
             [Source.Lens]: claimCondition?.lens?.participationBlocked,
             [Source.Farcaster]: claimCondition?.farcaster?.participationBlocked,
         }[primarySource] ?? false;
-
     const buttonText = useMemo(() => {
         if (blocked) {
             return <Trans>Participation Blocked</Trans>;
@@ -94,12 +96,31 @@ Claim here ${shareUrl}`,
                     )}
                 >
                     <ActivityVerifyText verified={verified} hasFailedIcon>
-                        <h3>
-                            <Trans>
-                                Posted to Lens or Farcaster on Yup or posted to Lens on Phaver since August 1, 2024. New
-                                Firefly users only.
-                            </Trans>
-                        </h3>
+                        <div>
+                            <h3>
+                                <Trans>
+                                    Posted on the following apps since August 1, 2024, and new Firefly users only:
+                                </Trans>
+                            </h3>
+                            <br />
+                            <ol className="list-inside list-decimal">
+                                <li>
+                                    <Trans>
+                                        Posted to Lens or Farcaster on <b>Yup</b>
+                                    </Trans>
+                                </li>
+                                <li>
+                                    <Trans>
+                                        Posted to Lens or Farcaster on <b>Yup</b>
+                                    </Trans>
+                                </li>
+                                <li>
+                                    <Trans>
+                                        Posted to Lens on <b>Phaver</b>
+                                    </Trans>
+                                </li>
+                            </ol>
+                        </div>
                     </ActivityVerifyText>
                 </div>
                 <h2 className="text-base font-semibold leading-6">

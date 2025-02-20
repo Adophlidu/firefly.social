@@ -483,9 +483,6 @@ msgstr "The contract owner has restrictions on personal slippage."
 msgid "Anti whale can be modified."
 msgstr "Anti whale can be modified."
 
-msgid "Posted to Lens or Farcaster on Yup or posted to Lens on Phaver since August 1, 2024. New Firefly users only."
-msgstr "Posted to Lens or Farcaster on Yup or posted to Lens on Phaver since August 1, 2024. New Firefly users only."
-
 msgid "NFT Standard"
 msgstr "NFT Standard"
 
@@ -1314,6 +1311,9 @@ msgstr "Up to 7 days can be set as the scheduled time. Please reset it"
 msgid "Enable development API version"
 msgstr "Enable development API version"
 
+msgid "Posted to Lens on <0>Phaver</0>"
+msgstr "Posted to Lens on <0>Phaver</0>"
+
 msgid "<0>Sent</0><1/>"
 msgstr "<0>Sent</0><1/>"
 
@@ -1427,6 +1427,9 @@ msgstr "Choice {0}"
 
 msgid "Send Feedback"
 msgstr "Send Feedback"
+
+msgid "Posted on the following apps since August 1, 2024, and new Firefly users only:"
+msgstr "Posted on the following apps since August 1, 2024, and new Firefly users only:"
 
 msgid "More details"
 msgstr "More details"
@@ -3177,6 +3180,9 @@ msgstr "Money laundering found."
 
 msgid "Log out all"
 msgstr "Log out all"
+
+msgid "Posted to Lens or Farcaster on <0>Yup</0>"
+msgstr "Posted to Lens or Farcaster on <0>Yup</0>"
 
 msgid ""
 "Just earned $MASK by minting the Inviting Yup & Phaver frens🌟 collectible from {fireflyMention}  \n"
