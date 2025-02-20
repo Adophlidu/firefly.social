@@ -3,7 +3,6 @@ import urlcat from 'urlcat';
 
 import { SITE_URL } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
-import { createTwitterSessionAfterLogin } from '@/helpers/createTwitterSessionPayload.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
@@ -20,7 +19,6 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
         init?: RequestInit,
         options?: NextFetchersOptions & { withSession?: boolean },
     ): Promise<T> {
-        await this.ensureSessionForServer();
         return super.fetch(url, init, options);
     }
 
@@ -54,17 +52,6 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
     override async removeSession() {
         if (!isServer) await TwitterAuthProvider.logout();
         super.removeSession();
-    }
-
-    override async ensureSessionForServer() {
-        if (!isServer) return false;
-        if (this.internalSession) return true;
-
-        const payload = await createTwitterSessionAfterLogin();
-        if (!payload) return false;
-
-        this.resumeSession(TwitterSession.from(payload.clientId, payload));
-        return true;
     }
 }
 

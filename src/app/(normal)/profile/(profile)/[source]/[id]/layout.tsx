@@ -13,6 +13,7 @@ import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { setupTwitterSessionForSSR } from '@/helpers/setupTwitterSessionForSSR.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { NextPageProps } from '@/types/index.js';
@@ -23,6 +24,7 @@ export default async function Layout(props: Props) {
     if (await isBotRequest()) return null;
 
     await setupLocaleForSSR();
+    await setupTwitterSessionForSSR();
 
     const params = await props.params;
 
@@ -34,16 +36,13 @@ export default async function Layout(props: Props) {
         (await runInSafeAsync(() => FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false))) ??
         EMPTY_LIST;
 
-    if (isSocialSource(source)) {
-        const ensured = await resolveSessionHolder(source).ensureSessionForServer();
-        if (!ensured) {
-            return (
-                <>
-                    <ProfileSourceTabs profiles={profiles} identity={identity} />
-                    <NotLoginFallback source={source as LoginFallbackSource} />
-                </>
-            );
-        }
+    if (isSocialSource(source) && !resolveSessionHolder(source).session) {
+        return (
+            <>
+                <ProfileSourceTabs profiles={profiles} identity={identity} />
+                <NotLoginFallback source={source as LoginFallbackSource} />
+            </>
+        );
     }
 
     return (

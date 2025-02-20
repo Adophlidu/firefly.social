@@ -15,6 +15,7 @@ import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { setupTwitterSessionForSSR } from '@/helpers/setupTwitterSessionForSSR.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/index.js';
 
@@ -39,13 +40,13 @@ export default async function Page(props: Props) {
     if (await isBotRequest()) return null;
 
     await setupLocaleForSSR();
+    await setupTwitterSessionForSSR();
 
     const params = await props.params;
     if (!isSocialSourceInUrl(params.source)) notFound();
 
     const source = resolveSocialSource(params.source);
-    const ensured = await resolveSessionHolder(source).ensureSessionForServer();
-    if (!ensured) {
+    if (!resolveSessionHolder(source).session) {
         return (
             <article className="min-h-screen">
                 <header className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">
