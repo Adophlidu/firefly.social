@@ -66,7 +66,12 @@ export function ReplyRestriction({ restriction, setRestriction }: ReplyRestricti
                     portal
                     modal
                     anchor="top"
-                    className="no-scrollbar absolute bottom-full right-0 z-10 w-[320px] -translate-y-3 overflow-hidden rounded-lg bg-lightBottom text-medium shadow-popover [--anchor-max-height:192px] dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:[--anchor-max-height:192px]"
+                    className="no-scrollbar absolute bottom-full right-0 z-10 w-[320px] -translate-y-3 overflow-hidden rounded-lg bg-lightBottom text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none"
+                    style={
+                        {
+                            '--anchor-max-height': `${items.length <= 4 ? items.length * 48 : 216}px`,
+                        } as React.CSSProperties
+                    }
                 >
                     {content}
                 </PopoverPanel>
