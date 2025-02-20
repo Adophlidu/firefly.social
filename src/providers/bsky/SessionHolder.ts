@@ -30,6 +30,7 @@ class BskySessionHolder extends SessionHolder<BskySession> {
                 : createAgent(session.serviceUrl);
 
         await agent.resumeSession(session.sessionPayload);
+        await agent.sessionManager.refreshSession();
         super.resumeSession(session);
         this._agent = agent;
     }

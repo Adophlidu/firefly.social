@@ -349,7 +349,6 @@ const useBskyStateBase = createState(
 
                 const bskySession = currentProfileSession as BskySession;
                 await bskySessionHolder.resumeSession(bskySession);
-
                 const profile = await BskySocialMediaProvider.getProfileById(did);
                 state.updateCurrentProfile(profile);
             } catch (error) {
