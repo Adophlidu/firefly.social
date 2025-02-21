@@ -69,7 +69,6 @@ interface Options {
     labels?: string[];
     langs?: string[];
     disableQuote?: boolean;
-    hasLuckyDrop?: boolean;
 }
 
 export async function publishPostToBsky(
@@ -90,11 +89,6 @@ export async function publishPostToBsky(
         await richText.detectFacets(bskySessionHolder.agent);
     }
 
-    const labels = compact([
-        ...(options?.labels || []),
-        options?.hasLuckyDrop ? 'FireflyLuckyDrop' : undefined,
-        'Firefly',
-    ]);
     const writes: ComAtprotoRepoApplyWrites.Create[] = [
         {
             $type: 'com.atproto.repo.applyWrites#create',
@@ -120,10 +114,12 @@ export async function publishPostToBsky(
                           }
                         : undefined,
                 langs: options?.langs?.length ? options.langs.slice(0, 3) : [],
-                labels: {
-                    $type: 'com.atproto.label.defs#selfLabels',
-                    values: labels.map((label) => ({ val: label })),
-                },
+                labels: options?.labels?.length
+                    ? {
+                          $type: 'com.atproto.label.defs#selfLabels',
+                          values: options.labels.map((label) => ({ val: label })),
+                      }
+                    : undefined,
             },
         },
     ];
