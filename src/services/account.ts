@@ -102,9 +102,7 @@ async function updateState(accounts: Account[], overwrite = false) {
             if (!account) return;
             if (!sessionHolder?.session) sessionHolder?.resumeSession(account.session);
             if (!state.currentProfile) state.updateCurrentAccount(account);
-            if (!sessionHolder?.session && x === Source.Twitter && TwitterSession.isNextAuth(account.session)) {
-                await TwitterAuthProvider.login();
-            }
+            if (x === Source.Twitter) await TwitterAuthProvider.login();
         }),
     );
 }

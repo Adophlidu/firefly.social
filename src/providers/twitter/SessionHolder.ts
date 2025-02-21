@@ -10,10 +10,6 @@ import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 
 class TwitterSessionHolder extends SessionHolder<TwitterSession> {
-    override resumeSession(session: TwitterSession) {
-        this.internalSession = session;
-    }
-
     override async fetch<T>(
         url: string,
         init?: RequestInit,
@@ -47,6 +43,10 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
             noStrictOK: true,
             ...options,
         });
+    }
+
+    override resumeSession(session: TwitterSession) {
+        this.internalSession = session;
     }
 
     override async removeSession() {
