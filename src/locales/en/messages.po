@@ -1557,6 +1557,9 @@ msgstr "Sold Out"
 msgid "Proxy contract"
 msgstr "Proxy contract"
 
+msgid "Posted to Farcaster on <0>Supercast</0>"
+msgstr "Posted to Farcaster on <0>Supercast</0>"
+
 msgid "Total amount shared among all winners"
 msgstr "Total amount shared among all winners"
 

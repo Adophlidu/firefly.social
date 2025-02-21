@@ -111,12 +111,12 @@ Claim here ${shareUrl}`,
                                 </li>
                                 <li>
                                     <Trans>
-                                        Posted to Lens or Farcaster on <b>Yup</b>
+                                        Posted to Lens on <b>Phaver</b>
                                     </Trans>
                                 </li>
                                 <li>
                                     <Trans>
-                                        Posted to Lens on <b>Phaver</b>
+                                        Posted to Farcaster on <b>Supercast</b>
                                     </Trans>
                                 </li>
                             </ol>

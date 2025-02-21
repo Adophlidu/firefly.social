@@ -1562,6 +1562,9 @@ msgstr "售罄"
 msgid "Proxy contract"
 msgstr "代理合约"
 
+msgid "Posted to Farcaster on <0>Supercast</0>"
+msgstr ""
+
 msgid "Total amount shared among all winners"
 msgstr "在所有获奖者之间分配的总金额"
 
