@@ -2,7 +2,7 @@ import { Factories, MessageType } from '@farcaster/core';
 import { toBytes } from 'viem';
 
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
-import { omitUrlcatEmptyParams } from '@/helpers/omitUrlcatEmptyParams.js';
+import { omitEmptyParams } from '@/helpers/omitEmptyParams.js';
 import type { Provider } from '@/providers/types/Frame.js';
 import type { FrameSignaturePacket } from '@/providers/types/Hubble.js';
 import type { Index } from '@/types/frame.js';
@@ -49,7 +49,7 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
         );
 
         const packet = {
-            untrustedData: omitUrlcatEmptyParams({
+            untrustedData: omitEmptyParams({
                 fid: messageData.fid,
                 url: frameUrl,
                 messageHash: messageDataHash,

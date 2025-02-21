@@ -1,4 +1,5 @@
 'use client';
+
 import { useEffect } from 'react';
 
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';

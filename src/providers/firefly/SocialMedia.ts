@@ -17,7 +17,7 @@ import { formatSnapshotActivityFromFirefly } from '@/helpers/formatSnapshotFromF
 import { getCurrentProfile, getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import { isZero } from '@/helpers/number.js';
-import { omitUrlcatEmptyParams } from '@/helpers/omitUrlcatEmptyParams.js';
+import { omitEmptyParams } from '@/helpers/omitEmptyParams.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -459,7 +459,7 @@ export class FireflySocialMedia implements Provider {
     }
     async getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
-            const params = omitUrlcatEmptyParams({
+            const params = omitEmptyParams({
                 fid: profileId,
                 size: 20,
                 cursor: indicator?.id,

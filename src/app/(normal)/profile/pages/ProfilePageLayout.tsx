@@ -31,9 +31,9 @@ export async function ProfilePageLayout({
     try {
         const profile =
             identity.id && identity.source !== Source.Wallet
-                ? await runInSafeAsync(() => {
-                      return resolveSocialMediaProvider(resolvedSource).getProfileByIdOrHandle(identity.id);
-                  })
+                ? await runInSafeAsync(() =>
+                      resolveSocialMediaProvider(resolvedSource).getProfileByIdOrHandle(identity.id),
+                  )
                 : null;
         if (!profile && !walletProfile && !profiles.length) return <ProfileNotFound />;
 

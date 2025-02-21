@@ -1,3 +1,5 @@
+'use client';
+
 import { Trans } from '@lingui/react/macro';
 
 import SuspendedSVG from '@/assets/suspended.svg';

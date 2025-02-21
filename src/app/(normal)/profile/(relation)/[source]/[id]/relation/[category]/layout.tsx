@@ -17,7 +17,6 @@ interface Props extends NextPageProps<{ id: string; category: ProfileCategory; s
 
 export default async function Layout(props: Props) {
     const params = await props.params;
-    const { children } = props;
     if (!isFollowCategory(params.category)) notFound();
 
     const id = params.id;
@@ -46,7 +45,7 @@ export default async function Layout(props: Props) {
                     source={profile.source}
                     required={REQUIRE_LOGIN_FOLLOWING_CATEGORY.includes(params.category)}
                 >
-                    {children}
+                    {props.children}
                 </LoginRequiredGuard>
             </FollowPageLayout>
         </>

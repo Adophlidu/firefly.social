@@ -41,7 +41,6 @@ interface LayoutProps
 
 export default async function Layout(props: LayoutProps) {
     const params = await props.params;
-    const { children } = props;
 
     const id = params.id;
     const source = resolveSourceFromUrl(params.source);
@@ -52,7 +51,7 @@ export default async function Layout(props: LayoutProps) {
     return (
         <>
             <ProfileCategoryTabs category={params.category} source={identity.source as SocialSource} id={identity.id} />
-            {children}
+            {props.children}
         </>
     );
 }
