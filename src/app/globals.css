@@ -45,6 +45,7 @@
     --color-link: 142 150 255;
     --color-bottom: 255 255 255;
     --color-dark-bottom: #181818;
+    --color-third-bottom: #fff;
     --color-secondary-success: 24 195 123;
     --color-second: #767676;
     --color-primary-pink: 255 150 142;
@@ -129,6 +130,7 @@
         --color-link: 142 150 255;
         --color-bottom: 3 3 3;
         --color-dark-bottom: #181818;
+        --color-third-bottom: #181818;
         --color-second: rgba(255, 255, 255, 0.78);
         --color-secondary-success: 24 195 123;
         --color-primary-pink: 255 150 142;
@@ -211,6 +213,7 @@
     --color-link: 142 150 255;
     --color-bottom: 255 255 255;
     --color-dark-bottom: #181818;
+    --color-third-bottom: #fff;
     --color-secondary-success: 24 195 123;
     --color-second: #767676;
     --color-primary-pink: 255 150 142;
@@ -298,6 +301,7 @@
     --color-link: 142 150 255;
     --color-bottom: 3 3 3;
     --color-dark-bottom: #181818;
+    --color-third-bottom: #181818;
     --color-second: rgba(255, 255, 255, 0.78);
     --color-secondary-success: 24 195 123;
     --color-primary-pink: 255 150 142;
@@ -388,6 +392,7 @@
     --color-link: 142 150 255;
     --color-bottom: 255 255 255;
     --color-dark-bottom: #181818;
+    --color-third-bottom: #fff;
     --color-secondary-success: 24 195 123;
     --color-second: #767676;
     --color-primary-pink: 255 150 142;

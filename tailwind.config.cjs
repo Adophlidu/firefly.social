@@ -55,6 +55,7 @@ module.exports = {
                 tabLine: 'var(--color-tab-line)',
                 collected: 'rgb(var(--color-collected) / <alpha-value>)',
                 darkBottom: 'var(--color-dark-bottom)',
+                thirdBottom: 'var(--color-third-bottom)',
                 card: 'var(--color-card)',
                 tooltipBg: 'var(--color-tooltip-bg)',
                 fireflyBrand: 'var(--color-firefly-brand)',
