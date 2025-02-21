@@ -1,10 +1,10 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
+import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { forwardRef, useMemo, useState } from 'react';
-import { useAsync } from 'react-use';
 
 import { TwitterArticleBody } from '@/components/Article/TwitterArticleBody.js';
 import { Link } from '@/components/Link.js';
@@ -81,15 +81,16 @@ export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(
     const mergedRef = useForkRef(ref, seenRef);
 
     const attachments = metadata.content?.attachments ?? EMPTY_LIST;
-    const { value: payloads, loading: decodingImage } = useAsync(async () => {
-        // decode the image upon post viewing, to reduce unnecessary load of images
-        if (!seen) return;
-
-        return {
-            payloadFromText: getEncryptedPayloadFromText(postRawContent),
-            payloadFromImageAttachment: await getEncryptedPayloadFromImageAttachment(attachments),
-        };
-    }, [postRawContent, attachments, seen]);
+    const { data: payloads, isLoading: decodingImage } = useQuery({
+        queryKey: ['payloads', postRawContent, attachments],
+        networkMode: 'always',
+        queryFn: async () => {
+            return {
+                payloadFromText: getEncryptedPayloadFromText(postRawContent),
+                payloadFromImageAttachment: await getEncryptedPayloadFromImageAttachment(attachments),
+            };
+        },
+    });
 
     const muted = useIsProfileMuted(author.source, author.profileId, author.viewerContext?.blocking, isDetail);
 
