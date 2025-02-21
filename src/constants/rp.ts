@@ -26,3 +26,74 @@ export const RED_PACKET_CONTRACT_VERSION = 4;
 export const DEFAULT_THEME_ID = 'e171b936-b5f5-415c-8938-fa1b74d1d612';
 export const SOLANA_PREFIX = 'solana-';
 export const SOLANA_DEFAULT_CREATE_GAS = multipliedBy(0.01, web3.LAMPORTS_PER_SOL);
+
+export const DEFAULT_THEME = {
+    tid: DEFAULT_THEME_ID,
+    cover: {
+        title1: {
+            color: '#FFE4A6',
+            font_size: 50,
+            font_family: 'Helvetica',
+            font_weight: 700,
+            line_height: 57.5,
+        },
+        title2: {
+            color: '#FFE4A6',
+            font_size: 37.5,
+            font_family: 'Helvetica',
+            font_weight: 400,
+            line_height: 43.125,
+        },
+        title3: {
+            color: '#FFE4A6',
+            font_size: 30,
+            font_family: 'Helvetica',
+            font_weight: 700,
+            line_height: 34.5,
+        },
+        title4: {
+            color: '#FFE4A6',
+            font_size: 30,
+            font_family: 'Helvetica',
+            font_weight: 700,
+            line_height: 34.5,
+        },
+        bg_color: '#FFE4A6',
+        bg_image: 'https://s3.amazonaws.com/redpacket.firefly.land/redpacket-template/reapacket-bg-red-follower.jpeg',
+        logo_image: '',
+    },
+    normal: {
+        title1: {
+            color: '#FFE4A6',
+            font_size: 50,
+            font_family: 'Helvetica',
+            font_weight: 700,
+            line_height: 57.5,
+        },
+        title2: {
+            color: '#FFE4A6',
+            font_size: 37.5,
+            font_family: 'Helvetica',
+            font_weight: 400,
+            line_height: 43.125,
+        },
+        title3: {
+            color: '#FFE4A6',
+            font_size: 30,
+            font_family: 'Helvetica',
+            font_weight: 700,
+            line_height: 34.5,
+        },
+        title4: {
+            color: '#FFE4A6',
+            font_size: 30,
+            font_family: 'Helvetica',
+            font_weight: 700,
+            line_height: 34.5,
+        },
+        bg_color: '#FFE4A6',
+        bg_image: 'https://s3.amazonaws.com/redpacket.firefly.land/redpacket-template/reapacket-bg-red-follower.jpeg',
+        logo_image: '',
+    },
+    is_default: true,
+};
