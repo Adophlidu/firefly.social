@@ -2,7 +2,6 @@ import { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
-import { useInvalidNFTStore } from '@/store/useInvalidNFTStore.js';
 
 export function useNFTDetail(address?: string, tokenId?: string, chainId: ChainId = ChainId.Mainnet) {
     const enabled = !!address && !!tokenId;
@@ -11,7 +10,7 @@ export function useNFTDetail(address?: string, tokenId?: string, chainId: ChainI
         enabled,
         async queryFn() {
             if (!enabled) return;
-            const result = await SimpleHashProvider.getNFT(
+            return SimpleHashProvider.getNFT(
                 address,
                 tokenId,
                 {
@@ -19,10 +18,6 @@ export function useNFTDetail(address?: string, tokenId?: string, chainId: ChainI
                 },
                 true,
             );
-            if (!result) {
-                useInvalidNFTStore.getState().add(chainId, address, tokenId);
-            }
-            return result;
         },
     });
 }

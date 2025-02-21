@@ -23,7 +23,7 @@ export function getSingleNFTFeedItemContent(
             chainId={chainId}
             index={index}
             displayInfo={feed.displayInfo}
-            tokenList={feed.trans.token_list.map(({ id, bookmarked }) => ({
+            tokenList={feed.trans.token_list.map(({ id, bookmarked, nft }) => ({
                 id,
                 contractAddress: feed.trans.token_address,
                 bookmarked,
@@ -38,6 +38,7 @@ export function getSingleNFTFeedItemContent(
                               }
                             : undefined,
                 },
+                nft,
             }))}
             time={feed.trans.time * 1000}
             contractAddress={feed.trans.token_address}
@@ -68,9 +69,10 @@ export function getSingleFollowingNFTItemContent(
             displayInfo={nft.displayInfo}
             followingSources={nft.followingSources}
             tokenList={uniqBy(nft.actions, 'token_id').map(
-                ({ token_id, contract_address, address_to, address_from, cost }) => ({
+                ({ token_id, contract_address, address_to, address_from, cost, ...action }) => ({
                     id: token_id,
                     contractAddress: contract_address,
+                    nft: action.nft,
                     action: {
                         action: nft.type,
                         toAddress: address_to,

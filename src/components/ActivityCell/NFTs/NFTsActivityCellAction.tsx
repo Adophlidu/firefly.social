@@ -22,7 +22,7 @@ import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { useNFTDetail } from '@/hooks/useNFTDetail.js';
+import type { NFTAsset } from '@/providers/types/Firefly.js';
 import { NFTFeedTransAction } from '@/providers/types/NFTs.js';
 
 interface Props {
@@ -34,6 +34,7 @@ interface Props {
     ownerAddress?: string;
     toAddress?: string;
     fromAddress?: string;
+    nft: NFTAsset;
 }
 
 const tagClassName = 'flex items-center space-x-1 rounded-lg bg-bg px-2 h-6 leading-6 truncate cursor-pointer';
@@ -42,7 +43,7 @@ function NFTsActivityCellActionCollectionName({
     asset,
     chainId,
     address,
-}: { asset?: NonFungibleAsset<ChainId, SchemaType> | null } & Pick<Props, 'chainId' | 'address'>) {
+}: { asset: NFTAsset } & Pick<Props, 'chainId' | 'address'>) {
     if (!asset?.collection) return null;
 
     return (
@@ -89,8 +90,7 @@ function NFTsActivityCellActionPoapName({
 }
 
 export function NFTsActivityCellAction(props: Props) {
-    const { action, toAddress, ownerAddress, fromAddress, tokenCount, address, chainId, tokenId } = props;
-    const { data, isLoading } = useNFTDetail(address, tokenId, chainId);
+    const { action, toAddress, ownerAddress, fromAddress, tokenCount, nft: data } = props;
     switch (action) {
         case NFTFeedTransAction.Mint:
             return (

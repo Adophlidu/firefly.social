@@ -1,7 +1,6 @@
 'use client';
 
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { useMemo } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getSingleNFTFeedItemContent } from '@/components/NFTs/VirtualListHelper.js';
@@ -9,7 +8,6 @@ import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveNFTFeedChainId } from '@/helpers/resolveNFTFeedChainId.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { useInvalidNFTStore } from '@/store/useInvalidNFTStore.js';
 
 export function DiscoverNFTList() {
     const nftQueryResult = useSuspenseInfiniteQuery({
@@ -25,20 +23,10 @@ export function DiscoverNFTList() {
         select: (data) => data.pages.flatMap((p) => p.data),
     });
 
-    const invalidNFTCount = useInvalidNFTStore((state) => state.size);
-    const filteredData = useMemo(() => {
-        const invalidNFTStore = useInvalidNFTStore.getState();
-        return nftQueryResult.data.filter((feed) => {
-            const tokenId = feed.trans.token_list?.[0]?.id ?? '';
-            return !invalidNFTStore.has(resolveNFTFeedChainId(feed), feed.trans.token_address, tokenId);
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [nftQueryResult.data, invalidNFTCount]);
-
     return (
         <ListInPage
             source={Source.NFTs}
-            queryResult={{ ...nftQueryResult, data: filteredData }}
+            queryResult={nftQueryResult}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Discover}:${Source.NFTs}`,
                 computeItemKey: (index, nftFeed) => `${nftFeed.id}-${index}`,

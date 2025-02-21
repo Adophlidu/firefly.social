@@ -16,6 +16,7 @@ import { Source } from '@/constants/enum.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
+import type { NFTAsset } from '@/providers/types/Firefly.js';
 import { type FollowingNFT, type NFTOwnerDisplayInfo } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -25,7 +26,7 @@ interface SingleNFTFeedProps {
     disableAnimate?: boolean;
     listKey?: string;
     index?: number;
-    tokenList: Array<NFTFeedBodyProps['tokenList'][number] & { bookmarked?: boolean }>;
+    tokenList: Array<NFTFeedBodyProps['tokenList'][number] & { bookmarked?: boolean; nft: NFTAsset }>;
     chainId: ChainId;
     displayInfo: NFTOwnerDisplayInfo;
     time: number | string | Date;
@@ -94,9 +95,10 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
                         fromAddress={tokenList[0].action.fromAddress}
                         ownerAddress={tokenList[0].action.ownerAddress}
                         tokenCount={tokenList.length}
+                        nft={tokenList[0].nft}
                     />
                     <div className="mt-1.5 flex w-full space-x-3 overflow-x-auto overflow-y-hidden">
-                        {tokenList.map(({ id, action, contractAddress, bookmarked }) => {
+                        {tokenList.map(({ id, action, contractAddress, bookmarked, nft }) => {
                             return (
                                 <NFTsActivityCellCard
                                     key={`${id}-${contractAddress}-${chainId}`}
@@ -106,6 +108,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
                                     chainId={chainId}
                                     tokenId={id}
                                     bookmarked={bookmarked}
+                                    nft={nft}
                                 />
                             );
                         })}

@@ -1,3 +1,6 @@
+import { isSameAddress } from '@masknet/web3-shared-base';
+import { ChainId } from '@masknet/web3-shared-evm';
+import { produce } from 'immer';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 import { type Address, type Hex, isAddress, isHex } from 'viem';
@@ -36,6 +39,7 @@ import {
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveNFTFeedChainId } from '@/helpers/resolveNFTFeedChainId.js';
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
+import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
@@ -44,6 +48,8 @@ import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { formatSimpleHashNFT } from '@/providers/simplehash/formatSimpleHashNFT.js';
+import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import type { Article, ArticlePlatform } from '@/providers/types/Article.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import {
@@ -94,7 +100,7 @@ import {
     type WalletsFollowStatusResponse,
     WatchType,
 } from '@/providers/types/Firefly.js';
-import type { DiscoverNFTResponseV2, GetFollowingNFTResponse } from '@/providers/types/NFTs.js';
+import type { DiscoverNFTResponseV2, GetFollowingNFTResponse, NFTFeed } from '@/providers/types/NFTs.js';
 import { convertBskyHandleToDid } from '@/services/convertBskyHandleToDid.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { settings } from '@/settings/index.js';
@@ -490,7 +496,7 @@ export class FireflyEndpoint {
 
     async discoverNFTs({
         indicator,
-        limit = 40,
+        limit = 20,
     }: {
         indicator?: PageIndicator;
         limit?: number;
@@ -499,7 +505,7 @@ export class FireflyEndpoint {
             size: limit,
             cursor: indicator?.id,
         });
-        const response = await fireflySessionHolder.fetch<DiscoverNFTResponseV2>(url, {
+        const response = await fireflySessionHolder.fetchWithoutSession<DiscoverNFTResponseV2>(url, {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
@@ -509,29 +515,35 @@ export class FireflyEndpoint {
         const bookmarks = nftIds.length
             ? await runInSafeAsync(() => FireflySocialMediaProvider.getBookmarksByIds(FireflyPlatform.NFTs, nftIds))
             : [];
-
+        const simpleHashNFTs = await SimpleHashProvider.getNFTByIds(nftIds);
+        const nfts = compact(simpleHashNFTs.map((x) => formatSimpleHashNFT(x, true)));
         return createPageable(
-            data.nfts.map((feed) => ({
-                ...feed,
-                trans: {
-                    ...feed.trans,
-                    token_list: feed.trans.token_list.map((token) => ({
-                        ...token,
-                        bookmarked: bookmarks?.find(
-                            (x) =>
-                                x.post_id ===
-                                resolveNFTId(resolveNFTFeedChainId(feed), feed.trans.token_address, token.id),
-                        )?.has_book_marked,
-                    })),
-                },
-            })),
+            data.nfts
+                .map<NFTFeed>((feed) => ({
+                    ...feed,
+                    trans: {
+                        ...feed.trans,
+                        token_list: feed.trans.token_list.map((token) => ({
+                            ...token,
+                            bookmarked: bookmarks?.find(
+                                (x) =>
+                                    x.post_id ===
+                                    resolveNFTId(resolveNFTFeedChainId(feed), feed.trans.token_address, token.id),
+                            )?.has_book_marked,
+                            nft: nfts.find(
+                                (x) => isSameAddress(x.address, feed.trans.token_address) && x.tokenId === token.id,
+                            )!,
+                        })),
+                    },
+                }))
+                .filter((x) => x.trans.token_list.map((t) => t.nft).filter((t) => t).length),
             indicator,
             data.hasMore && data.cursor ? createIndicator(undefined, data.cursor) : undefined,
         );
     }
 
     async getFollowingNFTs({
-        limit = 40,
+        limit = 20,
         indicator,
         walletAddresses,
     }: {
@@ -557,8 +569,32 @@ export class FireflyEndpoint {
                 withSession: !(walletAddresses && walletAddresses.length > 0),
             },
         );
+        const nftIds = response.data.result.flatMap((x) => {
+            return x.actions.map((action) =>
+                resolveNFTId(
+                    resolveSimpleHashChainId(x.network) || ChainId.Mainnet,
+                    action.contract_address,
+                    action.token_id,
+                ),
+            );
+        });
+        const simpleHashNFTs = await SimpleHashProvider.getNFTByIds(nftIds);
+        const nfts = compact(simpleHashNFTs.map((x) => formatSimpleHashNFT(x, true)));
         return createPageable(
-            response.data.result,
+            response.data.result
+                .map((x) => {
+                    return produce(x, (draft) => {
+                        draft.actions = draft.actions.map((action) => {
+                            const nft = nfts.find(
+                                (x) =>
+                                    x.tokenId === action.token_id && isSameAddress(x.address, action.contract_address),
+                            );
+                            if (nft) action.nft = nft;
+                            return action;
+                        });
+                    });
+                })
+                .filter((x) => compact(x.actions.map((action) => action.nft)).length),
             indicator,
             response.data.cursor ? createIndicator(undefined, response.data.cursor) : undefined,
         );

@@ -20,8 +20,8 @@ import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { resolveCoinGeckoTokenSymbol } from '@/helpers/resolveCoinGeckoTokenSymbol.js';
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
-import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
+import type { NFTAsset } from '@/providers/types/Firefly.js';
 import { NFTFeedTransAction } from '@/providers/types/NFTs.js';
 
 interface Props {
@@ -31,6 +31,7 @@ interface Props {
     action: NFTFeedTransAction;
     ownerAddress: string;
     bookmarked?: boolean;
+    nft: NFTAsset;
 }
 
 const PoapTags = memo(function PoapTags({ asset }: { asset: NonFungibleAsset<ChainId, SchemaType> }) {
@@ -55,8 +56,7 @@ const PoapTags = memo(function PoapTags({ asset }: { asset: NonFungibleAsset<Cha
 });
 
 export function NFTsActivityCellCard(props: Props) {
-    const { address, tokenId, chainId, action, ownerAddress, bookmarked } = props;
-    const { data, isLoading } = useNFTDetail(address, tokenId, chainId);
+    const { address, tokenId, chainId, action, ownerAddress, bookmarked, nft: data } = props;
     const metadata = data?.metadata;
     const imageURL = metadata?.previewImageURL || metadata?.imageURL || '';
 

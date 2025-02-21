@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-import { type FollowingSource } from '@/providers/types/Firefly.js';
+import { type FollowingSource, type NFTAsset } from '@/providers/types/Firefly.js';
 
 export interface Response<T> {
     code: number;
@@ -43,6 +43,7 @@ export interface NFTFeed {
             id: string;
             cnt: number;
             bookmarked?: boolean;
+            nft: NFTAsset;
         }>;
         token_address: Address;
         token_name: string;
@@ -86,4 +87,5 @@ export interface FollowingNFTAction {
     cost?: NFTActionCost;
     contract_address: Address;
     token_id: string;
+    nft: NFTAsset;
 }
