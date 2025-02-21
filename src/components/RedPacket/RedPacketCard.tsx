@@ -25,7 +25,7 @@ import { RequirementsModal } from '@/components/RedPacket/RequirementsModal.js';
 import { Timer } from '@/components/RedPacket/Timer.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkType } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
+import { SITE_URL, SUPPORTED_MEDIA_CORS_SOURCES } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
@@ -132,7 +132,10 @@ export function RedPacketCard({ payload, post }: Props) {
         networkType,
     });
 
-    const { isLoading: imageLoading } = usePreloadImage(cover?.backgroundImageUrl);
+    const { isLoading: imageLoading } = usePreloadImage(
+        cover?.backgroundImageUrl,
+        SUPPORTED_MEDIA_CORS_SOURCES.includes(post.source),
+    );
 
     const [{ isVerifying, isClaiming, claimStrategyStatus }, verifyAndClaim] = useVerifyAndClaim(
         { ...payload, chainId: parsedChainId },

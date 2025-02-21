@@ -210,6 +210,7 @@ export const SUPPORTED_PREVIEW_MEDIA_TYPES: Array<Attachment['type']> = ['Image'
 export const SUPPORTED_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 export const SUPPORTED_VIDEO_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Bsky];
 export const SUPPORTED_MULTI_ACCOUNT_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
+export const SUPPORTED_MEDIA_CORS_SOURCES: Source[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 export const SOCIAL_DISCOVER_SOURCE: SocialDiscoverSource[] = [Source.Farcaster, Source.Lens, Source.Bsky] as const;
 export const SOCIAL_NOTIFICATION_SOURCE: SocialNotificationSource[] = [Source.Farcaster, Source.Lens, Source.Bsky];
 export const DISCOVER_SOURCES: DiscoverSource[] = [Source.Posts, Source.NFTs, Source.Article, Source.DAOs] as const;

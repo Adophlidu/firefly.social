@@ -8,9 +8,9 @@ export async function preloadImage(imageUrl: string) {
     });
 }
 
-export function usePreloadImage(imageUrl: string | undefined) {
+export function usePreloadImage(imageUrl: string | undefined, enabled = true) {
     return useQuery({
-        enabled: !!imageUrl,
+        enabled: !!imageUrl && enabled,
         queryKey: ['system', 'preload-image', imageUrl],
         queryFn: imageUrl ? () => preloadImage(imageUrl) : skipToken,
     });
