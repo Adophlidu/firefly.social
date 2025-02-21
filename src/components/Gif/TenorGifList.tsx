@@ -54,13 +54,17 @@ export function TenorGifList({ keyword, onSelected }: TenorGifListProps) {
         initialPageParam: '',
         queryKey: ['tenor-gif-list', keyword],
         queryFn: async ({ pageParam }) => {
-            const result = await fetchTenorGifs({ cursor: pageParam, q: keyword || undefined });
+            try {
+                const result = await fetchTenorGifs({ cursor: pageParam, q: keyword || undefined });
 
-            return createPageable(
-                result.data,
-                createIndicator(),
-                result.cursor ? createNextIndicator(undefined, result.cursor) : undefined,
-            );
+                return createPageable(
+                    result.data,
+                    createIndicator(),
+                    result.cursor ? createNextIndicator(undefined, result.cursor) : undefined,
+                );
+            } catch {
+                return createPageable([], createIndicator());
+            }
         },
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
         select: (data) => data.pages.flatMap((page) => page.data ?? EMPTY_LIST),

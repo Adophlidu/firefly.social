@@ -106,6 +106,6 @@ export async function fetchTenorGifs({ cursor, q, limit = 20 }: FetchTenorGifsOp
 
     return {
         data: compact(response.results.map(formatTenorGif)),
-        cursor: response.next,
+        cursor: response.next || '',
     };
 }
