@@ -80,7 +80,7 @@ export const TipsUI = memo(function TipsUI() {
                         />
                         {token && recipient ? (
                             <ClickableButton
-                                className="whitespace-nowrap font-bold text-link"
+                                className="whitespace-nowrap font-bold text-highlight"
                                 disabled={isSending || loading}
                                 onClick={handleUseMaxBalance}
                             >
