@@ -4,7 +4,6 @@ import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { type HTMLProps, useState } from 'react';
 
 import ComeBackIcon from '@/assets/comeback.svg';
-import { NoSSR } from '@/components/NoSSR.js';
 import { ProfileAction } from '@/components/Profile/ProfileAction.js';
 import { WalletMoreAction } from '@/components/Profile/WalletMoreAction.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
@@ -15,7 +14,6 @@ import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useCurrentFireflyProfiles } from '@/hooks/useCurrentFireflyProfiles.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useRefreshedProfile } from '@/hooks/useRefreshedProfile.js';
 import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -40,7 +38,6 @@ export function Title({
     className,
     ...rest
 }: TitleProps) {
-    const isMedium = useIsMedium();
     const currentProfiles = useCurrentFireflyProfiles();
 
     const [reached, setReached] = useState(false);
@@ -61,10 +58,10 @@ export function Title({
 
     const { data: profile } = useRefreshedProfile(rest.profile);
 
-    if ((profiles.length > 1 || !isOthersProfile) && !reached && isMedium && !sticky) return null;
+    if ((profiles.length > 1 || !isOthersProfile) && !reached && !sticky) return null;
 
     const renderActions = () => {
-        if (!reached && isMedium && !sticky) return null;
+        if (!reached && !sticky) return null;
         if (profile) return <ProfileAction profile={profile} />;
         if (walletProfile)
             return (
@@ -84,7 +81,7 @@ export function Title({
 
     return (
         <div
-            className={classNames('sticky top-0 z-40 h-0 w-full', { hidden }, className)}
+            className={classNames('md:none sticky top-0 z-40 h-0 w-full', { hidden }, className)}
             {...rest}
             aria-hidden={hidden}
         >
@@ -96,10 +93,7 @@ export function Title({
                     </span>
                 </div>
 
-                <NoSSR>
-                    {' '}
-                    {disableActions ? null : <div className="flex flex-shrink-0 gap-2">{renderActions()}</div>}
-                </NoSSR>
+                {disableActions ? null : <div className="flex flex-shrink-0 gap-2 md:hidden">{renderActions()}</div>}
             </div>
         </div>
     );
