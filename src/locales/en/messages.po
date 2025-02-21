@@ -371,6 +371,9 @@ msgstr "Muted {handleOrEnsOrAddress}."
 msgid "The token can be bought."
 msgstr "The token can be bought."
 
+msgid "Trending"
+msgstr "Trending"
+
 #. placeholder {0}: currentProfile.handle
 msgid "Log out @{0}"
 msgstr "Log out @{0}"
@@ -1037,6 +1040,9 @@ msgstr "Profile could not be found."
 msgid "Collections"
 msgstr "Collections"
 
+msgid "Top Losers"
+msgstr "Top Losers"
+
 msgid "Profile details"
 msgstr "Profile details"
 
@@ -1295,6 +1301,9 @@ msgstr "The current connected wallet does not match, Please switch to {0}"
 
 msgid "Mint price"
 msgstr "Mint price"
+
+msgid "Top Gainers"
+msgstr "Top Gainers"
 
 msgid "Cost"
 msgstr "Cost"

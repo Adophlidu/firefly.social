@@ -1,3 +1,5 @@
+import type { JSX } from 'react';
+
 import { Link } from '@/components/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 
@@ -5,7 +7,7 @@ type SourceNavProps<T> = {
     sources: T[];
     source: T;
     urlResolver: (source: T) => string;
-    nameResolver: (source: T) => string;
+    nameResolver: (source: T) => string | JSX.Element;
     className?: string;
 };
 

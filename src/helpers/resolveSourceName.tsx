@@ -1,3 +1,6 @@
+import { Trans } from '@lingui/react/macro';
+import type { JSX } from 'react';
+
 import { type ExploreSource, Source, TrendingType } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
@@ -24,14 +27,14 @@ export const resolveSourceName = createLookupTableResolver<Source, string>(
     },
 );
 
-export const resolveExploreSourceName = createLookupTableResolver<ExploreSource, string>(
+export const resolveExploreSourceName = createLookupTableResolver<ExploreSource, string | JSX.Element>(
     {
         [Source.Lens]: 'Lens',
         [Source.Farcaster]: 'Farcaster',
         [Source.Bsky]: 'Bluesky',
-        [TrendingType.TopGainers]: 'Top Gainers',
-        [TrendingType.TopLosers]: 'Top Losers',
-        [TrendingType.Trending]: 'Trending',
+        [TrendingType.TopGainers]: <Trans>Top Gainers</Trans>,
+        [TrendingType.TopLosers]: <Trans>Top Losers</Trans>,
+        [TrendingType.Trending]: <Trans>Trending</Trans>,
         [TrendingType.Meme]: 'Meme',
     },
     (source) => {
