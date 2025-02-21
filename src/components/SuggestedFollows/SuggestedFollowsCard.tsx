@@ -13,6 +13,7 @@ import { AsideTitle } from '@/components/AsideTitle.js';
 import { Link } from '@/components/Link.js';
 import { ProfileSlide } from '@/components/SuggestedFollows/ProfileSlide.js';
 import { ExploreType, Source } from '@/constants/enum.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { isSocialDiscoverSource } from '@/helpers/isDiscoverSource.js';
 import { mergeLists } from '@/helpers/mergeLists.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
@@ -27,7 +28,7 @@ export function SuggestedFollowsCard() {
     const currentSource = useGlobalState.use.currentSource();
     const profileAll = useCurrentProfileAll();
     const { data: suggestedFollows, isLoading } = useQuery({
-        queryKey: ['suggested-follows-lite'],
+        queryKey: ['suggested-follows-lite', ...SORTED_SOCIAL_SOURCES.map((x) => profileAll[x]?.profileId)],
         staleTime: 1000 * 60 * 2,
         queryFn: async () => {
             const [farcasterData, lensData, bskyData] = await Promise.all([
