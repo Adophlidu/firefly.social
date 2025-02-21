@@ -19,7 +19,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { BskySession } from '@/providers/bsky/Session.js';
-import { createAgent } from '@/providers/bsky/SessionHolder.js';
+import { createAgentOnce } from '@/providers/bsky/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import { type AccountOptions, addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
@@ -55,8 +55,7 @@ export function LoginBsky() {
             try {
                 await loginBsky(
                     async () => {
-                        const agent = createAgent(serviceUrl);
-
+                        const agent = createAgentOnce(serviceUrl);
                         const response = await agent.login({
                             identifier: username,
                             password,

@@ -7,14 +7,16 @@ import { PUBLIC_SERVICE_URL } from '@/constants/bsky.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 
-export const createAgent: (serviceUrl: string) => AtpAgent = memoize((serviceUrl: string) => {
+export const createAgentOnce = (serviceUrl: string) => {
     return new AtpAgent({
         service: serviceUrl,
         persistSession: (evt: AtpSessionEvent, session?: AtpSessionData) => {
             console.warn('[AtpAgent] persistSession', evt, session);
         },
     });
-});
+};
+
+export const createAgent: typeof createAgentOnce = memoize(createAgentOnce);
 
 class BskySessionHolder extends SessionHolder<BskySession> {
     private _agent = createAgent(PUBLIC_SERVICE_URL);
