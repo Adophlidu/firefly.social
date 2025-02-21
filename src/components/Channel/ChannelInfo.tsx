@@ -2,7 +2,6 @@ import { Plural, Trans } from '@lingui/react/macro';
 import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
 
-import UserIcon from '@/assets/user.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ChannelInfoAction } from '@/components/Channel/ChannelInfoAction.js';
 import { ChannelInfoBio } from '@/components/Channel/ChannelInfoBio.js';
@@ -74,10 +73,9 @@ export async function ChannelInfo({ channel: unresolvedChannel, source, isChanne
                             </span>
                         )}
 
-                        {isBsky ? <span className="leading-[22px] text-secondary">·</span> : null}
+                        <span className="leading-[22px] text-secondary">·</span>
 
                         <data value={followerCount} className="flex items-center gap-1">
-                            {!isBsky ? <UserIcon width={18} height={18} /> : null}
                             <span className="text-lightMain">{nFormatter(followerCount)}</span>
                             <span className="text-secondary">
                                 {!isBsky ? (
