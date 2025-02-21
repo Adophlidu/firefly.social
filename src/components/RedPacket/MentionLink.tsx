@@ -1,27 +1,10 @@
-import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 
 import { Link } from '@/components/Link.js';
+import { resolvePlatformProfileUrl } from '@/helpers/resolvePlatformProfile.js';
 import { LoadingBase } from '@/mask/components.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
-
-function resolveProfileUrl(platform: FireflyRedPacketAPI.PlatformType, handle: string) {
-    switch (platform) {
-        case FireflyRedPacketAPI.PlatformType.Farcaster:
-            return `/profile/farcaster/${handle}`;
-        case FireflyRedPacketAPI.PlatformType.Lens:
-            return `/profile/lens/${handle}`;
-        case FireflyRedPacketAPI.PlatformType.Twitter:
-            return `/${handle}`;
-        case FireflyRedPacketAPI.PlatformType.Bsky:
-            return `/profile/bsky/${handle}`;
-
-        default:
-            safeUnreachable(platform);
-            return '';
-    }
-}
 
 interface MentionLinkProps {
     platform: FireflyRedPacketAPI.PlatformType;
@@ -47,7 +30,7 @@ export function MentionLink({ platform, profileId, handle }: MentionLinkProps) {
 
     return (
         <Link
-            href={resolveProfileUrl(
+            href={resolvePlatformProfileUrl(
                 platform,
                 platform === FireflyRedPacketAPI.PlatformType.Farcaster ? profileId : screenName,
             )}

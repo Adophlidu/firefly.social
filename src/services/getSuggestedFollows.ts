@@ -37,12 +37,14 @@ export async function getSuggestedFollowsInCard(source: SocialSource) {
         (oldData, newData) =>
             [
                 ...oldData,
-                ...newData.filter(
-                    (item) =>
+                ...newData.filter((item) => {
+                    if (item.source === Source.Bsky && item.followerCount < 1000) return false;
+                    return (
                         !item.viewerContext?.blocking &&
                         !item.viewerContext?.following &&
-                        currentProfile?.profileId !== item.profileId,
-                ),
+                        currentProfile?.profileId !== item.profileId
+                    );
+                }),
             ].slice(0, 50),
         50,
     );

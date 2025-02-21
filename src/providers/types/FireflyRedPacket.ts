@@ -235,6 +235,8 @@ export namespace FireflyRedPacketAPI {
         platformName: PlatformType;
         platformId: string;
         platform_handle: string;
+        platform: PlatformType;
+        platform_id: string;
     }
 
     export interface RedPacketClaimListInfoItem {

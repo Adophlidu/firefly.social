@@ -25,6 +25,8 @@ function ClaimHistoryItem({ data, networkType }: { data: FireflyRedPacketAPI.Cla
                 address={data.creator}
                 shareFrom={first(data.claim_platform)?.platform_handle}
                 networkType={networkType}
+                platform={first(data.claim_platform)?.platform}
+                platformId={first(data.claim_platform)?.platform_id}
             />
             <div className="flex gap-1">
                 {formatBalance(data.token_amounts, data.token_decimal, {
