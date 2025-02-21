@@ -93,7 +93,9 @@ export async function downloadSessions(session: FireflySession, signal?: AbortSi
 }
 
 async function uploadSessionsByMerge(session: FireflySession, sessions: Session[], signal?: AbortSignal) {
-    const syncedSessions = await downloadSessions(session, signal);
+    const syncedSessions = (await downloadSessions(session, signal)).filter(
+        (x) => !sessions.some((y) => isSameSession(x, y, true) && y.createdAt > x.createdAt),
+    );
     const noSyncedSessions = sessions.filter((x) => !syncedSessions.some((y) => isSameSession(x, y, true)));
 
     if (noSyncedSessions.length) {
