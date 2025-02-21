@@ -18,15 +18,16 @@ interface Props extends NextPageProps<{ id: string; category: ProfileCategory; s
 export default async function Layout(props: Props) {
     const params = await props.params;
     const { children } = props;
-
     if (!isFollowCategory(params.category)) notFound();
+
     const id = params.id;
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isSocialSource(source) || source === Source.Twitter) notFound();
-    const identity = resolveSpecialProfileIdentity({ source, id });
-    const profile = await runInSafeAsync(() => resolveSocialMediaProvider(source).getProfileById(id));
 
+    const profile = await runInSafeAsync(() => resolveSocialMediaProvider(source).getProfileById(id));
     if (!profile) notFound();
+
+    const identity = resolveSpecialProfileIdentity({ source, id });
 
     return (
         <>

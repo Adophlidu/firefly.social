@@ -45,9 +45,9 @@ export default async function Layout(props: LayoutProps) {
 
     const id = params.id;
     const source = resolveSourceFromUrl(params.source);
-    const identity = resolveSpecialProfileIdentity({ source, id });
-
     if (!source || isFollowCategory(params.category)) notFound();
+
+    const identity = resolveSpecialProfileIdentity({ source, id });
 
     return (
         <>

@@ -108,7 +108,7 @@ export function LoginBsky() {
         <form className="box-border flex w-[500px] flex-col items-center gap-3 p-6 max-md:w-full">
             <div className="flex w-[300px] flex-col gap-5 max-md:w-full">
                 <h1 className="whitespace-nowrap text-xs text-second max-md:whitespace-normal">
-                    Enter your username and password to log in instantly
+                    <Trans>Enter your username and password to sign in instantly</Trans>
                 </h1>
 
                 <div className="group relative mx-0 flex h-10 flex-grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">

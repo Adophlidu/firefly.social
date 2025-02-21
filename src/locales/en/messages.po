@@ -2337,6 +2337,9 @@ msgstr "Feedback"
 msgid "Your serialized session"
 msgstr "Your serialized session"
 
+msgid "Enter your username and password to sign in instantly"
+msgstr "Enter your username and password to sign in instantly"
+
 msgid "GIFs"
 msgstr "GIFs"
 
