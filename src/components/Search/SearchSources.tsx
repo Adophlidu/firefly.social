@@ -5,6 +5,7 @@ import { memo, useMemo } from 'react';
 import { SourceNav } from '@/components/SourceNav.js';
 import { SearchType, Source } from '@/constants/enum.js';
 import {
+    REQUIRE_LOGIN_SOURCES_IN_SEARCH,
     SORTED_SEARCH_TYPE,
     SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES,
     SORTED_SOCIAL_SOURCES,
@@ -13,7 +14,7 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSearchKeyword } from '@/helpers/resolveSearchKeyword.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 
 interface SearchSourcesProps {
     query: string;
@@ -26,7 +27,7 @@ export const SearchSources = memo<SearchSourcesProps>(function SearchSources({
     source: selectedSource,
     searchType,
 }) {
-    const isTwitterLoggedIn = useIsLogin(Source.Twitter);
+    const profileAll = useCurrentProfileAll();
 
     const sources = useMemo(() => {
         if (SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES.includes(selectedSource)) {
@@ -34,14 +35,14 @@ export const SearchSources = memo<SearchSourcesProps>(function SearchSources({
             if (handle) return SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES;
         }
         return SORTED_SOCIAL_SOURCES.filter((x) => {
-            if (x === Source.Twitter && !isTwitterLoggedIn) return false;
+            if (REQUIRE_LOGIN_SOURCES_IN_SEARCH.includes(x) && !profileAll[x]?.profileId) return false;
 
             const supportTypes = SORTED_SEARCH_TYPE[narrowToSocialSource(x)];
             if (!supportTypes.includes(searchType)) return false;
 
             return true;
         });
-    }, [query, isTwitterLoggedIn, searchType, selectedSource]);
+    }, [query, profileAll, searchType, selectedSource]);
 
     return (
         <SourceNav

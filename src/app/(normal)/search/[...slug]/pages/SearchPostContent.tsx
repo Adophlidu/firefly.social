@@ -8,19 +8,23 @@ import { Empty } from '@/components/Search/Empty.js';
 import { SearchSources } from '@/components/Search/SearchSources.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey } from '@/constants/enum.js';
+import { REQUIRE_LOGIN_SOURCES_IN_SEARCH } from '@/constants/index.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export function SearchPostContent() {
     const { searchKeyword, searchType, source } = useSearchStateStore();
     const currentSocialSource = narrowToSocialSource(source);
+    const isLogin = useIsLogin(currentSocialSource);
+    const loginRequired = REQUIRE_LOGIN_SOURCES_IN_SEARCH.includes(currentSocialSource);
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['search', searchType, searchKeyword, source],
+        queryKey: ['search', searchType, searchKeyword, source, isLogin],
         queryFn: async ({ pageParam }) => {
-            if (!searchKeyword) return;
+            if (!searchKeyword || (loginRequired && !isLogin)) return;
             const provider = resolveSocialMediaProvider(currentSocialSource);
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
@@ -42,6 +46,7 @@ export function SearchPostContent() {
         <>
             <SearchSources source={source} query={searchKeyword} searchType={searchType} />
             <ListInPage
+                loginRequired={loginRequired}
                 source={source}
                 key={listKey}
                 queryResult={queryResult}

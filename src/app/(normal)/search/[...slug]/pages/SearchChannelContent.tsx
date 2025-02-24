@@ -8,9 +8,11 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchSources } from '@/components/Search/SearchSources.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
+import { REQUIRE_LOGIN_SOURCES_IN_SEARCH } from '@/constants/index.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
@@ -29,11 +31,13 @@ const getSearchItemContent = (channel: Channel, index: number, listKey: string) 
 export function SearchChannelContent() {
     const { searchKeyword, searchType, source } = useSearchStateStore();
     const currentSocialSource = narrowToSocialSource(source);
+    const isLogin = useIsLogin(currentSocialSource);
+    const loginRequired = REQUIRE_LOGIN_SOURCES_IN_SEARCH.includes(currentSocialSource);
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['search', searchType, searchKeyword, source],
+        queryKey: ['search', searchType, searchKeyword, source, isLogin],
         queryFn: async ({ pageParam }) => {
-            if (!searchKeyword) return;
+            if (!searchKeyword || (loginRequired && !isLogin)) return;
             const provider = resolveSocialMediaProvider(currentSocialSource);
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
@@ -63,6 +67,7 @@ export function SearchChannelContent() {
         <>
             <SearchSources source={source} query={searchKeyword} searchType={searchType} />
             <ListInPage
+                loginRequired={loginRequired}
                 source={source}
                 key={listKey}
                 queryResult={queryResult}

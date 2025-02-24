@@ -224,6 +224,7 @@ export const FOLLOWING_SOURCES: FollowingSource[] = [
 export const FOLLOWING_CATEGORY = [FollowCategory.Followers, FollowCategory.Mutuals, FollowCategory.Following] as const;
 export const REQUIRE_LOGIN_FOLLOWING_CATEGORY = [FollowCategory.Mutuals];
 export const REQUIRE_LOGIN_SOURCES: SocialSource[] = [Source.Twitter];
+export const REQUIRE_LOGIN_SOURCES_IN_SEARCH: SocialSource[] = [Source.Twitter, Source.Bsky];
 
 export const EXPLORE_TYPES: ExploreType[] = [
     ExploreType.TopProfiles,
