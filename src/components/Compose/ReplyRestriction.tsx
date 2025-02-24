@@ -1,14 +1,12 @@
 import { PopoverPanel, Transition } from '@headlessui/react';
-import { getEnumAsArray } from '@masknet/kit';
 import { Fragment } from 'react';
 
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
 import { RestrictionType } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
-import { isValidRestrictionType } from '@/helpers/isValidRestrictionType.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useValidRestrictionTypes } from '@/hooks/useValidRestrictionTypes.js';
 
 interface ReplyRestrictionProps {
     restriction: RestrictionType;
@@ -17,32 +15,21 @@ interface ReplyRestrictionProps {
 
 export function ReplyRestriction({ restriction, setRestriction }: ReplyRestrictionProps) {
     const { availableSources } = useCompositePost();
-
-    const items = getEnumAsArray(RestrictionType)
-        .map(({ value: type }) => {
-            return {
-                type,
-                disabled: !isValidRestrictionType(type, availableSources),
-            };
-        })
-        .filter(({ disabled }) => !disabled);
+    const items = useValidRestrictionTypes(availableSources);
 
     const isMedium = useIsMedium();
 
     const content = (
         <div className="flex flex-col rounded-lg md:bg-lightBottom md:dark:bg-darkBottom">
-            {items.map(({ type, disabled }) => (
+            {items.map((type) => (
                 <div
                     key={type}
-                    className={classNames(
-                        'flex h-12 items-center justify-between px-3',
-                        disabled ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-bg',
-                    )}
+                    className="flex h-12 cursor-pointer items-center justify-between px-3 hover:bg-bg"
                     onClick={() => {
-                        if (!disabled) setRestriction(type);
+                        setRestriction(type);
                     }}
                 >
-                    <span className={classNames('mr-auto font-bold text-main', { 'opacity-50': disabled })}>
+                    <span className="mr-auto font-bold text-main">
                         <ReplyRestrictionText type={type} />
                     </span>
                     <CircleCheckboxIcon checked={restriction === type} />

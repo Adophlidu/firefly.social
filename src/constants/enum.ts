@@ -201,8 +201,8 @@ export enum RestrictionType {
     Everyone = 0,
     OnlyPeopleYouFollow = 1,
     MentionedProfiles = 2,
-    Nobody = 3,
     YouFollower = 4,
+    Nobody = 3,
 }
 
 export enum ScrollListKey {

@@ -872,6 +872,9 @@ msgstr "发帖"
 msgid "Failed to unlike the post."
 msgstr "取消点赞失败。"
 
+msgid "Only your follower"
+msgstr ""
+
 msgid "{addressName} is already connected."
 msgstr "{addressName} 已经连接。"
 
@@ -1509,9 +1512,6 @@ msgstr "没有铸造功能"
 
 msgid "Expired"
 msgstr "已过期"
-
-msgid "Your Follower"
-msgstr "你的关注者"
 
 msgid "Please choose issue to report this wallet:"
 msgstr "请选择举报这个钱包的原因："

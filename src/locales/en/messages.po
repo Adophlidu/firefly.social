@@ -867,6 +867,9 @@ msgstr "POST"
 msgid "Failed to unlike the post."
 msgstr "Failed to unlike the post."
 
+msgid "Only your follower"
+msgstr "Only your follower"
+
 msgid "{addressName} is already connected."
 msgstr "{addressName} is already connected."
 
@@ -1504,9 +1507,6 @@ msgstr "No mint function"
 
 msgid "Expired"
 msgstr "Expired"
-
-msgid "Your Follower"
-msgstr "Your Follower"
 
 msgid "Please choose issue to report this wallet:"
 msgstr "Please choose issue to report this wallet:"
