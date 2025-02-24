@@ -1,4 +1,4 @@
-import { FireflyPlatform, Source } from '@/constants/enum.js';
+import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
@@ -19,6 +19,18 @@ export const resolveFireflyPlatform = createLookupTableResolver<Source, FireflyP
         [Source.Google]: null,
         [Source.Apple]: null,
         [Source.Posts]: null,
+    },
+    (source) => {
+        throw new UnreachableError('source', source);
+    },
+);
+
+export const resolveFireflyPlatformFromSocialSource = createLookupTableResolver<SocialSource, FireflyPlatform>(
+    {
+        [Source.Farcaster]: FireflyPlatform.Farcaster,
+        [Source.Lens]: FireflyPlatform.Lens,
+        [Source.Twitter]: FireflyPlatform.Twitter,
+        [Source.Bsky]: FireflyPlatform.Bsky,
     },
     (source) => {
         throw new UnreachableError('source', source);

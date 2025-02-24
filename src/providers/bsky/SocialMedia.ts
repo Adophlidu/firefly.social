@@ -8,6 +8,7 @@ import { DISCOVER_AT_URI } from '@/constants/bsky.js';
 import { BookmarkType, FireflyPlatform, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { BSKY_LOGIN_REQUIRED_FEEDS, EMPTY_LIST } from '@/constants/index.js';
+import { AddBookmarkStatusForPosts } from '@/decorators/AddBookmarkStatusForPosts.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
@@ -72,20 +73,6 @@ async function getSinglePost(uri: string) {
     return formatBskyFeedPost(thread);
 }
 
-async function fillBookmarkDataForPosts(posts: Post[]) {
-    const ids = posts.map((x) => x.postId);
-    if (!ids.length) return posts;
-
-    const bookmarks = await runInSafeAsync(() =>
-        FireflySocialMediaProvider.getBookmarksByIds(FireflyPlatform.Bsky, ids, BookmarkType.Text),
-    );
-
-    return posts.map((post) => ({
-        ...post,
-        hasBookmarked: bookmarks?.find((x) => x.post_id === post.postId)?.has_book_marked ?? false,
-    }));
-}
-
 @SetQueryDataForLikePost(Source.Bsky)
 @SetQueryDataForBookmarkPost(Source.Bsky)
 @SetQueryDataForMirrorPost(Source.Bsky)
@@ -96,6 +83,7 @@ async function fillBookmarkDataForPosts(posts: Post[]) {
 @SetQueryDataForActPost(Source.Bsky)
 @SetQueryDataForPosts
 @SetQueryDataForJoinChannel(Source.Bsky)
+@AddBookmarkStatusForPosts(Source.Bsky)
 export class BskySocialMedia implements Provider {
     get type() {
         return SessionType.Bsky;
@@ -257,7 +245,7 @@ export class BskySocialMedia implements Provider {
         const data = resolveBskyResponseData(response, 'Failed to discoverPosts');
 
         return createPageable(
-            await fillBookmarkDataForPosts(data.feed.map(formatBskyFeedPost)),
+            data.feed.map(formatBskyFeedPost),
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
@@ -283,7 +271,7 @@ export class BskySocialMedia implements Provider {
         });
         const data = resolveBskyResponseData(response, 'Failed to discoverPosts');
         return createPageable(
-            await fillBookmarkDataForPosts(data.feed.map(formatBskyFeedPost)),
+            data.feed.map(formatBskyFeedPost),
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
@@ -297,7 +285,7 @@ export class BskySocialMedia implements Provider {
             });
             const data = resolveBskyResponseData(response, `Failed to get post by profile id = ${profileId}.`);
             return createPageable(
-                await fillBookmarkDataForPosts(data.feed.map(formatBskyFeedPost)),
+                data.feed.map(formatBskyFeedPost),
                 createIndicator(indicator),
                 data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
             );

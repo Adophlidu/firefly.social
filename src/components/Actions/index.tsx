@@ -5,11 +5,11 @@ import { compact } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
 import { type HTMLProps, memo } from 'react';
 
-import { Bookmark } from '@/components/Actions/Bookmark.js';
 import { Collect } from '@/components/Actions/Collect.js';
 import { Comment } from '@/components/Actions/Comment.js';
 import { Like } from '@/components/Actions/Like.js';
 import { Mirror } from '@/components/Actions/Mirrors.js';
+import { PostBookmark } from '@/components/Actions/PostBookmark.js';
 import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { Share } from '@/components/Actions/Share.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
@@ -23,7 +23,6 @@ import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
-import { useToggleBookmark } from '@/hooks/useToggleBookmark.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostActionsWithGridProps extends HTMLProps<HTMLDivElement> {
@@ -61,7 +60,6 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
 
     const isComment = post.type === 'Comment';
     const identity = useFireflyIdentity(post.source, resolveFireflyProfileId(post.author) ?? '');
-    const mutation = useToggleBookmark(post.source);
     const actions = compact([
         <div key="comment">
             <Comment post={post} hiddenCount disabled={disabled} />
@@ -95,16 +93,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
             <Tips key="tips" post={post} identity={identity} disabled={disabled} handle={post.author.handle} />
         ) : null,
         ENABLED_BOOKMARK_SOURCES.includes(post.source) ? (
-            <Bookmark
-                key="bookmark"
-                count={post.stats?.bookmarks}
-                disabled={disabled}
-                hasBookmarked={post.hasBookmarked}
-                onClick={() => {
-                    mutation.mutate(post);
-                }}
-                hiddenCount
-            />
+            <PostBookmark key="bookmark" post={post} disabled={disabled} />
         ) : null,
         <Share key="share" className="!flex-none" post={post} disabled={disabled} />,
     ]);
@@ -147,7 +136,6 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     const identity = useFireflyIdentity(post.source, resolveFireflyProfileId(post.author) ?? '');
 
     const noLeftPadding = isDetailPage || isSmall || disablePadding;
-    const mutation = useToggleBookmark(post.source);
 
     return (
         <footer
@@ -180,15 +168,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                         />
                     ) : null}
                     {ENABLED_BOOKMARK_SOURCES.includes(post.source) ? (
-                        <Bookmark
-                            onClick={() => {
-                                mutation.mutate(post);
-                            }}
-                            count={post.stats?.bookmarks}
-                            disabled={disabled}
-                            hasBookmarked={post.hasBookmarked}
-                            hiddenCount
-                        />
+                        <PostBookmark post={post} disabled={disabled} />
                     ) : null}
                     {identity.id && ENABLED_TIPS_POST_SOURCES.includes(post.source) ? (
                         <Tips post={post} identity={identity} disabled={disabled} handle={post.author.handle} />
