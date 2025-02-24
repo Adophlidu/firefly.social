@@ -314,7 +314,9 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 );
 
             case NotificationType.Quote:
-                const post = notification.source === Source.Bsky ? notification.quote : notification.post;
+                const post = [Source.Bsky, Source.Farcaster].includes(notification.source)
+                    ? notification.quote
+                    : notification.post;
                 return !post ? null : <MoreAction source={post.source} author={post.author} post={post} />;
             case NotificationType.Mention:
             case NotificationType.Act:

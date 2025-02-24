@@ -119,6 +119,7 @@ export enum NotificationType {
     CastBeReplied = 3,
     BeFollowed = 4,
     BeMentioned = 5,
+    BeQuoted = 7,
 }
 
 export interface Notification {

@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -612,66 +613,82 @@ export class FireflySocialMedia implements Provider {
         });
         const response = await fireflySessionHolder.fetch<NotificationResponse>(url, { method: 'GET' });
         const data = resolveFireflyResponseData(response);
-        const result = data.notifications.map<Promise<Notification | undefined>>(async (notification) => {
+        const result = data.notifications.map<Promise<Notification | null>>(async (notification) => {
             const notificationId = `${profileId}_${notification.timestamp}_${notification.notificationType}`;
             const users =
                 notification.users?.map(formatFarcasterProfileFromFirefly) ??
                 (notification.user ? [formatFarcasterProfileFromFirefly(notification.user)] : EMPTY_LIST);
             const post = notification.cast ? await formatFarcasterPostFromFirefly(notification.cast) : undefined;
             const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;
-            if (notification.notificationType === FireflyNotificationType.CastBeLiked) {
-                return {
-                    source: Source.Farcaster,
-                    notificationId,
-                    type: NotificationType.Reaction,
-                    reactors: users,
-                    post,
-                    timestamp,
-                };
-            } else if (notification.notificationType === FireflyNotificationType.CastBeRecasted) {
-                return {
-                    source: Source.Farcaster,
-                    notificationId,
-                    type: NotificationType.Mirror,
-                    mirrors: users,
-                    post,
-                    timestamp,
-                };
-            } else if (notification.notificationType === FireflyNotificationType.CastBeReplied) {
-                const commentOn = notification.cast?.parentCast
-                    ? await formatFarcasterPostFromFirefly(notification.cast.parentCast)
-                    : undefined;
-                return {
-                    source: Source.Farcaster,
-                    notificationId,
-                    type: NotificationType.Comment,
-                    comment: post
+
+            switch (notification.notificationType) {
+                case FireflyNotificationType.CastBeLiked:
+                    return {
+                        source: Source.Farcaster,
+                        notificationId,
+                        type: NotificationType.Reaction,
+                        reactors: users,
+                        post,
+                        timestamp,
+                    };
+                case FireflyNotificationType.CastBeRecasted:
+                    return {
+                        source: Source.Farcaster,
+                        notificationId,
+                        type: NotificationType.Mirror,
+                        mirrors: users,
+                        post,
+                        timestamp,
+                    };
+                case FireflyNotificationType.CastBeReplied:
+                    const commentOn = notification.cast?.parentCast
+                        ? await formatFarcasterPostFromFirefly(notification.cast.parentCast)
+                        : undefined;
+                    return {
+                        source: Source.Farcaster,
+                        notificationId,
+                        type: NotificationType.Comment,
+                        comment: post
+                            ? {
+                                  ...post,
+                                  commentOn,
+                              }
+                            : undefined,
+                        post: commentOn,
+                        timestamp,
+                    } as const;
+                case FireflyNotificationType.BeFollowed:
+                    return {
+                        source: Source.Farcaster,
+                        notificationId,
+                        type: NotificationType.Follow,
+                        followers: users,
+                    };
+                case FireflyNotificationType.BeMentioned:
+                    return {
+                        source: Source.Farcaster,
+                        notificationId,
+                        type: NotificationType.Mention,
+                        post,
+                        timestamp,
+                    };
+                case FireflyNotificationType.BeQuoted:
+                    return post?.quoteOn
                         ? {
-                              ...post,
-                              commentOn,
+                              source: Source.Farcaster,
+                              notificationId,
+                              type: NotificationType.Quote,
+                              post: post.quoteOn,
+                              quote: post,
+                              timestamp,
                           }
-                        : undefined,
-                    post: commentOn,
-                    timestamp,
-                };
-            } else if (notification.notificationType === FireflyNotificationType.BeFollowed) {
-                return {
-                    source: Source.Farcaster,
-                    notificationId,
-                    type: NotificationType.Follow,
-                    followers: users,
-                };
-            } else if (notification.notificationType === FireflyNotificationType.BeMentioned) {
-                return {
-                    source: Source.Farcaster,
-                    notificationId,
-                    type: NotificationType.Mention,
-                    post,
-                    timestamp,
-                };
+                        : null;
+                default:
+                    safeUnreachable(notification.notificationType);
+                    return null;
             }
-            return;
         });
+
         return createPageable(
             compact(await Promise.all(result)),
             createIndicator(indicator),
