@@ -1,13 +1,7 @@
 #!/bin/bash
 
-# Change to the submodule directory
 cd src/maskbook
-
 pnpm install
-
-# Run Gulp tasks for polyfill and code generation
-npx gulp polyfill
-npx gulp codegen
 
 # Return to the original directory
 cd -

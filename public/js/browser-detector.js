@@ -27,6 +27,7 @@
 
         var browser = window.bowser.getParser(window.navigator.userAgent);
         var isValidBrowser = browser.satisfies({
+            // also update src/polyfills/rollup.config.mjs
             ios: {
                 safari: '>=16',
             },
@@ -42,7 +43,7 @@
             opera: '>=89',
             edge: '>=103',
         });
-     
+
         if (!isValidBrowser && !isBridge()) {
             const showTip = (isDarkMode) => {
                 if(isDisabled) return
@@ -65,21 +66,21 @@
 
                 const keywordColor = isDarkMode ? 'var(--color-light-main)' : 'rgb(146, 80, 255)';
                 const keywordTag = (link, name) =>
-                    `<a target="_blank" rel="noreferrer noopener" href="${link}" 
+                    `<a target="_blank" rel="noreferrer noopener" href="${link}"
                         style="color:${keywordColor} !important;
                         font-weight: bold;"
                      >${name}</a>`;
 
                 const chromeLinkTag = keywordTag('https://www.google.com/chrome/', 'Chrome');
                 const downloadLinkTag = keywordTag('https://firefly.land/#download', isCN ? '下载' : 'download');
-               
+
                 const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
                 svg.setAttribute("fill", "none");
                 svg.setAttribute("height", "24");
                 svg.setAttribute("viewBox", "0 0 24 24");
                 svg.setAttribute("width", "24");
 
-                
+
                 let path = document.createElementNS("http://www.w3.org/2000/svg", "path");
                 path.setAttribute("d", "m13.4139 11.9999 5.793-5.79303c.39-.39.39-1.02299 0-1.41399s-1.023-.39-1.414 0l-5.793 5.79302-5.79303-5.79302c-.39-.39-1.02299-.39-1.41399 0s-.39 1.02299 0 1.41399l5.79302 5.79303-5.79302 5.793c-.39.39-.39 1.023 0 1.414.195.195.44999.293.70699.293s.512-.098.707-.293l5.79303-5.793 5.793 5.793c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414z");
                 path.setAttribute("fill", "currentColor");
