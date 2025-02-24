@@ -9,10 +9,10 @@ import FollowUserIcon from '@/assets/follow-user.svg';
 import MoreIcon from '@/assets/more.svg';
 import TrashIcon from '@/assets/trash.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
-import { BookmarkButton } from '@/components/Actions/BookmarkButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
+import { PostBookmark } from '@/components/Actions/PostBookmark.js';
 import { ReportPostButton } from '@/components/Actions/ReportPostButton.js';
 import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
@@ -178,7 +178,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                     </>
                 )}
                 {post && ENABLED_BOOKMARK_SOURCES.includes(post.source) ? (
-                    <MenuItem>{({ close }) => <BookmarkButton post={post} onClick={close} />}</MenuItem>
+                    <MenuItem>{({ close }) => <PostBookmark onlyIcon={false} post={post} onClick={close} />}</MenuItem>
                 ) : null}
                 {post?.postId && post.source !== Source.Twitter ? (
                     <MenuItem>

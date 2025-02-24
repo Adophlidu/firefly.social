@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { type HTMLProps, useCallback } from 'react';
 
 import { Bookmark } from '@/components/Actions/Bookmark.js';
 import { BookmarkType } from '@/constants/enum.js';
@@ -7,12 +7,13 @@ import { useHasBookmarked } from '@/hooks/useHasBookmarked.js';
 import { useToggleBookmark } from '@/hooks/useToggleBookmark.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
-interface PostBookmarkProps {
+interface PostBookmarkProps extends HTMLProps<HTMLButtonElement> {
     post: Post;
-    disabled?: boolean;
+    onlyIcon?: boolean;
+    onClick?: () => void;
 }
 
-export function PostBookmark({ post, disabled }: PostBookmarkProps) {
+export function PostBookmark({ post, disabled, onlyIcon = true, onClick }: PostBookmarkProps) {
     const { postId, source, hasBookmarked } = post;
 
     const { data, isLoading } = useHasBookmarked(
@@ -24,8 +25,9 @@ export function PostBookmark({ post, disabled }: PostBookmarkProps) {
 
     const mutation = useToggleBookmark(source);
     const onToggle = useCallback(() => {
-        mutation.mutate(post);
-    }, [mutation, post]);
+        mutation.mutate({ ...post, hasBookmarked: post.hasBookmarked ?? data });
+        onClick?.();
+    }, [mutation, post, data, onClick]);
 
     return (
         <Bookmark
@@ -34,6 +36,8 @@ export function PostBookmark({ post, disabled }: PostBookmarkProps) {
             count={post.stats?.bookmarks}
             disabled={disabled}
             loading={isLoading}
+            onlyIcon={onlyIcon}
+            tooltip={onlyIcon}
             hiddenCount
         />
     );
