@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 import urlcat from 'urlcat';
-import { useEnsName } from 'wagmi';
+import { useAccount, useEnsName } from 'wagmi';
 
 import CollectIcon from '@/assets/collect.svg';
 import { Bookmark } from '@/components/Actions/Bookmark.js';
@@ -21,7 +21,7 @@ import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
-import { CollectArticleModalRef, DraggablePopoverRef, LoginModalRef } from '@/modals/controls.js';
+import { CollectArticleModalRef, ConnectModalRef, DraggablePopoverRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
@@ -31,6 +31,7 @@ interface ArticleActionsProps {
 
 export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions({ article: oldArticle }) {
     const isLogin = useIsLoginFirefly();
+    const account = useAccount();
     const mutation = useToggleArticleBookmark();
     const identity = useFireflyIdentity(Source.Wallet, oldArticle.author.id);
     const { data: ens } = useEnsName({ address: oldArticle.author.id });
@@ -57,6 +58,10 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                         <Tooltip content={t`Collect`} placement="top">
                             <motion.button
                                 onClick={() => {
+                                    if (!account) {
+                                        ConnectModalRef.open();
+                                        return;
+                                    }
                                     if (!isLogin) {
                                         LoginModalRef.open();
                                         return;
