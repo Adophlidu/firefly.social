@@ -1,5 +1,4 @@
 import { Locale } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { setLocale } from '@/i18n/index.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
@@ -10,16 +9,12 @@ const resolveLocale = createLookupTableResolver<'en' | 'zh', Locale>(
         en: Locale.en,
         zh: Locale.zhHans,
     },
-    (language) => {
-        throw new UnreachableError('language', language);
-    },
+    Locale.en,
 );
 
 export async function setLocaleByFireflyBridge() {
     if (!fireflyBridgeProvider.supported) return;
 
     const language = await fireflyBridgeProvider.request(SupportedMethod.GET_LANGUAGE, {});
-
-    const locale = resolveLocale(language as 'en' | 'zh');
-    if (locale) setLocale(locale);
+    setLocale(resolveLocale(language as 'en' | 'zh'));
 }
