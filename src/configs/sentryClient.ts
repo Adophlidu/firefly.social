@@ -1,6 +1,7 @@
 import { feedbackIntegration, init, onLoad, setTag } from '@sentry/browser';
 
 import { env } from '@/constants/env.js';
+import { IS_PREVIEW, IS_PRODUCTION } from '@/constants/index.js';
 import { settings } from '@/settings/index.js';
 
 export const feedback = feedbackIntegration({
@@ -30,7 +31,7 @@ class SentryClient {
                 dsn: env.external.NEXT_PUBLIC_SENTRY_DSN,
 
                 release: process.version,
-                environment: env.shared.NODE_ENV,
+                environment: IS_PRODUCTION ? 'production' : IS_PREVIEW ? 'preview' : 'development',
                 integrations: [feedback],
 
                 tracesSampleRate: 1.0,
