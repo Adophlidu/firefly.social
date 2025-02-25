@@ -136,7 +136,7 @@ export function useEVMAvailabilityComputed(payload: RedPacketJSONPayload, post: 
             listOfStatus: compact([
                 isClaimed ? RedPacketStatus.claimed : undefined,
                 isEmpty ? RedPacketStatus.empty : undefined,
-                isRefunded ? RedPacketStatus.refunded : undefined,
+                isRefunded ? isCreator && RedPacketStatus.refunded : undefined,
                 isExpired ? RedPacketStatus.expired : undefined,
             ]),
         },
