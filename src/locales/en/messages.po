@@ -1308,6 +1308,9 @@ msgstr "Mint price"
 msgid "Top Gainers"
 msgstr "Top Gainers"
 
+msgid "Follow @fireflyappcn on X"
+msgstr "Follow @fireflyappcn on X"
+
 msgid "Cost"
 msgstr "Cost"
 

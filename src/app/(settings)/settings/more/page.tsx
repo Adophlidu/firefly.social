@@ -63,6 +63,11 @@ export default function More() {
                         logo: SmallXIcon,
                     },
                     {
+                        title: <Trans>Follow @fireflyappcn on X</Trans>,
+                        link: 'https://x.com/intent/user?screen_name=fireflyappcn',
+                        logo: SmallXIcon,
+                    },
+                    {
                         title: <Trans>Visit firefly.social</Trans>,
                         link: 'https://firefly.social',
                         logo: FireflyRoundIcon,

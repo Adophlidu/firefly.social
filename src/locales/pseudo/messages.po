@@ -1308,6 +1308,9 @@ msgstr ""
 msgid "Top Gainers"
 msgstr ""
 
+msgid "Follow @fireflyappcn on X"
+msgstr ""
+
 msgid "Cost"
 msgstr ""
 
