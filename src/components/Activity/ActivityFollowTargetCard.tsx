@@ -12,7 +12,7 @@ import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 
 export function ActivityFollowTargetCard({ handle, profileId }: { handle: string; profileId: string }) {
     const { data } = useActivityClaimCondition(Source.Twitter);
-    const isFollowed = data?.x?.following || data?.farcaster.isFollowing;
+    const isFollowed = !!(data?.x?.following || data?.farcaster?.isFollowing);
     const farcasterHandle = BRIAN_FARCASTER_PROFILE.handle;
     return (
         <div

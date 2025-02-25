@@ -73,7 +73,7 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
                 },
                 {
                     label: <Trans>Your Farcaster account holds Power Badge</Trans>,
-                    verified: claimCondition?.farcaster.isPowerUser,
+                    verified: claimCondition?.farcaster?.isPowerUser ?? false,
                 },
                 {
                     label: (

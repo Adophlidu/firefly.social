@@ -18,7 +18,7 @@ export function formatSnapshotActivityFromFirefly(snapshot: FireflySnapshotActiv
         choice: snapshot.metadata.choice,
         type: snapshot.type,
         id: snapshot.id,
-        timestamp: parseInt(snapshot.timestamp, 10) * 1000,
+        timestamp: Number.parseInt(snapshot.timestamp, 10) * 1000,
         hash: snapshot.hash,
         related_urls: snapshot.related_urls,
         proposal_id: snapshot.metadata.proposal_id,

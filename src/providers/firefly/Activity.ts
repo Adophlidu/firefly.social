@@ -179,7 +179,7 @@ class FireflyActivity implements Provider {
                         {
                             method: 'POST',
                             body: JSON.stringify({
-                                targetFid: parseInt(profileId, 10),
+                                targetFid: Number.parseInt(profileId, 10),
                                 sourceFid: options?.sourceFarcasterProfileId,
                             }),
                         },

@@ -239,7 +239,7 @@ export class Snapshot {
         const message = omit(payload, 'privacy', 'type');
 
         const messageData = {
-            timestamp: parseInt((Date.now() / 1e3).toFixed(), 10),
+            timestamp: Number.parseInt((Date.now() / 1e3).toFixed(), 10),
             ...message,
             choice:
                 isShutter && ['quadratic', 'weighted'].includes(payload.type)

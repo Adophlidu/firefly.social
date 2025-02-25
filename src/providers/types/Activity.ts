@@ -99,7 +99,7 @@ export type CheckResponse = Response<{
     x: X;
     nft?: NFT;
     participationBlocked?: boolean;
-    farcaster: Farcaster;
+    farcaster: Farcaster | null;
     lens?: Lens;
     assets: Assets;
     balance: Balance;

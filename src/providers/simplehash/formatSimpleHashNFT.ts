@@ -117,7 +117,7 @@ export function formatSimpleHashNFT(nft: SimpleHash.NFT, skipScoreCheck = false)
             description: nft.collection.description,
             address: nft.contract_address,
             iconURL: nft.collection.image_url,
-            verified: Boolean(nft.collection.marketplace_pages?.some((x) => x.verified)),
+            verified: !!nft.collection.marketplace_pages?.some((x) => x.verified),
             createdAt: new Date(nft.created_date).getTime(),
             floorPrices: nft.collection.floor_prices,
         },

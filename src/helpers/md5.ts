@@ -354,8 +354,8 @@ export class Md5 {
                 return;
             }
 
-            const lo = parseInt(matches[2], 16);
-            const hi = parseInt(matches[1], 16) || 0;
+            const lo = Number.parseInt(matches[2], 16);
+            const hi = Number.parseInt(matches[1], 16) || 0;
 
             buf32[14] = lo;
             buf32[15] = hi;

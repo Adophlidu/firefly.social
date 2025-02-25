@@ -38,7 +38,7 @@ function resolveInnerChainId<T extends number>(
     chainAlias?: Record<string, string>,
 ) {
     const chainIdKey = first(Object.entries(chains).find(([, value]) => value === (chainAlias?.[chain] || chain)));
-    return typeof chainIdKey === 'string' ? (parseInt(chainIdKey, 10) as T) : undefined;
+    return typeof chainIdKey === 'string' ? (Number.parseInt(chainIdKey, 10) as T) : undefined;
 }
 
 export const resolveSimpleHashChainId: (chainId: string) => number | undefined = memoize(function resolveChainId(

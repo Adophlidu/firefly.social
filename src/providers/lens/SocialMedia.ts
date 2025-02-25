@@ -173,7 +173,7 @@ export class LensSocialMedia implements Provider {
         const response = await OrbClubProvider.fetchClubs({
             profile_id: profileId,
             limit: 20,
-            skip: indicator?.id ? parseInt(indicator.id, 10) : undefined,
+            skip: indicator?.id ? Number.parseInt(indicator.id, 10) : undefined,
         });
 
         return createPageable(
@@ -209,7 +209,7 @@ export class LensSocialMedia implements Provider {
         const response = await OrbClubProvider.fetchClubs({
             query: q || undefined,
             limit: 20,
-            skip: indicator?.id ? parseInt(indicator.id, 10) : undefined,
+            skip: indicator?.id ? Number.parseInt(indicator.id, 10) : undefined,
         });
 
         return createPageable(

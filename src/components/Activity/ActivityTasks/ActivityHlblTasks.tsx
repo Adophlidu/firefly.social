@@ -34,7 +34,7 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
         },
         {
             label: <Trans>Your Farcaster account holds Power Badge</Trans>,
-            verified: claimCondition?.farcaster.isPowerUser,
+            verified: claimCondition?.farcaster?.isPowerUser ?? false,
         },
         {
             label: <Trans>Your assets on Base Chain are worth over US$10,000</Trans>,

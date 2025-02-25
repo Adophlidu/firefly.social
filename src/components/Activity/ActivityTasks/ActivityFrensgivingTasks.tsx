@@ -31,19 +31,21 @@ export function ActivityFrensgivingTasks({
         ' \n\n#Frensgiving #Thanksgiving #Farcaster #FireflySocial',
     ];
     const { data: claimCondition } = useActivityClaimCondition(Source.Farcaster);
-    const verifiedBasic =
-        claimCondition &&
-        (!!claimCondition.farcaster.hasThirdpartSigner || Number.parseInt(claimCondition.farcaster.fid, 10) <= 100_000);
+    const verifiedBasic = !!(
+        claimCondition?.farcaster &&
+        (claimCondition.farcaster.hasThirdpartSigner || Number.parseInt(claimCondition.farcaster.fid, 10) <= 100_000)
+    );
     const list = [
         {
             label: <Trans>Your Farcaster account holds Power Badge</Trans>,
-            verified: claimCondition?.farcaster.isPowerUser,
+            verified: claimCondition?.farcaster?.isPowerUser ?? false,
         },
         {
             label: <Trans>You have been detected as a loyal Farcaster user</Trans>,
-            verified:
-                claimCondition?.farcaster.isSupercast ||
-                (claimCondition && parseInt(claimCondition.farcaster.fid, 10) <= 10000),
+            verified: !!(
+                claimCondition?.farcaster?.isSupercast ||
+                (claimCondition?.farcaster && Number.parseInt(claimCondition.farcaster.fid, 10) <= 10000)
+            ),
         },
     ];
     const isPremium = list.some((x) => x.verified);
