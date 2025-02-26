@@ -58,7 +58,7 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                         <Tooltip content={t`Collect`} placement="top">
                             <motion.button
                                 onClick={() => {
-                                    if (!account) {
+                                    if (!account.isConnected) {
                                         ConnectModalRef.open();
                                         return;
                                     }
