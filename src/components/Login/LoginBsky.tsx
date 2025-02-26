@@ -29,12 +29,15 @@ async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<A
     try {
         const account = await createAccount();
 
-        const done = await addAccount(account, options);
+        const done = await addAccount(account, {
+            ...options,
+            async setAsCurrent({ session }) {
+                useBskyStateStore.getState().__setStatus__(AsyncStatus.Pending);
+                await bskySessionHolder.resumeSession(session as BskySession);
+                useBskyStateStore.getState().__setStatus__(AsyncStatus.Idle);
+            },
+        });
         if (done) {
-            useBskyStateStore.getState().__setStatus__(AsyncStatus.Pending);
-            await bskySessionHolder.resumeSession(account.session as BskySession);
-            useBskyStateStore.getState().__setStatus__(AsyncStatus.Idle);
-
             enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Bsky)} account is now connected.`);
         }
 

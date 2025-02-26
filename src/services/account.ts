@@ -150,7 +150,7 @@ async function removeFireflyMetricsIfNeeded(sessions: Session[], signal?: AbortS
 
 export interface AccountOptions {
     // set the account as the current account, default: true
-    setAsCurrent?: boolean;
+    setAsCurrent?: boolean | ((account: Account) => Promise<void>);
     // skip the belongs to check, default: false
     skipBelongsToCheck?: boolean;
     // skip updating metrics, default: false
@@ -238,8 +238,12 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
     // add account to store cause it's from the same firefly session
     if (belongsTo && account.session.type !== SessionType.Firefly) {
-        state.addAccount(account, setAsCurrent);
-        if (setAsCurrent) sessionHolder.resumeSession(account.session);
+        state.addAccount(account, typeof setAsCurrent === 'boolean' ? setAsCurrent : true);
+        if (typeof setAsCurrent === 'function') {
+            await setAsCurrent(account);
+        } else if (setAsCurrent) {
+            sessionHolder.resumeSession(account.session);
+        }
     }
 
     // resume firefly session
