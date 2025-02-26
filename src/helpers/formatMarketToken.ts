@@ -10,7 +10,7 @@ export function formatMarketToken(token: SearchableToken) {
         name: token.name,
         source: '',
         type: 'FungibleToken',
-        logoURL: token.thumb,
+        logoURL: token.large,
         rank: token.market_cap_rank,
         socialLinks: {
             website: '',

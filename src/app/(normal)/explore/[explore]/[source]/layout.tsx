@@ -34,7 +34,7 @@ export default function Layout({ children, params }: Props) {
                             : sources
                     }
                     urlResolver={(source) => resolveExploreUrl(explore, source)}
-                    nameResolver={(source) => resolveExploreSourceName(source)}
+                    nameResolver={resolveExploreSourceName}
                 />
             ) : null}
             {children}

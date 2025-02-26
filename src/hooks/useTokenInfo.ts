@@ -21,7 +21,7 @@ export function useTokenInfo(symbolOrId: string, ensureId = true) {
                         name: token.name,
                         source: '',
                         type: 'FungibleToken',
-                        logoURL: token.image.thumb || token.image.small || token.image.large,
+                        logoURL: token.image.large || token.image.small || token.image.thumb,
                         socialLinks: {
                             website: '',
                             twitter: '',
