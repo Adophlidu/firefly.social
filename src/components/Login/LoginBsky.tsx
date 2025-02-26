@@ -11,7 +11,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ClearButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
-import { Source } from '@/constants/enum.js';
+import { AsyncStatus, Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
@@ -19,17 +19,24 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { BskySession } from '@/providers/bsky/Session.js';
-import { createAgentOnce } from '@/providers/bsky/SessionHolder.js';
+import { bskySessionHolder, createAgentOnce } from '@/providers/bsky/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import { type AccountOptions, addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
+import { useBskyStateStore } from '@/store/useProfileStore.js';
 
 async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
     try {
         const account = await createAccount();
 
         const done = await addAccount(account, options);
-        if (done) enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Bsky)} account is now connected.`);
+        if (done) {
+            useBskyStateStore.getState().__setStatus__(AsyncStatus.Pending);
+            await bskySessionHolder.resumeSession(account.session as BskySession);
+            useBskyStateStore.getState().__setStatus__(AsyncStatus.Idle);
+
+            enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Bsky)} account is now connected.`);
+        }
 
         LoginModalRef.close();
     } catch (error) {

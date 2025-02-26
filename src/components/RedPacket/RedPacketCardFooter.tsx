@@ -75,6 +75,22 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
         }
     }, [networkType, solanaModal]);
 
+    if (isRefunded || isEmpty) return null;
+
+    if (isExpired) {
+        return canRefund ? (
+            <div className="light">
+                <ActionButton
+                    className="flex w-full items-center justify-center"
+                    onClick={handleRefund}
+                    loading={refundLoading}
+                >
+                    <Trans>Refund</Trans>
+                </ActionButton>
+            </div>
+        ) : null;
+    }
+
     if (!currentProfile)
         return (
             <div className="light">
@@ -93,22 +109,6 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
             </div>
         );
     }
-
-    if (isExpired) {
-        return canRefund ? (
-            <div className="light">
-                <ActionButton
-                    className="flex w-full items-center justify-center"
-                    onClick={handleRefund}
-                    loading={refundLoading}
-                >
-                    <Trans>Refund</Trans>
-                </ActionButton>
-            </div>
-        ) : null;
-    }
-
-    if (isRefunded || isEmpty) return null;
 
     if ((!canClaim || isClaimed || isExpired) && isLogin && !canRefund) {
         return (
