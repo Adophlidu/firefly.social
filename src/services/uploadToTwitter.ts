@@ -19,17 +19,23 @@ export async function uploadToTwitter(
             formData.append('file', file);
             formData.append('options', JSON.stringify(options));
 
-            return twitterSessionHolder.fetch<{ data: UploadMediaResponse }>('/api/twitter/uploadMedia', {
+            return twitterSessionHolder.fetch<{ data?: UploadMediaResponse }>('/api/twitter/uploadMedia', {
                 method: 'POST',
                 body: formData,
             });
         }),
     );
-    return medias.map((x, i) => ({
-        file: uploads[i].file,
-        media_id: x.data.media_id,
-        media_id_string: x.data.media_id_string,
-    }));
+    return medias.map((x, i) => {
+        if (!x.data) {
+            throw new Error('Failed to upload media to Twitter, no media_id returned');
+        }
+
+        return {
+            file: uploads[i].file,
+            media_id: x.data.media_id,
+            media_id_string: x.data.media_id_string,
+        };
+    });
 }
 
 export async function uploadVideoToTwitter(file: File): Promise<TwitterMediaResponse[]> {
