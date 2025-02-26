@@ -1,7 +1,21 @@
 import { sum, values } from 'lodash-es';
 
-import { ordinal_suffix_of } from '@/helpers/ordinal_suffix_of.js';
 import type { SnapshotChoice } from '@/providers/snapshot/type.js';
+
+function ordinal_suffix_of(i: number) {
+    const j = i % 10,
+        k = i % 100;
+    if (j === 1 && k !== 11) {
+        return i + 'st';
+    }
+    if (j === 2 && k !== 12) {
+        return i + 'nd';
+    }
+    if (j === 3 && k !== 13) {
+        return i + 'rd';
+    }
+    return i + 'th';
+}
 
 export function formatSnapshotChoice(choice: SnapshotChoice, type: string, choices: string[]) {
     if (['single-choice', 'basic'].includes(type) && typeof choice === 'number') {
