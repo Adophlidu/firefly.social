@@ -4,7 +4,7 @@ import { type ComposeType } from '@/types/compose.js';
 
 export interface BskySchedulePostPayload {}
 
-export async function createFarcasterSchedulePostPayload(
+export async function createBskySchedulePostPayload(
     type: ComposeType,
     compositePost: CompositePost,
     isThread = false,

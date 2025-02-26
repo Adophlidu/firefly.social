@@ -25,9 +25,9 @@ interface UploadJob {
     message: string;
     error?: string;
 }
-type UploadJobStatus = {
+interface UploadJobStatus {
     jobStatus: UploadJob & { blob: BlobRef };
-};
+}
 
 function getServiceAuthAudFromUrl(url: URL | string) {
     const parsed = url instanceof URL ? url : parseUrl(url);

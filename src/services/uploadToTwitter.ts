@@ -4,13 +4,7 @@ import { MAX_SIZE_PER_CHUNK } from '@/constants/index.js';
 import { getVideoDuration } from '@/helpers/getVideoDuration.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import { uploadToTwitterWithChunks } from '@/services/uploadToTwitterWithChunks.js';
-import type { UploadMediaResponse } from '@/types/twitter.js';
-
-export interface TwitterMediaResponse {
-    file: File;
-    media_id: string;
-    media_id_string: string;
-}
+import type { TwitterMediaResponse, UploadMediaResponse } from '@/types/twitter.js';
 
 export async function uploadToTwitter(
     uploads: Array<{ file: File; options?: Partial<UploadMediaV1Params> }>,

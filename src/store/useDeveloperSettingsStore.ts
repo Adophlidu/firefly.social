@@ -1,3 +1,4 @@
+import urlcat from 'urlcat';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -7,7 +8,12 @@ import { env } from '@/constants/env.js';
 import { FIREFLY_DEV_ROOT_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
-import { recordDevelopmentAPI } from '@/services/recordDevelopmentAPI.js';
+
+async function recordDevelopmentAPI(url: string) {
+    return fetch(urlcat('/api/settings/rootAPI', { url }), {
+        method: 'POST',
+    });
+}
 
 interface DeveloperSettingsState {
     developmentAPI: boolean;

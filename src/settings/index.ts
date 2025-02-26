@@ -7,14 +7,17 @@ import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js'
 
 // this value will be set on server.
 let IS_DEV = isServer ? false : useDeveloperSettingsState.getState().developmentAPI;
-function is_dev() {
-    if (isServer) return IS_DEV;
-    return getDOMCookie('firefly_root_api') === FIREFLY_DEV_ROOT_URL;
-}
+
 export async function prepareSettingsForSSR() {
     if (!isServer) throw new Error('This function should only be called on server');
     IS_DEV = (await cookies()).get('firefly_root_api')?.value === FIREFLY_DEV_ROOT_URL;
 }
+
+function is_dev() {
+    if (isServer) return IS_DEV;
+    return getDOMCookie('firefly_root_api') === FIREFLY_DEV_ROOT_URL;
+}
+
 export const settings = {
     get FIREFLY_ROOT_URL() {
         return is_dev() ? FIREFLY_DEV_ROOT_URL : FIREFLY_ROOT_URL;

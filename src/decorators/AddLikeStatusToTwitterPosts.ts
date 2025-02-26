@@ -1,7 +1,21 @@
-import { addLikeStatusToTweet } from '@/helpers/addLikeStatusToTwitterPost.js';
+import { produce } from 'immer';
+
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Post, Provider } from '@/providers/types/SocialMedia.js';
+import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
 import type { ClassType } from '@/types/index.js';
+
+function addLikeStatusToTweet(profileId: string, post: Post): Post {
+    return produce(post, (draft) => {
+        draft.hasLiked = useTwitterLikeStore.getState().isLiked(profileId, post.postId);
+        for (const x of ['commentOn', 'root', 'quoteOn', 'mirrorOn'] as const) {
+            if (x in draft && draft[x]) {
+                draft[x] = addLikeStatusToTweet(profileId, draft[x]);
+            }
+        }
+        return draft;
+    });
+}
 
 const METHODS_BE_OVERRIDDEN = [
     'discoverPosts',

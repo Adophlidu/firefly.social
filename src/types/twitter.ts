@@ -1,5 +1,11 @@
 import type { UploadMediaStatus } from '@/constants/enum.js';
 
+export interface TwitterMediaResponse {
+    file: File;
+    media_id: string;
+    media_id_string: string;
+}
+
 export interface UploadMediaResponse {
     media_id: string;
     media_id_string: string;
