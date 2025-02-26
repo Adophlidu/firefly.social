@@ -45,6 +45,7 @@ export function VideoAsset({ asset, minimal, source, autoPlay, videoClassName }:
             className={videoClassName}
             loop={isGif}
             autoPlay={autoPlay || isGif}
+            autoPlayInViewport={!isGif}
             src={asset.uri}
             poster={asset.coverUri}
             forceNoToken={source === Source.Twitter}
