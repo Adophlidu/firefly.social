@@ -105,6 +105,7 @@ export default function Page(props: Props) {
                 const chainId = await client.getChainId();
 
                 switch (method) {
+                    case EthereumMethodType.ETH_ACCOUNTS:
                     case EthereumMethodType.ETH_REQUEST_ACCOUNTS: {
                         const accounts = await fireflyBridgeProvider.request(SupportedMethod.GET_WALLET_ADDRESS, {
                             type: Network.EVM,
@@ -114,15 +115,7 @@ export default function Page(props: Props) {
                         const account = await connectWalletSquashed();
                         return [account];
                     }
-                    case EthereumMethodType.ETH_SIGN: {
-                        const [address, message] = params as [string, string];
-                        const signed = await fireflyBridgeProvider.request(SupportedMethod.SIGN_MESSAGE, {
-                            chainId: toHex(chainId),
-                            address,
-                            message,
-                        });
-                        return signed;
-                    }
+                    case EthereumMethodType.ETH_SIGN:
                     case EthereumMethodType.PERSONAL_SIGN: {
                         const [address, message] = params as [string, string];
                         const signed = await fireflyBridgeProvider.request(SupportedMethod.SIGN_MESSAGE, {
