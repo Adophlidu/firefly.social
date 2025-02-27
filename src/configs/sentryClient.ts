@@ -5,7 +5,7 @@ import { IS_PREVIEW, IS_PRODUCTION } from '@/constants/index.js';
 import { settings } from '@/settings/index.js';
 
 export const feedback = feedbackIntegration({
-    id: 'sentry-feedback',
+    id: 'sentry-feedback-integration',
     colorScheme: 'system',
     isNameRequired: false,
     isEmailRequired: false,

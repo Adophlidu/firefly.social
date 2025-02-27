@@ -2,8 +2,11 @@
 
 import { BugAntIcon, ClipboardDocumentCheckIcon, ClipboardDocumentIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Trans } from '@lingui/react/macro';
+import { delay } from '@masknet/kit';
+import { captureMessage, captureUserFeedback } from '@sentry/browser';
 import { SnackbarContent, type SnackbarMessage, useSnackbar } from 'notistack';
-import { forwardRef, useCallback, useMemo, useState } from 'react';
+import { forwardRef, useCallback, useState } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import CloseIcon from '@/assets/close.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -24,6 +27,8 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ErrorReportSnackba
     const { closeSnackbar } = useSnackbar();
     const [expanded, setExpanded] = useState(false);
 
+    const [title, setTitle] = useState(message);
+
     const handleExpandClick = useCallback(() => {
         setExpanded((oldExpanded) => !oldExpanded);
     }, []);
@@ -32,31 +37,29 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ErrorReportSnackba
         closeSnackbar(id);
     }, [id, closeSnackbar]);
 
-    const [title, setTitle] = useState(message);
-    const body = detail;
+    const [copied, handleCopy] = useCopyText(`${title}\n\n${detail}`, { enqueueSuccessMessage: false });
 
-    const githubReportLink = useMemo(() => {
-        const url = new URLSearchParams();
-        url.set('title', encodeURIComponent(typeof title !== 'object' ? `${title}` : 'Something wrong'));
-        url.set(
-            'body',
-            encodeURIComponent(
-                [
-                    '## Description',
-                    body as string,
-                    '## Extra Information',
-                    `- Version: ${env.shared.VERSION}`,
-                    `- Environment: ${env.shared.NODE_ENV}`,
-                    `- Commit Hash: ${env.shared.COMMIT_HASH}`,
-                    `- UserAgent: ${navigator.userAgent}`,
-                    `- Timestamp: ${new Date().toISOString()}`,
-                ].join('\n'),
-            ),
-        );
-        return 'https://github.com/DimensionDev/firefly.mask.social/issues/new?' + url.toString();
-    }, [title, body]);
-
-    const [copied, handleCopy] = useCopyText(`${title}\n\n${body}`, { enqueueSuccessMessage: false });
+    const [{ loading }, onReport] = useAsyncFn(async () => {
+        const name = typeof title !== 'object' ? `${title}` : 'Something wrong';
+        captureUserFeedback({
+            event_id: captureMessage(name),
+            name,
+            comments: [
+                title,
+                '',
+                '## Description',
+                detail as string,
+                '## Extra Information',
+                `- Version: ${env.shared.VERSION}`,
+                `- Environment: ${env.shared.NODE_ENV}`,
+                `- Commit Hash: ${env.shared.COMMIT_HASH}`,
+                `- UserAgent: ${navigator.userAgent}`,
+                `- Timestamp: ${new Date().toISOString()}`,
+            ].join('\n'),
+            email: 'report_to_sentry',
+        });
+        await delay(1000);
+    }, [title, detail]);
 
     return (
         <SnackbarContent ref={ref} className="rounded-[4px] bg-danger">
@@ -112,14 +115,16 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ErrorReportSnackba
                                 {copied ? <Trans>Copied</Trans> : <Trans>Copy</Trans>}
                             </ClickableButton>
                             {noReport ? null : (
-                                <a
-                                    className="ml-1 inline-flex cursor-pointer items-center text-white underline"
-                                    href={githubReportLink}
-                                    target="_blank"
+                                <ClickableButton
+                                    className="ml-1 inline-flex cursor-pointer items-center text-white"
+                                    disabled={loading}
+                                    onClick={() => {
+                                        if (!loading) onReport();
+                                    }}
                                 >
                                     <BugAntIcon className="mr-1 h-3 w-3" />
                                     <Trans>Report</Trans>
-                                </a>
+                                </ClickableButton>
                             )}
                         </div>
                     </div>

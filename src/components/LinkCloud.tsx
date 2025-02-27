@@ -62,7 +62,7 @@ export function LinkCloud() {
                     {name}
                 </Link>
             ))}
-            {env.external.NEXT_PUBLIC_FEEDBACK !== STATUS.Disabled ? (
+            {env.external.NEXT_PUBLIC_FEEDBACK === STATUS.Enabled ? (
                 <span className="cursor-pointer font-medium hover:underline" ref={feedbackEl} role="button">
                     <Trans>Feedback</Trans>
                 </span>

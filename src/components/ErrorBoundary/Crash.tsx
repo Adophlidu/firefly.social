@@ -1,8 +1,10 @@
 'use client';
 
+import { delay } from '@masknet/kit';
+import { captureMessage, captureUserFeedback } from '@sentry/browser';
+import { useAsyncFn } from 'react-use';
+
 import { env } from '@/constants/env.js';
-import { Link } from '@/esm/Link.js';
-import { resolveValue } from '@/helpers/resolveValue.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
 export interface ErrorBoundaryError {
@@ -26,10 +28,7 @@ export interface CrashProps extends React.PropsWithChildren<ErrorBoundaryError> 
 export function CrashUI({ onRetry, ...error }: CrashProps) {
     // crash report, will send to GitHub
     const reportTitle = `[Crash] ${error.type}: ${error.message}`;
-    const reportBody = `<!--Thanks for the crash report!
-Please write down what you're doing when the crash happened, that will help us to fix it easier!-->
-
-I was *doing something...*, then application reports an error.
+    const reportBody = `I was *doing something...*, then application reports an error.
 
 > ${error.message}
 
@@ -42,12 +41,15 @@ Commit Hash: ${env.shared.COMMIT_HASH}
 Developer Settings: ${useDeveloperSettingsState.getState().developmentAPI}
 `;
 
-    const githubLink = resolveValue(() => {
-        const url = new URLSearchParams();
-        url.set('title', reportTitle);
-        url.set('body', reportBody);
-        return 'http://github.com/DimensionDev/mask.social/issues/new?' + url.toString();
-    });
+    const [{ loading }, onReport] = useAsyncFn(async () => {
+        captureUserFeedback({
+            name: reportTitle,
+            comments: reportBody,
+            event_id: captureMessage(reportTitle),
+            email: 'report_to_sentry',
+        });
+        await delay(1000);
+    }, [reportTitle, reportBody]);
 
     return (
         <div className="mt-4 w-full flex-1 overflow-x-auto p-5 contain-paint">
@@ -60,13 +62,15 @@ Developer Settings: ${useDeveloperSettingsState.getState().developmentAPI}
                         <button className="rounded-md border border-blue-500 px-2 py-1 text-blue-500" onClick={onRetry}>
                             Try to recover
                         </button>
-                        <Link
-                            className="rounded-md border border-blue-500 px-2 py-1 text-blue-500"
-                            href={githubLink}
-                            target="_blank"
+                        <button
+                            className="rounded-md border border-blue-500 px-2 py-1 text-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+                            disabled={loading}
+                            onClick={() => {
+                                if (!loading) onReport();
+                            }}
                         >
-                            Report on GitHub
-                        </Link>
+                            Report
+                        </button>
                     </div>
                 </div>
                 <div className="mt-2 select-text overflow-x-auto">
