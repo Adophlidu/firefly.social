@@ -59,6 +59,8 @@ export default function Page(props: Props) {
             },
         };
 
+        console.warn('[frame client] context', context);
+
         return {
             frame: {
                 ...result.frame.content,
@@ -67,14 +69,16 @@ export default function Page(props: Props) {
             },
             frameHost: new FarcasterFrameHost(context, {
                 ready: (options?: Partial<ReadyOptions>) => {
-                    if (options) {
-                        fireflyBridgeProvider.request(SupportedMethod.SET_FRAME_READY_OPTIONS, options);
-                    }
+                    console.warn('[frame client] ready', options);
+
+                    if (options) fireflyBridgeProvider.request(SupportedMethod.SET_FRAME_READY_OPTIONS, options);
                     setReady(true);
                 },
                 close: () => fireflyBridgeProvider.request(SupportedMethod.CLOSE, {}),
-                setPrimaryButton: (options) =>
-                    fireflyBridgeProvider.request(SupportedMethod.SET_PRIMARY_BUTTON, options),
+                setPrimaryButton: (options) => {
+                    console.warn('[frame client] setPrimaryButton', options);
+                    fireflyBridgeProvider.request(SupportedMethod.SET_PRIMARY_BUTTON, options);
+                },
             }),
         } satisfies {
             frame: FrameV2;
@@ -95,6 +99,8 @@ export default function Page(props: Props) {
             iframe: frameRef.current,
             sdk: frameHost,
             ethProvider: createEIP1193Provider(async function request(requestArguments: RequestArguments) {
+                console.warn('[frame client] request', requestArguments);
+
                 const { method, params } = requestArguments;
 
                 const client = await createWagmiLimitedClient();
