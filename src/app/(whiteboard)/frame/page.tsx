@@ -59,7 +59,7 @@ export default function Page(props: Props) {
             },
         };
 
-        console.warn('[frame client] context', context);
+        console.warn('[frame client] context', JSON.stringify(context));
 
         return {
             frame: {
@@ -69,14 +69,14 @@ export default function Page(props: Props) {
             },
             frameHost: new FarcasterFrameHost(context, {
                 ready: (options?: Partial<ReadyOptions>) => {
-                    console.warn('[frame client] ready', options);
+                    console.warn('[frame client] ready', JSON.stringify(options));
 
                     if (options) fireflyBridgeProvider.request(SupportedMethod.SET_FRAME_READY_OPTIONS, options);
                     setReady(true);
                 },
                 close: () => fireflyBridgeProvider.request(SupportedMethod.CLOSE, {}),
                 setPrimaryButton: (options) => {
-                    console.warn('[frame client] setPrimaryButton', options);
+                    console.warn('[frame client] setPrimaryButton', JSON.stringify(options));
                     fireflyBridgeProvider.request(SupportedMethod.SET_PRIMARY_BUTTON, options);
                 },
             }),
@@ -99,7 +99,7 @@ export default function Page(props: Props) {
             iframe: frameRef.current,
             sdk: frameHost,
             ethProvider: createEIP1193Provider(async function request(requestArguments: RequestArguments) {
-                console.warn('[frame client] request', requestArguments);
+                console.warn('[frame client] request', JSON.stringify(requestArguments));
 
                 const { method, params } = requestArguments;
 
