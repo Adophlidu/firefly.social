@@ -99,8 +99,6 @@ export default function Page(props: Props) {
             iframe: frameRef.current,
             sdk: frameHost,
             ethProvider: createEIP1193Provider(async function request(requestArguments: RequestArguments) {
-                console.warn('[frame client] request', JSON.stringify(requestArguments));
-
                 const { method, params } = requestArguments;
 
                 const client = await createWagmiLimitedClient();
