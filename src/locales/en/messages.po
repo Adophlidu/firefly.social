@@ -3096,6 +3096,9 @@ msgstr "<0>Minted</0> an NFT for free"
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "Will send on <0>{0} at <1>{1}</1></0>"
 
+msgid "Reported"
+msgstr "Reported"
+
 msgid "Show more channels"
 msgstr "Show more channels"
 

@@ -1,10 +1,7 @@
 'use client';
 
-import { delay } from '@masknet/kit';
-import { captureMessage, captureUserFeedback } from '@sentry/browser';
-import { useAsyncFn } from 'react-use';
-
 import { env } from '@/constants/env.js';
+import { useReportFeedback } from '@/hooks/useReportFeedback.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
 export interface ErrorBoundaryError {
@@ -41,15 +38,9 @@ Commit Hash: ${env.shared.COMMIT_HASH}
 Developer Settings: ${useDeveloperSettingsState.getState().developmentAPI}
 `;
 
-    const [{ loading }, onReport] = useAsyncFn(async () => {
-        captureUserFeedback({
-            name: reportTitle,
-            comments: reportBody,
-            event_id: captureMessage(reportTitle),
-            email: 'report_to_sentry',
-        });
-        await delay(1000);
-    }, [reportTitle, reportBody]);
+    const [reported, loading, handleReport] = useReportFeedback(reportTitle, reportBody, {
+        enqueueSuccessMessage: false,
+    });
 
     return (
         <div className="mt-4 w-full flex-1 overflow-x-auto p-5 contain-paint">
@@ -66,10 +57,10 @@ Developer Settings: ${useDeveloperSettingsState.getState().developmentAPI}
                             className="rounded-md border border-blue-500 px-2 py-1 text-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
                             disabled={loading}
                             onClick={() => {
-                                if (!loading) onReport();
+                                if (!loading) handleReport();
                             }}
                         >
-                            Report
+                            {reported ? 'Reported' : 'Report'}
                         </button>
                     </div>
                 </div>

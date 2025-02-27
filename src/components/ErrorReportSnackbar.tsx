@@ -2,16 +2,14 @@
 
 import { BugAntIcon, ClipboardDocumentCheckIcon, ClipboardDocumentIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Trans } from '@lingui/react/macro';
-import { delay } from '@masknet/kit';
-import { captureMessage, captureUserFeedback } from '@sentry/browser';
 import { SnackbarContent, type SnackbarMessage, useSnackbar } from 'notistack';
 import { forwardRef, useCallback, useState } from 'react';
-import { useAsyncFn } from 'react-use';
 
 import CloseIcon from '@/assets/close.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { env } from '@/constants/env.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
+import { useReportFeedback } from '@/hooks/useReportFeedback.js';
 
 export interface ErrorReportSnackbarProps {
     id: number | string;
@@ -39,27 +37,21 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ErrorReportSnackba
 
     const [copied, handleCopy] = useCopyText(`${title}\n\n${detail}`, { enqueueSuccessMessage: false });
 
-    const [{ loading }, onReport] = useAsyncFn(async () => {
-        const name = typeof title !== 'object' ? `${title}` : 'Something wrong';
-        captureUserFeedback({
-            event_id: captureMessage(name),
-            name,
-            comments: [
-                title,
-                '',
-                '## Description',
-                detail as string,
-                '## Extra Information',
-                `- Version: ${env.shared.VERSION}`,
-                `- Environment: ${env.shared.NODE_ENV}`,
-                `- Commit Hash: ${env.shared.COMMIT_HASH}`,
-                `- UserAgent: ${navigator.userAgent}`,
-                `- Timestamp: ${new Date().toISOString()}`,
-            ].join('\n'),
-            email: 'report_to_sentry',
-        });
-        await delay(1000);
-    }, [title, detail]);
+    const name = typeof title !== 'object' ? `${title}` : 'Something wrong';
+    const comments = [
+        name,
+        '',
+        '## Description',
+        detail as string,
+        '## Extra Information',
+        `- Version: ${env.shared.VERSION}`,
+        `- Environment: ${env.shared.NODE_ENV}`,
+        `- Commit Hash: ${env.shared.COMMIT_HASH}`,
+        `- UserAgent: ${navigator.userAgent}`,
+        `- Timestamp: ${new Date().toISOString()}`,
+    ].join('\n');
+
+    const [reported, loading, handleReport] = useReportFeedback(name, comments, { enqueueSuccessMessage: false });
 
     return (
         <SnackbarContent ref={ref} className="rounded-[4px] bg-danger">
@@ -119,11 +111,11 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ErrorReportSnackba
                                     className="ml-1 inline-flex cursor-pointer items-center text-white"
                                     disabled={loading}
                                     onClick={() => {
-                                        if (!loading) onReport();
+                                        if (!loading) handleReport();
                                     }}
                                 >
                                     <BugAntIcon className="mr-1 h-3 w-3" />
-                                    <Trans>Report</Trans>
+                                    {reported ? <Trans>Reported</Trans> : <Trans>Report</Trans>}
                                 </ClickableButton>
                             )}
                         </div>
