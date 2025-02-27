@@ -139,7 +139,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
         return t`Collect for ${collectParams.mintPrice} ${nativeSymbol}`;
     }, [nativeSymbol, collectParams?.mintPrice, insufficientBalance, isFree, isSoldOut, isCollected, collectLoading]);
 
-    if (!paramsLoading && !collectParams) {
+    if (!paramsLoading && (!collectParams || collectParams.chainId === 0)) {
         return (
             <div className="flex h-[198px] w-full items-center justify-center">
                 <div className="text-[14px] leading-[24px] text-secondary">
