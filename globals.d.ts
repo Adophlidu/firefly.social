@@ -27,16 +27,22 @@ declare module 'dayjs-twitter' {
 }
 
 declare module 'unist-util-flatmap' {
-    export interface Node {
-        children?: Node[];
-        [key: string]: any;
-    }
+    import type { Link, Root, Text } from 'mdast';
 
-    export type TransformFn = (node: Node, index: number, parent: Node | null) => Node[] | null;
+    type Node = Text | Link;
 
-    function flatMap(ast: Node, fn: TransformFn): Node[];
+    export type TransformFn = (node: Node, index: number, parent: Node | Root | null) => Node[] | null;
+
+    function flatMap(ast: Root, fn: TransformFn): Node[];
 
     export = flatMap;
+}
+
+declare module 'remark-linkify-regex' {
+    import type { Root } from 'mdast';
+
+    function linkifyRegex(regex: RegExp): () => (ast: Root) => Root;
+    export = linkifyRegex;
 }
 
 declare module '*.svg' {

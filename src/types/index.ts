@@ -1,7 +1,10 @@
 import type { PropsWithChildren } from 'react';
 import type React from 'react';
+import ReactMarkdown from 'react-markdown';
 
 import { ServerErrorCodes } from '@/helpers/createResponseJSON.js';
+
+export type Pluggable = NonNullable<Parameters<typeof ReactMarkdown>[0]['remarkPlugins']>[number];
 
 export type ResponseJSON<T> =
     | {

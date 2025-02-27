@@ -7,7 +7,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import bs58 from 'bs58';
 import { forwardRef, useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import { disconnect } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { FetchError } from '@/constants/error.js';
@@ -51,7 +50,6 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
         const onClose = useCallback((props: AddWalletModalCloseProps = {}) => dispatch?.close(props), [dispatch]);
 
         const onBindEvmAddress = useCallback(async () => {
-            await disconnect(config);
             const walletClient = await getWalletClientRequired(config);
             const address = walletClient.account.address;
             const existedConnection = connections.find((connection) =>

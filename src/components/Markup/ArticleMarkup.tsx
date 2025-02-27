@@ -3,7 +3,6 @@
 import { memo, useRef } from 'react';
 import ReactMarkdown, { type Options as ReactMarkdownOptions } from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
-// @ts-expect-error
 import linkifyRegex from 'remark-linkify-regex';
 import stripMarkdown from 'strip-markdown';
 
@@ -16,8 +15,9 @@ import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, URL_REGEX } from '@/constants/r
 import { classNames } from '@/helpers/classNames.js';
 import { trimify } from '@/helpers/trimify.js';
 import { PreviewMediaModalRef } from '@/modals/controls.js';
+import type { Pluggable } from '@/types/index.js';
 
-const PLUGINS = [
+const PLUGINS: Pluggable[] = [
     [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'image'] }],
     remarkBreaks,
     linkifyRegex(EMAIL_REGEX),

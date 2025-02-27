@@ -120,7 +120,8 @@
         "zerion",
         "zksync",
         "zora",
-        "zustand"
+        "zustand",
+        "mdast"
     ],
     "ignoreWords": [
         "DEVNET",

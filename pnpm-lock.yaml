@@ -457,6 +457,9 @@ importers:
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12
+      '@types/mdast':
+        specifier: ^4.0.0
+        version: 4.0.3
       '@types/node':
         specifier: 22.10.7
         version: 22.10.7
@@ -10967,7 +10970,6 @@ packages:
     resolution: {integrity: sha512-LsjtqsyF+d2/yFOYaN22dHZI1Cpwkrj+g06G8+qtUKlhovPW89YhqSnfKtMbkgmEtYpH2gydRNULd6y8mciAFg==}
     dependencies:
       '@types/unist': 3.0.2
-    dev: false
 
   /@types/minimist@1.2.5:
     resolution: {integrity: sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==}
@@ -11088,7 +11090,6 @@ packages:
 
   /@types/unist@3.0.2:
     resolution: {integrity: sha512-dqId9J8K/vGi5Zr7oo212BGii5m3q5Hxlkwy3WpYuKPklmBEvsbMYYyLxAQpSffdLl/gdW0XUpKWFvYmyoWCoQ==}
-    dev: false
 
   /@types/use-subscription@1.0.2:
     resolution: {integrity: sha512-k6CBZX+wR2Ad6/dIrznyyf8foRNVIvMvbwC/aKE2SZ691OpuNfqUkixMCD+e0dH/iEOHlvVZbg7TuRBdraBeEQ==}
@@ -24930,6 +24931,7 @@ time:
   /@types/d3@7.4.3: '2023-11-07T19:52:29.365Z'
   /@types/json-stable-stringify@1.0.34: '2022-03-02T17:32:27.548Z'
   /@types/lodash-es@4.17.12: '2023-11-21T16:07:38.271Z'
+  /@types/mdast@4.0.3: '2023-11-07T20:25:29.384Z'
   /@types/node@22.10.7: '2025-01-16T00:46:59.957Z'
   /@types/react-avatar-editor@13.0.3: '2024-08-26T15:07:40.064Z'
   /@types/react-dom@19.0.2: '2024-12-09T19:32:15.544Z'

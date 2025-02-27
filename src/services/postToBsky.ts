@@ -29,12 +29,16 @@ export async function postToBsky(
     const bskyPostId = postId.Bsky;
     const rootPost = getCompositePost(id);
     const bskyRootPostId =
-        rootPost?.rootPost.postId.Bsky ?? bskyParentPost?.rootPostId ?? bskyParentPost?.publicationId ?? '';
+        bskyParentPost?.type === 'Quote'
+            ? bskyParentPost?.publicationId
+            : (rootPost?.rootPost.postId.Bsky ?? bskyParentPost?.rootPostId ?? bskyParentPost?.publicationId ?? '');
     const bskyRootPostContentURI =
-        rootPost?.rootPost.postContentURI.Bsky ??
-        bskyParentPost?.rootContentURI ??
-        bskyParentPost?.metadata?.contentURI ??
-        '';
+        bskyParentPost?.type === 'Quote'
+            ? bskyParentPost?.metadata?.contentURI
+            : (rootPost?.rootPost.postContentURI.Bsky ??
+              bskyParentPost?.rootContentURI ??
+              bskyParentPost?.metadata?.contentURI ??
+              '');
     const sourceName = resolveSourceName(Source.Bsky);
 
     if (bskyPostId) return;

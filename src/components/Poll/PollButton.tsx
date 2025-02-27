@@ -6,17 +6,16 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SORTED_POLL_SOURCES } from '@/constants/index.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
-import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export const PollButton = memo(function PollButton() {
-    const { video, images, poll, availableSources, typedMessage } = useCompositePost();
+    const { video, images, poll, availableSources, rpPayload } = useCompositePost();
     const { createPoll } = useComposeStateStore();
 
     const isPollSupported =
         availableSources.length > 0 && availableSources.every((x) => SORTED_POLL_SOURCES.includes(x));
-    const hasConflictContent = !!video || images.length > 0 || !!poll || !!hasRpPayload(typedMessage);
+    const hasConflictContent = !!video || images.length > 0 || !!poll || !!rpPayload;
 
     return (
         <Tooltip

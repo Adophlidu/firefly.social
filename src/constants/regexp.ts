@@ -10,8 +10,6 @@ export const LITE_EMAIL_REGEX = /^[\w.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i;
 
 export const MENTION_REGEX = /@[^\s()@:%+~#?&=,!?']+/g;
 
-export const HASHTAG_REGEX = /(?<=\s|^|[\n])#(?!\d+$)([\p{L}\p{N}._-]*[\p{L}\p{N}])/gu;
-
 /** Financial symbol */
 export const SYMBOL_REGEX = /(^|\s)(\$([a-zA-Z0-9]|\p{Script=Han})+)/gu;
 

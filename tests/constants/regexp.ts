@@ -2,14 +2,7 @@ import { first } from 'lodash-es';
 import { describe, expect, it } from 'vitest';
 
 import { LINK_MARK_RE } from '@/constants/linkRegExp.js';
-import {
-    CHANNEL_REGEX,
-    HASHTAG_REGEX,
-    MENTION_REGEX,
-    SYMBOL_REGEX,
-    URL_INPUT_REGEX,
-    URL_REGEX,
-} from '@/constants/regexp.js';
+import { CHANNEL_REGEX, MENTION_REGEX, SYMBOL_REGEX, URL_INPUT_REGEX, URL_REGEX } from '@/constants/regexp.js';
 
 function matchUrl(regExp: RegExp) {
     return () => {
@@ -162,51 +155,6 @@ describe('MENTION_REGEXP', () => {
             MENTION_REGEX.lastIndex = 0;
 
             const [matched] = input.match(MENTION_REGEX) ?? [null];
-            expect(matched).toBe(expectedOutput);
-        });
-    });
-});
-
-describe('HASHTAG_REGEXP', () => {
-    it('should match a hashtag', () => {
-        const cases = [
-            ['#hello', '#hello'],
-            ['hello', null],
-            ['hello#', null],
-            ['hello #', null],
-            ['#hello_world', '#hello_world'],
-            ['hello #world', '#world'],
-            ['/frame#dev', null],
-            [['This is message', 'with a #hashtag'].join('\n'), '#hashtag'],
-            ['#你好', '#你好'],
-            ['This is message, with #你好', '#你好'],
-            ['#h100', '#h100'],
-            ['##', null],
-            ['#hello#', '#hello'],
-            ['#hello#other', '#hello'],
-            ['#123', null],
-            ['#hello"', '#hello'],
-            ['#hello!', '#hello'],
-            ['#world?', '#world'],
-            ['#good@morning', '#good'],
-            ['#hash-tag', '#hash-tag'],
-            ['#hello.world', '#hello.world'],
-            ['#hello..world', '#hello..world'],
-            ['#hello-', '#hello'],
-            ['#hello.', '#hello'],
-            ['#hello*world', '#hello'],
-            ['#你好_世界', '#你好_世界'],
-            ['#emoji🔥', '#emoji'],
-            ['#hash,tag', '#hash'],
-            ['#tag123', '#tag123'],
-            ['#123tag', '#123tag'],
-        ] as Array<[string, string | null]>;
-
-        cases.forEach(([input, expectedOutput]) => {
-            // reset the regex
-            HASHTAG_REGEX.lastIndex = 0;
-
-            const [matched] = input.match(HASHTAG_REGEX) ?? [null];
             expect(matched).toBe(expectedOutput);
         });
     });

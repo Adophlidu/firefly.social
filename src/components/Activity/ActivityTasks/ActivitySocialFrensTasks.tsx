@@ -50,7 +50,7 @@ Claim here ${shareUrl}`,
         );
     }, [farHandle, lensHandle, name, primarySource]);
 
-    const verified = claimCondition?.lens?.valid || claimCondition?.farcaster?.valid;
+    const verified = !!(claimCondition?.lens?.valid || claimCondition?.farcaster?.valid);
     const blocked =
         {
             [Source.Lens]: claimCondition?.lens?.participationBlocked,

@@ -429,10 +429,14 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) =>
                 next(
                     state,
-                    (post) => ({
-                        ...post,
-                        images: post.images.filter((image) => image.file !== target.file),
-                    }),
+                    (post) => {
+                        const images = post.images.filter((image) => image.file !== target.file);
+                        return {
+                            ...post,
+                            rpPayload: images.length === 0 ? null : post.rpPayload,
+                            images,
+                        };
+                    },
                     cursor,
                 ),
             ),

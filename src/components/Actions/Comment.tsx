@@ -44,6 +44,7 @@ export const Comment = memo<CommentProps>(function Comment({ post, disabled = fa
         if (disabled) return true;
         if ('canComment' in post) return !post.canComment;
         if (restrictions) {
+            if (isSameProfile(author, profile)) return false;
             let isDisabled = true;
             for (const restriction of restrictions) {
                 switch (restriction) {

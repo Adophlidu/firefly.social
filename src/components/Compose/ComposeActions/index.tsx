@@ -53,7 +53,7 @@ export function ComposeActions() {
         getCurrentPostGifLimits(availableSources),
     );
 
-    const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;
+    const mediaDisabled = !!video || !!poll || !!rpPayload || images.length >= maxImageCount;
     const scheduleDisabled = availableSources.some((x) => !ENABLED_SCHEDULE_POST_SOURCES.includes(x));
 
     const hasError = useMemo(() => {

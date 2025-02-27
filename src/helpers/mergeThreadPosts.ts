@@ -135,6 +135,9 @@ function mergeThreadPostsForBsky(posts: Post[]) {
                     post.commentOn?.publicationId !== post.rootPostId
                         ? rootPostMap.get(post.rootPostId)
                         : undefined,
+                commentOn: post.commentOn?.publicationId
+                    ? (rootPostMap.get(post.commentOn?.publicationId) ?? post.commentOn) // There is full information in the post of the root timeline
+                    : post.commentOn,
                 isThread: true,
             };
         }
@@ -223,6 +226,17 @@ export function mergeThreadPostsWithoutSource(posts: Post[]): Post[] {
                 return true;
             }
             case Source.Bsky:
+                if (post.type !== 'Comment') return true;
+                if (record.has(post.postId) || record.has(post.commentOn?.postId)) return false;
+                if (
+                    post.root &&
+                    isSameProfile(post.commentOn?.author, post.author) &&
+                    isSameProfile(post.author, post.root.author) &&
+                    !record.has(post.root.postId)
+                ) {
+                    record.add(post.root.postId);
+                    return true;
+                }
                 return true;
             default:
                 safeUnreachable(post.source);

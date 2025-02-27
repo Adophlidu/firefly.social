@@ -4,15 +4,16 @@ import { compact } from 'lodash-es';
 import { type DetailedHTMLProps, memo, type OlHTMLAttributes, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
-// @ts-expect-error
 import linkifyRegex from 'remark-linkify-regex';
 import stripMarkdown from 'strip-markdown';
 
 import { Code } from '@/components/Code.js';
 import type { MarkupProps } from '@/components/Markup/Markup.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
-import { CHANNEL_REGEX, HASHTAG_REGEX, URL_REGEX } from '@/constants/regexp.js';
+import { HashTagLink } from '@/components/Markup/plugins/HashTagLink.js';
+import { CHANNEL_REGEX, URL_REGEX } from '@/constants/regexp.js';
 import { isChannelSupported } from '@/helpers/isChannelSupported.js';
+import type { Pluggable } from '@/types/index.js';
 
 const trimify = (value: string): string => value.replace(/\n\n\s*\n/g, '\n\n').trim();
 
@@ -20,14 +21,14 @@ function Ol(props: DetailedHTMLProps<OlHTMLAttributes<HTMLOListElement>, HTMLOLi
     return <ol {...props} style={{ counterReset: `list-counter ${props.start ? props.start - 1 : ''}` }} />;
 }
 export const Markup = memo<MarkupProps>(function Markup({ children, post, ...rest }) {
-    const plugins = useMemo(() => {
+    const plugins = useMemo<Pluggable[]>(() => {
         if (!post?.mentions?.length)
             return compact([
                 [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'list', 'listItem'] }],
                 remarkBreaks,
                 linkifyRegex(URL_REGEX),
                 isChannelSupported(post?.source) ? linkifyRegex(CHANNEL_REGEX) : undefined,
-                linkifyRegex(HASHTAG_REGEX),
+                HashTagLink(post?.source),
             ]);
         const handles = post.mentions.map((x) => x.fullHandle);
         const mentionRe = new RegExp(`@(${handles.join('|')})`, 'g');
@@ -40,7 +41,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             linkifyRegex(mentionRe),
             linkifyRegex(URL_REGEX),
             isChannelSupported(post.source) ? linkifyRegex(CHANNEL_REGEX) : undefined,
-            linkifyRegex(HASHTAG_REGEX),
+            HashTagLink(post.source),
         ]);
     }, [post?.mentions, post?.source]);
 

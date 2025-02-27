@@ -20,13 +20,14 @@ export const MediaAction = memo(function MediaAction() {
     const { type } = useComposeStateStore();
     const [open, setOpen] = useState(false);
 
-    const { availableSources, images, video, poll } = post;
+    const { availableSources, images, video, poll, rpPayload } = post;
     const maxGifCount = getCurrentPostGifLimits(availableSources);
     const maxImageCount = getCurrentPostImageLimits(type, availableSources);
     const mediaDisabled =
+        !!rpPayload ||
         !!video ||
-        images.length >= maxImageCount ||
         !!poll ||
+        images.length >= maxImageCount ||
         images.filter((x) => x.file.type === FileMimeType.GIF).length >= maxGifCount;
 
     const buttonContent = (

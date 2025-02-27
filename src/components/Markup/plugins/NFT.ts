@@ -1,8 +1,9 @@
+import type { Root } from 'mdast';
 import flatMap from 'unist-util-flatmap';
 
 export function NFTPlugin() {
-    return () => (ast: any) => {
-        flatMap(ast, (node: any) => {
+    return () => (ast: Root) => {
+        flatMap(ast, (node) => {
             if (node.type !== 'text') return [node];
             if (node.value.startsWith('nft://')) {
                 return [
@@ -10,6 +11,7 @@ export function NFTPlugin() {
                         type: 'link',
                         title: node.value,
                         url: node.value,
+                        children: [{ type: 'text', value: node.value }],
                     },
                 ];
             }

@@ -1,30 +1,9 @@
-// @ts-expect-error
+import type { PhrasingContent, Root, RootContent, Text } from 'mdast';
 import linkifyRegex from 'remark-linkify-regex';
 
 import { URL_REGEX } from '@/constants/regexp.js';
 
-type Position = Record<'start' | 'end', Record<'line' | 'column' | 'offset', number>>;
-
-interface TextNode {
-    type: 'text';
-    value: string;
-    children?: AstNode[];
-}
-interface LinkNode {
-    type: 'link';
-    url: string;
-    title: string;
-    children?: AstNode[];
-}
-type AstNode = TextNode | LinkNode;
-
-interface AstRoot {
-    type: 'root' | 'paragraph';
-    children: AstNode[];
-    position: Position;
-}
-
-function removeMentionFromLink(nodes: AstNode[]) {
+function removeMentionFromLink<T extends PhrasingContent | RootContent>(nodes: T[]): Array<T | Text> {
     return nodes.map((node, index) => {
         const prevNode = nodes[index - 1];
         if (
@@ -35,11 +14,11 @@ function removeMentionFromLink(nodes: AstNode[]) {
         ) {
             return {
                 type: 'text',
-                value: node.title,
-            } satisfies TextNode;
+                value: node.title!,
+            } satisfies Text;
         }
-        if (node.children?.length) {
-            node.children = removeMentionFromLink(node.children);
+        if ('children' in node && node.children?.length) {
+            node.children = removeMentionFromLink(node.children as PhrasingContent[]);
         }
 
         return node;
@@ -47,8 +26,8 @@ function removeMentionFromLink(nodes: AstNode[]) {
 }
 
 export function UrlPlugin() {
-    return (ast: AstRoot) => {
-        const root: AstRoot = linkifyRegex(URL_REGEX)()(ast);
+    return (ast: Root) => {
+        const root: Root = linkifyRegex(URL_REGEX)()(ast);
         if (root.children.length) {
             root.children = removeMentionFromLink(root.children);
         }
