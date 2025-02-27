@@ -13,13 +13,13 @@ function resolveImgurUrl(url: string) {
 
     const u = new URL(url);
     if (u.protocol !== 'https:') return;
-    if (u.host !== 'i.imgur.com') return;
+    if (u.host !== 'i.imgur.com') return url;
 
     return `https://res.cloudinary.com/merkle-manufactory/image/fetch/c_fill,f_jpg,w_144/${encodeURIComponent(url)}`;
 }
 
 function resolveAvatarFallbackUrl(url: string, isDarkMode = false) {
-    if (!url?.startsWith('https://cdn.stamp.fyi/avatar/eth:')) return;
+    if (!url?.startsWith('https://cdn.stamp.fyi/avatar/eth:')) return url;
     return isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
 }
 
