@@ -3,6 +3,7 @@ import { uniqBy } from 'lodash-es';
 import { type PropsWithChildren } from 'react';
 
 import { NoSSR } from '@/components/NoSSR.js';
+import { HackedWarningCard } from '@/components/Profile/HackedWarningCard.js';
 import { Info } from '@/components/Profile/Info.js';
 import { ProfileNotFound } from '@/components/Profile/ProfileNotFound.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
@@ -44,7 +45,12 @@ export async function ProfilePageLayout({
                     identity={identity}
                 />
                 {profile || walletProfile ? (
-                    <Title profile={profile} profiles={profiles} fallbackIdentity={identity} />
+                    <Title
+                        profile={profile}
+                        profiles={profiles}
+                        fallbackIdentity={identity}
+                        fallbackWalletProfile={walletProfile}
+                    />
                 ) : null}
                 {identity.source === Source.Wallet && walletProfile ? (
                     <WalletInfo profile={walletProfile} />
@@ -54,8 +60,9 @@ export async function ProfilePageLayout({
                     <SuspendedAccountInfo source={resolvedSource} />
                 ) : null}
                 <ProfileTabs profiles={profiles} identity={identity} />
+                {identity.source === Source.Wallet && walletProfile?.hacked ? <HackedWarningCard /> : null}
                 <NoSSR>{children}</NoSSR>
-                {profile ? <ProfileDetailEffect profile={profile} identity={identity} /> : null}
+                <ProfileDetailEffect profile={profile} identity={identity} walletProfile={walletProfile} />
             </>
         );
     } catch (error) {

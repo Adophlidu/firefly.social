@@ -5,6 +5,10 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 
 const currentVisitingProfile = new ValueRef<Profile | null>(null);
 
+export function updateCurrentVisitingProfile(profile: Profile | null) {
+    currentVisitingProfile.value = profile;
+}
+
 export function useUpdateCurrentVisitingProfile(profile: Profile | null) {
     useEffect(() => {
         currentVisitingProfile.value = profile;

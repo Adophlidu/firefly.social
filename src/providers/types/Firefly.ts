@@ -488,6 +488,7 @@ export interface WalletProfile {
     avatar?: string;
     primary_ens?: string | null;
     blocked?: boolean;
+    hacked?: boolean;
 }
 
 export interface LensV3Profile {
@@ -1393,3 +1394,10 @@ export interface TokenWithMarketData {
     symbol: string;
     web_slug: string;
 }
+
+export type WalletsStatusResponse = Response<
+    Array<{
+        address: string;
+        is_hack: false;
+    }>
+>;

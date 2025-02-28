@@ -4,6 +4,7 @@ import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { type HTMLProps, useState } from 'react';
 
 import ComeBackIcon from '@/assets/comeback.svg';
+import { HackedButton } from '@/components/Profile/HackedButton.js';
 import { ProfileAction } from '@/components/Profile/ProfileAction.js';
 import { WalletMoreAction } from '@/components/Profile/WalletMoreAction.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
@@ -11,16 +12,16 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
-import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useCurrentFireflyProfiles } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useRefreshedProfile } from '@/hooks/useRefreshedProfile.js';
-import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 interface TitleProps extends HTMLProps<HTMLDivElement> {
     profile?: Profile | null;
+    fallbackWalletProfile?: WalletProfile | null;
     profiles?: FireflyProfile[];
     /** Always visible */
     sticky?: boolean;
@@ -35,6 +36,7 @@ export function Title({
     keepVisible,
     disableActions,
     fallbackIdentity,
+    fallbackWalletProfile,
     className,
     ...rest
 }: TitleProps) {
@@ -49,20 +51,19 @@ export function Title({
     });
 
     const comeback = useComeBack();
-    const { identity: cachedIdentity } = useFireflyIdentityState();
-    const identity = fallbackIdentity?.id ? fallbackIdentity : cachedIdentity;
-
-    const isOthersProfile = !currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
-
-    const { walletProfile } = resolveFireflyProfiles(identity, profiles);
+    const state = useFireflyIdentityState();
+    const identity = fallbackIdentity?.id ? fallbackIdentity : state.identity;
+    const walletProfile = fallbackWalletProfile ? fallbackWalletProfile : state.walletProfile;
 
     const { data: profile } = useRefreshedProfile(rest.profile);
 
+    const isOthersProfile = !currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
     if ((profiles.length > 1 || !isOthersProfile) && !reached && !sticky) return null;
 
     const renderActions = () => {
         if (!reached && !sticky) return null;
         if (profile) return <ProfileAction profile={profile} />;
+        if (walletProfile?.hacked) return <HackedButton />;
         if (walletProfile)
             return (
                 <>

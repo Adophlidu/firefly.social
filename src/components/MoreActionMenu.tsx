@@ -7,6 +7,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
+import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 interface MoreActionMenuProps extends MenuProps<'div'> {
     button: React.ReactNode;
@@ -26,6 +27,9 @@ export function MoreActionMenu({
     loginRequired = true,
 }: MoreActionMenuProps) {
     const isLogin = useIsLogin();
+    const { walletProfile } = useFireflyIdentityState();
+
+    if (walletProfile?.hacked) return null;
 
     return (
         <Menu className={classNames('relative', className)} as="div" onClick={stopEvent}>

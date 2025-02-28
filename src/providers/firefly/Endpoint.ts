@@ -98,6 +98,7 @@ import {
     type WalletProfile,
     type WalletProfileResponse,
     type WalletsFollowStatusResponse,
+    type WalletsStatusResponse,
     WatchType,
 } from '@/providers/types/Firefly.js';
 import type { DiscoverNFTResponseV2, GetFollowingNFTResponse, NFTFeed } from '@/providers/types/NFTs.js';
@@ -357,8 +358,7 @@ export class FireflyEndpoint {
         identity: FireflyIdentity,
         isTokenRequired: boolean,
     ): Promise<FireflyProfile[]> {
-        const response = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, isTokenRequired);
-        const profiles = resolveFireflyResponseData(response);
+        const profiles = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, isTokenRequired);
         return formatFireflyProfilesFromWalletProfiles(profiles);
     }
 
@@ -369,7 +369,7 @@ export class FireflyEndpoint {
             if (did) options.bskyDid = did;
         }
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile', { ...options });
-        return fireflySessionHolder.fetch<WalletProfileResponse>(
+        const response = await fireflySessionHolder.fetch<WalletProfileResponse>(
             url,
             {
                 method: 'GET',
@@ -378,6 +378,20 @@ export class FireflyEndpoint {
                 withSession: isTokenRequired,
             },
         );
+        const data = resolveFireflyResponseData(response);
+
+        // patch hacked for wallet profiles
+        if (data.walletProfiles.length) {
+            const walletsStatus = await this.getWalletsStatus(data.walletProfiles.map((x) => x.address));
+            data.walletProfiles = data.walletProfiles.map((profile) => {
+                return {
+                    ...profile,
+                    hacked: walletsStatus.some((x) => isSameAddress(x.address, profile.address) && x.is_hack),
+                };
+            });
+        }
+
+        return data;
     }
 
     async getNextIDRelations(platform: string, identity: string) {
@@ -1006,6 +1020,17 @@ export class FireflyEndpoint {
             }),
         });
 
+        return resolveFireflyResponseData(response);
+    }
+
+    async getWalletsStatus(addresses: string[]) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/status');
+        const response = await fireflySessionHolder.fetch<WalletsStatusResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                addresses,
+            }),
+        });
         return resolveFireflyResponseData(response);
     }
 }

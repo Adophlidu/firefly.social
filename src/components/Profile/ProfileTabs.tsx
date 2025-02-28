@@ -2,6 +2,7 @@
 
 import { startTransition } from 'react';
 
+import DangerIcon from '@/assets/danger.svg';
 import FireflyLogo from '@/assets/firefly.round.svg';
 import { Link } from '@/components/Link.js';
 import { SourceTabs } from '@/components/SourceTabs/index.js';
@@ -89,6 +90,7 @@ export function ProfileTabs({ profiles: otherProfiles, identity }: ProfileTabsPr
 
                 const isWalletProfile = profile.identity.source === Source.Wallet;
                 const isMPC = isWalletProfile && isMPCWallet(profile.__origin__ as WalletProfile);
+                const isHacked = isWalletProfile && (profile.__origin__ as WalletProfile).hacked;
 
                 if (!isProfilePageSource(profile.identity.source)) return null;
 
@@ -117,7 +119,9 @@ export function ProfileTabs({ profiles: otherProfiles, identity }: ProfileTabsPr
                             if (isActive && node) node.scrollIntoView({ inline: 'center' });
                         }}
                     >
-                        {isMPC ? (
+                        {isHacked ? (
+                            <DangerIcon width={14} height={14} />
+                        ) : isMPC ? (
                             <FireflyLogo width={14} height={14} />
                         ) : (
                             <SquareSourceIcon

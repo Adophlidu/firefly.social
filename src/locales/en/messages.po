@@ -1908,6 +1908,9 @@ msgstr "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>@{2}</2> on {3}"
 msgid "Follow Back"
 msgstr "Follow Back"
 
+msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
+msgstr "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
+
 msgid "Are you sure you want to report this article?"
 msgstr "Are you sure you want to report this article?"
 

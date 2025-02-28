@@ -63,6 +63,6 @@ export function resolveFireflyAccountId(identity: FireflyIdentity | null) {
     if (!identity) return;
 
     return FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false)
-        .then((x) => x.data?.fireflyAccountId)
+        .then((x) => x.fireflyAccountId)
         .catch(() => undefined);
 }

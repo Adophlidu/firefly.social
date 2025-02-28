@@ -1905,6 +1905,9 @@ msgstr ""
 msgid "Follow Back"
 msgstr "立即回關"
 
+msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
+msgstr ""
+
 msgid "Are you sure you want to report this article?"
 msgstr "是否確定要檢舉這篇文章？"
 
