@@ -10,7 +10,6 @@ import type {
 } from '@farcaster/frame-host';
 import { noop } from 'lodash-es';
 
-import { NotImplementedError } from '@/constants/error.js';
 import { openWindow } from '@/helpers/openWindow.js';
 
 export class FarcasterFrameHost implements Omit<FrameHost, 'ethProviderRequestV2'> {
@@ -28,7 +27,9 @@ export class FarcasterFrameHost implements Omit<FrameHost, 'ethProviderRequestV2
 
     addFrame = (): ReturnType<AddFrame> => {
         if (this.options?.debug) console.log('[frame host] add frame');
-        throw new NotImplementedError();
+        return Promise.resolve({
+            added: true,
+        });
     };
 
     close = () => {
@@ -53,7 +54,10 @@ export class FarcasterFrameHost implements Omit<FrameHost, 'ethProviderRequestV2
 
     signIn = (options: SignInOptions): ReturnType<SignIn.SignIn> => {
         if (this.options?.debug) console.log('[frame host] sign in', options);
-        throw new NotImplementedError();
+        return Promise.resolve({
+            message: '0x',
+            signature: '0x',
+        });
     };
 
     ethProviderRequest = noop as EthProviderRequest;
