@@ -565,7 +565,7 @@ export class BskySocialMedia implements Provider {
         const size = 20;
         const response = await bskySessionHolder.agent.getSuggestions({
             limit: size,
-            cursor: indicator?.id,
+            cursor: indicator?.id ?? '',
         });
         const detailedResponse = await bskySessionHolder.agent.getProfiles({
             actors: response.data.actors.map((x) => x.did),
