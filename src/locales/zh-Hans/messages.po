@@ -154,9 +154,6 @@ msgstr "稍等！满足以下任一条件以解锁优质 NFT："
 msgid "Communities"
 msgstr "社区"
 
-msgid "Discover"
-msgstr "发现"
-
 msgid "{shares, plural, one {Repost or Quote} other {Reposts or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
@@ -1899,6 +1896,9 @@ msgstr "操作无法回滚，并且定时任务将会被取消。"
 
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 msgstr "此合约是一个管理升级代理合约。代理合约意味着合同所有者可以修改通证的功能，并且可能影响价格。这可能是团队跑路或者诈骗的一种方式。请在购买之前与项目团队确认细节。"
+
+msgid "For You"
+msgstr ""
 
 msgid "Failed to fetch bookmarks."
 msgstr "获取收藏失败。"

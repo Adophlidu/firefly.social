@@ -1,51 +1,20 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { uniqBy } from 'lodash-es';
 import { memo, useMemo } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, type SocialDiscoverSource, type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST, SOCIAL_DISCOVER_SOURCE, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { getPostsSelector, getPostsSelectorWithoutSource } from '@/helpers/getPostsSelector.js';
+import { ScrollListKey, type SocialDiscoverSource, Source } from '@/constants/enum.js';
+import { EMPTY_LIST, SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
 import { mergeThreadPostsWithoutSource } from '@/helpers/mergeThreadPosts.js';
-import { multiQueryPageable } from '@/helpers/multiQueryPageable.js';
-import { createIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
+import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { sortMultiSourcePosts } from '@/helpers/sortMultiSourcePosts.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useImpressionsStore } from '@/store/useImpressionsStore.js';
-
-async function discoverPostsById(
-    source: SocialSource | Source.Posts,
-    profileAll: Record<SocialSource, Profile | null>,
-    indicator: PageIndicator,
-) {
-    if (source === Source.Posts) {
-        const pageable = await multiQueryPageable(
-            SOCIAL_DISCOVER_SOURCE.filter((x) => profileAll[x]),
-            async (source, indicatorId) => {
-                const profile = profileAll[source]!;
-                return resolveSocialMediaProvider(source).discoverPostsById(
-                    profile?.profileId,
-                    createIndicator(undefined, indicatorId ?? ''),
-                );
-            },
-            indicator,
-        );
-        return {
-            ...pageable,
-            data: sortMultiSourcePosts(pageable.data),
-        };
-    }
-    const provider = resolveSocialMediaProvider(source);
-    const profile = profileAll[source];
-    if (!profile) return createPageable(EMPTY_LIST, indicator);
-    return provider.discoverPostsById(profile.profileId, indicator);
-}
+import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
+import { useDiscoverStore } from '@/store/useDiscoverStore.js';
 
 function useIsLoginDiscoverNeed(source: SocialDiscoverSource | Source.Posts) {
     const currentProfileAll = useCurrentProfileAll();
@@ -60,37 +29,39 @@ export const FollowingPostList = memo<{
     source: SocialDiscoverSource | Source.Posts;
 }>(function FollowingPostList({ source }) {
     const isLogin = useIsLoginDiscoverNeed(source);
-
     const currentProfileAll = useCurrentProfileAll();
-    const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
-    const queryResult = useSuspenseInfiniteQuery({
-        queryKey: [
-            'posts',
-            source,
-            'following',
-            isLogin,
-            SORTED_SOCIAL_SOURCES.map((x) => currentProfileAll[x]?.profileId),
-        ],
-        queryFn: async ({ pageParam }) => {
-            if (!isLogin) return;
-            const posts = await discoverPostsById(source, currentProfileAll, createIndicator(undefined, pageParam));
-            if (source === Source.Lens) {
-                const ids = posts.data.flatMap((x) => [x.postId]);
-                fetchAndStoreViews(ids);
-            }
-            return posts;
+    const sources = useDiscoverStore((state) =>
+        state.enabledFilterPlatform
+            ? SOCIAL_DISCOVER_SOURCE.filter((x) => !state.filteredPlatforms.includes(x))
+            : SOCIAL_DISCOVER_SOURCE,
+    );
+
+    const queryResult = useMultiInfiniteQueryPageable(
+        ['posts', source, 'following', isLogin, ...sources],
+        sources.map((source) => ({
+            key: source,
+            async queryFn({ pageParam }) {
+                const indicator = createIndicator(undefined, pageParam);
+                if (!isLogin) return createPageable(EMPTY_LIST, indicator);
+                const profile = currentProfileAll[source];
+                if (!profile?.profileId) return createPageable(EMPTY_LIST, indicator);
+                return resolveSocialMediaProvider(source).discoverPostsById(profile.profileId, indicator);
+            },
+        })),
+        (data) => {
+            const posts = data.pages.flatMap((page) =>
+                Object.values(page)
+                    ?.flatMap((pageable) => pageable.data)
+                    .sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0)),
+            );
+            const uniqPosts = uniqBy(posts, (post) => {
+                if (post.mirrors?.length || post.type === 'Mirror') return `${post.postId}:mirror`;
+                return post.postId;
+            });
+            return mergeThreadPostsWithoutSource(uniqPosts);
         },
-        initialPageParam: '',
-        getNextPageParam: (lastPage) => {
-            if (lastPage?.data.length === 0) return;
-            return lastPage?.nextIndicator?.id;
-        },
-        select: (data) => {
-            if (source === Source.Posts) return mergeThreadPostsWithoutSource(getPostsSelectorWithoutSource(data));
-            return getPostsSelector(source)(data);
-        },
-    });
+    );
 
     return (
         <ListInPage

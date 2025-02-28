@@ -1,14 +1,17 @@
 'use client';
 
+import { Menu } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
 import { usePathname } from 'next/navigation.js';
 import { useMemo, useState } from 'react';
 
-import { SourceTabs } from '@/components/SourceTabs/index.js';
-import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
+import ArrowDownCircleIcon from '@/assets/arrow-circle-down.svg';
+import { DiscoverFilter } from '@/components/HomeTab/DiscoverFilter.js';
+import { Link } from '@/components/Link.js';
 import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
 import { HomeTab, Source } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
 import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';
 import { parseFollowingPageUrl } from '@/helpers/parseFollowingPageUrl.js';
 import { resolveHomeUrl } from '@/helpers/resolveHomeUrl.js';
@@ -46,24 +49,44 @@ export function HomeTabs() {
         };
     }, [pathname]);
 
+    const texts = {
+        [HomeTab.Discover]: <Trans>For You</Trans>,
+        [HomeTab.Following]: <Trans>Following</Trans>,
+    };
+
     return (
         <div className="sticky top-[54px] z-20 flex w-full flex-col bg-primaryBottom md:top-0">
-            <SourceTabs>
-                {getEnumAsArray(HomeTab).map(({ value: tab }) => {
-                    const type = types[tab].includes(tabSource[tab]) ? tabSource[tab] : types[tab][0];
-                    return (
-                        <SourceTab key={tab} href={resolveHomeUrl(tab, type)} isActive={tab === currentTab}>
-                            {
-                                {
-                                    [HomeTab.Discover]: <Trans>Discover</Trans>,
-                                    [HomeTab.Following]: <Trans>Following</Trans>,
-                                }[tab]
-                            }
-                        </SourceTab>
-                    );
-                })}
-            </SourceTabs>
-            <div className="w-full px-4 py-3">
+            <div className="flex flex-col items-start px-4 py-3">
+                <Menu>
+                    <Menu.Button className="inline-flex h-12 items-center text-xl font-bold">
+                        {texts[currentTab]}
+                        <ArrowDownCircleIcon width={24} height={24} className="ml-[15px] size-6 shrink-0" />
+                    </Menu.Button>
+                    <Menu.Items
+                        transition
+                        anchor="bottom start"
+                        className="z-50 flex w-[128px] origin-top-left flex-col gap-2 overflow-y-auto rounded-[8px] bg-primaryBottom py-3 text-xl font-bold shadow-messageShadow transition data-[closed]:scale-95 data-[closed]:opacity-0"
+                    >
+                        {getEnumAsArray(HomeTab).map(({ value: tab }) => {
+                            const type = types[tab].includes(tabSource[tab]) ? tabSource[tab] : types[tab][0];
+                            return (
+                                <Menu.Item key={tab}>
+                                    <Link
+                                        href={resolveHomeUrl(tab, type)}
+                                        className={classNames('px-3 py-1 hover:opacity-100', {
+                                            'opacity-60': currentTab !== tab,
+                                        })}
+                                    >
+                                        {texts[tab]}
+                                    </Link>
+                                </Menu.Item>
+                            );
+                        })}
+                    </Menu.Items>
+                </Menu>
+            </div>
+
+            <div className="flex w-full items-center justify-between px-4 pb-3">
                 <SolidTabs<Source>
                     data={types[currentTab]}
                     link={(x) => resolveHomeUrl(currentTab, x)}
@@ -76,6 +99,7 @@ export function HomeTabs() {
                         }));
                     }}
                 />
+                <DiscoverFilter />
             </div>
         </div>
     );
