@@ -3,7 +3,6 @@ import { memo, type PropsWithChildren } from 'react';
 import { InitialProviders } from '@/components/InitialProviders.js';
 import { LinguiClientProvider } from '@/components/LinguiClientProvider.js';
 import { QueryClientProviders } from '@/components/QueryClientProviders.js';
-import { SolanaWalletAdapterProvider } from '@/components/SolanaWalletAdapterProvider.js';
 import { WagmiProvider } from '@/components/WagmiProvider.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 
@@ -18,9 +17,7 @@ export const Providers = memo(async function RootProviders({ enableInsights = fa
         <LinguiClientProvider>
             <QueryClientProviders>
                 <InitialProviders>
-                    <SolanaWalletAdapterProvider enableInsights={enableInsights}>
-                        <WagmiProvider enableInsights={enableInsights}>{props.children}</WagmiProvider>
-                    </SolanaWalletAdapterProvider>
+                    <WagmiProvider enableInsights={enableInsights}>{props.children}</WagmiProvider>
                 </InitialProviders>
             </QueryClientProviders>
         </LinguiClientProvider>

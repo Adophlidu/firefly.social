@@ -8,10 +8,10 @@ import { useActionAdapter } from '@/hooks/useActionAdapter.js';
 
 export const ActionContainer = memo<{
     action: Action;
-    url: string;
-}>(function ActionContainer({ action, url }) {
+    url?: string;
+}>(function ActionContainer({ action }) {
     const parsed = parseUrl(action.url);
-    const adapter = useActionAdapter(url);
+    const adapter = useActionAdapter();
 
     return (
         <div
@@ -20,7 +20,7 @@ export const ActionContainer = memo<{
                 e.stopPropagation();
             }}
         >
-            <Blink action={action} adapter={adapter} websiteUrl={parsed?.origin} websiteText={parsed?.host} />
+            <Blink blink={action} adapter={adapter} websiteUrl={parsed?.origin} websiteText={parsed?.host} />
         </div>
     );
 });

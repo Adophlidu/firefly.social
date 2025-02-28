@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro';
 import { unreachable } from '@masknet/kit';
-import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { memo, type MouseEvent } from 'react';
 import { useAsyncFn } from 'react-use';
 import { switchChain } from 'wagmi/actions';
@@ -24,8 +23,6 @@ export const ChainGuardButton = memo<ChainGuardButtonProps>(function ChainBounda
     ...props
 }) {
     const account = useAccountByNetwork(networkType);
-
-    const solanaWalletModal = useWalletModal();
 
     const [{ loading }, handleClick] = useAsyncFn(
         async (event: MouseEvent<HTMLButtonElement>) => {
@@ -57,7 +54,7 @@ export const ChainGuardButton = memo<ChainGuardButtonProps>(function ChainBounda
                             ConnectModalRef.open();
                             break;
                         case NetworkType.Solana:
-                            solanaWalletModal.setVisible(true);
+                            ConnectModalRef.open();
                             break;
                         default:
                             unreachable(networkType);

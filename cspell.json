@@ -121,7 +121,9 @@
         "zksync",
         "zora",
         "zustand",
-        "mdast"
+        "mdast",
+        "zustand",
+        "sepolia"
     ],
     "ignoreWords": [
         "DEVNET",

@@ -1,145 +1,83 @@
-import { web3 } from '@coral-xyz/anchor';
-import {
-    ActionConfig as RawActionConfig,
-    BlockchainIds,
-    createSignMessageText,
-    type SignMessageData,
-    type SignMessageVerificationOptions,
-    verifySignMessageData,
-} from '@dialectlabs/blinks';
-import { t } from '@lingui/core/macro';
-import type { ChainId } from '@masknet/web3-shared-evm';
-import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { useWalletModal } from '@solana/wallet-adapter-react-ui';
+import { BlockchainIds, createSignMessageText } from '@dialectlabs/blinks';
+import { useEvmWagmiAdapter } from '@dialectlabs/blinks/hooks/evm';
+import { BlinkSolanaConfig } from '@dialectlabs/blinks-core/solana';
+import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
+import { VersionedTransaction } from '@solana/web3.js';
 import bs58 from 'bs58';
-import { pick } from 'lodash-es';
-import { useCallback, useMemo } from 'react';
-import { type Hex, isHex, parseTransaction } from 'viem';
-import { useAccount, useSendTransaction, useSignMessage } from 'wagmi';
+import { useMemo } from 'react';
 
-import { simulate } from '@/components/TransactionSimulator/simulate.js';
 import { chains } from '@/configs/wagmiClient.js';
-import { TransactionSimulationError } from '@/constants/error.js';
-import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
-import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
-import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
+import { decodeBase64 } from '@/helpers/decodeBase64.js';
+import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
+import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { ConnectModalRef } from '@/modals/controls.js';
-import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 
-class ActionConfig extends RawActionConfig {
-    override async confirmTransaction(signature: string) {
-        const signatureJSON = parseJSON(signature) as { txHash: string; chainId: ChainId } | null;
-        if (signatureJSON?.chainId && isHex(signatureJSON.txHash)) {
-            await waitForEthereumTransaction(signatureJSON.chainId, signatureJSON.txHash);
-            return;
-        }
-        return super.confirmTransaction(signature);
-    }
-}
-
-export function useActionAdapter(url?: string) {
-    const { connection } = useConnection();
-    const wallet = useWallet();
-    const walletModal = useWalletModal();
-    const { sendTransactionAsync } = useSendTransaction();
-    const evmAccount = useAccount();
-    const { signMessageAsync } = useSignMessage();
-
-    const signEvmTransaction = useCallback(
-        async (txData: Hex) => {
-            try {
-                if (!evmAccount?.address) {
-                    ConnectModalRef.open();
-                    return;
-                }
-                const { chainId, ...parsedTransaction } = parseTransaction(txData);
-                if (chainId && chainId !== EthereumNetwork.getChainId()) {
-                    await switchEthereumChain(chainId as ChainId);
-                }
-                await simulate({
-                    url,
-                    chainId: chainId || EthereumNetwork.getChainId(),
-                    transaction: parsedTransaction,
-                });
-                const txHash = await sendTransactionAsync(pick(parsedTransaction, 'data', 'to', 'value', 'type'));
-                return {
-                    signature: JSON.stringify({ txHash, chainId }),
-                };
-            } catch (error) {
-                if (error instanceof TransactionSimulationError) return;
-                enqueueMessageFromError(error, t`Signing failed.`);
-                return { error: t`Signing failed.` };
-            }
+export function useActionAdapter() {
+    const { adapter: evmAdapter } = useEvmWagmiAdapter({
+        async onConnectWalletRequest() {
+            await ConnectModalRef.openAndWaitForClose();
         },
-        [evmAccount?.address, url, sendTransactionAsync],
-    );
-
-    const signSolanaTransaction = useCallback(
-        async (txData: string) => {
-            try {
-                const tx = await wallet.sendTransaction(
-                    web3.VersionedTransaction.deserialize(Buffer.from(txData, 'base64')),
-                    connection,
-                );
-                return { signature: tx };
-            } catch (error) {
-                enqueueMessageFromError(error, t`Signing failed.`);
-                return { error: t`Signing failed.` };
-            }
-        },
-        [connection, wallet],
-    );
+    });
+    const { connection } = useAppKitConnection();
+    const walletProvider = useSolanaWalletProvider();
+    const solanaAdapter = useMemo(() => {
+        return new BlinkSolanaConfig(connection ?? getSolanaRPCUrl(), {
+            async signMessage(data) {
+                if (!walletProvider) {
+                    await ConnectModalRef.openAndWaitForClose();
+                    return { error: 'Connection error' };
+                }
+                const text = typeof data === 'string' ? data : createSignMessageText(data);
+                const encoded = new TextEncoder().encode(text);
+                const signed = await walletProvider?.signMessage(encoded);
+                const encodedSignature = bs58.encode(signed);
+                return { signature: encodedSignature };
+            },
+            async signTransaction(txData) {
+                try {
+                    if (!walletProvider) {
+                        await ConnectModalRef.openAndWaitForClose();
+                        return { error: 'Connection error' };
+                    }
+                    const tx = await walletProvider?.signAndSendTransaction(
+                        VersionedTransaction.deserialize(decodeBase64(txData)),
+                    );
+                    return { signature: tx };
+                } catch {
+                    return { error: 'Signing failed.' };
+                }
+            },
+            async connect() {
+                await ConnectModalRef.openAndWaitForClose();
+                return null;
+            },
+        });
+    }, [connection, walletProvider]);
 
     return useMemo(() => {
-        function verifySignDataValidity(data: string | SignMessageData, opts: SignMessageVerificationOptions) {
-            if (typeof data === 'string') {
-                return true;
-            }
-            const errors = verifySignMessageData(data, opts);
-            if (errors.length > 0) {
-                console.warn(`[@dialectlabs/blinks] Sign message data verification error: ${errors.join(', ')}`);
-            }
-            return errors.length === 0;
-        }
-
-        return new ActionConfig(connection, {
+        return new BlinkSolanaConfig(connection ?? getSolanaRPCUrl(), {
             async signMessage(data, context) {
                 const isEVM = context.action.metadata.blockchainIds?.some((x) => x.startsWith('eip155:'));
                 if (isEVM) {
-                    if (!evmAccount.isConnected) {
-                        ConnectModalRef.open();
-                        return { error: '' };
-                    }
-                    const signature = await signMessageAsync({
-                        message: data,
-                    });
-                    return { signature };
+                    return evmAdapter.signMessage(data, context);
                 }
-                if (!wallet.signMessage || !wallet.publicKey) {
-                    walletModal.setVisible(true);
-                    return { error: '' };
+                return solanaAdapter.signMessage(data, context);
+            },
+            async signTransaction(txData, context) {
+                const isEVM = context.action.metadata.blockchainIds?.some((x) => x.startsWith('eip155:'));
+                if (isEVM) {
+                    return evmAdapter.signMessage(txData, context);
                 }
-                try {
-                    // Optional data verification before signing
-                    const isSignDataValid = verifySignDataValidity(data, {
-                        expectedAddress: wallet.publicKey.toString(),
-                    });
-                    if (!isSignDataValid) {
-                        return { error: 'Signing failed.' };
-                    }
-                    const text = typeof data === 'string' ? data : createSignMessageText(data);
-                    const encoded = new TextEncoder().encode(text);
-                    const signed = await wallet.signMessage(encoded);
-                    const encodedSignature = bs58.encode(signed);
-                    return { signature: encodedSignature };
-                } catch (e) {
-                    return { error: 'Signing failed.' };
-                }
+                return solanaAdapter.signTransaction(txData, context);
+            },
+            async connect() {
+                await ConnectModalRef.openAndWaitForClose();
+                return null;
             },
             metadata: {
                 supportedBlockchainIds: [
                     BlockchainIds.ETHEREUM_MAINNET,
+                    BlockchainIds.ETHEREUM_SEPOLIA,
                     BlockchainIds.SOLANA_MAINNET,
                     BlockchainIds.SOLANA_TESTNET,
                     BlockchainIds.SOLANA_DEVNET,
@@ -147,36 +85,6 @@ export function useActionAdapter(url?: string) {
                     ...chains.map((x) => `eip155:${x.id}`),
                 ],
             },
-            connect: async (context) => {
-                const isEVM = context.action.metadata.blockchainIds?.some((x) => x.startsWith('eip155:'));
-                if (isEVM) {
-                    if (evmAccount.isConnected && evmAccount.address) return evmAccount.address;
-                    ConnectModalRef.open();
-                    return null;
-                }
-                try {
-                    await wallet.connect();
-                } catch {
-                    walletModal.setVisible(true);
-                    return null;
-                }
-                return wallet.publicKey?.toBase58() ?? null;
-            },
-            signTransaction: async (txData: string) => {
-                if (isHex(txData)) {
-                    return (await signEvmTransaction(txData))!;
-                }
-                return signSolanaTransaction(txData);
-            },
         });
-    }, [
-        connection,
-        evmAccount.address,
-        evmAccount.isConnected,
-        signEvmTransaction,
-        signMessageAsync,
-        signSolanaTransaction,
-        wallet,
-        walletModal,
-    ]);
+    }, [connection, evmAdapter, solanaAdapter]);
 }

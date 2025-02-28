@@ -42,6 +42,7 @@ import {
     zora as wagmiZora,
 } from 'wagmi/chains';
 
+import { solanaAdapter, solanaNetworks } from '@/configs/solanaWallets.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -64,6 +65,7 @@ const networks = [
     metis,
     zora,
     scroll,
+    ...solanaNetworks,
 ] as [AppKitNetwork, ...AppKitNetwork[]];
 
 export const chains = [
@@ -101,11 +103,11 @@ const metadata = {
 };
 
 const walletIds = IS_MOBILE_DEVICE
-    ? [WalletId.CoinBase, WalletId.Rainbow, WalletId.OKX, WalletId.MetaMask]
-    : [WalletId.MetaMask, WalletId.Rabby, WalletId.OKX];
+    ? [WalletId.CoinBase, WalletId.Rainbow, WalletId.OKX, WalletId.MetaMask, WalletId.Phantom]
+    : [WalletId.MetaMask, WalletId.Rabby, WalletId.OKX, WalletId.Phantom];
 
 createAppKit({
-    adapters: [adapter],
+    adapters: [adapter, solanaAdapter],
     networks,
     metadata,
     projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,

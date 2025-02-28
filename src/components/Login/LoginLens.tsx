@@ -21,7 +21,7 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import { AccountModalRef, ConnectWalletModalRef, LoginModalRef } from '@/modals/controls.js';
+import { AccountModalRef, ConnectModalRef, LoginModalRef } from '@/modals/controls.js';
 import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { updateSignless } from '@/providers/lens/updateSignless.js';
@@ -162,7 +162,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                             LoginModalRef.close();
                             await delay(300);
                             if (account.isConnected) AccountModalRef.open();
-                            else ConnectWalletModalRef.open();
+                            else ConnectModalRef.open();
                         }}
                     >
                         <WalletIcon width={20} height={20} />

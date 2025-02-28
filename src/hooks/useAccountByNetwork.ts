@@ -1,16 +1,17 @@
 import { unreachable } from '@masknet/kit';
 import { ChainId } from '@masknet/web3-shared-solana';
-import { useWallet } from '@solana/wallet-adapter-react';
-import { useWalletModal } from '@solana/wallet-adapter-react-ui';
+import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { useMemo } from 'react';
 import { useAccount } from 'wagmi';
 
 import { NetworkType } from '@/constants/enum.js';
+import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { ConnectModalRef } from '@/modals/controls.js';
 
 export function useAccountByNetwork(networkType = NetworkType.Ethereum) {
     const account = useAccount();
-    const wallet = useWallet();
+    const walletProvider = useSolanaWalletProvider();
+    const { connection } = useAppKitConnection();
 
     switch (networkType) {
         case NetworkType.Ethereum:
@@ -21,9 +22,9 @@ export function useAccountByNetwork(networkType = NetworkType.Ethereum) {
             };
         case NetworkType.Solana:
             return {
-                address: wallet.publicKey?.toBase58() ?? '',
+                address: walletProvider?.publicKey?.toBase58() ?? '',
                 chainId: ChainId.Mainnet,
-                isConnected: wallet.connected,
+                isConnected: !!connection,
             };
         default:
             unreachable(networkType);
@@ -32,8 +33,8 @@ export function useAccountByNetwork(networkType = NetworkType.Ethereum) {
 
 export function useWalletAccountAll() {
     const account = useAccount();
-    const wallet = useWallet();
-    const solanaWalletModal = useWalletModal();
+    const walletProvider = useSolanaWalletProvider();
+    const { connection } = useAppKitConnection();
 
     return useMemo(
         () => ({
@@ -44,12 +45,12 @@ export function useWalletAccountAll() {
                 connect: () => ConnectModalRef.open(),
             },
             solana: {
-                address: wallet.publicKey?.toBase58() ?? '',
+                address: walletProvider?.publicKey?.toBase58() ?? '',
                 chainId: ChainId.Mainnet,
-                isConnected: wallet.connected,
-                connect: () => solanaWalletModal.setVisible(true),
+                isConnected: !!connection,
+                connect: () => ConnectModalRef.open(),
             },
         }),
-        [account.address, account.chainId, account.isConnected, wallet.publicKey, wallet.connected, solanaWalletModal],
+        [account.address, account.chainId, account.isConnected, walletProvider?.publicKey, connection],
     );
 }

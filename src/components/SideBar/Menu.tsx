@@ -120,7 +120,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                     }}
                                 >
                                     {{
-                                        [PageRoute.ConnectWallet]: <ConnectWallet collapsed={collapsed} />,
+                                        [PageRoute.ConnectWallet]: <ConnectWallet />,
                                         [PageRoute.Events]: <ExclusiveEvents />,
                                         [PageRoute.Profile]: <Profile collapsed={collapsed} />,
                                     }[item.href] ?? (

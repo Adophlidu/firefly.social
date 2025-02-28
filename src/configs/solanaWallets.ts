@@ -1,11 +1,9 @@
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { WalletConnectWalletAdapter } from '@solana/wallet-adapter-walletconnect';
+import { type AppKitNetwork, solana } from '@reown/appkit/networks';
+import { SolanaAdapter } from '@reown/appkit-adapter-solana/react';
+import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 
-import { env } from '@/constants/env.js';
-
-export const walletConnectAdapter = new WalletConnectWalletAdapter({
-    options: {
-        projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
-    },
-    network: WalletAdapterNetwork.Mainnet,
+export const solanaAdapter = new SolanaAdapter({
+    wallets: [new PhantomWalletAdapter()],
 });
+
+export const solanaNetworks: AppKitNetwork[] = [solana];

@@ -2361,9 +2361,6 @@ msgstr "Loading..."
 msgid "Approve"
 msgstr "Approve"
 
-msgid "Signing failed."
-msgstr "Signing failed."
-
 msgid "Share"
 msgstr "Share"
 

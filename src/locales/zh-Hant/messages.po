@@ -2353,9 +2353,6 @@ msgstr ""
 msgid "Approve"
 msgstr ""
 
-msgid "Signing failed."
-msgstr ""
-
 msgid "Share"
 msgstr "分享"
 

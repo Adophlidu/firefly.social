@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
-import { useWallet } from '@solana/wallet-adapter-react';
-import { useWalletModal } from '@solana/wallet-adapter-react-ui';
+import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { memo, useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
@@ -121,12 +120,11 @@ export function SendWithEVM() {
 }
 
 export function SendWithSolana() {
-    const wallet = useWallet();
-    const walletModal = useWalletModal();
+    const { connection } = useAppKitConnection();
 
     const onConnect = useCallback(() => {
-        walletModal.setVisible(true);
-    }, [walletModal]);
+        ConnectModalRef.open();
+    }, []);
 
-    return <SendTipsButton connected={!!wallet.publicKey} onConnect={onConnect} />;
+    return <SendTipsButton connected={!!connection} onConnect={onConnect} />;
 }

@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { memo, useCallback } from 'react';
 
 import QuestionIcon from '@/assets/question.svg';
@@ -59,12 +58,11 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
     const { currentProfile } = useProfileStore(post.source);
     const isLogin = useIsLogin();
     const { account } = useChainContext({ networkType });
-    const solanaModal = useWalletModal();
 
     const connectWallet = useCallback(() => {
         switch (networkType) {
             case NetworkType.Solana:
-                solanaModal.setVisible(true);
+                ConnectModalRef.open();
                 break;
             case NetworkType.Ethereum:
                 ConnectModalRef.open();
@@ -73,7 +71,7 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
                 safeUnreachable(networkType);
                 break;
         }
-    }, [networkType, solanaModal]);
+    }, [networkType]);
 
     if (isRefunded || isEmpty) return null;
 

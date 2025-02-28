@@ -1,8 +1,6 @@
 import { web3 } from '@coral-xyz/anchor';
 import { t } from '@lingui/core/macro';
 import { isNativeTokenAddress } from '@masknet/web3-shared-solana';
-import { useWallet } from '@solana/wallet-adapter-react';
-import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useAsyncFn } from 'react-use';
 
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
@@ -12,6 +10,8 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { resolveSolanaAccountId } from '@/helpers/resolveSolanaAccountId.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
+import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
+import { ConnectModalRef } from '@/modals/controls.js';
 import { type ClaimNativeTokenContext, SolanaRedPacket } from '@/providers/solana/RedPacket.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -19,16 +19,15 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 export function useVerifyAndClaimSolana(payload: RedPacketJSONPayload, post: Post, enabled = true) {
     const isNativeToken = isNativeTokenAddress(payload.token?.address);
 
-    const wallet = useWallet();
-    const walletModal = useWalletModal();
+    const walletProvider = useSolanaWalletProvider();
     const { account } = useChainContext({ networkType: getNetworkTypeFromRpPayload(payload) });
     const { data, isFetching, refetch: recheckClaimStatus } = useClaimStrategyStatus(payload, post.source, enabled);
 
     const [{ loading }, handleClaim] = useAsyncFn(async () => {
         const accountId = resolveSolanaAccountId(payload.rpid, payload.accountId);
 
-        if (!wallet.publicKey) {
-            walletModal.setVisible(true);
+        if (!walletProvider?.publicKey) {
+            ConnectModalRef.open();
             return { canClaim: true };
         }
 
@@ -81,16 +80,15 @@ export function useVerifyAndClaimSolana(payload: RedPacketJSONPayload, post: Pos
 
         return { canClaim: true, amount, tx: result.signature };
     }, [
-        isNativeToken,
-        payload.accountId,
-        payload.password,
-        payload.token,
         payload.rpid,
+        payload.accountId,
+        payload.token,
+        payload.password,
         payload.tokenProgram,
-        account,
-        wallet.publicKey,
-        walletModal,
+        walletProvider?.publicKey,
+        isNativeToken,
         recheckClaimStatus,
+        account,
     ]);
 
     return [

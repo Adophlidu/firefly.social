@@ -1,7 +1,6 @@
 import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
 import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
-import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
-import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
+import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { useAccount as useEVMAccount, useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
@@ -11,6 +10,7 @@ import { formatDomainName } from '@/helpers/formatDomainName.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { useMounted } from '@/hooks/useMounted.js';
+import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { AccountModalRef, ConnectModalRef, SolanaAccountModalRef } from '@/modals/controls.js';
 
 const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
@@ -57,21 +57,21 @@ export function useEVMConnection(): Connection {
 }
 
 export function useSolanaConnection(): Connection {
-    const solanaWallet = useSolanaWallet();
-    const connectModalSolana = useConnectModalSolana();
+    const walletProvider = useSolanaWalletProvider();
+    const { connection } = useAppKitConnection();
 
     return {
         type: 'solana',
         icon: solanaNetworkDescriptor?.icon,
         label: resolveValue(() => {
-            if (!solanaWallet.publicKey) return null;
-            const address = solanaWallet.publicKey.toBase58();
+            if (!walletProvider?.publicKey) return null;
+            const address = walletProvider.publicKey.toBase58();
             return formatSolanaAddress(address, 4);
         }),
-        onOpenConnectModal: () => connectModalSolana.setVisible(true),
+        onOpenConnectModal: () => ConnectModalRef.open(),
         onOpenAccountModal: () => SolanaAccountModalRef.open(),
-        isConnected: solanaWallet.connected,
-        isLoading: solanaWallet.connecting || solanaWallet.disconnecting,
+        isConnected: !!connection,
+        isLoading: false,
     };
 }
 

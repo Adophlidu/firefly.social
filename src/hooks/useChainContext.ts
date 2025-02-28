@@ -1,10 +1,10 @@
 import { unreachable } from '@masknet/kit';
 import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
 import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
-import { useWallet } from '@solana/wallet-adapter-react';
 import { useAccount, useChainId } from 'wagmi';
 
 import { NetworkType } from '@/constants/enum.js';
+import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { EVMChainResolver } from '@/mask/index.js';
 
 export interface ChainContextOverrides {
@@ -17,7 +17,7 @@ export function useChainContext(overrides?: ChainContextOverrides) {
     const account = useAccount();
     const chainId = useChainId();
 
-    const wallet = useWallet();
+    const walletProvider = useSolanaWalletProvider();
 
     const isEIP1559 = EVMChainResolver.isFeatureSupported(chainId, 'EIP1559') ? 'eip1559' : 'legacy';
     const networkType = overrides?.networkType ?? NetworkType.Ethereum;
@@ -31,7 +31,7 @@ export function useChainContext(overrides?: ChainContextOverrides) {
             };
         case NetworkType.Solana:
             return {
-                account: overrides?.account ?? wallet.publicKey?.toBase58() ?? '',
+                account: overrides?.account ?? walletProvider?.publicKey?.toBase58() ?? '',
                 chainId: overrides?.chainId ?? SolanaChainId.Mainnet,
             };
         default:

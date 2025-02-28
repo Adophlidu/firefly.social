@@ -2,7 +2,6 @@
 
 import { memo } from 'react';
 
-import { SolanaAccountModal } from '@/components/SolanaAccountModal.js';
 import { AccountModal } from '@/modals/AccountModal.js';
 import { AddCustomERC20Modal } from '@/modals/AddCustomERC20Modal.js';
 import { AddCustomERC721Modal } from '@/modals/AddCustomERC721Modal.js';
@@ -15,7 +14,6 @@ import { ConfirmFireflyModal } from '@/modals/ConfirmFireflyModal.js';
 import { ConfirmLeavingModal } from '@/modals/ConfirmLeavingModal.js';
 import { ConfirmModal } from '@/modals/ConfirmModal.js';
 import { ConnectModal } from '@/modals/ConnectModal.js';
-import { ConnectWalletModal } from '@/modals/ConnectWalletModal.js';
 import * as controls from '@/modals/controls.js';
 import { DisconnectFireflyAccountModal } from '@/modals/DisconnectFireflyAccountModal.js';
 import { DraggablePopover } from '@/modals/DraggablePopover.js';
@@ -40,8 +38,7 @@ export const Modals = memo(function Modals() {
         <>
             <AccountModal ref={controls.AccountModalRef.register} />
             <ConnectModal ref={controls.ConnectModalRef.register} />
-            <ConnectWalletModal ref={controls.ConnectWalletModalRef.register} />
-            <SolanaAccountModal ref={controls.SolanaAccountModalRef.register} />
+            <AccountModal ref={controls.SolanaAccountModalRef.register} />
             <LoginModal ref={controls.LoginModalRef.register} />
             <LogoutModal ref={controls.LogoutModalRef.register} />
             <ComposeModal ref={controls.ComposeModalRef.register} />

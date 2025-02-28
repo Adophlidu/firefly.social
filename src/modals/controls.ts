@@ -31,7 +31,6 @@ import type { TransactionSimulatorModalOpenProps } from '@/modals/TransactionSim
 
 export const AccountModalRef = new SingletonModal();
 export const ConnectModalRef = new SingletonModal();
-export const ConnectWalletModalRef = new SingletonModal();
 export const LoginModalRef = new SingletonModal<LoginModalOpenProps | void>();
 export const LogoutModalRef = new SingletonModal<LogoutModalProps | void>();
 export const ComposeModalRef = new SingletonModal<ComposeModalOpenProps, ComposeModalCloseProps>();

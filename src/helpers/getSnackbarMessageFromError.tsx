@@ -28,7 +28,7 @@ export function getWarningMessageFromError(error: unknown, fallback?: string) {
     if (
         error instanceof Error &&
         (isRejectedMessage(error.message) ||
-            ('error' in error && isRejectedMessage((error.error as SolanaError).message)))
+            ('error' in error && isRejectedMessage((error.error as SolanaError)?.message)))
     ) {
         return t`The user rejected the request.`;
     }

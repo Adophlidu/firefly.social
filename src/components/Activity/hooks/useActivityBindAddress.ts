@@ -38,7 +38,6 @@ export function useActivityBindAddress(source: SocialSource | SocialSource[], ch
         try {
             const { response } = await AddWalletModalRef.openAndWaitForClose({
                 connections: connected,
-                platform: isValidSolanaChainId(chainId) ? 'solana' : 'evm',
             });
             if (response?.address) {
                 onChangeAddress(response.address);

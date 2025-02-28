@@ -15,3 +15,7 @@ export function isSameSolanaAddress(address?: string, otherAddress?: string): bo
         return false;
     }
 }
+
+export function isSameAddress(address?: string, otherAddress?: string): boolean {
+    return isSameEthereumAddress(address, otherAddress) || isSameSolanaAddress(address, otherAddress);
+}

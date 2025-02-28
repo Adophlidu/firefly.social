@@ -3,7 +3,6 @@ import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { type FungibleToken } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
-import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { forwardRef, useCallback, useState } from 'react';
 import { useChainId } from 'wagmi';
 
@@ -35,7 +34,6 @@ export const TokenSelectorModal = forwardRef<
 >(function TokenSelectorModal(_, ref) {
     const [props, setProps] = useState<TokenSelectorModalOpenProps>();
 
-    const solanaWalletModal = useWalletModal();
     const account = useAccountByNetwork(props?.networkType);
 
     const [open, dispatch] = useSingletonModal(ref, {
@@ -102,7 +100,7 @@ export const TokenSelectorModal = forwardRef<
                                             ConnectModalRef.open();
                                             break;
                                         case NetworkType.Solana:
-                                            solanaWalletModal.setVisible(true);
+                                            ConnectModalRef.open();
                                             break;
                                         default:
                                             safeUnreachable(props.networkType);

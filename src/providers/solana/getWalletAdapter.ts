@@ -1,51 +1,21 @@
-/* cspell:disable */
+import type { web3 } from '@coral-xyz/anchor';
+import { ProviderUtil } from '@reown/appkit/store';
+import type { Provider } from '@reown/appkit-adapter-solana';
 
-import { web3 } from '@coral-xyz/anchor';
-import { type SignerWalletAdapter, WalletNotConnectedError } from '@solana/wallet-adapter-base';
-import { WalletConnectWalletName } from '@solana/wallet-adapter-walletconnect';
-
-import { walletConnectAdapter } from '@/configs/solanaWallets.js';
-import { SolanaWalletName } from '@/constants/enum.js';
-import { SOLANA_WALLET_CACHE_KEY } from '@/constants/index.js';
-import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
-
-const resolveSolanaWalletAdapter = createLookupTableResolver(
-    {
-        [WalletConnectWalletName]: walletConnectAdapter,
-    } as unknown as Record<string, SignerWalletAdapter>,
-    (walletName: string) => {
-        throw new Error(`Unsupported solana wallet: ${walletName}`);
-    },
-);
+export class WalletNotConnectedError extends Error {
+    override name = 'WalletNotConnectedError';
+}
 
 export function getWalletAdapter() {
-    const currentName = parseJSON<string>(localStorage.getItem(SOLANA_WALLET_CACHE_KEY));
-    if (!currentName) throw new WalletNotConnectedError();
-
-    switch (currentName) {
-        case SolanaWalletName.Phantom: // built-in
-            const phantom: { solana?: SignerWalletAdapter } = Reflect.get(window, 'phantom');
-            if (!phantom?.solana) throw new WalletNotConnectedError();
-            return phantom.solana;
-        case SolanaWalletName.Okx: // built-in
-            const okx: { solana?: SignerWalletAdapter } = Reflect.get(window, 'okxwallet');
-            if (!okx?.solana) throw new WalletNotConnectedError();
-            return okx.solana;
-        case SolanaWalletName.Solflare: // built-in
-            const solflare: SignerWalletAdapter | undefined = Reflect.get(window, 'solflare');
-            if (!solflare) throw new WalletNotConnectedError();
-            return solflare;
-        default:
-            const adapter = resolveSolanaWalletAdapter(currentName);
-            if (!adapter) throw new WalletNotConnectedError();
-            return adapter;
-    }
+    if (!('solana' in ProviderUtil.state.providers)) throw new WalletNotConnectedError();
+    const provider = ProviderUtil.state.providers.solana as Provider;
+    if (!provider) throw new WalletNotConnectedError();
+    return provider;
 }
 
 export function getWalletAdaptorConnected() {
-    const adaptor = getWalletAdapter();
-    if (!adaptor.publicKey) throw new WalletNotConnectedError();
-
-    return adaptor as SignerWalletAdapter & { publicKey: web3.PublicKey };
+    if (!('solana' in ProviderUtil.state.providers)) throw new WalletNotConnectedError();
+    const provider = ProviderUtil.state.providers.solana as Provider;
+    if (!provider?.publicKey) throw new WalletNotConnectedError();
+    return provider as Provider & { publicKey: web3.PublicKey };
 }

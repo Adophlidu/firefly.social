@@ -2366,9 +2366,6 @@ msgstr "加载中..."
 msgid "Approve"
 msgstr "授权"
 
-msgid "Signing failed."
-msgstr "签名失败。"
-
 msgid "Share"
 msgstr "分享"
 

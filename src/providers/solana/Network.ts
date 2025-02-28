@@ -7,7 +7,7 @@ import type { NetworkProvider as NetworkProvider } from '@/providers/types/Netwo
 class Provider implements NetworkProvider<ChainId> {
     async connect() {
         const adapter = getWalletAdapter();
-        if (!adapter.connected) await adapter.connect();
+        if (!adapter.publicKey) await adapter.connect();
     }
 
     async getAccount(): Promise<string> {
