@@ -21,6 +21,9 @@ export function getProfileState(source: ProfileSource) {
         [Source.Telegram]: useThirdPartyStateStore,
     }[source];
 
+    // throw an error for invalid source
+    if (!store) throw new Error(`Failed to get profile state for source: ${source}`);
+
     return store.getState();
 }
 
