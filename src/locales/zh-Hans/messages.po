@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-02-21 07:55\n"
+"PO-Revision-Date: 2025-03-03 10:28\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -884,7 +884,7 @@ msgid "Failed to unlike the post."
 msgstr "取消点赞失败。"
 
 msgid "Only your follower"
-msgstr ""
+msgstr "仅限你的关注者"
 
 msgid "{addressName} is already connected."
 msgstr "{addressName} 已经连接。"
@@ -1328,7 +1328,7 @@ msgid "Top Gainers"
 msgstr "涨幅最大"
 
 msgid "Follow @fireflyappcn on X"
-msgstr ""
+msgstr "在 X 上关注 @fireflyappcn"
 
 msgid "Cost"
 msgstr "成本"
@@ -1346,7 +1346,7 @@ msgid "Enable development API version"
 msgstr "启用开发环境接口"
 
 msgid "Posted to Lens on <0>Phaver</0>"
-msgstr ""
+msgstr "用<0>Phaver</0>发送过 Lens 帖子"
 
 msgid "<0>Sent</0><1/>"
 msgstr "<0>发送</0><1/>"
@@ -1466,7 +1466,7 @@ msgid "Send Feedback"
 msgstr "提交反馈"
 
 msgid "Posted on the following apps since August 1, 2024, and new Firefly users only:"
-msgstr ""
+msgstr "自2024年8月1日起，使用以下应用程序发布过帖子；仅限新注册的Firefly用户参与："
 
 msgid "More details"
 msgstr "详细信息"
@@ -1592,7 +1592,7 @@ msgid "Proxy contract"
 msgstr "代理合约"
 
 msgid "Posted to Farcaster on <0>Supercast</0>"
-msgstr ""
+msgstr "用<0>Supercast</0>发送过 Farcaster 帖子"
 
 msgid "Total amount shared among all winners"
 msgstr "在所有获奖者之间分配的总金额"
@@ -1921,7 +1921,7 @@ msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means 
 msgstr "此合约是一个管理升级代理合约。代理合约意味着合同所有者可以修改通证的功能，并且可能影响价格。这可能是团队跑路或者诈骗的一种方式。请在购买之前与项目团队确认细节。"
 
 msgid "For You"
-msgstr ""
+msgstr "为你推荐"
 
 msgid "Failed to fetch bookmarks."
 msgstr "获取收藏失败。"
@@ -1937,7 +1937,7 @@ msgid "Follow Back"
 msgstr "回关"
 
 msgid "This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any transactions or sharing of sensitive information. Stay safe!"
-msgstr ""
+msgstr "该钱包已被盗。请勿信任该钱包的任何操作或与该钱包交互，以免信息泄露和财产损失。注意安全！"
 
 msgid "Are you sure you want to report this article?"
 msgstr "您确定要举报这篇文章吗？"
@@ -2384,7 +2384,7 @@ msgid "Your serialized session"
 msgstr "你的序列化会话"
 
 msgid "Enter your username and password to sign in instantly"
-msgstr ""
+msgstr "立即输入用户名和密码进行登录"
 
 msgid "GIFs"
 msgstr "动图"
@@ -3134,7 +3134,7 @@ msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "将在 <0>{0} <1>{1}</1></0> 发送"
 
 msgid "Reported"
-msgstr ""
+msgstr "已报告"
 
 msgid "Show more channels"
 msgstr "展示更多频道"
@@ -3243,7 +3243,7 @@ msgid "Log out all"
 msgstr "登出所有"
 
 msgid "Posted to Lens or Farcaster on <0>Yup</0>"
-msgstr ""
+msgstr "用<0>Yup</0>发送过 Lens/Farcaster 帖子"
 
 msgid ""
 "Just earned $MASK by minting the Inviting Yup & Phaver frens🌟 collectible from {fireflyMention}  \n"
