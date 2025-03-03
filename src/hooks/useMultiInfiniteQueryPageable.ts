@@ -33,7 +33,8 @@ export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndic
                     query.queryFn({ pageParam: indicatorId }).then((x) => ({ [query.key]: x })),
                 ]);
             });
-            return compact(await Promise.all(queryFns as Array<Promise<Data | null>>)).reduce<Data>(
+            const settled = await Promise.allSettled(queryFns as Array<Promise<Data | null>>);
+            return compact(settled.map((x) => (x.status === 'fulfilled' ? x.value : null))).reduce<Data>(
                 (acc, query) => ({
                     ...acc,
                     ...query,
