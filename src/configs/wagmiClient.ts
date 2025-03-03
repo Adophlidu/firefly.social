@@ -106,7 +106,7 @@ const walletIds = IS_MOBILE_DEVICE
     ? [WalletId.CoinBase, WalletId.Rainbow, WalletId.OKX, WalletId.MetaMask, WalletId.Phantom]
     : [WalletId.MetaMask, WalletId.Rabby, WalletId.OKX, WalletId.Phantom];
 
-createAppKit({
+export const appkit = createAppKit({
     adapters: [adapter, solanaAdapter],
     networks,
     metadata,
