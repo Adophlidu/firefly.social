@@ -13,13 +13,13 @@ function resolveImgurUrl(url: string) {
 
     const u = new URL(url);
     if (u.protocol !== 'https:') return;
-    if (u.host !== 'i.imgur.com') return url;
+    if (u.host !== 'i.imgur.com') return;
 
     return `https://res.cloudinary.com/merkle-manufactory/image/fetch/c_fill,f_jpg,w_144/${encodeURIComponent(url)}`;
 }
 
 function resolveAvatarFallbackUrl(url: string, isDarkMode = false) {
-    if (!url?.startsWith('https://cdn.stamp.fyi/avatar/eth:')) return url;
+    if (!url?.startsWith('https://cdn.stamp.fyi/avatar/eth:')) return;
     return isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
 }
 
@@ -33,11 +33,10 @@ export const Avatar = memo(function Avatar({ src, size, className, fallbackUrl, 
     const isDarkMode = useIsDarkMode();
     const [hasError, setHasError] = useState(false);
 
-    const url =
-        [resolveAvatarFallbackUrl, resolveImgurUrl].reduce((acc, fn) => (acc ? fn(acc, isDarkMode) : acc), src) ||
-        fallbackUrl;
+    const url = [resolveAvatarFallbackUrl, resolveImgurUrl].reduce((acc, fn) => (acc ? fn(acc, isDarkMode) : acc), src);
 
     const defaultFallbackUrl = isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
+
     const isNormalUrl = !!src && !src.startsWith('data:image/') && !isDomainOrSubdomainOf(src, 'warpcast.com');
     const imageSrc = hasError ? defaultFallbackUrl : (isNormalUrl ? url : src) || src || defaultFallbackUrl;
 
