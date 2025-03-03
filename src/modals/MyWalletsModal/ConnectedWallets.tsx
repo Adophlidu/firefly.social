@@ -1,6 +1,8 @@
 import { Trans } from '@lingui/react/macro';
-import { useAppKit, useAppKitAccount } from '@reown/appkit/react';
-import { memo } from 'react';
+import { CoreChainController } from '@reown/appkit';
+import { type ChainAdapter, useAppKit, useAppKitAccount, useAppKitNetwork } from '@reown/appkit/react';
+import { first } from 'lodash-es';
+import { memo, useCallback, useEffect, useState } from 'react';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
 
@@ -9,7 +11,7 @@ import PlusIcon from '@/assets/plus.svg';
 import SolanaIcon from '@/assets/solana.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
-import { ClickableButton } from '@/components/ClickableButton.js';
+import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { ConnectModalRef } from '@/modals/controls.js';
@@ -21,16 +23,13 @@ const IconMap = {
     bip122: undefined,
 };
 
-function ConnectedItem({
-    namespace,
-    address,
-    selected,
-}: {
+interface ConnectedItemProps extends ClickableButtonProps {
     namespace: 'eip155' | 'solana' | 'polkadot' | 'bip122';
     address: string;
     selected?: boolean;
-}) {
-    const { open } = useAppKit();
+}
+
+function ConnectedItem({ namespace, address, selected, ...rest }: ConnectedItemProps) {
     const { data: ensName } = useEnsName({
         address: address as Address,
         query: { enabled: namespace === 'eip155' },
@@ -42,9 +41,7 @@ function ConnectedItem({
         <ClickableButton
             key={address}
             className="flex h-10 w-full items-center justify-between gap-2 px-2 text-main"
-            onClick={() => {
-                open({ view: 'Account' });
-            }}
+            {...rest}
         >
             <Icon className="shrink-0" width={20} height={20} />
             <span className="min-w-0 flex-1 truncate text-left">{ensName || formatAddress(address, 4)}</span>
@@ -54,7 +51,41 @@ function ConnectedItem({
 }
 
 export const ConnectedWallets = memo(function ConnectedWallets() {
-    const { allAccounts, address: currentAddress } = useAppKitAccount();
+    const { open } = useAppKit();
+    const { address: activeAddress } = useAppKitAccount();
+    const { switchNetwork } = useAppKitNetwork();
+    const [chainState, setChainState] = useState(CoreChainController.state?.chains || new Map());
+
+    useEffect(
+        () =>
+            CoreChainController.subscribeKey('chains', (chains) => {
+                setChainState(chains);
+            }),
+        [],
+    );
+
+    const openAccountModal = useCallback(
+        (adapter: ChainAdapter) => {
+            if (isSameAddress(adapter.accountState?.address, activeAddress)) {
+                open({ view: 'Account' });
+                return;
+            }
+            const network = first(adapter.caipNetworks);
+            if (network) {
+                switchNetwork(network);
+                open({ view: 'Account' });
+            }
+        },
+        [activeAddress, switchNetwork, open],
+    );
+
+    const chains = Array.from(chainState.entries())
+        .map(([chain, adapter]) => ({
+            chain,
+            address: adapter.accountState?.address || '',
+            adapter,
+        }))
+        .filter(({ adapter, address }) => adapter.accountState?.status === 'connected' && !!address);
 
     return (
         <div className="overflow-hidden rounded-lg border border-secondaryLine">
@@ -70,17 +101,18 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
                 </span>
                 <PlusIcon width={20} height={20} />
             </ClickableButton>
-            {allAccounts.map((account) => {
-                const address = account.address || account.publicKey;
-
-                return address ? (
+            {chains.map((account) => {
+                return (
                     <ConnectedItem
-                        key={address}
-                        namespace={account.namespace}
-                        address={address}
-                        selected={isSameAddress(address, currentAddress)}
+                        key={account.address}
+                        namespace={account.chain}
+                        address={account.address}
+                        selected
+                        onClick={() => {
+                            openAccountModal(account.adapter);
+                        }}
                     />
-                ) : null;
+                );
             })}
         </div>
     );

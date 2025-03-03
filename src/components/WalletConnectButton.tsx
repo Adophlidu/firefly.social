@@ -13,20 +13,20 @@ import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { ConnectModalRef, MyWalletsModalRef } from '@/modals/controls.js';
 import type { ChainNamespace } from '@/types/index.js';
 
-const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
-const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
-
-const IconMap: Record<ChainNamespace, string | undefined> = {
-    eip155: evmNetworkDescriptor?.icon,
-    solana: solanaNetworkDescriptor?.icon,
-    polkadot: undefined,
-    bip122: undefined,
-};
-
 interface WalletConnectButtonProps extends ClickableButtonProps {}
 
 export const WalletConnectButton = memo<WalletConnectButtonProps>(function WalletConnectButton({ className, ...rest }) {
     const { allAccounts, address } = useAppKitAccount();
+
+    const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
+    const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
+
+    const IconMap: Record<ChainNamespace, string | undefined> = {
+        eip155: evmNetworkDescriptor?.icon,
+        solana: solanaNetworkDescriptor?.icon,
+        polkadot: undefined,
+        bip122: undefined,
+    };
 
     return (
         <ClickableButton
