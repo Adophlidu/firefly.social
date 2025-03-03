@@ -32,9 +32,7 @@ export const FollowingPostList = memo<{
     const currentProfileAll = useCurrentProfileAll();
 
     const sources = useDiscoverStore((state) =>
-        state.enabledFilterPlatform
-            ? SOCIAL_DISCOVER_SOURCE.filter((x) => !state.filteredPlatforms.includes(x))
-            : SOCIAL_DISCOVER_SOURCE,
+        SOCIAL_DISCOVER_SOURCE.filter((x) => !state.filteredPlatforms.includes(x)),
     );
 
     const queryResult = useMultiInfiniteQueryPageable(

@@ -15,9 +15,7 @@ import { useDiscoverStore } from '@/store/useDiscoverStore.js';
 
 export const DiscoverPostList = memo<{ source: SocialSource | Source.Posts }>(function DiscoverPostList({ source }) {
     const sources = useDiscoverStore((state) =>
-        state.enabledFilterPlatform
-            ? SOCIAL_DISCOVER_SOURCE.filter((x) => !state.filteredPlatforms.includes(x))
-            : SOCIAL_DISCOVER_SOURCE,
+        SOCIAL_DISCOVER_SOURCE.filter((x) => !state.filteredPlatforms.includes(x)),
     );
     const queryResult = useMultiInfiniteQueryPageable(
         ['posts', source, 'discover', ...sources],
