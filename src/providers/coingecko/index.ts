@@ -4,6 +4,7 @@ import {
     isNativeTokenAddress as isNativeTokenAddressSolana,
     isValidChainId as isValidSolanaChainId,
 } from '@masknet/web3-shared-solana';
+import { produce } from 'immer';
 import { uniq, uniqBy } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -26,6 +27,26 @@ import type {
 } from '@/providers/types/CoinGecko.js';
 import { type Contract, type Trending, TrendingProvider } from '@/providers/types/Trending.js';
 import type { TokenWithMarket } from '@/services/searchTokens.js';
+
+/**
+ * @internal
+ * some custom modifiers
+ */
+function trendingModifiers(trending: Trending) {
+    if (trending.coin.id === 'avalanche-2') {
+        return produce(trending, (draft) => {
+            draft.contracts = [
+                { address: '0x1ce0c2827e2ef14d5c4f29a091d735a204794041', chainId: 56, runtime: 'ethereum' },
+                { address: '0x4792c1ecb969b036eb51330c63bd27899a13d84e', chainId: 1284, runtime: 'ethereum' },
+            ];
+        });
+    } else if (trending.coin.id === 'mask-network') {
+        return produce(trending, (draft) => {
+            draft.contracts = draft.contracts?.filter((x) => x.runtime !== 'energi') ?? [];
+        });
+    }
+    return trending;
+}
 
 function formatGainsOrLoser(info: CoinGeckoGainsLoserInfo): TokenWithMarket {
     return {
@@ -131,26 +152,19 @@ export class CoinGecko {
         const telegram_url = info.links.telegram_channel_identifier
             ? `https://t.me/${info.links.telegram_channel_identifier}`
             : '';
+        const contracts: Contract[] = Object.entries(info.platforms)
+            .map(([runtime, address]) => ({
+                chainId: platforms.find((x) => x.id === runtime)?.chain_identifier ?? resolveCoinGeckoChainId(runtime),
+                address,
+                runtime,
+            }))
+            .filter((x) => x.address) as Contract[];
 
         const platforms = await this.getSupportedPlatforms();
-        return {
+        const trending: Trending = {
             lastUpdated: info.last_updated,
             provider: TrendingProvider.CoinGecko,
-            contracts:
-                coinId === 'avalanche-2'
-                    ? [
-                          { address: '0x1ce0c2827e2ef14d5c4f29a091d735a204794041', chainId: 56, runtime: 'ethereum' },
-                          { address: '0x4792c1ecb969b036eb51330c63bd27899a13d84e', chainId: 1284, runtime: 'ethereum' },
-                      ]
-                    : (Object.entries(info.platforms)
-                          .map(([runtime, address]) => ({
-                              chainId:
-                                  platforms.find((x) => x.id === runtime)?.chain_identifier ??
-                                  resolveCoinGeckoChainId(runtime),
-                              address,
-                              runtime,
-                          }))
-                          .filter((x) => x.address) as Contract[]),
+            contracts,
             coin: {
                 id: coinId,
                 name: info.name,
@@ -195,6 +209,7 @@ export class CoinGecko {
                 return Object.fromEntries(entries);
             })(),
         };
+        return trendingModifiers(trending);
     }
 
     static async getCoinsByIds(coinIds: string[]) {

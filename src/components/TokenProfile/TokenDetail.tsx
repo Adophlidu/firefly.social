@@ -88,9 +88,6 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, isCoinId, 
     const { data: trending } = useCoinTrending(token?.id);
     const { market, coin, contracts } = trending ?? {};
 
-    const firstContract = first(contracts);
-    const chain = getChainInfo(firstContract?.runtime, firstContract?.chainId);
-
     if (isLoading) {
         return <Loading />;
     }
@@ -98,6 +95,8 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, isCoinId, 
     if (!token) {
         notFound();
     }
+    const firstContract = first(contracts);
+    const chain = getChainInfo(firstContract?.runtime, firstContract?.chainId);
 
     return (
         <>

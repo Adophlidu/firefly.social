@@ -95,6 +95,11 @@ const CHAINS: Chain[] = [
         name: 'Kava',
         icon: 'https://assets.coingecko.com/asset_platforms/images/2/small/kava.jpeg?1707096364',
     },
+    {
+        runtime: 'energi',
+        name: 'Energi',
+        icon: new URL('../assets/chains/energi.png', import.meta.url).href,
+    },
 ];
 
 export function getChainInfo(runtime: Runtime | undefined, chainId: number | undefined) {

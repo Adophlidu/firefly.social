@@ -58,23 +58,24 @@ export interface Platform {
 // extract from https://coingecko-agent.r2d2.to/api/v3/coins/usd-coin
 export type Runtime =
     | 'ethereum'
-    | 'polkadot'
-    | 'base'
-    | 'optimistic-ethereum'
-    | 'stellar'
-    | 'near-protocol'
-    | 'hedera-hashgraph'
-    | 'zksync'
-    | 'avalanche'
-    | 'tron'
-    | 'arbitrum-one'
-    | 'polygon-pos'
     | 'algorand'
-    | 'solana'
-    | 'flow'
+    | 'arbitrum-one'
+    | 'avalanche'
+    | 'base'
     | 'celo'
+    | 'energi'
+    | 'flow'
+    | 'hedera-hashgraph'
+    | 'kava'
+    | 'near-protocol'
+    | 'optimistic-ethereum'
+    | 'polkadot'
+    | 'polygon-pos'
+    | 'solana'
+    | 'stellar'
     | 'the-open-network'
-    | 'kava';
+    | 'tron'
+    | 'zksync';
 
 export interface Contract {
     runtime: Runtime;
