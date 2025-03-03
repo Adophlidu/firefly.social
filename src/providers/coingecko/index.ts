@@ -152,6 +152,7 @@ export class CoinGecko {
         const telegram_url = info.links.telegram_channel_identifier
             ? `https://t.me/${info.links.telegram_channel_identifier}`
             : '';
+        const platforms = await this.getSupportedPlatforms();
         const contracts: Contract[] = Object.entries(info.platforms)
             .map(([runtime, address]) => ({
                 chainId: platforms.find((x) => x.id === runtime)?.chain_identifier ?? resolveCoinGeckoChainId(runtime),
@@ -160,7 +161,6 @@ export class CoinGecko {
             }))
             .filter((x) => x.address) as Contract[];
 
-        const platforms = await this.getSupportedPlatforms();
         const trending: Trending = {
             lastUpdated: info.last_updated,
             provider: TrendingProvider.CoinGecko,
@@ -285,9 +285,9 @@ export class CoinGecko {
 
     static getChainIdByCoinId(coinId: string) {
         const CoinIdToChainId: Record<string, ChainId> = {
-            eth: ChainId.Mainnet,
-            pol: ChainId.Polygon,
-            bnb: ChainId.BSC,
+            ethereum: ChainId.Mainnet,
+            'polygon-ecosystem-token': ChainId.Polygon,
+            binancecoin: ChainId.BSC,
             fantom: ChainId.Fantom,
             arbitrum: ChainId.Arbitrum,
             scroll: ChainId.Scroll,

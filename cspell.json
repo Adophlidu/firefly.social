@@ -12,6 +12,7 @@
         "atproto",
         "basepaint",
         "bignumber",
+        "binancecoin",
         "birthdate",
         "bitcointalk",
         "blockhash",
@@ -51,6 +52,7 @@
         "linkedin",
         "linkedom",
         "maskx",
+        "mdast",
         "merkle",
         "metas",
         "mintable",
@@ -79,6 +81,7 @@
         "reposted",
         "Reposts",
         "safary",
+        "sepolia",
         "signless",
         "solana",
         "sponsorable",
@@ -121,10 +124,7 @@
         "zerion",
         "zksync",
         "zora",
-        "zustand",
-        "mdast",
-        "zustand",
-        "sepolia"
+        "zustand"
     ],
     "ignoreWords": [
         "DEVNET",
