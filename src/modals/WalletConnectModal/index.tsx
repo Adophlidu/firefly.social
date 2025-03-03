@@ -19,7 +19,7 @@ export const WalletConnectModalRoot = forwardRef<SingletonModalRefCreator<Wallet
     function WalletConnectModalRoot(_, ref) {
         const isDark = useIsDarkMode();
         const { setThemeMode } = useAppKitTheme();
-        const { updateNetworkType, reset } = WalletConnectContext.useContainer();
+        const { setNetworkType: updateNetworkType, unsetNetworkType: reset } = WalletConnectContext.useContainer();
 
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: (props) => {

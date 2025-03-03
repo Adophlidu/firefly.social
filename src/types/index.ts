@@ -1,3 +1,4 @@
+import type { ConnectorControllerState } from '@reown/appkit';
 import type { PropsWithChildren } from 'react';
 import type React from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -5,6 +6,9 @@ import ReactMarkdown from 'react-markdown';
 import { ServerErrorCodes } from '@/helpers/createResponseJSON.js';
 
 export type Pluggable = NonNullable<Parameters<typeof ReactMarkdown>[0]['remarkPlugins']>[number];
+
+export type ConnectorWithProvider = ConnectorControllerState['connectors'][0];
+export type ChainNamespace = Required<ConnectorWithProvider>['connectors'][0]['chain'];
 
 export type ResponseJSON<T> =
     | {

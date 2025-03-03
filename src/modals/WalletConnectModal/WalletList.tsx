@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro';
 import {
-    type ConnectorControllerState,
     CoreAssetController,
     CoreAssetUtil,
     CoreConnectionController,
@@ -20,9 +19,8 @@ import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
 import { selectConnector, selectWallet } from '@/modals/WalletConnectModal/selectWallet.js';
 import { uniqueWallets } from '@/modals/WalletConnectModal/uniqueWallets.js';
+import type { ChainNamespace, ConnectorWithProvider } from '@/types/index.js';
 
-export type ConnectorWithProvider = ConnectorControllerState['connectors'][0];
-type ChainNamespace = Required<ConnectorWithProvider>['connectors'][0]['chain'];
 interface WalletItemProps extends ClickableButtonProps {
     icon?: string;
     name?: string;

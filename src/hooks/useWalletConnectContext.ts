@@ -3,17 +3,25 @@ import { useEffect, useState } from 'react';
 import { createContainer } from 'unstated-next';
 
 import { NetworkType } from '@/constants/enum.js';
-import type { ConnectorWithProvider } from '@/modals/WalletConnectModal/WalletList.js';
+import type { ChainNamespace, ConnectorWithProvider } from '@/types/index.js';
 
-interface WalletConnectContext {
-    networkType?: NetworkType;
+interface WalletConnectState {
     connectors: ConnectorWithProvider[];
     featuredWallets: WcWallet[];
 }
 
-function createEmptyContext(): WalletConnectContext {
+interface WalletConnectContext extends WalletConnectState {
+    loading: boolean;
+
+    chainNamespace: ChainNamespace | null;
+
+    networkType: NetworkType | null;
+    setNetworkType: (networkType?: NetworkType) => void;
+    unsetNetworkType: () => void;
+}
+
+function createEmptyWalletConnectState(): WalletConnectState {
     return {
-        networkType: undefined,
         connectors: CoreConnectorController.state?.connectors || [],
         featuredWallets: CoreApiController.state?.featured || [],
     };
@@ -24,7 +32,7 @@ async function setupApi() {
     await CoreApiController.fetchConnectorImages();
 }
 
-function networkTypeToChainNamespace(networkType: NetworkType) {
+function networkTypeToChainNamespace(networkType: NetworkType): ChainNamespace | null {
     switch (networkType) {
         case NetworkType.Ethereum:
             return 'eip155';
@@ -36,8 +44,10 @@ function networkTypeToChainNamespace(networkType: NetworkType) {
 }
 
 function useWalletConnectContext(initialState?: WalletConnectContext) {
-    const [loading, setLoading] = useState(false);
-    const [value, setValue] = useState<WalletConnectContext>(initialState ?? createEmptyContext());
+    const [value, setValue] = useState<WalletConnectState>(initialState ?? createEmptyWalletConnectState());
+
+    const [loading, setLoading] = useState(true);
+    const [networkType, setNetworkType] = useState<NetworkType | null>(null);
 
     // subscribe events
     useEffect(() => {
@@ -56,19 +66,19 @@ function useWalletConnectContext(initialState?: WalletConnectContext) {
 
     // setup api
     useEffect(() => {
-        setLoading(true);
         setupApi().finally(() => {
             setLoading(false);
         });
     }, []);
 
     return {
-        ...value,
-        chainNamespace: value.networkType ? networkTypeToChainNamespace(value.networkType) : null,
+        connectors: value.connectors,
+        featuredWallets: value.featuredWallets,
         loading,
-        updateNetworkType: (networkType?: NetworkType) => setValue((prev) => ({ ...prev, networkType })),
-        reset: () => setValue((prev) => ({ ...prev, networkType: undefined })),
-    };
+        chainNamespace: networkType ? networkTypeToChainNamespace(networkType) : null,
+        setNetworkType: (networkType?: NetworkType) => setNetworkType(networkType ?? null),
+        unsetNetworkType: () => setNetworkType(null),
+    } as WalletConnectContext;
 }
 
 export const WalletConnectContext = createContainer(useWalletConnectContext);

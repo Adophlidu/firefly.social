@@ -11,11 +11,12 @@ import { NetworkPluginID } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { ConnectModalRef, MyWalletsModalRef } from '@/modals/controls.js';
+import type { ChainNamespace } from '@/types/index.js';
 
 const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
 const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
 
-const IconMap = {
+const IconMap: Record<ChainNamespace, string | undefined> = {
     eip155: evmNetworkDescriptor?.icon,
     solana: solanaNetworkDescriptor?.icon,
     polkadot: undefined,
