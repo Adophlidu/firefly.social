@@ -7,6 +7,7 @@ import { delay } from '@masknet/kit';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
+import { WalletConnectButton } from '@/components/WalletConnectButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useIsLogin, useIsLoginFirefly } from '@/hooks/useIsLogin.js';
@@ -29,14 +30,17 @@ export function Footer({ collapsed = false }: FooterProps) {
     return (
         <footer className={classNames('absolute -left-2 -right-2 bottom-20')}>
             {isLogin ? (
-                <div
-                    className={classNames('flex text-center', {
-                        'justify-start': isLogin,
-                        'justify-center': !isLogin && isLoginFirefly,
-                    })}
-                >
-                    <LoginStatusBar collapsed={collapsed} />
-                </div>
+                <>
+                    <WalletConnectButton className="mb-6 ml-6" />
+                    <div
+                        className={classNames('flex text-center', {
+                            'justify-start': isLogin,
+                            'justify-center': !isLogin && isLoginFirefly,
+                        })}
+                    >
+                        <LoginStatusBar collapsed={collapsed} />
+                    </div>
+                </>
             ) : (
                 <div className="mb-4 flex justify-center">
                     {collapsed ? (

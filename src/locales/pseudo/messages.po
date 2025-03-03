@@ -65,6 +65,9 @@ msgstr ""
 msgid "FAILED THREAD POST"
 msgstr ""
 
+msgid "Connecting wallets"
+msgstr ""
+
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr ""
 
@@ -549,6 +552,10 @@ msgstr ""
 msgid "Or login in with other platforms"
 msgstr ""
 
+#. placeholder {0}: decodeURIComponent(connectorName as string)
+msgid "Get {0}"
+msgstr ""
+
 msgid "Show less"
 msgstr ""
 
@@ -705,6 +712,10 @@ msgstr ""
 msgid "Token ID"
 msgstr ""
 
+#. placeholder {0}: chainNameMap[chains[0]]
+msgid "Only {0}"
+msgstr ""
+
 msgid "Type something here..."
 msgstr ""
 
@@ -771,6 +782,9 @@ msgid "Functions with retrievable ownership"
 msgstr ""
 
 msgid "No proxy contract."
+msgstr ""
+
+msgid "Connecting"
 msgstr ""
 
 msgid "Search"
@@ -900,6 +914,9 @@ msgid "1m left"
 msgstr ""
 
 msgid "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
+msgstr ""
+
+msgid "Connect Ethereum Wallet"
 msgstr ""
 
 msgid "Items"
@@ -1424,6 +1441,9 @@ msgstr ""
 msgid "NFT added to your Bookmarks"
 msgstr ""
 
+msgid "All Wallets"
+msgstr ""
+
 msgid "Executed"
 msgstr ""
 
@@ -1792,6 +1812,9 @@ msgid "Log in with recovery phrase"
 msgstr ""
 
 msgid "Connected"
+msgstr ""
+
+msgid "Select Chain"
 msgstr ""
 
 msgid "Edit Profile"
@@ -2330,6 +2353,9 @@ msgstr ""
 msgid "Show more comments"
 msgstr ""
 
+msgid "Connect Solana Wallet"
+msgstr ""
+
 msgid "Exclusivity"
 msgstr ""
 
@@ -2475,6 +2501,9 @@ msgid "Your post failed to send to {0}. Click 'Retry' to attempt posting again."
 msgstr ""
 
 msgid "Not my wallet address."
+msgstr ""
+
+msgid "My Wallets"
 msgstr ""
 
 msgid "Please switch to the wallet consistent with this action"
@@ -2669,6 +2698,9 @@ msgid "Are you sure you want to remove this NFT from your bookmark?"
 msgstr ""
 
 msgid "Voted successfully."
+msgstr ""
+
+msgid "Installed"
 msgstr ""
 
 #. placeholder {0}: profile.handle
@@ -3123,6 +3155,9 @@ msgstr ""
 msgid "NFT holder"
 msgstr ""
 
+msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
+msgstr ""
+
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
 #. placeholder {2}: mutuals[2].displayName
@@ -3200,6 +3235,9 @@ msgstr ""
 
 #. placeholder {0}: firstProfile.displayName
 msgid "{0} and others"
+msgstr ""
+
+msgid "Download Wallet"
 msgstr ""
 
 msgid "Post details"

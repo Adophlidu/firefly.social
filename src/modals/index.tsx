@@ -13,7 +13,6 @@ import { ComposeModal } from '@/modals/ComposeModal.js';
 import { ConfirmFireflyModal } from '@/modals/ConfirmFireflyModal.js';
 import { ConfirmLeavingModal } from '@/modals/ConfirmLeavingModal.js';
 import { ConfirmModal } from '@/modals/ConfirmModal.js';
-import { ConnectModal } from '@/modals/ConnectModal.js';
 import * as controls from '@/modals/controls.js';
 import { DisconnectFireflyAccountModal } from '@/modals/DisconnectFireflyAccountModal.js';
 import { DraggablePopover } from '@/modals/DraggablePopover.js';
@@ -23,6 +22,7 @@ import { FreeMintModal } from '@/modals/FreeMintModal/index.js';
 import { ImageEditorModal } from '@/modals/ImageEditor/index.js';
 import { LoginModal } from '@/modals/LoginModal/index.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
+import { MyWalletsModal } from '@/modals/MyWalletsModal/index.js';
 import { NonFungibleCollectionSelectModal } from '@/modals/NonFungibleCollectionSelectModal/index.js';
 import { PreviewMediaModal } from '@/modals/PreviewMediaModal.js';
 import { RedPacketModal } from '@/modals/RedPacketModal/index.js';
@@ -32,12 +32,12 @@ import { SuperFollowModal } from '@/modals/SuperFollowModal.js';
 import { TipsModal } from '@/modals/TipsModal.js';
 import { TokenSelectorModal } from '@/modals/TokenSelectorModal.js';
 import { TransactionSimulatorModal } from '@/modals/TransactionSimulatorModal.js';
+import { WalletConnectModal } from '@/modals/WalletConnectModal/index.js';
 
 export const Modals = memo(function Modals() {
     return (
         <>
             <AccountModal ref={controls.AccountModalRef.register} />
-            <ConnectModal ref={controls.ConnectModalRef.register} />
             <AccountModal ref={controls.SolanaAccountModalRef.register} />
             <LoginModal ref={controls.LoginModalRef.register} />
             <LogoutModal ref={controls.LogoutModalRef.register} />
@@ -66,6 +66,8 @@ export const Modals = memo(function Modals() {
             <AddCustomERC20Modal ref={controls.AddCustomERC20ModalRef.register} />
             <AddCustomERC721Modal ref={controls.AddCustomERC721ModalRef.register} />
             <ChannelSelectModal ref={controls.ChannelSelectModalRef.register} />
+            <WalletConnectModal ref={controls.ConnectModalRef.register} />
+            <MyWalletsModal ref={controls.MyWalletsModalRef.register} />
         </>
     );
 });

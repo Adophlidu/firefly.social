@@ -18,10 +18,8 @@ import ProfileSelectedIcon from '@/assets/profile.selected.svg';
 import ProfileIcon from '@/assets/profile.svg';
 import SettingsSelectedIcon from '@/assets/setting.selected.svg';
 import SettingsIcon from '@/assets/setting.svg';
-import WalletIcon from '@/assets/wallet.svg';
 import { Link } from '@/components/Link.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
-import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
 import { ExclusiveEvents } from '@/components/SideBar/ExclusiveEvents.js';
 import { Footer } from '@/components/SideBar/Footer.js';
 import { Post } from '@/components/SideBar/Post.js';
@@ -89,12 +87,6 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 selectedIcon: ProfileSelectedIcon,
                             },
                             {
-                                href: '/connect-wallet',
-                                name: <Trans>Connect</Trans>,
-                                icon: WalletIcon,
-                                selectedIcon: WalletIcon,
-                            },
-                            {
                                 href: PageRoute.Events,
                                 name: <Trans>Exclusive Events</Trans>,
                                 icon: ActivityIcon,
@@ -120,7 +112,6 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                     }}
                                 >
                                     {{
-                                        [PageRoute.ConnectWallet]: <ConnectWallet />,
                                         [PageRoute.Events]: <ExclusiveEvents />,
                                         [PageRoute.Profile]: <Profile collapsed={collapsed} />,
                                     }[item.href] ?? (

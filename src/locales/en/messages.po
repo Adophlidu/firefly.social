@@ -65,6 +65,9 @@ msgstr "No frame found."
 msgid "FAILED THREAD POST"
 msgstr "FAILED THREAD POST"
 
+msgid "Connecting wallets"
+msgstr "Connecting wallets"
+
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 
@@ -549,6 +552,10 @@ msgstr "Retry"
 msgid "Or login in with other platforms"
 msgstr "Or login in with other platforms"
 
+#. placeholder {0}: decodeURIComponent(connectorName as string)
+msgid "Get {0}"
+msgstr "Get {0}"
+
 msgid "Show less"
 msgstr "Show less"
 
@@ -705,6 +712,10 @@ msgstr "Liked"
 msgid "Token ID"
 msgstr "Token ID"
 
+#. placeholder {0}: chainNameMap[chains[0]]
+msgid "Only {0}"
+msgstr "Only {0}"
+
 msgid "Type something here..."
 msgstr "Type something here..."
 
@@ -772,6 +783,9 @@ msgstr "Functions with retrievable ownership"
 
 msgid "No proxy contract."
 msgstr "No proxy contract."
+
+msgid "Connecting"
+msgstr "Connecting"
 
 msgid "Search"
 msgstr "Search"
@@ -901,6 +915,9 @@ msgstr "1m left"
 
 msgid "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
 msgstr "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
+
+msgid "Connect Ethereum Wallet"
+msgstr "Connect Ethereum Wallet"
 
 msgid "Items"
 msgstr "Items"
@@ -1424,6 +1441,9 @@ msgstr "Contract address found."
 msgid "NFT added to your Bookmarks"
 msgstr "NFT added to your Bookmarks"
 
+msgid "All Wallets"
+msgstr "All Wallets"
+
 msgid "Executed"
 msgstr "Executed"
 
@@ -1801,6 +1821,9 @@ msgstr "Log in with recovery phrase"
 
 msgid "Connected"
 msgstr "Connected"
+
+msgid "Select Chain"
+msgstr "Select Chain"
 
 msgid "Edit Profile"
 msgstr "Edit Profile"
@@ -2343,6 +2366,9 @@ msgstr "Search..."
 msgid "Show more comments"
 msgstr "Show more comments"
 
+msgid "Connect Solana Wallet"
+msgstr "Connect Solana Wallet"
+
 msgid "Exclusivity"
 msgstr "Exclusivity"
 
@@ -2489,6 +2515,9 @@ msgstr "Your post failed to send to {0}. Click 'Retry' to attempt posting again.
 
 msgid "Not my wallet address."
 msgstr "Not my wallet address."
+
+msgid "My Wallets"
+msgstr "My Wallets"
 
 msgid "Please switch to the wallet consistent with this action"
 msgstr "Please switch to the wallet consistent with this action"
@@ -2683,6 +2712,9 @@ msgstr "Are you sure you want to remove this NFT from your bookmark?"
 
 msgid "Voted successfully."
 msgstr "Voted successfully."
+
+msgid "Installed"
+msgstr "Installed"
 
 #. placeholder {0}: profile.handle
 msgid "Muted @{0} on {sourceName}."
@@ -3136,6 +3168,9 @@ msgstr "Receive"
 msgid "NFT holder"
 msgstr "NFT holder"
 
+msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
+msgstr "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
+
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
 #. placeholder {2}: mutuals[2].displayName
@@ -3217,6 +3252,9 @@ msgstr ""
 #. placeholder {0}: firstProfile.displayName
 msgid "{0} and others"
 msgstr "{0} and others"
+
+msgid "Download Wallet"
+msgstr "Download Wallet"
 
 msgid "Post details"
 msgstr "Post details"

@@ -42,7 +42,6 @@ export enum PageRoute {
     Search = '/search',
     PostDetail = '/post/:source/:id',
     Events = '/events',
-    ConnectWallet = '/connect-wallet',
     Token = '/token/:symbol',
     Article = '/article/:id',
     ProfileDetail = '/profile/:source/:id',

@@ -63,3 +63,15 @@ interface Navigator {
         removeEventListener: (type: string, listener: (event: { target: { boundingRect: DOMRect } }) => void) => void;
     };
 }
+
+namespace React {
+    namespace JSX {
+        interface IntrinsicElements {
+            'w3m-connecting-wc-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+            'w3m-all-wallets-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+            'w3m-connecting-external-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+            'w3m-downloads-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+            'w3m-connecting-multi-chain-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+        }
+    }
+}

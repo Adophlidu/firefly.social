@@ -28,9 +28,10 @@ import type { SuperFollowModalOpenProps } from '@/modals/SuperFollowModal.js';
 import type { TipsModalCloseProps, TipsModalOpenProps } from '@/modals/TipsModal.js';
 import type { TokenSelectorModalCloseProps, TokenSelectorModalOpenProps } from '@/modals/TokenSelectorModal.js';
 import type { TransactionSimulatorModalOpenProps } from '@/modals/TransactionSimulatorModal.js';
+import type { WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/index.js';
 
 export const AccountModalRef = new SingletonModal();
-export const ConnectModalRef = new SingletonModal();
+export const ConnectModalRef = new SingletonModal<WalletConnectModalOpenProps | void>();
 export const LoginModalRef = new SingletonModal<LoginModalOpenProps | void>();
 export const LogoutModalRef = new SingletonModal<LogoutModalProps | void>();
 export const ComposeModalRef = new SingletonModal<ComposeModalOpenProps, ComposeModalCloseProps>();
@@ -63,3 +64,4 @@ export const AddCustomERC20ModalRef = new SingletonModal<AddCustomERC20ModalOpen
 export const AddCustomERC721ModalRef = new SingletonModal<AddCustomERC721ModalOpenProps>();
 export const ChannelSelectModalRef = new SingletonModal<ChannelSelectModalOpenProps, ChannelSelectModalCloseProps>();
 export const ClubSelectModalRef = new SingletonModal<ChannelSelectModalOpenProps, ChannelSelectModalCloseProps>();
+export const MyWalletsModalRef = new SingletonModal();

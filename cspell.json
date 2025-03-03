@@ -271,7 +271,9 @@
         "Phaver",
         "Frens",
         "postgate",
-        "MMMDD"
+        "MMMDD",
+        "RDNS",
+        "RDNSs"
     ],
     "flagWords": [],
     "ignorePaths": [
