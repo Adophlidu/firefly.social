@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-03-03 10:28\n"
+"PO-Revision-Date: 2025-03-03 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -71,7 +71,7 @@ msgid "FAILED THREAD POST"
 msgstr "发送 thread 失败"
 
 msgid "Connecting wallets"
-msgstr ""
+msgstr "已连接的钱包"
 
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr "确认从 Firefly 的社交图谱中断链这个钱包和相关账户？"
@@ -559,7 +559,7 @@ msgstr "或者登录其他平台"
 
 #. placeholder {0}: decodeURIComponent(connectorName as string)
 msgid "Get {0}"
-msgstr ""
+msgstr "获取{0}"
 
 msgid "Show less"
 msgstr "收起"
@@ -922,7 +922,7 @@ msgid "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for m
 msgstr "核心资产访问：解锁优质代币、独家 NFT 和节点，以获得更多投资机会。"
 
 msgid "Connect Ethereum Wallet"
-msgstr ""
+msgstr "连接EVM钱包"
 
 msgid "Items"
 msgstr "条目"
@@ -1447,7 +1447,7 @@ msgid "NFT added to your Bookmarks"
 msgstr "NFT 已经添加到您的收藏中"
 
 msgid "All Wallets"
-msgstr ""
+msgstr "所有钱包"
 
 msgid "Executed"
 msgstr "已执行"
@@ -1828,7 +1828,7 @@ msgid "Connected"
 msgstr "已连接"
 
 msgid "Select Chain"
-msgstr ""
+msgstr "选择链"
 
 msgid "Edit Profile"
 msgstr "编辑个人信息"
@@ -2372,7 +2372,7 @@ msgid "Show more comments"
 msgstr "展示更多评论"
 
 msgid "Connect Solana Wallet"
-msgstr ""
+msgstr "连接Solana钱包"
 
 msgid "Exclusivity"
 msgstr "独特性"
@@ -2522,7 +2522,7 @@ msgid "Not my wallet address."
 msgstr "不是我的钱包地址。"
 
 msgid "My Wallets"
-msgstr ""
+msgstr "我的钱包"
 
 msgid "Please switch to the wallet consistent with this action"
 msgstr "请切换到与此操作一致的钱包。"
@@ -2719,7 +2719,7 @@ msgid "Voted successfully."
 msgstr "投票成功。"
 
 msgid "Installed"
-msgstr ""
+msgstr "已安装"
 
 #. placeholder {0}: profile.handle
 msgid "Muted @{0} on {sourceName}."
@@ -3174,7 +3174,7 @@ msgid "NFT holder"
 msgstr "NFT 持有者"
 
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
-msgstr ""
+msgstr "请连接一个EVM钱包和一个Solana钱包以体验Firefly的链上功能。"
 
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
@@ -3259,7 +3259,7 @@ msgid "{0} and others"
 msgstr "{0} 和 其他"
 
 msgid "Download Wallet"
-msgstr ""
+msgstr "下载钱包"
 
 msgid "Post details"
 msgstr "帖子明细"
