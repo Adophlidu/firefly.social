@@ -14,7 +14,12 @@ export function NFTFeedHeader({ chainId, ...props }: NFTFeedHeaderProps) {
     const { address, contractAddress, tokenId } = props;
     return (
         <ActivityCellHeader {...props} icon={<ChainIcon chainId={chainId} size={15} />}>
-            <WalletBaseMoreAction address={address} contractAddress={contractAddress} tokenId={tokenId} />
+            <WalletBaseMoreAction
+                address={address}
+                contractAddress={contractAddress}
+                tokenId={tokenId}
+                chainId={chainId}
+            />
         </ActivityCellHeader>
     );
 }

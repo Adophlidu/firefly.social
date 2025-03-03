@@ -158,6 +158,10 @@ export function createPostMetadata(baseMetadata: BaseMetadata, attachments?: Att
     });
 }
 
+export function resolveLensClub(channel?: Channel | null) {
+    return channel && channel.id !== HOME_CLUB.id ? [`${ORB_CLUB_TAG_PREFIX}${channel.id}`] : undefined;
+}
+
 export type GetPostMetaData = ReturnType<typeof createPostMetadata>;
 
 async function publishPostForLens(
@@ -178,7 +182,7 @@ async function publishPostForLens(
                 description: content,
                 external_url: SITE_URL,
             },
-            tags: channel && channel.id !== HOME_CLUB.id ? [`${ORB_CLUB_TAG_PREFIX}${channel.id}`] : undefined,
+            tags: resolveLensClub(channel),
         },
         await createPayloadAttachments(images, video),
     );

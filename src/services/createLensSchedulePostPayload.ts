@@ -10,7 +10,7 @@ import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObje
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { createPayloadAttachments, createPostMetadata } from '@/services/postToLens.js';
+import { createPayloadAttachments, createPostMetadata, resolveLensClub } from '@/services/postToLens.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
@@ -36,7 +36,7 @@ export async function createLensSchedulePostPayload(
     isThread = false,
     signal?: AbortSignal,
 ): Promise<LensSchedulePayload> {
-    const { images, video, chars, parentPost } = compositePost;
+    const { images, video, chars, parentPost, channel } = compositePost;
 
     const lensParentPost = parentPost.Lens;
     const sourceName = resolveSourceName(Source.Lens);
@@ -77,6 +77,7 @@ export async function createLensSchedulePostPayload(
                 description: content,
                 external_url: SITE_URL,
             },
+            tags: resolveLensClub(channel?.[Source.Lens]),
         },
         await createPayloadAttachments(imageResults, videoResult),
     );

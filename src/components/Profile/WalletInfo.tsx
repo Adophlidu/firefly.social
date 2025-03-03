@@ -54,7 +54,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
             <Avatar src={avatar} alt="avatar" size={80} className="h-20 w-20 rounded-full" />
             <div className="relative flex flex-1 flex-col">
                 <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-1">
+                    <div className="flex h-8 items-center gap-1">
                         {isMPC ? <FireflyLogo width={19} height={19} /> : null}
                         {networkIcon && networkType ? (
                             <Image src={networkIcon} alt={networkType} width={18} height={18} />

@@ -1,5 +1,4 @@
 import { Menu, MenuButton, type MenuProps, Transition } from '@headlessui/react';
-import { motion } from 'framer-motion';
 import { Fragment, type MouseEvent } from 'react';
 
 import { type SocialSource } from '@/constants/enum.js';
@@ -35,9 +34,7 @@ export function MoreActionMenu({
         <Menu className={classNames('relative', className)} as="div" onClick={stopEvent}>
             <MenuButton
                 disabled={disabled}
-                whileTap={{ scale: 0.9 }}
-                as={motion.button}
-                className="flex flex-shrink-0 items-center text-lightMain"
+                className="flex flex-shrink-0 items-center text-lightMain transition duration-100 active:scale-90"
                 aria-label="More"
                 onClick={(event: MouseEvent) => {
                     event.stopPropagation();
