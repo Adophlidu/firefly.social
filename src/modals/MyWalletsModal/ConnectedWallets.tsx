@@ -1,8 +1,7 @@
 import { Trans } from '@lingui/react/macro';
-import { CoreChainController } from '@reown/appkit';
 import { type ChainAdapter, useAppKit, useAppKitAccount, useAppKitNetwork } from '@reown/appkit/react';
 import { first } from 'lodash-es';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback } from 'react';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
 
@@ -14,6 +13,7 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { useAppKitAllAccounts } from '@/hooks/useAppKitAllAccounts.js';
 import { ConnectModalRef } from '@/modals/controls.js';
 
 const IconMap = {
@@ -54,15 +54,7 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
     const { open } = useAppKit();
     const { address: activeAddress } = useAppKitAccount();
     const { switchNetwork } = useAppKitNetwork();
-    const [chainState, setChainState] = useState(CoreChainController.state?.chains || new Map());
-
-    useEffect(
-        () =>
-            CoreChainController.subscribeKey('chains', (chains) => {
-                setChainState(chains);
-            }),
-        [],
-    );
+    const accounts = useAppKitAllAccounts();
 
     const openAccountModal = useCallback(
         (adapter: ChainAdapter) => {
@@ -79,14 +71,6 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
         [activeAddress, switchNetwork, open],
     );
 
-    const chains = Array.from(chainState.entries())
-        .map(([chain, adapter]) => ({
-            chain,
-            address: adapter.accountState?.address || '',
-            adapter,
-        }))
-        .filter(({ adapter, address }) => adapter.accountState?.status === 'connected' && !!address);
-
     return (
         <div className="overflow-hidden rounded-lg border border-secondaryLine">
             <ClickableButton
@@ -101,7 +85,7 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
                 </span>
                 <PlusIcon width={20} height={20} />
             </ClickableButton>
-            {chains.map((account) => {
+            {accounts.map((account) => {
                 return (
                     <ConnectedItem
                         key={account.address}

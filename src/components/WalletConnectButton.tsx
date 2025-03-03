@@ -10,23 +10,25 @@ import { Image } from '@/components/Image.js';
 import { NetworkPluginID } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
+import { useAppKitAllAccounts } from '@/hooks/useAppKitAllAccounts.js';
 import { ConnectModalRef, MyWalletsModalRef } from '@/modals/controls.js';
 import type { ChainNamespace } from '@/types/index.js';
 
 interface WalletConnectButtonProps extends ClickableButtonProps {}
 
+const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
+const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
+
+const IconMap: Record<ChainNamespace, string | undefined> = {
+    eip155: evmNetworkDescriptor?.icon,
+    solana: solanaNetworkDescriptor?.icon,
+    polkadot: undefined,
+    bip122: undefined,
+};
+
 export const WalletConnectButton = memo<WalletConnectButtonProps>(function WalletConnectButton({ className, ...rest }) {
-    const { allAccounts, address } = useAppKitAccount();
-
-    const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
-    const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
-
-    const IconMap: Record<ChainNamespace, string | undefined> = {
-        eip155: evmNetworkDescriptor?.icon,
-        solana: solanaNetworkDescriptor?.icon,
-        polkadot: undefined,
-        bip122: undefined,
-    };
+    const { address } = useAppKitAccount();
+    const accounts = useAppKitAllAccounts();
 
     return (
         <ClickableButton
@@ -51,16 +53,19 @@ export const WalletConnectButton = memo<WalletConnectButtonProps>(function Walle
             ) : (
                 <>
                     <Trans>My Wallets</Trans>
-                    <div>
-                        {allAccounts.map((account) => {
-                            const iconUrl = IconMap[account.namespace];
+                    <div className="flex">
+                        {accounts.map((account, index) => {
+                            const iconUrl = IconMap[account.chain];
                             return iconUrl ? (
                                 <Image
-                                    className="h-5 w-5 rounded-full"
+                                    className={classNames('h-5 w-5 rounded-full', {
+                                        '-ml-1': index > 0,
+                                    })}
+                                    style={{ zIndex: accounts.length - index }}
                                     width={20}
                                     height={20}
-                                    src={account.namespace}
-                                    alt={account.namespace}
+                                    src={iconUrl}
+                                    alt={account.chain}
                                 />
                             ) : null;
                         })}
