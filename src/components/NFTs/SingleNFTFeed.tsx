@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { memo, useMemo } from 'react';
+import urlcat from 'urlcat';
 import type { Address } from 'viem';
 
 import { NFTsActivityCellAction } from '@/components/ActivityCell/NFTs/NFTsActivityCellAction.js';
@@ -13,6 +14,7 @@ import { Link } from '@/components/Link.js';
 import { type NFTFeedBodyProps } from '@/components/NFTs/NFTFeedBody.js';
 import { NFTFeedHeader } from '@/components/NFTs/NFTFeedHeader.js';
 import { Source } from '@/constants/enum.js';
+import { FIREFLY_STAMP_URL } from '@/constants/index.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
@@ -74,7 +76,16 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
             <FeedFollowSource source={first(followingSources)} />
             <div className="flex gap-3">
                 <Link href={authorUrl} className="z-[1] flex-shrink-0" onClick={stopPropagation}>
-                    <Avatar className="h-10 w-10" src={displayInfo.avatarUrl} size={40} alt={ownerAddress} />
+                    <Avatar
+                        className="h-10 w-10"
+                        src={
+                            displayInfo.ensHandle
+                                ? urlcat(FIREFLY_STAMP_URL, '/:address', { address: displayInfo.ensHandle })
+                                : displayInfo.avatarUrl
+                        }
+                        size={40}
+                        alt={ownerAddress}
+                    />
                 </Link>
                 <article className="min-w-0 flex-grow">
                     <NFTFeedHeader
