@@ -1086,6 +1086,10 @@ msgstr ""
 msgid "Follow more friends to continue exploring on {0}."
 msgstr ""
 
+#. placeholder {0}: resolveSourcesName(invalidSources)
+msgid "Lucky drop for {0} is coming soon."
+msgstr ""
+
 msgid "No fake KYC involved."
 msgstr ""
 
@@ -1523,6 +1527,10 @@ msgid "Forbidden. Please check your permissions."
 msgstr ""
 
 msgid "No mint function"
+msgstr ""
+
+#. placeholder {0}: resolveSourcesName(invalidSources)
+msgid "Poll for {0} is coming soon."
 msgstr ""
 
 msgid "Expired"
@@ -1985,6 +1993,10 @@ msgid "Submit a wallet to receive a collectible and $MASK airdrop"
 msgstr ""
 
 msgid "Standard"
+msgstr ""
+
+#. placeholder {0}: resolveSourcesName(invalidSources)
+msgid "Schedule post for {0} is coming soon."
 msgstr ""
 
 msgid "No darkweb transactions found."
@@ -2477,10 +2489,6 @@ msgid "Bio should be at least {minBioSize} characters"
 msgstr ""
 
 msgid "Visit mask.io"
-msgstr ""
-
-#. placeholder {0}: resolveSourcesName(SORTED_POLL_SOURCES)
-msgid "Poll is currently only supported on {0}."
 msgstr ""
 
 msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1> or <2>sync</2> through the app"

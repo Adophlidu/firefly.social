@@ -1,52 +1,34 @@
-import { t } from '@lingui/core/macro';
 import { compact, values } from 'lodash-es';
 import { useMemo } from 'react';
-import { useAsyncFn } from 'react-use';
 
-import RedPacketIcon from '@/assets/red-packet.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { AddThread } from '@/components/Compose/ComposeActions/AddThread.js';
 import { ChooseChannelAction } from '@/components/Compose/ComposeActions/ChannelAction.js';
 import { EmojiAction } from '@/components/Compose/ComposeActions/EmojiAction.js';
 import { MediaAction } from '@/components/Compose/ComposeActions/MediaAction.js';
 import { PlatformAction } from '@/components/Compose/ComposeActions/PlatformAction.js';
+import { RedPacketAction } from '@/components/Compose/ComposeActions/RedPacketAction.js';
 import { ReplyRestrictionAction } from '@/components/Compose/ComposeActions/ReplyRestrictionAction.js';
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { SchedulePostEntryButton } from '@/components/Compose/SchedulePostEntryButton.js';
 import { GifEntryButton } from '@/components/Gif/GifEntryButton.js';
 import { PollButton } from '@/components/Poll/PollButton.js';
-import { Tooltip } from '@/components/Tooltip.js';
 import { Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { ENABLED_RP_SOURCES, ENABLED_SCHEDULE_POST_SOURCES } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
-import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { RedPacketModalRef } from '@/modals/controls.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export function ComposeActions() {
     const isMedium = useIsMedium();
-    const { ethereum, solana } = useWalletAccountAll();
-
-    const post = useCompositePost();
     const { type, posts } = useComposeStateStore();
-
-    const { availableSources, images, video, poll, rpPayload } = post;
-
     const { scheduleTime } = useComposeScheduleStateStore();
+    const { availableSources, images, video, poll, rpPayload } = useCompositePost();
 
-    const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
-        if (!ethereum.address && !solana.address) {
-            ethereum.connect();
-            return;
-        }
-
-        RedPacketModalRef.open();
-    }, [solana.address, ethereum]);
+    const hasError = useMemo(() => {
+        return posts.some((x) => !!compact(values(x.postError)).length);
+    }, [posts]);
 
     const maxImageCount = Math.min(
         getCurrentPostImageLimits(type, availableSources),
@@ -54,17 +36,9 @@ export function ComposeActions() {
     );
 
     const mediaDisabled = !!video || !!poll || !!rpPayload || images.length >= maxImageCount;
-    const scheduleDisabled = availableSources.some((x) => !ENABLED_SCHEDULE_POST_SOURCES.includes(x));
-
-    const hasError = useMemo(() => {
-        return posts.some((x) => !!compact(values(x.postError)).length);
-    }, [posts]);
-
     const showFarcasterChannel =
         availableSources.includes(Source.Farcaster) && (type === 'compose' || type === 'quote');
-
     const showLensChannel = availableSources.includes(Source.Lens) && type === 'compose';
-
     const showReplyScope = type !== 'reply' && !(type === 'quote' && availableSources.includes(Source.Farcaster));
 
     return (
@@ -101,29 +75,9 @@ export function ComposeActions() {
 
                     {type === 'compose' && env.external.NEXT_PUBLIC_POLL === STATUS.Enabled ? <PollButton /> : null}
 
-                    {env.external.NEXT_PUBLIC_SCHEDULE_POST === STATUS.Enabled && !rpPayload ? (
-                        <Tooltip content={t`Schedule`} placement="top" disabled={scheduleDisabled}>
-                            <SchedulePostEntryButton className="text-main" disabled={scheduleDisabled} />
-                        </Tooltip>
-                    ) : null}
+                    <SchedulePostEntryButton className="text-main" disabled={!!rpPayload} />
 
-                    {!scheduleTime &&
-                    !mediaDisabled &&
-                    isMedium &&
-                    availableSources.every((x) => ENABLED_RP_SOURCES.includes(x)) ? (
-                        <ClickableButton
-                            className={classNames('h-5 w-5', {
-                                'cursor-wait opacity-50': loading,
-                                'cursor-not-allowed opacity-50': !loading && mediaDisabled,
-                                'cursor-pointer': !mediaDisabled,
-                            })}
-                            onClick={() => {
-                                openRedPacketComposeDialog();
-                            }}
-                        >
-                            <RedPacketIcon width={20} height={20} />
-                        </ClickableButton>
-                    ) : null}
+                    {!scheduleTime && !mediaDisabled && isMedium ? <RedPacketAction disabled={mediaDisabled} /> : null}
                 </div>
 
                 {isMedium ? <ComposeSend /> : <AddThread />}

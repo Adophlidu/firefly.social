@@ -5,6 +5,7 @@ import PollIcon from '@/assets/poll.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SORTED_POLL_SOURCES } from '@/constants/index.js';
+import { classNames } from '@/helpers/classNames.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -13,24 +14,25 @@ export const PollButton = memo(function PollButton() {
     const { video, images, poll, availableSources, rpPayload } = useCompositePost();
     const { createPoll } = useComposeStateStore();
 
-    const isPollSupported =
-        availableSources.length > 0 && availableSources.every((x) => SORTED_POLL_SOURCES.includes(x));
+    const invalidSources = availableSources.filter((x) => !SORTED_POLL_SOURCES.includes(x));
+    const isPollSupported = availableSources.length > 0 && invalidSources.length === 0;
     const hasConflictContent = !!video || images.length > 0 || !!poll || !!rpPayload;
+    const disabled = !isPollSupported || hasConflictContent;
 
     return (
         <Tooltip
             content={
-                !isPollSupported
-                    ? t`Poll is currently only supported on ${resolveSourcesName(SORTED_POLL_SOURCES)}.`
+                !isPollSupported && invalidSources.length > 0
+                    ? t`Poll for ${resolveSourcesName(invalidSources)} is coming soon.`
                     : t`Poll`
             }
             placement="top"
             disabled={!isPollSupported ? false : hasConflictContent}
         >
             <ClickableButton
-                disabled={!isPollSupported || hasConflictContent}
-                className="leading-4 text-main"
+                className={classNames('leading-4 text-main', disabled ? 'cursor-not-allowed opacity-50' : '')}
                 onClick={() => {
+                    if (disabled) return;
                     createPoll();
                 }}
             >

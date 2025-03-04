@@ -1086,6 +1086,10 @@ msgstr "[Photo]"
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "Follow more friends to continue exploring on {0}."
 
+#. placeholder {0}: resolveSourcesName(invalidSources)
+msgid "Lucky drop for {0} is coming soon."
+msgstr "Lucky drop for {0} is coming soon."
+
 msgid "No fake KYC involved."
 msgstr "No fake KYC involved."
 
@@ -1524,6 +1528,10 @@ msgstr "Forbidden. Please check your permissions."
 
 msgid "No mint function"
 msgstr "No mint function"
+
+#. placeholder {0}: resolveSourcesName(invalidSources)
+msgid "Poll for {0} is coming soon."
+msgstr "Poll for {0} is coming soon."
 
 msgid "Expired"
 msgstr "Expired"
@@ -1994,6 +2002,10 @@ msgstr "Submit a wallet to receive a collectible and $MASK airdrop"
 
 msgid "Standard"
 msgstr "Standard"
+
+#. placeholder {0}: resolveSourcesName(invalidSources)
+msgid "Schedule post for {0} is coming soon."
+msgstr "Schedule post for {0} is coming soon."
 
 msgid "No darkweb transactions found."
 msgstr "No darkweb transactions found."
@@ -2491,10 +2503,6 @@ msgstr "Bio should be at least {minBioSize} characters"
 
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
-
-#. placeholder {0}: resolveSourcesName(SORTED_POLL_SOURCES)
-msgid "Poll is currently only supported on {0}."
-msgstr "Poll is currently only supported on {0}."
 
 msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1> or <2>sync</2> through the app"
 msgstr "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1> or <2>sync</2> through the app"
