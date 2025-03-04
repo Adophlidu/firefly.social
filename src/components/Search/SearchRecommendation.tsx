@@ -113,21 +113,22 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
             {records.length ? (
                 <menu className="my-0">
                     {records.map((record) => (
-                        <Link
-                            className="flex cursor-pointer items-center px-3 hover:bg-bg"
-                            key={record}
-                            href={
-                                autoSearchType && !isSearchPage
-                                    ? resolveSearchUrl(record, resolveSearchTypeFromQuery(record))
-                                    : fixSearchUrl(isSearchPage, record, searchType, source)
-                            }
-                            onClick={() => {
-                                addRecord(record);
-                                onSearch?.({ q: record });
-                            }}
-                        >
-                            <SearchIcon width={18} height={18} className="shrink-0" />
-                            <span className="color-main ml-4 flex-grow truncate py-2">{record}</span>
+                        <div className="flex cursor-pointer items-center px-3 hover:bg-bg" key={record}>
+                            <Link
+                                className="flex min-w-0 flex-1 items-center truncate"
+                                href={
+                                    autoSearchType && !isSearchPage
+                                        ? resolveSearchUrl(record, resolveSearchTypeFromQuery(record))
+                                        : fixSearchUrl(isSearchPage, record, searchType, source)
+                                }
+                                onClick={() => {
+                                    addRecord(record);
+                                    onSearch?.({ q: record });
+                                }}
+                            >
+                                <SearchIcon width={18} height={18} className="shrink-0" />
+                                <span className="color-main ml-4 flex-grow truncate py-2">{record}</span>
+                            </Link>
                             <ClearButton
                                 size={16}
                                 className="ml-auto text-second"
@@ -137,7 +138,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                     removeRecord(record);
                                 }}
                             />
-                        </Link>
+                        </div>
                     ))}
                 </menu>
             ) : null}
