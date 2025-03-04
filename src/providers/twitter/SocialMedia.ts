@@ -10,7 +10,7 @@ import type {
 } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
-import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
+import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { AddLikeStatusToTwitterPosts } from '@/decorators/AddLikeStatusToTwitterPosts.js';
@@ -33,7 +33,6 @@ import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRes
 import { resolveTwitterResponseData } from '@/helpers/resolveTwitterResponseData.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import {
@@ -175,13 +174,7 @@ class TwitterSocialMedia implements Provider {
                 cursor: indicator?.id,
                 query: q,
             });
-            const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2TimelineResult>>(
-                url,
-                {},
-                {
-                    withSession: true,
-                },
-            );
+            const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<UserV2TimelineResult>>(url);
             const data = resolveTwitterResponseData(response);
             return formatTwitterProfilePage(data, indicator);
         });
@@ -285,13 +278,7 @@ class TwitterSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(
-            url,
-            {},
-            {
-                withSession: true,
-            },
-        );
+        const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
         const data = resolveTwitterResponseData(response);
         return formatTweetsPage(data, indicator);
     }
@@ -344,13 +331,7 @@ class TwitterSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(
-            url,
-            {},
-            {
-                withSession: true,
-            },
-        );
+        const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
         const data = resolveTwitterResponseData(response);
         return formatTweetsPage(data, indicator);
     }
@@ -363,13 +344,7 @@ class TwitterSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(
-            url,
-            {},
-            {
-                withSession: true,
-            },
-        );
+        const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
         const data = resolveTwitterResponseData(response);
         const postWithPageable = formatTweetsPage(data, indicator);
         return { ...postWithPageable, data: postWithPageable.data.map((post) => ({ ...post, hasLiked: true })) };
@@ -383,13 +358,7 @@ class TwitterSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(
-            url,
-            {},
-            {
-                withSession: true,
-            },
-        );
+        const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
         const data = resolveTwitterResponseData(response);
         return formatTweetsPage(data, indicator);
     }
@@ -399,24 +368,14 @@ class TwitterSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(
-            url,
-            {},
-            {
-                withSession: true,
-            },
-        );
+        const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
         const data = resolveTwitterResponseData(response);
         return formatTweetsPage(data, indicator);
     }
 
     async getThreadByPostId(postId: string): Promise<Post[]> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<Post[]>>(
+        const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<Post[]>>(
             `/api/twitter/threadTweets/${postId}`,
-            {},
-            {
-                withSession: true,
-            },
         );
         const data = resolveTwitterResponseData(response);
         return data;
@@ -452,13 +411,7 @@ class TwitterSocialMedia implements Provider {
                 cursor: indicator?.id,
                 query: q,
             });
-            const response = await twitterSessionHolder.fetch<ResponseJSON<Tweetv2TimelineResult>>(
-                url,
-                {},
-                {
-                    withSession: true,
-                },
-            );
+            const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<Tweetv2TimelineResult>>(url);
             const data = resolveTwitterResponseData(response);
             return formatTweetsPage(data, indicator);
         });
@@ -540,40 +493,50 @@ class TwitterSocialMedia implements Provider {
         return data.deleted;
     }
     async blockProfile(profileId: string): Promise<boolean> {
-        const result = await FireflyEndpointProvider.blockProfileFor(FireflyPlatform.Twitter, profileId);
-        await runInSafeAsync(() =>
-            twitterSessionHolder.fetch<ResponseJSON<UserV2MuteResult['data']>>(
-                `/api/twitter/mute/${profileId}`,
-                {
-                    method: 'POST',
-                },
-                {
-                    withSession: true,
-                },
-            ),
+        const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<UserV2MuteResult['data']>>(
+            `/api/twitter/mute/${profileId}`,
+            {
+                method: 'POST',
+            },
         );
-        return result;
+        if (!response.success) throw new Error(response.error.message);
+
+        await runInSafeAsync(() => FireflyEndpointProvider.blockProfileFor(FireflyPlatform.Twitter, profileId));
+        return response.data?.muting === true;
     }
     async unblockProfile(profileId: string): Promise<boolean> {
-        const result = await FireflyEndpointProvider.unblockProfileFor(FireflyPlatform.Twitter, profileId);
-        await runInSafeAsync(() =>
-            twitterSessionHolder.fetch<ResponseJSON<UserV2MuteResult['data']>>(
-                `/api/twitter/mute/${profileId}`,
-                {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+        const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<UserV2MuteResult['data']>>(
+            `/api/twitter/mute/${profileId}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
                 },
-                {
-                    withSession: true,
-                },
-            ),
+            },
         );
-        return result;
+        if (!response.success) throw new Error(response.error.message);
+
+        await runInSafeAsync(() => FireflyEndpointProvider.unblockProfileFor(FireflyPlatform.Twitter, profileId));
+        return response.data?.muting === false;
     }
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return FireflySocialMediaProvider.getBlockedProfiles(indicator, SourceInURL.Twitter);
+        return twitterSessionHolder.withSession(async (session) => {
+            if (!session) return createPageable([], createIndicator(indicator));
+
+            const url = urlcat('/api/twitter/mute', {
+                limit: 20,
+                cursor: indicator?.id,
+            });
+            const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<UserV2TimelineResult>>(url);
+            if (!response.success) throw new Error(response.error.message);
+
+            const profiles = response.data.data.map(formatTwitterProfile);
+            return createPageable(
+                profiles,
+                createIndicator(indicator),
+                response.data.meta.next_token ? createIndicator(undefined, response.data.meta.next_token) : undefined,
+            );
+        });
     }
 
     async bookmark(tweetId: string): Promise<boolean> {
