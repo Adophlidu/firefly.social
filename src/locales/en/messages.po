@@ -3982,6 +3982,9 @@ msgstr "Create a post to tell everyone about your participation. Votes can be ch
 msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
 msgstr "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
 
+msgid "No connected wallet."
+msgstr "No connected wallet."
+
 msgid "Hours"
 msgstr "Hours"
 

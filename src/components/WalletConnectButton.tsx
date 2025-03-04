@@ -1,34 +1,34 @@
 import { Trans } from '@lingui/react/macro';
 import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
 import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
-import { useAppKitAccount } from '@reown/appkit/react';
+import { compact } from 'lodash-es';
 import { memo } from 'react';
 
 import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
-import { NetworkPluginID } from '@/constants/enum.js';
+import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
-import { useAppKitAllAccounts } from '@/hooks/useAppKitAllAccounts.js';
+import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { ConnectModalRef, MyWalletsModalRef } from '@/modals/controls.js';
-import type { ChainNamespace } from '@/types/index.js';
 
 interface WalletConnectButtonProps extends ClickableButtonProps {}
 
 const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
 const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
 
-const IconMap: Record<ChainNamespace, string | undefined> = {
-    eip155: evmNetworkDescriptor?.icon,
-    solana: solanaNetworkDescriptor?.icon,
-    polkadot: undefined,
-    bip122: undefined,
+const IconMap: Record<NetworkType, string | undefined> = {
+    [NetworkType.Ethereum]: evmNetworkDescriptor?.icon,
+    [NetworkType.Solana]: solanaNetworkDescriptor?.icon,
 };
 
 export const WalletConnectButton = memo<WalletConnectButtonProps>(function WalletConnectButton({ className, ...rest }) {
-    const { address } = useAppKitAccount();
-    const accounts = useAppKitAllAccounts();
+    const { ethereum, solana } = useWalletAccountAll();
+    const connectedNetworks = compact([
+        ethereum.isConnected ? NetworkType.Ethereum : null,
+        solana.isConnected ? NetworkType.Solana : null,
+    ]);
 
     return (
         <ClickableButton
@@ -37,7 +37,7 @@ export const WalletConnectButton = memo<WalletConnectButtonProps>(function Walle
                 className,
             )}
             onClick={() => {
-                if (address) {
+                if (connectedNetworks.length) {
                     MyWalletsModalRef.open();
                 } else {
                     ConnectModalRef.open();
@@ -45,7 +45,7 @@ export const WalletConnectButton = memo<WalletConnectButtonProps>(function Walle
             }}
             {...rest}
         >
-            {!address ? (
+            {!connectedNetworks.length ? (
                 <>
                     <WalletIcon width={20} height={20} />
                     <Trans>Connect Wallet</Trans>
@@ -54,18 +54,18 @@ export const WalletConnectButton = memo<WalletConnectButtonProps>(function Walle
                 <>
                     <Trans>My Wallets</Trans>
                     <div className="flex">
-                        {accounts.map((account, index) => {
-                            const iconUrl = IconMap[account.chain];
+                        {connectedNetworks.map((networkType, index) => {
+                            const iconUrl = IconMap[networkType];
                             return iconUrl ? (
                                 <Image
                                     className={classNames('h-5 w-5 rounded-full', {
                                         '-ml-1': index > 0,
                                     })}
-                                    style={{ zIndex: accounts.length - index }}
+                                    style={{ zIndex: connectedNetworks.length - index }}
                                     width={20}
                                     height={20}
                                     src={iconUrl}
-                                    alt={account.chain}
+                                    alt={networkType}
                                 />
                             ) : null;
                         })}

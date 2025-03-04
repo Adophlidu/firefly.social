@@ -3971,6 +3971,9 @@ msgstr ""
 msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
 msgstr ""
 
+msgid "No connected wallet."
+msgstr ""
+
 msgid "Hours"
 msgstr ""
 

@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 import { type ChainAdapter, useAppKit, useAppKitAccount, useAppKitNetwork } from '@reown/appkit/react';
 import { first } from 'lodash-es';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
 
@@ -15,6 +15,8 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { useAppKitAllAccounts } from '@/hooks/useAppKitAllAccounts.js';
 import { ConnectModalRef } from '@/modals/controls.js';
+import { restoreDisconnectMethod, rewriteDisconnectMethod } from '@/modals/MyWalletsModal/rewriteDisconnectMethod.js';
+import type { ChainNamespace } from '@/types/index.js';
 
 const IconMap = {
     eip155: EvmIcon,
@@ -57,19 +59,23 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
     const accounts = useAppKitAllAccounts();
 
     const openAccountModal = useCallback(
-        (adapter: ChainAdapter) => {
+        (adapter: ChainAdapter, namespace: ChainNamespace) => {
             if (isSameAddress(adapter.accountState?.address, activeAddress)) {
+                rewriteDisconnectMethod(namespace);
                 open({ view: 'Account' });
                 return;
             }
             const network = first(adapter.caipNetworks);
             if (network) {
                 switchNetwork(network);
+                rewriteDisconnectMethod(namespace);
                 open({ view: 'Account' });
             }
         },
         [activeAddress, switchNetwork, open],
     );
+
+    useEffect(() => restoreDisconnectMethod, []);
 
     return (
         <div className="overflow-hidden rounded-lg border border-secondaryLine">
@@ -85,6 +91,11 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
                 </span>
                 <PlusIcon width={20} height={20} />
             </ClickableButton>
+            {!accounts.length ? (
+                <div className="flex h-10 items-center justify-center text-sm text-secondary">
+                    <Trans>No connected wallet.</Trans>
+                </div>
+            ) : null}
             {accounts.map((account) => {
                 return (
                     <ConnectedItem
@@ -93,7 +104,7 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
                         address={account.address}
                         selected
                         onClick={() => {
-                            openAccountModal(account.adapter);
+                            openAccountModal(account.adapter, account.chain);
                         }}
                     />
                 );

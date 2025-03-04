@@ -35,22 +35,23 @@ export function useWalletAccountAll() {
     const account = useAccount();
     const walletProvider = useSolanaWalletProvider();
     const { connection } = useAppKitConnection();
+    const solanaAddress = walletProvider?.publicKey?.toBase58();
 
     return useMemo(
         () => ({
             ethereum: {
                 address: account.address ?? '',
                 chainId: account.chainId,
-                isConnected: account.isConnected,
+                isConnected: account.isConnected && !!account.address,
                 connect: () => ConnectModalRef.open(),
             },
             solana: {
-                address: walletProvider?.publicKey?.toBase58() ?? '',
+                address: solanaAddress ?? '',
                 chainId: ChainId.Mainnet,
-                isConnected: !!connection,
+                isConnected: !!connection && !!solanaAddress,
                 connect: () => ConnectModalRef.open(),
             },
         }),
-        [account.address, account.chainId, account.isConnected, walletProvider?.publicKey, connection],
+        [account.address, account.chainId, account.isConnected, solanaAddress, connection],
     );
 }
