@@ -7,7 +7,15 @@ import { type Address, type Hex, isAddress, isHex } from 'viem';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { DEBANK_CHAIN_TO_CHAIN_ID_MAP, DEBANK_CHAINS } from '@/constants/chain.js';
-import { FireflyPlatform, Locale, NetworkType, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
+import {
+    DefaultConnectionPlatform,
+    FireflyPlatform,
+    Locale,
+    NetworkType,
+    type SocialSource,
+    Source,
+    SourceInURL,
+} from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
 import { SetQueryDataForMuteAllProfiles } from '@/decorators/SetQueryDataForBlockProfile.js';
@@ -715,6 +723,20 @@ export class FireflyEndpoint {
         const connections = await this.getAllConnections();
 
         return {
+            evmConnections: formatWalletConnections(
+                [
+                    ...connections.wallet.connectedEVM.map((x) => ({ ...x, isConnected: true })),
+                    ...connections.wallet.unconnectedEVM.map((x) => ({ ...x, isConnected: false })),
+                ],
+                connections,
+            ),
+            solanaConnections: formatWalletConnections(
+                [
+                    ...connections.wallet.connectedSolana.map((x) => ({ ...x, isConnected: true })),
+                    ...connections.wallet.unconnectedSolana.map((x) => ({ ...x, isConnected: false })),
+                ],
+                connections,
+            ),
             connected: formatWalletConnections(connections.wallet.connected, connections),
             related: formatWalletConnections(connections.wallet.unconnected, connections),
         };
@@ -1032,6 +1054,17 @@ export class FireflyEndpoint {
             }),
         });
         return resolveFireflyResponseData(response);
+    }
+
+    async updateDefaultConnection(platformId: string, platform: DefaultConnectionPlatform) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, `/v2/wallet/updateDefaultConnection`);
+        await fireflySessionHolder.fetchWithSession(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                platform,
+                profile_id: platformId,
+            }),
+        });
     }
 }
 

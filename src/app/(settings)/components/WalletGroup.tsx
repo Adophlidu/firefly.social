@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, type ReactNode } from 'react';
 
 import { WalletItem } from '@/app/(settings)/components/WalletItem.js';
 import QuestionIcon from '@/assets/question.svg';
@@ -6,7 +6,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface WalletGroupProps {
-    title: string;
+    title: ReactNode;
     connections: FireflyWalletConnection[];
     tooltip?: string;
     related?: boolean;
@@ -34,7 +34,7 @@ export const WalletGroup = memo<WalletGroupProps>(function WalletGroup({
                     </Tooltip>
                 ) : null}
             </p>
-            <div className="mt-5">
+            <div className="mt-[22px] flex w-full flex-col gap-[22px]">
                 {connections.map((connection) => (
                     <WalletItem
                         key={connection.address}

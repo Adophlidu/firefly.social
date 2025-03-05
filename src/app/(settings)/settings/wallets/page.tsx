@@ -8,26 +8,20 @@ import { AddWalletButton } from '@/app/(settings)/components/AddWalletButton.js'
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { WalletGroup } from '@/app/(settings)/components/WalletGroup.js';
+import EvmIcon from '@/assets/evm.svg';
+import SolanaIcon from '@/assets/solana.svg';
 import { Loading } from '@/components/Loading.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
-import { WalletSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
-
-function filterMPCWallets(connections: FireflyWalletConnection[], noMPC = false) {
-    return connections.filter(({ source }) =>
-        noMPC ? source !== WalletSource.Particle : source === WalletSource.Particle,
-    );
-}
 
 export default function Wallets() {
     useNavigatorTitle(t`Connected wallets`);
 
     const {
-        data: { connected = EMPTY_LIST, related = EMPTY_LIST } = {},
+        data: { connected = EMPTY_LIST, evmConnections = EMPTY_LIST, solanaConnections = EMPTY_LIST } = {},
         isLoading,
         isRefetching,
     } = useQuery({
@@ -35,28 +29,40 @@ export default function Wallets() {
         queryFn: () => FireflyEndpointProvider.getAllConnectionsFormatted(),
     });
 
-    const mpcWallets = [connected, related].flatMap((connection) => filterMPCWallets(connection));
-
     return (
         <Section className="max-h-screen overflow-y-auto">
             <Headline>
                 <Trans>Connected wallets</Trans>
                 {isRefetching ? <LoadingIcon className="ml-1 inline-block" size={20} /> : null}
             </Headline>
-            {!isLoading && connected.length === 0 && related.length === 0 ? (
+            {!isLoading && evmConnections.length === 0 && solanaConnections.length === 0 ? (
                 <NoResultsFallback message={t`No available wallet.`} />
             ) : null}
             {isLoading ? <Loading className="!min-h-[200px]" /> : null}
-            <WalletGroup title={t`Firefly Wallets`} connections={mpcWallets} />
-            <WalletGroup title={t`Connected in Firefly`} connections={filterMPCWallets(connected, true)} />
             <WalletGroup
-                related
-                title={t`Related by platforms`}
-                connections={filterMPCWallets(related, true)}
-                tooltip={t`Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection.`}
+                title={
+                    <span className="inline-flex items-center">
+                        <Trans>
+                            <EvmIcon width={20} height={20} className="mr-2 h-5 w-5 shrink-0" />
+                            EVM wallets
+                        </Trans>
+                    </span>
+                }
+                connections={evmConnections}
+            />
+            <WalletGroup
+                title={
+                    <span className="inline-flex items-center">
+                        <Trans>
+                            <SolanaIcon width={20} height={20} className="mr-2 h-5 w-5 shrink-0" />
+                            Solana wallets
+                        </Trans>
+                    </span>
+                }
+                connections={solanaConnections}
             />
             {!isLoading ? (
-                <div className="flex justify-center">
+                <div className="flex w-full justify-center">
                     <AddWalletButton connections={connected} disabled={isRefetching} />
                 </div>
             ) : null}

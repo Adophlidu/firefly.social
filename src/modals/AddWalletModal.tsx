@@ -8,7 +8,7 @@ import type { Address } from 'viem';
 import { appkit, config } from '@/configs/wagmiClient.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { enqueueInfoMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
@@ -49,7 +49,7 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
                 if (existedConnection) {
                     AccountModalRef.open();
                     const addressName = first(existedConnection.ens) || formatAddress(address, 8);
-                    enqueueInfoMessage(t`${addressName} is already connected.`);
+                    enqueueWarningMessage(t`${addressName} is already connected.`);
                     dispatch?.abort?.(new Error(`Already connected address name = ${addressName}.`));
                     return true;
                 }
@@ -97,7 +97,7 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
                     error instanceof Error &&
                     error.message.includes('This wallet already bound to the other account')
                 ) {
-                    enqueueInfoMessage(
+                    enqueueWarningMessage(
                         t`Sorry, this wallet is already linked to another Firefly account. Please try a different one.`,
                     );
                     dispatch?.abort?.(error);

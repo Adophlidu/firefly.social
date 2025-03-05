@@ -73,9 +73,6 @@ msgstr "发送 thread 失败"
 msgid "Connecting wallets"
 msgstr "已连接的钱包"
 
-msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
-msgstr "确认从 Firefly 的社交图谱中断链这个钱包和相关账户？"
-
 msgid "Allow Collect Module"
 msgstr "允许收藏"
 
@@ -187,6 +184,9 @@ msgstr "删除帖子"
 
 msgid "You can sign in to Farcaster with the following options."
 msgstr "您可以使用以下方式登录 Farcaster。"
+
+msgid "<0/>Solana wallets"
+msgstr ""
 
 msgid "Join /{name}"
 msgstr "加入 /{name}"
@@ -609,9 +609,6 @@ msgstr "您在2024年12月18日快照中识别为 X 账号 <0>@{0}</0> 的关注
 msgid "Followed by {0} , {1}, and {2} others you follow"
 msgstr "被 {0} , {1}, 和 {2} 个其他的你正在关注的人关注"
 
-msgid "Confirm to disconnect this wallet from Firefly’s social graph?"
-msgstr "确认从 Firefly 的社交图谱中断链这个钱包？"
-
 msgid "Failed to leave /{name} on {sourceName}."
 msgstr "未能在 {sourceName} 上退出 /{name}。"
 
@@ -924,6 +921,9 @@ msgstr "核心资产访问：解锁优质代币、独家 NFT 和节点，以获�
 msgid "Connect Ethereum Wallet"
 msgstr "连接EVM钱包"
 
+msgid "<0/>EVM wallets"
+msgstr ""
+
 msgid "Items"
 msgstr "条目"
 
@@ -1176,6 +1176,9 @@ msgstr "非合约地址。"
 
 msgid "Darkweb transactions."
 msgstr "暗网交易。"
+
+msgid "Set as primary wallet"
+msgstr ""
 
 msgid "Anti_whale(Limited number of transactions)"
 msgstr "反鲸鱼（有限的交易次数）"
@@ -2082,6 +2085,9 @@ msgstr "在 Firefly 上使用 Lucky Drop，提升你的粉丝量和互动率！"
 msgid "Unsent posts"
 msgstr "未发送的帖子"
 
+msgid "Disconnected from your Firefly account"
+msgstr ""
+
 msgid "Creator"
 msgstr "创建者"
 
@@ -2102,9 +2108,6 @@ msgstr "取消隐藏 {handleOrEnsOrAddress}"
 
 msgid "Participated"
 msgstr "已参加"
-
-msgid "Failed to disconnect wallet from your social graph."
-msgstr "未能从您的社交图谱中断链。"
 
 msgid "No external call risk found."
 msgstr "未发现外部调用风险。"
@@ -2322,6 +2325,9 @@ msgstr "您没有满足领取红包的条件"
 msgid "Collectible could not be found."
 msgstr "未找到相关 NFT。"
 
+msgid "Confirm to disconnect this wallet from Firefly?"
+msgstr ""
+
 msgid "Token holder of any one below"
 msgstr "持有以下任意代币"
 
@@ -2506,6 +2512,9 @@ msgstr "质量筛选"
 msgid "Bio should be at least {minBioSize} characters"
 msgstr "个人简介应至少包含 {minBioSize} 个字符"
 
+msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
+msgstr ""
+
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
 
@@ -2559,9 +2568,6 @@ msgstr "您的 URL"
 msgid "Paragraph"
 msgstr "Paragraph"
 
-msgid "Connected in Firefly"
-msgstr "通过Firefly连接的"
-
 msgid "Mute {handleOrEnsOrAddress}"
 msgstr "隐藏 @{handleOrEnsOrAddress}"
 
@@ -2598,9 +2604,6 @@ msgstr "可用余额"
 
 msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上关注 @thefireflyapp"
-
-msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
-msgstr "从公开可验证数据注册表中或我们的实体算法中检索到的钱包可以被举报从而断开连接。"
 
 msgid "Step 2 Connect Wallet"
 msgstr "第 2 步 连接钱包"
@@ -2728,6 +2731,9 @@ msgstr "投票成功。"
 
 msgid "Installed"
 msgstr "已安装"
+
+msgid "Primary wallet"
+msgstr ""
 
 #. placeholder {0}: profile.handle
 msgid "Muted @{0} on {sourceName}."
@@ -3200,9 +3206,6 @@ msgstr "结束时间 {0}"
 msgid "Collect Article"
 msgstr "铸造文章"
 
-msgid "Firefly Wallets"
-msgstr "Firefly 钱包"
-
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "自定义你的幸运掉落发送者：从你的社交账号或钱包中选择。"
 
@@ -3669,6 +3672,9 @@ msgstr "<0/> 和 <1>{0} 其他的用户</1>"
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>从 </0> <1>{0}</1>"
 
+msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
+msgstr ""
+
 msgid "{hours}h left"
 msgstr "{hours} 小时剩余"
 
@@ -3962,9 +3968,6 @@ msgstr "未发现可以的挖矿活动。"
 
 msgid "Refund successfully."
 msgstr "退款成功。"
-
-msgid "Related by platforms"
-msgstr "相关平台"
 
 msgid "Copy link"
 msgstr "拷贝链接"

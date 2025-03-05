@@ -68,9 +68,6 @@ msgstr ""
 msgid "Connecting wallets"
 msgstr ""
 
-msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
-msgstr ""
-
 msgid "Allow Collect Module"
 msgstr ""
 
@@ -181,6 +178,9 @@ msgid "Delete post"
 msgstr ""
 
 msgid "You can sign in to Farcaster with the following options."
+msgstr ""
+
+msgid "<0/>Solana wallets"
 msgstr ""
 
 msgid "Join /{name}"
@@ -604,9 +604,6 @@ msgstr ""
 msgid "Followed by {0} , {1}, and {2} others you follow"
 msgstr ""
 
-msgid "Confirm to disconnect this wallet from Firefly’s social graph?"
-msgstr ""
-
 msgid "Failed to leave /{name} on {sourceName}."
 msgstr ""
 
@@ -919,6 +916,9 @@ msgstr ""
 msgid "Connect Ethereum Wallet"
 msgstr ""
 
+msgid "<0/>EVM wallets"
+msgstr ""
+
 msgid "Items"
 msgstr ""
 
@@ -1170,6 +1170,9 @@ msgid "Non-contract address."
 msgstr ""
 
 msgid "Darkweb transactions."
+msgstr ""
+
+msgid "Set as primary wallet"
 msgstr ""
 
 msgid "Anti_whale(Limited number of transactions)"
@@ -2069,6 +2072,9 @@ msgstr ""
 msgid "Unsent posts"
 msgstr ""
 
+msgid "Disconnected from your Firefly account"
+msgstr ""
+
 msgid "Creator"
 msgstr ""
 
@@ -2088,9 +2094,6 @@ msgid "Unmute {handleOrEnsOrAddress}"
 msgstr ""
 
 msgid "Participated"
-msgstr ""
-
-msgid "Failed to disconnect wallet from your social graph."
 msgstr ""
 
 msgid "No external call risk found."
@@ -2304,6 +2307,9 @@ msgstr ""
 msgid "Collectible could not be found."
 msgstr ""
 
+msgid "Confirm to disconnect this wallet from Firefly?"
+msgstr ""
+
 msgid "Token holder of any one below"
 msgstr ""
 
@@ -2488,6 +2494,9 @@ msgstr ""
 msgid "Bio should be at least {minBioSize} characters"
 msgstr ""
 
+msgid "It is wallet retrieved from public verifiable data registries or our entity algorithm. Please add this wallet to set as primary wallet."
+msgstr ""
+
 msgid "Visit mask.io"
 msgstr ""
 
@@ -2541,9 +2550,6 @@ msgstr ""
 msgid "Paragraph"
 msgstr ""
 
-msgid "Connected in Firefly"
-msgstr ""
-
 msgid "Mute {handleOrEnsOrAddress}"
 msgstr ""
 
@@ -2579,9 +2585,6 @@ msgid "Available Balance"
 msgstr ""
 
 msgid "Follow @thefireflyapp on X"
-msgstr ""
-
-msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr ""
 
 msgid "Step 2 Connect Wallet"
@@ -2709,6 +2712,9 @@ msgid "Voted successfully."
 msgstr ""
 
 msgid "Installed"
+msgstr ""
+
+msgid "Primary wallet"
 msgstr ""
 
 #. placeholder {0}: profile.handle
@@ -3182,9 +3188,6 @@ msgstr ""
 msgid "Collect Article"
 msgstr ""
 
-msgid "Firefly Wallets"
-msgstr ""
-
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr ""
 
@@ -3648,6 +3651,9 @@ msgstr ""
 msgid "<0>since </0> <1>{0}</1>"
 msgstr ""
 
+msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
+msgstr ""
+
 msgid "{hours}h left"
 msgstr ""
 
@@ -3940,9 +3946,6 @@ msgid "No malicious mining activities involved."
 msgstr ""
 
 msgid "Refund successfully."
-msgstr ""
-
-msgid "Related by platforms"
 msgstr ""
 
 msgid "Copy link"

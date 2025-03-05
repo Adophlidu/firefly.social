@@ -795,6 +795,8 @@ export interface WalletConnection {
     source: WalletSource;
     sources: WalletProfile['verifiedSources'];
     twitterId: string;
+    isDefault?: boolean;
+    isConnected?: boolean;
 }
 
 export interface FireflyIdentity {
@@ -858,7 +860,10 @@ export type AllConnections = {
             handle: string;
         }>
     >;
-    wallet: Record<'connected' | 'unconnected', WalletConnection[]>;
+    wallet: Record<
+        'connected' | 'unconnected' | 'connectedEVM' | 'connectedSolana' | 'unconnectedSolana' | 'unconnectedEVM',
+        WalletConnection[]
+    >;
     google: Record<'connected' | 'unconnected', GoogleConnection[]>;
     telegram: Record<'connected' | 'unconnected', TelegramConnection[]>;
     apple: Record<'connected' | 'unconnected', AppleConnection[]>;
