@@ -16,6 +16,7 @@ import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -23,6 +24,7 @@ import { EventId } from '@/providers/types/Telemetry.js';
 interface MuteAllProfileBaseProps {
     identity: FireflyIdentity;
     handleOrEnsOrAddress: string;
+    blocking?: boolean;
     onClose?(): void;
 }
 
@@ -38,7 +40,7 @@ function waitForConfirmation(handleOrEnsOrAddress: string) {
     });
 }
 
-function MuteAllProfileBase({ handleOrEnsOrAddress, identity, onClose }: MuteAllProfileBaseProps) {
+function MuteAllProfileBase({ handleOrEnsOrAddress, identity, blocking, onClose }: MuteAllProfileBaseProps) {
     const { data: isMutedAll, isLoading } = useQuery({
         queryKey: ['profile', 'mute-all', identity.id, identity.source],
         queryFn: async () => FireflyEndpointProvider.isProfileMutedAll(identity),
@@ -49,6 +51,10 @@ function MuteAllProfileBase({ handleOrEnsOrAddress, identity, onClose }: MuteAll
             onClose?.();
             const confirmed = await waitForConfirmation(handleOrEnsOrAddress);
             if (!confirmed) return;
+
+            if (identity.source === Source.Twitter && !blocking) {
+                await TwitterSocialMediaProvider.blockProfile(identity.id);
+            }
             await FireflyEndpointProvider.muteProfileAll(identity);
             enqueueSuccessMessage(t`All wallets and accounts are muted.`);
             captureMuteEvent(EventId.MUTE_ALL_SUCCESS, identity);
@@ -56,7 +62,7 @@ function MuteAllProfileBase({ handleOrEnsOrAddress, identity, onClose }: MuteAll
             enqueueMessageFromError(error, t`Failed to mute all wallets and accounts.`);
             throw error;
         }
-    }, [handleOrEnsOrAddress, identity, onClose]);
+    }, [handleOrEnsOrAddress, identity, blocking, onClose]);
 
     if (isLoading || isMutedAll === true) return null;
 
@@ -73,7 +79,14 @@ function MuteAllProfileBase({ handleOrEnsOrAddress, identity, onClose }: MuteAll
 export const MuteAllByProfile = memo<{ profile: Profile; onClose: MuteAllProfileBaseProps['onClose'] }>(
     function MuteAllByProfile({ profile, onClose }) {
         const identity = useFireflyIdentity(profile.source, profile.profileId);
-        return <MuteAllProfileBase identity={identity} handleOrEnsOrAddress={`@${profile.handle}`} onClose={onClose} />;
+        return (
+            <MuteAllProfileBase
+                identity={identity}
+                handleOrEnsOrAddress={`@${profile.handle}`}
+                blocking={profile.viewerContext?.blocking}
+                onClose={onClose}
+            />
+        );
     },
 );
 
