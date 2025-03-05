@@ -1,44 +1,46 @@
 import { Trans } from '@lingui/react/macro';
-import {
-    AccountController,
-    type ChainAdapter,
-    useAppKit,
-    useAppKitAccount,
-    useAppKitNetwork,
-} from '@reown/appkit/react';
-import { first } from 'lodash-es';
-import { memo, useCallback, useEffect } from 'react';
+import { mainnet, solana } from '@reown/appkit/networks';
+import { useDisconnect } from '@reown/appkit/react';
+import { compact } from 'lodash-es';
+import { type FunctionComponent, memo, type SVGAttributes, useEffect, useMemo } from 'react';
+import { useAsyncFn } from 'react-use';
 import type { Address } from 'viem';
-import { useEnsName } from 'wagmi';
+import { type Connector, useConnections, useEnsName, useSwitchAccount } from 'wagmi';
 
 import EvmIcon from '@/assets/evm.svg';
 import PlusIcon from '@/assets/plus.svg';
 import SolanaIcon from '@/assets/solana.svg';
+import SwitchIcon from '@/assets/switch.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { appkit } from '@/configs/wagmiClient.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { useAppKitAllAccounts } from '@/hooks/useAppKitAllAccounts.js';
+import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { ConnectModalRef } from '@/modals/controls.js';
 import { restoreDisconnectMethod, rewriteDisconnectMethod } from '@/modals/MyWalletsModal/rewriteDisconnectMethod.js';
+import { syncWalletIdentity } from '@/modals/MyWalletsModal/syncWalletIdentity.js';
 import type { ChainNamespace } from '@/types/index.js';
 
-const IconMap = {
+const IconMap: Record<ChainNamespace, FunctionComponent<SVGAttributes<SVGElement>>> = {
     eip155: EvmIcon,
     solana: SolanaIcon,
-    polkadot: undefined,
-    bip122: undefined,
+    bip122: WalletIcon,
+    polkadot: WalletIcon,
 };
 
 interface ConnectedItemProps extends ClickableButtonProps {
-    namespace: 'eip155' | 'solana' | 'polkadot' | 'bip122';
+    namespace: ChainNamespace;
     address: string;
-    selected?: boolean;
+    connected: boolean;
+    connector?: Connector;
 }
 
-function ConnectedItem({ namespace, address, selected, ...rest }: ConnectedItemProps) {
+function ConnectedItem({ namespace, address, connected, connector, ...rest }: ConnectedItemProps) {
+    const { switchAccountAsync } = useSwitchAccount();
     const { data: ensName } = useEnsName({
         address: address as Address,
         query: { enabled: namespace === 'eip155' },
@@ -46,83 +48,140 @@ function ConnectedItem({ namespace, address, selected, ...rest }: ConnectedItemP
 
     const Icon = IconMap[namespace] || WalletIcon;
 
+    const [{ loading }, onConnectionClick] = useAsyncFn(async () => {
+        if (!connected && connector) {
+            await switchAccountAsync({ connector });
+            return;
+        }
+        if (!connected) return;
+
+        const targetNetwork = namespace === 'eip155' ? mainnet : namespace === 'solana' ? solana : undefined;
+        if (targetNetwork) {
+            appkit.switchNetwork(targetNetwork);
+        }
+        if (namespace === 'eip155') {
+            appkit.setCaipAddress(`eip155:${mainnet.id}:${address}`, namespace);
+        }
+        rewriteDisconnectMethod(namespace, connector?.id);
+        await syncWalletIdentity({ address, namespace });
+        await appkit.open({ view: 'Account' });
+    }, [connected, connector, namespace, address, switchAccountAsync]);
+
     return (
         <ClickableButton
             key={address}
             className="flex h-10 w-full items-center justify-between gap-2 px-2 text-main"
+            onClick={onConnectionClick}
+            disabled={loading}
             {...rest}
         >
             <Icon className="shrink-0" width={20} height={20} />
             <span className="min-w-0 flex-1 truncate text-left">{ensName || formatAddress(address, 4)}</span>
-            {selected ? <CircleCheckboxIcon checked size={20} /> : null}
+            {loading ? (
+                <LoadingIcon size={20} />
+            ) : connected ? (
+                <CircleCheckboxIcon size={20} checked />
+            ) : (
+                <SwitchIcon width={20} height={20} />
+            )}
         </ClickableButton>
     );
 }
 
-function resetWalletProfile(namespace: ChainNamespace) {
-    if (namespace !== 'eip155') {
-        AccountController.setProfileName(undefined, namespace);
-        AccountController.setProfileImage(undefined, namespace);
-    }
-}
-
 export const ConnectedWallets = memo(function ConnectedWallets() {
-    const { open } = useAppKit();
-    const { address: activeAddress } = useAppKitAccount();
-    const { switchNetwork } = useAppKitNetwork();
-    const accounts = useAppKitAllAccounts();
+    const connections = useConnections();
+    const { disconnect } = useDisconnect();
+    const { ethereum, solana } = useWalletAccountAll();
 
-    const openAccountModal = useCallback(
-        (adapter: ChainAdapter, namespace: ChainNamespace) => {
-            if (!isSameAddress(adapter.accountState?.address, activeAddress)) {
-                const network = first(adapter.caipNetworks);
-                if (!network) {
-                    enqueueErrorMessage('Failed to switch network, no network found.');
-                    return;
-                }
-                switchNetwork(network);
-            }
-            rewriteDisconnectMethod(namespace);
-            resetWalletProfile(namespace);
-            open({ view: 'Account' });
-        },
-        [activeAddress, switchNetwork, open],
-    );
+    const allConnections = useMemo<
+        Array<{
+            address: string;
+            namespace: ChainNamespace;
+            connected: boolean;
+            connector?: Connector;
+        }>
+    >(() => {
+        return compact([
+            ethereum.isConnected
+                ? {
+                      address: ethereum.address,
+                      namespace: 'eip155' as ChainNamespace,
+                      connected: true,
+                      connector: undefined,
+                  }
+                : null,
+            solana.isConnected
+                ? {
+                      address: solana.address,
+                      namespace: 'solana' as ChainNamespace,
+                      connected: true,
+                      connector: undefined,
+                  }
+                : null,
+            ...connections
+                .filter(({ accounts }) => !accounts.some((x) => isSameAddress(x, ethereum.address)))
+                .map((x) => ({
+                    address: x.accounts[0],
+                    namespace: 'eip155' as ChainNamespace,
+                    connected: false,
+                    connector: x.connector,
+                })),
+        ]);
+    }, [ethereum, solana, connections]);
 
     useEffect(() => restoreDisconnectMethod, []);
 
+    const [{ loading }, handleDisconnect] = useAsyncFn(async () => {
+        try {
+            await disconnect();
+        } catch (error) {
+            enqueueErrorMessage('Disconnect failed', { error });
+            throw error;
+        }
+    }, [disconnect]);
+
     return (
-        <div className="overflow-hidden rounded-lg border border-secondaryLine">
-            <ClickableButton
-                className="flex h-10 w-full items-center justify-between gap-2 border-b border-secondaryLine bg-lightBg px-2 text-main"
-                onClick={() => {
-                    ConnectModalRef.open();
-                }}
-            >
-                <WalletIcon width={20} height={20} />
-                <span className="min-w-0 flex-1 truncate text-left text-sm">
-                    <Trans>Connecting wallets</Trans>
-                </span>
-                <PlusIcon width={20} height={20} />
-            </ClickableButton>
-            {!accounts.length ? (
-                <div className="flex h-10 items-center justify-center text-sm text-secondary">
-                    <Trans>No connected wallet.</Trans>
-                </div>
+        <div>
+            <div className="overflow-hidden rounded-lg border border-secondaryLine">
+                <ClickableButton
+                    className="flex h-10 w-full items-center justify-between gap-2 border-b border-secondaryLine bg-lightBg px-2 text-main"
+                    onClick={() => {
+                        ConnectModalRef.open();
+                    }}
+                >
+                    <WalletIcon width={20} height={20} />
+                    <span className="min-w-0 flex-1 truncate text-left text-sm">
+                        <Trans>Connecting wallets</Trans>
+                    </span>
+                    <PlusIcon width={20} height={20} />
+                </ClickableButton>
+                {!allConnections.length ? (
+                    <div className="flex h-10 items-center justify-center text-sm text-secondary">
+                        <Trans>No connected wallet.</Trans>
+                    </div>
+                ) : null}
+                {allConnections.map((connection) => {
+                    return (
+                        <ConnectedItem
+                            key={connection.address}
+                            connected={connection.connected}
+                            namespace={connection.namespace}
+                            address={connection.address}
+                            connector={connection.connector}
+                        />
+                    );
+                })}
+            </div>
+            {allConnections.length ? (
+                <ClickableButton
+                    className="mt-6 h-10 w-full rounded-lg bg-main text-sm font-bold !leading-10 text-primaryBottom outline-none"
+                    onClick={handleDisconnect}
+                    disabled={loading}
+                    loading={loading}
+                >
+                    <Trans>Disconnect all</Trans>
+                </ClickableButton>
             ) : null}
-            {accounts.map((account) => {
-                return (
-                    <ConnectedItem
-                        key={account.address}
-                        namespace={account.chain}
-                        address={account.address}
-                        selected
-                        onClick={() => {
-                            openAccountModal(account.adapter, account.chain);
-                        }}
-                    />
-                );
-            })}
         </div>
     );
 });

@@ -1000,6 +1000,9 @@ msgstr ""
 msgid "Connect Wallet"
 msgstr ""
 
+msgid "Disconnect all"
+msgstr ""
+
 msgid "Review Transaction"
 msgstr ""
 

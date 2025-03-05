@@ -1,12 +1,12 @@
 import { CoreChainController, CoreStorageUtil } from '@reown/appkit';
-import { disconnect } from 'wagmi/actions';
+import { disconnect, getConnections } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import type { ChainNamespace } from '@/types/index.js';
 
 const originalDisconnect = CoreChainController.disconnect;
 
-export function rewriteDisconnectMethod(namespace: ChainNamespace) {
+export function rewriteDisconnectMethod(namespace: ChainNamespace, connectorId?: string) {
     CoreChainController.disconnect = async function disconnectChain() {
         const chains = CoreChainController.state.chains;
         const connectedChains = Array.from(chains.values()).filter(
@@ -19,12 +19,15 @@ export function rewriteDisconnectMethod(namespace: ChainNamespace) {
         }
         await adapter.connectionControllerClient?.disconnect();
         if (namespace === 'eip155') {
-            await disconnect(config);
-        } else {
-            CoreChainController.resetAccount(namespace);
-            CoreChainController.resetNetwork(namespace);
-            CoreStorageUtil.deleteConnectedConnectorId(namespace);
+            const connections = getConnections(config);
+            const connector = connections.find((x) => x.connector.id === connectorId)?.connector;
+            await disconnect(config, {
+                connector,
+            });
         }
+        CoreChainController.resetAccount(namespace);
+        CoreChainController.resetNetwork(namespace);
+        CoreStorageUtil.deleteConnectedConnectorId(namespace);
     };
 }
 

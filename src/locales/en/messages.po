@@ -995,6 +995,9 @@ msgstr "The contract owner has no restrictions on trading cooldown."
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
+msgid "Disconnect all"
+msgstr "Disconnect all"
+
 msgid "Review Transaction"
 msgstr "Review Transaction"
 
