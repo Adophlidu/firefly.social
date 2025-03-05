@@ -92,11 +92,17 @@ export async function downloadSessions(session: FireflySession, signal?: AbortSi
     return decryptMetrics(cipher, signal);
 }
 
+async function uploadSessionsByAddOrUpdate(session: FireflySession, sessions: Session[], signal?: AbortSignal) {
+    const syncedSessions = await downloadSessions(session, signal);
+    const updatedSessions = [...syncedSessions.filter((x) => !sessions.some((y) => isSameSession(x, y))), ...sessions];
+    await uploadSessionByOverride(session, updatedSessions, signal);
+}
+
 async function uploadSessionsByMerge(session: FireflySession, sessions: Session[], signal?: AbortSignal) {
     const syncedSessions = (await downloadSessions(session, signal)).filter(
-        (x) => !sessions.some((y) => isSameSession(x, y, true) && y.createdAt > x.createdAt),
+        (x) => !sessions.some((y) => isSameSession(x, y) && y.createdAt > x.createdAt),
     );
-    const noSyncedSessions = sessions.filter((x) => !syncedSessions.some((y) => isSameSession(x, y, true)));
+    const noSyncedSessions = sessions.filter((x) => !syncedSessions.some((y) => isSameSession(x, y)));
 
     if (noSyncedSessions.length) {
         console.warn(`[uploadSessionsByMerge] ${noSyncedSessions.length} sessions are not synced.`);
@@ -150,12 +156,14 @@ async function uploadSessionByOverride(session: FireflySession, sessions: Sessio
 }
 
 export function uploadSessions(
-    strategy: 'merge' | 'override',
+    strategy: 'addOrUpdate' | 'merge' | 'override',
     session: FireflySession,
     sessions: Session[],
     signal?: AbortSignal,
 ) {
     switch (strategy) {
+        case 'addOrUpdate':
+            return uploadSessionsByAddOrUpdate(session, sessions, signal);
         case 'merge':
             return uploadSessionsByMerge(session, sessions, signal);
         case 'override':

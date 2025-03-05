@@ -28,12 +28,11 @@ import { useBskyStateStore } from '@/store/useProfileStore.js';
 async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
     try {
         const account = await createAccount();
-
         const done = await addAccount(account, {
             ...options,
             async setAsCurrent({ session }) {
                 useBskyStateStore.getState().__setStatus__(AsyncStatus.Pending);
-                await bskySessionHolder.resumeSession(session as BskySession);
+                await bskySessionHolder.resumeSession(session as BskySession, false);
                 useBskyStateStore.getState().__setStatus__(AsyncStatus.Idle);
             },
         });

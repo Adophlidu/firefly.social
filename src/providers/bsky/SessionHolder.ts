@@ -25,16 +25,24 @@ class BskySessionHolder extends SessionHolder<BskySession> {
         return this._agent;
     }
 
-    override async resumeSession(session: BskySession): Promise<void> {
+    override async resumeSession(session: BskySession, refreshSession = true): Promise<void> {
         const agent =
             this._agent && this._agent?.serviceUrl.toString() === session.serviceUrl
                 ? this._agent
                 : createAgent(session.serviceUrl);
 
         await agent.resumeSession(session.sessionPayload);
-        await agent.sessionManager.refreshSession();
+        if (refreshSession) await agent.sessionManager.refreshSession();
         super.resumeSession(session);
         this._agent = agent;
+
+        // update session payload
+        if (this.session && agent.sessionManager.session && refreshSession) {
+            this.session.sessionPayload = {
+                ...this.session.sessionPayload,
+                ...agent.sessionManager.session,
+            };
+        }
     }
 }
 

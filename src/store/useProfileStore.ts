@@ -19,6 +19,7 @@ import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
@@ -41,6 +42,7 @@ import type { ThirdPartySessionType } from '@/providers/types/ThirdParty.js';
 import { addAccount } from '@/services/account.js';
 import { addTwitterAccount } from '@/services/addTwitterAccount.js';
 import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
+import { uploadSessions } from '@/services/metrics.js';
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
 
 export interface ProfileState {
@@ -122,6 +124,8 @@ function createState(
 
                         if (!state.accounts.length) {
                             state.accounts = [account];
+                        } else {
+                            state.accounts = state.accounts.map((x) => (isSameAccount(x, account) ? account : x));
                         }
                     }),
                 updateCurrentProfile: (params) =>
@@ -349,8 +353,18 @@ const useBskyStateBase = createState(
 
                 const bskySession = currentProfileSession as BskySession;
                 await bskySessionHolder.resumeSession(bskySession);
+
+                console.log('DEBUG: resume bsky session');
+                console.log(bskySessionHolder.session);
+
+                await runInSafeAsync(async () => {
+                    if (fireflySessionHolder.session && bskySessionHolder.session) {
+                        await uploadSessions('addOrUpdate', fireflySessionHolder.session, [bskySessionHolder.session]);
+                    }
+                });
+
                 const profile = await BskySocialMediaProvider.getProfileById(did);
-                state.updateCurrentAccount({ profile, session: bskySession });
+                state.updateCurrentAccount({ profile, session: bskySessionHolder.session ?? bskySession });
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();

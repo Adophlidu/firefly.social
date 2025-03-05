@@ -10,8 +10,9 @@ import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export function isSameSession(session: Session | null, otherSession: Session | null, strict = false) {
     if (!session || !otherSession) return false;
+
     const checked = session.type === otherSession.type && session.profileId === otherSession.profileId;
-    if (!strict || !checked) return checked;
+    if (!strict) return checked;
 
     switch (session.type) {
         case SessionType.Farcaster:
@@ -30,11 +31,11 @@ export function isSameSession(session: Session | null, otherSession: Session | n
         case SessionType.Twitter:
             const twitterSession = session as TwitterSession;
             const otherTwitterSession = otherSession as TwitterSession;
-            return isSameSessionPayload(twitterSession.payload, otherTwitterSession.payload);
+            return isSameTwitterSessionPayload(twitterSession.payload, otherTwitterSession.payload);
         case SessionType.Bsky:
             const bskySession = session as BskySession;
             const otherBskySession = otherSession as BskySession;
-            return bskySession.profileId === otherBskySession.profileId;
+            return isSameBskySessionPayload(bskySession, otherBskySession);
         case SessionType.Firefly:
             return session.token === otherSession.token;
 
@@ -49,15 +50,7 @@ export function isSameSession(session: Session | null, otherSession: Session | n
     }
 }
 
-/**
- * Check if two session payloads are the same.
- *
- * For twitter only.
- * @param sessionPayload
- * @param otherSessionPayload
- * @returns
- */
-export function isSameSessionPayload(
+export function isSameTwitterSessionPayload(
     sessionPayload?: SessionPayload | null,
     otherSessionPayload?: SessionPayload | null,
 ) {
@@ -65,5 +58,16 @@ export function isSameSessionPayload(
     return (
         sessionPayload.accessToken === otherSessionPayload.accessToken &&
         sessionPayload.accessTokenSecret === otherSessionPayload.accessTokenSecret
+    );
+}
+
+export function isSameBskySessionPayload(
+    sessionPayload?: BskySession | null,
+    otherSessionPayload?: BskySession | null,
+) {
+    if (!sessionPayload || !otherSessionPayload) return false;
+    return (
+        sessionPayload.sessionPayload.accessJwt === otherSessionPayload.sessionPayload.accessJwt &&
+        sessionPayload.sessionPayload.refreshJwt === otherSessionPayload.sessionPayload.refreshJwt
     );
 }
