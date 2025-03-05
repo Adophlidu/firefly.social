@@ -7,7 +7,7 @@ import {
     useBasicTypeaheadTriggerMatch,
 } from '@lexical/react/LexicalTypeaheadMenuPlugin.js';
 import { useQuery } from '@tanstack/react-query';
-import type { TextNode } from 'lexical';
+import { type TextNode } from 'lexical';
 import { compact } from 'lodash-es';
 import { type JSX, memo, useCallback, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';

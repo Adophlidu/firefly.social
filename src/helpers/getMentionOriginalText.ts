@@ -2,7 +2,6 @@ import { $isAutoLinkNode, AutoLinkNode } from '@lexical/link';
 import { $getSelection, $isRangeSelection, type LexicalEditor, type RangeSelection } from 'lexical';
 
 import { MENTION_REGEX } from '@/constants/regexp.js';
-import { trimify } from '@/helpers/trimify.js';
 
 interface QueryText {
     text: string;
@@ -25,6 +24,14 @@ function getTextUpToAnchor(selection: RangeSelection): QueryText | null {
     const prevSiblingText = prevSibling?.getTextContent() ?? '';
     MENTION_REGEX.lastIndex = 0;
 
+    const isMention = MENTION_REGEX.test(anchorNode.getTextContent());
+
+    if (isMention) {
+        return {
+            text: anchorNode.getTextContent(),
+        };
+    }
+
     if (anchorOffset === 0 && $isAutoLinkNode(prevSibling) && MENTION_REGEX.test(prevSiblingText)) {
         return { text: prevSiblingText, matchedNode: prevSibling };
     }
@@ -44,6 +51,6 @@ function getQueryTextForSearch(editor: LexicalEditor): QueryText | null {
 }
 
 export const getSafeMentionQueryText = (text: string, editor: LexicalEditor, isUpdating: boolean) => {
-    if (trimify(text) || isUpdating) return { text };
+    if (isUpdating) return { text };
     return getQueryTextForSearch(editor);
 };
