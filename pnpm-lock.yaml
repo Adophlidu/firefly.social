@@ -10,6 +10,7 @@ overrides:
   '@types/node': 22.10.7
   '@types/react': 19.0.2
   crypto-js@<4.2.0: '>=4.2.0'
+  elliptic: '>=6.6.1'
   react: 19.0.0
   react-dom: 19.0.0
   react-use: 17.5.1
@@ -124,8 +125,8 @@ importers:
         specifier: 4.2.9
         version: 4.2.9(@types/react-dom@19.0.2)(@types/react@19.0.2)(immer@10.1.1)(react-dom@19.0.0)(react@19.0.0)
       '@masknet/encryption':
-        specifier: ^0.5.2
-        version: 0.5.2
+        specifier: ^0.5.3
+        version: 0.5.3
       '@masknet/kit':
         specifier: ^0.4.2
         version: 0.4.2
@@ -4421,7 +4422,7 @@ packages:
       '@ethersproject/logger': 5.7.0
       '@ethersproject/properties': 5.7.0
       bn.js: 5.2.1
-      elliptic: 6.5.4
+      elliptic: 6.6.1
       hash.js: 1.1.7
     dev: false
 
@@ -5814,11 +5815,11 @@ packages:
       ts-results-es: 4.0.0
     dev: false
 
-  /@masknet/encryption@0.5.2:
-    resolution: {integrity: sha512-jfQgXCrDQeubvme62ZipJm9RKQLJ9HvL+GmPI4arIOTwDlC1ePfNSCfAB8ccyKYupiJ1vBEVABAEC9V5/K/Qxg==}
+  /@masknet/encryption@0.5.3:
+    resolution: {integrity: sha512-luqmR2aRzTa+kseciLpFh+tJP6K17EAR07sFPpmh068su6QlNpjuDSpnpHj4ZxmcQUFD86Y5Z3EuRMESGyNy8w==}
     dependencies:
       '@masknet/base': 0.3.1
-      '@masknet/secp256k1-webcrypto': 1.0.0
+      '@masknet/secp256k1-webcrypto': 1.0.1
       '@masknet/stego-js': 0.14.2
       '@masknet/typed-message': 0.2.0
       '@msgpack/msgpack': 3.0.0-beta2
@@ -5836,11 +5837,11 @@ packages:
     resolution: {integrity: sha512-1GdoZCJT72N+rR/mj0+TM0smdrRaHbzYDKf2vqvn+ox0ZDbnQnHaD6xQ8eaKDV04fSwpaIkYWRs5O0mfvGfsvA==}
     dev: false
 
-  /@masknet/secp256k1-webcrypto@1.0.0:
-    resolution: {integrity: sha512-oIrlLzsjEsE1XmBLJVpH8pIQ9ugefQUqGyjtDXTGhzYi3sB8HviwY03JgYo8FRywNsSEj5HuE3iYJI16jYublQ==}
+  /@masknet/secp256k1-webcrypto@1.0.1:
+    resolution: {integrity: sha512-KbJoVGm4elsWBY6BP/EQReHF5TEHajyYhVreEcpWYgXbtU7w2hl3U9tUdD5ksjzhduF/kBiaTaPIyoASqbG5jA==}
     dependencies:
-      elliptic: 6.6.0
-      pvtsutils: 1.3.5
+      elliptic: 6.6.1
+      pvtsutils: 1.3.6
     dev: false
 
   /@masknet/stego-js@0.14.2:
@@ -11832,7 +11833,7 @@ packages:
       '@walletconnect/window-getters': 1.0.1
       '@walletconnect/window-metadata': 1.0.1
       detect-browser: 5.3.0
-      elliptic: 6.6.0
+      elliptic: 6.6.1
       query-string: 7.1.3
       uint8arrays: 3.1.0
     transitivePeerDependencies:
@@ -12861,7 +12862,7 @@ packages:
       browserify-rsa: 4.1.0
       create-hash: 1.2.0
       create-hmac: 1.1.7
-      elliptic: 6.6.0
+      elliptic: 6.6.1
       hash-base: 3.0.4
       inherits: 2.0.4
       parse-asn1: 5.1.7
@@ -13686,7 +13687,7 @@ packages:
     resolution: {integrity: sha512-mf+TCx8wWc9VpuxfP2ht0iSISLZnt0JgWlrOKZiNqyUZWnjIaCIVNQArMHnCZKfEYRg6IM7A+NeJoN8gf/Ws0A==}
     dependencies:
       bn.js: 4.12.1
-      elliptic: 6.6.0
+      elliptic: 6.6.1
     dev: true
 
   /create-hash@1.2.0:
@@ -14694,29 +14695,6 @@ packages:
   /electron-to-chromium@1.5.94:
     resolution: {integrity: sha512-v+oaMuy6AgwZ6Hi2u5UgcM3wxzeFscBTsZBQL2FoDTx/T6k1XEQKz++8fe1VlQ3zjXB6hcvy5JPb5ZSkmVtdIQ==}
 
-  /elliptic@6.5.4:
-    resolution: {integrity: sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==}
-    dependencies:
-      bn.js: 4.12.1
-      brorand: 1.1.0
-      hash.js: 1.1.7
-      hmac-drbg: 1.0.1
-      inherits: 2.0.4
-      minimalistic-assert: 1.0.1
-      minimalistic-crypto-utils: 1.0.1
-    dev: false
-
-  /elliptic@6.6.0:
-    resolution: {integrity: sha512-dpwoQcLc/2WLQvJvLRHKZ+f9FgOdjnq11rurqwekGQygGPsYSK29OMMD2WalatiqQ+XGFDglTNixpPfI+lpaAA==}
-    dependencies:
-      bn.js: 4.12.1
-      brorand: 1.1.0
-      hash.js: 1.1.7
-      hmac-drbg: 1.0.1
-      inherits: 2.0.4
-      minimalistic-assert: 1.0.1
-      minimalistic-crypto-utils: 1.0.1
-
   /elliptic@6.6.1:
     resolution: {integrity: sha512-RaddvvMatK2LJHqFJ+YA4WysVN5Ita9E35botqIYspQ4TkRAlCicdzKOjlyv/1Za5RyTNn7di//eEV0uTAfe3g==}
     dependencies:
@@ -14727,7 +14705,6 @@ packages:
       inherits: 2.0.4
       minimalistic-assert: 1.0.1
       minimalistic-crypto-utils: 1.0.1
-    dev: false
 
   /emoji-picker-react@4.12.0(react@19.0.0):
     resolution: {integrity: sha512-q2c8UcZH0eRIMj41bj0k1akTjk69tsu+E7EzkW7giN66iltF6H9LQvQvw6ugscsxdC+1lmt3WZpQkkY65J95tg==}
@@ -15527,7 +15504,7 @@ packages:
     resolution: {integrity: sha512-ArJ7x1WcWOlSpzdoTBX8vkwlkSQ85CjjifSZtV4co64vWxSV8geWfPI9x4SVYu3DSxnX4yWFVTtGL+j9DUFLNw==}
     dependencies:
       bn.js: 4.12.1
-      elliptic: 6.6.0
+      elliptic: 6.6.1
       xhr-request-promise: 0.1.3
     dev: false
 
@@ -20303,6 +20280,12 @@ packages:
       tslib: 2.8.1
     dev: false
 
+  /pvtsutils@1.3.6:
+    resolution: {integrity: sha512-PLgQXQ6H2FWCaeRak8vvk1GW462lMxB5s3Jm673N82zI4vqtVUPuZdffdZbPDFRoU8kAhItWFtPCWiPpp4/EDg==}
+    dependencies:
+      tslib: 2.8.1
+    dev: false
+
   /qr-code-styling@1.8.4:
     resolution: {integrity: sha512-uxykNuvXaPDK/jGDERDIdDvvocefbHu1oxVYi6K87FUdPPAezkBdcIeFJ8XVX2HSsyLFINile5uzfOMYpGu5ZA==}
     engines: {node: '>=18.18.0'}
@@ -21432,7 +21415,7 @@ packages:
     resolution: {integrity: sha512-TKWX8xvoGHrxVdqbYeZM9w+izTF4b9z3NhSaDkdn81btvuh+ivbIMGT/zQvDtTFWhRlThpoz6LEYTr7n8A5GcA==}
     engines: {node: '>=14.0.0'}
     dependencies:
-      elliptic: 6.6.0
+      elliptic: 6.6.1
       node-addon-api: 5.1.0
       node-gyp-build: 4.8.2
     dev: false
@@ -24803,7 +24786,7 @@ time:
   /@lingui/react@5.1.2: '2024-12-16T18:30:31.129Z'
   /@lingui/swc-plugin@5.0.2: '2024-12-27T20:14:30.068Z'
   /@livepeer/react@4.2.9: '2024-12-02T08:02:16.848Z'
-  /@masknet/encryption@0.5.2: '2024-10-14T03:01:58.051Z'
+  /@masknet/encryption@0.5.3: '2025-03-05T05:38:47.935Z'
   /@masknet/kit@0.3.0: '2024-01-25T08:08:18.361Z'
   /@masknet/kit@0.4.2: '2024-10-20T06:52:06.765Z'
   /@masknet/typed-message-react@0.2.0: '2023-09-04T16:15:54.779Z'
