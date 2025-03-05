@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse, userAgent } from 'next/server.js';
 import urlcat from 'urlcat';
 
-import { HomeTab, Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { parseOldDiscoverUrl } from '@/helpers/parseDiscoverUrl.js';
@@ -18,7 +17,6 @@ import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { resolveEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
-import { resolveHomeUrl } from '@/helpers/resolveHomeUrl.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
@@ -31,10 +29,6 @@ export async function middleware(request: NextRequest) {
 
     if (request.nextUrl.host === 'cz.firefly.social' && pathname === '/') {
         return NextResponse.redirect(urlcat(SITE_URL, '/event/cz_welcome_back_airdrop'));
-    }
-
-    if (pathname === '/') {
-        return NextResponse.redirect(new URL(resolveHomeUrl(HomeTab.Discover, Source.Posts), request.url));
     }
 
     const parsedOldDiscoverUrl = parseOldDiscoverUrl(request.nextUrl);

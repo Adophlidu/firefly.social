@@ -6,12 +6,13 @@ import { memo, useMemo } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, type SocialDiscoverSource, Source } from '@/constants/enum.js';
+import { HomeTab, ScrollListKey, type SocialDiscoverSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
 import { mergeThreadPostsWithoutSource } from '@/helpers/mergeThreadPosts.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import { useDiscoverStore } from '@/store/useDiscoverStore.js';
@@ -30,13 +31,15 @@ export const FollowingPostList = memo<{
 }>(function FollowingPostList({ source }) {
     const isLogin = useIsLoginDiscoverNeed(source);
     const currentProfileAll = useCurrentProfileAll();
+    const asyncStatusAll = useAsyncStatusAll();
 
     const sources = useDiscoverStore((state) =>
-        SOCIAL_DISCOVER_SOURCE.filter((x) => !state.filteredPlatforms.includes(x)),
+        state.postTimelinePlatforms[HomeTab.Following].length <= 0
+            ? SOCIAL_DISCOVER_SOURCE
+            : SOCIAL_DISCOVER_SOURCE.filter((x) => !state.postTimelinePlatforms[HomeTab.Following].includes(x)),
     );
-
     const queryResult = useMultiInfiniteQueryPageable(
-        ['posts', source, 'following', isLogin, ...sources],
+        ['posts', source, 'following', isLogin, asyncStatusAll, ...sources],
         sources.map((source) => ({
             key: source,
             async queryFn({ pageParam }) {
@@ -44,7 +47,10 @@ export const FollowingPostList = memo<{
                 if (!isLogin) return createPageable(EMPTY_LIST, indicator);
                 const profile = currentProfileAll[source];
                 if (!profile?.profileId) return createPageable(EMPTY_LIST, indicator);
-                return resolveSocialMediaProvider(source).discoverPostsById(profile.profileId, indicator);
+                return resolveSocialMediaProvider(source).discoverPostsById(
+                    profile.profileId,
+                    pageParam ? indicator : undefined,
+                );
             },
         })),
         (data) => {

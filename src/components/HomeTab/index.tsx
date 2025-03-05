@@ -24,7 +24,7 @@ const types = {
 
 export function HomeTabs() {
     const pathname = usePathname();
-    const [tabSource, setTabSource] = useState<Record<HomeTab, Source>>({
+    const [allTabs, setAllTabs] = useState<Record<HomeTab, Source>>({
         [HomeTab.Discover]: types[HomeTab.Discover][0],
         [HomeTab.Following]: types[HomeTab.Following][0],
     });
@@ -34,19 +34,19 @@ export function HomeTabs() {
             return {
                 source: parsedFollowingPageUrl.source,
                 tab: HomeTab.Following,
-            };
+            } as const;
         }
         const parsedHomePageUrl = parseDiscoverPageUrl(pathname);
         if (parsedHomePageUrl) {
             return {
                 source: parsedHomePageUrl.source,
                 tab: HomeTab.Discover,
-            };
+            } as const;
         }
         return {
             tab: HomeTab.Discover,
             source: Source.Posts,
-        };
+        } as const;
     }, [pathname]);
 
     const texts = {
@@ -56,7 +56,7 @@ export function HomeTabs() {
 
     return (
         <div className="sticky top-[54px] z-20 flex w-full flex-col bg-primaryBottom md:top-0">
-            <div className="flex flex-col items-start px-4 py-3">
+            <div className="flex h-[60px] flex-col items-start px-4">
                 <Menu>
                     <Menu.Button className="inline-flex h-12 items-center text-xl font-bold">
                         {texts[currentTab]}
@@ -68,7 +68,7 @@ export function HomeTabs() {
                         className="z-50 flex w-[128px] origin-top-left flex-col gap-2 overflow-y-auto rounded-[8px] bg-primaryBottom py-3 text-xl font-bold shadow-messageShadow transition data-[closed]:scale-95 data-[closed]:opacity-0"
                     >
                         {getEnumAsArray(HomeTab).map(({ value: tab }) => {
-                            const type = types[tab].includes(tabSource[tab]) ? tabSource[tab] : types[tab][0];
+                            const type = types[tab].includes(allTabs[tab]) ? allTabs[tab] : types[tab][0];
                             return (
                                 <Menu.Item key={tab}>
                                     <Link
@@ -93,13 +93,13 @@ export function HomeTabs() {
                     isSelected={(x) => x === source}
                     itemRender={(x) => resolveSourceName(x)}
                     onChange={(source) => {
-                        setTabSource((x) => ({
+                        setAllTabs((x) => ({
                             ...x,
                             [currentTab]: source,
                         }));
                     }}
                 />
-                <DiscoverFilter />
+                {source !== Source.Posts ? <DiscoverFilter tab={currentTab} source={source} /> : null}
             </div>
         </div>
     );

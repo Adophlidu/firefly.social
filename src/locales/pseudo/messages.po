@@ -1622,6 +1622,9 @@ msgstr ""
 msgid "Empty"
 msgstr ""
 
+msgid "All"
+msgstr ""
+
 msgid "Tax cannot be modified"
 msgstr ""
 
@@ -2064,6 +2067,9 @@ msgid "GIF count limit reached."
 msgstr ""
 
 msgid "Font Color"
+msgstr ""
+
+msgid "Watching address"
 msgstr ""
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
@@ -2769,6 +2775,9 @@ msgstr ""
 msgid "Attendance"
 msgstr ""
 
+msgid "Following Farcaster"
+msgstr ""
+
 msgid "Show more"
 msgstr ""
 
@@ -3101,12 +3110,18 @@ msgstr ""
 msgid "Sorry, we are not able to find this token"
 msgstr ""
 
+msgid "Following Lens"
+msgstr ""
+
 msgid "Muting..."
 msgstr ""
 
 #. placeholder {0}: post.stats.comments
 #. placeholder {0}: post.stats.countOpenActions
 msgid "{0, plural, one {comment} other {comments}}"
+msgstr ""
+
+msgid "Following X"
 msgstr ""
 
 msgid "<0/> Loading"

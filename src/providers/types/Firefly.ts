@@ -1406,3 +1406,11 @@ export type WalletsStatusResponse = Response<
         is_hack: false;
     }>
 >;
+
+export enum FollowingTimelinePlatform {
+    All = 'all',
+    Lens = 'lens',
+    Farcaster = 'farcaster',
+    Twitter = 'twitter',
+    Wallet = 'wallet',
+}

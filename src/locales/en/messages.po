@@ -1622,6 +1622,9 @@ msgstr "Insufficient Balance"
 msgid "Empty"
 msgstr "Empty"
 
+msgid "All"
+msgstr "All"
+
 msgid "Tax cannot be modified"
 msgstr "Tax cannot be modified"
 
@@ -2073,6 +2076,9 @@ msgstr "GIF count limit reached."
 
 msgid "Font Color"
 msgstr "Font Color"
+
+msgid "Watching address"
+msgstr "Watching address"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Grow your followers and engagement with Lucky Drop on Firefly!"
@@ -2782,6 +2788,9 @@ msgstr "Please input the url to be revalidated."
 msgid "Attendance"
 msgstr "Attendance"
 
+msgid "Following Farcaster"
+msgstr "Following Farcaster"
+
 msgid "Show more"
 msgstr "Show more"
 
@@ -3114,6 +3123,9 @@ msgstr "Collect Post"
 msgid "Sorry, we are not able to find this token"
 msgstr "Sorry, we are not able to find this token"
 
+msgid "Following Lens"
+msgstr "Following Lens"
+
 msgid "Muting..."
 msgstr "Muting..."
 
@@ -3121,6 +3133,9 @@ msgstr "Muting..."
 #. placeholder {0}: post.stats.countOpenActions
 msgid "{0, plural, one {comment} other {comments}}"
 msgstr "{0, plural, one {comment} other {comments}}"
+
+msgid "Following X"
+msgstr "Following X"
 
 msgid "<0/> Loading"
 msgstr "<0/> Loading"

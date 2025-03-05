@@ -1627,6 +1627,9 @@ msgstr "余额不足"
 msgid "Empty"
 msgstr "空的"
 
+msgid "All"
+msgstr ""
+
 msgid "Tax cannot be modified"
 msgstr "不能修改税"
 
@@ -2078,6 +2081,9 @@ msgstr "GIF 数量超出最大限制。"
 
 msgid "Font Color"
 msgstr "字体颜色"
+
+msgid "Watching address"
+msgstr ""
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "在 Firefly 上使用 Lucky Drop，提升你的粉丝量和互动率！"
@@ -2787,6 +2793,9 @@ msgstr "请输入 URL 重新验证："
 msgid "Attendance"
 msgstr "出席"
 
+msgid "Following Farcaster"
+msgstr ""
+
 msgid "Show more"
 msgstr "显示更多"
 
@@ -3119,6 +3128,9 @@ msgstr "铸造帖子"
 msgid "Sorry, we are not able to find this token"
 msgstr "对不起，我们未找到此代币"
 
+msgid "Following Lens"
+msgstr ""
+
 msgid "Muting..."
 msgstr "隐藏中..."
 
@@ -3126,6 +3138,9 @@ msgstr "隐藏中..."
 #. placeholder {0}: post.stats.countOpenActions
 msgid "{0, plural, one {comment} other {comments}}"
 msgstr "{0, plural, one {评论} other {评论}}"
+
+msgid "Following X"
+msgstr ""
 
 msgid "<0/> Loading"
 msgstr "<0/> 加载中"

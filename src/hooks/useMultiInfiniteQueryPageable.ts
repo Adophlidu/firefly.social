@@ -1,9 +1,8 @@
 import { delay } from '@masknet/kit';
-import { EMPTY_LIST } from '@masknet/shared-base';
 import { type InfiniteData, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 
 const INITIAL_PARAM = 'INITIAL_PARAM';
 
@@ -26,14 +25,14 @@ export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndic
             const queryFns = queries.map(async (query) => {
                 const timeout = delay(query.timeout ?? 8000).then(() => null);
                 const indicator = (pageParam as PageParams)?.[query.key];
-                if (!indicator) return createPageable(EMPTY_LIST, indicator);
+                if (!indicator) return null;
                 const indicatorId = indicator.id === INITIAL_PARAM ? undefined : indicator.id;
                 return Promise.race([
                     timeout,
                     query.queryFn({ pageParam: indicatorId }).then((x) => ({ [query.key]: x })),
                 ]);
             });
-            const settled = await Promise.allSettled(queryFns as Array<Promise<Data | null>>);
+            const settled = await Promise.allSettled(queryFns);
             return compact(settled.map((x) => (x.status === 'fulfilled' ? x.value : null))).reduce<Data>(
                 (acc, query) => ({
                     ...acc,
@@ -46,7 +45,7 @@ export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndic
             const next = Object.entries(lastPage).reduce<Record<string, PageIndicator | undefined>>(
                 (acc, [key, page]) => ({
                     ...acc,
-                    [key]: page.nextIndicator,
+                    [key]: page?.nextIndicator,
                 }),
                 {},
             );

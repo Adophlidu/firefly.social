@@ -5,7 +5,7 @@ import { memo } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
+import { HomeTab, ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -15,14 +15,17 @@ import { useDiscoverStore } from '@/store/useDiscoverStore.js';
 
 export const DiscoverPostList = memo<{ source: SocialSource | Source.Posts }>(function DiscoverPostList({ source }) {
     const sources = useDiscoverStore((state) =>
-        SOCIAL_DISCOVER_SOURCE.filter((x) => !state.filteredPlatforms.includes(x)),
+        state.postTimelinePlatforms[HomeTab.Discover].length <= 0
+            ? SOCIAL_DISCOVER_SOURCE
+            : SOCIAL_DISCOVER_SOURCE.filter((x) => !state.postTimelinePlatforms[HomeTab.Discover].includes(x)),
     );
     const queryResult = useMultiInfiniteQueryPageable(
         ['posts', source, 'discover', ...sources],
         sources.map((source) => ({
             key: source,
             async queryFn({ pageParam }) {
-                return resolveSocialMediaProvider(source).discoverPosts(createIndicator(undefined, pageParam));
+                const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
+                return resolveSocialMediaProvider(source).discoverPosts(indicator);
             },
         })),
         (data) => {
