@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-03-03 12:01\n"
+"PO-Revision-Date: 2025-03-04 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -34,7 +34,7 @@ msgid "Do you want to retry with the full or remaining content?"
 msgstr "您想尝试重新发送或者仅发送剩余部分吗？"
 
 msgid "Connected wallets"
-msgstr "已连接的钱包"
+msgstr "连接中钱包"
 
 msgid "Stealing attack found."
 msgstr "发现盗窃攻击。"
@@ -716,7 +716,7 @@ msgstr "通证 ID"
 
 #. placeholder {0}: chainNameMap[chains[0]]
 msgid "Only {0}"
-msgstr ""
+msgstr "仅支持{0}"
 
 msgid "Type something here..."
 msgstr "从这里开始..."
@@ -787,7 +787,7 @@ msgid "No proxy contract."
 msgstr "没有代理合约。"
 
 msgid "Connecting"
-msgstr ""
+msgstr "连接中"
 
 msgid "Search"
 msgstr "搜索"
@@ -2865,7 +2865,7 @@ msgid "So sorry, we are not able to mint this NFT at the moment."
 msgstr "很抱歉，我们目前无法铸造此 NFT。"
 
 msgid "All notifications"
-msgstr "通知"
+msgstr "所有"
 
 msgid "Your browser does not support the Firefly Bridge."
 msgstr "您的浏览器不支持 Firefly Bridge。"
@@ -3738,7 +3738,7 @@ msgid "Lucky drop is only available on {0}."
 msgstr "红包功能仅支持于{0}。"
 
 msgid "Recasted"
-msgstr "已转发"
+msgstr "已转帖"
 
 msgid "No phishing activities involved."
 msgstr "未发现钓鱼活动。"
@@ -3903,7 +3903,7 @@ msgid "Search nft"
 msgstr "搜索 NFT"
 
 msgid "Recast"
-msgstr "转推"
+msgstr "转发"
 
 msgid "Translating..."
 msgstr "翻译中..."
