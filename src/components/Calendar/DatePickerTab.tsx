@@ -4,18 +4,28 @@ import { useClickAway } from 'react-use';
 
 import CalendarIcon from '@/assets/calendar.svg';
 import { DatePicker, type DatePickerProps } from '@/components/Calendar/DatePicker.js';
+import { useAvailableDates } from '@/components/Calendar/hooks/useAvailableDates.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { EventProvider } from '@/types/calendar.js';
 
-interface DatePickerTabProps extends DatePickerProps {}
+interface DatePickerTabProps extends DatePickerProps {
+    isNews: boolean;
+}
 
 export function DatePickerTab(props: DatePickerTabProps) {
-    const { date, allowedDates, onChange, open, onToggle } = props;
+    const { date, onChange, open, onToggle, isNews } = props;
     const days = useMemo(() => {
         return eachDayOfInterval({ start: startOfWeek(date), end: endOfWeek(date) });
     }, [date]);
     const clickAwayListenerRef = useRef<HTMLDivElement>(null);
     useClickAway(clickAwayListenerRef, () => onToggle(false));
+
+    const { data: allowedDates = EMPTY_LIST } = useAvailableDates(
+        isNews ? EventProvider.CoinCarp : EventProvider.Luma,
+        date,
+    );
 
     return (
         <div className="relative flex items-center justify-between border-x border-line p-3">
@@ -28,6 +38,7 @@ export function DatePickerTab(props: DatePickerTabProps) {
                             {
                                 '!border-none bg-fireflyBrand text-white': date.getDate() === day.getDate(),
                                 'cursor-default': allowedDates.includes(localeDateString),
+                                '!cursor-not-allowed border-none opacity-50': !allowedDates.includes(localeDateString),
                             },
                         )}
                         key={day.toString()}

@@ -55,6 +55,7 @@ export function CalendarContent() {
                     ))}
                 </TabList>
                 <DatePickerTab
+                    isNews={isNews}
                     open={open}
                     onToggle={setOpen}
                     date={date}
