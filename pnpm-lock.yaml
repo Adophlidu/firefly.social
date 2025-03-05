@@ -23,6 +23,9 @@ patchedDependencies:
   '@headlessui/react@2.1.10':
     hash: sxmmxbdm2j6wwsctvuk6kkdsda
     path: patches/@headlessui__react@2.1.10.patch
+  '@lexical/react@0.18.0':
+    hash: 46fk3s2wpry7pf7ladnvahdhqq
+    path: patches/@lexical__react@0.18.0.patch
   '@livepeer/core@3.2.7':
     hash: xk47kfoz6emkmfdy5pp5fhfa6y
     path: patches/@livepeer__core@3.2.7.patch
@@ -111,7 +114,7 @@ importers:
         version: 0.18.0
       '@lexical/react':
         specifier: ^0.18.0
-        version: 0.18.0(react-dom@19.0.0)(react@19.0.0)(yjs@13.6.20)
+        version: 0.18.0(patch_hash=46fk3s2wpry7pf7ladnvahdhqq)(react-dom@19.0.0)(react@19.0.0)(yjs@13.6.20)
       '@lexical/utils':
         specifier: ^0.18.0
         version: 0.18.0
@@ -5273,7 +5276,7 @@ packages:
       lexical: 0.18.0
     dev: false
 
-  /@lexical/react@0.18.0(react-dom@19.0.0)(react@19.0.0)(yjs@13.6.20):
+  /@lexical/react@0.18.0(patch_hash=46fk3s2wpry7pf7ladnvahdhqq)(react-dom@19.0.0)(react@19.0.0)(yjs@13.6.20):
     resolution: {integrity: sha512-DLvIbTsjvFIFqm+9zvAjEwuZHAbSxzZf1AGqf1lLctlL/Ran0f+8EZOv5jttELTe7xISZ2+xSXTLRfyxhNwGXQ==}
     peerDependencies:
       react: 19.0.0
@@ -5304,6 +5307,7 @@ packages:
     transitivePeerDependencies:
       - yjs
     dev: false
+    patched: true
 
   /@lexical/rich-text@0.18.0:
     resolution: {integrity: sha512-xMANCB7WueMsmWK8qxik5FZN4ApyaHWHQILS9r4FTbdv/DlNepsR7Pt8kg2317xZ56NAueQLIdyyKYXG1nBrHw==}
