@@ -118,6 +118,9 @@ export const appkit = createAppKit({
     },
     debug: env.external.NEXT_PUBLIC_VERCEL_ENV !== VERCEL_NEV.Production,
     featuredWalletIds: walletIds,
+    themeVariables: {
+        '--w3m-border-radius-master': '1px',
+    },
 });
 
 export const config = adapter.wagmiConfig;

@@ -1,5 +1,11 @@
 import { Trans } from '@lingui/react/macro';
-import { type ChainAdapter, useAppKit, useAppKitAccount, useAppKitNetwork } from '@reown/appkit/react';
+import {
+    AccountController,
+    type ChainAdapter,
+    useAppKit,
+    useAppKitAccount,
+    useAppKitNetwork,
+} from '@reown/appkit/react';
 import { first } from 'lodash-es';
 import { memo, useCallback, useEffect } from 'react';
 import type { Address } from 'viem';
@@ -11,6 +17,7 @@ import SolanaIcon from '@/assets/solana.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { useAppKitAllAccounts } from '@/hooks/useAppKitAllAccounts.js';
@@ -52,6 +59,13 @@ function ConnectedItem({ namespace, address, selected, ...rest }: ConnectedItemP
     );
 }
 
+function resetWalletProfile(namespace: ChainNamespace) {
+    if (namespace !== 'eip155') {
+        AccountController.setProfileName(undefined, namespace);
+        AccountController.setProfileImage(undefined, namespace);
+    }
+}
+
 export const ConnectedWallets = memo(function ConnectedWallets() {
     const { open } = useAppKit();
     const { address: activeAddress } = useAppKitAccount();
@@ -60,17 +74,17 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
 
     const openAccountModal = useCallback(
         (adapter: ChainAdapter, namespace: ChainNamespace) => {
-            if (isSameAddress(adapter.accountState?.address, activeAddress)) {
-                rewriteDisconnectMethod(namespace);
-                open({ view: 'Account' });
-                return;
-            }
-            const network = first(adapter.caipNetworks);
-            if (network) {
+            if (!isSameAddress(adapter.accountState?.address, activeAddress)) {
+                const network = first(adapter.caipNetworks);
+                if (!network) {
+                    enqueueErrorMessage('Failed to switch network, no network found.');
+                    return;
+                }
                 switchNetwork(network);
-                rewriteDisconnectMethod(namespace);
-                open({ view: 'Account' });
             }
+            rewriteDisconnectMethod(namespace);
+            resetWalletProfile(namespace);
+            open({ view: 'Account' });
         },
         [activeAddress, switchNetwork, open],
     );

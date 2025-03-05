@@ -28,8 +28,7 @@ function createEmptyWalletConnectState(): WalletConnectState {
 }
 
 async function setupApi() {
-    await CoreApiController.fetchFeaturedWallets();
-    await CoreApiController.fetchConnectorImages();
+    await CoreApiController.prefetch();
 }
 
 function networkTypeToChainNamespace(networkType: NetworkType): ChainNamespace | null {
