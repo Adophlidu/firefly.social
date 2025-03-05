@@ -7,19 +7,16 @@ import {
     useAppKitNetwork,
 } from '@reown/appkit/react';
 import { first } from 'lodash-es';
-import { memo, type ReactNode, useCallback, useEffect, useMemo } from 'react';
-import { useAsyncFn } from 'react-use';
+import { memo, useCallback, useEffect } from 'react';
 import type { Address } from 'viem';
-import { type Connector, useConnections, useEnsName, useSwitchAccount } from 'wagmi';
+import { useEnsName } from 'wagmi';
 
 import EvmIcon from '@/assets/evm.svg';
 import PlusIcon from '@/assets/plus.svg';
 import SolanaIcon from '@/assets/solana.svg';
-import SwitchIcon from '@/assets/switch.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
@@ -38,10 +35,10 @@ const IconMap = {
 interface ConnectedItemProps extends ClickableButtonProps {
     namespace: 'eip155' | 'solana' | 'polkadot' | 'bip122';
     address: string;
-    rightIcon?: ReactNode;
+    selected?: boolean;
 }
 
-function ConnectedItem({ namespace, address, rightIcon, ...rest }: ConnectedItemProps) {
+function ConnectedItem({ namespace, address, selected, ...rest }: ConnectedItemProps) {
     const { data: ensName } = useEnsName({
         address: address as Address,
         query: { enabled: namespace === 'eip155' },
@@ -57,7 +54,7 @@ function ConnectedItem({ namespace, address, rightIcon, ...rest }: ConnectedItem
         >
             <Icon className="shrink-0" width={20} height={20} />
             <span className="min-w-0 flex-1 truncate text-left">{ensName || formatAddress(address, 4)}</span>
-            {rightIcon || null}
+            {selected ? <CircleCheckboxIcon checked size={20} /> : null}
         </ClickableButton>
     );
 }
@@ -74,22 +71,6 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
     const { address: activeAddress } = useAppKitAccount();
     const { switchNetwork } = useAppKitNetwork();
     const accounts = useAppKitAllAccounts();
-    const connections = useConnections();
-    const { switchAccountAsync } = useSwitchAccount();
-
-    const unconnectedConnectors = useMemo(() => {
-        return !accounts.length
-            ? []
-            : connections
-                  .map((connection) => ({
-                      address: connection.accounts[0],
-                      chain: connection.chainId,
-                      connector: connection.connector,
-                  }))
-                  .filter(({ address }) => !accounts.some((account) => isSameAddress(account.address, address)));
-    }, [accounts, connections]);
-
-    useEffect(() => restoreDisconnectMethod, []);
 
     const openAccountModal = useCallback(
         (adapter: ChainAdapter, namespace: ChainNamespace) => {
@@ -108,17 +89,7 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
         [activeAddress, switchNetwork, open],
     );
 
-    const [{ loading }, switchWalletConnector] = useAsyncFn(
-        async (connector: Connector) => {
-            try {
-                await switchAccountAsync({ connector });
-            } catch (error) {
-                enqueueErrorMessage('Failed to switch wallet.');
-                throw error;
-            }
-        },
-        [switchAccountAsync],
-    );
+    useEffect(() => restoreDisconnectMethod, []);
 
     return (
         <div className="overflow-hidden rounded-lg border border-secondaryLine">
@@ -145,23 +116,9 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
                         key={account.address}
                         namespace={account.chain}
                         address={account.address}
-                        rightIcon={<CircleCheckboxIcon size={20} checked />}
+                        selected
                         onClick={() => {
                             openAccountModal(account.adapter, account.chain);
-                        }}
-                    />
-                );
-            })}
-            {unconnectedConnectors.map(({ address, connector }) => {
-                return (
-                    <ConnectedItem
-                        key={`unconnected-${address}`}
-                        namespace={'eip155'}
-                        address={address}
-                        disabled={loading}
-                        rightIcon={loading ? <LoadingIcon size={20} /> : <SwitchIcon width={20} height={20} />}
-                        onClick={async () => {
-                            await switchWalletConnector(connector);
                         }}
                     />
                 );

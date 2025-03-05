@@ -58,7 +58,6 @@ export const WalletConnectButton = memo<WalletConnectButtonProps>(function Walle
                             const iconUrl = IconMap[networkType];
                             return iconUrl ? (
                                 <Image
-                                    key={networkType}
                                     className={classNames('h-5 w-5 rounded-full', {
                                         '-ml-1': index > 0,
                                     })}
