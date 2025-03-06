@@ -1,6 +1,6 @@
 'use client';
 
-import { Popover } from '@headlessui/react';
+import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { delay } from '@masknet/kit';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
@@ -48,12 +48,12 @@ export function ProfileAvatarInteractive({ profile, loading }: ProfileAvatarInte
         <Popover as="div" className="relative">
             {({ close }) => (
                 <>
-                    <Popover.Button as="div" disabled={isLoading}>
+                    <PopoverButton as="div" disabled={isLoading}>
                         <ProfileAvatar profile={profile} clickable loading={isLoading} />
-                    </Popover.Button>
-                    <Popover.Panel className="absolute top-[-12px] translate-y-[-100%]">
+                    </PopoverButton>
+                    <PopoverPanel className="absolute top-[-12px] z-10 translate-y-[-100%]">
                         <ProfileSettings source={profile.source} onClose={() => close()} />
-                    </Popover.Panel>
+                    </PopoverPanel>
                 </>
             )}
         </Popover>
