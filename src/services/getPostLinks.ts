@@ -112,18 +112,20 @@ export const getPostOembed = memoizePromise(
     (url, post) => `${url}${post?.quoteOn?.postId}`,
 );
 
-export async function getPostLinks(url: string, post: Post) {
-    return attemptUntil<{
-        oembed?: LinkDigested;
-        frame?: Frame;
-        action?: Action;
-        html?: string;
-        articleId?: string;
-        spaceId?: string;
-        snapshot?: SnapshotProposal;
-        nft?: SimpleHash.NFT;
-        collection?: SimpleHash.Collection;
-    } | null>(
+export interface ClassifyPostLinkResult {
+    oembed?: LinkDigested;
+    frame?: Frame;
+    action?: Action;
+    html?: string;
+    articleId?: string;
+    spaceId?: string;
+    snapshot?: SnapshotProposal;
+    nft?: SimpleHash.NFT;
+    collection?: SimpleHash.Collection;
+}
+
+export async function classifyPostLink(url: string, post: Post) {
+    return attemptUntil<ClassifyPostLinkResult | null>(
         [
             async () => {
                 const spaceId = url.match(TWEET_SPACE_REGEX)?.[3];

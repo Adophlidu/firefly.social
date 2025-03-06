@@ -2,8 +2,8 @@ import type { PropsWithChildren } from 'react';
 import { isAddress } from 'viem/utils';
 
 import { Comeback } from '@/components/Comeback.js';
+import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
-import { TokenContextProvider } from '@/components/TokenProfile/TokenContext.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getTokenFromCoinGecko } from '@/services/getTokenFromCoinGecko.js';
 import { searchTokenByAddress } from '@/services/searchTokenByAddress.js';

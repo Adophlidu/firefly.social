@@ -290,6 +290,14 @@ class SimpleHashFactory {
             response.count,
         );
     }
+
+    async getCollectionMarketInfo(collectionId: string): Promise<SimpleHash.CollectionMarketInfo | null> {
+        const path = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/collections_activity', {
+            collection_ids: collectionId,
+        });
+        const response = await fetchJSON<{ collections: SimpleHash.CollectionMarketInfo[] }>(path);
+        return response.collections[0] || null;
+    }
 }
 
 export const SimpleHashProvider = new SimpleHashFactory();

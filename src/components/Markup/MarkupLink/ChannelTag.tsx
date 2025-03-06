@@ -5,7 +5,7 @@ import { memo, useEffect, useMemo } from 'react';
 import { ChannelCard } from '@/components/Channel/ChannelCard.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
-import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
+import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { TippyContext, useTippyContext } from '@/components/TippyContext/index.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

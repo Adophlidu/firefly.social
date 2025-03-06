@@ -4,9 +4,10 @@ import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { forwardRef, useMemo, useState } from 'react';
+import { forwardRef, useMemo } from 'react';
 
 import { TwitterArticleBody } from '@/components/Article/TwitterArticleBody.js';
+import { EmbedCards } from '@/components/EmbedCards/index.js';
 import { Link } from '@/components/Link.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
@@ -76,7 +77,7 @@ export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(
     const isExpanded = post.incomplete && post.fullContent === post.metadata.content?.content;
     const canShowMore = !isExpanded && !!(postRawContent && postRawContent.length > 450) && showMore;
 
-    const [postContent = postRawContent ?? '', setPostContent] = useState<string>();
+    const postContent = metadata.content?.truncatedContent || postRawContent || '';
     const [seen, seenRef] = useEverSeen({ rootMargin: '300px 0px' });
     const mergedRef = useForkRef(ref, seenRef);
 
@@ -128,14 +129,6 @@ export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(
         return null;
     }, [post, currentTwitterProfileSession, seen, hasEncryptedPayload, payloads, isInCompose]);
 
-    const LinksContent = useMemo(
-        () =>
-            !hasEncryptedPayload && !decodingImage && !pollId ? (
-                <PostLinks post={post} setContent={setPostContent} />
-            ) : null,
-        [hasEncryptedPayload, decodingImage, pollId, post, setPostContent],
-    );
-
     if (post.isHidden || (muted && !isProfilePage)) {
         return (
             <CollapsedContent
@@ -149,6 +142,8 @@ export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(
             />
         );
     }
+
+    const LinksContent = !hasEncryptedPayload && !decodingImage && !pollId ? <PostLinks post={post} /> : null;
 
     if (isQuote) {
         return (
@@ -212,6 +207,8 @@ export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(
                     </div>
                 </div>
             ) : null}
+
+            <EmbedCards post={post} />
 
             {/* Poll */}
             {!hasEncryptedPayload && !decodingImage ? (

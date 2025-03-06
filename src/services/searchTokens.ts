@@ -66,6 +66,9 @@ export async function searchTokensByAddress(address: string): Promise<Pageable<S
     }
 }
 
+/**
+ * Search by keyword or address
+ */
 export async function searchTokens(searchKeyword: string): Promise<Pageable<TokenWithMarket, PageIndicator>> {
     const trimmed = trimify(searchKeyword).toLowerCase();
     const res = isAddress(trimmed)

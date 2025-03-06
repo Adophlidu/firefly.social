@@ -7,7 +7,8 @@ import linkifyRegex from 'remark-linkify-regex';
 import stripMarkdown from 'strip-markdown';
 
 import { Code } from '@/components/Code.js';
-import { MarkupLink, type MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
+import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
+import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { NFTPlugin } from '@/components/Markup/plugins/NFT.js';
 import { ImageAsset, type ImageAssetProps } from '@/components/Posts/ImageAsset.js';
 import { Source } from '@/constants/enum.js';

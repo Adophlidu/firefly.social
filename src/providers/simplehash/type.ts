@@ -230,4 +230,51 @@ export namespace SimpleHash {
         wallet_address: string;
         contracts: Array<{ contract_address: string; token_ids: string[] }>;
     }
+    export interface CollectionMarketInfo {
+        collection_id: string;
+        name: string;
+        '1_day_volume': number;
+        '1_day_volume_usd_cents': number;
+        '1_day_prior_volume': number;
+        '1_day_prior_volume_usd_cents': number;
+        '1_day_volume_change_percent': number;
+        '1_day_transaction_count': number;
+        '1_day_seller_count': number;
+        '1_day_buyer_count': number;
+        '1_day_trader_count': number;
+        '7_day_volume': number;
+        '7_day_volume_usd_cents': number;
+        '7_day_prior_volume': number;
+        '7_day_prior_volume_usd_cents': number;
+        '7_day_volume_change_percent': number;
+        '7_day_transaction_count': number;
+        '7_day_seller_count': number;
+        '7_day_buyer_count': number;
+        '7_day_trader_count': number;
+        '30_day_volume': number;
+        '30_day_volume_usd_cents': number;
+        '30_day_prior_volume': number;
+        '30_day_prior_volume_usd_cents': number;
+        '30_day_volume_change_percent': number;
+        '30_day_transaction_count': number;
+        '30_day_seller_count': number;
+        '30_day_buyer_count': number;
+        '30_day_trader_count': number;
+        '90_day_volume': number;
+        '90_day_volume_usd_cents': number;
+        '90_day_transaction_count': number;
+        '90_day_seller_count': number;
+        '90_day_buyer_count': number;
+        '90_day_trader_count': number;
+        all_time_volume: number;
+        market_cap: number;
+        market_cap_usd_cents: number;
+        payment_token: {
+            payment_token_id: string;
+            name: string;
+            symbol: string;
+            address: null;
+            decimals: 18;
+        };
+    }
 }

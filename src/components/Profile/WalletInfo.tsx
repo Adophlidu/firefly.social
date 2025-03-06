@@ -65,7 +65,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                     <div className="flex gap-[10px]">
                         {profile.verifiedSources.map((x) => {
                             return (
-                                <Tooltip key={x.source} content={t`Verified by ${x.source}`} placement="bottom">
+                                <Tooltip key={x.source} content={t`Verified by ${x.provider}`} placement="bottom">
                                     <span>
                                         <RelatedSourceIcon source={x.source} size={24} />
                                     </span>

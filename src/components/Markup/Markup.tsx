@@ -11,7 +11,14 @@ import { Code } from '@/components/Code.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
 import { HashTagLink } from '@/components/Markup/plugins/HashTagLink.js';
 import { UrlPlugin } from '@/components/Markup/plugins/UrlPlugin.js';
-import { CHANNEL_REGEX, EMAIL_REGEX, LENS_HANDLE_REGEXP, SYMBOL_REGEX } from '@/constants/regexp.js';
+import {
+    CHANNEL_REGEX,
+    EMAIL_REGEX,
+    EVM_ADDRESS,
+    LENS_HANDLE_REGEXP,
+    SOLANA_ADDRESS,
+    SYMBOL_REGEX,
+} from '@/constants/regexp.js';
 import { isChannelSupported } from '@/helpers/isChannelSupported.js';
 import { trimify } from '@/helpers/trimify.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -27,19 +34,6 @@ function Ol(props: DetailedHTMLProps<OlHTMLAttributes<HTMLOListElement>, HTMLOLi
 }
 export const Markup = memo<MarkupProps>(function Markup({ children, post, ...rest }) {
     const plugins = useMemo<Pluggable[]>(() => {
-        if (!post?.mentions?.length)
-            return compact([
-                [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'list', 'listItem'] }],
-                remarkBreaks,
-                linkifyRegex(EMAIL_REGEX),
-                UrlPlugin,
-                // parsing handle after url
-                // for example https://images.lens.phaver.com/insecure/raw:t/plain/3daf21dbbf8ce530685bbfabf5de325d
-                linkifyRegex(LENS_HANDLE_REGEXP),
-                isChannelSupported(post?.source) ? linkifyRegex(CHANNEL_REGEX) : undefined,
-                HashTagLink(post?.source),
-                linkifyRegex(SYMBOL_REGEX),
-            ]);
         let MentionPlugin: Pluggable | null = null;
         if (post?.mentions?.length) {
             const handles = post.mentions.map((x) => x.fullHandle);
@@ -61,6 +55,8 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             isChannelSupported(post?.source) ? linkifyRegex(CHANNEL_REGEX) : undefined,
             HashTagLink(post?.source),
             linkifyRegex(SYMBOL_REGEX),
+            linkifyRegex(EVM_ADDRESS),
+            linkifyRegex(SOLANA_ADDRESS),
         ]);
     }, [post?.mentions, post?.source]);
 

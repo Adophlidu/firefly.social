@@ -40,7 +40,7 @@ export class GoPlus {
         const security = { ...entity[1], contract: entity[0], chainId };
         return createSecurityResult(security, TokenSecurityMessages, (info) => info.trust_list === '1');
     }
-    static async getAddressSecurity(chainId: number, address: string) {
+    static async getAddressSecurity(address: string, chainId?: number) {
         const url = urlcat(GO_PLUS_LABS_ROOT_URL, 'api/v1/address_security/:address', {
             address: address.toLowerCase(),
             chain_id: chainId,

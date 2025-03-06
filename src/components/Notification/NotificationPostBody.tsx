@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
@@ -11,14 +11,14 @@ interface NotificationPostBodyProps {
 }
 
 export const NotificationPostBody = memo<NotificationPostBodyProps>(function NotificationPostBody({ post }) {
-    const [postContent, setPostContent] = useState(post.metadata.content?.content ?? '');
+    const postContent = post.metadata.content?.truncatedContent || post.metadata.content?.content || '';
     const attachments = post.metadata.content?.attachments ?? EMPTY_LIST;
 
     return (
         <>
             <PostMarkup post={post} canShowMore={false} content={postContent} />
             <Attachments post={post} attachments={attachments} />
-            <PostLinks post={post} setContent={setPostContent} />
+            <PostLinks post={post} />
         </>
     );
 });

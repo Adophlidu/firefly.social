@@ -1,6 +1,6 @@
 'use client';
 import { safeUnreachable } from '@masknet/kit';
-import type { SVGProps } from 'react';
+import { memo, type SVGProps } from 'react';
 
 import FarcasterIcon from '@/assets/farcaster.svg';
 import LensIcon from '@/assets/lens.svg';
@@ -13,7 +13,11 @@ interface RelatedSourceIconProps extends SVGProps<SVGSVGElement> {
     source: RelatedWalletSource;
 }
 
-export function RelatedSourceIcon({ source, size = 20, ...props }: RelatedSourceIconProps) {
+export const RelatedSourceIcon = memo(function RelatedSourceIcon({
+    source,
+    size = 20,
+    ...props
+}: RelatedSourceIconProps) {
     const style = useSizeStyle(size, props.style);
 
     switch (source) {
@@ -39,4 +43,4 @@ export function RelatedSourceIcon({ source, size = 20, ...props }: RelatedSource
             safeUnreachable(source);
             return null;
     }
-}
+});

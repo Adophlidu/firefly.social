@@ -1,13 +1,19 @@
 import { web3 } from '@coral-xyz/anchor';
 import { type Address, isAddress, isAddressEqual } from 'viem';
 
-export function isSameEthereumAddress(address?: string, otherAddress?: string): boolean {
+export function isSameEthereumAddress(
+    address: string | null | undefined,
+    otherAddress: string | null | undefined,
+): boolean {
     if (!address || !otherAddress) return false;
     if (!isAddress(address) || !isAddress(otherAddress)) return false;
     return isAddressEqual(address as Address, otherAddress as Address);
 }
 
-export function isSameSolanaAddress(address?: string, otherAddress?: string): boolean {
+export function isSameSolanaAddress(
+    address: string | null | undefined,
+    otherAddress: string | null | undefined,
+): boolean {
     try {
         if (!address || !otherAddress) return false;
         return new web3.PublicKey(address).equals(new web3.PublicKey(otherAddress));

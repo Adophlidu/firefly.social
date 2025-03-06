@@ -1,7 +1,10 @@
 import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
+import { ChainId } from '@masknet/web3-shared-evm';
 import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
 import { compact, first } from 'lodash-es';
 import React, { memo, type ReactNode } from 'react';
+import { zeroAddress } from 'viem';
 
 import CalendarIcon from '@/assets/calendar-small.svg';
 import LocationIcon from '@/assets/location.svg';
@@ -11,20 +14,28 @@ import { Link } from '@/components/Link.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { PoapTrait } from '@/components/NFTDetail/PoapTrait.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
+import { TokenIcon } from '@/components/TokenIcon.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
+import { formatBalance } from '@/helpers/formatBalance.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveNftUrl, resolveNftUrlByCollection } from '@/helpers/resolveNftUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
+import { useCollectionMarketInfo } from '@/hooks/useCollectionMarketInfo.js';
+import { useNFTCollection } from '@/hooks/useNFTCollection.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
+import { EMPTY_LIST } from '@/maskbook/packages/shared-base/src/constants.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 interface NFTPreviewProps {
     nft: SimpleHash.NFT;
+    showTradeInfo?: boolean;
 }
 
 interface BasePreviewContentProps {
+    collection: SimpleHash.Collection | null | undefined;
+    tokenId?: string;
     image: string;
     footer?: {
         name: string;
@@ -38,9 +49,14 @@ interface BasePreviewContentProps {
         nftId: string;
         ownerAddress?: string;
     };
+    showTradeInfo?: boolean;
 }
 
 function BasePreviewContent(props: BasePreviewContentProps) {
+    const { collection, showTradeInfo } = props;
+    const floorPrice = collection?.floor_prices[0];
+    const { data: marketInfo } = useCollectionMarketInfo(collection?.collection_id);
+    const chainId = (collection?.chains[0] && resolveSimpleHashChainId(collection?.chains[0])) || ChainId.Mainnet;
     const footer = (
         <>
             {props.footer?.image ? (
@@ -83,19 +99,60 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                     </div>
                 ) : null}
             </div>
-            {props.footer ? (
-                props.footer.link ? (
-                    <Link
-                        className="flex h-[42px] items-center gap-2 px-3"
-                        href={props.footer.link}
-                        onClick={stopPropagation}
-                    >
-                        {footer}
-                    </Link>
-                ) : (
-                    <div className="flex h-[42px] items-center gap-2 px-3">{footer}</div>
-                )
-            ) : null}
+            <div className="flex flex-col gap-[20px] p-3">
+                {props.footer ? (
+                    props.footer.link ? (
+                        <Link className="flex items-center gap-2" href={props.footer.link} onClick={stopPropagation}>
+                            {footer}
+                        </Link>
+                    ) : (
+                        <div className="flex items-center gap-2">{footer}</div>
+                    )
+                ) : null}
+                {showTradeInfo ? (
+                    <div className="flex justify-between">
+                        {floorPrice ? (
+                            <div className="flex flex-col justify-start gap-1">
+                                <div className="text-xs font-bold leading-6">
+                                    <Trans>Price</Trans>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    <span className="truncate text-medium font-bold text-lightMain">
+                                        {formatBalance(floorPrice.value, floorPrice.payment_token.decimals)}
+                                    </span>
+                                    <TokenIcon
+                                        disableBadge
+                                        chainId={chainId}
+                                        address={floorPrice.payment_token.address || zeroAddress}
+                                        icon={`https://stamp.firefly.land/logo/${chainId}/${floorPrice.payment_token.address || zeroAddress}`}
+                                        size={16}
+                                    />
+                                </div>
+                            </div>
+                        ) : null}
+                        {marketInfo ? (
+                            <div className="flex flex-col items-end gap-1">
+                                <div className="text-xs font-bold leading-6">
+                                    <Trans>Total Volume</Trans>
+                                </div>
+
+                                <div className="flex items-center gap-1">
+                                    <span className="truncate text-medium font-bold text-lightMain">
+                                        {formatBalance(marketInfo?.all_time_volume, marketInfo.payment_token.decimals)}
+                                    </span>
+                                    <TokenIcon
+                                        disableBadge
+                                        chainId={chainId}
+                                        address={marketInfo.payment_token.address || zeroAddress}
+                                        icon={`https://stamp.firefly.land/logo/${chainId}/${marketInfo.payment_token.address || zeroAddress}`}
+                                        size={16}
+                                    />
+                                </div>
+                            </div>
+                        ) : null}
+                    </div>
+                ) : null}
+            </div>
         </>
     );
 
@@ -109,16 +166,19 @@ function BasePreviewContent(props: BasePreviewContentProps) {
     );
 }
 
-export const NFTPreviewer = memo(function NFTPreview({ nft }: NFTPreviewProps) {
+export const NFTPreviewer = memo(function NFTPreview({ nft, showTradeInfo }: NFTPreviewProps) {
     const chainId = resolveSimpleHashChainId(nft.chain);
     const collectionId = nft.collection.collection_id;
     const isSolanaChain = isValidSolanaChainId(chainId);
 
     const isPoap = isSameEthereumAddress(nft.contract_address, POAP_CONTRACT_ADDRESS);
     const { date, position } = usePoapTraits(nft.extra_metadata.attributes);
+    const { data: collection } = useNFTCollection(nft.contract_address, chainId);
 
     return (
         <BasePreviewContent
+            showTradeInfo={showTradeInfo}
+            collection={collection}
             image={resolveNFTImageUrl(nft)}
             icon={
                 isPoap ? (
@@ -145,7 +205,7 @@ export const NFTPreviewer = memo(function NFTPreview({ nft }: NFTPreviewProps) {
                           <PoapTrait noWrap icon={LocationIcon} value={position} key="position" />,
                           <PoapTrait noWrap icon={CalendarIcon} value={date} key="date" />,
                       ])
-                    : [nft.name]
+                    : [nft.name || nft.collection.name]
             }
             bookmarkProps={{ nftId: nft.nft_id, ownerAddress: first(nft.owners)?.owner_address }}
         />
@@ -154,20 +214,24 @@ export const NFTPreviewer = memo(function NFTPreview({ nft }: NFTPreviewProps) {
 
 export const CollectionPreviewer = memo(function CollectionPreviewer({
     collection,
+    showTradeInfo,
 }: {
     collection: SimpleHash.Collection;
+    showTradeInfo?: boolean;
 }) {
     const chainId = resolveSimpleHashChainId(collection.chains[0]);
 
     return (
         <BasePreviewContent
+            showTradeInfo={showTradeInfo}
+            collection={collection}
             image={collection.image_url}
             icon={chainId ? <ChainIcon className="rounded-full" size={24} chainId={chainId} /> : undefined}
             link={resolveNftUrlByCollection(collection.collection_id)}
             footer={{
                 name: collection.name || t`Unknown Collection`,
             }}
-            tags={[]}
+            tags={EMPTY_LIST}
         />
     );
 });

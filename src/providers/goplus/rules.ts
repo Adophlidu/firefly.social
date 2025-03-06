@@ -23,7 +23,7 @@ function safeCompare(value: string | number | undefined, stringBool: string) {
     return typeof value === 'number' ? value.toString() === stringBool : value === stringBool;
 }
 
-export const TokenSecurityMessages: SecurityMessage[] = [
+export const TokenSecurityMessages: Array<SecurityMessage<TokenContractSecurity>> = [
     // open source
     {
         type: SecurityType.Contract,

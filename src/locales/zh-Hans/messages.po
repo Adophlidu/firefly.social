@@ -873,6 +873,7 @@ msgstr "合约所有人也许没有拥有修改交易费用的权力。如果交
 msgid "The blacklist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "黑名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
 
+#. placeholder {0}: x.provider
 #. placeholder {0}: x.source
 msgid "Verified by {0}"
 msgstr "由 {0} 校验"
@@ -2474,8 +2475,16 @@ msgstr "未包含燃气滥用功能。如果存在燃气滥用功能，项目所
 msgid "Translated"
 msgstr "已翻译"
 
+#. placeholder {0}: market?.price_change_percentage_24h_in_currency !== undefined ? ( <span className={isUp ? 'text-success' : 'text-fail'}> {market.price_change_percentage_24h_in_currency.toFixed(2)}% </span> ) : null
+#. placeholder {1}: renderShrankPrice(formatPrice(price) ?? '-')
+msgid "<0/>{0}<1>today</1><2>${1}</2>"
+msgstr ""
+
 msgid "Insufficient Balance for Gas Fee"
 msgstr "没有足够的 Gas 费"
+
+msgid "Price"
+msgstr ""
 
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
@@ -3101,6 +3110,11 @@ msgstr "我已经不再使用。"
 msgid "<0>You</0> liked"
 msgstr "<0>你</0> 已点赞"
 
+#. placeholder {0}: market_cap !== undefined ? `$${formatMarketCap(market_cap)}` : '-'
+#. placeholder {1}: token.rank
+msgid "<0>{0}</0><1>MC</1><2>Rank #{1}</2>"
+msgstr ""
+
 msgid "You've hit rock bottom."
 msgstr "你已经滑到底部啦～"
 
@@ -3567,6 +3581,9 @@ msgstr "详情"
 
 msgid "Exclusive Events"
 msgstr "独家活动"
+
+msgid "Total Volume"
+msgstr ""
 
 msgid "Post added to your Bookmarks"
 msgstr "帖子已经添加到您的收藏中"

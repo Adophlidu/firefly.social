@@ -1,5 +1,5 @@
 import { t } from '@lingui/core/macro';
-import { usePathname, useRouter } from 'next/navigation.js';
+import { usePathname } from 'next/navigation.js';
 import { useAsyncFn } from 'react-use';
 
 import { type SocialSource } from '@/constants/enum.js';
@@ -12,7 +12,6 @@ import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionE
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useDeletePost(source: SocialSource) {
-    const router = useRouter();
     const pathname = usePathname();
     const navBack = useComeBack();
 

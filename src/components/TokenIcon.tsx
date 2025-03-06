@@ -1,14 +1,17 @@
+import { isZeroAddress } from '@masknet/web3-shared-evm';
 import { type HTMLProps, useCallback, useMemo, useState } from 'react';
 
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
-import type { NetworkType } from '@/constants/enum.js';
+import { NetworkPluginID, type NetworkType } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
 interface TokenIconProps extends HTMLProps<HTMLSpanElement> {
     networkType?: NetworkType;
-    chainId: number;
+    chainId?: number;
+    address?: string;
     name?: string;
     /** icon url */
     icon?: string;
@@ -22,6 +25,7 @@ interface TokenIconProps extends HTMLProps<HTMLSpanElement> {
 export function TokenIcon({
     networkType,
     chainId,
+    address,
     icon,
     badgeIcon,
     name,
@@ -43,8 +47,11 @@ export function TokenIcon({
     }, []);
 
     const tokenIcon = useMemo(() => {
+        if (address && isZeroAddress(address) && chainId) {
+            return getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chainId)?.icon;
+        }
         return !icon || hasError || icon === 'missing.png' ? defaultFallbackUrl : icon;
-    }, [icon, hasError, defaultFallbackUrl]);
+    }, [icon, hasError, defaultFallbackUrl, address, chainId]);
 
     return (
         <span className={classNames('relative', className)} style={{ width: size, height: size }} {...rest}>
@@ -85,9 +92,9 @@ export function TokenIcon({
                             style={{ width: chainSize, height: chainSize }}
                             alt="chain"
                         />
-                    ) : (
+                    ) : chainId ? (
                         <ChainIcon size={badgeSize} networkType={networkType} chainId={chainId} />
-                    )}
+                    ) : null}
                 </span>
             ) : null}
         </span>

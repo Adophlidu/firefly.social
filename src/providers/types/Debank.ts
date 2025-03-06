@@ -1,3 +1,57 @@
+/* cspell:disable */
+/**
+ * Collect from https://docs.cloud.debank.com/en/readme/api-pro-reference/chain#returns-1
+ * To get the full list: `curl https://debank-proxy.r2d2.to/v1/chain/list | jq ".[].id"`
+ */
+export type DebankChains =
+    | 'arb'
+    | 'astar'
+    | 'aurora'
+    | 'avax'
+    | 'base'
+    | 'boba'
+    | 'sei'
+    | 'brise'
+    | 'bsc'
+    | 'btt'
+    | 'canto'
+    | 'celo'
+    | 'cfx'
+    | 'cro'
+    | 'dfk'
+    | 'doge'
+    | 'eth'
+    | 'evmos'
+    | 'ftm'
+    | 'fuse'
+    | 'heco'
+    | 'hmy'
+    | 'iotx'
+    | 'kava'
+    | 'kcc'
+    | 'klay'
+    | 'mada'
+    | 'matic'
+    | 'metis'
+    | 'mobm'
+    | 'movr'
+    | 'nova'
+    | 'okt'
+    | 'op'
+    | 'palm'
+    | 'pls'
+    | 'rsk'
+    | 'sbch'
+    | 'scrl'
+    | 'sdn'
+    | 'sgb'
+    | 'step'
+    | 'swm'
+    | 'tlos'
+    | 'wan'
+    | 'xdai'
+    | 'xlayer';
+
 export interface Token<AddressLike = string> {
     amount: number;
     chain: string;
@@ -22,4 +76,19 @@ export interface Token<AddressLike = string> {
 export interface GasPrice {
     level: 'slow' | 'normal' | 'fast';
     price: number;
+}
+
+export interface UserTotalBalanceResponse {
+    total_usd_value: number;
+    chain_list: Array<{
+        id: DebankChains;
+        /** equals to ChainId */
+        community_id: number;
+        name: string;
+        logo_url: string;
+        native_token_id: string;
+        /** address */
+        wrapped_token_id: string;
+        usd_value: number;
+    }>;
 }

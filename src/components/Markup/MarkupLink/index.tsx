@@ -2,10 +2,12 @@
 
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
-import { type AnchorHTMLAttributes, memo } from 'react';
+import { memo } from 'react';
 import urlcat from 'urlcat';
+import { isAddress } from 'viem';
 
 import { Link } from '@/components/Link.js';
+import { AddressTag } from '@/components/Markup/MarkupLink/AddressTag.js';
 import { ChannelTag } from '@/components/Markup/MarkupLink/ChannelTag.js';
 import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
 import { Hashtag } from '@/components/Markup/MarkupLink/Hashtag.js';
@@ -15,8 +17,9 @@ import { NFTCollection } from '@/components/Markup/MarkupLink/NFTCollection.js';
 import { SymbolTag } from '@/components/Markup/MarkupLink/SymbolTag.js';
 import { TcoLink } from '@/components/Markup/MarkupLink/TcoLink.js';
 import { ToggleMore } from '@/components/Markup/MarkupLink/ToggleMore.js';
+import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, LENS_HANDLE_REGEXP } from '@/constants/regexp.js';
 import { createDummyProfileFromLensHandle } from '@/helpers/createDummyProfile.js';
@@ -24,19 +27,12 @@ import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentio
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getTwitterProfileUrl } from '@/helpers/getTwitterProfileUrl.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
+import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { isTCOLink } from '@/helpers/resolveTCOLink.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
 
-export interface MarkupLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
-    title?: string;
-    post?: Post;
-    source?: SocialSource;
-    sourceLink?: string;
-}
-
-export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post, source, sourceLink, ...rest }) {
+export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post, source, sourceLink }) {
     const { data: fallbackProfile } = useQuery({
         // We only have handle in user bio.
         enabled: !post && source === Source.Farcaster && title?.startsWith('@'),
@@ -143,6 +139,15 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                 <SymbolTag title={trimmed} source={source} />
             </>
         );
+
+    if (isAddress(trimmed) || (isValidSolanaAddress(trimmed) as boolean)) {
+        return (
+            <>
+                {tagPadding}
+                <AddressTag title={trimmed} source={source} />
+            </>
+        );
+    }
 
     if (trimmed.startsWith('/')) {
         return (

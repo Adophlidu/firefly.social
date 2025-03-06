@@ -873,6 +873,7 @@ msgstr ""
 msgid "The blacklist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
 
+#. placeholder {0}: x.provider
 #. placeholder {0}: x.source
 msgid "Verified by {0}"
 msgstr "通過 {0} 驗證"
@@ -2461,7 +2462,15 @@ msgstr ""
 msgid "Translated"
 msgstr ""
 
+#. placeholder {0}: market?.price_change_percentage_24h_in_currency !== undefined ? ( <span className={isUp ? 'text-success' : 'text-fail'}> {market.price_change_percentage_24h_in_currency.toFixed(2)}% </span> ) : null
+#. placeholder {1}: renderShrankPrice(formatPrice(price) ?? '-')
+msgid "<0/>{0}<1>today</1><2>${1}</2>"
+msgstr ""
+
 msgid "Insufficient Balance for Gas Fee"
+msgstr ""
+
+msgid "Price"
 msgstr ""
 
 msgid "Failed to bookmark post."
@@ -3088,6 +3097,11 @@ msgstr ""
 msgid "<0>You</0> liked"
 msgstr ""
 
+#. placeholder {0}: market_cap !== undefined ? `$${formatMarketCap(market_cap)}` : '-'
+#. placeholder {1}: token.rank
+msgid "<0>{0}</0><1>MC</1><2>Rank #{1}</2>"
+msgstr ""
+
 msgid "You've hit rock bottom."
 msgstr "你已經到頁面最底部"
 
@@ -3550,6 +3564,9 @@ msgid "Detail"
 msgstr "詳細資訊"
 
 msgid "Exclusive Events"
+msgstr ""
+
+msgid "Total Volume"
 msgstr ""
 
 msgid "Post added to your Bookmarks"

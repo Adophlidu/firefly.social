@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation.js';
 import { memo, useEffect } from 'react';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
-import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
+import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { PageRoute } from '@/constants/enum.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 

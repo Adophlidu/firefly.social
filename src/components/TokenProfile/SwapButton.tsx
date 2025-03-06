@@ -5,7 +5,7 @@ import { memo, useContext } from 'react';
 
 import SwapIcon from '@/assets/swap.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { TokenContext } from '@/components/TokenProfile/TokenContext.js';
+import { TokenContext } from '@/components/Token/TokenContext.js';
 import { classNames } from '@/helpers/classNames.js';
 import { ConnectModalRef } from '@/modals/controls.js';
 

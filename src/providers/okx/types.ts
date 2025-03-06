@@ -18,3 +18,9 @@ export interface ChainDex {
 }
 
 export type SupportedChainResponse = OKXResponse<ChainDex[]>;
+
+export type TotalValueResponse = OKXResponse<
+    Array<{
+        totalValue: string;
+    }>
+>;

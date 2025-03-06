@@ -6,7 +6,7 @@ import { compact } from 'lodash-es';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
-import { TokenContextProvider } from '@/components/TokenProfile/TokenContext.js';
+import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { TokenMarketData } from '@/components/TokenProfile/TokenMarketData.js';
 import { ScrollListKey } from '@/constants/enum.js';
 import { formatMarketToken } from '@/helpers/formatMarketToken.js';

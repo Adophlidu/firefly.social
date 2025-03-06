@@ -5,7 +5,7 @@ export function removeAtEnd(content: string, fragment: string): string {
     if (indexOfUrl === -1) return content;
 
     if (indexOfUrl === content.length - fragment.length) {
-        return content?.replace(fragment, '');
+        return content.replace(fragment, '');
     } else {
         return content;
     }

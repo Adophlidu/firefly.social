@@ -3,12 +3,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { useEffect, useMemo } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 
 import { ArticleBody } from '@/components/Article/ArticleBody.js';
 import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import { FrameLayout } from '@/components/Frame/Layout.js';
-import { CollectionPreviewer, NFTPreviewer } from '@/components/NFTs/NFTPreview.js';
 import { OembedLayout } from '@/components/Oembed/index.js';
 import { Player } from '@/components/Oembed/Player.js';
 import { TweetSpace } from '@/components/Posts/TweetSpace.js';
@@ -20,30 +19,23 @@ import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
+import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { removeAtEnd } from '@/helpers/removeAtEnd.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
+import { useClassifyPostLink } from '@/hooks/useClassifyPostLink.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getPostLinks } from '@/services/getPostLinks.js';
 import type { ComposeType } from '@/types/compose.js';
 
 interface Props {
     post: Post;
-    setContent?: (content: string) => void;
     isInCompose?: boolean;
 }
 
-export function PostLinks({ post, setContent, isInCompose = false }: Props) {
+export const PostLinks = memo(function PostLinks({ post, isInCompose = false }: Props) {
     const router = useRouter();
     const url = resolveOembedUrl(post);
-    const { isLoading, error, data } = useQuery({
-        queryKey: ['post-embed', url, post.postId],
-        queryFn: () => getPostLinks(url!, post),
-        refetchOnMount: false,
-        refetchOnWindowFocus: false,
-        retry: false,
-        enabled: !!url,
-    });
+    const { isLoading, error, data } = useClassifyPostLink(url, post);
 
     const { data: article } = useQuery({
         enabled: !!data?.articleId,
@@ -57,9 +49,13 @@ export function PostLinks({ post, setContent, isInCompose = false }: Props) {
     const content = post.metadata.content?.content;
     useEffect(() => {
         if (data && url && content) {
-            setContent?.(removeAtEnd(content, url));
+            patchPostQueryData(post.source, post.postId, (draft) => {
+                if (draft.metadata.content?.content) {
+                    draft.metadata.content.truncatedContent = removeAtEnd(draft.metadata.content.content, url);
+                }
+            });
         }
-    }, [data, setContent, url, content]);
+    }, [data, url, content, post.source, post.postId]);
 
     if (!url || isLoading || error || !data) return null;
 
@@ -91,11 +87,9 @@ export function PostLinks({ post, setContent, isInCompose = false }: Props) {
             {data.action ? <ActionContainer action={data.action} url={url} /> : null}
             {data.oembed ? <OembedLayout data={data.oembed} post={post} isInCompose={isInCompose} /> : null}
             {data.spaceId ? <TweetSpace spaceId={data.spaceId} /> : null}
-            {data.nft ? <NFTPreviewer nft={data.nft} /> : null}
-            {data.collection ? <CollectionPreviewer collection={data.collection} /> : null}
         </>
     );
-}
+});
 
 export function PostLinksInCompose({
     type,

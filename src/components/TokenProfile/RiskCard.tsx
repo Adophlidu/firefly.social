@@ -1,17 +1,22 @@
-import { Fragment, memo } from 'react';
+import { Fragment, type HTMLProps, memo } from 'react';
 
 import DangerIcon from '@/assets/danger.svg';
 import WarningIcon from '@/assets/warning.svg';
 import { classNames } from '@/helpers/classNames.js';
-import { type SecurityMessage, SecurityMessageLevel, type TokenContractSecurity } from '@/providers/types/Security.js';
+import {
+    type AddressSecurity,
+    type SecurityMessage,
+    SecurityMessageLevel,
+    type TokenContractSecurity,
+} from '@/providers/types/Security.js';
 
-interface RiskCardProps {
+interface RiskCardProps extends Omit<HTMLProps<HTMLDivElement>, 'security'> {
     level: SecurityMessageLevel;
-    messages: SecurityMessage[];
-    security: TokenContractSecurity;
+    messages: Array<SecurityMessage<TokenContractSecurity | AddressSecurity>>;
+    security: TokenContractSecurity | AddressSecurity;
 }
 
-export const RiskCard = memo<RiskCardProps>(function RiskCard({ level, messages, security }) {
+export const RiskCard = memo<RiskCardProps>(function RiskCard({ level, messages, security, ...rest }) {
     const icon =
         level === SecurityMessageLevel.High ? (
             <DangerIcon width={16} height={16} className="shrink-0" />
@@ -26,7 +31,13 @@ export const RiskCard = memo<RiskCardProps>(function RiskCard({ level, messages,
     };
 
     return (
-        <div className="box-border flex w-[568px] cursor-pointer flex-row gap-3 rounded-lg border border-line bg-primaryBottom p-4 text-main">
+        <div
+            {...rest}
+            className={classNames(
+                'box-border flex w-[568px] cursor-pointer flex-row gap-3 rounded-lg border border-line bg-primaryBottom p-4 text-main',
+                rest.className,
+            )}
+        >
             <div className={classNames('inline-flex items-center justify-center self-start', textColor)}>{icon}</div>
             <div className="flex flex-col gap-1">
                 {messages.map((message) => {

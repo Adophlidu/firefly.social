@@ -86,7 +86,7 @@ export interface SecurityItem {
     is_high_risk?: boolean;
     risk_item_quantity?: number;
     warn_item_quantity?: number;
-    message_list?: SecurityMessage[];
+    message_list?: Array<SecurityMessage<TokenContractSecurity | AddressSecurity>>;
 }
 
 export type TokenContractSecurity = ContractSecurity &
@@ -97,7 +97,7 @@ export type TokenContractSecurity = ContractSecurity &
         chainId: number;
     };
 
-export interface AddressSecurity {
+export type AddressSecurity = SecurityItem & {
     data_source: string;
     honeypot_related_address: BooleanChar;
     phishing_activities: BooleanChar;
@@ -118,7 +118,7 @@ export interface AddressSecurity {
     reinit: BooleanChar;
     fake_standard_interface: BooleanChar;
     fake_token: BooleanChar;
-}
+};
 
 export enum SecurityType {
     Contract = 'contract-security',
@@ -135,7 +135,7 @@ export enum SecurityMessageLevel {
     Info = 'Info',
 }
 
-export interface SecurityMessage<T = TokenContractSecurity> {
+export interface SecurityMessage<T> {
     type: SecurityType;
     level: SecurityMessageLevel;
     condition(info: T): boolean;

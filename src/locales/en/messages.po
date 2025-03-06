@@ -868,6 +868,7 @@ msgstr "The contract owner may not contain the authority to modify the transacti
 msgid "The blacklist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "The blacklist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 
+#. placeholder {0}: x.provider
 #. placeholder {0}: x.source
 msgid "Verified by {0}"
 msgstr "Verified by {0}"
@@ -2469,8 +2470,16 @@ msgstr "The gas abuse function is not included. If there is a gas abuse function
 msgid "Translated"
 msgstr "Translated"
 
+#. placeholder {0}: market?.price_change_percentage_24h_in_currency !== undefined ? ( <span className={isUp ? 'text-success' : 'text-fail'}> {market.price_change_percentage_24h_in_currency.toFixed(2)}% </span> ) : null
+#. placeholder {1}: renderShrankPrice(formatPrice(price) ?? '-')
+msgid "<0/>{0}<1>today</1><2>${1}</2>"
+msgstr "<0/>{0}<1>today</1><2>${1}</2>"
+
 msgid "Insufficient Balance for Gas Fee"
 msgstr "Insufficient Balance for Gas Fee"
+
+msgid "Price"
+msgstr "Price"
 
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
@@ -3096,6 +3105,11 @@ msgstr "I don’t use anymore."
 msgid "<0>You</0> liked"
 msgstr "<0>You</0> liked"
 
+#. placeholder {0}: market_cap !== undefined ? `$${formatMarketCap(market_cap)}` : '-'
+#. placeholder {1}: token.rank
+msgid "<0>{0}</0><1>MC</1><2>Rank #{1}</2>"
+msgstr "<0>{0}</0><1>MC</1><2>Rank #{1}</2>"
+
 msgid "You've hit rock bottom."
 msgstr "You've hit rock bottom."
 
@@ -3562,6 +3576,9 @@ msgstr "Detail"
 
 msgid "Exclusive Events"
 msgstr "Exclusive Events"
+
+msgid "Total Volume"
+msgstr "Total Volume"
 
 msgid "Post added to your Bookmarks"
 msgstr "Post added to your Bookmarks"

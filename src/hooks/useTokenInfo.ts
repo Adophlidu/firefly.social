@@ -9,7 +9,7 @@ import { searchTokens } from '@/services/searchTokens.js';
 
 export function useTokenInfo(symbolOrId: string, ensureId = true) {
     return useQuery({
-        queryKey: ['token', symbolOrId],
+        queryKey: ['token', symbolOrId, ensureId],
         queryFn: async () => {
             if (ensureId) {
                 const token = await FireflyEndpointProvider.getTokenByCoinId(symbolOrId);

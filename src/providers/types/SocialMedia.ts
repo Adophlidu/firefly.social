@@ -155,6 +155,8 @@ export interface Post {
         description?: string;
         content: {
             content?: string;
+            /** Post content that has been truncated links at the end */
+            truncatedContent?: string;
             /**
              * The primary asset of the post.
              */

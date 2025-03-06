@@ -4,9 +4,9 @@ import { memo, useState } from 'react';
 
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { Link } from '@/components/Link.js';
-import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
+import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { useTippyContext } from '@/components/TippyContext/index.js';
-import { TokenProfile } from '@/components/TokenProfile/TokenProfile.js';
+import { TokenProfile } from '@/components/Token/TokenProfile.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
