@@ -767,7 +767,11 @@ export type GetLensSuggestedFollowUserResponse = Response<{
     cursor: number;
 }>;
 
-export type LensConnection = LensV3Profile;
+export interface LensConnection extends LensV3Profile {
+    connectedAt?: string;
+    isDefault?: boolean;
+    ownedBy: string;
+}
 
 export interface FarcasterConnection {
     bio: string;
@@ -776,13 +780,28 @@ export interface FarcasterConnection {
     fid: number;
     pfp: string;
     username: string;
+    connectedAt?: string;
+    isDefault?: boolean;
+    url: string;
+    id: number;
 }
 
 export interface TwitterConnection {
     handle: string;
+    connectedAt?: string;
     id: string;
+    isDefault?: false;
     name: string;
-    platform: string;
+    platform: 'twitter';
+}
+
+export interface BskyConnection {
+    connected: boolean;
+    id: string;
+    isDefault?: boolean;
+    connectedAt?: string;
+    name: string;
+    platform: 'bsky';
 }
 
 export interface WalletConnection {
@@ -844,22 +863,8 @@ export type AllConnections = {
             lens: LensConnection[];
         }>
     >;
-    twitter: Record<
-        'connected' | 'unconnected',
-        Array<{
-            address: string;
-            twitters: TwitterConnection[];
-            handle: string;
-        }>
-    >;
-    bsky: Record<
-        'connected' | 'unconnected',
-        Array<{
-            address: string;
-            bsky: TwitterConnection[];
-            handle: string;
-        }>
-    >;
+    twitter: Record<'connected' | 'unconnected', TwitterConnection[]>;
+    bsky: Record<'connected' | 'unconnected', BskyConnection[]>;
     wallet: Record<
         'connected' | 'unconnected' | 'connectedEVM' | 'connectedSolana' | 'unconnectedSolana' | 'unconnectedEVM',
         WalletConnection[]

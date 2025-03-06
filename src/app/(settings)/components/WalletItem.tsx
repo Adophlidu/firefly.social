@@ -2,9 +2,9 @@
 
 import { Trans } from '@lingui/react/macro';
 
-import { DisconnectButton } from '@/app/(settings)/components/DisconnectButton.js';
+import { DisconnectBindAddressButton } from '@/app/(settings)/components/DisconnectBindAddressButton.js';
+import { PrimaryButton } from '@/app/(settings)/components/PrimaryButton.js';
 import { ReportButton } from '@/app/(settings)/components/ReportButton.js';
-import { WalletPrimaryButton } from '@/app/(settings)/components/WalletPrimaryButton.js';
 import FireflyLogo from '@/assets/firefly.round.svg';
 import InfoIcon from '@/assets/info-outline.svg';
 import WalletIcon from '@/assets/wallet-circle.svg';
@@ -15,6 +15,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { WalletSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress, formatSolanaAddress } from '@/helpers/formatAddress.js';
+import { resolveDefaultConnectionPlatform } from '@/helpers/resolveDefaultConnectionPlatform.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
@@ -41,7 +42,18 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
             {!noAction ? (
                 <>
                     {'isDefault' in connection && connection.isConnected ? (
-                        <WalletPrimaryButton connection={connection} />
+                        <PrimaryButton
+                            platform={resolveDefaultConnectionPlatform(connection.platform)}
+                            platformId={connection.address}
+                            isDefault={connection.isDefault}
+                            tooltipContent={
+                                connection.isDefault ? (
+                                    <Trans>Primary wallet</Trans>
+                                ) : (
+                                    <Trans>Set as primary wallet</Trans>
+                                )
+                            }
+                        />
                     ) : null}
                     {!connection.isConnected ? (
                         <Tooltip
@@ -81,7 +93,7 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
             </div>
             {noAction ? null : !connection.canReport ? (
                 isMPCWallet ? null : (
-                    <DisconnectButton connection={connection} />
+                    <DisconnectBindAddressButton connection={connection} />
                 )
             ) : (
                 <ReportButton connection={connection} />

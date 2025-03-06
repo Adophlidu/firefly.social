@@ -92,7 +92,7 @@ export const DisconnectFireflyAccountModal = forwardRef<SingletonModalRefCreator
                             </div>
                             <menu className="flex flex-col gap-3 px-6 pb-3 pt-2">
                                 {account ? (
-                                    <div className="rounded-lg px-3 py-2 shadow-primary">
+                                    <div className="rounded-lg border border-line px-3 py-2">
                                         <ProfileInList
                                             key={account.profile.profileId}
                                             selected

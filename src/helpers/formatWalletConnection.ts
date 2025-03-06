@@ -1,6 +1,4 @@
-import { safeUnreachable } from '@masknet/kit';
-
-import { Source, WalletSource } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { isSameConnectionAddress } from '@/helpers/isSameConnectionAddress.js';
 import type {
     AllConnections,
@@ -9,32 +7,30 @@ import type {
     WalletConnection,
 } from '@/providers/types/Firefly.js';
 
+export function flatLenConnections(
+    allConnections: AllConnections['lens']['connected'] | AllConnections['lens']['unconnected'],
+) {
+    return allConnections.flatMap((x) => x.lens);
+}
+
 function getRelatedFireflyIdentities(
     connection: WalletConnection,
     { lens, farcaster }: AllConnections,
 ): FireflyIdentity[] {
-    const { address, source, platform } = connection;
-    switch (source) {
-        case WalletSource.Lens:
-        case WalletSource.LensContract:
-            const relatedLens = lens.connected.filter((x) => isSameConnectionAddress(platform, x.address, address));
-            return relatedLens.flatMap((x) => x.lens).map((x) => ({ id: x.id, source: Source.Lens }));
-        case WalletSource.Farcaster:
-            const relatedFarcaster = farcaster.connected.filter((x) =>
-                x.connectedAddresses?.some((addr) => isSameConnectionAddress(platform, addr, address)),
-            );
-            return relatedFarcaster.map((x) => ({ id: `${x.fid}`, source: Source.Farcaster }));
-        case WalletSource.Wallet:
-        case WalletSource.Article:
-        case WalletSource.Twitter:
-        case WalletSource.Firefly:
-        case WalletSource.NFTs:
-        case WalletSource.Particle:
-            return [];
-        default:
-            safeUnreachable(source);
-            return [];
+    const { address, platform } = connection;
+    const identities: FireflyIdentity[] = [];
+    if (lens) {
+        const connections = flatLenConnections([...lens.connected, ...lens.unconnected]);
+        const relatedLens = connections.filter((x) => isSameConnectionAddress(platform, x.ownedBy, address));
+        identities.push(...relatedLens.map((x) => ({ id: x.id, source: Source.Lens })));
     }
+    if (farcaster) {
+        const relatedFarcaster = [...farcaster.connected, ...farcaster.unconnected].filter((x) =>
+            x.connectedAddresses?.some((addr) => isSameConnectionAddress(platform, addr, address)),
+        );
+        identities.push(...relatedFarcaster.map((x) => ({ id: `${x.fid}`, source: Source.Farcaster })));
+    }
+    return identities;
 }
 
 export function formatWalletConnections(

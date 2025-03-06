@@ -2,27 +2,20 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { Fragment } from 'react';
 
-import { AccountCard } from '@/app/(settings)/components/AccountCard.js';
+import { AccountCards } from '@/app/(settings)/components/AccountCard.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ThirdPartAccounts } from '@/app/(settings)/components/ThirdPartAccounts.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { useAccountsAll } from '@/hooks/useAccounts.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 
 export default function Connected() {
     const isLogin = useIsLoginFirefly();
-    const accountsAll = useAccountsAll();
-    const currentProfileAll = useCurrentProfileAll();
 
     useNavigatorTitle(t`Connected accounts`);
 
@@ -32,18 +25,7 @@ export default function Connected() {
                 <Trans>Connected accounts</Trans>
             </Headline>
 
-            {SORTED_SOCIAL_SOURCES.map((x) => {
-                const profile = currentProfileAll[x];
-
-                return profile ? (
-                    <Fragment key={profile.profileId}>
-                        <div className="flex w-full items-center justify-between">
-                            <span className="text-base font-bold leading-[18px] text-main">{resolveSourceName(x)}</span>
-                        </div>
-                        <AccountCard source={x} />
-                    </Fragment>
-                ) : null;
-            })}
+            <AccountCards />
 
             {env.external.NEXT_PUBLIC_THIRD_PARTY_AUTH === STATUS.Enabled ? <ThirdPartAccounts /> : null}
 
@@ -70,7 +52,7 @@ export default function Connected() {
                     >
                         <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl border border-current px-[18px] py-[11px] text-danger">
                             <div className="text-[15px] font-bold leading-[18px]">
-                                <Trans>Log out all</Trans>
+                                <Trans>Log out</Trans>
                             </div>
                         </div>
                     </ClickableButton>

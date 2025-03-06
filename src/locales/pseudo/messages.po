@@ -328,6 +328,9 @@ msgstr ""
 msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 msgstr ""
 
+msgid "It is related account retrieved from connected wallets. Please sign in to set as primary account."
+msgstr ""
+
 msgid "{followerCount, plural, one {Member} other {Members}}"
 msgstr ""
 
@@ -459,9 +462,6 @@ msgstr ""
 msgid "Trending Channels"
 msgstr ""
 
-msgid "Profile Switched"
-msgstr ""
-
 msgid "Adding..."
 msgstr ""
 
@@ -535,6 +535,9 @@ msgid "Search {id}"
 msgstr ""
 
 msgid "Skip"
+msgstr ""
+
+msgid "Confirm to log out your Firefly account?"
 msgstr ""
 
 msgid "Copied"
@@ -2183,6 +2186,9 @@ msgstr ""
 msgid "Failed to join /{name} on {sourceName}."
 msgstr ""
 
+msgid "Set as primary account"
+msgstr ""
+
 msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
 msgstr ""
 
@@ -3233,9 +3239,6 @@ msgstr ""
 msgid "Invalid website format"
 msgstr ""
 
-msgid "Switching..."
-msgstr ""
-
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr ""
 
@@ -3259,9 +3262,6 @@ msgid "{days}d left"
 msgstr ""
 
 msgid "Money laundering found."
-msgstr ""
-
-msgid "Log out all"
 msgstr ""
 
 msgid "Posted to Lens or Farcaster on <0>Yup</0>"
@@ -3296,9 +3296,6 @@ msgid "Failed to bookmark snapshot."
 msgstr ""
 
 msgid "Date"
-msgstr ""
-
-msgid "Confirm to log out all accounts?"
 msgstr ""
 
 msgid "Mint Again"
@@ -3504,6 +3501,9 @@ msgid "Associated wallets"
 msgstr ""
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
+msgstr ""
+
+msgid "Primary account"
 msgstr ""
 
 msgid "Mirror now to get 25% referral fee!"

@@ -43,7 +43,7 @@ function ThirdPartItem({
     const connected = !!account;
 
     return (
-        <div className="mt-6 inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 shadow-primary backdrop-blur dark:bg-bg">
+        <div className="inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg border border-line bg-white bg-bottom px-3 py-2 backdrop-blur dark:bg-bg">
             <div className={classNames('flex h-10 w-10 items-center justify-center rounded-full', iconClassName)}>
                 <PlatformIcon width={iconWidth} height={iconHeight} />
             </div>
@@ -108,7 +108,7 @@ export function ThirdPartAccounts() {
     });
 
     return (
-        <div className="w-full">
+        <div className="flex w-full flex-col items-center gap-3">
             <div className="flex w-full items-center justify-between">
                 <span className="text-base font-bold leading-[18px] text-main">
                     <Trans>Others</Trans>

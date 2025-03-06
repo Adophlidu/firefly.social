@@ -40,29 +40,34 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                             {props?.account ? (
                                 <Trans>Confirm to log out this account?</Trans>
                             ) : (
-                                <Trans>Confirm to log out all accounts?</Trans>
+                                <Trans>Confirm to log out your Firefly account?</Trans>
                             )}
                         </div>
-                        <menu
-                            className={classNames(
-                                'flex max-h-[192px] flex-col gap-3 overflow-auto px-6 pt-2',
-                                accounts.length <= 1 ? 'pb-2' : 'pb-6',
-                            )}
-                        >
-                            {accounts.map((account) => (
-                                <div className="rounded-lg px-3 py-2 shadow-primary" key={account.profile.profileId}>
-                                    <ProfileInList
+                        {props?.account ? (
+                            <menu
+                                className={classNames(
+                                    'flex max-h-[192px] flex-col gap-3 overflow-auto px-6 pt-2',
+                                    accounts.length <= 1 ? 'pb-2' : 'pb-6',
+                                )}
+                            >
+                                {accounts.map((account) => (
+                                    <div
+                                        className="rounded-lg px-3 py-2 shadow-primary"
                                         key={account.profile.profileId}
-                                        selected
-                                        selectable={false}
-                                        profile={account.profile}
-                                        profileAvatarProps={{
-                                            enableSourceIcon: true,
-                                        }}
-                                    />
-                                </div>
-                            ))}
-                        </menu>
+                                    >
+                                        <ProfileInList
+                                            key={account.profile.profileId}
+                                            selected
+                                            selectable={false}
+                                            profile={account.profile}
+                                            profileAvatarProps={{
+                                                enableSourceIcon: true,
+                                            }}
+                                        />
+                                    </div>
+                                ))}
+                            </menu>
+                        ) : null}
                     </div>
                 ),
             });

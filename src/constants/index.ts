@@ -225,6 +225,7 @@ export const FOLLOWING_CATEGORY = [FollowCategory.Followers, FollowCategory.Mutu
 export const REQUIRE_LOGIN_FOLLOWING_CATEGORY = [FollowCategory.Mutuals];
 export const REQUIRE_LOGIN_SOURCES: SocialSource[] = [Source.Twitter];
 export const REQUIRE_LOGIN_SOURCES_IN_SEARCH: SocialSource[] = [Source.Twitter, Source.Bsky];
+export const SOCIAL_SOURCE_WITH_ADDRESS: SocialSource[] = [Source.Farcaster, Source.Lens];
 
 export const EXPLORE_TYPES: ExploreType[] = [
     ExploreType.TopProfiles,

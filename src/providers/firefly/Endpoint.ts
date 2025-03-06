@@ -723,6 +723,12 @@ export class FireflyEndpoint {
         const connections = await this.getAllConnections();
 
         return {
+            social: {
+                [Source.Bsky]: connections.bsky,
+                [Source.Lens]: connections.lens,
+                [Source.Farcaster]: connections.farcaster,
+                [Source.Twitter]: connections.twitter,
+            },
             evmConnections: formatWalletConnections(
                 [
                     ...connections.wallet.connectedEVM.map((x) => ({ ...x, isConnected: true })),
@@ -1056,7 +1062,7 @@ export class FireflyEndpoint {
         return resolveFireflyResponseData(response);
     }
 
-    async updateDefaultConnection(platformId: string, platform: DefaultConnectionPlatform) {
+    async updateDefaultConnection(platformId: string | number, platform: DefaultConnectionPlatform) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, `/v2/wallet/updateDefaultConnection`);
         await fireflySessionHolder.fetchWithSession(url, {
             method: 'POST',

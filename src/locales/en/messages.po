@@ -328,6 +328,9 @@ msgstr "Join our Discord"
 msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 msgstr "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 
+msgid "It is related account retrieved from connected wallets. Please sign in to set as primary account."
+msgstr "It is related account retrieved from connected wallets. Please sign in to set as primary account."
+
 msgid "{followerCount, plural, one {Member} other {Members}}"
 msgstr "{followerCount, plural, one {Member} other {Members}}"
 
@@ -459,9 +462,6 @@ msgstr "The minimum amount for each share is {0} {1}"
 msgid "Trending Channels"
 msgstr "Trending Channels"
 
-msgid "Profile Switched"
-msgstr "Profile Switched"
-
 msgid "Adding..."
 msgstr "Adding..."
 
@@ -536,6 +536,9 @@ msgstr "Search {id}"
 
 msgid "Skip"
 msgstr "Skip"
+
+msgid "Confirm to log out your Firefly account?"
+msgstr "Confirm to log out your Firefly account?"
 
 msgid "Copied"
 msgstr "Copied"
@@ -2191,6 +2194,9 @@ msgstr "Access Denied"
 msgid "Failed to join /{name} on {sourceName}."
 msgstr "Failed to join /{name} on {sourceName}."
 
+msgid "Set as primary account"
+msgstr "Set as primary account"
+
 msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
 msgstr "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
 
@@ -3246,9 +3252,6 @@ msgstr "Firefly"
 msgid "Invalid website format"
 msgstr "Invalid website format"
 
-msgid "Switching..."
-msgstr "Switching..."
-
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 
@@ -3273,9 +3276,6 @@ msgstr "{days}d left"
 
 msgid "Money laundering found."
 msgstr "Money laundering found."
-
-msgid "Log out all"
-msgstr "Log out all"
 
 msgid "Posted to Lens or Farcaster on <0>Yup</0>"
 msgstr "Posted to Lens or Farcaster on <0>Yup</0>"
@@ -3313,9 +3313,6 @@ msgstr "Failed to bookmark snapshot."
 
 msgid "Date"
 msgstr "Date"
-
-msgid "Confirm to log out all accounts?"
-msgstr "Confirm to log out all accounts?"
 
 msgid "Mint Again"
 msgstr "Mint Again"
@@ -3521,6 +3518,9 @@ msgstr "Associated wallets"
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
+
+msgid "Primary account"
+msgstr "Primary account"
 
 msgid "Mirror now to get 25% referral fee!"
 msgstr "Mirror now to get 25% referral fee!"

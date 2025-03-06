@@ -4,7 +4,7 @@ import { Source } from '@/constants/enum.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export function getProfileUrl(profile: Profile) {
+export function getProfileUrl(profile: Pick<Profile, 'source' | 'profileId' | 'handle'>) {
     switch (profile.source) {
         case Source.Lens:
             if (!profile.handle) return '';

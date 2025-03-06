@@ -333,6 +333,9 @@ msgstr "加入我们的 Discord"
 msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 msgstr "未包含外部调用功能。如果存在外部调用功能，项目所有者可能有能力控制合约。"
 
+msgid "It is related account retrieved from connected wallets. Please sign in to set as primary account."
+msgstr ""
+
 msgid "{followerCount, plural, one {Member} other {Members}}"
 msgstr "{followerCount, plural, one {成员} other {成员}}"
 
@@ -464,9 +467,6 @@ msgstr "每个份额的最小金额为 {0} {1}"
 msgid "Trending Channels"
 msgstr "流行频道"
 
-msgid "Profile Switched"
-msgstr "已切换个人资料"
-
 msgid "Adding..."
 msgstr "添加中..."
 
@@ -541,6 +541,9 @@ msgstr "搜索 {id}"
 
 msgid "Skip"
 msgstr "跳过"
+
+msgid "Confirm to log out your Firefly account?"
+msgstr ""
 
 msgid "Copied"
 msgstr "已复制"
@@ -2196,6 +2199,9 @@ msgstr "反问被拒绝"
 msgid "Failed to join /{name} on {sourceName}."
 msgstr "未能在 {sourceName} 上加入 @{name}。"
 
+msgid "Set as primary account"
+msgstr ""
+
 msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
 msgstr "<0>当前市值与满足最大供应量时的市值之比。</0><1>Mkt Cap/FDV 越接近 1，当前市值越接近其完全摊薄估值（FDV），反之亦然。</1>"
 
@@ -3251,9 +3257,6 @@ msgstr "Firefly"
 msgid "Invalid website format"
 msgstr "无效的网站格式"
 
-msgid "Switching..."
-msgstr "切换中..."
-
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr "支付<0>{feeAmount} ${feeSymbol}</0>以关注并获得一些精彩的福利！"
 
@@ -3278,9 +3281,6 @@ msgstr "{days} 天剩余"
 
 msgid "Money laundering found."
 msgstr "被识别为洗钱。"
-
-msgid "Log out all"
-msgstr "登出所有"
 
 msgid "Posted to Lens or Farcaster on <0>Yup</0>"
 msgstr "用<0>Yup</0>发送过 Lens/Farcaster 帖子"
@@ -3318,9 +3318,6 @@ msgstr "收藏 snapshot 失败。"
 
 msgid "Date"
 msgstr "日期"
-
-msgid "Confirm to log out all accounts?"
-msgstr "确认登出这些账户？"
 
 msgid "Mint Again"
 msgstr "再次铸造"
@@ -3526,6 +3523,9 @@ msgstr "已关联的钱包"
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "白名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
+
+msgid "Primary account"
+msgstr ""
 
 msgid "Mirror now to get 25% referral fee!"
 msgstr "立即转帖以获得 25% 的推荐佣金！"
