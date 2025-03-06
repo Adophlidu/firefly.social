@@ -282,6 +282,9 @@ msgstr "Ended"
 msgid "No cryptocurrency mixer found."
 msgstr "No cryptocurrency mixer found."
 
+msgid "Disconnect All"
+msgstr "Disconnect All"
+
 msgid "More"
 msgstr "More"
 
@@ -997,9 +1000,6 @@ msgstr "The contract owner has no restrictions on trading cooldown."
 
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
-
-msgid "Disconnect all"
-msgstr "Disconnect all"
 
 msgid "Review Transaction"
 msgstr "Review Transaction"

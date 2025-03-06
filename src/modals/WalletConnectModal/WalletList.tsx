@@ -15,6 +15,7 @@ import urlcat from 'urlcat';
 import ScanIcon from '@/assets/scan.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
+import { WalletChainConfig, WalletId } from '@/constants/reown.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
 import { selectConnector, selectWallet } from '@/modals/WalletConnectModal/selectWallet.js';
@@ -118,6 +119,7 @@ export const FeaturedWallets = memo<{ wallets: WcWallet[] }>(function FeaturedWa
         <WalletItem
             key={wallet.id}
             icon={CoreAssetUtil.getWalletImage(wallet)}
+            chains={WalletChainConfig[wallet.id as WalletId] || []}
             name={wallet.name}
             installed={false}
             onClick={() => {

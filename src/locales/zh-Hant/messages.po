@@ -287,6 +287,9 @@ msgstr ""
 msgid "No cryptocurrency mixer found."
 msgstr ""
 
+msgid "Disconnect All"
+msgstr ""
+
 msgid "More"
 msgstr "更多"
 
@@ -1002,9 +1005,6 @@ msgstr ""
 
 msgid "Connect Wallet"
 msgstr "連接錢包"
-
-msgid "Disconnect all"
-msgstr ""
 
 msgid "Review Transaction"
 msgstr ""

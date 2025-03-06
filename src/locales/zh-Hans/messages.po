@@ -287,6 +287,9 @@ msgstr "已结束"
 msgid "No cryptocurrency mixer found."
 msgstr "未涉及加密货币混合器。"
 
+msgid "Disconnect All"
+msgstr ""
+
 msgid "More"
 msgstr "更多"
 
@@ -1002,9 +1005,6 @@ msgstr "合约拥有者在交易冷却期上没有限制。"
 
 msgid "Connect Wallet"
 msgstr "连接钱包"
-
-msgid "Disconnect all"
-msgstr ""
 
 msgid "Review Transaction"
 msgstr "交易审核"

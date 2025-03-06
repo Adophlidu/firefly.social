@@ -179,7 +179,7 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
                     disabled={loading}
                     loading={loading}
                 >
-                    <Trans>Disconnect all</Trans>
+                    <Trans>Disconnect All</Trans>
                 </ClickableButton>
             ) : null}
         </div>

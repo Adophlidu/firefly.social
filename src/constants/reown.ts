@@ -1,3 +1,5 @@
+import type { ChainNamespace } from '@/types/index.js';
+
 // learn more: https://explorer.walletconnect.com/?type=wallet
 export enum WalletId {
     // override particle wallet from EIP6963
@@ -12,8 +14,18 @@ export enum WalletId {
     Zerion = 'ecc4036f814562b41a5268adc86270fba1365471402006302e70169465b7ac18',
     Phantom = 'a797aa35c0fadbfc1a53e7f675162ed5226968b44a19ee3d24385c64d1d3c393',
     Binance = '8a0ee50d1f22f6651afcae7eb4253e52a3310b90af5daef78a8c4929a9bb99d4',
+    Solflare = '1ca0bdd4747578705b1939af023d120677c64fe6ca76add81fda36e350605e79',
     WalletConnect = 'walletconnect',
 
     Injected = 'injected',
     Unknown = 'unknown',
 }
+
+export const WalletChainConfig: Partial<Record<WalletId, ChainNamespace[]>> = {
+    [WalletId.CoinBase]: ['eip155', 'solana'],
+    [WalletId.Phantom]: ['eip155', 'solana'],
+    [WalletId.OKX]: ['eip155', 'solana'],
+    [WalletId.MetaMask]: ['eip155'],
+    [WalletId.Rabby]: ['eip155'],
+    [WalletId.Solflare]: ['solana'],
+};
