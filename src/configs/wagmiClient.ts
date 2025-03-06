@@ -49,7 +49,7 @@ import { env } from '@/constants/env.js';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
 import { WalletId } from '@/constants/reown.js';
 
-const networks = [
+export const networks = [
     mainnet,
     base,
     bsc,

@@ -15,7 +15,7 @@ import WalletIcon from '@/assets/wallet.svg';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { appkit } from '@/configs/wagmiClient.js';
+import { appkit, networks } from '@/configs/wagmiClient.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
@@ -37,9 +37,10 @@ interface ConnectedItemProps extends ClickableButtonProps {
     address: string;
     connected: boolean;
     connector?: Connector;
+    chainId?: number;
 }
 
-function ConnectedItem({ namespace, address, connected, connector, ...rest }: ConnectedItemProps) {
+function ConnectedItem({ namespace, address, connected, connector, chainId, ...rest }: ConnectedItemProps) {
     const { switchAccountAsync } = useSwitchAccount();
     const { data: ensName } = useEnsName({
         address: address as Address,
@@ -55,17 +56,24 @@ function ConnectedItem({ namespace, address, connected, connector, ...rest }: Co
         }
         if (!connected) return;
 
-        const targetNetwork = namespace === 'eip155' ? mainnet : namespace === 'solana' ? solana : undefined;
+        const targetNetwork =
+            namespace === 'eip155'
+                ? chainId
+                    ? networks.find((x) => x.id === chainId) || mainnet
+                    : mainnet
+                : namespace === 'solana'
+                  ? solana
+                  : undefined;
         if (targetNetwork) {
             appkit.switchNetwork(targetNetwork);
         }
         if (namespace === 'eip155') {
-            appkit.setCaipAddress(`eip155:${mainnet.id}:${address}`, namespace);
+            appkit.setCaipAddress(`eip155:${targetNetwork?.id || mainnet.id}:${address}`, namespace);
         }
         rewriteDisconnectMethod(namespace, connector?.id);
         await syncWalletIdentity({ address, namespace });
         await appkit.open({ view: 'Account' });
-    }, [connected, connector, namespace, address, switchAccountAsync]);
+    }, [connected, connector, namespace, address, chainId, switchAccountAsync]);
 
     return (
         <ClickableButton
@@ -99,6 +107,7 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
             namespace: ChainNamespace;
             connected: boolean;
             connector?: Connector;
+            chainId?: number;
         }>
     >(() => {
         return compact([
@@ -125,6 +134,7 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
                     namespace: 'eip155' as ChainNamespace,
                     connected: false,
                     connector: x.connector,
+                    chainId: x.chainId,
                 })),
         ]);
     }, [ethereum, solana, connections]);
@@ -168,6 +178,7 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
                             namespace={connection.namespace}
                             address={connection.address}
                             connector={connection.connector}
+                            chainId={connection.chainId}
                         />
                     );
                 })}
