@@ -30,6 +30,10 @@ interface WalletItemProps extends ClickableButtonProps {
     tagIcon?: ReactNode;
 }
 
+interface ConnectedProps {
+    connectors: ConnectorWithProvider[];
+}
+
 const chainNameMap: Record<ChainNamespace, string> = {
     eip155: 'EVM',
     solana: 'Solana',
@@ -71,17 +75,18 @@ const WalletItem = memo<WalletItemProps>(function WalletItem({ icon, name, insta
             </div>
             {tagIcon ? (
                 tagIcon
-            ) : installed ? (
+            ) : installed || rest.disabled ? (
                 <span className="flex h-7 items-center rounded bg-success/20 px-1 text-sm text-success">
-                    <Trans>Installed</Trans>
+                    {rest.disabled ? <Trans>Connected</Trans> : <Trans>Installed</Trans>}
                 </span>
             ) : null}
         </ClickableButton>
     );
 });
 
-export const InjectedWallets = memo<{ connectors: ConnectorWithProvider[] }>(function InjectedWallets({ connectors }) {
+export const InjectedWallets = memo<ConnectedProps>(function InjectedWallets({ connectors }) {
     const { history } = useRouter();
+    const { connectedId } = WalletConnectContext.useContainer();
 
     const validConnectors = connectors.filter((x) => x.type === 'INJECTED');
 
@@ -99,6 +104,7 @@ export const InjectedWallets = memo<{ connectors: ConnectorWithProvider[] }>(fun
             <WalletItem
                 key={connector.id}
                 icon={CoreAssetUtil.getConnectorImage(connector)}
+                disabled={[connector.id, connector.name].some((x) => connectedId.includes(x))}
                 name={connector.name}
                 chains={connector.chain ? [connector.chain] : []}
                 installed
@@ -129,7 +135,7 @@ export const FeaturedWallets = memo<{ wallets: WcWallet[] }>(function FeaturedWa
     ));
 });
 
-export const WalletConnect = memo<{ connectors: ConnectorWithProvider[] }>(function WalletConnect({ connectors }) {
+export const WalletConnect = memo<ConnectedProps>(function WalletConnect({ connectors }) {
     const { history } = useRouter();
     const [images, setImages] = useState(CoreAssetController.state?.connectorImages || {});
 
@@ -162,10 +168,10 @@ export const WalletConnect = memo<{ connectors: ConnectorWithProvider[] }>(funct
     );
 });
 
-export const MultipleChainWallets = memo<{ connectors: ConnectorWithProvider[] }>(function MultipleChainWallets({
-    connectors,
-}) {
+export const MultipleChainWallets = memo<ConnectedProps>(function MultipleChainWallets({ connectors }) {
     const { history } = useRouter();
+    const { connectedId } = WalletConnectContext.useContainer();
+
     const validConnectors = connectors.filter((x) => x.type === 'MULTI_CHAIN' && x.name !== 'WalletConnect');
 
     return validConnectors.map((connector) => (
@@ -174,6 +180,7 @@ export const MultipleChainWallets = memo<{ connectors: ConnectorWithProvider[] }
             icon={CoreAssetUtil.getConnectorImage(connector)}
             name={connector.name}
             chains={connector.connectors?.map((x) => x.chain) || []}
+            disabled={connector.connectors?.some(({ id, name }) => [id, name].some((x) => connectedId.includes(x)))}
             installed
             onClick={() => {
                 if (connector.connectors?.length === 1 && connector.connectors[0]?.chain) {
@@ -187,14 +194,15 @@ export const MultipleChainWallets = memo<{ connectors: ConnectorWithProvider[] }
     ));
 });
 
-export const AnnouncedWallets = memo<{ connectors: ConnectorWithProvider[] }>(function AnnouncedWallets({
-    connectors,
-}) {
+export const AnnouncedWallets = memo<ConnectedProps>(function AnnouncedWallets({ connectors }) {
+    const { connectedId } = WalletConnectContext.useContainer();
+
     const announcedConnectors = connectors.filter((connector) => connector.type === 'ANNOUNCED');
 
     return announcedConnectors.map((connector) => (
         <WalletItem
             key={connector.id}
+            disabled={[connector.id, connector.name].some((x) => connectedId.includes(x))}
             icon={CoreAssetUtil.getConnectorImage(connector)}
             name={connector.name}
             chains={connector.chain ? [connector.chain] : []}

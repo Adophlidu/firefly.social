@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro';
 import { mainnet, solana } from '@reown/appkit/networks';
-import { useDisconnect } from '@reown/appkit/react';
 import { compact } from 'lodash-es';
 import { type FunctionComponent, memo, type SVGAttributes, useEffect, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -16,7 +15,6 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { appkit, networks } from '@/configs/wagmiClient.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
@@ -98,7 +96,6 @@ function ConnectedItem({ namespace, address, connected, connector, chainId, ...r
 
 export const ConnectedWallets = memo(function ConnectedWallets() {
     const connections = useConnections();
-    const { disconnect } = useDisconnect();
     const { ethereum, solana } = useWalletAccountAll();
 
     const allConnections = useMemo<
@@ -141,15 +138,6 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
 
     useEffect(() => restoreDisconnectMethod, []);
 
-    const [{ loading }, handleDisconnect] = useAsyncFn(async () => {
-        try {
-            await disconnect();
-        } catch (error) {
-            enqueueErrorMessage('Disconnect failed', { error });
-            throw error;
-        }
-    }, [disconnect]);
-
     return (
         <div>
             <div className="overflow-hidden rounded-lg border border-secondaryLine">
@@ -183,16 +171,6 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
                     );
                 })}
             </div>
-            {allConnections.length ? (
-                <ClickableButton
-                    className="mt-6 h-10 w-full rounded-lg bg-main text-sm font-bold !leading-10 text-primaryBottom outline-none"
-                    onClick={handleDisconnect}
-                    disabled={loading}
-                    loading={loading}
-                >
-                    <Trans>Disconnect All</Trans>
-                </ClickableButton>
-            ) : null}
         </div>
     );
 });

@@ -287,9 +287,6 @@ msgstr "已结束"
 msgid "No cryptocurrency mixer found."
 msgstr "未涉及加密货币混合器。"
 
-msgid "Disconnect All"
-msgstr ""
-
 msgid "More"
 msgstr "更多"
 

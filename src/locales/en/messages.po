@@ -282,9 +282,6 @@ msgstr "Ended"
 msgid "No cryptocurrency mixer found."
 msgstr "No cryptocurrency mixer found."
 
-msgid "Disconnect All"
-msgstr "Disconnect All"
-
 msgid "More"
 msgstr "More"
 
