@@ -14,7 +14,7 @@ import { ArticleCollect } from '@/components/Article/ArticleCollect.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { Source } from '@/constants/enum.js';
+import { NetworkType, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
@@ -58,12 +58,12 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                         <Tooltip content={t`Collect`} placement="top">
                             <motion.button
                                 onClick={() => {
-                                    if (!account.isConnected) {
-                                        ConnectModalRef.open();
-                                        return;
-                                    }
                                     if (!isLogin) {
                                         LoginModalRef.open();
+                                        return;
+                                    }
+                                    if (!account.isConnected) {
+                                        ConnectModalRef.open({ networkType: NetworkType.Ethereum });
                                         return;
                                     }
                                     if (isMedium) {

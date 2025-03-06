@@ -2,7 +2,6 @@
 
 import { memo } from 'react';
 
-import { AccountModal } from '@/modals/AccountModal.js';
 import { AddCustomERC20Modal } from '@/modals/AddCustomERC20Modal.js';
 import { AddCustomERC721Modal } from '@/modals/AddCustomERC721Modal.js';
 import { AddWalletModal } from '@/modals/AddWalletModal.js';
@@ -37,8 +36,6 @@ import { WalletConnectModal } from '@/modals/WalletConnectModal/index.js';
 export const Modals = memo(function Modals() {
     return (
         <>
-            <AccountModal ref={controls.AccountModalRef.register} />
-            <AccountModal ref={controls.SolanaAccountModalRef.register} />
             <LoginModal ref={controls.LoginModalRef.register} />
             <LogoutModal ref={controls.LogoutModalRef.register} />
             <ComposeModal ref={controls.ComposeModalRef.register} />

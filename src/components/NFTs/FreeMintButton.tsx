@@ -12,7 +12,7 @@ import { ClickableButton, type ClickableButtonProps } from '@/components/Clickab
 import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { chains } from '@/configs/wagmiClient.js';
-import { MintStatus } from '@/constants/enum.js';
+import { MintStatus, NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
@@ -85,7 +85,7 @@ export function FreeMintButton({
     const connected = !!account.address;
     const [{ loading: handlerLoading }, handleClick] = useAsyncFn(async () => {
         if (!connected) {
-            ConnectModalRef.open();
+            ConnectModalRef.open({ networkType: NetworkType.Ethereum });
             return;
         }
         if (!data) return;

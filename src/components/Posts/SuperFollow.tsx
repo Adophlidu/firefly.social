@@ -10,6 +10,7 @@ import { CloseButton } from '@/components/IconButton.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { NetworkType } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -38,7 +39,7 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
         try {
             if (!followModule || !allowanceModule) return;
             if (!isConnected) {
-                ConnectModalRef.open();
+                ConnectModalRef.open({ networkType: NetworkType.Ethereum });
                 return;
             }
             if (!hasAllowance) {

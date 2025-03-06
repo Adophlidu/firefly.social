@@ -30,7 +30,6 @@ import type { TokenSelectorModalCloseProps, TokenSelectorModalOpenProps } from '
 import type { TransactionSimulatorModalOpenProps } from '@/modals/TransactionSimulatorModal.js';
 import type { WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/index.js';
 
-export const AccountModalRef = new SingletonModal();
 export const ConnectModalRef = new SingletonModal<WalletConnectModalOpenProps | void>();
 export const LoginModalRef = new SingletonModal<LoginModalOpenProps | void>();
 export const LogoutModalRef = new SingletonModal<LogoutModalProps | void>();
@@ -41,7 +40,6 @@ export const ConfirmLeavingModalRef = new SingletonModal<ConfirmLeavingModalOpen
 export const DraggablePopoverRef = new SingletonModal<DraggablePopoverProps>();
 export const SnackbarRef = new SingletonModal<SnackbarOpenProps, SnackbarCloseProps>();
 export const TipsModalRef = new SingletonModal<TipsModalOpenProps, TipsModalCloseProps>();
-export const SolanaAccountModalRef = new SingletonModal();
 export const PreviewMediaModalRef = new SingletonModal<PreviewMediaModalOpenProps>();
 export const SchedulePostModalRef = new SingletonModal<SchedulePostModalOpenProps>();
 export const CollectArticleModalRef = new SingletonModal<CollectArticleModalOpenProps>();

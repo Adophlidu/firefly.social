@@ -5,6 +5,7 @@ import { useAsyncFn } from 'react-use';
 
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { NetworkType } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
@@ -27,7 +28,7 @@ export function useVerifyAndClaimSolana(payload: RedPacketJSONPayload, post: Pos
         const accountId = resolveSolanaAccountId(payload.rpid, payload.accountId);
 
         if (!walletProvider?.publicKey) {
-            ConnectModalRef.open();
+            ConnectModalRef.open({ networkType: NetworkType.Solana });
             return { canClaim: true };
         }
 

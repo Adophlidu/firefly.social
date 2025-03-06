@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { useAccount } from 'wagmi';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { SimulateStatus } from '@/constants/enum.js';
+import { NetworkType, SimulateStatus } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { ConnectModalRef } from '@/modals/controls.js';
 
@@ -28,8 +28,6 @@ export function ContinueButton({ status, className, onClick, ref, ...rest }: Con
         return t`Continue`;
     }, [isUnConnected, isUnSafe]);
 
-    const handleClick = () => {};
-
     return (
         <ClickableButton
             className={classNames(
@@ -42,7 +40,7 @@ export function ContinueButton({ status, className, onClick, ref, ...rest }: Con
             )}
             onClick={(event) => {
                 if (isUnConnected) {
-                    ConnectModalRef.open();
+                    ConnectModalRef.open({ networkType: NetworkType.Ethereum });
                     return;
                 }
                 onClick?.(event);

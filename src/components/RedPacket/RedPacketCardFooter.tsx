@@ -62,10 +62,8 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
     const connectWallet = useCallback(() => {
         switch (networkType) {
             case NetworkType.Solana:
-                ConnectModalRef.open();
-                break;
             case NetworkType.Ethereum:
-                ConnectModalRef.open();
+                ConnectModalRef.open({ networkType });
                 break;
             default:
                 safeUnreachable(networkType);

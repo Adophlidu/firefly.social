@@ -15,6 +15,7 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { appkit, networks } from '@/configs/wagmiClient.js';
+import { NetworkType } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
@@ -144,7 +145,13 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
                 <ClickableButton
                     className="flex h-10 w-full items-center justify-between gap-2 border-b border-secondaryLine bg-lightBg px-2 text-main"
                     onClick={() => {
-                        ConnectModalRef.open();
+                        ConnectModalRef.open(
+                            solana.isConnected
+                                ? {
+                                      networkType: NetworkType.Ethereum,
+                                  }
+                                : undefined,
+                        );
                     }}
                 >
                     <WalletIcon width={20} height={20} />

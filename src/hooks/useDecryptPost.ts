@@ -2,7 +2,7 @@ import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
-import { Source } from '@/constants/enum.js';
+import { NetworkType, Source } from '@/constants/enum.js';
 import { ENABLED_DECRYPT_SOURCES } from '@/constants/index.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
@@ -27,7 +27,7 @@ export function useDecryptPost(post: Post) {
             if (!ENABLED_DECRYPT_SOURCES.includes(post.source)) return null;
 
             if (post.source === Source.Lens && !account.address) {
-                ConnectModalRef.open();
+                ConnectModalRef.open({ networkType: NetworkType.Ethereum });
                 return null;
             }
 

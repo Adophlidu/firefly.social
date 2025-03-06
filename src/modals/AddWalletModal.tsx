@@ -15,7 +15,7 @@ import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { AccountModalRef } from '@/modals/controls.js';
+import { MyWalletsModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { getWalletAdaptorRequired, WalletNotConnectedError } from '@/providers/solana/getWalletAdapter.js';
 import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
@@ -47,7 +47,7 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
             function checkExistedConnection(address: string) {
                 const existedConnection = connections.find((connection) => isSameAddress(connection.address, address));
                 if (existedConnection) {
-                    AccountModalRef.open();
+                    MyWalletsModalRef.open();
                     const addressName = first(existedConnection.ens) || formatAddress(address, 8);
                     enqueueWarningMessage(t`${addressName} is already connected.`);
                     dispatch?.abort?.(new Error(`Already connected address name = ${addressName}.`));

@@ -6,6 +6,7 @@ import { memo, useContext } from 'react';
 import SwapIcon from '@/assets/swap.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { TokenContext } from '@/components/Token/TokenContext.js';
+import { NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { ConnectModalRef } from '@/modals/controls.js';
 
@@ -24,7 +25,7 @@ export const SwapButton = memo(function SwapButton({ className, ...rest }: Click
             disabled={!tradable}
             onClick={() => {
                 if (!appKitProvider.walletProvider) {
-                    ConnectModalRef.open();
+                    ConnectModalRef.open({ networkType: NetworkType.Ethereum });
                     return;
                 }
                 setOpenTrader(true);

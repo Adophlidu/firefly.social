@@ -14,14 +14,14 @@ import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
-import { Source } from '@/constants/enum.js';
+import { NetworkType, Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import { AccountModalRef, ConnectModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ConnectModalRef, LoginModalRef, MyWalletsModalRef } from '@/modals/controls.js';
 import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { updateSignless } from '@/providers/lens/updateSignless.js';
@@ -161,8 +161,8 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                         onClick={async () => {
                             LoginModalRef.close();
                             await delay(300);
-                            if (account.isConnected) AccountModalRef.open();
-                            else ConnectModalRef.open();
+                            if (account.isConnected) MyWalletsModalRef.open();
+                            else ConnectModalRef.open({ networkType: NetworkType.Ethereum });
                         }}
                     >
                         <WalletIcon width={20} height={20} />

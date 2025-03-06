@@ -97,10 +97,8 @@ export const TokenSelectorModal = forwardRef<
                                 onClick={() => {
                                     switch (props.networkType) {
                                         case NetworkType.Ethereum:
-                                            ConnectModalRef.open();
-                                            break;
                                         case NetworkType.Solana:
-                                            ConnectModalRef.open();
+                                            ConnectModalRef.open({ networkType: props.networkType });
                                             break;
                                         default:
                                             safeUnreachable(props.networkType);

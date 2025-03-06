@@ -6,6 +6,7 @@ import { useAccount } from 'wagmi';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
+import { NetworkType } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { resolveCurrentFireflyAccountId, resolveFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
@@ -113,7 +114,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
 export function SendWithEVM() {
     const account = useAccount();
     const onConnect = useCallback(() => {
-        ConnectModalRef.open();
+        ConnectModalRef.open({ networkType: NetworkType.Ethereum });
     }, []);
 
     return <SendTipsButton connected={account.isConnected} onConnect={onConnect} />;
@@ -123,7 +124,7 @@ export function SendWithSolana() {
     const { connection } = useAppKitConnection();
 
     const onConnect = useCallback(() => {
-        ConnectModalRef.open();
+        ConnectModalRef.open({ networkType: NetworkType.Solana });
     }, []);
 
     return <SendTipsButton connected={!!connection} onConnect={onConnect} />;

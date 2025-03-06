@@ -51,10 +51,8 @@ export const ChainGuardButton = memo<ChainGuardButtonProps>(function ChainBounda
                 onClick={() => {
                     switch (networkType) {
                         case NetworkType.Ethereum:
-                            ConnectModalRef.open();
-                            break;
                         case NetworkType.Solana:
-                            ConnectModalRef.open();
+                            ConnectModalRef.open({ networkType });
                             break;
                         default:
                             unreachable(networkType);

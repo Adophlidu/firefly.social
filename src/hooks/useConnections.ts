@@ -4,14 +4,14 @@ import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { useAccount as useEVMAccount, useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
-import { NetworkPluginID } from '@/constants/enum.js';
+import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { formatEthereumAddress, formatSolanaAddress } from '@/helpers/formatAddress.js';
 import { formatDomainName } from '@/helpers/formatDomainName.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
-import { AccountModalRef, ConnectModalRef, SolanaAccountModalRef } from '@/modals/controls.js';
+import { ConnectModalRef, MyWalletsModalRef } from '@/modals/controls.js';
 
 const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
 const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
@@ -49,8 +49,8 @@ export function useEVMConnection(): Connection {
             if (ensName) return formatDomainName(ensName);
             return formatEthereumAddress(evmAccount.address, 4);
         }),
-        onOpenConnectModal: () => ConnectModalRef.open(),
-        onOpenAccountModal: () => AccountModalRef.open(),
+        onOpenConnectModal: () => ConnectModalRef.open({ networkType: NetworkType.Ethereum }),
+        onOpenAccountModal: () => MyWalletsModalRef.open(),
         isConnected: isEVMConnected,
         isLoading: evmAccount.isConnecting,
     };
@@ -68,8 +68,8 @@ export function useSolanaConnection(): Connection {
             const address = walletProvider.publicKey.toBase58();
             return formatSolanaAddress(address, 4);
         }),
-        onOpenConnectModal: () => ConnectModalRef.open(),
-        onOpenAccountModal: () => SolanaAccountModalRef.open(),
+        onOpenConnectModal: () => ConnectModalRef.open({ networkType: NetworkType.Solana }),
+        onOpenAccountModal: () => MyWalletsModalRef.open(),
         isConnected: !!connection,
         isLoading: false,
     };
