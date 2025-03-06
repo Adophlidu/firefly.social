@@ -8,8 +8,20 @@ export function convertTwitterAvatar(url: string) {
     return url.replace(/_normal.(jpe?g|png|gif|bmp)/, '_400x400.$1');
 }
 
+export function formatTwitterProfileStatus(statusList: UserV2['connection_status']): Profile['viewerContext'] {
+    return statusList?.reduce((acc, status) => {
+        switch (status) {
+            case 'following':
+                return { ...acc, following: true };
+            case 'muting':
+                return { ...acc, blocking: true };
+            default:
+                return acc;
+        }
+    }, {});
+}
+
 export function formatTwitterProfile(data: UserV2): Profile {
-    const following = data?.connection_status?.some((status) => status === 'following');
     return {
         profileId: data.id,
         profileSource: Source.Twitter,
@@ -23,9 +35,7 @@ export function formatTwitterProfile(data: UserV2): Profile {
         status: ProfileStatus.Active,
         verified: data.verified || false,
         source: Source.Twitter,
-        viewerContext: {
-            following,
-        },
+        viewerContext: formatTwitterProfileStatus(data.connection_status),
         website: data.url,
         location: data.location,
     };

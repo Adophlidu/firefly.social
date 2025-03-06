@@ -7,7 +7,7 @@ import { RestrictionType, Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { formatTwitterMedia } from '@/helpers/formatTwitterMedia.js';
-import { convertTwitterAvatar } from '@/helpers/formatTwitterProfile.js';
+import { convertTwitterAvatar, formatTwitterProfileStatus } from '@/helpers/formatTwitterProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
@@ -64,9 +64,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
             status: ProfileStatus.Active,
             verified: user?.verified ?? false,
             source: Source.Twitter,
-            viewerContext: {
-                following: user?.connection_status?.some((status) => status === 'following'),
-            },
+            viewerContext: formatTwitterProfileStatus(user?.connection_status),
         },
         stats: {
             reactions: item.public_metrics?.like_count ?? 0,
@@ -175,9 +173,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
                 status: ProfileStatus.Active,
                 verified: false,
                 source: Source.Twitter,
-                viewerContext: {
-                    following: author?.connection_status?.some((status) => status === 'following'),
-                },
+                viewerContext: formatTwitterProfileStatus(author?.connection_status),
             };
         }
         if (ret.metadata.content) ret.metadata.content.content = content;
