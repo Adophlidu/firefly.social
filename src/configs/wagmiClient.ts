@@ -104,7 +104,7 @@ const metadata = {
 
 const walletIds = IS_MOBILE_DEVICE
     ? [WalletId.CoinBase, WalletId.Rainbow, WalletId.OKX, WalletId.MetaMask, WalletId.Phantom]
-    : [WalletId.MetaMask, WalletId.Rabby, WalletId.OKX, WalletId.Phantom];
+    : [WalletId.MetaMask, WalletId.Rabby, WalletId.OKX, WalletId.Phantom, WalletId.Solflare];
 
 export const appkit = createAppKit({
     adapters: [adapter, solanaAdapter],

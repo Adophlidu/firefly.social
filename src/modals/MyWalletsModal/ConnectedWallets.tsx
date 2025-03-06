@@ -1,7 +1,8 @@
 import { Trans } from '@lingui/react/macro';
+import { CoreChainController } from '@reown/appkit';
 import { mainnet, solana } from '@reown/appkit/networks';
 import { compact } from 'lodash-es';
-import { type FunctionComponent, memo, type SVGAttributes, useEffect, useMemo } from 'react';
+import { type FunctionComponent, memo, type SVGAttributes, useEffect, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import type { Address } from 'viem';
 import { type Connector, useConnections, useEnsName, useSwitchAccount } from 'wagmi';
@@ -13,6 +14,7 @@ import SwitchIcon from '@/assets/switch.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { Image } from '@/components/Image.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { appkit, networks } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
@@ -37,9 +39,18 @@ interface ConnectedItemProps extends ClickableButtonProps {
     connected: boolean;
     connector?: Connector;
     chainId?: number;
+    walletIconUrl?: string;
 }
 
-function ConnectedItem({ namespace, address, connected, connector, chainId, ...rest }: ConnectedItemProps) {
+function ConnectedItem({
+    namespace,
+    address,
+    connected,
+    connector,
+    chainId,
+    walletIconUrl,
+    ...rest
+}: ConnectedItemProps) {
     const { switchAccountAsync } = useSwitchAccount();
     const { data: ensName } = useEnsName({
         address: address as Address,
@@ -83,6 +94,9 @@ function ConnectedItem({ namespace, address, connected, connector, chainId, ...r
             {...rest}
         >
             <Icon className="shrink-0" width={20} height={20} />
+            {walletIconUrl ? (
+                <Image src={walletIconUrl} alt="" className="h-5 w-5 shrink-0" width={20} height={20} />
+            ) : null}
             <span className="min-w-0 flex-1 truncate text-left">{ensName || formatAddress(address, 4)}</span>
             {loading ? (
                 <LoadingIcon size={20} />
@@ -98,7 +112,9 @@ function ConnectedItem({ namespace, address, connected, connector, chainId, ...r
 export const ConnectedWallets = memo(function ConnectedWallets() {
     const connections = useConnections();
     const { ethereum, solana } = useWalletAccountAll();
+    const [chainState, setChainState] = useState(CoreChainController.state.chains);
 
+    const solanaWalletIcon = chainState.get('solana')?.accountState?.connectedWalletInfo?.icon;
     const allConnections = useMemo<
         Array<{
             address: string;
@@ -106,38 +122,40 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
             connected: boolean;
             connector?: Connector;
             chainId?: number;
+            walletIcon?: string;
         }>
     >(() => {
         return compact([
-            ethereum.isConnected
-                ? {
-                      address: ethereum.address,
-                      namespace: 'eip155' as ChainNamespace,
-                      connected: true,
-                      connector: undefined,
-                  }
-                : null,
+            ...connections.map((x) => ({
+                address: x.accounts[0],
+                namespace: 'eip155' as ChainNamespace,
+                connected: x.accounts.some((address) => isSameAddress(address, ethereum.address)),
+                connector: x.connector,
+                chainId: x.chainId,
+                walletIcon: x.connector.icon,
+            })),
             solana.isConnected
                 ? {
                       address: solana.address,
                       namespace: 'solana' as ChainNamespace,
                       connected: true,
                       connector: undefined,
+                      walletIcon: solanaWalletIcon,
                   }
                 : null,
-            ...connections
-                .filter(({ accounts }) => !accounts.some((x) => isSameAddress(x, ethereum.address)))
-                .map((x) => ({
-                    address: x.accounts[0],
-                    namespace: 'eip155' as ChainNamespace,
-                    connected: false,
-                    connector: x.connector,
-                    chainId: x.chainId,
-                })),
-        ]);
-    }, [ethereum, solana, connections]);
+        ]).sort((a, b) => (a.connected ? -1 : 1));
+    }, [ethereum, solana, connections, solanaWalletIcon]);
 
-    useEffect(() => restoreDisconnectMethod, []);
+    useEffect(() => {
+        const unsubscribe = CoreChainController.subscribeKey('chains', (chains) => {
+            setChainState(chains);
+        });
+
+        return () => {
+            unsubscribe();
+            restoreDisconnectMethod();
+        };
+    }, []);
 
     return (
         <div>
@@ -174,6 +192,7 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
                             address={connection.address}
                             connector={connection.connector}
                             chainId={connection.chainId}
+                            walletIconUrl={connection.walletIcon}
                         />
                     );
                 })}
