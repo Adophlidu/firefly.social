@@ -99,7 +99,7 @@ export function HomeTabs() {
                         }));
                     }}
                 />
-                {source !== Source.Posts ? <DiscoverFilter tab={currentTab} source={source} /> : null}
+                {source === Source.Posts ? <DiscoverFilter tab={currentTab} source={source} /> : null}
             </div>
         </div>
     );
