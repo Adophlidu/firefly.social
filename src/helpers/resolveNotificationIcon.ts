@@ -3,7 +3,7 @@ import { type FunctionComponent, type SVGAttributes } from 'react';
 import CollectIcon from '@/assets/collect-large.svg';
 import FollowIcon from '@/assets/follow.svg';
 import LikeIcon from '@/assets/like-large.svg';
-import MessagesIcon from '@/assets/messages.svg';
+import MessagesIcon from '@/assets/message2.svg';
 import MirrorIcon from '@/assets/mirror-large.svg';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { NotificationType } from '@/providers/types/SocialMedia.js';

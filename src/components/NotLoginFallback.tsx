@@ -29,6 +29,8 @@ const resolveConnectButtonClass = createLookupTableResolver<LoginFallbackSource,
             'w-[203px] text-[#AD7BFF] ring-[#AD7BFF] shadow-[0_0_16px_0_rgba(101,119,134,0.2)] hover:bg-[#AD7BFF33]/20',
         [Source.Posts]:
             'w-[203px] text-[#AD7BFF] ring-[#AD7BFF] shadow-[0_0_16px_0_rgba(101,119,134,0.2)] hover:bg-[#AD7BFF33]/20',
+        [Source.Notifications]:
+            'w-[203px] text-[#AD7BFF] ring-[#AD7BFF] shadow-[0_0_16px_0_rgba(101,119,134,0.2)] hover:bg-[#AD7BFF33]/20',
         [Source.NFTs]:
             'w-[203px] text-[#AD7BFF] ring-[#AD7BFF] shadow-[0_0_16px_0_rgba(101,119,134,0.2)] hover:bg-[#AD7BFF33]/20',
     },
@@ -41,9 +43,14 @@ interface NotLoginFallbackProps extends HTMLProps<HTMLDivElement> {
 
 export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFallback({ source, className }) {
     const fallbackImageUrl = resolveFallbackImageUrl(source);
-    const isNotSocialSource = [Source.Article, Source.DAOs, Source.Polymarket, Source.NFTs, Source.Posts].includes(
-        source,
-    );
+    const isNotSocialSource = [
+        Source.Article,
+        Source.DAOs,
+        Source.Polymarket,
+        Source.NFTs,
+        Source.Posts,
+        Source.Notifications,
+    ].includes(source);
 
     const asyncStatusTwitter = useAsyncStatus(Source.Twitter);
     const isTwitterConnecting = source === Source.Twitter && asyncStatusTwitter;

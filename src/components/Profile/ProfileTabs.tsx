@@ -62,6 +62,7 @@ const resolveProfileTabColor = createLookupTableResolver<
         [Source.Google]: {},
         [Source.Telegram]: {},
         [Source.Posts]: {},
+        [Source.Notifications]: {},
     },
     {},
 );

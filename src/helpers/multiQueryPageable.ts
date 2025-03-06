@@ -18,7 +18,7 @@ export async function multiQueryPageable<K extends string, Item>(
             };
         }),
     );
-    return responses.reduce(
+    const result = responses.reduce(
         (acc, { source, pageable }) => {
             acc.data = [...acc.data, ...pageable.data];
             acc.total = (pageable.total ?? 0) + (acc.total ?? 0);
@@ -31,4 +31,14 @@ export async function multiQueryPageable<K extends string, Item>(
         },
         createPageable<Item>([], createIndicator(undefined)),
     );
+
+    // all source has no next page
+    if (result.nextIndicator?.id === '{}') {
+        return {
+            ...result,
+            nextIndicator: undefined,
+        };
+    }
+
+    return result;
 }

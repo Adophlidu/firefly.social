@@ -12,6 +12,7 @@ import {
     type FollowingSource,
     NetworkType,
     NODE_ENV,
+    type NotificationSource,
     ProfileEditableField,
     type ProfilePageSource,
     SearchType,
@@ -202,7 +203,7 @@ export const ENABLED_RP_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens
 
 export const DEFAULT_SOCIAL_SOURCE = Source.Posts;
 export const DEFAULT_BOOKMARK_SOURCE = Source.Farcaster;
-export const DEFAULT_NOTIFICATION_SOURCE = Source.Farcaster;
+export const DEFAULT_NOTIFICATION_SOURCE = Source.Notifications;
 export const DEFAULT_EXPLORE_TYPE = ExploreType.TopProfiles;
 
 export const SUPPORTED_PREVIEW_MEDIA_TYPES: Array<Attachment['type']> = ['Image', 'AnimatedGif'];
@@ -257,6 +258,13 @@ export const BOOKMARK_SOURCES: BookmarkSource[] = [
     Source.NFTs,
     Source.Article,
     Source.DAOs,
+];
+
+export const SORTED_NOTIFICATIONS_SOURCES: NotificationSource[] = [
+    Source.Notifications,
+    Source.Farcaster,
+    Source.Bsky,
+    Source.Lens,
 ];
 
 export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum];

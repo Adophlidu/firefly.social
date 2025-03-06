@@ -1,42 +1,49 @@
-import { t } from '@lingui/core/macro';
-import { notFound } from 'next/navigation.js';
+'use client';
 
-import { SourceTabs } from '@/components/SourceTabs/index.js';
-import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
-import { SOCIAL_NOTIFICATION_SOURCE } from '@/constants/index.js';
-import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
-import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { isSocialDiscoverSource } from '@/helpers/isDiscoverSource.js';
+import { Trans } from '@lingui/react/macro';
+import { type PropsWithChildren, use } from 'react';
+
+import { NotificationSettings } from '@/components/Notification/NotificationSettings.js';
+import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
+import { queryClient } from '@/configs/queryClient.js';
+import type { NotificationSourceInURL } from '@/constants/enum.js';
+import { SORTED_NOTIFICATIONS_SOURCES } from '@/constants/index.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
-import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import type { NextPageProps } from '@/types/index.js';
+import { resolveNotificationSource } from '@/helpers/resolveSourceInUrl.js';
+import { resolveNotificationSourceName } from '@/helpers/resolveSourceName.js';
 
-export async function generateMetadata() {
-    return createSiteMetadata({
-        title: await createPageTitleSSR(() => t`Notifications`),
-    });
+interface Props extends PropsWithChildren {
+    params: Promise<{ source: NotificationSourceInURL }>;
 }
 
-interface Props extends NextPageProps<{ source: string }> {}
-
-export default async function Layout(props: Props) {
-    const params = await props.params;
-    const { children } = props;
-
-    const source = resolveSourceFromUrlNoFallback(params.source);
-    if (!source || !isSocialDiscoverSource(source)) notFound();
+export default function Layout({ children, params }: Props) {
+    const { source } = use(params);
 
     return (
-        <>
-            <SourceTabs>
-                {SOCIAL_NOTIFICATION_SOURCE.map((x) => (
-                    <SourceTab key={x} href={resolveNotificationUrl(x)} isActive={x === source}>
-                        {resolveSourceName(x)}
-                    </SourceTab>
-                ))}
-            </SourceTabs>
+        <div className="flex w-full flex-col px-4">
+            <h1 className="py-[18px] text-[20px] font-bold leading-6 max-md:hidden">
+                <Trans>Notifications</Trans>
+            </h1>
+            <div className="flex items-center justify-between">
+                <SolidTabs
+                    data={SORTED_NOTIFICATIONS_SOURCES}
+                    link={resolveNotificationUrl}
+                    itemRender={resolveNotificationSourceName}
+                    isSelected={(x) => x === resolveNotificationSource(source)}
+                    onChange={(target) => {
+                        if (target !== resolveNotificationSource(source)) return;
+
+                        queryClient.refetchQueries({
+                            queryKey: ['notifications', target],
+                        });
+                        queryClient.invalidateQueries({
+                            queryKey: ['notification', target],
+                        });
+                    }}
+                />
+                <NotificationSettings source={resolveNotificationSource(source)} />
+            </div>
             {children}
-        </>
+        </div>
     );
 }

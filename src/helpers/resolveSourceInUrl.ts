@@ -1,6 +1,8 @@
 import {
     type ExploreSource,
     type ExploreSourceInURL,
+    type NotificationSource,
+    type NotificationSourceInURL,
     type SocialSource,
     type SocialSourceInURL,
     Source,
@@ -26,6 +28,7 @@ export const resolveSourceInUrl = createLookupTableResolver<Source, SourceInURL>
         [Source.Google]: SourceInURL.Google,
         [Source.Apple]: SourceInURL.Apple,
         [Source.Posts]: SourceInURL.Posts,
+        [Source.Notifications]: SourceInURL.Notifications,
     },
     (source) => {
         throw new UnreachableError('source', source);
@@ -68,6 +71,18 @@ export const resolveExploreSource = createLookupTableResolver<ExploreSourceInURL
         [TrendingType.TopLosers]: TrendingType.TopLosers,
         [TrendingType.Trending]: TrendingType.Trending,
         [TrendingType.Meme]: TrendingType.Meme,
+    },
+    (source) => {
+        throw new UnreachableError('source', source);
+    },
+);
+
+export const resolveNotificationSource = createLookupTableResolver<NotificationSourceInURL, NotificationSource>(
+    {
+        [SourceInURL.Notifications]: Source.Notifications,
+        [SourceInURL.Farcaster]: Source.Farcaster,
+        [SourceInURL.Lens]: Source.Lens,
+        [SourceInURL.Bsky]: Source.Bsky,
     },
     (source) => {
         throw new UnreachableError('source', source);

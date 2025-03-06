@@ -1219,6 +1219,7 @@ export enum NotificationPushType {
 export enum NotificationPlatform {
     Priority = 'priority',
     Lens = 'lens',
+    All = 'all',
 }
 
 export enum NotificationTitle {

@@ -112,6 +112,9 @@ msgstr "帖子"
 msgid "Metadata not frozen."
 msgstr "元数据未冻结。"
 
+msgid "Repost or quote"
+msgstr ""
+
 msgid "Unmute successfully."
 msgstr "取消隐藏成功。"
 
@@ -2068,6 +2071,9 @@ msgstr "{0} 关注拥有"
 msgid "Follow me"
 msgstr "关注我"
 
+msgid "Quality filter"
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(source)
 #. placeholder {0}: resolveSourceName(post.source)
 msgid "Connect to {0}"
@@ -2364,6 +2370,9 @@ msgstr "提交已领取的地址"
 msgid "Mute successfully."
 msgstr "隐藏成功。"
 
+msgid "Type filter"
+msgstr ""
+
 msgid "No results for \"{keyword}\""
 msgstr "\"{keyword}\" 没有结果"
 
@@ -2514,9 +2523,6 @@ msgstr "帖子解密中..."
 
 msgid "Unliked"
 msgstr "已取消点赞"
-
-msgid "Quality Filter"
-msgstr "质量筛选"
 
 msgid "Bio should be at least {minBioSize} characters"
 msgstr "个人简介应至少包含 {minBioSize} 个字符"
@@ -2864,9 +2870,6 @@ msgstr "技术支持来自"
 msgid "So sorry, we are not able to mint this NFT at the moment."
 msgstr "很抱歉，我们目前无法铸造此 NFT。"
 
-msgid "All notifications"
-msgstr "所有"
-
 msgid "Your browser does not support the Firefly Bridge."
 msgstr "您的浏览器不支持 Firefly Bridge。"
 
@@ -2914,9 +2917,6 @@ msgstr "您领取了{amount} {symbol}。"
 
 msgid "Sent"
 msgstr "发送"
-
-msgid "Enable priority notifications"
-msgstr "启用优先通知"
 
 msgid "Casts + Replies"
 msgstr "帖子+回复"
@@ -3387,6 +3387,9 @@ msgstr "切换"
 msgid "Malicious mining activities."
 msgstr "恶意挖矿活动。"
 
+msgid "Comment or mention"
+msgstr ""
+
 msgid "No codes found to suspend trading."
 msgstr "没有发现可以暂停交易的代码。"
 
@@ -3418,10 +3421,6 @@ msgstr "文章已经添加到您的收藏中"
 
 msgid "Create a Post"
 msgstr "创建帖子"
-
-#. placeholder {0}: source === Source.Farcaster ? t`Recasts` : t`Reposts`
-msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
-msgstr "{type, select, comment {评论} mirror {{0}} reaction {点赞} act {收藏} other {其他}}"
 
 msgid "Unverified: Failed to simulate, <0>try again</0>"
 msgstr "未验证：模拟失败，请重试。"

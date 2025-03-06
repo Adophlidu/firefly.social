@@ -64,6 +64,7 @@ export enum Source {
     Apple = 'Apple',
     DAOs = 'DAOs',
     Posts = 'Posts',
+    Notifications = 'Notifications',
 }
 
 export enum SourceInURL {
@@ -81,6 +82,7 @@ export enum SourceInURL {
     Apple = 'apple',
     DAOs = 'daos',
     Posts = 'posts',
+    Notifications = 'all',
 }
 
 export enum FireflyPlatform {
@@ -131,12 +133,19 @@ export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | S
 export type FollowingSource = DiscoverSource | Source.Polymarket;
 export type ExploreSource = Source.Farcaster | Source.Lens | Source.Bsky | TrendingType;
 export type ExploreSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Bsky | TrendingType;
+export type NotificationSource = Source.Notifications | Source.Farcaster | Source.Lens | Source.Bsky;
+export type NotificationSourceInURL =
+    | SourceInURL.Notifications
+    | SourceInURL.Farcaster
+    | SourceInURL.Lens
+    | SourceInURL.Bsky;
 export type LoginFallbackSource =
     | SocialSource
     | Source.Article
     | Source.DAOs
     | Source.Polymarket
     | Source.Posts
+    | Source.Notifications
     | Source.NFTs;
 
 export enum ExploreType {

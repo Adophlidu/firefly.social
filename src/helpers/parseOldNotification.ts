@@ -1,14 +1,14 @@
-import { PageRoute } from '@/constants/enum.js';
-import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
+import { type NotificationSource, PageRoute } from '@/constants/enum.js';
+import { DEFAULT_NOTIFICATION_SOURCE } from '@/constants/index.js';
 import { isSocialDiscoverSource } from '@/helpers/isDiscoverSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 
-export function parseOldNotification(url: URL) {
+export function parseOldNotification(url: URL): { source: NotificationSource } | null {
     if (url.pathname !== PageRoute.Notifications) return null;
 
-    const source = resolveSourceFromUrlNoFallback(url.searchParams.get('source')) ?? DEFAULT_SOCIAL_SOURCE;
+    const source = resolveSourceFromUrlNoFallback(url.searchParams.get('source'));
 
-    if (!source || !isSocialDiscoverSource(source)) return null;
+    if (!source || !isSocialDiscoverSource(source)) return { source: DEFAULT_NOTIFICATION_SOURCE };
 
     return { source };
 }

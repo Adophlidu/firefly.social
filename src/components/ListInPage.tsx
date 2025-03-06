@@ -35,7 +35,14 @@ export function ListInPage<T = unknown, C = unknown>({
     className,
     source,
 }: ListInPageProps<T, C>) {
-    const isNotSocialSource = [Source.Article, Source.DAOs, Source.Posts, Source.NFTs].includes(source);
+    const isNotSocialSource = [
+        Source.Article,
+        Source.DAOs,
+        Source.Posts,
+        Source.NFTs,
+        Source.Notifications,
+        Source.Polymarket,
+    ].includes(source);
 
     const { virtuosoState, setVirtuosoState } = useGlobalState();
     const currentSocialSource = narrowToSocialSource(source);

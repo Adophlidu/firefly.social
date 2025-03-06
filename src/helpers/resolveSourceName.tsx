@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 import type { JSX } from 'react';
 
-import { type ExploreSource, Source, TrendingType } from '@/constants/enum.js';
+import { type ExploreSource, type NotificationSource, Source, TrendingType } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
@@ -21,6 +21,7 @@ export const resolveSourceName = createLookupTableResolver<Source, string>(
         [Source.Google]: 'Google',
         [Source.Apple]: 'Apple',
         [Source.Posts]: 'Posts',
+        [Source.Notifications]: 'Notifications',
     },
     (source) => {
         throw new UnreachableError('source', source);
@@ -36,6 +37,18 @@ export const resolveExploreSourceName = createLookupTableResolver<ExploreSource,
         [TrendingType.TopLosers]: <Trans>Top Losers</Trans>,
         [TrendingType.Trending]: <Trans>Trending</Trans>,
         [TrendingType.Meme]: 'Meme',
+    },
+    (source) => {
+        throw new UnreachableError('source', source);
+    },
+);
+
+export const resolveNotificationSourceName = createLookupTableResolver<NotificationSource, string | JSX.Element>(
+    {
+        [Source.Notifications]: 'All',
+        [Source.Lens]: 'Lens',
+        [Source.Farcaster]: 'Farcaster',
+        [Source.Bsky]: 'Bluesky',
     },
     (source) => {
         throw new UnreachableError('source', source);

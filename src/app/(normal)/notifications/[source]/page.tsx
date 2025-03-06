@@ -1,46 +1,24 @@
 'use client';
 
 import { t } from '@lingui/core/macro';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { type Dispatch, type SetStateAction, use, useCallback, useState } from 'react';
+import { use } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
-import { NotificationFilter } from '@/components/Notification/NotificationFilter.js';
+import { Loading } from '@/components/Loading.js';
 import { NotificationItem } from '@/components/Notification/NotificationItem.js';
-import { ScrollListKey, type SocialDiscoverSource, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
-import { createIndicator } from '@/helpers/pageable.js';
+import { type NotificationSource, ScrollListKey, Source, SourceInURL } from '@/constants/enum.js';
+import { EMPTY_LIST, SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
+import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useIsLoginNotifications } from '@/hooks/useIsLogin.js';
+import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { useNotificationSettings } from '@/hooks/useNotificationSettings.js';
-import { type Notification as NotificationObject, NotificationType } from '@/providers/types/SocialMedia.js';
+import { type Notification as NotificationObject } from '@/providers/types/SocialMedia.js';
+import { useNotificationStateStore } from '@/store/useNotificationStore.js';
 import type { NextPageProps } from '@/types/index.js';
-
-function useNotificationTypes(source: SocialSource) {
-    const [typesMap, setTypesMap] = useState<Record<SocialSource, NotificationType[]>>({
-        [Source.Farcaster]: [],
-        [Source.Lens]: [],
-        [Source.Twitter]: [],
-        [Source.Bsky]: [],
-    });
-
-    const types = typesMap[source];
-    const setTypes: Dispatch<SetStateAction<NotificationType[]>> = useCallback(
-        (types) => {
-            setTypesMap((map) => {
-                return {
-                    ...map,
-                    [source]: typeof types === 'function' ? types(map[source]) : types,
-                };
-            });
-        },
-        [source],
-    );
-    return [types, setTypes] as const;
-}
 
 const getNotificationItemContent = (index: number, notification: NotificationObject) => {
     return <NotificationItem key={notification.notificationId} notification={notification} />;
@@ -50,47 +28,48 @@ interface Props extends NextPageProps<{ source: SourceInURL }> {}
 
 export default function Notification(props: Props) {
     const params = use(props.params);
-    const source = resolveSource(params.source) as SocialDiscoverSource;
-    const profile = useCurrentProfile(source);
-    const isLogin = useIsLogin(source);
+    const source = resolveSource(params.source) as NotificationSource;
+    const isLogin = useIsLoginNotifications(source);
+    const profileAll = useCurrentProfileAll();
 
-    const [types, setTypes] = useNotificationTypes(source);
+    const typesState = useNotificationStateStore();
 
-    const { enabled } = useNotificationSettings(source);
+    const { types, enableQualityFilter } = typesState[source];
 
-    const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['notifications', source, isLogin, profile?.profileId, enabled],
-        queryFn: async ({ pageParam }) => {
-            if (!isLogin) return;
-            const provider = resolveSocialMediaProvider(source);
-            return provider.getNotifications(createIndicator(undefined, pageParam), enabled);
-        },
-        initialPageParam: '',
-        getNextPageParam: (lastPage) => {
-            if (lastPage?.data.length === 0) return;
-            return lastPage?.nextIndicator?.id;
-        },
-        select: (data) => {
-            const list = compact(data.pages.flatMap((x) => x?.data));
-            if (types.length === 0) return list;
+    const queryResult = useMultiInfiniteQueryPageable(
+        ['notifications', source, isLogin, enableQualityFilter],
+        SOCIAL_DISCOVER_SOURCE.filter((x) => {
+            if (source === Source.Notifications) return !!profileAll[x];
+            return x === source;
+        }).map((x) => ({
+            key: x,
+            queryFn: async ({ pageParam }) => {
+                const indicator = createIndicator(undefined, pageParam);
+                if (!isLogin) return createPageable(EMPTY_LIST, indicator);
+                return resolveSocialMediaProvider(x).getNotifications(indicator, enableQualityFilter);
+            },
+        })),
+        (data) => {
+            const list = compact(data.pages.flatMap((x) => [...Object.values(x)].flatMap((result) => result.data)));
+            if (!types.length) return list;
             return list.filter((x) => types.includes(x.type));
         },
-    });
+    );
 
     useNavigatorTitle(t`Notifications`);
 
+    if (!queryResult.isFetchingNextPage && queryResult.isFetching) {
+        return <Loading />;
+    }
     return (
         <>
-            {isLogin ? (
-                <NotificationFilter className="mb-2 px-4 pt-3" source={source} types={types} onTypesChange={setTypes} />
-            ) : null}
             <ListInPage
                 source={source}
                 key={source}
                 queryResult={queryResult}
                 loginRequired
                 VirtualListProps={{
-                    listKey: `${ScrollListKey.Notification}:${source}:${types.join('-')}`,
+                    listKey: `${ScrollListKey.Notification}:${source}`,
                     computeItemKey: (index, notification) => `${notification.notificationId}-${index}`,
                     itemContent: getNotificationItemContent,
                 }}

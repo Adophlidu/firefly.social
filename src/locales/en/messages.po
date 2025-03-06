@@ -107,6 +107,9 @@ msgstr "Posts"
 msgid "Metadata not frozen."
 msgstr "Metadata not frozen."
 
+msgid "Repost or quote"
+msgstr "Repost or quote"
+
 msgid "Unmute successfully."
 msgstr "Unmute successfully."
 
@@ -2063,6 +2066,9 @@ msgstr "{0} followings owned"
 msgid "Follow me"
 msgstr "Follow me"
 
+msgid "Quality filter"
+msgstr "Quality filter"
+
 #. placeholder {0}: resolveSourceName(source)
 #. placeholder {0}: resolveSourceName(post.source)
 msgid "Connect to {0}"
@@ -2359,6 +2365,9 @@ msgstr "Submit claimed address"
 msgid "Mute successfully."
 msgstr "Mute successfully."
 
+msgid "Type filter"
+msgstr "Type filter"
+
 msgid "No results for \"{keyword}\""
 msgstr "No results for \"{keyword}\""
 
@@ -2509,9 +2518,6 @@ msgstr "Post is decrypting..."
 
 msgid "Unliked"
 msgstr "Unliked"
-
-msgid "Quality Filter"
-msgstr "Quality Filter"
 
 msgid "Bio should be at least {minBioSize} characters"
 msgstr "Bio should be at least {minBioSize} characters"
@@ -2859,9 +2865,6 @@ msgstr "Powered by"
 msgid "So sorry, we are not able to mint this NFT at the moment."
 msgstr "So sorry, we are not able to mint this NFT at the moment."
 
-msgid "All notifications"
-msgstr "All notifications"
-
 msgid "Your browser does not support the Firefly Bridge."
 msgstr "Your browser does not support the Firefly Bridge."
 
@@ -2909,9 +2912,6 @@ msgstr "Your claimed {amount} {symbol}."
 
 msgid "Sent"
 msgstr "Sent"
-
-msgid "Enable priority notifications"
-msgstr "Enable priority notifications"
 
 msgid "Casts + Replies"
 msgstr "Casts + Replies"
@@ -3382,6 +3382,9 @@ msgstr "Change"
 msgid "Malicious mining activities."
 msgstr "Malicious mining activities."
 
+msgid "Comment or mention"
+msgstr "Comment or mention"
+
 msgid "No codes found to suspend trading."
 msgstr "No codes found to suspend trading."
 
@@ -3413,10 +3416,6 @@ msgstr "Article added to your Bookmarks"
 
 msgid "Create a Post"
 msgstr "Create a Post"
-
-#. placeholder {0}: source === Source.Farcaster ? t`Recasts` : t`Reposts`
-msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
-msgstr "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 
 msgid "Unverified: Failed to simulate, <0>try again</0>"
 msgstr "Unverified: Failed to simulate, <0>try again</0>"

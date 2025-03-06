@@ -112,6 +112,9 @@ msgstr ""
 msgid "Metadata not frozen."
 msgstr ""
 
+msgid "Repost or quote"
+msgstr ""
+
 msgid "Unmute successfully."
 msgstr ""
 
@@ -2060,6 +2063,9 @@ msgstr ""
 msgid "Follow me"
 msgstr ""
 
+msgid "Quality filter"
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(source)
 #. placeholder {0}: resolveSourceName(post.source)
 msgid "Connect to {0}"
@@ -2351,6 +2357,9 @@ msgstr ""
 msgid "Mute successfully."
 msgstr ""
 
+msgid "Type filter"
+msgstr ""
+
 msgid "No results for \"{keyword}\""
 msgstr ""
 
@@ -2500,9 +2509,6 @@ msgid "Post is decrypting..."
 msgstr ""
 
 msgid "Unliked"
-msgstr ""
-
-msgid "Quality Filter"
 msgstr ""
 
 msgid "Bio should be at least {minBioSize} characters"
@@ -2851,9 +2857,6 @@ msgstr ""
 msgid "So sorry, we are not able to mint this NFT at the moment."
 msgstr ""
 
-msgid "All notifications"
-msgstr ""
-
 msgid "Your browser does not support the Firefly Bridge."
 msgstr ""
 
@@ -2900,9 +2903,6 @@ msgid "Your claimed {amount} {symbol}."
 msgstr ""
 
 msgid "Sent"
-msgstr ""
-
-msgid "Enable priority notifications"
 msgstr ""
 
 msgid "Casts + Replies"
@@ -3371,6 +3371,9 @@ msgstr ""
 msgid "Malicious mining activities."
 msgstr ""
 
+msgid "Comment or mention"
+msgstr ""
+
 msgid "No codes found to suspend trading."
 msgstr ""
 
@@ -3401,10 +3404,6 @@ msgid "Article added to your Bookmarks"
 msgstr ""
 
 msgid "Create a Post"
-msgstr ""
-
-#. placeholder {0}: source === Source.Farcaster ? t`Recasts` : t`Reposts`
-msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr ""
 
 msgid "Unverified: Failed to simulate, <0>try again</0>"

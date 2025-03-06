@@ -11,6 +11,7 @@ export const resolveFallbackImageUrl = createLookupTableResolver<LoginFallbackSo
         [Source.DAOs]: '/image/article-fallback.png',
         [Source.Polymarket]: '/image/article-fallback.png',
         [Source.Posts]: '/image/article-fallback.png',
+        [Source.Notifications]: '/image/article-fallback.png',
         [Source.NFTs]: '/image/article-fallback.png',
     },
     '',
