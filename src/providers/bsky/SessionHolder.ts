@@ -32,7 +32,13 @@ class BskySessionHolder extends SessionHolder<BskySession> {
                 : createAgent(session.serviceUrl);
 
         await agent.resumeSession(session.sessionPayload);
-        if (refreshSession) await agent.sessionManager.refreshSession();
+        if (refreshSession) {
+            await agent.sessionManager.refreshSession();
+
+            const now = Date.now();
+            session.createdAt = now;
+            session.expiresAt = now;
+        }
         super.resumeSession(session);
         this._agent = agent;
 

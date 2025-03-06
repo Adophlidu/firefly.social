@@ -354,9 +354,6 @@ const useBskyStateBase = createState(
                 const bskySession = currentProfileSession as BskySession;
                 await bskySessionHolder.resumeSession(bskySession);
 
-                console.log('DEBUG: resume bsky session');
-                console.log(bskySessionHolder.session);
-
                 await runInSafeAsync(async () => {
                     if (fireflySessionHolder.session && bskySessionHolder.session) {
                         await uploadSessions('addOrUpdate', fireflySessionHolder.session, [bskySessionHolder.session]);
@@ -367,6 +364,8 @@ const useBskyStateBase = createState(
                 state.updateCurrentAccount({ profile, session: bskySessionHolder.session ?? bskySession });
             } catch (error) {
                 if (error instanceof FetchError) return;
+                console.warn('[bsky store] clean the local store because of the error', error);
+
                 state.clear();
                 bskySessionHolder.removeSession();
             } finally {

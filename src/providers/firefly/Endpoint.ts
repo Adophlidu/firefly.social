@@ -602,23 +602,23 @@ export class FireflyEndpoint {
         });
         const simpleHashNFTs = await SimpleHashProvider.getNFTByIds(nftIds);
         const nfts = compact(simpleHashNFTs.map((x) => formatSimpleHashNFT(x, true)));
-        return createPageable(
-            response.data.result
-                .map((x) => {
-                    return produce(x, (draft) => {
-                        draft.actions = draft.actions.map((action) => {
-                            const nft = nfts.find(
-                                (x) =>
-                                    x.tokenId === action.token_id && isSameAddress(x.address, action.contract_address),
-                            );
-                            if (nft) action.nft = nft;
-                            return action;
-                        });
+        const data = response.data.result
+            .map((x) => {
+                return produce(x, (draft) => {
+                    draft.actions = draft.actions.map((action) => {
+                        const nft = nfts.find(
+                            (x) => x.tokenId === action.token_id && isSameAddress(x.address, action.contract_address),
+                        );
+                        if (nft) action.nft = nft;
+                        return action;
                     });
-                })
-                .filter((x) => compact(x.actions.map((action) => action.nft)).length),
+                });
+            })
+            .filter((x) => compact(x.actions.map((action) => action.nft)).length);
+        return createPageable(
+            data,
             indicator,
-            response.data.cursor ? createIndicator(undefined, response.data.cursor) : undefined,
+            response.data.cursor && data.length <= 0 ? createIndicator(undefined, response.data.cursor) : undefined,
         );
     }
 

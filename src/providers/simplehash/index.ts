@@ -1,5 +1,5 @@
 import { ChainId as EVMChainId, SchemaType } from '@masknet/web3-shared-evm';
-import { compact } from 'lodash-es';
+import { chunk, compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import type { NFTMarketplace } from '@/constants/enum.js';
@@ -37,12 +37,15 @@ class SimpleHashFactory {
     }
 
     async getNFTByIds(nftIds: string[]) {
-        const url = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/assets', {
-            nft_ids: nftIds.join(','),
+        const promises = chunk(nftIds, 30).map(async (ids) => {
+            const url = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/assets', {
+                nft_ids: ids.join(','),
+            });
+            const response = await fetchJSON<{ nfts: SimpleHash.NFT[] }>(url);
+            return response?.nfts ?? EMPTY_LIST;
         });
-
-        const response = await fetchJSON<{ nfts: SimpleHash.NFT[] }>(url);
-        return response?.nfts ?? EMPTY_LIST;
+        const settled = await Promise.allSettled(promises);
+        return settled.flatMap((result) => (result.status === 'fulfilled' ? result.value : EMPTY_LIST));
     }
 
     async getWalletsNFTCollectionsWithNFTs(
