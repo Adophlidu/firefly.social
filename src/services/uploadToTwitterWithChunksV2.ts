@@ -4,14 +4,13 @@ import urlcat from 'urlcat';
 
 import { FileMimeType, UploadMediaStatus } from '@/constants/enum.js';
 import { TimeoutError, UnreachableError } from '@/constants/error.js';
-import { MAX_SIZE_PER_CHUNK } from '@/constants/index.js';
 import { getTwitterMediaCategory } from '@/helpers/getTwitterMediaCategory.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import type { GetUploadStatusResponse, UploadMediaResponse } from '@/types/twitter.js';
+import type { FinishUploadResponseV2, GetUploadStatusResponseV2, UploadMediaResponseV2 } from '@/types/twitter.js';
 
 async function waitForUpload(media_id: string, retry = 30) {
-    const { data } = await twitterSessionHolder.fetch<{ data: GetUploadStatusResponse }>(
-        urlcat('/api/twitter/uploadMedia/chunk', { media_id }),
+    const { data } = await twitterSessionHolder.fetch<{ data: GetUploadStatusResponseV2 }>(
+        urlcat('/api/twitter/uploadMedia/chunk/v2', { media_id }),
     );
 
     switch (data.processing_info?.state) {
@@ -24,7 +23,8 @@ async function waitForUpload(media_id: string, retry = 30) {
             if (retry <= 0) {
                 throw new TimeoutError('Timeout waiting for upload');
             }
-            await delay(1000);
+            const seconds = data.processing_info.check_after_secs || 1;
+            await delay(1000 * seconds);
             return waitForUpload(media_id, retry - 1);
         default:
             throw new UnreachableError('UploadMediaStatus', data.processing_info?.state);
@@ -41,7 +41,7 @@ async function uploadChunks(chunks: Blob[], mediaId: string) {
         formData.append('media', copied.shift()!);
 
         const upload = twitterSessionHolder.fetch<void>(
-            urlcat('/api/twitter/uploadMedia/chunk/append', {
+            urlcat('/api/twitter/uploadMedia/chunk/v2/append', {
                 media_id: mediaId,
                 segment_index: index,
             }),
@@ -52,7 +52,9 @@ async function uploadChunks(chunks: Blob[], mediaId: string) {
         );
 
         pendingUploads.add(upload);
-        upload.then(() => pendingUploads.delete(upload));
+        upload.finally(() => {
+            pendingUploads.delete(upload);
+        });
 
         index += 1;
 
@@ -64,9 +66,9 @@ async function uploadChunks(chunks: Blob[], mediaId: string) {
     await Promise.all([...pendingUploads]);
 }
 
-export async function uploadToTwitterWithChunks(
+export async function uploadToTwitterWithChunksV2(
     file: File,
-    chunkSize = MAX_SIZE_PER_CHUNK,
+    chunkSize = 1 * 1024 * 1024,
     options?: Partial<UploadMediaV1Params>,
 ) {
     const chunks = [];
@@ -76,8 +78,8 @@ export async function uploadToTwitterWithChunks(
     }
 
     // Init upload
-    const mediaInfo = await twitterSessionHolder.fetch<{ data: UploadMediaResponse }>(
-        urlcat('/api/twitter/uploadMedia/chunk/init', {
+    const { data: mediaInfo } = await twitterSessionHolder.fetch<{ data: UploadMediaResponseV2 }>(
+        urlcat('/api/twitter/uploadMedia/chunk/v2/init', {
             total_bytes: fileSize,
             media_type: file.type,
             media_category: getTwitterMediaCategory(file.type as FileMimeType, 'tweet', options),
@@ -86,20 +88,29 @@ export async function uploadToTwitterWithChunks(
     );
 
     // upload chunks
-    await uploadChunks(chunks, mediaInfo.data.media_id);
+    await uploadChunks(chunks, mediaInfo.id);
 
     // Finish upload
-    const { data } = await twitterSessionHolder.fetch<{ data: GetUploadStatusResponse }>(
-        urlcat('/api/twitter/uploadMedia/chunk', {
-            media_id: mediaInfo.data.media_id,
+    const result = await twitterSessionHolder.fetch<{ data: FinishUploadResponseV2 }>(
+        urlcat('/api/twitter/uploadMedia/chunk/v2', {
+            media_id: mediaInfo.id,
         }),
         { method: 'POST' },
     );
+    const { data } = result;
+    if (data?.processing_info?.check_after_secs > 0) {
+        await delay(data.processing_info.check_after_secs);
+    }
 
     // small size media will be success immediately, no need to wait
     if (data?.processing_info && data.processing_info.state !== UploadMediaStatus.Success) {
-        await waitForUpload(mediaInfo.data.media_id);
+        await waitForUpload(mediaInfo.id);
     }
 
-    return mediaInfo;
+    return {
+        media_id: mediaInfo.id,
+        media_id_string: mediaInfo.id,
+        size: file.size,
+        expires_after_secs: mediaInfo.expires_after_secs,
+    };
 }

@@ -13,6 +13,12 @@ export interface UploadMediaResponse {
     expires_after_secs: number;
 }
 
+export interface UploadMediaResponseV2 {
+    id: string;
+    media_key: string;
+    expires_after_secs: number;
+}
+
 export interface GetUploadStatusResponse {
     media_id: string;
     media_id_string: string;
@@ -26,5 +32,26 @@ export interface GetUploadStatusResponse {
             name: string;
             message: string;
         };
+    };
+}
+
+export interface FinishUploadResponseV2 {
+    id: string;
+    media_key: string;
+    size: number;
+    expires_after_secs: number;
+    processing_info: {
+        state: UploadMediaStatus;
+        check_after_secs: number;
+    };
+}
+
+export interface GetUploadStatusResponseV2 {
+    id: string;
+    media_key: string;
+    processing_info: {
+        state: UploadMediaStatus;
+        check_after_secs?: number;
+        error?: { message: string };
     };
 }

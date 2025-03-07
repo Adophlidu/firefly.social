@@ -41,7 +41,7 @@ export function useActivityCurrentAccountProfileId(source: SocialSource): string
             case Source.Twitter:
                 return data?.rawConnections.twitter.connected[0]?.id;
             case Source.Bsky:
-                return data?.rawConnections.bsky.connected[0].id;
+                return data?.rawConnections.bsky.connected[0]?.id;
             default:
                 safeUnreachable(source);
                 return;

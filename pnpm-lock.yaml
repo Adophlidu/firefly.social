@@ -365,8 +365,8 @@ importers:
         specifier: ^14.0.0
         version: 14.0.0
       twitter-api-v2:
-        specifier: ^1.17.2
-        version: 1.17.2
+        specifier: ^1.20.2
+        version: 1.20.2
       typescript:
         specifier: 5.7.3
         version: 5.7.3
@@ -22687,8 +22687,8 @@ packages:
     resolution: {integrity: sha512-9DUOTGLOWs0pFWnh1p6NF+C3CkQ96PWmEFwhOVmT3WbecRC+68AIqpsnJXygfkFcp4aXbOp8Dwbhh/HQgvoRxA==}
     dev: false
 
-  /twitter-api-v2@1.17.2:
-    resolution: {integrity: sha512-V8QvCkuQ+ydIakwYbVC4cuQxGlvjdRZI0L7TT5v9zGsf+SwX40rv3IFRHB8Z1cXJLcRFT0FI3xG3/f4zwS6cRA==}
+  /twitter-api-v2@1.20.2:
+    resolution: {integrity: sha512-0Q+yJetijJon8rctNuy7kDfHK4/8rZw6ZRO0Ix7K7+tuk2eZN5j0loeBpEsijxO+dEW+YxGhq1V7FhjUJwAQJw==}
     dev: false
 
   /twitter-text@3.1.0:
@@ -24935,7 +24935,7 @@ time:
   /ts-results-es@4.0.0: '2023-08-08T10:13:15.427Z'
   /tweetnacl@1.0.3: '2020-02-10T19:49:05.829Z'
   /twemoji-parser@14.0.0: '2022-03-11T07:32:07.545Z'
-  /twitter-api-v2@1.17.2: '2024-07-12T16:41:43.087Z'
+  /twitter-api-v2@1.20.2: '2025-02-25T21:51:56.912Z'
   /twitter-text@3.1.0: '2020-03-31T18:30:37.518Z'
   /typechain@8.3.1: '2023-07-24T07:52:39.458Z'
   /typescript@5.7.3: '2025-01-08T19:05:34.766Z'
