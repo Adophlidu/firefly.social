@@ -22,6 +22,7 @@ export function formatFireflyProfilesFromWalletProfiles(profiles: WalletProfiles
                     source: Source.Wallet,
                 },
                 displayName: x.primary_ens || formatEthereumAddress(x.address, 4),
+                isDefault: x.isDefault,
                 __origin__: patchWalletProfile(x),
             })),
             ...profiles.solanaWalletProfiles.map((x) => ({
@@ -30,6 +31,7 @@ export function formatFireflyProfilesFromWalletProfiles(profiles: WalletProfiles
                     source: Source.Wallet,
                 },
                 displayName: x.primary_ens || formatSolanaAddress(x.address, 4),
+                isDefault: x.isDefault,
                 __origin__: patchWalletProfile(x),
             })),
             ...profiles.farcasterProfiles.map((x) => ({
@@ -39,6 +41,7 @@ export function formatFireflyProfilesFromWalletProfiles(profiles: WalletProfiles
                 },
                 displayName: x.username,
                 __origin__: x,
+                isDefault: x.isDefault,
             })),
             ...profiles.lensProfilesV3.map((x) => ({
                 identity: {
@@ -46,6 +49,7 @@ export function formatFireflyProfilesFromWalletProfiles(profiles: WalletProfiles
                     source: Source.Lens,
                 },
                 displayName: x.localName,
+                isDefault: x.isDefault,
                 __origin__: x,
             })),
             ...profiles.twitterProfiles.map((x) => ({
@@ -54,6 +58,7 @@ export function formatFireflyProfilesFromWalletProfiles(profiles: WalletProfiles
                     source: Source.Twitter,
                 },
                 displayName: x.handle,
+                isDefault: x.isDefault,
                 __origin__: x,
             })),
             ...profiles.bskyProfiles.map((x) => {
@@ -64,6 +69,7 @@ export function formatFireflyProfilesFromWalletProfiles(profiles: WalletProfiles
                         id: identityId,
                         source: Source.Bsky,
                     },
+                    isDefault: x.isDefault,
                     displayName: x.handle,
                     __origin__: x,
                 };

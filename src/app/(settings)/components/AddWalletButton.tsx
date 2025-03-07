@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/react/macro';
+import { useQueryClient } from '@tanstack/react-query';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -18,11 +19,13 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
     ref,
     ...rest
 }) {
+    const queryClient = useQueryClient();
     const [{ loading }, handleAddWallet] = useAsyncFn(async () => {
         await AddWalletModalRef.openAndWaitForClose({
             connections,
         });
-    }, [connections]);
+        await queryClient.refetchQueries({ queryKey: ['my-wallet-connections'] });
+    }, [connections, queryClient]);
 
     return (
         <ClickableButton

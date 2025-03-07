@@ -30,7 +30,7 @@ export const DiscoverPostList = memo<{ source: SocialSource | Source.Posts }>(fu
         })),
         (data) => {
             const posts = data.pages.flatMap((page) =>
-                page.data.sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0)),
+                page.data.concat().sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0)),
             );
             return uniqBy(posts, (post) => {
                 if (post.mirrors?.length || post.type === 'Mirror') return `${post.postId}:mirror`;

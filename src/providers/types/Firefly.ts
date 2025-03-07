@@ -489,6 +489,7 @@ export interface WalletProfile {
     primary_ens?: string | null;
     blocked?: boolean;
     hacked?: boolean;
+    isDefault?: boolean;
 }
 
 export interface LensV3Profile {
@@ -497,6 +498,7 @@ export interface LensV3Profile {
     nameSpace: string;
     localName: string;
     fullHandle: string;
+    isDefault?: boolean;
 }
 
 export interface FarcasterProfile {
@@ -515,6 +517,7 @@ export interface FarcasterProfile {
     signer_address: string;
     addresses: string[];
     id: number;
+    isDefault?: boolean;
 }
 
 // TODO: bluesky profile
@@ -541,11 +544,13 @@ export interface TwitterProfile {
     handle: string;
     source: string;
     provider: string;
+    isDefault?: boolean;
 }
 
 export interface BskyProfile {
     did: string;
     handle: string;
+    isDefault?: boolean;
 }
 
 export interface WalletProfiles {
@@ -576,6 +581,7 @@ export type WalletProfileResponse = Response<WalletProfiles>;
 export interface FireflyProfile {
     identity: FireflyIdentity;
     displayName: string;
+    isDefault?: boolean;
     __origin__: WalletProfile | LensV3Profile | FarcasterProfile | TwitterProfile | BskyProfile | null;
 }
 
@@ -769,7 +775,6 @@ export type GetLensSuggestedFollowUserResponse = Response<{
 
 export interface LensConnection extends LensV3Profile {
     connectedAt?: string;
-    isDefault?: boolean;
     ownedBy: string;
 }
 

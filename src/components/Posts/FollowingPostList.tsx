@@ -55,7 +55,7 @@ export const FollowingPostList = memo<{
         })),
         (data) => {
             const posts = data.pages.flatMap((page) =>
-                page.data.sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0)),
+                page.data.concat().sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0)),
             );
             const uniqPosts = uniqBy(posts, (post) => {
                 if (post.mirrors?.length || post.type === 'Mirror') return `${post.postId}:mirror`;

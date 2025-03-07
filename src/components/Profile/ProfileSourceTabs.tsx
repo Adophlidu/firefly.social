@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
-import type { ProfilePageSource } from '@/constants/enum.js';
+import { type ProfilePageSource } from '@/constants/enum.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -12,7 +12,8 @@ import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.
 
 export function ProfileSourceTabs({ profiles, identity }: { profiles: FireflyProfile[]; identity: FireflyIdentity }) {
     const resolveUrl = (x: ProfilePageSource) => {
-        const profile = profiles.find((profile) => profile.identity.source === x);
+        const currentSourceProfiles = profiles.filter((profile) => profile.identity.source === x);
+        const profile = currentSourceProfiles.find((profile) => profile.isDefault) ?? currentSourceProfiles[0];
         return resolveProfileUrl(x, profile?.identity.id ?? identity.id);
     };
 

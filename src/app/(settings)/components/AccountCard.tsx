@@ -72,7 +72,7 @@ function DisconnectButton({ account }: { account: Account }) {
 export function AccountCards() {
     const profileAll = useProfileStoreAll();
     const { data, isLoading, error, refetch } = useQuery({
-        queryKey: ['my-wallet-connections-with-profile', profileAll],
+        queryKey: ['my-wallet-connections', 'with-profile', profileAll],
         async queryFn() {
             const connections = await FireflyEndpointProvider.getAllConnectionsFormatted();
             const settles = await Promise.allSettled(
