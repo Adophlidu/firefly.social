@@ -8,10 +8,12 @@ import FilterIcon from '@/assets/filter.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type FollowingSource, HomeTab, Source } from '@/constants/enum.js';
+import { type FollowingSource, HomeTab, type SocialSource, Source } from '@/constants/enum.js';
 import { SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import { FollowingTimelinePlatform } from '@/providers/types/Firefly.js';
 import { useDiscoverStore } from '@/store/useDiscoverStore.js';
 
@@ -56,39 +58,72 @@ function FollowingTimelinePlatformText({ platform }: { platform: FollowingTimeli
     }
 }
 
+function PlatformItem({
+    source,
+    loginRequest = false,
+    tab,
+    onClose,
+}: {
+    tab: HomeTab;
+    source: SocialSource;
+    loginRequest?: boolean;
+    onClose?: () => void;
+}) {
+    const postTimelinePlatforms = useDiscoverStore((state) => state.postTimelinePlatforms);
+    const setFilteredPlatform = useDiscoverStore((state) => state.setFilteredPlatform);
+    const checked = postTimelinePlatforms[tab].includes(source);
+    const isLogin = useIsLogin(source);
+    return (
+        <a
+            className={classNames(
+                'flex w-full cursor-pointer flex-row items-center justify-between py-1 hover:text-main',
+                {
+                    'text-placeholder': !checked || (loginRequest && !isLogin),
+                },
+            )}
+            onClick={() => {
+                if (loginRequest && !isLogin) {
+                    onClose?.();
+                    LoginModalRef.open({
+                        source,
+                    });
+                    return;
+                }
+                setFilteredPlatform(tab, source, !checked);
+            }}
+        >
+            <span className="flex h-[22px] flex-row items-center text-medium">
+                <SocialSourceIcon source={source} width={15} height={15} className="mr-2 shrink-0" mono />
+                {resolveSourceName(source)}
+            </span>
+            {loginRequest && !isLogin ? (
+                <span className="h-5 text-medium leading-5 text-lightHighlight">
+                    <Trans>Sign in</Trans>
+                </span>
+            ) : (
+                <CircleCheckboxIcon checked={checked} />
+            )}
+        </a>
+    );
+}
+
 export function DiscoverFilter({ tab, source }: Props) {
-    const { postTimelinePlatforms, followingTimelinePlatforms, setFilteredPlatform, setFollowingTimelinePlatforms } =
-        useDiscoverStore();
+    const { followingTimelinePlatforms, setFollowingTimelinePlatforms } = useDiscoverStore();
+
     function getMenuItems() {
         switch (source) {
             case Source.Posts:
                 return SOCIAL_DISCOVER_SOURCE.map((source) => {
-                    const checked = postTimelinePlatforms[tab].includes(source);
                     return (
                         <MenuItem key={source}>
-                            <div
-                                className={classNames('flex w-full flex-row items-center justify-between py-1', {
-                                    'text-placeholder': !checked,
-                                })}
-                            >
-                                <div className="flex h-[22px] flex-row items-center text-medium">
-                                    <SocialSourceIcon
-                                        source={source}
-                                        width={15}
-                                        height={15}
-                                        className="mr-2 shrink-0"
-                                        mono
-                                    />
-                                    {resolveSourceName(source)}
-                                </div>
-                                <Checkbox
-                                    onChange={(checked) => setFilteredPlatform(tab, source, !checked)}
-                                    checked={checked}
-                                    className="cursor-pointer"
-                                >
-                                    <CircleCheckboxIcon checked={checked} />
-                                </Checkbox>
-                            </div>
+                            {({ close }) => (
+                                <PlatformItem
+                                    source={source}
+                                    tab={tab}
+                                    loginRequest={[HomeTab.Following].includes(tab)}
+                                    onClose={close}
+                                />
+                            )}
                         </MenuItem>
                     );
                 });

@@ -2,7 +2,14 @@ import { delay } from '@masknet/kit';
 import { type InfiniteData, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 
-import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import {
+    createIndicator,
+    createNextIndicator,
+    createPageable,
+    type Pageable,
+    type PageIndicator,
+} from '@/helpers/pageable.js';
+import { parseJSON } from '@/helpers/parseJSON.js';
 
 const INITIAL_PARAM = 'INITIAL_PARAM';
 
@@ -14,50 +21,56 @@ export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndic
         initialPageParam?: PageIndicator;
         timeout?: number; // ms
     }>,
-    select: (data: InfiniteData<Record<string, T>>) => D[],
+    select: (data: InfiniteData<T>) => D[],
 ) {
     type PageParams = Record<string, PageIndicator>;
-    type Data = Record<string, T>;
 
     return useSuspenseInfiniteQuery({
         queryKey,
         async queryFn({ pageParam }) {
+            const parsePageParam = parseJSON<PageParams>(pageParam) ?? {};
             const queryFns = queries.map(async (query) => {
                 const timeout = delay(query.timeout ?? 8000).then(() => null);
-                const indicator = (pageParam as PageParams)?.[query.key];
+                const indicator = parsePageParam[query.key];
                 if (!indicator) return null;
                 const indicatorId = indicator.id === INITIAL_PARAM ? undefined : indicator.id;
                 return Promise.race([
                     timeout,
-                    query.queryFn({ pageParam: indicatorId }).then((x) => ({ [query.key]: x })),
+                    query.queryFn({ pageParam: indicatorId }).then((result) => [{ key: query.key, result }]),
                 ]);
             });
             const settled = await Promise.allSettled(queryFns);
-            return compact(settled.map((x) => (x.status === 'fulfilled' ? x.value : null))).reduce<Data>(
+            const results = compact(settled.flatMap((x) => (x.status === 'fulfilled' ? x.value : null)));
+            const strIndicator = createIndicator(undefined, pageParam);
+            const strNextIndicator = createNextIndicator(
+                strIndicator,
+                JSON.stringify(
+                    results.reduce<PageParams>(
+                        (acc, { key, result }) => ({
+                            ...acc,
+                            [key]: result?.nextIndicator as PageIndicator,
+                        }),
+                        {},
+                    ),
+                ),
+            );
+            const data = results.reduce<D[]>((acc, x) => acc.concat(x.result.data), []);
+            return createPageable<D>(data, strIndicator, strNextIndicator) as T;
+        },
+        getNextPageParam(lastPage) {
+            const next = parseJSON<PageParams>(lastPage.nextIndicator?.id);
+            if (!next) return;
+            if (compact(Object.values(next)).length <= 0) return;
+            return JSON.stringify(next);
+        },
+        initialPageParam: JSON.stringify(
+            queries.reduce<PageParams>(
                 (acc, query) => ({
                     ...acc,
-                    ...query,
+                    [query.key]: query.initialPageParam ?? createIndicator(undefined, INITIAL_PARAM),
                 }),
                 {},
-            );
-        },
-        getNextPageParam(lastPage): PageParams | undefined {
-            const next = Object.entries(lastPage).reduce<Record<string, PageIndicator | undefined>>(
-                (acc, [key, page]) => ({
-                    ...acc,
-                    [key]: page?.nextIndicator,
-                }),
-                {},
-            );
-            if (compact(Object.values(next)).length <= 0) return;
-            return next as PageParams;
-        },
-        initialPageParam: queries.reduce<PageParams>(
-            (acc, query) => ({
-                ...acc,
-                [query.key]: query.initialPageParam ?? createIndicator(undefined, INITIAL_PARAM),
-            }),
-            {},
+            ),
         ),
         select,
     });

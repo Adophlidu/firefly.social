@@ -1,7 +1,6 @@
 'use client';
 
 import { t } from '@lingui/core/macro';
-import { compact } from 'lodash-es';
 import { use } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
@@ -50,7 +49,7 @@ export default function Notification(props: Props) {
             },
         })),
         (data) => {
-            const list = compact(data.pages.flatMap((x) => [...Object.values(x)].flatMap((result) => result.data)));
+            const list = data.pages.flatMap((page) => page.data);
             if (!types.length) return list;
             return list.filter((x) => types.includes(x.type));
         },

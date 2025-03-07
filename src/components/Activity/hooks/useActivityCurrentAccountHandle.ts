@@ -17,8 +17,11 @@ export function useActivityCurrentAccountHandle(source: SocialSource) {
             );
         case Source.Farcaster:
             return data?.rawConnections.farcaster.connected[0]?.username;
-        case Source.Bsky:
-            return data?.rawConnections.bsky.connected[0].handle;
+        case Source.Bsky: {
+            const prefix = 'bsky_';
+            const rawHandle = data?.rawConnections.bsky.connected[0]?.name;
+            return rawHandle?.startsWith(prefix) ? rawHandle.substring(prefix.length) : rawHandle;
+        }
         default:
             safeUnreachable(source);
             return;
@@ -36,9 +39,9 @@ export function useActivityCurrentAccountProfileId(source: SocialSource): string
             case Source.Lens:
                 return data?.rawConnections.lens.connected[0]?.lens?.[0].id;
             case Source.Twitter:
-                return data?.rawConnections.twitter.connected[0]?.twitters?.[0].id;
+                return data?.rawConnections.twitter.connected[0]?.id;
             case Source.Bsky:
-                return data?.rawConnections.bsky.connected[0]?.bsky?.[0].id;
+                return data?.rawConnections.bsky.connected[0].id;
             default:
                 safeUnreachable(source);
                 return;

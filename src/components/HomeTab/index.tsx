@@ -56,9 +56,9 @@ export function HomeTabs() {
 
     return (
         <div className="sticky top-[54px] z-20 flex w-full flex-col bg-primaryBottom md:top-0">
-            <div className="flex h-[60px] flex-col items-start px-4">
+            <div className="flex h-[60px] flex-col px-4 pt-2.5">
                 <Menu>
-                    <Menu.Button className="inline-flex h-12 items-center text-xl font-bold">
+                    <Menu.Button className="inline-flex h-full items-center text-xl font-bold">
                         {texts[currentTab]}
                         <ArrowDownCircleIcon width={24} height={24} className="ml-[15px] size-6 shrink-0" />
                     </Menu.Button>

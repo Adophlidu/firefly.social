@@ -52,9 +52,9 @@ export const useDiscoverStore = create<DiscoverState, [['zustand/persist', unkno
                 set((state) => {
                     if (!state.postTimelinePlatforms[tab]) state.postTimelinePlatforms[tab] = [];
                     if (filtered) {
-                        state.postTimelinePlatforms[tab] = state.postTimelinePlatforms[tab].filter((x) => x !== source);
-                    } else {
                         state.postTimelinePlatforms[tab] = uniq([...state.postTimelinePlatforms[tab], source]);
+                    } else {
+                        state.postTimelinePlatforms[tab] = state.postTimelinePlatforms[tab].filter((x) => x !== source);
                     }
                 });
             },

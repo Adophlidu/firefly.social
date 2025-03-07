@@ -36,7 +36,7 @@ export const FollowingPostList = memo<{
     const sources = useDiscoverStore((state) =>
         state.postTimelinePlatforms[HomeTab.Following].length <= 0
             ? SOCIAL_DISCOVER_SOURCE
-            : SOCIAL_DISCOVER_SOURCE.filter((x) => !state.postTimelinePlatforms[HomeTab.Following].includes(x)),
+            : SOCIAL_DISCOVER_SOURCE.filter((x) => state.postTimelinePlatforms[HomeTab.Following].includes(x)),
     );
     const queryResult = useMultiInfiniteQueryPageable(
         ['posts', source, 'following', isLogin, asyncStatusAll, ...sources],
@@ -55,9 +55,7 @@ export const FollowingPostList = memo<{
         })),
         (data) => {
             const posts = data.pages.flatMap((page) =>
-                Object.values(page)
-                    ?.flatMap((pageable) => pageable.data)
-                    .sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0)),
+                page.data.sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0)),
             );
             const uniqPosts = uniqBy(posts, (post) => {
                 if (post.mirrors?.length || post.type === 'Mirror') return `${post.postId}:mirror`;
