@@ -19,7 +19,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { resolveCoinGeckoTokenSymbol } from '@/helpers/resolveCoinGeckoTokenSymbol.js';
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
-import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
+import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
 import { NFTFeedTransAction } from '@/providers/types/NFTs.js';
@@ -65,7 +65,7 @@ export function NFTsActivityCellCard(props: Props) {
     return (
         <div className="relative">
             <Link
-                href={resolveNftUrl(chainId, address, tokenId)}
+                href={resolveNFTUrl(chainId, address, tokenId)}
                 className="relative flex w-auto shrink-0 flex-col"
                 data-disable-nprogress={!!data?.metadata?.video}
             >

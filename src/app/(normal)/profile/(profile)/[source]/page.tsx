@@ -8,7 +8,7 @@ import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { type ProfileCategory, Source, SourceInURL } from '@/constants/enum.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { isSocialSource } from '@/helpers/isSocialSource.js';
+import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';

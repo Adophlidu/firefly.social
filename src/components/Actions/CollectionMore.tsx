@@ -12,7 +12,7 @@ import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { openWindow } from '@/helpers/openWindow.js';
-import { resolveNftUrlByCollection } from '@/helpers/resolveNftUrl.js';
+import { resolveNFTUrlByCollection } from '@/helpers/resolveNFTUrl.js';
 import { ConfirmLeavingModalRef } from '@/modals/controls.js';
 
 export interface CollectionMoreProps extends HTMLProps<HTMLDivElement> {
@@ -42,7 +42,7 @@ export const CollectionMore = memo<CollectionMoreProps>(function CollectionMore(
                         </MenuItem>
                         <MenuItem>
                             {({ close }) => (
-                                <CopyLinkButton link={resolveNftUrlByCollection(collectionId)} onClick={close} />
+                                <CopyLinkButton link={resolveNFTUrlByCollection(collectionId)} onClick={close} />
                             )}
                         </MenuItem>
                     </>

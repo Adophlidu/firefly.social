@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation.js';
 
 import { EngagementLayout } from '@/app/(normal)/post/[source]/[id]/pages/EngagementLayout.js';
 import type { EngagementType } from '@/constants/enum.js';
-import { isSocialSource } from '@/helpers/isSocialSource.js';
+import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import type { NextPageProps } from '@/types/index.js';
 

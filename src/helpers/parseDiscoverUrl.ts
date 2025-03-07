@@ -1,6 +1,6 @@
 import { ExploreType } from '@/constants/enum.js';
 import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
-import { isDiscoverSource, isSocialDiscoverSource } from '@/helpers/isDiscoverSource.js';
+import { isDiscoverSource, isSocialDiscoverSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 
 export function parseOldDiscoverUrl(url: URL) {

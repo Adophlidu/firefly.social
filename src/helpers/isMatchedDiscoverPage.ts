@@ -1,4 +1,4 @@
-import { isDiscoverSource } from '@/helpers/isDiscoverSource.js';
+import { isDiscoverSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 
 export function isMatchedDiscoverPage(pathname: string) {

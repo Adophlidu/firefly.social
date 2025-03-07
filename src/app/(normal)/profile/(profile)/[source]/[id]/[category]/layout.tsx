@@ -13,7 +13,7 @@ import {
 import { createMetadataProfileById } from '@/helpers/createMetadataProfileById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
-import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
+import { isProfilePageSource } from '@/helpers/isSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSourceFromUrl, resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';

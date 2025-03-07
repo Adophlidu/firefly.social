@@ -1,7 +1,7 @@
 import { isEqual } from 'lodash-es';
 
 import { EMPTY_LIST, EMPTY_OBJECT } from '@/constants/index.js';
-import { defer } from '@/helpers/promise.js';
+import { defer } from '@/helpers/defer.js';
 
 export type ValueComparer<T> = (a: T, b: T) => boolean;
 const defaultComparer: ValueComparer<any> = (a, b) => a === b;

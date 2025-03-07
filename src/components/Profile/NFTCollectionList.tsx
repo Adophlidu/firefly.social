@@ -16,7 +16,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
+import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -51,7 +51,7 @@ function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
         return (
             <div className="relative">
                 <Link
-                    href={resolveNftUrl(chainId ?? ChainId.Mainnet, nftPreview.contract_address, tokenId || '0')}
+                    href={resolveNFTUrl(chainId ?? ChainId.Mainnet, nftPreview.contract_address, tokenId || '0')}
                     className="relative flex flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
                 >
                     {chainId ? (

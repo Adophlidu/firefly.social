@@ -1,7 +1,7 @@
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { createPageTitle, createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
+import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';

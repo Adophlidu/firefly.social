@@ -6,7 +6,7 @@ import { Title } from '@/components/Profile/Title.js';
 import { type ProfileCategory, Source, SourceInURL } from '@/constants/enum.js';
 import { REQUIRE_LOGIN_FOLLOWING_CATEGORY } from '@/constants/index.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
-import { isSocialSource } from '@/helpers/isSocialSource.js';
+import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';

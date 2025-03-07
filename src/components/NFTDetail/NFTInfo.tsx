@@ -27,7 +27,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
-import { resolveNftUrl, resolveNftUrlByCollection } from '@/helpers/resolveNftUrl.js';
+import { resolveNFTUrl, resolveNFTUrlByCollection } from '@/helpers/resolveNFTUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -96,14 +96,14 @@ export function NFTInfo(props: NFTInfoProps) {
 
     const collectionUrl = useMemo(() => {
         return collection?.id
-            ? resolveNftUrlByCollection(collection.id)
+            ? resolveNFTUrlByCollection(collection.id)
             : contractAddress
-              ? resolveNftUrl(chainId, contractAddress)
+              ? resolveNFTUrl(chainId, contractAddress)
               : '';
     }, [collection?.id, contractAddress, chainId]);
 
     const nftUrl = useMemo(() => {
-        return contractAddress ? resolveNftUrl(chainId, contractAddress, tokenId || '0') : '';
+        return contractAddress ? resolveNFTUrl(chainId, contractAddress, tokenId || '0') : '';
     }, [contractAddress, chainId, tokenId]);
 
     const poapTraits = usePoapTraits(traits);

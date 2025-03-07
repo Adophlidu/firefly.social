@@ -1,6 +1,7 @@
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
+import { SUPPORTED_CHANNEL_SOURCES } from '@/constants/index.js';
 
 export function isChannelSupported(source?: SocialSource) {
     if (!source) return false;
-    return [Source.Farcaster, Source.Lens].includes(source);
+    return SUPPORTED_CHANNEL_SOURCES.includes(source);
 }

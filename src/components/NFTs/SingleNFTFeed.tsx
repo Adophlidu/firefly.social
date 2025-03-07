@@ -15,7 +15,7 @@ import { type NFTFeedBodyProps } from '@/components/NFTs/NFTFeedBody.js';
 import { NFTFeedHeader } from '@/components/NFTs/NFTFeedHeader.js';
 import { Source } from '@/constants/enum.js';
 import { FIREFLY_STAMP_URL } from '@/constants/index.js';
-import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
+import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
@@ -52,7 +52,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
     const token = tokenList[0];
     const nftUrl = useMemo(() => {
         if (!token) return null;
-        return resolveNftUrl(chainId, token.contractAddress, token.id);
+        return resolveNFTUrl(chainId, token.contractAddress, token.id);
     }, [chainId, token]);
 
     const authorUrl = resolveProfileUrl(Source.Wallet, ownerAddress);

@@ -1,4 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
+import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
@@ -22,4 +23,9 @@ export function getProfileUrl(profile: Pick<Profile, 'source' | 'profileId' | 'h
             safeUnreachable(profile.source);
             return '';
     }
+}
+
+export function getTwitterProfileUrl(handle: string) {
+    if (!handle) return '';
+    return urlcat('https://twitter.com/:handle', { handle });
 }

@@ -1,5 +1,5 @@
 import { EngagementType } from '@/constants/enum.js';
-import { isSocialSource } from '@/helpers/isSocialSource.js';
+import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 
 function isEngagementType(value: string): value is EngagementType {

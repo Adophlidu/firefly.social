@@ -3,7 +3,7 @@ import { ChainId } from '@masknet/web3-shared-evm';
 import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
-import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
+import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
@@ -29,7 +29,7 @@ export async function createMetadataNFT(address: string, tokenId: string, chainI
             title,
             description,
             images,
-            url: resolveNftUrl(chainId, address),
+            url: resolveNFTUrl(chainId, address),
         },
         twitter: {
             card: 'summary_large_image',
@@ -52,7 +52,7 @@ function createCollectionMetadata(data: SimpleHash.Collection) {
             title,
             description,
             images,
-            url: resolveNftUrl(chainId, address),
+            url: resolveNFTUrl(chainId, address),
         },
         twitter: {
             card: 'summary_large_image',

@@ -1,7 +1,7 @@
 import { ChainId } from '@masknet/web3-shared-evm';
 import urlcat from 'urlcat';
 
-export function resolveNftUrl(chainId: ChainId | string | number, address: string, tokenId?: string) {
+export function resolveNFTUrl(chainId: ChainId | string | number, address: string, tokenId?: string) {
     const basePath = address ? '/nft/:chainId/:address' : '/nft/:chainId';
     if (tokenId) {
         return urlcat(`${basePath}/:tokenId`, {
@@ -16,7 +16,7 @@ export function resolveNftUrl(chainId: ChainId | string | number, address: strin
     });
 }
 
-export function resolveNftUrlByCollection(collectionId: string, tokenId?: string) {
+export function resolveNFTUrlByCollection(collectionId: string, tokenId?: string) {
     const basePath = '/nft/:collectionId';
     if (tokenId) {
         return urlcat(`${basePath}/:tokenId`, {

@@ -12,7 +12,7 @@ import { REQUIRE_LOGIN_SOURCES } from '@/constants/index.js';
 import { createMetadataPostById } from '@/helpers/createMetadataPostById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
-import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
+import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';

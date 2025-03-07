@@ -19,7 +19,7 @@ import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
-import { resolveNftUrl, resolveNftUrlByCollection } from '@/helpers/resolveNftUrl.js';
+import { resolveNFTUrl, resolveNFTUrlByCollection } from '@/helpers/resolveNFTUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useCollectionMarketInfo } from '@/hooks/useCollectionMarketInfo.js';
@@ -188,14 +188,14 @@ export const NFTPreviewer = memo(function NFTPreview({ nft, showTradeInfo }: NFT
                 ) : undefined
             }
             link={
-                chainId ? resolveNftUrl(chainId, nft.contract_address, isSolanaChain ? '0' : nft.token_id) : undefined
+                chainId ? resolveNFTUrl(chainId, nft.contract_address, isSolanaChain ? '0' : nft.token_id) : undefined
             }
             footer={
                 nft.collection?.collection_id
                     ? {
                           image: isPoap ? undefined : nft.collection.image_url,
                           name: isPoap ? nft.name : nft.collection.name,
-                          link: isPoap ? undefined : collectionId ? resolveNftUrlByCollection(collectionId) : undefined,
+                          link: isPoap ? undefined : collectionId ? resolveNFTUrlByCollection(collectionId) : undefined,
                       }
                     : undefined
             }
@@ -227,7 +227,7 @@ export const CollectionPreviewer = memo(function CollectionPreviewer({
             collection={collection}
             image={collection.image_url}
             icon={chainId ? <ChainIcon className="rounded-full" size={24} chainId={chainId} /> : undefined}
-            link={resolveNftUrlByCollection(collection.collection_id)}
+            link={resolveNFTUrlByCollection(collection.collection_id)}
             footer={{
                 name: collection.name || t`Unknown Collection`,
             }}

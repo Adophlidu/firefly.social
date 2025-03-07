@@ -1,7 +1,7 @@
 import { notFound, redirect, RedirectType } from 'next/navigation.js';
 import type { NextRequest } from 'next/server.js';
 
-import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
+import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import type { NextRequestContext } from '@/types/index.js';

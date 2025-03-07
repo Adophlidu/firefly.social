@@ -1,5 +1,5 @@
 import { PageRoute } from '@/constants/enum.js';
-import { isDiscoverSource } from '@/helpers/isDiscoverSource.js';
+import { isDiscoverSource } from '@/helpers/isSource.js';
 import { matchPath } from '@/helpers/matchPath.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 

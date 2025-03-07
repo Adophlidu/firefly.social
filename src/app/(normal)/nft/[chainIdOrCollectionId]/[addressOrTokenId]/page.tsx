@@ -8,7 +8,7 @@ import { createMetadataNFT, createMetadataNFTCollection } from '@/helpers/create
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { parseChainId } from '@/helpers/parseChainId.js';
 import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
-import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
+import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import type { NextPageProps } from '@/types/index.js';
@@ -43,7 +43,7 @@ export default async function Page(props: Props) {
     const { addressOrTokenId, chainIdOrCollectionId } = params;
 
     if (chainIdOrCollectionId === 'solana') {
-        redirect(resolveNftUrl(ChainId.Mainnet, addressOrTokenId, '0'));
+        redirect(resolveNFTUrl(ChainId.Mainnet, addressOrTokenId, '0'));
     }
     if (isNFTDetailPage(chainIdOrCollectionId, addressOrTokenId)) {
         const collection = await SimpleHashProvider.getCollectionById(chainIdOrCollectionId);

@@ -1,4 +1,4 @@
-import { isBookmarkSource } from '@/helpers/isBookmarkSource.js';
+import { isBookmarkSource } from '@/helpers/isSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 
 export function parseOldBookmarkUrl(url: URL) {

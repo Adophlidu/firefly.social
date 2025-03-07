@@ -18,7 +18,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
-import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
+import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -50,7 +50,7 @@ function getNFTItemContent(nft: SimpleHash.NFT) {
     return chainId ? (
         <Link
             className="flex cursor-pointer flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
-            href={resolveNftUrl(chainId, nft.contract_address, isSolanaChainId(chainId) ? '0' : nft.token_id)}
+            href={resolveNFTUrl(chainId, nft.contract_address, isSolanaChainId(chainId) ? '0' : nft.token_id)}
         >
             {content}
         </Link>

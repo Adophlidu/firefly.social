@@ -30,7 +30,7 @@ import { FIREFLY_MENTION, FIREFLY_TWITTER_PROFILE, PUDGY_PENGUINS_TWITTER_PROFIL
 import { type Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { replaceObjectInStringArray } from '@/helpers/replaceObjectInStringArray.js';
-import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
+import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { type ActivityInfoResponse, ActivityStatus } from '@/providers/types/Firefly.js';
@@ -49,14 +49,14 @@ export function ActivityPenguTasks({
                     <Trans>
                         You are holder of{' '}
                         <Link
-                            href={resolveNftUrl(ChainId.Mainnet, PUDGY_PENGUINS_NFT_ADDRESS)}
+                            href={resolveNFTUrl(ChainId.Mainnet, PUDGY_PENGUINS_NFT_ADDRESS)}
                             className="inline text-highlight"
                         >
                             Pudgy Penguins
                         </Link>{' '}
                         or{' '}
                         <Link
-                            href={resolveNftUrl(ChainId.Mainnet, LIL_PUDGY_NFT_ADDRESS)}
+                            href={resolveNFTUrl(ChainId.Mainnet, LIL_PUDGY_NFT_ADDRESS)}
                             className="inline text-highlight"
                         >
                             Lil Pudgy
@@ -73,14 +73,14 @@ export function ActivityPenguTasks({
                     <Trans>
                         You are holder of{' '}
                         <Link
-                            href={resolveNftUrl(ChainId.Mainnet, TRUE_PENGU_NFT_ADDRESS)}
+                            href={resolveNFTUrl(ChainId.Mainnet, TRUE_PENGU_NFT_ADDRESS)}
                             className="inline text-highlight"
                         >
                             truePengu
                         </Link>{' '}
                         or{' '}
                         <Link
-                            href={resolveNftUrl(ChainId.Mainnet, PENGU_PINS_NFT_ADDRESS)}
+                            href={resolveNFTUrl(ChainId.Mainnet, PENGU_PINS_NFT_ADDRESS)}
                             className="inline text-highlight"
                         >
                             penguPins
@@ -150,14 +150,14 @@ Submit here ${shareUrl}
                             <Trans>
                                 You are holder of{' '}
                                 <Link
-                                    href={resolveNftUrl(ChainId.Mainnet, PUDGY_PENGUINS_NFT_ADDRESS)}
+                                    href={resolveNFTUrl(ChainId.Mainnet, PUDGY_PENGUINS_NFT_ADDRESS)}
                                     className="inline text-highlight"
                                 >
                                     Pudgy Penguins
                                 </Link>{' '}
                                 or{' '}
                                 <Link
-                                    href={resolveNftUrl(ChainId.Mainnet, LIL_PUDGY_NFT_ADDRESS)}
+                                    href={resolveNFTUrl(ChainId.Mainnet, LIL_PUDGY_NFT_ADDRESS)}
                                     className="inline text-highlight"
                                 >
                                     Lil Pudgy
@@ -174,14 +174,14 @@ Submit here ${shareUrl}
                             <Trans>
                                 You are holder of{' '}
                                 <Link
-                                    href={resolveNftUrl(ChainId.Mainnet, TRUE_PENGU_NFT_ADDRESS)}
+                                    href={resolveNFTUrl(ChainId.Mainnet, TRUE_PENGU_NFT_ADDRESS)}
                                     className="inline text-highlight"
                                 >
                                     truePengu
                                 </Link>{' '}
                                 or{' '}
                                 <Link
-                                    href={resolveNftUrl(ChainId.Mainnet, PENGU_PINS_NFT_ADDRESS)}
+                                    href={resolveNFTUrl(ChainId.Mainnet, PENGU_PINS_NFT_ADDRESS)}
                                     className="inline text-highlight"
                                 >
                                     penguPins

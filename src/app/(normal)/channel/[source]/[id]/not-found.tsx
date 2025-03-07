@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation.js';
 
 import NotFound from '@/components/NotFound.js';
 import { SearchType, type SocialSourceInURL, Source } from '@/constants/enum.js';
-import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
+import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 
 export default function ChannelNotFound() {

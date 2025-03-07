@@ -6,7 +6,7 @@ import { SocialProfileContentList } from '@/components/Profile/SocialProfileCont
 import { WalletProfileContentList } from '@/components/Profile/WalletProfileContentList.js';
 import { type ProfileCategory, SocialProfileCategory, Source, WalletProfileCategory } from '@/constants/enum.js';
 import { SORTED_PROFILE_TAB_TYPE_REQUIRE_LOGIN } from '@/constants/index.js';
-import { isSocialSource } from '@/helpers/isSocialSource.js';
+import { isSocialSource } from '@/helpers/isSource.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 
 export function ProfilePageTimeline({

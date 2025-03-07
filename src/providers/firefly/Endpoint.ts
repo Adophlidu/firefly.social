@@ -33,8 +33,7 @@ import { formatLensProfileFromSuggestedFollow } from '@/helpers/formatLensProfil
 import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
-import { extractIpfsCID } from '@/helpers/ipfs.js';
-import { isBskyDid } from '@/helpers/isBskyDid.js';
+import { extractIpfsCID } from '@/helpers/isIpfsCID.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isZero } from '@/helpers/number.js';
 import {
@@ -275,7 +274,7 @@ export class FireflyEndpoint {
                             return 'walletAddress';
                     }
                 case Source.Bsky:
-                    if (isBskyDid(identity.id)) return 'bskyDid';
+                    if (identity.id.startsWith('did:plc:')) return 'bskyDid';
                     return 'bskyHandle';
                 default:
                     return '';

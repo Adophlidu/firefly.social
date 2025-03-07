@@ -29,7 +29,7 @@ import { FIREFLY_MENTION, FIREFLY_TWITTER_PROFILE, TRUMP_TWITTER_PROFILE } from 
 import type { Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { replaceObjectInStringArray } from '@/helpers/replaceObjectInStringArray.js';
-import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
+import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
@@ -91,7 +91,7 @@ export function ActivityTrumpTasks({
                     <Trans>
                         You are holder of{' '}
                         <Link
-                            href={resolveNftUrl(ChainId.Base, '0x70553bbec6f7d2c5e6e1bc02f821f6863546d11e')}
+                            href={resolveNFTUrl(ChainId.Base, '0x70553bbec6f7d2c5e6e1bc02f821f6863546d11e')}
                             className="inline text-highlight"
                         >
                             Presidential Election 2024

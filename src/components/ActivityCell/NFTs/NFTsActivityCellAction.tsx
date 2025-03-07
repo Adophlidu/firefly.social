@@ -20,7 +20,7 @@ import { Link } from '@/components/Link.js';
 import { Source } from '@/constants/enum.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
+import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
 import { NFTFeedTransAction } from '@/providers/types/NFTs.js';
@@ -48,7 +48,7 @@ function NFTsActivityCellActionCollectionName({
 
     return (
         <Link
-            href={resolveNftUrl(chainId, address)}
+            href={resolveNFTUrl(chainId, address)}
             className={tagClassName}
             onClick={(e) => {
                 e.stopPropagation();
@@ -76,7 +76,7 @@ function NFTsActivityCellActionPoapName({
     if (!asset?.metadata) return null;
 
     return (
-        <Link href={resolveNftUrl(chainId, address)} className={tagClassName}>
+        <Link href={resolveNFTUrl(chainId, address)} className={tagClassName}>
             {asset.metadata.imageURL ? (
                 <Image
                     src={asset.metadata.imageURL}

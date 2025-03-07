@@ -6,7 +6,7 @@ import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFi
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { composePollFrameUrl } from '@/helpers/getPollFrameUrl.js';
-import { isIpfs } from '@/helpers/ipfs.js';
+import { isIpfsCID } from '@/helpers/isIpfsCID.js';
 import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl, resolveEmbedMediaType } from '@/helpers/resolveEmbedMediaType.js';
@@ -109,7 +109,7 @@ export async function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType
     const incomplete =
         cast.sendFrom?.display_name === 'tako-protocol' &&
         !!content?.content?.endsWith('...') &&
-        isIpfs(cast.embeds[0]?.url);
+        isIpfsCID(cast.embeds[0]?.url);
     return {
         publicationId: cast.hash,
         type: postType,

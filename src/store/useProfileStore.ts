@@ -363,6 +363,8 @@ const useBskyStateBase = createState(
                 const profile = await BskySocialMediaProvider.getProfileById(did);
                 state.updateCurrentAccount({ profile, session: bskySessionHolder.session ?? bskySession });
             } catch (error) {
+                console.error(`[bsky store] error occurs when restore profile store ${error}`);
+
                 if (error instanceof FetchError) return;
                 console.warn('[bsky store] clean the local store because of the error', error);
 

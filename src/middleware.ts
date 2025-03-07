@@ -17,7 +17,7 @@ import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { resolveEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
-import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
+import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
@@ -120,7 +120,7 @@ export async function middleware(request: NextRequest) {
     const parsedOldNftUrl = parseOldNftUrl(request.nextUrl);
     if (parsedOldNftUrl) {
         const destination = request.nextUrl.clone();
-        destination.pathname = resolveNftUrl(parsedOldNftUrl.chainId, parsedOldNftUrl.address, parsedOldNftUrl.tokenId);
+        destination.pathname = resolveNFTUrl(parsedOldNftUrl.chainId, parsedOldNftUrl.address, parsedOldNftUrl.tokenId);
         destination.searchParams.delete('chainId');
         return NextResponse.redirect(destination);
     }

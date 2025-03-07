@@ -21,7 +21,7 @@ import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
-import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
+import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
@@ -68,7 +68,7 @@ function NFTItemContent({
     isShowChainIcon?: boolean;
     ownerCount?: number;
 }) {
-    const nftUrl = resolveNftUrl(item.chainId, item.id, item.tokenId || '0');
+    const nftUrl = resolveNFTUrl(item.chainId, item.id, item.tokenId || '0');
 
     return (
         <div className="relative">

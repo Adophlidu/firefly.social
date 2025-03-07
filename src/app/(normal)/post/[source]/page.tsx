@@ -4,7 +4,7 @@ import { notFound, redirect } from 'next/navigation.js';
 import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
 import { createMetadataPostById } from '@/helpers/createMetadataPostById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
+import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';

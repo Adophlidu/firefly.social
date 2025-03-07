@@ -7,7 +7,7 @@ import { Link } from '@/components/Link.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
+import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import type { NFTScan } from '@/providers/types/NFTScan.js';
 
 interface CollectionItemProps extends HTMLProps<HTMLAnchorElement> {
@@ -20,7 +20,7 @@ export function SearchableCollectionItem({ collection, className, onClick }: Col
     return (
         <Link
             className={classNames('flex items-center gap-x-2.5 border-b border-line p-3 hover:bg-bg', className)}
-            href={resolveNftUrl(chainId, collection.contract_address)}
+            href={resolveNFTUrl(chainId, collection.contract_address)}
             onClick={onClick}
         >
             <Image

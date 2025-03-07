@@ -4,7 +4,7 @@ import type { HTMLProps, PropsWithChildren, ReactNode } from 'react';
 
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { type SocialSource } from '@/constants/enum.js';
-import { isSocialSource } from '@/helpers/isSocialSource.js';
+import { isSocialSource } from '@/helpers/isSource.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {

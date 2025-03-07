@@ -14,7 +14,7 @@ import { Link } from '@/components/Link.js';
 import { ProfileSlide } from '@/components/SuggestedFollows/ProfileSlide.js';
 import { ExploreType, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { isSocialDiscoverSource } from '@/helpers/isDiscoverSource.js';
+import { isSocialDiscoverSource } from '@/helpers/isSource.js';
 import { mergeLists } from '@/helpers/mergeLists.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
