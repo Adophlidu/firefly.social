@@ -35,7 +35,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <html className={_cookies.get('firefly_root_class')?.value}>
             <head>
                 <Script src="/js/polyfills/base.js" strategy="beforeInteractive" />
-                <Script src="/js/browser-detector.js" defer />
                 <Script src="/js/safary.js" defer />
                 <GoogleAnalytics gaId="G-61NFDTK6LT" />
                 <meta name="theme-color" content="#ffffff" />

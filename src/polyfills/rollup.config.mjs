@@ -8,7 +8,6 @@ import { writeFileSync } from 'node:fs';
 
 const core_js_modules = data({
     targets: {
-        // also update public/js/browser-detector.js
         safari: '>=16',
         chrome: '>=103',
         firefox: '>=100',
