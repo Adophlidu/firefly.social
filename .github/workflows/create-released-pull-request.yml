@@ -1,4 +1,4 @@
-name: Draft Release Pull Request
+name: Create Release Pull Request
 
 on:
     workflow_dispatch:
@@ -14,7 +14,7 @@ on:
                     - patch
 
 jobs:
-    draft-release-pr:
+    create-release-pr:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
