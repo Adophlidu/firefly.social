@@ -170,7 +170,6 @@ export const WalletConnect = memo<ConnectedProps>(function WalletConnect({ conne
 
 export const MultipleChainWallets = memo<ConnectedProps>(function MultipleChainWallets({ connectors }) {
     const { history } = useRouter();
-    const { connectedId } = WalletConnectContext.useContainer();
 
     const validConnectors = connectors.filter((x) => x.type === 'MULTI_CHAIN' && x.name !== 'WalletConnect');
 
@@ -180,7 +179,6 @@ export const MultipleChainWallets = memo<ConnectedProps>(function MultipleChainW
             icon={CoreAssetUtil.getConnectorImage(connector)}
             name={connector.name}
             chains={connector.connectors?.map((x) => x.chain) || []}
-            disabled={connector.connectors?.some(({ id, name }) => [id, name].some((x) => connectedId.includes(x)))}
             installed
             onClick={() => {
                 if (connector.connectors?.length === 1 && connector.connectors[0]?.chain) {
