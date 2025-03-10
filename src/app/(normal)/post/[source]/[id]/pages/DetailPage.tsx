@@ -53,7 +53,7 @@ export function PostDetailPage({ id: postId, source }: Props) {
     if (isSyncing) return <Loading />;
     if (!post) notFound();
 
-    const allPosts = threads?.data || [];
+    const allPosts = threads?.data || EMPTY_LIST;
 
     return (
         <article className="min-h-screen">

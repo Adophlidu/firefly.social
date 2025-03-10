@@ -233,14 +233,31 @@ export function formatBskyPost(original: AppBskyFeedDefs.PostView) {
     return post;
 }
 
-export function formatBskyFeedPost(original: AppBskyFeedDefs.FeedViewPost): Post {
+function isReplyRef(reply: unknown): reply is AppBskyFeedDefs.ReplyRef {
+    return !!reply && typeof reply === 'object' && 'parent' in reply && 'root' in reply;
+}
+
+export function formatBskyFeedPost(original: AppBskyFeedDefs.FeedViewPost | AppBskyFeedDefs.ThreadViewPost): Post {
     let post: Post = formatBskyPostView(original.post);
     post.__original__ = original;
-    if (original.reply && AppBskyFeedDefs.isPostView(original.reply.parent)) {
+    if (AppBskyFeedDefs.isThreadViewPost(original) && AppBskyFeedDefs.isThreadViewPost(original.parent)) {
+        post.type = 'Comment';
+        post.commentOn = formatBskyFeedPost(original.parent);
+        post.parentPostId = PostAtUri.from(original.parent.post.uri).toId();
+        post.parentContentURI = original.parent.post.uri;
+    }
+    if (
+        isReplyRef(original.reply) &&
+        AppBskyFeedDefs.isPostView(original.reply.parent) &&
+        AppBskyFeedDefs.isPostView(original.reply.root)
+    ) {
         post.type = 'Comment';
         post.commentOn = formatBskyPostView(original.reply.parent);
+        post.root = formatBskyPostView(original.reply.root);
         post.parentPostId = PostAtUri.from(original.reply.parent.uri).toId();
         post.parentContentURI = original.reply.parent.uri;
+        post.rootPostId = PostAtUri.from(original.reply.root.uri).toId();
+        post.rootContentURI = original.reply.root.uri;
         if (isSamePost(post.commentOn, post.root)) {
             delete post.commentOn;
         }
