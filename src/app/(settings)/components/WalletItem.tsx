@@ -15,7 +15,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { WalletSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress, formatSolanaAddress } from '@/helpers/formatAddress.js';
-import { resolveDefaultConnectionPlatform } from '@/helpers/resolveDefaultConnectionPlatform.js';
+import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
@@ -28,6 +28,7 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
     const isDark = useIsDarkMode();
 
     const isMPCWallet = connection.source === WalletSource.Particle;
+    const isConnected = 'isDefault' in connection && connection.isConnected;
 
     const Icon = isMPCWallet
         ? FireflyLogo
@@ -41,9 +42,9 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
         <div className="inline-flex h-[63px] w-full items-center justify-start gap-2 rounded-lg border border-line bg-white bg-bottom px-3 py-2 text-medium text-lightMain backdrop-blur dark:bg-bg">
             {!noAction ? (
                 <>
-                    {'isDefault' in connection && connection.isConnected ? (
+                    {isConnected ? (
                         <PrimaryButton
-                            platform={resolveDefaultConnectionPlatform(connection.platform)}
+                            platform={resolveConnectionPlatform(connection.platform)}
                             platformId={connection.address}
                             isDefault={connection.isDefault}
                             tooltipContent={
@@ -91,12 +92,18 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
                     <CopyTextButton text={connection.address} />
                 </div>
             </div>
-            {noAction ? null : !connection.canReport ? (
-                isMPCWallet ? null : (
-                    <DisconnectBindAddressButton connection={connection} />
-                )
-            ) : (
-                <ReportButton connection={connection} />
+            {noAction ? null : (
+                <>
+                    {connection.canReport ? (
+                        <ReportButton connection={connection} />
+                    ) : (
+                        <>
+                            {isMPCWallet ? null : (
+                                <>{isConnected ? <DisconnectBindAddressButton connection={connection} /> : null}</>
+                            )}
+                        </>
+                    )}
+                </>
             )}
         </div>
     );

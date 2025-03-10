@@ -8,7 +8,7 @@ import { type Address, type Hex, isAddress, isHex } from 'viem';
 import { queryClient } from '@/configs/queryClient.js';
 import { DEBANK_CHAIN_TO_CHAIN_ID_MAP, DEBANK_CHAINS } from '@/constants/chain.js';
 import {
-    DefaultConnectionPlatform,
+    ConnectionPlatform,
     FireflyPlatform,
     Locale,
     NetworkType,
@@ -643,13 +643,13 @@ export class FireflyEndpoint {
         });
     }
 
-    async disconnectAccount(identity: FireflyIdentity) {
+    async disconnectAccount(connectionId: string, connectionPlatform: ConnectionPlatform) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection');
         await fireflySessionHolder.fetch<EmptyResponse>(url, {
             method: 'DELETE',
             body: JSON.stringify({
-                connectionPlatform: resolveSourceInUrl(identity.source),
-                connectionId: identity.id,
+                connectionPlatform,
+                connectionId,
             }),
         });
     }
@@ -1069,7 +1069,7 @@ export class FireflyEndpoint {
         return resolveFireflyResponseData(response);
     }
 
-    async updateDefaultConnection(platformId: string | number, platform: DefaultConnectionPlatform) {
+    async updateDefaultConnection(platformId: string | number, platform: ConnectionPlatform) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, `/v2/wallet/updateDefaultConnection`);
         await fireflySessionHolder.fetchWithSession(url, {
             method: 'POST',

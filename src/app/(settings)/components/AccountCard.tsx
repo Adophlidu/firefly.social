@@ -6,7 +6,6 @@ import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useAsyncFn } from 'react-use';
 
-import { DisconnectBindAddressButton } from '@/app/(settings)/components/DisconnectBindAddressButton.js';
 import { PrimaryButton } from '@/app/(settings)/components/PrimaryButton.js';
 import DisconnectIcon from '@/assets/disconnect.svg';
 import InfoIcon from '@/assets/info-outline.svg';
@@ -16,13 +15,12 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { type SocialSource, WalletSource } from '@/constants/enum.js';
-import { SOCIAL_SOURCE_WITH_ADDRESS, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { type SocialSource } from '@/constants/enum.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { resolveDefaultConnectionPlatform } from '@/helpers/resolveDefaultConnectionPlatform.js';
+import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { DisconnectFireflyAccountModalRef } from '@/modals/controls.js';
@@ -30,7 +28,7 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Account } from '@/providers/types/Account.js';
 import { getSocialConnectionsWithProfile } from '@/services/getSocialConnectionsWithProfile.js';
 
-function DisconnectButton({ account }: { account: Account }) {
+function DisconnectButton({ account }: { account: Pick<Account, 'profile' | 'origin'> }) {
     const all = useProfileStoreAll();
     const [{ loading }, disconnect] = useAsyncFn(async () => {
         const accounts = Object.keys(all)
@@ -132,27 +130,18 @@ export function AccountCards() {
                                 </span>
                             </div>
                             {items.map(({ connection, profile, account }) => {
-                                const walletConnection = SOCIAL_SOURCE_WITH_ADDRESS.includes(profile.source)
-                                    ? [...data.connected, ...data.related].find((x) => {
-                                          return x.identities.some((identity) =>
-                                              isSameFireflyIdentity(
-                                                  { id: profile.profileId, source: profile.source },
-                                                  identity,
-                                              ),
-                                          );
-                                      })
-                                    : undefined;
-                                const isMPCWallet = walletConnection?.source === WalletSource.Particle;
-
+                                const isConnected =
+                                    ('connectedAt' in connection && connection.connectedAt) ||
+                                    ('connected' in connection && connection.connected);
                                 return (
                                     <div
                                         key={profile.profileId}
                                         className="inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg border border-line bg-white bg-bottom px-3 py-2 backdrop-blur dark:bg-bg"
                                     >
-                                        {connection.connectedAt ? (
+                                        {isConnected ? (
                                             <PrimaryButton
                                                 platformId={profile.profileId}
-                                                platform={resolveDefaultConnectionPlatform(source)}
+                                                platform={resolveConnectionPlatform(source)}
                                                 isDefault={connection.isDefault}
                                                 tooltipContent={
                                                     connection.isDefault ? (
@@ -181,10 +170,8 @@ export function AccountCards() {
                                         )}
                                         <ProfileAvatar profile={profile} size={36} />
                                         <ProfileName profile={profile} />
-                                        {account?.session ? (
-                                            <DisconnectButton account={account} />
-                                        ) : isMPCWallet ? null : walletConnection ? (
-                                            <DisconnectBindAddressButton connection={walletConnection} />
+                                        {isConnected ? (
+                                            <DisconnectButton account={{ profile, origin: account?.origin }} />
                                         ) : null}
                                     </div>
                                 );

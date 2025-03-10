@@ -16,6 +16,7 @@ import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';
 import { parseFollowingPageUrl } from '@/helpers/parseFollowingPageUrl.js';
 import { resolveHomeUrl } from '@/helpers/resolveHomeUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useIsLoginDiscoverSource } from '@/hooks/useIsLogin.js';
 
 const types = {
     [HomeTab.Discover]: [Source.Posts, Source.NFTs, Source.Article, Source.DAOs],
@@ -48,6 +49,7 @@ export function HomeTabs() {
             source: Source.Posts,
         } as const;
     }, [pathname]);
+    const isLogin = useIsLoginDiscoverSource();
 
     const texts = {
         [HomeTab.Discover]: <Trans>For You</Trans>,
@@ -56,49 +58,57 @@ export function HomeTabs() {
 
     return (
         <div className="sticky top-[54px] z-20 flex w-full flex-col bg-primaryBottom md:top-0">
-            <div className="flex h-[60px] flex-col px-4 pt-2.5">
-                <Menu>
-                    {({ close }) => (
-                        <>
-                            <MenuButton
-                                className="mr-auto inline-flex h-full items-center text-xl font-bold"
-                                onMouseEnter={(e) => e.currentTarget.click()}
-                            >
-                                {texts[currentTab]}
-                                <ArrowDownCircleIcon width={24} height={24} className="ml-[15px] size-6 shrink-0" />
-                            </MenuButton>
-                            <MenuItems
-                                onMouseLeave={() => close()}
-                                transition
-                                anchor="bottom start"
-                                className="z-50 w-[128px] origin-top-left !overflow-visible text-xl font-bold outline-none transition data-[closed]:scale-95 data-[closed]:opacity-0"
-                            >
-                                <div className="w-full -translate-y-[50px] transform pt-[50px]">
-                                    <div className="flex w-full flex-col gap-2 overflow-y-auto rounded-[8px] bg-primaryBottom py-3 shadow-messageShadow">
-                                        {getEnumAsArray(HomeTab).map(({ value: tab }) => {
-                                            const type = types[tab].includes(allTabs[tab])
-                                                ? allTabs[tab]
-                                                : types[tab][0];
-                                            return (
-                                                <MenuItem key={tab}>
-                                                    <Link
-                                                        href={resolveHomeUrl(tab, type)}
-                                                        className={classNames('px-3 py-1 hover:opacity-100', {
-                                                            'opacity-60': currentTab !== tab,
-                                                        })}
-                                                    >
-                                                        {texts[tab]}
-                                                    </Link>
-                                                </MenuItem>
-                                            );
-                                        })}
+            {isLogin ? (
+                <div className="flex h-[60px] flex-col px-4 pt-2.5">
+                    <Menu>
+                        {({ close }) => (
+                            <>
+                                <MenuButton
+                                    className="mr-auto inline-flex h-full items-center text-xl font-bold"
+                                    onMouseEnter={(e) => e.currentTarget.click()}
+                                >
+                                    {texts[currentTab]}
+                                    <ArrowDownCircleIcon width={24} height={24} className="ml-[15px] size-6 shrink-0" />
+                                </MenuButton>
+                                <MenuItems
+                                    onMouseLeave={() => close()}
+                                    transition
+                                    anchor="bottom start"
+                                    className="z-50 w-[128px] origin-top-left !overflow-visible text-xl font-bold outline-none transition data-[closed]:scale-95 data-[closed]:opacity-0"
+                                >
+                                    <div className="w-full -translate-y-[50px] transform pt-[50px]">
+                                        <div className="flex w-full flex-col gap-2 overflow-y-auto rounded-[8px] bg-primaryBottom py-3 shadow-messageShadow">
+                                            {getEnumAsArray(HomeTab).map(({ value: tab }) => {
+                                                const type = types[tab].includes(allTabs[tab])
+                                                    ? allTabs[tab]
+                                                    : types[tab][0];
+                                                return (
+                                                    <MenuItem key={tab}>
+                                                        <Link
+                                                            href={resolveHomeUrl(tab, type)}
+                                                            className={classNames('px-3 py-1 hover:opacity-100', {
+                                                                'opacity-60': currentTab !== tab,
+                                                            })}
+                                                        >
+                                                            {texts[tab]}
+                                                        </Link>
+                                                    </MenuItem>
+                                                );
+                                            })}
+                                        </div>
                                     </div>
-                                </div>
-                            </MenuItems>
-                        </>
-                    )}
-                </Menu>
-            </div>
+                                </MenuItems>
+                            </>
+                        )}
+                    </Menu>
+                </div>
+            ) : (
+                <div className="flex h-[60px] flex-col px-4 pt-2.5">
+                    <div className="h-[50px] text-xl font-bold leading-[50px]">
+                        <Trans>Home</Trans>
+                    </div>
+                </div>
+            )}
 
             <div className="flex w-full items-center justify-between px-4 pb-3">
                 <SolidTabs<Source>

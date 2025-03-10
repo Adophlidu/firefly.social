@@ -241,6 +241,7 @@ export class BskySocialMedia implements Provider {
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const response = await bskySessionHolder.agent.app.bsky.feed.getFeed({
             feed: DISCOVER_AT_URI,
+            cursor: indicator?.id,
         });
         const data = resolveBskyResponseData(response, 'Failed to discoverPosts');
 

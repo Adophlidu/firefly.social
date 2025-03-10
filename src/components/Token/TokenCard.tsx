@@ -48,7 +48,7 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
             return tokens[0];
         },
     });
-    const attributes = detected?.contract_info.attributes;
+    const attributes = detected?.contract_info?.attributes;
     const coingecko_coin_id = attributes?.coingecko_coin_id;
 
     const { data: token } = useTokenInfo(coingecko_coin_id || address, !!coingecko_coin_id);

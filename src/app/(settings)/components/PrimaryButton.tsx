@@ -9,7 +9,7 @@ import StarOutlineIcon from '@/assets/star-outline.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import type { DefaultConnectionPlatform } from '@/constants/enum.js';
+import type { ConnectionPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
@@ -19,7 +19,7 @@ export function PrimaryButton({
     platformId,
     tooltipContent,
 }: {
-    platform: DefaultConnectionPlatform;
+    platform: ConnectionPlatform;
     platformId: string;
     isDefault?: boolean;
     tooltipContent: ReactNode;

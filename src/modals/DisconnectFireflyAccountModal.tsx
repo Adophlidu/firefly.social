@@ -14,6 +14,7 @@ import type { ThirdPartySource } from '@/constants/enum.js';
 import { SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -23,7 +24,7 @@ import type { Account } from '@/providers/types/Account.js';
 import { removeAccountByProfileId } from '@/services/account.js';
 
 export interface DisconnectFireflyAccountModalProps {
-    account: Account;
+    account: Pick<Account, 'profile' | 'origin'>;
 }
 
 export const DisconnectFireflyAccountModal = forwardRef<SingletonModalRefCreator<DisconnectFireflyAccountModalProps>>(
@@ -38,10 +39,10 @@ export const DisconnectFireflyAccountModal = forwardRef<SingletonModalRefCreator
             try {
                 if (!account) return;
                 const source = account.profile.profileSource;
-                await FireflyEndpointProvider.disconnectAccount({
-                    source,
-                    id: account.profile.profileId,
-                });
+                await FireflyEndpointProvider.disconnectAccount(
+                    account.profile.profileId,
+                    resolveConnectionPlatform(source),
+                );
                 await removeAccountByProfileId(source, account.profile.profileId);
                 captureAccountDisconnectEvent(account);
                 enqueueSuccessMessage(t`Disconnected from your social graph`);

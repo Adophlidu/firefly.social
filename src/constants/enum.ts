@@ -98,13 +98,17 @@ export enum FireflyPlatform {
     Polymarket = 'polymarket',
 }
 
-export enum DefaultConnectionPlatform {
+export enum ConnectionPlatform {
     Farcaster = 'farcaster',
     Lens = 'lens',
     Twitter = 'twitter',
     Bsky = 'bsky',
     Solana = 'solana',
     Wallet = 'wallet',
+    Firefly = 'firefly',
+    Telegram = 'telegram',
+    Apple = 'apple',
+    Google = 'google',
 }
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Bsky;

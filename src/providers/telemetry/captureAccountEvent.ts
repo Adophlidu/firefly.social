@@ -55,7 +55,7 @@ const resolveDisconnectEventId = createLookupTableResolver<LoginSource, EventId>
     },
 );
 
-export function getAccountEventParameters(account: Account) {
+export function getAccountEventParameters(account: Pick<Account, 'profile' | 'origin'>) {
     const source = account.profile.profileSource;
 
     const accounts = getProfileState(source).accounts.map((x) => [x.profile.profileId, x.profile.handle]) as Array<
@@ -154,7 +154,7 @@ export function captureAccountLogoutEvent(account: Account) {
     });
 }
 
-export function captureAccountDisconnectEvent(account: Account) {
+export function captureAccountDisconnectEvent(account: Pick<Account, 'profile' | 'origin'>) {
     return runInSafeAsync(() => {
         const source = account.profile.source;
         return TelemetryProvider.captureEvent(resolveDisconnectEventId(source), getAccountEventParameters(account));

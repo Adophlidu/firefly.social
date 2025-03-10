@@ -6,7 +6,7 @@ import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/index.js';
 
-const METHODS_BE_OVERRIDDEN = ['disconnectWallet'] as const;
+const METHODS_BE_OVERRIDDEN = ['disconnectWallet', 'disconnectAccount'] as const;
 const METHODS_BE_OVERRIDDEN_FOR_REPORT = ['reportAndDeleteWallet'] as const;
 
 function deleteWalletsFromQueryData(address: string) {
@@ -34,10 +34,12 @@ export function SetQueryDataForDeleteWallet() {
             const method = target.prototype[key] as FireflyEndpoint[K];
 
             Object.defineProperty(target.prototype, key, {
-                value: async (address: string) => {
-                    const m = method as (address: string) => ReturnType<FireflyEndpoint[K]>;
-                    const result = await m.call(target.prototype, address);
-                    deleteWalletsFromQueryData(address);
+                value: async (...args: Parameters<FireflyEndpoint[K]>) => {
+                    const m = method as unknown as (
+                        ...args: Parameters<FireflyEndpoint[K]>
+                    ) => ReturnType<FireflyEndpoint[K]>;
+                    const result = await m.call(target.prototype, ...args);
+                    deleteWalletsFromQueryData(args[0]);
                     return result;
                 },
             });

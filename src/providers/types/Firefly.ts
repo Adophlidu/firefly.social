@@ -804,7 +804,6 @@ export interface BskyConnection {
     connected: boolean;
     id: string;
     isDefault?: boolean;
-    connectedAt?: string;
     name: string;
     platform: 'bsky';
 }
