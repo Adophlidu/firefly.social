@@ -525,6 +525,11 @@ msgstr ""
 msgid "Report post"
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(account.profile.source)
+#. placeholder {1}: account.profile.handle
+msgid "You are logging into a different Firefly account by {0} account <0>@{1}</0>. Continuing will <1>log out</1> your current Firefly account."
+msgstr ""
+
 msgid "Tokens"
 msgstr ""
 
@@ -2593,9 +2598,6 @@ msgstr ""
 msgid "Get involved in the <0>Presidential Election Winner 2024</0> on Polymarket"
 msgstr ""
 
-msgid "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
-msgstr ""
-
 msgid "Discard"
 msgstr ""
 
@@ -2999,9 +3001,6 @@ msgid "No oversupply minting."
 msgstr ""
 
 msgid "No money laundering found."
-msgstr ""
-
-msgid "Accounts Connected"
 msgstr ""
 
 msgid "Failed to claim token"
@@ -3998,6 +3997,9 @@ msgid "Create a post to tell everyone about your participation. Votes can be cha
 msgstr ""
 
 msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
+msgstr ""
+
+msgid "Different Account Detected"
 msgstr ""
 
 msgid "No connected wallet."

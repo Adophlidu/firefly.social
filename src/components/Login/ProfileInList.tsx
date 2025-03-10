@@ -1,12 +1,17 @@
+import { Trans } from '@lingui/react/macro';
+
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { Link } from '@/components/Link.js';
 import { ProfileAvatar, type ProfileAvatarProps } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileInListProps {
     selected?: boolean;
     selectable?: boolean;
+    viewable?: boolean;
     profile: Profile;
     onSelect?: (profile: Profile) => void;
     profileAvatarProps?: Partial<ProfileAvatarProps>;
@@ -15,6 +20,7 @@ interface ProfileInListProps {
 export function ProfileInList({
     selected = false,
     selectable = true,
+    viewable = false,
     profile,
     onSelect,
     profileAvatarProps,
@@ -31,7 +37,17 @@ export function ProfileInList({
                 <ProfileAvatar profile={profile} size={48} {...profileAvatarProps} />
             </div>
             <ProfileName profile={profile} />
-            {selectable ? <CircleCheckboxIcon className="shrink-0" checked={selected} /> : null}
+            {selectable ? (
+                <CircleCheckboxIcon className="shrink-0" checked={selected} />
+            ) : viewable ? (
+                <Link
+                    className="shrink-0 text-highlight"
+                    href={resolveProfileUrl(profile.source, profile.profileId)}
+                    target="_blank"
+                >
+                    <Trans>View</Trans>
+                </Link>
+            ) : null}
         </>
     );
 

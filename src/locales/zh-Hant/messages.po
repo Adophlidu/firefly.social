@@ -530,6 +530,11 @@ msgstr "<0>發送</0>一個 NFT"
 msgid "Report post"
 msgstr "檢舉貼文"
 
+#. placeholder {0}: resolveSourceName(account.profile.source)
+#. placeholder {1}: account.profile.handle
+msgid "You are logging into a different Firefly account by {0} account <0>@{1}</0>. Continuing will <1>log out</1> your current Firefly account."
+msgstr ""
+
 msgid "Tokens"
 msgstr ""
 
@@ -2598,9 +2603,6 @@ msgstr ""
 msgid "Get involved in the <0>Presidential Election Winner 2024</0> on Polymarket"
 msgstr ""
 
-msgid "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
-msgstr "您目前已經登錄了另一個 Firefly 帳戶。繼續會 <0>覆蓋</0> 您現有的帳戶"
-
 msgid "Discard"
 msgstr "捨棄"
 
@@ -3004,9 +3006,6 @@ msgid "No oversupply minting."
 msgstr ""
 
 msgid "No money laundering found."
-msgstr ""
-
-msgid "Accounts Connected"
 msgstr ""
 
 msgid "Failed to claim token"
@@ -4003,6 +4002,9 @@ msgid "Create a post to tell everyone about your participation. Votes can be cha
 msgstr ""
 
 msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
+msgstr ""
+
+msgid "Different Account Detected"
 msgstr ""
 
 msgid "No connected wallet."

@@ -183,33 +183,29 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
     // resolve conflicted firefly sessions
     if (!skipResumeFireflyAccounts && fireflySession && !belongsTo) {
-        const accounts = account.session.type === SessionType.Firefly ? [] : [account];
+        LoginModalRef.close();
 
-        if (accounts.length) {
-            LoginModalRef.close();
+        const confirmed = await ConfirmFireflyModalRef.openAndWaitForClose({
+            account,
+        });
 
-            const confirmed = await ConfirmFireflyModalRef.openAndWaitForClose({
-                accounts,
-            });
+        captureSyncModalEvent(fireflySession.profileId, confirmed);
 
-            captureSyncModalEvent(fireflySession.profileId, confirmed);
-
-            if (confirmed) {
-                await updateState(accounts, !belongsTo);
-            } else {
-                // sign out tw from server if needed
-                if (TwitterSession.isNextAuth(account.session)) {
-                    await signOut({
-                        redirect: false,
-                    });
-                }
-
-                // the user rejected to store conflicting accounts
-                if (!belongsTo) return false;
-
-                // the user rejected to restore accounts from firefly
-                if (account.session.type === SessionType.Firefly) return false;
+        if (confirmed) {
+            await updateState([account], !belongsTo);
+        } else {
+            // sign out tw from server if needed
+            if (TwitterSession.isNextAuth(account.session)) {
+                await signOut({
+                    redirect: false,
+                });
             }
+
+            // the user rejected to store conflicting accounts
+            if (!belongsTo) return false;
+
+            // the user rejected to restore accounts from firefly
+            if (account.session.type === SessionType.Firefly) return false;
         }
     }
 

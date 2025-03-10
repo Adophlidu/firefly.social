@@ -1,18 +1,19 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { compact } from 'lodash-es';
 import { forwardRef } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { Link } from '@/components/Link.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConfirmFireflyModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 
 export interface ConfirmFireflyModalOpenProps {
-    accounts: Account[];
+    account: Account;
 }
 
 export type ConfirmFireflyModalCloseProps = boolean;
@@ -22,36 +23,37 @@ export const ConfirmFireflyModal = forwardRef<
 >(function ConfirmFireflyModal(_, ref) {
     useSingletonModal(ref, {
         onOpen: async (props) => {
-            const { accounts } = props;
+            const { account } = props;
 
             ConfirmModalRef.open({
-                title: t`Accounts Connected`,
+                title: t`Different Account Detected`,
                 content: (
                     <div>
                         <p className="mb-2 mt-[-8px] text-medium font-medium leading-normal text-second">
                             <Trans>
-                                You are logging into a different Firefly account. Continuing will{' '}
-                                <strong className="text-danger">overwrite</strong> your current accounts.
+                                You are logging into a different Firefly account by{' '}
+                                {resolveSourceName(account.profile.source)} account{' '}
+                                <Link
+                                    href={resolveProfileUrl(account.profile.source, account.profile.profileId)}
+                                    target="_blank"
+                                >
+                                    @{account.profile.handle}
+                                </Link>
+                                . Continuing will <span className="text-danger">log out</span> your current Firefly
+                                account.
                             </Trans>
                         </p>
-                        <menu className="no-scrollbar flex max-h-[192px] flex-col gap-3 overflow-auto pb-4 pt-2">
-                            {accounts
-                                .sort((a, b) => {
-                                    const aIndex = SORTED_SOCIAL_SOURCES.indexOf(a.profile.source);
-                                    const bIndex = SORTED_SOCIAL_SOURCES.indexOf(b.profile.source);
-                                    return aIndex - bIndex;
-                                })
-                                .map(({ profile }) => (
-                                    <ProfileInList
-                                        key={profile.profileId}
-                                        selected
-                                        selectable={false}
-                                        profile={profile}
-                                        profileAvatarProps={{
-                                            enableSourceIcon: true,
-                                        }}
-                                    />
-                                ))}
+                        <menu className="no-scrollbar mb-6 flex max-h-[192px] flex-col gap-3 overflow-auto rounded-md border border-highlight border-line p-2">
+                            <ProfileInList
+                                key={account.profile.profileId}
+                                selected
+                                selectable={false}
+                                viewable
+                                profile={account.profile}
+                                profileAvatarProps={{
+                                    enableSourceIcon: true,
+                                }}
+                            />
                         </menu>
                         <div className="flex gap-2">
                             <ClickableButton
@@ -65,7 +67,6 @@ export const ConfirmFireflyModal = forwardRef<
                             </ClickableButton>
                             <ClickableButton
                                 className="box-border flex h-10 flex-1 items-center justify-center rounded-full bg-main text-medium font-bold text-primaryBottom"
-                                disabled={compact(Object.values(accounts)).length === 0}
                                 onClick={() => {
                                     ConfirmModalRef.close(true);
                                     ConfirmFireflyModalRef.close(true);
