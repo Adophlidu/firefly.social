@@ -7,7 +7,7 @@ import { resolveNFTId, resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromA
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
-import type { NFTFeed } from '@/providers/types/NFTs.js';
+import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
 import type { ClassType } from '@/types/index.js';
 
 const METHODS_BE_OVERRIDDEN = ['bookmarkNFT', 'unbookmarkNFT'] as const;
@@ -43,6 +43,16 @@ function toggleBlock(id: string, status: boolean) {
             feed.trans.token_list.forEach((token) => {
                 if (resolveNFTId(resolveNFTFeedChainId(feed), feed.trans.token_address, token.id) === id) {
                     token.bookmarked = status;
+                }
+            });
+        }),
+    );
+    queryClient.setQueriesData<PageData<FollowingNFT>>(
+        { queryKey: ['nfts-of'] },
+        createUpdater<FollowingNFT>((nftData) => {
+            nftData.actions.forEach((action) => {
+                if (action.nft && resolveNFTIdFromAsset(action.nft) === id) {
+                    action.nft.hasBookmarked = status;
                 }
             });
         }),

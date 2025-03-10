@@ -5,11 +5,11 @@ import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 
 export function resolveNFTId(chainId: number, address: string, tokenId: string) {
     if (isValidSolanaChainId(chainId)) {
-        return `solana.${address}`;
+        return `solana.${address.toLocaleLowerCase()}`;
     }
 
     const chain = resolveSimpleHashChain(chainId) || 'ethereum';
-    return `${chain}.${address}.${tokenId}`;
+    return `${chain}.${address.toLocaleLowerCase()}.${tokenId}`;
 }
 
 export function resolveNFTIdFromAsset(asset: NonFungibleAsset<number, number>) {

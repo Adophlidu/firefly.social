@@ -45,7 +45,7 @@ import {
 } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveNFTFeedChainId } from '@/helpers/resolveNFTFeedChainId.js';
-import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
+import { resolveNFTId, resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
@@ -599,6 +599,9 @@ export class FireflyEndpoint {
                 ),
             );
         });
+        const bookmarks = nftIds.length
+            ? await runInSafeAsync(() => FireflySocialMediaProvider.getBookmarksByIds(FireflyPlatform.NFTs, nftIds))
+            : [];
         const simpleHashNFTs = await SimpleHashProvider.getNFTByIds(nftIds);
         const nfts = compact(simpleHashNFTs.map((x) => formatSimpleHashNFT(x, true)));
         const data = response.data.result
@@ -608,7 +611,12 @@ export class FireflyEndpoint {
                         const nft = nfts.find(
                             (x) => x.tokenId === action.token_id && isSameAddress(x.address, action.contract_address),
                         );
-                        if (nft) action.nft = nft;
+                        if (nft)
+                            action.nft = {
+                                ...nft,
+                                hasBookmarked: bookmarks?.find((x) => x.post_id === resolveNFTIdFromAsset(nft))
+                                    ?.has_book_marked,
+                            };
                         return action;
                     });
                 });

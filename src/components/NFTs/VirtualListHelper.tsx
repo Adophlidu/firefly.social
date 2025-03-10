@@ -73,6 +73,7 @@ export function getSingleFollowingNFTItemContent(
                     id: token_id,
                     contractAddress: contract_address,
                     nft: action.nft,
+                    bookmarked: action.nft.hasBookmarked,
                     action: {
                         action: nft.type,
                         toAddress: address_to,
