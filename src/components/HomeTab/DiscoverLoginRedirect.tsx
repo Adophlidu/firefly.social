@@ -1,3 +1,5 @@
+'use client';
+
 import { redirect, RedirectType } from 'next/navigation.js';
 import { useEffect, useRef } from 'react';
 
