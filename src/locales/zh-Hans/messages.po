@@ -1163,6 +1163,9 @@ msgstr "领取资格"
 msgid "You might like"
 msgstr "你也许感兴趣"
 
+msgid "Please enter at least 2 characters."
+msgstr ""
+
 msgid "Remove from Bookmarks"
 msgstr "取消收藏"
 

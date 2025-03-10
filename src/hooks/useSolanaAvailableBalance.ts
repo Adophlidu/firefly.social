@@ -19,31 +19,32 @@ export function useSolanaAvailableBalance(
     const isNativeToken = isNativeTokenAddress(address);
     const { chainId, account } = useChainContext(overrides);
 
-    const { data: nativeBalance } = useQuery({
-        queryKey: ['solana', 'balance', account],
-        enabled,
-        queryFn: () => runInSafeAsync(() => getNativeTokenBalance(account, chainId)),
-    });
-
-    const { data: balance } = useQuery({
+    const { data } = useQuery({
         queryKey: ['solana', 'balance', account, address],
         enabled,
-        queryFn: () =>
-            runInSafeAsync(async () => {
-                if (isNativeToken) {
-                    const nativeToken = SolanaChainResolver.nativeCurrency(chainId);
-                    const data = await getNativeTokenBalance(account, chainId);
-                    return {
-                        amount: data?.value,
+        staleTime: 1000 * 60, // 1 minute
+        queryFn: async () => {
+            const nativeBalance = await runInSafeAsync(() => getNativeTokenBalance(account, chainId));
+            if (isNativeToken) {
+                const nativeToken = SolanaChainResolver.nativeCurrency(chainId);
+                return {
+                    balance: {
+                        amount: nativeBalance?.value,
                         decimals: nativeToken.decimals,
-                        uiAmountString: formatBalance(data.value, nativeToken.decimals),
-                    };
-                }
+                        uiAmountString: formatBalance(nativeBalance?.value || '0', nativeToken.decimals),
+                    },
+                    nativeBalance,
+                };
+            }
 
-                const tokenAccount = await getSplTokenBalance(address, account, chainId);
-                return tokenAccount?.tokenAmount;
-            }),
+            const tokenAccount = await runInSafeAsync(() => getSplTokenBalance(address, account, chainId));
+            return {
+                balance: tokenAccount?.tokenAmount,
+                nativeBalance,
+            };
+        },
     });
+    const { balance, nativeBalance } = data || {};
 
     const gasFee = SOLANA_DEFAULT_CREATE_GAS;
 

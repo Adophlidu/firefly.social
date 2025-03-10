@@ -1158,6 +1158,9 @@ msgstr ""
 msgid "You might like"
 msgstr ""
 
+msgid "Please enter at least 2 characters."
+msgstr ""
+
 msgid "Remove from Bookmarks"
 msgstr ""
 

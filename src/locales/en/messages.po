@@ -1158,6 +1158,9 @@ msgstr "Check Eligibility"
 msgid "You might like"
 msgstr "You might like"
 
+msgid "Please enter at least 2 characters."
+msgstr "Please enter at least 2 characters."
+
 msgid "Remove from Bookmarks"
 msgstr "Remove from Bookmarks"
 
