@@ -1,12 +1,12 @@
-import { first, uniqBy } from 'lodash-es';
+import { first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
-import { getProfileSessionsAll, getProfileState } from '@/helpers/getProfileState.js';
+import { getProfileState } from '@/helpers/getProfileState.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
-import { isSameProfile, toProfileId } from '@/helpers/isSameProfile.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSessionHolder, resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -26,9 +26,7 @@ import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
-import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { downloadAccounts, downloadSessions, uploadSessions } from '@/services/metrics.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { useFireflyStateStore, useThirdPartyStateStore } from '@/store/useProfileStore.js';
@@ -48,7 +46,7 @@ function getFireflySession(account: Account) {
     return account.fireflySession;
 }
 
-function hasFireflySession() {
+function hasAnySocialProfile() {
     return (
         SORTED_SOCIAL_SOURCES.some((x) => !!getProfileState(x).currentProfile) ||
         useThirdPartyStateStore.getState().currentProfile
@@ -133,19 +131,10 @@ async function resumeFireflySession(account: Account, signal?: AbortSignal): Pro
  * @returns
  */
 async function removeFireflyAccountIfNeeded() {
-    if (hasFireflySession()) return;
+    if (hasAnySocialProfile()) return;
     useFireflyStateStore.getState().clear();
     usePreferencesState.getState().resetPreferences();
     fireflySessionHolder.removeSession();
-}
-
-async function removeFireflyMetricsIfNeeded(sessions: Session[], signal?: AbortSignal) {
-    const session = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
-    if (!session) return;
-
-    const downloadedSessions = await downloadSessions(session, signal);
-    const filteredSessions = downloadedSessions.filter((x) => !sessions.find((y) => isSameSession(x, y)));
-    await uploadSessions('override', session, filteredSessions, signal);
 }
 
 export interface AccountOptions {
@@ -153,8 +142,6 @@ export interface AccountOptions {
     setAsCurrent?: boolean | ((account: Account) => Promise<void>);
     // skip the belongs to check, default: false
     skipBelongsToCheck?: boolean;
-    // skip updating metrics, default: false
-    skipUploadFireflySession?: boolean;
     // resume accounts from firefly, default: false
     skipResumeFireflyAccounts?: boolean;
     // resume the firefly session, default: false
@@ -171,7 +158,6 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         skipBelongsToCheck = false,
         skipResumeFireflyAccounts = false,
         skipResumeFireflySession = false,
-        skipUploadFireflySession = false,
         skipReportFarcasterSigner = true,
         signal,
     } = options ?? {};
@@ -183,7 +169,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
     // check if the account belongs to the current firefly session
     const belongsTo =
-        skipBelongsToCheck || !fireflySession || !currentFireflySession || !hasFireflySession()
+        skipBelongsToCheck || !fireflySession || !currentFireflySession || !hasAnySocialProfile()
             ? true
             : isSameSession(currentFireflySession, fireflySession);
 
@@ -195,23 +181,14 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         });
     }
 
-    // resume accounts from firefly
-    if (!skipResumeFireflyAccounts && fireflySession) {
-        const accountsSynced = await downloadAccounts(fireflySession, signal);
-        const accountsFiltered = accountsSynced.filter((x) => {
-            const state = getProfileState(x.profile.profileSource);
-            return !state.accounts.find((y) => isSameAccount(x, y)) && !isSameAccount(x, account);
-        });
-
-        const accounts = (
-            belongsTo ? accountsFiltered : uniqBy([account, ...accountsFiltered], (x) => toProfileId(x.profile))
-        ).filter((y) => y.session.type !== SessionType.Firefly);
+    // resolve conflicted firefly sessions
+    if (!skipResumeFireflyAccounts && fireflySession && !belongsTo) {
+        const accounts = account.session.type === SessionType.Firefly ? [] : [account];
 
         if (accounts.length) {
             LoginModalRef.close();
 
             const confirmed = await ConfirmFireflyModalRef.openAndWaitForClose({
-                belongsTo,
                 accounts,
             });
 
@@ -253,14 +230,6 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     }
 
     await runInSafeAsync(async () => {
-        // upload sessions to firefly
-        if (!skipUploadFireflySession && belongsTo && account.session.type !== SessionType.Firefly) {
-            console.warn('[addAccount] upload sessions to firefly');
-            await uploadSessions('merge', fireflySessionHolder.sessionRequired, getProfileSessionsAll());
-        }
-    });
-
-    await runInSafeAsync(async () => {
         // report farcaster signer
         if (
             !skipReportFarcasterSigner &&
@@ -278,39 +247,6 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
     // account has been added to the store
     return true;
-}
-
-/**
- * Restore accounts from the currently logged-in Firefly session.
- * @param signal
- * @returns
- */
-export async function restoreCurrentAccounts(signal?: AbortSignal) {
-    const session = fireflySessionHolder.session;
-    if (!session) return false;
-
-    const accountsSynced = await downloadAccounts(session, signal);
-    const accountsFiltered = accountsSynced.filter((x) => {
-        const state = getProfileState(x.profile.profileSource);
-        return !state.accounts.find((y) => isSameAccount(x, y));
-    });
-
-    if (accountsFiltered.length) {
-        LoginModalRef.close();
-
-        const confirmed = await ConfirmFireflyModalRef.openAndWaitForClose({
-            belongsTo: true,
-            accounts: accountsFiltered,
-        });
-
-        captureSyncModalEvent(session.profileId, confirmed);
-
-        if (confirmed) {
-            await updateState(accountsFiltered, false);
-            return true;
-        }
-    }
-    return false;
 }
 
 export async function switchAccount(account: Account, signal?: AbortSignal) {
@@ -358,7 +294,6 @@ export async function removeAccountByProfileId(source: ProfileSource, profileId:
 
     await removeAccount(account);
     await removeFireflyAccountIfNeeded();
-    await removeFireflyMetricsIfNeeded([account.session]);
 }
 
 export async function removeCurrentAccount(source: SocialSource) {

@@ -93,7 +93,6 @@ export async function getSolanaTokenList(chainId: number, account: string): Prom
         ],
     });
     const nativeToken = await runInSafeAsync(() => getNativeTokenData(chainId, account));
-
     if (!programs?.result?.length) return compact([nativeToken]);
 
     const addressList = programs.result.map((program) => program.account.data.parsed.info.mint);
@@ -113,9 +112,9 @@ export async function getSolanaTokenList(chainId: number, account: string): Prom
             const splToken = splTokens?.find((token) => isSameAddress(token.address, tokenAccount.mint));
 
             const symbol = attributes?.symbol || splToken?.symbol;
-            const logoImage = splToken?.logoURI || attributes?.image_url || '';
-
             if (!symbol) return null;
+
+            const logoImage = splToken?.logoURI || attributes?.image_url || '';
 
             return {
                 chainId: ChainId.Mainnet,

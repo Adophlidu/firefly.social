@@ -231,9 +231,6 @@ msgstr "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the t
 msgid "GIF source not supported. Supported sources: {0}."
 msgstr "GIF source not supported. Supported sources: {0}."
 
-msgid "Confirm to sync accounts"
-msgstr "Confirm to sync accounts"
-
 #. placeholder {0}: error.status
 msgid "Failed to fetch: {0}. Please try again later."
 msgstr "Failed to fetch: {0}. Please try again later."
@@ -1690,9 +1687,6 @@ msgstr "Allow Follow Module"
 #. placeholder {0}: resolveSourceName(x)
 msgid "Your posts have published successfully on {0}."
 msgstr "Your posts have published successfully on {0}."
-
-msgid "Sync"
-msgstr "Sync"
 
 msgid "Description"
 msgstr "Description"

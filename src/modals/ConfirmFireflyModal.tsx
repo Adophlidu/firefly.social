@@ -12,7 +12,6 @@ import { ConfirmFireflyModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 
 export interface ConfirmFireflyModalOpenProps {
-    belongsTo: boolean;
     accounts: Account[];
 }
 
@@ -23,21 +22,17 @@ export const ConfirmFireflyModal = forwardRef<
 >(function ConfirmFireflyModal(_, ref) {
     useSingletonModal(ref, {
         onOpen: async (props) => {
-            const { belongsTo, accounts } = props;
+            const { accounts } = props;
 
             ConfirmModalRef.open({
                 title: t`Accounts Connected`,
                 content: (
                     <div>
                         <p className="mb-2 mt-[-8px] text-medium font-medium leading-normal text-second">
-                            {belongsTo ? (
-                                <Trans>Confirm to sync accounts</Trans>
-                            ) : (
-                                <Trans>
-                                    You are logging into a different Firefly account. Continuing will{' '}
-                                    <strong className="text-danger">overwrite</strong> your current accounts.
-                                </Trans>
-                            )}
+                            <Trans>
+                                You are logging into a different Firefly account. Continuing will{' '}
+                                <strong className="text-danger">overwrite</strong> your current accounts.
+                            </Trans>
                         </p>
                         <menu className="no-scrollbar flex max-h-[192px] flex-col gap-3 overflow-auto pb-4 pt-2">
                             {accounts
@@ -76,7 +71,7 @@ export const ConfirmFireflyModal = forwardRef<
                                     ConfirmFireflyModalRef.close(true);
                                 }}
                             >
-                                {belongsTo ? t`Sync` : t`Overwrite`}
+                                <Trans>Overwrite</Trans>
                             </ClickableButton>
                         </div>
                     </div>

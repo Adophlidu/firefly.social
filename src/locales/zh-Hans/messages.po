@@ -236,9 +236,6 @@ msgstr "<0>市值 = 当前价格 x 流通供应量</0><1>指加密货币流通�
 msgid "GIF source not supported. Supported sources: {0}."
 msgstr "暂不支持 GIF。支持格式：{0}。"
 
-msgid "Confirm to sync accounts"
-msgstr "确认登陆"
-
 #. placeholder {0}: error.status
 msgid "Failed to fetch: {0}. Please try again later."
 msgstr "获取失败: {0}。请稍后重试。"
@@ -1695,9 +1692,6 @@ msgstr "允许关注"
 #. placeholder {0}: resolveSourceName(x)
 msgid "Your posts have published successfully on {0}."
 msgstr "您已在 {0} 发布成功。"
-
-msgid "Sync"
-msgstr "同步"
 
 msgid "Description"
 msgstr "介绍"

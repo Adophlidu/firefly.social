@@ -236,9 +236,6 @@ msgstr ""
 msgid "GIF source not supported. Supported sources: {0}."
 msgstr ""
 
-msgid "Confirm to sync accounts"
-msgstr "確認以同步帳號"
-
 #. placeholder {0}: error.status
 msgid "Failed to fetch: {0}. Please try again later."
 msgstr ""
@@ -1695,9 +1692,6 @@ msgstr ""
 #. placeholder {0}: resolveSourceName(x)
 msgid "Your posts have published successfully on {0}."
 msgstr "你的貼文已成功發布在 {0} 上。"
-
-msgid "Sync"
-msgstr "同步"
 
 msgid "Description"
 msgstr "描述"
