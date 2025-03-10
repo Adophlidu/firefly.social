@@ -11,7 +11,8 @@ import { getSrc } from '@livepeer/react/external';
 import * as Player from '@livepeer/react/player';
 import { type MediaScopedProps, type PlayerProps, useMediaContext } from '@livepeer/react/player';
 import { type HTMLProps, memo, type MouseEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useHover, useIntersection } from 'react-use';
+import { useIntersection } from 'react-use';
+import { useHover } from 'usehooks-ts';
 import { useStore } from 'zustand';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
@@ -59,6 +60,7 @@ function VideoContent({
         rootMargin: '0px',
         threshold: 1,
     });
+    const hovered = useHover(containerRef);
 
     useEffect(() => {
         if (!intersection?.isIntersecting && playing) {
@@ -76,7 +78,13 @@ function VideoContent({
         setControlled(true);
     }, []);
 
-    const [hoverable, hovered] = useHover((isHovering: boolean) => (
+    useEffect(() => {
+        if (!hovered && playing) {
+            setHidden(true);
+        }
+    }, [hovered, playing, setHidden]);
+
+    return (
         <Player.Container ref={containerRef} className="bg-black text-white" __scopeMedia={__scopeMedia}>
             <Player.Video
                 loop={loop}
@@ -192,15 +200,7 @@ function VideoContent({
                 <span className="absolute bottom-5 left-5 z-10">{formatSecondsToHours(duration - progress)}</span>
             ) : null}
         </Player.Container>
-    ));
-
-    useEffect(() => {
-        if (!hovered && playing) {
-            setHidden(true);
-        }
-    }, [hovered, playing, setHidden]);
-
-    return hoverable;
+    );
 }
 
 export const Video = memo<VideoProps>(function Video({
