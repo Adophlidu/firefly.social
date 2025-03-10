@@ -9,7 +9,6 @@ import { ChannelSelectModal } from '@/modals/ChannelSelectModal/index.js';
 import { CollectArticleModal } from '@/modals/CollectArticleModal.js';
 import { CollectPostModal } from '@/modals/CollectPostModal.js';
 import { ComposeModal } from '@/modals/ComposeModal.js';
-import { ConfirmFireflyModal } from '@/modals/ConfirmFireflyModal.js';
 import { ConfirmLeavingModal } from '@/modals/ConfirmLeavingModal.js';
 import { ConfirmModal } from '@/modals/ConfirmModal.js';
 import * as controls from '@/modals/controls.js';
@@ -40,7 +39,6 @@ export const Modals = memo(function Modals() {
             <LogoutModal ref={controls.LogoutModalRef.register} />
             <ComposeModal ref={controls.ComposeModalRef.register} />
             <ConfirmModal ref={controls.ConfirmModalRef.register} />
-            <ConfirmFireflyModal ref={controls.ConfirmFireflyModalRef.register} />
             <ConfirmLeavingModal ref={controls.ConfirmLeavingModalRef.register} />
             <DraggablePopover ref={controls.DraggablePopoverRef.register} />
             <Snackbar ref={controls.SnackbarRef.register} />
