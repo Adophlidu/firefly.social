@@ -1481,9 +1481,6 @@ msgstr "[红包]"
 msgid "Choice {0}"
 msgstr "选项 {0}"
 
-msgid "Send Feedback"
-msgstr "提交反馈"
-
 msgid "Posted on the following apps since August 1, 2024, and new Firefly users only:"
 msgstr "自2024年8月1日起，使用以下应用程序发布过帖子；仅限新注册的Firefly用户参与："
 
@@ -1874,9 +1871,6 @@ msgstr "<0>{0}</0> 点赞"
 msgid "Fully Diluted Valuation"
 msgstr "完全稀释估值"
 
-msgid "Email (optional)"
-msgstr "邮箱（可选）"
-
 msgid "NFT Contract"
 msgstr "NFT 合约"
 
@@ -2007,9 +2001,6 @@ msgstr "点赞"
 
 msgid "Users"
 msgstr "用户"
-
-msgid "Describe a bug or suggest an improvement"
-msgstr "描述问题或者提出建议"
 
 msgid "Cryptocurrency mixer."
 msgstr "加密货币混合器。"
@@ -2418,9 +2409,6 @@ msgstr "连接Solana钱包"
 
 msgid "Exclusivity"
 msgstr "独特性"
-
-msgid "Feedback"
-msgstr "问题反馈"
 
 msgid "Your serialized session"
 msgstr "你的序列化会话"
@@ -3504,9 +3492,6 @@ msgstr "总供应量"
 msgid "Collection"
 msgstr "NFT 系列"
 
-msgid "Your name"
-msgstr "您的名字"
-
 msgid "No tax changes found for personal addresses."
 msgstr "未发现个人地址的税务变更。"
 
@@ -3589,9 +3574,6 @@ msgstr "预览"
 
 msgid "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
 msgstr "你持有<0>2024年总统选举</0> NFT 并投票给特朗普。"
-
-msgid "your.email@example.org"
-msgstr "your.email@example.org"
 
 msgid "Unmute"
 msgstr "取消隐藏"
@@ -3874,9 +3856,6 @@ msgstr "<0>你</0> 已转帖"
 
 msgid "7d"
 msgstr "7天"
-
-msgid "Name (optional)"
-msgstr "姓名（可选）"
 
 msgid "Location"
 msgstr "地点"

@@ -1,17 +1,8 @@
-import { feedbackIntegration, init, onLoad, setTag } from '@sentry/browser';
+import { browserTracingIntegration, feedbackIntegration, init, onLoad, setTag } from '@sentry/browser';
 
 import { env } from '@/constants/env.js';
 import { IS_PREVIEW, IS_PRODUCTION } from '@/constants/index.js';
 import { settings } from '@/settings/index.js';
-
-export const feedback = feedbackIntegration({
-    id: 'sentry-feedback-integration',
-    colorScheme: 'system',
-    isNameRequired: false,
-    isEmailRequired: false,
-    autoInject: false,
-    showBranding: false,
-});
 
 class SentryClient {
     private initialized = false;
@@ -27,15 +18,25 @@ class SentryClient {
         };
 
         onLoad(() => {
+            const feedback = feedbackIntegration({
+                id: 'sentry-feedback-integration',
+                colorScheme: 'system',
+                isNameRequired: false,
+                isEmailRequired: false,
+                autoInject: false,
+                showBranding: false,
+            });
+            const browserTracking = browserTracingIntegration();
+
             init({
                 dsn: env.external.NEXT_PUBLIC_SENTRY_DSN,
 
                 release: process.version,
                 environment: IS_PRODUCTION ? 'production' : IS_PREVIEW ? 'preview' : 'development',
-                integrations: [feedback],
+                integrations: [browserTracking, feedback],
 
                 tracesSampleRate: 1.0,
-                tracePropagationTargets: [],
+                tracePropagationTargets: [/mask\.social/],
 
                 replaysSessionSampleRate: 1.0,
                 replaysOnErrorSampleRate: 1.0,

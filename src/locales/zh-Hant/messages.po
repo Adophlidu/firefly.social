@@ -1481,9 +1481,6 @@ msgstr ""
 msgid "Choice {0}"
 msgstr "選擇 {0}"
 
-msgid "Send Feedback"
-msgstr "發送反饋"
-
 msgid "Posted on the following apps since August 1, 2024, and new Firefly users only:"
 msgstr ""
 
@@ -1866,9 +1863,6 @@ msgstr "<0>{0}</0> 喜歡了"
 msgid "Fully Diluted Valuation"
 msgstr ""
 
-msgid "Email (optional)"
-msgstr "電子郵箱（非必須）"
-
 msgid "NFT Contract"
 msgstr "NFT合約"
 
@@ -1999,9 +1993,6 @@ msgstr "已喜歡"
 
 msgid "Users"
 msgstr "用戶"
-
-msgid "Describe a bug or suggest an improvement"
-msgstr "描述錯誤或提供改進建議"
 
 msgid "Cryptocurrency mixer."
 msgstr ""
@@ -2405,9 +2396,6 @@ msgstr ""
 
 msgid "Exclusivity"
 msgstr ""
-
-msgid "Feedback"
-msgstr "反饋"
 
 msgid "Your serialized session"
 msgstr ""
@@ -3488,9 +3476,6 @@ msgstr ""
 msgid "Collection"
 msgstr ""
 
-msgid "Your name"
-msgstr ""
-
 msgid "No tax changes found for personal addresses."
 msgstr ""
 
@@ -3573,9 +3558,6 @@ msgstr ""
 
 msgid "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
 msgstr ""
-
-msgid "your.email@example.org"
-msgstr "your.email@example.org"
 
 msgid "Unmute"
 msgstr "取消靜音"
@@ -3858,9 +3840,6 @@ msgstr ""
 
 msgid "7d"
 msgstr "7天"
-
-msgid "Name (optional)"
-msgstr "姓名（非必須）"
 
 msgid "Location"
 msgstr ""

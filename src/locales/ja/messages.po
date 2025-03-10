@@ -1481,9 +1481,6 @@ msgstr ""
 msgid "Choice {0}"
 msgstr ""
 
-msgid "Send Feedback"
-msgstr ""
-
 msgid "Posted on the following apps since August 1, 2024, and new Firefly users only:"
 msgstr ""
 
@@ -1866,9 +1863,6 @@ msgstr ""
 msgid "Fully Diluted Valuation"
 msgstr ""
 
-msgid "Email (optional)"
-msgstr ""
-
 msgid "NFT Contract"
 msgstr ""
 
@@ -1998,9 +1992,6 @@ msgid "liked"
 msgstr ""
 
 msgid "Users"
-msgstr ""
-
-msgid "Describe a bug or suggest an improvement"
 msgstr ""
 
 msgid "Cryptocurrency mixer."
@@ -2404,9 +2395,6 @@ msgid "Connect Solana Wallet"
 msgstr ""
 
 msgid "Exclusivity"
-msgstr ""
-
-msgid "Feedback"
 msgstr ""
 
 msgid "Your serialized session"
@@ -3488,9 +3476,6 @@ msgstr ""
 msgid "Collection"
 msgstr ""
 
-msgid "Your name"
-msgstr ""
-
 msgid "No tax changes found for personal addresses."
 msgstr ""
 
@@ -3572,9 +3557,6 @@ msgid "Preview"
 msgstr ""
 
 msgid "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
-msgstr ""
-
-msgid "your.email@example.org"
 msgstr ""
 
 msgid "Unmute"
@@ -3857,9 +3839,6 @@ msgid "<0>You</0> recasted"
 msgstr ""
 
 msgid "7d"
-msgstr ""
-
-msgid "Name (optional)"
 msgstr ""
 
 msgid "Location"

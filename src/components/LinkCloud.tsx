@@ -1,37 +1,11 @@
-'use client';
-
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
-import { useRef } from 'react';
-import { useMount } from 'react-use';
 
 import { Link } from '@/components/Link.js';
-import { feedback } from '@/configs/sentryClient.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 
 export function LinkCloud() {
-    const feedbackEl = useRef<HTMLSpanElement>(null);
-    const attached = useRef(false);
-
-    useMount(() => {
-        if (feedbackEl.current && !attached.current) {
-            attached.current = true;
-            feedback.attachTo(feedbackEl.current, {
-                formTitle: t`Feedback`,
-                nameLabel: t`Name (optional)`,
-                namePlaceholder: t`Your name`,
-                emailLabel: t`Email (optional)`,
-                emailPlaceholder: t`your.email@example.org`,
-                messageLabel: t`Description`,
-                messagePlaceholder: t`Describe a bug or suggest an improvement`,
-                submitButtonLabel: t`Send Feedback`,
-                cancelButtonLabel: t`Cancel`,
-            });
-        }
-    });
-
     return (
         <nav className="flex flex-wrap gap-x-[12px] gap-y-2 px-3 pb-5 text-xs text-lightSecond lg:px-0">
             <span className="font-bold text-gray-500">© {2025} Firefly</span>
@@ -62,11 +36,6 @@ export function LinkCloud() {
                     {name}
                 </Link>
             ))}
-            {env.external.NEXT_PUBLIC_FEEDBACK === STATUS.Enabled ? (
-                <span className="cursor-pointer font-medium hover:underline" ref={feedbackEl} role="button">
-                    <Trans>Feedback</Trans>
-                </span>
-            ) : null}
         </nav>
     );
 }

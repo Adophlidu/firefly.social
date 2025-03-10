@@ -1476,9 +1476,6 @@ msgstr "[LuckyDrop]"
 msgid "Choice {0}"
 msgstr "Choice {0}"
 
-msgid "Send Feedback"
-msgstr "Send Feedback"
-
 msgid "Posted on the following apps since August 1, 2024, and new Firefly users only:"
 msgstr "Posted on the following apps since August 1, 2024, and new Firefly users only:"
 
@@ -1869,9 +1866,6 @@ msgstr "<0>{0}</0> liked"
 msgid "Fully Diluted Valuation"
 msgstr "Fully Diluted Valuation"
 
-msgid "Email (optional)"
-msgstr "Email (optional)"
-
 msgid "NFT Contract"
 msgstr "NFT Contract"
 
@@ -2002,9 +1996,6 @@ msgstr "liked"
 
 msgid "Users"
 msgstr "Users"
-
-msgid "Describe a bug or suggest an improvement"
-msgstr "Describe a bug or suggest an improvement"
 
 msgid "Cryptocurrency mixer."
 msgstr "Cryptocurrency mixer."
@@ -2413,9 +2404,6 @@ msgstr "Connect Solana Wallet"
 
 msgid "Exclusivity"
 msgstr "Exclusivity"
-
-msgid "Feedback"
-msgstr "Feedback"
 
 msgid "Your serialized session"
 msgstr "Your serialized session"
@@ -3499,9 +3487,6 @@ msgstr "Total Supply"
 msgid "Collection"
 msgstr "Collection"
 
-msgid "Your name"
-msgstr "Your name"
-
 msgid "No tax changes found for personal addresses."
 msgstr "No tax changes found for personal addresses."
 
@@ -3584,9 +3569,6 @@ msgstr "Preview"
 
 msgid "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
 msgstr "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
-
-msgid "your.email@example.org"
-msgstr "your.email@example.org"
 
 msgid "Unmute"
 msgstr "Unmute"
@@ -3869,9 +3851,6 @@ msgstr "<0>You</0> recasted"
 
 msgid "7d"
 msgstr "7d"
-
-msgid "Name (optional)"
-msgstr "Name (optional)"
 
 msgid "Location"
 msgstr "Location"
