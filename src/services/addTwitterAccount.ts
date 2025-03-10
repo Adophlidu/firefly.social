@@ -29,7 +29,9 @@ export async function addTwitterAccount(payload: SessionPayload, isNew = false) 
         },
         {
             skipBelongsToCheck: !isNew,
+            skipResumeFireflyAccounts: !isNew,
             skipResumeFireflySession: !isNew,
+            skipUploadFireflySession: !isNew,
         },
     );
 }

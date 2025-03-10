@@ -8,7 +8,7 @@ import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { ConfirmModalRef } from '@/modals/controls.js';
+import { ConfirmFireflyModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 
 export interface ConfirmFireflyModalOpenProps {
@@ -63,6 +63,7 @@ export const ConfirmFireflyModal = forwardRef<
                                 className="box-border flex h-10 flex-1 items-center justify-center rounded-full border border-main text-medium font-bold text-main"
                                 onClick={() => {
                                     ConfirmModalRef.close(false);
+                                    ConfirmFireflyModalRef.close(false);
                                 }}
                             >
                                 <Trans>Skip</Trans>
@@ -72,6 +73,7 @@ export const ConfirmFireflyModal = forwardRef<
                                 disabled={compact(Object.values(accounts)).length === 0}
                                 onClick={() => {
                                     ConfirmModalRef.close(true);
+                                    ConfirmFireflyModalRef.close(true);
                                 }}
                             >
                                 {belongsTo ? t`Sync` : t`Overwrite`}
@@ -81,6 +83,7 @@ export const ConfirmFireflyModal = forwardRef<
                 ),
                 onCancel: () => {
                     ConfirmModalRef.close(false);
+                    ConfirmFireflyModalRef.close(false);
                 },
                 enableCancelButton: false,
                 enableConfirmButton: false,

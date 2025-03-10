@@ -86,7 +86,9 @@ export default function Page(props: Props) {
                     },
                     {
                         skipBelongsToCheck: !foundNewSessionFromServer,
+                        skipResumeFireflyAccounts: !foundNewSessionFromServer,
                         skipResumeFireflySession: !foundNewSessionFromServer,
+                        skipUploadFireflySession: !foundNewSessionFromServer,
                     },
                 );
 
