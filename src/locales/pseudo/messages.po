@@ -3418,6 +3418,9 @@ msgstr ""
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr ""
 
+msgid "Platform filter"
+msgstr ""
+
 msgid "Unfollow"
 msgstr ""
 

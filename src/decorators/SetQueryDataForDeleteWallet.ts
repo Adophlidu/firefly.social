@@ -1,7 +1,7 @@
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { isSameConnectionAddress } from '@/helpers/isSameConnectionAddress.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/index.js';
@@ -10,17 +10,19 @@ const METHODS_BE_OVERRIDDEN = ['disconnectWallet'] as const;
 const METHODS_BE_OVERRIDDEN_FOR_REPORT = ['reportAndDeleteWallet'] as const;
 
 function deleteWalletsFromQueryData(address: string) {
-    queryClient.setQueriesData<Record<'connected' | 'related', FireflyWalletConnection[]>>(
+    queryClient.setQueriesData<
+        Record<'connected' | 'related' | 'solanaConnections' | 'evmConnections', FireflyWalletConnection[]>
+    >(
         {
             queryKey: ['my-wallet-connections'],
         },
         (old) => {
             if (!old) return old;
             return produce(old, (draft) => {
-                draft.connected = draft.connected.filter(
-                    (x) => !isSameConnectionAddress(x.platform, x.address, address),
-                );
-                draft.related = draft.related.filter((x) => !isSameConnectionAddress(x.platform, x.address, address));
+                draft.connected = draft.connected.filter((x) => !isSameAddress(x.address, address));
+                draft.related = draft.related.filter((x) => !isSameAddress(x.address, address));
+                draft.evmConnections = draft.evmConnections.filter((x) => !isSameAddress(x.address, address));
+                draft.solanaConnections = draft.solanaConnections.filter((x) => !isSameAddress(x.address, address));
             });
         },
     );

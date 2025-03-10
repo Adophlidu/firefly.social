@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { useQueryClient } from '@tanstack/react-query';
 import { useAsyncFn } from 'react-use';
 
 import { waitForDisconnectConfirmation } from '@/app/(settings)/components/waitForDisconnectConfirmation.js';
@@ -21,7 +20,6 @@ interface DisconnectBindAddressButtonProps {
 }
 
 export function DisconnectBindAddressButton({ connection }: DisconnectBindAddressButtonProps) {
-    const queryClient = useQueryClient();
     const [{ loading }, disconnectWallet] = useAsyncFn(async () => {
         try {
             const {
@@ -72,13 +70,12 @@ export function DisconnectBindAddressButton({ connection }: DisconnectBindAddres
             if (!confirmed) return;
 
             await disconnectFirefly(connection);
-            await queryClient.refetchQueries({ queryKey: ['my-wallet-connections'] });
             enqueueSuccessMessage(t`Disconnected from your Firefly account`);
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to disconnect`);
             throw error;
         }
-    }, [connection, queryClient]);
+    }, [connection]);
 
     return (
         <ClickableButton

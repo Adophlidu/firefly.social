@@ -1,6 +1,6 @@
 'use client';
 
-import { Menu } from '@headlessui/react';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
 import { usePathname } from 'next/navigation.js';
@@ -58,31 +58,45 @@ export function HomeTabs() {
         <div className="sticky top-[54px] z-20 flex w-full flex-col bg-primaryBottom md:top-0">
             <div className="flex h-[60px] flex-col px-4 pt-2.5">
                 <Menu>
-                    <Menu.Button className="inline-flex h-full items-center text-xl font-bold">
-                        {texts[currentTab]}
-                        <ArrowDownCircleIcon width={24} height={24} className="ml-[15px] size-6 shrink-0" />
-                    </Menu.Button>
-                    <Menu.Items
-                        transition
-                        anchor="bottom start"
-                        className="z-50 flex w-[128px] origin-top-left flex-col gap-2 overflow-y-auto rounded-[8px] bg-primaryBottom py-3 text-xl font-bold shadow-messageShadow transition data-[closed]:scale-95 data-[closed]:opacity-0"
-                    >
-                        {getEnumAsArray(HomeTab).map(({ value: tab }) => {
-                            const type = types[tab].includes(allTabs[tab]) ? allTabs[tab] : types[tab][0];
-                            return (
-                                <Menu.Item key={tab}>
-                                    <Link
-                                        href={resolveHomeUrl(tab, type)}
-                                        className={classNames('px-3 py-1 hover:opacity-100', {
-                                            'opacity-60': currentTab !== tab,
+                    {({ close }) => (
+                        <>
+                            <MenuButton
+                                className="mr-auto inline-flex h-full items-center text-xl font-bold"
+                                onMouseEnter={(e) => e.currentTarget.click()}
+                            >
+                                {texts[currentTab]}
+                                <ArrowDownCircleIcon width={24} height={24} className="ml-[15px] size-6 shrink-0" />
+                            </MenuButton>
+                            <MenuItems
+                                onMouseLeave={() => close()}
+                                transition
+                                anchor="bottom start"
+                                className="z-50 w-[128px] origin-top-left !overflow-visible text-xl font-bold outline-none transition data-[closed]:scale-95 data-[closed]:opacity-0"
+                            >
+                                <div className="w-full -translate-y-[50px] transform pt-[50px]">
+                                    <div className="flex w-full flex-col gap-2 overflow-y-auto rounded-[8px] bg-primaryBottom py-3 shadow-messageShadow">
+                                        {getEnumAsArray(HomeTab).map(({ value: tab }) => {
+                                            const type = types[tab].includes(allTabs[tab])
+                                                ? allTabs[tab]
+                                                : types[tab][0];
+                                            return (
+                                                <MenuItem key={tab}>
+                                                    <Link
+                                                        href={resolveHomeUrl(tab, type)}
+                                                        className={classNames('px-3 py-1 hover:opacity-100', {
+                                                            'opacity-60': currentTab !== tab,
+                                                        })}
+                                                    >
+                                                        {texts[tab]}
+                                                    </Link>
+                                                </MenuItem>
+                                            );
                                         })}
-                                    >
-                                        {texts[tab]}
-                                    </Link>
-                                </Menu.Item>
-                            );
-                        })}
-                    </Menu.Items>
+                                    </div>
+                                </div>
+                            </MenuItems>
+                        </>
+                    )}
                 </Menu>
             </div>
 

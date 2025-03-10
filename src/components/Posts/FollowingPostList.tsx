@@ -14,8 +14,8 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useDiscoverSources } from '@/hooks/useDiscoverSources.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
-import { useDiscoverStore } from '@/store/useDiscoverStore.js';
 
 function useIsLoginDiscoverNeed(source: SocialDiscoverSource | Source.Posts) {
     const currentProfileAll = useCurrentProfileAll();
@@ -32,12 +32,7 @@ export const FollowingPostList = memo<{
     const isLogin = useIsLoginDiscoverNeed(source);
     const currentProfileAll = useCurrentProfileAll();
     const asyncStatusAll = useAsyncStatusAll();
-
-    const sources = useDiscoverStore((state) =>
-        state.postTimelinePlatforms[HomeTab.Following].length <= 0
-            ? SOCIAL_DISCOVER_SOURCE
-            : SOCIAL_DISCOVER_SOURCE.filter((x) => state.postTimelinePlatforms[HomeTab.Following].includes(x)),
-    );
+    const sources = useDiscoverSources(HomeTab.Following);
     const queryResult = useMultiInfiniteQueryPageable(
         ['posts', source, 'following', isLogin, asyncStatusAll, ...sources],
         sources.map((source) => ({

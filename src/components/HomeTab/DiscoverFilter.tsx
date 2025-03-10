@@ -1,6 +1,6 @@
 'use client';
 
-import { Checkbox, Menu, MenuItem } from '@headlessui/react';
+import { Checkbox, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 
@@ -170,19 +170,33 @@ export function DiscoverFilter({ tab, source }: Props) {
 
     return (
         <Menu>
-            <Menu.Button className="h-5 w-5 text-placeholder">
-                <FilterIcon width={20} height={20} />
-            </Menu.Button>
-            <Menu.Items
-                transition
-                anchor="bottom end"
-                className="z-50 flex w-[240px] origin-top-right flex-col gap-2 overflow-y-auto rounded-[8px] bg-primaryBottom p-3 font-normal shadow-messageShadow transition data-[closed]:scale-95 data-[closed]:opacity-0"
-            >
-                <div className="flex w-full justify-between py-1">
-                    <span className="text-sm font-bold">Platform filter</span>
-                </div>
-                {getMenuItems()}
-            </Menu.Items>
+            {({ close }) => (
+                <>
+                    <MenuButton
+                        className="h-5 w-5 text-placeholder outline-none"
+                        onMouseEnter={(e) => e.currentTarget.click()}
+                    >
+                        <FilterIcon width={20} height={20} />
+                    </MenuButton>
+                    <MenuItems
+                        transition
+                        anchor="bottom end"
+                        className="z-50 w-[240px] origin-top-right !overflow-visible font-normal outline-none transition data-[closed]:scale-95 data-[closed]:opacity-0"
+                        onMouseLeave={() => close()}
+                    >
+                        <div className="w-full -translate-y-5 transform pt-5">
+                            <div className="flex w-full flex-col gap-2 overflow-y-auto rounded-[8px] bg-primaryBottom p-3 shadow-messageShadow">
+                                <div className="flex w-full justify-between py-1">
+                                    <span className="text-sm font-bold">
+                                        <Trans>Platform filter</Trans>
+                                    </span>
+                                </div>
+                                {getMenuItems()}
+                            </div>
+                        </div>
+                    </MenuItems>
+                </>
+            )}
         </Menu>
     );
 }

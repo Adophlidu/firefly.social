@@ -3434,6 +3434,9 @@ msgstr "Minting"
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "You may lose your assets if giving approval to the website of this token."
 
+msgid "Platform filter"
+msgstr "Platform filter"
+
 msgid "Unfollow"
 msgstr "Unfollow"
 

@@ -3439,6 +3439,9 @@ msgstr "铸造中"
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "如果您授权此通证给这个网站，您可能会丢失您的资产。"
 
+msgid "Platform filter"
+msgstr ""
+
 msgid "Unfollow"
 msgstr "取消关注"
 

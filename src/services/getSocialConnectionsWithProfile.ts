@@ -1,9 +1,11 @@
 import { unreachable } from '@masknet/kit';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { flatLenConnections } from '@/helpers/formatWalletConnection.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import type { AllConnections } from '@/providers/types/Firefly.js';
 
 export interface SocialConnections {
@@ -17,9 +19,9 @@ export async function getSocialConnectionsWithProfile(source: SocialSource, soci
     switch (source) {
         case Source.Farcaster: {
             const connections = [...social[source].connected, ...social[source].unconnected];
-            const profiles = await resolveSocialMediaProvider(source).getProfilesByIds(
-                connections.map((x) => `${x.id}`),
-            );
+            const ids = connections.map((x) => `${x.id}`);
+            if (!ids.length) return EMPTY_LIST;
+            const profiles = await NeynarSocialMediaProvider.getProfilesByIds(ids);
             return profiles
                 .map((profile) => ({
                     profile,
@@ -30,6 +32,8 @@ export async function getSocialConnectionsWithProfile(source: SocialSource, soci
         case Source.Twitter:
         case Source.Bsky: {
             const connections = [...social[source].connected, ...social[source].unconnected];
+            const ids = connections.map((x) => x.id);
+            if (!ids.length) return EMPTY_LIST;
             const profiles = await resolveSocialMediaProvider(source).getProfilesByIds(connections.map((x) => x.id));
             return profiles
                 .map((profile) => ({
@@ -40,6 +44,8 @@ export async function getSocialConnectionsWithProfile(source: SocialSource, soci
         }
         case Source.Lens:
             const connections = flatLenConnections([...social[source].connected, ...social[source].unconnected]);
+            const ids = connections.map((x) => x.id);
+            if (!ids.length) return EMPTY_LIST;
             const profiles = await LensSocialMediaProvider.getProfilesByIds(connections.map((x) => x.id));
             return profiles
                 .map((profile) => ({

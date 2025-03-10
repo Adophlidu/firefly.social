@@ -1,5 +1,5 @@
 import { type NotificationSource, type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { SOCIAL_DISCOVER_SOURCE, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
@@ -21,4 +21,9 @@ export function useIsLoginNotifications(source: NotificationSource) {
 
     if (source === Source.Notifications) return !!currentProfileSession;
     return !!currentProfileAll[source]?.profileId;
+}
+
+export function useIsLoginDiscoverSource() {
+    const currentProfileAll = useCurrentProfileAll();
+    return SOCIAL_DISCOVER_SOURCE.some((source) => !!currentProfileAll[source]?.profileId);
 }

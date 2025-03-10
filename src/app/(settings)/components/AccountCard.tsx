@@ -121,71 +121,77 @@ export function AccountCards() {
 
     return (
         <div className="flex w-full flex-col gap-6">
-            {data.socialConnections.map(({ source, items }) => {
-                return (
-                    <div className="flex w-full flex-col gap-3" key={source}>
-                        <div className="flex w-full items-center justify-between">
-                            <span className="text-base font-bold leading-[18px] text-main">
-                                {resolveSourceName(source)}
-                            </span>
-                        </div>
-                        {items.map(({ connection, profile, account }) => {
-                            const walletConnection = SOCIAL_SOURCE_WITH_ADDRESS.includes(profile.source)
-                                ? [...data.connected, ...data.related].find((x) => {
-                                      return x.identities.some((identity) =>
-                                          isSameFireflyIdentity(
-                                              { id: profile.profileId, source: profile.source },
-                                              identity,
-                                          ),
-                                      );
-                                  })
-                                : undefined;
-                            const isMPCWallet = walletConnection?.source === WalletSource.Particle;
+            {data.socialConnections
+                .filter(({ items }) => items.length)
+                .map(({ source, items }) => {
+                    return (
+                        <div className="flex w-full flex-col gap-3" key={source}>
+                            <div className="flex w-full items-center justify-between">
+                                <span className="text-base font-bold leading-[18px] text-main">
+                                    {resolveSourceName(source)}
+                                </span>
+                            </div>
+                            {items.map(({ connection, profile, account }) => {
+                                const walletConnection = SOCIAL_SOURCE_WITH_ADDRESS.includes(profile.source)
+                                    ? [...data.connected, ...data.related].find((x) => {
+                                          return x.identities.some((identity) =>
+                                              isSameFireflyIdentity(
+                                                  { id: profile.profileId, source: profile.source },
+                                                  identity,
+                                              ),
+                                          );
+                                      })
+                                    : undefined;
+                                const isMPCWallet = walletConnection?.source === WalletSource.Particle;
 
-                            return (
-                                <div
-                                    key={profile.profileId}
-                                    className="inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg border border-line bg-white bg-bottom px-3 py-2 backdrop-blur dark:bg-bg"
-                                >
-                                    {connection.connectedAt ? (
-                                        <PrimaryButton
-                                            platformId={profile.profileId}
-                                            platform={resolveDefaultConnectionPlatform(source)}
-                                            isDefault={connection.isDefault}
-                                            tooltipContent={
-                                                connection.isDefault ? (
-                                                    <Trans>Primary account</Trans>
-                                                ) : (
-                                                    <Trans>Set as primary account</Trans>
-                                                )
-                                            }
-                                        />
-                                    ) : (
-                                        <Tooltip
-                                            placement="top"
-                                            content={
-                                                <Trans>
-                                                    It is related account retrieved from connected wallets. Please sign
-                                                    in to set as primary account.
-                                                </Trans>
-                                            }
-                                        >
-                                            <InfoIcon width={20} height={20} className="h-5 w-5 shrink-0 text-second" />
-                                        </Tooltip>
-                                    )}
-                                    <ProfileAvatar profile={profile} size={36} />
-                                    <ProfileName profile={profile} />
-                                    {account?.session ? (
-                                        <DisconnectButton account={account} />
-                                    ) : isMPCWallet ? null : walletConnection ? (
-                                        <DisconnectBindAddressButton connection={walletConnection} />
-                                    ) : null}
-                                </div>
-                            );
-                        })}
-                    </div>
-                );
-            })}
+                                return (
+                                    <div
+                                        key={profile.profileId}
+                                        className="inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg border border-line bg-white bg-bottom px-3 py-2 backdrop-blur dark:bg-bg"
+                                    >
+                                        {connection.connectedAt ? (
+                                            <PrimaryButton
+                                                platformId={profile.profileId}
+                                                platform={resolveDefaultConnectionPlatform(source)}
+                                                isDefault={connection.isDefault}
+                                                tooltipContent={
+                                                    connection.isDefault ? (
+                                                        <Trans>Primary account</Trans>
+                                                    ) : (
+                                                        <Trans>Set as primary account</Trans>
+                                                    )
+                                                }
+                                            />
+                                        ) : (
+                                            <Tooltip
+                                                placement="top"
+                                                content={
+                                                    <Trans>
+                                                        It is related account retrieved from connected wallets. Please
+                                                        sign in to set as primary account.
+                                                    </Trans>
+                                                }
+                                            >
+                                                <InfoIcon
+                                                    width={20}
+                                                    height={20}
+                                                    className="h-5 w-5 shrink-0 text-second"
+                                                />
+                                            </Tooltip>
+                                        )}
+                                        <ProfileAvatar profile={profile} size={36} />
+                                        <ProfileName profile={profile} />
+                                        {account?.session ? (
+                                            <DisconnectButton account={account} />
+                                        ) : isMPCWallet ? null : walletConnection ? (
+                                            <DisconnectBindAddressButton connection={walletConnection} />
+                                        ) : null}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    );
+                })}
         </div>
     );
 }
