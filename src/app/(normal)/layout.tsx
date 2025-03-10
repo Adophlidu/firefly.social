@@ -11,8 +11,11 @@ import { Section } from '@/components/Semantic/Section.js';
 import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
 import { WithinDiscover } from '@/components/WithinDiscover.js';
 import { PageRoute } from '@/constants/enum.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 
-export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
+export default async function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
+    await setupLocaleForSSR();
+
     return (
         <>
             <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[235px] lg:w-[888px] lg:max-w-[calc(100%-384px)] lg:pl-[289px]">
