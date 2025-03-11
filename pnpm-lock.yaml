@@ -27,7 +27,7 @@ patchedDependencies:
     hash: 46fk3s2wpry7pf7ladnvahdhqq
     path: patches/@lexical__react@0.18.0.patch
   '@livepeer/core@3.2.7':
-    hash: xk47kfoz6emkmfdy5pp5fhfa6y
+    hash: 7x6iztm46opvgqs5ezn5wyvnvi
     path: patches/@livepeer__core@3.2.7.patch
   '@reown/appkit@1.6.8':
     hash: s773xxfk4rn74eay5cobfz5vde
@@ -5741,7 +5741,7 @@ packages:
     peerDependencies:
       react: 19.0.0
     dependencies:
-      '@livepeer/core': 3.2.7(patch_hash=xk47kfoz6emkmfdy5pp5fhfa6y)(@types/react@19.0.2)(immer@10.1.1)(react@19.0.0)
+      '@livepeer/core': 3.2.7(patch_hash=7x6iztm46opvgqs5ezn5wyvnvi)(@types/react@19.0.2)(immer@10.1.1)(react@19.0.0)
       react: 19.0.0
       zustand: 4.5.5(@types/react@19.0.2)(immer@10.1.1)(react@19.0.0)
     transitivePeerDependencies:
@@ -5752,7 +5752,7 @@ packages:
   /@livepeer/core-web@5.0.0(@types/react@19.0.2)(immer@10.1.1)(react@19.0.0):
     resolution: {integrity: sha512-Tdb0iadeSHZq5eJ5IN3rNArjoVa0bW/f5s+rWZk8qH+bFkot/RCkbCTBWG0PRVm3C1TSqrKutV+T+Keim+cNUg==}
     dependencies:
-      '@livepeer/core': 3.2.7(patch_hash=xk47kfoz6emkmfdy5pp5fhfa6y)(@types/react@19.0.2)(immer@10.1.1)(react@19.0.0)
+      '@livepeer/core': 3.2.7(patch_hash=7x6iztm46opvgqs5ezn5wyvnvi)(@types/react@19.0.2)(immer@10.1.1)(react@19.0.0)
       hls.js: 1.5.16
       zustand: 4.5.5(@types/react@19.0.2)(immer@10.1.1)(react@19.0.0)
     transitivePeerDependencies:
@@ -5761,7 +5761,7 @@ packages:
       - react
     dev: false
 
-  /@livepeer/core@3.2.7(patch_hash=xk47kfoz6emkmfdy5pp5fhfa6y)(@types/react@19.0.2)(immer@10.1.1)(react@19.0.0):
+  /@livepeer/core@3.2.7(patch_hash=7x6iztm46opvgqs5ezn5wyvnvi)(@types/react@19.0.2)(immer@10.1.1)(react@19.0.0):
     resolution: {integrity: sha512-TesuNMZZ7hCHdk4w9sXmIYORRKiljB+A4XpVnO4IsOwBLpW89X5Nw/wAdJhwc65vpcVYV/U76ZHZIHKze5Ck8w==}
     dependencies:
       multiformats: 13.3.0
@@ -5783,7 +5783,7 @@ packages:
       react-dom:
         optional: true
     dependencies:
-      '@livepeer/core': 3.2.7(patch_hash=xk47kfoz6emkmfdy5pp5fhfa6y)(@types/react@19.0.2)(immer@10.1.1)(react@19.0.0)
+      '@livepeer/core': 3.2.7(patch_hash=7x6iztm46opvgqs5ezn5wyvnvi)(@types/react@19.0.2)(immer@10.1.1)(react@19.0.0)
       '@livepeer/core-react': 3.2.7(@types/react@19.0.2)(immer@10.1.1)(react@19.0.0)
       '@livepeer/core-web': 5.0.0(@types/react@19.0.2)(immer@10.1.1)(react@19.0.0)
       '@radix-ui/primitive': 1.1.0

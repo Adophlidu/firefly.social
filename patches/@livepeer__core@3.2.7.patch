@@ -1,5 +1,5 @@
 diff --git a/dist/media/index.cjs b/dist/media/index.cjs
-index 059f5bedd9306db2b0b6b4f1185632d722a17fe6..a88f687094839fca44341c467d0fc04ca15f5cd9 100644
+index 059f5bedd9306db2b0b6b4f1185632d722a17fe6..34325586154bc82498da74f3724debc1d25c64be 100644
 --- a/dist/media/index.cjs
 +++ b/dist/media/index.cjs
 @@ -8,14 +8,18 @@ var __export = (target, all) => {
@@ -470,7 +470,7 @@ index 059f5bedd9306db2b0b6b4f1185632d722a17fe6..a88f687094839fca44341c467d0fc04c
      }
      if (a.type === "video" && (b.type === "hls" || b.type === "webrtc")) {
        return -1;
-@@ -430,14 +502,15 @@ var parseCurrentSourceAndPlaybackId = ({
+@@ -430,16 +502,17 @@ var parseCurrentSourceAndPlaybackId = ({
    jwt,
    sessionToken,
    source,
@@ -484,10 +484,14 @@ index 059f5bedd9306db2b0b6b4f1185632d722a17fe6..a88f687094839fca44341c467d0fc04c
    const playbackId = getPlaybackIdFromSourceUrl(source.src);
    const url = new URL(source.src);
 -  if (sessionToken) {
-+  if (sessionToken && !forceNoToken) {
-     url.searchParams.append("tkn", sessionToken);
-   }
+-    url.searchParams.append("tkn", sessionToken);
+-  }
++  // if (sessionToken && !forceNoToken) {
++  //   url.searchParams.append("tkn", sessionToken);
++  // }
    if (source.type !== "webrtc" && source.type !== "hls") {
+     if (jwt) {
+       url.searchParams.append("jwt", jwt);
 @@ -461,15 +534,18 @@ var parseCurrentSourceAndPlaybackId = ({
    }
    const newSrc = {
@@ -4376,7 +4380,7 @@ index 1c17bb63a984648666e2e70e80ae8901dc06266e..a4e1bb960d03da2cbf4f5c8ea6760794
       * How long to cache WebRTC timeouts for faster subsequent playbacks after a timeout.
       *
 diff --git a/dist/media/index.js b/dist/media/index.js
-index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e124edb3f 100644
+index a42189b7711af0ea8b73006858264867a659ac3a..a3ad2a4f25635eb84cb3d28a96f587c90f61f14e 100644
 --- a/dist/media/index.js
 +++ b/dist/media/index.js
 @@ -2,7 +2,7 @@
@@ -4825,7 +4829,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
      }
      if (a.type === "video" && (b.type === "hls" || b.type === "webrtc")) {
        return -1;
-@@ -403,14 +471,15 @@ var parseCurrentSourceAndPlaybackId = ({
+@@ -403,16 +471,17 @@ var parseCurrentSourceAndPlaybackId = ({
    jwt,
    sessionToken,
    source,
@@ -4839,10 +4843,14 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
    const playbackId = getPlaybackIdFromSourceUrl(source.src);
    const url = new URL(source.src);
 -  if (sessionToken) {
-+  if (sessionToken && !forceNoToken) {
-     url.searchParams.append("tkn", sessionToken);
-   }
+-    url.searchParams.append("tkn", sessionToken);
+-  }
++  // if (sessionToken && !forceNoToken) {
++  //   url.searchParams.append("tkn", sessionToken);
++  // }
    if (source.type !== "webrtc" && source.type !== "hls") {
+     if (jwt) {
+       url.searchParams.append("jwt", jwt);
 @@ -434,15 +503,18 @@ var parseCurrentSourceAndPlaybackId = ({
    }
    const newSrc = {
@@ -6174,7 +6182,15 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
    };
    const result = merge(...objects);
    merge.options = defaultOptions;
-@@ -1543,8 +1787,7 @@ function warn(message, id) {
+@@ -1528,7 +1772,6 @@ merge.withOptions = (options, ...objects) => {
+ };
+ 
+ // src/utils/storage/ipfs.ts
+-import { CID } from "multiformats/cid";
+ 
+ // src/utils/warn.ts
+ var cache = /* @__PURE__ */ new Set();
+@@ -1543,8 +1786,7 @@ function warn(message, id) {
  var globalLoadTimestampMs = Date.now();
  function addMetricsToStore(store, opts) {
    const defaultResponse = {
@@ -6184,7 +6200,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
    };
    if (!store) {
      return defaultResponse;
-@@ -1553,19 +1796,19 @@ function addMetricsToStore(store, opts) {
+@@ -1553,19 +1795,19 @@ function addMetricsToStore(store, opts) {
      return defaultResponse;
    }
    const monitor = new MetricsMonitor(store, {
@@ -6207,7 +6223,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
          });
          if (url) {
            store.getState().__controlsFunctions.setMetricsReportingUrl(url);
-@@ -1576,7 +1819,7 @@ function addMetricsToStore(store, opts) {
+@@ -1576,7 +1818,7 @@ function addMetricsToStore(store, opts) {
        fireImmediately: true,
        equalityFn: (a, b) => {
          return a.finalUrl === b.finalUrl;
@@ -6216,7 +6232,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
      }
    );
    const destroyErrorListener = store.subscribe(
-@@ -1584,19 +1827,21 @@ function addMetricsToStore(store, opts) {
+@@ -1584,19 +1826,21 @@ function addMetricsToStore(store, opts) {
      async (error) => {
        if (error) {
          eventBuffer.addEvent(
@@ -6251,7 +6267,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
          );
        }
      }
-@@ -1607,7 +1852,7 @@ function addMetricsToStore(store, opts) {
+@@ -1607,7 +1851,7 @@ function addMetricsToStore(store, opts) {
        eventBuffer.addEvent({
          id: generateRandomToken(),
          type: "play",
@@ -6260,7 +6276,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
        });
      }
    );
-@@ -1617,7 +1862,7 @@ function addMetricsToStore(store, opts) {
+@@ -1617,7 +1861,7 @@ function addMetricsToStore(store, opts) {
        eventBuffer.addEvent({
          id: generateRandomToken(),
          type: "pause",
@@ -6269,7 +6285,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
        });
      }
    );
-@@ -1630,7 +1875,7 @@ function addMetricsToStore(store, opts) {
+@@ -1630,7 +1874,7 @@ function addMetricsToStore(store, opts) {
            type: "clip",
            timestamp: Date.now(),
            startTime: params.startTime,
@@ -6278,7 +6294,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
          });
        }
      }
-@@ -1641,7 +1886,7 @@ function addMetricsToStore(store, opts) {
+@@ -1641,7 +1885,7 @@ function addMetricsToStore(store, opts) {
        eventBuffer.addEvent({
          id: generateRandomToken(),
          type: pictureInPicture ? "enter-pip" : "exit-pip",
@@ -6287,7 +6303,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
        });
      }
    );
-@@ -1651,7 +1896,7 @@ function addMetricsToStore(store, opts) {
+@@ -1651,7 +1895,7 @@ function addMetricsToStore(store, opts) {
        eventBuffer.addEvent({
          id: generateRandomToken(),
          type: fullscreen ? "enter-fullscreen" : "exit-fullscreen",
@@ -6296,7 +6312,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
        });
      }
    );
-@@ -1662,7 +1907,7 @@ function addMetricsToStore(store, opts) {
+@@ -1662,7 +1906,7 @@ function addMetricsToStore(store, opts) {
          eventBuffer.addEvent({
            id: generateRandomToken(),
            type: "can-play",
@@ -6305,7 +6321,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
          });
        }
      }
-@@ -1674,7 +1919,7 @@ function addMetricsToStore(store, opts) {
+@@ -1674,7 +1918,7 @@ function addMetricsToStore(store, opts) {
          eventBuffer.addEvent({
            id: generateRandomToken(),
            type: "ended",
@@ -6314,7 +6330,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
          });
        }
      }
-@@ -1686,7 +1931,7 @@ function addMetricsToStore(store, opts) {
+@@ -1686,7 +1930,7 @@ function addMetricsToStore(store, opts) {
          id: generateRandomToken(),
          type: "rate",
          timestamp: Date.now(),
@@ -6323,7 +6339,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
        });
      }
    );
-@@ -1697,7 +1942,7 @@ function addMetricsToStore(store, opts) {
+@@ -1697,7 +1941,7 @@ function addMetricsToStore(store, opts) {
          id: generateRandomToken(),
          type: "video-quality",
          timestamp: Date.now(),
@@ -6332,7 +6348,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
        });
      }
    );
-@@ -1708,7 +1953,7 @@ function addMetricsToStore(store, opts) {
+@@ -1708,7 +1952,7 @@ function addMetricsToStore(store, opts) {
          id: generateRandomToken(),
          type: "seek",
          timestamp: Date.now(),
@@ -6341,7 +6357,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
        });
      }
    );
-@@ -1721,7 +1966,7 @@ function addMetricsToStore(store, opts) {
+@@ -1721,7 +1965,7 @@ function addMetricsToStore(store, opts) {
      "time_errored_ms",
      "time_stalled_ms",
      "time_playing_ms",
@@ -6350,7 +6366,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
    ]);
    const vct = new ValueChangeTracker([
      "autoplay_status",
-@@ -1735,191 +1980,203 @@ function addMetricsToStore(store, opts) {
+@@ -1735,191 +1979,203 @@ function addMetricsToStore(store, opts) {
      "player_width_px",
      "player_height_px",
      "window_height_px",
@@ -6730,7 +6746,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
    const eventsTimer = setInterval(sendEvents(), interval);
    const unloadEvent = "onpagehide" in self ? "pagehide" : "unload";
    const unloadingCallback = sendEvents({ isUnloading: true });
-@@ -1948,7 +2205,7 @@ function addMetricsToStore(store, opts) {
+@@ -1948,7 +2204,7 @@ function addMetricsToStore(store, opts) {
        destroySeekListener?.();
        destroyVideoQualityListener?.();
        window?.removeEventListener?.("visibilitychange", onVisibilityChange);
@@ -6739,7 +6755,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
    };
  }
  function isInIframe2() {
-@@ -1995,20 +2252,39 @@ var PlaybackEventBuffer = class {
+@@ -1995,20 +2251,39 @@ var PlaybackEventBuffer = class {
            warnings: existingEvent.warnings + newEvent.warnings,
            stalled_count: existingEvent.stalled_count + newEvent.stalled_count,
            waiting_count: existingEvent.waiting_count + newEvent.waiting_count,
@@ -6793,7 +6809,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
          };
          this.externalBuffer[existingEventIndex] = mergedEvent;
        }
-@@ -2048,13 +2324,10 @@ var PlaybackEventBuffer = class {
+@@ -2048,13 +2323,10 @@ var PlaybackEventBuffer = class {
  var IncrementalCounter = class {
    counts;
    constructor(keys) {
@@ -6811,7 +6827,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
    }
    calculateIncrement(key, newCount) {
      if (newCount < this.counts[key]) {
-@@ -2068,13 +2341,10 @@ var IncrementalCounter = class {
+@@ -2068,13 +2340,10 @@ var IncrementalCounter = class {
  var ValueChangeTracker = class {
    lastValues;
    constructor(keys) {
@@ -6829,7 +6845,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
    }
    sendIfChanged(key, newValue) {
      if (this.lastValues[key] !== newValue) {
-@@ -2140,7 +2410,7 @@ var MetricsMonitor = class {
+@@ -2140,7 +2409,7 @@ var MetricsMonitor = class {
        videoWidth: null,
        waitingCount: 0,
        windowHeight: null,
@@ -6838,7 +6854,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
      };
      const destroyFirstPlayListener = store.subscribe(
        (state) => state.__controls.playLastTime,
-@@ -2184,7 +2454,10 @@ var MetricsMonitor = class {
+@@ -2184,7 +2453,10 @@ var MetricsMonitor = class {
      const destroyProgressListener = store.subscribe(
        (state) => state.progress,
        async () => {
@@ -6850,7 +6866,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
            this.timerWarning.stop();
            this.timerErrored.stop();
            this.timerStalled.stop();
-@@ -2198,7 +2471,10 @@ var MetricsMonitor = class {
+@@ -2198,7 +2470,10 @@ var MetricsMonitor = class {
              0
            );
          }
@@ -6862,7 +6878,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
            this.currentMetrics.playToFirstFrame = Math.max(
              now - this.currentMetrics.mountToPlay - globalLoadTimestampMs,
              0
-@@ -2211,7 +2487,8 @@ var MetricsMonitor = class {
+@@ -2211,7 +2486,8 @@ var MetricsMonitor = class {
        (state) => state.error,
        async (error) => {
          if (error?.type) {
@@ -6872,7 +6888,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
            if (isWarning) {
              this.timerWarning.start();
            } else {
-@@ -2267,13 +2544,19 @@ var MetricsMonitor = class {
+@@ -2267,13 +2543,19 @@ var MetricsMonitor = class {
      const duration = this.store.getState().duration;
      const currentMetrics = {
        ...this.currentMetrics,
@@ -6896,7 +6912,7 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
        waitingCount: this.timerWaiting.getCountStarts(),
        stalledCount: this.timerStalled.getCountStarts(),
        timeWarning: this.timerWarning.getTotalTime(),
-@@ -2281,7 +2564,7 @@ var MetricsMonitor = class {
+@@ -2281,7 +2563,7 @@ var MetricsMonitor = class {
        timeWaiting: this.timerWaiting.getTotalTime(),
        timeStalled: this.timerStalled.getTotalTime(),
        timePlaying: this.timerPlaying.getTotalTime(),
@@ -6905,11 +6921,3 @@ index a42189b7711af0ea8b73006858264867a659ac3a..796d2403c93878e3d32c82540b2ae43e
      };
      return currentMetrics;
    }
-@@ -2292,6 +2575,6 @@ export {
-   calculateVideoQualityDimensions,
-   createControllerStore,
-   getBoundedVolume,
--  getMediaSourceType
-+  getMediaSourceType,
- };
- //# sourceMappingURL=index.js.map
