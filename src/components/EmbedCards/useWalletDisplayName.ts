@@ -7,7 +7,7 @@ import { useWalletRelatedProfiles } from '@/hooks/useWalletRelatedProfiles.js';
 /**
  * by priority: {@link EMBED_CARD_SOURCE_PRIORITY}
  */
-export function useWalletIdentity(address: string) {
+export function useWalletDisplayName(address: string) {
     const { data: profiles = EMPTY_LIST } = useWalletRelatedProfiles(address);
     const displayName = useMemo(() => {
         const sorted = sortBy(profiles, (x) => {

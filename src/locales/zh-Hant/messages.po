@@ -3084,11 +3084,6 @@ msgstr ""
 msgid "<0>You</0> liked"
 msgstr ""
 
-#. placeholder {0}: market_cap !== undefined ? `$${formatMarketCap(market_cap)}` : '-'
-#. placeholder {1}: token.rank
-msgid "<0>{0}</0><1>MC</1><2>Rank #{1}</2>"
-msgstr ""
-
 msgid "You've hit rock bottom."
 msgstr "你已經到頁面最底部"
 
@@ -3858,6 +3853,11 @@ msgstr ""
 
 msgid "GIF"
 msgstr "GIF"
+
+#. placeholder {0}: market_cap !== undefined ? `$${formatMarketCap(market_cap)}` : '-'
+#. placeholder {1}: rank ? ( <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white"> Rank #{rank} </span> ) : null
+msgid "<0>{0}</0><1>MC</1>{1}"
+msgstr ""
 
 msgid "Ethereum JSON RPC"
 msgstr ""

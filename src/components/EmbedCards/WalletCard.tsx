@@ -13,6 +13,7 @@ import { AddressSocialAvatar } from '@/components/AddressSocialAvatar/index.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { SecurityBadge } from '@/components/EmbedCards/TokenSecurityBadge.js';
 import type { AddressCardProps } from '@/components/EmbedCards/types.js';
+import { useWalletDisplayName } from '@/components/EmbedCards/useWalletDisplayName.js';
 import { Image } from '@/components/Image.js';
 import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
 import { Tips } from '@/components/Tips/index.js';
@@ -42,6 +43,7 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
     const { data: ens } = useEnsName({ address: address as Address });
 
     const { data: profiles = EMPTY_LIST } = useWalletRelatedProfiles(address);
+    const walletDisplayName = useWalletDisplayName(address);
 
     const { data: totalBalance } = useQuery({
         queryKey: ['wallet', 'total-balance', networkType, address],
@@ -119,7 +121,7 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                     </div>
                     <div className="flex items-center gap-2 whitespace-nowrap text-second">
                         <span className="min-w-0 truncate font-inter text-medium font-bold leading-[14px]">
-                            {walletProfile ? walletProfile.ens : formatAddress(address, 4)}
+                            {walletDisplayName || walletProfile.ens || formatAddress(address, 4)}
                         </span>
                         <CopyTextButton size={11} className="h-3.5 w-3.5" text={address} />
                         {addressLink ? (

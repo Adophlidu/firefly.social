@@ -72,6 +72,7 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
     const price = attributes?.price_usd;
     const market_cap = attributes?.market_cap_usd;
 
+    const rank = token.rank || trending?.coin.market_cap_rank;
     return (
         <>
             <div
@@ -100,9 +101,11 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
                             <span className="text-medium text-secondary" title={t`Market Cap`}>
                                 MC
                             </span>
-                            <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
-                                Rank #{token.rank}
-                            </span>
+                            {rank ? (
+                                <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
+                                    Rank #{rank}
+                                </span>
+                            ) : null}
                         </Trans>
                     </div>
                     <div className="line-height-[22px] flex items-center gap-1 text-medium">
