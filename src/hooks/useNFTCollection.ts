@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 
-export function useNFTCollection(address: string, chainId: ChainId = ChainId.Mainnet) {
+export function useNFTCollection(address: string, chainId: ChainId = ChainId.Mainnet, enabled = true) {
     return useQuery({
         queryKey: ['nft-collection', address, chainId],
         async queryFn() {

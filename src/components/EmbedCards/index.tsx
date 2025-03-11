@@ -78,24 +78,19 @@ export const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInn
             {renderCard()}
             {availableEmbeds.length > 1 ? (
                 <ClickableArea className="flex justify-center gap-[6px] py-2">
-                    {availableEmbeds.map((item, index) => {
-                        return (
+                    {availableEmbeds.map((item, index) => (
+                        <div
+                            key={item.value}
+                            className="w-[60px] min-w-2 cursor-pointer py-2"
+                            onClick={() => {
+                                setActiveIndex(index);
+                            }}
+                        >
                             <div
-                                key={item.value}
-                                className="w-[60px] min-w-2 cursor-pointer py-2"
-                                onClick={() => {
-                                    setActiveIndex(index);
-                                }}
-                            >
-                                <div
-                                    className={classNames(
-                                        'h-1 bg-highlight',
-                                        activeIndex === index ? 'opacity-50' : '',
-                                    )}
-                                />
-                            </div>
-                        );
-                    })}
+                                className={classNames('h-1 bg-highlight', activeIndex === index ? 'opacity-50' : '')}
+                            />
+                        </div>
+                    ))}
                 </ClickableArea>
             ) : null}
         </div>

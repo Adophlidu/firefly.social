@@ -4,12 +4,12 @@ import { isSameAddress } from '@masknet/web3-shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
 import { useQuery } from '@tanstack/react-query';
-import { uniqBy } from 'lodash-es';
 import { memo, useMemo } from 'react';
 import { type Address } from 'viem';
 import { useEnsName } from 'wagmi';
 
 import LinkIcon from '@/assets/link-square.svg';
+import { AddressSocialAvatar } from '@/components/AddressSocialAvatar/index.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { SecurityBadge } from '@/components/EmbedCards/TokenSecurityBadge.js';
 import type { AddressCardProps } from '@/components/EmbedCards/types.js';
@@ -18,19 +18,19 @@ import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkType, Source } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
-import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveNetworkIcon } from '@/helpers/resolveNetworkIcon.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
+import { useWalletRelatedProfiles } from '@/hooks/useWalletRelatedProfiles.js';
 import { SolanaExplorerResolver } from '@/mask/index.js';
 import { Debank } from '@/providers/debank/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { GoPlus } from '@/providers/goplus/index.js';
 import { OKX } from '@/providers/okx/index.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
@@ -41,20 +41,7 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
     const networkType = getAddressType(address);
     const { data: ens } = useEnsName({ address: address as Address });
 
-    const { data: walletProfile } = useQuery({
-        queryKey: ['wallet-related-profiles', address],
-        queryFn: async () => {
-            return FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false);
-        },
-        select: (list) => {
-            const profiles = uniqBy(list, (x) => `${x.identity.source}_${x.identity.id}`);
-
-            const walletProfile = profiles.find(
-                (x) => x.identity.source === Source.Wallet && isSameAddress(x.identity.id, address),
-            )?.__origin__ as WalletProfile | undefined;
-            return walletProfile;
-        },
-    });
+    const { data: profiles = EMPTY_LIST } = useWalletRelatedProfiles(address);
 
     const { data: totalBalance } = useQuery({
         queryKey: ['wallet', 'total-balance', networkType, address],
@@ -89,8 +76,11 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
         }
     }, [address, networkType]);
 
+    const walletProfile = profiles.find(
+        (x) => x.identity.source === Source.Wallet && isSameAddress(x.identity.id, address),
+    )?.__origin__ as WalletProfile | undefined;
+
     if (!walletProfile) return null;
-    const avatar = walletProfile.avatar ?? getStampAvatarByProfileId(Source.Wallet, address);
 
     const networkIcon = networkType ? resolveNetworkIcon(networkType, isDarkMode) : null;
 
@@ -106,16 +96,14 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                     e.stopPropagation();
                 }}
             >
-                <div className="rounded-full ring-[3px] ring-primaryBottom">
-                    <Image
-                        className="overflow-hidden rounded-full bg-bg"
-                        src={avatar}
-                        alt={address}
-                        width={80}
-                        height={80}
+                <div className="flex-shrink-0 rounded-full ring-[3px] ring-primaryBottom">
+                    <AddressSocialAvatar
+                        className="h-[80px] w-[80px] overflow-hidden rounded-full bg-bg"
+                        address={address}
+                        size={80}
                     />
                 </div>
-                <div className="flex flex-col gap-2 self-start">
+                <div className="flex min-w-0 flex-col gap-2 self-start">
                     <div className="flex items-center gap-1">
                         {networkIcon && networkType ? (
                             <Image
@@ -126,14 +114,12 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                                 height={18}
                             />
                         ) : null}
-                        <strong className="text-lg font-bold uppercase leading-6 text-main">
-                            {formatAddress(address, 4)}
-                        </strong>
+                        <strong className="text-lg font-bold leading-6 text-main">{formatAddress(address, 4)}</strong>
                         {walletSecurity ? <SecurityBadge security={walletSecurity} /> : null}
                     </div>
                     <div className="flex items-center gap-2 whitespace-nowrap text-second">
-                        <span className="overflow-hidden text-ellipsis whitespace-nowrap font-inter text-medium font-bold leading-[14px]">
-                            {formatAddress(address, 4)}
+                        <span className="min-w-0 truncate font-inter text-medium font-bold leading-[14px]">
+                            {walletProfile ? walletProfile.ens : formatAddress(address, 4)}
                         </span>
                         <CopyTextButton size={11} className="h-3.5 w-3.5" text={address} />
                         {addressLink ? (

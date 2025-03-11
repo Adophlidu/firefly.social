@@ -254,7 +254,7 @@ export class FireflyEndpoint {
         });
     }
 
-    async getAllPlatformProfileFromFirefly(identity: FireflyIdentity, isTokenRequired: boolean) {
+    async getAllPlatformProfileFromFirefly(identity: FireflyIdentity, isAuthRequired: boolean) {
         const queryKey = resolveValue(() => {
             switch (identity.source) {
                 case Source.Lens:
@@ -285,7 +285,7 @@ export class FireflyEndpoint {
             {
                 [`${queryKey}`]: identity.id,
             },
-            isTokenRequired,
+            isAuthRequired,
         );
     }
 
@@ -363,13 +363,13 @@ export class FireflyEndpoint {
 
     async getAllPlatformProfileByIdentity(
         identity: FireflyIdentity,
-        isTokenRequired: boolean,
+        isAuthRequired: boolean,
     ): Promise<FireflyProfile[]> {
-        const profiles = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, isTokenRequired);
+        const profiles = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, isAuthRequired);
         return formatFireflyProfilesFromWalletProfiles(profiles);
     }
 
-    async getAllRelatedProfiles(options?: Partial<Record<PlatformIdentityKey, string>>, isTokenRequired?: boolean) {
+    async getAllRelatedProfiles(options?: Partial<Record<PlatformIdentityKey, string>>, isAuthRequired?: boolean) {
         // Backend does not support using bsky handle directly, so we convert it to a bsky DID for compatibility.
         if (options?.bskyHandle) {
             const did = await convertBskyHandleToDid(options.bskyHandle);
@@ -382,7 +382,7 @@ export class FireflyEndpoint {
                 method: 'GET',
             },
             {
-                withSession: isTokenRequired,
+                withSession: isAuthRequired,
             },
         );
         const data = resolveFireflyResponseData(response);

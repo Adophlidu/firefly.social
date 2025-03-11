@@ -1343,15 +1343,17 @@ export type GetCollectStatusResponse = Response<MintMetadata>;
 
 export type CollectArticleResponse = Response<FreeMintResult>;
 
+export interface DetectedAddress {
+    type: 'eth' | 'solana';
+    chain: string;
+    chain_id: string;
+    address_type: 'eoa' | 'soa' | 'contract';
+    contract_type: 'ERC20' | 'ERC721' | 'ERC1155' | 'token' | 'nft' | 'program';
+    contract_info: CoinGeckoAsset;
+}
+
 export type DetectAddressResponse = Response<{
-    list: Array<{
-        type: 'eth' | 'solana';
-        chain: string;
-        chain_id: string;
-        address_type: 'eoa' | 'soa' | 'contract';
-        contract_type: 'ERC20' | 'ERC721' | 'ERC1155' | 'token' | 'nft' | 'program';
-        contract_info: CoinGeckoAsset;
-    }>;
+    list: DetectedAddress[];
 }>;
 
 export type ParagraphMintMetadata = {

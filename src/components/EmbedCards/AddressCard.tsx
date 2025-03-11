@@ -2,10 +2,9 @@ import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
+import { ContractCard } from '@/components/EmbedCards/ContractCard.js';
 import type { AddressCardProps } from '@/components/EmbedCards/types.js';
 import { WalletCard } from '@/components/EmbedCards/WalletCard.js';
-import { TokenCard } from '@/components/Token/TokenCard.js';
-import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 export const AddressCard = memo<AddressCardProps>(function EvmAddressCard(props) {
@@ -23,11 +22,8 @@ export const AddressCard = memo<AddressCardProps>(function EvmAddressCard(props)
         case 'soa':
             return <WalletCard {...props} />;
         case 'contract':
-            return (
-                <TokenContextProvider>
-                    <TokenCard {...props} />
-                </TokenContextProvider>
-            );
+            if (detected.contract_type === 'token' || detected.contract_type === 'program') return null;
+            return <ContractCard contractType={detected.contract_type} chainId={+detected.chain_id} {...props} />;
         default:
             safeUnreachable(address_type);
             return null;

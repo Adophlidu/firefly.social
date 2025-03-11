@@ -81,7 +81,7 @@ export function useCurrentFireflyProfilesAll() {
     const identity = first(compact([lensIdentity, farcasterIdentity, twitterIdentity, bskyIdentity]));
 
     const { data: profiles = EMPTY_LIST } = useQuery({
-        queryKey: ['all-profiles', 'my-own', identity?.source, identity?.id],
+        queryKey: ['all-profiles', identity?.source, identity?.id],
         async queryFn() {
             if (!identity) return EMPTY_LIST;
             return await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false);
