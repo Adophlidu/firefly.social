@@ -66,7 +66,7 @@ function ConnectedItem({
         }
         if (!connected) return;
 
-        const targetNetwork = switchNetwork(namespace, chainId);
+        const targetNetwork = await switchNetwork(namespace, chainId);
         if (namespace === 'eip155') {
             appkit.setCaipAddress(`eip155:${targetNetwork?.id || mainnet.id}:${address}`, namespace);
         }

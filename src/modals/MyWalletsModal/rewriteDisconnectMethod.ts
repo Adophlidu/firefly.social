@@ -60,7 +60,7 @@ export function rewriteDisconnectMethod(namespace: ChainNamespace, connectorId?:
             if (!connected) return;
             appkit.setStatus('connected', connected[0]);
             const chainId = getChainId(config);
-            switchNetwork(connected[0], chainId);
+            await switchNetwork(connected[0], chainId);
         } catch (error) {
             pendingNamespace.delete(namespace);
             throw error;

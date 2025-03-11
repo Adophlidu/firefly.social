@@ -1,10 +1,9 @@
-import { CoreChainController } from '@reown/appkit';
 import { type AppKitNetwork, mainnet, solana } from '@reown/appkit/networks';
 
 import { appkit, networks } from '@/configs/wagmiClient.js';
 import type { ChainNamespace } from '@/types/index.js';
 
-export function switchNetwork(namespace: ChainNamespace, chainId?: number): AppKitNetwork | undefined {
+export async function switchNetwork(namespace: ChainNamespace, chainId?: number): Promise<AppKitNetwork | undefined> {
     const targetNetwork =
         namespace === 'eip155'
             ? chainId
@@ -14,8 +13,8 @@ export function switchNetwork(namespace: ChainNamespace, chainId?: number): AppK
               ? solana
               : undefined;
     if (targetNetwork) {
-        CoreChainController.setActiveNamespace(namespace);
-        appkit.switchNetwork(targetNetwork);
+        // eslint-disable-next-line @typescript-eslint/await-thenable
+        await appkit.switchNetwork(targetNetwork);
     }
 
     return targetNetwork;
