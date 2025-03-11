@@ -39,7 +39,7 @@
         "farcaster",
         "favourites",
         "followersmutual",
-        "FFID",
+        "UID",
         "goplus",
         "hashgraph",
         "hasown",
@@ -290,8 +290,7 @@
         "postgate",
         "MMMDD",
         "RDNS",
-        "RDNSs",
-        "FFID"
+        "RDNSs"
     ],
     "flagWords": [],
     "ignorePaths": [

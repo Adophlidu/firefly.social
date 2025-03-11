@@ -13,7 +13,7 @@ export function ProfileName({ profile }: ProfileNameProps) {
             </div>
             {profile.handle ? (
                 <div className="break-all text-left text-medium font-normal text-second">
-                    {profile.profileSource === Source.Firefly ? 'FFID: ' : '@'}
+                    {profile.profileSource === Source.Firefly ? 'UID: ' : '@'}
                     {profile.handle}
                 </div>
             ) : null}

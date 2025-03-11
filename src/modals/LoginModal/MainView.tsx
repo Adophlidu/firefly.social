@@ -134,7 +134,7 @@ export function MainView() {
                     <Avatar src={currentProfile?.pfp} size={60} alt={currentProfile?.profileId ?? ''} />
                     <div className="flex flex-col items-start">
                         <span className="font-bold">{currentProfile?.displayName || 'Firefly Account'}</span>
-                        <span className="text-secondary">FFID: {currentProfile?.profileId}</span>
+                        <span className="text-secondary">UID: {currentProfile?.profileId}</span>
                     </div>
                 </div>
             ) : null}
