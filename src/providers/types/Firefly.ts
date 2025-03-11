@@ -335,6 +335,9 @@ export type ThreadResponse = Response<{
 }>;
 
 export type LoginResponse = Response<{
+    displayName?: string;
+    avatar?: string;
+    uid?: string;
     accessToken: string;
     accountId: string;
     farcaster_signer_public_key?: string;

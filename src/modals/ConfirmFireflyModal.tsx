@@ -5,6 +5,7 @@ import { forwardRef } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
+import { createDummyProfileFromFireflySession } from '@/helpers/createDummyProfile.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -24,6 +25,9 @@ export const ConfirmFireflyModal = forwardRef<
     useSingletonModal(ref, {
         onOpen: async (props) => {
             const { account } = props;
+            const fireflyProfile = account.fireflySession
+                ? createDummyProfileFromFireflySession(account.fireflySession)
+                : null;
 
             ConfirmModalRef.open({
                 title: t`Different Account Detected`,
@@ -34,6 +38,7 @@ export const ConfirmFireflyModal = forwardRef<
                                 You are logging into a different Firefly account by{' '}
                                 {resolveSourceName(account.profile.source)} account{' '}
                                 <Link
+                                    className="text-highlight"
                                     href={resolveProfileUrl(account.profile.source, account.profile.profileId)}
                                     target="_blank"
                                 >
@@ -43,18 +48,19 @@ export const ConfirmFireflyModal = forwardRef<
                                 account.
                             </Trans>
                         </p>
-                        <menu className="no-scrollbar mb-6 flex max-h-[192px] flex-col gap-3 overflow-auto rounded-md border border-highlight border-line p-2">
-                            <ProfileInList
-                                key={account.profile.profileId}
-                                selected
-                                selectable={false}
-                                viewable
-                                profile={account.profile}
-                                profileAvatarProps={{
-                                    enableSourceIcon: true,
-                                }}
-                            />
-                        </menu>
+                        {fireflyProfile ? (
+                            <menu className="no-scrollbar mb-6 flex max-h-[192px] flex-col gap-3 overflow-auto rounded-md border border-highlight border-line p-2">
+                                <ProfileInList
+                                    selected
+                                    selectable={false}
+                                    viewable
+                                    profile={fireflyProfile}
+                                    profileAvatarProps={{
+                                        enableSourceIcon: false,
+                                    }}
+                                />
+                            </menu>
+                        ) : null}
                         <div className="flex gap-2">
                             <ClickableButton
                                 className="box-border flex h-10 flex-1 items-center justify-center rounded-full border border-main text-medium font-bold text-main"

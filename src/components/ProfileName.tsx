@@ -1,3 +1,4 @@
+import { Source } from '@/constants/enum.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileNameProps {
@@ -10,7 +11,12 @@ export function ProfileName({ profile }: ProfileNameProps) {
             <div className="w-full truncate break-all text-left text-[16px] font-bold text-main">
                 {profile.displayName}
             </div>
-            <div className="break-all text-left text-medium font-normal text-second">@{profile.handle}</div>
+            {profile.handle ? (
+                <div className="break-all text-left text-medium font-normal text-second">
+                    {profile.profileSource === Source.Firefly ? 'FFID: ' : '@'}
+                    {profile.handle}
+                </div>
+            ) : null}
         </div>
     );
 }

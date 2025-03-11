@@ -9,6 +9,12 @@ export interface FireflySessionSignature {
     signature: string;
 }
 
+export interface FireflySessionPayload {
+    displayName?: string;
+    avatar?: string;
+    uid?: string;
+}
+
 export class FireflySession extends BaseSession implements Session {
     constructor(
         accountId: string,
@@ -17,6 +23,7 @@ export class FireflySession extends BaseSession implements Session {
         public signature: FireflySessionSignature | null,
         // indicate a new firefly binding when it was created
         public isNew?: boolean,
+        public payload?: FireflySessionPayload,
     ) {
         super(SessionType.Firefly, accountId, accessToken, 0, 0);
     }
@@ -30,6 +37,8 @@ export class FireflySession extends BaseSession implements Session {
             this.signature ? btoa(JSON.stringify(this.signature)) : '',
             // isNew flag
             this.isNew ? '1' : '0',
+            // extra data payload
+            this.payload ? btoa(JSON.stringify(this.payload)) : '',
         ].join(':') as `${SessionType}:${string}:${string}:${string}`;
     }
 

@@ -6,7 +6,11 @@ import { parseJSON } from '@/helpers/parseJSON.js';
 import { parseURL } from '@/maskbook/packages/shared-base/src/index.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { FireflySession, type FireflySessionSignature } from '@/providers/firefly/Session.js';
+import {
+    FireflySession,
+    type FireflySessionPayload,
+    type FireflySessionSignature,
+} from '@/providers/firefly/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
@@ -33,6 +37,12 @@ const ThirdPartySessionPayload = z.object({
     accessToken: z.string().optional(),
     accountId: z.string().optional(),
     isNew: z.boolean().optional(),
+});
+
+const FireflySessionPayload = z.object({
+    displayName: z.string(),
+    avatar: z.string(),
+    uid: z.string(),
 });
 
 const BskyDidDoc = z.object({
@@ -86,6 +96,8 @@ export class SessionFactory {
         // for farcaster session, the fourth part is the sponsorship signature
         // for firefly session, the fourth part is the isNew flag
         const fourthPart = fragments[4] ?? '';
+        // for firefly session, the fifth part is the payload in base64 encoded
+        const fifthPart = fragments[5] ?? '';
 
         const session = parseJSON<{
             type: SessionType;
@@ -150,12 +162,15 @@ export class SessionFactory {
                     );
                 }
                 case SessionType.Firefly:
+                    const parsed = FireflySessionPayload.safeParse(parseJSON(atob(fifthPart)));
+                    if (!parsed.success) throw new Error(parsed.error.message);
                     return new FireflySession(
                         session.profileId,
                         session.token,
                         secondPart ? SessionFactory.createSession(atob(secondPart)) : null, // parent session
                         thirdPart ? (parseJSON<FireflySessionSignature>(atob(thirdPart)) ?? null) : null, // signature
                         fourthPart === '1', // isNew
+                        parsed.data, // payload
                     );
                 case SessionType.Apple:
                 case SessionType.Google:
