@@ -33,10 +33,20 @@ const TwitterSessionPayloadSchema = z.object({
 });
 
 const ThirdPartySessionPayload = z.object({
-    nonce: z.string().optional(),
     accessToken: z.string().optional(),
     accountId: z.string().optional(),
     isNew: z.boolean().optional(),
+    uid: z.string().optional(),
+    avatar: z.string().optional(),
+    displayName: z.string().optional(),
+
+    nonce: z.string().optional(),
+
+    email: z.string().optional(),
+    passcode: z.string().optional(),
+
+    telegram_username: z.string().optional(),
+    telegram_user_id: z.string().optional(),
 });
 
 const FireflySessionPayload = z.object({
@@ -169,8 +179,11 @@ export class SessionFactory {
                         session.token,
                         secondPart ? SessionFactory.createSession(atob(secondPart)) : null, // parent session
                         thirdPart ? (parseJSON<FireflySessionSignature>(atob(thirdPart)) ?? null) : null, // signature
-                        fourthPart === '1', // isNew
-                        parsed.data, // payload
+                        false, // @deprecated
+                        {
+                            ...parsed.data,
+                            isNew: fourthPart === '1',
+                        }, // payload
                     );
                 case SessionType.Apple:
                 case SessionType.Google:

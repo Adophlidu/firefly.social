@@ -51,7 +51,7 @@ const fireflyMention = {
             hit: true,
             score: 0,
         },
-    ] as Profile[],
+    ] satisfies Profile[],
 };
 
 async function searchIdentities(query: string) {

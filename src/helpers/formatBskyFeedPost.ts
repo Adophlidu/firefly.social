@@ -15,11 +15,12 @@ import { compact, first, isUndefined, omitBy } from 'lodash-es';
 
 import { RestrictionType, Source } from '@/constants/enum.js';
 import { TENOR_GIF_REGEXP } from '@/constants/regexp.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
-import { type Attachment, type Post, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
+import { type Attachment, type Post, type Profile } from '@/providers/types/SocialMedia.js';
 
 function parseBskyGifUri(uri: string): boolean {
     const parsedURL = parseURL(uri);
@@ -148,18 +149,13 @@ function formatBskyPostView(original: AppBskyFeedDefs.PostView): Post {
                 }
                 if (segment.isMention() && segment.mention?.did) {
                     const handle = segment.text.replace(/^@/, '');
+
                     acc.mentions.push({
+                        ...createDummyProfile(Source.Bsky),
                         profileId: segment.mention.did,
-                        profileSource: Source.Bsky,
                         displayName: handle,
                         handle,
                         fullHandle: handle,
-                        pfp: '',
-                        source: Source.Bsky,
-                        followerCount: 0,
-                        followingCount: 0,
-                        status: ProfileStatus.Active,
-                        verified: true,
                     });
                 }
                 return acc;

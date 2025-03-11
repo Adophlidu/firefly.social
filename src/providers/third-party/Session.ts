@@ -6,14 +6,24 @@ import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export interface ThirdPartySessionPayload {
-    nonce?: string;
-    // only for Telegram
+    // firefly profile
     accessToken?: string;
     accountId?: string;
     isNew?: boolean;
-    // only for Email
+    uid?: string;
+    avatar?: string;
+    displayName?: string;
+
+    // only for apple & google
+    nonce?: string;
+
+    // only for email
     email?: string;
     passcode?: string;
+
+    // only for telegram
+    telegram_username?: string;
+    telegram_user_id?: string;
 }
 
 export class ThirdPartySession extends BaseSession implements Session {

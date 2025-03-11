@@ -2,6 +2,7 @@ import type { AppBskyActorDefs } from '@atproto/api';
 import { first } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 function getDisplayNameFromHandle(handle: string) {
@@ -17,9 +18,8 @@ export function formatBskyProfile(
     profile: AppBskyActorDefs.ProfileViewDetailed,
 ): Profile<AppBskyActorDefs.ProfileViewDetailed> {
     return {
+        ...createDummyProfile(Source.Bsky),
         profileId: profile.did,
-        source: Source.Bsky,
-        profileSource: Source.Bsky,
         displayName: profile.displayName || getDisplayNameFromHandle(profile.handle),
         bio: profile.description ?? '',
         handle: profile.handle,
@@ -28,7 +28,6 @@ export function formatBskyProfile(
         followerCount: profile.followersCount ?? 0,
         followingCount: profile.followsCount ?? 0,
         status: (profile.active ?? true) ? ProfileStatus.Active : ProfileStatus.Inactive,
-        verified: true,
         viewerContext: profile.viewer
             ? {
                   following: !!profile.viewer.following,

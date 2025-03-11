@@ -16,7 +16,6 @@ import {
     type Post,
     type PostType,
     type Profile,
-    ProfileStatus,
 } from '@/providers/types/SocialMedia.js';
 
 function getCoverUriFromUrl(url: string) {
@@ -131,17 +130,11 @@ export async function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType
         },
         mentions: cast.mentions_user.map<Profile>((x) => {
             return {
+                ...createDummyProfile(Source.Farcaster),
                 profileId: x.fid,
-                profileSource: Source.Farcaster,
                 displayName: x.handle,
                 handle: x.handle,
                 fullHandle: x.handle,
-                pfp: '',
-                source: Source.Farcaster,
-                followerCount: 0,
-                followingCount: 0,
-                status: ProfileStatus.Active,
-                verified: true,
             };
         }),
         mirrors: cast.recastedBy ? [formatFarcasterProfileFromFirefly(cast.recastedBy)] : undefined,

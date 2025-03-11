@@ -2,7 +2,8 @@ import { first, last, union } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { URL_REGEX } from '@/constants/regexp.js';
-import { type Attachment, type Post, ProfileStatus } from '@/providers/types/SocialMedia.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
+import { type Attachment, type Post } from '@/providers/types/SocialMedia.js';
 import type { Cast, Feed } from '@/providers/types/Warpcast.js';
 
 function getAttachments(cast: Cast) {
@@ -52,17 +53,15 @@ export function formatWarpcastPost(cast: Cast): Post {
         parentPostId: cast.threadHash,
         timestamp: cast.timestamp,
         author: {
+            ...createDummyProfile(Source.Farcaster),
             fullHandle: cast.author.username,
             profileId: cast.author.fid.toString(),
-            profileSource: Source.Farcaster,
             displayName: cast.author.displayName,
             pfp: cast.author.pfp?.url ?? '',
             handle: cast.author.username,
             followerCount: cast.author.followerCount,
             followingCount: cast.author.followingCount,
-            status: ProfileStatus.Active,
             verified: cast.author.pfp?.verified ?? false,
-            source: Source.Farcaster,
         },
         metadata: {
             locale: '',
@@ -75,30 +74,21 @@ export function formatWarpcastPost(cast: Cast): Post {
             reactions: cast.reactions.count,
         },
         mirrors: cast.recasts.recasters?.map((x) => ({
+            ...createDummyProfile(Source.Farcaster),
             fullHandle: x.username,
             profileId: x.fid.toString(),
-            profileSource: Source.Farcaster,
             displayName: x.displayName,
             handle: x.username,
-            pfp: '',
-            followerCount: 0,
-            followingCount: 0,
-            status: ProfileStatus.Active,
-            verified: true,
-            source: Source.Farcaster,
         })),
         mentions: cast.mentions?.map((x) => ({
+            ...createDummyProfile(Source.Farcaster),
             fullHandle: x.username,
             profileId: x.fid.toString(),
-            profileSource: Source.Farcaster,
             displayName: x.displayName,
             handle: x.username,
-            pfp: '',
             followerCount: x.followerCount,
             followingCount: x.followingCount,
-            status: ProfileStatus.Active,
             verified: x.pfp?.verified ?? false,
-            source: Source.Farcaster,
         })),
         hasLiked: cast.viewerContext?.reacted,
         hasMirrored: cast.viewerContext?.recast,

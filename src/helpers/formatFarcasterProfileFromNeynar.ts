@@ -1,14 +1,15 @@
 import { first } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import type { Profile as NeynarProfile } from '@/providers/types/Neynar.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function formatFarcasterProfileFromNeynar(user: NeynarProfile): Profile {
     return {
+        ...createDummyProfile(Source.Farcaster),
         fullHandle: user.username,
         profileId: user.fid.toString(),
-        profileSource: Source.Farcaster,
         handle: user.username,
         displayName: user.display_name,
         pfp: user.pfp_url,
@@ -17,7 +18,6 @@ export function formatFarcasterProfileFromNeynar(user: NeynarProfile): Profile {
         followerCount: user.follower_count,
         followingCount: user.following_count,
         status: user.active_status,
-        source: Source.Farcaster,
         verified: user.power_badge,
         viewerContext: {
             following: user.viewer_context?.following,

@@ -209,7 +209,7 @@ async function bindFireflySession(session: Session, signal?: AbortSignal) {
         case SessionType.Telegram:
             return await bindTelegramSessionToFirefly(session as ThirdPartySession, signal);
         case SessionType.Email:
-            return await bindTelegramSessionToFirefly(session as ThirdPartySession);
+            return await bindEmailSessionToFirefly(session as ThirdPartySession);
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('[bindFireflySession] session type', session.type);

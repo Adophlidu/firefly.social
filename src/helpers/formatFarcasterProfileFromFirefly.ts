@@ -1,14 +1,15 @@
 import { first } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import type { User } from '@/providers/types/Firefly.js';
-import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 export function formatFarcasterProfileFromFirefly(user: User): Profile {
     return {
+        ...createDummyProfile(Source.Farcaster),
         fullHandle: user.username || user.display_name,
         profileId: user.fid.toString(),
-        profileSource: Source.Farcaster,
         handle: user.username,
         displayName: user.display_name,
         pfp: user.pfp,
@@ -16,9 +17,6 @@ export function formatFarcasterProfileFromFirefly(user: User): Profile {
         address: first(user.addresses),
         followerCount: user.followers,
         followingCount: user.following,
-        status: ProfileStatus.Active,
-        verified: true,
-        source: Source.Farcaster,
         viewerContext: {
             following: user.isFollowing,
             followedBy: user.isFollowedBack,

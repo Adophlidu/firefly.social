@@ -9,9 +9,10 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ClearButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SendPasscodeButton } from '@/components/Login/SendPasscodeButton.js';
-import { AsyncStatus, type ProfileSource, Source } from '@/constants/enum.js';
+import { AsyncStatus, Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { EMAIL_REGEX } from '@/constants/regexp.js';
+import { createDummyProfileFromThirdPartySession } from '@/helpers/createDummyProfile.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -19,7 +20,7 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { thirdPartySessionHolder } from '@/providers/third-party/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
-import { ProfileStatus, SessionType } from '@/providers/types/SocialMedia.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import { type AccountOptions, addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
 import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
@@ -71,39 +72,25 @@ export function LoginEmail() {
         try {
             await loginEmail(
                 async () => {
-                    const response = await FireflyEndpointProvider.loginEmail(email, passcode);
+                    const data = await FireflyEndpointProvider.loginEmail(email, passcode);
                     const now = Date.now();
                     const session = new ThirdPartySession(
                         SessionType.Email,
-                        response.accountId,
-                        response.accessToken,
+                        data.accountId,
+                        data.accessToken,
                         now,
                         now,
                         {
                             email,
                             passcode,
-                            isNew: response.isNew,
+                            ...data,
                         },
                     );
 
-                    const fireflySession = await bindOrRestoreFireflySession(session);
-
                     return {
                         session,
-                        fireflySession,
-                        profile: {
-                            profileId: response.accountId,
-                            displayName: response.displayName ?? email,
-                            handle: email,
-                            fullHandle: email,
-                            pfp: response.avatar ?? '',
-                            followerCount: 0,
-                            followingCount: 0,
-                            status: ProfileStatus.Active,
-                            source: Source.Farcaster,
-                            profileSource: Source.Email as ProfileSource,
-                            verified: true,
-                        },
+                        fireflySession: await bindOrRestoreFireflySession(session),
+                        profile: createDummyProfileFromThirdPartySession(Source.Email, session),
                     };
                 },
                 {

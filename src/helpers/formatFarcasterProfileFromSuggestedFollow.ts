@@ -1,17 +1,15 @@
 import { Source } from '@/constants/enum.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import type { FarcasterSuggestedFollowUser } from '@/providers/types/Firefly.js';
-import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 export function formatFarcasterProfileFromSuggestedFollow(user: FarcasterSuggestedFollowUser): Profile {
     return {
+        ...createDummyProfile(Source.Farcaster),
         followerCount: user.followers,
         followingCount: user.following,
-        source: Source.Farcaster,
-        status: ProfileStatus.Active,
-        verified: false,
         fullHandle: user.username,
         profileId: `${user.fid}`,
-        profileSource: Source.Farcaster,
         handle: user.username,
         displayName: user.display_name,
         pfp: user.pfp,
@@ -20,5 +18,6 @@ export function formatFarcasterProfileFromSuggestedFollow(user: FarcasterSuggest
             following: user.isFollowing,
             followedBy: user.isFollowedBack,
         },
+        verified: false,
     };
 }

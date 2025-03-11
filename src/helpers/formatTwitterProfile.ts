@@ -1,8 +1,9 @@
 import type { UserV2, UserV2TimelineResult } from 'twitter-api-v2';
 
 import { Source } from '@/constants/enum.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
-import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 
 export function convertTwitterAvatar(url: string) {
     return url.replace(/_normal.(jpe?g|png|gif|bmp)/, '_400x400.$1');
@@ -23,8 +24,8 @@ export function formatTwitterProfileStatus(statusList: UserV2['connection_status
 
 export function formatTwitterProfile(data: UserV2): Profile {
     return {
+        ...createDummyProfile(Source.Twitter),
         profileId: data.id,
-        profileSource: Source.Twitter,
         fullHandle: data.name,
         handle: data.username,
         displayName: data.name,
@@ -32,9 +33,7 @@ export function formatTwitterProfile(data: UserV2): Profile {
         bio: data.description,
         followerCount: data.public_metrics?.followers_count ?? 0,
         followingCount: data.public_metrics?.following_count ?? 0,
-        status: ProfileStatus.Active,
         verified: data.verified || false,
-        source: Source.Twitter,
         viewerContext: formatTwitterProfileStatus(data.connection_status),
         website: data.url,
         location: data.location,

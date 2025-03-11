@@ -6,12 +6,13 @@ import urlcat from 'urlcat';
 import { RestrictionType, Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { formatTwitterMedia } from '@/helpers/formatTwitterMedia.js';
 import { convertTwitterAvatar, formatTwitterProfileStatus } from '@/helpers/formatTwitterProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
-import { type Post, ProfileStatus } from '@/providers/types/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 function resolveReplySettings(replySettings?: TweetV2['reply_settings']): RestrictionType[] {
     if (!replySettings) return [RestrictionType.Everyone];
@@ -53,17 +54,13 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         source: Source.Twitter,
         restrictions: resolveReplySettings(item.reply_settings),
         author: {
+            ...createDummyProfile(Source.Twitter),
             profileId: item.author_id!,
-            profileSource: Source.Twitter,
             displayName: user?.name ?? '',
             handle: user?.username!,
             fullHandle: user?.username!,
             pfp: convertTwitterAvatar(user?.profile_image_url!),
-            followerCount: 0,
-            followingCount: 0,
-            status: ProfileStatus.Active,
             verified: user?.verified ?? false,
-            source: Source.Twitter,
             viewerContext: formatTwitterProfileStatus(user?.connection_status),
         },
         stats: {
@@ -75,17 +72,11 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         timestamp: item?.created_at ? new Date(item.created_at).getTime() : Date.now(),
         mentions: mentions?.map((mention) => {
             return {
+                ...createDummyProfile(Source.Twitter),
                 profileId: mention.id,
-                profileSource: Source.Twitter,
                 displayName: mention.username,
                 handle: mention.username,
                 fullHandle: mention.username,
-                pfp: '',
-                source: Source.Twitter,
-                followerCount: 0,
-                followingCount: 0,
-                status: ProfileStatus.Active,
-                verified: true,
             };
         }),
         metadata: {
@@ -162,17 +153,13 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
             ret.reporter = ret.author;
             ret.parentPostId = retweeted.id;
             ret.author = {
+                ...createDummyProfile(Source.Twitter),
                 profileId: mention.id,
-                profileSource: Source.Twitter,
                 displayName: author?.name ?? mention?.username ?? '',
                 handle: mention?.username!,
                 fullHandle: mention?.username!,
                 pfp: convertTwitterAvatar(author?.profile_image_url ?? ''),
-                followerCount: 0,
-                followingCount: 0,
-                status: ProfileStatus.Active,
                 verified: false,
-                source: Source.Twitter,
                 viewerContext: formatTwitterProfileStatus(author?.connection_status),
             };
         }

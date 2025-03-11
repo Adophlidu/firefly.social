@@ -22,7 +22,7 @@ import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, LENS_HANDLE_REGEXP } from '@/constants/regexp.js';
-import { createDummyProfileFromLensHandle } from '@/helpers/createDummyProfile.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
 import { getProfileUrl, getTwitterProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
@@ -53,7 +53,10 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                 const handle = getLensHandleFromMentionTitle(title);
                 if (!handle) return title;
 
-                const link = getProfileUrl(createDummyProfileFromLensHandle(handle));
+                const link = getProfileUrl({
+                    ...createDummyProfile(Source.Lens),
+                    handle,
+                });
                 return (
                     <ProfileTippy
                         identity={{

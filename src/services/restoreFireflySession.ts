@@ -1,7 +1,6 @@
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
-import { Source } from '@/constants/enum.js';
 import { NotAllowedError, TimeoutError, UnreachableError } from '@/constants/error.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -14,7 +13,7 @@ import { FireflySession } from '@/providers/firefly/Session.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import type { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
-import type { LoginResponse, ThirdPartyLoginResponse } from '@/providers/types/Firefly.js';
+import type { LoginResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
@@ -30,7 +29,7 @@ async function restoreFireflySessionFromLens(session: LensSession, signal?: Abor
         signal,
     });
     const data = resolveFireflyResponseData(response);
-    return new FireflySession(data.accountId, data.accessToken, session, null, data.isNew);
+    return new FireflySession(data.accountId, data.accessToken, session, null, false, data);
 }
 
 async function restoreFireflySessionFromFarcaster(session: FarcasterSession, signal?: AbortSignal) {
@@ -70,7 +69,7 @@ async function restoreFireflySessionFromFarcaster(session: FarcasterSession, sig
             console.warn(`[restoreFireflySession] No farcaster signer keys found in the response.`);
         }
 
-        return new FireflySession(data.accountId, data.accessToken, session, null, data.isNew);
+        return new FireflySession(data.accountId, data.accessToken, session, null, false, data);
     }
     throw new Error('[restoreFireflySession] Failed to restore firefly session.');
 }
@@ -95,7 +94,7 @@ async function restoreFireflySessionFromTwitter(session: TwitterSession, signal?
     });
 
     const data = resolveFireflyResponseData(response);
-    return new FireflySession(data.accountId, data.accessToken, session, null, data.isNew);
+    return new FireflySession(data.accountId, data.accessToken, session, null, false, data);
 }
 
 async function restoreFireflySessionFromBsky(session: BskySession, signal?: AbortSignal) {
@@ -111,54 +110,54 @@ async function restoreFireflySessionFromBsky(session: BskySession, signal?: Abor
     });
 
     const data = resolveFireflyResponseData(response);
-    return new FireflySession(data.accountId, data.accessToken, session, null, data.isNew);
+    return new FireflySession(data.accountId, data.accessToken, session, null, false, data);
 }
 
 async function restoreFireflySessionFromApple(session: ThirdPartySession, signal?: AbortSignal) {
-    const appleSession = session as ThirdPartySession;
-    const appleUrl = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/apple/login');
-    const appleResponse = await fetchJSON<ThirdPartyLoginResponse>(appleUrl, {
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/apple/login');
+    const response = await fetchJSON<LoginResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
-            authorizationToken: appleSession.token,
-            nonce: appleSession.payload?.nonce,
+            authorizationToken: session.token,
+            nonce: session.payload?.nonce,
         }),
         signal,
     });
-    const appleData = resolveFireflyResponseData(appleResponse);
-    return new FireflySession(appleData.accountId, appleData.accessToken, session, null, appleData.isNew);
+    const data = resolveFireflyResponseData(response);
+    return new FireflySession(data.accountId, data.accessToken, session, null, false, data);
 }
 
 async function restoreFireflySessionFromGoogle(session: ThirdPartySession, signal?: AbortSignal) {
-    const googleSession = session as ThirdPartySession;
-    const googleUrl = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/google/login');
-    const googleResponse = await fetchJSON<ThirdPartyLoginResponse>(googleUrl, {
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/google/login');
+    const response = await fetchJSON<LoginResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
-            idToken: googleSession.token,
+            idToken: session.token,
         }),
         signal,
     });
 
-    const googleData = resolveFireflyResponseData(googleResponse);
-    return new FireflySession(googleData.accountId, googleData.accessToken, session, null, googleData.isNew);
-}
-
-async function restoreFireflySessionFromEmail(session: ThirdPartySession, signal?: AbortSignal) {
-    return new FireflySession(session.profileId, session.token, session, null, session.payload?.isNew);
+    const data = resolveFireflyResponseData(response);
+    return new FireflySession(data.accountId, data.accessToken, session, null, false, data);
 }
 
 async function restoreFireflySessionFromTelegram(session: ThirdPartySession, signal?: AbortSignal) {
-    const tgSession = session as ThirdPartySession;
-    if (!tgSession.payload?.accountId || !tgSession.payload.accessToken) throw new NotAllowedError();
+    if (!session.payload?.accountId || !session.payload.accessToken) throw new NotAllowedError();
+
     return new FireflySession(
-        tgSession.payload.accountId,
-        tgSession.payload.accessToken,
+        session.payload.accountId,
+        session.payload.accessToken,
         session,
         null,
-        tgSession.payload.isNew,
+        false,
+        session.payload,
     );
 }
+
+async function restoreFireflySessionFromEmail(session: ThirdPartySession, signal?: AbortSignal) {
+    return new FireflySession(session.profileId, session.token, session, null, false, session.payload);
+}
+
 /**
  * Restore firefly session from a lens or farcaster session.
  * @param session
@@ -197,9 +196,6 @@ export function restoreFireflySession(session: Session, signal?: AbortSignal) {
  */
 export async function restoreFireflySessionAll() {
     for (const source of SORTED_SOCIAL_SOURCES) {
-        // we don't support twitter for now
-        if (source === Source.Twitter) continue;
-
         const holder = resolveSessionHolder(source);
         if (!holder?.session) continue;
 

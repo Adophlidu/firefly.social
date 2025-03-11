@@ -2,11 +2,12 @@ import type { HandleInfoFragment, ProfileFragment } from '@lens-protocol/client'
 
 import { Source } from '@/constants/enum.js';
 import { IMAGE_KIT_AVATAR } from '@/constants/index.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { getLennyUrl } from '@/helpers/getLennyUrl.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import type { LensV3Profile } from '@/providers/types/Firefly.js';
-import { NetworkType, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
+import { NetworkType, type Profile } from '@/providers/types/SocialMedia.js';
 
 function getAvatar(profile: ProfileFragment, namedTransform = IMAGE_KIT_AVATAR) {
     let avatarUrl = (profile as { avatar?: string }).avatar;
@@ -24,8 +25,8 @@ function getAvatar(profile: ProfileFragment, namedTransform = IMAGE_KIT_AVATAR) 
 
 export function formatLensProfile(result: ProfileFragment): Profile {
     return {
+        ...createDummyProfile(Source.Lens),
         profileId: result.id,
-        profileSource: Source.Lens,
         displayName: result.metadata?.displayName || result.handle?.localName || '',
         handle: (result.handle?.localName || result.metadata?.displayName) ?? '',
         fullHandle: result.handle?.fullHandle || '',
@@ -34,8 +35,6 @@ export function formatLensProfile(result: ProfileFragment): Profile {
         address: result.followNftAddress?.address ?? undefined,
         followerCount: result.stats.followers,
         followingCount: result.stats.following,
-        status: ProfileStatus.Active,
-        verified: true,
         signless: result.signless,
         ownedBy: {
             networkType: NetworkType.Ethereum,
@@ -46,7 +45,6 @@ export function formatLensProfile(result: ProfileFragment): Profile {
             followedBy: result.operations.isFollowingMe.value,
             blocking: result.operations.isBlockedByMe.value,
         },
-        source: Source.Lens,
         website: result.metadata?.attributes?.find((x) => x.key === 'website')?.value,
         location: result.metadata?.attributes?.find((x) => x.key === 'location')?.value,
     };
@@ -54,32 +52,20 @@ export function formatLensProfile(result: ProfileFragment): Profile {
 
 export function formatLensProfileByHandleInfo(result: HandleInfoFragment): Profile {
     return {
+        ...createDummyProfile(Source.Lens),
         profileId: result.id,
-        profileSource: Source.Lens,
         displayName: result.localName || '',
         handle: result.localName || '',
         fullHandle: result.fullHandle || '',
-        pfp: '',
-        followerCount: 0,
-        followingCount: 0,
-        status: ProfileStatus.Active,
-        verified: true,
-        source: Source.Lens,
     };
 }
 
 export function formatLensProfileFromSuggestedFollow(result: LensV3Profile): Profile {
     return {
+        ...createDummyProfile(Source.Lens),
         profileId: result.id,
-        profileSource: Source.Lens,
         displayName: result.localName || '',
         handle: result.localName || '',
         fullHandle: result.fullHandle || '',
-        pfp: '',
-        followerCount: 0,
-        followingCount: 0,
-        status: ProfileStatus.Active,
-        verified: true,
-        source: Source.Lens,
     };
 }

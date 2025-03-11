@@ -80,8 +80,8 @@ export async function publishPostToBsky(
     uri: string;
 }> {
     const did = bskySessionHolder.agent.assertDid;
-    const rKey = TID.next().toString();
-    const uri = `at://${did}/app.bsky.feed.post/${rKey}`;
+    const rkey = TID.next().toString();
+    const uri = `at://${did}/app.bsky.feed.post/${rkey}`;
 
     const text = post.metadata.content?.content;
     const richText = text ? new RichText({ text }) : undefined;
@@ -93,7 +93,7 @@ export async function publishPostToBsky(
         {
             $type: 'com.atproto.repo.applyWrites#create',
             collection: 'app.bsky.feed.post',
-            rkey: rKey,
+            rkey,
             value: {
                 $type: 'app.bsky.feed.post',
                 createdAt: new Date().toISOString(),
@@ -128,7 +128,7 @@ export async function publishPostToBsky(
         writes.push({
             $type: 'com.atproto.repo.applyWrites#create',
             collection: 'app.bsky.feed.threadgate',
-            rkey: rKey,
+            rkey,
             value: {
                 $type: 'app.bsky.feed.threadgate',
                 post: uri,
@@ -143,7 +143,7 @@ export async function publishPostToBsky(
         writes.push({
             $type: 'com.atproto.repo.applyWrites#create',
             collection: 'app.bsky.feed.postgate',
-            rkey: rKey,
+            rkey,
             value: {
                 $type: 'app.bsky.feed.postgate',
                 createdAt: new Date().toISOString(),

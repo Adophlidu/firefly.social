@@ -10,9 +10,13 @@ export interface FireflySessionSignature {
 }
 
 export interface FireflySessionPayload {
-    displayName?: string;
-    avatar?: string;
+    // indicate a new firefly binding when it was created
+    isNew?: boolean;
+
+    // firefly profile
     uid?: string;
+    avatar?: string;
+    displayName?: string;
 }
 
 export class FireflySession extends BaseSession implements Session {
@@ -21,7 +25,10 @@ export class FireflySession extends BaseSession implements Session {
         accessToken: string,
         public parent: Session | null,
         public signature: FireflySessionSignature | null,
-        // indicate a new firefly binding when it was created
+        /**
+         * @deprecated
+         * This field always false. Use `payload.isNew` instead
+         */
         public isNew?: boolean,
         public payload?: FireflySessionPayload,
     ) {

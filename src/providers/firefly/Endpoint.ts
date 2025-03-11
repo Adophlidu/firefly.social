@@ -85,7 +85,7 @@ import {
     type HexResponse,
     type IsMutedAllResponse,
     type LinkDigestResponse,
-    type LoginEmailResponse,
+    type LoginResponse,
     type MintBySponsorResponse,
     type MuteAllResponse,
     type NFTCollectionsResponse,
@@ -101,7 +101,6 @@ import {
     type SponsorMintOptions,
     type TakoExternalHostedData,
     type TelegramLoginBotResponse,
-    type TelegramLoginResponse,
     type TokenWithMarketData,
     type TwitterUserInfoResponse,
     type TwitterUserV2Response,
@@ -938,16 +937,12 @@ export class FireflyEndpoint {
     }
 
     async loginTelegram(telegramToken: string) {
-        const response = await fetchJSON<TelegramLoginResponse>(
-            urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/telegram/login'),
-            {
-                method: 'POST',
-                body: JSON.stringify({ telegramToken }),
-            },
-        );
+        const response = await fetchJSON<LoginResponse>(urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/telegram/login'), {
+            method: 'POST',
+            body: JSON.stringify({ telegramToken }),
+        });
 
         const data = resolveFireflyResponseData(response);
-
         return data;
     }
 
@@ -956,8 +951,8 @@ export class FireflyEndpoint {
             method: 'POST',
             body: JSON.stringify({ link }),
         });
-        const data = resolveFireflyResponseData(response);
 
+        const data = resolveFireflyResponseData(response);
         return data;
     }
 
@@ -1097,7 +1092,7 @@ export class FireflyEndpoint {
 
     async loginEmail(email: string, passcode: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/email/login');
-        const response = await fetchJSON<LoginEmailResponse>(url, {
+        const response = await fetchJSON<LoginResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
                 email,

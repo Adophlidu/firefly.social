@@ -36,7 +36,7 @@ import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
-import { type Profile, type ProfileEditable, ProfileStatus, SessionType } from '@/providers/types/SocialMedia.js';
+import { type Profile, type ProfileEditable, SessionType } from '@/providers/types/SocialMedia.js';
 import type { ThirdPartySessionType } from '@/providers/types/ThirdParty.js';
 import { addAccount } from '@/services/account.js';
 import { addTwitterAccount } from '@/services/addTwitterAccount.js';
@@ -407,17 +407,13 @@ const useThirdPartyStateBase = createState(
                 const result = await addAccount(
                     {
                         profile: {
+                            ...createDummyProfile(Source.Farcaster),
                             profileId: session.user?.id ?? '',
                             displayName: session.user?.email ?? '',
                             handle: session.user?.email ?? '',
-                            fullHandle: session.user.email ?? '',
+                            fullHandle: session.user?.email ?? '',
                             pfp: session.user?.image ?? '',
-                            followerCount: 0,
-                            followingCount: 0,
-                            status: ProfileStatus.Active,
-                            source: Source.Farcaster,
                             profileSource: resolveSourceFromSessionType(session.type),
-                            verified: true,
                         },
                         session: thirdPartySession,
                         fireflySession: foundNewSessionFromServer

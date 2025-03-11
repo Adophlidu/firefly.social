@@ -1,4 +1,5 @@
 import { Source } from '@/constants/enum.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import type {
     Channel as FireflyChannel,
     ChannelBrief,
@@ -10,8 +11,8 @@ import { type Channel, type Profile, ProfileStatus } from '@/providers/types/Soc
 
 export function formatChannelProfileFromFirefly(channelProfile: ChannelProfile): Profile {
     return {
+        ...createDummyProfile(Source.Farcaster),
         profileId: `${channelProfile.fid}`,
-        profileSource: Source.Farcaster,
         displayName: channelProfile.display_name,
         handle: channelProfile.username,
         fullHandle: channelProfile.username,
@@ -26,7 +27,6 @@ export function formatChannelProfileFromFirefly(channelProfile: ChannelProfile):
             following: channelProfile.isFollowing ?? false,
             followedBy: channelProfile.isFollowedBack ?? false,
         },
-        source: Source.Farcaster,
     };
 }
 
@@ -56,10 +56,8 @@ export function formatChannelFromFirefly(channel: FireflyChannel): Channel {
 
 export function formatBriefChannelProfileFromFirefly(channelProfile: ChannelProfileBrief): Profile {
     return {
-        status: ProfileStatus.Active,
-        verified: true,
+        ...createDummyProfile(Source.Farcaster),
         profileId: `${channelProfile.fid}`,
-        profileSource: Source.Farcaster,
         displayName: channelProfile.display_name,
         handle: channelProfile.username,
         fullHandle: channelProfile.username,
@@ -71,7 +69,6 @@ export function formatBriefChannelProfileFromFirefly(channelProfile: ChannelProf
             following: channelProfile.isFollowing,
             followedBy: channelProfile.isFollowedBack,
         },
-        source: Source.Farcaster,
     };
 }
 
@@ -100,10 +97,8 @@ export function formatBriefChannelFromFirefly(channel: ChannelBrief, blocked?: b
 
 export function formatFireflyFarcasterProfile(profile: FireflyFarcasterProfile): Profile {
     return {
-        status: ProfileStatus.Active,
-        verified: true,
+        ...createDummyProfile(Source.Farcaster),
         profileId: `${profile.fid}`,
-        profileSource: Source.Farcaster,
         displayName: profile.display_name,
         handle: profile.username,
         fullHandle: profile.username,
@@ -114,6 +109,5 @@ export function formatFireflyFarcasterProfile(profile: FireflyFarcasterProfile):
             following: profile.isFollowing,
             followedBy: profile.isFollowedBack,
         },
-        source: Source.Farcaster,
     };
 }

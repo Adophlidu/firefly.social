@@ -5,7 +5,8 @@ import { forwardRef } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
-import { createDummyProfileFromFireflySession } from '@/helpers/createDummyProfile.js';
+import { Source } from '@/constants/enum.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -26,7 +27,13 @@ export const ConfirmFireflyModal = forwardRef<
         onOpen: async (props) => {
             const { account } = props;
             const fireflyProfile = account.fireflySession
-                ? createDummyProfileFromFireflySession(account.fireflySession)
+                ? {
+                      ...createDummyProfile(Source.Farcaster),
+                      profileId: account.fireflySession.profileId,
+                      displayName: account.fireflySession.payload?.displayName ?? 'Firefly',
+                      pfp: account.fireflySession.payload?.avatar ?? '',
+                      handle: account.fireflySession.payload?.uid ?? '',
+                  }
                 : null;
 
             ConfirmModalRef.open({

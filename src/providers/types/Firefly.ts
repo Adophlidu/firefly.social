@@ -335,36 +335,22 @@ export type ThreadResponse = Response<{
 }>;
 
 export type LoginResponse = Response<{
-    displayName?: string;
-    avatar?: string;
-    uid?: string;
     accessToken: string;
     accountId: string;
     farcaster_signer_public_key?: string;
     farcaster_signer_private_key?: string;
     isNew: boolean;
     fid?: number;
+    uid?: string;
+    avatar?: string;
+    displayName?: string;
     telegram_username?: string;
     telegram_user_id?: string;
-}>;
-
-export type ThirdPartyLoginResponse = Response<{
-    accessToken: string;
-    accountId: string;
-    isNew: boolean;
 }>;
 
 export type TelegramLoginBotResponse = Response<{
     url: string;
     tgUrl: string;
-}>;
-
-export type TelegramLoginResponse = Response<{
-    accessToken: string;
-    accountId: string;
-    isNew: boolean;
-    telegram_user_id: string;
-    telegram_username: string;
 }>;
 
 export type MetricsDownloadResponse = Response<{
@@ -855,16 +841,18 @@ interface TelegramConnection {
     sources: VerifiedSource[];
 }
 
+export interface FireflyConnection {
+    account_id: { high: number; low: number };
+    id: string;
+    name: string;
+    platform: string;
+    uid?: string;
+    avatar?: string;
+    displayName?: string;
+}
+
 export type AllConnections = {
-    account: Array<{
-        account_id: { high: number; low: number };
-        id: string;
-        name: string;
-        platform: string;
-        uid?: string;
-        avatar?: string;
-        displayName?: string;
-    }>;
+    account: FireflyConnection[];
     farcaster: Record<'connected' | 'unconnected', FarcasterConnection[]>;
     lens: Record<
         'connected' | 'unconnected',
@@ -1426,14 +1414,6 @@ export type WalletsStatusResponse = Response<
 >;
 
 export type GenerateOTPResponse = Response<string>;
-
-export type LoginEmailResponse = Response<{
-    accessToken: string;
-    accountId: string;
-    isNew: boolean;
-    avatar?: string;
-    displayName?: string;
-}>;
 
 export enum FollowingTimelinePlatform {
     All = 'all',

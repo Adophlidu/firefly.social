@@ -12,11 +12,12 @@ import FullLogo from '@/assets/logo-full.svg';
 import { Loading } from '@/components/Loading.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { Source } from '@/constants/enum.js';
+import { createDummyProfileFromThirdPartySession } from '@/helpers/createDummyProfile.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
-import { ProfileStatus, SessionType } from '@/providers/types/SocialMedia.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import { addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
 import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
@@ -41,47 +42,29 @@ export default function Page(props: Props) {
         if (os === 'web' && token) {
             try {
                 const data = await FireflyEndpointProvider.loginTelegram(token);
-                if (!data) return;
+                if (!data.telegram_user_id || !data.telegram_username) return;
 
-                const thirdPartySession = new ThirdPartySession(
+                const session = new ThirdPartySession(
                     SessionType.Telegram,
                     data.telegram_user_id,
                     token,
                     Date.now(),
                     dayjs(Date.now()).add(1, 'y').unix(),
-                    {
-                        accountId: data.accountId,
-                        isNew: data.isNew,
-                        accessToken: data.accessToken,
-                    },
+                    data,
                 );
 
                 const accounts = useThirdPartyStateStore.getState().accounts;
-                const foundNewSessionFromServer = !!(
-                    thirdPartySession &&
-                    !accounts.some((x) => isSameSession(thirdPartySession, x.session as ThirdPartySession))
+                const foundNewSessionFromServer = !accounts.some((x) =>
+                    isSameSession(session, x.session as ThirdPartySession),
                 );
-
                 if (!foundNewSessionFromServer) return;
 
                 const result = await addAccount(
                     {
-                        profile: {
-                            profileId: data.telegram_user_id,
-                            displayName: data.telegram_username,
-                            handle: data.telegram_username,
-                            fullHandle: data.telegram_username,
-                            pfp: '',
-                            followerCount: 0,
-                            followingCount: 0,
-                            status: ProfileStatus.Active,
-                            source: Source.Farcaster,
-                            profileSource: Source.Telegram,
-                            verified: true,
-                        },
-                        session: thirdPartySession,
+                        session,
+                        profile: createDummyProfileFromThirdPartySession(Source.Telegram, session),
                         fireflySession: foundNewSessionFromServer
-                            ? await bindOrRestoreFireflySession(thirdPartySession)
+                            ? await bindOrRestoreFireflySession(session)
                             : undefined,
                     },
                     {
