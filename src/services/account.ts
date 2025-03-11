@@ -26,7 +26,7 @@ import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
+import { ProfileStatus, SessionType } from '@/providers/types/SocialMedia.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { useFireflyStateStore, useThirdPartyStateStore } from '@/store/useProfileStore.js';
@@ -120,10 +120,34 @@ async function resumeFireflySession(account: Account, signal?: AbortSignal): Pro
     // restore firefly session
     fireflySessionHolder.resumeSession(fireflyAccount.session);
 
+    const allConnection = await FireflyEndpointProvider.getAllConnections();
+    const target = allConnection.account.find((x) => !!x.uid);
     // update firefly state
     const state = getProfileState(Source.Firefly);
-    state.updateAccounts([fireflyAccount]);
-    state.updateCurrentAccount(fireflyAccount);
+
+    if (target) {
+        const updateAccount = {
+            session: fireflySession,
+            profile: {
+                source: Source.Farcaster,
+                profileId: target.uid ?? '',
+                profileSource: Source.Firefly,
+                handle: '',
+                pfp: target.avatar ?? '',
+                displayName: target.displayName ?? '',
+                followerCount: 0,
+                followingCount: 0,
+                fullHandle: '',
+                status: ProfileStatus.Active,
+                verified: true,
+            },
+        } as Account;
+        state.updateAccounts([updateAccount]);
+        state.updateCurrentAccount(updateAccount);
+    } else {
+        state.updateAccounts([fireflyAccount]);
+        state.updateCurrentAccount(fireflyAccount);
+    }
 }
 
 /**

@@ -144,6 +144,10 @@ async function restoreFireflySessionFromGoogle(session: ThirdPartySession, signa
     return new FireflySession(googleData.accountId, googleData.accessToken, session, null, googleData.isNew);
 }
 
+async function restoreFireflySessionFromEmail(session: ThirdPartySession, signal?: AbortSignal) {
+    return new FireflySession(session.profileId, session.token, session, null, session.payload?.isNew);
+}
+
 async function restoreFireflySessionFromTelegram(session: ThirdPartySession, signal?: AbortSignal) {
     const tgSession = session as ThirdPartySession;
     if (!tgSession.payload?.accountId || !tgSession.payload.accessToken) throw new NotAllowedError();
@@ -179,6 +183,8 @@ export function restoreFireflySession(session: Session, signal?: AbortSignal) {
             return restoreFireflySessionFromTelegram(session as ThirdPartySession, signal);
         case SessionType.Firefly:
             throw new NotAllowedError('[restoreFireflySession] Firefly session is not allowed.');
+        case SessionType.Email:
+            return restoreFireflySessionFromEmail(session as ThirdPartySession, signal);
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('[restoreFireflySession] session type', session.type);

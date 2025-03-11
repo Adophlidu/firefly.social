@@ -139,7 +139,8 @@
         "zerion",
         "zksync",
         "zora",
-        "zustand"
+        "zustand",
+        "Passcode"
     ],
     "ignoreWords": [
         "DEVNET",
@@ -289,7 +290,8 @@
         "postgate",
         "MMMDD",
         "RDNS",
-        "RDNSs"
+        "RDNSs",
+        "FFID"
     ],
     "flagWords": [],
     "ignorePaths": [

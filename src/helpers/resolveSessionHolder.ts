@@ -33,6 +33,7 @@ export const resolveSessionHolderFromProfileSource = createLookupTableResolver<P
         [Source.Google]: thirdPartySessionHolder,
         [Source.Apple]: thirdPartySessionHolder,
         [Source.Telegram]: thirdPartySessionHolder,
+        [Source.Email]: thirdPartySessionHolder,
     },
     (source) => {
         throw new UnreachableError('source', source);
@@ -49,6 +50,7 @@ export const resolveSessionHolderFromSessionType = createLookupTableResolver<Ses
         [SessionType.Apple]: thirdPartySessionHolder,
         [SessionType.Google]: thirdPartySessionHolder,
         [SessionType.Telegram]: thirdPartySessionHolder,
+        [SessionType.Email]: thirdPartySessionHolder,
     },
     (sessionType) => {
         throw new UnreachableError('sessionType', sessionType);

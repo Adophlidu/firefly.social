@@ -174,3 +174,9 @@ export class TransactionSimulationError extends Error {
         super(message ?? 'Transaction simulation failed.');
     }
 }
+
+export class OTPExceededMaximumLimit extends Error {
+    constructor(message?: string) {
+        super(message ?? 'OTP exceeded maximum limit.');
+    }
+}

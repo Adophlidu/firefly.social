@@ -11,11 +11,14 @@ export interface ThirdPartySessionPayload {
     accessToken?: string;
     accountId?: string;
     isNew?: boolean;
+    // only for Email
+    email?: string;
+    passcode?: string;
 }
 
 export class ThirdPartySession extends BaseSession implements Session {
     constructor(
-        type: SessionType.Apple | SessionType.Google | SessionType.Telegram,
+        type: SessionType.Apple | SessionType.Google | SessionType.Telegram | SessionType.Email,
         profileId: string,
         token: string,
         createdAt: number,

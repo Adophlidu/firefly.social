@@ -34,6 +34,7 @@ export async function getProfileBySession(session: Session, signal?: AbortSignal
         case SessionType.Apple:
         case SessionType.Google:
         case SessionType.Telegram:
+        case SessionType.Email:
             throw new NotAllowedError();
         default:
             safeUnreachable(session.type);

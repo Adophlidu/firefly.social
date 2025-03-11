@@ -215,6 +215,7 @@ async function convertSessionToMetadata(session: Session): Promise<Metrics[0]['l
         case SessionType.Apple:
         case SessionType.Google:
         case SessionType.Telegram:
+        case SessionType.Email:
             throw new NotAllowedError();
         default:
             safeUnreachable(session.type);

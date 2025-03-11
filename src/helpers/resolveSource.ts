@@ -29,6 +29,7 @@ export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
         [SourceInURL.Apple]: Source.Apple,
         [SourceInURL.Posts]: Source.Posts,
         [SourceInURL.Notifications]: Source.Notifications,
+        [SourceInURL.Email]: Source.Email,
     },
     (sourceInUrl) => {
         throw new UnreachableError('sourceInUrl', sourceInUrl);
@@ -73,6 +74,7 @@ export const resolveSocialSourceFromProfileSource = createLookupTableResolver<Pr
         [Source.Telegram]: Source.Farcaster,
         [Source.Apple]: Source.Farcaster,
         [Source.Google]: Source.Farcaster,
+        [Source.Email]: Source.Farcaster,
     },
     (source) => {
         throw new UnreachableError('profile source', source);
@@ -89,6 +91,7 @@ export const resolveSourceFromSessionType = createLookupTableResolver<SessionTyp
         [SessionType.Apple]: Source.Apple,
         [SessionType.Google]: Source.Google,
         [SessionType.Telegram]: Source.Telegram,
+        [SessionType.Email]: Source.Email,
     },
     (sessionType) => {
         throw new UnreachableError('sessionType', sessionType);
@@ -106,6 +109,7 @@ export const resolveSocialSourceFromSessionType = createLookupTableResolver<Sess
         [SessionType.Apple]: Source.Farcaster,
         [SessionType.Google]: Source.Farcaster,
         [SessionType.Telegram]: Source.Farcaster,
+        [SessionType.Email]: Source.Farcaster,
     },
     (sessionType) => {
         throw new UnreachableError('sessionType', sessionType);

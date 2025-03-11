@@ -62,6 +62,7 @@ export enum Source {
     Telegram = 'Telegram',
     Google = 'Google',
     Apple = 'Apple',
+    Email = 'Email',
     DAOs = 'DAOs',
     Posts = 'Posts',
     Notifications = 'Notifications',
@@ -80,6 +81,7 @@ export enum SourceInURL {
     Telegram = 'telegram',
     Google = 'google',
     Apple = 'apple',
+    Email = 'email',
     DAOs = 'daos',
     Posts = 'posts',
     Notifications = 'all',
@@ -109,6 +111,7 @@ export enum ConnectionPlatform {
     Telegram = 'telegram',
     Apple = 'apple',
     Google = 'google',
+    Email = 'email',
 }
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Bsky;
@@ -124,7 +127,8 @@ export type ProfileSource =
     | Source.Firefly
     | Source.Telegram
     | Source.Apple
-    | Source.Google;
+    | Source.Google
+    | Source.Email;
 
 export type LoginSource = SocialSource | ThirdPartySource;
 

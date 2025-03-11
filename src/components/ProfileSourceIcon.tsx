@@ -3,6 +3,7 @@ import { safeUnreachable } from '@masknet/kit';
 import type { SVGProps } from 'react';
 
 import AppleIcon from '@/assets/apple.svg';
+import EmailIcon from '@/assets/email.svg';
 import GoogleIcon from '@/assets/google.svg';
 import GoogleSmallIcon from '@/assets/google-small.svg';
 import FireflyIcon from '@/assets/logo.svg';
@@ -44,6 +45,8 @@ export function ProfileSourceIcon({ source, size = 20, ...props }: ProfileSource
             return <AppleIcon {...props} style={style} width={size} height={size} />;
         case Source.Telegram:
             return <TelegramIcon {...props} style={style} width={size} height={size} />;
+        case Source.Email:
+            return <EmailIcon {...props} style={style} width={size} height={size} />;
         default:
             safeUnreachable(source);
             return null;

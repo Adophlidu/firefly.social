@@ -19,6 +19,7 @@ export function getProfileState(source: ProfileSource) {
         [Source.Google]: useThirdPartyStateStore,
         [Source.Apple]: useThirdPartyStateStore,
         [Source.Telegram]: useThirdPartyStateStore,
+        [Source.Email]: useThirdPartyStateStore,
     }[source];
 
     // throw an error for invalid source

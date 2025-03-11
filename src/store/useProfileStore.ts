@@ -460,7 +460,11 @@ const useFireflyStateBase = createState(
 
                 if (session) {
                     fireflySessionHolder.resumeSession(session as FireflySession);
-                    state.updateCurrentAccount({ profile: createDummyProfile(Source.Farcaster), session });
+
+                    state.updateCurrentAccount({
+                        profile: createDummyProfile(Source.Farcaster),
+                        session,
+                    });
                 } else {
                     console.warn('[firefly store] clean the local store because no session found.');
                     state.clear();

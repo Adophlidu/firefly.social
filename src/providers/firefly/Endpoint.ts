@@ -16,6 +16,7 @@ import {
     Source,
     SourceInURL,
 } from '@/constants/enum.js';
+import { OTPExceededMaximumLimit } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
 import { SetQueryDataForMuteAllProfiles } from '@/decorators/SetQueryDataForBlockProfile.js';
@@ -73,6 +74,7 @@ import {
     type FireflyProfile,
     type FireflyWalletConnection,
     type GenerateFarcasterSignatureResponse,
+    type GenerateOTPResponse,
     type GetAllConnectionsResponse,
     type GetCollectStatusResponse,
     type GetFarcasterSuggestedFollowUserResponse,
@@ -83,6 +85,7 @@ import {
     type HexResponse,
     type IsMutedAllResponse,
     type LinkDigestResponse,
+    type LoginEmailResponse,
     type MintBySponsorResponse,
     type MuteAllResponse,
     type NFTCollectionsResponse,
@@ -1078,6 +1081,32 @@ export class FireflyEndpoint {
                 profile_id: platformId,
             }),
         });
+    }
+
+    async generateEmailOTP(email: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/email/generateOTP');
+        const response = await fetchJSON<GenerateOTPResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                email,
+            }),
+        });
+
+        return resolveFireflyResponseData(response);
+    }
+
+    async loginEmail(email: string, passcode: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/email/login');
+        const response = await fetchJSON<LoginEmailResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                email,
+                otp: passcode,
+            }),
+        });
+
+        if (response.code === 1642) throw new OTPExceededMaximumLimit();
+        return resolveFireflyResponseData(response);
     }
 }
 

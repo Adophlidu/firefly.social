@@ -31,6 +31,7 @@ export const resolveConnectionPlatform = createLookupTableResolver<
         [Source.Telegram]: ConnectionPlatform.Telegram,
         [Source.Firefly]: ConnectionPlatform.Firefly,
         [Source.Google]: ConnectionPlatform.Google,
+        [Source.Email]: ConnectionPlatform.Email,
         [SourceInURL.Farcaster]: ConnectionPlatform.Farcaster,
         [SourceInURL.Lens]: ConnectionPlatform.Lens,
         [SourceInURL.Twitter]: ConnectionPlatform.Twitter,

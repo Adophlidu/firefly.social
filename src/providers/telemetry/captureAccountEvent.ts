@@ -121,6 +121,11 @@ export function getAccountEventParameters(account: Pick<Account, 'profile' | 'or
                     .accounts.filter((x) => x.profile.profileSource === Source.Telegram)
                     .map((x) => [x.profile.profileId, x.profile.handle]),
             };
+        case Source.Email:
+            return {
+                is_token_sync: account.origin === 'sync',
+                email_id: account.profile.profileId,
+            };
         case Source.Firefly:
             throw new NotAllowedError();
         default:

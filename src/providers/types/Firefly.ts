@@ -861,6 +861,9 @@ export type AllConnections = {
         id: string;
         name: string;
         platform: string;
+        uid?: string;
+        avatar?: string;
+        displayName?: string;
     }>;
     farcaster: Record<'connected' | 'unconnected', FarcasterConnection[]>;
     lens: Record<
@@ -1421,6 +1424,16 @@ export type WalletsStatusResponse = Response<
         is_hack: false;
     }>
 >;
+
+export type GenerateOTPResponse = Response<string>;
+
+export type LoginEmailResponse = Response<{
+    accessToken: string;
+    accountId: string;
+    isNew: boolean;
+    avatar?: string;
+    displayName?: string;
+}>;
 
 export enum FollowingTimelinePlatform {
     All = 'all',

@@ -1,12 +1,12 @@
 'use client';
 
-import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 
+import DoubleUser from '@/assets/double-user.svg';
+import { AccountConnectButton } from '@/components/AccountConnectButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
 import { WalletConnectButton } from '@/components/WalletConnectButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
@@ -29,47 +29,37 @@ export function Footer({ collapsed = false }: FooterProps) {
 
     return (
         <footer className={classNames('absolute -left-2 -right-2 bottom-20')}>
-            {isLogin ? (
+            {isLoginFirefly || isLogin ? (
                 <>
                     <WalletConnectButton className="mb-6 ml-6" />
-                    <div
-                        className={classNames('flex text-center', {
-                            'justify-start': isLogin,
-                            'justify-center': !isLogin && isLoginFirefly,
-                        })}
-                    >
-                        <LoginStatusBar collapsed={collapsed} />
-                    </div>
+                    <AccountConnectButton
+                        onClick={async () => {
+                            useNavigatorState.getState().updateSidebarOpen(false);
+                            await delay(300);
+                            LoginModalRef.open();
+                        }}
+                    />
                 </>
             ) : (
                 <div className="mb-4 flex justify-center">
-                    {collapsed ? (
-                        <ClickableButton
-                            onClick={() => {
-                                LoginModalRef.open();
-                            }}
-                            className="rounded-full bg-main p-1 text-primaryBottom"
-                        >
-                            <UserPlusIcon className="h-5 w-5" aria-hidden="true" />
-                        </ClickableButton>
-                    ) : (
-                        <ClickableButton
-                            disabled={isLoading}
-                            onClick={async () => {
-                                useNavigatorState.getState().updateSidebarOpen(false);
-                                await delay(300);
-                                LoginModalRef.open();
-                            }}
-                            className={classNames(
-                                'flex w-[200px] items-center justify-center rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom',
-                                {
-                                    '!w-[175px]': !isLogin && isLoginFirefly,
-                                },
-                            )}
-                        >
-                            {isLoading ? <LoadingIcon className="mr-2" /> : <Trans>Login</Trans>}
-                        </ClickableButton>
-                    )}
+                    <ClickableButton
+                        disabled={isLoading}
+                        className="mr-2 flex min-w-[120px] items-center justify-center rounded-lg bg-lightMain px-4 py-2 text-lg leading-6 text-primaryBottom"
+                        onClick={async () => {
+                            useNavigatorState.getState().updateSidebarOpen(false);
+                            await delay(300);
+                            LoginModalRef.open();
+                        }}
+                    >
+                        {isLoading ? (
+                            <LoadingIcon />
+                        ) : (
+                            <>
+                                <DoubleUser className="h-5 w-5" />
+                                <Trans>Sign in</Trans>
+                            </>
+                        )}
+                    </ClickableButton>
                 </div>
             )}
         </footer>

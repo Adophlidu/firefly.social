@@ -174,6 +174,7 @@ export class SessionFactory {
                     );
                 case SessionType.Apple:
                 case SessionType.Google:
+                case SessionType.Email:
                 case SessionType.Telegram: {
                     const parsed = ThirdPartySessionPayload.safeParse(parseJSON(atob(secondPart)));
                     if (!parsed.success) throw new Error(parsed.error.message);

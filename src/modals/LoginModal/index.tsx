@@ -3,9 +3,9 @@ import { forwardRef, useRef } from 'react';
 import urlcat from 'urlcat';
 
 import { Modal } from '@/components/Modal.js';
-import { Popover } from '@/components/Popover.js';
 import { type FarcasterSignType, type ProfileSource } from '@/constants/enum.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -55,6 +55,7 @@ export interface LoginModalOpenProps {
 export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProps | void>>(function LoginModal(_, ref) {
     const isMedium = useIsMedium();
     const routerRef = useRef(createLoginRouter());
+    const isLoginFirefly = useIsLoginFirefly();
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
@@ -66,24 +67,16 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProp
                 });
             } else {
                 routerRef.current = createLoginRouter();
-                routerRef.current.history.replace('/main');
+                routerRef.current.history.replace(urlcat('/main', { isLogin: isLoginFirefly }));
             }
         },
     });
 
     const Router = <RouterProvider router={routerRef.current} />;
 
-    if (isMedium) {
-        return (
-            <Modal open={open} onClose={() => dispatch?.close()}>
-                <div>{Router}</div>
-            </Modal>
-        );
-    }
-
     return (
-        <Popover open={open} onClose={() => dispatch?.close()} dialogPanelClassName="!p-0 !pt-6">
-            {Router}
-        </Popover>
+        <Modal open={open} onClose={() => dispatch?.close()} enableBackdrop={isMedium}>
+            <div className="max-md:h-[100vh] max-md:w-[100vw]">{Router}</div>
+        </Modal>
     );
 });

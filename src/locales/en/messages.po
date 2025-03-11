@@ -170,6 +170,9 @@ msgstr "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fu
 msgid "Equal Split"
 msgstr "Equal Split"
 
+msgid "Enter your email address below, and we’ll send a one-time passcode to confirm your address"
+msgstr "Enter your email address below, and we’ll send a one-time passcode to confirm your address"
+
 #. placeholder {0}: profile.handle
 msgid "Followed @{0} on {sourceName}"
 msgstr "Followed @{0} on {sourceName}"
@@ -260,6 +263,9 @@ msgstr "Malicious mining activities found."
 
 msgid "Collecting"
 msgstr "Collecting"
+
+msgid "You have exceeded the maximum number of attempts. Please try again later."
+msgstr "You have exceeded the maximum number of attempts. Please try again later."
 
 msgid "Functions that can suspend trading"
 msgstr "Functions that can suspend trading"
@@ -513,6 +519,9 @@ msgstr "Signing in"
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 
+msgid "Sorry, the email you entered is invalid"
+msgstr "Sorry, the email you entered is invalid"
+
 msgid "No malicious mining activities found."
 msgstr "No malicious mining activities found."
 
@@ -556,9 +565,6 @@ msgstr "Your posts have published successfully."
 
 msgid "Retry"
 msgstr "Retry"
-
-msgid "Or login in with other platforms"
-msgstr "Or login in with other platforms"
 
 #. placeholder {0}: decodeURIComponent(connectorName as string)
 msgid "Get {0}"
@@ -714,6 +720,9 @@ msgstr "Password"
 msgid "Liked"
 msgstr "Liked"
 
+msgid "Connect Email"
+msgstr "Connect Email"
+
 msgid "Token ID"
 msgstr "Token ID"
 
@@ -797,6 +806,9 @@ msgstr "Search"
 
 msgid "Perhaps the token is a honeypot."
 msgstr "Perhaps the token is a honeypot."
+
+msgid "Other accounts"
+msgstr "Other accounts"
 
 #. placeholder {0}: mutuals[0].displayName
 msgid "Followed by {0}"
@@ -1108,6 +1120,9 @@ msgstr "Session Validator"
 msgid "THREAD POST"
 msgstr "THREAD POST"
 
+msgid "Connection failed."
+msgstr "Connection failed."
+
 msgid "Frame Validator"
 msgstr "Frame Validator"
 
@@ -1197,6 +1212,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked
 
 msgid "reposted"
 msgstr "reposted"
+
+msgid "One-time passcode sent to you"
+msgstr "One-time passcode sent to you"
 
 #. placeholder {0}: handle || recipient.displayName
 msgid "Send a tip to {0}"
@@ -1306,6 +1324,9 @@ msgstr "You cannot reply to @{0} on {1}."
 msgid "Are you sure you want to report this collection?"
 msgstr "Are you sure you want to report this collection?"
 
+msgid "Failed to send."
+msgstr "Failed to send."
+
 msgid "and"
 msgstr "and"
 
@@ -1403,6 +1424,9 @@ msgstr "<0>Sold</0> an NFT worth {costEl}"
 #. placeholder {0}: profile.handle
 msgid "All posts from @{0} will be hidden from you"
 msgstr "All posts from @{0} will be hidden from you"
+
+msgid "Your email address"
+msgstr "Your email address"
 
 msgid "Your vote is in!"
 msgstr "Your vote is in!"
@@ -1615,6 +1639,9 @@ msgstr "Total amount shared among all winners"
 msgid "Enter number of winners"
 msgstr "Enter number of winners"
 
+msgid "Resend"
+msgstr "Resend"
+
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 
@@ -1795,8 +1822,14 @@ msgstr "Bookmark"
 msgid "{handleOrEnsOrAddress} watched"
 msgstr "{handleOrEnsOrAddress} watched"
 
+msgid "Sorry, the passcode you entered is invalid"
+msgstr "Sorry, the passcode you entered is invalid"
+
 msgid "Circulating Supply"
 msgstr "Circulating Supply"
+
+msgid "Failed to switch."
+msgstr "Failed to switch."
 
 msgid "Post has been deleted"
 msgstr "Post has been deleted"
@@ -2674,6 +2707,9 @@ msgstr "Wallet added successfully"
 msgid "There is no data available for display."
 msgstr "There is no data available for display."
 
+msgid "Switch Done!"
+msgstr "Switch Done!"
+
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -2737,6 +2773,9 @@ msgstr "Are you sure you want to remove this NFT from your bookmark?"
 
 msgid "Voted successfully."
 msgstr "Voted successfully."
+
+msgid "Social accounts"
+msgstr "Social accounts"
 
 msgid "Installed"
 msgstr "Installed"
@@ -3454,6 +3493,9 @@ msgstr "If a suspendable code is included, the token maybe neither be bought nor
 msgid "All chains"
 msgstr "All chains"
 
+msgid "Your email is now connected."
+msgstr "Your email is now connected."
+
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "Display Name should not exceed {maxDisplayNameSize} characters"
 
@@ -3595,6 +3637,9 @@ msgstr "Followed <0>@{handle}</0> on {0}"
 
 msgid "View on explorer"
 msgstr "View on explorer"
+
+msgid "My Accounts"
+msgstr "My Accounts"
 
 msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
 msgstr "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
@@ -3920,6 +3965,9 @@ msgstr "Message"
 
 msgid "Continue"
 msgstr "Continue"
+
+msgid "One-time passcode"
+msgstr "One-time passcode"
 
 msgid "Copy frame URL"
 msgstr "Copy frame URL"

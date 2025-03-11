@@ -2,6 +2,7 @@ import { Trans } from '@lingui/react/macro';
 import { createRootRoute, createRoute } from '@tanstack/react-router';
 
 import { BskyView, BskyViewBeforeLoad } from '@/modals/LoginModal/BskyView.js';
+import { EmailView, EmailViewBeforeLoad } from '@/modals/LoginModal/EmailView.js';
 import { FarcasterView, FarcasterViewBeforeLoad } from '@/modals/LoginModal/FarcasterView.js';
 import { LensView, LensViewBeforeLoad } from '@/modals/LoginModal/LensView.js';
 import { MainView } from '@/modals/LoginModal/MainView.js';
@@ -16,9 +17,15 @@ const mainRoute = createRoute({
     getParentRoute: () => rootRoute,
     component: MainView,
     path: '/main',
-    beforeLoad: () => {
+    beforeLoad: (ctx) => {
+        const isLogin = 'isLogin' in ctx.search ? ctx.search.isLogin : false;
+        if (isLogin) {
+            return {
+                title: <Trans>My Accounts</Trans>,
+            };
+        }
         return {
-            title: <Trans>Login to Firefly</Trans>,
+            title: <Trans>Sign in</Trans>,
         };
     },
 });
@@ -54,4 +61,19 @@ const bskyRoute = createRoute({
     beforeLoad: BskyViewBeforeLoad,
 });
 
-export const routeTree = rootRoute.addChildren([mainRoute, farcasterRoute, lensRoute, twitterRoute, bskyRoute]);
+const emailRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    component: EmailView,
+    pendingComponent: EmailView,
+    path: '/email',
+    beforeLoad: EmailViewBeforeLoad,
+});
+
+export const routeTree = rootRoute.addChildren([
+    mainRoute,
+    farcasterRoute,
+    lensRoute,
+    twitterRoute,
+    bskyRoute,
+    emailRoute,
+]);

@@ -175,6 +175,9 @@ msgstr "<0>完全摊薄估值 (FDV) = 当前价格 x 总供应量</0><1>完全�
 msgid "Equal Split"
 msgstr "均分金额"
 
+msgid "Enter your email address below, and we’ll send a one-time passcode to confirm your address"
+msgstr ""
+
 #. placeholder {0}: profile.handle
 msgid "Followed @{0} on {sourceName}"
 msgstr "在 {sourceName} 上关注 @{0}"
@@ -265,6 +268,9 @@ msgstr "发现恶意挖矿行为。"
 
 msgid "Collecting"
 msgstr "铸造中"
+
+msgid "You have exceeded the maximum number of attempts. Please try again later."
+msgstr ""
 
 msgid "Functions that can suspend trading"
 msgstr "可以暂停交易的功能"
@@ -518,6 +524,9 @@ msgstr "登录中"
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 msgstr "使用<0>摄像头</0> 在 {count} 内<1/> 来扫描您的二维码。授权 Farcaster singer 给 Firefly。"
 
+msgid "Sorry, the email you entered is invalid"
+msgstr ""
+
 msgid "No malicious mining activities found."
 msgstr "未发现恶意挖矿活动。"
 
@@ -561,9 +570,6 @@ msgstr "发布成功。"
 
 msgid "Retry"
 msgstr "重试"
-
-msgid "Or login in with other platforms"
-msgstr "或者登录其他平台"
 
 #. placeholder {0}: decodeURIComponent(connectorName as string)
 msgid "Get {0}"
@@ -719,6 +725,9 @@ msgstr "密码"
 msgid "Liked"
 msgstr "已点赞"
 
+msgid "Connect Email"
+msgstr ""
+
 msgid "Token ID"
 msgstr "通证 ID"
 
@@ -802,6 +811,9 @@ msgstr "搜索"
 
 msgid "Perhaps the token is a honeypot."
 msgstr "也许这个通证是一个陷阱。"
+
+msgid "Other accounts"
+msgstr ""
 
 #. placeholder {0}: mutuals[0].displayName
 msgid "Followed by {0}"
@@ -1113,6 +1125,9 @@ msgstr "会话验证器"
 msgid "THREAD POST"
 msgstr "THREAD 发帖"
 
+msgid "Connection failed."
+msgstr ""
+
 msgid "Frame Validator"
 msgstr "Frame 验证器"
 
@@ -1202,6 +1217,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>点�
 
 msgid "reposted"
 msgstr "已转发"
+
+msgid "One-time passcode sent to you"
+msgstr ""
 
 #. placeholder {0}: handle || recipient.displayName
 msgid "Send a tip to {0}"
@@ -1311,6 +1329,9 @@ msgstr "您不能在 {1} 上评论 @{0}。"
 msgid "Are you sure you want to report this collection?"
 msgstr "您确定要举报这个 NFT 吗？"
 
+msgid "Failed to send."
+msgstr ""
+
 msgid "and"
 msgstr "和"
 
@@ -1408,6 +1429,9 @@ msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
 #. placeholder {0}: profile.handle
 msgid "All posts from @{0} will be hidden from you"
 msgstr "来自 @{0} 的所有帖子将对您隐藏"
+
+msgid "Your email address"
+msgstr ""
 
 msgid "Your vote is in!"
 msgstr "投票成功！"
@@ -1620,6 +1644,9 @@ msgstr "在所有获奖者之间分配的总金额"
 msgid "Enter number of winners"
 msgstr "输入获奖人数"
 
+msgid "Resend"
+msgstr ""
+
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr "合约所有人有权修改其他地址的通证通证余额，这可能造成资产损失。"
 
@@ -1800,8 +1827,14 @@ msgstr "收藏"
 msgid "{handleOrEnsOrAddress} watched"
 msgstr "{handleOrEnsOrAddress} 已关注"
 
+msgid "Sorry, the passcode you entered is invalid"
+msgstr ""
+
 msgid "Circulating Supply"
 msgstr "流通总量"
+
+msgid "Failed to switch."
+msgstr ""
 
 msgid "Post has been deleted"
 msgstr "帖子已被删除"
@@ -2679,6 +2712,9 @@ msgstr "添加钱包成功"
 msgid "There is no data available for display."
 msgstr "没有可显示的数据。"
 
+msgid "Switch Done!"
+msgstr ""
+
 msgid "Cancel"
 msgstr "取消"
 
@@ -2742,6 +2778,9 @@ msgstr "您确定要从书签中移除此 NFT 吗？"
 
 msgid "Voted successfully."
 msgstr "投票成功。"
+
+msgid "Social accounts"
+msgstr ""
 
 msgid "Installed"
 msgstr "已安装"
@@ -3459,6 +3498,9 @@ msgstr "如果包含可中止的代码，那么通证可能既不能被购买也
 msgid "All chains"
 msgstr "所有链"
 
+msgid "Your email is now connected."
+msgstr ""
+
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "显示名称不可以超过 {maxDisplayNameSize} 个字"
 
@@ -3600,6 +3642,9 @@ msgstr "在 {0} 上关注了 <0>@{handle}</0>"
 
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"
+
+msgid "My Accounts"
+msgstr ""
 
 msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
 msgstr "已经登录？<0/>授权 <1>已经存在的 Farcaster signer</1> 给 Firefly 或者通过应用程序<2>同步</2>"
@@ -3925,6 +3970,9 @@ msgstr "信息"
 
 msgid "Continue"
 msgstr "继续"
+
+msgid "One-time passcode"
+msgstr ""
 
 msgid "Copy frame URL"
 msgstr "复制 Frame URL"

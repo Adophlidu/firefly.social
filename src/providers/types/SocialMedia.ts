@@ -22,6 +22,7 @@ export enum SessionType {
     Farcaster = 'Farcaster',
     Firefly = 'Firefly',
     Bsky = 'Bsky',
+    Email = 'Email',
 }
 
 export enum NetworkType {

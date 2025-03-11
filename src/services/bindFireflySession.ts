@@ -165,6 +165,22 @@ async function bindTelegramSessionToFirefly(session: ThirdPartySession, signal?:
     return data;
 }
 
+async function bindEmailSessionToFirefly(session: ThirdPartySession) {
+    const response = await fireflySessionHolder.fetch<BindResponse>(
+        urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindEmail'),
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                email: session.payload?.email,
+                otp: session.payload?.passcode,
+            }),
+        },
+    );
+
+    const data = resolveFireflyResponseData(response);
+    return data;
+}
+
 /**
  * Bind a lens or farcaster session to the currently logged-in Firefly session.
  * @param session
@@ -192,6 +208,8 @@ async function bindFireflySession(session: Session, signal?: AbortSignal) {
             return await bindGoogleSessionToFirefly(session as ThirdPartySession, signal);
         case SessionType.Telegram:
             return await bindTelegramSessionToFirefly(session as ThirdPartySession, signal);
+        case SessionType.Email:
+            return await bindTelegramSessionToFirefly(session as ThirdPartySession);
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('[bindFireflySession] session type', session.type);

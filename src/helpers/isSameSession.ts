@@ -43,6 +43,7 @@ export function isSameSession(session: Session | null, otherSession: Session | n
         case SessionType.Apple:
         case SessionType.Google:
         case SessionType.Telegram:
+        case SessionType.Email:
             return session.token === otherSession.token;
         default:
             safeUnreachable(session.type);
