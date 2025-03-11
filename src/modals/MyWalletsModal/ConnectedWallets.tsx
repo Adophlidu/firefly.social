@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { CoreChainController } from '@reown/appkit';
-import { mainnet, solana } from '@reown/appkit/networks';
+import { mainnet } from '@reown/appkit/networks';
 import { compact } from 'lodash-es';
 import { type FunctionComponent, memo, type SVGAttributes, useEffect, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -16,13 +16,13 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { appkit, networks } from '@/configs/wagmiClient.js';
-import { NetworkType } from '@/constants/enum.js';
+import { appkit } from '@/configs/wagmiClient.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { ConnectModalRef } from '@/modals/controls.js';
 import { restoreDisconnectMethod, rewriteDisconnectMethod } from '@/modals/MyWalletsModal/rewriteDisconnectMethod.js';
+import { switchNetwork } from '@/modals/MyWalletsModal/switchNetwork.js';
 import { syncWalletIdentity } from '@/modals/MyWalletsModal/syncWalletIdentity.js';
 import type { ChainNamespace } from '@/types/index.js';
 
@@ -66,17 +66,7 @@ function ConnectedItem({
         }
         if (!connected) return;
 
-        const targetNetwork =
-            namespace === 'eip155'
-                ? chainId
-                    ? networks.find((x) => x.id === chainId) || mainnet
-                    : mainnet
-                : namespace === 'solana'
-                  ? solana
-                  : undefined;
-        if (targetNetwork) {
-            appkit.switchNetwork(targetNetwork);
-        }
+        const targetNetwork = switchNetwork(namespace, chainId);
         if (namespace === 'eip155') {
             appkit.setCaipAddress(`eip155:${targetNetwork?.id || mainnet.id}:${address}`, namespace);
         }
@@ -95,7 +85,7 @@ function ConnectedItem({
         >
             <Icon className="shrink-0" width={20} height={20} />
             {walletIconUrl ? (
-                <Image src={walletIconUrl} alt="" className="h-5 w-5 shrink-0" width={20} height={20} />
+                <Image src={walletIconUrl.trim()} alt="" className="h-5 w-5 shrink-0" width={20} height={20} />
             ) : null}
             <span className="min-w-0 flex-1 truncate text-left">{ensName || formatAddress(address, 4)}</span>
             {loading ? (
@@ -163,13 +153,7 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
                 <ClickableButton
                     className="flex h-10 w-full items-center justify-between gap-2 border-b border-secondaryLine bg-lightBg px-2 text-main"
                     onClick={() => {
-                        ConnectModalRef.open(
-                            solana.isConnected
-                                ? {
-                                      networkType: NetworkType.Ethereum,
-                                  }
-                                : undefined,
-                        );
+                        ConnectModalRef.open();
                     }}
                 >
                     <WalletIcon width={20} height={20} />
