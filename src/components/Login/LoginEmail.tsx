@@ -93,7 +93,7 @@ export function LoginEmail() {
                         fireflySession,
                         profile: {
                             profileId: response.accountId,
-                            displayName: response.displayName ?? '',
+                            displayName: response.displayName ?? email,
                             handle: email,
                             fullHandle: email,
                             pfp: response.avatar ?? '',
