@@ -251,9 +251,7 @@ export function MentionsPlugin(): JSX.Element | null {
             editor.update(
                 () => {
                     const mentionNode = $createMentionNode(selectedOption.handle, selectedOption.allProfile);
-                    if (nodeToReplace) {
-                        nodeToReplace.replace(mentionNode);
-                    } else if (matchedNodeCache.current) {
+                    if (matchedNodeCache.current) {
                         matchedNodeCache.current.replace(mentionNode);
                     }
                     mentionNode.select().insertText(' ');
