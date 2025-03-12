@@ -9,8 +9,11 @@ import { getSocialConnectionsWithProfile } from '@/services/getSocialConnections
 
 export function useAllConnectionsFormattedWithProfiles() {
     const profileAll = useProfileStoreAll();
+    const queryKeyProfileIds = Object.entries(profileAll).flatMap(([, profile]) =>
+        profile.accounts.map((x) => x.profile.profileId),
+    );
     return useQuery({
-        queryKey: ['my-wallet-connections', 'with-profile', profileAll],
+        queryKey: ['my-wallet-connections', 'with-profile', queryKeyProfileIds],
         async queryFn() {
             const connections = await FireflyEndpointProvider.getAllConnectionsFormatted();
             const settles = await Promise.allSettled(
