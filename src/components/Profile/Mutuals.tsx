@@ -16,7 +16,6 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function Mutuals({ profile }: { profile: Profile }) {
     const myProfile = useCurrentProfile(profile.source);
-    const myProfileId = myProfile?.profileId;
 
     const enabledMutuals = !isSameProfile(myProfile, profile);
     const profileId = profile.profileId;
@@ -26,7 +25,7 @@ export function Mutuals({ profile }: { profile: Profile }) {
     // MutualFollowersList, to make it reuseable in MutualFollowersList
     const { data } = useInfiniteQuery({
         enabled: enabledMutuals,
-        queryKey: ['profiles', source, 'mutual-followers', myProfileId, profileId],
+        queryKey: ['profiles', source, 'mutual-followers', myProfile?.profileId, profileId],
         queryFn: async () => {
             const provider = resolveSocialMediaProvider(source);
             return provider.getMutualFollowers(profile.profileId);

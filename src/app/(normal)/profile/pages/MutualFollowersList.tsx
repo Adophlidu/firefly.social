@@ -13,10 +13,9 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function MutualFollowersList({ profileId, source }: { profileId: string; source: SocialSource }) {
     const myProfile = useCurrentProfile(source);
-    const myProfileId = myProfile?.profileId;
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['profiles', source, 'mutual-followers', myProfileId, profileId],
+        queryKey: ['profiles', source, 'mutual-followers', myProfile?.profileId, profileId],
         async queryFn({ pageParam }) {
             const provider = resolveSocialMediaProvider(source);
             return provider.getMutualFollowers(profileId, createIndicator(undefined, pageParam));

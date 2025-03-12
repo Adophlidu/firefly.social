@@ -17,7 +17,6 @@ interface QuickReplyProps {
 
 export const QuickReply = memo<QuickReplyProps>(function QuickReply({ source, post }) {
     const currentProfile = useCurrentProfile(source);
-
     if (!currentProfile) return null;
 
     return (
