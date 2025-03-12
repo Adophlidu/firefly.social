@@ -10,6 +10,7 @@ import { CloseButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { Modal } from '@/components/Modal.js';
+import { queryClient } from '@/configs/queryClient.js';
 import type { ThirdPartySource } from '@/constants/enum.js';
 import { SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -48,6 +49,10 @@ export function DisconnectFireflyAccountModal({ ref }: Props) {
             await removeAccountByProfileId(source, account.profile.profileId);
             captureAccountDisconnectEvent(account);
             enqueueSuccessMessage(t`Disconnected from your social graph`);
+
+            queryClient.refetchQueries({
+                queryKey: ['allConnections'],
+            });
 
             dispatch?.close();
         } catch (error) {

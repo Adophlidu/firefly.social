@@ -21,6 +21,7 @@ import {
     SocialProfileCategory,
     type SocialSource,
     Source,
+    SourceInURL,
     TrendingType,
     VERCEL_NEV,
     WalletProfileCategory,
@@ -171,6 +172,12 @@ export const SORTED_PROFILE_SOURCES: ProfilePageSource[] = [
 export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Bsky] as const;
 export const SORTED_LOGIN_SOCIAL_SOURCES = [Source.Twitter, Source.Farcaster, Source.Bsky, Source.Lens] as const;
 export const SORTED_THIRD_PARTY_SOURCES = [Source.Google, Source.Telegram, Source.Apple, Source.Email] as const;
+export const SORTED_THIRD_PARTY_SOURCES_IN_URL = [
+    SourceInURL.Google,
+    SourceInURL.Telegram,
+    SourceInURL.Apple,
+    SourceInURL.Email,
+] as const;
 export const SORTED_BOOKMARK_SOURCES =
     env.shared.NODE_ENV === NODE_ENV.Development
         ? [Source.Farcaster, Source.Lens, Source.Twitter, Source.Article]

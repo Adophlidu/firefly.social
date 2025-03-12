@@ -38,7 +38,7 @@ import type {
     VideoMetadataV3Fragment,
 } from '@lens-protocol/client';
 import { safeUnreachable } from '@masknet/kit';
-import { compact, first, isEmpty, last } from 'lodash-es';
+import { compact, first, isEmpty, last, uniqBy } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST, ORB_CLUB_TAG_PREFIX } from '@/constants/index.js';
@@ -213,7 +213,7 @@ async function formatContent(metadata: PublicationMetadataFragment, author: Prof
                 content: metadata.content,
                 asset,
                 attachments: metadata.attachments?.length
-                    ? compact([asset, ...getAttachments(metadata.attachments)])
+                    ? uniqBy(compact([asset, ...getAttachments(metadata.attachments)]), (x) => x.uri)
                     : asset
                       ? [asset]
                       : [],

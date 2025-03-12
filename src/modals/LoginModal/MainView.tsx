@@ -1,6 +1,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay, safeUnreachable } from '@masknet/kit';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';
 import { usePathname } from 'next/navigation.js';
 import { signIn } from 'next-auth/react';
@@ -15,15 +16,18 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { FarcasterSignType, PageRoute, type SocialSource, Source, type ThirdPartySource } from '@/constants/enum.js';
-import { SORTED_LOGIN_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
+import { SORTED_LOGIN_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES_IN_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
 import { formatEmail } from '@/helpers/formatEmail.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
+import { resolveSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
@@ -53,6 +57,7 @@ export function MainView() {
     const { identity } = useFireflyIdentityState();
 
     const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
+
     const isPureProfilePage = pathname === PageRoute.Profile;
     const isMyProfilePage = isMyProfile && (isPureProfilePage || isRoutePathname(pathname, PageRoute.Profile));
 
@@ -131,6 +136,13 @@ export function MainView() {
         [identity.id, identity.source, isMyProfilePage, isPureProfilePage, updateParams],
     );
 
+    const { data } = useQuery({
+        queryKey: ['allConnections', [...thirdPartyProfile.map((x) => x.profile.profileId)]],
+        queryFn: () => {
+            return runInSafeAsync(() => FireflyEndpointProvider.getAllConnections());
+        },
+    });
+
     return (
         <div className="rounded-[6px] bg-primaryBottom px-6 pb-6 max-md:max-h-[calc(100vh-64px)] max-md:overflow-auto md:w-[400px]">
             <div className="mb-3 text-left text-[15px] font-medium leading-[15px]">
@@ -194,8 +206,9 @@ export function MainView() {
                 <Trans>Other accounts</Trans>
             </div>
             <div className="flex flex-col gap-2">
-                {SORTED_THIRD_PARTY_SOURCES.map((source, index) => {
-                    const profile = thirdPartyProfile.find((x) => x.profile.profileSource === source);
+                {SORTED_THIRD_PARTY_SOURCES_IN_URL.map((sourceInUrl, index) => {
+                    const source = resolveSource(sourceInUrl) as ThirdPartySource | Source.Email;
+                    const profile = data ? formatAccountFromConnections(sourceInUrl, data) : null;
                     return (
                         <div className="overflow-hidden rounded-lg border border-secondaryLine" key={index}>
                             <ClickableButton
@@ -214,7 +227,6 @@ export function MainView() {
                                         );
                                     }
                                 }}
-                                disabled={(loading && selectedSource === source) || !!profile}
                             >
                                 {profile ? (
                                     <div className="flex items-center gap-2">
@@ -231,7 +243,9 @@ export function MainView() {
                                             <ProfileSourceIcon source={source} size={20} />
                                             <span>{resolveSourceName(source)}</span>
                                         </div>
-                                        <PlusIcon className="h-5 w-5" />
+                                        {!loading && selectedSource !== source ? (
+                                            <PlusIcon className="h-5 w-5" />
+                                        ) : null}
                                     </>
                                 )}
                             </ClickableButton>
