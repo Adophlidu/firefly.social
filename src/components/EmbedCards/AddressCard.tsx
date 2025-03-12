@@ -22,7 +22,7 @@ export const AddressCard = memo<AddressCardProps>(function AddressCard(props) {
         case 'soa':
             return <WalletCard {...props} />;
         case 'contract':
-            if (detected.contract_type === 'program') return null;
+            if (detected.contract_type === 'program' || detected.contract_type === 'unknown') return null;
             return <ContractCard contractType={detected.contract_type} chainId={+detected.chain_id} {...props} />;
         default:
             safeUnreachable(address_type);

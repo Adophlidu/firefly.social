@@ -33,6 +33,13 @@ import { isTCOLink } from '@/helpers/resolveTCOLink.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
+function unpaddings(text: string) {
+    const start = text.match(/(^\s)/)?.[0] || null;
+    const end = text.match(/(\s+$)/)?.[0] || null;
+    const trimmed = text.trim();
+    return { start, end, trimmed };
+}
+
 export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post, source, sourceLink }) {
     const { data: fallbackProfile } = useQuery({
         // We only have handle in user bio.
@@ -123,24 +130,25 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         }
     }
 
-    const trimmed = title.trim();
-    const tagPadding = title.startsWith(' ') ? ' ' : null;
+    const { start, end, trimmed } = unpaddings(title);
     if (trimmed.startsWith('#')) {
         if (trimmed === '#SYSTOGGLEMORE' && post) {
             return <ToggleMore post={post} />;
         }
         return (
             <>
-                {tagPadding}
+                {start}
                 <Hashtag title={trimmed} source={source} />
+                {end}
             </>
         );
     }
     if (trimmed.startsWith('$'))
         return (
             <>
-                {tagPadding}
+                {start}
                 <SymbolTag title={trimmed} source={source} />
+                {end}
             </>
         );
 
@@ -151,8 +159,9 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
     if (trimmed.startsWith('/')) {
         return (
             <>
-                {tagPadding}
+                {start}
                 <ChannelTag title={trimmed} source={source} />
+                {end}
             </>
         );
     }
@@ -175,7 +184,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
     if (trimmed.match(FULL_ENS_REGEXP)) {
         return (
             <>
-                {tagPadding}
+                {start}
                 <ErrorBoundary message={`Failed to render domain tag for ${trimmed}`}>
                     <DomainTag title={trimmed} source={source} />;
                 </ErrorBoundary>
@@ -230,5 +239,11 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         return <TcoLink title={title} post={post} />;
     }
 
-    return <ExternalLink title={title} />;
+    return (
+        <>
+            {start}
+            <ExternalLink title={trimmed} />
+            {end}
+        </>
+    );
 });

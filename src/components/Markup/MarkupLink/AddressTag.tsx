@@ -30,7 +30,7 @@ export const AddressTag = memo<AddressTagProps>(function AddressTag({ title, add
         case 'soa':
             return (
                 <span className="inline-flex items-center gap-1">
-                    <AddressSocialAvatar className="inline rounded-full" address={address} size={15} />
+                    <AddressSocialAvatar className="inline shrink-0 rounded-full" address={address} size={15} />
                     <Link
                         className="cursor-pointer text-highlight hover:underline"
                         onClick={(e) => {
@@ -48,7 +48,7 @@ export const AddressTag = memo<AddressTagProps>(function AddressTag({ title, add
             return (
                 <span className="inline-flex items-center gap-1">
                     <Image
-                        className="inline rounded-full"
+                        className="inline shrink-0 rounded-full"
                         unoptimized
                         alt=""
                         loading="lazy"

@@ -1358,7 +1358,7 @@ export interface DetectedAddress {
     chain: string;
     chain_id: string;
     address_type: 'eoa' | 'soa' | 'contract';
-    contract_type: 'ERC20' | 'ERC721' | 'ERC1155' | 'token' | 'nft' | 'program';
+    contract_type: 'ERC20' | 'ERC721' | 'ERC1155' | 'token' | 'nft' | 'program' | 'unknown';
     contract_info: CoinGeckoAsset;
 }
 

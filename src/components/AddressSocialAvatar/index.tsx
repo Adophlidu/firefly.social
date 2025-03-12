@@ -10,7 +10,7 @@ import { EMBED_CARD_SOURCE_PRIORITY, EMPTY_LIST } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { useWalletRelatedProfiles } from '@/hooks/useWalletRelatedProfiles.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import type { FireflyFarcasterProfile, WalletProfile } from '@/providers/types/Firefly.js';
+import type { FarcasterProfile, WalletProfile } from '@/providers/types/Firefly.js';
 
 interface AddressSocialAvatarProps {
     address: string;
@@ -44,12 +44,12 @@ export const AddressSocialAvatar = memo<AddressSocialAvatarProps>(function Addre
                 case Source.Farcaster:
                     return {
                         source: Source.Farcaster,
-                        url: (profile.__origin__ as FireflyFarcasterProfile | null)?.pfp,
+                        url: (profile.__origin__ as FarcasterProfile | null)?.avatar.url,
                     };
                 case Source.Lens:
                     return {
                         source: Source.Lens,
-                        url: null,
+                        url: null, // Would fetch below
                     };
                 case Source.Twitter:
                     return {

@@ -39,7 +39,6 @@
         "farcaster",
         "favourites",
         "followersmutual",
-        "UID",
         "goplus",
         "hashgraph",
         "hasown",
@@ -78,6 +77,7 @@
         "overscan",
         "pageable",
         "Paginable",
+        "Passcode",
         "pausable",
         "polkadot",
         "polymarket",
@@ -113,6 +113,7 @@
         "Twitterbot",
         "Twmoji",
         "txid",
+        "UID",
         "unbookmark",
         "unfollow",
         "unfollowed",
@@ -122,6 +123,7 @@
         "unmirror",
         "Unmuting",
         "unoptimized",
+        "unpaddings",
         "unretweet",
         "Unsourced",
         "unvote",
@@ -139,8 +141,7 @@
         "zerion",
         "zksync",
         "zora",
-        "zustand",
-        "Passcode"
+        "zustand"
     ],
     "ignoreWords": [
         "DEVNET",
