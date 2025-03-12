@@ -57,11 +57,12 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             isChannelSupported(post?.source) ? linkifyRegex(CHANNEL_REGEX) : undefined,
             HashTagLink(post?.source),
             linkifyRegex(SYMBOL_REGEX),
+            // Only apply to posts
             // These two address regexes must be last
-            linkifyRegex(EVM_ADDRESS),
-            linkifyRegex(SOLANA_ADDRESS),
+            post ? linkifyRegex(EVM_ADDRESS) : null,
+            post ? linkifyRegex(SOLANA_ADDRESS) : null,
         ]);
-    }, [post?.mentions, post?.source]);
+    }, [post]);
 
     if (!children) return null;
 
