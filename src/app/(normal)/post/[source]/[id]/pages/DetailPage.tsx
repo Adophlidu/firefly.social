@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
 import { Suspense } from 'react';
 
@@ -22,6 +22,7 @@ import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { getThreads } from '@/services/getThreads.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface Props {
     id: string;
@@ -32,8 +33,13 @@ export function PostDetailPage({ id: postId, source }: Props) {
     if (!postId) notFound();
 
     const isSyncing = useAsyncStatus(source);
+    const { visitedPosts } = useGlobalState();
 
-    const { data: post } = useSuspenseQuery({
+    const {
+        data: post = visitedPosts[source]?.[postId],
+        isLoading,
+        isRefetching,
+    } = useQuery({
         queryKey: [source, 'post-detail', postId, isSyncing],
         queryFn: async () => {
             if (isSyncing) return null;
@@ -42,15 +48,20 @@ export function PostDetailPage({ id: postId, source }: Props) {
         },
     });
 
-    const { data: threads } = useSuspenseQuery({
+    const {
+        data: threads,
+        isLoading: threadLoading,
+        isRefetching: threadRefetching,
+    } = useQuery({
         queryKey: [source, 'post-thread', postId, isSyncing],
+        enabled: !!post,
         queryFn: async () => {
             if (!post || isSyncing) return { data: EMPTY_LIST };
             return getThreads(post, source);
         },
     });
 
-    if (isSyncing) return <Loading />;
+    if (isSyncing || ((isLoading || isRefetching || threadLoading || threadRefetching) && !post)) return <Loading />;
     if (!post) notFound();
 
     const allPosts = threads?.data || EMPTY_LIST;

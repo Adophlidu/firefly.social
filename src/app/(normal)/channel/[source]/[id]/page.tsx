@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation.js';
 
-import { ChannelInfo } from '@/components/Channel/ChannelInfo.js';
+import { ChannelInfoUI } from '@/components/Channel/ChannelInfoUI.js';
 import { ChannelProvider } from '@/components/Channel/ChannelProvider.js';
 import { PostList } from '@/components/Channel/PostList.js';
 import { Title } from '@/components/Channel/Title.js';
@@ -52,7 +52,7 @@ export default async function Page(props: Props) {
     return (
         <>
             <Title channel={channel} />
-            <ChannelInfo channel={channel} source={channel.source} isChannelPage />
+            <ChannelInfoUI channel={channel} source={channel.source} isChannelPage />
             <hr className="divider w-full border-line" />
             <NoSSR>
                 <ChannelProvider channel={channel}>

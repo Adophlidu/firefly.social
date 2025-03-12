@@ -1,21 +1,12 @@
-import { Plural, Trans } from '@lingui/react/macro';
-import type { HTMLProps } from 'react';
-import urlcat from 'urlcat';
+'use client';
 
-import { Avatar } from '@/components/Avatar.js';
-import { ChannelInfoAction } from '@/components/Channel/ChannelInfoAction.js';
-import { ChannelInfoBio } from '@/components/Channel/ChannelInfoBio.js';
-import { Link } from '@/components/Link.js';
-import { NoSSR } from '@/components/NoSSR.js';
-import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
-import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { getChannelUrl } from '@/helpers/getChannelUrl.js';
-import { memoizePromise } from '@/helpers/memoizePromise.js';
+import { useQuery } from '@tanstack/react-query';
+import type { HTMLProps } from 'react';
+
+import { ChannelInfoUI } from '@/components/Channel/ChannelInfoUI.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface InfoProps extends HTMLProps<HTMLDivElement> {
@@ -24,72 +15,32 @@ interface InfoProps extends HTMLProps<HTMLDivElement> {
     isChannelPage?: boolean;
 }
 
-const getChannelById = memoizePromise(
-    async (source: SocialSource, id: string) => {
-        return resolveSocialMediaProvider(source).getChannelById(id);
-    },
-    (source, id) => `${source}-${id}`,
-);
+export function ChannelInfo({ channel, source, ...rest }: InfoProps) {
+    const profile = useCurrentProfile(source);
+    const { data, isLoading, isRefetching } = useQuery({
+        queryKey: ['channel', channel.source, channel.id, profile?.profileId],
+        queryFn: async () => {
+            if (channel.__lazy__ && channel.id) {
+                return resolveSocialMediaProvider(channel.source).getChannelById(channel.id);
+            }
 
-export async function ChannelInfo({ channel: unresolvedChannel, source, isChannelPage = false, ...rest }: InfoProps) {
-    const channel = unresolvedChannel.__lazy__
-        ? await runInSafeAsync(() => getChannelById(source, unresolvedChannel.id))
-        : unresolvedChannel;
+            return channel;
+        },
+    });
 
-    if (!channel) return null;
-
-    const followerCount = channel.followerCount ?? 0;
-    const isBsky = channel.source === Source.Bsky;
-
-    const url = urlcat(SITE_URL, getChannelUrl(channel));
-    const avatar = channel.imageUrl ? (
-        <Avatar src={channel.imageUrl} alt="avatar" size={48} className="h-12 w-12 rounded-full" />
-    ) : (
-        <SocialSourceIcon className="rounded-full" source={source} size={48} />
-    );
-    const name = <span className="text-lg font-black leading-6 text-lightMain">{channel.name}</span>;
-
-    return (
-        <article {...rest} className={classNames('flex gap-3 p-3', rest.className)}>
-            {isChannelPage ? avatar : <Link href={url}>{avatar}</Link>}
-
-            <div className="relative flex flex-1 flex-col gap-[6px]">
-                <NoSSR>
-                    <ChannelInfoAction channel={channel} />
-                </NoSSR>
-
-                <div className="flex flex-col">
-                    <h1 className="flex items-center gap-2">
-                        {isChannelPage ? name : <Link href={url}>{name}</Link>}
-                        <SocialSourceIcon mono source={source} size={20} />
-                    </h1>
-
-                    <div className="flex flex-row items-center gap-1">
-                        {!isBsky ? (
-                            <span className="text-medium text-secondary">/{channel.id}</span>
-                        ) : (
-                            <span className="text-medium text-secondary">
-                                <Trans>By @{channel.lead?.handle}</Trans>
-                            </span>
-                        )}
-
-                        <span className="leading-[22px] text-secondary">·</span>
-
-                        <data value={followerCount} className="flex items-center gap-1">
-                            <span className="text-lightMain">{nFormatter(followerCount)}</span>
-                            <span className="text-secondary">
-                                {!isBsky ? (
-                                    <Plural value={followerCount} one="Member" other="Members" />
-                                ) : (
-                                    <Plural value={followerCount} one="Like" other="Likes" />
-                                )}
-                            </span>
-                        </data>
-                    </div>
+    if (isLoading || isRefetching)
+        return (
+            <div className="flex animate-pulse gap-3 border-b border-line p-3">
+                <div className="h-12 w-12 rounded-full bg-third" />
+                <div className="flex-1">
+                    <div className="h-6 w-16 bg-third" />
+                    <div className="mb-1.5 mt-px h-6 w-20 bg-third" />
+                    <div className="h-6 w-2/3 bg-third" />
                 </div>
-
-                <ChannelInfoBio description={channel.description} />
             </div>
-        </article>
-    );
+        );
+
+    if (!data) return null;
+
+    return <ChannelInfoUI channel={data} source={source} {...rest} />;
 }

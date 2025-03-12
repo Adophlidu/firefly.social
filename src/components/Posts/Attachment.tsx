@@ -6,7 +6,7 @@ import Music from '@/assets/music.svg';
 import Play from '@/assets/play.svg';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
-import { ImageAsset } from '@/components/Posts/ImageAsset.js';
+import { SingleImage } from '@/components/Posts/SingleImage.js';
 import { VideoAsset } from '@/components/Posts/VideoAsset.js';
 import { WithPreviewLink } from '@/components/Posts/WithPreviewLink.js';
 import { Source } from '@/constants/enum.js';
@@ -135,13 +135,8 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                 'w-[120px]': minimal,
                             })}
                         >
-                            <ImageAsset
-                                className={classNames('cursor-pointer rounded-lg object-cover', {
-                                    'w-auto': !minimal,
-                                    'h-[120px] w-[120px]': minimal,
-                                })}
-                                overSize={false}
-                                disableLoadHandler={minimal}
+                            <SingleImage
+                                className="cursor-pointer rounded-lg object-cover"
                                 width={minimal ? 120 : 1000}
                                 height={minimal ? 120 : 1000}
                                 onError={handleImageError}

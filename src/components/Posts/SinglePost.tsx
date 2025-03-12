@@ -46,6 +46,8 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 }) {
     const router = useRouter();
     const pathname = usePathname();
+    const { setScrollIndex, setVisitedPosts } = useGlobalState();
+
     const isPostPage = isRoutePathname(pathname, '/post/:source');
     const isProfilePage = isRoutePathname(pathname, '/profile/:source');
     const isChannelPage = isRoutePathname(pathname, '/channel/:detail');
@@ -81,7 +83,8 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
                 if (!isPostPage || isComment) {
-                    if (listKey && !isUndefined(index)) useGlobalState.getState().setScrollIndex(listKey, index);
+                    if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
+                    setVisitedPosts(post.source, post.postId, post);
                     router.push(postLink);
                 }
                 return;
@@ -96,7 +99,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 isComment={isComment}
                 post={post}
                 onClickProfileLink={() => {
-                    if (listKey && !isUndefined(index)) useGlobalState.getState().setScrollIndex(listKey, index);
+                    if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
                 }}
             />
 
@@ -114,8 +117,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                         disabled={!isBookmarkPage && post.isHidden}
                         showChannelTag={!isComment && !isChannelPage && showChannelTag}
                         onSetScrollIndex={() => {
-                            if (listKey && !isUndefined(index))
-                                useGlobalState.getState().setScrollIndex(listKey, index);
+                            if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
                         }}
                     />
                 ) : null}
