@@ -6,6 +6,7 @@ import { type FunctionComponent, type SVGAttributes, useMemo } from 'react';
 import { ThirdPartConnectButton } from '@/app/(settings)/components/ThirdPartConnectButton.js';
 import { ThirdPartDisconnectButton } from '@/app/(settings)/components/ThirdPartDisconnectButton.js';
 import AppleIcon from '@/assets/apple-small.svg';
+import EmailIcon from '@/assets/email.svg';
 import GoogleIcon from '@/assets/google-small.svg';
 import TelegramIcon from '@/assets/telegram.svg';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
@@ -20,7 +21,7 @@ import type { Account } from '@/providers/types/Account.js';
 import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 
 interface ThirdPartItemProps {
-    source: ThirdPartySource;
+    source: ThirdPartySource | Source.Email;
     icon: FunctionComponent<SVGAttributes<SVGElement>>;
     iconWidth: number;
     iconHeight: number;
@@ -88,6 +89,14 @@ const platforms = [
         iconWidth: 19,
         iconHeight: 24,
         platform: SourceInURL.Apple,
+    },
+    {
+        source: Source.Email,
+        icon: EmailIcon,
+        iconClassName: 'bg-black text-white dark:bg-white dark:text-black',
+        iconWidth: 24,
+        iconHeight: 20,
+        platform: SourceInURL.Email,
     },
 ] as const;
 

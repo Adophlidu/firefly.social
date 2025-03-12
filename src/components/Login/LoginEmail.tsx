@@ -3,7 +3,7 @@ import { Trans } from '@lingui/react/macro';
 import { useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import EmailIcon from '@/assets/email.svg';
+import EmailIcon from '@/assets/email2.svg';
 import LockIcon from '@/assets/lock.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ClearButton } from '@/components/IconButton.js';

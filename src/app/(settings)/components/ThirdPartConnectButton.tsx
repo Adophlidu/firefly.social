@@ -9,14 +9,15 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Source, type ThirdPartySource } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 interface Props {
-    source: ThirdPartySource;
+    source: ThirdPartySource | Source.Email;
 }
 
 export function ThirdPartConnectButton({ source }: Props) {
-    const [{ loading }, handleConnect] = useAsyncFn(async (source: ThirdPartySource) => {
+    const [{ loading }, handleConnect] = useAsyncFn(async (source: ThirdPartySource | Source.Email) => {
         try {
             switch (source) {
                 case Source.Telegram:
@@ -27,6 +28,11 @@ export function ThirdPartConnectButton({ source }: Props) {
                 case Source.Apple:
                 case Source.Google:
                     await signIn(resolveSourceInUrl(source));
+                    break;
+                case Source.Email:
+                    await LoginModalRef.openAndWaitForClose({
+                        source: Source.Email,
+                    });
                     break;
                 default:
                     safeUnreachable(source);

@@ -3,13 +3,15 @@ import { safeUnreachable } from '@masknet/kit';
 import type { SVGProps } from 'react';
 
 import AppleIcon from '@/assets/apple.svg';
-import EmailIcon from '@/assets/email.svg';
+import EmailDarkIcon from '@/assets/email-small.dark.svg';
+import EmailIcon from '@/assets/email-small.svg';
 import GoogleIcon from '@/assets/google.svg';
 import GoogleSmallIcon from '@/assets/google-small.svg';
 import FireflyIcon from '@/assets/logo.svg';
 import TelegramIcon from '@/assets/telegram.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type ProfileSource, Source } from '@/constants/enum.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 
 interface ProfileSourceIcon extends SVGProps<SVGSVGElement> {
@@ -18,6 +20,7 @@ interface ProfileSourceIcon extends SVGProps<SVGSVGElement> {
 }
 
 export function ProfileSourceIcon({ source, size = 20, ...props }: ProfileSourceIcon) {
+    const isDark = useIsDarkMode();
     const style = useSizeStyle(size, props.style);
 
     switch (source) {
@@ -46,7 +49,11 @@ export function ProfileSourceIcon({ source, size = 20, ...props }: ProfileSource
         case Source.Telegram:
             return <TelegramIcon {...props} style={style} width={size} height={size} />;
         case Source.Email:
-            return <EmailIcon {...props} style={style} width={size} height={size} />;
+            return isDark ? (
+                <EmailDarkIcon {...props} style={style} width={size} height={size} />
+            ) : (
+                <EmailIcon {...props} style={style} width={size} height={size} />
+            );
         default:
             safeUnreachable(source);
             return null;

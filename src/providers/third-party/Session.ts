@@ -11,8 +11,8 @@ export interface ThirdPartySessionPayload {
     accountId?: string;
     isNew?: boolean;
     uid?: string;
-    avatar?: string;
-    displayName?: string;
+    avatar?: string | null;
+    displayName?: string | null;
 
     // only for apple & google
     nonce?: string;

@@ -13,6 +13,7 @@ import { getDidServiceHost } from '@/helpers/getDidServiceHost.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import type { ThirdPartySession } from '@/providers/third-party/Session.js';
@@ -165,20 +166,10 @@ async function bindTelegramSessionToFirefly(session: ThirdPartySession, signal?:
     return data;
 }
 
-async function bindEmailSessionToFirefly(session: ThirdPartySession) {
-    const response = await fireflySessionHolder.fetch<BindResponse>(
-        urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindEmail'),
-        {
-            method: 'POST',
-            body: JSON.stringify({
-                email: session.payload?.email,
-                otp: session.payload?.passcode,
-            }),
-        },
-    );
+export async function bindEmailSessionToFirefly(session: ThirdPartySession) {
+    if (!session.payload?.email || !session.payload?.passcode) throw new Error('Email and passcode are required.');
 
-    const data = resolveFireflyResponseData(response);
-    return data;
+    return FireflyEndpointProvider.bindEmail(session.payload?.email, session.payload?.passcode);
 }
 
 /**

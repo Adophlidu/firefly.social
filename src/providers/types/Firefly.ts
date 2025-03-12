@@ -848,6 +848,13 @@ interface TelegramConnection {
     sources: VerifiedSource[];
 }
 
+interface EmailConnection {
+    email: string;
+    id: string;
+    name: string;
+    platform: string;
+    connected?: boolean;
+}
 export interface FireflyConnection {
     account_id: { high: number; low: number };
     id: string;
@@ -878,6 +885,7 @@ export type AllConnections = {
     google: Record<'connected' | 'unconnected', GoogleConnection[]>;
     telegram: Record<'connected' | 'unconnected', TelegramConnection[]>;
     apple: Record<'connected' | 'unconnected', AppleConnection[]>;
+    email: Record<'connected' | 'unconnected', EmailConnection[]>;
 };
 
 export type GetAllConnectionsResponse = Response<AllConnections>;

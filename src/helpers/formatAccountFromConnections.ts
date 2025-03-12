@@ -2,19 +2,20 @@ import { safeUnreachable } from '@masknet/kit';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
+import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { AllConnections } from '@/providers/types/Firefly.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 
 export function formatAccountFromConnections(
-    platform: SourceInURL.Google | SourceInURL.Telegram | SourceInURL.Apple,
+    platform: SourceInURL.Google | SourceInURL.Telegram | SourceInURL.Apple | SourceInURL.Email,
     allConnections?: AllConnections,
 ): Account | undefined {
     if (!allConnections) return;
 
     const session = useThirdPartyStateStore.getState().currentProfileSession;
-    if (!session) return;
-
+    const now = Date.now();
     switch (platform) {
         case SourceInURL.Google:
         case SourceInURL.Apple: {
@@ -32,7 +33,7 @@ export function formatAccountFromConnections(
                     handle: connection.email,
                     fullHandle: connection.email,
                 },
-                session,
+                session: session ?? new ThirdPartySession(SessionType.Apple, connection.id, '', now, now),
             } satisfies Account;
         }
         case SourceInURL.Telegram: {
@@ -47,7 +48,22 @@ export function formatAccountFromConnections(
                     handle: connection.handle,
                     fullHandle: connection.handle,
                 },
-                session,
+                session: session ?? new ThirdPartySession(SessionType.Telegram, connection.id, '', now, now),
+            } satisfies Account;
+        }
+        case SourceInURL.Email: {
+            const connection = allConnections.email.connected?.[0];
+
+            if (!connection) return;
+            return {
+                profile: {
+                    ...createDummyProfile(Source.Farcaster, Source.Email),
+                    profileId: connection.id,
+                    displayName: connection.email,
+                    handle: connection.email,
+                    fullHandle: connection.email,
+                },
+                session: session ?? new ThirdPartySession(SessionType.Email, connection.id, '', now, now),
             } satisfies Account;
         }
         default:

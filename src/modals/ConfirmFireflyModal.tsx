@@ -43,7 +43,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                         <p className="mb-2 mt-[-8px] text-medium font-medium leading-normal text-second">
                             <Trans>
                                 You are logging into a different Firefly account by{' '}
-                                {resolveSourceName(account.profile.source)} account{' '}
+                                {resolveSourceName(account.profile.profileSource)} account{' '}
                                 <Link
                                     className="text-highlight"
                                     href={resolveProfileUrl(account.profile.source, account.profile.profileId)}

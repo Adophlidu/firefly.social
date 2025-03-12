@@ -212,7 +212,11 @@ async function formatContent(metadata: PublicationMetadataFragment, author: Prof
             return {
                 content: metadata.content,
                 asset,
-                attachments: metadata.attachments?.length ? getAttachments(metadata.attachments) : asset ? [asset] : [],
+                attachments: metadata.attachments?.length
+                    ? compact([asset, ...getAttachments(metadata.attachments)])
+                    : asset
+                      ? [asset]
+                      : [],
             };
         }
         case 'AudioMetadataV3': {

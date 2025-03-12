@@ -47,7 +47,15 @@ export const RedPacketAccountItem = memo(function RedPacketAccountItem({
                 'text-lightTextMain': !!isDarkFont,
             })}
         >
-            <div>{shareFrom ? `@${shareFrom}` : ens ? ens : address ? formatAddress(address, 4) : null}</div>
+            <div>
+                {shareFrom
+                    ? `@${shareFrom.replace(/^@+/g, '')}`
+                    : ens
+                      ? ens
+                      : address
+                        ? formatAddress(address, 4)
+                        : null}
+            </div>
             {addressLink || profileLink ? (
                 <Link
                     type="button"

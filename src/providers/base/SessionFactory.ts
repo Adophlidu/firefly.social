@@ -37,8 +37,8 @@ const ThirdPartySessionPayload = z.object({
     accountId: z.string().optional(),
     isNew: z.boolean().optional(),
     uid: z.string().optional(),
-    avatar: z.string().optional(),
-    displayName: z.string().optional(),
+    avatar: z.string().nullish().optional(),
+    displayName: z.string().nullish().optional(),
 
     nonce: z.string().optional(),
 

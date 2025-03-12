@@ -10,7 +10,6 @@ import urlcat from 'urlcat';
 
 import PlusIcon from '@/assets/plus.svg';
 import SwitchIcon from '@/assets/switch.svg';
-import { Avatar } from '@/components/Avatar.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
@@ -25,25 +24,26 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { ConnectModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Account } from '@/providers/types/Account.js';
 import { switchAccount } from '@/services/account.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
-import { useFireflyStateStore, useThirdPartyStateStore } from '@/store/useProfileStore.js';
+import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 
 export function MainView() {
+    const account = useAccountByNetwork();
     const router = useRouter();
     const { history } = router;
     const isMedium = useIsMedium();
     const [selectedSource, setSelectedSource] = useState<ThirdPartySource>();
 
-    const { currentProfile } = useFireflyStateStore();
     const profileStore = useProfileStoreAll();
     const profilesAll = useCurrentProfilesAll();
     const thirdPartyProfile = useThirdPartyStateStore.use.accounts();
@@ -58,6 +58,10 @@ export function MainView() {
 
     const onClick = (source: SocialSource) => {
         const signType = source === Source.Farcaster && isMedium ? FarcasterSignType.RelayService : undefined;
+        if (source === Source.Lens && !account.isConnected) {
+            ConnectModalRef.open();
+            return;
+        }
         const path = urlcat('/:source', {
             source: resolveSourceInUrl(source),
             signType,
@@ -128,16 +132,7 @@ export function MainView() {
     );
 
     return (
-        <div className="rounded-[6px] bg-primaryBottom px-6 pb-6 md:w-[400px]">
-            {currentProfile?.profileId ? (
-                <div className="mb-3 flex gap-2 rounded-lg border border-highlight p-2">
-                    <Avatar src={currentProfile?.pfp} size={60} alt={currentProfile?.profileId ?? ''} />
-                    <div className="flex flex-col items-start">
-                        <span className="font-bold">{currentProfile?.displayName || 'Firefly Account'}</span>
-                        <span className="text-secondary">UID: {currentProfile?.profileId}</span>
-                    </div>
-                </div>
-            ) : null}
+        <div className="rounded-[6px] bg-primaryBottom px-6 pb-6 max-md:max-h-[calc(100vh-64px)] max-md:overflow-auto md:w-[400px]">
             <div className="mb-3 text-left text-[15px] font-medium leading-[15px]">
                 <Trans>Social accounts</Trans>
             </div>
@@ -155,7 +150,11 @@ export function MainView() {
                                     <ProfileSourceIcon source={source} size={20} />
                                     <span>{resolveSourceName(source)}</span>
                                 </div>
-                                <PlusIcon className="h-5 w-5" />
+                                {[Source.Bsky, Source.Twitter].includes(source) && !!profilesAll[source] ? (
+                                    <SwitchIcon className="h-5 w-5" />
+                                ) : (
+                                    <PlusIcon className="h-5 w-5" />
+                                )}
                             </ClickableButton>
                             {profileStore[source].accounts.map((account, index) => {
                                 const isCurrent = isSameProfile(profilesAll[source], account.profile);

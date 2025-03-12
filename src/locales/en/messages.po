@@ -537,7 +537,7 @@ msgstr "<0>Sent</0> an NFT"
 msgid "Report post"
 msgstr "Report post"
 
-#. placeholder {0}: resolveSourceName(account.profile.source)
+#. placeholder {0}: resolveSourceName(account.profile.profileSource)
 #. placeholder {1}: account.profile.handle
 msgid "You are logging into a different Firefly account by {0} account <0>@{1}</0>. Continuing will <1>log out</1> your current Firefly account."
 msgstr "You are logging into a different Firefly account by {0} account <0>@{1}</0>. Continuing will <1>log out</1> your current Firefly account."

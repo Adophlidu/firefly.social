@@ -68,21 +68,25 @@ export function createSessionStorage(): PersistStorage<SessionState> {
                 return null;
             }
 
-            return {
-                ...parsedState,
-                state: {
-                    ...parsedState.state,
-                    status: parsedState.state.status ?? AsyncStatus.Idle,
-                    accounts:
-                        parsedState.state.accounts?.map((account) => ({
-                            ...account,
-                            session: SessionFactory.createSession(account.session),
-                        })) ?? [],
-                    currentProfileSession: parsedState.state.currentProfileSession
-                        ? SessionFactory.createSession(parsedState.state.currentProfileSession)
-                        : null,
-                },
-            };
+            try {
+                return {
+                    ...parsedState,
+                    state: {
+                        ...parsedState.state,
+                        status: parsedState.state.status ?? AsyncStatus.Idle,
+                        accounts:
+                            parsedState.state.accounts?.map((account) => ({
+                                ...account,
+                                session: SessionFactory.createSession(account.session),
+                            })) ?? [],
+                        currentProfileSession: parsedState.state.currentProfileSession
+                            ? SessionFactory.createSession(parsedState.state.currentProfileSession)
+                            : null,
+                    },
+                };
+            } catch (error) {
+                return null;
+            }
         },
         setItem(name, newValue) {
             const state = newValue.state as SessionState;
