@@ -28,6 +28,7 @@ export default function Wallets() {
         data: { connected = EMPTY_LIST, evmConnections = EMPTY_LIST, solanaConnections = EMPTY_LIST } = {},
         isLoading,
         isRefetching,
+        refetch,
     } = useQuery({
         queryKey: ['my-wallet-connections'],
         queryFn: () => FireflyEndpointProvider.getAllConnectionsFormatted(),
@@ -72,7 +73,7 @@ export default function Wallets() {
                     />
                     {!isLoading ? (
                         <div className="flex w-full justify-center">
-                            <AddWalletButton connections={connected} disabled={isRefetching} />
+                            <AddWalletButton connections={connected} disabled={isRefetching} onSuccess={refetch} />
                         </div>
                     ) : null}
                 </>

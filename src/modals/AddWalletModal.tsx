@@ -1,5 +1,4 @@
 import { t } from '@lingui/core/macro';
-import { useQueryClient } from '@tanstack/react-query';
 import bs58 from 'bs58';
 import { first } from 'lodash-es';
 import { useCallback, useEffect, useState } from 'react';
@@ -42,8 +41,6 @@ export function AddWalletModal({ ref }: Props) {
         onClose: () => setProps({ connections: EMPTY_LIST }),
     });
     const onClose = useCallback((props: AddWalletModalCloseProps = {}) => dispatch?.close(props), [dispatch]);
-
-    const qc = useQueryClient();
 
     const onBind = useCallback(async () => {
         function checkExistedConnection(address: string) {
@@ -91,7 +88,6 @@ export function AddWalletModal({ ref }: Props) {
                 dispatch?.abort?.(new Error('This address type is not supported'));
                 return;
             }
-            await qc.refetchQueries({ queryKey: ['my-wallet-connections'] });
             enqueueSuccessMessage(t`Wallet added successfully`);
             onClose({ response: result });
         } catch (error) {
@@ -108,7 +104,7 @@ export function AddWalletModal({ ref }: Props) {
             dispatch?.abort?.(new Error('Failed to add wallet'));
             throw error;
         }
-    }, [connections, dispatch, onClose, qc]);
+    }, [connections, dispatch, onClose]);
 
     useEffect(() => {
         if (open) onBind();

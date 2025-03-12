@@ -22,7 +22,8 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
         await AddWalletModalRef.openAndWaitForClose({
             connections,
         });
-    }, [connections]);
+        onSuccess?.();
+    }, [connections, onSuccess]);
 
     return (
         <ClickableButton
