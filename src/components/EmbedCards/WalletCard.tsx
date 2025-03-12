@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
@@ -15,17 +14,17 @@ import { SecurityBadge } from '@/components/EmbedCards/TokenSecurityBadge.js';
 import type { AddressCardProps } from '@/components/EmbedCards/types.js';
 import { useWalletDisplayName } from '@/components/EmbedCards/useWalletDisplayName.js';
 import { Image } from '@/components/Image.js';
-import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tips } from '@/components/Tips/index.js';
-import { Tooltip } from '@/components/Tooltip.js';
-import { NetworkType, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { NetworkType, type ProfilePageSource, Source } from '@/constants/enum.js';
+import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { resolveNetworkIcon } from '@/helpers/resolveNetworkIcon.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useWalletRelatedProfiles } from '@/hooks/useWalletRelatedProfiles.js';
@@ -36,7 +35,7 @@ import { GoPlus } from '@/providers/goplus/index.js';
 import { OKX } from '@/providers/okx/index.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
-export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, children, ...rest }) {
+export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, domain, children, ...rest }) {
     const isDarkMode = useIsDarkMode();
     const identity = useFireflyIdentity(Source.Wallet, address);
     const networkType = getAddressType(address);
@@ -86,6 +85,13 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
 
     const networkIcon = networkType ? resolveNetworkIcon(networkType, isDarkMode) : null;
 
+    const resolveUrl = (x: ProfilePageSource) => {
+        const currentSourceProfiles = profiles.filter((profile) => profile.identity.source === x);
+        const profile = currentSourceProfiles.find((profile) => profile.isDefault) || currentSourceProfiles[0];
+        if (!profile?.identity.id) return null;
+        return resolveProfileUrl(x, profile.identity.id);
+    };
+
     return (
         <>
             <div
@@ -116,12 +122,14 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                                 height={18}
                             />
                         ) : null}
-                        <strong className="text-lg font-bold leading-6 text-main">{formatAddress(address, 4)}</strong>
+                        <strong className="text-lg font-bold leading-6 text-main">
+                            {walletDisplayName || domain || walletProfile.primary_ens || formatAddress(address, 4)}
+                        </strong>
                         {walletSecurity ? <SecurityBadge security={walletSecurity} /> : null}
                     </div>
                     <div className="flex items-center gap-2 whitespace-nowrap text-second">
                         <span className="min-w-0 truncate font-inter text-medium font-bold leading-[14px]">
-                            {walletDisplayName || walletProfile.ens || formatAddress(address, 4)}
+                            {formatAddress(address, 4)}
                         </span>
                         <CopyTextButton size={11} className="h-3.5 w-3.5" text={address} />
                         {addressLink ? (
@@ -131,20 +139,20 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                         ) : null}
                     </div>
                     <div className="flex gap-[10px]">
-                        {walletProfile.verifiedSources.map((x) => {
+                        {SORTED_SOCIAL_SOURCES.map((source) => {
+                            const url = resolveUrl(source);
+                            if (!url) return null;
                             return (
-                                <Tooltip key={x.source} content={t`Verified by ${x.source}`} placement="bottom">
-                                    <span>
-                                        <RelatedSourceIcon source={x.source} size={24} />
-                                    </span>
-                                </Tooltip>
+                                <Link key={source} href={url} rel="noreferrer noopener">
+                                    <SocialSourceIcon key={source} source={source} size={24} />
+                                </Link>
                             );
                         })}
                     </div>
                 </div>
                 <div className="ml-auto mr-3 flex flex-col items-end justify-between self-stretch">
                     <div className="text-right text-2xl font-bold">{`$${formatPrice(totalBalance ?? 0)}`}</div>
-                    <Tips identity={identity} handle={address || ens} pureWallet />
+                    <Tips identity={identity} handle={address || ens} pureWallet isAuthRequired={false} />
                 </div>
             </div>
         </>

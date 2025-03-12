@@ -889,7 +889,6 @@ msgid "<0/>Delete Firefly account"
 msgstr "<0/>Delete Firefly account"
 
 #. placeholder {0}: x.provider
-#. placeholder {0}: x.source
 msgid "Verified by {0}"
 msgstr "Verified by {0}"
 

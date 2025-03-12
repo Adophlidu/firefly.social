@@ -9,6 +9,7 @@ import { isAddress } from 'viem';
 import { Link } from '@/components/Link.js';
 import { AddressTag } from '@/components/Markup/MarkupLink/AddressTag.js';
 import { ChannelTag } from '@/components/Markup/MarkupLink/ChannelTag.js';
+import { DomainTag } from '@/components/Markup/MarkupLink/DomainTag.js';
 import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
 import { Hashtag } from '@/components/Markup/MarkupLink/Hashtag.js';
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';
@@ -21,7 +22,7 @@ import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
-import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, LENS_HANDLE_REGEXP } from '@/constants/regexp.js';
+import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, ENS_REGEXP, LENS_HANDLE_REGEXP } from '@/constants/regexp.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
 import { getProfileUrl, getTwitterProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -143,12 +144,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         );
 
     if (isAddress(trimmed) || (isValidSolanaAddress(trimmed) as boolean)) {
-        return (
-            <>
-                {tagPadding}
-                <AddressTag title={trimmed} source={source} />
-            </>
-        );
+        return <AddressTag title={trimmed} address={trimmed} source={source} />;
     }
 
     if (trimmed.startsWith('/')) {
@@ -173,6 +169,10 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                 {title}
             </Link>
         );
+    }
+
+    if (title.match(ENS_REGEXP)) {
+        return <DomainTag title={title} source={source} />;
     }
 
     if (title.startsWith('nft://') && sourceLink) {

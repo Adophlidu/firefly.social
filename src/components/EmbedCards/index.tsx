@@ -1,7 +1,5 @@
 'use client';
 
-import 'swiper/css';
-
 import { safeUnreachable } from '@masknet/kit';
 import { useQueries } from '@tanstack/react-query';
 import { compact, first, sortBy, uniqBy } from 'lodash-es';
@@ -9,18 +7,20 @@ import { type HTMLProps, memo, useMemo, useState } from 'react';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { AddressCard } from '@/components/EmbedCards/AddressCard.js';
+import { DomainCard } from '@/components/EmbedCards/DomainCard.js';
 import { isAvailableAddress } from '@/components/EmbedCards/helpers.js';
 import { EmbedLinkCard } from '@/components/EmbedCards/LinkCard.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { EXIST_EVM_ADDRESS, EXIST_SOLANA_ADDRESS, URL_REGEX } from '@/constants/regexp.js';
+import { ENS_REGEXP, EXIST_EVM_ADDRESS, EXIST_SOLANA_ADDRESS, FULL_ENS_REGEXP, URL_REGEX } from '@/constants/regexp.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
 import { useClassifyPostLinks } from '@/hooks/useClassifyPostLink.js';
+import { useResolveEnsDomains } from '@/hooks/useResolveEnsDomains.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface EmbedEntry {
-    type: 'address' | 'url';
+    type: 'address' | 'domain' | 'url';
     value: string;
 }
 
@@ -47,6 +47,7 @@ export const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInn
     const availableEmbeds = embeds.filter((x) => {
         switch (x.type) {
             case 'url':
+            case 'domain':
                 return true;
             case 'address':
                 const addressQueryIndex = addresses.findIndex((y) => y.value === x.value);
@@ -65,6 +66,8 @@ export const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInn
         switch (embed.type) {
             case 'address':
                 return <AddressCard className="h-[109px] rounded-2xl bg-bg" address={embed.value} />;
+            case 'domain':
+                return <DomainCard className="h-[109px] rounded-2xl bg-bg" domain={embed.value} />;
             case 'url':
                 return <EmbedLinkCard link={embed.value} post={post} />;
             default:
@@ -74,7 +77,7 @@ export const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInn
     };
 
     return (
-        <div {...rest} className={classNames('flex w-full flex-col gap-[6p5]', rest.className)}>
+        <div {...rest} className={classNames('mt-1 flex w-full flex-col gap-[6px]', rest.className)}>
             {renderCard()}
             {availableEmbeds.length > 1 ? (
                 <ClickableArea className="flex justify-center gap-[6px] py-2">
@@ -105,12 +108,16 @@ export const EmbedCards = memo(function EmbedCards({ post, ...rest }: EmbedCards
     const postRawContent = post.metadata.content?.content;
     const oembedUrl = resolveOembedUrl(post);
 
-    const { addresses, links } = useMemo(() => {
-        if (!postRawContent) return { links: EMPTY_LIST, addresses: EMPTY_LIST };
+    // Extract links, addresses and domains
+    const { addresses, links, domains } = useMemo(() => {
+        if (!postRawContent) return { links: EMPTY_LIST, addresses: EMPTY_LIST, domains: EMPTY_LIST };
         const links = uniqBy(
-            compact([...(postRawContent.match(URL_REGEX) || []).map((x) => x.trim()), oembedUrl]),
+            compact([...(postRawContent.match(URL_REGEX) || []).map((x) => x.trim()), oembedUrl]).filter(
+                (x) => !FULL_ENS_REGEXP.test(x),
+            ),
             (x) => x.toLowerCase(),
         );
+
         const evmAddresses = postRawContent.match(EXIST_EVM_ADDRESS) || [];
         const solanaAddresses = postRawContent.match(EXIST_SOLANA_ADDRESS) || [];
         const addresses = compact(
@@ -120,9 +127,12 @@ export const EmbedCards = memo(function EmbedCards({ post, ...rest }: EmbedCards
             ),
         );
 
-        return { links, addresses };
+        const domains = Array.from(postRawContent.match(ENS_REGEXP) || []);
+
+        return { links, addresses, domains };
     }, [oembedUrl, postRawContent]);
 
+    // classify links, and filter out ones that don't have nft and collection
     const classifyResults = useClassifyPostLinks(links, post);
     const availableLinks = useMemo(() => {
         return links.filter((_, i) => {
@@ -131,19 +141,31 @@ export const EmbedCards = memo(function EmbedCards({ post, ...rest }: EmbedCards
         });
     }, [classifyResults, links]);
 
+    const domainResolveResults = useResolveEnsDomains(domains);
+    const availableDomains = useMemo(() => {
+        return domains.filter((_, i) => {
+            const result = domainResolveResults[i];
+            return result.data;
+        });
+    }, [domainResolveResults, domains]);
+
+    // Merge links, addresses and domains
     const embeds = useMemo(() => {
         if (!postRawContent) return EMPTY_LIST;
         const lowerLinks = availableLinks.map((x) => x.toLowerCase());
+        const lowerDomains = availableDomains.map((x) => x.toLowerCase());
         const embeds = [
             ...addresses
                 .filter((x) => !lowerLinks.some((link) => link.includes(x.toLowerCase()))) // exclude addresses that are already in links
+                .filter((x) => !lowerDomains.some((domain) => domain.includes(x.toLowerCase()))) // exclude addresses that are already in domains
                 .map((address) => ({ type: 'address', value: address })),
             ...availableLinks.map((link) => ({ type: 'url', value: link })),
+            ...availableDomains.map((domain) => ({ type: 'domain', value: domain })),
         ] as EmbedEntry[];
 
         const lowercasePostContent = postRawContent.toLowerCase();
         return sortBy(embeds, (x) => lowercasePostContent.indexOf(x.value.toLowerCase()));
-    }, [addresses, availableLinks, postRawContent]);
+    }, [addresses, availableDomains, availableLinks, postRawContent]);
 
     if (!embeds.length) return null;
 

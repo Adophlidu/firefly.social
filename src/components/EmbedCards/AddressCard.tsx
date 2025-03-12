@@ -7,7 +7,7 @@ import type { AddressCardProps } from '@/components/EmbedCards/types.js';
 import { WalletCard } from '@/components/EmbedCards/WalletCard.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
-export const AddressCard = memo<AddressCardProps>(function EvmAddressCard(props) {
+export const AddressCard = memo<AddressCardProps>(function AddressCard(props) {
     const address = props.address;
     const { data: detected } = useQuery({
         queryKey: ['detect-address', address],
@@ -22,7 +22,7 @@ export const AddressCard = memo<AddressCardProps>(function EvmAddressCard(props)
         case 'soa':
             return <WalletCard {...props} />;
         case 'contract':
-            if (detected.contract_type === 'token' || detected.contract_type === 'program') return null;
+            if (detected.contract_type === 'program') return null;
             return <ContractCard contractType={detected.contract_type} chainId={+detected.chain_id} {...props} />;
         default:
             safeUnreachable(address_type);

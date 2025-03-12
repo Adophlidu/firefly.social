@@ -55,7 +55,7 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
     const { data: trending } = useCoinTrending(token?.id);
     const { openTrader, setOpenTrader, setTradable } = useContext(TokenContext);
     const tradeInfo = useTradeInfo(token);
-    setTradable(tradeInfo.tradable);
+    setTradable(tradeInfo.tradable && detected?.type === 'eth');
 
     const market = trending?.market;
 
@@ -90,7 +90,9 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
                         <TokenIcon icon={token.logoURL} chainId={chainId} alt={token.name} width={30} height={30} />
                         <strong className="ml-[2px] text-lg font-bold uppercase text-main">{token.symbol}</strong>
                         {tokenSecurity ? <SecurityBadge security={tokenSecurity} /> : null}
-                        <span className="truncate font-inter text-medium font-bold">{formatAddress(address, 4)}</span>
+                        <span className="max-w-28 truncate font-inter text-medium font-bold">
+                            {formatAddress(address, 4)}
+                        </span>
                         <CopyTextButton text={address} />
                     </div>
                     <div className="line-height-[22px] flex items-center gap-1">
@@ -133,15 +135,17 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
                 >
                     <svg ref={chartRef} key={address} width="100%" className="aspect-[17/8]" viewBox="0 0 170 80" />
                 </div>
-                <SwapButton className="ml-auto inline-flex shrink-0 grow-0 flex-row-reverse !gap-1 !px-3 !py-2" />
+                {attributes?.address ? (
+                    <SwapButton className="ml-auto inline-flex shrink-0 grow-0 flex-row-reverse !gap-1 !px-3 !py-2" />
+                ) : null}
             </div>
 
-            {openTrader && tradeInfo.tradable ? (
+            {openTrader && tradeInfo.tradable && attributes?.address && detected?.chain_id ? (
                 <SwapModal
                     open
-                    chainId={tradeInfo.chainId}
+                    chainId={+detected.chain_id}
                     chainIds={tradeInfo.supportedChainIds}
-                    address={tradeInfo.address!}
+                    address={attributes.address}
                     onClose={() => {
                         setOpenTrader(false);
                     }}

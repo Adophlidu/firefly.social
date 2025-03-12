@@ -1,4 +1,5 @@
 import { ChainId as EVMChainId, SchemaType } from '@masknet/web3-shared-evm';
+import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
 import { chunk, compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -106,17 +107,23 @@ class SimpleHashFactory {
 
     async getNFT(
         address: string,
-        tokenId: string,
+        tokenId?: string,
         options?: BaseHubOptions<number>,
         skipScoreCheck = false,
     ): Promise<NFTAsset | null> {
         const chain = resolveSimpleHashChain(options?.chainId || EVMChainId.Mainnet);
-        if (!chain || !address || !tokenId) return null;
-        const path = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/:chain/:address/:tokenId', {
-            chain,
-            address,
-            tokenId,
-        });
+        if (!chain || !address) return null;
+        if (!isValidSolanaChainId(options?.chainId) && !tokenId) null;
+
+        const path = urlcat(
+            SIMPLE_HASH_URL,
+            tokenId ? '/api/v0/nfts/:chain/:address/:tokenId' : '/api/v0/nfts/:chain/:address',
+            {
+                chain,
+                address,
+                tokenId,
+            },
+        );
         const response = await fetchJSON<SimpleHash.NFT>(path);
         const asset = formatSimpleHashNFT(response, skipScoreCheck);
 

@@ -12,8 +12,8 @@ export const MENTION_REGEX = /@[^\s()@:%+~#?&=,!?']+/g;
 
 /** Financial symbol */
 export const SYMBOL_REGEX = /(^|\s)(\$([a-zA-Z0-9]|\p{Script=Han})+)/gu;
-export const EVM_ADDRESS = /(^|\s)(0x[a-fA-F0-9]{40})/gu;
-export const SOLANA_ADDRESS = /(^|\s)([1-9A-HJ-NP-Za-km-z]{32,44})/gu;
+export const EVM_ADDRESS = /\b(0x[a-fA-F0-9]{40})/gu;
+export const SOLANA_ADDRESS = /\b([1-9A-HJ-NP-Za-km-z]{32,44})/gu;
 export const EXIST_EVM_ADDRESS = /\b(0x[a-fA-F0-9]{40})/gu;
 export const EXIST_SOLANA_ADDRESS = /\b([1-9A-HJ-NP-Za-km-z]{32,44})/gu;
 
@@ -48,6 +48,9 @@ export const TWEET_SPACE_REGEX = /https:\/\/(x\.com|twitter\.com)\/([a-zA-Z0-9_]
 
 // https://www.lens.xyz/docs/best-practices/onboarding#choosing-a-handle
 export const LENS_HANDLE_REGEXP = /^[a-zA-Z_][a-zA-Z0-9_]{2,26}\.lens$/;
+
+export const ENS_REGEXP = /\b(([a-zA-Z0-9_-]{1,256}\.)+eth)\b/g;
+export const FULL_ENS_REGEXP = /^(([a-zA-Z0-9_-]{1,256}\.)+eth)$/;
 
 export const NUMERIC_INPUT_REGEXP_PATTERN = '^[1-9]|^0(?![0-9])[.,。]?[0-9]*$';
 

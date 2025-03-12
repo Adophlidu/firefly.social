@@ -8,20 +8,22 @@ import { Link } from '@/components/Link.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
+import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 interface AddressTagProps extends Omit<MarkupLinkProps, 'post'> {
     title: string;
+    address: string;
 }
-export const AddressTag = memo<AddressTagProps>(function AddressTag({ title: address }) {
+export const AddressTag = memo<AddressTagProps>(function AddressTag({ title, address }) {
     const { data, isLoading } = useQuery({
         queryKey: ['detect-address', address],
         queryFn: () => FireflyEndpointProvider.detectAddress(address),
         select: (data) => data.list.filter(isAvailableAddress)[0],
     });
-    if (!data || isLoading) return address;
+    if (!data || isLoading) return title;
 
     switch (data.address_type) {
         case 'eoa':
@@ -37,11 +39,12 @@ export const AddressTag = memo<AddressTagProps>(function AddressTag({ title: add
                         prefetch={false}
                         href={resolveProfileUrl(Source.Wallet, address)}
                     >
-                        {address}
+                        {title}
                     </Link>
                 </span>
             );
         case 'contract':
+            const isNFT = ['ERC721', 'ERC1155', 'nft'].includes(data.contract_type);
             return (
                 <span className="inline-flex items-center gap-1">
                     <Image
@@ -59,9 +62,9 @@ export const AddressTag = memo<AddressTagProps>(function AddressTag({ title: add
                             e.stopPropagation();
                         }}
                         prefetch={false}
-                        href={resolveTokenPageUrl(address, undefined)}
+                        href={isNFT ? resolveNFTUrl(address, data.chain_id) : resolveTokenPageUrl(address, undefined)}
                     >
-                        {address}
+                        {title}
                     </Link>
                 </span>
             );

@@ -14,6 +14,7 @@ import { UrlPlugin } from '@/components/Markup/plugins/UrlPlugin.js';
 import {
     CHANNEL_REGEX,
     EMAIL_REGEX,
+    ENS_REGEXP,
     EVM_ADDRESS,
     LENS_HANDLE_REGEXP,
     SOLANA_ADDRESS,
@@ -52,9 +53,11 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             // parsing handle after url
             // for example https://images.lens.phaver.com/insecure/raw:t/plain/3daf21dbbf8ce530685bbfabf5de325d
             linkifyRegex(LENS_HANDLE_REGEXP),
+            linkifyRegex(ENS_REGEXP),
             isChannelSupported(post?.source) ? linkifyRegex(CHANNEL_REGEX) : undefined,
             HashTagLink(post?.source),
             linkifyRegex(SYMBOL_REGEX),
+            // These two address regexes must be last
             linkifyRegex(EVM_ADDRESS),
             linkifyRegex(SOLANA_ADDRESS),
         ]);

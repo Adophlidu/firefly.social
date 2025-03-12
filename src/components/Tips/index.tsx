@@ -22,6 +22,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 interface TipsProps extends HTMLProps<HTMLButtonElement> {
     identity: FireflyIdentity;
     disabled?: boolean;
+    isAuthRequired?: boolean;
     handle?: string | null;
     label?: string;
     tooltipDisabled?: boolean;
@@ -33,6 +34,7 @@ interface TipsProps extends HTMLProps<HTMLButtonElement> {
 export function Tips({
     identity,
     disabled = false,
+    isAuthRequired = true,
     label,
     tooltipDisabled = false,
     pureWallet = false,
@@ -51,7 +53,10 @@ export function Tips({
                 LoginModalRef.open({ source: post?.source });
                 return;
             }
-            const relatedProfiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, true);
+            const relatedProfiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(
+                identity,
+                isAuthRequired,
+            );
             if (!relatedProfiles?.some((profile) => profile.identity.source === Source.Wallet)) {
                 throw new Error('No available profiles');
             }
@@ -67,7 +72,7 @@ export function Tips({
             enqueueInfoMessage(t`Sorry, we are not able to find a wallet for ${handle ? '@' + handle : identity.id}.`);
             throw error;
         }
-    }, [identity, onClick, handle, pureWallet, post, isLogin]);
+    }, [identity, onClick, handle, pureWallet, post, isLogin, isAuthRequired]);
 
     if (
         env.external.NEXT_PUBLIC_TIPS !== STATUS.Enabled ||

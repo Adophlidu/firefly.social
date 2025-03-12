@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { sortBy } from 'lodash-es';
 import { memo, useMemo } from 'react';
+import { normalize } from 'viem/ens';
+import { useEnsAvatar, useEnsName } from 'wagmi';
 
 import XFillIcon from '@/assets/x-fill.svg';
 import { Source } from '@/constants/enum.js';
@@ -25,7 +27,13 @@ export const AddressSocialAvatar = memo<AddressSocialAvatarProps>(function Addre
     className,
 }) {
     const { data: profiles = EMPTY_LIST } = useWalletRelatedProfiles(address);
-    const fallbackAvatar = `https://stamp.firefly.land/${address}?s=${size}`;
+    const fallbackAvatar = `https://stamp.firefly.land/avatar/wallet/${address}?s=${size}`;
+    const { data: ens } = useEnsName({
+        address: address as `0x${string}`,
+    });
+    const { data: ensAvatar } = useEnsAvatar({
+        name: ens ? normalize(ens) : undefined,
+    });
     const avatar = useMemo(() => {
         const sorted = sortBy(profiles, (x) => {
             const index = EMBED_CARD_SOURCE_PRIORITY.indexOf(x.identity.source);
@@ -49,11 +57,11 @@ export const AddressSocialAvatar = memo<AddressSocialAvatarProps>(function Addre
                         url: null,
                     };
                 case Source.Wallet:
-                    return { source: Source.Wallet, url: (profile.__origin__ as WalletProfile)?.avatar };
+                    return { source: Source.Wallet, url: ensAvatar || (profile.__origin__ as WalletProfile)?.avatar };
             }
         }
         return { source: Source.Wallet, url: fallbackAvatar };
-    }, [fallbackAvatar, profiles]);
+    }, [fallbackAvatar, profiles, ensAvatar]);
 
     const { data: lensAvatar } = useQuery({
         enabled: avatar?.source === Source.Lens,

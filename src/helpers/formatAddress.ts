@@ -15,7 +15,7 @@ export function formatAddress(address: string, size?: number, offset?: Offset) {
 }
 
 export const formatSolanaAddress: Formatter = memoize(function format(address, size = 0, offset = 0) {
-    if (!isValidSolanaAddress(address, false)) return address;
+    if (!isValidSolanaAddress(address)) return address;
     if (size === 0 || size >= 22) return address;
     return `${address.slice(0, Math.max(0, offset + size))}...${address.slice(-size)}`;
 }, resolver);

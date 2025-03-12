@@ -1,5 +1,5 @@
 import { isZeroAddress } from '@masknet/web3-shared-evm';
-import { type HTMLProps, useCallback, useMemo, useState } from 'react';
+import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
 
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NetworkPluginID, type NetworkType } from '@/constants/enum.js';
@@ -22,7 +22,7 @@ interface TokenIconProps extends HTMLProps<HTMLSpanElement> {
     disableBadge?: boolean;
 }
 
-export function TokenIcon({
+export const TokenIcon = memo(function TokenIcon({
     networkType,
     chainId,
     address,
@@ -99,4 +99,4 @@ export function TokenIcon({
             ) : null}
         </span>
     );
-}
+});

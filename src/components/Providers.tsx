@@ -15,11 +15,11 @@ export const Providers = memo(async function RootProviders({ enableInsights = fa
 
     return (
         <LinguiClientProvider>
-            <QueryClientProviders>
-                <InitialProviders>
-                    <WagmiProvider enableInsights={enableInsights}>{props.children}</WagmiProvider>
-                </InitialProviders>
-            </QueryClientProviders>
+            <WagmiProvider enableInsights={enableInsights}>
+                <QueryClientProviders>
+                    <InitialProviders>{props.children}</InitialProviders>
+                </QueryClientProviders>
+            </WagmiProvider>
         </LinguiClientProvider>
     );
 });
