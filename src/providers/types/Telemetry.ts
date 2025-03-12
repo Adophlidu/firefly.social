@@ -90,7 +90,7 @@ export enum EventId {
     LENS_POST_LIKE_SUCCESS = 'lens_post_like_success', // ✅
     LENS_POST_UNLIKE_SUCCESS = 'lens_post_unlike_success', // ✅
     LENS_POST_REPLY_SUCCESS = 'lens_post_reply_success', // ✅
-    LENS_POST_REPOST_SUCCESS = 'lens_post_mirror_success', // ✅
+    LENS_POST_REPOST_SUCCESS = 'lens_post_repost_success', // ✅
     LENS_POST_UNDO_REPOST_SUCCESS = 'lens_post_unmirror_success', // ✅
     LENS_POST_DELETE_SUCCESS = 'lens_post_delete_success', // ✅
     LENS_POST_QUOTE_SUCCESS = 'lens_post_quote_success', // ✅
