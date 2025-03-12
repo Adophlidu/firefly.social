@@ -248,6 +248,8 @@ export function MentionsPlugin(): JSX.Element | null {
                     const mentionNode = $createMentionNode(selectedOption.handle, selectedOption.allProfile);
                     if (matchedNodeCache.current) {
                         matchedNodeCache.current.replace(mentionNode);
+                    } else if (nodeToReplace) {
+                        nodeToReplace.replace(mentionNode);
                     }
                     mentionNode.select().insertText(' ');
                     closeMenu();
