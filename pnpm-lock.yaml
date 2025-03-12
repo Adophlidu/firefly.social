@@ -142,9 +142,6 @@ importers:
       '@mui/x-date-pickers':
         specifier: ^7.18.0
         version: 7.18.0(@emotion/react@11.14.0)(@emotion/styled@11.14.0)(@mui/material@5.16.13)(@mui/system@6.1.6)(@types/react@19.0.2)(date-fns@2.30.0)(dayjs@1.11.13)(react-dom@19.0.0)(react@19.0.0)
-      '@napi-rs/image':
-        specifier: 1.7.0
-        version: 1.7.0
       '@next/third-parties':
         specifier: 15.1.3
         version: 15.1.3(next@15.1.3)(react@19.0.0)
@@ -208,9 +205,6 @@ importers:
       '@vercel/kv':
         specifier: ^1.0.1
         version: 1.0.1
-      '@vercel/speed-insights':
-        specifier: ^1.0.12
-        version: 1.0.12(next@15.1.3)(react@19.0.0)
       '@wagmi/core':
         specifier: ^2.13.8
         version: 2.13.8(@types/react@19.0.2)(immer@10.1.1)(react@19.0.0)(typescript@5.7.3)(viem@2.21.54)
@@ -416,6 +410,9 @@ importers:
       '@lingui/swc-plugin':
         specifier: ^5.0.2
         version: 5.0.2(@lingui/core@5.1.2)(@swc/core@1.3.106)(next@15.1.3)
+      '@napi-rs/image':
+        specifier: 1.7.0
+        version: 1.7.0
       '@rollup/plugin-commonjs':
         specifier: ^25.0.4
         version: 25.0.4(rollup@3.28.1)
@@ -6576,7 +6573,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm]
     os: [android]
-    dev: false
     optional: true
 
   /@napi-rs/image-android-arm64@1.7.0:
@@ -6584,7 +6580,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [android]
-    dev: false
     optional: true
 
   /@napi-rs/image-darwin-arm64@1.7.0:
@@ -6592,7 +6587,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
-    dev: false
     optional: true
 
   /@napi-rs/image-darwin-x64@1.7.0:
@@ -6600,7 +6594,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
-    dev: false
     optional: true
 
   /@napi-rs/image-freebsd-x64@1.7.0:
@@ -6608,7 +6601,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [freebsd]
-    dev: false
     optional: true
 
   /@napi-rs/image-linux-arm-gnueabihf@1.7.0:
@@ -6616,7 +6608,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm]
     os: [linux]
-    dev: false
     optional: true
 
   /@napi-rs/image-linux-arm64-gnu@1.7.0:
@@ -6624,7 +6615,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    dev: false
     optional: true
 
   /@napi-rs/image-linux-arm64-musl@1.7.0:
@@ -6632,7 +6622,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    dev: false
     optional: true
 
   /@napi-rs/image-linux-x64-gnu@1.7.0:
@@ -6640,7 +6629,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    dev: false
     optional: true
 
   /@napi-rs/image-linux-x64-musl@1.7.0:
@@ -6648,7 +6636,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    dev: false
     optional: true
 
   /@napi-rs/image-win32-ia32-msvc@1.7.0:
@@ -6656,7 +6643,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [ia32]
     os: [win32]
-    dev: false
     optional: true
 
   /@napi-rs/image-win32-x64-msvc@1.7.0:
@@ -6664,7 +6650,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
-    dev: false
     optional: true
 
   /@napi-rs/image@1.7.0:
@@ -6683,7 +6668,6 @@ packages:
       '@napi-rs/image-linux-x64-musl': 1.7.0
       '@napi-rs/image-win32-ia32-msvc': 1.7.0
       '@napi-rs/image-win32-x64-msvc': 1.7.0
-    dev: false
 
   /@napi-rs/magic-string-android-arm-eabi@0.3.4:
     resolution: {integrity: sha512-sszAYxqtzzJ4FDerDNHcqL9NhqPhj8W4DNiOanXYy50mA5oojlRtaAFPiB5ZMrWDBM32v5Q30LrmxQ4eTtu2Dg==}
@@ -11113,33 +11097,6 @@ packages:
     engines: {node: '>=14.6'}
     dependencies:
       '@upstash/redis': 1.25.1
-    dev: false
-
-  /@vercel/speed-insights@1.0.12(next@15.1.3)(react@19.0.0):
-    resolution: {integrity: sha512-ZGQ+a7bcfWJD2VYEp2R1LHvRAMyyaFBYytZXsfnbOMkeOvzGNVxUL7aVUvisIrTZjXTSsxG45DKX7yiw6nq2Jw==}
-    peerDependencies:
-      '@sveltejs/kit': ^1 || ^2
-      next: '>= 13'
-      react: 19.0.0
-      svelte: ^4
-      vue: ^3
-      vue-router: ^4
-    peerDependenciesMeta:
-      '@sveltejs/kit':
-        optional: true
-      next:
-        optional: true
-      react:
-        optional: true
-      svelte:
-        optional: true
-      vue:
-        optional: true
-      vue-router:
-        optional: true
-    dependencies:
-      next: 15.1.3(@babel/core@7.26.0)(react-dom@19.0.0)(react@19.0.0)
-      react: 19.0.0
     dev: false
 
   /@vitest/expect@2.1.8:
@@ -24848,7 +24805,6 @@ time:
   /@typescript-eslint/eslint-plugin@6.10.0: '2023-11-06T17:15:28.591Z'
   /@typescript-eslint/parser@6.5.0: '2023-08-28T17:14:25.431Z'
   /@vercel/kv@1.0.1: '2023-12-08T09:14:03.153Z'
-  /@vercel/speed-insights@1.0.12: '2024-06-12T08:11:09.277Z'
   /@wagmi/core@2.13.8: '2024-09-27T19:33:48.139Z'
   /anchorme@3.0.8: '2024-04-08T09:26:57.773Z'
   /async-call-rpc@6.4.2: '2024-03-05T19:16:13.275Z'

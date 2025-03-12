@@ -1,5 +1,3 @@
-import { SpeedInsights } from '@vercel/speed-insights/next';
-
 import { BeforeUnload } from '@/components/Compose/BeforeUnload.js';
 import { IfHostname } from '@/components/IfHostname.js';
 import { IfPathname } from '@/components/IfPathname.js';
@@ -31,7 +29,6 @@ export function LayoutBody({ children }: { children: React.ReactNode }) {
                     shallowRouting
                 />
             </Providers>
-            <SpeedInsights />
             <BeforeUnload />
             <Script src="https://cdn.jsdelivr.net/npm/bowser@2.11.0/es5.min.js" async strategy="beforeInteractive" />
         </>
