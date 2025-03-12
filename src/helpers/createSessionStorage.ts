@@ -8,6 +8,33 @@ import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
+const STATE_SCHEMA = z.object({
+    state: z.object({
+        status: z.nativeEnum(AsyncStatus),
+        accounts: z.array(
+            z.object({
+                session: z.string().nullable(),
+            }),
+        ),
+        currentProfileSession: z.string().nullable(),
+    }),
+    version: z.number(),
+});
+
+interface State {
+    state: {
+        status?: AsyncStatus;
+        // for legacy version don't have accounts field
+        accounts?: Array<{
+            profile: Profile;
+            session: string;
+        }>;
+        currentProfile: Profile | null;
+        currentProfileSession: string | null;
+    };
+    version: number;
+}
+
 interface SessionState {
     status: AsyncStatus;
     accounts: Account[];
@@ -21,35 +48,10 @@ export function createSessionStorage(): PersistStorage<SessionState> {
             const raw = localStorage.getItem(name);
             if (!raw) return null;
 
-            const parsedState = parseJSON<{
-                state: {
-                    status?: AsyncStatus;
-                    // for legacy version don't have accounts field
-                    accounts?: Array<{
-                        profile: Profile;
-                        session: string;
-                    }>;
-                    currentProfile: Profile | null;
-                    currentProfileSession: string | null;
-                };
-                version: number;
-            }>(raw);
+            const parsedState = parseJSON<State>(raw);
             if (!parsedState) return null;
 
-            const schema = z.object({
-                state: z.object({
-                    status: z.nativeEnum(AsyncStatus),
-                    accounts: z.array(
-                        z.object({
-                            session: z.string().nullable(),
-                        }),
-                    ),
-                    currentProfileSession: z.string().nullable(),
-                }),
-                version: z.number(),
-            });
-
-            const output = schema.safeParse({
+            const output = STATE_SCHEMA.safeParse({
                 ...parsedState,
                 state: {
                     ...parsedState.state,

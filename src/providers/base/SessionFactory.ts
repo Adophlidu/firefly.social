@@ -50,9 +50,11 @@ const ThirdPartySessionPayload = z.object({
 });
 
 const FireflySessionPayload = z.object({
-    displayName: z.string(),
-    avatar: z.string(),
-    uid: z.string(),
+    isNew: z.boolean().optional(),
+
+    uid: z.string().optional(),
+    avatar: z.string().optional(),
+    displayName: z.string().optional(),
 });
 
 const BskyDidDoc = z.object({
