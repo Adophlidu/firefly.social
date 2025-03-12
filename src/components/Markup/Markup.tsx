@@ -34,10 +34,13 @@ function Ol(props: DetailedHTMLProps<OlHTMLAttributes<HTMLOListElement>, HTMLOLi
     return <ol {...props} style={{ counterReset: `list-counter ${props.start ? props.start - 1 : ''}` }} />;
 }
 export const Markup = memo<MarkupProps>(function Markup({ children, post, ...rest }) {
+    const withinPost = !!post;
+    const mentions = post?.mentions;
+    const source = post?.source;
     const plugins = useMemo<Pluggable[]>(() => {
         let MentionPlugin: Pluggable | null = null;
-        if (post?.mentions?.length) {
-            const handles = post.mentions.map((x) => x.fullHandle);
+        if (mentions?.length) {
+            const handles = mentions.map((x) => x.fullHandle);
             const mentionRe = new RegExp(`@(${handles.join('|')})`, 'g');
             MentionPlugin = linkifyRegex(mentionRe);
         }
@@ -54,15 +57,15 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             // for example https://images.lens.phaver.com/insecure/raw:t/plain/3daf21dbbf8ce530685bbfabf5de325d
             linkifyRegex(LENS_HANDLE_REGEXP),
             linkifyRegex(ENS_REGEXP),
-            isChannelSupported(post?.source) ? linkifyRegex(CHANNEL_REGEX) : undefined,
-            HashTagLink(post?.source),
+            isChannelSupported(source) ? linkifyRegex(CHANNEL_REGEX) : undefined,
+            HashTagLink(source),
             linkifyRegex(SYMBOL_REGEX),
             // Only apply to posts
             // These two address regexes must be last
-            post ? linkifyRegex(EVM_ADDRESS) : null,
-            post ? linkifyRegex(SOLANA_ADDRESS) : null,
+            withinPost ? linkifyRegex(EVM_ADDRESS) : null,
+            withinPost ? linkifyRegex(SOLANA_ADDRESS) : null,
         ]);
-    }, [post]);
+    }, [mentions, withinPost, source]);
 
     if (!children) return null;
 
