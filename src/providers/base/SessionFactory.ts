@@ -53,8 +53,8 @@ const FireflySessionPayload = z.object({
     isNew: z.boolean().optional(),
 
     uid: z.string().optional(),
-    avatar: z.string().optional(),
-    displayName: z.string().optional(),
+    avatar: z.string().nullish().optional(),
+    displayName: z.string().nullish().optional(),
 });
 
 const BskyDidDoc = z.object({

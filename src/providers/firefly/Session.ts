@@ -15,8 +15,8 @@ export interface FireflySessionPayload {
 
     // firefly profile
     uid?: string;
-    avatar?: string;
-    displayName?: string;
+    avatar?: string | null;
+    displayName?: string | null;
 }
 
 export class FireflySession extends BaseSession implements Session {
