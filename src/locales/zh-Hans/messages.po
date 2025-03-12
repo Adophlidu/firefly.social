@@ -4027,7 +4027,7 @@ msgid "No trading cooldown function."
 msgstr "没有交易冷却功能"
 
 msgid "Media"
-msgstr "多媒体"
+msgstr "媒体"
 
 msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
 msgstr "您是 <0>truePengu</0> 或 <1>penguPins</1> 灵魂绑定NFT系列的持有者"
