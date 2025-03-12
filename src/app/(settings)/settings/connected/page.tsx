@@ -14,7 +14,7 @@ import { Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
+import { LoginModalRef } from '@/modals/controls.js';
 
 export default function Connected() {
     const isLogin = useIsLoginFirefly();
@@ -50,21 +50,6 @@ export default function Connected() {
                                 </div>
                             </div>
                         </ClickableButton>
-
-                        {isLogin ? (
-                            <ClickableButton
-                                className="inline-flex h-10 w-full flex-col items-start justify-start md:w-[200px]"
-                                onClick={() => {
-                                    LogoutModalRef.open();
-                                }}
-                            >
-                                <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl border border-current px-[18px] py-[11px] text-danger">
-                                    <div className="text-[15px] font-bold leading-[18px]">
-                                        <Trans>Log out</Trans>
-                                    </div>
-                                </div>
-                            </ClickableButton>
-                        ) : null}
                     </div>
                 </>
             )}

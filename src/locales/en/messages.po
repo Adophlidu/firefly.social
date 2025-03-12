@@ -270,6 +270,9 @@ msgstr "You have exceeded the maximum number of attempts. Please try again later
 msgid "Functions that can suspend trading"
 msgstr "Functions that can suspend trading"
 
+msgid "{count}s"
+msgstr "{count}s"
+
 msgid "Claimed successfully."
 msgstr "Claimed successfully."
 
@@ -1111,9 +1114,6 @@ msgstr "Bio"
 msgid "[Photo]"
 msgstr "[Photo]"
 
-msgid "After deletion, all your social accounts and wallets will be disconnected. <0>Assets in the Firefly wallets can not be retrieved any more.</0> Please confirm again that you want to delete."
-msgstr "After deletion, all your social accounts and wallets will be disconnected. <0>Assets in the Firefly wallets can not be retrieved any more.</0> Please confirm again that you want to delete."
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "Follow more friends to continue exploring on {0}."
@@ -1299,6 +1299,9 @@ msgstr "Add Wallet"
 #. placeholder {1}: mutuals[1].displayName
 msgid "Followed by {0} and {1}"
 msgstr "Followed by {0} and {1}"
+
+msgid "Deleting your account will permanently disconnect your linked social accounts and remove your Firefly wallets."
+msgstr "Deleting your account will permanently disconnect your linked social accounts and remove your Firefly wallets."
 
 msgid "Try searching for something else."
 msgstr "Try searching for something else."
@@ -3112,6 +3115,9 @@ msgstr "The contract may contain additional issuance functions, which could mayb
 msgid "Upcoming"
 msgstr "Upcoming"
 
+msgid "<0>Any assets in this Firefly wallet will be permanently lost and cannot be recovered.</0> Before proceeding, please withdraw all funds and assets from your Firefly wallets to avoid any loss."
+msgstr "<0>Any assets in this Firefly wallet will be permanently lost and cannot be recovered.</0> Before proceeding, please withdraw all funds and assets from your Firefly wallets to avoid any loss."
+
 msgid "Display Name should not exceed 20 characters"
 msgstr "Display Name should not exceed 20 characters"
 
@@ -3903,6 +3909,9 @@ msgstr "Snapshot removed from your Bookmarks"
 msgid "Max Supply"
 msgstr "Max Supply"
 
+msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
+msgstr "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
+
 #. placeholder {0}: post.author.displayName
 msgid "Posted by {0} via Firefly"
 msgstr "Posted by {0} via Firefly"
@@ -4017,6 +4026,9 @@ msgstr "Media"
 
 msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
 msgstr "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
+
+msgid "Are you sure you want to continue?"
+msgstr "Are you sure you want to continue?"
 
 msgid "Text"
 msgstr "Text"

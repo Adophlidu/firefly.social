@@ -1,13 +1,42 @@
+'use client';
+
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 import { useRouter } from 'next/navigation.js';
+import { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
+import { useCountdown } from 'usehooks-ts';
 
+import { ClickableButton } from '@/components/ClickableButton.js';
+import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { removeAllAccounts } from '@/services/account.js';
+
+function CountdownButton() {
+    const [count, { startCountdown }] = useCountdown({
+        countStart: 10,
+        countStop: 0,
+        isIncrement: false,
+        intervalMs: 1000,
+    });
+    useEffect(() => {
+        startCountdown();
+    }, [startCountdown]);
+    return (
+        <ClickableButton
+            disabled={count > 0}
+            onClick={() => ConfirmModalRef.close(true)}
+            className={classNames(
+                'flex flex-1 items-center justify-center overflow-hidden rounded-full bg-commonDanger py-2 font-bold text-lightBottom',
+            )}
+        >
+            {count > 0 ? <Trans>{count}s</Trans> : <Trans>Confirm</Trans>}
+        </ClickableButton>
+    );
+}
 
 export function useDeleteFireflyAccount() {
     const router = useRouter();
@@ -15,16 +44,45 @@ export function useDeleteFireflyAccount() {
         const confirmed = await ConfirmModalRef.openAndWaitForClose({
             title: t`Delete Firefly account?`,
             variant: 'danger',
+            enableConfirmButton: false,
+            contentClass: 'text-main text-left text-medium',
+            resetSize: true,
+            modalClass: 'w-[calc(100%-40px)] max-w-[455px]',
             content: (
-                <p>
-                    <Trans>
-                        After deletion, all your social accounts and wallets will be disconnected.{' '}
-                        <span className="font-bold text-danger">
-                            Assets in the Firefly wallets can not be retrieved any more.
-                        </span>{' '}
-                        Please confirm again that you want to delete.
-                    </Trans>
-                </p>
+                <>
+                    <div>
+                        <p className="mb-4">
+                            <Trans>
+                                Deleting your account will permanently disconnect your linked social accounts and remove
+                                your Firefly wallets.
+                            </Trans>
+                        </p>
+                        <ul className="list-disc pl-4 text-sm font-normal leading-6">
+                            <li className="mb-4">
+                                <Trans>
+                                    If you have multiple Firefly accounts created with different social logins, deleting
+                                    this account will help you consolidate your social accounts into one. However, if
+                                    you&#39;re trying to access a different Firefly wallet linked to another social
+                                    account, consider switching accounts instead of deleting.
+                                </Trans>
+                            </li>
+                            <li className="mb-4">
+                                <Trans>
+                                    <span className="font-bold text-danger">
+                                        Any assets in this Firefly wallet will be permanently lost and cannot be
+                                        recovered.
+                                    </span>{' '}
+                                    Before proceeding, please withdraw all funds and assets from your Firefly wallets to
+                                    avoid any loss.
+                                </Trans>
+                            </li>
+                        </ul>
+                        <p>
+                            <Trans>Are you sure you want to continue?</Trans>
+                        </p>
+                    </div>
+                    <CountdownButton />
+                </>
             ),
         });
         if (!confirmed) return;

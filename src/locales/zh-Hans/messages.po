@@ -275,6 +275,9 @@ msgstr ""
 msgid "Functions that can suspend trading"
 msgstr "可以暂停交易的功能"
 
+msgid "{count}s"
+msgstr ""
+
 msgid "Claimed successfully."
 msgstr "领取成功。"
 
@@ -1116,9 +1119,6 @@ msgstr "个人简介"
 msgid "[Photo]"
 msgstr "[照片]"
 
-msgid "After deletion, all your social accounts and wallets will be disconnected. <0>Assets in the Firefly wallets can not be retrieved any more.</0> Please confirm again that you want to delete."
-msgstr ""
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "在 {0} 上去关注更多的人来继续浏览吧。"
@@ -1304,6 +1304,9 @@ msgstr "添加钱包"
 #. placeholder {1}: mutuals[1].displayName
 msgid "Followed by {0} and {1}"
 msgstr "被 {0} 和 {1} 关注"
+
+msgid "Deleting your account will permanently disconnect your linked social accounts and remove your Firefly wallets."
+msgstr ""
 
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
@@ -3117,6 +3120,9 @@ msgstr "合约可能含有额外的发行功能，这可能会产生大量的通
 msgid "Upcoming"
 msgstr "即将推出"
 
+msgid "<0>Any assets in this Firefly wallet will be permanently lost and cannot be recovered.</0> Before proceeding, please withdraw all funds and assets from your Firefly wallets to avoid any loss."
+msgstr ""
+
 msgid "Display Name should not exceed 20 characters"
 msgstr ""
 
@@ -3908,6 +3914,9 @@ msgstr "投票已经从您的收藏中移除"
 msgid "Max Supply"
 msgstr "最大供应量"
 
+msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
+msgstr ""
+
 #. placeholder {0}: post.author.displayName
 msgid "Posted by {0} via Firefly"
 msgstr "由 {0} 使用 Firefly 发送"
@@ -4022,6 +4031,9 @@ msgstr "多媒体"
 
 msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
 msgstr "您是 <0>truePengu</0> 或 <1>penguPins</1> 灵魂绑定NFT系列的持有者"
+
+msgid "Are you sure you want to continue?"
+msgstr ""
 
 msgid "Text"
 msgstr "文本"

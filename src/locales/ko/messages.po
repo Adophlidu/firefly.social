@@ -275,6 +275,9 @@ msgstr ""
 msgid "Functions that can suspend trading"
 msgstr ""
 
+msgid "{count}s"
+msgstr ""
+
 msgid "Claimed successfully."
 msgstr ""
 
@@ -1116,9 +1119,6 @@ msgstr ""
 msgid "[Photo]"
 msgstr ""
 
-msgid "After deletion, all your social accounts and wallets will be disconnected. <0>Assets in the Firefly wallets can not be retrieved any more.</0> Please confirm again that you want to delete."
-msgstr ""
-
 #. placeholder {0}: resolveSourceName(source)
 msgid "Follow more friends to continue exploring on {0}."
 msgstr ""
@@ -1303,6 +1303,9 @@ msgstr ""
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
 msgid "Followed by {0} and {1}"
+msgstr ""
+
+msgid "Deleting your account will permanently disconnect your linked social accounts and remove your Firefly wallets."
 msgstr ""
 
 msgid "Try searching for something else."
@@ -3104,6 +3107,9 @@ msgstr ""
 msgid "Upcoming"
 msgstr ""
 
+msgid "<0>Any assets in this Firefly wallet will be permanently lost and cannot be recovered.</0> Before proceeding, please withdraw all funds and assets from your Firefly wallets to avoid any loss."
+msgstr ""
+
 msgid "Display Name should not exceed 20 characters"
 msgstr ""
 
@@ -3892,6 +3898,9 @@ msgstr ""
 msgid "Max Supply"
 msgstr ""
 
+msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
+msgstr ""
+
 #. placeholder {0}: post.author.displayName
 msgid "Posted by {0} via Firefly"
 msgstr ""
@@ -4005,6 +4014,9 @@ msgid "Media"
 msgstr ""
 
 msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
+msgstr ""
+
+msgid "Are you sure you want to continue?"
 msgstr ""
 
 msgid "Text"

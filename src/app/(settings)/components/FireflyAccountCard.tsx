@@ -35,7 +35,7 @@ export function FireflyAccountCard() {
             >
                 <div className="mr-2 h-[60px] w-[60px] shrink-0 rounded-full bg-bg">
                     {!isLoading ? (
-                        <Avatar size={60} alt="firefly-avatar" className="z-0" src={account?.avatar ?? ''} />
+                        <Avatar size={60} alt="firefly-avatar" className="!z-0" src={account?.avatar ?? ''} />
                     ) : null}
                 </div>
                 <div className="mr-2 flex h-10 flex-col items-start justify-evenly text-sm font-normal leading-5">

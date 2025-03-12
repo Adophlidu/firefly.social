@@ -1,9 +1,11 @@
 import { safeUnreachable } from '@masknet/kit';
 
-import { type SocialSource, Source, WalletSource } from '@/constants/enum.js';
+import { ConnectionPlatform, type SocialSource, Source, WalletSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { resolveSourceFromWalletSource } from '@/helpers/resolveSource.js';
+import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyIdentity, FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { removeAccountByProfileId } from '@/services/account.js';
@@ -35,7 +37,15 @@ function getIdentity(connection: FireflyWalletConnection): FireflyIdentity | nul
 export async function disconnectFirefly(connection: FireflyWalletConnection) {
     const identity = getIdentity(connection);
     if (!identity) return;
-    await FireflyEndpointProvider.disconnectAccount(identity.id, resolveConnectionPlatform(connection.platform));
+    await FireflyEndpointProvider.disconnectAccount(
+        identity.id,
+        isSocialSource(identity.source)
+            ? resolveConnectionPlatform(resolveSocialSourceInUrl(identity.source))
+            : resolveConnectionPlatform(connection.platform),
+    );
+    if (isSocialSource(identity.source) && connection.address && connection.platform === 'eth') {
+        await FireflyEndpointProvider.disconnectAccount(connection.address, ConnectionPlatform.Wallet);
+    }
     const source = identity.source as SocialSource;
     if (SORTED_SOCIAL_SOURCES.includes(source)) {
         await removeAccountByProfileId(source, identity.id);
