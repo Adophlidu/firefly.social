@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { forwardRef, useCallback } from 'react';
+import { useCallback } from 'react';
 
 import SettingIcon from '@/assets/setting.svg';
 import { CloseButton } from '@/components/IconButton.js';
@@ -10,7 +10,11 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConnectedWallets } from '@/modals/MyWalletsModal/ConnectedWallets.js';
 
-export const MyWalletsModal = forwardRef<SingletonModalRefCreator>(function MyWalletsModal(_, ref) {
+type Props = {
+    ref: React.Ref<SingletonModalRefCreator>;
+};
+
+export function MyWalletsModal({ ref }: Props) {
     const [open, dispatch] = useSingletonModal(ref, {});
 
     const onClose = useCallback(() => dispatch?.close(), [dispatch]);
@@ -46,4 +50,4 @@ export const MyWalletsModal = forwardRef<SingletonModalRefCreator>(function MyWa
             </div>
         </Modal>
     );
-});
+}

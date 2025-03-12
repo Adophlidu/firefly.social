@@ -1,7 +1,7 @@
 import { t } from '@lingui/core/macro';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { RouterProvider } from '@tanstack/react-router';
-import { forwardRef, useCallback } from 'react';
+import { useCallback } from 'react';
 
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
@@ -60,77 +60,77 @@ function formatWalletHandle(profiles: TipsProfile[], address: string) {
     return profile?.primary_ens ?? formatEthereumAddress(address, 4);
 }
 
-const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, TipsModalCloseProps>>(
-    function TipsModalUI(_, ref) {
-        const isSmall = useIsSmall('max');
-        const { reset, update } = TipsContext.useContainer();
-        const [open, dispatch] = useSingletonModal(ref, {
-            onOpen: async ({ identity, handle, profiles, post, pureWallet = false }) => {
-                // avoid UI flicker when closing
-                reset();
+type Props = {
+    ref: React.Ref<SingletonModalRefCreator<TipsModalOpenProps, TipsModalCloseProps>>;
+};
 
-                try {
-                    const { walletProfiles, socialProfiles } = formatTipsProfiles(profiles);
+function TipsModalUI({ ref }: Props) {
+    const isSmall = useIsSmall('max');
+    const { reset, update } = TipsContext.useContainer();
+    const [open, dispatch] = useSingletonModal(ref, {
+        onOpen: async ({ identity, handle, profiles, post, pureWallet = false }) => {
+            // avoid UI flicker when closing
+            reset();
 
-                    walletProfiles.sort((a) => {
-                        const { primary_ens } = a.__origin__ as WalletProfile;
-                        if (primary_ens === handle) return -1;
-                        return primary_ens ? -1 : 1;
-                    });
-                    if (!walletProfiles.length) {
-                        router.navigate({ to: TipsRoutePath.NO_AVAILABLE_WALLET });
-                    } else {
-                        update((prev) => ({
-                            ...prev,
-                            recipientList: walletProfiles,
-                            recipient: walletProfiles[0],
-                            identity,
-                            post: post ?? null,
-                            handle:
-                                identity.source === Source.Wallet && !handle
-                                    ? formatWalletHandle(walletProfiles, identity.id)
-                                    : handle,
-                            pureWallet,
-                            socialProfiles,
-                        }));
-                        router.navigate({ to: TipsRoutePath.TIPS });
-                    }
-                } catch (error) {
-                    enqueueMessageFromError(error, t`Failed to send tip. Please try again later.`);
-                    throw error;
+            try {
+                const { walletProfiles, socialProfiles } = formatTipsProfiles(profiles);
+
+                walletProfiles.sort((a) => {
+                    const { primary_ens } = a.__origin__ as WalletProfile;
+                    if (primary_ens === handle) return -1;
+                    return primary_ens ? -1 : 1;
+                });
+                if (!walletProfiles.length) {
+                    router.navigate({ to: TipsRoutePath.NO_AVAILABLE_WALLET });
+                } else {
+                    update((prev) => ({
+                        ...prev,
+                        recipientList: walletProfiles,
+                        recipient: walletProfiles[0],
+                        identity,
+                        post: post ?? null,
+                        handle:
+                            identity.source === Source.Wallet && !handle
+                                ? formatWalletHandle(walletProfiles, identity.id)
+                                : handle,
+                        pureWallet,
+                        socialProfiles,
+                    }));
+                    router.navigate({ to: TipsRoutePath.TIPS });
                 }
-            },
-        });
-        const onClose = useCallback(() => {
-            dispatch?.close({});
-        }, [dispatch]);
+            } catch (error) {
+                enqueueMessageFromError(error, t`Failed to send tip. Please try again later.`);
+                throw error;
+            }
+        },
+    });
+    const onClose = useCallback(() => {
+        dispatch?.close({});
+    }, [dispatch]);
 
-        if (!isSmall) {
-            return (
-                <Modal open={open} onClose={onClose} disableScrollLock={false} disableDialogClose>
-                    <div className="z-10 w-4/5 rounded-md bg-lightBottom px-3 py-6 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:w-[485px] md:rounded-xl md:px-6">
-                        <RouterProvider router={router} context={{ onClose }} />
-                    </div>
-                </Modal>
-            );
-        }
-
+    if (!isSmall) {
         return (
-            <Popover open={open} onClose={onClose} dialogPanelClassName="!p-0 !pt-6">
-                <div className="px-3 pb-6 text-medium text-lightMain">
+            <Modal open={open} onClose={onClose} disableScrollLock={false} disableDialogClose>
+                <div className="z-10 w-4/5 rounded-md bg-lightBottom px-3 py-6 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:w-[485px] md:rounded-xl md:px-6">
                     <RouterProvider router={router} context={{ onClose }} />
                 </div>
-            </Popover>
+            </Modal>
         );
-    },
-);
+    }
 
-export const TipsModal = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, TipsModalCloseProps>>(
-    function TipsModal(props, ref) {
-        return (
-            <TipsContext.Provider>
-                <TipsModalUI {...props} ref={ref} />
-            </TipsContext.Provider>
-        );
-    },
-);
+    return (
+        <Popover open={open} onClose={onClose} dialogPanelClassName="!p-0 !pt-6">
+            <div className="px-3 pb-6 text-medium text-lightMain">
+                <RouterProvider router={router} context={{ onClose }} />
+            </div>
+        </Popover>
+    );
+}
+
+export function TipsModal({ ref, ...props }: Props) {
+    return (
+        <TipsContext.Provider>
+            <TipsModalUI {...props} ref={ref} />
+        </TipsContext.Provider>
+    );
+}

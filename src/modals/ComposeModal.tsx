@@ -12,7 +12,7 @@ import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { RouterProvider } from '@tanstack/react-router';
 import { $getRoot } from 'lexical';
 import { compact, flatten, values } from 'lodash-es';
-import { forwardRef, useCallback, useMemo, useRef } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { useAsync, useUpdateEffect } from 'react-use';
 import { None } from 'ts-results-es';
 import urlcat from 'urlcat';
@@ -85,256 +85,251 @@ export enum CloseAction {
 export type ComposeModalCloseProps = {
     disableClear?: boolean;
 } | void;
+type Props = {
+    ref: React.Ref<SingletonModalRefCreator<ComposeModalOpenProps, ComposeModalCloseProps>>;
+};
 
-export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOpenProps, ComposeModalCloseProps>>(
-    function Compose(_, ref) {
-        const currentSource = useGlobalState.use.currentSource();
-        const currentSocialSource = narrowToSocialSource(currentSource);
+export function ComposeModalUI({ ref }: Props) {
+    const currentSource = useGlobalState.use.currentSource();
+    const currentSocialSource = narrowToSocialSource(currentSource);
 
-        const contentRef = useRef<HTMLDivElement>(null);
-        const controller = useAbortController();
+    const contentRef = useRef<HTMLDivElement>(null);
+    const controller = useAbortController();
 
-        const profilesAll = useCurrentProfilesAll();
-        const profile = useCurrentProfile(currentSocialSource);
+    const profilesAll = useCurrentProfilesAll();
+    const profile = useCurrentProfile(currentSocialSource);
 
-        const {
-            posts,
-            insertImage,
-            updateType,
-            updateAvailableSources,
-            updateParentPost,
-            updateChars,
-            updateTypedMessage,
-            updateChannel,
-            clear,
-        } = useComposeStateStore();
-        const { clearScheduleTime } = useComposeScheduleStateStore();
-        const { typedMessage, rpPayload, availableSources } = useCompositePost();
+    const {
+        posts,
+        insertImage,
+        updateType,
+        updateAvailableSources,
+        updateParentPost,
+        updateChars,
+        updateTypedMessage,
+        updateChannel,
+        clear,
+    } = useComposeStateStore();
+    const { clearScheduleTime } = useComposeScheduleStateStore();
+    const { typedMessage, rpPayload, availableSources } = useCompositePost();
 
-        const [editor] = useLexicalComposerContext();
+    const [editor] = useLexicalComposerContext();
 
-        const setEditorContent = useSetEditorContent();
-        const [open, dispatch] = useSingletonModal(ref, {
-            onOpen: ({ type, source, typedMessage, post, chars, channel, initialPath }) => {
-                controller.current.abort();
-                updateType(type || 'compose');
-                updateAvailableSources(
-                    source ? (Array.isArray(source) ? source : [source]) : getCurrentAvailableSources(),
-                );
-                if (typedMessage) updateTypedMessage(typedMessage);
-                if (post) updateParentPost(post.source, post);
-                if (chars) {
-                    updateChars(chars);
-                    setEditorContent(chars);
-                }
-                if (channel) updateChannel(channel);
-                if (initialPath) router.navigate({ to: initialPath });
-            },
-            onClose: async (props) => {
-                if (props?.disableClear) return;
+    const setEditorContent = useSetEditorContent();
+    const [open, dispatch] = useSingletonModal(ref, {
+        onOpen: ({ type, source, typedMessage, post, chars, channel, initialPath }) => {
+            controller.current.abort();
+            updateType(type || 'compose');
+            updateAvailableSources(source ? (Array.isArray(source) ? source : [source]) : getCurrentAvailableSources());
+            if (typedMessage) updateTypedMessage(typedMessage);
+            if (post) updateParentPost(post.source, post);
+            if (chars) {
+                updateChars(chars);
+                setEditorContent(chars);
+            }
+            if (channel) updateChannel(channel);
+            if (initialPath) router.navigate({ to: initialPath });
+        },
+        onClose: async (props) => {
+            if (props?.disableClear) return;
 
-                // wait for animation to finish
-                await delay(300);
+            // wait for animation to finish
+            await delay(300);
 
-                clear();
-                clearScheduleTime();
-                router.navigate({ to: '/' });
+            clear();
+            clearScheduleTime();
+            router.navigate({ to: '/' });
 
-                controller.current.renew();
-                // https://github.com/DimensionDev/firefly.mask.social/pull/1644
-                await delay(1000);
+            controller.current.renew();
+            // https://github.com/DimensionDev/firefly.mask.social/pull/1644
+            await delay(1000);
 
-                if (!controller.current.signal?.aborted) editor.update(() => $getRoot().clear());
-            },
-        });
+            if (!controller.current.signal?.aborted) editor.update(() => $getRoot().clear());
+        },
+    });
 
-        const isSmall = useIsSmall('max');
+    const isSmall = useIsSmall('max');
 
-        const onClose = useCallback(async () => {
-            const { addDraft } = useComposeDraftStateStore.getState();
-            const { posts, cursor, currentDraftId, type } = useComposeStateStore.getState();
-            const { scheduleTime } = useComposeScheduleStateStore.getState();
-            const compositePost = getCompositePost(cursor);
-            const { availableSources = EMPTY_LIST } = compositePost ?? {};
-            if (posts.some((x) => !isEmptyPost(x))) {
-                const errorsSource = [
-                    ...new Set(
-                        flatten(
-                            posts.map((x) => {
-                                // Failed source obtained
-                                return compact(
-                                    Object.entries(x.postError).map(([key, value]) => (value ? key : undefined)),
-                                );
-                            }),
-                        ),
+    const onClose = useCallback(async () => {
+        const { addDraft } = useComposeDraftStateStore.getState();
+        const { posts, cursor, currentDraftId, type } = useComposeStateStore.getState();
+        const { scheduleTime } = useComposeScheduleStateStore.getState();
+        const compositePost = getCompositePost(cursor);
+        const { availableSources = EMPTY_LIST } = compositePost ?? {};
+        if (posts.some((x) => !isEmptyPost(x))) {
+            const errorsSource = [
+                ...new Set(
+                    flatten(
+                        posts.map((x) => {
+                            // Failed source obtained
+                            return compact(
+                                Object.entries(x.postError).map(([key, value]) => (value ? key : undefined)),
+                            );
+                        }),
                     ),
-                ] as SocialSource[];
+                ),
+            ] as SocialSource[];
 
-                const hasError = !!errorsSource.length;
+            const hasError = !!errorsSource.length;
 
-                const sources = hasError ? errorsSource : availableSources;
-                const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                    title: hasError ? t`Save failed post?` : t`Save Post?`,
-                    content: (
-                        <div className="text-[15px] text-main md:text-base">
-                            {hasError ? (
-                                <Trans>
-                                    You can save the failed parts of posts and send them later from your Drafts.
-                                </Trans>
-                            ) : (
-                                <Trans>You can save this to send later from your drafts.</Trans>
-                            )}
-                        </div>
-                    ),
-                    enableCloseButton: !isSmall,
-                    enableCancelButton: true,
-                    cancelButtonText: t`Discard`,
-                    confirmButtonText: t`Save`,
-                    variant: 'normal',
+            const sources = hasError ? errorsSource : availableSources;
+            const confirmed = await ConfirmModalRef.openAndWaitForClose({
+                title: hasError ? t`Save failed post?` : t`Save Post?`,
+                content: (
+                    <div className="text-[15px] text-main md:text-base">
+                        {hasError ? (
+                            <Trans>You can save the failed parts of posts and send them later from your Drafts.</Trans>
+                        ) : (
+                            <Trans>You can save this to send later from your drafts.</Trans>
+                        )}
+                    </div>
+                ),
+                enableCloseButton: !isSmall,
+                enableCancelButton: true,
+                cancelButtonText: t`Discard`,
+                confirmButtonText: t`Save`,
+                variant: 'normal',
+            });
+            if (confirmed === null) return CloseAction.None;
+
+            if (confirmed) {
+                const draft = {
+                    draftId: currentDraftId || uuid(),
+                    createdAt: new Date(),
+                    cursor,
+                    posts: hasError ? posts.map((x) => ({ ...x, availableSources: sources })) : posts,
+                    type,
+                    availableProfiles: compact(values(profilesAll)).filter((x) => sources.includes(x.source)),
+                    scheduleTime,
+                };
+
+                addDraft(draft);
+                ComposeModalRef.close();
+                enqueueSuccessMessage(t`Your draft was saved.`);
+                captureComposeDraftPostEvent(EventId.COMPOSE_DRAFT_CREATE_SUCCESS, posts[0], {
+                    draftId: draft.draftId,
+                    thread: posts,
                 });
-                if (confirmed === null) return CloseAction.None;
-
-                if (confirmed) {
-                    const draft = {
-                        draftId: currentDraftId || uuid(),
-                        createdAt: new Date(),
-                        cursor,
-                        posts: hasError ? posts.map((x) => ({ ...x, availableSources: sources })) : posts,
-                        type,
-                        availableProfiles: compact(values(profilesAll)).filter((x) => sources.includes(x.source)),
-                        scheduleTime,
-                    };
-
-                    addDraft(draft);
-                    ComposeModalRef.close();
-                    enqueueSuccessMessage(t`Your draft was saved.`);
-                    captureComposeDraftPostEvent(EventId.COMPOSE_DRAFT_CREATE_SUCCESS, posts[0], {
-                        draftId: draft.draftId,
-                        thread: posts,
-                    });
-                    return CloseAction.Saved;
-                } else {
-                    dispatch?.close();
-                }
+                return CloseAction.Saved;
             } else {
                 dispatch?.close();
             }
-            return CloseAction.Discard;
-        }, [isSmall, profilesAll, dispatch]);
+        } else {
+            dispatch?.close();
+        }
+        return CloseAction.Discard;
+    }, [isSmall, profilesAll, dispatch]);
 
-        const promoteLink = useMemo(() => {
-            const preferSource = SORTED_SOCIAL_SOURCES.find((x) => availableSources.includes(x) && profilesAll[x]);
-            if (!preferSource) return SITE_URL;
-            const preferProfile = profilesAll[preferSource]!;
-            return urlcat(location.origin, getProfileUrl(preferProfile));
-        }, [profilesAll, availableSources]);
+    const promoteLink = useMemo(() => {
+        const preferSource = SORTED_SOCIAL_SOURCES.find((x) => availableSources.includes(x) && profilesAll[x]);
+        if (!preferSource) return SITE_URL;
+        const preferProfile = profilesAll[preferSource]!;
+        return urlcat(location.origin, getProfileUrl(preferProfile));
+    }, [profilesAll, availableSources]);
 
-        // Avoid recreating post content for red packet
-        const { loading: encryptRedPacketLoading } = useAsync(async () => {
-            const { cursor } = useComposeStateStore.getState();
-            const compositePost = getCompositePost(cursor);
-            if (!typedMessage) return;
-            if (!hasRpPayload(typedMessage) || isRpEncrypted(typedMessage)) return;
-            if (!rpPayload?.payloadImage) return;
+    // Avoid recreating post content for red packet
+    const { loading: encryptRedPacketLoading } = useAsync(async () => {
+        const { cursor } = useComposeStateStore.getState();
+        const compositePost = getCompositePost(cursor);
+        if (!typedMessage) return;
+        if (!hasRpPayload(typedMessage) || isRpEncrypted(typedMessage)) return;
+        if (!rpPayload?.payloadImage) return;
 
-            try {
-                const throws = () => {
-                    throw new UnreachableError('throws', 'This function should not be called.');
-                };
-                const encrypted = await encrypt(
-                    {
-                        author: ProfileIdentifier.of(SITE_HOSTNAME, profile?.handle),
-                        authorPublicKey: None,
-                        message: typedMessage,
-                        network: SITE_HOSTNAME,
-                        target: { type: 'public' },
-                        version: -37,
-                    },
-                    { deriveAESKey: throws, encryptByLocalKey: throws },
-                );
-                if (typeof encrypted.output === 'string') throw new Error('Expected binary data.');
+        try {
+            const throws = () => {
+                throw new UnreachableError('throws', 'This function should not be called.');
+            };
+            const encrypted = await encrypt(
+                {
+                    author: ProfileIdentifier.of(SITE_HOSTNAME, profile?.handle),
+                    authorPublicKey: None,
+                    message: typedMessage,
+                    network: SITE_HOSTNAME,
+                    target: { type: 'public' },
+                    version: -37,
+                },
+                { deriveAESKey: throws, encryptByLocalKey: throws },
+            );
+            if (typeof encrypted.output === 'string') throw new Error('Expected binary data.');
 
-                const secretImage = await steganographyEncodeImage(
-                    await fetchImageAsPNG(rpPayload.payloadImage, true),
-                    encrypted.output,
-                    SteganographyPreset.Preset2023_Firefly,
-                );
+            const secretImage = await steganographyEncodeImage(
+                await fetchImageAsPNG(rpPayload.payloadImage, true),
+                encrypted.output,
+                SteganographyPreset.Preset2023_Firefly,
+            );
 
-                const promoteMessage = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop!`;
+            const promoteMessage = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop!`;
 
-                const chars: Chars = [
-                    {
-                        tag: CHAR_TAG.FIREFLY_RP,
-                        content: RP_HASH_TAG,
-                        visible: false,
-                    },
-                    ...(compositePost ? compositePost.chars : []),
-                    promoteMessage,
-                    {
-                        tag: CHAR_TAG.PROMOTE_LINK,
-                        content: promoteLink,
-                        visible: false,
-                        sortNo: 5,
-                    },
-                ];
+            const chars: Chars = [
+                {
+                    tag: CHAR_TAG.FIREFLY_RP,
+                    content: RP_HASH_TAG,
+                    visible: false,
+                },
+                ...(compositePost ? compositePost.chars : []),
+                promoteMessage,
+                {
+                    tag: CHAR_TAG.PROMOTE_LINK,
+                    content: promoteLink,
+                    visible: false,
+                    sortNo: 5,
+                },
+            ];
 
-                updateChars(chars);
-                setEditorContent(chars);
-                insertImage(
-                    createLocalMediaObject(new File([secretImage], 'image.png', { type: FileMimeType.PNG }), true),
-                    0,
-                );
-                updateTypedMessage(updateRpEncrypted(typedMessage));
-            } catch (error) {
-                enqueueMessageFromError(error, t`Failed to create image payload.`);
-                throw error;
-            }
-            // each time the typedMessage changes, we need to check if it has a red packet payload
-        }, [
-            typedMessage,
-            rpPayload?.payloadImage,
-            profile?.handle,
-            promoteLink,
-            updateChars,
-            setEditorContent,
-            insertImage,
-            updateTypedMessage,
-        ]);
+            updateChars(chars);
+            setEditorContent(chars);
+            insertImage(
+                createLocalMediaObject(new File([secretImage], 'image.png', { type: FileMimeType.PNG }), true),
+                0,
+            );
+            updateTypedMessage(updateRpEncrypted(typedMessage));
+        } catch (error) {
+            enqueueMessageFromError(error, t`Failed to create image payload.`);
+            throw error;
+        }
+        // each time the typedMessage changes, we need to check if it has a red packet payload
+    }, [
+        typedMessage,
+        rpPayload?.payloadImage,
+        profile?.handle,
+        promoteLink,
+        updateChars,
+        setEditorContent,
+        insertImage,
+        updateTypedMessage,
+    ]);
 
-        useUpdateEffect(() => {
-            if (!contentRef.current || !posts.length) return;
-            contentRef.current.scrollTop = contentRef.current?.scrollHeight;
-        }, [posts.length]);
+    useUpdateEffect(() => {
+        if (!contentRef.current || !posts.length) return;
+        contentRef.current.scrollTop = contentRef.current?.scrollHeight;
+    }, [posts.length]);
 
-        return (
-            <Modal
-                open={open}
-                onClose={onClose}
-                dialogPanelClassName="flex-col"
-                disableScrollLock={false}
-                disableDialogClose
-            >
-                <div className="relative flex h-[100vh] w-[100vw] flex-col overflow-auto bg-lightBottom shadow-popover transition-all dark:bg-darkBottom dark:text-gray-950 md:h-auto md:w-[600px] md:flex-[0] md:rounded-xl lg:flex-grow-0">
-                    {/* Loading */}
-                    {encryptRedPacketLoading ? (
-                        <div className="absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
-                            <LoadingIcon />
-                        </div>
-                    ) : null}
+    return (
+        <Modal
+            open={open}
+            onClose={onClose}
+            dialogPanelClassName="flex-col"
+            disableScrollLock={false}
+            disableDialogClose
+        >
+            <div className="relative flex h-[100vh] w-[100vw] flex-col overflow-auto bg-lightBottom shadow-popover transition-all dark:bg-darkBottom dark:text-gray-950 md:h-auto md:w-[600px] md:flex-[0] md:rounded-xl lg:flex-grow-0">
+                {/* Loading */}
+                {encryptRedPacketLoading ? (
+                    <div className="absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
+                        <LoadingIcon />
+                    </div>
+                ) : null}
 
-                    <RouterProvider router={router} context={{ onClose }} />
-                </div>
-            </Modal>
-        );
-    },
-);
+                <RouterProvider router={router} context={{ onClose }} />
+            </div>
+        </Modal>
+    );
+}
 
-export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalOpenProps, ComposeModalCloseProps>>(
-    function ComposeModal(props, ref) {
-        return (
-            <LexicalComposer initialConfig={initialConfig}>
-                <ComposeModalUI {...props} ref={ref} />
-            </LexicalComposer>
-        );
-    },
-);
+export function ComposeModal({ ref, ...props }: Props) {
+    return (
+        <LexicalComposer initialConfig={initialConfig}>
+            <ComposeModalUI {...props} ref={ref} />
+        </LexicalComposer>
+    );
+}

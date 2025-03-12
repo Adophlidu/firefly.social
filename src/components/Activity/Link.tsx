@@ -1,5 +1,5 @@
 import type { LinkProps } from 'next/link.js';
-import { forwardRef, type HTMLProps, type PropsWithChildren, useCallback } from 'react';
+import { type HTMLProps, type PropsWithChildren, useCallback } from 'react';
 
 import { Link as OriginalLink } from '@/esm/Link.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
@@ -8,10 +8,10 @@ import { openUrl } from '@/helpers/openUrl.js';
 import { useInternalLink } from '@/hooks/useInternalLink.js';
 import { ConfirmLeavingModalRef } from '@/modals/controls.js';
 
-export const Link = forwardRef<
-    HTMLAnchorElement,
-    PropsWithChildren<Omit<LinkProps, 'href'>> & Pick<HTMLProps<'a'>, 'className' | 'target'> & { href: string }
->(function Link({ children, ...props }, ref) {
+type Props = PropsWithChildren<Omit<LinkProps, 'href'>> &
+    Pick<HTMLProps<HTMLAnchorElement>, 'className' | 'target' | 'ref'> & { href: string };
+
+export function Link({ children, ref, ...props }: Props) {
     const { href } = props;
     const { data: internalLink } = useInternalLink(href);
 
@@ -39,4 +39,4 @@ export const Link = forwardRef<
             {children}
         </OriginalLink>
     );
-});
+}

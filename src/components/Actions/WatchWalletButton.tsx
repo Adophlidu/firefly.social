@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import { forwardRef } from 'react';
 import type { Address } from 'viem';
 
 import FollowIcon from '@/assets/follow-user.svg';
@@ -16,10 +15,7 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
     isFollowing?: boolean;
 }
 
-export const WatchWalletButton = forwardRef<HTMLButtonElement, Props>(function WatchWalletButton(
-    { handleOrEnsOrAddress, address, isFollowing, ...rest }: Props,
-    ref,
-) {
+export function WatchWalletButton({ handleOrEnsOrAddress, address, isFollowing, ref, ...rest }: Props) {
     const { data, isLoading } = useIsFollowingWallet(address, isFollowing === undefined);
     const following = isFollowing || data;
 
@@ -51,4 +47,4 @@ export const WatchWalletButton = forwardRef<HTMLButtonElement, Props>(function W
             </span>
         </MenuButton>
     );
-});
+}

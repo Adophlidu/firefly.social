@@ -4,7 +4,6 @@ import { t } from '@lingui/core/macro';
 import { isValidChainId as isSolanaChainId } from '@masknet/web3-shared-solana';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { forwardRef } from 'react';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
 
 import { GridListInPage } from '@/components/GridListInPage.js';
@@ -58,21 +57,17 @@ function getNFTItemContent(nft: SimpleHash.NFT) {
     );
 }
 
-const GridList = forwardRef<HTMLDivElement, GridListProps>(function GridList({ className, children, ...props }, ref) {
+function GridList({ className, children, ...props }: GridListProps) {
     return (
-        <div
-            ref={ref}
-            {...props}
-            className={classNames('grid grid-cols-2 gap-3.5 sm:grid-cols-3 md:grid-cols-4', className)}
-        >
+        <div {...props} className={classNames('grid grid-cols-2 gap-3.5 sm:grid-cols-3 md:grid-cols-4', className)}>
             {children}
         </div>
     );
-});
+}
 
-const GridItem = forwardRef<HTMLDivElement, GridItemProps>(function GridItem({ children, ...props }, ref) {
+function GridItem({ children, ...props }: GridItemProps) {
     return <div {...props}>{children}</div>;
-});
+}
 
 export function NFTBookmarkList() {
     const isLogin = useIsLogin();

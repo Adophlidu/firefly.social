@@ -1,7 +1,7 @@
 'use client';
 
 import { createMemoryHistory, createRouter, RouterProvider, useRouterState } from '@tanstack/react-router';
-import { forwardRef, useRef } from 'react';
+import { useRef } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
@@ -42,25 +42,26 @@ function createRedPacketRouter(initialEntries: string[] = ['/main']) {
 export interface RedPacketModalOpenProps {
     initialPath?: string;
 }
+type Props = {
+    ref: React.Ref<SingletonModalRefCreator<RedPacketModalOpenProps | void>>;
+};
 
-export const RedPacketModal = forwardRef<SingletonModalRefCreator<RedPacketModalOpenProps | void>>(
-    function RedPacketModal(_, ref) {
-        const routerRef = useRef(createRedPacketRouter());
-        const [open, dispatch] = useSingletonModal(ref, {
-            onOpen: async (props) => {
-                const initialEntries = props?.initialPath ? [props.initialPath] : ['/main'];
-                routerRef.current = createRedPacketRouter(initialEntries);
-            },
-        });
+export function RedPacketModal({ ref }: Props) {
+    const routerRef = useRef(createRedPacketRouter());
+    const [open, dispatch] = useSingletonModal(ref, {
+        onOpen: async (props) => {
+            const initialEntries = props?.initialPath ? [props.initialPath] : ['/main'];
+            routerRef.current = createRedPacketRouter(initialEntries);
+        },
+    });
 
-        const Router = <RouterProvider router={routerRef.current} />;
+    const Router = <RouterProvider router={routerRef.current} />;
 
-        return (
-            <Modal open={open} onClose={() => dispatch?.close()}>
-                <div>
-                    <RedPacketProvider>{Router}</RedPacketProvider>
-                </div>
-            </Modal>
-        );
-    },
-);
+    return (
+        <Modal open={open} onClose={() => dispatch?.close()}>
+            <div>
+                <RedPacketProvider>{Router}</RedPacketProvider>
+            </div>
+        </Modal>
+    );
+}

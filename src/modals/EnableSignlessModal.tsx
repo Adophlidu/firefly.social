@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { forwardRef } from 'react';
 import { useAsyncFn } from 'react-use';
 import { polygon } from 'viem/chains';
 import { useAccount } from 'wagmi';
@@ -16,69 +15,71 @@ import type { LensSession } from '@/providers/lens/Session.js';
 import { updateSignless } from '@/providers/lens/updateSignless.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 
-export const EnableSignlessModal = forwardRef<SingletonModalRefCreator<void, boolean>>(
-    function EnableSignlessModal(_, ref) {
-        const account = useAccount();
-        const currentProfile = useLensStateStore.use.currentProfile();
-        const currentProfileSession = useLensStateStore.use.currentProfileSession();
+type Props = {
+    ref: React.Ref<SingletonModalRefCreator<void, boolean>>;
+};
 
-        const [open, dispatch] = useSingletonModal(ref);
+export function EnableSignlessModal({ ref }: Props) {
+    const account = useAccount();
+    const currentProfile = useLensStateStore.use.currentProfile();
+    const currentProfileSession = useLensStateStore.use.currentProfileSession();
 
-        const [{ loading }, handleUpdateSignless] = useAsyncFn(async () => {
-            try {
-                if (!currentProfileSession) return;
-                if (!isSameEthereumAddress(currentProfile?.ownedBy?.address, account.address)) {
-                    enqueueInfoMessage(
-                        <div className="w-full text-sm">
-                            <div className="break-word font-bold text-white">
-                                <Trans>Wrong wallet</Trans>
-                            </div>
-                            <div className="whitespace-pre-wrap text-sm text-white">
-                                <Trans>Please switch to the wallet consistent with this action</Trans>
-                            </div>
-                        </div>,
-                    );
-                    return;
-                }
+    const [open, dispatch] = useSingletonModal(ref);
 
-                await updateSignless(true, currentProfileSession as LensSession);
-
-                dispatch?.close(true);
-            } catch (error) {
-                enqueueMessageFromError(error, t`Failed to enable signless`);
-                throw error;
+    const [{ loading }, handleUpdateSignless] = useAsyncFn(async () => {
+        try {
+            if (!currentProfileSession) return;
+            if (!isSameEthereumAddress(currentProfile?.ownedBy?.address, account.address)) {
+                enqueueInfoMessage(
+                    <div className="w-full text-sm">
+                        <div className="break-word font-bold text-white">
+                            <Trans>Wrong wallet</Trans>
+                        </div>
+                        <div className="whitespace-pre-wrap text-sm text-white">
+                            <Trans>Please switch to the wallet consistent with this action</Trans>
+                        </div>
+                    </div>,
+                );
+                return;
             }
-        }, [currentProfileSession, currentProfile?.ownedBy?.address, account.address, dispatch]);
 
-        return (
-            <Modal open={open} onClose={() => dispatch?.close(false)}>
-                <div className="relative w-[355px] max-w-[90vw] rounded-xl bg-primaryBottom shadow-popover transition-all">
-                    <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] p-4">
-                        <CloseButton
-                            onClick={() => {
-                                dispatch?.close(false);
-                            }}
-                        />
-                        <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
-                            <Trans>Delegate Signing</Trans>
-                        </div>
-                        <div className="relative h-6 w-6" />
+            await updateSignless(true, currentProfileSession as LensSession);
+
+            dispatch?.close(true);
+        } catch (error) {
+            enqueueMessageFromError(error, t`Failed to enable signless`);
+            throw error;
+        }
+    }, [currentProfileSession, currentProfile?.ownedBy?.address, account.address, dispatch]);
+
+    return (
+        <Modal open={open} onClose={() => dispatch?.close(false)}>
+            <div className="relative w-[355px] max-w-[90vw] rounded-xl bg-primaryBottom shadow-popover transition-all">
+                <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] p-4">
+                    <CloseButton
+                        onClick={() => {
+                            dispatch?.close(false);
+                        }}
+                    />
+                    <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
+                        <Trans>Delegate Signing</Trans>
                     </div>
-
-                    <div className="flex flex-col gap-6 p-6">
-                        <div className="text-center text-medium leading-[18px]">
-                            <Trans>
-                                Failed to continue. Please allow Lens Manager for performing actions without the need to
-                                sign each transaction.
-                            </Trans>
-                        </div>
-
-                        <ChainGuardButton targetChainId={polygon.id} loading={loading} onClick={handleUpdateSignless}>
-                            <Trans>Sign to enable signless</Trans>
-                        </ChainGuardButton>
-                    </div>
+                    <div className="relative h-6 w-6" />
                 </div>
-            </Modal>
-        );
-    },
-);
+
+                <div className="flex flex-col gap-6 p-6">
+                    <div className="text-center text-medium leading-[18px]">
+                        <Trans>
+                            Failed to continue. Please allow Lens Manager for performing actions without the need to
+                            sign each transaction.
+                        </Trans>
+                    </div>
+
+                    <ChainGuardButton targetChainId={polygon.id} loading={loading} onClick={handleUpdateSignless}>
+                        <Trans>Sign to enable signless</Trans>
+                    </ChainGuardButton>
+                </div>
+            </div>
+        </Modal>
+    );
+}

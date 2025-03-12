@@ -2,7 +2,7 @@ import { t } from '@lingui/core/macro';
 import { useQueryClient } from '@tanstack/react-query';
 import bs58 from 'bs58';
 import { first } from 'lodash-es';
-import { forwardRef, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { Address } from 'viem';
 
 import { appkit, config } from '@/configs/wagmiClient.js';
@@ -27,94 +27,92 @@ export interface AddWalletModalProps {
 export interface AddWalletModalCloseProps {
     response?: BindWalletResponse['data'];
 }
+type Props = {
+    ref: React.Ref<SingletonModalRefCreator<AddWalletModalProps, AddWalletModalCloseProps>>;
+};
 
-export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModalProps, AddWalletModalCloseProps>>(
-    function AddWalletModal(_, ref) {
-        const [{ connections }, setProps] = useState<AddWalletModalProps>({
-            connections: EMPTY_LIST,
-        });
-        const [open, dispatch] = useSingletonModal(ref, {
-            onOpen: (props) => {
-                setProps(props);
-            },
-            onClose: () => setProps({ connections: EMPTY_LIST }),
-        });
-        const onClose = useCallback((props: AddWalletModalCloseProps = {}) => dispatch?.close(props), [dispatch]);
+export function AddWalletModal({ ref }: Props) {
+    const [{ connections }, setProps] = useState<AddWalletModalProps>({
+        connections: EMPTY_LIST,
+    });
+    const [open, dispatch] = useSingletonModal(ref, {
+        onOpen: (props) => {
+            setProps(props);
+        },
+        onClose: () => setProps({ connections: EMPTY_LIST }),
+    });
+    const onClose = useCallback((props: AddWalletModalCloseProps = {}) => dispatch?.close(props), [dispatch]);
 
-        const qc = useQueryClient();
+    const qc = useQueryClient();
 
-        const onBind = useCallback(async () => {
-            function checkExistedConnection(address: string) {
-                const existedConnection = connections.find((connection) => isSameAddress(connection.address, address));
-                if (existedConnection) {
-                    MyWalletsModalRef.open();
-                    const addressName = first(existedConnection.ens) || formatAddress(address, 8);
-                    enqueueWarningMessage(t`${addressName} is already connected.`);
-                    dispatch?.abort?.(new Error(`Already connected address name = ${addressName}.`));
-                    return true;
-                }
-                return false;
+    const onBind = useCallback(async () => {
+        function checkExistedConnection(address: string) {
+            const existedConnection = connections.find((connection) => isSameAddress(connection.address, address));
+            if (existedConnection) {
+                MyWalletsModalRef.open();
+                const addressName = first(existedConnection.ens) || formatAddress(address, 8);
+                enqueueWarningMessage(t`${addressName} is already connected.`);
+                dispatch?.abort?.(new Error(`Already connected address name = ${addressName}.`));
+                return true;
             }
+            return false;
+        }
 
-            try {
-                const result = await resolveValue(async () => {
-                    switch (appkit.getCaipNetwork()?.chainNamespace) {
-                        case 'eip155': {
-                            const walletClient = await getWalletClientRequired(config);
-                            const address = walletClient.account.address;
-                            if (checkExistedConnection(address)) return;
-                            const message = await FireflyEndpointProvider.getMessageToSignForBindWallet(
-                                address.toLowerCase(),
-                            );
-                            const signature = await walletClient.signMessage({
-                                message: { raw: message },
-                                account: address as Address,
-                            });
-                            return await FireflyEndpointProvider.verifyAndBindWallet(message, signature);
-                        }
-                        case 'solana': {
-                            const adapter = await getWalletAdaptorRequired();
-                            const address = adapter.publicKey.toBase58();
-                            const hexMessage =
-                                await FireflyEndpointProvider.getMessageToSignMessageForBindSolanaWallet(address);
-                            const message = bs58.decode(bs58.encode(Buffer.from(hexMessage.substring(2), 'hex')));
-                            const signature = Buffer.from(await adapter.signMessage(message)).toString('hex');
-                            return FireflyEndpointProvider.verifyAndBindSolanaWallet(address, hexMessage, signature);
-                        }
-                        default:
-                            throw new WalletNotConnectedError();
+        try {
+            const result = await resolveValue(async () => {
+                switch (appkit.getCaipNetwork()?.chainNamespace) {
+                    case 'eip155': {
+                        const walletClient = await getWalletClientRequired(config);
+                        const address = walletClient.account.address;
+                        if (checkExistedConnection(address)) return;
+                        const message = await FireflyEndpointProvider.getMessageToSignForBindWallet(
+                            address.toLowerCase(),
+                        );
+                        const signature = await walletClient.signMessage({
+                            message: { raw: message },
+                            account: address as Address,
+                        });
+                        return await FireflyEndpointProvider.verifyAndBindWallet(message, signature);
                     }
-                });
-                if (!result) {
-                    dispatch?.abort?.(new Error('This address type is not supported'));
-                    return;
+                    case 'solana': {
+                        const adapter = await getWalletAdaptorRequired();
+                        const address = adapter.publicKey.toBase58();
+                        const hexMessage =
+                            await FireflyEndpointProvider.getMessageToSignMessageForBindSolanaWallet(address);
+                        const message = bs58.decode(bs58.encode(Buffer.from(hexMessage.substring(2), 'hex')));
+                        const signature = Buffer.from(await adapter.signMessage(message)).toString('hex');
+                        return FireflyEndpointProvider.verifyAndBindSolanaWallet(address, hexMessage, signature);
+                    }
+                    default:
+                        throw new WalletNotConnectedError();
                 }
-                await qc.refetchQueries({ queryKey: ['my-wallet-connections'] });
-                enqueueSuccessMessage(t`Wallet added successfully`);
-                onClose({ response: result });
-            } catch (error) {
-                if (
-                    error instanceof Error &&
-                    error.message.includes('This wallet already bound to the other account')
-                ) {
-                    enqueueWarningMessage(
-                        t`Sorry, this wallet is already linked to another Firefly account. Please try a different one.`,
-                    );
-                    dispatch?.abort?.(error);
-                    throw error;
-                }
-
-                const messageFromError = error instanceof FetchError ? error.text : '';
-                enqueueMessageFromError(error, messageFromError || t`Failed to add wallet`);
-                dispatch?.abort?.(new Error('Failed to add wallet'));
+            });
+            if (!result) {
+                dispatch?.abort?.(new Error('This address type is not supported'));
+                return;
+            }
+            await qc.refetchQueries({ queryKey: ['my-wallet-connections'] });
+            enqueueSuccessMessage(t`Wallet added successfully`);
+            onClose({ response: result });
+        } catch (error) {
+            if (error instanceof Error && error.message.includes('This wallet already bound to the other account')) {
+                enqueueWarningMessage(
+                    t`Sorry, this wallet is already linked to another Firefly account. Please try a different one.`,
+                );
+                dispatch?.abort?.(error);
                 throw error;
             }
-        }, [connections, dispatch, onClose, qc]);
 
-        useEffect(() => {
-            if (open) onBind();
-        }, [onBind, open]);
+            const messageFromError = error instanceof FetchError ? error.text : '';
+            enqueueMessageFromError(error, messageFromError || t`Failed to add wallet`);
+            dispatch?.abort?.(new Error('Failed to add wallet'));
+            throw error;
+        }
+    }, [connections, dispatch, onClose, qc]);
 
-        return null;
-    },
-);
+    useEffect(() => {
+        if (open) onBind();
+    }, [onBind, open]);
+
+    return null;
+}

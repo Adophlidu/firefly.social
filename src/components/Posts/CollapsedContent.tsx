@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { forwardRef, type HTMLProps } from 'react';
+import { type HTMLProps } from 'react';
 
 import EyeSlash from '@/assets/eye-slash.svg';
 import TrashIcon from '@/assets/trash.svg';
@@ -9,12 +9,9 @@ interface Props extends HTMLProps<HTMLDivElement> {
     authorMuted?: boolean;
     isQuote: boolean;
 }
-export const CollapsedContent = forwardRef<HTMLDivElement, Props>(function CollapsedContent(
-    { isQuote, authorMuted: muted, ...rest },
-    ref,
-) {
+export function CollapsedContent({ isQuote, authorMuted: muted, ...rest }: Props) {
     return (
-        <div {...rest} ref={ref}>
+        <div {...rest}>
             <div
                 className={classNames(
                     'flex items-center gap-1 rounded-lg border-primaryMain py-[6px] text-medium',
@@ -26,4 +23,4 @@ export const CollapsedContent = forwardRef<HTMLDivElement, Props>(function Colla
             </div>
         </div>
     );
-});
+}

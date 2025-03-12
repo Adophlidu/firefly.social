@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { forwardRef } from 'react';
 
 import FlagIcon from '@/assets/flag.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
@@ -13,10 +12,7 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
     onReport?(post: Post): Promise<boolean>;
 }
 
-export const ReportPostButton = forwardRef<HTMLButtonElement, Props>(function ReportPostButton(
-    { post, onReport, onClick, ...rest }: Props,
-    ref,
-) {
+export function ReportPostButton({ post, ref, onReport, onClick, ...rest }: Props) {
     return (
         <MenuButton
             {...rest}
@@ -42,4 +38,4 @@ export const ReportPostButton = forwardRef<HTMLButtonElement, Props>(function Re
             </span>
         </MenuButton>
     );
-});
+}

@@ -1,6 +1,6 @@
 'use client';
 
-import { forwardRef, type HTMLProps } from 'react';
+import { type HTMLProps } from 'react';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -14,20 +14,18 @@ export interface ClickableButtonProps extends HTMLProps<HTMLButtonElement> {
     loadingSize?: number;
 }
 
-export const ClickableButton = forwardRef<HTMLButtonElement, ClickableButtonProps>(function ClickableButton(
-    {
-        enableDefault = false,
-        enablePropagate = false,
-        enableOutline = false,
-        loading = false,
-        onlyLoading = false,
-        loadingSize = 20,
-        children,
-        onClick,
-        ...props
-    },
+export function ClickableButton({
+    enableDefault = false,
+    enablePropagate = false,
+    enableOutline = false,
+    loading = false,
+    onlyLoading = false,
+    loadingSize = 20,
+    children,
     ref,
-) {
+    onClick,
+    ...props
+}: ClickableButtonProps) {
     return (
         <button
             {...props}
@@ -56,4 +54,4 @@ export const ClickableButton = forwardRef<HTMLButtonElement, ClickableButtonProp
             )}
         </button>
     );
-});
+}

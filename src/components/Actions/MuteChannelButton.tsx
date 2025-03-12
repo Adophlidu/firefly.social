@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { forwardRef } from 'react';
 
 import MuteIcon from '@/assets/mute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
@@ -14,10 +13,7 @@ interface Props extends Omit<ClickableButtonProps, 'children' | 'onToggle'> {
     onToggle?(channel: Channel): Promise<boolean>;
 }
 
-export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function MuteChannelButton(
-    { channel, onToggle, onClick, ...rest }: Props,
-    ref,
-) {
+export function MuteChannelButton({ channel, ref, onToggle, onClick, ...rest }: Props) {
     const muted = channel.blocked;
 
     return (
@@ -53,4 +49,4 @@ export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function M
             </span>
         </MenuButton>
     );
-});
+}

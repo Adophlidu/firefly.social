@@ -1,16 +1,16 @@
 import { t } from '@lingui/core/macro';
-import React, { forwardRef } from 'react';
+import { type HTMLProps } from 'react';
 
 import type { FrameInput } from '@/types/frame.js';
 
-interface Props {
+interface Props extends HTMLProps<HTMLInputElement> {
     input: FrameInput;
 }
 
-export const Input = forwardRef<HTMLInputElement, Props>(function FrameInput({ input }: Props, ref) {
+export function Input({ input, ...rest }: Props) {
     return (
         <input
-            ref={ref}
+            {...rest}
             className="w-full rounded-md border border-line bg-white px-2 py-1.5 dark:bg-darkBottom dark:text-white"
             type="text"
             autoComplete="off"
@@ -18,4 +18,4 @@ export const Input = forwardRef<HTMLInputElement, Props>(function FrameInput({ i
             placeholder={input.label || t`Type something here...`}
         />
     );
-});
+}

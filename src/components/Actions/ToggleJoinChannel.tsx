@@ -1,5 +1,4 @@
 import { t } from '@lingui/core/macro';
-import { forwardRef } from 'react';
 
 import FollowUserIcon from '@/assets/follow-user.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
@@ -16,10 +15,7 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
     onClick?: () => void;
 }
 
-export const ToggleJoinChannel = forwardRef<HTMLButtonElement, Props>(function ToggleJoinChannel(
-    { channel, onClick, ...rest }: Props,
-    ref,
-) {
+export function ToggleJoinChannel({ channel, ref, onClick, ...rest }: Props) {
     const { data: bskyPreferences, isLoading } = useBskyPreferences(channel.source === Source.Bsky);
 
     const joined =
@@ -48,4 +44,4 @@ export const ToggleJoinChannel = forwardRef<HTMLButtonElement, Props>(function T
             <span className="font-bold leading-[22px] text-main">{joined ? t`Leave /${name}` : t`Join /${name}`}</span>
         </MenuButton>
     );
-});
+}

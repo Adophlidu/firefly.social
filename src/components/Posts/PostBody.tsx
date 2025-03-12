@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { forwardRef } from 'react';
 
 import Lock from '@/assets/lock.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -10,7 +9,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { useDecryptPost } from '@/hooks/useDecryptPost.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 
-export const PostBody = forwardRef<HTMLDivElement, PostBodyContentProps>(function PostBody(props, ref) {
+export function PostBody({ ref, ...props }: PostBodyContentProps) {
     const isSmall = useIsSmall('max');
 
     const [{ loading, value: decryptedPost }, decryptPost] = useDecryptPost(props.post);
@@ -50,4 +49,4 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyContentProps>(functio
             </div>
         </div>
     );
-});
+}

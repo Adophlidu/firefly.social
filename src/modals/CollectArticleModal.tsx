@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { forwardRef, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { ArticleCollect } from '@/components/Article/ArticleCollect.js';
 import { CloseButton } from '@/components/IconButton.js';
@@ -12,44 +12,45 @@ import { type Article } from '@/providers/types/Article.js';
 export interface CollectArticleModalOpenProps {
     article: Article;
 }
+type Props = {
+    ref: React.Ref<SingletonModalRefCreator<CollectArticleModalOpenProps>>;
+};
 
-export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectArticleModalOpenProps>>(
-    function CollectArticleModal(_, ref) {
-        const [props, setProps] = useState<CollectArticleModalOpenProps>();
-        const timerRef = useRef<NodeJS.Timeout>(undefined);
-        const [open, dispatch] = useSingletonModal(ref, {
-            onOpen: (props) => {
-                clearTimeout(timerRef.current);
-                setProps(props);
-            },
-            onClose: () => {
-                timerRef.current = setTimeout(() => {
-                    setProps(undefined);
-                }, 200); // 200, duration of modal leaving
-            },
-        });
+export function CollectArticleModal({ ref }: Props) {
+    const [props, setProps] = useState<CollectArticleModalOpenProps>();
+    const timerRef = useRef<NodeJS.Timeout>(undefined);
+    const [open, dispatch] = useSingletonModal(ref, {
+        onOpen: (props) => {
+            clearTimeout(timerRef.current);
+            setProps(props);
+        },
+        onClose: () => {
+            timerRef.current = setTimeout(() => {
+                setProps(undefined);
+            }, 200); // 200, duration of modal leaving
+        },
+    });
 
-        return (
-            <Modal onClose={() => dispatch?.close()} open={open}>
-                <div
-                    className="relative w-[432px] max-w-[90vw] rounded-xl bg-lightBottom shadow-popover transition-all dark:bg-darkBottom dark:text-gray-950"
-                    onClick={stopEvent}
-                >
-                    <div className="inline-flex w-full items-center justify-center gap-2 rounded-t-[12px] p-6">
-                        <CloseButton
-                            onClick={() => {
-                                dispatch?.close();
-                            }}
-                        />
-                        <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
-                            <Trans>Collect Article</Trans>
-                        </div>
-                        <div className="relative h-6 w-6" />
+    return (
+        <Modal onClose={() => dispatch?.close()} open={open}>
+            <div
+                className="relative w-[432px] max-w-[90vw] rounded-xl bg-lightBottom shadow-popover transition-all dark:bg-darkBottom dark:text-gray-950"
+                onClick={stopEvent}
+            >
+                <div className="inline-flex w-full items-center justify-center gap-2 rounded-t-[12px] p-6">
+                    <CloseButton
+                        onClick={() => {
+                            dispatch?.close();
+                        }}
+                    />
+                    <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
+                        <Trans>Collect Article</Trans>
                     </div>
-
-                    {props?.article ? <ArticleCollect article={props.article} /> : null}
+                    <div className="relative h-6 w-6" />
                 </div>
-            </Modal>
-        );
-    },
-);
+
+                {props?.article ? <ArticleCollect article={props.article} /> : null}
+            </div>
+        </Modal>
+    );
+}

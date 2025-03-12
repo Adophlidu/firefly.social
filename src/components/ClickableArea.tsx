@@ -1,16 +1,13 @@
 'use client';
 
-import { createElement, forwardRef, type HTMLProps, type JSX, type MouseEvent } from 'react';
+import { createElement, type HTMLProps, type JSX, type MouseEvent } from 'react';
 
 interface ClickableAreaProps extends HTMLProps<HTMLDivElement> {
     disabled?: boolean;
     as?: keyof JSX.IntrinsicElements;
 }
 
-export const ClickableArea = forwardRef(function ClickableArea(
-    { as = 'div', children, disabled, onClick, ...props }: ClickableAreaProps,
-    ref,
-) {
+export function ClickableArea({ as = 'div', children, disabled, ref, onClick, ...props }: ClickableAreaProps) {
     return createElement(
         as,
         {
@@ -25,4 +22,4 @@ export const ClickableArea = forwardRef(function ClickableArea(
         },
         children,
     );
-});
+}

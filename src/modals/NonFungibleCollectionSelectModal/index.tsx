@@ -2,7 +2,7 @@
 
 import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { forwardRef, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useChainId } from 'wagmi';
 
 import AddIcon from '@/assets/add.svg';
@@ -22,10 +22,13 @@ export interface NonFungibleCollectionSelectModalOpenProps {
 }
 
 export type NonFungibleCollectionSelectModalCloseProps = Collection | null;
+type Props = {
+    ref: React.Ref<
+        SingletonModalRefCreator<NonFungibleCollectionSelectModalOpenProps, NonFungibleCollectionSelectModalCloseProps>
+    >;
+};
 
-export const NonFungibleCollectionSelectModal = forwardRef<
-    SingletonModalRefCreator<NonFungibleCollectionSelectModalOpenProps, NonFungibleCollectionSelectModalCloseProps>
->(function NonFungibleCollectionSelectModal(_, ref) {
+export function NonFungibleCollectionSelectModal({ ref }: Props) {
     const [props, setProps] = useState<NonFungibleCollectionSelectModalOpenProps>();
 
     const [open, dispatch] = useSingletonModal(ref, {
@@ -88,4 +91,4 @@ export const NonFungibleCollectionSelectModal = forwardRef<
             </div>
         </Modal>
     );
-});
+}

@@ -1,8 +1,8 @@
-import { forwardRef, type HTMLProps } from 'react';
+import { type HTMLProps } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
 
-export const MenuButton = forwardRef<HTMLButtonElement, HTMLProps<HTMLButtonElement>>(function MenuButton(props, ref) {
+export function MenuButton(props: HTMLProps<HTMLButtonElement>) {
     return (
         <button
             {...props}
@@ -12,11 +12,10 @@ export const MenuButton = forwardRef<HTMLButtonElement, HTMLProps<HTMLButtonElem
                 props.disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-bg',
                 props.className,
             )}
-            ref={ref}
             onClick={(event) => {
                 if (props.disabled) return;
                 props.onClick?.(event);
             }}
         />
     );
-});
+}

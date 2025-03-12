@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react';
+import { useState } from 'react';
 
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -6,18 +6,19 @@ import { ImageEditor, type ImageEditorProps } from '@/modals/ImageEditor/ImageEd
 
 export type ImageEditorOpenProps = Omit<ImageEditorProps, 'open' | 'onSave' | 'onClose'>;
 export type ImageEditorCloseProps = File | null;
+type Props = {
+    ref: React.Ref<SingletonModalRefCreator<ImageEditorOpenProps, ImageEditorCloseProps>>;
+};
 
-export const ImageEditorModal = forwardRef<SingletonModalRefCreator<ImageEditorOpenProps, ImageEditorCloseProps>>(
-    function ImageEditorModal(_, ref) {
-        const [props, setProps] = useState<ImageEditorOpenProps>();
+export function ImageEditorModal({ ref }: Props) {
+    const [props, setProps] = useState<ImageEditorOpenProps>();
 
-        const [open, dispatch] = useSingletonModal(ref, {
-            onOpen(p) {
-                setProps(p);
-            },
-        });
-        if (!open || !props) return null;
+    const [open, dispatch] = useSingletonModal(ref, {
+        onOpen(p) {
+            setProps(p);
+        },
+    });
+    if (!open || !props) return null;
 
-        return <ImageEditor open {...props} onClose={() => dispatch?.close(null)} onSave={dispatch?.close} />;
-    },
-);
+    return <ImageEditor open {...props} onClose={() => dispatch?.close(null)} onSave={dispatch?.close} />;
+}

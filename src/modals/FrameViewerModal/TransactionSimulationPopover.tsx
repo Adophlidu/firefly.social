@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { forwardRef, useState } from 'react';
+import { useState } from 'react';
 
 import { TransactionSimulator } from '@/components/TransactionSimulator/SimulatorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -13,10 +13,11 @@ export interface TransactionSimulationPopoverProps {
     frame?: FrameV2;
     content?: React.ReactNode;
 }
+type Props = {
+    ref: React.Ref<SingletonModalRefCreator<TransactionSimulationPopoverProps, boolean>>;
+};
 
-export const TransactionSimulationPopover = forwardRef<
-    SingletonModalRefCreator<TransactionSimulationPopoverProps, boolean>
->(function TransactionSimulationPopover(_, ref) {
+export function TransactionSimulationPopover({ ref }: Props) {
     const [props, setProps] = useState<TransactionSimulationPopoverProps>();
 
     const [open, dispatch] = useSingletonModal(ref, {
@@ -41,4 +42,4 @@ export const TransactionSimulationPopover = forwardRef<
             onClose={() => dispatch?.close(false)}
         />
     );
-});
+}

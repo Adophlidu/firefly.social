@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { forwardRef, memo } from 'react';
+import { memo } from 'react';
 
 import BookmarkActiveIcon from '@/assets/bookmark.selected.svg';
 import BookmarkIcon from '@/assets/bookmark.svg';
@@ -12,7 +12,7 @@ import { useHasBookmarked } from '@/hooks/useHasBookmarked.js';
 import { useToggleNFTBookmark } from '@/hooks/useToggleNFTBookmark.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 
-interface BookmarkButtonProps extends Omit<ClickableButtonProps, 'ref' | 'children'> {
+interface BookmarkButtonProps extends Omit<ClickableButtonProps, 'children'> {
     nftId: string;
     ownerAddress?: string;
     bookmarked?: boolean;
@@ -20,10 +20,15 @@ interface BookmarkButtonProps extends Omit<ClickableButtonProps, 'ref' | 'childr
     onClick?: () => void;
 }
 
-export const BookmarkButton = forwardRef<HTMLButtonElement, BookmarkButtonProps>(function BookmarkButton(
-    { children, nftId, ownerAddress = '', bookmarked, onClick, ...rest },
+export function BookmarkButton({
+    children,
+    nftId,
+    ownerAddress = '',
+    bookmarked,
     ref,
-) {
+    onClick,
+    ...rest
+}: BookmarkButtonProps) {
     const disableFetch = bookmarked !== undefined;
     const { isLoading, data = false } = useHasBookmarked(FireflyPlatform.NFTs, nftId, undefined, disableFetch);
 
@@ -59,7 +64,7 @@ export const BookmarkButton = forwardRef<HTMLButtonElement, BookmarkButtonProps>
             {children?.(hasBookmarked, isMutating, isLoading)}
         </ClickableButton>
     );
-});
+}
 
 function BookmarkButtonIcon({ hasBookmarked, isLoading }: { hasBookmarked: boolean; isLoading: boolean }) {
     return isLoading ? (
@@ -99,10 +104,7 @@ export const BookmarkInIcon = memo(function BookmarkInIcon({ ...rest }: Bookmark
     );
 });
 
-export const BookmarkInMenu = forwardRef<HTMLButtonElement, BookmarkButtonProps>(function BookmarkInMenu(
-    { className, ...rest },
-    ref,
-) {
+export function BookmarkInMenu({ className, ref, ...rest }: BookmarkButtonProps) {
     return (
         <BookmarkButton
             {...rest}
@@ -119,4 +121,4 @@ export const BookmarkInMenu = forwardRef<HTMLButtonElement, BookmarkButtonProps>
             )}
         </BookmarkButton>
     );
-});
+}

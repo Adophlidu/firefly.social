@@ -5,7 +5,6 @@ import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { forwardRef } from 'react';
 
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
@@ -20,8 +19,11 @@ import { removeAllAccounts, removeCurrentAccount } from '@/services/account.js';
 export interface LogoutModalProps {
     account?: Account;
 }
+type Props = {
+    ref: React.Ref<SingletonModalRefCreator<LogoutModalProps | void>>;
+};
 
-export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps | void>>(function LogoutModal(_, ref) {
+export function LogoutModal({ ref }: Props) {
     const router = useRouter();
 
     const [open, dispatch] = useSingletonModal(ref, {
@@ -94,4 +96,4 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
     });
 
     return null;
-});
+}

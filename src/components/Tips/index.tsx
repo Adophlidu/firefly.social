@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { motion } from 'framer-motion';
-import { forwardRef, type HTMLProps } from 'react';
+import { type HTMLProps } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import TipsIcon from '@/assets/tips.svg';
@@ -30,20 +30,18 @@ interface TipsProps extends HTMLProps<HTMLButtonElement> {
     onClick?: () => void;
 }
 
-export const Tips = forwardRef<HTMLButtonElement, TipsProps>(function Tips(
-    {
-        identity,
-        disabled = false,
-        label,
-        tooltipDisabled = false,
-        pureWallet = false,
-        handle = '',
-        post,
-        className,
-        onClick,
-    },
+export function Tips({
+    identity,
+    disabled = false,
+    label,
+    tooltipDisabled = false,
+    pureWallet = false,
+    handle = '',
+    post,
+    className,
     ref,
-) {
+    onClick,
+}: TipsProps) {
     const isLogin = useIsLogin(post?.source);
     const profiles = useCurrentFireflyProfilesAll();
 
@@ -110,4 +108,4 @@ export const Tips = forwardRef<HTMLButtonElement, TipsProps>(function Tips(
             </Tooltip>
         </ClickableArea>
     );
-});
+}

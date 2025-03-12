@@ -1,7 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
-import { forwardRef } from 'react';
 import type { Address } from 'viem';
 
 import MuteIcon from '@/assets/mute.svg';
@@ -22,10 +21,7 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
     isMuted?: boolean;
 }
 
-export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function MuteArticleButton(
-    { handleOrEnsOrAddress, address, isMuted, onClick, ...rest }: Props,
-    ref,
-) {
+export function MuteWalletButton({ handleOrEnsOrAddress, address, isMuted, ref, onClick, ...rest }: Props) {
     const isLogin = useIsLogin();
     const mutation = useMutation({
         mutationFn: async () => {
@@ -80,4 +76,4 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
             </span>
         </MenuButton>
     );
-});
+}

@@ -4,7 +4,7 @@ import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { forwardRef, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { TwitterArticleBody } from '@/components/Article/TwitterArticleBody.js';
 import { EmbedCards } from '@/components/EmbedCards/index.js';
@@ -48,6 +48,7 @@ export interface PostBodyContentProps {
     showMore?: boolean;
     disablePadding?: boolean;
     showTranslate?: boolean;
+    ref?: React.Ref<HTMLDivElement>;
 }
 
 function canSkipWaitingForPayload(post: Post) {
@@ -56,7 +57,7 @@ function canSkipWaitingForPayload(post: Post) {
     return !(content?.includes(RP_HASH_TAG) || !!getEncryptedPayloadFromText(content));
 }
 
-export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(function PostBodyContent(props, ref) {
+export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
     const {
         post,
         isQuote = false,
@@ -228,4 +229,4 @@ export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
         </article>
     );
-});
+}

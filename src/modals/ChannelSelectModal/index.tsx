@@ -1,6 +1,6 @@
 import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { forwardRef, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { Modal } from '@/components/Modal.js';
@@ -16,13 +16,14 @@ export interface ChannelSelectModalOpenProps {
 }
 
 export type ChannelSelectModalCloseProps = Channel | null;
+type Props = {
+    ref: React.Ref<SingletonModalRefCreator<ChannelSelectModalOpenProps, ChannelSelectModalCloseProps>>;
+};
 
 /**
  * Modal to select a Farcaster Channel or Lens Orb Club
  */
-export const ChannelSelectModal = forwardRef<
-    SingletonModalRefCreator<ChannelSelectModalOpenProps, ChannelSelectModalCloseProps>
->(function ChannelSelectModal(_, ref) {
+export function ChannelSelectModal({ ref }: Props) {
     const [props, setProps] = useState<ChannelSelectModalOpenProps>();
 
     const [open, dispatch] = useSingletonModal(ref, {
@@ -63,4 +64,4 @@ export const ChannelSelectModal = forwardRef<
             </div>
         </Modal>
     );
-});
+}

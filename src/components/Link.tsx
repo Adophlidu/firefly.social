@@ -1,6 +1,6 @@
 'use client';
 
-import { forwardRef, useCallback } from 'react';
+import { useCallback } from 'react';
 
 import { Link as OriginalLink } from '@/esm/Link.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
@@ -9,9 +9,9 @@ import { openWindow } from '@/helpers/openWindow.js';
 import { useInternalLink } from '@/hooks/useInternalLink.js';
 import { ConfirmLeavingModalRef } from '@/modals/controls.js';
 
-type LinkComponent = typeof OriginalLink;
+type LinkProps = React.ComponentProps<typeof OriginalLink>;
 
-export const Link: LinkComponent = forwardRef(function Link({ href, onClick, ...rest }, ref) {
+export function Link({ href, ref, onClick, ...rest }: LinkProps) {
     const { data: internalLink } = useInternalLink(href);
 
     const onLinkClick = useCallback(
@@ -33,4 +33,4 @@ export const Link: LinkComponent = forwardRef(function Link({ href, onClick, ...
     );
 
     return <OriginalLink {...rest} href={internalLink || href} ref={ref} onClick={onLinkClick} />;
-});
+}

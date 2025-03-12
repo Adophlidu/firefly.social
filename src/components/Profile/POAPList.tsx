@@ -3,7 +3,6 @@
 import { Trans } from '@lingui/react/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { forwardRef } from 'react';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
 import type { Hex } from 'viem';
 import { useEnsName } from 'wagmi';
@@ -27,21 +26,17 @@ import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
 import { fillBookmarkStatusForNonFungibleAssets } from '@/services/fillBookmarkStatusForNFT.js';
 
-const GridList = forwardRef<HTMLDivElement, GridListProps>(function GridList({ className, children, ...props }, ref) {
+function GridList({ className, children, ...props }: GridListProps) {
     return (
-        <div
-            ref={ref}
-            {...props}
-            className={classNames('grid grid-cols-3 gap-3.5 md:grid-cols-4 lg:grid-cols-3', className)}
-        >
+        <div {...props} className={classNames('grid grid-cols-3 gap-3.5 md:grid-cols-4 lg:grid-cols-3', className)}>
             {children}
         </div>
     );
-});
+}
 
-const GridItem = forwardRef<HTMLDivElement, GridItemProps>(function GridItem({ children, ...props }, ref) {
+function GridItem({ children, ...props }: GridItemProps) {
     return <div {...props}>{children}</div>;
-});
+}
 
 function Owner({ address }: { address: Hex }) {
     const { data: ensName } = useEnsName({ address, chainId: ChainId.Mainnet });

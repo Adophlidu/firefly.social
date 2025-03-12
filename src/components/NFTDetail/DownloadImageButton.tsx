@@ -2,7 +2,7 @@
 
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { forwardRef, type HTMLProps } from 'react';
+import { type HTMLProps } from 'react';
 
 import DownloadIcon from '@/assets/download-round.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
@@ -13,10 +13,7 @@ interface DownloadImageButtonProps extends HTMLProps<HTMLButtonElement> {
     onClick?: () => void;
 }
 
-export const DownloadImageButton = forwardRef<HTMLButtonElement, DownloadImageButtonProps>(function DownloadImageButton(
-    { url, onClick },
-    ref,
-) {
+export function DownloadImageButton({ url, ref, onClick }: DownloadImageButtonProps) {
     const { data: blobUrl, isLoading } = useQuery({
         queryKey: ['download-image', url],
         staleTime: Infinity,
@@ -46,4 +43,4 @@ export const DownloadImageButton = forwardRef<HTMLButtonElement, DownloadImageBu
             </span>
         </MenuButton>
     );
-});
+}

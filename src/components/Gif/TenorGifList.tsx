@@ -1,5 +1,4 @@
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { forwardRef } from 'react';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
 
 import { GridListInPage } from '@/components/GridListInPage.js';
@@ -24,25 +23,17 @@ function getItemContent(gif: IGif, onSelected: (gif: IGif) => void) {
     );
 }
 
-const GridList = forwardRef<HTMLDivElement, GridListProps>(function GridList({ className, children, ...props }, ref) {
+function GridList({ className, children, ...props }: GridListProps) {
     return (
-        <div
-            ref={ref}
-            {...props}
-            className={classNames('grid grid-cols-3 gap-3.5 md:grid-cols-4 lg:grid-cols-3', className)}
-        >
+        <div {...props} className={classNames('grid grid-cols-3 gap-3.5 md:grid-cols-4 lg:grid-cols-3', className)}>
             {children}
         </div>
     );
-});
+}
 
-const GridItem = forwardRef<HTMLDivElement, GridItemProps>(function GridItem({ children, ...props }, ref) {
-    return (
-        <div {...props} ref={ref}>
-            {children}
-        </div>
-    );
-});
+function GridItem({ children, ...props }: GridItemProps) {
+    return <div {...props}>{children}</div>;
+}
 
 interface TenorGifListProps {
     keyword: string;

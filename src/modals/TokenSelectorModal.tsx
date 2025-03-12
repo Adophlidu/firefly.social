@@ -3,7 +3,7 @@ import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { type FungibleToken } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
-import { forwardRef, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useChainId } from 'wagmi';
 
 import AddIcon from '@/assets/add.svg';
@@ -28,10 +28,11 @@ export interface TokenSelectorModalOpenProps {
 }
 
 export type TokenSelectorModalCloseProps = FungibleToken<ChainId, SchemaType> | null;
+type Props = {
+    ref: React.Ref<SingletonModalRefCreator<TokenSelectorModalOpenProps, TokenSelectorModalCloseProps>>;
+};
 
-export const TokenSelectorModal = forwardRef<
-    SingletonModalRefCreator<TokenSelectorModalOpenProps, TokenSelectorModalCloseProps>
->(function TokenSelectorModal(_, ref) {
+export function TokenSelectorModal({ ref }: Props) {
     const [props, setProps] = useState<TokenSelectorModalOpenProps>();
 
     const account = useAccountByNetwork(props?.networkType);
@@ -113,4 +114,4 @@ export const TokenSelectorModal = forwardRef<
             </div>
         </Modal>
     );
-});
+}

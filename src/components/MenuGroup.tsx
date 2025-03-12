@@ -1,15 +1,13 @@
 import { MenuItems, type MenuItemsProps } from '@headlessui/react';
-import { forwardRef } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 
-interface MenuGroupProps extends MenuItemsProps {}
+interface MenuGroupProps extends MenuItemsProps {
+    ref?: React.ForwardedRef<HTMLElement>;
+}
 
-export const MenuGroup = forwardRef<HTMLElement, MenuGroupProps>(function MenuGroup(
-    { className, children, onClick = stopEvent, ...rest },
-    ref,
-) {
+export function MenuGroup({ className, children, ref, onClick = stopEvent, ...rest }: MenuGroupProps) {
     return (
         <MenuItems
             ref={ref}
@@ -24,4 +22,4 @@ export const MenuGroup = forwardRef<HTMLElement, MenuGroupProps>(function MenuGr
             {children}
         </MenuItems>
     );
-});
+}

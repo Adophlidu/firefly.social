@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { forwardRef } from 'react';
 
 import MuteIcon from '@/assets/mute.svg';
 import UnmuteIcon from '@/assets/unmute.svg';
@@ -16,12 +15,10 @@ interface MuteProfileButtonProps extends Omit<ClickableButtonProps, 'children' |
     onToggle?(profile: Profile): Promise<boolean>;
 }
 
-export const MuteProfileButton = forwardRef<HTMLButtonElement, MuteProfileButtonProps>(function MuteProfileButton(
-    { profile, onConfirm, onToggle, onClick, ...rest }: MuteProfileButtonProps,
-    ref,
-) {
+export function MuteProfileButton({ profile, ref, onConfirm, onToggle, onClick, ...rest }: MuteProfileButtonProps) {
     const blocking = profile.viewerContext?.blocking;
     const muted = useIsProfileMuted(profile.source, profile.profileId, blocking, blocking === undefined);
+
     return (
         <MenuButton
             {...rest}
@@ -50,4 +47,4 @@ export const MuteProfileButton = forwardRef<HTMLButtonElement, MuteProfileButton
             </span>
         </MenuButton>
     );
-});
+}

@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import { forwardRef } from 'react';
 
 import FlagIcon from '@/assets/flag.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
@@ -10,15 +9,11 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
     collectionId: string;
 }
 
-export const NFTReportSpamButton = forwardRef<HTMLButtonElement, Props>(function ReportSpamButton(
-    { collectionId, onClick, ...rest },
-    ref,
-) {
+export function NFTReportSpamButton({ collectionId, onClick, ...rest }: Props) {
     const [, reportSpamNFT] = useReportSpamNFT();
     return (
         <MenuButton
             {...rest}
-            ref={ref}
             onClick={async (event) => {
                 onClick?.(event);
                 await reportSpamNFT(collectionId);
@@ -30,4 +25,4 @@ export const NFTReportSpamButton = forwardRef<HTMLButtonElement, Props>(function
             </span>
         </MenuButton>
     );
-});
+}

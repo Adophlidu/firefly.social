@@ -1,7 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
-import { forwardRef } from 'react';
 
 import FlagIcon from '@/assets/flag.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
@@ -17,10 +16,7 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
     onReport?(profile: Profile): Promise<boolean>;
 }
 
-export const ReportArticleButton = forwardRef<HTMLButtonElement, Props>(function ReportArticleButton(
-    { article, onReport, onClick, ...rest }: Props,
-    ref,
-) {
+export function ReportArticleButton({ article, ref, onReport, onClick, ...rest }: Props) {
     const mutation = useMutation({
         mutationFn: async () => {
             return FireflyEndpointProvider.reportArticle(article);
@@ -56,4 +52,4 @@ export const ReportArticleButton = forwardRef<HTMLButtonElement, Props>(function
             </span>
         </MenuButton>
     );
-});
+}

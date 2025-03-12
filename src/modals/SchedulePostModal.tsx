@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { forwardRef, useState } from 'react';
+import { useState } from 'react';
 
 import { SchedulePostSettings } from '@/components/Compose/SchedulePostSettings.js';
 import { CloseButton } from '@/components/IconButton.js';
@@ -13,39 +13,40 @@ export interface SchedulePostModalOpenProps {
     action: 'create' | 'update';
     task?: ScheduleTask;
 }
+type Props = {
+    ref: React.Ref<SingletonModalRefCreator<SchedulePostModalOpenProps>>;
+};
 
-export const SchedulePostModal = forwardRef<SingletonModalRefCreator<SchedulePostModalOpenProps>>(
-    function SchedulePostModal(_, ref) {
-        const [action, setAction] = useState<'create' | 'update'>('create');
+export function SchedulePostModal({ ref }: Props) {
+    const [action, setAction] = useState<'create' | 'update'>('create');
 
-        const [task, setTask] = useState<ScheduleTask>();
+    const [task, setTask] = useState<ScheduleTask>();
 
-        const [open, dispatch] = useSingletonModal(ref, {
-            onOpen({ action, task }) {
-                setAction(action);
-                setTask(task);
-            },
-        });
+    const [open, dispatch] = useSingletonModal(ref, {
+        onOpen({ action, task }) {
+            setAction(action);
+            setTask(task);
+        },
+    });
 
-        if (!open) return;
+    if (!open) return;
 
-        return (
-            <Modal open={open} onClose={() => dispatch?.close()}>
-                <div
-                    className="relative w-[355px] max-w-[90vw] rounded-xl bg-primaryBottom shadow-popover transition-all dark:text-gray-950"
-                    onClick={stopEvent}
-                >
-                    <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] p-4">
-                        <CloseButton onClick={() => dispatch?.close()} />
-                        <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
-                            <Trans>Schedule Post</Trans>
-                        </div>
-                        <div className="relative h-6 w-6" />
+    return (
+        <Modal open={open} onClose={() => dispatch?.close()}>
+            <div
+                className="relative w-[355px] max-w-[90vw] rounded-xl bg-primaryBottom shadow-popover transition-all dark:text-gray-950"
+                onClick={stopEvent}
+            >
+                <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] p-4">
+                    <CloseButton onClick={() => dispatch?.close()} />
+                    <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
+                        <Trans>Schedule Post</Trans>
                     </div>
-
-                    <SchedulePostSettings task={task} action={action} onClose={() => dispatch?.close()} />
+                    <div className="relative h-6 w-6" />
                 </div>
-            </Modal>
-        );
-    },
-);
+
+                <SchedulePostSettings task={task} action={action} onClose={() => dispatch?.close()} />
+            </div>
+        </Modal>
+    );
+}

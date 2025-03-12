@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { forwardRef } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
@@ -19,10 +18,11 @@ export interface ConfirmFireflyModalOpenProps {
 }
 
 export type ConfirmFireflyModalCloseProps = boolean;
+type Props = {
+    ref: React.Ref<SingletonModalRefCreator<ConfirmFireflyModalOpenProps, ConfirmFireflyModalCloseProps>>;
+};
 
-export const ConfirmFireflyModal = forwardRef<
-    SingletonModalRefCreator<ConfirmFireflyModalOpenProps, ConfirmFireflyModalCloseProps>
->(function ConfirmFireflyModal(_, ref) {
+export function ConfirmFireflyModal({ ref }: Props) {
     useSingletonModal(ref, {
         onOpen: async (props) => {
             const { account } = props;
@@ -102,4 +102,4 @@ export const ConfirmFireflyModal = forwardRef<
     });
 
     return null;
-});
+}

@@ -1,5 +1,5 @@
 import { createMemoryHistory, createRouter, RouterProvider } from '@tanstack/react-router';
-import { forwardRef, useRef } from 'react';
+import { useRef } from 'react';
 import urlcat from 'urlcat';
 
 import { Modal } from '@/components/Modal.js';
@@ -51,8 +51,11 @@ export interface LoginModalOpenProps {
         expectedSignType?: FarcasterSignType;
     };
 }
+type Props = {
+    ref: React.Ref<SingletonModalRefCreator<LoginModalOpenProps | void>>;
+};
 
-export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProps | void>>(function LoginModal(_, ref) {
+export function LoginModal({ ref }: Props) {
     const isMedium = useIsMedium();
     const routerRef = useRef(createLoginRouter());
     const isLoginFirefly = useIsLoginFirefly();
@@ -79,4 +82,4 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProp
             <div className="max-md:h-[100vh] max-md:w-[100vw]">{Router}</div>
         </Modal>
     );
-});
+}

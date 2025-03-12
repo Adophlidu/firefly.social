@@ -7,7 +7,7 @@ import { delay } from '@masknet/kit';
 import { useNonFungibleCollections } from '@masknet/web3-hooks-base';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { isValidAddress, SchemaType } from '@masknet/web3-shared-evm';
-import { forwardRef, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { type Address } from 'viem';
 import { useAccount } from 'wagmi';
@@ -130,36 +130,37 @@ function AddCustomERC721Content({ onClose, initialChainId }: { onClose: () => vo
 export interface AddCustomERC721ModalOpenProps {
     initialChainId: number;
 }
+type Props = {
+    ref: React.Ref<SingletonModalRefCreator<AddCustomERC721ModalOpenProps>>;
+};
 
-export const AddCustomERC721Modal = forwardRef<SingletonModalRefCreator<AddCustomERC721ModalOpenProps>>(
-    function AddTokenModal(_, ref) {
-        const [props, setProps] = useState<AddCustomERC20ModalOpenProps | undefined>();
-        const [open, dispatch] = useSingletonModal(ref, {
-            onOpen(props) {
-                setProps(props);
-            },
-            async onClose() {
-                await delay(300); // Wait exit animation
-                setProps(undefined);
-            },
-        });
-        const onClose = () => dispatch?.close();
+export function AddCustomERC721Modal({ ref }: Props) {
+    const [props, setProps] = useState<AddCustomERC20ModalOpenProps | undefined>();
+    const [open, dispatch] = useSingletonModal(ref, {
+        onOpen(props) {
+            setProps(props);
+        },
+        async onClose() {
+            await delay(300); // Wait exit animation
+            setProps(undefined);
+        },
+    });
+    const onClose = () => dispatch?.close();
 
-        return (
-            <Modal open={open} onClose={onClose} dialogClassName="z-50">
-                <div className="z-50 flex h-auto w-[calc(100%-40px)] flex-col rounded-md bg-lightBottom p-4 pt-0 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:w-[450px] md:rounded-xl">
-                    <DialogTitle as="h3" className="relative h-14 shrink-0 pt-safe">
-                        <CloseIcon
-                            onClick={onClose}
-                            className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer text-main"
-                        />
-                        <span className="flex h-full w-full items-center justify-center text-lg font-bold text-main">
-                            <Trans>Add Collection</Trans>
-                        </span>
-                    </DialogTitle>
-                    {props ? <AddCustomERC721Content onClose={onClose} initialChainId={props.initialChainId} /> : null}
-                </div>
-            </Modal>
-        );
-    },
-);
+    return (
+        <Modal open={open} onClose={onClose} dialogClassName="z-50">
+            <div className="z-50 flex h-auto w-[calc(100%-40px)] flex-col rounded-md bg-lightBottom p-4 pt-0 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:w-[450px] md:rounded-xl">
+                <DialogTitle as="h3" className="relative h-14 shrink-0 pt-safe">
+                    <CloseIcon
+                        onClick={onClose}
+                        className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer text-main"
+                    />
+                    <span className="flex h-full w-full items-center justify-center text-lg font-bold text-main">
+                        <Trans>Add Collection</Trans>
+                    </span>
+                </DialogTitle>
+                {props ? <AddCustomERC721Content onClose={onClose} initialChainId={props.initialChainId} /> : null}
+            </div>
+        </Modal>
+    );
+}

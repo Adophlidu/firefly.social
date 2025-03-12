@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { forwardRef } from 'react';
 
 import { isSameOriginUrl } from '@/helpers/isSameOriginUrl.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -15,10 +14,11 @@ const WHITELIST: Array<string | ((url: string) => boolean)> = [
 export type ConfirmLeavingModalOpenProps = string;
 
 export type ConfirmLeavingModalCloseProps = boolean;
+type Props = {
+    ref: React.Ref<SingletonModalRefCreator<ConfirmLeavingModalOpenProps, ConfirmLeavingModalCloseProps>>;
+};
 
-export const ConfirmLeavingModal = forwardRef<
-    SingletonModalRefCreator<ConfirmLeavingModalOpenProps, ConfirmLeavingModalCloseProps>
->(function ConfirmLeavingModal(_, ref) {
+export function ConfirmLeavingModal({ ref }: Props) {
     useSingletonModal(ref, {
         onOpen: async (url) => {
             // urls in the whitelist will not trigger the modal
@@ -53,4 +53,4 @@ export const ConfirmLeavingModal = forwardRef<
     });
 
     return null;
-});
+}

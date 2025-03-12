@@ -3,7 +3,7 @@
 import { ClipboardDocumentCheckIcon, ClipboardDocumentIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Trans } from '@lingui/react/macro';
 import { SnackbarContent, type SnackbarMessage, useSnackbar } from 'notistack';
-import { forwardRef, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -13,12 +13,10 @@ export interface ErrorReportSnackbarProps {
     id: number | string;
     detail?: string | React.ReactNode;
     message: SnackbarMessage;
+    ref?: React.ForwardedRef<HTMLDivElement>;
 }
 
-export const WarnSnackbar = forwardRef<HTMLDivElement, ErrorReportSnackbarProps>(function ErrorReportSnackbar(
-    { id, detail, message },
-    ref,
-) {
+export function WarnSnackbar({ id, detail, message, ref }: ErrorReportSnackbarProps) {
     const { closeSnackbar } = useSnackbar();
     const [expanded, setExpanded] = useState(false);
 
@@ -92,4 +90,4 @@ export const WarnSnackbar = forwardRef<HTMLDivElement, ErrorReportSnackbarProps>
             </div>
         </SnackbarContent>
     );
-});
+}
