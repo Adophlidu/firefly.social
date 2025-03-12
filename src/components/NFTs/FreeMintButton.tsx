@@ -103,7 +103,7 @@ export function FreeMintButton({
         });
     }, [account.address, connected, mintTarget, data, currentChainId, collectionId, refetch, switchChainAsync]);
 
-    if (data?.mintStatus === MintStatus.NotSupported || !isLogin) {
+    if (data?.mintStatus === MintStatus.NotSupported || !isLogin || !connected) {
         return externalUrl ? (
             <Link
                 href={externalUrl}
