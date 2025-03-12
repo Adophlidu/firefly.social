@@ -18,14 +18,14 @@ import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { composeSearchProfiles, formatSearchProfile } from '@/helpers/formatSearchProfile.js';
 import { getSafeMentionQueryText } from '@/helpers/getMentionOriginalText.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Profile } from '@/providers/types/Firefly.js';
@@ -170,7 +170,7 @@ const MentionsTypeaheadMenuItem = memo<MentionsTypeaheadMenuItemProps>(function 
 export function MentionsPlugin(): JSX.Element | null {
     const ref = useRef<HTMLDivElement>(null!);
     const [open, setOpen] = useState(false);
-    const currentProfileAll = useCurrentProfileAll();
+    const profileIds = useCurrentProfileIds();
     const isUpdatingMentionTag = useRef(false);
     const matchedNodeCache = useRef<AutoLinkNode | null>(null);
 
@@ -183,12 +183,7 @@ export function MentionsPlugin(): JSX.Element | null {
 
     const { data } = useQuery({
         enabled: !!debounceQuery,
-        queryKey: [
-            'searchProfiles',
-            availableSources,
-            debounceQuery,
-            SORTED_SOCIAL_SOURCES.map((x) => currentProfileAll[x]?.profileId).join('_'),
-        ],
+        queryKey: ['searchProfiles', availableSources, debounceQuery, profileIds.join('_')],
         queryFn: async () => {
             if (!debounceQuery) return;
             const data = await FireflyEndpointProvider.searchIdentity(debounceQuery, {

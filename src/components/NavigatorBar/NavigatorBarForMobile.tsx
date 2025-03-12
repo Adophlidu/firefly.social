@@ -1,6 +1,5 @@
 'use client';
 
-import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
@@ -14,10 +13,9 @@ import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
 import { IS_FIREFOX } from '@/constants/bowser.js';
 import { PageRoute } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
@@ -46,8 +44,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
     const [searchMode, setSearchMode] = useState(isSearchPage);
     const [showRecommendation, setShowRecommendation] = useState(false);
 
-    const currentProfileAll = useCurrentProfileAll();
-    const currentProfiles = compact(SORTED_SOCIAL_SOURCES.map((x) => currentProfileAll[x]));
+    const profiles = useCurrentProfiles();
 
     const { searchKeyword, updateState } = useSearchStateStore();
     const { updateSidebarOpen } = useNavigatorState();
@@ -102,8 +99,8 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                                 updateSidebarOpen(true);
                             }}
                         >
-                            {currentProfiles.length ? (
-                                currentProfiles.map((x) => (
+                            {profiles.length ? (
+                                profiles.map((x) => (
                                     <div className="relative -mr-2" key={`${x.source}_${x.profileId}`}>
                                         <ProfileAvatar size={30} profile={x} enableSourceIcon={false} />
                                     </div>
@@ -138,12 +135,12 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                         </form>
                     ) : (
                         <>
-                            {currentProfiles.length && title ? (
+                            {profiles.length && title ? (
                                 <span className="text-[18px] font-bold leading-[24px]">{title}</span>
                             ) : (
                                 <FireflyIcon
                                     className={classNames('relative', {
-                                        '-left-2': currentProfiles.length === 3,
+                                        '-left-2': profiles.length === 3,
                                     })}
                                 />
                             )}

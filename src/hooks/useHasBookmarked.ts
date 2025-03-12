@@ -1,15 +1,14 @@
 import { skipToken, useQuery } from '@tanstack/react-query';
 
 import type { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 export function useHasBookmarked(platform: FireflyPlatform, id: string, postType?: BookmarkType, disabled?: boolean) {
-    const profileAll = useCurrentProfileAll();
+    const profileIds = useCurrentProfileIds();
 
     return useQuery({
-        queryKey: ['has-bookmarked', platform, id, ...SORTED_SOCIAL_SOURCES.map((x) => profileAll[x]?.profileId)],
+        queryKey: ['has-bookmarked', platform, id, ...profileIds],
         staleTime: 1000 * 60 * 5,
         enabled: !disabled,
         queryFn: disabled

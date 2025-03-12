@@ -11,17 +11,7 @@ import {
     useTwitterStateStore,
 } from '@/store/useProfileStore.js';
 
-export function useCurrentProfile(source: SocialSource) {
-    const all = useCurrentProfileAll();
-    return all[source];
-}
-
-export function useCurrentProfileFirstAvailable() {
-    const all = useCurrentProfileAll();
-    return first(compact(SORTED_SOCIAL_SOURCES.map((x) => all[x]))) ?? null;
-}
-
-export function useCurrentProfileAll() {
+export function useCurrentProfilesAll() {
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
@@ -36,4 +26,39 @@ export function useCurrentProfileAll() {
         }),
         [currentFarcasterProfile, currentLensProfile, currentTwitterProfile, currentBskyProfile],
     );
+}
+
+export function useCurrentProfile(source: SocialSource) {
+    const all = useCurrentProfilesAll();
+    return all[source];
+}
+
+export function useCurrentProfileFirstAvailable() {
+    const all = useCurrentProfilesAll();
+    return first(compact(SORTED_SOCIAL_SOURCES.map((x) => all[x]))) ?? null;
+}
+
+export function useCurrentAvailableProfile(source?: SocialSource) {
+    const all = useCurrentProfilesAll();
+
+    return useMemo(() => {
+        if (source && all[source]) return all[source];
+
+        const indexOfFirstAvailable = SORTED_SOCIAL_SOURCES.findIndex((x) => !!all[x]);
+        return indexOfFirstAvailable === -1 ? null : all[SORTED_SOCIAL_SOURCES[indexOfFirstAvailable]];
+    }, [source, all]);
+}
+
+export function useCurrentProfiles() {
+    const all = useCurrentProfilesAll();
+    return useMemo(() => {
+        return compact(SORTED_SOCIAL_SOURCES.map((x) => all[x]));
+    }, [all]);
+}
+
+export function useCurrentProfileIds() {
+    const all = useCurrentProfilesAll();
+    return useMemo(() => {
+        return compact(SORTED_SOCIAL_SOURCES.map((x) => all[x]?.profileId));
+    }, [all]);
 }

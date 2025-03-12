@@ -7,9 +7,8 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { PolymarketActivityItem } from '@/components/Polymarket/PolymarketActivityItem.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { PolymarketActivity } from '@/providers/types/Firefly.js';
@@ -30,8 +29,7 @@ type PolymarketTimeLineProps =
 
 export function PolymarketTimeLine({ address, isFollowing }: PolymarketTimeLineProps) {
     const isLogin = useIsLogin();
-    const currentProfileAll = useCurrentProfileAll();
-    const profileIds = compact(SORTED_SOCIAL_SOURCES.map((x) => currentProfileAll[x]?.profileId));
+    const profileIds = useCurrentProfileIds();
 
     const queryKey = isFollowing
         ? ['polymarket', 'following', profileIds]

@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { compact } from 'lodash-es';
 import { memo } from 'react';
 
 import { ChannelInList } from '@/components/ChannelInList.js';
@@ -8,7 +7,7 @@ import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchType } from '@/constants/enum.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { getSuggestedChannels } from '@/services/getSuggestedChannels.js';
 
 interface SuggestChannelListProps {
@@ -17,9 +16,7 @@ interface SuggestChannelListProps {
 }
 
 export const SuggestChannelList = memo<SuggestChannelListProps>(function SuggestChannelList({ query, onSelect }) {
-    const currentProfiles = useCurrentProfileAll();
-
-    const profileIds = compact(Object.values(currentProfiles).map((x) => x?.profileId));
+    const profileIds = useCurrentProfileIds();
     const { data: channels, isLoading } = useQuery({
         queryKey: ['search-suggest', 'channels', query, ...profileIds],
         staleTime: 1000 * 60 * 5, // 5 minutes

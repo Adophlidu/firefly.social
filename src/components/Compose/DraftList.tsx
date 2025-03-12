@@ -16,7 +16,7 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { type Draft, useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
@@ -30,8 +30,7 @@ interface DraftListItemProps {
 }
 
 const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, handleRemove, handleApply }) {
-    const currentProfileAll = useCurrentProfileAll();
-
+    const profiles = useCurrentProfiles();
     const hasError = draft.posts.some((x) => !!compact(values(x.postError)).length);
 
     const title = useMemo(() => {
@@ -63,10 +62,8 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
     const content = post ? readChars(post.chars, 'visible') : '';
 
     const isDisabled = useMemo(() => {
-        const currentAllProfiles = compact(values(currentProfileAll));
-
-        return !draft.availableProfiles.some((x) => currentAllProfiles.some((profile) => isSameProfile(profile, x)));
-    }, [currentProfileAll, draft.availableProfiles]);
+        return !draft.availableProfiles.some((x) => profiles.some((profile) => isSameProfile(profile, x)));
+    }, [profiles, draft.availableProfiles]);
 
     return (
         <div className="border-b border-line py-3 last:border-b-0">
@@ -142,7 +139,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
 });
 
 export const DraftList = memo(function DraftList() {
-    const currentProfileAll = useCurrentProfileAll();
+    const profiles = useCurrentProfiles();
     const { drafts, removeDraft } = useComposeDraftStateStore();
     const { updateChars, apply, focused, currentDraftId, clear } = useComposeStateStore();
     const { updateScheduleTime } = useComposeScheduleStateStore();
@@ -185,9 +182,8 @@ export const DraftList = memo(function DraftList() {
                 }
             }
 
-            const currentAllProfiles = compact(values(currentProfileAll));
             const availableProfiles = draft.availableProfiles.filter((x) =>
-                currentAllProfiles.some((profile) => isSameProfile(profile, x)),
+                profiles.some((profile) => isSameProfile(profile, x)),
             );
             apply({
                 ...draft,
@@ -212,7 +208,7 @@ export const DraftList = memo(function DraftList() {
             if (draft.scheduleTime) updateScheduleTime(draft.scheduleTime);
             router.history.push('/');
         },
-        [apply, router, setEditorContent, updateChars, updateScheduleTime, currentProfileAll, focused],
+        [apply, router, setEditorContent, updateChars, updateScheduleTime, profiles, focused],
     );
 
     if (!drafts.length) {

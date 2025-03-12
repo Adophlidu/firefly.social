@@ -13,7 +13,7 @@ import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import type { NextPageProps } from '@/types/index.js';
@@ -25,8 +25,8 @@ export default function Page(props: Props) {
     const source = resolveSourceFromUrl(params.source);
     if (!isSocialSource(source)) notFound();
 
-    const currentProfiles = useCurrentProfileAll();
-    const profile = resolveFireflyIdentity(currentProfiles[source]);
+    const currentProfile = useCurrentProfile(source);
+    const profile = resolveFireflyIdentity(currentProfile);
 
     useEffect(() => {
         if (source) {

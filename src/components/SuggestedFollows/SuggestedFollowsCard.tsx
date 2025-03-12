@@ -19,7 +19,7 @@ import { mergeLists } from '@/helpers/mergeLists.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { getSuggestedFollowsInCard } from '@/services/getSuggestedFollows.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -27,7 +27,7 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 export function SuggestedFollowsCard() {
     const isLarge = useIsLarge('min');
     const currentSource = useGlobalState.use.currentSource();
-    const profileAll = useCurrentProfileAll();
+    const profileAll = useCurrentProfilesAll();
     const asyncStatusAll = useAsyncStatusAll();
 
     const { data: suggestedFollows, isLoading } = useQuery({

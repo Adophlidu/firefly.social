@@ -7,23 +7,17 @@ import { compact } from 'lodash-es';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getArticleItemContent } from '@/components/VirtualList/getArticleItemContent.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 
 export function ArticleBookmarkList() {
-    const currentProfileAll = useCurrentProfileAll();
     const isLogin = useIsLoginFirefly();
+    const profileIds = useCurrentProfileIds();
     const query = useSuspenseInfiniteQuery({
-        queryKey: [
-            'posts',
-            Source.Article,
-            'bookmark',
-            SORTED_SOCIAL_SOURCES.map((x) => currentProfileAll[x]?.profileId),
-        ],
+        queryKey: ['posts', Source.Article, 'bookmark', profileIds],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return null;
             const result = await FireflyArticleProvider.getBookmarks(createIndicator(undefined, pageParam));

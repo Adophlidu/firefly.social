@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import type { FunctionComponent, SVGAttributes } from 'react';
+import { type FunctionComponent, type SVGAttributes, useMemo } from 'react';
 
 import { ThirdPartConnectButton } from '@/app/(settings)/components/ThirdPartConnectButton.js';
 import { ThirdPartDisconnectButton } from '@/app/(settings)/components/ThirdPartDisconnectButton.js';
@@ -14,7 +14,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Account } from '@/providers/types/Account.js';
 import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
@@ -92,16 +92,16 @@ const platforms = [
 ] as const;
 
 export function ThirdPartAccounts() {
-    const profiles = useCurrentProfileAll();
     const { accounts } = useThirdPartyStateStore();
+    const profileIds = useCurrentProfileIds();
 
-    const profileIds = compact([
-        ...Object.values(profiles).map((x) => x?.profileId),
-        ...accounts.map((x) => x?.profile?.profileId),
-    ]);
+    const allProfileIds = useMemo(() => {
+        return compact([...profileIds, ...accounts.map((x) => x?.profile?.profileId)]);
+    }, [accounts, profileIds]);
+
     const { isLoading, data, refetch } = useQuery({
-        queryKey: ['allConnections', ...profileIds],
-        enabled: !!profileIds.length,
+        queryKey: ['allConnections', ...allProfileIds],
+        enabled: !!allProfileIds.length,
         queryFn: () => {
             return runInSafeAsync(() => FireflyEndpointProvider.getAllConnections());
         },

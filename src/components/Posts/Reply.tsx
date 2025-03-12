@@ -14,7 +14,7 @@ import { getLennyUrl } from '@/helpers/getLennyUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
-import { useCurrentAvailableProfile } from '@/hooks/useCurrentAvailableProfile.js';
+import { useCurrentAvailableProfile } from '@/hooks/useCurrentProfile.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 

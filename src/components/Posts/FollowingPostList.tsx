@@ -13,24 +13,24 @@ import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useDiscoverSources } from '@/hooks/useDiscoverSources.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 
 function useIsLoginDiscoverNeed(source: SocialDiscoverSource | Source.Posts) {
-    const currentProfileAll = useCurrentProfileAll();
+    const profilesAll = useCurrentProfilesAll();
 
     return useMemo(() => {
-        if (source !== Source.Posts) return !!currentProfileAll[source]?.profileId;
-        return SOCIAL_DISCOVER_SOURCE.some((x) => !!currentProfileAll[x]?.profileId);
-    }, [source, currentProfileAll]);
+        if (source !== Source.Posts) return !!profilesAll[source]?.profileId;
+        return SOCIAL_DISCOVER_SOURCE.some((x) => !!profilesAll[x]?.profileId);
+    }, [source, profilesAll]);
 }
 
 export const FollowingPostList = memo<{
     source: SocialDiscoverSource | Source.Posts;
 }>(function FollowingPostList({ source }) {
     const isLogin = useIsLoginDiscoverNeed(source);
-    const currentProfileAll = useCurrentProfileAll();
+    const profilesAll = useCurrentProfilesAll();
     const asyncStatusAll = useAsyncStatusAll();
     const sources = useDiscoverSources(HomeTab.Following);
     const queryResult = useMultiInfiniteQueryPageable(
@@ -40,7 +40,7 @@ export const FollowingPostList = memo<{
             async queryFn({ pageParam }) {
                 const indicator = createIndicator(undefined, pageParam);
                 if (!isLogin) return createPageable(EMPTY_LIST, indicator);
-                const profile = currentProfileAll[source];
+                const profile = profilesAll[source];
                 if (!profile?.profileId) return createPageable(EMPTY_LIST, indicator);
                 return resolveSocialMediaProvider(source).discoverPostsById(
                     profile.profileId,

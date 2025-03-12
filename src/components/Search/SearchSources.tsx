@@ -14,7 +14,7 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSearchKeyword } from '@/helpers/resolveSearchKeyword.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 
 interface SearchSourcesProps {
     query: string;
@@ -27,7 +27,7 @@ export const SearchSources = memo<SearchSourcesProps>(function SearchSources({
     source: selectedSource,
     searchType,
 }) {
-    const profileAll = useCurrentProfileAll();
+    const profileAll = useCurrentProfilesAll();
 
     const sources = useMemo(() => {
         if (SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES.includes(selectedSource)) {

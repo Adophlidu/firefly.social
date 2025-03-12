@@ -11,7 +11,7 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { ExploreType, Source } from '@/constants/enum.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import { getTrendingChannels } from '@/services/getTrendingChannels.js';
 
@@ -31,14 +31,9 @@ function SuggestedChannelItem({ channel }: { channel: Channel }) {
 }
 
 export function SuggestedChannels() {
-    const profiles = useCurrentProfileAll();
+    const profileIds = useCurrentProfileIds();
     const { data, isLoading, isError } = useQuery({
-        queryKey: [
-            'suggest-channels',
-            ...Object.values(profiles)
-                .filter(Boolean)
-                .map((x) => x?.profileId),
-        ],
+        queryKey: ['suggest-channels', ...profileIds],
         staleTime: 1000 * 60 * 5, // 5 minutes
         queryFn: () => getTrendingChannels([Source.Farcaster, Source.Bsky, Source.Lens]),
     });

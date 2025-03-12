@@ -6,23 +6,17 @@ import { memo } from 'react';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getArticleItemContent } from '@/components/VirtualList/getArticleItemContent.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 
 export const FollowingArticleList = memo(function FollowingArticleList() {
-    const currentProfileAll = useCurrentProfileAll();
     const isLogin = useIsLogin();
+    const profileIds = useCurrentProfileIds();
 
     const articleQueryResult = useSuspenseInfiniteQuery({
-        queryKey: [
-            'articles',
-            'following',
-            Source.Article,
-            SORTED_SOCIAL_SOURCES.map((x) => currentProfileAll[x]?.profileId),
-        ],
+        queryKey: ['articles', 'following', Source.Article, profileIds],
         networkMode: 'always',
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return createPageable([], createIndicator(undefined, pageParam));

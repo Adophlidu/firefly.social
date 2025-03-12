@@ -9,7 +9,7 @@ import { Popover as PopoverModal } from '@/components/Popover.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -21,7 +21,7 @@ export const PlatformAction = memo(function PlatformAction({ hasError }: ActionP
     const post = useCompositePost();
     const { type } = useComposeStateStore();
     const { availableSources, parentPost } = post;
-    const currentProfileAll = useCurrentProfileAll();
+    const profilesAll = useCurrentProfilesAll();
 
     const [open, setOpen] = useState(false);
     const isMedium = useIsMedium();
@@ -33,7 +33,7 @@ export const PlatformAction = memo(function PlatformAction({ hasError }: ActionP
             </div>
             <span className="flex items-center gap-x-1 font-bold">
                 {availableSources
-                    .filter((x) => !!currentProfileAll[x] && SORTED_SOCIAL_SOURCES.includes(x))
+                    .filter((x) => !!profilesAll[x] && SORTED_SOCIAL_SOURCES.includes(x))
                     .map((y) => (
                         <SocialSourceIcon key={y} source={y} size={14} />
                     ))}

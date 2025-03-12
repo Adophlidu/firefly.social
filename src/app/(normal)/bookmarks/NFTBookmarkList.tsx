@@ -13,14 +13,13 @@ import { Link } from '@/components/Link.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { Source } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -76,13 +75,13 @@ const GridItem = forwardRef<HTMLDivElement, GridItemProps>(function GridItem({ c
 });
 
 export function NFTBookmarkList() {
-    const currentProfileAll = useCurrentProfileAll();
     const isLogin = useIsLogin();
+    const profileIds = useCurrentProfileIds();
 
     useNavigatorTitle(t`NFT bookmarks`);
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['bookmarks', Source.NFTs, SORTED_SOCIAL_SOURCES.map((x) => currentProfileAll[x]?.profileId)],
+        queryKey: ['bookmarks', Source.NFTs, profileIds],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return;
             try {

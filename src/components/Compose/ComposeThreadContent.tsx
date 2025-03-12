@@ -7,7 +7,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import { useCurrentAvailableProfile } from '@/hooks/useCurrentAvailableProfile.js';
+import { useCurrentAvailableProfile } from '@/hooks/useCurrentProfile.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

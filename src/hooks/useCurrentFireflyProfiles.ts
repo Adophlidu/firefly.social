@@ -6,19 +6,19 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { toFireflyIdentityId } from '@/helpers/isSameProfile.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 
 export function useCurrentFireflyProfiles() {
-    const currentProfileAll = useCurrentProfileAll();
+    const profilesAll = useCurrentProfilesAll();
 
     // convert currentProfileAll to currentFireflyProfiles
     return useMemo<FireflyProfile[]>(() => {
-        const currentFarcasterProfile = currentProfileAll[Source.Farcaster];
-        const currentLensProfile = currentProfileAll[Source.Lens];
-        const currentTwitterProfile = currentProfileAll[Source.Twitter];
-        const currentBskyProfile = currentProfileAll[Source.Bsky];
+        const currentFarcasterProfile = profilesAll[Source.Farcaster];
+        const currentLensProfile = profilesAll[Source.Lens];
+        const currentTwitterProfile = profilesAll[Source.Twitter];
+        const currentBskyProfile = profilesAll[Source.Bsky];
 
         return compact([
             currentFarcasterProfile
@@ -66,17 +66,17 @@ export function useCurrentFireflyProfiles() {
                 SORTED_SOCIAL_SOURCES.indexOf(a.identity.source as SocialSource) -
                 SORTED_SOCIAL_SOURCES.indexOf(b.identity.source as SocialSource),
         );
-    }, [currentProfileAll]);
+    }, [profilesAll]);
 }
 
 export function useCurrentFireflyProfilesAll() {
-    const currentProfileAll = useCurrentProfileAll();
-    const currentFireflyProfiles = useCurrentFireflyProfiles();
+    const profilesAll = useCurrentProfilesAll();
+    const fireflyProfiles = useCurrentFireflyProfiles();
 
-    const lensIdentity = resolveFireflyIdentity(currentProfileAll[Source.Lens]);
-    const farcasterIdentity = resolveFireflyIdentity(currentProfileAll[Source.Farcaster]);
-    const twitterIdentity = resolveFireflyIdentity(currentProfileAll[Source.Twitter]);
-    const bskyIdentity = resolveFireflyIdentity(currentProfileAll[Source.Bsky]);
+    const lensIdentity = resolveFireflyIdentity(profilesAll[Source.Lens]);
+    const farcasterIdentity = resolveFireflyIdentity(profilesAll[Source.Farcaster]);
+    const twitterIdentity = resolveFireflyIdentity(profilesAll[Source.Twitter]);
+    const bskyIdentity = resolveFireflyIdentity(profilesAll[Source.Bsky]);
 
     const identity = first(compact([lensIdentity, farcasterIdentity, twitterIdentity, bskyIdentity]));
 
@@ -91,6 +91,6 @@ export function useCurrentFireflyProfilesAll() {
     });
 
     return useMemo(() => {
-        return uniqBy([...currentFireflyProfiles, ...profiles], (x) => toFireflyIdentityId(x.identity));
-    }, [currentFireflyProfiles, profiles]);
+        return uniqBy([...fireflyProfiles, ...profiles], (x) => toFireflyIdentityId(x.identity));
+    }, [fireflyProfiles, profiles]);
 }

@@ -25,7 +25,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
@@ -45,7 +45,7 @@ export function MainView() {
 
     const { currentProfile } = useFireflyStateStore();
     const profileStore = useProfileStoreAll();
-    const currentProfileAll = useCurrentProfileAll();
+    const profilesAll = useCurrentProfilesAll();
     const thirdPartyProfile = useThirdPartyStateStore.use.accounts();
 
     const pathname = usePathname();
@@ -158,7 +158,7 @@ export function MainView() {
                                 <PlusIcon className="h-5 w-5" />
                             </ClickableButton>
                             {profileStore[source].accounts.map((account, index) => {
-                                const isCurrent = isSameProfile(currentProfileAll[source], account.profile);
+                                const isCurrent = isSameProfile(profilesAll[source], account.profile);
                                 return (
                                     <div className="flex items-center justify-between p-2" key={index}>
                                         <div className="flex items-center gap-2">

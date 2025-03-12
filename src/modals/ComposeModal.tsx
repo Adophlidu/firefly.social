@@ -37,7 +37,7 @@ import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/helpers/rpPayload.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
-import { useCurrentProfile, useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfile, useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -94,7 +94,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
         const contentRef = useRef<HTMLDivElement>(null);
         const controller = useAbortController();
 
-        const currentProfileAll = useCurrentProfileAll();
+        const profilesAll = useCurrentProfilesAll();
         const profile = useCurrentProfile(currentSocialSource);
 
         const {
@@ -201,7 +201,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                         cursor,
                         posts: hasError ? posts.map((x) => ({ ...x, availableSources: sources })) : posts,
                         type,
-                        availableProfiles: compact(values(currentProfileAll)).filter((x) => sources.includes(x.source)),
+                        availableProfiles: compact(values(profilesAll)).filter((x) => sources.includes(x.source)),
                         scheduleTime,
                     };
 
@@ -220,16 +220,14 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                 dispatch?.close();
             }
             return CloseAction.Discard;
-        }, [isSmall, currentProfileAll, dispatch]);
+        }, [isSmall, profilesAll, dispatch]);
 
         const promoteLink = useMemo(() => {
-            const preferSource = SORTED_SOCIAL_SOURCES.find(
-                (x) => availableSources.includes(x) && currentProfileAll[x],
-            );
+            const preferSource = SORTED_SOCIAL_SOURCES.find((x) => availableSources.includes(x) && profilesAll[x]);
             if (!preferSource) return SITE_URL;
-            const preferProfile = currentProfileAll[preferSource]!;
+            const preferProfile = profilesAll[preferSource]!;
             return urlcat(location.origin, getProfileUrl(preferProfile));
-        }, [currentProfileAll, availableSources]);
+        }, [profilesAll, availableSources]);
 
         // Avoid recreating post content for red packet
         const { loading: encryptRedPacketLoading } = useAsync(async () => {

@@ -11,7 +11,7 @@ import { EMPTY_LIST, SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginNotifications } from '@/hooks/useIsLogin.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
@@ -29,7 +29,7 @@ export default function Notification(props: Props) {
     const params = use(props.params);
     const source = resolveSource(params.source) as NotificationSource;
     const isLogin = useIsLoginNotifications(source);
-    const profileAll = useCurrentProfileAll();
+    const profilesAll = useCurrentProfilesAll();
 
     const typesState = useNotificationStateStore();
 
@@ -38,7 +38,7 @@ export default function Notification(props: Props) {
     const queryResult = useMultiInfiniteQueryPageable(
         ['notifications', source, isLogin, enableQualityFilter],
         SOCIAL_DISCOVER_SOURCE.filter((x) => {
-            if (source === Source.Notifications) return !!profileAll[x];
+            if (source === Source.Notifications) return !!profilesAll[x];
             return x === source;
         }).map((x) => ({
             key: x,

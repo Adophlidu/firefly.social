@@ -7,7 +7,7 @@ import { ProfileAvatarInteractive } from '@/components/Login/ProfileAvatarIntera
 import { type SocialSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
@@ -18,7 +18,7 @@ interface LoginStatusBarProps {
 export function LoginStatusBar({ collapsed = false }: LoginStatusBarProps) {
     const { updateSidebarOpen } = useNavigatorState();
 
-    const currentProfileAll = useCurrentProfileAll();
+    const profilesAll = useCurrentProfilesAll();
 
     const onLogin = async (source: SocialSource) => {
         updateSidebarOpen(false);
@@ -34,12 +34,12 @@ export function LoginStatusBar({ collapsed = false }: LoginStatusBarProps) {
             })}
         >
             {SORTED_SOCIAL_SOURCES.map((x) => {
-                const currentProfile = currentProfileAll[x];
+                const currentProfile = profilesAll[x];
                 return currentProfile ? <ProfileAvatarInteractive key={x} profile={currentProfile} /> : null;
             })}
 
             {SORTED_SOCIAL_SOURCES.map((x) =>
-                !currentProfileAll[x] ? <ProfileAvatarAdd key={x} source={x} onClick={() => onLogin(x)} /> : null,
+                !profilesAll[x] ? <ProfileAvatarAdd key={x} source={x} onClick={() => onLogin(x)} /> : null,
             )}
         </div>
     );

@@ -11,12 +11,7 @@ import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl, resolveEmbedMediaType } from '@/helpers/resolveEmbedMediaType.js';
 import { type Cast, EmbedMediaType } from '@/providers/types/Firefly.js';
-import {
-    type Attachment,
-    type Post,
-    type PostType,
-    type Profile,
-} from '@/providers/types/SocialMedia.js';
+import { type Attachment, type Post, type PostType, type Profile } from '@/providers/types/SocialMedia.js';
 
 function getCoverUriFromUrl(url: string) {
     const parsed = parseUrl(url);
