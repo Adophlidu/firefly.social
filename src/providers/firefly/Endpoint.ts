@@ -29,6 +29,7 @@ import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWal
 import { getPublicKeyInHexFromSession } from '@/helpers/ed25519.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterProfileFromSuggestedFollow } from '@/helpers/formatFarcasterProfileFromSuggestedFollow.js';
+import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { formatLensProfileFromSuggestedFollow } from '@/helpers/formatLensProfile.js';
 import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
@@ -72,6 +73,7 @@ import {
     type EmptyResponse,
     type FireflyIdentity,
     type FireflyProfile,
+    type FireflyProfileUpdateParams,
     type FireflyWalletConnection,
     type GenerateFarcasterSignatureResponse,
     type GenerateOTPResponse,
@@ -368,7 +370,7 @@ export class FireflyEndpoint {
         isAuthRequired: boolean,
     ): Promise<FireflyProfile[]> {
         const profiles = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, isAuthRequired);
-        return formatFireflyProfilesFromWalletProfiles(profiles);
+        return formatFireflyProfilesFromWalletProfiles(profiles) as FireflyProfile[];
     }
 
     async getAllRelatedProfiles(options?: Partial<Record<PlatformIdentityKey, string>>, isAuthRequired?: boolean) {
@@ -392,7 +394,7 @@ export class FireflyEndpoint {
         // patch hacked for wallet profiles
         if (data.walletProfiles.length) {
             const walletsStatus = await this.getWalletsStatus(data.walletProfiles.map((x) => x.address));
-            data.walletProfiles = data.walletProfiles.map((profile) => {
+            data.walletProfiles = data.walletProfiles.map<WalletProfile>((profile) => {
                 return {
                     ...profile,
                     hacked: walletsStatus.some((x) => isSameAddress(x.address, profile.address) && x.is_hack),
@@ -732,6 +734,7 @@ export class FireflyEndpoint {
         const connections = await this.getAllConnections();
 
         return {
+            fireflyAccount: formatFireflyAccountProfileFromFireflyConnections(connections.account),
             social: {
                 [Source.Bsky]: connections.bsky,
                 [Source.Lens]: connections.lens,
@@ -1102,6 +1105,19 @@ export class FireflyEndpoint {
 
         if (response.code === 1642) throw new OTPExceededMaximumLimit();
         return resolveFireflyResponseData(response);
+    }
+
+    async updateProfile(params: FireflyProfileUpdateParams) {
+        await fireflySessionHolder.fetchWithSession(urlcat(settings.FIREFLY_ROOT_URL, `/v3/user/profile`), {
+            method: 'PUT',
+            body: JSON.stringify(params),
+        });
+    }
+
+    async deleteAccount() {
+        await fireflySessionHolder.fetchWithSession(urlcat(settings.FIREFLY_ROOT_URL, `/v3/auth/account/delete`), {
+            method: 'DELETE',
+        });
     }
 }
 

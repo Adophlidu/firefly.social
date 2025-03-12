@@ -542,6 +542,12 @@ export interface BskyProfile {
     isDefault?: boolean;
 }
 
+export interface FireflyAccountProfile {
+    displayName: string | null;
+    avatar: string | null;
+    uid: string;
+}
+
 export interface WalletProfiles {
     walletProfiles: WalletProfile[];
     solanaWalletProfiles: WalletProfile[];
@@ -550,6 +556,7 @@ export interface WalletProfiles {
     twitterProfiles: TwitterProfile[];
     fireflyAccountId?: string;
     bskyProfiles: BskyProfile[];
+    account: FireflyAccountProfile;
 }
 
 export type PlatformIdentityKey =
@@ -846,6 +853,7 @@ export interface FireflyConnection {
     id: string;
     name: string;
     platform: string;
+    connected?: boolean;
     uid?: string;
     avatar?: string;
     displayName?: string;
@@ -1421,4 +1429,9 @@ export enum FollowingTimelinePlatform {
     Farcaster = 'farcaster',
     Twitter = 'twitter',
     Wallet = 'wallet',
+}
+
+export interface FireflyProfileUpdateParams {
+    displayName?: string;
+    avatar?: string;
 }

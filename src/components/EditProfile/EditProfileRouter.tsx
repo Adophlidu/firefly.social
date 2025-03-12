@@ -12,6 +12,10 @@ import { EditProfileForm } from '@/components/EditProfile/EditProfileForm.js';
 import { EditProfileRouteRoot } from '@/components/EditProfile/EditProfileRouteRoot.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
+function AvatarEditor() {
+    return <EditProfileAvatarEditor name="pfp" />;
+}
+
 export const EditProfileRouter = memo<{
     profile: Profile;
     onClose: () => void;
@@ -30,7 +34,7 @@ export const EditProfileRouter = memo<{
     const pfpEditor = createRoute({
         getParentRoute: () => rootRoute,
         path: '/pfp-editor',
-        component: EditProfileAvatarEditor,
+        component: AvatarEditor,
     });
 
     const routeTree = rootRoute.addChildren([formRoute, pfpEditor]);

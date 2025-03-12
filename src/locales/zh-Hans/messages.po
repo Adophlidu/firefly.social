@@ -756,6 +756,9 @@ msgstr "至多可以选择 2 张图片。"
 msgid "submit a wallet to receive $TRUMP"
 msgstr "提交您的钱包以领取您的 $TRUMP"
 
+msgid "Failed to delete"
+msgstr ""
+
 msgid "Follow to Collect"
 msgstr "关注并且收集"
 
@@ -886,6 +889,9 @@ msgstr "合约所有人也许没有拥有修改交易费用的权力。如果交
 
 msgid "The blacklist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "黑名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
+
+msgid "<0/>Delete Firefly account"
+msgstr ""
 
 #. placeholder {0}: x.provider
 #. placeholder {0}: x.source
@@ -1043,6 +1049,9 @@ msgstr "搜索文章"
 msgid "Failed to upload. Not a valid image type"
 msgstr "上传失败。图片格式不支持"
 
+msgid "Delete Firefly account?"
+msgstr ""
+
 #. placeholder {0}: formatFileSize(maxImageSize)
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "上传失败。图片超过最大限制 {0}"
@@ -1107,6 +1116,9 @@ msgstr "个人简介"
 
 msgid "[Photo]"
 msgstr "[照片]"
+
+msgid "After deletion, all your social accounts and wallets will be disconnected. <0>Assets in the Firefly wallets can not be retrieved any more.</0> Please confirm again that you want to delete."
+msgstr ""
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Follow more friends to continue exploring on {0}."
@@ -2014,6 +2026,10 @@ msgstr "发送你的回复"
 msgid "View on Explorer"
 msgstr "在 Explorer 上查看"
 
+#. placeholder {0}: account?.uid
+msgid "UID: {0}"
+msgstr ""
+
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr "所有者可以为每个指定地址设置不同的税率。"
 
@@ -2319,6 +2335,9 @@ msgstr "通用"
 msgid "Show more tokens"
 msgstr "展示更多代币"
 
+msgid "<0/>Edit profile"
+msgstr ""
+
 msgid "Page not found. Please try again."
 msgstr "未找到页面。请重试。"
 
@@ -2333,6 +2352,9 @@ msgstr "{followerCount, plural, one {点赞} other {点赞}}"
 
 msgid "No stealing attack involved."
 msgstr "未涉及盗窃攻击。"
+
+msgid "Deleted your Firefly account"
+msgstr ""
 
 msgid "The contract owner has no restrictions on buying."
 msgstr "合约所有者对购买没有限制。"
@@ -3095,6 +3117,9 @@ msgstr "合约可能含有额外的发行功能，这可能会产生大量的通
 
 msgid "Upcoming"
 msgstr "即将推出"
+
+msgid "Display Name should not exceed 20 characters"
+msgstr ""
 
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr "{handleOrEnsOrAddress} 取消关注"

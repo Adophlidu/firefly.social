@@ -1,0 +1,104 @@
+'use client';
+
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
+import { useQueryClient } from '@tanstack/react-query';
+import { rootRouteId, useRouteContext, useRouter } from '@tanstack/react-router';
+import { useFormContext } from 'react-hook-form';
+
+import PlusIcon from '@/assets/plus.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
+import { Path } from '@/components/EditFireflyProfile/EditFireflyProfileRouter.js';
+import type { EditFireflyProfileFromValues } from '@/components/EditFireflyProfile/EditFireflyProfileRouteRoot.js';
+import { EditProfileAvatar } from '@/components/EditProfile/EditProfileAvatar.js';
+import { ErrorMessage } from '@/components/Form/ErrorMessage.js';
+import { FormInput } from '@/components/Form/FormInput.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { ALLOWED_IMAGES_MIMES } from '@/constants/index.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import type { FireflyProfileUpdateParams } from '@/providers/types/Firefly.js';
+import { uploadToS3 } from '@/services/uploadToS3.js';
+
+export function EditFireflyProfileForm() {
+    const form = useFormContext<EditFireflyProfileFromValues>();
+    const context = useRouteContext({ from: rootRouteId });
+    const { history } = useRouter();
+    const {
+        handleSubmit,
+        formState: { isSubmitting, isDirty, isValid },
+    } = form;
+    const queryClient = useQueryClient();
+
+    const onSubmit = async (values: EditFireflyProfileFromValues) => {
+        try {
+            const params: FireflyProfileUpdateParams = {
+                displayName: values.displayName,
+            };
+            if (values.avatar) params.avatar = await uploadToS3(values.avatar);
+            await FireflyEndpointProvider.updateProfile(params);
+            await queryClient.refetchQueries({ queryKey: ['my-wallet-connections'] });
+            enqueueSuccessMessage(t`Updated profile successfully`);
+            context?.onClose?.();
+        } catch (error) {
+            enqueueMessageFromError(error, t`Failed to update profile.`);
+            throw error;
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-1 flex-col text-left">
+            <div className="flex flex-col items-center px-4 pb-7 pt-4 text-center">
+                <div className="mb-10">
+                    <label htmlFor="avatar-upload" className="relative cursor-pointer">
+                        <EditProfileAvatar pfp={context.profile.avatar} name="avatar" size={120} />
+                        <div className="absolute bottom-1 right-1 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-lightHighlight text-lightBottom">
+                            <PlusIcon className="h-3.5 w-3.5 shrink-0" />
+                        </div>
+                    </label>
+                    <input
+                        className="hidden"
+                        type="file"
+                        id="avatar-upload"
+                        accept={ALLOWED_IMAGES_MIMES.join(', ')}
+                        onChange={(e) => {
+                            history.replace(Path.AvatarEditor, {
+                                pfp: e.target.files,
+                            });
+                        }}
+                    />
+                </div>
+                <label htmlFor="display-name-input" className="mb-6 text-sm font-bold leading-[18px] text-main">
+                    <Trans>Display Name</Trans>
+                </label>
+                <FormInput
+                    name="displayName"
+                    className="max-w-[310px] text-center"
+                    options={{
+                        required: true,
+                        minLength: {
+                            value: 1,
+                            message: t`Display Name should not be blank`,
+                        },
+                        maxLength: {
+                            value: 20,
+                            message: t`Display Name should not exceed 20 characters`,
+                        },
+                    }}
+                />
+                <ErrorMessage name="displayName" className="mt-2" />
+            </div>
+            <div className="mt-auto flex w-full justify-end p-4 shadow-accountCardShadowLight">
+                <ClickableButton
+                    enableDefault
+                    enablePropagate
+                    type="submit"
+                    disabled={!isDirty || !isValid || isSubmitting}
+                    className="flex h-10 w-[120px] items-center justify-center rounded-full bg-main text-medium font-bold leading-10 text-primaryBottom"
+                >
+                    {isSubmitting ? <LoadingIcon size={16} /> : <Trans>Save</Trans>}
+                </ClickableButton>
+            </div>
+        </form>
+    );
+}

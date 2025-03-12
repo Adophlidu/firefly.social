@@ -4,11 +4,13 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import { AccountCards } from '@/app/(settings)/components/AccountCard.js';
+import { FireflyAccountCard } from '@/app/(settings)/components/FireflyAccountCard.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ThirdPartAccounts } from '@/app/(settings)/components/ThirdPartAccounts.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { STATUS } from '@/constants/enum.js';
+import { NotLoginFallback } from '@/components/NotLoginFallback.js';
+import { Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
@@ -25,39 +27,47 @@ export default function Connected() {
                 <Trans>Connected accounts</Trans>
             </Headline>
 
-            <AccountCards />
+            {!isLogin ? (
+                <NotLoginFallback source={Source.Posts} />
+            ) : (
+                <>
+                    <FireflyAccountCard />
 
-            {env.external.NEXT_PUBLIC_THIRD_PARTY_AUTH === STATUS.Enabled ? <ThirdPartAccounts /> : null}
+                    <AccountCards />
 
-            <div className="flex w-full flex-col items-center justify-center gap-4 md:flex-row">
-                <ClickableButton
-                    className="inline-flex h-10 w-full flex-col items-center justify-center md:w-[200px]"
-                    onClick={() => {
-                        LoginModalRef.open();
-                    }}
-                >
-                    <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl border border-current py-[11px] text-main">
-                        <div className="w-full text-medium font-bold leading-[18px]">
-                            <Trans>Add an existing account</Trans>
-                        </div>
-                    </div>
-                </ClickableButton>
+                    {env.external.NEXT_PUBLIC_THIRD_PARTY_AUTH === STATUS.Enabled ? <ThirdPartAccounts /> : null}
 
-                {isLogin ? (
-                    <ClickableButton
-                        className="inline-flex h-10 w-full flex-col items-start justify-start md:w-[200px]"
-                        onClick={() => {
-                            LogoutModalRef.open();
-                        }}
-                    >
-                        <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl border border-current px-[18px] py-[11px] text-danger">
-                            <div className="text-[15px] font-bold leading-[18px]">
-                                <Trans>Log out</Trans>
+                    <div className="flex w-full flex-col items-center justify-center gap-4 md:flex-row">
+                        <ClickableButton
+                            className="inline-flex h-10 w-full flex-col items-center justify-center md:w-[200px]"
+                            onClick={() => {
+                                LoginModalRef.open();
+                            }}
+                        >
+                            <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl border border-current py-[11px] text-main">
+                                <div className="w-full text-medium font-bold leading-[18px]">
+                                    <Trans>Add an existing account</Trans>
+                                </div>
                             </div>
-                        </div>
-                    </ClickableButton>
-                ) : null}
-            </div>
+                        </ClickableButton>
+
+                        {isLogin ? (
+                            <ClickableButton
+                                className="inline-flex h-10 w-full flex-col items-start justify-start md:w-[200px]"
+                                onClick={() => {
+                                    LogoutModalRef.open();
+                                }}
+                            >
+                                <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl border border-current px-[18px] py-[11px] text-danger">
+                                    <div className="text-[15px] font-bold leading-[18px]">
+                                        <Trans>Log out</Trans>
+                                    </div>
+                                </div>
+                            </ClickableButton>
+                        ) : null}
+                    </div>
+                </>
+            )}
         </Section>
     );
 }

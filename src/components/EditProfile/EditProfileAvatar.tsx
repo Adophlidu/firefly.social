@@ -3,9 +3,9 @@ import { useFormContext, useWatch } from 'react-hook-form';
 
 import { Avatar } from '@/components/Avatar.js';
 
-export function EditProfileAvatar({ pfp, name }: { pfp: string; name: string }) {
+export function EditProfileAvatar({ pfp, name, size = 108 }: { pfp: string; name: string; size?: number }) {
     const { control } = useFormContext();
     const value = useWatch({ control, name }) as File;
     const data = useMemo(() => (value ? URL.createObjectURL(value) : null), [value]);
-    return <Avatar src={data || pfp} size={108} alt="avatar" />;
+    return <Avatar src={data || pfp} size={size} alt="avatar" />;
 }

@@ -85,7 +85,7 @@ export function LogoutModal({ ref }: Props) {
 
             dispatch?.close();
             await delay(300);
-            router.push(
+            router.replace(
                 '/',
                 {},
                 {

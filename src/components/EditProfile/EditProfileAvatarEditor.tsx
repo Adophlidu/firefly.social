@@ -1,3 +1,5 @@
+'use client';
+
 import { Trans } from '@lingui/react/macro';
 import { Ranger, useRanger } from '@tanstack/react-ranger';
 import { useRouter } from '@tanstack/react-router';
@@ -9,7 +11,7 @@ import { BaseNotFound } from '@/components/BaseNotFound.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { FileMimeType } from '@/constants/enum.js';
 
-export function EditProfileAvatarEditor() {
+export function EditProfileAvatarEditor({ name }: { name: string }) {
     const { history } = useRouter();
     const pfp = (history.location.state as { pfp?: FileList }).pfp;
     const file = pfp?.[0];
@@ -42,7 +44,7 @@ export function EditProfileAvatarEditor() {
     const onConfirm = () => {
         editorRef.current?.getImageScaledToCanvas().toBlob((blob) => {
             if (!blob || !file) return;
-            setValue('pfp', new File([blob], 'pfp.png', { type: blob.type }), { shouldDirty: true });
+            setValue(name, new File([blob], 'pfp.png', { type: blob.type }), { shouldDirty: true });
             history.replace('/');
         }, FileMimeType.PNG);
     };

@@ -756,6 +756,9 @@ msgstr ""
 msgid "submit a wallet to receive $TRUMP"
 msgstr ""
 
+msgid "Failed to delete"
+msgstr ""
+
 msgid "Follow to Collect"
 msgstr ""
 
@@ -885,6 +888,9 @@ msgid "The contract owner may not contain the authority to modify the transactio
 msgstr ""
 
 msgid "The blacklist function is included. Some addresses may not be able to trade normally (honeypot risk)."
+msgstr ""
+
+msgid "<0/>Delete Firefly account"
 msgstr ""
 
 #. placeholder {0}: x.provider
@@ -1043,6 +1049,9 @@ msgstr ""
 msgid "Failed to upload. Not a valid image type"
 msgstr ""
 
+msgid "Delete Firefly account?"
+msgstr ""
+
 #. placeholder {0}: formatFileSize(maxImageSize)
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr ""
@@ -1106,6 +1115,9 @@ msgid "Bio"
 msgstr ""
 
 msgid "[Photo]"
+msgstr ""
+
+msgid "After deletion, all your social accounts and wallets will be disconnected. <0>Assets in the Firefly wallets can not be retrieved any more.</0> Please confirm again that you want to delete."
 msgstr ""
 
 #. placeholder {0}: resolveSourceName(source)
@@ -2006,6 +2018,10 @@ msgstr ""
 msgid "View on Explorer"
 msgstr ""
 
+#. placeholder {0}: account?.uid
+msgid "UID: {0}"
+msgstr ""
+
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr ""
 
@@ -2306,6 +2322,9 @@ msgstr ""
 msgid "Show more tokens"
 msgstr ""
 
+msgid "<0/>Edit profile"
+msgstr ""
+
 msgid "Page not found. Please try again."
 msgstr ""
 
@@ -2319,6 +2338,9 @@ msgid "{followerCount, plural, one {Like} other {Likes}}"
 msgstr ""
 
 msgid "No stealing attack involved."
+msgstr ""
+
+msgid "Deleted your Firefly account"
 msgstr ""
 
 msgid "The contract owner has no restrictions on buying."
@@ -3081,6 +3103,9 @@ msgid "The contract may contain additional issuance functions, which could maybe
 msgstr ""
 
 msgid "Upcoming"
+msgstr ""
+
+msgid "Display Name should not exceed 20 characters"
 msgstr ""
 
 msgid "{handleOrEnsOrAddress} unwatched"

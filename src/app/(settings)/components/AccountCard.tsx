@@ -2,8 +2,6 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useQuery } from '@tanstack/react-query';
-import { compact } from 'lodash-es';
 import { useAsyncFn } from 'react-use';
 
 import { PrimaryButton } from '@/app/(settings)/components/PrimaryButton.js';
@@ -15,31 +13,41 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { type SocialSource } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { DisconnectFireflyAccountModalRef } from '@/modals/controls.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Account } from '@/providers/types/Account.js';
-import { getSocialConnectionsWithProfile } from '@/services/getSocialConnectionsWithProfile.js';
 
 function DisconnectButton({ account }: { account: Pick<Account, 'profile' | 'origin'> }) {
     const all = useProfileStoreAll();
+    const { data } = useAllConnectionsFormattedWithProfiles();
     const [{ loading }, disconnect] = useAsyncFn(async () => {
-        const accounts = Object.keys(all)
+        const localAccounts = Object.keys(all)
             .map((k) => {
                 const key = k as SocialSource;
                 return all[key]?.accounts;
             })
             .filter((x) => x)
             .flat();
-
-        if (accounts.length <= 1) {
+        const accounts =
+            data?.socialConnections.flatMap((x) =>
+                x.items.filter((connection) => {
+                    return (
+                        ('connectedAt' in connection && connection.connectedAt) ||
+                        ('connected' in connection && connection.connected)
+                    );
+                }),
+            ) ?? [];
+        if (
+            accounts.length <= 1 ||
+            (localAccounts.length <= 1 && localAccounts.some((a) => isSameProfile(a.profile, account.profile)))
+        ) {
             enqueueErrorMessage(
                 t`Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly.`,
             );
@@ -48,7 +56,7 @@ function DisconnectButton({ account }: { account: Pick<Account, 'profile' | 'ori
         await DisconnectFireflyAccountModalRef.openAndWaitForClose({
             account,
         });
-    }, [account, all]);
+    }, [account, all, data]);
 
     return (
         <Tooltip placement="top" content={<Trans>Disconnect</Trans>}>
@@ -68,32 +76,7 @@ function DisconnectButton({ account }: { account: Pick<Account, 'profile' | 'ori
 }
 
 export function AccountCards() {
-    const profileAll = useProfileStoreAll();
-    const { data, isLoading, error, refetch } = useQuery({
-        queryKey: ['my-wallet-connections', 'with-profile', profileAll],
-        async queryFn() {
-            const connections = await FireflyEndpointProvider.getAllConnectionsFormatted();
-            const settles = await Promise.allSettled(
-                SORTED_SOCIAL_SOURCES.map(async (source) => {
-                    const accounts = profileAll[source]?.accounts ?? [];
-                    const connectionsWithProfile = await getSocialConnectionsWithProfile(source, connections.social);
-                    return {
-                        source,
-                        items: connectionsWithProfile.map((x) => ({
-                            ...x,
-                            account: accounts.find((account) => isSameProfile(x.profile, account.profile)),
-                        })),
-                    };
-                }),
-            );
-            return {
-                ...connections,
-                socialConnections: compact(
-                    settles.map((result) => (result.status === 'fulfilled' ? result.value : null)),
-                ),
-            };
-        },
-    });
+    const { data, isLoading, error, refetch } = useAllConnectionsFormattedWithProfiles();
 
     if (!data) {
         if (error || isLoading) {

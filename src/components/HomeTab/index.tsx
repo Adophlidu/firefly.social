@@ -58,7 +58,13 @@ export function HomeTabs() {
 
     return (
         <div className="sticky top-[54px] z-20 flex w-full flex-col bg-primaryBottom md:top-0">
-            {isLogin ? (
+            {!isLogin && currentTab === HomeTab.Discover ? (
+                <div className="flex h-[60px] flex-col px-4 pt-2.5">
+                    <div className="h-[50px] text-xl font-bold leading-[50px]">
+                        <Trans>Home</Trans>
+                    </div>
+                </div>
+            ) : (
                 <div className="flex h-[60px] flex-col px-4 pt-2.5">
                     <Menu>
                         {({ close }) => (
@@ -101,12 +107,6 @@ export function HomeTabs() {
                             </>
                         )}
                     </Menu>
-                </div>
-            ) : (
-                <div className="flex h-[60px] flex-col px-4 pt-2.5">
-                    <div className="h-[50px] text-xl font-bold leading-[50px]">
-                        <Trans>Home</Trans>
-                    </div>
                 </div>
             )}
 

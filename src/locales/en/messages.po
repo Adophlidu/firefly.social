@@ -751,6 +751,9 @@ msgstr "Only up to 2 images can be chosen."
 msgid "submit a wallet to receive $TRUMP"
 msgstr "submit a wallet to receive $TRUMP"
 
+msgid "Failed to delete"
+msgstr "Failed to delete"
+
 msgid "Follow to Collect"
 msgstr "Follow to Collect"
 
@@ -881,6 +884,9 @@ msgstr "The contract owner may not contain the authority to modify the transacti
 
 msgid "The blacklist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "The blacklist function is included. Some addresses may not be able to trade normally (honeypot risk)."
+
+msgid "<0/>Delete Firefly account"
+msgstr "<0/>Delete Firefly account"
 
 #. placeholder {0}: x.provider
 #. placeholder {0}: x.source
@@ -1038,6 +1044,9 @@ msgstr "Search article"
 msgid "Failed to upload. Not a valid image type"
 msgstr "Failed to upload. Not a valid image type"
 
+msgid "Delete Firefly account?"
+msgstr "Delete Firefly account?"
+
 #. placeholder {0}: formatFileSize(maxImageSize)
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "Failed to upload. Image size exceeds {0}"
@@ -1102,6 +1111,9 @@ msgstr "Bio"
 
 msgid "[Photo]"
 msgstr "[Photo]"
+
+msgid "After deletion, all your social accounts and wallets will be disconnected. <0>Assets in the Firefly wallets can not be retrieved any more.</0> Please confirm again that you want to delete."
+msgstr "After deletion, all your social accounts and wallets will be disconnected. <0>Assets in the Firefly wallets can not be retrieved any more.</0> Please confirm again that you want to delete."
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Follow more friends to continue exploring on {0}."
@@ -2009,6 +2021,10 @@ msgstr "Post your reply"
 msgid "View on Explorer"
 msgstr "View on Explorer"
 
+#. placeholder {0}: account?.uid
+msgid "UID: {0}"
+msgstr "UID: {0}"
+
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr "Owner can set a different tax rate for every assigned address."
 
@@ -2314,6 +2330,9 @@ msgstr "General"
 msgid "Show more tokens"
 msgstr "Show more tokens"
 
+msgid "<0/>Edit profile"
+msgstr "<0/>Edit profile"
+
 msgid "Page not found. Please try again."
 msgstr "Page not found. Please try again."
 
@@ -2328,6 +2347,9 @@ msgstr "{followerCount, plural, one {Like} other {Likes}}"
 
 msgid "No stealing attack involved."
 msgstr "No stealing attack involved."
+
+msgid "Deleted your Firefly account"
+msgstr "Deleted your Firefly account"
 
 msgid "The contract owner has no restrictions on buying."
 msgstr "The contract owner has no restrictions on buying."
@@ -3090,6 +3112,9 @@ msgstr "The contract may contain additional issuance functions, which could mayb
 
 msgid "Upcoming"
 msgstr "Upcoming"
+
+msgid "Display Name should not exceed 20 characters"
+msgstr "Display Name should not exceed 20 characters"
 
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr "{handleOrEnsOrAddress} unwatched"
