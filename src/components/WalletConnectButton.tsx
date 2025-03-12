@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/react/macro';
+import { delay } from '@masknet/kit';
 import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
 import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
 import { compact } from 'lodash-es';
@@ -12,6 +13,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { ConnectModalRef, MyWalletsModalRef } from '@/modals/controls.js';
+import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 interface WalletConnectButtonProps extends ClickableButtonProps {}
 
@@ -25,6 +27,8 @@ const IconMap: Record<NetworkType, string | undefined> = {
 
 export const WalletConnectButton = memo<WalletConnectButtonProps>(function WalletConnectButton({ className, ...rest }) {
     const { ethereum, solana } = useWalletAccountAll();
+    const { sidebarOpen, updateSidebarOpen } = useNavigatorState();
+
     const connectedNetworks = compact([
         ethereum.isConnected ? NetworkType.Ethereum : null,
         solana.isConnected ? NetworkType.Solana : null,
@@ -36,7 +40,11 @@ export const WalletConnectButton = memo<WalletConnectButtonProps>(function Walle
                 'flex h-10 items-center gap-3 rounded-lg bg-lightBg px-4 text-lg leading-6 text-main',
                 className,
             )}
-            onClick={() => {
+            onClick={async () => {
+                if (sidebarOpen) {
+                    updateSidebarOpen(false);
+                    await delay(300);
+                }
                 if (connectedNetworks.length) {
                     MyWalletsModalRef.open();
                 } else {
