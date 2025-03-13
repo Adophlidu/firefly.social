@@ -13,6 +13,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Source, SourceInURL, type ThirdPartySource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
+import { formatThirdPartyProfileName } from '@/helpers/formatThirdPartyProfileName.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
@@ -51,7 +52,9 @@ function ThirdPartItem({
             <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                 <span className="truncate text-base font-bold text-lightMain">{resolveSourceName(source)}</span>
                 {connected ? (
-                    <span className="truncate text-medium text-lightSecond">{account.profile.displayName}</span>
+                    <span className="truncate text-medium text-lightSecond">
+                        {formatThirdPartyProfileName(account.profile)}
+                    </span>
                 ) : null}
             </div>
             {loading ? (

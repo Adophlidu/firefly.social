@@ -20,7 +20,7 @@ import { SORTED_LOGIN_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES_IN_URL } from '
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
-import { formatEmail } from '@/helpers/formatEmail.js';
+import { formatThirdPartyProfileName } from '@/helpers/formatThirdPartyProfileName.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
@@ -30,6 +30,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
@@ -48,6 +49,7 @@ export function MainView() {
     const isMedium = useIsMedium();
     const [selectedSource, setSelectedSource] = useState<ThirdPartySource>();
 
+    const isLoginFirefly = useIsLoginFirefly();
     const profileStore = useProfileStoreAll();
     const profilesAll = useCurrentProfilesAll();
     const thirdPartyProfile = useThirdPartyStateStore.use.accounts();
@@ -154,7 +156,9 @@ export function MainView() {
                         <div className="overflow-hidden rounded-lg border border-secondaryLine" key={source}>
                             <ClickableButton
                                 className={classNames('flex w-full cursor-pointer items-center justify-between p-2', {
-                                    'bg-bg': !!profileStore[source].accounts.length || index % 2 === 0,
+                                    'bg-bg': !isLoginFirefly ? index % 2 === 0 : true,
+                                    'border-b border-secondaryLine':
+                                        isLoginFirefly && profileStore[source].accounts.length > 0,
                                 })}
                                 onClick={() => onClick(source)}
                             >
@@ -213,7 +217,7 @@ export function MainView() {
                         <div className="overflow-hidden rounded-lg border border-secondaryLine" key={index}>
                             <ClickableButton
                                 className={classNames('flex w-full cursor-pointer items-center justify-between p-2', {
-                                    'bg-bg': !profile && index % 2 === 0,
+                                    'bg-bg': !profile || (index % 2 === 0 && !isLoginFirefly),
                                 })}
                                 onClick={() => {
                                     if (source !== Source.Email) {
@@ -231,11 +235,7 @@ export function MainView() {
                                 {profile ? (
                                     <div className="flex items-center gap-2">
                                         <ProfileSourceIcon source={source} size={20} />
-                                        {source === Source.Telegram
-                                            ? profile.profile.displayName.length > 5
-                                                ? `@${profile.profile.displayName.slice(0, 2)}*****${profile.profile.displayName.slice(-3)}`
-                                                : `@${profile.profile.displayName}`
-                                            : formatEmail(profile.profile.displayName)}
+                                        {formatThirdPartyProfileName(profile.profile)}
                                     </div>
                                 ) : (
                                     <>
