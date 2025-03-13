@@ -6,12 +6,16 @@ import { memo } from 'react';
 import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SearchableProfileItem } from '@/components/Search/SearchableProfileItem.js';
-import { SearchType } from '@/constants/enum.js';
+import { SearchType, Source } from '@/constants/enum.js';
 import { MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/index.js';
-import { formatSearchProfile } from '@/helpers/formatSearchProfile.js';
+import { composeSearchProfiles, formatSearchProfile } from '@/helpers/formatSearchProfile.js';
 import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 
 interface SuggestProfileListProps {
     query: string;
@@ -19,6 +23,7 @@ interface SuggestProfileListProps {
 }
 
 export const SuggestProfileList = memo<SuggestProfileListProps>(function SuggestProfileList({ query, onSelect }) {
+    const isTwitterLogin = useIsLogin(Source.Twitter);
     const { data: profiles, isLoading } = useQuery({
         queryKey: ['search-suggest', 'profiles', query],
         staleTime: 1000 * 60 * 5, // 5 minutes
@@ -27,7 +32,24 @@ export const SuggestProfileList = memo<SuggestProfileListProps>(function Suggest
                 size: 5,
                 indicator: undefined,
             });
-            return compact(result.data.map(formatSearchProfile));
+            const trimmed = query.trim().replace(/^@/, '');
+            const xProfilesRes =
+                isTwitterLogin && trimmed
+                    ? await runInSafeAsync(() => TwitterSocialMediaProvider.searchProfiles(trimmed))
+                    : undefined;
+            const bskyProfilesRes = await runInSafeAsync(() => BskySocialMediaProvider.searchProfiles(query));
+
+            const xProfiles = (xProfilesRes?.data || []).slice(0, 1);
+            const bskyProfiles = (bskyProfilesRes?.data || []).slice(0, 1);
+
+            return composeSearchProfiles(
+                compact(result.data.map(formatSearchProfile)).slice(
+                    0,
+                    MAX_RECOMMEND_PROFILE_SIZE - xProfiles.length - bskyProfiles.length,
+                ),
+                xProfiles,
+                bskyProfiles,
+            );
         },
         enabled: !!query,
     });
