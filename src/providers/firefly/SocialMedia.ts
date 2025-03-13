@@ -1167,7 +1167,15 @@ export class FireflySocialMedia implements Provider {
         return await FireflySocialMediaProvider.unbookmark(nftId);
     }
 
-    async getNFTBookmarks(indicator?: PageIndicator): Promise<Pageable<SimpleHash.NFT, PageIndicator>> {
+    async getNFTBookmarks(indicator?: PageIndicator): Promise<
+        Pageable<
+            {
+                id: string;
+                nft: SimpleHash.NFT;
+            },
+            PageIndicator
+        >
+    > {
         const profile = getCurrentProfile(Source.Farcaster);
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {
             post_type: BookmarkType.All,
@@ -1184,7 +1192,12 @@ export class FireflySocialMedia implements Provider {
         const nfts = nftIds.length ? await SimpleHashProvider.getNFTByIds(nftIds) : [];
 
         return createPageable(
-            nfts,
+            compact(
+                nftIds.map((id) => {
+                    const nft = nfts.find((x) => x.nft_id.toLowerCase() === id.toLowerCase());
+                    return nft ? { id, nft } : null;
+                }),
+            ),
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
         );

@@ -1,17 +1,23 @@
 import { t } from '@lingui/core/macro';
 import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { useIsMutating, useMutation } from '@tanstack/react-query';
+import { usePathname } from 'next/navigation.js';
 
 import { FireflyPlatform } from '@/constants/enum.js';
-import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { FetchError } from '@/constants/error.js';
+import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
-export function useToggleNFTBookmark(options: { owner: string; nftId: string }) {
+export function useToggleNFTBookmark(options: { owner: string; nftId: string; strict?: boolean }) {
     const isLogin = useIsLogin();
+    const pathname = usePathname();
     const mutationKey = ['toggle-bookmark', FireflyPlatform.NFTs, options.nftId];
     const isMutating = useIsMutating({ mutationKey, exact: true }) > 0;
+
+    const isDetailPage = isRoutePathname(pathname, '/nft/:chainId/:address/:tokenId');
 
     const mutation = useMutation({
         mutationKey,
@@ -22,11 +28,12 @@ export function useToggleNFTBookmark(options: { owner: string; nftId: string }) 
             }
 
             const owner = options.owner || ZERO_ADDRESS;
+            const nftId = options.strict ? options.nftId : options.nftId.toLowerCase();
 
             try {
                 const result = !hasBookmarked
-                    ? await FireflySocialMediaProvider.bookmarkNFT(options.nftId, owner)
-                    : await FireflySocialMediaProvider.unbookmarkNFT(options.nftId, owner);
+                    ? await FireflySocialMediaProvider.bookmarkNFT(nftId, owner)
+                    : await FireflySocialMediaProvider.unbookmarkNFT(nftId, owner);
                 if (!result) {
                     throw new Error('Bookmark operation failed.');
                 }
@@ -35,6 +42,15 @@ export function useToggleNFTBookmark(options: { owner: string; nftId: string }) 
                 );
                 return result;
             } catch (error) {
+                if (
+                    hasBookmarked &&
+                    !isDetailPage &&
+                    error instanceof FetchError &&
+                    error.text?.includes('Bookmark not exist')
+                ) {
+                    enqueueErrorMessage('Bookmark not exist, please try going to the detail page and un-bookmark it.');
+                    return;
+                }
                 enqueueMessageFromError(
                     error,
                     hasBookmarked ? t`Failed to un-bookmark NFT.` : t`Failed to bookmark NFT.`,

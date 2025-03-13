@@ -553,7 +553,7 @@ export class FireflyEndpoint {
                             ...token,
                             bookmarked: bookmarks?.find(
                                 (x) =>
-                                    x.post_id ===
+                                    x.post_id.toLowerCase() ===
                                     resolveNFTId(resolveNFTFeedChainId(feed), feed.trans.token_address, token.id),
                             )?.has_book_marked,
                             nft: nfts.find(
@@ -619,8 +619,9 @@ export class FireflyEndpoint {
                         if (nft)
                             action.nft = {
                                 ...nft,
-                                hasBookmarked: bookmarks?.find((x) => x.post_id === resolveNFTIdFromAsset(nft))
-                                    ?.has_book_marked,
+                                hasBookmarked: bookmarks?.find(
+                                    (x) => x.post_id.toLowerCase() === resolveNFTIdFromAsset(nft),
+                                )?.has_book_marked,
                             };
                         return action;
                     });

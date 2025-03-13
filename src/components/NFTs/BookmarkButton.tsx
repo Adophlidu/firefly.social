@@ -1,13 +1,16 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
 import BookmarkActiveIcon from '@/assets/bookmark.selected.svg';
 import BookmarkIcon from '@/assets/bookmark.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { FireflyPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useHasBookmarked } from '@/hooks/useHasBookmarked.js';
 import { useToggleNFTBookmark } from '@/hooks/useToggleNFTBookmark.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
@@ -16,6 +19,8 @@ interface BookmarkButtonProps extends Omit<ClickableButtonProps, 'children'> {
     nftId: string;
     ownerAddress?: string;
     bookmarked?: boolean;
+    tooltip?: boolean;
+    strict?: boolean;
     children?: (hasBookmarked: boolean, isLoading: boolean, fetching: boolean) => React.ReactNode;
     onClick?: () => void;
 }
@@ -26,20 +31,29 @@ export function BookmarkButton({
     ownerAddress = '',
     bookmarked,
     ref,
+    tooltip,
+    strict,
     onClick,
     ...rest
 }: BookmarkButtonProps) {
-    const disableFetch = bookmarked !== undefined;
-    const { isLoading, data = false } = useHasBookmarked(FireflyPlatform.NFTs, nftId, undefined, disableFetch);
+    const pathname = usePathname();
+
+    const disableFetch = bookmarked !== undefined && !isRoutePathname(pathname, '/nft/:chainId/:address/:tokenId');
+    const {
+        isLoading,
+        data = false,
+        bookmarkId,
+    } = useHasBookmarked(FireflyPlatform.NFTs, nftId, undefined, disableFetch);
 
     const [isMutating, mutation] = useToggleNFTBookmark({
         owner: ownerAddress,
-        nftId,
+        nftId: bookmarkId || nftId,
+        strict: strict || !!bookmarkId,
     });
 
     const hasBookmarked = disableFetch ? bookmarked : data;
 
-    return (
+    const content = (
         <ClickableButton
             {...rest}
             ref={ref}
@@ -64,6 +78,14 @@ export function BookmarkButton({
             {children?.(hasBookmarked, isMutating, isLoading)}
         </ClickableButton>
     );
+
+    return tooltip ? (
+        <Tooltip placement="top" content={hasBookmarked ? t`Remove from Bookmarks` : t`Bookmark`}>
+            {content}
+        </Tooltip>
+    ) : (
+        content
+    );
 }
 
 function BookmarkButtonIcon({ hasBookmarked, isLoading }: { hasBookmarked: boolean; isLoading: boolean }) {
@@ -76,17 +98,24 @@ function BookmarkButtonIcon({ hasBookmarked, isLoading }: { hasBookmarked: boole
     );
 }
 
-export const BookmarkInIcon = memo(function BookmarkInIcon({ ...rest }: BookmarkButtonProps) {
+export const BookmarkInIcon = memo(function BookmarkInIcon({
+    small,
+    ...rest
+}: BookmarkButtonProps & { small?: boolean }) {
     return (
         <BookmarkButton {...rest}>
             {(bookmarked: boolean, isLoading: boolean, fetching: boolean) => (
                 <span
-                    className={classNames(
-                        'flex size-8 items-center justify-center rounded-xl bg-black/25 text-white',
-                        bookmarked
-                            ? 'text-warn'
-                            : 'hover:bg-warn/20 hover:text-warn active:bg-black/25 active:text-warn',
-                    )}
+                    className={
+                        small
+                            ? ''
+                            : classNames(
+                                  'flex size-8 items-center justify-center rounded-xl bg-black/25 text-white',
+                                  bookmarked
+                                      ? 'text-warn'
+                                      : 'hover:bg-warn/20 hover:text-warn active:bg-black/25 active:text-warn',
+                              )
+                    }
                 >
                     {isLoading || fetching ? (
                         <LoadingIcon size={20} />

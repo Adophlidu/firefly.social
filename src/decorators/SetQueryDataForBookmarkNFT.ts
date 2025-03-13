@@ -1,7 +1,7 @@
 import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { FireflyPlatform } from '@/constants/enum.js';
+import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { resolveNFTFeedChainId } from '@/helpers/resolveNFTFeedChainId.js';
 import { resolveNFTId, resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
@@ -33,7 +33,7 @@ function toggleBlock(id: string, status: boolean) {
         { queryKey: ['nft-collection-list'] },
         createUpdater<SimpleHash.LiteCollection>((collection) => {
             collection.nftPreviews?.forEach((preview) => {
-                if (preview.nft_id === id) preview.hasBookmarked = status;
+                if (preview.nft_id.toLowerCase() === id) preview.hasBookmarked = status;
             });
         }),
     );
@@ -47,15 +47,18 @@ function toggleBlock(id: string, status: boolean) {
             });
         }),
     );
+
+    const followingUpdater = createUpdater<FollowingNFT>((nftData) => {
+        nftData.actions.forEach((action) => {
+            if (action.nft && resolveNFTIdFromAsset(action.nft) === id) {
+                action.nft.hasBookmarked = status;
+            }
+        });
+    });
+    queryClient.setQueriesData<PageData<FollowingNFT>>({ queryKey: ['nfts-of'] }, followingUpdater);
     queryClient.setQueriesData<PageData<FollowingNFT>>(
-        { queryKey: ['nfts-of'] },
-        createUpdater<FollowingNFT>((nftData) => {
-            nftData.actions.forEach((action) => {
-                if (action.nft && resolveNFTIdFromAsset(action.nft) === id) {
-                    action.nft.hasBookmarked = status;
-                }
-            });
-        }),
+        { queryKey: ['nfts', 'following', Source.NFTs] },
+        followingUpdater,
     );
 
     const patcher = createUpdater<NFTAsset>((item) => {
@@ -65,7 +68,23 @@ function toggleBlock(id: string, status: boolean) {
     });
     queryClient.setQueriesData<PageData<NFTAsset>>({ queryKey: ['poap-list'] }, patcher);
     queryClient.setQueriesData<PageData<NFTAsset>>({ queryKey: ['nft-list'] }, patcher);
-    queryClient.setQueriesData({ queryKey: ['has-bookmarked', FireflyPlatform.NFTs, id] }, status);
+    queryClient.setQueryData(['has-bookmarked', FireflyPlatform.NFTs, id, true], { status });
+
+    // remove bookmarked NFT from bookmarks list
+    if (status === false) {
+        queryClient.setQueriesData<PageData<{ id: string; nft: SimpleHash.NFT }>>(
+            { queryKey: ['bookmarks', Source.NFTs] },
+            (old) => {
+                if (!old) return old;
+
+                return produce(old, (draft) => {
+                    draft.pages.forEach((page) => {
+                        page.data = page.data.filter((item) => item.id.toLowerCase() !== id);
+                    });
+                });
+            },
+        );
+    }
 }
 
 export function SetQueryDataForBookmarkNFT() {
@@ -80,7 +99,7 @@ export function SetQueryDataForBookmarkNFT() {
 
                     const result = await m.call(target.prototype, id, owner);
                     if (result) {
-                        toggleBlock(id, status);
+                        toggleBlock(id.toLowerCase(), status);
                     }
 
                     return result;

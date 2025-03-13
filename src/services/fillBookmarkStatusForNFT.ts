@@ -15,7 +15,7 @@ export async function fillBookmarkStatusForNonFungibleAssets(assets: Array<NonFu
     return assets.map((item) => ({
         ...item,
         hasBookmarked: bookmarkData.some(
-            (bookmark) => bookmark.post_id === resolveNFTIdFromAsset(item) && !!bookmark.has_book_marked,
+            (bookmark) => bookmark.post_id.toLowerCase() === resolveNFTIdFromAsset(item) && !!bookmark.has_book_marked,
         ),
     }));
 }

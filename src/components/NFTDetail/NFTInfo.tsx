@@ -145,7 +145,7 @@ export function NFTInfo(props: NFTInfoProps) {
                 {contractAddress ? (
                     <BookmarkInIcon
                         className="absolute right-2.5 top-2.5 z-10"
-                        nftId={resolveNFTId(chainId, contractAddress, tokenId)}
+                        nftId={resolveNFTId(chainId, contractAddress, tokenId, false)}
                         ownerAddress={ownerAddress}
                     />
                 ) : null}

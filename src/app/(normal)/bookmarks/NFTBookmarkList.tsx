@@ -10,6 +10,7 @@ import { GridListInPage } from '@/components/GridListInPage.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -24,7 +25,7 @@ import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 
-function getNFTItemContent(nft: SimpleHash.NFT) {
+function getNFTItemContent(id: string, nft: SimpleHash.NFT) {
     const chainId = resolveSimpleHashChainId(nft.chain);
 
     const content = (
@@ -45,15 +46,19 @@ function getNFTItemContent(nft: SimpleHash.NFT) {
         </>
     );
 
-    return chainId ? (
-        <Link
-            className="flex cursor-pointer flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
-            href={resolveNFTUrl(chainId, nft.contract_address, isSolanaChainId(chainId) ? '0' : nft.token_id)}
-        >
-            {content}
-        </Link>
-    ) : (
-        <div className="flex cursor-pointer flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl">{content}</div>
+    const tokenId = isSolanaChainId(chainId) ? '0' : nft.token_id;
+
+    return (
+        <div className="relative flex cursor-pointer flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl">
+            {chainId ? (
+                <Link className="h-full w-full" href={resolveNFTUrl(chainId, nft.contract_address, tokenId)}>
+                    {content}
+                </Link>
+            ) : (
+                content
+            )}
+            <BookmarkInIcon className="absolute right-1 top-1" nftId={id} bookmarked small tooltip strict />
+        </div>
     );
 }
 
@@ -107,7 +112,7 @@ export function NFTBookmarkList() {
                     Item: GridItem,
                 },
                 itemContent: (index, item) => {
-                    return getNFTItemContent(item);
+                    return getNFTItemContent(item.id, item.nft);
                 },
             }}
         />

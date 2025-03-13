@@ -1,22 +1,37 @@
 import { skipToken, useQuery } from '@tanstack/react-query';
 
-import type { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
-import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
+import { type BookmarkType, FireflyPlatform } from '@/constants/enum.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 export function useHasBookmarked(platform: FireflyPlatform, id: string, postType?: BookmarkType, disabled?: boolean) {
-    const profileIds = useCurrentProfileIds();
+    const isLogin = useIsLogin();
+    const lowerCaseId = id.toLowerCase();
+    const isNFT = platform === FireflyPlatform.NFTs;
 
-    return useQuery({
-        queryKey: ['has-bookmarked', platform, id, ...profileIds],
+    const result = useQuery({
+        queryKey: ['has-bookmarked', platform, isNFT ? lowerCaseId : id, isLogin],
         staleTime: 1000 * 60 * 5,
-        enabled: !disabled,
+        enabled: !disabled && isLogin,
         queryFn: disabled
             ? skipToken
             : async () => {
-                  const data = await FireflySocialMediaProvider.getBookmarksByIds(platform, [id], postType);
+                  const data = await FireflySocialMediaProvider.getBookmarksByIds(
+                      platform,
+                      isNFT ? [id, lowerCaseId] : [id],
+                      postType,
+                  );
 
-                  return data[0]?.post_id === id && !!data[0].has_book_marked;
+                  const matched = data.find(
+                      (x) => x.post_id.toLowerCase() === lowerCaseId && x.has_book_marked === true,
+                  );
+                  return matched ? { status: matched.has_book_marked, id: matched.post_id } : null;
               },
     });
+
+    return {
+        ...result,
+        data: result.data?.status === true,
+        bookmarkId: result.data?.id,
+    };
 }

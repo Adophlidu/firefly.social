@@ -154,7 +154,9 @@ export function NFTCollectionList(props: NFTCollectionListProps) {
                 nftPreviews: item.nftPreviews?.map((preview) => ({
                     ...preview,
                     hasBookmarked: bookmarkData?.some(
-                        (bookmark) => bookmark.post_id === preview.nft_id && !!bookmark.has_book_marked,
+                        (bookmark) =>
+                            bookmark.post_id.toLowerCase() === preview.nft_id.toLowerCase() &&
+                            !!bookmark.has_book_marked,
                     ),
                 })),
             }));

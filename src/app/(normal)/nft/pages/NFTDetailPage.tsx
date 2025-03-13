@@ -49,7 +49,7 @@ export function NFTDetailPage({ chainId, address, tokenId }: { chainId: ChainId;
                     name={data.metadata.name ?? ''}
                     tokenId={data.metadata.tokenId ?? ''}
                     ownerAddress={data.contract?.schema === SchemaType.ERC1155 ? undefined : data.owner?.address}
-                    contractAddress={data.contract?.address ?? ''}
+                    contractAddress={address || data.contract?.address || ''}
                     collection={{
                         name: data.collection?.name ?? '',
                         icon: data.collection?.iconURL ?? undefined,
