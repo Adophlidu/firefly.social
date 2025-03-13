@@ -146,7 +146,7 @@ export function MainView() {
     });
 
     return (
-        <div className="rounded-[6px] bg-primaryBottom px-6 pb-6 max-md:max-h-[calc(100vh-64px)] max-md:overflow-auto md:w-[400px]">
+        <div className="rounded-[6px] bg-primaryBottom px-6 pb-6 max-md:max-h-[calc(100vh_-_64px)] max-md:overflow-auto md:w-[400px]">
             <div className="mb-3 text-left text-[15px] font-medium leading-[15px]">
                 <Trans>Social accounts</Trans>
             </div>
