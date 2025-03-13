@@ -60,7 +60,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                                 <ProfileInList
                                     selected
                                     selectable={false}
-                                    viewable
+                                    viewable={false}
                                     profile={fireflyProfile}
                                     profileAvatarProps={{
                                         enableSourceIcon: false,
