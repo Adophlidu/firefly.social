@@ -20,6 +20,7 @@ function createUpdater<T>(updater: (item: Draft<T>) => void) {
 
         return produce(old, (draft) => {
             draft.pages.forEach((page) => {
+                if (!page?.data) return;
                 page.data.forEach((item) => {
                     updater(item);
                 });
@@ -79,6 +80,7 @@ function toggleBlock(id: string, status: boolean) {
 
                 return produce(old, (draft) => {
                     draft.pages.forEach((page) => {
+                        if (!page?.data) return;
                         page.data = page.data.filter((item) => item.id.toLowerCase() !== id);
                     });
                 });
