@@ -28,7 +28,7 @@ interface InfoProps {
 export function Info(props: InfoProps) {
     const { data: profile = props.profile } = useRefreshedProfile(props.profile);
 
-    const { source, profileId, followerCount = 0, followingCount = 0 } = profile;
+    const { source, followerCount = 0, followingCount = 0 } = profile;
 
     return (
         <div className="grid grid-cols-[80px_calc(100%-80px-12px)] gap-3 p-3">

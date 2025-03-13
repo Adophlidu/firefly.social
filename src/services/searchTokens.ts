@@ -75,7 +75,7 @@ export async function searchTokens(searchKeyword: string): Promise<Pageable<Toke
         ? await searchTokensByAddress(trimmed)
         : await FireflyEndpointProvider.searchTokens(searchKeyword);
     const ids = res.data.map((x) => x.id);
-    const marketData = await CoinGecko.getCoinsByIds(ids);
+    const marketData = ids.length ? await CoinGecko.getCoinsByIds(ids) : [];
 
     return {
         ...res,

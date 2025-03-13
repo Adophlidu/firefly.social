@@ -68,7 +68,7 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
 
     const { data: tokenSecurity } = useTokenSecurity(chainId, address);
 
-    if (!token) return <div className="min-h-[80px] animate-pulse" />;
+    if (!token) return null;
     const price = attributes?.price_usd;
     const market_cap = attributes?.market_cap_usd;
 
@@ -87,7 +87,13 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
             >
                 <div className="flex flex-col">
                     <div className="flex items-center gap-2 whitespace-nowrap text-second">
-                        <TokenIcon icon={token.logoURL} chainId={chainId} alt={token.name} width={30} height={30} />
+                        <TokenIcon
+                            icon={token.logoURL || `https://stamp.firefly.land/logo/${address}`}
+                            chainId={chainId}
+                            alt={token.name}
+                            width={30}
+                            height={30}
+                        />
                         <strong className="ml-[2px] text-lg font-bold uppercase text-main">{token.symbol}</strong>
                         {tokenSecurity ? <SecurityBadge security={tokenSecurity} /> : null}
                         <span className="max-w-28 truncate font-inter text-medium font-bold">
@@ -98,7 +104,7 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
                     <div className="line-height-[22px] flex items-center gap-1">
                         <Trans>
                             <strong className="text-medium font-bold">
-                                {market_cap !== undefined ? `$${formatMarketCap(market_cap)}` : '-'}
+                                {market_cap ? `$${formatMarketCap(market_cap)}` : '-'}
                             </strong>
                             <span className="text-medium text-secondary" title={t`Market Cap`}>
                                 MC

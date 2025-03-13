@@ -235,7 +235,7 @@ export const REQUIRE_LOGIN_FOLLOWING_CATEGORY = [FollowCategory.Mutuals];
 export const REQUIRE_LOGIN_SOURCES: SocialSource[] = [Source.Twitter];
 export const REQUIRE_LOGIN_SOURCES_IN_SEARCH: SocialSource[] = [Source.Twitter, Source.Bsky];
 export const SOCIAL_SOURCE_WITH_ADDRESS: SocialSource[] = [Source.Farcaster, Source.Lens];
-export const EMBED_CARD_SOURCE_PRIORITY = [Source.Farcaster, Source.Lens, Source.Twitter];
+export const EMBED_CARD_SOURCE_PRIORITY = [Source.Twitter, Source.Farcaster, Source.Lens];
 
 export const EXPLORE_TYPES: ExploreType[] = [
     ExploreType.TopProfiles,
