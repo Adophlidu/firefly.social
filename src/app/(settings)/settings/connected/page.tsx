@@ -4,7 +4,6 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import { AccountCards } from '@/app/(settings)/components/AccountCard.js';
-import { FireflyAccountCard } from '@/app/(settings)/components/FireflyAccountCard.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ThirdPartAccounts } from '@/app/(settings)/components/ThirdPartAccounts.js';
@@ -31,8 +30,6 @@ export default function Connected() {
                 <NotLoginFallback source={Source.Posts} />
             ) : (
                 <>
-                    <FireflyAccountCard />
-
                     <AccountCards />
 
                     {env.external.NEXT_PUBLIC_THIRD_PARTY_AUTH === STATUS.Enabled ? <ThirdPartAccounts /> : null}
