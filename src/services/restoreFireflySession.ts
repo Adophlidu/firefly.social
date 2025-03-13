@@ -2,7 +2,7 @@ import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { NotAllowedError, TimeoutError, UnreachableError } from '@/constants/error.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { NOT_DEPEND_SECRET, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getDidServiceHost } from '@/helpers/getDidServiceHost.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
@@ -155,7 +155,30 @@ async function restoreFireflySessionFromTelegram(session: ThirdPartySession, sig
 }
 
 async function restoreFireflySessionFromEmail(session: ThirdPartySession, signal?: AbortSignal) {
-    return new FireflySession(session.profileId, session.token, session, null, false, session.payload);
+    if (!session.payload?.email || !session.payload?.passcode) throw new Error('Email and passcode are required.');
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/email/login');
+    const response = await fetchJSON<LoginResponse>(url, {
+        method: 'POST',
+        body: JSON.stringify({
+            email: session.payload.email,
+            otp: session.payload.passcode,
+        }),
+        signal,
+    });
+
+    const data = resolveFireflyResponseData(response);
+
+    if (session.profileId === NOT_DEPEND_SECRET) {
+        session.profileId = data.accountId;
+        session.token = data.accessToken;
+        session.payload = {
+            ...session.payload,
+            accountId: data.accountId,
+            accessToken: data.accessToken,
+        };
+    }
+
+    return new FireflySession(data.accountId, data.accessToken, session, null, false, data);
 }
 
 /**

@@ -7,13 +7,13 @@ import {
     NotAllowedError,
     UnreachableError,
 } from '@/constants/error.js';
+import { NOT_DEPEND_SECRET } from '@/constants/index.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getDidServiceHost } from '@/helpers/getDidServiceHost.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import type { ThirdPartySession } from '@/providers/third-party/Session.js';
@@ -76,6 +76,16 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
     }
 
     const data = resolveFireflyResponseData(response);
+
+    if (FarcasterSession.isRelayService(session) && session.profileId === NOT_DEPEND_SECRET) {
+        session.profileId = `${data.fid}`;
+
+        if (data.farcaster_signer_private_key) {
+            session.signerRequestToken = FAKE_SIGNER_REQUEST_TOKEN;
+            session.token = data.farcaster_signer_private_key ?? '';
+        }
+    }
+
     return data;
 }
 
@@ -113,6 +123,7 @@ async function bindBskySessionToFirefly(session: BskySession, signal?: AbortSign
                 token: session.sessionPayload.accessJwt,
                 serviceEndpoint: getDidServiceHost(session.sessionPayload.didDoc),
             }),
+            signal,
         },
     );
 
@@ -129,6 +140,7 @@ async function bindAppleSessionToFirefly(session: ThirdPartySession, signal?: Ab
                 idToken: session.token,
                 nonce: session.payload?.nonce,
             }),
+            signal,
         },
     );
 
@@ -144,6 +156,7 @@ async function bindGoogleSessionToFirefly(session: ThirdPartySession, signal?: A
             body: JSON.stringify({
                 idToken: session.token,
             }),
+            signal,
         },
     );
 
@@ -159,6 +172,7 @@ async function bindTelegramSessionToFirefly(session: ThirdPartySession, signal?:
             body: JSON.stringify({
                 telegramToken: session.token,
             }),
+            signal,
         },
     );
 
@@ -166,10 +180,32 @@ async function bindTelegramSessionToFirefly(session: ThirdPartySession, signal?:
     return data;
 }
 
-export async function bindEmailSessionToFirefly(session: ThirdPartySession) {
+export async function bindEmailSessionToFirefly(session: ThirdPartySession, signal?: AbortSignal) {
     if (!session.payload?.email || !session.payload?.passcode) throw new Error('Email and passcode are required.');
 
-    return FireflyEndpointProvider.bindEmail(session.payload?.email, session.payload?.passcode);
+    const response = await fireflySessionHolder.fetch<BindResponse>(
+        urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindEmail'),
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                email: session.payload.email,
+                otp: session.payload.passcode,
+            }),
+            signal,
+        },
+    );
+
+    const data = resolveFireflyResponseData(response);
+
+    if (session.profileId === NOT_DEPEND_SECRET) {
+        session.profileId = data.account_id;
+        session.payload = {
+            ...session.payload,
+            accountId: data.account_id,
+        };
+    }
+
+    return data;
 }
 
 /**
@@ -213,16 +249,7 @@ export async function bindOrRestoreFireflySession(session: Session, signal?: Abo
         if (FarcasterSession.isCustodyWallet(farcasterSession)) throw new NotAllowedError();
 
         if (fireflySessionHolder.session) {
-            const response = await bindFireflySession(session, signal);
-
-            if (FarcasterSession.isRelayService(session)) {
-                session.profileId = `${response.fid}`;
-
-                if (response.farcaster_signer_private_key) {
-                    session.signerRequestToken = FAKE_SIGNER_REQUEST_TOKEN;
-                    session.token = response.farcaster_signer_private_key ?? '';
-                }
-            }
+            await bindFireflySession(session, signal);
 
             // this will return the existing session
             return fireflySessionHolder.assertSession();

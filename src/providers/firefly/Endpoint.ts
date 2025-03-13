@@ -62,7 +62,6 @@ import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import type { Article, ArticlePlatform } from '@/providers/types/Article.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import {
-    type BindResponse,
     type BindWalletResponse,
     type BlockedUsersResponse,
     type BlockFields,
@@ -1092,20 +1091,8 @@ export class FireflyEndpoint {
             }),
         });
 
-        return resolveFireflyResponseData(response);
-    }
-
-    async loginEmail(email: string, passcode: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/email/login');
-        const response = await fetchJSON<LoginResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                email,
-                otp: passcode,
-            }),
-        });
-
         if (response.code === 1642) throw new OTPExceededMaximumLimit();
+
         return resolveFireflyResponseData(response);
     }
 
@@ -1120,22 +1107,6 @@ export class FireflyEndpoint {
         await fireflySessionHolder.fetchWithSession(urlcat(settings.FIREFLY_ROOT_URL, `/v3/auth/account/delete`), {
             method: 'DELETE',
         });
-    }
-
-    async bindEmail(email: string, otp: string) {
-        const response = await fireflySessionHolder.fetch<BindResponse>(
-            urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindEmail'),
-            {
-                method: 'POST',
-                body: JSON.stringify({
-                    email,
-                    otp,
-                }),
-            },
-        );
-
-        const data = resolveFireflyResponseData(response);
-        return data;
     }
 }
 

@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { FARCASTER_REPLY_URL, SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
+import { FARCASTER_REPLY_URL, NOT_DEPEND_SECRET, SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -31,10 +31,8 @@ async function createSession(signal?: AbortSignal) {
 
     const now = Date.now();
     const farcasterSession = new FarcasterSession(
-        // not available
-        '',
-        // not available
-        '',
+        NOT_DEPEND_SECRET,
+        NOT_DEPEND_SECRET,
         now,
         now,
         '',

@@ -1,0 +1,21 @@
+import { Source } from '@/constants/enum.js';
+import { NOT_DEPEND_SECRET } from '@/constants/index.js';
+import { createDummyProfileFromThirdPartySession } from '@/helpers/createDummyProfile.js';
+import { ThirdPartySession } from '@/providers/third-party/Session.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
+import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
+
+export async function createAccountByPasscode(email: string, passcode: string) {
+    const now = Date.now();
+
+    const session = new ThirdPartySession(SessionType.Email, NOT_DEPEND_SECRET, NOT_DEPEND_SECRET, now, now, {
+        email,
+        passcode,
+    });
+
+    return {
+        session,
+        fireflySession: await bindOrRestoreFireflySession(session),
+        profile: createDummyProfileFromThirdPartySession(Source.Email, session),
+    };
+}

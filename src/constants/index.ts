@@ -76,7 +76,7 @@ export const FIREFLY_SCAN_QR_CODE_COUNTDOWN = 5 * 60; // in seconds
 export const RP_HASH_TAG = '#FireflyLuckyDrop';
 
 export const HIDDEN_SECRET = '[HIDE_FROM_CLIENT]';
-export const NOT_DEPEND_HUBBLE_KEY = '[TO_BE_REPLACED_LATER]';
+export const NOT_DEPEND_SECRET = '[TO_BE_REPLACED_LATER]';
 
 export const ORB_CLUB_TAG_PREFIX = 'orbcommunities';
 
