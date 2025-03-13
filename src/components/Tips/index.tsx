@@ -13,7 +13,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { LoginModalRef, TipsModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
@@ -44,7 +44,7 @@ export function Tips({
     ref,
     onClick,
 }: TipsProps) {
-    const isLogin = useIsLogin();
+    const isLogin = useIsLoginFirefly();
     const profiles = useCurrentFireflyProfilesAll();
 
     const [{ loading }, handleClick] = useAsyncFn(async () => {

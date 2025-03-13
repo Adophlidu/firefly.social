@@ -12,6 +12,7 @@ import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
@@ -20,15 +21,17 @@ export function TipSuccess() {
     const { amount, token, recipient, handle, hash: hashUrl, socialProfiles, post } = TipsContext.useContainer();
     const currentChannel = useCurrentVisitingChannel();
     const { context } = useMatch({ from: rootRouteId });
+    const isLogin = useIsLogin();
 
     const { canShare, walletName } = useMemo(() => {
         const __origin__ = recipient?.__origin__ as WalletProfile;
-        if (!handle || !__origin__?.verifiedSources?.length || !socialProfiles.length) return { canShare: false };
+        if (!handle || !__origin__?.verifiedSources?.length || !socialProfiles.length || !isLogin)
+            return { canShare: false };
         return {
             canShare: true,
             walletName: __origin__.primary_ens || formatEthereumAddress(__origin__.address, 4),
         };
-    }, [recipient, handle, socialProfiles]);
+    }, [recipient, handle, socialProfiles, isLogin]);
 
     const profiles = uniqBy(socialProfiles, 'platform');
     const mentionHandle = profiles.find((x) => x.handle === handle) ? handle : profiles[0]?.handle;
