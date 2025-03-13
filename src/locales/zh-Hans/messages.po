@@ -197,6 +197,9 @@ msgstr ""
 msgid "Join /{name}"
 msgstr "加入 /{name}"
 
+msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1>"
+msgstr "第一次连接到 Firefly 吗？<0/>请批准与 <1>Warpcast的新连接</1>"
+
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr "隐藏 @{0}"
@@ -320,9 +323,6 @@ msgstr "元数据已冻结。"
 
 msgid "Sorry, the username or password you entered is incorrect"
 msgstr "抱歉，您输入的用户名或密码不正确"
-
-msgid "Overwrite"
-msgstr "覆盖"
 
 msgid "Tax can be modified"
 msgstr "税率可以被修改"
@@ -552,9 +552,6 @@ msgstr "代币"
 
 msgid "Search {id}"
 msgstr "搜索 {id}"
-
-msgid "Skip"
-msgstr "跳过"
 
 msgid "Confirm to log out your Firefly account?"
 msgstr ""
@@ -2591,9 +2588,6 @@ msgstr ""
 
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
-
-msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1> or <2>sync</2> through the app"
-msgstr "第一次连接到 Firefly 吗？<0/>请批准与 <1>Warpcast的新连接</1> 或者通过应用进行 <2>同步</2> 。"
 
 msgid "Your website URL"
 msgstr "您网站的 URL"

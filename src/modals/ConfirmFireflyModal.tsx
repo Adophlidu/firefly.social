@@ -76,7 +76,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                                     ConfirmFireflyModalRef.close(false);
                                 }}
                             >
-                                <Trans>Skip</Trans>
+                                <Trans>Cancel</Trans>
                             </ClickableButton>
                             <ClickableButton
                                 className="box-border flex h-10 flex-1 items-center justify-center rounded-full bg-main text-medium font-bold text-primaryBottom"
@@ -85,7 +85,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                                     ConfirmFireflyModalRef.close(true);
                                 }}
                             >
-                                <Trans>Overwrite</Trans>
+                                <Trans>Continue</Trans>
                             </ClickableButton>
                         </div>
                     </div>

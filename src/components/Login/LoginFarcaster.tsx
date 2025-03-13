@@ -326,12 +326,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                             className="font-bold hover:underline"
                                         >
                                             new connection with Warpcast
-                                        </Link>{' '}
-                                        or{' '}
-                                        <Link to={'/main'} className="font-bold hover:underline">
-                                            sync
-                                        </Link>{' '}
-                                        through the app
+                                        </Link>
                                     </Trans>
                                 ) : null}
                             </div>
