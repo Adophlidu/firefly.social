@@ -44,7 +44,7 @@ export function Tips({
     ref,
     onClick,
 }: TipsProps) {
-    const isLogin = useIsLogin(post?.source);
+    const isLogin = useIsLogin();
     const profiles = useCurrentFireflyProfilesAll();
 
     const [{ loading }, handleClick] = useAsyncFn(async () => {
