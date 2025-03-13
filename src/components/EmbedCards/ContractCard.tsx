@@ -31,6 +31,8 @@ export const ContractCard = memo<ContractCardProps>(function ContractCard({ cont
         case 'nft':
             if (nft?.__origin__) return <NFTPreviewer nft={nft.__origin__} showTradeInfo />;
             return collection ? <CollectionPreviewer collection={collection} showTradeInfo /> : null;
+        case 'unknown':
+            return null;
         default:
             safeUnreachable(contractType);
             return;

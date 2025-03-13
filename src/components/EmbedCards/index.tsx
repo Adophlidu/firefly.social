@@ -132,26 +132,22 @@ export const EmbedCards = memo(function EmbedCards({ post, ...rest }: EmbedCards
         return { links, addresses, domains };
     }, [oembedUrl, postRawContent]);
 
-    // classify links, and filter out ones that don't have nft and collection
     const classifyResults = useClassifyPostLinks(links, post);
-    const availableLinks = useMemo(() => {
-        return links.filter((_, i) => {
-            const result = classifyResults[i];
-            return result?.nft || result?.collection;
-        });
-    }, [classifyResults, links]);
-
     const domainResolveResults = useResolveEnsDomains(domains);
-    const availableDomains = useMemo(() => {
-        return domains.filter((_, i) => {
-            const result = domainResolveResults[i];
-            return result.data;
-        });
-    }, [domainResolveResults, domains]);
 
     // Merge links, addresses and domains
     const embeds = useMemo(() => {
         if (!postRawContent) return EMPTY_LIST;
+
+        const availableLinks = links.filter((_, i) => {
+            const result = classifyResults[i];
+            return result?.nft || result?.collection;
+        });
+        const availableDomains = domains.filter((_, i) => {
+            const result = domainResolveResults[i];
+            return result.data;
+        });
+
         const lowerLinks = availableLinks.map((x) => x.toLowerCase());
         const lowerDomains = availableDomains.map((x) => x.toLowerCase());
         const embeds = [
@@ -165,7 +161,7 @@ export const EmbedCards = memo(function EmbedCards({ post, ...rest }: EmbedCards
 
         const lowercasePostContent = postRawContent.toLowerCase();
         return sortBy(embeds, (x) => lowercasePostContent.indexOf(x.value.toLowerCase()));
-    }, [addresses, availableDomains, availableLinks, postRawContent]);
+    }, [addresses, classifyResults, domainResolveResults, domains, links, postRawContent]);
 
     if (!embeds.length) return null;
 
