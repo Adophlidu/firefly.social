@@ -3662,6 +3662,9 @@ msgstr "Followed <0>@{handle}</0> on {0}"
 msgid "View on explorer"
 msgstr "View on explorer"
 
+msgid "Wallet"
+msgstr "Wallet"
+
 msgid "My Accounts"
 msgstr "My Accounts"
 

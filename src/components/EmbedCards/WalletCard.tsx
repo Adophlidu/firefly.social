@@ -1,18 +1,16 @@
+import { t } from '@lingui/core/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
-import { type Address } from 'viem';
-import { useEnsName } from 'wagmi';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { AddressSocialAvatar } from '@/components/AddressSocialAvatar/index.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { SecurityBadge } from '@/components/EmbedCards/TokenSecurityBadge.js';
 import type { AddressCardProps } from '@/components/EmbedCards/types.js';
-import { useWalletDisplayName } from '@/components/EmbedCards/useWalletDisplayName.js';
 import { Image } from '@/components/Image.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tips } from '@/components/Tips/index.js';
@@ -39,10 +37,8 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
     const isDarkMode = useIsDarkMode();
     const identity = useFireflyIdentity(Source.Wallet, address);
     const networkType = getAddressType(address);
-    const { data: ens } = useEnsName({ address: address as Address });
 
     const { data: profiles = EMPTY_LIST } = useWalletRelatedProfiles(address);
-    const walletDisplayName = useWalletDisplayName(address);
 
     const { data: totalBalance } = useQuery({
         queryKey: ['wallet', 'total-balance', networkType, address],
@@ -122,9 +118,12 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                                 height={18}
                             />
                         ) : null}
-                        <strong className="text-lg font-bold leading-6 text-main">
-                            {walletDisplayName || domain || walletProfile.primary_ens || formatAddress(address, 4)}
-                        </strong>
+                        <Link
+                            href={resolveProfileUrl(Source.Wallet, address)}
+                            className="text-lg font-bold leading-6 text-main hover:underline"
+                        >
+                            {walletProfile.primary_ens || t`Wallet`}
+                        </Link>
                         {walletSecurity ? <SecurityBadge security={walletSecurity} /> : null}
                     </div>
                     <div className="flex items-center gap-2 whitespace-nowrap text-second">
@@ -152,7 +151,7 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                 </div>
                 <div className="ml-auto mr-3 flex flex-col items-end justify-between self-stretch">
                     <div className="text-right text-2xl font-bold">{`$${formatPrice(totalBalance ?? 0)}`}</div>
-                    <Tips identity={identity} handle={address || ens} pureWallet isAuthRequired={false} />
+                    <Tips identity={identity} pureWallet isAuthRequired={false} />
                 </div>
             </div>
         </>

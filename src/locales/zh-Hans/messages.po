@@ -3667,6 +3667,9 @@ msgstr "在 {0} 上关注了 <0>@{handle}</0>"
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"
 
+msgid "Wallet"
+msgstr ""
+
 msgid "My Accounts"
 msgstr ""
 

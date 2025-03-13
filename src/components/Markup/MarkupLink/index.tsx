@@ -186,7 +186,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
             <>
                 {start}
                 <ErrorBoundary message={`Failed to render domain tag for ${trimmed}`}>
-                    <DomainTag title={trimmed} source={source} />;
+                    <DomainTag title={trimmed} source={source} />
                 </ErrorBoundary>
             </>
         );

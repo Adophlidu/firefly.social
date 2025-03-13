@@ -8,6 +8,7 @@ import XFillIcon from '@/assets/x-fill.svg';
 import { Source } from '@/constants/enum.js';
 import { EMBED_CARD_SOURCE_PRIORITY, EMPTY_LIST } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { useWalletRelatedProfiles } from '@/hooks/useWalletRelatedProfiles.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { FarcasterProfile, WalletProfile } from '@/providers/types/Firefly.js';
@@ -37,6 +38,8 @@ export const AddressSocialAvatar = memo<AddressSocialAvatarProps>(function Addre
     const avatar = useMemo(() => {
         const sorted = sortBy(profiles, (x) => {
             const index = EMBED_CARD_SOURCE_PRIORITY.indexOf(x.identity.source);
+            if (x.identity.source === Source.Wallet && isSameAddress(x.identity.id, address))
+                return EMBED_CARD_SOURCE_PRIORITY.length;
             return index === -1 ? Number.MAX_SAFE_INTEGER : index;
         });
         for (const profile of sorted) {
@@ -61,7 +64,7 @@ export const AddressSocialAvatar = memo<AddressSocialAvatarProps>(function Addre
             }
         }
         return { source: Source.Wallet, url: fallbackAvatar };
-    }, [fallbackAvatar, profiles, ensAvatar]);
+    }, [profiles, fallbackAvatar, address, ensAvatar]);
 
     const { data: lensAvatar } = useQuery({
         enabled: avatar?.source === Source.Lens,

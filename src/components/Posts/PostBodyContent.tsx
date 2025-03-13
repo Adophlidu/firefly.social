@@ -195,8 +195,6 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
                 <ContentTranslator content={trimify(postContent)} canShowMore={canShowMore} post={post} />
             ) : null}
 
-            {EncryptedContent}
-
             {canShowMore ? (
                 <div className="text-medium font-bold text-highlight">
                     <div
@@ -210,6 +208,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
             ) : null}
 
             <EmbedCards post={post} />
+            {EncryptedContent}
 
             {/* Poll */}
             {!hasEncryptedPayload && !decodingImage ? (

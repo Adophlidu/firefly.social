@@ -8,9 +8,10 @@ import { Link } from '@/components/Link.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
-import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
+import { resolveNFTUrl, resolveNFTUrlByCollection } from '@/helpers/resolveNFTUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
+import { useNFTCollection } from '@/hooks/useNFTCollection.js';
+import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 interface AddressTagProps extends Omit<MarkupLinkProps, 'post'> {
@@ -23,6 +24,14 @@ export const AddressTag = memo<AddressTagProps>(function AddressTag({ title, add
         queryFn: () => FireflyEndpointProvider.detectAddress(address),
         select: (data) => data.list.filter(isAvailableAddress)[0],
     });
+    const isNFTCollection = data
+        ? data.address_type === 'contract' && ['ERC721', 'ERC1155', 'nft'].includes(data.contract_type)
+        : false;
+    const chainId = data?.chain_id ? +data.chain_id : undefined;
+
+    const { data: collection, isLoading: isLoadingCollection } = useNFTCollection(address, chainId, isNFTCollection);
+    const { data: nft, isLoading: isLoadingNFT } = useNFTDetail(address, undefined, chainId);
+
     if (!data || isLoading) return title;
 
     switch (data.address_type) {
@@ -44,7 +53,7 @@ export const AddressTag = memo<AddressTagProps>(function AddressTag({ title, add
                 </span>
             );
         case 'contract':
-            const isNFT = ['ERC721', 'ERC1155', 'nft'].includes(data.contract_type);
+            if (isLoadingCollection && isLoadingNFT) return title;
             return (
                 <span className="inline-flex items-center gap-1">
                     <Image
@@ -62,7 +71,11 @@ export const AddressTag = memo<AddressTagProps>(function AddressTag({ title, add
                             e.stopPropagation();
                         }}
                         prefetch={false}
-                        href={isNFT ? resolveNFTUrl(address, data.chain_id) : resolveTokenPageUrl(address, undefined)}
+                        href={
+                            collection
+                                ? resolveNFTUrlByCollection(collection.collection_id)
+                                : resolveNFTUrl(chainId || '', address, nft?.id)
+                        }
                     >
                         {title}
                     </Link>

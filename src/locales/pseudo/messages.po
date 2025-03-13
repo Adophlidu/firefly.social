@@ -3646,6 +3646,9 @@ msgstr ""
 msgid "View on explorer"
 msgstr ""
 
+msgid "Wallet"
+msgstr ""
+
 msgid "My Accounts"
 msgstr ""
 
