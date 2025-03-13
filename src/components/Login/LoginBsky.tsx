@@ -22,7 +22,7 @@ import { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder, createAgentOnce } from '@/providers/bsky/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import { type AccountOptions, addAccount } from '@/services/account.js';
-import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
+import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { useBskyStateStore } from '@/store/useProfileStore.js';
 
 async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {

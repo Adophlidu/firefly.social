@@ -3,7 +3,7 @@ import { NOT_DEPEND_SECRET } from '@/constants/index.js';
 import { createDummyProfileFromThirdPartySession } from '@/helpers/createDummyProfile.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
+import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 
 export async function createAccountByPasscode(email: string, passcode: string) {
     const now = Date.now();

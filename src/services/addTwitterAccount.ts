@@ -5,7 +5,7 @@ import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import { addAccount } from '@/services/account.js';
-import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
+import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 
 export async function addTwitterAccount(payload: SessionPayload, isNew = false) {
     const profile = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;

@@ -19,7 +19,7 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { addAccount } from '@/services/account.js';
-import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
+import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 import { DeviceType } from '@/types/device.js';
 import type { NextPageProps } from '@/types/index.js';

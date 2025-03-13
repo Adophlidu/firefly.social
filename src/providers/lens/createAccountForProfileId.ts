@@ -9,7 +9,7 @@ import { parseJSON } from '@/helpers/parseJSON.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
+import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 
 export async function createAccountForProfileId(profile: Profile, signal?: AbortSignal) {
     const walletClient = await getWalletClientRequired(config, {

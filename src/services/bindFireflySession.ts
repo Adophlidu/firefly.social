@@ -1,14 +1,8 @@
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
-import {
-    AuthenticationError,
-    FarcasterAlreadyBoundError,
-    NotAllowedError,
-    UnreachableError,
-} from '@/constants/error.js';
+import { FarcasterAlreadyBoundError, NotAllowedError, UnreachableError } from '@/constants/error.js';
 import { NOT_DEPEND_SECRET } from '@/constants/index.js';
-import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getDidServiceHost } from '@/helpers/getDidServiceHost.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
@@ -21,7 +15,6 @@ import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { BindResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJSON } from '@/types/index.js';
 
@@ -214,7 +207,7 @@ export async function bindEmailSessionToFirefly(session: ThirdPartySession, sign
  * @param signal
  * @returns
  */
-async function bindFireflySession(session: Session, signal?: AbortSignal) {
+export async function bindFireflySession(session: Session, signal?: AbortSignal) {
     // Ensure that the Firefly session is resumed before calling this function.
     fireflySessionHolder.assertSession();
 
@@ -240,34 +233,5 @@ async function bindFireflySession(session: Session, signal?: AbortSignal) {
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('[bindFireflySession] session type', session.type);
-    }
-}
-
-export async function bindOrRestoreFireflySession(session: Session, signal?: AbortSignal) {
-    try {
-        const farcasterSession = session as FarcasterSession;
-        if (FarcasterSession.isCustodyWallet(farcasterSession)) throw new NotAllowedError();
-
-        if (fireflySessionHolder.session) {
-            await bindFireflySession(session, signal);
-
-            // this will return the existing session
-            return fireflySessionHolder.assertSession();
-        } else {
-            throw new AuthenticationError('[bindOrRestoreFireflySession] Firefly session is not available.');
-        }
-    } catch (error) {
-        // enqueue error message later
-        if (error instanceof FarcasterAlreadyBoundError) {
-            throw error;
-        }
-
-        if (error instanceof Error && error.message.includes('This apple already bound to the other account')) {
-            enqueueWarningMessage('This Apple account is already linked to another Firefly account.');
-            throw error;
-        }
-
-        // this will create a new session
-        return restoreFireflySession(session, signal);
     }
 }

@@ -40,7 +40,7 @@ import { type Profile, type ProfileEditable, SessionType } from '@/providers/typ
 import type { ThirdPartySessionType } from '@/providers/types/ThirdParty.js';
 import { addAccount } from '@/services/account.js';
 import { addTwitterAccount } from '@/services/addTwitterAccount.js';
-import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
+import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
 
 export interface ProfileState {
