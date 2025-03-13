@@ -78,7 +78,7 @@ export function LoginModal({ ref }: Props) {
     const Router = <RouterProvider router={routerRef.current} />;
 
     return (
-        <Modal open={open} onClose={() => dispatch?.close()} enableBackdrop={isMedium}>
+        <Modal open={open} onClose={() => dispatch?.close()} enableBackdrop={isMedium} disableScrollLock={isMedium}>
             <div className="max-md:h-[100vh] max-md:w-[100vw]">{Router}</div>
         </Modal>
     );

@@ -17,13 +17,14 @@ import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage }
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import type { FireflySession } from '@/providers/firefly/Session.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { thirdPartySessionHolder } from '@/providers/third-party/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { type AccountOptions, addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
-import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
+import { useFireflyStateStore, useThirdPartyStateStore } from '@/store/useProfileStore.js';
 
 async function loginEmail(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
     try {
@@ -50,6 +51,7 @@ async function loginEmail(createAccount: () => Promise<Account>, options?: Omit<
 }
 
 export function LoginEmail() {
+    const { currentProfileSession } = useFireflyStateStore();
     const controller = useAbortController();
     const [email, setEmail] = useState('');
     const [passcode, setPasscode] = useState('');
@@ -72,26 +74,44 @@ export function LoginEmail() {
         try {
             await loginEmail(
                 async () => {
-                    const data = await FireflyEndpointProvider.loginEmail(email, passcode);
-                    const now = Date.now();
-                    const session = new ThirdPartySession(
-                        SessionType.Email,
-                        data.accountId,
-                        data.accessToken,
-                        now,
-                        now,
-                        {
+                    if (currentProfileSession) {
+                        const data = await FireflyEndpointProvider.bindEmail(email, passcode);
+                        const now = Date.now();
+
+                        const session = new ThirdPartySession(SessionType.Email, data.account_id, '', now, now, {
                             email,
                             passcode,
+                            accountId: data.account_id,
                             ...data,
-                        },
-                    );
+                        });
 
-                    return {
-                        session,
-                        fireflySession: await bindOrRestoreFireflySession(session),
-                        profile: createDummyProfileFromThirdPartySession(Source.Email, session),
-                    };
+                        return {
+                            session,
+                            fireflySession: currentProfileSession as FireflySession,
+                            profile: createDummyProfileFromThirdPartySession(Source.Email, session),
+                        };
+                    } else {
+                        const data = await FireflyEndpointProvider.loginEmail(email, passcode);
+                        const now = Date.now();
+                        const session = new ThirdPartySession(
+                            SessionType.Email,
+                            data.accountId,
+                            data.accessToken,
+                            now,
+                            now,
+                            {
+                                email,
+                                passcode,
+                                ...data,
+                            },
+                        );
+
+                        return {
+                            session,
+                            fireflySession: await bindOrRestoreFireflySession(session),
+                            profile: createDummyProfileFromThirdPartySession(Source.Email, session),
+                        };
+                    }
                 },
                 {
                     signal: controller.current.signal,
@@ -101,7 +121,7 @@ export function LoginEmail() {
             enqueueMessageFromError(error, t`Connection failed.`);
             throw error;
         }
-    }, [controller, email, passcode]);
+    }, [controller, email, passcode, currentProfileSession]);
 
     return (
         <form className="box-border flex w-[452px] flex-col items-center gap-[20px] px-6 pb-6 max-md:w-full">
