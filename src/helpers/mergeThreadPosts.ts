@@ -122,9 +122,9 @@ function mergeThreadPostsForTweet(posts: Post[]) {
 function mergeThreadPostsForBsky(posts: Post[]) {
     const rootPostMap = new Map(posts.map((post) => [post.publicationId, post]));
     return uniqBy(posts, (x) => {
-        if (x.type === 'Mirror') return `Mirror:${x.publicationId}`;
+        if (x.type === 'Mirror') return `Mirror:${x.postId}`;
         if (x.type === 'Comment' && x.rootPostId) return x.rootPostId;
-        return x.publicationId;
+        return x.postId;
     }).map((post) => {
         if (post.type === 'Comment' && isSameProfile(post.commentOn?.author, post.author)) {
             return {
