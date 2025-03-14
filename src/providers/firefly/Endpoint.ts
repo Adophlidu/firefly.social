@@ -649,6 +649,17 @@ export class FireflyEndpoint {
     }
 
     async disconnectAccount(connectionId: string, connectionPlatform: ConnectionPlatform) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/accountConnection');
+        await fireflySessionHolder.fetch<EmptyResponse>(url, {
+            method: 'DELETE',
+            body: JSON.stringify({
+                connectionPlatform,
+                connectionId,
+            }),
+        });
+    }
+
+    async disconnectAccountWithRelatedWallet(connectionId: string, connectionPlatform: ConnectionPlatform) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection');
         await fireflySessionHolder.fetch<EmptyResponse>(url, {
             method: 'DELETE',
