@@ -3271,6 +3271,9 @@ msgstr "接收"
 msgid "NFT holder"
 msgstr "NFT 持有者"
 
+msgid "Select Network"
+msgstr ""
+
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr "请连接一个EVM钱包和一个Solana钱包以体验Firefly的链上功能。"
 
