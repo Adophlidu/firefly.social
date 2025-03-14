@@ -1128,9 +1128,6 @@ msgstr ""
 msgid "THREAD POST"
 msgstr ""
 
-msgid "Connection failed."
-msgstr ""
-
 msgid "Frame Validator"
 msgstr ""
 
@@ -2999,6 +2996,10 @@ msgid "Enter Amount Each"
 msgstr ""
 
 msgid "Submit a wallet to receive NFT"
+msgstr ""
+
+#. placeholder {0}: error.message
+msgid "Connection failed. {0}"
 msgstr ""
 
 #. placeholder {0}: outcome.toUpperCase()

@@ -180,3 +180,9 @@ export class OTPExceededMaximumLimit extends Error {
         super(message ?? 'OTP exceeded maximum limit.');
     }
 }
+
+export class LoginEmailError extends Error {
+    constructor(message?: string) {
+        super(message ?? 'The code you’ve entered is incorrect, please try again.');
+    }
+}

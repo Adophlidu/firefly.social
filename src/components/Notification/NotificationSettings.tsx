@@ -13,6 +13,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { type NotificationSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveNotificationIcon } from '@/helpers/resolveNotificationIcon.js';
+import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { NotificationType } from '@/providers/types/SocialMedia.js';
 import { useNotificationStateStore } from '@/store/useNotificationStore.js';
@@ -21,12 +22,14 @@ export function NotificationSettings({ source }: { source: NotificationSource })
     const { setTypes, setEnableQualityFilter, ...typesState } = useNotificationStateStore();
     const { types: selectedTypes, enableQualityFilter } = typesState[source];
 
+    const asyncStatus = useAsyncStatus(Source.Bsky);
+
     const {
         data: enabledForBsky,
         isLoading,
         refetch,
     } = useQuery({
-        queryKey: ['bsky-notification-push-switch'],
+        queryKey: ['bsky-notification-push-switch', asyncStatus],
         staleTime: 1000 * 60 * 3, // 3 minutes
         async queryFn() {
             if (source !== Source.Bsky) return;
@@ -127,7 +130,17 @@ export function NotificationSettings({ source }: { source: NotificationSource })
                     const checked = types.every((type) => selectedTypes.includes(type));
 
                     return (
-                        <div className="flex items-center justify-between" key={index}>
+                        <div
+                            className="flex cursor-pointer items-center justify-between"
+                            key={index}
+                            onClick={() => {
+                                const result = !checked
+                                    ? [...selectedTypes, ...types]
+                                    : selectedTypes.filter((x) => !types.includes(x));
+
+                                setTypes(source, result);
+                            }}
+                        >
                             <div
                                 className={classNames('flex text-sm font-bold leading-[18px]', {
                                     'text-secondary': !selectedTypes.length,
@@ -139,14 +152,7 @@ export function NotificationSettings({ source }: { source: NotificationSource })
                             <CircleCheckboxIcon
                                 size={18}
                                 checked={checked}
-                                className={checked ? 'cursor-pointer text-lightHighlight' : 'cursor-pointer'}
-                                onClick={() => {
-                                    const result = !checked
-                                        ? [...selectedTypes, ...types]
-                                        : selectedTypes.filter((x) => !types.includes(x));
-
-                                    setTypes(source, result);
-                                }}
+                                className={checked ? 'text-lightHighlight' : undefined}
                             />
                         </div>
                     );

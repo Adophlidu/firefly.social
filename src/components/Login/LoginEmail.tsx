@@ -12,7 +12,7 @@ import { SendPasscodeButton } from '@/components/Login/SendPasscodeButton.js';
 import { AsyncStatus } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { EMAIL_REGEX } from '@/constants/regexp.js';
-import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { createAccountByPasscode } from '@/providers/email/createAccountByPasscode.js';
@@ -54,14 +54,18 @@ export function LoginEmail() {
     const emailRef = useRef<HTMLInputElement>(null);
     const passcodeRef = useRef<HTMLInputElement>(null);
 
+    const isValidEmail = EMAIL_REGEX.test(email);
+
+    const isValidPasscode = passcode.length === 6 && passcode.match(/^\d+$/);
+
     const [{ loading }, login] = useAsyncFn(async () => {
         controller.current.renew();
-        if (!EMAIL_REGEX.test(email)) {
+        if (!isValidEmail) {
             enqueueWarningMessage(t`Sorry, the email you entered is invalid`);
             return;
         }
 
-        if (passcode.length !== 6) {
+        if (!isValidPasscode) {
             enqueueWarningMessage(t`Sorry, the passcode you entered is invalid`);
             return;
         }
@@ -71,10 +75,10 @@ export function LoginEmail() {
                 signal: controller.current.signal,
             });
         } catch (error) {
-            enqueueMessageFromError(error, t`Connection failed.`);
+            if (error instanceof Error) enqueueErrorMessage(t`Connection failed. ${error.message}`);
             throw error;
         }
-    }, [controller, email, passcode]);
+    }, [controller, email, passcode, isValidEmail, isValidPasscode]);
 
     return (
         <form className="box-border flex w-[452px] flex-col items-center gap-[20px] px-6 pb-6 max-md:w-full">
@@ -142,11 +146,11 @@ export function LoginEmail() {
                             />
                         ) : null}
                     </div>
-                    <SendPasscodeButton email={email} disabled={!email} />
+                    <SendPasscodeButton email={email} disabled={!email || !isValidEmail} />
                 </div>
                 <ClickableButton
                     className="flex h-[42px] w-full items-center justify-center gap-1 rounded-full border border-line bg-lightMain text-primaryBottom"
-                    disabled={loading || !email || !passcode}
+                    disabled={loading || !email || !passcode || !isValidEmail || !isValidPasscode}
                     onClick={() => login()}
                 >
                     {loading ? (

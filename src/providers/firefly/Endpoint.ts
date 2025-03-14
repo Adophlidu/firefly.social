@@ -1,7 +1,7 @@
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { produce } from 'immer';
-import { compact } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 import { type Address, type Hex, isAddress, isHex } from 'viem';
 
@@ -1084,14 +1084,20 @@ export class FireflyEndpoint {
 
     async generateEmailOTP(email: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/email/generateOTP');
-        const response = await fetchJSON<GenerateOTPResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                email,
-            }),
-        });
+        const response = await fetchJSON<GenerateOTPResponse>(
+            url,
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    email,
+                }),
+            },
+            {
+                noStrictOK: true,
+            },
+        );
 
-        if (response.code === 1642) throw new OTPExceededMaximumLimit();
+        if (response.code === 1642) throw new OTPExceededMaximumLimit(first(response.error));
 
         return resolveFireflyResponseData(response);
     }

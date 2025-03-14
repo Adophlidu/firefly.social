@@ -24,6 +24,7 @@ import { formatBskyChannel } from '@/helpers/formatBskyChannel.js';
 import { formatBskyFeedPost, formatBskyPost, formatBskyThreadPosts } from '@/helpers/formatBskyFeedPost.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import { getBskyProfileBySession } from '@/helpers/getBskyProfileBySession.js';
+import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -437,7 +438,7 @@ export class BskySocialMedia implements Provider {
     ): Promise<Pageable<Notification, PageIndicator>> {
         const response = await bskySessionHolder.agent.listNotifications({
             limit: 25,
-            cursor: indicator?.id,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
         const data = resolveBskyResponseData(response, 'Failed to get notifications.');
 

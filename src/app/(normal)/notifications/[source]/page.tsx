@@ -11,6 +11,7 @@ import { EMPTY_LIST, SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
+import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginNotifications } from '@/hooks/useIsLogin.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
@@ -30,13 +31,14 @@ export default function Notification(props: Props) {
     const source = resolveSource(params.source) as NotificationSource;
     const isLogin = useIsLoginNotifications(source);
     const profilesAll = useCurrentProfilesAll();
+    const asyncStatusAll = useAsyncStatusAll();
 
     const typesState = useNotificationStateStore();
 
     const { types, enableQualityFilter } = typesState[source];
 
     const queryResult = useMultiInfiniteQueryPageable(
-        ['notifications', source, isLogin, enableQualityFilter],
+        ['notifications', source, isLogin, enableQualityFilter, asyncStatusAll],
         SOCIAL_DISCOVER_SOURCE.filter((x) => {
             if (source === Source.Notifications) return !!profilesAll[x];
             return x === source;

@@ -1133,9 +1133,6 @@ msgstr "会话验证器"
 msgid "THREAD POST"
 msgstr "THREAD 发帖"
 
-msgid "Connection failed."
-msgstr ""
-
 msgid "Frame Validator"
 msgstr "Frame 验证器"
 
@@ -3018,6 +3015,10 @@ msgstr "输入每个金额"
 
 msgid "Submit a wallet to receive NFT"
 msgstr "提交您的钱包以领取您的 NFT"
+
+#. placeholder {0}: error.message
+msgid "Connection failed. {0}"
+msgstr ""
 
 #. placeholder {0}: outcome.toUpperCase()
 msgid "Settled as {0}"

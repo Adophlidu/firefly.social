@@ -22,19 +22,19 @@ const useNotificationStateBase = create<NotificationState, [['zustand/persist', 
         immer((set, get) => ({
             [Source.Farcaster]: {
                 types: [],
-                enableQualityFilter: false,
+                enableQualityFilter: true,
             },
             [Source.Lens]: {
                 types: [],
-                enableQualityFilter: false,
+                enableQualityFilter: true,
             },
             [Source.Notifications]: {
                 types: [],
-                enableQualityFilter: false,
+                enableQualityFilter: true,
             },
             [Source.Bsky]: {
                 types: [],
-                enableQualityFilter: false,
+                enableQualityFilter: true,
             },
             setTypes: (source, types) => {
                 set((state) => {
