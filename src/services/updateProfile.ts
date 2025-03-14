@@ -75,7 +75,7 @@ export async function updateProfile(profile: Profile, profileEditable: ProfileEd
 
     queryClient.setQueryData(['profile', profile.source, profile.profileId], queryClientUpdater);
     queryClient.setQueryData(['profile', profile.source, profile.handle], queryClientUpdater);
-
     setCurrentProfileInPosts(profile, profileEditable);
     updateCurrentProfileInState(profile.source, profileEditable);
+    await queryClient.refetchQueries({ queryKey: ['allConnections'] });
 }

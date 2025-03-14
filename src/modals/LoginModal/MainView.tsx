@@ -175,20 +175,24 @@ export function MainView() {
                             {profileStore[source].accounts.map((account, index) => {
                                 const isCurrent = isSameProfile(profilesAll[source], account.profile);
                                 return (
-                                    <div className="flex items-center justify-between p-2" key={index}>
-                                        <div className="flex items-center gap-2">
+                                    <div className="flex min-w-0 items-center justify-between p-2" key={index}>
+                                        <div className="mr-2 flex min-w-0 items-center gap-2">
                                             <ProfileAvatar
                                                 profile={account.profile}
                                                 enableSourceIcon={false}
                                                 size={40}
                                             />
-                                            <div className="flex flex-col items-start text-[14px] leading-5">
-                                                <span className="font-bold">{account.profile.displayName}</span>
-                                                <span className="text-secondary">@{account.profile.handle}</span>
+                                            <div className="flex min-w-0 flex-col items-start text-[14px] leading-5">
+                                                <span className="max-w-full truncate font-bold">
+                                                    {account.profile.displayName}
+                                                </span>
+                                                <span className="max-w-full truncate text-secondary">
+                                                    @{account.profile.handle}
+                                                </span>
                                             </div>
                                         </div>
                                         {isCurrent ? (
-                                            <CircleCheckboxIcon className="text-lightHighlight" checked />
+                                            <CircleCheckboxIcon className="shrink-0 text-lightHighlight" checked />
                                         ) : (
                                             <SwitchIcon
                                                 className="h-5 w-5 cursor-pointer"
