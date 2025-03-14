@@ -1,7 +1,7 @@
 import { noop } from 'lodash-es';
+import type { Subscription } from 'use-subscription';
 
 import type { ValueRef } from '@/libs/ValueRef.js';
-import type { Subscription } from '@/types/subscription.js';
 
 export function createConstantSubscription<T>(value: T): Subscription<T> {
     return {
