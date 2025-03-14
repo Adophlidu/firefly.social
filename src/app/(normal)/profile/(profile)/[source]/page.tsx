@@ -66,7 +66,7 @@ export default function Page(props: Props) {
                     })}
                 </nav>
             </div>
-            <NotLoginFallback source={source} className="!pt-0" />
+            <NotLoginFallback source={source} />
         </>
     );
 }
