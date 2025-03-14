@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-03-04 12:01\n"
+"PO-Revision-Date: 2025-03-14 02:53\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -34,7 +34,7 @@ msgid "Do you want to retry with the full or remaining content?"
 msgstr "您想尝试重新发送或者仅发送剩余部分吗？"
 
 msgid "Connected wallets"
-msgstr "连接中钱包"
+msgstr "已绑定的钱包"
 
 msgid "Stealing attack found."
 msgstr "发现盗窃攻击。"
@@ -1517,7 +1517,7 @@ msgid "Choice {0}"
 msgstr "选项 {0}"
 
 msgid "Posted on the following apps since August 1, 2024, and new Firefly users only:"
-msgstr "自2024年8月1日起，使用以下应用程序发布过帖子；仅限新注册的Firefly用户参与："
+msgstr "自 2024 年 8 月 1 日起，使用以下应用程序发布过帖子；仅限新注册的 Firefly 用户参与："
 
 msgid "More details"
 msgstr "详细信息"
@@ -3275,7 +3275,7 @@ msgid "Select Network"
 msgstr ""
 
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
-msgstr "请连接一个EVM钱包和一个Solana钱包以体验Firefly的链上功能。"
+msgstr "请连接一个 EVM 钱包和一个 Solana 钱包以体验 Firefly 的链上功能。"
 
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
@@ -3492,7 +3492,7 @@ msgid "You may lose your assets if giving approval to the website of this token.
 msgstr "如果您授权此通证给这个网站，您可能会丢失您的资产。"
 
 msgid "Platform filter"
-msgstr ""
+msgstr "筛选社交平台"
 
 msgid "Unfollow"
 msgstr "取消关注"
@@ -3533,7 +3533,7 @@ msgid "All chains"
 msgstr "所有链"
 
 msgid "Your email is now connected."
-msgstr ""
+msgstr "您的邮箱已连接。"
 
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "显示名称不可以超过 {maxDisplayNameSize} 个字"
@@ -3681,7 +3681,7 @@ msgid "Wallet"
 msgstr ""
 
 msgid "My Accounts"
-msgstr ""
+msgstr "我的社交账号"
 
 #. placeholder {0}: profile.handle
 msgid "Unmute @{0}"
@@ -3759,7 +3759,7 @@ msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>从 </0> <1>{0}</1>"
 
 msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
-msgstr ""
+msgstr "确认将此钱包及其关联账户与 Firefly 解绑？"
 
 msgid "{hours}h left"
 msgstr "{hours} 小时剩余"
@@ -3920,6 +3920,8 @@ msgstr "最大供应量"
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
 msgstr ""
+"如果您使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助您整合社交账号。\n"
+"但如果您只是想访问另一个社交账号绑定的 Firefly 钱包，建议您切换账户，而不是删除账户。"
 
 #. placeholder {0}: post.author.displayName
 msgid "Posted by {0} via Firefly"
@@ -3955,7 +3957,7 @@ msgstr "GIF"
 #. placeholder {0}: market_cap ? `$${formatMarketCap(market_cap)}` : '-'
 #. placeholder {1}: rank ? ( <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white"> Rank #{rank} </span> ) : null
 msgid "<0>{0}</0><1>MC</1>{1}"
-msgstr ""
+msgstr "<0>{0}</0><1>市值</1>{1}"
 
 msgid "Ethereum JSON RPC"
 msgstr "以太坊 JSON RPC"
@@ -4009,7 +4011,7 @@ msgid "Continue"
 msgstr "继续"
 
 msgid "One-time passcode"
-msgstr ""
+msgstr "一次性验证码"
 
 msgid "Copy frame URL"
 msgstr "复制 Frame URL"
@@ -4037,7 +4039,7 @@ msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
 msgstr "您是 <0>truePengu</0> 或 <1>penguPins</1> 灵魂绑定NFT系列的持有者"
 
 msgid "Are you sure you want to continue?"
-msgstr ""
+msgstr "您确定要继续吗？"
 
 msgid "Text"
 msgstr "文本"
@@ -4088,10 +4090,10 @@ msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firef
 msgstr "如有任何疑问，请<0>联系我们</0>。Firefly 保留所有权利。"
 
 msgid "Different Account Detected"
-msgstr ""
+msgstr "检测到账户冲突"
 
 msgid "No connected wallet."
-msgstr ""
+msgstr "没有已连接的钱包。"
 
 msgid "Hours"
 msgstr "小时"
