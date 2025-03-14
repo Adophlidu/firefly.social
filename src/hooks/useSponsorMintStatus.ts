@@ -9,7 +9,7 @@ export function useSponsorMintStatus(options: SponsorMintOptions, enabled = true
 
     return useQuery({
         queryKey: ['sponsor-mint-status', account.address, options.chainId, options.contractAddress, options.tokenId],
-        enabled: !!account.address && enabled,
+        enabled,
         queryFn: async () => {
             return FireflyEndpointProvider.getSponsorMintStatus(options);
         },
