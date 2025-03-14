@@ -9,12 +9,13 @@ interface EmbedLinkCardProps extends HTMLProps<HTMLDivElement> {
     post: Post;
 }
 
-export const EmbedLinkCard = memo<EmbedLinkCardProps>(function EmbedLinkCard({ link, post }) {
+export const EmbedLinkCard = memo<EmbedLinkCardProps>(function EmbedLinkCard({ link, post, className }) {
     const { isLoading, error, data } = useClassifyPostLink(link, post);
 
     if (isLoading || error || !data) return null;
 
-    if (data.nft) return <NFTPreviewer nft={data.nft} showTradeInfo />;
-    if (data.collection) return <CollectionPreviewer collection={data.collection} showTradeInfo />;
+    if (data.nft) return <NFTPreviewer nft={data.nft} showTradeInfo className={className} />;
+    if (data.collection)
+        return <CollectionPreviewer collection={data.collection} showTradeInfo className={className} />;
     return null;
 });

@@ -29,8 +29,10 @@ export const ContractCard = memo<ContractCardProps>(function ContractCard({ cont
         case 'ERC721':
         case 'ERC1155':
         case 'nft':
-            if (nft?.__origin__) return <NFTPreviewer nft={nft.__origin__} showTradeInfo />;
-            return collection ? <CollectionPreviewer collection={collection} showTradeInfo /> : null;
+            if (nft?.__origin__) return <NFTPreviewer className={rest.className} nft={nft.__origin__} showTradeInfo />;
+            return collection ? (
+                <CollectionPreviewer className={rest.className} collection={collection} showTradeInfo />
+            ) : null;
         case 'unknown':
             return null;
         default:

@@ -51,7 +51,7 @@ export function SwapModal({ chainId, chainIds, address, ...rest }: Props) {
             ? {
                   fromChain: chainId,
                   toChain: chainId,
-                  fromToken: isZeroAddress(address) ? NATIVE_TOKEN_ADDRESS : address,
+                  toToken: isZeroAddress(address) ? NATIVE_TOKEN_ADDRESS : address,
               }
             : {
                   fromChain: chainId,

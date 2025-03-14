@@ -7,6 +7,7 @@ import PriceArrow from '@/assets/price-arrow.svg';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { SecurityBadge } from '@/components/EmbedCards/TokenSecurityBadge.js';
 import type { AddressCardProps } from '@/components/EmbedCards/types.js';
+import { Link } from '@/components/Link.js';
 import { SwapModal } from '@/components/SwapModal/index.js';
 import { TokenContext } from '@/components/Token/TokenContext.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
@@ -16,6 +17,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
+import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useCoinPrice24hStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import type { Dimension } from '@/hooks/useLineChart.js';
@@ -71,6 +73,7 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
     if (!token) return null;
     const price = attributes?.price_usd;
     const market_cap = attributes?.market_cap_usd;
+    const tokenPageUrl = resolveTokenPageUrl(address, chainId);
 
     const rank = token.rank || trending?.coin.market_cap_rank;
     return (
@@ -78,7 +81,7 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
             <div
                 {...rest}
                 className={classNames(
-                    'flex items-center gap-1.5 rounded-2xl border border-line bg-bg p-3',
+                    'flex cursor-default items-center gap-1.5 rounded-2xl border border-line bg-lightBg p-3',
                     rest.className,
                 )}
                 onClick={(e) => {
@@ -87,23 +90,27 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
             >
                 <div className="flex flex-col">
                     <div className="flex items-center gap-2 whitespace-nowrap text-second">
-                        <TokenIcon
-                            icon={token.logoURL || `https://stamp.firefly.land/logo/${address}`}
-                            chainId={chainId}
-                            alt={token.name}
-                            width={30}
-                            height={30}
-                        />
-                        <strong className="ml-[2px] text-lg font-bold uppercase text-main">{token.symbol}</strong>
+                        <Link href={tokenPageUrl}>
+                            <TokenIcon
+                                icon={token.logoURL || `https://stamp.firefly.land/logo/${address}`}
+                                chainId={chainId}
+                                alt={token.name}
+                                width={30}
+                                height={30}
+                            />
+                        </Link>
+                        <Link className="ml-[2px] text-lg font-bold uppercase text-main" href={tokenPageUrl}>
+                            {token.symbol}
+                        </Link>
                         {tokenSecurity ? <SecurityBadge security={tokenSecurity} /> : null}
-                        <span className="max-w-28 truncate font-inter text-medium font-bold">
+                        <span className="max-w-28 truncate font-inter text-sm font-bold text-third">
                             {formatAddress(address, 4)}
                         </span>
                         <CopyTextButton text={address} />
                     </div>
                     <div className="line-height-[22px] flex items-center gap-1">
                         <Trans>
-                            <strong className="text-medium font-bold">
+                            <strong className="text-2xl font-bold leading-[22px]">
                                 {market_cap ? `$${formatMarketCap(market_cap)}` : '-'}
                             </strong>
                             <span className="text-medium text-secondary" title={t`Market Cap`}>

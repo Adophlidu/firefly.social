@@ -16,6 +16,7 @@ import { PoapTrait } from '@/components/NFTDetail/PoapTrait.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
+import { classNames } from '@/helpers/classNames.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
@@ -31,6 +32,7 @@ import type { SimpleHash } from '@/providers/simplehash/type.js';
 interface NFTPreviewProps {
     nft: SimpleHash.NFT;
     showTradeInfo?: boolean;
+    className?: string;
 }
 
 interface BasePreviewContentProps {
@@ -50,6 +52,7 @@ interface BasePreviewContentProps {
         ownerAddress?: string;
     };
     showTradeInfo?: boolean;
+    className?: string;
 }
 
 function BasePreviewContent(props: BasePreviewContentProps) {
@@ -157,7 +160,10 @@ function BasePreviewContent(props: BasePreviewContentProps) {
     );
 
     return (
-        <div className="relative w-[300px] overflow-hidden rounded-xl bg-bg text-left" onClick={stopPropagation}>
+        <div
+            className={classNames('relative w-[300px] overflow-hidden rounded-xl bg-bg text-left', props.className)}
+            onClick={stopPropagation}
+        >
             {props.link ? <Link href={props.link}>{content}</Link> : content}
             {props.bookmarkProps ? (
                 <BookmarkInIcon {...props.bookmarkProps} className="absolute right-5 top-[18px]" />
@@ -166,7 +172,7 @@ function BasePreviewContent(props: BasePreviewContentProps) {
     );
 }
 
-export const NFTPreviewer = memo(function NFTPreview({ nft, showTradeInfo }: NFTPreviewProps) {
+export const NFTPreviewer = memo(function NFTPreview({ nft, showTradeInfo, className }: NFTPreviewProps) {
     const chainId = resolveSimpleHashChainId(nft.chain);
     const collectionId = nft.collection.collection_id;
     const isSolanaChain = isValidSolanaChainId(chainId);
@@ -177,6 +183,7 @@ export const NFTPreviewer = memo(function NFTPreview({ nft, showTradeInfo }: NFT
 
     return (
         <BasePreviewContent
+            className={className}
             showTradeInfo={showTradeInfo}
             collection={collection}
             image={resolveNFTImageUrl(nft)}
@@ -212,17 +219,21 @@ export const NFTPreviewer = memo(function NFTPreview({ nft, showTradeInfo }: NFT
     );
 });
 
+interface CollectionPreviewProps {
+    collection: SimpleHash.Collection;
+    showTradeInfo?: boolean;
+    className?: string;
+}
 export const CollectionPreviewer = memo(function CollectionPreviewer({
     collection,
     showTradeInfo,
-}: {
-    collection: SimpleHash.Collection;
-    showTradeInfo?: boolean;
-}) {
+    className,
+}: CollectionPreviewProps) {
     const chainId = resolveSimpleHashChainId(collection.chains[0]);
 
     return (
         <BasePreviewContent
+            className={className}
             showTradeInfo={showTradeInfo}
             collection={collection}
             image={collection.image_url}

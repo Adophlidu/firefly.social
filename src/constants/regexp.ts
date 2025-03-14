@@ -12,10 +12,10 @@ export const MENTION_REGEX = /@[^\s()@:%+~#?&=,!?']+/g;
 
 /** Financial symbol */
 export const SYMBOL_REGEX = /(^|\s)(\$([a-zA-Z0-9]|\p{Script=Han})+)/gu;
-export const EVM_ADDRESS = /\b(0x[a-fA-F0-9]{40})/gu;
-export const SOLANA_ADDRESS = /\b([1-9A-HJ-NP-Za-km-z]{32,44})/gu;
-export const EXIST_EVM_ADDRESS = /\b(0x[a-fA-F0-9]{40})/gu;
-export const EXIST_SOLANA_ADDRESS = /\b([1-9A-HJ-NP-Za-km-z]{32,44})/gu;
+export const EVM_ADDRESS = /\b(0x[a-fA-F0-9]{40})\b/gu;
+export const SOLANA_ADDRESS = /\b([1-9A-HJ-NP-Za-km-z]{32,44})\b/gu;
+export const EXIST_EVM_ADDRESS = /\b(0x[a-fA-F0-9]{40})\b/gu;
+export const EXIST_SOLANA_ADDRESS = /\b([1-9A-HJ-NP-Za-km-z]{32,44})\b/gu;
 
 // for safari does not support negative lookbehind
 // since we cannot eliminate the space before the channel, we will trim it later

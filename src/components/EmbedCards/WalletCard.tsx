@@ -87,26 +87,26 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
         if (!profile?.identity.id) return null;
         return resolveProfileUrl(x, profile.identity.id);
     };
-
+    const profileUrl = resolveProfileUrl(Source.Wallet, address);
     return (
         <>
             <div
                 {...rest}
                 className={classNames(
-                    'flex items-center gap-1.5 rounded-2xl border border-line bg-bg p-3',
+                    'flex cursor-default items-center gap-1.5 rounded-2xl border border-line bg-lightBg p-3',
                     rest.className,
                 )}
                 onClick={(e) => {
                     e.stopPropagation();
                 }}
             >
-                <div className="flex-shrink-0 rounded-full ring-[3px] ring-primaryBottom">
+                <Link className="flex-shrink-0 rounded-full ring-[3px] ring-primaryBottom" href={profileUrl}>
                     <AddressSocialAvatar
                         className="size-[80px] overflow-hidden rounded-full bg-bg"
                         address={address}
                         size={80}
                     />
-                </div>
+                </Link>
                 <div className="flex min-w-0 flex-col gap-2 self-start">
                     <div className="flex items-center gap-1">
                         {networkIcon && networkType ? (
@@ -118,18 +118,18 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                                 height={18}
                             />
                         ) : null}
-                        <Link
-                            href={resolveProfileUrl(Source.Wallet, address)}
-                            className="text-lg font-bold leading-6 text-main hover:underline"
-                        >
+                        <Link href={profileUrl} className="text-lg font-bold leading-6 text-main hover:underline">
                             {walletProfile.primary_ens || t`Wallet`}
                         </Link>
                         {walletSecurity ? <SecurityBadge security={walletSecurity} /> : null}
                     </div>
-                    <div className="flex items-center gap-2 whitespace-nowrap text-second">
-                        <span className="min-w-0 truncate font-inter text-medium font-bold leading-[14px]">
+                    <div className="flex items-center gap-2 whitespace-nowrap text-secondary">
+                        <Link
+                            href={profileUrl}
+                            className="min-w-0 truncate font-inter text-sm font-bold leading-[14px] text-secondary hover:underline"
+                        >
                             {formatAddress(address, 4)}
-                        </span>
+                        </Link>
                         <CopyTextButton size={11} className="size-3.5" text={address} />
                         {addressLink ? (
                             <Link href={addressLink} className="inline-flex">

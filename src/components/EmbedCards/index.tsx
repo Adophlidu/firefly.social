@@ -3,12 +3,13 @@
 import { safeUnreachable } from '@masknet/kit';
 import { useQueries } from '@tanstack/react-query';
 import { compact, first, sortBy, uniqBy } from 'lodash-es';
-import { type HTMLProps, memo, useMemo, useState } from 'react';
+import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
-import { AddressCard } from '@/components/EmbedCards/AddressCard.js';
-import { DomainCard } from '@/components/EmbedCards/DomainCard.js';
+import { AddressCard, AddressCardIndicator } from '@/components/EmbedCards/AddressCard.js';
+import { DomainCard, DomainCardIndicator } from '@/components/EmbedCards/DomainCard.js';
 import { isAvailableAddress } from '@/components/EmbedCards/helpers.js';
+import { Indicator } from '@/components/EmbedCards/Indicator.js';
 import { EmbedLinkCard } from '@/components/EmbedCards/LinkCard.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { ENS_REGEXP, EXIST_EVM_ADDRESS, EXIST_SOLANA_ADDRESS, FULL_ENS_REGEXP, URL_REGEX } from '@/constants/regexp.js';
@@ -29,8 +30,6 @@ interface EmbedCardsInnerProps extends HTMLProps<HTMLDivElement> {
     embeds: EmbedEntry[];
 }
 export const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInner({ embeds, post, ...rest }) {
-    const [activeIndex, setActiveIndex] = useState(0);
-
     const addresses = embeds.filter((x) => x.type === 'address');
     const addressQueries = useQueries({
         queries: addresses.map(({ value: address }) => ({
@@ -44,7 +43,18 @@ export const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInn
             });
         },
     });
+
+    const [unavailableEmbeds, setUnavailableEmbeds] = useState<string[]>([]);
+    const handleAvailableUpdate = useCallback((data: string, available: boolean) => {
+        if (available) {
+            setUnavailableEmbeds((prev) => prev.filter((x) => x !== data));
+        } else {
+            setUnavailableEmbeds((prev) => [...prev, data]);
+        }
+    }, []);
+
     const availableEmbeds = embeds.filter((x) => {
+        if (unavailableEmbeds.includes(x.value)) return false;
         switch (x.type) {
             case 'url':
             case 'domain':
@@ -58,6 +68,7 @@ export const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInn
         }
     });
 
+    const [activeIndex, setActiveIndex] = useState(0);
     const hasAvailableItems = availableEmbeds.length > 0;
     if (!hasAvailableItems) return null;
 
@@ -65,11 +76,11 @@ export const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInn
     const renderCard = () => {
         switch (embed.type) {
             case 'address':
-                return <AddressCard className="h-[109px] rounded-2xl bg-bg" address={embed.value} />;
+                return <AddressCard className="min-h-[109px] rounded-2xl !bg-lightBg" address={embed.value} />;
             case 'domain':
-                return <DomainCard className="h-[109px] rounded-2xl bg-bg" domain={embed.value} />;
+                return <DomainCard className="min-h-[109px] rounded-2xl bg-lightBg" domain={embed.value} />;
             case 'url':
-                return <EmbedLinkCard link={embed.value} post={post} />;
+                return <EmbedLinkCard className="!bg-lightBg" link={embed.value} post={post} />;
             default:
                 safeUnreachable(embed.type);
                 return null;
@@ -81,19 +92,39 @@ export const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInn
             {renderCard()}
             {availableEmbeds.length > 1 ? (
                 <ClickableArea className="flex justify-center gap-[6px] py-2">
-                    {availableEmbeds.map((item, index) => (
-                        <div
-                            key={item.value}
-                            className="w-[60px] min-w-2 cursor-pointer py-2"
-                            onClick={() => {
-                                setActiveIndex(index);
-                            }}
-                        >
-                            <div
-                                className={classNames('h-1 bg-highlight', activeIndex === index ? 'opacity-50' : '')}
-                            />
-                        </div>
-                    ))}
+                    {availableEmbeds.map((item, index) => {
+                        const active = index === activeIndex;
+                        const handleClick = () => setActiveIndex(index);
+                        switch (item.type) {
+                            case 'address':
+                                return (
+                                    <AddressCardIndicator
+                                        key={item.value}
+                                        address={item.value}
+                                        active={active}
+                                        onClick={handleClick}
+                                        data={item.value}
+                                        onAvailableUpdate={handleAvailableUpdate}
+                                    />
+                                );
+                            case 'domain':
+                                return (
+                                    <DomainCardIndicator
+                                        key={item.value}
+                                        domain={item.value}
+                                        active={active}
+                                        onClick={handleClick}
+                                        data={item.value}
+                                        onAvailableUpdate={handleAvailableUpdate}
+                                    />
+                                );
+                            case 'url':
+                                return <Indicator key={item.value} active={active} onClick={handleClick} />;
+                            default:
+                                safeUnreachable(item.type);
+                                return null;
+                        }
+                    })}
                 </ClickableArea>
             ) : null}
         </div>

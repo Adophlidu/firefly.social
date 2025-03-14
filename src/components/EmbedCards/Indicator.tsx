@@ -1,0 +1,15 @@
+import { type HTMLProps, memo } from 'react';
+
+import { classNames } from '@/helpers/classNames.js';
+
+export interface IndicatorProps extends HTMLProps<HTMLDivElement> {
+    active?: boolean;
+}
+
+export const Indicator = memo<IndicatorProps>(function Indicator({ className, active, ...rest }) {
+    return (
+        <div {...rest} className={classNames('w-[60px] min-w-2 cursor-pointer py-2', className)}>
+            <div className={classNames('h-1 bg-highlight', active ? '' : 'opacity-50')} />
+        </div>
+    );
+});
