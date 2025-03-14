@@ -37,7 +37,7 @@ function DisconnectButton({ account }: { account: Pick<Account, 'profile' | 'ori
             .flat();
         const accounts =
             data?.socialConnections.flatMap((x) =>
-                x.items.filter((connection) => {
+                x.items.filter(({ connection }) => {
                     return (
                         ('connectedAt' in connection && connection.connectedAt) ||
                         ('connected' in connection && connection.connected)
