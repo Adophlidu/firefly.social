@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import { AddressSocialAvatar } from '@/components/AddressSocialAvatar/index.js';
-import { isAvailableAddress } from '@/components/EmbedCards/helpers.js';
 import { Link } from '@/components/Link.js';
 import { ContractTag } from '@/components/Markup/MarkupLink/ContractTag.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
@@ -19,7 +18,7 @@ export const AddressTag = memo<AddressTagProps>(function AddressTag({ title, add
     const { data, isLoading } = useQuery({
         queryKey: ['detect-address', address],
         queryFn: () => FireflyEndpointProvider.detectAddress(address),
-        select: (data) => data.list.filter(isAvailableAddress)[0],
+        select: (data) => data.list[0],
     });
 
     if (!data || isLoading) return title;

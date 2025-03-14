@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-export function resolveTokenPageUrl(symbol: string, chainId?: string, isSymbol?: boolean) {
+export function resolveTokenPageUrl(symbol: string, chainId?: string | number, isSymbol?: boolean) {
     return urlcat('/token/:symbol', {
         symbol,
         chainId,
