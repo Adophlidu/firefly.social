@@ -46,7 +46,7 @@ export function ExclusiveEvents() {
                 height={20}
                 disablePictureInPicture
                 disableRemotePlayback
-                className="h-5 w-5"
+                className="size-5"
             />
             <Trans>Exclusive Events</Trans>
         </Link>

@@ -44,7 +44,7 @@ export const SnapshotQuadraticChoice = memo<SnapshotQuadraticChoiceProps>(functi
                     })}
                 >
                     <div
-                        className={classNames('flex h-6 w-6 items-center justify-center rounded-full', {
+                        className={classNames('flex size-6 items-center justify-center rounded-full', {
                             'bg-bg02 opacity-40': !quantity,
                             'bg-lightHighlight bg-opacity-20': !!quantity,
                         })}
@@ -57,7 +57,7 @@ export const SnapshotQuadraticChoice = memo<SnapshotQuadraticChoiceProps>(functi
                     </div>
                     <span className="font-bold">{quantity}</span>
                     <div
-                        className={classNames('flex h-6 w-6 items-center justify-center rounded-full', {
+                        className={classNames('flex size-6 items-center justify-center rounded-full', {
                             'bg-bg02': !quantity,
                             'bg-lightHighlight bg-opacity-20': !!quantity,
                         })}

@@ -33,7 +33,7 @@ export function FireflyAccountCard() {
                     isLoading ? 'animate-pulse border-transparent' : 'border-lightHighlight',
                 )}
             >
-                <div className="mr-2 h-[60px] w-[60px] shrink-0 rounded-full bg-bg">
+                <div className="mr-2 size-[60px] shrink-0 rounded-full bg-bg">
                     {!isLoading ? (
                         <Avatar size={60} alt="firefly-avatar" className="!z-0" src={account?.avatar ?? ''} />
                     ) : null}
@@ -58,20 +58,20 @@ export function FireflyAccountCard() {
                     {isLoading ? (
                         <>
                             {new Array(2).fill(0).map((_, i) => (
-                                <div key={i} className="h-5 w-5 rounded-lg bg-bg" />
+                                <div key={i} className="size-5 rounded-lg bg-bg" />
                             ))}
                         </>
                     ) : (
                         <>
                             <ClickableButton
-                                className="flex h-5 w-5 items-center justify-center rounded-lg text-danger"
+                                className="flex size-5 items-center justify-center rounded-lg text-danger"
                                 onClick={() => LogoutModalRef.open()}
                             >
-                                <LogoutIcon className="h-5 w-5 shrink-0" />
+                                <LogoutIcon className="size-5 shrink-0" />
                             </ClickableButton>
                             <Menu>
-                                <MenuButton className="flex h-5 w-5 items-center justify-center rounded-lg">
-                                    <MoreIcon className="h-5 w-5 shrink-0" />
+                                <MenuButton className="flex size-5 items-center justify-center rounded-lg">
+                                    <MoreIcon className="size-5 shrink-0" />
                                 </MenuButton>
                                 <MenuItems
                                     transition
@@ -88,7 +88,7 @@ export function FireflyAccountCard() {
                                                 }}
                                             >
                                                 <Trans>
-                                                    <EditIcon className="mr-2 h-[18px] w-[18px]" />
+                                                    <EditIcon className="mr-2 size-[18px]" />
                                                     Edit profile
                                                 </Trans>
                                             </button>
@@ -104,7 +104,7 @@ export function FireflyAccountCard() {
                                                 }}
                                             >
                                                 <Trans>
-                                                    <TrashIcon className="mr-2 h-[18px] w-[18px]" />
+                                                    <TrashIcon className="mr-2 size-[18px]" />
                                                     Delete Firefly account
                                                 </Trans>
                                             </button>

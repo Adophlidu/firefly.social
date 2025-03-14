@@ -22,7 +22,7 @@ export const ProfileSlide = memo<ProfileSlideProps>(function ProfileSlide({ prof
     return (
         <div className="h-[184px] w-[164px] rounded-2xl bg-lightBottom px-3 py-6 shadow-primary backdrop-blur dark:bg-primaryBottom">
             <div
-                className={classNames('h-[56px] w-[56px] rounded-full border-2 p-0.5', {
+                className={classNames('size-[56px] rounded-full border-2 p-0.5', {
                     'border-farcasterPrimary': profile.source === Source.Farcaster,
                     'border-lensPrimary': profile.source === Source.Lens,
                 })}

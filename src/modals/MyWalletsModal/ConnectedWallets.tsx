@@ -85,7 +85,7 @@ function ConnectedItem({
         >
             <Icon className="shrink-0" width={20} height={20} />
             {walletIconUrl ? (
-                <Image src={walletIconUrl.trim()} alt="" className="h-5 w-5 shrink-0" width={20} height={20} />
+                <Image src={walletIconUrl.trim()} alt="" className="size-5 shrink-0" width={20} height={20} />
             ) : null}
             <span className="min-w-0 flex-1 truncate text-left">{ensName || formatAddress(address, 4)}</span>
             {loading ? (

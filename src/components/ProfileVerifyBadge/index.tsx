@@ -31,18 +31,18 @@ export function ProfileVerifyBadge({ profile, className }: Props) {
             {icons.map((icon, i) => {
                 if (icon.icon) {
                     const iconEl = (
-                        <Image key={i} src={icon.icon} className="h-4 w-4 shrink-0 rounded-sm" alt={icon.source} />
+                        <Image key={i} src={icon.icon} className="size-4 shrink-0 rounded-sm" alt={icon.source} />
                     );
                     return icon.href ? <Link href={icon.href}>{iconEl}</Link> : iconEl;
                 }
                 switch (icon.source) {
                     case Source.Farcaster:
-                        return <PowerUserIcon key={i} className="h-4 w-4 shrink-0" width={16} height={16} />;
+                        return <PowerUserIcon key={i} className="size-4 shrink-0" width={16} height={16} />;
                     case Source.Lens:
                         return null;
                     case Source.Twitter:
                         const color = (icon.color ? presetColors[icon.color] : undefined) ?? 'text-twitterVerified';
-                        return <VerifyIcon key={i} className={classNames('h-4 w-4 shrink-0', color)} />;
+                        return <VerifyIcon key={i} className={classNames('size-4 shrink-0', color)} />;
                     case Source.Bsky:
                         return null;
                     default:

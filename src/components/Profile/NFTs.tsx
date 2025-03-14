@@ -32,12 +32,12 @@ export function NFTs(props: { address: string }) {
                             onClick={() => setSelectedCollection(null)}
                         >
                             <Tooltip content={t`Back`}>
-                                <UndoSVG className="h-4 w-4" />
+                                <UndoSVG className="size-4" />
                             </Tooltip>
                         </ClickableButton>
                         {selectedCollection.collection.collection_details.image_url ? (
                             <Image
-                                className="mr-2 h-6 w-6 rounded-full object-cover"
+                                className="mr-2 size-6 rounded-full object-cover"
                                 src={selectedCollection.collection.collection_details.image_url ?? ''}
                                 alt={selectedCollection.collection.collection_details.name}
                                 width={24}

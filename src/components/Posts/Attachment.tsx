@@ -82,7 +82,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
 
     if (minimal && asset?.type === 'Audio') {
         return (
-            <div className="h-[120px] w-[120px]">
+            <div className="size-[120px]">
                 {asset.coverUri ? (
                     <div className="relative">
                         <div className="absolute left-[calc(50%-16px)] top-[calc(50%-16px)] flex items-center justify-center rounded-xl bg-third p-2 text-[#181818]">
@@ -92,12 +92,12 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                             width={120}
                             height={120}
                             src={asset.coverUri}
-                            className="h-[120px] w-[120px] max-w-none"
+                            className="size-[120px] max-w-none"
                             alt={asset.coverUri}
                         />
                     </div>
                 ) : (
-                    <div className="flex h-[120px] w-[120px] flex-col items-center justify-center space-y-2 rounded-xl bg-secondaryMain px-[7.5px] py-4">
+                    <div className="flex size-[120px] flex-col items-center justify-center space-y-2 rounded-xl bg-secondaryMain px-[7.5px] py-4">
                         <span className="text-primaryBottom opacity-50">
                             <Music width={24} height={24} />
                         </span>
@@ -147,7 +147,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                     ) : (
                         <div
                             className={classNames('overflow-hidden rounded-lg', {
-                                'h-[120px] w-[120px] flex-shrink-0 flex-grow-0 basis-[120px]': minimal,
+                                'size-[120px] flex-shrink-0 flex-grow-0 basis-[120px]': minimal,
                                 'w-full': !minimal,
                             })}
                         >
@@ -165,7 +165,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                         minimal ? 'gap-1' : 'gap-2',
                         {
                             'grid-flow-col': attachmentsSnapshot.length === 3,
-                            'h-[120px] w-[120px]': minimal && !isSoloImage,
+                            'size-[120px]': minimal && !isSoloImage,
                         },
                     )}
                 >

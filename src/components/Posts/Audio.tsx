@@ -28,7 +28,7 @@ export const Audio = memo<AudioProps>(function Audio({ poster, src, title, artis
                         width={80}
                         height={80}
                         src={formatImageUrl(sanitizeDStorageUrl(poster))}
-                        className="h-20 w-20 rounded-xl object-cover"
+                        className="size-20 rounded-xl object-cover"
                         alt="title"
                     />
                 ) : (

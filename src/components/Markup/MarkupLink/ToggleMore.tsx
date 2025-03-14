@@ -59,7 +59,7 @@ export const ToggleMore = memo<Props>(function ToggleMore({ post, ...rest }) {
                 toggleQueryData(post, collapsed);
             }}
         >
-            {loading ? <LoadingIcon className="mr-1 inline-block h-[12px] w-[12px]" /> : null}
+            {loading ? <LoadingIcon className="mr-1 inline-block size-[12px]" /> : null}
             {collapsed ? <Trans>Show more</Trans> : <Trans>Show less</Trans>}
         </span>
     );

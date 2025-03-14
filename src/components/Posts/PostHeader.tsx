@@ -74,8 +74,8 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                 >
                     <Avatar
                         className={classNames({
-                            'h-10 w-10': !isQuote,
-                            'h-6 w-6': isQuote,
+                            'size-10': !isQuote,
+                            'size-6': isQuote,
                         })}
                         src={author.pfp}
                         size={isQuote ? 24 : 40}

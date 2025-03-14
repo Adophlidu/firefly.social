@@ -37,7 +37,7 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
             href={resolveProfileUrl(source, profileId)}
             onClick={onClick}
         >
-            <Avatar alt={profile.handle} className="h-7 w-7 rounded-full" src={avatar} size={44} />
+            <Avatar alt={profile.handle} className="size-7 rounded-full" src={avatar} size={44} />
             <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-x-1">
                     <span className="truncate text-lg font-bold leading-6 text-lightMain">{profile.name}</span>

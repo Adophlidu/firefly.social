@@ -76,7 +76,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                 >
                     {title}
                 </div>
-                <Trash className="h-5 w-5 cursor-pointer text-secondary" onClick={() => handleRemove(draft.draftId)} />
+                <Trash className="size-5 cursor-pointer text-secondary" onClick={() => handleRemove(draft.draftId)} />
             </div>
             <div
                 className={classNames('my-2 cursor-pointer text-fourMain', {

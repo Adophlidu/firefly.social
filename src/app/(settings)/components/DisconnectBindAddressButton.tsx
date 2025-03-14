@@ -48,7 +48,7 @@ export function DisconnectBindAddressButton({ connection }: DisconnectBindAddres
         <ClickableButton
             onClick={disconnectWallet}
             loading={loading || isLoading}
-            className="h-5 w-5 shrink-0 cursor-pointer disabled:cursor-wait"
+            className="size-5 shrink-0 cursor-pointer disabled:cursor-wait"
         >
             <DisconnectIcon width={20} height={20} />
         </ClickableButton>

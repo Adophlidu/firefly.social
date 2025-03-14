@@ -51,7 +51,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
 
     return (
         <div className="flex gap-3 p-3">
-            <Avatar src={avatar} alt="avatar" size={80} className="h-20 w-20 rounded-full" />
+            <Avatar src={avatar} alt="avatar" size={80} className="size-20 rounded-full" />
             <div className="relative flex flex-1 flex-col">
                 <div className="flex flex-col gap-2">
                     <div className="flex h-8 items-center gap-1">

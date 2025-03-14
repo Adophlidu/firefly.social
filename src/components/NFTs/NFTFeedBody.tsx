@@ -261,7 +261,7 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
                         }}
                     >
                         {tokenList.slice(0, 5).map(({ id }) => (
-                            <div key={id} className="h-[3px] w-[3px] rounded-full bg-lightSecond" />
+                            <div key={id} className="size-[3px] rounded-full bg-lightSecond" />
                         ))}
                     </div>
                     <ClickableButton

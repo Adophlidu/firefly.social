@@ -30,7 +30,7 @@ interface ErrorsOptions extends OptionsObject, Pick<ErrorReportSnackbarProps, 'n
 function snackbarAction(key: SnackbarKey) {
     return (
         <ClickableButton
-            className="flex h-6 w-6 items-center justify-center"
+            className="flex size-6 items-center justify-center"
             onClick={() => {
                 SnackbarRef.close({ key });
             }}

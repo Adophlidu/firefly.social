@@ -48,7 +48,7 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                     <Link href={profileUrl}>
                         <Avatar
                             alt={activity.wallet}
-                            className="h-10 w-10 rounded-full"
+                            className="size-10 rounded-full"
                             src={activity.displayInfo.avatarUrl}
                             size={40}
                         />
@@ -92,7 +92,7 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                                     alt={activity.title}
                                     width={24}
                                     height={24}
-                                    className="h-6 w-6 shrink-0 rounded-lg"
+                                    className="size-6 shrink-0 rounded-lg"
                                     src={activity.image}
                                 />
                                 <span className="line-clamp-2 text-sm font-semibold leading-6 text-lightMain">

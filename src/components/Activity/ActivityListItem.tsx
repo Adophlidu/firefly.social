@@ -36,7 +36,7 @@ export function ActivityListItem({ data }: { data: TypeActivityListItem; index?:
                 <h4 className="truncate text-base font-semibold leading-6">{data.title}</h4>
                 {data.description ? <p className="line-clamp-2 text-sm leading-6">{data.description}</p> : null}
                 <div className="flex h-6 items-center space-x-1.5 text-[13px] leading-6">
-                    <CalendarIcon className="h-4 w-4 shrink-0" />
+                    <CalendarIcon className="size-4 shrink-0" />
                     <span>
                         {dayjs(data.start_time).utc().format(timeTemplate)} -{' '}
                         {dayjs(data.end_time).utc().format(timeTemplate)} (UTC)

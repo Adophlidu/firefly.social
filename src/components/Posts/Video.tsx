@@ -95,13 +95,13 @@ function VideoContent({
 
             <Player.LoadingIndicator asChild>
                 <div className="flex h-full w-full items-center justify-center">
-                    <LoadingIcon className="h-6 w-6 animate-spin" />
+                    <LoadingIcon className="size-6 animate-spin" />
                 </div>
             </Player.LoadingIndicator>
 
             <Player.ErrorIndicator matcher="all" asChild>
                 <div className="flex h-full w-full items-center justify-center">
-                    <LoadingIcon className="h-6 w-6 animate-spin" />
+                    <LoadingIcon className="size-6 animate-spin" />
                 </div>
             </Player.ErrorIndicator>
             {children ? (
@@ -115,7 +115,7 @@ function VideoContent({
                     >
                         <div className="flex justify-between gap-5 px-3">
                             <div className="flex flex-1 items-center gap-[10px]">
-                                <Player.PlayPauseTrigger className="h-[25px] w-[25px]" onClick={onControlsClick}>
+                                <Player.PlayPauseTrigger className="size-[25px]" onClick={onControlsClick}>
                                     <Player.PlayingIndicator asChild matcher={false}>
                                         <PlayIcon />
                                     </Player.PlayingIndicator>
@@ -123,7 +123,7 @@ function VideoContent({
                                         <PauseIcon />
                                     </Player.PlayingIndicator>
                                 </Player.PlayPauseTrigger>
-                                <Player.MuteTrigger className="h-[25px] w-[25px]" onClick={onControlsClick}>
+                                <Player.MuteTrigger className="size-[25px]" onClick={onControlsClick}>
                                     <Player.VolumeIndicator asChild matcher={false}>
                                         <MuteIcon />
                                     </Player.VolumeIndicator>
@@ -176,7 +176,7 @@ function VideoContent({
 
                                 <Player.Time />
                             </div>
-                            <Player.FullscreenTrigger className="h-[25px] w-[25px]">
+                            <Player.FullscreenTrigger className="size-[25px]">
                                 <Player.FullscreenIndicator asChild matcher={false}>
                                     <EnterFullscreenIcon />
                                 </Player.FullscreenIndicator>
@@ -190,7 +190,7 @@ function VideoContent({
                                 <Player.SeekBuffer className="absolute h-full rounded-full bg-white bg-opacity-50" />
                                 <Player.Range className="absolute h-full rounded-full bg-white" />
                             </Player.Track>
-                            <Player.Thumb className="block h-3 w-3 rounded-full bg-white" />
+                            <Player.Thumb className="block size-3 rounded-full bg-white" />
                         </Player.Seek>
                     </Player.Controls>
                 </>

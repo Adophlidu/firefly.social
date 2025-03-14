@@ -167,9 +167,9 @@ export function MainView() {
                                     <span>{resolveSourceName(source)}</span>
                                 </div>
                                 {[Source.Bsky, Source.Twitter].includes(source) && !!profilesAll[source] ? (
-                                    <SwitchIcon className="h-5 w-5" />
+                                    <SwitchIcon className="size-5" />
                                 ) : (
-                                    <PlusIcon className="h-5 w-5" />
+                                    <PlusIcon className="size-5" />
                                 )}
                             </ClickableButton>
                             {profileStore[source].accounts.map((account, index) => {
@@ -195,7 +195,7 @@ export function MainView() {
                                             <CircleCheckboxIcon className="shrink-0 text-lightHighlight" checked />
                                         ) : (
                                             <SwitchIcon
-                                                className="h-5 w-5 cursor-pointer"
+                                                className="size-5 cursor-pointer"
                                                 onClick={() => {
                                                     if (switchLoading) return;
                                                     onSwitchAccount(account);
@@ -247,9 +247,7 @@ export function MainView() {
                                             <ProfileSourceIcon source={source} size={20} />
                                             <span>{resolveSourceName(source)}</span>
                                         </div>
-                                        {!loading && selectedSource !== source ? (
-                                            <PlusIcon className="h-5 w-5" />
-                                        ) : null}
+                                        {!loading && selectedSource !== source ? <PlusIcon className="size-5" /> : null}
                                     </>
                                 )}
                             </ClickableButton>

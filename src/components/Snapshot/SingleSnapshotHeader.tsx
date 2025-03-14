@@ -29,7 +29,7 @@ export const SingleSnapshotHeader = memo<SingleSnapshotHeaderProps>(function Sin
         <header className={classNames('flex w-full items-start gap-3', className)}>
             <Link href={authorUrl} className="z-[1]" onClick={(event) => event.stopPropagation()}>
                 <Avatar
-                    className="h-10 w-10"
+                    className="size-10"
                     src={data.author.avatar}
                     size={40}
                     alt={data.author.handle || data.author.id}

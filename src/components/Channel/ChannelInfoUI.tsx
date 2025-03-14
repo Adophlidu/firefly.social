@@ -27,7 +27,7 @@ export const ChannelInfoUI = memo<Props>(function ChannelInfoUI({ channel, isCha
 
     const url = urlcat(SITE_URL, getChannelUrl(channel));
     const avatar = channel.imageUrl ? (
-        <Avatar src={channel.imageUrl} alt="avatar" size={48} className="h-12 w-12 rounded-full" />
+        <Avatar src={channel.imageUrl} alt="avatar" size={48} className="size-12 rounded-full" />
     ) : (
         <SocialSourceIcon className="rounded-full" source={source} size={48} />
     );

@@ -19,7 +19,7 @@ import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 
 function SmallXIcon() {
     return (
-        <div className="flex h-6 w-6 items-center justify-center">
+        <div className="flex size-6 items-center justify-center">
             <XIcon width={23} height={23} />
         </div>
     );

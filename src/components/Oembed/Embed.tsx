@@ -55,8 +55,8 @@ export function Embed({ og }: EmbedProps) {
                                         alt=""
                                     />
                                 ) : (
-                                    <div className="flex h-[72px] w-[72px] items-center justify-center rounded-md bg-bg">
-                                        <LinkIcon className="h-6 w-6 text-gray-500" />
+                                    <div className="flex size-[72px] items-center justify-center rounded-md bg-bg">
+                                        <LinkIcon className="size-6 text-gray-500" />
                                     </div>
                                 )}
                             </div>
@@ -79,7 +79,7 @@ export function Embed({ og }: EmbedProps) {
                                         {og.favicon ? (
                                             // eslint-disable-next-line @next/next/no-img-element
                                             <img
-                                                className="h-4 w-4 rounded-full"
+                                                className="size-4 rounded-full"
                                                 height={16}
                                                 width={16}
                                                 src={og.favicon}

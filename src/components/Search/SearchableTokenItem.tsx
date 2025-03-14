@@ -24,7 +24,7 @@ export function SearchableTokenItem({ token, className, showRate = true, onClick
             onClick={onClick}
         >
             <Image
-                className="h-11 w-11 shrink-0 rounded-full"
+                className="size-11 shrink-0 rounded-full"
                 width={44}
                 height={44}
                 src={token.large}
@@ -57,7 +57,7 @@ export function SearchableTokenItem({ token, className, showRate = true, onClick
                     {priceChange !== 0 ? (
                         <PriceArrow
                             className={classNames(
-                                'h-5 w-5 max-md:h-[10px] max-md:w-[10px]',
+                                'size-5 max-md:h-[10px] max-md:w-[10px]',
                                 priceChange < 0 ? 'rotate-180' : '',
                             )}
                         />

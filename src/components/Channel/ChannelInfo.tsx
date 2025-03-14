@@ -31,7 +31,7 @@ export function ChannelInfo({ channel, source, ...rest }: InfoProps) {
     if (isLoading || isRefetching)
         return (
             <div className="flex animate-pulse gap-3 border-b border-line p-3">
-                <div className="h-12 w-12 rounded-full bg-third" />
+                <div className="size-12 rounded-full bg-third" />
                 <div className="flex-1">
                     <div className="h-6 w-16 bg-third" />
                     <div className="mb-1.5 mt-px h-6 w-20 bg-third" />

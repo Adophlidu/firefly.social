@@ -41,7 +41,7 @@ export const SnapshotMoreAction = memo<MoreProps>(function SnapshotMoreAction({ 
         <MoreActionMenu
             button={
                 isBusy ? (
-                    <span className="inline-flex h-6 w-6 animate-spin items-center justify-center">
+                    <span className="inline-flex size-6 animate-spin items-center justify-center">
                         <LoadingIcon size={16} className="text-secondary" />
                     </span>
                 ) : (

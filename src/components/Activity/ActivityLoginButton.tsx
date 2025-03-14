@@ -41,7 +41,7 @@ export function ActivityLoginButton({ source }: { source: SocialSource }) {
                     'opacity-0': isLoading,
                 })}
             >
-                <SocialSourceIcon size={18} className="mr-2 h-[18px] w-[18px] shrink-0" source={source} mono />
+                <SocialSourceIcon size={18} className="mr-2 size-[18px] shrink-0" source={source} mono />
                 <Trans>Sign in</Trans>
             </span>
         </button>
@@ -80,8 +80,8 @@ export function ActivityLoginButtonWithMultipleSources({ sources }: { sources: S
                             'opacity-0': isLoading,
                         })}
                     >
-                        <AddIcon width={18} height={18} className="h-[18px] w-[18px] shrink-0" />
-                        <SocialSourceIcon size={18} className="h-[18px] w-[18px] shrink-0" source={source} mono />
+                        <AddIcon width={18} height={18} className="size-[18px] shrink-0" />
+                        <SocialSourceIcon size={18} className="size-[18px] shrink-0" source={source} mono />
                     </span>
                 </button>
             ))}

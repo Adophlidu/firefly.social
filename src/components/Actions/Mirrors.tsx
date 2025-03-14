@@ -195,7 +195,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     placement="top"
                     content={shares ? `${humanize(shares)} ${content}` : content}
                 >
-                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-secondarySuccess/[.20]">
+                    <span className="inline-flex size-7 items-center justify-center rounded-full hover:bg-secondarySuccess/[.20]">
                         {loading ? (
                             <LoadingIcon className="text-lightSecond" size={16} />
                         ) : (

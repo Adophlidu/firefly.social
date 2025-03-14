@@ -34,7 +34,7 @@ export function PrimaryButton({
     return (
         <Tooltip content={tooltipContent} placement="top">
             <ClickableButton
-                className={classNames('h-5 w-5 shrink-0', {
+                className={classNames('size-5 shrink-0', {
                     'cursor-pointer': !isDefault,
                 })}
                 disabled={loading}

@@ -102,7 +102,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
                     <LoadingIcon size={20} className="cursor-pointer text-secondary" />
                 ) : (
                     <Tooltip content={t`Delete`}>
-                        <Trash className="h-5 w-5 cursor-pointer text-secondary" onClick={handleRemove} />
+                        <Trash className="size-5 cursor-pointer text-secondary" onClick={handleRemove} />
                     </Tooltip>
                 )}
             </div>

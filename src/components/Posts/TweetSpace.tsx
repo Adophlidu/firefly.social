@@ -162,7 +162,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
                         className="flex items-center rounded-lg bg-[rgba(24,26,32,0.5)] px-2 py-1 text-xs font-semibold leading-4"
                         key={i}
                     >
-                        {tag.icon ? <tag.icon className="mr-1 h-4 w-4" width={16} height={16} /> : null}
+                        {tag.icon ? <tag.icon className="mr-1 size-4" width={16} height={16} /> : null}
                         {tag.label}
                     </div>
                 ))}
@@ -170,7 +170,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
             <h3 className="line-clamp-2 min-h-6 text-lg font-bold leading-6">{space.title}</h3>
             {creator ? (
                 <div className="flex h-6 items-center leading-6">
-                    <Avatar className="mr-2 h-[18px] w-[18px]" src={creator.pfp} size={18} alt={creator.handle} />
+                    <Avatar className="mr-2 size-[18px]" src={creator.pfp} size={18} alt={creator.handle} />
                     <span className="mr-1 truncate text-medium font-bold leading-5">{creator.displayName}</span>
                     <ProfileVerifyBadge
                         className="flex flex-shrink-0 items-center space-x-1 sm:mr-2"

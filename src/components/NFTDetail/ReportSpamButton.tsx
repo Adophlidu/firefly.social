@@ -14,7 +14,7 @@ export function ReportSpamButton(props: { collectionId: string }) {
             className="flex cursor-pointer select-none items-center gap-1 rounded-full border border-line bg-lightBg px-2 py-1 font-inter text-xs leading-[14px] hover:bg-primaryBottom"
             onClick={() => reportSpamNFT(collectionId)}
         >
-            <ReportSpamIcon className="h-3 w-3" />
+            <ReportSpamIcon className="size-3" />
             <Trans>Report spam</Trans>
         </ClickableButton>
     );

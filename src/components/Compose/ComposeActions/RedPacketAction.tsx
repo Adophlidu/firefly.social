@@ -32,7 +32,7 @@ export const RedPacketAction = memo<RedPacketActionProps>(function RedPacketActi
     const content = (
         <ClickableButton
             aria-disabled={rpDisabled}
-            className={classNames('h-5 w-5', {
+            className={classNames('size-5', {
                 'cursor-wait opacity-50': loading,
                 'cursor-not-allowed opacity-50': !loading && rpDisabled,
                 'cursor-pointer': !rpDisabled,

@@ -39,7 +39,7 @@ export const PlatformAction = memo(function PlatformAction({ hasError }: ActionP
                     ))}
             </span>
             {type === 'compose' && !hasError ? (
-                <ChevronDownIcon className="h-4 w-4 text-secondary" aria-hidden="true" />
+                <ChevronDownIcon className="size-4 text-secondary" aria-hidden="true" />
             ) : null}
         </>
     );

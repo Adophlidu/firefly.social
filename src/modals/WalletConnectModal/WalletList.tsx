@@ -56,7 +56,7 @@ const WalletItem = memo<WalletItemProps>(function WalletItem({ icon, name, insta
                 alt={name || 'Unknown'}
                 width={40}
                 height={40}
-                className="h-10 w-10 rounded-xl border border-secondaryLine"
+                className="size-10 rounded-xl border border-secondaryLine"
             />
             <div className="flex flex-1 flex-col items-start text-sm">
                 <span className="text-main">{name || 'Unknown'}</span>

@@ -17,7 +17,7 @@ export function EditProfileButton({ profile, variant = 'text', className, ref, .
     const onClose = useCallback(() => setOpen(false), []);
     const children = {
         text: <Trans>Edit Profile</Trans>,
-        icon: <EditProfileIcon className="h-4 w-4 flex-shrink-0" />,
+        icon: <EditProfileIcon className="size-4 flex-shrink-0" />,
     }[variant];
     return (
         <>

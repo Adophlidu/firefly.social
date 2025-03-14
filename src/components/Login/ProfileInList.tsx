@@ -28,7 +28,7 @@ export function ProfileInList({
     const content = (
         <>
             <div
-                className="flex h-12 w-12 items-center justify-center rounded-full"
+                className="flex size-12 items-center justify-center rounded-full"
                 style={{
                     background:
                         'radial-gradient(circle at center, rgba(255, 184, 224, 1), rgba(190, 158, 255, 1), rgba(136, 192, 252, 1), rgba(134, 255, 153, 1))',

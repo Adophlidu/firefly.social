@@ -120,7 +120,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                                                 <span
                                                     className={`${
                                                         checked ? 'translate-x-6' : 'translate-x-1'
-                                                    } inline-block h-3 w-3 transform rounded-full bg-white transition`}
+                                                    } inline-block size-3 transform rounded-full bg-white transition`}
                                                 />
                                             </span>
                                         )}

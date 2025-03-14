@@ -122,7 +122,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                             onClose?.();
                         }}
                     >
-                        <UserAddIcon width={24} height={24} className="mr-2 h-6 w-6 shrink-0" />
+                        <UserAddIcon width={24} height={24} className="mr-2 size-6 shrink-0" />
                         <span className="w-full text-left text-[17px] font-bold leading-[22px] text-main">
                             <Trans>Add an existing account</Trans>
                         </span>
@@ -137,7 +137,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                         onClose?.();
                     }}
                 >
-                    <LogoutIcon width={24} height={24} className="mr-2 h-6 w-6 shrink-0" />
+                    <LogoutIcon width={24} height={24} className="mr-2 size-6 shrink-0" />
                     <span className="w-full truncate text-left text-[17px] font-bold leading-[22px] text-main">
                         <Trans>Log out @{currentProfile.handle}</Trans>
                     </span>

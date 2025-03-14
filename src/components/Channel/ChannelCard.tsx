@@ -35,7 +35,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
             <div className="w-[350px] rounded-2xl border border-secondaryLine bg-primaryBottom p-4">
                 <div className="animate-pulse">
                     <div className="flex w-full gap-[10px]">
-                        <div className="h-20 w-20 rounded-full bg-third" />
+                        <div className="size-20 rounded-full bg-third" />
                         <div className="flex flex-1 flex-col justify-between">
                             <div className="h-3 w-[120px] rounded bg-third" />
                             <div className="h-3 w-[120px] rounded bg-third" />
@@ -65,7 +65,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                         alt="avatar"
                         size={80}
                         onClick={handleNavigateToDetail}
-                        className="h-20 w-20 cursor-pointer rounded-full"
+                        className="size-20 cursor-pointer rounded-full"
                     />
                 ) : (
                     <SocialSourceIcon className="rounded-full" source={channel.source} size={80} />

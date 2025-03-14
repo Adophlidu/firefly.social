@@ -77,7 +77,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
             <div className="flex gap-3">
                 <Link href={authorUrl} className="z-[1] flex-shrink-0" onClick={stopPropagation}>
                     <Avatar
-                        className="h-10 w-10"
+                        className="size-10"
                         src={
                             displayInfo.ensHandle
                                 ? urlcat(FIREFLY_STAMP_URL, '/:address', { address: displayInfo.ensHandle })

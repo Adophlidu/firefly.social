@@ -27,11 +27,11 @@ export function OptionButton({ darkMode = false, selected, label, onClick, ...pr
             <div className="flex w-[135px] items-center gap-5">
                 {selected ? (
                     <div
-                        className="h-2 w-2 rounded-full bg-success"
+                        className="size-2 rounded-full bg-success"
                         style={{ filter: 'drop-shadow(0px 4px 10px var(--color-success))' }}
                     />
                 ) : (
-                    <div className="h-2 w-2" />
+                    <div className="size-2" />
                 )}
                 <div className="flex-1 text-left text-medium font-bold leading-[18px]">{label}</div>
             </div>

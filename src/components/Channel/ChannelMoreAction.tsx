@@ -41,7 +41,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
             source={channel.source}
             button={
                 channelBlocking ? (
-                    <span className="inline-flex h-8 w-8 animate-spin items-center justify-center">
+                    <span className="inline-flex size-8 animate-spin items-center justify-center">
                         <LoadingIcon size={16} />
                     </span>
                 ) : (

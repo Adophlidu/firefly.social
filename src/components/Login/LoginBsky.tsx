@@ -183,7 +183,7 @@ export function LoginBsky() {
                     {loading ? (
                         <>
                             <Trans>Signing in</Trans>
-                            <LoadingIcon className="h-[18px] w-[18px] text-primaryBottom" />
+                            <LoadingIcon className="size-[18px] text-primaryBottom" />
                         </>
                     ) : (
                         <Trans>Sign in</Trans>

@@ -137,7 +137,7 @@ export function FreeMintButton({
                 <Link
                     href={externalUrl}
                     target="_blank"
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-main text-main"
+                    className="flex size-8 shrink-0 items-center justify-center rounded-full border border-main text-main"
                 >
                     <WebsiteIcon width={20} height={20} />
                 </Link>

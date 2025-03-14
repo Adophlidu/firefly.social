@@ -27,7 +27,7 @@ export function ArticleAuthor({ article }: Props) {
 
     const avatar = (
         <Avatar
-            className="h-[15px] w-[15px]"
+            className="size-[15px]"
             src={article.author.avatar}
             size={15}
             alt={article.author.handle || article.author.id}

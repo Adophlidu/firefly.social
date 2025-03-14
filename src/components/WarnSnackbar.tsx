@@ -38,7 +38,7 @@ export function WarnSnackbar({ id, detail, message, ref }: ErrorReportSnackbarPr
                     <div className="flex max-w-[400px] text-white">
                         <div className="mr-auto flex flex-grow cursor-pointer items-center" onClick={handleExpandClick}>
                             <div className="mr-1 inline-block p-2 text-white">
-                                <XCircleIcon className="h-[20px] w-[20px] text-white" />
+                                <XCircleIcon className="size-[20px] text-white" />
                             </div>
                             <div
                                 className="break-word"
@@ -78,9 +78,9 @@ export function WarnSnackbar({ id, detail, message, ref }: ErrorReportSnackbarPr
                                 onClick={handleCopy}
                             >
                                 {copied ? (
-                                    <ClipboardDocumentCheckIcon className="mr-1 h-3 w-3" />
+                                    <ClipboardDocumentCheckIcon className="mr-1 size-3" />
                                 ) : (
-                                    <ClipboardDocumentIcon className="mr-1 h-3 w-3" />
+                                    <ClipboardDocumentIcon className="mr-1 size-3" />
                                 )}
                                 {copied ? <Trans>Copied</Trans> : <Trans>Copy</Trans>}
                             </ClickableButton>

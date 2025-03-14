@@ -46,12 +46,12 @@ export function RootView() {
                 )}
 
                 <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">{title}</div>
-                <div className="relative h-6 w-6">
+                <div className="relative size-6">
                     {isMain ? (
                         <HistoryIcon className="cursor-pointer" onClick={() => router.history.push('/history')} />
                     ) : isRequirements ? (
                         <QuestionIcon
-                            className="h-6 w-6 cursor-pointer"
+                            className="size-6 cursor-pointer"
                             onClick={() => router.history.push('/requirement-rules')}
                         />
                     ) : null}

@@ -153,7 +153,7 @@ export function RequirementsModal({
             >
                 <div className="flex items-center justify-center gap-2 rounded-t-xl p-4">
                     <CloseButton
-                        className="h-6 w-6 shrink-0"
+                        className="size-6 shrink-0"
                         onClick={() => {
                             onClose();
                         }}
@@ -161,7 +161,7 @@ export function RequirementsModal({
                     <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                         <Trans>Requirements</Trans>
                     </div>
-                    <div className="relative h-6 w-6" />
+                    <div className="relative size-6" />
                 </div>
                 <div className="flex flex-1 flex-col gap-2 rounded-b-xl bg-primaryBottom px-6 pb-4 pt-6">
                     {requirements.flatMap((status) => {

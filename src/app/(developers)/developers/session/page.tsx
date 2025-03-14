@@ -52,7 +52,7 @@ export default function Page() {
                 />
                 <ClickableButton
                     className={classNames(
-                        'flex h-[42px] w-[42px] items-center justify-center rounded-md border border-line',
+                        'flex size-[42px] items-center justify-center rounded-md border border-line',
                         {
                             'text-primaryMain': loading,
                             'hover:cursor-pointer': !loading,

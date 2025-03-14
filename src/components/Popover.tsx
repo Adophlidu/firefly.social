@@ -64,7 +64,7 @@ export function Popover({
                     >
                         {!hiddenTopLine ? (
                             <div className="absolute inset-x-0 top-0.5 z-10 m-auto flex w-20 cursor-pointer justify-center p-2">
-                                <div className="h-1 w-12 rounded-full bg-main" />
+                                <div className="size-12 rounded-full bg-main" />
                             </div>
                         ) : null}
                         <div

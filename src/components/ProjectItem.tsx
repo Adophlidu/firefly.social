@@ -15,7 +15,7 @@ export const ProjectItem = memo<{ project: Project }>(function ProjectItem({
             className="flex gap-x-2 border-b border-line px-3 py-2 hover:bg-bg"
             href={rootdataurl}
         >
-            <Image className="h-11 w-11 shrink-0 rounded-full" width={44} height={44} src={logo} alt={project_name} />
+            <Image className="size-11 shrink-0 rounded-full" width={44} height={44} src={logo} alt={project_name} />
             <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-x-1 text-lg font-bold leading-6">
                     <div className="text-lightMain">{project_name}</div>

@@ -68,7 +68,7 @@ function DisconnectButton({ account }: { account: Pick<Account, 'profile' | 'ori
                 {loading ? (
                     <LoadingIcon size={20} />
                 ) : (
-                    <DisconnectIcon width={20} height={20} className="h-5 w-5 shrink-0" />
+                    <DisconnectIcon width={20} height={20} className="size-5 shrink-0" />
                 )}
             </ClickableButton>
         </Tooltip>
@@ -147,7 +147,7 @@ export function AccountCards() {
                                                 <InfoIcon
                                                     width={20}
                                                     height={20}
-                                                    className="h-5 w-5 shrink-0 text-second"
+                                                    className="size-5 shrink-0 text-second"
                                                 />
                                             </Tooltip>
                                         )}

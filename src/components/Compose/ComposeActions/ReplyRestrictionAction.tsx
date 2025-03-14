@@ -35,7 +35,7 @@ export const ReplyRestrictionAction = memo(function ReplyRestrictionAction({ has
             <span className="text-[14px] leading-[18px]">
                 <ReplyRestrictionText type={restriction} />
             </span>
-            {!disabled ? <ChevronDownIcon className="h-4 w-4 text-secondary" aria-hidden="true" /> : null}
+            {!disabled ? <ChevronDownIcon className="size-4 text-secondary" aria-hidden="true" /> : null}
         </>
     );
 

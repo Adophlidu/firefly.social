@@ -60,7 +60,7 @@ export const SelectNetworkModalUI = memo<Props>(function SelectChainModalUI({ ti
                             width={48}
                             height={48}
                             alt={chainType.type}
-                            className="h-12 w-12"
+                            className="size-12"
                         />
                         <span>{chainType.label}</span>
                     </ClickableButton>

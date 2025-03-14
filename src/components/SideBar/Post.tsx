@@ -34,7 +34,7 @@ export function Post({ collapsed = false }: PostProps) {
                             })
                         }
                     >
-                        <PlusIcon className="h-5 w-5" aria-hidden="true" />
+                        <PlusIcon className="size-5" aria-hidden="true" />
                     </ClickableButton>
                 </Tooltip>
             </li>

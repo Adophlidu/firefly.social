@@ -76,7 +76,7 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                                         });
                                     }
                                 }}
-                                className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-secondarySuccess/[.20]"
+                                className="inline-flex size-7 items-center justify-center rounded-full hover:bg-secondarySuccess/[.20]"
                                 whileTap={{ scale: 0.9 }}
                             >
                                 <CollectIcon width={17} height={16} />

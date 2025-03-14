@@ -68,7 +68,7 @@ export function ActivityMintSuccessDialog({ claimType, shareContent, open, onClo
         return (
             <Popover open={open} onClose={onClose} dialogPanelClassName="!p-4">
                 <div className="flex w-full flex-col items-center pt-4 text-center">
-                    <SuccessShieldIcon className="mb-4 h-[64px] w-[64px] text-success" />
+                    <SuccessShieldIcon className="mb-4 size-[64px] text-success" />
                     <h3 className="text-lg font-semibold leading-6">
                         <Trans>Success!</Trans>
                     </h3>

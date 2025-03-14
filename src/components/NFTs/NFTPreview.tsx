@@ -73,7 +73,7 @@ function BasePreviewContent(props: BasePreviewContentProps) {
     );
     const content = (
         <>
-            <div className="relative h-[300px] w-[300px]">
+            <div className="relative size-[300px]">
                 <Image
                     className="h-full w-full object-cover"
                     width={300}
@@ -82,7 +82,7 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                     alt={props.image}
                 />
                 {props.icon ? (
-                    <span className="absolute left-3.5 top-[18px] flex h-8 w-8 items-center justify-center rounded-xl bg-black/25">
+                    <span className="absolute left-3.5 top-[18px] flex size-8 items-center justify-center rounded-xl bg-black/25">
                         {props.icon}
                     </span>
                 ) : null}

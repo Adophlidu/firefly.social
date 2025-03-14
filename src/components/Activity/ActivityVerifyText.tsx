@@ -14,9 +14,9 @@ export function ActivityVerifyText({
         <div className="flex w-full justify-between space-x-2">
             {children}
             {verified ? (
-                <TickSquareIcon className="h-6 w-6 shrink-0 text-success" />
+                <TickSquareIcon className="size-6 shrink-0 text-success" />
             ) : hasFailedIcon && activityConnections ? (
-                <FailedSquareIcon className="h-6 w-6 shrink-0 text-deactivate" />
+                <FailedSquareIcon className="size-6 shrink-0 text-deactivate" />
             ) : null}
         </div>
     );

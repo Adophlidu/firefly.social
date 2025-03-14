@@ -17,7 +17,7 @@ export function SuspendedAccountInfo({ source }: { source: SocialSource }) {
                 loading="lazy"
                 unoptimized
                 priority={false}
-                className="relative z-10 h-20 w-20 max-w-none rounded-full bg-secondary object-cover"
+                className="relative z-10 size-20 max-w-none rounded-full bg-secondary object-cover"
                 src={src}
                 width={80}
                 height={80}

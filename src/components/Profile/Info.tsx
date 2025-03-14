@@ -37,7 +37,7 @@ export function Info(props: InfoProps) {
                     src={source === Source.Twitter ? getLargeTwitterAvatar(profile.pfp) : profile.pfp}
                     alt="avatar"
                     size={80}
-                    className="h-20 w-20 rounded-full"
+                    className="size-20 rounded-full"
                 />
             ) : (
                 <SocialSourceIcon className="rounded-full" source={source} size={80} />

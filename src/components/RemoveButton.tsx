@@ -18,7 +18,7 @@ export function RemoveButton({ size = 18, tooltip = t`Remove`, ref, ...props }: 
                 {...props}
                 className={classNames(
                     props.className,
-                    'inline-flex h-7 w-7 items-center justify-center rounded-full bg-gray-500 md:group-hover:inline-flex',
+                    'inline-flex size-7 items-center justify-center rounded-full bg-gray-500 md:group-hover:inline-flex',
                 )}
             >
                 <CloseIcon

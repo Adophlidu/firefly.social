@@ -74,9 +74,9 @@ function NFTItemContent({
             >
                 <div className="relative aspect-square h-auto w-full overflow-hidden">
                     {props?.isShowChainIcon ? (
-                        <ChainIcon chainId={item.chainId} size={20} className="absolute left-2 top-2 h-4 w-4" />
+                        <ChainIcon chainId={item.chainId} size={20} className="absolute left-2 top-2 size-4" />
                     ) : null}
-                    {props?.isPoap ? <PoapIcon className="absolute left-2 top-2 h-6 w-6" /> : null}
+                    {props?.isPoap ? <PoapIcon className="absolute left-2 top-2 size-6" /> : null}
                     {props?.isShowOwner && item.owner?.address ? <Owner address={item.owner.address as Hex} /> : null}
                     {props?.ownerCount ? (
                         <div className="absolute left-2 top-2 z-10 h-5 rounded-lg bg-primaryBottom px-1 text-xs font-bold leading-5">

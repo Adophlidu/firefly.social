@@ -46,7 +46,7 @@ export const WatchButton = memo(function WatchButton({
     const loading = mutation.isPending;
     const buttonText = {
         text: isFollowing ? (hovering && !loading ? t`Unwatch` : t`Watching`) : t`Watch`,
-        icon: isFollowing ? <FollowedIcon className="h-4 w-4" /> : <FollowIcon className="h-4 w-4" />,
+        icon: isFollowing ? <FollowedIcon className="size-4" /> : <FollowIcon className="size-4" />,
     }[variant];
     const variantClassName = {
         text: 'min-w-[100px] px-2',

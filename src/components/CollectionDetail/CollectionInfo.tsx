@@ -58,7 +58,7 @@ export function CollectionInfo(props: CollectionInfoProps) {
                 <NFTImage
                     width={115}
                     height={115}
-                    className="h-[115px] w-[115px] rounded-lg object-cover"
+                    className="size-[115px] rounded-lg object-cover"
                     src={imageUrl}
                     alt={name}
                 />
@@ -74,8 +74,8 @@ export function CollectionInfo(props: CollectionInfoProps) {
                             <ChainIcon className="mr-1 shrink-0" chainId={chainId} size={14} />
                             <span className="min-w-0 truncate">{isMedium ? address : formatAddress(address, 4)}</span>
                             <CopyTextButton size={14} text={address} />
-                            <a className="ml-1 h-3.5 w-3.5" href={resolveAddressLink(chainId, address)} target="_blank">
-                                <LinkIcon className="h-3.5 w-3.5 text-secondary" />
+                            <a className="ml-1 size-3.5" href={resolveAddressLink(chainId, address)} target="_blank">
+                                <LinkIcon className="size-3.5 text-secondary" />
                             </a>
                         </div>
                     ) : null}

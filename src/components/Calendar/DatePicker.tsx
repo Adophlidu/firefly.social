@@ -85,7 +85,7 @@ export function DatePicker({ date, onChange, open, onToggle, allowedDates, onMon
                                     >
                                         <span
                                             className={classNames(
-                                                'flex h-[28px] w-[28px] items-center justify-center rounded-full text-sm leading-5 text-second',
+                                                'flex size-[28px] items-center justify-center rounded-full text-sm leading-5 text-second',
                                                 {
                                                     '!border-none bg-fireflyBrand text-white':
                                                         date.toDateString() === currentDatePointer.toDateString(),

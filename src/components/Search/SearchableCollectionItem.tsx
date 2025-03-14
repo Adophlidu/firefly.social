@@ -24,7 +24,7 @@ export function SearchableCollectionItem({ collection, className, onClick }: Col
             onClick={onClick}
         >
             <Image
-                className="h-[50px] w-[50px] shrink-0 rounded-lg object-cover"
+                className="size-[50px] shrink-0 rounded-lg object-cover"
                 width={50}
                 height={50}
                 alt={collection.description}

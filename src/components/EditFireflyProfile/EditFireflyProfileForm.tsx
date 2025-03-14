@@ -52,8 +52,8 @@ export function EditFireflyProfileForm() {
                 <div className="mb-10">
                     <label htmlFor="avatar-upload" className="relative cursor-pointer">
                         <EditProfileAvatar pfp={context.profile.avatar} name="avatar" size={120} />
-                        <div className="absolute bottom-1 right-1 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-lightHighlight text-lightBottom">
-                            <PlusIcon className="h-3.5 w-3.5 shrink-0" />
+                        <div className="absolute bottom-1 right-1 z-10 flex size-6 items-center justify-center rounded-full bg-lightHighlight text-lightBottom">
+                            <PlusIcon className="size-3.5 shrink-0" />
                         </div>
                     </label>
                     <input

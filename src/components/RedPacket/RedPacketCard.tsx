@@ -206,7 +206,7 @@ export function RedPacketCard({ payload, post }: Props) {
                                 alt="gasless"
                                 arial-label="gasless"
                                 src="/image/gasless.png"
-                                className="pointer-events-none absolute left-0 top-0 h-[100px] w-[100px] overflow-hidden rounded-tl-[18px]"
+                                className="pointer-events-none absolute left-0 top-0 size-[100px] overflow-hidden rounded-tl-[18px]"
                                 width={100}
                                 height={100}
                             />

@@ -35,7 +35,7 @@ export function ShowMoreComments(props: ShowMoreCommentsProps) {
                                 width={24}
                                 height={24}
                                 key={url}
-                                className="h-6 w-6 rounded-full"
+                                className="size-6 rounded-full"
                                 src={url}
                                 alt="avatar"
                             />
@@ -46,7 +46,7 @@ export function ShowMoreComments(props: ShowMoreCommentsProps) {
                     {isOpen ? <Trans>Hide more comments</Trans> : <Trans>Show more comments</Trans>}
                 </div>
                 <LineArrowUpSVG
-                    className={classNames('h-5 w-5 duration-100', {
+                    className={classNames('size-5 duration-100', {
                         'rotate-180': !isOpen,
                     })}
                 />

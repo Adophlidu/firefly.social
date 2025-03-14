@@ -102,7 +102,7 @@ export function RequirementsView() {
                                 <input
                                     type="checkbox"
                                     checked={checked}
-                                    className="h-5 w-5 cursor-pointer rounded-[4px] text-highlight"
+                                    className="size-5 cursor-pointer rounded-[4px] text-highlight"
                                     onChange={(event) => {
                                         const checked = event.currentTarget.checked;
                                         setRules(checked ? [...rules, value] : rules.filter((x) => x !== value));
@@ -127,7 +127,7 @@ export function RequirementsView() {
                                                 className="flex max-w-full gap-2 rounded-lg bg-input p-3 text-second dark:bg-bg"
                                             >
                                                 <MinusIcon
-                                                    className="h-6 w-6 shrink-0 text-main"
+                                                    className="size-6 shrink-0 text-main"
                                                     onClick={() => {
                                                         const list = requireCollections.filter((x) => x !== collection);
                                                         setRequireCollections(list);
@@ -143,7 +143,7 @@ export function RequirementsView() {
                                                         name={collection.name}
                                                         size={24}
                                                         disableBadge
-                                                        className="h-6 w-6 shrink-0 rounded-full"
+                                                        className="size-6 shrink-0 rounded-full"
                                                     />
                                                     {collection.name ? (
                                                         <div className="min-w-0 flex-grow truncate text-left text-medium leading-5 text-main">
@@ -152,7 +152,7 @@ export function RequirementsView() {
                                                     ) : null}
                                                 </div>
                                                 <ArrowDown
-                                                    className="h-6 w-6 cursor-pointer"
+                                                    className="size-6 cursor-pointer"
                                                     onClick={() => handleSelectCollection(0, collection)}
                                                 />
                                             </div>
@@ -164,7 +164,7 @@ export function RequirementsView() {
                                                 onClick={() => handleSelectCollection(slot)}
                                             >
                                                 <MinusIcon
-                                                    className="h-6 w-6 shrink-0 text-main"
+                                                    className="size-6 shrink-0 text-main"
                                                     onClick={(e) => {
                                                         e.stopPropagation();
                                                         const list = collectionSlots.filter((x) => x !== slot);
@@ -177,7 +177,7 @@ export function RequirementsView() {
                                                 <div className="items-center text-second">
                                                     <Trans>Select NFT collection to gate access</Trans>
                                                 </div>
-                                                <ArrowDown className="ml-auto h-6 w-6" />
+                                                <ArrowDown className="ml-auto size-6" />
                                             </div>
                                         ))}
                                         {requireCollections.length + collectionSlots.length < 3 ? (
@@ -187,7 +187,7 @@ export function RequirementsView() {
                                                     setCollectionSlots((slots) => [...slots, Date.now()]);
                                                 }}
                                             >
-                                                <AddIcon className="h-5 w-5" />
+                                                <AddIcon className="size-5" />
                                                 <Trans>Add another NFT gate</Trans>
                                             </div>
                                         ) : null}

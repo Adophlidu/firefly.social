@@ -66,7 +66,7 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
                                 </Trans>
                             }
                         >
-                            <InfoIcon width={20} height={20} className="h-5 w-5 shrink-0" />
+                            <InfoIcon width={20} height={20} className="size-5 shrink-0" />
                         </Tooltip>
                     ) : null}
                 </>

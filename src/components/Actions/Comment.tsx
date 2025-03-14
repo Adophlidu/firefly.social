@@ -107,7 +107,7 @@ export const Comment = memo<CommentProps>(function Comment({ post, disabled = fa
                 <motion.button
                     disabled={buttonDisabled}
                     whileTap={buttonDisabled ? {} : { scale: 0.9 }}
-                    className="inline-flex h-7 w-7 cursor-pointer items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                    className="inline-flex size-7 cursor-pointer items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                     aria-label="Comment"
                     onClick={handleClick}
                 >

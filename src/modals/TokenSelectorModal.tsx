@@ -76,7 +76,7 @@ export function TokenSelectorModal({ ref }: Props) {
                                 });
                             }}
                         >
-                            <AddIcon width={20} height={20} className="h-5 w-5 shrink-0" />
+                            <AddIcon width={20} height={20} className="size-5 shrink-0" />
                             <span>
                                 <Trans>Add</Trans>
                             </span>

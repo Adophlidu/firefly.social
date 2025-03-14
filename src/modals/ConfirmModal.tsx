@@ -97,7 +97,7 @@ export function ConfirmModal({ ref }: Props) {
                         </div>
                     )}
 
-                    {props.enableCloseButton ? <div className="relative h-6 w-6" /> : null}
+                    {props.enableCloseButton ? <div className="relative size-6" /> : null}
                 </div>
 
                 <div

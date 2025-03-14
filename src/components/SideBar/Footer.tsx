@@ -55,7 +55,7 @@ export function Footer({ collapsed = false }: FooterProps) {
                             <LoadingIcon />
                         ) : (
                             <>
-                                <DoubleUser className="h-5 w-5" />
+                                <DoubleUser className="size-5" />
                                 <Trans>Sign in</Trans>
                             </>
                         )}

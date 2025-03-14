@@ -53,7 +53,7 @@ export default function Wallets() {
                         title={
                             <span className="inline-flex items-center">
                                 <Trans>
-                                    <EvmIcon width={20} height={20} className="mr-2 h-5 w-5 shrink-0" />
+                                    <EvmIcon width={20} height={20} className="mr-2 size-5 shrink-0" />
                                     EVM wallets
                                 </Trans>
                             </span>
@@ -64,7 +64,7 @@ export default function Wallets() {
                         title={
                             <span className="inline-flex items-center">
                                 <Trans>
-                                    <SolanaIcon width={20} height={20} className="mr-2 h-5 w-5 shrink-0" />
+                                    <SolanaIcon width={20} height={20} className="mr-2 size-5 shrink-0" />
                                     Solana wallets
                                 </Trans>
                             </span>

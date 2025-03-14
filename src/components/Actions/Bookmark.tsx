@@ -45,7 +45,7 @@ export const Bookmark = memo<BookmarkProps>(function Bookmark({
                     disabled={disabled}
                     whileTap={{ scale: 0.9 }}
                     className={classNames('inline-flex items-center', {
-                        'h-7 w-7 justify-center rounded-full hover:bg-warn/[.20] hover:text-warn': onlyIcon,
+                        'size-7 justify-center rounded-full hover:bg-warn/[.20] hover:text-warn': onlyIcon,
                         'h-8 w-full gap-2 px-3 text-main hover:bg-bg': !onlyIcon,
                     })}
                     aria-label="Bookmark"

@@ -357,7 +357,7 @@ export function ConfirmView() {
                                 ) : (
                                     <div className="flex justify-center gap-3">
                                         <ArrowLeftIcon
-                                            className={classNames('h-6 w-6', {
+                                            className={classNames('size-6', {
                                                 'cursor-not-allowed text-third': themeIndex === 0,
                                                 'cursor-pointer text-second': themeIndex !== 0,
                                             })}
@@ -367,7 +367,7 @@ export function ConfirmView() {
                                             }}
                                         />
                                         <ArrowRightIcon
-                                            className={classNames('h-6 w-6', {
+                                            className={classNames('size-6', {
                                                 'cursor-not-allowed text-third': themeIndex === themes.length - 1,
                                                 'cursor-pointer text-second': themeIndex !== themes.length - 1,
                                             })}

@@ -77,7 +77,7 @@ export const Like = memo<LikeProps>(function Like({ post, disabled = false, hidd
                 <motion.button
                     disabled={disabled}
                     whileTap={{ scale: 0.9 }}
-                    className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-danger/[.20]"
+                    className="inline-flex size-7 items-center justify-center rounded-full hover:bg-danger/[.20]"
                 >
                     {hasLiked ? <LikedIcon width={16} height={16} /> : <LikeIcon width={16} height={16} />}
                 </motion.button>

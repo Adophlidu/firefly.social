@@ -52,7 +52,7 @@ export function ActivityMobileNavigationBar({ children, className }: Props) {
                         })}
                     />
                     <button
-                        className="h-6 w-6 cursor-pointer"
+                        className="size-6 cursor-pointer"
                         onClick={() => {
                             if (pathname !== PageRoute.Events && useGlobalState.getState().routeChanged) {
                                 comeback();
@@ -67,7 +67,7 @@ export function ActivityMobileNavigationBar({ children, className }: Props) {
                     </button>
                     <p className="w-full min-w-0 truncate">{children}</p>
                     <button
-                        className="h-6 w-6 cursor-pointer"
+                        className="size-6 cursor-pointer"
                         onClick={() => {
                             captureActivityEvent(EventId.EVENT_SHARE_CLICK, {});
                             if (pathname === PageRoute.Events) {

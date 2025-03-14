@@ -132,7 +132,7 @@ const MentionsTypeaheadMenuItem = memo<MentionsTypeaheadMenuItemProps>(function 
                     'm-1.5 flex items-center space-x-2 rounded-xl px-3 py-1 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-800',
                 )}
             >
-                <Avatar alt={option.handle} className="h-7 w-7 rounded-full" src={option.pfp} size={32} />
+                <Avatar alt={option.handle} className="size-7 rounded-full" src={option.pfp} size={32} />
                 <div className="flex min-w-0 flex-1 justify-between">
                     <div className="flex flex-col truncate">
                         <div className="truncate text-sm">

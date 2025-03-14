@@ -21,10 +21,10 @@ export const ChooseChannelAction = memo(function ChooseChannelAction({ hasError,
 
     const buttonContent = (
         <>
-            <SocialSourceIcon className="h-4 w-4 text-secondary" mono width={20} height={20} source={source} />
+            <SocialSourceIcon className="size-4 text-secondary" mono width={20} height={20} source={source} />
 
             <span className="text-[14px] leading-[18px]">/{channel[source]?.name}</span>
-            {!hasError ? <ChevronDownIcon className="h-4 w-4 text-secondary" aria-hidden="true" /> : null}
+            {!hasError ? <ChevronDownIcon className="size-4 text-secondary" aria-hidden="true" /> : null}
         </>
     );
 

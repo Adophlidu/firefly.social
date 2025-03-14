@@ -39,7 +39,7 @@ export function CollectPostModal({ ref }: Props) {
                     <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                         <Trans>Collect Post</Trans>
                     </div>
-                    <div className="relative h-6 w-6" />
+                    <div className="relative size-6" />
                 </div>
                 {props?.post ? <PostCollect post={props?.post} onClose={() => dispatch?.close()} /> : null}
             </ClickableArea>

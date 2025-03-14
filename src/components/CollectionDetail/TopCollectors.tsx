@@ -63,7 +63,7 @@ function getTopCollectorsItemContent(
                                 <div className="truncate">{formatAddress(item.owner_address, 4)}</div>
                             </Tooltip>
                         )}
-                        <LinkIcon className="ml-1.5 h-3 w-3 shrink-0 text-secondary" />
+                        <LinkIcon className="ml-1.5 size-3 shrink-0 text-secondary" />
                     </div>
                 </Link>
             </td>

@@ -76,7 +76,7 @@ export function FilterPopover<F>({
                     <PopoverButton className="flex h-9 cursor-pointer items-center gap-1 rounded-lg border border-lightLineSecond px-2 text-xs text-main focus:outline-none disabled:cursor-default">
                         {selected ? itemRenderer?.(selected, true) : placeholder}
                         <LineArrowUp
-                            className={classNames('h-3 w-3 transition-all duration-200 ease-in-out', {
+                            className={classNames('size-3 transition-all duration-200 ease-in-out', {
                                 'rotate-180': !open,
                             })}
                         />

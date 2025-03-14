@@ -63,7 +63,7 @@ export const RedPacketAccountItem = memo(function RedPacketAccountItem({
                     href={profileLink ?? addressLink ?? ''}
                     target="_blank"
                 >
-                    <LinkOut className="h-4 w-4 text-lightSecond" />
+                    <LinkOut className="size-4 text-lightSecond" />
                 </Link>
             ) : null}
         </div>

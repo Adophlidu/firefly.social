@@ -102,7 +102,7 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
             >
                 <div className="flex-shrink-0 rounded-full ring-[3px] ring-primaryBottom">
                     <AddressSocialAvatar
-                        className="h-[80px] w-[80px] overflow-hidden rounded-full bg-bg"
+                        className="size-[80px] overflow-hidden rounded-full bg-bg"
                         address={address}
                         size={80}
                     />
@@ -130,10 +130,10 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                         <span className="min-w-0 truncate font-inter text-medium font-bold leading-[14px]">
                             {formatAddress(address, 4)}
                         </span>
-                        <CopyTextButton size={11} className="h-3.5 w-3.5" text={address} />
+                        <CopyTextButton size={11} className="size-3.5" text={address} />
                         {addressLink ? (
                             <Link href={addressLink} className="inline-flex">
-                                <LinkIcon className="h-3.5 w-3.5" />
+                                <LinkIcon className="size-3.5" />
                             </Link>
                         ) : null}
                     </div>

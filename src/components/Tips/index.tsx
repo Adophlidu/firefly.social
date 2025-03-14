@@ -93,7 +93,7 @@ export function Tips({
                     className={classNames('inline-flex items-center', {
                         'hover:bg-lightWarn/[.20]': !disabled && !label && !loading,
                         'cursor-not-allowed': disabled,
-                        'h-7 w-7 justify-center rounded-full': !label,
+                        'size-7 justify-center rounded-full': !label,
                         'w-full': !!label,
                     })}
                     whileTap={!label ? { scale: 0.9 } : undefined}

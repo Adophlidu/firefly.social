@@ -29,7 +29,7 @@ export function CollectionItem({ collection }: CollectionProps) {
                 <Image
                     alt={collection.name}
                     src={collection.iconURL!}
-                    className="h-8 w-8 rounded-full object-cover"
+                    className="size-8 rounded-full object-cover"
                     height={24}
                     width={24}
                 />
@@ -47,7 +47,7 @@ export function CollectionItem({ collection }: CollectionProps) {
                         <Trans>Added</Trans>
                     </span>
                 ) : (
-                    <LinkIcon className="h-5 w-5" />
+                    <LinkIcon className="size-5" />
                 )}
             </a>
         </ClickableButton>

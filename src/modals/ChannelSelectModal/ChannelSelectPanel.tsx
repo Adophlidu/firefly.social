@@ -24,7 +24,7 @@ const renderChannel = (channel: Channel) => {
                 <img
                     alt={channel.name}
                     src={channel.imageUrl}
-                    className="h-8 w-8 rounded-full object-contain"
+                    className="size-8 rounded-full object-contain"
                     height={24}
                     width={24}
                 />
@@ -41,7 +41,7 @@ const renderChannel = (channel: Channel) => {
                     className="ml-1 inline-block"
                     onClick={(e) => e.stopPropagation()}
                 >
-                    <LinkIcon className="h-3 w-3" />
+                    <LinkIcon className="size-3" />
                 </a>
             ) : null}
         </ClickableButton>

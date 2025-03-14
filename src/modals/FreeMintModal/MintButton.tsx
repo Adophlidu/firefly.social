@@ -89,7 +89,7 @@ export const MintButton = memo<MintButtonProps>(function MintButton({
                     <ClickableButton
                         disabled={minusDisabled}
                         onClick={() => changeMintCount(`${mintCount - 1}`)}
-                        className="flex h-8 w-8 items-center justify-center rounded-full bg-main text-lightBottom dark:text-darkBottom"
+                        className="flex size-8 items-center justify-center rounded-full bg-main text-lightBottom dark:text-darkBottom"
                     >
                         <MinusIcon width={20} height={20} />
                     </ClickableButton>
@@ -103,7 +103,7 @@ export const MintButton = memo<MintButtonProps>(function MintButton({
                     <ClickableButton
                         disabled={addDisabled}
                         onClick={() => changeMintCount(`${mintCount + 1}`)}
-                        className="flex h-8 w-8 items-center justify-center rounded-full bg-main text-lightBottom dark:text-darkBottom"
+                        className="flex size-8 items-center justify-center rounded-full bg-main text-lightBottom dark:text-darkBottom"
                     >
                         <AddIcon width={20} height={20} />
                     </ClickableButton>

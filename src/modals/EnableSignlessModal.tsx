@@ -64,7 +64,7 @@ export function EnableSignlessModal({ ref }: Props) {
                     <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                         <Trans>Delegate Signing</Trans>
                     </div>
-                    <div className="relative h-6 w-6" />
+                    <div className="relative size-6" />
                 </div>
 
                 <div className="flex flex-col gap-6 p-6">

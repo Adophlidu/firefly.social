@@ -40,9 +40,9 @@ export function ActivityElex24Vote() {
                             setVote(option.value);
                         }}
                     >
-                        <Image src={option.icon} alt={option.value} width={24} height={24} className="mr-2 h-6 w-6" />
+                        <Image src={option.icon} alt={option.value} width={24} height={24} className="mr-2 size-6" />
                         <span>{option.name}</span>
-                        {selected ? <TickSquareIcon className="ml-auto h-6 w-6 shrink-0 text-success" /> : null}
+                        {selected ? <TickSquareIcon className="ml-auto size-6 shrink-0 text-success" /> : null}
                     </button>
                 );
             })}

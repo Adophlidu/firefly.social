@@ -82,7 +82,7 @@ export function DisconnectFireflyAccountModal({ ref }: Props) {
                     <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                         <Trans>Disconnect</Trans>
                     </div>
-                    <div className="relative h-6 w-6" />
+                    <div className="relative size-6" />
                 </div>
 
                 <div className="flex flex-col gap-2 px-0 !pt-0 pb-6">

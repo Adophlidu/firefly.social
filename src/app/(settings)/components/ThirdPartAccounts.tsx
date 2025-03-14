@@ -46,7 +46,7 @@ function ThirdPartItem({
 
     return (
         <div className="inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg border border-line bg-white bg-bottom px-3 py-2 backdrop-blur dark:bg-bg">
-            <div className={classNames('flex h-10 w-10 items-center justify-center rounded-full', iconClassName)}>
+            <div className={classNames('flex size-10 items-center justify-center rounded-full', iconClassName)}>
                 <PlatformIcon width={iconWidth} height={iconHeight} />
             </div>
             <div className="flex min-w-0 flex-1 flex-col gap-0.5">

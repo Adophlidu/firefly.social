@@ -234,7 +234,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                     <div className="flex items-center gap-2 max-md:flex md:hidden">
                         <Link href={authorUrl} className="z-[1]">
                             <Avatar
-                                className="h-[15px] w-[15px]"
+                                className="size-[15px]"
                                 src={`https://cdn.stamp.fyi/space/s:${space.id}?s=40`}
                                 size={15}
                                 alt={space.name || space.id}
@@ -256,7 +256,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                             <div className="hidden items-center gap-2 md:flex">
                                 <Link href={authorUrl} className="z-[1]">
                                     <Avatar
-                                        className="h-[15px] w-[15px]"
+                                        className="size-[15px]"
                                         src={`https://cdn.stamp.fyi/space/s:${space.id}?s=40`}
                                         size={15}
                                         alt={space.name || space.id}

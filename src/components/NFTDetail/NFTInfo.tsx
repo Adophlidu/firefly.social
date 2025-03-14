@@ -132,7 +132,7 @@ export function NFTInfo(props: NFTInfoProps) {
 
     return (
         <div className="flex flex-col gap-2 md:flex-row md:gap-3">
-            <div className="relative mx-auto flex h-[230px] w-[230px] items-center justify-center md:min-w-[230px]">
+            <div className="relative mx-auto flex size-[230px] items-center justify-center md:min-w-[230px]">
                 {isPoap || chainId ? (
                     <div className="absolute left-2.5 top-2.5 z-10 rounded-xl bg-black/25 p-1">
                         {isPoap ? (
@@ -166,7 +166,7 @@ export function NFTInfo(props: NFTInfoProps) {
                                         width={20}
                                         height={20}
                                         alt={collection.name}
-                                        className="mr-1 h-5 w-5 rounded-md shadow"
+                                        className="mr-1 size-5 rounded-md shadow"
                                         src={collection.icon}
                                     />
                                 ) : null}
