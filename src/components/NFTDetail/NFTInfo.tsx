@@ -124,9 +124,11 @@ export function NFTInfo(props: NFTInfoProps) {
             <span className="leading-4 text-lightSecond">
                 {isPoap ? <Trans>Collected by</Trans> : <Trans>Owned By</Trans>}
             </span>
-            <span className="block truncate font-bold text-main">
-                {!ownerAddress ? '-' : ensName ? ensName : formatAddress(ownerAddress, 4)}
-            </span>
+            <TextOverflowTooltip content={ensName ?? ownerAddress}>
+                <span className="block truncate font-bold text-main">
+                    {!ownerAddress ? '-' : ensName ? ensName : formatAddress(ownerAddress, 4)}
+                </span>
+            </TextOverflowTooltip>
         </>
     );
 
@@ -206,7 +208,7 @@ export function NFTInfo(props: NFTInfoProps) {
                             <Link
                                 href={resolveProfileUrl(Source.Wallet, ownerAddress)}
                                 target="_blank"
-                                className="h-[68px] flex-1 space-y-1.5 rounded-lg bg-lightBg p-2.5 text-base"
+                                className="h-[68px] min-w-0 flex-1 space-y-1.5 rounded-lg bg-lightBg p-2.5 text-base"
                             >
                                 {ownerContent}
                             </Link>
