@@ -66,7 +66,7 @@ export const FollowButton = memo(function FollowButton({
                 variant={variant}
                 muted={muted}
                 profile={profile}
-                className={className}
+                className={classNames(className, 'rounded-lg px-5')}
                 {...rest}
             />
         );

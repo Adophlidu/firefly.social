@@ -23,7 +23,7 @@ export default async function Layout(props: Props) {
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isSocialSource(source) || source === Source.Twitter) notFound();
 
-    const profile = await runInSafeAsync(() => resolveSocialMediaProvider(source).getProfileById(id));
+    const profile = await runInSafeAsync(() => resolveSocialMediaProvider(source).getProfileByIdOrHandle(id));
     if (!profile) notFound();
 
     const identity = resolveSpecialProfileIdentity({ source, id });

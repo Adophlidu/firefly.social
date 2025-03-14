@@ -23,18 +23,21 @@ import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { getSuggestedFollowsInCard } from '@/services/getSuggestedFollows.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useBskyStateStore } from '@/store/useProfileStore.js';
 
 export function SuggestedFollowsCard() {
     const isLarge = useIsLarge('min');
     const currentSource = useGlobalState.use.currentSource();
     const profileAll = useCurrentProfilesAll();
     const asyncStatusAll = useAsyncStatusAll();
+    const bskySession = useBskyStateStore.use.currentProfileSession();
 
     const { data: suggestedFollows, isLoading } = useQuery({
         queryKey: [
             'suggested-follows-lite',
             ...SORTED_SOCIAL_SOURCES.map((x) => profileAll[x]?.profileId),
             asyncStatusAll,
+            bskySession,
         ],
         staleTime: 1000 * 60 * 2,
         queryFn: async () => {

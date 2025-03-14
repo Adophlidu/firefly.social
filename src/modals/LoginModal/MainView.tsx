@@ -255,6 +255,89 @@ export function MainView() {
                     );
                 })}
             </div>
+            <div className="flex flex-col gap-2">
+                {SORTED_THIRD_PARTY_SOURCES_IN_URL.map((sourceInUrl, index) => {
+                    const source = resolveSource(sourceInUrl) as ThirdPartySource | Source.Email;
+                    const profile = data ? formatAccountFromConnections(sourceInUrl, data) : null;
+                    return (
+                        <div className="overflow-hidden rounded-lg border border-secondaryLine" key={index}>
+                            <ClickableButton
+                                className={classNames('flex w-full cursor-pointer items-center justify-between p-2', {
+                                    'bg-bg': !profile || (index % 2 === 0 && !isLoginFirefly),
+                                })}
+                                onClick={() => {
+                                    if (source !== Source.Email) {
+                                        onAuthClick(source);
+                                    } else {
+                                        history.replace(
+                                            urlcat('/:source', {
+                                                source: resolveSourceInUrl(source),
+                                            }),
+                                        );
+                                    }
+                                }}
+                            >
+                                {profile ? (
+                                    <div className="flex items-center gap-2">
+                                        <ProfileSourceIcon source={source} size={20} />
+                                        {formatThirdPartyProfileName(profile.profile)}
+                                    </div>
+                                ) : (
+                                    <>
+                                        <div className="flex items-center gap-2">
+                                            <ProfileSourceIcon source={source} size={20} />
+                                            <span>{resolveSourceName(source)}</span>
+                                        </div>
+                                        {!loading && selectedSource !== source ? <PlusIcon className="size-5" /> : null}
+                                    </>
+                                )}
+                            </ClickableButton>
+                        </div>
+                    );
+                })}
+            </div>
+            <div className="flex flex-col gap-2">
+                {SORTED_THIRD_PARTY_SOURCES_IN_URL.map((sourceInUrl, index) => {
+                    const source = resolveSource(sourceInUrl) as ThirdPartySource | Source.Email;
+                    const profile = data ? formatAccountFromConnections(sourceInUrl, data) : null;
+                    return (
+                        <div className="overflow-hidden rounded-lg border border-secondaryLine" key={index}>
+                            <ClickableButton
+                                className={classNames('flex w-full cursor-pointer items-center justify-between p-2', {
+                                    'bg-bg': !profile || (index % 2 === 0 && !isLoginFirefly),
+                                })}
+                                onClick={() => {
+                                    if (source !== Source.Email) {
+                                        onAuthClick(source);
+                                        return;
+                                    } else {
+                                        history.replace(
+                                            urlcat('/:source', {
+                                                source: resolveSourceInUrl(source),
+                                            }),
+                                        );
+                                    }
+                                }}
+                            >
+                                {profile ? (
+                                    <div className="flex items-center gap-2">
+                                        <ProfileSourceIcon source={source} size={20} />
+                                        {formatThirdPartyProfileName(profile.profile)}
+                                    </div>
+                                ) : (
+                                    <>
+                                        <div className="flex items-center gap-2">
+                                            <ProfileSourceIcon source={source} size={20} />
+                                            <span>{resolveSourceName(source)}</span>
+                                        </div>
+                                        {!loading && selectedSource !== source ? <PlusIcon className="size-5" /> : null}
+                                    </>
+                                )}
+                            </ClickableButton>
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     );
 }

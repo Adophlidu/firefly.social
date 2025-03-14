@@ -228,9 +228,9 @@
             "react-use@17.5.1": "src/maskbook/patches/react-use@17.5.1.patch",
             "@livepeer/core@3.2.7": "patches/@livepeer__core@3.2.7.patch",
             "dayjs-twitter@0.5.0": "patches/dayjs-twitter@0.5.0.patch",
-            "@headlessui/react@2.1.10": "patches/@headlessui__react@2.1.10.patch",
             "@reown/appkit@1.6.8": "patches/@reown__appkit@1.6.8.patch",
-            "@lexical/react@0.18.0": "patches/@lexical__react@0.18.0.patch"
+            "@lexical/react@0.18.0": "patches/@lexical__react@0.18.0.patch",
+            "@headlessui/react@2.1.10": "patches/@headlessui__react@2.1.10.patch"
         }
     }
 }

@@ -53,7 +53,12 @@ function hasAnySocialProfile() {
     );
 }
 
-async function updateState(accounts: Account[], overwrite = false) {
+interface UpdateStateOptions {
+    setAsCurrent?: boolean | ((account: Account) => Promise<void>);
+    overwrite?: boolean;
+}
+
+async function updateState(accounts: Account[], { setAsCurrent = true, overwrite = false }: UpdateStateOptions = {}) {
     // remove all accounts if overwrite is true
     if (overwrite) {
         await Promise.all(
@@ -92,13 +97,19 @@ async function updateState(accounts: Account[], overwrite = false) {
     });
 
     // set the first account as the current account if no current account is set
-    await Promise.all(
+    await Promise.allSettled(
         SORTED_SOCIAL_SOURCES.map(async (x) => {
             const { state, sessionHolder } = getContext(x);
 
             const account = first(state.accounts);
             if (!account) return;
-            if (!sessionHolder?.session) sessionHolder?.resumeSession(account.session);
+            if (!sessionHolder?.session) {
+                if (typeof setAsCurrent === 'function') {
+                    await setAsCurrent(account);
+                } else if (setAsCurrent) {
+                    sessionHolder?.resumeSession(account.session);
+                }
+            }
             if (!state.currentProfile) state.updateCurrentAccount(account);
             if (x === Source.Twitter) await TwitterAuthProvider.login();
         }),
@@ -209,7 +220,10 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         captureSyncModalEvent(fireflySession.profileId, confirmed);
 
         if (confirmed) {
-            await updateState([account], !belongsTo);
+            await updateState([account], {
+                setAsCurrent,
+                overwrite: !belongsTo,
+            });
         } else {
             // sign out tw from server if needed
             if (TwitterSession.isNextAuth(account.session)) {

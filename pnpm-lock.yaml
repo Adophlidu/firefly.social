@@ -21,7 +21,7 @@ overrides:
 
 patchedDependencies:
   '@headlessui/react@2.1.10':
-    hash: sxmmxbdm2j6wwsctvuk6kkdsda
+    hash: roq3pv4art7yqmupqbnd3ablue
     path: patches/@headlessui__react@2.1.10.patch
   '@lexical/react@0.18.0':
     hash: 46fk3s2wpry7pf7ladnvahdhqq
@@ -93,7 +93,7 @@ importers:
         version: 9.6.0(react-dom@19.0.0)(react@19.0.0)(styled-components@6.1.13)
       '@headlessui/react':
         specifier: 2.1.10
-        version: 2.1.10(patch_hash=sxmmxbdm2j6wwsctvuk6kkdsda)(react-dom@19.0.0)(react@19.0.0)
+        version: 2.1.10(patch_hash=roq3pv4art7yqmupqbnd3ablue)(react-dom@19.0.0)(react@19.0.0)
       '@heroicons/react':
         specifier: ^2.1.5
         version: 2.1.5(react@19.0.0)
@@ -4638,7 +4638,7 @@ packages:
     dependencies:
       graphql: 16.9.0
 
-  /@headlessui/react@2.1.10(patch_hash=sxmmxbdm2j6wwsctvuk6kkdsda)(react-dom@19.0.0)(react@19.0.0):
+  /@headlessui/react@2.1.10(patch_hash=roq3pv4art7yqmupqbnd3ablue)(react-dom@19.0.0)(react@19.0.0):
     resolution: {integrity: sha512-6mLa2fjMDAFQi+/R10B+zU3edsUk/MDtENB2zHho0lqKU1uzhAfJLUduWds4nCo8wbl3vULtC5rJfZAQ1yqIng==}
     engines: {node: '>=10'}
     peerDependencies:
