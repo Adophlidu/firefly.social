@@ -54,6 +54,10 @@ export function DisconnectFireflyAccountModal({ ref }: Props) {
                 queryKey: ['allConnections'],
             });
 
+            queryClient.invalidateQueries({
+                queryKey: ['allConnections'],
+            });
+
             dispatch?.close();
         } catch (error) {
             if (error instanceof Error && error.message.includes('Please leave at least 1 account')) {
