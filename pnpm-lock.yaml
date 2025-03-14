@@ -334,9 +334,6 @@ importers:
       swiper:
         specifier: ^11.1.15
         version: 11.1.15
-      tinycolor2:
-        specifier: ^1.6.0
-        version: 1.6.0
       tippy.js:
         specifier: ^6.3.7
         version: 6.3.7
@@ -458,9 +455,6 @@ importers:
       '@types/react-slick':
         specifier: ^0.23.13
         version: 0.23.13
-      '@types/tinycolor2':
-        specifier: ^1.4.6
-        version: 1.4.6
       '@types/twemoji-parser':
         specifier: ^13.1.4
         version: 13.1.4
@@ -10851,10 +10845,6 @@ packages:
   /@types/stylis@4.2.5:
     resolution: {integrity: sha512-1Xve+NMN7FWjY14vLoY5tL3BVEQ/n42YLwaqJIPYhotZ9uBHt87VceMwWQpzmdEt2TNXIorIFG+YeCUUW7RInw==}
     dev: false
-
-  /@types/tinycolor2@1.4.6:
-    resolution: {integrity: sha512-iEN8J0BoMnsWBqjVbWH/c0G0Hh7O21lpR2/+PrvAVgWdzL7eexIFm4JN/Wn10PTcmNdtS6U67r499mlWMXOxNw==}
-    dev: true
 
   /@types/trusted-types@2.0.7:
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
@@ -22432,10 +22422,6 @@ packages:
     resolution: {integrity: sha512-0+DUvqWMValLmha6lr4kD8iAMK1HzV0/aKnCtWb9v9641TnP/MFb7Pc2bxoxQjTXAErryXVgUOfv2YqNllqGeg==}
     dev: true
 
-  /tinycolor2@1.6.0:
-    resolution: {integrity: sha512-XPaBkWQJdsf3pLKJV9p4qN/S+fm2Oj8AIPo1BTUhg5oxkvm9+SVEGFdhyOz7tTdUTfvxMiAs4sp6/eZO2Ew+pw==}
-    dev: false
-
   /tinyexec@0.3.1:
     resolution: {integrity: sha512-WiCJLEECkO18gwqIp6+hJg0//p23HXp4S+gGtAKu3mI2F2/sXC4FvHvXvB0zJVVaTPhx1/tOwdbRsa1sOBIKqQ==}
     dev: true
@@ -24815,7 +24801,6 @@ time:
   /@types/react-dom@19.0.2: '2024-12-09T19:32:15.544Z'
   /@types/react-slick@0.23.13: '2023-12-17T16:07:00.187Z'
   /@types/react@19.0.2: '2024-12-18T16:02:34.919Z'
-  /@types/tinycolor2@1.4.6: '2023-11-07T17:56:57.104Z'
   /@types/twemoji-parser@13.1.4: '2023-11-07T18:13:43.442Z'
   /@types/twitter-text@3.1.10: '2024-01-22T19:35:12.288Z'
   /@types/use-subscription@1.0.2: '2023-11-07T18:34:22.454Z'
@@ -24905,7 +24890,6 @@ time:
   /tailwindcss-safe-area@0.6.0: '2024-08-25T17:31:22.552Z'
   /tailwindcss@3.4.16: '2024-12-03T19:42:42.394Z'
   /tiny-secp256k1@2.2.3: '2023-06-29T08:38:53.395Z'
-  /tinycolor2@1.6.0: '2023-02-03T23:33:07.774Z'
   /tippy.js@6.3.7: '2021-11-10T06:53:12.319Z'
   /ts-results-es@4.0.0: '2023-08-08T10:13:15.427Z'
   /tweetnacl@1.0.3: '2020-02-10T19:49:05.829Z'
