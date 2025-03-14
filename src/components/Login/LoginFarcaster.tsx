@@ -310,11 +310,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                         >
                                             existing Farcaster signer
                                         </Link>{' '}
-                                        to Firefly or{' '}
-                                        <Link to={'/main'} className="font-bold hover:underline">
-                                            sync
-                                        </Link>{' '}
-                                        through the app
+                                        to Firefly
                                     </Trans>
                                 ) : signType === SignType.RelayService ? (
                                     <Trans>

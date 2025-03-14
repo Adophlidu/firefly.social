@@ -1050,6 +1050,9 @@ msgstr "Delete Firefly account?"
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "Failed to upload. Image size exceeds {0}"
 
+msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly"
+msgstr "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly"
+
 msgid "Done"
 msgstr "Done"
 
@@ -3668,9 +3671,6 @@ msgstr "Wallet"
 
 msgid "My Accounts"
 msgstr "My Accounts"
-
-msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
-msgstr "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
 
 #. placeholder {0}: profile.handle
 msgid "Unmute @{0}"

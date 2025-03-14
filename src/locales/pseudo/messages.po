@@ -1050,6 +1050,9 @@ msgstr ""
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr ""
 
+msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly"
+msgstr ""
+
 msgid "Done"
 msgstr ""
 
@@ -3651,9 +3654,6 @@ msgid "Wallet"
 msgstr ""
 
 msgid "My Accounts"
-msgstr ""
-
-msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
 msgstr ""
 
 #. placeholder {0}: profile.handle

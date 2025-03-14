@@ -1055,6 +1055,9 @@ msgstr ""
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "上传失败。图片超过最大限制 {0}"
 
+msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly"
+msgstr "已经登录？<0/>授权 <1>已经存在的 Farcaster signer</1> 给 Firefly"
+
 msgid "Done"
 msgstr "完成"
 
@@ -3673,9 +3676,6 @@ msgstr ""
 
 msgid "My Accounts"
 msgstr ""
-
-msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
-msgstr "已经登录？<0/>授权 <1>已经存在的 Farcaster signer</1> 给 Firefly 或者通过应用程序<2>同步</2>"
 
 #. placeholder {0}: profile.handle
 msgid "Unmute @{0}"
