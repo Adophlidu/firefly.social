@@ -3,7 +3,9 @@ import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { BskyEmbedType, BskyFacetType, FileMimeType } from '@/constants/enum.js';
+import { BSKY_IMAGE_LIMITATION } from '@/constants/limitation.js';
 import { base64ToFile } from '@/helpers/base64ToFile.js';
+import { compressImage } from '@/helpers/compressImage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -57,7 +59,13 @@ export async function resolveBskyEmbed(post: Post, richText?: RichText) {
     if (link) {
         const urlData = await runInSafeAsync(() => getPostOembed(link));
         const ogImage = urlData?.og?.image?.base64;
-        const thumbBlob = ogImage ? await bskySessionHolder.agent.uploadBlob(base64ToFile(ogImage, link)) : undefined;
+        const compressed = ogImage
+            ? await compressImage(base64ToFile(ogImage, link), {
+                  ...BSKY_IMAGE_LIMITATION,
+                  format: FileMimeType.JPEG,
+              })
+            : undefined;
+        const thumbBlob = compressed?.file ? await bskySessionHolder.agent.uploadBlob(compressed.file) : undefined;
 
         return {
             $type: BskyEmbedType.External,

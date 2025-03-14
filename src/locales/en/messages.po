@@ -1827,6 +1827,9 @@ msgstr "Bio should not exceed {maxBioSize} characters"
 msgid "1m"
 msgstr "1m"
 
+msgid "Tip sent successfully!"
+msgstr "Tip sent successfully!"
+
 msgid "Bookmark"
 msgstr "Bookmark"
 

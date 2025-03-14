@@ -1832,6 +1832,9 @@ msgstr "个人介绍不可以超过 {maxBioSize} 个字"
 msgid "1m"
 msgstr "1个月"
 
+msgid "Tip sent successfully!"
+msgstr ""
+
 msgid "Bookmark"
 msgstr "收藏"
 

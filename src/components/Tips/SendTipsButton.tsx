@@ -7,7 +7,7 @@ import { useAccount } from 'wagmi';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { NetworkType } from '@/constants/enum.js';
-import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveCurrentFireflyAccountId, resolveFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
@@ -83,6 +83,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
                 });
             }
 
+            enqueueSuccessMessage(t`Tip sent successfully!`);
             router.navigate({ to: TipsRoutePath.SUCCESS });
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to send tip.`);

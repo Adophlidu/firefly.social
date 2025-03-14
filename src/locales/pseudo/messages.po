@@ -1819,6 +1819,9 @@ msgstr ""
 msgid "1m"
 msgstr ""
 
+msgid "Tip sent successfully!"
+msgstr ""
+
 msgid "Bookmark"
 msgstr ""
 
