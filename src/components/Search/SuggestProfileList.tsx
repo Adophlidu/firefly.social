@@ -75,6 +75,7 @@ export const SuggestProfileList = memo<SuggestProfileListProps>(function Suggest
                             related={related}
                             key={toFireflyPlatformId(profile)}
                             onClick={onSelect}
+                            autoQueryEnsAvatar
                         />
                     ))}
                 </div>

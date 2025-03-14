@@ -20,7 +20,14 @@ import { searchWalletAddress } from '@/services/searchWalletAddress.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 const getSearchItemContent = ({ profile, related }: { profile: FireflyProfile; related: FireflyProfile[] }) => {
-    return <SearchableProfileItem profile={profile} related={related} key={toFireflyPlatformId(profile)} />;
+    return (
+        <SearchableProfileItem
+            profile={profile}
+            related={related}
+            key={toFireflyPlatformId(profile)}
+            autoQueryEnsAvatar
+        />
+    );
 };
 
 const noNextPage = '__no_next_page__';

@@ -1,4 +1,5 @@
 import { type HTMLProps, memo } from 'react';
+import { useEnsAvatar } from 'wagmi';
 
 import WalletIcon from '@/assets/wallet-circle.svg';
 import { Avatar } from '@/components/Avatar.js';
@@ -15,18 +16,28 @@ import type { Profile } from '@/providers/types/Firefly.js';
 interface CrossProfileItemProps extends HTMLProps<HTMLAnchorElement> {
     profile: Profile;
     related: Profile[];
+    autoQueryEnsAvatar?: boolean;
 }
 
 export const SearchableProfileItem = memo<CrossProfileItemProps>(function SearchableProfileItem({
     profile,
     related,
     className,
+    autoQueryEnsAvatar = false,
     onClick,
 }) {
     const platformSource = resolveSourceFromFireflyPlatform(profile.platform);
     const source = platformSource === Source.Wallet ? Source.Wallet : narrowToSocialSource(platformSource);
-    const avatar = profile.avatar || getStampAvatarByProfileId(source, profile.platform_id);
     const profileId = [Source.Lens, Source.Bsky].includes(source) ? profile.handle : profile.platform_id;
+
+    const { data } = useEnsAvatar({
+        name: profile.handle,
+        chainId: 1,
+        query: {
+            enabled: autoQueryEnsAvatar && source === Source.Wallet && !!profile.handle,
+        },
+    });
+    const avatar = profile.avatar || data || getStampAvatarByProfileId(source, profile.platform_id);
 
     // keep the matched profile at the first place
     const sortedRelated = related.sort((a, b) => (a.platform === profile.platform ? -1 : 1));
