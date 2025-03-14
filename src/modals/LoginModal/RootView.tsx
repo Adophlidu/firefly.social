@@ -1,19 +1,12 @@
 import { Trans } from '@lingui/react/macro';
 import { Outlet, useRouter, useRouterState } from '@tanstack/react-router';
-import { useRouter as useNextRouter } from 'next/navigation.js';
 
-import SettingsIcon from '@/assets/setting.svg';
 import { BackButton } from '@/components/BackButton.js';
 import { CloseButton } from '@/components/IconButton.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { LoginModalRef } from '@/modals/controls.js';
 
 export function RootView() {
-    const isMedium = useIsMedium();
     const router = useRouter();
-    const pageRouter = useNextRouter();
-    const isLoginFirefly = useIsLoginFirefly();
     const { matches, location } = useRouterState();
 
     const isMain = location.pathname === '/main';
@@ -39,17 +32,8 @@ export function RootView() {
                     />
                 )}
 
-                <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">{title}</div>
-                <div className="relative size-6">
-                    {isMain && isLoginFirefly ? (
-                        <SettingsIcon
-                            className="size-6 cursor-pointer"
-                            onClick={() => {
-                                LoginModalRef.close();
-                                pageRouter.push('/settings/connected');
-                            }}
-                        />
-                    ) : null}
+                <div className="shrink grow basis-0 pr-6 text-center text-lg font-bold leading-snug text-main">
+                    {title}
                 </div>
             </div>
             <Outlet />
