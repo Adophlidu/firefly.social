@@ -1,5 +1,4 @@
 import { Emitter } from '@servie/events';
-import { type Subscription } from 'use-subscription';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { NotImplementedError } from '@/constants/error.js';
@@ -26,18 +25,6 @@ export class SessionHolder<T extends Session> {
     get sessionRequired() {
         if (!this.internalSession) throw new Error('No session found.');
         return this.internalSession;
-    }
-
-    get subscription() {
-        return {
-            getCurrentValue: () => this.internalSession,
-            subscribe: (callback: () => void) => {
-                return this.emitter.on('update', (session) => {
-                    if (this.internalSession === session) return;
-                    callback();
-                });
-            },
-        } satisfies Subscription<T | null>;
     }
 
     assertSession(message?: string) {

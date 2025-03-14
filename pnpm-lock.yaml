@@ -361,9 +361,6 @@ importers:
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
-      use-subscription:
-        specifier: ^1.8.2
-        version: 1.8.2(react@19.0.0)
       usehooks-ts:
         specifier: ^2.9.5
         version: 2.9.5(react-dom@19.0.0)(react@19.0.0)
@@ -461,9 +458,6 @@ importers:
       '@types/twitter-text':
         specifier: ^3.1.10
         version: 3.1.10
-      '@types/use-subscription':
-        specifier: ^1.0.2
-        version: 1.0.2
       '@types/uuid':
         specifier: ^9.0.3
         version: 9.0.3
