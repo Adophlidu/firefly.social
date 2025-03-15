@@ -30,15 +30,14 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
     const { id, source } = identity;
 
     const { data: profile, isLoading } = useQuery({
-        enabled: !!id && !!source,
-        queryKey: ['profile', source, id],
+        queryKey: ['profile', source, id, 'card'],
         staleTime: 1000 * 60 * 5, // 5 minutes
         queryFn: async () => {
-            if (defaultProfile) return defaultProfile;
             if (!id || !source) return;
             const provider = resolveSocialMediaProvider(narrowToSocialSource(source));
-            return source === Source.Lens ? provider.getProfileByHandle(id) : provider.getProfileById(id);
+            return provider.getProfileByIdOrHandle(id);
         },
+        initialData: defaultProfile,
     });
     const myProfile = useCurrentProfile(narrowToSocialSource(source));
 

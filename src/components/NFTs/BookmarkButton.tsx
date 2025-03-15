@@ -61,10 +61,12 @@ export function BookmarkButton({
             onClick={async () => {
                 const confirmed = hasBookmarked
                     ? await ConfirmModalRef.openAndWaitForClose({
-                          title: t`Remove from Bookmarks`,
+                          resetSize: true,
+                          title: t`Remove from bookmarks`,
+                          modalStyle: { width: 400, maxWidth: '90vw' },
                           content: (
                               <div className="text-main">
-                                  <Trans>Are you sure you want to remove this NFT from your bookmark?</Trans>
+                                  <Trans>Are you sure you want to remove this NFT from your bookmarks?</Trans>
                               </div>
                           ),
                           variant: 'normal',

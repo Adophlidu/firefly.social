@@ -2,6 +2,7 @@ import { t } from '@lingui/core/macro';
 import bs58 from 'bs58';
 import { first } from 'lodash-es';
 import { useCallback, useState } from 'react';
+import { useAsyncFn } from 'react-use';
 import { type Address } from 'viem';
 
 import { SelectNetworkModalUI } from '@/components/SelectNetworkModalUI.js';
@@ -44,7 +45,7 @@ export function AddWalletModal({ ref }: Props) {
     });
     const onClose = useCallback((props: AddWalletModalCloseProps = {}) => dispatch?.close(props), [dispatch]);
 
-    const onBind = useCallback(
+    const [{ loading }, onBind] = useAsyncFn(
         async (network: NetworkType) => {
             function checkExistedConnection(address: string) {
                 const existedConnection = connections.find((connection) => isSameAddress(connection.address, address));
@@ -77,6 +78,7 @@ export function AddWalletModal({ ref }: Props) {
                         case NetworkType.Solana: {
                             const adapter = await getWalletAdaptorRequired();
                             const address = adapter.publicKey.toBase58();
+                            if (checkExistedConnection(address)) return;
                             const hexMessage =
                                 await FireflyEndpointProvider.getMessageToSignMessageForBindSolanaWallet(address);
                             const message = bs58.decode(bs58.encode(Buffer.from(hexMessage.substring(2), 'hex')));
@@ -115,6 +117,11 @@ export function AddWalletModal({ ref }: Props) {
     );
 
     return (
-        <SelectNetworkModalUI onOpen={onBind} open={open} onClose={() => dispatch?.abort?.(new Error(`User reject`))} />
+        <SelectNetworkModalUI
+            onOpen={onBind}
+            open={open}
+            onClose={() => dispatch?.abort?.(new Error(`User reject`))}
+            loading={loading}
+        />
     );
 }

@@ -3,9 +3,6 @@ import { Trans } from '@lingui/react/macro';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
-import { ProfileInList } from '@/components/Login/ProfileInList.js';
-import { Source } from '@/constants/enum.js';
-import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -26,16 +23,6 @@ export function ConfirmFireflyModal({ ref }: Props) {
     useSingletonModal(ref, {
         onOpen: async (props) => {
             const { account } = props;
-            const fireflyProfile = account.fireflySession
-                ? {
-                      ...createDummyProfile(Source.Farcaster),
-                      profileId: account.fireflySession.profileId,
-                      displayName: account.fireflySession.payload?.displayName ?? 'Firefly',
-                      pfp: account.fireflySession.payload?.avatar ?? '',
-                      handle: account.fireflySession.payload?.uid ?? '',
-                  }
-                : null;
-
             ConfirmModalRef.open({
                 title: t`Different Account Detected`,
                 content: (
@@ -55,19 +42,6 @@ export function ConfirmFireflyModal({ ref }: Props) {
                                 account.
                             </Trans>
                         </p>
-                        {fireflyProfile ? (
-                            <menu className="no-scrollbar mb-6 flex max-h-[192px] flex-col gap-3 overflow-auto rounded-md border border-highlight border-line p-2">
-                                <ProfileInList
-                                    selected
-                                    selectable={false}
-                                    viewable={false}
-                                    profile={fireflyProfile}
-                                    profileAvatarProps={{
-                                        enableSourceIcon: false,
-                                    }}
-                                />
-                            </menu>
-                        ) : null}
                         <div className="flex gap-2">
                             <ClickableButton
                                 className="box-border flex h-10 flex-1 items-center justify-center rounded-full border border-main text-medium font-bold text-main"

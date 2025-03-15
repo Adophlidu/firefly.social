@@ -1500,6 +1500,9 @@ msgstr ""
 msgid "NFT added to your Bookmarks"
 msgstr ""
 
+msgid "Are you sure you want to remove this NFT from your bookmarks?"
+msgstr ""
+
 msgid "All Wallets"
 msgstr ""
 
@@ -2182,6 +2185,9 @@ msgstr ""
 msgid "Users must hold at least one NFT from the collections you specify."
 msgstr ""
 
+msgid "Remove from bookmarks"
+msgstr ""
+
 msgid "Not Started"
 msgstr ""
 
@@ -2779,9 +2785,6 @@ msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Appro
 msgstr ""
 
 msgid "This does not appear to be a honeypot."
-msgstr ""
-
-msgid "Are you sure you want to remove this NFT from your bookmark?"
 msgstr ""
 
 msgid "Voted successfully."

@@ -1,0 +1,17 @@
+import { useQuery } from '@tanstack/react-query';
+
+import { EMPTY_LIST } from '@/constants/index.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+
+export function useAllProfiles(identity?: FireflyIdentity) {
+    return useQuery({
+        queryKey: ['all-profiles', identity?.source, identity?.id],
+        async queryFn() {
+            if (!identity) return EMPTY_LIST;
+            return await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false);
+        },
+        staleTime: 1000 * 60 * 5,
+        enabled: !!identity,
+    });
+}

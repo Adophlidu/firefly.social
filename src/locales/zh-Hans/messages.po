@@ -1500,6 +1500,9 @@ msgstr "识别为合约地址。"
 msgid "NFT added to your Bookmarks"
 msgstr "NFT 已经添加到您的收藏中"
 
+msgid "Are you sure you want to remove this NFT from your bookmarks?"
+msgstr ""
+
 msgid "All Wallets"
 msgstr "所有钱包"
 
@@ -2190,6 +2193,9 @@ msgstr "NFT 已经从您的收藏中移除"
 msgid "Users must hold at least one NFT from the collections you specify."
 msgstr "用户必须持有您选择的系列中的一枚 NFT。"
 
+msgid "Remove from bookmarks"
+msgstr ""
+
 msgid "Not Started"
 msgstr "尚未开始"
 
@@ -2793,9 +2799,6 @@ msgstr "在 {count} 秒内，用手机的 <0>相机</0> 扫描二维码。<1/>�
 
 msgid "This does not appear to be a honeypot."
 msgstr "这看起来不像是一个陷阱。"
-
-msgid "Are you sure you want to remove this NFT from your bookmark?"
-msgstr "您确定要从书签中移除此 NFT 吗？"
 
 msgid "Voted successfully."
 msgstr "投票成功。"

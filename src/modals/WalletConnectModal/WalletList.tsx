@@ -142,6 +142,7 @@ export const WalletConnect = memo<ConnectedProps>(function WalletConnect({ conne
     const connector = useMemo(() => connectors.find((x) => x.id === 'walletConnect'), [connectors]);
     const onConnect = useCallback(() => {
         CoreConnectorController.setActiveConnector(connector);
+        CoreRouterController.state.data = { wallet: undefined };
         history.push(urlcat('/connecting-wc', { name: encodeURIComponent(connector?.name || '') }));
     }, [connector, history]);
 

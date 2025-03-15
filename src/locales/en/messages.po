@@ -1495,6 +1495,9 @@ msgstr "Contract address found."
 msgid "NFT added to your Bookmarks"
 msgstr "NFT added to your Bookmarks"
 
+msgid "Are you sure you want to remove this NFT from your bookmarks?"
+msgstr "Are you sure you want to remove this NFT from your bookmarks?"
+
 msgid "All Wallets"
 msgstr "All Wallets"
 
@@ -2185,6 +2188,9 @@ msgstr "NFT removed from your Bookmarks"
 msgid "Users must hold at least one NFT from the collections you specify."
 msgstr "Users must hold at least one NFT from the collections you specify."
 
+msgid "Remove from bookmarks"
+msgstr "Remove from bookmarks"
+
 msgid "Not Started"
 msgstr "Not Started"
 
@@ -2788,9 +2794,6 @@ msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Appr
 
 msgid "This does not appear to be a honeypot."
 msgstr "This does not appear to be a honeypot."
-
-msgid "Are you sure you want to remove this NFT from your bookmark?"
-msgstr "Are you sure you want to remove this NFT from your bookmark?"
 
 msgid "Voted successfully."
 msgstr "Voted successfully."

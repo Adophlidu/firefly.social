@@ -14,7 +14,7 @@ import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
+import { useAllProfiles } from '@/hooks/useAllProfiles.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { type FireflyIdentity, type FireflyProfile, type WalletProfile } from '@/providers/types/Firefly.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
@@ -73,76 +73,81 @@ interface ProfileTabsProps {
     identity: FireflyIdentity;
 }
 
-export function ProfileTabs({ profiles: otherProfiles, identity }: ProfileTabsProps) {
+export function ProfileTabs({ profiles: initialProfiles, identity }: ProfileTabsProps) {
     const isDarkMode = useIsDarkMode();
-    const currentProfiles = useCurrentFireflyProfilesAll();
-    const isCurrentProfile = currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
-
-    const profiles = (isCurrentProfile ? currentProfiles : otherProfiles).filter(
-        (x) => x.identity.source === identity.source,
-    );
+    const { data: profiles = initialProfiles } = useAllProfiles(identity);
 
     if (profiles.length <= 1) return null;
 
     return (
         <SourceTabs className="!static !z-0 !border-none !bg-transparent">
-            {profiles.map((profile, index) => {
-                const colors = resolveProfileTabColor(profile.identity.source);
-                const isActive = isSameFireflyIdentity(profile.identity, identity);
+            {profiles
+                .filter((profile) => profile.identity.source === identity.source)
+                .concat()
+                .sort((a, b) => {
+                    if (a.isDefault && !b.isDefault) return -1;
+                    if (!a.isDefault && b.isDefault) return 1;
+                    return 0;
+                })
+                .map((profile, index) => {
+                    const colors = resolveProfileTabColor(profile.identity.source);
+                    const isActive = isSameFireflyIdentity(profile.identity, identity);
 
-                const isWalletProfile = profile.identity.source === Source.Wallet;
-                const isMPC = isWalletProfile && isMPCWallet(profile.__origin__ as WalletProfile);
-                const isHacked = isWalletProfile && (profile.__origin__ as WalletProfile).hacked;
+                    const isWalletProfile = profile.identity.source === Source.Wallet;
+                    const isMPC = isWalletProfile && isMPCWallet(profile.__origin__ as WalletProfile);
+                    const isHacked = isWalletProfile && (profile.__origin__ as WalletProfile).hacked;
 
-                if (!isProfilePageSource(profile.identity.source)) return null;
+                    if (!isProfilePageSource(profile.identity.source)) return null;
 
-                return (
-                    <Link
-                        href={resolveProfileUrl(profile.identity.source, profile.identity.id)}
-                        onClick={() =>
-                            startTransition(() => {
-                                useFireflyIdentityState.getState().setIdentity(profile.identity);
-                            })
-                        }
-                        className={classNames(
-                            'flex cursor-pointer items-center gap-1 rounded-lg p-1 px-2 active:bg-main/20',
-                            isActive ? 'border border-primaryBottom bg-main text-primaryBottom' : 'bg-thirdMain',
-                        )}
-                        style={{
-                            background: isActive
-                                ? colors.activeBackground
-                                : isDarkMode
-                                  ? colors.darkBackground
-                                  : colors.background,
-                            color: isActive ? colors.activeColor : isDarkMode ? colors.darkColor : colors.color,
-                        }}
-                        key={index}
-                        ref={(node) => {
-                            if (isActive && node) node.scrollIntoView({ inline: 'center' });
-                        }}
-                    >
-                        {isHacked ? (
-                            <DangerIcon width={14} height={14} />
-                        ) : isMPC ? (
-                            <FireflyLogo width={14} height={14} />
-                        ) : (
-                            <SquareSourceIcon
-                                source={profile.identity.source}
-                                size={14}
-                                forceLight={isActive}
-                                className="rounded-[4px]"
-                                style={{
-                                    border:
-                                        isActive && colors.borderColor ? `1px solid ${colors.borderColor}` : undefined,
-                                }}
-                            />
-                        )}
-                        <span className="whitespace-nowrap text-[10px] leading-3">
-                            {`${isWalletProfile ? '' : '@'}${profile.displayName}`}
-                        </span>
-                    </Link>
-                );
-            })}
+                    return (
+                        <Link
+                            href={resolveProfileUrl(profile.identity.source, profile.identity.id)}
+                            onClick={() =>
+                                startTransition(() => {
+                                    useFireflyIdentityState.getState().setIdentity(profile.identity);
+                                })
+                            }
+                            className={classNames(
+                                'flex cursor-pointer items-center gap-1 rounded-lg p-1 px-2 active:bg-main/20',
+                                isActive ? 'border border-primaryBottom bg-main text-primaryBottom' : 'bg-thirdMain',
+                            )}
+                            style={{
+                                background: isActive
+                                    ? colors.activeBackground
+                                    : isDarkMode
+                                      ? colors.darkBackground
+                                      : colors.background,
+                                color: isActive ? colors.activeColor : isDarkMode ? colors.darkColor : colors.color,
+                            }}
+                            key={index}
+                            ref={(node) => {
+                                if (isActive && node) node.scrollIntoView({ inline: 'center' });
+                            }}
+                        >
+                            {isHacked ? (
+                                <DangerIcon width={14} height={14} />
+                            ) : isMPC ? (
+                                <FireflyLogo width={14} height={14} />
+                            ) : (
+                                <SquareSourceIcon
+                                    source={profile.identity.source}
+                                    size={14}
+                                    forceLight={isActive}
+                                    className="rounded-[4px]"
+                                    style={{
+                                        border:
+                                            isActive && colors.borderColor
+                                                ? `1px solid ${colors.borderColor}`
+                                                : undefined,
+                                    }}
+                                />
+                            )}
+                            <span className="whitespace-nowrap text-[10px] leading-3">
+                                {`${isWalletProfile ? '' : '@'}${profile.displayName}`}
+                            </span>
+                        </Link>
+                    );
+                })}
         </SourceTabs>
     );
 }

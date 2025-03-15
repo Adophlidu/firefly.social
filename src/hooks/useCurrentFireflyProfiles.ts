@@ -1,4 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
 import { compact, first, uniqBy } from 'lodash-es';
 import { useMemo } from 'react';
 
@@ -6,8 +5,8 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { toFireflyIdentityId } from '@/helpers/isSameProfile.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
+import { useAllProfiles } from '@/hooks/useAllProfiles.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 
 export function useCurrentFireflyProfiles() {
@@ -80,15 +79,7 @@ export function useCurrentFireflyProfilesAll() {
 
     const identity = first(compact([lensIdentity, farcasterIdentity, twitterIdentity, bskyIdentity]));
 
-    const { data: profiles = EMPTY_LIST } = useQuery({
-        queryKey: ['all-profiles', identity?.source, identity?.id],
-        async queryFn() {
-            if (!identity) return EMPTY_LIST;
-            return await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false);
-        },
-        staleTime: 1000 * 60 * 5,
-        enabled: !!identity,
-    });
+    const { data: profiles = EMPTY_LIST } = useAllProfiles(identity);
 
     return useMemo(() => {
         return uniqBy([...fireflyProfiles, ...profiles], (x) => toFireflyIdentityId(x.identity));

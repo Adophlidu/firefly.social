@@ -2,6 +2,7 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import { delay } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 
 import { AddWalletButton } from '@/app/(settings)/components/AddWalletButton.js';
@@ -73,7 +74,14 @@ export default function Wallets() {
                     />
                     {!isLoading ? (
                         <div className="flex w-full justify-center">
-                            <AddWalletButton connections={connected} disabled={isRefetching} onSuccess={refetch} />
+                            <AddWalletButton
+                                connections={connected}
+                                disabled={isRefetching}
+                                onSuccess={async () => {
+                                    await delay(1000);
+                                    await refetch();
+                                }}
+                            />
                         </div>
                     ) : null}
                 </>
