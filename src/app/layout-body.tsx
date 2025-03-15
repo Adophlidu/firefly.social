@@ -1,6 +1,8 @@
 import { BeforeUnload } from '@/components/Compose/BeforeUnload.js';
+import { FireflySessionAbsencePatch } from '@/components/Compose/FireflySessionAbsencePatch.js';
 import { IfHostname } from '@/components/IfHostname.js';
 import { IfPathname } from '@/components/IfPathname.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
@@ -30,6 +32,9 @@ export function LayoutBody({ children }: { children: React.ReactNode }) {
                 />
             </Providers>
             <BeforeUnload />
+            <NoSSR>
+                <FireflySessionAbsencePatch />
+            </NoSSR>
             <Script src="https://cdn.jsdelivr.net/npm/bowser@2.11.0/es5.min.js" async strategy="beforeInteractive" />
         </>
     );
