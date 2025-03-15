@@ -224,6 +224,7 @@ export function MainView() {
                                     'bg-bg': !profile || (index % 2 === 0 && !isLoginFirefly),
                                 })}
                                 onClick={() => {
+                                    if (profile) return;
                                     if (source !== Source.Email) {
                                         onAuthClick(source);
                                         return;

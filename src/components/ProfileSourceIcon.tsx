@@ -2,6 +2,7 @@
 import { safeUnreachable } from '@masknet/kit';
 import type { SVGProps } from 'react';
 
+import AppleDarkIcon from '@/assets/apple.dark.svg';
 import AppleIcon from '@/assets/apple.svg';
 import EmailDarkIcon from '@/assets/email-small.dark.svg';
 import EmailIcon from '@/assets/email-small.svg';
@@ -45,7 +46,11 @@ export function ProfileSourceIcon({ source, size = 20, ...props }: ProfileSource
             if (size < 48) return <GoogleSmallIcon {...props} style={style} width={size} height={size} />;
             return <GoogleIcon {...props} style={style} width={size} height={size} />;
         case Source.Apple:
-            return <AppleIcon {...props} style={style} width={size} height={size} />;
+            return isDark ? (
+                <AppleDarkIcon {...props} style={style} width={size} height={size} />
+            ) : (
+                <AppleIcon {...props} style={style} width={size} height={size} />
+            );
         case Source.Telegram:
             return <TelegramIcon {...props} style={style} width={size} height={size} />;
         case Source.Email:

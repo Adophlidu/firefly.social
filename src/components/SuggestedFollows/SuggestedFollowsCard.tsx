@@ -69,8 +69,6 @@ export function SuggestedFollowsCard() {
         );
     }, [currentSource, profileAll.Farcaster, profileAll.Lens, profileAll.Bsky]);
 
-    if (!profileAll.Farcaster && !profileAll.Lens && !profileAll.Bsky) return null;
-
     if (isLoading) {
         return (
             <div className="flex h-[252px] w-full shrink-0 animate-pulse flex-col gap-4">

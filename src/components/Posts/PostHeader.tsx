@@ -53,7 +53,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
         <ProfileTippy identity={identity}>
             <Link
                 href={profileLink}
-                className="max-w-[150px] flex-shrink-0 truncate text-medium leading-5 text-secondary"
+                className="flex-shrink-0 truncate text-medium leading-5 text-secondary"
                 onClick={stopPropagation}
             >
                 @{author.handle}
