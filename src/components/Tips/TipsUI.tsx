@@ -11,12 +11,15 @@ import { TokenSelectorEntry } from '@/components/Tips/TokenSelector.js';
 import { WalletSelectorEntry } from '@/components/Tips/WalletSelector.js';
 import { NetworkType } from '@/constants/enum.js';
 import { NUMERIC_INPUT_REGEXP_PATTERN } from '@/constants/regexp.js';
+import { classNames } from '@/helpers/classNames.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
+import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 
 export const TipsUI = memo(function TipsUI() {
     const [focus, setFocus] = useState(false);
     const { token, recipient, amount, handle, isSending, pureWallet, update } = TipsContext.useContainer();
+    const { isConnected } = useAccountByNetwork(recipient?.networkType);
 
     const { RE_MATCH_WHOLE_AMOUNT, RE_MATCH_FRACTION_AMOUNT } = useMemo(
         () => ({
@@ -57,15 +60,22 @@ export const TipsUI = memo(function TipsUI() {
             : t`Send a tip to @${handle || recipient.displayName}`
         : '';
 
+    const actionDisabled = isSending || !isConnected;
+
     return (
         <>
             <TipsModalHeader title={tipTitle} />
             <div className="font-bold">
                 <WalletSelectorEntry disabled={isSending} />
                 <div className="mt-3 flex gap-x-3">
-                    <div className="flex h-10 flex-1 items-center rounded-2xl bg-lightBg pr-3">
+                    <div
+                        className={classNames(
+                            'flex h-10 flex-1 items-center rounded-2xl bg-lightBg pr-3',
+                            actionDisabled ? 'opacity-50' : '',
+                        )}
+                    >
                         <input
-                            className="h-full w-full border-none bg-transparent text-center outline-none focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
+                            className="h-full w-full border-none bg-transparent text-center outline-none focus:outline-none focus:ring-0 disabled:cursor-not-allowed"
                             placeholder={focus ? '' : t`Enter amount`}
                             value={amount}
                             autoComplete="off"
@@ -74,7 +84,7 @@ export const TipsUI = memo(function TipsUI() {
                             onChange={handleAmountChange}
                             onFocus={() => setFocus(true)}
                             onBlur={() => setFocus(false)}
-                            disabled={isSending}
+                            disabled={actionDisabled}
                             inputMode="decimal"
                             pattern={NUMERIC_INPUT_REGEXP_PATTERN}
                         />
@@ -88,7 +98,7 @@ export const TipsUI = memo(function TipsUI() {
                             </ClickableButton>
                         ) : null}
                     </div>
-                    <TokenSelectorEntry disabled={isSending} />
+                    <TokenSelectorEntry disabled={actionDisabled} />
                 </div>
                 {recipient ? (
                     recipient.networkType === NetworkType.Ethereum ? (
