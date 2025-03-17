@@ -71,11 +71,11 @@ const SearchBar = memo(function SearchBar({ slot, autoSearchType = false, classN
             {isSearchPage && slot === 'header' ? (
                 <LeftArrowIcon width={24} height={24} className="mr-7 cursor-pointer" onClick={comeback} />
             ) : null}
-            <div className="group relative flex flex-grow items-center rounded-xl border border-transparent bg-lightBg px-3 text-main focus-within:border-fireflyBrand focus-within:bg-primaryBottom">
+            <div className="group relative flex flex-grow items-center rounded-xl border border-transparent bg-lightBg px-3 text-main focus-within:border-highlight focus-within:bg-primaryBottom">
                 <SearchIcon
                     width={18}
                     height={18}
-                    className="shrink-0 text-primaryMain group-focus-within:text-fireflyBrand"
+                    className="shrink-0 text-primaryMain group-focus-within:text-highlight"
                 />
                 <form
                     className="w-full flex-1"

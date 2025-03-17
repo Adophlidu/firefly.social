@@ -28,7 +28,7 @@ export function Footer({ collapsed = false }: FooterProps) {
     if (!mounted) return;
 
     return (
-        <footer className={classNames('absolute inset-x-0 bottom-20')}>
+        <footer className={classNames('absolute inset-x-0 bottom-20 pl-2 md:pl-4')}>
             {isLoginFirefly || isLogin ? (
                 <>
                     <WalletConnectButton className="mb-6" />

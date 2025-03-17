@@ -33,7 +33,7 @@ import { trimify } from '@/helpers/trimify.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useForkRef } from '@/hooks/useForkRef.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
-import { useIsSmall } from '@/hooks/useMediaQuery.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPollIdFromLink } from '@/services/getPostLinks.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
@@ -96,7 +96,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
 
     const muted = useIsProfileMuted(author.source, author.profileId, author.viewerContext?.blocking, isDetail);
 
-    const isSmall = useIsSmall('max');
+    const isMedium = useIsMedium('max');
 
     const pathname = usePathname();
     const isProfilePage = pathname === PageRoute.Profile || isRoutePathname(pathname, PageRoute.Profile);
@@ -115,7 +115,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
         (availableAttachments.length > 0 || !!metadata.content?.asset) &&
         (!decodingImage || canSkipWaitingForPayload(post));
 
-    const noLeftPadding = isDetail || isSmall || disablePadding;
+    const noLeftPadding = isDetail || isMedium || disablePadding;
 
     const oembedUrl = resolveOembedUrl(post);
     const pollId = oembedUrl ? getPollIdFromLink(oembedUrl) : undefined;

@@ -19,7 +19,7 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
-import { useIsSmall } from '@/hooks/useMediaQuery.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostHeaderProps {
@@ -40,12 +40,12 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
     const author = post.author;
     const profileLink = getProfileUrl(author);
 
-    const isSmall = useIsSmall('max');
+    const isMedium = useIsMedium('max');
     const pathname = usePathname();
     const isDetailPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
 
     const identity = resolveFireflyIdentity(author);
-    const newLine = !isQuote && (isSmall || (isDetailPage && !isComment && !showDate));
+    const newLine = !isQuote && (isMedium || (isDetailPage && !isComment && !showDate));
 
     if (!identity) return null;
 

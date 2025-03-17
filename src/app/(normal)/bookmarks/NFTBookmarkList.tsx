@@ -64,7 +64,10 @@ function getNFTItemContent(id: string, nft: SimpleHash.NFT) {
 
 function GridList({ className, children, ...props }: GridListProps) {
     return (
-        <div {...props} className={classNames('grid grid-cols-2 gap-3.5 sm:grid-cols-3 md:grid-cols-4', className)}>
+        <div
+            {...props}
+            className={classNames('grid grid-cols-2 gap-x-5 gap-y-3 sm:grid-cols-3 md:grid-cols-4', className)}
+        >
             {children}
         </div>
     );

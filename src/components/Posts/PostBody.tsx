@@ -7,14 +7,14 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { PostBodyContent, type PostBodyContentProps } from '@/components/Posts/PostBodyContent.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useDecryptPost } from '@/hooks/useDecryptPost.js';
-import { useIsSmall } from '@/hooks/useMediaQuery.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 export function PostBody({ ref, ...props }: PostBodyContentProps) {
-    const isSmall = useIsSmall('max');
+    const isMedium = useIsMedium('max');
 
     const [{ loading, value: decryptedPost }, decryptPost] = useDecryptPost(props.post);
 
-    const noLeftPadding = props.isDetail || isSmall || props.disablePadding;
+    const noLeftPadding = props.isDetail || isMedium || props.disablePadding;
     const post = decryptedPost || props.post;
 
     if (!post.isEncrypted) {

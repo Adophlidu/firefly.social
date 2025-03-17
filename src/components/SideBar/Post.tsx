@@ -39,9 +39,9 @@ export function Post({ collapsed = false }: PostProps) {
                 </Tooltip>
             </li>
         ) : (
-            <li>
+            <li className="px-2 md:px-4">
                 <ClickableButton
-                    className="mt-6 hidden w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom md:block"
+                    className="mt-6 hidden w-full rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom md:block"
                     onClick={() => {
                         ComposeModalRef.open({
                             type: 'compose',

@@ -22,7 +22,7 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
-import { useIsSmall } from '@/hooks/useMediaQuery.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostActionsWithGridProps extends HTMLProps<HTMLDivElement> {
@@ -129,13 +129,13 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
 }) {
     const pathname = usePathname();
 
-    const isSmall = useIsSmall('max');
+    const isMedium = useIsMedium('max');
     const isComment = post.type === 'Comment';
     const isDetailPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
 
     const identity = useFireflyIdentity(post.source, resolveFireflyProfileId(post.author) ?? '');
 
-    const noLeftPadding = isDetailPage || isSmall || disablePadding;
+    const noLeftPadding = isDetailPage || isMedium || disablePadding;
 
     return (
         <footer
