@@ -19,7 +19,7 @@ export function FireflySessionAbsencePatch() {
         SORTED_SOCIAL_SOURCES.forEach((x) => profileStoreAll[x].clear());
 
         console.warn('[patch] firefly session absence detected. Clearing all profiles.');
-    }, [asyncStatusAll, currentProfile]);
+    }, [asyncStatusAll, currentProfile, profileStoreAll]);
 
     return null;
 }
