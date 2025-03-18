@@ -75,3 +75,7 @@ namespace React {
         }
     }
 }
+
+type LiteralUnion<U, T = U extends string ? string : U extends number ? number : never> = U | (T & Nothing);
+
+type HexString = `0x${string}`;

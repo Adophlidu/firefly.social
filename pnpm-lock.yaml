@@ -37,10 +37,10 @@ patchedDependencies:
     path: patches/dayjs-twitter@0.5.0.patch
   react-use@17.5.1:
     hash: jdgfodh3ixpexpgf3fwrwvcmtq
-    path: src/maskbook/patches/react-use@17.5.1.patch
+    path: patches/react-use@17.5.1.patch
   urlcat@3.1.0:
     hash: 5r5xyq4zgcnqugwsrx4lxq2i4e
-    path: src/maskbook/patches/urlcat@3.1.0.patch
+    path: patches/urlcat@3.1.0.patch
 
 importers:
 
@@ -127,6 +127,9 @@ importers:
       '@livepeer/react':
         specifier: 4.2.9
         version: 4.2.9(@types/react-dom@19.0.2)(@types/react@19.0.2)(immer@10.1.1)(react-dom@19.0.0)(react@19.0.0)
+      '@masknet/base':
+        specifier: ^0.3.1
+        version: 0.3.1
       '@masknet/encryption':
         specifier: ^0.5.3
         version: 0.5.3
@@ -199,6 +202,9 @@ importers:
       '@tippyjs/react':
         specifier: ^4.2.6
         version: 4.2.6(react-dom@19.0.0)(react@19.0.0)
+      '@types/use-subscription':
+        specifier: ^1.0.2
+        version: 1.0.2
       '@vercel/kv':
         specifier: ^1.0.1
         version: 1.0.1
@@ -361,6 +367,9 @@ importers:
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
+      use-subscription:
+        specifier: ^1.10.0
+        version: 1.10.0(react@19.0.0)
       usehooks-ts:
         specifier: ^2.9.5
         version: 2.9.5(react-dom@19.0.0)(react@19.0.0)
@@ -373,6 +382,27 @@ importers:
       wagmi:
         specifier: ^2.12.18
         version: 2.12.18(@tanstack/react-query@5.56.2)(@types/react@19.0.2)(@vercel/kv@1.0.1)(immer@10.1.1)(react-dom@19.0.0)(react-native@0.76.1)(react@19.0.0)(rollup@4.35.0)(typescript@5.7.3)(viem@2.21.54)(zod@3.23.8)
+      web3-core:
+        specifier: 1.10.4
+        version: 1.10.4
+      web3-core-helpers:
+        specifier: 1.10.2
+        version: 1.10.2
+      web3-eth:
+        specifier: 1.10.2
+        version: 1.10.2
+      web3-eth-abi:
+        specifier: 1.10.2
+        version: 1.10.2
+      web3-eth-accounts:
+        specifier: 1.10.2
+        version: 1.10.2
+      web3-eth-contract:
+        specifier: 1.10.2
+        version: 1.10.2
+      web3-utils:
+        specifier: 1.10.2
+        version: 1.10.2
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -395,6 +425,9 @@ importers:
       '@lingui/swc-plugin':
         specifier: ^5.0.2
         version: 5.0.2(@lingui/core@5.1.2)(@swc/core@1.3.106)(next@15.1.3)
+      '@masknet/config':
+        specifier: ^0.2.1
+        version: 0.2.1
       '@napi-rs/image':
         specifier: 1.7.0
         version: 1.7.0
@@ -3142,7 +3175,7 @@ packages:
   /@coinbase/wallet-sdk@4.3.0:
     resolution: {integrity: sha512-T3+SNmiCw4HzDm4we9wCHCxlP0pqCiwKe4sOwPH3YAK2KSKjxPRydKu6UQJrdONFVLG7ujXvbd/6ZqmvJb8rkw==}
     dependencies:
-      '@noble/hashes': 1.6.1
+      '@noble/hashes': 1.7.1
       clsx: 1.2.1
       eventemitter3: 5.0.1
       preact: 10.24.3
@@ -5800,10 +5833,14 @@ packages:
     dependencies:
       '@masknet/kit': 0.2.0
       anchorme: 2.1.2
-      pvtsutils: 1.3.5
+      pvtsutils: 1.3.6
       tiny-secp256k1: 2.2.3
       ts-results-es: 4.0.0
     dev: false
+
+  /@masknet/config@0.2.1:
+    resolution: {integrity: sha512-W8RQCBdSA9rUc6Bmp2QzJQV3QyhuRfWHIaLNOt6yjdylpMLwpuVRkct0ZTKOPY0IHB681cmjviD5LaVDQcApHw==}
+    dev: true
 
   /@masknet/encryption@0.5.3:
     resolution: {integrity: sha512-luqmR2aRzTa+kseciLpFh+tJP6K17EAR07sFPpmh068su6QlNpjuDSpnpHj4ZxmcQUFD86Y5Z3EuRMESGyNy8w==}
@@ -5979,7 +6016,7 @@ packages:
       bufferutil: 4.0.8
       cross-fetch: 4.0.0
       date-fns: 2.30.0
-      debug: 4.3.7
+      debug: 4.4.0
       eciesjs: 0.3.18
       eventemitter2: 6.4.9
       readable-stream: 3.6.2
@@ -6002,7 +6039,7 @@ packages:
       bufferutil: 4.0.8
       cross-fetch: 4.0.0
       date-fns: 2.30.0
-      debug: 4.3.7
+      debug: 4.4.0
       eciesjs: 0.4.11
       eventemitter2: 6.4.9
       readable-stream: 3.6.2
@@ -6099,7 +6136,7 @@ packages:
       '@paulmillr/qr': 0.2.1
       bowser: 2.11.0
       cross-fetch: 4.0.0
-      debug: 4.3.7
+      debug: 4.4.0
       eciesjs: 0.4.11
       eth-rpc-errors: 4.0.3
       eventemitter2: 6.4.9
@@ -6129,7 +6166,7 @@ packages:
     dependencies:
       '@ethereumjs/tx': 4.2.0
       '@types/debug': 4.1.12
-      debug: 4.3.7
+      debug: 4.4.0
       semver: 7.6.3
       superstruct: 1.0.4
     transitivePeerDependencies:
@@ -6145,7 +6182,7 @@ packages:
       '@noble/hashes': 1.7.1
       '@scure/base': 1.2.4
       '@types/debug': 4.1.12
-      debug: 4.3.7
+      debug: 4.4.0
       pony-cause: 2.1.11
       semver: 7.6.3
       uuid: 9.0.1
@@ -6162,7 +6199,7 @@ packages:
       '@noble/hashes': 1.7.1
       '@scure/base': 1.2.4
       '@types/debug': 4.1.12
-      debug: 4.3.7
+      debug: 4.4.0
       pony-cause: 2.1.11
       semver: 7.6.3
       uuid: 9.0.1
@@ -8825,10 +8862,6 @@ packages:
     resolution: {integrity: sha512-8YKhl8GHiNI/pU2VMaofa2Tor7PJRAjwQLBBuilkJ9L5+13yVbC7JO/wS7piioAvPSwR3JKM1IJ/u4xQzbcXKg==}
     dev: false
 
-  /@scure/base@1.2.1:
-    resolution: {integrity: sha512-DGmGtC8Tt63J5GfHgfl5CuAXh96VF/LD8K9Hr/Gv0J2lAoRGlPOMpqMpMbCTOoOJMZCk2Xt+DskdDyn6dEFdzQ==}
-    dev: false
-
   /@scure/base@1.2.4:
     resolution: {integrity: sha512-5Yy9czTO47mqz+/J8GM6GIId4umdCk1wc1q8rKERQulIoc8VP9pzDcghv10Tl2E7R96ZUx/PhND3ESYUQX8NuQ==}
     dev: false
@@ -8846,7 +8879,7 @@ packages:
     dependencies:
       '@noble/curves': 1.7.0
       '@noble/hashes': 1.6.1
-      '@scure/base': 1.2.1
+      '@scure/base': 1.2.4
     dev: false
 
   /@scure/bip32@1.6.2:
@@ -8868,7 +8901,7 @@ packages:
     resolution: {integrity: sha512-Dop+ASYhnrwm9+HA/HwXg7j2ZqM6yk2fyLWb5znexjctFY3+E+eU8cIWI0Pql0Qx4hPZCijlGq4OL71g+Uz30A==}
     dependencies:
       '@noble/hashes': 1.6.1
-      '@scure/base': 1.2.1
+      '@scure/base': 1.2.4
     dev: false
 
   /@scure/bip39@1.5.4:
@@ -10129,7 +10162,7 @@ packages:
         optional: true
     dependencies:
       '@swc/counter': 0.1.3
-      '@swc/types': 0.1.14
+      '@swc/types': 0.1.17
     optionalDependencies:
       '@swc/core-darwin-arm64': 1.3.106
       '@swc/core-darwin-x64': 1.3.106
@@ -10150,12 +10183,6 @@ packages:
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
     dependencies:
       tslib: 2.8.1
-
-  /@swc/types@0.1.14:
-    resolution: {integrity: sha512-PbSmTiYCN+GMrvfjrMo9bdY+f2COnwbdnoMw7rqU/PI5jXpKjxOGZ0qqZCImxnT81NkNsKnmEpvu+hRXLBeCJg==}
-    dependencies:
-      '@swc/counter': 0.1.3
-    dev: true
 
   /@swc/types@0.1.17:
     resolution: {integrity: sha512-V5gRru+aD8YVyCOMAjMpWR1Ui577DD5KSJsHP8RAxopAH22jFz6GZd/qxqjO6MJHQhcsjvjOFXyDhyLQUnMveQ==}
@@ -10859,7 +10886,6 @@ packages:
 
   /@types/use-subscription@1.0.2:
     resolution: {integrity: sha512-k6CBZX+wR2Ad6/dIrznyyf8foRNVIvMvbwC/aKE2SZ691OpuNfqUkixMCD+e0dH/iEOHlvVZbg7TuRBdraBeEQ==}
-    dev: true
 
   /@types/uuid@10.0.0:
     resolution: {integrity: sha512-7gqG38EyHgyP1S+7+xomFtL+ZNHcKv6DwNaCZmJmo1vgMugyF3TCnXVg4t1uk89mLNwnLtnY3TpOpCOyp1/xHQ==}
@@ -14286,7 +14312,6 @@ packages:
         optional: true
     dependencies:
       ms: 2.1.3
-    dev: true
 
   /decamelize-keys@1.1.1:
     resolution: {integrity: sha512-WiPxgEirIV0/eIOMcnFBA3/IJZAZqKnwAwWyvvdi4lsr1WCN22nhdf/3db3DoZcUjTV2SqfzIwNyp6y2xs3nmg==}
@@ -14641,7 +14666,7 @@ packages:
     dependencies:
       '@ecies/ciphers': 0.2.1(@noble/ciphers@1.0.0)
       '@noble/ciphers': 1.0.0
-      '@noble/curves': 1.7.0
+      '@noble/curves': 1.8.1
       '@noble/hashes': 1.7.1
     dev: false
     optional: true
@@ -14843,10 +14868,6 @@ packages:
       internal-slot: 1.0.7
       iterator.prototype: 1.1.3
       safe-array-concat: 1.1.2
-    dev: true
-
-  /es-module-lexer@1.5.4:
-    resolution: {integrity: sha512-MVNK56NiMrOwitFB7cqDwq0CQutbw+0BvLshJSse0MUNU+y1FC3bUS/AQg7oUng+/wKrrki7JfmwtVHkVfPLlw==}
     dev: true
 
   /es-module-lexer@1.6.0:
@@ -15491,7 +15512,7 @@ packages:
   /ethereum-bloom-filters@1.2.0:
     resolution: {integrity: sha512-28hyiE7HVsWubqhpVLVmZXFd4ITeHi+BUu05o9isf0GUpMtzBUi+8/gFrGaGYzvGAJQmJ3JKj77Mk9G98T84rA==}
     dependencies:
-      '@noble/hashes': 1.6.1
+      '@noble/hashes': 1.7.1
     dev: false
 
   /ethereum-cryptography@0.1.3:
@@ -18671,7 +18692,7 @@ packages:
     resolution: {integrity: sha512-eBPdkcoCNvYcxQOAKAlceo5SNdzZWfF+FcSupREAzdAh9rRmE239CEQAiTwIgblwnoM8zzj35sZ5ZwvSEOF6Kw==}
     dependencies:
       '@types/debug': 4.1.12
-      debug: 4.3.7
+      debug: 4.4.0
       decode-named-character-reference: 1.0.2
       devlop: 1.1.0
       micromark-core-commonmark: 2.0.2
@@ -19513,10 +19534,10 @@ packages:
         optional: true
     dependencies:
       '@adraffy/ens-normalize': 1.11.0
-      '@noble/curves': 1.7.0
-      '@noble/hashes': 1.6.1
-      '@scure/bip32': 1.6.0
-      '@scure/bip39': 1.5.0
+      '@noble/curves': 1.8.1
+      '@noble/hashes': 1.7.1
+      '@scure/bip32': 1.6.2
+      '@scure/bip39': 1.5.4
       abitype: 1.0.7(typescript@5.7.3)(zod@3.23.8)
       eventemitter3: 5.0.1
       typescript: 5.7.3
@@ -19533,10 +19554,10 @@ packages:
         optional: true
     dependencies:
       '@adraffy/ens-normalize': 1.11.0
-      '@noble/curves': 1.7.0
-      '@noble/hashes': 1.6.1
-      '@scure/bip32': 1.6.0
-      '@scure/bip39': 1.5.0
+      '@noble/curves': 1.8.1
+      '@noble/hashes': 1.7.1
+      '@scure/bip32': 1.6.2
+      '@scure/bip39': 1.5.4
       abitype: 1.0.7(typescript@5.7.3)(zod@3.23.8)
       eventemitter3: 5.0.1
       typescript: 5.7.3
@@ -23170,6 +23191,15 @@ packages:
       tslib: 2.8.1
     dev: false
 
+  /use-subscription@1.10.0(react@19.0.0):
+    resolution: {integrity: sha512-ZRLhsMSjz01kBA8106zdzEjttJ20Rauscf0umwVRjaz8idRfoddOnAVH6VEBdu55eCq02L1g+j3NcleAar1aWw==}
+    peerDependencies:
+      react: 19.0.0
+    dependencies:
+      react: 19.0.0
+      use-sync-external-store: 1.4.0(react@19.0.0)
+    dev: false
+
   /use-subscription@1.8.2(react@19.0.0):
     resolution: {integrity: sha512-yC2ShScvQ1lAGRp5Y6pz1MqBIU81REfJ/sQIe16BCgKK9mRlZCnU90uY0alKsN6e/Next0vXTsvH3HbAfdH68w==}
     peerDependencies:
@@ -23189,6 +23219,14 @@ packages:
 
   /use-sync-external-store@1.2.2(react@19.0.0):
     resolution: {integrity: sha512-PElTlVMwpblvbNqQ82d2n6RjStvdSoNe9FG28kNfz3WiXilJm4DdNkEzRhCZuIDwY8U08WVihhGR5iRqAwfDiw==}
+    peerDependencies:
+      react: 19.0.0
+    dependencies:
+      react: 19.0.0
+    dev: false
+
+  /use-sync-external-store@1.4.0(react@19.0.0):
+    resolution: {integrity: sha512-9WXSPC5fMv61vaupRkCKCxsPxBocVnwakBEkMIHHpkTTg6icbJtg6jzgtLDm4bl3cSHAca52rYWih0k4K3PfHw==}
     peerDependencies:
       react: 19.0.0
     dependencies:
@@ -24159,8 +24197,8 @@ packages:
   /webauthn-p256@0.0.10:
     resolution: {integrity: sha512-EeYD+gmIT80YkSIDb2iWq0lq2zbHo1CxHlQTeJ+KkCILWpVy3zASH3ByD4bopzfk0uCwXxLqKGLqp2W4O28VFA==}
     dependencies:
-      '@noble/curves': 1.7.0
-      '@noble/hashes': 1.6.1
+      '@noble/curves': 1.8.1
+      '@noble/hashes': 1.7.1
     dev: false
 
   /webextension-polyfill@0.10.0:
@@ -24202,7 +24240,7 @@ packages:
       browserslist: 4.24.4
       chrome-trace-event: 1.0.4
       enhanced-resolve: 5.18.1
-      es-module-lexer: 1.5.4
+      es-module-lexer: 1.6.0
       eslint-scope: 5.1.1
       events: 3.3.0
       glob-to-regexp: 0.4.1
@@ -24557,6 +24595,7 @@ packages:
   /yaeti@0.0.6:
     resolution: {integrity: sha512-MvQa//+KcZCUkBTIC9blM+CU9J2GzuTytsOUwf2lidtvkx/6gnEp1QvJv34t9vdjhFmha/mUiNDbN0D0mJWdug==}
     engines: {node: '>=0.10.32'}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
     dev: false
 
   /yallist@3.1.1:
@@ -24766,6 +24805,8 @@ time:
   /@lingui/react@5.1.2: '2024-12-16T18:30:31.129Z'
   /@lingui/swc-plugin@5.0.2: '2024-12-27T20:14:30.068Z'
   /@livepeer/react@4.2.9: '2024-12-02T08:02:16.848Z'
+  /@masknet/base@0.3.1: '2023-12-02T04:14:22.599Z'
+  /@masknet/config@0.2.1: '2023-11-07T04:28:24.916Z'
   /@masknet/encryption@0.5.3: '2025-03-05T05:38:47.935Z'
   /@masknet/kit@0.3.0: '2024-01-25T08:08:18.361Z'
   /@masknet/kit@0.4.2: '2024-10-20T06:52:06.765Z'
@@ -24916,6 +24957,7 @@ time:
   /typeson@9.0.3: '2023-06-09T16:06:00.595Z'
   /unist-util-flatmap@1.0.0: '2018-07-21T19:29:06.641Z'
   /unstated-next@1.1.0: '2019-05-13T23:34:47.580Z'
+  /use-subscription@1.10.0: '2024-12-05T18:10:55.943Z'
   /use-subscription@1.8.2: '2024-04-26T16:44:39.268Z'
   /usehooks-ts@2.9.5: '2024-01-18T15:06:44.086Z'
   /uuid@9.0.0: '2022-09-05T20:03:54.869Z'
@@ -24923,6 +24965,7 @@ time:
   /vitest@3.0.8: '2025-03-06T15:16:42.630Z'
   /wagmi@2.12.18: '2024-10-15T21:13:05.636Z'
   /web3-core-helpers@1.10.2: '2023-08-28T12:56:15.752Z'
+  /web3-core@1.10.4: '2024-02-05T14:14:09.573Z'
   /web3-eth-abi@1.10.2: '2023-08-28T12:56:13.203Z'
   /web3-eth-accounts@1.10.2: '2023-08-28T12:56:25.537Z'
   /web3-eth-contract@1.10.2: '2023-08-28T12:56:25.461Z'

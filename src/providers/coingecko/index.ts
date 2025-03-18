@@ -13,7 +13,7 @@ import { COINGECKO_ROOT_URL, CORS_HOST, DSEARCH_BASE_URL } from '@/constants/ind
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCommunityLink } from '@/helpers/getCommunityLink.js';
 import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
-import { isSameAddress } from '@/maskbook/packages/web3-shared/base/src/index.js';
+import { isSameAddress } from '@/mask_pkgs/web3-shared/base/index.js';
 import type {
     CoinGeckoAsset,
     CoinGeckoCoinInfo,

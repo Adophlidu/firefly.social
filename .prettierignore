@@ -21,8 +21,4 @@ src/specialFile.js
 
 # Ignore files based on wildcard patterns
 **/vendor/**/*.js
-
-# Ignore git submodule
-src/maskbook
-src/mask/bindings/*.ts
 pnpm-lock.yaml

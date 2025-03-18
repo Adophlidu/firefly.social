@@ -26,7 +26,7 @@ import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useCollectionMarketInfo } from '@/hooks/useCollectionMarketInfo.js';
 import { useNFTCollection } from '@/hooks/useNFTCollection.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
-import { EMPTY_LIST } from '@/maskbook/packages/shared-base/src/constants.js';
+import { EMPTY_LIST } from '@/mask_pkgs/shared-base/constants.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 interface NFTPreviewProps {

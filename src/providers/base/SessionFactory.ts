@@ -3,7 +3,7 @@ import z from 'zod';
 
 import { UnreachableError } from '@/constants/error.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
-import { parseURL } from '@/maskbook/packages/shared-base/src/index.js';
+import { parseURL } from '@/mask_pkgs/shared-base/index.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import {

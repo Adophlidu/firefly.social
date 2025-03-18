@@ -1,34 +1,14 @@
 {
-    "extends": "./src/maskbook/packages/config/tsconfig.json",
-    "references": [
-        {
-            "path": "./src/maskbook/packages/shared-base/tsconfig.json"
-        },
-        {
-            "path": "./src/maskbook/packages/web3-hooks/base/tsconfig.json"
-        },
-        {
-            "path": "./src/maskbook/packages/web3-hooks/evm/tsconfig.json"
-        },
-        {
-            "path": "./src/maskbook/packages/web3-shared/evm/tsconfig.json"
-        },
-        {
-            "path": "./src/maskbook/packages/web3-shared/solana/tsconfig.json"
-        }
-    ],
+    "extends": "@masknet/config",
     "compilerOptions": {
         "types": [],
         "noEmit": true,
-        "sourceMap": false,
-        "experimentalDecorators": true,
-        "declaration": true,
-        "declarationDir": "./src/types",
+        "composite": false,
+        "declaration": false,
         "declarationMap": false,
-        "composite": true,
+        "experimentalDecorators": true,
         "esModuleInterop": true,
         "jsx": "preserve",
-        "downlevelIteration": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
         "allowSyntheticDefaultImports": true,
@@ -37,33 +17,27 @@
                 "name": "next"
             }
         ],
+        "lib": ["ES2024", "DOM", "DOM.Iterable", "DOM.AsyncIterable"],
         "paths": {
             "@/*": ["./src/*"],
             "next/navigation.js": ["./src/esm/navigation.ts"],
-            "@masknet/base": ["./src/maskbook/packages/base/src/index.ts"],
-            "@masknet/flags": ["./src/maskbook/packages/flags/src/index.ts"],
-            "@masknet/flags/build-info": ["./src/maskbook/packages/flags/src/flags/buildInfo.ts"],
-            "@masknet/public-api": ["./src/maskbook/packages/public-api/src/index.ts"],
-            "@masknet/shared-base": ["./src/maskbook/packages/shared-base/src/index.ts"],
-            "@masknet/web3-hooks-base": ["./src/maskbook/packages/web3-hooks/base/src/index.ts"],
-            "@masknet/web3-hooks-evm": ["./src/maskbook/packages/web3-hooks/evm/src/index.ts"],
-            "@masknet/web3-shared-base": ["./src/maskbook/packages/web3-shared/base/src/index.ts"],
-            "@masknet/web3-shared-evm": ["./src/maskbook/packages/web3-shared/evm/src/index.ts"],
-            "@masknet/web3-shared-solana": ["./src/maskbook/packages/web3-shared/solana/src/index.ts"]
+            "@masknet/base": ["./src/mask_pkgs/base/index.ts"],
+            "@masknet/flags": ["./src/mask_pkgs/flags/index.ts"],
+            "@masknet/flags/build-info": ["./src/mask_pkgs/flags/flags/buildInfo.ts"],
+            "@masknet/public-api": ["./src/mask_pkgs/public-api/index.ts"],
+            "@masknet/shared-base": ["./src/mask_pkgs/shared-base/index.ts"],
+            "@masknet/web3-hooks-base": ["./src/mask_pkgs/web3-hooks/base/index.ts"],
+            "@masknet/web3-hooks-evm": ["./src/mask_pkgs/web3-hooks/evm/index.ts"],
+            "@masknet/web3-shared-base": ["./src/mask_pkgs/web3-shared/base/index.ts"],
+            "@masknet/web3-shared-evm": ["./src/mask_pkgs/web3-shared/evm/index.ts"],
+            "@masknet/web3-shared-solana": ["./src/mask_pkgs/web3-shared/solana/index.ts"],
+            "@masknet/web3-constants/*": ["./src/mask_pkgs/web3-constants/*"],
+            "@masknet/web3-contracts/*": ["./src/mask_pkgs/web3-contracts/*"],
+            "@masknet/web3-helpers": ["./src/mask_pkgs/web3-helpers/index.ts"],
+            "@masknet/web3-providers": ["./src/mask_pkgs/web3-providers/entry.ts"],
+            "@masknet/web3-providers/types": ["./src/mask_pkgs/web3-providers/entry-types.ts"]
         }
     },
     "include": ["src/**/*.ts", "src/**/*.tsx", "csp.js", "globals.d.ts", "next-auth.d.ts", ".next/types/**/*.ts"],
-    "exclude": [
-        "node_modules",
-        "src/service-workers",
-        "src/maskbook",
-        "src/maskbook/packages/gun-utils",
-        "src/maskbook/packages/app",
-        "src/maskbook/packages/backup-format",
-        "src/maskbook/packages/gun-utils",
-        "src/maskbook/packages/mask-sdk",
-        "src/maskbook/packages/scripts",
-        "src/maskbook/packages/test-serializer",
-        "src/maskbook/packages/xcode"
-    ]
+    "exclude": ["node_modules", "src/service-workers"]
 }

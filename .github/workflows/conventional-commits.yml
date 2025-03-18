@@ -7,7 +7,6 @@ on:
             - edited
             - synchronize
         branches:
-            - '!sync-submodule-changes'
             - '!l10n_crowdin_action'
 
 jobs:

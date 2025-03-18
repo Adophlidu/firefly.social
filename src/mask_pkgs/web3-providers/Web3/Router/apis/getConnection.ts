@@ -1,0 +1,32 @@
+import { unreachable } from '@masknet/kit';
+import { NetworkPluginID } from '@masknet/shared-base';
+import type { Web3Helper } from '@masknet/web3-helpers';
+import { createConnection } from '../../EVM/apis/ConnectionAPI.js';
+import type { BaseConnectionOptions } from '../../Base/apis/ConnectionOptions.js';
+import type { Connection } from '../types/index.js';
+
+export function getConnection<const T extends NetworkPluginID>(
+    pluginID: T,
+    initial?: BaseConnectionOptions<
+        Web3Helper.Definition[T]['ChainId'],
+        Web3Helper.Definition[T]['ProviderType'],
+        Web3Helper.Definition[T]['Transaction']
+    >,
+) {
+    type Creator = (
+        initial?: BaseConnectionOptions<
+            Web3Helper.Definition[T]['ChainId'],
+            Web3Helper.Definition[T]['ProviderType'],
+            Web3Helper.Definition[T]['Transaction']
+        >,
+    ) => Connection<T>;
+
+    switch (pluginID) {
+        case NetworkPluginID.PLUGIN_EVM:
+            return (createConnection as Creator)(initial);
+        case NetworkPluginID.PLUGIN_SOLANA:
+            throw new Error('Not implemented');
+        default:
+            unreachable(pluginID);
+    }
+}
