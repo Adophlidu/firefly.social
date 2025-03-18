@@ -1,5 +1,7 @@
 // cspell:disable
 
+export type WalletType = 'evm' | 'solana' | 'unknown';
+
 export enum VersionFilter {
     // the current working version
     Latest = 'latest',
@@ -225,10 +227,14 @@ export interface BskyEventParameters {
 }
 
 export interface ConnectWalletEventParameters {
-    wallet_name: string;
-    wallet_address?: string;
-    solana_address?: string;
     firefly_account_id: string;
+    wallet_address: string;
+    click_location: 'nav_bar' | 'settings' | 'others';
+    wallet_type: WalletType;
+    wallet_name: string;
+    click_time: number;
+    connect_success_time: number;
+    connect_duration: number;
 }
 
 export interface ComposeEventParameters {

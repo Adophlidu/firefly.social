@@ -6,16 +6,14 @@ import { QueryClientProviders } from '@/components/QueryClientProviders.js';
 import { WagmiProvider } from '@/components/WagmiProvider.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 
-type ProviderProps = PropsWithChildren<{
-    enableInsights?: boolean;
-}>;
+type ProviderProps = PropsWithChildren<{}>;
 
-export const Providers = memo(async function RootProviders({ enableInsights = false, ...props }: ProviderProps) {
+export const Providers = memo(async function RootProviders(props: ProviderProps) {
     await setupLocaleForSSR();
 
     return (
         <LinguiClientProvider>
-            <WagmiProvider enableInsights={enableInsights}>
+            <WagmiProvider>
                 <QueryClientProviders>
                     <InitialProviders>{props.children}</InitialProviders>
                 </QueryClientProviders>

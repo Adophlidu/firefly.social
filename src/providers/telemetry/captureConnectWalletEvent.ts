@@ -1,37 +1,50 @@
+import { bom } from '@/helpers/bom.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
+function resolveEventId(name_: string) {
+    const name = name_.toLowerCase();
+
+    if (name.includes('metamask')) return EventId.CONNECT_WALLET_SUCCESS_METAMASK;
+    if (name.includes('rabby')) return EventId.CONNECT_WALLET_SUCCESS_RABBY;
+    if (name.includes('wallet connect') || name.includes('walletconnect'))
+        return EventId.CONNECT_WALLET_SUCCESS_WALLET_CONNECT;
+    if (name.includes('binance')) return EventId.CONNECT_WALLET_SUCCESS_BINANCE;
+    if (name.includes('okx')) return EventId.CONNECT_WALLET_SUCCESS_OKX;
+    if (name.includes('zerion')) return EventId.CONNECT_WALLET_SUCCESS_ZERION;
+    if (name.includes('rainbow')) return EventId.CONNECT_WALLET_SUCCESS_RAINBOW;
+    if (name.includes('coinbase')) return EventId.CONNECT_WALLET_SUCCESS_COINBASE;
+    if (name.includes('phantom')) return EventId.CONNECT_WALLET_SUCCESS_PHANTOM;
+    if (name.includes('firefly')) return EventId.CONNECT_WALLET_SUCCESS_PARTICLE;
+
+    return EventId.CONNECT_WALLET_SUCCESS;
+}
+
 export function captureConnectWalletEvent(
-    eventId:
-        | EventId.CONNECT_WALLET_SUCCESS
-        | EventId.CONNECT_WALLET_SUCCESS_METAMASK
-        | EventId.CONNECT_WALLET_SUCCESS_RABBY
-        | EventId.CONNECT_WALLET_SUCCESS_WALLET_CONNECT
-        | EventId.CONNECT_WALLET_SUCCESS_BINANCE
-        | EventId.CONNECT_WALLET_SUCCESS_OKX
-        | EventId.CONNECT_WALLET_SUCCESS_ZERION
-        | EventId.CONNECT_WALLET_SUCCESS_RAINBOW
-        | EventId.CONNECT_WALLET_SUCCESS_PARTICLE
-        | EventId.CONNECT_WALLET_SUCCESS_PHANTOM
-        | EventId.CONNECT_WALLET_SUCCESS_COINBASE,
+    eventId: EventId.CONNECT_WALLET_SUCCESS,
     options?: {
         name?: string;
-        evmAddress?: string;
-        solanaAddress?: string;
+        address?: string;
+        connect_time?: number;
+        connect_success_time?: number;
     },
 ) {
     return runInSafeAsync(async () => {
-        const parameters = {
+        const evmAddress = options?.address?.startsWith('eip155') ? options?.address.split(':')[2] : undefined;
+        const solanaAddress = options?.address?.startsWith('solana') ? options?.address.split(':')[1] : undefined;
+
+        TelemetryProvider.captureEvent(resolveEventId(options?.name ?? ''), {
+            click_location: bom.location?.href.includes('/settings') ? 'settings' : 'nav_bar',
+            wallet_address: evmAddress || solanaAddress || '0x0',
+            wallet_type: evmAddress ? 'evm' : solanaAddress ? 'solana' : 'unknown',
             wallet_name: options?.name ?? 'unknown',
-            wallet_address: options?.evmAddress,
-            solana_address: options?.solanaAddress,
-        };
-
-        if (eventId !== EventId.CONNECT_WALLET_SUCCESS) {
-            await TelemetryProvider.captureEvent(EventId.CONNECT_WALLET_SUCCESS, parameters);
-        }
-
-        return TelemetryProvider.captureEvent(eventId, parameters);
+            click_time: options?.connect_time ?? 0,
+            connect_success_time: options?.connect_success_time ?? 0,
+            connect_duration:
+                options?.connect_time && options?.connect_success_time
+                    ? options.connect_success_time - options.connect_time
+                    : 0,
+        });
     });
 }
