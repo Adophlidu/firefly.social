@@ -25,6 +25,7 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
         public_ua: bom.navigator?.userAgent,
         public_href: bom.location?.href,
 
+        // evm
         public_evm_address: evmAccount?.address,
         public_evm_chain_id: evmAccount?.chainId,
         public_evm_caip10:
@@ -32,6 +33,7 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
                 ? `ethereum:${evmAccount.chainId}:${evmAccount.address}`
                 : undefined,
 
+        // solana
         public_solana_chain_id: ChainId.Mainnet,
         public_solana_address: solanaAdaptor?.publicKey?.toBase58(),
         public_solana_caip10: solanaAdaptor?.publicKey

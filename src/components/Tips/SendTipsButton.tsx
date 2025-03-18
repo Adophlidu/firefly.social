@@ -15,6 +15,7 @@ import { useTipsValidation } from '@/hooks/useTipsValidation.js';
 import { ConnectModalRef } from '@/modals/controls.js';
 import { captureTipsEvent } from '@/providers/telemetry/captureTipsEvent.js';
 import { reportTokenTips, UploadTokenTipsToken } from '@/services/reportTokenTips.js';
+import { CoreConnectorController } from '@reown/appkit';
 
 interface SendTipsButtonProps {
     connected: boolean;
@@ -80,6 +81,8 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
                     amount_usd: token.usdValue,
                     chain_id: token.chainId,
                     chain_name: token.chain,
+                    source_wallet_type: 'evm',
+                    source_wallet_name: CoreConnectorController.state.activeConnector?.name ?? 'unknown',
                 });
             }
 

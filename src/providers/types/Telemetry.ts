@@ -45,9 +45,29 @@ export enum EventId {
     MUTE_SUCCESS = 'mute_success', // ✅
     UNMUTE_SUCCESS = 'unmute_success', // ✅
 
+    // tips
     TIPS_SEND_SUCCESS = 'tips_send_success', // ✅
+
+    // poll
     POLL_CREATE_SUCCESS = 'poll_create_success', // ✅
+
     LUCKY_DROP_CREATE_SUCCESS = 'lucky_drop_create_success',
+    LUCKY_DROP_REFUND_SUCCESS = 'lucky_drop_refund_success',
+    LUCKY_DROP_CLAIM_SUCCESS = 'lucky_drop_claim_success',
+
+    // blink
+    POST_BLINK_ACTION_SUCCESS = 'post_blink_action_success',
+    POST_FRAME_ACTION_SUCCESS = 'post_frame_action_success',
+
+    // article
+    ARTICLE_COLLECT_SUCCESS = 'article_collect_success',
+
+    // snapshot
+    SNAPSHOT_VOTE_SUCCESS = 'snapshot_vote_success',
+
+    // profile
+    PROFILE_SUPER_FOLLOW_SUCCESS = 'profile_superfollow_success',
+    NFT_MINT_SUCCESS = 'ff_nft_mint_success',
 
     // token sync dialog
     TOKEN_SYNC_USE_YES = 'token_sync_use_yes', // ✅
@@ -99,6 +119,7 @@ export enum EventId {
     LENS_POST_SHARE_SUCCESS = 'lens_post_share_success', // ✅
     LENS_POST_BOOKMARK_SUCCESS = 'lens_post_bookmark_success', // ✅
     LENS_POST_UNBOOKMARK_SUCCESS = 'lens_post_unbookmark_success', // ✅
+    LENS_POST_COLLECT_SUCCESS = 'lens_post_collect_success',
     LENS_PROFILE_FOLLOW_SUCCESS = 'lens_follow_success', // ✅
     LENS_PROFILE_UNFOLLOW_SUCCESS = 'lens_unfollow_success', // ✅
 
@@ -416,6 +437,8 @@ export interface Events extends Record<EventId, Event> {
             amount_usd?: number;
             chain_id: number;
             chain_name: string;
+            source_wallet_type: WalletType;
+            source_wallet_name: string;
         };
     };
     [EventId.LUCKY_DROP_CREATE_SUCCESS]: {
