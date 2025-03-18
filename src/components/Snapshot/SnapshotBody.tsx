@@ -36,6 +36,8 @@ import { stopPropagation } from '@/helpers/stopEvent.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
+import { captureSnapshotVoteEvent } from '@/providers/telemetry/captureSnapshotEvent.js';
+import { CoreConnectorController } from '@reown/appkit';
 
 interface Props {
     activity?: SnapshotActivity;
@@ -192,6 +194,10 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                     });
                 },
             );
+
+            captureSnapshotVoteEvent({
+                wallet_address: account.address,
+            });
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to vote.`);
             throw error;

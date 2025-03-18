@@ -1,7 +1,5 @@
 // cspell:disable
 
-export type WalletType = 'evm' | 'solana' | 'unknown';
-
 export enum VersionFilter {
     // the current working version
     Latest = 'latest',
@@ -251,7 +249,7 @@ export interface ConnectWalletEventParameters {
     firefly_account_id: string;
     wallet_address: string;
     click_location: 'nav_bar' | 'settings' | 'others';
-    wallet_type: WalletType;
+    wallet_type: 'evm' | 'solana' | 'unknown';
     wallet_name: string;
     click_time: number;
     connect_success_time: number;
@@ -437,7 +435,7 @@ export interface Events extends Record<EventId, Event> {
             amount_usd?: number;
             chain_id: number;
             chain_name: string;
-            source_wallet_type: WalletType;
+            source_wallet_type: 'evm' | 'solana' | 'unknown';
             source_wallet_name: string;
         };
     };
@@ -488,6 +486,15 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: {
             firefly_account_id: string;
+        };
+    };
+    [EventId.SNAPSHOT_VOTE_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            wallet_address: string;
+            wallet_type: 'evm' | 'solana' | 'unknown';
+            wallet_name: string;
         };
     };
     [EventId.TOKEN_SYNC_USE_YES]: {
