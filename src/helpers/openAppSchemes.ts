@@ -2,7 +2,7 @@ import { delay } from '@masknet/kit';
 import { once } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 
-import { IS_IOS } from '@/constants/bowser.js';
+import { IS_IOS } from '@/constants/browser.js';
 import { env } from '@/constants/env.js';
 import type { Schemes } from '@/types/device.js';
 

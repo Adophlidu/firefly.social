@@ -22,7 +22,7 @@ import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowIn
 import { Link } from '@/components/Activity/Link.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Popover } from '@/components/Popover.js';
-import { IS_ANDROID } from '@/constants/bowser.js';
+import { IS_ANDROID } from '@/constants/browser.js';
 import { Source } from '@/constants/enum.js';
 import { FIREFLY_TELEGRAM_URL } from '@/constants/index.js';
 import { FIREFLY_MENTION, FIREFLY_TWITTER_PROFILE, TRUMP_TWITTER_PROFILE } from '@/constants/mentions.js';

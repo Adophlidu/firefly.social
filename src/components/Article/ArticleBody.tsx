@@ -11,7 +11,7 @@ import { ArticleAuthor } from '@/components/Article/ArticleAuthor.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
-import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
+import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';

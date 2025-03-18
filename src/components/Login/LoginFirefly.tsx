@@ -7,7 +7,7 @@ import { useCountdown } from 'usehooks-ts';
 import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
-import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
+import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { AbortError, MalformedError, TimeoutError } from '@/constants/error.js';
 import { FIREFLY_SCAN_QR_CODE_COUNTDOWN } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';

@@ -7,7 +7,6 @@ import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { CZ_ACTIVITY_HOSTNAME } from '@/constants/index.js';
-import { Script } from '@/esm/Script.js';
 import { Modals } from '@/modals/index.js';
 
 export function LayoutBody({ children }: { children: React.ReactNode }) {
@@ -35,7 +34,6 @@ export function LayoutBody({ children }: { children: React.ReactNode }) {
             <NoSSR>
                 <FireflySessionAbsencePatch />
             </NoSSR>
-            <Script src="https://cdn.jsdelivr.net/npm/bowser@2.11.0/es5.min.js" async strategy="beforeInteractive" />
         </>
     );
 }

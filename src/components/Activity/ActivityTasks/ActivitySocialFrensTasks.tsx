@@ -14,7 +14,7 @@ import { ActivityLoginButtonWithMultipleSources } from '@/components/Activity/Ac
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
-import { IS_ANDROID } from '@/constants/bowser.js';
+import { IS_ANDROID } from '@/constants/browser.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import type { Chars } from '@/helpers/chars.js';

@@ -11,7 +11,7 @@ import { UserRejectedRequestError } from 'viem';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
-import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
+import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { FarcasterSignType, FarcasterSignType as SignType, Source } from '@/constants/enum.js';
 import { AbortError, FarcasterAlreadyBoundError, NotAllowedError, TimeoutError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN } from '@/constants/index.js';

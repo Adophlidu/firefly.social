@@ -26,7 +26,7 @@ import { SnapshotSingleChoices } from '@/components/Snapshot/SnapshotSingleChoic
 import { SnapshotStatus } from '@/components/Snapshot/SnapshotStatus.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
+import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { SnapshotState, SourceInURL } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';

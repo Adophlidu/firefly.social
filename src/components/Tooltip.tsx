@@ -3,7 +3,7 @@ import 'tippy.js/dist/tippy.css';
 import type { TippyProps } from '@tippyjs/react';
 import { memo, type ReactNode } from 'react';
 
-import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
+import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { classNames } from '@/helpers/classNames.js';
 

@@ -15,7 +15,7 @@ import { ActivityPremiumListProvider } from '@/components/Activity/ActivityPremi
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityShareUrl } from '@/components/Activity/hooks/useActivityShareUrl.js';
-import { IS_ANDROID } from '@/constants/bowser.js';
+import { IS_ANDROID } from '@/constants/browser.js';
 import { Source } from '@/constants/enum.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import type { Chars } from '@/helpers/chars.js';

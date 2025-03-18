@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { IS_ANDROID } from '@/constants/bowser.js';
+import { IS_ANDROID } from '@/constants/browser.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { SupportedMethod } from '@/types/bridge.js';

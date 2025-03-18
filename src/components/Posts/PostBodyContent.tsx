@@ -20,7 +20,7 @@ import { PostBodyReplyContent } from '@/components/Posts/PostBodyReplyContent.js
 import { PostLinks } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { RedPacketInspector } from '@/components/RedPacket/RedPacketInspector.js';
-import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
+import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, RP_HASH_TAG } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';

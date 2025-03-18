@@ -7,7 +7,7 @@ import NavigationBarBackIcon from '@/assets/navigation-bar-back.svg';
 import ShareIcon from '@/assets/share-navbar.svg';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { useActivityShareUrl } from '@/components/Activity/hooks/useActivityShareUrl.js';
-import { IS_ANDROID } from '@/constants/bowser.js';
+import { IS_ANDROID } from '@/constants/browser.js';
 import { PageRoute } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useComeBack } from '@/hooks/useComeback.js';

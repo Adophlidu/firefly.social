@@ -43,7 +43,7 @@ import {
 } from 'wagmi/chains';
 
 import { solanaAdapter, solanaNetworks } from '@/configs/solanaWallets.js';
-import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
+import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
