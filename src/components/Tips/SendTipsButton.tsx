@@ -13,7 +13,7 @@ import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resol
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { useTipsValidation } from '@/hooks/useTipsValidation.js';
 import { ConnectModalRef } from '@/modals/controls.js';
-import { captureTipsEvent } from '@/providers/telemetry/captureTipsEvent.js';
+import { captureTipsSendEvent } from '@/providers/telemetry/captureTipsSendEvent.js';
 import { reportTokenTips, UploadTokenTipsToken } from '@/services/reportTokenTips.js';
 import { CoreConnectorController } from '@reown/appkit';
 
@@ -71,7 +71,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
                     tip_memos: '',
                     tx_hash: hash,
                 });
-                captureTipsEvent({
+                captureTipsSendEvent({
                     source_wallet_address: account,
                     target_wallet_address: recipient.address,
                     source_firefly_account_id: fromAccountId ?? '',

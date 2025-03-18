@@ -28,6 +28,7 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { ParagraphAPI } from '@/providers/paragraph/index.js';
 import { captureCollectArticleEvent } from '@/providers/telemetry/captureMintEvent.js';
 import { type Article } from '@/providers/types/Article.js';
+import { captureArticleCollectEvent } from '@/providers/telemetry/captureArticleCollectEvent.js';
 
 export interface ArticleCollectProps {
     article: Article;
@@ -55,6 +56,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
 
         const provider = resolveArticleCollectProvider(platform);
         if (!provider) return;
+
         try {
             let hash = '';
             const eventOptions = {
@@ -114,6 +116,12 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
             queryClient.refetchQueries({
                 queryKey: ['article-collect-status', article.platform, article.id],
             });
+
+            if (account.address) {
+                captureArticleCollectEvent({
+                    wallet_address: account.address,
+                });
+            }
 
             enqueueSuccessMessage(t`Article collected successfully!`);
         } catch (error) {

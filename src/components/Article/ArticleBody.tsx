@@ -4,7 +4,6 @@ import '@/assets/css/limo.css';
 import '@/assets/css/paragraph.css';
 
 import DOMPurify from 'dompurify';
-import { useRouter } from 'next/navigation.js';
 
 import { ArticleActions } from '@/components/Article/ArticleActions.js';
 import { ArticleAuthor } from '@/components/Article/ArticleAuthor.js';
@@ -27,7 +26,6 @@ interface Props {
 
 export function ArticleBody({ cover, article, onClick }: Props) {
     const isMedium = useIsMedium();
-    const router = useRouter();
 
     const isDarkMode = useIsDarkMode();
 

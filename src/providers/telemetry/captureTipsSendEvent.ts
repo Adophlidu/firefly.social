@@ -3,7 +3,7 @@ import { getConnectorWalletType, getConnectorWalletName } from '@/providers/tele
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId, type Events } from '@/providers/types/Telemetry.js';
 
-export function captureTipsEvent(
+export function captureTipsSendEvent(
     parameters: Omit<Events[EventId.TIPS_SEND_SUCCESS]['parameters'], 'source_wallet_type' | 'source_wallet_name'>,
 ) {
     return runInSafeAsync(() => {

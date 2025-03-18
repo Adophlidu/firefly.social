@@ -61,7 +61,7 @@ export enum EventId {
     ARTICLE_COLLECT_SUCCESS = 'article_collect_success',
 
     // snapshot
-    SNAPSHOT_VOTE_SUCCESS = 'snapshot_vote_success',
+    SNAPSHOT_VOTE_SUCCESS = 'snapshot_vote_success', // ✅
 
     // profile
     PROFILE_SUPER_FOLLOW_SUCCESS = 'profile_superfollow_success',
@@ -486,6 +486,15 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: {
             firefly_account_id: string;
+        };
+    };
+    [EventId.ARTICLE_COLLECT_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            wallet_address: string;
+            wallet_type: 'evm' | 'solana' | 'unknown';
+            wallet_name: string;
         };
     };
     [EventId.SNAPSHOT_VOTE_SUCCESS]: {

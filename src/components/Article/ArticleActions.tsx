@@ -45,6 +45,26 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
 
     const article = data || oldArticle;
 
+    const onCollect = () => {
+        if (!isLogin) {
+            LoginModalRef.open();
+            return;
+        }
+        if (!account.isConnected) {
+            ConnectModalRef.open({ networkType: NetworkType.Ethereum });
+            return;
+        }
+        if (isMedium) {
+            CollectArticleModalRef.open({
+                article,
+            });
+        } else {
+            DraggablePopoverRef.open({
+                content: <ArticleCollect article={article} />,
+            });
+        }
+    };
+
     return (
         <div className="flex items-center justify-end">
             <div className="flex items-center">
@@ -57,25 +77,7 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                     article.platform !== ArticlePlatform.Limo ? (
                         <Tooltip content={t`Collect`} placement="top">
                             <motion.button
-                                onClick={() => {
-                                    if (!isLogin) {
-                                        LoginModalRef.open();
-                                        return;
-                                    }
-                                    if (!account.isConnected) {
-                                        ConnectModalRef.open({ networkType: NetworkType.Ethereum });
-                                        return;
-                                    }
-                                    if (isMedium) {
-                                        CollectArticleModalRef.open({
-                                            article,
-                                        });
-                                    } else {
-                                        DraggablePopoverRef.open({
-                                            content: <ArticleCollect article={article} />,
-                                        });
-                                    }
-                                }}
+                                onClick={onCollect}
                                 className="inline-flex size-7 items-center justify-center rounded-full hover:bg-secondarySuccess/[.20]"
                                 whileTap={{ scale: 0.9 }}
                             >

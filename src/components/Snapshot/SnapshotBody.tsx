@@ -36,7 +36,7 @@ import { stopPropagation } from '@/helpers/stopEvent.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
-import { captureSnapshotVoteEvent } from '@/providers/telemetry/captureSnapshotEvent.js';
+import { captureSnapshotVoteEvent } from '@/providers/telemetry/captureSnapshotVoteEvent.js';
 import { CoreConnectorController } from '@reown/appkit';
 
 interface Props {
