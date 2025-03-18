@@ -42,7 +42,7 @@ export function TokenSecurityTippy({ children, level, security }: Props) {
         );
 
     return (
-        <InteractiveTippy maxWidth={350} className="tippy-card" placement="bottom" content={content}>
+        <InteractiveTippy maxWidth={350} delay={300} className="tippy-card" placement="bottom" content={content}>
             {children}
         </InteractiveTippy>
     );

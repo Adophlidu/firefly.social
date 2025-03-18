@@ -73,7 +73,7 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
     if (!token) return null;
     const price = attributes?.price_usd;
     const market_cap = attributes?.market_cap_usd;
-    const tokenPageUrl = resolveTokenPageUrl(address, chainId);
+    const tokenPageUrl = resolveTokenPageUrl(token.symbol, chainId);
 
     const rank = token.rank || trending?.coin.market_cap_rank;
     return (
@@ -99,7 +99,10 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
                                 height={30}
                             />
                         </Link>
-                        <Link className="ml-[2px] text-lg font-bold uppercase text-main" href={tokenPageUrl}>
+                        <Link
+                            className="ml-[2px] text-lg font-bold uppercase text-main hover:underline"
+                            href={tokenPageUrl}
+                        >
                             {token.symbol}
                         </Link>
                         {tokenSecurity ? <SecurityBadge security={tokenSecurity} /> : null}

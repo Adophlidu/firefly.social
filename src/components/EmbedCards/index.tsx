@@ -76,11 +76,23 @@ export const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInn
     const renderCard = () => {
         switch (embed.type) {
             case 'address':
-                return <AddressCard className="min-h-[109px] rounded-2xl !bg-lightBg" address={embed.value} />;
+                return (
+                    <AddressCard
+                        key={embed.value}
+                        className="min-h-[109px] rounded-2xl !bg-lightBg"
+                        address={embed.value}
+                    />
+                );
             case 'domain':
-                return <DomainCard className="min-h-[109px] rounded-2xl bg-lightBg" domain={embed.value} />;
+                return (
+                    <DomainCard
+                        key={embed.value}
+                        className="min-h-[109px] rounded-2xl bg-lightBg"
+                        domain={embed.value}
+                    />
+                );
             case 'url':
-                return <EmbedLinkCard className="!bg-lightBg" link={embed.value} post={post} />;
+                return <EmbedLinkCard key={embed.value} className="!bg-lightBg" link={embed.value} post={post} />;
             default:
                 safeUnreachable(embed.type);
                 return null;
