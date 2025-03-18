@@ -23,7 +23,7 @@ import { bskySessionHolder, createAgentOnce } from '@/providers/bsky/SessionHold
 import type { Account } from '@/providers/types/Account.js';
 import { type AccountOptions, addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
-import { useBskyStateStore } from '@/store/useProfileStore.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
     try {
@@ -31,9 +31,9 @@ async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<A
         const done = await addAccount(account, {
             ...options,
             async setAsCurrent({ session }) {
-                useBskyStateStore.getState().__setStatus__(AsyncStatus.Pending);
+                useGlobalState.getState().setAsyncStatus(Source.Bsky, AsyncStatus.Pending);
                 await bskySessionHolder.resumeSession(session as BskySession, false);
-                useBskyStateStore.getState().__setStatus__(AsyncStatus.Idle);
+                useGlobalState.getState().setAsyncStatus(Source.Bsky, AsyncStatus.Idle);
             },
         });
         if (done) {

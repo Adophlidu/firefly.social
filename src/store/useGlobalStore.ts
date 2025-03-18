@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { AsyncStatus, type SocialSource, Source } from '@/constants/enum.js';
+import { AsyncStatus, type SocialSource, Source, type ThirdPartySource } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentSourceFromUrl } from '@/helpers/getCurrentSourceFromUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -11,8 +11,8 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 interface GlobalState {
     routeChanged: boolean;
 
-    asyncStatus: Record<SocialSource, AsyncStatus>;
-    setAsyncStatus: (source: SocialSource, status: AsyncStatus) => void;
+    asyncStatus: Record<SocialSource | ThirdPartySource, AsyncStatus>;
+    setAsyncStatus: (source: SocialSource | ThirdPartySource, status: AsyncStatus) => void;
 
     scrollIndex: Record<string, number>;
     setScrollIndex: (key: string, value: number) => void;
@@ -44,8 +44,12 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
                 [Source.Lens]: AsyncStatus.Idle,
                 [Source.Twitter]: AsyncStatus.Idle,
                 [Source.Bsky]: AsyncStatus.Idle,
+                [Source.Email]: AsyncStatus.Idle,
+                [Source.Telegram]: AsyncStatus.Idle,
+                [Source.Apple]: AsyncStatus.Idle,
+                [Source.Google]: AsyncStatus.Idle,
             },
-            setAsyncStatus: (source: SocialSource, status: AsyncStatus) =>
+            setAsyncStatus: (source: SocialSource | ThirdPartySource, status: AsyncStatus) =>
                 set((state) => {
                     state.asyncStatus[source] = status;
                 }),

@@ -116,7 +116,7 @@ export enum ConnectionPlatform {
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Bsky;
 
-export type ThirdPartySource = Source.Telegram | Source.Apple | Source.Google;
+export type ThirdPartySource = Source.Telegram | Source.Apple | Source.Google | Source.Email;
 
 // Strictly match the SessionType
 export type ProfileSource =

@@ -7,7 +7,7 @@ import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import { addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 
-export async function addTwitterAccount(payload: SessionPayload, isNew = false) {
+export async function addTwitterAccount(payload: SessionPayload, isNew = false, signal?: AbortSignal) {
     const profile = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
     if (!profile) throw new Error('Failed to fetch user profile');
 
@@ -31,6 +31,7 @@ export async function addTwitterAccount(payload: SessionPayload, isNew = false) 
             skipBelongsToCheck: !isNew,
             skipResumeFireflyAccounts: !isNew,
             skipResumeFireflySession: !isNew,
+            signal,
         },
     );
 }

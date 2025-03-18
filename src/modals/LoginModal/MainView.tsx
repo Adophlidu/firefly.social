@@ -91,6 +91,8 @@ export function MainView() {
                 case Source.Google:
                     await signIn(resolveSourceInUrl(source));
                     break;
+                case Source.Email:
+                    break;
                 default:
                     safeUnreachable(source);
             }

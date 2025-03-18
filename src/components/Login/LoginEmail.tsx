@@ -9,7 +9,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ClearButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SendPasscodeButton } from '@/components/Login/SendPasscodeButton.js';
-import { AsyncStatus } from '@/constants/enum.js';
+import { AsyncStatus, Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { EMAIL_REGEX } from '@/constants/regexp.js';
 import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
@@ -20,7 +20,7 @@ import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { thirdPartySessionHolder } from '@/providers/third-party/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import { type AccountOptions, addAccount } from '@/services/account.js';
-import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 async function loginEmail(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
     try {
@@ -28,9 +28,9 @@ async function loginEmail(createAccount: () => Promise<Account>, options?: Omit<
         const done = await addAccount(account, {
             ...options,
             async setAsCurrent({ session }) {
-                useThirdPartyStateStore.getState().__setStatus__(AsyncStatus.Pending);
+                useGlobalState.getState().setAsyncStatus(Source.Email, AsyncStatus.Pending);
                 thirdPartySessionHolder.resumeSession(session as ThirdPartySession);
-                useThirdPartyStateStore.getState().__setStatus__(AsyncStatus.Idle);
+                useGlobalState.getState().setAsyncStatus(Source.Email, AsyncStatus.Idle);
             },
         });
         if (done) {

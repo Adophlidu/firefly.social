@@ -19,6 +19,7 @@ const resolveLoginEventId = createLookupTableResolver<LoginSource, EventId>(
         [Source.Google]: EventId.GOOGLE_ACCOUNT_LOG_IN_SUCCESS,
         [Source.Apple]: EventId.APPLE_ACCOUNT_LOG_IN_SUCCESS,
         [Source.Telegram]: EventId.TELEGRAM_ACCOUNT_LOG_IN_SUCCESS,
+        [Source.Email]: EventId.EMAIL_ACCOUNT_LOG_IN_SUCCESS,
     },
     (source) => {
         throw new UnreachableError('source', source);
@@ -34,6 +35,7 @@ const resolveLogoutEventId = createLookupTableResolver<LoginSource, EventId>(
         [Source.Apple]: EventId.APPLE_ACCOUNT_LOG_OUT_SUCCESS,
         [Source.Google]: EventId.GOOGLE_ACCOUNT_LOG_OUT_SUCCESS,
         [Source.Telegram]: EventId.TELEGRAM_ACCOUNT_LOG_OUT_SUCCESS,
+        [Source.Email]: EventId.EMAIL_ACCOUNT_LOG_OUT_SUCCESS,
     },
     (source) => {
         throw new UnreachableError('source', source);
@@ -49,6 +51,7 @@ const resolveDisconnectEventId = createLookupTableResolver<LoginSource, EventId>
         [Source.Apple]: EventId.APPLE_ACCOUNT_DISCONNECT_SUCCESS,
         [Source.Google]: EventId.GOOGLE_ACCOUNT_DISCONNECT_SUCCESS,
         [Source.Telegram]: EventId.TELEGRAM_ACCOUNT_DISCONNECT_SUCCESS,
+        [Source.Email]: EventId.EMAIL_ACCOUNT_DISCONNECT_SUCCESS,
     },
     (source) => {
         throw new UnreachableError('source', source);

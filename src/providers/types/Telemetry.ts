@@ -172,6 +172,10 @@ export enum EventId {
     TELEGRAM_ACCOUNT_LOG_OUT_SUCCESS = 'telegram_log_out_success',
     TELEGRAM_ACCOUNT_DISCONNECT_SUCCESS = 'telegram_disconnect_success',
 
+    EMAIL_ACCOUNT_LOG_IN_SUCCESS = 'email_log_in_success',
+    EMAIL_ACCOUNT_LOG_OUT_SUCCESS = 'email_log_out_success',
+    EMAIL_ACCOUNT_DISCONNECT_SUCCESS = 'email_disconnect_success',
+
     // activity
     EVENT_SHARE_CLICK = 'event_share_click',
     EVENT_FARCASTER_LOG_IN_SUCCESS = 'event_far_log_in_success',

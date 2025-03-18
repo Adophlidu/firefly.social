@@ -1,3 +1,5 @@
+import { AbortError } from '@/constants/error.js';
+
 export function runInSafe<T>(fn: () => T, noThrow = true, defaultValue?: T) {
     try {
         return fn();
@@ -8,10 +10,20 @@ export function runInSafe<T>(fn: () => T, noThrow = true, defaultValue?: T) {
     }
 }
 
-export async function runInSafeAsync<T>(fn: () => Promise<T>, noThrow = true) {
+interface RunInSafeAsyncOptions {
+    noThrow?: boolean;
+    signal?: AbortSignal;
+}
+
+export async function runInSafeAsync<T>(
+    fn: (signal?: AbortSignal) => Promise<T>,
+    { noThrow = true, signal }: RunInSafeAsyncOptions = {},
+) {
     try {
-        return await fn();
+        return await fn(signal);
     } catch (error) {
+        if (error instanceof AbortError) return;
+
         if (!noThrow) throw error;
         console.error(`[runInSafeAsync] ${error}`);
         return;

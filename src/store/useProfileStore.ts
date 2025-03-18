@@ -44,7 +44,7 @@ import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySess
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
 
 export interface ProfileState {
-    // indicate the store is ready or not
+    // indicate the store is ready or not in its init phase
     status: AsyncStatus;
     // internally used in this store
     __setStatus__: (status: AsyncStatus) => void;
@@ -210,6 +210,7 @@ function createState(
                     }),
                 clear: () =>
                     set((state) => {
+                        state.status = AsyncStatus.Idle;
                         state.accounts = EMPTY_LIST;
                         state.currentProfile = null;
                         state.currentProfileSession = null;
