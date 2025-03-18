@@ -2080,6 +2080,9 @@ msgstr "You need to connect your {0} account to use this feature."
 msgid "Bad Request. Please check your request."
 msgstr "Bad Request. Please check your request."
 
+msgid "✨ Turn on browser notifications to never miss a trade update."
+msgstr "✨ Turn on browser notifications to never miss a trade update."
+
 msgid "No blackmail activities found."
 msgstr "No blackmail activities found."
 
@@ -2216,6 +2219,9 @@ msgstr "Available to users with Farcaster ID under 100,000 or users of select th
 
 msgid "Unverified"
 msgstr "Unverified"
+
+msgid "👀 Firefly notifications are off. "
+msgstr "👀 Firefly notifications are off. "
 
 msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr "Follow for {feeAmount} ${feeSymbol}"
@@ -2674,6 +2680,9 @@ msgstr "Available Balance"
 msgid "Follow @thefireflyapp on X"
 msgstr "Follow @thefireflyapp on X"
 
+msgid "Swapped 0.1 ETH for 253.97 Virtual."
+msgstr "Swapped 0.1 ETH for 253.97 Virtual."
+
 msgid "Step 2 Connect Wallet"
 msgstr "Step 2 Connect Wallet"
 
@@ -2820,6 +2829,9 @@ msgstr "Quotes"
 msgid "The user rejected the request."
 msgstr "The user rejected the request."
 
+msgid "👉 To stay updated on trades, enable notifications in your browser settings."
+msgstr "👉 To stay updated on trades, enable notifications in your browser settings."
+
 #. placeholder {0}: collection.floor_price
 #. placeholder {1}: collection.price_symbol
 msgid "{0}{1}<0> Floor</0>"
@@ -2923,6 +2935,9 @@ msgstr "Full"
 
 msgid "Powered by"
 msgstr "Powered by"
+
+msgid "Stay in the loop with Firefly!"
+msgstr "Stay in the loop with Firefly!"
 
 msgid "So sorry, we are not able to mint this NFT at the moment."
 msgstr "So sorry, we are not able to mint this NFT at the moment."
@@ -3608,6 +3623,9 @@ msgstr "Sign in with Bluesky"
 msgid "Failed to send tip. Please try again later."
 msgstr "Failed to send tip. Please try again later."
 
+msgid "Enable now"
+msgstr "Enable now"
+
 msgid "Failed to unlike the comment."
 msgstr "Failed to unlike the comment."
 
@@ -4064,6 +4082,9 @@ msgstr "No malicious mining activities involved."
 msgid "Refund successfully."
 msgstr "Refund successfully."
 
+msgid "Remind me later"
+msgstr "Remind me later"
+
 msgid "Copy link"
 msgstr "Copy link"
 
@@ -4124,6 +4145,9 @@ msgstr "Fake KYC found."
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
 msgstr "{0, plural, one {like} other {likes}}"
+
+msgid "👉 vitalik.eth"
+msgstr "👉 vitalik.eth"
 
 msgid "Collectible"
 msgstr "Collectible"

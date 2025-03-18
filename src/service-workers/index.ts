@@ -1,3 +1,4 @@
+/// <reference lib="webworker" />
 declare let self: ServiceWorkerGlobalScope;
 
 const impressionsEndpoint = '/api/impressions';

@@ -2085,6 +2085,9 @@ msgstr "您需要连接您的 {0} 账户来使用此功能。"
 msgid "Bad Request. Please check your request."
 msgstr "请求错误。请检查你的请求。"
 
+msgid "✨ Turn on browser notifications to never miss a trade update."
+msgstr ""
+
 msgid "No blackmail activities found."
 msgstr "未发现勒索行为。"
 
@@ -2221,6 +2224,9 @@ msgstr "若您的 Farcaster ID 低于 100,000，或在快照中被识别为指�
 
 msgid "Unverified"
 msgstr "未验证"
+
+msgid "👀 Firefly notifications are off. "
+msgstr ""
 
 msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr "关注需付出 {feeAmount} ${feeSymbol}"
@@ -2679,6 +2685,9 @@ msgstr "可用余额"
 msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上关注 @thefireflyapp"
 
+msgid "Swapped 0.1 ETH for 253.97 Virtual."
+msgstr ""
+
 msgid "Step 2 Connect Wallet"
 msgstr "第 2 步 连接钱包"
 
@@ -2825,6 +2834,9 @@ msgstr "引用"
 msgid "The user rejected the request."
 msgstr "用户取消了请求。"
 
+msgid "👉 To stay updated on trades, enable notifications in your browser settings."
+msgstr ""
+
 #. placeholder {0}: collection.floor_price
 #. placeholder {1}: collection.price_symbol
 msgid "{0}{1}<0> Floor</0>"
@@ -2928,6 +2940,9 @@ msgstr "完整的"
 
 msgid "Powered by"
 msgstr "技术支持来自"
+
+msgid "Stay in the loop with Firefly!"
+msgstr ""
 
 msgid "So sorry, we are not able to mint this NFT at the moment."
 msgstr "很抱歉，我们目前无法铸造此 NFT。"
@@ -3613,6 +3628,9 @@ msgstr "使用 Bluesky 登录"
 msgid "Failed to send tip. Please try again later."
 msgstr "打赏失败，请稍后重试。"
 
+msgid "Enable now"
+msgstr ""
+
 msgid "Failed to unlike the comment."
 msgstr "取消点赞失败。"
 
@@ -4071,6 +4089,9 @@ msgstr "未发现可以的挖矿活动。"
 msgid "Refund successfully."
 msgstr "退款成功。"
 
+msgid "Remind me later"
+msgstr ""
+
 msgid "Copy link"
 msgstr "拷贝链接"
 
@@ -4131,6 +4152,9 @@ msgstr "识别为虚假KYC。"
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
 msgstr "{0, plural, one {点赞} other {点赞}}"
+
+msgid "👉 vitalik.eth"
+msgstr ""
 
 msgid "Collectible"
 msgstr "NFT"

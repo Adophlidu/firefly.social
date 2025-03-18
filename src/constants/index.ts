@@ -371,6 +371,7 @@ export const SUFFIX_NAMES: Record<FileMimeType, string> = {
 };
 
 export const SOLANA_WALLET_CACHE_KEY = 'walletName';
+export const NOTIFICATION_PERMISSION_KEY = 'notification-permission';
 
 // https://support.mirror.xyz/hc/en-us/articles/13729399363220-Platform-fees
 // 0.00069 ETH

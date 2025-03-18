@@ -12,9 +12,11 @@ import { sentryClient } from '@/configs/sentryClient.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useLocale } from '@/helpers/getCookie.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { setLocale } from '@/i18n/index.js';
 import { recordUserThemeMode } from '@/services/recordUserThemeMode.js';
+import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
@@ -22,6 +24,7 @@ import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 export const InitialProviders = memo(function Providers(props: { children: React.ReactNode }) {
     const isDarkMode = useIsDarkMode();
     const isMedium = useIsMedium();
+    const isLogin = useIsLoginFirefly();
     useActionsRegistryInterval();
 
     const entryPathname = useRef('');
@@ -57,6 +60,12 @@ export const InitialProviders = memo(function Providers(props: { children: React
             navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(console.error);
         }
     });
+
+    useEffect(() => {
+        if (isLogin) {
+            setupFirebaseFcmConnection();
+        }
+    }, [isLogin]);
 
     useEffect(() => {
         if (!entryPathname.current || pathname === entryPathname.current) {

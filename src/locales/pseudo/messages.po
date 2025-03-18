@@ -2072,6 +2072,9 @@ msgstr ""
 msgid "Bad Request. Please check your request."
 msgstr ""
 
+msgid "✨ Turn on browser notifications to never miss a trade update."
+msgstr ""
+
 msgid "No blackmail activities found."
 msgstr ""
 
@@ -2207,6 +2210,9 @@ msgid "Available to users with Farcaster ID under 100,000 or users of select thi
 msgstr ""
 
 msgid "Unverified"
+msgstr ""
+
+msgid "👀 Firefly notifications are off. "
 msgstr ""
 
 msgid "Follow for {feeAmount} ${feeSymbol}"
@@ -2661,6 +2667,9 @@ msgstr ""
 msgid "Follow @thefireflyapp on X"
 msgstr ""
 
+msgid "Swapped 0.1 ETH for 253.97 Virtual."
+msgstr ""
+
 msgid "Step 2 Connect Wallet"
 msgstr ""
 
@@ -2807,6 +2816,9 @@ msgstr ""
 msgid "The user rejected the request."
 msgstr ""
 
+msgid "👉 To stay updated on trades, enable notifications in your browser settings."
+msgstr ""
+
 #. placeholder {0}: collection.floor_price
 #. placeholder {1}: collection.price_symbol
 msgid "{0}{1}<0> Floor</0>"
@@ -2909,6 +2921,9 @@ msgid "Full"
 msgstr ""
 
 msgid "Powered by"
+msgstr ""
+
+msgid "Stay in the loop with Firefly!"
 msgstr ""
 
 msgid "So sorry, we are not able to mint this NFT at the moment."
@@ -3592,6 +3607,9 @@ msgstr ""
 msgid "Failed to send tip. Please try again later."
 msgstr ""
 
+msgid "Enable now"
+msgstr ""
+
 msgid "Failed to unlike the comment."
 msgstr ""
 
@@ -4048,6 +4066,9 @@ msgstr ""
 msgid "Refund successfully."
 msgstr ""
 
+msgid "Remind me later"
+msgstr ""
+
 msgid "Copy link"
 msgstr ""
 
@@ -4107,6 +4128,9 @@ msgstr ""
 
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
+msgstr ""
+
+msgid "👉 vitalik.eth"
 msgstr ""
 
 msgid "Collectible"

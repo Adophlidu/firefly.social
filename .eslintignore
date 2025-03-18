@@ -9,4 +9,5 @@ src/locales/**/*.js
 src/polyfills/*.js
 public/js
 public/sw.js
+public/firebase-messaging-sw.js
 scripts/build-sw.mjs

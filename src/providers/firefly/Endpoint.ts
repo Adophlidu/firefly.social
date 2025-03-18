@@ -1125,6 +1125,20 @@ export class FireflyEndpoint {
             method: 'DELETE',
         });
     }
+
+    async uploadNotificationSubscription(fcmToken: string, deviceId: string) {
+        await fireflySessionHolder.fetchWithSession(
+            urlcat(settings.FIREFLY_ROOT_URL, '/v1/notification/uploadDeviceToken'),
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    deviceId,
+                    token: fcmToken,
+                    platform: 'web',
+                }),
+            },
+        );
+    }
 }
 
 export const FireflyEndpointProvider = new FireflyEndpoint();

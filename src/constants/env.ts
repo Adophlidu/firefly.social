@@ -94,6 +94,16 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_W3M_PROJECT_ID: z.string().default('invalid_w3m_project_id'),
 
     NEXT_PUBLIC_ORB_CLUB_API_TOKEN: z.string().default('invalid_orb_club_api_token'),
+
+    // firebase
+    NEXT_PUBLIC_FIREBASE_API_KEY: z.string().optional(),
+    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: z.string().optional(),
+    NEXT_PUBLIC_FIREBASE_PROJECT_ID: z.string().optional(),
+    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: z.string().optional(),
+    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: z.string().optional(),
+    NEXT_PUBLIC_FIREBASE_APP_ID: z.string().optional(),
+    NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: z.string().optional(),
+    NEXT_PUBLIC_FIREBASE_VAPID_KEY: z.string().optional(),
 });
 
 export const env = {
@@ -152,5 +162,15 @@ export const env = {
 
         NEXT_PUBLIC_ORB_CLUB_API_TOKEN: process.env.NEXT_PUBLIC_ORB_CLUB_API_TOKEN,
         NEXT_PUBLIC_SOLANA_DEV: process.env.NEXT_PUBLIC_SOLANA_DEV,
+
+        // firebase
+        NEXT_PUBLIC_FIREBASE_API_KEY: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+        NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+        NEXT_PUBLIC_FIREBASE_PROJECT_ID: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+        NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+        NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+        NEXT_PUBLIC_FIREBASE_APP_ID: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+        NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+        NEXT_PUBLIC_FIREBASE_VAPID_KEY: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
     }),
 };
