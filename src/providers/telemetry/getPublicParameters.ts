@@ -7,6 +7,7 @@ import { runInSafe } from '@/helpers/runInSafe.js';
 import { getWalletAdapter } from '@/providers/solana/getWalletAdapter.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 import {
+    useBskyStateStore,
     useFarcasterStateStore,
     useFireflyStateStore,
     useLensStateStore,
@@ -49,6 +50,7 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
         twitter_username: useTwitterStateStore.getState().currentProfile?.handle,
         lens_handle: useLensStateStore.getState().currentProfile?.handle,
         farcaster_id: useFarcasterStateStore.getState().currentProfile?.profileId,
+        bsky_id: useBskyStateStore.getState().currentProfile?.profileId,
 
         activity:
             bom.location?.pathname?.startsWith('/events') || bom.location?.pathname?.startsWith('/event/')

@@ -87,9 +87,9 @@ export function getAccountEventParameters(account: Pick<Account, 'profile' | 'or
         case Source.Bsky:
             return {
                 is_token_sync: account.origin === 'sync',
-                x_id: account.profile.profileId,
-                x_handle: account.profile.handle,
-                x_accounts: accounts,
+                bsky_id: account.profile.profileId,
+                bsky_handle: account.profile.handle,
+                bsky_accounts: accounts,
             };
         case Source.Google:
             return {

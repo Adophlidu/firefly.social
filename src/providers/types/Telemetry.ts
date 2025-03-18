@@ -277,6 +277,11 @@ export interface ComposeEventParameters {
     x_handle?: string;
     x_post_ids?: string[];
 
+    include_bsky_post: boolean;
+    bsky_id?: string;
+    bsky_handle?: string;
+    bsky_post_ids?: string[];
+
     // thread
     is_thread: boolean;
 

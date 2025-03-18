@@ -5,7 +5,13 @@ import { getRpMetadata } from '@/helpers/rpPayload.js';
 import type { ComposeEventParameters } from '@/providers/types/Telemetry.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
-import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
+import {
+    useBskyStateStore,
+    useFarcasterStateStore,
+    useLensStateStore,
+    useTwitterStateStore,
+} from '@/store/useProfileStore.js';
+import { SORTED_POLL_SOURCES } from '@/constants/index.js';
 
 export interface Options {
     draftId?: string;
@@ -20,6 +26,7 @@ export function getComposeEventParameters(
     const lensProfile = useLensStateStore.getState().currentProfile;
     const farcasterProfile = useFarcasterStateStore.getState().currentProfile;
     const xProfile = useTwitterStateStore.getState().currentProfile;
+    const bskyProfile = useBskyStateStore.getState().currentProfile;
 
     // schedule time indicates that the post is scheduled
     // but only schedule id indicates that the post is scheduled and saved
@@ -43,6 +50,11 @@ export function getComposeEventParameters(
         x_handle: xProfile?.handle,
         x_post_ids: compact(thread?.map((p) => p.postId[Source.Twitter] ?? undefined)),
 
+        include_bsky_post: post.availableSources.includes(Source.Bsky),
+        bsky_id: bskyProfile?.profileId,
+        bsky_handle: bskyProfile?.handle,
+        bsky_post_ids: compact(thread?.map((p) => p.postId[Source.Bsky] ?? undefined)),
+
         is_thread: !!thread?.length && thread.length > 1,
 
         is_draft: !!draftId,
@@ -55,11 +67,7 @@ export function getComposeEventParameters(
         lucky_drop_ids: rp?.rpid ? [rp.rpid] : [],
 
         include_poll: !!(post.poll && Object.values(post.poll?.pollIds).some((id) => !!id)),
-        poll_id:
-            post.poll?.pollIds[Source.Lens] ??
-            post.poll?.pollIds[Source.Farcaster] ??
-            post.poll?.pollIds[Source.Twitter] ??
-            undefined,
+        poll_id: SORTED_POLL_SOURCES.map((x) => post.poll?.pollIds[x]).find((x) => !!x) ?? undefined,
 
         include_farcaster_poll: !!post.poll?.pollIds[Source.Farcaster],
         farcaster_poll_id: post.poll?.pollIds[Source.Farcaster] ?? undefined,
