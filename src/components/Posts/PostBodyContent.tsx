@@ -8,6 +8,7 @@ import { useMemo } from 'react';
 
 import { TwitterArticleBody } from '@/components/Article/TwitterArticleBody.js';
 import { EmbedCards } from '@/components/EmbedCards/index.js';
+import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { Link } from '@/components/Link.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
@@ -37,6 +38,7 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPollIdFromLink } from '@/services/getPostLinks.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
+import { t } from '@lingui/core/macro';
 
 export interface PostBodyContentProps {
     post: Post;
@@ -207,7 +209,9 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
                 </div>
             ) : null}
 
-            <EmbedCards post={post} />
+            <ErrorBoundary message={t`Failed to render embeds`}>
+                <EmbedCards post={post} />
+            </ErrorBoundary>
             {EncryptedContent}
 
             {/* Poll */}

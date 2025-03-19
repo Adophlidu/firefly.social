@@ -1,5 +1,15 @@
+import { EMPTY_LIST } from '@/constants/index.js';
+import {
+    ENS_REGEXP,
+    EXIST_EVM_ADDRESS,
+    EXIST_SOLANA_ADDRESS,
+    FULL_ENS_REGEXP,
+    LENS_HANDLE_REGEXP,
+} from '@/constants/regexp.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import type { DetectAddressResponse } from '@/providers/types/Firefly.js';
+import { URL_REGEX } from '@atproto/api';
+import { compact, groupBy, uniqBy } from 'lodash-es';
 
 type AddressRecord = NonNullable<DetectAddressResponse['data']>['list'][number];
 export function isAvailableAddress(x: AddressRecord) {
@@ -25,4 +35,32 @@ export function isTakoPost(link: string) {
     const id = url.searchParams.get('id');
     if (!id) return false;
     return /^0x[a-fA-F0-9]{40}/.test(id);
+}
+
+/** Extract links, addresses and domains */
+export function extractEmbedResources(postRawContent: string | undefined, oembedUrl: string | undefined) {
+    if (!postRawContent)
+        return { ignoredLinks: EMPTY_LIST, links: EMPTY_LIST, addresses: EMPTY_LIST, domains: EMPTY_LIST };
+    const links = uniqBy(
+        compact([...(postRawContent.match(URL_REGEX) || []).map((x) => x.trim()), oembedUrl]).filter(
+            (x) => !FULL_ENS_REGEXP.test(x) && !LENS_HANDLE_REGEXP.test(x),
+        ),
+        (x) => x.toLowerCase(),
+    );
+    const { ignored: ignored = [], keep = [] } = groupBy(links, (link) => {
+        return isFarcasterPost(link) || isTakoPost(link) ? 'ignored' : 'keep';
+    });
+
+    const evmAddresses = postRawContent.match(EXIST_EVM_ADDRESS) || [];
+    const solanaAddresses = postRawContent.match(EXIST_SOLANA_ADDRESS) || [];
+    const addresses = compact(
+        uniqBy(
+            [...evmAddresses, ...solanaAddresses].map((x) => x.trim()),
+            (x) => x.toLowerCase(),
+        ),
+    );
+
+    const domains = Array.from(postRawContent.match(ENS_REGEXP) || []);
+
+    return { addresses, domains, ignoredLinks: ignored, links: keep };
 }

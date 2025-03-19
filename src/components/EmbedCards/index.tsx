@@ -2,24 +2,16 @@
 
 import { safeUnreachable } from '@masknet/kit';
 import { useQueries } from '@tanstack/react-query';
-import { compact, first, groupBy, sortBy, uniqBy } from 'lodash-es';
+import { first, sortBy } from 'lodash-es';
 import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { AddressCard, AddressCardIndicator } from '@/components/EmbedCards/AddressCard.js';
 import { DomainCard, DomainCardIndicator } from '@/components/EmbedCards/DomainCard.js';
-import { isAvailableAddress, isFarcasterPost, isTakoPost } from '@/components/EmbedCards/helpers.js';
+import { extractEmbedResources, isAvailableAddress } from '@/components/EmbedCards/helpers.js';
 import { Indicator } from '@/components/EmbedCards/Indicator.js';
 import { EmbedLinkCard } from '@/components/EmbedCards/LinkCard.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import {
-    ENS_REGEXP,
-    EXIST_EVM_ADDRESS,
-    EXIST_SOLANA_ADDRESS,
-    FULL_ENS_REGEXP,
-    LENS_HANDLE_REGEXP,
-    URL_REGEX,
-} from '@/constants/regexp.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
 import { useClassifyPostLinks } from '@/hooks/useClassifyPostLink.js';
@@ -155,43 +147,21 @@ interface EmbedCardsProps extends HTMLProps<HTMLDivElement> {
 }
 
 export const EmbedCards = memo(function EmbedCards({ post, ...rest }: EmbedCardsProps) {
-    const postRawContent = post.metadata.content?.content;
+    const content = post.metadata.content?.content;
     const oembedUrl = resolveOembedUrl(post);
 
     // Extract links, addresses and domains
-    const { addresses, ignoredLinks, links, domains } = useMemo(() => {
-        if (!postRawContent)
-            return { ignoredLinks: EMPTY_LIST, links: EMPTY_LIST, addresses: EMPTY_LIST, domains: EMPTY_LIST };
-        const links = uniqBy(
-            compact([...(postRawContent.match(URL_REGEX) || []).map((x) => x.trim()), oembedUrl]).filter(
-                (x) => !FULL_ENS_REGEXP.test(x) && !LENS_HANDLE_REGEXP.test(x),
-            ),
-            (x) => x.toLowerCase(),
-        );
-        const { ignored: ignored = [], keep = [] } = groupBy(links, (link) => {
-            return isFarcasterPost(link) || isTakoPost(link) ? 'ignored' : 'keep';
-        });
-
-        const evmAddresses = postRawContent.match(EXIST_EVM_ADDRESS) || [];
-        const solanaAddresses = postRawContent.match(EXIST_SOLANA_ADDRESS) || [];
-        const addresses = compact(
-            uniqBy(
-                [...evmAddresses, ...solanaAddresses].map((x) => x.trim()),
-                (x) => x.toLowerCase(),
-            ),
-        );
-
-        const domains = Array.from(postRawContent.match(ENS_REGEXP) || []);
-
-        return { addresses, domains, ignoredLinks: ignored, links: keep };
-    }, [oembedUrl, postRawContent]);
+    const { addresses, ignoredLinks, links, domains } = useMemo(
+        () => extractEmbedResources(content, oembedUrl),
+        [oembedUrl, content],
+    );
 
     const classifyResults = useClassifyPostLinks(links, post);
     const domainResolveResults = useResolveEnsDomains(domains);
 
     // Merge links, addresses and domains
     const embeds = useMemo(() => {
-        if (!postRawContent) return EMPTY_LIST;
+        if (!content) return EMPTY_LIST;
 
         const availableLinks = links.filter((_, i) => {
             const result = classifyResults[i];
@@ -215,9 +185,9 @@ export const EmbedCards = memo(function EmbedCards({ post, ...rest }: EmbedCards
             ...availableDomains.map((domain) => ({ type: 'domain', value: domain })),
         ] as EmbedEntry[];
 
-        const lowercasePostContent = postRawContent.toLowerCase();
+        const lowercasePostContent = content.toLowerCase();
         return sortBy(embeds, (x) => lowercasePostContent.indexOf(x.value.toLowerCase()));
-    }, [addresses, classifyResults, ignoredLinks, domainResolveResults, domains, links, postRawContent]);
+    }, [addresses, classifyResults, ignoredLinks, domainResolveResults, domains, links, content]);
 
     if (!embeds.length) return null;
 

@@ -1976,6 +1976,9 @@ msgstr "衡量过去 24 小时内所有平台上加密货币交易量的指标�
 msgid "Failed to recast."
 msgstr "转帖失败。"
 
+msgid "Failed to render embeds"
+msgstr ""
+
 msgid "Display Name should not be blank"
 msgstr "显示名称不可以为空"
 

@@ -1971,6 +1971,9 @@ msgstr "A measure of a cryptocurrency trading volume across all tracked platform
 msgid "Failed to recast."
 msgstr "Failed to recast."
 
+msgid "Failed to render embeds"
+msgstr "Failed to render embeds"
+
 msgid "Display Name should not be blank"
 msgstr "Display Name should not be blank"
 
