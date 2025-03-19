@@ -7,7 +7,7 @@ import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import type { Profile as FireflyProfile, SearchProfileResponse } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-const validPlatforms = [FireflyPlatform.Farcaster, FireflyPlatform.Lens, FireflyPlatform.Twitter];
+const validPlatforms = [FireflyPlatform.Farcaster, FireflyPlatform.Lens, FireflyPlatform.Twitter, FireflyPlatform.Bsky];
 
 function fixProfilePlatform(profile: FireflyProfile) {
     if (!validPlatforms.includes(profile.platform)) {
@@ -17,6 +17,13 @@ function fixProfilePlatform(profile: FireflyProfile) {
             // for ens matched
             platform_id: profile.resolved_address || profile.primary_address || profile.platform_id,
         } as FireflyProfile;
+    }
+
+    if (profile.platform === FireflyPlatform.Bsky) {
+        return {
+            ...profile,
+            handle: profile.handle || profile.name,
+        };
     }
 
     return profile;
@@ -52,15 +59,24 @@ export function formatSearchProfile(
     };
 }
 
+function isProfileExist(identity: FireflyProfile, profile: Profile) {
+    const platform = profile.source === Source.Bsky ? FireflyPlatform.Bsky : resolveFireflyPlatform(profile.source);
+
+    return identity.platform === platform && identity.platform_id === profile.profileId;
+}
+
 export function composeSearchProfiles(identities: SearchProfile[], ...rest: Profile[][]): SearchProfile[] {
     return compact([
         ...identities,
         ...rest.flatMap((profiles) => {
             return profiles.map((x) => {
                 const platform = x.source === Source.Bsky ? FireflyPlatform.Bsky : resolveFireflyPlatform(x.source);
-                const existed = identities.some(
-                    ({ profile }) => profile.platform === platform && profile.platform_id === x.profileId,
-                );
+                const existed = identities.some(({ profile, related }) => {
+                    return (
+                        isProfileExist(profile, x) ||
+                        related.some((relatedProfile) => isProfileExist(relatedProfile, x))
+                    );
+                });
                 if (existed || !platform) return null;
 
                 const matched = {
