@@ -414,6 +414,9 @@ msgstr "Wrong wallet"
 msgid "Failed to un-bookmark article."
 msgstr "Failed to un-bookmark article."
 
+msgid "firefly.eth tipped you 100 USDC"
+msgstr "firefly.eth tipped you 100 USDC"
+
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer to Firefly."
 msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer to Firefly."
 
@@ -801,6 +804,9 @@ msgstr "Functions with retrievable ownership"
 msgid "No proxy contract."
 msgstr "No proxy contract."
 
+msgid "Failed to enable notifications"
+msgstr "Failed to enable notifications"
+
 msgid "Connecting"
 msgstr "Connecting"
 
@@ -1118,6 +1124,9 @@ msgstr "[Photo]"
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "Follow more friends to continue exploring on {0}."
 
+msgid "Seems like this feature is not supported!"
+msgstr "Seems like this feature is not supported!"
+
 #. placeholder {0}: resolveSourcesName(invalidSources)
 msgid "Lucky drop for {0} is coming soon."
 msgstr "Lucky drop for {0} is coming soon."
@@ -1157,6 +1166,9 @@ msgstr "There is no data available to display"
 
 msgid "Follow System"
 msgstr "Follow System"
+
+msgid "Swaps"
+msgstr "Swaps"
 
 msgid "The contract owner has restrictions on buying."
 msgstr "The contract owner has restrictions on buying."
@@ -1406,6 +1418,9 @@ msgstr "Voted"
 
 msgid "Lucky Drop"
 msgstr "Lucky Drop"
+
+msgid "Failed to update notification settings"
+msgstr "Failed to update notification settings"
 
 msgid "Reply"
 msgstr "Reply"
@@ -2016,6 +2031,9 @@ msgstr "<0>Acquired</0> an NFT"
 
 msgid "NFT holder of any one below"
 msgstr "NFT holder of any one below"
+
+msgid "Push notifications"
+msgstr "Push notifications"
 
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
 msgstr "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
@@ -3032,6 +3050,9 @@ msgstr "Copy"
 msgid "Enter Amount Each"
 msgstr "Enter Amount Each"
 
+msgid "firefly.eth liked your transaction"
+msgstr "firefly.eth liked your transaction"
+
 msgid "Submit a wallet to receive NFT"
 msgstr "Submit a wallet to receive NFT"
 
@@ -3765,6 +3786,9 @@ msgstr "Website should not exceed {maxWebsiteSize} characters"
 
 msgid "Save"
 msgstr "Save"
+
+msgid "firefly.eth swapped 1850 USDC for 0.5 ETH"
+msgstr "firefly.eth swapped 1850 USDC for 0.5 ETH"
 
 #. placeholder {0}: profiles.length - 1
 msgid "<0/> and <1>{0} others</1>"

@@ -1233,18 +1233,23 @@ export enum NotificationPushType {
     Lens = 'lens',
     Farcaster = 'farcaster',
     Priority = 'priority',
+    OnChainLike = 'like',
+    OnChainTips = 'tips',
+    OnChainSwap = 'swaps',
 }
 
 export enum NotificationPlatform {
     Priority = 'priority',
     Lens = 'lens',
     All = 'all',
+    OnChain = 'onchain',
 }
 
 export enum NotificationTitle {
     NotificationsMode = 'Notifications mode',
     Farcaster = 'Farcaster',
     Lens = 'Lens',
+    OnChain = 'On-chain',
 }
 
 export type NotificationPushSwitchResponse = Response<{

@@ -414,6 +414,9 @@ msgstr ""
 msgid "Failed to un-bookmark article."
 msgstr ""
 
+msgid "firefly.eth tipped you 100 USDC"
+msgstr ""
+
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer to Firefly."
 msgstr ""
 
@@ -801,6 +804,9 @@ msgstr ""
 msgid "No proxy contract."
 msgstr ""
 
+msgid "Failed to enable notifications"
+msgstr ""
+
 msgid "Connecting"
 msgstr ""
 
@@ -1118,6 +1124,9 @@ msgstr ""
 msgid "Follow more friends to continue exploring on {0}."
 msgstr ""
 
+msgid "Seems like this feature is not supported!"
+msgstr ""
+
 #. placeholder {0}: resolveSourcesName(invalidSources)
 msgid "Lucky drop for {0} is coming soon."
 msgstr ""
@@ -1156,6 +1165,9 @@ msgid "There is no data available to display"
 msgstr ""
 
 msgid "Follow System"
+msgstr ""
+
+msgid "Swaps"
 msgstr ""
 
 msgid "The contract owner has restrictions on buying."
@@ -1405,6 +1417,9 @@ msgid "Voted"
 msgstr ""
 
 msgid "Lucky Drop"
+msgstr ""
+
+msgid "Failed to update notification settings"
 msgstr ""
 
 msgid "Reply"
@@ -2007,6 +2022,9 @@ msgid "<0>Acquired</0> an NFT"
 msgstr ""
 
 msgid "NFT holder of any one below"
+msgstr ""
+
+msgid "Push notifications"
 msgstr ""
 
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
@@ -3019,6 +3037,9 @@ msgstr ""
 msgid "Enter Amount Each"
 msgstr ""
 
+msgid "firefly.eth liked your transaction"
+msgstr ""
+
 msgid "Submit a wallet to receive NFT"
 msgstr ""
 
@@ -3748,6 +3769,9 @@ msgid "Website should not exceed {maxWebsiteSize} characters"
 msgstr ""
 
 msgid "Save"
+msgstr ""
+
+msgid "firefly.eth swapped 1850 USDC for 0.5 ETH"
 msgstr ""
 
 #. placeholder {0}: profiles.length - 1

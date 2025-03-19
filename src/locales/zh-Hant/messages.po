@@ -419,6 +419,9 @@ msgstr "錯誤的錢包"
 msgid "Failed to un-bookmark article."
 msgstr "從書籤中移除文章失敗。"
 
+msgid "firefly.eth tipped you 100 USDC"
+msgstr ""
+
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer to Firefly."
 msgstr ""
 
@@ -806,6 +809,9 @@ msgstr ""
 msgid "No proxy contract."
 msgstr ""
 
+msgid "Failed to enable notifications"
+msgstr ""
+
 msgid "Connecting"
 msgstr ""
 
@@ -1123,6 +1129,9 @@ msgstr ""
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "追蹤更多朋友 以繼續探索 {0}"
 
+msgid "Seems like this feature is not supported!"
+msgstr ""
+
 #. placeholder {0}: resolveSourcesName(invalidSources)
 msgid "Lucky drop for {0} is coming soon."
 msgstr ""
@@ -1162,6 +1171,9 @@ msgstr ""
 
 msgid "Follow System"
 msgstr "預設"
+
+msgid "Swaps"
+msgstr ""
 
 msgid "The contract owner has restrictions on buying."
 msgstr ""
@@ -1410,6 +1422,9 @@ msgid "Voted"
 msgstr ""
 
 msgid "Lucky Drop"
+msgstr ""
+
+msgid "Failed to update notification settings"
 msgstr ""
 
 msgid "Reply"
@@ -2012,6 +2027,9 @@ msgid "<0>Acquired</0> an NFT"
 msgstr "<0>獲取了</0>一個 NFT"
 
 msgid "NFT holder of any one below"
+msgstr ""
+
+msgid "Push notifications"
 msgstr ""
 
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
@@ -3024,6 +3042,9 @@ msgstr "複製"
 msgid "Enter Amount Each"
 msgstr ""
 
+msgid "firefly.eth liked your transaction"
+msgstr ""
+
 msgid "Submit a wallet to receive NFT"
 msgstr ""
 
@@ -3754,6 +3775,9 @@ msgstr ""
 
 msgid "Save"
 msgstr "存檔"
+
+msgid "firefly.eth swapped 1850 USDC for 0.5 ETH"
+msgstr ""
 
 #. placeholder {0}: profiles.length - 1
 msgid "<0/> and <1>{0} others</1>"

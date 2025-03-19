@@ -1,11 +1,13 @@
-interface SubtitleProps {
+import { classNames } from '@/helpers/classNames.js';
+
+interface SubtitleProps extends React.HTMLAttributes<HTMLDivElement> {
     children?: React.ReactNode;
 }
 
-export function Subtitle({ children }: SubtitleProps) {
+export function Subtitle({ className, children }: SubtitleProps) {
     return (
-        <div className="flex w-full items-center justify-between">
-            <span className="text-[18px] font-bold leading-[18px] text-main">{children}</span>
+        <div className={classNames('flex w-full items-center justify-between leading-[18px]', className)}>
+            <span className="text-[18px] font-bold text-main">{children}</span>
         </div>
     );
 }
