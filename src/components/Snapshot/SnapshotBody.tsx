@@ -195,9 +195,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                 },
             );
 
-            captureSnapshotVoteEvent({
-                wallet_address: account.address,
-            });
+            captureSnapshotVoteEvent(account.address);
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to vote.`);
             throw error;

@@ -26,7 +26,7 @@ import { useArticleCollectStatus } from '@/hooks/useArticleCollectable.js';
 import { MintParamsPanel } from '@/modals/FreeMintModal/MintParamsPanel.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { ParagraphAPI } from '@/providers/paragraph/index.js';
-import { captureCollectArticleEvent } from '@/providers/telemetry/captureMintEvent.js';
+import { captureCollectArticleEvent } from '@/providers/telemetry/captureCollectArticleEvent.js';
 import { type Article } from '@/providers/types/Article.js';
 import { captureArticleCollectEvent } from '@/providers/telemetry/captureArticleCollectEvent.js';
 
@@ -59,14 +59,10 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
 
         try {
             let hash = '';
-            const eventOptions = {
-                wallet_address: account.address?.toLowerCase() || '',
-                Article_id: article.id,
-            };
+            let hasBalance = true;
 
             setModalSessionCollected(true);
 
-            let hasBalance = true;
             if (isFree) {
                 try {
                     const result = await FireflyEndpointProvider.freeCollectArticle(
@@ -75,7 +71,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
                         platform,
                     );
                     hash = result.hash;
-                    captureCollectArticleEvent({ ...eventOptions, free_mint: true });
+                    captureCollectArticleEvent(article.id, account.address?.toLowerCase() ?? '', true);
                 } catch (error) {
                     if (error instanceof Error && error.message.includes('insufficient funds')) {
                         hasBalance = false;
@@ -94,7 +90,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
 
                 if (!confirmation) return;
                 hash = confirmation;
-                captureCollectArticleEvent({ ...eventOptions, free_mint: false });
+                captureCollectArticleEvent(article.id, account.address?.toLowerCase() ?? '', false);
             }
 
             const metadata = await FireflyEndpointProvider.getArticleMetadata(article.id, hash);
@@ -118,9 +114,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
             });
 
             if (account.address) {
-                captureArticleCollectEvent({
-                    wallet_address: account.address,
-                });
+                captureArticleCollectEvent(account.address);
             }
 
             enqueueSuccessMessage(t`Article collected successfully!`);

@@ -17,9 +17,8 @@ import type { Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
-import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
+import { captureActivityClaimEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
-import { EventId } from '@/providers/types/Telemetry.js';
 
 interface Props {
     status: ActivityStatus;
@@ -63,9 +62,7 @@ export function ActivityClaimButton({
             setHash(hash);
             setChainId(chainId);
             onSuccess?.(hash);
-            captureActivityEvent(isPremium ? EventId.EVENT_CLAIM_PREMIUM_SUCCESS : EventId.EVENT_CLAIM_BASIC_SUCCESS, {
-                wallet_address: address,
-            });
+            captureActivityClaimEvent(address, isPremium);
         } catch (error) {
             await refetch();
             enqueueMessageFromError(error, t`Failed to claim token`);

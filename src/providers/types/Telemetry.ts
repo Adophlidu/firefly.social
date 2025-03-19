@@ -254,12 +254,19 @@ export interface BskyEventParameters {
     target_bsky_handle: string;
 }
 
-export interface ConnectWalletEventParameters {
+export interface WalletEventParameters {
     firefly_account_id: string;
-    wallet_address: string;
-    click_location: 'nav_bar' | 'settings' | 'others';
     wallet_type: 'evm' | 'solana' | 'unknown';
+    wallet_address: string;
     wallet_name: string;
+}
+
+export interface ActivityWalletEventParameters extends WalletEventParameters {
+    activity: string;
+}
+
+export interface ConnectWalletEventParameters extends WalletEventParameters {
+    click_location: 'nav_bar' | 'settings' | 'others';
     click_time: number;
     connect_success_time: number;
     connect_duration: number;
@@ -439,7 +446,7 @@ export interface Events extends Record<EventId, Event> {
 
     [EventId.COMPOSE_CROSS_POST_SEND_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {} & ComposeEventParameters;
+        parameters: ComposeEventParameters;
     };
     [EventId.COMPOSE_SCHEDULED_POST_CREATE_SUCCESS]: {
         type: EventType.Interact;
@@ -537,21 +544,11 @@ export interface Events extends Record<EventId, Event> {
     };
     [EventId.ARTICLE_COLLECT_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-            wallet_address: string;
-            wallet_type: 'evm' | 'solana' | 'unknown';
-            wallet_name: string;
-        };
+        parameters: WalletEventParameters;
     };
     [EventId.SNAPSHOT_VOTE_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-            wallet_address: string;
-            wallet_type: 'evm' | 'solana' | 'unknown';
-            wallet_name: string;
-        };
+        parameters: WalletEventParameters;
     };
 
     // ----------------
@@ -834,59 +831,39 @@ export interface Events extends Record<EventId, Event> {
     [EventId.EVENT_SHARE_CLICK]: {
         type: EventType.Interact;
         parameters: {
-            firefly_account_id?: string;
+            firefly_account_id: string;
             activity: string;
         };
     };
     [EventId.EVENT_CONNECT_WALLET_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-            wallet_address: string;
-            activity: string;
-        };
+        parameters: ActivityWalletEventParameters;
     };
     [EventId.EVENT_CHANGE_WALLET_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-            wallet_address: string;
-            activity: string;
-        };
+        parameters: ActivityWalletEventParameters;
     };
     [EventId.EVENT_CLAIM_BASIC_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-            wallet_address: string;
-            activity: string;
-        };
+        parameters: ActivityWalletEventParameters;
     };
     [EventId.EVENT_CLAIM_PREMIUM_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-            wallet_address: string;
-            activity: string;
-        };
+        parameters: ActivityWalletEventParameters;
     };
     [EventId.MINT_NFT_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
-            firefly_account_id: string;
-            wallet_address: string;
-            NFT_id: string;
+            nft_id: string;
             free_mint: boolean;
-        };
+        } & WalletEventParameters;
     };
     [EventId.COLLECT_ARTICLE_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
-            firefly_account_id: string;
-            wallet_address: string;
-            Article_id: string;
+            article_id: string;
             free_mint: boolean;
-        };
+        } & WalletEventParameters;
     };
 }
 

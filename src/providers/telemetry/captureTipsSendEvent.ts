@@ -1,5 +1,5 @@
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { getConnectorWalletType, getConnectorWalletName } from '@/providers/telemetry/getConnectorWalletType.js';
+import { getConnectorWalletType, getConnectorWalletName } from '@/providers/telemetry/getWalletEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId, type Events } from '@/providers/types/Telemetry.js';
 

@@ -14,6 +14,7 @@ import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.j
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Account } from '@/providers/types/Account.js';
 import { EventId, type Events } from '@/providers/types/Telemetry.js';
+import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
 
 const resolveActivityLoginEventId = createLookupTableResolver<SocialSource, EventId>(
     {
@@ -73,6 +74,27 @@ export async function captureActivityEvent<E extends EventId>(
             } as Events[E]['parameters'],
             {},
         );
+    });
+}
+
+export async function captureActivityClaimEvent(address: string, isPremium: boolean) {
+    return runInSafeAsync(async () => {
+        await captureActivityEvent(
+            isPremium ? EventId.EVENT_CLAIM_PREMIUM_SUCCESS : EventId.EVENT_CLAIM_BASIC_SUCCESS,
+            getWalletEventParameters(address),
+        );
+    });
+}
+
+export async function captureActivityConnectWalletEvent(address: string) {
+    return runInSafeAsync(async () => {
+        await captureActivityEvent(EventId.EVENT_CONNECT_WALLET_SUCCESS, getWalletEventParameters(address));
+    });
+}
+
+export async function captureActivityChangeWalletEvent(address: string) {
+    return runInSafeAsync(async () => {
+        await captureActivityEvent(EventId.EVENT_CHANGE_WALLET_SUCCESS, getWalletEventParameters(address));
     });
 }
 

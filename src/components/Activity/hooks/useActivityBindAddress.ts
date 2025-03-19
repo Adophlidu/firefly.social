@@ -12,8 +12,7 @@ import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { AddWalletModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
-import { EventId } from '@/providers/types/Telemetry.js';
+import { captureActivityConnectWalletEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { Network, SupportedMethod } from '@/types/bridge.js';
 
 export function useActivityBindAddress(source: SocialSource | SocialSource[], chainId: number) {
@@ -27,9 +26,7 @@ export function useActivityBindAddress(source: SocialSource | SocialSource[], ch
                     type: isValidSolanaChainId(chainId) ? Network.Solana : Network.EVM,
                 });
                 onChangeAddress(address);
-                captureActivityEvent(EventId.EVENT_CONNECT_WALLET_SUCCESS, {
-                    wallet_address: address,
-                });
+                captureActivityConnectWalletEvent(address);
                 await refetchActivityClaimCondition();
                 await refetch();
             });
@@ -41,9 +38,7 @@ export function useActivityBindAddress(source: SocialSource | SocialSource[], ch
             });
             if (response?.address) {
                 onChangeAddress(response.address);
-                captureActivityEvent(EventId.EVENT_CONNECT_WALLET_SUCCESS, {
-                    wallet_address: response.address,
-                });
+                captureActivityConnectWalletEvent(response.address);
             }
             await refetch();
         } catch (error) {
