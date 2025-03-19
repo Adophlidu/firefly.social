@@ -6,6 +6,7 @@ import { ClickableButton, type ClickableButtonProps } from '@/components/Clickab
 import { EditProfileDialog } from '@/components/EditProfile/EditProfileDialog.js';
 import { classNames } from '@/helpers/classNames.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 
 export interface EditProfileButtonProps extends Omit<ClickableButtonProps, 'children'> {
     variant?: 'text' | 'icon';
@@ -24,7 +25,10 @@ export function EditProfileButton({ profile, variant = 'text', className, ref, .
             <EditProfileDialog open={open} onClose={onClose} profile={profile} />
             <ClickableButton
                 {...props}
-                onClick={() => setOpen(true)}
+                onClick={() => {
+                    setOpen(true);
+                    captureEditProfileClickEvent();
+                }}
                 className={classNames(
                     'flex h-8 flex-shrink-0 items-center justify-center whitespace-nowrap rounded-full border border-lightMain px-4 text-medium font-bold leading-5 text-lightMain',
                     className,

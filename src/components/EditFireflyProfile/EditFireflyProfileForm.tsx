@@ -19,6 +19,8 @@ import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueu
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyProfileUpdateParams } from '@/providers/types/Firefly.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
+import { captureEditProfileSuccessEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
+import { compact } from 'lodash-es';
 
 export function EditFireflyProfileForm() {
     const form = useFormContext<EditFireflyProfileFromValues>();
@@ -26,7 +28,7 @@ export function EditFireflyProfileForm() {
     const { history } = useRouter();
     const {
         handleSubmit,
-        formState: { isSubmitting, isDirty, isValid },
+        formState: { isSubmitting, isDirty, isValid, dirtyFields },
     } = form;
     const queryClient = useQueryClient();
 
@@ -38,6 +40,12 @@ export function EditFireflyProfileForm() {
             if (values.avatar) params.avatar = await uploadToS3(values.avatar);
             await FireflyEndpointProvider.updateProfile(params);
             await queryClient.refetchQueries({ queryKey: ['my-wallet-connections'] });
+            captureEditProfileSuccessEvent(
+                compact([
+                    dirtyFields.avatar ? 'change_avatar' : undefined,
+                    dirtyFields.displayName ? 'change_nickname' : undefined,
+                ]),
+            );
             enqueueSuccessMessage(t`Updated profile successfully`);
             context?.onClose?.();
         } catch (error) {

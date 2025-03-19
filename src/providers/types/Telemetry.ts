@@ -27,12 +27,11 @@ export enum ExceptionType {
 export enum EventId {
     DEBUG = 'debug',
 
+    // account
     ACCOUNT_CREATE_SUCCESS = 'account_create_success',
     ACCOUNT_LOG_OUT_ALL_SUCCESS = 'account_log_out_all_success', // ✅
-    ACCOUNT_EDIT_PROFILE_CLICK = 'account_edit_profile_click',
-    ACCOUNT_EDIT_PROFILE_SUCCESS = 'account_edit_profile_success',
-    ACCOUNT_CONFLICT = 'account_conflict',
-    ACCOUNT_DELETE_SUCCESS = 'account_delete_success',
+    ACCOUNT_CONFLICT = 'account_conflict', // ✅
+    ACCOUNT_DELETE_SUCCESS = 'account_delete_success', // ✅
 
     // compose dialog
     COMPOSE_CROSS_POST_SEND_SUCCESS = 'cross_post_send_success', // ✅
@@ -71,7 +70,9 @@ export enum EventId {
     NFT_MINT_SUCCESS = 'ff_nft_mint_success',
 
     // profile
-    PROFILE_SUPER_FOLLOW_SUCCESS = 'profile_superfollow_success',
+    PROFILE_EDIT_CLICK = 'account_edit_profile_click', // ✅
+    PROFILE_EDIT_SUCCESS = 'account_edit_profile_success', // ✅
+    PROFILE_SUPER_FOLLOW_SUCCESS = 'profile_superfollow_success', // ✅
 
     // connect wallet
     CONNECT_WALLET_SUCCESS = 'connect_wallet_success', // ✅
@@ -356,6 +357,20 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: {
             firefly_account_id: string;
+        };
+    };
+    [EventId.PROFILE_EDIT_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.PROFILE_EDIT_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            change_avatar: boolean;
+            change_nickname: boolean;
         };
     };
     [EventId.ACCOUNT_CONFLICT]: {

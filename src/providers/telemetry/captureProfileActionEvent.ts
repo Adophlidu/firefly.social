@@ -41,3 +41,18 @@ export function captureProfileActionEvent(action: ProfileActionType, profile: Pr
         return TelemetryProvider.captureEvent(eventId, getProfileEventParameters(profile));
     });
 }
+
+export function captureEditProfileClickEvent() {
+    return runInSafeAsync(() => {
+        return TelemetryProvider.captureEvent(EventId.PROFILE_EDIT_CLICK, {});
+    });
+}
+
+export function captureEditProfileSuccessEvent(actions: Array<'change_avatar' | 'change_nickname'>) {
+    return runInSafeAsync(() => {
+        return TelemetryProvider.captureEvent(EventId.PROFILE_EDIT_SUCCESS, {
+            change_avatar: actions.includes('change_avatar'),
+            change_nickname: actions.includes('change_nickname'),
+        });
+    });
+}
