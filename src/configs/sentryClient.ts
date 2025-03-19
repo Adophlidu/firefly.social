@@ -40,6 +40,8 @@ class SentryClient {
 
                 replaysSessionSampleRate: 1.0,
                 replaysOnErrorSampleRate: 1.0,
+
+                ignoreErrors: ['AbortError'],
             });
 
             // set initial tags
