@@ -462,6 +462,9 @@ msgstr "<0>出售了一个投注</0><1>在 Polymarket 上价值 ${0}</1>"
 msgid "Report submitted on {0}"
 msgstr "举报已提交 {0}"
 
+msgid "Hack / Phish"
+msgstr ""
+
 msgid "Users must follow your account."
 msgstr "用户必须关注你的账户。"
 
@@ -981,7 +984,7 @@ msgid "Recent"
 msgstr "最近"
 
 msgid "Info"
-msgstr "信息"
+msgstr ""
 
 msgid "Failed to bookmark article."
 msgstr "收藏文章失败。"
@@ -2592,6 +2595,9 @@ msgstr "随机金额"
 msgid "Remove Poll"
 msgstr "删除投票"
 
+msgid "UID: {uid}"
+msgstr ""
+
 msgid "Top 500 Buttrfly Points Leaderboard"
 msgstr "Buttrfly Points 排行榜 Top 500"
 
@@ -3090,6 +3096,9 @@ msgstr "未涉及加密货币混合器。"
 #. placeholder {0}: post.reporter.displayName
 msgid "<0>{0}</0><1>reposted</1>"
 msgstr "<0>{0}</0><1>转帖</1>"
+
+msgid "Firefly User"
+msgstr ""
 
 msgid "Login to enable all features"
 msgstr "登录以启用所有功能"

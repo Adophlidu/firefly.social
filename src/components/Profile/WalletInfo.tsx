@@ -1,6 +1,7 @@
 'use client';
 
 import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
 
 import EnsIcon from '@/assets/ens.svg';
@@ -33,6 +34,8 @@ interface WalletInfoProps {
     relations?: Relation[];
 }
 
+export const WALLET_PROFILE_ACTION_ID = 'profile-action';
+
 export function WalletInfo({ profile, relations }: WalletInfoProps) {
     const isMedium = useIsMedium();
     const isDarkMode = useIsDarkMode();
@@ -51,10 +54,10 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
 
     return (
         <div className="flex gap-3 p-3">
-            <Avatar src={avatar} alt="avatar" size={80} className="size-20 rounded-full" />
+            <Avatar src={avatar} alt="avatar" size={40} className="size-10 rounded-full" />
             <div className="relative flex flex-1 flex-col">
                 <div className="flex flex-col gap-2">
-                    <div className="flex h-8 items-center gap-1">
+                    <div className="flex h-8 items-center gap-1" id={WALLET_PROFILE_ACTION_ID}>
                         {isMPC ? <FireflyLogo width={19} height={19} /> : null}
                         {networkIcon && networkType ? (
                             <Image src={networkIcon} alt={networkType} width={18} height={18} />
@@ -128,6 +131,14 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                         ) : null}
                     </div>
                 </div>
+                {profile.hacked ? (
+                    <p className="mt-2 text-sm leading-[18px] text-danger">
+                        <Trans>
+                            This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid
+                            any transactions or sharing of sensitive information. Stay safe!
+                        </Trans>
+                    </p>
+                ) : null}
             </div>
         </div>
     );

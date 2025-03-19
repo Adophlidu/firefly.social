@@ -47,6 +47,7 @@ export enum PageRoute {
     ProfileDetail = '/profile/:source/:id',
     Channel = '/channel/:id/:type',
     Event = '/event/:name',
+    SettingConnected = '/settings/connected',
 }
 
 export enum Source {

@@ -164,9 +164,9 @@ export const GIF_MEDIA_SOURCE_CONFIG: Record<SocialSource, MediaSource[]> = {
 export const SORTED_HOME_SOURCES = [Source.Farcaster, Source.Lens, Source.NFTs, Source.Article] as const;
 export const SORTED_PROFILE_SOURCES: ProfilePageSource[] = [
     Source.Farcaster,
-    Source.Lens,
-    Source.Bsky,
     Source.Twitter,
+    Source.Bsky,
+    Source.Lens,
     Source.Wallet,
 ];
 export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Bsky] as const;

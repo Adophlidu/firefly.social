@@ -14,6 +14,7 @@ import { env } from '@/constants/env.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
+import { FireflyAccountCard } from '@/app/(settings)/components/FireflyAccountCard.js';
 
 export default function Connected() {
     const isLogin = useIsLoginFirefly();
@@ -30,6 +31,8 @@ export default function Connected() {
                 <NotLoginFallback source={Source.Posts} />
             ) : (
                 <>
+                    <FireflyAccountCard />
+
                     <AccountCards />
 
                     {env.external.NEXT_PUBLIC_THIRD_PARTY_AUTH === STATUS.Enabled ? <ThirdPartAccounts /> : null}

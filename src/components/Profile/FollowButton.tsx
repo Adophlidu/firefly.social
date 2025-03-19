@@ -82,7 +82,7 @@ export const FollowButton = memo(function FollowButton({
         <BaseToggleFollowButton
             profile={profile}
             className={classNames(
-                'flex h-8 items-center justify-center rounded-full text-medium font-semibold transition-all',
+                'flex h-8 items-center justify-center rounded-lg text-medium font-semibold transition-all',
                 variantClassName,
                 className,
                 {

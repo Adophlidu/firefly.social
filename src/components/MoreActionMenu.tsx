@@ -13,6 +13,7 @@ interface MoreActionMenuProps extends MenuProps<'div'> {
     children: React.ReactNode;
     source?: SocialSource;
     className?: string;
+    buttonClassName?: string;
     disabled?: boolean;
     loginRequired?: boolean;
 }
@@ -22,6 +23,7 @@ export function MoreActionMenu({
     button,
     children,
     className,
+    buttonClassName,
     source,
     loginRequired = true,
 }: MoreActionMenuProps) {
@@ -34,7 +36,10 @@ export function MoreActionMenu({
         <Menu className={classNames('relative', className)} as="div" onClick={stopEvent}>
             <MenuButton
                 disabled={disabled}
-                className="flex flex-shrink-0 items-center text-lightMain transition duration-100 active:scale-90"
+                className={classNames(
+                    'flex flex-shrink-0 items-center text-lightMain transition duration-100 active:scale-90',
+                    buttonClassName,
+                )}
                 aria-label="More"
                 onClick={(event: MouseEvent) => {
                     event.stopPropagation();

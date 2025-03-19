@@ -462,6 +462,9 @@ msgstr ""
 msgid "Report submitted on {0}"
 msgstr ""
 
+msgid "Hack / Phish"
+msgstr ""
+
 msgid "Users must follow your account."
 msgstr ""
 
@@ -2579,6 +2582,9 @@ msgstr ""
 msgid "Remove Poll"
 msgstr ""
 
+msgid "UID: {uid}"
+msgstr ""
+
 msgid "Top 500 Buttrfly Points Leaderboard"
 msgstr ""
 
@@ -3076,6 +3082,9 @@ msgstr ""
 
 #. placeholder {0}: post.reporter.displayName
 msgid "<0>{0}</0><1>reposted</1>"
+msgstr ""
+
+msgid "Firefly User"
 msgstr ""
 
 msgid "Login to enable all features"

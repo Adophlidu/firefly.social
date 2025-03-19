@@ -25,35 +25,41 @@ interface InfoProps {
     profile: Profile;
 }
 
-export function Info(props: InfoProps) {
+export const PROFILE_ACTION_ID = 'profile-action';
+
+export function SocialProfileInfo(props: InfoProps) {
     const { data: profile = props.profile } = useRefreshedProfile(props.profile);
 
     const { source, followerCount = 0, followingCount = 0 } = profile;
 
     return (
-        <div className="grid grid-cols-[80px_calc(100%-80px-12px)] gap-3 p-3">
+        <div className="grid grid-cols-[40px_calc(100%-40px-12px)] gap-2.5 p-3">
             {profile.pfp ? (
                 <Avatar
                     src={source === Source.Twitter ? getLargeTwitterAvatar(profile.pfp) : profile.pfp}
                     alt="avatar"
-                    size={80}
-                    className="size-20 rounded-full"
+                    size={40}
+                    className="size-10 rounded-full"
                 />
             ) : (
-                <SocialSourceIcon className="rounded-full" source={source} size={80} />
+                <SocialSourceIcon className="rounded-full" source={source} size={40} />
             )}
 
             <div className="relative flex w-full flex-col">
                 <div className="flex w-full flex-col">
-                    <div className="flex w-full items-center gap-2">
-                        <SocialSourceIcon className="shrink-0" source={source} size={20} />
-                        <TextOverflowTooltip content={profile.displayName} placement="top">
-                            <address className="truncate text-lg font-black not-italic leading-8 text-lightMain">
-                                {profile.displayName}
-                            </address>
-                        </TextOverflowTooltip>
-                        <ProfileVerifyBadge className="flex flex-shrink-0 items-center space-x-1" profile={profile} />
-                        <div className="ml-auto flex items-center gap-2">
+                    <div className="-mb-2 flex h-8 w-full items-start gap-2">
+                        <div className="flex h-6 items-center gap-2">
+                            <TextOverflowTooltip content={profile.displayName} placement="top">
+                                <address className="truncate text-lg font-black not-italic leading-6 text-lightMain">
+                                    {profile.displayName}
+                                </address>
+                            </TextOverflowTooltip>
+                            <ProfileVerifyBadge
+                                className="flex flex-shrink-0 items-center space-x-1"
+                                profile={profile}
+                            />
+                        </div>
+                        <div id={PROFILE_ACTION_ID} className="ml-auto flex items-center gap-2">
                             <NoSSR>
                                 <ProfileAction profile={profile} />
                             </NoSSR>
@@ -66,7 +72,7 @@ export function Info(props: InfoProps) {
                     {profile.bio ?? '-'}
                 </BioMarkup>
 
-                <div className="flex gap-3 text-medium leading-[22px]">
+                <div className="flex gap-3 text-sm leading-[22px]">
                     <Link
                         href={resolveProfileUrl(source, resolveFireflyProfileId(profile), FollowCategory.Following)}
                         className={classNames('gap-1 hover:underline', {

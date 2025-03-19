@@ -457,6 +457,9 @@ msgstr "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
 msgid "Report submitted on {0}"
 msgstr "Report submitted on {0}"
 
+msgid "Hack / Phish"
+msgstr "Hack / Phish"
+
 msgid "Users must follow your account."
 msgstr "Users must follow your account."
 
@@ -2587,6 +2590,9 @@ msgstr "Random Split"
 msgid "Remove Poll"
 msgstr "Remove Poll"
 
+msgid "UID: {uid}"
+msgstr "UID: {uid}"
+
 msgid "Top 500 Buttrfly Points Leaderboard"
 msgstr "Top 500 Buttrfly Points Leaderboard"
 
@@ -3085,6 +3091,9 @@ msgstr "No cryptocurrency mixer involved."
 #. placeholder {0}: post.reporter.displayName
 msgid "<0>{0}</0><1>reposted</1>"
 msgstr "<0>{0}</0><1>reposted</1>"
+
+msgid "Firefly User"
+msgstr "Firefly User"
 
 msgid "Login to enable all features"
 msgstr "Login to enable all features"

@@ -3,7 +3,6 @@ import { Trans } from '@lingui/react/macro';
 import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 
-import MoreCircleIcon from '@/assets/more-circle.svg';
 import SearchIcon from '@/assets/search.svg';
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
@@ -24,13 +23,20 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useReportProfile } from '@/hooks/useReportProfile.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import MoreIcon from '@/assets/more.svg';
+import { classNames } from '@/helpers/classNames.js';
 
 export interface ProfileMoreActionProps extends Omit<MenuProps<'div'>, 'className'> {
     className?: string;
+    buttonClassName?: string;
     profile: Profile;
 }
 
-export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMoreAction({ className, profile }) {
+export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMoreAction({
+    className,
+    profile,
+    buttonClassName,
+}) {
     const currentProfile = useCurrentProfile(profile.source);
     const profiles = useCurrentFireflyProfilesAll();
     const [, reportProfile] = useReportProfile();
@@ -50,8 +56,9 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
     return (
         <MoreActionMenu
             source={profile.source}
-            button={<MoreCircleIcon width={32} height={32} />}
+            button={<MoreIcon width={22} height={22} className="shrink-0" />}
             className={className}
+            buttonClassName={classNames('border-line2 size-8 justify-center rounded-lg border', buttonClassName)}
         >
             <MenuGroup>
                 <MenuItem>

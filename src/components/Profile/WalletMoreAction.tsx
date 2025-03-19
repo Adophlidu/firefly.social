@@ -17,13 +17,16 @@ import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
+import MoreIcon from '@/assets/more.svg';
+import { classNames } from '@/helpers/classNames.js';
 
 interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
     profile: WalletProfile;
     className?: string;
+    buttonClassName?: string;
 }
 
-export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ profile, className, ...rest }) {
+export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ profile, className, buttonClassName }) {
     const { data: ens } = useEnsName({ address: profile.address });
     const { data: isMuted } = useIsWalletMuted(profile.address);
 
@@ -33,7 +36,11 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
     const ensOrAddress = profile.primary_ens || ens || formatAddress(profile.address, 4);
 
     return (
-        <MoreActionMenu button={<MoreCircleIcon width={32} height={32} />} className={className}>
+        <MoreActionMenu
+            button={<MoreIcon width={22} height={22} className="shrink-0" />}
+            className={className}
+            buttonClassName={classNames('border-line2 size-8 justify-center rounded-lg border', buttonClassName)}
+        >
             <MenuGroup>
                 <MenuItem>
                     {({ close }) => (

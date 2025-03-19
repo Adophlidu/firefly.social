@@ -30,15 +30,7 @@ export default async function Layout(props: Props) {
 
     return (
         <>
-            <Title
-                profile={profile}
-                fallbackIdentity={identity}
-                sticky
-                keepVisible
-                disableActions
-                className="border-b border-line"
-            />
-            <div className="h-12" />
+            <Title title={profile.displayName} className="sticky top-0 border-b border-line" />
             <FollowPageLayout profile={profile} identity={identity} category={params.category}>
                 <LoginRequiredGuard
                     className="lg:!pt-0"

@@ -1,21 +1,28 @@
-import { uniqBy } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
 
-import { ProfilePageLayout } from '@/app/(normal)/profile/pages/ProfilePageLayout.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
+import { FireflyAccountInfo } from '@/components/Profile/FireflyAccountInfo.js';
+import { ProfileInfoCard } from '@/components/Profile/ProfileInfoCard.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { type LoginFallbackSource, SourceInURL } from '@/constants/enum.js';
-import { EMPTY_LIST, REQUIRE_LOGIN_SOURCES } from '@/constants/index.js';
+import { REQUIRE_LOGIN_SOURCES } from '@/constants/index.js';
+import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
+import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
+import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupTwitterSessionForSSR } from '@/helpers/setupTwitterSessionForSSR.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import type { FireflyProfile } from '@/providers/types/Firefly.js';
 import type { NextPageProps } from '@/types/index.js';
+import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
 
 interface Props extends NextPageProps<{ id: string; source: SourceInURL }> {}
 
@@ -31,25 +38,51 @@ export default async function Layout(props: Props) {
     if (!source || !isProfilePageSource(source)) notFound();
 
     const identity = resolveSpecialProfileIdentity({ source, id: params.id });
-    const profiles =
-        (await runInSafeAsync(() => FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false))) ??
-        EMPTY_LIST;
+    const walletProfiles = await runInSafeAsync(() =>
+        FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false),
+    );
+    if (!walletProfiles) notFound();
+    const profiles = formatFireflyProfilesFromWalletProfiles(walletProfiles) as FireflyProfile[];
 
     if (isSocialSource(source) && REQUIRE_LOGIN_SOURCES.includes(source) && !resolveSessionHolder(source).session) {
         return (
             <>
+                <FireflyAccountInfo identity={identity} {...walletProfiles.account} />
                 <ProfileSourceTabs profiles={profiles} identity={identity} />
                 <NotLoginFallback source={source as LoginFallbackSource} />
             </>
         );
     }
 
+    const { walletProfile } = resolveFireflyProfiles(identity, profiles);
+    const socialProfile = identity.id
+        ? await runInSafeAsync(() =>
+              resolveSocialMediaProvider(narrowToSocialSource(identity.source)).getProfileByIdOrHandle(identity.id),
+          )
+        : undefined;
+
     return (
-        <ProfilePageLayout
-            identity={identity}
-            profiles={uniqBy(profiles, (x) => `${x.identity.source}_${x.identity.id}`)}
-        >
-            {props.children}
-        </ProfilePageLayout>
+        <>
+            <FireflyAccountInfo
+                {...walletProfiles.account}
+                identity={identity}
+                socialProfile={socialProfile}
+                walletProfile={walletProfile ?? undefined}
+                profiles={profiles}
+            />
+            <ProfileSourceTabs profiles={profiles} identity={identity} />
+            {!socialProfile && !walletProfile ? (
+                <SuspendedAccountFallback />
+            ) : (
+                <>
+                    <ProfileInfoCard
+                        source={identity.source}
+                        socialProfile={socialProfile}
+                        walletProfile={walletProfile ?? undefined}
+                    />
+                    <NoSSR>{props.children}</NoSSR>
+                </>
+            )}
+        </>
     );
 }
