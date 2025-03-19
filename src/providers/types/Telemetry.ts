@@ -29,6 +29,10 @@ export enum EventId {
 
     ACCOUNT_CREATE_SUCCESS = 'account_create_success',
     ACCOUNT_LOG_OUT_ALL_SUCCESS = 'account_log_out_all_success', // ✅
+    ACCOUNT_EDIT_PROFILE_CLICK = 'account_edit_profile_click',
+    ACCOUNT_EDIT_PROFILE_SUCCESS = 'account_edit_profile_success',
+    ACCOUNT_CONFLICT = 'account_conflict',
+    ACCOUNT_DELETE_SUCCESS = 'account_delete_success',
 
     // compose dialog
     COMPOSE_CROSS_POST_SEND_SUCCESS = 'cross_post_send_success', // ✅
@@ -63,13 +67,11 @@ export enum EventId {
     // snapshot
     SNAPSHOT_VOTE_SUCCESS = 'snapshot_vote_success', // ✅
 
-    // profile
-    PROFILE_SUPER_FOLLOW_SUCCESS = 'profile_superfollow_success',
+    // nft
     NFT_MINT_SUCCESS = 'ff_nft_mint_success',
 
-    // token sync dialog
-    TOKEN_SYNC_USE_YES = 'token_sync_use_yes', // ✅
-    TOKEN_SYNC_USE_NO = 'token_sync_use_no', // ✅
+    // profile
+    PROFILE_SUPER_FOLLOW_SUCCESS = 'profile_superfollow_success',
 
     // connect wallet
     CONNECT_WALLET_SUCCESS = 'connect_wallet_success', // ✅
@@ -205,6 +207,8 @@ export interface Exception {
     error: Error;
 }
 
+export type AccountPairs = Array<[string, string]>; // [id, handle]
+
 export interface FarcasterEventParameters {
     source_firefly_account_id: string;
     source_farcaster_handle: string;
@@ -324,6 +328,52 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Debug;
         parameters: {
             message: string;
+        };
+    };
+
+    [EventId.ACCOUNT_CREATE_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+
+            // lens
+            by_lens: boolean;
+            lens_id?: string;
+            lens_handle?: string;
+
+            // farcaster
+            by_farcaster: boolean;
+            farcaster_id?: string;
+            farcaster_handle?: string;
+
+            // x
+            by_x: boolean;
+            x_id?: string;
+            x_handle?: string;
+        };
+    };
+    [EventId.ACCOUNT_LOG_OUT_ALL_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.ACCOUNT_CONFLICT]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            conflict_firefly_account_id: string;
+            continue_login: boolean;
+        };
+    };
+    [EventId.ACCOUNT_DELETE_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            farcaster_accounts: AccountPairs;
+            lens_accounts: AccountPairs;
+            x_accounts: AccountPairs;
+            bsky_accounts: AccountPairs;
         };
     };
 
@@ -470,33 +520,6 @@ export interface Events extends Record<EventId, Event> {
             poll_id: string;
         };
     };
-    [EventId.ACCOUNT_CREATE_SUCCESS]: {
-        type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-
-            // lens
-            by_lens: boolean;
-            lens_id?: string;
-            lens_handle?: string;
-
-            // farcaster
-            by_farcaster: boolean;
-            farcaster_id?: string;
-            farcaster_handle?: string;
-
-            // x
-            by_x: boolean;
-            x_id?: string;
-            x_handle?: string;
-        };
-    };
-    [EventId.ACCOUNT_LOG_OUT_ALL_SUCCESS]: {
-        type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-        };
-    };
     [EventId.ARTICLE_COLLECT_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
@@ -515,18 +538,6 @@ export interface Events extends Record<EventId, Event> {
             wallet_name: string;
         };
     };
-    [EventId.TOKEN_SYNC_USE_YES]: {
-        type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-        };
-    };
-    [EventId.TOKEN_SYNC_USE_NO]: {
-        type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-        };
-    };
 
     // ----------------
     // farcaster
@@ -537,7 +548,7 @@ export interface Events extends Record<EventId, Event> {
         parameters: {
             firefly_account_id: string;
             is_token_sync: boolean;
-            farcaster_accounts: Array<[string, string]>; // [id, handle]
+            farcaster_accounts: AccountPairs;
         };
     };
     [EventId.FARCASTER_LOG_OUT_SUCCESS]: {
@@ -621,7 +632,7 @@ export interface Events extends Record<EventId, Event> {
         parameters: {
             firefly_account_id: string;
             is_token_sync: boolean;
-            lens_accounts: Array<[string, string]>; // [id, handle]
+            lens_accounts: AccountPairs;
         };
     };
     [EventId.LENS_ACCOUNT_LOG_OUT_SUCCESS]: {
@@ -705,7 +716,7 @@ export interface Events extends Record<EventId, Event> {
         parameters: {
             firefly_account_id: string;
             is_token_sync: boolean;
-            x_accounts: Array<[string, string]>; // [id, handle]
+            x_accounts: AccountPairs;
         };
     };
     [EventId.X_ACCOUNT_LOG_OUT_SUCCESS]: {
@@ -786,7 +797,7 @@ export interface Events extends Record<EventId, Event> {
         parameters: {
             firefly_account_id: string;
             is_token_sync: boolean;
-            x_accounts: Array<[string, string]>; // [id, handle]
+            x_accounts: AccountPairs;
         };
     };
     [EventId.EVENT_LENS_LOG_IN_SUCCESS]: {
@@ -794,7 +805,7 @@ export interface Events extends Record<EventId, Event> {
         parameters: {
             firefly_account_id: string;
             is_token_sync: boolean;
-            lens_accounts: Array<[string, string]>; // [id, handle]
+            lens_accounts: AccountPairs;
         };
     };
     [EventId.EVENT_FARCASTER_LOG_IN_SUCCESS]: {
@@ -802,7 +813,7 @@ export interface Events extends Record<EventId, Event> {
         parameters: {
             firefly_account_id: string;
             is_token_sync: boolean;
-            farcaster_accounts: Array<[string, string]>; // [id, handle]
+            farcaster_accounts: AccountPairs;
         };
     };
     [EventId.EVENT_SHARE_CLICK]: {

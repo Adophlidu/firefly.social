@@ -1,13 +1,13 @@
 import { safeUnreachable } from '@masknet/kit';
 
-import { type LoginSource, Source } from '@/constants/enum.js';
+import { type LoginSource, type ProfileSource, Source } from '@/constants/enum.js';
 import { NotAllowedError, UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Account } from '@/providers/types/Account.js';
-import { EventId } from '@/providers/types/Telemetry.js';
+import { EventId, type AccountPairs } from '@/providers/types/Telemetry.js';
 import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 
 const resolveLoginEventId = createLookupTableResolver<LoginSource, EventId>(
@@ -58,12 +58,13 @@ const resolveDisconnectEventId = createLookupTableResolver<LoginSource, EventId>
     },
 );
 
+function getAccountPairs(source: ProfileSource) {
+    return getProfileState(source).accounts.map((x) => [x.profile.profileId, x.profile.handle]) as AccountPairs;
+}
+
 export function getAccountEventParameters(account: Pick<Account, 'profile' | 'origin'>) {
     const source = account.profile.profileSource;
-
-    const accounts = getProfileState(source).accounts.map((x) => [x.profile.profileId, x.profile.handle]) as Array<
-        [string, string]
-    >;
+    const accounts = getAccountPairs(source);
 
     switch (source) {
         case Source.Farcaster:
@@ -173,5 +174,27 @@ export function captureAccountLogoutAllEvent(accounts: Account[]) {
     return runInSafeAsync(async () => {
         await Promise.all(accounts.map((account) => captureAccountLogoutEvent(account)));
         await TelemetryProvider.captureEvent(EventId.ACCOUNT_LOG_OUT_ALL_SUCCESS, {});
+    });
+}
+
+export function captureAccountConflictEvent(accountId: string, conflictAccountId: string, confirmed: boolean) {
+    return runInSafeAsync(() => {
+        return TelemetryProvider.captureEvent(EventId.ACCOUNT_CONFLICT, {
+            firefly_account_id: accountId,
+            conflict_firefly_account_id: conflictAccountId,
+            continue_login: confirmed,
+        });
+    });
+}
+
+export function captureAccountDeleteEvent(accountId: string) {
+    return runInSafeAsync(() => {
+        return TelemetryProvider.captureEvent(EventId.ACCOUNT_DELETE_SUCCESS, {
+            firefly_account_id: accountId,
+            farcaster_accounts: getAccountPairs(Source.Farcaster),
+            lens_accounts: getAccountPairs(Source.Lens),
+            x_accounts: getAccountPairs(Source.Twitter),
+            bsky_accounts: getAccountPairs(Source.Bsky),
+        });
     });
 }

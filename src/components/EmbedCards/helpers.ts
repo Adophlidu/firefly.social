@@ -8,7 +8,7 @@ export function isAvailableAddress(x: AddressRecord) {
 
 const hosts = [
     /firefly-mask.*-dimension-dev\.vercel\.app/,
-    /(firelfy-staging|firefly-canary|firefly|beta|alpha).mask.social/,
+    /(firefly-staging|firefly-canary|firefly|beta|alpha).mask.social/,
 ];
 export function isFarcasterPost(link: string) {
     const url = parseUrl(link);

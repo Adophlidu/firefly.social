@@ -15,13 +15,13 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import {
+    captureAccountConflictEvent,
     captureAccountCreateSuccessEvent,
     captureAccountLoginEvent,
     captureAccountLogoutAllEvent,
     captureAccountLogoutEvent,
 } from '@/providers/telemetry/captureAccountEvent.js';
 import { captureActivityLoginEvent } from '@/providers/telemetry/captureActivityEvent.js';
-import { captureSyncModalEvent } from '@/providers/telemetry/captureSyncModalEvent.js';
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
@@ -217,7 +217,9 @@ export async function addAccount(account: Account, options?: AccountOptions) {
             account,
         });
 
-        captureSyncModalEvent(fireflySession.profileId, confirmed);
+        if (currentFireflySession?.profileId) {
+            captureAccountConflictEvent(currentFireflySession.profileId as string, fireflySession.profileId, confirmed);
+        }
 
         if (confirmed) {
             await updateState([account], {
