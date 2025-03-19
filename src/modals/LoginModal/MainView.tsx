@@ -141,8 +141,9 @@ export function MainView() {
     );
 
     const { data } = useQuery({
-        queryKey: ['allConnections', [...thirdPartyProfile.map((x) => x.profile.profileId)]],
+        queryKey: ['allConnections', [...thirdPartyProfile.map((x) => x.profile.profileId), isLoginFirefly]],
         queryFn: () => {
+            if (!isLoginFirefly) return;
             return runInSafeAsync(() => FireflyEndpointProvider.getAllConnections());
         },
     });
