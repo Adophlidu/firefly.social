@@ -6,26 +6,26 @@ import { URL_REGEX } from '@/constants/regexp.js';
 
 function removeMentionFromLink<T extends PhrasingContent | RootContent>(nodes: T[]): Array<T | Text> {
     return compact(
-        nodes.map((node, index) => {
-            const prevNode = nodes[index - 1];
+        nodes.reduce<Array<T | Text>>((acc, node, index) => {
+            const prevNode = acc[index - 1];
             if (
                 node.type === 'link' &&
                 !node.url.startsWith('http') &&
                 prevNode?.type === 'text' &&
                 (prevNode.value.endsWith('@') || /\s+@\S+$/.test(prevNode.value))
             ) {
-                nodes[index - 1] = null as unknown as T;
-                return {
+                acc[index - 1] = null as unknown as T;
+                return acc.concat({
                     type: 'text',
                     value: `${prevNode.value}${node.title}`,
-                } satisfies Text;
+                });
             }
             if ('children' in node && node.children?.length) {
                 node.children = removeMentionFromLink(node.children as PhrasingContent[]);
             }
 
-            return node;
-        }),
+            return acc.concat(node);
+        }, []),
     );
 }
 

@@ -11,7 +11,8 @@ import { Code } from '@/components/Code.js';
 import type { MarkupProps } from '@/components/Markup/Markup.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
 import { HashTagLink } from '@/components/Markup/plugins/HashTagLink.js';
-import { CHANNEL_REGEX, URL_REGEX } from '@/constants/regexp.js';
+import { UrlPlugin } from '@/components/Markup/plugins/UrlPlugin.js';
+import { CHANNEL_REGEX } from '@/constants/regexp.js';
 import { isChannelSupported } from '@/helpers/isChannelSupported.js';
 import type { Pluggable } from '@/types/index.js';
 
@@ -26,7 +27,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             return compact([
                 [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'list', 'listItem'] }],
                 remarkBreaks,
-                linkifyRegex(URL_REGEX),
+                UrlPlugin,
                 isChannelSupported(post?.source) ? linkifyRegex(CHANNEL_REGEX) : undefined,
                 HashTagLink(post?.source),
             ]);
@@ -39,7 +40,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             // mentioned ens handle as url. For example, @mask.eth should be treat
             // as a mention rather than link
             linkifyRegex(mentionRe),
-            linkifyRegex(URL_REGEX),
+            UrlPlugin,
             isChannelSupported(post.source) ? linkifyRegex(CHANNEL_REGEX) : undefined,
             HashTagLink(post.source),
         ]);
