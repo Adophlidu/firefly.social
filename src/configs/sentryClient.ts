@@ -32,7 +32,7 @@ class SentryClient {
                 dsn: env.external.NEXT_PUBLIC_SENTRY_DSN,
 
                 release: process.version,
-                environment: IS_PRODUCTION ? 'production' : IS_PREVIEW ? 'preview' : 'development',
+                environment: IS_PRODUCTION ? 'prod' : IS_PREVIEW ? 'preview' : 'development',
                 integrations: [browserTracking, feedback],
 
                 tracesSampleRate: 1.0,
