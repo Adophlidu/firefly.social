@@ -40,7 +40,7 @@ export const ContractTag = memo<ContractTagProps>(function ContractTag({ detecte
     return (
         <span className="inline-flex items-center gap-1">
             <Image
-                className="size-15 inline shrink-0 rounded-full"
+                className="inline size-[15px] shrink-0 rounded-full"
                 unoptimized
                 alt=""
                 loading="lazy"

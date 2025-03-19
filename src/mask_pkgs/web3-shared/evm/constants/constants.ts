@@ -76,10 +76,7 @@ export const getTokenListConstant = transform(ChainId, TokenList);
 export const getTokenListConstants = transformAll(ChainId, TokenList);
 
 // see https://github.com/DimensionDev/assets/
-export const getTokenAssetBaseURLConstant = transform(ChainId, TokenAssetBaseURL);
 export const getTokenAssetBaseURLConstants = transformAll(ChainId, TokenAssetBaseURL);
-export const useTokenAssetBaseURLConstant = transformHook(getTokenAssetBaseURLConstants);
-export const useTokenAssetBaseURLConstants = transformAllHook(getTokenAssetBaseURLConstants);
 
 export const getNftRedPacketConstant = transform(ChainId, NftRedPacket);
 export const getNftRedPacketConstants = transformAll(ChainId, NftRedPacket);
