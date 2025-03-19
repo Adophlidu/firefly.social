@@ -15,7 +15,6 @@ import { useTipsValidation } from '@/hooks/useTipsValidation.js';
 import { ConnectModalRef } from '@/modals/controls.js';
 import { captureTipsSendEvent } from '@/providers/telemetry/captureTipsSendEvent.js';
 import { reportTokenTips, UploadTokenTipsToken } from '@/services/reportTokenTips.js';
-import { CoreConnectorController } from '@reown/appkit';
 
 interface SendTipsButtonProps {
     connected: boolean;

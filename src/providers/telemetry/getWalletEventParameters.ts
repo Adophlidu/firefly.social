@@ -1,15 +1,15 @@
 import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
-import type { WalletEventParameters } from '@/providers/types/Telemetry.js';
+import type { SourceWalletEventParameters, WalletEventParameters } from '@/providers/types/Telemetry.js';
 import { CoreConnectorController } from '@reown/appkit';
 import { isAddress } from 'viem';
 
-export function getConnectorWalletType(address: string) {
+function getConnectorWalletType(address: string) {
     if (isAddress(address)) return 'evm';
     if (isValidSolanaAddress(address)) return 'solana';
     return 'unknown';
 }
 
-export function getConnectorWalletName(address: string) {
+function getConnectorWalletName(address: string) {
     return CoreConnectorController.state.activeConnector?.name ?? 'unknown';
 }
 
@@ -19,4 +19,12 @@ export function getWalletEventParameters(address: string) {
         wallet_address: address,
         wallet_name: getConnectorWalletName(address),
     } satisfies Omit<WalletEventParameters, 'firefly_account_id'>;
+}
+
+export function getSourceWalletEventParameters(address: string) {
+    return {
+        source_wallet_type: getConnectorWalletType(address),
+        source_wallet_address: address,
+        source_wallet_name: getConnectorWalletName(address),
+    } satisfies Omit<SourceWalletEventParameters, 'firefly_account_id'>;
 }

@@ -1,16 +1,18 @@
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { getConnectorWalletType, getConnectorWalletName } from '@/providers/telemetry/getWalletEventParameters.js';
+import { getSourceWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId, type Events } from '@/providers/types/Telemetry.js';
 
 export function captureTipsSendEvent(
-    parameters: Omit<Events[EventId.TIPS_SEND_SUCCESS]['parameters'], 'source_wallet_type' | 'source_wallet_name'>,
+    parameters: Omit<
+        Events[EventId.TIPS_SEND_SUCCESS]['parameters'],
+        'firefly_account_id' | 'source_wallet_type' | 'source_wallet_name'
+    >,
 ) {
     return runInSafeAsync(() => {
         return TelemetryProvider.captureEvent(EventId.TIPS_SEND_SUCCESS, {
             ...parameters,
-            source_wallet_type: getConnectorWalletType(parameters.source_wallet_address),
-            source_wallet_name: getConnectorWalletName(parameters.source_wallet_address),
+            ...getSourceWalletEventParameters(parameters.source_wallet_address),
         });
     });
 }

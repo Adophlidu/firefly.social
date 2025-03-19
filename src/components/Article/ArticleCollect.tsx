@@ -28,7 +28,6 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { ParagraphAPI } from '@/providers/paragraph/index.js';
 import { captureCollectArticleEvent } from '@/providers/telemetry/captureCollectArticleEvent.js';
 import { type Article } from '@/providers/types/Article.js';
-import { captureArticleCollectEvent } from '@/providers/telemetry/captureArticleCollectEvent.js';
 
 export interface ArticleCollectProps {
     article: Article;
@@ -112,10 +111,6 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
             queryClient.refetchQueries({
                 queryKey: ['article-collect-status', article.platform, article.id],
             });
-
-            if (account.address) {
-                captureArticleCollectEvent(account.address);
-            }
 
             enqueueSuccessMessage(t`Article collected successfully!`);
         } catch (error) {

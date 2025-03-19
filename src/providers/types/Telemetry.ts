@@ -52,27 +52,30 @@ export enum EventId {
     // poll
     POLL_CREATE_SUCCESS = 'poll_create_success', // ✅
 
+    // lucky drop
     LUCKY_DROP_CREATE_SUCCESS = 'lucky_drop_create_success',
     LUCKY_DROP_REFUND_SUCCESS = 'lucky_drop_refund_success',
     LUCKY_DROP_CLAIM_SUCCESS = 'lucky_drop_claim_success',
 
     // blink
     POST_BLINK_ACTION_SUCCESS = 'post_blink_action_success',
+
+    // frame
     POST_FRAME_ACTION_SUCCESS = 'post_frame_action_success',
 
     // article
-    ARTICLE_COLLECT_SUCCESS = 'article_collect_success',
+    COLLECT_ARTICLE_SUCCESS = 'collect_article_success',
 
     // snapshot
     SNAPSHOT_VOTE_SUCCESS = 'snapshot_vote_success', // ✅
 
-    // nft
-    NFT_MINT_SUCCESS = 'ff_nft_mint_success',
+    // mint
+    MINT_NFT_SUCCESS = 'mint_nft_success', // ✅
 
     // profile
     PROFILE_EDIT_CLICK = 'account_edit_profile_click', // ✅
     PROFILE_EDIT_SUCCESS = 'account_edit_profile_success', // ✅
-    PROFILE_SUPER_FOLLOW_SUCCESS = 'profile_superfollow_success', // ✅
+    PROFILE_SUPER_FOLLOW_SUCCESS = 'profile_superfollow_success',
 
     // connect wallet
     CONNECT_WALLET_SUCCESS = 'connect_wallet_success', // ✅
@@ -189,10 +192,6 @@ export enum EventId {
     EVENT_CHANGE_WALLET_SUCCESS = 'event_change_wallet_success',
     EVENT_CLAIM_BASIC_SUCCESS = 'event_claim_basic_success',
     EVENT_CLAIM_PREMIUM_SUCCESS = 'event_claim_premium_success',
-
-    // mint
-    MINT_NFT_SUCCESS = 'mint_NFT_success',
-    COLLECT_ARTICLE_SUCCESS = 'collect_article_success',
 }
 
 export enum ExceptionId {}
@@ -254,6 +253,10 @@ export interface BskyEventParameters {
     target_bsky_handle: string;
 }
 
+export interface BskyPostEventParameters extends BskyEventParameters {
+    target_bsky_post_id: string;
+}
+
 export interface WalletEventParameters {
     firefly_account_id: string;
     wallet_type: 'evm' | 'solana' | 'unknown';
@@ -261,8 +264,27 @@ export interface WalletEventParameters {
     wallet_name: string;
 }
 
+export interface SourceWalletEventParameters {
+    firefly_account_id: string;
+    source_wallet_address: string;
+    source_wallet_type: 'evm' | 'solana' | 'unknown';
+    source_wallet_name: string;
+}
+
 export interface ActivityWalletEventParameters extends WalletEventParameters {
     activity: string;
+}
+
+export interface LuckyDropEventParameters extends WalletEventParameters {
+    lucky_drop_id: string;
+    amount: string;
+    currency: string;
+    amount_usd?: number;
+    winners: number;
+    distribution_rule: 'random' | 'equal';
+    chain_id: string;
+    chain_name: string;
+    free_gas: boolean;
 }
 
 export interface ConnectWalletEventParameters extends WalletEventParameters {
@@ -507,7 +529,6 @@ export interface Events extends Record<EventId, Event> {
     [EventId.TIPS_SEND_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
-            source_wallet_address: string; // address all lowercased
             target_wallet_address: string; // address all lowercased
             source_firefly_account_id: string;
             target_firefly_account_id?: string;
@@ -516,24 +537,19 @@ export interface Events extends Record<EventId, Event> {
             amount_usd?: number;
             chain_id: number;
             chain_name: string;
-            source_wallet_type: 'evm' | 'solana' | 'unknown';
-            source_wallet_name: string;
-        };
+        } & SourceWalletEventParameters;
     };
     [EventId.LUCKY_DROP_CREATE_SUCCESS]: {
         type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-            wallet_address: string; // address all lowercased
-            lucky_drop_id: string;
-            amount: string;
-            currency: string;
-            amount_usd?: number;
-            winners: number;
-            distribution_rule: 'random' | 'equal';
-            chain_id: string;
-            chain_name: string;
-        };
+        parameters: LuckyDropEventParameters;
+    };
+    [EventId.LUCKY_DROP_CLAIM_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: LuckyDropEventParameters;
+    };
+    [EventId.LUCKY_DROP_REFUND_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: WalletEventParameters;
     };
     [EventId.POLL_CREATE_SUCCESS]: {
         type: EventType.Interact;
@@ -542,13 +558,41 @@ export interface Events extends Record<EventId, Event> {
             poll_id: string;
         };
     };
-    [EventId.ARTICLE_COLLECT_SUCCESS]: {
-        type: EventType.Interact;
-        parameters: WalletEventParameters;
-    };
     [EventId.SNAPSHOT_VOTE_SUCCESS]: {
         type: EventType.Interact;
         parameters: WalletEventParameters;
+    };
+    [EventId.MINT_NFT_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            nft_id: string;
+            free_mint: boolean;
+        } & WalletEventParameters;
+    };
+    [EventId.COLLECT_ARTICLE_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            article_id: string;
+            free_mint: boolean;
+        } & WalletEventParameters;
+    };
+
+    // TODO
+    [EventId.LENS_POST_COLLECT_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: WalletEventParameters;
+    };
+    [EventId.POST_FRAME_ACTION_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            frame_action: 'buy' | 'mint' | 'others';
+        } & WalletEventParameters;
+    };
+    [EventId.POST_BLINK_ACTION_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            blink_action: 'buy' | 'mint' | 'others';
+        } & WalletEventParameters;
     };
 
     // ----------------
@@ -850,20 +894,6 @@ export interface Events extends Record<EventId, Event> {
     [EventId.EVENT_CLAIM_PREMIUM_SUCCESS]: {
         type: EventType.Interact;
         parameters: ActivityWalletEventParameters;
-    };
-    [EventId.MINT_NFT_SUCCESS]: {
-        type: EventType.Interact;
-        parameters: {
-            nft_id: string;
-            free_mint: boolean;
-        } & WalletEventParameters;
-    };
-    [EventId.COLLECT_ARTICLE_SUCCESS]: {
-        type: EventType.Interact;
-        parameters: {
-            article_id: string;
-            free_mint: boolean;
-        } & WalletEventParameters;
     };
 }
 
