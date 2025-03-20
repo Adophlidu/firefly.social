@@ -58,7 +58,7 @@ export function FireflyAccountInfo({
     });
     useEffect(() => {
         const element = document.getElementById(PROFILE_ACTION_ID) ?? document.getElementById(WALLET_PROFILE_ACTION_ID);
-        profileActionRef(element);
+        if (element) profileActionRef(element);
     }, []);
     const showStickyTitle = buttonContainerEntry && !buttonContainerEntry.isIntersecting;
     const showProfileAction = profileActionEntry && !profileActionEntry.isIntersecting;

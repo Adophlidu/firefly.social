@@ -48,9 +48,9 @@ export function SocialProfileInfo(props: InfoProps) {
             <div className="relative flex w-full flex-col">
                 <div className="flex w-full flex-col">
                     <div className="-mb-2 flex h-8 w-full items-start gap-2">
-                        <div className="flex h-6 items-center gap-2">
+                        <div className="flex h-6 min-w-0 flex-1 items-center gap-2">
                             <TextOverflowTooltip content={profile.displayName} placement="top">
-                                <address className="truncate text-lg font-black not-italic leading-6 text-lightMain">
+                                <address className="min-w-0 truncate text-lg font-black not-italic leading-6 text-lightMain">
                                     {profile.displayName}
                                 </address>
                             </TextOverflowTooltip>

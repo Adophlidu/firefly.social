@@ -12,6 +12,7 @@ export function useIntersectionObserver<T extends Element>(
 
     const customRef = useCallback<RefCallback<T>>(
         (node) => {
+            if (!node) return;
             if (previousObserver.current) {
                 previousObserver.current.disconnect();
                 previousObserver.current = null;
