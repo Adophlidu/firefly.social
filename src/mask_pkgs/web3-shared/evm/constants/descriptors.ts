@@ -1,12 +1,7 @@
-import {
-    type ChainDescriptor,
-    type NetworkDescriptor,
-    type ProviderDescriptor,
-    TokenType,
-} from '@masknet/web3-shared-base';
+import { type ChainDescriptor, type NetworkDescriptor, TokenType } from '@masknet/web3-shared-base';
 import { NetworkPluginID } from '@masknet/shared-base';
-import CHAINS from './chains.json' assert { type: 'json' };
-import { ChainId, NetworkType, type ProviderType, SchemaType } from '../types/index.js';
+import CHAINS from './chains.json' with { type: 'json' };
+import { ChainId, NetworkType, SchemaType } from '../types/index.js';
 import { getTokenConstant } from './constants.js';
 import { ZERO_ADDRESS } from './primitives.js';
 
@@ -392,5 +387,3 @@ export const CHAIN_DESCRIPTORS: ReadonlyArray<ChainDescriptor<ChainId, SchemaTyp
         isCustomized: false,
     };
 });
-
-export const PROVIDER_DESCRIPTORS: ReadonlyArray<ProviderDescriptor<ChainId, ProviderType>> = [];

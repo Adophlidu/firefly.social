@@ -1,122 +1,15 @@
 import urlcat from 'urlcat';
-import { NetworkPluginID, createLookupTableResolver, SocialAddressType } from '@masknet/shared-base';
-import { CurrencyType, SourceType } from '../specs/index.js';
-
-export const resolveSocialAddressLink = createLookupTableResolver<SocialAddressType, string>(
-    {
-        [SocialAddressType.Address]: '',
-        [SocialAddressType.ARBID]: 'https://arb.id/',
-        [SocialAddressType.ENS]: 'https://ens.domains/',
-        [SocialAddressType.SPACE_ID]: 'https://space.id/',
-        [SocialAddressType.RSS3]: 'https://rss3.bio/',
-        [SocialAddressType.Crossbell]: 'https://crossbell.io/',
-        [SocialAddressType.Firefly]: '',
-        [SocialAddressType.SOL]: 'https://naming.bonfida.org/',
-        [SocialAddressType.NEXT_ID]: 'https://next.id/',
-        [SocialAddressType.CyberConnect]: 'https://cyberconnect.me/',
-        [SocialAddressType.Leaderboard]: 'https://ethleaderboard.xyz/',
-        [SocialAddressType.Sybil]: 'https://sybil.org/',
-        [SocialAddressType.TwitterBlue]: '',
-        [SocialAddressType.Mask]: '',
-        [SocialAddressType.Lens]: '',
-        [SocialAddressType.OpenSea]: '',
-    },
-    () => '',
-);
-
-export const resolveSourceTypeName = createLookupTableResolver<SourceType, string>(
-    {
-        [SourceType.DeBank]: 'DeBank',
-        [SourceType.Zerion]: 'Zerion',
-        [SourceType.RSS3]: 'RSS3',
-        [SourceType.CoinMarketCap]: 'CoinMarketCap',
-        [SourceType.UniswapInfo]: 'UniswapInfo',
-        [SourceType.OpenSea]: 'OpenSea',
-        [SourceType.Rarible]: 'Rarible',
-        [SourceType.NFTScan]: 'NFTScan',
-        [SourceType.Zora]: 'Zora',
-        [SourceType.Alchemy_FLOW]: 'Alchemy_FLOW',
-        [SourceType.RaritySniper]: 'RaritySniper',
-        [SourceType.TraitSniper]: 'TraitSniper',
-        [SourceType.Chainbase]: 'Chainbase',
-        [SourceType.Element]: 'Element',
-        [SourceType.Solana]: 'Solana',
-        [SourceType.Solsea]: 'Solsea',
-        [SourceType.Solanart]: 'Solanart',
-        [SourceType.R2D2]: 'R2D2',
-        [SourceType.Rabby]: 'Rabby',
-        [SourceType.CoinGecko]: 'CoinGecko',
-        [SourceType.CF]: 'CloudFlare',
-        [SourceType.GoPlus]: 'GoPlus',
-        [SourceType.OKX]: 'OKX',
-        [SourceType.Uniswap]: 'Uniswap',
-        [SourceType.NFTX]: 'NFTX',
-        [SourceType.Etherscan]: 'Etherscan',
-        [SourceType.CryptoPunks]: 'CryptoPunks',
-        [SourceType.SimpleHash]: 'SimpleHash',
-        [SourceType.Approval]: 'Approval',
-    },
-    (providerType) => {
-        throw new Error(`Unknown source type: ${providerType}.`);
-    },
-);
-
-export const resolveCurrencyName = createLookupTableResolver<CurrencyType, string>(
-    {
-        [CurrencyType.BTC]: 'BTC',
-        [CurrencyType.ETH]: 'ETH',
-        [CurrencyType.NATIVE]: 'ETH',
-        [CurrencyType.USD]: 'USD',
-        [CurrencyType.CNY]: 'CNY',
-        [CurrencyType.JPY]: 'JPY',
-        [CurrencyType.HKD]: 'HKD',
-        [CurrencyType.EUR]: 'EUR',
-    },
-    (CurrencyType) => {
-        throw new Error(`Unknown currency type: ${CurrencyType}.`);
-    },
-);
-export const resolveCurrencyFullName = createLookupTableResolver<CurrencyType, string>(
-    {
-        [CurrencyType.BTC]: 'Bitcoin',
-        [CurrencyType.ETH]: 'Ethereum',
-        [CurrencyType.NATIVE]: 'Ethereum',
-        [CurrencyType.USD]: 'United States Dollar',
-        [CurrencyType.CNY]: 'Chinese Yuan',
-        [CurrencyType.JPY]: 'Japanese Yen',
-        [CurrencyType.HKD]: 'Hong Kong Dollar',
-        [CurrencyType.EUR]: 'Euro',
-    },
-    (CurrencyType) => {
-        throw new Error(`Unknown currency type: ${CurrencyType}.`);
-    },
-);
-
-export const resolveNetworkWalletName = createLookupTableResolver<NetworkPluginID, string>(
-    {
-        [NetworkPluginID.PLUGIN_EVM]: 'ETH Wallet',
-        [NetworkPluginID.PLUGIN_SOLANA]: 'Solana Wallet',
-    },
-    (network) => {
-        throw new Error(`Unknown network plugin-id: ${network}`);
-    },
-);
 
 // https://stackoverflow.com/a/67176726
 const MATCH_IPFS_CID_RAW =
     'Qm[1-9A-HJ-NP-Za-km-z]{44,}|b[2-7A-Za-z]{58,}|B[2-7A-Z]{58,}|z[1-9A-HJ-NP-Za-km-z]{48,}|F[\\dA-F]{50,}';
 const MATCH_IPFS_DATA_RE = /ipfs\/(data:[\w,/;]+)$/;
 const MATCH_IPFS_CID_RE = new RegExp(`(${MATCH_IPFS_CID_RAW})`);
-const MATCH_IPFS_CID_STRICT_RE = new RegExp(`^(?:${MATCH_IPFS_CID_RAW})$`);
 const MATCH_IPFS_CID_AT_STARTS_RE = new RegExp(`^https://(?:${MATCH_IPFS_CID_RAW})`);
 const MATCH_IPFS_CID_AND_PATHNAME_RE = new RegExp(`(?:${MATCH_IPFS_CID_RAW})\\/?.*`);
 const MATCH_LOCAL_RESOURCE_URL_RE = /^(data|blob:|\w+-extension:\/\/|<svg\s)/;
 const CORS_HOST = 'https://cors-next.r2d2.to';
 const IPFS_GATEWAY_HOST = 'https://hoot.it';
-
-export function isIPFS_CID(cid: string) {
-    return MATCH_IPFS_CID_STRICT_RE.test(cid);
-}
 
 export function isIPFS_Resource(str: string) {
     return MATCH_IPFS_CID_RE.test(str);
@@ -212,17 +105,6 @@ export function resolveArweaveURL<T extends string | undefined>(url: T) {
     if (!url) return url;
     if (url.startsWith('https://')) return url;
     return urlcat('https://arweave.net/:str', { str: url });
-}
-
-/**
- * Please do not use to resolve an image or an video resource, because that's
- * not allowed by the cors agent server
- */
-export function resolveCrossOriginURL<T extends string | undefined>(url: T) {
-    if (!url) return url;
-    if (isLocaleResource(url)) return url;
-    if (url.startsWith(CORS_HOST)) return url;
-    return `${CORS_HOST}?${encodeURIComponent(url)}`;
 }
 
 export function resolveResourceURL<T extends string | undefined>(url: T) {

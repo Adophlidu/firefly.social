@@ -1,7 +1,6 @@
-import { createLookupTableResolver, Days, NetworkPluginID } from '@masknet/shared-base';
+import { NetworkPluginID } from '@masknet/shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import type { Web3Helper } from '@masknet/web3-helpers';
-import type { EVM } from '../types/index.js';
 
 export function resolveNFTScanHostName(pluginId: NetworkPluginID, chainId: Web3Helper.ChainIdAll) {
     if (pluginId === NetworkPluginID.PLUGIN_SOLANA) return 'https://solana.nftscan.com';
@@ -26,21 +25,4 @@ export function resolveNFTScanHostName(pluginId: NetworkPluginID, chainId: Web3H
         default:
             return '';
     }
-}
-
-export const resolveNFTScanRange = createLookupTableResolver<Days, EVM.CollectionTrendingRange>(
-    {
-        [Days.MAX]: 'all',
-        [Days.ONE_DAY]: '1d',
-        [Days.ONE_WEEK]: '7d',
-        [Days.ONE_MONTH]: '30d',
-        [Days.THREE_MONTHS]: '90d',
-        [Days.ONE_YEAR]: '1y',
-    },
-    // NFTScan will discard range unrecognized range
-    () => '1d',
-);
-
-export enum NonFungibleMarketplace {
-    OpenSea = 'OpenSea',
 }

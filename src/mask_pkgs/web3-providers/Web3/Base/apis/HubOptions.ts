@@ -27,9 +27,6 @@ export abstract class HubOptionsProvider<ChainId> {
     constructor(private options?: BaseHubOptions<ChainId>) {}
     protected abstract getDefaultChainId(): ChainId;
     protected abstract getNetworkPluginID(): NetworkPluginID;
-    protected abstract getAccount(): string | undefined;
-    protected abstract getChainId(): ChainId | undefined;
-    protected abstract getCurrencyType(): CurrencyType | undefined;
 
     protected get defaults(): PartialRequired<BaseHubOptions<ChainId>, 'account' | 'chainId'> {
         return {
@@ -43,9 +40,7 @@ export abstract class HubOptionsProvider<ChainId> {
 
     protected get refs(): BaseHubOptions<ChainId> {
         return {
-            account: this.getAccount(),
-            chainId: this.getChainId(),
-            currencyType: this.getCurrencyType(),
+            currencyType: CurrencyType.USD,
         };
     }
 

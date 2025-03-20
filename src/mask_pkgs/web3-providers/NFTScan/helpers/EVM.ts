@@ -5,8 +5,6 @@ import {
     formatPercentage,
     type NonFungibleAsset,
     type NonFungibleCollection,
-    type NonFungibleTokenContract,
-    type NonFungibleTokenEvent,
     type NonFungibleTokenTrait,
     resolveResourceURL,
     scale10,
@@ -28,8 +26,6 @@ import { resolveNFTScanHostName } from './utils.js';
 import { fetchSquashedJSON } from '../../helpers/fetchJSON.js';
 import { parseJSON } from '../../helpers/parseJSON.js';
 import { getAssetFullName } from '../../helpers/getAssetFullName.js';
-import { getPaymentToken } from '../../helpers/getPaymentToken.js';
-import { resolveActivityType } from '../../helpers/resolveActivityType.js';
 import type { NonFungibleTokenAPI } from '../../entry-types.js';
 
 export async function fetchFromNFTScanV2<T>(chainId: ChainId, pathname: string, init?: RequestInit) {
@@ -176,78 +172,6 @@ export function createNonFungibleCollectionFromGroup(
         description: group.description || payload?.description,
         iconURL: group.logo_url,
         balance: group.assets.length,
-        source: SourceType.NFTScan,
-    };
-}
-
-export function createNonFungibleCollectionFromCollection(
-    chainId: ChainId,
-    collection: NonFungibleTokenAPI.Collection,
-): NonFungibleCollection<ChainId, SchemaType> {
-    return {
-        chainId,
-        schema: collection.erc_type === 'erc1155' ? SchemaType.ERC1155 : SchemaType.ERC721,
-        name: collection.name,
-        symbol: collection.symbol,
-        slug: collection.symbol,
-        address: collection.contract_address,
-        description: collection.description,
-        iconURL: collection.logo_url,
-        verified: collection.verified,
-        source: SourceType.NFTScan,
-    };
-}
-
-export function createNonFungibleTokenContract(
-    chainId: ChainId,
-    collection: NonFungibleTokenAPI.Collection,
-): NonFungibleTokenContract<ChainId, SchemaType> {
-    return {
-        chainId,
-        address: collection.contract_address,
-        name: collection.name,
-        symbol: collection.symbol,
-        schema: collection.erc_type === 'erc1155' ? SchemaType.ERC1155 : SchemaType.ERC721,
-        iconURL: collection.logo_url,
-        logoURL: collection.logo_url,
-        owner: collection.owner,
-        source: SourceType.NFTScan,
-    };
-}
-
-export function createNonFungibleTokenEvent(
-    chainId: ChainId,
-    transaction: EVM.Transaction,
-): NonFungibleTokenEvent<ChainId, SchemaType> {
-    const paymentToken = getPaymentToken(chainId, { symbol: transaction.trade_symbol });
-    return {
-        chainId,
-        id: transaction.hash,
-        quantity: transaction.amount,
-        timestamp: transaction.timestamp,
-        type: resolveActivityType(transaction.event_type),
-        hash: transaction.hash,
-        from: {
-            address: transaction.from,
-        },
-        to: {
-            address: transaction.to,
-        },
-        send: {
-            address: transaction.send,
-        },
-        receive: {
-            address: transaction.receive,
-        },
-        assetName: transaction.contract_name,
-        assetPermalink: createPermalink(chainId, transaction.contract_address, transaction.token_id),
-        priceInToken: paymentToken
-            ? {
-                  amount: scale10(transaction.trade_price, paymentToken.decimals).toFixed(),
-                  token: paymentToken,
-              }
-            : undefined,
-        paymentToken,
         source: SourceType.NFTScan,
     };
 }

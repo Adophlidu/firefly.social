@@ -20,25 +20,14 @@ export class ConnectionContext {
     private _writable = true;
     private _error: Error | null = null;
     private _result: unknown;
-    private _account = '';
-    private _chainId = ChainId.Mainnet;
 
     constructor(
         private _requestArguments: RequestArguments,
         private _options?: EVMConnectionOptions,
-        private _init?: {
-            getDefaultAccount?: () => string | undefined;
-            getDefaultChainId?: () => ChainId | undefined;
-            getDefaultOwner?: () => string | undefined;
-            getDefaultIdentifier?: () => ECKeyIdentifier | undefined;
-        },
     ) {
         // increase pid
         pid += 1;
         this.id = pid;
-
-        this._account = this._init?.getDefaultAccount?.() ?? '';
-        this._chainId = this._init?.getDefaultChainId?.() ?? ChainId.Mainnet;
     }
 
     private get errorEditor() {
@@ -54,116 +43,32 @@ export class ConnectionContext {
     }
 
     get account() {
-        return this.payloadEditor.from ?? this._options?.overrides?.from ?? this._options?.account ?? this._account;
+        return this.payloadEditor.from ?? this._options?.overrides?.from ?? this._options?.account ?? '';
     }
 
     get chainId(): ChainId {
         return (
-            this.payloadEditor.chainId ?? this._options?.overrides?.chainId ?? this._options?.chainId ?? this._chainId
+            this.payloadEditor.chainId ?? this._options?.overrides?.chainId ?? this._options?.chainId ?? ChainId.Mainnet
         );
     }
 
-    get chainDescriptor() {
-        return this.payloadEditor.chainDescriptor;
-    }
-
-    get providerType() {
-        return this.requestOptions.providerType ?? this._options?.providerType;
-    }
-
     get providerURL() {
-        return this.requestOptions.providerURL ?? this._options?.providerURL;
+        return this._options?.providerURL ?? this._options?.providerURL;
     }
 
     get method() {
         return this.request.method as EthereumMethodType;
     }
 
-    get risky() {
-        return this.payloadEditor.risky;
-    }
-
-    get message() {
-        return this.payloadEditor.signableMessage;
-    }
-
-    get config() {
-        return omitBy<Transaction>(
-            {
-                ...this.payloadEditor.config,
-                ...this._options?.overrides,
-                from: this._options?.overrides?.from || this.payloadEditor.config.from,
-                chainId: parseChainId(this._options?.overrides?.chainId) ?? this.payloadEditor.config.chainId,
-            },
-            isUndefined,
-        );
-    }
-
-    set config(config: Transaction | undefined) {
-        if (!this.config || !config) return;
-        const method = this._requestArguments.method;
-
-        switch (method) {
-            case EthereumMethodType.ETH_SEND_TRANSACTION:
-                this._requestArguments = {
-                    method: this.method,
-                    params: [config],
-                };
-                break;
-            default:
-                break;
-        }
-    }
-
-    get requestId() {
-        return this.id;
-    }
-
-    /**
-     * Abstract account owner address
-     */
-    get owner() {
-        return this._options?.owner || this._init?.getDefaultOwner?.();
-    }
-
-    /**
-     * Abstract account owner persona public key
-     */
-    get identifier() {
-        return this._options?.identifier || this._init?.getDefaultIdentifier?.();
-    }
-
-    get paymentToken() {
-        return this._options?.paymentToken;
-    }
-
-    get gasOptionType() {
-        return this._options?.gasOptionType;
-    }
-
-    get silent() {
-        return this._options?.silent;
-    }
-
-    get requestOptions() {
-        return {
-            ...this._options,
-        };
-    }
-
     get requestArguments() {
         return this._requestArguments;
-    }
-
-    set requestArguments(requestArguments: RequestArguments) {
-        this._requestArguments = requestArguments;
     }
 
     /**
      * JSON RPC request payload
      */
     get request() {
-        return createJsonRpcPayload(this.id, this.requestArguments);
+        return createJsonRpcPayload(this.id, this._requestArguments);
     }
 
     /**

@@ -36,25 +36,11 @@ export class ExplorerResolver<ChainId, SchemaType, NetworkType> {
         return chainDescriptor?.explorerUrl ?? { url: '' };
     }
 
-    explorerUrl(chainId: ChainId) {
-        return this.getExplorerURL(chainId);
-    }
-
     addressLink(chainId: ChainId, address: string) {
         const explorerUrl = this.getExplorerURL(chainId);
         if (!explorerUrl.url || !address) return;
         return urlcat(explorerUrl.url, this.options.addressPathname, {
             address,
-            ...explorerUrl.parameters,
-        });
-    }
-
-    blockLink(chainId: ChainId, blockNumber: number) {
-        const explorerUrl = this.getExplorerURL(chainId);
-        if (!explorerUrl.url) return;
-
-        return urlcat(explorerUrl.url, this.options.blockPathname, {
-            blockNumber,
             ...explorerUrl.parameters,
         });
     }
@@ -66,35 +52,6 @@ export class ExplorerResolver<ChainId, SchemaType, NetworkType> {
         return urlcat(explorerUrl.url, this.options.transactionPathname, {
             id,
             ...explorerUrl.parameters,
-        });
-    }
-
-    fungibleTokenLink(chainId: ChainId, address: string) {
-        const explorerUrl = this.getExplorerURL(chainId);
-        if (!address || !explorerUrl.url) return;
-        return urlcat(explorerUrl.url, this.options.fungibleTokenPathname, {
-            address,
-            ...explorerUrl.parameters,
-        });
-    }
-
-    nonFungibleTokenLink(chainId: ChainId, address: string, tokenId: string) {
-        const explorerUrl = this.getExplorerURL(chainId);
-        if (!explorerUrl.url) return;
-
-        return urlcat(explorerUrl.url, this.options.nonFungibleTokenPathname, {
-            address,
-            tokenId,
-            ...explorerUrl.parameters,
-        });
-    }
-
-    nonFungibleTokenCollectionLink(chainId: ChainId, address: string) {
-        const explorerUrl = this.getExplorerURL(chainId);
-        if (!explorerUrl.url) return;
-        return urlcat(explorerUrl.url, this.options.collectionPathname, {
-            address,
-            ...explorerUrl?.parameters,
         });
     }
 }

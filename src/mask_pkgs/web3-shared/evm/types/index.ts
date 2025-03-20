@@ -1,8 +1,6 @@
-import type { Transaction as Web3Transaction, TransactionReceipt as Web3TransactionReceipt } from 'web3-core';
+import type { TransactionReceipt as Web3TransactionReceipt } from 'web3-core';
 import type { JsonRpcPayload, JsonRpcResponse } from 'web3-core-helpers';
-import type { NonPayableTransactionObject, PayableTransactionObject } from '@masknet/web3-contracts/types/types.js';
-import type { Web3State as Web3StateShared, GasOptionType } from '@masknet/web3-shared-base';
-import type { Web3 } from '../libs/Web3.js';
+import type { GasOptionType } from '@masknet/web3-shared-base';
 
 export type ChainIdOptionalRecord<T> = { [k in ChainId]?: T };
 
@@ -156,11 +154,6 @@ export enum ChainId {
     Linea = 59144,
 }
 
-export enum AddressType {
-    ExternalOwned = 1,
-    Contract = 2,
-}
-
 export enum SchemaType {
     Native = 1,
     ERC20 = 2,
@@ -254,16 +247,6 @@ export enum EthereumMethodType {
     NET_VERSION = 'net_version',
 }
 
-export enum TransactionEventType {
-    TRANSACTION_HASH = 'transactionHash',
-    RECEIPT = 'receipt',
-    CONFIRMATION = 'confirmation',
-    ERROR = 'error',
-}
-
-export type UnboxTransactionObject<T> =
-    T extends NonPayableTransactionObject<infer R> ? R : T extends PayableTransactionObject<infer S> ? S : T;
-
 export enum NetworkType {
     Ethereum = 'Ethereum',
     Binance = 'Binance',
@@ -318,40 +301,10 @@ export interface Web3Provider {
     removeListener(name: string, listener: (event: any) => void): Web3Provider;
 }
 
-export type Signature = string;
-
-export interface Block {
-    hash: string;
-    nonce: string;
-    timestamp: string;
-    baseFeePerGas?: number;
-}
-
 export interface RequestArguments {
     method: EthereumMethodType;
     params: any[];
 }
-
-export interface RequestOptions {
-    silent?: boolean;
-    owner?: string;
-    identifier?: string;
-    paymentToken?: string;
-    allowMaskAsGas?: boolean;
-    providerURL?: string;
-    gasOptionType?: GasOptionType;
-    maxFeePerGas?: string;
-    maxPriorityFeePerGas?: string;
-    gasPrice?: string;
-    gas?: string;
-}
-
-export interface MessageRequest {
-    arguments: RequestArguments;
-    options: RequestOptions;
-}
-
-export type MessageResponse = JsonRpcResponse;
 
 export interface Transaction {
     from?: string;
@@ -373,9 +326,6 @@ export interface Transaction {
     gatewayFee?: string; // value paid to the gateway fee recipient, denominated in the fee currency
 }
 export type TransactionReceipt = Web3TransactionReceipt;
-export type TransactionDetailed = Web3Transaction;
-export type TransactionSignature = string;
-export type TransactionParameter = string | boolean | undefined;
 
 export interface TransactionOptions {
     account?: string;
@@ -392,25 +342,8 @@ export interface TransactionOptions {
     silent?: boolean;
 }
 
-export type Web3State = Web3StateShared<ChainId, SchemaType, NetworkType>;
-
-export type Web3Definition = {
+export interface Web3Definition {
     ChainId: ChainId;
-    AddressType: AddressType;
     SchemaType: SchemaType;
-    ProviderType: ProviderType;
     NetworkType: NetworkType;
-    Signature: Signature;
-    GasOption: GasOption;
-    Block: Block;
-    MessageRequest: MessageRequest;
-    MessageResponse: MessageResponse;
-    Transaction: Transaction;
-    TransactionReceipt: TransactionReceipt;
-    TransactionDetailed: TransactionDetailed;
-    TransactionSignature: TransactionSignature;
-    TransactionParameter: TransactionParameter;
-    Web3: Web3;
-    Web3Provider: Web3Provider;
-    Web3State: Web3State;
-};
+}

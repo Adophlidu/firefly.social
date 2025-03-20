@@ -1,5 +1,3 @@
-import type { Fetcher } from './fetch.js';
-
 const { fetch: originalFetch } = globalThis;
 
 export enum Duration {
@@ -72,46 +70,4 @@ export async function fetchCached(
     if (!url.startsWith('http')) return next(request, init);
 
     return __fetch__(duration, request, init, next);
-}
-
-export async function staleCached(info: RequestInfo | URL, init?: RequestInit): Promise<Response | void> {
-    const request = new Request(info, init);
-    if (request.method !== 'GET') return;
-
-    const url = request.url;
-    if (!url.startsWith('http')) return;
-
-    const cache = await __open__(url);
-    const hit = await cache?.match(request);
-    if (!hit) return;
-
-    await cache?.delete(request);
-    return hit;
-}
-
-export function createFetchCached({
-    next = originalFetch,
-    duration = Duration.ONE_MINUTE,
-}: {
-    next?: Fetcher;
-    duration?: number;
-} = {}) {
-    return async function createFetchCached(
-        input: RequestInfo | URL,
-        init?: RequestInit,
-        _next = next,
-    ): Promise<Response> {
-        // why: the caches doesn't define in test env
-        if (process.env.NODE_ENV === 'test') return _next(input, init);
-
-        // skip all side effect requests
-        const request = new Request(input, init);
-        if (request.method !== 'GET') return _next(request, init);
-
-        // skip all non-http requests
-        const url = request.url;
-        if (!url.startsWith('http')) return _next(request, init);
-
-        return __fetch__(duration, request, init, _next);
-    };
 }

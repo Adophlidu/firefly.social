@@ -1,11 +1,6 @@
 import { NetworkPluginID } from '@masknet/shared-base';
-import {
-    type ChainDescriptor,
-    createFungibleToken,
-    type NetworkDescriptor,
-    type ProviderDescriptor,
-} from '@masknet/web3-shared-base';
-import { ChainId, NetworkType, type ProviderType, SchemaType } from '../types.js';
+import { type ChainDescriptor, createFungibleToken, type NetworkDescriptor } from '@masknet/web3-shared-base';
+import { ChainId, NetworkType, SchemaType } from '../types.js';
 import { getTokenConstant } from './constants.js';
 
 const PLUGIN_ID = NetworkPluginID.PLUGIN_SOLANA;
@@ -54,4 +49,3 @@ export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<ChainId, Netwo
         isMainnet: true,
     },
 ];
-export const PROVIDER_DESCRIPTORS: ReadonlyArray<ProviderDescriptor<ChainId, ProviderType>> = [];
