@@ -18,6 +18,7 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { LaunchTokenAction } from '@/components/Compose/ComposeActions/LaunchTokenAction.js';
 
 export function ComposeActions() {
     const isMedium = useIsMedium();
@@ -75,6 +76,7 @@ export function ComposeActions() {
                     {type === 'compose' && env.external.NEXT_PUBLIC_POLL === STATUS.Enabled ? <PollButton /> : null}
 
                     {!scheduleTime && !mediaDisabled && isMedium ? <RedPacketAction disabled={mediaDisabled} /> : null}
+                    <LaunchTokenAction />
                 </div>
 
                 {isMedium ? <ComposeSend /> : <AddThread />}

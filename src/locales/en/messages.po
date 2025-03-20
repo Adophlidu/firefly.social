@@ -237,6 +237,9 @@ msgstr "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the t
 msgid "GIF source not supported. Supported sources: {0}."
 msgstr "GIF source not supported. Supported sources: {0}."
 
+msgid "BNB wallet to receive trading fees"
+msgstr "BNB wallet to receive trading fees"
+
 #. placeholder {0}: error.status
 msgid "Failed to fetch: {0}. Please try again later."
 msgstr "Failed to fetch: {0}. Please try again later."
@@ -559,6 +562,9 @@ msgstr "Confirm to log out your Firefly account?"
 
 msgid "Copied"
 msgstr "Copied"
+
+msgid "BNB address"
+msgstr "BNB address"
 
 msgid "Name"
 msgstr "Name"
@@ -1359,6 +1365,9 @@ msgstr "and"
 msgid "Channel"
 msgstr "Channel"
 
+msgid "Token symbol"
+msgstr "Token symbol"
+
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 msgstr "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 
@@ -1658,6 +1667,9 @@ msgstr "Best Wishes!"
 
 msgid "Sold Out"
 msgstr "Sold Out"
+
+msgid "$meme"
+msgstr "$meme"
 
 msgid "Proxy contract"
 msgstr "Proxy contract"
@@ -2034,6 +2046,9 @@ msgstr "NFT owner cant bypass the maximum amount of minting specified in the con
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
+
+msgid "Token name"
+msgstr "Token name"
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>Acquired</0> an NFT"
@@ -2522,6 +2537,9 @@ msgstr "Share"
 msgid "Transaction Simulation"
 msgstr "Transaction Simulation"
 
+msgid "Invalid wallet address format"
+msgstr "Invalid wallet address format"
+
 msgid "Remaining"
 msgstr "Remaining"
 
@@ -2744,6 +2762,9 @@ msgstr "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farc
 #. placeholder {2}: resolveSourceName(post.source)
 msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
 msgstr "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
+
+msgid "My MEME coin on BNB"
+msgstr "My MEME coin on BNB"
 
 msgid "Connect your wallet to follow"
 msgstr "Connect your wallet to follow"
@@ -3341,6 +3362,9 @@ msgstr "Ended on {0}"
 
 msgid "Collect Article"
 msgstr "Collect Article"
+
+msgid "Launch Token"
+msgstr "Launch Token"
 
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
@@ -4132,6 +4156,9 @@ msgstr "Post"
 
 msgid "Creator:"
 msgstr "Creator:"
+
+msgid "Post to launch"
+msgstr "Post to launch"
 
 msgid "Following"
 msgstr "Following"

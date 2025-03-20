@@ -14,6 +14,7 @@ import type { DraggablePopoverProps } from '@/modals/DraggablePopover.js';
 import type { FrameViewerModalCloseProps, FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/index.js';
 import type { FreeMintModalOpenProps } from '@/modals/FreeMintModal/index.js';
 import type { ImageEditorCloseProps, ImageEditorOpenProps } from '@/modals/ImageEditor/index.js';
+import type { LaunchTokenModalCloseResult, LaunchTokenModalOpenProps } from '@/modals/LaunchTokenModal.js';
 import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 import type {
@@ -63,3 +64,4 @@ export const AddCustomERC721ModalRef = new SingletonModal<AddCustomERC721ModalOp
 export const ChannelSelectModalRef = new SingletonModal<ChannelSelectModalOpenProps, ChannelSelectModalCloseProps>();
 export const ClubSelectModalRef = new SingletonModal<ChannelSelectModalOpenProps, ChannelSelectModalCloseProps>();
 export const MyWalletsModalRef = new SingletonModal();
+export const LaunchTokenModalRef = new SingletonModal<LaunchTokenModalOpenProps, LaunchTokenModalCloseResult>();

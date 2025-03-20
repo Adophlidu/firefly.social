@@ -32,6 +32,7 @@ import { TipsModal } from '@/modals/TipsModal.js';
 import { TokenSelectorModal } from '@/modals/TokenSelectorModal.js';
 import { TransactionSimulatorModal } from '@/modals/TransactionSimulatorModal.js';
 import { WalletConnectModal } from '@/modals/WalletConnectModal/index.js';
+import { LaunchTokenModal } from '@/modals/LaunchTokenModal.js';
 
 export const Modals = memo(function Modals() {
     return (
@@ -65,6 +66,7 @@ export const Modals = memo(function Modals() {
             <ChannelSelectModal ref={controls.ChannelSelectModalRef.register} />
             <WalletConnectModal ref={controls.ConnectModalRef.register} />
             <MyWalletsModal ref={controls.MyWalletsModalRef.register} />
+            <LaunchTokenModal ref={controls.LaunchTokenModalRef.register} />
         </>
     );
 });

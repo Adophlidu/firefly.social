@@ -242,6 +242,9 @@ msgstr "<0>市值 = 当前价格 x 流通供应量</0><1>指加密货币流通�
 msgid "GIF source not supported. Supported sources: {0}."
 msgstr "暂不支持 GIF。支持格式：{0}。"
 
+msgid "BNB wallet to receive trading fees"
+msgstr ""
+
 #. placeholder {0}: error.status
 msgid "Failed to fetch: {0}. Please try again later."
 msgstr "获取失败: {0}。请稍后重试。"
@@ -564,6 +567,9 @@ msgstr "确认退出你的 Firefly 账号吗？"
 
 msgid "Copied"
 msgstr "已复制"
+
+msgid "BNB address"
+msgstr ""
 
 msgid "Name"
 msgstr "名称"
@@ -1364,6 +1370,9 @@ msgstr "和"
 msgid "Channel"
 msgstr "频道"
 
+msgid "Token symbol"
+msgstr ""
+
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 msgstr "未包含隐藏所有者功能。如果存在隐藏所有者，项目所有者可能有能力控制合约。"
 
@@ -1663,6 +1672,9 @@ msgstr "最美好的祝愿！"
 
 msgid "Sold Out"
 msgstr "售罄"
+
+msgid "$meme"
+msgstr ""
 
 msgid "Proxy contract"
 msgstr "代理合约"
@@ -2039,6 +2051,9 @@ msgstr "NFT持有者无法绕过合约中规定的最大铸造数量限制，继
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr "授予 Lucky Drop 智能合约访问您的 {0} 权限。每个代币只需执行一次。"
+
+msgid "Token name"
+msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
@@ -2527,6 +2542,9 @@ msgstr "分享"
 msgid "Transaction Simulation"
 msgstr "交易模拟"
 
+msgid "Invalid wallet address format"
+msgstr ""
+
 msgid "Remaining"
 msgstr "剩余"
 
@@ -2749,6 +2767,9 @@ msgstr "在 2024 年 10 月 12 日之前在 X 上关注了 <0>@{handle}</0>，�
 #. placeholder {2}: resolveSourceName(post.source)
 msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
 msgstr "正在回复<0>@{0}</0> 和 <1>@{1}</1> on {2}"
+
+msgid "My MEME coin on BNB"
+msgstr ""
 
 msgid "Connect your wallet to follow"
 msgstr "连接钱包并关注"
@@ -3346,6 +3367,9 @@ msgstr "结束时间 {0}"
 
 msgid "Collect Article"
 msgstr "铸造文章"
+
+msgid "Launch Token"
+msgstr ""
 
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "自定义你的幸运掉落发送者：从你的社交账号或钱包中选择。"
@@ -4139,6 +4163,9 @@ msgstr "发帖"
 
 msgid "Creator:"
 msgstr "创建者："
+
+msgid "Post to launch"
+msgstr ""
 
 msgid "Following"
 msgstr "正在关注"

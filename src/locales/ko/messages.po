@@ -242,6 +242,9 @@ msgstr ""
 msgid "GIF source not supported. Supported sources: {0}."
 msgstr ""
 
+msgid "BNB wallet to receive trading fees"
+msgstr ""
+
 #. placeholder {0}: error.status
 msgid "Failed to fetch: {0}. Please try again later."
 msgstr ""
@@ -563,6 +566,9 @@ msgid "Confirm to log out your Firefly account?"
 msgstr ""
 
 msgid "Copied"
+msgstr ""
+
+msgid "BNB address"
 msgstr ""
 
 msgid "Name"
@@ -1364,6 +1370,9 @@ msgstr ""
 msgid "Channel"
 msgstr ""
 
+msgid "Token symbol"
+msgstr ""
+
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 msgstr ""
 
@@ -1662,6 +1671,9 @@ msgid "Best Wishes!"
 msgstr ""
 
 msgid "Sold Out"
+msgstr ""
+
+msgid "$meme"
 msgstr ""
 
 msgid "Proxy contract"
@@ -2030,6 +2042,9 @@ msgstr ""
 
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
+msgstr ""
+
+msgid "Token name"
 msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
@@ -2514,6 +2529,9 @@ msgstr ""
 msgid "Transaction Simulation"
 msgstr ""
 
+msgid "Invalid wallet address format"
+msgstr ""
+
 msgid "Remaining"
 msgstr ""
 
@@ -2735,6 +2753,9 @@ msgstr ""
 #. placeholder {1}: filteredProfiles[1].handle
 #. placeholder {2}: resolveSourceName(post.source)
 msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
+msgstr ""
+
+msgid "My MEME coin on BNB"
 msgstr ""
 
 msgid "Connect your wallet to follow"
@@ -3332,6 +3353,9 @@ msgid "Ended on {0}"
 msgstr ""
 
 msgid "Collect Article"
+msgstr ""
+
+msgid "Launch Token"
 msgstr ""
 
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
@@ -4120,6 +4144,9 @@ msgid "Post"
 msgstr ""
 
 msgid "Creator:"
+msgstr ""
+
+msgid "Post to launch"
 msgstr ""
 
 msgid "Following"
