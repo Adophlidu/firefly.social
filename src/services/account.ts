@@ -124,7 +124,7 @@ async function updateState(accounts: Account[], { setAsCurrent = true, overwrite
 async function resumeFireflySession(account: Account, signal?: AbortSignal): Promise<void> {
     const fireflySession = getFireflySession(account) ?? (await restoreFireflySession(account.session, signal));
     const fireflyAccount = {
-        profile: createDummyProfile(Source.Farcaster),
+        profile: createDummyProfile(Source.Farcaster, Source.Firefly),
         session: fireflySession,
     } satisfies Account;
 

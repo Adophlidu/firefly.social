@@ -40,7 +40,8 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Account } from '@/providers/types/Account.js';
 import { switchAccount } from '@/services/account.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
-import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
+import { useFireflyStateStore, useThirdPartyStateStore } from '@/store/useProfileStore.js';
+import { Avatar } from '@/components/Avatar.js';
 
 export function MainView() {
     const account = useAccountByNetwork();
@@ -48,6 +49,8 @@ export function MainView() {
     const { history } = router;
     const isMedium = useIsMedium();
     const [selectedSource, setSelectedSource] = useState<ThirdPartySource>();
+
+    const { currentProfile } = useFireflyStateStore();
 
     const isLoginFirefly = useIsLoginFirefly();
     const profileStore = useProfileStoreAll();
@@ -150,6 +153,15 @@ export function MainView() {
 
     return (
         <div className="rounded-[6px] bg-primaryBottom px-6 pb-6 max-md:max-h-[calc(100vh_-_64px)] max-md:overflow-auto md:w-[400px]">
+            {currentProfile?.profileId ? (
+                <div className="mb-3 flex gap-2 rounded-lg border border-highlight p-2">
+                    <Avatar src={currentProfile?.pfp} size={60} alt={currentProfile?.profileId ?? ''} />
+                    <div className="flex flex-col items-start">
+                        <span className="font-bold">{currentProfile?.displayName || 'Firefly Account'}</span>
+                        <span className="text-secondary">UID: {currentProfile?.profileId}</span>
+                    </div>
+                </div>
+            ) : null}
             <div className="mb-3 text-left text-[15px] font-medium leading-[15px]">
                 <Trans>Social accounts</Trans>
             </div>
