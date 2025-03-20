@@ -40,6 +40,7 @@ export const TWITTER_USER_OPTIONS: Partial<UsersV2Params> = {
         'location',
         'verified',
         'verified_type',
+        'entities',
     ],
 };
 

@@ -8,9 +8,9 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { WalletSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { type FireflyWalletConnection } from '@/providers/types/Firefly.js';
-import { disconnectFirefly } from '@/services/disconnectFirefly.js';
 
 interface DisconnectBindAddressButtonProps {
     connection: FireflyWalletConnection;
@@ -36,7 +36,10 @@ export function DisconnectBindAddressButton({ connection }: DisconnectBindAddres
             const confirmed = await waitForDisconnectConfirmation(connection);
             if (!confirmed) return;
 
-            await disconnectFirefly(connection);
+            await FireflyEndpointProvider.disconnectAccount(
+                connection.address,
+                resolveConnectionPlatform(connection.platform),
+            );
             enqueueSuccessMessage(t`Disconnected from your Firefly account`);
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to disconnect`);

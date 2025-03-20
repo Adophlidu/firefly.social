@@ -5,6 +5,7 @@ import { uniqBy } from 'lodash-es';
 import { memo, useMemo } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
+import { Loading } from '@/components/Loading.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { HomeTab, ScrollListKey, type SocialDiscoverSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
@@ -59,6 +60,10 @@ export const FollowingPostList = memo<{
             return mergeThreadPostsWithoutSource(uniqPosts);
         },
     );
+
+    if (asyncStatusAll) {
+        return <Loading />;
+    }
 
     return (
         <ListInPage

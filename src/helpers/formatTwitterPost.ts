@@ -6,6 +6,7 @@ import urlcat from 'urlcat';
 import { RestrictionType, Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
+import { TWEET_REGEX } from '@/constants/regexp.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { formatTwitterMedia } from '@/helpers/formatTwitterMedia.js';
 import { convertTwitterAvatar, formatTwitterProfileStatus } from '@/helpers/formatTwitterProfile.js';
@@ -120,10 +121,6 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
             ret.isThread = true;
         }
     }
-    if (quotedTweet) {
-        ret.quoteOn = tweetV2ToPost(quotedTweet, includes);
-        ret.type = 'Quote';
-    }
     if (retweeted) {
         ret.type = 'Mirror';
         if (retweetedTweet) {
@@ -185,7 +182,19 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     entitiesUrls?.forEach((url) => {
         content = content.replaceAll(url.url, url.expanded_url);
     });
-    const oembedUrls = getEmbedUrls(content, []);
+    let oembedUrls = getEmbedUrls(content, []);
+
+    if (quotedTweet) {
+        ret.quoteOn = tweetV2ToPost(quotedTweet, includes);
+        ret.type = 'Quote';
+        // remove quote tweet url from content
+        const quoteUrls = oembedUrls.filter((url) => url.match(TWEET_REGEX)?.[3] === ret.quoteOn?.postId);
+        quoteUrls.forEach((url) => {
+            content = content.replaceAll(url, '');
+            oembedUrls = oembedUrls.filter((x) => x !== url);
+        });
+    }
+
     ret.metadata.content = {
         ...ret.metadata.content,
         oembedUrls,

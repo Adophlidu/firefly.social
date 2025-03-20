@@ -34,7 +34,7 @@ function getIdentity(connection: FireflyWalletConnection): FireflyIdentity | nul
     }
 }
 
-export async function disconnectFirefly(connection: FireflyWalletConnection) {
+export async function disconnectSocialByWalletConnection(connection: FireflyWalletConnection) {
     const identity = getIdentity(connection);
     if (!identity) return;
     await FireflyEndpointProvider.disconnectAccount(

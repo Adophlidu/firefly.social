@@ -9,12 +9,7 @@ type Node = Link | Text;
 export function splitTextChildren(regex: RegExp, text: string): Node[] {
     const matches = [...text.matchAll(regex)];
     if (!matches.length) {
-        return [
-            {
-                type: 'text',
-                value: text,
-            },
-        ];
+        return [{ type: 'text', value: text }];
     }
     const newChildren: Node[] = [];
     let lastIndex = 0;
@@ -59,7 +54,7 @@ export function HashTagLink(source?: SocialSource) {
         return (ast: Root) => {
             flatMap(ast, (node) => {
                 if (node.type !== 'text') return [node];
-                return node.type !== 'text' ? [node] : splitTextChildren(regex, node.value);
+                return splitTextChildren(regex, node.value);
             });
             return ast;
         };

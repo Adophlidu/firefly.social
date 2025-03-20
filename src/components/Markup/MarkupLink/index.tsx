@@ -14,6 +14,7 @@ import { DomainTag } from '@/components/Markup/MarkupLink/DomainTag.js';
 import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
 import { Hashtag } from '@/components/Markup/MarkupLink/Hashtag.js';
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';
+import { MentionLinkWithQueryProfile } from '@/components/Markup/MarkupLink/MentionLinkWithQueryProfile.js';
 import { NFTCard } from '@/components/Markup/MarkupLink/NFTCard.js';
 import { NFTCollection } from '@/components/Markup/MarkupLink/NFTCollection.js';
 import { SymbolTag } from '@/components/Markup/MarkupLink/SymbolTag.js';
@@ -56,6 +57,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
 
     if (title.startsWith('@')) {
         if (!source) return title;
+        const handle = title.replace(/^@/, '');
 
         switch (source) {
             case Source.Lens: {
@@ -79,9 +81,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
             }
 
             case Source.Farcaster: {
-                const profile = post
-                    ? post.mentions?.find((x) => x.handle === title.replace(/^@/, ''))
-                    : fallbackProfile;
+                const profile = post ? post.mentions?.find((x) => x.handle === title) : fallbackProfile;
                 if (!profile) return title;
 
                 const link = getProfileUrl(profile);
@@ -98,8 +98,8 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
             }
 
             case Source.Twitter:
-                const profile = post?.mentions?.find((x) => x.handle === title.replace(/^@/, ''));
-                if (!profile) return title;
+                const profile = post?.mentions?.find((x) => x.handle === title);
+                if (!profile) return <MentionLinkWithQueryProfile source={source} handle={handle} fallback={title} />;
                 return (
                     <ProfileTippy
                         identity={{
@@ -111,7 +111,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                     </ProfileTippy>
                 );
             case Source.Bsky: {
-                const profile = post?.mentions?.find((x) => x.handle === title.replace(/^@/, ''));
+                const profile = post?.mentions?.find((x) => x.handle === title);
                 if (!profile) return title;
                 return (
                     <ProfileTippy

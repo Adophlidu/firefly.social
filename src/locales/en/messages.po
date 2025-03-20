@@ -1839,6 +1839,9 @@ msgstr "Rank #{tokenRank}"
 msgid "Login with Farcaster"
 msgstr "Login with Farcaster"
 
+msgid "Please connect your wallet to continue."
+msgstr "Please connect your wallet to continue."
+
 msgid "Votes"
 msgstr "Votes"
 

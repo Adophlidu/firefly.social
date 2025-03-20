@@ -31,7 +31,7 @@ export default async function Layout(props: Props) {
     if (!source || !isBookmarkSource(source)) notFound();
     return (
         <div>
-            <div className="sticky top-0 z-10 bg-primaryBottom px-4 pb-3">
+            <div className="sticky top-0 z-20 bg-primaryBottom px-4 pb-3">
                 <h1 className="h-[60px] text-xl font-bold leading-[60px] text-main">
                     <Trans>Bookmarks</Trans>
                 </h1>

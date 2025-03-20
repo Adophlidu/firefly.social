@@ -35,7 +35,7 @@ import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
-import { ConnectModalRef, LoginModalRef } from '@/modals/controls.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Account } from '@/providers/types/Account.js';
 import { switchAccount } from '@/services/account.js';
@@ -68,10 +68,7 @@ export function MainView() {
 
     const onClick = (source: SocialSource) => {
         const signType = source === Source.Farcaster && isMedium ? FarcasterSignType.RelayService : undefined;
-        if (source === Source.Lens && !account.isConnected) {
-            ConnectModalRef.open();
-            return;
-        }
+
         const path = urlcat('/:source', {
             source: resolveSourceInUrl(source),
             signType,

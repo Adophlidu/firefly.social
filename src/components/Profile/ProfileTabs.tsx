@@ -76,13 +76,13 @@ interface ProfileTabsProps {
 export function ProfileTabs({ profiles: initialProfiles, identity }: ProfileTabsProps) {
     const isDarkMode = useIsDarkMode();
     const { data: profiles = initialProfiles } = useAllProfiles(identity);
+    const currentSourceProfiles = profiles.filter((profile) => profile.identity.source === identity.source);
 
-    if (profiles.length <= 1) return null;
+    if (currentSourceProfiles.length <= 1) return null;
 
     return (
         <SourceTabs className="!static !z-0 !border-none !bg-transparent">
-            {profiles
-                .filter((profile) => profile.identity.source === identity.source)
+            {currentSourceProfiles
                 .concat()
                 .sort((a, b) => {
                     if (a.isDefault && !b.isDefault) return -1;

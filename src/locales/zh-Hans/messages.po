@@ -1844,6 +1844,9 @@ msgstr "排名 #{tokenRank}"
 msgid "Login with Farcaster"
 msgstr "使用 Farcaster 登录"
 
+msgid "Please connect your wallet to continue."
+msgstr ""
+
 msgid "Votes"
 msgstr "投票"
 

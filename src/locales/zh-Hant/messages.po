@@ -1836,6 +1836,9 @@ msgstr ""
 msgid "Login with Farcaster"
 msgstr "通過 Farcaster 登錄"
 
+msgid "Please connect your wallet to continue."
+msgstr ""
+
 msgid "Votes"
 msgstr ""
 

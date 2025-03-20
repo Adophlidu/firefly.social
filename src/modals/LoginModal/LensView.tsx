@@ -2,6 +2,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useRouter } from '@tanstack/react-router';
+import { ConnectorNotConnectedError } from '@wagmi/core';
 import { memo } from 'react';
 import { useAccount } from 'wagmi';
 
@@ -10,7 +11,7 @@ import { LoginLens } from '@/components/Login/LoginLens.js';
 import { config } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -44,7 +45,11 @@ export const LensView = memo(function LensView() {
                 const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
                 return profiles ?? EMPTY_LIST;
             } catch (error) {
-                enqueueMessageFromError(error, t`Failed to fetch profiles.`);
+                if (error instanceof ConnectorNotConnectedError) {
+                    enqueueWarningMessage(t`Please connect your wallet to continue.`);
+                } else {
+                    enqueueMessageFromError(error, t`Failed to fetch profiles.`);
+                }
                 console.error('[login lens] Failed to fetch profiles', error);
 
                 history.replace('/main');
