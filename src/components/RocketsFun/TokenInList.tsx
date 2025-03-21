@@ -47,7 +47,7 @@ export const TokenInList = memo(function TokenInList({ token }: Props) {
                             <span className="ml-1 text-lightSecond">{token.symbol}</span>
                         </div>
                         <div className="flex gap-2">
-                            <span className="font-bold text-lightMain">
+                            <span className="text-2xl font-bold text-lightMain">
                                 ${renderShrankPrice(formatPrice(token.market_cap) ?? '')}
                             </span>
                             <span className="text-medium text-lightSecond">MC</span>
