@@ -44,7 +44,7 @@ export function FireflyAccountCard() {
                             'animate-pulse bg-bg': isLoading,
                         })}
                     >
-                        {account?.displayName}
+                        {account?.displayName ?? <Trans>Firefly User</Trans>}
                     </div>
                     <div
                         className={classNames('min-w-[120px] text-second', isLoading ? 'h-3' : 'h-5', {

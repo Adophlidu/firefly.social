@@ -25,8 +25,8 @@ import { TipsButton } from '@/components/Profile/TipsButton.js';
 import { useEffect } from 'react';
 import { PROFILE_ACTION_ID } from '@/components/Profile/SocialProfileInfo.js';
 import { WALLET_PROFILE_ACTION_ID } from '@/components/Profile/WalletInfo.js';
-import { ProfileMoreAction } from '@/components/Profile/ProfileMoreAction.js';
-import { WalletMoreAction } from '@/components/Profile/WalletMoreAction.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { FireflyAccountMoreButton } from '@/components/Profile/FireflyAccountMoreButton.js';
 
 interface Props {
     displayName?: string | null;
@@ -143,10 +143,7 @@ export function FireflyAccountInfo({
                                             profiles={profiles}
                                             handle={socialProfile.handle}
                                         />
-                                        <ProfileMoreAction
-                                            profile={socialProfile}
-                                            buttonClassName="!border-none bg-lightBg text-second active:opacity-50 md:hover:opacity-60"
-                                        />
+                                        <FireflyAccountMoreButton profile={socialProfile} />
                                     </>
                                 ) : null}
                                 {walletProfile ? (
@@ -156,10 +153,7 @@ export function FireflyAccountInfo({
                                             profiles={profiles}
                                             handle={walletProfile.primary_ens ?? walletProfile.address}
                                         />
-                                        <WalletMoreAction
-                                            profile={walletProfile}
-                                            buttonClassName="!border-none bg-lightBg text-second active:opacity-50 md:hover:opacity-60"
-                                        />
+                                        <FireflyAccountMoreButton walletProfile={walletProfile} />
                                     </>
                                 ) : null}
                             </>
@@ -167,7 +161,11 @@ export function FireflyAccountInfo({
                     </div>
                 </div>
                 <div className="flex w-full flex-col items-center px-4">
-                    <Avatar size={80} alt="firefly-account" src={avatar ?? undefined} />
+                    <Avatar
+                        size={80}
+                        alt="firefly-account"
+                        src={avatar ?? getStampAvatarByProfileId(Source.Firefly, uid)}
+                    />
                     <div className="h-6 min-w-0 max-w-full truncate text-lg font-bold leading-6">
                         {displayName ?? <Trans>Firefly User</Trans>}
                     </div>

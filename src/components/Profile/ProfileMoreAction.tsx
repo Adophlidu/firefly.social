@@ -83,7 +83,6 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                                 <MuteProfileButton onConfirm={close} profile={profile} onToggle={toggleMutedProfile} />
                             )}
                         </MenuItem>
-                        <MenuItem>{({ close }) => <MuteAllByProfile profile={profile} onClose={close} />}</MenuItem>
                     </>
                 ) : null}
 

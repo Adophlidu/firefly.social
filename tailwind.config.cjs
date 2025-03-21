@@ -93,7 +93,7 @@ module.exports = {
                 lensCard: '4px 4px 4px 0px rgb(var(--color-lens-primary))',
                 farcasterCard: '4px 4px 4px 0px rgb(var(--color-farcaster-primary))',
                 bskyCard: '4px 4px 4px 0px rgb(var(--color-bsky-primary))',
-                xCard: '4px 4px 4px 0px rgb(var(--color-primary))',
+                xCard: '4px 4px 4px 0px rgb(var(--color-main))',
                 lightHighlightCard: '4px 4px 4px 0px rgb(var(--color-light-highlight))',
                 dangerCard: '4px 4px 4px 0px rgb(var(--color-danger))',
             },

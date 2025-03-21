@@ -1,0 +1,77 @@
+'use client';
+
+import { Menu, MenuItem } from '@headlessui/react';
+import MoreIcon from '@/assets/more.svg';
+import { MuteAllByProfile, MuteAllByWallet } from '@/components/Actions/MuteAllProfile.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
+import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
+import type { WalletProfile } from '@/providers/types/Firefly.js';
+import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
+import { Source } from '@/constants/enum.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
+import { useEnsName } from 'wagmi';
+import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { Trans } from '@lingui/react/macro';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+
+interface Props {
+    walletProfile?: WalletProfile;
+    profile?: Profile;
+}
+
+function MuteAllByWalletProfileMenuItem({ profile }: { profile: WalletProfile }) {
+    const identity = useFireflyIdentity(Source.Wallet, profile.address);
+    const isMyWallet = useIsMyRelatedProfile(identity.source, identity.id);
+    const { data: ens } = useEnsName({ address: profile.address });
+    if (isMyWallet) return null;
+    const ensOrAddress = profile.primary_ens || ens || formatAddress(profile.address, 4);
+    return (
+        <MenuItem>
+            {({ close }) => <MuteAllByWallet address={profile.address} handle={ensOrAddress} onClose={close} />}
+        </MenuItem>
+    );
+}
+
+export function FireflyAccountMoreButton({ profile, walletProfile }: Props) {
+    return (
+        <Menu>
+            <Menu.Button className="inline-flex size-8 items-center justify-center rounded-lg bg-lightBg text-main text-second active:opacity-50 md:hover:opacity-60">
+                <MoreIcon width={22} height={22} className="shrink-0" />
+            </Menu.Button>
+            <Menu.Items
+                anchor="bottom end"
+                transition
+                className="z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main data-[closed]:scale-95 data-[closed]:opacity-0"
+            >
+                {profile ? (
+                    <>
+                        <Menu.Item>
+                            {({ close }) => (
+                                <CopyLinkButton link={getProfileUrl(profile)} onClick={close}>
+                                    <Trans>Copy link to profile</Trans>
+                                </CopyLinkButton>
+                            )}
+                        </Menu.Item>
+                        <MenuItem>{({ close }) => <MuteAllByProfile profile={profile} onClose={close} />}</MenuItem>
+                    </>
+                ) : null}
+                {walletProfile ? (
+                    <>
+                        <Menu.Item>
+                            {({ close }) => (
+                                <CopyLinkButton
+                                    link={resolveProfileUrl(Source.Wallet, walletProfile.address)}
+                                    onClick={close}
+                                >
+                                    <Trans>Copy link to profile</Trans>
+                                </CopyLinkButton>
+                            )}
+                        </Menu.Item>
+                        <MuteAllByWalletProfileMenuItem profile={walletProfile} />
+                    </>
+                ) : null}
+            </Menu.Items>
+        </Menu>
+    );
+}

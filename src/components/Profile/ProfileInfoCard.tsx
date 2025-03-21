@@ -16,7 +16,7 @@ export function ProfileInfoCard({ walletProfile, socialProfile, source }: Props)
             className={classNames('mx-4 mb-2 rounded-lg border bg-lightBg', {
                 'border-farcasterPrimary shadow-farcasterCard': source === Source.Farcaster,
                 'border-lensPrimary shadow-lensCard': source === Source.Lens,
-                'border-primaryBottom shadow-xCard': source === Source.Twitter,
+                'border-main shadow-xCard': source === Source.Twitter,
                 'border-bskyPrimary shadow-bskyCard': source === Source.Bsky,
                 'border-lightHighlight shadow-lightHighlightCard': source === Source.Wallet && !walletProfile?.hacked,
                 'border-danger shadow-dangerCard': source === Source.Wallet && !!walletProfile?.hacked,

@@ -15,7 +15,7 @@ export function getStampAvatarByProfileId(source: Source, profileId: string) {
         case Source.Bsky:
             return '';
         case Source.Firefly:
-            return '';
+            return urlcat(FIREFLY_STAMP_URL, '/firefly/:id', { id: profileId, s: 240 });
         case Source.Wallet:
         case Source.NFTs:
         case Source.Article:
