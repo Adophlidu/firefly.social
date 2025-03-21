@@ -2,7 +2,7 @@ import { memoize } from 'lodash-es';
 import { SourceType, type NonFungibleCollection } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
-import { NetworkPluginID } from '@masknet/shared-base';
+import { NetworkPluginID } from '@/constants/enum.js';
 import type { Web3Helper } from '@masknet/web3-helpers';
 import { SIMPLE_HASH_URL } from './constants.js';
 import { fetchSquashedJSON } from '../helpers/fetchJSON.js';

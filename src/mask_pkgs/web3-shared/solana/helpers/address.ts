@@ -1,8 +1,8 @@
 import { memoize } from 'lodash-es';
 import { getEnumAsArray } from '@masknet/kit';
-import { isSameAddress } from '@masknet/web3-shared-base';
-import { NetworkPluginID, createLookupTableResolver } from '@masknet/shared-base';
-import { ChainId, NetworkType, ProviderType, SchemaType } from '../types.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { NetworkPluginID } from '@/constants/enum.js';
+import { ChainId, NetworkType, ProviderType } from '../types.js';
 import { getTokenConstant } from '../constants/constants.js';
 import { ZERO_ADDRESS } from '../constants/primitives.js';
 
@@ -11,15 +11,6 @@ export function formatAddress(address: string, size = 0) {
     if (size === 0 || size >= 22) return address;
     return `${address.slice(0, Math.max(0, size))}...${address.slice(-size)}`;
 }
-
-export const formatSchemaType = createLookupTableResolver<SchemaType, string>(
-    {
-        [SchemaType.Native]: 'Native',
-        [SchemaType.Fungible]: 'Fungible',
-        [SchemaType.NonFungible]: 'NonFungible',
-    },
-    '',
-);
 
 export function formatTokenId(tokenId = '', size_ = 4) {
     const size = Math.max(2, size_);

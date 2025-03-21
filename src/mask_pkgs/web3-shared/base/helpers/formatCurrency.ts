@@ -1,5 +1,5 @@
 import { BigNumber } from 'bignumber.js';
-import { scale10 } from './number.js';
+import { scale10 } from '@/helpers/number.js';
 import { CurrencyType } from '../index.js';
 
 export interface FormatterCurrencyOptions {

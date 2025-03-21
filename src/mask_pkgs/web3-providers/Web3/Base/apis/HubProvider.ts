@@ -1,5 +1,6 @@
-import { type SourceType, createPredicate } from '@masknet/web3-shared-base';
+import { type SourceType } from '@masknet/web3-shared-base';
 import { type HubOptionsProvider, type BaseHubOptions } from './HubOptions.js';
+import { createPredicate } from '@/helpers/attemptUntil.js';
 
 export abstract class AbstractBaseHubProvider<ChainId> {
     constructor(protected options?: BaseHubOptions<ChainId>) {}

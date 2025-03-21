@@ -1,4 +1,4 @@
-import { isSameAddress } from '@masknet/web3-shared-base';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { produce } from 'immer';
 import { compact, first } from 'lodash-es';

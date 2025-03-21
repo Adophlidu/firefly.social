@@ -1,4 +1,4 @@
-import { lazyProxy } from '@masknet/shared-base';
+import { lazyObject } from '@/helpers/lazyObject.js';
 import * as ABICoder from /* webpackDefer: true */ 'web3-eth-abi';
 
-export const abiCoder = lazyProxy(() => ABICoder.default) as unknown as ABICoder.AbiCoder;
+export const abiCoder = lazyObject(() => ABICoder.default) as unknown as ABICoder.AbiCoder;

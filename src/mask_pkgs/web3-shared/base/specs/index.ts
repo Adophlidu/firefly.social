@@ -1,15 +1,5 @@
-import type {
-    Subscription,
-    NetworkPluginID,
-    BindingProof,
-    Account,
-    Color,
-    SocialAddress,
-    SocialIdentity,
-    SocialAccount,
-} from '@masknet/shared-base';
-import type { JsonRpcPayload } from 'web3-core-helpers';
-import type { Emitter } from '@servie/events';
+import type { NetworkPluginID } from '@/constants/enum.js';
+import type { Color } from '@/types/color.js';
 
 export enum CurrencyType {
     NATIVE = 'native',
@@ -417,8 +407,4 @@ export interface NonFungibleAsset<ChainId, SchemaType> extends NonFungibleToken<
     source?: SourceType;
     /** token count */
     tokenCount?: number;
-}
-
-export interface RecognizableError extends Error {
-    isRecognized?: boolean;
 }

@@ -2,7 +2,7 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { type FungibleToken, isLessThan } from '@masknet/web3-shared-base';
+import { type FungibleToken } from '@masknet/web3-shared-base';
 import { type ChainId, getRedPacketConstant, SchemaType } from '@masknet/web3-shared-evm';
 import { useRouter } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
@@ -28,7 +28,7 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { getRpMaxShares, getRpMessageMaxLength } from '@/helpers/getRpLimitations.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
-import { isGreaterThan, isZero, leftShift, multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
+import { isGreaterThan, isLessThan, isZero, leftShift, multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';

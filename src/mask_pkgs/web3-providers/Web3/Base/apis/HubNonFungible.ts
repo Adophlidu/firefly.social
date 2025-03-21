@@ -1,8 +1,10 @@
-import { attemptUntil, type NonFungibleCollection } from '@masknet/web3-shared-base';
-import { type Pageable, createPageable, createIndicator, EMPTY_LIST } from '@masknet/shared-base';
+import { type NonFungibleCollection } from '@masknet/web3-shared-base';
 import { AbstractBaseHubProvider } from './HubProvider.js';
 import type { BaseHubOptions } from './HubOptions.js';
 import type { NonFungibleTokenAPI } from '../../../entry-types.js';
+import { EMPTY_LIST } from '@/constants/index.js';
+import { type Pageable, createPageable, createIndicator } from '@/helpers/pageable.js';
+import { attemptUntil } from '@/helpers/attemptUntil.js';
 
 export abstract class BaseHubNonFungible<ChainId, SchemaType> extends AbstractBaseHubProvider<ChainId> {
     protected abstract getProvidersNonFungible(

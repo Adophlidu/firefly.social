@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { isSameAddress } from '@masknet/web3-shared-base';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
 import { useQuery } from '@tanstack/react-query';

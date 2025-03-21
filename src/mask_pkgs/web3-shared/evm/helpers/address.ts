@@ -1,6 +1,6 @@
 import { memoize } from 'lodash-es';
 import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
-import { isSameAddress } from '@masknet/web3-shared-base';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import {
     ChainIdList,
     getENSConstants,

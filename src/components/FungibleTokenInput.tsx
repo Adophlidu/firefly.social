@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { type FungibleToken, isSameAddress } from '@masknet/web3-shared-base';
+import { type FungibleToken } from '@masknet/web3-shared-base';
 import { isNativeTokenAddress, ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { isNativeTokenAddress as isNativeTokenAddressSolana } from '@masknet/web3-shared-solana';
 import { BigNumber } from 'bignumber.js';
@@ -12,7 +12,7 @@ import { TokenIcon } from '@/components/TokenIcon.js';
 import { NetworkType } from '@/constants/enum.js';
 import { NUMERIC_INPUT_REGEXP_PATTERN } from '@/constants/regexp.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress, isSameAddress } from '@/helpers/isSameAddress.js';
 import { isZero, leftShift } from '@/helpers/number.js';
 import { TokenSelectorModalRef } from '@/modals/controls.js';
 

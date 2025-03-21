@@ -1,4 +1,4 @@
-import { NetworkPluginID } from '@masknet/shared-base';
+import { NetworkPluginID } from '@/constants/enum.js';
 import { ChainId, ProviderType } from '../types/index.js';
 
 export function getNetworkPluginID() {

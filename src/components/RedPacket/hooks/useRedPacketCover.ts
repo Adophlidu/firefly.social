@@ -1,4 +1,4 @@
-import { minus, toFixed } from '@masknet/web3-shared-base';
+import { minus, toFixed } from '@/helpers/number.js';
 import { useQuery } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 

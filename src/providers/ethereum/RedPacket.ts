@@ -1,4 +1,5 @@
-import { type FungibleToken, isLessThan, toFixed } from '@masknet/web3-shared-base';
+import { type FungibleToken } from '@masknet/web3-shared-base';
+import { isLessThan, toFixed } from '@/helpers/number.js';
 import {
     type ChainId,
     ContractTransaction,

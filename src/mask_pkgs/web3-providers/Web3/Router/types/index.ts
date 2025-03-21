@@ -1,4 +1,4 @@
-import type { NetworkPluginID } from '@masknet/shared-base';
+import type { NetworkPluginID } from '@/constants/enum.js';
 import type { Web3Helper } from '@masknet/web3-helpers';
 import type { BaseHubProvider } from '../../Base/apis/HubBase.js';
 import type { BaseHubFungible } from '../../Base/apis/HubFungible.js';

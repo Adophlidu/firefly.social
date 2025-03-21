@@ -1,6 +1,5 @@
 import { identity, pickBy } from 'lodash-es';
 import type { GasOptionType } from '@masknet/web3-shared-base';
-import type { PartialRequired } from '@masknet/shared-base';
 import {
     getDefaultChainId,
     getDefaultProviderType,
@@ -8,6 +7,7 @@ import {
     ProviderType,
     type Transaction,
 } from '@masknet/web3-shared-evm';
+import type { PartialRequired } from '@/types/index.js';
 
 export interface BaseConnectionOptions {
     /** Designate the signer of the transaction. */

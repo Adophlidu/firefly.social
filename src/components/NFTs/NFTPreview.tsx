@@ -15,7 +15,7 @@ import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { PoapTrait } from '@/components/NFTDetail/PoapTrait.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
-import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
+import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
@@ -26,7 +26,6 @@ import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useCollectionMarketInfo } from '@/hooks/useCollectionMarketInfo.js';
 import { useNFTCollection } from '@/hooks/useNFTCollection.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
-import { EMPTY_LIST } from '@/mask_pkgs/shared-base/constants.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 interface NFTPreviewProps {

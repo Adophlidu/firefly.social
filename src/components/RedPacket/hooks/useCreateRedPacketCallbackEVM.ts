@@ -1,5 +1,6 @@
 import { t } from '@lingui/core/macro';
-import { type FungibleToken, toFixed } from '@masknet/web3-shared-base';
+import { type FungibleToken } from '@masknet/web3-shared-base';
+import { toFixed } from '@/helpers/number.js';
 import { ChainId, getRedPacketConstant, getTokenConstant, SchemaType } from '@masknet/web3-shared-evm';
 import { first, omit, pick } from 'lodash-es';
 import { useContext, useMemo } from 'react';

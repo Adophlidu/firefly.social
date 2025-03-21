@@ -1,5 +1,6 @@
 import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
-import { GasOptionType, isZero, multipliedBy, toFixed } from '@masknet/web3-shared-base';
+import { GasOptionType } from '@masknet/web3-shared-base';
+import { isZero, multipliedBy, toFixed } from '@/helpers/number.js';
 import { formatWeiToEther } from '../helpers/formatter.js';
 import type {
     ChainId,

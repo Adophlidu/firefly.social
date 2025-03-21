@@ -1,4 +1,4 @@
-import { isSameAddress } from '@masknet/web3-shared-base';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { ChainId } from '@masknet/web3-shared-solana';
 import { compact } from 'lodash-es';
 

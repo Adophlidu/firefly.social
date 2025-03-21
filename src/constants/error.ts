@@ -186,3 +186,7 @@ export class LoginEmailError extends Error {
         super(message ?? 'The code you’ve entered is incorrect, please try again.');
     }
 }
+
+export interface RecognizableError extends Error {
+    isRecognized?: boolean;
+}

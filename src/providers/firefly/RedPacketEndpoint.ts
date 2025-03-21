@@ -11,10 +11,10 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
-import { toFixed } from '@/mask_pkgs/web3-shared/base/index.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { settings } from '@/settings/index.js';
+import { toFixed } from '@/helpers/number.js';
 
 const SITE_URL = bom.location?.origin ?? '';
 

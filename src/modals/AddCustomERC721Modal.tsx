@@ -5,7 +5,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 import { useNonFungibleCollections } from '@masknet/web3-hooks-base';
-import { isSameAddress } from '@masknet/web3-shared-base';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddress, SchemaType } from '@masknet/web3-shared-evm';
 import { useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';

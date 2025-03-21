@@ -20,16 +20,3 @@ export function lazyObject<T extends object>(lazyInit: { [key in keyof T]: () =>
     Object.defineProperties(object, desc);
     return object;
 }
-
-export function lazyProxy<T extends object>(lazyInit: () => T): T {
-    const target = Object.create(null);
-    const handler = new Proxy(target, {
-        get() {
-            Object.setPrototypeOf(target, lazyInit());
-            Object.setPrototypeOf(handler2, null);
-            return undefined;
-        },
-    });
-    const handler2 = Object.create(handler);
-    return new Proxy(target, handler2);
-}

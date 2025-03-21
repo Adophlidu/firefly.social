@@ -9,7 +9,6 @@ import {
     AppBskyFeedThreadgate,
     RichText,
 } from '@atproto/api';
-import { parseURL } from '@masknet/shared-base';
 import { produce } from 'immer';
 import { compact, first, isUndefined, omitBy } from 'lodash-es';
 
@@ -21,9 +20,10 @@ import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { type Attachment, type Post, type Profile } from '@/providers/types/SocialMedia.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 
 function parseBskyGifUri(uri: string): boolean {
-    const parsedURL = parseURL(uri);
+    const parsedURL = parseUrl(uri);
     if (!parsedURL) return false;
     const height = parsedURL.searchParams.get('hh');
     const width = parsedURL.searchParams.get('ww');

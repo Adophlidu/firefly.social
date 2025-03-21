@@ -1,5 +1,5 @@
 import { type ChainDescriptor, type NetworkDescriptor, TokenType } from '@masknet/web3-shared-base';
-import { NetworkPluginID } from '@masknet/shared-base';
+import { NetworkPluginID } from '@/constants/enum.js';
 import CHAINS from './chains.json' with { type: 'json' };
 import { ChainId, NetworkType, SchemaType } from '../types/index.js';
 import { getTokenConstant } from './constants.js';

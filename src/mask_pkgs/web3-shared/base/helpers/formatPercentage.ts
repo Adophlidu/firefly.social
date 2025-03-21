@@ -1,5 +1,5 @@
 import type { BigNumber } from 'bignumber.js';
-import { multipliedBy } from './number.js';
+import { multipliedBy } from '@/helpers/number.js';
 
 export function formatPercentage(value: BigNumber.Value) {
     const percentage = multipliedBy(value, 100)

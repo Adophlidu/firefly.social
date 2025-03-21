@@ -1,5 +1,3 @@
-import { omitBy, isUndefined } from 'lodash-es';
-import type { ECKeyIdentifier } from '@masknet/shared-base';
 import {
     ChainId,
     ErrorEditor,
@@ -7,8 +5,6 @@ import {
     PayloadEditor,
     createJsonRpcPayload,
     createJsonRpcResponse,
-    parseChainId,
-    type Transaction,
     type RequestArguments,
 } from '@masknet/web3-shared-evm';
 import type { EVMConnectionOptions } from '../types/index.js';

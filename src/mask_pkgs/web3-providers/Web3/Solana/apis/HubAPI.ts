@@ -1,4 +1,4 @@
-import { mixin } from '@masknet/shared-base';
+import { mixin } from '@/helpers/mixin.js';
 import type { Web3Definition } from '@masknet/web3-shared-solana';
 import { createHubMemoized } from '../../Base/apis/createHubMemoized.js';
 import type { BaseHubOptions } from '../../Base/apis/HubOptions.js';

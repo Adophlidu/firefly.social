@@ -1,4 +1,3 @@
-import { isSameAddress, leftShift } from '@masknet/web3-shared-base';
 import { ChainId, getCoinGeckoConstants } from '@masknet/web3-shared-solana';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 import { compact } from 'lodash-es';
@@ -8,7 +7,7 @@ import { env } from '@/constants/env.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
-import { multipliedBy } from '@/helpers/number.js';
+import { leftShift, multipliedBy } from '@/helpers/number.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { SolanaChainResolver } from '@/mask/index.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
@@ -17,6 +16,7 @@ import { requestRPC } from '@/providers/solana/requestRPC.js';
 import type { CoinGeckoAsset } from '@/providers/types/CoinGecko.js';
 import type { GetProgramAccountsResponse, SplToken } from '@/providers/types/Solana.js';
 import type { Token } from '@/providers/types/Transfer.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 
 export const getAllSolanaTokens = memoizePromise(
     async () => {

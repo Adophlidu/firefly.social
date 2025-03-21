@@ -1,12 +1,4 @@
 import urlcat from 'urlcat';
-import {
-    EMPTY_LIST,
-    createPageable,
-    type Pageable,
-    type PageIndicator,
-    createIndicator,
-    NetworkPluginID,
-} from '@masknet/shared-base';
 import { type NonFungibleCollection } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType, isValidChainId } from '@masknet/web3-shared-evm';
 import {
@@ -20,6 +12,9 @@ import {
 import type { BaseHubOptions, NonFungibleTokenAPI } from '../../entry-types.js';
 import { SPAM_SCORE } from '../constants.js';
 import { type SimpleHash } from '../../types/SimpleHash.js';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { NetworkPluginID } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 
 class SimpleHashAPI_EVM implements NonFungibleTokenAPI.Provider<ChainId, SchemaType> {
     async getCollectionsByOwner(

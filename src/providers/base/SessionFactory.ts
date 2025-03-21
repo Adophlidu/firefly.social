@@ -3,7 +3,6 @@ import z from 'zod';
 
 import { UnreachableError } from '@/constants/error.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
-import { parseURL } from '@/mask_pkgs/shared-base/index.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import {
@@ -16,6 +15,7 @@ import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 
 const SessionSchema = z.object({
     profileId: z.string(),
@@ -159,7 +159,7 @@ export class SessionFactory {
                     );
                 }
                 case SessionType.Bsky: {
-                    const u = parseURL(atob(secondPart));
+                    const u = parseUrl(atob(secondPart));
                     if (!u) throw new Error('Failed to parse service URL.');
 
                     const parsed = BskySessionPayload.safeParse(parseJSON(atob(thirdPart)));

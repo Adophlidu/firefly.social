@@ -1,4 +1,4 @@
-import { mixin } from '@masknet/shared-base';
+import { mixin } from '@/helpers/mixin.js';
 import { EVMBaseHub } from './HubBaseAPI.js';
 import { HubFungibleAPI } from './HubFungibleAPI.js';
 import { HubNonFungibleAPI } from './HubNonFungibleAPI.js';

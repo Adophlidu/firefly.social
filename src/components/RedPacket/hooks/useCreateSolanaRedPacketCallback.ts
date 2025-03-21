@@ -1,6 +1,7 @@
 import { web3 } from '@coral-xyz/anchor';
 import { t } from '@lingui/core/macro';
-import { type FungibleToken, toFixed } from '@masknet/web3-shared-base';
+import { type FungibleToken } from '@masknet/web3-shared-base';
+import { minus, toFixed } from '@/helpers/number.js';
 import { isNativeTokenAddress } from '@masknet/web3-shared-solana';
 import { BigNumber } from 'bignumber.js';
 import { omit, pick } from 'lodash-es';

@@ -1,6 +1,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { formatCurrency, multipliedBy, rightShift } from '@masknet/web3-shared-base';
+import { formatCurrency } from '@masknet/web3-shared-base';
+import { multipliedBy, rightShift } from '@/helpers/number.js';
 import { isValidAddress } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
 import { compact, flatten } from 'lodash-es';

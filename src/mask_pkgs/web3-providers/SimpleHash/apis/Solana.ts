@@ -1,5 +1,4 @@
 import urlcat from 'urlcat';
-import { EMPTY_LIST, createIndicator, createPageable, type PageIndicator, type Pageable } from '@masknet/shared-base';
 import { type NonFungibleCollection } from '@masknet/web3-shared-base';
 import { ChainId, isValidChainId, type SchemaType } from '@masknet/web3-shared-solana';
 import { fetchFromSimpleHash } from '../helpers.js';
@@ -7,6 +6,8 @@ import type { BaseHubOptions, NonFungibleTokenAPI } from '../../entry-types.js';
 import { createSolanaNonFungibleCollection, resolveSolanaChainId } from '../solana-helpers.js';
 import { SPAM_SCORE } from '../constants.js';
 import type { SimpleHash } from '../../types/SimpleHash.js';
+import { createIndicator, createPageable, type PageIndicator, type Pageable } from '@/helpers/pageable.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 
 class SimpleHashAPI_Solana implements NonFungibleTokenAPI.Provider<ChainId, SchemaType> {
     async getCollectionsByOwner(

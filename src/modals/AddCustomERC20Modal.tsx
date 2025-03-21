@@ -4,7 +4,7 @@ import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
-import { isSameAddress } from '@masknet/web3-shared-base';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddress } from '@masknet/web3-shared-evm';
 import { useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';

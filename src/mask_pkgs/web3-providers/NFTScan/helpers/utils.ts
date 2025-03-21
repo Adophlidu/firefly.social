@@ -1,4 +1,4 @@
-import { NetworkPluginID } from '@masknet/shared-base';
+import { NetworkPluginID } from '@/constants/enum.js';
 import { ChainId } from '@masknet/web3-shared-evm';
 import type { Web3Helper } from '@masknet/web3-helpers';
 

@@ -50,3 +50,7 @@ export interface NextPageProps<Params = never, SearchParams = never> extends Pro
     searchParams: SearchParams extends never ? never : Promise<SearchParams>;
     children: React.ReactNode;
 }
+
+export type PartialRequired<T, RequiredKeys extends keyof T> = Omit<T, RequiredKeys> & Pick<Required<T>, RequiredKeys>;
+
+export type UnboxPromise<T> = T extends Promise<infer U> ? U : never;

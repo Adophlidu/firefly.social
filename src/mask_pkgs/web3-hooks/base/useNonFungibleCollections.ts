@@ -1,15 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import {
-    asyncIteratorToArray,
-    pageableToIterator,
-    type PageIndicator,
-    type NetworkPluginID,
-    EMPTY_LIST,
-} from '@masknet/shared-base';
 import type { HubOptions } from '@masknet/web3-providers/types';
 import { type NonFungibleCollection } from '@masknet/web3-shared-base';
 import type { Web3Helper } from '@masknet/web3-helpers';
 import { useWeb3Hub } from './useWeb3Hub.js';
+import { pageableToIterator, type PageIndicator } from '@/helpers/pageable.js';
+import { EMPTY_LIST } from '@/constants/index.js';
+import type { NetworkPluginID } from '@/constants/enum.js';
+import { asyncIteratorToArray } from '@/helpers/asyncIteratorToArray.js';
 
 export function useNonFungibleCollections<S extends 'all' | void = void, T extends NetworkPluginID = NetworkPluginID>(
     pluginID: T,

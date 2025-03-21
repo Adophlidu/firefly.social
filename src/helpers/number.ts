@@ -1,4 +1,5 @@
 import { BigNumber } from 'bignumber.js';
+import { isUndefined } from 'lodash-es';
 
 export const ZERO = new BigNumber('0');
 export const ONE = new BigNumber('1');
@@ -74,4 +75,11 @@ export function dividedBy(a: BigNumber.Value, b: BigNumber.Value) {
 /** new BigNumber(n).toNumber() */
 export function toNumber(value?: BigNumber.Value, fallback = 0) {
     return new BigNumber(value ?? fallback).toNumber();
+}
+
+export function toFixed(value: BigNumber.Value | undefined): string;
+export function toFixed(value: BigNumber.Value | undefined, decimalPlaces: number): string;
+export function toFixed(value: BigNumber.Value = 0, decimalPlaces?: number) {
+    const n = new BigNumber(value);
+    return !isUndefined(decimalPlaces) ? n.toFixed(decimalPlaces) : n.toFixed();
 }

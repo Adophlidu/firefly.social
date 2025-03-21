@@ -1,10 +1,11 @@
 import urlcat from 'urlcat';
-import { createIndicator, createPageable, type PageIndicator, type Pageable, EMPTY_LIST } from '@masknet/shared-base';
 import { type NonFungibleCollection } from '@masknet/web3-shared-base';
 import { ChainId, type SchemaType, isValidChainId } from '@masknet/web3-shared-evm';
 import { EVM, type Response } from '../types/index.js';
 import { fetchFromNFTScanV2, createNonFungibleCollectionFromGroup } from '../helpers/EVM.js';
 import type { BaseHubOptions, NonFungibleTokenAPI } from '../../entry-types.js';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 
 class NFTScanNonFungibleTokenAPI_EVM implements NonFungibleTokenAPI.Provider<ChainId, SchemaType> {
     async getCollectionsByOwner(

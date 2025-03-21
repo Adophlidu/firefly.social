@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import type { NetworkPluginID } from '@masknet/shared-base';
+import type { NetworkPluginID } from '@/constants/enum.js';
 import { getHub } from '@masknet/web3-providers';
 import type { Hub, HubOptions } from '@masknet/web3-providers/types';
 

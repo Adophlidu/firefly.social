@@ -6,7 +6,7 @@
  * Always use absolute imports to ensure the dependencies tree is clean.
  *
  * Unsafe packages import paths:
- * /from\s'@masknet/(?!web3-shared|kit|public-api|encryption|base|typed-message|shared-base)/i
+ * /from\s'@masknet/(?!web3-shared|kit|encryption|base|typed-message|shared-base)/i
  *
  */
 

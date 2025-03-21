@@ -1,6 +1,6 @@
-import type { PageIndicator, Pageable } from '@masknet/shared-base';
 import type { NonFungibleCollection } from '@masknet/web3-shared-base';
 import type { BaseHubOptions } from '../entry-types.js';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 
 export namespace NonFungibleTokenAPI {
     export interface AttributesValue {
