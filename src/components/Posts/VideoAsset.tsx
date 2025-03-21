@@ -7,6 +7,7 @@ import { Image } from '@/components/Image.js';
 import { VideoPoster } from '@/components/Posts/VideoPoster.js';
 import { Source } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
+import { computeSize } from '@/helpers/computeSize.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
 
@@ -22,6 +23,15 @@ interface VideoAssetProps {
 
 export function VideoAsset({ asset, minimal, source, autoPlay, videoClassName }: VideoAssetProps) {
     const isGif = asset.type === 'AnimatedGif';
+    const { width, height } = asset;
+    const [renderWidth] = computeSize(width || 1000, height || 1000, {
+        minWidth: 60,
+        minHeight: 60,
+        maxWidth: 550,
+        maxHeight: 750,
+    });
+
+    console.log('[Debug] asset:', asset);
 
     return minimal ? (
         <div className="relative h-full w-full">
@@ -41,30 +51,43 @@ export function VideoAsset({ asset, minimal, source, autoPlay, videoClassName }:
             ) : null}
         </div>
     ) : (
-        <Video
-            className={videoClassName}
-            loop={isGif}
-            autoPlay={autoPlay || isGif}
-            autoPlayInViewport={!isGif}
-            src={asset.uri}
-            poster={asset.coverUri}
-            forceNoToken={source === Source.Twitter}
+        <div
+            className="max-w-full"
+            style={
+                width && height
+                    ? {
+                          width: renderWidth,
+                          aspectRatio: `${width}/${height}`,
+                      }
+                    : { width: '100%' }
+            }
         >
-            {isGif ? (
-                <span className="absolute bottom-[5px] left-2.5 flex items-center" onClick={stopPropagation}>
-                    <Player.PlayPauseTrigger className="size-[25px]">
-                        <Player.PlayingIndicator asChild matcher={false}>
-                            <PlayIcon />
-                        </Player.PlayingIndicator>
-                        <Player.PlayingIndicator asChild>
-                            <PauseIcon />
-                        </Player.PlayingIndicator>
-                    </Player.PlayPauseTrigger>
-                    <span className="font-bold text-white">
-                        <Trans>GIF</Trans>
+            <Video
+                className={videoClassName}
+                loop={isGif}
+                autoPlay={autoPlay || isGif}
+                autoPlayInViewport={!isGif}
+                src={asset.uri}
+                poster={asset.coverUri}
+                forceNoToken={source === Source.Twitter}
+                aspectRatio={width && height ? width / height : undefined}
+            >
+                {isGif ? (
+                    <span className="absolute bottom-[5px] left-2.5 flex items-center" onClick={stopPropagation}>
+                        <Player.PlayPauseTrigger className="size-[25px]">
+                            <Player.PlayingIndicator asChild matcher={false}>
+                                <PlayIcon />
+                            </Player.PlayingIndicator>
+                            <Player.PlayingIndicator asChild>
+                                <PauseIcon />
+                            </Player.PlayingIndicator>
+                        </Player.PlayPauseTrigger>
+                        <span className="font-bold text-white">
+                            <Trans>GIF</Trans>
+                        </span>
                     </span>
-                </span>
-            ) : null}
-        </Video>
+                ) : null}
+            </Video>
+        </div>
     );
 }

@@ -32,6 +32,8 @@ export function formatTwitterMedia(twitterMedia: MediaObjectV2): Attachment | nu
                       type: 'AnimatedGif',
                       uri: twitterMedia.variants[0].url,
                       coverUri: twitterMedia.preview_image_url,
+                      width: twitterMedia.width,
+                      height: twitterMedia.height,
                   }
                 : null;
         case 'video':
@@ -41,6 +43,8 @@ export function formatTwitterMedia(twitterMedia: MediaObjectV2): Attachment | nu
                       type: 'Video',
                       uri,
                       coverUri: twitterMedia.preview_image_url,
+                      width: twitterMedia.width,
+                      height: twitterMedia.height,
                   }
                 : null;
         default:

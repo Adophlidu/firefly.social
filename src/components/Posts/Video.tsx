@@ -22,6 +22,7 @@ interface VideoProps extends HTMLProps<HTMLVideoElement> {
     forceNoToken?: boolean;
     preload?: 'metadata' | 'none' | 'auto';
     autoPlayInViewport?: boolean;
+    aspectRatio?: number;
 }
 
 function VideoContent({
@@ -212,6 +213,7 @@ export const Video = memo<VideoProps>(function Video({
     forceNoToken,
     preload = 'metadata',
     autoPlayInViewport,
+    aspectRatio,
     children,
 }) {
     const videoSrc = useMemo(() => {
@@ -227,6 +229,7 @@ export const Video = memo<VideoProps>(function Video({
                 volume={autoPlay ? 0 : 1}
                 autoPlay={autoPlay}
                 forceNoToken={forceNoToken}
+                aspectRatio={aspectRatio}
             >
                 <VideoContent loop={loop} poster={poster} autoPlay={autoPlay} autoPlayInViewport={autoPlayInViewport}>
                     {children}

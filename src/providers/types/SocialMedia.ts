@@ -121,6 +121,8 @@ export interface Attachment {
     coverUri?: string;
     artist?: string;
     title?: string;
+    width?: number;
+    height?: number;
 }
 
 export type PostType = 'Post' | 'Comment' | 'Quote' | 'Mirror';
