@@ -4,7 +4,6 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { getRedPacketConstant } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
-import localFont from 'next/font/local';
 import { useCallback, useState } from 'react';
 import { useAsync } from 'react-use';
 import urlcat from 'urlcat';
@@ -43,11 +42,6 @@ import { ComposeModalRef, RedPacketModalRef } from '@/modals/controls.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { TokenType } from '@/types/rp.js';
-
-// @ts-expect-error
-const HelveticaFont = localFont({
-    src: '../../../public/font/Helvetica.ttf',
-});
 
 interface Props {
     payload: RedPacketJSONPayload;
@@ -184,10 +178,7 @@ export function RedPacketCard({ payload, post }: Props) {
             {cover && !imageLoading ? (
                 <>
                     <div
-                        className={classNames(
-                            'relative flex w-full items-end justify-between rounded-[18px] px-[27px] pb-[22px]',
-                            HelveticaFont.className,
-                        )}
+                        className="relative flex w-full items-end justify-between rounded-[18px] px-[27px] pb-[22px]"
                         style={
                             cover
                                 ? {

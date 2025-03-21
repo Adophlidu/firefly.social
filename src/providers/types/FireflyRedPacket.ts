@@ -267,7 +267,7 @@ export namespace FireflyRedPacketAPI {
         [key in 'title1' | 'title2' | 'title3' | 'title4' | 'title_symbol']: {
             color: '#F1D590';
             font_size: 55;
-            font_family: 'Helvetica';
+            font_family: 'Inter';
             font_weight: 700;
             line_height: 63.25;
         };
