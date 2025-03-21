@@ -54,6 +54,7 @@ export function SquareSourceIcon({ source, size = 20, forceLight, ...props }: Sq
         case Source.Posts:
         case Source.Notifications:
         case Source.Email:
+        case Source.RocketsFun:
             return null;
         default:
             safeUnreachable(source);

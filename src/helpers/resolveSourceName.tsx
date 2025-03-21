@@ -23,6 +23,7 @@ export const resolveSourceName = createLookupTableResolver<Source, string>(
         [Source.Posts]: 'Posts',
         [Source.Notifications]: 'Notifications',
         [Source.Email]: 'Email',
+        [Source.RocketsFun]: 'Rockets.fun',
     },
     (source) => {
         throw new UnreachableError('source', source);
@@ -38,6 +39,7 @@ export const resolveExploreSourceName = createLookupTableResolver<ExploreSource,
         [TrendingType.TopLosers]: <Trans>Top Losers</Trans>,
         [TrendingType.Trending]: <Trans>Trending</Trans>,
         [TrendingType.Meme]: 'Meme',
+        [TrendingType.RocketsFun]: 'Rockets.fun',
     },
     (source) => {
         throw new UnreachableError('source', source);

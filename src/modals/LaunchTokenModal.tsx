@@ -1,16 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-
 import React, { useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ClearButton, CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { t } from '@lingui/core/macro';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
 
 interface FormOptions {
     name: string;
@@ -25,28 +24,30 @@ export interface LaunchTokenModalOpenProps {
 
 export type LaunchTokenModalCloseResult = void;
 type Props = {
-    ref: React.Ref<SingletonModalRefCreator<LaunchTokenModalOpenProps, LaunchTokenModalCloseResult>>;
+    ref: React.Ref<SingletonModalRefCreator<LaunchTokenModalOpenProps>>;
 };
 
 export function LaunchTokenModal({ ref }: Props) {
     const [props, setProps] = useState<LaunchTokenModalOpenProps>();
+    const invalidAddressMessage = t`Invalid wallet address format`;
     const schema = useMemo(() => {
         return z.object({
             name: z.string().min(1),
             symbol: z.string().min(1),
-            address: z.string().regex(/^0x[a-fA-F0-9]{40}$/, t`Invalid wallet address format`),
+            address: z.string().regex(/^0x[a-fA-F0-9]{40}$/, invalidAddressMessage),
         });
-    }, []);
+    }, [invalidAddressMessage]);
     const {
         register,
         handleSubmit,
         setValue,
         setFocus,
         watch,
-        formState: { errors, dirtyFields },
+        formState: { errors, isValid },
         reset,
     } = useForm<FormOptions>({
         resolver: zodResolver(schema),
+        reValidateMode: 'onBlur',
         defaultValues: {
             name: '',
             symbol: '',
@@ -76,7 +77,7 @@ export function LaunchTokenModal({ ref }: Props) {
             }}
         >
             <div className="relative flex w-[355px] flex-col rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
-                <div className="inline-flex h-auto w-full items-center justify-center gap-4 rounded-t-[12px] p-6">
+                <div className="inline-flex h-auto w-full items-center justify-center gap-4 rounded-t-[12px] p-4">
                     <CloseButton
                         onClick={() => {
                             props.onCancel?.();
@@ -90,15 +91,15 @@ export function LaunchTokenModal({ ref }: Props) {
                 </div>
 
                 <form
-                    className="flex flex-1 flex-col gap-6 p-6 pt-0"
+                    className="flex flex-1 flex-col gap-3 p-6 pt-0"
                     onSubmit={handleSubmit((data) => {
                         props.onConfirm(data);
                         dispatch?.close();
                     })}
                 >
                     <div className="flex flex-col gap-3">
-                        <label className="flex flex-col gap-2">
-                            <span className="self-start text-sm font-bold leading-[18px]">
+                        <label className="flex flex-col gap-3">
+                            <span className="self-start text-sm font-bold leading-[18px] text-main">
                                 <Trans>Token name</Trans>
                             </span>
 
@@ -131,8 +132,8 @@ export function LaunchTokenModal({ ref }: Props) {
                         </label>
                     </div>
                     <div className="flex flex-col gap-3">
-                        <label className="flex flex-col gap-2">
-                            <span className="self-start text-sm font-bold leading-[18px]">
+                        <label className="flex flex-col gap-3">
+                            <span className="self-start text-sm font-bold leading-[18px] text-main">
                                 <Trans>Token symbol</Trans>
                             </span>
                             <div className="group relative mx-0 flex h-10 flex-grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
@@ -170,8 +171,8 @@ export function LaunchTokenModal({ ref }: Props) {
                         </label>
                     </div>
                     <div className="flex flex-col gap-3">
-                        <label className="flex flex-col gap-2">
-                            <span className="self-start text-sm font-bold leading-[18px]">
+                        <label className="flex flex-col gap-3">
+                            <span className="self-start text-sm font-bold leading-[18px] text-main">
                                 <Trans>BNB address</Trans>
                             </span>
                             <div className="group relative mx-0 flex h-10 flex-grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
@@ -201,16 +202,17 @@ export function LaunchTokenModal({ ref }: Props) {
                                 ) : null}
                             </div>
                         </label>
-                        {dirtyFields.address && errors.address ? (
+                        {errors.address ? (
                             <div className="self-start text-xs font-medium text-danger">{errors.address.message}</div>
                         ) : null}
                     </div>
-                    <div className="flex flex-col-reverse gap-4 md:flex-row md:gap-3">
+                    <div className="mt-3 flex flex-col-reverse gap-4">
                         <ClickableButton
                             enableDefault
                             enablePropagate
                             className="flex flex-1 items-center justify-center rounded-full bg-main py-2 font-bold text-primaryBottom disabled:cursor-not-allowed disabled:opacity-50"
                             type="submit"
+                            disabled={!isValid}
                         >
                             <Trans>Post to launch</Trans>
                         </ClickableButton>

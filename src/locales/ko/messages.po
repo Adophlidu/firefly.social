@@ -124,6 +124,10 @@ msgstr ""
 msgid "Your frame URL"
 msgstr ""
 
+#. placeholder {0}: ensName ?? formatAddress(token.deployer, 4)
+msgid "<0>Created by</0><1>{0}</1>"
+msgstr ""
+
 msgid "Refunded"
 msgstr ""
 
@@ -549,6 +553,9 @@ msgid "<0>Sent</0> an NFT"
 msgstr ""
 
 msgid "Report post"
+msgstr ""
+
+msgid "Launched on"
 msgstr ""
 
 #. placeholder {0}: resolveSourceName(account.profile.profileSource)
@@ -1089,6 +1096,9 @@ msgid "Failed to un-bookmark NFT."
 msgstr ""
 
 msgid "Confirmation"
+msgstr ""
+
+msgid "Trading Fees"
 msgstr ""
 
 msgid "Search user"
@@ -1725,6 +1735,9 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
+msgid "Created by"
+msgstr ""
+
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr ""
 
@@ -1897,6 +1910,9 @@ msgid "This token is issued by its declared team. Some scams will create a well-
 msgstr ""
 
 msgid "Search ${symbol}"
+msgstr ""
+
+msgid "Rockets.fun"
 msgstr ""
 
 #. placeholder {0}: channel.id
@@ -2484,6 +2500,9 @@ msgstr ""
 msgid "Please switch to {0}"
 msgstr ""
 
+msgid "Fee Rate"
+msgstr ""
+
 msgid "Non-honeypot related address."
 msgstr ""
 
@@ -2607,6 +2626,10 @@ msgid "UID: {uid}"
 msgstr ""
 
 msgid "Top 500 Buttrfly Points Leaderboard"
+msgstr ""
+
+#. placeholder {0}: renderShrankPrice(formatPrice(token.price) ?? '')
+msgid "<0>Price</0><1>${0}</1>"
 msgstr ""
 
 msgid "Minutes"
@@ -3151,6 +3174,9 @@ msgid "Back"
 msgstr ""
 
 msgid "Decrypt"
+msgstr ""
+
+msgid "Token launch only support on X"
 msgstr ""
 
 msgid "Article collected successfully!"

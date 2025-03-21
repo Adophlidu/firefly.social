@@ -251,6 +251,7 @@ export const EXPLORE_SOURCES: Partial<Record<ExploreType, ExploreSource[]>> = {
         TrendingType.TopLosers,
         TrendingType.Trending,
         TrendingType.Meme,
+        TrendingType.RocketsFun,
     ],
     [ExploreType.TopChannels]: [Source.Farcaster, Source.Bsky],
 };
@@ -302,6 +303,9 @@ export const EVER_API = 'https://endpoint.4everland.co';
 // polls
 export const FRAME_SERVER_URL = 'https://polls.firefly.social';
 export const FRAME_DEV_SERVER_URL = 'https://polls-staging.firefly.social';
+
+// rocket-fun
+export const ROCKET_FUN_API_BASE_URL = 'https://rockets.fun/';
 
 // S3 bucket
 export const S3_BUCKET = {

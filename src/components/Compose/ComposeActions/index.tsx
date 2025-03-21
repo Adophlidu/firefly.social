@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { AddThread } from '@/components/Compose/ComposeActions/AddThread.js';
 import { ChooseChannelAction } from '@/components/Compose/ComposeActions/ChannelAction.js';
 import { EmojiAction } from '@/components/Compose/ComposeActions/EmojiAction.js';
+import { LaunchTokenAction } from '@/components/Compose/ComposeActions/LaunchTokenAction.js';
 import { MediaAction } from '@/components/Compose/ComposeActions/MediaAction.js';
 import { PlatformAction } from '@/components/Compose/ComposeActions/PlatformAction.js';
 import { RedPacketAction } from '@/components/Compose/ComposeActions/RedPacketAction.js';
@@ -18,7 +19,6 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { LaunchTokenAction } from '@/components/Compose/ComposeActions/LaunchTokenAction.js';
 
 export function ComposeActions() {
     const isMedium = useIsMedium();

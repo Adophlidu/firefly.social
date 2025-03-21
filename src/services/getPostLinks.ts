@@ -14,10 +14,12 @@ import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { getPostIFrame } from '@/providers/og/readers/iframe.js';
+import { RocketsFunProvider } from '@/providers/rockets-fun/index.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { ActionGetResponse } from '@/providers/types/Blink.js';
+import type { RocketsFunToken } from '@/providers/types/RocketsFun.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
 import { getCollectionFromUrl } from '@/services/getCollectionFromUrl.js';
@@ -112,6 +114,13 @@ export const getPostOembed = memoizePromise(
     (url, post) => `${url}${post?.quoteOn?.postId}`,
 );
 
+const getRocketsFunTokenByAddress = memoizePromise(
+    async function getRocketsFunTokenByAddress(address: string): Promise<RocketsFunToken | null> {
+        return RocketsFunProvider.getTokenByAddress(address);
+    },
+    (address) => address,
+);
+
 export interface ClassifyPostLinkResult {
     oembed?: LinkDigested;
     frame?: Frame;
@@ -122,11 +131,25 @@ export interface ClassifyPostLinkResult {
     snapshot?: SnapshotProposal;
     nft?: SimpleHash.NFT;
     collection?: SimpleHash.Collection;
+    token?: RocketsFunToken;
 }
 
 export async function classifyPostLink(url: string, post: Post) {
     return attemptUntil<ClassifyPostLinkResult | null>(
         [
+            // rocket-fun token
+            async () => {
+                if (!url.startsWith('https://rockets.fun/token')) return null;
+
+                const u = parseUrl(url);
+                if (!u) return null;
+
+                const address = u.searchParams.get('outputCurrency');
+                if (!address) return null;
+
+                const token = await getRocketsFunTokenByAddress(address);
+                return token ? { token } : null;
+            },
             async () => {
                 const spaceId = url.match(TWEET_SPACE_REGEX)?.[3];
                 if (!spaceId) return null;

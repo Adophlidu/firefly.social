@@ -19,6 +19,7 @@ import { EnableSignlessModal } from '@/modals/EnableSignlessModal.js';
 import { FrameViewerModal } from '@/modals/FrameViewerModal/index.js';
 import { FreeMintModal } from '@/modals/FreeMintModal/index.js';
 import { ImageEditorModal } from '@/modals/ImageEditor/index.js';
+import { LaunchTokenModal } from '@/modals/LaunchTokenModal.js';
 import { LoginModal } from '@/modals/LoginModal/index.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
 import { MyWalletsModal } from '@/modals/MyWalletsModal/index.js';
@@ -32,7 +33,6 @@ import { TipsModal } from '@/modals/TipsModal.js';
 import { TokenSelectorModal } from '@/modals/TokenSelectorModal.js';
 import { TransactionSimulatorModal } from '@/modals/TransactionSimulatorModal.js';
 import { WalletConnectModal } from '@/modals/WalletConnectModal/index.js';
-import { LaunchTokenModal } from '@/modals/LaunchTokenModal.js';
 
 export const Modals = memo(function Modals() {
     return (

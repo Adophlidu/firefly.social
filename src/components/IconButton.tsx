@@ -4,11 +4,11 @@ import type { HTMLProps, ReactNode } from 'react';
 import CloseIcon from '@/assets/close.svg';
 import CloseCircleIcon from '@/assets/close-circle.svg';
 import MoreIcon from '@/assets/more.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
+import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 
-interface IconButtonProps extends HTMLProps<HTMLButtonElement> {
+interface IconButtonProps extends ClickableButtonProps {
     tooltip?: string;
     size?: number;
     children?: ReactNode;

@@ -124,6 +124,10 @@ msgstr ""
 msgid "Your frame URL"
 msgstr ""
 
+#. placeholder {0}: ensName ?? formatAddress(token.deployer, 4)
+msgid "<0>Created by</0><1>{0}</1>"
+msgstr ""
+
 msgid "Refunded"
 msgstr ""
 
@@ -550,6 +554,9 @@ msgstr "<0>發送</0>一個 NFT"
 
 msgid "Report post"
 msgstr "檢舉貼文"
+
+msgid "Launched on"
+msgstr ""
 
 #. placeholder {0}: resolveSourceName(account.profile.profileSource)
 #. placeholder {1}: account.profile.handle
@@ -1090,6 +1097,9 @@ msgstr ""
 
 msgid "Confirmation"
 msgstr "確認"
+
+msgid "Trading Fees"
+msgstr ""
 
 msgid "Search user"
 msgstr ""
@@ -1725,6 +1735,9 @@ msgstr ""
 msgid "Comment"
 msgstr "評論"
 
+msgid "Created by"
+msgstr ""
+
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr ""
 
@@ -1898,6 +1911,9 @@ msgstr ""
 
 msgid "Search ${symbol}"
 msgstr "搜尋 ${symbol}"
+
+msgid "Rockets.fun"
+msgstr ""
 
 #. placeholder {0}: channel.id
 #. placeholder {0}: channel.name
@@ -2484,6 +2500,9 @@ msgstr ""
 msgid "Please switch to {0}"
 msgstr ""
 
+msgid "Fee Rate"
+msgstr ""
+
 msgid "Non-honeypot related address."
 msgstr ""
 
@@ -2607,6 +2626,10 @@ msgid "UID: {uid}"
 msgstr ""
 
 msgid "Top 500 Buttrfly Points Leaderboard"
+msgstr ""
+
+#. placeholder {0}: renderShrankPrice(formatPrice(token.price) ?? '')
+msgid "<0>Price</0><1>${0}</1>"
 msgstr ""
 
 msgid "Minutes"
@@ -3151,6 +3174,9 @@ msgid "Back"
 msgstr "返回"
 
 msgid "Decrypt"
+msgstr ""
+
+msgid "Token launch only support on X"
 msgstr ""
 
 msgid "Article collected successfully!"

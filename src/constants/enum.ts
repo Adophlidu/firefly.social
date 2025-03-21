@@ -67,6 +67,7 @@ export enum Source {
     DAOs = 'DAOs',
     Posts = 'Posts',
     Notifications = 'Notifications',
+    RocketsFun = 'RocketsFun',
 }
 
 export enum SourceInURL {
@@ -86,6 +87,7 @@ export enum SourceInURL {
     DAOs = 'daos',
     Posts = 'posts',
     Notifications = 'all',
+    RocketsFun = 'rockets-fun',
 }
 
 export enum FireflyPlatform {
@@ -169,6 +171,7 @@ export enum TrendingType {
     TopLosers = 'top-losers',
     Trending = 'trending',
     Meme = 'meme',
+    RocketsFun = 'rockets-fun',
 }
 
 export enum SearchType {
@@ -256,6 +259,7 @@ export enum ScrollListKey {
     Polymarket = 'polymarket-list',
     RedPacketHistory = 'redpacket-history',
     TrendingFeeds = 'trending-feeds',
+    RocketsFunTrending = 'rockets-fun-trending',
 }
 
 export enum FarcasterSignType {

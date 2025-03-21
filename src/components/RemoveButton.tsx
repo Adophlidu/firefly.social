@@ -1,12 +1,11 @@
 import { t } from '@lingui/core/macro';
-import type { HTMLProps } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
+import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 
-interface RemoveButtonProps extends HTMLProps<HTMLButtonElement> {
+interface RemoveButtonProps extends ClickableButtonProps {
     tooltip?: string;
     size?: number;
 }

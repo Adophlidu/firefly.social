@@ -124,6 +124,10 @@ msgstr "模拟中"
 msgid "Your frame URL"
 msgstr "您 Frame 的 URL"
 
+#. placeholder {0}: ensName ?? formatAddress(token.deployer, 4)
+msgid "<0>Created by</0><1>{0}</1>"
+msgstr ""
+
 msgid "Refunded"
 msgstr "已退款"
 
@@ -550,6 +554,9 @@ msgstr "<0>发送了</0> 一个 NFT"
 
 msgid "Report post"
 msgstr "举报帖子"
+
+msgid "Launched on"
+msgstr ""
 
 #. placeholder {0}: resolveSourceName(account.profile.profileSource)
 #. placeholder {1}: account.profile.handle
@@ -1090,6 +1097,9 @@ msgstr "取消收藏 NFT 失败。"
 
 msgid "Confirmation"
 msgstr "确认"
+
+msgid "Trading Fees"
+msgstr ""
 
 msgid "Search user"
 msgstr "搜索用户"
@@ -1725,6 +1735,9 @@ msgstr "当前结果"
 msgid "Comment"
 msgstr "评论"
 
+msgid "Created by"
+msgstr ""
+
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr "您可以在发送红包 24 小时后提取任何未领取的金额。"
 
@@ -1906,6 +1919,9 @@ msgstr "此通证由其宣称的团队发行。一些骗局会创建同名的知
 
 msgid "Search ${symbol}"
 msgstr "搜索 ${symbol}"
+
+msgid "Rockets.fun"
+msgstr ""
 
 #. placeholder {0}: channel.id
 #. placeholder {0}: channel.name
@@ -2497,6 +2513,9 @@ msgstr "投票权：通过社区治理参与关键决策，塑造平台的发展
 msgid "Please switch to {0}"
 msgstr "请切换到 {0}"
 
+msgid "Fee Rate"
+msgstr ""
+
 msgid "Non-honeypot related address."
 msgstr "非钓鱼地址。"
 
@@ -2621,6 +2640,10 @@ msgstr ""
 
 msgid "Top 500 Buttrfly Points Leaderboard"
 msgstr "Buttrfly Points 排行榜 Top 500"
+
+#. placeholder {0}: renderShrankPrice(formatPrice(token.price) ?? '')
+msgid "<0>Price</0><1>${0}</1>"
+msgstr ""
 
 msgid "Minutes"
 msgstr "分钟"
@@ -3165,6 +3188,9 @@ msgstr "返回"
 
 msgid "Decrypt"
 msgstr "解密"
+
+msgid "Token launch only support on X"
+msgstr ""
 
 msgid "Article collected successfully!"
 msgstr "成功收集文章！"

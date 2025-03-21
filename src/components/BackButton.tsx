@@ -1,13 +1,12 @@
 import { t } from '@lingui/core/macro';
-import type { HTMLProps } from 'react';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
+import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
-interface BackButtonProps extends HTMLProps<HTMLButtonElement> {
+interface BackButtonProps extends ClickableButtonProps {
     size?: number;
     tooltip?: string;
 }

@@ -119,6 +119,10 @@ msgstr "Simulating"
 msgid "Your frame URL"
 msgstr "Your frame URL"
 
+#. placeholder {0}: ensName ?? formatAddress(token.deployer, 4)
+msgid "<0>Created by</0><1>{0}</1>"
+msgstr "<0>Created by</0><1>{0}</1>"
+
 msgid "Refunded"
 msgstr "Refunded"
 
@@ -545,6 +549,9 @@ msgstr "<0>Sent</0> an NFT"
 
 msgid "Report post"
 msgstr "Report post"
+
+msgid "Launched on"
+msgstr "Launched on"
 
 #. placeholder {0}: resolveSourceName(account.profile.profileSource)
 #. placeholder {1}: account.profile.handle
@@ -1085,6 +1092,9 @@ msgstr "Failed to un-bookmark NFT."
 
 msgid "Confirmation"
 msgstr "Confirmation"
+
+msgid "Trading Fees"
+msgstr "Trading Fees"
 
 msgid "Search user"
 msgstr "Search user"
@@ -1720,6 +1730,9 @@ msgstr "Current Results"
 msgid "Comment"
 msgstr "Comment"
 
+msgid "Created by"
+msgstr "Created by"
+
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 
@@ -1901,6 +1914,9 @@ msgstr "This token is issued by its declared team. Some scams will create a well
 
 msgid "Search ${symbol}"
 msgstr "Search ${symbol}"
+
+msgid "Rockets.fun"
+msgstr "Rockets.fun"
 
 #. placeholder {0}: channel.id
 #. placeholder {0}: channel.name
@@ -2492,6 +2508,9 @@ msgstr "Voting Rights: Participate in key decisions and shape the platform’s d
 msgid "Please switch to {0}"
 msgstr "Please switch to {0}"
 
+msgid "Fee Rate"
+msgstr "Fee Rate"
+
 msgid "Non-honeypot related address."
 msgstr "Non-honeypot related address."
 
@@ -2616,6 +2635,10 @@ msgstr "UID: {uid}"
 
 msgid "Top 500 Buttrfly Points Leaderboard"
 msgstr "Top 500 Buttrfly Points Leaderboard"
+
+#. placeholder {0}: renderShrankPrice(formatPrice(token.price) ?? '')
+msgid "<0>Price</0><1>${0}</1>"
+msgstr "<0>Price</0><1>${0}</1>"
 
 msgid "Minutes"
 msgstr "Minutes"
@@ -3160,6 +3183,9 @@ msgstr "Back"
 
 msgid "Decrypt"
 msgstr "Decrypt"
+
+msgid "Token launch only support on X"
+msgstr "Token launch only support on X"
 
 msgid "Article collected successfully!"
 msgstr "Article collected successfully!"

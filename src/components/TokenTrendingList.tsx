@@ -9,10 +9,15 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 import type { TokenWithMarket } from '@/services/searchTokens.js';
 
-export function TokenTrendingList({ type }: { type: TrendingType }) {
+interface Props {
+    type: TrendingType.TopGainers | TrendingType.TopLosers | TrendingType.Trending | TrendingType.Meme;
+}
+
+export function TokenTrendingList(props: Props) {
     const { data, isFetching } = useSuspenseQuery({
-        queryKey: ['explore-trending', type],
+        queryKey: ['explore-trending', props.type],
         queryFn: async () => {
+            const type = props.type;
             switch (type) {
                 case TrendingType.TopGainers:
                 case TrendingType.TopLosers:
@@ -37,9 +42,9 @@ export function TokenTrendingList({ type }: { type: TrendingType }) {
 
     return (
         <div>
-            {data.map((x) => {
-                return <SearchableTokenItem key={x.id} token={x} />;
-            })}
+            {data.map((x) => (
+                <SearchableTokenItem key={x.id} token={x} />
+            ))}
 
             <VirtualListFooterBottomText />
         </div>

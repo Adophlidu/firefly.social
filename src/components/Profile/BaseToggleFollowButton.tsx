@@ -1,6 +1,6 @@
-import { type HTMLProps, memo, useMemo } from 'react';
+import { memo, useMemo } from 'react';
 
-import { ClickableButton } from '@/components/ClickableButton.js';
+import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { SuperFollow } from '@/components/Posts/SuperFollow.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -9,7 +9,7 @@ import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { DraggablePopoverRef, LoginModalRef, SuperFollowModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-interface BaseToggleFollowButtonProps extends Omit<HTMLProps<HTMLButtonElement>, 'children'> {
+interface BaseToggleFollowButtonProps extends Omit<ClickableButtonProps, 'children'> {
     profile: Profile;
     children: (isSuperFollow: boolean, loading: boolean) => React.ReactNode;
 }
