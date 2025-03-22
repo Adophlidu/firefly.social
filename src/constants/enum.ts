@@ -299,6 +299,22 @@ export enum CryptoUsage {
     Decrypt = 'decrypt',
 }
 
+export enum CurrencyType {
+    NATIVE = 'native',
+    BTC = 'btc',
+    ETH = 'eth',
+    USD = 'usd',
+    CNY = 'cny',
+    HKD = 'hkd',
+    JPY = 'jpy',
+    EUR = 'eur',
+}
+
+export enum TokenType {
+    Fungible = 'Fungible',
+    NonFungible = 'NonFungible',
+}
+
 export const enum FollowCategory {
     Following = 'following',
     Followers = 'followers',

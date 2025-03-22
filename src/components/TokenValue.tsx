@@ -1,4 +1,4 @@
-import { formatCurrency, type FungibleToken } from '@masknet/web3-shared-base';
+import { type FungibleToken } from '@masknet/web3-shared-base';
 import { type ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
 import { type HTMLProps, useMemo } from 'react';
@@ -9,6 +9,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatFungibleTokenToDebankToken } from '@/helpers/formatToken.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
+import { formatCurrency } from '@/helpers/formatCurrency.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     amount?: string;

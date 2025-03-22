@@ -1,16 +1,5 @@
-import type { NetworkPluginID } from '@/constants/enum.js';
+import type { CurrencyType, NetworkPluginID, TokenType } from '@/constants/enum.js';
 import type { Color } from '@/types/color.js';
-
-export enum CurrencyType {
-    NATIVE = 'native',
-    BTC = 'btc',
-    ETH = 'eth',
-    USD = 'usd',
-    CNY = 'cny',
-    HKD = 'hkd',
-    JPY = 'jpy',
-    EUR = 'eur',
-}
 
 export enum OrderSide {
     Buy = 0,
@@ -22,11 +11,6 @@ export enum GasOptionType {
     NORMAL = 'normal',
     SLOW = 'slow',
     CUSTOM = 'custom',
-}
-
-export enum TokenType {
-    Fungible = 'Fungible',
-    NonFungible = 'NonFungible',
 }
 
 export enum SourceType {

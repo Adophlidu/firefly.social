@@ -1,13 +1,11 @@
 import urlcat from 'urlcat';
 import { first } from 'lodash-es';
 import {
-    formatPercentage,
     type NonFungibleAsset,
     type NonFungibleCollection,
     type NonFungibleTokenTrait,
     resolveResourceURL,
     SourceType,
-    TokenType,
 } from '@masknet/web3-shared-base';
 import {
     type ChainId,
@@ -22,12 +20,13 @@ import { NFTSCAN_BASE, NFTSCAN_LOGO_BASE, NFTSCAN_URL } from '../constants.js';
 import type { EVM } from '../types/EVM.js';
 import { resolveNFTScanHostName } from './utils.js';
 import { fetchSquashedJSON } from '../../helpers/fetchJSON.js';
-import { parseJSON } from '../../helpers/parseJSON.js';
 import { getAssetFullName } from '../../helpers/getAssetFullName.js';
 import type { NonFungibleTokenAPI } from '../../entry-types.js';
-import { NetworkPluginID } from '@/constants/enum.js';
+import { NetworkPluginID, TokenType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { scale10 } from '@/helpers/number.js';
+import { formatPercentage } from '@/helpers/formatPercentage.js';
+import { parseJSON } from '@/helpers/parseJSON.js';
 
 export async function fetchFromNFTScanV2<T>(chainId: ChainId, pathname: string, init?: RequestInit) {
     return fetchSquashedJSON<T>(urlcat(NFTSCAN_URL, pathname), {

@@ -1,8 +1,8 @@
 import { identity, pickBy } from 'lodash-es';
-import { CurrencyType, type SourceType } from '@masknet/web3-shared-base';
+import { type SourceType } from '@masknet/web3-shared-base';
 import { type SchemaType } from '@masknet/web3-shared-evm';
 import type { PageIndicator } from '@/helpers/pageable.js';
-import type { NetworkPluginID } from '@/constants/enum.js';
+import { CurrencyType, type NetworkPluginID } from '@/constants/enum.js';
 import type { PartialRequired } from '@/types/index.js';
 
 export interface BaseHubOptions<ChainId, Indicator = PageIndicator> {

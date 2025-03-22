@@ -1,9 +1,9 @@
-import { type FungibleToken, TokenType } from '@masknet/web3-shared-base';
+import { type FungibleToken } from '@masknet/web3-shared-base';
 import { type ChainId, SchemaType, ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
 import { isAddress } from 'viem';
 
-import { NetworkType } from '@/constants/enum.js';
+import { NetworkType, TokenType } from '@/constants/enum.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import type { Token } from '@/providers/types/Transfer.js';
 

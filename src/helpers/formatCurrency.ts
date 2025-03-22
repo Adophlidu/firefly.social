@@ -1,6 +1,6 @@
 import { BigNumber } from 'bignumber.js';
 import { scale10 } from '@/helpers/number.js';
-import { CurrencyType } from '../index.js';
+import { CurrencyType } from '@/constants/enum.js';
 
 export interface FormatterCurrencyOptions {
     onlyRemainTwoOrZeroDecimal?: boolean;

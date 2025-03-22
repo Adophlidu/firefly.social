@@ -1,13 +1,7 @@
 import { keyBy, mapValues } from 'lodash-es';
-import {
-    type FungibleToken,
-    type NonFungibleToken,
-    type NonFungibleCollection,
-    type NonFungibleTokenContract,
-    type NonFungibleTokenMetadata,
-    TokenType,
-} from '../specs/index.js';
+import { type FungibleToken } from '../specs/index.js';
 import type { Constants } from './types.js';
+import { TokenType } from '@/constants/enum.js';
 
 export function createFungibleToken<ChainId, SchemaType>(
     chainId: ChainId,

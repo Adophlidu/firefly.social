@@ -1,9 +1,9 @@
-import { CurrencyType } from '@masknet/web3-shared-base';
 import { first, last } from 'lodash-es';
 import { type RefObject, useCallback } from 'react';
 
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { type Dimension, useLineChart } from '@/hooks/useLineChart.js';
+import { CurrencyType } from '@/constants/enum.js';
 
 export function usePriceLineChart(
     svgRef: RefObject<SVGSVGElement | null>,

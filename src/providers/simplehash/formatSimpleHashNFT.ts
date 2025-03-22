@@ -1,4 +1,4 @@
-import { SourceType, TokenType } from '@masknet/web3-shared-base';
+import { SourceType } from '@masknet/web3-shared-base';
 import { isENSContractAddress, isLens, SchemaType as EVMSchemaType, WNATIVE } from '@masknet/web3-shared-evm';
 import {
     isValidChainId as isValidSolanaChainId,
@@ -12,6 +12,7 @@ import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { EVMChainResolver } from '@/mask/index.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
+import { TokenType } from '@/constants/enum.js';
 
 export const SPAM_SCORE = 50;
 

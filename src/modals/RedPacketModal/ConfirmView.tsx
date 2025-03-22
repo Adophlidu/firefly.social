@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { formatCurrency } from '@masknet/web3-shared-base';
 import { multipliedBy, rightShift } from '@/helpers/number.js';
 import { isValidAddress } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
@@ -42,6 +41,7 @@ import { ShareAccountsPopover } from '@/modals/RedPacketModal/ShareAccountsPopov
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import { FireflyRedPacketAPI, RequirementType } from '@/providers/types/FireflyRedPacket.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
+import { formatCurrency } from '@/helpers/formatCurrency.js';
 
 interface ThemeVariant {
     neutral: FireflyRedPacketAPI.ThemeGroupSettings;
