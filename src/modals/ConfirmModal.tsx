@@ -76,7 +76,7 @@ export function ConfirmModal({ ref }: Props) {
                 style={props.modalStyle}
                 onClick={stopEvent}
             >
-                <div className="inline-flex h-auto w-full items-center justify-center gap-4 rounded-t-[12px] p-6">
+                <div className="inline-flex h-auto w-full items-center justify-center gap-4 rounded-t-[12px] p-4">
                     {props.enableCloseButton ? (
                         <CloseButton
                             onClick={() => {

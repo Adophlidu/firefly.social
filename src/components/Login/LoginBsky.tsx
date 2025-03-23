@@ -1,9 +1,11 @@
 /* cspell:disable */
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useAsyncFn } from 'react-use';
+import * as z from 'zod';
 
 import AtIcon from '@/assets/at.svg';
 import LockIcon from '@/assets/lock.svg';
@@ -49,14 +51,23 @@ async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<A
     }
 }
 
+const schema = z.object({
+    account: z.string().min(1),
+    password: z.string().min(1),
+});
+
 export function LoginBsky() {
     const controller = useAbortController();
 
-    const [account, setAccount] = useState('');
-    const [password, setPassword] = useState('');
-
-    const accountRef = useRef<HTMLInputElement>(null);
-    const passwordRef = useRef<HTMLInputElement>(null);
+    const { register, handleSubmit, watch, formState, resetField, setFocus } = useForm<z.infer<typeof schema>>({
+        resolver: zodResolver(schema),
+        mode: 'onChange',
+        defaultValues: {
+            account: '',
+            password: '',
+        },
+    });
+    const { account, password } = watch();
 
     const [{ loading }, login] = useAsyncFn(
         async (username: string, password: string, serviceUrl: string) => {
@@ -103,18 +114,23 @@ export function LoginBsky() {
             } catch (error) {
                 if ((error as Error).message === 'Invalid identifier or password') {
                     enqueueWarningMessage(t`Sorry, the username or password you entered is incorrect`);
-                    accountRef.current?.focus();
+                    setFocus('account');
                     return;
                 }
                 enqueueMessageFromError(error, t`Oops… Something went wrong. Please try again`);
                 throw error;
             }
         },
-        [controller],
+        [controller, setFocus],
     );
 
     return (
-        <form className="box-border flex w-[500px] flex-col items-center gap-3 p-6 max-md:w-full">
+        <form
+            className="box-border flex w-[500px] flex-col items-center gap-3 p-6 max-md:w-full"
+            onSubmit={handleSubmit((form) => {
+                login(form.account, form.password, DEFAULT_SERVICE_URL);
+            })}
+        >
             <div className="flex w-[300px] flex-col gap-5 max-md:w-full">
                 <h1 className="whitespace-nowrap text-xs text-second max-md:whitespace-normal">
                     <Trans>Enter your username and password to sign in instantly</Trans>
@@ -123,17 +139,14 @@ export function LoginBsky() {
                 <div className="group relative mx-0 flex h-10 flex-grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
                     <AtIcon width={18} height={18} className="absolute left-3 shrink-0" />
                     <input
-                        ref={accountRef}
                         disabled={loading}
                         type="text"
-                        name="account"
                         autoFocus
                         autoComplete="off"
                         spellCheck="false"
                         placeholder={t`Username or email address`}
                         className="w-full border-0 bg-transparent py-2 pl-9 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
-                        value={account}
-                        onChange={(ev) => setAccount(ev.currentTarget.value)}
+                        {...register('account', { required: true })}
                     />
                     {account ? (
                         <ClearButton
@@ -142,8 +155,8 @@ export function LoginBsky() {
                             IconProps={{ className: 'group-hover:text-highlight group-focus-within:text-highlight' }}
                             size={16}
                             onClick={() => {
-                                setAccount('');
-                                accountRef.current?.focus();
+                                resetField('account');
+                                setFocus('account');
                             }}
                         />
                     ) : null}
@@ -151,16 +164,12 @@ export function LoginBsky() {
                 <div className="group relative mx-0 flex h-10 flex-grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
                     <LockIcon width={18} height={18} className="absolute left-3 shrink-0" />
                     <input
-                        ref={passwordRef}
-                        disabled={loading}
                         type="password"
-                        name="password"
                         autoComplete="off"
                         spellCheck="false"
                         placeholder={t`Password`}
                         className="w-full border-0 bg-transparent py-2 pl-9 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6"
-                        value={password}
-                        onChange={(ev) => setPassword(ev.currentTarget.value)}
+                        {...register('password', { required: true })}
                     />
                     {password ? (
                         <ClearButton
@@ -169,16 +178,16 @@ export function LoginBsky() {
                             IconProps={{ className: 'group-hover:text-highlight group-focus-within:text-highlight' }}
                             size={16}
                             onClick={() => {
-                                setPassword('');
-                                passwordRef.current?.focus();
+                                resetField('password');
+                                setFocus('password');
                             }}
                         />
                     ) : null}
                 </div>
                 <ClickableButton
                     className="flex h-[42px] w-full items-center justify-center gap-1 rounded-full border border-line bg-lightMain text-primaryBottom"
-                    disabled={loading || !account || !password}
-                    onClick={() => login(account, password, DEFAULT_SERVICE_URL)}
+                    disabled={loading || formState.isSubmitting || !formState.isValid}
+                    type="submit"
                 >
                     {loading ? (
                         <>
