@@ -14,6 +14,8 @@ import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueu
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { removeAllAccounts } from '@/services/account.js';
+import { captureAccountDeleteEvent } from '@/providers/telemetry/captureAccountEvent.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 
 function CountdownButton() {
     const [count, { startCountdown }] = useCountdown({
@@ -87,9 +89,12 @@ export function useDeleteFireflyAccount() {
         });
         if (!confirmed) return;
         try {
+            const accountId = fireflySessionHolder.sessionRequired.profileId;
+
             await FireflyEndpointProvider.deleteAccount();
             enqueueSuccessMessage(t`Deleted your Firefly account`);
             await removeAllAccounts();
+            await captureAccountDeleteEvent(accountId);
             await delay(300);
             router.replace(
                 '/',
