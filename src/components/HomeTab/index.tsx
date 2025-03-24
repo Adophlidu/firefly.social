@@ -74,7 +74,7 @@ export function HomeTabs() {
                                     onMouseEnter={(e) => e.currentTarget.click()}
                                 >
                                     {texts[currentTab]}
-                                    <ArrowDownCircleIcon width={24} height={24} className="ml-[15px] size-6 shrink-0" />
+                                    <ArrowDownCircleIcon width={24} height={24} className="ml-2 size-6 shrink-0" />
                                 </MenuButton>
                                 <MenuItems
                                     onMouseLeave={() => close()}
