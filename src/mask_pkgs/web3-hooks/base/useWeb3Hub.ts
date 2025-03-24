@@ -1,8 +1,0 @@
-import { useMemo } from 'react';
-import type { NetworkPluginID } from '@/constants/enum.js';
-import { getHub } from '@masknet/web3-providers';
-import type { Hub, HubOptions } from '@masknet/web3-providers/types';
-
-export function useWeb3Hub<T extends NetworkPluginID = NetworkPluginID>(pluginID: T, options?: HubOptions<T>) {
-    return useMemo(() => getHub(pluginID, options) as Hub<T>, [pluginID, JSON.stringify(options)]);
-}

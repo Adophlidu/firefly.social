@@ -1,10 +1,7 @@
 import CoinGecko from '@masknet/web3-constants/evm/coingecko.json' with { type: 'json' };
 import ENS from '@masknet/web3-constants/evm/ens.json' with { type: 'json' };
-import Etherscan from '@masknet/web3-constants/evm/etherscan.json' with { type: 'json' };
-import LensProfile from '@masknet/web3-constants/evm/lens-profile.json' with { type: 'json' };
 import RedPacket from '@masknet/web3-constants/evm/red-packet.json' with { type: 'json' };
 import RPC from '@masknet/web3-constants/evm/rpc.json' with { type: 'json' };
-import SpaceId from '@masknet/web3-constants/evm/space-id.json' with { type: 'json' };
 import Token from '@masknet/web3-constants/evm/token.json' with { type: 'json' };
 
 import { getEnumAsArray } from '@masknet/kit';
@@ -34,8 +31,4 @@ export const getTokenConstant = transform(ChainId, Token);
 export const getRPCConstants = transformAllFromJSON(ChainId, getEnvConstants('WEB3_CONSTANTS_RPC'), RPC);
 export const getRPCConstant = transformFromJSON(ChainId, getEnvConstants('WEB3_CONSTANTS_RPC'), RPC);
 
-export const getEtherscanConstants = transformAll(ChainId, Etherscan);
-
 export const getENSConstants = transformAll(ChainId, ENS);
-export const getSpaceIdConstants = transformAll(ChainId, SpaceId);
-export const getLensProfileConstants = transformAll(ChainId, LensProfile);

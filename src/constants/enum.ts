@@ -498,3 +498,8 @@ export enum ProfileEditableField {
     Location = 'location',
     Bio = 'Bio',
 }
+
+export enum ChainRuntime {
+    Ethereum = 'ethereum',
+    Solana = 'solana',
+}

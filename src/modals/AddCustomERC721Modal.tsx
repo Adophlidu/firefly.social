@@ -1,11 +1,10 @@
 'use client';
 
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
-import { useNonFungibleCollections } from '@masknet/web3-hooks-base';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddress, SchemaType } from '@masknet/web3-shared-evm';
 import { useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -20,10 +19,10 @@ import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { FilterPopover } from '@/components/Search/SearchContentPanel.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { chains } from '@/configs/wagmiClient.js';
-import { NetworkPluginID } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useNFTCollections } from '@/hooks/useNFTCollections.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { AddCustomERC20ModalOpenProps } from '@/modals/AddCustomERC20Modal.js';
@@ -55,9 +54,9 @@ function AddCustomERC721Content({ onClose, initialChainId }: { onClose: () => vo
     const [contractAddress, setContractAddress] = useState('');
     const [selectedChain, setSelectedChain] = useState(initialChainId);
 
-    const { data: allCollections = EMPTY_LIST, isLoading } = useNonFungibleCollections(NetworkPluginID.PLUGIN_EVM, {
-        schemaType: SchemaType.ERC721,
+    const { data: allCollections = EMPTY_LIST, isLoading } = useNFTCollections({
         account: account.address,
+        schemaType: SchemaType.ERC721,
     });
     const addCustomToken = useCustomTokenStore((state) => state.addToken);
     const [{ loading }, onAdd] = useAsyncFn(async () => {

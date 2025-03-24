@@ -1,16 +1,7 @@
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { memoize } from 'lodash-es';
 import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
-import {
-    ChainIdList,
-    getENSConstants,
-    getLensProfileConstants,
-    getRedPacketConstants,
-    getSpaceIdConstants,
-    getTokenConstant,
-    ZERO_ADDRESS,
-} from '../constants/index.js';
-import { ChainId } from '../types/index.js';
+import { ChainIdList, getENSConstants, getTokenConstant, ZERO_ADDRESS } from '../constants/index.js';
 
 export function checksumAddress(address: string) {
     return web3_utils.toChecksumAddress(address);
@@ -45,9 +36,4 @@ export function isENSContractAddress(contract_address: string) {
 const { ENS_NAME_WRAPPER_CONTRACT_ADDRESS } = getENSConstants();
 export function isENSNameWrapperContractAddress(contract_address: string) {
     return isSameAddress(contract_address, ENS_NAME_WRAPPER_CONTRACT_ADDRESS);
-}
-
-const { SID_CONTRACT_ADDRESS } = getSpaceIdConstants(ChainId.BSC);
-export function isSpaceIdContractAddress(contract_address: string) {
-    return isSameAddress(contract_address, SID_CONTRACT_ADDRESS);
 }

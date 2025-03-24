@@ -2,7 +2,6 @@ export * from './AccountTransaction.js';
 export * from './Composer.js';
 export * from './ContractTransaction.js';
 export * from './ErrorEditor.js';
-export * from './EtherscanURL.js';
 export * from './GasEditor.js';
 export * from './PayloadEditor.js';
 export * from './ProviderURL.js';

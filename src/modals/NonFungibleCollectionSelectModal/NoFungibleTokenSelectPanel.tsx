@@ -1,5 +1,4 @@
 import { t } from '@lingui/core/macro';
-import { useNonFungibleCollections } from '@masknet/web3-hooks-base';
 import { SchemaType } from '@masknet/web3-shared-evm';
 import Fuse from 'fuse.js';
 import { uniq } from 'lodash-es';
@@ -9,11 +8,11 @@ import { useAccount } from 'wagmi';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { SearchContentPanel } from '@/components/Search/SearchContentPanel.js';
 import { chains } from '@/configs/wagmiClient.js';
-import { NetworkPluginID } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { formatCustomSimpleHashCollection } from '@/helpers/formatCustomSimpleHashCollection.js';
 import { useCustomNonFungibleTokens } from '@/hooks/useCustomNonFungibleTokens.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useNFTCollections } from '@/hooks/useNFTCollections.js';
 import { type Collection, CollectionItem } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 
 interface FungibleTokenSelectPanelProps {
@@ -31,9 +30,9 @@ export const NonFungibleCollectionSelectPanel = memo<FungibleTokenSelectPanelPro
         const [chainId, setChainId] = useState<number>();
         const account = useAccount();
 
-        const { data: allCollections = EMPTY_LIST, isLoading } = useNonFungibleCollections(NetworkPluginID.PLUGIN_EVM, {
-            schemaType: SchemaType.ERC721,
+        const { data: allCollections = EMPTY_LIST, isLoading } = useNFTCollections({
             account: account.address,
+            schemaType: SchemaType.ERC721,
         });
         const { data: customNonFungibleTokens = [] } = useCustomNonFungibleTokens();
         const collections = useMemo(

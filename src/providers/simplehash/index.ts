@@ -1,24 +1,37 @@
-import { ChainId as EVMChainId, SchemaType } from '@masknet/web3-shared-evm';
+import { ChainId, ChainId as EVMChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
 import { chunk, compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import type { NFTMarketplace } from '@/constants/enum.js';
+import { ChainRuntime, type NFTMarketplace } from '@/constants/enum.js';
 import { EMPTY_LIST, SIMPLE_HASH_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
+import {
+    createIndicator,
+    createNextIndicator,
+    createPageable,
+    type Pageable,
+    type PageIndicator,
+} from '@/helpers/pageable.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 import type { BaseHubOptions } from '@/mask/index.js';
 import { formatSimpleHashNFT } from '@/providers/simplehash/formatSimpleHashNFT.js';
+import {
+    createNonFungibleCollection,
+    getAllChainNames,
+    isLensFollower,
+    resolveChain,
+} from '@/providers/simplehash/helpers.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
+import type { NonFungibleCollection } from '@masknet/web3-shared-base';
 
 class SimpleHashFactory {
-    async getWalletsNFTCollections(
+    async getWalletNFTCollections(
         params: { limit?: number; indicator?: PageIndicator; walletAddress: string; skipScoreCheck?: boolean },
         chains: string,
     ) {
-        const { indicator, walletAddress, limit, skipScoreCheck = false } = params ?? {};
+        const { indicator, walletAddress, limit, skipScoreCheck = false } = params;
         const url = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/collections_by_wallets_v2', {
             chains,
             wallet_addresses: walletAddress,
@@ -36,6 +49,62 @@ class SimpleHashFactory {
             response?.next_cursor ? createNextIndicator(indicator, `${response.next_cursor}`) : undefined,
         );
     }
+    async getCollectionsByOwner(params: {
+        account: string;
+        chainId?: number;
+        indicator?: PageIndicator;
+        allChains?: boolean;
+        schemaType?: SchemaType;
+    }): Promise<Pageable<NonFungibleCollection<ChainId, SchemaType>, PageIndicator>> {
+        const { account, chainId, indicator, allChains, schemaType } = params;
+        const runtime = ChainRuntime.Ethereum;
+        const isERC712Only = schemaType === SchemaType.ERC721;
+        const chain = allChains || !chainId ? getAllChainNames(runtime) : resolveChain(runtime, chainId);
+        if (!chain || !account) {
+            return createPageable(EMPTY_LIST, createIndicator(indicator));
+        }
+
+        const url = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/collections_by_wallets_v2', {
+            chains: chain,
+            wallet_addresses: account,
+            nft_ids: 1,
+        });
+
+        const response = await fetchJSON<{ collections: SimpleHash.LiteCollection[] }>(url);
+
+        const filteredCollections = response.collections
+            // Might got bad data responded including id field and other fields empty
+            .filter((x) => {
+                return !isLensFollower(x.collection_details.name) || !isERC712Only;
+            });
+
+        let erc721CollectionIdList: string[] = EMPTY_LIST;
+
+        if (isERC712Only) {
+            const nftIdList = filteredCollections.map((x) => x.nft_ids?.[0] || '').filter(Boolean);
+            while (nftIdList.length) {
+                const batchAssetsUrl = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/assets', {
+                    nft_ids: nftIdList.splice(0, 50).join(','),
+                });
+
+                const batchAssetsResponse = await fetchJSON<{
+                    nfts: SimpleHash.NFT[];
+                }>(batchAssetsUrl);
+
+                erc721CollectionIdList = erc721CollectionIdList.concat(
+                    batchAssetsResponse.nfts
+                        .filter((x) => x.contract.type === 'ERC721')
+                        .map((x) => x.collection.collection_id),
+                );
+            }
+        }
+
+        const collections = filteredCollections
+            .filter((x) => !isERC712Only || erc721CollectionIdList.includes(x.collection_id))
+            .map((x) => createNonFungibleCollection(x));
+
+        return createPageable(collections, createIndicator(indicator));
+    }
 
     async getNFTByIds(nftIds: string[]) {
         const promises = chunk(nftIds, 30).map(async (ids) => {
@@ -49,11 +118,11 @@ class SimpleHashFactory {
         return settled.flatMap((result) => (result.status === 'fulfilled' ? result.value : EMPTY_LIST));
     }
 
-    async getWalletsNFTCollectionsWithNFTs(
+    async getWalletNFTCollectionsWithNFTs(
         params: { limit?: number; indicator?: PageIndicator; walletAddress: string; skipScoreCheck?: boolean },
         chains: string,
     ) {
-        const response = await SimpleHashProvider.getWalletsNFTCollections(params, chains);
+        const response = await SimpleHashProvider.getWalletNFTCollections(params, chains);
         const nftIds = response.data.flatMap((collection) => collection.nft_ids ?? []);
         const nfts = nftIds.length ? await SimpleHashProvider.getNFTByIds(nftIds) : [];
 

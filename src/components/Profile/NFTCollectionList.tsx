@@ -142,7 +142,7 @@ export function NFTCollectionList(props: NFTCollectionListProps) {
             const indicator = createIndicator(undefined, pageParam);
             const params = { walletAddress: address, indicator };
             const response = isValidSolanaAddress(address)
-                ? await SimpleHashProvider.getWalletsNFTCollectionsWithNFTs(params, 'solana')
+                ? await SimpleHashProvider.getWalletNFTCollectionsWithNFTs(params, 'solana')
                 : await FireflyEndpointProvider.getWalletsNFTCollections(params);
 
             const nftIds = compact(response.data.map((item) => first(item.nftPreviews)?.nft_id));
