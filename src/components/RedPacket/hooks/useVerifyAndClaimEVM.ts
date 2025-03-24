@@ -27,7 +27,7 @@ export function useVerifyAndClaimEVM(payload: RedPacketJSONPayload, source: Soci
         refetch: recheckClaimStatus,
     } = useClaimStrategyStatus(payload, source, enabled && !signedMessage);
 
-    const [{ loading: isClaiming }, claimCallback] = useClaimCallback(account ?? '', payload, source);
+    const [{ loading: isClaiming }, claimCallback] = useClaimCallback(source, account ?? '', payload);
 
     const verifyAndClaim = useCallback(async () => {
         const { data } = await recheckClaimStatus();

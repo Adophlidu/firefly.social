@@ -37,6 +37,7 @@ import {
     type RedirectUrlResponse,
 } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
+import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
 
 const TransactionSchema = z.object({
     // a CAIP-2 chain ID to identify the tx network
@@ -129,6 +130,9 @@ async function getNextFrame(
         });
     }
 
+    const address = getAccount(config)?.address;
+    if (address) captureFrameActionEvent(button.action, address);
+
     try {
         switch (button.action) {
             case ActionType.Post: {
@@ -193,7 +197,6 @@ async function getNextFrame(
                 return null;
             }
             case ActionType.Transaction:
-                const address = getAccount(config)?.address;
                 if (!address) {
                     await getWalletClientRequired(config);
                     return null;

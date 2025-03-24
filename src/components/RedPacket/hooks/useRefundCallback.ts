@@ -10,6 +10,7 @@ import { NetworkType } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 
 export function useRefundCallback(rpid?: string, overrides?: ChainContextOverrides) {
     const [, refundEVM] = useRefundEvmCallback(rpid, overrides);
@@ -30,7 +31,9 @@ export function useRefundCallback(rpid?: string, overrides?: ChainContextOverrid
                 default:
                     unreachable(networkType);
             }
-
+            captureLuckyDropEvent('refund', {
+                claimer: account,
+            });
             queryClient.setQueriesData(
                 { queryKey: ['redpacket-history', account, FireflyRedPacketAPI.ActionType.Send] },
                 (

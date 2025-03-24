@@ -26,7 +26,7 @@ import { useArticleCollectStatus } from '@/hooks/useArticleCollectable.js';
 import { MintParamsPanel } from '@/modals/FreeMintModal/MintParamsPanel.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { ParagraphAPI } from '@/providers/paragraph/index.js';
-import { captureCollectArticleEvent } from '@/providers/telemetry/captureCollectArticleEvent.js';
+import { captureArticleCollectEvent } from '@/providers/telemetry/captureArticleCollectEvent.js';
 import { type Article } from '@/providers/types/Article.js';
 
 export interface ArticleCollectProps {
@@ -70,7 +70,6 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
                         platform,
                     );
                     hash = result.hash;
-                    captureCollectArticleEvent(article.id, account.address?.toLowerCase() ?? '', true);
                 } catch (error) {
                     if (error instanceof Error && error.message.includes('insufficient funds')) {
                         hasBalance = false;
@@ -89,11 +88,11 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
 
                 if (!confirmation) return;
                 hash = confirmation;
-                captureCollectArticleEvent(article.id, account.address?.toLowerCase() ?? '', false);
             }
 
-            const metadata = await FireflyEndpointProvider.getArticleMetadata(article.id, hash);
+            if (hash && account.address) captureArticleCollectEvent(article.id, account.address, isFree);
 
+            const metadata = await FireflyEndpointProvider.getArticleMetadata(article.id, hash);
             await ParagraphAPI.addArticleMetadata(metadata);
 
             const url = resolveExplorerLink(collectParams.chainId, hash, 'tx');

@@ -137,7 +137,10 @@ export function useCreateSolanaRedPacketCallback(
             updateTypedMessage(typedMessage);
 
             const metadata = getRpMetadata(typedMessage);
-            if (metadata) captureLuckyDropEvent(metadata, false);
+            if (metadata)
+                captureLuckyDropEvent('create', {
+                    metadata,
+                });
 
             updateRpPayload({
                 payloadImage: urlcat(SITE_URL, '/api/rp', {

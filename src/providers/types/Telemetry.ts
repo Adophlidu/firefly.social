@@ -1,5 +1,7 @@
 // cspell:disable
 
+import type { ActionType } from '@/types/frame.js';
+
 export enum VersionFilter {
     // the current working version
     Latest = 'latest',
@@ -53,18 +55,18 @@ export enum EventId {
     POLL_CREATE_SUCCESS = 'poll_create_success', // ✅
 
     // lucky drop
-    LUCKY_DROP_CREATE_SUCCESS = 'lucky_drop_create_success',
-    LUCKY_DROP_REFUND_SUCCESS = 'lucky_drop_refund_success',
-    LUCKY_DROP_CLAIM_SUCCESS = 'lucky_drop_claim_success',
+    LUCKY_DROP_CREATE_SUCCESS = 'lucky_drop_create_success', // ✅
+    LUCKY_DROP_REFUND_SUCCESS = 'lucky_drop_refund_success', // ✅
+    LUCKY_DROP_CLAIM_SUCCESS = 'lucky_drop_claim_success', // ✅
 
     // blink
     POST_BLINK_ACTION_SUCCESS = 'post_blink_action_success',
 
     // frame
-    POST_FRAME_ACTION_SUCCESS = 'post_frame_action_success',
+    POST_FRAME_ACTION_SUCCESS = 'post_frame_action_success', // ✅
 
     // article
-    COLLECT_ARTICLE_SUCCESS = 'collect_article_success',
+    ARTICLE_COLLECT_SUCCESS = 'article_collect_success', // ✅
 
     // snapshot
     SNAPSHOT_VOTE_SUCCESS = 'snapshot_vote_success', // ✅
@@ -105,8 +107,10 @@ export enum EventId {
     FARCASTER_POST_SHARE_SUCCESS = 'farcaster_cast_share_success', // ✅
     FARCASTER_POST_BOOKMARK_SUCCESS = 'farcaster_cast_bookmark_success', // ✅
     FARCASTER_POST_UNBOOKMARK_SUCCESS = 'farcaster_cast_unbookmark_success', // ✅
+    FARCASTER_POST_COLLECT_SUCCESS = 'farcaster_cast_collect_success', // ✅
     FARCASTER_PROFILE_FOLLOW_SUCCESS = 'farcaster_follow_success', // ✅
     FARCASTER_PROFILE_UNFOLLOW_SUCCESS = 'farcaster_unfollow_success', // ✅
+    FARCASTER_PROFILE_SUPER_FOLLOW_SUCCESS = 'farcaster_superfollow_success', // ✅
 
     // lens
     LENS_ACCOUNT_LOG_IN_SUCCESS = 'lens_log_in_success', // ✅
@@ -123,9 +127,10 @@ export enum EventId {
     LENS_POST_SHARE_SUCCESS = 'lens_post_share_success', // ✅
     LENS_POST_BOOKMARK_SUCCESS = 'lens_post_bookmark_success', // ✅
     LENS_POST_UNBOOKMARK_SUCCESS = 'lens_post_unbookmark_success', // ✅
-    LENS_POST_COLLECT_SUCCESS = 'lens_post_collect_success',
+    LENS_POST_COLLECT_SUCCESS = 'lens_post_collect_success', // ✅
     LENS_PROFILE_FOLLOW_SUCCESS = 'lens_follow_success', // ✅
     LENS_PROFILE_UNFOLLOW_SUCCESS = 'lens_unfollow_success', // ✅
+    LENS_PROFILE_SUPER_FOLLOW_SUCCESS = 'lens_superfollow_success', // ✅
 
     // x
     X_ACCOUNT_LOG_IN_SUCCESS = 'x_log_in_success', // ✅
@@ -142,8 +147,10 @@ export enum EventId {
     X_POST_SHARE_SUCCESS = 'x_post_share_success', // ✅
     X_POST_BOOKMARK_SUCCESS = 'x_post_bookmark_success', // ✅
     X_POST_UNBOOKMARK_SUCCESS = 'x_post_unbookmark_success', // ✅
+    X_POST_COLLECT_SUCCESS = 'x_post_collect_success', // ✅
     X_PROFILE_FOLLOW_SUCCESS = 'x_follow_success', // ✅
     X_PROFILE_UNFOLLOW_SUCCESS = 'x_unfollow_success', // ✅
+    X_PROFILE_SUPER_FOLLOW_SUCCESS = 'x_superfollow_success', // ✅
 
     // bsky
     BSKY_ACCOUNT_LOG_IN_SUCCESS = 'bsky_log_in_success', // ✅
@@ -160,8 +167,10 @@ export enum EventId {
     BSKY_POST_SHARE_SUCCESS = 'bsky_post_share_success', // ✅
     BSKY_POST_BOOKMARK_SUCCESS = 'bsky_post_bookmark_success', // ✅
     BSKY_POST_UNBOOKMARK_SUCCESS = 'bsky_post_unbookmark_success', // ✅
+    BSKY_POST_COLLECT_SUCCESS = 'bsky_post_collect_success', // ✅
     BSKY_PROFILE_FOLLOW_SUCCESS = 'bsky_follow_success', // ✅
     BSKY_PROFILE_UNFOLLOW_SUCCESS = 'bsky_unfollow_success', // ✅
+    BSKY_PROFILE_SUPER_FOLLOW_SUCCESS = 'bsky_superfollow_success', // ✅
 
     // apple
     APPLE_ACCOUNT_LOG_IN_SUCCESS = 'apple_log_in_success',
@@ -569,22 +578,17 @@ export interface Events extends Record<EventId, Event> {
             free_mint: boolean;
         } & WalletEventParameters;
     };
-    [EventId.COLLECT_ARTICLE_SUCCESS]: {
+    [EventId.ARTICLE_COLLECT_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
             article_id: string;
             free_mint: boolean;
         } & WalletEventParameters;
     };
-
-    // TODO
-    [EventId.LENS_POST_COLLECT_SUCCESS]: {
-        type: EventType.Interact;
-        parameters: WalletEventParameters;
-    };
     [EventId.POST_FRAME_ACTION_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
+            action_type: ActionType;
             frame_action: 'buy' | 'mint' | 'others';
         } & WalletEventParameters;
     };
@@ -678,6 +682,10 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: FarcasterEventParameters;
     };
+    [EventId.FARCASTER_PROFILE_SUPER_FOLLOW_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: FarcasterEventParameters & WalletEventParameters;
+    };
 
     // ----------------
     // lens
@@ -754,6 +762,10 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: LensPostEventParameters;
     };
+    [EventId.LENS_POST_COLLECT_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: LensPostEventParameters & WalletEventParameters;
+    };
     [EventId.LENS_PROFILE_FOLLOW_SUCCESS]: {
         type: EventType.Interact;
         parameters: LensEventParameters;
@@ -761,6 +773,10 @@ export interface Events extends Record<EventId, Event> {
     [EventId.LENS_PROFILE_UNFOLLOW_SUCCESS]: {
         type: EventType.Interact;
         parameters: LensEventParameters;
+    };
+    [EventId.LENS_PROFILE_SUPER_FOLLOW_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: LensEventParameters & WalletEventParameters;
     };
 
     // ----------------
@@ -845,6 +861,98 @@ export interface Events extends Record<EventId, Event> {
     [EventId.X_PROFILE_UNFOLLOW_SUCCESS]: {
         type: EventType.Interact;
         parameters: TwitterEventParameters;
+    };
+    [EventId.X_PROFILE_SUPER_FOLLOW_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: TwitterEventParameters & WalletEventParameters;
+    };
+
+    // ----------------
+    // bsky
+    // ----------------
+
+    [EventId.BSKY_ACCOUNT_LOG_IN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            is_token_sync: boolean;
+            bsky_accounts: AccountPairs;
+        };
+    };
+    [EventId.BSKY_ACCOUNT_LOG_OUT_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            bsky_id: string;
+            bsky_handle: string;
+        };
+    };
+    [EventId.BSKY_ACCOUNT_DISCONNECT_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            bsky_id: string;
+            bsky_handle: string;
+        };
+    };
+    [EventId.BSKY_POST_SEND_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            bsky_post_ids?: string[];
+        } & ComposeEventParameters;
+    };
+    [EventId.BSKY_POST_DELETE_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            bsky_id: string;
+            bsky_handle: string;
+            bsky_post_id: string;
+        };
+    };
+    [EventId.BSKY_POST_REPLY_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: BskyPostEventParameters;
+    };
+    [EventId.BSKY_POST_LIKE_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: BskyPostEventParameters;
+    };
+    [EventId.BSKY_POST_UNLIKE_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: BskyPostEventParameters;
+    };
+    [EventId.BSKY_POST_QUOTE_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: BskyPostEventParameters;
+    };
+    [EventId.BSKY_POST_REPOST_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: BskyPostEventParameters;
+    };
+    [EventId.BSKY_POST_UNDO_REPOST_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: BskyPostEventParameters;
+    };
+    [EventId.BSKY_POST_SHARE_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: BskyPostEventParameters;
+    };
+    [EventId.BSKY_POST_BOOKMARK_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: BskyPostEventParameters;
+    };
+    [EventId.BSKY_PROFILE_FOLLOW_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: BskyEventParameters;
+    };
+    [EventId.BSKY_PROFILE_UNFOLLOW_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: BskyEventParameters;
+    };
+    [EventId.BSKY_PROFILE_SUPER_FOLLOW_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: BskyEventParameters & WalletEventParameters;
     };
 
     // Activity

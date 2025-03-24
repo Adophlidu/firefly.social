@@ -19,6 +19,7 @@ import { useSuperFollowData } from '@/hooks/useSuperFollow.js';
 import { ConnectModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { captureProfileActionEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 
 interface SuperFollowProps {
     profile: Profile;
@@ -52,12 +53,24 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
 
             await LensSocialMediaProvider.superFollow(profile.profileId);
             enqueueSuccessMessage(t`Followed @${profile.handle} on Lens`);
+            captureProfileActionEvent('super_follow', profile, {
+                followerWalletAddress: account.address,
+            });
             onClose?.();
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to follow @${profile.handle} on Lens`);
             throw error;
         }
-    }, [followModule, allowanceModule, isConnected, hasAllowance, profile.profileId, profile.handle, onClose]);
+    }, [
+        account.address,
+        followModule,
+        allowanceModule,
+        isConnected,
+        hasAllowance,
+        profile.profileId,
+        profile.handle,
+        onClose,
+    ]);
 
     const buttonLabel = useMemo(() => {
         if (isFollowing) return t`Following`;

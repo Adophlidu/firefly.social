@@ -3,29 +3,34 @@ import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getProfileEventParameters } from '@/providers/telemetry/getProfileEventParameters.js';
+import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
-type ProfileActionType = 'follow' | 'unfollow';
+type ProfileActionType = 'follow' | 'unfollow' | 'super_follow';
 
 const resolveProfileActionEventIds = createLookupTableResolver<SocialSource, Record<ProfileActionType, EventId>>(
     {
         [Source.Farcaster]: {
             follow: EventId.FARCASTER_PROFILE_FOLLOW_SUCCESS,
             unfollow: EventId.FARCASTER_PROFILE_UNFOLLOW_SUCCESS,
+            super_follow: EventId.FARCASTER_PROFILE_SUPER_FOLLOW_SUCCESS,
         },
         [Source.Lens]: {
             follow: EventId.LENS_PROFILE_FOLLOW_SUCCESS,
             unfollow: EventId.LENS_PROFILE_UNFOLLOW_SUCCESS,
+            super_follow: EventId.LENS_PROFILE_SUPER_FOLLOW_SUCCESS,
         },
         [Source.Twitter]: {
             follow: EventId.X_PROFILE_FOLLOW_SUCCESS,
             unfollow: EventId.X_PROFILE_UNFOLLOW_SUCCESS,
+            super_follow: EventId.X_PROFILE_SUPER_FOLLOW_SUCCESS,
         },
         [Source.Bsky]: {
             follow: EventId.BSKY_PROFILE_FOLLOW_SUCCESS,
             unfollow: EventId.BSKY_PROFILE_UNFOLLOW_SUCCESS,
+            super_follow: EventId.BSKY_PROFILE_SUPER_FOLLOW_SUCCESS,
         },
     },
     (source) => {
@@ -33,12 +38,21 @@ const resolveProfileActionEventIds = createLookupTableResolver<SocialSource, Rec
     },
 );
 
-export function captureProfileActionEvent(action: ProfileActionType, profile: Profile) {
+export function captureProfileActionEvent(
+    action: ProfileActionType,
+    profile: Profile,
+    options?: {
+        followerWalletAddress?: string;
+    },
+) {
     return runInSafeAsync(() => {
         const eventIds = resolveProfileActionEventIds(profile.source);
         const eventId = eventIds[action];
 
-        return TelemetryProvider.captureEvent(eventId, getProfileEventParameters(profile));
+        return TelemetryProvider.captureEvent(eventId, {
+            ...getProfileEventParameters(profile),
+            ...(options?.followerWalletAddress ? getWalletEventParameters(options.followerWalletAddress) : {}),
+        });
     });
 }
 

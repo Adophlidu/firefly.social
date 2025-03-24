@@ -205,7 +205,10 @@ export function useCreateRedPacketCallbackEVM(
             updateTypedMessage(typedMessage);
 
             const metadata = getRpMetadata(typedMessage);
-            if (metadata) captureLuckyDropEvent(metadata, false);
+            if (metadata)
+                captureLuckyDropEvent('create', {
+                    metadata,
+                });
 
             if (coverImage) {
                 updateRpPayload({

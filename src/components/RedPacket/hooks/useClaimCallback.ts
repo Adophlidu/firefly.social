@@ -5,14 +5,15 @@ import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPaylo
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketProvider } from '@/providers/ethereum/RedPacket.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 
 /**
  * Claim fungible token red packet.
  */
 export function useClaimCallback(
+    source: SocialSource,
     account: string,
     payload: RedPacketJSONPayload = {} as RedPacketJSONPayload,
-    source: SocialSource,
 ) {
     const { chainId: contextChainId } = useChainContext({
         chainId: payload.chainId,
@@ -20,11 +21,18 @@ export function useClaimCallback(
     });
 
     return useAsyncFn(async () => {
-        return RedPacketProvider.claimRedPacket({
+        const hash = await RedPacketProvider.claimRedPacket({
             contextChainId,
             account,
             source,
             payload,
         });
+
+        captureLuckyDropEvent('claim', {
+            claimer: account,
+            payload,
+        });
+
+        return hash;
     }, [account, source, contextChainId, payload]);
 }
