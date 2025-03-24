@@ -38,8 +38,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 <Script src="/js/safary.js" defer />
                 <GoogleAnalytics gaId="G-61NFDTK6LT" />
                 <meta name="theme-color" content="#ffffff" />
+                <meta name="googlebot" content="notranslate" />
             </head>
-            <body className={`${inter.variable} font-inter`}>
+            <body className={`${inter.variable} notranslate font-inter`}>
                 <ErrorBoundary>
                     <LayoutBody>{children}</LayoutBody>
                 </ErrorBoundary>

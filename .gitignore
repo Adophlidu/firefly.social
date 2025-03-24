@@ -48,3 +48,6 @@ firebase-messaging-sw.js
 # locales
 src/locales/**/*.mjs
 src/locales/**/*.ts
+
+# has been removed
+src/maskbook
