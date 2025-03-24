@@ -794,6 +794,9 @@ msgstr "Failed to follow @{0} on {sourceName}."
 msgid "Failed to decrypt post on {sourceName}."
 msgstr "Failed to decrypt post on {sourceName}."
 
+msgid "Edit profile"
+msgstr "Edit profile"
+
 msgid "Attendees"
 msgstr "Attendees"
 
@@ -1625,6 +1628,9 @@ msgstr "Expired"
 
 msgid "Please choose issue to report this wallet:"
 msgstr "Please choose issue to report this wallet:"
+
+msgid "Nickname must not contain restricted symbols"
+msgstr "Nickname must not contain restricted symbols"
 
 msgid "Switch"
 msgstr "Switch"

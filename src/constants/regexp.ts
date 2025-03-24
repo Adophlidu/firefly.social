@@ -70,3 +70,6 @@ export const TENOR_GIF_REGEXP = /^https:\/\/media\.tenor\.com\/([^/]+)\/([^/]+)\
 
 export const IPFS_REGEXP =
     /ipfs:\/\/(Qm[1-9A-HJ-NP-Za-km-z]{44,}|b[2-7A-Za-z]{58,}|B[2-7A-Z]{58,}|z[1-9A-HJ-NP-Za-km-z]{48,}|F[\\dA-F]{50,})/;
+
+export const FIREFLY_DISPLAY_NAME_REGEXP =
+    /^[a-zA-Z0-9\s\u00C0-\u00FF\u4E00-\u9FFF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u0600-\u06FF]*$/;

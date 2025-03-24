@@ -2,7 +2,14 @@ import { first } from 'lodash-es';
 import { describe, expect, it } from 'vitest';
 
 import { LINK_MARK_RE } from '@/constants/linkRegExp.js';
-import { CHANNEL_REGEX, MENTION_REGEX, SYMBOL_REGEX, URL_INPUT_REGEX, URL_REGEX } from '@/constants/regexp.js';
+import {
+    CHANNEL_REGEX,
+    MENTION_REGEX,
+    SYMBOL_REGEX,
+    URL_INPUT_REGEX,
+    URL_REGEX,
+    FIREFLY_DISPLAY_NAME_REGEXP,
+} from '@/constants/regexp.js';
 
 function matchUrl(regExp: RegExp) {
     return () => {
@@ -273,5 +280,70 @@ describe('URL_SINGLE_REGEX', () => {
         ].forEach((url) => {
             expect(URL_INPUT_REGEX.test(url)).toBe(false);
         });
+    });
+});
+
+describe('FIREFLY_DISPLAY_NAME_REGEXP', () => {
+    it('should allow English letters, numbers, and spaces', () => {
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('Hello123 World')).toBe(true);
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('ABC')).toBe(true);
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('123')).toBe(true);
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('   ')).toBe(true);
+    });
+
+    it('should allow Chinese characters', () => {
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('你好世界')).toBe(true);
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('测试123')).toBe(true);
+    });
+
+    it('should allow Japanese characters (hiragana and katakana)', () => {
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('こんにちは')).toBe(true);
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('コンニチハ')).toBe(true);
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('こんにちは 123')).toBe(true);
+    });
+
+    it('should allow Korean characters', () => {
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('안녕하세요')).toBe(true);
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('안녕 123')).toBe(true);
+    });
+
+    it('should allow Arabic characters', () => {
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('مرحبا')).toBe(true);
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('مرحبا 123')).toBe(true);
+    });
+
+    it('should allow accented Latin characters (French, German, etc.)', () => {
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('HélloWörld')).toBe(true);
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('Café')).toBe(true);
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('München')).toBe(true);
+    });
+
+    it('should allow mixed valid characters', () => {
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('Hello 你好 안녕 こんにちは مرحبا')).toBe(true);
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('Café 你好 123')).toBe(true);
+    });
+
+    it('should allow empty string', () => {
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('')).toBe(true);
+    });
+
+    it('should disallow special symbols like @, #, $, etc.', () => {
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('Hello@World')).toBe(false);
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('你好#世界')).toBe(false);
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('Hello$123')).toBe(false);
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('Test&User')).toBe(false);
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('Hello!')).toBe(false);
+    });
+
+    it('should disallow other unsupported characters', () => {
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('Hello©World')).toBe(false);
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('Hello😊')).toBe(false);
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('Hello~World')).toBe(false);
+    });
+
+    it('should handle single character inputs', () => {
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('a')).toBe(true);
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('你')).toBe(true);
+        expect(FIREFLY_DISPLAY_NAME_REGEXP.test('@')).toBe(false);
     });
 });

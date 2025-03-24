@@ -21,6 +21,7 @@ import type { FireflyProfileUpdateParams } from '@/providers/types/Firefly.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { captureEditProfileSuccessEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import { compact } from 'lodash-es';
+import { FIREFLY_DISPLAY_NAME_REGEXP } from '@/constants/regexp.js';
 
 export function EditFireflyProfileForm() {
     const form = useFormContext<EditFireflyProfileFromValues>();
@@ -91,6 +92,10 @@ export function EditFireflyProfileForm() {
                         maxLength: {
                             value: 20,
                             message: t`Display Name should not exceed 20 characters`,
+                        },
+                        pattern: {
+                            value: FIREFLY_DISPLAY_NAME_REGEXP,
+                            message: t`Nickname must not contain restricted symbols`,
                         },
                     }}
                 />

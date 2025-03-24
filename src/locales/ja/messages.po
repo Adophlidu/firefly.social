@@ -799,6 +799,9 @@ msgstr ""
 msgid "Failed to decrypt post on {sourceName}."
 msgstr ""
 
+msgid "Edit profile"
+msgstr ""
+
 msgid "Attendees"
 msgstr ""
 
@@ -1629,6 +1632,9 @@ msgid "Expired"
 msgstr ""
 
 msgid "Please choose issue to report this wallet:"
+msgstr ""
+
+msgid "Nickname must not contain restricted symbols"
 msgstr ""
 
 msgid "Switch"

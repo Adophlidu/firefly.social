@@ -799,6 +799,9 @@ msgstr "在 {sourceName} 上关注 @{0} 失败。"
 msgid "Failed to decrypt post on {sourceName}."
 msgstr "无法解密 {sourceName} 上的帖子。"
 
+msgid "Edit profile"
+msgstr ""
+
 msgid "Attendees"
 msgstr "出席人数"
 
@@ -1630,6 +1633,9 @@ msgstr "已过期"
 
 msgid "Please choose issue to report this wallet:"
 msgstr "请选择举报这个钱包的原因："
+
+msgid "Nickname must not contain restricted symbols"
+msgstr ""
 
 msgid "Switch"
 msgstr "切换"
