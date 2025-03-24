@@ -15,6 +15,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
 import { useDeleteFireflyAccount } from '@/hooks/useDeleteFireflyAccount.js';
 import { LogoutModalRef } from '@/modals/controls.js';
+import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 
 export function FireflyAccountCard() {
     const { data, isLoading, error } = useAllConnectionsFormattedWithProfiles();
@@ -86,6 +87,7 @@ export function FireflyAccountCard() {
                                                 onClick={() => {
                                                     close();
                                                     setOpen(true);
+                                                    captureEditProfileClickEvent();
                                                 }}
                                             >
                                                 <Trans>
