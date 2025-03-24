@@ -43,10 +43,18 @@ export function FireflyAccountCard() {
                     <div
                         className={classNames('min-w-12', isLoading ? 'h-3' : 'h-5', {
                             'animate-pulse bg-bg': isLoading,
-                            'font-semibold text-lightHighlight': !account?.displayName,
                         })}
                     >
-                        {isLoading ? null : (account?.displayName ?? <Trans>Edit profile</Trans>)}
+                        {!isLoading
+                            ? account?.displayName || (
+                                  <ClickableButton
+                                      className="font-semibold text-lightHighlight hover:underline"
+                                      onClick={() => setOpen(true)}
+                                  >
+                                      <Trans>Edit profile</Trans>
+                                  </ClickableButton>
+                              )
+                            : null}
                     </div>
                     <div
                         className={classNames('min-w-[120px] text-second', isLoading ? 'h-3' : 'h-5', {
