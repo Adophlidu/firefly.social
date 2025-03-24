@@ -150,6 +150,7 @@ export function LoginBsky() {
                     />
                     {account ? (
                         <ClearButton
+                            tabIndex={-1}
                             type="button"
                             className="absolute right-3 hidden group-focus-within:inline-block group-hover:inline-block"
                             IconProps={{ className: 'group-hover:text-highlight group-focus-within:text-highlight' }}
@@ -173,6 +174,7 @@ export function LoginBsky() {
                     />
                     {password ? (
                         <ClearButton
+                            tabIndex={-1}
                             type="button"
                             className="absolute right-3 hidden group-focus-within:inline-block group-hover:inline-block"
                             IconProps={{ className: 'group-hover:text-highlight group-focus-within:text-highlight' }}

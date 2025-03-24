@@ -39,8 +39,8 @@ export function ClickableButton({
             ref={ref}
             onClick={(event) => {
                 if (props.disabled || loading) return;
-                if (!enableDefault) event.preventDefault();
-                if (!enablePropagate) event.stopPropagation();
+                if (!enableDefault && props.type !== 'submit') event.preventDefault();
+                if (!enablePropagate && props.type !== 'submit') event.stopPropagation();
                 onClick?.(event);
             }}
         >
