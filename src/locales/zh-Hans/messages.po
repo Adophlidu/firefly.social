@@ -1747,6 +1747,9 @@ msgstr ""
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr "您可以在发送红包 24 小时后提取任何未领取的金额。"
 
+msgid "Posted by {displayName} via Firefly"
+msgstr ""
+
 msgid "Only people you mention"
 msgstr "只有你提及的人"
 

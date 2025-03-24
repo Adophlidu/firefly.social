@@ -14,6 +14,7 @@ import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { safeUnreachable } from '@masknet/kit';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
+import { extractTwitterProfileByOpengraphTitle } from '@/services/getTwitterProfileByOG.js';
 
 async function createMetadataForTwitter(postId: string) {
     const timeout = AbortSignal.timeout(60_000);
@@ -21,7 +22,10 @@ async function createMetadataForTwitter(postId: string) {
         OpenGraphProcessor.digestDocumentUrl(`https://x.com/realMaskNetwork/status/${postId}`, timeout),
     );
     if (ogResult?.og) {
-        const title = ogResult.og.title || SITE_NAME;
+        const { displayName } = extractTwitterProfileByOpengraphTitle(ogResult.og.title ?? '');
+        const title = displayName
+            ? await createPageTitleSSR(() => t`Posted by ${displayName} via Firefly`)
+            : ogResult.og.title || SITE_NAME;
         const description = ogResult.og.description || SITE_DESCRIPTION;
         const ogImage = urlcat(SITE_URL, '/api/og/post/:source/:postId/image', {
             source: Source.Twitter,

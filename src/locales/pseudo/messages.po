@@ -1742,6 +1742,9 @@ msgstr ""
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr ""
 
+msgid "Posted by {displayName} via Firefly"
+msgstr ""
+
 msgid "Only people you mention"
 msgstr ""
 
