@@ -2,16 +2,18 @@ import { t } from '@lingui/core/macro';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { type SocialSourceInURL, Source, SourceInURL } from '@/constants/enum.js';
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
+import { type RequestedLoginSource, type SocialSourceInURL, Source, SourceInURL } from '@/constants/enum.js';
+import { REQUIRE_LOGIN_SOURCES, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { resolveSocialSource, resolveSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { safeUnreachable } from '@masknet/kit';
+import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 
 async function createMetadataForTwitter(postId: string) {
     const timeout = AbortSignal.timeout(60_000);
@@ -21,13 +23,10 @@ async function createMetadataForTwitter(postId: string) {
     if (ogResult?.og) {
         const title = ogResult.og.title || SITE_NAME;
         const description = ogResult.og.description || SITE_DESCRIPTION;
-        const ogImage = ogResult.og.image?.url
-            ? {
-                  url: ogResult.og.image.url,
-                  width: ogResult.og.image.width,
-                  height: ogResult.og.image.height,
-              }
-            : `${SITE_URL}/image/og.png`;
+        const ogImage = urlcat(SITE_URL, '/api/og/post/:source/:postId/image', {
+            source: Source.Twitter,
+            postId,
+        });
 
         return createSiteMetadata({
             title,
@@ -51,8 +50,21 @@ async function createMetadataForTwitter(postId: string) {
     return createSiteMetadata();
 }
 
+async function createMetadataForLoginRequestSource(source: RequestedLoginSource, postId: string) {
+    switch (source) {
+        case Source.Twitter:
+            return createMetadataForTwitter(postId);
+        default:
+            safeUnreachable(source);
+            return createSiteMetadata();
+    }
+}
+
 export async function createMetadataPostById(source: SocialSourceInURL, postId: string) {
-    if (source === SourceInURL.Twitter) return createMetadataForTwitter(postId);
+    const resolvedSource = resolveSource(source);
+    if (isRequestedLoginSource(resolvedSource)) {
+        return createMetadataForLoginRequestSource(resolvedSource, postId);
+    }
 
     const provider = resolveSocialMediaProvider(resolveSocialSource(source));
     const post = await provider.getPostById(postId).catch(() => null);

@@ -18,8 +18,10 @@ import { narrowToSocialSourceInURL } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
-import type { Attachment } from '@/providers/types/SocialMedia.js';
+import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 import type { NextRequestContext } from '@/types/index.js';
+import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
+import { getTwitterPostByOG } from '@/services/getTwitterPostByOG.js';
 
 function resolveSourceIcon(source: SocialSource) {
     return {
@@ -43,107 +45,119 @@ function resolveAttachmentsSrc(asset?: Attachment) {
     }
 }
 
+function PostOpenGraphImage({ post }: { post: Post }) {
+    const src = resolveAttachmentsSrc(post.metadata.content?.asset);
+    return (
+        <div style={{ width: '100%', height: '100%', display: 'flex', background: '#fff', padding: '25px' }}>
+            <div
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    padding: '30px',
+                    backgroundColor: '#F5F5F9',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    color: '#181818',
+                    borderRadius: '40px',
+                }}
+            >
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        gap: '25px',
+                    }}
+                >
+                    <img
+                        src={post.author.pfp}
+                        alt="pfp"
+                        style={{
+                            width: '75px',
+                            height: '75px',
+                            borderRadius: '100%',
+                            objectFit: 'cover',
+                        }}
+                    />
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <div
+                            style={{
+                                fontSize: '28px',
+                                fontWeight: 700,
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                            }}
+                        >
+                            {post.author.displayName}
+                            <img src={FireflyAvatarSVG} style={{ width: '28px', height: '28px' }} alt="firefly" />
+                            <img
+                                src={resolveSourceIcon(post.source)}
+                                style={{ width: '28px', height: '28px' }}
+                                alt="source"
+                            />
+                        </div>
+                        <div style={{ fontSize: '28px', fontWeight: 400, color: '#767676' }}>
+                            {`@${post.author.handle} · ${dayjs(post.timestamp).format('hh:mm A · MMM D YYYY')}`}
+                        </div>
+                    </div>
+                </div>
+                <div style={{ fontSize: '28px', fontWeight: 400, display: 'flex', gap: '30px', marginTop: '10px' }}>
+                    <div
+                        style={{
+                            whiteSpace: 'pre-line',
+                            wordWrap: 'break-word',
+                            height: '455px',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                        }}
+                    >
+                        {post.metadata.content?.content}
+                    </div>
+                    {src ? (
+                        <img
+                            src={src}
+                            alt="image"
+                            style={{
+                                borderRadius: '16px',
+                                width: '556px',
+                                height: 'auto',
+                                objectFit: 'contain',
+                                marginLeft: 'auto',
+                            }}
+                        />
+                    ) : null}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function getPostById(source: SocialSource, postId: string) {
+    if (isRequestedLoginSource(source)) {
+        return getTwitterPostByOG(postId);
+    }
+    return resolveSocialMediaProvider(source).getPostById(postId);
+}
+
 export const GET = compose(
     withRequestErrorHandler({ throwError: true }),
     async (request: NextRequest, context?: NextRequestContext) => {
         const postId = (await context?.params)?.postId;
-        const source = narrowToSocialSourceInURL((await context?.params)?.source as SourceInURL);
-        const provider = resolveSocialMediaProvider(resolveSocialSource(source));
-        const post = postId ? await provider.getPostById(postId).catch(() => null) : null;
+        const sourceInURL = narrowToSocialSourceInURL((await context?.params)?.source as SourceInURL);
+        const source = resolveSocialSource(sourceInURL);
+        if (!postId) return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
+        const post = await getPostById(source, postId);
 
         if (!post) {
             return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
         }
 
-        const src = resolveAttachmentsSrc(post.metadata.content?.asset);
-        return new ImageResponse(
-            (
-                <div
-                    style={{
-                        width: '100%',
-                        height: '100%',
-                        padding: '130px',
-                        backgroundColor: '#F5F5F9',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        color: '#181818',
-                    }}
-                >
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            gap: '25px',
-                        }}
-                    >
-                        <img
-                            src={post.author.pfp}
-                            alt="pfp"
-                            style={{
-                                width: '75px',
-                                height: '75px',
-                                borderRadius: '100%',
-                                objectFit: 'cover',
-                            }}
-                        />
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <div
-                                style={{
-                                    fontSize: '28px',
-                                    fontWeight: 700,
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '8px',
-                                }}
-                            >
-                                {post.author.displayName}
-                                <img src={FireflyAvatarSVG} style={{ width: '28px', height: '28px' }} alt="firefly" />
-                                <img
-                                    src={resolveSourceIcon(post.source)}
-                                    style={{ width: '28px', height: '28px' }}
-                                    alt="source"
-                                />
-                            </div>
-                            <div style={{ fontSize: '28px', fontWeight: 400, color: '#767676' }}>
-                                {`@${post.author.handle} · ${dayjs(post.timestamp).format('hh:mm A · MMM D YYYY')}`}
-                            </div>
-                        </div>
-                    </div>
-                    <div style={{ fontSize: '28px', fontWeight: 400, display: 'flex', gap: '30px', marginTop: '10px' }}>
-                        <div
-                            style={{
-                                whiteSpace: 'pre-line',
-                                wordWrap: 'break-word',
-                                height: '455px',
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                            }}
-                        >
-                            {post.metadata.content?.content}
-                        </div>
-                        {src ? (
-                            <img
-                                src={src}
-                                alt="image"
-                                style={{
-                                    borderRadius: '16px',
-                                    width: '556px',
-                                    height: '455px',
-                                    objectFit: 'contain',
-                                    marginLeft: 'auto',
-                                }}
-                            />
-                        ) : null}
-                    </div>
-                </div>
-            ),
-            {
-                width: 1400,
-                height: 800,
-                headers: {
-                    'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
-                },
+        return new ImageResponse(<PostOpenGraphImage post={post} />, {
+            width: 1400,
+            height: 800,
+            headers: {
+                'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
             },
-        );
+        });
     },
 );

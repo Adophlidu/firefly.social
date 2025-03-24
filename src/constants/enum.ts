@@ -138,6 +138,7 @@ export type ProfileSource =
     | Source.Email;
 
 export type LoginSource = SocialSource | ThirdPartySource;
+export type RequestedLoginSource = Source.Twitter;
 
 export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Bsky | Source.Wallet;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter | SourceInURL.Bsky;

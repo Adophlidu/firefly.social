@@ -19,6 +19,7 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { setupTwitterSessionForSSR } from '@/helpers/setupTwitterSessionForSSR.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/index.js';
+import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 
 export const revalidate = 60;
 
@@ -47,7 +48,7 @@ export default async function Page(props: Props) {
     if (!isSocialSourceInUrl(params.source)) notFound();
 
     const source = resolveSocialSource(params.source);
-    if (REQUIRE_LOGIN_SOURCES.includes(source) && !resolveSessionHolder(source).session) {
+    if (isRequestedLoginSource(source) && !resolveSessionHolder(source).session) {
         return (
             <article className="min-h-screen">
                 <header className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">

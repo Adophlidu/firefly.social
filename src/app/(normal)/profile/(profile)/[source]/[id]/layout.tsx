@@ -23,6 +23,7 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 import type { NextPageProps } from '@/types/index.js';
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
+import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 
 interface Props extends NextPageProps<{ id: string; source: SourceInURL }> {}
 
@@ -44,7 +45,7 @@ export default async function Layout(props: Props) {
     if (!walletProfiles) notFound();
     const profiles = formatFireflyProfilesFromWalletProfiles(walletProfiles) as FireflyProfile[];
 
-    if (isSocialSource(source) && REQUIRE_LOGIN_SOURCES.includes(source) && !resolveSessionHolder(source).session) {
+    if (isRequestedLoginSource(source) && !resolveSessionHolder(source).session) {
         return (
             <>
                 <FireflyAccountInfo identity={identity} {...walletProfiles.account} />

@@ -14,6 +14,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import type { NextPageProps } from '@/types/index.js';
+import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 
 interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: SourceInURL }> {}
 
@@ -43,7 +44,7 @@ export default function Page(props: Props) {
         </Suspense>
     );
 
-    if (isSocialSource(source) && REQUIRE_LOGIN_SOURCES.includes(source)) {
+    if (isRequestedLoginSource(source)) {
         return (
             <LoginRequiredGuard source={source} className="md:!pt-0">
                 {content}
