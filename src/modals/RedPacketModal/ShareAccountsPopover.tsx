@@ -7,6 +7,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 interface ShareAccountsPopoverProps extends PropsWithChildren {
     accounts: Array<{ icon: ReactNode; name: string }>;
@@ -67,7 +68,7 @@ export function ShareAccountsPopover({ accounts, children, onSelect, className, 
 
 function formatAccountName(account?: string) {
     if (!account) return account;
-    if (isValidAddress(account) || isValidSolanaAddress(account)) return formatAddress(account, 4);
+    if (isValidEthereumAddress(account) || isValidSolanaAddress(account)) return formatAddress(account, 4);
     if (isValidDomain(account)) return account;
     return `@${account}`;
 }
@@ -86,7 +87,7 @@ export function ShareAccountsPopoverItem({
     const { data: ensName } = useEnsName({
         address: name as `0x${string}`,
         query: {
-            enabled: isValidAddress(name),
+            enabled: isValidEthereumAddress(name),
         },
     });
 

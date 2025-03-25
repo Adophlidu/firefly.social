@@ -28,6 +28,7 @@ import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { AddCustomERC20ModalOpenProps } from '@/modals/AddCustomERC20Modal.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 function AddCustomERC721Content({ onClose, initialChainId }: { onClose: () => void; initialChainId: number }) {
     const account = useAccount();
@@ -89,7 +90,7 @@ function AddCustomERC721Content({ onClose, initialChainId }: { onClose: () => vo
         }
     }, [account.address, contractAddress, allCollections, selectedChain, addCustomToken, onClose]);
 
-    const disabledAdd = [contractAddress, selectedChain, isValidAddress(contractAddress), account.address].some(
+    const disabledAdd = [contractAddress, selectedChain, isValidEthereumAddress(contractAddress), account.address].some(
         (x) => !x,
     );
 

@@ -27,6 +27,7 @@ import type {
 } from '@/providers/types/CoinGecko.js';
 import { type Contract, type Trending, TrendingProvider } from '@/providers/types/Trending.js';
 import type { TokenWithMarket } from '@/services/searchTokens.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 /**
  * @internal
@@ -84,7 +85,7 @@ export class CoinGecko {
 
         const isNative = isSolana
             ? isNativeTokenAddressSolana(address)
-            : isNativeTokenAddress(address) || !isValidAddress(address);
+            : isNativeTokenAddress(address) || !isValidEthereumAddress(address);
         if (isNative) {
             return CoinGecko.getTokenPrice(COIN_ID);
         }

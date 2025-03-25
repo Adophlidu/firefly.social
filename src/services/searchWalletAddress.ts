@@ -1,4 +1,4 @@
-import { ChainId, isValidAddress } from '@masknet/web3-shared-evm';
+import { ChainId } from '@masknet/web3-shared-evm';
 import type { Address } from 'viem';
 import { getEnsAvatar, getEnsName } from 'wagmi/actions';
 
@@ -9,11 +9,12 @@ import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { trimify } from '@/helpers/trimify.js';
 import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 export async function searchWalletAddress(address: string): Promise<FireflyProfile | undefined> {
     const trimmed = trimify(address);
 
-    if (isValidAddress(trimmed.toLowerCase())) {
+    if (isValidEthereumAddress(trimmed)) {
         const ensName = await runInSafeAsync(() =>
             getEnsName(config, { address: trimmed.toLowerCase() as Address, chainId: ChainId.Mainnet }),
         );

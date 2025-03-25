@@ -20,6 +20,7 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 interface WalletItemProps {
     profile: WalletProfile;
@@ -29,7 +30,7 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
     profile: { address, primary_ens, avatar: ensAvatar, blocked },
 }) {
     const isMuted = blocked ?? false;
-    const isValidAddress = isAddress(address) || isValidSolanaAddress(address);
+    const isValidAddress = isValidEthereumAddress(address) || isValidSolanaAddress(address);
 
     const profileLink = resolveProfileUrl(Source.Wallet, address);
     const walletHandle = primary_ens || formatAddress(address, 10, 0);

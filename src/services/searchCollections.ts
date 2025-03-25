@@ -7,6 +7,8 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { trimify } from '@/helpers/trimify.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { NFTScanProvider } from '@/providers/nft-scan/index.js';
+import { isAddress, type Address } from 'viem';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 const SEARCH_CHAIN_ID_LIST = [
     ChainId.Mainnet,
@@ -40,9 +42,8 @@ const searchCollectionByAddress = memoizePromise(
 export async function searchCollections(keyword: string) {
     const formatted = trimify(keyword).toLowerCase();
 
-    if (isValidAddress(formatted)) {
+    if (isValidEthereumAddress(formatted)) {
         const collection = await runInSafeAsync(() => searchCollectionByAddress(formatted));
-
         return createPageable(collection ? [collection] : EMPTY_LIST, createIndicator());
     } else {
         return FireflyEndpointProvider.searchCollections(keyword);

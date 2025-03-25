@@ -119,6 +119,7 @@ import type { DiscoverNFTResponseV2, GetFollowingNFTResponse, NFTFeed } from '@/
 import { convertBskyHandleToDid } from '@/services/convertBskyHandleToDid.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { settings } from '@/settings/index.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 function resolveDebankChain(debankChain: string) {
     const chain = DEBANK_CHAINS.find((chain) => chain.id === debankChain);
@@ -466,7 +467,7 @@ export class FireflyEndpoint {
     }
 
     async watchWallet(address: string) {
-        if (!isAddress(address)) throw new Error(`Invalid address: ${address}`);
+        if (!isValidEthereumAddress(address)) throw new Error(`Invalid address: ${address}`);
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/follow', {
             type: WatchType.Wallet,
             toObjectId: address,
@@ -476,7 +477,7 @@ export class FireflyEndpoint {
     }
 
     async unwatchWallet(address: string) {
-        if (!isAddress(address)) throw new Error(`Invalid address: ${address}`);
+        if (!isValidEthereumAddress(address)) throw new Error(`Invalid address: ${address}`);
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/follow', {
             type: WatchType.Wallet,
             toObjectId: address,

@@ -5,7 +5,6 @@ import { isNativeTokenAddress, ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { isNativeTokenAddress as isNativeTokenAddressSolana } from '@masknet/web3-shared-solana';
 import { BigNumber } from 'bignumber.js';
 import { type ChangeEvent, memo, useCallback, useMemo } from 'react';
-import { isAddress } from 'viem';
 
 import ArrowDown from '@/assets/arrow-down.svg';
 import { TokenIcon } from '@/components/TokenIcon.js';
@@ -15,6 +14,7 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { isSameEthereumAddress, isSameAddress } from '@/helpers/isSameAddress.js';
 import { isZero, leftShift } from '@/helpers/number.js';
 import { TokenSelectorModalRef } from '@/modals/controls.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 const MIN_AMOUNT_LENGTH = 1;
 const MAX_AMOUNT_LENGTH = 79;
@@ -53,8 +53,10 @@ export const FungibleTokenInput = memo<FungibleTokenInputProps>(function Fungibl
                 switch (networkType) {
                     case NetworkType.Ethereum:
                         return (
-                            isSameEthereumAddress(isAddress(item.id) ? item.id : ZERO_ADDRESS, token?.address) &&
-                            item.chainId === token?.chainId
+                            isSameEthereumAddress(
+                                isValidEthereumAddress(item.id) ? item.id : ZERO_ADDRESS,
+                                token?.address,
+                            ) && item.chainId === token?.chainId
                         );
                     case NetworkType.Solana:
                         return isSameAddress(item.id, token?.address);

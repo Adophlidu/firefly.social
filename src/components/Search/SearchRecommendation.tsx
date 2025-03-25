@@ -4,7 +4,6 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { usePathname } from 'next/navigation.js';
 import { useDebounce } from 'usehooks-ts';
-import { isAddress } from 'viem';
 
 import SearchIcon from '@/assets/search.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -21,6 +20,7 @@ import { resolveSearchTypeFromQuery } from '@/helpers/resolveSearchTypeFromQuery
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 interface SearchRecommendationProps {
     keyword: string;
@@ -78,7 +78,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                     <span className="ml-4 min-w-0 truncate">{keyword}</span>
                 </Link>
 
-                {debouncedKeyword && (isSymbol || isAddress(debouncedKeyword.toLowerCase())) ? (
+                {debouncedKeyword && (isSymbol || isValidEthereumAddress(debouncedKeyword)) ? (
                     <>
                         <SuggestTokenList query={debouncedKeyword} onSelect={onSelect} />
                         {!isSymbol ? <SuggestCollectionList query={debouncedKeyword} onSelect={onSelect} /> : null}

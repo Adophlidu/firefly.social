@@ -9,6 +9,7 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { CoinGeckoCoinMarketInfo } from '@/providers/types/CoinGecko.js';
 import type { SearchableToken } from '@/providers/types/Firefly.js';
 import { searchTokenByAddress } from '@/services/searchTokenByAddress.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 export type TokenWithMarket = SearchableToken & { market?: Partial<CoinGeckoCoinMarketInfo>; hit?: boolean };
 
@@ -21,7 +22,7 @@ function sortTokensByKeyword(tokens: SearchableToken[], keyword: string) {
 
     // fast path
     const [firstToken, ...rest] = tokens;
-    if ((firstToken && isTokenMatched(firstToken, keyword)) || isAddress(trimify(keyword).toLowerCase())) {
+    if ((firstToken && isTokenMatched(firstToken, keyword)) || isValidEthereumAddress(trimify(keyword))) {
         return [{ ...firstToken, hit: true }, ...rest];
     }
 
@@ -71,7 +72,7 @@ export async function searchTokensByAddress(address: string): Promise<Pageable<S
  */
 export async function searchTokens(searchKeyword: string): Promise<Pageable<TokenWithMarket, PageIndicator>> {
     const trimmed = trimify(searchKeyword).toLowerCase();
-    const res = isAddress(trimmed)
+    const res = isValidEthereumAddress(trimmed)
         ? await searchTokensByAddress(trimmed)
         : await FireflyEndpointProvider.searchTokens(searchKeyword);
     const ids = res.data.map((x) => x.id);

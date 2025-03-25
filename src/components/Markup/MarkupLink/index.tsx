@@ -33,6 +33,7 @@ import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { isTCOLink } from '@/helpers/resolveTCOLink.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 function unpaddings(text: string) {
     const start = text.match(/(^\s)/)?.[0] || null;
@@ -152,7 +153,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
             </>
         );
 
-    if (isAddress(trimmed) || (isValidSolanaAddress(trimmed) as boolean)) {
+    if (isValidEthereumAddress(trimmed) || (isValidSolanaAddress(trimmed) as boolean)) {
         return <AddressTag title={trimmed} address={trimmed} source={source} />;
     }
 

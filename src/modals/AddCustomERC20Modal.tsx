@@ -27,6 +27,7 @@ import { useTipsTokens } from '@/hooks/useTipsTokens.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { searchTokenLogoURI } from '@/services/searchTokenLogoURI.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 function AddCustomERC20ModalContent({ onClose, initialChainId }: { onClose: () => void; initialChainId: number }) {
     const account = useAccount();
@@ -111,7 +112,7 @@ function AddCustomERC20ModalContent({ onClose, initialChainId }: { onClose: () =
         }
     }, [account.address, contractAddress, tokens, selectedChain, addCustomToken, onClose]);
 
-    const disabledAdd = [contractAddress, selectedChain, isValidAddress(contractAddress), account.address].some(
+    const disabledAdd = [contractAddress, selectedChain, isValidEthereumAddress(contractAddress), account.address].some(
         (x) => !x,
     );
 

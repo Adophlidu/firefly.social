@@ -38,6 +38,7 @@ import {
 } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 const TransactionSchema = z.object({
     // a CAIP-2 chain ID to identify the tx network
@@ -49,7 +50,7 @@ const TransactionSchema = z.object({
     params: z.object({
         // JSON ABI which must include encoded function type and should include potential error types. Can be empty.
         abi: z.union([z.object({}), z.array(z.object({})), z.string()]).optional(),
-        to: z.string().refine((x) => isAddress(x), { message: 'Invalid address format.' }),
+        to: z.string().refine((x) => isValidEthereumAddress(x), { message: 'Invalid address format.' }),
         value: z.string().optional(),
         data: z.string().optional(),
     }),

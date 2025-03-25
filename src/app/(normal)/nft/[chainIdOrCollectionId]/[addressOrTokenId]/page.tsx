@@ -12,14 +12,13 @@ import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import type { NextPageProps } from '@/types/index.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 interface Props extends NextPageProps<{ addressOrTokenId: string; chainIdOrCollectionId: string }> {}
 
 function isNFTDetailPage(chainIdOrCollectionId: string, addressOrTokenId: string) {
     const isChainId = isValidChainId(+chainIdOrCollectionId) || isValidSolanaChainId(+chainIdOrCollectionId);
-    const isAddress = isValidAddress(addressOrTokenId);
-
-    return !isChainId && !isAddress;
+    return !isChainId && !isValidEthereumAddress(addressOrTokenId);
 }
 
 export async function generateMetadata(props: Props) {

@@ -1,3 +1,4 @@
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 import { web3 } from '@coral-xyz/anchor';
 import { type Address, isAddress, isAddressEqual } from 'viem';
 
@@ -6,7 +7,7 @@ export function isSameEthereumAddress(
     otherAddress: string | null | undefined,
 ): boolean {
     if (!address || !otherAddress) return false;
-    if (!isAddress(address) || !isAddress(otherAddress)) return false;
+    if (!isValidEthereumAddress(address) || !isValidEthereumAddress(otherAddress)) return false;
     return isAddressEqual(address as Address, otherAddress as Address);
 }
 

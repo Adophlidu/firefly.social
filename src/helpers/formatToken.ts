@@ -6,10 +6,16 @@ import { isAddress } from 'viem';
 import { NetworkType, TokenType } from '@/constants/enum.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import type { Token } from '@/providers/types/Transfer.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<number, number> {
     // it is not a valid address if its native token
-    const address = token.networkType === NetworkType.Solana ? token.id : isAddress(token.id) ? token.id : ZERO_ADDRESS;
+    const address =
+        token.networkType === NetworkType.Solana
+            ? token.id
+            : isValidEthereumAddress(token.id)
+              ? token.id
+              : ZERO_ADDRESS;
 
     return {
         name: token.name,

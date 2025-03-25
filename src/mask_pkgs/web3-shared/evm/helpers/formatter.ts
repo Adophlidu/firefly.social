@@ -1,12 +1,13 @@
 import { BigNumber } from 'bignumber.js';
 import { memoize } from 'lodash-es';
-import { checksumAddress, isValidAddress } from './address.js';
 import { isEnsSubdomain, isValidDomain } from './isValidDomain.js';
+import { checksumAddress, type Address } from 'viem';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 export const formatEthereumAddress: (address: string, size?: number) => string = memoize(
     function formatEthereumAddress(address: string, size = 0) {
-        if (!isValidAddress(address)) return address;
-        const address_ = checksumAddress(address);
+        if (!isValidEthereumAddress(address)) return address;
+        const address_ = checksumAddress(address as Address);
         if (size === 0 || size >= 20) return address_;
         return `${address_.slice(0, Math.max(0, 2 + size))}...${address_.slice(-size)}`;
     },

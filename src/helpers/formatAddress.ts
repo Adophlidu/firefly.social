@@ -1,7 +1,8 @@
 import { memoize } from 'lodash-es';
-import { checksumAddress, isAddress } from 'viem';
+import { checksumAddress } from 'viem';
 
 import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 type Offset = 0 | 2;
 
@@ -25,7 +26,7 @@ export const formatEthereumAddress: Formatter = memoize(function formatEthereumA
     size = 0,
     offset = 2,
 ) {
-    if (!isAddress(address)) return address;
+    if (!isValidEthereumAddress(address)) return address;
     const address_ = checksumAddress(address);
     if (size === 0 || size >= 20) return address_;
     return `${address_.slice(0, Math.max(0, offset + size))}...${address_.slice(-size)}`;

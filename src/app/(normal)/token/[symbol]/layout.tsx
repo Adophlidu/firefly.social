@@ -1,5 +1,4 @@
 import type { PropsWithChildren } from 'react';
-import { isAddress } from 'viem/utils';
 
 import { Comeback } from '@/components/Comeback.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
@@ -8,6 +7,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getTokenFromCoinGecko } from '@/services/getTokenFromCoinGecko.js';
 import { searchTokenByAddress } from '@/services/searchTokenByAddress.js';
 import type { NextPageProps } from '@/types/index.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 interface Props
     extends NextPageProps<{
@@ -19,7 +19,7 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
     const { children } = props;
     const paramSymbol = decodeURIComponent(params.symbol);
     let symbol = paramSymbol;
-    if (isAddress(paramSymbol)) {
+    if (isValidEthereumAddress(paramSymbol)) {
         const token = await searchTokenByAddress(paramSymbol);
         if (token) {
             symbol = token.attributes.symbol;

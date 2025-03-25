@@ -42,6 +42,8 @@ import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.
 import { FireflyRedPacketAPI, RequirementType } from '@/providers/types/FireflyRedPacket.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { formatCurrency } from '@/helpers/formatCurrency.js';
+import { isAddress, type Address } from 'viem';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 interface ThemeVariant {
     neutral: FireflyRedPacketAPI.ThemeGroupSettings;
@@ -91,7 +93,7 @@ export function ConfirmView() {
     const { data: shareFromEnsName } = useEnsName({
         address: shareFrom as `0x${string}`,
         query: {
-            enabled: isEVM && isValidAddress(shareFrom),
+            enabled: isEVM && isValidEthereumAddress(shareFrom),
         },
     });
 
@@ -315,7 +317,7 @@ export function ConfirmView() {
                         >
                             <div className="flex cursor-pointer items-center justify-between rounded-lg bg-bg p-3">
                                 <span className="text-sm font-bold">
-                                    {isValidAddress(shareFrom) || isValidSolanaAddress(shareFrom)
+                                    {isValidEthereumAddress(shareFrom) || isValidSolanaAddress(shareFrom)
                                         ? (shareFromEnsName ?? formatAddress(shareFrom, 4))
                                         : `@${shareFrom}`}
                                 </span>
