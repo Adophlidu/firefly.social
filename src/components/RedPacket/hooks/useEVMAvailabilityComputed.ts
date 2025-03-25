@@ -82,7 +82,7 @@ export function useEVMAvailabilityComputed(payload: RedPacketJSONPayload, post: 
         return {
             chainId,
             isEmpty: !!parsed?.redpacket?.isEmpty,
-            isClaimed: !!parsed?.redpacket?.isClaimed,
+            isClaimed: !!parsed?.redpacket?.isClaimed || !!parsed?.redpacket?.isFireflyClaimed,
             isExpired: !!parsed?.redpacket?.isExpired,
             isBlacklist: !!parsed?.redpacket?.isBlacklist,
             isSponsorable,
@@ -107,7 +107,8 @@ export function useEVMAvailabilityComputed(payload: RedPacketJSONPayload, post: 
         };
     const isEmpty = availability.balance === '0';
     const isExpired = availability.expired;
-    const isClaimed = parsed?.redpacket?.isClaimed || availability.claimed_amount !== '0';
+    const isClaimed =
+        parsed?.redpacket?.isClaimed || parsed?.redpacket?.isFireflyClaimed || availability.claimed_amount !== '0';
     const isRefunded = isEmpty && availability.claimed < availability.total;
     const isCreator = isSameEthereumAddress(payload?.sender.address ?? '', account);
     const isPasswordValid = !!(password && password !== 'PASSWORD INVALID');

@@ -332,6 +332,7 @@ export namespace FireflyRedPacketAPI {
             canSend: boolean;
             isPasswordValid: boolean;
             isClaimed: boolean;
+            isFireflyClaimed: boolean;
             isEmpty: boolean;
             isExpired: boolean;
             isRefunded: boolean;

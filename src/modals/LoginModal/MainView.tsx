@@ -29,7 +29,6 @@ import { resolveSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
@@ -44,7 +43,6 @@ import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 import { useFireflyStateStore, useThirdPartyStateStore } from '@/store/useProfileStore.js';
 
 export function MainView() {
-    const account = useAccountByNetwork();
     const router = useRouter();
     const { history } = router;
     const isMedium = useIsMedium();
