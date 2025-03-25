@@ -1,5 +1,5 @@
 import { first, isUndefined, omitBy } from 'lodash-es';
-import { type Hex,hexToNumber } from 'viem';
+import { type Hex, hexToNumber } from 'viem';
 import type { JsonRpcPayload } from 'web3-core-helpers';
 
 import { createJsonRpcPayload } from '@/mask_pkgs/web3-shared/evm/helpers/createJsonRpcPayload.js';

@@ -1,4 +1,4 @@
-import { type Hex,keccak256, toHex } from 'viem';
+import { type Hex, keccak256, toHex } from 'viem';
 import type { EventLog, Log } from 'web3-core';
 import type { AbiItem } from 'web3-utils';
 

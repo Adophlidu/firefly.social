@@ -1,5 +1,5 @@
 import { type ChainId, EthereumMethodType, type Middleware } from '@masknet/web3-shared-evm';
-import { type Address,checksumAddress } from 'viem';
+import { type Address, checksumAddress } from 'viem';
 
 import { EVMWeb3Readonly } from '@/mask_pkgs/web3-providers/Web3/EVM/apis/ConnectionReadonlyAPI.js';
 import type { ConnectionContext } from '@/mask_pkgs/web3-providers/Web3/EVM/libs/ConnectionContext.js';

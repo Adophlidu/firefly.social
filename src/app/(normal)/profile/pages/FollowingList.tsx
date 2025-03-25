@@ -32,9 +32,11 @@ export function FollowingList({ profileId, source }: { profileId: string; source
             key={source}
             queryResult={queryResult}
             VirtualListProps={{
+                listKey: `${ScrollListKey.Following}:${source}:${profileId}`,
                 key: `${ScrollListKey.Following}:${source}:${profileId}`,
                 computeItemKey: (index, item: Profile) => `${item.profileId}-${index}`,
-                itemContent: (index, item) => getFollowInList(index, item),
+                itemContent: (index, item) =>
+                    getFollowInList(index, item, `${ScrollListKey.Following}:${source}:${profileId}`),
             }}
             NoResultsFallbackProps={{
                 className: 'md:pt-[228px] max-md:py-20',
