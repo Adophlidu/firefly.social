@@ -65,6 +65,7 @@ const resolveProfileTabColor = createLookupTableResolver<
         [Source.Notifications]: {},
         [Source.Email]: {},
         [Source.RocketsFun]: {},
+        [Source.Swap]: {},
     },
     {},
 );

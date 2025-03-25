@@ -304,6 +304,9 @@ msgstr "More"
 msgid "Translate post"
 msgstr "Translate post"
 
+msgid "Transaction {hash} could not be found."
+msgstr "Transaction {hash} could not be found."
+
 msgid "Free"
 msgstr "Free"
 
@@ -958,6 +961,9 @@ msgstr "Add another post..."
 msgid "Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly."
 msgstr "Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly."
 
+msgid "Transaction Hash"
+msgstr "Transaction Hash"
+
 msgid "1m left"
 msgstr "1m left"
 
@@ -1009,6 +1015,9 @@ msgstr "The event has ended, but you can explore others in Exclusive Events."
 
 msgid "{seconds, plural, one {1 second left} other {{seconds} seconds left}}"
 msgstr "{seconds, plural, one {1 second left} other {{seconds} seconds left}}"
+
+msgid "Block"
+msgstr "Block"
 
 msgid "Max"
 msgstr "Max"
@@ -1265,6 +1274,9 @@ msgstr "Send a tip to {0}"
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 
+msgid "on"
+msgstr "on"
+
 msgid "No phishing site found."
 msgstr "No phishing site found."
 
@@ -1503,6 +1515,9 @@ msgstr "No fake KYC found."
 msgid "No function found that retrieves ownership"
 msgstr "No function found that retrieves ownership"
 
+msgid "Liked this swap."
+msgstr "Liked this swap."
+
 msgid "Send"
 msgstr "Send"
 
@@ -1594,6 +1609,9 @@ msgstr "{0, plural, one {Send} other {Send}}"
 
 msgid "<0>Revised</0><1>an article on <2/></1>"
 msgstr "<0>Revised</0><1>an article on <2/></1>"
+
+msgid "Time"
+msgstr "Time"
 
 msgid "Holders can sell all of the token."
 msgstr "Holders can sell all of the token."
@@ -1822,6 +1840,9 @@ msgstr "Upload"
 msgid "Failed to login."
 msgstr "Failed to login."
 
+msgid "Network"
+msgstr "Network"
+
 msgid "Failed to mint NFT."
 msgstr "Failed to mint NFT."
 
@@ -1884,6 +1905,10 @@ msgstr "Bio should not exceed {maxBioSize} characters"
 
 msgid "1m"
 msgstr "1m"
+
+#. placeholder {0}: activity.tx_status
+msgid "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
+msgstr "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
 
 msgid "Tip sent successfully!"
 msgstr "Tip sent successfully!"
@@ -1970,6 +1995,9 @@ msgstr "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quo
 #. placeholder {0}: first(post.reactions)?.displayName
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> liked"
+
+msgid "Swapped"
+msgstr "Swapped"
 
 msgid "Fully Diluted Valuation"
 msgstr "Fully Diluted Valuation"
@@ -2639,6 +2667,9 @@ msgstr "Random Split"
 msgid "Remove Poll"
 msgstr "Remove Poll"
 
+msgid "No activity yet"
+msgstr "No activity yet"
+
 msgid "UID: {uid}"
 msgstr "UID: {uid}"
 
@@ -2669,6 +2700,9 @@ msgstr "Post is decrypting..."
 
 msgid "Unliked"
 msgstr "Unliked"
+
+msgid "Transaction"
+msgstr "Transaction"
 
 msgid "Bio should be at least {minBioSize} characters"
 msgstr "Bio should be at least {minBioSize} characters"
@@ -2867,6 +2901,9 @@ msgstr "Failed to repost."
 
 msgid "Sorry, today's free collect quota has been reached."
 msgstr "Sorry, today's free collect quota has been reached."
+
+msgid "Explore and follow accounts to see the feed"
+msgstr "Explore and follow accounts to see the feed"
 
 msgid "Muted contents"
 msgstr "Muted contents"
@@ -3232,6 +3269,9 @@ msgstr "<0>Any assets in this Firefly wallet will be permanently lost and cannot
 msgid "Display Name should not exceed 20 characters"
 msgstr "Display Name should not exceed 20 characters"
 
+msgid "New"
+msgstr "New"
+
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr "{handleOrEnsOrAddress} unwatched"
 
@@ -3308,6 +3348,9 @@ msgstr "Following Lens"
 msgid "Muting..."
 msgstr "Muting..."
 
+msgid "Like removed."
+msgstr "Like removed."
+
 #. placeholder {0}: post.stats.comments
 #. placeholder {0}: post.stats.countOpenActions
 msgid "{0, plural, one {comment} other {comments}}"
@@ -3347,6 +3390,9 @@ msgstr "Snapshot added to your Bookmarks"
 
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
+
+msgid "Contract"
+msgstr "Contract"
 
 msgid "Results"
 msgstr "Results"
@@ -3898,6 +3944,9 @@ msgstr "Final results"
 
 msgid "Suspended account"
 msgstr "Suspended account"
+
+msgid "Status"
+msgstr "Status"
 
 msgid "No blackmail activities involved."
 msgstr "No blackmail activities involved."

@@ -1,3 +1,5 @@
+'use client';
+
 import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { ChainId } from '@masknet/web3-shared-evm';

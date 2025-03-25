@@ -1448,3 +1448,46 @@ export interface FireflyProfileUpdateParams {
     displayName?: string;
     avatar?: string;
 }
+
+export interface SwapToken {
+    logo: string;
+    symbol: string;
+    amount_usd: string;
+    amount_num: string;
+    name: string;
+    decimals: number;
+    price: string;
+}
+
+export type SwapActivity = {
+    owner: string;
+    chain_id: number;
+    tx_status: string;
+    error_msg: string;
+    hash: string;
+    router_address: string;
+    dex_name: string;
+    dex_logo: string;
+    timestamp: string;
+    block_number: string;
+    from_token: SwapToken | null;
+    to_token: SwapToken | null;
+    source: string;
+    like_count: number;
+    is_like: boolean;
+    displayInfo: {
+        ensHandle: string;
+        avatarUrl: string;
+        fireflyName: string;
+        fireflyUid: string;
+        fireflyAvatar: string;
+    };
+    followingSources: FollowingSource[];
+};
+
+export type SwapActivityDetail = Response<SwapActivity[]>;
+
+export type SwapActivityTimeline = Response<{
+    result: SwapActivity[];
+    cursor?: string;
+}>;

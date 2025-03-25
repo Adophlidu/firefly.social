@@ -22,6 +22,7 @@ export const resolveFireflyPlatform = createLookupTableResolver<Source, FireflyP
         [Source.Posts]: null,
         [Source.Notifications]: null,
         [Source.RocketsFun]: null,
+        [Source.Swap]: null,
     },
     (source) => {
         throw new UnreachableError('source', source);

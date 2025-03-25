@@ -24,6 +24,7 @@ export const resolveSourceName = createLookupTableResolver<Source, string>(
         [Source.Notifications]: 'Notifications',
         [Source.Email]: 'Email',
         [Source.RocketsFun]: 'Rockets.fun',
+        [Source.Swap]: 'Swaps',
     },
     (source) => {
         throw new UnreachableError('source', source);

@@ -17,10 +17,14 @@ import { parseFollowingPageUrl } from '@/helpers/parseFollowingPageUrl.js';
 import { resolveHomeUrl } from '@/helpers/resolveHomeUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLoginDiscoverSource } from '@/hooks/useIsLogin.js';
+import { ChainFilter } from '@/components/Swap/ChainFilter.js';
+import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
+import { EventId } from '@/providers/types/Telemetry.js';
+import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 const types = {
     [HomeTab.Discover]: [Source.Posts, Source.NFTs, Source.Article, Source.DAOs],
-    [HomeTab.Following]: [Source.Posts, Source.Polymarket, Source.NFTs, Source.Article, Source.DAOs],
+    [HomeTab.Following]: [Source.Posts, Source.Swap, Source.Polymarket, Source.Article, Source.DAOs],
 };
 
 export function HomeTabs() {
@@ -115,8 +119,24 @@ export function HomeTabs() {
                     data={types[currentTab]}
                     link={(x) => resolveHomeUrl(currentTab, x)}
                     isSelected={(x) => x === source}
-                    itemRender={(x) => resolveSourceName(x)}
+                    itemRender={(x) => {
+                        if (x === Source.Swap) {
+                            return (
+                                <span className="relative">
+                                    {resolveSourceName(x)}
+                                    <span className="absolute -right-[18px] -top-2 rounded-full bg-danger px-1 py-0.5 text-[9px] leading-[9px] text-white">
+                                        <Trans>New</Trans>
+                                    </span>
+                                </span>
+                            );
+                        }
+
+                        return resolveSourceName(x);
+                    }}
                     onChange={(source) => {
+                        if (source === Source.Swap) {
+                            captureSwapEvent(EventId.EVENT_FOLLOWING_SWAP_CLICK);
+                        }
                         setAllTabs((x) => ({
                             ...x,
                             [currentTab]: source,
@@ -124,6 +144,7 @@ export function HomeTabs() {
                     }}
                 />
                 {source === Source.Posts ? <DiscoverFilter tab={currentTab} source={source} /> : null}
+                {source === Source.Swap ? <ChainFilter /> : null}
             </div>
         </div>
     );

@@ -128,6 +128,7 @@ export const SORTED_PROFILE_TAB_TYPE_REQUIRE_LOGIN: Record<SocialSource, SocialP
 export const WALLET_PROFILE_TAB_TYPES: Record<NetworkType, WalletProfileCategory[]> = {
     [NetworkType.Ethereum]: [
         WalletProfileCategory.Activities,
+        WalletProfileCategory.Swap,
         WalletProfileCategory.Polymarket,
         WalletProfileCategory.POAPs,
         WalletProfileCategory.NFTs,
@@ -226,6 +227,7 @@ export const SOCIAL_NOTIFICATION_SOURCE: SocialNotificationSource[] = [Source.Fa
 export const DISCOVER_SOURCES: DiscoverSource[] = [Source.Posts, Source.NFTs, Source.Article, Source.DAOs] as const;
 export const FOLLOWING_SOURCES: FollowingSource[] = [
     Source.Posts,
+    Source.Swap,
     Source.Polymarket,
     Source.NFTs,
     Source.Article,

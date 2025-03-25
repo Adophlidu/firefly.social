@@ -309,6 +309,9 @@ msgstr "更多"
 msgid "Translate post"
 msgstr "翻译帖子"
 
+msgid "Transaction {hash} could not be found."
+msgstr ""
+
 msgid "Free"
 msgstr "免费"
 
@@ -963,6 +966,9 @@ msgstr "添加另一个帖子..."
 msgid "Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly."
 msgstr "断开连接失败。请至少保留一个账户或钱包地址连接，以保持您在 Firefly 中的体验。"
 
+msgid "Transaction Hash"
+msgstr ""
+
 msgid "1m left"
 msgstr "1分钟剩余"
 
@@ -1014,6 +1020,9 @@ msgstr "活动已结束，但您可以在独家活动中探索其他活动。"
 
 msgid "{seconds, plural, one {1 second left} other {{seconds} seconds left}}"
 msgstr "{seconds, plural, one {1 秒剩余} other {{seconds} 秒剩余}}"
+
+msgid "Block"
+msgstr ""
 
 msgid "Max"
 msgstr "最大"
@@ -1270,6 +1279,9 @@ msgstr "发送打赏给 {0}"
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "通证的交易次数是有限的。可疑通证的交易次数可能会被限制（欺诈风险）。"
 
+msgid "on"
+msgstr ""
+
 msgid "No phishing site found."
 msgstr "未发现钓鱼网站。"
 
@@ -1508,6 +1520,9 @@ msgstr "不涉及虚假 KYC。"
 msgid "No function found that retrieves ownership"
 msgstr "没有找到检索所有权的功能"
 
+msgid "Liked this swap."
+msgstr ""
+
 msgid "Send"
 msgstr "发送"
 
@@ -1599,6 +1614,9 @@ msgstr "{0, plural, one {发送} other {发送}}"
 
 msgid "<0>Revised</0><1>an article on <2/></1>"
 msgstr "<0>更新</0><1>一篇文章于 <2/></1>"
+
+msgid "Time"
+msgstr ""
 
 msgid "Holders can sell all of the token."
 msgstr "持有者可以出售所有代币。"
@@ -1827,6 +1845,9 @@ msgstr "上传"
 msgid "Failed to login."
 msgstr "登录失败。"
 
+msgid "Network"
+msgstr ""
+
 msgid "Failed to mint NFT."
 msgstr "铸造 NFT 失败。"
 
@@ -1889,6 +1910,10 @@ msgstr "个人介绍不可以超过 {maxBioSize} 个字"
 
 msgid "1m"
 msgstr "1个月"
+
+#. placeholder {0}: activity.tx_status
+msgid "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
+msgstr ""
 
 msgid "Tip sent successfully!"
 msgstr "打赏成功！"
@@ -1975,6 +2000,9 @@ msgstr "<0/>提到了你的 <1>{0, select, Post {帖子} Comment {评论} Quote 
 #. placeholder {0}: first(post.reactions)?.displayName
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> 点赞"
+
+msgid "Swapped"
+msgstr ""
 
 msgid "Fully Diluted Valuation"
 msgstr "完全稀释估值"
@@ -2644,6 +2672,9 @@ msgstr "随机金额"
 msgid "Remove Poll"
 msgstr "删除投票"
 
+msgid "No activity yet"
+msgstr ""
+
 msgid "UID: {uid}"
 msgstr ""
 
@@ -2674,6 +2705,9 @@ msgstr "帖子解密中..."
 
 msgid "Unliked"
 msgstr "已取消点赞"
+
+msgid "Transaction"
+msgstr ""
 
 msgid "Bio should be at least {minBioSize} characters"
 msgstr "个人简介应至少包含 {minBioSize} 个字符"
@@ -2872,6 +2906,9 @@ msgstr "转帖失败。"
 
 msgid "Sorry, today's free collect quota has been reached."
 msgstr "抱歉，今天的免费铸造额度已用完。"
+
+msgid "Explore and follow accounts to see the feed"
+msgstr ""
 
 msgid "Muted contents"
 msgstr "已隐藏的内容"
@@ -3237,6 +3274,9 @@ msgstr "<0>该 Firefly 钱包中的所有资产将永久丢失，无法恢复。
 msgid "Display Name should not exceed 20 characters"
 msgstr "显示名称不可以超过 20 个字符"
 
+msgid "New"
+msgstr ""
+
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr "{handleOrEnsOrAddress} 取消关注"
 
@@ -3313,6 +3353,9 @@ msgstr ""
 msgid "Muting..."
 msgstr "隐藏中..."
 
+msgid "Like removed."
+msgstr ""
+
 #. placeholder {0}: post.stats.comments
 #. placeholder {0}: post.stats.countOpenActions
 msgid "{0, plural, one {comment} other {comments}}"
@@ -3352,6 +3395,9 @@ msgstr "Snapshot 已经添加到您的收藏中"
 
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "无法继续。请允许 Lens Manager 执行操作，而无需对每笔交易进行签名。"
+
+msgid "Contract"
+msgstr ""
 
 msgid "Results"
 msgstr "结果"
@@ -3903,6 +3949,9 @@ msgstr "最终结果"
 
 msgid "Suspended account"
 msgstr "被冻结账户"
+
+msgid "Status"
+msgstr ""
 
 msgid "No blackmail activities involved."
 msgstr "未发现勒索行为。"

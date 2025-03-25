@@ -13,6 +13,7 @@ export const resolveFallbackImageUrl = createLookupTableResolver<LoginFallbackSo
         [Source.Posts]: '/image/article-fallback.png',
         [Source.Notifications]: '/image/article-fallback.png',
         [Source.NFTs]: '/image/article-fallback.png',
+        [Source.Swap]: '/image/article-fallback.png',
     },
     '',
 );

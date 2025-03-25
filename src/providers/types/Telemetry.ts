@@ -201,6 +201,11 @@ export enum EventId {
     EVENT_CHANGE_WALLET_SUCCESS = 'event_change_wallet_success',
     EVENT_CLAIM_BASIC_SUCCESS = 'event_claim_basic_success',
     EVENT_CLAIM_PREMIUM_SUCCESS = 'event_claim_premium_success',
+
+    // swap
+    EVENT_FOLLOWING_SWAP_CLICK = 'following_swap_click',
+    EVENT_LIKE_SWAP_CLICK = 'like_trade_success',
+    EVENT_SWAP_DETAIL_CLICK = 'swap_detail_click',
 }
 
 export enum ExceptionId {}

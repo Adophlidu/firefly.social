@@ -162,6 +162,8 @@ export function DiscoverFilter({ tab, source }: Props) {
                         </MenuItem>
                     );
                 });
+            case Source.Swap:
+                return null;
             default:
                 safeUnreachable(source);
                 return null;

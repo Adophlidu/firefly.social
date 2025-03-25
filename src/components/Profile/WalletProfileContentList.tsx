@@ -8,6 +8,7 @@ import { NFTs } from '@/components/Profile/NFTs.js';
 import { POAPList } from '@/components/Profile/POAPList.js';
 import { FollowingSnapshotList } from '@/components/Snapshot/FollowingSnapshotList.js';
 import { WalletProfileCategory } from '@/constants/enum.js';
+import { SwapTimeline } from '@/components/Swap/SwapTimeline.js';
 
 export const WalletProfileContentList = memo(function WalletProfileContentList({
     type,
@@ -29,6 +30,8 @@ export const WalletProfileContentList = memo(function WalletProfileContentList({
             return <FollowingSnapshotList walletAddress={address} />;
         case WalletProfileCategory.Polymarket:
             return <PolymarketTimeLine address={address} isFollowing={false} />;
+        case WalletProfileCategory.Swap:
+            return <SwapTimeline address={address} isFollowing={false} />;
         default:
             safeUnreachable(type);
             return null;

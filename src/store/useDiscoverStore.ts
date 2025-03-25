@@ -28,6 +28,7 @@ export const useDiscoverStore = create<DiscoverState, [['zustand/persist', unkno
             },
             followingTimelinePlatforms: {
                 [Source.Wallet]: [],
+                [Source.Swap]: [],
                 [Source.Polymarket]: [],
                 [Source.NFTs]: [],
                 [Source.Article]: [],

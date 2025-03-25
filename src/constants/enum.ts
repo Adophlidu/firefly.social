@@ -71,6 +71,7 @@ export enum Source {
     DAOs = 'DAOs',
     Posts = 'Posts',
     Notifications = 'Notifications',
+    Swap = 'Swap',
     RocketsFun = 'RocketsFun',
 }
 
@@ -92,6 +93,7 @@ export enum SourceInURL {
     Posts = 'posts',
     Notifications = 'all',
     RocketsFun = 'rockets-fun',
+    Swap = 'swap',
 }
 
 export enum FireflyPlatform {
@@ -146,7 +148,7 @@ export type SocialDiscoverSource = Source.Farcaster | Source.Lens | Source.Bsky;
 export type SocialNotificationSource = Source.Farcaster | Source.Lens | Source.Bsky;
 export type DiscoverSource = Source.Posts | Source.NFTs | Source.Article | Source.DAOs;
 export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.DAOs | Source.NFTs | Source.Bsky;
-export type FollowingSource = DiscoverSource | Source.Polymarket;
+export type FollowingSource = DiscoverSource | Source.Polymarket | Source.Swap;
 export type ExploreSource = Source.Farcaster | Source.Lens | Source.Bsky | TrendingType;
 export type ExploreSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Bsky | TrendingType;
 export type NotificationSource = Source.Notifications | Source.Farcaster | Source.Lens | Source.Bsky;
@@ -162,7 +164,8 @@ export type LoginFallbackSource =
     | Source.Polymarket
     | Source.Posts
     | Source.Notifications
-    | Source.NFTs;
+    | Source.NFTs
+    | Source.Swap;
 
 export enum ExploreType {
     CryptoTrends = 'crypto-trends',
@@ -197,6 +200,7 @@ export enum KeyType {
     GetBlink = '/v2/getBlink',
 
     CreateMetadataToken = '/v2/createMetadataToken',
+    CreateMetadataSwap = '/v2/createMetadataSwap',
     CreateMetadataPostById = '/v2/createPageMetadataById',
     CreateMetadataArticleById = '/v2/createMetadataArticleById',
     CreateMetadataProfileById = '/v2/createMetadataProfileById',
@@ -222,6 +226,7 @@ export enum WalletProfileCategory {
     Activities = 'activities',
     DAOs = 'DAOs',
     Polymarket = 'polymarket',
+    Swap = 'swap',
 }
 
 export enum EngagementType {
@@ -264,6 +269,7 @@ export enum ScrollListKey {
     Polymarket = 'polymarket-list',
     RedPacketHistory = 'redpacket-history',
     TrendingFeeds = 'trending-feeds',
+    Swap = 'swap-list',
     RocketsFunTrending = 'rockets-fun-trending',
 }
 

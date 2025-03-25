@@ -101,6 +101,9 @@ import {
     type SearchProfileResponse,
     type SearchTokenResponse,
     type SponsorMintOptions,
+    type SwapActivity,
+    type SwapActivityDetail,
+    type SwapActivityTimeline,
     type TakoExternalHostedData,
     type TelegramLoginBotResponse,
     type TokenWithMarketData,
@@ -892,6 +895,90 @@ export class FireflyEndpoint {
             createIndicator(indicator),
             data?.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
+    }
+
+    async getFollowingSwapTimeline(
+        chains: number[], // array of chain ids
+        indicator?: PageIndicator,
+    ) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/timeline/swap');
+        const response = await fireflySessionHolder.fetch<SwapActivityTimeline>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                platformFollowing: 'all',
+                chains: chains.length ? chains.join(',') : undefined,
+                size: 25,
+                cursor: indicator?.id,
+            }),
+        });
+
+        const data = resolveFireflyResponseData(response);
+
+        return createPageable(
+            data?.result || EMPTY_LIST,
+            createIndicator(indicator),
+            data?.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
+        );
+    }
+
+    async getSwapTimelineByAddress(address: string, chains: number[], indicator?: PageIndicator) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/timeline/swap');
+        const response = await fireflySessionHolder.fetch<SwapActivityTimeline>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                walletAddresses: [address],
+                chains: chains.length ? chains.join(',') : undefined,
+                size: 25,
+                cursor: indicator?.id,
+            }),
+        });
+
+        const data = resolveFireflyResponseData(response);
+
+        return createPageable(
+            data?.result || EMPTY_LIST,
+            createIndicator(indicator),
+            data?.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
+        );
+    }
+
+    async getSwapActivityByHash(hash: string, chainId: number) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/swap/detail');
+        const response = await fireflySessionHolder.fetch<SwapActivityDetail>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                list: [
+                    {
+                        hash,
+                        chain_id: chainId,
+                    },
+                ],
+                is_realtime: true,
+            }),
+        });
+
+        const data = resolveFireflyResponseData(response);
+
+        const result = first(data);
+        return result;
+    }
+
+    async likeCreate(like_type: string, platform_id: string, like_id: string, like_owner_id: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/like/create');
+        await fireflySessionHolder.fetch<EmptyResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({ like_id, like_owner_id, like_type, platform_id }),
+        });
+        return true;
+    }
+
+    async likeRemove(like_id: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/like/remove');
+        await fireflySessionHolder.fetch<EmptyResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({ like_ids: [like_id] }),
+        });
+        return true;
     }
 
     async searchTokens(query: string) {

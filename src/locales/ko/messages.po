@@ -309,6 +309,9 @@ msgstr ""
 msgid "Translate post"
 msgstr ""
 
+msgid "Transaction {hash} could not be found."
+msgstr ""
+
 msgid "Free"
 msgstr ""
 
@@ -963,6 +966,9 @@ msgstr ""
 msgid "Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly."
 msgstr ""
 
+msgid "Transaction Hash"
+msgstr ""
+
 msgid "1m left"
 msgstr ""
 
@@ -1013,6 +1019,9 @@ msgid "The event has ended, but you can explore others in Exclusive Events."
 msgstr ""
 
 msgid "{seconds, plural, one {1 second left} other {{seconds} seconds left}}"
+msgstr ""
+
+msgid "Block"
 msgstr ""
 
 msgid "Max"
@@ -1270,6 +1279,9 @@ msgstr ""
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr ""
 
+msgid "on"
+msgstr ""
+
 msgid "No phishing site found."
 msgstr ""
 
@@ -1508,6 +1520,9 @@ msgstr ""
 msgid "No function found that retrieves ownership"
 msgstr ""
 
+msgid "Liked this swap."
+msgstr ""
+
 msgid "Send"
 msgstr ""
 
@@ -1598,6 +1613,9 @@ msgid "{0, plural, one {Send} other {Send}}"
 msgstr ""
 
 msgid "<0>Revised</0><1>an article on <2/></1>"
+msgstr ""
+
+msgid "Time"
 msgstr ""
 
 msgid "Holders can sell all of the token."
@@ -1824,6 +1842,9 @@ msgstr ""
 msgid "Failed to login."
 msgstr ""
 
+msgid "Network"
+msgstr ""
+
 msgid "Failed to mint NFT."
 msgstr ""
 
@@ -1880,6 +1901,10 @@ msgid "Bio should not exceed {maxBioSize} characters"
 msgstr ""
 
 msgid "1m"
+msgstr ""
+
+#. placeholder {0}: activity.tx_status
+msgid "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
 msgstr ""
 
 msgid "Tip sent successfully!"
@@ -1966,6 +1991,9 @@ msgstr ""
 
 #. placeholder {0}: first(post.reactions)?.displayName
 msgid "<0>{0}</0> liked"
+msgstr ""
+
+msgid "Swapped"
 msgstr ""
 
 msgid "Fully Diluted Valuation"
@@ -2631,6 +2659,9 @@ msgstr ""
 msgid "Remove Poll"
 msgstr ""
 
+msgid "No activity yet"
+msgstr ""
+
 msgid "UID: {uid}"
 msgstr ""
 
@@ -2660,6 +2691,9 @@ msgid "Post is decrypting..."
 msgstr ""
 
 msgid "Unliked"
+msgstr ""
+
+msgid "Transaction"
 msgstr ""
 
 msgid "Bio should be at least {minBioSize} characters"
@@ -2858,6 +2892,9 @@ msgid "Failed to repost."
 msgstr ""
 
 msgid "Sorry, today's free collect quota has been reached."
+msgstr ""
+
+msgid "Explore and follow accounts to see the feed"
 msgstr ""
 
 msgid "Muted contents"
@@ -3224,6 +3261,9 @@ msgstr ""
 msgid "Display Name should not exceed 20 characters"
 msgstr ""
 
+msgid "New"
+msgstr ""
+
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr ""
 
@@ -3300,6 +3340,9 @@ msgstr ""
 msgid "Muting..."
 msgstr ""
 
+msgid "Like removed."
+msgstr ""
+
 #. placeholder {0}: post.stats.comments
 #. placeholder {0}: post.stats.countOpenActions
 msgid "{0, plural, one {comment} other {comments}}"
@@ -3338,6 +3381,9 @@ msgid "Snapshot added to your Bookmarks"
 msgstr ""
 
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
+msgstr ""
+
+msgid "Contract"
 msgstr ""
 
 msgid "Results"
@@ -3886,6 +3932,9 @@ msgid "Final results"
 msgstr ""
 
 msgid "Suspended account"
+msgstr ""
+
+msgid "Status"
 msgstr ""
 
 msgid "No blackmail activities involved."
