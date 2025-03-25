@@ -22,6 +22,7 @@ export function ChainIcon({ chainId, size = 22, className, networkType }: ChainI
     return (
         <Image
             key={chainId}
+            unoptimized
             src={networkDescriptor?.icon ?? ''}
             width={size}
             height={size}

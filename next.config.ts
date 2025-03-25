@@ -238,7 +238,7 @@ const config: NextConfig = {
             },
             {
                 test: /\.svg$/i,
-                exclude: /src\/maskbook/,
+                exclude: /src\/mask_pkgs/,
                 loader: '@svgr/webpack',
                 resourceQuery: { not: [/url/] }, // exclude react component if *.svg?url
                 options: {
@@ -261,7 +261,7 @@ const config: NextConfig = {
             },
             {
                 test: /\.svg$/i,
-                include: /src\/maskbook/,
+                include: /src\/mask_pkgs/,
                 loader: require.resolve('svgo-loader'),
                 options: {
                     js2svg: {

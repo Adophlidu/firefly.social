@@ -82,9 +82,15 @@ async function runRPC(builder: MethodsBuilder) {
 }
 
 class Provider {
+    private get readonlyProgram() {
+        return createRedPacketProgram(
+            env.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled ? ChainId.Devnet : ChainId.Mainnet,
+        );
+    }
     private get program() {
         return createRedPacketProgram(
             env.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled ? ChainId.Devnet : ChainId.Mainnet,
+            true,
         );
     }
 
@@ -268,7 +274,7 @@ class Provider {
     }
 
     async getRedPacket(accountId: web3.PublicKey) {
-        const redPacket = await this.program.account.redPacket.fetch(accountId);
+        const redPacket = await this.readonlyProgram.account.redPacket.fetch(accountId);
         return redPacket;
     }
 

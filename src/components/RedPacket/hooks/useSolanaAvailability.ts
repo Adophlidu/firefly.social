@@ -13,17 +13,15 @@ export function useSolanaAvailability(payload: RedPacketJSONPayload, chainId: nu
 
     return useQuery({
         queryKey: ['red-packet', 'solana-availability', payload.rpid, account],
-        enabled: enabled && !!account,
+        enabled,
         queryFn: async () => {
             try {
                 const accountId = resolveSolanaAccountId(payload.rpid, payload.accountId);
-                if (!accountId) return null;
 
                 const redPacket = await SolanaRedPacket.getRedPacket(new web3.PublicKey(accountId));
-                const claimedRecord = await SolanaRedPacket.getClaimedRecord(
-                    new web3.PublicKey(accountId),
-                    new web3.PublicKey(account),
-                );
+                const claimedRecord = account
+                    ? await SolanaRedPacket.getClaimedRecord(new web3.PublicKey(accountId), new web3.PublicKey(account))
+                    : null;
 
                 const isExpired = redPacket.duration.add(redPacket.createTime).muln(1000).lt(new BN(Date.now()));
                 const isEmpty =
