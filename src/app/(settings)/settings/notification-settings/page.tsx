@@ -27,10 +27,9 @@ function getStatusForConfigs(
     configs: NotificationConfigItemProps[],
     statusList: Required<NotificationPushSwitchResponse>['data']['list'],
 ) {
+    const allStatus = Object.values(statusList).flatMap((x) => x.list);
     return configs.map((config) => {
-        const status = statusList
-            .find((x) => x.title === config.type)
-            ?.list.find((x) => x.platform === config.platform && x.push_type === config.pushType);
+        const status = allStatus.find((x) => x.platform === config.platform && x.push_type === config.pushType);
         return {
             ...config,
             unsupported: !status,
@@ -42,7 +41,7 @@ function getStatusForConfigs(
 export default function General() {
     useNavigatorTitle(t`Push notifications`);
 
-    const { data, isLoading, isRefetching } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey: ['notification-settings', 'config'],
         queryFn: async () => {
             const data = await FireflySocialMediaProvider.getNotificationPushSwitch();
@@ -57,9 +56,9 @@ export default function General() {
                     {
                         label: <Trans>Tips</Trans>,
                         description: <Trans>firefly.eth tipped you 100 USDC</Trans>,
-                        platform: NotificationPlatform.OnChain,
+                        platform: NotificationPlatform.Tips,
                         pushType: NotificationPushType.OnChainTips,
-                        type: NotificationTitle.OnChain,
+                        type: NotificationTitle.Tips,
                         value: true,
                     },
                     {
@@ -101,19 +100,22 @@ export default function General() {
             </Headline>
 
             <div className="relative w-full">
-                <Subtitle className="leading-6">Your accounts</Subtitle>
-                {myAccountConfigs.map((config, index) => (
-                    <NotificationConfigItem key={`your-${index}`} {...config} />
-                ))}
-                <Subtitle className="mt-6 leading-6">Others’ accounts</Subtitle>
-                {otherAccountConfigs.map((config, index) => (
-                    <NotificationConfigItem key={`other-${index}`} {...config} />
-                ))}
-                {isLoading || isRefetching ? (
-                    <div className="absolute inset-0 flex w-full items-center justify-center bg-white/85 backdrop-blur-[1px]">
+                {isLoading ? (
+                    <div className="flex h-32 items-center justify-center">
                         <LoadingIcon size={24} />
                     </div>
-                ) : null}
+                ) : (
+                    <>
+                        <Subtitle className="leading-6">Your accounts</Subtitle>
+                        {myAccountConfigs.map((config, index) => (
+                            <NotificationConfigItem key={`your-${index}`} {...config} />
+                        ))}
+                        <Subtitle className="mt-6 leading-6">Others’ accounts</Subtitle>
+                        {otherAccountConfigs.map((config, index) => (
+                            <NotificationConfigItem key={`other-${index}`} {...config} />
+                        ))}
+                    </>
+                )}
             </div>
         </Section>
     );

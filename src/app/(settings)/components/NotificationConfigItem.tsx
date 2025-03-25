@@ -37,9 +37,8 @@ function updateQueryData(
         (oldData) => {
             if (!oldData) return;
             return produce(oldData, (draft) => {
-                const status = draft.find((x) => x.title === title);
-                if (!status) return;
-                const item = status.list.find((x) => x.platform === platform && x.push_type === pushType);
+                const allStatus = Object.values(draft || {}).flatMap((x) => x.list);
+                const item = allStatus.find((x) => x.platform === platform && x.push_type === pushType);
                 if (!item) return;
                 item.state = state;
             });
