@@ -2,6 +2,7 @@ import { safeUnreachable } from '@masknet/kit';
 import z from 'zod';
 
 import { UnreachableError } from '@/constants/error.js';
+import { decodeAsciiPayload, decodeNoAsciiPayload } from '@/helpers/encodeSessionPayload.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { BskySession } from '@/providers/bsky/Session.js';
@@ -148,7 +149,7 @@ export class SessionFactory {
                         thirdPart, // wallet address
                     );
                 case SessionType.Twitter: {
-                    const parsed = TwitterSessionPayloadSchema.safeParse(parseJSON(atob(secondPart)));
+                    const parsed = TwitterSessionPayloadSchema.safeParse(decodeAsciiPayload(secondPart));
                     if (!parsed.success) throw new Error(parsed.error.message);
                     return new TwitterSession(
                         session.profileId,
@@ -162,7 +163,7 @@ export class SessionFactory {
                     const u = parseUrl(atob(secondPart));
                     if (!u) throw new Error('Failed to parse service URL.');
 
-                    const parsed = BskySessionPayload.safeParse(parseJSON(atob(thirdPart)));
+                    const parsed = BskySessionPayload.safeParse(decodeAsciiPayload(thirdPart));
                     if (!parsed.success) throw new Error(parsed.error.message);
 
                     return new BskySession(
@@ -174,13 +175,13 @@ export class SessionFactory {
                     );
                 }
                 case SessionType.Firefly:
-                    const parsed = FireflySessionPayload.safeParse(parseJSON(atob(fifthPart)));
+                    const parsed = FireflySessionPayload.safeParse(fifthPart ? decodeNoAsciiPayload(fifthPart) : {});
                     if (!parsed.success) throw new Error(parsed.error.message);
                     return new FireflySession(
                         session.profileId,
                         session.token,
                         secondPart ? SessionFactory.createSession(atob(secondPart)) : null, // parent session
-                        thirdPart ? (parseJSON<FireflySessionSignature>(atob(thirdPart)) ?? null) : null, // signature
+                        thirdPart ? (decodeAsciiPayload<FireflySessionSignature>(thirdPart) ?? null) : null, // signature
                         false, // @deprecated
                         {
                             ...parsed.data,
@@ -191,7 +192,7 @@ export class SessionFactory {
                 case SessionType.Google:
                 case SessionType.Email:
                 case SessionType.Telegram: {
-                    const parsed = ThirdPartySessionPayload.safeParse(parseJSON(atob(secondPart)));
+                    const parsed = ThirdPartySessionPayload.safeParse(decodeAsciiPayload(secondPart));
                     if (!parsed.success) throw new Error(parsed.error.message);
 
                     return new ThirdPartySession(

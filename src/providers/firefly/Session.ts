@@ -1,4 +1,5 @@
 import { NotAllowedError } from '@/constants/error.js';
+import { encodeAsciiPayload, encodeNoAsciiPayload } from '@/helpers/encodeSessionPayload.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -41,11 +42,11 @@ export class FireflySession extends BaseSession implements Session {
             // parent session
             this.parent ? btoa(this.parent.serialize()) : '',
             // signature if session created by signing a message
-            this.signature ? btoa(JSON.stringify(this.signature)) : '',
+            this.signature ? encodeAsciiPayload(this.signature) : '',
             // isNew flag
             this.isNew ? '1' : '0',
             // extra data payload
-            this.payload ? btoa(JSON.stringify(this.payload)) : '',
+            this.payload ? encodeNoAsciiPayload(this.payload) : '',
         ].join(':') as `${SessionType}:${string}:${string}:${string}`;
     }
 

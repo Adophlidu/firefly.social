@@ -1,6 +1,7 @@
 import { signOut } from 'next-auth/react';
 
 import { NotAllowedError } from '@/constants/error.js';
+import { encodeAsciiPayload } from '@/helpers/encodeSessionPayload.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -39,7 +40,7 @@ export class ThirdPartySession extends BaseSession implements Session {
     }
 
     override serialize(): `${SessionType}:${string}` {
-        return `${super.serialize()}:${btoa(JSON.stringify(this.payload ?? {}))}`;
+        return `${super.serialize()}:${encodeAsciiPayload(this.payload ?? {})}`;
     }
 
     override refresh(): Promise<void> {

@@ -4,6 +4,7 @@ import { signOut } from 'next-auth/react';
 
 import { NotAllowedError } from '@/constants/error.js';
 import { HIDDEN_SECRET } from '@/constants/index.js';
+import { encodeAsciiPayload } from '@/helpers/encodeSessionPayload.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
 import type { Session } from '@/providers/types/Session.js';
@@ -30,7 +31,7 @@ export class TwitterSession extends BaseSession implements Session {
     }
 
     override serialize(): `${SessionType}:${string}` {
-        return `${super.serialize()}:${btoa(JSON.stringify(this.payload))}`;
+        return `${super.serialize()}:${encodeAsciiPayload(this.payload)}`;
     }
 
     static from(profileId: string, payload: SessionPayload) {
