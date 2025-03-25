@@ -33,10 +33,6 @@ export function formatDomainName(domain: string, size = 18, invalidIgnore?: bool
     });
 }
 
-export function formatWeiToGwei(value: BigNumber.Value) {
-    return new BigNumber(value).shiftedBy(-9);
-}
-
 export function formatWeiToEther(value: BigNumber.Value) {
     return new BigNumber(value).shiftedBy(-18);
 }

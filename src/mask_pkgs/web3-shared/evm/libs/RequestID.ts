@@ -1,8 +1,10 @@
+import { sha256, toHex } from 'viem';
 import type { TransactionConfig } from 'web3-core';
 import type { JsonRpcPayload } from 'web3-core-helpers';
-import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
 
 import { EthereumMethodType, type RequestArguments } from '@/mask_pkgs/web3-shared/evm/types/index.js';
+
+const toId = (...keys: Array<string | boolean>) => sha256(toHex(keys.join(',')));
 
 export class RequestID {
     /**
@@ -19,45 +21,45 @@ export class RequestID {
         switch (method) {
             case EthereumMethodType.ETH_GET_CODE: {
                 const [address, tag = 'latest'] = params as [string, string];
-                return web3_utils.sha3([this.url, method, address, tag].join(','));
+                return toId(this.url, method, address, tag);
             }
             case EthereumMethodType.ETH_BLOCK_NUMBER: {
-                return web3_utils.sha3([this.url, method].join(','));
+                return toId(this.url, method);
             }
             case EthereumMethodType.ETH_GET_BLOCK_BY_NUMBER: {
                 const [number, full] = params as [string, boolean];
-                return web3_utils.sha3([this.url, method, number, full].join(','));
+                return toId(this.url, method, number, full);
             }
             case EthereumMethodType.ETH_GET_BLOCK_BY_HASH: {
                 const [hash] = params as [string];
-                return web3_utils.sha3([this.url, method, hash].join(','));
+                return toId(this.url, method, hash);
             }
             case EthereumMethodType.ETH_GAS_PRICE: {
-                return web3_utils.sha3([this.url, method].join(','));
+                return toId(this.url, method);
             }
             case EthereumMethodType.ETH_GET_BALANCE: {
                 const [account, tag = 'latest'] = params as [string, string];
-                return web3_utils.sha3([this.url, method, account, tag].join(','));
+                return toId(this.url, method, account, tag);
             }
             case EthereumMethodType.ETH_GET_TRANSACTION_COUNT: {
                 const [account, tag = 'latest'] = params as [string, string];
-                return web3_utils.sha3([this.url, method, account, tag].join(','));
+                return toId(this.url, method, account, tag);
             }
             case EthereumMethodType.ETH_CALL: {
                 const [config, tag = 'latest'] = params as [TransactionConfig, string];
-                return web3_utils.sha3([this.url, method, JSON.stringify(config), tag].join(','));
+                return toId(this.url, method, JSON.stringify(config), tag);
             }
             case EthereumMethodType.ETH_ESTIMATE_GAS: {
                 const [config, tag = 'latest'] = params as [TransactionConfig, string];
-                return web3_utils.sha3([this.url, method, JSON.stringify(config), tag].join(','));
+                return toId(this.url, method, JSON.stringify(config), tag);
             }
             case EthereumMethodType.ETH_GET_TRANSACTION_RECEIPT: {
                 const [hash] = params as [string];
-                return web3_utils.sha3([this.url, method, hash].join(','));
+                return toId(this.url, method, hash);
             }
             case EthereumMethodType.ETH_GET_TRANSACTION_BY_HASH:
                 const [hash] = params as [string];
-                return web3_utils.sha3([this.url, method, hash].join(','));
+                return toId(this.url, method, hash);
             default:
                 return;
         }

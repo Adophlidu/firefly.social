@@ -1,18 +1,18 @@
+import { type Hex,keccak256, toHex } from 'viem';
 import type { EventLog, Log } from 'web3-core';
 import type { AbiItem } from 'web3-utils';
-import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
 
 import { abiCoder } from '@/mask_pkgs/web3-shared/evm/helpers/abiCoder.js';
 
 export function decodeEvents(abis: AbiItem[], logs: Log[]) {
     // the topic0 for identifying which abi to be used for decoding the event
     const listOfTopic0 = abis.map((abi) =>
-        web3_utils.keccak256(`${abi.name}(${abi.inputs?.map((x) => x.type).join(',')})`),
+        keccak256(toHex(`${abi.name}(${abi.inputs?.map((x) => x.type).join(',')})`)),
     );
 
     // decode events
     const events = logs.map((log) => {
-        const idx = listOfTopic0.indexOf(log.topics[0]);
+        const idx = listOfTopic0.indexOf(log.topics[0] as Hex);
         if (idx === -1) return;
         const abi = abis[idx];
         const inputs = abi?.inputs ?? [];

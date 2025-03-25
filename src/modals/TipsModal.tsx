@@ -1,5 +1,4 @@
 import { t } from '@lingui/core/macro';
-import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { RouterProvider } from '@tanstack/react-router';
 import { useCallback } from 'react';
 
@@ -9,6 +8,7 @@ import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { Source } from '@/constants/enum.js';
 import { TIPS_SUPPORT_NETWORKS } from '@/constants/index.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
+import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';

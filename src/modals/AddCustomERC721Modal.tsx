@@ -7,7 +7,7 @@ import { delay } from '@masknet/kit';
 import { SchemaType } from '@masknet/web3-shared-evm';
 import { useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 import { useAccount } from 'wagmi';
 import { degen as wagmiDegen } from 'wagmi/chains';
 
