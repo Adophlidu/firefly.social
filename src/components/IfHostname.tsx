@@ -15,7 +15,7 @@ export function IfHostname({ isOneOf, isNotOneOf, children }: IfHostnameProps) {
         setHostname(window.location.hostname);
     }, []);
 
-    if (isOneOf && isOneOf.includes(hostname ?? '')) {
+    if (isOneOf?.includes(hostname ?? '')) {
         return <>{children}</>;
     }
 

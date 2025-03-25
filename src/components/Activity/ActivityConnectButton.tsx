@@ -19,10 +19,10 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { captureActivityChangeWalletEvent } from '@/providers/telemetry/captureActivityEvent.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 
 export function ActivityConnectButton({ source, chainId }: { source: SocialSource | SocialSource[]; chainId: number }) {
     const { onChangeAddress, address } = useContext(ActivityContext);

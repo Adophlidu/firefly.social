@@ -1,4 +1,4 @@
-import { SchemaType } from '../types.js';
+import { SchemaType } from '@/mask_pkgs/web3-shared/solana/types.js';
 
 export function isNativeTokenSchemaType(schemaType?: SchemaType) {
     // there is no native token schema on solana network

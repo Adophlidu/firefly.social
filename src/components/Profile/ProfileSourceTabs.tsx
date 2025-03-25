@@ -3,6 +3,7 @@
 import { Menu, MenuButton, MenuItems } from '@headlessui/react';
 
 import ArrowLineDownIcon from '@/assets/arrow-line-down.svg';
+import DangerIcon from '@/assets/danger.svg';
 import WalletIcon from '@/assets/wallet-bold.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
@@ -14,7 +15,6 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
-import DangerIcon from '@/assets/danger.svg';
 
 function SourceIcon({ source, size, profile }: { source: ProfilePageSource; size: number; profile?: FireflyProfile }) {
     if (source === Source.Wallet) {

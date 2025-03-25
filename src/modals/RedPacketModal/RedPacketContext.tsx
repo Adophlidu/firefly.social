@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro';
 import { type FungibleToken } from '@masknet/web3-shared-base';
-import { multipliedBy } from '@/helpers/number.js';
 import type { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { compact, first, flatten, noop, uniqBy } from 'lodash-es';
 import {
@@ -22,6 +21,7 @@ import { NetworkType } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { RED_PACKET_DEFAULT_SHARES } from '@/constants/rp.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
+import { multipliedBy } from '@/helpers/number.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';

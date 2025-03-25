@@ -6,9 +6,9 @@ import { compose } from '@/helpers/compose.js';
 import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { matchPath } from '@/helpers/matchPath.js';
 import { resolveRedisFieldKey } from '@/helpers/memoizeWithRedis.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { HttpUrl } from '@/schemas/index.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 
 function getOgCacheKey(url: string): { fieldKey: string; key: KeyType; result: Record<string, string> } | null {
     {

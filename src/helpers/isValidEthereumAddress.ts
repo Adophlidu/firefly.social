@@ -1,4 +1,4 @@
-import { isAddress, type Address } from 'viem';
+import { type Address, isAddress } from 'viem';
 
 export function isValidEthereumAddress(address: string | undefined): address is Address {
     const address_ = address?.toLowerCase();

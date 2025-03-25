@@ -1,4 +1,4 @@
-import { ChainId } from '../types.js';
+import { ChainId } from '@/mask_pkgs/web3-shared/solana/types.js';
 
 const Endpoints: Record<ChainId, string> = {
     [ChainId.Mainnet]: 'https://solana-mainnet.phantom.app/YBPpkkN4g91xDiAnTE9r0RcMkjg0sKUIWvAfoFVJ',

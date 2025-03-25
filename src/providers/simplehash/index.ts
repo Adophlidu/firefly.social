@@ -1,3 +1,4 @@
+import type { NonFungibleCollection } from '@masknet/web3-shared-base';
 import { ChainId, ChainId as EVMChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
 import { chunk, compact } from 'lodash-es';
@@ -24,7 +25,6 @@ import {
 } from '@/providers/simplehash/helpers.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
-import type { NonFungibleCollection } from '@masknet/web3-shared-base';
 
 class SimpleHashFactory {
     async getWalletNFTCollections(

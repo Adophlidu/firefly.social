@@ -15,7 +15,6 @@ export function waitForSignedKeyRequest(signal?: AbortSignal) {
     return async (token: string, maxTries = Number.MAX_SAFE_INTEGER, ms = 3000) => {
         let tries = 0;
 
-        // eslint-disable-next-line no-constant-condition
         while (true) {
             // Check if the operation has been aborted
             if (signal?.aborted) throw new AbortError();

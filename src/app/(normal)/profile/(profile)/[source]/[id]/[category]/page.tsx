@@ -8,13 +8,12 @@ import { Loading } from '@/components/Loading.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfilePageTimeline } from '@/components/Profile/ProfilePageTimeline.js';
 import { type ProfileCategory, Source, SourceInURL } from '@/constants/enum.js';
-import { REQUIRE_LOGIN_SOURCES } from '@/constants/index.js';
-import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
+import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
+import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import type { NextPageProps } from '@/types/index.js';
-import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 
 interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: SourceInURL }> {}
 

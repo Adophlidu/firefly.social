@@ -1,8 +1,9 @@
 import { ProviderURL, type RequestArguments } from '@masknet/web3-shared-evm';
-import type { EVMConnectionOptions } from '../types/index.js';
-import { createWeb3FromURL } from '../../../helpers/createWeb3FromURL.js';
-import { createWeb3ProviderFromURL } from '../../../helpers/createWeb3ProviderFromURL.js';
-import { ConnectionOptions } from '../../Base/apis/ConnectionOptions.js';
+
+import { createWeb3FromURL } from '@/mask_pkgs/web3-providers/helpers/createWeb3FromURL.js';
+import { createWeb3ProviderFromURL } from '@/mask_pkgs/web3-providers/helpers/createWeb3ProviderFromURL.js';
+import { ConnectionOptions } from '@/mask_pkgs/web3-providers/Web3/Base/apis/ConnectionOptions.js';
+import type { EVMConnectionOptions } from '@/mask_pkgs/web3-providers/Web3/EVM/types/index.js';
 
 export class EVMRequestReadonlyAPI {
     get request() {

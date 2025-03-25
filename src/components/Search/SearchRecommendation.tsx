@@ -16,11 +16,11 @@ import { SuggestTokenList } from '@/components/Search/SuggestTokenList.js';
 import { PageRoute, SearchType, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 import { resolveSearchTypeFromQuery } from '@/helpers/resolveSearchTypeFromQuery.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 interface SearchRecommendationProps {
     keyword: string;

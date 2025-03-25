@@ -1,13 +1,14 @@
-import { ClickableButton } from '@/components/ClickableButton.js';
-import { LoginModalRef, TipsModalRef } from '@/modals/controls.js';
-import TipsIcon from '@/assets/tips.svg';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
-import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
+
+import TipsIcon from '@/assets/tips.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Source } from '@/constants/enum.js';
 import { enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
-import { t } from '@lingui/core/macro';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { LoginModalRef, TipsModalRef } from '@/modals/controls.js';
+import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 
 interface Props {
     identity: FireflyIdentity;

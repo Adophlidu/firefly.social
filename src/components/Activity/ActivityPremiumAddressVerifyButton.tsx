@@ -3,7 +3,6 @@
 import { Menu } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
 import { type MouseEvent, useContext } from 'react';
 
@@ -20,6 +19,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 

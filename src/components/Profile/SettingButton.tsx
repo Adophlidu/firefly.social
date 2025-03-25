@@ -1,9 +1,9 @@
 'use client';
 
 import SettingIcon from '@/assets/setting.svg';
-import type { Profile } from '@/providers/types/SocialMedia.js';
 import { Link } from '@/components/Link.js';
 import { PageRoute } from '@/constants/enum.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function SettingButton({ profile }: { profile: Profile }) {
     return (

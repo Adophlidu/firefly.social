@@ -1,7 +1,8 @@
+import { EthereumMethodType, type TransactionReceipt } from '@masknet/web3-shared-evm';
 import { toNumber } from 'lodash-es';
-import { type TransactionReceipt, EthereumMethodType } from '@masknet/web3-shared-evm';
-import { EVMRequestReadonly } from './RequestReadonlyAPI.js';
-import type { EVMConnectionOptions } from '../types/index.js';
+
+import { EVMRequestReadonly } from '@/mask_pkgs/web3-providers/Web3/EVM/apis/RequestReadonlyAPI.js';
+import type { EVMConnectionOptions } from '@/mask_pkgs/web3-providers/Web3/EVM/types/index.js';
 
 export class EVMConnectionReadonlyAPI {
     protected Request = EVMRequestReadonly;

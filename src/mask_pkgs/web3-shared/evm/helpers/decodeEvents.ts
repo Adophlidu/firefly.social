@@ -1,7 +1,8 @@
 import type { EventLog, Log } from 'web3-core';
-import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
 import type { AbiItem } from 'web3-utils';
-import { abiCoder } from './abiCoder.js';
+import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
+
+import { abiCoder } from '@/mask_pkgs/web3-shared/evm/helpers/abiCoder.js';
 
 export function decodeEvents(abis: AbiItem[], logs: Log[]) {
     // the topic0 for identifying which abi to be used for decoding the event

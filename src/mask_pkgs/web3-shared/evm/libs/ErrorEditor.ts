@@ -1,6 +1,7 @@
-import type { RecognizableError } from '@/constants/error.js';
 import { isNil } from 'lodash-es';
 import type { JsonRpcResponse } from 'web3-core-helpers';
+
+import type { RecognizableError } from '@/constants/error.js';
 
 // https://www.jsonrpc.org/specification#error_object
 export enum JSON_RPC_ERROR_CODE {

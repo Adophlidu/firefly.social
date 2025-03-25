@@ -8,10 +8,10 @@ import { Comeback } from '@/components/Comeback.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { KeyType, type SocialSourceInURL, Source } from '@/constants/enum.js';
-import { REQUIRE_LOGIN_SOURCES } from '@/constants/index.js';
 import { createMetadataPostById } from '@/helpers/createMetadataPostById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
+import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
@@ -19,7 +19,6 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { setupTwitterSessionForSSR } from '@/helpers/setupTwitterSessionForSSR.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/index.js';
-import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 
 export const revalidate = 60;
 

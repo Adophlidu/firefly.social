@@ -1,9 +1,9 @@
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { ChainId } from '@masknet/web3-shared-solana';
 import { compact } from 'lodash-es';
 
 import { useSolanaAvailability } from '@/components/RedPacket/hooks/useSolanaAvailability.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

@@ -14,13 +14,13 @@ import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';
 import { RedPacketActionButton } from '@/modals/RedPacketModal/RedPacketActionButton.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 interface HistoryInfo {
     rp_msg: string;

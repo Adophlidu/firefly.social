@@ -1,4 +1,4 @@
-import { EthereumMethodType } from '../types/index.js';
+import { EthereumMethodType } from '@/mask_pkgs/web3-shared/evm/types/index.js';
 
 export const readonlyMethodType = [
     EthereumMethodType.NET_VERSION,

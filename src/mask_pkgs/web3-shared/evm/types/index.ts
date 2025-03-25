@@ -1,6 +1,6 @@
+import type { GasOptionType } from '@masknet/web3-shared-base';
 import type { TransactionReceipt as Web3TransactionReceipt } from 'web3-core';
 import type { JsonRpcPayload, JsonRpcResponse } from 'web3-core-helpers';
-import type { GasOptionType } from '@masknet/web3-shared-base';
 
 export type ChainIdOptionalRecord<T> = { [k in ChainId]?: T };
 

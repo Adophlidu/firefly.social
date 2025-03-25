@@ -1,6 +1,7 @@
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 import { web3 } from '@coral-xyz/anchor';
-import { type Address, isAddress, isAddressEqual } from 'viem';
+import { type Address, isAddressEqual } from 'viem';
+
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 export function isSameEthereumAddress(
     address: string | null | undefined,

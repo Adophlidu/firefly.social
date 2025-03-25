@@ -1,8 +1,9 @@
+import type { NonFungibleCollection } from '@masknet/web3-shared-base';
+
 import { ChainRuntime } from '@/constants/enum.js';
 import { ChainId, SchemaType } from '@/mask_pkgs/web3-shared/evm/index.js';
 import { ChainId as SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
-import type { NonFungibleCollection } from '@masknet/web3-shared-base';
 
 const ChainNameMap: Record<ChainRuntime, Record<number, string>> = {
     [ChainRuntime.Ethereum]: {

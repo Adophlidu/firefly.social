@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { type FungibleToken } from '@masknet/web3-shared-base';
-import { toFixed } from '@/helpers/number.js';
 import { ChainId, getRedPacketConstant, getTokenConstant, SchemaType } from '@masknet/web3-shared-evm';
 import { first, omit, pick } from 'lodash-es';
 import { useContext, useMemo } from 'react';
@@ -20,7 +19,7 @@ import {
 } from '@/constants/rp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getTypedMessageRedPacket } from '@/helpers/getTypedMessage.js';
-import { rightShift } from '@/helpers/number.js';
+import { rightShift, toFixed } from '@/helpers/number.js';
 import { getRpMetadata } from '@/helpers/rpPayload.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { useChainContext } from '@/hooks/useChainContext.js';

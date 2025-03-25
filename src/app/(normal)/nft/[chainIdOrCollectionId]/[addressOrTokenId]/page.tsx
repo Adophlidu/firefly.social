@@ -1,4 +1,4 @@
-import { isValidAddress, isValidChainId } from '@masknet/web3-shared-evm';
+import { isValidChainId } from '@masknet/web3-shared-evm';
 import { ChainId, isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
 import { notFound, redirect } from 'next/navigation.js';
 
@@ -6,13 +6,13 @@ import { NFTCollectionPage } from '@/app/(normal)/nft/pages/NFTCollectionPage.js
 import { NFTDetailPage } from '@/app/(normal)/nft/pages/NFTDetailPage.js';
 import { createMetadataNFT, createMetadataNFTCollection } from '@/helpers/createMetadataNFT.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 import { parseChainId } from '@/helpers/parseChainId.js';
 import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import type { NextPageProps } from '@/types/index.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 interface Props extends NextPageProps<{ addressOrTokenId: string; chainIdOrCollectionId: string }> {}
 

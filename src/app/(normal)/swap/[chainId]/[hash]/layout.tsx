@@ -1,13 +1,14 @@
-import type { PropsWithChildren } from 'react';
-import type { NextPageProps } from '@/types/index.js';
-import { Comeback } from '@/components/Comeback.js';
 import { Trans } from '@lingui/react/macro';
-import { setupLocaleForSSR } from '@/i18n/index.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { notFound } from 'next/navigation.js';
+import type { PropsWithChildren } from 'react';
 import type { Address } from 'viem';
+
+import { Comeback } from '@/components/Comeback.js';
+import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import type { NextPageProps } from '@/types/index.js';
 
 interface Props extends PropsWithChildren<NextPageProps<{ hash: string; chainId: string }>> {}
 

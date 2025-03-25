@@ -1,7 +1,8 @@
-import { NetworkPluginID } from '@/constants/enum.js';
 import { type ChainDescriptor, createFungibleToken, type NetworkDescriptor } from '@masknet/web3-shared-base';
-import { ChainId, NetworkType, SchemaType } from '../types.js';
-import { getTokenConstant } from './constants.js';
+
+import { NetworkPluginID } from '@/constants/enum.js';
+import { getTokenConstant } from '@/mask_pkgs/web3-shared/solana/constants/constants.js';
+import { ChainId, NetworkType, SchemaType } from '@/mask_pkgs/web3-shared/solana/types.js';
 
 const PLUGIN_ID = NetworkPluginID.PLUGIN_SOLANA;
 

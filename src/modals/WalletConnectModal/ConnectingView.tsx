@@ -1,8 +1,8 @@
 import { CoreChainController } from '@reown/appkit';
+import { useLocation } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 
 import { ConnectModalRef } from '@/modals/controls.js';
-import { useLocation } from '@tanstack/react-router';
 import { captureConnectWalletEvent } from '@/providers/telemetry/captureConnectWalletEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 

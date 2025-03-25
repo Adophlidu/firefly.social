@@ -1,11 +1,12 @@
-import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { SwapActivity } from '@/providers/types/Firefly.js';
-import { queryClient } from '@/configs/queryClient.js';
-import { produce } from 'immer';
-import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { t } from '@lingui/core/macro';
+import { useMutation } from '@tanstack/react-query';
+import { produce } from 'immer';
+
+import { queryClient } from '@/configs/queryClient.js';
+import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
+import type { SwapActivity } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 export function useChangeSwapLikeStatus(activity?: SwapActivity) {

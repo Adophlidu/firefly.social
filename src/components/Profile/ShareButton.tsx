@@ -2,8 +2,8 @@
 
 import ShareIcon from '@/assets/share.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { useCopyText } from '@/hooks/useCopyText.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { useCopyText } from '@/hooks/useCopyText.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function ShareButton({ profile }: { profile: Profile }) {

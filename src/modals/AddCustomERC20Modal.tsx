@@ -4,8 +4,6 @@ import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { isValidAddress } from '@masknet/web3-shared-evm';
 import { useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { type Address, erc20Abi } from 'viem';
@@ -21,13 +19,14 @@ import { FilterPopover } from '@/components/Search/SearchContentPanel.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { chains, config } from '@/configs/wagmiClient.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { useTipsTokens } from '@/hooks/useTipsTokens.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { searchTokenLogoURI } from '@/services/searchTokenLogoURI.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 function AddCustomERC20ModalContent({ onClose, initialChainId }: { onClose: () => void; initialChainId: number }) {
     const account = useAccount();

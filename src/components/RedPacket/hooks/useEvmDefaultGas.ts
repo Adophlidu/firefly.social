@@ -1,4 +1,3 @@
-import { toFixed } from '@/helpers/number.js';
 import { getRedPacketConstant, getTokenConstant, SchemaType } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
@@ -6,7 +5,7 @@ import { type Address } from 'viem';
 
 import { NetworkType } from '@/constants/enum.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
-import { ZERO } from '@/helpers/number.js';
+import { toFixed, ZERO } from '@/helpers/number.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';

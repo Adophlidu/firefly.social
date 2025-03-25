@@ -1,7 +1,7 @@
+import { Source } from '@/constants/enum.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
-import { Source } from '@/constants/enum.js';
 import { extractTwitterProfileByOpengraphTitle, getTwitterProfileByOG } from '@/services/getTwitterProfileByOG.js';
 
 export async function getTwitterPostByOG(postId: string): Promise<Post | null> {

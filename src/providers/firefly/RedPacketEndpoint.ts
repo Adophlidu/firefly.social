@@ -4,6 +4,7 @@ import urlcat from 'urlcat';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { toFixed } from '@/helpers/number.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -14,7 +15,6 @@ import {
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { settings } from '@/settings/index.js';
-import { toFixed } from '@/helpers/number.js';
 
 const SITE_URL = bom.location?.origin ?? '';
 

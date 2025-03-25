@@ -4,7 +4,6 @@ import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 import urlcat from 'urlcat';
-import { isAddress } from 'viem';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { Link } from '@/components/Link.js';
@@ -29,11 +28,11 @@ import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
 import { getProfileUrl, getTwitterProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { isTCOLink } from '@/helpers/resolveTCOLink.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 function unpaddings(text: string) {
     const start = text.match(/(^\s)/)?.[0] || null;

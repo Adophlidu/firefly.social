@@ -1,4 +1,3 @@
-import { isValidAddress } from '@masknet/web3-shared-evm';
 import { memo } from 'react';
 
 import LinkOut from '@/assets/link.svg';
@@ -6,10 +5,10 @@ import { NetworkType, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 import { resolvePlatformProfileUrl } from '@/helpers/resolvePlatformProfile.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 interface Props {
     address?: string;

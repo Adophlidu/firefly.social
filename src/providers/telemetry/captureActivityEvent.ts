@@ -11,10 +11,10 @@ import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { getAccountEventParameters } from '@/providers/telemetry/captureAccountEvent.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
+import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Account } from '@/providers/types/Account.js';
 import { EventId, type Events } from '@/providers/types/Telemetry.js';
-import { getWalletEventParameters } from '@/providers/telemetry/getWalletEventParameters.js';
 
 const resolveActivityLoginEventId = createLookupTableResolver<SocialSource, EventId>(
     {

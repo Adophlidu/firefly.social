@@ -1,19 +1,20 @@
 'use client';
 
 import { Menu, MenuItem } from '@headlessui/react';
+import { Trans } from '@lingui/react/macro';
+import { useEnsName } from 'wagmi';
+
 import MoreIcon from '@/assets/more.svg';
+import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MuteAllByProfile, MuteAllByWallet } from '@/components/Actions/MuteAllProfile.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
-import type { WalletProfile } from '@/providers/types/Firefly.js';
-import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { useEnsName } from 'wagmi';
-import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { Trans } from '@lingui/react/macro';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
+import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
+import type { WalletProfile } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {
     walletProfile?: WalletProfile;

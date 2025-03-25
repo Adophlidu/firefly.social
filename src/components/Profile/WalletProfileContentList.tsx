@@ -7,8 +7,8 @@ import { ArticleList } from '@/components/Profile/ArticleList.js';
 import { NFTs } from '@/components/Profile/NFTs.js';
 import { POAPList } from '@/components/Profile/POAPList.js';
 import { FollowingSnapshotList } from '@/components/Snapshot/FollowingSnapshotList.js';
-import { WalletProfileCategory } from '@/constants/enum.js';
 import { SwapTimeline } from '@/components/Swap/SwapTimeline.js';
+import { WalletProfileCategory } from '@/constants/enum.js';
 
 export const WalletProfileContentList = memo(function WalletProfileContentList({
     type,

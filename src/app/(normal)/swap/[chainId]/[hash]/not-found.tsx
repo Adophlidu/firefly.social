@@ -4,7 +4,6 @@ import { Trans } from '@lingui/react/macro';
 import { useParams } from 'next/navigation.js';
 
 import NotFound from '@/components/NotFound.js';
-import { SearchType } from '@/constants/enum.js';
 
 export default function NotFoundToken() {
     const params = useParams<{ hash: string }>();

@@ -1,12 +1,11 @@
 import { type FungibleToken } from '@masknet/web3-shared-base';
 import { type ChainId, SchemaType, ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
-import { isAddress } from 'viem';
 
 import { NetworkType, TokenType } from '@/constants/enum.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import type { Token } from '@/providers/types/Transfer.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<number, number> {
     // it is not a valid address if its native token

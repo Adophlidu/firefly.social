@@ -1,5 +1,6 @@
 'use client';
 
+import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -38,7 +39,6 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPollIdFromLink } from '@/services/getPostLinks.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
-import { t } from '@lingui/core/macro';
 
 export interface PostBodyContentProps {
     post: Post;

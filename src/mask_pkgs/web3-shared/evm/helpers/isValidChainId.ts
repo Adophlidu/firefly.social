@@ -1,5 +1,5 @@
-import { type ChainId } from '../types/index.js';
-import { ChainIdList } from '../constants/constants.js';
+import { ChainIdList } from '@/mask_pkgs/web3-shared/evm/constants/constants.js';
+import { type ChainId } from '@/mask_pkgs/web3-shared/evm/types/index.js';
 
 export function isValidChainId(chainId?: ChainId): chainId is ChainId {
     // TODO custom networks

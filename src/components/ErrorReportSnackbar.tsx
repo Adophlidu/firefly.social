@@ -33,14 +33,16 @@ export function ErrorReportSnackbar({ id, detail, noReport, message, ref }: Erro
         closeSnackbar(id);
     }, [id, closeSnackbar]);
 
-    const [copied, handleCopy] = useCopyText(`${title}\n\n${detail}`, { enqueueSuccessMessage: false });
-
     const name = typeof title !== 'object' ? `${title}` : 'Something wrong';
+    const description = typeof detail !== 'object' ? `${detail}` : 'Something wrong';
+
+    const [copied, handleCopy] = useCopyText(`${name}\n\n${description}`, { enqueueSuccessMessage: false });
+
     const comments = [
         name,
         '',
         '## Description',
-        detail as string,
+        description,
         '## Extra Information',
         `- Version: ${env.shared.VERSION}`,
         `- Environment: ${env.shared.NODE_ENV}`,

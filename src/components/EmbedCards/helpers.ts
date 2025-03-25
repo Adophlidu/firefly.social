@@ -1,3 +1,6 @@
+import { URL_REGEX } from '@atproto/api';
+import { compact, groupBy, uniqBy } from 'lodash-es';
+
 import { EMPTY_LIST } from '@/constants/index.js';
 import {
     ENS_REGEXP,
@@ -8,8 +11,6 @@ import {
 } from '@/constants/regexp.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import type { DetectAddressResponse } from '@/providers/types/Firefly.js';
-import { URL_REGEX } from '@atproto/api';
-import { compact, groupBy, uniqBy } from 'lodash-es';
 
 type AddressRecord = NonNullable<DetectAddressResponse['data']>['list'][number];
 export function isAvailableAddress(x: AddressRecord) {

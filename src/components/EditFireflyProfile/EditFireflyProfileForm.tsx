@@ -4,6 +4,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQueryClient } from '@tanstack/react-query';
 import { rootRouteId, useRouteContext, useRouter } from '@tanstack/react-router';
+import { compact } from 'lodash-es';
 import { useFormContext } from 'react-hook-form';
 
 import PlusIcon from '@/assets/plus.svg';
@@ -15,13 +16,12 @@ import { ErrorMessage } from '@/components/Form/ErrorMessage.js';
 import { FormInput } from '@/components/Form/FormInput.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ALLOWED_IMAGES_MIMES } from '@/constants/index.js';
+import { FIREFLY_DISPLAY_NAME_REGEXP } from '@/constants/regexp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { captureEditProfileSuccessEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import type { FireflyProfileUpdateParams } from '@/providers/types/Firefly.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
-import { captureEditProfileSuccessEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
-import { compact } from 'lodash-es';
-import { FIREFLY_DISPLAY_NAME_REGEXP } from '@/constants/regexp.js';
 
 export function EditFireflyProfileForm() {
     const form = useFormContext<EditFireflyProfileFromValues>();

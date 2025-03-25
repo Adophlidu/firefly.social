@@ -1,6 +1,7 @@
 import { Composer as EVMComposer } from '@masknet/web3-shared-evm';
-import { Nonce } from '../middleware/Nonce.js';
-import type { ConnectionContext } from '../libs/ConnectionContext.js';
+
+import type { ConnectionContext } from '@/mask_pkgs/web3-providers/Web3/EVM/libs/ConnectionContext.js';
+import { Nonce } from '@/mask_pkgs/web3-providers/Web3/EVM/middleware/Nonce.js';
 
 let instance: EVMComposer<ConnectionContext> | undefined;
 

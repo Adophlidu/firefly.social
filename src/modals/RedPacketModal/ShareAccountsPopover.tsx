@@ -1,13 +1,13 @@
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
-import { isValidAddress, isValidDomain } from '@masknet/web3-shared-evm';
+import { isValidDomain } from '@masknet/web3-shared-evm';
 import { Fragment, type PropsWithChildren, type ReactNode } from 'react';
 import { useEnsName } from 'wagmi';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 
 interface ShareAccountsPopoverProps extends PropsWithChildren {
     accounts: Array<{ icon: ReactNode; name: string }>;

@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';

@@ -1,17 +1,18 @@
 import { first, isUndefined, omitBy } from 'lodash-es';
-import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
 import type { JsonRpcPayload } from 'web3-core-helpers';
-import { formatEthereumAddress } from '../helpers/formatter.js';
-import { parseChainId } from '../helpers/parseChainId.js';
-import { createJsonRpcPayload } from '../helpers/createJsonRpcPayload.js';
+import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
+
+import { createJsonRpcPayload } from '@/mask_pkgs/web3-shared/evm/helpers/createJsonRpcPayload.js';
+import { formatEthereumAddress } from '@/mask_pkgs/web3-shared/evm/helpers/formatter.js';
+import { isReadonlyMethodType } from '@/mask_pkgs/web3-shared/evm/helpers/isReadonlyMethodType.js';
+import { isRiskyMethodType } from '@/mask_pkgs/web3-shared/evm/helpers/isRiskyMethodType.js';
+import { parseChainId } from '@/mask_pkgs/web3-shared/evm/helpers/parseChainId.js';
 import {
-    type Transaction,
-    type TransactionOptions,
     type EIP3085Descriptor,
     EthereumMethodType,
-} from '../types/index.js';
-import { isReadonlyMethodType } from '../helpers/isReadonlyMethodType.js';
-import { isRiskyMethodType } from '../helpers/isRiskyMethodType.js';
+    type Transaction,
+    type TransactionOptions,
+} from '@/mask_pkgs/web3-shared/evm/types/index.js';
 
 type Options = Pick<TransactionOptions, 'account' | 'chainId'>;
 

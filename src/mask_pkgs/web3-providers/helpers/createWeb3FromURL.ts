@@ -1,7 +1,8 @@
-import { memoize } from 'lodash-es';
 import type { Web3 } from '@masknet/web3-shared-evm';
-import { createWeb3FromProvider } from './createWeb3FromProvider.js';
-import { createWeb3ProviderFromURL } from './createWeb3ProviderFromURL.js';
+import { memoize } from 'lodash-es';
+
+import { createWeb3FromProvider } from '@/mask_pkgs/web3-providers/helpers/createWeb3FromProvider.js';
+import { createWeb3ProviderFromURL } from '@/mask_pkgs/web3-providers/helpers/createWeb3ProviderFromURL.js';
 
 function __create__(url: string) {
     return createWeb3FromProvider(createWeb3ProviderFromURL(url));

@@ -1,8 +1,6 @@
-import { isAddress } from 'viem';
-
 import { SearchType } from '@/constants/enum.js';
-import { trimify } from '@/helpers/trimify.js';
 import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { trimify } from '@/helpers/trimify.js';
 
 export function resolveSearchTypeFromQuery(query: string) {
     const trimmed = trimify(query || '');

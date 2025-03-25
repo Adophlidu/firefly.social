@@ -4,6 +4,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import { AccountCards } from '@/app/(settings)/components/AccountCard.js';
+import { FireflyAccountCard } from '@/app/(settings)/components/FireflyAccountCard.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ThirdPartAccounts } from '@/app/(settings)/components/ThirdPartAccounts.js';
@@ -14,7 +15,6 @@ import { env } from '@/constants/env.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
-import { FireflyAccountCard } from '@/app/(settings)/components/FireflyAccountCard.js';
 
 export default function Connected() {
     const isLogin = useIsLoginFirefly();

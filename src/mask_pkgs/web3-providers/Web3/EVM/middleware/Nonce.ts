@@ -1,6 +1,7 @@
-import { type ChainId, EthereumMethodType, type Middleware, checksumAddress } from '@masknet/web3-shared-evm';
-import type { ConnectionContext } from '../libs/ConnectionContext.js';
-import { EVMWeb3Readonly } from '../apis/ConnectionReadonlyAPI.js';
+import { type ChainId, checksumAddress, EthereumMethodType, type Middleware } from '@masknet/web3-shared-evm';
+
+import { EVMWeb3Readonly } from '@/mask_pkgs/web3-providers/Web3/EVM/apis/ConnectionReadonlyAPI.js';
+import type { ConnectionContext } from '@/mask_pkgs/web3-providers/Web3/EVM/libs/ConnectionContext.js';
 
 class NonceAPI implements Middleware<ConnectionContext> {
     static INITIAL_NONCE = -1;

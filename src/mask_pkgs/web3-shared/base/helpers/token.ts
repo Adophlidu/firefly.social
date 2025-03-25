@@ -1,7 +1,8 @@
 import { keyBy, mapValues } from 'lodash-es';
-import { type FungibleToken } from '../specs/index.js';
-import type { Constants } from './types.js';
+
 import { TokenType } from '@/constants/enum.js';
+import type { Constants } from '@/mask_pkgs/web3-shared/base/helpers/types.js';
+import { type FungibleToken } from '@/mask_pkgs/web3-shared/base/specs/index.js';
 
 export function createFungibleToken<ChainId, SchemaType>(
     chainId: ChainId,

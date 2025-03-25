@@ -1,4 +1,4 @@
-import { EthereumMethodType } from '../types/index.js';
+import { EthereumMethodType } from '@/mask_pkgs/web3-shared/evm/types/index.js';
 
 export function isRiskyMethodType(type: EthereumMethodType) {
     return [

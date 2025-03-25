@@ -1,5 +1,4 @@
 'use client';
-/* eslint-disable no-restricted-imports */
 
 /**
  * This file re-exports the bindings from the maskbook packages.
@@ -10,7 +9,6 @@
  *
  */
 
-export { ProfileIdentifier } from '@masknet/base';
 export { getRegisteredWeb3Networks } from '@/mask_pkgs/web3-providers/Manager/index.js';
 export { NFTScanNonFungibleTokenEVM } from '@/mask_pkgs/web3-providers/NFTScan/apis/NonFungibleTokenAPI_EVM.js';
 export type { SimpleHash } from '@/mask_pkgs/web3-providers/types/SimpleHash.js';
@@ -27,3 +25,4 @@ export {
     SolanaExplorerResolver,
     SolanaNetworkResolver,
 } from '@/mask_pkgs/web3-providers/Web3/Solana/apis/ResolverAPI.js';
+export { ProfileIdentifier } from '@masknet/base';

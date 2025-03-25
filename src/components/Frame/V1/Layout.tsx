@@ -3,7 +3,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { memo, type ReactNode, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
-import { encodePacked, type Hex, isAddress, type SignTypedDataParameters } from 'viem';
+import { encodePacked, type Hex, type SignTypedDataParameters } from 'viem';
 import { getAccount } from 'wagmi/actions';
 import { z } from 'zod';
 
@@ -18,12 +18,14 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmLeavingModalRef, LoginModalRef } from '@/modals/controls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
+import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
 import type { Additional } from '@/providers/types/Frame.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getFrameMintTransaction } from '@/services/getFrameMintTransaction.js';
@@ -37,8 +39,6 @@ import {
     type RedirectUrlResponse,
 } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
-import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 const TransactionSchema = z.object({
     // a CAIP-2 chain ID to identify the tx network

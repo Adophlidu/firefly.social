@@ -3,11 +3,11 @@ import type { PropsWithChildren } from 'react';
 import { Comeback } from '@/components/Comeback.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getTokenFromCoinGecko } from '@/services/getTokenFromCoinGecko.js';
 import { searchTokenByAddress } from '@/services/searchTokenByAddress.js';
 import type { NextPageProps } from '@/types/index.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 interface Props
     extends NextPageProps<{

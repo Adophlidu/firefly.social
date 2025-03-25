@@ -1,5 +1,6 @@
 import type { JsonRpcPayload } from 'web3-core-helpers';
-import type { RequestArguments } from '../types/index.js';
+
+import type { RequestArguments } from '@/mask_pkgs/web3-shared/evm/types/index.js';
 
 export function createJsonRpcPayload(id: number, requestArguments: RequestArguments): JsonRpcPayload {
     return {

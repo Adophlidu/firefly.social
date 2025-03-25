@@ -1,9 +1,9 @@
-import { isLens } from './isLens.js';
-import { isLensFollower } from './isLensFollower.js';
-import { isLensPost } from './isLensPost.js';
-import { isLensComment } from './isLensComment.js';
-import { isLensCollect } from './isLensCollect.js';
-import { isENSContractAddress, isENSNameWrapperContractAddress } from './address.js';
+import { isENSContractAddress, isENSNameWrapperContractAddress } from '@/mask_pkgs/web3-shared/evm/helpers/address.js';
+import { isLens } from '@/mask_pkgs/web3-shared/evm/helpers/isLens.js';
+import { isLensCollect } from '@/mask_pkgs/web3-shared/evm/helpers/isLensCollect.js';
+import { isLensComment } from '@/mask_pkgs/web3-shared/evm/helpers/isLensComment.js';
+import { isLensFollower } from '@/mask_pkgs/web3-shared/evm/helpers/isLensFollower.js';
+import { isLensPost } from '@/mask_pkgs/web3-shared/evm/helpers/isLensPost.js';
 
 const LENS_FOLLOWER_IMAGE = new URL('../assets/lens-follower.svg', import.meta.url).href;
 const LENS_COMMENT_IMAGE = new URL('../assets/lens-comment.svg', import.meta.url).href;

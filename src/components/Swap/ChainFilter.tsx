@@ -1,13 +1,13 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-
-import CheckIcon from '@/assets/check.svg';
-import AllChainIcon from '@/assets/all-chains.svg';
-import { useSwapStore } from '@/store/useSwapStore.js';
+import { useMemo } from 'react';
 import { arbitrum, base, bsc, mainnet, optimism, polygon } from 'viem/chains';
+
+import AllChainIcon from '@/assets/all-chains.svg';
+import CheckIcon from '@/assets/check.svg';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NetworkType } from '@/constants/enum.js';
-import { useMemo } from 'react';
+import { useSwapStore } from '@/store/useSwapStore.js';
 
 const chains = [mainnet, optimism, bsc, polygon, arbitrum, base];
 

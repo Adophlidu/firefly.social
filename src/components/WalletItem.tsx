@@ -3,7 +3,6 @@ import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
-import { isAddress } from 'viem';
 
 import { ToggleMutedButton } from '@/components/Actions/ToggleMutedButton.js';
 import { Avatar } from '@/components/Avatar.js';
@@ -14,13 +13,13 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 interface WalletItemProps {
     profile: WalletProfile;

@@ -1,8 +1,8 @@
 import { memoize } from 'lodash-es';
 import { checksumAddress } from 'viem';
 
-import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 
 type Offset = 0 | 2;
 

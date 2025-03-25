@@ -10,7 +10,7 @@ import { useDetectOverflow } from '@/hooks/useDetectOverflow.js';
 interface TextOverflowTooltipProps extends Omit<TippyProps, 'ref' | 'title' | 'children'> {
     withDelay?: boolean;
     content: ReactNode;
-    // eslint-disable-next-line
+
     children: ReactElement<any>;
 }
 

@@ -1,8 +1,8 @@
+import { Source } from '@/constants/enum.js';
+import { convertTwitterAvatar } from '@/helpers/formatTwitterProfile.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
-import { convertTwitterAvatar } from '@/helpers/formatTwitterProfile.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
-import { Source } from '@/constants/enum.js';
 
 export function extractTwitterProfileByOpengraphTitle(title: string) {
     const regex = /([\w.]+) \(@([\w_]+)\)/;

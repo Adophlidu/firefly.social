@@ -11,6 +11,7 @@ import urlcat from 'urlcat';
 
 import PlusIcon from '@/assets/plus.svg';
 import SwitchIcon from '@/assets/switch.svg';
+import { Avatar } from '@/components/Avatar.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
@@ -41,7 +42,6 @@ import type { Account } from '@/providers/types/Account.js';
 import { switchAccount } from '@/services/account.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 import { useFireflyStateStore, useThirdPartyStateStore } from '@/store/useProfileStore.js';
-import { Avatar } from '@/components/Avatar.js';
 
 export function MainView() {
     const account = useAccountByNetwork();

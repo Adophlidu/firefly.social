@@ -51,7 +51,7 @@ export function Image({ onError, onLoad, fallback, fallbackClassName, ref, ...pr
     return (
         // Since next/image requires the domain of the image to be configured in next.config,
         // But we can't predict the origin of all images.
-        // eslint-disable-next-line @next/next/no-img-element
+
         <NextImage
             unoptimized
             loading={props.priority ? 'eager' : 'lazy'}

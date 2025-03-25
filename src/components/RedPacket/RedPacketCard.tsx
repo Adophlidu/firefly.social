@@ -26,7 +26,6 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkType } from '@/constants/enum.js';
 import { SITE_URL, SUPPORTED_MEDIA_CORS_SOURCES } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
-import { classNames } from '@/helpers/classNames.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { getNativeToken } from '@/helpers/getNativeToken.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';

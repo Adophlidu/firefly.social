@@ -1,8 +1,8 @@
 import { isNativeTokenAddress } from '@masknet/web3-shared-evm';
 
 import { DEBANK_CHAIN_TO_CHAIN_ID_MAP } from '@/constants/chain.js';
-import type { Token } from '@/providers/types/Transfer.js';
 import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import type { Token } from '@/providers/types/Transfer.js';
 
 export function isNativeToken(token: Token) {
     // It is a native token when token.id is not an address

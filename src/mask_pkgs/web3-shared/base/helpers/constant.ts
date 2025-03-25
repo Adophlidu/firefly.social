@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import type { ChainIdEnum, Constants, Primitive } from './types.js';
+
+import type { ChainIdEnum, Constants, Primitive } from '@/mask_pkgs/web3-shared/base/helpers/types.js';
 
 function replaceAll(input: string, values: Record<string, string>) {
     if (!input.includes('${')) return input;
@@ -95,6 +96,6 @@ export function transformHook<ChainId extends number, T, K extends keyof T>(
         return useMemo(() => {
             if (!key) return fallback;
             return getConstant(chainId)[key] ?? fallback;
-        }, [chainId]);
+        }, [chainId, key, fallback]);
     };
 }

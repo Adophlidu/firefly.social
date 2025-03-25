@@ -2,7 +2,6 @@ import { SwapDetail } from '@/components/Swap/SwapDetail.js';
 import { KeyType } from '@/constants/enum.js';
 import { createMetadataSwap } from '@/helpers/createMetadataSwap.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
-import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/index.js';
 
 const createPageMetadata = memoizeWithRedis(createMetadataSwap, {

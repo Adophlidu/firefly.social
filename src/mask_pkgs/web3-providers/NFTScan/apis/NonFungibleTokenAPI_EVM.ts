@@ -1,11 +1,15 @@
-import urlcat from 'urlcat';
 import { type NonFungibleCollection } from '@masknet/web3-shared-base';
-import { ChainId, type SchemaType, isValidChainId } from '@masknet/web3-shared-evm';
-import { EVM, type Response } from '../types.js';
-import { fetchFromNFTScanV2, createNonFungibleCollectionFromGroup } from '../helpers.js';
-import type { BaseHubOptions, NonFungibleTokenAPI } from '../../entry-types.js';
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { ChainId, isValidChainId, type SchemaType } from '@masknet/web3-shared-evm';
+import urlcat from 'urlcat';
+
 import { EMPTY_LIST } from '@/constants/index.js';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import type { BaseHubOptions, NonFungibleTokenAPI } from '@/mask_pkgs/web3-providers/entry-types.js';
+import {
+    createNonFungibleCollectionFromGroup,
+    fetchFromNFTScanV2,
+} from '@/mask_pkgs/web3-providers/NFTScan/helpers.js';
+import { EVM, type Response } from '@/mask_pkgs/web3-providers/NFTScan/types.js';
 
 class NFTScanNonFungibleTokenAPI_EVM implements NonFungibleTokenAPI.Provider<ChainId, SchemaType> {
     async getCollectionsByOwner(

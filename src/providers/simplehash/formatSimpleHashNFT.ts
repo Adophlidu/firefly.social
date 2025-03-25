@@ -7,12 +7,12 @@ import {
 } from '@masknet/web3-shared-solana';
 import { first, isEmpty } from 'lodash-es';
 
+import { TokenType } from '@/constants/enum.js';
 import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { EVMChainResolver } from '@/mask/index.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
-import { TokenType } from '@/constants/enum.js';
 
 export const SPAM_SCORE = 50;
 

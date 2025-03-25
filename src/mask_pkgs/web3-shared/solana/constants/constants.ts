@@ -1,9 +1,10 @@
 import Chain from '@masknet/web3-constants/solana/chain.json' assert { type: 'json' };
 import CoinGecko from '@masknet/web3-constants/solana/coingecko.json' assert { type: 'json' };
-import TokenList from '@masknet/web3-constants/solana/token-list.json' assert { type: 'json' };
 import Token from '@masknet/web3-constants/solana/token.json' assert { type: 'json' };
+import TokenList from '@masknet/web3-constants/solana/token-list.json' assert { type: 'json' };
 import { transform, transformAll, transformAllHook, transformHook } from '@masknet/web3-shared-base';
-import { ChainId } from '../types.js';
+
+import { ChainId } from '@/mask_pkgs/web3-shared/solana/types.js';
 
 export const getTokenConstant = transform(ChainId, Token);
 export const getTokenConstants = transformAll(ChainId, Token);

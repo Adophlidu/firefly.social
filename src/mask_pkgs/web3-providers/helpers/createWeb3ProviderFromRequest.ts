@@ -1,10 +1,10 @@
-import type { JsonRpcPayload, JsonRpcResponse } from 'web3-core-helpers';
 import {
     createJsonRpcResponse,
     type EthereumMethodType,
     type RequestArguments,
     type Web3Provider,
 } from '@masknet/web3-shared-evm';
+import type { JsonRpcPayload, JsonRpcResponse } from 'web3-core-helpers';
 
 export function createWeb3ProviderFromRequest(
     request: <T>(requestArguments: RequestArguments) => Promise<T>,

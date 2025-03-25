@@ -9,6 +9,7 @@ import { useMemo, useState } from 'react';
 import ArrowDownCircleIcon from '@/assets/arrow-circle-down.svg';
 import { DiscoverFilter } from '@/components/HomeTab/DiscoverFilter.js';
 import { Link } from '@/components/Link.js';
+import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
 import { HomeTab, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -17,10 +18,8 @@ import { parseFollowingPageUrl } from '@/helpers/parseFollowingPageUrl.js';
 import { resolveHomeUrl } from '@/helpers/resolveHomeUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLoginDiscoverSource } from '@/hooks/useIsLogin.js';
-import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
-import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 const types = {
     [HomeTab.Discover]: [Source.Posts, Source.NFTs, Source.Article, Source.DAOs],
@@ -119,6 +118,7 @@ export function HomeTabs() {
                     data={types[currentTab]}
                     link={(x) => resolveHomeUrl(currentTab, x)}
                     isSelected={(x) => x === source}
+                    // eslint-disable-next-line react/no-unstable-nested-components
                     itemRender={(x) => {
                         if (x === Source.Swap) {
                             return (

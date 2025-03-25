@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
 import { useQuery } from '@tanstack/react-query';
@@ -21,6 +20,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveNetworkIcon } from '@/helpers/resolveNetworkIcon.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';

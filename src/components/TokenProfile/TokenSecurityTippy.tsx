@@ -8,7 +8,6 @@ import { type AddressSecurity, SecurityMessageLevel, type TokenContractSecurity 
 interface Props {
     level: SecurityMessageLevel | SecurityMessageLevel[];
     security: TokenContractSecurity | AddressSecurity;
-    // eslint-disable-next-line @typescript-eslint/ban-types
     children: ReactElement<any>;
 }
 

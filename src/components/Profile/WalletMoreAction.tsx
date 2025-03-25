@@ -5,20 +5,17 @@ import { t } from '@lingui/core/macro';
 import { memo } from 'react';
 import { useEnsName } from 'wagmi';
 
-import MoreCircleIcon from '@/assets/more-circle.svg';
-import { MuteAllByWallet } from '@/components/Actions/MuteAllProfile.js';
+import MoreIcon from '@/assets/more.svg';
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
-import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
-import MoreIcon from '@/assets/more.svg';
-import { classNames } from '@/helpers/classNames.js';
 
 interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
     profile: WalletProfile;

@@ -31,6 +31,6 @@
             "@masknet/web3-providers/types": ["./src/mask_pkgs/web3-providers/entry-types.ts"]
         }
     },
-    "include": ["src/**/*.ts", "src/**/*.tsx", "csp.js", "globals.d.ts", "next-auth.d.ts", ".next/types/**/*.ts"],
+    "include": ["src/**/*.ts", "src/**/*.tsx", "globals.d.ts", "next-auth.d.ts", ".next/types/**/*.ts"],
     "exclude": ["node_modules", "src/service-workers"]
 }

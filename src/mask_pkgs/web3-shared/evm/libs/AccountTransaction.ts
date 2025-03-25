@@ -1,9 +1,10 @@
 import { BigNumber } from 'bignumber.js';
-import { identity, pickBy, memoize } from 'lodash-es';
+import { identity, memoize, pickBy } from 'lodash-es';
 import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
-import { ZERO_ADDRESS } from '../constants/index.js';
-import { isEmptyHex } from '../helpers/address.js';
-import { ChainId, type Transaction } from '../types/index.js';
+
+import { ZERO_ADDRESS } from '@/mask_pkgs/web3-shared/evm/constants/index.js';
+import { isEmptyHex } from '@/mask_pkgs/web3-shared/evm/helpers/address.js';
+import { ChainId, type Transaction } from '@/mask_pkgs/web3-shared/evm/types/index.js';
 
 const normalizeHex = memoize((value: string | number) => {
     // fix an abnormal hex value like: 0x02c68af0bb140000

@@ -7,7 +7,7 @@ import { getProfileState } from '@/helpers/getProfileState.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Account } from '@/providers/types/Account.js';
-import { EventId, type AccountPairs } from '@/providers/types/Telemetry.js';
+import { type AccountPairs, EventId } from '@/providers/types/Telemetry.js';
 import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 
 const resolveLoginEventId = createLookupTableResolver<LoginSource, EventId>(

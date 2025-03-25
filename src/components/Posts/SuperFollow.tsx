@@ -18,8 +18,8 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSuperFollowData } from '@/hooks/useSuperFollow.js';
 import { ConnectModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
 import { captureProfileActionEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface SuperFollowProps {
     profile: Profile;
@@ -61,16 +61,7 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
             enqueueMessageFromError(error, t`Failed to follow @${profile.handle} on Lens`);
             throw error;
         }
-    }, [
-        account.address,
-        followModule,
-        allowanceModule,
-        isConnected,
-        hasAllowance,
-        profile.profileId,
-        profile.handle,
-        onClose,
-    ]);
+    }, [account.address, followModule, allowanceModule, isConnected, hasAllowance, profile, onClose]);
 
     const buttonLabel = useMemo(() => {
         if (isFollowing) return t`Following`;

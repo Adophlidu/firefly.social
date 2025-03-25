@@ -1,8 +1,8 @@
+import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
-import { Trans } from '@lingui/react/macro';
 
 interface HackedButtonProps extends Omit<ClickableButtonProps, 'children'> {}
 

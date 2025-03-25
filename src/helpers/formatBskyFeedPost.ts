@@ -18,9 +18,9 @@ import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { type Attachment, type Post, type Profile } from '@/providers/types/SocialMedia.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 
 function parseBskyGifUri(uri: string): boolean {
     const parsedURL = parseUrl(uri);

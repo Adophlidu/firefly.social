@@ -1,5 +1,5 @@
-import { getRPCConstants } from '../constants/constants.js';
-import type { ChainId } from '../types/index.js';
+import { getRPCConstants } from '@/mask_pkgs/web3-shared/evm/constants/constants.js';
+import type { ChainId } from '@/mask_pkgs/web3-shared/evm/types/index.js';
 
 export class ProviderURL {
     static from(chainId: ChainId) {

@@ -1,11 +1,10 @@
 'use client';
 
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
-import { isValidAddress, SchemaType } from '@masknet/web3-shared-evm';
+import { SchemaType } from '@masknet/web3-shared-evm';
 import { useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { type Address } from 'viem';
@@ -21,6 +20,8 @@ import { SearchInput } from '@/components/Search/SearchInput.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useNFTCollections } from '@/hooks/useNFTCollections.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -28,7 +29,6 @@ import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { AddCustomERC20ModalOpenProps } from '@/modals/AddCustomERC20Modal.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 function AddCustomERC721Content({ onClose, initialChainId }: { onClose: () => void; initialChainId: number }) {
     const account = useAccount();

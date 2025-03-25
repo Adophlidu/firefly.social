@@ -6,10 +6,10 @@ import { type HTMLProps, useMemo } from 'react';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
 import type { NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatCurrency } from '@/helpers/formatCurrency.js';
 import { formatFungibleTokenToDebankToken } from '@/helpers/formatToken.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
-import { formatCurrency } from '@/helpers/formatCurrency.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     amount?: string;

@@ -13,9 +13,9 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { removeAllAccounts } from '@/services/account.js';
-import { captureAccountDeleteEvent } from '@/providers/telemetry/captureAccountEvent.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { captureAccountDeleteEvent } from '@/providers/telemetry/captureAccountEvent.js';
+import { removeAllAccounts } from '@/services/account.js';
 
 function CountdownButton() {
     const [count, { startCountdown }] = useCountdown({

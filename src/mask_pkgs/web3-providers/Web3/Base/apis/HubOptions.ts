@@ -1,7 +1,8 @@
 import { type SourceType } from '@masknet/web3-shared-base';
 import { type SchemaType } from '@masknet/web3-shared-evm';
-import type { PageIndicator } from '@/helpers/pageable.js';
+
 import { CurrencyType, type NetworkPluginID } from '@/constants/enum.js';
+import type { PageIndicator } from '@/helpers/pageable.js';
 
 export interface BaseHubOptions<ChainId, Indicator = PageIndicator> {
     /** The user account as the API parameter */

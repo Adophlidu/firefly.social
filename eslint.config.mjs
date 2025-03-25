@@ -1,0 +1,240 @@
+import { defineConfig, globalIgnores } from 'eslint/config';
+import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import typescriptEslintEslintPlugin from '@typescript-eslint/eslint-plugin';
+import react from 'eslint-plugin-react';
+import unicorn from 'eslint-plugin-unicorn';
+import _import from 'eslint-plugin-import';
+import unusedImports from 'eslint-plugin-unused-imports';
+import tsParser from '@typescript-eslint/parser';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import js from '@eslint/js';
+import { FlatCompat } from '@eslint/eslintrc';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const compat = new FlatCompat({
+    baseDirectory: __dirname,
+    recommendedConfig: js.configs.recommended,
+    allConfig: js.configs.all,
+});
+
+export default defineConfig([
+    globalIgnores([
+        '**/next.config.ts',
+        '**/lingui.config.js',
+        '**/postcss.config.cjs',
+        '**/tailwind.config.cjs',
+        '*.d.ts',
+        'tests',
+        'eslint.config.mjs',
+        'vitest.config.ts',
+        'src/locales',
+        'src/polyfills',
+        'public',
+        'scripts',
+        'setups',
+    ]),
+    {
+        extends: compat.extends('next/core-web-vitals'),
+
+        plugins: {
+            react,
+            unicorn,
+            'no-relative-import-paths': noRelativeImportPaths,
+            'simple-import-sort': simpleImportSort,
+            '@typescript-eslint': typescriptEslintEslintPlugin,
+            'unused-imports': unusedImports,
+        },
+
+        languageOptions: {
+            parser: tsParser,
+            ecmaVersion: 'latest',
+            sourceType: 'script',
+
+            parserOptions: {
+                project: './tsconfig.eslint.json',
+                warnOnUnsupportedTypeScriptVersion: false,
+                allowAutomaticSingleRunInference: true,
+            },
+        },
+
+        rules: {
+            'default-case-last': 'error',
+            eqeqeq: 'error',
+            'import/no-empty-named-blocks': 'warn',
+            'import/no-named-default': 'warn',
+            'import/no-useless-path-segments': 'warn',
+            'import/no-webpack-loader-syntax': 'error',
+            'no-bitwise': 'error',
+            'no-compare-neg-zero': 'error',
+            'no-cond-assign': 'error',
+            'no-constant-binary-expression': 'error',
+            'no-constant-condition': 'warn',
+            'no-constructor-return': 'error',
+            'no-control-regex': 'error',
+            'no-debugger': 'warn',
+            'no-div-regex': 'error',
+            'no-duplicate-case': 'error',
+            'no-empty-character-class': 'error',
+            'no-empty-pattern': 'warn',
+            'no-ex-assign': 'warn',
+            'no-extra-bind': 'warn',
+            'no-extra-boolean-cast': 'warn',
+            'no-extra-label': 'warn',
+            'no-global-assign': 'error',
+            'no-invalid-regexp': 'error',
+            'no-irregular-whitespace': 'warn',
+            'no-label-var': 'error',
+            'no-misleading-character-class': 'error',
+            'no-new-wrappers': 'error',
+            'no-plusplus': 'error',
+            'no-regex-spaces': 'error',
+            'no-restricted-globals': ['error', 'event', 'name', 'length', 'closed'],
+            'no-restricted-imports': ['error'],
+            'no-script-url': 'error',
+            'no-self-assign': 'error',
+            'no-self-compare': 'error',
+            'no-sequences': 'error',
+            'no-sparse-arrays': 'error',
+            'no-template-curly-in-string': 'error',
+            'no-unmodified-loop-condition': 'error',
+            'no-unneeded-ternary': 'warn',
+            'no-unreachable-loop': 'error',
+            'no-unsafe-finally': 'error',
+            'no-unused-labels': 'warn',
+            'no-unused-vars': 'off',
+            'no-useless-backreference': 'error',
+            'no-useless-call': 'warn',
+            'no-useless-catch': 'warn',
+            'no-useless-concat': 'warn',
+            'no-useless-escape': 'warn',
+            'object-shorthand': 'warn',
+            'prefer-const': 'warn',
+            'prefer-numeric-literals': 'warn',
+            'prefer-object-has-own': 'warn',
+            'prefer-regex-literals': 'warn',
+            radix: 'warn',
+
+            'spaced-comment': [
+                'warn',
+                'always',
+                {
+                    line: {
+                        markers: ['/'],
+                    },
+                },
+            ],
+
+            'unused-imports/no-unused-imports': 'error',
+            'valid-typeof': 'error',
+            yoda: 'warn',
+            'react/jsx-no-comment-textnodes': 'warn',
+            'react/jsx-no-leaked-render': 'error',
+            'react/jsx-no-script-url': 'error',
+            'react/no-danger': 'error',
+            'react/no-danger-with-children': 'error',
+            'react/no-namespace': 'error',
+            'react/no-unstable-nested-components': 'error',
+            'react/void-dom-elements-no-children': 'error',
+            'react/no-invalid-html-attribute': 'warn',
+
+            'react/jsx-key': [
+                'warn',
+                {
+                    checkFragmentShorthand: true,
+                    checkKeyMustBeforeSpread: true,
+                    warnOnDuplicates: true,
+                },
+            ],
+
+            'react/jsx-no-constructed-context-values': 'warn',
+            'react/no-deprecated': 'error',
+            'react/no-find-dom-node': 'error',
+
+            'react/function-component-definition': [
+                'warn',
+                {
+                    namedComponents: 'function-declaration',
+                    unnamedComponents: ['function-expression', 'arrow-function'],
+                },
+            ],
+
+            'react/jsx-boolean-value': ['error', 'never'],
+
+            'react/self-closing-comp': [
+                'error',
+                {
+                    component: true,
+                    html: true,
+                },
+            ],
+
+            '@typescript-eslint/array-type': [
+                'warn',
+                {
+                    default: 'array-simple',
+                },
+            ],
+
+            '@typescript-eslint/consistent-type-assertions': [
+                'warn',
+                {
+                    assertionStyle: 'as',
+                },
+            ],
+
+            '@typescript-eslint/await-thenable': 'warn',
+            '@typescript-eslint/dot-notation': 'warn',
+            '@typescript-eslint/no-array-constructor': 'warn',
+            '@typescript-eslint/no-base-to-string': 'error',
+            '@typescript-eslint/no-confusing-non-null-assertion': 'error',
+            '@typescript-eslint/no-duplicate-enum-values': 'error',
+            '@typescript-eslint/no-extra-non-null-assertion': 'warn',
+            '@typescript-eslint/no-for-in-array': 'warn',
+            '@typescript-eslint/no-implied-eval': 'error',
+            '@typescript-eslint/no-loop-func': 'warn',
+            '@typescript-eslint/no-loss-of-precision': 'error',
+            '@typescript-eslint/no-meaningless-void-operator': 'warn',
+            '@typescript-eslint/no-mixed-enums': 'error',
+            '@typescript-eslint/no-non-null-asserted-nullish-coalescing': 'warn',
+            '@typescript-eslint/no-this-alias': 'warn',
+            '@typescript-eslint/no-unnecessary-qualifier': 'warn',
+            '@typescript-eslint/no-unnecessary-type-arguments': 'warn',
+            '@typescript-eslint/no-unnecessary-type-constraint': 'warn',
+            '@typescript-eslint/no-unsafe-declaration-merging': 'error',
+            '@typescript-eslint/prefer-as-const': 'warn',
+            '@typescript-eslint/prefer-enum-initializers': 'warn',
+            '@typescript-eslint/prefer-for-of': 'warn',
+            '@typescript-eslint/prefer-includes': 'warn',
+            '@typescript-eslint/prefer-literal-enum-member': 'error',
+            '@typescript-eslint/prefer-optional-chain': 'warn',
+            '@typescript-eslint/prefer-reduce-type-parameter': 'warn',
+            '@typescript-eslint/prefer-return-this-type': 'error',
+            '@typescript-eslint/prefer-string-starts-ends-with': 'warn',
+            '@typescript-eslint/require-array-sort-compare': 'error',
+            '@typescript-eslint/no-misused-new': 'error',
+            'simple-import-sort/imports': 'error',
+            'simple-import-sort/exports': 'error',
+            'import/first': 'error',
+            'import/newline-after-import': 'error',
+            'import/no-duplicates': 'error',
+
+            'no-relative-import-paths/no-relative-import-paths': [
+                'warn',
+                {
+                    prefix: '@',
+                    rootDir: 'src',
+                },
+            ],
+
+            'react-hooks/exhaustive-deps': [
+                'warn',
+                {
+                    additionalHooks: '(useAsync|useAsyncFn)\\b',
+                },
+            ],
+        },
+    },
+]);

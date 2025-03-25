@@ -2,31 +2,31 @@
 
 import { Trans } from '@lingui/react/macro';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect } from 'react';
 
+import SettingIcon from '@/assets/setting.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { Image } from '@/components/Image.js';
+import { Link } from '@/components/Link.js';
 import { ComeBackButton } from '@/components/Profile/ComeBackButton.js';
+import { FireflyAccountMoreButton } from '@/components/Profile/FireflyAccountMoreButton.js';
+import { ProfileAction } from '@/components/Profile/ProfileAction.js';
 import { ShareButton } from '@/components/Profile/ShareButton.js';
+import { PROFILE_ACTION_ID } from '@/components/Profile/SocialProfileInfo.js';
+import { TipsButton } from '@/components/Profile/TipsButton.js';
 import { Title } from '@/components/Profile/Title.js';
+import { WalletActions } from '@/components/Profile/WalletActions.js';
+import { WALLET_PROFILE_ACTION_ID } from '@/components/Profile/WalletInfo.js';
+import { NetworkType, PageRoute, Source } from '@/constants/enum.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { getAddressType } from '@/helpers/getAddressType.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver.js';
 import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { NetworkType, PageRoute, Source } from '@/constants/enum.js';
-import { WalletActions } from '@/components/Profile/WalletActions.js';
-import { getAddressType } from '@/helpers/getAddressType.js';
-import { ProfileAction } from '@/components/Profile/ProfileAction.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import SettingIcon from '@/assets/setting.svg';
-import { Link } from '@/components/Link.js';
-import { TipsButton } from '@/components/Profile/TipsButton.js';
-import { useEffect } from 'react';
-import { PROFILE_ACTION_ID } from '@/components/Profile/SocialProfileInfo.js';
-import { WALLET_PROFILE_ACTION_ID } from '@/components/Profile/WalletInfo.js';
-import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { FireflyAccountMoreButton } from '@/components/Profile/FireflyAccountMoreButton.js';
 
 interface Props {
     displayName?: string | null;

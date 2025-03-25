@@ -1,6 +1,7 @@
 import { compact } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
+import { SORTED_POLL_SOURCES } from '@/constants/index.js';
 import { getRpMetadata } from '@/helpers/rpPayload.js';
 import type { ComposeEventParameters } from '@/providers/types/Telemetry.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
@@ -11,7 +12,6 @@ import {
     useLensStateStore,
     useTwitterStateStore,
 } from '@/store/useProfileStore.js';
-import { SORTED_POLL_SOURCES } from '@/constants/index.js';
 
 export interface Options {
     draftId?: string;

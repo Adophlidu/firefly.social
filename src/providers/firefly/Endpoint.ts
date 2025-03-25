@@ -1,9 +1,8 @@
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { produce } from 'immer';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
-import { type Address, type Hex, isAddress, isHex } from 'viem';
+import { type Address, type Hex, isHex } from 'viem';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { DEBANK_CHAIN_TO_CHAIN_ID_MAP, DEBANK_CHAINS } from '@/constants/chain.js';
@@ -36,7 +35,8 @@ import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
 import { extractIpfsCID } from '@/helpers/isIpfsCID.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { isSameAddress, isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
@@ -101,7 +101,6 @@ import {
     type SearchProfileResponse,
     type SearchTokenResponse,
     type SponsorMintOptions,
-    type SwapActivity,
     type SwapActivityDetail,
     type SwapActivityTimeline,
     type TakoExternalHostedData,
@@ -119,7 +118,6 @@ import type { DiscoverNFTResponseV2, GetFollowingNFTResponse, NFTFeed } from '@/
 import { convertBskyHandleToDid } from '@/services/convertBskyHandleToDid.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { settings } from '@/settings/index.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 function resolveDebankChain(debankChain: string) {
     const chain = DEBANK_CHAINS.find((chain) => chain.id === debankChain);

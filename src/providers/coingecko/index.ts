@@ -1,4 +1,4 @@
-import { ChainId, getCoinGeckoConstants, isNativeTokenAddress, isValidAddress } from '@masknet/web3-shared-evm';
+import { ChainId, getCoinGeckoConstants, isNativeTokenAddress } from '@masknet/web3-shared-evm';
 import {
     getCoinGeckoConstants as getCoinGeckoConstantsSolana,
     isNativeTokenAddress as isNativeTokenAddressSolana,
@@ -12,8 +12,9 @@ import { TrendingType } from '@/constants/enum.js';
 import { COINGECKO_ROOT_URL, CORS_HOST, DSEARCH_BASE_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCommunityLink } from '@/helpers/getCommunityLink.js';
-import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
 import type {
     CoinGeckoAsset,
     CoinGeckoCoinInfo,
@@ -27,7 +28,6 @@ import type {
 } from '@/providers/types/CoinGecko.js';
 import { type Contract, type Trending, TrendingProvider } from '@/providers/types/Trending.js';
 import type { TokenWithMarket } from '@/services/searchTokens.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 /**
  * @internal

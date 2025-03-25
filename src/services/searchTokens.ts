@@ -1,7 +1,7 @@
 import { first } from 'lodash-es';
-import { isAddress } from 'viem/utils';
 
 import { EMPTY_LIST } from '@/constants/index.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { trimify } from '@/helpers/trimify.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
@@ -9,7 +9,6 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { CoinGeckoCoinMarketInfo } from '@/providers/types/CoinGecko.js';
 import type { SearchableToken } from '@/providers/types/Firefly.js';
 import { searchTokenByAddress } from '@/services/searchTokenByAddress.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 export type TokenWithMarket = SearchableToken & { market?: Partial<CoinGeckoCoinMarketInfo>; hit?: boolean };
 

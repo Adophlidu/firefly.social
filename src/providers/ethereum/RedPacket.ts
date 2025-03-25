@@ -1,5 +1,4 @@
 import { type FungibleToken } from '@masknet/web3-shared-base';
-import { isLessThan, toFixed } from '@/helpers/number.js';
 import {
     type ChainId,
     ContractTransaction,
@@ -16,6 +15,7 @@ import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import type { NetworkType, SocialSource } from '@/constants/enum.js';
+import { isLessThan, toFixed } from '@/helpers/number.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';

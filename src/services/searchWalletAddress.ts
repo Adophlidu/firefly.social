@@ -5,11 +5,11 @@ import { getEnsAvatar, getEnsName } from 'wagmi/actions';
 import { config } from '@/configs/wagmiClient.js';
 import { FireflyPlatform } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { trimify } from '@/helpers/trimify.js';
 import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 export async function searchWalletAddress(address: string): Promise<FireflyProfile | undefined> {
     const trimmed = trimify(address);

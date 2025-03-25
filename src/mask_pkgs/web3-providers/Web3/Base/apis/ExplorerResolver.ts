@@ -1,5 +1,5 @@
-import urlcat from 'urlcat';
 import type { ChainDescriptor } from '@masknet/web3-shared-base';
+import urlcat from 'urlcat';
 
 interface ExplorerOptions {
     addressPathname?: string;

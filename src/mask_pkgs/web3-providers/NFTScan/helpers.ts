@@ -1,5 +1,4 @@
-import urlcat from 'urlcat';
-import { first } from 'lodash-es';
+import type { Web3Helper } from '@masknet/web3-helpers';
 import {
     type NonFungibleAsset,
     type NonFungibleCollection,
@@ -10,23 +9,25 @@ import {
 import {
     ChainId,
     isENSContractAddress,
-    SchemaType,
-    WNATIVE,
     isValidDomain,
     resolveImageURL,
+    SchemaType,
+    WNATIVE,
 } from '@masknet/web3-shared-evm';
-import { EVMChainResolver } from '../Web3/EVM/apis/ResolverAPI.js';
-import { NFTSCAN_BASE, NFTSCAN_LOGO_BASE, NFTSCAN_URL } from './constants.js';
-import type { EVM } from './types.js';
-import { getAssetFullName } from '../helpers/getAssetFullName.js';
-import type { NonFungibleTokenAPI } from '../entry-types.js';
+import { first } from 'lodash-es';
+import urlcat from 'urlcat';
+
 import { NetworkPluginID, TokenType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { scale10 } from '@/helpers/number.js';
-import { formatPercentage } from '@/helpers/formatPercentage.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
 import { fetchSquashedJSON } from '@/helpers/fetchJSON.js';
-import type { Web3Helper } from '@masknet/web3-helpers';
+import { formatPercentage } from '@/helpers/formatPercentage.js';
+import { scale10 } from '@/helpers/number.js';
+import { parseJSON } from '@/helpers/parseJSON.js';
+import type { NonFungibleTokenAPI } from '@/mask_pkgs/web3-providers/entry-types.js';
+import { getAssetFullName } from '@/mask_pkgs/web3-providers/helpers/getAssetFullName.js';
+import { NFTSCAN_BASE, NFTSCAN_LOGO_BASE, NFTSCAN_URL } from '@/mask_pkgs/web3-providers/NFTScan/constants.js';
+import type { EVM } from '@/mask_pkgs/web3-providers/NFTScan/types.js';
+import { EVMChainResolver } from '@/mask_pkgs/web3-providers/Web3/EVM/apis/ResolverAPI.js';
 
 function resolveNFTScanHostName(pluginId: NetworkPluginID, chainId: Web3Helper.ChainIdAll) {
     if (pluginId === NetworkPluginID.PLUGIN_SOLANA) return 'https://solana.nftscan.com';

@@ -39,8 +39,8 @@ import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { EVMExplorerResolver } from '@/mask/index.js';
 import { DraggablePopoverRef, LoginModalRef, SuperFollowModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 function formatTimeLeft(endTime: string) {
     const timeLeft = getTimeLeft(endTime);
@@ -162,7 +162,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             enqueueMessageFromError(error, t`Failed to collect post.`);
             throw error;
         }
-    }, [account.address, collectModule, post.postId, onClose]);
+    }, [account.address, collectModule, post, onClose]);
 
     const [{ loading: mirrorLoading }, handleMirror] = useMirror(post);
 

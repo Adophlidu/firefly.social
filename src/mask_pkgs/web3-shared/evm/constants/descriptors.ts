@@ -1,9 +1,10 @@
 import { type ChainDescriptor, type NetworkDescriptor } from '@masknet/web3-shared-base';
+
 import { NetworkPluginID, TokenType } from '@/constants/enum.js';
-import CHAINS from './chains.json' with { type: 'json' };
-import { ChainId, NetworkType, SchemaType } from '../types/index.js';
-import { getTokenConstant } from './constants.js';
-import { ZERO_ADDRESS } from './primitives.js';
+import CHAINS from '@/mask_pkgs/web3-shared/evm/constants/chains.json' with { type: 'json' };
+import { getTokenConstant } from '@/mask_pkgs/web3-shared/evm/constants/constants.js';
+import { ZERO_ADDRESS } from '@/mask_pkgs/web3-shared/evm/constants/primitives.js';
+import { ChainId, NetworkType, SchemaType } from '@/mask_pkgs/web3-shared/evm/types/index.js';
 
 const PLUGIN_ID = NetworkPluginID.PLUGIN_EVM;
 

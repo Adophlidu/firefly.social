@@ -5,11 +5,12 @@ import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { FireflyAccountInfo } from '@/components/Profile/FireflyAccountInfo.js';
 import { ProfileInfoCard } from '@/components/Profile/ProfileInfoCard.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
+import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
 import { type LoginFallbackSource, SourceInURL } from '@/constants/enum.js';
-import { REQUIRE_LOGIN_SOURCES } from '@/constants/index.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
-import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
+import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
+import { isProfilePageSource } from '@/helpers/isSource.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
@@ -22,8 +23,6 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 import type { NextPageProps } from '@/types/index.js';
-import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
-import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 
 interface Props extends NextPageProps<{ id: string; source: SourceInURL }> {}
 

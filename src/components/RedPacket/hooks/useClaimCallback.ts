@@ -4,8 +4,8 @@ import type { SocialSource } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketProvider } from '@/providers/ethereum/RedPacket.js';
-import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
+import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 
 /**
  * Claim fungible token red packet.

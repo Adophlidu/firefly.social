@@ -1,7 +1,9 @@
-import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
 import { GasOptionType } from '@masknet/web3-shared-base';
+import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
+
 import { isZero, multipliedBy, toFixed } from '@/helpers/number.js';
-import { formatWeiToEther } from '../helpers/formatter.js';
+import { CHAIN_DESCRIPTORS } from '@/mask_pkgs/web3-shared/evm/constants/descriptors.js';
+import { formatWeiToEther } from '@/mask_pkgs/web3-shared/evm/helpers/formatter.js';
 import type {
     ChainId,
     EIP1559GasConfig,
@@ -9,8 +11,7 @@ import type {
     GasOption,
     PriorEIP1559GasConfig,
     Transaction,
-} from '../types/index.js';
-import { CHAIN_DESCRIPTORS } from '../constants/descriptors.js';
+} from '@/mask_pkgs/web3-shared/evm/types/index.js';
 
 export class GasEditor {
     constructor(

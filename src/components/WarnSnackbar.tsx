@@ -29,7 +29,11 @@ export function WarnSnackbar({ id, detail, message, ref }: ErrorReportSnackbarPr
     }, [id, closeSnackbar]);
 
     const [title, setTitle] = useState(message);
-    const [copied, handleCopy] = useCopyText(`${title}\n\n${detail}`, { enqueueSuccessMessage: false });
+
+    const name = typeof title !== 'object' ? `${title}` : 'Something wrong';
+    const description = typeof detail !== 'object' ? `${detail}` : 'Something wrong';
+
+    const [copied, handleCopy] = useCopyText(`${name}\n\n${description}`, { enqueueSuccessMessage: false });
 
     return (
         <SnackbarContent ref={ref} className="rounded-[4px] bg-warn">

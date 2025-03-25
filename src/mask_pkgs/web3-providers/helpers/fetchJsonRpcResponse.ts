@@ -1,5 +1,6 @@
-import type { JsonRpcPayload, JsonRpcResponse } from 'web3-core-helpers';
 import { RequestID } from '@masknet/web3-shared-evm';
+import type { JsonRpcPayload, JsonRpcResponse } from 'web3-core-helpers';
+
 import { fetchSquashedJSON } from '@/helpers/fetchJSON.js';
 
 async function resolveRequestKey(request: Request) {

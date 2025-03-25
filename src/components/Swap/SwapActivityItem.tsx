@@ -1,7 +1,9 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
+import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
+import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 import type { Address } from 'viem';
 
@@ -9,6 +11,7 @@ import ExchangeIcon from '@/assets/exchange.svg';
 import LikeIcon from '@/assets/like.svg';
 import LikedIcon from '@/assets/liked.svg';
 import { Avatar } from '@/components/Avatar.js';
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
@@ -20,25 +23,15 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
-import type { SwapActivity } from '@/providers/types/Firefly.js';
-import { useMutation } from '@tanstack/react-query';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { queryClient } from '@/configs/queryClient.js';
-
-import { produce } from 'immer';
-import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
-import { ClickableArea } from '@/components/ClickableArea.js';
-import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { t } from '@lingui/core/macro';
 import { resolveSwapPageUrl } from '@/helpers/resolveSwapPageUrl.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
-import { useRouter } from 'next/navigation.js';
-import { motion } from 'framer-motion';
-import { useChangeSwapLikeStatus } from '@/hooks/useChangeSwapLikeStatus.js';
+import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
+import { useChangeSwapLikeStatus } from '@/hooks/useChangeSwapLikeStatus.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
+import type { SwapActivity } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
+
 interface SwapActivityItemProps {
     activity: SwapActivity;
     listKey?: string;

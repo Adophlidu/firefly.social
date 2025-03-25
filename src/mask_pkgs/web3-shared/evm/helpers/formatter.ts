@@ -1,8 +1,9 @@
 import { BigNumber } from 'bignumber.js';
 import { memoize } from 'lodash-es';
-import { isEnsSubdomain, isValidDomain } from './isValidDomain.js';
-import { checksumAddress, type Address } from 'viem';
+import { type Address, checksumAddress } from 'viem';
+
 import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { isEnsSubdomain, isValidDomain } from '@/mask_pkgs/web3-shared/evm/helpers/isValidDomain.js';
 
 export const formatEthereumAddress: (address: string, size?: number) => string = memoize(
     function formatEthereumAddress(address: string, size = 0) {

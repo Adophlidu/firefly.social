@@ -1,8 +1,8 @@
 import { web3 } from '@coral-xyz/anchor';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
-import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { requestRPC } from '@/providers/solana/requestRPC.js';
 import type { GetProgramAccountsResponse } from '@/providers/types/Solana.js';
 

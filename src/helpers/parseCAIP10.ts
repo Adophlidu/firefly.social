@@ -1,8 +1,7 @@
 import { getEnumAsArray } from '@masknet/kit';
-import { isAddress } from 'viem';
 
-import { ChainId } from '@/types/frame.js';
 import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { ChainId } from '@/types/frame.js';
 
 export function parseCAIP10(caip10: string) {
     if (!caip10.startsWith('eip155:')) throw new Error(`Invalid CAIP10 identifier: ${caip10}`);

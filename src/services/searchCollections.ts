@@ -1,14 +1,13 @@
-import { ChainId, isValidAddress } from '@masknet/web3-shared-evm';
+import { ChainId } from '@masknet/web3-shared-evm';
 
 import { EMPTY_LIST } from '@/constants/index.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { trimify } from '@/helpers/trimify.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { NFTScanProvider } from '@/providers/nft-scan/index.js';
-import { isAddress, type Address } from 'viem';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 const SEARCH_CHAIN_ID_LIST = [
     ChainId.Mainnet,

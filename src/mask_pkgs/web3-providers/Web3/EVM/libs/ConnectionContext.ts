@@ -1,13 +1,14 @@
 import {
     ChainId,
+    createJsonRpcPayload,
+    createJsonRpcResponse,
     ErrorEditor,
     EthereumMethodType,
     PayloadEditor,
-    createJsonRpcPayload,
-    createJsonRpcResponse,
     type RequestArguments,
 } from '@masknet/web3-shared-evm';
-import type { EVMConnectionOptions } from '../types/index.js';
+
+import type { EVMConnectionOptions } from '@/mask_pkgs/web3-providers/Web3/EVM/types/index.js';
 
 let pid = 0;
 

@@ -11,10 +11,10 @@ import { TokenIcon } from '@/components/TokenIcon.js';
 import { NetworkType } from '@/constants/enum.js';
 import { NUMERIC_INPUT_REGEXP_PATTERN } from '@/constants/regexp.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { isSameEthereumAddress, isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameAddress, isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 import { isZero, leftShift } from '@/helpers/number.js';
 import { TokenSelectorModalRef } from '@/modals/controls.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 const MIN_AMOUNT_LENGTH = 1;
 const MAX_AMOUNT_LENGTH = 79;

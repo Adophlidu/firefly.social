@@ -1,6 +1,6 @@
+import type { provider as Provider } from 'web3-core';
 import type { Eth } from 'web3-eth';
 import * as Web3Eth from /* webpackDefer: true */ 'web3-eth';
-import type { provider as Provider } from 'web3-core';
 
 /**
  * A Web3 class that is much simpler than the original web3js one.

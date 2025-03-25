@@ -1,37 +1,33 @@
 'use client';
 
 import { Select, Trans } from '@lingui/react/macro';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { first } from 'lodash-es';
+import { notFound } from 'next/navigation.js';
 import { memo } from 'react';
-import { isAddress, type Address } from 'viem';
 
+import ExchangeIcon from '@/assets/exchange.svg';
 import LikeIcon from '@/assets/like.svg';
 import LikedIcon from '@/assets/liked.svg';
 import LinkOut from '@/assets/link.svg';
-import ExchangeIcon from '@/assets/exchange.svg';
 import { Avatar } from '@/components/Avatar.js';
+import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
+import { Loading } from '@/components/Loading.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
-import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
+import { chains } from '@/configs/wagmiClient.js';
 import { NetworkType, Source } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
+import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
-import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
-import type { SwapActivity } from '@/providers/types/Firefly.js';
-import { first } from 'lodash-es';
-import { CopyTextButton } from '@/components/CopyTextButton.js';
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { Loading } from '@/components/Loading.js';
-import { notFound } from 'next/navigation.js';
-import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
-import { chains } from '@/configs/wagmiClient.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useChangeSwapLikeStatus } from '@/hooks/useChangeSwapLikeStatus.js';
-import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 interface SwapDetailProps {
     hash: string;

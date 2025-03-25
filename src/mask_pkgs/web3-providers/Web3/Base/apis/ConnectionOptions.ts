@@ -1,12 +1,13 @@
-import { identity, pickBy } from 'lodash-es';
 import type { GasOptionType } from '@masknet/web3-shared-base';
 import {
+    ChainId,
     getDefaultChainId,
     getDefaultProviderType,
-    ChainId,
     ProviderType,
     type Transaction,
 } from '@masknet/web3-shared-evm';
+import { identity, pickBy } from 'lodash-es';
+
 import type { PartialRequired } from '@/types/index.js';
 
 export interface BaseConnectionOptions {

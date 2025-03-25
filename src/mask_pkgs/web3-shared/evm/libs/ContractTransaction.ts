@@ -1,13 +1,14 @@
-import { identity, pickBy } from 'lodash-es';
-import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
-import { type Unresolved, resolve } from '@/helpers/resolve.js';
 import type {
     BaseContract,
-    PayableTx,
     NonPayableTransactionObject,
     PayableTransactionObject,
+    PayableTx,
 } from '@masknet/web3-contracts/types/types.js';
-import type { Transaction } from '../types/index.js';
+import { identity, pickBy } from 'lodash-es';
+import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
+
+import { resolve, type Unresolved } from '@/helpers/resolve.js';
+import type { Transaction } from '@/mask_pkgs/web3-shared/evm/types/index.js';
 
 type TransactionResolver<T extends BaseContract | null> = Unresolved<
     PayableTransactionObject<unknown> | NonPayableTransactionObject<unknown> | undefined,

@@ -1,7 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { multipliedBy, rightShift } from '@/helpers/number.js';
-import { isValidAddress } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
 import { compact, flatten } from 'lodash-es';
 import { useCallback, useContext, useMemo, useRef } from 'react';
@@ -25,7 +23,10 @@ import { DEFAULT_THEME_ID } from '@/constants/rp.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { formatCurrency } from '@/helpers/formatCurrency.js';
+import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
+import { multipliedBy, rightShift } from '@/helpers/number.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
@@ -41,9 +42,6 @@ import { ShareAccountsPopover } from '@/modals/RedPacketModal/ShareAccountsPopov
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import { FireflyRedPacketAPI, RequirementType } from '@/providers/types/FireflyRedPacket.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
-import { formatCurrency } from '@/helpers/formatCurrency.js';
-import { isAddress, type Address } from 'viem';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
 
 interface ThemeVariant {
     neutral: FireflyRedPacketAPI.ThemeGroupSettings;

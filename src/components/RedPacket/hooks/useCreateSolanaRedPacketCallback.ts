@@ -1,7 +1,6 @@
 import { web3 } from '@coral-xyz/anchor';
 import { t } from '@lingui/core/macro';
 import { type FungibleToken } from '@masknet/web3-shared-base';
-import { minus, toFixed } from '@/helpers/number.js';
 import { isNativeTokenAddress } from '@masknet/web3-shared-solana';
 import { BigNumber } from 'bignumber.js';
 import { omit, pick } from 'lodash-es';
@@ -23,7 +22,7 @@ import {
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getRpMaxShares } from '@/helpers/getRpLimitations.js';
 import { getTypedMessageRedPacket } from '@/helpers/getTypedMessage.js';
-import { rightShift } from '@/helpers/number.js';
+import { rightShift, toFixed } from '@/helpers/number.js';
 import { getRpMetadata } from '@/helpers/rpPayload.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import RedPacketIDL from '@/idls/redpacket.json' with { type: 'json' };

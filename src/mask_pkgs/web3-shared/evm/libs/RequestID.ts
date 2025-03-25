@@ -1,7 +1,8 @@
-import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
 import type { TransactionConfig } from 'web3-core';
 import type { JsonRpcPayload } from 'web3-core-helpers';
-import { EthereumMethodType, type RequestArguments } from '../types/index.js';
+import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
+
+import { EthereumMethodType, type RequestArguments } from '@/mask_pkgs/web3-shared/evm/types/index.js';
 
 export class RequestID {
     /**

@@ -1,7 +1,13 @@
-import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { memoize } from 'lodash-es';
 import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
-import { ChainIdList, getENSConstants, getTokenConstant, ZERO_ADDRESS } from '../constants/index.js';
+
+import { isSameAddress } from '@/helpers/isSameAddress.js';
+import {
+    ChainIdList,
+    getENSConstants,
+    getTokenConstant,
+    ZERO_ADDRESS,
+} from '@/mask_pkgs/web3-shared/evm/constants/index.js';
 
 export function checksumAddress(address: string) {
     return web3_utils.toChecksumAddress(address);

@@ -1,10 +1,11 @@
-import { memoize } from 'lodash-es';
 import { getEnumAsArray } from '@masknet/kit';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { memoize } from 'lodash-es';
+
 import { NetworkPluginID } from '@/constants/enum.js';
-import { ChainId, NetworkType, ProviderType } from '../types.js';
-import { getTokenConstant } from '../constants/constants.js';
-import { ZERO_ADDRESS } from '../constants/primitives.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { getTokenConstant } from '@/mask_pkgs/web3-shared/solana/constants/constants.js';
+import { ZERO_ADDRESS } from '@/mask_pkgs/web3-shared/solana/constants/primitives.js';
+import { ChainId, NetworkType, ProviderType } from '@/mask_pkgs/web3-shared/solana/types.js';
 
 export function formatAddress(address: string, size = 0) {
     if (!isValidAddress(address, false)) return address;
