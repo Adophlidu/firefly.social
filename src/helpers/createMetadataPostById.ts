@@ -3,7 +3,7 @@ import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { type RequestedLoginSource, type SocialSourceInURL, Source, SourceInURL } from '@/constants/enum.js';
-import { REQUIRE_LOGIN_SOURCES, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
@@ -28,7 +28,7 @@ async function createMetadataForTwitter(postId: string) {
             : ogResult.og.title || SITE_NAME;
         const description = ogResult.og.description || SITE_DESCRIPTION;
         const ogImage = urlcat(SITE_URL, '/api/og/post/:source/:postId/image', {
-            source: Source.Twitter,
+            source: SourceInURL.Twitter,
             postId,
         });
 
