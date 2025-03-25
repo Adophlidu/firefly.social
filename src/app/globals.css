@@ -848,3 +848,7 @@ body.not-support .fixed.inset-y-0 {
 .epr-body::-webkit-scrollbar {
     display: none;
 }
+
+.sidebar-nav-link:hover > span {
+    background-color: var(--color-bg);
+}

@@ -105,7 +105,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
 
                             return (
                                 <li
-                                    className="flex rounded-lg text-main outline-none"
+                                    className="flex w-full rounded-lg text-main outline-none"
                                     key={item.href}
                                     onClick={() => {
                                         useNavigatorState.getState().updateSidebarOpen(false);
@@ -118,19 +118,22 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                         <Link
                                             href={item.href}
                                             className={classNames(
-                                                'flex w-full flex-grow-0 items-center gap-x-3 rounded-lg px-2 py-2 text-lg leading-6 outline-none hover:bg-bg md:w-auto md:px-4',
+                                                'sidebar-nav-link flex w-full text-lg leading-6 outline-none md:px-4',
                                                 { 'font-bold': isSelected },
                                             )}
                                         >
-                                            {collapsed ? (
-                                                <Tooltip content={item.name} placement="right">
+                                            <span className="flex items-center gap-x-3 rounded-lg px-2 py-2 md:px-4">
+                                                {collapsed ? (
+                                                    <Tooltip content={item.name} placement="right">
+                                                        <Icon width={20} height={20} />
+                                                    </Tooltip>
+                                                ) : (
                                                     <Icon width={20} height={20} />
-                                                </Tooltip>
-                                            ) : (
-                                                <Icon width={20} height={20} />
-                                            )}
-
-                                            <span style={{ display: collapsed ? 'none' : 'inline' }}>{item.name}</span>
+                                                )}
+                                                <span style={{ display: collapsed ? 'none' : 'inline' }}>
+                                                    {item.name}
+                                                </span>
+                                            </span>
                                         </Link>
                                     )}
                                 </li>

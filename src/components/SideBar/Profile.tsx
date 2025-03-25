@@ -40,20 +40,21 @@ export function Profile({ collapsed: sideBarCollapsed = false }: ProfileProps) {
     return (
         <Link
             href={href}
-            className={classNames(
-                'flex w-full flex-grow-0 items-center gap-x-3 rounded-lg px-2 py-2 text-lg leading-6 outline-none hover:bg-bg md:w-auto md:px-4',
-                { 'font-bold': isSelected },
-            )}
+            className={classNames('sidebar-nav-link flex w-full text-lg leading-6 outline-none md:px-4', {
+                'font-bold': isSelected,
+            })}
         >
-            {sideBarCollapsed ? (
-                <Tooltip content={<Trans>Profile</Trans>} placement="right">
+            <span className="flex items-center gap-x-3 rounded-lg px-2 py-2 md:px-4">
+                {sideBarCollapsed ? (
+                    <Tooltip content={<Trans>Profile</Trans>} placement="right">
+                        <Icon width={20} height={20} />
+                    </Tooltip>
+                ) : (
                     <Icon width={20} height={20} />
-                </Tooltip>
-            ) : (
-                <Icon width={20} height={20} />
-            )}
-            <span style={{ display: sideBarCollapsed ? 'none' : 'inline' }}>
-                <Trans>Profile</Trans>
+                )}
+                <span style={{ display: sideBarCollapsed ? 'none' : 'inline' }}>
+                    <Trans>Profile</Trans>
+                </span>
             </span>
         </Link>
     );
