@@ -36,7 +36,7 @@ export function TipsButton({ identity, handle, profiles }: Props) {
             enqueueInfoMessage(t`Sorry, we are not able to find a wallet for ${handle ? '@' + handle : identity.id}.`);
             throw error;
         }
-    }, []);
+    }, [isLogin, handle, profiles, identity]);
     return (
         <ClickableButton
             className="inline-flex size-8 items-center justify-center rounded-lg bg-lightBg text-second active:opacity-50 md:hover:opacity-60"

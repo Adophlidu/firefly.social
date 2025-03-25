@@ -1,4 +1,3 @@
-import type { EditFireflyProfileModalOpenProps } from '@/components/EditFireflyProfile/EditFireflyProfileDialog.jsx';
 import { SingletonModal } from '@/libs/SingletonModal.js';
 import type { AddCustomERC20ModalOpenProps } from '@/modals/AddCustomERC20Modal.js';
 import type { AddCustomERC721ModalOpenProps } from '@/modals/AddCustomERC721Modal.js';
@@ -31,6 +30,7 @@ import type { TipsModalCloseProps, TipsModalOpenProps } from '@/modals/TipsModal
 import type { TokenSelectorModalCloseProps, TokenSelectorModalOpenProps } from '@/modals/TokenSelectorModal.js';
 import type { TransactionSimulatorModalOpenProps } from '@/modals/TransactionSimulatorModal.js';
 import type { WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/index.js';
+import type { EditFireflyProfileModalOpenProps } from '@/modals/EditFireflyProfileModal.js';
 
 export const ConnectModalRef = new SingletonModal<WalletConnectModalOpenProps | void>();
 export const LoginModalRef = new SingletonModal<LoginModalOpenProps | void>();
