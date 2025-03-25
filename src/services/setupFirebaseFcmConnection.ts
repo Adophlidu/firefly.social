@@ -9,6 +9,7 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 interface Options {
     showUi?: boolean;
+    force?: boolean;
 }
 const ONE_DAY = 1000 * 60 * 60 * 24;
 
@@ -22,14 +23,13 @@ async function askNotificationPermission(options?: Options) {
         }
         if (options?.showUi) {
             const lastTime = localStorage.getItem(NOTIFICATION_PERMISSION_KEY);
-            if (lastTime && !Number.isNaN(lastTime) && Date.now() - Number(lastTime) < ONE_DAY) return false;
+            if (lastTime && !Number.isNaN(lastTime) && Date.now() - Number(lastTime) < ONE_DAY && !options.force)
+                return false;
 
             enqueuePermissionMessage(false);
             return false;
         }
 
-        // TODO: display UI to ask for permission
-        // @ts-ignore
         const permission = await Notification.requestPermission();
         return permission === 'granted';
     } catch {
@@ -40,6 +40,7 @@ async function askNotificationPermission(options?: Options) {
 export async function setupFirebaseFcmConnection(
     options: Options = {
         showUi: true,
+        force: false,
     },
 ) {
     if (firebaseClient.initialized) return;

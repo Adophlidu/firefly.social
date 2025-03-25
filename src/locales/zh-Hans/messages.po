@@ -831,9 +831,6 @@ msgstr "具有可检索所有权的功能"
 msgid "No proxy contract."
 msgstr "没有代理合约。"
 
-msgid "Failed to enable notifications"
-msgstr ""
-
 msgid "Connecting"
 msgstr "连接中"
 

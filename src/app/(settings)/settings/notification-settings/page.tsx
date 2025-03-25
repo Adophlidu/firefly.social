@@ -2,10 +2,8 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
-import { useMemo, useState } from 'react';
-import { useAsyncFn } from 'react-use';
+import { useEffect, useMemo } from 'react';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import {
@@ -14,9 +12,7 @@ import {
 } from '@/app/(settings)/components/NotificationConfigItem.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import {
@@ -45,7 +41,6 @@ function getStatusForConfigs(
 
 export default function General() {
     useNavigatorTitle(t`Push notifications`);
-    const [agreed, setAgreed] = useState(Notification.permission === 'granted');
 
     const { data, isLoading, isRefetching } = useQuery({
         queryKey: ['notification-settings', 'config'],
@@ -95,24 +90,8 @@ export default function General() {
         [data],
     );
 
-    const [{ loading }, onEnableNotification] = useAsyncFn(async () => {
-        try {
-            switch (Notification.permission) {
-                case 'granted':
-                case 'default':
-                    await setupFirebaseFcmConnection({ showUi: false });
-                    setAgreed(Notification.permission === 'granted');
-                    return;
-                case 'denied':
-                    setupFirebaseFcmConnection();
-                    return;
-                default:
-                    safeUnreachable(Notification.permission);
-            }
-        } catch (error) {
-            enqueueErrorMessage(t`Failed to enable notifications`, { error });
-            throw error;
-        }
+    useEffect(() => {
+        setupFirebaseFcmConnection({ force: true });
     }, []);
 
     return (
@@ -130,19 +109,9 @@ export default function General() {
                 {otherAccountConfigs.map((config, index) => (
                     <NotificationConfigItem key={`other-${index}`} {...config} />
                 ))}
-                {!agreed || isLoading || isRefetching ? (
+                {isLoading || isRefetching ? (
                     <div className="absolute inset-0 flex w-full items-center justify-center bg-white/85 backdrop-blur-[1px]">
-                        {isLoading || isRefetching ? (
-                            <LoadingIcon size={24} />
-                        ) : (
-                            <ClickableButton
-                                className="flex h-10 w-48 items-center justify-center rounded-md bg-main font-bold text-primaryBottom"
-                                onClick={onEnableNotification}
-                                loading={loading}
-                            >
-                                Enable notification
-                            </ClickableButton>
-                        )}
+                        <LoadingIcon size={24} />
                     </div>
                 ) : null}
             </div>

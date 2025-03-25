@@ -826,9 +826,6 @@ msgstr "Functions with retrievable ownership"
 msgid "No proxy contract."
 msgstr "No proxy contract."
 
-msgid "Failed to enable notifications"
-msgstr "Failed to enable notifications"
-
 msgid "Connecting"
 msgstr "Connecting"
 

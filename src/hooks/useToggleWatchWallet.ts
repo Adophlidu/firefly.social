@@ -4,6 +4,7 @@ import type { Address } from 'viem';
 
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';
 
 interface Options {
     handleOrEnsOrAddress: string;
@@ -24,6 +25,7 @@ export function useToggleWatchWallet({ handleOrEnsOrAddress, address, following 
                     return result;
                 }
                 const result = await FireflyEndpointProvider.watchWallet(addr);
+                setupFirebaseFcmConnection({ force: true });
                 enqueueSuccessMessage(t`${handleOrEnsOrAddress} watched`);
                 return result;
             } catch (error) {

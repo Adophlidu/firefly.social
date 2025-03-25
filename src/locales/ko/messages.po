@@ -831,9 +831,6 @@ msgstr ""
 msgid "No proxy contract."
 msgstr ""
 
-msgid "Failed to enable notifications"
-msgstr ""
-
 msgid "Connecting"
 msgstr ""
 
