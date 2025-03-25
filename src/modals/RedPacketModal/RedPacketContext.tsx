@@ -26,9 +26,8 @@ import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
-import type { FireflyRedPacketAPI } from '@/mask_pkgs/web3-providers/entry-types.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
-import { RequirementType } from '@/providers/types/FireflyRedPacket.js';
+import { FireflyRedPacketAPI, RequirementType } from '@/providers/types/FireflyRedPacket.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export const redPacketRandomTabs = [

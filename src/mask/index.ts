@@ -11,7 +11,6 @@
  */
 
 export { ProfileIdentifier } from '@masknet/base';
-export { getCoinInfo } from '@/mask_pkgs/web3-providers/CoinGecko/apis/base.js';
 export { getRegisteredWeb3Networks } from '@/mask_pkgs/web3-providers/Manager/index.js';
 export { NFTScanNonFungibleTokenEVM } from '@/mask_pkgs/web3-providers/NFTScan/apis/NonFungibleTokenAPI_EVM.js';
 export type { SimpleHash } from '@/mask_pkgs/web3-providers/types/SimpleHash.js';

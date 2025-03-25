@@ -8,25 +8,50 @@ import {
     SourceType,
 } from '@masknet/web3-shared-base';
 import {
-    type ChainId,
+    ChainId,
     isENSContractAddress,
     SchemaType,
     WNATIVE,
     isValidDomain,
     resolveImageURL,
 } from '@masknet/web3-shared-evm';
-import { EVMChainResolver } from '../../Web3/EVM/apis/ResolverAPI.js';
-import { NFTSCAN_BASE, NFTSCAN_LOGO_BASE, NFTSCAN_URL } from '../constants.js';
-import type { EVM } from '../types/EVM.js';
-import { resolveNFTScanHostName } from './utils.js';
-import { fetchSquashedJSON } from '../../helpers/fetchJSON.js';
-import { getAssetFullName } from '../../helpers/getAssetFullName.js';
-import type { NonFungibleTokenAPI } from '../../entry-types.js';
+import { EVMChainResolver } from '../Web3/EVM/apis/ResolverAPI.js';
+import { NFTSCAN_BASE, NFTSCAN_LOGO_BASE, NFTSCAN_URL } from './constants.js';
+import type { EVM } from './types.js';
+import { getAssetFullName } from '../helpers/getAssetFullName.js';
+import type { NonFungibleTokenAPI } from '../entry-types.js';
 import { NetworkPluginID, TokenType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { scale10 } from '@/helpers/number.js';
 import { formatPercentage } from '@/helpers/formatPercentage.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
+import { fetchSquashedJSON } from '@/helpers/fetchJSON.js';
+import type { Web3Helper } from '@masknet/web3-helpers';
+
+function resolveNFTScanHostName(pluginId: NetworkPluginID, chainId: Web3Helper.ChainIdAll) {
+    if (pluginId === NetworkPluginID.PLUGIN_SOLANA) return 'https://solana.nftscan.com';
+
+    switch (chainId) {
+        case ChainId.Mainnet:
+            return 'https://www.nftscan.com';
+        case ChainId.Polygon:
+            return 'https://polygon.nftscan.com';
+        case ChainId.BSC:
+            return 'https://bnb.nftscan.com';
+        case ChainId.Arbitrum:
+            return 'https://arbitrum.nftscan.com';
+        case ChainId.Avalanche:
+            return 'https://avax.nftscan.com';
+        case ChainId.Optimism:
+            return 'https://optimism.nftscan.com';
+        case ChainId.xDai:
+            return 'https://gnosis.nftscan.com';
+        case ChainId.Moonbeam:
+            return 'https://moonbeam.nftscan.com';
+        default:
+            return '';
+    }
+}
 
 export async function fetchFromNFTScanV2<T>(chainId: ChainId, pathname: string, init?: RequestInit) {
     return fetchSquashedJSON<T>(urlcat(NFTSCAN_URL, pathname), {
@@ -40,7 +65,7 @@ export async function fetchFromNFTScanV2<T>(chainId: ChainId, pathname: string, 
     });
 }
 
-export function createPermalink(chainId: ChainId, address: string, tokenId: string) {
+function createPermalink(chainId: ChainId, address: string, tokenId: string) {
     return urlcat(
         resolveNFTScanHostName(NetworkPluginID.PLUGIN_EVM, chainId) || 'https://www.nftscan.com',
         '/:address/:tokenId',
@@ -73,7 +98,7 @@ function getAssetTraits(asset: EVM.Asset): NonFungibleTokenTrait[] {
     return EMPTY_LIST;
 }
 
-export function createNonFungibleAsset(
+function createNonFungibleAsset(
     chainId: ChainId,
     asset: EVM.Asset,
     collection?: NonFungibleTokenAPI.Collection | EVM.AssetsGroup,

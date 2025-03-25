@@ -1,8 +1,8 @@
 import urlcat from 'urlcat';
 import { type NonFungibleCollection } from '@masknet/web3-shared-base';
 import { ChainId, type SchemaType, isValidChainId } from '@masknet/web3-shared-evm';
-import { EVM, type Response } from '../types/index.js';
-import { fetchFromNFTScanV2, createNonFungibleCollectionFromGroup } from '../helpers/EVM.js';
+import { EVM, type Response } from '../types.js';
+import { fetchFromNFTScanV2, createNonFungibleCollectionFromGroup } from '../helpers.js';
 import type { BaseHubOptions, NonFungibleTokenAPI } from '../../entry-types.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { EMPTY_LIST } from '@/constants/index.js';

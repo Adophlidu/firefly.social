@@ -1,9 +1,7 @@
-import { identity, pickBy } from 'lodash-es';
 import { type SourceType } from '@masknet/web3-shared-base';
 import { type SchemaType } from '@masknet/web3-shared-evm';
 import type { PageIndicator } from '@/helpers/pageable.js';
 import { CurrencyType, type NetworkPluginID } from '@/constants/enum.js';
-import type { PartialRequired } from '@/types/index.js';
 
 export interface BaseHubOptions<ChainId, Indicator = PageIndicator> {
     /** The user account as the API parameter */
@@ -23,35 +21,4 @@ export interface BaseHubOptions<ChainId, Indicator = PageIndicator> {
     /** The page index. */
     indicator?: Indicator;
     allChains?: boolean;
-}
-
-export abstract class HubOptionsProvider<ChainId> {
-    constructor(private options?: BaseHubOptions<ChainId>) {}
-    protected abstract getDefaultChainId(): ChainId;
-    protected abstract getNetworkPluginID(): NetworkPluginID;
-
-    protected get defaults(): PartialRequired<BaseHubOptions<ChainId>, 'account' | 'chainId'> {
-        return {
-            account: '',
-            chainId: this.getDefaultChainId(),
-            networkPluginId: this.getNetworkPluginID(),
-            currencyType: CurrencyType.USD,
-            size: 50,
-        };
-    }
-
-    protected get refs(): BaseHubOptions<ChainId> {
-        return {
-            currencyType: CurrencyType.USD,
-        };
-    }
-
-    fill(initial?: BaseHubOptions<ChainId>): PartialRequired<BaseHubOptions<ChainId>, 'account' | 'chainId'> {
-        return {
-            ...this.defaults,
-            ...this.refs,
-            ...this.options,
-            ...pickBy(initial, identity),
-        };
-    }
 }

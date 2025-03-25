@@ -121,13 +121,14 @@ export class CoinGecko {
             total_volumes: Stat[];
         }>(url);
     }
+
     static getCoinInfo(coinId: string) {
-        type CoinInfoResponse =
+        return fetchJSON<
             | CoinGeckoCoinInfo
             | {
                   error: string;
-              };
-        return fetchJSON<CoinInfoResponse>(
+              }
+        >(
             urlcat(COINGECKO_ROOT_URL, `/coins/${coinId}`, {
                 developer_data: false,
                 community_data: false,
