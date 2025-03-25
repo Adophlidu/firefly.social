@@ -2,7 +2,6 @@
 
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { useState } from 'react';
 
 import EditIcon from '@/assets/edit.svg';
 import LogoutIcon from '@/assets/log-out.svg';
@@ -10,16 +9,15 @@ import MoreIcon from '@/assets/more-fill.svg';
 import TrashIcon from '@/assets/trash.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { EditFireflyProfileDialog } from '@/components/EditFireflyProfile/EditFireflyProfileDialog.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
 import { useDeleteFireflyAccount } from '@/hooks/useDeleteFireflyAccount.js';
-import { LogoutModalRef } from '@/modals/controls.js';
+import { EditFireflyProfileModalRef, LogoutModalRef } from '@/modals/controls.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 
 export function FireflyAccountCard() {
     const { data, isLoading, error } = useAllConnectionsFormattedWithProfiles();
-    const [open, setOpen] = useState(false);
+
     const account = data?.fireflyAccount;
     const [, deleteFireflyAccount] = useDeleteFireflyAccount();
     if (!isLoading) {
@@ -27,7 +25,6 @@ export function FireflyAccountCard() {
     }
     return (
         <>
-            <EditFireflyProfileDialog open={open} onClose={() => setOpen(false)} profile={account ?? undefined} />
             <div
                 className={classNames(
                     'flex w-full items-center rounded-lg border p-2',
@@ -49,7 +46,11 @@ export function FireflyAccountCard() {
                             ? account?.displayName || (
                                   <ClickableButton
                                       className="font-semibold text-lightHighlight hover:underline"
-                                      onClick={() => setOpen(true)}
+                                      onClick={() => {
+                                          EditFireflyProfileModalRef.open({
+                                              profile: account,
+                                          });
+                                      }}
                                   >
                                       <Trans>Edit profile</Trans>
                                   </ClickableButton>
@@ -94,7 +95,9 @@ export function FireflyAccountCard() {
                                                 className="flex w-full items-center whitespace-nowrap px-3 py-1 text-base font-bold"
                                                 onClick={() => {
                                                     close();
-                                                    setOpen(true);
+                                                    EditFireflyProfileModalRef.open({
+                                                        profile: account,
+                                                    });
                                                     captureEditProfileClickEvent();
                                                 }}
                                             >

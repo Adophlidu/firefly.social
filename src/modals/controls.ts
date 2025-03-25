@@ -1,3 +1,4 @@
+import type { EditFireflyProfileModalOpenProps } from '@/components/EditFireflyProfile/EditFireflyProfileDialog.jsx';
 import { SingletonModal } from '@/libs/SingletonModal.js';
 import type { AddCustomERC20ModalOpenProps } from '@/modals/AddCustomERC20Modal.js';
 import type { AddCustomERC721ModalOpenProps } from '@/modals/AddCustomERC721Modal.js';
@@ -65,3 +66,4 @@ export const ChannelSelectModalRef = new SingletonModal<ChannelSelectModalOpenPr
 export const ClubSelectModalRef = new SingletonModal<ChannelSelectModalOpenProps, ChannelSelectModalCloseProps>();
 export const MyWalletsModalRef = new SingletonModal();
 export const LaunchTokenModalRef = new SingletonModal<LaunchTokenModalOpenProps, LaunchTokenModalCloseResult>();
+export const EditFireflyProfileModalRef = new SingletonModal<EditFireflyProfileModalOpenProps>();

@@ -21,6 +21,7 @@ import { SORTED_LOGIN_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES_IN_URL } from '
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
+import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { formatThirdPartyProfileName } from '@/helpers/formatThirdPartyProfileName.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -35,12 +36,12 @@ import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { EditFireflyProfileModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Account } from '@/providers/types/Account.js';
 import { switchAccount } from '@/services/account.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
-import { useFireflyStateStore, useThirdPartyStateStore } from '@/store/useProfileStore.js';
+import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 
 export function MainView() {
     const router = useRouter();
@@ -48,7 +49,7 @@ export function MainView() {
     const isMedium = useIsMedium();
     const [selectedSource, setSelectedSource] = useState<ThirdPartySource>();
 
-    const { currentProfile } = useFireflyStateStore();
+    const [open, setOpen] = useState(false);
 
     const isLoginFirefly = useIsLoginFirefly();
     const profileStore = useProfileStoreAll();
@@ -146,14 +147,29 @@ export function MainView() {
         },
     });
 
+    const currentProfile = data?.account ? formatFireflyAccountProfileFromFireflyConnections(data.account) : null;
+
     return (
         <div className="rounded-[6px] bg-primaryBottom px-6 pb-6 max-md:max-h-[calc(100vh_-_64px)] max-md:overflow-auto md:w-[400px]">
-            {currentProfile?.profileId ? (
+            {isLoginFirefly && currentProfile ? (
                 <div className="mb-3 flex gap-2 rounded-lg border border-highlight p-2">
-                    <Avatar src={currentProfile?.pfp} size={60} alt={currentProfile?.profileId ?? ''} />
+                    <Avatar src={currentProfile.avatar ?? ''} size={60} alt={currentProfile?.uid ?? ''} />
                     <div className="flex flex-col items-start">
-                        <span className="font-bold">{currentProfile?.displayName || 'Firefly Account'}</span>
-                        <span className="text-secondary">UID: {currentProfile?.profileId}</span>
+                        {!currentProfile.avatar || !currentProfile.displayName ? (
+                            <ClickableButton
+                                className="cursor-pointer font-bold text-highlight hover:underline"
+                                onClick={() => {
+                                    EditFireflyProfileModalRef.open({
+                                        profile: currentProfile,
+                                    });
+                                }}
+                            >
+                                <Trans>Edit Profile</Trans>
+                            </ClickableButton>
+                        ) : (
+                            <span className="font-bold">{currentProfile?.displayName || 'Firefly Account'}</span>
+                        )}
+                        <span className="text-secondary">UID: {currentProfile?.uid}</span>
                     </div>
                 </div>
             ) : null}

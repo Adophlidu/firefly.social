@@ -15,6 +15,7 @@ import { ConfirmModal } from '@/modals/ConfirmModal.js';
 import * as controls from '@/modals/controls.js';
 import { DisconnectFireflyAccountModal } from '@/modals/DisconnectFireflyAccountModal.js';
 import { DraggablePopover } from '@/modals/DraggablePopover.js';
+import { EditFireflyProfileModal } from '@/modals/EditFireflyProfileModal.js';
 import { EnableSignlessModal } from '@/modals/EnableSignlessModal.js';
 import { FrameViewerModal } from '@/modals/FrameViewerModal/index.js';
 import { FreeMintModal } from '@/modals/FreeMintModal/index.js';
@@ -67,6 +68,7 @@ export const Modals = memo(function Modals() {
             <WalletConnectModal ref={controls.ConnectModalRef.register} />
             <MyWalletsModal ref={controls.MyWalletsModalRef.register} />
             <LaunchTokenModal ref={controls.LaunchTokenModalRef.register} />
+            <EditFireflyProfileModal ref={controls.EditFireflyProfileModalRef.register} />
         </>
     );
 });
