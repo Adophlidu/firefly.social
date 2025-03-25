@@ -25,7 +25,7 @@ export function useToggleWatchWallet({ handleOrEnsOrAddress, address, following 
                     return result;
                 }
                 const result = await FireflyEndpointProvider.watchWallet(addr);
-                setupFirebaseFcmConnection({ force: true });
+                setupFirebaseFcmConnection({ force: true, showUi: true });
                 enqueueSuccessMessage(t`${handleOrEnsOrAddress} watched`);
                 return result;
             } catch (error) {

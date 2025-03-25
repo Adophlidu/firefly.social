@@ -91,7 +91,7 @@ export default function General() {
     );
 
     useEffect(() => {
-        setupFirebaseFcmConnection({ force: true });
+        setupFirebaseFcmConnection({ force: true, showUi: true });
     }, []);
 
     return (
