@@ -3,6 +3,7 @@ import { getMessaging, type Messaging, onMessage } from 'firebase/messaging';
 
 import { env } from '@/constants/env.js';
 import { SITE_NAME } from '@/constants/index.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 
 function createFirebaseApp() {
     const firebaseConfig: FirebaseOptions = {
@@ -50,12 +51,21 @@ class FirebaseClient {
         if (!this._firebaseFcm) return;
 
         onMessage(this._firebaseFcm, (payload) => {
-            console.log('[firebase] Foreground message received', payload);
+            console.log('[firebase] Foreground message received');
             if (!payload.notification || document.visibilityState !== 'visible') return;
 
             const title = payload.notification?.title || SITE_NAME;
 
-            new Notification(title, payload.notification);
+            const notification = new Notification(title, payload.notification);
+            notification.onclick = (event) => {
+                event.preventDefault();
+                const link = parseUrl(payload.data?.link || '');
+                if (!link || link.pathname === window.location.pathname) {
+                    window.focus();
+                    return;
+                }
+                window.open(link.href, '_blank');
+            };
         });
     }
 

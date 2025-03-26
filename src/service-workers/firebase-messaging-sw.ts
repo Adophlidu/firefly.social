@@ -39,12 +39,15 @@ self.firebase.initializeApp({
 });
 const messaging = self.firebase.messaging();
 
+const linkRecord: Record<string, string | undefined> = {};
+
 messaging.onBackgroundMessage((payload) => {
-    console.log('[firebase] Background message received', payload);
+    console.log('[firebase] Background message received');
     if (!payload.notification) return;
 
     const notificationTitle = payload.notification.title || 'Firefly';
 
+    linkRecord[`${notificationTitle}-${payload.notification.body}`] = payload.data?.link;
     self.registration.showNotification(notificationTitle, {
         ...payload.notification,
         icon: '/image/firefly-light-avatar.png',
@@ -52,6 +55,10 @@ messaging.onBackgroundMessage((payload) => {
 });
 
 self.addEventListener('notificationclick', (event) => {
+    const recordKey = `${event.notification.title}-${event.notification.body}`;
+    const link = linkRecord[recordKey] || '/';
+
+    linkRecord[recordKey] = undefined;
     event.notification.close();
     event.waitUntil(
         self.clients
@@ -60,9 +67,9 @@ self.addEventListener('notificationclick', (event) => {
             })
             .then((clientList) => {
                 for (const client of clientList) {
-                    if (client.url === '/' && 'focus' in client) return client.focus();
+                    if (client.url === link && 'focus' in client) return client.focus();
                 }
-                if (typeof self.clients.openWindow === 'function') return self.clients.openWindow('/');
+                if (typeof self.clients.openWindow === 'function') return self.clients.openWindow(link);
             }),
     );
 });

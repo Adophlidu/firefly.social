@@ -1,7 +1,6 @@
 import urlcat from 'urlcat';
 
-import { fetchJSON } from '@/helpers/fetchJSON.js';
-import type { EmptyResponse } from '@/providers/types/Firefly.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { settings } from '@/settings/index.js';
 
 export enum UploadTokenTipsToken {
@@ -28,7 +27,7 @@ export interface UploadTokenTipsParams {
 }
 
 export async function reportTokenTips(params: UploadTokenTipsParams) {
-    await fetchJSON<EmptyResponse>(urlcat(settings.FIREFLY_ROOT_URL, '/v1/token_tips/upload'), {
+    await fireflySessionHolder.fetchWithSession(urlcat(settings.FIREFLY_ROOT_URL, '/v1/token_tips/upload'), {
         method: 'POST',
         body: JSON.stringify({ ...params, source: 'web' }),
     });
