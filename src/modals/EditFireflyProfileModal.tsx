@@ -7,7 +7,7 @@ import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { FireflyAccountProfile } from '@/providers/types/Firefly.js';
 
 export interface EditFireflyProfileModalOpenProps {
-    profile?: FireflyAccountProfile;
+    profile?: FireflyAccountProfile | null;
 }
 
 type Props = {
