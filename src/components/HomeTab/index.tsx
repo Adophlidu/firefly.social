@@ -20,6 +20,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLoginDiscoverSource } from '@/hooks/useIsLogin.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
+import { useSwapStateStore } from '@/store/useSwapStore.js';
 
 const types = {
     [HomeTab.Discover]: [Source.Posts, Source.NFTs, Source.Article, Source.DAOs],
@@ -28,6 +29,7 @@ const types = {
 
 export function HomeTabs() {
     const pathname = usePathname();
+    const { hasOpenSwap, setHasOpenSwap } = useSwapStateStore();
     const [allTabs, setAllTabs] = useState<Record<HomeTab, Source>>({
         [HomeTab.Discover]: types[HomeTab.Discover][0],
         [HomeTab.Following]: types[HomeTab.Following][0],
@@ -120,7 +122,7 @@ export function HomeTabs() {
                     isSelected={(x) => x === source}
                     // eslint-disable-next-line react/no-unstable-nested-components
                     itemRender={(x) => {
-                        if (x === Source.Swap) {
+                        if (x === Source.Swap && !hasOpenSwap) {
                             return (
                                 <span className="relative">
                                     {resolveSourceName(x)}
@@ -135,6 +137,7 @@ export function HomeTabs() {
                     }}
                     onChange={(source) => {
                         if (source === Source.Swap) {
+                            if (!hasOpenSwap) setHasOpenSwap(true);
                             captureSwapEvent(EventId.EVENT_FOLLOWING_SWAP_CLICK);
                         }
                         setAllTabs((x) => ({

@@ -251,7 +251,7 @@ export class FireflyRedPacketEndpoint {
         txHash: string,
     ) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/finishClaiming');
-        return fetchJSON<FireflyRedPacketAPI.Response<string>>(url, {
+        return fireflySessionHolder.fetch<FireflyRedPacketAPI.Response<string>>(url, {
             method: 'POST',
             body: JSON.stringify({
                 rpid,

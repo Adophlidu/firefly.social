@@ -202,7 +202,7 @@ export function RedPacketCard({ payload, post }: Props) {
                             />
                         ) : null}
                         <ClickableArea
-                            className="absolute right-5 top-4 z-20 flex cursor-pointer items-center gap-1 rounded-full px-3 py-[6px] text-xs leading-3 text-white disabled:cursor-not-allowed"
+                            className="absolute right-5 top-4 z-[1] flex cursor-pointer items-center gap-1 rounded-full px-3 py-[6px] text-xs leading-3 text-white disabled:cursor-not-allowed"
                             style={{ background: 'rgba(0, 0, 0, 0.25)', backdropFilter: 'blur(5px)' }}
                             disabled={isVerifying}
                             onClick={async () => {

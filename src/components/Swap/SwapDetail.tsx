@@ -11,6 +11,7 @@ import LikeIcon from '@/assets/like.svg';
 import LikedIcon from '@/assets/liked.svg';
 import LinkOut from '@/assets/link.svg';
 import { Avatar } from '@/components/Avatar.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
@@ -46,7 +47,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
     const addressName = formatAddress(activity?.owner ?? '', 4);
     const profileUrl = resolveProfileUrl(Source.Wallet, activity?.owner);
 
-    const { mutate: onLikeChange } = useChangeSwapLikeStatus(activity);
+    const { mutate: onLikeChange, isPending } = useChangeSwapLikeStatus(activity);
 
     if (isLoading) {
         return <Loading />;
@@ -208,9 +209,16 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
 
                     <div className="mt-2 flex items-center justify-end">
                         <div className="flex items-center gap-1 text-sm text-lightSecond">
-                            <span className="cursor-pointer" onClick={() => onLikeChange()}>
+                            <ClickableButton
+                                className="cursor-pointer"
+                                loading={isPending}
+                                loadingSize={16}
+                                onClick={() => {
+                                    onLikeChange();
+                                }}
+                            >
                                 {activity.is_like ? <LikedIcon className="size-4" /> : <LikeIcon className="size-4" />}
-                            </span>
+                            </ClickableButton>
                             <span>{nFormatter(activity.like_count)}</span>
                         </div>
                     </div>
