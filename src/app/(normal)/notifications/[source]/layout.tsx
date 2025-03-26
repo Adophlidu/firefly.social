@@ -20,11 +20,11 @@ export default function Layout({ children, params }: Props) {
     const { source } = use(params);
 
     return (
-        <div className="flex w-full flex-col px-4">
-            <h1 className="py-[18px] text-[20px] font-bold leading-6 max-md:hidden">
+        <div className="flex w-full flex-col">
+            <h1 className="px-4 py-[18px] text-[20px] font-bold leading-6 max-md:hidden">
                 <Trans>Notifications</Trans>
             </h1>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between px-4">
                 <SolidTabs
                     data={SORTED_NOTIFICATIONS_SOURCES}
                     link={resolveNotificationUrl}
