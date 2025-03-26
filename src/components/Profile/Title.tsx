@@ -3,40 +3,8 @@
 import { type HTMLProps, type ReactNode } from 'react';
 
 import ComeBackIcon from '@/assets/comeback.svg';
-import { HackedButton } from '@/components/Profile/HackedButton.js';
-import { ProfileAction } from '@/components/Profile/ProfileAction.js';
-import { WalletMoreAction } from '@/components/Profile/WalletMoreAction.js';
-import { WatchButton } from '@/components/Profile/WatchButton.js';
 import { classNames } from '@/helpers/classNames.js';
-import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useComeBack } from '@/hooks/useComeback.js';
-import { useCurrentFireflyProfiles } from '@/hooks/useCurrentFireflyProfiles.js';
-import type { FireflyIdentity, WalletProfile } from '@/providers/types/Firefly.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
-
-export function ProfileTitleAction({
-    profile,
-    walletProfile,
-    identity,
-}: {
-    profile?: Profile | null;
-    walletProfile?: WalletProfile | null;
-    identity?: FireflyIdentity;
-}) {
-    const currentProfiles = useCurrentFireflyProfiles();
-    if (profile) return <ProfileAction profile={profile} />;
-    if (walletProfile?.hacked) return <HackedButton />;
-    if (walletProfile) {
-        const isOthersProfile = !currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
-        return (
-            <>
-                {isOthersProfile ? <WatchButton address={walletProfile.address} /> : null}
-                <WalletMoreAction className="text-main" profile={walletProfile} />
-            </>
-        );
-    }
-    return null;
-}
 
 export function Title({ title, className, children }: HTMLProps<'div'> & { title?: ReactNode }) {
     const comeback = useComeBack();

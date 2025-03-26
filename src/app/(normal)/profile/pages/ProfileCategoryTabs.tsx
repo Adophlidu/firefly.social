@@ -87,7 +87,7 @@ export function ProfileCategoryTabs({
     }, [id, source, tabTitles, isCurrentProfile]);
 
     return (
-        <nav className="scrollable-tab flex gap-1.5 border-b border-lightLineSecond px-3 dark:border-line">
+        <nav className="scrollable-tab sticky top-0 z-10 -mt-[60px] flex h-[110px] gap-1.5 border-b border-lightLineSecond bg-primaryBottom px-3 pt-[60px] dark:border-line">
             {categories.map(({ type, title }) => {
                 return (
                     <div key={type} className="flex flex-col">

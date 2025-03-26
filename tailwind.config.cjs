@@ -75,6 +75,13 @@ module.exports = {
                 bg03: 'rgb(var(--color-bg03) / <alpha-value>)',
                 lightRebrandingBg: 'rgb(var(--color-light-rebranding-bg) / <alpha-value>)',
                 lightTextMain: '#181818',
+                farcasterBg: 'rgb(var(--color-farcaster-bg) / <alpha-value>)',
+                lensBg: 'rgb(var(--color-lens-bg) / <alpha-value>)',
+                bskyBg: 'rgb(var(--color-bsky-bg) / <alpha-value>)',
+                xBg: 'rgb(var(--color-x-bg) / <alpha-value>)',
+                walletBg: 'rgb(var(--color-wallet-bg) / <alpha-value>)',
+                dangerBg: 'var(--color-danger-bg)',
+                lensButton: 'rgb(var(--color-lens-button) / <alpha-value>)',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

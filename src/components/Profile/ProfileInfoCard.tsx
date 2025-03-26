@@ -13,13 +13,13 @@ interface Props {
 export function ProfileInfoCard({ walletProfile, socialProfile, source }: Props) {
     return (
         <div
-            className={classNames('mx-4 mb-2 rounded-lg border bg-lightBg', {
-                'border-farcasterPrimary shadow-farcasterCard': source === Source.Farcaster,
-                'border-lensPrimary shadow-lensCard': source === Source.Lens,
-                'border-main shadow-xCard': source === Source.Twitter,
-                'border-bskyPrimary shadow-bskyCard': source === Source.Bsky,
-                'border-lightHighlight shadow-lightHighlightCard': source === Source.Wallet && !walletProfile?.hacked,
-                'border-danger shadow-dangerCard': source === Source.Wallet && !!walletProfile?.hacked,
+            className={classNames('relative z-20 mx-4 mb-2 rounded-lg', {
+                'bg-farcasterBg': source === Source.Farcaster,
+                'bg-lensBg': source === Source.Lens,
+                'bg-xBg': source === Source.Twitter,
+                'bg-bskyBg': source === Source.Bsky,
+                'bg-walletBg': source === Source.Wallet && !walletProfile?.hacked,
+                'bg-dangerBg': source === Source.Wallet && !!walletProfile?.hacked,
             })}
         >
             <ProfileInfo walletProfile={walletProfile} socialProfile={socialProfile} />

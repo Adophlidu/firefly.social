@@ -3,7 +3,7 @@ import { Trans } from '@lingui/react/macro';
 import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 
-import MoreIcon from '@/assets/more.svg';
+import MoreIcon from '@/assets/more-fill.svg';
 import SearchIcon from '@/assets/search.svg';
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
@@ -57,7 +57,15 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
             source={profile.source}
             button={<MoreIcon width={22} height={22} className="shrink-0" />}
             className={className}
-            buttonClassName={classNames('border-line2 size-8 justify-center rounded-lg border', buttonClassName)}
+            buttonClassName={classNames(
+                'size-8 justify-center rounded-lg bg-primaryBottom dark:bg-white dark:bg-opacity-[0.08]',
+                buttonClassName,
+                {
+                    'text-farcasterPrimary': profile.source === Source.Farcaster,
+                    'text-lensButton': profile.source === Source.Lens,
+                    'text-bskyPrimary': profile.source === Source.Bsky,
+                },
+            )}
         >
             <MenuGroup>
                 <MenuItem>

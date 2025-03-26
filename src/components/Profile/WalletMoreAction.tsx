@@ -5,7 +5,7 @@ import { t } from '@lingui/core/macro';
 import { memo } from 'react';
 import { useEnsName } from 'wagmi';
 
-import MoreIcon from '@/assets/more.svg';
+import MoreIcon from '@/assets/more-fill.svg';
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
@@ -35,7 +35,10 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
         <MoreActionMenu
             button={<MoreIcon width={22} height={22} className="shrink-0" />}
             className={className}
-            buttonClassName={classNames('border-line2 size-8 justify-center rounded-lg border', buttonClassName)}
+            buttonClassName={classNames(
+                'size-8 justify-center rounded-lg bg-primaryBottom text-lightHighlight dark:bg-white dark:bg-opacity-[0.08]',
+                buttonClassName,
+            )}
         >
             <MenuGroup>
                 <MenuItem>

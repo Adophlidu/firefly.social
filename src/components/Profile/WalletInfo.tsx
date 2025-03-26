@@ -132,7 +132,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                     </div>
                 </div>
                 {profile.hacked ? (
-                    <p className="mt-2 text-sm leading-[18px] text-danger">
+                    <p className="mt-3 rounded-lg bg-danger bg-opacity-[0.16] px-3 py-2 text-sm leading-[18px] text-danger">
                         <Trans>
                             This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid
                             any transactions or sharing of sensitive information. Stay safe!

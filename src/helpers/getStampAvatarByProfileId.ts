@@ -2,7 +2,8 @@ import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
-import { FIREFLY_STAMP_URL } from '@/constants/index.js';
+import { FIREFLY_STAMP_URL, SITE_URL } from '@/constants/index.js';
+import { bom } from '@/helpers/bom.js';
 
 export function getStampAvatarByProfileId(source: Source, profileId: string) {
     switch (source) {
@@ -11,9 +12,13 @@ export function getStampAvatarByProfileId(source: Source, profileId: string) {
         case Source.Lens:
             return urlcat(FIREFLY_STAMP_URL, '/lens/:id', { id: profileId });
         case Source.Twitter:
-            return '';
+            return bom.window
+                ? urlcat('/api/twitter/user/:id/avatar', { id: profileId })
+                : urlcat(SITE_URL, '/api/twitter/user/:id/avatar', { id: profileId });
         case Source.Bsky:
-            return '';
+            return bom.window
+                ? urlcat('/api/bsky/user/:id/avatar', { id: profileId })
+                : urlcat(SITE_URL, '/api/bsky/user/:id/avatar', { id: profileId });
         case Source.Firefly:
             return urlcat(FIREFLY_STAMP_URL, '/firefly/:id', { id: profileId, s: 240 });
         case Source.Wallet:

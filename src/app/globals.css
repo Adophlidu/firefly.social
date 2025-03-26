@@ -52,7 +52,7 @@
     --color-danger: 255 53 69;
     --color-warn: 255 177 0;
     --color-lens-primary: 154 227 42;
-    --color-farcaster-primary: 146 80 255;
+    --color-farcaster-primary: 133 93 205;
     --color-twitter-primary: 29 161 243;
     --color-bsky-primary: 10 122 255;
     --color-secondary: rgba(118, 127, 141, 1); /* #767f8d */
@@ -102,7 +102,14 @@
     --color-bg02: 172 172 174;
     --color-bg03: 230 230 237;
     --color-light-rebranding-bg: 245 245 249;
+    --color-farcaster-bg: 243 240 250;
+    --color-lens-bg: 237 247 241;
+    --color-bsky-bg: 240 247 255;
+    --color-x-bg: var(--color-light-bg);
+    --color-wallet-bg: 243 242 255;
+    --color-danger-bg: #fff5f6;
     --w3m-modal-width: 400px !important;
+    --color-lens-button: 0 80 30;
 }
 
 .sidebar-dark-logo {
@@ -178,6 +185,13 @@
         --color-bg02: 172 172 174;
         --color-bg03: 230 230 237;
         --color-light-rebranding-bg: 245 245 249;
+        --color-farcaster-bg: 43 39 51;
+        --color-lens-bg: 31 41 35;
+        --color-bsky-bg: 27 38 51;
+        --color-x-bg: var(--color-light-bg);
+        --color-wallet-bg: 42 42 61;
+        --color-danger-bg: rgba(255, 53, 69, 0.16);
+        --color-lens-button: 171 254 44;
     }
 
     .sidebar-light-logo {

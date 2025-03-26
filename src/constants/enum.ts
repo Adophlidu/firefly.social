@@ -208,6 +208,7 @@ export enum KeyType {
     CreateMetadataEvent = '/v2/createMetadataEvent',
 
     ConvertBskyHandleToDid = '/v1/convertBskyHandleToDid',
+    TwitterHandleToUid = 'twitterHandleToUid',
 }
 
 export enum SocialProfileCategory {

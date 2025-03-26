@@ -43,7 +43,7 @@ export function FireflyAccountMoreButton({ profile, walletProfile }: Props) {
             <Menu.Items
                 anchor="bottom end"
                 transition
-                className="z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main data-[closed]:scale-95 data-[closed]:opacity-0"
+                className="z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main duration-100 data-[closed]:scale-95 data-[closed]:opacity-0"
             >
                 {profile ? (
                     <>
