@@ -31,8 +31,6 @@ export function VideoAsset({ asset, minimal, source, autoPlay, videoClassName }:
         maxHeight: 750,
     });
 
-    console.log('[Debug] asset:', asset);
-
     return minimal ? (
         <div className="relative h-full w-full">
             <div className="absolute inset-0 m-auto box-border flex size-6 flex-shrink-0 items-center justify-center rounded-xl bg-white/80 text-[#181818]">

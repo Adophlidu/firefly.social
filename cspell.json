@@ -394,7 +394,8 @@
         "CUSD",
         "CEUR",
         "Yumi",
-        "Görli"
+        "Görli",
+        "limitday"
     ],
     "flagWords": [],
     "ignorePaths": [

@@ -50,7 +50,7 @@ class FirebaseClient {
         if (!this._firebaseFcm) return;
 
         onMessage(this._firebaseFcm, (payload) => {
-            console.log('[firebase] Foreground message received');
+            console.log('[firebase] Foreground message received', payload);
             if (!payload.notification || document.visibilityState !== 'visible') return;
 
             const title = payload.notification?.title || SITE_NAME;

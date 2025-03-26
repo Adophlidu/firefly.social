@@ -11,6 +11,7 @@ import type { ConfirmLeavingModalCloseProps, ConfirmLeavingModalOpenProps } from
 import type { ConfirmModalCloseResult, ConfirmModalOpenProps } from '@/modals/ConfirmModal.js';
 import type { DisconnectFireflyAccountModalProps } from '@/modals/DisconnectFireflyAccountModal.js';
 import type { DraggablePopoverProps } from '@/modals/DraggablePopover.js';
+import type { EditFireflyProfileModalOpenProps } from '@/modals/EditFireflyProfileModal.js';
 import type { FrameViewerModalCloseProps, FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/index.js';
 import type { FreeMintModalOpenProps } from '@/modals/FreeMintModal/index.js';
 import type { ImageEditorCloseProps, ImageEditorOpenProps } from '@/modals/ImageEditor/index.js';
@@ -30,7 +31,6 @@ import type { TipsModalCloseProps, TipsModalOpenProps } from '@/modals/TipsModal
 import type { TokenSelectorModalCloseProps, TokenSelectorModalOpenProps } from '@/modals/TokenSelectorModal.js';
 import type { TransactionSimulatorModalOpenProps } from '@/modals/TransactionSimulatorModal.js';
 import type { WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/index.js';
-import type { EditFireflyProfileModalOpenProps } from '@/modals/EditFireflyProfileModal.js';
 
 export const ConnectModalRef = new SingletonModal<WalletConnectModalOpenProps | void>();
 export const LoginModalRef = new SingletonModal<LoginModalOpenProps | void>();

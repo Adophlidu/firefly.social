@@ -40,12 +40,31 @@ self.firebase.initializeApp({
 const messaging = self.firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-    console.log('[firebase] Background message received');
+    console.log('[firebase] Background message received', payload);
     if (!payload.notification) return;
 
     const notificationTitle = payload.notification.title || 'Firefly';
 
-    self.registration.showNotification(notificationTitle, payload.notification);
+    self.registration.showNotification(notificationTitle, {
+        ...payload.notification,
+        icon: '/image/firefly-light-avatar.png',
+    });
+});
+
+self.addEventListener('notificationclick', (event) => {
+    event.notification.close();
+    event.waitUntil(
+        self.clients
+            .matchAll({
+                type: 'window',
+            })
+            .then((clientList) => {
+                for (const client of clientList) {
+                    if (client.url === '/' && 'focus' in client) return client.focus();
+                }
+                if (typeof self.clients.openWindow === 'function') return self.clients.openWindow('/');
+            }),
+    );
 });
 
 export {};
