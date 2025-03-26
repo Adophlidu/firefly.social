@@ -201,9 +201,6 @@ msgstr "<0/>Solana 钱包"
 msgid "Join /{name}"
 msgstr "加入 /{name}"
 
-msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1>"
-msgstr "第一次连接到 Firefly 吗？<0/>请批准与 <1>Warpcast的新连接</1>"
-
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr "隐藏 @{0}"

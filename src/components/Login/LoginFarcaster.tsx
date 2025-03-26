@@ -13,7 +13,13 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { FarcasterSignType, FarcasterSignType as SignType, Source } from '@/constants/enum.js';
-import { AbortError, FarcasterAlreadyBoundError, NotAllowedError, TimeoutError } from '@/constants/error.js';
+import {
+    AbortError,
+    FarcasterAlreadyBoundError,
+    FarcasterPatchSignerError,
+    NotAllowedError,
+    TimeoutError,
+} from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import {
@@ -50,6 +56,9 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
 
         // user rejected request
         if (error instanceof UserRejectedRequestError) return;
+
+        // failed to patch the signer
+        if (error instanceof FarcasterPatchSignerError) throw error;
 
         // if any error occurs, close the modal
         // by this we don't need to do error handling in UI part.
@@ -129,17 +138,16 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                     // let the user see the qr code has been scanned and display a loading icon
                     setScanned(true);
 
-                    if (!account.session.token) {
-                        enqueueInfoMessage(t`Signer key not found. Please approve a new one for us in Warpcast.`);
-                        history.replace(`/farcaster?signType=${FarcasterSignType.FireflySponsorship}`);
-                        throw new AbortError();
-                    }
-
                     return account;
                 },
                 { signal: controller.current.signal },
             );
         } catch (error) {
+            if (error instanceof FarcasterPatchSignerError) {
+                enqueueInfoMessage(t`Signer key not found. Please approve a new one for us in Warpcast.`);
+                history.replace(`/farcaster?signType=${FarcasterSignType.FireflySponsorship}`);
+                return;
+            }
             enqueueMessageFromError(error, t`Failed to login.`);
             throw error;
         }
@@ -311,18 +319,6 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                             existing Farcaster signer
                                         </Link>{' '}
                                         to Firefly
-                                    </Trans>
-                                ) : signType === SignType.RelayService ? (
-                                    <Trans>
-                                        First time connecting to Firefly?
-                                        <br />
-                                        Approve a{' '}
-                                        <Link
-                                            to={`/farcaster?signType=${SignType.FireflySponsorship}`}
-                                            className="font-bold hover:underline"
-                                        >
-                                            new connection with Warpcast
-                                        </Link>
                                     </Trans>
                                 ) : null}
                             </div>

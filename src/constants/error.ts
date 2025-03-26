@@ -72,6 +72,12 @@ export class FetchError extends Error {
     }
 }
 
+export class FarcasterPatchSignerError extends Error {
+    constructor(public fid: number) {
+        super(`Failed to patch signer key to Farcaster session: ${fid}`);
+    }
+}
+
 export class FarcasterInvalidSignerKey extends Error {
     constructor(message?: string) {
         super(message ?? 'Invalid Farcaster signer key.');

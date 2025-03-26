@@ -1,6 +1,7 @@
 import { getPublicKey, utils } from '@noble/ed25519';
 import { type Hex, toHex } from 'viem';
 
+import { NOT_DEPEND_SECRET } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -34,7 +35,7 @@ async function createSession(signal?: AbortSignal) {
 
     const farcasterSession = new FarcasterSession(
         // we don't posses the fid until the key request was signed
-        '',
+        NOT_DEPEND_SECRET,
         toHex(privateKey),
         response.data.timestamp,
         response.data.expiresAt,

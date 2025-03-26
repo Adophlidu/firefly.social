@@ -7,7 +7,8 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getDidServiceHost } from '@/helpers/getDidServiceHost.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
-import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
+import { patchFarcasterSessionRequired } from '@/providers/farcaster/patchFarcasterSessionRequired.js';
+import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import type { ThirdPartySession } from '@/providers/third-party/Session.js';
@@ -70,14 +71,7 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
 
     const data = resolveFireflyResponseData(response);
 
-    if (FarcasterSession.isRelayService(session) && session.profileId === NOT_DEPEND_SECRET) {
-        session.profileId = `${data.fid}`;
-
-        if (data.farcaster_signer_private_key) {
-            session.signerRequestToken = FAKE_SIGNER_REQUEST_TOKEN;
-            session.token = data.farcaster_signer_private_key ?? '';
-        }
-    }
+    patchFarcasterSessionRequired(session, data.fid, data.farcaster_signer_private_key);
 
     return data;
 }

@@ -196,9 +196,6 @@ msgstr ""
 msgid "Join /{name}"
 msgstr ""
 
-msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1>"
-msgstr ""
-
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr ""

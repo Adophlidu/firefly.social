@@ -196,9 +196,6 @@ msgstr "<0/>Solana wallets"
 msgid "Join /{name}"
 msgstr "Join /{name}"
 
-msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1>"
-msgstr "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1>"
-
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr "Mute @{0}"
