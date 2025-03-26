@@ -31,8 +31,8 @@ const DIMENSION: Dimension = {
     right: 0,
     bottom: 12,
     left: 0,
-    width: 170,
-    height: 80,
+    width: 180,
+    height: 48,
 };
 
 export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, children, ...rest }) {
@@ -81,14 +81,14 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
             <div
                 {...rest}
                 className={classNames(
-                    'flex cursor-default items-center gap-1.5 rounded-2xl border border-line bg-lightBg p-3',
+                    'flex cursor-default flex-col rounded-2xl border border-line bg-lightBg px-3 py-[7px]',
                     rest.className,
                 )}
                 onClick={(e) => {
                     e.stopPropagation();
                 }}
             >
-                <div className="flex flex-col">
+                <div className="flex h-[47.5px] items-center">
                     <div className="flex items-center gap-2 whitespace-nowrap text-second">
                         <Link href={tokenPageUrl}>
                             <TokenIcon
@@ -111,49 +111,59 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
                         </span>
                         <CopyTextButton text={address} />
                     </div>
-                    <div className="line-height-[22px] flex items-center gap-1">
-                        <Trans>
-                            <strong className="text-2xl font-bold leading-[22px]">
-                                {market_cap ? `$${formatMarketCap(market_cap)}` : '-'}
-                            </strong>
-                            <span className="text-medium text-secondary" title={t`Market Cap`}>
-                                MC
-                            </span>
-                            {rank ? (
-                                <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
-                                    Rank #{rank}
+                    {attributes?.address ? (
+                        <SwapButton className="flex shrink-0 grow-0 flex-row-reverse !gap-1 !px-3 !py-2" />
+                    ) : null}
+                </div>
+                <div className="flex">
+                    <div className="flex flex-col gap-1">
+                        <div className="line-height-[22px] flex items-center gap-1">
+                            <Trans>
+                                <strong className="text-2xl font-bold leading-[22px]">
+                                    {market_cap ? `$${formatMarketCap(market_cap)}` : '-'}
+                                </strong>
+                                <span className="text-medium text-secondary" title={t`Market Cap`}>
+                                    MC
                                 </span>
-                            ) : null}
-                        </Trans>
+                                {rank ? (
+                                    <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
+                                        Rank #{rank}
+                                    </span>
+                                ) : null}
+                            </Trans>
+                        </div>
+                        <div className="line-height-[22px] flex items-center gap-1 text-medium">
+                            <Trans>
+                                <PriceArrow
+                                    width={16}
+                                    height={16}
+                                    className={isUp ? 'shrink-0 text-success' : 'shrink-0 rotate-180 text-fail'}
+                                />
+                                {market?.price_change_percentage_24h_in_currency !== undefined ? (
+                                    <span className={isUp ? 'text-success' : 'text-fail'}>
+                                        {market.price_change_percentage_24h_in_currency.toFixed(2)}%
+                                    </span>
+                                ) : null}
+                                <span className="text-medium text-secondary">today</span>
+                                <strong className="font-bold">${renderShrankPrice(formatPrice(price) ?? '-')}</strong>
+                            </Trans>
+                        </div>
                     </div>
-                    <div className="line-height-[22px] flex items-center gap-1 text-medium">
-                        <Trans>
-                            <PriceArrow
-                                width={16}
-                                height={16}
-                                className={isUp ? 'shrink-0 text-success' : 'shrink-0 rotate-180 text-fail'}
-                            />
-                            {market?.price_change_percentage_24h_in_currency !== undefined ? (
-                                <span className={isUp ? 'text-success' : 'text-fail'}>
-                                    {market.price_change_percentage_24h_in_currency.toFixed(2)}%
-                                </span>
-                            ) : null}
-                            <span className="text-medium text-secondary">today</span>
-                            <strong className="font-bold">${renderShrankPrice(formatPrice(price) ?? '-')}</strong>
-                        </Trans>
+                    <div
+                        className={classNames(
+                            'ml-auto max-h-[48px] min-w-[50px] max-w-[170px] overflow-auto',
+                            isPending ? 'animate-pulse' : null,
+                        )}
+                    >
+                        <svg
+                            ref={chartRef}
+                            key={address}
+                            width="100%"
+                            className="aspect-[180/48]"
+                            viewBox="0 0 180 48"
+                        />
                     </div>
                 </div>
-                <div
-                    className={classNames(
-                        'min-w-[50px] max-w-[170px] overflow-auto',
-                        isPending ? 'animate-pulse' : null,
-                    )}
-                >
-                    <svg ref={chartRef} key={address} width="100%" className="aspect-[17/8]" viewBox="0 0 170 80" />
-                </div>
-                {attributes?.address ? (
-                    <SwapButton className="ml-auto inline-flex shrink-0 grow-0 flex-row-reverse !gap-1 !px-3 !py-2" />
-                ) : null}
             </div>
 
             {openTrader && tradeInfo.tradable && attributes?.address && detected?.chain_id ? (

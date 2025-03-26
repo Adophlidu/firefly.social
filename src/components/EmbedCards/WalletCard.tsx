@@ -102,12 +102,12 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
             >
                 <Link className="flex-shrink-0 rounded-full ring-[3px] ring-primaryBottom" href={profileUrl}>
                     <AddressSocialAvatar
-                        className="size-[80px] overflow-hidden rounded-full bg-bg"
+                        className="size-12 overflow-hidden rounded-full bg-bg"
                         address={address}
-                        size={80}
+                        size={48}
                     />
                 </Link>
-                <div className="flex min-w-0 flex-col gap-2 self-start">
+                <div className="flex min-w-0 flex-col gap-1">
                     <div className="flex items-center gap-1">
                         {networkIcon && networkType ? (
                             <Image
@@ -137,21 +137,26 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                             </Link>
                         ) : null}
                     </div>
-                    <div className="flex gap-[10px]">
+                </div>
+                <div className="ml-auto flex flex-col items-end gap-1">
+                    <div className="text-right text-2xl font-bold">{`$${formatPrice(totalBalance ?? 0)}`}</div>
+                    <div className="flex gap-2">
                         {SORTED_SOCIAL_SOURCES.map((source) => {
                             const url = resolveUrl(source);
                             if (!url) return null;
                             return (
-                                <Link key={source} href={url} rel="noreferrer noopener">
+                                <Link
+                                    className="inline-flex items-center"
+                                    key={source}
+                                    href={url}
+                                    rel="noreferrer noopener"
+                                >
                                     <SocialSourceIcon key={source} source={source} size={24} />
                                 </Link>
                             );
                         })}
+                        <Tips identity={identity} pureWallet isAuthRequired={false} />
                     </div>
-                </div>
-                <div className="ml-auto mr-3 flex flex-col items-end justify-between self-stretch">
-                    <div className="text-right text-2xl font-bold">{`$${formatPrice(totalBalance ?? 0)}`}</div>
-                    <Tips identity={identity} pureWallet isAuthRequired={false} />
                 </div>
             </div>
         </>
