@@ -1235,6 +1235,7 @@ export enum NotificationPushType {
     Priority = 'priority',
     OnChainLike = 'like',
     OnChainTips = 'tips',
+    // cspell: disable-next-line
     OnChainSwap = 'limitday',
 }
 
