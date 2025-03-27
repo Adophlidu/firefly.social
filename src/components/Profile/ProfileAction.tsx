@@ -48,9 +48,9 @@ export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps 
     const button = useMemo(() => {
         if (isEditableProfile) return <EditProfileButton profile={profile} variant={isSmall ? 'text' : 'icon'} />;
         const socialThemeClassName = classNames({
-            '!bg-farcasterPrimary text-white': profile.source === Source.Farcaster,
-            '!bg-lensButton text-mainLight': profile.source === Source.Lens,
-            '!bg-bskyPrimary text-white': profile.source === Source.Bsky,
+            '!bg-farcasterPrimary !text-white': profile.source === Source.Farcaster,
+            '!bg-lensButton !text-primaryBottom': profile.source === Source.Lens,
+            '!bg-bskyPrimary !text-white': profile.source === Source.Bsky,
         });
         if (isRelatedProfile) return <ProfileLoginStatus profile={profile} className={socialThemeClassName} />;
         return (

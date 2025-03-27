@@ -28,10 +28,7 @@ export function ProfileLoginStatus({ profile, className = '' }: ProfileLoginStat
     // has other accounts connected
     if (relatedAccount) {
         return (
-            <ClickableButton
-                className={getButtonClassName('text-lightMain', className)}
-                onClick={() => switchAccount(relatedAccount)}
-            >
+            <ClickableButton className={getButtonClassName(className)} onClick={() => switchAccount(relatedAccount)}>
                 <Trans>Switch</Trans>
             </ClickableButton>
         );
@@ -40,7 +37,7 @@ export function ProfileLoginStatus({ profile, className = '' }: ProfileLoginStat
     // try login new account
     return (
         <ClickableButton
-            className={getButtonClassName('bg-main text-primaryBottom', className)}
+            className={getButtonClassName(className)}
             onClick={() =>
                 LoginModalRef.open({
                     source: profile.source,
