@@ -70,9 +70,7 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
     }
 
     const data = resolveFireflyResponseData(response);
-
     patchFarcasterSessionRequired(session, data.fid, data.farcaster_signer_private_key);
-
     return data;
 }
 
