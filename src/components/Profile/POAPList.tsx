@@ -13,6 +13,7 @@ import { Link } from '@/components/Link.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
+import { useWalletMixAddresses } from '@/components/Profile/useWalletMixAddresses.js';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -124,11 +125,11 @@ export const POAPGridListComponent = {
     Item: GridItem,
 };
 
-export function POAPList(props: { address: string }) {
-    const { address } = props;
+export function POAPList({ address }: { address: string }) {
+    const addresses = useWalletMixAddresses(address);
     const queryResult = useSuspenseInfiniteQuery({
         initialPageParam: '',
-        queryKey: ['poap-list', address],
+        queryKey: ['poap-list', addresses],
         async queryFn({ pageParam }) {
             const indicator = createIndicator(
                 pageParam
@@ -140,7 +141,7 @@ export function POAPList(props: { address: string }) {
                     : undefined,
                 pageParam,
             );
-            const response = await SimpleHashProvider.getPOAPs(address, {
+            const response = await SimpleHashProvider.getPOAPs(addresses, {
                 indicator,
                 chainId: ChainId.xDai,
                 contractAddress: POAP_CONTRACT_ADDRESS,

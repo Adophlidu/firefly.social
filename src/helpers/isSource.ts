@@ -11,8 +11,8 @@ import {
 import {
     BOOKMARK_SOURCES,
     DISCOVER_SOURCES,
+    PROFILE_PAGE_SOURCES,
     SOCIAL_DISCOVER_SOURCE,
-    SORTED_PROFILE_SOURCES,
     SORTED_SOCIAL_SOURCES,
 } from '@/constants/index.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
@@ -30,7 +30,7 @@ export function isBookmarkSource(source: string): source is BookmarkSource {
 }
 
 export function isProfilePageSource(source: string): source is ProfilePageSource {
-    return SORTED_PROFILE_SOURCES.includes(source as ProfilePageSource);
+    return PROFILE_PAGE_SOURCES.includes(source as ProfilePageSource);
 }
 
 export function isSocialSource(source?: Source): source is SocialSource {

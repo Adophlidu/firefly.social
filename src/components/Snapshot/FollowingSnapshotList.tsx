@@ -11,12 +11,12 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
-export function FollowingSnapshotList({ walletAddress }: { walletAddress?: string }) {
+export function FollowingSnapshotList({ walletAddresses }: { walletAddresses?: string[] }) {
     const account = useAccount();
     const profileIds = useCurrentProfileIds();
 
-    const queryKey = walletAddress
-        ? ['snapshots', account.address, 'snapshots-of', walletAddress, profileIds]
+    const queryKey = walletAddresses
+        ? ['snapshots', account.address, 'snapshots-of', ...walletAddresses, profileIds]
         : ['snapshots', account.address, 'following', Source.DAOs, profileIds];
 
     const queryResult = useSuspenseInfiniteQuery({
@@ -27,7 +27,7 @@ export function FollowingSnapshotList({ walletAddress }: { walletAddress?: strin
 
             return FireflySocialMediaProvider.getFollowingSnapshotActivity({
                 indicator: createIndicator(undefined, pageParam),
-                walletAddresses: walletAddress ? [walletAddress] : undefined,
+                walletAddresses,
             });
         },
         initialPageParam: '',

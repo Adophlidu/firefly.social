@@ -27,6 +27,7 @@ export function SquareSourceIcon({ source, size = 20, forceLight, ...props }: Sq
             return <LensIcon {...props} style={style} width={size} height={size} />;
         case Source.Farcaster:
             return <FarcasterIcon {...props} style={style} width={size} height={size} />;
+        case Source.WalletMix:
         case Source.Wallet:
             return !isDarkMode || forceLight ? (
                 <WalletSquareLightIcon {...props} style={style} width={size} height={size} />

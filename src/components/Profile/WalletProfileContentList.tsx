@@ -1,13 +1,13 @@
 import { safeUnreachable } from '@masknet/kit';
 import { memo } from 'react';
 
-import { FollowingNFTList } from '@/components/NFTs/FollowingNFTList.js';
-import { PolymarketTimeLine } from '@/components/Polymarket/PolymarketTimeLine.js';
 import { ArticleList } from '@/components/Profile/ArticleList.js';
 import { NFTs } from '@/components/Profile/NFTs.js';
 import { POAPList } from '@/components/Profile/POAPList.js';
-import { FollowingSnapshotList } from '@/components/Snapshot/FollowingSnapshotList.js';
-import { SwapTimeline } from '@/components/Swap/SwapTimeline.js';
+import { WalletProfileActivities } from '@/components/Profile/WalletProfileActivities.js';
+import { WalletProfilePolymarketList } from '@/components/Profile/WalletProfilePolymarketList.js';
+import { WalletProfileSnapshotList } from '@/components/Profile/WalletProfileSnapshotList.js';
+import { WalletProfileSwapTimeline } from '@/components/Profile/WalletProfileSwapTimeline.js';
 import { WalletProfileCategory } from '@/constants/enum.js';
 
 export const WalletProfileContentList = memo(function WalletProfileContentList({
@@ -25,13 +25,13 @@ export const WalletProfileContentList = memo(function WalletProfileContentList({
         case WalletProfileCategory.NFTs:
             return <NFTs address={address} />;
         case WalletProfileCategory.Activities:
-            return <FollowingNFTList walletAddress={address} />;
+            return <WalletProfileActivities address={address} />;
         case WalletProfileCategory.DAOs:
-            return <FollowingSnapshotList walletAddress={address} />;
+            return <WalletProfileSnapshotList address={address} />;
         case WalletProfileCategory.Polymarket:
-            return <PolymarketTimeLine address={address} isFollowing={false} />;
+            return <WalletProfilePolymarketList address={address} />;
         case WalletProfileCategory.Swap:
-            return <SwapTimeline address={address} isFollowing={false} />;
+            return <WalletProfileSwapTimeline address={address} />;
         default:
             safeUnreachable(type);
             return null;

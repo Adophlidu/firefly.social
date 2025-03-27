@@ -61,8 +61,11 @@ class FireflyArticle implements Provider {
         );
     }
 
-    async discoverArticlesByAddress(address: string, indicator?: PageIndicator) {
+    async discoverArticlesByAddress(address: string | string[], indicator?: PageIndicator) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/timeline/articles');
+        const limoPlatform = Array.isArray(address)
+            ? address.some((x) => isSameEthereumAddress(VITALIK_ADDRESS, x))
+            : isSameEthereumAddress(VITALIK_ADDRESS, address);
 
         const response = await fireflySessionHolder.fetch<DiscoverArticlesResponse>(url, {
             method: 'POST',
@@ -70,10 +73,9 @@ class FireflyArticle implements Provider {
                 platform: compact([
                     ArticlePlatform.Paragraph,
                     ArticlePlatform.Mirror,
-                    /* cspell:disable-next-line */
-                    isSameEthereumAddress(VITALIK_ADDRESS, address) ? ArticlePlatform.Limo : undefined,
+                    limoPlatform ? ArticlePlatform.Limo : undefined,
                 ]).join(','),
-                walletAddresses: [address],
+                walletAddresses: Array.isArray(address) ? address : [address],
                 size: 20,
                 cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
             }),

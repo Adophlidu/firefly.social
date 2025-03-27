@@ -11,7 +11,8 @@ export function parseProfileUrl(pathname: string) {
     const source = resolveSourceFromUrlNoFallback(sourceInUrl);
     if (!source) return null;
     const isSocialProfile = isSocialSource(source) && isSocialProfileCategory(source, category);
-    const isWalletProfile = source === Source.Wallet && isWalletProfileCategory(category);
+    const isWalletProfile =
+        (source === Source.Wallet || source === Source.WalletMix) && isWalletProfileCategory(category);
     const isProfileFollowPage = isSocialSource(source) && isFollowCategory(category);
     if (isSocialProfile || isWalletProfile || isProfileFollowPage) {
         return isSocialProfile || isWalletProfile || isProfileFollowPage
@@ -33,7 +34,7 @@ export function parseOldProfileUrl(url: URL) {
     if (end.length) return null;
     if (!id) return null;
 
-    if (source === Source.Wallet) {
+    if (source === Source.Wallet || source === Source.WalletMix) {
         const walletTab = url.searchParams.get('wallet_tab');
         if (!walletTab || !isWalletProfileCategory(walletTab)) return { source, id };
         return { source, id, category: walletTab };

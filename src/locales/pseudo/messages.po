@@ -1384,6 +1384,10 @@ msgstr ""
 msgid "Channel"
 msgstr ""
 
+#. placeholder {0}: formatPrice(totalBalance ?? 0)
+msgid "$ {0}"
+msgstr ""
+
 msgid "Token symbol"
 msgstr ""
 
@@ -1547,6 +1551,9 @@ msgstr ""
 msgid "Are you sure you want to remove this NFT from your bookmarks?"
 msgstr ""
 
+msgid "Net Worth"
+msgstr ""
+
 msgid "All Wallets"
 msgstr ""
 
@@ -1688,6 +1695,10 @@ msgid "Schedule Post"
 msgstr ""
 
 msgid "Searching tokens"
+msgstr ""
+
+#. placeholder {0}: remaining.length
+msgid "{0}+"
 msgstr ""
 
 msgid "Best Wishes!"

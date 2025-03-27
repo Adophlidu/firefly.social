@@ -1,7 +1,6 @@
 import urlcat from 'urlcat';
 
-import type { ProfilePageSource } from '@/constants/enum.js';
-import { Source } from '@/constants/enum.js';
+import { type ProfilePageSource, Source } from '@/constants/enum.js';
 import { SITE_DESCRIPTION, SITE_URL } from '@/constants/index.js';
 import { createMetadataWalletProfile } from '@/helpers/createMetadataWalletProfile.js';
 import { createPageTitleOG } from '@/helpers/createPageTitle.js';
@@ -12,7 +11,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 
 export async function createMetadataProfileById(source: ProfilePageSource, profileId: string) {
-    if (source === Source.Wallet) return createMetadataWalletProfile(profileId);
+    if (source === Source.Wallet || source === Source.WalletMix) return createMetadataWalletProfile(profileId);
     const profile = await runInSafeAsync(() => resolveSocialMediaProvider(source).getProfileByIdOrHandle(profileId));
 
     if (!profile) return createSiteMetadata();

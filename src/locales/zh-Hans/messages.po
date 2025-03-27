@@ -1389,6 +1389,10 @@ msgstr "和"
 msgid "Channel"
 msgstr "频道"
 
+#. placeholder {0}: formatPrice(totalBalance ?? 0)
+msgid "$ {0}"
+msgstr ""
+
 msgid "Token symbol"
 msgstr ""
 
@@ -1552,8 +1556,11 @@ msgstr "NFT 已经添加到您的收藏中"
 msgid "Are you sure you want to remove this NFT from your bookmarks?"
 msgstr "您确定要从书签中移除此 NFT 吗？"
 
+msgid "Net Worth"
+msgstr ""
+
 msgid "All Wallets"
-msgstr "所有钱包"
+msgstr ""
 
 msgid "Executed"
 msgstr "已执行"
@@ -1694,6 +1701,10 @@ msgstr "定时任务"
 
 msgid "Searching tokens"
 msgstr "搜索代币中"
+
+#. placeholder {0}: remaining.length
+msgid "{0}+"
+msgstr ""
 
 msgid "Best Wishes!"
 msgstr "最美好的祝愿！"
@@ -2730,7 +2741,7 @@ msgid "Not my wallet address."
 msgstr "不是我的钱包地址。"
 
 msgid "My Wallets"
-msgstr "我的钱包"
+msgstr ""
 
 msgid "Please switch to the wallet consistent with this action"
 msgstr "请切换到与此操作一致的钱包。"
@@ -2973,7 +2984,7 @@ msgid "Unwatch"
 msgstr "取消关注"
 
 msgid "Wallets"
-msgstr "钱包"
+msgstr ""
 
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr "来自 {walletHandle} 的文章现在将从您的首页时间线中隐藏。"

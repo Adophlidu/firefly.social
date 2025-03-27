@@ -16,7 +16,7 @@ export function ProfilePageTimeline({
     identity?: FireflyIdentity | null;
     category: ProfileCategory;
 }) {
-    if (identity?.source === Source.Wallet) {
+    if (identity?.source === Source.Wallet || identity?.source === Source.WalletMix) {
         return <WalletProfileContentList type={category as WalletProfileCategory} address={identity.id} />;
     }
     if (identity && isSocialSource(identity.source)) {

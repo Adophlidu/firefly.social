@@ -3,6 +3,7 @@
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
+import { useWalletMixAddresses } from '@/components/Profile/useWalletMixAddresses.js';
 import { getArticleItemContent } from '@/components/VirtualList/getArticleItemContent.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
@@ -14,10 +15,11 @@ interface ArticleListProps {
 }
 
 export function ArticleList({ address }: ArticleListProps) {
+    const addresses = useWalletMixAddresses(address);
     const articleQueryResult = useSuspenseInfiniteQuery({
-        queryKey: ['articles', 'profile', address],
+        queryKey: ['articles', 'profile', addresses],
         queryFn: async ({ pageParam }) => {
-            return FireflyArticleProvider.discoverArticlesByAddress(address, createIndicator(undefined, pageParam));
+            return FireflyArticleProvider.discoverArticlesByAddress(addresses, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,

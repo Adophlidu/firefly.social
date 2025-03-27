@@ -62,6 +62,7 @@ export enum Source {
     Firefly = 'Firefly',
     Article = 'Article',
     Wallet = 'Wallet',
+    WalletMix = 'Wallets',
     NFTs = 'NFTs',
     Polymarket = 'Polymarket',
     Telegram = 'Telegram',
@@ -83,6 +84,7 @@ export enum SourceInURL {
     Firefly = 'firefly',
     Article = 'article',
     Wallet = 'wallet',
+    WalletMix = 'wallets',
     NFTs = 'nfts',
     Polymarket = 'polymarket',
     Telegram = 'telegram',
@@ -142,7 +144,13 @@ export type ProfileSource =
 export type LoginSource = SocialSource | ThirdPartySource;
 export type RequestedLoginSource = Source.Twitter;
 
-export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Bsky | Source.Wallet;
+export type ProfilePageSource =
+    | Source.Farcaster
+    | Source.Lens
+    | Source.Twitter
+    | Source.Bsky
+    | Source.Wallet
+    | Source.WalletMix;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter | SourceInURL.Bsky;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens | Source.Bsky;
 export type SocialNotificationSource = Source.Farcaster | Source.Lens | Source.Bsky;

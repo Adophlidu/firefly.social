@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { FireflyAccountInfo } from '@/components/Profile/FireflyAccountInfo.js';
+import { WalletProfileProvider } from '@/components/Profile/ProfileContext.js';
 import { ProfileInfoCard } from '@/components/Profile/ProfileInfoCard.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
@@ -74,14 +75,15 @@ export default async function Layout(props: Props) {
             {!socialProfile && !walletProfile ? (
                 <SuspendedAccountFallback />
             ) : (
-                <>
+                <WalletProfileProvider profiles={profiles} identity={identity}>
                     <ProfileInfoCard
                         source={identity.source}
                         socialProfile={socialProfile}
                         walletProfile={walletProfile ?? undefined}
+                        profiles={profiles}
                     />
                     <NoSSR>{props.children}</NoSSR>
-                </>
+                </WalletProfileProvider>
             )}
         </>
     );

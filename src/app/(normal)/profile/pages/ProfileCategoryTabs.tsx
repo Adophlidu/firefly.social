@@ -8,7 +8,6 @@ import {
     NetworkType,
     type ProfilePageSource,
     SocialProfileCategory,
-    type SocialSource,
     Source,
     WalletProfileCategory,
 } from '@/constants/enum.js';
@@ -45,7 +44,7 @@ export function ProfileCategoryTabs({
     );
 
     const categories = useMemo(() => {
-        if (source === Source.Wallet) {
+        if (source === Source.Wallet || source === Source.WalletMix) {
             const addressType = getAddressType(id);
             const tabs =
                 addressType === NetworkType.Solana
@@ -80,14 +79,12 @@ export function ProfileCategoryTabs({
                 title: <Trans>Channels</Trans>,
             },
         ].filter((x) =>
-            (isCurrentProfile ? LOGIN_SORTED_PROFILE_TAB_TYPE : SORTED_PROFILE_TAB_TYPE)[
-                source as SocialSource
-            ].includes(x.type),
+            (isCurrentProfile ? LOGIN_SORTED_PROFILE_TAB_TYPE : SORTED_PROFILE_TAB_TYPE)[source].includes(x.type),
         );
     }, [id, source, tabTitles, isCurrentProfile]);
 
     return (
-        <nav className="scrollable-tab sticky top-0 z-10 -mt-[60px] flex h-[110px] gap-1.5 border-b border-lightLineSecond bg-primaryBottom px-3 pt-[60px] dark:border-line">
+        <nav className="scrollable-tab sticky top-0 z-20 -mt-[60px] flex h-[110px] gap-1.5 border-b border-lightLineSecond bg-primaryBottom px-3 pt-[60px] dark:border-line">
             {categories.map(({ type, title }) => {
                 return (
                     <div key={type} className="flex flex-col">

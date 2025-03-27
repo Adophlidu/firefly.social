@@ -7,7 +7,7 @@ import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 function getDefaultProfileCategory(source: ProfilePageSource, handle?: string, isCurrentProfile = false) {
-    if (source === Source.Wallet) {
+    if (source === Source.Wallet || source === Source.WalletMix) {
         return getAddressType(handle || '') === NetworkType.Solana
             ? WALLET_PROFILE_TAB_TYPES.solana[0]
             : WALLET_PROFILE_TAB_TYPES.ethereum[0];
@@ -28,7 +28,7 @@ function resolveProfileCategory(
     if (isFollowCategory(category)) return category;
 
     const supportedCategories: string[] =
-        source === Source.Wallet
+        source === Source.Wallet || source === Source.WalletMix
             ? getAddressType(handle || '') === NetworkType.Solana
                 ? WALLET_PROFILE_TAB_TYPES.solana
                 : WALLET_PROFILE_TAB_TYPES.ethereum

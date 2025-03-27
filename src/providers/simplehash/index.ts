@@ -282,7 +282,7 @@ class SimpleHashFactory {
         );
     }
 
-    async getPOAPs(address: string, options?: BaseHubOptions<number> & { contractAddress?: string }) {
+    async getPOAPs(address: string | string[], options?: BaseHubOptions<number> & { contractAddress?: string }) {
         const indicator = options?.indicator;
         const chain = resolveSimpleHashChain(options?.chainId || EVMChainId.Mainnet);
         if (!address || !chain) {
@@ -290,7 +290,7 @@ class SimpleHashFactory {
         }
         const path = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/owners', {
             chains: chain,
-            wallet_addresses: address,
+            wallet_addresses: Array.isArray(address) ? address.join(',') : address,
             contract_addresses: options?.contractAddress,
             cursor: typeof indicator?.index !== 'undefined' && indicator.index !== 0 ? indicator.id : undefined,
         });

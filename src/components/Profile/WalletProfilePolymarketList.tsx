@@ -5,51 +5,25 @@ import { compact } from 'lodash-es';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { PolymarketActivityItem } from '@/components/Polymarket/PolymarketActivityItem.js';
+import { getPolymarketActivityItemContent } from '@/components/Polymarket/PolymarketTimeLine.js';
+import { useWalletMixAddresses } from '@/components/Profile/useWalletMixAddresses.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { PolymarketActivity } from '@/providers/types/Firefly.js';
 
-export function getPolymarketActivityItemContent(index: number, activity: PolymarketActivity) {
-    return <PolymarketActivityItem activity={activity} />;
-}
-
-type PolymarketTimeLineProps =
-    | {
-          address: string;
-          isFollowing?: false;
-      }
-    | {
-          address?: string;
-          isFollowing: true;
-      };
-
-export function PolymarketTimeLine({ address, isFollowing }: PolymarketTimeLineProps) {
+export function WalletProfilePolymarketList({ address }: { address: string }) {
     const isLogin = useIsLogin();
+    const addresses = useWalletMixAddresses(address);
     const profileIds = useCurrentProfileIds();
-
-    const queryKey = isFollowing
-        ? ['polymarket', 'following', profileIds]
-        : ['polymarket', 'profile', address, profileIds];
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey,
+        queryKey: ['polymarket', 'profile', ...addresses, profileIds, isLogin],
         networkMode: 'always',
         queryFn: async ({ pageParam }) => {
-            if (!isLogin || (!isFollowing && !address)) return;
-            if (isFollowing) {
-                return FireflyEndpointProvider.getFollowingPolymarketTimeline(
-                    'all',
-                    createIndicator(undefined, pageParam),
-                );
-            }
-            return FireflyEndpointProvider.getProfilePolymarketTimeline(
-                address,
-                'all',
-                createIndicator(undefined, pageParam),
-            );
+            if (!isLogin) return;
+            const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
+            return FireflyEndpointProvider.getProfilePolymarketTimeline(addresses, 'all', indicator);
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
@@ -59,13 +33,12 @@ export function PolymarketTimeLine({ address, isFollowing }: PolymarketTimeLineP
     if (!isLogin) {
         return <NotLoginFallback source={Source.Polymarket} />;
     }
-
     return (
         <ListInPage
             source={Source.Wallet}
             queryResult={queryResult}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Polymarket}:${isFollowing ? 'following' : 'profile'}`,
+                listKey: `${ScrollListKey.Polymarket}:${address}`,
                 computeItemKey: (index, item) => `${item.eventSlug}-${index}`,
                 itemContent: (index, item) => getPolymarketActivityItemContent(index, item),
             }}

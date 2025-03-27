@@ -21,6 +21,7 @@ export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
         [SourceInURL.Firefly]: Source.Firefly,
         [SourceInURL.Article]: Source.Article,
         [SourceInURL.Wallet]: Source.Wallet,
+        [SourceInURL.WalletMix]: Source.WalletMix,
         [SourceInURL.NFTs]: Source.NFTs,
         [SourceInURL.DAOs]: Source.DAOs,
         [SourceInURL.Polymarket]: Source.Polymarket,

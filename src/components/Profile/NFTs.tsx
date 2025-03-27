@@ -9,6 +9,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { NFTListByCollectionId } from '@/components/CollectionDetail/NFTListByCollectionId.js';
 import { Image } from '@/components/Image.js';
 import { NFTCollectionList } from '@/components/Profile/NFTCollectionList.js';
+import { useWalletMixAddresses } from '@/components/Profile/useWalletMixAddresses.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 
@@ -18,8 +19,8 @@ interface SelectedCollection {
     collection: SimpleHash.LiteCollection;
 }
 
-export function NFTs(props: { address: string }) {
-    const { address } = props;
+export function NFTs({ address }: { address: string }) {
+    const addresses = useWalletMixAddresses(address);
     const [selectedCollection, setSelectedCollection] = useState<SelectedCollection | null>(null);
 
     return (
@@ -50,13 +51,13 @@ export function NFTs(props: { address: string }) {
                     </div>
                     <NFTListByCollectionId
                         collectionId={selectedCollection.collectionId}
-                        owner={address}
+                        owner={selectedCollection.collection.nftPreviews?.[0].owners?.[0]?.owner_address || address}
                         chainId={selectedCollection.chainId}
                     />
                 </>
             ) : (
                 <NFTCollectionList
-                    address={address}
+                    addresses={addresses}
                     onClickCollection={(chainId, collectionId, collection) => {
                         setSelectedCollection({ chainId, collectionId, collection });
                     }}

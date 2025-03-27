@@ -271,6 +271,7 @@ export class FireflyEndpoint {
                 case Source.Twitter:
                     return /^\d+$/.test(identity.id) ? 'twitterId' : 'twitterHandle';
                 case Source.Wallet:
+                case Source.WalletMix:
                     switch (getAddressType(identity.id)) {
                         case NetworkType.Ethereum:
                             return 'walletAddress';
@@ -632,7 +633,7 @@ export class FireflyEndpoint {
         return createPageable(
             data,
             indicator,
-            response.data.cursor && data.length <= 0 ? createIndicator(undefined, response.data.cursor) : undefined,
+            response.data.cursor && data.length > 0 ? createIndicator(undefined, response.data.cursor) : undefined,
         );
     }
 
@@ -852,7 +853,7 @@ export class FireflyEndpoint {
     }
 
     async getProfilePolymarketTimeline(
-        address: string,
+        address: string | string[],
         platformFollowing: SourceInURL | 'all' = 'all',
         indicator?: PageIndicator,
     ) {
@@ -862,7 +863,7 @@ export class FireflyEndpoint {
             method: 'POST',
             body: JSON.stringify({
                 platformFollowing,
-                walletAddresses: [address],
+                walletAddresses: Array.isArray(address) ? address : [address],
                 size: 25,
                 cursor: indicator?.id,
             }),
@@ -920,12 +921,12 @@ export class FireflyEndpoint {
         );
     }
 
-    async getSwapTimelineByAddress(address: string, chains: number[], indicator?: PageIndicator) {
+    async getSwapTimelineByAddress(address: string | string[], chains: number[], indicator?: PageIndicator) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/timeline/swap');
         const response = await fireflySessionHolder.fetch<SwapActivityTimeline>(url, {
             method: 'POST',
             body: JSON.stringify({
-                walletAddresses: [address],
+                walletAddresses: Array.isArray(address) ? address : [address],
                 chains: chains.length ? chains.join(',') : undefined,
                 size: 25,
                 cursor: indicator?.id,

@@ -164,7 +164,7 @@ export function FireflyAccountInfo({
                     <Avatar
                         size={80}
                         alt="firefly-account"
-                        src={avatar ?? getStampAvatarByProfileId(Source.Firefly, uid)}
+                        src={avatar ?? (uid ? getStampAvatarByProfileId(Source.Firefly, uid) : undefined)}
                     />
                     <div className="h-6 min-w-0 max-w-full truncate text-lg font-bold leading-6">
                         {displayName ?? <Trans>Firefly User</Trans>}

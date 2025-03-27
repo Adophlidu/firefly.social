@@ -53,7 +53,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
     const displayName = isMPC ? t`Firefly Wallet` : profile.primary_ens || formatAddress(profile.address, 4);
 
     return (
-        <div className="flex gap-3 p-3">
+        <div className="flex gap-3 p-4">
             <Avatar src={avatar} alt="avatar" size={40} className="size-10 rounded-full" />
             <div className="relative flex flex-1 flex-col">
                 <div className="flex flex-col gap-2">

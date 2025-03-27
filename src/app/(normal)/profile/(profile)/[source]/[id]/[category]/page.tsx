@@ -26,7 +26,7 @@ export default function Page(props: Props) {
     const { data: profile = null } = useQuery({
         queryKey: ['profile', source, params.id],
         queryFn: async () => {
-            if (source === Source.Wallet) return null;
+            if (source === Source.Wallet || source === Source.WalletMix) return null;
             const provider = resolveSocialMediaProvider(source);
             return provider.getProfileByIdOrHandle(params.id);
         },

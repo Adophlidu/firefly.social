@@ -1,5 +1,6 @@
 // cspell:disable
 
+import type { ProfilePageSource } from '@/constants/enum.js';
 import type { ActionType } from '@/types/frame.js';
 
 export enum VersionFilter {
@@ -78,6 +79,7 @@ export enum EventId {
     PROFILE_EDIT_CLICK = 'account_edit_profile_click', // ✅
     PROFILE_EDIT_SUCCESS = 'account_edit_profile_success', // ✅
     PROFILE_SUPER_FOLLOW_SUCCESS = 'profile_superfollow_success',
+    PROFILE_CHANGE_ACCOUNT_CLICK = 'profile_change_account_click',
 
     // connect wallet
     CONNECT_WALLET_SUCCESS = 'connect_wallet_success', // ✅
@@ -406,6 +408,13 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: {
             firefly_account_id: string;
+        };
+    };
+    [EventId.PROFILE_CHANGE_ACCOUNT_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            target_platform: ProfilePageSource;
+            target_id: string;
         };
     };
     [EventId.PROFILE_EDIT_SUCCESS]: {

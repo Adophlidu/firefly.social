@@ -1,9 +1,9 @@
 'use client';
 
 import { ChainId } from '@masknet/web3-shared-evm';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { compact, first } from 'lodash-es';
+import { compact, first, uniqBy } from 'lodash-es';
 import { useMemo } from 'react';
+import { isAddress as isValidAddress } from 'viem';
 
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { Link } from '@/components/Link.js';
@@ -11,14 +11,14 @@ import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { POAPGridListComponent } from '@/components/Profile/POAPList.js';
-import { FireflyPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { FireflyPlatform, NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
-import { createIndicator } from '@/helpers/pageable.js';
+import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
@@ -129,56 +129,79 @@ function getNFTItemContent(index: number, props: NFTCollectionItemProps) {
 }
 
 interface NFTCollectionListProps {
-    address: string;
+    addresses: string[];
     onClickCollection?: NFTCollectionItemProps['onClick'];
 }
 
 export function NFTCollectionList(props: NFTCollectionListProps) {
-    const { address, onClickCollection } = props;
-    const queryResult = useSuspenseInfiniteQuery({
-        initialPageParam: '',
-        queryKey: ['nft-collection-list', address],
-        async queryFn({ pageParam }) {
-            const indicator = createIndicator(undefined, pageParam);
-            const params = { walletAddress: address, indicator };
-            const response = isValidSolanaAddress(address)
-                ? await SimpleHashProvider.getWalletNFTCollectionsWithNFTs(params, 'solana')
-                : await FireflyEndpointProvider.getWalletsNFTCollections(params);
+    const { addresses, onClickCollection } = props;
+    const addressesWithType = useMemo(
+        () =>
+            [
+                {
+                    type: NetworkType.Ethereum,
+                    addresses: addresses.filter((x) => isValidAddress(x)),
+                },
+                {
+                    type: NetworkType.Solana,
+                    addresses: addresses.filter((x) => isValidSolanaAddress(x)),
+                },
+            ].filter((x) => x.addresses.length),
+        [addresses],
+    );
 
-            const nftIds = compact(response.data.map((item) => first(item.nftPreviews)?.nft_id));
-            const bookmarkData = nftIds.length
-                ? await runInSafeAsync(() => FireflySocialMediaProvider.getBookmarksByIds(FireflyPlatform.NFTs, nftIds))
-                : [];
-            response.data = response.data.map((item) => ({
-                ...item,
-                nftPreviews: item.nftPreviews?.map((preview) => ({
-                    ...preview,
-                    hasBookmarked: bookmarkData?.some(
-                        (bookmark) =>
-                            bookmark.post_id.toLowerCase() === preview.nft_id.toLowerCase() &&
-                            !!bookmark.has_book_marked,
-                    ),
-                })),
-            }));
+    const queryResult = useMultiInfiniteQueryPageable(
+        ['nft-collection-list', addressesWithType],
+        addressesWithType.map(({ type, addresses }) => ({
+            key: type,
+            async queryFn({ pageParam }) {
+                const indicator = createIndicator(undefined, pageParam);
+                const params = { walletAddress: addresses.join(','), indicator };
+                const response =
+                    type === NetworkType.Solana
+                        ? await SimpleHashProvider.getWalletNFTCollectionsWithNFTs(params, 'solana')
+                        : await FireflyEndpointProvider.getWalletsNFTCollections(params);
 
-            return {
-                ...response,
-                data: response.data.flatMap((item) => {
-                    if (item.nftPreviews && item.nftPreviews.length <= 3) {
-                        return item.nftPreviews.map((preview) => {
-                            return {
-                                ...item,
-                                nftPreviews: [preview],
-                            };
-                        });
-                    }
-                    return item;
-                }),
-            };
-        },
-        getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((page) => page.data ?? EMPTY_LIST),
-    });
+                const nftIds = compact(response.data.map((item) => first(item.nftPreviews)?.nft_id));
+                const bookmarkData = nftIds.length
+                    ? await runInSafeAsync(() =>
+                          FireflySocialMediaProvider.getBookmarksByIds(FireflyPlatform.NFTs, nftIds),
+                      )
+                    : [];
+                response.data = response.data.map((item) => ({
+                    ...item,
+                    nftPreviews: item.nftPreviews?.map((preview) => ({
+                        ...preview,
+                        hasBookmarked: bookmarkData?.some(
+                            (bookmark) =>
+                                bookmark.post_id.toLowerCase() === preview.nft_id.toLowerCase() &&
+                                !!bookmark.has_book_marked,
+                        ),
+                    })),
+                }));
+
+                return {
+                    ...response,
+                    data: response.data.flatMap((item) => {
+                        if (item.nftPreviews && item.nftPreviews.length <= 3) {
+                            return item.nftPreviews.map((preview) => {
+                                return {
+                                    ...item,
+                                    nftPreviews: [preview],
+                                };
+                            });
+                        }
+                        return item;
+                    }),
+                } as Pageable<SimpleHash.LiteCollection, PageIndicator>;
+            },
+        })),
+        (data) =>
+            uniqBy(
+                data.pages.flatMap((page) => page.data),
+                (x) => x.collection_id,
+            ),
+    );
 
     return (
         <GridListInPage

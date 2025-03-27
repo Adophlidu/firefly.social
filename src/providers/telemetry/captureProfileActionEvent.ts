@@ -1,4 +1,4 @@
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type ProfilePageSource, type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -67,6 +67,15 @@ export function captureEditProfileSuccessEvent(actions: Array<'change_avatar' | 
         return TelemetryProvider.captureEvent(EventId.PROFILE_EDIT_SUCCESS, {
             change_avatar: actions.includes('change_avatar'),
             change_nickname: actions.includes('change_nickname'),
+        });
+    });
+}
+
+export function captureProfileChangeAccountClick(source: ProfilePageSource, id: string) {
+    return runInSafeAsync(() => {
+        return TelemetryProvider.captureEvent(EventId.PROFILE_CHANGE_ACCOUNT_CLICK, {
+            target_platform: source,
+            target_id: id,
         });
     });
 }

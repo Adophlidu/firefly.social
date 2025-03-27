@@ -20,7 +20,7 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 import { useSwapStateStore } from '@/store/useSwapStore.js';
 
-function getSwapActivityItemContent(index: number, activity: SwapActivity) {
+export function getSwapActivityItemContent(index: number, activity: SwapActivity) {
     return <SwapActivityItem activity={activity} />;
 }
 

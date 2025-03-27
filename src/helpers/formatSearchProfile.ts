@@ -45,7 +45,7 @@ export function formatSearchProfile(
     const allProfile = compact(
         SORTED_PROFILE_SOURCES.map((source) => {
             const profile =
-                source === Source.Wallet
+                source === Source.Wallet || source === Source.WalletMix
                     ? first(identity.ens || identity.eth || identity.solana)
                     : first(identity[resolveSocialSourceInUrl(source)]);
             if (target.platform === profile?.platform) return fixProfilePlatform(target);
