@@ -95,19 +95,21 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
             if (size === 1) {
                 switch (type) {
                     case 'compose':
-                        return TelemetryProvider.captureEvent(
+                        await TelemetryProvider.captureEvent(
                             getPostEventId(type, source, post),
                             getComposeEventParameters(post, options),
                         );
+                        return;
                     case 'reply':
                     case 'quote': {
                         const parentPost = post.parentPost[source];
                         if (!parentPost) throw new Error(`Parent post is missing, source = ${source}.`);
 
-                        return TelemetryProvider.captureEvent(
+                        await TelemetryProvider.captureEvent(
                             getPostEventId(type, source, post),
                             getPostEventParameters(parentPost),
                         );
+                        return;
                     }
                     default:
                         safeUnreachable(type);
@@ -116,18 +118,19 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
 
                 // crossed post
             } else if (size > 1) {
-                await Promise.all(
-                    post.availableSources.map((x) => {
-                        return TelemetryProvider.captureEvent(
+                await Promise.allSettled(
+                    post.availableSources.map(async (x) => {
+                        await TelemetryProvider.captureEvent(
                             getPostEventId(type, x, post),
                             getComposeEventParameters(post, options),
                         );
                     }),
                 );
-                return TelemetryProvider.captureEvent(
+                await TelemetryProvider.captureEvent(
                     EventId.COMPOSE_CROSS_POST_SEND_SUCCESS,
                     getComposeEventParameters(post, options),
                 );
+                return;
             }
 
             throw new Error('Invalid post size.');

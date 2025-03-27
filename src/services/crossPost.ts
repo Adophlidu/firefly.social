@@ -280,6 +280,12 @@ export async function crossPost(
         throw new Error('Post failed to publish.');
     }
 
+    // report crossed post
+    if (!skipReportCrossedPost) {
+        reportCrossedPost(updatedCompositePost);
+        captureComposeEvent(type, updatedCompositePost);
+    }
+
     // refresh profile feed
     if (!skipRefreshFeeds) {
         try {
@@ -308,12 +314,6 @@ export async function crossPost(
         if (type === 'quote') await setQueryDataForQuote(compositePost);
     } catch (error) {
         console.error(`[cross post]: failed to set query data: ${error}`);
-    }
-
-    // report crossed post
-    if (!skipReportCrossedPost) {
-        reportCrossedPost(updatedCompositePost);
-        captureComposeEvent(type, updatedCompositePost);
     }
 
     return updatedCompositePost;
