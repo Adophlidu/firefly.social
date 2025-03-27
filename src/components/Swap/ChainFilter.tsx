@@ -9,7 +9,43 @@ import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NetworkType } from '@/constants/enum.js';
 import { useSwapStore } from '@/store/useSwapStore.js';
 
-const chains = [mainnet, optimism, bsc, polygon, arbitrum, base];
+const chainsList = [
+    {
+        id: mainnet.id,
+        networkType: NetworkType.Ethereum,
+        name: mainnet.name,
+    },
+    {
+        id: 101,
+        networkType: NetworkType.Solana,
+        name: 'Solana',
+    },
+    {
+        id: bsc.id,
+        networkType: NetworkType.Ethereum,
+        name: bsc.name,
+    },
+    {
+        id: base.id,
+        networkType: NetworkType.Ethereum,
+        name: base.name,
+    },
+    {
+        id: arbitrum.id,
+        networkType: NetworkType.Ethereum,
+        name: arbitrum.name,
+    },
+    {
+        id: optimism.id,
+        networkType: NetworkType.Ethereum,
+        name: optimism.name,
+    },
+    {
+        id: polygon.id,
+        networkType: NetworkType.Ethereum,
+        name: polygon.name,
+    },
+];
 
 export function ChainFilter() {
     const { selectedChainId, setSelectedChainId } = useSwapStore();
@@ -62,42 +98,23 @@ export function ChainFilter() {
                                         </div>
                                     </div>
                                 </MenuItem>
-                                <MenuItem key="solana">
-                                    <div
-                                        className="flex w-full cursor-pointer items-center gap-2 bg-clip-padding px-3 py-1 hover:bg-bg"
-                                        onClick={() => {
-                                            setSelectedChainId(101);
-                                            close();
-                                        }}
-                                    >
-                                        {selectedChainId === 101 ? (
-                                            <CheckIcon width={16} height={16} className="text-highlight" />
-                                        ) : (
-                                            <div className="size-4" />
-                                        )}
-                                        <div className="flex h-[22px] flex-row items-center gap-1 text-medium">
-                                            <ChainIcon chainId={101} networkType={NetworkType.Solana} size={15} />
-                                            <span>Solana</span>
-                                        </div>
-                                    </div>
-                                </MenuItem>
-                                {chains.map((chain) => (
-                                    <MenuItem key={chain.id}>
+                                {chainsList.map(({ id, name, networkType }) => (
+                                    <MenuItem key={id}>
                                         <div
                                             className="flex w-full cursor-pointer flex-row items-center gap-2 bg-clip-padding px-3 py-1 hover:bg-bg"
                                             onClick={() => {
-                                                setSelectedChainId(chain.id);
+                                                setSelectedChainId(id);
                                                 close();
                                             }}
                                         >
-                                            {selectedChainId === chain.id ? (
+                                            {selectedChainId === id ? (
                                                 <CheckIcon width={16} height={16} className="text-highlight" />
                                             ) : (
                                                 <div className="size-4" />
                                             )}
                                             <div className="flex h-[22px] flex-row items-center gap-1 text-medium">
-                                                <ChainIcon chainId={chain.id} size={15} />
-                                                <span>{chain.name}</span>
+                                                <ChainIcon chainId={id} size={15} networkType={networkType} />
+                                                <span>{name}</span>
                                             </div>
                                         </div>
                                     </MenuItem>

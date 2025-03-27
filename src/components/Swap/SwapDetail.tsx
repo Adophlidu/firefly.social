@@ -24,6 +24,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
+import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
@@ -79,7 +80,16 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                     <div className="flex flex-col">
                         <div className="flex items-center gap-x-1 text-medium">
                             <Link href={profileUrl} className="min-w-0 truncate font-bold text-lightMain">
-                                {activity.displayInfo.ensHandle || addressName}
+                                {activity.displayInfo.ensHandle ? (
+                                    <span>
+                                        {activity.displayInfo.ensHandle.split('.')[0]}
+                                        <span className="text-lightSecond">
+                                            .{activity.displayInfo.ensHandle.split('.')[1]}
+                                        </span>
+                                    </span>
+                                ) : (
+                                    addressName
+                                )}
                             </Link>
                         </div>
                         <div className="flex items-center gap-x-1 text-sm text-lightSecond">
@@ -152,7 +162,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                                             {activity.from_token.name}
                                         </span>
                                         {activity.from_token.amount_num ? (
-                                            <span>- {formatPrice(activity.from_token.amount_num)}</span>
+                                            <span>- {formatTokenAmount(activity.from_token.amount_num)}</span>
                                         ) : null}
                                     </div>
 
@@ -193,7 +203,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                                         </span>
                                         {activity.to_token.amount_num ? (
                                             <span className="text-success">
-                                                + {formatPrice(activity.to_token.amount_num)}
+                                                + {formatTokenAmount(activity.to_token.amount_num)}
                                             </span>
                                         ) : null}
                                     </div>

@@ -135,7 +135,7 @@ export const WALLET_PROFILE_TAB_TYPES: Record<NetworkType, WalletProfileCategory
         WalletProfileCategory.Articles,
         WalletProfileCategory.DAOs,
     ],
-    [NetworkType.Solana]: [WalletProfileCategory.NFTs],
+    [NetworkType.Solana]: [WalletProfileCategory.NFTs, WalletProfileCategory.Swap],
 };
 export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> = {
     [Source.Lens]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Mirrors],

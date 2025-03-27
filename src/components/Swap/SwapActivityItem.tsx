@@ -23,6 +23,7 @@ import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
+import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSwapPageUrl } from '@/helpers/resolveSwapPageUrl.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
@@ -89,7 +90,16 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                 className="min-w-0 truncate font-bold text-lightMain"
                                 onClick={stopPropagation}
                             >
-                                {activity.displayInfo.ensHandle || addressName}
+                                {activity.displayInfo.ensHandle ? (
+                                    <span>
+                                        {activity.displayInfo.ensHandle.split('.')[0]}
+                                        <span className="text-lightSecond">
+                                            .{activity.displayInfo.ensHandle.split('.')[1]}
+                                        </span>
+                                    </span>
+                                ) : (
+                                    addressName
+                                )}
                             </Link>
                             {activity.displayInfo.ensHandle ? (
                                 <Link href={profileUrl} className="ml-2" onClick={stopPropagation}>
@@ -162,7 +172,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                             {activity.from_token?.name}
                                         </span>
                                         {activity.from_token?.amount_num ? (
-                                            <span>- {formatPrice(activity.from_token?.amount_num)}</span>
+                                            <span>- {formatTokenAmount(activity.from_token?.amount_num)}</span>
                                         ) : null}
                                     </div>
 
@@ -199,7 +209,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                         </span>
                                         {activity.to_token?.amount_num ? (
                                             <span className="text-success">
-                                                + {formatPrice(activity.to_token?.amount_num)}
+                                                + {formatTokenAmount(activity.to_token?.amount_num)}
                                             </span>
                                         ) : null}
                                     </div>
