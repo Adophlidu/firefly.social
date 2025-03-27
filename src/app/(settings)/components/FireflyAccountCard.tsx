@@ -50,6 +50,7 @@ export function FireflyAccountCard() {
                                           EditFireflyProfileModalRef.open({
                                               profile: account,
                                           });
+                                          captureEditProfileClickEvent();
                                       }}
                                   >
                                       <Trans>Edit profile</Trans>
