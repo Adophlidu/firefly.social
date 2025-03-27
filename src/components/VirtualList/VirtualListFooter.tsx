@@ -10,6 +10,7 @@ export interface VirtualListFooterProps {
         fetchNextPage?: () => Promise<unknown>;
         isFetching?: boolean;
         itemsRendered: boolean;
+        isScrollable?: boolean;
     };
 }
 export const VirtualListFooter = memo<VirtualListFooterProps>(function VirtualListFooter({ context }) {
@@ -27,7 +28,10 @@ export const VirtualListFooter = memo<VirtualListFooterProps>(function VirtualLi
         },
     });
 
-    if (!context?.hasNextPage) return <VirtualListFooterBottomText />;
+    if (!context?.hasNextPage) {
+        if (!context?.isScrollable) return null;
+        return <VirtualListFooterBottomText />;
+    }
 
     if (!context.itemsRendered) return null;
 

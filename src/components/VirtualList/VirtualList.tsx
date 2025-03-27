@@ -1,8 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useId } from 'react';
 import { useWindowSize } from 'react-use';
 import { Virtuoso, type VirtuosoHandle, type VirtuosoProps } from 'react-virtuoso';
+
+import { useVirtualListScrollable } from '@/hooks/useVirtualListScrollable.js';
 
 export interface VirtualListProps<ItemData = unknown, Context = unknown> extends VirtuosoProps<ItemData, Context> {
     listKey?: string;
@@ -15,5 +17,29 @@ export function VirtualList<ItemData = unknown, Context = unknown>({
     ...rest
 }: VirtualListProps<ItemData, Context>) {
     const { height } = useWindowSize();
-    return <Virtuoso overscan={height} increaseViewportBy={height} {...rest} ref={virtuosoRef} />;
+    const listId = useId();
+    const [isScrollable, onDetectScrollable] = useVirtualListScrollable(listId);
+
+    useEffect(() => {
+        window.addEventListener('scroll', onDetectScrollable);
+        return () => {
+            window.addEventListener('scroll', onDetectScrollable);
+        };
+    }, [rest.useWindowScroll, onDetectScrollable]);
+
+    return (
+        <Virtuoso
+            overscan={height}
+            increaseViewportBy={height}
+            id={listId}
+            {...rest}
+            data-use-window-scroll={!!rest.useWindowScroll}
+            context={{ ...rest.context, isScrollable } as Context}
+            isScrolling={(isScrolling) => {
+                onDetectScrollable();
+                rest.isScrolling?.(isScrolling);
+            }}
+            ref={virtuosoRef}
+        />
+    );
 }
