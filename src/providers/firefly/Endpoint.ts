@@ -37,6 +37,7 @@ import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
 import { extractIpfsCID } from '@/helpers/isIpfsCID.js';
 import { isSameAddress, isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
@@ -110,6 +111,7 @@ import {
     type TwitterUserV2Response,
     type WalletProfile,
     type WalletProfileResponse,
+    type WalletRelationResponse,
     type WalletsFollowStatusResponse,
     type WalletsStatusResponse,
     WatchType,
@@ -288,7 +290,7 @@ export class FireflyEndpoint {
             }
         });
 
-        return FireflyEndpointProvider.getAllRelatedProfiles(
+        return FireflyEndpointProvider.getAllRelatedProfileInfo(
             {
                 [`${queryKey}`]: identity.id,
             },
@@ -376,13 +378,29 @@ export class FireflyEndpoint {
         return formatFireflyProfilesFromWalletProfiles(profiles) as FireflyProfile[];
     }
 
-    async getAllRelatedProfiles(options?: Partial<Record<PlatformIdentityKey, string>>, isAuthRequired?: boolean) {
-        // Backend does not support using bsky handle directly, so we convert it to a bsky DID for compatibility.
+    /**
+     * Backend does not support using bsky handle directly, so we convert it to a bsky DID for compatibility.
+     */
+    private async resolveRelatedProfileParams(options?: Partial<Record<PlatformIdentityKey, string>>) {
         if (options?.bskyHandle) {
             const did = await convertBskyHandleToDid(options.bskyHandle);
             if (did) options.bskyDid = did;
         }
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile', { ...options });
+        return options || {};
+    }
+
+    private async getWalletProfileWithHacked(profiles: WalletProfile[]) {
+        const walletsStatus = await this.getWalletsStatus(profiles.map((x) => x.address));
+        return profiles.map<WalletProfile>((profile) => ({
+            ...profile,
+            hacked: walletsStatus.some((x) => isSameAddress(x.address, profile.address) && x.is_hack),
+        }));
+    }
+
+    async getAllRelatedProfileInfo(options?: Partial<Record<PlatformIdentityKey, string>>, isAuthRequired?: boolean) {
+        const params = await this.resolveRelatedProfileParams(options);
+        // cspell: disable-next-line
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profileinfo', params);
         const response = await fireflySessionHolder.fetch<WalletProfileResponse>(
             url,
             {
@@ -393,18 +411,26 @@ export class FireflyEndpoint {
             },
         );
         const data = resolveFireflyResponseData(response);
+        if (data.walletProfiles.length)
+            data.walletProfiles = await this.getWalletProfileWithHacked(data.walletProfiles);
+        return data;
+    }
 
-        // patch hacked for wallet profiles
-        if (data.walletProfiles.length) {
-            const walletsStatus = await this.getWalletsStatus(data.walletProfiles.map((x) => x.address));
-            data.walletProfiles = data.walletProfiles.map<WalletProfile>((profile) => {
-                return {
-                    ...profile,
-                    hacked: walletsStatus.some((x) => isSameAddress(x.address, profile.address) && x.is_hack),
-                };
-            });
-        }
-
+    async getAllRelatedProfiles(options?: Partial<Record<PlatformIdentityKey, string>>, isAuthRequired?: boolean) {
+        const params = await this.resolveRelatedProfileParams(options);
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile', params);
+        const response = await fireflySessionHolder.fetch<WalletProfileResponse>(
+            url,
+            {
+                method: 'GET',
+            },
+            {
+                withSession: isAuthRequired,
+            },
+        );
+        const data = resolveFireflyResponseData(response);
+        if (data.walletProfiles.length)
+            data.walletProfiles = await this.getWalletProfileWithHacked(data.walletProfiles);
         return data;
     }
 
@@ -1226,6 +1252,16 @@ export class FireflyEndpoint {
                 }),
             },
         );
+    }
+
+    async getWalletRelation(walletAddress: string) {
+        const walletType = isValidSolanaAddress(walletAddress) ? 'solana' : 'evm';
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/relation', {
+            walletAddress,
+            walletType,
+        });
+        const response = await fetchJSON<WalletRelationResponse>(url);
+        return resolveFireflyResponseData(response);
     }
 }
 

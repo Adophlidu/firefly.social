@@ -3,6 +3,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
+import { useQuery } from '@tanstack/react-query';
 
 import EnsIcon from '@/assets/ens.svg';
 import MiniEnsIcon from '@/assets/ens-16.svg';
@@ -18,6 +19,7 @@ import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
 import { RelationPlatformIcon } from '@/components/RelationPlatformIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkType, Source } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
@@ -27,6 +29,7 @@ import { resolveNetworkIcon } from '@/helpers/resolveNetworkIcon.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { type Relation, type WalletProfile } from '@/providers/types/Firefly.js';
 
 interface WalletInfoProps {
@@ -52,6 +55,13 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
     const isMPC = isMPCWallet(profile);
     const displayName = isMPC ? t`Firefly Wallet` : profile.primary_ens || formatAddress(profile.address, 4);
 
+    const { data: walletRelation, isLoading: isLoadingWalletRelation } = useQuery({
+        queryKey: ['wallet-relation', profile.address],
+        async queryFn() {
+            return FireflyEndpointProvider.getWalletRelation(profile.address);
+        },
+    });
+
     return (
         <div className="flex gap-3 p-4">
             <Avatar src={avatar} alt="avatar" size={40} className="size-10 rounded-full" />
@@ -65,8 +75,12 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                         <span className="text-lg font-black leading-6 text-lightMain">{displayName}</span>
                         {networkType === NetworkType.Ethereum ? <WalletActions profile={profile} /> : null}
                     </div>
-                    <div className="flex gap-[10px]">
-                        {profile.verifiedSources.map((x) => {
+                    <div
+                        className={classNames('mr-auto flex h-6 min-w-[120px] gap-[10px]', {
+                            'animate-pulse bg-bg': isLoadingWalletRelation,
+                        })}
+                    >
+                        {walletRelation?.verifiedSources.map((x) => {
                             return (
                                 <Tooltip key={x.source} content={t`Verified by ${x.provider}`} placement="bottom">
                                     <span>

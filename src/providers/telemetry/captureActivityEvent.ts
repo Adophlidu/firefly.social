@@ -30,7 +30,7 @@ const resolveActivityLoginEventId = createLookupTableResolver<SocialSource, Even
 
 const getFireflyWalletProfile = memoizePromise(
     async function getFireflyWalletProfile() {
-        return FireflyEndpointProvider.getAllRelatedProfiles(undefined, true);
+        return FireflyEndpointProvider.getAllRelatedProfileInfo(undefined, true);
     },
     () => 'firefly-wallet-profile',
 );

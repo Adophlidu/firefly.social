@@ -481,6 +481,17 @@ export interface WalletProfile {
     isDefault?: boolean;
 }
 
+export type WalletRelationResponse = Response<{
+    address: Address;
+    wallet_type: 'evm' | 'solana';
+    verifiedSources: VerifiedSource[];
+    ens?: string[];
+    blockchain: NetworkType;
+    is_connected: boolean;
+    avatar?: string;
+    primary_ens?: string | null;
+}>;
+
 export interface LensV3Profile {
     id: string;
     ownedBy: string;
