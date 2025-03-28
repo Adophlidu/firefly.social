@@ -23,7 +23,6 @@ import { NetworkType, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { formatPrice } from '@/helpers/formatPrice.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
@@ -168,7 +167,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
 
                                     <div className="flex items-center justify-between text-lightSecond">
                                         <span className="text-xs">{activity.from_token.symbol}</span>
-                                        <span>${formatPrice(activity.from_token.amount_usd)}</span>
+                                        <span>${formatTokenUSD(activity.from_token.amount_usd)}</span>
                                     </div>
                                 </div>
                             </Link>
@@ -210,7 +209,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
 
                                     <div className="flex items-center justify-between text-lightSecond">
                                         <span className="text-xs">{activity.to_token.symbol}</span>
-                                        <span>${formatPrice(activity.to_token.amount_usd)}</span>
+                                        <span>${formatTokenUSD(activity.to_token.amount_usd)}</span>
                                     </div>
                                 </div>
                             </Link>

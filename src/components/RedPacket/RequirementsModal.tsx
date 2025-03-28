@@ -207,7 +207,7 @@ export function RequirementsModal({
                             const hasRepost = !!conditions.find(
                                 (x) => (x.key === 'quote' || x.key === 'repost') && x.value,
                             );
-                            const postId = status.payload.params.find((x) => x.platform === platform)?.postId;
+                            const postId = status.payload.params?.find((x) => x.platform === platform)?.postId;
                             const postUrl = postId ? resolvePostUrl(post.source, postId) : null;
                             let hasRepostCondition = false;
                             return conditions

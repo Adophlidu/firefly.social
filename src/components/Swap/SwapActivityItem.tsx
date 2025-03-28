@@ -22,8 +22,8 @@ import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { formatPrice } from '@/helpers/formatPrice.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
+import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSwapPageUrl } from '@/helpers/resolveSwapPageUrl.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
@@ -178,7 +178,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
 
                                     <div className="flex items-center justify-between text-lightSecond">
                                         <span className="text-xs text-lightSecond">{activity.from_token?.symbol}</span>
-                                        <span>${formatPrice(activity.from_token?.amount_usd)}</span>
+                                        <span>${formatTokenUSD(activity.from_token?.amount_usd)}</span>
                                     </div>
                                 </div>
                             </Link>
@@ -216,7 +216,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
 
                                     <div className="flex items-center justify-between text-lightSecond">
                                         <span className="text-xs text-lightSecond">{activity.to_token?.symbol}</span>
-                                        <span>${formatPrice(activity.to_token?.amount_usd)}</span>
+                                        <span>${formatTokenUSD(activity.to_token?.amount_usd)}</span>
                                     </div>
                                 </div>
                             </Link>

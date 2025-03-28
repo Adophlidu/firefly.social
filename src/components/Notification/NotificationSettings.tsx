@@ -105,7 +105,7 @@ export function NotificationSettings({ source }: { source: NotificationSource })
                 anchor="bottom end"
                 className="z-50 flex min-w-[226px] flex-col gap-2 rounded-lg bg-lightBottom p-3 py-3 text-main shadow-lightS3 dark:bg-darkBottom"
             >
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between py-1">
                     <div className="text-sm font-bold leading-[18px]">
                         <Trans>Quality filter</Trans>
                     </div>
@@ -120,7 +120,7 @@ export function NotificationSettings({ source }: { source: NotificationSource })
                         </span>
                     </Switch>
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between py-1">
                     <div className="text-sm font-bold leading-[18px]">
                         <Trans>Type filter</Trans>
                     </div>
@@ -131,7 +131,7 @@ export function NotificationSettings({ source }: { source: NotificationSource })
 
                     return (
                         <div
-                            className="flex cursor-pointer items-center justify-between"
+                            className="flex cursor-pointer items-center justify-between py-1"
                             key={index}
                             onClick={() => {
                                 const result = !checked

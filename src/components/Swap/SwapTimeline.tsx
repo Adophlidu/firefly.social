@@ -47,7 +47,7 @@ export function SwapTimeline({ isFollowing, address }: SwapTimelineProps) {
         queryKey,
         networkMode: 'always',
         queryFn: async ({ pageParam }) => {
-            if (!isLoginFirefly || (!isFollowing && !address)) return;
+            if ((isFollowing && !isLoginFirefly) || (!isFollowing && !address)) return;
 
             if (!isFollowing && address) {
                 return FireflyEndpointProvider.getSwapTimelineByAddress(
@@ -67,7 +67,7 @@ export function SwapTimeline({ isFollowing, address }: SwapTimelineProps) {
         select: (data) => compact(data.pages.flatMap((p) => p?.data)),
     });
 
-    if (!isLoginFirefly) {
+    if (!isLoginFirefly && isFollowing) {
         return <NotLoginFallback source={Source.Swap} />;
     }
 
