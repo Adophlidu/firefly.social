@@ -772,6 +772,7 @@ export class FireflyEndpoint {
             ),
             connected: formatWalletConnections(connections.wallet.connected, connections),
             related: formatWalletConnections(connections.wallet.unconnected, connections),
+            __origin__: connections,
         };
     }
 

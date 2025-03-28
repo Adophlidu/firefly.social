@@ -8,6 +8,7 @@ import type { FireflyAccountProfile } from '@/providers/types/Firefly.js';
 
 export interface EditFireflyProfileModalOpenProps {
     profile?: FireflyAccountProfile | null;
+    fallbackDisplayName?: string | null;
 }
 
 type Props = {
@@ -18,7 +19,13 @@ export function EditFireflyProfileModal({ ref }: Props) {
     const [profile, setProfile] = useState<FireflyAccountProfile | undefined>(undefined);
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
-            if (props.profile) setProfile(props.profile);
+            if (props.profile) {
+                if (!props.profile.displayName && props.fallbackDisplayName) {
+                    setProfile({ ...props.profile, displayName: props.fallbackDisplayName });
+                    return;
+                }
+                setProfile(props.profile);
+            }
         },
         onClose: () => {
             setProfile(undefined);

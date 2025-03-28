@@ -987,6 +987,9 @@ msgstr ""
 msgid "Minting Txn Hash"
 msgstr ""
 
+msgid "Enter your nickname on Firefly"
+msgstr ""
+
 msgid "Anti whale can not be modified."
 msgstr ""
 

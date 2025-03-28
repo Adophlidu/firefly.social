@@ -25,6 +25,7 @@ import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/for
 import { formatThirdPartyProfileName } from '@/helpers/formatThirdPartyProfileName.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { resolveFireflyAccountFallbackName } from '@/helpers/resolveFireflyAccountFallbackName.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
@@ -161,6 +162,7 @@ export function MainView() {
                                 onClick={() => {
                                     EditFireflyProfileModalRef.open({
                                         profile: currentProfile,
+                                        fallbackDisplayName: resolveFireflyAccountFallbackName(data),
                                     });
                                 }}
                             >

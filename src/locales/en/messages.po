@@ -982,6 +982,9 @@ msgstr "NFT bookmarks"
 msgid "Minting Txn Hash"
 msgstr "Minting Txn Hash"
 
+msgid "Enter your nickname on Firefly"
+msgstr "Enter your nickname on Firefly"
+
 msgid "Anti whale can not be modified."
 msgstr "Anti whale can not be modified."
 

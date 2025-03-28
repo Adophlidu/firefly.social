@@ -10,6 +10,7 @@ import TrashIcon from '@/assets/trash.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
+import { resolveFireflyAccountFallbackName } from '@/helpers/resolveFireflyAccountFallbackName.js';
 import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
 import { useDeleteFireflyAccount } from '@/hooks/useDeleteFireflyAccount.js';
 import { EditFireflyProfileModalRef, LogoutModalRef } from '@/modals/controls.js';
@@ -49,6 +50,7 @@ export function FireflyAccountCard() {
                                       onClick={() => {
                                           EditFireflyProfileModalRef.open({
                                               profile: account,
+                                              fallbackDisplayName: resolveFireflyAccountFallbackName(data?.__origin__),
                                           });
                                           captureEditProfileClickEvent();
                                       }}
@@ -98,6 +100,9 @@ export function FireflyAccountCard() {
                                                     close();
                                                     EditFireflyProfileModalRef.open({
                                                         profile: account,
+                                                        fallbackDisplayName: resolveFireflyAccountFallbackName(
+                                                            data?.__origin__,
+                                                        ),
                                                     });
                                                     captureEditProfileClickEvent();
                                                 }}

@@ -987,6 +987,9 @@ msgstr "NFT 收藏"
 msgid "Minting Txn Hash"
 msgstr "铸造交易哈希中"
 
+msgid "Enter your nickname on Firefly"
+msgstr ""
+
 msgid "Anti whale can not be modified."
 msgstr "反鲸鱼机制无法被修改。"
 

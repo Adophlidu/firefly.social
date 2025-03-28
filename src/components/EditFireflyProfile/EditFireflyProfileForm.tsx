@@ -83,6 +83,7 @@ export function EditFireflyProfileForm() {
                 <FormInput
                     name="displayName"
                     className="max-w-[310px] text-center"
+                    placeholder={t`Enter your nickname on Firefly`}
                     options={{
                         required: true,
                         minLength: {
