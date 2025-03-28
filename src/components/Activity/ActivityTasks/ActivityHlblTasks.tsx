@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useContext } from 'react';
 
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
@@ -95,7 +95,7 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
                 </h2>
                 <ActivityConnectCard
                     source={Source.Twitter}
-                    chainId={ChainId.Base}
+                    chainId={EthereumChainId.Base}
                     label={
                         address ? (
                             <Trans>Submit claimed address</Trans>

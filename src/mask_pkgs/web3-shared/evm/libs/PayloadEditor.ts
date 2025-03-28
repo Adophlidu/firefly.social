@@ -2,10 +2,10 @@ import { first, isUndefined, omitBy } from 'lodash-es';
 import { type Hex, hexToNumber } from 'viem';
 import type { JsonRpcPayload } from 'web3-core-helpers';
 
+import { parseEthereumChainId } from '@/helpers/parseChainId.js';
 import { createJsonRpcPayload } from '@/mask_pkgs/web3-shared/evm/helpers/createJsonRpcPayload.js';
 import { isReadonlyMethodType } from '@/mask_pkgs/web3-shared/evm/helpers/isReadonlyMethodType.js';
 import { isRiskyMethodType } from '@/mask_pkgs/web3-shared/evm/helpers/isRiskyMethodType.js';
-import { parseChainId } from '@/mask_pkgs/web3-shared/evm/helpers/parseChainId.js';
 import {
     EthereumMethodType,
     type Transaction,
@@ -68,7 +68,7 @@ export class PayloadEditor {
                 ...raw,
                 nonce: parseHexNumber(raw?.nonce),
                 from: raw?.from ?? this.options?.account,
-                chainId: parseChainId(raw?.chainId) ?? this.options?.chainId,
+                chainId: parseEthereumChainId(raw?.chainId) ?? this.options?.chainId,
             },
             isUndefined,
         );

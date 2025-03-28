@@ -1,6 +1,6 @@
 'use client';
 
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { GridListInPage } from '@/components/GridListInPage.js';
@@ -9,7 +9,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 
-export function NFTListByCollectionId(props: { collectionId: string; owner: string; chainId?: ChainId }) {
+export function NFTListByCollectionId(props: { collectionId: string; owner: string; chainId?: EthereumChainId }) {
     const { collectionId, owner, chainId } = props;
     const queryResult = useSuspenseInfiniteQuery({
         initialPageParam: '',

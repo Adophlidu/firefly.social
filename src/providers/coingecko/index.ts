@@ -1,9 +1,5 @@
-import { ChainId, getCoinGeckoConstants, isNativeTokenAddress } from '@masknet/web3-shared-evm';
-import {
-    getCoinGeckoConstants as getCoinGeckoConstantsSolana,
-    isNativeTokenAddress as isNativeTokenAddressSolana,
-    isValidChainId as isValidSolanaChainId,
-} from '@masknet/web3-shared-solana';
+import { EthereumChainId, getCoinGeckoConstants } from '@masknet/web3-shared-evm';
+import { getCoinGeckoConstants as getCoinGeckoConstantsSolana } from '@masknet/web3-shared-solana';
 import { produce } from 'immer';
 import { uniq, uniqBy } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -13,7 +9,9 @@ import { COINGECKO_ROOT_URL, CORS_HOST, DSEARCH_BASE_URL } from '@/constants/ind
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCommunityLink } from '@/helpers/getCommunityLink.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
+import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
+import { isZeroAddressEthereum, isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
 import type {
     CoinGeckoAsset,
@@ -78,18 +76,16 @@ export class CoinGecko {
     }
 
     static getFungibleTokenPrice(chainId: number, address: string) {
-        const isSolana = isValidSolanaChainId(chainId);
+        const isSolana = isValidChainIdSolana(chainId);
         const { PLATFORM_ID = '', COIN_ID = '' } = isSolana
             ? getCoinGeckoConstantsSolana(chainId)
             : getCoinGeckoConstants(chainId);
 
         const isNative = isSolana
-            ? isNativeTokenAddressSolana(address)
-            : isNativeTokenAddress(address) || !isValidEthereumAddress(address);
-        if (isNative) {
-            return CoinGecko.getTokenPrice(COIN_ID);
-        }
-        return CoinGecko.getTokenPriceByAddress(PLATFORM_ID, address);
+            ? isZeroAddressSolana(address)
+            : isZeroAddressEthereum(address) || !isValidAddressEthereum(address);
+
+        return isNative ? CoinGecko.getTokenPrice(COIN_ID) : CoinGecko.getTokenPriceByAddress(PLATFORM_ID, address);
     }
 
     static async getTokenPriceByAddress(platform_id: string, address: string) {
@@ -286,14 +282,14 @@ export class CoinGecko {
     }
 
     static getChainIdByCoinId(coinId: string) {
-        const CoinIdToChainId: Record<string, ChainId> = {
-            ethereum: ChainId.Mainnet,
-            'polygon-ecosystem-token': ChainId.Polygon,
-            binancecoin: ChainId.BSC,
-            fantom: ChainId.Fantom,
-            arbitrum: ChainId.Arbitrum,
-            scroll: ChainId.Scroll,
-            'avalanche-2': ChainId.Avalanche,
+        const CoinIdToChainId: Record<string, EthereumChainId> = {
+            ethereum: EthereumChainId.Mainnet,
+            'polygon-ecosystem-token': EthereumChainId.Polygon,
+            binancecoin: EthereumChainId.BSC,
+            fantom: EthereumChainId.Fantom,
+            arbitrum: EthereumChainId.Arbitrum,
+            scroll: EthereumChainId.Scroll,
+            'avalanche-2': EthereumChainId.Avalanche,
         };
         return CoinIdToChainId[coinId];
     }

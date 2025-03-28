@@ -1,4 +1,4 @@
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { uniqBy } from 'lodash-es';
 import { parseEther } from 'viem';
 
@@ -9,7 +9,7 @@ import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
 export function getSingleNFTFeedItemContent(
     index: number,
     feed: NFTFeed,
-    chainId: ChainId,
+    chainId: EthereumChainId,
     {
         listKey,
     }: {
@@ -56,7 +56,7 @@ export function getSingleFollowingNFTItemContent(
         listKey?: string;
     } = {},
 ) {
-    const chainId = resolveSimpleHashChainId(nft.network) ?? ChainId.Mainnet;
+    const chainId = resolveSimpleHashChainId(nft.network) ?? EthereumChainId.Mainnet;
     const ownerAddress = nft.owner || nft.followingSources?.[0]?.walletAddress || '';
     return (
         <SingleNFTFeed

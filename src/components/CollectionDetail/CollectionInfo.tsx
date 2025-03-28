@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { CollectionMore } from '@/components/Actions/CollectionMore.js';
@@ -24,7 +24,7 @@ interface CollectionInfoProps {
     bannerImageUrl?: string;
     imageUrl: string;
     name: string;
-    chainId?: ChainId;
+    chainId?: EthereumChainId;
     collectionId?: string;
     externalUrl?: string;
 }
@@ -39,7 +39,7 @@ export function CollectionInfo(props: CollectionInfoProps) {
         ownerCount,
         volume24h,
         floorPrice,
-        chainId = ChainId.Mainnet,
+        chainId = EthereumChainId.Mainnet,
         collectionId,
         externalUrl,
     } = props;

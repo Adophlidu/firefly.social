@@ -26,11 +26,11 @@ export function BackButton({ size = 24, tooltip = t`Back`, ref, ...rest }: BackB
         </ClickableButton>
     );
 
-    return isMedium ? (
+    if (!isMedium) return button;
+
+    return (
         <Tooltip content={tooltip} placement="top">
             {button}
         </Tooltip>
-    ) : (
-        button
     );
 }

@@ -30,7 +30,7 @@ import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { SnapshotState, SourceInURL } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
@@ -250,7 +250,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                         >
                             <Trans>
                                 <strong>{space.name}</strong> by{' '}
-                                <strong>{ensHandle.data || formatEthereumAddress(snapshot.author, 4)}</strong>
+                                <strong>{ensHandle.data || formatAddressEthereum(snapshot.author, 4)}</strong>
                             </Trans>
                         </Link>
                     </div>
@@ -272,7 +272,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                                 >
                                     <Trans>
                                         <strong>{space.name}</strong> by{' '}
-                                        <strong>{ensHandle.data || formatEthereumAddress(snapshot.author, 4)}</strong>
+                                        <strong>{ensHandle.data || formatAddressEthereum(snapshot.author, 4)}</strong>
                                     </Trans>
                                 </Link>
                             </div>

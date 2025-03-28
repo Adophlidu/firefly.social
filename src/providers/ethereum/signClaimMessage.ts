@@ -1,4 +1,5 @@
-import { signMessage } from '@masknet/web3-shared-evm';
+import type { Hex } from 'viem';
+import { signMessage } from 'viem/accounts';
 
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
 import type { ClaimRedPacketContext } from '@/providers/ethereum/RedPacket.js';
@@ -13,7 +14,11 @@ export async function signClaimMessage(context: ClaimRedPacketContext) {
     const version = payload.contract_version;
 
     if (version <= 3) return password as string;
-    if (password) return signMessage(account, password as string).signature;
+    if (password)
+        return signMessage({
+            message: account,
+            privateKey: password as Hex,
+        });
 
     const me = await getCurrentClaimProfile(context.source);
     if (!me) return;

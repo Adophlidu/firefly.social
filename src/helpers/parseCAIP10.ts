@@ -1,6 +1,6 @@
 import { getEnumAsArray } from '@masknet/kit';
 
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { ChainId } from '@/types/frame.js';
 
 export function parseCAIP10(caip10: string) {
@@ -14,7 +14,7 @@ export function parseCAIP10(caip10: string) {
     if (!getEnumAsArray(ChainId).find((x) => x.value === chainIdParsed))
         throw new Error(`Unsupported chain ID: ${chainId}`);
 
-    const addressParsed = isValidEthereumAddress(address) ? address : undefined;
+    const addressParsed = isValidAddressEthereum(address) ? address : undefined;
 
     return {
         chainId: chainIdParsed,

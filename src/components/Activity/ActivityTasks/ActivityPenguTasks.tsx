@@ -1,8 +1,8 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { ChainId } from '@masknet/web3-shared-evm';
-import { ChainId as SolChainId } from '@masknet/web3-shared-solana';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
+import { SolanaChainId as SolChainId } from '@masknet/web3-shared-solana';
 import { useCallback, useContext, useState } from 'react';
 
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
@@ -49,14 +49,14 @@ export function ActivityPenguTasks({
                     <Trans>
                         You are holder of{' '}
                         <Link
-                            href={resolveNFTUrl(ChainId.Mainnet, PUDGY_PENGUINS_NFT_ADDRESS)}
+                            href={resolveNFTUrl(EthereumChainId.Mainnet, PUDGY_PENGUINS_NFT_ADDRESS)}
                             className="inline text-highlight"
                         >
                             Pudgy Penguins
                         </Link>{' '}
                         or{' '}
                         <Link
-                            href={resolveNFTUrl(ChainId.Mainnet, LIL_PUDGY_NFT_ADDRESS)}
+                            href={resolveNFTUrl(EthereumChainId.Mainnet, LIL_PUDGY_NFT_ADDRESS)}
                             className="inline text-highlight"
                         >
                             Lil Pudgy
@@ -73,14 +73,14 @@ export function ActivityPenguTasks({
                     <Trans>
                         You are holder of{' '}
                         <Link
-                            href={resolveNFTUrl(ChainId.Mainnet, TRUE_PENGU_NFT_ADDRESS)}
+                            href={resolveNFTUrl(EthereumChainId.Mainnet, TRUE_PENGU_NFT_ADDRESS)}
                             className="inline text-highlight"
                         >
                             truePengu
                         </Link>{' '}
                         or{' '}
                         <Link
-                            href={resolveNFTUrl(ChainId.Mainnet, PENGU_PINS_NFT_ADDRESS)}
+                            href={resolveNFTUrl(EthereumChainId.Mainnet, PENGU_PINS_NFT_ADDRESS)}
                             className="inline text-highlight"
                         >
                             penguPins
@@ -150,14 +150,14 @@ Submit here ${shareUrl}
                             <Trans>
                                 You are holder of{' '}
                                 <Link
-                                    href={resolveNFTUrl(ChainId.Mainnet, PUDGY_PENGUINS_NFT_ADDRESS)}
+                                    href={resolveNFTUrl(EthereumChainId.Mainnet, PUDGY_PENGUINS_NFT_ADDRESS)}
                                     className="inline text-highlight"
                                 >
                                     Pudgy Penguins
                                 </Link>{' '}
                                 or{' '}
                                 <Link
-                                    href={resolveNFTUrl(ChainId.Mainnet, LIL_PUDGY_NFT_ADDRESS)}
+                                    href={resolveNFTUrl(EthereumChainId.Mainnet, LIL_PUDGY_NFT_ADDRESS)}
                                     className="inline text-highlight"
                                 >
                                     Lil Pudgy
@@ -174,14 +174,14 @@ Submit here ${shareUrl}
                             <Trans>
                                 You are holder of{' '}
                                 <Link
-                                    href={resolveNFTUrl(ChainId.Mainnet, TRUE_PENGU_NFT_ADDRESS)}
+                                    href={resolveNFTUrl(EthereumChainId.Mainnet, TRUE_PENGU_NFT_ADDRESS)}
                                     className="inline text-highlight"
                                 >
                                     truePengu
                                 </Link>{' '}
                                 or{' '}
                                 <Link
-                                    href={resolveNFTUrl(ChainId.Mainnet, PENGU_PINS_NFT_ADDRESS)}
+                                    href={resolveNFTUrl(EthereumChainId.Mainnet, PENGU_PINS_NFT_ADDRESS)}
                                     className="inline text-highlight"
                                 >
                                     penguPins
@@ -241,7 +241,7 @@ Submit here ${shareUrl}
                     <Trans>Eligible for Premium Collectible?</Trans>
                 </h2>
                 <ActivityPremiumAddressVerifyCard
-                    chainId={ChainId.Mainnet}
+                    chainId={EthereumChainId.Mainnet}
                     source={Source.Twitter}
                     label={
                         premiumAddress ? <Trans>Wallet submitted</Trans> : <Trans>Submit an evm wallet to check</Trans>

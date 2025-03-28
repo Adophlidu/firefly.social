@@ -1,7 +1,7 @@
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 
 import { EMPTY_LIST } from '@/constants/index.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -10,14 +10,13 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { NFTScanProvider } from '@/providers/nft-scan/index.js';
 
 const SEARCH_CHAIN_ID_LIST = [
-    ChainId.Mainnet,
-    ChainId.BSC,
-    ChainId.Base,
-    ChainId.Polygon,
-    ChainId.Optimism,
-    ChainId.Arbitrum,
-    ChainId.Linea,
-    ChainId.Zora,
+    EthereumChainId.Mainnet,
+    EthereumChainId.BSC,
+    EthereumChainId.Base,
+    EthereumChainId.Polygon,
+    EthereumChainId.Optimism,
+    EthereumChainId.Arbitrum,
+    EthereumChainId.Zora,
 ];
 
 const searchCollectionByAddress = memoizePromise(
@@ -41,7 +40,7 @@ const searchCollectionByAddress = memoizePromise(
 export async function searchCollections(keyword: string) {
     const formatted = trimify(keyword).toLowerCase();
 
-    if (isValidEthereumAddress(formatted)) {
+    if (isValidAddressEthereum(formatted)) {
         const collection = await runInSafeAsync(() => searchCollectionByAddress(formatted));
         return createPageable(collection ? [collection] : EMPTY_LIST, createIndicator());
     } else {

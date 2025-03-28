@@ -1,5 +1,4 @@
 import { t } from '@lingui/core/macro';
-import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
 import { useContext } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -9,6 +8,7 @@ import { useActivityConnections } from '@/components/Activity/hooks/useActivityC
 import type { SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
+import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { AddWalletModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
@@ -23,7 +23,7 @@ export function useActivityBindAddress(source: SocialSource | SocialSource[], ch
         if (fireflyBridgeProvider.supported) {
             await runInSafeAsync(async () => {
                 const address = await fireflyBridgeProvider.request(SupportedMethod.BIND_WALLET, {
-                    type: isValidSolanaChainId(chainId) ? Network.Solana : Network.EVM,
+                    type: isValidChainIdSolana(chainId) ? Network.Solana : Network.EVM,
                 });
                 onChangeAddress(address);
                 captureActivityConnectWalletEvent(address);

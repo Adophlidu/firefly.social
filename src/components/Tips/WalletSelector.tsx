@@ -6,7 +6,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { AddressLink } from '@/components/Tips/AddressLink.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
@@ -52,7 +52,7 @@ const WalletSelector = memo<{ onSelected: () => void }>(function WalletSelector(
                             >
                                 <span className="max-w-[calc(100%_-_24px)] truncate">
                                     {walletProfile?.primary_ens
-                                        ? `${walletProfile.primary_ens}(${formatEthereumAddress(recipient.address, 4)})`
+                                        ? `${walletProfile.primary_ens}(${formatAddressEthereum(recipient.address, 4)})`
                                         : recipient.displayName}
                                 </span>
                                 <AddressLink address={recipient.address} networkType={recipient.networkType} />

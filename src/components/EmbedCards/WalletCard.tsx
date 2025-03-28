@@ -1,7 +1,7 @@
 import { t } from '@lingui/core/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { ChainId } from '@masknet/web3-shared-evm';
-import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
+import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
 
@@ -64,7 +64,7 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
         if (!networkType) return null;
         switch (networkType) {
             case NetworkType.Ethereum:
-                return BlockScanExplorerResolver.addressLink(ChainId.Mainnet, address);
+                return BlockScanExplorerResolver.addressLink(EthereumChainId.Mainnet, address);
             case NetworkType.Solana:
                 return SolanaExplorerResolver.addressLink(SolanaChainId.Mainnet, address);
             default:

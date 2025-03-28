@@ -1,9 +1,9 @@
-import { isNativeTokenAddress } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { readContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
+import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
 import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
 
 export function useERC20TokenAllowance(
@@ -13,7 +13,7 @@ export function useERC20TokenAllowance(
     enabled = true,
 ) {
     const { account, chainId } = useChainContext(overrides);
-    const isNativeToken = isNativeTokenAddress(address);
+    const isNativeToken = isZeroAddressEthereum(address);
 
     return useQuery({
         enabled: !isNativeToken && enabled,

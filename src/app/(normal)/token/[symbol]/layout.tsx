@@ -3,7 +3,7 @@ import type { PropsWithChildren } from 'react';
 import { Comeback } from '@/components/Comeback.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getTokenFromCoinGecko } from '@/services/getTokenFromCoinGecko.js';
 import { searchTokenByAddress } from '@/services/searchTokenByAddress.js';
@@ -19,7 +19,7 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
     const { children } = props;
     const paramSymbol = decodeURIComponent(params.symbol);
     let symbol = paramSymbol;
-    if (isValidEthereumAddress(paramSymbol)) {
+    if (isValidAddressEthereum(paramSymbol)) {
         const token = await searchTokenByAddress(paramSymbol);
         if (token) {
             symbol = token.attributes.symbol;

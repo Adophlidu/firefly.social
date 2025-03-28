@@ -1,8 +1,8 @@
-import { type SourceType } from '@masknet/web3-shared-base';
-import { type SchemaType } from '@masknet/web3-shared-evm';
+import { type EthereumSchemaType } from '@masknet/web3-shared-evm';
 
 import { CurrencyType, type NetworkPluginID } from '@/constants/enum.js';
 import type { PageIndicator } from '@/helpers/pageable.js';
+import type { SourceType } from '@/mask_pkgs/web3-shared/base/index.js';
 
 export interface BaseHubOptions<ChainId, Indicator = PageIndicator> {
     /** The user account as the API parameter */
@@ -14,7 +14,7 @@ export interface BaseHubOptions<ChainId, Indicator = PageIndicator> {
     /** The id of data provider */
     sourceType?: SourceType;
     /** The schema type of filtered data */
-    schemaType?: SchemaType;
+    schemaType?: EthereumSchemaType;
     /** The currency type of data */
     currencyType?: CurrencyType;
     /** The item size of each page. */

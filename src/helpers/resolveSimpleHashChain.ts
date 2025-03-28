@@ -1,23 +1,22 @@
 /* cspell:disable */
 
-import { ChainId } from '@masknet/web3-shared-evm';
-import { ChainId as SolanaChainId, isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
+import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { first, memoize } from 'lodash-es';
 
+import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
+
 const EVM_CHAIN: Record<number, string> = {
-    [ChainId.Mainnet]: 'ethereum',
-    [ChainId.Base]: 'base',
-    [ChainId.BSC]: 'bsc',
-    [ChainId.Polygon]: 'polygon',
-    [ChainId.Arbitrum]: 'arbitrum',
-    [ChainId.Optimism]: 'optimism',
-    [ChainId.Avalanche]: 'avalanche',
-    [ChainId.xDai]: 'gnosis',
-    [ChainId.Scroll]: 'scroll',
-    [ChainId.Celo]: 'celo',
-    [ChainId.Zora]: 'zora',
-    [ChainId.ZkSyncEra]: 'zksync-era',
-    [ChainId.Linea]: 'linea',
+    [EthereumChainId.Mainnet]: 'ethereum',
+    [EthereumChainId.Base]: 'base',
+    [EthereumChainId.BSC]: 'bsc',
+    [EthereumChainId.Polygon]: 'polygon',
+    [EthereumChainId.Arbitrum]: 'arbitrum',
+    [EthereumChainId.Optimism]: 'optimism',
+    [EthereumChainId.Avalanche]: 'avalanche',
+    [EthereumChainId.xDai]: 'gnosis',
+    [EthereumChainId.Scroll]: 'scroll',
+    [EthereumChainId.Zora]: 'zora',
 };
 
 const SOLANA_CHAIN: Record<number, string> = {
@@ -29,7 +28,7 @@ const EVM_CHAIN_ALIAS: Record<string, string> = {
 };
 
 export function resolveSimpleHashChain(chain: number) {
-    return isValidSolanaChainId(chain) ? SOLANA_CHAIN[chain] : EVM_CHAIN[chain];
+    return isValidChainIdSolana(chain) ? SOLANA_CHAIN[chain] : EVM_CHAIN[chain];
 }
 
 function resolveInnerChainId<T extends number>(
@@ -44,7 +43,7 @@ function resolveInnerChainId<T extends number>(
 export const resolveSimpleHashChainId: (chainId: string) => number | undefined = memoize(function resolveChainId(
     chain: string,
 ): number | undefined {
-    const evmChainId = resolveInnerChainId<ChainId>(EVM_CHAIN, chain, EVM_CHAIN_ALIAS);
+    const evmChainId = resolveInnerChainId<EthereumChainId>(EVM_CHAIN, chain, EVM_CHAIN_ALIAS);
     if (evmChainId) return evmChainId;
 
     return resolveInnerChainId<SolanaChainId>(SOLANA_CHAIN, chain);

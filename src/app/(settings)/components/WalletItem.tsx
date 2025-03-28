@@ -14,7 +14,7 @@ import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { WalletSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatEthereumAddress, formatSolanaAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum, formatAddressSolana } from '@/helpers/formatAddress.js';
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
@@ -84,9 +84,9 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
                 >
                     <span className="flex items-center truncate">
                         {connection.platform === 'eth'
-                            ? formatEthereumAddress(connection.address, 8)
+                            ? formatAddressEthereum(connection.address, 8)
                             : connection.platform === 'solana'
-                              ? formatSolanaAddress(connection.address, 8)
+                              ? formatAddressSolana(connection.address, 8)
                               : connection.address}
                     </span>
                     <CopyTextButton text={connection.address} />

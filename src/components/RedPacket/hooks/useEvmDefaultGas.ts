@@ -1,4 +1,4 @@
-import { getRedPacketConstant, getTokenConstant, SchemaType } from '@masknet/web3-shared-evm';
+import { EthereumSchemaType, getRedPacketConstant, getTokenConstant } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { type Address } from 'viem';
@@ -26,13 +26,13 @@ export function useEvmDefaultGas(context: CreateRedPacketContext, enabled = true
             if (!token) return ZERO;
 
             const NATIVE_TOKEN_ADDRESS = getTokenConstant(chainId, 'NATIVE_TOKEN_ADDRESS');
-            const tokenAddress = token.schema === SchemaType.Native ? NATIVE_TOKEN_ADDRESS : token.address;
+            const tokenAddress = token.schema === EthereumSchemaType.Native ? NATIVE_TOKEN_ADDRESS : token.address;
             if (!tokenAddress) return ZERO;
 
             const params = await RedPacketProvider.createRedPacketParams(context);
             if (!params) return ZERO;
 
-            const value = toFixed(params.params.token?.schema === SchemaType.Native ? total : 0);
+            const value = toFixed(params.params.token?.schema === EthereumSchemaType.Native ? total : 0);
             const client = createWagmiPublicClient(chainId);
             const result = await runInSafeAsync(async () => {
                 return client.estimateContractGas({

@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { uniq } from 'lodash-es';
 import type { Address } from 'viem';
@@ -16,7 +16,7 @@ import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
@@ -62,7 +62,7 @@ export function Attendees({ eventId }: AttendeesProps) {
 }
 
 function AttendeesItem({ ownerAddress }: { ownerAddress: Address }) {
-    const { data: ensName } = useEnsName({ address: ownerAddress, chainId: ChainId.Mainnet });
+    const { data: ensName } = useEnsName({ address: ownerAddress, chainId: EthereumChainId.Mainnet });
     const addressOrEns = ensName ? ensName : ownerAddress;
 
     return (
@@ -85,7 +85,7 @@ function AttendeesItem({ ownerAddress }: { ownerAddress: Address }) {
                         </TextOverflowTooltip>
                     ) : (
                         <Tooltip content={addressOrEns} placement="top">
-                            <span>{formatEthereumAddress(ownerAddress, 4)}</span>
+                            <span>{formatAddressEthereum(ownerAddress, 4)}</span>
                         </Tooltip>
                     )}
                     <LinkIcon width={14} height={14} className="shrink-0 text-secondary" />

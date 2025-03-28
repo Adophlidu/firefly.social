@@ -8,7 +8,7 @@ import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { Source } from '@/constants/enum.js';
 import { TIPS_SUPPORT_NETWORKS } from '@/constants/index.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -46,7 +46,7 @@ function formatTipsProfiles(profiles: FireflyProfile[]) {
             const { address, primary_ens, blockchain } = profile.__origin__ as WalletProfile;
             return {
                 ...profile,
-                displayName: primary_ens || formatEthereumAddress(address, 8),
+                displayName: primary_ens || formatAddressEthereum(address, 8),
                 address,
                 networkType: blockchain,
             };
@@ -57,7 +57,7 @@ function formatTipsProfiles(profiles: FireflyProfile[]) {
 function formatWalletHandle(profiles: TipsProfile[], address: string) {
     const profile = profiles.find((profile) => isSameEthereumAddress(profile.address, address))
         ?.__origin__ as WalletProfile;
-    return profile?.primary_ens ?? formatEthereumAddress(address, 4);
+    return profile?.primary_ens ?? formatAddressEthereum(address, 4);
 }
 
 type Props = {

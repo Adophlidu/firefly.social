@@ -1,8 +1,8 @@
-import type { NetworkDescriptor } from '@masknet/web3-shared-base';
 import type * as EVM from '@masknet/web3-shared-evm';
 import type * as Solana from '@masknet/web3-shared-solana';
 
 import type { NetworkPluginID } from '@/constants/enum.js';
+import type { NetworkDescriptor } from '@/mask_pkgs/web3-shared/base/index.js';
 
 export declare namespace Web3Helper {
     export interface Definition {

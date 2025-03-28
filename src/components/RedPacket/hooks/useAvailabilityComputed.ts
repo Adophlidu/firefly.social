@@ -1,6 +1,6 @@
 import { unreachable } from '@masknet/kit';
-import { ChainId, NetworkType as EVMNetworkType } from '@masknet/web3-shared-evm';
-import { ChainId as SolanaChainId, NetworkType as SolanaNetworkType } from '@masknet/web3-shared-solana';
+import { EthereumChainId, EthereumNetworkType } from '@masknet/web3-shared-evm';
+import { SolanaChainId, SolanaNetworkType } from '@masknet/web3-shared-solana';
 
 import { useEVMAvailabilityComputed } from '@/components/RedPacket/hooks/useEVMAvailabilityComputed.js';
 import { useSolanaAvailabilityComputed } from '@/components/RedPacket/hooks/useSolanaAvailabilityComputed.js';
@@ -20,8 +20,10 @@ export function useAvailabilityComputed(payload: RedPacketJSONPayload, post: Pos
 
     const evmChainId =
         payloadChainId ??
-        (payload.network ? EVMNetworkResolver.networkChainId(payload.network as EVMNetworkType) : ChainId.Mainnet) ??
-        ChainId.Mainnet;
+        (payload.network
+            ? EVMNetworkResolver.networkChainId(payload.network as EthereumNetworkType)
+            : EthereumChainId.Mainnet) ??
+        EthereumChainId.Mainnet;
     const solanaChainId =
         payloadChainId ??
         (payload.network

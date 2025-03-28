@@ -2,9 +2,9 @@ import { BigNumber } from 'bignumber.js';
 import { identity, memoize, pickBy } from 'lodash-es';
 import { toHex } from 'viem';
 
-import { ZERO_ADDRESS } from '@/mask_pkgs/web3-shared/evm/constants/index.js';
+import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { isEmptyHex } from '@/mask_pkgs/web3-shared/evm/helpers/address.js';
-import { ChainId, type Transaction } from '@/mask_pkgs/web3-shared/evm/types/index.js';
+import { type Transaction } from '@/mask_pkgs/web3-shared/evm/types/index.js';
 
 const normalizeHex = memoize((value: string | number) => {
     // fix an abnormal hex value like: 0x02c68af0bb140000
@@ -22,8 +22,8 @@ export class AccountTransaction {
 
     get to() {
         const to = this.transaction?.to;
-        if (!to) return ZERO_ADDRESS;
-        if (isEmptyHex(to)) return ZERO_ADDRESS;
+        if (!to) return ETH_ZERO_ADDRESS;
+        if (isEmptyHex(to)) return ETH_ZERO_ADDRESS;
         return to;
     }
 
@@ -57,7 +57,7 @@ export class AccountTransaction {
                 to,
                 data,
                 value: value ? normalizeHex(value) : undefined,
-                chainId: chainId && chainId !== ChainId.Astar ? normalizeHex(chainId) : undefined,
+                chainId: chainId ? normalizeHex(chainId) : undefined,
                 gas: gas ? normalizeHex(gas) : undefined,
                 gasPrice: gasPrice ? normalizeHex(gasPrice) : undefined,
                 maxPriorityFeePerGas: maxPriorityFeePerGas ? normalizeHex(maxPriorityFeePerGas) : undefined,

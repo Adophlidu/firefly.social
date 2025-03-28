@@ -1,7 +1,7 @@
 import { compact } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
-import { formatEthereumAddress, formatSolanaAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum, formatAddressSolana } from '@/helpers/formatAddress.js';
 import { RelatedWalletSource, type WalletProfile, type WalletProfiles } from '@/providers/types/Firefly.js';
 
 function patchWalletProfile(profile: WalletProfile) {
@@ -21,7 +21,7 @@ export function formatFireflyProfilesFromWalletProfiles(profiles: WalletProfiles
                     id: x.address,
                     source: Source.Wallet,
                 },
-                displayName: x.primary_ens || formatEthereumAddress(x.address, 4),
+                displayName: x.primary_ens || formatAddressEthereum(x.address, 4),
                 isDefault: x.isDefault,
                 __origin__: patchWalletProfile(x),
             })),
@@ -30,7 +30,7 @@ export function formatFireflyProfilesFromWalletProfiles(profiles: WalletProfiles
                     id: x.address,
                     source: Source.Wallet,
                 },
-                displayName: x.primary_ens || formatSolanaAddress(x.address, 4),
+                displayName: x.primary_ens || formatAddressSolana(x.address, 4),
                 isDefault: x.isDefault,
                 __origin__: patchWalletProfile(x),
             })),

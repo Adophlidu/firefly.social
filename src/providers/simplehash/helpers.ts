@@ -1,25 +1,21 @@
-import type { NonFungibleCollection } from '@masknet/web3-shared-base';
-
 import { ChainRuntime } from '@/constants/enum.js';
-import { ChainId, SchemaType } from '@/mask_pkgs/web3-shared/evm/index.js';
-import { ChainId as SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
+import type { NonFungibleCollection } from '@/mask_pkgs/web3-shared/base/index.js';
+import { EthereumChainId, EthereumSchemaType } from '@/mask_pkgs/web3-shared/evm/index.js';
+import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/index.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 const ChainNameMap: Record<ChainRuntime, Record<number, string>> = {
     [ChainRuntime.Ethereum]: {
-        [ChainId.Mainnet]: 'ethereum',
-        [ChainId.BSC]: 'bsc',
-        [ChainId.Polygon]: 'polygon',
-        [ChainId.Arbitrum]: 'arbitrum',
-        [ChainId.Optimism]: 'optimism',
-        [ChainId.Avalanche]: 'avalanche',
-        [ChainId.xDai]: 'gnosis',
-        [ChainId.Base]: 'base',
-        [ChainId.Scroll]: 'scroll',
-        [ChainId.Celo]: 'celo',
-        [ChainId.Zora]: 'zora',
-        [ChainId.ZkSyncEra]: 'zksync-era',
-        [ChainId.Linea]: 'linea',
+        [EthereumChainId.Mainnet]: 'ethereum',
+        [EthereumChainId.BSC]: 'bsc',
+        [EthereumChainId.Polygon]: 'polygon',
+        [EthereumChainId.Arbitrum]: 'arbitrum',
+        [EthereumChainId.Optimism]: 'optimism',
+        [EthereumChainId.Avalanche]: 'avalanche',
+        [EthereumChainId.xDai]: 'gnosis',
+        [EthereumChainId.Base]: 'base',
+        [EthereumChainId.Scroll]: 'scroll',
+        [EthereumChainId.Zora]: 'zora',
     },
     [ChainRuntime.Solana]: {
         [SolanaChainId.Mainnet]: 'solana',
@@ -39,35 +35,29 @@ export function isLensFollower(name: string) {
     return name.endsWith('.lens-Follower');
 }
 
-function resolveChainId(chain: string): ChainId | undefined {
+function resolveChainId(chain: string): EthereumChainId | undefined {
     // Some of the `chainResolver.chainId()` results do not match.
     switch (chain) {
         case 'ethereum':
-            return ChainId.Mainnet;
+            return EthereumChainId.Mainnet;
         case 'polygon':
-            return ChainId.Polygon;
+            return EthereumChainId.Polygon;
         case 'arbitrum':
-            return ChainId.Arbitrum;
+            return EthereumChainId.Arbitrum;
         case 'optimism':
-            return ChainId.Optimism;
+            return EthereumChainId.Optimism;
         case 'avalanche':
-            return ChainId.Avalanche;
+            return EthereumChainId.Avalanche;
         case 'gnosis':
-            return ChainId.xDai;
+            return EthereumChainId.xDai;
         case 'bsc':
-            return ChainId.BSC;
+            return EthereumChainId.BSC;
         case 'base':
-            return ChainId.Base;
+            return EthereumChainId.Base;
         case 'scroll':
-            return ChainId.Scroll;
-        case 'celo':
-            return ChainId.Celo;
+            return EthereumChainId.Scroll;
         case 'zora':
-            return ChainId.Zora;
-        case 'zksync-era':
-            return ChainId.ZkSyncEra;
-        case 'linea':
-            return ChainId.Linea;
+            return EthereumChainId.Zora;
         default:
             return undefined;
     }
@@ -75,7 +65,7 @@ function resolveChainId(chain: string): ChainId | undefined {
 
 export function createNonFungibleCollection(
     collection: SimpleHash.LiteCollection,
-): NonFungibleCollection<ChainId, SchemaType> {
+): NonFungibleCollection<EthereumChainId, EthereumSchemaType> {
     const details = collection.collection_details;
     const chainId = resolveChainId(details.chains[0])!;
 
@@ -85,7 +75,7 @@ export function createNonFungibleCollection(
         chainId,
         name: details.name || '',
         slug: details.name,
-        schema: SchemaType.ERC721,
+        schema: EthereumSchemaType.ERC721,
         balance: collection.distinct_nfts_owned,
         iconURL: details.image_url,
         ownersTotal: details.total_quantity,

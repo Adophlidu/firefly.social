@@ -5,7 +5,7 @@ import { NetworkType, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { resolvePlatformProfileUrl } from '@/helpers/resolvePlatformProfile.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
@@ -29,10 +29,10 @@ export const RedPacketAccountItem = memo(function RedPacketAccountItem({
     platformId,
     networkType = NetworkType.Ethereum,
 }: Props) {
-    const isAddress_ = networkType === NetworkType.Ethereum ? isValidEthereumAddress(address) : true;
+    const isAddress_ = networkType === NetworkType.Ethereum ? isValidAddressEthereum(address) : true;
     const addressLink = isAddress_ ? resolveProfileUrl(Source.Wallet, address) : null;
     const profileLink =
-        shareFrom && platform && platformId && !isValidEthereumAddress(shareFrom)
+        shareFrom && platform && platformId && !isValidAddressEthereum(shareFrom)
             ? resolvePlatformProfileUrl(
                   platform,
                   platform === FireflyRedPacketAPI.PlatformType.Lens ? shareFrom : platformId,

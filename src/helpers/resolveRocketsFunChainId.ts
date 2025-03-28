@@ -1,10 +1,10 @@
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
-export const resolveRocketsFunChainId = createLookupTableResolver<string, ChainId>(
+export const resolveRocketsFunChainId = createLookupTableResolver<string, EthereumChainId>(
     {
-        bnb: ChainId.BSC,
+        bnb: EthereumChainId.BSC,
     },
     (chain) => {
         throw new Error(`Unknown rockets.fun chain: ${chain}`);

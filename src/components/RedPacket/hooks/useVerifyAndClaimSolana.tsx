@@ -1,6 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
 import { t } from '@lingui/core/macro';
-import { isNativeTokenAddress } from '@masknet/web3-shared-solana';
 import { useAsyncFn } from 'react-use';
 
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
@@ -9,6 +8,7 @@ import { NetworkType } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
+import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { resolveSolanaAccountId } from '@/helpers/resolveSolanaAccountId.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
@@ -18,7 +18,7 @@ import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useVerifyAndClaimSolana(payload: RedPacketJSONPayload, post: Post, enabled = true) {
-    const isNativeToken = isNativeTokenAddress(payload.token?.address);
+    const isNativeToken = isZeroAddressSolana(payload.token?.address);
 
     const walletProvider = useSolanaWalletProvider();
     const { account } = useChainContext({ networkType: getNetworkTypeFromRpPayload(payload) });

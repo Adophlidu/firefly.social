@@ -1,7 +1,7 @@
 import type { LensClient } from '@lens-protocol/client';
-import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 
 import { THIRTY_DAYS } from '@/constants/index.js';
+import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { LensSession } from '@/providers/lens/Session.js';
 
 export async function refreshLensSession(sdk: LensClient) {
@@ -24,7 +24,7 @@ export async function refreshLensSession(sdk: LensClient) {
                   now,
                   now + THIRTY_DAYS,
                   refreshToken,
-                  walletAddress ?? ZERO_ADDRESS,
+                  walletAddress ?? ETH_ZERO_ADDRESS,
               )
             : null;
     if (!session) throw new Error('Failed to refresh session');

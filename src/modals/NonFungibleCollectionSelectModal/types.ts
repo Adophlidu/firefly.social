@@ -1,4 +1,5 @@
-import { type NonFungibleCollection } from '@masknet/web3-shared-base';
-import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
+import { EthereumChainId, EthereumSchemaType } from '@masknet/web3-shared-evm';
 
-export type Collection = NonFungibleCollection<ChainId, SchemaType>;
+import type { NonFungibleCollection } from '@/mask_pkgs/web3-shared/base/index.js';
+
+export type Collection = NonFungibleCollection<EthereumChainId, EthereumSchemaType>;

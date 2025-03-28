@@ -16,7 +16,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { MintStatus } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isZero } from '@/helpers/number.js';
 import { openWindow } from '@/helpers/openWindow.js';
@@ -165,7 +165,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
                     <div className="mt-[6px] flex items-center gap-2">
                         <Avatar src={article.author.avatar} size={20} alt={article.author.handle} />
                         <span className="text-medium leading-6 text-lightSecond">
-                            {article.author.handle ?? formatEthereumAddress(article.author.id, 4)}
+                            {article.author.handle ?? formatAddressEthereum(article.author.id, 4)}
                         </span>
                         {isCollected ? <CollectFillIcon width={16} height={16} className="ml-auto mr-1.5" /> : null}
                     </div>

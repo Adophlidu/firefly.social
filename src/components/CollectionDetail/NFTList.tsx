@@ -1,6 +1,6 @@
 'use client';
 
-import { SchemaType } from '@masknet/web3-shared-evm';
+import { EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { GridListInPage, type GridListInPageProps } from '@/components/GridListInPage.js';
@@ -48,7 +48,7 @@ export function NFTList(props: NFTListProps) {
                 components: POAPGridListComponent,
                 itemContent: (index, item) => {
                     return getNFTItemContent(index, item, {
-                        ownerCount: item.schema === SchemaType.ERC1155 ? item.tokenCount : undefined,
+                        ownerCount: item.schema === EthereumSchemaType.ERC1155 ? item.tokenCount : undefined,
                     });
                 },
             }}

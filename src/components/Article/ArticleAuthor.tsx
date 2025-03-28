@@ -6,7 +6,7 @@ import { Link } from '@/components/Link.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SourceInURL } from '@/constants/enum.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -34,7 +34,7 @@ export function ArticleAuthor({ article }: Props) {
         />
     );
 
-    const authorName = article.author.handle || ens || formatEthereumAddress(article.author.id, 4);
+    const authorName = article.author.handle || ens || formatAddressEthereum(article.author.id, 4);
 
     return (
         <div className="flex items-center gap-2">

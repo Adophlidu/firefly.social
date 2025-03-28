@@ -1,9 +1,19 @@
-import { isValidChainId as isValidEVMChainId } from '@masknet/web3-shared-evm';
-import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
+import { isValidChainIdEthereum, isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 
-export function parseChainId(str?: string) {
-    if (!str) return null;
-    const chainId = Number.parseInt(str, 10);
-    if (!isValidEVMChainId(chainId) && !isValidSolanaChainId(chainId)) return null;
-    return chainId;
+export function parseChainId(chainId?: string | number) {
+    return parseEthereumChainId(chainId) ?? parseSolanaChainId(chainId);
+}
+
+export function parseEthereumChainId(chainId?: string | number) {
+    if (!chainId) return null;
+    const parsedChainId = typeof chainId === 'string' ? Number.parseInt(chainId, 10) : chainId;
+    if (isValidChainIdEthereum(parsedChainId)) return parsedChainId;
+    return null;
+}
+
+export function parseSolanaChainId(chainId?: string | number) {
+    if (!chainId) return null;
+    const parsedChainId = typeof chainId === 'string' ? Number.parseInt(chainId, 10) : chainId;
+    if (isValidChainIdSolana(parsedChainId)) return parsedChainId;
+    return null;
 }

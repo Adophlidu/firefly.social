@@ -1,12 +1,7 @@
-import { NetworkPluginID } from '@/constants/enum.js';
-import { ChainId, ProviderType } from '@/mask_pkgs/web3-shared/evm/types/index.js';
-
-export function getNetworkPluginID() {
-    return NetworkPluginID.PLUGIN_EVM;
-}
+import { EthereumChainId, ProviderType } from '@/mask_pkgs/web3-shared/evm/types/index.js';
 
 export function getDefaultChainId() {
-    return ChainId.Mainnet;
+    return EthereumChainId.Mainnet;
 }
 
 export function getDefaultProviderType() {

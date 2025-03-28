@@ -4,7 +4,7 @@ const NAME_SERVICE_RE = /\.(eth|bnb|arb)$/;
 const DOMAIN_RE = /^(?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)+[a-z0-9][-a-z0-9]*[a-z0-9]$/u;
 const ENS_SUBDOMAIN_RE = /\[.{64}?\]\.(?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)+[a-z0-9][-a-z0-9]*[a-z0-9]$/u;
 
-export function isValidDomain(domain?: string) {
+export function isValidDomainEthereum(domain?: string) {
     if (!domain) return false;
     domain = domain.toLowerCase();
     if (!NAME_SERVICE_RE.test(domain)) return false;
@@ -21,4 +21,8 @@ export function isEnsSubdomain(domain: string) {
     const ascii = punycode.toASCII(domain);
     const result = ENS_SUBDOMAIN_RE.test(ascii);
     return result;
+}
+
+export function isValidDomainSolana(domain?: string) {
+    return /.+\.sol/i.test(domain ?? '');
 }

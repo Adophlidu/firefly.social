@@ -1,8 +1,7 @@
-import type { NonFungibleAsset } from '@masknet/web3-shared-base';
-
 import { FireflyPlatform } from '@/constants/enum.js';
 import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 export async function fillBookmarkStatusForNonFungibleAssets(assets: Array<NonFungibleAsset<number, number>>) {

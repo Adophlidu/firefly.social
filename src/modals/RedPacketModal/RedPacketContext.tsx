@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { type FungibleToken } from '@masknet/web3-shared-base';
-import type { ChainId, SchemaType } from '@masknet/web3-shared-evm';
+import type { EthereumChainId, EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { compact, first, flatten, noop, uniqBy } from 'lodash-es';
 import {
     createContext,
@@ -26,6 +25,7 @@ import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
+import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 import { FireflyRedPacketAPI, RequirementType } from '@/providers/types/FireflyRedPacket.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
@@ -93,8 +93,10 @@ interface RedPacketContextValue {
     rules: RequirementType[];
     requireCollections: Collection[];
     setRequireCollections: Dispatch<SetStateAction<Collection[]>>;
-    requireTokens: Array<{ token: FungibleToken<ChainId, SchemaType>; quantity: string }>;
-    setRequireTokens: Dispatch<SetStateAction<Array<{ token: FungibleToken<ChainId, SchemaType>; quantity: string }>>>;
+    requireTokens: Array<{ token: FungibleToken<EthereumChainId, EthereumSchemaType>; quantity: string }>;
+    setRequireTokens: Dispatch<
+        SetStateAction<Array<{ token: FungibleToken<EthereumChainId, EthereumSchemaType>; quantity: string }>>
+    >;
     requireChannel: Channel | undefined;
     setRequireChannel: Dispatch<SetStateAction<Channel | undefined>>;
     requireClub: Channel | undefined;

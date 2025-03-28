@@ -1,160 +1,28 @@
-import type { GasOptionType } from '@masknet/web3-shared-base';
 import type { TransactionReceipt as Web3TransactionReceipt } from 'web3-core';
 import type { JsonRpcPayload, JsonRpcResponse } from 'web3-core-helpers';
 
-export type ChainIdOptionalRecord<T> = { [k in ChainId]?: T };
-
-// Learn more at: https://eips.ethereum.org/EIPS/eip-3085
-export interface EIP3085Descriptor {
-    chainId: string;
-    blockExplorerUrls?: string[];
-    chainName?: string;
-    iconUrls?: string[];
-    nativeCurrency?: {
-        name: string;
-        symbol: string;
-        decimals: number;
-    };
-    rpcUrls?: string[];
-}
+import type { GasOptionType } from '@/mask_pkgs/web3-shared/base/index.js';
 
 // Learn more about ethereum ChainId https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md
-export enum ChainId {
-    // Mainnet
+export enum EthereumChainId {
     Mainnet = 1,
-    Ropsten = 3,
-    Rinkeby = 4,
-    Gorli = 5,
-    Kovan = 42,
-
-    // Base
     Base = 8453,
-    Base_Goerli = 84531,
-
-    // BSC
     BSC = 56,
-    BSCT = 97,
-
-    // Polygon
     Polygon = 137,
-    Mumbai = 80001,
-
-    // Arbitrum
-    Arbitrum = 42161,
-    Arbitrum_Rinkeby = 421611,
-    Arbitrum_Nova = 42170,
-
-    // xDai
-    xDai = 100,
-
-    // Avalanche
-    Avalanche = 43114,
-    Avalanche_Fuji = 43113,
-
-    // Celo
-    Celo = 42220,
-
-    // Fantom
-    Fantom = 250,
-
-    // Aurora
-    Aurora = 1313161554,
-    Aurora_Testnet = 1313161555,
-
-    // Fuse
-    Fuse = 122,
-
-    // Boba
-    Boba = 288,
-
-    // Metis
-    Metis = 1088,
-    Metis_Sepolia = 59902,
-
-    // Optimism
     Optimism = 10,
-    Optimism_Kovan = 69,
-    Optimism_Goerli = 420,
-
-    // Conflux
+    Arbitrum = 42161,
+    xDai = 100,
+    Avalanche = 43114,
+    Aurora = 1313161554,
     Conflux = 1030,
-
-    // Astar
-    Astar = 592,
-
-    Scroll = 534352,
-
-    ZKSync_Alpha_Testnet = 280,
-
-    Crossbell = 3737,
-
-    Moonbeam = 1284,
-
-    Pulse = 369,
-
-    Klaytn = 8217,
-
-    Harmony = 1666600000,
-
-    Moonriver = 1285,
-
-    Cronos = 25,
-
-    Brise = 32520,
-
-    Canto = 7700,
-
-    DFK = 53935,
-
-    Doge = 2000,
-
-    Evmos = 9001,
-
-    HuobiEco = 128,
-
-    IoTex = 4689,
-
-    Kava = 2222,
-
-    Kcc = 321,
-
-    Milkomeda = 2001,
-
-    OKXChain = 66,
-
-    Palm = 11297108109,
-
-    RSK = 30,
-
-    SmartBitcoinCash = 10000,
-
-    Shiden = 336,
-
-    SongbirdCanary = 19,
-
-    Step = 1234,
-
-    Telos = 40,
-
-    Wanchain = 888,
-
+    Fantom = 250,
     XLayer = 196,
-    XLayer_Testnet = 195,
-
-    /** BitTorrent Chain Mainnet */
-    BitTorrent = 199,
-
-    // For any chains not supported yet.
-    Invalid = 0,
-
+    Metis = 1088,
     Zora = 7777777,
-
-    ZkSyncEra = 324,
-
-    Linea = 59144,
+    Scroll = 534352,
 }
 
-export enum SchemaType {
+export enum EthereumSchemaType {
     Native = 1,
     ERC20 = 2,
     ERC721 = 3,
@@ -179,16 +47,6 @@ export interface PriorEIP1559GasConfig {
 }
 
 export type GasConfig = EIP1559GasConfig | PriorEIP1559GasConfig;
-
-export interface GasOption {
-    estimatedSeconds: number;
-    // eip1559 only
-    estimatedBaseFee?: string;
-    baseFeePerGas?: string;
-    // note: for prior 1559 it means gasPrice
-    suggestedMaxFeePerGas: string;
-    suggestedMaxPriorityFeePerGas: string;
-}
 
 // Learn more for a full list of supported JSON RPC methods
 // https://eth.wiki/json-rpc/API#json-rpc-methods
@@ -247,30 +105,23 @@ export enum EthereumMethodType {
     NET_VERSION = 'net_version',
 }
 
-export enum NetworkType {
+export enum EthereumNetworkType {
     Ethereum = 'Ethereum',
     Binance = 'Binance',
     Base = 'Base',
     Polygon = 'Polygon',
     Arbitrum = 'Arbitrum',
     xDai = 'xDai',
-    Celo = 'Celo',
     Fantom = 'Fantom',
     Aurora = 'Aurora',
     Avalanche = 'Avalanche',
-    Boba = 'Boba',
-    Fuse = 'Fuse',
     Metis = 'Metis',
     Optimism = 'Optimism',
     Conflux = 'Conflux',
     Astar = 'Astar',
     Scroll = 'Scroll',
-    Moonbeam = 'Moonbeam',
     XLayer = 'XLayer',
-    CustomNetwork = 'CustomNetwork',
     Zora = 'Zora',
-    ZkSyncEra = 'ZkSyncEra',
-    Linea = 'Linea',
 }
 
 export enum ProviderType {
@@ -329,7 +180,7 @@ export type TransactionReceipt = Web3TransactionReceipt;
 
 export interface TransactionOptions {
     account?: string;
-    chainId?: ChainId;
+    chainId?: EthereumChainId;
     owner?: string;
     identifier?: string;
     paymentToken?: string;
@@ -343,7 +194,7 @@ export interface TransactionOptions {
 }
 
 export interface Web3Definition {
-    ChainId: ChainId;
-    SchemaType: SchemaType;
-    NetworkType: NetworkType;
+    ChainId: EthereumChainId;
+    SchemaType: EthereumSchemaType;
+    NetworkType: EthereumNetworkType;
 }

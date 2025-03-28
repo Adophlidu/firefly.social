@@ -1,9 +1,8 @@
 'use client';
 
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { compact, first, uniqBy } from 'lodash-es';
 import { useMemo } from 'react';
-import { isAddress as isValidAddress } from 'viem';
 
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { Link } from '@/components/Link.js';
@@ -13,7 +12,7 @@ import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { FireflyPlatform, NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
+import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
@@ -26,7 +25,7 @@ import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 interface NFTCollectionItemProps {
     collection: SimpleHash.LiteCollection;
-    onClick?: (chainId: ChainId, collectionId: string, collection: SimpleHash.LiteCollection) => void;
+    onClick?: (chainId: EthereumChainId, collectionId: string, collection: SimpleHash.LiteCollection) => void;
 }
 
 function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
@@ -51,7 +50,11 @@ function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
         return (
             <div className="relative">
                 <Link
-                    href={resolveNFTUrl(chainId ?? ChainId.Mainnet, nftPreview.contract_address, tokenId || '0')}
+                    href={resolveNFTUrl(
+                        chainId ?? EthereumChainId.Mainnet,
+                        nftPreview.contract_address,
+                        tokenId || '0',
+                    )}
                     className="relative flex flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
                 >
                     {chainId ? (
@@ -140,11 +143,11 @@ export function NFTCollectionList(props: NFTCollectionListProps) {
             [
                 {
                     type: NetworkType.Ethereum,
-                    addresses: addresses.filter((x) => isValidAddress(x)),
+                    addresses: addresses.filter(isValidAddressEthereum),
                 },
                 {
                     type: NetworkType.Solana,
-                    addresses: addresses.filter((x) => isValidSolanaAddress(x)),
+                    addresses: addresses.filter(isValidAddressSolana),
                 },
             ].filter((x) => x.addresses.length),
         [addresses],

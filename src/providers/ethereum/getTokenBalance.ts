@@ -1,4 +1,4 @@
-import type { ChainId } from '@masknet/web3-shared-evm';
+import type { EthereumChainId } from '@masknet/web3-shared-evm';
 import { type Address } from 'viem';
 import { getBalance, readContracts } from 'wagmi/actions';
 
@@ -9,7 +9,7 @@ import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
-export async function getTokenBalance(token: Token<ChainId, Address>, address: Address, chainId: number) {
+export async function getTokenBalance(token: Token<EthereumChainId, Address>, address: Address, chainId: number) {
     if (isNativeToken(token)) {
         const result = await getBalance(config, {
             address,
@@ -57,7 +57,7 @@ export async function getTokenBalance(token: Token<ChainId, Address>, address: A
     };
 }
 
-export async function getDebankTokenBalance(token: Token<ChainId, Address>, account: Address) {
+export async function getDebankTokenBalance(token: Token<EthereumChainId, Address>, account: Address) {
     const tokens = await queryClient.fetchQuery({
         queryKey: ['debank', 'tokens', account],
         queryFn: () => FireflyEndpointProvider.getAllTokenList(account),

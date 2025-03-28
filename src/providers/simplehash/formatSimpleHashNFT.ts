@@ -1,16 +1,14 @@
-import { SourceType } from '@masknet/web3-shared-base';
-import { isENSContractAddress, isLens, SchemaType as EVMSchemaType, WNATIVE } from '@masknet/web3-shared-evm';
-import {
-    isValidChainId as isValidSolanaChainId,
-    isValidDomain as isValidSolanaDomain,
-    SchemaType as SolanaSchemaType,
-} from '@masknet/web3-shared-solana';
+import { EthereumSchemaType as EVMSchemaType, isENSContractAddress, isLens, WNATIVE } from '@masknet/web3-shared-evm';
+import { SolanaSchemaType as SolanaSchemaType } from '@masknet/web3-shared-solana';
 import { first, isEmpty } from 'lodash-es';
 
 import { TokenType } from '@/constants/enum.js';
+import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
+import { isValidDomainSolana } from '@/helpers/isValidDomain.js';
 import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { EVMChainResolver } from '@/mask/index.js';
+import { SourceType } from '@/mask_pkgs/web3-shared/base/index.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
 
@@ -49,14 +47,14 @@ export function formatSimpleHashNFT(nft: SimpleHash.NFT, skipScoreCheck = false)
 
     if (!chainId || !address || (spam_score !== null && spam_score >= SPAM_SCORE && !skipScoreCheck)) return;
 
-    const isSolana = isValidSolanaChainId(chainId);
+    const isSolana = isValidChainIdSolana(chainId);
     const schema = isSolana
         ? SolanaSchemaType.NonFungible
         : ['ERC721', 'CRYPTOPUNKS'].includes(nft.contract.type)
           ? EVMSchemaType.ERC721
           : EVMSchemaType.ERC1155;
     const name = isSolana
-        ? isValidSolanaDomain(nft.name)
+        ? isValidDomainSolana(nft.name)
             ? nft.name
             : getAssetFullName(nft.contract_address, nft.collection.name, nft.name, nft.token_id)
         : nft.name || getAssetFullName(nft.contract_address, nft.contract.name, nft.name, nft.token_id);

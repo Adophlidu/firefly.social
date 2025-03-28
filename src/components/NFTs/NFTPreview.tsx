@@ -1,7 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
-import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { compact, first } from 'lodash-es';
 import React, { memo, type ReactNode } from 'react';
 import { zeroAddress } from 'viem';
@@ -19,6 +18,7 @@ import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveNFTUrl, resolveNFTUrlByCollection } from '@/helpers/resolveNFTUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
@@ -58,7 +58,8 @@ function BasePreviewContent(props: BasePreviewContentProps) {
     const { collection, showTradeInfo } = props;
     const floorPrice = collection?.floor_prices[0];
     const { data: marketInfo } = useCollectionMarketInfo(collection?.collection_id);
-    const chainId = (collection?.chains[0] && resolveSimpleHashChainId(collection?.chains[0])) || ChainId.Mainnet;
+    const chainId =
+        (collection?.chains[0] && resolveSimpleHashChainId(collection?.chains[0])) || EthereumChainId.Mainnet;
     const footer = (
         <>
             {props.footer?.image ? (
@@ -174,7 +175,7 @@ function BasePreviewContent(props: BasePreviewContentProps) {
 export const NFTPreviewer = memo(function NFTPreview({ nft, showTradeInfo, className }: NFTPreviewProps) {
     const chainId = resolveSimpleHashChainId(nft.chain);
     const collectionId = nft.collection.collection_id;
-    const isSolanaChain = isValidSolanaChainId(chainId);
+    const isSolanaChain = isValidChainIdSolana(chainId);
 
     const isPoap = isSameEthereumAddress(nft.contract_address, POAP_CONTRACT_ADDRESS);
     const { date, position } = usePoapTraits(nft.extra_metadata.attributes);

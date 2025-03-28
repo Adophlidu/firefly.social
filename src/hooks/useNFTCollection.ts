@@ -1,9 +1,9 @@
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 
-export function useNFTCollection(address: string, chainId: ChainId = ChainId.Mainnet, enabled = true) {
+export function useNFTCollection(address: string, chainId: EthereumChainId = EthereumChainId.Mainnet, enabled = true) {
     return useQuery({
         queryKey: ['nft-collection', address, chainId],
         async queryFn() {

@@ -1,5 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
-import { ChainId } from '@masknet/web3-shared-solana';
+import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { useAsyncFn } from 'react-use';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -9,7 +9,7 @@ import { getTokenAccountByMint } from '@/providers/solana/getTokenAccountByMint.
 import { SolanaRedPacket } from '@/providers/solana/RedPacket.js';
 
 export function useRefundSolanaCallback(rpid?: string, overrides?: ChainContextOverrides) {
-    const chainId = overrides?.chainId || ChainId.Mainnet;
+    const chainId = overrides?.chainId || SolanaChainId.Mainnet;
     const rpAccountId = rpid ? resolveSolanaAccountId(rpid) : null;
 
     return useAsyncFn(async () => {

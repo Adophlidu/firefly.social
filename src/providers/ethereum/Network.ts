@@ -1,4 +1,4 @@
-import type { ChainId } from '@masknet/web3-shared-evm';
+import type { EthereumChainId } from '@masknet/web3-shared-evm';
 import { type Address, type Hash } from 'viem';
 import { getAccount, getChainId } from 'wagmi/actions';
 
@@ -8,7 +8,7 @@ import { EVMExplorerResolver } from '@/mask/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import type { NetworkProvider } from '@/providers/types/Network.js';
 
-class Provider implements NetworkProvider<ChainId, Address, Hash> {
+class Provider implements NetworkProvider<EthereumChainId, Address, Hash> {
     async connect(): Promise<void> {
         throw new NotImplementedError();
     }
@@ -21,15 +21,15 @@ class Provider implements NetworkProvider<ChainId, Address, Hash> {
         return account.address;
     }
 
-    getChainId(): ChainId {
+    getChainId(): EthereumChainId {
         return getChainId(config);
     }
 
-    getAddressUrl(chainId: ChainId, address: Address): string | undefined {
+    getAddressUrl(chainId: EthereumChainId, address: Address): string | undefined {
         return BlockScanExplorerResolver.addressLink(chainId, address);
     }
 
-    getTransactionUrl(chainId: ChainId, hash: Hash): string | undefined {
+    getTransactionUrl(chainId: EthereumChainId, hash: Hash): string | undefined {
         return EVMExplorerResolver.transactionLink(chainId, hash);
     }
 }

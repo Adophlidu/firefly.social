@@ -1,15 +1,15 @@
 import { web3 } from '@coral-xyz/anchor';
-import { type Address, isAddressEqual } from 'viem';
+import { isAddressEqual } from 'viem';
 
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 
 export function isSameEthereumAddress(
     address: string | null | undefined,
     otherAddress: string | null | undefined,
 ): boolean {
     if (!address || !otherAddress) return false;
-    if (!isValidEthereumAddress(address) || !isValidEthereumAddress(otherAddress)) return false;
-    return isAddressEqual(address as Address, otherAddress as Address);
+    if (!isValidAddressEthereum(address) || !isValidAddressEthereum(otherAddress)) return false;
+    return isAddressEqual(address, otherAddress);
 }
 
 export function isSameSolanaAddress(

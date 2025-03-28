@@ -1,7 +1,7 @@
 'use client';
 
 import { t } from '@lingui/core/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useState } from 'react';
 
 import UndoSVG from '@/assets/undo.svg';
@@ -14,7 +14,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 interface SelectedCollection {
-    chainId: ChainId;
+    chainId: EthereumChainId;
     collectionId: string;
     collection: SimpleHash.LiteCollection;
 }

@@ -1,13 +1,12 @@
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
-import { isValidDomain } from '@masknet/web3-shared-evm';
 import { Fragment, type PropsWithChildren, type ReactNode } from 'react';
 import { useEnsName } from 'wagmi';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
-import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
+import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
+import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 
 interface ShareAccountsPopoverProps extends PropsWithChildren {
     accounts: Array<{ icon: ReactNode; name: string }>;
@@ -68,8 +67,8 @@ export function ShareAccountsPopover({ accounts, children, onSelect, className, 
 
 function formatAccountName(account?: string) {
     if (!account) return account;
-    if (isValidEthereumAddress(account) || isValidSolanaAddress(account)) return formatAddress(account, 4);
-    if (isValidDomain(account)) return account;
+    if (isValidAddressEthereum(account) || isValidAddressSolana(account)) return formatAddress(account, 4);
+    if (isValidDomainEthereum(account)) return account;
     return `@${account}`;
 }
 
@@ -87,7 +86,7 @@ export function ShareAccountsPopoverItem({
     const { data: ensName } = useEnsName({
         address: name as `0x${string}`,
         query: {
-            enabled: isValidEthereumAddress(name),
+            enabled: isValidAddressEthereum(name),
         },
     });
 

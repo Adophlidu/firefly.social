@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
+import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { useRouter } from '@tanstack/react-router';
 import dayjs from 'dayjs';
 import { memo, useContext } from 'react';
@@ -14,7 +14,7 @@ import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';
@@ -186,7 +186,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                     <RedPacketAccountItem
                                         address={creator}
                                         ens={ens_name}
-                                        shareFrom={!isValidEthereumAddress(share_from) ? share_from : undefined}
+                                        shareFrom={!isValidAddressEthereum(share_from) ? share_from : undefined}
                                         networkType={networkType}
                                         isDarkFont
                                     />

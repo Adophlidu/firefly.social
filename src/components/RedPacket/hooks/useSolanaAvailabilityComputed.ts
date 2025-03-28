@@ -1,4 +1,4 @@
-import { ChainId } from '@masknet/web3-shared-solana';
+import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { compact } from 'lodash-es';
 
 import { useSolanaAvailability } from '@/components/RedPacket/hooks/useSolanaAvailability.js';
@@ -9,7 +9,7 @@ import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/Fi
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useSolanaAvailabilityComputed(payload: RedPacketJSONPayload, post: Post, enabled = true) {
-    const chainId = payload.chainId || ChainId.Mainnet;
+    const chainId = payload.chainId || SolanaChainId.Mainnet;
     const { data } = useSolanaAvailability(payload, chainId, enabled);
     const { account } = useChainContext({ networkType: getNetworkTypeFromRpPayload(payload) });
 

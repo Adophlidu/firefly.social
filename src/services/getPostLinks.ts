@@ -8,7 +8,7 @@ import { TWEET_SPACE_REGEX } from '@/constants/regexp.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isFrameV1 } from '@/helpers/frame.js';
-import { isValidDomain } from '@/helpers/isValidDomain.js';
+import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
@@ -38,7 +38,7 @@ function isValidPostLink(url: string, enableFilter = false) {
     if (!parsed) return false;
 
     // such as ens domains
-    if (isValidDomain(url)) return false;
+    if (isValidDomainEthereum(url)) return false;
 
     // file extension
     // The ipfs link can sometimes be domain/pathname?fileName=xxx.jpg.

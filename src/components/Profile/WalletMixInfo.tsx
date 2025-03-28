@@ -4,7 +4,6 @@ import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useQueries } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
-import { isAddress } from 'viem';
 
 import EvmIcon from '@/assets/evm.svg';
 import SolanaIcon from '@/assets/solana.svg';
@@ -14,7 +13,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
-import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
+import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { Debank } from '@/providers/debank/index.js';
 import { OKX } from '@/providers/okx/index.js';
@@ -27,10 +26,10 @@ interface Props {
 export function WalletMixInfo({ profiles = [] }: Props) {
     const walletProfiles = profiles.filter((profile) => profile.identity.source === Source.Wallet);
     const evmProfiles = walletProfiles.filter(
-        (profile) => profile.identity.source === Source.Wallet && isAddress(profile.identity.id),
+        (profile) => profile.identity.source === Source.Wallet && isValidAddressEthereum(profile.identity.id),
     );
     const solanaProfiles = walletProfiles.filter(
-        (profile) => profile.identity.source === Source.Wallet && isValidSolanaAddress(profile.identity.id),
+        (profile) => profile.identity.source === Source.Wallet && isValidAddressSolana(profile.identity.id),
     );
     const evmPrimaryProfile = evmProfiles.find((x) => x.isDefault) || evmProfiles[0];
     const solanaPrimaryProfile = solanaProfiles.find((x) => x.isDefault) || solanaProfiles[0];

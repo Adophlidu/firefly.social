@@ -1,4 +1,4 @@
-import { ChainId } from '@masknet/web3-shared-solana';
+import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { getAccount } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
@@ -35,10 +35,10 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
                 : undefined,
 
         // solana
-        public_solana_chain_id: ChainId.Mainnet,
+        public_solana_chain_id: SolanaChainId.Mainnet,
         public_solana_address: solanaAdaptor?.publicKey?.toBase58(),
         public_solana_caip10: solanaAdaptor?.publicKey
-            ? `solana:${ChainId.Mainnet}:${solanaAdaptor.publicKey.toBase58()}`
+            ? `solana:${SolanaChainId.Mainnet}:${solanaAdaptor.publicKey.toBase58()}`
             : undefined,
 
         public_account_id: fireflyAccountId,

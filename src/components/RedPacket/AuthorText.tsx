@@ -1,6 +1,7 @@
+import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
 import type { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { UsageType } from '@/types/rp.js';
@@ -23,7 +24,7 @@ export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorT
                         fontWeight: 400,
                     }}
                 >
-                    {`From ${formatEthereumAddress(from, 4)}`}
+                    <Trans>From {formatAddressEthereum(from, 4)}</Trans>
                 </div>
             );
         case UsageType.Payload:
@@ -41,7 +42,7 @@ export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorT
                 >
                     <div style={getCSSPropertiesFromThemeSettings(theme.cover.title1)}>From</div>
                     <div style={getCSSPropertiesFromThemeSettings(theme.cover.title2)}>
-                        {formatEthereumAddress(from, 4)}
+                        {formatAddressEthereum(from, 4)}
                     </div>
                 </div>
             );

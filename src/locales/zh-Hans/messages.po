@@ -809,7 +809,7 @@ msgid "Connected accounts"
 msgstr "已连接的账户"
 
 #. placeholder {0}: space.name
-#. placeholder {1}: ensHandle.data || formatEthereumAddress(snapshot.author, 4)
+#. placeholder {1}: ensHandle.data || formatAddressEthereum(snapshot.author, 4)
 msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr "<0>{0}</0> 由 <1>{1}</1>"
 
@@ -1408,7 +1408,7 @@ msgstr "未能启用无签名功能"
 msgid "Days"
 msgstr "天"
 
-#. placeholder {0}: formatEthereumAddress(fromAddress, 4)
+#. placeholder {0}: formatAddressEthereum(fromAddress, 4)
 msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
 msgstr "<0>获取</0><1/><2>从</2><3><4>{0}</4></3>"
 
@@ -1418,7 +1418,7 @@ msgstr "提交您的钱包以领取您的 NFT 和 $ANON"
 msgid "<0>Bought</0><1/>"
 msgstr "<0>购买</0><1/>"
 
-#. placeholder {0}: formatEthereumAddress(currentProfile.ownedBy.address, 4)
+#. placeholder {0}: formatAddressEthereum(currentProfile.ownedBy.address, 4)
 msgid "The current connected wallet does not match, Please switch to {0}"
 msgstr "当前连接的钱包不匹配，请切换到 {0}。"
 
@@ -2554,7 +2554,7 @@ msgstr "添加钱包"
 msgid "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
 msgstr "投票权：通过社区治理参与关键决策，塑造平台的发展。"
 
-#. placeholder {0}: formatEthereumAddress(address, 4)
+#. placeholder {0}: formatAddressEthereum(address, 4)
 msgid "Please switch to {0}"
 msgstr "请切换到 {0}"
 
@@ -3129,6 +3129,10 @@ msgstr "帖子+回复"
 msgid "Image"
 msgstr "图片"
 
+#. placeholder {0}: formatAddressEthereum(from, 4)
+msgid "From {0}"
+msgstr ""
+
 msgid "Failed to delete post."
 msgstr "删除帖子失败。"
 
@@ -3466,7 +3470,7 @@ msgstr ""
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "自定义你的幸运掉落发送者：从你的社交账号或钱包中选择。"
 
-#. placeholder {0}: formatEthereumAddress(toAddress, 4)
+#. placeholder {0}: formatAddressEthereum(toAddress, 4)
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr "<0>发送</0><1/><2>至</2><3><4>{0}</4></3>"
 
@@ -3869,7 +3873,7 @@ msgstr "上传失败。视频尺寸超过限制 {minWidth}x{minHeight} ~ {maxWid
 msgid "Mask Network"
 msgstr "Mask Network"
 
-#. placeholder {0}: formatEthereumAddress(fromAddress, 4)
+#. placeholder {0}: formatAddressEthereum(fromAddress, 4)
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr "<0>获得</0> 一个 NFT 来自 <1>{0}</1>"
 
@@ -4198,7 +4202,7 @@ msgstr "复制 Frame URL"
 msgid "Cybercrime."
 msgstr "网络犯罪。"
 
-#. placeholder {0}: formatEthereumAddress(toAddress, 4)
+#. placeholder {0}: formatAddressEthereum(toAddress, 4)
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>发送</0> 一个 NFT 至 <1>{0}</1>"
 

@@ -1,5 +1,5 @@
 import { keyRegistryABI } from '@farcaster/core';
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { parseUnits } from 'viem';
 import { readContract } from 'wagmi/actions';
 
@@ -23,7 +23,7 @@ export async function validateFarcasterSession(session: FarcasterSession): Promi
             address: '0x00000000Fc1237824fb747aBDE0FF18990E59b7e',
             functionName: 'keys',
             args: [parseUnits(session.profileId, 0), publicKey],
-            chainId: ChainId.Optimism,
+            chainId: EthereumChainId.Optimism,
         });
         if (state !== KeyState.ADDED) throw new FarcasterInvalidSignerKey('Invalid signer key.');
     } catch {

@@ -1,8 +1,7 @@
 import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { type FungibleToken } from '@masknet/web3-shared-base';
-import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
+import { EthereumChainId, EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { useCallback, useState } from 'react';
 import { useChainId } from 'wagmi';
 
@@ -16,6 +15,7 @@ import { formatDebankTokenToFungibleToken } from '@/helpers/formatToken.js';
 import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { AddCustomERC20ModalRef, ConnectModalRef } from '@/modals/controls.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
@@ -27,7 +27,7 @@ export interface TokenSelectorModalOpenProps {
     initialAddTokenChainId?: number;
 }
 
-export type TokenSelectorModalCloseProps = FungibleToken<ChainId, SchemaType> | null;
+export type TokenSelectorModalCloseProps = FungibleToken<EthereumChainId, EthereumSchemaType> | null;
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<TokenSelectorModalOpenProps, TokenSelectorModalCloseProps>>;
 };

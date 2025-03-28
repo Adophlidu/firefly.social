@@ -1,6 +1,6 @@
 'use client';
 
-import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
+import { EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { isUndefined } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
@@ -17,10 +17,10 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 
-export function NFTDetailPage({ chainId, address, tokenId }: { chainId: ChainId; address: string; tokenId: string }) {
+export function NFTDetailPage({ chainId, address, tokenId }: { chainId: number; address: string; tokenId: string }) {
     const isPoap = isSameEthereumAddress(address, POAP_CONTRACT_ADDRESS);
 
-    const { data, isLoading } = useNFTDetail(address, tokenId, chainId);
+    const { data, isLoading } = useNFTDetail(chainId, address, tokenId);
 
     const { data: poapEvent } = useQuery({
         queryKey: ['post-event', data?.metadata?.eventId],
@@ -48,7 +48,9 @@ export function NFTDetailPage({ chainId, address, tokenId }: { chainId: ChainId;
                     video={data.metadata?.video}
                     name={data.metadata.name ?? ''}
                     tokenId={data.metadata.tokenId ?? ''}
-                    ownerAddress={data.contract?.schema === SchemaType.ERC1155 ? undefined : data.owner?.address}
+                    ownerAddress={
+                        data.contract?.schema === EthereumSchemaType.ERC1155 ? undefined : data.owner?.address
+                    }
                     contractAddress={address || data.contract?.address || ''}
                     collection={{
                         name: data.collection?.name ?? '',

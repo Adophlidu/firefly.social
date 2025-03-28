@@ -1,6 +1,6 @@
 import { unreachable } from '@masknet/kit';
-import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
-import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
+import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { useAccount, useChainId } from 'wagmi';
 
 import { NetworkType } from '@/constants/enum.js';
@@ -26,7 +26,7 @@ export function useChainContext(overrides?: ChainContextOverrides) {
         case NetworkType.Ethereum:
             return {
                 account: overrides?.account ?? account.address ?? '',
-                chainId: overrides?.chainId ?? chainId ?? EVMChainId.Mainnet,
+                chainId: overrides?.chainId ?? chainId ?? EthereumChainId.Mainnet,
                 isEIP1559,
             };
         case NetworkType.Solana:

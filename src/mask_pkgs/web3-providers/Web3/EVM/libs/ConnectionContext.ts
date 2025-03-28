@@ -1,8 +1,8 @@
 import {
-    ChainId,
     createJsonRpcPayload,
     createJsonRpcResponse,
     ErrorEditor,
+    EthereumChainId,
     EthereumMethodType,
     PayloadEditor,
     type RequestArguments,
@@ -43,9 +43,12 @@ export class ConnectionContext {
         return this.payloadEditor.from ?? this._options?.overrides?.from ?? this._options?.account ?? '';
     }
 
-    get chainId(): ChainId {
+    get chainId(): EthereumChainId {
         return (
-            this.payloadEditor.chainId ?? this._options?.overrides?.chainId ?? this._options?.chainId ?? ChainId.Mainnet
+            this.payloadEditor.chainId ??
+            this._options?.overrides?.chainId ??
+            this._options?.chainId ??
+            EthereumChainId.Mainnet
         );
     }
 

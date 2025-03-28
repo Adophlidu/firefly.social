@@ -20,7 +20,7 @@ import { SearchInput } from '@/components/Search/SearchInput.js';
 import { chains, config } from '@/configs/wagmiClient.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { useTipsTokens } from '@/hooks/useTipsTokens.js';
@@ -111,7 +111,7 @@ function AddCustomERC20ModalContent({ onClose, initialChainId }: { onClose: () =
         }
     }, [account.address, contractAddress, tokens, selectedChain, addCustomToken, onClose]);
 
-    const disabledAdd = [contractAddress, selectedChain, isValidEthereumAddress(contractAddress), account.address].some(
+    const disabledAdd = [contractAddress, selectedChain, isValidAddressEthereum(contractAddress), account.address].some(
         (x) => !x,
     );
 

@@ -16,7 +16,7 @@ import { SuggestTokenList } from '@/components/Search/SuggestTokenList.js';
 import { PageRoute, SearchType, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { resolveSearchTypeFromQuery } from '@/helpers/resolveSearchTypeFromQuery.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
@@ -78,7 +78,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                     <span className="ml-4 min-w-0 truncate">{keyword}</span>
                 </Link>
 
-                {debouncedKeyword && (isSymbol || isValidEthereumAddress(debouncedKeyword)) ? (
+                {debouncedKeyword && (isSymbol || isValidAddressEthereum(debouncedKeyword)) ? (
                     <>
                         <SuggestTokenList query={debouncedKeyword} onSelect={onSelect} />
                         {!isSymbol ? <SuggestCollectionList query={debouncedKeyword} onSelect={onSelect} /> : null}

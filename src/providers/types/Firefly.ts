@@ -1,4 +1,3 @@
-import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 import type { Address, Hex } from 'viem';
 
 import {
@@ -12,6 +11,7 @@ import {
     type Source,
     WalletSource,
 } from '@/constants/enum.js';
+import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 import type { SnapshotChoice } from '@/providers/snapshot/type.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';

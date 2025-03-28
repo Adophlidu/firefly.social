@@ -1,11 +1,11 @@
-import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
-import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
+import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { useAccount as useEVMAccount, useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
 import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
-import { formatEthereumAddress, formatSolanaAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum, formatAddressSolana } from '@/helpers/formatAddress.js';
 import { formatDomainName } from '@/helpers/formatDomainName.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
@@ -13,7 +13,7 @@ import { useMounted } from '@/hooks/useMounted.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { ConnectModalRef, MyWalletsModalRef } from '@/modals/controls.js';
 
-const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
+const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EthereumChainId.Mainnet);
 const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
 
 export interface Connection {
@@ -47,7 +47,7 @@ export function useEVMConnection(): Connection {
         label: resolveValue(() => {
             if (!isEVMConnected || !evmAccount.address || !mounted) return null;
             if (ensName) return formatDomainName(ensName);
-            return formatEthereumAddress(evmAccount.address, 4);
+            return formatAddressEthereum(evmAccount.address, 4);
         }),
         onOpenConnectModal: () => ConnectModalRef.open({ networkType: NetworkType.Ethereum }),
         onOpenAccountModal: () => MyWalletsModalRef.open(),
@@ -66,7 +66,7 @@ export function useSolanaConnection(): Connection {
         label: resolveValue(() => {
             if (!walletProvider?.publicKey) return null;
             const address = walletProvider.publicKey.toBase58();
-            return formatSolanaAddress(address, 4);
+            return formatAddressSolana(address, 4);
         }),
         onOpenConnectModal: () => ConnectModalRef.open({ networkType: NetworkType.Solana }),
         onOpenAccountModal: () => MyWalletsModalRef.open(),

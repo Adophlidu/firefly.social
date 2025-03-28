@@ -1,4 +1,4 @@
-export enum ChainId {
+export enum SolanaChainId {
     Mainnet = 101,
     Testnet = 102,
     Devnet = 103,
@@ -6,22 +6,17 @@ export enum ChainId {
     Invalid = 0,
 }
 
-export enum SchemaType {
+export enum SolanaSchemaType {
     Native = 1,
     Fungible = 2,
     NonFungible = 3,
 }
 
-export enum NetworkType {
+export enum SolanaNetworkType {
     Solana = 'Solana',
 }
-
-export enum ProviderType {
-    None = 'None',
-}
-
 export interface Web3Definition {
-    ChainId: ChainId;
-    SchemaType: SchemaType;
-    NetworkType: NetworkType;
+    ChainId: SolanaChainId;
+    SchemaType: SolanaSchemaType;
+    NetworkType: SolanaNetworkType;
 }

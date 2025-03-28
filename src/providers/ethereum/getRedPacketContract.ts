@@ -1,4 +1,4 @@
-import { type ChainId, createContract, getRedPacketConstants } from '@masknet/web3-shared-evm';
+import { createContract, type EthereumChainId, getRedPacketConstants } from '@masknet/web3-shared-evm';
 
 import {
     type HappyRedPacketV1,
@@ -12,7 +12,7 @@ import {
 } from '@/mask/constants.js';
 import { EVMWeb3 } from '@/mask/index.js';
 
-export function createRedPacketContract(chainId: ChainId, version: number) {
+export function createRedPacketContract(chainId: EthereumChainId, version: number) {
     const {
         HAPPY_RED_PACKET_ADDRESS_V1: addressV1,
         HAPPY_RED_PACKET_ADDRESS_V2: addressV2,

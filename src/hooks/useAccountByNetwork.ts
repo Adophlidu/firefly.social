@@ -1,5 +1,5 @@
 import { unreachable } from '@masknet/kit';
-import { ChainId } from '@masknet/web3-shared-solana';
+import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { useMemo } from 'react';
 import { useAccount } from 'wagmi';
@@ -23,7 +23,7 @@ export function useAccountByNetwork(networkType = NetworkType.Ethereum) {
         case NetworkType.Solana:
             return {
                 address: walletProvider?.publicKey?.toBase58() ?? '',
-                chainId: ChainId.Mainnet,
+                chainId: SolanaChainId.Mainnet,
                 isConnected: !!connection,
             };
         default:
@@ -47,7 +47,7 @@ export function useWalletAccountAll() {
             },
             solana: {
                 address: solanaAddress ?? '',
-                chainId: ChainId.Mainnet,
+                chainId: SolanaChainId.Mainnet,
                 isConnected: !!connection && !!solanaAddress,
                 connect: () => ConnectModalRef.open({ networkType: NetworkType.Solana }),
             },

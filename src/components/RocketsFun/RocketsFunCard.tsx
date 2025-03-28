@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { isNumber } from 'lodash-es';
 import { memo } from 'react';
@@ -12,7 +12,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { Source } from '@/constants/enum.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { leftShift } from '@/helpers/number.js';
@@ -48,7 +48,7 @@ function TokenCreator({ token }: { token: RocketsFunToken }) {
         return (
             <>
                 <Link className="text-black" href={resolveProfileUrl(Source.Wallet, token.deployer)}>
-                    {formatEthereumAddress(token.deployer, 4)}
+                    {formatAddressEthereum(token.deployer, 4)}
                 </Link>
                 <CopyTextButton text={token.deployer} className="text-lightSecond" />
             </>
@@ -69,13 +69,13 @@ export const RocketsFunCard = memo<RocketsFunCardProps>(function RocketsFunCard(
     return (
         <div className="rounded-2xl bg-lightBg p-3">
             <div className="flex items-start gap-2.5 md:items-center">
-                <TokenIcon className="shrink-0" icon={token.imageUrl} chainId={ChainId.BSC} />
+                <TokenIcon className="shrink-0" icon={token.imageUrl} chainId={EthereumChainId.BSC} />
                 <div className="flex min-w-0 flex-1 items-start justify-between md:items-center">
                     <div className="flex flex-col items-start gap-1.5 md:flex-row md:items-center">
                         <span className="text-lg font-bold leading-[22px] text-main">{token.name || 'Unknown'}</span>
                         <div>
                             <span className="text-sm font-bold leading-[18px] text-third">
-                                {formatEthereumAddress(token.contractAddress, 4)}
+                                {formatAddressEthereum(token.contractAddress, 4)}
                             </span>
                             <CopyTextButton text={token.contractAddress} className="text-third" />
                         </div>

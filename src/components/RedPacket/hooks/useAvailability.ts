@@ -1,4 +1,4 @@
-import { type ChainId, getRedPacketConstant } from '@masknet/web3-shared-evm';
+import { type EthereumChainId, getRedPacketConstant } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import type { Address } from 'viem';
 import { readContract } from 'wagmi/actions';
@@ -11,7 +11,7 @@ export function useAvailability(
     version: number,
     options: {
         account: string;
-        chainId: ChainId;
+        chainId: EthereumChainId;
     },
     enabled = true,
 ) {

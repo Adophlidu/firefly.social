@@ -19,7 +19,7 @@ import { WalletActions } from '@/components/Profile/WalletActions.js';
 import { WALLET_PROFILE_ACTION_ID } from '@/components/Profile/WalletInfo.js';
 import { NetworkType, PageRoute, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -64,7 +64,7 @@ export function FireflyAccountInfo({
     const showStickyTitle = buttonContainerEntry && !buttonContainerEntry.isIntersecting;
     const showProfileAction = profileActionEntry && !profileActionEntry.isIntersecting;
     const title = walletProfile
-        ? (walletProfile.primary_ens ?? formatEthereumAddress(walletProfile.address, 4))
+        ? (walletProfile.primary_ens ?? formatAddressEthereum(walletProfile.address, 4))
         : socialProfile?.displayName;
     const currentProfile = useCurrentProfile(narrowToSocialSource(identity.source));
     const isCurrentProfile = currentProfile && socialProfile ? isSameProfile(currentProfile, socialProfile) : false;

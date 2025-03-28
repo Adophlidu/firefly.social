@@ -2,14 +2,16 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { SchemaType } from '@masknet/web3-shared-evm';
-import { isValidChainId as isValidSolanaChainId, SchemaType as SolanaSchemaType } from '@masknet/web3-shared-solana';
+import { safeUnreachable } from '@masknet/kit';
+import { EthereumSchemaType } from '@masknet/web3-shared-evm';
+import { SolanaSchemaType as SolanaSchemaType } from '@masknet/web3-shared-solana';
 import { type ReactNode, useMemo } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Link } from '@/components/Link.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { isValidChainIdEthereum, isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 import { EVMExplorerResolver, SolanaExplorerResolver } from '@/mask/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
@@ -27,18 +29,21 @@ function ExplorerLink(props: { address: string; type: 'address' | 'tx'; chainId?
     const { address, type, chainId, useBlockScan } = props;
     const href = useMemo(() => {
         if (!chainId) return;
-        const isSolana = isValidSolanaChainId(chainId);
-        if (type === 'tx') {
-            return isSolana
-                ? SolanaExplorerResolver.transactionLink(chainId, address)
-                : EVMExplorerResolver.transactionLink(chainId, address);
-        }
 
-        return useBlockScan
-            ? BlockScanExplorerResolver.addressLink(chainId, address)
-            : isSolana
-              ? SolanaExplorerResolver.addressLink(chainId, address)
-              : EVMExplorerResolver.addressLink(chainId, address);
+        switch (type) {
+            case 'tx':
+                return isValidChainIdSolana(chainId)
+                    ? SolanaExplorerResolver.transactionLink(chainId, address)
+                    : EVMExplorerResolver.transactionLink(chainId, address);
+            case 'address':
+                if (useBlockScan) return BlockScanExplorerResolver.addressLink(chainId, address);
+                return isValidChainIdSolana(chainId)
+                    ? SolanaExplorerResolver.addressLink(chainId, address)
+                    : EVMExplorerResolver.addressLink(chainId, address);
+            default:
+                safeUnreachable(type);
+                return '';
+        }
     }, [address, type, chainId, useBlockScan]);
 
     if (!href) return <span className="break-all">{address}</span>;
@@ -83,11 +88,11 @@ interface NFTOverflowProps {
 }
 
 const evmStandardMap: Record<number, string> = {
-    [SchemaType.Native]: 'Native',
-    [SchemaType.ERC721]: 'ERC721',
-    [SchemaType.ERC1155]: 'ERC1155',
-    [SchemaType.ERC20]: 'ERC20',
-    [SchemaType.SBT]: 'SBT',
+    [EthereumSchemaType.Native]: 'Native',
+    [EthereumSchemaType.ERC721]: 'ERC721',
+    [EthereumSchemaType.ERC1155]: 'ERC1155',
+    [EthereumSchemaType.ERC20]: 'ERC20',
+    [EthereumSchemaType.SBT]: 'SBT',
 };
 const solanaStandardMap: Record<number, string> = {
     [SolanaSchemaType.NonFungible]: 'Metaplex',
@@ -98,8 +103,9 @@ export function NFTOverflow(props: NFTOverflowProps) {
     const description = useMemo(() => convertDescriptionToArray(props.description), [props.description]);
     const standard = useMemo(() => {
         if (!props.schemaType) return;
-        const isSolana = isValidSolanaChainId(props.chainId);
-        return isSolana ? solanaStandardMap[props.schemaType] : evmStandardMap[props.schemaType];
+        if (isValidChainIdSolana(props.chainId)) return solanaStandardMap[props.schemaType];
+        if (isValidChainIdEthereum(props.chainId)) return evmStandardMap[props.schemaType];
+        return;
     }, [props.schemaType, props.chainId]);
 
     return (

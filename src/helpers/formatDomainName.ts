@@ -1,10 +1,8 @@
-import { isEnsSubdomain, isValidDomain } from '@/helpers/isValidDomain.js';
+import { isEnsSubdomain, isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 
 export function formatDomainName(domain: string, size = 18, invalidIgnore?: boolean) {
     if (!domain) return domain;
-    if (!isValidDomain(domain) && !invalidIgnore) {
-        return domain;
-    }
+    if (!isValidDomainEthereum(domain) && !invalidIgnore) return domain;
     if (domain.length <= size) return domain;
 
     if (isEnsSubdomain(domain)) {

@@ -1,5 +1,4 @@
 import { t } from '@lingui/core/macro';
-import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { useIsMutating, useMutation } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation.js';
 
@@ -7,6 +6,7 @@ import { FireflyPlatform } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -27,7 +27,7 @@ export function useToggleNFTBookmark(options: { owner: string; nftId: string; st
                 return;
             }
 
-            const owner = options.owner || ZERO_ADDRESS;
+            const owner = options.owner || ETH_ZERO_ADDRESS;
             const nftId = options.strict ? options.nftId : options.nftId.toLowerCase();
 
             try {

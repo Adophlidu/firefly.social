@@ -1,7 +1,6 @@
 'use client';
 
 import { t } from '@lingui/core/macro';
-import { isValidChainId as isSolanaChainId } from '@masknet/web3-shared-solana';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
@@ -15,6 +14,7 @@ import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
+import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
@@ -46,7 +46,7 @@ function getNFTItemContent(id: string, nft: SimpleHash.NFT) {
         </>
     );
 
-    const tokenId = isSolanaChainId(chainId) ? '0' : nft.token_id;
+    const tokenId = isValidChainIdSolana(chainId) ? '0' : nft.token_id;
 
     return (
         <div className="relative flex cursor-pointer flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl">

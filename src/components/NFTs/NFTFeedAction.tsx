@@ -9,7 +9,7 @@ import PoapIcon from '@/assets/nft-action/poap.svg';
 import SellIcon from '@/assets/nft-action/sell.svg';
 import SendIcon from '@/assets/nft-action/send.svg';
 import { TokenPrice } from '@/components/TokenPrice.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveCoinGeckoTokenSymbol } from '@/helpers/resolveCoinGeckoTokenSymbol.js';
@@ -74,7 +74,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                                     <Trans>
                                         <span className="font-bold text-main">Acquired</span> an NFT from{' '}
                                         <span className="font-bold text-main">
-                                            {formatEthereumAddress(fromAddress, 4)}
+                                            {formatAddressEthereum(fromAddress, 4)}
                                         </span>
                                     </Trans>
                                 ) : (
@@ -93,7 +93,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                             {toAddress ? (
                                 <Trans>
                                     <span className="font-bold text-main">Sent</span> an NFT to{' '}
-                                    <span className="font-bold text-main">{formatEthereumAddress(toAddress, 4)}</span>
+                                    <span className="font-bold text-main">{formatAddressEthereum(toAddress, 4)}</span>
                                 </Trans>
                             ) : (
                                 <Trans>

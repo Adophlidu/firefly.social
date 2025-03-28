@@ -2,7 +2,6 @@
 
 import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
 
@@ -15,7 +14,7 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
@@ -25,18 +24,18 @@ interface Props {
     address: Address;
     contractAddress?: Address;
     tokenId?: string;
-    chainId?: ChainId;
+    chainId?: number;
 }
 
 export function WalletBaseMoreAction({ address, contractAddress, tokenId, chainId }: Props) {
     const { data: ens } = useEnsName({ address });
-    const { data } = useNFTDetail(contractAddress, tokenId, chainId);
+    const { data } = useNFTDetail(chainId, contractAddress, tokenId);
     const { data: isMuted } = useIsWalletMuted(address);
 
     const identity = useFireflyIdentity(Source.Wallet, address);
     const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
 
-    const ensOrAddress = ens || formatEthereumAddress(address, 4);
+    const ensOrAddress = ens || formatAddressEthereum(address, 4);
     const collectionId = data?.collection?.id;
 
     return (

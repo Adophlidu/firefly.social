@@ -1,4 +1,4 @@
-import type { ChainId } from '@masknet/web3-shared-evm';
+import type { EthereumChainId } from '@masknet/web3-shared-evm';
 import { type Address } from 'viem';
 import { estimateFeesPerGas, estimateGas } from 'wagmi/actions';
 
@@ -9,7 +9,7 @@ import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import type { TransactionOptions } from '@/providers/types/Transfer.js';
 
-export async function getDefaultGas({ token, to }: TransactionOptions<ChainId, Address>) {
+export async function getDefaultGas({ token, to }: TransactionOptions<EthereumChainId, Address>) {
     const account = await EthereumNetwork.getAccount();
     const isEIP1559 = EVMChainResolver.isFeatureSupported(token.chainId, 'EIP1559');
     const { gasPrice, maxFeePerGas, maxPriorityFeePerGas } = await estimateFeesPerGas(config, {

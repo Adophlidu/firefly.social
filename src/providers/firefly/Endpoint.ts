@@ -1,4 +1,4 @@
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { produce } from 'immer';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -36,8 +36,7 @@ import { getAddressType } from '@/helpers/getAddressType.js';
 import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
 import { extractIpfsCID } from '@/helpers/isIpfsCID.js';
 import { isSameAddress, isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
-import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
+import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
@@ -492,7 +491,7 @@ export class FireflyEndpoint {
     }
 
     async watchWallet(address: string) {
-        if (!isValidEthereumAddress(address)) throw new Error(`Invalid address: ${address}`);
+        if (!isValidAddressEthereum(address)) throw new Error(`Invalid address: ${address}`);
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/follow', {
             type: WatchType.Wallet,
             toObjectId: address,
@@ -502,7 +501,7 @@ export class FireflyEndpoint {
     }
 
     async unwatchWallet(address: string) {
-        if (!isValidEthereumAddress(address)) throw new Error(`Invalid address: ${address}`);
+        if (!isValidAddressEthereum(address)) throw new Error(`Invalid address: ${address}`);
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/follow', {
             type: WatchType.Wallet,
             toObjectId: address,
@@ -626,7 +625,7 @@ export class FireflyEndpoint {
         const nftIds = response.data.result.flatMap((x) => {
             return x.actions.map((action) =>
                 resolveNFTId(
-                    resolveSimpleHashChainId(x.network) || ChainId.Mainnet,
+                    resolveSimpleHashChainId(x.network) || EthereumChainId.Mainnet,
                     action.contract_address,
                     action.token_id,
                 ),
@@ -1255,7 +1254,7 @@ export class FireflyEndpoint {
     }
 
     async getWalletRelation(walletAddress: string) {
-        const walletType = isValidSolanaAddress(walletAddress) ? 'solana' : 'evm';
+        const walletType = isValidAddressSolana(walletAddress) ? 'solana' : 'evm';
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/relation', {
             walletAddress,
             walletType,

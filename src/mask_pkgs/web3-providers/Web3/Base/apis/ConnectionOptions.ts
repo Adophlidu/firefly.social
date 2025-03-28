@@ -1,6 +1,5 @@
-import type { GasOptionType } from '@masknet/web3-shared-base';
 import {
-    ChainId,
+    EthereumChainId,
     getDefaultChainId,
     getDefaultProviderType,
     ProviderType,
@@ -8,13 +7,14 @@ import {
 } from '@masknet/web3-shared-evm';
 import { identity, pickBy } from 'lodash-es';
 
+import type { GasOptionType } from '@/mask_pkgs/web3-shared/base/index.js';
 import type { PartialRequired } from '@/types/index.js';
 
 export interface BaseConnectionOptions {
     /** Designate the signer of the transaction. */
     account?: string;
     /** Designate the sub-network id of the transaction. */
-    chainId?: ChainId;
+    chainId?: EthereumChainId;
     /** Designate the provider to handle the transaction. */
     providerType?: ProviderType;
     /** Custom network rpc url. */

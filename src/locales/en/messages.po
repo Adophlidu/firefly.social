@@ -804,7 +804,7 @@ msgid "Connected accounts"
 msgstr "Connected accounts"
 
 #. placeholder {0}: space.name
-#. placeholder {1}: ensHandle.data || formatEthereumAddress(snapshot.author, 4)
+#. placeholder {1}: ensHandle.data || formatAddressEthereum(snapshot.author, 4)
 msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr "<0>{0}</0> by <1>{1}</1>"
 
@@ -1403,7 +1403,7 @@ msgstr "Failed to enable signless"
 msgid "Days"
 msgstr "Days"
 
-#. placeholder {0}: formatEthereumAddress(fromAddress, 4)
+#. placeholder {0}: formatAddressEthereum(fromAddress, 4)
 msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
 msgstr "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
 
@@ -1413,7 +1413,7 @@ msgstr "Submit a wallet to receive NFT and $ANON"
 msgid "<0>Bought</0><1/>"
 msgstr "<0>Bought</0><1/>"
 
-#. placeholder {0}: formatEthereumAddress(currentProfile.ownedBy.address, 4)
+#. placeholder {0}: formatAddressEthereum(currentProfile.ownedBy.address, 4)
 msgid "The current connected wallet does not match, Please switch to {0}"
 msgstr "The current connected wallet does not match, Please switch to {0}"
 
@@ -2549,7 +2549,7 @@ msgstr "Add wallet"
 msgid "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
 msgstr "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
 
-#. placeholder {0}: formatEthereumAddress(address, 4)
+#. placeholder {0}: formatAddressEthereum(address, 4)
 msgid "Please switch to {0}"
 msgstr "Please switch to {0}"
 
@@ -3124,6 +3124,10 @@ msgstr "Casts + Replies"
 msgid "Image"
 msgstr "Image"
 
+#. placeholder {0}: formatAddressEthereum(from, 4)
+msgid "From {0}"
+msgstr "From {0}"
+
 msgid "Failed to delete post."
 msgstr "Failed to delete post."
 
@@ -3461,7 +3465,7 @@ msgstr "Launch Token"
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 
-#. placeholder {0}: formatEthereumAddress(toAddress, 4)
+#. placeholder {0}: formatAddressEthereum(toAddress, 4)
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 
@@ -3864,7 +3868,7 @@ msgstr "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}
 msgid "Mask Network"
 msgstr "Mask Network"
 
-#. placeholder {0}: formatEthereumAddress(fromAddress, 4)
+#. placeholder {0}: formatAddressEthereum(fromAddress, 4)
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr "<0>Acquired</0> an NFT from <1>{0}</1>"
 
@@ -4191,7 +4195,7 @@ msgstr "Copy frame URL"
 msgid "Cybercrime."
 msgstr "Cybercrime."
 
-#. placeholder {0}: formatEthereumAddress(toAddress, 4)
+#. placeholder {0}: formatAddressEthereum(toAddress, 4)
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>Sent</0> an NFT to <1>{0}</1>"
 

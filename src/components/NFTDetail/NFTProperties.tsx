@@ -1,10 +1,10 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import type { NonFungibleTokenTrait } from '@masknet/web3-shared-base';
 
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { getNFTPropertyValue } from '@/helpers/getNFTPropertyValue.js';
+import type { NonFungibleTokenTrait } from '@/mask_pkgs/web3-shared/base/index.js';
 
 export interface NFTPropertiesProps {
     items: NonFungibleTokenTrait[];

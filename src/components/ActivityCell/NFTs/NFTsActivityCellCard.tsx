@@ -1,7 +1,6 @@
 'use client';
 
-import type { NonFungibleAsset } from '@masknet/web3-shared-base';
-import { ChainId, type SchemaType } from '@masknet/web3-shared-evm';
+import { EthereumChainId, type EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { isUndefined } from 'lodash-es';
 import { memo } from 'react';
 
@@ -21,20 +20,21 @@ import { resolveCoinGeckoTokenSymbol } from '@/helpers/resolveCoinGeckoTokenSymb
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
+import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
 import { NFTFeedTransAction } from '@/providers/types/NFTs.js';
 
 interface Props {
     address: string;
     tokenId: string;
-    chainId: ChainId;
+    chainId: EthereumChainId;
     action: NFTFeedTransAction;
     ownerAddress: string;
     bookmarked?: boolean;
     nft: NFTAsset;
 }
 
-const PoapTags = memo(function PoapTags({ asset }: { asset: NonFungibleAsset<ChainId, SchemaType> }) {
+const PoapTags = memo(function PoapTags({ asset }: { asset: NonFungibleAsset<EthereumChainId, EthereumSchemaType> }) {
     const { date, position } = usePoapTraits(asset.traits || [], 'MMMDD');
 
     return (

@@ -1,12 +1,11 @@
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import type { Address } from 'viem';
 import { getEnsAvatar, getEnsName } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { FireflyPlatform } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
-import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
+import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { trimify } from '@/helpers/trimify.js';
 import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
@@ -14,12 +13,12 @@ import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
 export async function searchWalletAddress(address: string): Promise<FireflyProfile | undefined> {
     const trimmed = trimify(address);
 
-    if (isValidEthereumAddress(trimmed)) {
+    if (isValidAddressEthereum(trimmed)) {
         const ensName = await runInSafeAsync(() =>
-            getEnsName(config, { address: trimmed.toLowerCase() as Address, chainId: ChainId.Mainnet }),
+            getEnsName(config, { address: trimmed.toLowerCase() as Address, chainId: EthereumChainId.Mainnet }),
         );
         const ensAvatar = ensName
-            ? await runInSafeAsync(() => getEnsAvatar(config, { name: ensName, chainId: ChainId.Mainnet }))
+            ? await runInSafeAsync(() => getEnsAvatar(config, { name: ensName, chainId: EthereumChainId.Mainnet }))
             : undefined;
 
         return {
@@ -33,7 +32,7 @@ export async function searchWalletAddress(address: string): Promise<FireflyProfi
         };
     }
 
-    if (isValidSolanaAddress(trimmed)) {
+    if (isValidAddressSolana(trimmed)) {
         return {
             platform: FireflyPlatform.Wallet,
             platform_id: trimmed,

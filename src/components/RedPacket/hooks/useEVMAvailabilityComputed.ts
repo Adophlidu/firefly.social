@@ -1,4 +1,4 @@
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { type QueryObserverResult, type RefetchOptions, useQuery } from '@tanstack/react-query';
 import { compact, first } from 'lodash-es';
 import { useCallback } from 'react';
@@ -20,7 +20,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
  * @param payload
  */
 export function useEVMAvailabilityComputed(payload: RedPacketJSONPayload, post: Post, enabled = true) {
-    const chainId = payload.chainId || ChainId.Mainnet;
+    const chainId = payload.chainId || EthereumChainId.Mainnet;
     const { account } = useChainContext({
         chainId,
         networkType: getNetworkTypeFromRpPayload(payload),

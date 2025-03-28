@@ -24,8 +24,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatCurrency } from '@/helpers/formatCurrency.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
-import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
+import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { multipliedBy, rightShift } from '@/helpers/number.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
@@ -91,7 +90,7 @@ export function ConfirmView() {
     const { data: shareFromEnsName } = useEnsName({
         address: shareFrom as `0x${string}`,
         query: {
-            enabled: isEVM && isValidEthereumAddress(shareFrom),
+            enabled: isEVM && isValidAddressEthereum(shareFrom),
         },
     });
 
@@ -315,7 +314,7 @@ export function ConfirmView() {
                         >
                             <div className="flex cursor-pointer items-center justify-between rounded-lg bg-bg p-3">
                                 <span className="text-sm font-bold">
-                                    {isValidEthereumAddress(shareFrom) || isValidSolanaAddress(shareFrom)
+                                    {isValidAddressEthereum(shareFrom) || isValidAddressSolana(shareFrom)
                                         ? (shareFromEnsName ?? formatAddress(shareFrom, 4))
                                         : `@${shareFrom}`}
                                 </span>

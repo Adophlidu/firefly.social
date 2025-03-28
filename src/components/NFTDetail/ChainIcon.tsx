@@ -1,11 +1,11 @@
 'use client';
 
-import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
 import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
+import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 
 interface ChainIconProps extends HTMLProps<HTMLImageElement> {
     networkType?: NetworkType;
@@ -15,7 +15,7 @@ interface ChainIconProps extends HTMLProps<HTMLImageElement> {
 
 export function ChainIcon({ chainId, size = 22, className, networkType }: ChainIconProps) {
     const networkDescriptor =
-        isValidSolanaChainId(chainId) || networkType === NetworkType.Solana
+        isValidChainIdSolana(chainId) || networkType === NetworkType.Solana
             ? getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, chainId)
             : getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chainId);
 

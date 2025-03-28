@@ -1,11 +1,10 @@
-import type { NonFungibleAsset } from '@masknet/web3-shared-base';
-import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
-
+import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
+import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
 
 export function resolveNFTId(chainId: number, address: string, tokenId: string, lowerCase = true) {
     const formattedAddress = lowerCase ? address.toLowerCase() : address;
-    if (isValidSolanaChainId(chainId)) {
+    if (isValidChainIdSolana(chainId)) {
         return `solana.${formattedAddress}`;
     }
 

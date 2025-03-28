@@ -1,4 +1,4 @@
-import { ChainId, isNativeTokenAddress, isZeroAddress } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import {
     createOkxSwapWidget,
     type EthereumProvider,
@@ -18,6 +18,7 @@ import { CloseButton } from '@/components/IconButton.js';
 import { Modal, type ModalProps } from '@/components/Modal.js';
 import { Locale } from '@/constants/enum.js';
 import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
+import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
 import { useLocale } from '@/store/useLocale.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
@@ -28,7 +29,7 @@ const LangMap = {
 };
 
 interface Props extends ModalProps {
-    chainId: ChainId;
+    chainId: EthereumChainId;
     chainIds: number[];
     address: string;
 }
@@ -47,11 +48,11 @@ export function SwapModal({ chainId, chainIds, address, ...rest }: Props) {
     useEffect(() => {
         if (!widgetRef.current) return;
 
-        const tokenPair = isNativeTokenAddress(address)
+        const tokenPair = isZeroAddressEthereum(address)
             ? {
                   fromChain: chainId,
                   toChain: chainId,
-                  toToken: isZeroAddress(address) ? NATIVE_TOKEN_ADDRESS : address,
+                  toToken: isZeroAddressEthereum(address) ? NATIVE_TOKEN_ADDRESS : address,
               }
             : {
                   fromChain: chainId,

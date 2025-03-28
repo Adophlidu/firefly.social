@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
 import type { Hex } from 'viem';
@@ -17,7 +17,7 @@ import { useWalletMixAddresses } from '@/components/Profile/useWalletMixAddresse
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
@@ -40,14 +40,14 @@ function GridItem({ children, ...props }: GridItemProps) {
 }
 
 function Owner({ address }: { address: Hex }) {
-    const { data: ensName } = useEnsName({ address, chainId: ChainId.Mainnet });
+    const { data: ensName } = useEnsName({ address, chainId: EthereumChainId.Mainnet });
     return (
         <Link
             href={resolveProfileUrl(Source.Wallet, address)}
             className="absolute left-2 top-2 max-w-[100px] truncate rounded-full bg-[rgba(24,26,32,0.50)] px-2 py-1 text-[10px] font-medium leading-4 text-white backdrop-blur-md"
             onClickCapture={(e) => e.stopPropagation()}
         >
-            {ensName ? ensName : formatEthereumAddress(address, 4)}
+            {ensName ? ensName : formatAddressEthereum(address, 4)}
         </Link>
     );
 }
@@ -143,7 +143,7 @@ export function POAPList({ address }: { address: string }) {
             );
             const response = await SimpleHashProvider.getPOAPs(addresses, {
                 indicator,
-                chainId: ChainId.xDai,
+                chainId: EthereumChainId.xDai,
                 contractAddress: POAP_CONTRACT_ADDRESS,
             });
 

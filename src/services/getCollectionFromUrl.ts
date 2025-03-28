@@ -1,7 +1,8 @@
-import { ChainId as ChainIdEVM } from '@masknet/web3-shared-evm';
-import { ChainId as ChainIdSolana, isValidChainId as isSolanaChainId } from '@masknet/web3-shared-solana';
+import { EthereumChainId as ChainIdEVM } from '@masknet/web3-shared-evm';
+import { SolanaChainId as ChainIdSolana } from '@masknet/web3-shared-solana';
 
 import { NFTMarketplace } from '@/constants/enum.js';
+import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 
@@ -81,7 +82,7 @@ export async function getCollectionFromUrl(url: string) {
     const marketplaceData = resolveMarketplaceData(url);
     if (!marketplaceData) return null;
 
-    const chain = isSolanaChainId(marketplaceData.chainId) ? 'solana' : simpleHashChains.join(',');
+    const chain = isValidChainIdSolana(marketplaceData.chainId) ? 'solana' : simpleHashChains.join(',');
     const response = await SimpleHashProvider.getNFTCollectionsByMarket({
         marketplace: marketplaceData.provider,
         slugs: marketplaceData.slug,

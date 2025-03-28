@@ -4,7 +4,7 @@ import { DialogTitle } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
-import { SchemaType } from '@masknet/web3-shared-evm';
+import { EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import type { Address } from 'viem';
@@ -21,7 +21,7 @@ import { chains } from '@/configs/wagmiClient.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useNFTCollections } from '@/hooks/useNFTCollections.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -57,7 +57,7 @@ function AddCustomERC721Content({ onClose, initialChainId }: { onClose: () => vo
 
     const { data: allCollections = EMPTY_LIST, isLoading } = useNFTCollections({
         account: account.address,
-        schemaType: SchemaType.ERC721,
+        schemaType: EthereumSchemaType.ERC721,
     });
     const addCustomToken = useCustomTokenStore((state) => state.addToken);
     const [{ loading }, onAdd] = useAsyncFn(async () => {
@@ -90,7 +90,7 @@ function AddCustomERC721Content({ onClose, initialChainId }: { onClose: () => vo
         }
     }, [account.address, contractAddress, allCollections, selectedChain, addCustomToken, onClose]);
 
-    const disabledAdd = [contractAddress, selectedChain, isValidEthereumAddress(contractAddress), account.address].some(
+    const disabledAdd = [contractAddress, selectedChain, isValidAddressEthereum(contractAddress), account.address].some(
         (x) => !x,
     );
 

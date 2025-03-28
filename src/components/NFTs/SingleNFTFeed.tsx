@@ -1,4 +1,4 @@
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
@@ -29,7 +29,7 @@ interface SingleNFTFeedProps {
     listKey?: string;
     index?: number;
     tokenList: Array<NFTFeedBodyProps['tokenList'][number] & { bookmarked?: boolean; nft: NFTAsset }>;
-    chainId: ChainId;
+    chainId: EthereumChainId;
     displayInfo: NFTOwnerDisplayInfo;
     time: number | string | Date;
     followingSources?: FollowingNFT['followingSources'];

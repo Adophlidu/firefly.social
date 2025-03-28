@@ -1,4 +1,4 @@
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { first } from 'lodash-es';
 
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
@@ -14,6 +14,6 @@ export function resolveCollectionChain(collection: SimpleHash.Collection): {
 
     return {
         address,
-        chainId: chainId || ChainId.Mainnet,
+        chainId: chainId || EthereumChainId.Mainnet,
     };
 }

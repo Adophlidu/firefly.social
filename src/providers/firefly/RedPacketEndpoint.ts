@@ -1,4 +1,4 @@
-import type { ChainId } from '@masknet/web3-shared-evm';
+import type { EthereumChainId } from '@masknet/web3-shared-evm';
 import urlcat from 'urlcat';
 
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -263,7 +263,7 @@ export class FireflyRedPacketEndpoint {
         });
     }
 
-    static async checkGasFreeStatus(chainId: ChainId, wallet: string) {
+    static async checkGasFreeStatus(chainId: EthereumChainId, wallet: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/checkGasFreeRedPacketClaimStatus', {
             wallet,
             chainId,

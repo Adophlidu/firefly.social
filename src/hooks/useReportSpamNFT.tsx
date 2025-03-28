@@ -1,7 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { type NonFungibleAsset } from '@masknet/web3-shared-base';
-import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
+import { EthereumChainId, EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { type Draft, produce } from 'immer';
 import { useAsyncFn } from 'react-use';
 
@@ -10,6 +9,7 @@ import { Source } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
+import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
@@ -26,7 +26,9 @@ interface PagesData {
 function filterOutActivities(collectionId: string) {
     // To report an NFT collection, we need to get its collection id first.
     // Therefore, query data for the collection will exist
-    const data = queryClient.getQueriesData<NonFungibleAsset<ChainId, SchemaType>>({ queryKey: ['nft-detail'] });
+    const data = queryClient.getQueriesData<NonFungibleAsset<EthereumChainId, EthereumSchemaType>>({
+        queryKey: ['nft-detail'],
+    });
     const queryData = data.find(([queryKey, data]) => {
         if (queryKey.length !== 4) return false;
         return data?.collection?.id === collectionId;

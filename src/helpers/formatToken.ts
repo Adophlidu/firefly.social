@@ -1,9 +1,10 @@
-import { type FungibleToken } from '@masknet/web3-shared-base';
-import { type ChainId, SchemaType, ZERO_ADDRESS } from '@masknet/web3-shared-evm';
-import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
+import { type EthereumChainId, EthereumSchemaType } from '@masknet/web3-shared-evm';
 
 import { NetworkType, TokenType } from '@/constants/enum.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
+import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
+import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
+import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
@@ -12,9 +13,9 @@ export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<nu
     const address =
         token.networkType === NetworkType.Solana
             ? token.id
-            : isValidEthereumAddress(token.id)
+            : isValidAddressEthereum(token.id)
               ? token.id
-              : ZERO_ADDRESS;
+              : ETH_ZERO_ADDRESS;
 
     return {
         name: token.name,
@@ -24,9 +25,9 @@ export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<nu
         id: address,
         chainId: token.chainId,
         type: TokenType.Fungible,
-        schema: isNativeToken(token) ? SchemaType.Native : SchemaType.ERC20,
+        schema: isNativeToken(token) ? EthereumSchemaType.Native : EthereumSchemaType.ERC20,
         address,
-    } as FungibleToken<ChainId, SchemaType>;
+    } as FungibleToken<EthereumChainId, EthereumSchemaType>;
 }
 
 export function formatFungibleTokenToDebankToken(token: FungibleToken<number, number>) {
@@ -37,6 +38,6 @@ export function formatFungibleTokenToDebankToken(token: FungibleToken<number, nu
         logo_url: token.logoURL,
         id: token.id,
         chainId: token.chainId,
-        networkType: isValidSolanaChainId(token.chainId) ? NetworkType.Solana : NetworkType.Ethereum,
+        networkType: isValidChainIdSolana(token.chainId) ? NetworkType.Solana : NetworkType.Ethereum,
     } as Token;
 }

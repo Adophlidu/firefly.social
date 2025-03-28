@@ -1,4 +1,3 @@
-import { isZeroAddress } from '@masknet/web3-shared-evm';
 import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
 
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
@@ -6,6 +5,7 @@ import { NetworkPluginID, type NetworkType } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
+import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
 interface TokenIconProps extends HTMLProps<HTMLSpanElement> {
@@ -47,7 +47,7 @@ export const TokenIcon = memo(function TokenIcon({
     }, []);
 
     const tokenIcon = useMemo(() => {
-        if (address && isZeroAddress(address) && chainId) {
+        if (chainId && isZeroAddressEthereum(address)) {
             return getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chainId)?.icon;
         }
         return !icon || hasError || icon === 'missing.png' ? defaultFallbackUrl : icon;

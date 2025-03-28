@@ -1,16 +1,19 @@
-import { type ChainDescriptor, createFungibleToken, type NetworkDescriptor } from '@masknet/web3-shared-base';
-
 import { NetworkPluginID } from '@/constants/enum.js';
+import {
+    type ChainDescriptor,
+    createFungibleToken,
+    type NetworkDescriptor,
+} from '@/mask_pkgs/web3-shared/base/index.js';
 import { getTokenConstant } from '@/mask_pkgs/web3-shared/solana/constants/constants.js';
-import { ChainId, NetworkType, SchemaType } from '@/mask_pkgs/web3-shared/solana/types.js';
+import { SolanaChainId, SolanaNetworkType, SolanaSchemaType } from '@/mask_pkgs/web3-shared/solana/types.js';
 
 const PLUGIN_ID = NetworkPluginID.PLUGIN_SOLANA;
 
-export const CHAIN_DESCRIPTORS: ReadonlyArray<ChainDescriptor<ChainId, SchemaType, NetworkType>> = [
+export const CHAIN_DESCRIPTORS: ReadonlyArray<ChainDescriptor<SolanaChainId, SolanaSchemaType, SolanaNetworkType>> = [
     {
-        ID: `${ChainId.Mainnet}_Solana`,
-        type: NetworkType.Solana,
-        chainId: ChainId.Mainnet,
+        ID: `${SolanaChainId.Mainnet}_Solana`,
+        type: SolanaNetworkType.Solana,
+        chainId: SolanaChainId.Mainnet,
         coinMarketCapChainId: '',
         coinGeckoChainId: '',
         coinGeckoPlatformId: '',
@@ -20,9 +23,9 @@ export const CHAIN_DESCRIPTORS: ReadonlyArray<ChainDescriptor<ChainId, SchemaTyp
         shortName: 'Solana',
         network: 'mainnet',
         nativeCurrency: createFungibleToken(
-            ChainId.Mainnet,
-            SchemaType.Fungible,
-            getTokenConstant(ChainId.Mainnet, 'SOL_ADDRESS', ''),
+            SolanaChainId.Mainnet,
+            SolanaSchemaType.Fungible,
+            getTokenConstant(SolanaChainId.Mainnet, 'SOL_ADDRESS', ''),
             'Solana',
             'SOL',
             9,
@@ -37,12 +40,12 @@ export const CHAIN_DESCRIPTORS: ReadonlyArray<ChainDescriptor<ChainId, SchemaTyp
     },
 ];
 
-export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<ChainId, NetworkType>> = [
+export const NETWORK_DESCRIPTORS: ReadonlyArray<NetworkDescriptor<SolanaChainId, SolanaNetworkType>> = [
     {
         ID: `${PLUGIN_ID}_solana`,
         networkSupporterPluginID: PLUGIN_ID,
-        chainId: ChainId.Mainnet,
-        type: NetworkType.Solana,
+        chainId: SolanaChainId.Mainnet,
+        type: SolanaNetworkType.Solana,
         name: 'Solana',
         icon: new URL('../assets/solana.png', import.meta.url).href,
         iconColor: '#5d6fc0',

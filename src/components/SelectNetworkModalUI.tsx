@@ -1,8 +1,8 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
-import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
+import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { memo, type ReactNode } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -23,7 +23,7 @@ interface Props {
     loading?: boolean;
 }
 
-const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
+const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EthereumChainId.Mainnet);
 const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
 
 export const SelectNetworkModalUI = memo<Props>(function SelectChainModalUI({ title, onOpen, open, onClose, loading }) {

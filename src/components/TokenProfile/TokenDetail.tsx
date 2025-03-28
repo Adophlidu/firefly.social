@@ -16,7 +16,7 @@ import { ContractList } from '@/components/TokenProfile/ContractList.js';
 import { TokenMarketData } from '@/components/TokenProfile/TokenMarketData.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getChainInfo } from '@/helpers/getChainInfo.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
@@ -79,7 +79,7 @@ function getHost(url: string) {
 }
 
 function formatContractAddress(contract: Contract) {
-    if (contract.runtime === 'ethereum') formatEthereumAddress(contract.address, 4);
+    if (contract.runtime === 'ethereum') formatAddressEthereum(contract.address, 4);
     return `${contract.address.slice(0, 6)}...${contract.address.slice(-4)}`;
 }
 

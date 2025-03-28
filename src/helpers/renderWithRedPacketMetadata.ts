@@ -1,6 +1,6 @@
 import type { TypedMessage } from '@masknet/typed-message';
 import { createRenderWithMetadata, createTypedMessageMetadataReader } from '@masknet/typed-message-react';
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { Err, Ok, type Result } from 'ts-results-es';
 
 import { SOLANA_PREFIX, SolanaRedPacketMetaKey, SupportedMetaKeys } from '@/constants/rp.js';
@@ -26,7 +26,7 @@ export function RedPacketMetadataReader(
         const payload = result.value;
         // Hard code for legacy RedPacket
         if (!payload.token && payload.contract_version === 1 && payload.token_type === 0) {
-            const chainId = payload.network === 'Mainnet' ? ChainId.Mainnet : undefined;
+            const chainId = payload.network === 'Mainnet' ? EthereumChainId.Mainnet : undefined;
             if (!chainId) return result;
 
             return Ok({

@@ -1,12 +1,11 @@
-import type { NonFungibleCollection } from '@masknet/web3-shared-base';
-import { ChainId, ChainId as EVMChainId, SchemaType } from '@masknet/web3-shared-evm';
-import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
+import { EthereumChainId, EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { chunk, compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { ChainRuntime, type NFTMarketplace } from '@/constants/enum.js';
 import { EMPTY_LIST, SIMPLE_HASH_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -16,6 +15,7 @@ import {
 } from '@/helpers/pageable.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 import type { BaseHubOptions } from '@/mask/index.js';
+import type { NonFungibleCollection } from '@/mask_pkgs/web3-shared/base/index.js';
 import { formatSimpleHashNFT } from '@/providers/simplehash/formatSimpleHashNFT.js';
 import {
     createNonFungibleCollection,
@@ -54,11 +54,11 @@ class SimpleHashFactory {
         chainId?: number;
         indicator?: PageIndicator;
         allChains?: boolean;
-        schemaType?: SchemaType;
-    }): Promise<Pageable<NonFungibleCollection<ChainId, SchemaType>, PageIndicator>> {
+        schemaType?: EthereumSchemaType;
+    }): Promise<Pageable<NonFungibleCollection<EthereumChainId, EthereumSchemaType>, PageIndicator>> {
         const { account, chainId, indicator, allChains, schemaType } = params;
         const runtime = ChainRuntime.Ethereum;
-        const isERC712Only = schemaType === SchemaType.ERC721;
+        const isERC712Only = schemaType === EthereumSchemaType.ERC721;
         const chain = allChains || !chainId ? getAllChainNames(runtime) : resolveChain(runtime, chainId);
         if (!chain || !account) {
             return createPageable(EMPTY_LIST, createIndicator(indicator));
@@ -180,9 +180,9 @@ class SimpleHashFactory {
         options?: BaseHubOptions<number>,
         skipScoreCheck = false,
     ): Promise<NFTAsset | null> {
-        const chain = resolveSimpleHashChain(options?.chainId || EVMChainId.Mainnet);
+        const chain = resolveSimpleHashChain(options?.chainId || EthereumChainId.Mainnet);
         if (!chain || !address) return null;
-        if (!isValidSolanaChainId(options?.chainId) && !tokenId) null;
+        if (!isValidChainIdSolana(options?.chainId) && !tokenId) null;
 
         const path = urlcat(
             SIMPLE_HASH_URL,
@@ -196,7 +196,7 @@ class SimpleHashFactory {
         const response = await fetchJSON<SimpleHash.NFT>(path);
         const asset = formatSimpleHashNFT(response, skipScoreCheck);
 
-        if (chain !== 'solana' && asset?.schema === SchemaType.ERC1155 && options?.account) {
+        if (chain !== 'solana' && asset?.schema === EthereumSchemaType.ERC1155 && options?.account) {
             const pathToQueryOwner = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/contracts', {
                 chains: chain,
                 wallet_addresses: options.account,
@@ -215,7 +215,7 @@ class SimpleHashFactory {
 
     async getNFTs(contractAddress: string, options?: BaseHubOptions<number>, skipScoreCheck = false) {
         const indicator = options?.indicator;
-        const chain = resolveSimpleHashChain(options?.chainId || EVMChainId.Mainnet);
+        const chain = resolveSimpleHashChain(options?.chainId || EthereumChainId.Mainnet);
         if (!chain || !contractAddress) {
             return createPageable(EMPTY_LIST, createIndicator(indicator));
         }
@@ -238,7 +238,7 @@ class SimpleHashFactory {
 
     async getNFTsByCollectionId(collectionId: string, options?: BaseHubOptions<number>, skipScoreCheck = false) {
         const indicator = options?.indicator;
-        const chain = resolveSimpleHashChain(options?.chainId || EVMChainId.Mainnet);
+        const chain = resolveSimpleHashChain(options?.chainId || EthereumChainId.Mainnet);
         if (!collectionId || !chain) {
             return createPageable(EMPTY_LIST, createIndicator(indicator));
         }
@@ -260,7 +260,7 @@ class SimpleHashFactory {
 
     async getNFTsByCollectionIdAndOwner(collectionId: string, owner: string, options?: BaseHubOptions<number>) {
         const indicator = options?.indicator;
-        const chain = resolveSimpleHashChain(options?.chainId || EVMChainId.Mainnet);
+        const chain = resolveSimpleHashChain(options?.chainId || EthereumChainId.Mainnet);
         if (!chain || !collectionId || !owner) return createPageable(EMPTY_LIST, createIndicator(indicator));
 
         const path = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/owners', {
@@ -284,7 +284,7 @@ class SimpleHashFactory {
 
     async getPOAPs(address: string | string[], options?: BaseHubOptions<number> & { contractAddress?: string }) {
         const indicator = options?.indicator;
-        const chain = resolveSimpleHashChain(options?.chainId || EVMChainId.Mainnet);
+        const chain = resolveSimpleHashChain(options?.chainId || EthereumChainId.Mainnet);
         if (!address || !chain) {
             return createPageable(EMPTY_LIST, createIndicator(indicator));
         }
@@ -309,7 +309,7 @@ class SimpleHashFactory {
         contractAddress: string,
         options?: BaseHubOptions<number>,
     ): Promise<SimpleHash.Collection | null> {
-        const chain = resolveSimpleHashChain(options?.chainId || EVMChainId.Mainnet);
+        const chain = resolveSimpleHashChain(options?.chainId || EthereumChainId.Mainnet);
         if (!chain || !contractAddress) return null;
         const path = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/collections/:chain/:address', {
             chain,

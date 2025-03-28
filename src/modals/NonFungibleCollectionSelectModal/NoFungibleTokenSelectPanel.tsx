@@ -1,5 +1,5 @@
 import { t } from '@lingui/core/macro';
-import { SchemaType } from '@masknet/web3-shared-evm';
+import { EthereumSchemaType } from '@masknet/web3-shared-evm';
 import Fuse from 'fuse.js';
 import { uniq } from 'lodash-es';
 import { memo, useCallback, useMemo, useState } from 'react';
@@ -32,7 +32,7 @@ export const NonFungibleCollectionSelectPanel = memo<FungibleTokenSelectPanelPro
 
         const { data: allCollections = EMPTY_LIST, isLoading } = useNFTCollections({
             account: account.address,
-            schemaType: SchemaType.ERC721,
+            schemaType: EthereumSchemaType.ERC721,
         });
         const { data: customNonFungibleTokens = [] } = useCustomNonFungibleTokens();
         const collections = useMemo(

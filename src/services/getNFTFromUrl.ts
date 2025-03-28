@@ -1,10 +1,11 @@
-import { ChainId, ChainId as EVMChainId } from '@masknet/web3-shared-evm';
-import { ChainId as SolanaChainId, isValidChainId as isSolanaChainId } from '@masknet/web3-shared-solana';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
+import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { first } from 'lodash-es';
 
 import { LinkDigestType, NetworkType } from '@/constants/enum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
-import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
+import { isValidAddressSolana } from '@/helpers/isValidAddress.js';
+import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -13,39 +14,31 @@ import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 const NFTSCAN_EVM_DOMAINS = [
     {
         domain: 'eth.nftscan.com',
-        chainId: ChainId.Mainnet,
+        chainId: EthereumChainId.Mainnet,
     },
     {
         domain: 'bnb.nftscan.com',
-        chainId: ChainId.BSC,
+        chainId: EthereumChainId.BSC,
     },
     {
         domain: 'polygon.nftscan.com',
-        chainId: ChainId.Polygon,
+        chainId: EthereumChainId.Polygon,
     },
     {
         domain: 'ava.nftscan.com',
-        chainId: ChainId.Avalanche,
+        chainId: EthereumChainId.Avalanche,
     },
     {
         domain: 'arbitrum.nftscan.com',
-        chainId: ChainId.Arbitrum,
+        chainId: EthereumChainId.Arbitrum,
     },
     {
         domain: 'optimism.nftscan.com',
-        chainId: ChainId.Optimism,
-    },
-    {
-        domain: 'zksync.nftscan.com',
-        chainId: ChainId.ZkSyncEra,
-    },
-    {
-        domain: 'linea.nftscan.com',
-        chainId: ChainId.Linea,
+        chainId: EthereumChainId.Optimism,
     },
     {
         domain: 'base.nftscan.com',
-        chainId: ChainId.Base,
+        chainId: EthereumChainId.Base,
     },
 ] as const;
 
@@ -72,7 +65,7 @@ const rules: Rule[] = [
         hosts: ['collectors.poap.xyz', 'app.poap.xyz'],
         pathname: /^\/token\/(\d+)$/,
         network: NetworkType.Ethereum,
-        chainId: EVMChainId.Mainnet,
+        chainId: EthereumChainId.Mainnet,
         isPoap: true,
         address: () => POAP_CONTRACT_ADDRESS,
         tokenId: (matches) => matches[1],
@@ -106,7 +99,7 @@ function resolveNFTData(url: string) {
                 network: rule.network,
                 isPoap: rule.isPoap,
                 address: rule.address ? rule.address(matched) : matched[1],
-                tokenId: rule.tokenId ? rule.tokenId(matched) : isSolanaChainId(rule.chainId) ? '0' : matched[2],
+                tokenId: rule.tokenId ? rule.tokenId(matched) : isValidChainIdSolana(rule.chainId) ? '0' : matched[2],
             };
         }
     }
@@ -118,7 +111,7 @@ export async function getNFTFromUrl(url: string) {
     const nftParams = resolveNFTData(url);
 
     if (nftParams) {
-        const chain = isValidSolanaAddress(nftParams.address) ? 'solana' : resolveSimpleHashChain(nftParams.chainId);
+        const chain = isValidAddressSolana(nftParams.address) ? 'solana' : resolveSimpleHashChain(nftParams.chainId);
         const nft = !nftParams.isPoap
             ? await SimpleHashProvider.getNFTByAddress(nftParams.address, nftParams.tokenId, chain || 'ethereum')
             : first(

@@ -1,4 +1,4 @@
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { StatusCodes } from 'http-status-codes';
 
 import { LensHub } from '@/abis/LensHub.js';
@@ -14,7 +14,7 @@ export async function GET(request: Request) {
     if (!id) return createErrorResponseJSON('Missing id', { status: StatusCodes.BAD_REQUEST });
 
     try {
-        const client = createWagmiPublicClient(ChainId.Polygon);
+        const client = createWagmiPublicClient(EthereumChainId.Polygon);
         const data = await client.readContract({
             abi: LensHub,
             address: LENS_HUB_PROXY_ADDRESS,

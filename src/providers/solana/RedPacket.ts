@@ -1,5 +1,5 @@
 import { BN, web3 } from '@coral-xyz/anchor';
-import { ChainId } from '@masknet/web3-shared-solana';
+import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { ASSOCIATED_TOKEN_PROGRAM_ID, getAssociatedTokenAddressSync } from '@solana/spl-token';
 import { Ed25519Program, LAMPORTS_PER_SOL, TransactionExpiredTimeoutError } from '@solana/web3.js';
 import { sign } from 'tweetnacl';
@@ -68,7 +68,7 @@ async function runRPC(builder: MethodsBuilder) {
     } catch (error) {
         if (error instanceof TransactionExpiredTimeoutError && error.signature) {
             const result = await runInSafeAsync(() =>
-                requestRPC<GetTransactionResponse>(ChainId.Mainnet, {
+                requestRPC<GetTransactionResponse>(SolanaChainId.Mainnet, {
                     method: 'getTransaction',
                     params: [error.signature, 'jsonParsed'],
                 }),
@@ -84,12 +84,12 @@ async function runRPC(builder: MethodsBuilder) {
 class Provider {
     private get readonlyProgram() {
         return createRedPacketProgram(
-            env.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled ? ChainId.Devnet : ChainId.Mainnet,
+            env.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled ? SolanaChainId.Devnet : SolanaChainId.Mainnet,
         );
     }
     private get program() {
         return createRedPacketProgram(
-            env.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled ? ChainId.Devnet : ChainId.Mainnet,
+            env.external.NEXT_PUBLIC_SOLANA_DEV === STATUS.Enabled ? SolanaChainId.Devnet : SolanaChainId.Mainnet,
             true,
         );
     }

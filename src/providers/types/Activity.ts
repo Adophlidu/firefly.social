@@ -1,4 +1,4 @@
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type {
@@ -115,7 +115,7 @@ export type MintActivitySBTResponse = Response<{
     status: boolean;
     hash: string;
     errormessage?: string;
-    chainId: ChainId | 'solana';
+    chainId: EthereumChainId | 'solana';
 }>;
 
 export interface Provider {

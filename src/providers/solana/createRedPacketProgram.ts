@@ -1,7 +1,7 @@
 /* cspell:disable */
 
 import { Program, web3 } from '@coral-xyz/anchor';
-import type { ChainId } from '@masknet/web3-shared-solana';
+import type { SolanaChainId } from '@masknet/web3-shared-solana';
 
 import { getAnchorProvider } from '@/helpers/getAnchorProvider.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
@@ -10,7 +10,7 @@ import RedPacketIDL from '@/idls/redpacket.json' with { type: 'json' };
 
 const storage = new Map<string, Program<Redpacket>>();
 
-export function createRedPacketProgram(chainId: ChainId, requireWallet = false): Program<Redpacket> {
+export function createRedPacketProgram(chainId: SolanaChainId, requireWallet = false): Program<Redpacket> {
     const key = `${chainId}-${requireWallet}`;
     const hit = storage.get(key);
     if (hit) return hit;

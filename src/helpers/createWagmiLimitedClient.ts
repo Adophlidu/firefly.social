@@ -1,4 +1,4 @@
-import { ChainId, EthereumMethodType } from '@masknet/web3-shared-evm';
+import { EthereumChainId, EthereumMethodType } from '@masknet/web3-shared-evm';
 import localforage from 'localforage';
 import { toHex } from 'viem';
 
@@ -12,7 +12,7 @@ const storage = localforage.createInstance({
 
 async function createClient() {
     const rawChainId = await storage.getItem<string>('chainId');
-    const chainId = rawChainId ? (Number.parseInt(rawChainId, 16) as ChainId) : ChainId.Mainnet;
+    const chainId = rawChainId ? (Number.parseInt(rawChainId, 16) as EthereumChainId) : EthereumChainId.Mainnet;
     return createWagmiPublicClient(chainId);
 }
 

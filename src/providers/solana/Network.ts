@@ -1,10 +1,10 @@
-import { ChainId } from '@masknet/web3-shared-solana';
+import { SolanaChainId } from '@masknet/web3-shared-solana';
 
 import { SolanaExplorerResolver } from '@/mask/index.js';
 import { getWalletAdapter, getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';
 import type { NetworkProvider as NetworkProvider } from '@/providers/types/Network.js';
 
-class Provider implements NetworkProvider<ChainId> {
+class Provider implements NetworkProvider<SolanaChainId> {
     async connect() {
         const adapter = getWalletAdapter();
         if (!adapter.publicKey) await adapter.connect();
@@ -17,15 +17,15 @@ class Provider implements NetworkProvider<ChainId> {
         return adapter.publicKey.toBase58();
     }
 
-    getChainId(): ChainId {
-        return ChainId.Mainnet;
+    getChainId(): SolanaChainId {
+        return SolanaChainId.Mainnet;
     }
 
-    getAddressUrl(chainId: ChainId, token: string): string | undefined {
+    getAddressUrl(chainId: SolanaChainId, token: string): string | undefined {
         return SolanaExplorerResolver.addressLink(chainId, token);
     }
 
-    getTransactionUrl(chainId: ChainId, hash: string): string | undefined {
+    getTransactionUrl(chainId: SolanaChainId, hash: string): string | undefined {
         return SolanaExplorerResolver.transactionLink(chainId, hash);
     }
 }

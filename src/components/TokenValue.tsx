@@ -1,5 +1,4 @@
-import { type FungibleToken } from '@masknet/web3-shared-base';
-import { type ChainId, SchemaType } from '@masknet/web3-shared-evm';
+import { type EthereumChainId, EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
 import { type HTMLProps, useMemo } from 'react';
 
@@ -10,10 +9,11 @@ import { formatCurrency } from '@/helpers/formatCurrency.js';
 import { formatFungibleTokenToDebankToken } from '@/helpers/formatToken.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
+import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     amount?: string;
-    token?: FungibleToken<ChainId, SchemaType> | null;
+    token?: FungibleToken<EthereumChainId, EthereumSchemaType> | null;
     chainId?: number;
     networkType: NetworkType;
 }

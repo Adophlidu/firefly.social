@@ -2,8 +2,7 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import type { NonFungibleTokenTrait } from '@masknet/web3-shared-base';
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { type ReactNode, useMemo } from 'react';
 import type { Hex } from 'viem';
@@ -32,6 +31,7 @@ import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
+import type { NonFungibleTokenTrait } from '@/mask_pkgs/web3-shared/base/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 
@@ -47,7 +47,7 @@ interface NFTInfoProps {
         id?: string;
     };
     floorPrice?: ReactNode;
-    chainId: ChainId;
+    chainId: number;
     attendance?: number;
     isPoap?: boolean;
     video?: {
@@ -78,7 +78,7 @@ export function NFTInfo(props: NFTInfoProps) {
     } = props;
     const isMedium = useIsMedium();
     const { data: ensName } = useEnsName({
-        chainId: ChainId.Mainnet,
+        chainId: EthereumChainId.Mainnet,
         address: ownerAddress as Hex,
     });
 

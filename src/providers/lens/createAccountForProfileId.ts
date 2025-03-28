@@ -1,10 +1,10 @@
-import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { polygon } from 'viem/chains';
 
 import { config } from '@/configs/wagmiClient.js';
 import { THIRTY_DAYS } from '@/constants/index.js';
 import { createLensSDK, getLensCredentials, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -50,7 +50,7 @@ export async function createAccountForProfileId(profile: Profile, signal?: Abort
         now,
         now + THIRTY_DAYS,
         parsed.data.refreshToken,
-        address ?? ZERO_ADDRESS,
+        address ?? ETH_ZERO_ADDRESS,
     );
     const fireflySession = await bindOrRestoreFireflySession(session, signal);
 

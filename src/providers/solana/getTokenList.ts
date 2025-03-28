@@ -1,4 +1,4 @@
-import { ChainId, getCoinGeckoConstants } from '@masknet/web3-shared-solana';
+import { getCoinGeckoConstants, SolanaChainId } from '@masknet/web3-shared-solana';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 import { compact } from 'lodash-es';
 
@@ -117,7 +117,7 @@ export async function getSolanaTokenList(chainId: number, account: string): Prom
             const logoImage = splToken?.logoURI || attributes?.image_url || '';
 
             return {
-                chainId: ChainId.Mainnet,
+                chainId: SolanaChainId.Mainnet,
                 balance: tokenAccount.tokenAmount.uiAmountString,
                 usdValue: multipliedBy(tokenAmount, attributes?.price_usd || '0').toNumber(),
                 amount: tokenAmount.toNumber(),

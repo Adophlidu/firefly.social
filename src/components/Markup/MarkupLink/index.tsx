@@ -27,9 +27,8 @@ import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, FULL_ENS_REGEXP, LENS_HANDLE_RE
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
 import { getProfileUrl, getTwitterProfileUrl } from '@/helpers/getProfileUrl.js';
-import { isValidDomain } from '@/helpers/isValidDomain.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
-import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
+import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
+import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { isTCOLink } from '@/helpers/resolveTCOLink.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -152,7 +151,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
             </>
         );
 
-    if (isValidEthereumAddress(trimmed) || (isValidSolanaAddress(trimmed) as boolean)) {
+    if (isValidAddressEthereum(trimmed) || (isValidAddressSolana(trimmed) as boolean)) {
         return <AddressTag title={trimmed} address={trimmed} source={source} />;
     }
 
@@ -214,7 +213,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         );
     }
 
-    if (isValidDomain(title)) return title;
+    if (isValidDomainEthereum(title)) return title;
 
     if (EMAIL_REGEX.test(title)) return title;
 

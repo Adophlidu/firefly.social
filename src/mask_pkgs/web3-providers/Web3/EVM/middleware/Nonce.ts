@@ -1,4 +1,4 @@
-import { type ChainId, EthereumMethodType, type Middleware } from '@masknet/web3-shared-evm';
+import { type EthereumChainId, EthereumMethodType, type Middleware } from '@masknet/web3-shared-evm';
 import { type Address, checksumAddress } from 'viem';
 
 import { EVMWeb3Readonly } from '@/mask_pkgs/web3-providers/Web3/EVM/apis/ConnectionReadonlyAPI.js';
@@ -8,11 +8,11 @@ class NonceAPI implements Middleware<ConnectionContext> {
     static INITIAL_NONCE = -1;
 
     // account address => chainId => nonce
-    private nonces = new Map<string, Map<ChainId, number>>();
+    private nonces = new Map<string, Map<EthereumChainId, number>>();
 
-    private async syncRemoteNonce(chainId: ChainId, address: string, providerURL?: string, commitment = 0) {
+    private async syncRemoteNonce(chainId: EthereumChainId, address: string, providerURL?: string, commitment = 0) {
         const address_ = checksumAddress(address as Address);
-        const addressNonces = this.nonces.get(address_) ?? new Map<ChainId, number>();
+        const addressNonces = this.nonces.get(address_) ?? new Map<EthereumChainId, number>();
 
         addressNonces.set(
             chainId,

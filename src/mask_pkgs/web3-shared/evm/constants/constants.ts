@@ -4,9 +4,14 @@ import ENS from '@masknet/web3-constants/evm/ens.json' with { type: 'json' };
 import RedPacket from '@masknet/web3-constants/evm/red-packet.json' with { type: 'json' };
 import RPC from '@masknet/web3-constants/evm/rpc.json' with { type: 'json' };
 import Token from '@masknet/web3-constants/evm/token.json' with { type: 'json' };
-import { transform, transformAll, transformAllFromJSON, transformFromJSON } from '@masknet/web3-shared-base';
 
-import { ChainId } from '@/mask_pkgs/web3-shared/evm/types/index.js';
+import {
+    transform,
+    transformAll,
+    transformAllFromJSON,
+    transformFromJSON,
+} from '@/mask_pkgs/web3-shared/base/index.js';
+import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/types/index.js';
 
 function getEnvConstants(key: 'WEB3_CONSTANTS_RPC') {
     try {
@@ -19,16 +24,16 @@ function getEnvConstants(key: 'WEB3_CONSTANTS_RPC') {
     }
 }
 
-export const ChainIdList = getEnumAsArray(ChainId).map((x) => x.value);
+export const ChainIdList = getEnumAsArray(EthereumChainId).map((x) => x.value);
 
-export const getCoinGeckoConstants = transformAll(ChainId, CoinGecko);
+export const getCoinGeckoConstants = transformAll(EthereumChainId, CoinGecko);
 
-export const getRedPacketConstant = transform(ChainId, RedPacket);
-export const getRedPacketConstants = transformAll(ChainId, RedPacket);
+export const getRedPacketConstant = transform(EthereumChainId, RedPacket);
+export const getRedPacketConstants = transformAll(EthereumChainId, RedPacket);
 
-export const getTokenConstant = transform(ChainId, Token);
+export const getTokenConstant = transform(EthereumChainId, Token);
 
-export const getRPCConstants = transformAllFromJSON(ChainId, getEnvConstants('WEB3_CONSTANTS_RPC'), RPC);
-export const getRPCConstant = transformFromJSON(ChainId, getEnvConstants('WEB3_CONSTANTS_RPC'), RPC);
+export const getRPCConstants = transformAllFromJSON(EthereumChainId, getEnvConstants('WEB3_CONSTANTS_RPC'), RPC);
+export const getRPCConstant = transformFromJSON(EthereumChainId, getEnvConstants('WEB3_CONSTANTS_RPC'), RPC);
 
-export const getENSConstants = transformAll(ChainId, ENS);
+export const getENSConstants = transformAll(EthereumChainId, ENS);

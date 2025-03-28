@@ -1,4 +1,4 @@
-import { ChainId } from '@masknet/web3-shared-solana';
+import { SolanaChainId } from '@masknet/web3-shared-solana';
 
 import { RPC_Error } from '@/constants/error.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -9,7 +9,7 @@ interface RpcOptions {
     params?: unknown[];
 }
 
-export async function requestRPC<T = unknown>(chainId: ChainId, options: RpcOptions): Promise<T> {
+export async function requestRPC<T = unknown>(chainId: SolanaChainId, options: RpcOptions): Promise<T> {
     const response = await fetchJSON<T & { error: unknown; message?: string }>(getSolanaRPCUrl(), {
         method: 'POST',
         mode: 'cors',

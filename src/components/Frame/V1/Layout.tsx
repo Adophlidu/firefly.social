@@ -18,7 +18,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
@@ -50,7 +50,7 @@ const TransactionSchema = z.object({
     params: z.object({
         // JSON ABI which must include encoded function type and should include potential error types. Can be empty.
         abi: z.union([z.object({}), z.array(z.object({})), z.string()]).optional(),
-        to: z.string().refine((x) => isValidEthereumAddress(x), { message: 'Invalid address format.' }),
+        to: z.string().refine((x) => isValidAddressEthereum(x), { message: 'Invalid address format.' }),
         value: z.string().optional(),
         data: z.string().optional(),
     }),

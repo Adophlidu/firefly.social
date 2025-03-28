@@ -1,8 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { type FungibleToken } from '@masknet/web3-shared-base';
-import { isNativeTokenAddress, ZERO_ADDRESS } from '@masknet/web3-shared-evm';
-import { isNativeTokenAddress as isNativeTokenAddressSolana } from '@masknet/web3-shared-solana';
 import { BigNumber } from 'bignumber.js';
 import { type ChangeEvent, memo, useCallback, useMemo } from 'react';
 
@@ -12,8 +9,10 @@ import { NetworkType } from '@/constants/enum.js';
 import { NUMERIC_INPUT_REGEXP_PATTERN } from '@/constants/regexp.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isSameAddress, isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
+import { ETH_ZERO_ADDRESS, isZeroAddressEthereum, isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { isZero, leftShift } from '@/helpers/number.js';
+import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { TokenSelectorModalRef } from '@/modals/controls.js';
 
 const MIN_AMOUNT_LENGTH = 1;
@@ -54,7 +53,7 @@ export const FungibleTokenInput = memo<FungibleTokenInputProps>(function Fungibl
                     case NetworkType.Ethereum:
                         return (
                             isSameEthereumAddress(
-                                isValidEthereumAddress(item.id) ? item.id : ZERO_ADDRESS,
+                                isValidAddressEthereum(item.id) ? item.id : ETH_ZERO_ADDRESS,
                                 token?.address,
                             ) && item.chainId === token?.chainId
                         );
@@ -71,7 +70,7 @@ export const FungibleTokenInput = memo<FungibleTokenInputProps>(function Fungibl
     }, [account, token, networkType, onTokenChange]);
 
     const isSolana = networkType === NetworkType.Solana;
-    const isNativeToken = isSolana ? isNativeTokenAddressSolana(token?.address) : isNativeTokenAddress(token?.address);
+    const isNativeToken = isSolana ? isZeroAddressSolana(token?.address) : isZeroAddressEthereum(token?.address);
 
     const { RE_MATCH_WHOLE_AMOUNT, RE_MATCH_FRACTION_AMOUNT } = useMemo(
         () => ({

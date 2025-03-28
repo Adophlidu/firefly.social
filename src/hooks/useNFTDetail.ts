@@ -1,11 +1,11 @@
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
-import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
+import { isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 
-export function useNFTDetail(address?: string, tokenId?: string, chainId: ChainId = ChainId.Mainnet) {
-    const isSolAddress = isValidSolanaAddress(address);
+export function useNFTDetail(chainId: number = EthereumChainId.Mainnet, address?: string, tokenId?: string) {
+    const isSolAddress = isValidAddressSolana(address);
     const enabled = isSolAddress ? true : !!address && !!tokenId;
     return useQuery({
         queryKey: ['nft-detail', address, tokenId, chainId],

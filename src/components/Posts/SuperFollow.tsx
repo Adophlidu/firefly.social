@@ -12,7 +12,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { NetworkType } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSuperFollowData } from '@/hooks/useSuperFollow.js';
@@ -72,7 +72,7 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
             return t`Connect your wallet to follow`;
         }
         if (wrongAddress) {
-            return t`Please switch to ${formatEthereumAddress(address, 4)}`;
+            return t`Please switch to ${formatAddressEthereum(address, 4)}`;
         }
         if (!hasAmount) {
             return t`Insufficient Balance`;

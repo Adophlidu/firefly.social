@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import LinkIcon from '@/assets/link-square.svg';
@@ -23,7 +23,7 @@ import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 interface TopCollectorsProps {
     address: string;
-    chainId?: ChainId;
+    chainId?: EthereumChainId;
     totalQuantity?: number;
     collectionId: string;
 }
@@ -38,7 +38,7 @@ function getTopCollectorsItemContent(
     const { totalQuantity } = options || {};
     const addressOrEns = item.owner_ens_name ? item.owner_ens_name : item.owner_address;
     const profileLink =
-        BlockScanExplorerResolver.addressLink(ChainId.Mainnet, item.owner_address) ||
+        BlockScanExplorerResolver.addressLink(EthereumChainId.Mainnet, item.owner_address) ||
         resolveProfileUrl(Source.Wallet, item.owner_address);
 
     return (
@@ -88,7 +88,7 @@ function getTopCollectorsItemContent(
 }
 
 export function TopCollectors(props: TopCollectorsProps) {
-    const { address, chainId = ChainId.Mainnet, collectionId, totalQuantity } = props;
+    const { address, chainId = EthereumChainId.Mainnet, collectionId, totalQuantity } = props;
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['top-collectors', address, collectionId],
         async queryFn({ pageParam }) {

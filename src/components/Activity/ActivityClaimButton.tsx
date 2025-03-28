@@ -3,7 +3,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { type ReactNode, use, useContext, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -44,7 +44,7 @@ export function ActivityClaimButton({
     const { address, name } = useContext(ActivityContext);
     const { data, refetch } = useActivityClaimCondition(source);
     const [hash, setHash] = useState<string | undefined>(undefined);
-    const [chainId, setChainId] = useState<ChainId | 'solana' | undefined>(undefined);
+    const [chainId, setChainId] = useState<EthereumChainId | 'solana' | undefined>(undefined);
     const { list } = use(ActivityPremiumListContext);
 
     const isPremium = list.some((x) => x.verified);

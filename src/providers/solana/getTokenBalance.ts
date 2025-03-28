@@ -1,7 +1,7 @@
-import type { ChainId } from '@masknet/web3-shared-solana';
-import { isNativeTokenAddress } from '@masknet/web3-shared-solana';
+import type { SolanaChainId } from '@masknet/web3-shared-solana';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
+import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { requestRPC } from '@/providers/solana/requestRPC.js';
 import type { GetBalanceResponse, GetProgramAccountsResponse } from '@/providers/types/Solana.js';
 import type { Token } from '@/providers/types/Transfer.js';
@@ -45,10 +45,8 @@ export async function getSplTokenBalance(tokenAddress: string, address: string, 
     return tokenProgram?.account.data.parsed.info;
 }
 
-export async function getTokenBalance(token: Pick<Token<ChainId>, 'id'>, address: string, chainId: number) {
-    if (isNativeTokenAddress(token.id)) {
-        return getNativeTokenBalance(address, chainId);
-    }
+export async function getTokenBalance(token: Pick<Token<SolanaChainId>, 'id'>, address: string, chainId: number) {
+    if (isZeroAddressSolana(token.id)) return getNativeTokenBalance(address, chainId);
 
     const tokenAccount = await getSplTokenBalance(token.id, address, chainId);
     return {

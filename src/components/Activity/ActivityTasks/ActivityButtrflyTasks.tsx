@@ -2,7 +2,7 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useContext, useMemo } from 'react';
 
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
@@ -78,7 +78,7 @@ Claim here ${shareUrl}`,
                     <Trans>Connect Wallet</Trans>
                 </h2>
                 <ActivityConnectCard
-                    chainId={ChainId.Polygon}
+                    chainId={EthereumChainId.Polygon}
                     source={Source.Lens}
                     label={
                         address ? (

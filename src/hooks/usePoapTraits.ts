@@ -1,8 +1,8 @@
-import type { NonFungibleTokenTrait } from '@masknet/web3-shared-base';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
 
 import { parseUrl } from '@/helpers/parseUrl.js';
+import type { NonFungibleTokenTrait } from '@/mask_pkgs/web3-shared/base/index.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 function findTraitValue(traits: SimpleHash.Attribute[] | NonFungibleTokenTrait[], type: string) {

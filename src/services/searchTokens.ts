@@ -1,7 +1,7 @@
 import { first } from 'lodash-es';
 
 import { EMPTY_LIST } from '@/constants/index.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { trimify } from '@/helpers/trimify.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
@@ -21,7 +21,7 @@ function sortTokensByKeyword(tokens: SearchableToken[], keyword: string) {
 
     // fast path
     const [firstToken, ...rest] = tokens;
-    if ((firstToken && isTokenMatched(firstToken, keyword)) || isValidEthereumAddress(trimify(keyword))) {
+    if ((firstToken && isTokenMatched(firstToken, keyword)) || isValidAddressEthereum(trimify(keyword))) {
         return [{ ...firstToken, hit: true }, ...rest];
     }
 
@@ -71,7 +71,7 @@ export async function searchTokensByAddress(address: string): Promise<Pageable<S
  */
 export async function searchTokens(searchKeyword: string): Promise<Pageable<TokenWithMarket, PageIndicator>> {
     const trimmed = trimify(searchKeyword).toLowerCase();
-    const res = isValidEthereumAddress(trimmed)
+    const res = isValidAddressEthereum(trimmed)
         ? await searchTokensByAddress(trimmed)
         : await FireflyEndpointProvider.searchTokens(searchKeyword);
     const ids = res.data.map((x) => x.id);

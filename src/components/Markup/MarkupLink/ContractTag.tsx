@@ -22,7 +22,7 @@ export const ContractTag = memo<ContractTagProps>(function ContractTag({ detecte
     const chainId = +detected.chain_id;
 
     const { data: collection } = useNFTCollection(address, chainId, isCollection);
-    const { data: nft } = useNFTDetail(address, undefined, chainId);
+    const { data: nft } = useNFTDetail(chainId, address);
 
     const attributes = detected?.contract_info?.attributes;
     const coingecko_coin_id = attributes?.coingecko_coin_id;

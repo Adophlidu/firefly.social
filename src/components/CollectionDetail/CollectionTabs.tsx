@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { Suspense, useState } from 'react';
 
 import { NFTList } from '@/components/CollectionDetail/NFTList.js';
@@ -11,7 +11,7 @@ import { Tab, Tabs } from '@/components/Tabs/index.js';
 
 interface CollectionTabsProps {
     address: string;
-    chainId?: ChainId;
+    chainId?: EthereumChainId;
     totalQuantity?: number;
     collectionId: string;
 }

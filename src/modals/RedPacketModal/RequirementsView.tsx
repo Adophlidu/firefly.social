@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
-import { type FungibleToken } from '@masknet/web3-shared-base';
 import { useAppKitAccount } from '@reown/appkit/react';
 import { useRouter } from '@tanstack/react-router';
 import { Fragment, useCallback, useContext, useState } from 'react';
@@ -15,6 +14,7 @@ import { NetworkType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { formatDebankTokenToFungibleToken } from '@/helpers/formatToken.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { NonFungibleTokenCollectionSelectModalRef, TokenSelectorModalRef } from '@/modals/controls.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedPacketModal/common.js';

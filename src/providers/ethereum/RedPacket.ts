@@ -1,12 +1,11 @@
-import { type FungibleToken } from '@masknet/web3-shared-base';
 import {
-    type ChainId,
     ContractTransaction,
     decodeEvents,
+    type EthereumChainId,
+    EthereumSchemaType,
     type GasConfig,
     getRedPacketConstant,
     getTokenConstant,
-    SchemaType,
     type TransactionReceipt,
 } from '@masknet/web3-shared-evm';
 import { omit } from 'lodash-es';
@@ -22,6 +21,7 @@ import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction
 import type { HappyRedPacketV4 } from '@/mask/constants.js';
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import { EVMChainResolver, EVMWeb3 } from '@/mask/index.js';
+import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
 import { createRedPacketContract } from '@/providers/ethereum/getRedPacketContract.js';
 import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
@@ -31,7 +31,7 @@ import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js
 export interface CreateRedPacketContext {
     networkType: NetworkType;
     creator: string;
-    chainId: ChainId;
+    chainId: EthereumChainId;
     version: number;
     publicKey: string;
     shares: number;
@@ -40,11 +40,11 @@ export interface CreateRedPacketContext {
     total: string;
     name: string;
     message: string;
-    token?: FungibleToken<ChainId, SchemaType.Native | SchemaType.ERC20>;
+    token?: FungibleToken<EthereumChainId, EthereumSchemaType.Native | EthereumSchemaType.ERC20>;
 }
 
 export interface ClaimRedPacketContext {
-    contextChainId: ChainId;
+    contextChainId: EthereumChainId;
     account: string;
     source: SocialSource;
     payload: RedPacketJSONPayload;
@@ -61,7 +61,7 @@ export interface CreateRedPacketParams {
     tokenType: number;
     tokenAddress: string;
     total: string;
-    token?: FungibleToken<ChainId, SchemaType.Native | SchemaType.ERC20>;
+    token?: FungibleToken<EthereumChainId, EthereumSchemaType.Native | EthereumSchemaType.ERC20>;
 }
 
 interface CreateResult {
@@ -79,7 +79,7 @@ class Provider {
 
         const contract = createRedPacketContract(chainId, version);
         const NATIVE_TOKEN_ADDRESS = getTokenConstant(chainId, 'NATIVE_TOKEN_ADDRESS');
-        const tokenAddress = token?.schema === SchemaType.Native ? NATIVE_TOKEN_ADDRESS : token?.address;
+        const tokenAddress = token?.schema === EthereumSchemaType.Native ? NATIVE_TOKEN_ADDRESS : token?.address;
 
         if (!tokenAddress) {
             if (process.env.NODE_ENV === 'development' && !NATIVE_TOKEN_ADDRESS) {
@@ -99,7 +99,7 @@ class Provider {
             seed: keccak256(Math.random().toString() as Hex),
             message,
             name,
-            tokenType: token?.schema === SchemaType.Native ? 0 : 1,
+            tokenType: token?.schema === EthereumSchemaType.Native ? 0 : 1,
             tokenAddress,
             total,
             token,
@@ -117,7 +117,7 @@ class Provider {
 
         const methodParams = omit(params, ['token']) as Omit<CreateRedPacketParams, 'token'>;
         let gasError: Error | null = null;
-        const value = toFixed(params.token?.schema === SchemaType.Native ? total : 0);
+        const value = toFixed(params.token?.schema === EthereumSchemaType.Native ? total : 0);
 
         const gas = await (contract as HappyRedPacketV4).methods
             .create_red_packet(
@@ -170,7 +170,7 @@ class Provider {
             ),
             {
                 from: creator,
-                value: toFixed(token?.schema === SchemaType.Native ? params.params.total : 0),
+                value: toFixed(token?.schema === EthereumSchemaType.Native ? params.params.total : 0),
                 gas: params.gas,
                 chainId,
                 ...gasOption,

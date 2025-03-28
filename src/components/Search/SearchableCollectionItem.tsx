@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';
@@ -15,7 +15,7 @@ interface CollectionItemProps extends HTMLProps<HTMLAnchorElement> {
 }
 
 export function SearchableCollectionItem({ collection, className, onClick }: CollectionItemProps) {
-    const chainId = collection.chain_id || ChainId.Mainnet;
+    const chainId = collection.chain_id || EthereumChainId.Mainnet;
 
     return (
         <Link

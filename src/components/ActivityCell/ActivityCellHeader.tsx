@@ -6,7 +6,7 @@ import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 
@@ -36,11 +36,11 @@ export function ActivityCellHeader({
                     onClick={stopPropagation}
                     className="block max-w-full truncate font-bold text-main"
                 >
-                    {displayName ? displayName : formatEthereumAddress(address, 4)}
+                    {displayName ? displayName : formatAddressEthereum(address, 4)}
                 </Link>
                 {displayName ? (
                     <Link href={authorUrl} className="ml-2 block max-w-full shrink-0 truncate text-secondary">
-                        <address className="not-italic">{formatEthereumAddress(address, 4)}</address>
+                        <address className="not-italic">{formatAddressEthereum(address, 4)}</address>
                     </Link>
                 ) : null}
                 {time ? (

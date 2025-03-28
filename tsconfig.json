@@ -21,7 +21,6 @@
         "paths": {
             "@/*": ["./src/*"],
             "next/navigation.js": ["./src/esm/navigation.ts"],
-            "@masknet/web3-shared-base": ["./src/mask_pkgs/web3-shared/base/index.ts"],
             "@masknet/web3-shared-evm": ["./src/mask_pkgs/web3-shared/evm/index.ts"],
             "@masknet/web3-shared-solana": ["./src/mask_pkgs/web3-shared/solana/index.ts"],
             "@masknet/web3-constants/*": ["./src/mask_pkgs/web3-constants/*"],

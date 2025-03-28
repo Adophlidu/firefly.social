@@ -1,4 +1,4 @@
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { type Chain, createPublicClient as createClient, http, type PublicClient } from 'viem';
 
 import { chains } from '@/configs/wagmiClient.js';
@@ -6,7 +6,7 @@ import { resolvePublicProviderUrl } from '@/helpers/resolvePublicProviderUrl.js'
 
 const map = new Map<number, PublicClient>();
 
-export function createWagmiPublicClient(chainId: ChainId): PublicClient {
+export function createWagmiPublicClient(chainId: EthereumChainId): PublicClient {
     const chain = chains.find((x) => x.id === chainId) as Chain | undefined;
     if (!chain) throw new Error(`Unsupported chainId = ${chainId}`);
 

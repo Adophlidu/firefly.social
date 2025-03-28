@@ -1,7 +1,6 @@
 import { OpenActionModuleType } from '@lens-protocol/client';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { StatusCodes } from 'http-status-codes';
@@ -25,10 +24,11 @@ import { config } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -71,7 +71,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
     const isTimeout = collectModule?.endsAt ? dayjs(collectModule?.endsAt).isBefore(dayjs()) : false;
 
     const verifiedAssetAddress =
-        !!collectModule?.assetAddress && !isSameEthereumAddress(collectModule.assetAddress, ZERO_ADDRESS);
+        !!collectModule?.assetAddress && !isSameEthereumAddress(collectModule.assetAddress, ETH_ZERO_ADDRESS);
 
     const [followLoading, toggleFollow] = useToggleFollow(post.author);
 
@@ -258,7 +258,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             !isSameEthereumAddress(currentProfile?.ownedBy?.address, account.address)
         ) {
             enqueueErrorMessage(
-                t`The current connected wallet does not match, Please switch to ${formatEthereumAddress(currentProfile.ownedBy.address, 4)}`,
+                t`The current connected wallet does not match, Please switch to ${formatAddressEthereum(currentProfile.ownedBy.address, 4)}`,
             );
             return;
         }

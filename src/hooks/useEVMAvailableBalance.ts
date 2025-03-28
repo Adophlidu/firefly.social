@@ -1,11 +1,11 @@
 'use client';
 
-import { isNativeTokenAddress } from '@masknet/web3-shared-evm';
 import { useMemo } from 'react';
 import { useBalance, useEstimateFeesPerGas } from 'wagmi';
 
 import { config } from '@/configs/wagmiClient.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
+import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
 import { isGreaterThan, multipliedBy, ZERO } from '@/helpers/number.js';
 import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
 
@@ -15,7 +15,7 @@ export function useEVMAvailableBalance(
     overrides?: ChainContextOverrides,
     enabled = true,
 ) {
-    const isNativeToken = isNativeTokenAddress(address);
+    const isNativeToken = isZeroAddressEthereum(address);
     const { chainId, isEIP1559, account } = useChainContext(overrides);
 
     const { data: nativeBalance } = useBalance({

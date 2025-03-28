@@ -1,11 +1,11 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { type NonFungibleCollection } from '@masknet/web3-shared-base';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { EVMExplorerResolver } from '@/mask/index.js';
+import type { NonFungibleCollection } from '@/mask_pkgs/web3-shared/base/index.js';
 
 export interface Collection
     extends Pick<

@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { ChainId } from '@masknet/web3-shared-solana';
+import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo, useState } from 'react';
 
@@ -34,7 +34,7 @@ export const SearchTokenPanelSolana = memo<SearchSolanaTokenPanelProps>(function
         queryKey: ['solana-tokens', address],
         staleTime: 1000 * 60 * 2, // 2 minutes
         queryFn: () => {
-            return getSolanaTokenList(ChainId.Mainnet, address);
+            return getSolanaTokenList(SolanaChainId.Mainnet, address);
         },
     });
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 
 import SuccessShieldIcon from '@/assets/success-shield.svg';
 import { useActivityCompose } from '@/components/Activity/hooks/useActivityCompose.js';
@@ -18,7 +18,7 @@ interface Props {
     open: boolean;
     onClose: () => void;
     hash?: string;
-    chainId?: ChainId | 'solana';
+    chainId?: EthereumChainId | 'solana';
     shareContent: Chars;
     claimType?: string;
 }

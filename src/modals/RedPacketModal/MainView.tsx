@@ -2,8 +2,7 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { type FungibleToken } from '@masknet/web3-shared-base';
-import { type ChainId, getRedPacketConstant, SchemaType } from '@masknet/web3-shared-evm';
+import { type EthereumChainId, EthereumSchemaType, getRedPacketConstant } from '@masknet/web3-shared-evm';
 import { useRouter } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
 import { isUndefined, omit } from 'lodash-es';
@@ -34,6 +33,7 @@ import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useERC20TokenAllowance } from '@/hooks/useERC20Allowance.js';
 import { useNativeTokenPrice } from '@/hooks/useNativeTokenPrice.js';
+import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { RedPacketContext, redPacketRandomTabs } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { TypeTabs } from '@/modals/RedPacketModal/TypeTabs.js';
 
@@ -73,7 +73,10 @@ export function MainView() {
         message: message || t`Best Wishes!`,
         shares: shares || 0,
         token: token
-            ? (omit(token, ['logoURI']) as FungibleToken<ChainId, SchemaType.ERC20 | SchemaType.Native>)
+            ? (omit(token, ['logoURI']) as FungibleToken<
+                  EthereumChainId,
+                  EthereumSchemaType.ERC20 | EthereumSchemaType.Native
+              >)
             : undefined,
         total: rightShift(0.0001, token.decimals).toFixed(),
     });
@@ -92,7 +95,7 @@ export function MainView() {
     const isEVM = networkType === NetworkType.Ethereum;
 
     const onTokenChange = useCallback(
-        (token: FungibleToken<ChainId, SchemaType>) => {
+        (token: FungibleToken<EthereumChainId, EthereumSchemaType>) => {
             setToken(token);
             setRawAmount('');
         },

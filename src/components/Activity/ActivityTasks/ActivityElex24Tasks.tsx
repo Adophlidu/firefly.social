@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useContext, useMemo } from 'react';
 import urlcat from 'urlcat';
 
@@ -114,7 +114,7 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
                 </h2>
                 <ActivityConnectCard
                     source={Source.Twitter}
-                    chainId={ChainId.Base}
+                    chainId={EthereumChainId.Base}
                     label={
                         address ? (
                             <Trans>Submit claimed address</Trans>

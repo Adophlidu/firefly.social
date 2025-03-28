@@ -2,8 +2,7 @@
 
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
-import type { NonFungibleAsset } from '@masknet/web3-shared-base';
-import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
+import { EthereumChainId, EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { pick } from 'lodash-es';
 
 import AcquiredIcon from '@/assets/acquired.svg';
@@ -18,15 +17,16 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { Source } from '@/constants/enum.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
 import { NFTFeedTransAction } from '@/providers/types/NFTs.js';
 
 interface Props {
-    chainId: ChainId;
+    chainId: EthereumChainId;
     address: string;
     tokenId: string;
     action: NFTFeedTransAction;
@@ -72,7 +72,7 @@ function NFTsActivityCellActionPoapName({
     asset,
     chainId,
     address,
-}: { asset?: NonFungibleAsset<ChainId, SchemaType> | null } & Pick<Props, 'chainId' | 'address'>) {
+}: { asset?: NonFungibleAsset<EthereumChainId, EthereumSchemaType> | null } & Pick<Props, 'chainId' | 'address'>) {
     if (!asset?.metadata) return null;
 
     return (
@@ -120,7 +120,7 @@ export function NFTsActivityCellAction(props: Props) {
                                         href={resolveProfileUrl(Source.Wallet, fromAddress)}
                                         className="truncate text-highlight hover:underline"
                                     >
-                                        {formatEthereumAddress(fromAddress, 4)}
+                                        {formatAddressEthereum(fromAddress, 4)}
                                     </Link>
                                 </ClickableArea>
                             </Trans>
@@ -148,7 +148,7 @@ export function NFTsActivityCellAction(props: Props) {
                                     href={resolveProfileUrl(Source.Wallet, fromAddress)}
                                     className="truncate text-highlight hover:underline"
                                 >
-                                    {formatEthereumAddress(toAddress, 4)}
+                                    {formatAddressEthereum(toAddress, 4)}
                                 </Link>
                             </ClickableArea>
                         </Trans>

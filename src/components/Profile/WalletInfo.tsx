@@ -2,7 +2,7 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
 import EnsIcon from '@/assets/ens.svg';
@@ -48,7 +48,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
 
     const addressLink =
         networkType === NetworkType.Ethereum
-            ? BlockScanExplorerResolver.addressLink(ChainId.Mainnet, profile.address)
+            ? BlockScanExplorerResolver.addressLink(EthereumChainId.Mainnet, profile.address)
             : null;
     const networkIcon = networkType ? resolveNetworkIcon(networkType, isDarkMode) : null;
 

@@ -1,11 +1,11 @@
 'use client';
 
-import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { memo } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { Loading } from '@/components/Loading.js';
 import { NFTImage } from '@/components/NFTImage.js';
+import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 
 interface NFTCardProps {
@@ -16,7 +16,7 @@ interface NFTCardProps {
 }
 
 export const NFTCard = memo<NFTCardProps>(function NFTCard({ chainId, contractAddress, tokenId, sourceLink }) {
-    const { data: nft, isLoading } = useNFTDetail(contractAddress ?? ZERO_ADDRESS, tokenId, chainId);
+    const { data: nft, isLoading } = useNFTDetail(chainId, contractAddress ?? ETH_ZERO_ADDRESS, tokenId);
 
     if (isLoading) {
         return <Loading />;

@@ -9,7 +9,7 @@ import { Image } from '@/components/Image.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getChainInfo } from '@/helpers/getChainInfo.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import type { Contract, Trending } from '@/providers/types/Trending.js';
@@ -67,7 +67,7 @@ function ContractItem({ contract, ...rest }: ContractItemProps) {
             <div className="min-w-[100px] flex-grow p-1 leading-4">
                 <div className="text-[12px] font-bold capitalize text-main">{name}</div>
                 <div className="max-w-[160px] overflow-hidden text-ellipsis whitespace-nowrap text-[12px] font-bold text-main">
-                    {formatEthereumAddress(contract.address, 4)}
+                    {formatAddressEthereum(contract.address, 4)}
                 </div>
             </div>
             <CopyTextButton tooltipProps={{ placement: 'left' }} text={contract.address} />

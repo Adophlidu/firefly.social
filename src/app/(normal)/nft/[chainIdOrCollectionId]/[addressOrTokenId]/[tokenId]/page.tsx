@@ -17,7 +17,7 @@ export async function generateMetadata(props: Props) {
     const params = await props.params;
     const { addressOrTokenId, tokenId, chainIdOrCollectionId } = params;
     const chainId = parseChainId(chainIdOrCollectionId);
-    if (chainId) return createMetadataNFT(addressOrTokenId, tokenId, chainId);
+    if (chainId) return createMetadataNFT(chainId, addressOrTokenId, tokenId);
     return createSiteMetadata();
 }
 

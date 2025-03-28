@@ -1,7 +1,7 @@
-import type { FungibleToken } from '@masknet/web3-shared-base';
-import type { ChainId, SchemaType } from '@masknet/web3-shared-evm';
+import type { EthereumChainId, EthereumSchemaType } from '@masknet/web3-shared-evm';
 
 import type { NetworkType } from '@/constants/enum.js';
+import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 
 type WithoutChainId<T> = Omit<T, 'chain_id'>;
 type WithNumberChainId<T> = WithoutChainId<T> & { chain_id: number };
@@ -42,9 +42,9 @@ export interface RedPacketJSONPayload extends RedPacketBasic {
         name: string;
         message: string;
     };
-    chainId?: ChainId;
+    chainId?: EthereumChainId;
     network?: string;
-    token?: FungibleToken<ChainId, SchemaType>;
+    token?: FungibleToken<EthereumChainId, EthereumSchemaType>;
     /**
      * For contract_version === 1, payload has no token but token_type
      */

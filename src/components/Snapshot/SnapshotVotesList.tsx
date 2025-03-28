@@ -1,4 +1,4 @@
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, useCallback, useMemo, useRef } from 'react';
 import urlcat from 'urlcat';
@@ -13,7 +13,7 @@ import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, Source, SourceInURL } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
@@ -32,7 +32,7 @@ const SnapshotVotesListItem = memo<SnapshotVotesListItemProps>(function Snapshot
         source: SourceInURL.Wallet,
     });
 
-    const { data: ens } = useEnsName({ address: vote.voter as Hex, chainId: ChainId.Mainnet });
+    const { data: ens } = useEnsName({ address: vote.voter as Hex, chainId: EthereumChainId.Mainnet });
 
     const choiceLabel = formatSnapshotChoice(vote.choice, vote.proposal.type, vote.proposal.choices);
 
@@ -52,9 +52,9 @@ const SnapshotVotesListItem = memo<SnapshotVotesListItemProps>(function Snapshot
                 <TextOverflowTooltip
                     className="max-sm:block"
                     placement="top"
-                    content={ens || formatEthereumAddress(vote.voter, 4)}
+                    content={ens || formatAddressEthereum(vote.voter, 4)}
                 >
-                    <div className="truncate">{ens || formatEthereumAddress(vote.voter, 4)}</div>
+                    <div className="truncate">{ens || formatAddressEthereum(vote.voter, 4)}</div>
                 </TextOverflowTooltip>
             </Link>
             <TextOverflowTooltip className="max-sm:block" placement="top-start" content={choiceLabel}>

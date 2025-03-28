@@ -1,4 +1,4 @@
-import type { ChainDescriptor } from '@masknet/web3-shared-base';
+import type { ChainDescriptor } from '@/mask_pkgs/web3-shared/base/index.js';
 
 export class ChainResolver<ChainId, SchemaType, NetworkType> {
     constructor(private readonly descriptors: () => ReadonlyArray<ChainDescriptor<ChainId, SchemaType, NetworkType>>) {}

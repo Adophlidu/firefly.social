@@ -1,17 +1,9 @@
 import type { Web3Helper } from '@masknet/web3-helpers';
 import {
-    type NonFungibleAsset,
-    type NonFungibleCollection,
-    type NonFungibleTokenTrait,
-    resolveResourceURL,
-    SourceType,
-} from '@masknet/web3-shared-base';
-import {
-    ChainId,
+    EthereumChainId,
+    EthereumSchemaType,
     isENSContractAddress,
-    isValidDomain,
     resolveImageURL,
-    SchemaType,
     WNATIVE,
 } from '@masknet/web3-shared-evm';
 import { first } from 'lodash-es';
@@ -21,6 +13,7 @@ import { NetworkPluginID, TokenType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { fetchSquashedJSON } from '@/helpers/fetchJSON.js';
 import { formatPercentage } from '@/helpers/formatPercentage.js';
+import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { scale10 } from '@/helpers/number.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import type { NonFungibleTokenAPI } from '@/mask_pkgs/web3-providers/entry-types.js';
@@ -28,33 +21,38 @@ import { getAssetFullName } from '@/mask_pkgs/web3-providers/helpers/getAssetFul
 import { NFTSCAN_BASE, NFTSCAN_LOGO_BASE, NFTSCAN_URL } from '@/mask_pkgs/web3-providers/NFTScan/constants.js';
 import type { EVM } from '@/mask_pkgs/web3-providers/NFTScan/types.js';
 import { EVMChainResolver } from '@/mask_pkgs/web3-providers/Web3/EVM/apis/ResolverAPI.js';
+import {
+    type NonFungibleAsset,
+    type NonFungibleCollection,
+    type NonFungibleTokenTrait,
+    resolveResourceURL,
+    SourceType,
+} from '@/mask_pkgs/web3-shared/base/index.js';
 
 function resolveNFTScanHostName(pluginId: NetworkPluginID, chainId: Web3Helper.ChainIdAll) {
     if (pluginId === NetworkPluginID.PLUGIN_SOLANA) return 'https://solana.nftscan.com';
 
     switch (chainId) {
-        case ChainId.Mainnet:
+        case EthereumChainId.Mainnet:
             return 'https://www.nftscan.com';
-        case ChainId.Polygon:
+        case EthereumChainId.Polygon:
             return 'https://polygon.nftscan.com';
-        case ChainId.BSC:
+        case EthereumChainId.BSC:
             return 'https://bnb.nftscan.com';
-        case ChainId.Arbitrum:
+        case EthereumChainId.Arbitrum:
             return 'https://arbitrum.nftscan.com';
-        case ChainId.Avalanche:
+        case EthereumChainId.Avalanche:
             return 'https://avax.nftscan.com';
-        case ChainId.Optimism:
+        case EthereumChainId.Optimism:
             return 'https://optimism.nftscan.com';
-        case ChainId.xDai:
+        case EthereumChainId.xDai:
             return 'https://gnosis.nftscan.com';
-        case ChainId.Moonbeam:
-            return 'https://moonbeam.nftscan.com';
         default:
             return '';
     }
 }
 
-export async function fetchFromNFTScanV2<T>(chainId: ChainId, pathname: string, init?: RequestInit) {
+export async function fetchFromNFTScanV2<T>(chainId: EthereumChainId, pathname: string, init?: RequestInit) {
     return fetchSquashedJSON<T>(urlcat(NFTSCAN_URL, pathname), {
         ...init,
         headers: {
@@ -66,7 +64,7 @@ export async function fetchFromNFTScanV2<T>(chainId: ChainId, pathname: string, 
     });
 }
 
-function createPermalink(chainId: ChainId, address: string, tokenId: string) {
+function createPermalink(chainId: EthereumChainId, address: string, tokenId: string) {
     return urlcat(
         resolveNFTScanHostName(NetworkPluginID.PLUGIN_EVM, chainId) || 'https://www.nftscan.com',
         '/:address/:tokenId',
@@ -100,10 +98,10 @@ function getAssetTraits(asset: EVM.Asset): NonFungibleTokenTrait[] {
 }
 
 function createNonFungibleAsset(
-    chainId: ChainId,
+    chainId: EthereumChainId,
     asset: EVM.Asset,
     collection?: NonFungibleTokenAPI.Collection | EVM.AssetsGroup,
-): NonFungibleAsset<ChainId, SchemaType> {
+): NonFungibleAsset<EthereumChainId, EthereumSchemaType> {
     const payload = parseJSON<EVM.Payload>(asset.metadata_json);
     const contractName = asset.contract_name;
     const description = payload?.description ?? collection?.description ?? '';
@@ -112,9 +110,9 @@ function createNonFungibleAsset(
 
     const creator = asset.minter;
     const owner = asset.owner;
-    const schema = asset.erc_type === 'erc1155' ? SchemaType.ERC1155 : SchemaType.ERC721;
+    const schema = asset.erc_type === 'erc1155' ? EthereumSchemaType.ERC1155 : EthereumSchemaType.ERC721;
     const symbol = asset.contract_name;
-    const name = isValidDomain(asset.name)
+    const name = isValidDomainEthereum(asset.name)
         ? asset.name
         : getAssetFullName(asset.contract_address, contractName, payload?.name || asset.name, asset.token_id);
 
@@ -181,16 +179,16 @@ function createNonFungibleAsset(
 }
 
 export function createNonFungibleCollectionFromGroup(
-    chainId: ChainId,
+    chainId: EthereumChainId,
     group: EVM.AssetsGroup,
-): NonFungibleCollection<ChainId, SchemaType> {
+): NonFungibleCollection<EthereumChainId, EthereumSchemaType> {
     const sample = first(group.assets);
     const payload = parseJSON<EVM.Payload>(sample?.metadata_json);
     return {
         id: group.contract_address,
         chainId,
         assets: group.assets.map((x) => createNonFungibleAsset(chainId, x)),
-        schema: sample?.erc_type === 'erc1155' ? SchemaType.ERC1155 : SchemaType.ERC721,
+        schema: sample?.erc_type === 'erc1155' ? EthereumSchemaType.ERC1155 : EthereumSchemaType.ERC721,
         name: group.contract_name || group.symbol || '',
         symbol: group.symbol,
         slug: group.contract_name || '',

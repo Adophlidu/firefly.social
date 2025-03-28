@@ -3,7 +3,6 @@
 import { Menu } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
 import { type MouseEvent, useContext } from 'react';
 
 import AddCircleIcon from '@/assets/add-circle.svg';
@@ -20,6 +19,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { captureActivityChangeWalletEvent } from '@/providers/telemetry/captureActivityEvent.js';
@@ -32,7 +32,7 @@ export function ActivityConnectButton({ source, chainId }: { source: SocialSourc
     const [, bindAddress] = useActivityBindAddress(source, chainId);
 
     const addresses: Array<{ address: string; ens?: string }> = connected
-        .filter((x) => x.platform === (isValidSolanaChainId(chainId) ? 'solana' : 'eth'))
+        .filter((x) => x.platform === (isValidChainIdSolana(chainId) ? 'solana' : 'eth'))
         .map((x) => ({ address: x.address, ens: x.ens?.[0] }));
 
     const buttonText = address ? (

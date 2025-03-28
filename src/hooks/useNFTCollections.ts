@@ -1,15 +1,15 @@
+import type { EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
 import { EMPTY_LIST } from '@/constants/index.js';
 import { asyncIteratorToArray } from '@/helpers/asyncIteratorToArray.js';
 import { pageableToIterator, type PageIndicator } from '@/helpers/pageable.js';
-import type { SchemaType } from '@/mask_pkgs/web3-shared/evm/index.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 
 interface Options {
     account: string | undefined;
     chainId?: number;
-    schemaType?: SchemaType;
+    schemaType?: EthereumSchemaType;
 }
 export function useNFTCollections({ account: account, chainId, schemaType }: Options) {
     return useQuery({

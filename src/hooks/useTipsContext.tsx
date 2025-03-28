@@ -1,8 +1,8 @@
-import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { useState } from 'react';
 import { createContainer } from 'unstated-next';
 
 import { type NetworkType, Source } from '@/constants/enum.js';
+import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import type { FireflyIdentity, FireflyProfile, Profile } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Token } from '@/providers/types/Transfer.js';
@@ -35,7 +35,7 @@ function createEmptyContext(): TipsContext {
         socialProfiles: [],
         isSending: false,
         identity: {
-            id: ZERO_ADDRESS,
+            id: ETH_ZERO_ADDRESS,
             source: Source.Wallet,
         },
         post: null,

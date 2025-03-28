@@ -1,13 +1,12 @@
 'use client';
 
-import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
 
 import { NFTCollection } from '@/components/CollectionDetail/NFTCollection.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 
-export function NFTCollectionPage({ chainId, address }: { chainId: ChainId; address: string }) {
+export function NFTCollectionPage({ chainId, address }: { chainId: number; address: string }) {
     const { data } = useSuspenseQuery({
         queryKey: ['nft-collection', chainId, address],
         async queryFn() {

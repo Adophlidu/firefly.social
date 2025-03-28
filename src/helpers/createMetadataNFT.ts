@@ -1,5 +1,3 @@
-import { ChainId } from '@masknet/web3-shared-evm';
-
 import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
@@ -8,7 +6,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 
-export async function createMetadataNFT(address: string, tokenId: string, chainId: ChainId) {
+export async function createMetadataNFT(chainId: number, address: string, tokenId: string) {
     const data = await SimpleHashProvider.getNFT(
         address,
         tokenId,
@@ -63,7 +61,7 @@ function createCollectionMetadata(data: SimpleHash.Collection) {
     });
 }
 
-export async function createMetadataNFTCollection(address: string, chainId: ChainId) {
+export async function createMetadataNFTCollection(chainId: number, address: string) {
     const data = await runInSafeAsync(() => SimpleHashProvider.getCollection(address, { chainId }));
     if (!data) return createSiteMetadata({});
 

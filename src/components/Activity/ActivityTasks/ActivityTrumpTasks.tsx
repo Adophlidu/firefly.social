@@ -1,8 +1,8 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { ChainId } from '@masknet/web3-shared-evm';
-import { ChainId as SolChainId } from '@masknet/web3-shared-solana';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
+import { SolanaChainId as SolChainId } from '@masknet/web3-shared-solana';
 import { useCallback, useContext, useState } from 'react';
 
 import { ActionButton } from '@/components/ActionButton.js';
@@ -91,7 +91,7 @@ export function ActivityTrumpTasks({
                     <Trans>
                         You are holder of{' '}
                         <Link
-                            href={resolveNFTUrl(ChainId.Base, '0x70553bbec6f7d2c5e6e1bc02f821f6863546d11e')}
+                            href={resolveNFTUrl(EthereumChainId.Base, '0x70553bbec6f7d2c5e6e1bc02f821f6863546d11e')}
                             className="inline text-highlight"
                         >
                             Presidential Election 2024
@@ -203,7 +203,7 @@ Check your eligibility and participate here ${shareUrl}
                     <Trans>Eligible for Premium?</Trans>
                 </h2>
                 <ActivityPremiumAddressVerifyCard
-                    chainId={ChainId.Mainnet}
+                    chainId={EthereumChainId.Mainnet}
                     source={Source.Twitter}
                     label={
                         premiumAddress ? <Trans>Wallet submitted</Trans> : <Trans>Submit an evm wallet to check</Trans>

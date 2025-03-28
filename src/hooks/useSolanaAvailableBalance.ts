@@ -1,9 +1,9 @@
-import { isNativeTokenAddress } from '@masknet/web3-shared-solana';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 import { SOLANA_DEFAULT_CREATE_GAS } from '@/constants/rp.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
+import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { isGreaterThan } from '@/helpers/number.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainContext.js';
@@ -16,7 +16,7 @@ export function useSolanaAvailableBalance(
     overrides?: ChainContextOverrides,
     enabled = true,
 ) {
-    const isNativeToken = isNativeTokenAddress(address);
+    const isNativeToken = isZeroAddressSolana(address);
     const { chainId, account } = useChainContext(overrides);
 
     const { data } = useQuery({

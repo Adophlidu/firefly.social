@@ -1,14 +1,11 @@
 import { safeUnreachable } from '@masknet/kit';
-import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
-import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import type { Address } from 'viem';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { createPersistStorage } from '@/helpers/createPersistStorage.js';
-
-export type SupportedChainId = EVMChainId | SolanaChainId;
 
 export enum CustomTokenType {
     ERC20 = 'ERC20',
@@ -18,7 +15,7 @@ export enum CustomTokenType {
 export interface ERC20Token {
     type: CustomTokenType.ERC20;
     logoURI: string;
-    chainId: EVMChainId;
+    chainId: EthereumChainId;
     address: Address;
     name: string;
     symbol: string;
@@ -27,7 +24,7 @@ export interface ERC20Token {
 
 export interface ERC721Token {
     type: CustomTokenType.ERC721;
-    chainId: EVMChainId;
+    chainId: EthereumChainId;
     address: Address;
     name: string;
     simpleHashCollectionId: string;
@@ -43,7 +40,6 @@ interface CustomTokensStore {
     addToken: (token: CustomToken) => void;
     removeToken: (token: TokenIndex) => void;
     hasToken: (token: CustomToken) => boolean;
-    getTokensByChain: (chainId: SupportedChainId) => CustomToken[];
     getToken: (token: TokenIndex) => CustomToken | undefined;
 }
 
@@ -89,10 +85,6 @@ export const useCustomTokenStore = create<CustomTokensStore, [['zustand/persist'
                 const key = generateTokenKey(tokenIndex);
                 if (!key) return false;
                 return key in state.tokens;
-            },
-            getTokensByChain(chainId) {
-                const state = get();
-                return Object.values(state.tokens).filter((token) => token.chainId === chainId);
             },
             getToken(tokenIndex: TokenIndex) {
                 const state = get();

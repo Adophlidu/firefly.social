@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
-import { type FungibleToken } from '@masknet/web3-shared-base';
-import { ChainId, getRedPacketConstant, getTokenConstant, SchemaType } from '@masknet/web3-shared-evm';
+import { EthereumChainId, EthereumSchemaType, getRedPacketConstant, getTokenConstant } from '@masknet/web3-shared-evm';
 import { first, omit, pick } from 'lodash-es';
 import { useContext, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -25,6 +24,7 @@ import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import { EVMChainResolver } from '@/mask/index.js';
+import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { RedPacketProvider } from '@/providers/ethereum/RedPacket.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
@@ -33,8 +33,8 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 function reduceUselessPayloadInfo(payload: RedPacketJSONPayload): RedPacketJSONPayload {
     const token = pick(payload.token, ['decimals', 'symbol', 'address', 'chainId']) as FungibleToken<
-        ChainId,
-        SchemaType.Native | SchemaType.ERC20
+        EthereumChainId,
+        EthereumSchemaType.Native | EthereumSchemaType.ERC20
     >;
     return { ...omit(payload, ['block_number']), token };
 }
@@ -54,7 +54,10 @@ export function useCreateRedPacketCallbackEVM(
             message: message || t`Best Wishes!`,
             shares: shares || 0,
             token: token
-                ? (omit(token, ['logoURI']) as FungibleToken<ChainId, SchemaType.ERC20 | SchemaType.Native>)
+                ? (omit(token, ['logoURI']) as FungibleToken<
+                      EthereumChainId,
+                      EthereumSchemaType.ERC20 | EthereumSchemaType.Native
+                  >)
                 : undefined,
             total: rightShift(totalAmount, token?.decimals).toFixed(),
         };
@@ -88,7 +91,9 @@ export function useCreateRedPacketCallbackEVM(
             if (!token) return;
 
             const tokenAddress =
-                token.schema === SchemaType.Native ? getTokenConstant(chainId, 'NATIVE_TOKEN_ADDRESS') : token.address;
+                token.schema === EthereumSchemaType.Native
+                    ? getTokenConstant(chainId, 'NATIVE_TOKEN_ADDRESS')
+                    : token.address;
             if (!tokenAddress) return;
 
             const params = await RedPacketProvider.createRedPacketParams({
@@ -107,7 +112,7 @@ export function useCreateRedPacketCallbackEVM(
             });
             if (!params) return;
 
-            const value = toFixed(params.params.token?.schema === SchemaType.Native ? total : 0);
+            const value = toFixed(params.params.token?.schema === EthereumSchemaType.Native ? total : 0);
 
             const result = await writeContract(config, {
                 address: HAPPY_RED_PACKET_ADDRESS_V4 as Address,

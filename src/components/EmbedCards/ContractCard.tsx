@@ -16,7 +16,7 @@ interface ContractCardProps extends AddressCardProps {
 export const ContractCard = memo<ContractCardProps>(function ContractCard({ contractType, chainId, ...rest }) {
     const isCollection = ['ERC721', 'ERC1155', 'nft'].includes(contractType);
     const { data: collection } = useNFTCollection(rest.address, chainId, isCollection);
-    const { data: nft } = useNFTDetail(rest.address, undefined, chainId);
+    const { data: nft } = useNFTDetail(chainId, rest.address, undefined);
 
     switch (contractType) {
         case 'ERC20':

@@ -13,8 +13,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { isValidEthereumAddress } from '@/helpers/isValidEthereumAddress.js';
-import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
+import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
@@ -29,7 +28,7 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
     profile: { address, primary_ens, avatar: ensAvatar, blocked },
 }) {
     const isMuted = blocked ?? false;
-    const isValidAddress = isValidEthereumAddress(address) || isValidSolanaAddress(address);
+    const isValidAddress = isValidAddressEthereum(address) || isValidAddressSolana(address);
 
     const profileLink = resolveProfileUrl(Source.Wallet, address);
     const walletHandle = primary_ens || formatAddress(address, 10, 0);

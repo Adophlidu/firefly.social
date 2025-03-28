@@ -8,7 +8,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
 import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';
 import { CHAR_TAG } from '@/helpers/chars.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
@@ -29,7 +29,7 @@ export function TipSuccess() {
             return { canShare: false };
         return {
             canShare: true,
-            walletName: __origin__.primary_ens || formatEthereumAddress(__origin__.address, 4),
+            walletName: __origin__.primary_ens || formatAddressEthereum(__origin__.address, 4),
         };
     }, [recipient, handle, socialProfiles, isLogin]);
 

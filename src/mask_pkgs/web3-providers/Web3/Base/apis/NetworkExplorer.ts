@@ -1,4 +1,4 @@
-import type { NetworkDescriptor } from '@masknet/web3-shared-base';
+import type { NetworkDescriptor } from '@/mask_pkgs/web3-shared/base/index.js';
 
 export class NetworkResolver<ChainId, NetworkType> {
     constructor(private descriptors: () => ReadonlyArray<NetworkDescriptor<ChainId, NetworkType>>) {}

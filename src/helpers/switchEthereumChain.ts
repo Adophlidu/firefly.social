@@ -1,9 +1,9 @@
-import type { ChainId } from '@masknet/web3-shared-evm';
+import type { EthereumChainId } from '@masknet/web3-shared-evm';
 import { switchChain } from 'wagmi/actions';
 
 import { chains, config } from '@/configs/wagmiClient.js';
 
-export async function switchEthereumChain(chainId: ChainId) {
+export async function switchEthereumChain(chainId: EthereumChainId) {
     const chain = chains.find((chain) => chain.id === chainId);
     if (!chain) throw new Error(`Chain ${chainId} not found`);
 

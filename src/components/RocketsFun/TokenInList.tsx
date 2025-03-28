@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { memo } from 'react';
 import type { Address } from 'viem';
 import { useEnsAvatar, useEnsName } from 'wagmi';
@@ -56,7 +56,7 @@ export const TokenInList = memo(function TokenInList({ token }: Props) {
                     <Link
                         className="rounded-lg bg-lightMain p-1.5 px-5 text-medium font-bold text-lightBottom"
                         target="_blank"
-                        href={resolveRocketsFunTokenUrl(ChainId.BSC, token.contractAddress)}
+                        href={resolveRocketsFunTokenUrl(EthereumChainId.BSC, token.contractAddress)}
                     >
                         <Trans>Swap</Trans>
                     </Link>

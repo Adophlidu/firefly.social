@@ -1,8 +1,7 @@
 'use client';
 
 import { t } from '@lingui/core/macro';
-import type { NonFungibleAsset } from '@masknet/web3-shared-base';
-import { ChainId, type SchemaType } from '@masknet/web3-shared-evm';
+import { EthereumChainId, type EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { AnimatePresence, motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
 import { type ReactNode, useState } from 'react';
@@ -24,6 +23,7 @@ import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { usePoapAttendeesCount } from '@/hooks/usePoapAttendeesCount.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
+import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
 import { NFTFeedTransAction } from '@/providers/types/NFTs.js';
 
 const variants = {
@@ -79,7 +79,7 @@ function PoapFieldGroups({
     isLoading,
 }: {
     eventId: number;
-    asset: NonFungibleAsset<ChainId, SchemaType>;
+    asset: NonFungibleAsset<EthereumChainId, EthereumSchemaType>;
     isLoading?: boolean;
 }) {
     const { data: attendeesCount, isLoading: isLoadingAttendeesCount } = usePoapAttendeesCount(eventId);
@@ -106,10 +106,10 @@ function NFTItem({
 }: {
     address: string;
     tokenId: string;
-    chainId: ChainId;
+    chainId: number;
     action?: NFTFeedTransAction;
 }) {
-    const { data, isLoading } = useNFTDetail(address, tokenId, chainId);
+    const { data, isLoading } = useNFTDetail(chainId, address, tokenId);
     const metadata = data?.metadata;
     const tokenName = metadata?.name;
     const collectionName = data?.collection?.name;
@@ -190,7 +190,7 @@ export interface NFTFeedBodyProps {
     tokenList: Array<{ id: string; contractAddress: string; action: NFTFeedActionProps }>;
     onChangeIndex?: (index: number) => void;
     index?: number;
-    chainId: ChainId;
+    chainId: EthereumChainId;
 }
 
 export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NFTFeedBodyProps) {

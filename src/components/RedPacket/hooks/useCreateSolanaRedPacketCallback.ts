@@ -1,7 +1,5 @@
 import { web3 } from '@coral-xyz/anchor';
 import { t } from '@lingui/core/macro';
-import { type FungibleToken } from '@masknet/web3-shared-base';
-import { isNativeTokenAddress } from '@masknet/web3-shared-solana';
 import { BigNumber } from 'bignumber.js';
 import { omit, pick } from 'lodash-es';
 import { useContext } from 'react';
@@ -22,10 +20,12 @@ import {
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getRpMaxShares } from '@/helpers/getRpLimitations.js';
 import { getTypedMessageRedPacket } from '@/helpers/getTypedMessage.js';
+import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { rightShift, toFixed } from '@/helpers/number.js';
 import { getRpMetadata } from '@/helpers/rpPayload.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import RedPacketIDL from '@/idls/redpacket.json' with { type: 'json' };
+import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { getTokenAccountByMint } from '@/providers/solana/getTokenAccountByMint.js';
 import { type CreateWithNativeTokenContext, SolanaRedPacket } from '@/providers/solana/RedPacket.js';
@@ -53,7 +53,7 @@ export function useCreateSolanaRedPacketCallback(
     } = useContext(RedPacketContext);
     const { chainId, account } = useChainContext({ chainId: token.chainId, networkType });
 
-    const isNativeToken = isNativeTokenAddress(token.address);
+    const isNativeToken = isZeroAddressSolana(token.address);
     const total = rightShift(totalAmount, token?.decimals);
     const themeId = theme?.tid ?? DEFAULT_THEME_ID;
     const message = originalMessage || t`Best Wishes!`;

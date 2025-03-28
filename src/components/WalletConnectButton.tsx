@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
-import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
-import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
+import { EthereumChainId } from '@masknet/web3-shared-evm';
+import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { compact } from 'lodash-es';
 import { memo } from 'react';
 
@@ -17,7 +17,7 @@ import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 interface WalletConnectButtonProps extends ClickableButtonProps {}
 
-const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
+const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EthereumChainId.Mainnet);
 const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
 
 const IconMap: Record<NetworkType, string | undefined> = {
