@@ -18,6 +18,7 @@ import { Title } from '@/components/Profile/Title.js';
 import { WalletActions } from '@/components/Profile/WalletActions.js';
 import { WALLET_PROFILE_ACTION_ID } from '@/components/Profile/WalletInfo.js';
 import { NetworkType, PageRoute, Source } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
@@ -67,13 +68,14 @@ export function FireflyAccountInfo({
         : socialProfile?.displayName;
     const currentProfile = useCurrentProfile(narrowToSocialSource(identity.source));
     const isCurrentProfile = currentProfile && socialProfile ? isSameProfile(currentProfile, socialProfile) : false;
+    const noFireflyAccount = (!displayName && !avatar) || !uid;
 
     return (
         <>
             <AnimatePresence initial={false}>
-                {showStickyTitle ? (
+                {showStickyTitle || noFireflyAccount ? (
                     <motion.div
-                        className="sticky left-0 top-0 z-40 h-0 w-full"
+                        className={classNames('sticky left-0 top-0 z-40 w-full', noFireflyAccount ? 'h-[60px]' : 'h-0')}
                         key="title"
                         exit={{ y: -60 }}
                         initial={{ y: -60 }}
@@ -112,68 +114,70 @@ export function FireflyAccountInfo({
                     </motion.div>
                 ) : null}
             </AnimatePresence>
-            <div className="relative flex w-full flex-col items-center pt-2.5">
-                <Image
-                    src={banner ?? '/image/default-firefly-account-banner.png'}
-                    alt="firefly-account-banner"
-                    width={1196}
-                    height={200}
-                    className="absolute left-0 top-0 h-[100px] w-full object-cover"
-                />
-                <div className="relative mt-5 flex w-full px-6" ref={buttonContainerRef}>
-                    <ComeBackButton />
-                    <div className="ml-auto flex space-x-2">
-                        {isCurrentProfile ? (
-                            <>
-                                <Link
-                                    href={PageRoute.SettingConnected}
-                                    className="inline-flex size-8 items-center justify-center rounded-lg bg-lightBg text-second active:opacity-50 md:hover:opacity-60"
-                                >
-                                    <SettingIcon />
-                                </Link>
-                                {socialProfile ? <ShareButton profile={socialProfile} /> : null}
-                            </>
-                        ) : null}
-                        {!isCurrentProfile ? (
-                            <>
-                                {socialProfile ? (
-                                    <>
-                                        <TipsButton
-                                            identity={identity}
-                                            profiles={profiles}
-                                            handle={socialProfile.handle}
-                                        />
-                                        <FireflyAccountMoreButton profile={socialProfile} />
-                                    </>
-                                ) : null}
-                                {walletProfile ? (
-                                    <>
-                                        <TipsButton
-                                            identity={identity}
-                                            profiles={profiles}
-                                            handle={walletProfile.primary_ens ?? walletProfile.address}
-                                        />
-                                        <FireflyAccountMoreButton walletProfile={walletProfile} />
-                                    </>
-                                ) : null}
-                            </>
-                        ) : null}
-                    </div>
-                </div>
-                <div className="flex w-full flex-col items-center px-4">
-                    <Avatar
-                        size={80}
-                        alt="firefly-account"
-                        src={avatar ?? (uid ? getStampAvatarByProfileId(Source.Firefly, uid) : undefined)}
+            {!noFireflyAccount ? (
+                <div className="relative flex w-full flex-col items-center pt-2.5">
+                    <Image
+                        src={banner ?? '/image/default-firefly-account-banner.png'}
+                        alt="firefly-account-banner"
+                        width={1196}
+                        height={200}
+                        className="absolute left-0 top-0 h-[100px] w-full object-cover"
                     />
-                    <div className="h-6 min-w-0 max-w-full truncate text-lg font-bold leading-6">
-                        {displayName ?? <Trans>Firefly User</Trans>}
+                    <div className="relative mt-5 flex w-full px-6" ref={buttonContainerRef}>
+                        <ComeBackButton />
+                        <div className="ml-auto flex space-x-2">
+                            {isCurrentProfile ? (
+                                <>
+                                    <Link
+                                        href={PageRoute.SettingConnected}
+                                        className="inline-flex size-8 items-center justify-center rounded-lg bg-lightBg text-second active:opacity-50 md:hover:opacity-60"
+                                    >
+                                        <SettingIcon />
+                                    </Link>
+                                    {socialProfile ? <ShareButton profile={socialProfile} /> : null}
+                                </>
+                            ) : null}
+                            {!isCurrentProfile ? (
+                                <>
+                                    {socialProfile ? (
+                                        <>
+                                            <TipsButton
+                                                identity={identity}
+                                                profiles={profiles}
+                                                handle={socialProfile.handle}
+                                            />
+                                            <FireflyAccountMoreButton profile={socialProfile} />
+                                        </>
+                                    ) : null}
+                                    {walletProfile ? (
+                                        <>
+                                            <TipsButton
+                                                identity={identity}
+                                                profiles={profiles}
+                                                handle={walletProfile.primary_ens ?? walletProfile.address}
+                                            />
+                                            <FireflyAccountMoreButton walletProfile={walletProfile} />
+                                        </>
+                                    ) : null}
+                                </>
+                            ) : null}
+                        </div>
                     </div>
-                    <div className="h-[22px] text-medium leading-[22px] text-second">
-                        <Trans>UID: {uid}</Trans>
+                    <div className="flex w-full flex-col items-center px-4">
+                        <Avatar
+                            size={80}
+                            alt="firefly-account"
+                            src={avatar ?? (uid ? getStampAvatarByProfileId(Source.Firefly, uid) : undefined)}
+                        />
+                        <div className="h-6 min-w-0 max-w-full truncate text-lg font-bold leading-6">
+                            {displayName ?? <Trans>Firefly User</Trans>}
+                        </div>
+                        <div className="h-[22px] text-medium leading-[22px] text-second">
+                            <Trans>UID: {uid}</Trans>
+                        </div>
                     </div>
                 </div>
-            </div>
+            ) : null}
         </>
     );
 }
