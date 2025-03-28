@@ -26,6 +26,11 @@ export const HttpUrl = z
     .url()
     .regex(/^(https?:\/\/)/);
 
+export const HttpsUrl = z
+    .string()
+    .url()
+    .regex(/^(https:\/\/)/);
+
 export const CAIP10 = z.string().regex(/^eip155:\d+:0x[a-fA-F0-9]{40}/i);
 
 export const FileSchema = z.custom<File>((value) => {

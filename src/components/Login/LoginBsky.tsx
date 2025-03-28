@@ -3,11 +3,16 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import { delay } from '@masknet/kit';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAsyncFn } from 'react-use';
+import urlcat from 'urlcat';
 import * as z from 'zod';
 
 import AtIcon from '@/assets/at.svg';
+import GlobalIcon from '@/assets/global.svg';
 import LockIcon from '@/assets/lock.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ClearButton } from '@/components/IconButton.js';
@@ -15,14 +20,23 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
-import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { classNames } from '@/helpers/classNames.js';
+import {
+    enqueueErrorMessage,
+    enqueueMessageFromError,
+    enqueueSuccessMessage,
+    enqueueWarningMessage,
+} from '@/helpers/enqueueMessage.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder, createAgentOnce } from '@/providers/bsky/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
+import { HttpsUrl, HttpUrl } from '@/schemas/index.js';
 import { type AccountOptions, addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -54,6 +68,25 @@ async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<A
 const schema = z.object({
     account: z.string().min(1),
     password: z.string().min(1),
+    serviceUrl: z.union([HttpsUrl, z.literal('')]).optional(),
+});
+
+const serverDescriptionScheme = z.object({
+    did: z.string(),
+    availableUserDomains: z.array(z.string()),
+    inviteCodeRequired: z.boolean().optional(),
+    phoneVerificationRequired: z.boolean().optional(),
+    links: z
+        .object({
+            privacyPolicy: HttpUrl.optional(),
+            termsOfService: HttpUrl.optional(),
+        })
+        .optional(),
+    contact: z
+        .object({
+            email: z.string().optional(),
+        })
+        .optional(),
 });
 
 export function LoginBsky() {
@@ -65,9 +98,13 @@ export function LoginBsky() {
         defaultValues: {
             account: '',
             password: '',
+            serviceUrl: DEFAULT_SERVICE_URL,
         },
     });
-    const { account, password } = watch();
+
+    const [editServiceUrl, setEditServiceUrl] = useState(false);
+
+    const { account, password, serviceUrl } = watch();
 
     const [{ loading }, login] = useAsyncFn(
         async (username: string, password: string, serviceUrl: string) => {
@@ -112,7 +149,7 @@ export function LoginBsky() {
                     },
                 );
             } catch (error) {
-                if ((error as Error).message === 'Invalid identifier or password') {
+                if (error instanceof Error && error.message === 'Invalid identifier or password') {
                     enqueueWarningMessage(t`Sorry, the username or password you entered is incorrect`);
                     setFocus('account');
                     return;
@@ -124,11 +161,47 @@ export function LoginBsky() {
         [controller, setFocus],
     );
 
+    const { data: serverDescription, isLoading } = useQuery({
+        enabled: !!serviceUrl && !editServiceUrl,
+        queryKey: ['login-bsky', serviceUrl, editServiceUrl],
+        queryFn: async ({ queryKey, signal }) => {
+            const [, url, editServiceUrl] = queryKey as [string, string, boolean];
+            if (!url) return false;
+            if (editServiceUrl) return false;
+
+            // default service url
+            if (url === DEFAULT_SERVICE_URL) return true;
+
+            const u = parseUrl(url);
+            if (!u) return false;
+
+            const parsed = HttpsUrl.safeParse(url);
+            if (!parsed.success) return false;
+
+            try {
+                const description = await fetchJSON<z.infer<typeof serverDescriptionScheme>>(
+                    urlcat(url, '/xrpc/com.atproto.server.describeServer'),
+                    {
+                        signal,
+                    },
+                );
+
+                return description;
+            } catch (error) {
+                if (AbortError.is(error)) return false;
+
+                enqueueErrorMessage(t`Sorry, the provider you entered is invalid`);
+                throw error;
+            }
+        },
+        retry: false,
+    });
+
     return (
         <form
             className="box-border flex w-[500px] flex-col items-center gap-3 p-6 max-md:w-full"
             onSubmit={handleSubmit((form) => {
-                login(form.account, form.password, DEFAULT_SERVICE_URL);
+                login(form.account, form.password, form.serviceUrl || DEFAULT_SERVICE_URL);
             })}
         >
             <div className="flex w-[300px] flex-col gap-5 max-md:w-full">
@@ -165,6 +238,7 @@ export function LoginBsky() {
                 <div className="group relative mx-0 flex h-10 flex-grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
                     <LockIcon width={18} height={18} className="absolute left-3 shrink-0" />
                     <input
+                        disabled={loading}
                         type="password"
                         autoComplete="off"
                         spellCheck="false"
@@ -186,9 +260,71 @@ export function LoginBsky() {
                         />
                     ) : null}
                 </div>
+                <div className="group relative mx-0 flex h-10 flex-grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
+                    <GlobalIcon width={18} height={18} className="absolute left-3 shrink-0" />
+                    <input
+                        disabled={loading}
+                        type="text"
+                        autoComplete="off"
+                        spellCheck="false"
+                        placeholder={DEFAULT_SERVICE_URL}
+                        className={classNames(
+                            'w-full border-0 bg-transparent py-2 pl-9 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6',
+                            {
+                                'pointer-events-none opacity-0': !editServiceUrl,
+                            },
+                        )}
+                        onFocus={() => {
+                            setEditServiceUrl(true);
+                        }}
+                        {...register('serviceUrl', {
+                            required: true,
+                            onBlur: () => {
+                                setEditServiceUrl(false);
+                            },
+                        })}
+                    />
+                    <span
+                        className={classNames(
+                            'absolute w-full border-0 bg-transparent py-2 pl-9 text-left placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6',
+                            {
+                                hidden: editServiceUrl,
+                            },
+                        )}
+                        onClick={async () => {
+                            setEditServiceUrl(true);
+                            await delay(300);
+                            setFocus('serviceUrl');
+                        }}
+                    >
+                        {parseUrl(serviceUrl || DEFAULT_SERVICE_URL)?.hostname}
+                    </span>
+
+                    {serviceUrl ? (
+                        <ClearButton
+                            tabIndex={-1}
+                            type="button"
+                            className="absolute right-3 hidden group-focus-within:inline-block group-hover:inline-block"
+                            IconProps={{ className: 'group-hover:text-highlight group-focus-within:text-highlight' }}
+                            size={16}
+                            onClick={async () => {
+                                resetField('serviceUrl');
+                                setEditServiceUrl(true);
+                                await delay(300);
+                                setFocus('serviceUrl');
+                            }}
+                        />
+                    ) : null}
+                </div>
                 <ClickableButton
                     className="flex h-[42px] w-full items-center justify-center gap-1 rounded-full border border-line bg-lightMain text-primaryBottom"
-                    disabled={loading || formState.isSubmitting || !formState.isValid}
+                    disabled={
+                        loading ||
+                        isLoading ||
+                        formState.isSubmitting ||
+                        !formState.isValid ||
+                        (!!serviceUrl && !serverDescription)
+                    }
                     type="submit"
                 >
                     {loading ? (

@@ -3322,6 +3322,9 @@ msgstr "合约所有者对反鲸鱼机制有限制。"
 msgid "I don’t use anymore."
 msgstr "我已经不再使用。"
 
+msgid "Sorry, the provider you entered is invalid"
+msgstr ""
+
 msgid "<0>You</0> liked"
 msgstr "<0>你</0> 已点赞"
 

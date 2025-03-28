@@ -3317,6 +3317,9 @@ msgstr "The contract owner has restrictions on anti whale."
 msgid "I don’t use anymore."
 msgstr "I don’t use anymore."
 
+msgid "Sorry, the provider you entered is invalid"
+msgstr "Sorry, the provider you entered is invalid"
+
 msgid "<0>You</0> liked"
 msgstr "<0>You</0> liked"
 
