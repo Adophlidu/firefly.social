@@ -21,6 +21,7 @@ export function VirtualList<ItemData = unknown, Context = unknown>({
     const [isScrollable, onDetectScrollable] = useVirtualListScrollable(listId);
 
     useEffect(() => {
+        if (!rest.useWindowScroll) return;
         window.addEventListener('scroll', onDetectScrollable);
         return () => {
             window.addEventListener('scroll', onDetectScrollable);
