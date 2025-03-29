@@ -1,6 +1,5 @@
 import { first, isUndefined, omitBy } from 'lodash-es';
 import { type Hex, hexToNumber } from 'viem';
-import type { JsonRpcPayload } from 'web3-core-helpers';
 
 import { parseEthereumChainId } from '@/helpers/parseChainId.js';
 import { createJsonRpcPayload } from '@/mask_pkgs/web3-shared/evm/helpers/createJsonRpcPayload.js';
@@ -11,6 +10,7 @@ import {
     type Transaction,
     type TransactionOptions,
 } from '@/mask_pkgs/web3-shared/evm/types/index.js';
+import type { JsonRpcPayload } from '@/types/ethereum.js';
 
 type Options = Pick<TransactionOptions, 'account' | 'chainId'>;
 

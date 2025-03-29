@@ -1,7 +1,7 @@
 import type { TransactionReceipt as Web3TransactionReceipt } from 'web3-core';
-import type { JsonRpcPayload, JsonRpcResponse } from 'web3-core-helpers';
 
 import type { GasOptionType } from '@/mask_pkgs/web3-shared/base/index.js';
+import type { JsonRpcPayload, JsonRpcResponse } from '@/types/ethereum.js';
 
 // Learn more about ethereum ChainId https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md
 export enum EthereumChainId {

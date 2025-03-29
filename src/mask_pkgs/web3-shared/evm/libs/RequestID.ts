@@ -1,8 +1,8 @@
 import { sha256, toHex } from 'viem';
 import type { TransactionConfig } from 'web3-core';
-import type { JsonRpcPayload } from 'web3-core-helpers';
 
 import { EthereumMethodType, type RequestArguments } from '@/mask_pkgs/web3-shared/evm/types/index.js';
+import type { JsonRpcPayload } from '@/types/ethereum.js';
 
 const toId = (...keys: Array<string | boolean>) => sha256(toHex(keys.join(',')));
 

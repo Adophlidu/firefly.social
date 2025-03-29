@@ -205,9 +205,6 @@ importers:
       '@tippyjs/react':
         specifier: ^4.2.6
         version: 4.2.6(react-dom@19.0.0)(react@19.0.0)
-      '@types/use-subscription':
-        specifier: ^1.0.2
-        version: 1.0.2
       '@vercel/kv':
         specifier: ^1.0.1
         version: 1.0.1
@@ -373,9 +370,6 @@ importers:
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
-      use-subscription:
-        specifier: ^1.10.0
-        version: 1.10.0(react@19.0.0)
       usehooks-ts:
         specifier: ^2.9.5
         version: 2.9.5(react-dom@19.0.0)(react@19.0.0)
@@ -391,9 +385,6 @@ importers:
       web3-core:
         specifier: 1.10.4
         version: 1.10.4
-      web3-core-helpers:
-        specifier: 1.10.2
-        version: 1.10.2
       web3-eth:
         specifier: 1.10.2
         version: 1.10.2
@@ -6742,7 +6733,7 @@ packages:
       '@ethereumjs/tx': 4.2.0
       '@types/debug': 4.1.12
       debug: 4.4.0
-      semver: 7.6.3
+      semver: 7.7.1
       superstruct: 1.0.4
     transitivePeerDependencies:
       - supports-color
@@ -6759,7 +6750,7 @@ packages:
       '@types/debug': 4.1.12
       debug: 4.4.0
       pony-cause: 2.1.11
-      semver: 7.6.3
+      semver: 7.7.1
       uuid: 9.0.1
     transitivePeerDependencies:
       - supports-color
@@ -6776,7 +6767,7 @@ packages:
       '@types/debug': 4.1.12
       debug: 4.4.0
       pony-cause: 2.1.11
-      semver: 7.6.3
+      semver: 7.7.1
       uuid: 9.0.1
     transitivePeerDependencies:
       - supports-color
@@ -11504,6 +11495,7 @@ packages:
 
   /@types/use-subscription@1.0.2:
     resolution: {integrity: sha512-k6CBZX+wR2Ad6/dIrznyyf8foRNVIvMvbwC/aKE2SZ691OpuNfqUkixMCD+e0dH/iEOHlvVZbg7TuRBdraBeEQ==}
+    dev: true
 
   /@types/uuid@10.0.0:
     resolution: {integrity: sha512-7gqG38EyHgyP1S+7+xomFtL+ZNHcKv6DwNaCZmJmo1vgMugyF3TCnXVg4t1uk89mLNwnLtnY3TpOpCOyp1/xHQ==}
@@ -14342,7 +14334,6 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
-    dev: true
 
   /crossws@0.2.4:
     resolution: {integrity: sha512-DAxroI2uSOgUKLz00NX6A8U/8EE3SZHmIND+10jkVSaypvyt57J5JEOxAQOL6lQxyzi/wZbTIwssU1uy69h5Vg==}
@@ -16377,7 +16368,7 @@ packages:
     resolution: {integrity: sha512-8uSpZZocAZRBAPIEINJj3Lo9HyGitllczc27Eh5YYojjMFMn8yHMDMaUHE2Jqfq05D/wucwI4JGURyXt1vchyg==}
     engines: {node: '>=10'}
     dependencies:
-      cross-spawn: 7.0.3
+      cross-spawn: 7.0.6
       get-stream: 6.0.1
       human-signals: 2.1.0
       is-stream: 2.0.1
@@ -20187,7 +20178,7 @@ packages:
     dependencies:
       hosted-git-info: 4.1.0
       is-core-module: 2.15.1
-      semver: 7.6.3
+      semver: 7.7.1
       validate-npm-package-license: 3.0.4
     dev: false
 
@@ -21610,7 +21601,7 @@ packages:
       react-refresh: 0.14.2
       regenerator-runtime: 0.13.11
       scheduler: 0.24.0-canary-efb381bbf-20230505
-      semver: 7.6.3
+      semver: 7.7.1
       stacktrace-parser: 0.1.10
       whatwg-fetch: 3.6.20
       ws: 6.2.3
@@ -22531,7 +22522,6 @@ packages:
     resolution: {integrity: sha512-hlq8tAfn0m/61p4BVRcPzIGr6LKiMwo4VM6dGi6pt4qcRkmNzTcWq6eCEjEh+qXjkMDvPlOFFSGwQjoEa6gyMA==}
     engines: {node: '>=10'}
     hasBin: true
-    dev: true
 
   /send@0.19.0:
     resolution: {integrity: sha512-dW41u5VfLXu8SJh5bwRmyYUbAoSB3c9uQh6L8h/KtsFREPWpbX1lrljJo186Jc4nmci/sGUZ9a0a0J2zgfq2hw==}
@@ -24403,15 +24393,6 @@ packages:
       tslib: 2.8.1
     dev: false
 
-  /use-subscription@1.10.0(react@19.0.0):
-    resolution: {integrity: sha512-ZRLhsMSjz01kBA8106zdzEjttJ20Rauscf0umwVRjaz8idRfoddOnAVH6VEBdu55eCq02L1g+j3NcleAar1aWw==}
-    peerDependencies:
-      react: 19.0.0
-    dependencies:
-      react: 19.0.0
-      use-sync-external-store: 1.4.0(react@19.0.0)
-    dev: false
-
   /use-subscription@1.8.2(react@19.0.0):
     resolution: {integrity: sha512-yC2ShScvQ1lAGRp5Y6pz1MqBIU81REfJ/sQIe16BCgKK9mRlZCnU90uY0alKsN6e/Next0vXTsvH3HbAfdH68w==}
     peerDependencies:
@@ -24431,14 +24412,6 @@ packages:
 
   /use-sync-external-store@1.2.2(react@19.0.0):
     resolution: {integrity: sha512-PElTlVMwpblvbNqQ82d2n6RjStvdSoNe9FG28kNfz3WiXilJm4DdNkEzRhCZuIDwY8U08WVihhGR5iRqAwfDiw==}
-    peerDependencies:
-      react: 19.0.0
-    dependencies:
-      react: 19.0.0
-    dev: false
-
-  /use-sync-external-store@1.4.0(react@19.0.0):
-    resolution: {integrity: sha512-9WXSPC5fMv61vaupRkCKCxsPxBocVnwakBEkMIHHpkTTg6icbJtg6jzgtLDm4bl3cSHAca52rYWih0k4K3PfHw==}
     peerDependencies:
       react: 19.0.0
     dependencies:
@@ -26232,7 +26205,6 @@ time:
   /typeson@9.0.3: '2023-06-09T16:06:00.595Z'
   /unist-util-flatmap@1.0.0: '2018-07-21T19:29:06.641Z'
   /unstated-next@1.1.0: '2019-05-13T23:34:47.580Z'
-  /use-subscription@1.10.0: '2024-12-05T18:10:55.943Z'
   /use-subscription@1.8.2: '2024-04-26T16:44:39.268Z'
   /usehooks-ts@2.9.5: '2024-01-18T15:06:44.086Z'
   /uuid@9.0.0: '2022-09-05T20:03:54.869Z'

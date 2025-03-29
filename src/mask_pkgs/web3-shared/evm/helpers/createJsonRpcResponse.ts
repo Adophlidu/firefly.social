@@ -1,4 +1,4 @@
-import type { JsonRpcResponse } from 'web3-core-helpers';
+import type { JsonRpcResponse } from '@/types/ethereum.js';
 
 export function createJsonRpcResponse<T>(id: number, result?: T, error?: Error): JsonRpcResponse {
     return {
