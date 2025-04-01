@@ -5,17 +5,18 @@ import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 export function extractTwitterProfileByOpengraphTitle(title: string) {
-    const regex = /([\w.]+) \(@([\w_]+)\)/;
-    const match = title.match(regex);
+    const [displayName, handle] = title.split(' ');
+    const regex = /\(@([\w_]+)\)/;
+    const match = handle.match(regex);
     if (match) {
         return {
-            displayName: match[1],
-            handle: match[2],
+            displayName,
+            handle: match[1],
         };
     }
     return {
-        displayName: '',
-        handle: '',
+        displayName,
+        handle,
     };
 }
 
