@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
+import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useMemo } from 'react';
 
@@ -27,6 +28,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type {
     FireflyAccountProfile,
     FireflyIdentity,
@@ -45,7 +47,15 @@ interface Props {
 }
 
 export function FireflyAccountInfo({ banner, walletProfile, socialProfile, identity, profiles, profile }: Props) {
-    const { displayName, avatar, uid } = profile || {};
+    const { data } = useQuery({
+        queryKey: ['firefly-profile', identity],
+        async queryFn() {
+            const walletProfiles = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false);
+            return walletProfiles.account;
+        },
+        initialData: profile,
+    });
+    const { displayName, avatar, uid } = data || {};
     const [buttonContainerRef, buttonContainerEntry] = useIntersectionObserver({
         threshold: 0.5,
     });

@@ -1,9 +1,12 @@
 import { notFound } from 'next/navigation.js';
 
+import { NoSSR } from '@/components/NoSSR.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { FireflyAccountInfo } from '@/components/Profile/FireflyAccountInfo.js';
-import { ProfilePageLayout } from '@/components/Profile/ProfilePageLayout.js';
+import { WalletProfileProvider } from '@/components/Profile/ProfileContext.js';
+import { ProfileInfoCard } from '@/components/Profile/ProfileInfoCard.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
+import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
 import { type LoginFallbackSource, SourceInURL } from '@/constants/enum.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
@@ -61,11 +64,28 @@ export default async function Layout(props: Props) {
             : undefined;
 
     return (
-        <ProfilePageLayout
-            profile={socialProfile}
-            identity={identity}
-            walletProfiles={walletProfiles}
-            source={source}
-        />
+        <>
+            <FireflyAccountInfo
+                profile={walletProfiles.account}
+                identity={identity}
+                socialProfile={socialProfile}
+                walletProfile={walletProfile ?? undefined}
+                profiles={profiles}
+            />
+            <ProfileSourceTabs profiles={profiles} identity={identity} />
+            {!socialProfile && !walletProfile ? (
+                <SuspendedAccountFallback />
+            ) : (
+                <WalletProfileProvider profiles={profiles} identity={identity}>
+                    <ProfileInfoCard
+                        source={source}
+                        socialProfile={socialProfile}
+                        walletProfile={walletProfile ?? undefined}
+                        profiles={profiles}
+                    />
+                    <NoSSR>{props.children}</NoSSR>
+                </WalletProfileProvider>
+            )}
+        </>
     );
 }
