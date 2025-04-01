@@ -32,10 +32,12 @@ export function isFarcasterPost(link: string) {
 export function isTakoPost(link: string) {
     const url = parseUrl(link);
     if (!url) return false;
-    if (url.host !== 'takocast.xyz' || !/\/cast\/?/.test(url.pathname)) return false;
-    const id = url.searchParams.get('id');
-    if (!id) return false;
-    return /^0x[a-fA-F0-9]{40}/.test(id);
+    if ((url.host === 'takocast.xyz' || url.host === 'app.tako.so') && /\/cast\/?/.test(url.pathname)) {
+        const id = url.searchParams.get('id');
+        if (!id) return false;
+        return /^0x[a-fA-F0-9]{40}/.test(id);
+    }
+    return false;
 }
 
 /** Extract links, addresses and domains */
