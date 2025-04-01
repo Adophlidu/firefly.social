@@ -72,7 +72,7 @@ export async function toggleSwitchNotificationConfig({
     }
     if (!targetValue && isGlobalSwitch) {
         getNotificationConfigs()
-            .flatMap((x) => x.children || [])
+            .flatMap((x) => [x].concat(x.children || []))
             .forEach((config) => {
                 if (config.platform === NotificationPlatform.All) return;
                 configsNeedToUpdate.push({
