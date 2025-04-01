@@ -3715,6 +3715,9 @@ msgstr ""
 msgid "Neutral"
 msgstr ""
 
+msgid "Turn on notifications to never miss important alerts."
+msgstr ""
+
 msgid "Signature Request"
 msgstr ""
 

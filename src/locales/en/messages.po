@@ -3726,6 +3726,9 @@ msgstr "{minutes}m left"
 msgid "Neutral"
 msgstr "Neutral"
 
+msgid "Turn on notifications to never miss important alerts."
+msgstr "Turn on notifications to never miss important alerts."
+
 msgid "Signature Request"
 msgstr "Signature Request"
 

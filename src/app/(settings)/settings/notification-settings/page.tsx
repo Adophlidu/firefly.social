@@ -7,91 +7,58 @@ import { useEffect, useMemo } from 'react';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import {
+    NotificationChildConfigItem,
     NotificationConfigItem,
-    type NotificationConfigItemProps,
 } from '@/app/(settings)/components/NotificationConfigItem.js';
 import { Section } from '@/app/(settings)/components/Section.js';
-import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
+import {
+    getNotificationConfigs,
+    type NotificationConfig,
+} from '@/app/(settings)/settings/notification-settings/getNotificationConfigs.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import {
-    NotificationPlatform,
-    type NotificationPushSwitchResponse,
-    NotificationPushType,
-    NotificationTitle,
-} from '@/providers/types/Firefly.js';
+import { NotificationPlatform, type NotificationPushSwitchResponse } from '@/providers/types/Firefly.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';
 
 function getStatusForConfigs(
-    configs: NotificationConfigItemProps[],
-    statusList: Required<NotificationPushSwitchResponse>['data']['list'],
-) {
-    const allStatus = Object.values(statusList).flatMap((x) => x.list);
+    configs: NotificationConfig[],
+    response?: Required<NotificationPushSwitchResponse>['data'],
+): NotificationConfig[] {
+    const allStatus = Object.values(response?.list || {}).flatMap((x) => x.list);
     return configs.map((config) => {
         const status = allStatus.find((x) => x.platform === config.platform && x.push_type === config.pushType);
+        const isGlobalSwitch = config.platform === NotificationPlatform.All;
+
         return {
             ...config,
-            unsupported: !status,
-            value: status?.state === true,
+            unsupported: isGlobalSwitch ? false : !status,
+            value: isGlobalSwitch ? response?.push_switch === true : status?.state === true,
+            children: config.children?.length ? getStatusForConfigs(config.children, response) : [],
         };
     });
 }
 
-export default function General() {
-    useNavigatorTitle(t`Push notifications`);
+export default function NotificationPage() {
+    useNavigatorTitle(t`Notifications`);
 
     const { data, isLoading } = useQuery({
         queryKey: ['notification-settings', 'config'],
         queryFn: async () => {
             const data = await FireflySocialMediaProvider.getNotificationPushSwitch();
-            return data?.list || [];
+            return data;
         },
     });
 
-    const { myAccountConfigs, otherAccountConfigs } = useMemo(
-        () => ({
-            myAccountConfigs: getStatusForConfigs(
-                [
-                    {
-                        label: <Trans>Tips</Trans>,
-                        description: <Trans>firefly.eth tipped you 100 USDC</Trans>,
-                        platform: NotificationPlatform.Tips,
-                        pushType: NotificationPushType.OnChainTips,
-                        type: NotificationTitle.Tips,
-                        value: true,
-                    },
-                    {
-                        label: <Trans>Likes</Trans>,
-                        description: <Trans>firefly.eth liked your transaction</Trans>,
-                        platform: NotificationPlatform.OnChain,
-                        pushType: NotificationPushType.OnChainLike,
-                        type: NotificationTitle.OnChain,
-                        value: true,
-                    },
-                ],
-                data || [],
-            ),
-            otherAccountConfigs: getStatusForConfigs(
-                [
-                    {
-                        label: <Trans>Swaps</Trans>,
-                        description: <Trans>firefly.eth swapped 1850 USDC for 0.5 ETH</Trans>,
-                        platform: NotificationPlatform.OnChain,
-                        pushType: NotificationPushType.OnChainSwap,
-                        type: NotificationTitle.OnChain,
-                        value: true,
-                    },
-                ],
-                data || [],
-            ),
-        }),
-        [data],
-    );
+    const configs = useMemo<NotificationConfig[]>(() => {
+        return getStatusForConfigs(getNotificationConfigs(), data);
+    }, [data]);
 
     useEffect(() => {
         setupFirebaseFcmConnection({ force: true, showUi: true });
     }, []);
+
+    const globalSwitch = configs.find((x) => x.platform === NotificationPlatform.All)?.value;
 
     return (
         <Section>
@@ -99,22 +66,32 @@ export default function General() {
                 <Trans>Push notifications</Trans>
             </Headline>
 
-            <div className="relative w-full">
+            <div className="relative w-full space-y-6">
                 {isLoading ? (
                     <div className="flex h-32 items-center justify-center">
                         <LoadingIcon size={24} />
                     </div>
                 ) : (
-                    <>
-                        <Subtitle className="leading-6">Your accounts</Subtitle>
-                        {myAccountConfigs.map((config, index) => (
-                            <NotificationConfigItem key={`your-${index}`} {...config} />
-                        ))}
-                        <Subtitle className="mt-6 leading-6">Others’ accounts</Subtitle>
-                        {otherAccountConfigs.map((config, index) => (
-                            <NotificationConfigItem key={`other-${index}`} {...config} />
-                        ))}
-                    </>
+                    configs.map(({ children, ...rest }) => (
+                        <div key={rest.pushType} className="rounded-lg border border-line px-3 py-2">
+                            <NotificationConfigItem
+                                key={rest.pushType}
+                                {...rest}
+                                disabled={rest.platform !== NotificationPlatform.All && !globalSwitch}
+                            />
+                            {children?.length ? (
+                                <div className="mt-4 border-t border-line pt-2">
+                                    {children?.map(({ children, ...subConfig }) => (
+                                        <NotificationChildConfigItem
+                                            key={subConfig.pushType}
+                                            {...subConfig}
+                                            disabled={!rest.value || !globalSwitch}
+                                        />
+                                    ))}
+                                </div>
+                            ) : null}
+                        </div>
+                    ))
                 )}
             </div>
         </Section>

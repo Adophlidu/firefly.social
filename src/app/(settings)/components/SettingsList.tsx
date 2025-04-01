@@ -20,7 +20,7 @@ export function SettingsList() {
                 { name: <Trans>Connected wallets</Trans>, link: '/wallets', isHidden: !isLoggedIn },
                 { name: <Trans>Connected accounts</Trans>, link: '/connected', isHidden: !isLoggedIn },
                 { name: <Trans>Muted contents</Trans>, link: '/mutes', isHidden: !muteMenuList.length },
-                { name: <Trans>Push notifications</Trans>, link: '/notification-settings', isHidden: !isLoggedIn },
+                { name: <Trans>Notifications</Trans>, link: '/notification-settings', isHidden: !isLoggedIn },
                 { name: <Trans>More</Trans>, link: '/more' },
             ].map(({ name, link, isHidden }) => {
                 return isHidden ? null : <TextLink key={link} name={name} link={`/settings${link}`} />;

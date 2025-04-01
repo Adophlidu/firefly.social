@@ -1,20 +1,15 @@
-import { Switch } from '@headlessui/react';
+import { Checkbox, Switch } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
-import { produce } from 'immer';
 import { useAsyncFn } from 'react-use';
 
+import { toggleSwitchNotificationConfig } from '@/app/(settings)/settings/notification-settings/toggleSwitchNotificationConfig.js';
+import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { queryClient } from '@/configs/queryClient.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type {
-    NotificationPlatform,
-    NotificationPushSwitchResponse,
-    NotificationPushType,
-    NotificationTitle,
-} from '@/providers/types/Firefly.js';
+import type { NotificationPlatform, NotificationPushType, NotificationTitle } from '@/providers/types/Firefly.js';
 
 export interface NotificationConfigItemProps {
     label: React.ReactNode;
@@ -24,70 +19,52 @@ export interface NotificationConfigItemProps {
     pushType: NotificationPushType;
     type: NotificationTitle;
     unsupported?: boolean;
+    disabled?: boolean;
 }
 
-function updateQueryData(
-    title: NotificationTitle,
-    platform: NotificationPlatform,
-    pushType: NotificationPushType,
-    state: boolean,
-) {
-    queryClient.setQueryData<Required<NotificationPushSwitchResponse>['data']['list']>(
-        ['notification-settings', 'config'],
-        (oldData) => {
-            if (!oldData) return;
-            return produce(oldData, (draft) => {
-                const allStatus = Object.values(draft || {}).flatMap((x) => x.list);
-                const item = allStatus.find((x) => x.platform === platform && x.push_type === pushType);
-                if (!item) return;
-                item.state = state;
-            });
-        },
-    );
-}
-
-export function NotificationConfigItem({
-    label,
-    description,
+function useToggleNotificationConfig({
     value,
     platform,
     pushType,
     unsupported,
     type,
-}: NotificationConfigItemProps) {
-    const [{ loading }, onSwitch] = useAsyncFn(async () => {
+}: Omit<NotificationConfigItemProps, 'label' | 'description'>) {
+    return useAsyncFn(async () => {
         try {
             if (unsupported) return;
-            await FireflySocialMediaProvider.setNotificationPushSwitch({
-                list: [
-                    {
-                        platform,
-                        push_type: pushType,
-                        state: !value,
-                    },
-                ],
+            await toggleSwitchNotificationConfig({
+                value,
+                platform,
+                pushType,
+                type,
             });
-            updateQueryData(type, platform, pushType, !value);
         } catch (error) {
             enqueueErrorMessage(t`Failed to update notification settings`, { error });
             throw error;
         }
     }, [value, platform, pushType, unsupported, type]);
+}
+
+export function NotificationConfigItem({ label, description, disabled, ...rest }: NotificationConfigItemProps) {
+    const [{ loading }, onSwitch] = useToggleNotificationConfig(rest);
 
     return (
-        <div className="mt-3 flex items-center gap-2 rounded-lg border border-line px-3 py-2">
+        <div className={classNames('flex items-center gap-2', disabled ? 'cursor-not-allowed opacity-50' : '')}>
             <div className="min-w-0 flex-1 truncate">
                 <p className="text-base font-bold text-main">{label}</p>
                 <p className="mt-1 text-medium text-lightSecond">{description}</p>
             </div>
-            <Tooltip content={unsupported ? t`Seems like this feature is not supported!` : ''} disabled={!unsupported}>
+            <Tooltip
+                content={rest.unsupported ? t`Seems like this feature is not supported!` : ''}
+                disabled={!rest.unsupported}
+            >
                 <Switch
-                    disabled={loading}
-                    checked={value}
+                    disabled={loading || disabled}
+                    checked={rest.value}
                     onChange={onSwitch}
                     className={classNames(
                         'group inline-flex h-[22px] w-11 items-center rounded-full bg-second transition data-[checked]:bg-lightHighlight dark:bg-bg data-[checked]:dark:bg-lightHighlight',
-                        unsupported ? 'opacity-50' : '',
+                        rest.unsupported ? 'opacity-50' : '',
                     )}
                 >
                     <span className="flex size-4 translate-x-1 items-center justify-center rounded-full bg-white transition group-data-[checked]:translate-x-6">
@@ -96,5 +73,30 @@ export function NotificationConfigItem({
                 </Switch>
             </Tooltip>
         </div>
+    );
+}
+
+export function NotificationChildConfigItem({ label, description, disabled, ...rest }: NotificationConfigItemProps) {
+    const [{ loading }, onSwitch] = useToggleNotificationConfig(rest);
+
+    return (
+        <ClickableButton
+            disabled={loading || disabled}
+            onClick={onSwitch}
+            className="flex items-start gap-2 border-b border-line py-2 text-left last:border-none"
+        >
+            <Tooltip
+                content={rest.unsupported ? t`Seems like this feature is not supported!` : ''}
+                disabled={!rest.unsupported}
+            >
+                <Checkbox aria-readonly checked={rest.value} className="mt-[3px]">
+                    {loading ? <LoadingIcon size={20} /> : <CircleCheckboxIcon size={20} checked={rest.value} />}
+                </Checkbox>
+            </Tooltip>
+            <div className="min-w-0 flex-1 truncate">
+                <p className="text-base font-bold text-main">{label}</p>
+                <p className="mt-1 text-medium text-lightSecond">{description}</p>
+            </div>
+        </ClickableButton>
     );
 }
