@@ -2,6 +2,7 @@
 
 import { Menu, MenuButton, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
+import { usePathname } from 'next/navigation.js';
 import type { HTMLProps } from 'react';
 
 import ArrowLineDownIcon from '@/assets/arrow-line-down.svg';
@@ -18,7 +19,7 @@ import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureProfileActionEvent.js';
-import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, FireflyProfile, LensV3Profile, WalletProfile } from '@/providers/types/Firefly.js';
 
 function SourceIcon({
     source,
@@ -84,10 +85,21 @@ function ProfileTriggerContent({
     );
 }
 
+function resolveAvatar(profile: FireflyProfile) {
+    if (profile.identity.source === Source.Lens)
+        return getStampAvatarByProfileId(profile.identity.source, (profile.__origin__ as LensV3Profile).id);
+    return getStampAvatarByProfileId(profile.identity.source, profile.identity.id);
+}
+
 export function ProfileSourceTabs({ profiles, identity }: { profiles: FireflyProfile[]; identity: FireflyIdentity }) {
+    const sources = SORTED_PROFILE_SOURCES.filter(
+        (source) => profiles.filter((profile) => profile.identity.source === source).length,
+    );
+    const pathname = usePathname();
+
     return (
         <div className="no-scrollbar flex w-full overflow-x-auto overflow-y-auto px-4 pb-2.5 pt-2">
-            {SORTED_PROFILE_SOURCES.map((source) => {
+            {sources.map((source) => {
                 const currentSourceProfiles = profiles
                     .filter((profile) => profile.identity.source === source)
                     .sort((a, b) => {
@@ -227,7 +239,10 @@ export function ProfileSourceTabs({ profiles, identity }: { profiles: FireflyPro
                                                     ),
                                                 })}
                                                 onClick={(e) => {
-                                                    if (isSameFireflyIdentity(defaultProfile.identity, identity)) {
+                                                    if (
+                                                        pathname ===
+                                                        resolveProfileUrl(Source.WalletMix, defaultProfile.identity.id)
+                                                    ) {
                                                         e.preventDefault();
                                                         return;
                                                     }
@@ -331,10 +346,7 @@ export function ProfileSourceTabs({ profiles, identity }: { profiles: FireflyPro
                                                         <Avatar
                                                             size={14}
                                                             alt={profile.identity.id}
-                                                            src={getStampAvatarByProfileId(
-                                                                profile.identity.source,
-                                                                profile.identity.id,
-                                                            )}
+                                                            src={resolveAvatar(profile)}
                                                         />
                                                     )}
                                                     <span className="ml-1 min-w-0 truncate pr-4">

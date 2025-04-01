@@ -36,7 +36,7 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
             button={<MoreIcon width={22} height={22} className="shrink-0" />}
             className={className}
             buttonClassName={classNames(
-                'size-8 justify-center rounded-lg bg-primaryBottom text-lightHighlight dark:bg-white dark:bg-opacity-[0.08]',
+                'size-8 justify-center rounded-lg bg-primaryBottom !text-lightHighlight dark:bg-white dark:bg-opacity-[0.08] dark:text-main',
                 buttonClassName,
             )}
         >

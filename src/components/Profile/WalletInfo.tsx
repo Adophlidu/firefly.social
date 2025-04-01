@@ -2,16 +2,17 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
 import EnsIcon from '@/assets/ens.svg';
 import MiniEnsIcon from '@/assets/ens-16.svg';
-import FireflyLogo from '@/assets/firefly.round.svg';
+import EvmIcon from '@/assets/evm.svg';
 import LinkIcon from '@/assets/link-square.svg';
+import SolanaIcon from '@/assets/solana.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
-import { Image } from '@/components/Image.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { Link } from '@/components/Link.js';
 import { WalletActions } from '@/components/Profile/WalletActions.js';
@@ -21,15 +22,16 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { formatPrice } from '@/helpers/formatPrice.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isMPCWallet } from '@/helpers/isMPCWallet.js';
-import { resolveNetworkIcon } from '@/helpers/resolveNetworkIcon.js';
-import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { Debank } from '@/providers/debank/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { OKX } from '@/providers/okx/index.js';
 import { type Relation, type WalletProfile } from '@/providers/types/Firefly.js';
 
 interface WalletInfoProps {
@@ -41,7 +43,6 @@ export const WALLET_PROFILE_ACTION_ID = 'profile-action';
 
 export function WalletInfo({ profile, relations }: WalletInfoProps) {
     const isMedium = useIsMedium();
-    const isDarkMode = useIsDarkMode();
 
     const avatar = profile.avatar ?? getStampAvatarByProfileId(Source.Wallet, profile.address);
     const networkType = getAddressType(profile.address);
@@ -50,7 +51,6 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
         networkType === NetworkType.Ethereum
             ? BlockScanExplorerResolver.addressLink(EthereumChainId.Mainnet, profile.address)
             : null;
-    const networkIcon = networkType ? resolveNetworkIcon(networkType, isDarkMode) : null;
 
     const isMPC = isMPCWallet(profile);
     const displayName = isMPC ? t`Firefly Wallet` : profile.primary_ens || formatAddress(profile.address, 4);
@@ -62,79 +62,131 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
         },
     });
 
+    const address = profile.address;
+    const { data: totalBalance } = useQuery({
+        queryKey: ['wallet', 'total-balance', networkType, address],
+        queryFn: async () => {
+            if (!networkType) return null;
+            switch (networkType) {
+                case NetworkType.Ethereum:
+                    return Debank.getUserTotalBalance(address);
+                case NetworkType.Solana:
+                    return OKX.getUserSolanaTotalValue(address);
+                default:
+                    safeUnreachable(networkType);
+                    return null;
+            }
+        },
+    });
+
     return (
         <div className="flex gap-3 p-4">
-            <Avatar src={avatar} alt="avatar" size={40} className="size-10 rounded-full" />
+            <Avatar src={avatar} alt="avatar" size={40} className="size-10 rounded-full border border-lightHighlight" />
             <div className="relative flex flex-1 flex-col">
-                <div className="flex flex-col gap-2">
-                    <div className="flex h-8 items-center gap-1" id={WALLET_PROFILE_ACTION_ID}>
-                        {isMPC ? <FireflyLogo width={19} height={19} /> : null}
-                        {networkIcon && networkType ? (
-                            <Image src={networkIcon} alt={networkType} width={18} height={18} />
-                        ) : null}
-                        <span className="text-lg font-black leading-6 text-lightMain">{displayName}</span>
+                <div className="flex flex-col gap-1">
+                    <div className="flex min-h-8 flex-row items-start justify-between" id={WALLET_PROFILE_ACTION_ID}>
+                        <div className="flex flex-col">
+                            <div className="flex flex-row items-center">
+                                <div className="h-6 min-w-0 truncate text-lg font-black leading-6 text-lightMain">
+                                    {displayName}
+                                </div>
+                                <div
+                                    className={classNames('ml-1 mr-auto flex h-6 min-w-[120px] flex-row items-center', {
+                                        'animate-pulse bg-bg': isLoadingWalletRelation,
+                                    })}
+                                >
+                                    {!isLoadingWalletRelation ? (
+                                        <>
+                                            {networkType === NetworkType.Ethereum ? (
+                                                <EvmIcon width={20} height={20} />
+                                            ) : null}
+                                            {networkType === NetworkType.Solana ? (
+                                                <SolanaIcon width={20} height={20} />
+                                            ) : null}
+                                            {walletRelation?.verifiedSources.map((x) => {
+                                                return (
+                                                    <Tooltip
+                                                        key={x.source}
+                                                        content={t`Verified by ${x.provider}`}
+                                                        placement="bottom"
+                                                    >
+                                                        <span>
+                                                            <RelatedSourceIcon source={x.source} size={20} />
+                                                        </span>
+                                                    </Tooltip>
+                                                );
+                                            })}
+                                            {relations?.map((relation) => {
+                                                const url = getRelationPlatformUrl(
+                                                    relation.identity.platform,
+                                                    relation.identity.identity,
+                                                );
+                                                return (
+                                                    <Tooltip
+                                                        key={relation.identity.uuid}
+                                                        content={relation.identity.displayName}
+                                                        placement="bottom"
+                                                    >
+                                                        {url ? (
+                                                            <Link href={url} target="_blank" rel="noreferrer noopener">
+                                                                <RelationPlatformIcon
+                                                                    size={20}
+                                                                    source={relation.identity.platform}
+                                                                />
+                                                            </Link>
+                                                        ) : (
+                                                            <span>
+                                                                <RelationPlatformIcon
+                                                                    size={20}
+                                                                    source={relation.identity.platform}
+                                                                />
+                                                            </span>
+                                                        )}
+                                                    </Tooltip>
+                                                );
+                                            })}
+                                            {profile.ens?.length ? (
+                                                <InteractiveTippy
+                                                    maxWidth={304}
+                                                    className="tippy-card"
+                                                    placement="bottom"
+                                                    content={
+                                                        <div className="no-scrollbar flex max-h-[100px] flex-wrap gap-x-[15px] overflow-auto rounded-2xl border-[0.5px] border-secondaryLine bg-primaryBottom p-3">
+                                                            {profile.ens.map((ens) => {
+                                                                return (
+                                                                    <div
+                                                                        className="flex items-center gap-[5px]"
+                                                                        key={ens}
+                                                                    >
+                                                                        <MiniEnsIcon width={16} height={16} />
+                                                                        <span className="text-[10px] font-bold leading-4 text-main">
+                                                                            {ens}
+                                                                        </span>
+                                                                    </div>
+                                                                );
+                                                            })}
+                                                        </div>
+                                                    }
+                                                >
+                                                    <span>
+                                                        <EnsIcon width={20} height={20} className="grayscale" />
+                                                    </span>
+                                                </InteractiveTippy>
+                                            ) : null}
+                                        </>
+                                    ) : null}
+                                </div>
+                            </div>
+                            <div className="mt-1 text-xl font-bold leading-6">
+                                <Trans>
+                                    $ {formatPrice(totalBalance ?? 0)}{' '}
+                                    <span className="text-sm text-second">Net worth</span>
+                                </Trans>
+                            </div>
+                        </div>
                         {networkType === NetworkType.Ethereum ? <WalletActions profile={profile} /> : null}
                     </div>
-                    <div
-                        className={classNames('mr-auto flex h-6 min-w-[120px] gap-[10px]', {
-                            'animate-pulse bg-bg': isLoadingWalletRelation,
-                        })}
-                    >
-                        {walletRelation?.verifiedSources.map((x) => {
-                            return (
-                                <Tooltip key={x.source} content={t`Verified by ${x.provider}`} placement="bottom">
-                                    <span>
-                                        <RelatedSourceIcon source={x.source} size={24} />
-                                    </span>
-                                </Tooltip>
-                            );
-                        })}
-                        {relations?.map((relation) => {
-                            const url = getRelationPlatformUrl(relation.identity.platform, relation.identity.identity);
-                            return (
-                                <Tooltip
-                                    key={relation.identity.uuid}
-                                    content={relation.identity.displayName}
-                                    placement="bottom"
-                                >
-                                    {url ? (
-                                        <Link href={url} target="_blank" rel="noreferrer noopener">
-                                            <RelationPlatformIcon size={24} source={relation.identity.platform} />
-                                        </Link>
-                                    ) : (
-                                        <span>
-                                            <RelationPlatformIcon size={24} source={relation.identity.platform} />
-                                        </span>
-                                    )}
-                                </Tooltip>
-                            );
-                        })}
-                        {profile.ens?.length ? (
-                            <InteractiveTippy
-                                maxWidth={304}
-                                className="tippy-card"
-                                placement="bottom"
-                                content={
-                                    <div className="no-scrollbar flex max-h-[100px] flex-wrap gap-x-[15px] overflow-auto rounded-2xl border-[0.5px] border-secondaryLine bg-primaryBottom p-3">
-                                        {profile.ens.map((ens) => {
-                                            return (
-                                                <div className="flex items-center gap-[5px]" key={ens}>
-                                                    <MiniEnsIcon width={16} height={16} />
-                                                    <span className="text-[10px] font-bold leading-4 text-main">
-                                                        {ens}
-                                                    </span>
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-                                }
-                            >
-                                <span>
-                                    <EnsIcon width={24} height={24} />
-                                </span>
-                            </InteractiveTippy>
-                        ) : null}
-                    </div>
+
                     <div className="flex items-center gap-1 text-sm leading-[14px] text-secondary">
                         {isMedium ? profile.address : formatAddress(profile.address, 4)}
                         <CopyTextButton text={profile.address} />

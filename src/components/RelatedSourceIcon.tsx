@@ -2,9 +2,9 @@
 import { safeUnreachable } from '@masknet/kit';
 import { memo, type SVGProps } from 'react';
 
-import FarcasterIcon from '@/assets/farcaster.svg';
-import LensIcon from '@/assets/lens.svg';
-import { XIcon } from '@/components/XIcon.js';
+import FarcasterIcon from '@/assets/farcaster-fill.svg';
+import LensIcon from '@/assets/lens-fill.svg';
+import XIcon from '@/assets/x-fill.svg';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 import { RelatedWalletSource } from '@/providers/types/Firefly.js';
 

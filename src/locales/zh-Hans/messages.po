@@ -179,6 +179,10 @@ msgstr "<0>完全摊薄估值 (FDV) = 当前价格 x 总供应量</0><1>完全�
 msgid "Equal Split"
 msgstr "均分金额"
 
+#. placeholder {0}: formatPrice(totalBalance ?? 0)
+msgid "$ {0} <0>Net worth</0>"
+msgstr ""
+
 msgid "Enter your email address below, and we’ll send a one-time passcode to confirm your address"
 msgstr "请输入您的邮箱地址，我们将发送一次性验证码以确认您的邮箱。"
 
@@ -2407,6 +2411,9 @@ msgstr "正在发生..."
 
 msgid "Connect your wallet to claim your NFT"
 msgstr "连接钱包并且领取你的 NFT"
+
+msgid "Reauthorize"
+msgstr ""
 
 msgid "24h"
 msgstr "24小时"

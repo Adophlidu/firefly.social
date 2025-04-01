@@ -47,7 +47,7 @@ export function ProfileLoginStatus({ profile, className = '' }: ProfileLoginStat
                 })
             }
         >
-            <Trans>Login</Trans>
+            <Trans>Reauthorize</Trans>
         </ClickableButton>
     );
 }

@@ -7,6 +7,7 @@ import MoreIcon from '@/assets/more-fill.svg';
 import SearchIcon from '@/assets/search.svg';
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
+import { MuteAllByProfile } from '@/components/Actions/MuteAllProfile.js';
 import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
 import { ReportProfileButton } from '@/components/Actions/ReportProfileButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
@@ -61,9 +62,9 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                 'size-8 justify-center rounded-lg bg-primaryBottom dark:bg-white dark:bg-opacity-[0.08]',
                 buttonClassName,
                 {
-                    'text-farcasterPrimary': profile.source === Source.Farcaster,
-                    'text-lensButton': profile.source === Source.Lens,
-                    'text-bskyPrimary': profile.source === Source.Bsky,
+                    '!text-farcasterPrimary': profile.source === Source.Farcaster,
+                    '!text-lensButton': profile.source === Source.Lens,
+                    '!text-bskyPrimary': profile.source === Source.Bsky,
                 },
             )}
         >
@@ -94,23 +95,30 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                 ) : null}
 
                 {!isCurrentProfile(profile) && SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES.includes(profile.source) ? (
-                    <MenuItem>
-                        {({ close }) => (
-                            <MenuButton
-                                onClick={() => {
-                                    close();
-                                    router.push(
-                                        resolveSearchUrl(`from: ${profile.handle} `, SearchType.Posts, profile.source),
-                                    );
-                                }}
-                            >
-                                <SearchIcon width={18} height={18} />
-                                <span className="font-bold leading-[22px] text-main">
-                                    <Trans>Search in profile</Trans>
-                                </span>
-                            </MenuButton>
-                        )}
-                    </MenuItem>
+                    <>
+                        <MenuItem>
+                            {({ close }) => (
+                                <MenuButton
+                                    onClick={() => {
+                                        close();
+                                        router.push(
+                                            resolveSearchUrl(
+                                                `from: ${profile.handle} `,
+                                                SearchType.Posts,
+                                                profile.source,
+                                            ),
+                                        );
+                                    }}
+                                >
+                                    <SearchIcon width={18} height={18} />
+                                    <span className="font-bold leading-[22px] text-main">
+                                        <Trans>Search in profile</Trans>
+                                    </span>
+                                </MenuButton>
+                            )}
+                        </MenuItem>
+                        <MenuItem>{({ close }) => <MuteAllByProfile profile={profile} onClose={close} />}</MenuItem>
+                    </>
                 ) : null}
             </MenuGroup>
         </MoreActionMenu>

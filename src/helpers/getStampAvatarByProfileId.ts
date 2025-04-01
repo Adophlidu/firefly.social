@@ -27,7 +27,7 @@ export function getStampAvatarByProfileId(source: Source, profileId: string) {
         case Source.Article:
         case Source.DAOs:
         case Source.Polymarket:
-            return urlcat(FIREFLY_STAMP_URL, '/wallet/:address', { address: profileId });
+            return urlcat(FIREFLY_STAMP_URL, '/:address', { address: profileId });
         case Source.Telegram:
         case Source.Google:
         case Source.Apple:

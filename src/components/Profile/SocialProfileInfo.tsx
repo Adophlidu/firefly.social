@@ -39,7 +39,12 @@ export function SocialProfileInfo(props: InfoProps) {
                     src={source === Source.Twitter ? getLargeTwitterAvatar(profile.pfp) : profile.pfp}
                     alt="avatar"
                     size={40}
-                    className="size-10 rounded-full"
+                    className={classNames('size-10 rounded-full border', {
+                        'border-farcasterPrimary': profile.source === Source.Farcaster,
+                        'border-lensButton': profile.source === Source.Lens,
+                        'border-bskyPrimary': profile.source === Source.Bsky,
+                        'border-main': profile.source === Source.Twitter,
+                    })}
                 />
             ) : (
                 <SocialSourceIcon className="rounded-full" source={source} size={40} />

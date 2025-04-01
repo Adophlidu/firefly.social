@@ -57,7 +57,7 @@ export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps 
             <FollowButton
                 profile={profile}
                 variant={isSmall ? 'text' : 'icon'}
-                className={classNames(socialThemeClassName, {
+                followButtonClassName={classNames(socialThemeClassName, {
                     '!w-[50px] !min-w-[50px] !max-w-[50px]': !isSmall,
                 })}
             />

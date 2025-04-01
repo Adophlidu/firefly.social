@@ -2,10 +2,11 @@
 
 import { Trans } from '@lingui/react/macro';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import SettingIcon from '@/assets/setting.svg';
 import { Avatar } from '@/components/Avatar.js';
+import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { ComeBackButton } from '@/components/Profile/ComeBackButton.js';
@@ -26,30 +27,25 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver.js';
-import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
+import type {
+    FireflyAccountProfile,
+    FireflyIdentity,
+    FireflyProfile,
+    WalletProfile,
+} from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {
-    displayName?: string | null;
-    avatar?: string | null;
-    uid: string;
     banner?: string;
     walletProfile?: WalletProfile;
     socialProfile?: Profile;
     identity: FireflyIdentity;
     profiles?: FireflyProfile[];
+    profile: FireflyAccountProfile;
 }
 
-export function FireflyAccountInfo({
-    avatar,
-    banner,
-    displayName,
-    uid,
-    walletProfile,
-    socialProfile,
-    identity,
-    profiles,
-}: Props) {
+export function FireflyAccountInfo({ banner, walletProfile, socialProfile, identity, profiles, profile }: Props) {
+    const { displayName, avatar, uid } = profile;
     const [buttonContainerRef, buttonContainerEntry] = useIntersectionObserver({
         threshold: 0.5,
     });
@@ -63,9 +59,10 @@ export function FireflyAccountInfo({
     }, [profileActionRef]);
     const showStickyTitle = buttonContainerEntry && !buttonContainerEntry.isIntersecting;
     const showProfileAction = profileActionEntry && !profileActionEntry.isIntersecting;
-    const title = walletProfile
-        ? (walletProfile.primary_ens ?? formatAddressEthereum(walletProfile.address, 4))
-        : socialProfile?.displayName;
+    const title = useMemo(() => {
+        if (walletProfile) return walletProfile.primary_ens ?? formatAddressEthereum(walletProfile.address, 4);
+        return socialProfile?.displayName;
+    }, [walletProfile, socialProfile]);
     const currentProfile = useCurrentProfile(narrowToSocialSource(identity.source));
     const isCurrentProfile = currentProfile && socialProfile ? isSameProfile(currentProfile, socialProfile) : false;
     const noFireflyAccount = (!displayName && !avatar) || !uid;
@@ -172,8 +169,9 @@ export function FireflyAccountInfo({
                         <div className="h-6 min-w-0 max-w-full truncate text-lg font-bold leading-6">
                             {displayName ?? <Trans>Firefly User</Trans>}
                         </div>
-                        <div className="h-[22px] text-medium leading-[22px] text-second">
+                        <div className="flex h-[22px] cursor-pointer items-center text-medium leading-[22px] text-second">
                             <Trans>UID: {uid}</Trans>
+                            <CopyTextButton text={uid} />
                         </div>
                     </div>
                 </div>

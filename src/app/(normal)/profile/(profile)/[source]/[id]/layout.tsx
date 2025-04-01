@@ -1,12 +1,9 @@
 import { notFound } from 'next/navigation.js';
 
-import { NoSSR } from '@/components/NoSSR.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { FireflyAccountInfo } from '@/components/Profile/FireflyAccountInfo.js';
-import { WalletProfileProvider } from '@/components/Profile/ProfileContext.js';
-import { ProfileInfoCard } from '@/components/Profile/ProfileInfoCard.js';
+import { ProfilePageLayout } from '@/components/Profile/ProfilePageLayout.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
-import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
 import { type LoginFallbackSource, SourceInURL } from '@/constants/enum.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
@@ -48,7 +45,7 @@ export default async function Layout(props: Props) {
     if (isRequestedLoginSource(source) && !resolveSessionHolder(source).session) {
         return (
             <>
-                <FireflyAccountInfo identity={identity} {...walletProfiles.account} />
+                <FireflyAccountInfo identity={identity} profile={walletProfiles.account} />
                 <ProfileSourceTabs profiles={profiles} identity={identity} />
                 <NotLoginFallback source={source as LoginFallbackSource} />
             </>
@@ -56,35 +53,19 @@ export default async function Layout(props: Props) {
     }
 
     const { walletProfile } = resolveFireflyProfiles(identity, profiles);
-    const socialProfile = identity.id
-        ? await runInSafeAsync(() =>
-              resolveSocialMediaProvider(narrowToSocialSource(identity.source)).getProfileByIdOrHandle(identity.id),
-          )
-        : undefined;
+    const socialProfile =
+        identity.id && !walletProfile
+            ? await runInSafeAsync(() =>
+                  resolveSocialMediaProvider(narrowToSocialSource(identity.source)).getProfileByIdOrHandle(identity.id),
+              )
+            : undefined;
 
     return (
-        <>
-            <FireflyAccountInfo
-                {...walletProfiles.account}
-                identity={identity}
-                socialProfile={socialProfile}
-                walletProfile={walletProfile ?? undefined}
-                profiles={profiles}
-            />
-            <ProfileSourceTabs profiles={profiles} identity={identity} />
-            {!socialProfile && !walletProfile ? (
-                <SuspendedAccountFallback />
-            ) : (
-                <WalletProfileProvider profiles={profiles} identity={identity}>
-                    <ProfileInfoCard
-                        source={identity.source}
-                        socialProfile={socialProfile}
-                        walletProfile={walletProfile ?? undefined}
-                        profiles={profiles}
-                    />
-                    <NoSSR>{props.children}</NoSSR>
-                </WalletProfileProvider>
-            )}
-        </>
+        <ProfilePageLayout
+            profile={socialProfile}
+            identity={identity}
+            walletProfiles={walletProfiles}
+            source={source}
+        />
     );
 }
