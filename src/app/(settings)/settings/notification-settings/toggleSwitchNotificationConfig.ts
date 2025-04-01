@@ -71,15 +71,17 @@ export async function toggleSwitchNotificationConfig({
         });
     }
     if (!targetValue && isGlobalSwitch) {
-        getNotificationConfigs().forEach((config) => {
-            if (config.platform === NotificationPlatform.All) return;
-            configsNeedToUpdate.push({
-                platform: config.platform,
-                push_type: config.pushType,
-                state: targetValue,
-                type: config.type,
+        getNotificationConfigs()
+            .flatMap((x) => x.children || [])
+            .forEach((config) => {
+                if (config.platform === NotificationPlatform.All) return;
+                configsNeedToUpdate.push({
+                    platform: config.platform,
+                    push_type: config.pushType,
+                    state: targetValue,
+                    type: config.type,
+                });
             });
-        });
     }
 
     await FireflySocialMediaProvider.setNotificationPushSwitch({
