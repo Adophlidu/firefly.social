@@ -41,11 +41,11 @@ interface Props {
     socialProfile?: Profile;
     identity: FireflyIdentity;
     profiles?: FireflyProfile[];
-    profile: FireflyAccountProfile;
+    profile?: FireflyAccountProfile | null;
 }
 
 export function FireflyAccountInfo({ banner, walletProfile, socialProfile, identity, profiles, profile }: Props) {
-    const { displayName, avatar, uid } = profile;
+    const { displayName, avatar, uid } = profile || {};
     const [buttonContainerRef, buttonContainerEntry] = useIntersectionObserver({
         threshold: 0.5,
     });
