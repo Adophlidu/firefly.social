@@ -237,14 +237,15 @@
     --color-danger: 255 53 69;
     --color-warn: 255 177 0;
     --color-lens-primary: 154 227 42;
-    --color-farcaster-primary: 146 80 255;
+    --color-farcaster-primary: 133 93 205;
     --color-twitter-primary: 29 161 243;
-    --color-secondary: rgba(118, 127, 141, 1);
+    --color-bsky-primary: 10 122 255;
+    --color-secondary: rgba(118, 127, 141, 1); /* #767f8d */
     --color-collected: 24 195 123;
     --color-bottom80: rgba(255, 255, 255, 0.8);
-    --color-bottom-blue: rgba(36, 107, 253, 1);
-    --color-bg: rgba(249, 249, 249, 1);
-    --color-bg-modal: rgba(249, 249, 249, 1);
+    --color-bottom-blue: rgba(36, 107, 253, 1); /* #246bfd */
+    --color-bg: rgba(249, 249, 249, 1); /* #f9f9f9 */
+    --color-bg-modal: rgba(249, 249, 249, 1); /* #f9f9f9 */
     --color-bg-modal-layer: 217 217 217;
     --m-modal-title-bg: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 100%),
         linear-gradient(
@@ -253,28 +254,28 @@
             rgba(98, 152, 234, 0.2) 1.04%,
             rgba(98, 126, 234, 0.2) 100%
         );
-    --color-main1: rgba(183, 183, 183, 1);
-    --color-main2: rgba(207, 207, 207, 1);
-    --color-main3: rgba(243, 243, 243, 1);
+    --color-main1: rgba(183, 183, 183, 1); /* #b7b7b7 */
+    --color-main2: rgba(207, 207, 207, 1); /* #cfcfcf */
+    --color-main3: rgba(243, 243, 243, 1); /* #f3f3f3 */
     --color-main4: rgba(24, 24, 24, 1);
     --color-tooltip-bg: rgba(24, 24, 24, 0.9);
-    --color-third: rgba(177, 177, 177, 1);
-    --color-input: rgba(245, 245, 245, 1);
+    --color-third: rgba(177, 177, 177, 1); /* #b1b1b1 */
+    --color-input: rgba(245, 245, 245, 1); /* #f5f5f5 */
     --color-line: #f4f4f4;
-    --color-line2: rgba(231, 231, 231, 1);
+    --color-line2: rgba(231, 231, 231, 1); /* #e7e7e7 */
     --color-light-bg: #f5f5f9;
     --color-light-main: #181818;
     --color-bottom-bg: rgba(0, 0, 0, 0.05);
-    --color-tab-line: rgba(29, 155, 240, 1);
-    --color-firefly-brand: rgba(146, 80, 255, 1);
+    --color-tab-line: rgba(29, 155, 240, 1); /* #1d9bf0 */
+    --color-firefly-brand: rgba(146, 80, 255, 1); /* #9250ff */
     --m-common-danger: #ff3545;
     --m-common-warn: 255 177 0;
     --m-light-bottom: #fff;
-    --plyr-audio-controls-background: rgba(243, 243, 243, 1);
+    --plyr-audio-controls-background: rgba(243, 243, 243, 1); /* #f3f3f3 */
     --plyr-range-thumb-height: 0px;
     --plyr-range-track-height: 12px;
     --plyr-control-radius: 12px;
-    --plyr-range-fill-background: rgba(118, 118, 118, 1);
+    --plyr-range-fill-background: rgba(118, 118, 118, 1); /* #767676 */
     --plyr-audio-progress-buffered-background: rgba(207, 207, 207, 1);
     --plyr-control-icon-size: 16px;
     --color-success: 61 194 51;
@@ -286,6 +287,14 @@
     --color-bg02: 172 172 174;
     --color-bg03: 230 230 237;
     --color-light-rebranding-bg: 245 245 249;
+    --color-farcaster-bg: 243 240 250;
+    --color-lens-bg: 237 247 241;
+    --color-bsky-bg: 240 247 255;
+    --color-x-bg: var(--color-light-bg);
+    --color-wallet-bg: 243 242 255;
+    --color-danger-bg: #fff5f6;
+    --w3m-modal-width: 400px !important;
+    --color-lens-button: 0 80 30;
 }
 
 .light .sidebar-light-logo {
@@ -364,6 +373,13 @@
     --color-bg02: 172 172 174;
     --color-bg03: 230 230 237;
     --color-light-rebranding-bg: 245 245 249;
+    --color-farcaster-bg: 43 39 51;
+    --color-lens-bg: 31 41 35;
+    --color-bsky-bg: 27 38 51;
+    --color-x-bg: var(--color-light-bg);
+    --color-wallet-bg: 42 42 61;
+    --color-danger-bg: rgba(255, 53, 69, 0.16);
+    --color-lens-button: 171 254 44;
 }
 
 .dark .sidebar-light-logo {

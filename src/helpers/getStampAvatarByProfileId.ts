@@ -4,6 +4,7 @@ import urlcat from 'urlcat';
 import { Source } from '@/constants/enum.js';
 import { FIREFLY_STAMP_URL, SITE_URL } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
+import type { FireflyProfile, LensV3Profile } from '@/providers/types/Firefly.js';
 
 export function getStampAvatarByProfileId(source: Source, profileId: string) {
     switch (source) {
@@ -41,4 +42,10 @@ export function getStampAvatarByProfileId(source: Source, profileId: string) {
             safeUnreachable(source);
             return '';
     }
+}
+
+export function getStampAvatarByFireflyProfile(profile: FireflyProfile) {
+    if (profile.identity.source === Source.Lens)
+        return getStampAvatarByProfileId(profile.identity.source, (profile.__origin__ as LensV3Profile).id);
+    return getStampAvatarByProfileId(profile.identity.source, profile.identity.id);
 }

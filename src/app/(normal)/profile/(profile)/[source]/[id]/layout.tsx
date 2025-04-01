@@ -39,16 +39,16 @@ export default async function Layout(props: Props) {
     if (!source || !isProfilePageSource(source)) notFound();
 
     const identity = resolveSpecialProfileIdentity({ source, id: params.id });
-    const walletProfiles = await runInSafeAsync(() =>
+    const relatedProfile = await runInSafeAsync(() =>
         FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false),
     );
-    if (!walletProfiles) notFound();
-    const profiles = formatFireflyProfilesFromWalletProfiles(walletProfiles) as FireflyProfile[];
+    if (!relatedProfile) notFound();
+    const profiles = formatFireflyProfilesFromWalletProfiles(relatedProfile) as FireflyProfile[];
 
     if (isRequestedLoginSource(source) && !resolveSessionHolder(source).session) {
         return (
             <>
-                <FireflyAccountInfo identity={identity} profile={walletProfiles.account} />
+                <FireflyAccountInfo identity={identity} profile={relatedProfile.account} />
                 <ProfileSourceTabs profiles={profiles} identity={identity} />
                 <NotLoginFallback source={source as LoginFallbackSource} />
             </>
@@ -66,7 +66,7 @@ export default async function Layout(props: Props) {
     return (
         <>
             <FireflyAccountInfo
-                profile={walletProfiles.account}
+                profile={relatedProfile.account}
                 identity={identity}
                 socialProfile={socialProfile}
                 walletProfile={walletProfile ?? undefined}

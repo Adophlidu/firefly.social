@@ -32,7 +32,7 @@ export const FollowButton = memo(function FollowButton({
     variant = 'text',
     profile,
     className,
-    followButtonClassName,
+    followButtonClassName = '',
     hasMutedButton = true,
     ...rest
 }: FollowButtonProps) {
@@ -87,12 +87,12 @@ export const FollowButton = memo(function FollowButton({
                 'flex h-8 items-center justify-center rounded-lg text-medium font-semibold transition-all',
                 variantClassName,
                 className,
-                followButtonClassName,
                 {
                     'bg-main text-primaryBottom hover:opacity-80': buttonState === State.Follow,
                     'border border-lightMain text-lightMain': buttonState === State.Following,
                     'border border-danger border-opacity-50 bg-danger bg-opacity-20 text-danger':
                         buttonState === State.Unfollow,
+                    [followButtonClassName]: buttonState === State.Follow,
                 },
             )}
             {...rest}

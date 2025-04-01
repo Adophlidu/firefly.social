@@ -1304,6 +1304,9 @@ msgstr "正在靜音中"
 msgid "Failed to show more."
 msgstr ""
 
+msgid "Sign in to unlock"
+msgstr ""
+
 msgid "Log in with your X account to view"
 msgstr ""
 

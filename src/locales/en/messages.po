@@ -1299,6 +1299,9 @@ msgstr "Unmuting..."
 msgid "Failed to show more."
 msgstr "Failed to show more."
 
+msgid "Sign in to unlock"
+msgstr "Sign in to unlock"
+
 msgid "Log in with your X account to view"
 msgstr "Log in with your X account to view"
 

@@ -17,14 +17,12 @@ import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { Link } from '@/components/Link.js';
 import { WalletActions } from '@/components/Profile/WalletActions.js';
 import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
-import { RelationPlatformIcon } from '@/components/RelationPlatformIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
-import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -32,16 +30,15 @@ import { Debank } from '@/providers/debank/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { OKX } from '@/providers/okx/index.js';
-import { type Relation, type WalletProfile } from '@/providers/types/Firefly.js';
+import { type WalletProfile } from '@/providers/types/Firefly.js';
 
 interface WalletInfoProps {
     profile: WalletProfile;
-    relations?: Relation[];
 }
 
 export const WALLET_PROFILE_ACTION_ID = 'profile-action';
 
-export function WalletInfo({ profile, relations }: WalletInfoProps) {
+export function WalletInfo({ profile }: WalletInfoProps) {
     const isMedium = useIsMedium();
 
     const avatar = profile.avatar ?? getStampAvatarByProfileId(Source.Wallet, profile.address);
@@ -79,6 +76,8 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
         },
     });
 
+    const iconSize = 16;
+
     return (
         <div className="flex gap-3 p-4">
             <Avatar src={avatar} alt="avatar" size={40} className="size-10 rounded-full border border-lightHighlight" />
@@ -91,17 +90,20 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                                     {displayName}
                                 </div>
                                 <div
-                                    className={classNames('ml-1 mr-auto flex h-6 min-w-[120px] flex-row items-center', {
-                                        'animate-pulse bg-bg': isLoadingWalletRelation,
-                                    })}
+                                    className={classNames(
+                                        'ml-1 mr-auto flex h-6 min-w-[120px] flex-row items-center gap-1.5',
+                                        {
+                                            'animate-pulse bg-bg': isLoadingWalletRelation,
+                                        },
+                                    )}
                                 >
                                     {!isLoadingWalletRelation ? (
                                         <>
                                             {networkType === NetworkType.Ethereum ? (
-                                                <EvmIcon width={20} height={20} />
+                                                <EvmIcon width={iconSize} height={iconSize} />
                                             ) : null}
                                             {networkType === NetworkType.Solana ? (
-                                                <SolanaIcon width={20} height={20} />
+                                                <SolanaIcon width={iconSize} height={iconSize} />
                                             ) : null}
                                             {walletRelation?.verifiedSources.map((x) => {
                                                 return (
@@ -110,38 +112,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                                                         content={t`Verified by ${x.provider}`}
                                                         placement="bottom"
                                                     >
-                                                        <span>
-                                                            <RelatedSourceIcon source={x.source} size={20} />
-                                                        </span>
-                                                    </Tooltip>
-                                                );
-                                            })}
-                                            {relations?.map((relation) => {
-                                                const url = getRelationPlatformUrl(
-                                                    relation.identity.platform,
-                                                    relation.identity.identity,
-                                                );
-                                                return (
-                                                    <Tooltip
-                                                        key={relation.identity.uuid}
-                                                        content={relation.identity.displayName}
-                                                        placement="bottom"
-                                                    >
-                                                        {url ? (
-                                                            <Link href={url} target="_blank" rel="noreferrer noopener">
-                                                                <RelationPlatformIcon
-                                                                    size={20}
-                                                                    source={relation.identity.platform}
-                                                                />
-                                                            </Link>
-                                                        ) : (
-                                                            <span>
-                                                                <RelationPlatformIcon
-                                                                    size={20}
-                                                                    source={relation.identity.platform}
-                                                                />
-                                                            </span>
-                                                        )}
+                                                        <RelatedSourceIcon source={x.source} size={iconSize} />
                                                     </Tooltip>
                                                 );
                                             })}
@@ -169,7 +140,11 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                                                     }
                                                 >
                                                     <span>
-                                                        <EnsIcon width={20} height={20} className="grayscale" />
+                                                        <EnsIcon
+                                                            width={iconSize}
+                                                            height={iconSize}
+                                                            className="grayscale"
+                                                        />
                                                     </span>
                                                 </InteractiveTippy>
                                             ) : null}

@@ -6,7 +6,7 @@ import ComeBackIcon from '@/assets/comeback.svg';
 import { classNames } from '@/helpers/classNames.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 
-export function Title({ title, className, children }: HTMLProps<'div'> & { title?: ReactNode | null }) {
+export function Title({ title, className, children }: Omit<HTMLProps<'div'>, 'title'> & { title?: ReactNode | null }) {
     const comeback = useComeBack();
     return (
         <div className={classNames('z-40 flex h-[60px] w-full items-center bg-primaryBottom pl-4 pr-3', className)}>

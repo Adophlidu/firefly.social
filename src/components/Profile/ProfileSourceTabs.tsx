@@ -1,9 +1,11 @@
 'use client';
 
-import { Menu, MenuButton, MenuItems } from '@headlessui/react';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
+import { delay } from '@masknet/kit';
 import { usePathname } from 'next/navigation.js';
-import type { HTMLProps } from 'react';
+import { type HTMLProps, type Ref, useLayoutEffect, useRef, useState } from 'react';
+import { useMount } from 'react-use';
 
 import ArrowLineDownIcon from '@/assets/arrow-line-down.svg';
 import DangerIcon from '@/assets/danger.svg';
@@ -14,12 +16,13 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type ProfilePageSource, Source } from '@/constants/enum.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { getStampAvatarByFireflyProfile } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
+import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureProfileActionEvent.js';
-import type { FireflyIdentity, FireflyProfile, LensV3Profile, WalletProfile } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 
 function SourceIcon({
     source,
@@ -85,17 +88,197 @@ function ProfileTriggerContent({
     );
 }
 
-function resolveAvatar(profile: FireflyProfile) {
-    if (profile.identity.source === Source.Lens)
-        return getStampAvatarByProfileId(profile.identity.source, (profile.__origin__ as LensV3Profile).id);
-    return getStampAvatarByProfileId(profile.identity.source, profile.identity.id);
+function TriggerButton({
+    profile,
+    identity,
+    menu = false,
+}: {
+    profile: FireflyProfile;
+    identity: FireflyIdentity;
+    menu?: boolean;
+}) {
+    const source = profile.identity.source;
+    const isCurrentSource =
+        identity.source === source || (source === Source.Wallet && identity.source === Source.WalletMix);
+    const ref = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
+    useLayoutEffect(() => {
+        if (isCurrentSource) {
+            ref.current?.scrollIntoView({ behavior: 'auto' });
+        }
+    }, [isCurrentSource]);
+
+    if (!isProfilePageSource(source)) return null;
+
+    const triggerClassName = classNames(
+        'group mr-2.5 flex h-6 flex-row items-center rounded-lg px-2 py-1 text-xs outline-none duration-100',
+        isCurrentSource
+            ? {
+                  'bg-farcasterPrimary text-white': source === Source.Farcaster,
+                  'bg-lensPrimary text-lensText': source === Source.Lens,
+                  'bg-mainLight text-white': source === Source.Twitter,
+                  'bg-bskyPrimary text-white': source === Source.Bsky,
+                  'bg-lightHighlight text-white': source === Source.Wallet,
+              }
+            : {
+                  'bg-bg': true,
+                  'hover:bg-farcasterPrimary hover:text-white': source === Source.Farcaster,
+                  'hover:bg-lensPrimary hover:text-lensText': source === Source.Lens,
+                  'hover:bg-mainLight hover:text-white': source === Source.Twitter,
+                  'hover:bg-bskyPrimary hover:text-white': source === Source.Bsky,
+                  'hover:bg-lightHighlight hover:text-white': source === Source.Wallet,
+              },
+    );
+
+    const displayName = source === Source.Wallet ? profile.displayName : `@${profile.displayName}`;
+
+    if (menu) {
+        return (
+            <MenuButton
+                ref={ref as Ref<HTMLButtonElement>}
+                className={triggerClassName}
+                onMouseEnter={(e) => e.currentTarget.click()}
+            >
+                <ProfileTriggerContent active={isCurrentSource} source={source} square arrow>
+                    {source !== Source.Wallet ||
+                    (identity.source !== Source.WalletMix && isSameFireflyIdentity(identity, profile.identity)) ? (
+                        displayName
+                    ) : (
+                        <Trans>Wallets</Trans>
+                    )}
+                </ProfileTriggerContent>
+            </MenuButton>
+        );
+    }
+
+    return (
+        <Link
+            ref={ref as Ref<HTMLAnchorElement>}
+            href={resolveProfileUrl(source, profile.identity.id)}
+            className={triggerClassName}
+            onClick={() => {
+                captureProfileChangeAccountClick(source, identity.id);
+            }}
+        >
+            <ProfileTriggerContent active={isCurrentSource} source={source} square>
+                {displayName}
+            </ProfileTriggerContent>
+        </Link>
+    );
+}
+
+function TopProfileMenuItem({ profile, identity }: { profile: FireflyProfile; identity: FireflyIdentity }) {
+    const pathname = usePathname();
+    const source = profile.identity.source as ProfilePageSource;
+    const [isMounted, setIsMounted] = useState(false);
+
+    useMount(async () => {
+        await delay(500);
+        setIsMounted(true);
+    });
+
+    if (!isProfilePageSource(source)) return null;
+    const isWalletProfile = source === Source.Wallet;
+    const isCurrentSource =
+        identity.source === source || (source === Source.Wallet && identity.source === Source.WalletMix);
+
+    const href = isWalletProfile
+        ? resolveProfileUrl(Source.WalletMix, profile.identity.id)
+        : resolveProfileUrl(source, profile.identity.id);
+
+    const className = classNames('flex h-6 cursor-pointer flex-row items-center', {
+        'cursor-pointer': !isSameFireflyIdentity(profile.identity, identity),
+        'pointer-events-none': !isMounted || pathname === href,
+    });
+
+    if (isWalletProfile) {
+        return (
+            <Link
+                href={href}
+                className={className}
+                onClick={() => {
+                    captureProfileChangeAccountClick(source, profile.identity.id);
+                }}
+            >
+                <span
+                    className={classNames(
+                        'inline-flex size-3.5 shrink-0 items-center justify-center rounded bg-lightHighlight text-white',
+                        {
+                            'outline outline-[0.5px] outline-current': isCurrentSource,
+                        },
+                    )}
+                >
+                    <SourceIcon source={source} size={12} />
+                </span>
+                <span className="mx-1 min-w-0 truncate">
+                    <Trans>Wallets</Trans>
+                </span>
+                <ArrowLineDownIcon width={12} height={12} className="ml-auto shrink-0" />
+            </Link>
+        );
+    }
+
+    return (
+        <Link
+            href={href}
+            className={className}
+            onClick={() => {
+                captureProfileChangeAccountClick(source, profile.identity.id);
+            }}
+        >
+            <span
+                className={classNames('inline-flex size-3.5 shrink-0 items-center justify-center rounded', {
+                    'bg-farcasterPrimary text-white': source === Source.Farcaster,
+                    'bg-lensPrimary text-lensText': source === Source.Lens,
+                    'bg-mainLight text-white': source === Source.Twitter,
+                    'bg-bskyPrimary text-white': source === Source.Bsky,
+                    'bg-lightHighlight text-white': isWalletProfile && !(profile.__origin__ as WalletProfile)?.hacked,
+                    'outline outline-[0.5px] outline-current': isCurrentSource,
+                })}
+            >
+                <SourceIcon source={source} size={12} />
+            </span>
+            <span className="mx-1 min-w-0 truncate">
+                {isWalletProfile ? '' : '@'}
+                {profile.displayName}
+            </span>
+            <ArrowLineDownIcon width={12} height={12} className="ml-auto shrink-0" />
+        </Link>
+    );
+}
+
+function ProfileMenuItem({ profile }: { profile: FireflyProfile }) {
+    const source = profile.identity.source;
+    if (!isProfilePageSource(source)) return null;
+    const isHacked =
+        profile.identity.source === Source.Wallet ? ((profile?.__origin__ as WalletProfile)?.hacked ?? false) : false;
+    return (
+        <MenuItem>
+            <Link
+                href={resolveProfileUrl(source, profile.identity.id)}
+                onClick={() => {
+                    captureProfileChangeAccountClick(source, profile.identity.id);
+                }}
+                key={profile.identity.id}
+                className="flex h-6 w-full items-center space-x-1 truncate leading-6 hover:opacity-60"
+            >
+                {isHacked ? (
+                    <SourceIcon source={Source.Wallet} size={14} danger />
+                ) : (
+                    <Avatar size={14} alt={profile.identity.id} src={getStampAvatarByFireflyProfile(profile)} />
+                )}
+                <span className="ml-1 min-w-0 truncate pr-4">
+                    {source === Source.Wallet ? '' : '@'}
+                    {profile.displayName}
+                </span>
+            </Link>
+        </MenuItem>
+    );
 }
 
 export function ProfileSourceTabs({ profiles, identity }: { profiles: FireflyProfile[]; identity: FireflyIdentity }) {
     const sources = SORTED_PROFILE_SOURCES.filter(
         (source) => profiles.filter((profile) => profile.identity.source === source).length,
     );
-    const pathname = usePathname();
 
     return (
         <div className="no-scrollbar flex w-full overflow-x-auto overflow-y-auto px-4 pb-2.5 pt-2">
@@ -116,83 +299,18 @@ export function ProfileSourceTabs({ profiles, identity }: { profiles: FireflyPro
                     identity.source === source || (source === Source.Wallet && identity.source === Source.WalletMix);
                 const isWalletProfile = source === Source.Wallet;
                 const topProfile = currentProfile ?? defaultProfile;
-                const topProfileHacked =
-                    topProfile.identity.source === Source.Wallet
-                        ? ((topProfile?.__origin__ as WalletProfile)?.hacked ?? false)
-                        : false;
 
-                const triggerClassName = classNames(
-                    'group mr-2.5 flex h-6 flex-row items-center rounded-lg px-2 py-1 text-xs outline-none duration-100',
-                    isCurrentSource
-                        ? {
-                              'bg-farcasterPrimary text-white': source === Source.Farcaster,
-                              'bg-lensPrimary text-lensText': source === Source.Lens,
-                              'bg-mainLight text-white': source === Source.Twitter,
-                              'bg-bskyPrimary text-white': source === Source.Bsky,
-                              'bg-lightHighlight text-white': isWalletProfile,
-                          }
-                        : {
-                              'bg-bg': true,
-                              'hover:bg-farcasterPrimary hover:text-white': source === Source.Farcaster,
-                              'hover:bg-lensPrimary hover:text-lensText': source === Source.Lens,
-                              'hover:bg-mainLight hover:text-white': source === Source.Twitter,
-                              'hover:bg-bskyPrimary hover:text-white': source === Source.Bsky,
-                              'hover:bg-lightHighlight hover:text-white': isWalletProfile,
-                          },
-                );
-                const triggerContent = source === Source.Wallet ? <Trans>Wallets</Trans> : topProfile.displayName;
                 if (currentSourceProfiles.length === 1) {
                     if (source === Source.Wallet) {
-                        return (
-                            <Link
-                                href={resolveProfileUrl(source, topProfile.identity.id)}
-                                key={source}
-                                className={triggerClassName}
-                                onClick={() => {
-                                    captureProfileChangeAccountClick(source, topProfile.identity.id);
-                                }}
-                            >
-                                <ProfileTriggerContent
-                                    source={source}
-                                    square
-                                    active={isCurrentSource}
-                                    danger={topProfileHacked}
-                                >
-                                    @{topProfile.displayName}
-                                </ProfileTriggerContent>
-                            </Link>
-                        );
                     }
-                    return (
-                        <Link
-                            href={resolveProfileUrl(source, topProfile.identity.id)}
-                            key={source}
-                            className={triggerClassName}
-                            onClick={() => {
-                                captureProfileChangeAccountClick(source, topProfile.identity.id);
-                            }}
-                        >
-                            <ProfileTriggerContent
-                                source={source}
-                                square
-                                active={isCurrentSource}
-                                danger={topProfileHacked}
-                            >
-                                {triggerContent}
-                            </ProfileTriggerContent>
-                        </Link>
-                    );
+                    return <TriggerButton profile={topProfile} identity={identity} key={identity.id} />;
                 }
 
                 return (
                     <Menu key={source}>
                         {({ close }) => (
                             <>
-                                <MenuButton className={triggerClassName} onMouseEnter={(e) => e.currentTarget.click()}>
-                                    <ProfileTriggerContent active={isCurrentSource} source={source} square arrow>
-                                        {triggerContent}
-                                    </ProfileTriggerContent>
-                                </MenuButton>
+                                <TriggerButton profile={topProfile} identity={identity} menu />
                                 <MenuItems
                                     transition
                                     anchor="bottom"
@@ -210,7 +328,7 @@ export function ProfileSourceTabs({ profiles, identity }: { profiles: FireflyPro
                                 >
                                     <div
                                         className={classNames(
-                                            'w-full flex-col rounded-lg px-2',
+                                            'no-scrollbar max-h-[400px] w-full flex-col overflow-y-auto rounded-lg px-2',
                                             isCurrentSource
                                                 ? {
                                                       'bg-farcasterPrimary text-white': source === Source.Farcaster,
@@ -229,132 +347,14 @@ export function ProfileSourceTabs({ profiles, identity }: { profiles: FireflyPro
                                                   },
                                         )}
                                     >
-                                        {isWalletProfile ? (
-                                            <Link
-                                                href={resolveProfileUrl(Source.WalletMix, defaultProfile.identity.id)}
-                                                className={classNames('flex h-6 cursor-pointer flex-row items-center', {
-                                                    'cursor-pointer': !isSameFireflyIdentity(
-                                                        defaultProfile.identity,
-                                                        identity,
-                                                    ),
-                                                })}
-                                                onClick={(e) => {
-                                                    if (
-                                                        pathname ===
-                                                        resolveProfileUrl(Source.WalletMix, defaultProfile.identity.id)
-                                                    ) {
-                                                        e.preventDefault();
-                                                        return;
-                                                    }
-                                                    captureProfileChangeAccountClick(
-                                                        source,
-                                                        defaultProfile.identity.id,
-                                                    );
-                                                }}
-                                            >
-                                                <span
-                                                    className={classNames(
-                                                        'inline-flex size-3.5 shrink-0 items-center justify-center rounded bg-lightHighlight text-white',
-                                                        {
-                                                            'outline outline-[0.5px] outline-current': isCurrentSource,
-                                                        },
-                                                    )}
-                                                >
-                                                    <SourceIcon source={source} size={14} />
-                                                </span>
-                                                <span className="mx-1 min-w-0 truncate">
-                                                    <Trans>Wallets</Trans>
-                                                </span>
-                                                <ArrowLineDownIcon
-                                                    width={12}
-                                                    height={12}
-                                                    className="ml-auto shrink-0"
-                                                />
-                                            </Link>
-                                        ) : (
-                                            <Link
-                                                href={resolveProfileUrl(source, defaultProfile.identity.id)}
-                                                className={classNames('flex h-6 cursor-pointer flex-row items-center', {
-                                                    'cursor-pointer': !isSameFireflyIdentity(
-                                                        defaultProfile.identity,
-                                                        identity,
-                                                    ),
-                                                })}
-                                                onClick={(e) => {
-                                                    if (isSameFireflyIdentity(defaultProfile.identity, identity)) {
-                                                        e.preventDefault();
-                                                        return;
-                                                    }
-                                                    captureProfileChangeAccountClick(
-                                                        source,
-                                                        defaultProfile.identity.id,
-                                                    );
-                                                }}
-                                            >
-                                                <span
-                                                    className={classNames(
-                                                        'inline-flex size-3.5 shrink-0 items-center justify-center rounded',
-                                                        {
-                                                            'bg-farcasterPrimary text-white':
-                                                                source === Source.Farcaster,
-                                                            'bg-lensPrimary text-lensText': source === Source.Lens,
-                                                            'bg-mainLight text-white': source === Source.Twitter,
-                                                            'bg-bskyPrimary text-white': source === Source.Bsky,
-                                                            'bg-lightHighlight text-white':
-                                                                isWalletProfile &&
-                                                                !(defaultProfile.__origin__ as WalletProfile)?.hacked,
-                                                            'outline outline-[0.5px] outline-current': isCurrentSource,
-                                                        },
-                                                    )}
-                                                >
-                                                    <SourceIcon source={source} size={12} />
-                                                </span>
-                                                <span className="mx-1 min-w-0 truncate">
-                                                    {isWalletProfile ? '' : '@'}
-                                                    {defaultProfile.displayName}
-                                                </span>
-                                                <ArrowLineDownIcon
-                                                    width={12}
-                                                    height={12}
-                                                    className="ml-auto shrink-0"
-                                                />
-                                            </Link>
-                                        )}
+                                        <TopProfileMenuItem profile={defaultProfile} identity={identity} />
                                         {currentSourceProfiles.map((profile) => {
-                                            if (
-                                                !isWalletProfile &&
-                                                isSameFireflyIdentity(profile.identity, defaultProfile.identity)
-                                            ) {
-                                                return null;
-                                            }
-                                            const isHacked =
-                                                profile.identity.source === Source.Wallet
-                                                    ? ((profile?.__origin__ as WalletProfile)?.hacked ?? false)
-                                                    : false;
-                                            return (
-                                                <Link
-                                                    href={resolveProfileUrl(source, profile.identity.id)}
-                                                    onClick={() => {
-                                                        captureProfileChangeAccountClick(source, profile.identity.id);
-                                                    }}
-                                                    key={profile.identity.id}
-                                                    className="flex h-6 w-full items-center space-x-1 truncate leading-6 hover:opacity-60"
-                                                >
-                                                    {isHacked ? (
-                                                        <SourceIcon source={Source.Wallet} size={14} danger />
-                                                    ) : (
-                                                        <Avatar
-                                                            size={14}
-                                                            alt={profile.identity.id}
-                                                            src={resolveAvatar(profile)}
-                                                        />
-                                                    )}
-                                                    <span className="ml-1 min-w-0 truncate pr-4">
-                                                        {isWalletProfile ? '' : '@'}
-                                                        {profile.displayName}
-                                                    </span>
-                                                </Link>
+                                            const isCurrentFireflyIdentity = isSameFireflyIdentity(
+                                                profile.identity,
+                                                defaultProfile.identity,
                                             );
+                                            if (!isWalletProfile && isCurrentFireflyIdentity) return null;
+                                            return <ProfileMenuItem profile={profile} key={profile.identity.id} />;
                                         })}
                                     </div>
                                 </MenuItems>

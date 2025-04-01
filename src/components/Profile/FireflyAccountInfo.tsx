@@ -24,10 +24,12 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type {
     FireflyAccountProfile,
@@ -47,7 +49,7 @@ interface Props {
 }
 
 export function FireflyAccountInfo({ banner, walletProfile, socialProfile, identity, profiles, profile }: Props) {
-    const { data } = useQuery({
+    const { data = profile } = useQuery({
         queryKey: ['firefly-profile', identity],
         async queryFn() {
             const walletProfiles = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false);
@@ -69,10 +71,12 @@ export function FireflyAccountInfo({ banner, walletProfile, socialProfile, ident
     }, [profileActionRef]);
     const showStickyTitle = buttonContainerEntry && !buttonContainerEntry.isIntersecting;
     const showProfileAction = profileActionEntry && !profileActionEntry.isIntersecting;
+    const isLogin = useIsLogin(narrowToSocialSource(identity.source));
     const title = useMemo(() => {
         if (walletProfile) return walletProfile.primary_ens ?? formatAddressEthereum(walletProfile.address, 4);
+        if (isRequestedLoginSource(identity.source) && !isLogin) return <Trans>Sign in to unlock</Trans>;
         return socialProfile?.displayName;
-    }, [walletProfile, socialProfile]);
+    }, [walletProfile, identity.source, isLogin, socialProfile?.displayName]);
     const currentProfile = useCurrentProfile(narrowToSocialSource(identity.source));
     const isCurrentProfile = currentProfile && socialProfile ? isSameProfile(currentProfile, socialProfile) : false;
     const noFireflyAccount = (!displayName && !avatar) || !uid;
