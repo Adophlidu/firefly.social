@@ -3118,10 +3118,6 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#. placeholder {0}: formatAddressEthereum(from, 4)
-msgid "From {0}"
-msgstr ""
-
 msgid "Failed to delete post."
 msgstr ""
 

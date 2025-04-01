@@ -22,7 +22,7 @@ const SITE_URL = bom.location?.origin ?? '';
 export class FireflyRedPacketEndpoint {
     static async parse(options: FireflyRedPacketAPI.ParseOptions) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/redpacket/parse');
-        const { data } = await fetchJSON<FireflyRedPacketAPI.ParseResponse>(url, {
+        const { data } = await fireflySessionHolder.fetch<FireflyRedPacketAPI.ParseResponse>(url, {
             method: 'POST',
             body: JSON.stringify(options),
         });

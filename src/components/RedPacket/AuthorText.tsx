@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
@@ -24,7 +23,7 @@ export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorT
                         fontWeight: 400,
                     }}
                 >
-                    <Trans>From {formatAddressEthereum(from, 4)}</Trans>
+                    {`From ${formatAddressEthereum(from, 4)}`}
                 </div>
             );
         case UsageType.Payload:

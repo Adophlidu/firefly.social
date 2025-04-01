@@ -3136,10 +3136,6 @@ msgstr "帖子+回复"
 msgid "Image"
 msgstr "图片"
 
-#. placeholder {0}: formatAddressEthereum(from, 4)
-msgid "From {0}"
-msgstr ""
-
 msgid "Failed to delete post."
 msgstr "删除帖子失败。"
 
