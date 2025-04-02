@@ -8,7 +8,7 @@ import { ConfirmLeavingModalRef, ConfirmModalRef } from '@/modals/controls.js';
 
 const WHITELIST: Array<string | ((url: string) => boolean)> = [
     (url) => isSameOriginUrl(url, location.origin),
-    'https://firefly.mask.social',
+    'https://firefly.social',
 ];
 
 export type ConfirmLeavingModalOpenProps = string;

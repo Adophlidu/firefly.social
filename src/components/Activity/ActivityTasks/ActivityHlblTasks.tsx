@@ -50,7 +50,7 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
               'If you followed ',
               // cspell: disable-next-line
               BARMSTRONG_MENTION,
-              " on X or Farcaster before Oct 20, you're eligible to claim yours at https://firefly.mask.social/event/hlbl .\n\n",
+              " on X or Farcaster before Oct 20, you're eligible to claim yours at https://firefly.social/event/hlbl .\n\n",
               '#Base #FireflySocial',
           ]
         : [
@@ -60,7 +60,7 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
               'If you followed ',
               // cspell: disable-next-line
               BARMSTRONG_MENTION,
-              ' on X or Farcaster before Oct 20, you’re eligible to claim yours at https://firefly.mask.social/event/hlbl .\n\n',
+              ' on X or Farcaster before Oct 20, you’re eligible to claim yours at https://firefly.social/event/hlbl .\n\n',
               '#Base #FireflySocial',
           ];
     const { address } = useContext(ActivityContext);

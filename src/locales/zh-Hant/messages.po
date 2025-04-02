@@ -2526,9 +2526,6 @@ msgstr ""
 msgid "Select Collection"
 msgstr ""
 
-msgid "Visit firefly.social"
-msgstr "訪問 firefly.social"
-
 msgid "The scheduled time to send this post can be set up to 7 days in advance."
 msgstr ""
 
@@ -2588,6 +2585,9 @@ msgid "Connect Solana Wallet"
 msgstr ""
 
 msgid "Exclusivity"
+msgstr ""
+
+msgid "Feedback"
 msgstr ""
 
 msgid "Your serialized session"
@@ -4005,6 +4005,9 @@ msgid "Failed to collect post."
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"
+msgstr ""
+
+msgid "About"
 msgstr ""
 
 #. placeholder {0}: timeLeft.hours

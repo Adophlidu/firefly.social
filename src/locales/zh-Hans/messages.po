@@ -2539,9 +2539,6 @@ msgstr "第 3 步 选择候选人"
 msgid "Select Collection"
 msgstr "选择 NFT 系列"
 
-msgid "Visit firefly.social"
-msgstr "访问 firefly.social"
-
 msgid "The scheduled time to send this post can be set up to 7 days in advance."
 msgstr "定时任务的时间跨度最长是 7 天。"
 
@@ -2602,6 +2599,9 @@ msgstr "连接Solana钱包"
 
 msgid "Exclusivity"
 msgstr "独特性"
+
+msgid "Feedback"
+msgstr ""
 
 msgid "Your serialized session"
 msgstr "你的序列化会话"
@@ -4022,6 +4022,9 @@ msgstr "铸造帖子失败。"
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>销毁</0> 一个 NFT"
+
+msgid "About"
+msgstr ""
 
 #. placeholder {0}: timeLeft.hours
 #. placeholder {1}: timeLeft.minutes

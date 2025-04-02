@@ -54,7 +54,7 @@ export const getPostIFrame = (embedUrl: string | null, url: string): string | nu
         case 'twitch.tv': {
             const twitchEmbedUrl = pickedUrl.replace(
                 '&player=facebook&autoplay=true&parent=meta.tag',
-                '&player=firefly&autoplay=false&parent=firefly.mask.social',
+                '&player=firefly&autoplay=false&parent=firefly.social',
             );
             if (twitchRegex.test(cleanedUrl)) {
                 return `<iframe src="${twitchEmbedUrl}" ${universalSize} allowfullscreen></iframe>`;

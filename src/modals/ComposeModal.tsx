@@ -141,7 +141,7 @@ export function ComposeModalUI({ ref }: Props) {
             router.navigate({ to: '/' });
 
             controller.current.renew();
-            // https://github.com/DimensionDev/firefly.mask.social/pull/1644
+            // https://github.com/DimensionDev/firefly.social/pull/1644
             await delay(1000);
 
             if (!controller.current.signal?.aborted) editor.update(() => $getRoot().clear());

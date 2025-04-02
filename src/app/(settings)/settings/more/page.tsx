@@ -9,7 +9,6 @@ import { LinkCard } from '@/app/(settings)/components/LinkCard.js';
 import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
 import DiscordIcon from '@/assets/discord.svg';
 import DocumentsIcon from '@/assets/documents.svg';
-import FireflyRoundIcon from '@/assets/firefly.round.svg';
 import MaskRoundIcon from '@/assets/mask.round.svg';
 import SecurityIcon from '@/assets/security.svg';
 import TelegramIcon from '@/assets/telegram.svg';
@@ -66,11 +65,6 @@ export default function More() {
                         title: <Trans>Follow @fireflyappcn on X</Trans>,
                         link: 'https://x.com/intent/user?screen_name=fireflyappcn',
                         logo: SmallXIcon,
-                    },
-                    {
-                        title: <Trans>Visit firefly.social</Trans>,
-                        link: 'https://firefly.social',
-                        logo: FireflyRoundIcon,
                     },
                     {
                         title: <Trans>Join our Telegram</Trans>,

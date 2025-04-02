@@ -24,7 +24,15 @@ export function LinkCloud() {
                 },
                 {
                     name: <Trans>Download App</Trans>,
-                    link: 'https://firefly.social/#download',
+                    link: 'https://about.firefly.social/#download',
+                },
+                {
+                    name: <Trans>Feedback</Trans>,
+                    link: 'https://t.me/fireflyapp',
+                },
+                {
+                    name: <Trans>About</Trans>,
+                    link: 'https://about.firefly.social',
                 },
             ]).map(({ name, link, self }) => (
                 <Link

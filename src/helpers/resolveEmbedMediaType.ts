@@ -8,8 +8,9 @@ import { EmbedMediaType } from '@/providers/types/Firefly.js';
 const frameDomains = [
     FRAME_SERVER_URL,
     FRAME_DEV_SERVER_URL,
-    'https://polls-canary.firefly.social',
     'https://polls.mask.social',
+    'https://polls.firefly.social',
+    'https://polls-canary.firefly.social',
 ];
 
 export function isValidPollFrameUrl(url: string): boolean {

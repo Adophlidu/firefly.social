@@ -121,10 +121,10 @@ function matchCorrectUrl(regExp: RegExp) {
                 'http://github.com/coinbase/smart-wallet',
             ],
             [
-                `This is a post made with firefly.mask.social/, which posts to farcaster and lens at the same time.
+                `This is a post made with firefly.social/, which posts to farcaster and lens at the same time.
 
                 Alternative clients are important, we should support them!`,
-                'firefly.mask.social/',
+                'firefly.social/',
             ],
             [
                 'Random thought about AI n web3\nhttps://paragraph.xyz/@kellyan.eth\nChief Decentralisation Officer@Opencord AI',
