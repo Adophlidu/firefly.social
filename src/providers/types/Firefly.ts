@@ -1248,6 +1248,8 @@ export enum NotificationPushType {
     OnChainTips = 'tips',
     // cspell: disable-next-line
     OnChainSwap = 'limitday',
+    // cspell: disable-next-line
+    HideSmallPrice = 'tokenprice',
 }
 
 export enum NotificationPlatform {

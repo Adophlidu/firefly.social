@@ -38,6 +38,14 @@ export function getNotificationConfigs(): NotificationConfig[] {
                     type: NotificationTitle.OnChain,
                     value: true,
                 },
+                {
+                    label: <Trans>Hide small transactions(&lt;$100)</Trans>,
+                    description: <Trans>Block transactions under $100</Trans>,
+                    platform: NotificationPlatform.OnChain,
+                    pushType: NotificationPushType.HideSmallPrice,
+                    type: NotificationTitle.OnChain,
+                    value: true,
+                },
             ],
         },
         {

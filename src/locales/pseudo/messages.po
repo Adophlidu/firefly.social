@@ -1540,6 +1540,9 @@ msgstr ""
 msgid "Collected"
 msgstr ""
 
+msgid "Hide small transactions(<$100)"
+msgstr ""
+
 msgid "Show more users"
 msgstr ""
 
@@ -1924,6 +1927,9 @@ msgid "Tip sent successfully!"
 msgstr ""
 
 msgid "Bookmark"
+msgstr ""
+
+msgid "Block transactions under $100"
 msgstr ""
 
 msgid "{handleOrEnsOrAddress} watched"
