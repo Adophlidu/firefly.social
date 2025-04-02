@@ -5,9 +5,18 @@ export function createPageTitle(title: string) {
     return `${title} • ${SITE_NAME}`;
 }
 
-export async function createPageTitleSSR(getMsgId: () => string, values?: Record<string, string>) {
+export async function createPageTitleSSR(
+    getMsgId: () => string,
+    options?: {
+        values?: Record<string, string>;
+        withSiteName?: boolean;
+    },
+) {
     const { t } = await getI18n();
-    return createPageTitle(t(getMsgId(), values));
+    const title = t(getMsgId(), options?.values);
+    const withSiteName = options?.withSiteName ?? true;
+    if (!withSiteName) return title;
+    return createPageTitle(title);
 }
 
 export function createPageTitleOG(title: string) {

@@ -24,7 +24,10 @@ async function createMetadataForTwitter(postId: string) {
     if (ogResult?.og) {
         const { displayName } = extractTwitterProfileByOpengraphTitle(ogResult.og.title ?? '');
         const title = displayName
-            ? await createPageTitleSSR(() => t`Posted by ${displayName} via Firefly`, { displayName })
+            ? await createPageTitleSSR(() => t`Posted by ${displayName} via Firefly`, {
+                  values: { displayName },
+                  withSiteName: false,
+              })
             : ogResult.og.title || SITE_NAME;
         const description = ogResult.og.description || SITE_DESCRIPTION;
         const ogImage = urlcat(SITE_URL, '/api/og/post/:source/:postId/image', {
@@ -94,7 +97,10 @@ export async function createMetadataPostById(source: SocialSourceInURL, postId: 
 
     const displayName = post.author?.displayName;
     const title = displayName
-        ? await createPageTitleSSR(() => t`Posted by ${displayName} via Firefly`, { displayName })
+        ? await createPageTitleSSR(() => t`Posted by ${displayName} via Firefly`, {
+              values: { displayName },
+              withSiteName: false,
+          })
         : SITE_NAME;
 
     return createSiteMetadata({
