@@ -12,7 +12,6 @@ import LikedIcon from '@/assets/liked.svg';
 import LinkOut from '@/assets/link.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { Loading } from '@/components/Loading.js';
@@ -25,6 +24,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
+import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
@@ -62,6 +62,8 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
         activity.chain_id !== 101
             ? resolveExplorerLink(activity.chain_id, activity.hash, 'tx')
             : `https://solscan.io/tx/${activity.hash}`;
+
+    const contractLink = resolveAddressLink(activity.chain_id, activity.router_address);
 
     const chain = activity.chain_id !== 101 ? chains.find((x) => x.id === activity.chain_id) : null;
 
@@ -240,8 +242,18 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                             <Trans>Contract</Trans>
                         </span>
                         <div className="flex items-center gap-1">
-                            <span className="text-lightMain">{formatAddress(activity.router_address, 4)}</span>
-                            <CopyTextButton text={activity.router_address} />
+                            <Link href={contractLink ?? ''} className="text-highlight">
+                                {formatAddress(activity.router_address, 4)}
+                            </Link>
+                            {activity.dex_logo ? (
+                                <Image
+                                    src={activity.dex_logo}
+                                    alt={activity.dex_name}
+                                    className="size-4 rounded-full"
+                                    width={16}
+                                    height={16}
+                                />
+                            ) : null}
                         </div>
                     </div>
                     {explorerLink ? (
@@ -249,12 +261,14 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                             <span className="text-lightSecond">
                                 <Trans>Transaction Hash</Trans>
                             </span>
-                            <div className="flex items-center gap-1">
-                                <span className="text-lightMain">{`${activity.hash.slice(0, 4)}...${activity.hash.slice(-4)}`}</span>
-                                <Link href={explorerLink} target="_blank">
-                                    <LinkOut className="size-4" />
-                                </Link>
-                            </div>
+                            <Link
+                                href={explorerLink}
+                                target="_blank"
+                                className="flex items-center gap-1 text-highlight"
+                            >
+                                <span>{`${activity.hash.slice(0, 4)}...${activity.hash.slice(-4)}`}</span>
+                                <LinkOut className="size-4" />
+                            </Link>
                         </div>
                     ) : null}
                     <div className="flex items-center justify-between text-sm">

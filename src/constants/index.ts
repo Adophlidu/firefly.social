@@ -181,6 +181,12 @@ export const SORTED_PROFILE_SOURCES: ProfilePageSource[] = [
 ];
 export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Bsky] as const;
 export const SORTED_LOGIN_SOCIAL_SOURCES = [Source.Twitter, Source.Farcaster, Source.Bsky, Source.Lens] as const;
+export const SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE = [
+    Source.Twitter,
+    Source.Farcaster,
+    Source.Lens,
+    Source.Bsky,
+] as const;
 export const SORTED_THIRD_PARTY_SOURCES = [Source.Google, Source.Telegram, Source.Apple, Source.Email] as const;
 export const SORTED_THIRD_PARTY_SOURCES_IN_URL = [
     SourceInURL.Google,

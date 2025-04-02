@@ -10,6 +10,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { SourceInURL } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { type Article } from '@/providers/types/Article.js';
@@ -38,7 +39,7 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
             <Link href={authorUrl} className="z-[1]" onClick={stopPropagation}>
                 <Avatar
                     className="size-10"
-                    src={article.author.avatar}
+                    src={getWalletProfileAvatar(article.displayInfo) || article.author.avatar}
                     size={40}
                     alt={article.author.handle || article.author.id}
                 />

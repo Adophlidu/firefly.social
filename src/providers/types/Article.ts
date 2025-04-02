@@ -2,7 +2,7 @@ import type { Address } from 'viem';
 import type { WaitForTransactionReceiptReturnType } from 'wagmi/actions';
 
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
-import type { FollowingSource } from '@/providers/types/Firefly.js';
+import type { FireflyDisplayInfo, FollowingSource } from '@/providers/types/Firefly.js';
 
 export enum ArticlePlatform {
     Mirror = 'mirror',
@@ -30,6 +30,7 @@ export interface Article {
         /** Article in timeline are all not muted */
         isMuted: boolean;
     };
+    displayInfo: FireflyDisplayInfo;
     origin?: string;
     timestamp: string;
     id: string;

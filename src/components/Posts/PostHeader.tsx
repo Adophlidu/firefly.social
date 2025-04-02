@@ -15,6 +15,7 @@ import { PageRoute, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getLennyUrl } from '@/helpers/getLennyUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
@@ -77,7 +78,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                             'size-10': !isQuote,
                             'size-6': isQuote,
                         })}
-                        src={author.pfp}
+                        src={author.pfp || getStampAvatarByProfileId(author.source, author.profileId)}
                         size={isQuote ? 24 : 40}
                         alt={author.profileId}
                         fallbackUrl={post.source === Source.Lens ? getLennyUrl(author.handle) : undefined}

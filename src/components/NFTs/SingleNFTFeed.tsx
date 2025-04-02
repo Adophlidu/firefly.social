@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { memo, useMemo } from 'react';
-import urlcat from 'urlcat';
 import type { Address } from 'viem';
 
 import { NFTsActivityCellAction } from '@/components/ActivityCell/NFTs/NFTsActivityCellAction.js';
@@ -14,12 +13,12 @@ import { Link } from '@/components/Link.js';
 import { type NFTFeedBodyProps } from '@/components/NFTs/NFTFeedBody.js';
 import { NFTFeedHeader } from '@/components/NFTs/NFTFeedHeader.js';
 import { Source } from '@/constants/enum.js';
-import { FIREFLY_STAMP_URL } from '@/constants/index.js';
+import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
-import type { NFTAsset } from '@/providers/types/Firefly.js';
-import { type FollowingNFT, type NFTOwnerDisplayInfo } from '@/providers/types/NFTs.js';
+import type { FireflyDisplayInfo, NFTAsset } from '@/providers/types/Firefly.js';
+import { type FollowingNFT } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface SingleNFTFeedProps {
@@ -30,7 +29,7 @@ interface SingleNFTFeedProps {
     index?: number;
     tokenList: Array<NFTFeedBodyProps['tokenList'][number] & { bookmarked?: boolean; nft: NFTAsset }>;
     chainId: EthereumChainId;
-    displayInfo: NFTOwnerDisplayInfo;
+    displayInfo: FireflyDisplayInfo;
     time: number | string | Date;
     followingSources?: FollowingNFT['followingSources'];
 }
@@ -78,11 +77,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
                 <Link href={authorUrl} className="z-[1] flex-shrink-0" onClick={stopPropagation}>
                     <Avatar
                         className="size-10"
-                        src={
-                            displayInfo.ensHandle
-                                ? urlcat(FIREFLY_STAMP_URL, '/:address', { address: displayInfo.ensHandle })
-                                : displayInfo.avatarUrl
-                        }
+                        src={getWalletProfileAvatar(displayInfo)}
                         size={40}
                         alt={ownerAddress}
                     />

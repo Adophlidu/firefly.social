@@ -24,6 +24,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
+import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSwapPageUrl } from '@/helpers/resolveSwapPageUrl.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
@@ -77,7 +78,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                         <Avatar
                             alt={activity.owner}
                             className="size-10 rounded-full"
-                            src={activity.displayInfo.avatarUrl}
+                            src={getWalletProfileAvatar(activity.displayInfo)}
                             size={40}
                         />
                     </Link>

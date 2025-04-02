@@ -15,6 +15,7 @@ import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { formatAmount } from '@/helpers/polymarket.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
@@ -49,7 +50,7 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                         <Avatar
                             alt={activity.wallet}
                             className="size-10 rounded-full"
-                            src={activity.displayInfo.avatarUrl}
+                            src={getWalletProfileAvatar(activity.displayInfo)}
                             size={40}
                         />
                     </Link>

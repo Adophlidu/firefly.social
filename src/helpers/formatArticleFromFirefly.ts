@@ -39,5 +39,6 @@ export function formatArticleFromFirefly(article: FireflyArticle): Article {
         slug: article.paragraph_raw_data?.slug,
         // paragraph only
         json: article.paragraph_raw_data?.json,
+        displayInfo: article.displayInfo,
     };
 }

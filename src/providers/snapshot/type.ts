@@ -1,6 +1,7 @@
 import type { Address } from 'viem';
 
 import type { SnapshotState } from '@/constants/enum.js';
+import type { FireflyDisplayInfo } from '@/providers/types/Firefly.js';
 
 export type SnapshotChoice = number[] | { [key: string]: number } | number | string;
 
@@ -199,6 +200,7 @@ export type SnapshotActivity = {
         isFollowing: boolean;
         isMuted: boolean;
     };
+    displayInfo: FireflyDisplayInfo;
     type: 'vote';
     id: string;
     timestamp: number;

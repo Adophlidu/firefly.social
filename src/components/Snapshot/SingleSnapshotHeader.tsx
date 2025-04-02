@@ -10,6 +10,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { SourceInURL } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 
 interface SingleSnapshotHeaderProps {
@@ -30,7 +31,7 @@ export const SingleSnapshotHeader = memo<SingleSnapshotHeaderProps>(function Sin
             <Link href={authorUrl} className="z-[1]" onClick={(event) => event.stopPropagation()}>
                 <Avatar
                     className="size-10"
-                    src={data.author.avatar}
+                    src={getWalletProfileAvatar(data.displayInfo) || data.author.avatar}
                     size={40}
                     alt={data.author.handle || data.author.id}
                 />

@@ -14,7 +14,7 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
-import { formatAddressEthereum } from '@/helpers/formatAddress.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
@@ -35,7 +35,7 @@ export function WalletBaseMoreAction({ address, contractAddress, tokenId, chainI
     const identity = useFireflyIdentity(Source.Wallet, address);
     const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
 
-    const ensOrAddress = ens || formatAddressEthereum(address, 4);
+    const ensOrAddress = ens || formatAddress(address, 4);
     const collectionId = data?.collection?.id;
 
     return (

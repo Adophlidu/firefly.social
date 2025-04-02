@@ -207,10 +207,7 @@ export interface Article {
         title: string;
     };
     author: string;
-    displayInfo: {
-        ensHandle: string;
-        avatarUrl: string;
-    };
+    displayInfo: FireflyDisplayInfo;
     authorship: {
         contributor: string;
     };
@@ -1167,10 +1164,7 @@ export type PolymarketActivity = {
     conditionOutcomePrices: string[];
     conditionOutcomes: string[];
     conditionRawData: {};
-    displayInfo: {
-        avatarUrl: string;
-        ensHandle: string;
-    };
+    displayInfo: FireflyDisplayInfo;
     endDate: string;
     eventSlug: string;
     followingSources: FollowingSource[];
@@ -1491,14 +1485,16 @@ export type SwapActivity = {
     source: string;
     like_count: number;
     is_like: boolean;
-    displayInfo: {
-        ensHandle: string;
-        avatarUrl: string;
-        fireflyName: string;
-        fireflyUid: string;
-        fireflyAvatar: string;
-    };
+    displayInfo: FireflyDisplayInfo;
     followingSources: FollowingSource[];
+};
+
+export type FireflyDisplayInfo = {
+    ensHandle: string;
+    avatarUrl: string;
+    fireflyName: string;
+    fireflyUid: string;
+    fireflyAvatarUrl: string;
 };
 
 export type SwapActivityDetail = Response<SwapActivity[]>;

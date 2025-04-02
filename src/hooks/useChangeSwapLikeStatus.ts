@@ -48,7 +48,7 @@ export function useChangeSwapLikeStatus(activity?: SwapActivity) {
                     },
                 );
 
-                if (activity.is_like) captureSwapEvent(EventId.EVENT_LIKE_SWAP_CLICK);
+                if (!activity.is_like) captureSwapEvent(EventId.EVENT_LIKE_SWAP_CLICK);
 
                 enqueueSuccessMessage(activity.is_like ? t`Like removed.` : t`Liked this swap.`);
             }

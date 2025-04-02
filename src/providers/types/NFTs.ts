@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-import { type FollowingSource, type NFTAsset } from '@/providers/types/Firefly.js';
+import { type FireflyDisplayInfo, type FollowingSource, type NFTAsset } from '@/providers/types/Firefly.js';
 
 export interface Response<T> {
     code: number;
@@ -33,7 +33,7 @@ export interface NFTFeed {
     followers_count: number | null;
     twitter_id: string | null;
     twitter_handle: string;
-    displayInfo: NFTOwnerDisplayInfo;
+    displayInfo: FireflyDisplayInfo;
     trans: {
         id: number;
         time: number;
@@ -68,7 +68,7 @@ export interface FollowingNFT {
     tag: string;
     type: NFTFeedTransAction;
     actions: FollowingNFTAction[];
-    displayInfo: NFTOwnerDisplayInfo;
+    displayInfo: FireflyDisplayInfo;
     followingSources: FollowingSource[];
 }
 
