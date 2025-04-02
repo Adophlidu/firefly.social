@@ -42,7 +42,7 @@ export function Mutuals({ profile }: { profile: Profile }) {
     const mutualCount = data?.total ?? mutuals.length;
 
     return enabledMutuals && mutualCount ? (
-        <div className="break-word col-[1/3] mt-3 flex items-center gap-2 leading-[22px] hover:underline sm:col-[2/3]">
+        <div className="break-word col-[1/3] mt-1 flex items-center gap-2 leading-[22px] hover:underline sm:col-[2/3]">
             <AvatarGroup profiles={mutuals.slice(0, 3)} AvatarProps={{ size: 20, className: 'border border-white' }} />
             <Link
                 className="text-sm text-secondary"

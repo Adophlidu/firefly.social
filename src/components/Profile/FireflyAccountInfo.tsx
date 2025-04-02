@@ -69,17 +69,19 @@ export function FireflyAccountInfo({ banner, walletProfile, socialProfile, ident
         const element = document.getElementById(PROFILE_ACTION_ID) ?? document.getElementById(WALLET_PROFILE_ACTION_ID);
         if (element) profileActionRef(element);
     }, [profileActionRef]);
+
     const showStickyTitle = buttonContainerEntry && !buttonContainerEntry.isIntersecting;
     const showProfileAction = profileActionEntry && !profileActionEntry.isIntersecting;
+    const currentProfile = useCurrentProfile(narrowToSocialSource(identity.source));
+    const isCurrentProfile = currentProfile && socialProfile ? isSameProfile(currentProfile, socialProfile) : false;
+    const noFireflyAccount = (!displayName && !avatar) || !uid;
+
     const isLogin = useIsLogin(narrowToSocialSource(identity.source));
     const title = useMemo(() => {
         if (walletProfile) return walletProfile.primary_ens ?? formatAddressEthereum(walletProfile.address, 4);
         if (isRequestedLoginSource(identity.source) && !isLogin) return <Trans>Sign in to unlock</Trans>;
         return socialProfile?.displayName;
     }, [walletProfile, identity.source, isLogin, socialProfile?.displayName]);
-    const currentProfile = useCurrentProfile(narrowToSocialSource(identity.source));
-    const isCurrentProfile = currentProfile && socialProfile ? isSameProfile(currentProfile, socialProfile) : false;
-    const noFireflyAccount = (!displayName && !avatar) || !uid;
 
     return (
         <>

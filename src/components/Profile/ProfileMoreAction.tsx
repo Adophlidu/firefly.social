@@ -1,5 +1,6 @@
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 
@@ -24,6 +25,7 @@ import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useReportProfile } from '@/hooks/useReportProfile.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface ProfileMoreActionProps extends Omit<MenuProps<'div'>, 'className'> {
@@ -43,14 +45,23 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
     const [, toggleMutedProfile] = useToggleMutedProfile(currentProfile);
     const router = useRouter();
 
+    const identity = {
+        id: profile.profileId,
+        source: profile.source,
+    };
+    const { data: fireflyProfile } = useQuery({
+        queryKey: ['firefly-profile', identity],
+        async queryFn() {
+            const walletProfiles = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false);
+            return walletProfiles.account;
+        },
+    });
+    const noFireflyAccount = (!fireflyProfile?.displayName && !fireflyProfile?.avatar) || !fireflyProfile?.uid;
+
     const isRelatedProfile = profiles.some((x) => {
         const profileId = resolveFireflyProfileId(profile);
         if (!profileId) return false;
-
-        return isSameFireflyIdentity(x.identity, {
-            id: profileId,
-            source: profile.source,
-        });
+        return isSameFireflyIdentity(x.identity, identity);
     });
 
     return (
@@ -117,7 +128,9 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                                 </MenuButton>
                             )}
                         </MenuItem>
-                        <MenuItem>{({ close }) => <MuteAllByProfile profile={profile} onClose={close} />}</MenuItem>
+                        {noFireflyAccount ? (
+                            <MenuItem>{({ close }) => <MuteAllByProfile profile={profile} onClose={close} />}</MenuItem>
+                        ) : null}
                     </>
                 ) : null}
             </MenuGroup>

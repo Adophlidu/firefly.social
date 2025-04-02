@@ -33,7 +33,7 @@ export function SocialProfileInfo(props: InfoProps) {
     const { source, followerCount = 0, followingCount = 0 } = profile;
 
     return (
-        <div className="grid grid-cols-[40px_calc(100%-40px-12px)] gap-2.5 p-4">
+        <div className="grid grid-cols-[40px_calc(100%-40px-12px)] gap-x-2.5 p-4">
             {profile.pfp ? (
                 <Avatar
                     src={source === Source.Twitter ? getLargeTwitterAvatar(profile.pfp) : profile.pfp}
