@@ -1508,6 +1508,9 @@ msgstr ""
 msgid "Your Farcaster account holds Power Badge"
 msgstr ""
 
+msgid "Scheduled post will come back soon."
+msgstr ""
+
 msgid "Owned By"
 msgstr ""
 
@@ -2006,6 +2009,9 @@ msgstr ""
 msgid "Swapped"
 msgstr ""
 
+msgid "This Email is already linked to another Firefly account."
+msgstr ""
+
 msgid "Fully Diluted Valuation"
 msgstr ""
 
@@ -2163,10 +2169,6 @@ msgid "Submit a wallet to receive a collectible and $MASK airdrop"
 msgstr ""
 
 msgid "Standard"
-msgstr ""
-
-#. placeholder {0}: resolveSourcesName(invalidSources)
-msgid "Schedule post for {0} is coming soon."
 msgstr ""
 
 msgid "No darkweb transactions found."
@@ -3098,9 +3100,6 @@ msgid "The frame server failed to process the request."
 msgstr ""
 
 msgid "Report"
-msgstr ""
-
-msgid "Schedule"
 msgstr ""
 
 msgid "Cancel Repost"

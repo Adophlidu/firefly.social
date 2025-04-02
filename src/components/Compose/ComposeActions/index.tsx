@@ -10,6 +10,7 @@ import { PlatformAction } from '@/components/Compose/ComposeActions/PlatformActi
 import { RedPacketAction } from '@/components/Compose/ComposeActions/RedPacketAction.js';
 import { ReplyRestrictionAction } from '@/components/Compose/ComposeActions/ReplyRestrictionAction.js';
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
+import { SchedulePostEntryButton } from '@/components/Compose/SchedulePostEntryButton.js';
 import { GifEntryButton } from '@/components/Gif/GifEntryButton.js';
 import { PollButton } from '@/components/Poll/PollButton.js';
 import { Source, STATUS } from '@/constants/enum.js';
@@ -75,6 +76,7 @@ export function ComposeActions() {
 
                     {type === 'compose' && env.external.NEXT_PUBLIC_POLL === STATUS.Enabled ? <PollButton /> : null}
 
+                    <SchedulePostEntryButton className="text-main" disabled />
                     {!scheduleTime && !mediaDisabled && isMedium ? <RedPacketAction disabled={mediaDisabled} /> : null}
                     <LaunchTokenAction />
                 </div>

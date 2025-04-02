@@ -1,7 +1,12 @@
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
-import { FarcasterAlreadyBoundError, NotAllowedError, UnreachableError } from '@/constants/error.js';
+import {
+    EmailAlreadyBoundError,
+    FarcasterAlreadyBoundError,
+    NotAllowedError,
+    UnreachableError,
+} from '@/constants/error.js';
 import { NOT_DEPEND_SECRET } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getDidServiceHost } from '@/helpers/getDidServiceHost.js';
@@ -166,31 +171,39 @@ async function bindTelegramSessionToFirefly(session: ThirdPartySession, signal?:
 }
 
 export async function bindEmailSessionToFirefly(session: ThirdPartySession, signal?: AbortSignal) {
-    if (!session.payload?.email || !session.payload?.passcode) throw new Error('Email and passcode are required.');
+    try {
+        if (!session.payload?.email || !session.payload?.passcode) throw new Error('Email and passcode are required.');
 
-    const response = await fireflySessionHolder.fetch<BindResponse>(
-        urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindEmail'),
-        {
-            method: 'POST',
-            body: JSON.stringify({
-                email: session.payload.email,
-                otp: session.payload.passcode,
-            }),
-            signal,
-        },
-    );
+        const response = await fireflySessionHolder.fetch<BindResponse>(
+            urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindEmail'),
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    email: session.payload.email,
+                    otp: session.payload.passcode,
+                }),
+                signal,
+            },
+        );
 
-    const data = resolveFireflyResponseData(response);
+        const data = resolveFireflyResponseData(response);
 
-    if (session.profileId === NOT_DEPEND_SECRET) {
-        session.profileId = data.account_id;
-        session.payload = {
-            ...session.payload,
-            accountId: data.account_id,
-        };
+        if (session.profileId === NOT_DEPEND_SECRET) {
+            session.profileId = data.account_id;
+            session.payload = {
+                ...session.payload,
+                accountId: data.account_id,
+            };
+        }
+
+        return data;
+    } catch (error) {
+        if (error instanceof Error && error.message.includes('Email has already been taken.')) {
+            throw new EmailAlreadyBoundError();
+        }
+
+        throw error;
     }
-
-    return data;
 }
 
 /**

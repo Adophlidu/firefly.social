@@ -1,5 +1,6 @@
 import {
     AuthenticationError,
+    EmailAlreadyBoundError,
     FarcasterAlreadyBoundError,
     NotAllowedError,
     NotImplementedError,
@@ -26,7 +27,7 @@ export async function bindOrRestoreFireflySession(session: Session, signal?: Abo
         }
     } catch (error) {
         // enqueue error message later
-        if (error instanceof FarcasterAlreadyBoundError) {
+        if (error instanceof FarcasterAlreadyBoundError || error instanceof EmailAlreadyBoundError) {
             throw error;
         }
 

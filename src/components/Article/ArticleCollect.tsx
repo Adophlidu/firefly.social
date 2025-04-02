@@ -27,7 +27,7 @@ import { MintParamsPanel } from '@/modals/FreeMintModal/MintParamsPanel.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { ParagraphAPI } from '@/providers/paragraph/index.js';
 import { captureArticleCollectEvent } from '@/providers/telemetry/captureArticleCollectEvent.js';
-import { type Article } from '@/providers/types/Article.js';
+import { type Article,ArticlePlatform } from '@/providers/types/Article.js';
 
 export interface ArticleCollectProps {
     article: Article;
@@ -92,8 +92,10 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
 
             if (hash && account.address) captureArticleCollectEvent(article.id, account.address, isFree);
 
-            const metadata = await FireflyEndpointProvider.getArticleMetadata(article.id, hash);
-            await ParagraphAPI.addArticleMetadata(metadata);
+            if (article.platform === ArticlePlatform.Paragraph) {
+                const metadata = await FireflyEndpointProvider.getArticleMetadata(article.id, hash);
+                await ParagraphAPI.addArticleMetadata(metadata);
+            }
 
             const url = resolveExplorerLink(collectParams.chainId, hash, 'tx');
             if (url) {

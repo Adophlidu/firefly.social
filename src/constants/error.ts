@@ -193,6 +193,12 @@ export class LoginEmailError extends Error {
     }
 }
 
+export class EmailAlreadyBoundError extends Error {
+    constructor(message?: string) {
+        super(message ?? 'This Email is already linked to another Firefly account.');
+    }
+}
+
 export interface RecognizableError extends Error {
     isRecognized?: boolean;
 }

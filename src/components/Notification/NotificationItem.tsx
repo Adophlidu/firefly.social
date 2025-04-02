@@ -4,6 +4,7 @@ import { Plural, Select, Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { first, uniqBy } from 'lodash-es';
+import { useRouter } from 'next/navigation.js';
 import { memo, useMemo } from 'react';
 
 import { PostActions } from '@/components/Actions/index.js';
@@ -29,6 +30,7 @@ interface NotificationItemProps {
 }
 
 export const NotificationItem = memo<NotificationItemProps>(function NotificationItem({ notification }) {
+    const router = useRouter();
     const Icon = resolveNotificationIcon(notification.type);
 
     const profiles = useMemo(() => {
@@ -261,7 +263,15 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     return <CollapsedContent authorMuted isQuote={false} />;
                 }
                 return (
-                    <div className="mt-1">
+                    <div
+                        className="mt-1 cursor-pointer"
+                        onClick={(event) => {
+                            event.stopPropagation();
+                            const selection = window.getSelection();
+                            if (selection && selection.toString().length !== 0) return;
+                            router.push(getPostUrl(notification.quote));
+                        }}
+                    >
                         <NotificationPostBody post={notification.quote} />
                         <Quote className="bg-bg" post={notification.post} />
                     </div>
@@ -272,7 +282,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 safeUnreachable(type);
                 return null;
         }
-    }, [notification]);
+    }, [notification, router]);
 
     const actions = useMemo(() => {
         const type = notification.type;

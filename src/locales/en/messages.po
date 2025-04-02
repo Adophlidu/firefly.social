@@ -1508,6 +1508,9 @@ msgstr "The user canceled the operation."
 msgid "Your Farcaster account holds Power Badge"
 msgstr "Your Farcaster account holds Power Badge"
 
+msgid "Scheduled post will come back soon."
+msgstr "Scheduled post will come back soon."
+
 msgid "Owned By"
 msgstr "Owned By"
 
@@ -2014,6 +2017,9 @@ msgstr "<0>{0}</0> liked"
 msgid "Swapped"
 msgstr "Swapped"
 
+msgid "This Email is already linked to another Firefly account."
+msgstr "This Email is already linked to another Firefly account."
+
 msgid "Fully Diluted Valuation"
 msgstr "Fully Diluted Valuation"
 
@@ -2172,10 +2178,6 @@ msgstr "Submit a wallet to receive a collectible and $MASK airdrop"
 
 msgid "Standard"
 msgstr "Standard"
-
-#. placeholder {0}: resolveSourcesName(invalidSources)
-msgid "Schedule post for {0} is coming soon."
-msgstr "Schedule post for {0} is coming soon."
 
 msgid "No darkweb transactions found."
 msgstr "No darkweb transactions found."
@@ -3112,9 +3114,6 @@ msgstr "The frame server failed to process the request."
 
 msgid "Report"
 msgstr "Report"
-
-msgid "Schedule"
-msgstr "Schedule"
 
 msgid "Cancel Repost"
 msgstr "Cancel Repost"

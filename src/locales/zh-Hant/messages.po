@@ -1513,6 +1513,9 @@ msgstr ""
 msgid "Your Farcaster account holds Power Badge"
 msgstr "您的 Farcaster 帳戶擁有 Power Badge"
 
+msgid "Scheduled post will come back soon."
+msgstr ""
+
 msgid "Owned By"
 msgstr "擁有者"
 
@@ -2011,6 +2014,9 @@ msgstr "<0>{0}</0> 喜歡了"
 msgid "Swapped"
 msgstr ""
 
+msgid "This Email is already linked to another Firefly account."
+msgstr ""
+
 msgid "Fully Diluted Valuation"
 msgstr ""
 
@@ -2168,10 +2174,6 @@ msgid "Submit a wallet to receive a collectible and $MASK airdrop"
 msgstr ""
 
 msgid "Standard"
-msgstr ""
-
-#. placeholder {0}: resolveSourcesName(invalidSources)
-msgid "Schedule post for {0} is coming soon."
 msgstr ""
 
 msgid "No darkweb transactions found."
@@ -3104,9 +3106,6 @@ msgstr ""
 
 msgid "Report"
 msgstr "檢舉"
-
-msgid "Schedule"
-msgstr ""
 
 msgid "Cancel Repost"
 msgstr ""

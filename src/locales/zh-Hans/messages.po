@@ -1513,6 +1513,9 @@ msgstr "用户已取消操作。"
 msgid "Your Farcaster account holds Power Badge"
 msgstr "您的 Farcaster 账户拥有 Power Badge"
 
+msgid "Scheduled post will come back soon."
+msgstr ""
+
 msgid "Owned By"
 msgstr "属于"
 
@@ -2019,6 +2022,9 @@ msgstr "<0>{0}</0> 点赞"
 msgid "Swapped"
 msgstr ""
 
+msgid "This Email is already linked to another Firefly account."
+msgstr ""
+
 msgid "Fully Diluted Valuation"
 msgstr "完全稀释估值"
 
@@ -2177,10 +2183,6 @@ msgstr "提交钱包地址，领取收藏品和 $MASK 空投"
 
 msgid "Standard"
 msgstr "标准"
-
-#. placeholder {0}: resolveSourcesName(invalidSources)
-msgid "Schedule post for {0} is coming soon."
-msgstr "正在努力支持{0}定时发帖。"
 
 msgid "No darkweb transactions found."
 msgstr "未发现暗网交易。"
@@ -3117,9 +3119,6 @@ msgstr "Frame 服务器未能处理请求"
 
 msgid "Report"
 msgstr "报告"
-
-msgid "Schedule"
-msgstr "定时"
 
 msgid "Cancel Repost"
 msgstr "取消转帖"
