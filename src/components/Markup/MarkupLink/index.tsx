@@ -80,7 +80,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
             }
 
             case Source.Farcaster: {
-                const profile = post ? post.mentions?.find((x) => x.handle === title) : fallbackProfile;
+                const profile = post ? post.mentions?.find((x) => [handle, title].includes(x.handle)) : fallbackProfile;
                 if (!profile) return title;
 
                 const link = getProfileUrl(profile);
