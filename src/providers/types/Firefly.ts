@@ -237,7 +237,7 @@ export interface FireflySnapshotActivity {
         proposal_title: string;
         proposal_body: string;
     };
-    displayInfo: { ensHandle: string; avatarUrl: string };
+    displayInfo: FireflyDisplayInfo;
     followingSources: FollowingSource[];
     has_bookmarked: boolean;
 }

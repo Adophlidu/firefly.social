@@ -27,5 +27,6 @@ export function formatSnapshotActivityFromFirefly(snapshot: FireflySnapshotActiv
             title: snapshot.metadata.proposal_title,
             body: snapshot.metadata.proposal_body,
         },
+        displayInfo: snapshot.displayInfo,
     };
 }
