@@ -115,7 +115,7 @@ function TriggerButton({
             ? {
                   'bg-farcasterPrimary text-white': source === Source.Farcaster,
                   'bg-lensPrimary text-lensText': source === Source.Lens,
-                  'bg-mainLight text-white': source === Source.Twitter,
+                  'bg-lightMain text-primaryBottom': source === Source.Twitter,
                   'bg-bskyPrimary text-white': source === Source.Bsky,
                   'bg-lightHighlight text-white': source === Source.Wallet,
               }
@@ -123,7 +123,7 @@ function TriggerButton({
                   'bg-bg': true,
                   'hover:bg-farcasterPrimary hover:text-white': source === Source.Farcaster,
                   'hover:bg-lensPrimary hover:text-lensText': source === Source.Lens,
-                  'hover:bg-mainLight hover:text-white': source === Source.Twitter,
+                  'hover:bg-lightMain hover:text-primaryBottom': source === Source.Twitter,
                   'hover:bg-bskyPrimary hover:text-white': source === Source.Bsky,
                   'hover:bg-lightHighlight hover:text-white': source === Source.Wallet,
               },
