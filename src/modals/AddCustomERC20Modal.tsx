@@ -180,7 +180,7 @@ export function AddCustomERC20Modal({ ref }: Props) {
                         <Trans>Add Token</Trans>
                     </span>
                 </DialogTitle>
-                {props ? <AddCustomERC20ModalContent onClose={onClose} initialChainId={props?.initialChainId} /> : null}
+                {props ? <AddCustomERC20ModalContent onClose={onClose} initialChainId={props.initialChainId} /> : null}
             </div>
         </Modal>
     );

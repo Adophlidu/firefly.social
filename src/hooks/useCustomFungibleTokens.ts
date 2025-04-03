@@ -59,5 +59,8 @@ export function useCustomFungibleTokens(chainId?: EthereumChainId) {
                 },
             };
         }),
+        combine(result) {
+            return compact(result.flatMap((x) => x.data));
+        },
     });
 }

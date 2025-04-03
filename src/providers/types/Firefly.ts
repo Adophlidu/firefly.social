@@ -1211,6 +1211,7 @@ export type SearchNFTResponse = Response<{
 export type SearchableToken = {
     api_symbol: string;
     id: string;
+    /** large image */
     large: string;
     market_cap_rank?: number;
     name: string;

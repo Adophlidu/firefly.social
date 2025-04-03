@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { compact, uniq } from 'lodash-es';
+import { uniq } from 'lodash-es';
 import { memo, useCallback, useMemo, useState } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
@@ -56,20 +56,19 @@ export const SearchTokenPanelEVM = memo<SearchTokenPanelProps>(function SearchTo
 
     const [chainId, setChainId] = useState<number>();
     const [keyword, setKeyword] = useState('');
-    const customFungibleTokensQueries = useCustomFungibleTokens(chainId);
-    const customTokens = compact(customFungibleTokensQueries.flatMap((x) => x.data));
+    const customTokens = useCustomFungibleTokens(chainId);
 
     const filteredTokens: Token[] = useMemo(() => {
+        const kw = keyword.toLocaleLowerCase();
         return customTokens.concat(
-            tokens.filter(
-                (token) =>
-                    [token.name, token.symbol, token.id].some((value) =>
-                        value.toLowerCase().includes(keyword.toLowerCase()),
-                    ) &&
-                    (!chainId || token.chainId === chainId),
-            ),
+            tokens.filter((token) => {
+                return (
+                    [token.name, token.symbol, token.id].some((value) => value.toLowerCase().includes(kw)) &&
+                    (!chainId || token.chainId === chainId)
+                );
+            }),
         );
-    }, [chainId, customTokens, keyword, tokens]);
+    }, [chainId, keyword, tokens, customTokens]);
     const canExpand = useMemo(() => {
         return (
             filteredTokens.some((token) => isGreaterThan(token.usdValue, 1)) &&
