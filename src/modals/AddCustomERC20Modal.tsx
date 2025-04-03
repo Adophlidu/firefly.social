@@ -9,7 +9,6 @@ import { useAsyncFn } from 'react-use';
 import { type Address, erc20Abi } from 'viem';
 import { useAccount } from 'wagmi';
 import { readContracts } from 'wagmi/actions';
-import { degen as wagmiDegen } from 'wagmi/chains';
 
 import CloseIcon from '@/assets/close.svg';
 import { ActionButton } from '@/components/ActionButton.js';
@@ -31,7 +30,7 @@ import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStor
 function AddCustomERC20ModalContent({ onClose, initialChainId }: { onClose: () => void; initialChainId: number }) {
     const account = useAccount();
     const isMedium = useIsMedium('max');
-    const chainIds: number[] = chains.map((x) => x.id).filter((x) => !([wagmiDegen.id] as number[]).includes(x));
+    const chainIds: number[] = chains.map((x) => x.id);
     const getChainItem = useCallback(
         (chainId: number, isTag?: boolean) => {
             const chain = chains.find((chain) => chain.id === chainId);
