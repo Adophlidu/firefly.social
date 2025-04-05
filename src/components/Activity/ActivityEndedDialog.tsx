@@ -14,7 +14,6 @@ interface Props {
 
 export function ActivityEndedDialog({ data }: Props) {
     const router = useRouter();
-    const open = data.status === ActivityStatus.Ended;
     const onClose = useCallback(() => {
         router.replace(PageRoute.Events);
     }, [router]);
@@ -24,7 +23,7 @@ export function ActivityEndedDialog({ data }: Props) {
     }, [onClose]);
 
     return (
-        <Modal open={open} onClose={onClose}>
+        <Modal open={data.status === ActivityStatus.Ended} onClose={onClose}>
             <div className="w-[359px] transform rounded-[12px] bg-primaryBottom transition-all">
                 <div className="relative inline-flex h-12 w-full items-center justify-center gap-2 rounded-t-[12px] pt-6 text-center">
                     <div className="text-lg font-bold leading-6 text-main">

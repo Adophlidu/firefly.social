@@ -9,7 +9,6 @@ import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
 import { type LoginFallbackSource, SourceInURL } from '@/constants/enum.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
-import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
@@ -28,8 +27,6 @@ import type { NextPageProps } from '@/types/index.js';
 interface Props extends NextPageProps<{ id: string; source: SourceInURL }> {}
 
 export default async function Layout(props: Props) {
-    if (await isBotRequest()) return null;
-
     await setupLocaleForSSR();
     await setupTwitterSessionForSSR();
 

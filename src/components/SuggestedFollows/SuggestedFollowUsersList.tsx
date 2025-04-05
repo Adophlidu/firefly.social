@@ -19,7 +19,7 @@ function getSuggestedFollowUserInList(index: number, profile: Profile) {
     return <ProfileInList profile={profile} key={`${profile.profileId}-${index}`} />;
 }
 
-export default function SuggestedFollowUsersList({ source }: Props) {
+export function SuggestedFollowUsersList({ source }: Props) {
     const profile = useCurrentProfile(source);
     const asyncStatus = useAsyncStatus(source);
 

@@ -17,6 +17,7 @@ import { isProfilePageSource } from '@/helpers/isSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSourceFromUrl, resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/index.js';
 
 interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: SourceInURL }> {}
@@ -40,13 +41,14 @@ interface LayoutProps
     }> {}
 
 export default async function Layout(props: LayoutProps) {
+    await setupLocaleForSSR();
+
     const params = await props.params;
 
-    const id = params.id;
     const source = resolveSourceFromUrl(params.source);
     if (!source || isFollowCategory(params.category)) notFound();
 
-    const identity = resolveSpecialProfileIdentity({ source, id });
+    const identity = resolveSpecialProfileIdentity({ source, id: params.id });
 
     return (
         <>

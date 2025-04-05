@@ -20,10 +20,9 @@ export async function generateMetadata() {
 interface Props extends NextPageProps<{ explore: ExploreType }> {}
 
 export default async function Layout(props: Props) {
-    const params = await props.params;
-    const { children } = props;
-
     await setupLocaleForSSR();
+
+    const { explore } = await props.params;
 
     const labels: Record<ExploreType, React.ReactNode> = {
         [ExploreType.TopProfiles]: <Trans>Users</Trans>,
@@ -40,13 +39,13 @@ export default async function Layout(props: Props) {
                         className="whitespace-nowrap text-base md:!h-[45px] md:!px-4 md:!py-[10px]"
                         key={x}
                         href={resolveExploreUrl(x)}
-                        isActive={x === params.explore}
+                        isActive={x === explore}
                     >
                         {labels[x]}
                     </SourceTab>
                 ))}
             </SourceTabs>
-            {children}
+            {props.children}
         </>
     );
 }

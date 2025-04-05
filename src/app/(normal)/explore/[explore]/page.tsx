@@ -8,7 +8,8 @@ import type { NextPageProps } from '@/types/index.js';
 interface Props extends NextPageProps<{ explore: ExploreType }> {}
 
 export default async function Page(props: Props) {
-    const params = await props.params;
-    if (params.explore === ExploreType.Projects) return <ProjectTrendingList />;
-    redirect(resolveExploreUrl(params.explore), RedirectType.replace);
+    const { explore } = await props.params;
+
+    if (explore === ExploreType.Projects) return <ProjectTrendingList />;
+    redirect(resolveExploreUrl(explore), RedirectType.replace);
 }

@@ -17,9 +17,10 @@ export async function generateMetadata(props: Props) {
 }
 
 export default async function Layout(props: Props) {
-    const params = await props.params;
-    const { children } = props;
-
     await setupLocaleForSSR();
+
+    const { children } = props;
+    const params = await props.params;
+
     return <ActivityProvider name={params.name}>{children}</ActivityProvider>;
 }

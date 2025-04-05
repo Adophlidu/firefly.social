@@ -1,6 +1,7 @@
 import { timeout } from '@masknet/kit';
 import { uniqueId } from 'lodash-es';
 
+import { bom } from '@/helpers/bom.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import {
     type EventPayload,
@@ -28,14 +29,14 @@ interface Payload {
 
 function callNativeMethod<T extends SupportedMethod>(method: T, id: string, params: RequestArguments[T]) {
     // android
-    if (window.FireflyApi) {
-        window.FireflyApi.callNativeMethod(method, id, JSON.stringify(params));
+    if (bom.window?.FireflyApi) {
+        bom.window.FireflyApi.callNativeMethod(method, id, JSON.stringify(params));
         return;
     }
 
     // ios
-    if (window.webkit?.messageHandlers?.callNativeMethod) {
-        window.webkit.messageHandlers.callNativeMethod.postMessage({
+    if (bom.window?.webkit?.messageHandlers?.callNativeMethod) {
+        bom.window.webkit.messageHandlers.callNativeMethod.postMessage({
             method,
             tag: id,
             params: JSON.stringify(params),
@@ -51,8 +52,9 @@ class FireflyBridgeProvider {
     private events = new Map<string, Set<(payload: Payload) => void>>();
 
     private installCallbacks() {
+        if (!bom.window) return;
         Reflect.set(
-            window,
+            bom.window,
             'callJsMethod',
             <T extends SupportedMethod | SupportedEvent>(eventOrMethod: T, id: string, payload: string) => {
                 const parsed = parseJSON<Payload>(payload);
@@ -71,9 +73,8 @@ class FireflyBridgeProvider {
      * Return true if the application is opened in a native environment.
      */
     get supported() {
-        if (typeof window === 'undefined') return false;
-        if (typeof window.FireflyApi?.callNativeMethod === 'function') return true;
-        if (typeof window.webkit?.messageHandlers?.callNativeMethod?.postMessage === 'function') return true;
+        if (typeof bom.window?.FireflyApi?.callNativeMethod === 'function') return true;
+        if (typeof bom.window?.webkit?.messageHandlers?.callNativeMethod?.postMessage === 'function') return true;
         return false;
     }
 

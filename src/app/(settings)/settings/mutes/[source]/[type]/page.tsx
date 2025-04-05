@@ -1,4 +1,5 @@
 'use client';
+
 import { use } from 'react';
 
 import { MutedListPage } from '@/app/(settings)/settings/mutes/[source]/[type]/pages/MutedListPage.js';

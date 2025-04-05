@@ -37,6 +37,7 @@ interface Props extends NextPageProps<{ id: string; type: EngagementType; source
 export default function Page(props: Props) {
     const params = use(props.params);
     const { type: engagementType, id } = params;
+
     const sourceInURL = params.source;
     const source = resolveSocialSource(sourceInURL);
 

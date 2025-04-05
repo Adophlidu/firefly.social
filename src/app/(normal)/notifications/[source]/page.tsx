@@ -26,7 +26,7 @@ const getNotificationItemContent = (index: number, notification: NotificationObj
 
 interface Props extends NextPageProps<{ source: SourceInURL }> {}
 
-export default function Notification(props: Props) {
+export default function Page(props: Props) {
     const params = use(props.params);
     const source = resolveSource(params.source) as NotificationSource;
     const isLogin = useIsLoginNotifications(source);

@@ -6,7 +6,7 @@ import { getEnumAsArray } from '@masknet/kit';
 import { isServer } from '@tanstack/react-query';
 import { useMediaQuery } from 'usehooks-ts';
 
-import { changeLocale } from '@/actions/changeLocale.js';
+import { changeCookies } from '@/actions/changeCookies.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { OptionButton } from '@/app/(settings)/components/OptionButton.js';
 import { Section } from '@/app/(settings)/components/Section.js';
@@ -88,7 +88,7 @@ export default function General() {
 
                             const data = new FormData();
                             data.append('locale', option.value);
-                            await changeLocale(data);
+                            await changeCookies(data);
                         }}
                     />
                 ))}

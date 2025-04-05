@@ -22,10 +22,10 @@ export async function generateMetadata() {
 interface Props extends NextPageProps<{ source: string }> {}
 
 export default async function Layout(props: Props) {
+    await setupLocaleForSSR();
+
     const params = await props.params;
     const { children } = props;
-
-    await setupLocaleForSSR();
 
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isBookmarkSource(source)) notFound();

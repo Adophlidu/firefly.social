@@ -2473,9 +2473,6 @@ msgstr "展示更多代币"
 msgid "<0/>Edit profile"
 msgstr "<0/>编辑个人资料"
 
-msgid "Page not found. Please try again."
-msgstr "未找到页面。请重试。"
-
 msgid "Delegate Signing"
 msgstr "代理签名"
 

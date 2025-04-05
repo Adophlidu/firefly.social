@@ -98,6 +98,12 @@ export enum SourceInURL {
     Swap = 'swap',
 }
 
+export enum Agent {
+    FarcasterFrame = 'farcaster_frame',
+    FireflyApp = 'firefly_app',
+    Browser = 'browser',
+}
+
 export enum FireflyPlatform {
     Farcaster = 'farcaster',
     Lens = 'lens',

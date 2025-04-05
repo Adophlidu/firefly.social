@@ -1,7 +1,10 @@
 import { SettingsList } from '@/app/(settings)/components/SettingsList.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({ children }: { children: React.ReactNode }) {
+    await setupLocaleForSSR();
+
     return (
         <>
             <main className="flex min-h-full w-full flex-1 flex-col pl-0 md:min-h-screen md:flex-row md:pl-[235px] lg:pl-[289px]">

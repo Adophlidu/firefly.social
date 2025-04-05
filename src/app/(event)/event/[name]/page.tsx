@@ -16,8 +16,7 @@ import type { NextPageProps } from '@/types/index.js';
 interface Props extends NextPageProps<{ name: string }> {}
 
 export default function Page(props: Props) {
-    const params = use(props.params);
-    const { name } = params;
+    const { name } = use(props.params);
 
     const { data } = useSuspenseQuery({
         queryKey: ['activity-info', name],

@@ -37,7 +37,12 @@ export const supportedLocales: Record<Locale, string> = {
 export const defaultLocale = Locale.en;
 
 export async function getI18n(): Promise<I18n> {
-    return getI18nInstance(await getLocaleFromCookiesAsync());
+    const locale = await getLocaleFromCookiesAsync();
+    const instance = getI18nInstance(locale);
+
+    console.log('DEBUG: getI18n', locale, instance.locale);
+
+    return instance;
 }
 
 export async function setupLocaleForSSR() {

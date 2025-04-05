@@ -1,23 +1,29 @@
-'use client';
-
+import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { type PropsWithChildren, use } from 'react';
+import { type PropsWithChildren } from 'react';
 
 import { NotificationSettings } from '@/components/Notification/NotificationSettings.js';
-import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
-import { queryClient } from '@/configs/queryClient.js';
+import { NotificationTabs } from '@/components/Notification/NotificationTabs.js';
 import type { NotificationSourceInURL } from '@/constants/enum.js';
-import { SORTED_NOTIFICATIONS_SOURCES } from '@/constants/index.js';
-import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
+import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveNotificationSource } from '@/helpers/resolveSourceInUrl.js';
-import { resolveNotificationSourceName } from '@/helpers/resolveSourceName.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
+
+export async function generateMetadata() {
+    return createSiteMetadata({
+        title: await createPageTitleSSR(() => t`Notifications`),
+    });
+}
 
 interface Props extends PropsWithChildren {
     params: Promise<{ source: NotificationSourceInURL }>;
 }
 
-export default function Layout({ children, params }: Props) {
-    const { source } = use(params);
+export default async function Layout(props: Props) {
+    await setupLocaleForSSR();
+
+    const { source } = await props.params;
 
     return (
         <div className="flex w-full flex-col">
@@ -26,26 +32,11 @@ export default function Layout({ children, params }: Props) {
                     <Trans>Notifications</Trans>
                 </h1>
                 <div className="flex items-center justify-between px-4">
-                    <SolidTabs
-                        data={SORTED_NOTIFICATIONS_SOURCES}
-                        link={resolveNotificationUrl}
-                        itemRender={resolveNotificationSourceName}
-                        isSelected={(x) => x === resolveNotificationSource(source)}
-                        onChange={(target) => {
-                            if (target !== resolveNotificationSource(source)) return;
-
-                            queryClient.refetchQueries({
-                                queryKey: ['notifications', target],
-                            });
-                            queryClient.invalidateQueries({
-                                queryKey: ['notification', target],
-                            });
-                        }}
-                    />
+                    <NotificationTabs source={resolveNotificationSource(source)} />
                     <NotificationSettings source={resolveNotificationSource(source)} />
                 </div>
             </div>
-            {children}
+            {props.children}
         </div>
     );
 }

@@ -5,8 +5,11 @@ import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { DEFAULT_SOCIAL_SOURCE, DISCOVER_SOURCES } from '@/constants/index.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 
-export default function Layout({ children }: PropsWithChildren) {
+export default async function Layout({ children }: PropsWithChildren) {
+    await setupLocaleForSSR();
+
     return (
         <>
             <SourceTabs>

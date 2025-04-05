@@ -8,7 +8,6 @@ import { Title } from '@/components/Channel/Title.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { ChannelTabType, KeyType, type SocialSourceInURL, SourceInURL } from '@/constants/enum.js';
 import { createMetadataChannelById } from '@/helpers/createMetadataChannel.js';
-import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
@@ -38,8 +37,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default async function Page(props: Props) {
-    if (await isBotRequest()) return null;
-
     await setupLocaleForSSR();
 
     const params = await props.params;

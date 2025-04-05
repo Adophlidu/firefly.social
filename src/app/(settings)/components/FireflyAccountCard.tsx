@@ -21,9 +21,9 @@ export function FireflyAccountCard() {
 
     const account = data?.fireflyAccount;
     const [, deleteFireflyAccount] = useDeleteFireflyAccount();
-    if (!isLoading) {
-        if (error || !account) return null;
-    }
+
+    if (!isLoading && (error || !account)) return null;
+
     return (
         <>
             <div

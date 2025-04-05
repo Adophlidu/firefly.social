@@ -5,7 +5,7 @@ import { safeUnreachable } from '@masknet/kit';
 
 import { ChannelList } from '@/components/Channel/ChannelList.js';
 import { RocketsFunTrendingList } from '@/components/RocketsFun/RocketsFunTrendingList.js';
-import SuggestedFollowUsersList from '@/components/SuggestedFollows/SuggestedFollowUsersList.js';
+import { SuggestedFollowUsersList } from '@/components/SuggestedFollows/SuggestedFollowUsersList.js';
 import { TokenTrendingList } from '@/components/TokenTrendingList.js';
 import { type ExploreSource, ExploreType, type SocialSource, TrendingType } from '@/constants/enum.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';

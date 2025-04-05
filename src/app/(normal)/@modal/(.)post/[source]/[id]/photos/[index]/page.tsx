@@ -20,7 +20,7 @@ interface Props
         source: SocialSourceInURL;
     }> {}
 
-export default function PreviewPhotoModal(props: Props) {
+export default function Page(props: Props) {
     const params = use(props.params);
     const { id: postId, index, source } = params;
 
