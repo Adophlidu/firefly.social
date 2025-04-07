@@ -3,7 +3,7 @@ import { MalformedError } from '@/constants/error.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
-export const convertTwitterHandleToId = memoizeWithRedis(
+export const convertTwitterIdToHandle = memoizeWithRedis(
     async (twitterId: string) => {
         const data = await FireflyEndpointProvider.getAllRelatedProfileInfo({ twitterId });
         const username = data.twitterProfiles?.[0]?.handle;

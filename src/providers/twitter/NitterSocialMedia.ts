@@ -1,0 +1,444 @@
+import type { TweetV2LookupResult } from 'twitter-api-v2';
+import urlcat from 'urlcat';
+
+import { NotImplementedError } from '@/constants/error.js';
+import { tweetV2ToPost } from '@/helpers/formatTwitterPost.js';
+import { formatTwitterPostFromNitter } from '@/helpers/formatTwitterPostFromNitter.js';
+import { formatTwitterProfileFromNitter } from '@/helpers/formatTwitterProfileFromNitter.js';
+import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
+import {
+    createIndicator,
+    createNextIndicator,
+    createPageable,
+    type Pageable,
+    type PageIndicator,
+} from '@/helpers/pageable.js';
+import { resolveTwitterResponseData } from '@/helpers/resolveTwitterResponseData.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { NitterAPIProvider } from '@/providers/twitter/Nitter.js';
+import { TwitterSession } from '@/providers/twitter/Session.js';
+import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
+import type { NotificationSettings } from '@/providers/types/Firefly.js';
+import { type Pagination, type Tweet, UserTimelineTab } from '@/providers/types/Nitter.js';
+import type { Session } from '@/providers/types/Session.js';
+import {
+    type Channel,
+    type Friendship,
+    type Notification,
+    type Post,
+    type Profile,
+    type ProfileBadge,
+    type ProfileEditable,
+    type Provider,
+    SessionType,
+} from '@/providers/types/SocialMedia.js';
+import type { ResponseJSON } from '@/types/index.js';
+
+async function withReplyPostsToTimeline(timeline: Tweet[]) {
+    const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<TweetV2LookupResult>>(
+        urlcat(`/api/twitter/tweets/:tweetIds`, {
+            tweetIds: timeline
+                .map((x) => x.replyId)
+                .filter((x) => x && x !== '0')
+                .join(','),
+        }),
+    );
+    const data = resolveTwitterResponseData(response);
+    const replyPosts = data.data?.map((item) => tweetV2ToPost(item, data.includes)) || [];
+    return timeline.map((tweet) => {
+        const commentOn = replyPosts.find((x) => x.postId === tweet.replyId);
+        return formatTwitterPostFromNitter(tweet, { base: { commentOn, commentLoadable: !commentOn } });
+    });
+}
+
+async function withReplyPostsToTimelineWithPagination(
+    timeline: Tweet[],
+    pagination: Pagination,
+    indicator?: PageIndicator,
+) {
+    if (twitterSessionHolder.session) {
+        const data = await runInSafeAsync(() => withReplyPostsToTimeline(timeline));
+        if (data) {
+            return createPageable(
+                data,
+                createIndicator(indicator),
+                pagination.bottom ? createNextIndicator(indicator, pagination.bottom) : undefined,
+            );
+        }
+    }
+    const data = timeline.map((tweet) => formatTwitterPostFromNitter(tweet, { base: { commentLoadable: true } }));
+    return createPageable(
+        data,
+        createIndicator(indicator),
+        pagination.bottom ? createNextIndicator(indicator, pagination.bottom) : undefined,
+    );
+}
+
+export class NitterSocialMedia implements Provider {
+    get type() {
+        return SessionType.Twitter;
+    }
+
+    getFriendship(profileId: string): Promise<Friendship | null> {
+        throw new NotImplementedError();
+    }
+
+    blockChannel(channelId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    unblockChannel(channelId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    commentPost(postId: string, post: Post): Promise<{ postId: string }> {
+        throw new NotImplementedError();
+    }
+
+    collectPost(postId: string, collectionId?: string): Promise<void> {
+        throw new NotImplementedError();
+    }
+
+    getProfilesByAddress(address: string): Promise<Profile[]> {
+        throw new NotImplementedError();
+    }
+
+    getHiddenComments(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    actPost(postId: string, options: unknown): Promise<void> {
+        throw new NotImplementedError();
+    }
+
+    getPostsBeMentioned(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getPostsLiked(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getPostsReplies(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
+        throw new NotImplementedError();
+    }
+
+    getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
+        throw new NotImplementedError();
+    }
+
+    getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    isFollowedByMe(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    isFollowingMe(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getNotificationSettings(): Promise<NotificationSettings> {
+        throw new NotImplementedError();
+    }
+
+    async setNotificationSettings(settings: NotificationSettings): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        const { users, pagination } = await NitterAPIProvider.search(q, {
+            cursor: indicator?.id,
+        });
+        const data = users.map((user) => formatTwitterProfileFromNitter(user));
+        return createPageable(
+            data,
+            createIndicator(indicator),
+            pagination.bottom ? createNextIndicator(indicator, pagination.bottom) : undefined,
+        );
+    }
+
+    getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getChannelById(channelId: string): Promise<Channel> {
+        throw new NotImplementedError();
+    }
+
+    getChannelsByIds(ids: string[]): Promise<Channel[]> {
+        throw new NotImplementedError();
+    }
+
+    getChannelByHandle(channelHandle: string): Promise<Channel> {
+        throw new NotImplementedError();
+    }
+
+    getChannelsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getPostsByChannelHandle(channelHandle: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+    getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+    getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async unmirrorPost(postId: string, authorId?: number | undefined): Promise<void> {
+        throw new NotImplementedError();
+    }
+
+    async mirrorPost(postId: string): Promise<string> {
+        throw new NotImplementedError();
+    }
+
+    async getProfilesByIds(ids: string[]): Promise<Profile[]> {
+        throw new NotImplementedError();
+    }
+
+    async follow(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async unfollow(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getPostById(postId: string): Promise<Post> {
+        const { tweet } = await NitterAPIProvider.getTweetStatus('web', postId);
+        return formatTwitterPostFromNitter(tweet);
+    }
+
+    async getProfileById(profileId: string): Promise<Profile> {
+        const { username } = await NitterAPIProvider.convertUserIdToHandle(profileId);
+        const { user } = await NitterAPIProvider.getProfileByHandle(username);
+        return formatTwitterProfileFromNitter(user);
+    }
+
+    async getProfileByHandle(handle: string): Promise<Profile> {
+        const { user } = await NitterAPIProvider.getProfileByHandle(handle);
+        return formatTwitterProfileFromNitter(user);
+    }
+
+    async getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
+        if (isNumericalProfileId(profileIdOrHandle)) {
+            // Using runInSafeAsync here to handle cases where a purely numerical handle might be passed
+            const profile = await runInSafeAsync(() => this.getProfileById(profileIdOrHandle));
+            if (profile) return profile;
+        }
+        return this.getProfileByHandle(profileIdOrHandle);
+    }
+
+    async getProfileBySession(session: Session): Promise<Profile> {
+        const { profileId } = session as TwitterSession;
+        return this.getProfileById(profileId);
+    }
+
+    getCollectedPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const { username } = await NitterAPIProvider.convertUserIdToHandle(profileId);
+        const { timeline, pagination } = await NitterAPIProvider.getUserTimelineByHandle(username, {
+            cursor: indicator?.id,
+        });
+        const data = timeline.map((tweet) => formatTwitterPostFromNitter(tweet));
+        return createPageable(
+            data,
+            createIndicator(indicator),
+            pagination.bottom ? createNextIndicator(indicator, pagination.bottom) : undefined,
+        );
+    }
+
+    async getLikedPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getRepliesPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        const { username } = await NitterAPIProvider.convertUserIdToHandle(profileId);
+        const { timeline, pagination } = await NitterAPIProvider.getUserTimelineByHandle(username, {
+            cursor: indicator?.id,
+            tab: UserTimelineTab.WithReplies,
+        });
+        return withReplyPostsToTimelineWithPagination(timeline, pagination, indicator);
+    }
+
+    async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const { replies } = await NitterAPIProvider.getTweetStatus('web', postId, {
+            cursor: indicator?.id,
+        });
+        const data = replies.tweets.map((tweet) => formatTwitterPostFromNitter(tweet));
+        return createPageable(
+            data,
+            createIndicator(indicator),
+            replies.bottom ? createNextIndicator(indicator, replies.bottom) : undefined,
+        );
+    }
+
+    async getThreadByPostId(postId: string): Promise<Post[]> {
+        const { tweet, before, after } = await NitterAPIProvider.getTweetStatus('web', postId);
+        return [
+            ...before.tweets.map((x) => formatTwitterPostFromNitter(x)),
+            formatTwitterPostFromNitter(tweet),
+            ...after.tweets.map((x) => formatTwitterPostFromNitter(x)),
+        ];
+    }
+
+    async upvotePost(postId: string): Promise<void> {
+        throw new NotImplementedError();
+    }
+
+    async unvotePost(postId: string): Promise<void> {
+        throw new NotImplementedError();
+    }
+
+    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const { timeline, pagination } = await NitterAPIProvider.search(q, {
+            cursor: indicator?.id,
+        });
+        return withReplyPostsToTimelineWithPagination(timeline, pagination, indicator);
+    }
+
+    async quotePost(postId: string, post: Post): Promise<{ postId: string }> {
+        throw new NotImplementedError();
+    }
+
+    async publishPost(
+        post: Post,
+        options: {
+            excludeReplyProfileIds?: string[];
+        } = {},
+    ): Promise<{ postId: string }> {
+        throw new NotImplementedError();
+    }
+
+    async deletePost(tweetId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+    async blockProfile(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+    async unblockProfile(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async bookmark(tweetId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+    async unbookmark(tweetId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+    async reportProfile(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+    async reportPost(post: Post): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+    async uploadProfileAvatar(file: File) {
+        throw new NotImplementedError();
+    }
+    async updateProfile(profile: ProfileEditable): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
+        throw new NotImplementedError();
+    }
+
+    async getSpace(id: string) {
+        throw new NotImplementedError();
+    }
+
+    async joinChannel(channel: Channel): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async leaveChannel(channel: Channel): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async getPinnedPost(profileId: string): Promise<Post | null> {
+        const { username } = await NitterAPIProvider.convertUserIdToHandle(profileId);
+        const { pinned } = await NitterAPIProvider.getProfileByHandle(username);
+        return formatTwitterPostFromNitter(pinned);
+    }
+
+    async decryptPost(post: Post): Promise<Post> {
+        throw new NotImplementedError();
+    }
+
+    async getMediaPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+}
+
+export const TwitterNitterSocialMediaProvider = new NitterSocialMedia();

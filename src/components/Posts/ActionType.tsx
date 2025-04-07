@@ -13,6 +13,7 @@ import SparkIcon from '@/assets/spark.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Link } from '@/components/Link.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
+import { ThreadBodyWithQuery } from '@/components/Posts/ThreadBodyWithQuery.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -195,12 +196,60 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
                 </div>
             ) : null}
 
-            {!post.mirrors?.length && showThread && post.root && !isThread ? (
-                <ThreadBody isDetail={isDetail} post={post.root} listKey={listKey} index={index} />
-            ) : null}
-            {!post.mirrors?.length && showThread && post.commentOn && !isThread ? (
-                <ThreadBody isDetail={isDetail} post={post.commentOn} listKey={listKey} index={index} />
+            {showThread && !isThread ? (
+                <>
+                    <PostRoot post={post} isDetail={isDetail} listKey={listKey} index={index} />
+                    <PostParent post={post} isDetail={isDetail} listKey={listKey} index={index} />
+                </>
             ) : null}
         </ClickableArea>
     );
 });
+
+interface PostParentProps {
+    post: Post;
+    isDetail?: boolean;
+    listKey?: string;
+    index?: number;
+}
+
+function PostRoot({ post, isDetail, listKey, index }: PostParentProps) {
+    if (post.type !== 'Comment') return null;
+    if (post.mirrors?.length) return null;
+    if (post.rootPostId === post.parentPostId) return null;
+    if (post.root) {
+        return <ThreadBody isDetail={isDetail} post={post.root} listKey={listKey} index={index} />;
+    }
+    if (post.commentLoadable && post.rootPostId) {
+        return (
+            <ThreadBodyWithQuery
+                isDetail={isDetail}
+                postId={post.rootPostId}
+                source={post.source}
+                listKey={listKey}
+                index={index}
+            />
+        );
+    }
+    return null;
+}
+
+function PostParent({ post, isDetail, listKey, index }: PostParentProps) {
+    if (post.type !== 'Comment') return null;
+    if (post.mirrors?.length) return null;
+    if (post.commentOn) {
+        return <ThreadBody isDetail={isDetail} post={post.commentOn} listKey={listKey} index={index} />;
+    }
+    if (post.commentLoadable && post.parentPostId) {
+        return (
+            <ThreadBodyWithQuery
+                isDetail={isDetail}
+                postId={post.parentPostId}
+                source={post.source}
+                listKey={listKey}
+                index={index}
+            />
+        );
+    }
+    return null;
+}

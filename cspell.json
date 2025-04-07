@@ -397,7 +397,9 @@
         "Yumi",
         "Görli",
         "limitday",
-        "testid"
+        "testid",
+        "nitter",
+        "fullname"
     ],
     "flagWords": [],
     "ignorePaths": [

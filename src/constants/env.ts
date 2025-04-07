@@ -52,6 +52,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_FARCASTER_OPENRANK_URL: z.string().default('https://graph.cast.k3l.io'),
     NEXT_PUBLIC_LENS_OPENRANK_URL: z.string().default('https://lens-api.k3l.io'),
     NEXT_PUBLIC_SOLANA_RPC_URL: z.string().default('https://api.mainnet-beta.solana.com'),
+    NEXT_PUBLIC_FIREFLY_NITTER_URL: z.string().default('https://nitter-api.firefly.social'),
 
     // features
     NEXT_PUBLIC_POLL: z.nativeEnum(STATUS).default(STATUS.Disabled),
@@ -72,6 +73,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_THIRD_PARTY_AUTH: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_SOLANA_DEV: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_ACTIVITY_PARTICLE: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_NITTER: z.nativeEnum(STATUS).default(STATUS.Disabled),
 
     // hubble
     NEXT_PUBLIC_HUBBLE_URL: z.string().default('https://api.neynar.com:2281'),
@@ -123,6 +125,7 @@ export const env = {
         NEXT_PUBLIC_FARCASTER_OPENRANK_URL: process.env.NEXT_PUBLIC_FARCASTER_OPENRANK_URL,
         NEXT_PUBLIC_LENS_OPENRANK_URL: process.env.NEXT_PUBLIC_LENS_OPENRANK_URL,
         NEXT_PUBLIC_SOLANA_RPC_URL: process.env.NEXT_PUBLIC_SOLANA_RPC_URL,
+        NEXT_PUBLIC_FIREFLY_NITTER_URL: process.env.NEXT_PUBLIC_FIREFLY_NITTER_URL,
 
         // features
         NEXT_PUBLIC_POLL: process.env.NEXT_PUBLIC_POLL,
@@ -139,6 +142,7 @@ export const env = {
         NEXT_PUBLIC_TELEMETRY_DEBUG: process.env.NEXT_PUBLIC_TELEMETRY_DEBUG,
         NEXT_PUBLIC_DEVELOPERS: process.env.NEXT_PUBLIC_DEVELOPERS,
         NEXT_PUBLIC_FIREFLY_DEV_API: process.env.NEXT_PUBLIC_FIREFLY_DEV_API,
+        NEXT_PUBLIC_NITTER: process.env.NEXT_PUBLIC_NITTER,
 
         // hubble
         NEXT_PUBLIC_HUBBLE_URL: process.env.NEXT_PUBLIC_HUBBLE_URL,

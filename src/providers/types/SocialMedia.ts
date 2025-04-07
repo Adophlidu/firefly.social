@@ -207,6 +207,7 @@ export interface Post {
     hasBookmarked?: boolean;
     source: SocialSource;
     isThread?: boolean;
+    commentLoadable?: boolean;
 
     /**
      * Sometimes we need to render a thread, and we currently support up to three level.

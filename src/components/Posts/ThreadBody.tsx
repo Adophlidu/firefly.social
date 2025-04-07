@@ -20,7 +20,7 @@ import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-interface ThreadBodyProps {
+export interface ThreadBodyProps {
     post: Post;
     disableAnimate?: boolean;
     isLast?: boolean;
@@ -90,7 +90,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                 <div
                     className={classNames('w-full max-w-[calc(100%_-_53px)]', {
                         'pb-5': !isLast,
-                        '-mt-[14px]': !isSmall && (!isDetailPage || !isLast),
+                        'md:-mt-[14px]': !isDetailPage || !isLast,
                     })}
                 >
                     <PostBody post={post} disablePadding showTranslate={showTranslate} />

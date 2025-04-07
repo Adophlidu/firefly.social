@@ -31,9 +31,22 @@ export function ProfileVerifyBadge({ profile, className }: Props) {
             {icons.map((icon, i) => {
                 if (icon.icon) {
                     const iconEl = (
-                        <Image key={i} src={icon.icon} className="size-4 shrink-0 rounded-sm" alt={icon.source} />
+                        <Image
+                            key={i}
+                            src={icon.icon}
+                            className="size-4 shrink-0 rounded-sm"
+                            alt={icon.source}
+                            width={16}
+                            height={16}
+                        />
                     );
-                    return icon.href ? <Link href={icon.href}>{iconEl}</Link> : iconEl;
+                    return icon.href ? (
+                        <Link key={i} href={icon.href}>
+                            {iconEl}
+                        </Link>
+                    ) : (
+                        iconEl
+                    );
                 }
                 switch (icon.source) {
                     case Source.Farcaster:

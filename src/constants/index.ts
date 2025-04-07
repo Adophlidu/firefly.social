@@ -65,6 +65,7 @@ export const FIREFLY_TELEGRAM_URL = 'https://t.me/fireflyapp';
 export const NEYNAR_URL = 'https://api.neynar.com';
 export const HUBBLE_URL = env.internal.HUBBLE_URL ?? env.external.NEXT_PUBLIC_HUBBLE_URL;
 export const BSKY_VIDEO_ENDPOINT = 'https://video.bsky.app/xrpc';
+export const FIREFLY_NITTER_URL = env.external.NEXT_PUBLIC_FIREFLY_NITTER_URL;
 
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
 export const ADVERTISEMENT_JSON_URL_DEV = 'https://media.firefly.land/advertisement/web-dev.json';
@@ -250,7 +251,7 @@ export const FOLLOWING_SOURCES: FollowingSource[] = [
 ] as const;
 export const FOLLOWING_CATEGORY = [FollowCategory.Followers, FollowCategory.Mutuals, FollowCategory.Following] as const;
 export const REQUIRE_LOGIN_FOLLOWING_CATEGORY = [FollowCategory.Mutuals];
-export const REQUIRE_LOGIN_SOURCES: RequestedLoginSource[] = [Source.Twitter];
+export const REQUIRE_LOGIN_SOURCES: RequestedLoginSource[] = [];
 export const REQUIRE_LOGIN_SOURCES_IN_SEARCH: SocialSource[] = [Source.Twitter, Source.Bsky];
 export const SOCIAL_SOURCE_WITH_ADDRESS: SocialSource[] = [Source.Farcaster, Source.Lens];
 export const EMBED_CARD_SOURCE_PRIORITY = [Source.Twitter, Source.Farcaster, Source.Lens];

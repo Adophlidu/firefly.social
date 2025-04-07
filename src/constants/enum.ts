@@ -223,6 +223,7 @@ export enum KeyType {
 
     ConvertBskyHandleToDid = '/v1/convertBskyHandleToDid',
     TwitterHandleToUid = 'twitterHandleToUid',
+    TwitterUidToHandle = 'twitterUidToHandle',
 }
 
 export enum SocialProfileCategory {

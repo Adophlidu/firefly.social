@@ -22,6 +22,7 @@ import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePos
 import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollowProfile.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
+import { WithNitter } from '@/decorators/WithNitter.js';
 import { formatTweetsPage } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile, formatTwitterProfilePage } from '@/helpers/formatTwitterProfile.js';
 import { getTwitterProfileHandleFromUrl } from '@/helpers/getTwitterProfileHandleFromUrl.js';
@@ -56,6 +57,7 @@ import {
 import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
 import type { ResponseJSON } from '@/types/index.js';
 
+@WithNitter()
 @SetQueryDataForLikePost(Source.Twitter)
 @SetQueryDataForBookmarkPost(Source.Twitter)
 @SetQueryDataForMirrorPost(Source.Twitter)
@@ -65,7 +67,7 @@ import type { ResponseJSON } from '@/types/index.js';
 @SetQueryDataForBlockProfile(Source.Twitter)
 @SetQueryDataForActPost(Source.Twitter)
 @AddLikeStatusToTwitterPosts()
-class TwitterSocialMedia implements Provider {
+export class TwitterSocialMedia implements Provider {
     get type() {
         return SessionType.Twitter;
     }
