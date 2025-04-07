@@ -96,7 +96,7 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory
         SocialProfileCategory.Likes,
         SocialProfileCategory.Channels,
     ],
-    [Source.Twitter]: [SocialProfileCategory.Feed, SocialProfileCategory.Replies],
+    [Source.Twitter]: [SocialProfileCategory.Feed, SocialProfileCategory.Replies, SocialProfileCategory.Media],
     [Source.Bsky]: [SocialProfileCategory.Feed, SocialProfileCategory.Replies, SocialProfileCategory.Media],
 };
 export const LOGIN_SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory[]> = {
@@ -112,7 +112,7 @@ export const LOGIN_SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCa
         SocialProfileCategory.Likes,
         SocialProfileCategory.Channels,
     ],
-    [Source.Twitter]: [SocialProfileCategory.Feed, SocialProfileCategory.Replies],
+    [Source.Twitter]: [SocialProfileCategory.Feed, SocialProfileCategory.Replies, SocialProfileCategory.Media],
     [Source.Bsky]: [
         SocialProfileCategory.Feed,
         SocialProfileCategory.Replies,

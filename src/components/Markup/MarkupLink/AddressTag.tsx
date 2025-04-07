@@ -27,7 +27,7 @@ export const AddressTag = memo<AddressTagProps>(function AddressTag({ title, add
         case 'eoa':
         case 'soa':
             return (
-                <span className="inline-flex items-center gap-1">
+                <span className="inline-flex h-[18px] items-center gap-1">
                     <AddressSocialAvatar
                         className="inline size-[15px] shrink-0 rounded-full"
                         address={address}

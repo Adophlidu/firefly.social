@@ -1,5 +1,8 @@
-export function LimitConcurrency(limit: number) {
-    // TODO: run in server queue
+interface Options {
+    disabled?: () => boolean;
+}
+
+export function LimitConcurrency(limit: number, options?: Options) {
     const queue: Array<{ resolve: Function; reject: Function; fn: Function; args: any[] }> = [];
     let activeCount = 0;
 
@@ -19,6 +22,7 @@ export function LimitConcurrency(limit: number) {
     }
 
     return function <T extends { new (...args: any[]): {} }>(constructor: T) {
+        if (options?.disabled?.() === true) return;
         for (const key of Object.getOwnPropertyNames(constructor.prototype)) {
             const descriptor = Object.getOwnPropertyDescriptor(constructor.prototype, key);
             if (descriptor && typeof descriptor.value === 'function' && key !== 'constructor') {

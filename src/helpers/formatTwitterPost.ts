@@ -13,9 +13,10 @@ import { convertTwitterAvatar, formatTwitterProfileStatus } from '@/helpers/form
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
-function resolveReplySettings(replySettings?: TweetV2['reply_settings']): RestrictionType[] {
+export function resolveTweetReplySettings(replySettings?: TweetV2['reply_settings']): RestrictionType[] {
     if (!replySettings) return [RestrictionType.Everyone];
     switch (replySettings) {
         case 'everyone':
@@ -53,7 +54,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         postId: item.id,
         type: 'Post',
         source: Source.Twitter,
-        restrictions: resolveReplySettings(item.reply_settings),
+        restrictions: resolveTweetReplySettings(item.reply_settings),
         author: {
             ...createDummyProfile(Source.Twitter),
             profileId: item.author_id!,
@@ -123,6 +124,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     }
     if (retweeted) {
         ret.type = 'Mirror';
+        if (retweeted && item.author_id === twitterSessionHolder.session?.profileId) ret.hasMirrored = true;
         if (retweetedTweet) {
             ret.mirrorOn = tweetV2ToPost(retweetedTweet, includes);
             ret.postId = retweetedTweet.id;

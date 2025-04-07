@@ -1,10 +1,16 @@
 'use client';
 
-import {use } from 'react';
+import { use } from 'react';
 
 import { ExplorePage } from '@/app/(normal)/explore/pages/Explore.js';
 import { SourceNav } from '@/components/SourceNav.js';
-import { type ExploreSource, type ExploreSourceInURL, ExploreType, Source,type TrendingType  } from '@/constants/enum.js';
+import {
+    type ExploreSource,
+    type ExploreSourceInURL,
+    ExploreType,
+    Source,
+    type TrendingType,
+} from '@/constants/enum.js';
 import { EXPLORE_SOURCES } from '@/constants/index.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';

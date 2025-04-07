@@ -2,6 +2,8 @@ import urlcat from 'urlcat';
 
 import { FIREFLY_NITTER_URL } from '@/constants/index.js';
 import { LimitConcurrency } from '@/decorators/LimitConcurrency.js';
+import { MemoizePromise } from '@/decorators/MemoizePromise.js';
+import { bom } from '@/helpers/bom.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
     type GetProfileResponse,
@@ -17,7 +19,9 @@ function resolveNitterJsonResponse<T>({ data, error }: Response<T>): T {
     return data as T;
 }
 
-@LimitConcurrency(2)
+@LimitConcurrency(2, {
+    disabled: () => !bom?.window,
+})
 export class NitterAPI {
     async getTweetStatus(
         name: string,
@@ -36,6 +40,7 @@ export class NitterAPI {
         return resolveNitterJsonResponse(res);
     }
 
+    @MemoizePromise((id) => id)
     async convertUserIdToHandle(id: string) {
         const res = await fetchJSON<Response<{ username: string }>>(
             urlcat(FIREFLY_NITTER_URL, '/api/i/user/:id', {
@@ -45,6 +50,7 @@ export class NitterAPI {
         return resolveNitterJsonResponse(res);
     }
 
+    @MemoizePromise((handle) => handle)
     async getProfileByHandle(handle: string) {
         const res = await fetchJSON<GetProfileResponse>(
             urlcat(FIREFLY_NITTER_URL, '/api/:handle/profile', {

@@ -85,36 +85,28 @@ function mergeThreadPostsForLens(posts: Post[]) {
 }
 
 function mergeThreadPostsForTweet(posts: Post[]) {
-    const record = new Set();
-    const filtered = posts.filter((post) => {
-        if (post.type !== 'Comment') return true;
-        if (record.has(post.postId) || record.has(post.commentOn?.postId) || record.has(post.postId)) return false;
-
-        if (
-            post.root &&
-            isSameProfile(post.commentOn?.author, post.author) &&
-            isSameProfile(post.author, post.root.author) &&
-            !record.has(post.root.postId)
-        ) {
-            record.add(post.root.postId);
-            return true;
-        }
-
-        return true;
-    });
-
-    return uniqBy(filtered, (x) => {
-        if (x.type === 'Mirror') return `Mirror:${x.publicationId}`;
-        if (x.type !== 'Comment' || !x.root) return x.publicationId;
-
-        return x.root.publicationId;
+    const rootPostMap = new Map(posts.map((post) => [post.postId, post]));
+    return uniqBy(posts, (x) => {
+        if (x.type === 'Mirror') return `Mirror:${x.postId}`;
+        if (x.type === 'Comment' && x.rootPostId) return x.rootPostId;
+        return x.postId;
     }).map((post) => {
-        if (record.has(post.root?.postId))
+        if (post.type === 'Comment' && isSameProfile(post.commentOn?.author, post.author)) {
             return {
                 ...post,
+                root:
+                    post.rootPostId &&
+                    post.parentPostId !== post.rootPostId &&
+                    post.commentOn?.postId !== post.rootPostId
+                        ? rootPostMap.get(post.rootPostId)
+                        : undefined,
+                commentOn: post.commentOn?.postId
+                    ? (rootPostMap.get(post.commentOn?.postId) ?? post.commentOn) // There is full information in the post of the root timeline
+                    : post.commentOn,
+                commentLoadable: false,
                 isThread: true,
             };
-
+        }
         return post;
     });
 }

@@ -38,7 +38,7 @@ export const ContractTag = memo<ContractTagProps>(function ContractTag({ detecte
     if (!url) return title;
 
     return (
-        <span className="inline-flex items-center gap-1">
+        <span className="inline-flex h-[18px] items-center gap-1">
             <Image
                 className="inline size-[15px] shrink-0 rounded-full"
                 unoptimized

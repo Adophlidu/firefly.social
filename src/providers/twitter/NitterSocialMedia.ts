@@ -1,3 +1,4 @@
+import { uniq } from 'lodash-es';
 import type { TweetV2LookupResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
@@ -34,20 +35,66 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 
-async function withReplyPostsToTimeline(timeline: Tweet[]) {
+async function withFullStatusTimeline(timeline: Tweet[]) {
+    const tweetIds = uniq(
+        timeline
+            .map((x) => x.id)
+            .filter((x) => x && x !== '0')
+            .join(','),
+    );
     const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<TweetV2LookupResult>>(
         urlcat(`/api/twitter/tweets/:tweetIds`, {
-            tweetIds: timeline
-                .map((x) => x.replyId)
-                .filter((x) => x && x !== '0')
-                .join(','),
+            tweetIds,
         }),
     );
     const data = resolveTwitterResponseData(response);
-    const replyPosts = data.data?.map((item) => tweetV2ToPost(item, data.includes)) || [];
     return timeline.map((tweet) => {
-        const commentOn = replyPosts.find((x) => x.postId === tweet.replyId);
-        return formatTwitterPostFromNitter(tweet, { base: { commentOn, commentLoadable: !commentOn } });
+        const tweetV2 = data.data?.find((x) => x.id === tweet.id);
+        return formatTwitterPostFromNitter(tweet, {
+            tweet: tweetV2,
+            includes: data.includes,
+        });
+    });
+}
+
+async function withFullStatusTweetWithPagination(timeline: Tweet[], pagination: Pagination, indicator?: PageIndicator) {
+    if (twitterSessionHolder.session) {
+        const data = await runInSafeAsync(() => withFullStatusTimeline(timeline));
+        if (data) {
+            return createPageable(
+                data,
+                createIndicator(indicator),
+                pagination.bottom ? createNextIndicator(indicator, pagination.bottom) : undefined,
+            );
+        }
+    }
+    const data = timeline.map((tweet) => formatTwitterPostFromNitter(tweet, { base: { commentLoadable: true } }));
+    return createPageable(
+        data,
+        createIndicator(indicator),
+        pagination.bottom ? createNextIndicator(indicator, pagination.bottom) : undefined,
+    );
+}
+
+async function withReplyPostsToTimeline(timeline: Tweet[]) {
+    const tweetIds = uniq(
+        [...timeline.map((x) => x.replyId), ...timeline.map((x) => x.id)].filter((x) => x && x !== '0').join(','),
+    );
+    const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<TweetV2LookupResult>>(
+        urlcat(`/api/twitter/tweets/:tweetIds`, {
+            tweetIds,
+        }),
+    );
+    const data = resolveTwitterResponseData(response);
+    return timeline.map((tweet) => {
+        const tweetV2 = data.data?.find((x) => x.id === tweet.id);
+        const commentTweetV2 = data.data?.find((x) => x.id === tweet.replyId);
+        const commentOn = commentTweetV2 ? tweetV2ToPost(commentTweetV2) : undefined;
+        return formatTwitterPostFromNitter(tweet, {
+            base: { commentOn, commentLoadable: !commentOn },
+            tweet: tweetV2,
+            includes: data.includes,
+        });
     });
 }
 
@@ -258,6 +305,7 @@ export class NitterSocialMedia implements Provider {
     }
 
     async getPostById(postId: string): Promise<Post> {
+        if (twitterSessionHolder.session) throw new NotImplementedError();
         const { tweet } = await NitterAPIProvider.getTweetStatus('web', postId);
         return formatTwitterPostFromNitter(tweet);
     }
@@ -296,12 +344,7 @@ export class NitterSocialMedia implements Provider {
         const { timeline, pagination } = await NitterAPIProvider.getUserTimelineByHandle(username, {
             cursor: indicator?.id,
         });
-        const data = timeline.map((tweet) => formatTwitterPostFromNitter(tweet));
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            pagination.bottom ? createNextIndicator(indicator, pagination.bottom) : undefined,
-        );
+        return withFullStatusTweetWithPagination(timeline, pagination, indicator);
     }
 
     async getLikedPostsByProfileId(
@@ -437,7 +480,12 @@ export class NitterSocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
+        const { username } = await NitterAPIProvider.convertUserIdToHandle(profileId);
+        const { timeline, pagination } = await NitterAPIProvider.getUserTimelineByHandle(username, {
+            cursor: indicator?.id,
+            tab: UserTimelineTab.Media,
+        });
+        return withFullStatusTweetWithPagination(timeline, pagination, indicator);
     }
 }
 

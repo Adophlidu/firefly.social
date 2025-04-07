@@ -199,7 +199,7 @@ export interface Post {
     canMirror?: boolean;
     canAct?: boolean;
     canDecrypt?: boolean;
-    mentions?: Profile[];
+    mentions?: Array<Pick<Profile, 'handle' | 'fullHandle'>>;
     hasMirrored?: boolean;
     hasLiked?: boolean;
     hasActed?: boolean;
