@@ -1,4 +1,3 @@
-import Chain from '@masknet/web3-constants/solana/chain.json' assert { type: 'json' };
 import CoinGecko from '@masknet/web3-constants/solana/coingecko.json' assert { type: 'json' };
 import Token from '@masknet/web3-constants/solana/token.json' assert { type: 'json' };
 import TokenList from '@masknet/web3-constants/solana/token-list.json' assert { type: 'json' };
@@ -13,11 +12,6 @@ export const useTokenConstant = transformHook(getTokenConstants);
 
 export const getTokenListConstant = transform(SolanaChainId, TokenList);
 export const getTokenListConstants = transformAll(SolanaChainId, TokenList);
-
-export const getChainConstant = transform(SolanaChainId, Chain);
-export const getChainConstants = transformAll(SolanaChainId, Chain);
-export const useChainConstants = transformAllHook(getChainConstants);
-export const useChainConstant = transformHook(getChainConstants);
 
 export const getCoinGeckoConstant = transform(SolanaChainId, CoinGecko);
 export const getCoinGeckoConstants = transformAll(SolanaChainId, CoinGecko);

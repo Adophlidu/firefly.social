@@ -15,16 +15,4 @@ export declare namespace Web3Helper {
         : NetworkDescriptor<Definition[T]['ChainId'], Definition[T]['NetworkType']>;
 
     export type ChainIdAll = Definition[NetworkPluginID]['ChainId'];
-
-    export type SchemaTypeAll = Definition[NetworkPluginID]['SchemaType'];
-
-    export type ChainIdScope<
-        S extends 'all' | void = void,
-        T extends NetworkPluginID = NetworkPluginID,
-    > = S extends 'all' ? ChainIdAll : Definition[T]['ChainId'];
-
-    export type SchemaTypeScope<
-        S extends 'all' | void = void,
-        T extends NetworkPluginID = NetworkPluginID,
-    > = S extends 'all' ? SchemaTypeAll : Definition[T]['SchemaType'];
 }
