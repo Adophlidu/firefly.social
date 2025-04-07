@@ -1,7 +1,7 @@
 'use client';
 
 import { delay } from '@masknet/kit';
-import { useRouter, useSearchParams } from 'next/navigation.js';
+import { useSearchParams } from 'next/navigation.js';
 import { useAsync } from 'react-use';
 
 import { changeCookies } from '@/actions/changeCookies.js';
@@ -26,7 +26,6 @@ const resolveLocale = createLookupTableResolver<'en' | 'zh', Locale>(
 );
 
 export default function AgentPage() {
-    const router = useRouter();
     const searchParams = useSearchParams();
     const returnUrl = searchParams.get('url');
 
@@ -46,7 +45,7 @@ export default function AgentPage() {
 
         await delay(1000);
         await changeCookies(formData);
-    }, [router, returnUrl]);
+    }, [returnUrl]);
 
     return (
         <div className="fixed inset-0 z-10 flex h-screen items-center justify-center">

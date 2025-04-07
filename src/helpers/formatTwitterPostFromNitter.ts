@@ -46,14 +46,14 @@ function parseTweetText(text: string) {
     return document.children[0].textContent;
 }
 
-function parseTweetMentions(text: string) {
+function parseTweetMentions(text: string): Post['mentions'] {
     const { document } = parseHTML(`<div>${text}</div>`);
     const anchorElements = document.querySelectorAll('a');
     return compact(
         [...anchorElements].map((el) => {
             if (el.innerText.startsWith('@')) {
                 const handle = el.innerText.slice(1);
-                return { handle, fullHandle: handle };
+                return { handle, fullHandle: handle, profileId: handle, source: Source.Twitter };
             }
             return null;
         }),
