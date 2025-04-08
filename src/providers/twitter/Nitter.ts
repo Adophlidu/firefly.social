@@ -90,7 +90,7 @@ export class NitterAPI {
             cursor?: string;
         },
     ) {
-        const url = urlcat(`/api/search`, {
+        const url = urlcat(FIREFLY_NITTER_URL, `/api/search`, {
             q: query,
             cursor: options?.cursor,
         });

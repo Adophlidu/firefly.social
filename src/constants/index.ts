@@ -254,7 +254,8 @@ export const FOLLOWING_CATEGORY = [FollowCategory.Followers, FollowCategory.Mutu
 export const REQUIRE_LOGIN_FOLLOWING_CATEGORY = [FollowCategory.Mutuals];
 export const REQUIRE_LOGIN_SOURCES: RequestedLoginSource[] =
     env.external.NEXT_PUBLIC_NITTER === STATUS.Enabled ? [] : [Source.Twitter];
-export const REQUIRE_LOGIN_SOURCES_IN_SEARCH: SocialSource[] = [Source.Twitter, Source.Bsky];
+export const REQUIRE_LOGIN_SOURCES_IN_SEARCH: SocialSource[] =
+    env.external.NEXT_PUBLIC_NITTER === STATUS.Enabled ? [Source.Bsky] : [Source.Twitter, Source.Bsky];
 export const SOCIAL_SOURCE_WITH_ADDRESS: SocialSource[] = [Source.Farcaster, Source.Lens];
 export const EMBED_CARD_SOURCE_PRIORITY = [Source.Twitter, Source.Farcaster, Source.Lens];
 
