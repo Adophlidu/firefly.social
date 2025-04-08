@@ -371,10 +371,12 @@ export class NitterSocialMedia implements Provider {
     }
 
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const { replies } = await NitterAPIProvider.getTweetStatus('web', postId, {
+        const { replies, after } = await NitterAPIProvider.getTweetStatus('web', postId, {
             cursor: indicator?.id,
         });
-        const data = replies.tweets.map((tweet) => formatTwitterPostFromNitter(tweet));
+        const data = [...(!indicator?.id ? [...after.tweets] : []), ...replies.tweets].map((tweet) =>
+            formatTwitterPostFromNitter(tweet),
+        );
         return createPageable(
             data,
             createIndicator(indicator),
