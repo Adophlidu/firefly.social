@@ -444,6 +444,7 @@ export enum RelationPlatform {
 
 export enum WatchType {
     Wallet = 'wallet',
+    SolanaWallet = 'solana',
     MaskX = 'maskx',
     Twitter = 'twitter',
     Lens = 'lens',
