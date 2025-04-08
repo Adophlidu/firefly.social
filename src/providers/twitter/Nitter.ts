@@ -23,6 +23,7 @@ function resolveNitterJsonResponse<T>({ data, error }: Response<T>): T {
     disabled: () => !bom?.window,
 })
 export class NitterAPI {
+    @MemoizePromise((name, id, options) => `${name}-${id}-${options?.cursor}`)
     async getTweetStatus(
         name: string,
         id: string,
@@ -60,6 +61,7 @@ export class NitterAPI {
         return resolveNitterJsonResponse(res);
     }
 
+    @MemoizePromise((handle, options) => `${handle}-${options?.tab}-${options?.cursor}`)
     async getUserTimelineByHandle(
         handle: string,
         options?: {
@@ -81,6 +83,7 @@ export class NitterAPI {
         return resolveNitterJsonResponse(res);
     }
 
+    @MemoizePromise((query, options) => `${query}-${options?.cursor}`)
     async search(
         query: string,
         options?: {

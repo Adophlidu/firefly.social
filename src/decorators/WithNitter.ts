@@ -1,7 +1,7 @@
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { NotImplementedError } from '@/constants/error.js';
-import { TwitterNitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
+import { NitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
 import type { TwitterSocialMedia } from '@/providers/twitter/SocialMedia.js';
 import type { Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
@@ -30,8 +30,8 @@ export function WithNitter() {
                     type Method = (...args: Parameters<Provider[K]>) => ReturnType<Provider[K]>;
                     const originMethod = method as unknown as Method;
                     try {
-                        const m = TwitterNitterSocialMediaProvider[key] as unknown as Method;
-                        return await m.call(TwitterNitterSocialMediaProvider, ...args);
+                        const m = NitterSocialMediaProvider[key] as unknown as Method;
+                        return await m.call(NitterSocialMediaProvider, ...args);
                     } catch (error) {
                         if (error instanceof NotImplementedError) {
                             return originMethod.call(target.prototype, ...args);
