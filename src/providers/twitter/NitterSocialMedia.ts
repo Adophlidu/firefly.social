@@ -1,8 +1,9 @@
-import { uniq } from 'lodash-es';
+import { last, uniq } from 'lodash-es';
 import type { TweetV2LookupResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { NotImplementedError } from '@/constants/error.js';
+import { bom } from '@/helpers/bom.js';
 import { tweetV2ToPost } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterPostFromNitter } from '@/helpers/formatTwitterPostFromNitter.js';
 import { formatTwitterProfileFromNitter } from '@/helpers/formatTwitterProfileFromNitter.js';
@@ -68,7 +69,7 @@ async function withFullStatusTweetWithPagination(timeline: Tweet[], pagination: 
             );
         }
     }
-    const data = timeline.map((tweet) => formatTwitterPostFromNitter(tweet, { base: { commentLoadable: true } }));
+    const data = timeline.map((tweet) => formatTwitterPostFromNitter(tweet));
     return createPageable(
         data,
         createIndicator(indicator),
@@ -305,23 +306,26 @@ export class NitterSocialMedia implements Provider {
     }
 
     async getPostById(postId: string): Promise<Post> {
-        if (twitterSessionHolder.session) throw new NotImplementedError();
-        const { tweet } = await NitterAPIProvider.getTweetStatus('web', postId);
-        return formatTwitterPostFromNitter(tweet);
+        const { tweet, before } = await NitterAPIProvider.getTweetStatus('web', postId);
+        const commentOn = before.tweets.length > 0 ? formatTwitterPostFromNitter(last(before.tweets)!) : undefined;
+        return formatTwitterPostFromNitter(tweet, { base: { commentOn } });
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
+        if (!!bom.window && twitterSessionHolder.session) throw new NotImplementedError();
         const { username } = await NitterAPIProvider.convertUserIdToHandle(profileId);
         const { user } = await NitterAPIProvider.getProfileByHandle(username);
         return formatTwitterProfileFromNitter(user);
     }
 
     async getProfileByHandle(handle: string): Promise<Profile> {
+        if (!!bom.window && twitterSessionHolder.session) throw new NotImplementedError();
         const { user } = await NitterAPIProvider.getProfileByHandle(handle);
         return formatTwitterProfileFromNitter(user);
     }
 
     async getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
+        if (!!bom.window && twitterSessionHolder.session) throw new NotImplementedError();
         if (isNumericalProfileId(profileIdOrHandle)) {
             // Using runInSafeAsync here to handle cases where a purely numerical handle might be passed
             const profile = await runInSafeAsync(() => this.getProfileById(profileIdOrHandle));

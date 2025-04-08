@@ -91,7 +91,7 @@ function mergeThreadPostsForTweet(posts: Post[]) {
         if (x.type === 'Comment' && x.rootPostId) return x.rootPostId;
         return x.postId;
     }).map((post) => {
-        if (post.type === 'Comment' && isSameProfile(post.commentOn?.author, post.author)) {
+        if (post.type === 'Comment') {
             return {
                 ...post,
                 root:
@@ -100,10 +100,9 @@ function mergeThreadPostsForTweet(posts: Post[]) {
                     post.commentOn?.postId !== post.rootPostId
                         ? rootPostMap.get(post.rootPostId)
                         : undefined,
-                commentOn: post.commentOn?.postId
-                    ? (rootPostMap.get(post.commentOn?.postId) ?? post.commentOn) // There is full information in the post of the root timeline
+                commentOn: post.parentPostId
+                    ? (rootPostMap.get(post.parentPostId) ?? post.commentOn) // There is full information in the post of the root timeline
                     : post.commentOn,
-                commentLoadable: false,
                 isThread: true,
             };
         }

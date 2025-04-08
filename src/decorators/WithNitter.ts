@@ -30,9 +30,8 @@ export function WithNitter() {
                     type Method = (...args: Parameters<Provider[K]>) => ReturnType<Provider[K]>;
                     const originMethod = method as unknown as Method;
                     try {
-                        // TODO: check nitter health status
                         const m = TwitterNitterSocialMediaProvider[key] as unknown as Method;
-                        return m.call(TwitterNitterSocialMediaProvider, ...args);
+                        return await m.call(TwitterNitterSocialMediaProvider, ...args);
                     } catch (error) {
                         if (error instanceof NotImplementedError) {
                             return originMethod.call(target.prototype, ...args);

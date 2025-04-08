@@ -42,6 +42,7 @@ export function ThreadBodyWithQuery({ postId, source, ...rest }: ThreadBodyWithQ
         data: post,
         isLoading,
         error,
+        refetch,
     } = useQuery({
         queryKey: [source, 'post-detail', postId],
         queryFn: async () => {
@@ -55,7 +56,10 @@ export function ThreadBodyWithQuery({ postId, source, ...rest }: ThreadBodyWithQ
     if (!post && error) {
         return (
             <div className="flex h-[100px] w-full items-center justify-center">
-                <ClickableButton className="box-border flex h-8 min-w-[112px] items-center justify-center whitespace-nowrap rounded-lg bg-main px-5 text-medium font-semibold text-primaryBottom outline-none transition-all hover:opacity-80">
+                <ClickableButton
+                    className="box-border flex h-8 min-w-[112px] items-center justify-center whitespace-nowrap rounded-lg bg-main px-5 text-medium font-semibold text-primaryBottom outline-none transition-all hover:opacity-80"
+                    onClick={() => refetch()}
+                >
                     <Trans>Retry</Trans>
                 </ClickableButton>
             </div>

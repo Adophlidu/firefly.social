@@ -7,7 +7,7 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 export function formatTwitterProfileFromNitter(user: User): Profile {
     return {
         ...createDummyProfile(Source.Twitter),
-        profileId: user.id,
+        profileId: user.id ?? user.username,
         handle: user.username,
         fullHandle: user.username,
         displayName: user.fullname,

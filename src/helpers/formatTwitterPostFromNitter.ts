@@ -7,14 +7,12 @@ import urlcat from 'urlcat';
 import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regexp.js';
-import { formatTwitterMedia } from '@/helpers/formatTwitterMedia.js';
 import { resolveTweetReplySettings } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfileFromNitter } from '@/helpers/formatTwitterProfileFromNitter.js';
 import { getTwitterNitterPicOrigUrl, getTwitterNitterPicUrl } from '@/helpers/getTwitterNitterPicUrl.js';
 import { parsePostUrl } from '@/helpers/parsePostUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { resolveValue } from '@/helpers/resolveValue.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Tweet } from '@/providers/types/Nitter.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
@@ -79,33 +77,24 @@ export function formatTwitterPostFromNitter(
         includes?: ApiV2Includes;
     },
 ): Post {
-    const attachments = resolveValue(() => {
-        const tweetV2Attachments = compact(
-            options?.tweet?.attachments?.media_keys?.map((key) => {
-                const media = options?.includes?.media?.find((m) => m.media_key === key);
-                return media ? formatTwitterMedia(media) : null;
-            }),
-        );
-        if (tweetV2Attachments.length) return tweetV2Attachments;
-        return [
-            ...(tweet.photos?.map<Attachment>((photo) => ({
-                type: 'Image',
-                uri: getTwitterNitterPicOrigUrl(photo),
-            })) ?? []),
-            ...compact([tweet.gif]).map<Attachment>(({ url, thumb }) => ({
-                type: 'AnimatedGif',
-                uri: getTwitterNitterPicUrl(url),
+    const attachments = [
+        ...(tweet.photos?.map<Attachment>((photo) => ({
+            type: 'Image',
+            uri: getTwitterNitterPicOrigUrl(photo),
+        })) ?? []),
+        ...compact(tweet.gifs).map<Attachment>(({ url, thumb }) => ({
+            type: 'AnimatedGif',
+            uri: getTwitterNitterPicUrl(url),
+            coverUri: getTwitterNitterPicUrl(thumb),
+        })),
+        ...compact([tweet.video])
+            .map<Attachment>(({ variants, thumb }) => ({
+                type: 'Video',
+                uri: last(variants)?.url!,
                 coverUri: getTwitterNitterPicUrl(thumb),
-            })),
-            ...compact([tweet.video])
-                .map<Attachment>(({ variants, thumb }) => ({
-                    type: 'Video',
-                    uri: last(variants)?.url!,
-                    coverUri: getTwitterNitterPicUrl(thumb),
-                }))
-                .filter((x) => x.uri),
-        ];
-    });
+            }))
+            .filter((x) => x.uri),
+    ];
 
     const content = parseTweetText(tweet.text) ?? '';
     const oembedUrls = parseTweetOembedUrls(tweet.text);

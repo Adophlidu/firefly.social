@@ -25,6 +25,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
             ...TWITTER_TIMELINE_OPTIONS,
             pagination_token: queryParams.cursor ? queryParams.cursor : undefined,
             max_results: queryParams.limit,
+            exclude: ['replies'],
         });
         if (errors?.length) console.error('[twitter] v2.userTimeline', errors);
 

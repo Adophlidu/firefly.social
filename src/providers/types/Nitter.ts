@@ -140,6 +140,11 @@ export interface TweetPoll {
     status: string;
 }
 
+export interface TweetGif {
+    url: string;
+    thumb: string;
+}
+
 export interface Tweet {
     id: string;
     threadId: string;
@@ -159,10 +164,8 @@ export interface Tweet {
     quote: Tweet | null;
     card: TweetCard | null;
     poll: TweetPoll | null;
-    gif: {
-        url: string;
-        thumb: string;
-    } | null;
+    gif: TweetGif | null;
+    gifs: TweetGif[] | null;
     video: TweetVideo | null;
     photos: string[] | null;
 }
