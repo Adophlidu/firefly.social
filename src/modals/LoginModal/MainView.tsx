@@ -155,7 +155,9 @@ export function MainView() {
     const currentProfile = data?.account ? formatFireflyAccountProfileFromFireflyConnections(data.account) : null;
 
     const avatar = useMemo(() => {
-        if (currentProfile?.avatar) return currentProfile.avatar;
+        if (currentProfile?.avatar && !currentProfile.avatar.includes('stamp.firefly.land')) {
+            return currentProfile.avatar;
+        }
 
         const accountAvatars = compact(
             SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE.flatMap((source) => {

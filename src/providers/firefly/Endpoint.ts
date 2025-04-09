@@ -491,7 +491,8 @@ export class FireflyEndpoint {
     }
 
     async watchWallet(address: string) {
-        if (!isValidAddressEthereum(address)) throw new Error(`Invalid address: ${address}`);
+        if (!isValidAddressEthereum(address) && !isValidAddressSolana(address))
+            throw new Error(`Invalid address: ${address}`);
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/follow', {
             type: isValidAddressSolana(address) ? WatchType.SolanaWallet : WatchType.Wallet,
             toObjectId: address,
@@ -501,7 +502,8 @@ export class FireflyEndpoint {
     }
 
     async unwatchWallet(address: string) {
-        if (!isValidAddressEthereum(address)) throw new Error(`Invalid address: ${address}`);
+        if (!isValidAddressEthereum(address) && !isValidAddressSolana(address))
+            throw new Error(`Invalid address: ${address}`);
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/follow', {
             type: isValidAddressSolana(address) ? WatchType.SolanaWallet : WatchType.Wallet,
             toObjectId: address,

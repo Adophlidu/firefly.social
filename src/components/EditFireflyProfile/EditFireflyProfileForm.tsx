@@ -42,6 +42,8 @@ export function EditFireflyProfileForm() {
             await FireflyEndpointProvider.updateProfile(params);
             await queryClient.refetchQueries({ queryKey: ['my-wallet-connections'] });
             await queryClient.refetchQueries({ queryKey: ['wallet-profiles'] });
+            await queryClient.refetchQueries({ queryKey: ['allConnections'] });
+
             captureEditProfileSuccessEvent(
                 compact([
                     dirtyFields.avatar ? 'change_avatar' : undefined,

@@ -16,15 +16,12 @@ export function useToggleWatchWallet({ handleOrEnsOrAddress, address, following 
     const mutation = useMutation({
         mutationFn: async () => {
             try {
-                // TODO: address is case sensitive by far.
-                const addr = address.toLowerCase();
-
                 if (following) {
-                    const result = await FireflyEndpointProvider.unwatchWallet(addr);
+                    const result = await FireflyEndpointProvider.unwatchWallet(address);
                     enqueueSuccessMessage(t`${handleOrEnsOrAddress} unwatched`);
                     return result;
                 }
-                const result = await FireflyEndpointProvider.watchWallet(addr);
+                const result = await FireflyEndpointProvider.watchWallet(address);
                 setupFirebaseFcmConnection({ force: true, showUi: true });
                 enqueueSuccessMessage(t`${handleOrEnsOrAddress} watched`);
                 return result;
