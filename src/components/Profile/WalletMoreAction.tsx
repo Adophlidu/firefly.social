@@ -2,10 +2,13 @@
 
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
+import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
+import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
 
 import MoreIcon from '@/assets/more-fill.svg';
+import { MuteAllByWallet } from '@/components/Actions/MuteAllProfile.js';
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
@@ -14,8 +17,10 @@ import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
+import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
-import type { WalletProfile } from '@/providers/types/Firefly.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import type { FireflyIdentity, WalletProfile } from '@/providers/types/Firefly.js';
 
 interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
     profile: WalletProfile;
@@ -28,6 +33,7 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
     const { data: isMuted } = useIsWalletMuted(profile.address);
 
     const identity = useFireflyIdentity(Source.Wallet, profile.address);
+    const isMyWallet = useIsMyRelatedProfile(identity.source, identity.id);
 
     const ensOrAddress = profile.primary_ens || ens || formatAddress(profile.address, 4);
 
@@ -51,6 +57,13 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
                         />
                     )}
                 </MenuItem>
+                {!isMyWallet ? (
+                    <MuteAllByWalletMenuItem
+                        identity={identity}
+                        address={profile.address}
+                        ensOrAddress={ensOrAddress}
+                    />
+                ) : null}
                 <MenuItem>
                     {({ close }) => (
                         <Tips
@@ -68,3 +81,36 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
         </MoreActionMenu>
     );
 });
+
+function MuteAllByWalletMenuItem({
+    address,
+    ensOrAddress,
+    identity,
+}: {
+    address: Address;
+    ensOrAddress?: string;
+    identity: FireflyIdentity;
+}) {
+    const { data: fireflyProfile } = useQuery({
+        queryKey: ['firefly-profile', identity],
+        async queryFn() {
+            const walletProfiles = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false);
+            return walletProfiles.account;
+        },
+    });
+    const noFireflyAccount =
+        !fireflyProfile || (!fireflyProfile?.displayName && !fireflyProfile?.avatar) || !fireflyProfile?.uid;
+    if (!noFireflyAccount) return null;
+    return (
+        <MenuItem>
+            {({ close }) => (
+                <MuteAllByWallet
+                    className={classNames({ hidden: !noFireflyAccount })}
+                    address={address}
+                    handle={ensOrAddress}
+                    onClose={close}
+                />
+            )}
+        </MenuItem>
+    );
+}

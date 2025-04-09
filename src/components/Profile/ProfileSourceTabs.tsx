@@ -301,8 +301,6 @@ export function ProfileSourceTabs({ profiles, identity }: { profiles: FireflyPro
                 const topProfile = currentProfile ?? defaultProfile;
 
                 if (currentSourceProfiles.length === 1) {
-                    if (source === Source.Wallet) {
-                    }
                     return <TriggerButton profile={topProfile} identity={identity} key={identity.id} />;
                 }
 

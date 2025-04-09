@@ -32,7 +32,7 @@ export function ExclusiveEvents() {
             })}
             onMouseEnter={() => videoRef.current?.play()}
         >
-            <span className="flex items-center gap-x-3 rounded-lg px-2 py-2 md:px-4">
+            <span className="flex items-center gap-x-3 whitespace-nowrap rounded-lg px-2 py-2 md:px-4">
                 <video
                     ref={videoRef}
                     src={isDarkMode ? '/webm/activity-icon-dark.webm' : '/webm/activity-icon-light.webm'}

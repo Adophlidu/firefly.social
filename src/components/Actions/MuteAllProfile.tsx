@@ -1,7 +1,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { memo } from 'react';
+import { type HTMLProps, memo } from 'react';
 import { useAsyncFn } from 'react-use';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
@@ -21,7 +21,7 @@ import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
-interface MuteAllProfileBaseProps {
+interface MuteAllProfileBaseProps extends HTMLProps<'button'> {
     identity: FireflyIdentity;
     handleOrEnsOrAddress: string;
     blocking?: boolean;
@@ -32,7 +32,7 @@ function waitForConfirmation(handleOrEnsOrAddress: string) {
     return ConfirmModalRef.openAndWaitForClose({
         title: t`Mute all`,
         content: (
-            <p className="-mt-4 mb-4 text-lightMain">
+            <p className="text-lightMain">
                 <Trans>All posts and activities from this user will be hidden from you</Trans>
             </p>
         ),
@@ -40,7 +40,7 @@ function waitForConfirmation(handleOrEnsOrAddress: string) {
     });
 }
 
-function MuteAllProfileBase({ handleOrEnsOrAddress, identity, blocking, onClose }: MuteAllProfileBaseProps) {
+function MuteAllProfileBase({ handleOrEnsOrAddress, identity, blocking, onClose, className }: MuteAllProfileBaseProps) {
     const { data: isMutedAll, isLoading } = useQuery({
         queryKey: ['profile', 'mute-all', identity.id, identity.source],
         queryFn: async () => FireflyEndpointProvider.isProfileMutedAll(identity),
@@ -67,7 +67,7 @@ function MuteAllProfileBase({ handleOrEnsOrAddress, identity, blocking, onClose 
     if (isLoading || isMutedAll === true) return null;
 
     return (
-        <MenuButton onClick={handleMuteAll} disabled={loading}>
+        <MenuButton onClick={handleMuteAll} disabled={loading} className={className}>
             {loading ? <LoadingIcon size={18} /> : <MuteIcon width={18} height={18} />}
             <span className="font-bold leading-[22px] text-main">
                 <Trans>Mute all</Trans>
@@ -90,17 +90,21 @@ export const MuteAllByProfile = memo<{ profile: Profile; onClose: MuteAllProfile
     },
 );
 
-export const MuteAllByWallet = memo<{ address: Address; handle?: string; onClose: MuteAllProfileBaseProps['onClose'] }>(
-    function MuteAllByWallet({ address, handle, onClose }) {
-        const identity = useFireflyIdentity(Source.Wallet, address);
-        const { data: ens } = useEnsName({ address });
+export const MuteAllByWallet = memo<{
+    address: Address;
+    handle?: string;
+    onClose: MuteAllProfileBaseProps['onClose'];
+    className?: MuteAllProfileBaseProps['className'];
+}>(function MuteAllByWallet({ address, handle, onClose, className }) {
+    const identity = useFireflyIdentity(Source.Wallet, address);
+    const { data: ens } = useEnsName({ address });
 
-        return (
-            <MuteAllProfileBase
-                identity={identity}
-                handleOrEnsOrAddress={handle?.replace('@', '') || ens || formatAddress(address, 4)}
-                onClose={onClose}
-            />
-        );
-    },
-);
+    return (
+        <MuteAllProfileBase
+            identity={identity}
+            handleOrEnsOrAddress={handle?.replace('@', '') || ens || formatAddress(address, 4)}
+            onClose={onClose}
+            className={className}
+        />
+    );
+});
