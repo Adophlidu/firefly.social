@@ -11,6 +11,7 @@ import { createContainer } from 'unstated-next';
 import { useConnections } from 'wagmi';
 
 import { NetworkType } from '@/constants/enum.js';
+import { getFilteredConnectors } from '@/helpers/getFilteredConnectors.js';
 import type { ChainNamespace, ConnectorWithProvider } from '@/types/index.js';
 
 interface WalletConnectState {
@@ -33,7 +34,7 @@ interface WalletConnectContext extends WalletConnectState {
 
 function createEmptyWalletConnectState(): WalletConnectState {
     return {
-        connectors: CoreConnectorController.state?.connectors || [],
+        connectors: getFilteredConnectors(),
         featuredWallets: CoreApiController.state?.featured || [],
         chainState: CoreChainController.state.chains,
     };
@@ -64,7 +65,7 @@ function useWalletConnectContext(initialState?: WalletConnectContext) {
     // subscribe events
     useEffect(() => {
         const unsubscribeInjected = CoreConnectorController.subscribeKey('connectors', (connectors) => {
-            setValue((prev) => ({ ...prev, connectors }));
+            setValue((prev) => ({ ...prev, connectors: getFilteredConnectors(connectors) }));
         });
         const unsubscribeFeatured = CoreApiController.subscribeKey('featured', (featured) => {
             setValue((prev) => ({ ...prev, featuredWallets: featured }));

@@ -1,19 +1,15 @@
-import {
-    CoreConnectorController,
-    CoreHelperUtil,
-    CoreOptionsController,
-    CoreStorageUtil,
-    type WcWallet,
-} from '@reown/appkit';
+import { CoreHelperUtil, CoreOptionsController, CoreStorageUtil, type WcWallet } from '@reown/appkit';
 import { compact } from 'lodash-es';
 
+import { getFilteredConnectors } from '@/helpers/getFilteredConnectors.js';
+
 function filterOutDuplicatesByRDNS(wallets: WcWallet[]) {
-    const connectors = CoreOptionsController.state.enableEIP6963 ? CoreConnectorController.state.connectors : [];
+    const connectors = CoreOptionsController.state.enableEIP6963 ? getFilteredConnectors() : [];
     const recent = CoreStorageUtil.getRecentWallets();
 
     const records = [
         ...compact(
-            CoreConnectorController.state.connectors
+            getFilteredConnectors()
                 .filter((x) => x.type === 'MULTI_CHAIN')
                 .map((x) => x.connectors?.find((y) => !!y.info?.rdns)?.info?.rdns),
         ),
@@ -29,7 +25,7 @@ function filterOutDuplicatesByRDNS(wallets: WcWallet[]) {
 }
 
 function filterOutDuplicatesByIds(wallets: WcWallet[]) {
-    const connectors = CoreConnectorController.state.connectors.filter(
+    const connectors = getFilteredConnectors().filter(
         (connector) => connector.type === 'ANNOUNCED' || connector.type === 'INJECTED',
     );
     const recent = CoreStorageUtil.getRecentWallets();
