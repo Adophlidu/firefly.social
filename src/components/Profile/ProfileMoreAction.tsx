@@ -23,7 +23,6 @@ import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useReportProfile } from '@/hooks/useReportProfile.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -41,7 +40,6 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
 }) {
     const currentProfile = useCurrentProfile(profile.source);
     const profiles = useCurrentFireflyProfilesAll();
-    const [, reportProfile] = useReportProfile();
     const [, toggleMutedProfile] = useToggleMutedProfile(currentProfile);
     const router = useRouter();
 
@@ -92,9 +90,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                     <>
                         {profile.source === Source.Lens ? (
                             <MenuItem>
-                                {({ close }) => (
-                                    <ReportProfileButton onConfirm={close} profile={profile} onReport={reportProfile} />
-                                )}
+                                {({ close }) => <ReportProfileButton onConfirm={close} profile={profile} />}
                             </MenuItem>
                         ) : null}
                         <MenuItem>

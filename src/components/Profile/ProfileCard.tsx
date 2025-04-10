@@ -35,7 +35,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
         queryFn: async () => {
             if (!id || !source) return;
             const provider = resolveSocialMediaProvider(narrowToSocialSource(source));
-            return provider.getProfileByIdOrHandle(id);
+            return provider.getProfileByIdOrHandle(id, true);
         },
         initialData: defaultProfile,
     });

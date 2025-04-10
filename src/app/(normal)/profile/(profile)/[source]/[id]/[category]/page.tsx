@@ -28,7 +28,7 @@ export default function Page(props: Props) {
         queryFn: async () => {
             if (source === Source.Wallet || source === Source.WalletMix) return null;
             const provider = resolveSocialMediaProvider(source);
-            return provider.getProfileByIdOrHandle(params.id);
+            return provider.getProfileByIdOrHandle(params.id, true);
         },
     });
 

@@ -1,12 +1,10 @@
 import { memo, useMemo } from 'react';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { SuperFollow } from '@/components/Posts/SuperFollow.js';
+import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { useSuperFollowModule } from '@/hooks/useSuperFollow.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
-import { DraggablePopoverRef, LoginModalRef, SuperFollowModalRef } from '@/modals/controls.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface BaseToggleFollowButtonProps extends Omit<ClickableButtonProps, 'children'> {
@@ -23,41 +21,28 @@ export const BaseToggleFollowButton = memo(function BaseToggleFollowButton({
 }: BaseToggleFollowButtonProps) {
     const [loading, toggleFollow] = useToggleFollow(profile);
     const isLogin = useIsLogin(profile.source);
-    const isMedium = useIsMedium();
 
-    const isFollowing = !!profile.viewerContext?.following;
+    const following = !!profile.viewerContext?.following;
+    const showSuperFollow = false;
 
-    const { followModule, loading: moduleLoading } = useSuperFollowModule(profile, isFollowing);
-
-    const showSuperFollow = !isFollowing && !!followModule;
-
-    const buttonLabel = useMemo(
-        () => children(showSuperFollow, loading || moduleLoading),
-        [showSuperFollow, loading, moduleLoading, children],
-    );
+    const buttonLabel = useMemo(() => children(showSuperFollow, loading), [showSuperFollow, loading, children]);
 
     return (
         <ClickableButton
             {...rest}
-            disabled={loading || moduleLoading || rest.disabled}
+            disabled={loading || rest.disabled}
             onClick={(event) => {
                 onClick?.(event);
-                if (!isLogin) {
-                    LoginModalRef.open({ source: profile.source });
+                if (following && profile.canUnfollow === false) {
+                    enqueueWarningMessage('You cannot unfollow this user');
                     return;
                 }
-                if (showSuperFollow) {
-                    isMedium
-                        ? SuperFollowModalRef.open({ profile })
-                        : DraggablePopoverRef.open({
-                              content: (
-                                  <SuperFollow
-                                      profile={profile}
-                                      showCloseButton={false}
-                                      onClose={DraggablePopoverRef.close}
-                                  />
-                              ),
-                          });
+                if (!following && profile.canFollow === false) {
+                    enqueueWarningMessage('You cannot follow this user');
+                    return;
+                }
+                if (!isLogin) {
+                    LoginModalRef.open({ source: profile.source });
                     return;
                 }
                 toggleFollow.mutate();

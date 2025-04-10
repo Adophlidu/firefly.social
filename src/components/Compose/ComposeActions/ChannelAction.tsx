@@ -7,6 +7,7 @@ import { ChannelSearchPanel } from '@/components/Compose/ChannelSearchPanel.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import type { SocialSource } from '@/constants/enum.js';
+import { resolveChannelName } from '@/helpers/resolveChannelName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
@@ -23,7 +24,9 @@ export const ChooseChannelAction = memo(function ChooseChannelAction({ hasError,
         <>
             <SocialSourceIcon className="size-4 text-secondary" mono width={20} height={20} source={source} />
 
-            <span className="text-[14px] leading-[18px]">/{channel[source]?.name}</span>
+            <span className="text-[14px] leading-[18px]">
+                {channel[source] ? resolveChannelName(channel[source]) : null}
+            </span>
             {!hasError ? <ChevronDownIcon className="size-4 text-secondary" aria-hidden="true" /> : null}
         </>
     );

@@ -1,11 +1,13 @@
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
+import { polygon } from 'viem/chains';
+import { useChainId, useSwitchChain } from 'wagmi';
 
 import RedPacketIcon from '@/assets/red-packet.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { ENABLED_RP_SOURCES } from '@/constants/index.js';
+import { ENABLED_RP_SOURCES, LENS_CHAIN_ID } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
@@ -17,14 +19,21 @@ interface RedPacketActionProps extends ClickableButtonProps {}
 export const RedPacketAction = memo<RedPacketActionProps>(function RedPacketAction({ disabled = false }) {
     const { availableSources } = useCompositePost();
     const { ethereum, solana } = useWalletAccountAll();
+    const chainId = useChainId();
+    const { switchChainAsync } = useSwitchChain();
+
     const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
         if (!ethereum.address && !solana.address) {
             ethereum.connect();
             return;
         }
+        // rp does not support lens chain
+        if (ethereum.address && chainId === LENS_CHAIN_ID) {
+            await switchChainAsync({ chainId: polygon.id });
+        }
 
         RedPacketModalRef.open();
-    }, [solana.address, ethereum]);
+    }, [solana.address, ethereum, chainId, switchChainAsync]);
 
     const invalidSources = availableSources.filter((x) => !ENABLED_RP_SOURCES.includes(x));
     const rpDisabled = disabled || !!invalidSources.length || !availableSources.length;

@@ -1,8 +1,13 @@
-import { type FrameLensManagerEip712Request } from '@lens-protocol/client';
+import type {
+    FrameLensManagerSignatureResultFragment,
+    SelfFundedTransactionRequest,
+    SponsoredTransactionRequest,
+    TxHash,
+} from '@lens-protocol/client';
 
 export interface FrameSignaturePacket {
     clientProtocol: string;
-    untrustedData: FrameLensManagerEip712Request & {
+    untrustedData: FrameLensManagerSignatureResultFragment['signedTypedData']['value'] & {
         deadline: number;
         identityToken: string;
     };
@@ -14,3 +19,28 @@ export interface FrameSignaturePacket {
 export enum LensMetadataAttributeKey {
     Poll = 'pollId',
 }
+
+export type OperationResponse<T extends string> = {
+    __typename: T;
+    hash: TxHash;
+};
+
+export type ErrorResponse<T extends string> = {
+    __typename: T;
+    reason: string;
+};
+
+export type DelegableOperationResult<O extends string, E extends string> =
+    | OperationResponse<O>
+    | SponsoredTransactionRequest
+    | SelfFundedTransactionRequest
+    | ErrorResponse<E>;
+
+export type RestrictedOperationResult<E extends string> =
+    | SponsoredTransactionRequest
+    | SelfFundedTransactionRequest
+    | ErrorResponse<E>;
+
+export type OperationResult<O extends string, E extends string> =
+    | DelegableOperationResult<O, E>
+    | RestrictedOperationResult<E>;

@@ -1,4 +1,6 @@
 import { LENS_MEDIA_SNAPSHOT_URL } from '@/constants/index.js';
+import { formatGroveImage } from '@/helpers/formatGroveImage.js';
+import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 
 export function formatImageUrl(url: string, name?: string) {
     if (!url) return '';
@@ -10,4 +12,10 @@ export function formatImageUrl(url: string, name?: string) {
     }
 
     return url;
+}
+
+export function formatLensImageUrl(url: string) {
+    if (!url?.trim()) return url;
+
+    return sanitizeDStorageUrl(formatGroveImage(url));
 }

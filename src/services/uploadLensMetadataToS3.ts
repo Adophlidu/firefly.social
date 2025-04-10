@@ -1,10 +1,10 @@
-import type { ProfileMetadata } from '@lens-protocol/metadata';
+import type { AccountMetadata } from '@lens-protocol/metadata';
 
 import { SourceInURL } from '@/constants/enum.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 
-export function uploadLensMetadataToS3(profile: ProfileMetadata) {
-    const content = JSON.stringify(profile);
+export function uploadLensMetadataToS3(metadata: AccountMetadata) {
+    const content = JSON.stringify(metadata);
     const file = new File([content], 'lens-profile-metadata.json', {
         type: 'application/json',
     });

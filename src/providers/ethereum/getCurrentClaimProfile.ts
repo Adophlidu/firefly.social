@@ -1,5 +1,6 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';
+import { ensureLensResultSync } from '@/helpers/ensureLensResult.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { ProfileIdentifier } from '@/mask/index.js';
@@ -25,11 +26,16 @@ export async function getCurrentClaimProfile(source: SocialSource) {
           } as FireflyRedPacketAPI.CheckClaimStrategyStatusOptions['profile'])
         : undefined;
 
-    if (source === Source.Lens)
+    if (source === Source.Lens) {
+        const credentials = ensureLensResultSync(lensSessionHolder.sessionClient.getCredentials());
+        if (!credentials) throw new Error('No lens credentials found');
+
         return {
             ...profile,
-            lensToken: (await lensSessionHolder.sdk.authentication.getAccessToken()).unwrap(),
+            lensToken: credentials.accessToken,
         } as FireflyRedPacketAPI.CheckClaimStrategyStatusOptions['profile'];
+    }
+
     if (source === Source.Farcaster && farcasterSessionHolder.session) {
         const { messageHash, messageSignature, signer } = await generateSignaturePacket();
 

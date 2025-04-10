@@ -202,6 +202,7 @@ export enum SearchType {
     Channels = 'channels',
     NFTs = 'nfts',
     Tokens = 'tokens',
+    Communities = 'communities',
 }
 
 export enum KeyType {
@@ -287,6 +288,8 @@ export enum ScrollListKey {
     TrendingFeeds = 'trending-feeds',
     Swap = 'swap-list',
     RocketsFunTrending = 'rockets-fun-trending',
+    GroupMembers = 'group-members',
+    GroupPosts = 'group-posts',
 }
 
 export enum FarcasterSignType {
@@ -524,4 +527,16 @@ export enum ProfileEditableField {
 export enum ChainRuntime {
     Ethereum = 'ethereum',
     Solana = 'solana',
+}
+
+export enum GroupTabType {
+    Members = 'members',
+    Posts = 'posts',
+}
+
+export enum CommunityType {
+    FarcasterChannel = 'farcaster-channel',
+    BskyFeed = 'bsky-feed',
+    LensGroup = 'lens-group',
+    LensFeed = 'lens-feed',
 }

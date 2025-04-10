@@ -37,7 +37,9 @@ export const ProfileSlide = memo<ProfileSlideProps>(function ProfileSlide({ prof
                 </ProfileTippy>
                 <SocialSourceIcon source={profile.source} size={15} className="shrink-0" />
             </div>
-            <FollowersLink profile={profile} className="text-xs leading-6 text-second" />
+            {profile.source === Source.Lens ? null : (
+                <FollowersLink profile={profile} className="text-xs leading-6 text-second" />
+            )}
             <BioMarkup className="line-clamp-2 text-xs text-lightMain" source={profile.source}>
                 {profile.bio ?? '-'}
             </BioMarkup>

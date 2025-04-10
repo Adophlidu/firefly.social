@@ -24,8 +24,8 @@ async function searchChannels(source: SocialSource, keyword: string, { hasRedPac
                 ? [
                       ...profileChannels.data.slice(0, PROFILE_CHANNELS_LIMIT),
                       ...(await provider.discoverChannels()).data,
-                  ]
-                : profileChannels.data;
+                  ].filter((x) => !x.unavailable)
+                : profileChannels.data.filter((x) => !x.unavailable);
 
         if (source === Source.Farcaster) {
             return uniqBy(
@@ -47,7 +47,7 @@ async function searchChannels(source: SocialSource, keyword: string, { hasRedPac
         return uniqBy(compact(commonChannels), 'id');
     }
     const response = await provider.searchChannels(keyword);
-    return response.data;
+    return response.data.filter((x) => !x.unavailable);
 }
 
 export function useSearchChannels(keyword: string, source: SocialSource, hasRedPacket: boolean) {

@@ -1,3 +1,4 @@
+import { ensureLensResultSync } from '@/helpers/ensureLensResult.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { FetchClubsResponse, JoinClubResponse, LeaveClubResponse } from '@/providers/types/Orb.js';
@@ -19,15 +20,14 @@ class OrbClub {
     }
 
     async joinClub(clubId: string) {
-        const lensToken = await lensSessionHolder.sdk.authentication.getIdentityToken();
-        if (lensToken.isFailure()) {
-            throw lensToken.error;
-        }
+        const credentials = ensureLensResultSync(lensSessionHolder.sessionClient.getCredentials());
+        if (!credentials) throw new Error('No lens credentials found');
+
         const response = await fetchJSON<JoinClubResponse>('/api/club/join', {
             method: 'POST',
             body: JSON.stringify({ id: clubId }),
             headers: {
-                'X-Lens-Identity-Token': lensToken.unwrap(),
+                'X-Lens-Identity-Token': credentials.idToken,
             },
         });
 
@@ -35,15 +35,14 @@ class OrbClub {
     }
 
     async leaveClub(clubId: string) {
-        const lensToken = await lensSessionHolder.sdk.authentication.getIdentityToken();
-        if (lensToken.isFailure()) {
-            throw lensToken.error;
-        }
+        const credentials = ensureLensResultSync(lensSessionHolder.sessionClient.getCredentials());
+        if (!credentials) throw new Error('No lens credentials found');
+
         const response = await fetchJSON<LeaveClubResponse>('/api/club/leave', {
             method: 'POST',
             body: JSON.stringify({ id: clubId }),
             headers: {
-                'X-Lens-Identity-Token': lensToken.unwrap(),
+                'X-Lens-Identity-Token': credentials.idToken,
             },
         });
 

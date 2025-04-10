@@ -1,5 +1,12 @@
+import { evmAddress, postId as formatPostId } from '@lens-protocol/client';
+import { signFrameAction } from '@lens-protocol/client/actions';
 import dayjs from 'dayjs';
 
+import { Source } from '@/constants/enum.js';
+import { FIREFLY_LENS_V3_APP } from '@/constants/index.js';
+import { ensureLensResult, ensureLensResultSync } from '@/helpers/ensureLensResult.js';
+import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { Additional, Provider } from '@/providers/types/Frame.js';
 import type { FrameSignaturePacket } from '@/providers/types/Lens.js';
@@ -13,39 +20,36 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
         input?: string,
         additional?: Additional,
     ): Promise<FrameSignaturePacket> {
-        const identityTokenResult = await lensSessionHolder.sdk.authentication.getIdentityToken();
-        if (identityTokenResult.isFailure()) {
-            throw identityTokenResult.error;
-        }
+        const currentProfile = getCurrentProfile(Source.Lens);
+        if (!currentProfile) throw new Error('Profile not found');
 
-        const profileId = await lensSessionHolder.sdk.authentication.getProfileId();
-        if (!profileId) throw new Error('No profile found');
+        const credentials = ensureLensResultSync(lensSessionHolder.sessionClient.getCredentials());
+        if (!credentials) throw new Error('Credentials not found');
 
-        const result = await lensSessionHolder.sdk.frames.signFrameAction({
-            actionResponse: '',
-            buttonIndex: index,
-            inputText: input ?? '',
-            profileId,
-            pubId: postId,
-            // The EIP-721 spec version, must be 1.0.0
-            specVersion: '1.0.0',
-            state: additional?.state ?? '',
-            url: frameUrl,
-        });
-        if (result.isFailure()) {
-            // CredentialsExpiredError or NotAuthenticatedError
-            throw result.error;
-        }
+        const result = await ensureLensResult(
+            signFrameAction(lensSessionHolder.sessionClient, {
+                transactionId: ETH_ZERO_ADDRESS,
+                buttonIndex: index,
+                inputText: input ?? '',
+                account: evmAddress(currentProfile.profileId),
+                post: formatPostId(postId),
+                app: FIREFLY_LENS_V3_APP,
+                specVersion: '1.1.0',
+                url: frameUrl,
+                state: additional?.state ?? '',
+                deadline: dayjs(Date.now()).add(30, 'minute').unix(),
+            }),
+        );
 
         const packet = {
             clientProtocol: 'lens@1.0.0',
             untrustedData: {
-                identityToken: identityTokenResult.unwrap(),
+                identityToken: credentials.idToken,
                 unixTimestamp: dayjs(Date.now()).unix(),
-                ...result.value.signedTypedData.value,
+                ...result.signedTypedData.value,
             },
             trustedData: {
-                messageBytes: result.value.signature,
+                messageBytes: result.signature,
             },
         };
 

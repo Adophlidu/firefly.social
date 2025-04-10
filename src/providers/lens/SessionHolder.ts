@@ -1,17 +1,13 @@
-import { LensClient as LensClientSDK } from '@lens-protocol/client';
+import { AuthenticationError, PublicClient, SessionClient } from '@lens-protocol/client';
 
-import {
-    createLensSDK,
-    LocalStorageProvider,
-    removeLensCredentials,
-    setLensCredentials,
-} from '@/helpers/createLensSDK.js';
+import { createLensSDK, LocalStorageProvider, removeLensCredentials } from '@/helpers/createLensSDK.js';
 import { refreshLensSession } from '@/helpers/refreshLensSession.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
 
 class LensSessionHolder extends SessionHolder<LensSession> {
-    private lensClientSDK: LensClientSDK | null = null;
+    private lensClientSDK: PublicClient | null = null;
+    private lensSessionClient: SessionClient | null = null;
 
     get sdk() {
         if (!this.lensClientSDK) {
@@ -20,22 +16,31 @@ class LensSessionHolder extends SessionHolder<LensSession> {
         return this.lensClientSDK;
     }
 
+    get sessionClient(): SessionClient {
+        if (!this.lensSessionClient) {
+            throw new AuthenticationError('No session client found in Lens session holder');
+        }
+
+        return this.lensSessionClient;
+    }
+
+    setSessionClient(client: SessionClient) {
+        this.lensSessionClient = client;
+    }
+
     override assertSession(message?: string): LensSession {
         throw new Error('The Lens session holder does not maintain an internal session, yet the Lens client does.');
     }
 
     override async refreshSession() {
         // the sdk always maintain a latest session, thought no need to resume session here.
-        const session = await refreshLensSession(this.sdk);
+        const session = await refreshLensSession(this.sessionClient);
         return session;
     }
 
     override resumeSession(session: LensSession) {
         if (session.refreshToken) {
             const storage = new LocalStorageProvider();
-
-            // overwrite lens credentials in local storage
-            setLensCredentials(storage, session);
 
             // renew the sdk instance, since it could possess the old credentials
             this.lensClientSDK = createLensSDK(storage);

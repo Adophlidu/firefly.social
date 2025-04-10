@@ -6,7 +6,7 @@ export function resolveSearchTypeFromQuery(query: string) {
     const trimmed = trimify(query || '');
 
     if (trimmed.startsWith('@')) return SearchType.Profiles;
-    if (trimmed.startsWith('/')) return SearchType.Channels;
+    if (trimmed.startsWith('/')) return SearchType.Communities;
     if (trimmed.startsWith('$') || isValidAddressEthereum(trimmed)) return SearchType.Tokens;
 
     return SearchType.Posts;

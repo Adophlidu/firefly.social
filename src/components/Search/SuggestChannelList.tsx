@@ -56,7 +56,7 @@ export const SuggestChannelList = memo<SuggestChannelListProps>(function Suggest
             <div className="px-3 pb-4 pt-2">
                 <Link
                     className="my-4 text-sm leading-[18px] text-secondary"
-                    href={resolveSearchUrl(query, SearchType.Channels)}
+                    href={resolveSearchUrl(query, SearchType.Communities)}
                 >
                     <Trans>Show more channels</Trans>
                 </Link>

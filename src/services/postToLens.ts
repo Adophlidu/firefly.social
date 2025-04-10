@@ -1,20 +1,30 @@
-import { image, link, MediaImageMimeType, MediaVideoMimeType, textOnly, video } from '@lens-protocol/metadata';
+import {
+    image,
+    link,
+    type MediaImage,
+    MediaImageMimeType,
+    MediaVideoMimeType,
+    textOnly,
+    type URI,
+    video,
+} from '@lens-protocol/metadata';
 import { first } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 
 import { HOME_CLUB } from '@/constants/channel.js';
-import { Source, SourceInURL } from '@/constants/enum.js';
-import { ORB_CLUB_TAG_PREFIX, SITE_URL } from '@/constants/index.js';
+import { RestrictionType, Source, SourceInURL } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
+import { ensureLensResultSync } from '@/helpers/ensureLensResult.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
 import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { uploadVideoCover } from '@/helpers/uploadVideoCover.js';
+import { GroveStorageProvider } from '@/providers/lens/Grove.js';
 import { LensPollProvider } from '@/providers/lens/Poll.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import type { Channel, ProfileGroup } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
@@ -26,12 +36,8 @@ import { type ComposeType, type MediaObject } from '@/types/compose.js';
 interface BaseMetadata {
     title: string;
     content: string;
-    marketplace: {
-        name: string;
-        description: string;
-        external_url: string;
-    };
     tags?: string[];
+    groups?: ProfileGroup[];
 }
 
 interface Attachments {
@@ -102,11 +108,19 @@ export async function createPayloadAttachments(
         : undefined;
 }
 
-export function createPostMetadata(baseMetadata: BaseMetadata, attachments?: Attachments, sharingLink?: string) {
+export function createPostMetadata(metadata: BaseMetadata, attachments?: Attachments, sharingLink?: string) {
     const localBaseMetadata = {
         id: uuid(),
         locale: getUserLocale(),
-        appId: 'firefly',
+    };
+    const groupMentions = metadata.groups?.map((group) => `#${group.id}`).join(' ');
+    const baseMetadata = {
+        title: metadata.title,
+        content:
+            !metadata.content && !groupMentions
+                ? undefined
+                : `${metadata.content || ''}${groupMentions ? ` ${groupMentions}` : ''}`,
+        tags: metadata.tags,
     };
 
     if (attachments) {
@@ -118,10 +132,9 @@ export function createPostMetadata(baseMetadata: BaseMetadata, attachments?: Att
                     item: attachments.image.item,
                     type: attachments.image.type as MediaImageMimeType,
                 },
-                attachments: attachments.attachments.map((attachment) => ({
-                    item: attachment.item,
+                attachments: attachments.attachments.map<MediaImage>((attachment) => ({
+                    item: attachment.item as URI,
                     type: attachment.type as MediaImageMimeType,
-                    cover: attachment.cover,
                 })),
             });
         }
@@ -135,10 +148,9 @@ export function createPostMetadata(baseMetadata: BaseMetadata, attachments?: Att
                     type: attachments.video.type as MediaVideoMimeType,
                     duration: attachments.video.duration,
                 },
-                attachments: attachments.attachments.map((attachment) => ({
-                    item: attachment.item,
+                attachments: attachments.attachments.map<MediaImage>((attachment) => ({
+                    item: attachment.item as URI,
                     type: attachment.type as MediaImageMimeType,
-                    cover: attachment.cover,
                 })),
             });
         }
@@ -149,20 +161,31 @@ export function createPostMetadata(baseMetadata: BaseMetadata, attachments?: Att
             ...baseMetadata,
             ...localBaseMetadata,
             sharingLink,
+            attachments: attachments?.attachments.map<MediaImage>((attachment) => ({
+                item: attachment.item as URI,
+                type: attachment.type as MediaImageMimeType,
+            })),
         });
     }
 
     return textOnly({
         ...baseMetadata,
         ...localBaseMetadata,
+        content: baseMetadata.content || '',
     });
 }
 
-export function resolveLensClub(channel?: Channel | null) {
-    return channel && channel.id !== HOME_CLUB.id ? [`${ORB_CLUB_TAG_PREFIX}${channel.id}`] : undefined;
-}
-
 export type GetPostMetaData = ReturnType<typeof createPostMetadata>;
+
+async function uploadPostMetadata(metadata: GetPostMetaData) {
+    const credentials = ensureLensResultSync(lensSessionHolder.sessionClient.getCredentials());
+    if (!credentials) {
+        throw new Error('No credentials found');
+    }
+
+    const arweaveId = await uploadToArweave(metadata, credentials.accessToken);
+    return `ar://${arweaveId}`;
+}
 
 async function publishPostForLens(
     profileId: string,
@@ -170,6 +193,7 @@ async function publishPostForLens(
     images: MediaObject[],
     video: MediaObject | null,
     channel?: Channel | null,
+    restrictions?: RestrictionType[],
 ) {
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
     const title = `Post by #${profile.handle}`;
@@ -177,28 +201,24 @@ async function publishPostForLens(
         {
             title,
             content,
-            marketplace: {
-                name: title,
-                description: content,
-                external_url: SITE_URL,
-            },
-            tags: resolveLensClub(channel),
+            groups: channel?.group ? [channel.group] : undefined,
         },
         await createPayloadAttachments(images, video),
     );
-    const tokenResult = await lensSessionHolder.sdk.authentication.getAccessToken();
-    const token = tokenResult.unwrap();
-    const arweaveId = await uploadToArweave(metadata, token);
+
+    const contentURI = await GroveStorageProvider.uploadJson(metadata);
     const publicationId = await LensSocialMediaProvider.publishPost({
         publicationId: '',
         postId: metadata.lens.id,
         author: profile,
         metadata: {
             locale: metadata.lens.locale,
-            contentURI: `ar://${arweaveId}`,
+            contentURI: contentURI.uri,
             content: null,
         },
         source: Source.Lens,
+        restrictions,
+        channel: channel && channel?.id !== HOME_CLUB.id ? channel : undefined,
     });
     return publicationId;
 }
@@ -217,22 +237,12 @@ async function commentPostForLens(
         {
             title,
             content,
-            marketplace: {
-                name: title,
-                description: content,
-                external_url: SITE_URL,
-            },
         },
         await createPayloadAttachments(images, video),
     );
-    const tokenResult = await lensSessionHolder.sdk.authentication.getAccessToken();
-    const token = tokenResult.unwrap();
-    const arweaveId = await uploadToArweave(metadata, token);
-    return LensSocialMediaProvider.commentPost(
-        postId,
-        createDummyPost(Source.Lens, `ar://${arweaveId}`),
-        profile.signless,
-    );
+
+    const contentURI = await GroveStorageProvider.uploadJson(metadata);
+    return LensSocialMediaProvider.commentPost(postId, createDummyPost(Source.Lens, contentURI.uri), profile.signless);
 }
 
 async function quotePostForLens(
@@ -241,6 +251,7 @@ async function quotePostForLens(
     content: string,
     images: MediaObject[],
     video: MediaObject | null,
+    restrictions?: RestrictionType[],
 ) {
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
 
@@ -249,27 +260,24 @@ async function quotePostForLens(
         {
             title,
             content,
-            marketplace: {
-                name: title,
-                description: content,
-                external_url: SITE_URL,
-            },
         },
         await createPayloadAttachments(images, video),
     );
-    const tokenResult = await lensSessionHolder.sdk.authentication.getAccessToken();
-    const token = tokenResult.unwrap();
-    const arweaveId = await uploadToArweave(metadata, token);
+
+    const contentURI = await GroveStorageProvider.uploadJson(metadata);
     const post = await LensSocialMediaProvider.quotePost(
         postId,
-        createDummyPost(Source.Lens, `ar://${arweaveId}`),
+        {
+            ...createDummyPost(Source.Lens, contentURI.uri),
+            restrictions,
+        },
         profile.signless,
     );
     return post;
 }
 
 export async function postToLens(type: ComposeType, compositePost: CompositePost, signal?: AbortSignal) {
-    const { chars, images, postId, parentPost, video, poll, channel } = compositePost;
+    const { chars, images, postId, parentPost, video, poll, channel, restriction } = compositePost;
 
     const lensPostId = postId.Lens;
     const lensParentPost = parentPost.Lens;
@@ -315,6 +323,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 images,
                 video,
                 channel[Source.Lens],
+                [restriction],
             );
         },
         reply(images, videos) {
@@ -337,6 +346,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 readChars(chars, 'both', Source.Lens),
                 images,
                 video,
+                [restriction],
             );
         },
     });

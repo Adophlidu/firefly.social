@@ -6,6 +6,7 @@ import { memo } from 'react';
 import urlcat from 'urlcat';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
+import { GroupTippy } from '@/components/Group/GroupTippy.js';
 import { Link } from '@/components/Link.js';
 import { AddressTag } from '@/components/Markup/MarkupLink/AddressTag.js';
 import { ChannelTag } from '@/components/Markup/MarkupLink/ChannelTag.js';
@@ -29,6 +30,7 @@ import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentio
 import { getProfileUrl, getTwitterProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
+import { resolveGroupPageUrl } from '@/helpers/resolveGroupPageUrl.js';
 import { isTCOLink } from '@/helpers/resolveTCOLink.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -134,10 +136,23 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         if (trimmed === '#SYSTOGGLEMORE' && post) {
             return <ToggleMore post={post} />;
         }
+        const group = post?.groups?.find((x) => x.name === trimmed);
         return (
             <>
                 {start}
-                <Hashtag title={trimmed} source={source} />
+                {group && post ? (
+                    <GroupTippy groupId={group.id} source={post.source} className="inline">
+                        <Link
+                            className="text-highlight hover:underline"
+                            onClick={stopPropagation}
+                            href={resolveGroupPageUrl(group.id)}
+                        >
+                            {trimmed}
+                        </Link>
+                    </GroupTippy>
+                ) : (
+                    <Hashtag title={trimmed} source={source} />
+                )}
                 {end}
             </>
         );

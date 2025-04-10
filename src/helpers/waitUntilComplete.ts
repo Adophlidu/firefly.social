@@ -1,4 +1,6 @@
-import { type LensClient, LensTransactionStatusType } from '@lens-protocol/client';
+import { SessionClient, type TxHash } from '@lens-protocol/client';
+
+import { ensureLensResult } from '@/helpers/ensureLensResult.js';
 
 /**
  * Waits a transaction to complete (for lens only).
@@ -6,12 +8,9 @@ import { type LensClient, LensTransactionStatusType } from '@lens-protocol/clien
  * @param hash lens transaction hash
  * @returns
  */
-export async function waitUntilComplete(client: LensClient, hash: string | null) {
+export async function waitUntilComplete(client: SessionClient, hash: string | null) {
     if (!hash) throw new Error('The transaction hash is missing.');
 
-    const receipt = await client.transaction.waitUntilComplete({
-        forTxHash: hash,
-    });
-    if (receipt?.status !== LensTransactionStatusType.Complete) throw new Error('The transaction was reverted.');
+    const resultHash = await ensureLensResult(client.waitForTransaction(hash as TxHash));
     return;
 }

@@ -237,15 +237,15 @@ msgstr "显示名称"
 msgid "Blackmail activities found."
 msgstr "发现勒索行为。"
 
-msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
-msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需签署每笔交易。"
-
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>市值 = 当前价格 x 流通供应量</0><1>指加密货币流通供应量的总市值。它类似于股票市场的衡量标准，即将每股价格乘以市场上流通的股票（未被内部人员、政府持有和锁定）</1>"
 
 #. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
 msgid "GIF source not supported. Supported sources: {0}."
 msgstr "暂不支持 GIF。支持格式：{0}。"
+
+msgid "Join"
+msgstr ""
 
 msgid "BNB wallet to receive trading fees"
 msgstr ""
@@ -625,6 +625,9 @@ msgstr "交易冷却功能。"
 
 msgid "Event Ended!"
 msgstr "活动已结束!"
+
+msgid "Bluesky"
+msgstr ""
 
 msgid "True Token"
 msgstr "真实的通证"
@@ -1034,6 +1037,9 @@ msgstr "全部隐藏"
 msgid "Failed to generate signature packet with source = {source}."
 msgstr "未能生成签名包 = {source}"
 
+msgid "Search community"
+msgstr ""
+
 msgid "Save failed post?"
 msgstr "保存发送失败的帖子？"
 
@@ -1319,6 +1325,9 @@ msgstr "已取消"
 msgid "No content for the last two weeks."
 msgstr "最近两周没有内容。"
 
+msgid "{data, plural, one {Member} other {Members}}"
+msgstr ""
+
 msgid "Participate Now"
 msgstr "立即参加"
 
@@ -1494,6 +1503,9 @@ msgstr "输入金额"
 msgid "Platform fee"
 msgstr "平台费用"
 
+msgid "Lens group"
+msgstr ""
+
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
 
@@ -1586,6 +1598,9 @@ msgstr "EVM"
 
 msgid "[LuckyDrop]"
 msgstr "[红包]"
+
+msgid "Group"
+msgstr ""
 
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
@@ -1740,6 +1755,9 @@ msgstr "用<0>Supercast</0>发送过 Farcaster 帖子"
 msgid "Total amount shared among all winners"
 msgstr "在所有获奖者之间分配的总金额"
 
+msgid "Leave"
+msgstr ""
+
 msgid "Enter number of winners"
 msgstr "输入获奖人数"
 
@@ -1890,8 +1908,8 @@ msgstr "网站"
 msgid "Your TG account is now connected"
 msgstr "您的 TG 账户已连接。"
 
-#. placeholder {0}: article.title
 #. placeholder {0}: profile.handle
+#. placeholder {0}: article.title
 msgid "Failed to report @{0}."
 msgstr "举报 @{0} 失败。"
 
@@ -2349,6 +2367,9 @@ msgstr ""
 msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr "关注需付出 {feeAmount} ${feeSymbol}"
 
+msgid "Farcaster"
+msgstr ""
+
 msgid "Replying to"
 msgstr "正在回复"
 
@@ -2524,6 +2545,10 @@ msgstr "您没有满足领取红包的条件"
 msgid "Collectible could not be found."
 msgstr "未找到相关 NFT。"
 
+#. placeholder {0}: group.name
+msgid "Failed to leave #{0} on {sourceName}."
+msgstr ""
+
 msgid "Confirm to disconnect this wallet from Firefly?"
 msgstr "确认从 Firefly 的社交图谱中移除这个钱包？"
 
@@ -2600,6 +2625,9 @@ msgstr "独特性"
 msgid "Feedback"
 msgstr ""
 
+msgid "Mirror disabled"
+msgstr ""
+
 msgid "Your serialized session"
 msgstr "你的序列化会话"
 
@@ -2636,6 +2664,10 @@ msgstr "创建定时 thread 失败。"
 msgid "This NFT contract has a proxy contract."
 msgstr "该 NFT 合约有代理合约。"
 
+#. placeholder {0}: group.name
+msgid "Joined #{0} on {sourceName}."
+msgstr ""
+
 msgid "Top Collectors"
 msgstr "热门收藏者"
 
@@ -2671,6 +2703,9 @@ msgstr "没有足够的 Gas 费"
 
 msgid "Price"
 msgstr "价格"
+
+msgid "Lens feed"
+msgstr ""
 
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
@@ -3255,6 +3290,9 @@ msgstr "返回"
 msgid "Decrypt"
 msgstr "解密"
 
+msgid "Poll for Lens will come back soon."
+msgstr ""
+
 msgid "Token launch only support on X"
 msgstr ""
 
@@ -3435,9 +3473,6 @@ msgstr "创建定时时间失败。"
 msgid "{0, plural, one {recast} other {recasts}}"
 msgstr "{0, plural, one {转帖} other {转帖}}"
 
-msgid "Delegate Signing (Recommend)"
-msgstr "委托签名（推荐）"
-
 msgid "Sign the transaction to verify you are the owner of the selected profile."
 msgstr "签署交易以验证你是所选账号的所有者。"
 
@@ -3449,6 +3484,10 @@ msgstr "接收"
 
 msgid "NFT holder"
 msgstr "NFT 持有者"
+
+#. placeholder {0}: group.name
+msgid "Left #{0} on {sourceName}."
+msgstr ""
 
 msgid "Select Network"
 msgstr "选择网络"
@@ -3945,6 +3984,7 @@ msgstr ""
 msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> 和 <1>{0} 其他的用户</1>"
 
+#. placeholder {0}: dayjs(group.timestamp).format('MMM DD, YYYY')
 #. placeholder {0}: dayjs(channel.timestamp).format('MMM DD, YYYY')
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>从 </0> <1>{0}</1>"
@@ -4055,6 +4095,7 @@ msgstr "兑换"
 msgid "Collect"
 msgstr "铸造"
 
+#. placeholder {0}: ownerProfile?.handle || 'Unknown'
 #. placeholder {0}: channel.lead?.handle
 msgid "By @{0}"
 msgstr "来自{0}"
@@ -4120,6 +4161,10 @@ msgstr ""
 "如果您使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助您整合社交账号。\n"
 "但如果您只是想访问另一个社交账号绑定的 Firefly 钱包，建议您切换账户，而不是删除账户。"
 
+#. placeholder {0}: group.name
+msgid "Failed to join #{0} on {sourceName}."
+msgstr ""
+
 msgid "NFT contract can restrict the approval, resulting in NFT can not be traded on the NFT DEX."
 msgstr "NFT 合约可以限制授权，导致NFT无法在NFT去中心化交易所（DEX）上交易。"
 
@@ -4161,6 +4206,9 @@ msgstr "在 Lens 上关注了 @{0}"
 
 msgid "Claim Now"
 msgstr "立即领取"
+
+msgid "Members"
+msgstr ""
 
 #. placeholder {0}: collectModule.amount
 #. placeholder {1}: collectModule.currency
@@ -4287,6 +4335,9 @@ msgstr "发布一个帖子，告诉大家你已参与其中。在提案有效期
 
 msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
 msgstr "如有任何疑问，请<0>联系我们</0>。Firefly 保留所有权利。"
+
+msgid "Group could not be found."
+msgstr ""
 
 msgid "Different Account Detected"
 msgstr "检测到账户冲突"

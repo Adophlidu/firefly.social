@@ -35,7 +35,7 @@ export const ChannelInfoUI = memo<Props>(function ChannelInfoUI({ channel, isCha
 
     return (
         <article {...rest} className={classNames('flex gap-3 p-3', rest.className)}>
-            {isChannelPage ? avatar : <Link href={url}>{avatar}</Link>}
+            {source === Source.Lens ? null : isChannelPage ? avatar : <Link href={url}>{avatar}</Link>}
 
             <div className="relative flex flex-1 flex-col gap-[6px]">
                 <NoSSR>
@@ -48,28 +48,30 @@ export const ChannelInfoUI = memo<Props>(function ChannelInfoUI({ channel, isCha
                         <SocialSourceIcon mono source={source} size={20} />
                     </h1>
 
-                    <div className="flex flex-row items-center gap-1">
-                        {!isBsky ? (
-                            <span className="text-medium text-secondary">/{channel.id}</span>
-                        ) : (
-                            <span className="text-medium text-secondary">
-                                <Trans>By @{channel.lead?.handle}</Trans>
-                            </span>
-                        )}
+                    {source === Source.Lens ? null : (
+                        <div className="flex flex-row items-center gap-1">
+                            {!isBsky ? (
+                                <span className="text-medium text-secondary">/{channel.id}</span>
+                            ) : (
+                                <span className="text-medium text-secondary">
+                                    <Trans>By @{channel.lead?.handle}</Trans>
+                                </span>
+                            )}
 
-                        <span className="leading-[22px] text-secondary">·</span>
+                            <span className="leading-[22px] text-secondary">·</span>
 
-                        <data value={followerCount} className="flex items-center gap-1">
-                            <span className="text-lightMain">{nFormatter(followerCount)}</span>
-                            <span className="text-secondary">
-                                {!isBsky ? (
-                                    <Plural value={followerCount} one="Member" other="Members" />
-                                ) : (
-                                    <Plural value={followerCount} one="Like" other="Likes" />
-                                )}
-                            </span>
-                        </data>
-                    </div>
+                            <data value={followerCount} className="flex items-center gap-1">
+                                <span className="text-lightMain">{nFormatter(followerCount)}</span>
+                                <span className="text-secondary">
+                                    {!isBsky ? (
+                                        <Plural value={followerCount} one="Member" other="Members" />
+                                    ) : (
+                                        <Plural value={followerCount} one="Like" other="Likes" />
+                                    )}
+                                </span>
+                            </data>
+                        </div>
+                    )}
                 </div>
 
                 <ChannelInfoBio description={channel.description} />

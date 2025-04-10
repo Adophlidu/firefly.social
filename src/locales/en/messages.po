@@ -232,15 +232,15 @@ msgstr "Display Name"
 msgid "Blackmail activities found."
 msgstr "Blackmail activities found."
 
-msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
-msgstr "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
-
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 
 #. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
 msgid "GIF source not supported. Supported sources: {0}."
 msgstr "GIF source not supported. Supported sources: {0}."
+
+msgid "Join"
+msgstr "Join"
 
 msgid "BNB wallet to receive trading fees"
 msgstr "BNB wallet to receive trading fees"
@@ -620,6 +620,9 @@ msgstr "Trading cooldown function."
 
 msgid "Event Ended!"
 msgstr "Event Ended!"
+
+msgid "Bluesky"
+msgstr "Bluesky"
 
 msgid "True Token"
 msgstr "True Token"
@@ -1029,6 +1032,9 @@ msgstr "Mute all"
 msgid "Failed to generate signature packet with source = {source}."
 msgstr "Failed to generate signature packet with source = {source}."
 
+msgid "Search community"
+msgstr "Search community"
+
 msgid "Save failed post?"
 msgstr "Save failed post?"
 
@@ -1314,6 +1320,9 @@ msgstr "Canceled"
 msgid "No content for the last two weeks."
 msgstr "No content for the last two weeks."
 
+msgid "{data, plural, one {Member} other {Members}}"
+msgstr "{data, plural, one {Member} other {Members}}"
+
 msgid "Participate Now"
 msgstr "Participate Now"
 
@@ -1489,6 +1498,9 @@ msgstr "Enter amount"
 msgid "Platform fee"
 msgstr "Platform fee"
 
+msgid "Lens group"
+msgstr "Lens group"
+
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>Sold</0> an NFT worth {costEl}"
 
@@ -1581,6 +1593,9 @@ msgstr "EVM"
 
 msgid "[LuckyDrop]"
 msgstr "[LuckyDrop]"
+
+msgid "Group"
+msgstr "Group"
 
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
@@ -1735,6 +1750,9 @@ msgstr "Posted to Farcaster on <0>Supercast</0>"
 msgid "Total amount shared among all winners"
 msgstr "Total amount shared among all winners"
 
+msgid "Leave"
+msgstr "Leave"
+
 msgid "Enter number of winners"
 msgstr "Enter number of winners"
 
@@ -1885,8 +1903,8 @@ msgstr "Website"
 msgid "Your TG account is now connected"
 msgstr "Your TG account is now connected"
 
-#. placeholder {0}: article.title
 #. placeholder {0}: profile.handle
+#. placeholder {0}: article.title
 msgid "Failed to report @{0}."
 msgstr "Failed to report @{0}."
 
@@ -2344,6 +2362,9 @@ msgstr "👀 Firefly notifications are off. "
 msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr "Follow for {feeAmount} ${feeSymbol}"
 
+msgid "Farcaster"
+msgstr "Farcaster"
+
 msgid "Replying to"
 msgstr "Replying to"
 
@@ -2519,6 +2540,10 @@ msgstr "You are not eligible to claim this red packet"
 msgid "Collectible could not be found."
 msgstr "Collectible could not be found."
 
+#. placeholder {0}: group.name
+msgid "Failed to leave #{0} on {sourceName}."
+msgstr "Failed to leave #{0} on {sourceName}."
+
 msgid "Confirm to disconnect this wallet from Firefly?"
 msgstr "Confirm to disconnect this wallet from Firefly?"
 
@@ -2595,6 +2620,9 @@ msgstr "Exclusivity"
 msgid "Feedback"
 msgstr "Feedback"
 
+msgid "Mirror disabled"
+msgstr "Mirror disabled"
+
 msgid "Your serialized session"
 msgstr "Your serialized session"
 
@@ -2631,6 +2659,10 @@ msgstr "Failed to create schedule thread posts."
 msgid "This NFT contract has a proxy contract."
 msgstr "This NFT contract has a proxy contract."
 
+#. placeholder {0}: group.name
+msgid "Joined #{0} on {sourceName}."
+msgstr "Joined #{0} on {sourceName}."
+
 msgid "Top Collectors"
 msgstr "Top Collectors"
 
@@ -2666,6 +2698,9 @@ msgstr "Insufficient Balance for Gas Fee"
 
 msgid "Price"
 msgstr "Price"
+
+msgid "Lens feed"
+msgstr "Lens feed"
 
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
@@ -3250,6 +3285,9 @@ msgstr "Back"
 msgid "Decrypt"
 msgstr "Decrypt"
 
+msgid "Poll for Lens will come back soon."
+msgstr "Poll for Lens will come back soon."
+
 msgid "Token launch only support on X"
 msgstr "Token launch only support on X"
 
@@ -3430,9 +3468,6 @@ msgstr "Failed to set schedule time."
 msgid "{0, plural, one {recast} other {recasts}}"
 msgstr "{0, plural, one {recast} other {recasts}}"
 
-msgid "Delegate Signing (Recommend)"
-msgstr "Delegate Signing (Recommend)"
-
 msgid "Sign the transaction to verify you are the owner of the selected profile."
 msgstr "Sign the transaction to verify you are the owner of the selected profile."
 
@@ -3444,6 +3479,10 @@ msgstr "Receive"
 
 msgid "NFT holder"
 msgstr "NFT holder"
+
+#. placeholder {0}: group.name
+msgid "Left #{0} on {sourceName}."
+msgstr "Left #{0} on {sourceName}."
 
 msgid "Select Network"
 msgstr "Select Network"
@@ -3940,6 +3979,7 @@ msgstr "firefly.eth swapped 1850 USDC for 0.5 ETH"
 msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> and <1>{0} others</1>"
 
+#. placeholder {0}: dayjs(group.timestamp).format('MMM DD, YYYY')
 #. placeholder {0}: dayjs(channel.timestamp).format('MMM DD, YYYY')
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>since </0> <1>{0}</1>"
@@ -4050,6 +4090,7 @@ msgstr "Swap"
 msgid "Collect"
 msgstr "Collect"
 
+#. placeholder {0}: ownerProfile?.handle || 'Unknown'
 #. placeholder {0}: channel.lead?.handle
 msgid "By @{0}"
 msgstr "By @{0}"
@@ -4113,6 +4154,10 @@ msgstr "Max Supply"
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
 msgstr "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
 
+#. placeholder {0}: group.name
+msgid "Failed to join #{0} on {sourceName}."
+msgstr "Failed to join #{0} on {sourceName}."
+
 msgid "NFT contract can restrict the approval, resulting in NFT can not be traded on the NFT DEX."
 msgstr "NFT contract can restrict the approval, resulting in NFT can not be traded on the NFT DEX."
 
@@ -4154,6 +4199,9 @@ msgstr "Followed @{0} on Lens"
 
 msgid "Claim Now"
 msgstr "Claim Now"
+
+msgid "Members"
+msgstr "Members"
 
 #. placeholder {0}: collectModule.amount
 #. placeholder {1}: collectModule.currency
@@ -4280,6 +4328,9 @@ msgstr "Create a post to tell everyone about your participation. Votes can be ch
 
 msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
 msgstr "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
+
+msgid "Group could not be found."
+msgstr "Group could not be found."
 
 msgid "Different Account Detected"
 msgstr "Different Account Detected"

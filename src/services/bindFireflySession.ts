@@ -32,6 +32,7 @@ async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
             body: JSON.stringify({
                 accessToken: session.token,
                 isForce: false,
+                version: 'v3',
             }),
             signal,
         },

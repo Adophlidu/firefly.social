@@ -1,7 +1,8 @@
-import { type IStorageProvider, LensClient as LensClientSDK, production } from '@lens-protocol/client';
+import { type IStorageProvider, mainnet, PublicClient } from '@lens-protocol/client';
 
+import { LENS_TOKEN_STORAGE_KEY } from '@/constants/index.js';
+import { fragments } from '@/fragments/index.js';
 import { bom } from '@/helpers/bom.js';
-import type { LensSession } from '@/providers/lens/Session.js';
 
 export class LocalStorageProvider implements IStorageProvider {
     getItem(key: string) {
@@ -34,41 +35,18 @@ export class MemoryStorageProvider implements IStorageProvider {
 }
 
 export function getLensCredentials(storage: IStorageProvider) {
-    const item = storage.getItem('lens.production.credentials');
+    const item = storage.getItem(LENS_TOKEN_STORAGE_KEY);
     return item as string | null;
 }
 
-export function setLensCredentials(storage: IStorageProvider, session: LensSession) {
-    if (!session.refreshToken) throw new Error('No refresh token found in Lens session');
-    const now = Date.now();
-
-    storage.setItem(
-        'lens.production.credentials',
-        JSON.stringify({
-            data: {
-                refreshToken: session.refreshToken,
-            },
-            metadata: {
-                createdAt: now,
-                updatedAt: now,
-                version: 2,
-            },
-        }),
-    );
-}
-
 export function removeLensCredentials(storage: IStorageProvider) {
-    storage.removeItem('lens.production.credentials');
+    storage.removeItem(LENS_TOKEN_STORAGE_KEY);
 }
 
 export function createLensSDK(storage: IStorageProvider) {
-    return new LensClientSDK({
-        environment: production,
+    return PublicClient.create({
+        environment: mainnet,
         storage,
+        fragments,
     });
-}
-
-export function createLensSDKForSession(storage: IStorageProvider, session: LensSession) {
-    setLensCredentials(storage, session);
-    return createLensSDK(storage);
 }

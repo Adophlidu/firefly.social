@@ -1,57 +1,19 @@
-import { polygon } from 'viem/chains';
+import { type ChallengeRequest, evmAddress, SessionClient } from '@lens-protocol/client';
 
-import { config } from '@/configs/wagmiClient.js';
-import { THIRTY_DAYS } from '@/constants/index.js';
-import { createLensSDK, getLensCredentials, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
-import { LensSession } from '@/providers/lens/Session.js';
+import { createLensSDK, LocalStorageProvider } from '@/helpers/createLensSDK.js';
+import { getWalletClientForLensChain } from '@/helpers/getWalletClientForLensChain.js';
+import { createLensSession } from '@/providers/lens/createLensSession.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 
-export async function createAccountForProfileId(profile: Profile, signal?: AbortSignal) {
-    const walletClient = await getWalletClientRequired(config, {
-        chainId: polygon.id,
-    });
+export async function createAccountWithSessionClient(
+    sessionClient: SessionClient,
+    profile: Profile,
+    signal?: AbortSignal,
+) {
+    const session = createLensSession(profile.profileId, sessionClient);
 
-    // it's okay to refresh the page when login firefly profile, if in-memory storage used here.
-    const storage = new MemoryStorageProvider();
-    const sdk = createLensSDK(storage);
-
-    const { id, text } = await sdk.authentication.generateChallenge({
-        for: profile.profileId,
-        signedBy: walletClient.account.address,
-    });
-    const signature = await walletClient.signMessage({
-        message: text,
-    });
-
-    await sdk.authentication.authenticate({
-        id,
-        signature,
-    });
-
-    const parsed = parseJSON<{
-        data: {
-            refreshToken: string;
-        };
-    }>(getLensCredentials(storage));
-    if (!parsed?.data.refreshToken) throw new Error('No refresh token found.');
-
-    const now = Date.now();
-    const accessToken = await sdk.authentication.getAccessToken();
-    const address = await sdk.authentication.getWalletAddress();
-
-    const session = new LensSession(
-        profile.profileId,
-        accessToken.unwrap(),
-        now,
-        now + THIRTY_DAYS,
-        parsed.data.refreshToken,
-        address ?? ETH_ZERO_ADDRESS,
-    );
     const fireflySession = await bindOrRestoreFireflySession(session, signal);
 
     return {
@@ -59,4 +21,35 @@ export async function createAccountForProfileId(profile: Profile, signal?: Abort
         profile,
         fireflySession,
     } satisfies Account;
+}
+
+export async function createAccountForProfileId(profile: Profile, signal?: AbortSignal) {
+    const walletClient = await getWalletClientForLensChain();
+
+    const storage = new LocalStorageProvider();
+    const sdk = createLensSDK(storage);
+
+    const address = evmAddress(walletClient.account.address);
+    const options: ChallengeRequest =
+        profile.profileType === 'AccountManaged'
+            ? {
+                  accountManager: { manager: address, account: evmAddress(profile.profileId) },
+              }
+            : {
+                  accountOwner: { owner: address, account: evmAddress(profile.profileId) },
+              };
+    const loginRes = await sdk.login({
+        signMessage: (message) => {
+            return walletClient.signMessage({ message });
+        },
+        ...options,
+    });
+    if (!loginRes.isOk()) {
+        throw new Error(`Failed to login on Lens`);
+    }
+    const sessionClient = loginRes.value;
+
+    const account = await createAccountWithSessionClient(sessionClient, profile, signal);
+
+    return { account, sessionClient } as const;
 }

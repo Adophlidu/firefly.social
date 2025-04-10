@@ -16,7 +16,6 @@ import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -52,9 +51,6 @@ function MuteAllProfileBase({ handleOrEnsOrAddress, identity, blocking, onClose,
             const confirmed = await waitForConfirmation(handleOrEnsOrAddress);
             if (!confirmed) return;
 
-            if (identity.source === Source.Twitter && !blocking) {
-                await TwitterSocialMediaProvider.blockProfile(identity.id);
-            }
             await FireflyEndpointProvider.muteProfileAll(identity);
             enqueueSuccessMessage(t`All wallets and accounts are muted.`);
             captureMuteEvent(EventId.MUTE_ALL_SUCCESS, identity);
@@ -62,7 +58,7 @@ function MuteAllProfileBase({ handleOrEnsOrAddress, identity, blocking, onClose,
             enqueueMessageFromError(error, t`Failed to mute all wallets and accounts.`);
             throw error;
         }
-    }, [handleOrEnsOrAddress, identity, blocking, onClose]);
+    }, [handleOrEnsOrAddress, identity, onClose]);
 
     if (isLoading || isMutedAll === true) return null;
 

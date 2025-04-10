@@ -1,6 +1,5 @@
 'use client';
 
-import { Switch } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
@@ -24,9 +23,9 @@ import { useAbortController } from '@/hooks/useAbortController.js';
 import { ConnectModalRef, LoginModalRef, MyWalletsModalRef } from '@/modals/controls.js';
 import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import { updateSignless } from '@/providers/lens/updateSignless.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { addAccount } from '@/services/account.js';
+import { enableSignlessForManaged } from '@/services/lensV3/enableSignlessForManaged.js';
 
 interface LoginLensProps {
     profiles: Profile[];
@@ -49,10 +48,13 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
             controller.current.renew();
 
             try {
-                const account = await createAccountForProfileId(currentProfile, controller.current.signal);
+                const { account, sessionClient } = await createAccountForProfileId(
+                    currentProfile,
+                    controller.current.signal,
+                );
 
-                if (!currentProfile.signless && signless) {
-                    await updateSignless(true, account.session);
+                if (!currentProfile.signless && signless && currentProfile.profileType === 'AccountManaged') {
+                    await enableSignlessForManaged(sessionClient);
                 }
 
                 const done = await addAccount(account, {
@@ -61,6 +63,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 if (done) {
                     // after login, move the session storage to local storage
                     lensSessionHolder.resumeSession(account.session);
+                    lensSessionHolder.setSessionClient(sessionClient);
 
                     enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
                 }
@@ -102,7 +105,8 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                                 ))}
                             </div>
                         </div>
-                        {currentProfile?.signless ||
+                        {/* {currentProfile?.signless ||
+                        currentProfile?.profileType !== 'AccountManaged' ||
                         !isSameEthereumAddress(currentProfile?.ownedBy?.address, account.address) ? null : (
                             <div className="flex flex-col gap-2 rounded-[8px] bg-lightBg px-4 py-6">
                                 <div className="flex items-center justify-between">
@@ -133,7 +137,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                                     </Trans>
                                 </div>
                             </div>
-                        )}
+                        )} */}
                     </div>
                 ) : (
                     <div className="flex h-[226px] flex-grow flex-col items-center justify-center">
@@ -170,13 +174,15 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                             <Trans>Change Wallet</Trans>
                         </span>
                     </ClickableButton>
-                    <ClickableButton
-                        disabled={loading || !profiles.length}
-                        className="flex h-10 w-[120px] items-center justify-center gap-2 rounded-[99px] bg-lightMain text-sm font-bold text-primaryBottom"
-                        onClick={() => login(signless)}
-                    >
-                        {loading ? <LoadingIcon /> : <Trans>Sign</Trans>}
-                    </ClickableButton>
+                    <div className="flex items-center gap-2">
+                        <ClickableButton
+                            disabled={loading || !profiles.length}
+                            className="flex h-10 w-[120px] items-center justify-center gap-2 rounded-[99px] bg-lightMain text-sm font-bold text-primaryBottom"
+                            onClick={() => login(signless)}
+                        >
+                            {loading ? <LoadingIcon /> : <Trans>Sign</Trans>}
+                        </ClickableButton>
+                    </div>
                 </div>
             </div>
         </div>

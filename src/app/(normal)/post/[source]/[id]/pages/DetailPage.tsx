@@ -74,7 +74,7 @@ export function PostDetailPage({ id: postId, source }: Props) {
                     <Trans>Details</Trans>
                 </h2>
             </header>
-            {post.channel ? (
+            {post.channel?.name ? (
                 <Section title="Post Channel">
                     <ChannelInfo channel={post.channel} source={post.source} className="border-b border-line p-3" />
                 </Section>

@@ -23,7 +23,7 @@ export default function ChannelNotFound() {
             search={{
                 text: <Trans>Search {id}</Trans>,
                 searchText: id,
-                searchType: SearchType.Channels,
+                searchType: SearchType.Communities,
                 source: socialSource,
             }}
         />

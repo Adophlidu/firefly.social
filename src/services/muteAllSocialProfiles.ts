@@ -1,0 +1,61 @@
+import { fetchAccountsBulk } from '@lens-protocol/client/actions';
+
+import { Source, SourceInURL } from '@/constants/enum.js';
+import { ensureLensResult } from '@/helpers/ensureLensResult.js';
+import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+
+export async function muteAllSocialProfiles(identity: FireflyIdentity) {
+    const socialProfiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false);
+    const twitterProfile = getCurrentProfile(Source.Twitter);
+    const lensProfile = getCurrentProfile(Source.Lens);
+
+    const results = [{ snsId: identity.id, snsPlatform: resolveSourceInUrl(identity.source) }];
+
+    if (twitterProfile) {
+        const twitterProfiles = socialProfiles.filter((profile) => profile.identity.source === Source.Twitter);
+        await runInSafeAsync(() =>
+            Promise.allSettled(
+                twitterProfiles.map((profile) => TwitterSocialMediaProvider.blockProfile(profile.identity.id)),
+            ),
+        );
+        results.push(
+            ...twitterProfiles.map((profile) => ({
+                snsId: profile.identity.id,
+                snsPlatform: SourceInURL.Twitter,
+            })),
+        );
+    }
+
+    if (lensProfile) {
+        const lensNames = socialProfiles
+            .filter((profile) => profile.identity.source === Source.Lens)
+            .map((profile) => profile.identity.id);
+        if (!lensNames.length) return results;
+        await runInSafeAsync(async () => {
+            const lensAccounts = await ensureLensResult(
+                fetchAccountsBulk(lensSessionHolder.sessionClient, {
+                    usernames: lensNames.map((name) => ({ localName: name })),
+                }),
+            );
+            const unmutedAccounts = lensAccounts.filter((account) => !account.operations?.isMutedByMe);
+            await Promise.allSettled(
+                unmutedAccounts.map((account) => LensSocialMediaProvider.blockProfile(account.address)),
+            );
+            results.push(
+                ...unmutedAccounts.map((account) => ({
+                    snsId: account.address,
+                    snsPlatform: SourceInURL.Lens,
+                })),
+            );
+        });
+    }
+
+    return results;
+}

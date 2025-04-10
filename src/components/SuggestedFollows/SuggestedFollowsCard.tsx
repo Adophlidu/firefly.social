@@ -5,6 +5,7 @@ import 'swiper/css/effect-coverflow';
 
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
+import { compact } from 'lodash-es';
 import { useMemo } from 'react';
 import { Autoplay, EffectCoverflow } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,7 +13,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { AsideTitle } from '@/components/AsideTitle.js';
 import { Link } from '@/components/Link.js';
 import { ProfileSlide } from '@/components/SuggestedFollows/ProfileSlide.js';
-import { ExploreType, Source } from '@/constants/enum.js';
+import { ExploreType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { isSocialDiscoverSource } from '@/helpers/isSource.js';
 import { mergeLists } from '@/helpers/mergeLists.js';
@@ -41,12 +42,12 @@ export function SuggestedFollowsCard() {
         ],
         staleTime: 1000 * 60 * 2,
         queryFn: async () => {
-            const [farcasterData, lensData, bskyData] = await Promise.all([
-                runInSafeAsync(() => getSuggestedFollowsInCard(Source.Farcaster)),
-                runInSafeAsync(() => getSuggestedFollowsInCard(Source.Lens)),
-                runInSafeAsync(() => getSuggestedFollowsInCard(Source.Bsky)),
-            ]);
-            return mergeLists(farcasterData ?? [], lensData ?? [], bskyData ?? []);
+            const suggestedProfiles = await Promise.allSettled(
+                ([Source.Farcaster, Source.Lens, Source.Bsky] as SocialSource[]).map((source) =>
+                    runInSafeAsync(() => getSuggestedFollowsInCard(source)),
+                ),
+            );
+            return mergeLists(...compact(suggestedProfiles.map((x) => (x.status === 'fulfilled' ? x.value : []))));
         },
     });
 

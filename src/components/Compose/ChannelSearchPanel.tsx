@@ -13,6 +13,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isSameChannel } from '@/helpers/isSameChannel.js';
+import { resolveChannelName } from '@/helpers/resolveChannelName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -71,7 +72,9 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
             ) : (
                 data.map((channel) => {
                     const isSelected = isSameChannel(channel, selectedChannel[channel.source]);
-                    return (
+                    const channelName = resolveChannelName(channel, false);
+
+                    return channel.unavailable || !channelName ? null : (
                         <Fragment key={channel.id}>
                             <div
                                 className="flex h-12 cursor-pointer items-center justify-between px-3 transition duration-150 ease-in hover:bg-lightBg"
@@ -95,7 +98,7 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
                                                 isSelected ? 'text-main' : '',
                                             )}
                                         >
-                                            {channel.name}
+                                            {channelName}
                                         </span>
                                         {channel.followerCount ? (
                                             <data className="flex items-center gap-1" value={channel.followerCount}>
@@ -116,7 +119,7 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
 
     const content = (
         <div className="flex flex-col gap-2 md:bg-lightBottom md:dark:bg-darkBottom">
-            {source === Source.Farcaster ? InputBox : null}
+            {[Source.Farcaster, Source.Lens].includes(source) ? InputBox : null}
             {ListBox}
         </div>
     );
@@ -138,8 +141,7 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
                     className={classNames(
                         'no-scrollbar absolute bottom-full right-0 z-10 w-[350px] -translate-y-3 rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none',
                         {
-                            '[--anchor-max-height:264px]': source === Source.Farcaster,
-                            '[--anchor-max-height:224px]': source === Source.Lens,
+                            '[--anchor-max-height:264px]': [Source.Farcaster, Source.Lens].includes(source),
                         },
                     )}
                 >

@@ -97,6 +97,10 @@ export interface Profile<O = unknown> {
     isPowerUser?: boolean;
     website?: string;
     location?: string;
+    /** lens only */
+    profileType?: 'AccountManaged' | 'AccountOwned';
+    canFollow?: boolean;
+    canUnfollow?: boolean;
     __original__?: O;
 }
 
@@ -200,6 +204,7 @@ export interface Post {
     canAct?: boolean;
     canDecrypt?: boolean;
     mentions?: Array<Pick<Profile, 'handle' | 'fullHandle' | 'source' | 'profileId'>>;
+    canQuote?: boolean;
     hasMirrored?: boolean;
     hasLiked?: boolean;
     hasActed?: boolean;
@@ -286,6 +291,10 @@ export interface Post {
     };
     partialContent?: string;
     fullContent?: string;
+    groups?: Array<{
+        name: string;
+        id: string;
+    }>;
     /** Post from tako could be incomplete, the full content is stored in embedded ipfs */
     incomplete?: boolean;
     __original__?: unknown;
@@ -362,7 +371,7 @@ export type Notification =
     | MentionNotification
     | ActedNotification;
 
-export interface Channel {
+export interface Channel<T = unknown> {
     source: SocialSource;
     id: string;
     name: string;
@@ -380,9 +389,26 @@ export interface Channel {
     // joined or followed by the current user
     isMember?: boolean;
     canJoin?: boolean;
-    __original__?: unknown;
+    // if true, cant post to this channel
+    unavailable?: boolean;
+    group?: ProfileGroup;
+    __original__?: T;
     // lazy load channel for Lens
     __lazy__?: boolean;
+}
+
+export interface ProfileGroup {
+    source: SocialSource;
+    id: string;
+    name: string;
+    description: string;
+    imageUrl: string;
+    timestamp: number;
+    ownerProfileId?: string;
+    canJoin?: boolean;
+    canLeave?: boolean;
+    isMember?: boolean;
+    feed?: Channel;
 }
 
 export interface ProfileBadge {
@@ -507,25 +533,28 @@ export interface Provider {
      * Retrieves a user's profile by their profile ID or handle.
      *
      * @param {string} profileIdOrHandle - The unique identifier or handle for the profile to be retrieved.
+     * @param {boolean} [includeGraphStats] - Optional flag to include graph stats.
      * @returns {Promise<Profile>} A promise that resolves to a Profile object.
      */
-    getProfileByIdOrHandle: (profileIdOrHandle: string) => Promise<Profile>;
+    getProfileByIdOrHandle: (profileIdOrHandle: string, includeGraphStats?: boolean) => Promise<Profile>;
 
     /**
      * Retrieves a user's profile by their profile ID.
      *
      * @param profileId The ID of the user's profile.
+     * @param includeGraphStats Optional flag to include graph stats.
      * @returns A promise that resolves to a Profile object.
      */
-    getProfileById: (profileId: string) => Promise<Profile>;
+    getProfileById: (profileId: string, includeGraphStats?: boolean) => Promise<Profile>;
 
     /**
      * Retrieves a user's profile by their handle.
      *
      * @param handle The handle of the user's profile.
+     * @param includeGraphStats Optional flag to include graph stats.
      * @returns
      */
-    getProfileByHandle: (handle: string) => Promise<Profile>;
+    getProfileByHandle: (handle: string, includeGraphStats?: boolean) => Promise<Profile>;
 
     /**
      * Retrieves a user's profile by their session.

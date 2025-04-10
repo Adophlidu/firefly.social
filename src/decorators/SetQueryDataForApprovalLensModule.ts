@@ -1,5 +1,3 @@
-import type { ApprovedAllowanceAmountResultFragment } from '@lens-protocol/client';
-
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
@@ -8,6 +6,7 @@ import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
 const METHODS_BE_OVERRIDDEN = ['approveModuleAllowance'] as const;
+type ApprovedAllowanceAmountResultFragment = any; // TODO
 
 export function SetQueryDataForApprovalLensModule<T extends ClassType<LensSocialMedia>>(target: T): T {
     function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {

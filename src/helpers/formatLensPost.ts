@@ -1,147 +1,86 @@
-import type {
-    AnyPublicationFragment,
-    ArticleMetadataV3Fragment,
-    AudioMetadataV3Fragment,
-    CheckingInMetadataV3Fragment,
-    CommentBaseFragment,
-    EmbedMetadataV3Fragment,
-    EventMetadataV3Fragment,
-    FeedItemFragment,
-    ImageMetadataV3Fragment,
-    // cspell: disable-next-line
-    LegacyAaveFeeCollectModuleSettingsFragment,
-    LegacyErc4626FeeCollectModuleSettingsFragment,
-    LegacyFeeCollectModuleSettingsFragment,
-    LegacyFreeCollectModuleSettingsFragment,
-    LegacyLimitedFeeCollectModuleSettingsFragment,
-    LegacyLimitedTimedFeeCollectModuleSettingsFragment,
-    LegacyMultirecipientFeeCollectModuleSettingsFragment,
-    LegacyRevertCollectModuleSettingsFragment,
-    LegacySimpleCollectModuleSettingsFragment,
-    LegacyTimedFeeCollectModuleSettingsFragment,
-    LinkMetadataV3Fragment,
-    LiveStreamMetadataV3Fragment,
-    MintMetadataV3Fragment,
-    MultirecipientFeeCollectOpenActionSettingsFragment,
-    PostFragment,
-    ProfileFragment,
-    PublicationMetadataFragment,
-    PublicationMetadataMediaFragment,
-    QuoteBaseFragment,
-    SimpleCollectOpenActionSettingsFragment,
-    SpaceMetadataV3Fragment,
-    StoryMetadataV3Fragment,
-    TextOnlyMetadataV3Fragment,
-    ThreeDMetadataV3Fragment,
-    TransactionMetadataV3Fragment,
-    UnknownOpenActionModuleSettingsFragment,
-    VideoMetadataV3Fragment,
+import {
+    type AnyMedia,
+    type AnyPost,
+    type FullPostMetadata as PostMetadata,
+    type Post as LensPost,
+    type PostAction,
+    type PostMention,
+    type TextOnlyMetadata,
+    type TimelineItem,
 } from '@lens-protocol/client';
 import { safeUnreachable } from '@masknet/kit';
 import { compact, first, isEmpty, last, uniqBy } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
-import { EMPTY_LIST, ORB_CLUB_TAG_PREFIX } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regexp.js';
-import { formatLensProfile, formatLensProfileByHandleInfo } from '@/helpers/formatLensProfile.js';
+import { formatLensImageUrl } from '@/helpers/formatImageUrl.js';
+import { formatLensPostFeed } from '@/helpers/formatLensFeed.js';
+import {
+    formatLensMediaAudioMimeType,
+    formatLensMediaImageMimeType,
+    formatLensMediaVideoMimeType,
+} from '@/helpers/formatLensMediaType.js';
+import { formatLensPostOperations, formatLensPostStats } from '@/helpers/formatLensPostStatsAndOperations.js';
+import { formatLensProfileByMention, formatLensProfileV3 } from '@/helpers/formatLensProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { composePollFrameUrl, getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { LensMetadataAttributeKey } from '@/providers/types/Lens.js';
-import type { Attachment, Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
+import type { Attachment, Post, PostType, Profile } from '@/providers/types/SocialMedia.js';
 
 const PLACEHOLDER_IMAGE = 'https://static-assets.hey.xyz/images/placeholder.webp';
-const allowedTypes = ['SimpleCollectOpenActionModule', 'MultirecipientFeeCollectOpenActionModule'];
 
-type LensMetadata =
-    | ArticleMetadataV3Fragment
-    | AudioMetadataV3Fragment
-    | CheckingInMetadataV3Fragment
-    | EmbedMetadataV3Fragment
-    | EventMetadataV3Fragment
-    | ImageMetadataV3Fragment
-    | LinkMetadataV3Fragment
-    | LiveStreamMetadataV3Fragment
-    | MintMetadataV3Fragment
-    | SpaceMetadataV3Fragment
-    | StoryMetadataV3Fragment
-    | TextOnlyMetadataV3Fragment
-    | ThreeDMetadataV3Fragment
-    | TransactionMetadataV3Fragment
-    | VideoMetadataV3Fragment;
-
-function formatCollectModule(
-    openActions: Array<
-        // cspell: disable-next-line
-        | LegacyAaveFeeCollectModuleSettingsFragment
-        | LegacyErc4626FeeCollectModuleSettingsFragment
-        | LegacyFeeCollectModuleSettingsFragment
-        | LegacyFreeCollectModuleSettingsFragment
-        | LegacyLimitedFeeCollectModuleSettingsFragment
-        | LegacyLimitedTimedFeeCollectModuleSettingsFragment
-        | LegacyMultirecipientFeeCollectModuleSettingsFragment
-        | LegacyRevertCollectModuleSettingsFragment
-        | LegacySimpleCollectModuleSettingsFragment
-        | LegacyTimedFeeCollectModuleSettingsFragment
-        | MultirecipientFeeCollectOpenActionSettingsFragment
-        | SimpleCollectOpenActionSettingsFragment
-        | UnknownOpenActionModuleSettingsFragment
-    >,
-    count: number,
-) {
-    const openAction = first(openActions) as
-        | MultirecipientFeeCollectOpenActionSettingsFragment
-        | SimpleCollectOpenActionSettingsFragment
-        | undefined;
+function formatCollectModuleV3(postActions: PostAction[], count: number) {
+    const collectAction = postActions.find((action) => action.__typename === 'SimpleCollectAction');
+    if (!collectAction) return;
 
     return {
         collectedCount: count,
-        collectLimit: Number.parseInt(openAction?.collectLimit || '0', 10),
-        currency: openAction?.amount?.asset.symbol,
-        assetAddress: openAction?.amount?.asset.contract.address,
-        usdPrice: openAction?.amount?.asFiat?.value,
-        amount: parseFloat(openAction?.amount?.value || '0'),
-        referralFee: openAction?.referralFee,
-        followerOnly: openAction?.followerOnly,
+        collectLimit: collectAction.collectLimit || 0,
+        currency: collectAction.payToCollect?.amount?.asset.symbol,
+        assetAddress: collectAction.payToCollect?.amount?.asset.contract.address,
+        usdPrice: '',
+        amount: parseFloat(collectAction.payToCollect?.amount?.value || '0'),
+        referralFee: collectAction.payToCollect?.referralShare ?? undefined,
+        followerOnly: collectAction.followerOnGraph?.globalGraph,
         contract: {
-            address: openAction?.contract.address,
-            chainId: openAction?.contract.chainId,
+            address: collectAction.address,
+            chainId: collectAction.payToCollect?.amount.asset.contract.chainId,
         },
-        endsAt: openAction?.endsAt,
-        type: openAction?.type,
+        endsAt: collectAction.endsAt,
     };
 }
 
-function getAttachments(attachments?: PublicationMetadataMediaFragment[] | null): Attachment[] {
+function getAttachmentsV3(attachments?: AnyMedia[] | null) {
     if (!attachments) return EMPTY_LIST;
 
     return compact<Attachment>(
         attachments.map((attachment) => {
             const type = attachment.__typename;
             switch (type) {
-                case 'PublicationMetadataMediaImage':
-                    if (attachment.image.optimized?.uri) {
+                case 'MediaImage':
+                    if (attachment.item) {
                         return {
-                            uri: attachment.image.optimized?.uri,
+                            uri: formatLensImageUrl(attachment.item),
                             type: 'Image',
                         };
                     }
                     return;
-                case 'PublicationMetadataMediaVideo':
-                    if (attachment.video.optimized?.uri) {
+                case 'MediaVideo':
+                    if (attachment.item) {
                         return {
-                            uri: attachment.video.optimized?.uri,
-                            coverUri: attachment.cover?.optimized?.uri,
+                            uri: formatLensImageUrl(attachment.item),
+                            coverUri: formatLensImageUrl(attachment.cover),
                             type: 'Video',
                         };
                     }
                     return;
-                case 'PublicationMetadataMediaAudio':
-                    if (attachment.audio.optimized?.uri) {
+                case 'MediaAudio':
+                    if (attachment.item) {
                         return {
-                            uri: attachment.audio.optimized?.uri,
-                            coverUri: attachment.cover?.optimized?.uri,
+                            uri: formatLensImageUrl(attachment.item),
+                            coverUri: formatLensImageUrl(attachment.cover),
                             artist: attachment.artist ?? undefined,
                             type: 'Audio',
                         };
@@ -155,10 +94,7 @@ function getAttachments(attachments?: PublicationMetadataMediaFragment[] | null)
     );
 }
 
-async function getOembedUrls(
-    metadata: LinkMetadataV3Fragment | TextOnlyMetadataV3Fragment,
-    author: Profile,
-): Promise<string[]> {
+async function getOembedUrlsV3(metadata: TextOnlyMetadata, author: Profile): Promise<string[]> {
     return Promise.all(
         getEmbedUrls(
             metadata.content,
@@ -175,401 +111,412 @@ async function getOembedUrls(
     );
 }
 
-async function formatContent(metadata: PublicationMetadataFragment, author: Profile) {
-    const type = metadata.__typename;
-    switch (type) {
-        case 'ArticleMetadataV3':
+function updateContent(content: string, mentions: PostMention[]) {
+    if (!content?.trim() || !mentions.length) return content;
+
+    return mentions.reduce((updated, mention) => {
+        switch (mention.__typename) {
+            case 'AccountMention':
+            case 'GroupMention':
+                return updated.replace(mention.replace.from, mention.replace.to);
+            default:
+                safeUnreachable(mention);
+                return updated;
+        }
+    }, content);
+}
+
+async function formatContentV3(metadata: PostMetadata, author: Profile, mentions: PostMention[]) {
+    if (!metadata.__typename) return null;
+
+    switch (metadata.__typename) {
+        case 'ArticleMetadata':
             return {
-                content: metadata.content,
-                attachments: getAttachments(metadata.attachments),
+                content: updateContent(metadata.content, mentions),
+                attachments: getAttachmentsV3(metadata.attachments),
             };
-        case 'TextOnlyMetadataV3':
+        case 'TextOnlyMetadata':
             return {
-                content: metadata.content,
-                oembedUrls: await getOembedUrls(metadata, author),
+                content: updateContent(metadata.content, mentions),
+                oembedUrls: await getOembedUrlsV3(metadata, author),
             };
-        case 'LinkMetadataV3':
-            const parsedLink = parseUrl(metadata.sharingLink);
-            return {
-                content: metadata.content,
-                oembedUrls: getEmbedUrls(
-                    metadata.content,
-                    parsedLink
-                        ? isValidPollFrameUrl(parsedLink.toString())
-                            ? [await composePollFrameUrl(parsedLink.toString(), Source.Lens)]
-                            : [parsedLink.toString()]
-                        : [],
-                ),
-            };
-        case 'ImageMetadataV3': {
-            const asset = metadata.asset.image.optimized?.uri
+        case 'LinkMetadata':
+            return null;
+        case 'ImageMetadata': {
+            const asset = metadata.image?.item
                 ? ({
-                      uri: metadata.asset.image.optimized?.uri,
+                      uri: formatLensImageUrl(metadata.image.item),
                       type: 'Image',
+                      title: metadata.image.altTag || metadata.title || '',
                   } satisfies Attachment)
                 : undefined;
 
             return {
-                content: metadata.content,
+                content: updateContent(metadata.content, mentions),
                 asset,
                 attachments: metadata.attachments?.length
-                    ? uniqBy(compact([asset, ...getAttachments(metadata.attachments)]), (x) => x.uri)
+                    ? uniqBy(compact([asset, ...getAttachmentsV3(metadata.attachments)]), (x) => x.uri)
                     : asset
                       ? [asset]
                       : [],
             };
         }
-        case 'AudioMetadataV3': {
-            const audioAttachments = getAttachments(metadata.attachments)[0];
+        case 'AudioMetadata': {
+            const audioAttachments = getAttachmentsV3(metadata.attachments)[0];
             const asset = {
-                uri: metadata.asset.audio.optimized?.uri || audioAttachments?.uri,
-                coverUri: metadata.asset.cover?.optimized?.uri || audioAttachments?.coverUri || PLACEHOLDER_IMAGE,
-                artist: metadata.asset.artist || audioAttachments?.artist,
-                title: metadata.title,
+                uri: formatLensImageUrl(metadata.audio.item || audioAttachments?.uri),
+                coverUri: formatLensImageUrl(metadata.audio.cover || audioAttachments?.coverUri || PLACEHOLDER_IMAGE),
+                artist: metadata.audio.artist || audioAttachments?.artist,
+                title: metadata.title || '',
                 type: 'Audio',
             } satisfies Attachment;
 
             return {
-                content: metadata.content,
+                content: updateContent(metadata.content, mentions),
                 asset,
                 attachments: [asset],
             };
         }
-        case 'VideoMetadataV3': {
-            const videoAttachments = getAttachments(metadata.attachments)[0];
+        case 'VideoMetadata': {
+            const videoAttachments = getAttachmentsV3(metadata.attachments)[0];
             const asset = {
-                uri: metadata.asset.video.optimized?.uri || videoAttachments?.uri,
-                coverUri: metadata.asset.cover?.optimized?.uri || videoAttachments?.coverUri || PLACEHOLDER_IMAGE,
+                uri: formatLensImageUrl(metadata.video.item || videoAttachments?.uri),
+                coverUri: formatLensImageUrl(metadata.video.cover || videoAttachments?.coverUri || PLACEHOLDER_IMAGE),
                 type: 'Video',
             } satisfies Attachment;
 
             return {
-                content: metadata.content,
+                content: updateContent(metadata.content, mentions),
                 asset,
                 attachments: [asset],
             };
         }
-        case 'MintMetadataV3':
+        case 'MintMetadata':
             return {
-                content: metadata.content,
-                attachments: getAttachments(metadata.attachments),
+                content: updateContent(metadata.content, mentions),
+                attachments: getAttachmentsV3(metadata.attachments),
             };
-        case 'EmbedMetadataV3':
+        case 'EmbedMetadata':
             return {
-                content: metadata.content,
-                attachments: getAttachments(metadata.attachments),
+                content: updateContent(metadata.content, mentions),
+                attachments: getAttachmentsV3(metadata.attachments),
             };
-        case 'LiveStreamMetadataV3':
+        case 'LivestreamMetadata':
             return {
-                content: metadata.content,
-                attachments: getAttachments(metadata.attachments),
+                content: updateContent(metadata.content, mentions),
+                attachments: getAttachmentsV3(metadata.attachments),
             };
-        case 'CheckingInMetadataV3':
-            return null;
-        case 'EventMetadataV3':
-            return null;
-        case 'SpaceMetadataV3':
-            return null;
-        case 'StoryMetadataV3':
-            return null;
-        case 'ThreeDMetadataV3':
-            return null;
-        case 'TransactionMetadataV3':
+        case 'CheckingInMetadata':
+        case 'EventMetadata':
+        case 'SpaceMetadata':
+        case 'StoryMetadata':
+        case 'ThreeDMetadata':
+        case 'TransactionMetadata':
+        case 'UnknownPostMetadata':
             return null;
         default:
-            safeUnreachable(type);
+            safeUnreachable(metadata.__typename);
             return null;
     }
 }
 
-function getMediaObjects(metadata: LensMetadata) {
-    return metadata.__typename !== 'StoryMetadataV3' && metadata.__typename !== 'TextOnlyMetadataV3'
-        ? (metadata.attachments?.map((attachment) => {
-              const type = attachment.__typename;
-              switch (type) {
-                  case 'PublicationMetadataMediaAudio':
-                      return {
-                          url: attachment.audio.raw.uri,
-                          mimeType: attachment.audio.raw.mimeType ?? 'audio/*',
-                      };
-                  case 'PublicationMetadataMediaImage':
-                      return {
-                          url: attachment.image.raw.uri,
-                          mimeType: attachment.image.raw.mimeType ?? 'image/*',
-                      };
-                  case 'PublicationMetadataMediaVideo':
-                      return {
-                          url: attachment.video.raw.uri,
-                          mimeType: attachment.video.raw.mimeType ?? 'video/*',
-                      };
-                  default:
-                      safeUnreachable(type);
-                      return {
-                          url: '',
-                          mimeType: '',
-                      };
-              }
-          }) ?? undefined)
-        : undefined;
+function getMediaObjectsV3(metadata: PostMetadata) {
+    const typename = metadata.__typename;
+    if (!typename) return undefined;
+
+    switch (typename) {
+        case 'ArticleMetadata':
+        case 'AudioMetadata':
+        case 'CheckingInMetadata':
+        case 'EmbedMetadata':
+        case 'EventMetadata':
+        case 'ImageMetadata':
+        case 'LivestreamMetadata':
+        case 'MintMetadata':
+        case 'SpaceMetadata':
+        case 'ThreeDMetadata':
+        case 'TransactionMetadata':
+        case 'VideoMetadata':
+            return metadata.attachments.map((attachment) => {
+                const type = attachment.__typename;
+                switch (type) {
+                    case 'MediaAudio':
+                        return {
+                            url: formatLensImageUrl(attachment.item),
+                            mimeType: formatLensMediaAudioMimeType(attachment.type),
+                        };
+                    case 'MediaImage':
+                        return {
+                            url: formatLensImageUrl(attachment.item),
+                            mimeType: formatLensMediaImageMimeType(attachment.type),
+                        };
+                    case 'MediaVideo':
+                        return {
+                            url: formatLensImageUrl(attachment.item),
+                            mimeType: formatLensMediaVideoMimeType(attachment.type),
+                        };
+                    default:
+                        safeUnreachable(type);
+                        return {
+                            url: '',
+                            mimeType: '',
+                        };
+                }
+            });
+        case 'LinkMetadata':
+        case 'TextOnlyMetadata':
+        case 'StoryMetadata':
+        case 'UnknownPostMetadata':
+            return undefined;
+        default:
+            safeUnreachable(typename);
+            return undefined;
+    }
 }
 
-function formatOrbClub(metadata: LensMetadata) {
-    const orbTag = metadata.tags?.find((tag) => tag.startsWith(ORB_CLUB_TAG_PREFIX));
-    const clubHandle = orbTag?.replaceAll(ORB_CLUB_TAG_PREFIX, '');
-    if (!clubHandle) return;
+export async function formatLensQuoteOrCommentV3(
+    result: LensPost['quoteOf'] | LensPost['commentOn'],
+    type?: PostType,
+): Promise<Post | undefined> {
+    if (!result) return;
 
-    return {
-        id: clubHandle,
-        source: Source.Lens,
-        __lazy__: true,
-    } as unknown as Channel;
-}
+    const profile = formatLensProfileV3(result?.author);
+    const timestamp = new Date(result.timestamp).getTime();
 
-export async function formatLensQuoteOrComment(
-    result: CommentBaseFragment | PostFragment | QuoteBaseFragment,
-): Promise<Post> {
-    const profile = formatLensProfile(result.by);
-    const timestamp = new Date(result.createdAt).getTime();
-
-    const mediaObjects = getMediaObjects(result.metadata);
-
-    const stats =
-        result.__typename === 'Post'
-            ? {
-                  comments: result.stats.comments,
-                  mirrors: result.stats.mirrors,
-                  quotes: result.stats.quotes,
-                  reactions: result.stats.upvotes,
-                  bookmarks: result.stats.bookmarks,
-                  countOpenActions: result.stats.countOpenActions,
-              }
-            : undefined;
+    const mediaObjects = getMediaObjectsV3(result.metadata);
+    const mentions = formatLensMentions(result.mentions);
 
     return {
         publicationId: result.id,
-        type: result.__typename,
+        type: type || result.__typename,
         source: Source.Lens,
-        postId: result.id,
+        postId: result.slug,
         timestamp,
         author: profile,
         mediaObjects,
-        isHidden: result.isHidden,
-        isEncrypted: !!result.metadata.encryptedWith,
+        isHidden: result.isDeleted,
+        isEncrypted: false, // TODO
         metadata: {
-            locale: result.metadata.locale,
-            content: await formatContent(result.metadata, profile),
-            contentURI: result.metadata.rawURI,
+            locale: getPostLocale(result.metadata),
+            content: await formatContentV3(result.metadata, profile, result.mentions),
+            contentURI: result.contentUri,
         },
-        canComment: result.operations.canComment === 'YES',
-        canMirror: result.operations.canMirror === 'YES',
-        hasMirrored: result.operations.hasMirrored,
-        hasQuoted: result.operations.hasQuoted,
-        hasActed: result.operations.hasActed.value,
-        hasLiked: result.operations.hasUpvoted,
-        hasBookmarked: result.operations.hasBookmarked,
-        stats,
+
+        ...formatLensPostOperations(result.operations, result.actions),
+        stats: formatLensPostStats(result.stats),
+        channel: formatLensPostFeed(result.feed, true),
+        mentions: mentions.profiles,
+        groups: mentions.groups,
+        collectModule: formatCollectModuleV3(result.actions, result.stats.collects),
         __original__: result,
-        momoka: result.momoka || undefined,
-        sendFrom: result.publishedOn?.id
+        momoka: undefined,
+        sendFrom: result.app?.metadata?.name
             ? {
-                  displayName: result.publishedOn.id,
-                  name: result.publishedOn.id,
+                  displayName: result.app.metadata.name,
+                  name: result.app.metadata.name,
               }
             : undefined,
     };
 }
 
+export function getPostLocale(metadata: PostMetadata) {
+    if (!metadata.__typename) return 'en';
+
+    switch (metadata.__typename) {
+        case 'TextOnlyMetadata':
+        case 'ArticleMetadata':
+        case 'ImageMetadata':
+        case 'AudioMetadata':
+        case 'CheckingInMetadata':
+        case 'EmbedMetadata':
+        case 'EventMetadata':
+        case 'LivestreamMetadata':
+        case 'MintMetadata':
+        case 'SpaceMetadata':
+        case 'StoryMetadata':
+        case 'ThreeDMetadata':
+        case 'TransactionMetadata':
+        case 'VideoMetadata':
+            return (metadata.locale || 'en') as string;
+        case 'LinkMetadata':
+        case 'UnknownPostMetadata':
+            return 'en';
+        default:
+            safeUnreachable(metadata.__typename);
+            return 'en';
+    }
+}
+
 /**
  * Remove feeds that posted by muted users.
  */
-export function filterFeeds<T extends { by: ProfileFragment }>(posts: T[]): T[] {
-    return posts.filter((x) => !x.by.operations.isBlockedByMe.value);
+export function filterFeedsV3(posts: AnyPost[]): AnyPost[] {
+    return posts.filter((x) => {
+        switch (x.__typename) {
+            case 'Post':
+                return !x.author.operations?.isBlockedByMe;
+            case 'Repost':
+                return false;
+            default:
+                safeUnreachable(x);
+                return false;
+        }
+    });
 }
 
-export async function formatLensPost(result: AnyPublicationFragment): Promise<Post> {
-    const profile = formatLensProfile(result.by);
-    const timestamp = new Date(result.createdAt).getTime();
+function formatLensMentions(mentions: PostMention[]) {
+    const profiles: Profile[] = [];
+    const groups: Post['groups'] = [];
 
-    if (result.__typename === 'Mirror') {
-        const mediaObjects = getMediaObjects(result.mirrorOn.metadata);
-        const mirrorOnProfile = formatLensProfile(result.mirrorOn.by);
-        const content = await formatContent(result.mirrorOn.metadata, mirrorOnProfile);
+    mentions.forEach((mention) => {
+        switch (mention.__typename) {
+            case 'AccountMention':
+                profiles.push(formatLensProfileByMention(mention));
+                break;
+            case 'GroupMention':
+                groups.push({
+                    id: mention.group,
+                    name: mention.replace.to,
+                });
+                break;
+            default:
+                safeUnreachable(mention);
+                break;
+        }
+    });
+
+    return { profiles, groups };
+}
+
+export async function formatLensPostV3(result: AnyPost): Promise<Post> {
+    if (result.__typename === 'Repost') {
+        const mirrorOn = result.repostOf?.__typename === 'Post' ? (result.repostOf as LensPost) : undefined;
+        if (!mirrorOn) throw new Error('No root post found');
+
+        const mediaObjects = getMediaObjectsV3(mirrorOn.metadata);
+        const mirrorOnProfile = formatLensProfileV3(mirrorOn.author);
+        const content = await formatContentV3(mirrorOn.metadata, mirrorOnProfile, mirrorOn.mentions);
         const oembedUrls = getEmbedUrls(content?.content ?? '', []);
-
-        const canAct =
-            !!result.mirrorOn.openActionModules?.length &&
-            result.mirrorOn.openActionModules?.some((openAction) => allowedTypes.includes(openAction.type));
+        const mentions = formatLensMentions(mirrorOn.mentions);
 
         return {
             publicationId: result.id,
-            type: result.__typename,
-            postId: result.mirrorOn.id,
-            timestamp,
+            type: 'Mirror',
+            postId: mirrorOn.slug,
+            timestamp: new Date(result.timestamp).getTime(),
             author: mirrorOnProfile,
-            reporter: profile,
-            isHidden: result.mirrorOn.isHidden,
+            reporter: formatLensProfileV3(result.author),
+            isHidden: mirrorOn.isDeleted,
             source: Source.Lens,
             mediaObjects,
             metadata: {
-                locale: result.mirrorOn.metadata.locale,
+                locale: getPostLocale(mirrorOn.metadata),
                 content: {
                     ...content,
                     oembedUrl: last(oembedUrls),
                 },
-                contentURI: result.mirrorOn.metadata.rawURI,
+                contentURI: mirrorOn.contentUri,
             },
-            stats: {
-                comments: result.mirrorOn.stats.comments,
-                mirrors: result.mirrorOn.stats.mirrors,
-                quotes: result.mirrorOn.stats.quotes,
-                reactions: result.mirrorOn.stats.upvotes,
-                bookmarks: result.mirrorOn.stats.bookmarks,
-                countOpenActions: result.mirrorOn.stats.countOpenActions,
-            },
-            canComment: result.mirrorOn.operations.canComment === 'YES',
-            canMirror: result.mirrorOn.operations.canMirror === 'YES',
-            canDecrypt: result.mirrorOn.operations.canDecrypt.result,
-            hasMirrored: result.mirrorOn.operations.hasMirrored,
-            hasQuoted: result.mirrorOn.operations.hasQuoted,
-            hasActed: result.mirrorOn.operations.hasActed.value,
-            hasLiked: result.mirrorOn.operations.hasUpvoted,
-            hasBookmarked: result.mirrorOn.operations.hasBookmarked,
-            mentions: result.mirrorOn.profilesMentioned.map((x) =>
-                formatLensProfileByHandleInfo(x.snapshotHandleMentioned),
-            ),
-            canAct,
-            collectModule: canAct
-                ? formatCollectModule(result.mirrorOn.openActionModules, result.mirrorOn.stats.countOpenActions)
-                : undefined,
+            stats: formatLensPostStats(mirrorOn.stats),
+            ...formatLensPostOperations(mirrorOn.operations, mirrorOn.actions),
+            mentions: mentions.profiles,
+            groups: mentions.groups,
+            collectModule: formatCollectModuleV3(mirrorOn.actions, mirrorOn.stats.collects),
             __original__: result,
-            sendFrom: result.publishedOn?.id
+            sendFrom: mirrorOn.app?.metadata?.name
                 ? {
-                      displayName: result.publishedOn.id,
-                      name: result.publishedOn.id,
+                      displayName: mirrorOn.app.metadata.name,
+                      name: mirrorOn.app.metadata.name,
                   }
                 : undefined,
-            momoka: result.mirrorOn.momoka || undefined,
-            channel: formatOrbClub(result.mirrorOn.metadata),
+            momoka: undefined,
+            channel: formatLensPostFeed(mirrorOn.feed, true),
         };
     }
 
-    if (result.metadata.__typename === 'EventMetadataV3') throw new Error('Event not supported');
-    const mediaObjects = getMediaObjects(result.metadata);
+    if (result.metadata.__typename === 'EventMetadata') throw new Error('Event not supported');
 
-    const content = await formatContent(result.metadata, profile);
+    const profile = formatLensProfileV3(result.author);
+    const timestamp = new Date(result.timestamp).getTime();
 
+    const mediaObjects = getMediaObjectsV3(result.metadata);
+    const content = await formatContentV3(result.metadata, profile, result.mentions);
     const oembedUrl = last(content?.oembedUrls || content?.content.match(URL_REGEX) || []);
+    const mentions = formatLensMentions(result.mentions);
+    const locale = getPostLocale(result.metadata);
+    const channel = formatLensPostFeed(result.feed, true);
 
-    const canAct =
-        !!result.openActionModules?.length &&
-        result.openActionModules?.some((openAction) => allowedTypes.includes(openAction.type));
-
-    const channel = formatOrbClub(result.metadata);
-    const canDecrypt = result.operations.canDecrypt.result;
-
-    if (result.__typename === 'Quote') {
+    if (result.quoteOf) {
         return {
             publicationId: result.id,
             type: result.__typename,
             source: Source.Lens,
-            postId: result.id,
+            postId: result.slug,
             timestamp,
             author: profile,
             mediaObjects,
-            isHidden: result.isHidden,
-            isEncrypted: !!result.metadata.encryptedWith,
+            isHidden: result.isDeleted,
+            isEncrypted: false, // TODO
             metadata: {
-                locale: result.metadata.locale,
+                locale,
                 content: {
                     ...content,
                     oembedUrl,
                 },
-                contentURI: result.metadata.rawURI,
+                contentURI: result.contentUri,
             },
-            stats: {
-                comments: result.stats.comments,
-                mirrors: result.stats.mirrors,
-                quotes: result.stats.quotes,
-                reactions: result.stats.upvotes,
-                bookmarks: result.stats.bookmarks,
-                countOpenActions: result.stats.countOpenActions,
-            },
+            stats: formatLensPostStats(result.stats),
+            ...formatLensPostOperations(result.operations, result.actions),
             __original__: result,
-            canComment: result.operations.canComment === 'YES',
-            canMirror: result.operations.canMirror === 'YES',
-            canDecrypt,
-            hasMirrored: result.operations.hasMirrored,
-            hasQuoted: result.operations.hasQuoted,
-            hasActed: result.operations.hasActed.value,
-            hasLiked: result.operations.hasUpvoted,
-            hasBookmarked: result.operations.hasBookmarked,
-            quoteOn: await formatLensQuoteOrComment(result.quoteOn),
-            mentions: result.profilesMentioned.map((x) => formatLensProfileByHandleInfo(x.snapshotHandleMentioned)),
-            canAct,
-            collectModule: canAct
-                ? formatCollectModule(result.openActionModules, result.stats.countOpenActions)
-                : undefined,
-            momoka: result.momoka || undefined,
-            sendFrom: result.publishedOn?.id
+            quoteOn: await formatLensQuoteOrCommentV3(result.quoteOf),
+            mentions: mentions.profiles,
+            groups: mentions.groups,
+            collectModule: formatCollectModuleV3(result.actions, result.stats.collects),
+            momoka: undefined,
+            sendFrom: result.app?.metadata?.name
                 ? {
-                      displayName: result.publishedOn.id,
-                      name: result.publishedOn.id,
+                      displayName: result.app.metadata.name,
+                      name: result.app.metadata.name,
                   }
                 : undefined,
             channel,
         };
-    } else if (result.__typename === 'Comment') {
+    } else if (result.commentOn) {
         return {
             publicationId: result.id,
             type: result.__typename,
             source: Source.Lens,
-            postId: result.id,
+            postId: result.slug,
             timestamp,
             author: profile,
             mediaObjects,
-            isHidden: result.isHidden,
-            isEncrypted: !!result.metadata.encryptedWith,
+            isHidden: result.isDeleted,
+            isEncrypted: false, // TODO
             metadata: {
-                locale: result.metadata.locale,
+                locale,
                 content: {
                     ...content,
                     oembedUrl,
                 },
-                contentURI: result.metadata.rawURI,
+                contentURI: result.contentUri,
             },
-            stats: {
-                comments: result.stats.comments,
-                mirrors: result.stats.mirrors,
-                quotes: result.stats.quotes,
-                reactions: result.stats.upvotes,
-                bookmarks: result.stats.bookmarks,
-                countOpenActions: result.stats.countOpenActions,
-            },
+            stats: formatLensPostStats(result.stats),
+            ...formatLensPostOperations(result.operations, result.actions),
             __original__: result,
-            commentOn: await formatLensQuoteOrComment(result.commentOn),
-            canComment: result.operations.canComment === 'YES',
-            canMirror: result.operations.canMirror === 'YES',
-            canDecrypt,
-            hasMirrored: result.operations.hasMirrored,
-            hasQuoted: result.operations.hasQuoted,
-            hasActed: result.operations.hasActed.value,
-            hasLiked: result.operations.hasUpvoted,
-            hasBookmarked: result.operations.hasBookmarked,
-            firstComment: result.firstComment ? await formatLensQuoteOrComment(result.firstComment) : undefined,
-            mentions: result.profilesMentioned.map((x) => formatLensProfileByHandleInfo(x.snapshotHandleMentioned)),
+            commentOn: await formatLensQuoteOrCommentV3(result.commentOn),
+            firstComment: undefined,
+            mentions: mentions.profiles,
+            groups: mentions.groups,
             root:
-                result.root && !isEmpty(result.root) && (result.root as PostFragment).id !== result.commentOn.id
-                    ? await formatLensPost(result.root as PostFragment)
+                result.root && !isEmpty(result.root) && result.root.id !== result.commentOn.id
+                    ? await formatLensPostV3(result.root as AnyPost)
                     : undefined,
-            canAct,
-            collectModule: canAct
-                ? formatCollectModule(result.openActionModules, result.stats.countOpenActions)
-                : undefined,
-            momoka: result.momoka || undefined,
-            sendFrom: result.publishedOn?.id
+            collectModule: formatCollectModuleV3(result.actions, result.stats.collects),
+            momoka: undefined,
+            sendFrom: result.app?.metadata?.name
                 ? {
-                      displayName: result.publishedOn.id,
-                      name: result.publishedOn.id,
+                      displayName: result.app.metadata.name,
+                      name: result.app.metadata.name,
                   }
                 : undefined,
             channel,
@@ -579,47 +526,31 @@ export async function formatLensPost(result: AnyPublicationFragment): Promise<Po
             publicationId: result.id,
             type: result.__typename,
             source: Source.Lens,
-            postId: result.id,
+            postId: result.slug,
             timestamp,
             author: profile,
             mediaObjects,
-            isHidden: result.isHidden,
-            isEncrypted: !!result.metadata.encryptedWith,
+            isHidden: result.isDeleted,
+            isEncrypted: false,
             metadata: {
-                locale: result.metadata.locale,
+                locale,
                 content: {
                     ...content,
                     oembedUrl,
                 },
-                contentURI: result.metadata.rawURI,
+                contentURI: result.contentUri,
             },
-            stats: {
-                comments: result.stats.comments,
-                mirrors: result.stats.mirrors,
-                quotes: result.stats.quotes,
-                reactions: result.stats.upvotes,
-                bookmarks: result.stats.bookmarks,
-                countOpenActions: result.stats.countOpenActions,
-            },
-            canComment: result.operations.canComment === 'YES',
-            canMirror: result.operations.canMirror === 'YES',
-            canDecrypt,
-            canAct,
-            collectModule: canAct
-                ? formatCollectModule(result.openActionModules, result.stats.countOpenActions)
-                : undefined,
-            hasActed: result.operations.hasActed.value,
-            hasMirrored: result.operations.hasMirrored,
-            hasQuoted: result.operations.hasQuoted,
-            hasLiked: result.operations.hasUpvoted,
-            hasBookmarked: result.operations.hasBookmarked,
-            mentions: result.profilesMentioned.map((x) => formatLensProfileByHandleInfo(x.snapshotHandleMentioned)),
+            stats: formatLensPostStats(result.stats),
+            ...formatLensPostOperations(result.operations, result.actions),
+            collectModule: formatCollectModuleV3(result.actions, result.stats.collects),
+            mentions: mentions.profiles,
+            groups: mentions.groups,
             __original__: result,
-            momoka: result.momoka || undefined,
-            sendFrom: result.publishedOn?.id
+            momoka: undefined,
+            sendFrom: result.app?.metadata?.name
                 ? {
-                      displayName: result.publishedOn.id,
-                      name: result.publishedOn.id,
+                      displayName: result.app.metadata.name,
+                      name: result.app.metadata.name,
                   }
                 : undefined,
             channel,
@@ -627,24 +558,24 @@ export async function formatLensPost(result: AnyPublicationFragment): Promise<Po
     }
 }
 
-export async function formatLensPostByFeed(result: FeedItemFragment): Promise<Post | null> {
+export async function formatLensPostByFeedV3(result: TimelineItem): Promise<Post | null> {
     const firstComment = result.comments.length ? first(result.comments) : undefined;
-    const basePost = firstComment || result.root;
-    if (basePost.by.operations.isBlockedByMe.value) return null;
-    const post = await formatLensPost(basePost);
-    const mirrors = result.mirrors.map((x) => formatLensProfile(x.by));
-    const reactions = result.reactions.map((x) => formatLensProfile(x.by));
-    const comments = await Promise.all(filterFeeds(result.comments).map((x) => formatLensPost(x)));
+    const basePost = firstComment || result.primary;
+    if (basePost.author.operations?.isBlockedByMe) return null;
+    const post = await formatLensPostV3(basePost);
+    const mirrors = result.reposts.map((x) => formatLensProfileV3(x.author));
+    const reactions: Profile[] = []; // TODO
+    const comments = await Promise.all(filterFeedsV3(result.comments).map((x) => formatLensPostV3(x)));
 
     return {
         ...post,
         comments,
         mirrors,
         reactions,
-        commentOn: firstComment ? await formatLensPost(result.root) : undefined,
+        commentOn: firstComment ? await formatLensPostV3(result.primary) : undefined,
         root:
-            firstComment && result.root.__typename === 'Comment'
-                ? await formatLensQuoteOrComment(result.root.commentOn)
+            firstComment && result.primary.commentOn
+                ? await formatLensPostV3(result.primary.commentOn as AnyPost)
                 : undefined,
     };
 }

@@ -1,5 +1,8 @@
 /* cspell:disable */
 
+import { chains } from '@lens-chain/sdk/viem';
+import { evmAddress } from '@lens-protocol/client';
+
 import {
     type BookmarkSource,
     ChannelTabType,
@@ -148,10 +151,10 @@ export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> 
     [Source.Bsky]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Mirrors],
 };
 export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
-    [Source.Lens]: [SearchType.Posts, SearchType.Profiles, SearchType.Channels],
-    [Source.Farcaster]: [SearchType.Posts, SearchType.Profiles, SearchType.Channels],
+    [Source.Lens]: [SearchType.Posts, SearchType.Profiles, SearchType.Communities],
+    [Source.Farcaster]: [SearchType.Posts, SearchType.Profiles, SearchType.Communities],
     [Source.Twitter]: [SearchType.Posts, SearchType.Profiles],
-    [Source.Bsky]: [SearchType.Posts, SearchType.Profiles, SearchType.Channels],
+    [Source.Bsky]: [SearchType.Posts, SearchType.Profiles, SearchType.Communities],
 };
 export const CHANNEL_TAB_TYPE: Record<SocialSource, ChannelTabType[]> = {
     [Source.Farcaster]: [ChannelTabType.Recent, ChannelTabType.Trending],
@@ -202,7 +205,7 @@ export const SORTED_BOOKMARK_SOURCES =
         ? [Source.Farcaster, Source.Lens, Source.Twitter, Source.Article]
         : [Source.Farcaster, Source.Lens, Source.Article];
 export const SORTED_CHANNEL_SOURCES: SocialSource[] = [Source.Farcaster];
-export const SORTED_POLL_SOURCES: SocialSource[] = [Source.Twitter, Source.Farcaster, Source.Lens];
+export const SORTED_POLL_SOURCES: SocialSource[] = [Source.Twitter, Source.Farcaster];
 export const SORTED_MEDIA_SOURCES: MediaSource[] = [
     MediaSource.Twimg,
     MediaSource.S3,
@@ -258,6 +261,7 @@ export const REQUIRE_LOGIN_SOURCES_IN_SEARCH: SocialSource[] =
     env.external.NEXT_PUBLIC_NITTER === STATUS.Enabled ? [Source.Bsky] : [Source.Twitter, Source.Bsky];
 export const SOCIAL_SOURCE_WITH_ADDRESS: SocialSource[] = [Source.Farcaster, Source.Lens];
 export const EMBED_CARD_SOURCE_PRIORITY = [Source.Twitter, Source.Farcaster, Source.Lens];
+export const ENABLED_TIPS_POST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 
 export const EXPLORE_TYPES: ExploreType[] = [
     ExploreType.TopProfiles,
@@ -310,6 +314,11 @@ export const LENS_MEDIA_SNAPSHOT_URL = 'https://ik.imagekit.io/lens/media-snapsh
 export const HEY_URL = 'https://hey.xyz';
 export const HEY_API_URL = 'https://api.hey.xyz';
 export const HEY_IMAGEKIT_URL = 'https://ik.imagekit.io/lensterimg';
+export const LENS_CHAIN_ID = chains.mainnet.id;
+// TODO: create lens app for firefly
+export const FIREFLY_LENS_V3_APP = evmAddress('0xaC19aa2402b3AC3f9Fe471D4783EC68595432465');
+export const LENS_TOKEN_STORAGE_KEY = 'lens.mainnet.credentials';
+export const LENS_API_URL = 'https://api.lens.xyz/graphql';
 
 // Named transforms for ImageKit
 export const IMAGE_KIT_AVATAR = 'tr:w-300,h-300';

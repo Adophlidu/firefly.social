@@ -1,3 +1,4 @@
+import { evmAddress } from '@lens-protocol/client';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay, safeUnreachable } from '@masknet/kit';
@@ -25,6 +26,7 @@ import {
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { ensureLensResult } from '@/helpers/ensureLensResult.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { formatThirdPartyProfileName } from '@/helpers/formatThirdPartyProfileName.js';
@@ -45,6 +47,8 @@ import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import { EditFireflyProfileModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { createLensSession } from '@/providers/lens/createLensSession.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import { switchAccount } from '@/services/account.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
@@ -117,7 +121,19 @@ export function MainView() {
                     });
                     return;
                 }
-                await switchAccount({ ...account, session: account.session });
+
+                let session = account.session;
+                if (source === Source.Lens) {
+                    const sessionClient = await ensureLensResult(
+                        lensSessionHolder.sessionClient.switchAccount({
+                            account: evmAddress(account.profile.profileId),
+                        }),
+                    );
+                    session = createLensSession(account.profile.profileId, sessionClient);
+                    lensSessionHolder.setSessionClient(sessionClient);
+                }
+                await switchAccount({ ...account, session });
+
                 if (
                     isMyProfilePage &&
                     identity.source === source &&

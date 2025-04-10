@@ -4,6 +4,7 @@ import { memo } from 'react';
 import PollIcon from '@/assets/poll.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { Source } from '@/constants/enum.js';
 import { SORTED_POLL_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveSourcesName } from '@/helpers/resolveSourceName.js';
@@ -23,7 +24,9 @@ export const PollButton = memo(function PollButton() {
         <Tooltip
             content={
                 !isPollSupported && invalidSources.length > 0
-                    ? t`Poll for ${resolveSourcesName(invalidSources)} is coming soon.`
+                    ? invalidSources.includes(Source.Lens)
+                        ? t`Poll for Lens will come back soon.`
+                        : t`Poll for ${resolveSourcesName(invalidSources)} is coming soon.`
                     : t`Poll`
             }
             placement="top"

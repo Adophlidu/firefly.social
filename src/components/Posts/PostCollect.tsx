@@ -1,10 +1,9 @@
-import { OpenActionModuleType } from '@lens-protocol/client';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { StatusCodes } from 'http-status-codes';
-import { compact, first } from 'lodash-es';
+import { compact } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import type { Hex } from 'viem';
@@ -18,11 +17,11 @@ import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { SuperFollow } from '@/components/Posts/SuperFollow.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { config } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
+import { LENS_CHAIN_ID } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getTimeLeft } from '@/helpers/formatTimestamp.js';
@@ -32,12 +31,10 @@ import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useMirror } from '@/hooks/useMirror.js';
-import { useSuperFollowModule } from '@/hooks/useSuperFollow.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { EVMExplorerResolver } from '@/mask/index.js';
-import { DraggablePopoverRef, LoginModalRef, SuperFollowModalRef } from '@/modals/controls.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -58,7 +55,6 @@ interface PostCollectProps {
 }
 
 export function PostCollect({ post, onClose }: PostCollectProps) {
-    const isMedium = useIsMedium();
     const account = useAccount();
     const currentProfile = useCurrentProfile(Source.Lens);
     const collectModule = post.collectModule;
@@ -86,44 +82,9 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
         },
     });
 
-    const isFollowing = !!profile?.viewerContext?.following;
-
-    const { followModule, loading: moduleLoading } = useSuperFollowModule(profile, isFollowing);
-
-    const isSuperFollow = !isFollowing && !!followModule;
-
     const isLogin = useIsLogin(post.source);
 
-    const {
-        data: allowanceData,
-        isLoading: allowanceLoading,
-        refetch: refetchAllowanceData,
-    } = useQuery({
-        enabled: verifiedAssetAddress,
-        queryKey: [
-            'post',
-            'collect',
-            'allowedAmount',
-            post.source,
-            post.postId,
-            collectModule?.contract.address,
-            collectModule?.type,
-        ],
-        queryFn: async () => {
-            if (post.source !== Source.Lens || !collectModule) return;
-
-            if (!collectModule.assetAddress) return;
-
-            const result = await LensSocialMediaProvider.queryApprovedModuleAllowanceData(
-                collectModule.assetAddress,
-                collectModule?.type as OpenActionModuleType,
-            );
-
-            return first(result);
-        },
-    });
-
-    const allowed = allowanceData ? parseFloat(allowanceData?.allowance.value) > (collectModule?.amount ?? 0) : true;
+    const allowed = true;
 
     const { data: balanceData, isLoading: queryBalanceLoading } = useBalance({
         address: account.address,
@@ -133,26 +94,11 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
     const hasEnoughBalance =
         balanceData?.value && collectModule?.amount ? parseFloat(balanceData.formatted) >= collectModule.amount : true;
 
-    const [{ loading: approveLoading }, handleApprove] = useAsyncFn(async () => {
-        if (post.source !== Source.Lens || !allowanceData || !collectModule?.assetAddress) return;
-
-        await LensSocialMediaProvider.approveModuleAllowance(
-            allowanceData,
-            Number.MAX_SAFE_INTEGER.toString(),
-            collectModule.assetAddress,
-        );
-
-        await refetchAllowanceData();
-    }, [post.source, allowanceData, collectModule?.assetAddress, refetchAllowanceData]);
-
     const [{ loading: collectLoading }, handleCollect] = useAsyncFn(async () => {
         try {
-            if (!collectModule?.type) return;
+            if (!collectModule) return;
 
-            await LensSocialMediaProvider.actPost(post.postId, {
-                type: collectModule.type as OpenActionModuleType,
-                signRequire: !!collectModule.amount || collectModule.followerOnly,
-            });
+            await LensSocialMediaProvider.actPost(post.postId);
             enqueueSuccessMessage(t`Post collected successfully!`);
             capturePostActionEvent('collect', post, {
                 collectWalletAddress: account.address,
@@ -264,28 +210,8 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
         }
 
         if (collectModule?.followerOnly && !profile?.viewerContext?.following) {
-            if (isSuperFollow && profile) {
-                await (isMedium
-                    ? SuperFollowModalRef.openAndWaitForClose({ profile })
-                    : DraggablePopoverRef.openAndWaitForClose({
-                          content: (
-                              <SuperFollow
-                                  profile={profile}
-                                  showCloseButton={false}
-                                  onClose={DraggablePopoverRef.close}
-                              />
-                          ),
-                      }));
-
-                return;
-            }
             toggleFollow.mutate();
 
-            return;
-        }
-
-        if (!allowed) {
-            handleApprove();
             return;
         }
 
@@ -296,24 +222,12 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
         account.address,
         collectModule?.followerOnly,
         profile,
-        allowed,
         handleCollect,
         post.source,
-        isSuperFollow,
         toggleFollow,
-        isMedium,
-        handleApprove,
     ]);
 
-    const loading =
-        followLoading ||
-        allowanceLoading ||
-        approveLoading ||
-        collectLoading ||
-        queryBalanceLoading ||
-        queryProfileLoading ||
-        clickLoading ||
-        moduleLoading;
+    const loading = followLoading || collectLoading || queryBalanceLoading || queryProfileLoading || clickLoading;
 
     const disabled = post.hasActed || isSoldOut || isTimeout || !hasEnoughBalance;
 
@@ -387,7 +301,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
             <div className="mt-6 flex gap-2 max-md:mt-4">
                 <ChainGuardButton
-                    targetChainId={polygon.id}
+                    targetChainId={LENS_CHAIN_ID}
                     className="w-full"
                     loading={loading}
                     disabled={disabled}

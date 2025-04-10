@@ -1,9 +1,11 @@
-import { type FeeFollowModuleSettingsFragment, FollowModuleType } from '@lens-protocol/client';
+import { evmAddress } from '@lens-protocol/client';
+import { fetchAccount } from '@lens-protocol/client/actions';
 import { useQuery } from '@tanstack/react-query';
 import { type Address, erc20Abi, formatUnits } from 'viem';
 import { useAccount, useReadContract } from 'wagmi';
 
 import { Source } from '@/constants/enum.js';
+import { ensureLensResult } from '@/helpers/ensureLensResult.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -16,16 +18,14 @@ export function useSuperFollowModule(profile: Profile | null, disabled = false) 
         enabled: profile?.source === Source.Lens && !disabled,
         queryFn: () => {
             if (!profile) return;
-            return lensSessionHolder.sdk.profile.fetch({
-                forProfileId: profile.profileId,
-            });
+            return ensureLensResult(fetchAccount(lensSessionHolder.sdk, { address: evmAddress(profile.profileId) }));
         },
     });
 
-    const followModule = data?.followModule as FeeFollowModuleSettingsFragment | null;
-
     return {
-        followModule: followModule?.__typename !== 'FeeFollowModuleSettings' ? null : followModule,
+        followModule: (data?.operations?.canFollow.__typename !== 'AccountFollowOperationValidationPassed'
+            ? null
+            : null) as any, // TODO
         loading: isLoading,
     };
 }
@@ -43,10 +43,10 @@ export function useSuperFollowData(profile: Profile) {
         queryKey: ['approved', feeTokenAddress, currentProfile?.profileId],
         enabled: !!feeTokenAddress,
         queryFn: async () => {
-            const allowanceData = await LensSocialMediaProvider.queryApprovedModuleAllowanceData(
+            const allowanceData: any = await LensSocialMediaProvider.queryApprovedModuleAllowanceData(
                 feeTokenAddress,
                 undefined,
-                FollowModuleType.FeeFollowModule,
+                // TODO: FollowModuleType.FeeFollowModule,
             );
             const hasAllowance = parseFloat(allowanceData?.[0]?.allowance.value || '0') > followFee;
 

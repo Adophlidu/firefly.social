@@ -399,7 +399,8 @@
         "limitday",
         "testid",
         "nitter",
-        "fullname"
+        "fullname",
+        "Gltf"
     ],
     "flagWords": [],
     "ignorePaths": [

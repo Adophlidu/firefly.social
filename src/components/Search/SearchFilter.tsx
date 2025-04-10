@@ -34,8 +34,8 @@ export const SearchFilter = memo(function SearchFilter() {
                             label: <Trans>Users</Trans>,
                         },
                         {
-                            type: SearchType.Channels,
-                            label: <Trans>Channels</Trans>,
+                            type: SearchType.Communities,
+                            label: <Trans>Communities</Trans>,
                         },
                     ]
                         .filter((x) => SORTED_SEARCH_TYPE[currentSocialSource].includes(x.type))

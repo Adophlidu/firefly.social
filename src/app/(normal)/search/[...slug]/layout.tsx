@@ -1,20 +1,28 @@
 import { t } from '@lingui/core/macro';
+import { getEnumAsArray } from '@masknet/kit';
 import { last } from 'lodash-es';
+import { notFound, redirect } from 'next/navigation.js';
 
+import { CommunityTypeTab } from '@/components/Search/CommunityTypeTab.js';
+import { SearchSources } from '@/components/Search/SearchSources.js';
 import { SearchTabs } from '@/components/Search/SearchTabs.js';
-import { SearchType, SourceInURL } from '@/constants/enum.js';
-import { notFound } from '@/esm/navigation.js';
+import { CommunityType, SearchType, SourceInURL } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import type { NextPageProps } from '@/types/index.js';
 
 const ENABLED_SINGLE_SEARCH_TYPES = [SearchType.Profiles, SearchType.NFTs, SearchType.Tokens];
-const ENABLED_DOUBLE_SEARCH_TYPES = [SearchType.Profiles, SearchType.Posts, SearchType.Channels];
+const ENABLED_DOUBLE_SEARCH_TYPES = [SearchType.Profiles, SearchType.Posts];
 const ENABLED_SOURCES = [SourceInURL.Farcaster, SourceInURL.Lens, SourceInURL.Twitter, SourceInURL.Bsky];
 
 function checkSlug(slug: string[]) {
     if (slug.length === 1) {
         return ENABLED_SINGLE_SEARCH_TYPES.includes(slug[0] as SearchType);
+    }
+
+    if (slug.length === 2 && slug[0] === SearchType.Communities) {
+        return getEnumAsArray(CommunityType).some(({ value }) => value === slug[1]);
     }
 
     if (slug.length === 2) {
@@ -27,7 +35,13 @@ function checkSlug(slug: string[]) {
     return false;
 }
 
-interface Props extends NextPageProps<{ slug: string[] }> {}
+interface Props
+    extends NextPageProps<
+        { slug: string[] },
+        {
+            q: string;
+        }
+    > {}
 
 export async function generateMetadata(props: Props) {
     const params = await props.params;
@@ -45,6 +59,7 @@ export async function generateMetadata(props: Props) {
         [SearchType.Channels]: () => t`Search channel`,
         [SearchType.NFTs]: () => t`Search nft`,
         [SearchType.Tokens]: () => t`Search token`,
+        [SearchType.Communities]: () => t`Search community`,
     }[last(slug) as SearchType];
 
     return createSiteMetadata({
@@ -54,13 +69,20 @@ export async function generateMetadata(props: Props) {
 
 export default async function SearchLayout(props: Props) {
     const params = await props.params;
+    const searchParams = await props.searchParams;
     const { children } = props;
+
+    if (params.slug[1] === SearchType.Channels) {
+        redirect(resolveSearchUrl(searchParams.q, SearchType.Communities));
+    }
 
     if (!checkSlug(params.slug)) notFound();
 
     return (
         <div>
             <SearchTabs />
+            <CommunityTypeTab />
+            <SearchSources />
             {children}
         </div>
     );

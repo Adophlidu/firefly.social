@@ -118,6 +118,7 @@ import {
 import type { DiscoverNFTResponseV2, GetFollowingNFTResponse, NFTFeed } from '@/providers/types/NFTs.js';
 import { convertBskyHandleToDid } from '@/services/convertBskyHandleToDid.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
+import { muteAllSocialProfiles } from '@/services/muteAllSocialProfiles.js';
 import { settings } from '@/settings/index.js';
 
 function resolveDebankChain(debankChain: string) {
@@ -754,14 +755,14 @@ export class FireflyEndpoint {
             [getPlatformQueryKey(identity.source)]: identity.id,
         });
 
-        const response = await fireflySessionHolder.fetch<MuteAllResponse>(url, {
+        await fireflySessionHolder.fetch<MuteAllResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
                 [getPlatformQueryKey(identity.source)]: identity.id,
             }),
         });
 
-        return resolveFireflyResponseData(response);
+        return await muteAllSocialProfiles(identity);
     }
 
     async getAllConnections() {

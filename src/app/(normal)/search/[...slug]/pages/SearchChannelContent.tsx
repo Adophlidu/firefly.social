@@ -6,7 +6,6 @@ import { compact, uniqBy } from 'lodash-es';
 import { ChannelInList } from '@/components/ChannelInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
-import { SearchSources } from '@/components/Search/SearchSources.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { REQUIRE_LOGIN_SOURCES_IN_SEARCH } from '@/constants/index.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
@@ -65,7 +64,6 @@ export function SearchChannelContent() {
 
     return (
         <>
-            <SearchSources source={source} query={searchKeyword} searchType={searchType} />
             <ListInPage
                 loginRequired={loginRequired}
                 source={source}

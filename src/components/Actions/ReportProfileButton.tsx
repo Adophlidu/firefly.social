@@ -1,23 +1,39 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import { useAsyncFn } from 'react-use';
 
 import FlagIcon from '@/assets/flag.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     profile: Profile;
     onConfirm?(): void;
-    onReport?(profile: Profile): Promise<boolean>;
 }
 
-export function ReportProfileButton({ profile, ref, onConfirm, onReport, onClick, ...rest }: Props) {
+export function ReportProfileButton({ profile, ref, onConfirm, onClick, ...rest }: Props) {
+    const [{ loading }, handleReport] = useAsyncFn(async () => {
+        try {
+            const provider = resolveSocialMediaProvider(profile.source);
+            const result = await provider.reportProfile(profile.profileId);
+            if (result) enqueueSuccessMessage(t`Report submitted on ${profile.source}`);
+            else enqueueErrorMessage(t`Failed to report @${profile.handle}`);
+            return result;
+        } catch (error) {
+            enqueueMessageFromError(error, t`Failed to report @${profile.handle}.`);
+            throw error;
+        }
+    }, [profile]);
+
     return (
         <MenuButton
             {...rest}
+            disabled={loading}
             onClick={async (event) => {
                 onClick?.(event);
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
@@ -31,14 +47,11 @@ export function ReportProfileButton({ profile, ref, onConfirm, onReport, onClick
                 });
                 if (!confirmed) return;
                 onConfirm?.();
-                if (!onReport) return;
-                const result = await onReport(profile);
-                if (result) return;
-                enqueueErrorMessage(t`Failed to report @${profile.handle}`);
+                await handleReport();
             }}
             ref={ref}
         >
-            <FlagIcon width={18} height={18} />
+            {loading ? <LoadingIcon size={18} /> : <FlagIcon width={18} height={18} />}
             <span className="font-bold leading-[22px] text-main">
                 <Trans>Report @{profile.handle}</Trans>
             </span>

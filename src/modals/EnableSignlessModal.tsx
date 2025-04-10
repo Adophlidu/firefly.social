@@ -11,8 +11,8 @@ import { enqueueInfoMessage, enqueueMessageFromError } from '@/helpers/enqueueMe
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import type { LensSession } from '@/providers/lens/Session.js';
-import { updateSignless } from '@/providers/lens/updateSignless.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { enableSignlessForManaged } from '@/services/lensV3/enableSignlessForManaged.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 
 type Props = {
@@ -43,7 +43,7 @@ export function EnableSignlessModal({ ref }: Props) {
                 return;
             }
 
-            await updateSignless(true, currentProfileSession as LensSession);
+            await enableSignlessForManaged(lensSessionHolder.sessionClient);
 
             dispatch?.close(true);
         } catch (error) {

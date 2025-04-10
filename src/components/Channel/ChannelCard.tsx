@@ -92,12 +92,18 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                                 <Trans>By @{channel.lead?.handle}</Trans>
                             </span>
                         )}
-                        <div className="flex items-center gap-2">
-                            {!isBsky ? <UserIcon width={18} height={18} /> : <LikeIcon className="text-secondary" />}
-                            <data value={followerCount} className="text-medium leading-6 text-lightMain">
-                                {nFormatter(followerCount)}
-                            </data>
-                        </div>
+                        {channel.source === Source.Lens ? null : (
+                            <div className="flex items-center gap-2">
+                                {!isBsky ? (
+                                    <UserIcon width={18} height={18} />
+                                ) : (
+                                    <LikeIcon className="text-secondary" />
+                                )}
+                                <data value={followerCount} className="text-medium leading-6 text-lightMain">
+                                    {nFormatter(followerCount)}
+                                </data>
+                            </div>
+                        )}
                     </div>
 
                     <div className="flex min-h-5 gap-1">

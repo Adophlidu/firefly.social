@@ -3,6 +3,7 @@ import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useRouter } from '@tanstack/react-router';
 import { ConnectorNotConnectedError } from '@wagmi/core';
+import { uniqBy } from 'lodash-es';
 import { memo } from 'react';
 import { useAccount } from 'wagmi';
 
@@ -43,7 +44,7 @@ export const LensView = memo(function LensView() {
             try {
                 const { account } = await getWalletClientRequired(config);
                 const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
-                return profiles ?? EMPTY_LIST;
+                return uniqBy(profiles ?? EMPTY_LIST, (x) => x.profileId);
             } catch (error) {
                 if (error instanceof ConnectorNotConnectedError) {
                     enqueueWarningMessage(t`Please connect your wallet to continue.`);

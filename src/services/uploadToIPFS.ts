@@ -5,6 +5,7 @@ import { v4 as uuid } from 'uuid';
 
 import { FileMimeType } from '@/constants/enum.js';
 import { EVER_API, S3_BUCKET } from '@/constants/index.js';
+import { ensureLensResultSync } from '@/helpers/ensureLensResult.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
@@ -33,8 +34,11 @@ export interface IPFSResponse {
  * @returns S3 client instance.
  */
 const getS3Client = async (): Promise<S3> => {
-    const accessToken = await lensSessionHolder.sdk.authentication.getAccessToken();
-    const mediaToken = await getUploadMediaToken(accessToken.unwrap());
+    const credentials = ensureLensResultSync(lensSessionHolder.sessionClient.getCredentials());
+    if (!credentials) throw new Error('No lens credentials found');
+
+    const accessToken = credentials.accessToken;
+    const mediaToken = await getUploadMediaToken(accessToken);
     const client = new S3({
         endpoint: EVER_API,
         credentials: {

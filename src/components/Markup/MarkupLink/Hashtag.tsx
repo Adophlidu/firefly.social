@@ -4,7 +4,7 @@ import { memo, useEffect } from 'react';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
-import { PageRoute } from '@/constants/enum.js';
+import { CommunityType, PageRoute, SearchType, Source } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 
@@ -23,7 +23,18 @@ export const Hashtag = memo<Omit<MarkupLinkProps, 'post'>>(function Hashtag({ ti
             as="span"
             onClick={() => {
                 scrollTo(0, 0);
-                router.push(resolveSearchUrl(title, undefined, source));
+                if (source === Source.Lens) {
+                    router.push(
+                        resolveSearchUrl(
+                            title.replace(/^#/, ''),
+                            SearchType.Communities,
+                            source,
+                            CommunityType.LensGroup,
+                        ),
+                    );
+                } else {
+                    router.push(resolveSearchUrl(title, undefined, source));
+                }
             }}
         >
             {title}

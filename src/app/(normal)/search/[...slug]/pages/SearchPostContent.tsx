@@ -6,7 +6,6 @@ import { compact } from 'lodash-es';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
-import { SearchSources } from '@/components/Search/SearchSources.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { REQUIRE_LOGIN_SOURCES_IN_SEARCH } from '@/constants/index.js';
@@ -46,7 +45,6 @@ export function SearchPostContent() {
 
     return (
         <>
-            <SearchSources source={source} query={searchKeyword} searchType={searchType} />
             <ListInPage
                 loginRequired={loginRequired}
                 source={source}

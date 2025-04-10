@@ -1,0 +1,43 @@
+import type { Notification as LensNotification } from '@lens-protocol/client';
+
+import { Source } from '@/constants/enum.js';
+import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+
+// filter thread notifications created by the current profile
+export function filterNotifications(notifications: readonly LensNotification[]) {
+    const profile = getCurrentProfile(Source.Lens);
+    if (!profile) return [];
+
+    let lastCommentId: string | undefined;
+    return notifications.reduce<LensNotification[]>((acc, item, index) => {
+        if (
+            item.__typename !== 'CommentNotification' ||
+            !isSameEthereumAddress(item.comment.author.address, profile.profileId)
+        ) {
+            lastCommentId = undefined;
+            return acc.concat(item);
+        }
+
+        if (!lastCommentId) {
+            const next = notifications[index + 1];
+            const parentId = item.id.split('_')[2];
+            if (
+                next &&
+                next.__typename === 'CommentNotification' &&
+                isSameEthereumAddress(next.comment.author.address, profile.profileId) &&
+                next.comment.id === parentId
+            ) {
+                lastCommentId = parentId;
+                return acc;
+            }
+        } else if (item.comment.id === lastCommentId) {
+            lastCommentId = item.id.split('_')[2];
+            return acc;
+        } else {
+            lastCommentId = undefined;
+        }
+
+        return acc.concat(item);
+    }, []);
+}

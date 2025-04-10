@@ -2,6 +2,7 @@
 
 'use client';
 
+import { chains as LensChains } from '@lens-chain/sdk/viem';
 import {
     type AppKitNetwork,
     arbitrum,
@@ -64,6 +65,8 @@ export const networks = [
     metis,
     zora,
     scroll,
+    LensChains.mainnet,
+    LensChains.testnet,
     ...solanaNetworks,
 ] as [AppKitNetwork, ...AppKitNetwork[]];
 
@@ -83,6 +86,8 @@ export const chains = [
     wagmiMetis,
     wagmiZora,
     wagmiScroll,
+    LensChains.mainnet,
+    LensChains.testnet,
 ] as const;
 
 export const adapter = new WagmiAdapter({

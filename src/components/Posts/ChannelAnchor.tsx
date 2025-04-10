@@ -7,6 +7,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { ChannelTippy } from '@/components/Channel/ChannelTippy.js';
 import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -53,7 +54,7 @@ export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({
                     ) : (
                         <SocialSourceIcon className="rounded-full" source={channel.source} size={15} />
                     )}
-                    <span>/{channel.id}</span>
+                    <span>/{channel.source === Source.Lens ? channel.name : channel.id}</span>
                 </Link>
             </ChannelTippy>
         </div>

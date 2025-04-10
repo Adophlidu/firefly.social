@@ -1,18 +1,16 @@
 import { config } from '@/configs/wagmiClient.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { CreateScheduleError, SignlessRequireError } from '@/constants/error.js';
-import { SITE_URL } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveLensOperationName, resolveLensQuery } from '@/helpers/resolveLensQuery.js';
 import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { GroveStorageProvider } from '@/providers/lens/Grove.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { createPayloadAttachments, createPostMetadata, resolveLensClub } from '@/services/postToLens.js';
+import { createPayloadAttachments, createPostMetadata } from '@/services/postToLens.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
-import { uploadToArweave } from '@/services/uploadToArweave.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
@@ -22,7 +20,7 @@ export interface LensSchedulePayload {
     operationName: 'PostOnMomoka' | 'QuoteOnMomoka' | 'CommentOnMomoka';
     variables: {
         request: {
-            contentURI: `ar://${string}`;
+            contentURI: string;
             quoteOn?: string;
             commentOn?: string;
         };
@@ -72,19 +70,12 @@ export async function createLensSchedulePostPayload(
         {
             title,
             content,
-            marketplace: {
-                name: title,
-                description: content,
-                external_url: SITE_URL,
-            },
-            tags: resolveLensClub(channel?.[Source.Lens]),
+            groups: channel[Source.Lens]?.group ? [channel[Source.Lens].group] : undefined,
         },
         await createPayloadAttachments(imageResults, videoResult),
     );
 
-    const tokenRes = await lensSessionHolder.sdk.authentication.getAccessToken();
-    const token = tokenRes.unwrap();
-    const arweaveId = await uploadToArweave(metadata, token);
+    const contentURI = await GroveStorageProvider.uploadJson(metadata);
 
     const commentOn =
         type === 'reply'
@@ -99,7 +90,7 @@ export async function createLensSchedulePostPayload(
         operationName: resolveLensOperationName(type),
         variables: {
             request: {
-                contentURI: `ar://${arweaveId}`,
+                contentURI: contentURI.uri,
                 quoteOn: type === 'quote' && lensParentPost ? lensParentPost.postId : undefined,
                 commentOn,
             },

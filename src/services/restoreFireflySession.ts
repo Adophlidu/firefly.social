@@ -27,6 +27,7 @@ async function restoreFireflySessionFromLens(session: LensSession, signal?: Abor
         method: 'POST',
         body: JSON.stringify({
             accessToken: session.token,
+            version: 'v3',
         }),
         signal,
     });

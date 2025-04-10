@@ -26,7 +26,7 @@ function setBlockStatus(source: SocialSource, channelId: string, status: boolean
 
     const profile = getCurrentProfile(source);
     queryClient.setQueriesData<Channel>({ queryKey: ['channels'] }, updater);
-    queryClient.setQueriesData<Channel>({ queryKey: ['search', SearchType.Channels] }, updater);
+    queryClient.setQueriesData<Channel>({ queryKey: ['search', SearchType.Communities] }, updater);
     queryClient.setQueryData<Channel>(['channel', source, channelId, profile?.profileId], updater);
     queryClient.setQueryData<Channel>(['suggest-channels', source], updater);
 }

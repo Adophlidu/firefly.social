@@ -9,6 +9,7 @@ import { Fragment, type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 import FireflyMonochromeIcon from '@/assets/firefly-monochrome.svg';
 import { Link } from '@/components/Link.js';
 import { ChannelAnchor } from '@/components/Posts/ChannelAnchor.js';
+import { GroupAnchor } from '@/components/Posts/GroupAnchor.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { EngagementType, PageRoute, Source } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
@@ -192,11 +193,19 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                   likes,
                   pollVotes,
                   !isDetailPage && showChannelTag && post.channel ? (
-                      <ChannelAnchor
-                          className="!inline-flex translate-y-1"
-                          channel={post.channel}
-                          onClick={onSetScrollIndex}
-                      />
+                      post.channel.group?.name ? (
+                          <GroupAnchor
+                              className="!inline-flex translate-y-1"
+                              group={post.channel.group}
+                              onClick={onSetScrollIndex}
+                          />
+                      ) : post.channel.name ? (
+                          <ChannelAnchor
+                              className="!inline-flex translate-y-1"
+                              channel={post.channel}
+                              onClick={onSetScrollIndex}
+                          />
+                      ) : null
                   ) : null,
               ])
             : compact([
@@ -221,6 +230,13 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                           ) : null}{' '}
                           <span className="capitalize">{sendFrom}</span>
                       </Trans>
+                  ) : null,
+                  showChannelTag && post.channel?.group ? (
+                      <GroupAnchor
+                          className="!inline-flex translate-y-1"
+                          group={post.channel.group}
+                          onClick={onSetScrollIndex}
+                      />
                   ) : null,
               ]);
 
