@@ -4,7 +4,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { usePathname, useRouter } from 'next/navigation.js';
+import { usePathname, useRouter } from '@/esm/navigation.js';
 import { useMemo } from 'react';
 
 import { TwitterArticleBody } from '@/components/Article/TwitterArticleBody.js';

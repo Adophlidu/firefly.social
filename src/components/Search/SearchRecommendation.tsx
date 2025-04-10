@@ -2,7 +2,7 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 import { useDebounce } from 'usehooks-ts';
 
 import SearchIcon from '@/assets/search.svg';

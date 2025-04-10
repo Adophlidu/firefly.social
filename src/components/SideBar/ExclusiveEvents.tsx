@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 import { useRef } from 'react';
 import { useHover } from 'usehooks-ts';
 

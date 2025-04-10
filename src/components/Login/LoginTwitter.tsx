@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 import { signIn } from 'next-auth/react';
 import type { HTMLProps } from 'react';
 import { useEffectOnce } from 'react-use';

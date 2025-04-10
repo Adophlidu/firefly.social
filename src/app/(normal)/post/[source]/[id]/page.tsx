@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation.js';
+import { notFound } from '@/esm/navigation.js';
 import type React from 'react';
 
 import { PostDetailPage } from '@/app/(normal)/post/[source]/[id]/pages/DetailPage.js';

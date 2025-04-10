@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 
 import { ErrorHandler } from '@/components/ErrorHandler.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';

@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useRouter } from 'next/navigation.js';
+import { useRouter } from '@/esm/navigation.js';
 import { type HTMLProps, memo, useRef } from 'react';
 
 import PriceArrow from '@/assets/price-arrow.svg';

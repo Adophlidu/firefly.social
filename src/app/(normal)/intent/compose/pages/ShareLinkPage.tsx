@@ -1,7 +1,7 @@
 'use client';
 
 import { compact } from 'lodash-es';
-import { useRouter } from 'next/navigation.js';
+import { useRouter } from '@/esm/navigation.js';
 import { useEffect } from 'react';
 
 import { FireflyPlatform } from '@/constants/enum.js';

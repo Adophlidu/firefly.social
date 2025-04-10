@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
-import { useRouter } from 'next/navigation.js';
+import { useRouter } from '@/esm/navigation.js';
 import { memo, useCallback } from 'react';
 import { useMount } from 'react-use';
 import urlcat from 'urlcat';

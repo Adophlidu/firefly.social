@@ -3,7 +3,7 @@
 import { Select, Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
-import { notFound } from 'next/navigation.js';
+import { notFound } from '@/esm/navigation.js';
 import { memo } from 'react';
 
 import ExchangeIcon from '@/assets/exchange.svg';

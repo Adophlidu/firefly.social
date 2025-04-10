@@ -1,6 +1,6 @@
 'use client';
 
-import { redirect, RedirectType } from 'next/navigation.js';
+import { redirect, RedirectType } from '@/esm/navigation.js';
 import { useEffect, useRef } from 'react';
 
 import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';

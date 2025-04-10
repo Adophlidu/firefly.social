@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 
 import ComposeAddIcon from '@/assets/compose-add.svg';
 import ReplyIcon from '@/assets/reply.svg';

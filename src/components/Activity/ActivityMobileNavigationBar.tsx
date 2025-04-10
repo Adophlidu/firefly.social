@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 import { type HTMLProps, useContext } from 'react';
 
 import NavigationBarBackIcon from '@/assets/navigation-bar-back.svg';

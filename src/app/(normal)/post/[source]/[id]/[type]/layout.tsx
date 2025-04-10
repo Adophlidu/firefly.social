@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation.js';
+import { notFound } from '@/esm/navigation.js';
 
 import { EngagementLayout } from '@/app/(normal)/post/[source]/[id]/pages/EngagementLayout.js';
 import type { EngagementType } from '@/constants/enum.js';

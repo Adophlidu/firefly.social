@@ -2,7 +2,7 @@
 
 import { getEnumAsArray } from '@masknet/kit';
 import { cookies } from 'next/headers.js';
-import { redirect } from 'next/navigation.js';
+import { redirect } from '@/esm/navigation.js';
 
 import { Agent, Locale, PageRoute } from '@/constants/enum.js';
 

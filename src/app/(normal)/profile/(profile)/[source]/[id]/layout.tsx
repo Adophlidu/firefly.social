@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation.js';
+import { notFound } from '@/esm/navigation.js';
 
 import { NoSSR } from '@/components/NoSSR.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';

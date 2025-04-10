@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation.js';
+import { redirect } from '@/esm/navigation.js';
 import urlcat from 'urlcat';
 
 import type { SocialSourceInURL } from '@/constants/enum.js';

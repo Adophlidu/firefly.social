@@ -1,7 +1,7 @@
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation.js';
+import { useRouter } from '@/esm/navigation.js';
 import { memo } from 'react';
 
 import MoreIcon from '@/assets/more-fill.svg';

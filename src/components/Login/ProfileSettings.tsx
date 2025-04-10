@@ -4,7 +4,7 @@ import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 import { Reorder } from 'framer-motion';
 import { noop } from 'lodash-es';
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 import { useAsyncFn, useMount } from 'react-use';
 import urlcat from 'urlcat';
 

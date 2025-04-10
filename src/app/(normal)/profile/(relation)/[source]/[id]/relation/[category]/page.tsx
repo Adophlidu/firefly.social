@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation.js';
+import { notFound } from '@/esm/navigation.js';
 
 import { FollowersList } from '@/app/(normal)/profile/pages/FollowersList.js';
 import { FollowingList } from '@/app/(normal)/profile/pages/FollowingList.js';

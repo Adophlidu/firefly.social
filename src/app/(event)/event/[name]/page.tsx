@@ -1,7 +1,7 @@
 'use client';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { notFound } from 'next/navigation.js';
+import { notFound } from '@/esm/navigation.js';
 import { use } from 'react';
 
 import { ActivityElex24Provider } from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';

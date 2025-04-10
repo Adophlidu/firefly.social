@@ -1,4 +1,4 @@
-import { redirect, RedirectType } from 'next/navigation.js';
+import { redirect, RedirectType } from '@/esm/navigation.js';
 
 import { ProjectTrendingList } from '@/components/ProjectTrendingList.js';
 import { ExploreType } from '@/constants/enum.js';

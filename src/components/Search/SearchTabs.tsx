@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 import { type JSX, memo, useMemo } from 'react';
 
 import { Link } from '@/components/Link.js';

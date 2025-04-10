@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 
 import ProfileSelectedIcon from '@/assets/profile.selected.svg';
 import ProfileIcon from '@/assets/profile.svg';

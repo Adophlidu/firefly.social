@@ -6,7 +6,7 @@ import '@/assets/css/paragraph.css';
 import { Trans } from '@lingui/react/macro';
 import DOMPurify from 'dompurify';
 import { compact } from 'lodash-es';
-import { useRouter } from 'next/navigation.js';
+import { useRouter } from '@/esm/navigation.js';
 
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
 import { Comeback } from '@/components/Comeback.js';

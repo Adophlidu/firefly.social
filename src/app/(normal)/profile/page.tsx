@@ -1,5 +1,5 @@
 import { t } from '@lingui/core/macro';
-import { redirect } from 'next/navigation.js';
+import { redirect } from '@/esm/navigation.js';
 
 import { Source } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';

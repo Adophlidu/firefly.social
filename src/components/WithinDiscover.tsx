@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname, useSelectedLayoutSegments } from 'next/navigation.js';
+import { usePathname, useSelectedLayoutSegments } from '@/esm/navigation.js';
 import type { PropsWithChildren, ReactNode } from 'react';
 
 interface Props extends PropsWithChildren {

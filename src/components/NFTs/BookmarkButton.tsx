@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 import { memo } from 'react';
 
 import BookmarkActiveIcon from '@/assets/bookmark.selected.svg';

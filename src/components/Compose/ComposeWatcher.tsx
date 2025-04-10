@@ -1,5 +1,5 @@
 'use client';
-import { useSearchParams } from 'next/navigation.js';
+import { useSearchParams } from '@/esm/navigation.js';
 import { memo } from 'react';
 import { useMount } from 'react-use';
 

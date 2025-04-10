@@ -3,7 +3,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { compact, first, flatten } from 'lodash-es';
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 import { memo, useMemo } from 'react';
 
 import LikeIcon from '@/assets/like.svg';

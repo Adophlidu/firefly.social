@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 import { type ReactNode, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 

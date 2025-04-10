@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation.js';
+import { notFound } from '@/esm/navigation.js';
 
 import { ChannelInfoUI } from '@/components/Channel/ChannelInfoUI.js';
 import { ChannelProvider } from '@/components/Channel/ChannelProvider.js';

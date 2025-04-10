@@ -1,4 +1,4 @@
-import { notFound, redirect, RedirectType } from 'next/navigation.js';
+import { notFound, redirect, RedirectType } from '@/esm/navigation.js';
 import type { NextRequest } from 'next/server.js';
 
 import { isProfilePageSource } from '@/helpers/isSource.js';

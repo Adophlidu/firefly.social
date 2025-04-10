@@ -1,4 +1,4 @@
-import { redirect, RedirectType } from 'next/navigation.js';
+import { redirect, RedirectType } from '@/esm/navigation.js';
 
 import { DEFAULT_NOTIFICATION_SOURCE } from '@/constants/index.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';

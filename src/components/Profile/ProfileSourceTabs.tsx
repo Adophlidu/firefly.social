@@ -3,7 +3,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 import { type HTMLProps, type Ref, useLayoutEffect, useRef, useState } from 'react';
 import { useMount } from 'react-use';
 

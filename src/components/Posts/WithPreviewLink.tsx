@@ -1,4 +1,4 @@
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 
 import { Link } from '@/components/Link.js';
 import { PageRoute } from '@/constants/enum.js';

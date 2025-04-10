@@ -3,7 +3,7 @@
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { useRouter } from 'next/navigation.js';
+import { useRouter } from '@/esm/navigation.js';
 
 import SwapEmptyIcon from '@/assets/swap-empty.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';

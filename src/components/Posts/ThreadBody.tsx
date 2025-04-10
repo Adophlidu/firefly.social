@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
-import { usePathname, useRouter } from 'next/navigation.js';
+import { usePathname, useRouter } from '@/esm/navigation.js';
 import { memo } from 'react';
 
 import { PostActions, PostActionsWithGrid } from '@/components/Actions/index.js';

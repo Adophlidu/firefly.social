@@ -1,4 +1,4 @@
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 
 import RightArrowIcon from '@/assets/right-arrow.svg';
 import { Link } from '@/components/Link.js';

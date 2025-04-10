@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { useParams } from 'next/navigation.js';
+import { useParams } from '@/esm/navigation.js';
 
 import NotFound from '@/components/NotFound.js';
 

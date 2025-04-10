@@ -1,7 +1,7 @@
 import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
-import { useRouter } from 'next/navigation.js';
+import { useRouter } from '@/esm/navigation.js';
 import { memo, useMemo } from 'react';
 import type { Address } from 'viem';
 

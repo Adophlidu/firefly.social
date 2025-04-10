@@ -4,7 +4,7 @@ import { Plural, Select, Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { first, uniqBy } from 'lodash-es';
-import { useRouter } from 'next/navigation.js';
+import { useRouter } from '@/esm/navigation.js';
 import { memo, useMemo } from 'react';
 
 import { PostActions } from '@/components/Actions/index.js';

@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
-import { useRouter } from 'next/navigation.js';
+import { useRouter } from '@/esm/navigation.js';
 import { memo, type MouseEvent, useCallback } from 'react';
 
 import LikeIcon from '@/assets/heart.svg';

@@ -1,4 +1,4 @@
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 import { memo } from 'react';
 
 import FireflyMonochromeIcon from '@/assets/firefly-monochrome.svg';

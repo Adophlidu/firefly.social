@@ -1,5 +1,5 @@
 import { t } from '@lingui/core/macro';
-import { redirect, RedirectType } from 'next/navigation.js';
+import { redirect, RedirectType } from '@/esm/navigation.js';
 
 import { DEFAULT_BOOKMARK_SOURCE } from '@/constants/index.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';

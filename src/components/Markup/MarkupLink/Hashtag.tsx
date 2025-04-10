@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation.js';
+import { useRouter } from '@/esm/navigation.js';
 import { memo, useEffect } from 'react';
 
 import { ClickableArea } from '@/components/ClickableArea.js';

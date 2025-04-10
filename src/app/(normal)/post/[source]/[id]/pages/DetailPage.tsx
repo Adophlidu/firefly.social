@@ -2,7 +2,7 @@
 
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { notFound } from 'next/navigation.js';
+import { notFound } from '@/esm/navigation.js';
 import { Suspense } from 'react';
 
 import { PostActionsWithGrid } from '@/components/Actions/index.js';

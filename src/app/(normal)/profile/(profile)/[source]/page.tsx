@@ -1,6 +1,6 @@
 'use client';
 
-import { notFound, redirect, RedirectType } from 'next/navigation.js';
+import { notFound, redirect, RedirectType } from '@/esm/navigation.js';
 import { use, useEffect } from 'react';
 
 import { Link } from '@/components/Link.js';

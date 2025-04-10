@@ -1,4 +1,4 @@
-import { redirect, RedirectType } from 'next/navigation.js';
+import { redirect, RedirectType } from '@/esm/navigation.js';
 
 import { ShareLinkPage, type ShareLinkProps } from '@/app/(normal)/intent/compose/pages/ShareLinkPage.js';
 import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';

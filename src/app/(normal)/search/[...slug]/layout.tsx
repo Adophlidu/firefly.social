@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { last } from 'lodash-es';
-import { notFound } from 'next/navigation.js';
+import { notFound } from '@/esm/navigation.js';
 
 import { SearchTabs } from '@/components/Search/SearchTabs.js';
 import { SearchType, SourceInURL } from '@/constants/enum.js';

@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation.js';
+import { usePathname, useRouter } from '@/esm/navigation.js';
 import { memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import FireflyIcon from '@/assets/firefly.svg';

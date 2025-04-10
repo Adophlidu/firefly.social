@@ -4,7 +4,7 @@ import 'swiper/css/keyboard';
 import 'swiper/css/navigation';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation.js';
+import { useRouter } from '@/esm/navigation.js';
 import { use } from 'react';
 
 import { PreviewMedia } from '@/components/PreviewMedia/index.js';

@@ -3,7 +3,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { first, isNumber } from 'lodash-es';
-import { notFound } from 'next/navigation.js';
+import { notFound } from '@/esm/navigation.js';
 import { type HTMLProps, memo, type ReactNode } from 'react';
 
 import QuestionIcon from '@/assets/question.svg';

@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { notFound } from 'next/navigation.js';
+import { notFound } from '@/esm/navigation.js';
 import type { PropsWithChildren } from 'react';
 import type { Address } from 'viem';
 

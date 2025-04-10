@@ -1,7 +1,7 @@
 'use client';
 
 import { delay } from '@masknet/kit';
-import { useSearchParams } from 'next/navigation.js';
+import { useSearchParams } from '@/esm/navigation.js';
 import { useAsync } from 'react-use';
 
 import { changeCookies } from '@/actions/changeCookies.js';

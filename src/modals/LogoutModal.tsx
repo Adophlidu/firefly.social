@@ -4,7 +4,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 import { compact } from 'lodash-es';
-import { useRouter } from 'next/navigation.js';
+import { useRouter } from '@/esm/navigation.js';
 
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';

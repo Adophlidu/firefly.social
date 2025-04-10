@@ -1,5 +1,5 @@
 import { t } from '@lingui/core/macro';
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 import { useAsyncFn } from 'react-use';
 
 import { type SocialSource } from '@/constants/enum.js';

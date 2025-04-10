@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation.js';
+import { useRouter } from '@/esm/navigation.js';
 import { memo, useEffect, useMemo } from 'react';
 
 import { ChannelCard } from '@/components/Channel/ChannelCard.js';

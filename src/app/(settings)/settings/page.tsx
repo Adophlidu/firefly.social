@@ -1,7 +1,7 @@
 'use client';
 
 import { t } from '@lingui/core/macro';
-import { useRouter } from 'next/navigation.js';
+import { useRouter } from '@/esm/navigation.js';
 import { useEffect } from 'react';
 
 import { SettingsList } from '@/app/(settings)/components/SettingsList.js';

@@ -1,7 +1,7 @@
 'use client';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { notFound } from 'next/navigation.js';
+import { notFound } from '@/esm/navigation.js';
 
 import { NFTCollection } from '@/components/CollectionDetail/NFTCollection.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';

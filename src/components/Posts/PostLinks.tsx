@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
-import { useRouter } from 'next/navigation.js';
+import { useRouter } from '@/esm/navigation.js';
 import { memo, useEffect, useMemo } from 'react';
 
 import { ArticleBody } from '@/components/Article/ArticleBody.js';

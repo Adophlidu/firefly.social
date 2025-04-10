@@ -4,7 +4,7 @@ import { plural, t } from '@lingui/core/macro';
 import { Plural, Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { compact, sumBy } from 'lodash-es';
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 import { Fragment, type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
 import FireflyMonochromeIcon from '@/assets/firefly-monochrome.svg';

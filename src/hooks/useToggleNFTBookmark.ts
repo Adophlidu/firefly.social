@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { useIsMutating, useMutation } from '@tanstack/react-query';
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 
 import { FireflyPlatform } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';

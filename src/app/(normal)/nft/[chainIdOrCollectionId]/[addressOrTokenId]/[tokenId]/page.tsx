@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation.js';
+import { notFound } from '@/esm/navigation.js';
 
 import { NFTDetailPage } from '@/app/(normal)/nft/pages/NFTDetailPage.js';
 import { createMetadataNFT } from '@/helpers/createMetadataNFT.js';

@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 import { type HTMLProps, memo } from 'react';
 
 import { Collect } from '@/components/Actions/Collect.js';

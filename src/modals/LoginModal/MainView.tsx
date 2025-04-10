@@ -4,7 +4,7 @@ import { delay, safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';
 import { compact, first } from 'lodash-es';
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 import { signIn } from 'next-auth/react';
 import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';

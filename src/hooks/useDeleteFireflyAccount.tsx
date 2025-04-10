@@ -3,7 +3,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
-import { useRouter } from 'next/navigation.js';
+import { useRouter } from '@/esm/navigation.js';
 import { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useCountdown } from 'usehooks-ts';

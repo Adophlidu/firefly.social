@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { notFound } from 'next/navigation.js';
+import { notFound } from '@/esm/navigation.js';
 
 import { NoSSR } from '@/components/NoSSR.js';
 import { SolidSourceTabs } from '@/components/Tabs/SolidSourceTabs.js';

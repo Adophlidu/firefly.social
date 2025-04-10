@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { notFound } from 'next/navigation.js';
+import { notFound } from '@/esm/navigation.js';
 import { Suspense, use, useMemo } from 'react';
 
 import { Loading } from '@/components/Loading.js';

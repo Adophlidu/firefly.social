@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation.js';
+import { notFound } from '@/esm/navigation.js';
 
 import { FollowPageLayout } from '@/app/(normal)/profile/pages/FollowPageLayout.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';

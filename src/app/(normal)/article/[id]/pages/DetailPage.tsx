@@ -1,7 +1,7 @@
 import '@/assets/css/limo.css';
 import '@/assets/css/paragraph.css';
 
-import { notFound } from 'next/navigation.js';
+import { notFound } from '@/esm/navigation.js';
 
 import { ArticleDetailContent } from '@/components/Article/ArticleDetailContent.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';

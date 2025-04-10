@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation.js';
+import { useRouter } from '@/esm/navigation.js';
 import { useCallback } from 'react';
 
 export function useUpdateParams() {

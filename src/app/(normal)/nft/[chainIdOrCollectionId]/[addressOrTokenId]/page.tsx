@@ -1,5 +1,5 @@
 import { SolanaChainId } from '@masknet/web3-shared-solana';
-import { notFound, redirect } from 'next/navigation.js';
+import { notFound, redirect } from '@/esm/navigation.js';
 
 import { NFTCollectionPage } from '@/app/(normal)/nft/pages/NFTCollectionPage.js';
 import { NFTDetailPage } from '@/app/(normal)/nft/pages/NFTDetailPage.js';

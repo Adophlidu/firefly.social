@@ -2,7 +2,7 @@
 
 import { useActionsRegistryInterval } from '@dialectlabs/blinks';
 import { isServer } from '@tanstack/react-query';
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 import { SnackbarProvider } from 'notistack';
 import { memo, useEffect, useLayoutEffect, useRef } from 'react';
 import { useEffectOnce } from 'react-use';

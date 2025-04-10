@@ -3,7 +3,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
-import { usePathname } from 'next/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
 import { useMemo, useState } from 'react';
 
 import ArrowDownCircleIcon from '@/assets/arrow-circle-down.svg';

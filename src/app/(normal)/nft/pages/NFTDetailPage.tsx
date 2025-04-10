@@ -3,7 +3,7 @@
 import { EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { isUndefined } from 'lodash-es';
-import { notFound } from 'next/navigation.js';
+import { notFound } from '@/esm/navigation.js';
 
 import { Loading } from '@/components/Loading.js';
 import { Attendees } from '@/components/NFTDetail/Attendees.js';
