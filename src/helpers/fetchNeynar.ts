@@ -5,10 +5,10 @@ import { type NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 
 const API_KEY_HEADER_NAME = 'x-api-key';
 
-export function fetchNeynarJSON<T>(url: string, init: RequestInit, options?: NextFetchersOptions): Promise<T> {
+export function fetchNeynarJSON<T>(url: string, init?: RequestInit, options?: NextFetchersOptions): Promise<T> {
     const headers = {
         'Content-Type': 'application/json',
-        ...init.headers,
+        ...init?.headers,
         [API_KEY_HEADER_NAME]: NOT_DEPEND_SECRET,
     };
 

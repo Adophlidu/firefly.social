@@ -30,7 +30,7 @@ class FarcasterSessionHolder extends SessionHolder<FarcasterSession> {
     }
 
     async fetchHubble<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {
-        return fetchNeynarJSON<T>(url, undefined, {
+        return fetchNeynarJSON<T>(url, init, {
             noStrictOK: true,
             ...options,
         });

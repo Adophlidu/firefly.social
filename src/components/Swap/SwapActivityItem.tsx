@@ -179,7 +179,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
 
                                     <div className="flex items-center justify-between text-lightSecond">
                                         <span className="text-xs text-lightSecond">{activity.from_token?.symbol}</span>
-                                        <span>${formatTokenUSD(activity.from_token?.amount_usd)}</span>
+                                        <span>{formatTokenUSD(activity.from_token?.amount_usd)}</span>
                                     </div>
                                 </div>
                             </Link>
@@ -217,7 +217,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
 
                                     <div className="flex items-center justify-between text-lightSecond">
                                         <span className="text-xs text-lightSecond">{activity.to_token?.symbol}</span>
-                                        <span>${formatTokenUSD(activity.to_token?.amount_usd)}</span>
+                                        <span>{formatTokenUSD(activity.to_token?.amount_usd)}</span>
                                     </div>
                                 </div>
                             </Link>

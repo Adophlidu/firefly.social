@@ -2,6 +2,7 @@
 
 import { Select, Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import dayjs from 'dayjs';
 import { first } from 'lodash-es';
 import { memo } from 'react';
 
@@ -15,7 +16,6 @@ import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { Loading } from '@/components/Loading.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
-import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation.js';
@@ -170,7 +170,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
 
                                     <div className="flex items-center justify-between text-lightSecond">
                                         <span className="text-xs">{activity.from_token.symbol}</span>
-                                        <span>${formatTokenUSD(activity.from_token.amount_usd)}</span>
+                                        <span>{formatTokenUSD(activity.from_token.amount_usd)}</span>
                                     </div>
                                 </div>
                             </Link>
@@ -212,7 +212,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
 
                                     <div className="flex items-center justify-between text-lightSecond">
                                         <span className="text-xs">{activity.to_token.symbol}</span>
-                                        <span>${formatTokenUSD(activity.to_token.amount_usd)}</span>
+                                        <span>{formatTokenUSD(activity.to_token.amount_usd)}</span>
                                     </div>
                                 </div>
                             </Link>
@@ -323,7 +323,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                         </span>
                         <div className="flex items-center gap-1">
                             <span className="text-lightMain">
-                                <TimestampFormatter time={Number(activity.timestamp) * 1000} />
+                                {dayjs(Number(activity.timestamp) * 1000).format('MMM, YYYY [at] hh:mmA')}
                             </span>
                         </div>
                     </div>
