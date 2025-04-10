@@ -2644,9 +2644,6 @@ msgstr "Share"
 msgid "Transaction Simulation"
 msgstr "Transaction Simulation"
 
-msgid "Invalid wallet address format"
-msgstr "Invalid wallet address format"
-
 msgid "Remaining"
 msgstr "Remaining"
 

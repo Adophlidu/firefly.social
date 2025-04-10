@@ -2649,9 +2649,6 @@ msgstr "分享"
 msgid "Transaction Simulation"
 msgstr "交易模拟"
 
-msgid "Invalid wallet address format"
-msgstr ""
-
 msgid "Remaining"
 msgstr "剩余"
 

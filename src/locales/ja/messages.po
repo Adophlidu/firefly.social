@@ -2636,9 +2636,6 @@ msgstr ""
 msgid "Transaction Simulation"
 msgstr ""
 
-msgid "Invalid wallet address format"
-msgstr ""
-
 msgid "Remaining"
 msgstr ""
 

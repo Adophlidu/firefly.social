@@ -1,15 +1,21 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import * as z from 'zod';
+import { z } from 'zod';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ClearButton, CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+
+const TokenSchema = z.object({
+    name: z.string().min(1),
+    symbol: z.string().min(1),
+    address: z.string().regex(/^0x[a-fA-F0-9]{40}$/, 'Invalid wallet address format'),
+});
 
 interface FormOptions {
     name: string;
@@ -29,14 +35,6 @@ type Props = {
 
 export function LaunchTokenModal({ ref }: Props) {
     const [props, setProps] = useState<LaunchTokenModalOpenProps>();
-    const invalidAddressMessage = t`Invalid wallet address format`;
-    const schema = useMemo(() => {
-        return z.object({
-            name: z.string().min(1),
-            symbol: z.string().min(1),
-            address: z.string().regex(/^0x[a-fA-F0-9]{40}$/, invalidAddressMessage),
-        });
-    }, [invalidAddressMessage]);
     const {
         register,
         handleSubmit,
@@ -46,7 +44,7 @@ export function LaunchTokenModal({ ref }: Props) {
         formState: { errors, isValid },
         reset,
     } = useForm<FormOptions>({
-        resolver: zodResolver(schema),
+        resolver: zodResolver(TokenSchema),
         reValidateMode: 'onBlur',
         defaultValues: {
             name: '',

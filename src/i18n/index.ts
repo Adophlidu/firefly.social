@@ -39,15 +39,13 @@ export const defaultLocale = Locale.en;
 export async function getI18n(): Promise<I18n> {
     const locale = await getLocaleFromCookiesAsync();
     const instance = getI18nInstance(locale);
-
-    console.log('DEBUG: getI18n', locale, instance.locale);
-
     return instance;
 }
 
 export async function setupLocaleForSSR() {
     const i18n = await getI18n();
     setI18n(i18n);
+    setLocale(i18n.locale as Locale);
 }
 
 export function getI18nInstance(locale: Locale): I18n {

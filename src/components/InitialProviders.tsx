@@ -7,14 +7,11 @@ import { memo, useEffect, useLayoutEffect, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
 import { v4 as uuid } from 'uuid';
 
-import { sentryClient } from '@/configs/sentryClient.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useLocale } from '@/helpers/getCookie.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { setLocale } from '@/i18n/index.js';
 import { recordUserThemeMode } from '@/services/recordUserThemeMode.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -42,18 +39,10 @@ export const InitialProviders = memo(function Providers(props: { children: React
         if (!isServer) recordUserThemeMode(isDarkMode ? 'dark' : 'light');
     }, [isDarkMode, themeMode]);
 
-    const locale = useLocale();
-    useEffect(() => {
-        console.info('[i18n] set locale =', locale);
-        setLocale(locale);
-    }, [locale]);
-
     const viewerId = useLeafwatchPersistStore.use.viewerId();
     const setViewerId = useLeafwatchPersistStore.use.setViewerId();
 
     useEffectOnce(() => {
-        sentryClient.init();
-
         if (!viewerId) setViewerId(uuid());
 
         if ('serviceWorker' in navigator) {
