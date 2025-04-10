@@ -24,7 +24,7 @@ export function LinkCloud() {
                 },
                 {
                     name: <Trans>Download App</Trans>,
-                    link: 'https://about.firefly.social/#download',
+                    link: 'https://about.firefly.social',
                 },
                 {
                     name: <Trans>Feedback</Trans>,
