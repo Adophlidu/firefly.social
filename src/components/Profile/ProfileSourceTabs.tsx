@@ -12,7 +12,8 @@ import WalletIcon from '@/assets/wallet-bold.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type ProfilePageSource, Source } from '@/constants/enum.js';
+import { type ProfilePageSource, Source, STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -132,6 +133,8 @@ function TriggerButton({
     const displayName = source === Source.Wallet ? profile.displayName : `@${profile.displayName}`;
 
     if (menu) {
+        const isNotWalletMixIdentity =
+            identity.source !== Source.WalletMix && isSameFireflyIdentity(identity, profile.identity);
         return (
             <MenuButton
                 ref={ref as Ref<HTMLButtonElement>}
@@ -139,8 +142,9 @@ function TriggerButton({
                 onMouseEnter={(e) => e.currentTarget.click()}
             >
                 <ProfileTriggerContent active={isCurrentSource} source={source} square arrow>
-                    {source !== Source.Wallet ||
-                    (identity.source !== Source.WalletMix && isSameFireflyIdentity(identity, profile.identity)) ? (
+                    {env.external.NEXT_PUBLIC_WALLET_MIX === STATUS.Disabled ||
+                    source !== Source.Wallet ||
+                    isNotWalletMixIdentity ? (
                         displayName
                     ) : (
                         <Trans>Wallets</Trans>
@@ -190,7 +194,7 @@ function TopProfileMenuItem({ profile, identity }: { profile: FireflyProfile; id
         'pointer-events-none': !isMounted || pathname === href,
     });
 
-    if (isWalletProfile) {
+    if (env.external.NEXT_PUBLIC_WALLET_MIX === STATUS.Enabled && isWalletProfile) {
         return (
             <Link
                 href={href}
@@ -331,7 +335,7 @@ export function ProfileSourceTabs({ profiles, identity }: { profiles: FireflyPro
                                                 ? {
                                                       'bg-farcasterPrimary text-white': source === Source.Farcaster,
                                                       'bg-lensPrimary text-lensText': source === Source.Lens,
-                                                      'bg-mainLight text-white': source === Source.Twitter,
+                                                      'bg-lightMain text-primaryBottom': source === Source.Twitter,
                                                       'bg-bskyPrimary text-white': source === Source.Bsky,
                                                       'bg-lightHighlight text-white': isWalletProfile,
                                                   }

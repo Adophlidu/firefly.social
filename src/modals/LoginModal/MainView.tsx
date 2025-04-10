@@ -4,9 +4,8 @@ import { Trans } from '@lingui/react/macro';
 import { delay, safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';
-import { compact, first } from 'lodash-es';
 import { signIn } from 'next-auth/react';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
@@ -18,11 +17,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { FarcasterSignType, PageRoute, type SocialSource, Source, type ThirdPartySource } from '@/constants/enum.js';
-import {
-    SORTED_LOGIN_SOCIAL_SOURCES,
-    SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE,
-    SORTED_THIRD_PARTY_SOURCES_IN_URL,
-} from '@/constants/index.js';
+import { SORTED_LOGIN_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES_IN_URL } from '@/constants/index.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -30,7 +25,6 @@ import { ensureLensResult } from '@/helpers/ensureLensResult.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { formatThirdPartyProfileName } from '@/helpers/formatThirdPartyProfileName.js';
-import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveFireflyAccountFallbackName } from '@/helpers/resolveFireflyAccountFallbackName.js';
@@ -39,6 +33,7 @@ import { resolveSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { useCurrentFireflyAccountAvatar } from '@/hooks/useCurrentFireflyAccountAvatar.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
@@ -169,28 +164,7 @@ export function MainView() {
     });
 
     const currentProfile = data?.account ? formatFireflyAccountProfileFromFireflyConnections(data.account) : null;
-
-    const avatar = useMemo(() => {
-        if (currentProfile?.avatar && !currentProfile.avatar.includes('stamp.firefly.land')) {
-            return currentProfile.avatar;
-        }
-
-        const accountAvatars = compact(
-            SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE.flatMap((source) => {
-                return profileStore[source].accounts.map((account) => ({
-                    source,
-                    account,
-                    profile: account.profile,
-                }));
-            }).map(({ profile }) => profile.pfp),
-        );
-
-        const socialAvatar = first(accountAvatars);
-
-        if (!socialAvatar && currentProfile?.uid) return getStampAvatarByProfileId(Source.Firefly, currentProfile.uid);
-
-        return socialAvatar;
-    }, [currentProfile, profileStore]);
+    const avatar = useCurrentFireflyAccountAvatar(currentProfile?.uid, currentProfile?.avatar);
 
     return (
         <div className="rounded-[6px] bg-primaryBottom px-6 pb-6 max-md:max-h-[calc(100vh_-_64px)] max-md:overflow-auto md:w-[400px]">

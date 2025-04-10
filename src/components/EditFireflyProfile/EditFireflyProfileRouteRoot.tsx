@@ -31,7 +31,7 @@ export function EditFireflyProfileRouteRoot() {
     });
 
     return (
-        <div className="relative flex w-[100vw] flex-grow flex-col overflow-auto bg-lightBottom shadow-popover transition-all dark:bg-darkBottom dark:text-gray-950 md:h-auto md:max-h-[800px] md:w-[600px] md:rounded-xl lg:flex-grow-0">
+        <div className="relative flex w-[100vw] flex-grow flex-col overflow-auto bg-lightBottom shadow-popover transition-all dark:bg-darkBottom dark:text-gray-950 md:h-auto md:max-h-[800px] md:w-[455px] md:rounded-xl lg:flex-grow-0">
             <Dialog.Title as="h3" className="relative h-14 shrink-0 pt-safe">
                 {pathname === Path.Root ? (
                     <CloseButton

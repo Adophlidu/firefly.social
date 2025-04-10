@@ -67,7 +67,7 @@ export function EditProfileAvatarEditor({ name }: { name: string }) {
                             <Fragment key={i}>
                                 <div className="relative h-full w-full overflow-hidden rounded-2xl">
                                     <div
-                                        className="h-full w-full origin-left bg-link"
+                                        className="h-full w-full origin-left bg-lightHighlight"
                                         style={{
                                             transform: `scaleX(${rangerInstance.getPercentageForValue(value) / 100})`,
                                         }}
@@ -81,7 +81,7 @@ export function EditProfileAvatarEditor({ name }: { name: string }) {
                                     aria-valuemin={rangerInstance.options.min}
                                     aria-valuemax={rangerInstance.options.max}
                                     aria-valuenow={value}
-                                    className="willChange-[left] absolute left-0 top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-link shadow-messageShadow"
+                                    className="willChange-[left] absolute left-0 top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-lightHighlight shadow-messageShadow"
                                     style={{
                                         left: `${rangerInstance.getPercentageForValue(value)}%`,
                                     }}

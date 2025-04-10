@@ -27,6 +27,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
+import { useCurrentFireflyAccountAvatar } from '@/hooks/useCurrentFireflyAccountAvatar.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -57,7 +58,8 @@ export function FireflyAccountInfo({ banner, walletProfile, socialProfile, ident
         },
         initialData: profile,
     });
-    const { displayName, avatar, uid } = data || {};
+    const { displayName, uid } = data || {};
+    const avatar = useCurrentFireflyAccountAvatar(data?.uid, data?.avatar);
     const [buttonContainerRef, buttonContainerEntry] = useIntersectionObserver({
         threshold: 0.5,
     });
@@ -74,7 +76,7 @@ export function FireflyAccountInfo({ banner, walletProfile, socialProfile, ident
     const showProfileAction = profileActionEntry && !profileActionEntry.isIntersecting;
     const currentProfile = useCurrentProfile(narrowToSocialSource(identity.source));
     const isCurrentProfile = currentProfile && socialProfile ? isSameProfile(currentProfile, socialProfile) : false;
-    const noFireflyAccount = (!displayName && !avatar) || !uid;
+    const noFireflyAccount = (!displayName && !data?.avatar) || !uid;
 
     const isLogin = useIsLogin(narrowToSocialSource(identity.source));
     const title = useMemo(() => {
@@ -83,12 +85,17 @@ export function FireflyAccountInfo({ banner, walletProfile, socialProfile, ident
         return socialProfile?.displayName;
     }, [walletProfile, identity.source, isLogin, socialProfile?.displayName]);
 
+    const isShowFireflyAccount = (!noFireflyAccount || isCurrentProfile) && uid;
+
     return (
         <>
             <AnimatePresence initial={false}>
-                {showStickyTitle || noFireflyAccount ? (
+                {showStickyTitle || !isShowFireflyAccount ? (
                     <motion.div
-                        className={classNames('sticky left-0 top-0 z-40 w-full', noFireflyAccount ? 'h-[60px]' : 'h-0')}
+                        className={classNames(
+                            'sticky left-0 top-0 z-40 w-full',
+                            !isShowFireflyAccount ? 'h-[60px]' : 'h-0',
+                        )}
                         key="title"
                         exit={{ y: -60 }}
                         initial={{ y: -60 }}
@@ -127,15 +134,28 @@ export function FireflyAccountInfo({ banner, walletProfile, socialProfile, ident
                     </motion.div>
                 ) : null}
             </AnimatePresence>
-            {!noFireflyAccount ? (
+            {isShowFireflyAccount ? (
                 <div className="relative flex w-full flex-col items-center pt-2.5">
-                    <Image
-                        src={banner ?? '/image/default-firefly-account-banner.png'}
-                        alt="firefly-account-banner"
-                        width={1196}
-                        height={200}
-                        className="absolute left-0 top-0 h-[100px] w-full object-cover"
-                    />
+                    {banner ? (
+                        <Image
+                            src={banner}
+                            alt="firefly-account-banner"
+                            width={1196}
+                            height={200}
+                            className="absolute left-0 top-0 h-[100px] w-full object-cover"
+                        />
+                    ) : (
+                        <div className="absolute left-0 top-0 flex h-[100px] w-full overflow-hidden">
+                            <Image
+                                src={avatar ?? getStampAvatarByProfileId(Source.Firefly, uid)}
+                                alt="firefly-account-banner"
+                                width={1196}
+                                height={200}
+                                className="absolute left-0 top-1/2 h-auto min-h-[100px] w-full -translate-y-1/2 transform-gpu object-cover blur-md"
+                            />
+                        </div>
+                    )}
+
                     <div className="relative mt-5 flex w-full px-6" ref={buttonContainerRef}>
                         <ComeBackButton />
                         <div className="ml-auto flex space-x-2">
@@ -185,7 +205,7 @@ export function FireflyAccountInfo({ banner, walletProfile, socialProfile, ident
                         <div className="h-6 min-w-0 max-w-full truncate text-lg font-bold leading-6">
                             {displayName ?? <Trans>Firefly User</Trans>}
                         </div>
-                        <div className="flex h-[22px] cursor-pointer items-center text-medium leading-[22px] text-second">
+                        <div className="flex h-[22px] items-center text-medium leading-[22px] text-second">
                             <Trans>UID: {uid}</Trans>
                             <CopyTextButton text={uid} />
                         </div>

@@ -51,6 +51,7 @@ export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps 
             '!bg-farcasterPrimary !text-white': profile.source === Source.Farcaster,
             '!bg-lensButton !text-primaryBottom': profile.source === Source.Lens,
             '!bg-bskyPrimary !text-white': profile.source === Source.Bsky,
+            '!bg-main !text-primaryBottom': profile.source === Source.Twitter,
         });
         if (isRelatedProfile) return <ProfileLoginStatus profile={profile} className={socialThemeClassName} />;
         return (
