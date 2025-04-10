@@ -1,10 +1,9 @@
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { env } from '@/constants/env.js';
 import { NotImplementedError } from '@/constants/error.js';
-import { EMPTY_LIST, NEYNAR_URL, NOT_DEPEND_SECRET } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { EMPTY_LIST, NEYNAR_URL } from '@/constants/index.js';
+import { fetchNeynarJSON } from '@/helpers/fetchNeynar.js';
 import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterProfileFromNeynar } from '@/helpers/formatFarcasterProfileFromNeynar.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
@@ -24,27 +23,6 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-
-function fetchNeynarJSON<T>(url: string, options: RequestInit): Promise<T> {
-    const headers = {
-        'Content-Type': 'application/json',
-        ...options.headers,
-        api_key: NOT_DEPEND_SECRET,
-    };
-
-    if (env.internal.HUBBLE_TOKEN) {
-        headers.api_key = env.internal.HUBBLE_TOKEN;
-    } else if (env.external.NEXT_PUBLIC_HUBBLE_TOKEN) {
-        headers.api_key = env.external.NEXT_PUBLIC_HUBBLE_TOKEN;
-    } else {
-        throw new Error('token not found.');
-    }
-
-    return fetchJSON(url, {
-        ...options,
-        headers,
-    });
-}
 
 class NeynarSocialMedia implements Provider {
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
