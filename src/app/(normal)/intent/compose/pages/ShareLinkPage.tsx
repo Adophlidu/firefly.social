@@ -1,11 +1,11 @@
 'use client';
 
 import { compact } from 'lodash-es';
-import { useRouter } from '@/esm/navigation.js';
 import { useEffect } from 'react';
 
 import { FireflyPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { useRouter } from '@/esm/navigation.js';
 import { CHAR_TAG } from '@/helpers/chars.js';
 import { formatSearchProfile } from '@/helpers/formatSearchProfile.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';

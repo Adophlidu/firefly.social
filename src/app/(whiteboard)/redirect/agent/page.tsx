@@ -1,12 +1,12 @@
 'use client';
 
 import { delay } from '@masknet/kit';
-import { useSearchParams } from '@/esm/navigation.js';
 import { useAsync } from 'react-use';
 
 import { changeCookies } from '@/actions/changeCookies.js';
 import FireflyIcon from '@/assets/logo.svg';
 import { Agent, Locale, PageRoute } from '@/constants/enum.js';
+import { useSearchParams } from '@/esm/navigation.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { setLocale } from '@/i18n/index.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';

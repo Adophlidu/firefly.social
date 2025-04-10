@@ -2,13 +2,13 @@
 
 import { useActionsRegistryInterval } from '@dialectlabs/blinks';
 import { isServer } from '@tanstack/react-query';
-import { usePathname } from '@/esm/navigation.js';
 import { SnackbarProvider } from 'notistack';
 import { memo, useEffect, useLayoutEffect, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
 import { v4 as uuid } from 'uuid';
 
 import { sentryClient } from '@/configs/sentryClient.js';
+import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useLocale } from '@/helpers/getCookie.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';

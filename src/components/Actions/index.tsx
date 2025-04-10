@@ -2,7 +2,6 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { usePathname } from '@/esm/navigation.js';
 import { type HTMLProps, memo } from 'react';
 
 import { Collect } from '@/components/Actions/Collect.js';
@@ -17,6 +16,7 @@ import { Tips } from '@/components/Tips/index.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { NotFoundError } from '@/constants/error.js';
 import { ENABLED_BOOKMARK_SOURCES } from '@/constants/index.js';
+import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';

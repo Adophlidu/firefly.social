@@ -3,7 +3,6 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
-import { usePathname } from '@/esm/navigation.js';
 import { useMemo, useState } from 'react';
 
 import ArrowDownCircleIcon from '@/assets/arrow-circle-down.svg';
@@ -12,6 +11,7 @@ import { Link } from '@/components/Link.js';
 import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
 import { HomeTab, Source } from '@/constants/enum.js';
+import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';
 import { parseFollowingPageUrl } from '@/helpers/parseFollowingPageUrl.js';

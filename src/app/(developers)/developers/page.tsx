@@ -1,9 +1,9 @@
 'use client';
 
-import { useRouter } from '@/esm/navigation.js';
 import { useEffect } from 'react';
 
 import { ToolkitList } from '@/app/(developers)/components/ToolkitList.js';
+import { useRouter } from '@/esm/navigation.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 
 export default function Developers() {

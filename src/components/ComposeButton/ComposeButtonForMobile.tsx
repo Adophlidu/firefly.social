@@ -1,11 +1,10 @@
 'use client';
 
-import { usePathname } from '@/esm/navigation.js';
-
 import ComposeAddIcon from '@/assets/compose-add.svg';
 import ReplyIcon from '@/assets/reply.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { PageRoute, Source } from '@/constants/enum.js';
+import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';

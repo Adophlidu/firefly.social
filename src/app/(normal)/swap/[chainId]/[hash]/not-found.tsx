@@ -1,9 +1,9 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { useParams } from '@/esm/navigation.js';
 
 import NotFound from '@/components/NotFound.js';
+import { useParams } from '@/esm/navigation.js';
 
 export default function NotFoundToken() {
     const params = useParams<{ hash: string }>();

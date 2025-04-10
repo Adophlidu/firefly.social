@@ -1,12 +1,12 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { usePathname } from '@/esm/navigation.js';
 import { useRef } from 'react';
 import { useHover } from 'usehooks-ts';
 
 import { Link } from '@/components/Link.js';
 import { PageRoute } from '@/constants/enum.js';
+import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';

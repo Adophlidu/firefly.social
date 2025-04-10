@@ -1,9 +1,9 @@
 'use client';
 
-import { usePathname } from '@/esm/navigation.js';
 import { useEffect } from 'react';
 
 import { Source } from '@/constants/enum.js';
+import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useValueRef } from '@/hooks/useValueRef.js';
 import { ValueRef } from '@/libs/ValueRef.js';

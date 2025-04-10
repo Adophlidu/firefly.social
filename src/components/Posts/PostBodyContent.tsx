@@ -4,7 +4,6 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { usePathname, useRouter } from '@/esm/navigation.js';
 import { useMemo } from 'react';
 
 import { TwitterArticleBody } from '@/components/Article/TwitterArticleBody.js';
@@ -25,6 +24,7 @@ import { RedPacketInspector } from '@/components/RedPacket/RedPacketInspector.js
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, RP_HASH_TAG } from '@/constants/index.js';
+import { usePathname, useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';

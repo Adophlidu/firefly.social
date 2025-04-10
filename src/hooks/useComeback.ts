@@ -1,9 +1,9 @@
 'use client';
 
-import { useRouter } from '@/esm/navigation.js';
 import { useCallback } from 'react';
 
 import { PageRoute } from '@/constants/enum.js';
+import { useRouter } from '@/esm/navigation.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function useComeBack(path = PageRoute.Home) {

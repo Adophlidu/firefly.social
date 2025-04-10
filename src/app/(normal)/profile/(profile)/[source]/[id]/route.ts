@@ -1,6 +1,6 @@
-import { notFound, redirect, RedirectType } from '@/esm/navigation.js';
 import type { NextRequest } from 'next/server.js';
 
+import { notFound, redirect, RedirectType } from '@/esm/navigation.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';

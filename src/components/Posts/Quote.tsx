@@ -1,11 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useRouter } from '@/esm/navigation.js';
 import { memo } from 'react';
 
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
+import { useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

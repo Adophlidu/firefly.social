@@ -2,7 +2,6 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
-import { useRouter } from '@/esm/navigation.js';
 import { memo, useEffect, useMemo } from 'react';
 
 import { ArticleBody } from '@/components/Article/ArticleBody.js';
@@ -15,6 +14,7 @@ import { RocketsFunCard } from '@/components/RocketsFun/RocketsFunCard.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { LINK_MARK_RE } from '@/constants/linkRegExp.js';
+import { useRouter } from '@/esm/navigation.js';
 import type { Chars } from '@/helpers/chars.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';

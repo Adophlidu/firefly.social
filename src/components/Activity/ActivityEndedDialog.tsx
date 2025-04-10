@@ -1,11 +1,11 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { useRouter } from '@/esm/navigation.js';
 import { useCallback, useEffect } from 'react';
 
 import { Modal } from '@/components/Modal.js';
 import { PageRoute } from '@/constants/enum.js';
+import { useRouter } from '@/esm/navigation.js';
 import { type ActivityInfoResponse, ActivityStatus } from '@/providers/types/Firefly.js';
 
 interface Props {

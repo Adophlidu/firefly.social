@@ -1,7 +1,6 @@
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useRouter } from '@/esm/navigation.js';
 import { memo } from 'react';
 
 import MoreIcon from '@/assets/more-fill.svg';
@@ -15,6 +14,7 @@ import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { SearchType, Source } from '@/constants/enum.js';
 import { SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES } from '@/constants/index.js';
+import { useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isCurrentProfile } from '@/helpers/isCurrentProfile.js';

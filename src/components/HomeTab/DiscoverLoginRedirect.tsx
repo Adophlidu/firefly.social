@@ -1,9 +1,9 @@
 'use client';
 
-import { redirect, RedirectType } from '@/esm/navigation.js';
 import { useEffect, useRef } from 'react';
 
 import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
+import { redirect, RedirectType } from '@/esm/navigation.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
 import { useIsLoginDiscoverSource } from '@/hooks/useIsLogin.js';

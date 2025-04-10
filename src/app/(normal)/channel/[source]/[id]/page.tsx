@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { notFound } from '@/esm/navigation.js';
 
 import { ChannelInfoUI } from '@/components/Channel/ChannelInfoUI.js';
 import { ChannelProvider } from '@/components/Channel/ChannelProvider.js';
@@ -7,6 +6,7 @@ import { PostList } from '@/components/Channel/PostList.js';
 import { Title } from '@/components/Channel/Title.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { ChannelTabType, KeyType, type SocialSourceInURL, SourceInURL } from '@/constants/enum.js';
+import { notFound } from '@/esm/navigation.js';
 import { createMetadataChannelById } from '@/helpers/createMetadataChannel.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

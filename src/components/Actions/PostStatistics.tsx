@@ -4,7 +4,6 @@ import { plural, t } from '@lingui/core/macro';
 import { Plural, Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { compact, sumBy } from 'lodash-es';
-import { usePathname } from '@/esm/navigation.js';
 import { Fragment, type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
 import FireflyMonochromeIcon from '@/assets/firefly-monochrome.svg';
@@ -12,6 +11,7 @@ import { Link } from '@/components/Link.js';
 import { ChannelAnchor } from '@/components/Posts/ChannelAnchor.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { EngagementType, PageRoute, Source } from '@/constants/enum.js';
+import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getPollTimeLeft } from '@/helpers/getPollTimeLeft.js';

@@ -4,7 +4,6 @@ import { delay, safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';
 import { compact, first } from 'lodash-es';
-import { usePathname } from '@/esm/navigation.js';
 import { signIn } from 'next-auth/react';
 import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -23,6 +22,7 @@ import {
     SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE,
     SORTED_THIRD_PARTY_SOURCES_IN_URL,
 } from '@/constants/index.js';
+import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';

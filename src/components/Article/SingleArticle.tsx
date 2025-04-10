@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
-import { useRouter } from '@/esm/navigation.js';
 import { memo, useCallback } from 'react';
 import { useMount } from 'react-use';
 import urlcat from 'urlcat';
@@ -12,6 +11,7 @@ import { SingleArticleHeader } from '@/components/Article/SingleArticleHeader.js
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';

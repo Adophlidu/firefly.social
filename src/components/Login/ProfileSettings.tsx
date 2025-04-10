@@ -4,7 +4,6 @@ import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 import { Reorder } from 'framer-motion';
 import { noop } from 'lodash-es';
-import { usePathname } from '@/esm/navigation.js';
 import { useAsyncFn, useMount } from 'react-use';
 import urlcat from 'urlcat';
 
@@ -16,6 +15,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { PageRoute, type SocialSource } from '@/constants/enum.js';
 import { SUPPORTED_MULTI_ACCOUNT_SOURCES } from '@/constants/index.js';
+import { usePathname } from '@/esm/navigation.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';

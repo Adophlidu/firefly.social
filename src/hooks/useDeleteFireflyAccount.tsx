@@ -3,12 +3,12 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
-import { useRouter } from '@/esm/navigation.js';
 import { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { ConfirmModalRef } from '@/modals/controls.js';

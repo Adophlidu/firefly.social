@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { usePathname } from '@/esm/navigation.js';
 import { memo } from 'react';
 
 import ActivityIcon from '@/assets/activity.svg';
@@ -27,6 +26,7 @@ import { Profile } from '@/components/SideBar/Profile.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { PageRoute } from '@/constants/enum.js';
 import { DEFAULT_BOOKMARK_SOURCE, DEFAULT_EXPLORE_TYPE, DEFAULT_NOTIFICATION_SOURCE } from '@/constants/index.js';
+import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';

@@ -3,7 +3,6 @@
 import { Select, Trans } from '@lingui/react/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
-import { notFound } from '@/esm/navigation.js';
 import { memo } from 'react';
 
 import ExchangeIcon from '@/assets/exchange.svg';
@@ -19,6 +18,7 @@ import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { NetworkType, Source } from '@/constants/enum.js';
+import { notFound } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';

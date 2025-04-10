@@ -1,7 +1,8 @@
 'use client';
 
-import { usePathname, useSelectedLayoutSegments } from '@/esm/navigation.js';
 import type { PropsWithChildren, ReactNode } from 'react';
+
+import { usePathname, useSelectedLayoutSegments } from '@/esm/navigation.js';
 
 interface Props extends PropsWithChildren {
     otherwise?: ReactNode;

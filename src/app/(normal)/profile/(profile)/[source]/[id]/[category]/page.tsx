@@ -1,13 +1,13 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { notFound } from '@/esm/navigation.js';
 import { Suspense, use, useMemo } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfilePageTimeline } from '@/components/Profile/ProfilePageTimeline.js';
 import { type ProfileCategory, Source, SourceInURL } from '@/constants/enum.js';
+import { notFound } from '@/esm/navigation.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

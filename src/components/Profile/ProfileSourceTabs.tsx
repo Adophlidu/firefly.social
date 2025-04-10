@@ -3,7 +3,6 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
-import { usePathname } from '@/esm/navigation.js';
 import { type HTMLProps, type Ref, useLayoutEffect, useRef, useState } from 'react';
 import { useMount } from 'react-use';
 
@@ -15,6 +14,7 @@ import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type ProfilePageSource, Source } from '@/constants/enum.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
+import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getStampAvatarByFireflyProfile } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';

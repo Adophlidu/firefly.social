@@ -51,9 +51,7 @@ export const SelectNetworkModalUI = memo<Props>(function SelectChainModalUI({ ti
                     <ClickableButton
                         key={chainType.type}
                         className="flex flex-col items-center gap-2 rounded-md px-4 py-6 hover:bg-lightBg hover:text-main"
-                        onClick={() => {
-                            onOpen(chainType.type);
-                        }}
+                        onClick={() => onOpen(chainType.type)}
                     >
                         <Image
                             src={chainType.icon ?? ''}

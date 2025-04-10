@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { usePathname } from '@/esm/navigation.js';
 import { memo } from 'react';
 
 import BookmarkActiveIcon from '@/assets/bookmark.selected.svg';
@@ -9,6 +8,7 @@ import { ClickableButton, type ClickableButtonProps } from '@/components/Clickab
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { FireflyPlatform } from '@/constants/enum.js';
+import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useHasBookmarked } from '@/hooks/useHasBookmarked.js';

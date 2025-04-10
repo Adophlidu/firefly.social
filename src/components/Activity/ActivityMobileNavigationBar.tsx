@@ -1,6 +1,5 @@
 'use client';
 
-import { usePathname } from '@/esm/navigation.js';
 import { type HTMLProps, useContext } from 'react';
 
 import NavigationBarBackIcon from '@/assets/navigation-bar-back.svg';
@@ -9,6 +8,7 @@ import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { useActivityShareUrl } from '@/components/Activity/hooks/useActivityShareUrl.js';
 import { IS_ANDROID } from '@/constants/browser.js';
 import { PageRoute } from '@/constants/enum.js';
+import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';

@@ -3,7 +3,6 @@
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
-import { useRouter } from '@/esm/navigation.js';
 import { memo } from 'react';
 import type { Address } from 'viem';
 
@@ -20,6 +19,7 @@ import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { Source } from '@/constants/enum.js';
+import { useRouter } from '@/esm/navigation.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';

@@ -1,6 +1,5 @@
-import { redirect, RedirectType } from '@/esm/navigation.js';
-
 import { DEFAULT_NOTIFICATION_SOURCE } from '@/constants/index.js';
+import { redirect, RedirectType } from '@/esm/navigation.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 
 export default function Page() {

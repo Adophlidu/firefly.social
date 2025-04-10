@@ -1,5 +1,3 @@
-import { notFound } from '@/esm/navigation.js';
-
 import { NoSSR } from '@/components/NoSSR.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { FireflyAccountInfo } from '@/components/Profile/FireflyAccountInfo.js';
@@ -8,6 +6,7 @@ import { ProfileInfoCard } from '@/components/Profile/ProfileInfoCard.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
 import { type LoginFallbackSource, SourceInURL } from '@/constants/enum.js';
+import { notFound } from '@/esm/navigation.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';

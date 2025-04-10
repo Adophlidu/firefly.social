@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import { usePathname } from '@/esm/navigation.js';
 import { signIn } from 'next-auth/react';
 import type { HTMLProps } from 'react';
 import { useEffectOnce } from 'react-use';
@@ -7,6 +6,7 @@ import urlcat from 'urlcat';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { PageRoute } from '@/constants/enum.js';
+import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 

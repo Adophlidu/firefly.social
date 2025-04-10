@@ -6,7 +6,6 @@ import '@/assets/css/paragraph.css';
 import { Trans } from '@lingui/react/macro';
 import DOMPurify from 'dompurify';
 import { compact } from 'lodash-es';
-import { useRouter } from '@/esm/navigation.js';
 
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
 import { Comeback } from '@/components/Comeback.js';
@@ -15,6 +14,7 @@ import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { Source } from '@/constants/enum.js';
+import { useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';

@@ -1,10 +1,10 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { notFound } from '@/esm/navigation.js';
 
 import { NoSSR } from '@/components/NoSSR.js';
 import { SolidSourceTabs } from '@/components/Tabs/SolidSourceTabs.js';
 import { BOOKMARK_SOURCES } from '@/constants/index.js';
+import { notFound } from '@/esm/navigation.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBookmarkSource } from '@/helpers/isSource.js';

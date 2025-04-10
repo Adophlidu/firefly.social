@@ -1,8 +1,7 @@
 'use client';
 
-import { usePathname } from '@/esm/navigation.js';
-
 import { ErrorHandler } from '@/components/ErrorHandler.js';
+import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 
 export default function Error({ error, reset }: { error: Error; reset: () => void }) {

@@ -1,9 +1,9 @@
 import { t } from '@lingui/core/macro';
 import { useIsMutating, useMutation } from '@tanstack/react-query';
-import { usePathname } from '@/esm/navigation.js';
 
 import { FireflyPlatform } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
+import { usePathname } from '@/esm/navigation.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';

@@ -4,11 +4,11 @@ import 'swiper/css/keyboard';
 import 'swiper/css/navigation';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { useRouter } from '@/esm/navigation.js';
 import { use } from 'react';
 
 import { PreviewMedia } from '@/components/PreviewMedia/index.js';
 import type { SocialSourceInURL } from '@/constants/enum.js';
+import { useRouter } from '@/esm/navigation.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import type { NextPageProps } from '@/types/index.js';

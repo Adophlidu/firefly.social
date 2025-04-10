@@ -2,7 +2,6 @@
 
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { notFound } from '@/esm/navigation.js';
 import { Suspense } from 'react';
 
 import { PostActionsWithGrid } from '@/components/Actions/index.js';
@@ -19,6 +18,7 @@ import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { Section } from '@/components/Semantic/Section.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD } from '@/constants/index.js';
+import { notFound } from '@/esm/navigation.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { getThreads } from '@/services/getThreads.js';

@@ -1,9 +1,9 @@
 'use client';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { notFound } from '@/esm/navigation.js';
 
 import { NFTCollection } from '@/components/CollectionDetail/NFTCollection.js';
+import { notFound } from '@/esm/navigation.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 
 export function NFTCollectionPage({ chainId, address }: { chainId: number; address: string }) {

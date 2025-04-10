@@ -1,10 +1,10 @@
 'use client';
 
 import { t } from '@lingui/core/macro';
-import { useRouter } from '@/esm/navigation.js';
 import { useEffect } from 'react';
 
 import { SettingsList } from '@/app/(settings)/components/SettingsList.js';
+import { useRouter } from '@/esm/navigation.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 

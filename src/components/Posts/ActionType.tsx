@@ -3,7 +3,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { compact, first, flatten } from 'lodash-es';
-import { usePathname } from '@/esm/navigation.js';
 import { memo, useMemo } from 'react';
 
 import LikeIcon from '@/assets/like.svg';
@@ -15,6 +14,7 @@ import { Link } from '@/components/Link.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { ThreadBodyWithQuery } from '@/components/Posts/ThreadBodyWithQuery.js';
 import { PageRoute, Source } from '@/constants/enum.js';
+import { usePathname } from '@/esm/navigation.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';

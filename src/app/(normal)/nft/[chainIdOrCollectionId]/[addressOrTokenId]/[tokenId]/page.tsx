@@ -1,6 +1,5 @@
-import { notFound } from '@/esm/navigation.js';
-
 import { NFTDetailPage } from '@/app/(normal)/nft/pages/NFTDetailPage.js';
+import { notFound } from '@/esm/navigation.js';
 import { createMetadataNFT } from '@/helpers/createMetadataNFT.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { parseChainId } from '@/helpers/parseChainId.js';

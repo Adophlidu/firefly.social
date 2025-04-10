@@ -3,7 +3,6 @@
 import { EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { isUndefined } from 'lodash-es';
-import { notFound } from '@/esm/navigation.js';
 
 import { Loading } from '@/components/Loading.js';
 import { Attendees } from '@/components/NFTDetail/Attendees.js';
@@ -12,6 +11,7 @@ import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
 import { NFTProperties } from '@/components/NFTDetail/NFTProperties.js';
 import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
+import { notFound } from '@/esm/navigation.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';

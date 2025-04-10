@@ -1,7 +1,7 @@
-import { redirect } from '@/esm/navigation.js';
 import urlcat from 'urlcat';
 
 import type { SocialSourceInURL } from '@/constants/enum.js';
+import { redirect } from '@/esm/navigation.js';
 import type { NextPageProps } from '@/types/index.js';
 
 interface Props extends NextPageProps<{ id: string; index: string }, { source: SocialSourceInURL }> {}

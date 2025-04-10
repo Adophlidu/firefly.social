@@ -1,4 +1,3 @@
-import { usePathname } from '@/esm/navigation.js';
 import { memo } from 'react';
 
 import FireflyMonochromeIcon from '@/assets/firefly-monochrome.svg';
@@ -12,6 +11,7 @@ import { Time } from '@/components/Semantic/Time.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { PageRoute, Source } from '@/constants/enum.js';
+import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getLennyUrl } from '@/helpers/getLennyUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

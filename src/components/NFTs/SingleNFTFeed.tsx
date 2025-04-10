@@ -1,7 +1,6 @@
 import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
-import { useRouter } from '@/esm/navigation.js';
 import { memo, useMemo } from 'react';
 import type { Address } from 'viem';
 
@@ -13,6 +12,7 @@ import { Link } from '@/components/Link.js';
 import { type NFTFeedBodyProps } from '@/components/NFTs/NFTFeedBody.js';
 import { NFTFeedHeader } from '@/components/NFTs/NFTFeedHeader.js';
 import { Source } from '@/constants/enum.js';
+import { useRouter } from '@/esm/navigation.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';

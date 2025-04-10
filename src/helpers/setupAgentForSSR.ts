@@ -1,7 +1,7 @@
 import { getEnumAsArray } from '@masknet/kit';
-import { redirect, RedirectType } from '@/esm/navigation.js';
 
 import { Agent, PageRoute } from '@/constants/enum.js';
+import { redirect, RedirectType } from '@/esm/navigation.js';
 import { getCookieAsync } from '@/helpers/getCookie.js';
 
 export async function setupAgentForSSR(route = PageRoute.Home) {

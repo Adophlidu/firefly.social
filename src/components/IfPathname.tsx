@@ -1,10 +1,10 @@
 'use client';
 
-import { usePathname } from '@/esm/navigation.js';
 import { type ReactNode, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 
 import { PageRoute } from '@/constants/enum.js';
+import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 
 interface RE {

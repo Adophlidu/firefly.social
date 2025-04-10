@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
-import { usePathname, useRouter } from '@/esm/navigation.js';
 import { memo } from 'react';
 
 import { PostActions, PostActionsWithGrid } from '@/components/Actions/index.js';
@@ -12,6 +11,7 @@ import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
 import { PageRoute } from '@/constants/enum.js';
+import { usePathname, useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';

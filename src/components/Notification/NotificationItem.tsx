@@ -4,7 +4,6 @@ import { Plural, Select, Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { first, uniqBy } from 'lodash-es';
-import { useRouter } from '@/esm/navigation.js';
 import { memo, useMemo } from 'react';
 
 import { PostActions } from '@/components/Actions/index.js';
@@ -19,6 +18,7 @@ import { Quote } from '@/components/Posts/Quote.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Source } from '@/constants/enum.js';
+import { useRouter } from '@/esm/navigation.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { toProfileId } from '@/helpers/isSameProfile.js';
 import { resolveNotificationIcon } from '@/helpers/resolveNotificationIcon.js';

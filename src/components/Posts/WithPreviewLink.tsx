@@ -1,7 +1,6 @@
-import { usePathname } from '@/esm/navigation.js';
-
 import { Link } from '@/components/Link.js';
 import { PageRoute } from '@/constants/enum.js';
+import { usePathname } from '@/esm/navigation.js';
 import { getPostImageUrl } from '@/helpers/getPostImageUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';

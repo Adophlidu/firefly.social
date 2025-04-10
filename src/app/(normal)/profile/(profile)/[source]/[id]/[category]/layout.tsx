@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { notFound } from '@/esm/navigation.js';
 
 import { ProfileCategoryTabs } from '@/app/(normal)/profile/pages/ProfileCategoryTabs.js';
 import {
@@ -10,6 +9,7 @@ import {
     SourceInURL,
     WalletProfileCategory,
 } from '@/constants/enum.js';
+import { notFound } from '@/esm/navigation.js';
 import { createMetadataProfileById } from '@/helpers/createMetadataProfileById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';

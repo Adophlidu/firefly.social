@@ -1,7 +1,6 @@
 'use client';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { notFound } from '@/esm/navigation.js';
 import { use } from 'react';
 
 import { ActivityElex24Provider } from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
@@ -9,6 +8,7 @@ import { ActivityEndedDialog } from '@/components/Activity/ActivityEndedDialog.j
 import { ActivityHeader } from '@/components/Activity/ActivityHeader.js';
 import { ActivityNavigationBar } from '@/components/Activity/ActivityNavigationBar.js';
 import { ActivityTasks } from '@/components/Activity/ActivityTasks/index.js';
+import { notFound } from '@/esm/navigation.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
 import type { NextPageProps } from '@/types/index.js';

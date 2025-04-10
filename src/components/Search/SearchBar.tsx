@@ -1,6 +1,5 @@
 'use client';
 
-import { usePathname } from '@/esm/navigation.js';
 import { type HTMLProps, memo, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 
@@ -10,6 +9,7 @@ import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
 import { Section } from '@/components/Semantic/Section.js';
 import { PageRoute } from '@/constants/enum.js';
+import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSearchTypeFromQuery } from '@/helpers/resolveSearchTypeFromQuery.js';

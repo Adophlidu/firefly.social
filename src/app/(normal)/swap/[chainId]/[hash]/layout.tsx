@@ -1,10 +1,10 @@
 import { Trans } from '@lingui/react/macro';
-import { notFound } from '@/esm/navigation.js';
 import type { PropsWithChildren } from 'react';
 import type { Address } from 'viem';
 
 import { Comeback } from '@/components/Comeback.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
+import { notFound } from '@/esm/navigation.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';

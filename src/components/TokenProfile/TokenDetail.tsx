@@ -3,7 +3,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { first, isNumber } from 'lodash-es';
-import { notFound } from '@/esm/navigation.js';
 import { type HTMLProps, memo, type ReactNode } from 'react';
 
 import QuestionIcon from '@/assets/question.svg';
@@ -15,6 +14,7 @@ import { CommunityLink } from '@/components/TokenProfile/CommunityLink.js';
 import { ContractList } from '@/components/TokenProfile/ContractList.js';
 import { TokenMarketData } from '@/components/TokenProfile/TokenMarketData.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { notFound } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';

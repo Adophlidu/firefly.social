@@ -1,6 +1,5 @@
 'use client';
 
-import { usePathname, useRouter } from '@/esm/navigation.js';
 import { memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import FireflyIcon from '@/assets/firefly.svg';
@@ -13,6 +12,7 @@ import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
 import { IS_FIREFOX } from '@/constants/browser.js';
 import { PageRoute } from '@/constants/enum.js';
+import { usePathname, useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';

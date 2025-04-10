@@ -1,12 +1,12 @@
 import { Trans } from '@lingui/react/macro';
 import type { Metadata } from 'next';
-import { notFound } from '@/esm/navigation.js';
 import type React from 'react';
 
 import { PostDetailPage } from '@/app/(normal)/post/[source]/[id]/pages/DetailPage.js';
 import { Comeback } from '@/components/Comeback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
+import { notFound } from '@/esm/navigation.js';
 import { createMetadataPostById } from '@/helpers/createMetadataPostById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';

@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
-import { useRouter } from '@/esm/navigation.js';
 import { memo, type MouseEvent, useCallback } from 'react';
 
 import LikeIcon from '@/assets/heart.svg';
@@ -9,6 +8,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
+import { useRouter } from '@/esm/navigation.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';

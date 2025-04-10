@@ -2,7 +2,6 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { usePathname } from '@/esm/navigation.js';
 import { useDebounce } from 'usehooks-ts';
 
 import SearchIcon from '@/assets/search.svg';
@@ -14,6 +13,7 @@ import { SuggestCollectionList } from '@/components/Search/SuggestCollectionList
 import { SuggestProfileList } from '@/components/Search/SuggestProfileList.js';
 import { SuggestTokenList } from '@/components/Search/SuggestTokenList.js';
 import { PageRoute, SearchType, Source } from '@/constants/enum.js';
+import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';

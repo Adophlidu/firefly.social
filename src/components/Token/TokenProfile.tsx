@@ -1,11 +1,11 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useRouter } from '@/esm/navigation.js';
 import { type HTMLProps, memo, useRef } from 'react';
 
 import PriceArrow from '@/assets/price-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
+import { useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
