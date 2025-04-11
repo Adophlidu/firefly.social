@@ -9,13 +9,13 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { Mutuals } from '@/components/Profile/Mutuals.js';
 import { ProfileAction } from '@/components/Profile/ProfileAction.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
-import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { FollowCategory, Source } from '@/constants/enum.js';
 import { ENABLED_FOLLOWING_LIST_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getLargeTwitterAvatar } from '@/helpers/getLargeTwitterAvatar.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useRefreshedProfile } from '@/hooks/useRefreshedProfile.js';
@@ -34,21 +34,21 @@ export function SocialProfileInfo(props: InfoProps) {
 
     return (
         <div className="grid grid-cols-[40px_calc(100%-40px-12px)] gap-x-2.5 p-4">
-            {profile.pfp ? (
-                <Avatar
-                    src={source === Source.Twitter ? getLargeTwitterAvatar(profile.pfp) : profile.pfp}
-                    alt="avatar"
-                    size={40}
-                    className={classNames('size-10 rounded-full border', {
-                        'border-farcasterPrimary': profile.source === Source.Farcaster,
-                        'border-lensButton': profile.source === Source.Lens,
-                        'border-bskyPrimary': profile.source === Source.Bsky,
-                        'border-main': profile.source === Source.Twitter,
-                    })}
-                />
-            ) : (
-                <SocialSourceIcon className="rounded-full" source={source} size={40} />
-            )}
+            <Avatar
+                src={
+                    source === Source.Twitter
+                        ? getLargeTwitterAvatar(profile.pfp)
+                        : profile.pfp || getStampAvatarByProfileId(profile.source, profile.profileId)
+                }
+                alt="avatar"
+                size={40}
+                className={classNames('size-10 rounded-full border', {
+                    'border-farcasterPrimary': profile.source === Source.Farcaster,
+                    'border-lensButton': profile.source === Source.Lens,
+                    'border-bskyPrimary': profile.source === Source.Bsky,
+                    'border-main': profile.source === Source.Twitter,
+                })}
+            />
 
             <div className="relative flex w-full flex-col">
                 <div className="flex w-full flex-col">
