@@ -28,13 +28,15 @@ interface WatchButtonProps extends Omit<ClickableButtonProps, 'children'> {
     address: Address;
     variant?: 'text' | 'icon';
     watchButtonClassName?: ClickableButtonProps['className'];
+    watchingButtonClassName?: ClickableButtonProps['className'];
 }
 
 export const WatchButton = memo(function WatchButton({
     variant = 'text',
     address,
     className,
-    watchButtonClassName,
+    watchButtonClassName = '',
+    watchingButtonClassName = '',
     ...rest
 }: WatchButtonProps) {
     const isLogin = useIsLogin();
@@ -74,10 +76,11 @@ export const WatchButton = memo(function WatchButton({
                 'flex h-8 items-center justify-center rounded-lg text-medium font-semibold transition-all',
                 variantClassName,
                 className,
-                watchButtonClassName,
                 {
-                    'bg-main text-white hover:opacity-80': buttonState === State.Watch,
-                    'border border-lightMain text-lightMain': buttonState === State.Watching,
+                    [watchButtonClassName]: buttonState === State.Watch,
+                    [watchingButtonClassName]: buttonState === State.Watching,
+                    'bg-main text-primaryBottom hover:opacity-80': buttonState === State.Watch,
+                    'border border-current text-lightMain': buttonState === State.Watching,
                     'border border-danger border-opacity-50 bg-danger text-primaryBottom':
                         buttonState === State.Unwatch,
                 },

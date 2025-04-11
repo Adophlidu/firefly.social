@@ -26,6 +26,7 @@ interface FollowButtonProps extends Omit<ClickableButtonProps, 'children'> {
     variant?: 'text' | 'icon';
     hasMutedButton?: boolean;
     followButtonClassName?: string;
+    followingButtonClassName?: string;
 }
 
 export const FollowButton = memo(function FollowButton({
@@ -33,6 +34,7 @@ export const FollowButton = memo(function FollowButton({
     profile,
     className,
     followButtonClassName = '',
+    followingButtonClassName = '',
     hasMutedButton = true,
     ...rest
 }: FollowButtonProps) {
@@ -89,10 +91,11 @@ export const FollowButton = memo(function FollowButton({
                 className,
                 {
                     'bg-main text-primaryBottom hover:opacity-80': buttonState === State.Follow,
-                    'border border-lightMain text-lightMain': buttonState === State.Following,
+                    'border border-current text-lightMain': buttonState === State.Following,
                     'border border-danger border-opacity-50 bg-danger bg-opacity-20 text-danger':
                         buttonState === State.Unfollow,
                     [followButtonClassName]: buttonState === State.Follow,
+                    [followingButtonClassName]: buttonState === State.Following,
                 },
             )}
             {...rest}

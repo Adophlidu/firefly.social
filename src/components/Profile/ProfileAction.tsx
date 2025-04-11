@@ -58,8 +58,14 @@ export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps 
             <FollowButton
                 profile={profile}
                 variant={isSmall ? 'text' : 'icon'}
-                followButtonClassName={classNames(socialThemeClassName, {
+                className={classNames({
                     '!w-[50px] !min-w-[50px] !max-w-[50px]': !isSmall,
+                })}
+                followButtonClassName={socialThemeClassName}
+                followingButtonClassName={classNames({
+                    '!text-farcasterPrimary': profile.source === Source.Farcaster,
+                    '!text-lensButton': profile.source === Source.Lens,
+                    '!text-bskyPrimary': profile.source === Source.Bsky,
                 })}
             />
         );
