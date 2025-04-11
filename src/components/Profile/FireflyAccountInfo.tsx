@@ -25,9 +25,8 @@ import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -74,8 +73,17 @@ export function FireflyAccountInfo({ banner, walletProfile, socialProfile, ident
 
     const showStickyTitle = buttonContainerEntry && !buttonContainerEntry.isIntersecting;
     const showProfileAction = profileActionEntry && !profileActionEntry.isIntersecting;
-    const currentProfile = useCurrentProfile(narrowToSocialSource(identity.source));
-    const isCurrentProfile = currentProfile && socialProfile ? isSameProfile(currentProfile, socialProfile) : false;
+    const allCurrentProfiles = useCurrentProfilesAll();
+
+    const isCurrentProfile = useMemo(() => {
+        return profiles?.some((x) =>
+            Object.values(allCurrentProfiles).some(
+                (currentProfile) =>
+                    x.identity.source === currentProfile?.source && x.identity.id === currentProfile.profileId,
+            ),
+        );
+    }, [allCurrentProfiles, profiles]);
+
     const noFireflyAccount = (!displayName && !data?.avatar) || !uid;
 
     const isLogin = useIsLogin(narrowToSocialSource(identity.source));

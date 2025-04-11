@@ -185,12 +185,12 @@ function TopProfileMenuItem({ profile, identity }: { profile: FireflyProfile; id
     const isCurrentSource =
         identity.source === source || (source === Source.Wallet && identity.source === Source.WalletMix);
 
-    const href = isWalletProfile
-        ? resolveProfileUrl(Source.WalletMix, profile.identity.id)
-        : resolveProfileUrl(source, profile.identity.id);
+    const href =
+        isWalletProfile && env.external.NEXT_PUBLIC_WALLET_MIX === STATUS.Enabled
+            ? resolveProfileUrl(Source.WalletMix, profile.identity.id)
+            : resolveProfileUrl(source, profile.identity.id);
 
     const className = classNames('flex h-6 cursor-pointer flex-row items-center', {
-        'cursor-pointer': !isSameFireflyIdentity(profile.identity, identity),
         'pointer-events-none': !isMounted || pathname === href,
     });
 
@@ -355,6 +355,12 @@ export function ProfileSourceTabs({ profiles, identity }: { profiles: FireflyPro
                                                 profile.identity,
                                                 defaultProfile.identity,
                                             );
+                                            if (
+                                                isCurrentFireflyIdentity &&
+                                                env.external.NEXT_PUBLIC_WALLET_MIX === STATUS.Disabled &&
+                                                source === Source.Wallet
+                                            )
+                                                return null;
                                             if (!isWalletProfile && isCurrentFireflyIdentity) return null;
                                             return <ProfileMenuItem profile={profile} key={profile.identity.id} />;
                                         })}

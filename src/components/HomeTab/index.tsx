@@ -17,7 +17,7 @@ import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';
 import { parseFollowingPageUrl } from '@/helpers/parseFollowingPageUrl.js';
 import { resolveHomeUrl } from '@/helpers/resolveHomeUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { useIsLoginDiscoverSource } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { useSwapStateStore } from '@/store/useSwapStore.js';
@@ -54,7 +54,7 @@ export function HomeTabs() {
             source: Source.Posts,
         } as const;
     }, [pathname]);
-    const isLogin = useIsLoginDiscoverSource();
+    const isLogin = useIsLoginFirefly();
 
     const texts = {
         [HomeTab.Discover]: <Trans>For You</Trans>,

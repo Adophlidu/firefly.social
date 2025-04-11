@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
+import { useMemo } from 'react';
 
 import ProfileSelectedIcon from '@/assets/profile.selected.svg';
 import ProfileIcon from '@/assets/profile.svg';
@@ -11,6 +12,7 @@ import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
+import { matchPath } from '@/helpers/matchPath.js';
 import { parseProfileUrl } from '@/helpers/parseProfileUrl.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfileFirstAvailable } from '@/hooks/useCurrentProfile.js';
@@ -25,15 +27,20 @@ export function Profile({ collapsed: sideBarCollapsed = false }: ProfileProps) {
 
     const href = profile ? getProfileUrl(profile) : PageRoute.Profile;
     const pathname = usePathname();
-    const parsedProfileUrl = parseProfileUrl(pathname);
-    const isSelected = parsedProfileUrl
-        ? profiles.some((x) =>
-              isSameFireflyIdentity(x.identity, {
-                  source: parsedProfileUrl.source,
-                  id: parsedProfileUrl.id,
-              }),
-          )
-        : false;
+    const isSelected = useMemo(() => {
+        if (profiles.length) {
+            const parsedProfileUrl = parseProfileUrl(pathname);
+            return parsedProfileUrl
+                ? profiles.some((x) =>
+                      isSameFireflyIdentity(x.identity, {
+                          source: parsedProfileUrl.source,
+                          id: parsedProfileUrl.id,
+                      }),
+                  )
+                : false;
+        }
+        return pathname === PageRoute.Profile || !!matchPath(`/profile/:source`, pathname, false);
+    }, [pathname, profiles]);
 
     const Icon = isSelected ? ProfileSelectedIcon : ProfileIcon;
 
