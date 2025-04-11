@@ -38,7 +38,7 @@ export const AccountConnectButton = memo<Props>(function AccountConnectButton({ 
                                 <ProfileSourceIcon
                                     key={index}
                                     source={profile.source}
-                                    className={index > 0 && self.length > 1 ? '-ml-1' : undefined}
+                                    className={index > 0 && self.length > 1 ? '-ml-2' : undefined}
                                     style={{ zIndex: self.length - index }}
                                 />
                             );
