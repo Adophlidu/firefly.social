@@ -9,6 +9,7 @@ import { Section } from '@/app/(settings)/components/Section.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { classNames } from '@/helpers/classNames.js';
+import { settings } from '@/settings/index.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
 type Item =
@@ -26,6 +27,12 @@ type Item =
           title: ReactNode;
           description: ReactNode;
           onChange?: (ev: ChangeEvent<HTMLSelectElement>) => void;
+      }
+    | {
+          type: 'text';
+          value: string;
+          title: ReactNode;
+          description: ReactNode;
       };
 
 export default function Page() {
@@ -52,13 +59,10 @@ export default function Page() {
             },
         },
         {
-            type: 'checkbox',
-            value: developmentAPI,
-            title: <Trans>Enable development API version</Trans>,
+            type: 'text',
+            value: settings.FIREFLY_ROOT_URL,
+            title: <Trans>Enable development API version ()</Trans>,
             description: <Trans>Switch to the development API version for testing new features.</Trans>,
-            onClick: () => {
-                updateDevelopmentAPI(!developmentAPI);
-            },
         },
     ];
 
@@ -81,6 +85,8 @@ export default function Page() {
                         ))}
                     </select>
                 );
+            case 'text':
+                return <code className="text-xs">{item.value}</code>;
             default:
                 safeUnreachable(type);
                 return null;

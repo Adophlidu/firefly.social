@@ -12,7 +12,6 @@ import { LayoutBody } from '@/app/layout-body.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { prepareSettingsForSSR } from '@/settings/index.js';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -30,7 +29,7 @@ export const viewport = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-    const [_cookies] = await Promise.all([cookies(), prepareSettingsForSSR()]);
+    const [_cookies] = await Promise.all([cookies()]);
 
     return (
         <html className={_cookies.get('firefly_root_class')?.value}>

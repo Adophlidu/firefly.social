@@ -1440,9 +1440,6 @@ msgstr ""
 msgid "Up to 7 days can be set as the scheduled time. Please reset it"
 msgstr ""
 
-msgid "Enable development API version"
-msgstr ""
-
 msgid "Posted to Lens on <0>Phaver</0>"
 msgstr ""
 
@@ -3788,6 +3785,9 @@ msgid "Total Volume"
 msgstr ""
 
 msgid "Post added to your Bookmarks"
+msgstr ""
+
+msgid "Enable development API version ()"
 msgstr ""
 
 msgid "Preview"

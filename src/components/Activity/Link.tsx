@@ -35,7 +35,7 @@ export function Link({ children, ref, ...props }: Props) {
     );
 
     return (
-        <OriginalLink ref={ref} {...props} data-disable-nprogress onClick={onLinkClick}>
+        <OriginalLink ref={ref} {...props} onClick={onLinkClick}>
             {children}
         </OriginalLink>
     );

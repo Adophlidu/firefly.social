@@ -1445,9 +1445,6 @@ msgstr "黑名單功能"
 msgid "Up to 7 days can be set as the scheduled time. Please reset it"
 msgstr ""
 
-msgid "Enable development API version"
-msgstr "開啟開發API版本"
-
 msgid "Posted to Lens on <0>Phaver</0>"
 msgstr ""
 
@@ -3794,6 +3791,9 @@ msgstr ""
 
 msgid "Post added to your Bookmarks"
 msgstr "貼文已加入你的書籤"
+
+msgid "Enable development API version ()"
+msgstr ""
 
 msgid "Preview"
 msgstr ""

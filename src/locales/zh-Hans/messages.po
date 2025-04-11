@@ -1445,9 +1445,6 @@ msgstr "黑名单功能"
 msgid "Up to 7 days can be set as the scheduled time. Please reset it"
 msgstr "可以将预定时间设置为最长 7 天。请重新设置。"
 
-msgid "Enable development API version"
-msgstr "启用开发环境接口"
-
 msgid "Posted to Lens on <0>Phaver</0>"
 msgstr "用<0>Phaver</0>发送过 Lens 帖子"
 
@@ -3810,6 +3807,9 @@ msgstr "总交易量"
 
 msgid "Post added to your Bookmarks"
 msgstr "帖子已经添加到您的收藏中"
+
+msgid "Enable development API version ()"
+msgstr ""
 
 msgid "Preview"
 msgstr "预览"
