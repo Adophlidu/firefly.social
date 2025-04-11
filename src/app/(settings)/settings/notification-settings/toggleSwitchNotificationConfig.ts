@@ -60,7 +60,7 @@ export async function toggleSwitchNotificationConfig({
         (config) => config.platform === platform && config.pushType === pushType,
     )?.children;
     const isGlobalSwitch = platform === NotificationPlatform.All;
-    if (!targetValue && children?.length) {
+    if (!isGlobalSwitch && children?.length) {
         children.forEach((child) => {
             configsNeedToUpdate.push({
                 platform: child.platform,
