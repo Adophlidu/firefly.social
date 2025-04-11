@@ -31,7 +31,14 @@ import { Debank } from '@/providers/debank/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { GoPlus } from '@/providers/goplus/index.js';
 import { OKX } from '@/providers/okx/index.js';
-import type { WalletProfile } from '@/providers/types/Firefly.js';
+import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
+
+function resolveProfileUrlBySource(source: ProfilePageSource, profiles: FireflyProfile[]) {
+    const currentSourceProfiles = profiles.filter((profile) => profile.identity.source === source);
+    const profile = currentSourceProfiles.find((profile) => profile.isDefault) || currentSourceProfiles[0];
+    if (!profile?.identity.id) return null;
+    return resolveProfileUrl(source, profile.identity.id);
+}
 
 export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, domain, children, ...rest }) {
     const isDarkMode = useIsDarkMode();
@@ -80,14 +87,8 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
     if (!walletProfile) return null;
 
     const networkIcon = networkType ? resolveNetworkIcon(networkType, isDarkMode) : null;
-
-    const resolveUrl = (x: ProfilePageSource) => {
-        const currentSourceProfiles = profiles.filter((profile) => profile.identity.source === x);
-        const profile = currentSourceProfiles.find((profile) => profile.isDefault) || currentSourceProfiles[0];
-        if (!profile?.identity.id) return null;
-        return resolveProfileUrl(x, profile.identity.id);
-    };
     const profileUrl = resolveProfileUrl(Source.Wallet, address);
+
     return (
         <>
             <div
@@ -142,7 +143,7 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                     <div className="text-right text-2xl font-bold">{`$${formatPrice(totalBalance ?? 0)}`}</div>
                     <div className="flex gap-2">
                         {SORTED_SOCIAL_SOURCES.map((source) => {
-                            const url = resolveUrl(source);
+                            const url = resolveProfileUrlBySource(source, profiles);
                             if (!url) return null;
                             return (
                                 <Link

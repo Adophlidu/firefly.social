@@ -47,13 +47,12 @@ export function ConfirmFireflyModal({ ref }: Props) {
                             <menu className="no-scrollbar mb-6 flex max-h-[192px] flex-col gap-3 overflow-auto rounded-md border border-highlight border-line p-2">
                                 <ProfileInList
                                     key={account.profile.profileId}
-                                    selected
                                     selectable={false}
                                     viewable
                                     profile={fireflyProfile}
                                     viewProfile={account.profile}
                                     profileAvatarProps={{
-                                        enableSourceIcon: true,
+                                        enableSourceIcon: false,
                                     }}
                                 />
                             </menu>

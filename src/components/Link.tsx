@@ -24,9 +24,7 @@ export function Link({ href, ref, onClick, ...rest }: LinkProps) {
                 if (intercepted) return;
 
                 const confirmed = await ConfirmLeavingModalRef.openAndWaitForClose(href);
-                if (confirmed) {
-                    openWindow(href);
-                }
+                if (confirmed) openWindow(href);
             }
         },
         [internalLink, href, onClick],

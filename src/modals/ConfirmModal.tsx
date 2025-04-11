@@ -7,7 +7,7 @@ import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { classNames } from '@/helpers/classNames.js';
-import { stopEvent } from '@/helpers/stopEvent.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
@@ -74,7 +74,7 @@ export function ConfirmModal({ ref }: Props) {
                     props.modalClass,
                 )}
                 style={props.modalStyle}
-                onClick={stopEvent}
+                onClick={stopPropagation}
             >
                 <div className="inline-flex h-auto w-full items-center justify-center gap-4 rounded-t-[12px] p-4">
                     {props.enableCloseButton ? (

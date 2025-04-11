@@ -12,9 +12,7 @@ const trustedHosts = [
 ];
 
 export function isTrustedUrl(href: LinkProps['href']) {
-    if (typeof href !== 'string' || !href.startsWith('http')) {
-        return true;
-    }
+    if (typeof href !== 'string' || !href.startsWith('http')) return true;
 
     const parsed = parseUrl(href);
     return parsed
