@@ -2,6 +2,7 @@ import { safeUnreachable } from '@masknet/kit';
 
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
+import type { FireflySession } from '@/providers/firefly/Session.js';
 import type { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
@@ -25,6 +26,17 @@ export function createDummyProfileFromFireflyAccountId(accountId: string) {
     return {
         ...createDummyProfile(Source.Farcaster),
         profileId: accountId,
+    } satisfies Profile;
+}
+
+export function createDummyProfileFromFireflySession(fireflySession: FireflySession) {
+    return {
+        ...createDummyProfile(Source.Farcaster),
+        profileId: fireflySession.profileId,
+        profileSource: Source.Firefly,
+        displayName: fireflySession.payload?.displayName ?? 'Firefly',
+        pfp: fireflySession.payload?.avatar ?? '',
+        handle: fireflySession.payload?.uid ?? '',
     } satisfies Profile;
 }
 

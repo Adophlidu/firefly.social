@@ -13,6 +13,7 @@ interface ProfileInListProps {
     selectable?: boolean;
     viewable?: boolean;
     profile: Profile;
+    viewProfile?: Profile;
     onSelect?: (profile: Profile) => void;
     profileAvatarProps?: Partial<ProfileAvatarProps>;
 }
@@ -22,6 +23,7 @@ export function ProfileInList({
     selectable = true,
     viewable = false,
     profile,
+    viewProfile,
     onSelect,
     profileAvatarProps,
 }: ProfileInListProps) {
@@ -42,7 +44,11 @@ export function ProfileInList({
             ) : viewable ? (
                 <Link
                     className="shrink-0 text-highlight"
-                    href={resolveProfileUrl(profile.source, profile.profileId)}
+                    href={
+                        viewProfile
+                            ? resolveProfileUrl(viewProfile.source, viewProfile.profileId)
+                            : resolveProfileUrl(profile.source, profile.profileId)
+                    }
                     target="_blank"
                 >
                     <Trans>View</Trans>
