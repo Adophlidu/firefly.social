@@ -5,7 +5,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
 import { ProfileAvatar, type ProfileAvatarProps } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileInListProps {
@@ -42,15 +42,7 @@ export function ProfileInList({
             {selectable ? (
                 <CircleCheckboxIcon className="shrink-0" checked={selected} />
             ) : viewable ? (
-                <Link
-                    className="shrink-0 text-highlight"
-                    href={
-                        viewProfile
-                            ? resolveProfileUrl(viewProfile.source, viewProfile.profileId)
-                            : resolveProfileUrl(profile.source, profile.profileId)
-                    }
-                    target="_blank"
-                >
+                <Link className="shrink-0 text-highlight" href={getProfileUrl(viewProfile || profile)} target="_blank">
                     <Trans>View</Trans>
                 </Link>
             ) : null}

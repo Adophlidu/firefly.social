@@ -11,7 +11,7 @@ import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInAc
 import { useLoginInActivity } from '@/components/Activity/hooks/useLoginInActivity.js';
 import { Link } from '@/components/Activity/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { type SocialSource } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
@@ -71,6 +71,8 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: ActivityTa
         isLoading,
     } = useIsFollowInActivity(source, profileId, handle);
 
+    const profileUrl = resolveProfileUrl(source, [Source.Lens, Source.Bsky].includes(source) ? handle : profileId);
+
     return (
         <div
             className={classNames(
@@ -83,7 +85,7 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: ActivityTa
                     {isFollowedFirefly ? (
                         <Trans>
                             Followed{' '}
-                            <Link className="inline text-highlight" href={resolveProfileUrl(source, profileId)}>
+                            <Link className="inline text-highlight" href={profileUrl}>
                                 @{handle}
                             </Link>{' '}
                             on {resolveSourceName(source)}
@@ -91,7 +93,7 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: ActivityTa
                     ) : (
                         <Trans>
                             Follow{' '}
-                            <Link className="inline text-highlight" href={resolveProfileUrl(source, profileId)}>
+                            <Link className="inline text-highlight" href={profileUrl}>
                                 @{handle}
                             </Link>{' '}
                             on {resolveSourceName(source)}

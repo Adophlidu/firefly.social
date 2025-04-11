@@ -5,7 +5,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { createDummyProfileFromFireflySession } from '@/helpers/createDummyProfile.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -36,11 +36,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                             <Trans>
                                 You are logging into a different Firefly account by{' '}
                                 {resolveSourceName(account.profile.profileSource)} account{' '}
-                                <Link
-                                    className="text-highlight"
-                                    href={resolveProfileUrl(account.profile.source, account.profile.profileId)}
-                                    target="_blank"
-                                >
+                                <Link className="text-highlight" href={getProfileUrl(account.profile)} target="_blank">
                                     @{account.profile.handle}
                                 </Link>
                                 . Continuing will <span className="text-danger">log out</span> your current Firefly

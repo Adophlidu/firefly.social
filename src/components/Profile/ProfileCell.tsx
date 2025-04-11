@@ -5,10 +5,10 @@ import { Link } from '@/components/Link.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends HTMLProps<HTMLAnchorElement> {
@@ -22,7 +22,7 @@ export function ProfileCell({ profile, source, className, ref, ...rest }: Props)
 
     return (
         <Link
-            href={resolveProfileUrl(source, source === Source.Lens ? profile.handle : profile.profileId)}
+            href={getProfileUrl(profile)}
             className={classNames('flex w-full px-4 py-2 hover:bg-bg', className)}
             data-disable-nprogress
             {...rest}
