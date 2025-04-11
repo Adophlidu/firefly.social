@@ -14,12 +14,6 @@ export function LinguiClientProvider({ children }: LinguiClientProviderProps) {
         // eslint-disable-next-line react-hooks/rules-of-hooks
         const locale = useLocale();
 
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        useEffect(() => {
-            console.info('[i18n] set locale =', locale);
-            setLocale(locale);
-        }, [locale]);
-
         return <I18nProvider i18n={getI18nInstance(locale) as any}>{children}</I18nProvider>;
     } else {
         const locale = getLocaleFromCookiesAsync();

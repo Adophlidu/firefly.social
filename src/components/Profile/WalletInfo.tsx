@@ -15,6 +15,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { Link } from '@/components/Link.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { WalletActions } from '@/components/Profile/WalletActions.js';
 import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -163,18 +164,22 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                                 </div>
                             ) : null}
                         </div>
-                        {networkType === NetworkType.Ethereum ? <WalletActions profile={profile} /> : null}
+                        <NoSSR>
+                            {networkType === NetworkType.Ethereum ? <WalletActions profile={profile} /> : null}
+                        </NoSSR>
                     </div>
 
-                    <div className="flex items-center gap-1 text-sm leading-[14px] text-secondary">
-                        {isMedium ? profile.address : formatAddress(profile.address, 4)}
-                        <CopyTextButton text={profile.address} />
-                        {addressLink ? (
-                            <Link target="_blank" href={addressLink}>
-                                <LinkIcon width={14} height={14} />
-                            </Link>
-                        ) : null}
-                    </div>
+                    <NoSSR>
+                        <div className="flex items-center gap-1 text-sm leading-[14px] text-secondary">
+                            {isMedium ? profile.address : formatAddress(profile.address, 4)}
+                            <CopyTextButton text={profile.address} />
+                            {addressLink ? (
+                                <Link target="_blank" href={addressLink}>
+                                    <LinkIcon width={14} height={14} />
+                                </Link>
+                            ) : null}
+                        </div>
+                    </NoSSR>
                 </div>
                 {profile.hacked ? (
                     <p className="mt-3 rounded-lg bg-danger bg-opacity-[0.16] px-3 py-2 text-sm leading-[18px] text-danger">
