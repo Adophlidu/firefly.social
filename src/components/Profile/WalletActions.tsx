@@ -17,7 +17,7 @@ export function WalletActions({ profile }: { profile: WalletProfile }) {
 
     return (
         <>
-            <WatchButton className="ml-auto mr-1 !bg-lightHighlight" address={profile.address} />
+            <WatchButton className="ml-auto mr-1" watchButtonClassName="!bg-highlight" address={profile.address} />
             <WalletMoreAction profile={profile} />
         </>
     );

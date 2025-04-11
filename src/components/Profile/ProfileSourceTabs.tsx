@@ -129,7 +129,7 @@ function TriggerButton({
                   'bg-lensPrimary text-lensText': source === Source.Lens,
                   'bg-lightMain text-primaryBottom': source === Source.Twitter,
                   'bg-bskyPrimary text-white': source === Source.Bsky,
-                  'bg-lightHighlight text-white': source === Source.Wallet,
+                  'bg-highlight text-white': source === Source.Wallet,
               }
             : {
                   'bg-bg': true,
@@ -137,7 +137,7 @@ function TriggerButton({
                   'hover:bg-lensPrimary hover:text-lensText': source === Source.Lens,
                   'hover:bg-lightMain hover:text-primaryBottom': source === Source.Twitter,
                   'hover:bg-bskyPrimary hover:text-white': source === Source.Bsky,
-                  'hover:bg-lightHighlight hover:text-white': source === Source.Wallet,
+                  'hover:bg-highlight hover:text-white': source === Source.Wallet,
               },
     );
 
@@ -216,7 +216,7 @@ function TopProfileMenuItem({ profile, identity }: { profile: FireflyProfile; id
             >
                 <span
                     className={classNames(
-                        'inline-flex size-3.5 shrink-0 items-center justify-center rounded bg-lightHighlight text-white',
+                        'inline-flex size-3.5 shrink-0 items-center justify-center rounded bg-highlight text-white',
                         {
                             'outline outline-[0.5px] outline-current': isCurrentSource,
                         },
@@ -246,7 +246,7 @@ function TopProfileMenuItem({ profile, identity }: { profile: FireflyProfile; id
                     'bg-lensPrimary text-lensText': source === Source.Lens,
                     'bg-mainLight text-white': source === Source.Twitter,
                     'bg-bskyPrimary text-white': source === Source.Bsky,
-                    'bg-lightHighlight text-white': isWalletProfile && !(profile.__origin__ as WalletProfile)?.hacked,
+                    'bg-highlight text-white': isWalletProfile && !(profile.__origin__ as WalletProfile)?.hacked,
                     'outline outline-[0.5px] outline-current': isCurrentSource,
                 })}
             >
@@ -402,7 +402,7 @@ export function ProfileSourceTabs({ profiles, identity }: { profiles: FireflyPro
                                             'text-lensPrimary': source === Source.Lens,
                                             'text-mainLight': source === Source.Twitter,
                                             'text-bskyPrimary': source === Source.Bsky,
-                                            'text-lightHighlight': isWalletProfile,
+                                            'text-highlight': isWalletProfile,
                                         },
                                     )}
                                     onMouseLeave={close}
@@ -416,7 +416,7 @@ export function ProfileSourceTabs({ profiles, identity }: { profiles: FireflyPro
                                                       'bg-lensPrimary text-lensText': source === Source.Lens,
                                                       'bg-lightMain text-primaryBottom': source === Source.Twitter,
                                                       'bg-bskyPrimary text-white': source === Source.Bsky,
-                                                      'bg-lightHighlight text-white': isWalletProfile,
+                                                      'bg-highlight text-white': isWalletProfile,
                                                   }
                                                 : {
                                                       'bg-farcasterPrimary/10 text-farcasterPrimary':
@@ -424,7 +424,7 @@ export function ProfileSourceTabs({ profiles, identity }: { profiles: FireflyPro
                                                       'bg-lensPrimary/10 text-lensText': source === Source.Lens,
                                                       'bg-mainLight/10 text-mainLight': source === Source.Twitter,
                                                       'bg-bskyPrimary/10 text-bskyPrimary': source === Source.Bsky,
-                                                      'bg-lightHighlight/10 text-lightHighlight': isWalletProfile,
+                                                      'bg-highlight/10 text-highlight': isWalletProfile,
                                                   },
                                         )}
                                     >

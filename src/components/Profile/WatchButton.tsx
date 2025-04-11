@@ -27,12 +27,14 @@ enum State {
 interface WatchButtonProps extends Omit<ClickableButtonProps, 'children'> {
     address: Address;
     variant?: 'text' | 'icon';
+    watchButtonClassName?: ClickableButtonProps['className'];
 }
 
 export const WatchButton = memo(function WatchButton({
     variant = 'text',
     address,
     className,
+    watchButtonClassName,
     ...rest
 }: WatchButtonProps) {
     const isLogin = useIsLogin();
@@ -72,6 +74,7 @@ export const WatchButton = memo(function WatchButton({
                 'flex h-8 items-center justify-center rounded-lg text-medium font-semibold transition-all',
                 variantClassName,
                 className,
+                watchButtonClassName,
                 {
                     'bg-main text-white hover:opacity-80': buttonState === State.Watch,
                     'border border-lightMain text-lightMain': buttonState === State.Watching,
