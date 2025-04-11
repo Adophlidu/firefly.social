@@ -1,7 +1,6 @@
 // cspell:disable
 
 import type { ProfilePageSource } from '@/constants/enum.js';
-import type { ActionType } from '@/types/frame.js';
 
 export enum VersionFilter {
     // the current working version
@@ -606,8 +605,9 @@ export interface Events extends Record<EventId, Event> {
     [EventId.POST_FRAME_ACTION_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
-            action_type: ActionType;
             frame_action: 'buy' | 'mint' | 'others';
+            frame_version: string;
+            frame_url: string;
         } & WalletEventParameters;
     };
     [EventId.POST_BLINK_ACTION_SUCCESS]: {

@@ -17,7 +17,8 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { Modals } from '@/modals/FrameViewerModal/modals.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
-import type { FrameV2, FrameV2Host } from '@/types/frame.js';
+import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
+import { type FrameV2, type FrameV2Host } from '@/types/frame.js';
 
 export type FrameViewerModalOpenProps = {
     ready: boolean;
@@ -65,13 +66,7 @@ export function FrameViewerModal({ ref }: Props) {
                         await switchEthereumChain(chainId);
                         return;
                     case EthereumMethodType.ETH_SEND_TRANSACTION: {
-                        // TODO:
-                        // const confirmed = await TransactionSimulationPopoverRef.openAndWaitForClose({
-                        //     frame,
-                        //     content: 'Hello World!',
-                        // });
-                        // if (!confirmed) throw new Error('Transaction rejected');
-
+                        await captureFrameActionEvent('others', client.account.address, props.frame);
                         return client.request(parameters as Parameters<typeof client.request>[0]);
                     }
                     default:
