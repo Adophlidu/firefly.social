@@ -56,7 +56,10 @@ class FirebaseClient {
 
             const title = payload.notification?.title || SITE_NAME;
 
-            const notification = new Notification(title, payload.notification);
+            const notification = new Notification(title, {
+                ...payload.notification,
+                icon: '/android-chrome-144x144.png',
+            });
             notification.onclick = (event) => {
                 event.preventDefault();
                 const link = parseUrl(payload.data?.link || '');

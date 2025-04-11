@@ -50,7 +50,7 @@ messaging.onBackgroundMessage((payload) => {
     linkRecord[`${notificationTitle}-${payload.notification.body}`] = payload.data?.link;
     self.registration.showNotification(notificationTitle, {
         ...payload.notification,
-        icon: '/image/firefly-light-avatar.png',
+        icon: '/android-chrome-144x144.png',
     });
 });
 
