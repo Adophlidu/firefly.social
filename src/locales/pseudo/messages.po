@@ -2404,7 +2404,7 @@ msgstr ""
 msgid "No matching channel"
 msgstr ""
 
-#. placeholder {0}: failedPlatforms.length
+#. placeholder {0}: failedAt.length
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
@@ -2764,7 +2764,7 @@ msgstr ""
 msgid "Unfollow @{0}"
 msgstr ""
 
-#. placeholder {0}: resolveSourcesName(failedPlatforms, '/')
+#. placeholder {0}: resolveSourcesName(failedAt, '/')
 msgid "Your post failed to send to {0}. Click 'Retry' to attempt posting again."
 msgstr ""
 

@@ -2417,7 +2417,7 @@ msgstr "找不到该页面。"
 msgid "No matching channel"
 msgstr "没有匹配到频道"
 
-#. placeholder {0}: failedPlatforms.length
+#. placeholder {0}: failedAt.length
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。请点击重试。}}"
 
@@ -2782,7 +2782,7 @@ msgstr "我们无法模拟该交易或完成所有安全检测。请谨慎操作
 msgid "Unfollow @{0}"
 msgstr "取消关注 @{0}"
 
-#. placeholder {0}: resolveSourcesName(failedPlatforms, '/')
+#. placeholder {0}: resolveSourcesName(failedAt, '/')
 msgid "Your post failed to send to {0}. Click 'Retry' to attempt posting again."
 msgstr "发布到 {0} 失败。请点击\"重试\"再次发布。"
 

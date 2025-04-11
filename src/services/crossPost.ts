@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { produce } from 'immer';
-import { compact, first } from 'lodash-es';
+import { compact, difference, first } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { NODE_ENV, type SocialSource } from '@/constants/enum.js';
@@ -235,12 +235,11 @@ export async function crossPost(
 
     // check publish result
     if (!skipCheckPublished) {
-        const failedPlatforms = getPostFailedAt(updatedCompositePost);
+        // the first error on each platform
+        const allErrors = allSettled.map((x) => (x.status === 'rejected' ? x.reason : null));
+        const failedAt = getPostFailedAt(updatedCompositePost);
 
-        if (failedPlatforms.length) {
-            // the first error on each platform
-            const allErrors = allSettled.map((x) => (x.status === 'rejected' ? x.reason : null));
-
+        if (failedAt.length) {
             // show success message if no error found on certain platform
             SORTED_SOCIAL_SOURCES.forEach((x, i) => {
                 const settled = allSettled[i];
@@ -253,18 +252,12 @@ export async function crossPost(
                 }
             });
 
-            const message = t`Your post failed to send to ${resolveSourcesName(failedPlatforms, '/')}. Click 'Retry' to attempt posting again.`;
+            const message = t`Your post failed to send to ${resolveSourcesName(failedAt, '/')}. Click 'Retry' to attempt posting again.`;
 
             enqueueErrorsMessage(message, {
                 errors: compact(allErrors),
                 persist: true,
             });
-            throw new Error(
-                [
-                    `Failed to post on: ${resolveSourcesName(failedPlatforms)}`,
-                    ...compact(allErrors).map(getDetailedErrorMessage),
-                ].join('\n'),
-            );
         } else {
             if (availableSources.length === 1) {
                 const target = first(availableSources);
@@ -273,17 +266,33 @@ export async function crossPost(
                 enqueueSuccessMessage(t`Your post was sent`);
             }
         }
+
+        // report crossed post
+        if (!skipReportCrossedPost) {
+            reportCrossedPost(updatedCompositePost);
+
+            const availableSources = difference(updatedCompositePost.availableSources, failedAt);
+            if (availableSources.length) {
+                captureComposeEvent(type, updatedCompositePost, {
+                    failedAt,
+                    availableSources,
+                });
+            }
+        }
+
+        if (failedAt.length) {
+            throw new Error(
+                [
+                    `Failed to post on: ${resolveSourcesName(failedAt)}`,
+                    ...compact(allErrors).map(getDetailedErrorMessage),
+                ].join('\n'),
+            );
+        }
     }
 
     // all failed
     if (allSettled.every((x) => x.status === 'rejected')) {
         throw new Error('Post failed to publish.');
-    }
-
-    // report crossed post
-    if (!skipReportCrossedPost) {
-        reportCrossedPost(updatedCompositePost);
-        captureComposeEvent(type, updatedCompositePost);
     }
 
     // refresh profile feed

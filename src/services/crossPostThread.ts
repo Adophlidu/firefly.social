@@ -1,6 +1,6 @@
 import { plural, t } from '@lingui/core/macro';
 import { delay, safeUnreachable } from '@masknet/kit';
-import { compact, first } from 'lodash-es';
+import { compact, difference, first } from 'lodash-es';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
@@ -119,9 +119,9 @@ export async function crossPostThread({ progressCallback, isRetry = false, signa
     const { posts: updatedPosts } = useComposeStateStore.getState();
 
     // check publish result
-    const failedPlatforms = getThreadFailedAt(updatedPosts);
+    const failedAt = getThreadFailedAt(updatedPosts);
 
-    if (failedPlatforms.length) {
+    if (failedAt.length) {
         // the first error on each platform
         const allErrors = SORTED_SOCIAL_SOURCES.map(
             (x) => updatedPosts.find((y) => y.postError[x])?.postError[x] ?? null,
@@ -138,10 +138,10 @@ export async function crossPostThread({ progressCallback, isRetry = false, signa
             }
         });
 
-        const firstPlatform = failedPlatforms[0] ? resolveSourceName(failedPlatforms[0]) : '';
-        const secondPlatform = failedPlatforms[1] ? resolveSourceName(failedPlatforms[1]) : '';
+        const firstPlatform = failedAt[0] ? resolveSourceName(failedAt[0]) : '';
+        const secondPlatform = failedAt[1] ? resolveSourceName(failedAt[1]) : '';
 
-        const message = plural(failedPlatforms.length, {
+        const message = plural(failedAt.length, {
             one: `Your posts failed to publish on ${firstPlatform} due to an error. Click 'Retry' to attempt posting again.`,
             two: `Your posts failed to publish on ${firstPlatform} and ${secondPlatform} due to an error. Click 'Retry' to attempt posting again.`,
             other: "Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.",
@@ -151,7 +151,6 @@ export async function crossPostThread({ progressCallback, isRetry = false, signa
             errors: compact(allErrors),
             persist: true,
         });
-        throw new Error(`Failed to post on: ${resolveSourcesName(failedPlatforms)}.`);
     } else {
         enqueueSuccessMessage(t`Your posts have published successfully.`);
     }
@@ -161,10 +160,14 @@ export async function crossPostThread({ progressCallback, isRetry = false, signa
 
     // capture compose event
     const rootPost = first(updatedPosts);
+    const availableSources = difference(rootPost?.availableSources ?? [], failedAt);
 
-    if (rootPost) {
+    if (rootPost && availableSources.length) {
         captureComposeEvent('compose', rootPost, {
             thread: updatedPosts,
+            availableSources,
         });
     }
+
+    if (failedAt.length) throw new Error(`Failed to post on: ${resolveSourcesName(failedAt)}.`);
 }

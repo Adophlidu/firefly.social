@@ -2412,7 +2412,7 @@ msgstr "The page could not be found."
 msgid "No matching channel"
 msgstr "No matching channel"
 
-#. placeholder {0}: failedPlatforms.length
+#. placeholder {0}: failedAt.length
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 
@@ -2777,7 +2777,7 @@ msgstr "We were unable to simulate the transaction or complete all security dete
 msgid "Unfollow @{0}"
 msgstr "Unfollow @{0}"
 
-#. placeholder {0}: resolveSourcesName(failedPlatforms, '/')
+#. placeholder {0}: resolveSourcesName(failedAt, '/')
 msgid "Your post failed to send to {0}. Click 'Retry' to attempt posting again."
 msgstr "Your post failed to send to {0}. Click 'Retry' to attempt posting again."
 

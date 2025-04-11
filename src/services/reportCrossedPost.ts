@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 
@@ -42,24 +43,27 @@ async function report(post: CompositePost) {
     const relationId = uuid();
     const currentProfileAll = getCurrentProfileAll();
 
-    const reports = SORTED_SOCIAL_SOURCES.map<Report | null>((x) => {
-        const postId = post.postId[x];
-        if (!postId) return null;
+    const reports = compact(
+        SORTED_SOCIAL_SOURCES.map<Report | null>((x) => {
+            const postId = post.postId[x];
+            if (!postId) return null;
 
-        const profileId = currentProfileAll[x]?.profileId;
-        if (!profileId) return null;
+            const profileId = currentProfileAll[x]?.profileId;
+            if (!profileId) return null;
 
-        return {
-            ua_type: 'web',
-            relation_id: relationId,
-            // TODO: post time of the original post
-            post_time: dayjs(Date.now()).unix(),
-            post_id: postId,
-            // TODO: profile id of the author
-            platform_id: profileId,
-            platform: resolvePlatform(x),
-        };
-    });
+            return {
+                ua_type: 'web',
+                relation_id: relationId,
+                // TODO: post time of the original post
+                post_time: dayjs(Date.now()).unix(),
+                post_id: postId,
+                // TODO: profile id of the author
+                platform_id: profileId,
+                platform: resolvePlatform(x),
+            };
+        }),
+    );
+    if (!reports.length) return;
 
     const allSettled = await Promise.allSettled(
         reports.map(async (x) => {

@@ -1,6 +1,6 @@
 import { compact } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
+import { type SocialSource,Source } from '@/constants/enum.js';
 import { SORTED_POLL_SOURCES } from '@/constants/index.js';
 import { getRpMetadata } from '@/helpers/rpPayload.js';
 import type { ComposeEventParameters } from '@/providers/types/Telemetry.js';
@@ -17,16 +17,23 @@ export interface Options {
     draftId?: string;
     scheduleId?: string;
     thread?: CompositePost[];
+    failedAt?: SocialSource[];
+    availableSources?: SocialSource[];
 }
 
 export function getComposeEventParameters(
     post: CompositePost,
-    { draftId, scheduleId, thread = [post] }: Options = {},
+    { draftId, scheduleId, thread = [post], availableSources = [] }: Options = {},
 ): Omit<ComposeEventParameters, 'firefly_account_id'> {
     const lensProfile = useLensStateStore.getState().currentProfile;
     const farcasterProfile = useFarcasterStateStore.getState().currentProfile;
     const xProfile = useTwitterStateStore.getState().currentProfile;
     const bskyProfile = useBskyStateStore.getState().currentProfile;
+
+    const hasLens = availableSources.includes(Source.Lens);
+    const hasFarcaster = availableSources.includes(Source.Farcaster);
+    const hasX = availableSources.includes(Source.Twitter);
+    const hasBsky = availableSources.includes(Source.Bsky);
 
     // schedule time indicates that the post is scheduled
     // but only schedule id indicates that the post is scheduled and saved
@@ -35,25 +42,25 @@ export function getComposeEventParameters(
     const rp = post.typedMessage?.meta ? getRpMetadata(post.typedMessage) : null;
 
     return {
-        include_lens_post: post.availableSources.includes(Source.Lens),
+        include_lens_post: hasLens,
         lens_id: lensProfile?.profileId,
         lens_handle: lensProfile?.handle,
-        lens_post_ids: compact(thread?.map((p) => p.postId[Source.Lens] ?? undefined)),
+        lens_post_ids: hasLens ? compact(thread?.map((p) => p.postId[Source.Lens] ?? undefined)) : [],
 
-        include_farcaster_cast: post.availableSources.includes(Source.Farcaster),
+        include_farcaster_cast: hasFarcaster,
         farcaster_id: farcasterProfile?.profileId,
         farcaster_handle: farcasterProfile?.handle,
-        farcaster_cast_ids: compact(thread?.map((p) => p.postId[Source.Farcaster] ?? undefined)),
+        farcaster_cast_ids: hasFarcaster ? compact(thread?.map((p) => p.postId[Source.Farcaster] ?? undefined)) : [],
 
-        include_x_post: post.availableSources.includes(Source.Twitter),
+        include_x_post: hasX,
         x_id: xProfile?.profileId,
         x_handle: xProfile?.handle,
-        x_post_ids: compact(thread?.map((p) => p.postId[Source.Twitter] ?? undefined)),
+        x_post_ids: hasX ? compact(thread?.map((p) => p.postId[Source.Twitter] ?? undefined)) : [],
 
-        include_bsky_post: post.availableSources.includes(Source.Bsky),
+        include_bsky_post: hasBsky,
         bsky_id: bskyProfile?.profileId,
         bsky_handle: bskyProfile?.handle,
-        bsky_post_ids: compact(thread?.map((p) => p.postId[Source.Bsky] ?? undefined)),
+        bsky_post_ids: hasBsky ? compact(thread?.map((p) => p.postId[Source.Bsky] ?? undefined)) : [],
 
         is_thread: !!thread?.length && thread.length > 1,
 
