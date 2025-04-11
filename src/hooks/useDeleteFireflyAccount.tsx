@@ -93,8 +93,8 @@ export function useDeleteFireflyAccount() {
 
             await FireflyEndpointProvider.deleteAccount();
             enqueueSuccessMessage(t`Deleted your Firefly account`);
-            await removeAllAccounts();
             await captureAccountDeleteEvent(accountId);
+            await removeAllAccounts();
             await delay(300);
             router.replace(
                 '/',
