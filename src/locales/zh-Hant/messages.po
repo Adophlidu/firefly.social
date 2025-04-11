@@ -124,10 +124,6 @@ msgstr ""
 msgid "Your frame URL"
 msgstr ""
 
-#. placeholder {0}: ensName ?? formatAddress(token.deployer, 4)
-msgid "<0>Created by</0><1>{0}</1>"
-msgstr ""
-
 msgid "Refunded"
 msgstr ""
 
@@ -248,9 +244,6 @@ msgid "GIF source not supported. Supported sources: {0}."
 msgstr ""
 
 msgid "Join"
-msgstr ""
-
-msgid "BNB wallet to receive trading fees"
 msgstr ""
 
 #. placeholder {0}: error.status
@@ -561,9 +554,6 @@ msgstr "<0>發送</0>一個 NFT"
 msgid "Report post"
 msgstr "檢舉貼文"
 
-msgid "Launched on"
-msgstr ""
-
 #. placeholder {0}: resolveSourceName(account.profile.profileSource)
 #. placeholder {1}: account.profile.handle
 msgid "You are logging into a different Firefly account by {0} account <0>@{1}</0>. Continuing will <1>log out</1> your current Firefly account."
@@ -580,9 +570,6 @@ msgstr ""
 
 msgid "Copied"
 msgstr "已複製"
-
-msgid "BNB address"
-msgstr ""
 
 msgid "Name"
 msgstr "名稱"
@@ -1119,9 +1106,6 @@ msgstr ""
 msgid "Confirmation"
 msgstr "確認"
 
-msgid "Trading Fees"
-msgstr ""
-
 msgid "Search user"
 msgstr ""
 
@@ -1415,9 +1399,6 @@ msgstr "頻道"
 
 #. placeholder {0}: formatPrice(totalBalance ?? 0)
 msgid "$ {0}"
-msgstr ""
-
-msgid "Token symbol"
 msgstr ""
 
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
@@ -1748,9 +1729,6 @@ msgstr ""
 msgid "Sold Out"
 msgstr "售罄"
 
-msgid "$meme"
-msgstr ""
-
 msgid "Proxy contract"
 msgstr "代理合約"
 
@@ -1802,9 +1780,6 @@ msgstr ""
 
 msgid "Comment"
 msgstr "評論"
-
-msgid "Created by"
-msgstr ""
 
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr ""
@@ -1990,9 +1965,6 @@ msgstr ""
 msgid "Search ${symbol}"
 msgstr "搜尋 ${symbol}"
 
-msgid "Rockets.fun"
-msgstr ""
-
 #. placeholder {0}: channel.id
 #. placeholder {0}: channel.name
 msgid "Failed to unmute /{0}."
@@ -2142,9 +2114,6 @@ msgstr ""
 
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
-msgstr ""
-
-msgid "Token name"
 msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
@@ -2581,9 +2550,6 @@ msgstr ""
 msgid "Please switch to {0}"
 msgstr ""
 
-msgid "Fee Rate"
-msgstr ""
-
 msgid "Non-honeypot related address."
 msgstr ""
 
@@ -2720,10 +2686,6 @@ msgid "UID: {uid}"
 msgstr ""
 
 msgid "Top 500 Buttrfly Points Leaderboard"
-msgstr ""
-
-#. placeholder {0}: renderShrankPrice(formatPrice(token.price) ?? '')
-msgid "<0>Price</0><1>${0}</1>"
 msgstr ""
 
 msgid "Minutes"
@@ -2873,9 +2835,6 @@ msgstr ""
 #. placeholder {1}: filteredProfiles[1].handle
 #. placeholder {2}: resolveSourceName(post.source)
 msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
-msgstr ""
-
-msgid "My MEME coin on BNB"
 msgstr ""
 
 msgid "Connect your wallet to follow"
@@ -3273,9 +3232,6 @@ msgstr ""
 msgid "Poll for Lens will come back soon."
 msgstr ""
 
-msgid "Token launch only support on X"
-msgstr ""
-
 msgid "Article collected successfully!"
 msgstr ""
 
@@ -3486,9 +3442,6 @@ msgid "Ended on {0}"
 msgstr ""
 
 msgid "Collect Article"
-msgstr ""
-
-msgid "Launch Token"
 msgstr ""
 
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
@@ -4295,9 +4248,6 @@ msgid "Post"
 msgstr ""
 
 msgid "Creator:"
-msgstr ""
-
-msgid "Post to launch"
 msgstr ""
 
 msgid "Following"

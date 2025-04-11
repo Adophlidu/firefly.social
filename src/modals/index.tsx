@@ -20,7 +20,6 @@ import { EnableSignlessModal } from '@/modals/EnableSignlessModal.js';
 import { FrameViewerModal } from '@/modals/FrameViewerModal/index.js';
 import { FreeMintModal } from '@/modals/FreeMintModal/index.js';
 import { ImageEditorModal } from '@/modals/ImageEditor/index.js';
-import { LaunchTokenModal } from '@/modals/LaunchTokenModal.js';
 import { LoginModal } from '@/modals/LoginModal/index.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
 import { MyWalletsModal } from '@/modals/MyWalletsModal/index.js';
@@ -67,7 +66,6 @@ export const Modals = memo(function Modals() {
             <ChannelSelectModal ref={controls.ChannelSelectModalRef.register} />
             <WalletConnectModal ref={controls.ConnectModalRef.register} />
             <MyWalletsModal ref={controls.MyWalletsModalRef.register} />
-            <LaunchTokenModal ref={controls.LaunchTokenModalRef.register} />
             <EditFireflyProfileModal ref={controls.EditFireflyProfileModalRef.register} />
         </>
     );

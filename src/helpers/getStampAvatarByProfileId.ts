@@ -35,7 +35,6 @@ export function getStampAvatarByProfileId(source: Source, profileId: string) {
         case Source.Posts:
         case Source.Notifications:
         case Source.Email:
-        case Source.RocketsFun:
         case Source.Swap:
             return '';
         default:

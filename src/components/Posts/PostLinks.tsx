@@ -10,7 +10,6 @@ import { FrameLayout } from '@/components/Frame/Layout.js';
 import { OembedLayout } from '@/components/Oembed/index.js';
 import { Player } from '@/components/Oembed/Player.js';
 import { TweetSpace } from '@/components/Posts/TweetSpace.js';
-import { RocketsFunCard } from '@/components/RocketsFun/RocketsFunCard.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { LINK_MARK_RE } from '@/constants/linkRegExp.js';
@@ -88,7 +87,6 @@ export const PostLinks = memo(function PostLinks({ post, isInCompose = false }: 
             {data.action ? <ActionContainer action={data.action} url={url} /> : null}
             {data.oembed ? <OembedLayout data={data.oembed} post={post} isInCompose={isInCompose} /> : null}
             {data.spaceId ? <TweetSpace spaceId={data.spaceId} /> : null}
-            {data.token ? <RocketsFunCard token={data.token} url={url} /> : null}
         </>
     );
 });

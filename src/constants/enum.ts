@@ -73,7 +73,6 @@ export enum Source {
     Posts = 'Posts',
     Notifications = 'Notifications',
     Swap = 'Swap',
-    RocketsFun = 'RocketsFun',
 }
 
 export enum SourceInURL {
@@ -94,7 +93,6 @@ export enum SourceInURL {
     DAOs = 'daos',
     Posts = 'posts',
     Notifications = 'all',
-    RocketsFun = 'rockets-fun',
     Swap = 'swap',
 }
 
@@ -193,7 +191,6 @@ export enum TrendingType {
     TopLosers = 'top-losers',
     Trending = 'trending',
     Meme = 'meme',
-    RocketsFun = 'rockets-fun',
 }
 
 export enum SearchType {
@@ -288,7 +285,6 @@ export enum ScrollListKey {
     RedPacketHistory = 'redpacket-history',
     TrendingFeeds = 'trending-feeds',
     Swap = 'swap-list',
-    RocketsFunTrending = 'rockets-fun-trending',
     GroupMembers = 'group-members',
     GroupPosts = 'group-posts',
 }

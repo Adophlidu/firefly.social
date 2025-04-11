@@ -4,7 +4,6 @@ import { useMemo } from 'react';
 import { AddThread } from '@/components/Compose/ComposeActions/AddThread.js';
 import { ChooseChannelAction } from '@/components/Compose/ComposeActions/ChannelAction.js';
 import { EmojiAction } from '@/components/Compose/ComposeActions/EmojiAction.js';
-import { LaunchTokenAction } from '@/components/Compose/ComposeActions/LaunchTokenAction.js';
 import { MediaAction } from '@/components/Compose/ComposeActions/MediaAction.js';
 import { PlatformAction } from '@/components/Compose/ComposeActions/PlatformAction.js';
 import { RedPacketAction } from '@/components/Compose/ComposeActions/RedPacketAction.js';
@@ -78,7 +77,6 @@ export function ComposeActions() {
 
                     <SchedulePostEntryButton className="text-main" disabled />
                     {!scheduleTime && !mediaDisabled && isMedium ? <RedPacketAction disabled={mediaDisabled} /> : null}
-                    <LaunchTokenAction />
                 </div>
 
                 {isMedium ? <ComposeSend /> : <AddThread />}

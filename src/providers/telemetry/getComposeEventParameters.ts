@@ -1,6 +1,6 @@
 import { compact } from 'lodash-es';
 
-import { type SocialSource,Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_POLL_SOURCES } from '@/constants/index.js';
 import { getRpMetadata } from '@/helpers/rpPayload.js';
 import type { ComposeEventParameters } from '@/providers/types/Telemetry.js';

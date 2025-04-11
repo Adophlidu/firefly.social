@@ -31,7 +31,6 @@ export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
         [SourceInURL.Posts]: Source.Posts,
         [SourceInURL.Notifications]: Source.Notifications,
         [SourceInURL.Email]: Source.Email,
-        [SourceInURL.RocketsFun]: Source.RocketsFun,
         [SourceInURL.Swap]: Source.Swap,
     },
     (sourceInUrl) => {

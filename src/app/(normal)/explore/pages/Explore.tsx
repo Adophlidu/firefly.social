@@ -4,7 +4,6 @@ import { t } from '@lingui/core/macro';
 import { safeUnreachable } from '@masknet/kit';
 
 import { ChannelList } from '@/components/Channel/ChannelList.js';
-import { RocketsFunTrendingList } from '@/components/RocketsFun/RocketsFunTrendingList.js';
 import { SuggestedFollowUsersList } from '@/components/SuggestedFollows/SuggestedFollowUsersList.js';
 import { TokenTrendingList } from '@/components/TokenTrendingList.js';
 import { type ExploreSource, ExploreType, type SocialSource, TrendingType } from '@/constants/enum.js';
@@ -32,8 +31,6 @@ export function ExplorePage({ source, type }: Props) {
                 case TrendingType.Trending:
                 case TrendingType.Meme:
                     return <TokenTrendingList type={sourceAsTrendingType} />;
-                case TrendingType.RocketsFun:
-                    return <RocketsFunTrendingList />;
                 default:
                     safeUnreachable(sourceAsTrendingType);
                     return null;

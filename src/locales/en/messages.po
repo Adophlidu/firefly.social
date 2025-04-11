@@ -119,10 +119,6 @@ msgstr "Simulating"
 msgid "Your frame URL"
 msgstr "Your frame URL"
 
-#. placeholder {0}: ensName ?? formatAddress(token.deployer, 4)
-msgid "<0>Created by</0><1>{0}</1>"
-msgstr "<0>Created by</0><1>{0}</1>"
-
 msgid "Refunded"
 msgstr "Refunded"
 
@@ -244,9 +240,6 @@ msgstr "GIF source not supported. Supported sources: {0}."
 
 msgid "Join"
 msgstr "Join"
-
-msgid "BNB wallet to receive trading fees"
-msgstr "BNB wallet to receive trading fees"
 
 #. placeholder {0}: error.status
 msgid "Failed to fetch: {0}. Please try again later."
@@ -556,9 +549,6 @@ msgstr "<0>Sent</0> an NFT"
 msgid "Report post"
 msgstr "Report post"
 
-msgid "Launched on"
-msgstr "Launched on"
-
 #. placeholder {0}: resolveSourceName(account.profile.profileSource)
 #. placeholder {1}: account.profile.handle
 msgid "You are logging into a different Firefly account by {0} account <0>@{1}</0>. Continuing will <1>log out</1> your current Firefly account."
@@ -575,9 +565,6 @@ msgstr "Confirm to log out your Firefly account?"
 
 msgid "Copied"
 msgstr "Copied"
-
-msgid "BNB address"
-msgstr "BNB address"
 
 msgid "Name"
 msgstr "Name"
@@ -1114,9 +1101,6 @@ msgstr "Failed to un-bookmark NFT."
 msgid "Confirmation"
 msgstr "Confirmation"
 
-msgid "Trading Fees"
-msgstr "Trading Fees"
-
 msgid "Search user"
 msgstr "Search user"
 
@@ -1411,9 +1395,6 @@ msgstr "Channel"
 #. placeholder {0}: formatPrice(totalBalance ?? 0)
 msgid "$ {0}"
 msgstr "$ {0}"
-
-msgid "Token symbol"
-msgstr "Token symbol"
 
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 msgstr "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
@@ -1743,9 +1724,6 @@ msgstr "Best Wishes!"
 msgid "Sold Out"
 msgstr "Sold Out"
 
-msgid "$meme"
-msgstr "$meme"
-
 msgid "Proxy contract"
 msgstr "Proxy contract"
 
@@ -1797,9 +1775,6 @@ msgstr "Current Results"
 
 msgid "Comment"
 msgstr "Comment"
-
-msgid "Created by"
-msgstr "Created by"
 
 msgid "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
 msgstr "You can withdraw any unclaimed amount 24 hours after creating this lucky drop."
@@ -1993,9 +1968,6 @@ msgstr "This token is issued by its declared team. Some scams will create a well
 msgid "Search ${symbol}"
 msgstr "Search ${symbol}"
 
-msgid "Rockets.fun"
-msgstr "Rockets.fun"
-
 #. placeholder {0}: channel.id
 #. placeholder {0}: channel.name
 msgid "Failed to unmute /{0}."
@@ -2146,9 +2118,6 @@ msgstr "NFT owner cant bypass the maximum amount of minting specified in the con
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
-
-msgid "Token name"
-msgstr "Token name"
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>Acquired</0> an NFT"
@@ -2589,9 +2558,6 @@ msgstr "Voting Rights: Participate in key decisions and shape the platform’s d
 msgid "Please switch to {0}"
 msgstr "Please switch to {0}"
 
-msgid "Fee Rate"
-msgstr "Fee Rate"
-
 msgid "Non-honeypot related address."
 msgstr "Non-honeypot related address."
 
@@ -2729,10 +2695,6 @@ msgstr "UID: {uid}"
 
 msgid "Top 500 Buttrfly Points Leaderboard"
 msgstr "Top 500 Buttrfly Points Leaderboard"
-
-#. placeholder {0}: renderShrankPrice(formatPrice(token.price) ?? '')
-msgid "<0>Price</0><1>${0}</1>"
-msgstr "<0>Price</0><1>${0}</1>"
 
 msgid "Minutes"
 msgstr "Minutes"
@@ -2882,9 +2844,6 @@ msgstr "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farc
 #. placeholder {2}: resolveSourceName(post.source)
 msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
 msgstr "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
-
-msgid "My MEME coin on BNB"
-msgstr "My MEME coin on BNB"
 
 msgid "Connect your wallet to follow"
 msgstr "Connect your wallet to follow"
@@ -3281,9 +3240,6 @@ msgstr "Decrypt"
 msgid "Poll for Lens will come back soon."
 msgstr "Poll for Lens will come back soon."
 
-msgid "Token launch only support on X"
-msgstr "Token launch only support on X"
-
 msgid "Article collected successfully!"
 msgstr "Article collected successfully!"
 
@@ -3495,9 +3451,6 @@ msgstr "Ended on {0}"
 
 msgid "Collect Article"
 msgstr "Collect Article"
-
-msgid "Launch Token"
-msgstr "Launch Token"
 
 msgid "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
 msgstr "Customize your Lucky Drop sender: Choose from your social account handles or wallets."
@@ -4307,9 +4260,6 @@ msgstr "Post"
 
 msgid "Creator:"
 msgstr "Creator:"
-
-msgid "Post to launch"
-msgstr "Post to launch"
 
 msgid "Following"
 msgstr "Following"

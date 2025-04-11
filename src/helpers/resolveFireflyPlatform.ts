@@ -22,7 +22,6 @@ export const resolveFireflyPlatform = createLookupTableResolver<Source, FireflyP
         [Source.Apple]: null,
         [Source.Posts]: null,
         [Source.Notifications]: null,
-        [Source.RocketsFun]: null,
         [Source.Swap]: null,
     },
     (source) => {

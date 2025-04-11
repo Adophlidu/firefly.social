@@ -64,7 +64,6 @@ const resolveProfileTabColor = createLookupTableResolver<
         [Source.Posts]: {},
         [Source.Notifications]: {},
         [Source.Email]: {},
-        [Source.RocketsFun]: {},
         [Source.Swap]: {},
         [Source.WalletMix]: {},
     },
