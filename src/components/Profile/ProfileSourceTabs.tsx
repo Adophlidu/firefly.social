@@ -3,10 +3,21 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
-import { type HTMLProps, type Ref, useLayoutEffect, useRef, useState } from 'react';
+import {
+    type HTMLProps,
+    type PropsWithChildren,
+    type Ref,
+    useCallback,
+    useEffect,
+    useLayoutEffect,
+    useRef,
+    useState,
+} from 'react';
 import { useMount } from 'react-use';
 
+import ArrowLeftIcon from '@/assets/arrow-left.svg';
 import ArrowLineDownIcon from '@/assets/arrow-line-down.svg';
+import ArrowRightIcon from '@/assets/arrow-right.svg';
 import DangerIcon from '@/assets/danger.svg';
 import WalletIcon from '@/assets/wallet-bold.svg';
 import { Avatar } from '@/components/Avatar.js';
@@ -279,13 +290,81 @@ function ProfileMenuItem({ profile }: { profile: FireflyProfile }) {
     );
 }
 
+function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
+    const [hiddenLeft, setHiddenLeft] = useState(true);
+    const [hiddenRight, setHiddenRight] = useState(true);
+    const handleButtons = useCallback((target: HTMLElement) => {
+        if (target.scrollWidth <= target.clientWidth) {
+            setHiddenLeft(true);
+            setHiddenRight(true);
+            return;
+        }
+        setHiddenLeft(target.scrollLeft <= 0);
+        setHiddenRight(target.scrollLeft >= target.scrollWidth - target.clientWidth);
+    }, []);
+
+    const ref = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        const element = ref.current;
+        if (!element) return;
+        const resizeObserver = new ResizeObserver(() => handleButtons(element));
+        resizeObserver.observe(element);
+        handleButtons(element);
+        return () => resizeObserver.disconnect();
+    }, [handleButtons]);
+
+    function onScrollTo(distance: number) {
+        const element = ref.current;
+        if (!element) return;
+        element.scrollTo({
+            behavior: 'smooth',
+            left: element.scrollLeft + distance,
+        });
+    }
+    const STEP = 100;
+
+    return (
+        <div
+            className="no-scrollbar align-center relative flex w-full overflow-x-auto overflow-y-auto px-4 pb-2.5 pt-2"
+            ref={ref}
+            onScroll={(e) => handleButtons(e.currentTarget)}
+        >
+            <button
+                className={classNames(
+                    'shadow-action sticky left-0 top-0 z-10 -mr-5 flex size-5 shrink-0 items-center justify-center rounded-full border border-line bg-primaryBottom duration-100',
+                    {
+                        'pointer-events-none opacity-0': hiddenLeft,
+                    },
+                )}
+                onClick={() => onScrollTo(-STEP)}
+            >
+                <div className="absolute -left-1 -top-1 h-7 w-10 rounded-2xl bg-[linear-gradient(90deg,rgb(var(--color-bottom)/50))_60%,transparent]" />
+                <ArrowLeftIcon className="relative h-2 w-auto shrink-0" />
+            </button>
+            {children}
+            <button
+                className={classNames(
+                    'shadow-action sticky right-0 top-0 -ml-5 flex size-5 shrink-0 items-center justify-center rounded-full border border-line bg-primaryBottom duration-100',
+                    {
+                        'pointer-events-none opacity-0': hiddenRight,
+                    },
+                )}
+                onClick={() => onScrollTo(STEP)}
+            >
+                <div className="absolute -right-1 -top-1 h-7 w-10 rounded-2xl bg-[linear-gradient(90deg,transparent_40%,rgb(var(--color-bottom)))]" />
+                <ArrowRightIcon className="relative h-2 w-auto shrink-0" />
+            </button>
+        </div>
+    );
+}
+
 export function ProfileSourceTabs({ profiles, identity }: { profiles: FireflyProfile[]; identity: FireflyIdentity }) {
     const sources = SORTED_PROFILE_SOURCES.filter(
         (source) => profiles.filter((profile) => profile.identity.source === source).length,
     );
 
     return (
-        <div className="no-scrollbar flex w-full overflow-x-auto overflow-y-auto px-4 pb-2.5 pt-2">
+        <ProfileSourceTabsContainer>
             {sources.map((source) => {
                 const currentSourceProfiles = profiles
                     .filter((profile) => profile.identity.source === source)
@@ -371,6 +450,6 @@ export function ProfileSourceTabs({ profiles, identity }: { profiles: FireflyPro
                     </Menu>
                 );
             })}
-        </div>
+        </ProfileSourceTabsContainer>
     );
 }

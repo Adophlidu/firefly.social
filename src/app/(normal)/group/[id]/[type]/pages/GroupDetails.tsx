@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import { notFound } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
 
 import { GroupInfo } from '@/app/(normal)/group/[id]/[type]/pages/GroupInfo.js';
@@ -8,6 +7,7 @@ import { Title } from '@/components/Group/Title.js';
 import { Link } from '@/components/Link.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { GroupTabType } from '@/constants/enum.js';
+import { notFound } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveGroupPageUrl } from '@/helpers/resolveGroupPageUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';

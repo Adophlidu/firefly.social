@@ -1,7 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { useRouter } from 'next/navigation.js';
 import { memo, type MouseEvent, useCallback } from 'react';
 
 import UserIcon from '@/assets/user.svg';
@@ -9,6 +8,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import type { SocialSource } from '@/constants/enum.js';
+import { useRouter } from '@/esm/navigation.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveGroupPageUrl } from '@/helpers/resolveGroupPageUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

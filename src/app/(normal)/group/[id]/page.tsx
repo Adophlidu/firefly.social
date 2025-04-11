@@ -1,5 +1,4 @@
-import { notFound, redirect } from 'next/navigation.js';
-
+import { notFound, redirect } from '@/esm/navigation.js';
 import { resolveGroupPageUrl } from '@/helpers/resolveGroupPageUrl.js';
 import type { NextPageProps } from '@/types/index.js';
 
