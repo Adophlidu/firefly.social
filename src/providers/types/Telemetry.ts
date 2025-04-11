@@ -174,6 +174,10 @@ export enum EventId {
     BSKY_PROFILE_UNFOLLOW_SUCCESS = 'bsky_unfollow_success', // ✅
     BSKY_PROFILE_SUPER_FOLLOW_SUCCESS = 'bsky_superfollow_success', // ✅
 
+    // wallet
+    WALLET_FOLLOW_SUCCESS = 'follow_wallet_success',
+    WALLET_UNFOLLOW_SUCCESS = 'unfollow_wallet_success',
+
     // apple
     APPLE_ACCOUNT_LOG_IN_SUCCESS = 'apple_log_in_success',
     APPLE_ACCOUNT_LOG_OUT_SUCCESS = 'apple_log_out_success',
@@ -967,6 +971,20 @@ export interface Events extends Record<EventId, Event> {
     [EventId.BSKY_PROFILE_SUPER_FOLLOW_SUCCESS]: {
         type: EventType.Interact;
         parameters: BskyEventParameters & WalletEventParameters;
+    };
+
+    // Wallet
+    [EventId.WALLET_FOLLOW_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.WALLET_UNFOLLOW_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
     };
 
     // Activity

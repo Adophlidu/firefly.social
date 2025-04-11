@@ -4,6 +4,10 @@ import type { Address } from 'viem';
 
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import {
+    captureWalletFollowEvent,
+    captureWalletUnfollowEvent,
+} from '@/providers/telemetry/captureWalletFollowEvent.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';
 
 interface Options {
@@ -18,19 +22,21 @@ export function useToggleWatchWallet({ handleOrEnsOrAddress, address, following 
             try {
                 if (following) {
                     const result = await FireflyEndpointProvider.unwatchWallet(address);
-                    enqueueSuccessMessage(t`${handleOrEnsOrAddress} unwatched`);
+                    enqueueSuccessMessage(t`${handleOrEnsOrAddress} unfollowed`);
+                    captureWalletUnfollowEvent();
                     return result;
                 }
                 const result = await FireflyEndpointProvider.watchWallet(address);
                 setupFirebaseFcmConnection({ force: true, showUi: true });
-                enqueueSuccessMessage(t`${handleOrEnsOrAddress} watched`);
+                enqueueSuccessMessage(t`${handleOrEnsOrAddress} followed`);
+                captureWalletFollowEvent();
                 return result;
             } catch (error) {
                 enqueueMessageFromError(
                     error,
                     following
-                        ? t`Failed to unwatch ${handleOrEnsOrAddress}.`
-                        : t`Failed to watch ${handleOrEnsOrAddress}.`,
+                        ? t`Failed to unfollow ${handleOrEnsOrAddress}.`
+                        : t`Failed to follow ${handleOrEnsOrAddress}.`,
                 );
                 throw error;
             }

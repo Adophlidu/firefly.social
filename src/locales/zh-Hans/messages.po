@@ -155,6 +155,9 @@ msgstr "收集文章失败。"
 msgid "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
 msgstr "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
 
+msgid "Failed to unfollow {handleOrEnsOrAddress}."
+msgstr ""
+
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr "稍等！满足以下任一条件以解锁优质 NFT："
 
@@ -260,9 +263,6 @@ msgstr "获取失败: {0}。请稍后重试。"
 
 msgid "We are not aware of any code that prevents the sale of tokens."
 msgstr "我们没察觉到有任何阻止通证售卖的代码逻辑。"
-
-msgid "Watching"
-msgstr "观察中"
 
 #. placeholder {0}: space.participant_count?.toLocaleString()
 msgid "{0} listening"
@@ -610,6 +610,9 @@ msgstr "在 {0} 上关注 <0>@{handle}</0>"
 msgid "Undo repost"
 msgstr "取消转发"
 
+msgid "{handleOrEnsOrAddress} unfollowed"
+msgstr ""
+
 msgid "Proxy contract."
 msgstr "代理合约。"
 
@@ -886,9 +889,6 @@ msgstr "不安全：交易存在风险"
 
 msgid "Calendar"
 msgstr "日历"
-
-msgid "Watch"
-msgstr "关注"
 
 msgid "Suspected malicious address."
 msgstr "发现疑似恶意地址。"
@@ -1200,6 +1200,9 @@ msgstr "该代币无法购买。"
 msgid "More Details"
 msgstr "详细信息"
 
+msgid "Failed to follow {handleOrEnsOrAddress}."
+msgstr ""
+
 msgid "No proxy"
 msgstr "无代理"
 
@@ -1221,11 +1224,11 @@ msgstr "合约所有者对购买有限制。"
 msgid "Remove Choice"
 msgstr "删除选项"
 
-msgid "Failed to watch {handleOrEnsOrAddress}."
-msgstr "关注 {handleOrEnsOrAddress} 失败。"
-
 msgid "Update"
 msgstr "更新"
+
+msgid "{handleOrEnsOrAddress} followed"
+msgstr ""
 
 msgid "Domain"
 msgstr "域名"
@@ -1969,9 +1972,6 @@ msgstr "收藏"
 msgid "Block transactions under $100"
 msgstr ""
 
-msgid "{handleOrEnsOrAddress} watched"
-msgstr "{handleOrEnsOrAddress} 已关注"
-
 msgid "Sorry, the passcode you entered is invalid"
 msgstr "抱歉，您输入的验证码无效。"
 
@@ -2235,9 +2235,6 @@ msgstr "未发现勒索行为。"
 
 msgid "Failed to disconnect"
 msgstr "断连失败"
-
-msgid "Failed to unwatch {handleOrEnsOrAddress}."
-msgstr "取消关注 {handleOrEnsOrAddress} 失败。"
 
 msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
@@ -3036,9 +3033,6 @@ msgstr "转发或者引用"
 msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr "对不起，我们未找到相关钱包 {0}."
 
-msgid "Unwatch"
-msgstr "取消关注"
-
 msgid "Wallets"
 msgstr "钱包"
 
@@ -3337,9 +3331,6 @@ msgstr "显示名称不可以超过 20 个字符"
 
 msgid "New"
 msgstr ""
-
-msgid "{handleOrEnsOrAddress} unwatched"
-msgstr "{handleOrEnsOrAddress} 取消关注"
 
 msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr "🤑 在 {postUrl} 上快来看看这个 #FireflyLuckyDrop 🧧💰✨"

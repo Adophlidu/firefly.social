@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { memo, useState } from 'react';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
@@ -45,7 +45,15 @@ export const WatchButton = memo(function WatchButton({
 
     const loading = mutation.isPending;
     const buttonText = {
-        text: isFollowing ? (hovering && !loading ? t`Unwatch` : t`Watching`) : t`Watch`,
+        text: isFollowing ? (
+            hovering && !loading ? (
+                <Trans>Unfollow</Trans>
+            ) : (
+                <Trans>Following</Trans>
+            )
+        ) : (
+            <Trans>Follow</Trans>
+        ),
         icon: isFollowing ? <FollowedIcon className="size-4" /> : <FollowIcon className="size-4" />,
     }[variant];
     const variantClassName = {
@@ -65,7 +73,7 @@ export const WatchButton = memo(function WatchButton({
                 variantClassName,
                 className,
                 {
-                    'bg-lightHighlight text-white hover:opacity-80': buttonState === State.Watch,
+                    'bg-main text-white hover:opacity-80': buttonState === State.Watch,
                     'border border-lightMain text-lightMain': buttonState === State.Watching,
                     'border border-danger border-opacity-50 bg-danger text-primaryBottom':
                         buttonState === State.Unwatch,

@@ -155,6 +155,9 @@ msgstr ""
 msgid "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
 msgstr ""
 
+msgid "Failed to unfollow {handleOrEnsOrAddress}."
+msgstr ""
+
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr ""
 
@@ -259,9 +262,6 @@ msgid "Failed to fetch: {0}. Please try again later."
 msgstr ""
 
 msgid "We are not aware of any code that prevents the sale of tokens."
-msgstr ""
-
-msgid "Watching"
 msgstr ""
 
 #. placeholder {0}: space.participant_count?.toLocaleString()
@@ -610,6 +610,9 @@ msgstr ""
 msgid "Undo repost"
 msgstr ""
 
+msgid "{handleOrEnsOrAddress} unfollowed"
+msgstr ""
+
 msgid "Proxy contract."
 msgstr ""
 
@@ -885,9 +888,6 @@ msgid "Unsafe: Transaction is at risk"
 msgstr ""
 
 msgid "Calendar"
-msgstr ""
-
-msgid "Watch"
 msgstr ""
 
 msgid "Suspected malicious address."
@@ -1200,6 +1200,9 @@ msgstr ""
 msgid "More Details"
 msgstr ""
 
+msgid "Failed to follow {handleOrEnsOrAddress}."
+msgstr ""
+
 msgid "No proxy"
 msgstr ""
 
@@ -1221,10 +1224,10 @@ msgstr ""
 msgid "Remove Choice"
 msgstr ""
 
-msgid "Failed to watch {handleOrEnsOrAddress}."
+msgid "Update"
 msgstr ""
 
-msgid "Update"
+msgid "{handleOrEnsOrAddress} followed"
 msgstr ""
 
 msgid "Domain"
@@ -1961,9 +1964,6 @@ msgstr ""
 msgid "Block transactions under $100"
 msgstr ""
 
-msgid "{handleOrEnsOrAddress} watched"
-msgstr ""
-
 msgid "Sorry, the passcode you entered is invalid"
 msgstr ""
 
@@ -2226,9 +2226,6 @@ msgid "No blackmail activities found."
 msgstr ""
 
 msgid "Failed to disconnect"
-msgstr ""
-
-msgid "Failed to unwatch {handleOrEnsOrAddress}."
 msgstr ""
 
 msgid "Post has been encrypted"
@@ -3023,9 +3020,6 @@ msgstr ""
 msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr ""
 
-msgid "Unwatch"
-msgstr ""
-
 msgid "Wallets"
 msgstr ""
 
@@ -3323,9 +3317,6 @@ msgid "Display Name should not exceed 20 characters"
 msgstr ""
 
 msgid "New"
-msgstr ""
-
-msgid "{handleOrEnsOrAddress} unwatched"
 msgstr ""
 
 msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"

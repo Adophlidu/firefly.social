@@ -150,6 +150,9 @@ msgstr "Failed to collect article."
 msgid "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
 msgstr "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
 
+msgid "Failed to unfollow {handleOrEnsOrAddress}."
+msgstr "Failed to unfollow {handleOrEnsOrAddress}."
+
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr "Hold on! Meet any of the following to unlock a premium collectible:"
 
@@ -255,9 +258,6 @@ msgstr "Failed to fetch: {0}. Please try again later."
 
 msgid "We are not aware of any code that prevents the sale of tokens."
 msgstr "We are not aware of any code that prevents the sale of tokens."
-
-msgid "Watching"
-msgstr "Watching"
 
 #. placeholder {0}: space.participant_count?.toLocaleString()
 msgid "{0} listening"
@@ -605,6 +605,9 @@ msgstr "Follow <0>@{handle}</0> on {0}"
 msgid "Undo repost"
 msgstr "Undo repost"
 
+msgid "{handleOrEnsOrAddress} unfollowed"
+msgstr "{handleOrEnsOrAddress} unfollowed"
+
 msgid "Proxy contract."
 msgstr "Proxy contract."
 
@@ -881,9 +884,6 @@ msgstr "Unsafe: Transaction is at risk"
 
 msgid "Calendar"
 msgstr "Calendar"
-
-msgid "Watch"
-msgstr "Watch"
 
 msgid "Suspected malicious address."
 msgstr "Suspected malicious address."
@@ -1195,6 +1195,9 @@ msgstr "The token can not be bought."
 msgid "More Details"
 msgstr "More Details"
 
+msgid "Failed to follow {handleOrEnsOrAddress}."
+msgstr "Failed to follow {handleOrEnsOrAddress}."
+
 msgid "No proxy"
 msgstr "No proxy"
 
@@ -1216,11 +1219,11 @@ msgstr "The contract owner has restrictions on buying."
 msgid "Remove Choice"
 msgstr "Remove Choice"
 
-msgid "Failed to watch {handleOrEnsOrAddress}."
-msgstr "Failed to watch {handleOrEnsOrAddress}."
-
 msgid "Update"
 msgstr "Update"
+
+msgid "{handleOrEnsOrAddress} followed"
+msgstr "{handleOrEnsOrAddress} followed"
 
 msgid "Domain"
 msgstr "Domain"
@@ -1964,9 +1967,6 @@ msgstr "Bookmark"
 msgid "Block transactions under $100"
 msgstr "Block transactions under $100"
 
-msgid "{handleOrEnsOrAddress} watched"
-msgstr "{handleOrEnsOrAddress} watched"
-
 msgid "Sorry, the passcode you entered is invalid"
 msgstr "Sorry, the passcode you entered is invalid"
 
@@ -2230,9 +2230,6 @@ msgstr "No blackmail activities found."
 
 msgid "Failed to disconnect"
 msgstr "Failed to disconnect"
-
-msgid "Failed to unwatch {handleOrEnsOrAddress}."
-msgstr "Failed to unwatch {handleOrEnsOrAddress}."
 
 msgid "Post has been encrypted"
 msgstr "Post has been encrypted"
@@ -3031,9 +3028,6 @@ msgstr "Recast or Quote"
 msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr "Sorry, we are not able to find a wallet for {0}."
 
-msgid "Unwatch"
-msgstr "Unwatch"
-
 msgid "Wallets"
 msgstr "Wallets"
 
@@ -3332,9 +3326,6 @@ msgstr "Display Name should not exceed 20 characters"
 
 msgid "New"
 msgstr "New"
-
-msgid "{handleOrEnsOrAddress} unwatched"
-msgstr "{handleOrEnsOrAddress} unwatched"
 
 msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
