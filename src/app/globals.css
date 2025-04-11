@@ -62,7 +62,8 @@
     --color-bg: rgba(249, 249, 249, 1); /* #f9f9f9 */
     --color-bg-modal: rgba(249, 249, 249, 1); /* #f9f9f9 */
     --color-bg-modal-layer: 217 217 217;
-    --m-modal-title-bg: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 100%),
+    --m-modal-title-bg:
+        linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 100%),
         linear-gradient(
             90deg,
             rgba(98, 152, 234, 0.2) 1.03%,
@@ -206,7 +207,8 @@
     }
 
     .calendar-tab-list {
-        background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 100%),
+        background:
+            linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 100%),
             linear-gradient(90deg, rgba(28, 104, 243, 0.2) 0%, rgba(69, 163, 251, 0.2) 100%), rgb(255, 255, 255);
     }
 
@@ -247,7 +249,8 @@
     --color-bg: rgba(249, 249, 249, 1); /* #f9f9f9 */
     --color-bg-modal: rgba(249, 249, 249, 1); /* #f9f9f9 */
     --color-bg-modal-layer: 217 217 217;
-    --m-modal-title-bg: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 100%),
+    --m-modal-title-bg:
+        linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 100%),
         linear-gradient(
             90deg,
             rgba(98, 152, 234, 0.2) 1.03%,
@@ -395,7 +398,8 @@
 }
 
 .dark .calendar-tab-list {
-    background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 100%),
+    background:
+        linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 100%),
         linear-gradient(90deg, rgba(28, 104, 243, 0.2) 0%, rgba(69, 163, 251, 0.2) 100%), rgb(255, 255, 255);
 }
 
@@ -442,7 +446,8 @@
     --color-bg: rgba(249, 249, 249, 1); /* #f9f9f9 */
     --color-bg-modal: rgba(249, 249, 249, 1); /* #f9f9f9 */
     --color-bg-modal-layer: 217 217 217;
-    --m-modal-title-bg: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 100%),
+    --m-modal-title-bg:
+        linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 100%),
         linear-gradient(
             90deg,
             rgba(98, 152, 234, 0.2) 1.03%,

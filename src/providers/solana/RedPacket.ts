@@ -1,7 +1,6 @@
 import { BN, web3 } from '@coral-xyz/anchor';
 import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { ASSOCIATED_TOKEN_PROGRAM_ID, getAssociatedTokenAddressSync } from '@solana/spl-token';
-import { Ed25519Program, LAMPORTS_PER_SOL, TransactionExpiredTimeoutError } from '@solana/web3.js';
 import { sign } from 'tweetnacl';
 
 import { STATUS } from '@/constants/enum.js';
@@ -66,7 +65,7 @@ async function runRPC(builder: MethodsBuilder) {
     try {
         return await builder.rpc({ commitment: 'confirmed' });
     } catch (error) {
-        if (error instanceof TransactionExpiredTimeoutError && error.signature) {
+        if (error instanceof web3.TransactionExpiredTimeoutError && error.signature) {
             const result = await runInSafeAsync(() =>
                 requestRPC<GetTransactionResponse>(SolanaChainId.Mainnet, {
                     method: 'getTransaction',
@@ -111,7 +110,7 @@ class Provider {
             this.program.methods
                 .createRedPacketWithNativeToken(
                     context.owners,
-                    new BN(multipliedBy(context.totalAmount, LAMPORTS_PER_SOL).toString()),
+                    new BN(multipliedBy(context.totalAmount, web3.LAMPORTS_PER_SOL).toString()),
                     new BN(createTime),
                     new BN(context.duration),
                     context.ifSpiltRandom,
@@ -180,7 +179,7 @@ class Provider {
         const message = Buffer.concat([accountId.toBuffer(), receiver.toBuffer()]);
 
         const claimerSignature = sign.detached(message, claimer.secretKey);
-        const ed25519Instruction = Ed25519Program.createInstructionWithPublicKey({
+        const ed25519Instruction = web3.Ed25519Program.createInstructionWithPublicKey({
             message,
             publicKey: claimer.publicKey.toBytes(),
             signature: claimerSignature,

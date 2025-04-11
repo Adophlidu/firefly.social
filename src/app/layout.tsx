@@ -4,6 +4,7 @@ import '@/app/globals.css';
 import '@dialectlabs/blinks/index.css';
 
 import { GoogleAnalytics } from '@next/third-parties/google';
+// @ts-ignore skip
 import { Inter } from 'next/font/google';
 import { cookies } from 'next/headers.js';
 

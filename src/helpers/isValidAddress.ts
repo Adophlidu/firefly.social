@@ -1,11 +1,11 @@
-import { PublicKey } from '@solana/web3.js';
+import { web3 } from '@coral-xyz/anchor';
 import { type Address, isAddress } from 'viem';
 
 export function isValidAddressSolana(address?: string): address is string {
     const length = address?.length;
     if (!length || length < 32 || length > 44) return false;
     try {
-        new PublicKey(address);
+        new web3.PublicKey(address);
         return true;
     } catch {
         return false;

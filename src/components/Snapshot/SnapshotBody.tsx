@@ -158,11 +158,13 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
             });
 
             if (confirmed) {
+                const choice = formatSnapshotChoice(selectedChoices, type, choices);
                 ComposeModalRef.open({
                     type: 'compose',
                     chars: [
-                        // eslint-disable-next-line no-irregular-whitespace
-                        t`🙌  Just voted “${formatSnapshotChoice(selectedChoices, type, choices)}” on “${snapshot.title}”`,
+                        choice
+                            ? t`🙌  Just voted “${choice}” on “${snapshot.title}”`
+                            : t`🙌  Just voted on “${snapshot.title}”`,
                         `\n\n${snapshot.link}`,
                     ],
                 });

@@ -183,6 +183,10 @@ msgstr "均分金额"
 msgid "$ {0} <0>Net worth</0>"
 msgstr ""
 
+#. placeholder {0}: snapshot.title
+msgid "🙌  Just voted “{choice}” on “{0}”"
+msgstr ""
+
 msgid "Enter your email address below, and we’ll send a one-time passcode to confirm your address"
 msgstr "请输入您的邮箱地址，我们将发送一次性验证码以确认您的邮箱。"
 
@@ -523,11 +527,6 @@ msgstr "NFT 标准"
 #. placeholder {0}: first(post.mirrors)?.displayName
 msgid "<0>{0}</0> reposted"
 msgstr "{0}已转发"
-
-#. placeholder {0}: formatSnapshotChoice(selectedChoices, type, choices)
-#. placeholder {1}: snapshot.title
-msgid "🙌  Just voted “{0}” on “{1}”"
-msgstr "🙌 刚刚在 ‘{1}’上投了 ‘{0}’ 票"
 
 msgid "Stealing attack."
 msgstr "窃取攻击。"
@@ -1486,6 +1485,10 @@ msgstr "回复"
 
 msgid "Add an existing account"
 msgstr "添加一个已有的账号"
+
+#. placeholder {0}: snapshot.title
+msgid "🙌  Just voted on “{0}”"
+msgstr ""
 
 #. placeholder {0}: channel.name
 msgid "Confirm you want to mute /{0}?"

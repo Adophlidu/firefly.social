@@ -1,6 +1,6 @@
-import CoinGecko from '@masknet/web3-constants/solana/coingecko.json' assert { type: 'json' };
-import Token from '@masknet/web3-constants/solana/token.json' assert { type: 'json' };
-import TokenList from '@masknet/web3-constants/solana/token-list.json' assert { type: 'json' };
+import CoinGecko from '@masknet/web3-constants/solana/coingecko.json' with { type: 'json' };
+import Token from '@masknet/web3-constants/solana/token.json' with { type: 'json' };
+import TokenList from '@masknet/web3-constants/solana/token-list.json' with { type: 'json' };
 
 import { transform, transformAll, transformAllHook, transformHook } from '@/mask_pkgs/web3-shared/base/index.js';
 import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/types.js';

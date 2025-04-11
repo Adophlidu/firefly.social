@@ -239,13 +239,16 @@ export function useLineChart(
         };
 
         const hide = () => {
-            tooltip.call(callout, null);
+            tooltip.call(callout, {
+                text: '',
+                position: { x: 0, y: 0 },
+            });
             tooltipLine.call(lineCallout, null);
         };
 
         // add tooltip
         d3.select(svgRef.current).on('mousemove', function () {
-            const mx = d3.mouse(this)[0];
+            const mx = d3.pointer(this)[0];
             if (mx < left - 10 || mx > left + contentWidth) {
                 // mouse not in the content view
                 hide();

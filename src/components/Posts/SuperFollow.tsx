@@ -65,23 +65,13 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
 
     const buttonLabel = useMemo(() => {
         if (isFollowing) return t`Following`;
-        if (!followModule) {
-            return t`This profile doesn't enable super follow`;
-        }
-        if (!isConnected) {
-            return t`Connect your wallet to follow`;
-        }
-        if (wrongAddress) {
-            return t`Please switch to ${formatAddressEthereum(address, 4)}`;
-        }
-        if (!hasAmount) {
-            return t`Insufficient Balance`;
-        }
-        if (!hasAllowance) {
-            return t`Allow Follow Module`;
-        }
-
-        return t`Follow for ${feeAmount} $${feeSymbol}`;
+        if (!followModule) return t`This profile doesn't enable super follow`;
+        if (!isConnected) return t`Connect your wallet to follow`;
+        if (wrongAddress) return t`Please switch to ${formatAddressEthereum(address, 4)}`;
+        if (!hasAmount) return t`Insufficient Balance`;
+        if (!hasAllowance) return t`Allow Follow Module`;
+        if (feeAmount && feeSymbol) return t`Follow for ${feeAmount} $${feeSymbol}`;
+        return t`Follow`;
     }, [isConnected, hasAmount, hasAllowance, followModule, wrongAddress, address, feeAmount, feeSymbol, isFollowing]);
 
     const disabled =

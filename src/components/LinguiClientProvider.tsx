@@ -1,7 +1,7 @@
 'use client';
 
 import { I18nProvider } from '@lingui/react';
-import { type PropsWithChildren,useEffect } from 'react';
+import { type PropsWithChildren, useEffect } from 'react';
 
 import { bom } from '@/helpers/bom.js';
 import { getLocaleFromCookiesAsync, useLocale } from '@/helpers/getCookie.js';

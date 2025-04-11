@@ -178,6 +178,10 @@ msgstr "Equal Split"
 msgid "$ {0} <0>Net worth</0>"
 msgstr "$ {0} <0>Net worth</0>"
 
+#. placeholder {0}: snapshot.title
+msgid "🙌  Just voted “{choice}” on “{0}”"
+msgstr "🙌  Just voted “{choice}” on “{0}”"
+
 msgid "Enter your email address below, and we’ll send a one-time passcode to confirm your address"
 msgstr "Enter your email address below, and we’ll send a one-time passcode to confirm your address"
 
@@ -518,11 +522,6 @@ msgstr "NFT Standard"
 #. placeholder {0}: first(post.mirrors)?.displayName
 msgid "<0>{0}</0> reposted"
 msgstr "<0>{0}</0> reposted"
-
-#. placeholder {0}: formatSnapshotChoice(selectedChoices, type, choices)
-#. placeholder {1}: snapshot.title
-msgid "🙌  Just voted “{0}” on “{1}”"
-msgstr "🙌  Just voted “{0}” on “{1}”"
 
 msgid "Stealing attack."
 msgstr "Stealing attack."
@@ -1481,6 +1480,10 @@ msgstr "Reply"
 
 msgid "Add an existing account"
 msgstr "Add an existing account"
+
+#. placeholder {0}: snapshot.title
+msgid "🙌  Just voted on “{0}”"
+msgstr "🙌  Just voted on “{0}”"
 
 #. placeholder {0}: channel.name
 msgid "Confirm you want to mute /{0}?"

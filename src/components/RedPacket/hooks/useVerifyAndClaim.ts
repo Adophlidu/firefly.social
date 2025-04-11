@@ -42,7 +42,7 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
 
             sharePostAfterClaimed(post, result.amount || '', symbol);
             enqueueSuccessMessage(
-                result.amount
+                result.amount && symbol
                     ? t`Claimed lucky drop with ${result.amount} ${symbol} successfully`
                     : t`Claimed lucky drop successfully`,
             );

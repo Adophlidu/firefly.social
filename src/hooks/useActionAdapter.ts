@@ -1,8 +1,8 @@
+import { web3 } from '@coral-xyz/anchor';
 import { type BlinkExecutionContext, BlockchainIds, createSignMessageText } from '@dialectlabs/blinks';
 import { useEvmWagmiAdapter } from '@dialectlabs/blinks/hooks/evm';
 import { BlinkSolanaConfig } from '@dialectlabs/blinks-core/solana';
 import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
-import { VersionedTransaction } from '@solana/web3.js';
 import bs58 from 'bs58';
 import { useMemo } from 'react';
 
@@ -33,7 +33,7 @@ export function useActionAdapter() {
                 try {
                     const adapter = getWalletAdaptorConnected();
                     const tx = await adapter.signAndSendTransaction(
-                        VersionedTransaction.deserialize(decodeBase64(txData)),
+                        web3.VersionedTransaction.deserialize(decodeBase64(txData)),
                     );
                     return { signature: tx };
                 } catch {
