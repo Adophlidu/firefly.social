@@ -16,7 +16,7 @@ import { MintStatus, NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
-import { WalletConnectModalRef, FreeMintModalRef } from '@/modals/controls.js';
+import { FreeMintModalRef,WalletConnectModalRef } from '@/modals/controls.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 interface FreeMintButtonProps extends Omit<ClickableButtonProps, 'ref'> {

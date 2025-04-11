@@ -1,4 +1,4 @@
-import { type HTMLProps, memo } from 'react';
+import { type HTMLProps, memo, useState } from 'react';
 
 import { GroupCard } from '@/components/Group/GroupCard.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
@@ -14,6 +14,7 @@ interface GroupTippyProps extends HTMLProps<HTMLDivElement> {
 
 export const GroupTippy = memo<GroupTippyProps>(function GroupTippy({ groupId, group, source, ...rest }) {
     const isMedium = useIsMedium();
+    const [enabled, setEnabled] = useState(false);
 
     if (!isMedium) return rest.children;
 
@@ -24,7 +25,10 @@ export const GroupTippy = memo<GroupTippyProps>(function GroupTippy({ groupId, g
             maxWidth={350}
             className="tippy-card"
             placement="bottom-end"
-            content={<GroupCard groupId={groupId} group={group} source={source} />}
+            onTrigger={() => {
+                setEnabled(true);
+            }}
+            content={enabled ? <GroupCard groupId={groupId} group={group} source={source} /> : null}
         >
             <div {...rest} />
         </InteractiveTippy>

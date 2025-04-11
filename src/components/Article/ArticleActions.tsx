@@ -23,9 +23,9 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
 import {
     CollectArticleModalRef,
-    WalletConnectModalRef,
     DraggablePopoverRef,
     LoginModalRef,
+    WalletConnectModalRef,
 } from '@/modals/controls.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';

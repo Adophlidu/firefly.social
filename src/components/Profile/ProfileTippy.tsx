@@ -18,7 +18,7 @@ interface ProfileTippyProps extends TippyProps {
 
 export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({ identity, profile, children, ...rest }) {
     const isMedium = useIsMedium();
-    const [enabled, setEnabled] = useState(!isMedium);
+    const [enabled, setEnabled] = useState(false);
 
     const insideTippy = useTippyContext();
     if (!isMedium || !children || insideTippy) return children;
