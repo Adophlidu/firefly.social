@@ -60,8 +60,6 @@ export function setLocale(locale: Locale) {
     if (!supportedLocales.hasOwnProperty(locale)) {
         console.error(`[i18n]: unknown locale ${locale}`);
         locale = defaultLocale;
-    } else {
-        console.log(`[i18n]: locale ${locale}`);
     }
 
     // lingui macro uses the core i18n

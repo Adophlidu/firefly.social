@@ -1197,6 +1197,9 @@ msgstr ""
 msgid "Swaps"
 msgstr ""
 
+msgid "Unknown"
+msgstr ""
+
 msgid "The contract owner has restrictions on buying."
 msgstr ""
 

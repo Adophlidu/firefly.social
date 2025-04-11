@@ -1202,6 +1202,9 @@ msgstr "跟随系统"
 msgid "Swaps"
 msgstr ""
 
+msgid "Unknown"
+msgstr ""
+
 msgid "The contract owner has restrictions on buying."
 msgstr "合约所有者对购买有限制。"
 

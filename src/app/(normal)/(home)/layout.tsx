@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 import type { PropsWithChildren } from 'react';
 
 import { DiscoverLoginRedirect } from '@/components/HomeTab/DiscoverLoginRedirect.js';
@@ -10,7 +10,7 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: await createPageTitleSSR(() => t`Following`),
+        title: await createPageTitleSSR(msg`Following`),
     });
 }
 

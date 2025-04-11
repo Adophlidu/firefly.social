@@ -1,11 +1,25 @@
-import { t } from '@lingui/core/macro';
+import type { MessageDescriptor } from '@lingui/core';
+import { msg } from '@lingui/core/macro';
 
 import { MuteType, Source, SourceInURL } from '@/constants/enum.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/index.js';
+
+const resolveMuteTitle = createLookupTableResolver<string, MessageDescriptor>(
+    {
+        [`${SourceInURL.Farcaster}_${MuteType.Profile}`]: msg`${resolveSourceName(Source.Farcaster)} Users`,
+        [`${SourceInURL.Farcaster}_${MuteType.Channel}`]: msg`${resolveSourceName(Source.Farcaster)} Channels`,
+        [`${SourceInURL.Lens}_${MuteType.Profile}`]: msg`${resolveSourceName(Source.Lens)} Users`,
+        [`${SourceInURL.Twitter}_${MuteType.Profile}`]: msg`${resolveSourceName(Source.Twitter)} Users`,
+        [`${SourceInURL.Firefly}_${MuteType.Wallet}`]: msg`Wallets`,
+        [`${SourceInURL.Bsky}_${MuteType.Profile}`]: msg`${resolveSourceName(Source.Bsky)} Users`,
+    },
+    msg`Unknown`,
+);
 
 interface Props
     extends NextPageProps<{
@@ -17,16 +31,8 @@ export async function generateMetadata(props: Props) {
     const params = await props.params;
     const { source, type } = params;
 
-    const menuNameMap: Record<string, () => string> = {
-        [`${SourceInURL.Farcaster}_${MuteType.Profile}`]: () => t`${resolveSourceName(Source.Farcaster)} Users`,
-        [`${SourceInURL.Farcaster}_${MuteType.Channel}`]: () => t`${resolveSourceName(Source.Farcaster)} Channels`,
-        [`${SourceInURL.Lens}_${MuteType.Profile}`]: () => t`${resolveSourceName(Source.Lens)} Users`,
-        [`${SourceInURL.Twitter}_${MuteType.Profile}`]: () => t`${resolveSourceName(Source.Twitter)} Users`,
-        [`${SourceInURL.Firefly}_${MuteType.Wallet}`]: () => t`Wallets`,
-        [`${SourceInURL.Bsky}_${MuteType.Profile}`]: () => t`${resolveSourceName(Source.Bsky)} Users`,
-    };
     return createSiteMetadata({
-        title: await createPageTitleSSR(menuNameMap[`${source}_${type}`]),
+        title: await createPageTitleSSR(resolveMuteTitle(`${source}_${type}`)),
     });
 }
 

@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import { NoSSR } from '@/components/NoSSR.js';
@@ -15,7 +15,7 @@ import type { NextPageProps } from '@/types/index.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: await createPageTitleSSR(() => t`Bookmarks`),
+        title: await createPageTitleSSR(msg`Bookmarks`),
     });
 }
 

@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { type PropsWithChildren } from 'react';
 
@@ -12,7 +12,7 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: await createPageTitleSSR(() => t`Notifications`),
+        title: await createPageTitleSSR(msg`Notifications`),
     });
 }
 

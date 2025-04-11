@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 
 import { SuggestedChannels } from '@/components/Channel/SuggestedChannels.js';
 import { IfPathname } from '@/components/IfPathname.js';
@@ -15,7 +15,7 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: await createPageTitleSSR(() => t`Exclusive Events`),
+        title: await createPageTitleSSR(msg`Exclusive Events`),
     });
 }
 

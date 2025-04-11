@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 
 import { GroupDetails } from '@/app/(normal)/group/[id]/[type]/pages/GroupDetails.js';
 import type { GroupTabType } from '@/constants/enum.js';
@@ -11,7 +11,7 @@ interface Props extends NextPageProps<{ id: string; type: GroupTabType }> {}
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: await createPageTitleSSR(() => t`Group`),
+        title: await createPageTitleSSR(msg`Group`),
     });
 }
 

@@ -1197,6 +1197,9 @@ msgstr "Follow System"
 msgid "Swaps"
 msgstr "Swaps"
 
+msgid "Unknown"
+msgstr "Unknown"
+
 msgid "The contract owner has restrictions on buying."
 msgstr "The contract owner has restrictions on buying."
 

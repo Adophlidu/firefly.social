@@ -1202,6 +1202,9 @@ msgstr "預設"
 msgid "Swaps"
 msgstr ""
 
+msgid "Unknown"
+msgstr ""
+
 msgid "The contract owner has restrictions on buying."
 msgstr ""
 

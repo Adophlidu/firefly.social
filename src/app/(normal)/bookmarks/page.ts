@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 
 import { DEFAULT_BOOKMARK_SOURCE } from '@/constants/index.js';
 import { redirect, RedirectType } from '@/esm/navigation.js';
@@ -8,7 +8,7 @@ import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: await createPageTitleSSR(() => t`Bookmarks`),
+        title: await createPageTitleSSR(msg`Bookmarks`),
     });
 }
 

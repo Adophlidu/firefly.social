@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 
 import { ToolkitList } from '@/app/(developers)/components/ToolkitList.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
@@ -8,7 +8,7 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: await createPageTitleSSR(() => t`Developers`),
+        title: await createPageTitleSSR(msg`Developers`),
     });
 }
 

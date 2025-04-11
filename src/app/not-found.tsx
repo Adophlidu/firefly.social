@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import { BaseNotFound } from '@/components/BaseNotFound.js';
@@ -15,7 +15,7 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: await createPageTitleSSR(() => t`Page not found`),
+        title: await createPageTitleSSR(msg`Page not found`),
     });
 }
 

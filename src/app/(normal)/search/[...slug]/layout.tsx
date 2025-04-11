@@ -1,4 +1,5 @@
-import { t } from '@lingui/core/macro';
+import type { MessageDescriptor } from '@lingui/core';
+import { msg } from '@lingui/core/macro';
 import { getEnumAsArray } from '@masknet/kit';
 import { last } from 'lodash-es';
 
@@ -7,10 +8,24 @@ import { SearchSources } from '@/components/Search/SearchSources.js';
 import { SearchTabs } from '@/components/Search/SearchTabs.js';
 import { CommunityType, SearchType, SourceInURL } from '@/constants/enum.js';
 import { notFound, redirect } from '@/esm/navigation.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/index.js';
+
+const resolveSearchTypeTitle = createLookupTableResolver<SearchType, MessageDescriptor>(
+    {
+        [SearchType.Profiles]: msg`Search user`,
+        [SearchType.Posts]: msg`Search post`,
+        [SearchType.Channels]: msg`Search channel`,
+        [SearchType.NFTs]: msg`Search nft`,
+        [SearchType.Tokens]: msg`Search token`,
+        [SearchType.Communities]: msg`Search community`,
+    },
+    msg`Search`,
+);
 
 const ENABLED_SINGLE_SEARCH_TYPES = [SearchType.Profiles, SearchType.NFTs, SearchType.Tokens];
 const ENABLED_DOUBLE_SEARCH_TYPES = [SearchType.Profiles, SearchType.Posts];
@@ -49,21 +64,12 @@ export async function generateMetadata(props: Props) {
 
     if (!checkSlug(slug)) {
         return createSiteMetadata({
-            title: await createPageTitleSSR(() => t`Search`),
+            title: await createPageTitleSSR(msg`Search`),
         });
     }
 
-    const searchTypeTitle = {
-        [SearchType.Profiles]: () => t`Search user`,
-        [SearchType.Posts]: () => t`Search post`,
-        [SearchType.Channels]: () => t`Search channel`,
-        [SearchType.NFTs]: () => t`Search nft`,
-        [SearchType.Tokens]: () => t`Search token`,
-        [SearchType.Communities]: () => t`Search community`,
-    }[last(slug) as SearchType];
-
     return createSiteMetadata({
-        title: await createPageTitleSSR(searchTypeTitle || (() => t`Search`)),
+        title: await createPageTitleSSR(resolveSearchTypeTitle(last(slug) as SearchType)),
     });
 }
 
@@ -77,6 +83,8 @@ export default async function SearchLayout(props: Props) {
     }
 
     if (!checkSlug(params.slug)) notFound();
+
+    await setupLocaleForSSR();
 
     return (
         <div>

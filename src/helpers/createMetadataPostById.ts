@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -24,8 +24,7 @@ async function createMetadataForTwitter(postId: string) {
     if (ogResult?.og) {
         const { displayName } = extractTwitterProfileByOpengraphTitle(ogResult.og.title ?? '');
         const title = displayName
-            ? await createPageTitleSSR(() => t`Posted by ${displayName} via Firefly`, {
-                  values: { displayName },
+            ? await createPageTitleSSR(msg`Posted by ${displayName} via Firefly`, {
                   withSiteName: false,
               })
             : ogResult.og.title || SITE_NAME;
@@ -97,8 +96,7 @@ export async function createMetadataPostById(source: SocialSourceInURL, postId: 
 
     const displayName = post.author?.displayName;
     const title = displayName
-        ? await createPageTitleSSR(() => t`Posted by ${displayName} via Firefly`, {
-              values: { displayName },
+        ? await createPageTitleSSR(msg`Posted by ${displayName} via Firefly`, {
               withSiteName: false,
           })
         : SITE_NAME;

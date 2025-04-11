@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 
 import type { SearchType } from '@/constants/enum.js';
 import { redirect } from '@/esm/navigation.js';
@@ -9,7 +9,7 @@ import type { NextPageProps } from '@/types/index.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: await createPageTitleSSR(() => t`Search`),
+        title: await createPageTitleSSR(msg`Search`),
     });
 }
 
