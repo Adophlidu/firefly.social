@@ -33,8 +33,7 @@ export function captureConnectWalletEvent(
     return runInSafeAsync(async () => {
         const evmAddress = options?.address?.startsWith('eip155') ? options?.address.split(':')[2] : undefined;
         const solanaAddress = options?.address?.startsWith('solana') ? options?.address.split(':')[1] : undefined;
-
-        TelemetryProvider.captureEvent(resolveEventId(options?.name ?? ''), {
+        const event = {
             click_location: bom.location?.href.includes('/settings') ? 'settings' : 'nav_bar',
             wallet_address: evmAddress || solanaAddress || '0x0',
             wallet_type: evmAddress ? 'evm' : solanaAddress ? 'solana' : 'unknown',
@@ -45,6 +44,9 @@ export function captureConnectWalletEvent(
                 options?.connect_time && options?.connect_success_time
                     ? options.connect_success_time - options.connect_time
                     : 0,
-        });
+        } as const;
+
+        TelemetryProvider.captureEvent(EventId.CONNECT_WALLET_SUCCESS, event);
+        TelemetryProvider.captureEvent(resolveEventId(options?.name ?? ''), event);
     });
 }

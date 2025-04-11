@@ -21,10 +21,7 @@ function resolveProfileCategory(
     category?: ProfileCategory,
     isCurrentProfile = false,
 ) {
-    if (!category) {
-        return getDefaultProfileCategory(source, handle);
-    }
-
+    if (!category) return getDefaultProfileCategory(source, handle);
     if (isFollowCategory(category)) return category;
 
     const supportedCategories: string[] =
