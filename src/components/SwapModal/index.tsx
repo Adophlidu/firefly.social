@@ -18,8 +18,8 @@ import { CloseButton } from '@/components/IconButton.js';
 import { Modal, type ModalProps } from '@/components/Modal.js';
 import { Locale } from '@/constants/enum.js';
 import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
+import { useLocale } from '@/helpers/getCookies.js';
 import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
-import { useLocale } from '@/store/useLocale.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
 const LangMap = {

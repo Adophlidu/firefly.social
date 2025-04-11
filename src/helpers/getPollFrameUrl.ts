@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { type SocialSource } from '@/constants/enum.js';
-import { getLocaleFromCookiesAsync } from '@/helpers/getCookie.js';
+import { getLocaleFromCookies } from '@/helpers/getCookies.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getMeaningfulThemeMode } from '@/helpers/getMeaningfulThemeMode.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -15,7 +15,7 @@ const getPollFrameSearchParams = async (source: SocialSource) => {
         source: source.toLowerCase(),
         profileId: profile?.profileId ?? null,
         theme: getMeaningfulThemeMode(),
-        locale: await getLocaleFromCookiesAsync(),
+        locale: await getLocaleFromCookies(),
         date: Date.now(), // force refresh poll frame
     };
 };

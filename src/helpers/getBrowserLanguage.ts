@@ -1,7 +1,7 @@
 import { find } from 'lodash-es';
 
 import { bom } from '@/helpers/bom.js';
-import { getLocaleFromCookiesAsync } from '@/helpers/getCookie.js';
+import { getLocaleFromCookies } from '@/helpers/getCookies.js';
 import { Language } from '@/services/translate.js';
 
 const getBrowserLanguage = () => {
@@ -24,7 +24,7 @@ const isSameLanguageWithBrowser = (locale: string) => {
 };
 
 export const getTargetLanguage = async (locale: string) => {
-    const appLocale = await getLocaleFromCookiesAsync();
+    const appLocale = await getLocaleFromCookies();
     if (!locale || locale === 'N/A') return null;
     if (locale !== appLocale) return appLocale as unknown as Language;
     if (!isSameLanguageWithBrowser(locale)) return getBrowserLanguage();

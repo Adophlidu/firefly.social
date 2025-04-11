@@ -4,7 +4,7 @@ import { I18nProvider } from '@lingui/react';
 import { type PropsWithChildren } from 'react';
 
 import { bom } from '@/helpers/bom.js';
-import { getLocaleFromCookiesAsync, useLocale } from '@/helpers/getCookie.js';
+import { getLocaleFromCookies, useLocale } from '@/helpers/getCookies.js';
 import { getI18nInstance } from '@/i18n/index.js';
 
 type LinguiClientProviderProps = PropsWithChildren<{}>;
@@ -16,7 +16,7 @@ export function LinguiClientProvider({ children }: LinguiClientProviderProps) {
 
         return <I18nProvider i18n={getI18nInstance(locale) as any}>{children}</I18nProvider>;
     } else {
-        const locale = getLocaleFromCookiesAsync();
+        const locale = getLocaleFromCookies();
         return locale.then((locale) => <I18nProvider i18n={getI18nInstance(locale) as any}>{children}</I18nProvider>);
     }
 }

@@ -1,5 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
+import { SiteCookies } from '@/constants/enum.js';
 import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 
 export async function POST(request: Request) {
@@ -10,7 +11,7 @@ export async function POST(request: Request) {
 
     return createSuccessResponseJSON(null, {
         headers: {
-            'Set-Cookie': `firefly_root_class=${rootClass}; path=/; Max-Age=315360000; SameSite=Lax; Secure;`,
+            'Set-Cookie': `${SiteCookies.FireflyRootClass}=${rootClass}; path=/; Max-Age=315360000; SameSite=Lax; Secure;`,
         },
     });
 }

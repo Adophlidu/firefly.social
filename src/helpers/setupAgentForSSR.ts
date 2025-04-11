@@ -1,11 +1,11 @@
 import { getEnumAsArray } from '@masknet/kit';
 
-import { Agent, PageRoute } from '@/constants/enum.js';
+import { Agent, PageRoute, SiteCookies } from '@/constants/enum.js';
 import { redirect, RedirectType } from '@/esm/navigation.js';
-import { getCookieAsync } from '@/helpers/getCookie.js';
+import { getCookie } from '@/helpers/getCookies.js';
 
 export async function setupAgentForSSR(route = PageRoute.Home) {
-    const agent = await getCookieAsync('agent');
+    const agent = await getCookie(SiteCookies.Agent);
 
     // validate agent
     if (agent && getEnumAsArray(Agent).some((x) => x.value === agent)) return agent;

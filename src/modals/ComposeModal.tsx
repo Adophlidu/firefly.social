@@ -258,8 +258,6 @@ export function ComposeModalUI({ ref }: Props) {
                 SteganographyPreset.Preset2023_Firefly,
             );
 
-            const promoteMessage = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop!`;
-
             const chars: Chars = [
                 {
                     tag: CHAR_TAG.FIREFLY_RP,
@@ -267,7 +265,7 @@ export function ComposeModalUI({ ref }: Props) {
                     visible: false,
                 },
                 ...(compositePost ? compositePost.chars : []),
-                promoteMessage,
+                t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop!`,
                 {
                     tag: CHAR_TAG.PROMOTE_LINK,
                     content: promoteLink,

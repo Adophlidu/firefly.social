@@ -252,12 +252,13 @@ export async function crossPost(
                 }
             });
 
-            const message = t`Your post failed to send to ${resolveSourcesName(failedAt, '/')}. Click 'Retry' to attempt posting again.`;
-
-            enqueueErrorsMessage(message, {
-                errors: compact(allErrors),
-                persist: true,
-            });
+            enqueueErrorsMessage(
+                t`Your post failed to send to ${resolveSourcesName(failedAt, '/')}. Click 'Retry' to attempt posting again.`,
+                {
+                    errors: compact(allErrors),
+                    persist: true,
+                },
+            );
         } else {
             if (availableSources.length === 1) {
                 const target = first(availableSources);

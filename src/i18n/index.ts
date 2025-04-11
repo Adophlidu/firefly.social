@@ -4,7 +4,7 @@ import { setI18n } from '@lingui/react/server';
 import dayjs from 'dayjs';
 
 import { Locale } from '@/constants/enum.js';
-import { getLocaleFromCookiesAsync } from '@/helpers/getCookie.js';
+import { getLocaleFromCookies } from '@/helpers/getCookies.js';
 import { messages as en } from '@/locales/en/messages.js';
 import { messages as zhHans } from '@/locales/zh-Hans/messages.js';
 import { messages as zhHant } from '@/locales/zh-Hant/messages.js';
@@ -36,14 +36,14 @@ export const supportedLocales: Record<Locale, string> = {
 
 export const defaultLocale = Locale.en;
 
-export async function getI18n(): Promise<I18n> {
-    const locale = await getLocaleFromCookiesAsync();
+export async function getI18n(locale: Locale): Promise<I18n> {
     const instance = getI18nInstance(locale);
     return instance;
 }
 
 export async function setupLocaleForSSR() {
-    const i18n = await getI18n();
+    const locale = await getLocaleFromCookies();
+    const i18n = await getI18n(locale);
     setI18n(i18n);
     setLocale(i18n.locale as Locale);
 }
@@ -65,11 +65,8 @@ export function setLocale(locale: Locale) {
     }
 
     // lingui macro uses the core i18n
-    i18n.loadAndActivate({
-        locale,
-        locales,
-        messages: messages[locale],
-    });
+    i18n.load(messages);
+    i18n.activate(locale);
     dayjs.locale(locale);
 }
 

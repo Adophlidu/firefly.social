@@ -6,8 +6,8 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { Image } from '@/components/Image.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { ProjectItem } from '@/components/ProjectItem.js';
+import { useLocale } from '@/helpers/getCookies.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { useLocale } from '@/store/useLocale.js';
 
 export function ProjectTrendingList() {
     const locale = useLocale();

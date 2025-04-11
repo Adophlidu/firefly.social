@@ -1,5 +1,3 @@
-/* cspell:disable */
-
 'use client';
 
 import { WagmiProvider as WagmiProviderSDK } from 'wagmi';

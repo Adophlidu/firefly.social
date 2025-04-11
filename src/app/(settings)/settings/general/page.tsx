@@ -11,11 +11,10 @@ import { Headline } from '@/app/(settings)/components/Headline.js';
 import { OptionButton } from '@/app/(settings)/components/OptionButton.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
-import { Locale, type ThemeMode } from '@/constants/enum.js';
-import { useCookie } from '@/helpers/getCookie.js';
+import { Locale, SiteCookies, type ThemeMode } from '@/constants/enum.js';
+import { useCookie, useLocale } from '@/helpers/getCookies.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { setLocale, supportedLocales } from '@/i18n/index.js';
-import { useLocale } from '@/store/useLocale.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
 export default function General() {
@@ -23,7 +22,7 @@ export default function General() {
     const mode = useThemeModeStore.use.themeMode();
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
     const locale = useLocale();
-    const rootClass = useCookie('firefly_root_class');
+    const rootClass = useCookie(SiteCookies.FireflyRootClass);
 
     useNavigatorTitle(t`General`);
 

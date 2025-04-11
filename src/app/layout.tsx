@@ -6,12 +6,13 @@ import '@dialectlabs/blinks/index.css';
 import { GoogleAnalytics } from '@next/third-parties/google';
 // @ts-ignore skip
 import { Inter } from 'next/font/google';
-import { cookies } from 'next/headers.js';
 
 import { LayoutBody } from '@/app/layout-body.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
+import { SiteCookies } from '@/constants/enum.js';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { getCookie } from '@/helpers/getCookies.js';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -29,10 +30,10 @@ export const viewport = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-    const [_cookies] = await Promise.all([cookies()]);
+    const rootClass = await getCookie(SiteCookies.FireflyRootClass);
 
     return (
-        <html className={_cookies.get('firefly_root_class')?.value}>
+        <html className={rootClass}>
             <head>
                 <Script src="/js/polyfills/base.js" strategy="beforeInteractive" />
                 <Script src="/js/safary.js" defer />

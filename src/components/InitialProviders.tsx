@@ -9,7 +9,7 @@ import { v4 as uuid } from 'uuid';
 
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useLocale } from '@/helpers/getCookie.js';
+import { useLocale } from '@/helpers/getCookies.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
