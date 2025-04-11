@@ -2,7 +2,7 @@
 
 import { Dialog } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { Outlet, rootRouteId, useRouteContext, useRouter } from '@tanstack/react-router';
+import { Outlet, rootRouteId, useLocation, useRouteContext, useRouter } from '@tanstack/react-router';
 import type { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -18,7 +18,7 @@ export interface EditFireflyProfileFromValues {
 export function EditFireflyProfileRouteRoot() {
     const context = useRouteContext({ from: rootRouteId });
     const { history } = useRouter();
-    const pathname = history.location.pathname;
+    const { pathname } = useLocation();
     const titles: Record<string, JSX.Element> = {
         [Path.Root]: <Trans>Edit Profile</Trans>,
         [Path.AvatarEditor]: <Trans>Edit Image</Trans>,

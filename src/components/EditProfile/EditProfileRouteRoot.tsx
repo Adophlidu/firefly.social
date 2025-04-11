@@ -1,6 +1,6 @@
 import { Dialog } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { Outlet, rootRouteId, useRouteContext, useRouter } from '@tanstack/react-router';
+import { Outlet, rootRouteId, useLocation, useRouteContext, useRouter } from '@tanstack/react-router';
 import type { JSX } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -15,8 +15,8 @@ export interface ProfileFormValues extends Omit<ProfileEditable, 'pfp'> {
 export function EditProfileRouteRoot() {
     const context = useRouteContext({ from: rootRouteId });
     const { history } = useRouter();
+    const { pathname } = useLocation();
 
-    const pathname = history.location.pathname;
     const profile = context.profile as Profile;
     const titles: Record<string, JSX.Element> = {
         '/': <Trans>Edit Profile</Trans>,
