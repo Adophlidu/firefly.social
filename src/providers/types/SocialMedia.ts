@@ -141,6 +141,8 @@ export interface Post {
     type?: PostType;
     /** It's `hash` for Farcaster */
     postId: string;
+    /** lens v3 */
+    slug?: string;
     parentPostId?: string;
     parentContentURI?: string;
     rootPostId?: string;

@@ -334,6 +334,9 @@ msgstr ""
 msgid "Sorry, the username or password you entered is incorrect"
 msgstr ""
 
+msgid "Joined"
+msgstr ""
+
 msgid "Tax can be modified"
 msgstr ""
 

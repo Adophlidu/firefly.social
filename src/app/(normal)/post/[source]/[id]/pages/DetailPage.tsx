@@ -21,22 +21,24 @@ import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { notFound } from '@/esm/navigation.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { getThreads } from '@/services/getThreads.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface Props {
     id: string;
     source: SocialSource;
+    post?: Post;
 }
 
-export function PostDetailPage({ id: postId, source }: Props) {
+export function PostDetailPage({ id: postId, source, post: defaultPost }: Props) {
     if (!postId) notFound();
 
     const isSyncing = useAsyncStatus(source);
     const { visitedPosts } = useGlobalState();
 
     const {
-        data: post = visitedPosts[source]?.[postId],
+        data: post = visitedPosts[source]?.[postId] || defaultPost,
         isLoading,
         isRefetching,
     } = useQuery({
@@ -121,7 +123,7 @@ export function PostDetailPage({ id: postId, source }: Props) {
                 <Section title="Post Comments">
                     <NoSSR>
                         <CommentList
-                            postId={postId}
+                            postId={post.postId}
                             source={source}
                             excludePostIds={
                                 allPosts.length >= MIN_POST_SIZE_PER_THREAD ? allPosts.map((x) => x.postId) : []

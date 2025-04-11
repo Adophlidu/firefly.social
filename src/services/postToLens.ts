@@ -15,10 +15,12 @@ import { HOME_CLUB } from '@/constants/channel.js';
 import { RestrictionType, Source, SourceInURL } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
+import { detectMentionsForLens } from '@/helpers/detectMentions.js';
 import { ensureLensResultSync } from '@/helpers/ensureLensResult.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
 import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { uploadVideoCover } from '@/helpers/uploadVideoCover.js';
 import { GroveStorageProvider } from '@/providers/lens/Grove.js';
 import { LensPollProvider } from '@/providers/lens/Poll.js';
@@ -113,13 +115,10 @@ export function createPostMetadata(metadata: BaseMetadata, attachments?: Attachm
         id: uuid(),
         locale: getUserLocale(),
     };
-    const groupMentions = metadata.groups?.map((group) => `#${group.id}`).join(' ');
+
     const baseMetadata = {
         title: metadata.title,
-        content:
-            !metadata.content && !groupMentions
-                ? undefined
-                : `${metadata.content || ''}${groupMentions ? ` ${groupMentions}` : ''}`,
+        content: metadata.content || undefined,
         tags: metadata.tags,
     };
 
@@ -290,6 +289,8 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
     const { currentProfile } = useLensStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(`Login required to post on ${sourceName}.`);
 
+    const newChars = (await runInSafeAsync(() => detectMentionsForLens(chars))) || chars;
+
     const postTo = createPostTo(Source.Lens, {
         uploadImages() {
             return Promise.all(
@@ -312,14 +313,14 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         },
         uploadPolls: async () => {
             if (!poll) return [];
-            const pollStub = await LensPollProvider.createPoll(poll, readChars(chars, 'both', Source.Lens));
+            const pollStub = await LensPollProvider.createPoll(poll, readChars(newChars, 'both', Source.Lens));
             return [pollStub];
         },
         compose(images, videos) {
             const video = first(videos) ?? null;
             return publishPostForLens(
                 currentProfile.profileId,
-                readChars(chars, 'both', Source.Lens),
+                readChars(newChars, 'both', Source.Lens),
                 images,
                 video,
                 channel[Source.Lens],
@@ -332,7 +333,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             return commentPostForLens(
                 currentProfile.profileId,
                 lensParentPost.postId,
-                readChars(chars, 'both', Source.Lens),
+                readChars(newChars, 'both', Source.Lens),
                 images,
                 video,
             );
@@ -343,7 +344,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             return quotePostForLens(
                 currentProfile.profileId,
                 lensParentPost.postId,
-                readChars(chars, 'both', Source.Lens),
+                readChars(newChars, 'both', Source.Lens),
                 images,
                 video,
                 [restriction],

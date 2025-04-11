@@ -332,46 +332,19 @@ export class LensSocialMedia implements Provider {
         );
     }
 
-    async mirrorPostOnMomoka(postId: string) {
-        return this.mirrorPostOnChain(postId);
-    }
-
-    async mirrorPostOnChain(postId: string) {
-        return ensurePostToLensResult(
+    async mirrorPost(postId: string): Promise<string> {
+        const result = await ensurePostToLensResult(
             repost(lensSessionHolder.sessionClient, {
                 post: postId,
             }),
+            false,
         );
-    }
 
-    async mirrorPost(postId: string): Promise<string> {
-        try {
-            await this.mirrorPostOnMomoka(postId);
-            return postId;
-        } catch (error) {
-            if (error instanceof Error && error.message.includes(MOMOKA_ERROR_MSG)) {
-                await this.mirrorPostOnChain(postId);
-                return postId;
-            }
-            throw error;
-        }
+        return result.postId;
     }
 
     async unmirrorPost(postId: string): Promise<void> {
         await this.deletePost(postId);
-    }
-
-    async quotePostOnMomoka(postId: string, intro: string, signless?: boolean) {
-        return this.quotePostOnChain(postId, intro);
-    }
-
-    async quotePostOnChain(postId: string, intro: string) {
-        return ensurePostToLensResult(
-            post(lensSessionHolder.sessionClient, {
-                contentUri: intro,
-                quoteOf: { post: postId },
-            }),
-        );
     }
 
     // intro is the contentURI of the post
@@ -402,32 +375,15 @@ export class LensSocialMedia implements Provider {
         await handleOperationWithLensChain(result);
     }
 
-    async commentPostOnMomoka(postId: string, comment: string, signless?: boolean) {
-        return this.commentPostOnChain(postId, comment);
-    }
-
-    async commentPostOnChain(postId: string, comment: string) {
+    // comment is the contentURI of the post
+    async commentPost(postId: string, draftPost: Post, signless?: boolean): Promise<{ postId: string }> {
+        const comment = draftPost.metadata.content?.content ?? '';
         return ensurePostToLensResult(
             post(lensSessionHolder.sessionClient, {
                 contentUri: comment,
                 commentOn: { post: postId },
             }),
         );
-    }
-
-    // comment is the contentURI of the post
-    async commentPost(postId: string, post: Post, signless?: boolean): Promise<{ postId: string }> {
-        const comment = post.metadata.content?.content ?? '';
-        try {
-            const result = await this.commentPostOnMomoka(postId, comment, signless);
-            return result;
-        } catch (error) {
-            if (error instanceof Error && error.message.includes(MOMOKA_ERROR_MSG)) {
-                const result = await this.commentPostOnChain(postId, comment);
-                return result;
-            }
-            throw error;
-        }
     }
 
     async upvotePost(postId: string) {

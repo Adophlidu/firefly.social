@@ -50,9 +50,9 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
         if (channel.id === 'home' && !channel.imageUrl) {
             return <SocialSourceIcon source={channel.source} className="mr-2 size-6" />;
         }
-        return (
-            <Avatar className="mr-2 shrink-0 rounded-full border" src={channel.imageUrl} size={24} alt={channel.name} />
-        );
+
+        const imageUrl = channel.name ? channel.imageUrl : channel.group?.imageUrl;
+        return <Avatar className="mr-2 shrink-0 rounded-full border" src={imageUrl} size={24} alt={channel.name} />;
     };
 
     const ListBox = (

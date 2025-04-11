@@ -334,6 +334,9 @@ msgstr "Metadata frozen."
 msgid "Sorry, the username or password you entered is incorrect"
 msgstr "Sorry, the username or password you entered is incorrect"
 
+msgid "Joined"
+msgstr "Joined"
+
 msgid "Tax can be modified"
 msgstr "Tax can be modified"
 

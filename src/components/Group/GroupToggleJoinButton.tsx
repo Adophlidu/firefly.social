@@ -1,13 +1,9 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useMemo } from 'react';
 
-import FollowIcon from '@/assets/follow-bold.svg';
-import FollowedIcon from '@/assets/followed.svg';
-import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { classNames } from '@/helpers/classNames.js';
+import { type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { ToggleJoinButton } from '@/components/ToggleJoinButton.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useToggleJoinGroup } from '@/hooks/useToggleJoinGroup.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -29,36 +25,17 @@ export function GroupToggleJoinButton({ group, className }: GroupToggleJoinButto
 
     const [isToggling, mutation] = useToggleJoinGroup(data || group);
 
-    const buttonLabel = useMemo(() => {
-        if (isMedium) {
-            return data?.isMember ? t`Leave` : t`Join`;
-        }
-
-        return data?.isMember ? (
-            <FollowedIcon className="size-4 flex-shrink-0" />
-        ) : (
-            <FollowIcon className="size-4 flex-shrink-0" />
-        );
-    }, [data?.isMember, isMedium]);
-
     if (isLoading) return null;
     if (!data || (!data.isMember && !data.canJoin && !data.canLeave)) return null;
 
     return (
-        <ClickableButton
+        <ToggleJoinButton
+            joined={!!data.isMember}
             onClick={() => mutation.mutate()}
             loading={isToggling}
             loadingSize={16}
-            className={classNames(
-                'h-8 bg-main text-primaryBottom',
-                {
-                    'rounded-lg px-5 text-medium font-bold leading-8': isMedium,
-                    'flex w-8 max-w-8 items-center justify-center rounded-full': !isMedium,
-                },
-                className,
-            )}
-        >
-            {buttonLabel}
-        </ClickableButton>
+            variant={isMedium ? 'text' : 'icon'}
+            className={className}
+        />
     );
 }

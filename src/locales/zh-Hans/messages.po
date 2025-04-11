@@ -339,6 +339,9 @@ msgstr "元数据已冻结。"
 msgid "Sorry, the username or password you entered is incorrect"
 msgstr "抱歉，您输入的用户名或密码不正确"
 
+msgid "Joined"
+msgstr ""
+
 msgid "Tax can be modified"
 msgstr "税率可以被修改"
 

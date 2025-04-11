@@ -22,11 +22,16 @@ export function ensureLensResultSync<T, E>(result: Result<T, E>) {
 
 export async function ensurePostToLensResult(
     asyncResult: ResultAsync<PostResult, UnauthenticatedError | UnexpectedError>,
+    pollingPost = true,
 ) {
     const result = await ensureLensResult(asyncResult);
     const txHash = await handleOperationWithLensChain(result);
-    const post = await LensSocialMediaProvider.getPostByTxHashWithPolling(txHash);
 
+    if (!pollingPost) {
+        return { postId: '' };
+    }
+
+    const post = await LensSocialMediaProvider.getPostByTxHashWithPolling(txHash);
     if (!post) {
         throw new Error('Post not found');
     }
