@@ -37,6 +37,7 @@ interface WalletInfoProps {
 }
 
 export const WALLET_PROFILE_ACTION_ID = 'profile-action';
+const HIDDEN_NET_WORTH = true;
 
 export function WalletInfo({ profile }: WalletInfoProps) {
     const isMedium = useIsMedium();
@@ -74,6 +75,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                     return null;
             }
         },
+        enabled: !HIDDEN_NET_WORTH,
     });
 
     const iconSize = 16;
@@ -152,12 +154,14 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                                     ) : null}
                                 </div>
                             </div>
-                            <div className="mt-1 text-xl font-bold leading-6">
-                                <Trans>
-                                    $ {formatPrice(totalBalance ?? 0)}{' '}
-                                    <span className="text-sm text-second">Net worth</span>
-                                </Trans>
-                            </div>
+                            {!HIDDEN_NET_WORTH ? (
+                                <div className="mt-1 text-xl font-bold leading-6">
+                                    <Trans>
+                                        $ {formatPrice(totalBalance ?? 0)}{' '}
+                                        <span className="text-sm text-second">Net worth</span>
+                                    </Trans>
+                                </div>
+                            ) : null}
                         </div>
                         {networkType === NetworkType.Ethereum ? <WalletActions profile={profile} /> : null}
                     </div>
