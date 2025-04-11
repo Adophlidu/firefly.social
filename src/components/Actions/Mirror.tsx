@@ -191,7 +191,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     return;
                 }}
                 className={classNames(
-                    'relative flex w-min items-center text-lightSecond hover:text-secondarySuccess md:space-x-2',
+                    'relative flex w-min items-center text-second hover:text-secondarySuccess md:space-x-2',
                     !!disabled || allDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
                     {
                         'text-secondarySuccess': mirrored,
@@ -205,7 +205,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                 >
                     <span className="inline-flex size-7 items-center justify-center rounded-full hover:bg-secondarySuccess/[.20]">
                         {loading ? (
-                            <LoadingIcon className="text-lightSecond" size={16} />
+                            <LoadingIcon className="text-second" size={16} />
                         ) : (
                             <MirrorIcon
                                 width={16}

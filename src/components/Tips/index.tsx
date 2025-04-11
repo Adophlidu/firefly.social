@@ -82,7 +82,7 @@ export function Tips({
 
     return (
         <ClickableArea
-            className={classNames('flex cursor-pointer items-center text-lightSecond md:space-x-2', className, {
+            className={classNames('flex cursor-pointer items-center text-second md:space-x-2', className, {
                 'opacity-50': disabled,
                 'hover:text-lightWarn': !disabled && !label && !loading,
                 'w-min': !label,

@@ -7,7 +7,7 @@ import { type HTMLProps, memo } from 'react';
 import { Collect } from '@/components/Actions/Collect.js';
 import { Comment } from '@/components/Actions/Comment.js';
 import { Like } from '@/components/Actions/Like.js';
-import { Mirror } from '@/components/Actions/Mirrors.js';
+import { Mirror } from '@/components/Actions/Mirror.js';
 import { PostBookmark } from '@/components/Actions/PostBookmark.js';
 import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { Share } from '@/components/Actions/Share.js';
@@ -100,7 +100,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
 
     return (
         <ClickableArea
-            className={classNames('mt-2 flex items-center justify-between text-lightSecond', className, {
+            className={classNames('mt-2 flex items-center justify-between text-second', className, {
                 'pl-[52px]': !disablePadding,
             })}
         >

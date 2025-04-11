@@ -30,7 +30,7 @@ export const Collect = memo<CollectProps>(function Collect({
 
     return (
         <ClickableArea
-            className={classNames('flex w-min items-center text-lightSecond hover:text-collected md:space-x-2', {
+            className={classNames('flex w-min items-center text-second hover:text-collected md:space-x-2', {
                 'opacity-50': disabled,
             })}
         >

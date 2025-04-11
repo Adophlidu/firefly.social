@@ -77,12 +77,9 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
                     <span className="flex items-center text-base font-bold">{connection.ens[0]}</span>
                 ) : null}
                 <div
-                    className={classNames(
-                        'flex items-center',
-                        connection.ens?.[0] ? 'text-lightSecond' : 'font-semibold text-lightMain',
-                    )}
+                    className={classNames('flex items-center text-second', connection.ens?.[0] ? '' : 'font-semibold')}
                 >
-                    <span className="flex items-center truncate">
+                    <span className="flex items-center truncate text-second">
                         {connection.platform === 'eth'
                             ? formatAddressEthereum(connection.address, 8)
                             : connection.platform === 'solana'

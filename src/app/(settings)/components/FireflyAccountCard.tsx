@@ -32,7 +32,7 @@ export function FireflyAccountCard() {
             <div
                 className={classNames(
                     'flex w-full items-center rounded-lg border p-2',
-                    isLoading ? 'animate-pulse border-transparent' : 'border-lightHighlight',
+                    isLoading ? 'animate-pulse border-transparent' : 'border-highlight',
                 )}
             >
                 <div className="mr-2 size-[60px] shrink-0 rounded-full bg-bg">
@@ -47,7 +47,7 @@ export function FireflyAccountCard() {
                         {!isLoading
                             ? account?.displayName || (
                                   <ClickableButton
-                                      className="font-semibold text-lightHighlight hover:underline"
+                                      className="font-semibold text-highlight hover:underline"
                                       onClick={() => {
                                           EditFireflyProfileModalRef.open({
                                               profile: account,

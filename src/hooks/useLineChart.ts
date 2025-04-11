@@ -247,8 +247,8 @@ export function useLineChart(
         };
 
         // add tooltip
-        d3.select(svgRef.current).on('mousemove', function () {
-            const mx = d3.pointer(this)[0];
+        d3.select(svgRef.current).on('mousemove', function (el) {
+            const mx = d3.pointer(el)[0];
             if (mx < left - 10 || mx > left + contentWidth) {
                 // mouse not in the content view
                 hide();

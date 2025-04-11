@@ -35,7 +35,7 @@ export const Comment = memo<CommentProps>(function Comment({ post, disabled = fa
                     aria-label="Comment"
                     onClick={onComment}
                 >
-                    <ReplyIcon width={16} height={16} />
+                    <ReplyIcon width={16} height={16} color="text-second" />
                 </motion.button>
             </Tooltip>
             {!hiddenCount && count ? <span className="text-xs font-medium text-main">{nFormatter(count)}</span> : null}

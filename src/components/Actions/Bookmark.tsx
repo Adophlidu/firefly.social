@@ -35,7 +35,7 @@ export const Bookmark = memo<BookmarkProps>(function Bookmark({
 
     return (
         <ClickableArea
-            className={classNames('flex cursor-pointer items-center space-x-1 text-lightSecond md:space-x-2', {
+            className={classNames('flex cursor-pointer items-center space-x-1 text-second md:space-x-2', {
                 'cursor-not-allowed opacity-50': disabled,
             })}
             onClick={onClick}

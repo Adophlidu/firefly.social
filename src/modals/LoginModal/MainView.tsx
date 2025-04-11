@@ -227,7 +227,7 @@ export function MainView() {
                                             </div>
                                         </div>
                                         {isCurrent ? (
-                                            <CircleCheckboxIcon className="shrink-0 text-lightHighlight" checked />
+                                            <CircleCheckboxIcon className="shrink-0" checked />
                                         ) : (
                                             <SwitchIcon
                                                 className="size-5 cursor-pointer"
