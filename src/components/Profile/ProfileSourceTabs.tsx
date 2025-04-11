@@ -338,7 +338,6 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
                 )}
                 onClick={() => onScrollTo(-STEP)}
             >
-                <div className="absolute -left-1 -top-1 h-7 w-10 rounded-2xl bg-[linear-gradient(90deg,rgb(var(--color-bottom)/50))_60%,transparent]" />
                 <ArrowLeftIcon className="relative h-2 w-auto shrink-0" />
             </button>
             {children}
@@ -351,7 +350,6 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
                 )}
                 onClick={() => onScrollTo(STEP)}
             >
-                <div className="absolute -right-1 -top-1 h-7 w-10 rounded-2xl bg-[linear-gradient(90deg,transparent_40%,rgb(var(--color-bottom)))]" />
                 <ArrowRightIcon className="relative h-2 w-auto shrink-0" />
             </button>
         </div>

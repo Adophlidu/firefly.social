@@ -100,7 +100,6 @@ function MuteAllByWalletMenuItem({
     });
     const noFireflyAccount =
         !fireflyProfile || (!fireflyProfile?.displayName && !fireflyProfile?.avatar) || !fireflyProfile?.uid;
-    if (!noFireflyAccount) return null;
     return (
         <MenuItem>
             {({ close }) => (

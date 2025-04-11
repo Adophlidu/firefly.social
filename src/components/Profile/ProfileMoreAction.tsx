@@ -17,8 +17,8 @@ import { SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES } from '@/constants/index.js'
 import { useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { isCurrentProfile } from '@/helpers/isCurrentProfile.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
@@ -47,14 +47,6 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
         id: profile.profileId,
         source: profile.source,
     };
-    const { data: fireflyProfile } = useQuery({
-        queryKey: ['firefly-profile', identity],
-        async queryFn() {
-            const walletProfiles = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false);
-            return walletProfiles.account;
-        },
-    });
-    const noFireflyAccount = (!fireflyProfile?.displayName && !fireflyProfile?.avatar) || !fireflyProfile?.uid;
 
     const isRelatedProfile = profiles.some((x) => {
         const profileId = resolveFireflyProfileId(profile);
@@ -86,46 +78,51 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                     )}
                 </MenuItem>
 
-                {!isRelatedProfile ? (
+                {!isSameProfile(currentProfile, profile) ? (
                     <>
-                        {profile.source === Source.Lens ? (
-                            <MenuItem>
-                                {({ close }) => <ReportProfileButton onConfirm={close} profile={profile} />}
-                            </MenuItem>
+                        {!isRelatedProfile ? (
+                            <>
+                                {profile.source === Source.Lens ? (
+                                    <MenuItem>
+                                        {({ close }) => <ReportProfileButton onConfirm={close} profile={profile} />}
+                                    </MenuItem>
+                                ) : null}
+                                <MenuItem>
+                                    {({ close }) => (
+                                        <MuteProfileButton
+                                            onConfirm={close}
+                                            profile={profile}
+                                            onToggle={toggleMutedProfile}
+                                        />
+                                    )}
+                                </MenuItem>
+                                <MuteAllByProfileMenuItem profile={profile} />
+                            </>
                         ) : null}
-                        <MenuItem>
-                            {({ close }) => (
-                                <MuteProfileButton onConfirm={close} profile={profile} onToggle={toggleMutedProfile} />
-                            )}
-                        </MenuItem>
-                    </>
-                ) : null}
-
-                {!isCurrentProfile(profile) && SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES.includes(profile.source) ? (
-                    <>
-                        <MenuItem>
-                            {({ close }) => (
-                                <MenuButton
-                                    onClick={() => {
-                                        close();
-                                        router.push(
-                                            resolveSearchUrl(
-                                                `from: ${profile.handle} `,
-                                                SearchType.Posts,
-                                                profile.source,
-                                            ),
-                                        );
-                                    }}
-                                >
-                                    <SearchIcon width={18} height={18} />
-                                    <span className="font-bold leading-[22px] text-main">
-                                        <Trans>Search in profile</Trans>
-                                    </span>
-                                </MenuButton>
-                            )}
-                        </MenuItem>
-                        {noFireflyAccount ? (
-                            <MenuItem>{({ close }) => <MuteAllByProfile profile={profile} onClose={close} />}</MenuItem>
+                        {SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES.includes(profile.source) ? (
+                            <>
+                                <MenuItem>
+                                    {({ close }) => (
+                                        <MenuButton
+                                            onClick={() => {
+                                                close();
+                                                router.push(
+                                                    resolveSearchUrl(
+                                                        `from: ${profile.handle} `,
+                                                        SearchType.Posts,
+                                                        profile.source,
+                                                    ),
+                                                );
+                                            }}
+                                        >
+                                            <SearchIcon width={18} height={18} />
+                                            <span className="font-bold leading-[22px] text-main">
+                                                <Trans>Search in profile</Trans>
+                                            </span>
+                                        </MenuButton>
+                                    )}
+                                </MenuItem>
+                            </>
                         ) : null}
                     </>
                 ) : null}
@@ -133,3 +130,29 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
         </MoreActionMenu>
     );
 });
+
+function MuteAllByProfileMenuItem({ profile }: { profile: Profile }) {
+    const identity = {
+        id: profile.profileId,
+        source: profile.source,
+    };
+    const { data: fireflyProfile } = useQuery({
+        queryKey: ['firefly-profile', identity],
+        async queryFn() {
+            const walletProfiles = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false);
+            return walletProfiles.account;
+        },
+    });
+    const noFireflyAccount = (!fireflyProfile?.displayName && !fireflyProfile?.avatar) || !fireflyProfile?.uid;
+    return (
+        <MenuItem>
+            {({ close }) => (
+                <MuteAllByProfile
+                    className={classNames({ hidden: !noFireflyAccount })}
+                    profile={profile}
+                    onClose={close}
+                />
+            )}
+        </MenuItem>
+    );
+}

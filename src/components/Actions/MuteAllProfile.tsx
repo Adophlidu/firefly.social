@@ -72,19 +72,22 @@ function MuteAllProfileBase({ handleOrEnsOrAddress, identity, blocking, onClose,
     );
 }
 
-export const MuteAllByProfile = memo<{ profile: Profile; onClose: MuteAllProfileBaseProps['onClose'] }>(
-    function MuteAllByProfile({ profile, onClose }) {
-        const identity = useFireflyIdentity(profile.source, profile.profileId);
-        return (
-            <MuteAllProfileBase
-                identity={identity}
-                handleOrEnsOrAddress={`@${profile.handle}`}
-                blocking={profile.viewerContext?.blocking}
-                onClose={onClose}
-            />
-        );
-    },
-);
+export const MuteAllByProfile = memo<{
+    profile: Profile;
+    onClose: MuteAllProfileBaseProps['onClose'];
+    className?: MuteAllProfileBaseProps['className'];
+}>(function MuteAllByProfile({ profile, onClose, className }) {
+    const identity = useFireflyIdentity(profile.source, profile.profileId);
+    return (
+        <MuteAllProfileBase
+            identity={identity}
+            handleOrEnsOrAddress={`@${profile.handle}`}
+            blocking={profile.viewerContext?.blocking}
+            onClose={onClose}
+            className={className}
+        />
+    );
+});
 
 export const MuteAllByWallet = memo<{
     address: Address;
