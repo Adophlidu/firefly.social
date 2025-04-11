@@ -40,9 +40,9 @@ export function WatchWalletButton({ handleOrEnsOrAddress, address, isFollowing, 
             )}
             <span className="font-bold leading-[22px] text-main">
                 {following ? (
-                    <Trans>Unwatch {handleOrEnsOrAddress}</Trans>
+                    <Trans>Unfollow {handleOrEnsOrAddress}</Trans>
                 ) : (
-                    <Trans>Watch {handleOrEnsOrAddress}</Trans>
+                    <Trans>Follow {handleOrEnsOrAddress}</Trans>
                 )}
             </span>
         </MenuButton>

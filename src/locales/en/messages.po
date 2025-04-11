@@ -81,6 +81,9 @@ msgstr "You have been detected as a loyal Farcaster user"
 msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
 msgstr "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
 
+msgid "Followed {handleOrEnsOrAddress} on Firefly"
+msgstr "Followed {handleOrEnsOrAddress} on Firefly"
+
 msgid "Edit Image"
 msgstr "Edit Image"
 
@@ -145,9 +148,6 @@ msgstr "Failed to collect article."
 
 msgid "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
 msgstr "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
-
-msgid "Failed to unfollow {handleOrEnsOrAddress}."
-msgstr "Failed to unfollow {handleOrEnsOrAddress}."
 
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr "Hold on! Meet any of the following to unlock a premium collectible:"
@@ -292,6 +292,9 @@ msgstr "🙌 Just voted “{choice}” on “{0}”"
 
 msgid "Ended"
 msgstr "Ended"
+
+msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
+msgstr "Failed to follow {handleOrEnsOrAddress} on Firefly."
 
 msgid "No cryptocurrency mixer found."
 msgstr "No cryptocurrency mixer found."
@@ -591,9 +594,6 @@ msgstr "Follow <0>@{handle}</0> on {0}"
 
 msgid "Undo repost"
 msgstr "Undo repost"
-
-msgid "{handleOrEnsOrAddress} unfollowed"
-msgstr "{handleOrEnsOrAddress} unfollowed"
 
 msgid "Proxy contract."
 msgstr "Proxy contract."
@@ -1138,6 +1138,9 @@ msgstr "Failed to mute /{0}."
 msgid "Address"
 msgstr "Address"
 
+msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
+msgstr "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
+
 msgid "Bio"
 msgstr "Bio"
 
@@ -1179,9 +1182,6 @@ msgstr "The token can not be bought."
 msgid "More Details"
 msgstr "More Details"
 
-msgid "Failed to follow {handleOrEnsOrAddress}."
-msgstr "Failed to follow {handleOrEnsOrAddress}."
-
 msgid "No proxy"
 msgstr "No proxy"
 
@@ -1206,9 +1206,6 @@ msgstr "Remove Choice"
 msgid "Update"
 msgstr "Update"
 
-msgid "{handleOrEnsOrAddress} followed"
-msgstr "{handleOrEnsOrAddress} followed"
-
 msgid "Domain"
 msgstr "Domain"
 
@@ -1221,6 +1218,10 @@ msgstr "Check Eligibility"
 
 msgid "You might like"
 msgstr "You might like"
+
+#. placeholder {0}: env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled ? 'DEV' : 'PROD'
+msgid "Enable development API version<0>{0}</0>"
+msgstr "Enable development API version<0>{0}</0>"
 
 msgid "Please enter at least 2 characters."
 msgstr "Please enter at least 2 characters."
@@ -2128,6 +2129,9 @@ msgstr "Push notifications"
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
 msgstr "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
 
+msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
+msgstr "Unfollowed {handleOrEnsOrAddress} on Firefly"
+
 msgid "Post your reply"
 msgstr "Post your reply"
 
@@ -2300,9 +2304,6 @@ msgstr "Not Started"
 
 msgid "Cannot send tip to yourself"
 msgstr "Cannot send tip to yourself"
-
-msgid "Unwatch {handleOrEnsOrAddress}"
-msgstr "Unwatch {handleOrEnsOrAddress}"
 
 #. placeholder {0}: market?.market_cap !== undefined ? `$${formatMarketCap(market.market_cap)}` : '-'
 #. placeholder {1}: token.rank
@@ -2557,9 +2558,6 @@ msgstr "Non-honeypot related address."
 
 msgid "No darkweb transactions involved."
 msgstr "No darkweb transactions involved."
-
-msgid "Watch {handleOrEnsOrAddress}"
-msgstr "Watch {handleOrEnsOrAddress}"
 
 msgid "Show More"
 msgstr "Show More"
@@ -3077,6 +3075,9 @@ msgstr "Mobile App"
 
 msgid "Upload photo"
 msgstr "Upload photo"
+
+msgid "Follow {handleOrEnsOrAddress}"
+msgstr "Follow {handleOrEnsOrAddress}"
 
 msgid "You can save this to send later from your drafts."
 msgstr "You can save this to send later from your drafts."
@@ -3803,9 +3804,6 @@ msgstr "Total Volume"
 msgid "Post added to your Bookmarks"
 msgstr "Post added to your Bookmarks"
 
-msgid "Enable development API version ()"
-msgstr "Enable development API version ()"
-
 msgid "Preview"
 msgstr "Preview"
 
@@ -3903,6 +3901,9 @@ msgstr "Emoji"
 
 msgid "Failed to report spam NFT."
 msgstr "Failed to report spam NFT."
+
+msgid "Unfollow {handleOrEnsOrAddress}"
+msgstr "Unfollow {handleOrEnsOrAddress}"
 
 msgid "Sorry, there is no wallet address available for tipping."
 msgstr "Sorry, there is no wallet address available for tipping."

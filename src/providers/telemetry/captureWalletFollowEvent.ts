@@ -10,6 +10,6 @@ export function captureWalletFollowEvent() {
 
 export function captureWalletUnfollowEvent() {
     return runInSafeAsync(() => {
-        return TelemetryProvider.captureEvent(EventId.WALLET_FOLLOW_SUCCESS, {});
+        return TelemetryProvider.captureEvent(EventId.WALLET_UNFOLLOW_SUCCESS, {});
     });
 }

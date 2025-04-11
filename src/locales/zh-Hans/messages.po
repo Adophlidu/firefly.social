@@ -86,6 +86,9 @@ msgstr "您被检测到为 Farcaster 忠实用户"
 msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
 msgstr "<0/> 引用了你的 <1>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {引用} other {帖子}}</1>"
 
+msgid "Followed {handleOrEnsOrAddress} on Firefly"
+msgstr ""
+
 msgid "Edit Image"
 msgstr "编辑图片"
 
@@ -150,9 +153,6 @@ msgstr "收集文章失败。"
 
 msgid "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
 msgstr "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
-
-msgid "Failed to unfollow {handleOrEnsOrAddress}."
-msgstr ""
 
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr "稍等！满足以下任一条件以解锁优质 NFT："
@@ -297,6 +297,9 @@ msgstr ""
 
 msgid "Ended"
 msgstr "已结束"
+
+msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
+msgstr ""
 
 msgid "No cryptocurrency mixer found."
 msgstr "未涉及加密货币混合器。"
@@ -596,9 +599,6 @@ msgstr "在 {0} 上关注 <0>@{handle}</0>"
 
 msgid "Undo repost"
 msgstr "取消转发"
-
-msgid "{handleOrEnsOrAddress} unfollowed"
-msgstr ""
 
 msgid "Proxy contract."
 msgstr "代理合约。"
@@ -1143,6 +1143,9 @@ msgstr "隐藏 /{0} 失败。"
 msgid "Address"
 msgstr "地址"
 
+msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
+msgstr ""
+
 msgid "Bio"
 msgstr "个人简介"
 
@@ -1184,9 +1187,6 @@ msgstr "该代币无法购买。"
 msgid "More Details"
 msgstr "详细信息"
 
-msgid "Failed to follow {handleOrEnsOrAddress}."
-msgstr ""
-
 msgid "No proxy"
 msgstr "无代理"
 
@@ -1211,9 +1211,6 @@ msgstr "删除选项"
 msgid "Update"
 msgstr "更新"
 
-msgid "{handleOrEnsOrAddress} followed"
-msgstr ""
-
 msgid "Domain"
 msgstr "域名"
 
@@ -1226,6 +1223,10 @@ msgstr "领取资格"
 
 msgid "You might like"
 msgstr "你也许感兴趣"
+
+#. placeholder {0}: env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled ? 'DEV' : 'PROD'
+msgid "Enable development API version<0>{0}</0>"
+msgstr ""
 
 msgid "Please enter at least 2 characters."
 msgstr "请输入至少 2 个字符。"
@@ -2133,6 +2134,9 @@ msgstr ""
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
 msgstr "确认断开此账户及相关钱包与 Firefly 社交图谱的连接吗？"
 
+msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
+msgstr ""
+
 msgid "Post your reply"
 msgstr "发送你的回复"
 
@@ -2305,9 +2309,6 @@ msgstr "尚未开始"
 
 msgid "Cannot send tip to yourself"
 msgstr "不能打赏给自己"
-
-msgid "Unwatch {handleOrEnsOrAddress}"
-msgstr "取消关注 {handleOrEnsOrAddress}"
 
 #. placeholder {0}: market?.market_cap !== undefined ? `$${formatMarketCap(market.market_cap)}` : '-'
 #. placeholder {1}: token.rank
@@ -2562,9 +2563,6 @@ msgstr "非钓鱼地址。"
 
 msgid "No darkweb transactions involved."
 msgstr "未发现暗网交易。"
-
-msgid "Watch {handleOrEnsOrAddress}"
-msgstr "关注 {handleOrEnsOrAddress}"
 
 msgid "Show More"
 msgstr "显示更多"
@@ -3082,6 +3080,9 @@ msgstr "手机应用"
 
 msgid "Upload photo"
 msgstr "上传照片"
+
+msgid "Follow {handleOrEnsOrAddress}"
+msgstr ""
 
 msgid "You can save this to send later from your drafts."
 msgstr "您可以先保存至草稿后再发送。"
@@ -3808,9 +3809,6 @@ msgstr "总交易量"
 msgid "Post added to your Bookmarks"
 msgstr "帖子已经添加到您的收藏中"
 
-msgid "Enable development API version ()"
-msgstr ""
-
 msgid "Preview"
 msgstr "预览"
 
@@ -3908,6 +3906,9 @@ msgstr "表情符号"
 
 msgid "Failed to report spam NFT."
 msgstr "举报垃圾 NFT 失败。"
+
+msgid "Unfollow {handleOrEnsOrAddress}"
+msgstr ""
 
 msgid "Sorry, there is no wallet address available for tipping."
 msgstr "对不起，未找到合适的地址用来打赏。"

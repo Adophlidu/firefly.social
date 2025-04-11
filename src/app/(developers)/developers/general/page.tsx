@@ -8,6 +8,8 @@ import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { classNames } from '@/helpers/classNames.js';
 import { settings } from '@/settings/index.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
@@ -61,7 +63,14 @@ export default function Page() {
         {
             type: 'text',
             value: settings.FIREFLY_ROOT_URL,
-            title: <Trans>Enable development API version ()</Trans>,
+            title: (
+                <Trans>
+                    Enable development API version
+                    <code className="ml-2 text-sm">
+                        {env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled ? 'DEV' : 'PROD'}
+                    </code>
+                </Trans>
+            ),
             description: <Trans>Switch to the development API version for testing new features.</Trans>,
         },
     ];

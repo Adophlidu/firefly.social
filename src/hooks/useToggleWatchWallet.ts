@@ -22,21 +22,21 @@ export function useToggleWatchWallet({ handleOrEnsOrAddress, address, following 
             try {
                 if (following) {
                     const result = await FireflyEndpointProvider.unwatchWallet(address);
-                    enqueueSuccessMessage(t`${handleOrEnsOrAddress} unfollowed`);
+                    enqueueSuccessMessage(t`Unfollowed ${handleOrEnsOrAddress} on Firefly`);
                     captureWalletUnfollowEvent();
                     return result;
                 }
                 const result = await FireflyEndpointProvider.watchWallet(address);
                 setupFirebaseFcmConnection({ force: true, showUi: true });
-                enqueueSuccessMessage(t`${handleOrEnsOrAddress} followed`);
+                enqueueSuccessMessage(t`Followed ${handleOrEnsOrAddress} on Firefly`);
                 captureWalletFollowEvent();
                 return result;
             } catch (error) {
                 enqueueMessageFromError(
                     error,
                     following
-                        ? t`Failed to unfollow ${handleOrEnsOrAddress}.`
-                        : t`Failed to follow ${handleOrEnsOrAddress}.`,
+                        ? t`Failed to unfollow ${handleOrEnsOrAddress} on Firefly.`
+                        : t`Failed to follow ${handleOrEnsOrAddress} on Firefly.`,
                 );
                 throw error;
             }

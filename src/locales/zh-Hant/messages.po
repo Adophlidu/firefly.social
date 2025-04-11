@@ -86,6 +86,9 @@ msgstr "您被檢測到為 Farcaster 忠實用戶"
 msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
 msgstr ""
 
+msgid "Followed {handleOrEnsOrAddress} on Firefly"
+msgstr ""
+
 msgid "Edit Image"
 msgstr "編輯圖片"
 
@@ -149,9 +152,6 @@ msgid "Failed to collect article."
 msgstr ""
 
 msgid "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
-msgstr ""
-
-msgid "Failed to unfollow {handleOrEnsOrAddress}."
 msgstr ""
 
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
@@ -296,6 +296,9 @@ msgid "🙌 Just voted “{choice}” on “{0}”"
 msgstr ""
 
 msgid "Ended"
+msgstr ""
+
+msgid "Failed to follow {handleOrEnsOrAddress} on Firefly."
 msgstr ""
 
 msgid "No cryptocurrency mixer found."
@@ -595,9 +598,6 @@ msgid "Follow <0>@{handle}</0> on {0}"
 msgstr ""
 
 msgid "Undo repost"
-msgstr ""
-
-msgid "{handleOrEnsOrAddress} unfollowed"
 msgstr ""
 
 msgid "Proxy contract."
@@ -1143,6 +1143,9 @@ msgstr "對 @{0} 的靜音失敗"
 msgid "Address"
 msgstr "地址"
 
+msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
+msgstr ""
+
 msgid "Bio"
 msgstr "個人簡介"
 
@@ -1184,9 +1187,6 @@ msgstr ""
 msgid "More Details"
 msgstr ""
 
-msgid "Failed to follow {handleOrEnsOrAddress}."
-msgstr ""
-
 msgid "No proxy"
 msgstr "無代理"
 
@@ -1211,9 +1211,6 @@ msgstr "移除選擇"
 msgid "Update"
 msgstr "更新"
 
-msgid "{handleOrEnsOrAddress} followed"
-msgstr ""
-
 msgid "Domain"
 msgstr ""
 
@@ -1226,6 +1223,10 @@ msgstr "領取資格"
 
 msgid "You might like"
 msgstr "你也許會喜歡"
+
+#. placeholder {0}: env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled ? 'DEV' : 'PROD'
+msgid "Enable development API version<0>{0}</0>"
+msgstr ""
 
 msgid "Please enter at least 2 characters."
 msgstr ""
@@ -2125,6 +2126,9 @@ msgstr ""
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
 msgstr ""
 
+msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
+msgstr ""
+
 msgid "Post your reply"
 msgstr ""
 
@@ -2296,9 +2300,6 @@ msgid "Not Started"
 msgstr ""
 
 msgid "Cannot send tip to yourself"
-msgstr ""
-
-msgid "Unwatch {handleOrEnsOrAddress}"
 msgstr ""
 
 #. placeholder {0}: market?.market_cap !== undefined ? `$${formatMarketCap(market.market_cap)}` : '-'
@@ -2548,9 +2549,6 @@ msgid "Non-honeypot related address."
 msgstr ""
 
 msgid "No darkweb transactions involved."
-msgstr ""
-
-msgid "Watch {handleOrEnsOrAddress}"
 msgstr ""
 
 msgid "Show More"
@@ -3068,6 +3066,9 @@ msgid "Mobile App"
 msgstr "手機應用"
 
 msgid "Upload photo"
+msgstr ""
+
+msgid "Follow {handleOrEnsOrAddress}"
 msgstr ""
 
 msgid "You can save this to send later from your drafts."
@@ -3792,9 +3793,6 @@ msgstr ""
 msgid "Post added to your Bookmarks"
 msgstr "貼文已加入你的書籤"
 
-msgid "Enable development API version ()"
-msgstr ""
-
 msgid "Preview"
 msgstr ""
 
@@ -3891,6 +3889,9 @@ msgid "Emoji"
 msgstr ""
 
 msgid "Failed to report spam NFT."
+msgstr ""
+
+msgid "Unfollow {handleOrEnsOrAddress}"
 msgstr ""
 
 msgid "Sorry, there is no wallet address available for tipping."
