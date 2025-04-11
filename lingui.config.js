@@ -25,7 +25,6 @@ export default {
                 'src/services/**',
                 'src/mask/**',
             ],
-            exclude: ['src/maskbook/**'],
         },
     ],
     fallbackLocales: {
