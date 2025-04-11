@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { createContainer } from 'unstated-next';
 import { useConnections } from 'wagmi';
 
-import { NetworkType } from '@/constants/enum.js';
+import { ClickOrigin, NetworkType } from '@/constants/enum.js';
 import { getFilteredConnectors } from '@/helpers/getFilteredConnectors.js';
 import type { ChainNamespace, ConnectorWithProvider } from '@/types/index.js';
 
@@ -22,10 +22,11 @@ interface WalletConnectState {
 
 interface WalletConnectContext extends WalletConnectState {
     loading: boolean;
-
+    connectedId: string[];
     chainNamespace: ChainNamespace | null;
 
-    connectedId: string[];
+    origin: ClickOrigin;
+    setOrigin: (origin: ClickOrigin) => void;
 
     networkType: NetworkType | null;
     setNetworkType: (networkType?: NetworkType) => void;
@@ -55,9 +56,11 @@ function networkTypeToChainNamespace(networkType: NetworkType): ChainNamespace |
     }
 }
 
-function useWalletConnectContext(initialState?: WalletConnectContext) {
+function useWalletConnectContext(initialState?: WalletConnectContext): WalletConnectContext {
     const connections = useConnections();
     const [value, setValue] = useState<WalletConnectState>(initialState ?? createEmptyWalletConnectState());
+
+    const [origin, setOrigin] = useState<ClickOrigin>(ClickOrigin.Others);
 
     const [loading, setLoading] = useState(true);
     const [networkType, setNetworkType] = useState<NetworkType | null>(null);
@@ -94,14 +97,21 @@ function useWalletConnectContext(initialState?: WalletConnectContext) {
     ]);
 
     return {
+        chainState: value.chainState,
         connectors: value.connectors,
         featuredWallets: value.featuredWallets,
+
         loading,
         connectedId,
         chainNamespace: networkType ? networkTypeToChainNamespace(networkType) : null,
+
+        origin,
+        setOrigin,
+
+        networkType,
         setNetworkType: (networkType?: NetworkType) => setNetworkType(networkType ?? null),
         unsetNetworkType: () => setNetworkType(null),
-    } as WalletConnectContext;
+    };
 }
 
 export const WalletConnectContext = createContainer(useWalletConnectContext);

@@ -1,6 +1,6 @@
 // cspell:disable
 
-import type { ProfilePageSource } from '@/constants/enum.js';
+import type { ClickOrigin, ProfilePageSource } from '@/constants/enum.js';
 
 export enum VersionFilter {
     // the current working version
@@ -307,7 +307,7 @@ export interface LuckyDropEventParameters extends WalletEventParameters {
 }
 
 export interface ConnectWalletEventParameters extends WalletEventParameters {
-    click_location: 'nav_bar' | 'settings' | 'others';
+    click_location: ClickOrigin;
     click_time: number;
     connect_success_time: number;
     connect_duration: number;

@@ -11,7 +11,7 @@ import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
-import { MyWalletsModalRef,WalletConnectModalRef } from '@/modals/controls.js';
+import { MyWalletsModalRef, WalletConnectModalRef } from '@/modals/controls.js';
 
 const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EthereumChainId.Mainnet);
 const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);

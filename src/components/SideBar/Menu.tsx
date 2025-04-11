@@ -152,7 +152,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                     </menu>
                 </li>
             </menu>
-            <Footer collapsed={collapsed} />
+            <Footer />
         </nav>
     );
 });

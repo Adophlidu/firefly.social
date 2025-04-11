@@ -537,3 +537,9 @@ export enum CommunityType {
     LensGroup = 'lens-group',
     LensFeed = 'lens-feed',
 }
+
+export enum ClickOrigin {
+    NavBar = 'nav_bar',
+    Settings = 'settings',
+    Others = 'others',
+}

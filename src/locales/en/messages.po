@@ -2548,9 +2548,6 @@ msgstr "No results for \"{keyword}\""
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 
-msgid "Add wallet"
-msgstr "Add wallet"
-
 msgid "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
 msgstr "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
 

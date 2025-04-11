@@ -8,11 +8,11 @@ import { memo } from 'react';
 import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
-import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
+import { ClickOrigin, NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
-import { MyWalletsModalRef,WalletConnectModalRef } from '@/modals/controls.js';
+import { MyWalletsModalRef, WalletConnectModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 interface WalletConnectButtonProps extends ClickableButtonProps {}
@@ -48,7 +48,9 @@ export const WalletConnectButton = memo<WalletConnectButtonProps>(function Walle
                 if (connectedNetworks.length) {
                     MyWalletsModalRef.open();
                 } else {
-                    WalletConnectModalRef.open();
+                    WalletConnectModalRef.open({
+                        origin: ClickOrigin.NavBar,
+                    });
                 }
             }}
             {...rest}

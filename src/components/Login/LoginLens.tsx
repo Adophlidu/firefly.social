@@ -20,7 +20,7 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import { LoginModalRef, MyWalletsModalRef,WalletConnectModalRef } from '@/modals/controls.js';
+import { LoginModalRef, MyWalletsModalRef, WalletConnectModalRef } from '@/modals/controls.js';
 import { createAccountForProfileId } from '@/providers/lens/createAccountForProfileId.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';

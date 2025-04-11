@@ -1,4 +1,4 @@
-import { bom } from '@/helpers/bom.js';
+import { ClickOrigin } from '@/constants/enum.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -24,6 +24,7 @@ function resolveEventId(name_: string) {
 export function captureConnectWalletEvent(
     eventId: EventId.CONNECT_WALLET_SUCCESS,
     options?: {
+        origin?: ClickOrigin;
         name?: string;
         address?: string;
         connect_time?: number;
@@ -34,7 +35,7 @@ export function captureConnectWalletEvent(
         const evmAddress = options?.address?.startsWith('eip155') ? options?.address.split(':')[2] : undefined;
         const solanaAddress = options?.address?.startsWith('solana') ? options?.address.split(':')[1] : undefined;
         const event = {
-            click_location: bom.location?.href.includes('/settings') ? 'settings' : 'nav_bar',
+            click_location: options?.origin ?? ClickOrigin.Others,
             wallet_address: evmAddress || solanaAddress || '0x0',
             wallet_type: evmAddress ? 'evm' : solanaAddress ? 'solana' : 'unknown',
             wallet_name: options?.name ?? 'unknown',

@@ -15,11 +15,9 @@ import { useMounted } from '@/hooks/useMounted.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
-interface FooterProps {
-    collapsed?: boolean;
-}
+interface FooterProps {}
 
-export function Footer({ collapsed = false }: FooterProps) {
+export function Footer(props: FooterProps) {
     const mounted = useMounted();
     const isLogin = useIsLogin();
     const isLoginFirefly = useIsLoginFirefly();

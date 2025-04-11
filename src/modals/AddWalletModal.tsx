@@ -1,26 +1,20 @@
 import { t } from '@lingui/core/macro';
-import bs58 from 'bs58';
 import { first } from 'lodash-es';
 import { useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import { type Address } from 'viem';
 
 import { SelectNetworkModalUI } from '@/components/SelectNetworkModalUI.js';
-import { config } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { resolveValue } from '@/helpers/resolveValue.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { MyWalletsModalRef } from '@/modals/controls.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { getWalletAdaptorRequired, WalletNotConnectedError } from '@/providers/solana/getWalletAdapter.js';
 import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
+import { verifyAndBindWallet } from '@/services/verifyAndBindWallet.js';
 
 export interface AddWalletModalProps {
     connections: FireflyWalletConnection[];
@@ -47,47 +41,18 @@ export function AddWalletModal({ ref }: Props) {
 
     const [{ loading }, onBind] = useAsyncFn(
         async (network: NetworkType) => {
-            function checkExistedConnection(address: string) {
-                const existedConnection = connections.find((connection) => isSameAddress(connection.address, address));
-                if (existedConnection) {
+            try {
+                const result = await verifyAndBindWallet(network, (address: string) => {
+                    const existedConnection = connections.find((connection) =>
+                        isSameAddress(connection.address, address),
+                    );
+                    if (!existedConnection) return false;
+
                     MyWalletsModalRef.open();
                     const addressName = first(existedConnection.ens) || formatAddress(address, 8);
                     enqueueWarningMessage(t`${addressName} is already connected.`);
                     dispatch?.abort?.(new Error(`Already connected address name = ${addressName}.`));
                     return true;
-                }
-                return false;
-            }
-
-            try {
-                const result = await resolveValue(async () => {
-                    switch (network) {
-                        case NetworkType.Ethereum: {
-                            const walletClient = await getWalletClientRequired(config);
-                            const address = walletClient.account.address;
-                            if (checkExistedConnection(address)) return;
-                            const message = await FireflyEndpointProvider.getMessageToSignForBindWallet(
-                                address.toLowerCase(),
-                            );
-                            const signature = await walletClient.signMessage({
-                                message: { raw: message },
-                                account: address as Address,
-                            });
-                            return await FireflyEndpointProvider.verifyAndBindWallet(message, signature);
-                        }
-                        case NetworkType.Solana: {
-                            const adapter = await getWalletAdaptorRequired();
-                            const address = adapter.publicKey.toBase58();
-                            if (checkExistedConnection(address)) return;
-                            const hexMessage =
-                                await FireflyEndpointProvider.getMessageToSignMessageForBindSolanaWallet(address);
-                            const message = bs58.decode(bs58.encode(Buffer.from(hexMessage.substring(2), 'hex')));
-                            const signature = Buffer.from(await adapter.signMessage(message)).toString('hex');
-                            return FireflyEndpointProvider.verifyAndBindSolanaWallet(address, hexMessage, signature);
-                        }
-                        default:
-                            throw new WalletNotConnectedError();
-                    }
                 });
                 if (!result) {
                     dispatch?.abort?.(new Error('This address type is not supported'));

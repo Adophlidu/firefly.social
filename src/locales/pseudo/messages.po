@@ -2535,9 +2535,6 @@ msgstr ""
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr ""
 
-msgid "Add wallet"
-msgstr ""
-
 msgid "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
 msgstr ""
 

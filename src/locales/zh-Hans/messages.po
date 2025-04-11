@@ -2553,9 +2553,6 @@ msgstr "\"{keyword}\" 没有结果"
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "如果存在此功能，项目所有者即使在放弃后也可以重新获得所有权。"
 
-msgid "Add wallet"
-msgstr "添加钱包"
-
 msgid "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
 msgstr "投票权：通过社区治理参与关键决策，塑造平台的发展。"
 

@@ -32,7 +32,7 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
             onClick={handleAddWallet}
             disabled={loading || disabled}
         >
-            {loading ? <Trans>Adding...</Trans> : <Trans>Add wallet</Trans>}
+            {loading ? <Trans>Adding...</Trans> : <Trans>Add Wallet</Trans>}
         </ClickableButton>
     );
 });

@@ -4,7 +4,7 @@ import { RouterProvider } from '@tanstack/react-router';
 import { useEffect } from 'react';
 
 import { Modal } from '@/components/Modal.js';
-import type { NetworkType } from '@/constants/enum.js';
+import { ClickOrigin, type NetworkType } from '@/constants/enum.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
@@ -12,6 +12,7 @@ import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
 
 export interface WalletConnectModalOpenProps {
+    origin?: ClickOrigin;
     networkType?: NetworkType;
 }
 type Props = {
@@ -21,16 +22,17 @@ type Props = {
 export function WalletConnectModalRoot({ ref }: Props) {
     const isDark = useIsDarkMode();
     const { setThemeMode } = useAppKitTheme();
-    const { setNetworkType: updateNetworkType, unsetNetworkType: reset } = WalletConnectContext.useContainer();
+    const { setNetworkType, unsetNetworkType, setOrigin } = WalletConnectContext.useContainer();
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
-            updateNetworkType(props?.networkType ? props.networkType : undefined);
+            setNetworkType(props?.networkType ? props.networkType : undefined);
+            setOrigin(props?.origin ?? ClickOrigin.Others);
         },
         onClose: async () => {
             await delay(300);
 
-            reset();
+            unsetNetworkType();
             walletRouter.navigate({ to: '/main', replace: true });
         },
     });
