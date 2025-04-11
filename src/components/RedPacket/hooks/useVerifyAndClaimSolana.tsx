@@ -12,7 +12,7 @@ import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { resolveSolanaAccountId } from '@/helpers/resolveSolanaAccountId.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
-import { ConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/controls.js';
 import { type ClaimNativeTokenContext, SolanaRedPacket } from '@/providers/solana/RedPacket.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -28,7 +28,7 @@ export function useVerifyAndClaimSolana(payload: RedPacketJSONPayload, post: Pos
         const accountId = resolveSolanaAccountId(payload.rpid, payload.accountId);
 
         if (!walletProvider?.publicKey) {
-            ConnectModalRef.open({ networkType: NetworkType.Solana });
+            WalletConnectModalRef.open({ networkType: NetworkType.Solana });
             return { canClaim: true };
         }
 

@@ -31,7 +31,7 @@ import type { TokenSelectorModalCloseProps, TokenSelectorModalOpenProps } from '
 import type { TransactionSimulatorModalOpenProps } from '@/modals/TransactionSimulatorModal.js';
 import type { WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/index.js';
 
-export const ConnectModalRef = new SingletonModal<WalletConnectModalOpenProps | void>();
+export const WalletConnectModalRef = new SingletonModal<WalletConnectModalOpenProps | void>();
 export const LoginModalRef = new SingletonModal<LoginModalOpenProps | void>();
 export const LogoutModalRef = new SingletonModal<LogoutModalProps | void>();
 export const ComposeModalRef = new SingletonModal<ComposeModalOpenProps, ComposeModalCloseProps>();

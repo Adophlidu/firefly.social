@@ -13,7 +13,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
-import { ConnectModalRef, LoginModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -63,7 +63,7 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
         switch (networkType) {
             case NetworkType.Solana:
             case NetworkType.Ethereum:
-                ConnectModalRef.open({ networkType });
+                WalletConnectModalRef.open({ networkType });
                 break;
             default:
                 safeUnreachable(networkType);

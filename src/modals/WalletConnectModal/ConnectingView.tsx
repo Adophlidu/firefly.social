@@ -2,7 +2,7 @@ import { CoreChainController } from '@reown/appkit';
 import { useLocation } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 
-import { ConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/controls.js';
 import { captureConnectWalletEvent } from '@/providers/telemetry/captureConnectWalletEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
@@ -15,7 +15,7 @@ export function ConnectingView() {
             CoreChainController.subscribeKey('activeCaipAddress', (address) => {
                 if (!address) return;
 
-                ConnectModalRef.close();
+                WalletConnectModalRef.close();
                 captureConnectWalletEvent(EventId.CONNECT_WALLET_SUCCESS, {
                     name: location.search.name,
                     address,

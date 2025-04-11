@@ -5,7 +5,7 @@ import { getWalletClient, type GetWalletClientParameters, type GetWalletClientRe
 import { chains } from '@/configs/wagmiClient.js';
 import { SwitchChainError } from '@/constants/error.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
-import { ConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/controls.js';
 
 export async function getWalletClientRequired(
     config: Config,
@@ -15,7 +15,7 @@ export async function getWalletClientRequired(
         await getWalletClient(config, args);
     } catch (error) {
         if (error instanceof ConnectorNotConnectedError) {
-            await ConnectModalRef.openAndWaitForClose();
+            await WalletConnectModalRef.openAndWaitForClose();
         } else {
             throw error;
         }

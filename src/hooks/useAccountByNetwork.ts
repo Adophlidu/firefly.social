@@ -6,7 +6,7 @@ import { useAccount } from 'wagmi';
 
 import { NetworkType } from '@/constants/enum.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
-import { ConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/controls.js';
 
 export function useAccountByNetwork(networkType = NetworkType.Ethereum) {
     const account = useAccount();
@@ -43,13 +43,13 @@ export function useWalletAccountAll() {
                 address: account.address ?? '',
                 chainId: account.chainId,
                 isConnected: account.isConnected && !!account.address,
-                connect: () => ConnectModalRef.open({ networkType: NetworkType.Ethereum }),
+                connect: () => WalletConnectModalRef.open({ networkType: NetworkType.Ethereum }),
             },
             solana: {
                 address: solanaAddress ?? '',
                 chainId: SolanaChainId.Mainnet,
                 isConnected: !!connection && !!solanaAddress,
-                connect: () => ConnectModalRef.open({ networkType: NetworkType.Solana }),
+                connect: () => WalletConnectModalRef.open({ networkType: NetworkType.Solana }),
             },
         }),
         [account.address, account.chainId, account.isConnected, solanaAddress, connection],

@@ -8,7 +8,7 @@ import { ActionButton, type ActionButtonProps } from '@/components/ActionButton.
 import { config } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
 import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
-import { ConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/controls.js';
 
 interface ChainGuardButtonProps extends ActionButtonProps {
     targetChainId?: number;
@@ -52,7 +52,7 @@ export const ChainGuardButton = memo<ChainGuardButtonProps>(function ChainBounda
                     switch (networkType) {
                         case NetworkType.Ethereum:
                         case NetworkType.Solana:
-                            ConnectModalRef.open({ networkType });
+                            WalletConnectModalRef.open({ networkType });
                             break;
                         default:
                             unreachable(networkType);

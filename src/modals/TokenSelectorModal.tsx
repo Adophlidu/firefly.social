@@ -16,7 +16,7 @@ import { useAccountByNetwork } from '@/hooks/useAccountByNetwork.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
-import { AddCustomERC20ModalRef, ConnectModalRef } from '@/modals/controls.js';
+import { AddCustomERC20ModalRef, WalletConnectModalRef } from '@/modals/controls.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
 export interface TokenSelectorModalOpenProps {
@@ -99,7 +99,7 @@ export function TokenSelectorModal({ ref }: Props) {
                                     switch (props.networkType) {
                                         case NetworkType.Ethereum:
                                         case NetworkType.Solana:
-                                            ConnectModalRef.open({ networkType: props.networkType });
+                                            WalletConnectModalRef.open({ networkType: props.networkType });
                                             break;
                                         default:
                                             safeUnreachable(props.networkType);

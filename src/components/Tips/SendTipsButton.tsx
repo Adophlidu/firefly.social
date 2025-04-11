@@ -12,7 +12,7 @@ import { resolveCurrentFireflyAccountId, resolveFireflyAccountId } from '@/helpe
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { useTipsValidation } from '@/hooks/useTipsValidation.js';
-import { ConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/controls.js';
 import { captureTipsSendEvent } from '@/providers/telemetry/captureTipsSendEvent.js';
 import { reportTokenTips, UploadTokenTipsToken } from '@/services/reportTokenTips.js';
 
@@ -115,7 +115,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
 export function SendWithEVM() {
     const account = useAccount();
     const onConnect = useCallback(() => {
-        ConnectModalRef.open({ networkType: NetworkType.Ethereum });
+        WalletConnectModalRef.open({ networkType: NetworkType.Ethereum });
     }, []);
 
     return <SendTipsButton connected={account.isConnected} onConnect={onConnect} />;
@@ -125,7 +125,7 @@ export function SendWithSolana() {
     const { connection } = useAppKitConnection();
 
     const onConnect = useCallback(() => {
-        ConnectModalRef.open({ networkType: NetworkType.Solana });
+        WalletConnectModalRef.open({ networkType: NetworkType.Solana });
     }, []);
 
     return <SendTipsButton connected={!!connection} onConnect={onConnect} />;

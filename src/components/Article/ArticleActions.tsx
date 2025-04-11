@@ -21,7 +21,12 @@ import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
-import { CollectArticleModalRef, ConnectModalRef, DraggablePopoverRef, LoginModalRef } from '@/modals/controls.js';
+import {
+    CollectArticleModalRef,
+    WalletConnectModalRef,
+    DraggablePopoverRef,
+    LoginModalRef,
+} from '@/modals/controls.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
@@ -51,7 +56,7 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
             return;
         }
         if (!account.isConnected) {
-            ConnectModalRef.open({ networkType: NetworkType.Ethereum });
+            WalletConnectModalRef.open({ networkType: NetworkType.Ethereum });
             return;
         }
         if (isMedium) {

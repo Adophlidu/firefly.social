@@ -2,7 +2,7 @@ import type { web3 } from '@coral-xyz/anchor';
 import { ProviderUtil } from '@reown/appkit/store';
 import type { Provider } from '@reown/appkit-adapter-solana';
 
-import { ConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/controls.js';
 
 export class WalletNotConnectedError extends Error {
     override name = 'WalletNotConnectedError';
@@ -27,7 +27,7 @@ export async function getWalletAdaptorRequired() {
         return getWalletAdaptorConnected();
     } catch (error) {
         if (error instanceof WalletNotConnectedError) {
-            await ConnectModalRef.openAndWaitForClose();
+            await WalletConnectModalRef.openAndWaitForClose();
         } else {
             throw error;
         }

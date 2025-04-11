@@ -3,7 +3,7 @@ import { useLocation } from '@tanstack/react-router';
 import { useEffect } from 'react';
 import urlcat from 'urlcat';
 
-import { ConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/controls.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
 import { captureConnectWalletEvent } from '@/providers/telemetry/captureConnectWalletEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -32,7 +32,7 @@ export function ConnectingWcView() {
         const unsubscribe = CoreChainController.subscribeKey('activeCaipAddress', (address) => {
             if (!address) return;
 
-            ConnectModalRef.close();
+            WalletConnectModalRef.close();
             captureConnectWalletEvent(EventId.CONNECT_WALLET_SUCCESS, {
                 name: location.search.name,
                 address,

@@ -8,7 +8,7 @@ import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage }
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { ConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 const resolver = memoizePromise(
@@ -27,7 +27,7 @@ export function useDecryptPost(post: Post) {
             if (!ENABLED_DECRYPT_SOURCES.includes(post.source)) return null;
 
             if (post.source === Source.Lens && !account.address) {
-                ConnectModalRef.open({ networkType: NetworkType.Ethereum });
+                WalletConnectModalRef.open({ networkType: NetworkType.Ethereum });
                 return null;
             }
 

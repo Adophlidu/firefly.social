@@ -16,7 +16,7 @@ import { MintStatus, NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
-import { ConnectModalRef, FreeMintModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef, FreeMintModalRef } from '@/modals/controls.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 interface FreeMintButtonProps extends Omit<ClickableButtonProps, 'ref'> {
@@ -85,7 +85,7 @@ export function FreeMintButton({
     const connected = !!account.address;
     const [{ loading: handlerLoading }, handleClick] = useAsyncFn(async () => {
         if (!connected) {
-            ConnectModalRef.open({ networkType: NetworkType.Ethereum });
+            WalletConnectModalRef.open({ networkType: NetworkType.Ethereum });
             return;
         }
         if (!data) return;

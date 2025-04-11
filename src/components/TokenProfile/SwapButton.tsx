@@ -8,7 +8,7 @@ import { ClickableButton, type ClickableButtonProps } from '@/components/Clickab
 import { TokenContext } from '@/components/Token/TokenContext.js';
 import { NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { ConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/controls.js';
 
 export const SwapButton = memo(function SwapButton({ className, ...rest }: ClickableButtonProps) {
     const appKitProvider = useAppKitProvider('eip155');
@@ -25,7 +25,7 @@ export const SwapButton = memo(function SwapButton({ className, ...rest }: Click
             disabled={!tradable}
             onClick={() => {
                 if (!appKitProvider.walletProvider) {
-                    ConnectModalRef.open({ networkType: NetworkType.Ethereum });
+                    WalletConnectModalRef.open({ networkType: NetworkType.Ethereum });
                     return;
                 }
                 setOpenTrader(true);

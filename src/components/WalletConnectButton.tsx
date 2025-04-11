@@ -12,7 +12,7 @@ import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
-import { ConnectModalRef, MyWalletsModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef, MyWalletsModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 interface WalletConnectButtonProps extends ClickableButtonProps {}
@@ -48,7 +48,7 @@ export const WalletConnectButton = memo<WalletConnectButtonProps>(function Walle
                 if (connectedNetworks.length) {
                     MyWalletsModalRef.open();
                 } else {
-                    ConnectModalRef.open();
+                    WalletConnectModalRef.open();
                 }
             }}
             {...rest}

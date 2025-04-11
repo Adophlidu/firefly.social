@@ -64,7 +64,7 @@ export const Modals = memo(function Modals() {
             <AddCustomERC20Modal ref={controls.AddCustomERC20ModalRef.register} />
             <AddCustomERC721Modal ref={controls.AddCustomERC721ModalRef.register} />
             <ChannelSelectModal ref={controls.ChannelSelectModalRef.register} />
-            <WalletConnectModal ref={controls.ConnectModalRef.register} />
+            <WalletConnectModal ref={controls.WalletConnectModalRef.register} />
             <MyWalletsModal ref={controls.MyWalletsModalRef.register} />
             <EditFireflyProfileModal ref={controls.EditFireflyProfileModalRef.register} />
         </>

@@ -20,7 +20,7 @@ import { appkit } from '@/configs/wagmiClient.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
-import { ConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/controls.js';
 import { restoreDisconnectMethod, rewriteDisconnectMethod } from '@/modals/MyWalletsModal/rewriteDisconnectMethod.js';
 import { switchNetwork } from '@/modals/MyWalletsModal/switchNetwork.js';
 import { syncWalletIdentity } from '@/modals/MyWalletsModal/syncWalletIdentity.js';
@@ -153,7 +153,7 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
                 <ClickableButton
                     className="flex h-10 w-full items-center justify-between gap-2 border-b border-secondaryLine bg-lightBg px-2 text-main"
                     onClick={() => {
-                        ConnectModalRef.open();
+                        WalletConnectModalRef.open();
                     }}
                 >
                     <WalletIcon width={20} height={20} />

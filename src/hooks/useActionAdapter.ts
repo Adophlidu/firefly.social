@@ -9,13 +9,13 @@ import { useMemo } from 'react';
 import { chains } from '@/configs/wagmiClient.js';
 import { decodeBase64 } from '@/helpers/decodeBase64.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
-import { ConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/controls.js';
 import { getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';
 
 export function useActionAdapter() {
     const { adapter: evmAdapter } = useEvmWagmiAdapter({
         async onConnectWalletRequest() {
-            await ConnectModalRef.openAndWaitForClose();
+            await WalletConnectModalRef.openAndWaitForClose();
         },
     });
     const { connection } = useAppKitConnection();
@@ -45,7 +45,7 @@ export function useActionAdapter() {
                     const adapter = getWalletAdaptorConnected();
                     return adapter?.publicKey?.toBase58() ?? null;
                 } catch {
-                    await ConnectModalRef.openAndWaitForClose();
+                    await WalletConnectModalRef.openAndWaitForClose();
                     return null;
                 }
             },
