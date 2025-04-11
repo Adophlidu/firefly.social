@@ -1,10 +1,8 @@
 import { t } from '@lingui/core/macro';
 
-import { Source } from '@/constants/enum.js';
-import { redirect } from '@/esm/navigation.js';
+import { FireflyLoginFallback } from '@/app/(normal)/profile/pages/FireflyLoginFallback.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
@@ -13,5 +11,5 @@ export async function generateMetadata() {
 }
 
 export default function Page() {
-    redirect(resolveProfileUrl(Source.Farcaster));
+    return <FireflyLoginFallback />;
 }

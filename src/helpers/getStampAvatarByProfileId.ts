@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { Source } from '@/constants/enum.js';
 import { FIREFLY_STAMP_URL, SITE_URL } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
-import type { FireflyProfile, LensV3Profile } from '@/providers/types/Firefly.js';
+import type { FireflyProfile, LensV3Profile, WalletProfile } from '@/providers/types/Firefly.js';
 
 export function getStampAvatarByProfileId(source: Source, profileId: string) {
     switch (source) {
@@ -46,5 +46,9 @@ export function getStampAvatarByProfileId(source: Source, profileId: string) {
 export function getStampAvatarByFireflyProfile(profile: FireflyProfile) {
     if (profile.identity.source === Source.Lens)
         return getStampAvatarByProfileId(profile.identity.source, (profile.__origin__ as LensV3Profile).id);
+    if (profile.identity.source === Source.Wallet) {
+        const avatar = (profile.__origin__ as WalletProfile).avatar;
+        if (avatar) return avatar;
+    }
     return getStampAvatarByProfileId(profile.identity.source, profile.identity.id);
 }
