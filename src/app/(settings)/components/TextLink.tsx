@@ -1,14 +1,19 @@
+'use client';
+
+import type { MessageDescriptor } from '@lingui/core';
+import { Trans } from '@lingui/react';
+
 import RightArrowIcon from '@/assets/right-arrow.svg';
 import { Link } from '@/components/Link.js';
 import { usePathname } from '@/esm/navigation.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 
 interface TextLinkProps {
-    name: React.ReactNode;
+    descriptor: MessageDescriptor;
     link: `/${string}`;
 }
 
-export function TextLink({ name, link }: TextLinkProps) {
+export function TextLink({ descriptor, link }: TextLinkProps) {
     const pathname = usePathname();
 
     return (
@@ -19,7 +24,8 @@ export function TextLink({ name, link }: TextLinkProps) {
             key={link}
             href={link}
         >
-            {name} <RightArrowIcon width={20} height={20} />
+            <Trans {...descriptor} />
+            <RightArrowIcon width={20} height={20} />
         </Link>
     );
 }

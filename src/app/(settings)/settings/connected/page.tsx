@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import { AccountCards } from '@/app/(settings)/components/AccountCard.js';
@@ -19,7 +19,7 @@ import { LoginModalRef } from '@/modals/controls.js';
 export default function Connected() {
     const isLogin = useIsLoginFirefly();
 
-    useNavigatorTitle(t`Connected accounts`);
+    useNavigatorTitle(msg`Connected accounts`);
 
     return (
         <Section>

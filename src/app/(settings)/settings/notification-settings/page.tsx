@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo } from 'react';
@@ -40,7 +40,7 @@ function getStatusForConfigs(
 }
 
 export default function NotificationPage() {
-    useNavigatorTitle(t`Notifications`);
+    useNavigatorTitle(msg`Notifications`);
 
     const { data, isLoading } = useQuery({
         queryKey: ['notification-settings', 'config'],

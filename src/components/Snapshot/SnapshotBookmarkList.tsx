@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useAccount } from 'wagmi';
@@ -34,7 +34,7 @@ export function SnapshotBookmarkList() {
         select: (data) => compact(data.pages.flatMap((x) => x?.data)),
     });
 
-    useNavigatorTitle(t`Bookmarks`);
+    useNavigatorTitle(msg`Bookmarks`);
 
     return (
         <ListInPage

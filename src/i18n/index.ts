@@ -36,7 +36,7 @@ export const supportedLocales: Record<Locale, string> = {
 
 export const defaultLocale = Locale.en;
 
-export async function getI18n(locale: Locale): Promise<I18n> {
+export function getI18n(locale: Locale): I18n {
     const instance = getI18nInstance(locale);
     return instance;
 }

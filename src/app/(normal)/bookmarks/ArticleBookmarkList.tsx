@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 
@@ -31,7 +31,7 @@ export function ArticleBookmarkList() {
         select: (data) => compact(data.pages.flatMap((x) => x?.data)),
     });
 
-    useNavigatorTitle(t`Bookmarks`);
+    useNavigatorTitle(msg`Bookmarks`);
 
     return (
         <ListInPage

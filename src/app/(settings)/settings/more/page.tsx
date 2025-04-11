@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import { DocumentCard } from '@/app/(settings)/components/DocumentCard.js';
@@ -25,7 +25,7 @@ function SmallXIcon() {
 }
 
 export default function More() {
-    useNavigatorTitle(t`More`);
+    useNavigatorTitle(msg`More`);
 
     return (
         <div className="flex w-full flex-col items-center gap-6 p-6">

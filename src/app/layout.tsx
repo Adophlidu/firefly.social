@@ -13,6 +13,7 @@ import { SiteCookies } from '@/constants/enum.js';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getCookie } from '@/helpers/getCookies.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -30,6 +31,8 @@ export const viewport = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
+    await setupLocaleForSSR();
+
     const rootClass = await getCookie(SiteCookies.FireflyRootClass);
 
     return (

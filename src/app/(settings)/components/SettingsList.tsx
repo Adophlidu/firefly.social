@@ -1,5 +1,6 @@
 'use client';
 
+import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import { TextLink } from '@/app/(settings)/components/TextLink.js';
@@ -16,14 +17,14 @@ export function SettingsList() {
                 <Trans>Settings</Trans>
             </div>
             {[
-                { name: <Trans>General</Trans>, link: '/general' },
-                { name: <Trans>Connected wallets</Trans>, link: '/wallets', isHidden: !isLoggedIn },
-                { name: <Trans>Connected accounts</Trans>, link: '/connected', isHidden: !isLoggedIn },
-                { name: <Trans>Muted contents</Trans>, link: '/mutes', isHidden: !muteMenuList.length },
-                { name: <Trans>Notifications</Trans>, link: '/notification-settings', isHidden: !isLoggedIn },
-                { name: <Trans>More</Trans>, link: '/more' },
+                { name: msg`General`, link: '/general' },
+                { name: msg`Connected wallets`, link: '/wallets', isHidden: !isLoggedIn },
+                { name: msg`Connected accounts`, link: '/connected', isHidden: !isLoggedIn },
+                { name: msg`Muted contents`, link: '/mutes', isHidden: !muteMenuList.length },
+                { name: msg`Notifications`, link: '/notification-settings', isHidden: !isLoggedIn },
+                { name: msg`More`, link: '/more' },
             ].map(({ name, link, isHidden }) => {
-                return isHidden ? null : <TextLink key={link} name={name} link={`/settings${link}`} />;
+                return isHidden ? null : <TextLink key={link} descriptor={name} link={`/settings${link}`} />;
             })}
         </div>
     );

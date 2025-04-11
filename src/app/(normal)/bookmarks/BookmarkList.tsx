@@ -1,5 +1,5 @@
 'use client';
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
@@ -39,7 +39,7 @@ export function BookmarkList({ source }: Props) {
         select: getPostsSelector(source),
     });
 
-    useNavigatorTitle(t`Bookmarks`);
+    useNavigatorTitle(msg`Bookmarks`);
 
     return (
         <ListInPage

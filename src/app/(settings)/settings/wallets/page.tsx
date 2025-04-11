@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { msg, t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
@@ -23,7 +23,7 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 export default function Wallets() {
     const isLogin = useIsLoginFirefly();
-    useNavigatorTitle(t`Connected wallets`);
+    useNavigatorTitle(msg`Connected wallets`);
 
     const {
         data: { connected = EMPTY_LIST, evmConnections = EMPTY_LIST, solanaConnections = EMPTY_LIST } = {},

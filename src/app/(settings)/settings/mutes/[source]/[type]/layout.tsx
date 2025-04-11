@@ -4,6 +4,7 @@ import { MuteType, Source, SourceInURL } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/index.js';
 
 interface Props
@@ -29,6 +30,7 @@ export async function generateMetadata(props: Props) {
     });
 }
 
-export default function MutesListLayout({ children }: { children: React.ReactNode }) {
+export default async function MutesListLayout({ children }: { children: React.ReactNode }) {
+    await setupLocaleForSSR();
     return <>{children}</>;
 }

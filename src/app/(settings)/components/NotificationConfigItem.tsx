@@ -83,7 +83,7 @@ export function NotificationChildConfigItem({ label, description, disabled, ...r
         <ClickableButton
             disabled={loading || disabled}
             onClick={onSwitch}
-            className="flex items-start gap-2 border-b border-line py-2 text-left last:border-none"
+            className="flex w-full items-start gap-2 border-b border-line py-2 text-left last:border-none"
         >
             <Tooltip
                 content={rest.unsupported ? t`Seems like this feature is not supported!` : ''}

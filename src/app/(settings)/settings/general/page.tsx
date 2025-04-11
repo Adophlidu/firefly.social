@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
 import { isServer } from '@tanstack/react-query';
@@ -24,7 +24,7 @@ export default function General() {
     const locale = useLocale();
     const rootClass = useCookie(SiteCookies.FireflyRootClass);
 
-    useNavigatorTitle(t`General`);
+    useNavigatorTitle(msg`General`);
 
     return (
         <Section>

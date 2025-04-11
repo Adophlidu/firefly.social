@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { msg, t } from '@lingui/core/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
@@ -81,7 +81,7 @@ export function NFTBookmarkList() {
     const isLogin = useIsLogin();
     const profileIds = useCurrentProfileIds();
 
-    useNavigatorTitle(t`NFT bookmarks`);
+    useNavigatorTitle(msg`NFT bookmarks`);
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['bookmarks', Source.NFTs, profileIds],

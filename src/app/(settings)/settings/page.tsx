@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 import { useEffect } from 'react';
 
 import { SettingsList } from '@/app/(settings)/components/SettingsList.js';
@@ -12,7 +12,7 @@ export default function Settings() {
     const router = useRouter();
     const isMedium = useIsMedium();
 
-    useNavigatorTitle(t`Settings`);
+    useNavigatorTitle(msg`Settings`);
 
     useEffect(() => {
         if (isMedium) router.replace('/settings/general');

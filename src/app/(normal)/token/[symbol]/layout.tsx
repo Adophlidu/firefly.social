@@ -5,6 +5,7 @@ import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 import { getTokenFromCoinGecko } from '@/services/getTokenFromCoinGecko.js';
 import { searchTokenByAddress } from '@/services/searchTokenByAddress.js';
 import type { NextPageProps } from '@/types/index.js';
@@ -15,8 +16,10 @@ interface Props
     }> {}
 
 export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
-    const params = await props.params;
+    await setupLocaleForSSR();
+
     const { children } = props;
+    const params = await props.params;
     const paramSymbol = decodeURIComponent(params.symbol);
     let symbol = paramSymbol;
     if (isValidAddressEthereum(paramSymbol)) {

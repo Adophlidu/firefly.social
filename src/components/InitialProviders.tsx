@@ -13,7 +13,6 @@ import { useLocale } from '@/helpers/getCookies.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { setLocale } from '@/i18n/index.js';
 import { recordUserThemeMode } from '@/services/recordUserThemeMode.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -46,10 +45,7 @@ export const InitialProviders = memo(function Providers(props: { children: React
 
     const locale = useLocale();
 
-    useEffect(() => {
-        console.info('[i18n] set locale =', locale);
-        setLocale(locale);
-    }, [locale]);
+    useEffect(() => {}, [locale]);
 
     useEffectOnce(() => {
         if (!viewerId) setViewerId(uuid());

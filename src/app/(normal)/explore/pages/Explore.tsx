@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 import { safeUnreachable } from '@masknet/kit';
 
 import { ChannelList } from '@/components/Channel/ChannelList.js';
@@ -15,7 +15,7 @@ interface Props {
 }
 
 export function ExplorePage({ source, type }: Props) {
-    useNavigatorTitle(t`Explore`);
+    useNavigatorTitle(msg`Explore`);
 
     switch (type) {
         case ExploreType.TopProfiles:

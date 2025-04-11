@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import { TextLink } from '@/app/(settings)/components/TextLink.js';
@@ -9,7 +9,8 @@ import { useMuteMenuList } from '@/hooks/useMuteMenuList.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 
 export default function Page() {
-    useNavigatorTitle(t`Mutes`);
+    useNavigatorTitle(msg`Mutes`);
+
     const menus = useMuteMenuList();
 
     return (
@@ -20,8 +21,8 @@ export default function Page() {
             <div>
                 {menus.map((menu) => (
                     <TextLink
-                        key={menu.name}
-                        name={menu.name}
+                        key={`${menu.source}-${menu.type}`}
+                        descriptor={menu.name}
                         link={`/settings/mutes/${resolveSourceInUrl(menu.source)}/${menu.type}`}
                     />
                 ))}

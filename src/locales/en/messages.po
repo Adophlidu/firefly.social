@@ -1536,9 +1536,6 @@ msgstr "<0>Price</0><1>${0}</1><2/>{1}"
 msgid "Collected"
 msgstr "Collected"
 
-msgid "Hide small transactions(<$100)"
-msgstr "Hide small transactions(<$100)"
-
 msgid "Show more users"
 msgstr "Show more users"
 
@@ -4182,6 +4179,9 @@ msgstr "Mint function"
 
 msgid "Clear"
 msgstr "Clear"
+
+msgid "Hide small transactions (<$100)"
+msgstr "Hide small transactions (<$100)"
 
 msgid "Message"
 msgstr "Message"

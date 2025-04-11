@@ -11,7 +11,7 @@ function resolveLocale(locale: string): Locale {
     return getEnumAsArray(Locale).find(({ value }) => value === locale)?.value ?? defaultLocale;
 }
 
-function getClientCookie(name: SiteCookies) {
+export function getClientCookies(name: SiteCookies) {
     const pair = document.cookie.split('; ').find((x) => x.startsWith(`${name}=`));
     if (!pair) return '';
     const [, value] = pair.split('=');
@@ -19,7 +19,7 @@ function getClientCookie(name: SiteCookies) {
 }
 
 export async function getCookie(name: SiteCookies) {
-    if (bom.document) return getClientCookie(name);
+    if (bom.document) return getClientCookies(name);
     return (await cookies()).get(name)?.value;
 }
 
@@ -28,13 +28,18 @@ export async function getLocaleFromCookies() {
     return locale ? resolveLocale(locale) : defaultLocale;
 }
 
+export function getLocalFromClientCookies() {
+    const locale = getClientCookies(SiteCookies.Locale);
+    return locale ? resolveLocale(locale) : defaultLocale;
+}
+
 export function getIsDevFromCookies() {
-    const fireflyRootAPI = getClientCookie(SiteCookies.FireflyRootAPI);
+    const fireflyRootAPI = getClientCookies(SiteCookies.FireflyRootAPI);
     return fireflyRootAPI === FIREFLY_DEV_ROOT_URL;
 }
 
 export function useCookie(key: SiteCookies) {
-    if (bom.document) return getClientCookie(key);
+    if (bom.document) return getClientCookies(key);
     return use(cookies()).get(key)?.value;
 }
 

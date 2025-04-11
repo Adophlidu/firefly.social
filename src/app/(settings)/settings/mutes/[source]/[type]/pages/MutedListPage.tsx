@@ -1,3 +1,5 @@
+import type { MessageDescriptor } from '@lingui/core';
+import { Trans } from '@lingui/react';
 import { safeUnreachable } from '@masknet/kit';
 import { Suspense } from 'react';
 
@@ -11,7 +13,7 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 
 interface MutedListProps {
-    name: string;
+    descriptor: MessageDescriptor;
     type: MuteType;
     source: Source;
 }
@@ -32,14 +34,16 @@ function MutedContent({ type, source }: { type: MuteType; source: Source }) {
     }
 }
 
-export function MutedListPage({ name, type, source }: MutedListProps) {
+export function MutedListPage({ descriptor, type, source }: MutedListProps) {
     const comeback = useComeBack();
 
     return (
         <div className="flex h-[calc(100vh_-_54px)] flex-col p-6 md:h-screen md:min-w-[280px] md:flex-1">
             <div className="hidden pb-6 text-[20px] font-bold leading-[24px] text-lightMain md:flex md:items-center md:gap-6">
                 <ComebackIcon className="cursor-pointer" width={24} height={24} onClick={comeback} />
-                <span>{name}</span>
+                <span>
+                    <Trans {...descriptor} />
+                </span>
             </div>
             <div className="no-scrollbar flex-1 overflow-auto">
                 <Suspense fallback={<Loading />}>

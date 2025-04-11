@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 import { use } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
@@ -57,7 +57,7 @@ export default function Page(props: Props) {
         },
     );
 
-    useNavigatorTitle(t`Notifications`);
+    useNavigatorTitle(msg`Notifications`);
 
     if (!queryResult.isFetchingNextPage && queryResult.isFetching) {
         return <Loading />;

@@ -1541,9 +1541,6 @@ msgstr ""
 msgid "Collected"
 msgstr ""
 
-msgid "Hide small transactions(<$100)"
-msgstr ""
-
 msgid "Show more users"
 msgstr ""
 
@@ -4170,6 +4167,9 @@ msgid "Mint function"
 msgstr "鑄造功能"
 
 msgid "Clear"
+msgstr ""
+
+msgid "Hide small transactions (<$100)"
 msgstr ""
 
 msgid "Message"

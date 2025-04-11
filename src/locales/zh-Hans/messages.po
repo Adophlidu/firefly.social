@@ -1541,9 +1541,6 @@ msgstr "<0>价格</0><1>${0}</1><2/>{1}"
 msgid "Collected"
 msgstr "已铸造"
 
-msgid "Hide small transactions(<$100)"
-msgstr ""
-
 msgid "Show more users"
 msgstr "展示更多用户"
 
@@ -4189,6 +4186,9 @@ msgstr "铸造功能"
 
 msgid "Clear"
 msgstr "清空"
+
+msgid "Hide small transactions (<$100)"
+msgstr ""
 
 msgid "Message"
 msgstr "信息"
