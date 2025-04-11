@@ -40,8 +40,8 @@ export function SwapTimeline({ isFollowing, address }: SwapTimelineProps) {
     const { selectedChainId } = useSwapStateStore();
     const router = useRouter();
     const queryKey = isFollowing
-        ? ['swap', 'following', profileIds, selectedChainId]
-        : ['swap', 'profile', address, profileIds, selectedChainId];
+        ? ['swaps', 'following', profileIds, selectedChainId]
+        : ['swaps', 'profile', address, profileIds, selectedChainId];
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey,

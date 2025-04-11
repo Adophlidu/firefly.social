@@ -163,8 +163,8 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                     type: 'compose',
                     chars: [
                         choice
-                            ? t`🙌  Just voted “${choice}” on “${snapshot.title}”`
-                            : t`🙌  Just voted on “${snapshot.title}”`,
+                            ? t`🙌 Just voted “${choice}” on “${snapshot.title}”`
+                            : t`🙌 Just voted on “${snapshot.title}”`,
                         `\n\n${snapshot.link}`,
                     ],
                 });

@@ -13,6 +13,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { resolveFireflyAccountFallbackName } from '@/helpers/resolveFireflyAccountFallbackName.js';
 import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
 import { useDeleteFireflyAccount } from '@/hooks/useDeleteFireflyAccount.js';
+import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { EditFireflyProfileModalRef, LogoutModalRef } from '@/modals/controls.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 
@@ -21,6 +22,8 @@ export function FireflyAccountCard() {
 
     const account = data?.fireflyAccount;
     const [, deleteFireflyAccount] = useDeleteFireflyAccount();
+
+    const avatar = useFireflyAccountAvatar();
 
     if (!isLoading && (error || !account)) return null;
 
@@ -33,9 +36,7 @@ export function FireflyAccountCard() {
                 )}
             >
                 <div className="mr-2 size-[60px] shrink-0 rounded-full bg-bg">
-                    {!isLoading ? (
-                        <Avatar size={60} alt="firefly-avatar" className="!z-0" src={account?.avatar ?? ''} />
-                    ) : null}
+                    {!isLoading ? <Avatar size={60} alt="firefly-avatar" className="!z-0" src={avatar ?? ''} /> : null}
                 </div>
                 <div className="mr-2 flex h-10 flex-col items-start justify-evenly text-sm font-normal leading-5">
                     <div

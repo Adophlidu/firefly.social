@@ -186,10 +186,6 @@ msgstr ""
 msgid "$ {0} <0>Net worth</0>"
 msgstr ""
 
-#. placeholder {0}: snapshot.title
-msgid "🙌  Just voted “{choice}” on “{0}”"
-msgstr ""
-
 msgid "Enter your email address below, and we’ll send a one-time passcode to confirm your address"
 msgstr ""
 
@@ -300,6 +296,10 @@ msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryp
 msgstr ""
 
 msgid "This token is a gas abuser."
+msgstr ""
+
+#. placeholder {0}: snapshot.title
+msgid "🙌 Just voted “{choice}” on “{0}”"
 msgstr ""
 
 msgid "Ended"
@@ -1490,10 +1490,6 @@ msgid "Reply"
 msgstr ""
 
 msgid "Add an existing account"
-msgstr ""
-
-#. placeholder {0}: snapshot.title
-msgid "🙌  Just voted on “{0}”"
 msgstr ""
 
 #. placeholder {0}: channel.name
@@ -3694,6 +3690,10 @@ msgid "Platform filter"
 msgstr ""
 
 msgid "Unfollow"
+msgstr ""
+
+#. placeholder {0}: snapshot.title
+msgid "🙌 Just voted on “{0}”"
 msgstr ""
 
 msgid "No one can reply"

@@ -2,7 +2,6 @@ import { evmAddress } from '@lens-protocol/client';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay, safeUnreachable } from '@masknet/kit';
-import { useQuery } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
@@ -23,7 +22,6 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { ensureLensResult } from '@/helpers/ensureLensResult.js';
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
-import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { formatThirdPartyProfileName } from '@/helpers/formatThirdPartyProfileName.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -32,9 +30,9 @@ import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { useCurrentFireflyAccountAvatar } from '@/hooks/useCurrentFireflyAccountAvatar.js';
+import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
+import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -47,7 +45,6 @@ import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import { switchAccount } from '@/services/account.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
-import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 
 export function MainView() {
     const router = useRouter();
@@ -58,7 +55,8 @@ export function MainView() {
     const isLoginFirefly = useIsLoginFirefly();
     const profileStore = useProfileStoreAll();
     const profilesAll = useCurrentProfilesAll();
-    const thirdPartyProfile = useThirdPartyStateStore.use.accounts();
+
+    const { data } = useAllConnectionsFormattedWithProfiles();
 
     const pathname = usePathname();
     const updateParams = useUpdateParams();
@@ -155,16 +153,9 @@ export function MainView() {
         [identity.id, identity.source, isMyProfilePage, isPureProfilePage, updateParams],
     );
 
-    const { data } = useQuery({
-        queryKey: ['allConnections', [...thirdPartyProfile.map((x) => x.profile.profileId), isLoginFirefly]],
-        queryFn: () => {
-            if (!isLoginFirefly) return;
-            return runInSafeAsync(() => FireflyEndpointProvider.getAllConnections());
-        },
-    });
+    const avatar = useFireflyAccountAvatar();
 
-    const currentProfile = data?.account ? formatFireflyAccountProfileFromFireflyConnections(data.account) : null;
-    const avatar = useCurrentFireflyAccountAvatar(currentProfile?.uid, currentProfile?.avatar);
+    const currentProfile = data?.fireflyAccount;
 
     return (
         <div className="rounded-[6px] bg-primaryBottom px-6 pb-6 max-md:max-h-[calc(100vh_-_64px)] max-md:overflow-auto md:w-[400px]">
@@ -178,7 +169,7 @@ export function MainView() {
                                 onClick={() => {
                                     EditFireflyProfileModalRef.open({
                                         profile: currentProfile,
-                                        fallbackDisplayName: resolveFireflyAccountFallbackName(data),
+                                        fallbackDisplayName: resolveFireflyAccountFallbackName(data?.__origin__),
                                     });
                                 }}
                             >
@@ -260,7 +251,7 @@ export function MainView() {
             <div className="flex flex-col gap-2">
                 {SORTED_THIRD_PARTY_SOURCES_IN_URL.map((sourceInUrl, index) => {
                     const source = resolveSource(sourceInUrl) as ThirdPartySource | Source.Email;
-                    const profile = data ? formatAccountFromConnections(sourceInUrl, data) : null;
+                    const profile = data ? formatAccountFromConnections(sourceInUrl, data.__origin__) : null;
                     return (
                         <div className="overflow-hidden rounded-lg border border-secondaryLine" key={index}>
                             <ClickableButton

@@ -30,7 +30,7 @@ export function useChangeSwapLikeStatus(activity?: SwapActivity) {
                     pages: Array<{ data: SwapActivity[] }>;
                 }>(
                     {
-                        queryKey: ['swap'],
+                        queryKey: ['swaps'],
                     },
                     (old) => {
                         if (!old) return old;
@@ -47,6 +47,15 @@ export function useChangeSwapLikeStatus(activity?: SwapActivity) {
                         });
                     },
                 );
+
+                queryClient.setQueryData<SwapActivity>(['swap', activity.hash, activity.chain_id], (old) => {
+                    if (!old) return old;
+
+                    return produce(old, (draft) => {
+                        draft.is_like = !activity.is_like;
+                        draft.like_count = draft.like_count + (activity.is_like ? -1 : 1);
+                    });
+                });
 
                 if (!activity.is_like) captureSwapEvent(EventId.EVENT_LIKE_SWAP_CLICK);
 

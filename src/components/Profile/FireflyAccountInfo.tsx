@@ -27,8 +27,8 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import { useCurrentFireflyAccountAvatar } from '@/hooks/useCurrentFireflyAccountAvatar.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -59,7 +59,7 @@ export function FireflyAccountInfo({ banner, walletProfile, socialProfile, ident
         initialData: profile,
     });
     const { displayName, uid } = data || {};
-    const avatar = useCurrentFireflyAccountAvatar(data?.uid, data?.avatar);
+    const avatar = useFireflyAccountAvatar();
     const [buttonContainerRef, buttonContainerEntry] = useIntersectionObserver({
         threshold: 0.5,
     });

@@ -186,10 +186,6 @@ msgstr "均分金额"
 msgid "$ {0} <0>Net worth</0>"
 msgstr ""
 
-#. placeholder {0}: snapshot.title
-msgid "🙌  Just voted “{choice}” on “{0}”"
-msgstr ""
-
 msgid "Enter your email address below, and we’ll send a one-time passcode to confirm your address"
 msgstr "请输入您的邮箱地址，我们将发送一次性验证码以确认您的邮箱。"
 
@@ -301,6 +297,10 @@ msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市
 
 msgid "This token is a gas abuser."
 msgstr "该通证是一个燃料滥用者。"
+
+#. placeholder {0}: snapshot.title
+msgid "🙌 Just voted “{choice}” on “{0}”"
+msgstr ""
 
 msgid "Ended"
 msgstr "已结束"
@@ -1491,10 +1491,6 @@ msgstr "回复"
 
 msgid "Add an existing account"
 msgstr "添加一个已有的账号"
-
-#. placeholder {0}: snapshot.title
-msgid "🙌  Just voted on “{0}”"
-msgstr ""
 
 #. placeholder {0}: channel.name
 msgid "Confirm you want to mute /{0}?"
@@ -3711,6 +3707,10 @@ msgstr "筛选社交平台"
 
 msgid "Unfollow"
 msgstr "取消关注"
+
+#. placeholder {0}: snapshot.title
+msgid "🙌 Just voted on “{0}”"
+msgstr ""
 
 msgid "No one can reply"
 msgstr "没有人可评论"
