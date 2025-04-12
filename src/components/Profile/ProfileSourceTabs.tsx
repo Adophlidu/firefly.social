@@ -290,6 +290,11 @@ function ProfileMenuItem({ profile }: { profile: FireflyProfile }) {
     );
 }
 
+const enum ScrollDirection {
+    Left = 'left',
+    Right = 'right',
+}
+
 function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
     const [hiddenLeft, setHiddenLeft] = useState(true);
     const [hiddenRight, setHiddenRight] = useState(true);
@@ -313,15 +318,14 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
         return () => resizeObserver.disconnect();
     }, [handleButtons]);
 
-    function onScrollTo(distance: number) {
+    function onScrollTo(direction: ScrollDirection) {
         const element = ref.current;
         if (!element) return;
         element.scrollTo({
             behavior: 'smooth',
-            left: element.scrollLeft + distance,
+            left: direction === ScrollDirection.Left ? 0 : element.scrollWidth,
         });
     }
-    const STEP = 100;
 
     return (
         <div
@@ -336,8 +340,9 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
                         'pointer-events-none opacity-0': hiddenLeft,
                     },
                 )}
-                onClick={() => onScrollTo(-STEP)}
+                onClick={() => onScrollTo(ScrollDirection.Left)}
             >
+                <span className="absolute left-0 top-0 size-full scale-[2]" />
                 <ArrowLeftIcon className="relative h-2 w-auto shrink-0" />
             </button>
             {children}
@@ -348,8 +353,9 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
                         'pointer-events-none opacity-0': hiddenRight,
                     },
                 )}
-                onClick={() => onScrollTo(STEP)}
+                onClick={() => onScrollTo(ScrollDirection.Right)}
             >
+                <span className="absolute left-0 top-0 size-full scale-[2]" />
                 <ArrowRightIcon className="relative h-2 w-auto shrink-0" />
             </button>
         </div>
