@@ -79,7 +79,8 @@ export function FireflyAccountInfo({ banner, walletProfile, socialProfile, ident
         return profiles?.some((x) =>
             Object.values(allCurrentProfiles).some(
                 (currentProfile) =>
-                    x.identity.source === currentProfile?.source && x.identity.id === currentProfile.profileId,
+                    x.identity.source === currentProfile?.source &&
+                    (x.identity.id === currentProfile.profileId || x.identity.id === currentProfile?.handle),
             ),
         );
     }, [allCurrentProfiles, profiles]);
