@@ -29,16 +29,17 @@ export interface AvatarProps extends Omit<NextImageProps, 'src'> {
     fallbackUrl?: string;
 }
 
-export const Avatar = memo(function Avatar({ src, size, className, fallbackUrl, ...rest }: AvatarProps) {
+export const Avatar = memo(function Avatar({ src, size, className, ...rest }: AvatarProps) {
     const isDarkMode = useIsDarkMode();
     const [hasError, setHasError] = useState(false);
 
     const url = [resolveAvatarFallbackUrl, resolveImgurUrl].reduce((acc, fn) => (acc ? fn(acc, isDarkMode) : acc), src);
 
     const defaultFallbackUrl = isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
+    const fallbackUrl = rest.fallbackUrl ?? defaultFallbackUrl;
 
     const isNormalUrl = !!src && !src.startsWith('data:image/') && !isDomainOrSubdomainOf(src, 'warpcast.com');
-    const imageSrc = hasError ? defaultFallbackUrl : (isNormalUrl ? url : src) || src || defaultFallbackUrl;
+    const imageSrc = hasError ? fallbackUrl : (isNormalUrl ? url : src) || src || fallbackUrl;
 
     return (
         <NextImage

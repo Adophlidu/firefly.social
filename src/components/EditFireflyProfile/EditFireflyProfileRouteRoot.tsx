@@ -25,7 +25,7 @@ export function EditFireflyProfileRouteRoot() {
     };
     const form = useForm<EditFireflyProfileFromValues>({
         defaultValues: {
-            displayName: context.profile.displayName,
+            displayName: context.profile?.displayName,
         },
         mode: 'onChange',
     });

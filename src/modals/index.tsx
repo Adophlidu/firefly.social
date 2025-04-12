@@ -2,6 +2,7 @@
 
 import { memo } from 'react';
 
+import { NoSSR } from '@/components/NoSSR.js';
 import { AddCustomERC20Modal } from '@/modals/AddCustomERC20Modal.js';
 import { AddCustomERC721Modal } from '@/modals/AddCustomERC721Modal.js';
 import { AddWalletModal } from '@/modals/AddWalletModal.js';
@@ -36,7 +37,7 @@ import { WalletConnectModal } from '@/modals/WalletConnectModal/index.js';
 
 export const Modals = memo(function Modals() {
     return (
-        <>
+        <NoSSR>
             <LoginModal ref={controls.LoginModalRef.register} />
             <LogoutModal ref={controls.LogoutModalRef.register} />
             <ComposeModal ref={controls.ComposeModalRef.register} />
@@ -67,6 +68,6 @@ export const Modals = memo(function Modals() {
             <WalletConnectModal ref={controls.WalletConnectModalRef.register} />
             <MyWalletsModal ref={controls.MyWalletsModalRef.register} />
             <EditFireflyProfileModal ref={controls.EditFireflyProfileModalRef.register} />
-        </>
+        </NoSSR>
     );
 });
