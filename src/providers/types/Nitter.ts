@@ -138,6 +138,9 @@ export interface TweetPoll {
     votes: number;
     leader: number;
     status: string;
+    url: string;
+    endTime: string;
+    durationMinutes: string;
 }
 
 export interface TweetGif {

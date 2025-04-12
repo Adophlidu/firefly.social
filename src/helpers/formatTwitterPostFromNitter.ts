@@ -6,6 +6,7 @@ import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
+import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { resolveTweetReplySettings } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfileFromNitter } from '@/helpers/formatTwitterProfileFromNitter.js';
@@ -153,6 +154,23 @@ export function formatTwitterPostFromNitter(
         post.parentPostId = post.mirrorOn.postId;
         const retweeted = options?.tweet?.referenced_tweets?.find((tweet) => tweet.type === 'retweeted');
         if (retweeted && options?.tweet?.author_id === twitterSessionHolder.session?.profileId) post.hasMirrored = true;
+    }
+
+    if (tweet.poll) {
+        const poll = tweet.poll;
+        const cardPrefix = 'card://';
+        const id = poll.url.startsWith(cardPrefix) ? tweet.poll.url.substring(cardPrefix.length) : tweet.poll.url;
+        const durationMinutes = poll.durationMinutes ? parseInt(poll.durationMinutes, 10) : 0;
+        post.poll = {
+            id,
+            options: tweet.poll.options.map((x, i) => ({ label: x, id: x, votes: poll.values[i] })),
+            durationSeconds: durationMinutes * 60,
+            votingStatus: dayjs(poll.endTime).isBefore(dayjs()) ? 'open' : 'closed',
+            endDatetime: poll.endTime,
+            source: Source.Twitter,
+            type: POLL_CHOICE_TYPE.Single,
+            strategies: POLL_STRATEGIES.None,
+        };
     }
 
     return post;
