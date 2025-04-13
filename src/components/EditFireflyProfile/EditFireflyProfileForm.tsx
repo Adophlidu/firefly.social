@@ -43,6 +43,7 @@ export function EditFireflyProfileForm() {
             await queryClient.refetchQueries({ queryKey: ['my-wallet-connections'] });
             await queryClient.refetchQueries({ queryKey: ['wallet-profiles'] });
             await queryClient.refetchQueries({ queryKey: ['allConnections'] });
+            await queryClient.refetchQueries({ queryKey: ['firefly-profile'] });
 
             captureEditProfileSuccessEvent(
                 compact([
