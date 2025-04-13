@@ -57,8 +57,7 @@ export function FireflyAccountInfo({ banner, walletProfile, socialProfile, ident
         },
         initialData: profile,
     });
-    const { displayName, uid } = data || {};
-    const avatar = useFireflyAccountAvatar();
+    const { displayName, uid, avatar } = data || {};
     const [buttonContainerRef, buttonContainerEntry] = useIntersectionObserver({
         threshold: 0.5,
     });
@@ -85,7 +84,7 @@ export function FireflyAccountInfo({ banner, walletProfile, socialProfile, ident
         );
     }, [allCurrentProfiles, profiles]);
 
-    const noFireflyAccount = (!displayName && !data?.avatar) || !uid;
+    const noFireflyAccount = (!displayName && !avatar) || !uid;
 
     const isLogin = useIsLogin(narrowToSocialSource(identity.source));
     const title = useMemo(() => {
@@ -153,16 +152,10 @@ export function FireflyAccountInfo({ banner, walletProfile, socialProfile, ident
                             height={200}
                             className="absolute left-0 top-0 h-[100px] w-full object-cover"
                         />
+                    ) : avatar && !isCurrentProfile ? (
+                        <FireflyAccountBanner src={avatar} />
                     ) : (
-                        <div className="absolute left-0 top-0 flex h-[100px] w-full overflow-hidden">
-                            <Image
-                                src={avatar ?? getStampAvatarByProfileId(Source.Firefly, uid)}
-                                alt="firefly-account-banner"
-                                width={1196}
-                                height={200}
-                                className="absolute left-0 top-1/2 h-auto min-h-[100px] w-full -translate-y-1/2 transform-gpu object-cover blur-md"
-                            />
-                        </div>
+                        <CurrentFireflyAccountBannerByAvatar uid={uid} />
                     )}
 
                     <div className="relative mt-5 flex w-full px-6" ref={buttonContainerRef}>
@@ -206,11 +199,15 @@ export function FireflyAccountInfo({ banner, walletProfile, socialProfile, ident
                         </div>
                     </div>
                     <div className="flex w-full flex-col items-center px-4">
-                        <Avatar
-                            size={80}
-                            alt="firefly-account"
-                            src={avatar ?? (uid ? getStampAvatarByProfileId(Source.Firefly, uid) : undefined)}
-                        />
+                        {isCurrentProfile && !avatar ? (
+                            <CurrentFireflyAccountAvatar uid={uid} />
+                        ) : (
+                            <Avatar
+                                size={80}
+                                alt="firefly-account"
+                                src={avatar ?? (uid ? getStampAvatarByProfileId(Source.Firefly, uid) : undefined)}
+                            />
+                        )}
                         <div className="h-6 min-w-0 max-w-full truncate text-lg font-bold leading-6">
                             {displayName ?? <Trans>Firefly User</Trans>}
                         </div>
@@ -222,5 +219,35 @@ export function FireflyAccountInfo({ banner, walletProfile, socialProfile, ident
                 </div>
             ) : null}
         </>
+    );
+}
+
+function FireflyAccountBanner({ src }: { src: string }) {
+    return (
+        <div className="absolute left-0 top-0 flex h-[100px] w-full overflow-hidden">
+            <Image
+                src={src}
+                alt="firefly-account-banner"
+                width={1196}
+                height={200}
+                className="absolute left-0 top-1/2 h-auto min-h-[100px] w-full -translate-y-1/2 transform-gpu object-cover blur-md"
+            />
+        </div>
+    );
+}
+
+function CurrentFireflyAccountBannerByAvatar({ uid }: { uid: string }) {
+    const currentAvatar = useFireflyAccountAvatar();
+    return <FireflyAccountBanner src={currentAvatar ?? getStampAvatarByProfileId(Source.Firefly, uid)} />;
+}
+
+function CurrentFireflyAccountAvatar({ uid }: { uid?: string }) {
+    const avatar = useFireflyAccountAvatar();
+    return (
+        <Avatar
+            size={80}
+            alt="firefly-account"
+            src={avatar ?? (uid ? getStampAvatarByProfileId(Source.Firefly, uid) : undefined)}
+        />
     );
 }

@@ -104,10 +104,12 @@ function TriggerButton({
     profile,
     identity,
     menu = false,
+    isLast = false,
 }: {
     profile: FireflyProfile;
     identity: FireflyIdentity;
     menu?: boolean;
+    isLast?: boolean;
 }) {
     const source = profile.identity.source;
     const isCurrentSource =
@@ -115,9 +117,16 @@ function TriggerButton({
     const ref = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
     useLayoutEffect(() => {
         if (isCurrentSource) {
+            if (isLast) {
+                ref.current?.parentElement?.scrollTo({
+                    left: ref.current.parentElement?.scrollWidth ?? 1000,
+                    behavior: 'instant',
+                });
+                return;
+            }
             ref.current?.scrollIntoView({ behavior: 'auto' });
         }
-    }, [isCurrentSource]);
+    }, [isLast, isCurrentSource]);
 
     if (!isProfilePageSource(source)) return null;
 
@@ -369,7 +378,8 @@ export function ProfileSourceTabs({ profiles, identity }: { profiles: FireflyPro
 
     return (
         <ProfileSourceTabsContainer>
-            {sources.map((source) => {
+            {sources.map((source, i) => {
+                const isLast = sources.length - 1 === i;
                 const currentSourceProfiles = profiles
                     .filter((profile) => profile.identity.source === source)
                     .sort((a, b) => {
@@ -395,7 +405,7 @@ export function ProfileSourceTabs({ profiles, identity }: { profiles: FireflyPro
                     <Menu key={source}>
                         {({ close }) => (
                             <>
-                                <TriggerButton profile={topProfile} identity={identity} menu />
+                                <TriggerButton profile={topProfile} identity={identity} menu isLast={isLast} />
                                 <MenuItems
                                     transition
                                     anchor="bottom"
