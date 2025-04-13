@@ -6,8 +6,8 @@ import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {
-    walletProfile?: WalletProfile;
-    socialProfile?: Profile;
+    walletProfile?: WalletProfile | null;
+    socialProfile?: Profile | null;
     source: ProfilePageSource;
     profiles?: FireflyProfile[];
 }

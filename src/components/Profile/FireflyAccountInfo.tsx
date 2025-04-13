@@ -41,8 +41,8 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {
     banner?: string;
-    walletProfile?: WalletProfile;
-    socialProfile?: Profile;
+    walletProfile?: WalletProfile | null;
+    socialProfile?: Profile | null;
     identity: FireflyIdentity;
     profiles?: FireflyProfile[];
     profile?: FireflyAccountProfile | null;

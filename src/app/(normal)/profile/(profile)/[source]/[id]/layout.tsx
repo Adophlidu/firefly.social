@@ -1,3 +1,5 @@
+import { StatusCodes } from 'http-status-codes';
+
 import { NoSSR } from '@/components/NoSSR.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { FireflyAccountInfo } from '@/components/Profile/FireflyAccountInfo.js';
@@ -6,6 +8,7 @@ import { ProfileInfoCard } from '@/components/Profile/ProfileInfoCard.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
 import { type LoginFallbackSource, SourceInURL } from '@/constants/enum.js';
+import { FetchError } from '@/constants/error.js';
 import { notFound } from '@/esm/navigation.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
@@ -54,10 +57,13 @@ export default async function Layout(props: Props) {
     const { walletProfile } = resolveFireflyProfiles(identity, profiles);
     const socialProfile =
         identity.id && !walletProfile
-            ? await runInSafeAsync(() =>
-                  resolveSocialMediaProvider(narrowToSocialSource(identity.source)).getProfileByIdOrHandle(identity.id),
-              )
-            : undefined;
+            ? await resolveSocialMediaProvider(narrowToSocialSource(identity.source))
+                  .getProfileByIdOrHandle(identity.id)
+                  .catch((error) => {
+                      if (!(error instanceof FetchError && error.status === StatusCodes.FORBIDDEN)) notFound();
+                      return null;
+                  })
+            : null;
 
     return (
         <>
@@ -65,7 +71,7 @@ export default async function Layout(props: Props) {
                 profile={relatedProfile.account}
                 identity={identity}
                 socialProfile={socialProfile}
-                walletProfile={walletProfile ?? undefined}
+                walletProfile={walletProfile}
                 profiles={profiles}
             />
             <ProfileSourceTabs profiles={profiles} identity={identity} />
@@ -76,7 +82,7 @@ export default async function Layout(props: Props) {
                     <ProfileInfoCard
                         source={source}
                         socialProfile={socialProfile}
-                        walletProfile={walletProfile ?? undefined}
+                        walletProfile={walletProfile}
                         profiles={profiles}
                     />
                     <NoSSR>{props.children}</NoSSR>
