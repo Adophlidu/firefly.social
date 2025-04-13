@@ -79,7 +79,12 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                             </span>
                         ) : null}
                         <PolymarketIcon width={15} height={15} className="mr-auto shrink-0" />
-                        {isMyProfile ? null : <WalletBaseMoreAction address={activity.wallet as Address} />}
+                        {isMyProfile ? null : (
+                            <WalletBaseMoreAction
+                                address={activity.wallet as Address}
+                                ens={activity.displayInfo.ensHandle}
+                            />
+                        )}
                     </div>
                     <Link
                         target="_blank"

@@ -3,7 +3,6 @@
 import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import type { Address } from 'viem';
-import { useEnsName } from 'wagmi';
 
 import MoreIcon from '@/assets/more.svg';
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
@@ -25,10 +24,10 @@ interface Props {
     contractAddress?: Address;
     tokenId?: string;
     chainId?: number;
+    ens?: string;
 }
 
-export function WalletBaseMoreAction({ address, contractAddress, tokenId, chainId }: Props) {
-    const { data: ens } = useEnsName({ address });
+export function WalletBaseMoreAction({ ens, address, contractAddress, tokenId, chainId }: Props) {
     const { data } = useNFTDetail(chainId, contractAddress, tokenId);
     const { data: isMuted } = useIsWalletMuted(address);
 

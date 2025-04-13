@@ -116,7 +116,10 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                         </div>
 
                         <ClickableArea>
-                            <WalletBaseMoreAction address={activity.owner as Address} />
+                            <WalletBaseMoreAction
+                                address={activity.owner as Address}
+                                ens={activity.displayInfo.ensHandle}
+                            />
                         </ClickableArea>
                     </div>
                     {activity.dex_name || activity.router_address ? (

@@ -4,21 +4,23 @@ import { ActivityCellHeader, type ActivityCellHeaderProps } from '@/components/A
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 
-interface NFTFeedHeaderProps extends Omit<ActivityCellHeaderProps, 'icon'> {
+interface NFTFeedHeaderProps extends Omit<ActivityCellHeaderProps, 'icon' | 'displayName'> {
     chainId: number;
     contractAddress: Address;
     tokenId: string;
+    ens?: string;
 }
 
-export function NFTFeedHeader({ chainId, ...props }: NFTFeedHeaderProps) {
+export function NFTFeedHeader({ ens, chainId, ...props }: NFTFeedHeaderProps) {
     const { address, contractAddress, tokenId } = props;
     return (
-        <ActivityCellHeader {...props} icon={<ChainIcon chainId={chainId} size={15} />}>
+        <ActivityCellHeader {...props} icon={<ChainIcon chainId={chainId} size={15} />} displayName={ens}>
             <WalletBaseMoreAction
                 address={address}
                 contractAddress={contractAddress}
                 tokenId={tokenId}
                 chainId={chainId}
+                ens={ens}
             />
         </ActivityCellHeader>
     );

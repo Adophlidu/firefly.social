@@ -89,7 +89,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
                         contractAddress={contractAddress}
                         tokenId={token.id}
                         chainId={chainId}
-                        displayName={displayInfo.ensHandle}
+                        ens={displayInfo.ensHandle}
                         time={time}
                     />
                     <NFTsActivityCellAction

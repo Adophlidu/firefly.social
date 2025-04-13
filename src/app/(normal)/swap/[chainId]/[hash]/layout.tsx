@@ -23,6 +23,7 @@ export default async function SwapPageLayout(props: Props) {
     if (!activity) {
         notFound();
     }
+
     return (
         <>
             <div className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-line bg-primaryBottom px-4">
@@ -32,7 +33,7 @@ export default async function SwapPageLayout(props: Props) {
                         <Trans>Transaction</Trans>
                     </span>
                 </div>
-                <WalletBaseMoreAction address={activity.owner as Address} />
+                <WalletBaseMoreAction address={activity.owner as Address} ens={activity.displayInfo.ensHandle} />
             </div>
             {children}
         </>
