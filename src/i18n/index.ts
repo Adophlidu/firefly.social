@@ -43,7 +43,7 @@ export function getI18n(locale: Locale): I18n {
 
 export async function setupLocaleForSSR() {
     const locale = await getLocaleFromCookies();
-    const i18n = await getI18n(locale);
+    const i18n = getI18n(locale);
     setI18n(i18n);
     setLocale(i18n.locale as Locale);
 }
