@@ -26,7 +26,7 @@ import { formatPrice } from '@/helpers/formatPrice.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isMPCWallet } from '@/helpers/isMPCWallet.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { Debank } from '@/providers/debank/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -41,7 +41,7 @@ export const WALLET_PROFILE_ACTION_ID = 'profile-action';
 const HIDDEN_NET_WORTH = true;
 
 export function WalletInfo({ profile }: WalletInfoProps) {
-    const isMedium = useIsMedium();
+    const isLarge = useIsLarge();
 
     const avatar = profile.avatar ?? getStampAvatarByProfileId(Source.Wallet, profile.address);
     const networkType = getAddressType(profile.address);
@@ -82,13 +82,18 @@ export function WalletInfo({ profile }: WalletInfoProps) {
     const iconSize = 16;
 
     return (
-        <div className="flex gap-3 p-4">
+        <div className="flex items-center gap-3 p-4">
             <Avatar src={avatar} alt="avatar" size={40} className="size-10 rounded-full border border-lightHighlight" />
             <div className="relative flex flex-1 flex-col">
-                <div className="flex flex-col gap-1">
-                    <div className="flex min-h-8 flex-row items-start justify-between" id={WALLET_PROFILE_ACTION_ID}>
+                <div className="flex flex-col gap-2">
+                    <div className="flex min-h-8 flex-row items-center justify-between" id={WALLET_PROFILE_ACTION_ID}>
                         <div className="flex flex-col">
                             <div className="flex flex-row items-center">
+                                {profile.isDefault ? (
+                                    <div className="my-auto mr-1 h-6 rounded bg-highlight bg-opacity-[0.16] px-2 text-[13px] font-medium leading-6 text-highlight">
+                                        <Trans>Primary</Trans>
+                                    </div>
+                                ) : null}
                                 <div className="h-6 min-w-0 truncate text-lg font-black leading-6 text-lightMain">
                                     {displayName}
                                 </div>
@@ -169,17 +174,17 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                         </NoSSR>
                     </div>
 
-                    <NoSSR>
-                        <div className="flex items-center gap-1 text-sm leading-[14px] text-secondary">
-                            {isMedium ? profile.address : formatAddress(profile.address, 4)}
+                    <div className="flex items-center gap-1 text-sm leading-[14px] text-secondary">
+                        {isLarge ? profile.address : formatAddress(profile.address, 4)}
+                        <NoSSR>
                             <CopyTextButton text={profile.address} />
                             {addressLink ? (
                                 <Link target="_blank" href={addressLink}>
                                     <LinkIcon width={14} height={14} />
                                 </Link>
                             ) : null}
-                        </div>
-                    </NoSSR>
+                        </NoSSR>
+                    </div>
                 </div>
                 {profile.hacked ? (
                     <p className="mt-3 rounded-lg bg-danger bg-opacity-[0.16] px-3 py-2 text-sm leading-[18px] text-danger">

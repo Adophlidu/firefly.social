@@ -314,7 +314,7 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
             return;
         }
         setHiddenLeft(target.scrollLeft <= 0);
-        setHiddenRight(target.scrollLeft >= target.scrollWidth - target.clientWidth);
+        setHiddenRight(Math.round(target.scrollLeft) >= Math.trunc(target.scrollWidth - target.clientWidth));
     }, []);
 
     const ref = useRef<HTMLDivElement>(null);
