@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-03-27 12:01\n"
+"PO-Revision-Date: 2025-04-12 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -231,7 +231,7 @@ msgid "This space does not exist."
 msgstr "该空间不存在。"
 
 msgid "Display Name"
-msgstr "显示名称"
+msgstr "全名"
 
 msgid "Blackmail activities found."
 msgstr "发现勒索行为。"
@@ -244,7 +244,7 @@ msgid "GIF source not supported. Supported sources: {0}."
 msgstr "暂不支持 GIF。支持格式：{0}。"
 
 msgid "Join"
-msgstr ""
+msgstr "加入"
 
 #. placeholder {0}: error.status
 msgid "Failed to fetch: {0}. Please try again later."
@@ -1632,7 +1632,7 @@ msgid "<0>Revised</0><1>an article on <2/></1>"
 msgstr "<0>更新</0><1>一篇文章于 <2/></1>"
 
 msgid "Time"
-msgstr ""
+msgstr "时间"
 
 msgid "Holders can sell all of the token."
 msgstr "持有者可以出售所有代币。"
@@ -2016,7 +2016,7 @@ msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> 点赞"
 
 msgid "Swapped"
-msgstr ""
+msgstr "已兑换"
 
 msgid "This Email is already linked to another Firefly account."
 msgstr ""
@@ -2068,7 +2068,7 @@ msgid "Failed to render embeds"
 msgstr ""
 
 msgid "Display Name should not be blank"
-msgstr "显示名称不可以为空"
+msgstr "全名不可以为空"
 
 msgid "Clear All"
 msgstr "全部清除"
@@ -2129,7 +2129,7 @@ msgid "NFT holder of any one below"
 msgstr "持有以下任意 NFT 系列"
 
 msgid "Push notifications"
-msgstr ""
+msgstr "通知"
 
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
 msgstr "确认断开此账户及相关钱包与 Firefly 社交图谱的连接吗？"
@@ -2334,7 +2334,7 @@ msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr "关注需付出 {feeAmount} ${feeSymbol}"
 
 msgid "Farcaster"
-msgstr ""
+msgstr "Farcaster"
 
 msgid "Replying to"
 msgstr "正在回复"
@@ -2688,7 +2688,7 @@ msgid "No activity yet"
 msgstr ""
 
 msgid "UID: {uid}"
-msgstr ""
+msgstr "UID: {uid}"
 
 msgid "Top 500 Buttrfly Points Leaderboard"
 msgstr "Buttrfly Points 排行榜 Top 500"
@@ -3274,7 +3274,7 @@ msgid "<0>Any assets in this Firefly wallet will be permanently lost and cannot 
 msgstr "<0>该 Firefly 钱包中的所有资产将永久丢失，无法恢复。</0>在继续操作之前，请将所有资金和资产从您的 Firefly 钱包中提取，以避免任何损失。"
 
 msgid "Display Name should not exceed 20 characters"
-msgstr "显示名称不可以超过 20 个字符"
+msgstr "全名不可以超过 20 个字符"
 
 msgid "New"
 msgstr ""
@@ -3399,7 +3399,7 @@ msgid "Failed to continue. Please allow Lens Manager for performing actions with
 msgstr "无法继续。请允许 Lens Manager 执行操作，而无需对每笔交易进行签名。"
 
 msgid "Contract"
-msgstr ""
+msgstr "合约"
 
 msgid "Results"
 msgstr "结果"
@@ -3699,7 +3699,7 @@ msgid "Your email is now connected."
 msgstr "您的邮箱已连接。"
 
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
-msgstr "显示名称不可以超过 {maxDisplayNameSize} 个字"
+msgstr "全名不可以超过 {maxDisplayNameSize} 个字"
 
 msgid "Failed to send tip."
 msgstr "发送打赏失败。"
