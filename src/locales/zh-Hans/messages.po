@@ -1244,9 +1244,6 @@ msgstr "反鲸鱼（有限的交易次数）"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>点赞了你的 </4><5>{1, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</5>"
 
-msgid "reposted"
-msgstr "已转发"
-
 msgid "One-time passcode sent to you"
 msgstr "一次性验证码已发送给您"
 
@@ -1369,9 +1366,6 @@ msgstr "您确定要举报这个 NFT 吗？"
 
 msgid "Failed to send."
 msgstr "发送失败。"
-
-msgid "and"
-msgstr "和"
 
 msgid "Channel"
 msgstr "频道"
@@ -2125,9 +2119,6 @@ msgstr "{0}<0> 项目</0>"
 msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
 msgstr "<0/> 评论了你的 <1>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</1>"
 
-msgid "liked"
-msgstr "点赞"
-
 msgid "Users"
 msgstr "用户"
 
@@ -2304,9 +2295,6 @@ msgstr "Farcaster"
 
 msgid "Replying to"
 msgstr "正在回复"
-
-msgid "commented"
-msgstr "已回复"
 
 msgid "Add another NFT gate"
 msgstr "添加另一个 NFT 门槛"
@@ -3443,10 +3431,6 @@ msgstr ""
 "刚刚通过铸造 {fireflyMention} 的 Inviting Yup & Phaver frens🌟 收藏品获得了 $MASK 代币。\n"
 "\n"
 "点击这里领取：{shareUrl}"
-
-#. placeholder {0}: firstProfile.displayName
-msgid "{0} and others"
-msgstr "{0} 和 其他"
 
 msgid "Download Wallet"
 msgstr "下载钱包"

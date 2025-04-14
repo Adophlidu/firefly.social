@@ -1,14 +1,12 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { compact, first, flatten } from 'lodash-es';
-import { memo, useMemo } from 'react';
+import { first } from 'lodash-es';
+import { memo } from 'react';
 
 import LikeIcon from '@/assets/like.svg';
 import LikedIcon from '@/assets/liked.svg';
 import MirrorIcon from '@/assets/mirror.svg';
-import SparkIcon from '@/assets/spark.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Link } from '@/components/Link.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
@@ -44,64 +42,9 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
     const pathname = usePathname();
     const isPostPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
 
-    const combined =
-        [post.mirrors?.length ?? 0, post.reactions?.length ?? 0, post.comments?.length ?? 0].filter((x) => x > 0)
-            .length > 1;
-
-    const combinedDescription = useMemo(() => {
-        if (!combined) return;
-        const actions = compact([
-            post.mirrors?.length ? t`reposted` : undefined,
-            post.reactions?.length ? t`liked` : undefined,
-            post.comments?.length ? t`commented` : undefined,
-        ]);
-
-        return (
-            <span className="flex items-center space-x-1">
-                {actions.map((action, index) => (
-                    <span key={index} className="space-x-1">
-                        <span>{action}</span>
-                        {index < actions.length - 2 && <span>, </span>}
-                        {index === actions.length - 2 && <span>{t`and`}</span>}
-                    </span>
-                ))}
-            </span>
-        );
-    }, [combined, post]);
-
-    const profilesDescription = useMemo(() => {
-        const profiles = compact(flatten([post.mirrors, post.reactions, post.comments?.map((x) => x.author)])).filter(
-            (profile, index, self) => index === self.findIndex((t) => t.profileId === profile.profileId),
-        );
-
-        const firstProfile = first(profiles);
-        if (!firstProfile) return;
-
-        return profiles.length > 1 ? (
-            <Link href={getProfileUrl(firstProfile)}>
-                <Trans>{firstProfile.displayName} and others</Trans>
-            </Link>
-        ) : (
-            firstProfile.displayName
-        );
-    }, [post]);
-
     return (
         <ClickableArea className="w-full">
-            {combined && !isPostPage ? (
-                <div className="mb-3 flex items-center space-x-2 text-medium text-secondary">
-                    <SparkIcon width={16} height={16} className="flex-shrink-0" />
-                    <span className="flex min-w-0 items-center space-x-1">
-                        <strong className="truncate">{profilesDescription}</strong>
-                        <span>{combinedDescription}</span>
-                    </span>
-                </div>
-            ) : null}
-            {post.type === 'Mirror' &&
-            post.reporter &&
-            post.source !== Source.Twitter &&
-            post.source !== Source.Bsky &&
-            !isPostPage ? (
+            {post.type === 'Mirror' && post.reporter && !isPostPage ? (
                 <div className="mb-3 flex items-center space-x-2 text-medium text-secondary">
                     <MirrorIcon width={16} height={16} className="flex-shrink-0" />
                     <Link href={getProfileUrl(post.reporter)} className="flex min-w-0 space-x-1">
@@ -112,26 +55,6 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
                         ) : (
                             <Trans>
                                 <strong className="truncate">{post.reporter.displayName}</strong>
-                                <span className="flex-shrink-0">reposted</span>
-                            </Trans>
-                        )}
-                    </Link>
-                </div>
-            ) : null}
-            {post.type === 'Mirror' &&
-            post.reporter &&
-            (post.source === Source.Twitter || post.source === Source.Bsky) &&
-            !isPostPage ? (
-                <div className="mb-3 flex items-center space-x-2 text-medium text-secondary">
-                    <MirrorIcon width={16} height={16} className="flex-shrink-0" />
-                    <Link href={getProfileUrl(post.reporter)} className="flex min-w-0 space-x-1">
-                        {isSameProfile(post.reporter, currentProfile) ? (
-                            <Trans>
-                                <strong className="mr-1">You</strong> reposted
-                            </Trans>
-                        ) : (
-                            <Trans>
-                                <strong>{post.reporter.displayName}</strong>
                                 <span className="flex-shrink-0">reposted</span>
                             </Trans>
                         )}

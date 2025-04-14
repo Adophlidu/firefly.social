@@ -1239,9 +1239,6 @@ msgstr "Anti_whale(Limited number of transactions)"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 
-msgid "reposted"
-msgstr "reposted"
-
 msgid "One-time passcode sent to you"
 msgstr "One-time passcode sent to you"
 
@@ -1364,9 +1361,6 @@ msgstr "Are you sure you want to report this collection?"
 
 msgid "Failed to send."
 msgstr "Failed to send."
-
-msgid "and"
-msgstr "and"
 
 msgid "Channel"
 msgstr "Channel"
@@ -2120,9 +2114,6 @@ msgstr "{0}<0> Items</0>"
 msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
 msgstr "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
 
-msgid "liked"
-msgstr "liked"
-
 msgid "Users"
 msgstr "Users"
 
@@ -2299,9 +2290,6 @@ msgstr "Farcaster"
 
 msgid "Replying to"
 msgstr "Replying to"
-
-msgid "commented"
-msgstr "commented"
 
 msgid "Add another NFT gate"
 msgstr "Add another NFT gate"
@@ -3438,10 +3426,6 @@ msgstr ""
 "Just earned $MASK by minting the Inviting Yup & Phaver frens🌟 collectible from {fireflyMention}  \n"
 "\n"
 "Claim here {shareUrl}"
-
-#. placeholder {0}: firstProfile.displayName
-msgid "{0} and others"
-msgstr "{0} and others"
 
 msgid "Download Wallet"
 msgstr "Download Wallet"

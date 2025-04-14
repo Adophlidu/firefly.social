@@ -1244,9 +1244,6 @@ msgstr ""
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 msgstr ""
 
-msgid "reposted"
-msgstr ""
-
 msgid "One-time passcode sent to you"
 msgstr ""
 
@@ -1368,9 +1365,6 @@ msgid "Are you sure you want to report this collection?"
 msgstr ""
 
 msgid "Failed to send."
-msgstr ""
-
-msgid "and"
 msgstr ""
 
 msgid "Channel"
@@ -2117,9 +2111,6 @@ msgstr ""
 msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</1>"
 msgstr ""
 
-msgid "liked"
-msgstr ""
-
 msgid "Users"
 msgstr ""
 
@@ -2295,9 +2286,6 @@ msgid "Farcaster"
 msgstr ""
 
 msgid "Replying to"
-msgstr ""
-
-msgid "commented"
 msgstr ""
 
 msgid "Add another NFT gate"
@@ -3426,10 +3414,6 @@ msgid ""
 "Just earned $MASK by minting the Inviting Yup & Phaver frens🌟 collectible from {fireflyMention}  \n"
 "\n"
 "Claim here {shareUrl}"
-msgstr ""
-
-#. placeholder {0}: firstProfile.displayName
-msgid "{0} and others"
 msgstr ""
 
 msgid "Download Wallet"
