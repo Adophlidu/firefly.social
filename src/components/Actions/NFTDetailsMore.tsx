@@ -1,5 +1,5 @@
 import { MenuItem } from '@headlessui/react';
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
 
 import MoreIcon from '@/assets/more.svg';
@@ -26,7 +26,7 @@ export const NFTDetailsMore = memo<NFTDetailsMoreProps>(function NFTDetailsMore(
         <MoreActionMenu
             className={className}
             button={
-                <Tooltip content={t`More`} placement="top">
+                <Tooltip content={<Trans>More</Trans>} placement="top">
                     <MoreIcon width={24} height={24} className="text-secondary" />
                 </Tooltip>
             }

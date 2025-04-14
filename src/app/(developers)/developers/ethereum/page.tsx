@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/react/macro';
 import { EthereumMethodType } from '@masknet/web3-shared-evm';
 
 import { EthereumMethodButton } from '@/app/(developers)/components/EthereumMethodButton.js';
@@ -6,7 +5,6 @@ import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { classNames } from '@/helpers/classNames.js';
-import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { MethodItem } from '@/types/ethereum.js';
 
 type Item = MethodItem & {
@@ -38,13 +36,9 @@ const items: Item[] = [
 ];
 
 export default async function Page() {
-    await setupLocaleForSSR();
-
     return (
         <Section className="h-screen">
-            <Headline>
-                <Trans>Ethereum JSON RPC</Trans>
-            </Headline>
+            <Headline>Ethereum JSON RPC</Headline>
 
             {
                 <menu className="no-scrollbar w-full flex-1 overflow-auto">

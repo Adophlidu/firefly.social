@@ -28,15 +28,14 @@ interface Props
     }> {}
 
 export async function generateMetadata(props: Props) {
-    const params = await props.params;
-    const { source, type } = params;
+    const { source, type } = await props.params;
 
     return createSiteMetadata({
         title: await createPageTitleSSR(resolveMuteTitle(`${source}_${type}`)),
     });
 }
 
-export default async function MutesListLayout({ children }: { children: React.ReactNode }) {
+export default async function Layout({ children }: { children: React.ReactNode }) {
     await setupLocaleForSSR();
     return <>{children}</>;
 }

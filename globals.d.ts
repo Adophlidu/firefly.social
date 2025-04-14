@@ -67,6 +67,16 @@ namespace React {
             'w3m-downloads-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
             'w3m-connecting-multi-chain-view': DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
         }
+
+        // https://github.com/remarkjs/react-markdown/issues/877
+        interface IntrinsicElements {
+            a: React.JSX.IntrinsicElements['a'];
+            p: React.JSX.IntrinsicElements['p'];
+            br: React.JSX.IntrinsicElements['br'];
+            ol: React.JSX.IntrinsicElements['ol'];
+            img: React.JSX.IntrinsicElements['img'];
+            code: React.JSX.IntrinsicElements['code'];
+        }
     }
 }
 

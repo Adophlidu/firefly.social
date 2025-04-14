@@ -1,6 +1,6 @@
 'use client';
 
-import { msg, t } from '@lingui/core/macro';
+import { t } from '@lingui/core/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
@@ -21,7 +21,6 @@ import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 
@@ -80,8 +79,6 @@ function GridItem({ children, ...props }: GridItemProps) {
 export function NFTBookmarkList() {
     const isLogin = useIsLogin();
     const profileIds = useCurrentProfileIds();
-
-    useNavigatorTitle(msg`NFT bookmarks`);
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['bookmarks', Source.NFTs, profileIds],

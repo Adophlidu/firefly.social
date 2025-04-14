@@ -2,7 +2,6 @@
 
 'use client';
 
-import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
 
@@ -264,7 +263,7 @@ export function BridgeMethodButton({ item }: Props) {
             disabled={loading}
             onClick={onClick}
         >
-            <Trans>Invoke</Trans>
+            Invoke
         </ClickableButton>
     );
 }

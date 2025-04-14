@@ -1,5 +1,6 @@
 import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 import { useEnsName } from 'wagmi';
 
@@ -42,7 +43,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                         <LoadingIcon size={16} className="text-secondary" />
                     </span>
                 ) : (
-                    <Tooltip content={t`More`} placement="top">
+                    <Tooltip content={<Trans>More</Trans>} placement="top">
                         <MoreIcon className="text-secondary" width={24} height={24} />
                     </Tooltip>
                 )

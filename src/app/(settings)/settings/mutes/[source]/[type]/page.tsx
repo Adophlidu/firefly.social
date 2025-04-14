@@ -18,5 +18,5 @@ export default function Page(props: Props) {
     const currentMenu = muteMenuList.find((menu) => menu.type === type && resolveSourceInUrl(menu.source) === source);
     if (!currentMenu || currentMenu.shouldHide()) return null;
 
-    return <MutedListPage descriptor={currentMenu.name} type={type} source={currentMenu.source} />;
+    return <MutedListPage name={currentMenu.name} type={type} source={currentMenu.source} />;
 }

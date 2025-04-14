@@ -1,6 +1,5 @@
 'use client';
 
-import { msg } from '@lingui/core/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useAccount } from 'wagmi';
@@ -11,7 +10,6 @@ import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 export function SnapshotBookmarkList() {
@@ -33,8 +31,6 @@ export function SnapshotBookmarkList() {
         },
         select: (data) => compact(data.pages.flatMap((x) => x?.data)),
     });
-
-    useNavigatorTitle(msg`Bookmarks`);
 
     return (
         <ListInPage

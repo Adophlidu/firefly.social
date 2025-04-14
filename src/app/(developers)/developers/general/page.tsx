@@ -1,6 +1,5 @@
 'use client';
 
-import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import type { ChangeEvent, ReactNode } from 'react';
 
@@ -45,8 +44,8 @@ export default function Page() {
         {
             type: 'checkbox',
             value: telemetry,
-            title: <Trans>Enable logging telemetry events</Trans>,
-            description: <Trans>Log telemetry events to the console.</Trans>,
+            title: 'Enable logging telemetry events',
+            description: 'Log telemetry events to the console.',
             onClick: () => {
                 updateTelemetry(!telemetry);
             },
@@ -54,8 +53,8 @@ export default function Page() {
         {
             type: 'checkbox',
             value: telemetryDebug,
-            title: <Trans>Enable telemetry debug mode</Trans>,
-            description: <Trans>Send telemetry events in debug mode.</Trans>,
+            title: 'Enable telemetry debug mode',
+            description: 'Send telemetry events in debug mode.',
             onClick: () => {
                 updateTelemetryDebug(!telemetryDebug);
             },
@@ -64,14 +63,14 @@ export default function Page() {
             type: 'text',
             value: settings.FIREFLY_ROOT_URL,
             title: (
-                <Trans>
+                <span>
                     Enable development API version
                     <code className="ml-2 text-sm">
                         {env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled ? 'DEV' : 'PROD'}
                     </code>
-                </Trans>
+                </span>
             ),
-            description: <Trans>Switch to the development API version for testing new features.</Trans>,
+            description: 'Switch to the development API version for testing new features.',
         },
     ];
 
@@ -104,9 +103,7 @@ export default function Page() {
 
     return (
         <Section>
-            <Headline>
-                <Trans>General</Trans>
-            </Headline>
+            <Headline>General</Headline>
 
             {
                 <menu className="no-scrollbar w-full flex-1 overflow-auto">

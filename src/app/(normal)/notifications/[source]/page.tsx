@@ -1,6 +1,5 @@
 'use client';
 
-import { msg } from '@lingui/core/macro';
 import { use } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
@@ -15,7 +14,6 @@ import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginNotifications } from '@/hooks/useIsLogin.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
-import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { type Notification as NotificationObject } from '@/providers/types/SocialMedia.js';
 import { useNotificationStateStore } from '@/store/useNotificationStore.js';
 import type { NextPageProps } from '@/types/index.js';
@@ -58,8 +56,6 @@ export default function Page(props: Props) {
             return list.filter((x) => types.includes(x.type));
         },
     );
-
-    useNavigatorTitle(msg`Notifications`);
 
     if (!queryResult.isFetchingNextPage && queryResult.isFetching) {
         return <Loading />;

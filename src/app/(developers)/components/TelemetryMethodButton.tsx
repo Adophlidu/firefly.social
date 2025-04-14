@@ -1,6 +1,5 @@
 'use client';
 
-import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -33,7 +32,7 @@ export function TelemetryMethodButton({ item }: Props) {
                 onClick();
             }}
         >
-            <Trans>Send</Trans>
+            Send
         </ClickableButton>
     );
 }

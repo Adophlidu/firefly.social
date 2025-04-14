@@ -1,8 +1,6 @@
 'use client';
 
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
-import { t } from '@lingui/core/macro';
-import { Trans } from '@lingui/react/macro';
 import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
@@ -36,13 +34,9 @@ export default function Page() {
 
     return (
         <Section>
-            <Headline>
-                <Trans>Frame Validator</Trans>
-            </Headline>
+            <Headline>Frame Validator</Headline>
 
-            <div className="mb-2 w-full">
-                <Trans>Please input the frame url to be revalidated.</Trans>
-            </div>
+            <div className="mb-2 w-full">Please input the frame url to be revalidated.</div>
 
             <div className="mb-2 flex w-full flex-row gap-2">
                 <input
@@ -50,7 +44,7 @@ export default function Page() {
                     type="text"
                     autoComplete="off"
                     spellCheck="false"
-                    placeholder={t`Your frame URL`}
+                    placeholder="Your frame URL"
                     onChange={(e) => setUrl(e.target.value)}
                 />
                 <ClickableButton

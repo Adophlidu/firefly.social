@@ -136,7 +136,7 @@ export function RequirementsModal({
     };
 
     const requirements = useMemo(() => {
-        const orders = getEnumAsArray(StrategyType).map((x) => x.value);
+        const orders = getEnumAsArray(FireflyRedPacketAPI.StrategyType).map((x) => x.value);
         return sortBy(claimStrategyStatus, (x) => orders.indexOf(x.type as FireflyRedPacketAPI.StrategyType));
     }, [claimStrategyStatus]);
 

@@ -93,7 +93,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 selectedIcon: ActivityIcon,
                             },
                             {
-                                href: PageRoute.Settings,
+                                href: `${PageRoute.Settings}/general`,
                                 name: <Trans>Settings</Trans>,
                                 icon: SettingsIcon,
                                 selectedIcon: SettingsSelectedIcon,

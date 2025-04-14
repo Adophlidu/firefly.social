@@ -1,7 +1,5 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
-import { Trans } from '@lingui/react/macro';
 import { useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -38,9 +36,7 @@ export default function Page() {
 
     return (
         <Section>
-            <Headline>
-                <Trans>Upload to S3</Trans>
-            </Headline>
+            <Headline>Upload to S3</Headline>
             <ClickableArea
                 className="flex h-56 w-full cursor-pointer items-center justify-center rounded-xl bg-bgModal"
                 onClick={() => fileInputRef.current?.click()}
@@ -48,29 +44,27 @@ export default function Page() {
                 {url ? (
                     <Image src={url} alt={name} width={120} height={120} className="rounded-xl object-contain" />
                 ) : (
-                    <span className="text-base font-bold text-secondary">
-                        {file ? file.name : <Trans>Click to upload</Trans>}
-                    </span>
+                    <span className="text-base font-bold text-secondary">{file ? file.name : 'Click to upload'}</span>
                 )}
             </ClickableArea>
             <input
                 value={directory}
                 onChange={(e) => setDirectory(e.target.value)}
                 className="h-10 w-full rounded-xl bg-bgModal"
-                placeholder={t`Directory`}
+                placeholder="Directory"
             />
             <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="h-10 w-full rounded-xl bg-bgModal"
-                placeholder={t`Name`}
+                placeholder="Name"
             />
             <ClickableButton
                 className="mt-6 flex w-full items-center justify-center rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
                 disabled={!file || !directory || !name || loading}
                 onClick={handleUpload}
             >
-                {loading ? <LoadingIcon /> : <Trans>Upload</Trans>}
+                {loading ? <LoadingIcon /> : 'Upload'}
             </ClickableButton>
             {url ? (
                 <Link href={url} target="_blank" className="mt-2 text-base font-bold text-highlight">

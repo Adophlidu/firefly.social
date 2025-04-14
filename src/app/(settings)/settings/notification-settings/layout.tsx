@@ -5,10 +5,10 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: await createPageTitleSSR(msg`Associated wallets`),
+        title: await createPageTitleSSR(msg`Notifications`),
     });
 }
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({ children }: { children: React.ReactNode }) {
     return <>{children}</>;
 }

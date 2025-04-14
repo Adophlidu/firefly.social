@@ -8,7 +8,6 @@ import FireflyIcon from '@/assets/logo.svg';
 import { Agent, Locale, PageRoute } from '@/constants/enum.js';
 import { useSearchParams } from '@/esm/navigation.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { setLocale } from '@/i18n/index.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { SupportedMethod } from '@/types/bridge.js';
 
@@ -40,8 +39,6 @@ export default function AgentPage() {
             const language = await fireflyBridgeProvider.request(SupportedMethod.GET_LANGUAGE, {});
             formData.append('locale', resolveLocale(language as 'en' | 'zh'));
         }
-
-        if (formData.has('locale')) setLocale(formData.get('locale') as Locale);
 
         await delay(1000);
         await changeCookies(formData);

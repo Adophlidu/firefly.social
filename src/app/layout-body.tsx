@@ -1,5 +1,4 @@
 import { BeforeUnload } from '@/components/Compose/BeforeUnload.js';
-import { FireflySessionAbsencePatch } from '@/components/Compose/FireflySessionAbsencePatch.js';
 import { IfHostname } from '@/components/IfHostname.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { NoSSR } from '@/components/NoSSR.js';
@@ -32,9 +31,8 @@ export function LayoutBody({ children }: { children: React.ReactNode }) {
                     shallowRouting
                 />
             </Providers>
-            <BeforeUnload />
             <NoSSR>
-                <FireflySessionAbsencePatch />
+                <BeforeUnload />
             </NoSSR>
         </>
     );

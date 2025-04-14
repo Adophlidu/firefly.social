@@ -1,5 +1,5 @@
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { Fragment, type PropsWithChildren, type ReactNode, useEffect, useRef, useState } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
@@ -175,7 +175,10 @@ export function SearchContentPanel<T, F = void>({
                         ))
                     ) : null
                 ) : (
-                    <NoResultsFallback message={t`There is no data available to select.`} {...fallbackProps} />
+                    <NoResultsFallback
+                        message={<Trans>There is no data available to select.</Trans>}
+                        {...fallbackProps}
+                    />
                 )}
                 {children}
             </div>

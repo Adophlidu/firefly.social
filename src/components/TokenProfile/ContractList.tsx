@@ -1,5 +1,5 @@
 import { MenuItem, MenuItems } from '@headlessui/react';
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
 
 import DotsIcon from '@/assets/dots.svg';
@@ -23,7 +23,7 @@ export const ContractList = memo<Props>(function ContractList({ contracts }) {
         <MoreActionMenu
             loginRequired={false}
             button={
-                <Tooltip content={t`More`} placement="top">
+                <Tooltip content={<Trans>More</Trans>} placement="top">
                     <DotsIcon className="text-secondary" width={16} height={16} />
                 </Tooltip>
             }

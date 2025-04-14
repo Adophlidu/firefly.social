@@ -45,7 +45,7 @@ export const SnapshotMoreAction = memo<MoreProps>(function SnapshotMoreAction({ 
                         <LoadingIcon size={16} className="text-secondary" />
                     </span>
                 ) : (
-                    <Tooltip content={t`More`} placement="top">
+                    <Tooltip content={<Trans>More</Trans>} placement="top">
                         <MoreIcon className="text-secondary" width={24} height={24} />
                     </Tooltip>
                 )

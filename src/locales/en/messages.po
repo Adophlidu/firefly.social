@@ -119,9 +119,6 @@ msgstr "Unmute successfully."
 msgid "Simulating"
 msgstr "Simulating"
 
-msgid "Your frame URL"
-msgstr "Your frame URL"
-
 msgid "Refunded"
 msgstr "Refunded"
 
@@ -192,9 +189,6 @@ msgstr "Delete post"
 
 msgid "You can sign in to Farcaster with the following options."
 msgstr "You can sign in to Farcaster with the following options."
-
-msgid "<0/>Solana wallets"
-msgstr "<0/>Solana wallets"
 
 msgid "Join /{name}"
 msgstr "Join /{name}"
@@ -378,9 +372,6 @@ msgstr "Location should not exceed {maxLocationSize} characters"
 
 msgid "Potential risk of external call."
 msgstr "Potential risk of external call."
-
-msgid "Enable telemetry debug mode"
-msgstr "Enable telemetry debug mode"
 
 msgid "FAILED POST"
 msgstr "FAILED POST"
@@ -664,9 +655,6 @@ msgstr "Read this <0>disclaimer</0> before participation. For any inquiries, ple
 
 msgid "Report submitted"
 msgstr "Report submitted"
-
-msgid "Switch to the development API version for testing new features."
-msgstr "Switch to the development API version for testing new features."
 
 #. placeholder {0}: post.stats.quotes
 msgid "{0, plural, one {quote} other {quotes}}"
@@ -972,9 +960,6 @@ msgstr "Items"
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "Failed to upload. More than {maxImageCount} images."
 
-msgid "NFT bookmarks"
-msgstr "NFT bookmarks"
-
 msgid "Minting Txn Hash"
 msgstr "Minting Txn Hash"
 
@@ -1091,9 +1076,6 @@ msgstr "Recasts"
 
 msgid "Market Cap / FDV"
 msgstr "Market Cap / FDV"
-
-msgid "Log telemetry events to the console."
-msgstr "Log telemetry events to the console."
 
 msgid "Failed to un-bookmark NFT."
 msgstr "Failed to un-bookmark NFT."
@@ -1222,10 +1204,6 @@ msgstr "Check Eligibility"
 msgid "You might like"
 msgstr "You might like"
 
-#. placeholder {0}: env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled ? 'DEV' : 'PROD'
-msgid "Enable development API version<0>{0}</0>"
-msgstr "Enable development API version<0>{0}</0>"
-
 msgid "Please enter at least 2 characters."
 msgstr "Please enter at least 2 characters."
 
@@ -1328,9 +1306,6 @@ msgstr "Winners"
 #. placeholder {0}: post?.author.handle
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "REPLY to<0><1>@{0}</1></0>"
-
-msgid "Directory"
-msgstr "Directory"
 
 msgid "Cannot choose due to account mismatch."
 msgstr "Cannot choose due to account mismatch."
@@ -1607,9 +1582,6 @@ msgstr "Verify and Claim"
 msgid "Kamala Harris"
 msgstr "Kamala Harris"
 
-msgid "Send telemetry events in debug mode."
-msgstr "Send telemetry events in debug mode."
-
 msgid "Failed to connect on {source}"
 msgstr "Failed to connect on {source}"
 
@@ -1851,9 +1823,6 @@ msgstr "Hide more comments"
 msgid "Like / Repost / Comment"
 msgstr "Like / Repost / Comment"
 
-msgid "Upload"
-msgstr "Upload"
-
 msgid "Failed to login."
 msgstr "Failed to login."
 
@@ -1898,9 +1867,6 @@ msgstr ""
 "Submit here {shareUrl}\n"
 "\n"
 "#PENGU #FireflySocial"
-
-msgid "Enable logging telemetry events"
-msgstr "Enable logging telemetry events"
 
 msgid "Post with link"
 msgstr "Post with link"
@@ -2058,9 +2024,6 @@ msgstr "A measure of a cryptocurrency trading volume across all tracked platform
 
 msgid "Failed to recast."
 msgstr "Failed to recast."
-
-msgid "Failed to render embeds"
-msgstr "Failed to render embeds"
 
 msgid "Display Name should not be blank"
 msgstr "Display Name should not be blank"
@@ -2427,9 +2390,6 @@ msgstr "Send a tip to @{0}"
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
 
-msgid "Please input the frame url to be revalidated."
-msgstr "Please input the frame url to be revalidated."
-
 msgid "Select Token"
 msgstr "Select Token"
 
@@ -2583,9 +2543,6 @@ msgstr "Feedback"
 msgid "Mirror disabled"
 msgstr "Mirror disabled"
 
-msgid "Your serialized session"
-msgstr "Your serialized session"
-
 msgid "Enter your username and password to sign in instantly"
 msgstr "Enter your username and password to sign in instantly"
 
@@ -2724,9 +2681,6 @@ msgstr "It is wallet retrieved from public verifiable data registries or our ent
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
 
-msgid "Your website URL"
-msgstr "Your website URL"
-
 msgid "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
 msgstr "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
 
@@ -2756,17 +2710,11 @@ msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgid "Website is a phishing site."
 msgstr "Website is a phishing site."
 
-msgid "Please input the serialized session to be validated."
-msgstr "Please input the serialized session to be validated."
-
 msgid "Network cost"
 msgstr "Network cost"
 
 msgid "Failed to update profile."
 msgstr "Failed to update profile."
-
-msgid "Your URL"
-msgstr "Your URL"
 
 msgid "Paragraph"
 msgstr "Paragraph"
@@ -2948,9 +2896,6 @@ msgstr "Primary wallet"
 msgid "Muted @{0} on {sourceName}."
 msgstr "Muted @{0} on {sourceName}."
 
-msgid "Your Blink URL"
-msgstr "Your Blink URL"
-
 msgid "Quotes"
 msgstr "Quotes"
 
@@ -2989,9 +2934,6 @@ msgstr "Meet any of the following to unlock a premium collectible:"
 
 msgid "Article"
 msgstr "Article"
-
-msgid "Please input the url to be revalidated."
-msgstr "Please input the url to be revalidated."
 
 msgid "Attendance"
 msgstr "Attendance"
@@ -3084,9 +3026,6 @@ msgstr "Follow {handleOrEnsOrAddress}"
 
 msgid "You can save this to send later from your drafts."
 msgstr "You can save this to send later from your drafts."
-
-msgid "Click to upload"
-msgstr "Click to upload"
 
 msgid "Internal Server Error. Please try again later."
 msgstr "Internal Server Error. Please try again later."
@@ -3284,9 +3223,6 @@ msgstr "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 #. placeholder {1}: dayjs(task.created_at).format('hh:mm A')
 msgid "Saved on {0} at {1}"
 msgstr "Saved on {0} at {1}"
-
-msgid "Invoke"
-msgstr "Invoke"
 
 #. placeholder {0}: dayjs(scheduleTime).format('DD MMM, YYYY')
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
@@ -3538,9 +3474,6 @@ msgstr "Repost"
 msgid "Collect for {0} {nativeSymbol}"
 msgstr "Collect for {0} {nativeSymbol}"
 
-msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
-msgstr "Please input the blink url to be revalidated. <0>URL Scheme</0>"
-
 msgid "Developers"
 msgstr "Developers"
 
@@ -3552,6 +3485,9 @@ msgstr "Meet any of the following to unlock a premium collectible and get more $
 
 msgid "Non-sanctioned address."
 msgstr "Non-sanctioned address."
+
+msgid "Solana wallets"
+msgstr "Solana wallets"
 
 #. placeholder {0}: formatBalance(x.amount, x.decimals)
 msgid "no less than {0}"

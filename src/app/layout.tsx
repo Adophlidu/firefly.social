@@ -36,7 +36,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     const rootClass = await getCookie(SiteCookies.FireflyRootClass);
 
     return (
-        <html className={rootClass}>
+        <html className={`font-loading ${rootClass}`}>
             <head>
                 <Script src="/js/polyfills/base.js" strategy="beforeInteractive" />
                 <Script src="/js/safary.js" defer />

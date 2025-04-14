@@ -1,5 +1,4 @@
 import { MenuItem } from '@headlessui/react';
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
 
@@ -29,7 +28,7 @@ export const CollectionMore = memo<CollectionMoreProps>(function CollectionMore(
         <MoreActionMenu
             className={className}
             button={
-                <Tooltip content={t`More`} placement="top">
+                <Tooltip content={<Trans>More</Trans>} placement="top">
                     <MoreIcon width={24} height={24} className="text-secondary" />
                 </Tooltip>
             }

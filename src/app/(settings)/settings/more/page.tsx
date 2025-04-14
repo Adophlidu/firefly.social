@@ -1,6 +1,5 @@
 'use client';
 
-import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import { DocumentCard } from '@/app/(settings)/components/DocumentCard.js';
@@ -14,7 +13,6 @@ import SecurityIcon from '@/assets/security.svg';
 import TelegramIcon from '@/assets/telegram.svg';
 import { XIcon } from '@/components/XIcon.js';
 import { FIREFLY_TELEGRAM_URL } from '@/constants/index.js';
-import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 
 function SmallXIcon() {
     return (
@@ -25,8 +23,6 @@ function SmallXIcon() {
 }
 
 export default function More() {
-    useNavigatorTitle(msg`More`);
-
     return (
         <div className="flex w-full flex-col items-center gap-6 p-6">
             <Headline>

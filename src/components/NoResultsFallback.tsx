@@ -5,7 +5,7 @@ import GhostHoleIcon from '@/assets/ghost.svg';
 import { classNames } from '@/helpers/classNames.js';
 
 export interface NoResultsFallbackProps extends HTMLProps<HTMLDivElement> {
-    message?: string | ReactNode;
+    message?: ReactNode;
     icon?: ReactNode;
 }
 

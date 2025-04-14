@@ -124,9 +124,6 @@ msgstr "取消隐藏成功。"
 msgid "Simulating"
 msgstr "模拟中"
 
-msgid "Your frame URL"
-msgstr "您 Frame 的 URL"
-
 msgid "Refunded"
 msgstr "已退款"
 
@@ -197,9 +194,6 @@ msgstr "删除帖子"
 
 msgid "You can sign in to Farcaster with the following options."
 msgstr "您可以使用以下方式登录 Farcaster。"
-
-msgid "<0/>Solana wallets"
-msgstr "<0/>Solana 钱包"
 
 msgid "Join /{name}"
 msgstr "加入 /{name}"
@@ -383,9 +377,6 @@ msgstr "地址不可以超过 {maxLocationSize} 个字"
 
 msgid "Potential risk of external call."
 msgstr "存在外部调用的潜在风险。"
-
-msgid "Enable telemetry debug mode"
-msgstr "启用遥测调试模式。"
 
 msgid "FAILED POST"
 msgstr "发帖失败"
@@ -669,9 +660,6 @@ msgstr "请在参与前阅读此<0>免责声明</0>。如有任何疑问，请<1
 
 msgid "Report submitted"
 msgstr "举报已经提交"
-
-msgid "Switch to the development API version for testing new features."
-msgstr "切换到开发环境接口。"
 
 #. placeholder {0}: post.stats.quotes
 msgid "{0, plural, one {quote} other {quotes}}"
@@ -977,9 +965,6 @@ msgstr "条目"
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制。"
 
-msgid "NFT bookmarks"
-msgstr "NFT 收藏"
-
 msgid "Minting Txn Hash"
 msgstr "铸造交易哈希中"
 
@@ -1096,9 +1081,6 @@ msgstr "转帖"
 
 msgid "Market Cap / FDV"
 msgstr "流通率"
-
-msgid "Log telemetry events to the console."
-msgstr "日志侦测技术至控制台"
 
 msgid "Failed to un-bookmark NFT."
 msgstr "取消收藏 NFT 失败。"
@@ -1227,10 +1209,6 @@ msgstr "领取资格"
 msgid "You might like"
 msgstr "你也许感兴趣"
 
-#. placeholder {0}: env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled ? 'DEV' : 'PROD'
-msgid "Enable development API version<0>{0}</0>"
-msgstr ""
-
 msgid "Please enter at least 2 characters."
 msgstr "请输入至少 2 个字符。"
 
@@ -1333,9 +1311,6 @@ msgstr "红包数量"
 #. placeholder {0}: post?.author.handle
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "回复给<0><1>@{0}</1></0>"
-
-msgid "Directory"
-msgstr "目录"
 
 msgid "Cannot choose due to account mismatch."
 msgstr "账户不匹配导致选择失败。"
@@ -1612,9 +1587,6 @@ msgstr "校验并且领取"
 msgid "Kamala Harris"
 msgstr "卡玛拉·哈里斯"
 
-msgid "Send telemetry events in debug mode."
-msgstr "在调试模式下发送遥测事件。"
-
 msgid "Failed to connect on {source}"
 msgstr "在 {source} 上连接失败。"
 
@@ -1856,9 +1828,6 @@ msgstr "隐藏更多的评论"
 msgid "Like / Repost / Comment"
 msgstr "点赞/转帖/评论"
 
-msgid "Upload"
-msgstr "上传"
-
 msgid "Failed to login."
 msgstr "登录失败。"
 
@@ -1903,9 +1872,6 @@ msgstr ""
 "提交地址：{shareUrl}\n"
 "\n"
 "#PENGU #FireflySocial"
-
-msgid "Enable logging telemetry events"
-msgstr "启用日志侦测时间"
 
 msgid "Post with link"
 msgstr "发布带链接的帖子"
@@ -2063,9 +2029,6 @@ msgstr "衡量过去 24 小时内所有平台上加密货币交易量的指标�
 
 msgid "Failed to recast."
 msgstr "转帖失败。"
-
-msgid "Failed to render embeds"
-msgstr ""
 
 msgid "Display Name should not be blank"
 msgstr "全名不可以为空"
@@ -2432,9 +2395,6 @@ msgstr "发送打赏给 @{0}"
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "白名单功能未启用。如果启用，有些地址可能无法正常交易（欺诈风险）。"
 
-msgid "Please input the frame url to be revalidated."
-msgstr "请输入 URL 重新验证。"
-
 msgid "Select Token"
 msgstr "选择代币"
 
@@ -2588,9 +2548,6 @@ msgstr ""
 msgid "Mirror disabled"
 msgstr ""
 
-msgid "Your serialized session"
-msgstr "你的序列化会话"
-
 msgid "Enter your username and password to sign in instantly"
 msgstr "立即输入用户名和密码进行登录"
 
@@ -2729,9 +2686,6 @@ msgstr "这是从公开可验证的社交数据或我们的算法中检索到的
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
 
-msgid "Your website URL"
-msgstr "您网站的 URL"
-
 msgid "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
 msgstr "我们无法模拟该交易或完成所有安全检测。请谨慎操作。"
 
@@ -2761,17 +2715,11 @@ msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 msgid "Website is a phishing site."
 msgstr "该网站是钓鱼网站。"
 
-msgid "Please input the serialized session to be validated."
-msgstr "请输入要验证的序列化会话。"
-
 msgid "Network cost"
 msgstr "网络费用"
 
 msgid "Failed to update profile."
 msgstr "更新个人资料失败。"
-
-msgid "Your URL"
-msgstr "您的 URL"
 
 msgid "Paragraph"
 msgstr "Paragraph"
@@ -2953,9 +2901,6 @@ msgstr "主钱包"
 msgid "Muted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上隐藏 @{0}"
 
-msgid "Your Blink URL"
-msgstr "您的 Blink URL"
-
 msgid "Quotes"
 msgstr "引用"
 
@@ -2994,9 +2939,6 @@ msgstr "满足以下任意条件即可解锁高级版本的NFT"
 
 msgid "Article"
 msgstr "文章"
-
-msgid "Please input the url to be revalidated."
-msgstr "请输入 URL 重新验证："
 
 msgid "Attendance"
 msgstr "出席"
@@ -3089,9 +3031,6 @@ msgstr ""
 
 msgid "You can save this to send later from your drafts."
 msgstr "您可以先保存至草稿后再发送。"
-
-msgid "Click to upload"
-msgstr "点击上传"
 
 msgid "Internal Server Error. Please try again later."
 msgstr "内部服务错误。请稍后重试。"
@@ -3289,9 +3228,6 @@ msgstr "🤑 在 {postUrl} 上快来看看这个 #FireflyLuckyDrop 🧧💰✨"
 #. placeholder {1}: dayjs(task.created_at).format('hh:mm A')
 msgid "Saved on {0} at {1}"
 msgstr "保存于 {1} {0}"
-
-msgid "Invoke"
-msgstr "调用"
 
 #. placeholder {0}: dayjs(scheduleTime).format('DD MMM, YYYY')
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
@@ -3543,9 +3479,6 @@ msgstr "转帖"
 msgid "Collect for {0} {nativeSymbol}"
 msgstr "铸造 {0} {nativeSymbol}"
 
-msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
-msgstr "请输入 blink 链接来验证。 <0>URL格式</0>"
-
 msgid "Developers"
 msgstr "开发者"
 
@@ -3557,6 +3490,9 @@ msgstr "满足以下任意条件即可解锁高级版本的 NFT 和获得更多�
 
 msgid "Non-sanctioned address."
 msgstr "非黑名单地址。"
+
+msgid "Solana wallets"
+msgstr ""
 
 #. placeholder {0}: formatBalance(x.amount, x.decimals)
 msgid "no less than {0}"

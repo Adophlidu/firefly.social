@@ -1,4 +1,4 @@
-import { plural } from '@lingui/core/macro';
+import { Plural } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
 
 import { Link } from '@/components/Link.js';
@@ -23,10 +23,7 @@ export const FollowersLink = memo<FollowersLinkProps>(function FollowersLink({ p
             <data value={profile.followerCount}>
                 <span className="font-bold text-lightMain">{nFormatter(profile.followerCount)} </span>
                 <span className="text-secondary">
-                    {plural(profile.followerCount, {
-                        one: 'Follower',
-                        other: 'Followers',
-                    })}
+                    <Plural value={profile.followerCount} one="Follower" other="Followers" />
                 </span>
             </data>
         </Link>

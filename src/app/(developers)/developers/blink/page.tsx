@@ -1,7 +1,5 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
-import { Trans } from '@lingui/react/macro';
 import { useMemo, useState } from 'react';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
@@ -17,21 +15,17 @@ export default function Page() {
 
     return (
         <Section>
-            <Headline>
-                <Trans>Blink Validator</Trans>
-            </Headline>
+            <Headline>Blink Validator</Headline>
 
             <div className="mb-2 w-full">
-                <Trans>
-                    Please input the blink url to be revalidated.{' '}
-                    <Link
-                        href="https://docs.dialect.to/documentation/actions/actions/url-scheme"
-                        className="text-farcasterPrimary underline"
-                        target="_blank"
-                    >
-                        URL Scheme
-                    </Link>
-                </Trans>
+                Please input the url to be revalidated.
+                <Link
+                    href="https://docs.dialect.to/documentation/actions/actions/url-scheme"
+                    className="text-farcasterPrimary underline"
+                    target="_blank"
+                >
+                    URL Scheme
+                </Link>
             </div>
 
             <div className="mb-2 flex w-full flex-row gap-2">
@@ -40,7 +34,7 @@ export default function Page() {
                     type="text"
                     autoComplete="off"
                     spellCheck="false"
-                    placeholder={t`Your Blink URL`}
+                    placeholder="Your Blink URL"
                     onChange={(e) => setUrl(e.target.value)}
                 />
             </div>

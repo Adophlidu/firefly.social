@@ -1,6 +1,6 @@
 'use client';
 
-import { type HTMLProps, memo, useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { type HTMLProps, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
@@ -22,7 +22,7 @@ interface SearchBarProps extends HTMLProps<HTMLDivElement> {
     autoSearchType?: boolean;
 }
 
-const SearchBar = memo(function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchBarProps) {
+function SearchBar({ slot, autoSearchType = false, className, ...rest }: SearchBarProps) {
     const [showRecommendation, setShowRecommendation] = useState(false);
 
     const { searchKeyword, updateState } = useSearchStateStore();
@@ -107,7 +107,7 @@ const SearchBar = memo(function SearchBar({ slot, autoSearchType = false, classN
             </div>
         </div>
     );
-});
+}
 
 export function HeaderSearchBar() {
     const pathname = usePathname();

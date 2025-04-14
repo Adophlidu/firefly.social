@@ -1,6 +1,5 @@
 'use client';
 
-import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo } from 'react';
@@ -16,7 +15,6 @@ import {
     type NotificationConfig,
 } from '@/app/(settings)/settings/notification-settings/getNotificationConfigs.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { NotificationPlatform, type NotificationPushSwitchResponse } from '@/providers/types/Firefly.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';
@@ -40,8 +38,6 @@ function getStatusForConfigs(
 }
 
 export default function NotificationPage() {
-    useNavigatorTitle(msg`Notifications`);
-
     const { data, isLoading } = useQuery({
         queryKey: ['notification-settings', 'config'],
         queryFn: async () => {

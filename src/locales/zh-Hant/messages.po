@@ -124,9 +124,6 @@ msgstr "已成功取消靜音"
 msgid "Simulating"
 msgstr ""
 
-msgid "Your frame URL"
-msgstr ""
-
 msgid "Refunded"
 msgstr ""
 
@@ -196,9 +193,6 @@ msgid "Delete post"
 msgstr "刪除貼文"
 
 msgid "You can sign in to Farcaster with the following options."
-msgstr ""
-
-msgid "<0/>Solana wallets"
 msgstr ""
 
 msgid "Join /{name}"
@@ -382,9 +376,6 @@ msgid "Location should not exceed {maxLocationSize} characters"
 msgstr ""
 
 msgid "Potential risk of external call."
-msgstr ""
-
-msgid "Enable telemetry debug mode"
 msgstr ""
 
 msgid "FAILED POST"
@@ -669,9 +660,6 @@ msgstr ""
 
 msgid "Report submitted"
 msgstr "檢舉已提交"
-
-msgid "Switch to the development API version for testing new features."
-msgstr "切換至開發 API 版本用以測試新功能。"
 
 #. placeholder {0}: post.stats.quotes
 msgid "{0, plural, one {quote} other {quotes}}"
@@ -977,9 +965,6 @@ msgstr "物品"
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上傳失敗。圖片數量超過{maxImageCount} 張。"
 
-msgid "NFT bookmarks"
-msgstr ""
-
 msgid "Minting Txn Hash"
 msgstr ""
 
@@ -1095,9 +1080,6 @@ msgid "Recasts"
 msgstr ""
 
 msgid "Market Cap / FDV"
-msgstr ""
-
-msgid "Log telemetry events to the console."
 msgstr ""
 
 msgid "Failed to un-bookmark NFT."
@@ -1227,10 +1209,6 @@ msgstr "領取資格"
 msgid "You might like"
 msgstr "你也許會喜歡"
 
-#. placeholder {0}: env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled ? 'DEV' : 'PROD'
-msgid "Enable development API version<0>{0}</0>"
-msgstr ""
-
 msgid "Please enter at least 2 characters."
 msgstr ""
 
@@ -1332,9 +1310,6 @@ msgstr ""
 
 #. placeholder {0}: post?.author.handle
 msgid "REPLY to<0><1>@{0}</1></0>"
-msgstr ""
-
-msgid "Directory"
 msgstr ""
 
 msgid "Cannot choose due to account mismatch."
@@ -1612,9 +1587,6 @@ msgstr ""
 msgid "Kamala Harris"
 msgstr ""
 
-msgid "Send telemetry events in debug mode."
-msgstr ""
-
 msgid "Failed to connect on {source}"
 msgstr ""
 
@@ -1853,9 +1825,6 @@ msgstr "隱藏更多評論"
 msgid "Like / Repost / Comment"
 msgstr ""
 
-msgid "Upload"
-msgstr "上傳"
-
 msgid "Failed to login."
 msgstr "登入失敗."
 
@@ -1894,9 +1863,6 @@ msgid ""
 "Submit here {shareUrl}\n"
 "\n"
 "#PENGU #FireflySocial"
-msgstr ""
-
-msgid "Enable logging telemetry events"
 msgstr ""
 
 msgid "Post with link"
@@ -2054,9 +2020,6 @@ msgid "A measure of a cryptocurrency trading volume across all tracked platforms
 msgstr ""
 
 msgid "Failed to recast."
-msgstr ""
-
-msgid "Failed to render embeds"
 msgstr ""
 
 msgid "Display Name should not be blank"
@@ -2419,9 +2382,6 @@ msgstr "向 @{0} 發送小費"
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
 
-msgid "Please input the frame url to be revalidated."
-msgstr "請輸入連結以重新識別有效性"
-
 msgid "Select Token"
 msgstr ""
 
@@ -2575,9 +2535,6 @@ msgstr ""
 msgid "Mirror disabled"
 msgstr ""
 
-msgid "Your serialized session"
-msgstr ""
-
 msgid "Enter your username and password to sign in instantly"
 msgstr ""
 
@@ -2716,9 +2673,6 @@ msgstr ""
 msgid "Visit mask.io"
 msgstr "訪問 mask.io"
 
-msgid "Your website URL"
-msgstr "你的網站連結"
-
 msgid "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
 msgstr ""
 
@@ -2748,16 +2702,10 @@ msgstr ""
 msgid "Website is a phishing site."
 msgstr ""
 
-msgid "Please input the serialized session to be validated."
-msgstr ""
-
 msgid "Network cost"
 msgstr ""
 
 msgid "Failed to update profile."
-msgstr ""
-
-msgid "Your URL"
 msgstr ""
 
 msgid "Paragraph"
@@ -2940,9 +2888,6 @@ msgstr ""
 msgid "Muted @{0} on {sourceName}."
 msgstr "已在 {sourceName} 上靜音 @{0}"
 
-msgid "Your Blink URL"
-msgstr ""
-
 msgid "Quotes"
 msgstr "引用"
 
@@ -2981,9 +2926,6 @@ msgstr ""
 
 msgid "Article"
 msgstr ""
-
-msgid "Please input the url to be revalidated."
-msgstr "請輸入連結以重新識別有效性"
 
 msgid "Attendance"
 msgstr ""
@@ -3076,9 +3018,6 @@ msgstr ""
 
 msgid "You can save this to send later from your drafts."
 msgstr "您可以保存並在之後從草稿箱中發送"
-
-msgid "Click to upload"
-msgstr ""
 
 msgid "Internal Server Error. Please try again later."
 msgstr ""
@@ -3275,9 +3214,6 @@ msgstr ""
 #. placeholder {0}: dayjs(task.created_at).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(task.created_at).format('hh:mm A')
 msgid "Saved on {0} at {1}"
-msgstr ""
-
-msgid "Invoke"
 msgstr ""
 
 #. placeholder {0}: dayjs(scheduleTime).format('DD MMM, YYYY')
@@ -3527,9 +3463,6 @@ msgstr ""
 msgid "Collect for {0} {nativeSymbol}"
 msgstr ""
 
-msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
-msgstr ""
-
 msgid "Developers"
 msgstr ""
 
@@ -3540,6 +3473,9 @@ msgid "Meet any of the following to unlock a premium collectible and get more $A
 msgstr "滿足以下任意條件即可解鎖高級版本的NFT和獲得更多的$ANON: "
 
 msgid "Non-sanctioned address."
+msgstr ""
+
+msgid "Solana wallets"
 msgstr ""
 
 #. placeholder {0}: formatBalance(x.amount, x.decimals)
@@ -4207,7 +4143,7 @@ msgid "No trading cooldown function."
 msgstr ""
 
 msgid "Media"
-msgstr "多媒體"
+msgstr "媒體"
 
 msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
 msgstr ""

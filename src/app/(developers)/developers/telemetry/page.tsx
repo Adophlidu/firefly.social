@@ -1,11 +1,9 @@
-import { Trans } from '@lingui/react/macro';
 
 import { TelemetryMethodButton } from '@/app/(developers)/components/TelemetryMethodButton.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { classNames } from '@/helpers/classNames.js';
-import { setupLocaleForSSR } from '@/i18n/index.js';
 import { ProviderFilter } from '@/providers/types/Telemetry.js';
 import type { MethodItem } from '@/types/telemetry.js';
 
@@ -33,13 +31,9 @@ const items: Item[] = [
 ];
 
 export default async function Page() {
-    await setupLocaleForSSR();
-
     return (
         <Section className="h-screen">
-            <Headline>
-                <Trans>Telemetry</Trans>
-            </Headline>
+            <Headline>Telemetry</Headline>
 
             {
                 <menu className="no-scrollbar w-full flex-1 overflow-auto">

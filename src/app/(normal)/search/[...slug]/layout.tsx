@@ -12,7 +12,6 @@ import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.j
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
-import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/index.js';
 
 const resolveSearchTypeTitle = createLookupTableResolver<SearchType, MessageDescriptor>(
@@ -59,8 +58,7 @@ interface Props
     > {}
 
 export async function generateMetadata(props: Props) {
-    const params = await props.params;
-    const { slug } = params;
+    const { slug } = await props.params;
 
     if (!checkSlug(slug)) {
         return createSiteMetadata({
@@ -73,10 +71,9 @@ export async function generateMetadata(props: Props) {
     });
 }
 
-export default async function SearchLayout(props: Props) {
+export default async function Layout(props: Props) {
     const params = await props.params;
     const searchParams = await props.searchParams;
-    const { children } = props;
 
     if (params.slug[1] === SearchType.Channels) {
         redirect(resolveSearchUrl(searchParams.q, SearchType.Communities));
@@ -84,14 +81,12 @@ export default async function SearchLayout(props: Props) {
 
     if (!checkSlug(params.slug)) notFound();
 
-    await setupLocaleForSSR();
-
     return (
         <div>
             <SearchTabs />
             <CommunityTypeTab />
             <SearchSources />
-            {children}
+            {props.children}
         </div>
     );
 }

@@ -1,6 +1,5 @@
 'use client';
 
-import { msg } from '@lingui/core/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 
@@ -10,7 +9,6 @@ import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 
 export function ArticleBookmarkList() {
@@ -30,8 +28,6 @@ export function ArticleBookmarkList() {
         },
         select: (data) => compact(data.pages.flatMap((x) => x?.data)),
     });
-
-    useNavigatorTitle(msg`Bookmarks`);
 
     return (
         <ListInPage

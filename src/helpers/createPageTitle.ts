@@ -1,8 +1,7 @@
-import type { MessageDescriptor } from '@lingui/core';
+import { type MessageDescriptor } from '@lingui/core';
 
 import { SITE_NAME } from '@/constants/index.js';
-import { getLocaleFromCookies } from '@/helpers/getCookies.js';
-import { getI18n } from '@/i18n/index.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export function createPageTitle(title: string) {
     return `${title} • ${SITE_NAME}`;
@@ -14,9 +13,8 @@ export async function createPageTitleSSR(
         withSiteName?: boolean;
     },
 ) {
-    const locale = await getLocaleFromCookies();
-    const { t } = getI18n(locale);
-    const title = t(descriptor);
+    const i18n = await setupLocaleForSSR();
+    const title = i18n._(descriptor);
     const withSiteName = options?.withSiteName ?? true;
     if (!withSiteName) return title;
     return createPageTitle(title);

@@ -1,13 +1,20 @@
-import type { I18n, Messages } from '@lingui/core' with { 'resolution-mode': 'require' };
-import { i18n, setupI18n } from '@lingui/core';
-import { setI18n } from '@lingui/react/server';
+import { i18n as i18nCore,type Messages, setupI18n } from '@lingui/core';
+import { getI18n, setI18n } from '@lingui/react/server';
 import dayjs from 'dayjs';
 
 import { Locale } from '@/constants/enum.js';
-import { getLocaleFromCookies } from '@/helpers/getCookies.js';
+import { DEFAULT_LOCALE } from '@/constants/index.js';
+import { bom } from '@/helpers/bom.js';
+import { getLocaleFromCookies, getLocalFromClientCookies } from '@/helpers/getCookies.js';
 import { messages as en } from '@/locales/en/messages.js';
 import { messages as zhHans } from '@/locales/zh-Hans/messages.js';
 import { messages as zhHant } from '@/locales/zh-Hant/messages.js';
+
+export const supportedLocales: Record<Locale, string> = {
+    [Locale.en]: 'English',
+    [Locale.zhHans]: '简体中文',
+    [Locale.zhHant]: '繁體中文',
+};
 
 const messages: Record<Locale, Messages> = {
     [Locale.en]: en,
@@ -28,46 +35,62 @@ const allLocales = Object.fromEntries(
     ]),
 );
 
-export const supportedLocales: Record<Locale, string> = {
-    [Locale.en]: 'English',
-    [Locale.zhHans]: '简体中文',
-    [Locale.zhHant]: '繁體中文',
-};
+function resolveLocale(locale: Locale) {
+    if (!supportedLocales.hasOwnProperty(locale)) {
+        console.error(`[i18n]: unknown locale ${locale}`);
+        return DEFAULT_LOCALE;
+    }
+    return locale;
+}
 
-export const defaultLocale = Locale.en;
+function setupAndActiveI18n(locale_: Locale) {
+    const locale = resolveLocale(locale_);
 
-export function getI18n(locale: Locale): I18n {
-    const instance = getI18nInstance(locale);
-    return instance;
+    // on the client side, we need to setup the global i18n instance
+    // in order to use core macros on the client components
+    if (bom.document) {
+        i18nCore.loadAndActivate({
+            locale,
+            locales: Object.keys(supportedLocales) as Locale[],
+            messages: messages[locale],
+        });
+    }
+
+    const i18n = allLocales[locale];
+    i18n.activate(locale);
+
+    setI18n(i18n as unknown as Parameters<typeof setI18n>[0]);
+    dayjs.locale(locale);
+
+    return i18n;
+}
+
+export function getI18nInstance(locale_: Locale) {
+    const locale = resolveLocale(locale_);
+
+    return allLocales[locale];
 }
 
 export async function setupLocaleForSSR() {
-    const locale = await getLocaleFromCookies();
-    const i18n = getI18n(locale);
-    setI18n(i18n);
-    setLocale(i18n.locale as Locale);
-}
+    const instance = getI18n();
+    if (instance) return instance;
 
-export function getI18nInstance(locale: Locale): I18n {
-    return (allLocales[locale] ?? allLocales[Locale.en]!) as unknown as I18n;
+    console.warn('[i18n]: SSR i18n instance created.');
+
+    const locale = await getLocaleFromCookies();
+    const i18n = setupAndActiveI18n(locale);
+    return i18n;
 }
 
 /**
  * set locale and dynamically import catalog
  * @param locale a supported locale string
  */
-export function setLocale(locale: Locale) {
-    if (!supportedLocales.hasOwnProperty(locale)) {
-        console.error(`[i18n]: unknown locale ${locale}`);
-        locale = defaultLocale;
-    }
+export function setupLocalForClient() {
+    const locale = getLocalFromClientCookies();
+    const i18n = setupAndActiveI18n(locale);
 
-    // lingui macro uses the core i18n
-    i18n.load(messages);
-    i18n.activate(locale);
-    dayjs.locale(locale);
-}
+    console.warn('[i18n]: Client i18n instance created.');
 
-export function getLocale(locale: Locale) {
-    return messages[locale];
+    return i18n;
 }

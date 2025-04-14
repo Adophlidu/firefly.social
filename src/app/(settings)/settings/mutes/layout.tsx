@@ -10,7 +10,7 @@ export async function generateMetadata() {
     });
 }
 
-export default async function MutesLayout({ children }: { children: React.ReactNode }) {
+export default async function Layout({ children }: { children: React.ReactNode }) {
     await setupLocaleForSSR();
     return <>{children}</>;
 }

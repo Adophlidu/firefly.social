@@ -95,7 +95,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
             className="z-10"
             source={source}
             button={
-                <Tooltip content={t`More`} placement="top">
+                <Tooltip content={<Trans>More</Trans>} placement="top">
                     <MoreIcon width={20} height={20} className="text-secondary" />
                 </Tooltip>
             }

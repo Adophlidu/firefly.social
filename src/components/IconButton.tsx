@@ -1,4 +1,6 @@
-import { t } from '@lingui/core/macro';
+'use client';
+
+import { Trans } from '@lingui/react/macro';
 import type { HTMLProps, ReactNode } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
@@ -9,7 +11,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 
 interface IconButtonProps extends ClickableButtonProps {
-    tooltip?: string;
+    tooltip?: ReactNode;
     size?: number;
     children?: ReactNode;
 }
@@ -20,8 +22,6 @@ function IconButton({ size = 24, tooltip, children, ref, ...props }: IconButtonP
             {children}
         </ClickableButton>
     );
-
-    if (!tooltip) return Button;
     return (
         <Tooltip content={tooltip} placement="top">
             {Button}
@@ -35,7 +35,7 @@ interface ButtonProps extends Omit<IconButtonProps, 'children'> {
 
 export function CloseButton({ size = 24, IconProps, ...rest }: ButtonProps) {
     return (
-        <IconButton size={size} tooltip={t`Close`} {...rest}>
+        <IconButton size={size} tooltip={<Trans>Close</Trans>} {...rest}>
             <CloseIcon
                 {...IconProps}
                 className={classNames('text-main', IconProps?.className, {
@@ -50,7 +50,7 @@ export function CloseButton({ size = 24, IconProps, ...rest }: ButtonProps) {
 
 export function ClearButton({ size = 24, IconProps, ...rest }: ButtonProps) {
     return (
-        <IconButton size={size} tooltip={t`Clear`} {...rest}>
+        <IconButton size={size} tooltip={<Trans>Clear</Trans>} {...rest}>
             <CloseCircleIcon
                 {...IconProps}
                 className={classNames('text-main', IconProps?.className, {
@@ -65,7 +65,7 @@ export function ClearButton({ size = 24, IconProps, ...rest }: ButtonProps) {
 
 export function MoreButton({ size = 24, IconProps, ...rest }: ButtonProps) {
     return (
-        <IconButton size={size} tooltip={t`More`} {...rest}>
+        <IconButton size={size} tooltip={<Trans>More</Trans>} {...rest}>
             <MoreIcon
                 className={classNames('text-main', IconProps?.className, {
                     'cursor-pointer': !rest.disabled,

@@ -1,6 +1,5 @@
 'use client';
 
-import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
 import { isServer } from '@tanstack/react-query';
@@ -13,8 +12,7 @@ import { Section } from '@/app/(settings)/components/Section.js';
 import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
 import { Locale, SiteCookies, type ThemeMode } from '@/constants/enum.js';
 import { useCookie, useLocale } from '@/helpers/getCookies.js';
-import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { setLocale, supportedLocales } from '@/i18n/index.js';
+import { supportedLocales } from '@/i18n/index.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
 export default function General() {
@@ -23,8 +21,6 @@ export default function General() {
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
     const locale = useLocale();
     const rootClass = useCookie(SiteCookies.FireflyRootClass);
-
-    useNavigatorTitle(msg`General`);
 
     return (
         <Section>
@@ -82,8 +78,6 @@ export default function General() {
                         label={supportedLocales[option.value]}
                         onClick={async () => {
                             console.warn('[18n] change locale', option.value);
-
-                            setLocale(option.value);
 
                             const data = new FormData();
                             data.append('locale', option.value);

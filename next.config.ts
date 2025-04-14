@@ -1,15 +1,10 @@
 /* cspell:disable */
 
 import { execSync } from 'child_process';
-import CopyPlugin from 'copy-webpack-plugin';
 import { createRequire } from 'module';
 import type { NextConfig } from 'next';
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
 
 const require = createRequire(import.meta.url);
-const __dirname = fileURLToPath(dirname(import.meta.url));
-const outputPath = fileURLToPath(new URL('./public', import.meta.url));
 
 const cspConfig = {
     'default-src': ["'self'", 'https:', 'wss:', 'data:', 'blob:'],

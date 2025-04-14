@@ -1,8 +1,6 @@
 'use client';
 
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
-import { t } from '@lingui/core/macro';
-import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -33,13 +31,9 @@ export default function Page() {
 
     return (
         <Section>
-            <Headline>
-                <Trans>Session Validator</Trans>
-            </Headline>
+            <Headline>Session Validator</Headline>
 
-            <div className="mb-2 w-full">
-                <Trans>Please input the serialized session to be validated.</Trans>
-            </div>
+            <div className="mb-2 w-full">Please input the serialized session to be validated.</div>
 
             <div className="mb-2 flex w-full flex-row gap-2">
                 <input
@@ -47,7 +41,7 @@ export default function Page() {
                     type="text"
                     autoComplete="off"
                     spellCheck="false"
-                    placeholder={t`Your serialized session`}
+                    placeholder="Your serialized session"
                     onChange={(e) => setSerializedSession(e.target.value)}
                 />
                 <ClickableButton

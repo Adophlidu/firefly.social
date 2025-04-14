@@ -1,15 +1,16 @@
 'use client';
 
 import { useActionsRegistryInterval } from '@dialectlabs/blinks';
+import { delay } from '@masknet/kit';
 import { isServer } from '@tanstack/react-query';
 import { SnackbarProvider } from 'notistack';
 import { memo, useEffect, useLayoutEffect, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
 import { v4 as uuid } from 'uuid';
 
+import { sentryClient } from '@/configs/sentryClient.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useLocale } from '@/helpers/getCookies.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -20,13 +21,16 @@ import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
 export const InitialProviders = memo(function Providers(props: { children: React.ReactNode }) {
-    const isDarkMode = useIsDarkMode();
-    const isMedium = useIsMedium();
-    const isLogin = useIsLoginFirefly();
     useActionsRegistryInterval();
 
-    const entryPathname = useRef('');
-    const pathname = usePathname();
+    useEffectOnce(() => {
+        // max for 3000ms, min for 300ms
+        Promise.all([Promise.race([document.fonts.ready, delay(3000)]), delay(300)]).finally(() => {
+            document.documentElement.classList.remove('font-loading');
+        });
+    });
+
+    const isDarkMode = useIsDarkMode();
     const themeMode = useThemeModeStore.use.themeMode();
     useLayoutEffect(() => {
         document.documentElement.classList.toggle('dark', isDarkMode);
@@ -40,13 +44,12 @@ export const InitialProviders = memo(function Providers(props: { children: React
         if (!isServer) recordUserThemeMode(isDarkMode ? 'dark' : 'light');
     }, [isDarkMode, themeMode]);
 
+    useLayoutEffect(() => {
+        sentryClient.init();
+    });
+
     const viewerId = useLeafwatchPersistStore.use.viewerId();
     const setViewerId = useLeafwatchPersistStore.use.setViewerId();
-
-    const locale = useLocale();
-
-    useEffect(() => {}, [locale]);
-
     useEffectOnce(() => {
         if (!viewerId) setViewerId(uuid());
 
@@ -55,12 +58,13 @@ export const InitialProviders = memo(function Providers(props: { children: React
         }
     });
 
+    const isLogin = useIsLoginFirefly();
     useEffect(() => {
-        if (isLogin) {
-            setupFirebaseFcmConnection();
-        }
+        if (isLogin) setupFirebaseFcmConnection();
     }, [isLogin]);
 
+    const entryPathname = useRef('');
+    const pathname = usePathname();
     useEffect(() => {
         if (!entryPathname.current || pathname === entryPathname.current) {
             entryPathname.current = pathname;
@@ -74,6 +78,8 @@ export const InitialProviders = memo(function Providers(props: { children: React
             };
         });
     }, [pathname]);
+
+    const isMedium = useIsMedium();
 
     return (
         <SnackbarProvider

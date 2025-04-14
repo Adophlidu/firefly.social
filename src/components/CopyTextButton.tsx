@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import type { TippyProps } from '@tippyjs/react';
 import { type HTMLProps } from 'react';
 
@@ -19,7 +19,7 @@ export function CopyTextButton({ text, tooltipProps, size = 12, onClick, ...rest
 
     return (
         <Tooltip
-            content={copied ? t`Copied` : t`Copy`}
+            content={copied ? <Trans>Copied</Trans> : <Trans>Copy</Trans>}
             placement="top"
             hideOnClick={false}
             interactive

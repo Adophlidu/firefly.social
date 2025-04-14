@@ -494,6 +494,10 @@ body {
     overscroll-behavior-y: none;
 }
 
+html.font-loading {
+    visibility: hidden;
+}
+
 html {
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;
