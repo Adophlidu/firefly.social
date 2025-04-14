@@ -168,7 +168,7 @@ export function useLineChart(
                     x: number;
                     y: number;
                 };
-            },
+            } | null,
         ) => {
             if (!value) {
                 g.style('display', 'none');
@@ -239,10 +239,7 @@ export function useLineChart(
         };
 
         const hide = () => {
-            tooltip.call(callout, {
-                text: '',
-                position: { x: 0, y: 0 },
-            });
+            tooltip.call(callout, null);
             tooltipLine.call(lineCallout, null);
         };
 
