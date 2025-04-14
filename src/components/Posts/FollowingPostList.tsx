@@ -6,6 +6,7 @@ import { memo, useMemo } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
+import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { HomeTab, ScrollListKey, type SocialDiscoverSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
@@ -61,6 +62,8 @@ export const FollowingPostList = memo<{
         },
     );
 
+    if (!isLogin) return <NotLoginFallback source={Source.Posts} />;
+
     if (asyncStatusAll) {
         return <Loading />;
     }
@@ -70,7 +73,6 @@ export const FollowingPostList = memo<{
             source={source}
             key={source}
             queryResult={queryResult}
-            loginRequired={!isLogin}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Following}:${source}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
