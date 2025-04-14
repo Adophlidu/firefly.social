@@ -123,7 +123,7 @@ export function AccountCards() {
                                     >
                                         {isConnected ? (
                                             <PrimaryButton
-                                                platformId={profile.profileId}
+                                                platformId={connection.id}
                                                 platform={resolveConnectionPlatform(source)}
                                                 isDefault={connection.isDefault}
                                                 tooltipContent={

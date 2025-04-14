@@ -20,7 +20,7 @@ export function PrimaryButton({
     tooltipContent,
 }: {
     platform: ConnectionPlatform;
-    platformId: string;
+    platformId: string | number;
     isDefault?: boolean;
     tooltipContent: ReactNode;
 }) {
