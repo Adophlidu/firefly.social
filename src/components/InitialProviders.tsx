@@ -1,7 +1,6 @@
 'use client';
 
 import { useActionsRegistryInterval } from '@dialectlabs/blinks';
-import { delay } from '@masknet/kit';
 import { isServer } from '@tanstack/react-query';
 import { SnackbarProvider } from 'notistack';
 import { memo, useEffect, useLayoutEffect, useRef } from 'react';
@@ -22,13 +21,6 @@ import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
 export const InitialProviders = memo(function Providers(props: { children: React.ReactNode }) {
     useActionsRegistryInterval();
-
-    useEffectOnce(() => {
-        // max for 3000ms, min for 300ms
-        Promise.all([Promise.race([document.fonts.ready, delay(3000)]), delay(300)]).finally(() => {
-            document.documentElement.classList.remove('font-loading');
-        });
-    });
 
     const isDarkMode = useIsDarkMode();
     const themeMode = useThemeModeStore.use.themeMode();

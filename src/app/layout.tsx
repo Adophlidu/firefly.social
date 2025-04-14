@@ -40,6 +40,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <head>
                 <Script src="/js/polyfills/base.js" strategy="beforeInteractive" />
                 <Script src="/js/safary.js" defer />
+                <Script src="/js/loading.js" defer />
                 <GoogleAnalytics gaId="G-61NFDTK6LT" />
                 <meta name="theme-color" content="#ffffff" />
                 <meta name="googlebot" content="notranslate" />
