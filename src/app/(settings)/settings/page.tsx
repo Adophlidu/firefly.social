@@ -4,18 +4,18 @@ import { useEffect } from 'react';
 
 import { SettingsList } from '@/app/(settings)/components/SettingsList.js';
 import { useRouter } from '@/esm/navigation.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useIsLarge } from '@/hooks/useMediaQuery.js';
 
 export default function Settings() {
     const router = useRouter();
-    const isMedium = useIsMedium();
+    const isDesktop = useIsLarge();
 
     useEffect(() => {
-        if (isMedium) router.replace('/settings/general');
+        if (isDesktop) router.replace('/settings/general');
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isMedium]);
+    }, [isDesktop]);
 
-    if (isMedium) return null;
+    if (isDesktop) return null;
 
     // mobile
     return (

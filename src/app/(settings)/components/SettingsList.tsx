@@ -11,8 +11,8 @@ export function SettingsList() {
     const muteMenuList = useMuteMenuList();
 
     return (
-        <div className="flex min-h-full min-w-full flex-col p-6 md:min-w-[280px] md:border-r md:border-line">
-            <div className="hidden pb-6 text-[20px] font-bold leading-[24px] text-lightMain md:block">
+        <div className="flex min-h-full min-w-full flex-col p-6 lg:min-w-[280px] lg:border-r lg:border-line">
+            <div className="hidden pb-6 text-[20px] font-bold leading-[24px] text-lightMain lg:block">
                 <Trans>Settings</Trans>
             </div>
             {[
