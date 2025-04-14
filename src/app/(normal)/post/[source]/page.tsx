@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
-import { notFound, redirect } from '@/esm/navigation.js';
+import { notFound, redirect } from '@/esm/navigation/server.js';
 import { createMetadataPostById } from '@/helpers/createMetadataPostById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';

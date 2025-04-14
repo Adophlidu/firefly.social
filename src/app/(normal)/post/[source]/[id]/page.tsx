@@ -6,7 +6,7 @@ import { PostDetailPage } from '@/app/(normal)/post/[source]/[id]/pages/DetailPa
 import { Comeback } from '@/components/Comeback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
-import { notFound } from '@/esm/navigation.js';
+import { notFound } from '@/esm/navigation/server.js';
 import { createMetadataPostById } from '@/helpers/createMetadataPostById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';

@@ -7,7 +7,7 @@ import { CommunityTypeTab } from '@/components/Search/CommunityTypeTab.js';
 import { SearchSources } from '@/components/Search/SearchSources.js';
 import { SearchTabs } from '@/components/Search/SearchTabs.js';
 import { CommunityType, SearchType, SourceInURL } from '@/constants/enum.js';
-import { notFound, redirect } from '@/esm/navigation.js';
+import { notFound, redirect } from '@/esm/navigation/server.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';

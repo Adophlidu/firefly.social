@@ -9,7 +9,7 @@ import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
 import { type LoginFallbackSource, SourceInURL } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
-import { notFound } from '@/esm/navigation.js';
+import { notFound } from '@/esm/navigation/server.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';

@@ -2,7 +2,7 @@ import '@/assets/css/limo.css';
 import '@/assets/css/paragraph.css';
 
 import { ArticleDetailContent } from '@/components/Article/ArticleDetailContent.js';
-import { notFound } from '@/esm/navigation.js';
+import { notFound } from '@/esm/navigation/server.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { getArticleCover } from '@/services/getArticleCover.js';
 

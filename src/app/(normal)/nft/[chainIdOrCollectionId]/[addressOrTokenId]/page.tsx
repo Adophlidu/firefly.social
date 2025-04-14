@@ -2,7 +2,7 @@ import { SolanaChainId } from '@masknet/web3-shared-solana';
 
 import { NFTCollectionPage } from '@/app/(normal)/nft/pages/NFTCollectionPage.js';
 import { NFTDetailPage } from '@/app/(normal)/nft/pages/NFTDetailPage.js';
-import { notFound, redirect } from '@/esm/navigation.js';
+import { notFound, redirect } from '@/esm/navigation/server.js';
 import { createMetadataNFT, createMetadataNFTCollection } from '@/helpers/createMetadataNFT.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';

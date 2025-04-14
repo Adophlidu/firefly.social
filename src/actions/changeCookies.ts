@@ -4,7 +4,7 @@ import { getEnumAsArray } from '@masknet/kit';
 import { cookies } from 'next/headers.js';
 
 import { Agent, Locale, PageRoute } from '@/constants/enum.js';
-import { redirect } from '@/esm/navigation.js';
+import { redirect } from '@/esm/navigation/server.js';
 
 export async function changeCookies(formData: FormData) {
     const agent_ = formData.get('agent') as string | undefined;

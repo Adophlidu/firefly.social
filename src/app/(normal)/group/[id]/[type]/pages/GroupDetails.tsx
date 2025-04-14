@@ -7,7 +7,7 @@ import { Title } from '@/components/Group/Title.js';
 import { Link } from '@/components/Link.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { GroupTabType } from '@/constants/enum.js';
-import { notFound } from '@/esm/navigation.js';
+import { notFound } from '@/esm/navigation/server.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveGroupPageUrl } from '@/helpers/resolveGroupPageUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';

@@ -9,7 +9,7 @@ import {
     SourceInURL,
     WalletProfileCategory,
 } from '@/constants/enum.js';
-import { notFound } from '@/esm/navigation.js';
+import { notFound } from '@/esm/navigation/server.js';
 import { createMetadataProfileById } from '@/helpers/createMetadataProfileById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';

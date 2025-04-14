@@ -2,7 +2,7 @@ import { FollowersList } from '@/app/(normal)/profile/pages/FollowersList.js';
 import { FollowingList } from '@/app/(normal)/profile/pages/FollowingList.js';
 import { MutualFollowersList } from '@/app/(normal)/profile/pages/MutualFollowersList.js';
 import { FollowCategory, type ProfileCategory, SourceInURL } from '@/constants/enum.js';
-import { notFound } from '@/esm/navigation.js';
+import { notFound } from '@/esm/navigation/server.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
