@@ -1281,8 +1281,8 @@ export class LensSocialMedia implements Provider {
         const metadata = account({
             id: uuid(),
             name: profile.displayName,
-            bio: profile.bio,
-            picture: profile.pfp,
+            bio: profile.bio || undefined,
+            picture: profile.pfp || undefined,
             attributes: attributes.length ? attributes : undefined,
         });
         const metadataURI = await uploadLensMetadataToS3(metadata);
