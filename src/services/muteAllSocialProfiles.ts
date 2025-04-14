@@ -5,6 +5,7 @@ import { ensureLensResult } from '@/helpers/ensureLensResult.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -12,11 +13,14 @@ import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 
 export async function muteAllSocialProfiles(identity: FireflyIdentity) {
-    const socialProfiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false);
     const twitterProfile = getCurrentProfile(Source.Twitter);
     const lensProfile = getCurrentProfile(Source.Lens);
+    const bskyProfile = getCurrentProfile(Source.Bsky);
 
     const results = [{ snsId: identity.id, snsPlatform: resolveSourceInUrl(identity.source) }];
+    if (!twitterProfile && !lensProfile && !bskyProfile) return results;
+
+    const socialProfiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false);
 
     if (twitterProfile) {
         const twitterProfiles = socialProfiles.filter((profile) => profile.identity.source === Source.Twitter);
@@ -55,6 +59,21 @@ export async function muteAllSocialProfiles(identity: FireflyIdentity) {
                 })),
             );
         });
+    }
+
+    if (bskyProfile) {
+        const bskyProfiles = socialProfiles.filter((profile) => profile.identity.source === Source.Bsky);
+        await runInSafeAsync(() =>
+            Promise.allSettled(
+                bskyProfiles.map((profile) => BskySocialMediaProvider.blockProfile(profile.identity.id)),
+            ),
+        );
+        results.push(
+            ...bskyProfiles.map((profile) => ({
+                snsId: profile.identity.id,
+                snsPlatform: SourceInURL.Bsky,
+            })),
+        );
     }
 
     return results;

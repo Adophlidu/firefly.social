@@ -1,6 +1,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
+import { compact, sum } from 'lodash-es';
 import { type HTMLProps, memo } from 'react';
 import { useAsyncFn } from 'react-use';
 import type { Address } from 'viem';
@@ -40,9 +41,9 @@ function waitForConfirmation(handleOrEnsOrAddress: string) {
 }
 
 function MuteAllProfileBase({ handleOrEnsOrAddress, identity, blocking, onClose, className }: MuteAllProfileBaseProps) {
-    const { data: isMutedAll, isLoading } = useQuery({
-        queryKey: ['profile', 'mute-all', identity.id, identity.source],
-        queryFn: async () => FireflyEndpointProvider.isProfileMutedAll(identity),
+    const { data: fireflyProfiles, isLoading } = useQuery({
+        queryKey: ['firefly-profile', identity],
+        queryFn: () => FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false),
     });
 
     const [{ loading }, handleMuteAll] = useAsyncFn(async () => {
@@ -60,7 +61,19 @@ function MuteAllProfileBase({ handleOrEnsOrAddress, identity, blocking, onClose,
         }
     }, [handleOrEnsOrAddress, identity, onClose]);
 
-    if (isLoading || isMutedAll === true) return null;
+    const noFireflyAccount =
+        (!fireflyProfiles?.account?.displayName && !fireflyProfiles?.account?.avatar) || !fireflyProfiles?.account?.uid;
+    const totalProfilesCount = sum(
+        compact([
+            fireflyProfiles?.bskyProfiles.length,
+            fireflyProfiles?.farcasterProfiles.length,
+            fireflyProfiles?.lensProfilesV3.length,
+            fireflyProfiles?.solanaWalletProfiles.length,
+            fireflyProfiles?.twitterProfiles.length,
+            fireflyProfiles?.walletProfiles.length,
+        ]),
+    );
+    if (isLoading || !noFireflyAccount || totalProfilesCount <= 1) return null;
 
     return (
         <MenuButton onClick={handleMuteAll} disabled={loading} className={className}>

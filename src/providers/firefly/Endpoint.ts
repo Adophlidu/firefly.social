@@ -751,16 +751,18 @@ export class FireflyEndpoint {
     }
 
     async muteProfileAll(identity: FireflyIdentity) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/muteAll', {
-            [getPlatformQueryKey(identity.source)]: identity.id,
-        });
-
-        await fireflySessionHolder.fetch<MuteAllResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
+        if (identity.source !== Source.Bsky) {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/muteAll', {
                 [getPlatformQueryKey(identity.source)]: identity.id,
-            }),
-        });
+            });
+
+            await fireflySessionHolder.fetch<MuteAllResponse>(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    [getPlatformQueryKey(identity.source)]: identity.id,
+                }),
+            });
+        }
 
         return await muteAllSocialProfiles(identity);
     }
