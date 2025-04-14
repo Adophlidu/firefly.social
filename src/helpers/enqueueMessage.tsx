@@ -155,8 +155,9 @@ export function enqueueMessageFromError(error: unknown, fallback: string, option
 
 export function enqueuePermissionMessage(rejected: boolean) {
     SnackbarRef.open({
-        message: 'Notification permission',
+        message: `Notification permission - ${rejected ? 'Denied' : 'Granted'}`,
         options: {
+            preventDuplicate: true,
             autoHideDuration: null,
             variant: 'info',
             content: (key: SnackbarKey) => <PermissionSnackbar id={key} rejected={rejected} />,
