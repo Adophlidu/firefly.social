@@ -202,37 +202,67 @@ export function useLineChart(
             if (textNodeBox) {
                 const { y: yValue, width: w } = textNodeBox;
                 const boxHalfWidth = w / 2;
+
+                // Calculate offset to keep tooltip within bounds
                 const offset =
                     position.x - boxHalfWidth < 0
                         ? boxHalfWidth - position.x
                         : position.x + boxHalfWidth > contentWidth
                           ? -(position.x + boxHalfWidth - contentWidth)
                           : 0;
-                const boxArrowX = 42.5 - offset;
-                const isFirstIndex = position.x === 35;
 
-                if (position.y + 54 > contentHeight) {
+                const tooltipWidth = w + 20; // Add some padding
+
+                // Check if tooltip would go beyond bottom edge
+                if (position.y + 60 > contentHeight) {
+                    // Position tooltip above the point
                     text.attr('transform', `translate(${-boxHalfWidth + offset},${-46 - yValue})`).attr(
                         'color',
                         'rgb(var(--color-bottom))',
                     );
+
+                    // Draw tooltip path with arrow pointing down and ensure arrow is centered
                     path.attr(
                         'd',
-                        `M-${boxArrowX} -54h105s4 0 4 4v38s0 4 -4 4h-120s-4 0 -4 -4v-38s0 -4 4 -4 ${
-                            isFirstIndex ? 'M -35 0 L -42 -10 L 11 -10 L -28 -10 Z' : 'M0 0L-7 -10L12 -10L7 -10Z'
-                        }`,
+                        `M${-boxHalfWidth - 10 + offset} -54
+                         h${tooltipWidth}
+                         q4,0 4,4
+                         v38
+                         q0,4 -4,4
+                         h-${tooltipWidth}
+                         q-4,0 -4,-4
+                         v-38
+                         q0,-4 4,-4
+                         z
+                         M0 0
+                         L-5 -10
+                         L5 -10
+                         Z`,
                     ).attr('fill', 'var(--color-tooltip-bg)');
                 } else {
+                    // Position tooltip below the point
                     text.attr('transform', `translate(${-boxHalfWidth + offset},${18 - yValue})`).attr(
                         'color',
                         'rgb(var(--color-bottom))',
                     );
 
+                    // Draw tooltip path with arrow pointing up and ensure arrow is centered
                     path.attr(
                         'd',
-                        `M-${boxArrowX} 10h105s4 0 4 4v38s0 4 -4 4h-120s-4 0 -4 -4v-38s0 -4 4 -4 ${
-                            isFirstIndex ? 'M -35 2 L -41 10 L 12 10 L -23 16 Z' : 'M0 2L-7 10L12 10L7 10Z'
-                        } `,
+                        `M${-boxHalfWidth - 10 + offset} 10
+                         h${tooltipWidth}
+                         q4,0 4,4
+                         v38
+                         q0,4 -4,4
+                         h-${tooltipWidth}
+                         q-4,0 -4,-4
+                         v-38
+                         q0,-4 4,-4
+                         z
+                         M0 2
+                         L-5 10
+                         L5 10
+                         Z`,
                     ).attr('fill', 'var(--color-tooltip-bg)');
                 }
             }
@@ -266,17 +296,17 @@ export function useLineChart(
                 return { ...data[index], index };
             };
 
-            const { date, value, index } = bisect(fixedX);
+            const { date, value } = bisect(fixedX);
 
             tooltipLine.attr('transform', `translate(${Number(x(date))}, 0)`).call(lineCallout, date);
 
-            tooltip
-                .attr('transform', `translate(${index === 0 ? Number(x(date)) + 35 : Number(x(date))},${y(value)})`)
-                .call(callout, {
-                    text: `${formatTooltip(value)}
+            const xPosition = Number(x(date));
+
+            tooltip.attr('transform', `translate(${xPosition},${y(value)})`).call(callout, {
+                text: `${formatTooltip(value)}
                 ${dayjs(date).format('MMM D, YYYY hh:mm A')}`,
-                    position: { x: index === 0 ? Number(x(date)) + 35 : Number(x(date)), y: y(value) },
-                });
+                position: { x: xPosition, y: y(value) },
+            });
         });
 
         d3.select(svgRef.current).on('mouseleave', hide);
