@@ -15,6 +15,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { resolveNotificationIcon } from '@/helpers/resolveNotificationIcon.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { NotificationType } from '@/providers/types/SocialMedia.js';
 import { useNotificationStateStore } from '@/store/useNotificationStore.js';
 
@@ -46,6 +47,10 @@ export function NotificationSettings({ source }: { source: NotificationSource })
                 await refetch();
             } else {
                 setEnableQualityFilter(source, state);
+                if (source === Source.Farcaster)
+                    await FarcasterSocialMediaProvider.setNotificationSettings({
+                        priority: state,
+                    });
             }
 
             await queryClient.refetchQueries({

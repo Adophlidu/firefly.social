@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/react/macro';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
+import { useUpdateEffect } from 'react-use';
 
 import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { useNewsList } from '@/components/Calendar/hooks/useEventList.js';
@@ -22,6 +23,7 @@ interface Group {
 }
 
 export function NewsList({ date }: NewsListProps) {
+    const listRef = useRef<HTMLDivElement>(null);
     const { data: newsList, isLoading, hasNextPage, isFetching, fetchNextPage } = useNewsList(date);
 
     const groups = useMemo(() => {
@@ -39,6 +41,12 @@ export function NewsList({ date }: NewsListProps) {
         });
         return groups;
     }, [newsList]);
+
+    useUpdateEffect(() => {
+        listRef.current?.scrollTo({
+            top: 0,
+        });
+    }, [JSON.stringify(groups)]);
 
     if (isLoading && !groups.length) {
         return (
@@ -66,7 +74,10 @@ export function NewsList({ date }: NewsListProps) {
     }
 
     return (
-        <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll overscroll-contain">
+        <div
+            className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll overscroll-contain"
+            ref={listRef}
+        >
             {groups.map((group) => {
                 return (
                     <div className="text-sm" key={group.label}>

@@ -1,5 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 import { format } from 'date-fns';
+import { useRef } from 'react';
+import { useUpdateEffect } from 'react-use';
 
 import CalendarIcon from '@/assets/calendar.svg';
 import LocationIcon from '@/assets/location.svg';
@@ -17,7 +19,14 @@ interface EventListProps {
 }
 
 export function EventList({ date }: EventListProps) {
+    const listRef = useRef<HTMLDivElement>(null);
     const { isLoading, isFetching, data = EMPTY_LIST, hasNextPage, fetchNextPage } = useLumaEvents(date);
+
+    useUpdateEffect(() => {
+        listRef.current?.scrollTo({
+            top: 0,
+        });
+    }, [JSON.stringify(data)]);
 
     if (isLoading) {
         return (
@@ -46,7 +55,10 @@ export function EventList({ date }: EventListProps) {
     }
 
     return (
-        <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll overscroll-contain">
+        <div
+            className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll overscroll-contain"
+            ref={listRef}
+        >
             <div className="pt-3">
                 {data.map((event) => {
                     return (
