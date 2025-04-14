@@ -274,7 +274,7 @@ export function useLineChart(
                 .attr('transform', `translate(${index === 0 ? Number(x(date)) + 35 : Number(x(date))},${y(value)})`)
                 .call(callout, {
                     text: `${formatTooltip(value)}
-                ${dayjs(date).format('MMM D, YYYY hh:mm')}`,
+                ${dayjs(date).format('MMM D, YYYY hh:mm A')}`,
                     position: { x: index === 0 ? Number(x(date)) + 35 : Number(x(date)), y: y(value) },
                 });
         });
