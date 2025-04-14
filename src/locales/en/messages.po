@@ -2630,9 +2630,6 @@ msgstr "Remove Poll"
 msgid "No activity yet"
 msgstr "No activity yet"
 
-msgid "UID: {uid}"
-msgstr "UID: {uid}"
-
 msgid "Top 500 Buttrfly Points Leaderboard"
 msgstr "Top 500 Buttrfly Points Leaderboard"
 

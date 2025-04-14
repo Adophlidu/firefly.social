@@ -2617,9 +2617,6 @@ msgstr ""
 msgid "No activity yet"
 msgstr ""
 
-msgid "UID: {uid}"
-msgstr ""
-
 msgid "Top 500 Buttrfly Points Leaderboard"
 msgstr ""
 

@@ -2102,7 +2102,7 @@ msgstr "在 Explorer 上查看"
 
 #. placeholder {0}: account?.uid
 msgid "UID: {0}"
-msgstr "UID: {0}"
+msgstr ""
 
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr "所有者可以为每个指定地址设置不同的税率。"
@@ -2634,9 +2634,6 @@ msgstr "删除投票"
 
 msgid "No activity yet"
 msgstr ""
-
-msgid "UID: {uid}"
-msgstr "UID: {uid}"
 
 msgid "Top 500 Buttrfly Points Leaderboard"
 msgstr "Buttrfly Points 排行榜 Top 500"

@@ -7,7 +7,6 @@ import { useEffect, useMemo } from 'react';
 
 import SettingIcon from '@/assets/setting.svg';
 import { Avatar } from '@/components/Avatar.js';
-import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { ComeBackButton } from '@/components/Profile/ComeBackButton.js';
@@ -210,10 +209,6 @@ export function FireflyAccountInfo({ banner, walletProfile, socialProfile, ident
                         )}
                         <div className="h-6 min-w-0 max-w-full truncate text-lg font-bold leading-6">
                             {displayName ?? <Trans>Firefly User</Trans>}
-                        </div>
-                        <div className="flex h-[22px] items-center text-medium leading-[22px] text-second">
-                            <Trans>UID: {uid}</Trans>
-                            <CopyTextButton text={uid} />
                         </div>
                     </div>
                 </div>

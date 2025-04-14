@@ -18,7 +18,6 @@ import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { formatPrice } from '@/helpers/formatPrice.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveNetworkIcon } from '@/helpers/resolveNetworkIcon.js';
@@ -27,10 +26,8 @@ import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useWalletRelatedProfiles } from '@/hooks/useWalletRelatedProfiles.js';
 import { SolanaExplorerResolver } from '@/mask/index.js';
-import { Debank } from '@/providers/debank/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { GoPlus } from '@/providers/goplus/index.js';
-import { OKX } from '@/providers/okx/index.js';
 import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 
 function resolveProfileUrlBySource(source: ProfilePageSource, profiles: FireflyProfile[]) {
@@ -46,22 +43,6 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
     const networkType = getAddressType(address);
 
     const { data: profiles = EMPTY_LIST } = useWalletRelatedProfiles(address);
-
-    const { data: totalBalance } = useQuery({
-        queryKey: ['wallet', 'total-balance', networkType, address],
-        queryFn: async () => {
-            if (!networkType) return null;
-            switch (networkType) {
-                case NetworkType.Ethereum:
-                    return Debank.getUserTotalBalance(address);
-                case NetworkType.Solana:
-                    return OKX.getUserSolanaTotalValue(address);
-                default:
-                    safeUnreachable(networkType);
-                    return null;
-            }
-        },
-    });
 
     const { data: walletSecurity } = useQuery({
         queryKey: ['wallet', 'security', address],
@@ -140,7 +121,6 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                     </div>
                 </div>
                 <div className="ml-auto flex flex-col items-end gap-1">
-                    <div className="text-right text-2xl font-bold">{`$${formatPrice(totalBalance ?? 0)}`}</div>
                     <div className="flex gap-2">
                         {SORTED_SOCIAL_SOURCES.map((source) => {
                             const url = resolveProfileUrlBySource(source, profiles);
