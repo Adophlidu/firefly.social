@@ -10,6 +10,7 @@ import { NetworkType } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveCurrentFireflyAccountId, resolveFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
+import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { useTipsValidation } from '@/hooks/useTipsValidation.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
@@ -53,13 +54,14 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
                     resolveFireflyAccountId(identity),
                 ]);
 
+                const chainName = resolveWagmiChain(token.chainId)?.name || token.chain;
                 reportTokenTips({
                     from_account_id: fromAccountId,
                     to_account_id: toAccountId,
                     from_address: account,
                     to_address: recipient.address,
                     chain_id: `${token.chainId}`,
-                    chain_name: token.chain,
+                    chain_name: chainName,
                     amount,
                     token_symbol: token.symbol,
                     token_icon: token.logo_url,
@@ -78,7 +80,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
                     currency: token.symbol,
                     amount_usd: token.usdValue,
                     chain_id: token.chainId,
-                    chain_name: token.chain,
+                    chain_name: chainName,
                 });
             }
 
