@@ -556,14 +556,13 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: {
             target_wallet_address: string; // address all lowercased
-            source_firefly_account_id: string;
             target_firefly_account_id?: string;
             amount: string;
             currency: string;
             amount_usd?: number;
             chain_id: number;
             chain_name: string;
-        } & SourceWalletEventParameters;
+        } & WalletEventParameters;
     };
     [EventId.LUCKY_DROP_CREATE_SUCCESS]: {
         type: EventType.Interact;

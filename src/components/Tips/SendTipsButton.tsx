@@ -71,9 +71,8 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
                     tx_hash: hash,
                 });
                 captureTipsSendEvent({
-                    source_wallet_address: account,
+                    wallet_address: account,
                     target_wallet_address: recipient.address,
-                    source_firefly_account_id: fromAccountId ?? '',
                     target_firefly_account_id: toAccountId ?? '',
                     amount,
                     currency: token.symbol,
