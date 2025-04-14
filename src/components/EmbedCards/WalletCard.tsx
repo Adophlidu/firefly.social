@@ -156,7 +156,9 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                                 </Link>
                             );
                         })}
-                        <Tips identity={identity} pureWallet isAuthRequired={false} />
+                        {networkType === NetworkType.Ethereum ? (
+                            <Tips identity={identity} pureWallet isAuthRequired={false} />
+                        ) : null}
                     </div>
                 </div>
             </div>
