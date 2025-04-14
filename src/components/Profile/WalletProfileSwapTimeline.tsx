@@ -21,7 +21,7 @@ export function WalletProfileSwapTimeline({ address }: { address: string }) {
     const profileIds = useCurrentProfileIds();
     const { selectedChainId } = useSwapStateStore();
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['swap', 'profile', addresses, profileIds, selectedChainId, isLoginFirefly],
+        queryKey: ['swaps', 'profile', addresses, profileIds, selectedChainId, isLoginFirefly],
         networkMode: 'always',
         queryFn: async ({ pageParam }) => {
             if (!isLoginFirefly) return;
