@@ -1,5 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
-import { type ReactNode,Suspense } from 'react';
+import { type ReactNode, Suspense } from 'react';
 
 import { MutedWallets } from '@/app/(settings)/components/MutedWallets.js';
 import ComebackIcon from '@/assets/comeback.svg';

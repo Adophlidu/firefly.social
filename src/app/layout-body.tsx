@@ -1,12 +1,17 @@
-import { BeforeUnload } from '@/components/Compose/BeforeUnload.js';
 import { IfHostname } from '@/components/IfHostname.js';
 import { IfPathname } from '@/components/IfPathname.js';
-import { NoSSR } from '@/components/NoSSR.js';
 import { Providers } from '@/components/Providers.js';
-import { RouteProgressBar } from '@/components/RouteProgressBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { CZ_ACTIVITY_HOSTNAME } from '@/constants/index.js';
-import { Modals } from '@/modals/index.js';
+import { dynamic } from '@/esm/dynamic.js';
+
+const RouteProgressBar = dynamic(() => import('@/components/RouteProgressBar.js').then((m) => m.RouteProgressBar), {
+    ssr: false,
+});
+const Modals = dynamic(() => import('@/modals/index.js').then((m) => m.Modals), { ssr: false });
+const BeforeUnload = dynamic(() => import('@/components/Compose/BeforeUnload.js').then((m) => m.BeforeUnload), {
+    ssr: false,
+});
 
 export function LayoutBody({ children }: { children: React.ReactNode }) {
     return (
@@ -31,9 +36,7 @@ export function LayoutBody({ children }: { children: React.ReactNode }) {
                     shallowRouting
                 />
             </Providers>
-            <NoSSR>
-                <BeforeUnload />
-            </NoSSR>
+            <BeforeUnload />
         </>
     );
 }

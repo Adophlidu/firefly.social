@@ -1,4 +1,3 @@
-
 import { TelemetryMethodButton } from '@/app/(developers)/components/TelemetryMethodButton.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';

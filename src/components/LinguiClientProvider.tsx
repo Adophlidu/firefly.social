@@ -13,7 +13,6 @@ export function LinguiClientProvider({ children }: LinguiClientProviderProps) {
     if (bom.document) {
         setupLocalForClient();
 
-         
         const locale = getLocalFromClientCookies();
         return <I18nProvider i18n={getI18nInstance(locale)}>{children}</I18nProvider>;
     } else {
