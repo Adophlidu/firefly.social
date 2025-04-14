@@ -96,13 +96,10 @@ export function useDeleteFireflyAccount() {
             await captureAccountDeleteEvent(accountId);
             await removeAllAccounts();
             await delay(300);
-            router.replace(
-                '/',
-                {},
-                {
-                    showProgressBar: false,
-                },
-            );
+            router.replace('/', {
+                showProgress: false,
+                disableSameURL: true,
+            });
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to delete`);
         }

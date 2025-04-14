@@ -85,13 +85,10 @@ export function LogoutModal({ ref }: Props) {
 
             dispatch?.close();
             await delay(300);
-            router.replace(
-                '/',
-                {},
-                {
-                    showProgressBar: false,
-                },
-            );
+            router.replace('/', {
+                disableSameURL: true,
+                showProgress: false,
+            });
         },
     });
 

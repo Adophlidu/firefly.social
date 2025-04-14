@@ -1,5 +1,5 @@
 'use client';
 
-import { AppProgressBar } from 'next-nprogress-bar';
+import { AppProgressProvider } from '@bprogress/next';
 
-export const RouteProgressBar = AppProgressBar;
+export const RouteProgressBar = AppProgressProvider;

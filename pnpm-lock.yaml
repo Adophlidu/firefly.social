@@ -58,6 +58,9 @@ dependencies:
   '@aws-sdk/lib-storage':
     specifier: ^3.782.0
     version: 3.782.0(@aws-sdk/client-s3@3.782.0)
+  '@bprogress/next':
+    specifier: ^3.2.11
+    version: 3.2.11(next@15.3.0)(react-dom@19.0.0)(react@19.0.0)
   '@coral-xyz/anchor':
     specifier: ^0.30.1
     version: 0.30.1
@@ -286,9 +289,6 @@ dependencies:
   next-auth:
     specifier: ^4.24.11
     version: 4.24.11(next@15.3.0)(react-dom@19.0.0)(react@19.0.0)
-  next-nprogress-bar:
-    specifier: ^2.4.7
-    version: 2.4.7
   notistack:
     specifier: 2.0.8
     version: 2.0.8(@emotion/react@11.14.0)(@emotion/styled@11.14.0)(@mui/material@5.17.1)(react-dom@19.0.0)(react@19.0.0)
@@ -2485,6 +2485,35 @@ packages:
     dependencies:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
+
+  /@bprogress/core@1.3.3:
+    resolution: {integrity: sha512-Vz9vzZE8xvfkgY09e0S6kzNz/ev/2lUw7A/z0TW7N0ZBG9xmVXrzSsFe3uvypxDa5ltn+xLBtfDtxBc8KsrvBQ==}
+    dev: false
+
+  /@bprogress/next@3.2.11(next@15.3.0)(react-dom@19.0.0)(react@19.0.0):
+    resolution: {integrity: sha512-UPXApgTvtF0zu3GoxctG0sZ177PbresqVUosaV5giAG46CuGRQeY7Ys3McL7I1h9MaUkh1rg+1NPAdnGE4dEig==}
+    peerDependencies:
+      next: '>=13.0.0'
+      react: 19.0.0
+      react-dom: 19.0.0
+    dependencies:
+      '@bprogress/core': 1.3.3
+      '@bprogress/react': 1.2.6(react-dom@19.0.0)(react@19.0.0)
+      next: 15.3.0(@babel/core@7.26.10)(react-dom@19.0.0)(react@19.0.0)
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+    dev: false
+
+  /@bprogress/react@1.2.6(react-dom@19.0.0)(react@19.0.0):
+    resolution: {integrity: sha512-fAK2qSO4+nG0Rak6+9jZmGWQxsntHS8Zw4fm2dBhPardhlfIPzVV47uhkW2cyQl9+r/1We/kYVq+r31deLO5Zg==}
+    peerDependencies:
+      react: 19.0.0
+      react-dom: 19.0.0
+    dependencies:
+      '@bprogress/core': 1.3.3
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+    dev: false
 
   /@coinbase/wallet-sdk@3.9.3:
     resolution: {integrity: sha512-N/A2DRIf0Y3PHc1XAMvbBUu4zisna6qAdqABMZwBMNEfWrXpAwx16pZGkYCLGE+Rvv1edbcB2LYDRnACNcmCiw==}
@@ -16330,12 +16359,6 @@ packages:
       uuid: 8.3.2
     dev: false
 
-  /next-nprogress-bar@2.4.7:
-    resolution: {integrity: sha512-OeveNQYFBhQhZ+RgrDnvHNUEQfHCmipymmD4AfAVE9pFV4jeWi7/nNK5f0lIk7ODRrtjyyr/n2YpkRbs5kUoMg==}
-    dependencies:
-      nprogress-v2: 1.1.10
-    dev: false
-
   /next-tick@1.1.0:
     resolution: {integrity: sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==}
     dev: false
@@ -16473,10 +16496,6 @@ packages:
       hoist-non-react-statics: 3.3.2
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
-    dev: false
-
-  /nprogress-v2@1.1.10:
-    resolution: {integrity: sha512-MypWLNIPIM07SS0bAc/oac0vhVFz9vAHm7d1sj//Pnf3J03LQ3CuWrlDteIu6exq0fIvkDJ6tUDRWLaifsIt5w==}
     dev: false
 
   /nth-check@2.1.1:
@@ -21015,6 +21034,7 @@ time:
   /@atproto/common-web@0.4.1: '2025-04-02T23:42:48.048Z'
   /@aws-sdk/client-s3@3.782.0: '2025-04-03T19:12:48.476Z'
   /@aws-sdk/lib-storage@3.782.0: '2025-04-03T19:14:34.617Z'
+  /@bprogress/next@3.2.11: '2025-04-10T09:35:12.548Z'
   /@coral-xyz/anchor@0.30.1: '2024-06-20T15:28:00.153Z'
   /@crowdin/cli@4.7.0: '2025-03-31T08:36:01.059Z'
   /@dialectlabs/blinks-core@0.20.7: '2025-04-04T10:40:44.099Z'
@@ -21137,7 +21157,6 @@ time:
   /localforage@1.10.0: '2021-08-18T21:22:08.980Z'
   /lodash-es@4.17.21: '2021-02-20T15:43:35.756Z'
   /next-auth@4.24.11: '2024-12-06T18:11:39.458Z'
-  /next-nprogress-bar@2.4.7: '2025-02-18T10:03:03.301Z'
   /next@15.3.0: '2025-04-09T20:14:08.945Z'
   /notistack@2.0.8: '2022-10-16T13:58:55.665Z'
   /plyr-react@5.3.0: '2023-06-12T22:50:21.153Z'

@@ -24,7 +24,7 @@ export function ProfileCell({ profile, source, className, ref, ...rest }: Props)
         <Link
             href={getProfileUrl(profile)}
             className={classNames('flex w-full px-4 py-2 hover:bg-bg', className)}
-            data-disable-nprogress
+            data-disable-progress
             {...rest}
         >
             <div className="flex w-full items-center">

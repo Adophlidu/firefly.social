@@ -1,6 +1,6 @@
 import { ProjectTrendingList } from '@/components/ProjectTrendingList.js';
 import { ExploreType } from '@/constants/enum.js';
-import { redirect, RedirectType } from '@/esm/navigation.js';
+import { redirect, RedirectType } from '@/esm/navigation/server.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import type { NextPageProps } from '@/types/index.js';
 

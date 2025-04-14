@@ -67,7 +67,7 @@ export function NFTsActivityCellCard(props: Props) {
             <Link
                 href={resolveNFTUrl(chainId, address, tokenId)}
                 className="relative flex w-auto shrink-0 flex-col"
-                data-disable-nprogress={!!data?.metadata?.video}
+                data-disable-progress={!!data?.metadata?.video}
             >
                 <div className="relative">
                     {data?.metadata?.video ? (

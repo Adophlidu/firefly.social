@@ -400,7 +400,8 @@
         "testid",
         "nitter",
         "fullname",
-        "Gltf"
+        "Gltf",
+        "bprogress"
     ],
     "flagWords": [],
     "ignorePaths": [
