@@ -40,10 +40,10 @@ export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: num
                 try {
                     await FireflyEndpointProvider.mintNFTBySponsor(options);
                     captureMintNFTEvent(
-                        mintTarget.collectionId || '',
                         options.walletAddress,
-                        true,
+                        mintTarget.chainId.toString(),
                         mintTarget.contractAddress,
+                        true,
                     );
                 } catch (error) {
                     if (error instanceof Error && error.message.includes('insufficient funds')) {
@@ -62,10 +62,10 @@ export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: num
                 });
                 await waitForTransactionReceipt(config, { hash });
                 captureMintNFTEvent(
-                    mintTarget.collectionId || '',
                     options.walletAddress,
-                    true,
+                    mintTarget.chainId.toString(),
                     mintTarget.contractAddress,
+                    true,
                 );
             }
 
@@ -80,7 +80,6 @@ export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: num
         mintTarget.contractAddress,
         mintTarget.tokenId,
         mintTarget.chainId,
-        mintTarget.collectionId,
         mintTarget.contractExt,
         mintCount,
         onSuccess,

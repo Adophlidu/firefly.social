@@ -588,7 +588,7 @@ export interface Events extends Record<EventId, Event> {
     [EventId.MINT_NFT_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
-            nft_id: string;
+            chain_id: string;
             free_mint: boolean;
             nft_ca: string;
         } & WalletEventParameters;
