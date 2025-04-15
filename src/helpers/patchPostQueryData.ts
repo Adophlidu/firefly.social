@@ -13,9 +13,19 @@ export type Matcher = string | ((post: Draft<Post> | null | undefined) => boolea
 export function patchPostQueryData(source: Source, postId: Matcher, patcher: Patcher) {
     const matcher: Matcher = typeof postId === 'string' ? (post) => post?.postId === postId : postId;
 
+    queryClient.setQueriesData<Post>({ queryKey: ['pinned-post', source] }, (old) => {
+        if (!old) return old;
+        return produce(old, (draft) => {
+            for (const p of [draft, draft.root, draft.commentOn]) {
+                if (matcher(p)) {
+                    patcher(p!);
+                }
+            }
+        });
+    });
+
     queryClient.setQueriesData<Post>({ queryKey: [source, 'post-detail'] }, (old) => {
         if (!old) return old;
-
         return produce(old, (draft) => {
             for (const p of [draft, draft.root, draft.commentOn]) {
                 if (matcher(p)) {
