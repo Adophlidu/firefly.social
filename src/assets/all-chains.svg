@@ -1,1 +1,69 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" fill="none"><g clip-path="url(#a)"><path fill="#fff" d="M0 .5h6.875v6.875H0z"/><path fill="#000" fill-opacity=".602" d="M3.438 1.646V3.34l1.432.64-1.433-2.334Z"/><path fill="#000" d="M3.437 1.646 2.005 3.98l1.432-.64V1.646Z"/><path fill="#000" fill-opacity=".602" d="M3.438 5.078V6.23L4.87 4.247l-1.433.831Z"/><path fill="#000" d="M3.437 6.23V5.078l-1.432-.83L3.437 6.23Z"/><path fill="#000" fill-opacity=".2" d="M3.438 4.812 4.87 3.98l-1.433-.64v1.472Z"/><path fill="#000" fill-opacity=".602" d="m2.005 3.98 1.432.832V3.34l-1.432.64Z"/></g><rect width="6.563" height="6.563" x=".156" y=".656" stroke="#000" stroke-opacity=".3" stroke-width=".313" rx="1.719"/><g clip-path="url(#b)"><g clip-path="url(#c)"><path fill="#0052FF" d="M8.125.5H15v6.875H8.125z"/><path fill="#0052FF" d="M11.563 7.375a3.437 3.437 0 1 0 0-6.875 3.437 3.437 0 0 0 0 6.875Z"/><path fill="#fff" d="M11.578 6.326a2.41 2.41 0 0 0 2.412-2.408 2.41 2.41 0 0 0-2.412-2.408c-1.264 0-2.301.97-2.404 2.206h3.189v.404h-3.19a2.411 2.411 0 0 0 2.405 2.206Z"/></g></g><g clip-path="url(#d)"><path fill="#F3BA2F" d="M0 9.375h6.875v6.875H0z"/><path fill="#fff" d="m2.547 12.447.89-.89.89.89.518-.517-1.408-1.41-1.408 1.409.518.518Zm-1.401.365.517-.517.518.517-.518.518-.517-.518Zm1.4.366.891.89.89-.89.518.517-1.408 1.409-1.408-1.408.518-.518Zm2.147-.366.517-.517.519.517-.518.518-.518-.518Zm-.73 0-.526.526-.525-.525v-.001l.092-.092.045-.045.388-.388.525.525Z"/></g><g clip-path="url(#e)"><rect width="6.875" height="6.875" x="8.125" y="9.375" fill="#fff" rx="1.875"/><path fill="url(#f)" d="M10.016 13.718a.153.153 0 0 1 .106-.042h3.658c.067 0 .1.077.053.122l-.723.691a.153.153 0 0 1-.106.042H9.346c-.066 0-.1-.077-.052-.122l.722-.691Z"/><path fill="url(#g)" d="M10.016 11.136a.153.153 0 0 1 .106-.042h3.658c.067 0 .1.077.053.122l-.723.691a.153.153 0 0 1-.106.042H9.346c-.066 0-.1-.077-.052-.122l.722-.691Z"/><path fill="url(#h)" d="M13.11 12.418a.153.153 0 0 0-.106-.041H9.346c-.066 0-.1.077-.052.122l.722.691a.153.153 0 0 0 .106.042h3.658c.067 0 .1-.077.053-.122l-.723-.691Z"/></g><rect width="6.563" height="6.563" x="8.281" y="9.531" stroke="#000" stroke-opacity=".3" stroke-width=".313" rx="1.719"/><defs><clipPath id="a"><rect width="6.875" height="6.875" y=".5" fill="#fff" rx="1.875"/></clipPath><clipPath id="b"><rect width="6.875" height="6.875" x="8.125" y=".5" fill="#fff" rx="1.875"/></clipPath><clipPath id="c"><path fill="#fff" d="M8.125.5H15v6.875H8.125z"/></clipPath><clipPath id="d"><rect width="6.875" height="6.875" y="9.375" fill="#fff" rx="1.875"/></clipPath><clipPath id="e"><rect width="6.875" height="6.875" x="8.125" y="9.375" fill="#fff" rx="1.875"/></clipPath><linearGradient id="f" x1="12.37" x2="10.009" y1="10.151" y2="14.877" gradientUnits="userSpaceOnUse"><stop stop-color="#00FFA3"/><stop offset="1" stop-color="#DC1FFF"/></linearGradient><linearGradient id="g" x1="12.37" x2="10.009" y1="10.151" y2="14.877" gradientUnits="userSpaceOnUse"><stop stop-color="#00FFA3"/><stop offset="1" stop-color="#DC1FFF"/></linearGradient><linearGradient id="h" x1="12.37" x2="10.009" y1="10.151" y2="14.877" gradientUnits="userSpaceOnUse"><stop stop-color="#00FFA3"/><stop offset="1" stop-color="#DC1FFF"/></linearGradient></defs></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+    <g clip-path="url(#a)">
+        <path fill="#fff" d="M0 0h11v11H0z" />
+        <path fill="#000" fill-opacity=".602" d="M5.5 1.833v2.711l2.291 1.024L5.5 1.834Z" />
+        <path fill="#000" d="M5.5 1.833 3.208 5.569 5.5 4.544v-2.71Z" />
+        <path fill="#000" fill-opacity=".602" d="M5.5 7.325v1.842l2.293-3.172L5.5 7.325Z" />
+        <path fill="#000" d="M5.5 9.167V7.324l-2.292-1.33L5.5 9.168Z" />
+        <path fill="#000" fill-opacity=".2" d="m5.5 6.898 2.291-1.33L5.5 4.545v2.353Z" />
+        <path fill="#000" fill-opacity=".602" d="M3.208 5.568 5.5 6.898V4.545L3.208 5.568Z" />
+    </g>
+    <rect width="10.5" height="10.5" x=".25" y=".25" stroke="#000" stroke-opacity=".3"
+        stroke-width=".5" rx="2.75" />
+    <g clip-path="url(#b)">
+        <g clip-path="url(#c)">
+            <path fill="#0052FF" d="M13 0h11v11H13z" />
+            <path fill="#0052FF" d="M18.5 11a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Z" />
+            <path fill="#fff"
+                d="M18.524 9.322a3.856 3.856 0 0 0 3.86-3.853 3.856 3.856 0 0 0-3.86-3.853 3.858 3.858 0 0 0-3.846 3.529h5.101v.648h-5.101a3.858 3.858 0 0 0 3.846 3.529Z" />
+        </g>
+    </g>
+    <g clip-path="url(#d)">
+        <path fill="#F3BA2F" d="M0 13h11v11H0z" />
+        <path fill="#fff"
+            d="M4.075 17.915 5.5 16.492l1.425 1.424.829-.828-2.254-2.255-2.252 2.254.828.828Zm-2.242.585.828-.828.83.828-.83.829-.828-.829Zm2.242.586L5.5 20.509l1.425-1.424.829.828-2.254 2.254-2.252-2.253-.002-.001.83-.828ZM7.51 18.5l.828-.829.83.828-.83.829-.828-.829Zm-1.17-.001h.001l-.84.841-.84-.84h-.001v-.002l.148-.147.072-.072.621-.62.84.84Z" />
+    </g>
+    <g clip-path="url(#e)">
+        <rect width="11" height="11" x="13" y="13" fill="#fff" rx="3" />
+        <path fill="url(#f)"
+            d="M16.026 19.949a.245.245 0 0 1 .169-.067h5.852c.107 0 .16.123.085.195l-1.156 1.106a.245.245 0 0 1-.17.067h-5.852c-.107 0-.16-.123-.085-.195l1.157-1.106Z" />
+        <path fill="url(#g)"
+            d="M16.026 15.817a.245.245 0 0 1 .169-.067h5.852c.107 0 .16.123.085.195l-1.156 1.106a.245.245 0 0 1-.17.067h-5.852c-.107 0-.16-.123-.085-.195l1.157-1.106Z" />
+        <path fill="url(#h)"
+            d="M20.976 17.87a.245.245 0 0 0-.17-.067h-5.852c-.107 0-.16.123-.085.195l1.157 1.106a.244.244 0 0 0 .169.067h5.852c.107 0 .16-.123.085-.195l-1.156-1.106Z" />
+    </g>
+    <rect width="10.5" height="10.5" x="13.25" y="13.25" stroke="#000" stroke-opacity=".3"
+        stroke-width=".5" rx="2.75" />
+    <defs>
+        <clipPath id="a">
+            <rect width="11" height="11" fill="#fff" rx="3" />
+        </clipPath>
+        <clipPath id="b">
+            <rect width="11" height="11" x="13" fill="#fff" rx="3" />
+        </clipPath>
+        <clipPath id="c">
+            <path fill="#fff" d="M13 0h11v11H13z" />
+        </clipPath>
+        <clipPath id="d">
+            <rect width="11" height="11" y="13" fill="#fff" rx="3" />
+        </clipPath>
+        <clipPath id="e">
+            <rect width="11" height="11" x="13" y="13" fill="#fff" rx="3" />
+        </clipPath>
+        <linearGradient id="f" x1="19.792" x2="16.014" y1="14.241" y2="21.802"
+            gradientUnits="userSpaceOnUse">
+            <stop stop-color="#00FFA3" />
+            <stop offset="1" stop-color="#DC1FFF" />
+        </linearGradient>
+        <linearGradient id="g" x1="19.792" x2="16.014" y1="14.241" y2="21.802"
+            gradientUnits="userSpaceOnUse">
+            <stop stop-color="#00FFA3" />
+            <stop offset="1" stop-color="#DC1FFF" />
+        </linearGradient>
+        <linearGradient id="h" x1="19.792" x2="16.014" y1="14.241" y2="21.802"
+            gradientUnits="userSpaceOnUse">
+            <stop stop-color="#00FFA3" />
+            <stop offset="1" stop-color="#DC1FFF" />
+        </linearGradient>
+    </defs>
+</svg>

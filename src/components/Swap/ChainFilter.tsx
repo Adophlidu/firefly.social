@@ -54,7 +54,7 @@ export function ChainFilter() {
         if (selectedChainId === 101) {
             return <ChainIcon chainId={101} networkType={NetworkType.Solana} size={20} />;
         } else if (selectedChainId === null) {
-            return <AllChainIcon width={20} height={20} />;
+            return <AllChainIcon width={24} height={24} />;
         } else {
             return <ChainIcon chainId={selectedChainId} size={20} />;
         }
