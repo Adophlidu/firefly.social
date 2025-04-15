@@ -94,8 +94,10 @@ function MuteAllByWalletMenuItem({
     const { data: fireflyProfile } = useQuery({
         queryKey: ['firefly-profile', identity],
         async queryFn() {
-            const walletProfiles = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false);
-            return walletProfiles.account;
+            return FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false);
+        },
+        select(data) {
+            return data.account;
         },
     });
     const noFireflyAccount =

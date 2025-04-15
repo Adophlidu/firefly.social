@@ -35,6 +35,7 @@ import type {
     FireflyIdentity,
     FireflyProfile,
     WalletProfile,
+    WalletProfiles,
 } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -45,16 +46,26 @@ interface Props {
     identity: FireflyIdentity;
     profiles?: FireflyProfile[];
     profile?: FireflyAccountProfile | null;
+    relatedProfile: WalletProfiles;
 }
 
-export function FireflyAccountInfo({ banner, walletProfile, socialProfile, identity, profiles, profile }: Props) {
-    const { data = profile } = useQuery({
+export function FireflyAccountInfo({
+    banner,
+    walletProfile,
+    socialProfile,
+    identity,
+    profiles,
+    relatedProfile,
+}: Props) {
+    const { data } = useQuery({
         queryKey: ['firefly-profile', identity],
         async queryFn() {
-            const walletProfiles = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false);
-            return walletProfiles.account;
+            return FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false);
         },
-        initialData: profile,
+        select(data) {
+            return data.account;
+        },
+        initialData: relatedProfile,
     });
     const { displayName, uid, avatar } = data || {};
     const [buttonContainerRef, buttonContainerEntry] = useIntersectionObserver({

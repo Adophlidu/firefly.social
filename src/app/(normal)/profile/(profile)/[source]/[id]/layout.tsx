@@ -47,7 +47,7 @@ export default async function Layout(props: Props) {
     if (isRequestedLoginSource(source) && !resolveSessionHolder(source).session) {
         return (
             <>
-                <FireflyAccountInfo identity={identity} profile={relatedProfile.account} />
+                <FireflyAccountInfo identity={identity} relatedProfile={relatedProfile} />
                 <ProfileSourceTabs profiles={profiles} identity={identity} />
                 <NotLoginFallback source={source as LoginFallbackSource} />
             </>
@@ -68,7 +68,7 @@ export default async function Layout(props: Props) {
     return (
         <>
             <FireflyAccountInfo
-                profile={relatedProfile.account}
+                relatedProfile={relatedProfile}
                 identity={identity}
                 socialProfile={socialProfile}
                 walletProfile={walletProfile}

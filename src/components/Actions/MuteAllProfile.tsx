@@ -40,7 +40,7 @@ function waitForConfirmation(handleOrEnsOrAddress: string) {
     });
 }
 
-function MuteAllProfileBase({ handleOrEnsOrAddress, identity, blocking, onClose, className }: MuteAllProfileBaseProps) {
+function MuteAllProfileBase({ handleOrEnsOrAddress, identity, onClose, className }: MuteAllProfileBaseProps) {
     const { data: fireflyProfiles, isLoading } = useQuery({
         queryKey: ['firefly-profile', identity],
         queryFn: () => FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false),
@@ -65,7 +65,7 @@ function MuteAllProfileBase({ handleOrEnsOrAddress, identity, blocking, onClose,
         (!fireflyProfiles?.account?.displayName && !fireflyProfiles?.account?.avatar) || !fireflyProfiles?.account?.uid;
     const totalProfilesCount = sum(
         compact([
-            fireflyProfiles?.bskyProfiles?.length,
+            fireflyProfiles?.bskyProfiles.length,
             fireflyProfiles?.farcasterProfiles.length,
             fireflyProfiles?.lensProfilesV3.length,
             fireflyProfiles?.solanaWalletProfiles.length,
