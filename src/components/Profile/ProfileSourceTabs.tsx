@@ -344,28 +344,33 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
         >
             <button
                 className={classNames(
-                    'shadow-action sticky left-0 top-0 z-10 -mr-5 flex size-5 shrink-0 items-center justify-center rounded-full border border-line bg-primaryBottom duration-100',
+                    'sticky left-0 z-10 -mr-10 flex h-full -translate-x-4 transform cursor-pointer items-center pl-4 duration-100 hover:text-highlight',
                     {
                         'pointer-events-none opacity-0': hiddenLeft,
                     },
                 )}
                 onClick={() => onScrollTo(ScrollDirection.Left)}
             >
-                <span className="absolute left-0 top-0 size-full scale-[2]" />
-                <ArrowLeftIcon className="relative h-2 w-auto shrink-0" />
+                <span className="absolute left-0 top-0 h-full w-14 bg-gradient-to-l from-transparent to-primaryBottom to-55%" />
+                <span className="shadow-action relative flex size-5 shrink-0 items-center justify-center rounded-full border border-line bg-primaryBottom">
+                    <ArrowLeftIcon className="relative h-2 w-auto shrink-0" />
+                </span>
             </button>
+
             {children}
             <button
                 className={classNames(
-                    'shadow-action sticky right-0 top-0 -ml-5 flex size-5 shrink-0 items-center justify-center rounded-full border border-line bg-primaryBottom duration-100',
+                    'sticky right-0 z-10 -ml-10 flex h-full transform cursor-pointer items-center pl-4 duration-100 hover:text-highlight',
                     {
                         'pointer-events-none opacity-0': hiddenRight,
                     },
                 )}
                 onClick={() => onScrollTo(ScrollDirection.Right)}
             >
-                <span className="absolute left-0 top-0 size-full scale-[2]" />
-                <ArrowRightIcon className="relative h-2 w-auto shrink-0" />
+                <span className="absolute left-0 top-0 h-full w-14 bg-gradient-to-r from-transparent to-primaryBottom to-55%" />
+                <span className="shadow-action relative flex size-5 shrink-0 items-center justify-center rounded-full border border-line bg-primaryBottom">
+                    <ArrowRightIcon className="relative h-2 w-auto shrink-0" />
+                </span>
             </button>
         </div>
     );
