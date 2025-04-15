@@ -10,12 +10,15 @@ import { EventId } from '@/providers/types/Telemetry.js';
 
 type ProfileActionType = 'follow' | 'unfollow' | 'super_follow';
 
-const resolveProfileActionEventIds = createLookupTableResolver<SocialSource, Record<ProfileActionType, EventId>>(
+const resolveProfileActionEventIds = createLookupTableResolver<
+    SocialSource,
+    Record<ProfileActionType, EventId | undefined>
+>(
     {
         [Source.Farcaster]: {
             follow: EventId.FARCASTER_PROFILE_FOLLOW_SUCCESS,
             unfollow: EventId.FARCASTER_PROFILE_UNFOLLOW_SUCCESS,
-            super_follow: EventId.FARCASTER_PROFILE_SUPER_FOLLOW_SUCCESS,
+            super_follow: undefined,
         },
         [Source.Lens]: {
             follow: EventId.LENS_PROFILE_FOLLOW_SUCCESS,
@@ -45,9 +48,10 @@ export function captureProfileActionEvent(
         followerWalletAddress?: string;
     },
 ) {
-    return runInSafeAsync(() => {
+    return runInSafeAsync(async () => {
         const eventIds = resolveProfileActionEventIds(profile.source);
         const eventId = eventIds[action];
+        if (!eventId) return;
 
         return TelemetryProvider.captureEvent(eventId, {
             ...getProfileEventParameters(profile),

@@ -77,7 +77,6 @@ export enum EventId {
     // profile
     PROFILE_EDIT_CLICK = 'account_edit_profile_click', // ✅
     PROFILE_EDIT_SUCCESS = 'account_edit_profile_success', // ✅
-    PROFILE_SUPER_FOLLOW_SUCCESS = 'profile_superfollow_success',
     PROFILE_CHANGE_ACCOUNT_CLICK = 'profile_change_account_click',
 
     // connect wallet
@@ -128,7 +127,6 @@ export enum EventId {
     LENS_POST_SHARE_SUCCESS = 'lens_post_share_success', // ✅
     LENS_POST_BOOKMARK_SUCCESS = 'lens_post_bookmark_success', // ✅
     LENS_POST_UNBOOKMARK_SUCCESS = 'lens_post_unbookmark_success', // ✅
-    LENS_POST_COLLECT_SUCCESS = 'lens_post_collect_success', // ✅
     LENS_PROFILE_FOLLOW_SUCCESS = 'lens_follow_success', // ✅
     LENS_PROFILE_UNFOLLOW_SUCCESS = 'lens_unfollow_success', // ✅
     LENS_PROFILE_SUPER_FOLLOW_SUCCESS = 'lens_superfollow_success', // ✅
@@ -592,6 +590,7 @@ export interface Events extends Record<EventId, Event> {
         parameters: {
             nft_id: string;
             free_mint: boolean;
+            nft_ca: string;
         } & WalletEventParameters;
     };
     [EventId.ARTICLE_COLLECT_SUCCESS]: {
@@ -778,10 +777,6 @@ export interface Events extends Record<EventId, Event> {
     [EventId.LENS_POST_BOOKMARK_SUCCESS]: {
         type: EventType.Interact;
         parameters: LensPostEventParameters;
-    };
-    [EventId.LENS_POST_COLLECT_SUCCESS]: {
-        type: EventType.Interact;
-        parameters: LensPostEventParameters & WalletEventParameters;
     };
     [EventId.LENS_PROFILE_FOLLOW_SUCCESS]: {
         type: EventType.Interact;

@@ -21,7 +21,7 @@ type PostActionType =
     | 'unbookmark'
     | 'collect';
 
-const resolvePostActionEventIds = createLookupTableResolver<SocialSource, Record<PostActionType, EventId>>(
+const resolvePostActionEventIds = createLookupTableResolver<SocialSource, Record<PostActionType, EventId | null>>(
     {
         [Source.Farcaster]: {
             like: EventId.FARCASTER_POST_LIKE_SUCCESS,
@@ -47,7 +47,7 @@ const resolvePostActionEventIds = createLookupTableResolver<SocialSource, Record
             undo_repost: EventId.LENS_POST_UNDO_REPOST_SUCCESS,
             bookmark: EventId.LENS_POST_BOOKMARK_SUCCESS,
             unbookmark: EventId.LENS_POST_UNBOOKMARK_SUCCESS,
-            collect: EventId.LENS_POST_COLLECT_SUCCESS,
+            collect: null,
         },
         [Source.Twitter]: {
             like: EventId.X_POST_LIKE_SUCCESS,
@@ -88,9 +88,10 @@ export function capturePostActionEvent(
         collectWalletAddress?: string;
     },
 ) {
-    return runInSafeAsync(() => {
+    return runInSafeAsync(async () => {
         const eventIds = resolvePostActionEventIds(post.source);
         const eventId = eventIds[action];
+        if (!eventId) return;
 
         return TelemetryProvider.captureEvent(eventId, {
             ...(action === 'delete' ? getSelfPostEventParameters(post) : getPostEventParameters(post)),
