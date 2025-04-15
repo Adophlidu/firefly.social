@@ -3,8 +3,9 @@ import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 import { arbitrum, base, bsc, mainnet, optimism, polygon } from 'viem/chains';
 
-import AllChainIcon from '@/assets/all-chains.svg';
 import CheckIcon from '@/assets/check.svg';
+import FilterIcon from '@/assets/filter.svg';
+import MiniFilterIcon from '@/assets/mini-filter.svg';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NetworkType } from '@/constants/enum.js';
 import { useSwapStore } from '@/store/useSwapStore.js';
@@ -54,7 +55,7 @@ export function ChainFilter() {
         if (selectedChainId === 101) {
             return <ChainIcon chainId={101} networkType={NetworkType.Solana} size={20} />;
         } else if (selectedChainId === null) {
-            return <AllChainIcon width={24} height={24} />;
+            return <FilterIcon width={24} height={24} />;
         } else {
             return <ChainIcon chainId={selectedChainId} size={20} />;
         }
@@ -91,7 +92,7 @@ export function ChainFilter() {
                                             <div className="size-4" />
                                         )}
                                         <div className="flex h-[22px] flex-row items-center gap-1 text-medium">
-                                            <AllChainIcon width={15} height={15} />
+                                            <MiniFilterIcon width={15} height={15} />
                                             <span>
                                                 <Trans>All chains</Trans>
                                             </span>

@@ -44,7 +44,7 @@ export function FollowingSnapshotList({ walletAddresses }: { walletAddresses?: s
             source={Source.DAOs}
             queryResult={queryResult}
             NoResultsFallbackProps={{
-                className: 'md:pt-[228px] max-md:py-20',
+                className: !walletAddresses ? 'md:pt-[228px] max-md:py-20' : undefined,
             }}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Following}:${Source.DAOs}`,
