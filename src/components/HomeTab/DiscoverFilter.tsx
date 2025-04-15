@@ -175,10 +175,10 @@ export function DiscoverFilter({ tab, source }: Props) {
             {({ close }) => (
                 <>
                     <MenuButton
-                        className="size-5 text-placeholder outline-none"
+                        className="size-6 text-placeholder outline-none"
                         onMouseEnter={(e) => e.currentTarget.click()}
                     >
-                        <FilterIcon width={20} height={20} />
+                        <FilterIcon width={24} height={24} />
                     </MenuButton>
                     <MenuItems
                         transition

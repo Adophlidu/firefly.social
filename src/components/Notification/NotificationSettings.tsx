@@ -104,7 +104,7 @@ export function NotificationSettings({ source }: { source: NotificationSource })
     return (
         <Popover className="relative flex items-center justify-center">
             <PopoverButton className="p-2">
-                <FilterIcon className="size-5 shrink-0 text-secondary" width={20} height={20} />
+                <FilterIcon className="size-6 shrink-0 text-secondary" width={24} height={24} />
             </PopoverButton>
             <PopoverPanel
                 anchor="bottom end"
