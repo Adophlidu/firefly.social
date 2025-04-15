@@ -1555,6 +1555,9 @@ msgstr "[红包]"
 msgid "Group"
 msgstr ""
 
+msgid "Unliked."
+msgstr ""
+
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
 msgstr "选项 {0}"
@@ -3278,9 +3281,6 @@ msgstr ""
 
 msgid "Muting..."
 msgstr "隐藏中..."
-
-msgid "Like removed."
-msgstr ""
 
 #. placeholder {0}: post.stats.comments
 #. placeholder {0}: post.stats.countOpenActions

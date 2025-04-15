@@ -1550,6 +1550,9 @@ msgstr "[LuckyDrop]"
 msgid "Group"
 msgstr "Group"
 
+msgid "Unliked."
+msgstr "Unliked."
+
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
 msgstr "Choice {0}"
@@ -3273,9 +3276,6 @@ msgstr "Following Lens"
 
 msgid "Muting..."
 msgstr "Muting..."
-
-msgid "Like removed."
-msgstr "Like removed."
 
 #. placeholder {0}: post.stats.comments
 #. placeholder {0}: post.stats.countOpenActions

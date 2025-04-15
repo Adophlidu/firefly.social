@@ -1550,6 +1550,9 @@ msgstr ""
 msgid "Group"
 msgstr ""
 
+msgid "Unliked."
+msgstr ""
+
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
 msgstr ""
@@ -3259,9 +3262,6 @@ msgid "Following Lens"
 msgstr ""
 
 msgid "Muting..."
-msgstr ""
-
-msgid "Like removed."
 msgstr ""
 
 #. placeholder {0}: post.stats.comments
