@@ -18,7 +18,7 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getPollTimeLeft } from '@/helpers/getPollTimeLeft.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
-import { resolveEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
+import { resolvePostEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
@@ -50,7 +50,7 @@ function EngagementLink({
         <Link
             prefetch={prefetch}
             className="hover:underline"
-            href={resolveEngagementUrl(props.post.postId, props.post.source, props.type)}
+            href={resolvePostEngagementUrl(props.post, props.type)}
             onClick={(ev) => {
                 ev.stopPropagation();
                 props.onSetScrollIndex?.();
