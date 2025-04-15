@@ -39,7 +39,7 @@ export function resolveProfileUrl(
     category?: ProfileCategory,
     isCurrentProfile = false,
 ) {
-    if (!handle && !category) {
+    if (!handle) {
         return urlcat(`/profile/:source`, {
             source: resolveSourceInUrl(source),
         });

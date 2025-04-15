@@ -61,7 +61,7 @@ export function formatFireflyProfilesFromWalletProfiles(profiles: WalletProfiles
                 isDefault: x.isDefault,
                 __origin__: x,
             })),
-            ...profiles.bskyProfiles.map((x) => {
+            ...(profiles.bskyProfiles?.map((x) => {
                 const prefix = 'bsky_';
                 const identityId = x.handle.startsWith(prefix) ? x.handle.substring(prefix.length) : x.handle;
                 return {
@@ -73,7 +73,7 @@ export function formatFireflyProfilesFromWalletProfiles(profiles: WalletProfiles
                     displayName: x.handle,
                     __origin__: x,
                 };
-            }),
+            }) ?? []),
         ].filter((x) => x.identity.id),
     );
 }

@@ -564,7 +564,7 @@ export interface WalletProfiles {
     farcasterProfiles: FarcasterProfile[];
     twitterProfiles: TwitterProfile[];
     fireflyAccountId?: string;
-    bskyProfiles: BskyProfile[];
+    bskyProfiles?: BskyProfile[];
     account: FireflyAccountProfile;
 }
 

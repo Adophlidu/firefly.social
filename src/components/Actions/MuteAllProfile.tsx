@@ -65,7 +65,7 @@ function MuteAllProfileBase({ handleOrEnsOrAddress, identity, blocking, onClose,
         (!fireflyProfiles?.account?.displayName && !fireflyProfiles?.account?.avatar) || !fireflyProfiles?.account?.uid;
     const totalProfilesCount = sum(
         compact([
-            fireflyProfiles?.bskyProfiles.length,
+            fireflyProfiles?.bskyProfiles?.length,
             fireflyProfiles?.farcasterProfiles.length,
             fireflyProfiles?.lensProfilesV3.length,
             fireflyProfiles?.solanaWalletProfiles.length,
