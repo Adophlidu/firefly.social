@@ -2,10 +2,7 @@ import { deleteToken } from 'firebase/messaging';
 import { produce } from 'immer';
 import { omit } from 'lodash-es';
 
-import {
-    getNotificationConfigs,
-    type NotificationConfig,
-} from '@/app/(settings)/settings/notification-settings/getNotificationConfigs.js';
+import { type NotificationConfig } from '@/app/(settings)/settings/notification-settings/getNotificationConfigs.js';
 import { firebaseClient } from '@/configs/firebaseClient.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -56,33 +53,6 @@ export async function toggleSwitchNotificationConfig({
             type,
         },
     ];
-    const children = getNotificationConfigs().find(
-        (config) => config.platform === platform && config.pushType === pushType,
-    )?.children;
-    const isGlobalSwitch = platform === NotificationPlatform.All;
-    if (!isGlobalSwitch && children?.length) {
-        children.forEach((child) => {
-            configsNeedToUpdate.push({
-                platform: child.platform,
-                push_type: child.pushType,
-                state: targetValue,
-                type: child.type,
-            });
-        });
-    }
-    if (!targetValue && isGlobalSwitch) {
-        getNotificationConfigs()
-            .flatMap((x) => [x].concat(x.children || []))
-            .forEach((config) => {
-                if (config.platform === NotificationPlatform.All) return;
-                configsNeedToUpdate.push({
-                    platform: config.platform,
-                    push_type: config.pushType,
-                    state: targetValue,
-                    type: config.type,
-                });
-            });
-    }
 
     await FireflySocialMediaProvider.setNotificationPushSwitch({
         list: configsNeedToUpdate.map((config) => omit(config, 'type')),
@@ -91,6 +61,7 @@ export async function toggleSwitchNotificationConfig({
         updateQueryData(config.platform, config.push_type, config.state);
     });
 
+    const isGlobalSwitch = platform === NotificationPlatform.All;
     // delete firebase token if user disable global switch
     if (isGlobalSwitch && !targetValue) {
         runInSafeAsync(revokeFirebaseToken);

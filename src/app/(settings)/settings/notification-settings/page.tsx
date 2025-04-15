@@ -59,7 +59,7 @@ export default function NotificationPage() {
     return (
         <Section>
             <Headline>
-                <Trans>Push notifications</Trans>
+                <Trans>Notifications</Trans>
             </Headline>
 
             <div className="relative w-full space-y-6">

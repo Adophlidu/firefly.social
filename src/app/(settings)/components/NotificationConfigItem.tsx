@@ -63,7 +63,7 @@ export function NotificationConfigItem({ label, description, disabled, ...rest }
                     checked={rest.value}
                     onChange={onSwitch}
                     className={classNames(
-                        'group inline-flex h-[22px] w-11 items-center rounded-full bg-second transition data-[checked]:bg-lightHighlight dark:bg-bg data-[checked]:dark:bg-lightHighlight',
+                        'group inline-flex h-[22px] w-11 items-center rounded-full bg-second transition data-[checked]:bg-highlight dark:bg-bg data-[checked]:dark:bg-highlight',
                         rest.unsupported ? 'opacity-50' : '',
                     )}
                 >

@@ -31,18 +31,18 @@ export function getNotificationConfigs(): NotificationConfig[] {
             value: true,
             children: [
                 {
-                    label: <Trans>Likes</Trans>,
-                    description: <Trans>firefly.eth liked your transaction</Trans>,
-                    platform: NotificationPlatform.OnChain,
-                    pushType: NotificationPushType.OnChainLike,
-                    type: NotificationTitle.OnChain,
-                    value: true,
-                },
-                {
                     label: <Trans>Hide small transactions (&lt;$100)</Trans>,
                     description: <Trans>Block transactions under $100</Trans>,
                     platform: NotificationPlatform.OnChain,
                     pushType: NotificationPushType.HideSmallPrice,
+                    type: NotificationTitle.OnChain,
+                    value: true,
+                },
+                {
+                    label: <Trans>Likes</Trans>,
+                    description: <Trans>firefly.eth liked your transaction</Trans>,
+                    platform: NotificationPlatform.OnChain,
+                    pushType: NotificationPushType.OnChainLike,
                     type: NotificationTitle.OnChain,
                     value: true,
                 },
