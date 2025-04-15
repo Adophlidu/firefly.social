@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 import { CoreChainController } from '@reown/appkit';
 import { mainnet } from '@reown/appkit/networks';
-import { compact } from 'lodash-es';
+import { compact, uniqBy } from 'lodash-es';
 import { type FunctionComponent, memo, type SVGAttributes, useEffect, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import type { Address } from 'viem';
@@ -115,25 +115,28 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
             walletIcon?: string;
         }>
     >(() => {
-        return compact([
-            ...connections.map((x) => ({
-                address: x.accounts[0],
-                namespace: 'eip155' as ChainNamespace,
-                connected: x.accounts.some((address) => isSameAddress(address, ethereum.address)),
-                connector: x.connector,
-                chainId: x.chainId,
-                walletIcon: x.connector.icon,
-            })),
-            solana.isConnected
-                ? {
-                      address: solana.address,
-                      namespace: 'solana' as ChainNamespace,
-                      connected: true,
-                      connector: undefined,
-                      walletIcon: solanaWalletIcon,
-                  }
-                : null,
-        ]).sort((a, b) => (a.connected ? -1 : 1));
+        return uniqBy(
+            compact([
+                ...connections.map((x) => ({
+                    address: x.accounts[0],
+                    namespace: 'eip155' as ChainNamespace,
+                    connected: x.accounts.some((address) => isSameAddress(address, ethereum.address)),
+                    connector: x.connector,
+                    chainId: x.chainId,
+                    walletIcon: x.connector.icon,
+                })),
+                solana.isConnected
+                    ? {
+                          address: solana.address,
+                          namespace: 'solana' as ChainNamespace,
+                          connected: true,
+                          connector: undefined,
+                          walletIcon: solanaWalletIcon,
+                      }
+                    : null,
+            ]).sort((a) => (a.connected ? -1 : 1)),
+            (x) => `${x.namespace}:${x.connector?.id}:${x.address}`,
+        );
     }, [ethereum, solana, connections, solanaWalletIcon]);
 
     useEffect(() => {
