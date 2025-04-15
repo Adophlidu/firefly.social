@@ -37,12 +37,7 @@ import {
 import type { ResponseJSON } from '@/types/index.js';
 
 async function withFullStatusTimeline(timeline: Tweet[]) {
-    const tweetIds = uniq(
-        timeline
-            .map((x) => x.id)
-            .filter((x) => x && x !== '0')
-            .join(','),
-    );
+    const tweetIds = uniq(timeline.map((x) => x.id).filter((x) => x && x !== '0')).join(',');
     const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<TweetV2LookupResult>>(
         urlcat(`/api/twitter/tweets/:tweetIds`, {
             tweetIds,

@@ -9,6 +9,7 @@ import { SITE_URL } from '@/constants/index.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { resolveTweetReplySettings } from '@/helpers/formatTwitterPost.js';
+import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
 import { formatTwitterProfileFromNitter } from '@/helpers/formatTwitterProfileFromNitter.js';
 import { getTwitterNitterPicOrigUrl, getTwitterNitterPicUrl } from '@/helpers/getTwitterNitterPicUrl.js';
 import { parsePostUrl } from '@/helpers/parsePostUrl.js';
@@ -78,6 +79,7 @@ export function formatTwitterPostFromNitter(
         includes?: ApiV2Includes;
     },
 ): Post {
+    const includesUser = options?.includes?.users?.find((u) => u.id === tweet.user.id);
     const attachments = [
         ...(tweet.photos?.map<Attachment>((photo) => ({
             type: 'Image',
@@ -107,7 +109,7 @@ export function formatTwitterPostFromNitter(
         type: 'Post',
         source: Source.Twitter,
         restrictions: resolveTweetReplySettings(options?.tweet?.reply_settings),
-        author: formatTwitterProfileFromNitter(tweet.user),
+        author: includesUser ? formatTwitterProfile(includesUser) : formatTwitterProfileFromNitter(tweet.user),
         stats: {
             reactions: tweet.stats.likes,
             comments: tweet.stats.replies,
