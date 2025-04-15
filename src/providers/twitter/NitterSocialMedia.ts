@@ -301,6 +301,7 @@ export class NitterSocialMedia implements Provider {
     }
 
     async getPostById(postId: string): Promise<Post> {
+        if (!!bom.window && twitterSessionHolder.session) throw new NotImplementedError();
         const { tweet, before } = await NitterAPIProvider.getTweetStatus('web', postId);
         const commentOn = before.tweets.length > 0 ? formatTwitterPostFromNitter(last(before.tweets)!) : undefined;
         return formatTwitterPostFromNitter(tweet, { base: { commentOn } });
@@ -468,6 +469,7 @@ export class NitterSocialMedia implements Provider {
     }
 
     async getPinnedPost(profileId: string): Promise<Post | null> {
+        if (!!bom.window && twitterSessionHolder.session) throw new NotImplementedError();
         const { username } = await NitterAPIProvider.convertUserIdToHandle(profileId);
         const { pinned } = await NitterAPIProvider.getProfileByHandle(username);
         return formatTwitterPostFromNitter(pinned);
