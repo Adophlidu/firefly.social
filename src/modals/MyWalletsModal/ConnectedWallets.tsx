@@ -19,6 +19,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { appkit } from '@/configs/wagmiClient.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { parseJSON } from '@/helpers/parseJSON.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
 import { restoreDisconnectMethod, rewriteDisconnectMethod } from '@/modals/MyWalletsModal/rewriteDisconnectMethod.js';
@@ -99,6 +100,15 @@ function ConnectedItem({
     );
 }
 
+function getWagmiCurrentConnectionId() {
+    const storage = localStorage.getItem('wagmi.store');
+    if (!storage) return;
+
+    const wagmiStore = parseJSON<{ state: { current: string } }>(storage);
+
+    return wagmiStore?.state?.current;
+}
+
 export const ConnectedWallets = memo(function ConnectedWallets() {
     const connections = useConnections();
     const { ethereum, solana } = useWalletAccountAll();
@@ -115,12 +125,16 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
             walletIcon?: string;
         }>
     >(() => {
+        const currentConnectionId = getWagmiCurrentConnectionId();
+
         return uniqBy(
             compact([
                 ...connections.map((x) => ({
                     address: x.accounts[0],
                     namespace: 'eip155' as ChainNamespace,
-                    connected: x.accounts.some((address) => isSameAddress(address, ethereum.address)),
+                    connected: currentConnectionId
+                        ? currentConnectionId === x.connector.uid
+                        : x.accounts.some((address) => isSameAddress(address, ethereum.address)),
                     connector: x.connector,
                     chainId: x.chainId,
                     walletIcon: x.connector.icon,
@@ -173,7 +187,7 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
                 {allConnections.map((connection) => {
                     return (
                         <ConnectedItem
-                            key={connection.address}
+                            key={`${connection.address}:${connection.connector?.id}:${connection.connected}`}
                             connected={connection.connected}
                             namespace={connection.namespace}
                             address={connection.address}
