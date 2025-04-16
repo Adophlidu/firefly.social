@@ -1242,10 +1242,6 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked
 msgid "One-time passcode sent to you"
 msgstr "One-time passcode sent to you"
 
-#. placeholder {0}: handle || recipient.displayName
-msgid "Send a tip to {0}"
-msgstr "Send a tip to {0}"
-
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 
