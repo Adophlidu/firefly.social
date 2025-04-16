@@ -136,7 +136,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                 ) : null}
 
                 <div className="flex flex-col gap-4">
-                    {activity.from_token ? (
+                    {activity.from_token?.symbol ? (
                         <div className="flex flex-col gap-2">
                             <div className="text-lightSecond">
                                 <Trans>Sent</Trans>
@@ -176,7 +176,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                             </Link>
                         </div>
                     ) : null}
-                    {activity.to_token ? (
+                    {activity.to_token?.symbol ? (
                         <div>
                             <div className="text-lightSecond">
                                 <Trans>Received</Trans>

@@ -151,9 +151,9 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                         </div>
                     ) : null}
                     <ClickableArea className="flex flex-col gap-2">
-                        {activity.from_token ? (
+                        {activity.from_token?.symbol ? (
                             <Link
-                                href={resolveTokenPageUrl(activity.from_token?.symbol, activity.chain_id, true)}
+                                href={resolveTokenPageUrl(activity.from_token.symbol, activity.chain_id, true)}
                                 className="flex items-center gap-2 rounded-lg bg-bg p-2"
                                 onClick={stopPropagation}
                             >
@@ -187,7 +187,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                 </div>
                             </Link>
                         ) : null}
-                        {activity.to_token ? (
+                        {activity.to_token?.symbol ? (
                             <Link
                                 href={resolveTokenPageUrl(activity.to_token?.symbol, activity.chain_id, true)}
                                 className="flex items-center gap-2 rounded-lg bg-bg p-2"
