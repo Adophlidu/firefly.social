@@ -47,19 +47,19 @@ export function FireflyAccountMoreButton({ profile, walletProfile }: Props) {
             >
                 {profile ? (
                     <>
-                        <Menu.Item>
+                        <MenuItem>
                             {({ close }) => (
                                 <CopyLinkButton link={getProfileUrl(profile)} onClick={close}>
                                     <Trans>Copy link to profile</Trans>
                                 </CopyLinkButton>
                             )}
-                        </Menu.Item>
+                        </MenuItem>
                         <MenuItem>{({ close }) => <MuteAllByProfile profile={profile} onClose={close} />}</MenuItem>
                     </>
                 ) : null}
                 {walletProfile ? (
                     <>
-                        <Menu.Item>
+                        <MenuItem>
                             {({ close }) => (
                                 <CopyLinkButton
                                     link={resolveProfileUrl(Source.Wallet, walletProfile.address)}
@@ -68,7 +68,7 @@ export function FireflyAccountMoreButton({ profile, walletProfile }: Props) {
                                     <Trans>Copy link to profile</Trans>
                                 </CopyLinkButton>
                             )}
-                        </Menu.Item>
+                        </MenuItem>
                         <MuteAllByWalletProfileMenuItem profile={walletProfile} />
                     </>
                 ) : null}

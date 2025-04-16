@@ -1,5 +1,6 @@
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
+import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import MoreIcon from '@/assets/more-fill.svg';
@@ -23,6 +24,8 @@ import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface ProfileMoreActionProps extends Omit<MenuProps<'div'>, 'className'> {
@@ -94,9 +97,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                                         />
                                     )}
                                 </MenuItem>
-                                <MenuItem>
-                                    {({ close }) => <MuteAllByProfile profile={profile} onClose={close} />}
-                                </MenuItem>
+                                <MuteAllByProfileMenuItem profile={profile} identity={identity} />
                             </>
                         ) : null}
                         {SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES.includes(profile.source) ? (
@@ -130,3 +131,28 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
         </MoreActionMenu>
     );
 });
+
+function MuteAllByProfileMenuItem({ profile, identity }: { profile: Profile; identity: FireflyIdentity }) {
+    const { data: fireflyProfile } = useQuery({
+        queryKey: ['firefly-profile', identity],
+        async queryFn() {
+            return FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false);
+        },
+        select(data) {
+            return data.account;
+        },
+    });
+    const noFireflyAccount =
+        !fireflyProfile || (!fireflyProfile?.displayName && !fireflyProfile?.avatar) || !fireflyProfile?.uid;
+    return (
+        <MenuItem>
+            {({ close }) => (
+                <MuteAllByProfile
+                    className={classNames({ hidden: !noFireflyAccount })}
+                    profile={profile}
+                    onClose={close}
+                />
+            )}
+        </MenuItem>
+    );
+}
