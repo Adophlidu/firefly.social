@@ -1208,7 +1208,7 @@ export class FireflyEndpoint {
             method: 'POST',
             body: JSON.stringify({
                 platform,
-                profile_id: platformId,
+                profile_id: `${platformId}`,
             }),
         });
     }
