@@ -76,9 +76,10 @@ function TipsModalUI({ ref }: Props) {
                 const { walletProfiles, socialProfiles } = formatTipsProfiles(profiles);
 
                 walletProfiles.sort((a) => {
-                    const { primary_ens } = a.__origin__ as WalletProfile;
-                    if (primary_ens === handle) return -1;
-                    return primary_ens ? -1 : 1;
+                    const { primary_ens, isDefault } = a.__origin__ as WalletProfile;
+                    if (isDefault) return -1;
+                    if (primary_ens === handle) return 0;
+                    return 1;
                 });
                 if (!walletProfiles.length) {
                     router.navigate({ to: TipsRoutePath.NO_AVAILABLE_WALLET });
