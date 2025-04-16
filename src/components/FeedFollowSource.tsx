@@ -5,6 +5,7 @@ import FarcasterIcon from '@/assets/farcaster-fill.svg';
 import LensIcon from '@/assets/lens-fill.svg';
 import StarIcon from '@/assets/star.svg';
 import TwitterIcon from '@/assets/x-fill.svg';
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { Link } from '@/components/Link.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveWatchTypeToSource } from '@/helpers/resolveWatchTypeToSource.js';
@@ -28,12 +29,14 @@ export function FeedFollowSource({ source }: { source?: FollowingSource }) {
                     {t`Following`}
                     {icons[source.type]}
                     {source.handle ? (
-                        <Link
-                            className="hover:underline"
-                            href={resolveProfileUrl(resolveWatchTypeToSource(source.type), source.id)}
-                        >
-                            @{source.handle}
-                        </Link>
+                        <ClickableArea>
+                            <Link
+                                className="hover:underline"
+                                href={resolveProfileUrl(resolveWatchTypeToSource(source.type), source.id)}
+                            >
+                                @{source.handle}
+                            </Link>
+                        </ClickableArea>
                     ) : null}
                 </>
             ) : (

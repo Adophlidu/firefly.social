@@ -15,6 +15,7 @@ import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
@@ -75,19 +76,21 @@ export function WalletBaseMoreAction({ ens, address, contractAddress, tokenId, c
                         {({ close }) => <NFTReportSpamButton onClick={close} collectionId={collectionId} />}
                     </MenuItem>
                 ) : null}
-                <MenuItem>
-                    {({ close }) => (
-                        <Tips
-                            className="px-3 py-1 !text-main hover:bg-bg"
-                            identity={identity}
-                            handle={ens}
-                            tooltipDisabled
-                            label={t`Send a tip`}
-                            onClick={close}
-                            pureWallet
-                        />
-                    )}
-                </MenuItem>
+                {isValidAddressEthereum(address) ? (
+                    <MenuItem>
+                        {({ close }) => (
+                            <Tips
+                                className="px-3 py-1 !text-main hover:bg-bg"
+                                identity={identity}
+                                handle={ens}
+                                tooltipDisabled
+                                label={t`Send a tip`}
+                                onClick={close}
+                                pureWallet
+                            />
+                        )}
+                    </MenuItem>
+                ) : null}
             </MenuGroup>
         </MoreActionMenu>
     );
