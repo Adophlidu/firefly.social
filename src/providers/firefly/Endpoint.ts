@@ -36,7 +36,7 @@ import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
 import { extractIpfsCID } from '@/helpers/isIpfsCID.js';
-import { isSameAddress, isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { isZero } from '@/helpers/number.js';
 import {
@@ -882,7 +882,7 @@ export class FireflyEndpoint {
             }),
         });
         if (!response.data) return false;
-        return response.data.some((x) => x.is_followed && isSameEthereumAddress(x.address, address));
+        return response.data.some((x) => x.is_followed && isSameAddress(x.address, address));
     }
 
     async getProfilePolymarketTimeline(

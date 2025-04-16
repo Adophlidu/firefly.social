@@ -487,7 +487,7 @@ export async function formatLensPostV3(result: AnyPost): Promise<Post> {
     } else if (result.commentOn) {
         return {
             publicationId: result.id,
-            type: result.__typename,
+            type: 'Comment',
             source: Source.Lens,
             postId: result.id,
             slug: result.slug,

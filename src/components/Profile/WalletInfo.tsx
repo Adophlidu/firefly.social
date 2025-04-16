@@ -170,7 +170,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                             ) : null}
                         </div>
                         <NoSSR>
-                            {networkType === NetworkType.Ethereum ? <WalletActions profile={profile} /> : null}
+                            <WalletActions profile={profile} />
                         </NoSSR>
                     </div>
 

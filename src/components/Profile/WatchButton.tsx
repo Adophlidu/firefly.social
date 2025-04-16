@@ -10,7 +10,7 @@ import FollowedIcon from '@/assets/followed.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { ToggleMuteWalletButton } from '@/components/Profile/MuteWalletButton.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatAddressEthereum } from '@/helpers/formatAddress.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsFollowingWallet } from '@/hooks/useIsFollowingWallet.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -44,7 +44,7 @@ export const WatchButton = memo(function WatchButton({
     const [hovering, setHovering] = useState(false);
     const { data: ens } = useEnsName({ address });
     const { data: isFollowing } = useIsFollowingWallet(address, seen);
-    const identity = ens || formatAddressEthereum(address, 4);
+    const identity = ens || formatAddress(address, 4);
     const mutation = useToggleWatchWallet({ handleOrEnsOrAddress: identity, address, following: !!isFollowing });
 
     const loading = mutation.isPending;

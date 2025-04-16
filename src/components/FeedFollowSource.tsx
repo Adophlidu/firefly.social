@@ -5,6 +5,9 @@ import FarcasterIcon from '@/assets/farcaster-fill.svg';
 import LensIcon from '@/assets/lens-fill.svg';
 import StarIcon from '@/assets/star.svg';
 import TwitterIcon from '@/assets/x-fill.svg';
+import { Link } from '@/components/Link.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { resolveWatchTypeToSource } from '@/helpers/resolveWatchTypeToSource.js';
 import { type FollowingSource, WatchType } from '@/providers/types/Firefly.js';
 
 export function FeedFollowSource({ source }: { source?: FollowingSource }) {
@@ -24,7 +27,14 @@ export function FeedFollowSource({ source }: { source?: FollowingSource }) {
                 <>
                     {t`Following`}
                     {icons[source.type]}
-                    {source.handle ? `@${source.handle}` : null}
+                    {source.handle ? (
+                        <Link
+                            className="hover:underline"
+                            href={resolveProfileUrl(resolveWatchTypeToSource(source.type), source.id)}
+                        >
+                            @{source.handle}
+                        </Link>
+                    ) : null}
                 </>
             ) : (
                 <>{WatchType.Wallet === source.type ? t`Address on Watching Lists` : null}</>

@@ -16,6 +16,7 @@ import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
@@ -64,19 +65,21 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
                         ensOrAddress={ensOrAddress}
                     />
                 ) : null}
-                <MenuItem>
-                    {({ close }) => (
-                        <Tips
-                            className="px-3 py-1 !text-main hover:bg-bg"
-                            identity={identity}
-                            handle={profile.primary_ens || ens}
-                            tooltipDisabled
-                            label={t`Send a tip`}
-                            onClick={close}
-                            pureWallet
-                        />
-                    )}
-                </MenuItem>
+                {isValidAddressEthereum(profile.address) ? (
+                    <MenuItem>
+                        {({ close }) => (
+                            <Tips
+                                className="px-3 py-1 !text-main hover:bg-bg"
+                                identity={identity}
+                                handle={profile.primary_ens || ens}
+                                tooltipDisabled
+                                label={t`Send a tip`}
+                                onClick={close}
+                                pureWallet
+                            />
+                        )}
+                    </MenuItem>
+                ) : null}
             </MenuGroup>
         </MoreActionMenu>
     );

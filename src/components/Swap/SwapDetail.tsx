@@ -323,7 +323,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                         </span>
                         <div className="flex items-center gap-1">
                             <span className="text-lightMain">
-                                {dayjs(Number(activity.timestamp) * 1000).format('MMM, YYYY [at] hh:mm A')}
+                                {dayjs(Number(activity.timestamp) * 1000).format('MMM DD, YYYY [at] hh:mm A')}
                             </span>
                         </div>
                     </div>
