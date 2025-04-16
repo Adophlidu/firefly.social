@@ -10,7 +10,10 @@ import type { LensV3Profile } from '@/providers/types/Firefly.js';
 import { NetworkType, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 function getAvatar(profile: Account, namedTransform = IMAGE_KIT_AVATAR) {
-    return formatImageUrl(sanitizeDStorageUrl(formatGroveImage(profile.metadata?.picture)), namedTransform);
+    return formatImageUrl(
+        sanitizeDStorageUrl(formatGroveImage(profile.metadata?.picture), undefined, false),
+        namedTransform,
+    );
 }
 
 function formatAccountOperationAbility(result: Account) {

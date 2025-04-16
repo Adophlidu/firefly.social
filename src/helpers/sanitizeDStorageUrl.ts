@@ -6,10 +6,10 @@ import {
     IPFS_GATEWAY,
 } from '@/constants/index.js';
 
-export function sanitizeDStorageUrl(hash?: string, gateway?: string) {
+export function sanitizeDStorageUrl(hash?: string, gateway?: string, resize = true) {
     if (!hash) return '';
 
-    if (hash.includes(HEY_IPFS_GW_URL)) {
+    if (hash.includes(HEY_IPFS_GW_URL) && resize) {
         return `${HEY_IMAGEKIT_URL}/fallback/${IMAGE_KIT_COVER},q-80/${hash}`;
     }
     return hash
