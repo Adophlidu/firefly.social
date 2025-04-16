@@ -12,7 +12,7 @@ import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { BaseToggleFollowButton } from '@/components/Profile/BaseToggleFollowButton.js';
 import { classNames } from '@/helpers/classNames.js';
-import { resolveFireflyIdentity, resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
+import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -52,9 +52,7 @@ export const FollowButton = memo(function FollowButton({
     const { data: isMutedAll } = useQuery({
         queryKey: ['profile', 'mute-all', profile.source, resolveFireflyProfileId(profile)],
         queryFn() {
-            const identity = resolveFireflyIdentity(profile);
-            if (!identity) return false;
-            return FireflyEndpointProvider.isProfileMutedAll(identity);
+            return FireflyEndpointProvider.isProfileMutedAll(profile.source, profile.profileId);
         },
     });
     const muted = isMutedAll || isProfileMuted;

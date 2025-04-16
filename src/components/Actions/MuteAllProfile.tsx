@@ -9,7 +9,7 @@ import { useEnsName } from 'wagmi';
 import MuteIcon from '@/assets/mute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { Source } from '@/constants/enum.js';
+import { type ProfilePageSource, Source } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
@@ -43,7 +43,7 @@ function MuteAllProfileBase({ handleOrEnsOrAddress, identity, onClose, className
     const { data: isMutedAll, isLoading } = useQuery({
         queryKey: ['profile', 'mute-all', identity.source, identity.id],
         queryFn() {
-            return FireflyEndpointProvider.isProfileMutedAll(identity);
+            return FireflyEndpointProvider.isProfileMutedAll(identity.source as ProfilePageSource, identity.id);
         },
     });
 

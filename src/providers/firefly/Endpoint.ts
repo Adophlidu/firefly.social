@@ -11,6 +11,7 @@ import {
     FireflyPlatform,
     Locale,
     NetworkType,
+    type ProfilePageSource,
     type SocialSource,
     Source,
     SourceInURL,
@@ -726,9 +727,10 @@ export class FireflyEndpoint {
         return !!blockRelationList.find((x) => x.snsId === profileId)?.blocked;
     }
 
-    async isProfileMutedAll(identity: FireflyIdentity) {
+    async isProfileMutedAll(source: ProfilePageSource, id: string) {
+        if (source === Source.Bsky) return false;
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/isMuteAll', {
-            [getPlatformQueryKey(identity.source)]: identity.id,
+            [getPlatformQueryKey(source)]: id,
         });
 
         const response = await fireflySessionHolder.fetch<IsMutedAllResponse>(url);
