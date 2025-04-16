@@ -32,7 +32,10 @@ export function FeedFollowSource({ source }: { source?: FollowingSource }) {
                         <ClickableArea>
                             <Link
                                 className="hover:underline"
-                                href={resolveProfileUrl(resolveWatchTypeToSource(source.type), source.id)}
+                                href={resolveProfileUrl(
+                                    resolveWatchTypeToSource(source.type),
+                                    source.type === WatchType.Lens ? source.handle : source.id,
+                                )}
                             >
                                 @{source.handle}
                             </Link>
