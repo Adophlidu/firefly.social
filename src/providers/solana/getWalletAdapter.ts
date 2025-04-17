@@ -4,7 +4,7 @@ import type { Provider } from '@reown/appkit-adapter-solana';
 
 import { NetworkType } from '@/constants/enum.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
-import type { WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/index.jsx';
+import type { WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/index.js';
 
 export class WalletNotConnectedError extends Error {
     override name = 'WalletNotConnectedError';

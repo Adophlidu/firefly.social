@@ -9,8 +9,6 @@ import BookmarkIcon from '@/assets/bookmark.svg';
 import CircleShareIcon from '@/assets/circle-share.svg';
 import ExploreSelectedIcon from '@/assets/explore.selected.svg';
 import ExploreIcon from '@/assets/explore.svg';
-import HomeSelectedIcon from '@/assets/home.selected.svg';
-import HomeIcon from '@/assets/home.svg';
 import NotificationSelectedIcon from '@/assets/notification.selected.svg';
 import NotificationIcon from '@/assets/notification.svg';
 import ProfileSelectedIcon from '@/assets/profile.selected.svg';
@@ -21,6 +19,7 @@ import { Link } from '@/components/Link.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { ExclusiveEvents } from '@/components/SideBar/ExclusiveEvents.js';
 import { Footer } from '@/components/SideBar/Footer.js';
+import { HomeEntry } from '@/components/SideBar/HomeEntry.js';
 import { Post } from '@/components/SideBar/Post.js';
 import { Profile } from '@/components/SideBar/Profile.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -29,8 +28,6 @@ import { DEFAULT_BOOKMARK_SOURCE, DEFAULT_EXPLORE_TYPE, DEFAULT_NOTIFICATION_SOU
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';
-import { parseFollowingPageUrl } from '@/helpers/parseFollowingPageUrl.js';
 import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
@@ -48,17 +45,8 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
             <menu role="list" className="flex flex-1 flex-col gap-y-7">
                 <li className="flex overflow-hidden">
                     <menu role="list" className="w-full overflow-hidden">
+                        <HomeEntry collapsed={collapsed} />
                         {[
-                            {
-                                href: PageRoute.Home,
-                                name: <Trans>Home</Trans>,
-                                icon: HomeIcon,
-                                selectedIcon: HomeSelectedIcon,
-                                match: () =>
-                                    pathname === PageRoute.Home ||
-                                    !!parseDiscoverPageUrl(pathname) ||
-                                    !!parseFollowingPageUrl(pathname),
-                            },
                             {
                                 href: resolveExploreUrl(DEFAULT_EXPLORE_TYPE),
                                 name: <Trans>Explore</Trans>,

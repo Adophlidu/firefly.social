@@ -7,7 +7,7 @@ import { NetworkType } from '@/constants/enum.js';
 import { SwitchChainError } from '@/constants/error.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
-import type { WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/index.jsx';
+import type { WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/index.js';
 
 export async function getWalletClientRequired(
     config: Config,
