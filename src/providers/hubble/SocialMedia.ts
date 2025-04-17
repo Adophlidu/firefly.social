@@ -7,7 +7,7 @@ import { toBytes } from 'viem';
 import { z } from 'zod';
 
 import { FarcasterInvalidSignerKey, NotImplementedError } from '@/constants/error.js';
-import { HUBBLE_URL } from '@/constants/index.js';
+import { NEYNAR_URL } from '@/constants/index.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
@@ -304,7 +304,7 @@ class HubbleSocialMedia implements Provider {
     }
 
     private async submitMessage<T>(messageBytes: Buffer) {
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
+        const url = urlcat(NEYNAR_URL, '/v1/submitMessage');
         const response = await farcasterSessionHolder.fetchHubble<Response<T>>(url, {
             method: 'POST',
             body: messageBytes,

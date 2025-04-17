@@ -67,9 +67,8 @@ export const SNAPSHOT_IPFS_GATEWAY_URL = 'https://snapshot.4everland.link/ipfs/'
 export const SIMPLE_HASH_URL = 'https://simplehash-proxy.r2d2.to';
 export const ORB_CLUB_URL = 'https://us-central1-orbapp.cloudfunctions.net';
 export const FIREFLY_TELEGRAM_URL = 'https://t.me/fireflyapp';
-export const NEYNAR_URL = 'https://api.neynar.com';
-export const HUBBLE_URL = env.internal.HUBBLE_URL ?? env.external.NEXT_PUBLIC_HUBBLE_URL;
 export const BSKY_VIDEO_ENDPOINT = 'https://video.bsky.app/xrpc';
+export const NEYNAR_URL = env.external.NEXT_PUBLIC_NEYNAR_URL;
 export const FIREFLY_NITTER_URL = env.external.NEXT_PUBLIC_FIREFLY_NITTER_URL;
 
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';

@@ -3,11 +3,11 @@ import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { HUBBLE_URL } from '@/constants/index.js';
+import { NEYNAR_URL } from '@/constants/index.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 
 async function validateFarcasterMessage(messageBytes: string): Promise<boolean> {
-    const url = urlcat(HUBBLE_URL, '/v1/validateMessage');
+    const url = urlcat(NEYNAR_URL, '/v1/validateMessage');
     const { valid } = await farcasterSessionHolder.fetchHubble<{ valid: boolean; message: Message }>(url, {
         method: 'POST',
         body: Buffer.from(messageBytes, 'hex'),

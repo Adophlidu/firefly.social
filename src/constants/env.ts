@@ -32,10 +32,6 @@ const InternalEnvSchema = z.object({
 
     FIREFLY_JWT_SECRET: z.string(),
 
-    // internal use of hubble
-    HUBBLE_URL: z.string(),
-    HUBBLE_TOKEN: z.string().optional(),
-
     // s3
     S3_BUCKET: z.string(),
     S3_REGION: z.string(),
@@ -77,7 +73,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_WALLET_MIX: z.nativeEnum(STATUS).default(STATUS.Disabled),
 
     // hubble
-    NEXT_PUBLIC_HUBBLE_URL: z.string().default('https://api.neynar.com:2281'),
+    NEXT_PUBLIC_NEYNAR_URL: z.string().default('https://neynar-proxy.r2d2.to'),
     NEXT_PUBLIC_HUBBLE_TOKEN: z.string().optional(),
 
     // sentry
@@ -147,7 +143,7 @@ export const env = {
         NEXT_PUBLIC_WALLET_MIX: process.env.NEXT_PUBLIC_WALLET_MIX,
 
         // hubble
-        NEXT_PUBLIC_HUBBLE_URL: process.env.NEXT_PUBLIC_HUBBLE_URL,
+        NEXT_PUBLIC_NEYNAR_URL: process.env.NEXT_PUBLIC_NEYNAR_URL,
         NEXT_PUBLIC_HUBBLE_TOKEN: process.env.NEXT_PUBLIC_HUBBLE_TOKEN,
 
         // sentry
