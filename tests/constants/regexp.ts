@@ -2,14 +2,7 @@ import { first } from 'lodash-es';
 import { describe, expect, it } from 'vitest';
 
 import { LINK_MARK_RE } from '@/constants/linkRegExp.js';
-import {
-    CHANNEL_REGEX,
-    MENTION_REGEX,
-    SYMBOL_REGEX,
-    URL_INPUT_REGEX,
-    URL_REGEX,
-    FIREFLY_DISPLAY_NAME_REGEXP,
-} from '@/constants/regexp.js';
+import { CHANNEL_REGEX, MENTION_REGEX, SYMBOL_REGEX, URL_INPUT_REGEX, URL_REGEX } from '@/constants/regexp.js';
 
 function matchUrl(regExp: RegExp) {
     return () => {
@@ -129,6 +122,18 @@ function matchCorrectUrl(regExp: RegExp) {
             [
                 'Random thought about AI n web3\nhttps://paragraph.xyz/@kellyan.eth\nChief Decentralisation Officer@Opencord AI',
                 'https://paragraph.xyz/@kellyan.eth',
+            ],
+            [
+                'mint your score on https://lensreputation.xyz?referral=W2CKDOF5 (hurry, so you still can get the genesis badge!)',
+                'https://lensreputation.xyz?referral=W2CKDOF5',
+            ],
+            [
+                'mint your score on https://lensreputation.xyz/a/b/c?referral=W2CKDOF5 (hurry, so you still can get the genesis badge!)',
+                'https://lensreputation.xyz/a/b/c?referral=W2CKDOF5',
+            ],
+            [
+                'mint your score on https://lensreputation.xyz/a/b/c/?referral=W2CKDOF5 (hurry, so you still can get the genesis badge!)',
+                'https://lensreputation.xyz/a/b/c/?referral=W2CKDOF5',
             ],
         ];
 
