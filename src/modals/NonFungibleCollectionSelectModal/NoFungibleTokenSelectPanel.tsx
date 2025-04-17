@@ -1,5 +1,4 @@
 import { t } from '@lingui/core/macro';
-import { EthereumSchemaType } from '@masknet/web3-shared-evm';
 import Fuse from 'fuse.js';
 import { uniq } from 'lodash-es';
 import { memo, useCallback, useMemo, useState } from 'react';
@@ -14,6 +13,7 @@ import { useCustomNonFungibleTokens } from '@/hooks/useCustomNonFungibleTokens.j
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useNFTCollections } from '@/hooks/useNFTCollections.js';
 import { type Collection, CollectionItem } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
+import { EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 interface FungibleTokenSelectPanelProps {
     onSelected?: (selected: Collection) => void;

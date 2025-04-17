@@ -1,5 +1,4 @@
 import { unreachable } from '@masknet/kit';
-import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { useMemo } from 'react';
 import { useAccount } from 'wagmi';
@@ -7,6 +6,7 @@ import { useAccount } from 'wagmi';
 import { NetworkType } from '@/constants/enum.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
+import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 export function useAccountByNetwork(networkType = NetworkType.Ethereum) {
     const account = useAccount();

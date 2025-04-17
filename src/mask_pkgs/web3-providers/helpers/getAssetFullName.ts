@@ -1,4 +1,4 @@
-import { isENSContractAddress, isLens } from '@masknet/web3-shared-evm';
+import { isENSContractAddress, isLens } from '#masknet/web3-shared-evm';
 
 export function getAssetFullName(contract_address: string, contractName: string, name?: string, tokenId?: string) {
     if (!name)

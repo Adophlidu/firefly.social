@@ -1,7 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { EthereumChainId } from '@masknet/web3-shared-evm';
-import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
 
@@ -29,6 +27,8 @@ import { SolanaExplorerResolver } from '@/mask/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { GoPlus } from '@/providers/goplus/index.js';
 import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 function resolveProfileUrlBySource(source: ProfilePageSource, profiles: FireflyProfile[]) {
     const currentSourceProfiles = profiles.filter((profile) => profile.identity.source === source);

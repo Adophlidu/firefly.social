@@ -1,4 +1,3 @@
-import { getCoinGeckoConstants, SolanaChainId } from '@masknet/web3-shared-solana';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 import { compact } from 'lodash-es';
 
@@ -17,6 +16,7 @@ import { requestRPC } from '@/providers/solana/requestRPC.js';
 import type { CoinGeckoAsset } from '@/providers/types/CoinGecko.js';
 import type { GetProgramAccountsResponse, SplToken } from '@/providers/types/Solana.js';
 import type { Token } from '@/providers/types/Transfer.js';
+import { getCoinGeckoConstants, SolanaChainId } from '#masknet/web3-shared-solana';
 
 export const getAllSolanaTokens = memoizePromise(
     async () => {

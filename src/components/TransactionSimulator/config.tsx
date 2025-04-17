@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { CHAIN_DESCRIPTORS } from '@masknet/web3-shared-evm';
 import type { FunctionComponent, JSX, SVGAttributes } from 'react';
 import { fromHex, isHex } from 'viem';
 import { getAccount } from 'wagmi/actions';
@@ -20,6 +19,7 @@ import { leftShift } from '@/helpers/number.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { SecurityMessageLevel, type StaticSecurityMessage } from '@/providers/types/Security.js';
 import type { AssetChange, SimulateResponse, SimulationOptions } from '@/providers/types/Tenderly.js';
+import { CHAIN_DESCRIPTORS } from '#masknet/web3-shared-evm';
 
 interface PanelConfig {
     title: string;

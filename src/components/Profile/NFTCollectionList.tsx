@@ -1,6 +1,5 @@
 'use client';
 
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { compact, first, uniqBy } from 'lodash-es';
 import { useMemo } from 'react';
 
@@ -22,6 +21,7 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface NFTCollectionItemProps {
     collection: SimpleHash.LiteCollection;

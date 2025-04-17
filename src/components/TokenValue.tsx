@@ -1,4 +1,3 @@
-import { type EthereumChainId, EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
 import { type HTMLProps, useMemo } from 'react';
 
@@ -10,6 +9,7 @@ import { formatFungibleTokenToDebankToken } from '@/helpers/formatToken.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
+import { type EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     amount?: string;

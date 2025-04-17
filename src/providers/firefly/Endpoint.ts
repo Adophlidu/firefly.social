@@ -1,4 +1,3 @@
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { produce } from 'immer';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -121,6 +120,7 @@ import { convertBskyHandleToDid } from '@/services/convertBskyHandleToDid.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { muteAllSocialProfiles } from '@/services/muteAllSocialProfiles.js';
 import { settings } from '@/settings/index.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 function resolveDebankChain(debankChain: string) {
     const chain = DEBANK_CHAINS.find((chain) => chain.id === debankChain);

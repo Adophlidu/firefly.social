@@ -3,8 +3,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { EthereumSchemaType } from '@masknet/web3-shared-evm';
-import { SolanaSchemaType as SolanaSchemaType } from '@masknet/web3-shared-solana';
 import { type ReactNode, useMemo } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
@@ -15,6 +13,8 @@ import { isValidChainIdEthereum, isValidChainIdSolana } from '@/helpers/isValidC
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 import { EVMExplorerResolver, SolanaExplorerResolver } from '@/mask/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
+import { EthereumSchemaType } from '#masknet/web3-shared-evm';
+import { SolanaSchemaType as SolanaSchemaType } from '#masknet/web3-shared-solana';
 
 function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
     return (

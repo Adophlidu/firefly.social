@@ -1,8 +1,8 @@
-import { createJsonRpcPayload, ErrorEditor, type Web3Provider } from '@masknet/web3-shared-evm';
 import { memoize } from 'lodash-es';
 
 import { createWeb3ProviderFromRequest } from '@/mask_pkgs/web3-providers/helpers/createWeb3ProviderFromRequest.js';
 import { fetchJsonRpcResponse } from '@/mask_pkgs/web3-providers/helpers/fetchJsonRpcResponse.js';
+import { createJsonRpcPayload, ErrorEditor, type Web3Provider } from '#masknet/web3-shared-evm';
 
 function __create__(url: string) {
     return createWeb3ProviderFromRequest(async (requestArguments) => {

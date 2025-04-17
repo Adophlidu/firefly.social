@@ -1,7 +1,6 @@
 'use client';
 
 import { t } from '@lingui/core/macro';
-import { EthereumChainId, type EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { AnimatePresence, motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
 import { type ReactNode, useState } from 'react';
@@ -25,6 +24,7 @@ import { usePoapAttendeesCount } from '@/hooks/usePoapAttendeesCount.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
 import { NFTFeedTransAction } from '@/providers/types/NFTs.js';
+import { EthereumChainId, type EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 const variants = {
     enter: (direction: number) => {

@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useContext } from 'react';
 
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
@@ -24,6 +23,7 @@ import {
 import { type Chars } from '@/helpers/chars.js';
 import { Level } from '@/providers/types/CZ.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoResponse>['data'], 'status'> }) {
     const { data: claimCondition } = useActivityClaimCondition(Source.Twitter);

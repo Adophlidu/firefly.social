@@ -1,6 +1,5 @@
 import { exposeToIframe } from '@farcaster/frame-host';
 import { delay } from '@masknet/kit';
-import { EthereumMethodType } from '@masknet/web3-shared-evm';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -19,6 +18,7 @@ import { Modals } from '@/modals/FrameViewerModal/modals.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
 import { type FrameV2, type FrameV2Host } from '@/types/frame.js';
+import { EthereumMethodType } from '#masknet/web3-shared-evm';
 
 export type FrameViewerModalOpenProps = {
     ready: boolean;

@@ -1,5 +1,4 @@
 import { t } from '@lingui/core/macro';
-import { EthereumChainId, EthereumSchemaType, getRedPacketConstant, getTokenConstant } from '@masknet/web3-shared-evm';
 import { first, omit, pick } from 'lodash-es';
 import { useContext, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -30,6 +29,7 @@ import { RedPacketProvider } from '@/providers/ethereum/RedPacket.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { EthereumChainId, EthereumSchemaType, getRedPacketConstant, getTokenConstant } from '#masknet/web3-shared-evm';
 
 function reduceUselessPayloadInfo(payload: RedPacketJSONPayload): RedPacketJSONPayload {
     const token = pick(payload.token, ['decimals', 'symbol', 'address', 'chainId']) as FungibleToken<

@@ -1,11 +1,11 @@
 import { safeUnreachable } from '@masknet/kit';
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import type { Address } from 'viem';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { createPersistStorage } from '@/helpers/createPersistStorage.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 export enum CustomTokenType {
     ERC20 = 'ERC20',

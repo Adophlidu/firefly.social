@@ -2,7 +2,6 @@
 
 import { exposeToIframe, type ReadyOptions } from '@farcaster/frame-host';
 import { Trans } from '@lingui/react/macro';
-import { EthereumMethodType } from '@masknet/web3-shared-evm';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
 import { toHex } from 'viem';
@@ -24,6 +23,7 @@ import { Network, SupportedMethod, type Transaction } from '@/types/bridge.js';
 import type { RequestArguments } from '@/types/ethereum.js';
 import type { FrameV2 } from '@/types/frame.js';
 import type { NextPageProps } from '@/types/index.js';
+import { EthereumMethodType } from '#masknet/web3-shared-evm';
 
 const connectWalletSquashed = squashCallback(
     () =>

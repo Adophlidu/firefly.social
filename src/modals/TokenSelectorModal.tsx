@@ -1,7 +1,6 @@
 import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { EthereumChainId, EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { useCallback, useState } from 'react';
 import { useChainId } from 'wagmi';
 
@@ -18,6 +17,7 @@ import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { AddCustomERC20ModalRef, WalletConnectModalRef } from '@/modals/controls.js';
 import type { Token } from '@/providers/types/Transfer.js';
+import { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 export interface TokenSelectorModalOpenProps {
     address: string;

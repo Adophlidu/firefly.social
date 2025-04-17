@@ -1,10 +1,10 @@
 /* cspell:disable */
 
-import { EthereumChainId } from '@masknet/web3-shared-evm';
-import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { first, memoize } from 'lodash-es';
 
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 const EVM_CHAIN: Record<number, string> = {
     [EthereumChainId.Mainnet]: 'ethereum',

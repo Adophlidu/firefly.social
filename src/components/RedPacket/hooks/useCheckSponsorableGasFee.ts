@@ -1,7 +1,7 @@
-import type { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
+import type { EthereumChainId } from '#masknet/web3-shared-evm';
 
 export function useCheckSponsorableGasFee(chainId: EthereumChainId, walletAddress?: string, enabled = true) {
     return useQuery({

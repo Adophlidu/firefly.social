@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
 import type { Hex } from 'viem';
@@ -26,6 +25,7 @@ import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
 import { fillBookmarkStatusForNonFungibleAssets } from '@/services/fillBookmarkStatusForNFT.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 function GridList({ className, children, ...props }: GridListProps) {
     return (

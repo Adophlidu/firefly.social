@@ -1,5 +1,4 @@
 import { web3 } from '@coral-xyz/anchor';
-import { SolanaChainId } from '@masknet/web3-shared-solana';
 
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
@@ -10,6 +9,7 @@ import { getNativeTokenBalance, getTokenBalance } from '@/providers/solana/getTo
 import { getWalletAdapter } from '@/providers/solana/getWalletAdapter.js';
 import { SolanaNetwork } from '@/providers/solana/Network.js';
 import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';
+import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 class Provider implements TransferProvider<SolanaChainId> {
     private connection = new web3.Connection(getSolanaRPCUrl(), 'confirmed');

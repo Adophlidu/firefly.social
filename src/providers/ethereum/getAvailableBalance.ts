@@ -1,4 +1,3 @@
-import type { EthereumChainId } from '@masknet/web3-shared-evm';
 import type { Address } from 'viem';
 
 import { isLessThan, minus } from '@/helpers/number.js';
@@ -7,6 +6,7 @@ import { getDebankTokenBalance } from '@/providers/ethereum/getTokenBalance.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import { EthereumTransfer } from '@/providers/ethereum/Transfer.js';
 import type { TransactionOptions } from '@/providers/types/Transfer.js';
+import type { EthereumChainId } from '#masknet/web3-shared-evm';
 
 export async function getAvailableBalance(options: TransactionOptions<EthereumChainId, Address>) {
     const { token } = options;

@@ -19,14 +19,7 @@
         ],
         "lib": ["ES2024", "DOM", "DOM.Iterable", "DOM.AsyncIterable"],
         "paths": {
-            "@/*": ["./src/*"],
-            "@masknet/web3-shared-evm": ["./src/mask_pkgs/web3-shared/evm/index.ts"],
-            "@masknet/web3-shared-solana": ["./src/mask_pkgs/web3-shared/solana/index.ts"],
-            "@masknet/web3-constants/*": ["./src/mask_pkgs/web3-constants/*"],
-            "@masknet/web3-contracts/*": ["./src/mask_pkgs/web3-contracts/*"],
-            "@masknet/web3-helpers": ["./src/mask_pkgs/web3-helpers/index.ts"],
-            "@masknet/web3-providers": ["./src/mask_pkgs/web3-providers/entry.ts"],
-            "@masknet/web3-providers/types": ["./src/mask_pkgs/web3-providers/entry-types.ts"]
+            "@/*": ["./src/*"]
         }
     },
     "include": ["src/**/*.ts", "src/**/*.tsx", "globals.d.ts", "next-auth.d.ts", ".next/types/**/*.ts"],

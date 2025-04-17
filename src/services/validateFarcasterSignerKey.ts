@@ -1,5 +1,4 @@
 import { keyRegistryABI } from '@farcaster/core';
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { parseUnits } from 'viem';
 import { readContract } from 'wagmi/actions';
 
@@ -7,6 +6,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { FarcasterInvalidSignerKey, MalformedError } from '@/constants/error.js';
 import { getPublicKeyInHexFromSession } from '@/helpers/ed25519.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 enum KeyState {
     ADDED = 1,

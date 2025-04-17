@@ -1,10 +1,10 @@
-import type { EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
 import { EMPTY_LIST } from '@/constants/index.js';
 import { asyncIteratorToArray } from '@/helpers/asyncIteratorToArray.js';
 import { pageableToIterator, type PageIndicator } from '@/helpers/pageable.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
+import type { EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 interface Options {
     account: string | undefined;

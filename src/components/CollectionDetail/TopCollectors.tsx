@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import LinkIcon from '@/assets/link-square.svg';
@@ -20,6 +19,7 @@ import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface TopCollectorsProps {
     address: string;

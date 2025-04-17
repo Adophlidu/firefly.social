@@ -3,7 +3,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
 import EnsIcon from '@/assets/ens.svg';
@@ -32,6 +31,7 @@ import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { OKX } from '@/providers/okx/index.js';
 import { type WalletProfile } from '@/providers/types/Firefly.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface WalletInfoProps {
     profile: WalletProfile;

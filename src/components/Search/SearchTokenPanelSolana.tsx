@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo, useState } from 'react';
 
@@ -11,6 +10,7 @@ import { TokenItem } from '@/components/Tips/TokenItem.js';
 import { isGreaterThan, isLessThan } from '@/helpers/number.js';
 import { getSolanaTokenList } from '@/providers/solana/getTokenList.js';
 import type { Token } from '@/providers/types/Transfer.js';
+import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 interface SearchSolanaTokenPanelProps {
     address: string;

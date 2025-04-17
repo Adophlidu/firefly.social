@@ -1,5 +1,3 @@
-import { EthereumChainId } from '@masknet/web3-shared-evm';
-import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { first } from 'lodash-es';
 
 import { LinkDigestType, NetworkType } from '@/constants/enum.js';
@@ -10,6 +8,8 @@ import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 const NFTSCAN_EVM_DOMAINS = [
     {

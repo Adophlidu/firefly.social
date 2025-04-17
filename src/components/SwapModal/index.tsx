@@ -1,4 +1,3 @@
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import {
     createOkxSwapWidget,
     type EthereumProvider,
@@ -21,6 +20,7 @@ import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
 import { useLocale } from '@/helpers/getCookies.js';
 import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 const LangMap = {
     [Locale.en]: 'en_us',

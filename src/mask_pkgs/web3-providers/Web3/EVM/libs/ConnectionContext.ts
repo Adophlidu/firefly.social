@@ -1,3 +1,4 @@
+import type { EVMConnectionOptions } from '@/mask_pkgs/web3-providers/Web3/EVM/types/index.js';
 import {
     createJsonRpcPayload,
     createJsonRpcResponse,
@@ -6,9 +7,7 @@ import {
     EthereumMethodType,
     PayloadEditor,
     type RequestArguments,
-} from '@masknet/web3-shared-evm';
-
-import type { EVMConnectionOptions } from '@/mask_pkgs/web3-providers/Web3/EVM/types/index.js';
+} from '#masknet/web3-shared-evm';
 
 let pid = 0;
 

@@ -1,5 +1,3 @@
-import { EthereumChainId } from '@masknet/web3-shared-evm';
-import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { useAccount as useEVMAccount, useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
@@ -12,6 +10,8 @@ import { resolveValue } from '@/helpers/resolveValue.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { useSolanaWalletProvider } from '@/hooks/useSolanaWalletProvider.js';
 import { MyWalletsModalRef, WalletConnectModalRef } from '@/modals/controls.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EthereumChainId.Mainnet);
 const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);

@@ -1,4 +1,3 @@
-import type { EthereumChainId } from '@masknet/web3-shared-evm';
 import { type Address, type Hash } from 'viem';
 import { getAccount, getChainId } from 'wagmi/actions';
 
@@ -7,6 +6,7 @@ import { NotImplementedError } from '@/constants/error.js';
 import { EVMExplorerResolver } from '@/mask/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import type { NetworkProvider } from '@/providers/types/Network.js';
+import type { EthereumChainId } from '#masknet/web3-shared-evm';
 
 class Provider implements NetworkProvider<EthereumChainId, Address, Hash> {
     async connect(): Promise<void> {

@@ -1,5 +1,3 @@
-import { EthereumSchemaType as EVMSchemaType, isENSContractAddress, isLens, WNATIVE } from '@masknet/web3-shared-evm';
-import { SolanaSchemaType as SolanaSchemaType } from '@masknet/web3-shared-solana';
 import { first, isEmpty } from 'lodash-es';
 
 import { TokenType } from '@/constants/enum.js';
@@ -11,6 +9,8 @@ import { EVMChainResolver } from '@/mask/index.js';
 import { SourceType } from '@/mask_pkgs/web3-shared/base/index.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
+import { EthereumSchemaType as EVMSchemaType, isENSContractAddress, isLens, WNATIVE } from '#masknet/web3-shared-evm';
+import { SolanaSchemaType as SolanaSchemaType } from '#masknet/web3-shared-solana';
 
 export const SPAM_SCORE = 50;
 

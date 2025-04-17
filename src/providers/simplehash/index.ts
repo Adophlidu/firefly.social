@@ -1,4 +1,3 @@
-import { EthereumChainId, EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { chunk, compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -25,6 +24,7 @@ import {
 } from '@/providers/simplehash/helpers.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
+import { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 class SimpleHashFactory {
     async getWalletNFTCollections(

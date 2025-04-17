@@ -1,4 +1,3 @@
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
 import { memo, useMemo } from 'react';
@@ -20,6 +19,7 @@ import { stopPropagation } from '@/helpers/stopEvent.js';
 import type { FireflyDisplayInfo, NFTAsset } from '@/providers/types/Firefly.js';
 import { type FollowingNFT } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface SingleNFTFeedProps {
     ownerAddress: Address;

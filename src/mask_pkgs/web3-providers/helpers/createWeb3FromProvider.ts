@@ -1,4 +1,4 @@
-import { Web3, type Web3Provider } from '@masknet/web3-shared-evm';
+import { Web3, type Web3Provider } from '#masknet/web3-shared-evm';
 
 export function createWeb3FromProvider(provider: Web3Provider) {
     const web3 = new Web3(provider);

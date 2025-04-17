@@ -1,5 +1,3 @@
-import { SolanaChainId } from '@masknet/web3-shared-solana';
-
 import { NFTCollectionPage } from '@/app/(normal)/nft/pages/NFTCollectionPage.js';
 import { NFTDetailPage } from '@/app/(normal)/nft/pages/NFTDetailPage.js';
 import { notFound, redirect } from '@/esm/navigation/server.js';
@@ -13,6 +11,7 @@ import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import type { NextPageProps } from '@/types/index.js';
+import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 interface Props extends NextPageProps<{ addressOrTokenId: string; chainIdOrCollectionId: string }> {}
 

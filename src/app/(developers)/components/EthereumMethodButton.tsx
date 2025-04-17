@@ -1,6 +1,5 @@
 'use client';
 
-import { EthereumMethodType } from '@masknet/web3-shared-evm';
 import { first } from 'lodash-es';
 import { useAsyncFn } from 'react-use';
 import { getAccount, getBalance, sendTransaction, signMessage } from 'wagmi/actions';
@@ -11,6 +10,7 @@ import { SITE_DESCRIPTION } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueInfoMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import type { MethodItem } from '@/types/ethereum.js';
+import { EthereumMethodType } from '#masknet/web3-shared-evm';
 
 interface Props {
     item: MethodItem;

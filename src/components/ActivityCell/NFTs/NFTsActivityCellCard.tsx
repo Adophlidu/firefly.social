@@ -1,6 +1,5 @@
 'use client';
 
-import { EthereumChainId, type EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { isUndefined } from 'lodash-es';
 import { memo } from 'react';
 
@@ -23,6 +22,7 @@ import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
 import { NFTFeedTransAction } from '@/providers/types/NFTs.js';
+import { EthereumChainId, type EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 interface Props {
     address: string;

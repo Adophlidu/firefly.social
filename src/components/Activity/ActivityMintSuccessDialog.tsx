@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 
 import SuccessShieldIcon from '@/assets/success-shield.svg';
 import { useActivityCompose } from '@/components/Activity/hooks/useActivityCompose.js';
@@ -13,6 +12,7 @@ import type { Chars } from '@/helpers/chars.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface Props {
     open: boolean;

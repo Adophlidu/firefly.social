@@ -1,7 +1,6 @@
-import type { EthereumChainId, EthereumSchemaType } from '@masknet/web3-shared-evm';
-
 import type { NetworkType } from '@/constants/enum.js';
 import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
+import type { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 type WithoutChainId<T> = Omit<T, 'chain_id'>;
 type WithNumberChainId<T> = WithoutChainId<T> & { chain_id: number };

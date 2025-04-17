@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { EthereumChainId, EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { type Draft, produce } from 'immer';
 import { useAsyncFn } from 'react-use';
 
@@ -13,6 +12,7 @@ import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
+import { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 interface PagesData {
     pages: Array<{ data: FollowingNFT[] | NFTFeed[] }>;

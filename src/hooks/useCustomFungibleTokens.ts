@@ -1,4 +1,3 @@
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useQueries } from '@tanstack/react-query';
 import { compact, uniq } from 'lodash-es';
 import { erc20Abi } from 'viem';
@@ -11,6 +10,7 @@ import { removeTrailingZeros } from '@/helpers/formatMarketCap.js';
 import { leftShift } from '@/helpers/number.js';
 import type { Token as TipsToken } from '@/providers/types/Transfer.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 export interface Token extends TipsToken {
     custom?: boolean;

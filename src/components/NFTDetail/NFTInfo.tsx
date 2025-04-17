@@ -2,7 +2,6 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { type ReactNode, useMemo } from 'react';
 import type { Hex } from 'viem';
@@ -34,6 +33,7 @@ import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import type { NonFungibleTokenTrait } from '@/mask_pkgs/web3-shared/base/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface NFTInfoProps {
     ownerAddress?: string;

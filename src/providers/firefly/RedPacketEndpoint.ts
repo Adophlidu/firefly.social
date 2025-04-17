@@ -1,4 +1,3 @@
-import type { EthereumChainId } from '@masknet/web3-shared-evm';
 import urlcat from 'urlcat';
 
 import { EMPTY_LIST, FIREFLY_DEV_ROOT_URL } from '@/constants/index.js';
@@ -16,6 +15,7 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
 import { settings } from '@/settings/index.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import type { EthereumChainId } from '#masknet/web3-shared-evm';
 
 const SITE_URL = bom.location?.origin ?? '';
 

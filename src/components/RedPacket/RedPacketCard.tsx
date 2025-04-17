@@ -2,7 +2,6 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { getRedPacketConstant } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
 import { useCallback, useState } from 'react';
 import { useAsync } from 'react-use';
@@ -41,6 +40,7 @@ import { ComposeModalRef, RedPacketModalRef } from '@/modals/controls.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { TokenType } from '@/types/rp.js';
+import { getRedPacketConstant } from '#masknet/web3-shared-evm';
 
 interface Props {
     payload: RedPacketJSONPayload;

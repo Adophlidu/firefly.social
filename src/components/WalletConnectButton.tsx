@@ -1,7 +1,5 @@
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
-import { EthereumChainId } from '@masknet/web3-shared-evm';
-import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { compact } from 'lodash-es';
 import { memo } from 'react';
 
@@ -14,6 +12,8 @@ import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { MyWalletsModalRef, WalletConnectModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 interface WalletConnectButtonProps extends ClickableButtonProps {}
 

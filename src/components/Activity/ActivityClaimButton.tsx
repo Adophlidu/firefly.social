@@ -3,7 +3,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { type ReactNode, use, useContext, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -19,6 +18,7 @@ import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { captureActivityClaimEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface Props {
     status: ActivityStatus;

@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import type { EthereumChainId, EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { compact, first, flatten, noop, uniqBy } from 'lodash-es';
 import {
     createContext,
@@ -29,6 +28,7 @@ import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 import { FireflyRedPacketAPI, RequirementType } from '@/providers/types/FireflyRedPacket.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
+import type { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 export const redPacketRandomTabs = [
     {

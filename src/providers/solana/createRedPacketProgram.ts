@@ -1,12 +1,12 @@
 /* cspell:disable */
 
 import { Program, web3 } from '@coral-xyz/anchor';
-import type { SolanaChainId } from '@masknet/web3-shared-solana';
 
 import { getAnchorProvider } from '@/helpers/getAnchorProvider.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import type { Redpacket } from '@/idls/redpacket.js';
 import RedPacketIDL from '@/idls/redpacket.json' with { type: 'json' };
+import type { SolanaChainId } from '#masknet/web3-shared-solana';
 
 const storage = new Map<string, Program<Redpacket>>();
 

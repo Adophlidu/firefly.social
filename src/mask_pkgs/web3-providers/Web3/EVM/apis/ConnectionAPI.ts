@@ -1,9 +1,8 @@
-import { AccountTransaction, EthereumMethodType, type Transaction } from '@masknet/web3-shared-evm';
-
 import { ConnectionOptions } from '@/mask_pkgs/web3-providers/Web3/Base/apis/ConnectionOptions.js';
 import { EVMConnectionReadonlyAPI } from '@/mask_pkgs/web3-providers/Web3/EVM/apis/ConnectionReadonlyAPI.js';
 import { EVMRequest } from '@/mask_pkgs/web3-providers/Web3/EVM/apis/RequestAPI.js';
 import type { EVMConnectionOptions } from '@/mask_pkgs/web3-providers/Web3/EVM/types/index.js';
+import { AccountTransaction, EthereumMethodType, type Transaction } from '#masknet/web3-shared-evm';
 
 class ConnectionAPI extends EVMConnectionReadonlyAPI {
     protected override Request = EVMRequest;

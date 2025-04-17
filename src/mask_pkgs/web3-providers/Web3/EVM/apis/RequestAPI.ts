@@ -1,5 +1,3 @@
-import { PayloadEditor, type RequestArguments } from '@masknet/web3-shared-evm';
-
 import { createWeb3FromProvider } from '@/mask_pkgs/web3-providers/helpers/createWeb3FromProvider.js';
 import { createWeb3ProviderFromRequest } from '@/mask_pkgs/web3-providers/helpers/createWeb3ProviderFromRequest.js';
 import { ConnectionOptions } from '@/mask_pkgs/web3-providers/Web3/Base/apis/ConnectionOptions.js';
@@ -10,6 +8,7 @@ import {
 } from '@/mask_pkgs/web3-providers/Web3/EVM/apis/RequestReadonlyAPI.js';
 import { createContext } from '@/mask_pkgs/web3-providers/Web3/EVM/helpers/createContext.js';
 import type { EVMConnectionOptions } from '@/mask_pkgs/web3-providers/Web3/EVM/types/index.js';
+import { PayloadEditor, type RequestArguments } from '#masknet/web3-shared-evm';
 
 class EVMRequestAPI extends EVMRequestReadonlyAPI {
     private Request = EVMRequestReadonly;

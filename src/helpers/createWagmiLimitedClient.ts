@@ -1,10 +1,10 @@
-import { EthereumChainId, EthereumMethodType } from '@masknet/web3-shared-evm';
 import localforage from 'localforage';
 import { toHex } from 'viem';
 
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import type { Chain } from '@/types/bridge.js';
 import type { RequestArguments } from '@/types/ethereum.js';
+import { EthereumChainId, EthereumMethodType } from '#masknet/web3-shared-evm';
 
 const storage = localforage.createInstance({
     name: 'wagmi-limited-client',

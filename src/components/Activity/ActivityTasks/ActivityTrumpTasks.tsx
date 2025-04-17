@@ -1,8 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { EthereumChainId } from '@masknet/web3-shared-evm';
-import { SolanaChainId as SolChainId } from '@masknet/web3-shared-solana';
 import { useCallback, useContext, useState } from 'react';
 
 import { ActionButton } from '@/components/ActionButton.js';
@@ -35,6 +33,8 @@ import { runInSafe } from '@/helpers/runInSafe.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { Level } from '@/providers/types/CZ.js';
 import { type ActivityInfoResponse, ActivityStatus } from '@/providers/types/Firefly.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { SolanaChainId as SolChainId } from '#masknet/web3-shared-solana';
 
 function DisclaimerDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
     return (

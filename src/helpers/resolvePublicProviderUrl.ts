@@ -1,8 +1,8 @@
-import { getRPCConstant } from '@masknet/web3-shared-evm';
 import { first } from 'lodash-es';
 import { polygon } from 'viem/chains';
 
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { getRPCConstant } from '#masknet/web3-shared-evm';
 
 const resolve = createLookupTableResolver<number, string>(
     {

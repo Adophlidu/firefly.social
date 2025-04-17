@@ -1,14 +1,14 @@
+import { identity, pickBy } from 'lodash-es';
+
+import type { GasOptionType } from '@/mask_pkgs/web3-shared/base/index.js';
+import type { PartialRequired } from '@/types/index.js';
 import {
     EthereumChainId,
     getDefaultChainId,
     getDefaultProviderType,
     ProviderType,
     type Transaction,
-} from '@masknet/web3-shared-evm';
-import { identity, pickBy } from 'lodash-es';
-
-import type { GasOptionType } from '@/mask_pkgs/web3-shared/base/index.js';
-import type { PartialRequired } from '@/types/index.js';
+} from '#masknet/web3-shared-evm';
 
 export interface BaseConnectionOptions {
     /** Designate the signer of the transaction. */

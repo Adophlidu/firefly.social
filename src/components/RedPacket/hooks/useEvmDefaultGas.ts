@@ -1,4 +1,3 @@
-import { EthereumSchemaType, getRedPacketConstant, getTokenConstant } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { type Address } from 'viem';
@@ -10,6 +9,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import { type CreateRedPacketContext, RedPacketProvider } from '@/providers/ethereum/RedPacket.js';
+import { EthereumSchemaType, getRedPacketConstant, getTokenConstant } from '#masknet/web3-shared-evm';
 
 export function useEvmDefaultGas(context: CreateRedPacketContext, enabled = true) {
     const { account, chainId } = useChainContext({

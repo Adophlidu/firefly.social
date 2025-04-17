@@ -1,14 +1,14 @@
-import type {
-    BaseContract,
-    NonPayableTransactionObject,
-    PayableTransactionObject,
-    PayableTx,
-} from '@masknet/web3-contracts/types/types.js';
 import { identity, pickBy } from 'lodash-es';
 import { toHex } from 'viem';
 
 import { resolve, type Unresolved } from '@/helpers/resolve.js';
 import type { Transaction } from '@/mask_pkgs/web3-shared/evm/types/index.js';
+import type {
+    BaseContract,
+    NonPayableTransactionObject,
+    PayableTransactionObject,
+    PayableTx,
+} from '#masknet/web3-contracts/types/types.js';
 
 type TransactionResolver<T extends BaseContract | null> = Unresolved<
     PayableTransactionObject<unknown> | NonPayableTransactionObject<unknown> | undefined,

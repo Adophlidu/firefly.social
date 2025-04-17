@@ -1,4 +1,3 @@
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import type { Address } from 'viem';
 import { getEnsAvatar, getEnsName } from 'wagmi/actions';
 
@@ -9,6 +8,7 @@ import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidA
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { trimify } from '@/helpers/trimify.js';
 import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 export async function searchWalletAddress(address: string): Promise<FireflyProfile | undefined> {
     const trimmed = trimify(address);

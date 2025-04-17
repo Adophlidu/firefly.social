@@ -1,5 +1,3 @@
-import { EthereumChainId, getCoinGeckoConstants } from '@masknet/web3-shared-evm';
-import { getCoinGeckoConstants as getCoinGeckoConstantsSolana } from '@masknet/web3-shared-solana';
 import { produce } from 'immer';
 import { uniq, uniqBy } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -26,6 +24,8 @@ import type {
 } from '@/providers/types/CoinGecko.js';
 import { type Contract, type Trending, TrendingProvider } from '@/providers/types/Trending.js';
 import type { TokenWithMarket } from '@/services/searchTokens.js';
+import { EthereumChainId, getCoinGeckoConstants } from '#masknet/web3-shared-evm';
+import { getCoinGeckoConstants as getCoinGeckoConstantsSolana } from '#masknet/web3-shared-solana';
 
 /**
  * @internal

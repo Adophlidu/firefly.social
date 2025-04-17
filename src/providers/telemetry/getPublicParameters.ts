@@ -1,4 +1,3 @@
-import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { getAccount } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
@@ -13,6 +12,7 @@ import {
     useLensStateStore,
     useTwitterStateStore,
 } from '@/store/useProfileStore.js';
+import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 export function getPublicParameters(eventId: string, previousEventId: string | null) {
     const evmAccount = runInSafe(() => getAccount(config));

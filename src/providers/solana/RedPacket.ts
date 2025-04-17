@@ -1,5 +1,4 @@
 import { BN, web3 } from '@coral-xyz/anchor';
-import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { ASSOCIATED_TOKEN_PROGRAM_ID, getAssociatedTokenAddressSync } from '@solana/spl-token';
 import { sign } from 'tweetnacl';
 
@@ -11,6 +10,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { createRedPacketProgram } from '@/providers/solana/createRedPacketProgram.js';
 import { requestRPC } from '@/providers/solana/requestRPC.js';
 import type { GetTransactionResponse } from '@/providers/types/Solana.js';
+import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 /**
  * Context for creating a red packet with native token.

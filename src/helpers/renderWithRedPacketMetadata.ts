@@ -1,12 +1,12 @@
 import type { TypedMessage } from '@masknet/typed-message';
 import { createRenderWithMetadata, createTypedMessageMetadataReader } from '@masknet/typed-message-react';
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { Err, Ok, type Result } from 'ts-results-es';
 
 import { SOLANA_PREFIX, SolanaRedPacketMetaKey, SupportedMetaKeys } from '@/constants/rp.js';
 import { EVMChainResolver } from '@/mask/index.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import Schema from '@/schemas/rp.json' with { type: 'json' };
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 type ReaderCacheMap = Record<string, (meta: TypedMessage['meta']) => Result<RedPacketJSONPayload, void>>;
 const readerCache = SupportedMetaKeys.reduce<ReaderCacheMap>((acc, key) => {

@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { CollectionMore } from '@/components/Actions/CollectionMore.js';
@@ -14,6 +13,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface CollectionInfoProps {
     address: string;

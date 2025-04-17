@@ -1,5 +1,4 @@
 import { t } from '@lingui/core/macro';
-import { getRedPacketConstant } from '@masknet/web3-shared-evm';
 import { last } from 'lodash-es';
 import { useCallback } from 'react';
 import type { Address } from 'viem';
@@ -16,6 +15,7 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { getRedPacketConstant } from '#masknet/web3-shared-evm';
 
 export function useVerifyAndClaimEVM(payload: RedPacketJSONPayload, source: SocialSource, post: Post, enabled = true) {
     const { address: account } = useAccount();

@@ -1,11 +1,10 @@
-import { EthereumMethodType } from '@masknet/web3-shared-evm';
-
 import { EthereumMethodButton } from '@/app/(developers)/components/EthereumMethodButton.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { classNames } from '@/helpers/classNames.js';
 import type { MethodItem } from '@/types/ethereum.js';
+import { EthereumMethodType } from '#masknet/web3-shared-evm';
 
 type Item = MethodItem & {
     title: string;

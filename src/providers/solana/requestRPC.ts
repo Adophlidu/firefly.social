@@ -1,8 +1,7 @@
-import { SolanaChainId } from '@masknet/web3-shared-solana';
-
 import { RPC_Error } from '@/constants/error.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
+import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 interface RpcOptions {
     method: string;

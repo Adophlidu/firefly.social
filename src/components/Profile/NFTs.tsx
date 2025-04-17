@@ -1,7 +1,6 @@
 'use client';
 
 import { t } from '@lingui/core/macro';
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useState } from 'react';
 
 import UndoSVG from '@/assets/undo.svg';
@@ -12,6 +11,7 @@ import { NFTCollectionList } from '@/components/Profile/NFTCollectionList.js';
 import { useWalletMixAddresses } from '@/components/Profile/useWalletMixAddresses.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface SelectedCollection {
     chainId: EthereumChainId;

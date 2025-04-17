@@ -1,5 +1,3 @@
-import { EthereumChainId } from '@masknet/web3-shared-evm';
-
 import { EMPTY_LIST } from '@/constants/index.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
@@ -8,6 +6,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { trimify } from '@/helpers/trimify.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { NFTScanProvider } from '@/providers/nft-scan/index.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 const SEARCH_CHAIN_ID_LIST = [
     EthereumChainId.Mainnet,

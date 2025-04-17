@@ -2,7 +2,6 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { type EthereumChainId, EthereumSchemaType, getRedPacketConstant } from '@masknet/web3-shared-evm';
 import { useRouter } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
 import { isUndefined, omit } from 'lodash-es';
@@ -36,6 +35,7 @@ import { useNativeTokenPrice } from '@/hooks/useNativeTokenPrice.js';
 import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { RedPacketContext, redPacketRandomTabs } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { TypeTabs } from '@/modals/RedPacketModal/TypeTabs.js';
+import { type EthereumChainId, EthereumSchemaType, getRedPacketConstant } from '#masknet/web3-shared-evm';
 
 export function MainView() {
     const { history } = useRouter();

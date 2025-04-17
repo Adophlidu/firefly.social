@@ -1,10 +1,10 @@
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { uniqBy } from 'lodash-es';
 import { parseEther } from 'viem';
 
 import { SingleNFTFeed } from '@/components/NFTs/SingleNFTFeed.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 export function getSingleNFTFeedItemContent(
     index: number,

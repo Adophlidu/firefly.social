@@ -1,6 +1,4 @@
 import { unreachable } from '@masknet/kit';
-import { EthereumChainId, EthereumNetworkType } from '@masknet/web3-shared-evm';
-import { SolanaChainId, SolanaNetworkType } from '@masknet/web3-shared-solana';
 
 import { useEVMAvailabilityComputed } from '@/components/RedPacket/hooks/useEVMAvailabilityComputed.js';
 import { useSolanaAvailabilityComputed } from '@/components/RedPacket/hooks/useSolanaAvailabilityComputed.js';
@@ -9,6 +7,8 @@ import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPaylo
 import { EVMNetworkResolver, SolanaNetworkResolver } from '@/mask/index.js';
 import { type RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { EthereumChainId, EthereumNetworkType } from '#masknet/web3-shared-evm';
+import { SolanaChainId, SolanaNetworkType } from '#masknet/web3-shared-solana';
 
 /**
  * Fetch the red packet info from the chain

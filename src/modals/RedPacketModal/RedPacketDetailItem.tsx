@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { useRouter } from '@tanstack/react-router';
 import dayjs from 'dayjs';
 import { memo, useContext } from 'react';
@@ -21,6 +20,7 @@ import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountIt
 import { RedPacketActionButton } from '@/modals/RedPacketModal/RedPacketActionButton.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { FireflyRedPacketAPI } from '@/providers/types/FireflyRedPacket.js';
+import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 interface HistoryInfo {
     rp_msg: string;

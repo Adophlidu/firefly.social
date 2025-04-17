@@ -3,7 +3,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { useContext, useMemo } from 'react';
 
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
@@ -23,6 +22,7 @@ import { replaceObjectInStringArray } from '@/helpers/replaceObjectInStringArray
 import { resolveActivityShareUrl } from '@/helpers/resolveActivityUrl.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { type ActivityInfoResponse, ActivityStatus } from '@/providers/types/Firefly.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 const sources: SocialSource[] = [Source.Lens, Source.Farcaster];
 

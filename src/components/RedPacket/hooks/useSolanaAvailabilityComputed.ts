@@ -1,4 +1,3 @@
-import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { compact } from 'lodash-es';
 
 import { useSolanaAvailability } from '@/components/RedPacket/hooks/useSolanaAvailability.js';
@@ -7,6 +6,7 @@ import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 export function useSolanaAvailabilityComputed(payload: RedPacketJSONPayload, post: Post, enabled = true) {
     const chainId = payload.chainId || SolanaChainId.Mainnet;

@@ -2,7 +2,6 @@
 
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { EthereumChainId, EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { pick } from 'lodash-es';
 
 import AcquiredIcon from '@/assets/acquired.svg';
@@ -24,6 +23,7 @@ import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
 import { NFTFeedTransAction } from '@/providers/types/NFTs.js';
+import { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 interface Props {
     chainId: EthereumChainId;

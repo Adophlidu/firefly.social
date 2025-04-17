@@ -1,4 +1,3 @@
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { StatusCodes } from 'http-status-codes';
 
 import { LensHubABI } from '@/abis/LensHub.js';
@@ -6,6 +5,7 @@ import { CACHE_AGE_INDEFINITE_ON_DISK, LENS_HUB_PROXY_ADDRESS } from '@/constant
 import { createErrorResponseJSON } from '@/helpers/createResponseJSON.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);

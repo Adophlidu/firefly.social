@@ -1,5 +1,5 @@
 /* cspell:disable */
-import { EthereumChainId } from '@masknet/web3-shared-evm';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 export const DEBANK_CHAINS = [
     {

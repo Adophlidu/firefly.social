@@ -1,8 +1,7 @@
-import { type EthereumSchemaType } from '@masknet/web3-shared-evm';
-
 import { CurrencyType, type NetworkPluginID } from '@/constants/enum.js';
 import type { PageIndicator } from '@/helpers/pageable.js';
 import type { SourceType } from '@/mask_pkgs/web3-shared/base/index.js';
+import { type EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 export interface BaseHubOptions<ChainId, Indicator = PageIndicator> {
     /** The user account as the API parameter */

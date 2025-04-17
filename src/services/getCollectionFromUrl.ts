@@ -1,10 +1,9 @@
-import { EthereumChainId as ChainIdEVM } from '@masknet/web3-shared-evm';
-import { SolanaChainId as ChainIdSolana } from '@masknet/web3-shared-solana';
-
 import { NFTMarketplace } from '@/constants/enum.js';
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
+import { EthereumChainId as ChainIdEVM } from '#masknet/web3-shared-evm';
+import { SolanaChainId as ChainIdSolana } from '#masknet/web3-shared-solana';
 
 const rules: Array<{
     hosts: string[];

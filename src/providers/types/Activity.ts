@@ -1,5 +1,3 @@
-import { EthereumChainId } from '@masknet/web3-shared-evm';
-
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type {
     ActivityInfoResponse,
@@ -7,6 +5,7 @@ import type {
     FireflyWalletConnection,
     Response,
 } from '@/providers/types/Firefly.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 export enum Level {
     Lv1 = 'lv1',

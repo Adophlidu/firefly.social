@@ -1,6 +1,5 @@
-import { resolveImageURL } from '@masknet/web3-shared-evm';
-
 import type { SimpleHash } from '@/providers/simplehash/type.js';
+import { resolveImageURL } from '#masknet/web3-shared-evm';
 
 export function resolveNFTImageUrl(nft: SimpleHash.NFT) {
     const original = nft.image_url || nft.previews.image_large_url;

@@ -1,4 +1,3 @@
-import type { EthereumChainId } from '@masknet/web3-shared-evm';
 import { type Address } from 'viem';
 import { getBalance, readContracts } from 'wagmi/actions';
 
@@ -8,6 +7,7 @@ import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Token } from '@/providers/types/Transfer.js';
+import type { EthereumChainId } from '#masknet/web3-shared-evm';
 
 export async function getTokenBalance(token: Token<EthereumChainId, Address>, address: Address, chainId: number) {
     if (isNativeToken(token)) {

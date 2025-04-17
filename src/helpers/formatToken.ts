@@ -1,5 +1,3 @@
-import { type EthereumChainId, EthereumSchemaType } from '@masknet/web3-shared-evm';
-
 import { NetworkType, TokenType } from '@/constants/enum.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
@@ -7,6 +5,7 @@ import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import type { Token } from '@/providers/types/Transfer.js';
+import { type EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<number, number> {
     // it is not a valid address if its native token

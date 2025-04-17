@@ -1,5 +1,6 @@
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import urlcat from 'urlcat';
+
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 export function resolveNFTUrl(chainId: EthereumChainId | string | number, address: string, tokenId?: string) {
     const basePath = address ? '/nft/:chainId/:address' : '/nft/:chainId';

@@ -1,10 +1,10 @@
-import type { SolanaChainId } from '@masknet/web3-shared-solana';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
 import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
 import { requestRPC } from '@/providers/solana/requestRPC.js';
 import type { GetBalanceResponse, GetProgramAccountsResponse } from '@/providers/types/Solana.js';
 import type { Token } from '@/providers/types/Transfer.js';
+import type { SolanaChainId } from '#masknet/web3-shared-solana';
 
 export async function getNativeTokenBalance(address: string, chainId: number) {
     const data = await requestRPC<GetBalanceResponse>(chainId, {

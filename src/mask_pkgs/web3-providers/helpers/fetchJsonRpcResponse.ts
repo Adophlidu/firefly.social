@@ -1,7 +1,6 @@
-import { RequestID } from '@masknet/web3-shared-evm';
-
 import { fetchSquashedJSON } from '@/helpers/fetchJSON.js';
 import type { JsonRpcPayload, JsonRpcResponse } from '@/types/ethereum.js';
+import { RequestID } from '#masknet/web3-shared-evm';
 
 async function resolveRequestKey(request: Request) {
     try {

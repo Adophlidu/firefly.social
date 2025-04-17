@@ -1,8 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { EthereumChainId } from '@masknet/web3-shared-evm';
-import { SolanaChainId } from '@masknet/web3-shared-solana';
 import { memo, type ReactNode } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -14,6 +12,8 @@ import { Popover } from '@/components/Popover.js';
 import { NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
+import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 interface Props {
     onOpen: (type: NetworkType) => void;

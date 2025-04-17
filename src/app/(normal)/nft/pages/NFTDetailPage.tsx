@@ -1,6 +1,5 @@
 'use client';
 
-import { EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { isUndefined } from 'lodash-es';
 
@@ -16,6 +15,7 @@ import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
+import { EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 export function NFTDetailPage({ chainId, address, tokenId }: { chainId: number; address: string; tokenId: string }) {
     const isPoap = isSameEthereumAddress(address, POAP_CONTRACT_ADDRESS);

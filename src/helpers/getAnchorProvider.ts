@@ -1,9 +1,9 @@
 import { AnchorProvider, web3 } from '@coral-xyz/anchor';
-import { SolanaChainId } from '@masknet/web3-shared-solana';
 
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';
+import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 const resolveCluster = createLookupTableResolver<SolanaChainId, web3.Cluster>(
     {

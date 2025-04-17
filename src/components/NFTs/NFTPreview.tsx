@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { compact, first } from 'lodash-es';
 import React, { memo, type ReactNode } from 'react';
 import { zeroAddress } from 'viem';
@@ -27,6 +26,7 @@ import { useCollectionMarketInfo } from '@/hooks/useCollectionMarketInfo.js';
 import { useNFTCollection } from '@/hooks/useNFTCollection.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface NFTPreviewProps {
     nft: SimpleHash.NFT;

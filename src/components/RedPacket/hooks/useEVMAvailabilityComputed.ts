@@ -1,4 +1,3 @@
-import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { type QueryObserverResult, type RefetchOptions, useQuery } from '@tanstack/react-query';
 import { compact, first } from 'lodash-es';
 import { useCallback } from 'react';
@@ -14,6 +13,7 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 /**
  * Fetch the red packet info from the chain

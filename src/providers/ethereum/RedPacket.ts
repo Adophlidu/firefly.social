@@ -1,13 +1,3 @@
-import {
-    ContractTransaction,
-    decodeEvents,
-    type EthereumChainId,
-    EthereumSchemaType,
-    type GasConfig,
-    getRedPacketConstant,
-    getTokenConstant,
-    type TransactionReceipt,
-} from '@masknet/web3-shared-evm';
 import { omit } from 'lodash-es';
 import { type Address, type Hex, keccak256 } from 'viem';
 import { getChainId, switchChain, writeContract } from 'wagmi/actions';
@@ -27,6 +17,16 @@ import { createRedPacketContract } from '@/providers/ethereum/getRedPacketContra
 import { signClaimMessage } from '@/providers/ethereum/signClaimMessage.js';
 import { FireflyRedPacketEndpoint } from '@/providers/firefly/RedPacketEndpoint.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
+import {
+    ContractTransaction,
+    decodeEvents,
+    type EthereumChainId,
+    EthereumSchemaType,
+    type GasConfig,
+    getRedPacketConstant,
+    getTokenConstant,
+    type TransactionReceipt,
+} from '#masknet/web3-shared-evm';
 
 export interface CreateRedPacketContext {
     networkType: NetworkType;

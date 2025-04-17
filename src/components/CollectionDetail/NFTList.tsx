@@ -1,6 +1,5 @@
 'use client';
 
-import { EthereumSchemaType } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { GridListInPage, type GridListInPageProps } from '@/components/GridListInPage.js';
@@ -9,6 +8,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import { fillBookmarkStatusForNonFungibleAssets } from '@/services/fillBookmarkStatusForNFT.js';
+import { EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 interface NFTListProps extends Partial<GridListInPageProps> {
     address: string;
