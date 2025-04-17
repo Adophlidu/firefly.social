@@ -36,20 +36,20 @@ export function FollowingSnapshotList({ walletAddresses }: { walletAddresses?: s
     });
 
     if (!profileIds.length) {
-        return <NotLoginFallback source={Source.DAOs} />;
+        return <NotLoginFallback source={Source.DAOs} className="md:!pt-0" />;
     }
 
     return (
         <ListInPage
             source={Source.DAOs}
             queryResult={queryResult}
-            NoResultsFallbackProps={{
-                className: !walletAddresses ? 'md:pt-[228px] max-md:py-20' : undefined,
-            }}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Following}:${Source.DAOs}`,
                 computeItemKey: (index, snapshot) => `${snapshot.id}-${index}`,
                 itemContent: (index, snapshot) => getSnapshotItemContent(index, snapshot),
+            }}
+            NoResultsFallbackProps={{
+                className: 'mt-20',
             }}
         />
     );

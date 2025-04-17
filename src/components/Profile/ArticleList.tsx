@@ -44,7 +44,7 @@ export function ArticleList({ address }: ArticleListProps) {
                     ),
             }}
             NoResultsFallbackProps={{
-                className: 'md:pt-[228px] max-md:py-20',
+                className: 'mt-20',
             }}
         />
     );

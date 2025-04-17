@@ -219,7 +219,7 @@ export function NFTCollectionList(props: NFTCollectionListProps) {
                 },
             }}
             NoResultsFallbackProps={{
-                className: 'md:pt-[228px] max-md:py-20 -mt-2',
+                className: 'mt-20',
             }}
         />
     );

@@ -31,8 +31,9 @@ export function WalletProfilePolymarketList({ address }: { address: string }) {
     });
 
     if (!isLogin) {
-        return <NotLoginFallback source={Source.Polymarket} />;
+        return <NotLoginFallback source={Source.Polymarket} className="md:!pt-0" />;
     }
+
     return (
         <ListInPage
             source={Source.Wallet}
@@ -43,7 +44,7 @@ export function WalletProfilePolymarketList({ address }: { address: string }) {
                 itemContent: (index, item) => getPolymarketActivityItemContent(index, item),
             }}
             NoResultsFallbackProps={{
-                className: 'md:pt-[228px] max-md:py-20',
+                className: 'mt-20',
             }}
         />
     );

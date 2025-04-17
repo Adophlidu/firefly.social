@@ -35,7 +35,7 @@ export function WalletProfileSwapTimeline({ address }: { address: string }) {
     });
 
     if (!isLoginFirefly) {
-        return <NotLoginFallback source={Source.Swap} />;
+        return <NotLoginFallback source={Source.Swap} className="md:!pt-0" />;
     }
 
     return (
@@ -46,6 +46,9 @@ export function WalletProfileSwapTimeline({ address }: { address: string }) {
                 listKey: `${ScrollListKey.Swap}:profile`,
                 computeItemKey: (index, item) => `${item.hash}-${index}`,
                 itemContent: (index, item) => getSwapActivityItemContent(index, item),
+            }}
+            NoResultsFallbackProps={{
+                className: 'mt-20',
             }}
         />
     );

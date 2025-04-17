@@ -170,7 +170,7 @@ export function POAPList({ address }: { address: string }) {
                     },
                 }}
                 NoResultsFallbackProps={{
-                    className: 'md:pt-[228px] max-md:py-20',
+                    className: 'mt-20',
                 }}
             />
         </div>

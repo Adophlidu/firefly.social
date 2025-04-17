@@ -32,7 +32,7 @@ export function FollowingNFTList({ walletAddresses }: { walletAddresses?: string
     });
 
     if (!walletAddresses && !profileIds.length) {
-        return <NotLoginFallback source={Source.NFTs} />;
+        return <NotLoginFallback source={Source.NFTs} className="md:!pt-0" />;
     }
 
     return (
@@ -48,7 +48,7 @@ export function FollowingNFTList({ walletAddresses }: { walletAddresses?: string
                     }),
             }}
             NoResultsFallbackProps={{
-                className: 'md:pt-[228px] max-md:py-20',
+                className: 'mt-20',
             }}
         />
     );
