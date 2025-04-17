@@ -41,13 +41,24 @@ export const POLICY_SETTINGS = Object.entries(cspConfig)
     .map(([key, value]) => `${key} ${value.join(' ')}`)
     .join('; ');
 
+const svgrOptions = {
+    ref: true,
+    svgoConfig: {
+        plugins: [
+            {
+                name: 'preset-default',
+                params: {
+                    overrides: {
+                        // disable plugins
+                        removeViewBox: false,
+                    },
+                },
+            },
+            'prefixIds',
+        ],
+    },
+};
 const config: NextConfig = {
-    transpilePackages: [
-        '@masknet/base',
-        '@masknet/encryption',
-        '@masknet/typed-message',
-        '@masknet/typed-message-react',
-    ],
     productionBrowserSourceMaps: false,
 
     // Note: we run tsc and eslint in other places
@@ -191,9 +202,6 @@ const config: NextConfig = {
                 new context.webpack.IgnorePlugin({
                     resourceRegExp: /^(lokijs|pino-pretty|encoding)$/,
                 }),
-                new context.webpack.DefinePlugin({
-                    'process.version': JSON.stringify(process.env.npm_package_version),
-                }),
             ],
         );
 
@@ -215,7 +223,7 @@ const config: NextConfig = {
             '.js': ['.js', '.ts', '.tsx'],
             '.mjs': ['.mts', '.mjs'],
         };
-        config.resolve.conditionNames = ['mask-src', '...'];
+
         config.resolve.fallback = {
             ...config.resolve.fallback,
             http: require.resolve('stream-http'),
@@ -239,42 +247,24 @@ const config: NextConfig = {
                 exclude: /src\/mask_pkgs/,
                 loader: '@svgr/webpack',
                 resourceQuery: { not: [/url/] }, // exclude react component if *.svg?url
-                options: {
-                    ref: true,
-                    svgoConfig: {
-                        plugins: [
-                            {
-                                name: 'preset-default',
-                                params: {
-                                    overrides: {
-                                        // disable plugins
-                                        removeViewBox: false,
-                                    },
-                                },
-                            },
-                            'prefixIds',
-                        ],
-                    },
-                },
-            },
-            {
-                test: /\.svg$/i,
-                include: /src\/mask_pkgs/,
-                loader: require.resolve('svgo-loader'),
-                options: {
-                    js2svg: {
-                        pretty: false,
-                    },
-                },
-                dependency(data: string) {
-                    if (data === '') return false;
-                    return true;
-                },
-                type: 'asset/resource',
+                options: svgrOptions,
             },
         );
 
         return config;
+    },
+    turbopack: {
+        rules: {
+            '*.svg': {
+                loaders: [
+                    {
+                        loader: '@svgr/webpack',
+                        options: svgrOptions,
+                    },
+                ],
+                as: '*.js',
+            },
+        },
     },
 };
 

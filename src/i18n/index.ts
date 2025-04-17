@@ -75,8 +75,6 @@ export async function setupLocaleForSSR() {
     const instance = getI18n();
     if (instance) return instance;
 
-    console.warn('[i18n]: SSR i18n instance created.');
-
     const locale = await getLocaleFromCookies();
     const i18n = setupAndActiveI18n(locale);
     return i18n;

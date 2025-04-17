@@ -1,3 +1,4 @@
-import NextDynamic from 'next/dynamic.js';
+// @ts-expect-error
+import NextDynamic from 'next/dynamic';
 
-export const dynamic = NextDynamic as unknown as typeof NextDynamic.default;
+export const dynamic: typeof import('next/dynamic.js') = NextDynamic;

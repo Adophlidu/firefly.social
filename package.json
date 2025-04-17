@@ -5,7 +5,7 @@
     "private": true,
     "packageManager": "pnpm@8.15.8",
     "scripts": {
-        "dev": "next dev",
+        "dev": "next dev --turbo",
         "debug": "NODE_OPTIONS='--inspect' next dev",
         "build": "NODE_OPTIONS=--max_old_space_size=8192 next build",
         "build:scripts": "node scripts/build-scripts.mjs",
