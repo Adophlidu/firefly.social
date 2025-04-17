@@ -143,6 +143,17 @@ export async function middleware(request: NextRequest) {
         });
     }
 
+    if (pathname.startsWith('/profile/lens/')) {
+        const pathArray = pathname.split('/');
+        const handle = pathArray[3];
+        if (handle.endsWith('.lens')) {
+            const destination = request.nextUrl.clone();
+            pathArray[3] = handle.replace('.lens', '');
+            destination.pathname = pathArray.join('/');
+            return NextResponse.redirect(destination);
+        }
+    }
+
     return NextResponse.next({
         request,
     });
