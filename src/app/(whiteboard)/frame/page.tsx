@@ -22,7 +22,7 @@ import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { Network, SupportedMethod, type Transaction } from '@/types/bridge.js';
 import type { RequestArguments } from '@/types/ethereum.js';
-import type { FrameV2, FrameV2Host } from '@/types/frame.js';
+import type { FrameV2 } from '@/types/frame.js';
 import type { NextPageProps } from '@/types/index.js';
 
 const connectWalletSquashed = squashCallback(
@@ -61,28 +61,30 @@ export default function Page(props: Props) {
 
         console.warn('[frame client] context', JSON.stringify(context));
 
-        return {
-            frame: {
-                ...result.frame.content,
-                x_url: result.frame.originalUrl,
-                x_version: 2,
-            },
-            frameHost: new FarcasterFrameHost(context, {
-                ready: (options?: Partial<ReadyOptions>) => {
-                    console.warn('[frame client] ready', JSON.stringify(options));
+        const frame = {
+            ...result.frame.content,
+            x_url: result.frame.originalUrl,
+            x_version: 2,
+        } satisfies FrameV2;
 
-                    if (options) fireflyBridgeProvider.request(SupportedMethod.SET_FRAME_READY_OPTIONS, options);
-                    setReady(true);
-                },
-                close: () => fireflyBridgeProvider.request(SupportedMethod.CLOSE, {}),
-                setPrimaryButton: (options) => {
-                    console.warn('[frame client] setPrimaryButton', JSON.stringify(options));
-                    fireflyBridgeProvider.request(SupportedMethod.SET_PRIMARY_BUTTON, options);
-                },
-            }),
-        } satisfies {
-            frame: FrameV2;
-            frameHost: FrameV2Host;
+        const frameHost = new FarcasterFrameHost(context, {
+            frame: () => result.frame.content,
+            ready: (options?: Partial<ReadyOptions>) => {
+                console.warn('[frame client] ready', JSON.stringify(options));
+
+                if (options) fireflyBridgeProvider.request(SupportedMethod.SET_FRAME_READY_OPTIONS, options);
+                setReady(true);
+            },
+            close: () => fireflyBridgeProvider.request(SupportedMethod.CLOSE, {}),
+            setPrimaryButton: (options) => {
+                console.warn('[frame client] setPrimaryButton', JSON.stringify(options));
+                fireflyBridgeProvider.request(SupportedMethod.SET_PRIMARY_BUTTON, options);
+            },
+        });
+
+        return {
+            frame,
+            frameHost,
         };
     }, [supported]);
 

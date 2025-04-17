@@ -81,9 +81,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
         } satisfies Post;
     };
 
-    const validateSignerKey = async () => {
-        await validateFarcasterSession(farcasterSessionHolder.sessionRequired);
-    };
+    const validateSignerKey = () => validateFarcasterSession(farcasterSessionHolder.sessionRequired);
 
     const postTo = createPostTo(Source.Farcaster, {
         uploadImages: () => {

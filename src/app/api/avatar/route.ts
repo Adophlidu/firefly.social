@@ -1,7 +1,7 @@
 import { EthereumChainId } from '@masknet/web3-shared-evm';
 import { StatusCodes } from 'http-status-codes';
 
-import { LensHub } from '@/abis/LensHub.js';
+import { LensHubABI } from '@/abis/LensHub.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, LENS_HUB_PROXY_ADDRESS } from '@/constants/index.js';
 import { createErrorResponseJSON } from '@/helpers/createResponseJSON.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
@@ -16,7 +16,7 @@ export async function GET(request: Request) {
     try {
         const client = createWagmiPublicClient(EthereumChainId.Polygon);
         const data = await client.readContract({
-            abi: LensHub,
+            abi: LensHubABI,
             address: LENS_HUB_PROXY_ADDRESS,
             args: [id],
             functionName: 'tokenURI',

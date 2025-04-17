@@ -1,4 +1,4 @@
-import type { FrameContext, SetPrimaryButton } from '@farcaster/frame-host';
+import type { Context, SetPrimaryButton } from '@farcaster/frame-host';
 import { memo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -7,6 +7,7 @@ import { Image } from '@/components/Image.js';
 import { Source } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { FrameViewerModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -37,6 +38,7 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
             },
             location: {
                 type: 'cast_embed',
+                embed: resolvePostUrl(post.source, post.postId),
                 cast: {
                     fid: Number.parseInt(post.author.profileId, 10),
                     hash: post.postId,
@@ -46,9 +48,10 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
                 added: false,
                 clientFid: fid,
             },
-        } satisfies FrameContext;
+        } satisfies Context.FrameContext;
 
         return new FarcasterFrameHost(context, {
+            frame: () => frame,
             ready: (options) =>
                 FrameViewerModalRef.open({
                     ready: true,

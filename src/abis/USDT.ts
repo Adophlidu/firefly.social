@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-export const USDT = [
+export const USDT_ABI = [
     {
         type: 'event',
         name: 'Approval',

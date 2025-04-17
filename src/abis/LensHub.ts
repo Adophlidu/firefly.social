@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-export const LensHub = [
+export const LensHubABI = [
     {
         inputs: [
             { internalType: 'address', name: 'followNFTImpl', type: 'address' },
