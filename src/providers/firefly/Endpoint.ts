@@ -713,8 +713,8 @@ export class FireflyEndpoint {
     }
 
     async isProfileMuted(platform: FireflyPlatform, profileId: string): Promise<boolean> {
-        // TODO firefly doesn't support this
-        if ([FireflyPlatform.Bsky, FireflyPlatform.Twitter, FireflyPlatform.Lens].includes(platform)) {
+        // TODO firefly doesn't support bsky
+        if (platform === FireflyPlatform.Bsky) {
             const profile = await BskySocialMediaProvider.getProfileById(profileId);
             return !!profile.viewerContext?.blocking;
         }

@@ -3,8 +3,9 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -17,7 +18,11 @@ export function useIsProfileMuted(source: Source, profileId: string, blocking?: 
         staleTime: 600_000,
         queryFn: async () => {
             const platform = resolveFireflyPlatform(source);
-            if (!platform) return false;
+            if (!platform) return undefined;
+            if ([Source.Bsky, Source.Twitter, Source.Lens].includes(source)) {
+                const profile = await resolveSocialMediaProvider(source as SocialSource).getProfileById(profileId);
+                return !!profile.viewerContext?.blocking;
+            }
             return FireflyEndpointProvider.isProfileMuted(platform, profileId);
         },
     });
