@@ -1,7 +1,7 @@
 import type { HTMLProps } from 'react';
 import { type FieldPath, type FieldValues, type RegisterOptions, useFormContext, useFormState } from 'react-hook-form';
 
-import { inputClassName } from '@/helpers/inputClassName.js';
+import { inputClassName } from '@/components/Input.js';
 
 export interface InputProps<
     TFieldValues extends FieldValues = FieldValues,

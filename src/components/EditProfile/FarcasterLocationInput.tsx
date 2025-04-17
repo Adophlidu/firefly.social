@@ -3,8 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import { Fragment, useState } from 'react';
 import { useDebounce } from 'usehooks-ts';
 
+import { inputClassName } from '@/components/Input.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { inputClassName } from '@/helpers/inputClassName.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 
 export function FarcasterLocationInput() {
