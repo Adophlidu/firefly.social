@@ -249,6 +249,21 @@ const config: NextConfig = {
                 resourceQuery: { not: [/url/] }, // exclude react component if *.svg?url
                 options: svgrOptions,
             },
+            {
+                test: /\.svg$/i,
+                include: /src\/mask_pkgs/,
+                loader: require.resolve('svgo-loader'),
+                options: {
+                    js2svg: {
+                        pretty: false,
+                    },
+                },
+                dependency(data: string) {
+                    if (data === '') return false;
+                    return true;
+                },
+                type: 'asset/resource',
+            },
         );
 
         return config;
