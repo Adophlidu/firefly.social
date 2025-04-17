@@ -86,7 +86,9 @@ import {
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
 import { settings } from '@/settings/index.js';
 
-async function ensureFollowersIsNotEmpty(users: User[]) {
+async function ensureFollowersIsNotEmpty(users?: User[]) {
+    if (!Array.isArray(users)) return [];
+
     const ids = users.map((x) => x.fid);
     const profiles = ids.length
         ? await runInSafeAsync(() => NeynarSocialMediaProvider.getProfilesByIds(ids))
