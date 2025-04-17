@@ -87,8 +87,5 @@ export async function setupLocaleForSSR() {
 export function setupLocalForClient() {
     const locale = getLocalFromClientCookies();
     const i18n = setupAndActiveI18n(locale);
-
-    console.warn('[i18n]: Client i18n instance created.');
-
     return i18n;
 }
