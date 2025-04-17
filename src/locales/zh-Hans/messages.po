@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-04-16 00:06\n"
+"PO-Revision-Date: 2025-04-16 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -274,7 +274,7 @@ msgid "Functions that can suspend trading"
 msgstr "可以暂停交易的功能"
 
 msgid "{count}s"
-msgstr ""
+msgstr "{count}秒"
 
 msgid "Claimed successfully."
 msgstr "领取成功。"
@@ -468,7 +468,7 @@ msgid "Report submitted on {0}"
 msgstr "举报已提交 {0}"
 
 msgid "Hack / Phish"
-msgstr ""
+msgstr "可疑地址"
 
 msgid "Users must follow your account."
 msgstr "用户必须关注你的账户。"
@@ -1012,7 +1012,7 @@ msgid "Failed to generate signature packet with source = {source}."
 msgstr "未能生成签名包 = {source}"
 
 msgid "Search community"
-msgstr ""
+msgstr "搜索社区"
 
 msgid "Save failed post?"
 msgstr "保存发送失败的帖子？"
@@ -1456,7 +1456,7 @@ msgid "Platform fee"
 msgstr "平台费用"
 
 msgid "Lens group"
-msgstr ""
+msgstr "Lens 小组"
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
@@ -1549,10 +1549,10 @@ msgid "[LuckyDrop]"
 msgstr "[红包]"
 
 msgid "Group"
-msgstr ""
+msgstr "小组"
 
 msgid "Unliked."
-msgstr ""
+msgstr "取消点赞。"
 
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
@@ -1634,7 +1634,7 @@ msgid "Please choose issue to report this wallet:"
 msgstr "请选择举报这个钱包的原因："
 
 msgid "Nickname must not contain restricted symbols"
-msgstr ""
+msgstr "昵称含违禁字符"
 
 msgid "Switch"
 msgstr "切换"
@@ -1684,7 +1684,7 @@ msgstr "搜索代币中"
 
 #. placeholder {0}: remaining.length
 msgid "{0}+"
-msgstr ""
+msgstr "{0}+"
 
 msgid "Best Wishes!"
 msgstr "最美好的祝愿！"
@@ -1702,7 +1702,7 @@ msgid "Total amount shared among all winners"
 msgstr "在所有获奖者之间分配的总金额"
 
 msgid "Leave"
-msgstr ""
+msgstr "退出"
 
 msgid "Enter number of winners"
 msgstr "输入获奖人数"
@@ -1889,7 +1889,7 @@ msgstr "1个月"
 
 #. placeholder {0}: activity.tx_status
 msgid "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
-msgstr ""
+msgstr "{0, select, success {成功} failed {失败} pending {待处理} other {失败}}"
 
 msgid "Tip sent successfully!"
 msgstr "打赏成功！"
@@ -2150,7 +2150,7 @@ msgid "Bad Request. Please check your request."
 msgstr "请求错误。请检查你的请求。"
 
 msgid "✨ Turn on browser notifications to never miss a trade update."
-msgstr ""
+msgstr "✨ 开启浏览器通知，交易动态实时掌握"
 
 msgid "No blackmail activities found."
 msgstr "未发现勒索行为。"
@@ -2364,7 +2364,7 @@ msgid "Connect your wallet to claim your NFT"
 msgstr "连接钱包并且领取你的 NFT"
 
 msgid "Reauthorize"
-msgstr ""
+msgstr "请重新授权"
 
 msgid "24h"
 msgstr "24小时"
@@ -2463,7 +2463,7 @@ msgstr "未找到相关 NFT。"
 
 #. placeholder {0}: group.name
 msgid "Failed to leave #{0} on {sourceName}."
-msgstr ""
+msgstr "未能在 {sourceName} 上退出 /#{0}。"
 
 msgid "Confirm to disconnect this wallet from Firefly?"
 msgstr "确认从 Firefly 的社交图谱中移除这个钱包？"
@@ -2530,10 +2530,10 @@ msgid "Exclusivity"
 msgstr "独特性"
 
 msgid "Feedback"
-msgstr ""
+msgstr "反馈"
 
 msgid "Mirror disabled"
-msgstr ""
+msgstr "转发失败"
 
 msgid "Enter your username and password to sign in instantly"
 msgstr "立即输入用户名和密码进行登录"
@@ -2743,7 +2743,7 @@ msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上关注 @thefireflyapp"
 
 msgid "Swapped 0.1 ETH for 253.97 Virtual."
-msgstr ""
+msgstr "已兑换 0.1 ETH → 253.97 Virtual"
 
 msgid "Step 2 Connect Wallet"
 msgstr "第 2 步 连接钱包"
@@ -2848,7 +2848,7 @@ msgid "Sorry, today's free collect quota has been reached."
 msgstr "抱歉，今天的免费铸造额度已用完。"
 
 msgid "Explore and follow accounts to see the feed"
-msgstr ""
+msgstr "探索并关注账号，获取新鲜资讯"
 
 msgid "Muted contents"
 msgstr "已隐藏的内容"
@@ -2892,7 +2892,7 @@ msgid "The user rejected the request."
 msgstr "用户取消了请求。"
 
 msgid "👉 To stay updated on trades, enable notifications in your browser settings."
-msgstr ""
+msgstr "开启浏览器通知，交易动态不遗漏"
 
 #. placeholder {0}: collection.floor_price
 #. placeholder {1}: collection.price_symbol
@@ -2928,7 +2928,7 @@ msgid "Attendance"
 msgstr "出席"
 
 msgid "Following Farcaster"
-msgstr ""
+msgstr "Farcaster 关注用户"
 
 msgid "Show more"
 msgstr "显示更多"
@@ -2993,7 +2993,7 @@ msgid "Powered by"
 msgstr "技术支持来自"
 
 msgid "Stay in the loop with Firefly!"
-msgstr ""
+msgstr "Firefly 最新动态不错过!"
 
 msgid "So sorry, we are not able to mint this NFT at the moment."
 msgstr "很抱歉，我们目前无法铸造此 NFT。"
@@ -3011,7 +3011,7 @@ msgid "Upload photo"
 msgstr "上传照片"
 
 msgid "Follow {handleOrEnsOrAddress}"
-msgstr ""
+msgstr "关注 {handleOrEnsOrAddress}"
 
 msgid "You can save this to send later from your drafts."
 msgstr "你可以先保存至草稿后再发送。"
@@ -3086,7 +3086,7 @@ msgid "Enter Amount Each"
 msgstr "输入每个金额"
 
 msgid "firefly.eth liked your transaction"
-msgstr ""
+msgstr "firefly.eth 点赞了你的交易"
 
 msgid "Submit a wallet to receive NFT"
 msgstr "提交您的钱包以领取您的 NFT"
@@ -3119,7 +3119,7 @@ msgid "<0>{0}</0><1>reposted</1>"
 msgstr "<0>{0}</0><1>转帖</1>"
 
 msgid "Firefly User"
-msgstr ""
+msgstr "Firefly User"
 
 msgid "Login to enable all features"
 msgstr "登录以启用所有功能"
@@ -3164,7 +3164,7 @@ msgid "Decrypt"
 msgstr "解密"
 
 msgid "Poll for Lens will come back soon."
-msgstr ""
+msgstr "Lens 投票功能维护中"
 
 msgid "Article collected successfully!"
 msgstr "成功收集文章！"
@@ -3273,7 +3273,7 @@ msgid "Sorry, we are not able to find this token"
 msgstr "对不起，我们未找到此代币"
 
 msgid "Following Lens"
-msgstr ""
+msgstr "Lens 关注用户"
 
 msgid "Muting..."
 msgstr "隐藏中..."
@@ -3284,7 +3284,7 @@ msgid "{0, plural, one {comment} other {comments}}"
 msgstr "{0, plural, one {评论} other {评论}}"
 
 msgid "Following X"
-msgstr ""
+msgstr "X 关注用户"
 
 msgid "<0/> Loading"
 msgstr "<0/> 加载中"
@@ -3348,7 +3348,7 @@ msgstr "NFT 持有者"
 
 #. placeholder {0}: group.name
 msgid "Left #{0} on {sourceName}."
-msgstr ""
+msgstr "在 {sourceName} 上离开 #{0}"
 
 msgid "Select Network"
 msgstr "选择网络"
@@ -3469,7 +3469,7 @@ msgid "Non-sanctioned address."
 msgstr "非黑名单地址。"
 
 msgid "Solana wallets"
-msgstr ""
+msgstr "Solana 钱包"
 
 #. placeholder {0}: formatBalance(x.amount, x.decimals)
 msgid "no less than {0}"
@@ -3574,7 +3574,7 @@ msgstr "取消关注"
 
 #. placeholder {0}: snapshot.title
 msgid "🙌 Just voted on “{0}”"
-msgstr ""
+msgstr "🙌 刚刚投了 ‘{0}’ 票"
 
 msgid "No one can reply"
 msgstr "没有人可评论"
@@ -3630,7 +3630,7 @@ msgid "Neutral"
 msgstr "中性"
 
 msgid "Turn on notifications to never miss important alerts."
-msgstr ""
+msgstr "开启通知，重要动态不错过"
 
 msgid "Signature Request"
 msgstr "签名请求"
@@ -3693,7 +3693,7 @@ msgid "Failed to send tip. Please try again later."
 msgstr "打赏失败，请稍后重试。"
 
 msgid "Enable now"
-msgstr ""
+msgstr "立即启用"
 
 msgid "Failed to unlike the comment."
 msgstr "取消点赞失败。"
@@ -3824,7 +3824,7 @@ msgid "Failed to report spam NFT."
 msgstr "举报垃圾 NFT 失败。"
 
 msgid "Unfollow {handleOrEnsOrAddress}"
-msgstr ""
+msgstr "取消关注 @{handleOrEnsOrAddress}"
 
 msgid "Sorry, there is no wallet address available for tipping."
 msgstr "对不起，未找到合适的地址用来打赏。"
@@ -3839,7 +3839,7 @@ msgid "Save"
 msgstr "保存"
 
 msgid "firefly.eth swapped 1850 USDC for 0.5 ETH"
-msgstr ""
+msgstr "firefly.eth 已兑换 1850 USDC → 0.5 ETH"
 
 #. placeholder {0}: profiles.length - 1
 msgid "<0/> and <1>{0} others</1>"
@@ -3878,7 +3878,7 @@ msgid "Suspended account"
 msgstr "被冻结账户"
 
 msgid "Status"
-msgstr ""
+msgstr "状态"
 
 msgid "No blackmail activities involved."
 msgstr "未发现勒索行为。"
@@ -4024,7 +4024,7 @@ msgstr ""
 
 #. placeholder {0}: group.name
 msgid "Failed to join #{0} on {sourceName}."
-msgstr ""
+msgstr "未能在 {sourceName} 上加入 @{0}。"
 
 msgid "NFT contract can restrict the approval, resulting in NFT can not be traded on the NFT DEX."
 msgstr "NFT 合约可以限制授权，导致NFT无法在NFT去中心化交易所（DEX）上交易。"
@@ -4069,7 +4069,7 @@ msgid "Claim Now"
 msgstr "立即领取"
 
 msgid "Members"
-msgstr ""
+msgstr "成员"
 
 #. placeholder {0}: collectModule.amount
 #. placeholder {1}: collectModule.currency
@@ -4107,7 +4107,7 @@ msgid "Clear"
 msgstr "清空"
 
 msgid "Hide small transactions (<$100)"
-msgstr ""
+msgstr "隐藏小额交易（<$100）"
 
 msgid "Message"
 msgstr "信息"
@@ -4198,7 +4198,7 @@ msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firef
 msgstr "如有任何疑问，请<0>联系我们</0>。Firefly 保留所有权利。"
 
 msgid "Group could not be found."
-msgstr ""
+msgstr "未找到小组。"
 
 msgid "Different Account Detected"
 msgstr "检测到账户冲突"
