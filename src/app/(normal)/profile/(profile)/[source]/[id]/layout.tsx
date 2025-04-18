@@ -68,7 +68,7 @@ export default async function Layout(props: Props) {
                 walletProfile={walletProfile}
                 profiles={profiles}
             />
-            <ProfileSourceTabs profiles={profiles} identity={identity} />
+            <ProfileSourceTabs profiles={profiles} identity={identity} socialProfile={socialProfile} />
             {!socialProfile && !walletProfile ? (
                 <SuspendedAccountFallback />
             ) : (

@@ -13,12 +13,13 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
-import type { WalletProfile } from '@/providers/types/Firefly.js';
+import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {
     walletProfile?: WalletProfile;
     profile?: Profile;
+    profiles?: FireflyProfile[];
 }
 
 function MuteAllByWalletProfileMenuItem({ profile }: { profile: WalletProfile }) {
@@ -34,7 +35,7 @@ function MuteAllByWalletProfileMenuItem({ profile }: { profile: WalletProfile })
     );
 }
 
-export function FireflyAccountMoreButton({ profile, walletProfile }: Props) {
+export function FireflyAccountMoreButton({ profile, walletProfile, profiles = [] }: Props) {
     return (
         <Menu>
             <Menu.Button className="inline-flex size-8 items-center justify-center rounded-lg bg-lightBg text-main text-second active:opacity-50 md:hover:opacity-60">
@@ -54,7 +55,9 @@ export function FireflyAccountMoreButton({ profile, walletProfile }: Props) {
                                 </CopyLinkButton>
                             )}
                         </MenuItem>
-                        <MenuItem>{({ close }) => <MuteAllByProfile profile={profile} onClose={close} />}</MenuItem>
+                        {profiles?.length > 1 ? (
+                            <MenuItem>{({ close }) => <MuteAllByProfile profile={profile} onClose={close} />}</MenuItem>
+                        ) : null}
                     </>
                 ) : null}
                 {walletProfile ? (
@@ -69,7 +72,7 @@ export function FireflyAccountMoreButton({ profile, walletProfile }: Props) {
                                 </CopyLinkButton>
                             )}
                         </MenuItem>
-                        <MuteAllByWalletProfileMenuItem profile={walletProfile} />
+                        {profiles?.length > 1 ? <MuteAllByWalletProfileMenuItem profile={walletProfile} /> : null}
                     </>
                 ) : null}
             </Menu.Items>

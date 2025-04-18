@@ -3,6 +3,7 @@
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { useQuery } from '@tanstack/react-query';
+import { compact, sum } from 'lodash-es';
 import { memo } from 'react';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
@@ -94,22 +95,30 @@ function MuteAllByWalletMenuItem({
     ensOrAddress?: string;
     identity: FireflyIdentity;
 }) {
-    const { data: fireflyProfile } = useQuery({
+    const { data } = useQuery({
         queryKey: ['firefly-profile', identity],
         async queryFn() {
             return FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false);
         },
-        select(data) {
-            return data.account;
-        },
     });
+    const profileCount = sum(
+        compact([
+            data?.twitterProfiles?.length,
+            data?.bskyProfiles?.length,
+            data?.farcasterProfiles?.length,
+            data?.lensProfilesV3?.length,
+            data?.walletProfiles?.length,
+            data?.solanaWalletProfiles?.length,
+        ]),
+    );
+    const fireflyProfile = data?.account;
     const noFireflyAccount =
         !fireflyProfile || (!fireflyProfile?.displayName && !fireflyProfile?.avatar) || !fireflyProfile?.uid;
     return (
         <MenuItem>
             {({ close }) => (
                 <MuteAllByWallet
-                    className={classNames({ hidden: !noFireflyAccount })}
+                    className={classNames({ hidden: !noFireflyAccount || profileCount <= 1 })}
                     address={address}
                     handle={ensOrAddress}
                     onClose={close}

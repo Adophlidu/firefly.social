@@ -191,7 +191,7 @@ export function FireflyAccountInfo({
                                                 profiles={profiles}
                                                 handle={socialProfile.handle}
                                             />
-                                            <FireflyAccountMoreButton profile={socialProfile} />
+                                            <FireflyAccountMoreButton profile={socialProfile} profiles={profiles} />
                                         </>
                                     ) : null}
                                     {walletProfile ? (
@@ -201,7 +201,10 @@ export function FireflyAccountInfo({
                                                 profiles={profiles}
                                                 handle={walletProfile.primary_ens ?? walletProfile.address}
                                             />
-                                            <FireflyAccountMoreButton walletProfile={walletProfile} />
+                                            <FireflyAccountMoreButton
+                                                walletProfile={walletProfile}
+                                                profiles={profiles}
+                                            />
                                         </>
                                     ) : null}
                                 </>

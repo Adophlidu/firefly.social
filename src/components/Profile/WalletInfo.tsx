@@ -83,7 +83,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
 
     return (
         <div className="flex items-center gap-3 p-4">
-            <Avatar src={avatar} alt="avatar" size={40} className="size-10 rounded-full border border-lightHighlight" />
+            <Avatar src={avatar} alt="avatar" size={40} className="size-10 rounded-full border border-highlight" />
             <div className="relative flex flex-1 flex-col">
                 <div className="flex flex-col gap-2">
                     <div className="flex min-h-8 flex-row items-center justify-between" id={WALLET_PROFILE_ACTION_ID}>
