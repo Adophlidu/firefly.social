@@ -27,6 +27,7 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { toHex, type ByteArray } from 'viem';
 
 const ErrorResponseSchema = z.custom<Response<never>>((response) => {
     const error = response as Response<never>;
@@ -371,8 +372,8 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        const { hash } = await this.publishMessage<{ hash: string }>(messageJson);
-        return { postId: hash };
+        const { hash } = await this.publishMessage<{ hash: { data: number[]; type: 'Buffer' } }>(messageJson);
+        return { postId: toHex(new Uint8Array(hash.data)) };
     }
 
     async publishPost(post: Post): Promise<{ postId: string }> {
@@ -413,13 +414,8 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        const { hash } = await this.publishMessage<{ hash: string }>(messageJson);
-
-        console.log('DEBUG: publishPost', {
-            hash,
-        });
-
-        return { postId: hash };
+        const { hash } = await this.publishMessage<{ hash: { data: number[]; type: 'Buffer' } }>(messageJson);
+        return { postId: toHex(new Uint8Array(hash.data)) };
     }
 
     async deletePost(postId: string): Promise<boolean> {
