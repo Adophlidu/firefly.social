@@ -13,6 +13,8 @@ interface MemoizedFunction {
     };
 }
 
+const DEFAULT_EXPIRES = 7 * 24 * 60 * 60 * 1000; // a week
+
 export function resolveRedisFieldKey(...args: any) {
     return [...args].join('_');
 }
@@ -23,6 +25,7 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
         key,
         resolver,
         ignoreCacheWhen,
+        expiresWhen,
     }: {
         /** the name of KV store in redis */
         key: KeyType;
@@ -30,6 +33,8 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
         resolver?: (...args: Parameters<T>) => string;
         /** the function to determine whether to ignore the cache */
         ignoreCacheWhen?: (result: Awaited<ReturnType<T>> | null) => boolean;
+        /** the function to determine when to expire the cache */
+        expiresWhen?: () => number;
     },
 ): T & MemoizedFunction {
     const memoized = async (...args: any) => {
@@ -79,10 +84,10 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
             // throw away the value when no TTL
             return null;
         },
-        set: async (fieldKey: string, value: unknown, ttl = 7 * 24 * 60 * 60 * 1000 /* a week */) => {
+        set: async (fieldKey: string, value: unknown, ttl = DEFAULT_EXPIRES) => {
             await kv.hset(key, {
                 [fieldKey]: {
-                    expiresAt: Date.now() + ttl,
+                    expiresAt: expiresWhen?.() ?? Date.now() + ttl,
                     ttl,
                     value,
                 },

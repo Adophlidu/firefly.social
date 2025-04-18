@@ -221,6 +221,7 @@ export class NitterSocialMedia implements Provider {
     async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         const { users, pagination } = await NitterAPIProvider.search(q, {
             cursor: indicator?.id,
+            type: 'users',
         });
         const data = users.map((user) => formatTwitterProfileFromNitter(user));
         return createPageable(

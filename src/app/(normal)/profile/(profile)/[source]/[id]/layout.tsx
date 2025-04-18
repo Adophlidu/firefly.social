@@ -1,5 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
-
 import { NoSSR } from '@/components/NoSSR.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { FireflyAccountInfo } from '@/components/Profile/FireflyAccountInfo.js';
@@ -8,7 +6,6 @@ import { ProfileInfoCard } from '@/components/Profile/ProfileInfoCard.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
 import { type LoginFallbackSource, SourceInURL } from '@/constants/enum.js';
-import { FetchError } from '@/constants/error.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
@@ -59,10 +56,7 @@ export default async function Layout(props: Props) {
         identity.id && !walletProfile
             ? await resolveSocialMediaProvider(narrowToSocialSource(identity.source))
                   .getProfileByIdOrHandle(identity.id)
-                  .catch((error) => {
-                      if (!(error instanceof FetchError && error.status === StatusCodes.FORBIDDEN)) notFound();
-                      return null;
-                  })
+                  .catch(() => notFound())
             : null;
 
     return (

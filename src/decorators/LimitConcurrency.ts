@@ -1,10 +1,38 @@
 interface Options {
     disabled?: () => boolean;
+    priority?: string[];
 }
 
 export function LimitConcurrency(limit: number, options?: Options) {
-    const queue: Array<{ resolve: Function; reject: Function; fn: Function; args: any[] }> = [];
+    interface Task {
+        resolve: Function;
+        reject: Function;
+        fn: Function;
+        args: any[];
+        name: string;
+    }
+    const queue: Task[] = [];
     let activeCount = 0;
+
+    function insertByPriority(task: Task) {
+        if (!options?.priority) {
+            queue.push(task);
+            return;
+        }
+
+        const priorityList = options.priority;
+        const taskPriority = priorityList.indexOf(task.name);
+
+        const insertPriority = taskPriority === -1 ? Infinity : taskPriority;
+
+        let i = 0;
+        for (; i < queue.length; i += 1) {
+            const currentPriority = priorityList.indexOf(queue[i].name);
+            const current = currentPriority === -1 ? Infinity : currentPriority;
+            if (insertPriority < current) break;
+        }
+        queue.splice(i, 0, task);
+    }
 
     async function next() {
         if (queue.length > 0 && activeCount < limit) {
@@ -27,10 +55,18 @@ export function LimitConcurrency(limit: number, options?: Options) {
             const descriptor = Object.getOwnPropertyDescriptor(constructor.prototype, key);
             if (descriptor && typeof descriptor.value === 'function' && key !== 'constructor') {
                 const originalMethod = descriptor.value;
+
                 Object.defineProperty(constructor.prototype, key, {
                     value(...args: any[]) {
                         return new Promise((resolve, reject) => {
-                            queue.push({ resolve, reject, fn: originalMethod.bind(this), args });
+                            const task: Task = {
+                                resolve,
+                                reject,
+                                fn: originalMethod.bind(this),
+                                args,
+                                name: key,
+                            };
+                            insertByPriority(task);
                             next();
                         });
                     },

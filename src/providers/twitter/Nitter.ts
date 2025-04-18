@@ -21,6 +21,7 @@ function resolveNitterJsonResponse<T>({ data, error }: Response<T>): T {
 
 @LimitConcurrency(2, {
     disabled: () => !bom?.window,
+    priority: ['getUserTimelineByHandle', 'search', 'getTweetStatus'],
 })
 export class NitterAPI {
     @MemoizePromise((name, id, options) => `${name}-${id}-${options?.cursor}`)
@@ -37,6 +38,11 @@ export class NitterAPI {
                 id,
                 cursor: options?.cursor,
             }),
+            {
+                next: {
+                    revalidate: 5,
+                },
+            },
         );
         return resolveNitterJsonResponse(res);
     }
@@ -47,6 +53,9 @@ export class NitterAPI {
             urlcat(FIREFLY_NITTER_URL, '/api/i/user/:id', {
                 id,
             }),
+            {
+                cache: 'force-cache',
+            },
         );
         return resolveNitterJsonResponse(res);
     }
@@ -57,6 +66,11 @@ export class NitterAPI {
             urlcat(FIREFLY_NITTER_URL, '/api/:handle/profile', {
                 handle,
             }),
+            {
+                next: {
+                    revalidate: 5,
+                },
+            },
         );
         return resolveNitterJsonResponse(res);
     }
@@ -79,7 +93,11 @@ export class NitterAPI {
                   handle,
                   cursor: options?.cursor,
               });
-        const res = await fetchJSON<GetUserTimelineResponse>(url);
+        const res = await fetchJSON<GetUserTimelineResponse>(url, {
+            next: {
+                revalidate: 1,
+            },
+        });
         return resolveNitterJsonResponse(res);
     }
 
@@ -88,13 +106,19 @@ export class NitterAPI {
         query: string,
         options?: {
             cursor?: string;
+            type?: 'users';
         },
     ) {
         const url = urlcat(FIREFLY_NITTER_URL, `/api/search`, {
             q: query,
             cursor: options?.cursor,
+            f: options?.type,
         });
-        const res = await fetchJSON<SearchResponse>(url);
+        const res = await fetchJSON<SearchResponse>(url, {
+            next: {
+                revalidate: 1,
+            },
+        });
         return resolveNitterJsonResponse(res);
     }
 }
