@@ -1,5 +1,4 @@
 export function farcasterPostIdToHash(postId: string) {
-    console.log('DEBUG: farcasterPostIdToHash', postId);
     const hexWithoutPrefix = postId.startsWith('0x') ? postId.slice(2) : postId;
     const uint8Array = new Uint8Array(hexWithoutPrefix.length / 2);
 
