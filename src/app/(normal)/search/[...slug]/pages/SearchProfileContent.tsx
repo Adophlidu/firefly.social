@@ -6,12 +6,11 @@ import { compact, uniqBy } from 'lodash-es';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchableProfileItem } from '@/components/Search/SearchableProfileItem.js';
-import { ScrollListKey, Source } from '@/constants/enum.js';
+import { ScrollListKey } from '@/constants/enum.js';
 import { composeSearchProfiles, formatSearchProfile } from '@/helpers/formatSearchProfile.js';
 import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
@@ -33,7 +32,6 @@ const getSearchItemContent = ({ profile, related }: { profile: FireflyProfile; r
 const noNextPage = '__no_next_page__';
 
 export function SearchProfileContent() {
-    const isTwitterLogin = useIsLogin(Source.Twitter);
     const { searchKeyword, searchType, source } = useSearchStateStore();
 
     const queryResult = useSuspenseInfiniteQuery({
@@ -55,7 +53,7 @@ export function SearchProfileContent() {
 
             const trimmed = searchKeyword.trim().replace(/^@/, '');
             const twitterProfiles =
-                isTwitterLogin && pageParam.twitter !== noNextPage && trimmed
+                pageParam.twitter !== noNextPage && trimmed
                     ? await runInSafeAsync(() => TwitterSocialMediaProvider.searchProfiles(trimmed, twitterIndicator))
                     : undefined;
 
