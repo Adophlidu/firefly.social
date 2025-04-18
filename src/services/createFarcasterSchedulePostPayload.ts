@@ -1,9 +1,9 @@
 import { toInteger, uniqBy } from 'lodash-es';
-import { toBytes } from 'viem';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
 import { readChars } from '@/helpers/chars.js';
+import { farcasterPostIdToHash } from '@/helpers/farcasterPostIdToHash.js';
 import { isFrameV1 } from '@/helpers/frame.js';
 import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
@@ -92,7 +92,7 @@ export async function createFarcasterSchedulePostPayload(
                       {
                           castId: {
                               fid: toInteger(farcasterParentPost.author.profileId),
-                              hash: toBytes(farcasterParentPost.postId),
+                              hash: farcasterPostIdToHash(farcasterParentPost.postId),
                           },
                       },
                       ...embeds,
@@ -102,7 +102,7 @@ export async function createFarcasterSchedulePostPayload(
             ? type === 'reply' && farcasterParentPost
                 ? {
                       fid: toInteger(farcasterParentPost.author.profileId),
-                      hash: toBytes(farcasterParentPost.postId),
+                      hash: farcasterPostIdToHash(farcasterParentPost.postId),
                   }
                 : undefined
             : undefined,

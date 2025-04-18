@@ -3,12 +3,12 @@
 import { CastAddBody, CastRemoveBody, Factories, ReactionType, UserDataType } from '@farcaster/core';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
-import { toBytes } from 'viem';
 import { z } from 'zod';
 
 import { FarcasterInvalidSignerKey, NotImplementedError } from '@/constants/error.js';
 import { NEYNAR_URL } from '@/constants/index.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
+import { farcasterPostIdToHash } from '@/helpers/farcasterPostIdToHash.js';
 import { fetchNeynarJSON } from '@/helpers/fetchNeynar.js';
 import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
@@ -339,7 +339,7 @@ class HubbleSocialMedia implements Provider {
                             {
                                 castId: {
                                     fid: toInteger(profileId),
-                                    hash: toBytes(postId),
+                                    hash: farcasterPostIdToHash(postId),
                                 },
                             },
                             ...(post.mediaObjects?.map((v) => ({ url: v.url })) ?? []),
@@ -352,7 +352,7 @@ class HubbleSocialMedia implements Provider {
                 if (post.commentOn?.postId && post.commentOn?.author.profileId) {
                     data.castAddBody.parentCastId = {
                         fid: toInteger(post.commentOn.author.profileId),
-                        hash: toBytes(post.commentOn.postId),
+                        hash: farcasterPostIdToHash(post.commentOn.postId),
                     };
                 } else if (post.parentChannelUrl) {
                     data.castAddBody.parentUrl = post.parentChannelUrl;
@@ -394,7 +394,7 @@ class HubbleSocialMedia implements Provider {
                 if (post.commentOn?.postId && post.commentOn?.author.profileId) {
                     data.castAddBody.parentCastId = {
                         fid: toInteger(post.commentOn.author.profileId),
-                        hash: toBytes(post.commentOn.postId),
+                        hash: farcasterPostIdToHash(post.commentOn.postId),
                     };
                 } else if (post.parentChannelUrl) {
                     data.castAddBody.parentUrl = post.parentChannelUrl;
@@ -424,7 +424,7 @@ class HubbleSocialMedia implements Provider {
                     castRemoveBody: CastRemoveBody;
                 } = {
                     castRemoveBody: {
-                        targetHash: toBytes(postId),
+                        targetHash: farcasterPostIdToHash(postId),
                     },
                 };
 
@@ -455,7 +455,7 @@ class HubbleSocialMedia implements Provider {
                     type: ReactionType.LIKE,
                     targetCastId: {
                         fid: authorId,
-                        hash: toBytes(postId),
+                        hash: farcasterPostIdToHash(postId),
                     },
                 },
             }),
@@ -483,7 +483,7 @@ class HubbleSocialMedia implements Provider {
                     type: ReactionType.LIKE,
                     targetCastId: {
                         fid: authorId,
-                        hash: toBytes(postId),
+                        hash: farcasterPostIdToHash(postId),
                     },
                 },
             }),
@@ -509,7 +509,7 @@ class HubbleSocialMedia implements Provider {
             type: ReactionType.RECAST,
             targetCastId: {
                 fid: options.authorId,
-                hash: toBytes(postId),
+                hash: farcasterPostIdToHash(postId),
             },
         };
 
@@ -544,7 +544,7 @@ class HubbleSocialMedia implements Provider {
                     type: ReactionType.RECAST,
                     targetCastId: {
                         fid: authorId,
-                        hash: toBytes(postId),
+                        hash: farcasterPostIdToHash(postId),
                     },
                 },
             }),
