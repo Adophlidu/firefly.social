@@ -9,9 +9,9 @@ import { z } from 'zod';
 import { FarcasterInvalidSignerKey, NotImplementedError } from '@/constants/error.js';
 import { NEYNAR_URL } from '@/constants/index.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
+import { fetchNeynarJSON } from '@/helpers/fetchNeynar.js';
 import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
-import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Response } from '@/providers/types/Hubble.js';
 import type { Session } from '@/providers/types/Session.js';
@@ -303,11 +303,11 @@ class HubbleSocialMedia implements Provider {
         return SessionType.Farcaster;
     }
 
-    private async submitMessage<T>(messageBytes: Buffer) {
-        const url = urlcat(NEYNAR_URL, '/v1/submitMessage');
-        const response = await farcasterSessionHolder.fetchHubble<Response<T>>(url, {
+    private async publishMessage<T>(messageJson: unknown) {
+        const url = urlcat(NEYNAR_URL, '/v2/farcaster/message');
+        const response = await fetchNeynarJSON<Response<T>>(url, {
             method: 'POST',
-            body: messageBytes,
+            body: JSON.stringify(messageJson),
         });
 
         const parsed = ErrorResponseSchema.safeParse(response);
@@ -327,7 +327,7 @@ class HubbleSocialMedia implements Provider {
         const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
         if (!postId || !post || !profileId) throw new Error('Failed to quote post.');
 
-        const { messageBytes } = await encodeMessageData(
+        const { messageJson } = await encodeMessageData(
             () => {
                 const data: {
                     castAddBody: CastAddBody;
@@ -371,13 +371,13 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        const { hash } = await this.submitMessage<{ hash: string }>(messageBytes);
+        const { hash } = await this.publishMessage<{ hash: string }>(messageJson);
         return { postId: hash };
     }
 
     async publishPost(post: Post): Promise<{ postId: string }> {
         const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
-        const { messageBytes } = await encodeMessageData(
+        const { messageJson } = await encodeMessageData(
             () => {
                 const data: {
                     castAddBody: CastAddBody;
@@ -413,12 +413,12 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        const { hash } = await this.submitMessage<{ hash: string }>(messageBytes);
+        const { hash } = await this.publishMessage<{ hash: string }>(messageJson);
         return { postId: hash };
     }
 
     async deletePost(postId: string): Promise<boolean> {
-        const { messageBytes } = await encodeMessageData(
+        const { messageJson } = await encodeMessageData(
             () => {
                 const data: {
                     castRemoveBody: CastRemoveBody;
@@ -442,14 +442,14 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        await this.submitMessage(messageBytes);
+        await this.publishMessage(messageJson);
         return true;
     }
 
     async upvotePost(postId: string, authorId?: number) {
         if (!authorId) throw new Error('Failed to upvote post.');
 
-        const { messageBytes } = await encodeMessageData(
+        const { messageJson } = await encodeMessageData(
             (fid) => ({
                 reactionBody: {
                     type: ReactionType.LIKE,
@@ -471,13 +471,13 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        await this.submitMessage(messageBytes);
+        await this.publishMessage(messageJson);
     }
 
     async unvotePost(postId: string, authorId?: number) {
         if (!authorId) throw new Error('Failed to unvote post.');
 
-        const { messageBytes } = await encodeMessageData(
+        const { messageJson } = await encodeMessageData(
             (fid) => ({
                 reactionBody: {
                     type: ReactionType.LIKE,
@@ -499,7 +499,7 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        await this.submitMessage(messageBytes);
+        await this.publishMessage(messageJson);
     }
 
     async mirrorPost(postId: string, options?: { authorId?: number }) {
@@ -513,7 +513,7 @@ class HubbleSocialMedia implements Provider {
             },
         };
 
-        const { messageBytes } = await encodeMessageData(
+        const { messageJson } = await encodeMessageData(
             (fid) => ({
                 reactionBody,
             }),
@@ -529,7 +529,7 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        await this.submitMessage(messageBytes);
+        await this.publishMessage(messageJson);
 
         // FIXME: should return post id here
         return null!;
@@ -538,7 +538,7 @@ class HubbleSocialMedia implements Provider {
     async unmirrorPost(postId: string, authorId?: number) {
         if (!authorId) throw new Error('Failed to unmirror post.');
 
-        const { messageBytes } = await encodeMessageData(
+        const { messageJson } = await encodeMessageData(
             (fid) => ({
                 reactionBody: {
                     type: ReactionType.RECAST,
@@ -560,12 +560,12 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        await this.submitMessage(messageBytes);
+        await this.publishMessage(messageJson);
         return;
     }
 
     async follow(profileId: string) {
-        const { messageBytes } = await encodeMessageData(
+        const { messageJson } = await encodeMessageData(
             () => ({
                 linkBody: {
                     type: 'follow',
@@ -584,12 +584,12 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        await this.submitMessage(messageBytes);
+        await this.publishMessage(messageJson);
         return true;
     }
 
     async unfollow(profileId: string) {
-        const { messageBytes } = await encodeMessageData(
+        const { messageJson } = await encodeMessageData(
             () => ({
                 linkBody: {
                     type: 'follow',
@@ -608,12 +608,12 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        await this.submitMessage(messageBytes);
+        await this.publishMessage(messageJson);
         return true;
     }
 
     async userDataAdd(type: UserDataType, value: string) {
-        const { messageBytes } = await encodeMessageData(
+        const { messageJson } = await encodeMessageData(
             () => ({
                 userDataBody: {
                     type,
@@ -631,7 +631,7 @@ class HubbleSocialMedia implements Provider {
                 );
             },
         );
-        await this.submitMessage(messageBytes);
+        await this.publishMessage(messageJson);
     }
 
     async updateProfile(profile: ProfileEditable): Promise<boolean> {

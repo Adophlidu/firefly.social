@@ -30,7 +30,6 @@ export async function encodeMessageData(
     const signature = await signMessageInHexFromSigner(signer, messageDataHash);
 
     const message = await withMessage(messageData, signer);
-    const messageBytes = Message.encode(message).finish();
 
     if (!publicKey || !signature) {
         throw new Error('Invalid signer key or signature.');
@@ -38,8 +37,9 @@ export async function encodeMessageData(
 
     return {
         signer: publicKey,
-        messageBytes: Buffer.from(messageBytes),
         messageData,
+        messageBytes: Buffer.from(Message.encode(message).finish()),
+        messageJson: Message.toJSON(message),
         messageDataHash: `0x${bytesToHex(messageDataHash)}`,
         messageDataSignature: signature,
     } as const;

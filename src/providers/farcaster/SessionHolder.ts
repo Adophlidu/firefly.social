@@ -1,5 +1,4 @@
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { fetchNeynarStream } from '@/helpers/fetchNeynar.js';
 import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -27,13 +26,6 @@ class FarcasterSessionHolder extends SessionHolder<FarcasterSession> {
 
     override fetchWithoutSession<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {
         return fetchJSON<T>(url, init, options);
-    }
-
-    async fetchHubble<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {
-        return fetchNeynarStream<T>(url, init, {
-            noStrictOK: true,
-            ...options,
-        });
     }
 }
 
