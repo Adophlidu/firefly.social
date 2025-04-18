@@ -414,6 +414,11 @@ class HubbleSocialMedia implements Provider {
         );
 
         const { hash } = await this.publishMessage<{ hash: string }>(messageJson);
+
+        console.log('DEBUG: publishPost', {
+            hash,
+        });
+
         return { postId: hash };
     }
 
