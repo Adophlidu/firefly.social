@@ -130,6 +130,16 @@ function TriggerButton({
         }
     }, [isLast, isCurrentSource]);
 
+    const { data } = useQuery({
+        queryKey: ['profile', source, identity.id],
+        queryFn: () => {
+            if (!isSocialSource(source)) return;
+            return resolveSocialMediaProvider(source).getProfileById(identity.id);
+        },
+        enabled: isSocialSource(source) && !profile.displayName,
+    });
+    const handle = data?.handle ?? profile.displayName;
+
     if (!isProfilePageSource(source)) return null;
 
     const triggerClassName = classNames(
@@ -152,7 +162,7 @@ function TriggerButton({
               },
     );
 
-    const displayName = source === Source.Wallet ? profile.displayName : `@${profile.displayName}`;
+    const displayName = source === Source.Wallet ? handle : handle ? `@${handle}` : '';
 
     if (menu) {
         const isNotWalletMixIdentity =
