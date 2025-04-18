@@ -3,6 +3,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
+import { useQuery } from '@tanstack/react-query';
 import {
     type HTMLProps,
     type PropsWithChildren,
@@ -32,6 +33,7 @@ import { getStampAvatarByFireflyProfile } from '@/helpers/getStampAvatarByProfil
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureProfileActionEvent.js';
 import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
@@ -131,7 +133,17 @@ function TriggerButton({
         }
     }, [isLast, isCurrentSource]);
 
-    const handle = socialProfile?.handle ?? profile.displayName;
+    const { data } = useQuery({
+        queryKey: ['profile', source, identity.id],
+        queryFn: () => {
+            if (!isSocialSource(source)) return;
+            return resolveSocialMediaProvider(source).getProfileByIdOrHandle(identity.id);
+        },
+        enabled: isSocialSource(source) && !profile.displayName,
+        initialData: () => (source === socialProfile?.source ? socialProfile : undefined),
+    });
+
+    const handle = data?.handle ?? profile.displayName;
 
     if (!isProfilePageSource(source)) return null;
 
