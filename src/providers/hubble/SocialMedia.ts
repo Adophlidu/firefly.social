@@ -3,7 +3,7 @@
 import { CastAddBody, CastRemoveBody, Factories, ReactionType, UserDataType } from '@farcaster/core';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
-import {toHex } from 'viem';
+import { toHex } from 'viem';
 import { z } from 'zod';
 
 import { FarcasterInvalidSignerKey, NotImplementedError } from '@/constants/error.js';
@@ -14,7 +14,7 @@ import { fetchNeynarJSON } from '@/helpers/fetchNeynar.js';
 import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
-import type { Response } from '@/providers/types/Hubble.js';
+import type { CastResponse, Response } from '@/providers/types/Hubble.js';
 import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
@@ -372,7 +372,7 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        const { hash } = await this.publishMessage<{ hash: { data: number[]; type: 'Buffer' } }>(messageJson);
+        const { hash } = await this.publishMessage<CastResponse>(messageJson);
         return { postId: toHex(new Uint8Array(hash.data)) };
     }
 
@@ -414,7 +414,7 @@ class HubbleSocialMedia implements Provider {
             },
         );
 
-        const { hash } = await this.publishMessage<{ hash: { data: number[]; type: 'Buffer' } }>(messageJson);
+        const { hash } = await this.publishMessage<CastResponse>(messageJson);
         return { postId: toHex(new Uint8Array(hash.data)) };
     }
 

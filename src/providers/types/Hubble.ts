@@ -42,3 +42,10 @@ export interface FrameSignaturePacket {
         messageBytes: string;
     };
 }
+
+export interface CastResponse {
+    hash: {
+        data: number[];
+        type: 'Buffer';
+    };
+}
