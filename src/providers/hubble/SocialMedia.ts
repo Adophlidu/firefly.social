@@ -3,6 +3,7 @@
 import { CastAddBody, CastRemoveBody, Factories, ReactionType, UserDataType } from '@farcaster/core';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
+import {toHex } from 'viem';
 import { z } from 'zod';
 
 import { FarcasterInvalidSignerKey, NotImplementedError } from '@/constants/error.js';
@@ -27,7 +28,6 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { toHex, type ByteArray } from 'viem';
 
 const ErrorResponseSchema = z.custom<Response<never>>((response) => {
     const error = response as Response<never>;
