@@ -3,6 +3,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
+import { useQuery } from '@tanstack/react-query';
 import {
     type HTMLProps,
     type PropsWithChildren,
@@ -23,15 +24,16 @@ import WalletIcon from '@/assets/wallet-bold.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type ProfilePageSource, Source, STATUS } from '@/constants/enum.js';
+import { type ProfilePageSource, type SocialSource, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getStampAvatarByFireflyProfile } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
-import { isProfilePageSource } from '@/helpers/isSource.js';
+import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureProfileActionEvent.js';
 import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
@@ -106,7 +108,7 @@ function TriggerButton({
     menu = false,
     isLast = false,
 }: {
-    profile: FireflyProfile;
+    profile: Pick<FireflyProfile, 'identity' | 'displayName'>;
     identity: FireflyIdentity;
     menu?: boolean;
     isLast?: boolean;
@@ -376,10 +378,34 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
     );
 }
 
+function SingleTriggerButton({ id, source }: { source: SocialSource; id: string }) {
+    const { data } = useQuery({
+        queryKey: ['profile', source, id],
+        queryFn: () => resolveSocialMediaProvider(source).getProfileById(id),
+        enabled: false,
+    });
+    const identity = { source, id };
+    return (
+        <div className="no-scrollbar align-center relative flex w-full overflow-x-auto overflow-y-auto px-4 pb-2.5 pt-2">
+            <TriggerButton
+                profile={{
+                    identity,
+                    displayName: data?.handle ?? id,
+                }}
+                identity={identity}
+            />
+        </div>
+    );
+}
+
 export function ProfileSourceTabs({ profiles, identity }: { profiles: FireflyProfile[]; identity: FireflyIdentity }) {
     const sources = SORTED_PROFILE_SOURCES.filter(
         (source) => profiles.filter((profile) => profile.identity.source === source).length,
     );
+
+    if (sources.length <= 0 && isSocialSource(identity.source)) {
+        return <SingleTriggerButton source={identity.source} id={identity.id} />;
+    }
 
     return (
         <ProfileSourceTabsContainer>
