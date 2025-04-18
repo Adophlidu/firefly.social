@@ -386,7 +386,7 @@ export class FireflySocialMedia implements Provider {
                 method: 'GET',
             });
 
-            const post = cast ? await formatFarcasterPostFromFirefly(cast) : null;
+            const post = cast ? await formatFarcasterPostFromFirefly(cast, undefined, true) : null;
             if (!post) throw new NotFoundError('Post not found');
             return post;
         });
