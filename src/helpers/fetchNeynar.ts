@@ -10,6 +10,7 @@ export function fetchNeynarJSON<T>(url: string, init?: RequestInit, options?: Ne
                 'Content-Type': 'application/json',
                 ...init?.headers,
             },
+            mode: 'cors',
         },
         options,
     );
