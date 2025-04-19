@@ -28,6 +28,7 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
 const PUNCTUATION = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
@@ -193,8 +194,16 @@ export function MentionsPlugin(): JSX.Element | null {
                 ? await BskySocialMediaProvider.searchProfiles(debounceQuery)
                 : undefined;
 
-            if (!data?.data && !bskyProfiles?.data) return EMPTY_LIST;
-            return composeSearchProfiles(compact(data.data.map(formatSearchProfile)), bskyProfiles?.data || []);
+            const twitterProfiles = availableSources.includes(Source.Twitter)
+                ? await TwitterSocialMediaProvider.searchProfiles(debounceQuery)
+                : undefined;
+
+            if (!data?.data && !bskyProfiles?.data && !twitterProfiles) return EMPTY_LIST;
+            return composeSearchProfiles(
+                compact(data.data.map(formatSearchProfile)),
+                twitterProfiles?.data || EMPTY_LIST,
+                bskyProfiles?.data || EMPTY_LIST,
+            );
         },
     });
 
@@ -208,7 +217,7 @@ export function MentionsPlugin(): JSX.Element | null {
                     profile.platform_id,
                     profile.name,
                     profile.handle,
-                    getStampAvatarByProfileId(source, profile.platform_id) || profile.avatar || '',
+                    profile.avatar || getStampAvatarByProfileId(source, profile.platform_id) || '',
                     source,
                     related,
                 );
