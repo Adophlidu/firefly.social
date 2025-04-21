@@ -27,7 +27,7 @@ export const WalletGroup = memo<WalletGroupProps>(function WalletGroup({
                 {tooltip ? (
                     <Tooltip placement="top" content={<div className="md:!max-w-[290px]">{tooltip}</div>}>
                         <QuestionIcon
-                            className="ml-1 inline-block cursor-pointer text-lightSecond"
+                            className="text-lightSecond ml-1 inline-block cursor-pointer"
                             width={18}
                             height={18}
                         />

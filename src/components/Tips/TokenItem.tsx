@@ -32,7 +32,7 @@ export function TokenItem({ token, disableChainIcon }: TokenItemProps) {
                 <div className="text-left">
                     <span>{token.name}</span>
                     <br />
-                    <span className="text-[13px] text-lightSecond">{`${token.balance} ${token.symbol}`}</span>
+                    <span className="text-lightSecond text-[13px]">{`${token.balance} ${token.symbol}`}</span>
                 </div>
             </div>
             <span>{usd}</span>

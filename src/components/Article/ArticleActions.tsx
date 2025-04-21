@@ -75,7 +75,7 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
             <div className="flex items-center">
                 <ClickableArea
                     className={classNames(
-                        'flex w-min items-center text-lightSecond hover:text-secondarySuccess md:space-x-2',
+                        'text-lightSecond flex w-min items-center hover:text-secondarySuccess md:space-x-2',
                     )}
                 >
                     {!(article.platform === ArticlePlatform.Paragraph && !article.origin) &&

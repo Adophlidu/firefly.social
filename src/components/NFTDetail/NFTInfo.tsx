@@ -121,7 +121,7 @@ export function NFTInfo(props: NFTInfoProps) {
 
     const ownerContent = (
         <>
-            <span className="leading-4 text-lightSecond">
+            <span className="text-lightSecond leading-4">
                 {isPoap ? <Trans>Collected by</Trans> : <Trans>Owned By</Trans>}
             </span>
             <TextOverflowTooltip content={ensName ?? ownerAddress}>
@@ -197,7 +197,7 @@ export function NFTInfo(props: NFTInfoProps) {
                         ) : null}
                     </div>
                     {isPoap ? (
-                        <ul className="w-full space-y-1 text-medium text-lightSecond">
+                        <ul className="text-lightSecond w-full space-y-1 text-medium">
                             <PoapTrait value={poapTraits.position} icon={LocationIcon} />
                             <PoapTrait value={poapTraits.date} icon={CalendarIcon} />
                             <PoapTrait url={poapTraits.eventURL} icon={WebsiteIcon} />
@@ -219,7 +219,7 @@ export function NFTInfo(props: NFTInfoProps) {
                         )}
                         {!isPoap ? (
                             <div className="h-[68px] flex-1 space-y-1.5 rounded-lg bg-lightBg p-2.5 text-base">
-                                <span className="leading-4 text-lightSecond">
+                                <span className="text-lightSecond leading-4">
                                     <Trans>Floor Price</Trans>
                                 </span>
                                 <span className="block truncate font-bold text-main">{floorPrice || '-'}</span>
@@ -227,7 +227,7 @@ export function NFTInfo(props: NFTInfoProps) {
                         ) : null}
                         {isPoap ? (
                             <div className="h-[68px] flex-1 space-y-1.5 rounded-lg bg-lightBg p-2.5 text-base">
-                                <span className="leading-4 text-lightSecond">
+                                <span className="text-lightSecond leading-4">
                                     <Trans>Attendance</Trans>
                                 </span>
                                 <span className="block truncate font-bold text-main">

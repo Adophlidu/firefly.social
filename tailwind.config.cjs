@@ -48,7 +48,7 @@ module.exports = {
                 lightBottom80: 'var(--color-bottom80)',
                 commonDanger: 'var(--m-common-danger)',
                 commonWarn: 'rgb(var(--m-common-warn) / <alpha-value>)',
-                lightSecond: '#767F8D',
+                second: 'var(--color-second)',
                 deactivate: '#9ea1b0',
                 lightLineSecond: '#E6E7E8',
                 foreground: 'rgb(var(--foreground-rgb) / <alpha-value>)',

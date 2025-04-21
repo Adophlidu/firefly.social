@@ -255,7 +255,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
             {IS_MOBILE_DEVICE ? (
                 <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-4">
                     {count !== 0 ? <LoadingIcon /> : null}
-                    <div className="mt-2 text-center text-sm leading-[16px] text-lightSecond">
+                    <div className="text-lightSecond mt-2 text-center text-sm leading-[16px]">
                         {count !== 0 ? (
                             <Trans>Please confirm the login with Warpcast.</Trans>
                         ) : (
@@ -267,7 +267,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                 <div className="flex w-full flex-col items-center gap-4">
                     {url ? (
                         <>
-                            <div className="text-center text-xs leading-4 text-lightSecond">
+                            <div className="text-lightSecond text-center text-xs leading-4">
                                 {signType === SignType.GrantPermission ? (
                                     <Trans>
                                         Scan the QR code with your phone’s <b className="font-bold">Camera</b> in{' '}
@@ -306,7 +306,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                     </div>
                                 ) : null}
                             </div>
-                            <div className="text-center text-xs leading-4 text-lightSecond">
+                            <div className="text-lightSecond text-center text-xs leading-4">
                                 {signType === SignType.GrantPermission || signType === SignType.FireflySponsorship ? (
                                     <Trans>
                                         Already logged in?

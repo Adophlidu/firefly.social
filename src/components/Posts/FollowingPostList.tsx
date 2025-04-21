@@ -49,6 +49,7 @@ export const FollowingPostList = memo<{
                     pageParam ? indicator : undefined,
                 );
             },
+            timeout: 10000,
         })),
         (data) => {
             const posts = data.pages.flatMap((page) =>

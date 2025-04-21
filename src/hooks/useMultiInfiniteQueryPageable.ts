@@ -30,14 +30,16 @@ export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndic
         async queryFn({ pageParam }) {
             const parsePageParam = parseJSON<PageParams>(pageParam) ?? {};
             const queryFns = queries.map(async (query) => {
-                const timeout = delay(query.timeout ?? 10000).then(() => null);
+                const timeout = query.timeout ? delay(query.timeout).then(() => null) : null;
                 const indicator = parsePageParam[query.key];
                 if (!indicator) return null;
                 const indicatorId = indicator.id === INITIAL_PARAM ? undefined : indicator.id;
-                return Promise.race([
-                    timeout,
-                    query.queryFn({ pageParam: indicatorId }).then((result) => [{ key: query.key, result }]),
-                ]);
+                return Promise.race(
+                    compact([
+                        timeout,
+                        query.queryFn({ pageParam: indicatorId }).then((result) => [{ key: query.key, result }]),
+                    ]),
+                );
             });
             const settled = await Promise.allSettled(queryFns);
             const results = compact(settled.flatMap((x) => (x.status === 'fulfilled' ? x.value : null)));

@@ -71,7 +71,7 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
                         ),
                     )}
                 </div>
-                <div className="truncate text-medium leading-[22px] text-lightSecond">@{profile.handle}</div>
+                <div className="text-lightSecond truncate text-medium leading-[22px]">@{profile.handle}</div>
             </div>
         </Link>
     );

@@ -156,7 +156,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                 </TextOverflowTooltip>
                             </div>
                             <div className="flex w-full text-[14px] leading-[18px]">
-                                <div className="mr-1 truncate text-lightSecond">
+                                <div className="text-lightSecond mr-1 truncate">
                                     {create_time ? <Trans>Create time:</Trans> : <Trans>Received time:</Trans>}
                                 </div>
                                 <div
@@ -180,7 +180,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
 
                             {creator || share_from ? (
                                 <div className="flex items-center text-[14px] leading-[18px]">
-                                    <div className="mr-1 text-lightSecond">
+                                    <div className="text-lightSecond mr-1">
                                         <Trans>Creator:</Trans>
                                     </div>
                                     <RedPacketAccountItem
@@ -194,7 +194,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                             ) : null}
                             {post_on?.length && isDetail ? (
                                 <div className="flex items-center text-[14px] leading-[18px]">
-                                    <div className="mr-1 text-lightSecond">
+                                    <div className="text-lightSecond mr-1">
                                         <Trans>Post on</Trans>
                                     </div>
                                     <div className="flex text-lightTextMain">

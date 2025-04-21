@@ -10,7 +10,7 @@ export const HackedWarningCard = memo(function HackedWarningCard() {
                 <DangerIcon width={14} height={14} />
                 <h2 className="ml-2">Hacked wallet detected</h2>
             </div>
-            <p className="ml-[22px] mt-1 text-sm text-lightSecond">
+            <p className="text-lightSecond ml-[22px] mt-1 text-sm">
                 <Trans>
                     This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid any
                     transactions or sharing of sensitive information. Stay safe!

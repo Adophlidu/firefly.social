@@ -236,7 +236,7 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
                 </div>
             </Section>
             {tokenList.length > 1 ? (
-                <div className="mt-1.5 flex h-[18px] justify-between overflow-hidden text-lightSecond">
+                <div className="text-lightSecond mt-1.5 flex h-[18px] justify-between overflow-hidden">
                     <ClickableButton
                         className={classNames(
                             'duration-50 rounded-full',
@@ -261,7 +261,7 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
                         }}
                     >
                         {tokenList.slice(0, 5).map(({ id }) => (
-                            <div key={id} className="size-[3px] rounded-full bg-lightSecond" />
+                            <div key={id} className="bg-lightSecond size-[3px] rounded-full" />
                         ))}
                     </div>
                     <ClickableButton

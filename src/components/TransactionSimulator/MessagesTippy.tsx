@@ -75,7 +75,7 @@ function MessagesContent({ messages, className, ...rest }: MessagesTippyProps) {
                                         />
                                         {title}
                                     </h2>
-                                    <span className="mt-1 break-all text-sm text-lightSecond">{message}</span>
+                                    <span className="text-lightSecond mt-1 break-all text-sm">{message}</span>
                                 </li>
                             ))}
                         </menu>

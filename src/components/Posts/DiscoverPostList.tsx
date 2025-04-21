@@ -22,6 +22,7 @@ export const DiscoverPostList = memo<{ source: SocialSource | Source.Posts }>(fu
                 const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
                 return resolveSocialMediaProvider(source).discoverPosts(indicator);
             },
+            timeout: 10000,
         })),
         (data) => {
             const posts = data.pages.flatMap((page) =>

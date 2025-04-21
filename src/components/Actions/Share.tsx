@@ -24,7 +24,7 @@ export const Share = memo<ShareProps>(function Collect({ className, post, disabl
     return (
         <ClickableArea
             className={classNames(
-                'flex flex-auto items-center space-x-2 self-auto justify-self-auto text-lightSecond',
+                'flex flex-auto items-center space-x-2 self-auto justify-self-auto text-second',
                 className,
                 {
                     'opacity-50': disabled,

@@ -64,7 +64,7 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                         } as CSSProperties
                     }
                 >
-                    <div className="flex items-center gap-x-1 text-medium text-lightSecond">
+                    <div className="text-lightSecond flex items-center gap-x-1 text-medium">
                         <Link href={profileUrl} className="min-w-0 truncate font-bold text-lightMain">
                             {activity.displayInfo.ensHandle || addressName}
                         </Link>

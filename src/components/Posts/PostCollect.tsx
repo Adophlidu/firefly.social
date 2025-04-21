@@ -239,7 +239,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                     <span className="overflow-hidden text-ellipsis text-medium font-bold leading-[24px] text-main">
                         {post.author.displayName}
                     </span>
-                    <span className="text-medium leading-[24px] text-lightSecond">@{post.author.handle}</span>
+                    <span className="text-lightSecond text-medium leading-[24px]">@{post.author.handle}</span>
                 </div>
                 <div className="line-clamp-2 text-left text-base leading-5 text-fourMain">
                     {post.metadata.content?.content}

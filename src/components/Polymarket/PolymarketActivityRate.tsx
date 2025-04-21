@@ -55,7 +55,7 @@ export function PolymarketActivityRate({ activity }: ActivityRateProps) {
                     );
                 })}
             </div>
-            <div className="mt-2 flex justify-between px-5 text-xs font-medium leading-[14px] text-lightSecond">
+            <div className="text-lightSecond mt-2 flex justify-between px-5 text-xs font-medium leading-[14px]">
                 {activity.conditionOutcomePrices.map((_, index) => {
                     const rate = toFixedTrimmed((+activity.conditionOutcomePrices[index] || 0) * 100, 2);
 

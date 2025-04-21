@@ -33,7 +33,7 @@ export function LoginTwitter(props: Props) {
             )}
         >
             <LoadingIcon />
-            <div className="mt-2 text-center text-sm leading-[16px] text-lightSecond">
+            <div className="text-lightSecond mt-2 text-center text-sm leading-[16px]">
                 <Trans>Please confirm the login with X.</Trans>
             </div>
         </div>
