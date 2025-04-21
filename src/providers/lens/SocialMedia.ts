@@ -12,6 +12,7 @@ import {
     PostReportReason,
     PostType,
     PostVisibilityFilter,
+    ReferenceRelevancyFilter,
     TimelineEventItemType,
 } from '@lens-protocol/client';
 import {
@@ -523,11 +524,10 @@ export class LensSocialMedia implements Provider {
                 pageSize: PageSize.Fifty,
                 referencedPost: postId,
                 referenceTypes: [PostReferenceType.CommentOn],
+                relevancyFilter: hasFilter ? ReferenceRelevancyFilter.Relevant : ReferenceRelevancyFilter.All,
                 visibilityFilter: hasFilter ? PostVisibilityFilter.Visible : PostVisibilityFilter.All,
             }),
         );
-
-        if (!result) throw new Error('No comments found');
 
         return createPageable(
             await Promise.all(result.items.map(formatLensPostV3)),
@@ -1254,7 +1254,8 @@ export class LensSocialMedia implements Provider {
                 pageSize: PageSize.Fifty,
                 referenceTypes: [PostReferenceType.CommentOn],
                 referencedPost: postId,
-                visibilityFilter: PostVisibilityFilter.Hidden,
+                relevancyFilter: ReferenceRelevancyFilter.NotRelevant,
+                visibilityFilter: PostVisibilityFilter.Visible,
             }),
         );
 
