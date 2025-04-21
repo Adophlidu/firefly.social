@@ -118,6 +118,9 @@ msgstr ""
 msgid "Repost or quote"
 msgstr ""
 
+msgid "Group {id} could not be found."
+msgstr ""
+
 msgid "Unmute successfully."
 msgstr ""
 
@@ -193,9 +196,6 @@ msgid "Delete post"
 msgstr ""
 
 msgid "You can sign in to Farcaster with the following options."
-msgstr ""
-
-msgid "Join /{name}"
 msgstr ""
 
 #. placeholder {0}: profile.handle
@@ -668,10 +668,6 @@ msgstr ""
 msgid "No hidden owner."
 msgstr ""
 
-#. placeholder {0}: channel.followerCount
-msgid "{0, plural, one {Member} other {Members}}"
-msgstr ""
-
 msgid "Blockchain"
 msgstr ""
 
@@ -679,6 +675,7 @@ msgstr ""
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
 msgstr ""
 
+#. placeholder {0}: channel.followerCount
 #. placeholder {0}: profile.followerCount
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr ""
@@ -1289,9 +1286,6 @@ msgstr ""
 msgid "No content for the last two weeks."
 msgstr ""
 
-msgid "{data, plural, one {Member} other {Members}}"
-msgstr ""
-
 msgid "Participate Now"
 msgstr ""
 
@@ -1453,9 +1447,6 @@ msgid "Enter amount"
 msgstr ""
 
 msgid "Platform fee"
-msgstr ""
-
-msgid "Lens group"
 msgstr ""
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
@@ -1649,9 +1640,6 @@ msgid "No financial crime involved."
 msgstr ""
 
 msgid "View on Website"
-msgstr ""
-
-msgid "Club"
 msgstr ""
 
 msgid "Mint NFT"
@@ -2036,6 +2024,9 @@ msgid "<0>Collected</0> a POAP"
 msgstr ""
 
 msgid "This can’t be undone, and the scheduled send will be canceled."
+msgstr ""
+
+msgid "Lens"
 msgstr ""
 
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
@@ -2448,10 +2439,6 @@ msgstr ""
 msgid "Collectible could not be found."
 msgstr ""
 
-#. placeholder {0}: group.name
-msgid "Failed to leave #{0} on {sourceName}."
-msgstr ""
-
 msgid "Confirm to disconnect this wallet from Firefly?"
 msgstr ""
 
@@ -2552,10 +2539,6 @@ msgstr ""
 msgid "This NFT contract has a proxy contract."
 msgstr ""
 
-#. placeholder {0}: group.name
-msgid "Joined #{0} on {sourceName}."
-msgstr ""
-
 msgid "Top Collectors"
 msgstr ""
 
@@ -2590,9 +2573,6 @@ msgid "Insufficient Balance for Gas Fee"
 msgstr ""
 
 msgid "Price"
-msgstr ""
-
-msgid "Lens feed"
 msgstr ""
 
 msgid "Failed to bookmark post."
@@ -2781,9 +2761,6 @@ msgid "All posts from /{0} will be hidden from you"
 msgstr ""
 
 msgid "The content of this account is currently unavailable"
-msgstr ""
-
-msgid "Select Club"
 msgstr ""
 
 msgid "Wallet added successfully"
@@ -3247,9 +3224,6 @@ msgstr ""
 msgid "Cancel repost successfully"
 msgstr ""
 
-msgid "Leave /{name}"
-msgstr ""
-
 msgid "Image count limit reached."
 msgstr ""
 
@@ -3333,10 +3307,6 @@ msgstr ""
 msgid "NFT holder"
 msgstr ""
 
-#. placeholder {0}: group.name
-msgid "Left #{0} on {sourceName}."
-msgstr ""
-
 msgid "Select Network"
 msgstr ""
 
@@ -3373,6 +3343,9 @@ msgid "Firefly"
 msgstr ""
 
 msgid "Invalid website format"
+msgstr ""
+
+msgid "Select Group"
 msgstr ""
 
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
@@ -3829,11 +3802,6 @@ msgstr ""
 msgid "<0/> and <1>{0} others</1>"
 msgstr ""
 
-#. placeholder {0}: dayjs(group.timestamp).format('MMM DD, YYYY')
-#. placeholder {0}: dayjs(channel.timestamp).format('MMM DD, YYYY')
-msgid "<0>since </0> <1>{0}</1>"
-msgstr ""
-
 msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
 msgstr ""
 
@@ -3940,8 +3908,7 @@ msgstr ""
 msgid "Collect"
 msgstr ""
 
-#. placeholder {0}: ownerProfile?.handle || 'Unknown'
-#. placeholder {0}: channel.lead?.handle
+#. placeholder {0}: channel.lead?.handle || '-'
 msgid "By @{0}"
 msgstr ""
 
@@ -3967,9 +3934,6 @@ msgid "FREE"
 msgstr ""
 
 msgid "Unmuted {walletHandle}."
-msgstr ""
-
-msgid "Club {id} could not be found."
 msgstr ""
 
 msgid "Ignore the warnings to continue"
@@ -4002,10 +3966,6 @@ msgid "Max Supply"
 msgstr ""
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
-msgstr ""
-
-#. placeholder {0}: group.name
-msgid "Failed to join #{0} on {sourceName}."
 msgstr ""
 
 msgid "NFT contract can restrict the approval, resulting in NFT can not be traded on the NFT DEX."
@@ -4177,9 +4137,6 @@ msgid "Create a post to tell everyone about your participation. Votes can be cha
 msgstr ""
 
 msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
-msgstr ""
-
-msgid "Group could not be found."
 msgstr ""
 
 msgid "Different Account Detected"

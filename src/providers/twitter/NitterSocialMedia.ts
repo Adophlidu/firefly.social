@@ -264,6 +264,14 @@ export class NitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    async getChannelMembers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getChannelFollowers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         throw new NotImplementedError();
     }

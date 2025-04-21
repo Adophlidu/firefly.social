@@ -26,7 +26,7 @@ import { GroveStorageProvider } from '@/providers/lens/Grove.js';
 import { LensPollProvider } from '@/providers/lens/Poll.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import type { Channel, ProfileGroup } from '@/providers/types/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
@@ -39,7 +39,6 @@ interface BaseMetadata {
     title: string;
     content: string;
     tags?: string[];
-    groups?: ProfileGroup[];
 }
 
 interface Attachments {
@@ -200,7 +199,6 @@ async function publishPostForLens(
         {
             title,
             content,
-            groups: channel?.group ? [channel.group] : undefined,
         },
         await createPayloadAttachments(images, video),
     );

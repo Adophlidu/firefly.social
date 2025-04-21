@@ -4,7 +4,7 @@ import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { useState } from 'react';
 
 import ComeBackIcon from '@/assets/comeback.svg';
-import { ChannelMoreAction } from '@/components/Channel/ChannelMoreAction.js';
+import { ChannelInfoAction } from '@/components/Channel/ChannelInfoAction.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -27,13 +27,13 @@ export function Title({ channel }: TitleProps) {
     const comeback = useComeBack();
 
     return (
-        <header className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-line bg-primaryBottom px-4">
-            <h1 className="flex items-center gap-7">
-                <ComeBackIcon className="cursor-pointer text-lightMain" onClick={comeback} />
-                <span className="text-xl font-black text-lightMain">{channel.name ?? '-'}</span>
+        <header className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-line bg-primaryBottom pl-4 pr-3">
+            <h1 className="flex min-w-0 items-center gap-7">
+                <ComeBackIcon className="shrink-0 cursor-pointer text-lightMain" onClick={comeback} />
+                <span className="min-w-0 truncate text-xl font-black text-lightMain">{channel.name ?? '-'}</span>
             </h1>
 
-            <NoSSR>{(channel && reached) || !isMedium ? <ChannelMoreAction channel={channel} /> : null}</NoSSR>
+            <NoSSR>{(channel && reached) || !isMedium ? <ChannelInfoAction channel={channel} /> : null}</NoSSR>
         </header>
     );
 }

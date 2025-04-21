@@ -1,0 +1,54 @@
+import type { Metadata } from 'next';
+
+import { ChannelContentList } from '@/components/Channel/ChannelContentList.js';
+import { ChannelProvider } from '@/components/Channel/ChannelProvider.js';
+import { NoSSR } from '@/components/NoSSR.js';
+import { ChannelTabType, KeyType, type SocialSourceInURL, SourceInURL } from '@/constants/enum.js';
+import { notFound } from '@/esm/navigation/server.js';
+import { createMetadataChannelById } from '@/helpers/createMetadataChannel.js';
+import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
+import type { NextPageProps } from '@/types/index.js';
+
+const createPageMetadata = memoizeWithRedis(createMetadataChannelById, {
+    key: KeyType.CreateMetadataChannelById,
+});
+
+interface Props
+    extends NextPageProps<
+        {
+            id: string;
+            source: SocialSourceInURL;
+            type: ChannelTabType;
+        },
+        {
+            source: SocialSourceInURL;
+        }
+    > {}
+
+export async function generateMetadata(props: Props): Promise<Metadata> {
+    const params = await props.params;
+    return createPageMetadata(params.source || SourceInURL.Farcaster, params.id);
+}
+
+export default async function Page(props: Props) {
+    await setupLocaleForSSR();
+
+    const params = await props.params;
+    const source = resolveSocialSource(params.source);
+    const provider = resolveSocialMediaProvider(source);
+    const channel = await runInSafeAsync(() => provider.getChannelById(params.id));
+
+    if (!channel) notFound();
+
+    return (
+        <NoSSR>
+            <ChannelProvider channel={channel}>
+                <ChannelContentList type={params.type} channel={channel} />
+            </ChannelProvider>
+        </NoSSR>
+    );
+}

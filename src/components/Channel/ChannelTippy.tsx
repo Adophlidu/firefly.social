@@ -1,4 +1,4 @@
-import { type HTMLProps, memo } from 'react';
+import { type HTMLProps, memo, useState } from 'react';
 
 import { ChannelCard } from '@/components/Channel/ChannelCard.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
@@ -11,6 +11,7 @@ interface ChannelTippyProps extends HTMLProps<HTMLDivElement> {
 
 export const ChannelTippy = memo<ChannelTippyProps>(function ChannelTippy({ channel, ...rest }) {
     const isMedium = useIsMedium();
+    const [enabled, setEnabled] = useState(false);
 
     if (!isMedium) return rest.children;
 
@@ -21,7 +22,10 @@ export const ChannelTippy = memo<ChannelTippyProps>(function ChannelTippy({ chan
             maxWidth={350}
             className="tippy-card"
             placement="bottom-end"
-            content={<ChannelCard channel={channel} />}
+            onTrigger={() => {
+                setEnabled(true);
+            }}
+            content={enabled ? <ChannelCard channel={channel} /> : null}
         >
             <div {...rest} />
         </InteractiveTippy>

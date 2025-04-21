@@ -32,8 +32,7 @@ export function CommunityTypeTab() {
                     {{
                         [CommunityType.BskyFeed]: <Trans>Bluesky</Trans>,
                         [CommunityType.FarcasterChannel]: <Trans>Farcaster</Trans>,
-                        [CommunityType.LensFeed]: <Trans>Lens feed</Trans>,
-                        [CommunityType.LensGroup]: <Trans>Lens group</Trans>,
+                        [CommunityType.LensGroup]: <Trans>Lens</Trans>,
                     }[value] ?? value}
                 </Link>
             ))}

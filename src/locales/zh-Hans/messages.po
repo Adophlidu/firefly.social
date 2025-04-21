@@ -118,6 +118,9 @@ msgstr "元数据未冻结。"
 msgid "Repost or quote"
 msgstr "转发或者引用"
 
+msgid "Group {id} could not be found."
+msgstr ""
+
 msgid "Unmute successfully."
 msgstr "取消隐藏成功。"
 
@@ -194,9 +197,6 @@ msgstr "删除帖子"
 
 msgid "You can sign in to Farcaster with the following options."
 msgstr "你可以使用以下方式登录 Farcaster。"
-
-msgid "Join /{name}"
-msgstr "加入 /{name}"
 
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
@@ -668,10 +668,6 @@ msgstr "{0, plural, one {引用} other {引用}}"
 msgid "No hidden owner."
 msgstr "未被隐藏的所有者。"
 
-#. placeholder {0}: channel.followerCount
-msgid "{0, plural, one {Member} other {Members}}"
-msgstr "{0, plural, one {成员} other {成员}}"
-
 msgid "Blockchain"
 msgstr "区块链"
 
@@ -679,6 +675,7 @@ msgstr "区块链"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}}<4> 关注了你</4>"
 
+#. placeholder {0}: channel.followerCount
 #. placeholder {0}: profile.followerCount
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr "{0, plural, one {关注者} other {关注者}}"
@@ -1289,9 +1286,6 @@ msgstr "已取消"
 msgid "No content for the last two weeks."
 msgstr "最近两周没有内容。"
 
-msgid "{data, plural, one {Member} other {Members}}"
-msgstr "{data, plural, one {成员} other {成员}}"
-
 msgid "Participate Now"
 msgstr "立即参加"
 
@@ -1454,9 +1448,6 @@ msgstr "输入金额"
 
 msgid "Platform fee"
 msgstr "平台费用"
-
-msgid "Lens group"
-msgstr "Lens 小组"
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
@@ -1650,9 +1641,6 @@ msgstr "未识别到金融犯罪。"
 
 msgid "View on Website"
 msgstr "在网站上查看"
-
-msgid "Club"
-msgstr "社团"
 
 msgid "Mint NFT"
 msgstr "铸造 NFT"
@@ -2045,6 +2033,9 @@ msgstr "<0>已铸造</0>一个 POAP"
 
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "操作无法回滚，并且定时任务将会被取消。"
+
+msgid "Lens"
+msgstr ""
 
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 msgstr "此合约是一个管理升级代理合约。代理合约意味着合同所有者可以修改通证的功能，并且可能影响价格。这可能是团队跑路或者诈骗的一种方式。请在购买之前与项目团队确认细节。"
@@ -2461,10 +2452,6 @@ msgstr "您没有满足领取红包的条件"
 msgid "Collectible could not be found."
 msgstr "未找到相关 NFT。"
 
-#. placeholder {0}: group.name
-msgid "Failed to leave #{0} on {sourceName}."
-msgstr "未能在 {sourceName} 上退出 /#{0}。"
-
 msgid "Confirm to disconnect this wallet from Firefly?"
 msgstr "确认从 Firefly 的社交图谱中移除这个钱包？"
 
@@ -2565,10 +2552,6 @@ msgstr "创建定时 thread 失败。"
 msgid "This NFT contract has a proxy contract."
 msgstr "该 NFT 合约有代理合约。"
 
-#. placeholder {0}: group.name
-msgid "Joined #{0} on {sourceName}."
-msgstr "在 {sourceName} 上加入 /#{0}。"
-
 msgid "Top Collectors"
 msgstr "热门收藏者"
 
@@ -2604,9 +2587,6 @@ msgstr "没有足够的 Gas 费"
 
 msgid "Price"
 msgstr "价格"
-
-msgid "Lens feed"
-msgstr "Lens 帖子"
 
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
@@ -2795,9 +2775,6 @@ msgstr "来自 /{0} 的所有帖子将对你隐藏"
 
 msgid "The content of this account is currently unavailable"
 msgstr "无法获取这个账户的内容"
-
-msgid "Select Club"
-msgstr "选择社团"
 
 msgid "Wallet added successfully"
 msgstr "添加钱包成功"
@@ -3260,9 +3237,6 @@ msgstr "没有白名单"
 msgid "Cancel repost successfully"
 msgstr "取消转帖成功"
 
-msgid "Leave /{name}"
-msgstr "离开 /{name}"
-
 msgid "Image count limit reached."
 msgstr "图片数量超出最大限制。"
 
@@ -3346,10 +3320,6 @@ msgstr "接收"
 msgid "NFT holder"
 msgstr "NFT 持有者"
 
-#. placeholder {0}: group.name
-msgid "Left #{0} on {sourceName}."
-msgstr "在 {sourceName} 上离开 #{0}"
-
 msgid "Select Network"
 msgstr "选择网络"
 
@@ -3387,6 +3357,9 @@ msgstr "Firefly"
 
 msgid "Invalid website format"
 msgstr "无效的网站格式"
+
+msgid "Select Group"
+msgstr ""
 
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr "支付<0>{feeAmount} ${feeSymbol}</0>以关注并获得一些精彩的福利！"
@@ -3845,11 +3818,6 @@ msgstr "firefly.eth 已兑换 1850 USDC → 0.5 ETH"
 msgid "<0/> and <1>{0} others</1>"
 msgstr "<0/> 和 <1>{0} 其他的用户</1>"
 
-#. placeholder {0}: dayjs(group.timestamp).format('MMM DD, YYYY')
-#. placeholder {0}: dayjs(channel.timestamp).format('MMM DD, YYYY')
-msgid "<0>since </0> <1>{0}</1>"
-msgstr "<0>从 </0> <1>{0}</1>"
-
 msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
 msgstr "确认将此钱包及其关联账户与 Firefly 解绑？"
 
@@ -3956,8 +3924,7 @@ msgstr "兑换"
 msgid "Collect"
 msgstr "铸造"
 
-#. placeholder {0}: ownerProfile?.handle || 'Unknown'
-#. placeholder {0}: channel.lead?.handle
+#. placeholder {0}: channel.lead?.handle || '-'
 msgid "By @{0}"
 msgstr "来自{0}"
 
@@ -3984,9 +3951,6 @@ msgstr "免费"
 
 msgid "Unmuted {walletHandle}."
 msgstr "取消屏蔽 {walletHandle}。"
-
-msgid "Club {id} could not be found."
-msgstr "未发现社团 {id} 。"
 
 msgid "Ignore the warnings to continue"
 msgstr "忽略警告以继续"
@@ -4021,10 +3985,6 @@ msgid "If you have multiple Firefly accounts created with different social login
 msgstr ""
 "如果你使用不同的社交账号创建了多个 Firefly 账户，删除此账户可以帮助你整合社交账号。\n"
 "但如果你只是想访问另一个社交账号绑定的 Firefly 钱包，建议你切换账户，而不是删除账户。"
-
-#. placeholder {0}: group.name
-msgid "Failed to join #{0} on {sourceName}."
-msgstr "未能在 {sourceName} 上加入 @{0}。"
 
 msgid "NFT contract can restrict the approval, resulting in NFT can not be traded on the NFT DEX."
 msgstr "NFT 合约可以限制授权，导致NFT无法在NFT去中心化交易所（DEX）上交易。"
@@ -4196,9 +4156,6 @@ msgstr "发布一个帖子，告诉大家你已参与其中。在提案有效期
 
 msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
 msgstr "如有任何疑问，请<0>联系我们</0>。Firefly 保留所有权利。"
-
-msgid "Group could not be found."
-msgstr "未找到小组。"
 
 msgid "Different Account Detected"
 msgstr "检测到账户冲突"

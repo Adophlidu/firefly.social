@@ -17,10 +17,13 @@ interface InfoProps extends HTMLProps<HTMLDivElement> {
 
 export function ChannelInfo({ channel, source, ...rest }: InfoProps) {
     const profile = useCurrentProfile(source);
-    const { data, isLoading, isRefetching } = useQuery({
+
+    const needRefetch = !!(channel.__lazy__ && channel.id);
+    const { data = channel } = useQuery({
         queryKey: ['channel', channel.source, channel.id, profile?.profileId],
+        staleTime: 1000 * 60 * 10, // 10 minutes
         queryFn: async () => {
-            if (channel.__lazy__ && channel.id) {
+            if (needRefetch) {
                 return resolveSocialMediaProvider(channel.source).getChannelById(channel.id);
             }
 
@@ -28,19 +31,7 @@ export function ChannelInfo({ channel, source, ...rest }: InfoProps) {
         },
     });
 
-    if (isLoading || isRefetching)
-        return (
-            <div className="flex animate-pulse gap-3 border-b border-line p-3">
-                <div className="size-12 rounded-full bg-third" />
-                <div className="flex-1">
-                    <div className="h-6 w-16 bg-third" />
-                    <div className="mb-1.5 mt-px h-6 w-20 bg-third" />
-                    <div className="h-6 w-2/3 bg-third" />
-                </div>
-            </div>
-        );
-
     if (!data) return null;
 
-    return <ChannelInfoUI channel={data} source={source} {...rest} />;
+    return <ChannelInfoUI needRefetch={!needRefetch} channel={data} source={source} {...rest} />;
 }

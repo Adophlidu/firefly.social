@@ -16,9 +16,9 @@ export default function ChannelNotFound() {
 
     return (
         <NotFound
-            backText={isLens ? <Trans>Club</Trans> : <Trans>Channel</Trans>}
+            backText={isLens ? <Trans>Group</Trans> : <Trans>Channel</Trans>}
             text={
-                isLens ? <Trans>Club {id} could not be found.</Trans> : <Trans>Channel {id} could not be found.</Trans>
+                isLens ? <Trans>Group {id} could not be found.</Trans> : <Trans>Channel {id} could not be found.</Trans>
             }
             search={{
                 text: <Trans>Search {id}</Trans>,

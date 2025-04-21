@@ -22,10 +22,11 @@ export function PostList({ channel, source }: PostListProps) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'posts-of', channelId],
         queryFn: async ({ pageParam }) => {
-            if (!channelId) return createPageable<Post>(EMPTY_LIST, createIndicator());
+            const id = source === Source.Lens ? channel.feedId : channelId;
+            if (!id) return createPageable<Post>(EMPTY_LIST, createIndicator());
 
             const provider = resolveSocialMediaProvider(source);
-            const posts = await provider.getPostsByChannelId(channelId, createIndicator(undefined, pageParam));
+            const posts = await provider.getPostsByChannelId(id, createIndicator(undefined, pageParam));
 
             if (source === Source.Lens) {
                 const ids = posts.data.flatMap((x) => [x.postId]);

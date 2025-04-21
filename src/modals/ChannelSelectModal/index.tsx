@@ -21,7 +21,7 @@ type Props = {
 };
 
 /**
- * Modal to select a Farcaster Channel or Lens Orb Club
+ * Modal to select a Farcaster Channel or Lens Group.
  */
 export function ChannelSelectModal({ ref }: Props) {
     const [props, setProps] = useState<ChannelSelectModalOpenProps>();
@@ -51,7 +51,7 @@ export function ChannelSelectModal({ ref }: Props) {
                         className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer text-main"
                     />
                     <span className="flex h-full w-full items-center justify-center text-lg font-bold text-main">
-                        {props.source === Source.Lens ? <Trans>Select Club</Trans> : <Trans>Select Channel</Trans>}
+                        {props.source === Source.Lens ? <Trans>Select Group</Trans> : <Trans>Select Channel</Trans>}
                     </span>
                 </DialogTitle>
                 <div className="min-h-0 flex-1 overflow-hidden">

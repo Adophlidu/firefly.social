@@ -51,6 +51,7 @@ export const ToggleJoinButton = memo<ToggleJoinButtonProps>(function ToggleJoinB
                     'border border-main text-main hover:border-danger hover:bg-danger/50 hover:text-danger':
                         joined && variant === 'text',
                 })}
+                onlyLoading
                 {...rest}
             >
                 {label}

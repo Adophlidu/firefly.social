@@ -2,7 +2,7 @@ import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 import type { GetWalletClientReturnType } from 'wagmi/actions';
 
-import { WARPCAST_ROOT_URL } from '@/constants/index.js';
+import { WARPCAST_ROOT_URL_V2 } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -25,7 +25,7 @@ export async function createAccountByCustodyWallet(
 ) {
     const { payload, token } = await generateCustodyBearer(client);
 
-    const authUrl = urlcat(WARPCAST_ROOT_URL, '/auth');
+    const authUrl = urlcat(WARPCAST_ROOT_URL_V2, '/auth');
     const response = await fetchJSON<{
         result: {
             token: {
@@ -42,7 +42,7 @@ export async function createAccountByCustodyWallet(
     });
     if (response.errors?.length) throw new Error(response.errors[0].message);
 
-    const meUrl = urlcat(WARPCAST_ROOT_URL, '/me');
+    const meUrl = urlcat(WARPCAST_ROOT_URL_V2, '/me');
     const userResponse = await fetchJSON<UserResponse>(meUrl, {
         method: 'GET',
         headers: {

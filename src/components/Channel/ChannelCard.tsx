@@ -1,10 +1,10 @@
 import { Trans } from '@lingui/react/macro';
-import dayjs from 'dayjs';
 import { memo, type MouseEvent, useCallback } from 'react';
 
 import LikeIcon from '@/assets/heart.svg';
 import UserIcon from '@/assets/user.svg';
 import { Avatar } from '@/components/Avatar.js';
+import { ToggleFollowChannelButton } from '@/components/Channel/ToggleFollowChannelButton.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
@@ -20,6 +20,7 @@ interface ChannelCardProps {
 
 export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel, loading }) {
     const router = useRouter();
+
     const handleNavigateToDetail = useCallback(
         (event: MouseEvent<HTMLDivElement>) => {
             event.stopPropagation();
@@ -55,6 +56,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
 
     const followerCount = channel.followerCount ?? 0;
     const isBsky = channel.source === Source.Bsky;
+    const isLens = channel.source === Source.Lens;
 
     return (
         <div className="w-[350px] rounded-2xl border border-secondaryLine bg-primaryBottom p-4">
@@ -63,12 +65,12 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                     <Avatar
                         src={channel.imageUrl}
                         alt="avatar"
-                        size={80}
+                        size={50}
                         onClick={handleNavigateToDetail}
-                        className="size-20 cursor-pointer rounded-full"
+                        className="size-[50px] cursor-pointer rounded-full"
                     />
                 ) : (
-                    <SocialSourceIcon className="rounded-full" source={channel.source} size={80} />
+                    <SocialSourceIcon className="rounded-full" source={channel.source} size={50} />
                 )}
 
                 <div className="flex min-w-0 flex-1 flex-col justify-between">
@@ -85,36 +87,19 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                         onClick={handleNavigateToDetail}
                         className="flex cursor-pointer items-center gap-2 text-medium text-secondary"
                     >
-                        {!isBsky ? (
-                            <span className="min-w-0 truncate whitespace-nowrap">/{channel?.id}</span>
-                        ) : (
+                        {isBsky || isLens ? (
                             <span className="min-w-0 truncate whitespace-nowrap">
-                                <Trans>By @{channel.lead?.handle}</Trans>
+                                <Trans>By @{channel.lead?.handle || '-'}</Trans>
                             </span>
+                        ) : (
+                            <span className="min-w-0 truncate whitespace-nowrap">/{channel?.id}</span>
                         )}
-                        {channel.source === Source.Lens ? null : (
-                            <div className="flex items-center gap-2">
-                                {!isBsky ? (
-                                    <UserIcon width={18} height={18} />
-                                ) : (
-                                    <LikeIcon className="text-secondary" />
-                                )}
-                                <data value={followerCount} className="text-medium leading-6 text-lightMain">
-                                    {nFormatter(followerCount)}
-                                </data>
-                            </div>
-                        )}
-                    </div>
-
-                    <div className="flex min-h-5 gap-1">
-                        {channel.timestamp ? (
-                            <Trans>
-                                <span className="text-secondary">since </span>{' '}
-                                <strong className="text-lightMain">
-                                    {dayjs(channel.timestamp).format('MMM DD, YYYY')}
-                                </strong>
-                            </Trans>
-                        ) : null}
+                        <div className="flex items-center gap-2">
+                            {!isBsky ? <UserIcon width={18} height={18} /> : <LikeIcon className="text-secondary" />}
+                            <data value={followerCount} className="text-medium leading-6 text-lightMain">
+                                {nFormatter(followerCount)}
+                            </data>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -127,6 +112,8 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                     {channel.description ?? '-'}
                 </BioMarkup>
             </div>
+
+            <ToggleFollowChannelButton needRefetch channel={channel} className="mt-3 w-full rounded-lg" />
         </div>
     );
 });

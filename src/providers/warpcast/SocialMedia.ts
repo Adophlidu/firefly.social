@@ -3,9 +3,12 @@ import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
-import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
+import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL, WARPCAST_ROOT_URL_V2 } from '@/constants/index.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { formatFarcasterChannelFromWarpcast } from '@/helpers/formatFarcasterChannelFromWarpcast.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastProfile } from '@/helpers/formatWarpcastProfile.js';
+import { getWarpcastAuthToken } from '@/helpers/getWarpcastAuthToken.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import { isZero } from '@/helpers/number.js';
 import {
@@ -16,6 +19,7 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { toFid } from '@/helpers/toFid.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
@@ -38,6 +42,7 @@ import {
     type Cast,
     type CastResponse,
     type CastsResponse,
+    type Channel as WarpcastChannel,
     type FeedResponse,
     type FindLocationResponse,
     type LikesResponse,
@@ -51,6 +56,7 @@ import {
     type UserDetailResponse,
     type UsersResponse,
 } from '@/providers/types/Warpcast.js';
+import type { ResponseJSON } from '@/types/index.js';
 
 class WarpcastSocialMedia implements Provider {
     getChannelsByIds(ids: string[]): Promise<Channel[]> {
@@ -59,6 +65,46 @@ class WarpcastSocialMedia implements Provider {
 
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new NotImplementedError();
+    }
+
+    async getChannelMembers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat('/api/warpcast/channel/members', {
+                channelId,
+                limit: 25,
+                cursor: indicator?.id,
+                fid: session?.profileId,
+            });
+            const data = await fetchJSON<ResponseJSON<{ members: Profile[]; cursor?: string }>>(url, { method: 'GET' });
+            if (!data.success) throw new Error(data.error.message);
+
+            return createPageable(
+                data.data.members,
+                createIndicator(indicator),
+                data.data.cursor ? createNextIndicator(indicator, data.data.cursor) : undefined,
+            );
+        });
+    }
+
+    async getChannelFollowers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat('/api/warpcast/channel/followers', {
+                channelId,
+                limit: 25,
+                cursor: indicator?.id,
+                fid: session?.profileId,
+            });
+            const data = await fetchJSON<ResponseJSON<{ followers: Profile[]; cursor?: string }>>(url, {
+                method: 'GET',
+            });
+            if (!data.success) throw new Error(data.error.message);
+
+            return createPageable(
+                data.data.followers,
+                createIndicator(indicator),
+                data.data.cursor ? createNextIndicator(indicator, data.data.cursor) : undefined,
+            );
+        });
     }
 
     blockWallet(address: string, networkType?: NetworkType): Promise<boolean> {
@@ -125,12 +171,46 @@ class WarpcastSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getChannelById(channelId: string): Promise<Channel> {
-        throw new NotImplementedError();
+    async getChannelById(channelId: string, includeFollowingStatus = false): Promise<Channel> {
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat(WARPCAST_ROOT_URL, '/v1/channel', {
+                channelId,
+            });
+            const { result } = await farcasterSessionHolder.fetch<{ result: { channel: WarpcastChannel } }>(url);
+            const channel = result.channel;
+            if (!channel) throw new Error('Channel not found');
+
+            const formattedChannel = formatFarcasterChannelFromWarpcast(channel);
+            if (session?.profileId && includeFollowingStatus) {
+                const response = await runInSafeAsync(() =>
+                    farcasterSessionHolder.fetch<{ result: { following: boolean } }>(
+                        urlcat(WARPCAST_ROOT_URL, '/v1/user-channel', {
+                            fid: session.profileId,
+                            channelId,
+                        }),
+                    ),
+                );
+                formattedChannel.isMember = response?.result.following ?? false;
+            }
+
+            return formattedChannel;
+        });
     }
 
     getChannelByHandle(channelHandle: string): Promise<Channel> {
         throw new NotImplementedError();
+    }
+
+    async getChannelFollowStatus(channelId: string, fid: string): Promise<boolean> {
+        const result = await fetchJSON<ResponseJSON<{ following: boolean }>>(
+            urlcat('/api/warpcast/channel/follow/status', {
+                channelId,
+                fid,
+            }),
+        );
+        if (!result.success) throw new Error(result.error.message);
+
+        return result.data.following;
     }
 
     getChannelsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
@@ -226,7 +306,7 @@ class WarpcastSocialMedia implements Provider {
      * Response data doesn't include viewer context
      */
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat(WARPCAST_ROOT_URL, '/popular-casts-feed', {
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/popular-casts-feed', {
             limit: 10,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
@@ -243,7 +323,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async discoverPostsById(profileId: string, indicator?: PageIndicator) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/home-feed', {
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/home-feed', {
             limit: 10,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
@@ -267,7 +347,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat(WARPCAST_ROOT_URL, '/casts', {
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/casts', {
             fid: toFid(profileId),
             limit: 10,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
@@ -284,14 +364,14 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async getPostById(postId: string): Promise<Post> {
-        const castUrl = urlcat(WARPCAST_ROOT_URL, '/cast', { hash: postId });
+        const castUrl = urlcat(WARPCAST_ROOT_URL_V2, '/cast', { hash: postId });
         const {
             result: { cast },
         } = await farcasterSessionHolder.fetch<{ result: { cast: Cast } }>(castUrl, {
             method: 'GET',
         });
 
-        const url = urlcat(WARPCAST_ROOT_URL, '/user-thread-casts', {
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/user-thread-casts', {
             castHashPrefix: postId.slice(0, 10),
             limit: 5,
             username: cast.author.username,
@@ -331,14 +411,14 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async getProfileById(profileId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: toFid(profileId) });
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/user', { fid: toFid(profileId) });
         const res = await farcasterSessionHolder.fetch<UserDetailResponse>(url);
         const user = res.result.user;
         return formatWarpcastProfile(user);
     }
 
     async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const url = urlcat(WARPCAST_ROOT_URL, '/cast-likes', {
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/cast-likes', {
             castHash: postId,
             limit: 15,
             cursor: indicator?.id,
@@ -353,7 +433,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async getRepostReactors(postId: string, indicator?: PageIndicator) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/cast-recasters', {
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/cast-recasters', {
             castHash: postId,
             limit: 15,
             cursor: indicator?.id,
@@ -368,7 +448,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async isFollowedByMe(profileId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: toFid(profileId) });
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/user', { fid: toFid(profileId) });
         const {
             result: { user },
         } = await farcasterSessionHolder.fetch<UserDetailResponse>(url);
@@ -378,7 +458,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async isFollowingMe(profileId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: toFid(profileId) });
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/user', { fid: toFid(profileId) });
         const {
             result: { user },
         } = await farcasterSessionHolder.fetch<UserDetailResponse>(url);
@@ -411,7 +491,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/followers', {
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/followers', {
             fid: toFid(profileId),
             limit: 10,
             cursor: indicator?.id,
@@ -434,7 +514,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async getFollowings(profileId: string, indicator?: PageIndicator) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/following', {
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/following', {
             fid: toFid(profileId),
             limit: 10,
             cursor: indicator?.id,
@@ -480,7 +560,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async getPostsReplies(profileId: string, indicator?: PageIndicator) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/casts', {
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/casts', {
             fid: toFid(profileId),
             limit: 10,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
@@ -504,7 +584,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async getPostsBeMentioned(profileId: string, indicator?: PageIndicator) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/mention-and-reply-notifications', {
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/mention-and-reply-notifications', {
             limit: 25,
             cursor: indicator?.id,
         });
@@ -526,7 +606,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async publishPost(post: Post): Promise<{ postId: string }> {
-        const url = urlcat(WARPCAST_ROOT_URL, '/casts');
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/casts');
         const {
             result: { cast },
         } = await farcasterSessionHolder.fetch<CastResponse>(
@@ -549,7 +629,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async deletePost(postId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/casts');
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/casts');
         await farcasterSessionHolder.fetch<CastResponse>(
             url,
             {
@@ -565,7 +645,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async upvotePost(postId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/cast-likes');
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/cast-likes');
         const { result: reaction } = await farcasterSessionHolder.fetch<ReactionResponse>(
             url,
             {
@@ -580,7 +660,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async unvotePost(postId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/cast-likes');
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/cast-likes');
         await farcasterSessionHolder.fetch<ReactionResponse>(
             url,
             {
@@ -597,7 +677,7 @@ class WarpcastSocialMedia implements Provider {
         const comment = post.metadata.content?.content;
         if (!comment) throw new Error('Comment cannot be empty.');
 
-        const url = urlcat(WARPCAST_ROOT_URL, '/casts', { parent: postId });
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/casts', { parent: postId });
         const response = await farcasterSessionHolder.fetch<CastResponse>(
             url,
             {
@@ -612,7 +692,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async mirrorPost(postId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/recasts');
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/recasts');
         const response = await farcasterSessionHolder.fetch<{ result: { castHash: string } }>(
             url,
             {
@@ -628,7 +708,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async unmirrorPost(postId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/recasts');
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/recasts');
         await farcasterSessionHolder.fetch<SuccessResponse>(
             url,
             {
@@ -642,7 +722,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async followProfile(profileId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/follows');
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/follows');
         await farcasterSessionHolder.fetch<SuccessResponse>(
             url,
             {
@@ -656,7 +736,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async follow(profileId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/follows');
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/follows');
         const {
             result: { success },
         } = await farcasterSessionHolder.fetch<SuccessResponse>(
@@ -674,7 +754,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async unfollow(profileId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/follows');
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/follows');
         const {
             result: { success },
         } = await farcasterSessionHolder.fetch<SuccessResponse>(
@@ -728,7 +808,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        const url = urlcat(WARPCAST_ROOT_URL, '/recent-users', {
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/recent-users', {
             limit: 25,
             cursor: indicator?.id,
         });
@@ -750,7 +830,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
-        const url = urlcat(WARPCAST_ROOT_URL, '/mention-and-reply-notifications', {
+        const url = urlcat(WARPCAST_ROOT_URL_V2, '/mention-and-reply-notifications', {
             limit: 25,
             cursor: indicator?.id,
         });
@@ -859,11 +939,33 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async joinChannel(channel: Channel): Promise<boolean> {
-        throw new NotImplementedError();
+        const authToken = await getWarpcastAuthToken();
+        const url = urlcat('/api/warpcast/channel/follow', {
+            channelId: channel.id,
+        });
+        await farcasterSessionHolder.fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-Token': authToken,
+            },
+        });
+
+        return true;
     }
 
     async leaveChannel(channel: Channel): Promise<boolean> {
-        throw new NotImplementedError();
+        const authToken = await getWarpcastAuthToken();
+        const url = urlcat('/api/warpcast/channel/follow', {
+            channelId: channel.id,
+        });
+        await farcasterSessionHolder.fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'X-Token': authToken,
+            },
+        });
+
+        return true;
     }
 
     async getPinnedPost(profileId: string): Promise<Post | null> {

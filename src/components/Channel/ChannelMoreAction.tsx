@@ -1,22 +1,17 @@
 'use client';
 
 import { MenuItem, type MenuProps } from '@headlessui/react';
-import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
-import MoreCircleIcon from '@/assets/more-circle.svg';
+import MoreIcon from '@/assets/more-fill.svg';
 import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
-import { ToggleJoinChannel } from '@/components/Actions/ToggleJoinChannel.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Source } from '@/constants/enum.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
@@ -26,15 +21,8 @@ interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
 }
 
 export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ channel }) {
-    const profile = useCurrentProfile(channel.source);
-    const isLogin = useIsLogin();
+    const isLogin = useIsLoginFirefly();
     const [{ loading: channelBlocking }, toggleBlockChannel] = useToggleMutedChannel();
-
-    const { data } = useQuery({
-        queryKey: ['channel', channel.source, channel.id, profile?.profileId],
-        staleTime: 1000 * 60 * 5, // 5 minutes
-        queryFn: () => runInSafeAsync(() => resolveSocialMediaProvider(channel.source).getChannelById(channel.id)),
-    });
 
     return (
         <MoreActionMenu
@@ -45,23 +33,20 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                         <LoadingIcon size={16} />
                     </span>
                 ) : (
-                    <MoreCircleIcon width={32} height={32} />
+                    <span className="inline-flex size-8 items-center justify-center rounded-lg border border-lightLineSecond">
+                        <MoreIcon width={21} height={21} />
+                    </span>
                 )
             }
         >
             <MenuGroup>
                 <MenuItem>{({ close }) => <CopyLinkButton link={getChannelUrl(channel)} onClick={close} />}</MenuItem>
-                {isLogin && data?.source === Source.Farcaster ? (
+                {isLogin && channel.source === Source.Farcaster ? (
                     <MenuItem>
                         {({ close }) => (
-                            <MuteChannelButton channel={data} onToggle={toggleBlockChannel} onClick={close} />
+                            <MuteChannelButton channel={channel} onToggle={toggleBlockChannel} onClick={close} />
                         )}
                     </MenuItem>
-                ) : null}
-                {profile?.profileId ? (
-                    (channel.source === Source.Lens || channel.source === Source.Bsky) && data?.canJoin ? (
-                        <MenuItem>{({ close }) => <ToggleJoinChannel channel={data} onClick={close} />}</MenuItem>
-                    ) : null
                 ) : null}
             </MenuGroup>
         </MoreActionMenu>

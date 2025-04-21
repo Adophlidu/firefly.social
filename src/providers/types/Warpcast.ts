@@ -289,3 +289,45 @@ export interface Prediction {
     placeId: string;
     description: string;
 }
+
+export interface Channel {
+    id: string;
+    url: string;
+    name: string;
+    description: string;
+    descriptionMentions: number[];
+    descriptionMentionsPositions: number[];
+    imageUrl: string;
+    headerImageUrl: string;
+    leadFid?: number;
+    moderatorFids?: number[];
+    createdAt: number;
+    followerCount: number;
+    memberCount: number;
+    pinnedCastHash?: string;
+    publicCasting?: boolean;
+    externalLink?: {
+        title: string;
+        url: string;
+    };
+}
+
+export interface ChannelFollowersResponse extends ErrorResponse {
+    result: {
+        users: Array<{
+            fid: number;
+            followedAt: number;
+        }>;
+    };
+    next?: Next;
+}
+
+export interface ChannelMembersResponse extends ErrorResponse {
+    result: {
+        members: Array<{
+            fid: number;
+            memberAt: number;
+        }>;
+    };
+    next?: Next;
+}

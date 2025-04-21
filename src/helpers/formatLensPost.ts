@@ -15,7 +15,7 @@ import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { formatLensImageUrl } from '@/helpers/formatImageUrl.js';
-import { formatLensPostFeed } from '@/helpers/formatLensFeed.js';
+import { formatLensChannelFromPostGroup } from '@/helpers/formatLensChannel.js';
 import {
     formatLensMediaAudioMimeType,
     formatLensMediaImageMimeType,
@@ -305,7 +305,7 @@ export async function formatLensQuoteOrCommentV3(
 
         ...formatLensPostOperations(result.operations, result.actions),
         stats: formatLensPostStats(result.stats),
-        channel: formatLensPostFeed(result.feed, true),
+        channel: result.feed.group ? formatLensChannelFromPostGroup(result.feed.group) : undefined,
         mentions: mentions.profiles,
         groups: mentions.groups,
         collectModule: formatCollectModuleV3(result.actions, result.stats.collects),
@@ -432,7 +432,7 @@ export async function formatLensPostV3(result: AnyPost): Promise<Post> {
                   }
                 : undefined,
             momoka: undefined,
-            channel: formatLensPostFeed(mirrorOn.feed, true),
+            channel: mirrorOn.feed.group ? formatLensChannelFromPostGroup(mirrorOn.feed.group) : undefined,
         };
     }
 
@@ -446,7 +446,7 @@ export async function formatLensPostV3(result: AnyPost): Promise<Post> {
     const oembedUrl = last(content?.oembedUrls || content?.content.match(URL_REGEX) || []);
     const mentions = formatLensMentions(result.mentions);
     const locale = getPostLocale(result.metadata);
-    const channel = formatLensPostFeed(result.feed, true);
+    const channel = result.feed.group ? formatLensChannelFromPostGroup(result.feed.group) : undefined;
 
     if (result.quoteOf) {
         return {

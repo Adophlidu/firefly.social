@@ -51,7 +51,7 @@ export function ChannelSearchPanel({ onSelected, className, source, ...rest }: C
             return <SocialSourceIcon source={channel.source} className="mr-2 size-6" />;
         }
 
-        const imageUrl = channel.name ? channel.imageUrl : channel.group?.imageUrl;
+        const imageUrl = channel.imageUrl;
         return <Avatar className="mr-2 shrink-0 rounded-full border" src={imageUrl} size={24} alt={channel.name} />;
     };
 

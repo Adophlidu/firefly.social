@@ -48,6 +48,14 @@ class HubbleSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    async getChannelMembers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getChannelFollowers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     blockWallet(address: string, networkType?: NetworkType): Promise<boolean> {
         throw new NotImplementedError();
     }

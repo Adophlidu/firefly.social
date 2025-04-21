@@ -336,6 +336,14 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
+    async getChannelMembers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getChannelFollowers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     getProfileByHandle(handle: string): Promise<Profile> {
         return farcasterSessionHolder.withSession(async (session) => {
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/profile', {

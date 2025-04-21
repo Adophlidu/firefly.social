@@ -19,59 +19,71 @@ interface Props extends HTMLProps<HTMLDivElement> {
     channel: Channel;
     source: SocialSource;
     isChannelPage?: boolean;
+    needRefetch?: boolean;
 }
 
-export const ChannelInfoUI = memo<Props>(function ChannelInfoUI({ channel, isChannelPage = false, source, ...rest }) {
+export const ChannelInfoUI = memo<Props>(function ChannelInfoUI({
+    channel,
+    isChannelPage = false,
+    source,
+    needRefetch,
+    ...rest
+}) {
     const followerCount = channel.followerCount ?? 0;
     const isBsky = channel.source === Source.Bsky;
+    const isLens = channel.source === Source.Lens;
 
     const url = urlcat(SITE_URL, getChannelUrl(channel));
     const avatar = channel.imageUrl ? (
-        <Avatar src={channel.imageUrl} alt="avatar" size={48} className="size-12 rounded-full" />
+        <Avatar src={channel.imageUrl} alt="avatar" size={40} className="size-10 rounded-full" />
     ) : (
-        <SocialSourceIcon className="rounded-full" source={source} size={48} />
+        <SocialSourceIcon className="rounded-full" source={source} size={40} />
     );
     const name = <span className="text-lg font-black leading-6 text-lightMain">{channel.name}</span>;
 
     return (
-        <article {...rest} className={classNames('flex gap-3 p-3', rest.className)}>
-            {source === Source.Lens ? null : isChannelPage ? avatar : <Link href={url}>{avatar}</Link>}
+        <article {...rest} className={classNames('flex gap-2.5 p-3', rest.className)}>
+            {isChannelPage ? avatar : <Link href={url}>{avatar}</Link>}
 
-            <div className="relative flex flex-1 flex-col gap-[6px]">
+            <div className="relative flex flex-1 flex-col gap-1">
                 <NoSSR>
-                    <ChannelInfoAction channel={channel} />
+                    <ChannelInfoAction
+                        className="absolute right-0 top-0 hidden md:flex"
+                        channel={channel}
+                        needRefetch={needRefetch}
+                    />
                 </NoSSR>
 
-                <div className="flex flex-col">
-                    <h1 className="flex items-center gap-2">
+                <div className="flex flex-col gap-1">
+                    <h1 className="flex items-center gap-1">
                         {isChannelPage ? name : <Link href={url}>{name}</Link>}
                         <SocialSourceIcon mono source={source} size={20} />
                     </h1>
 
-                    {source === Source.Lens ? null : (
-                        <div className="flex flex-row items-center gap-1">
-                            {!isBsky ? (
-                                <span className="text-medium text-secondary">/{channel.id}</span>
-                            ) : (
-                                <span className="text-medium text-secondary">
-                                    <Trans>By @{channel.lead?.handle}</Trans>
-                                </span>
-                            )}
+                    <div className="flex flex-row items-center gap-1">
+                        {isLens || isBsky ? (
+                            <span className="text-medium text-secondary">
+                                <Trans>By @{channel.lead?.handle || '-'}</Trans>
+                            </span>
+                        ) : (
+                            <span className="text-medium text-secondary">/{channel.id}</span>
+                        )}
 
-                            <span className="leading-[22px] text-secondary">·</span>
+                        <span className="leading-[22px] text-secondary">·</span>
 
-                            <data value={followerCount} className="flex items-center gap-1">
-                                <span className="text-lightMain">{nFormatter(followerCount)}</span>
-                                <span className="text-secondary">
-                                    {!isBsky ? (
-                                        <Plural value={followerCount} one="Member" other="Members" />
-                                    ) : (
-                                        <Plural value={followerCount} one="Like" other="Likes" />
-                                    )}
-                                </span>
-                            </data>
-                        </div>
-                    )}
+                        <data value={followerCount} className="flex items-center gap-1">
+                            <span className="text-lightMain">{nFormatter(followerCount)}</span>
+                            <span className="text-secondary">
+                                {isBsky ? (
+                                    <Plural value={followerCount} one="Like" other="Likes" />
+                                ) : channel.source === Source.Farcaster ? (
+                                    <Plural value={followerCount} one="Follower" other="Followers" />
+                                ) : (
+                                    <Plural value={followerCount} one="Member" other="Members" />
+                                )}
+                            </span>
+                        </data>
+                    </div>
                 </div>
 
                 <ChannelInfoBio description={channel.description} />

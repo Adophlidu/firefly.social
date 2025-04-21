@@ -4,8 +4,8 @@ import { memo, useEffect, useMemo } from 'react';
 import { ChannelCard } from '@/components/Channel/ChannelCard.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
-import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { TippyContext, useTippyContext } from '@/components/TippyContext/index.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -13,13 +13,19 @@ import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useChannelStoreState } from '@/store/useChannelStore.js';
 
-export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTag({ title, source }) {
+interface ChannelTagProps {
+    title?: string;
+    source?: SocialSource;
+    id?: string;
+}
+
+export const ChannelTag = memo<ChannelTagProps>(function ChannelTag({ title, source, id }) {
     const isMedium = useIsMedium();
     const router = useRouter();
-    const channelId = title?.trim().slice(1);
+    const channelId = id || title?.trim().slice(1);
 
     const { allChannelData, addChannel } = useChannelStoreState();
-    const [viewed, ref] = useEverSeen();
+    const [viewed, ref] = useEverSeen<HTMLDivElement>();
 
     useEffect(() => {
         if (!title) return;
@@ -28,7 +34,8 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
 
     const data = useQuery({
         enabled: !!channelId && !!source && viewed,
-        queryKey: ['channel', 'tag', source, channelId],
+        queryKey: ['channel', source, channelId],
+        staleTime: 1000 * 60 * 5, // 5 minutes
         queryFn: async () => {
             if (!channelId || !source) return;
             try {
@@ -50,6 +57,7 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
             <ClickableArea
                 className="cursor-pointer text-highlight hover:underline"
                 as="span"
+                ref={ref}
                 onClick={() => {
                     router.push(resolveChannelUrl(channelId, source));
                 }}
@@ -57,7 +65,7 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
                 {title}
             </ClickableArea>
         );
-    }, [title, channelId, router, source]);
+    }, [title, channelId, router, source, ref]);
 
     const insideTippy = useTippyContext();
 
@@ -75,7 +83,7 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
                 placement="bottom"
                 content={<ChannelCard loading={data.isLoading} channel={data.data} />}
             >
-                <span ref={ref}>{content}</span>
+                <span>{content}</span>
             </InteractiveTippy>
         </TippyContext.Provider>
     );

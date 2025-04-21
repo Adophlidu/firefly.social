@@ -9,11 +9,14 @@ import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmar
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
 import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
 import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollowProfile.js';
+import { SetQueryDataForJoinChannel } from '@/decorators/SetQueryDataForJoinChannel.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
+import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getFarcasterSessionType } from '@/helpers/getFarcasterSessionType.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -50,6 +53,7 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 @SetQueryDataForFollowProfile(Source.Farcaster)
 @SetQueryDataForBlockChannel(Source.Farcaster)
 @SetQueryDataForActPost(Source.Farcaster)
+@SetQueryDataForJoinChannel(Source.Farcaster)
 @SetQueryDataForPosts
 class FarcasterSocialMedia implements Provider {
     quotePost(postId: string, post: Post, profileId?: string): Promise<{ postId: string }> {
@@ -97,16 +101,27 @@ class FarcasterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getChannelById(channelId: string): Promise<Channel> {
-        return FireflySocialMediaProvider.getChannelByHandle(channelId);
+    async getChannelById(channelId: string, includeFollowingStatus?: boolean): Promise<Channel> {
+        const channel = await FireflySocialMediaProvider.getChannelByHandle(channelId);
+        if (!includeFollowingStatus) return channel;
+
+        const profile = getCurrentProfile(Source.Farcaster);
+        if (!profile?.profileId) return channel;
+
+        const following = await runInSafeAsync(() =>
+            WarpcastSocialMediaProvider.getChannelFollowStatus(channelId, profile.profileId),
+        );
+        channel.isMember = following ?? false;
+
+        return channel;
     }
 
     getChannelsByIds(ids: string[]): Promise<Channel[]> {
         return NeynarSocialMediaProvider.getChannelsByIds(ids);
     }
 
-    getChannelByHandle(channelHandle: string): Promise<Channel> {
-        return FireflySocialMediaProvider.getChannelByHandle(channelHandle);
+    getChannelByHandle(channelHandle: string, includeFollowingStatus?: boolean): Promise<Channel> {
+        return FarcasterSocialMediaProvider.getChannelById(channelHandle, includeFollowingStatus);
     }
 
     getChannelsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
@@ -131,6 +146,14 @@ class FarcasterSocialMedia implements Provider {
 
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return FireflySocialMediaProvider.getChannelTrendingPosts(channel, indicator);
+    }
+
+    async getChannelMembers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        return WarpcastSocialMediaProvider.getChannelMembers(channelId, indicator);
+    }
+
+    async getChannelFollowers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        return WarpcastSocialMediaProvider.getChannelFollowers(channelId, indicator);
     }
 
     get type() {
@@ -437,11 +460,11 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async joinChannel(channel: Channel): Promise<boolean> {
-        throw new NotImplementedError();
+        return WarpcastSocialMediaProvider.joinChannel(channel);
     }
 
     async leaveChannel(channel: Channel): Promise<boolean> {
-        throw new NotImplementedError();
+        return WarpcastSocialMediaProvider.leaveChannel(channel);
     }
 
     async getPinnedPost(profileId: string): Promise<Post | null> {

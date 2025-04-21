@@ -27,3 +27,27 @@ export interface Profile {
     active_status: ProfileStatus;
     power_badge: boolean;
 }
+
+export interface Channel {
+    id: string;
+    url: string;
+    name: string;
+    description: string;
+    object: string;
+    created_at: number;
+    follower_count: number;
+    external_link: {
+        title: string;
+        url: string;
+    };
+    image_url: string;
+    parent_url: string;
+    lead?: Profile;
+    moderator_fids: number[];
+    member_count: number;
+    pinned_cast_hash?: string;
+    viewer_context?: {
+        following: boolean;
+        role: 'moderator' | 'member' | 'none';
+    };
+}

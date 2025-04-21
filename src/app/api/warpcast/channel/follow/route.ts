@@ -1,0 +1,56 @@
+import { NextRequest } from 'next/server.js';
+import urlcat from 'urlcat';
+import { z } from 'zod';
+
+import { WARPCAST_ROOT_URL } from '@/constants/index.js';
+import { compose } from '@/helpers/compose.js';
+import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
+import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+
+const Schema = z.object({
+    channelId: z.string(),
+});
+
+export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
+    const { channelId } = getSearchParamsFromRequestWithZodObject(request, Schema);
+    const token = request.headers.get('X-Token');
+    if (!token) {
+        throw new Error('Missing warpcast token');
+    }
+
+    await fetchJSON(urlcat(WARPCAST_ROOT_URL, '/fc/channel-follows'), {
+        method: 'POST',
+        body: JSON.stringify({ channelId }),
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    return createSuccessResponseJSON({
+        following: true,
+    });
+});
+
+export const DELETE = compose(withRequestErrorHandler(), async (request: NextRequest) => {
+    const { channelId } = getSearchParamsFromRequestWithZodObject(request, Schema);
+    const token = request.headers.get('X-Token');
+    if (!token) {
+        throw new Error('Missing warpcast token');
+    }
+
+    await fetchJSON(urlcat(WARPCAST_ROOT_URL, '/fc/channel-follows'), {
+        method: 'DELETE',
+        body: JSON.stringify({ channelId }),
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    return createSuccessResponseJSON({
+        following: false,
+    });
+});

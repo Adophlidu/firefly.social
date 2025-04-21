@@ -24,6 +24,7 @@ import { formatBskyChannel } from '@/helpers/formatBskyChannel.js';
 import { formatBskyFeedPost, formatBskyPost, formatBskyThreadPosts } from '@/helpers/formatBskyFeedPost.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import { getBskyProfileBySession } from '@/helpers/getBskyProfileBySession.js';
+import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
@@ -192,13 +193,21 @@ export class BskySocialMedia implements Provider {
         const atUri = PostAtUri.fromId(postId).toUri();
         return getSinglePost(atUri);
     }
-    async getChannelById(channelId: string): Promise<Channel> {
+    async getChannelById(channelId: string, includeFollowingStatus?: boolean): Promise<Channel> {
         const atUri = ChannelAtUri.fromId(channelId).toUri();
         const response = await bskySessionHolder.agent.app.bsky.feed.getFeedGenerator({
             feed: atUri,
         });
         const data = resolveBskyResponseData(response, 'Failed to query channel.');
-        return formatBskyChannel(data.view);
+        const channel = formatBskyChannel(data.view);
+
+        const profile = getCurrentProfile(Source.Bsky);
+        if (profile?.profileId && includeFollowingStatus) {
+            const response = await runInSafeAsync(() => bskySessionHolder.agent.getPreferences());
+            channel.isMember = response?.savedFeeds.some((x) => x.value === channel.url);
+        }
+
+        return channel;
     }
     async getChannelByHandle(channelHandle: string): Promise<Channel> {
         throw new NotImplementedError();
@@ -212,6 +221,15 @@ export class BskySocialMedia implements Provider {
     async getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new NotImplementedError();
     }
+
+    async getChannelMembers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getChannelFollowers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const atUri = PostAtUri.fromId(postId).toUri();
         const response = await bskySessionHolder.agent.getPostThread({
@@ -830,7 +848,7 @@ export class BskySocialMedia implements Provider {
     async joinChannel(channel: Channel): Promise<boolean> {
         const response = await bskySessionHolder.agent.addSavedFeeds([
             {
-                pinned: true,
+                pinned: false,
                 type: 'feed',
                 value: channel.url,
             },

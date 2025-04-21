@@ -46,7 +46,6 @@ function resolveSourceFromCommunityType(communityType: CommunityType) {
             return Source.Bsky;
         case CommunityType.FarcasterChannel:
             return Source.Farcaster;
-        case CommunityType.LensFeed:
         case CommunityType.LensGroup:
             return Source.Lens;
         default:

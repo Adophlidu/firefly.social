@@ -391,26 +391,16 @@ export interface Channel<T = unknown> {
     // joined or followed by the current user
     isMember?: boolean;
     canJoin?: boolean;
+    canLeave?: boolean;
     // if true, cant post to this channel
     unavailable?: boolean;
-    group?: ProfileGroup;
+    // lens only
+    feedId?: string;
+    // lazy load owner for Lens
+    ownerId?: string;
     __original__?: T;
     // lazy load channel for Lens
     __lazy__?: boolean;
-}
-
-export interface ProfileGroup {
-    source: SocialSource;
-    id: string;
-    name: string;
-    description: string;
-    imageUrl: string;
-    timestamp: number;
-    ownerProfileId?: string;
-    canJoin?: boolean;
-    canLeave?: boolean;
-    isMember?: boolean;
-    feed?: Channel;
 }
 
 export interface ProfileBadge {
@@ -576,16 +566,17 @@ export interface Provider {
     /**
      * Retrieves a channel by its channel ID.
      * @param channelId
+     * @param includeFollowingStatus
      * @returns
      */
-    getChannelById: (channelId: string) => Promise<Channel>;
+    getChannelById: (channelId: string, includeFollowingStatus?: boolean, ownerId?: string) => Promise<Channel>;
 
     /**
      * Retrieves a channel by its channel handle.
      * @param channelHandle
      * @returns
      */
-    getChannelByHandle: (channelHandle: string) => Promise<Channel>;
+    getChannelByHandle: (channelHandle: string, includeFollowingStatus?: boolean) => Promise<Channel>;
 
     /**
      * Retrieves user's attended channels by profile ID.
@@ -600,6 +591,20 @@ export interface Provider {
      * @param indicator
      */
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>>;
+
+    /**
+     * Retrieves members of given channel.
+     * @param channelId
+     * @param indicator
+     */
+    getChannelMembers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>>;
+
+    /**
+     * Retrieves followers of given channel.
+     * @param channelId
+     * @param indicator
+     */
+    getChannelFollowers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>>;
 
     /**
      * Retrieves comments by post ID.

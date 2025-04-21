@@ -70,7 +70,6 @@ export async function createLensSchedulePostPayload(
         {
             title,
             content,
-            groups: channel[Source.Lens]?.group ? [channel[Source.Lens].group] : undefined,
         },
         await createPayloadAttachments(imageResults, videoResult),
     );

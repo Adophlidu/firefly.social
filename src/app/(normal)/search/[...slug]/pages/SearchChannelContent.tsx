@@ -6,7 +6,7 @@ import { compact, uniqBy } from 'lodash-es';
 import { ChannelInList } from '@/components/ChannelInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
-import { ScrollListKey, Source } from '@/constants/enum.js';
+import { ScrollListKey } from '@/constants/enum.js';
 import { REQUIRE_LOGIN_SOURCES_IN_SEARCH } from '@/constants/index.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
@@ -40,12 +40,7 @@ export function SearchChannelContent() {
             const provider = resolveSocialMediaProvider(currentSocialSource);
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
-            const channels = await provider.searchChannels(searchKeyword.replace(/^\//, ''), indicator);
-            if (!indicator?.id && currentSocialSource === Source.Lens) {
-                channels.data.reverse();
-            }
-
-            return channels;
+            return provider.searchChannels(searchKeyword.replace(/^\//, ''), indicator);
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {

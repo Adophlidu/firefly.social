@@ -47,7 +47,8 @@ export const CZ_ACTIVITY_HOSTNAME = 'cz.firefly.social';
 
 export const SITE_URL = env.external.NEXT_PUBLIC_SITE_URL ?? 'https://firefly.social';
 export const FARCASTER_REPLY_URL = 'https://relay.farcaster.xyz';
-export const WARPCAST_ROOT_URL = 'https://api.warpcast.com/v2';
+export const WARPCAST_ROOT_URL = 'https://api.warpcast.com';
+export const WARPCAST_ROOT_URL_V2 = 'https://api.warpcast.com/v2';
 export const WARPCAST_CLIENT_URL = 'https://client.warpcast.com/v2';
 export const FIREFLY_ROOT_URL = 'https://api.firefly.land';
 export const FIREFLY_DEV_ROOT_URL = 'https://api-dev.firefly.land';
@@ -66,7 +67,6 @@ export const SNAPSHOT_SEQ_URL = 'https://seq.snapshot.org';
 export const SNAPSHOT_RELAY_URL = 'https://relayer.snapshot.org';
 export const SNAPSHOT_IPFS_GATEWAY_URL = 'https://snapshot.4everland.link/ipfs/';
 export const SIMPLE_HASH_URL = 'https://simplehash-proxy.r2d2.to';
-export const ORB_CLUB_URL = 'https://us-central1-orbapp.cloudfunctions.net';
 export const FIREFLY_TELEGRAM_URL = 'https://t.me/fireflyapp';
 export const BSKY_VIDEO_ENDPOINT = 'https://video.bsky.app/xrpc';
 export const NEYNAR_URL = env.external.NEXT_PUBLIC_NEYNAR_URL;
@@ -158,10 +158,10 @@ export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
     [Source.Bsky]: [SearchType.Posts, SearchType.Profiles, SearchType.Communities],
 };
 export const CHANNEL_TAB_TYPE: Record<SocialSource, ChannelTabType[]> = {
-    [Source.Farcaster]: [ChannelTabType.Recent, ChannelTabType.Trending],
-    [Source.Lens]: [ChannelTabType.Recent],
+    [Source.Farcaster]: [ChannelTabType.Posts, ChannelTabType.Followers, ChannelTabType.Members],
+    [Source.Lens]: [ChannelTabType.Posts, ChannelTabType.Members],
     [Source.Twitter]: [],
-    [Source.Bsky]: [],
+    [Source.Bsky]: [ChannelTabType.Posts],
 };
 export const GIF_MEDIA_SOURCE_CONFIG: Record<SocialSource, MediaSource[]> = {
     [Source.Farcaster]: [MediaSource.Giphy, MediaSource.Tenor, MediaSource.Local],

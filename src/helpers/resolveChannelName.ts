@@ -1,9 +1,8 @@
+import { Source } from '@/constants/enum.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export function resolveChannelName(channel: Channel, channelPrefix = true) {
-    return channel.name
-        ? `${channelPrefix ? '/' : ''}${channel.name}`
-        : channel.group?.name
-          ? `#${channel.group.name}`
-          : '';
+    const prefix = channel.source === Source.Lens ? '#' : '/';
+
+    return channel.name ? `${channelPrefix ? prefix : ''}${channel.name}` : '';
 }

@@ -287,6 +287,8 @@ export enum ScrollListKey {
     Swap = 'swap-list',
     GroupMembers = 'group-members',
     GroupPosts = 'group-posts',
+    ChannelMembers = 'channel-members',
+    ChannelFollowers = 'channel-followers',
 }
 
 export enum FarcasterSignType {
@@ -347,8 +349,9 @@ export const enum FollowCategory {
 export type ProfileCategory = FollowCategory | SocialProfileCategory | WalletProfileCategory;
 
 export enum ChannelTabType {
-    Trending = 'trending',
-    Recent = 'recent',
+    Members = 'members',
+    Followers = 'followers',
+    Posts = 'posts',
 }
 
 // async store needs to sync data from the server
@@ -535,7 +538,6 @@ export enum CommunityType {
     FarcasterChannel = 'farcaster-channel',
     BskyFeed = 'bsky-feed',
     LensGroup = 'lens-group',
-    LensFeed = 'lens-feed',
 }
 
 export enum ClickOrigin {

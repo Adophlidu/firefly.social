@@ -5,11 +5,12 @@ import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST, NEYNAR_URL } from '@/constants/index.js';
 import { fetchNeynarJSON } from '@/helpers/fetchNeynar.js';
 import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFirefly.js';
+import { formatFarcasterChannelFromNeynar } from '@/helpers/formatFarcasterChannelFromNeynar.js';
 import { formatFarcasterProfileFromNeynar } from '@/helpers/formatFarcasterProfileFromNeynar.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { Channel as FireflyChannel, NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
-import type { Profile as NeynarProfile } from '@/providers/types/Neynar.js';
+import type { Channel as NeynarChannel, Profile as NeynarProfile } from '@/providers/types/Neynar.js';
 import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
@@ -26,6 +27,14 @@ import {
 
 class NeynarSocialMedia implements Provider {
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getChannelMembers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getChannelFollowers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new NotImplementedError();
     }
 
@@ -90,7 +99,19 @@ class NeynarSocialMedia implements Provider {
     }
 
     getChannelById(channelId: string): Promise<Channel> {
-        throw new NotImplementedError();
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat(NEYNAR_URL, '/v2/farcaster/channel', {
+                id: channelId,
+                type: 'id',
+                viewer_fid: session?.profileId,
+            });
+
+            const data = await fetchNeynarJSON<{ channel: NeynarChannel }>(url, {
+                method: 'GET',
+            });
+
+            return formatFarcasterChannelFromNeynar(data.channel);
+        });
     }
 
     getChannelByHandle(channelHandle: string): Promise<Channel> {

@@ -2,7 +2,6 @@ import {
     AccountReportReason,
     AccountsOrderBy,
     evmAddress,
-    FeedsOrderBy,
     GroupsOrderBy,
     MainContentFocus,
     ManagedAccountsVisibility,
@@ -25,13 +24,10 @@ import {
     fetchAccounts,
     fetchAccountsAvailable,
     fetchAccountsBulk,
-    fetchFeed,
-    fetchFeeds,
     fetchFollowers,
     fetchFollowersYouKnow,
     fetchFollowing,
     fetchFollowStatus,
-    fetchGroup,
     fetchGroupMembers,
     fetchGroups,
     fetchGroupStats,
@@ -80,14 +76,12 @@ import {
     SetQueryDataForSuperFollowProfile,
 } from '@/decorators/SetQueryDataForFollowProfile.js';
 import { SetQueryDataForJoinChannel } from '@/decorators/SetQueryDataForJoinChannel.js';
-import { SetQueryDataForJoinGroup } from '@/decorators/SetQueryDataForJoinGroup.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { ensureLensResult, ensurePostToLensResult } from '@/helpers/ensureLensResult.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatChannelFromLensGroup, formatLensFeed } from '@/helpers/formatLensFeed.js';
-import { formatLensGroup } from '@/helpers/formatLensGroup.js';
+import { formatLensChannelFromGroup } from '@/helpers/formatLensChannel.js';
 import {
     filterFeedsV3,
     formatLensPostByFeedV3,
@@ -128,14 +122,12 @@ import {
 } from '@/providers/lens/isNotification.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import { OrbClubProvider } from '@/providers/orb/Club.js';
 import {
     NotificationPlatform,
     NotificationPushType,
     type NotificationSettings,
     NotificationTitle,
 } from '@/providers/types/Firefly.js';
-import type { Club } from '@/providers/types/Orb.js';
 import type { Session } from '@/providers/types/Session.js';
 import {
     type Channel,
@@ -146,12 +138,12 @@ import {
     type Profile,
     type ProfileBadge,
     type ProfileEditable,
-    type ProfileGroup,
     type Provider,
     ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import { getAccountWithStatsByHandle, getAccountWithStatsById } from '@/services/lensV3/getAccountWithStats.js';
+import { getGroupWithMemberCount, getGroupWithOwner } from '@/services/lensV3/getFullGroup.js';
 import { uploadLensMetadataToS3 } from '@/services/uploadLensMetadataToS3.js';
 import type { ResponseJSON } from '@/types/index.js';
 
@@ -186,7 +178,6 @@ function getClient() {
 @SetQueryDataForPosts
 @SetQueryDataForApprovalLensModule
 @SetQueryDataForJoinChannel(Source.Lens)
-@SetQueryDataForJoinGroup(Source.Lens)
 export class LensSocialMedia implements Provider {
     get type() {
         return SessionType.Lens;
@@ -196,17 +187,16 @@ export class LensSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async getChannelById(channelId: string): Promise<Channel> {
-        const feed = await ensureLensResult(
-            fetchFeed(getClient(), {
-                feed: evmAddress(channelId),
-            }),
-        );
-        if (!feed) {
-            throw new Error(`No feed found with the id = ${channelId}`);
+    async getChannelById(channelId: string, includeFollowingStatus?: boolean, ownerId?: string): Promise<Channel> {
+        if (ownerId) {
+            return getGroupWithOwner(channelId, ownerId);
         }
+        const group = await getGroupWithMemberCount(channelId);
+        const owner = group.ownerId
+            ? await runInSafeAsync(() => LensSocialMediaProvider.getProfileById(group.ownerId!))
+            : undefined;
 
-        return formatLensFeed(feed);
+        return { ...group, lead: owner };
     }
 
     async getChannelsByIds(ids: string[]): Promise<Channel[]> {
@@ -231,10 +221,10 @@ export class LensSocialMedia implements Provider {
                 },
             }),
         );
-        const feeds = compact(result.items.map(formatChannelFromLensGroup));
+        const channels = compact(result.items.map((x) => (x.feed ? formatLensChannelFromGroup(x) : null)));
 
         return createPageable(
-            feeds,
+            channels,
             createIndicator(indicator),
             result?.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -269,24 +259,50 @@ export class LensSocialMedia implements Provider {
 
     async searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         const result = await ensureLensResult(
-            fetchFeeds(getClient(), {
+            fetchGroups(getClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
-                orderBy: FeedsOrderBy.LatestFirst,
+                orderBy: GroupsOrderBy.LatestFirst,
                 filter: {
                     searchQuery: q || undefined,
                 },
             }),
         );
 
+        const ownerIds = result.items.map((x) => x.owner);
+        const owners = await runInSafeAsync(() => LensSocialMediaProvider.getProfilesByIds(ownerIds));
+
         return createPageable(
-            result?.items.map(formatLensFeed) ?? EMPTY_LIST,
+            (result?.items.map(formatLensChannelFromGroup) ?? EMPTY_LIST).map((x) => ({
+                ...x,
+                lead: owners?.find((profile) => isSameEthereumAddress(profile.profileId, x.ownerId)),
+            })),
             createIndicator(indicator),
             result?.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
     }
 
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getChannelMembers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        const result = await ensureLensResult(
+            fetchGroupMembers(getClient(), {
+                cursor: ensureCursor(indicator),
+                pageSize: PageSize.Fifty,
+                group: evmAddress(channelId),
+            }),
+        );
+
+        return createPageable(
+            result.items.map((x) => formatLensProfileV3(x.account)),
+            createIndicator(indicator),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
+    }
+
+    async getChannelFollowers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new NotImplementedError();
     }
 
@@ -327,7 +343,7 @@ export class LensSocialMedia implements Provider {
             post(lensSessionHolder.sessionClient, {
                 contentUri: draftPost.metadata.contentURI,
                 rules: formatLensPostRules(draftPost.restrictions),
-                feed: draftPost.channel?.id ? evmAddress(draftPost.channel.id) : undefined,
+                feed: draftPost.channel?.feedId ? evmAddress(draftPost.channel.feedId) : undefined,
             }),
         );
     }
@@ -447,6 +463,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async getProfilesByIds(ids: string[]): Promise<Profile[]> {
+        if (!ids.length) return [];
         const result = await ensureLensResult(
             fetchAccountsBulk(getClient(), {
                 addresses: ids.map(evmAddress),
@@ -1313,21 +1330,23 @@ export class LensSocialMedia implements Provider {
     }
 
     async joinChannel(channel: Channel): Promise<boolean> {
-        const club = channel.__original__ as Club;
-        if (!club?.id) {
-            throw new Error('Invalid channel to join');
-        }
-
-        return await OrbClubProvider.joinClub(club.id);
+        const result = await ensureLensResult(
+            joinLensGroup(lensSessionHolder.sessionClient, {
+                group: evmAddress(channel.id),
+            }),
+        );
+        await handleOperationWithLensChain(result);
+        return true;
     }
 
     async leaveChannel(channel: Channel): Promise<boolean> {
-        const club = channel.__original__ as Club;
-        if (!club?.id) {
-            throw new Error('Invalid channel to join');
-        }
-
-        return await OrbClubProvider.leaveClub(club.id);
+        const result = await ensureLensResult(
+            leaveLensGroup(lensSessionHolder.sessionClient, {
+                group: evmAddress(channel.id),
+            }),
+        );
+        await handleOperationWithLensChain(result);
+        return true;
     }
 
     async getPinnedPost(profileId: string): Promise<Post | null> {
@@ -1338,47 +1357,6 @@ export class LensSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async searchGroups(q: string, indicator?: PageIndicator) {
-        const result = await ensureLensResult(
-            fetchGroups(getClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                filter: {
-                    searchQuery: q,
-                },
-            }),
-        );
-
-        return createPageable(
-            result.items.map(formatLensGroup),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
-    }
-
-    async getGroupById(groupId: string): Promise<ProfileGroup> {
-        const result = await ensureLensResult(fetchGroup(getClient(), { group: evmAddress(groupId) }));
-        if (!result) throw new Error('No group found');
-
-        return formatLensGroup(result);
-    }
-
-    async getGroupMembers(groupId: string, indicator?: PageIndicator) {
-        const result = await ensureLensResult(
-            fetchGroupMembers(getClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                group: evmAddress(groupId),
-            }),
-        );
-
-        return createPageable(
-            result.items.map((x) => formatLensProfileV3(x.account)),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
-    }
-
     async getGroupMembersCount(groupId: string): Promise<number> {
         const result = await ensureLensResult(
             fetchGroupStats(getClient(), {
@@ -1387,26 +1365,6 @@ export class LensSocialMedia implements Provider {
         );
 
         return result?.totalMembers || 0;
-    }
-
-    async joinGroup(groupId: string) {
-        const result = await ensureLensResult(
-            joinLensGroup(lensSessionHolder.sessionClient, {
-                group: evmAddress(groupId),
-            }),
-        );
-        await handleOperationWithLensChain(result);
-        return true;
-    }
-
-    async leaveGroup(groupId: string) {
-        const result = await ensureLensResult(
-            leaveLensGroup(lensSessionHolder.sessionClient, {
-                group: evmAddress(groupId),
-            }),
-        );
-        await handleOperationWithLensChain(result);
-        return true;
     }
 }
 

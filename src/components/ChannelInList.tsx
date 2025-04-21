@@ -50,6 +50,7 @@ export function ChannelInList({
 
     const avatarSize = isSmall || dense ? 40 : 44;
     const isBsky = channel.source === Source.Bsky;
+    const isLens = channel.source === Source.Lens;
 
     return (
         <div
@@ -99,28 +100,32 @@ export function ChannelInList({
                     </div>
                     <div className="flex items-center gap-2 text-medium text-sm leading-[24px] text-secondary">
                         <ChannelTippy channel={channel}>
-                            {!isBsky ? (
-                                <p className="truncate text-[15px] leading-[22px]">/{channel.id}</p>
-                            ) : (
+                            {isLens || isBsky ? (
                                 <p className="truncate text-[15px] leading-[22px]">
-                                    <Trans>By @{channel.lead?.handle}</Trans>
+                                    <Trans>By @{channel.lead?.handle || '-'}</Trans>
                                 </p>
+                            ) : (
+                                <p className="truncate text-[15px] leading-[22px]">/{channel.id}</p>
                             )}
                         </ChannelTippy>
-                        <span className="leading-[22px] text-secondary">·</span>
+                        {isLens ? null : (
+                            <>
+                                <span className="leading-[22px] text-secondary">·</span>
 
-                        <data value={channel.followerCount}>
-                            <span className="font-bold leading-[22px] text-lightMain">
-                                {nFormatter(channel.followerCount)}{' '}
-                            </span>
-                            <span className="leading-[22px] text-secondary">
-                                {!isBsky ? (
-                                    <Plural value={channel.followerCount} one="Member" other="Members" />
-                                ) : (
-                                    <Plural value={channel.followerCount} one="Like" other="Likes" />
-                                )}
-                            </span>
-                        </data>
+                                <data value={channel.followerCount}>
+                                    <span className="font-bold leading-[22px] text-lightMain">
+                                        {nFormatter(channel.followerCount)}{' '}
+                                    </span>
+                                    <span className="leading-[22px] text-secondary">
+                                        {!isBsky ? (
+                                            <Plural value={channel.followerCount} one="Follower" other="Followers" />
+                                        ) : (
+                                            <Plural value={channel.followerCount} one="Like" other="Likes" />
+                                        )}
+                                    </span>
+                                </data>
+                            </>
+                        )}
                     </div>
                     {!dense && channel.description && !hideDescription ? (
                         <BioMarkup

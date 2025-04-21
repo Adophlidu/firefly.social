@@ -12,7 +12,7 @@ function resolveCommunityType(source: Source, communityType?: CommunityType) {
         case Source.Farcaster:
             return CommunityType.FarcasterChannel;
         case Source.Lens:
-            return CommunityType.LensFeed;
+            return CommunityType.LensGroup;
         case Source.Bsky:
             return CommunityType.BskyFeed;
         default:

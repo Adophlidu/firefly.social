@@ -186,6 +186,14 @@ export class TwitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    async getChannelMembers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getChannelFollowers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     getChannelById(channelId: string): Promise<Channel> {
         throw new NotImplementedError();
     }
