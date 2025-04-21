@@ -2,18 +2,14 @@ import { compact, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { composePollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { isIpfsCID } from '@/helpers/isIpfsCID.js';
 import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';
-import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl, resolveEmbedMediaType } from '@/helpers/resolveEmbedMediaType.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { type Cast, EmbedMediaType } from '@/providers/types/Firefly.js';
 import { type Attachment, type Post, type PostType, type Profile } from '@/providers/types/SocialMedia.js';
 
@@ -28,35 +24,10 @@ function getCoverUriFromUrl(url: string) {
     return '';
 }
 
-const resolveIpfsUrl = memoizePromise(
-    async (url: string) => {
-        return fetchJSON<{
-            embeds: Array<{ url: string }>;
-        }>(url, {
-            signal: AbortSignal.timeout(5000),
-        });
-    },
-    (url) => `ipfs-${url}`,
-);
-
-async function formatContent(cast: Cast, resolveIpfs?: boolean): Promise<Post['metadata']['content']> {
-    let embedUrls: Array<{ url: string; type?: EmbedMediaType }> = cast.embed_urls?.length
+async function formatContent(cast: Cast): Promise<Post['metadata']['content']> {
+    const embedUrls: Array<{ url: string; type?: EmbedMediaType }> = cast.embed_urls?.length
         ? cast.embed_urls
         : cast.embeds;
-
-    // TODO: Remove this when backend resolve the IPFS URL
-    if (
-        resolveIpfs &&
-        embedUrls?.length === 1 &&
-        embedUrls[0]?.url.startsWith('ipfs://') &&
-        cast.sendFrom?.display_name === 'tako-protocol'
-    ) {
-        const ipfsUrl = sanitizeDStorageUrl(embedUrls[0].url, undefined, false);
-        const postContent = await runInSafeAsync(() => resolveIpfsUrl(ipfsUrl));
-        if (postContent?.embeds?.length) {
-            embedUrls = postContent.embeds;
-        }
-    }
 
     const oembedUrls = (
         await Promise.all(
@@ -126,9 +97,9 @@ function getPostTypeByCast(cast: Cast) {
 /**
  * Return null if cast is detected
  */
-export async function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType, resolveIpfs = false): Promise<Post> {
+export async function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Promise<Post> {
     const postType = type ?? getPostTypeByCast(cast);
-    const content = await formatContent(cast, resolveIpfs);
+    const content = await formatContent(cast);
     const incomplete =
         cast.sendFrom?.display_name === 'tako-protocol' &&
         !!content?.content?.endsWith('...') &&
