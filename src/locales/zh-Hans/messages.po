@@ -4066,9 +4066,6 @@ msgstr "铸造功能"
 msgid "Clear"
 msgstr "清空"
 
-msgid "Hide small transactions (<$100)"
-msgstr "隐藏小额交易（<$100）"
-
 msgid "Message"
 msgstr "信息"
 

@@ -1,37 +1,11 @@
 import { deleteToken } from 'firebase/messaging';
-import { produce } from 'immer';
-import { omit } from 'lodash-es';
 
-import { type NotificationConfig } from '@/app/(settings)/settings/notification-settings/getNotificationConfigs.js';
 import { firebaseClient } from '@/configs/firebaseClient.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import {
-    NotificationPlatform,
-    type NotificationPushSwitchResponse,
-    type NotificationPushType,
-} from '@/providers/types/Firefly.js';
+import { type NotificationConfig, NotificationPlatform } from '@/providers/types/Firefly.js';
 import { setupFirebaseFcmConnection } from '@/services/setupFirebaseFcmConnection.js';
-
-function updateQueryData(platform: NotificationPlatform, pushType: NotificationPushType, state: boolean) {
-    queryClient.setQueryData<Required<NotificationPushSwitchResponse>['data']>(
-        ['notification-settings', 'config'],
-        (oldData) => {
-            if (!oldData) return;
-            return produce(oldData, (draft) => {
-                if (platform === NotificationPlatform.All) {
-                    draft.push_switch = state;
-                    return;
-                }
-                const allStatus = Object.values(draft?.list || {}).flatMap((x) => x.list);
-                const item = allStatus.find((x) => x.platform === platform && x.push_type === pushType);
-                if (!item) return;
-                item.state = state;
-            });
-        },
-    );
-}
 
 async function revokeFirebaseToken() {
     if (!firebaseClient.initialized) return;
@@ -42,7 +16,6 @@ export async function toggleSwitchNotificationConfig({
     platform,
     pushType,
     value,
-    type,
 }: Omit<NotificationConfig, 'label' | 'description'>) {
     const targetValue = !value;
     const configsNeedToUpdate = [
@@ -50,15 +23,15 @@ export async function toggleSwitchNotificationConfig({
             platform,
             push_type: pushType,
             state: targetValue,
-            type,
         },
     ];
 
     await FireflySocialMediaProvider.setNotificationPushSwitch({
-        list: configsNeedToUpdate.map((config) => omit(config, 'type')),
+        list: configsNeedToUpdate,
     });
-    configsNeedToUpdate.forEach((config) => {
-        updateQueryData(config.platform, config.push_type, config.state);
+
+    queryClient.refetchQueries({
+        queryKey: ['notification-settings', 'config'],
     });
 
     const isGlobalSwitch = platform === NotificationPlatform.All;

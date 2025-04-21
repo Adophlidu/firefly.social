@@ -4059,9 +4059,6 @@ msgstr "Mint function"
 msgid "Clear"
 msgstr "Clear"
 
-msgid "Hide small transactions (<$100)"
-msgstr "Hide small transactions (<$100)"
-
 msgid "Message"
 msgstr "Message"
 

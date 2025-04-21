@@ -401,7 +401,8 @@
         "nitter",
         "fullname",
         "Gltf",
-        "bprogress"
+        "bprogress",
+        "webget"
     ],
     "flagWords": [],
     "ignorePaths": [

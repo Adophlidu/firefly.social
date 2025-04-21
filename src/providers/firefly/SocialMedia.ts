@@ -55,6 +55,7 @@ import {
     type FireflySnapshotActivity,
     type FriendshipResponse,
     type GetBookmarksResponse,
+    type NotificationConfigsResponse,
     type NotificationPushSwitchResponse,
     type NotificationResponse,
     type NotificationSettings,
@@ -1142,6 +1143,13 @@ export class FireflySocialMedia implements Provider {
     async getNotificationPushSwitch() {
         const response = await fireflySessionHolder.fetch<NotificationPushSwitchResponse>(
             urlcat(settings.FIREFLY_ROOT_URL, '/v1/notification/pushswitch/get'),
+        );
+        return resolveFireflyResponseData(response);
+    }
+
+    async getWebNotificationPushSwitch() {
+        const response = await fireflySessionHolder.fetch<NotificationConfigsResponse>(
+            urlcat(settings.FIREFLY_ROOT_URL, '/v1/notification/pushswitch/webget'),
         );
         return resolveFireflyResponseData(response);
     }

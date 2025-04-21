@@ -4048,9 +4048,6 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
-msgid "Hide small transactions (<$100)"
-msgstr ""
-
 msgid "Message"
 msgstr ""
 

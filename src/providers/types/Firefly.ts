@@ -1264,6 +1264,31 @@ export enum NotificationTitle {
     Tips = 'Tips',
 }
 
+export interface NotificationConfig {
+    label: React.ReactNode;
+    description: React.ReactNode;
+    platform: NotificationPlatform;
+    pushType: NotificationPushType;
+    value: boolean;
+    children?: NotificationConfig[];
+}
+
+export type NotificationConfigsResponse = Response<{
+    push_switch: boolean;
+    list: Array<{
+        title: string;
+        list: Array<{
+            state: boolean;
+            push_type: NotificationPushType;
+            title: string;
+            description?: string;
+            platform: NotificationPlatform;
+            disabled: boolean;
+            sub_type?: NotificationPushType[];
+        }>;
+    }>;
+}>;
+
 export type NotificationPushSwitchResponse = Response<{
     push_switch: boolean;
     list: Array<{

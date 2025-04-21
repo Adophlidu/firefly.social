@@ -4059,9 +4059,6 @@ msgstr "鑄造功能"
 msgid "Clear"
 msgstr "清除"
 
-msgid "Hide small transactions (<$100)"
-msgstr "隱藏小額交易 (<$100)"
-
 msgid "Message"
 msgstr "訊息"
 

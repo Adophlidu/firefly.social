@@ -9,7 +9,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import type { NotificationPlatform, NotificationPushType, NotificationTitle } from '@/providers/types/Firefly.js';
+import type { NotificationPlatform, NotificationPushType } from '@/providers/types/Firefly.js';
 
 export interface NotificationConfigItemProps {
     label: React.ReactNode;
@@ -17,7 +17,6 @@ export interface NotificationConfigItemProps {
     value: boolean;
     platform: NotificationPlatform;
     pushType: NotificationPushType;
-    type: NotificationTitle;
     unsupported?: boolean;
     disabled?: boolean;
 }
@@ -27,7 +26,6 @@ function useToggleNotificationConfig({
     platform,
     pushType,
     unsupported,
-    type,
 }: Omit<NotificationConfigItemProps, 'label' | 'description'>) {
     return useAsyncFn(async () => {
         try {
@@ -36,13 +34,12 @@ function useToggleNotificationConfig({
                 value,
                 platform,
                 pushType,
-                type,
             });
         } catch (error) {
             enqueueErrorMessage(t`Failed to update notification settings`, { error });
             throw error;
         }
-    }, [value, platform, pushType, unsupported, type]);
+    }, [value, platform, pushType, unsupported]);
 }
 
 export function NotificationConfigItem({ label, description, disabled, ...rest }: NotificationConfigItemProps) {
