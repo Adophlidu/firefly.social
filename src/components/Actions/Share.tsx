@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { type HTMLProps, memo } from 'react';
 import urlcat from 'urlcat';
@@ -31,7 +31,7 @@ export const Share = memo<ShareProps>(function Collect({ className, post, disabl
                 },
             )}
         >
-            <Tooltip content={t`Share`} placement="top" disabled={disabled}>
+            <Tooltip content={<Trans>Share</Trans>} placement="top" disabled={disabled}>
                 <motion.button
                     disabled={disabled}
                     onClick={(event) => {

@@ -3,9 +3,10 @@ import type { Metadata } from 'next';
 import { ChannelContentList } from '@/components/Channel/ChannelContentList.js';
 import { ChannelProvider } from '@/components/Channel/ChannelProvider.js';
 import { NoSSR } from '@/components/NoSSR.js';
-import { ChannelTabType, KeyType, type SocialSourceInURL, SourceInURL } from '@/constants/enum.js';
+import { ChannelTabType, KeyType, type SocialSourceInURL, Source, SourceInURL } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { createMetadataChannelById } from '@/helpers/createMetadataChannel.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
@@ -39,6 +40,11 @@ export default async function Page(props: Props) {
 
     const params = await props.params;
     const source = resolveSocialSource(params.source);
+
+    if (source === Source.Lens && !isValidAddressEthereum(params.id)) {
+        notFound();
+    }
+
     const provider = resolveSocialMediaProvider(source);
     const channel = await runInSafeAsync(() => provider.getChannelById(params.id));
 

@@ -311,7 +311,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                 </ChainGuardButton>
 
                 {collectModule?.referralFee ? (
-                    <Tooltip content={t`Mirror now to get 25% referral fee!`} placement="top">
+                    <Tooltip content={<Trans>Mirror now to get 25% referral fee!</Trans>} placement="top">
                         <ClickableButton
                             disabled={mirrorLoading}
                             className="flex w-[86px] items-center justify-center gap-1 rounded-full border border-highlight py-2 text-[15px] font-bold leading-[20px] text-highlight"

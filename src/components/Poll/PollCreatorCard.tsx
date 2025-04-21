@@ -59,7 +59,7 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
                     </span>
                 </div>
                 {!readonly ? (
-                    <Tooltip content={t`Remove Poll`} placement="top">
+                    <Tooltip content={<Trans>Remove Poll</Trans>} placement="top">
                         <CloseIcon width={20} height={20} className="cursor-pointer" onClick={() => updatePoll(null)} />
                     </Tooltip>
                 ) : null}
@@ -82,7 +82,7 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
                             />
                         </div>
                         {index >= POLL_OPTIONS_MIN_COUNT && (
-                            <Tooltip content={t`Remove Choice`} placement="top">
+                            <Tooltip content={<Trans>Remove Choice</Trans>} placement="top">
                                 <ClickableButton disabled={readonly}>
                                     <MinusIcon width={20} height={20} onClick={() => removeOption(option)} />
                                 </ClickableButton>

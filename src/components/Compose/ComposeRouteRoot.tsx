@@ -1,5 +1,4 @@
 import { Dialog } from '@headlessui/react';
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { Outlet, rootRouteId, useMatch, useRouter } from '@tanstack/react-router';
 
@@ -54,7 +53,7 @@ export function ComposeRouteRoot() {
                 </span>
 
                 {isMedium && !isDraft && !isGif ? (
-                    <Tooltip content={t`Drafts`} placement="top">
+                    <Tooltip content={<Trans>Drafts</Trans>} placement="top">
                         <DraftIcon
                             className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
                             onClick={() => {

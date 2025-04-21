@@ -28,6 +28,10 @@ class LensSessionHolder extends SessionHolder<LensSession> {
         this.lensSessionClient = client;
     }
 
+    resetSessionClient() {
+        this.lensSessionClient = null;
+    }
+
     override assertSession(message?: string): LensSession {
         throw new Error('The Lens session holder does not maintain an internal session, yet the Lens client does.');
     }
@@ -50,6 +54,7 @@ class LensSessionHolder extends SessionHolder<LensSession> {
 
     override removeSession(): void {
         removeLensCredentials(new LocalStorageProvider());
+        this.resetSessionClient();
         super.removeSession();
     }
 }

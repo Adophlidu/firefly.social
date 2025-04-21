@@ -1,5 +1,5 @@
 import { Popover } from '@headlessui/react';
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { memo, useState } from 'react';
 
 import GalleryIcon from '@/assets/gallery.svg';
@@ -31,7 +31,7 @@ export const MediaAction = memo(function MediaAction() {
         images.filter((x) => x.file.type === FileMimeType.GIF).length >= maxGifCount;
 
     const buttonContent = (
-        <Tooltip content={t`Media`} placement="top" disabled={mediaDisabled}>
+        <Tooltip content={<Trans>Media</Trans>} placement="top" disabled={mediaDisabled}>
             <GalleryIcon
                 className={classNames('text-main', mediaDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer')}
                 width={24}

@@ -1,5 +1,5 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { Theme } from 'emoji-picker-react';
 import { $getRoot, $getSelection } from 'lexical';
 import { memo, useState } from 'react';
@@ -24,7 +24,7 @@ export const EmojiAction = memo(function EmojiAction() {
     const [editor] = useLexicalComposerContext();
     const { updateChars } = useComposeStateStore();
     const buttonContent = (
-        <Tooltip content={t`Emoji`} placement="top">
+        <Tooltip content={<Trans>Emoji</Trans>} placement="top">
             <EmojiIcon className="cursor-pointer text-main" width={24} height={24} />
         </Tooltip>
     );

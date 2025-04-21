@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useRouter } from '@tanstack/react-router';
 import { memo } from 'react';
 
@@ -14,7 +14,7 @@ export const GifEntryButton = memo(function GifEntryButton({ disabled = false }:
     const { history } = useRouter();
 
     return (
-        <Tooltip content={t`GIF`} placement="top" disabled={disabled}>
+        <Tooltip content={<Trans>GIF</Trans>} placement="top" disabled={disabled}>
             <ClickableButton
                 className="flex cursor-pointer gap-1 text-main focus:outline-none"
                 disabled={disabled}

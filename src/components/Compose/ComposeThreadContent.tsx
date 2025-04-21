@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 
 import YesIcon from '@/assets/green-yes.svg';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
@@ -54,7 +54,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                                     removePostInThread(x.id);
                                     setEditorContent(next.chars);
                                 }}
-                                tooltip={t`Remove`}
+                                tooltip={<Trans>Remove</Trans>}
                                 size={20}
                             />
                         ) : null}

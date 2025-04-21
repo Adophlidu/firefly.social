@@ -1,6 +1,5 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useDebounce } from 'usehooks-ts';
 
@@ -133,7 +132,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                 size={16}
                                 className="ml-auto text-second"
                                 IconProps={{ className: 'text-inherit' }}
-                                tooltip={t`Remove`}
+                                tooltip={<Trans>Remove</Trans>}
                                 onClick={() => {
                                     removeRecord(record);
                                 }}

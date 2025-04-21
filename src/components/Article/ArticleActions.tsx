@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
@@ -71,22 +71,20 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
     };
 
     return (
-        <div className="flex items-center justify-end">
+        <div className="flex items-center justify-end text-second">
             <div className="flex items-center">
                 <ClickableArea
-                    className={classNames(
-                        'text-lightSecond flex w-min items-center hover:text-secondarySuccess md:space-x-2',
-                    )}
+                    className={classNames('flex w-min items-center hover:text-secondarySuccess md:space-x-2')}
                 >
                     {!(article.platform === ArticlePlatform.Paragraph && !article.origin) &&
                     article.platform !== ArticlePlatform.Limo ? (
-                        <Tooltip content={t`Collect`} placement="top">
+                        <Tooltip content={<Trans>Collect</Trans>} placement="top">
                             <motion.button
                                 onClick={onCollect}
                                 className="inline-flex size-7 items-center justify-center rounded-full hover:bg-secondarySuccess/[.20]"
                                 whileTap={{ scale: 0.9 }}
                             >
-                                <CollectIcon width={17} height={16} />
+                                <CollectIcon width={17} height={16} className="text-second" />
                             </motion.button>
                         </Tooltip>
                     ) : null}

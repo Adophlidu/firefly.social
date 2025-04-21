@@ -13,7 +13,6 @@ import {
     PostType,
     PostVisibilityFilter,
     ReferenceRelevancyFilter,
-    TimelineEventItemType,
 } from '@lens-protocol/client';
 import {
     addReaction,
@@ -39,7 +38,6 @@ import {
     fetchPostReferences,
     fetchPosts,
     fetchPostsToExplore,
-    fetchTimeline,
     fetchWhoReferencedPost,
     follow,
     joinGroup as joinLensGroup,
@@ -61,7 +59,6 @@ import { isServer } from '@tanstack/react-query';
 import { compact, first, flatMap, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
-import { isHex } from 'viem';
 
 import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { InvalidResultError, NotImplementedError } from '@/constants/error.js';
@@ -82,7 +79,6 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { ensureLensResult, ensurePostToLensResult } from '@/helpers/ensureLensResult.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatLensChannelFromGroup } from '@/helpers/formatLensChannel.js';
 import {
     filterFeedsV3,
     formatLensPostByFeedV3,
@@ -96,7 +92,7 @@ import { getLensProfileBySession } from '@/helpers/getLensProfileBySession.js';
 import { handleOperationWithLensChain } from '@/helpers/handleOperationWithLensChain.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
-import { isZero } from '@/helpers/number.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -108,6 +104,7 @@ import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 import { filterNotifications } from '@/providers/lens/filterNotifications.js';
 import {
     isAccountActionExecutedNotification,
@@ -143,16 +140,12 @@ import {
     ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { fetchProfileTimeline } from '@/services/lensV3/fetchProfileTimeline.js';
 import { getAccountWithStatsByHandle, getAccountWithStatsById } from '@/services/lensV3/getAccountWithStats.js';
 import { getGroupWithMemberCount, getGroupWithOwner } from '@/services/lensV3/getFullGroup.js';
 import { uploadLensMetadataToS3 } from '@/services/uploadLensMetadataToS3.js';
 import type { ResponseJSON } from '@/types/index.js';
-
-const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
-
-function ensureCursor(indicator?: PageIndicator) {
-    return indicator?.id && !isZero(indicator.id) ? indicator.id : undefined;
-}
+import { formatLensChannelFromGroup } from '#src/helpers/formatLensChannel.js';
 
 function getClient() {
     if (isServer) return lensSessionHolder.sdk;
@@ -490,7 +483,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async getProfileByIdOrHandle(profileIdOrHandle: string, includeGraphStats?: boolean): Promise<Profile> {
-        if (isHex(profileIdOrHandle)) return this.getProfileById(profileIdOrHandle, includeGraphStats);
+        if (isValidAddressEthereum(profileIdOrHandle)) return this.getProfileById(profileIdOrHandle, includeGraphStats);
         return this.getProfileByHandle(profileIdOrHandle, includeGraphStats);
     }
 
@@ -575,25 +568,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const result = await ensureLensResult(
-            fetchTimeline(lensSessionHolder.sessionClient, {
-                cursor: ensureCursor(indicator),
-                filter: {
-                    eventType: [
-                        TimelineEventItemType.Post,
-                        TimelineEventItemType.Comment,
-                        TimelineEventItemType.Repost,
-                    ],
-                },
-                account: evmAddress(profileId),
-            }),
-        );
-
-        return createPageable(
-            compact(await Promise.all(result.items.map(formatLensPostByFeedV3))),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        return fetchProfileTimeline(profileId, indicator);
     }
 
     async getCollectedPostsByProfileId(

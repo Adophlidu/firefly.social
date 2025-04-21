@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
@@ -24,7 +24,7 @@ export function AddressLink({ address, chainId, networkType }: AddressLinkProps)
     if (!addressLink) return null;
 
     return (
-        <Tooltip placement="top" content={t`View on explorer`}>
+        <Tooltip placement="top" content={<Trans>View on explorer</Trans>}>
             <Link href={addressLink} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
                 <LinkIcon width={16} height={16} />
             </Link>

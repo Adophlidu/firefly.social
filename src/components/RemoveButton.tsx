@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 
 import CloseIcon from '@/assets/close.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
@@ -10,9 +10,9 @@ interface RemoveButtonProps extends ClickableButtonProps {
     size?: number;
 }
 
-export function RemoveButton({ size = 18, tooltip = t`Remove`, ref, ...props }: RemoveButtonProps) {
+export function RemoveButton({ size = 18, tooltip, ref, ...props }: RemoveButtonProps) {
     return (
-        <Tooltip content={tooltip} placement="top">
+        <Tooltip content={tooltip ?? <Trans>Remove</Trans>} placement="top">
             <ClickableButton
                 {...props}
                 className={classNames(

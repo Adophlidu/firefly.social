@@ -57,19 +57,20 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                     await enableSignlessForManaged(sessionClient);
                 }
 
+                lensSessionHolder.resumeSession(account.session);
+                lensSessionHolder.setSessionClient(sessionClient);
                 const done = await addAccount(account, {
                     signal: controller.current.signal,
                 });
                 if (done) {
-                    // after login, move the session storage to local storage
-                    lensSessionHolder.resumeSession(account.session);
-                    lensSessionHolder.setSessionClient(sessionClient);
-
                     enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);
+                } else {
+                    lensSessionHolder.removeSession();
                 }
 
                 LoginModalRef.close();
             } catch (error) {
+                lensSessionHolder.resetSessionClient();
                 // skip if the error is abort error
                 if (AbortError.is(error)) return;
 

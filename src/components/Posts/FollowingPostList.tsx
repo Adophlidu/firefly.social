@@ -64,10 +64,7 @@ export const FollowingPostList = memo<{
     );
 
     if (!isLogin) return <NotLoginFallback source={Source.Posts} />;
-
-    if (asyncStatusAll) {
-        return <Loading />;
-    }
+    if (asyncStatusAll) return <Loading />;
 
     return (
         <ListInPage

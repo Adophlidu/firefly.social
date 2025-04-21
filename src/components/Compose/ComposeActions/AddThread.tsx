@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import AddThreadIcon from '@/assets/add-thread.svg';
@@ -44,7 +44,7 @@ export const AddThread = memo(function AddThread() {
                     {posts.length >= MAX_POST_SIZE_PER_THREAD ? (
                         <AddThreadIcon width={24} height={24} className="text-highlight outline-none" />
                     ) : (
-                        <Tooltip content={t`Add`} placement="top">
+                        <Tooltip content={<Trans>Add</Trans>} placement="top">
                             <AddThreadIcon width={24} height={24} className="text-highlight outline-none" />
                         </Tooltip>
                     )}

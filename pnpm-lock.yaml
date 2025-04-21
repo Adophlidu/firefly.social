@@ -107,8 +107,8 @@ dependencies:
     specifier: ^1.0.4
     version: 1.0.4
   '@lens-protocol/client':
-    specifier: 0.0.0-canary-20250415114943
-    version: 0.0.0-canary-20250415114943(@lens-chain/sdk@1.0.3)(typescript@5.7.3)(viem@2.26.2)
+    specifier: 0.0.0-canary-20250416195649
+    version: 0.0.0-canary-20250416195649(@lens-chain/sdk@1.0.3)(typescript@5.7.3)(viem@2.26.2)
   '@lens-protocol/metadata':
     specifier: 2.0.0-next.7
     version: 2.0.0-next.7(typescript@5.7.3)(zod@3.24.2)
@@ -4730,11 +4730,13 @@ packages:
       '@gql.tada/svelte-support': 1.0.1
       '@gql.tada/vue-support': 1.0.1
       graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
-      typescript: ^5.0.0
+      typescript: ^5.0.0 || 5
     peerDependenciesMeta:
       '@gql.tada/svelte-support':
         optional: true
       '@gql.tada/vue-support':
+        optional: true
+      typescript:
         optional: true
     dependencies:
       '@0no-co/graphqlsp': 1.12.16(graphql@16.10.0)(typescript@5.7.3)
@@ -5079,8 +5081,8 @@ packages:
     resolution: {integrity: sha512-dORCTVwSWP7MWoJ257oriH7EV8g6YU3Pxgligy28XOglLEO0PBb/D4b6fuSSqWZjvfOjr4KCC4UgqU1z66VckQ==}
     dev: false
 
-  /@lens-protocol/client@0.0.0-canary-20250415114943(@lens-chain/sdk@1.0.3)(typescript@5.7.3)(viem@2.26.2):
-    resolution: {integrity: sha512-G65mlV1SG8zJqdk8hd9i3UkHXbgk0W7CyXs/mMPiSJbrK1fWaz+dMMHsAjmcgwmYlgpYKhb4ZRFa8p2uOBNxEw==}
+  /@lens-protocol/client@0.0.0-canary-20250416195649(@lens-chain/sdk@1.0.3)(typescript@5.7.3)(viem@2.26.2):
+    resolution: {integrity: sha512-1fQOInPUkKAEB6UAti5HLBPvcGZ6I2Z1K/Cq9E5kGvfg0PfFCXGIIQELw6t7ebfqf+D7DqJPY2HbQWcj5ul9vg==}
     peerDependencies:
       '@lens-chain/sdk': ^1.0.0
       ethers: ^6.13.4
@@ -5097,10 +5099,10 @@ packages:
         optional: true
     dependencies:
       '@lens-chain/sdk': 1.0.3(viem@2.26.2)
-      '@lens-protocol/env': 0.0.0-canary-20250415114943
-      '@lens-protocol/graphql': 0.0.0-canary-20250415114943(typescript@5.7.3)
-      '@lens-protocol/storage': 0.0.0-canary-20250415114943
-      '@lens-protocol/types': 0.0.0-canary-20250415114943
+      '@lens-protocol/env': 0.0.0-canary-20250416195649
+      '@lens-protocol/graphql': 0.0.0-canary-20250416195649(typescript@5.7.3)
+      '@lens-protocol/storage': 0.0.0-canary-20250416195649
+      '@lens-protocol/types': 0.0.0-canary-20250416195649
       '@urql/core': 5.1.1(graphql@16.10.0)
       '@urql/exchange-auth': 2.2.1(@urql/core@5.1.1)
       graphql: 16.10.0
@@ -5113,16 +5115,16 @@ packages:
       - typescript
     dev: false
 
-  /@lens-protocol/env@0.0.0-canary-20250415114943:
-    resolution: {integrity: sha512-NO0tFaREZp+ARdFL4h5K0dr9/gAQg4qKV+290B3kDJuapKfjvkIOAVP24pRhoJ8JJhnvoaATThSTWtijS72N4g==}
+  /@lens-protocol/env@0.0.0-canary-20250416195649:
+    resolution: {integrity: sha512-euPoMCjr3Mp0YlRJIdwKz0q3UMHGj5IBk7vfpVP4lmiUCS3JLDvhh9RxqVA8wCWn+T0mUgwMLdOzYu7W5d1ZXA==}
     dependencies:
-      '@lens-protocol/types': 0.0.0-canary-20250415114943
+      '@lens-protocol/types': 0.0.0-canary-20250416195649
     dev: false
 
-  /@lens-protocol/graphql@0.0.0-canary-20250415114943(typescript@5.7.3):
-    resolution: {integrity: sha512-vjMhlxAz0GtyvzEpUwUTULp2Xk6v5Qt8cmYh0BK2ROm5T7l6CWHPqppPbhfW+VeMRBauBKfDxnr+eE63S8RadA==}
+  /@lens-protocol/graphql@0.0.0-canary-20250416195649(typescript@5.7.3):
+    resolution: {integrity: sha512-m7YACIy4sT9JUiWMxti/eJ265zmTfmQm/amlyLsEI1QcQGl4Jdn+cYOpCQnAR4XpD9FDx8U36Wsq/5P0VSq+rQ==}
     dependencies:
-      '@lens-protocol/types': 0.0.0-canary-20250415114943
+      '@lens-protocol/types': 0.0.0-canary-20250416195649
       gql.tada: 1.8.10(graphql@16.10.0)(typescript@5.7.3)
       graphql: 16.10.0
       type-fest: 4.39.1
@@ -5149,15 +5151,15 @@ packages:
       - typescript
     dev: false
 
-  /@lens-protocol/storage@0.0.0-canary-20250415114943:
-    resolution: {integrity: sha512-xM1Es9ceC3JbsMjPkrtMBFdYTDo4Nrmfv8wrfVtpGIJNyG5logGPKvB1/P47EG5HNM6LBXLQB6+Q3a+Od36diw==}
+  /@lens-protocol/storage@0.0.0-canary-20250416195649:
+    resolution: {integrity: sha512-hXZMQ61Fo6Dik8j+SNHPRPpzt0RrXcROaQ2yuwQrVjIs25RaxvF3jFn8F/JsornwRwTssbP1v9Iv/Wvx9jJKZQ==}
     dependencies:
-      '@lens-protocol/types': 0.0.0-canary-20250415114943
+      '@lens-protocol/types': 0.0.0-canary-20250416195649
       zod: 3.24.2
     dev: false
 
-  /@lens-protocol/types@0.0.0-canary-20250415114943:
-    resolution: {integrity: sha512-gLW0tYw9B4MVmt4xTZUlk70MmwUQX+krt6GMJPfoZWS4qJUobsnp3iCBMyRK5K+8ENLwXH23CJAf4hFm0JaH0w==}
+  /@lens-protocol/types@0.0.0-canary-20250416195649:
+    resolution: {integrity: sha512-k246WwgQ3HYltl1fGcmt+rPwdmTEhCrcspfDjuc9eDtB/+xpN43MkmJ0OQdEWCu8xGXLDYnHIZWM7VOMMXdU5A==}
     dependencies:
       neverthrow: 8.2.0
       type-fest: 4.39.1
@@ -21116,7 +21118,7 @@ time:
   /@hookform/resolvers@4.1.3: '2025-03-03T06:43:57.634Z'
   /@lens-chain/sdk@1.0.3: '2025-04-11T12:06:36.747Z'
   /@lens-chain/storage-client@1.0.4: '2025-04-02T09:41:34.485Z'
-  /@lens-protocol/client@0.0.0-canary-20250415114943: '2025-04-15T11:52:10.497Z'
+  /@lens-protocol/client@0.0.0-canary-20250416195649: '2025-04-16T19:59:17.077Z'
   /@lens-protocol/metadata@2.0.0-next.7: '2025-03-05T13:24:05.951Z'
   /@lexical/hashtag@0.18.0: '2024-09-26T17:26:33.056Z'
   /@lexical/link@0.18.0: '2024-09-26T17:26:42.173Z'

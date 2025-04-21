@@ -1,5 +1,4 @@
 import { MenuItem } from '@headlessui/react';
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
@@ -21,10 +20,10 @@ export const ShareAction = memo(function ShareAction({ link }: ShareActionProps)
     return (
         <MoreActionMenu
             button={
-                <Tooltip content={t`Share`} placement="top">
+                <Tooltip content={<Trans>Share</Trans>} placement="top">
                     <motion.button
                         whileTap={{ scale: 0.9 }}
-                        className="text-lightSecond inline-flex size-7 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link"
+                        className="inline-flex size-7 items-center justify-center rounded-full text-second hover:bg-link/[0.2] hover:text-link"
                     >
                         <ShareIcon width={17} height={16} />
                     </motion.button>

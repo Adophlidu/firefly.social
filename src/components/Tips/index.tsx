@@ -1,4 +1,5 @@
 import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { type HTMLProps } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -88,7 +89,11 @@ export function Tips({
                 'w-min': !label,
             })}
         >
-            <Tooltip content={t`Send a tip`} placement="top" disabled={disabled || tooltipDisabled || loading}>
+            <Tooltip
+                content={<Trans>Send a tip</Trans>}
+                placement="top"
+                disabled={disabled || tooltipDisabled || loading}
+            >
                 <motion.button
                     className={classNames('inline-flex items-center', {
                         'hover:bg-lightWarn/[.20]': !disabled && !label && !loading,
