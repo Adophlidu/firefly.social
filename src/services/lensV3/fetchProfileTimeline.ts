@@ -36,6 +36,7 @@ export async function fetchProfileTimeline(profileId: string, indicator?: PageIn
                 account: evmAddress(profileId),
             },
         },
+        errorPolicy: 'all',
         fetchPolicy: 'no-cache',
     });
 
