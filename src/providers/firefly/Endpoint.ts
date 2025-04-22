@@ -1269,6 +1269,28 @@ export class FireflyEndpoint {
         const response = await fetchJSON<WalletRelationResponse>(url);
         return resolveFireflyResponseData(response);
     }
+
+    async checkCustodyWallet(fid: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/farcaster_account/checkCustodyWallet', {
+            fid,
+        });
+        const response = await fireflySessionHolder.fetch<Response<boolean>>(url);
+        const data = resolveFireflyResponseData(response);
+        return data;
+    }
+
+    async signMessageWithCustodyWallet(fid: string, message: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/farcaster_account/signMessage');
+        const response = await fireflySessionHolder.fetch<Response<{ signatureMessage: string }>>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                fid: Number.parseInt(fid, 10),
+                message,
+            }),
+        });
+        const data = resolveFireflyResponseData(response);
+        return data.signatureMessage;
+    }
 }
 
 export const FireflyEndpointProvider = new FireflyEndpoint();

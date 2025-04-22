@@ -45,7 +45,12 @@ export class FarcasterFrameHost implements FrameHost {
         if (!profile) throw new Error('No profile found. Please log in to Farcaster.');
 
         const frame = this.options?.frame?.();
-        return signInWithFarcaster(frame?.x_url ?? SITE_URL, `${this.context.user.fid}`, options.nonce);
+        const signature = await signInWithFarcaster(
+            frame?.x_url ?? SITE_URL,
+            `${this.context.user.fid}`,
+            options.nonce,
+        );
+        return signature;
     };
 
     swap: FrameHost['swap'] = (options) => {
