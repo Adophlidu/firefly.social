@@ -79,11 +79,7 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { ensureLensResult, ensurePostToLensResult } from '@/helpers/ensureLensResult.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import {
-    filterFeedsV3,
-    formatLensPostV3,
-    formatLensQuoteOrCommentV3,
-} from '@/helpers/formatLensPost.js';
+import { filterFeedsV3, formatLensPostV3, formatLensQuoteOrCommentV3 } from '@/helpers/formatLensPost.js';
 import { formatLensPostRules } from '@/helpers/formatLensPostRules.js';
 import { formatLensProfileV3 } from '@/helpers/formatLensProfile.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';

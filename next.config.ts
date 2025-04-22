@@ -241,6 +241,11 @@ const config: NextConfig = {
                 test: /\.svg$/i,
                 type: 'asset',
                 resourceQuery: /url/, // *.svg?url
+                parser: {
+                    dataUrlCondition: {
+                        maxSize: 50 * 1024,
+                    },
+                },
             },
             {
                 test: /\.svg$/i,
