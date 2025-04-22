@@ -48,7 +48,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_FARCASTER_OPENRANK_URL: z.string().default('https://graph.cast.k3l.io'),
     NEXT_PUBLIC_LENS_OPENRANK_URL: z.string().default('https://lens-api.k3l.io'),
     NEXT_PUBLIC_SOLANA_RPC_URL: z.string().default('https://api.mainnet-beta.solana.com'),
-    NEXT_PUBLIC_FIREFLY_NITTER_URL: z.string().default('https://nitter-api.firefly.social'),
+    NEXT_PUBLIC_FIREFLY_NITTER_URL: z.string().default('https://nitter.r2d2.to'),
 
     // features
     NEXT_PUBLIC_POLL: z.nativeEnum(STATUS).default(STATUS.Disabled),
