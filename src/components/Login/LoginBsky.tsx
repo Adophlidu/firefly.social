@@ -22,7 +22,6 @@ import { AsyncStatus, Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { classNames } from '@/helpers/classNames.js';
 import {
-    enqueueErrorMessage,
     enqueueMessageFromError,
     enqueueSuccessMessage,
     enqueueWarningMessage,
@@ -190,7 +189,7 @@ export function LoginBsky() {
             } catch (error) {
                 if (AbortError.is(error)) return false;
 
-                enqueueErrorMessage(t`Sorry, the provider you entered is invalid`);
+                enqueueWarningMessage(t`Sorry, the provider you entered is invalid`);
                 throw error;
             }
         },
