@@ -3,6 +3,7 @@
 import dayjs from 'dayjs';
 import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
+import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
 
 import BskySVG from '@/assets/bsky-circle.svg?url';
@@ -42,6 +43,10 @@ function resolveAttachmentsSrc(asset?: Attachment) {
         default:
             return null;
     }
+}
+
+function Image({ src, ...props }: Pick<HTMLProps<'img'>, 'src' | 'alt' | 'width' | 'height' | 'style'>) {
+    return <img alt="img" {...props} src={src} />;
 }
 
 async function AttachmentImage({ src }: { src: string }) {
@@ -94,8 +99,8 @@ async function AttachmentImage({ src }: { src: string }) {
                         height: `${scaledHeight - 24}px`,
                     }}
                 />
-                <img
-                    src={`data:${imageMeta.mime};base64,${imageMeta.base64}`}
+                <Image
+                    src={src}
                     alt="image"
                     style={{
                         width: '100%',
@@ -121,7 +126,7 @@ async function PostOpenGraphImage({ post }: { post: Post }) {
                 position: 'relative',
             }}
         >
-            <img
+            <Image
                 src={OGBackgroundSVG}
                 alt="og-background"
                 style={{ position: 'absolute', top: 0, left: 0, width: '1200px', height: '630px' }}
@@ -146,7 +151,7 @@ async function PostOpenGraphImage({ post }: { post: Post }) {
                 {src ? await AttachmentImage({ src }) : null}
 
                 <div style={{ display: 'flex', position: 'relative', width: '120px' }}>
-                    <img
+                    <Image
                         src={post.author.pfp}
                         alt="pfp"
                         style={{
@@ -156,7 +161,7 @@ async function PostOpenGraphImage({ post }: { post: Post }) {
                             objectFit: 'cover',
                         }}
                     />
-                    <img
+                    <Image
                         src={resolveSourceIcon(post.source)}
                         style={{ width: '32px', height: '32px', position: 'absolute', bottom: 0, right: 0 }}
                         alt="source"

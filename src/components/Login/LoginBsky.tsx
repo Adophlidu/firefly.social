@@ -21,11 +21,7 @@ import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { classNames } from '@/helpers/classNames.js';
-import {
-    enqueueMessageFromError,
-    enqueueSuccessMessage,
-    enqueueWarningMessage,
-} from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
