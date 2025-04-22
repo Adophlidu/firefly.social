@@ -1,7 +1,6 @@
 import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { first } from 'lodash-es';
 import { memo, useCallback } from 'react';
 
 import EngagementIcon from '@/assets/engagement.svg';
@@ -21,11 +20,10 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { BaseToggleFollowButton } from '@/components/Profile/BaseToggleFollowButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { EngagementType, type SocialSource, Source } from '@/constants/enum.js';
-import { ENABLED_BOOKMARK_SOURCES, SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
+import { ENABLED_BOOKMARK_SOURCES } from '@/constants/index.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
-import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
@@ -34,6 +32,7 @@ import { useReportPost } from '@/hooks/useReportPost.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
+import { resolvePostEngagementUrl } from '#src/helpers/resolveEngagementUrl.js';
 
 interface MoreProps {
     source: SocialSource;
@@ -77,8 +76,6 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
         },
         [isFollowing, author.handle],
     );
-
-    const engagementType = first(SORTED_ENGAGEMENT_TAB_TYPE[source]) || EngagementType.Likes;
 
     // all menu items are hidden
     if (
@@ -184,7 +181,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                     <MenuItem>
                         <Link
                             shallow
-                            href={`/post/${resolveSocialSourceInUrl(source)}/${post.postId}/${engagementType}`}
+                            href={resolvePostEngagementUrl(post)}
                             className="box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
                             onClick={stopPropagation}
                         >

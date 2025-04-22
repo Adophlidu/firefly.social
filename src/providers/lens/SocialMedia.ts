@@ -81,7 +81,6 @@ import { ensureLensResult, ensurePostToLensResult } from '@/helpers/ensureLensRe
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
     filterFeedsV3,
-    formatLensPostByFeedV3,
     formatLensPostV3,
     formatLensQuoteOrCommentV3,
 } from '@/helpers/formatLensPost.js';

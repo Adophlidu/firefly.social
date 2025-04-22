@@ -1,6 +1,8 @@
+import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { EngagementType, type SocialSource, Source } from '@/constants/enum.js';
+import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -12,6 +14,8 @@ export function resolveEngagementUrl(id: string, source: SocialSource, type: Eng
     });
 }
 
-export function resolvePostEngagementUrl({ postId, slug, source }: Post, type: EngagementType) {
-    return resolveEngagementUrl(slug && source === Source.Lens ? slug : postId, source, type);
+export function resolvePostEngagementUrl({ postId, slug, source }: Post, type?: EngagementType) {
+    const engagementType = type || first(SORTED_ENGAGEMENT_TAB_TYPE[source]) || EngagementType.Likes;
+
+    return resolveEngagementUrl(slug && source === Source.Lens ? slug : postId, source, engagementType);
 }
