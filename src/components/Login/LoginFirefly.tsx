@@ -110,7 +110,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
                         <Trans>
                             Scan the QR code with the{' '}
                             <Link
-                                href="https://about.firefly.social"
+                                href="https://firefly.social/about"
                                 className="font-bold hover:underline"
                                 target="_blank"
                             >

@@ -24,7 +24,7 @@ export function LinkCloud() {
                 },
                 {
                     name: <Trans>Download App</Trans>,
-                    link: 'https://about.firefly.social',
+                    link: 'https://firefly.social/about',
                 },
                 {
                     name: <Trans>Feedback</Trans>,
@@ -32,7 +32,7 @@ export function LinkCloud() {
                 },
                 {
                     name: <Trans>About</Trans>,
-                    link: 'https://about.firefly.social',
+                    link: 'https://firefly.social/about',
                 },
             ]).map(({ name, link, self }) => (
                 <Link
