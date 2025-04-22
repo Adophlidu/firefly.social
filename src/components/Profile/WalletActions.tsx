@@ -19,7 +19,7 @@ export function WalletActions({ profile }: { profile: WalletProfile }) {
         <>
             <WatchButton
                 className="ml-auto mr-1"
-                watchButtonClassName="!bg-highlight"
+                watchButtonClassName="!bg-highlight dark:text-main"
                 watchingButtonClassName="!text-highlight"
                 address={profile.address}
             />

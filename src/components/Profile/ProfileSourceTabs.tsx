@@ -477,7 +477,7 @@ export function ProfileSourceTabs({
                                             'text-lensPrimary': source === Source.Lens,
                                             'text-mainLight': source === Source.Twitter,
                                             'text-bskyPrimary': source === Source.Bsky,
-                                            'text-highlight': isWalletProfile,
+                                            'text-highlight dark:bg-walletBg': isWalletProfile,
                                         },
                                     )}
                                     onMouseLeave={close}
