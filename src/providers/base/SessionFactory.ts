@@ -1,5 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
-import z from 'zod';
+import { z } from 'zod';
 
 import { UnreachableError } from '@/constants/error.js';
 import { decodeAsciiPayload, decodeNoAsciiPayload } from '@/helpers/encodeSessionPayload.js';

@@ -3,13 +3,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { delay } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
-import * as z from 'zod';
+import { z } from 'zod';
 
 import AtIcon from '@/assets/at.svg';
 import GlobalIcon from '@/assets/global.svg';
@@ -93,7 +92,7 @@ export function LoginBsky() {
         defaultValues: {
             account: '',
             password: '',
-            serviceUrl: DEFAULT_SERVICE_URL,
+            serviceUrl: '',
         },
     });
 
@@ -102,7 +101,7 @@ export function LoginBsky() {
     const { account, password, serviceUrl } = watch();
 
     const [{ loading }, login] = useAsyncFn(
-        async (username: string, password: string, serviceUrl: string) => {
+        async (username: string, password: string, serviceUrl = DEFAULT_SERVICE_URL) => {
             controller.current.renew();
             try {
                 await loginBsky(
@@ -161,7 +160,7 @@ export function LoginBsky() {
         queryKey: ['login-bsky', serviceUrl, editServiceUrl],
         queryFn: async ({ queryKey, signal }) => {
             const [, url, editServiceUrl] = queryKey as [string, string, boolean];
-            if (!url) return false;
+            if (!url) return true;
             if (editServiceUrl) return false;
 
             // default service url
@@ -196,7 +195,7 @@ export function LoginBsky() {
         <form
             className="box-border flex w-[500px] flex-col items-center gap-3 p-6 max-md:w-full"
             onSubmit={handleSubmit((form) => {
-                login(form.account, form.password, form.serviceUrl || DEFAULT_SERVICE_URL);
+                login(form.account, form.password, form.serviceUrl);
             })}
         >
             <div className="flex w-[300px] flex-col gap-5 max-md:w-full">
@@ -288,7 +287,6 @@ export function LoginBsky() {
                         )}
                         onClick={async () => {
                             setEditServiceUrl(true);
-                            await delay(300);
                             setFocus('serviceUrl');
                         }}
                     >
@@ -303,9 +301,8 @@ export function LoginBsky() {
                             IconProps={{ className: 'group-hover:text-highlight group-focus-within:text-highlight' }}
                             size={16}
                             onClick={async () => {
-                                resetField('serviceUrl');
                                 setEditServiceUrl(true);
-                                await delay(300);
+                                resetField('serviceUrl');
                                 setFocus('serviceUrl');
                             }}
                         />
