@@ -276,6 +276,9 @@ msgstr "可以暂停交易的功能"
 msgid "{count}s"
 msgstr "{count}秒"
 
+msgid "Channel details"
+msgstr ""
+
 msgid "Claimed successfully."
 msgstr "领取成功。"
 
@@ -3712,6 +3715,9 @@ msgstr "Firefly 桥"
 
 msgid "Congratulations!"
 msgstr "祝贺你！"
+
+msgid "Channel could not be found."
+msgstr ""
 
 msgid "Clear all requirements"
 msgstr "清除所有任务"

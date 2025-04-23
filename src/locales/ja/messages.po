@@ -276,6 +276,9 @@ msgstr ""
 msgid "{count}s"
 msgstr ""
 
+msgid "Channel details"
+msgstr ""
+
 msgid "Claimed successfully."
 msgstr ""
 
@@ -3695,6 +3698,9 @@ msgid "Firefly Bridge"
 msgstr ""
 
 msgid "Congratulations!"
+msgstr ""
+
+msgid "Channel could not be found."
 msgstr ""
 
 msgid "Clear all requirements"

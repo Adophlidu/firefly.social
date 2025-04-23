@@ -271,6 +271,9 @@ msgstr "Functions that can suspend trading"
 msgid "{count}s"
 msgstr "{count}s"
 
+msgid "Channel details"
+msgstr "Channel details"
+
 msgid "Claimed successfully."
 msgstr "Claimed successfully."
 
@@ -3707,6 +3710,9 @@ msgstr "Firefly Bridge"
 
 msgid "Congratulations!"
 msgstr "Congratulations!"
+
+msgid "Channel could not be found."
+msgstr "Channel could not be found."
 
 msgid "Clear all requirements"
 msgstr "Clear all requirements"
