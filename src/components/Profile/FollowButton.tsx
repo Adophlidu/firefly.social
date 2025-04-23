@@ -1,7 +1,6 @@
 'use client';
 
 import { t } from '@lingui/core/macro';
-import { useQuery } from '@tanstack/react-query';
 import { memo, useCallback, useState } from 'react';
 
 import FollowIcon from '@/assets/follow-bold.svg';
@@ -12,10 +11,8 @@ import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { BaseToggleFollowButton } from '@/components/Profile/BaseToggleFollowButton.js';
 import { classNames } from '@/helpers/classNames.js';
-import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 enum State {
@@ -43,19 +40,12 @@ export const FollowButton = memo(function FollowButton({
 }: FollowButtonProps) {
     const isMedium = useIsMedium();
     const [hovering, setHovering] = useState(false);
-    const isProfileMuted = useIsProfileMuted(
+    const muted = useIsProfileMuted(
         profile.source,
         profile.profileId,
         profile.viewerContext?.blocking,
         hasMutedButton && profile.viewerContext?.blocking === undefined,
     );
-    const { data: isMutedAll } = useQuery({
-        queryKey: ['profile', 'mute-all', profile.source, resolveFireflyProfileId(profile)],
-        queryFn() {
-            return FireflyEndpointProvider.isProfileMutedAll(profile.source, profile.profileId);
-        },
-    });
-    const muted = isMutedAll || isProfileMuted;
 
     const isFollowing = !!profile.viewerContext?.following;
     const isFollowedBy = !!profile.viewerContext?.followedBy;

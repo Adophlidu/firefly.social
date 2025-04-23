@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useQuery } from '@tanstack/react-query';
 import { type HTMLProps, memo } from 'react';
 import { useAsyncFn } from 'react-use';
 import type { Address } from 'viem';
@@ -9,10 +8,11 @@ import { useEnsName } from 'wagmi';
 import MuteIcon from '@/assets/mute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { type ProfilePageSource, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
@@ -40,13 +40,7 @@ function waitForConfirmation(handleOrEnsOrAddress: string) {
 }
 
 function MuteAllProfileBase({ handleOrEnsOrAddress, identity, onClose, className }: MuteAllProfileBaseProps) {
-    const { data: isMutedAll, isLoading } = useQuery({
-        queryKey: ['profile', 'mute-all', identity.source, identity.id],
-        queryFn() {
-            return FireflyEndpointProvider.isProfileMutedAll(identity.source as ProfilePageSource, identity.id);
-        },
-    });
-
+    const isLogin = useIsLogin();
     const [{ loading }, handleMuteAll] = useAsyncFn(async () => {
         try {
             onClose?.();
@@ -62,7 +56,7 @@ function MuteAllProfileBase({ handleOrEnsOrAddress, identity, onClose, className
         }
     }, [handleOrEnsOrAddress, identity, onClose]);
 
-    if (isLoading || isMutedAll) return null;
+    if (!isLogin) return null;
 
     return (
         <MenuButton onClick={handleMuteAll} disabled={loading} className={className}>
