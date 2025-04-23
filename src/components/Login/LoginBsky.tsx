@@ -101,12 +101,13 @@ export function LoginBsky() {
     const { account, password, serviceUrl } = watch();
 
     const [{ loading }, login] = useAsyncFn(
-        async (username: string, password: string, serviceUrl = DEFAULT_SERVICE_URL) => {
+        async (username: string, password: string, serviceUrl?: string) => {
             controller.current.renew();
             try {
                 await loginBsky(
                     async () => {
-                        const agent = createAgentOnce(serviceUrl);
+                        const serviceUrl_ = serviceUrl || DEFAULT_SERVICE_URL;
+                        const agent = createAgentOnce(serviceUrl_);
                         const response = await agent.login({
                             identifier: username,
                             password,
@@ -125,7 +126,7 @@ export function LoginBsky() {
                             throw new Error(`Failed to get profile id = ${response.data.did}.`);
 
                         const now = Date.now();
-                        const session = new BskySession(response.data.did, now, now, serviceUrl, {
+                        const session = new BskySession(response.data.did, now, now, serviceUrl_, {
                             active: true,
                             ...response.data,
                         });
