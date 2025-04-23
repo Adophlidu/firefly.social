@@ -1,18 +1,16 @@
 import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import type { SocialSource } from '@/constants/enum.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { type Channel, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
 const METHODS_BE_OVERRIDDEN = ['joinChannel', 'leaveChannel'] as const;
 
 function setJoinStatus(source: SocialSource, channel: Channel, status: boolean) {
-    const profile = getCurrentProfile(source);
     queryClient.setQueriesData<Channel>(
         {
-            queryKey: ['channel', channel.source, channel.id, profile?.profileId],
+            queryKey: ['channel', channel.source, channel.id],
         },
         (old) => {
             if (!old) return old;
@@ -20,11 +18,23 @@ function setJoinStatus(source: SocialSource, channel: Channel, status: boolean) 
             return produce(old, (draft) => {
                 if (draft.id === channel.id && draft.source === channel.source) {
                     draft.isMember = status;
+                    draft.followerCount = (draft.followerCount || 0) + (status ? 1 : -1);
                 }
                 return draft;
             });
         },
     );
+
+    switch (source) {
+        case Source.Farcaster:
+            queryClient.refetchQueries({ queryKey: ['profiles', source, 'followers-of', channel.id] });
+            break;
+        case Source.Lens:
+            queryClient.refetchQueries({ queryKey: ['profiles', source, 'members-of', channel.id] });
+            break;
+        default:
+            break;
+    }
 }
 
 export function SetQueryDataForJoinChannel(source: SocialSource) {
