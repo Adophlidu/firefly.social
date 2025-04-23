@@ -26,6 +26,8 @@ function getFollowSuccessMessage(channel: Channel, isFollowing: boolean) {
     switch (channel.source) {
         case Source.Bsky:
             return `${isFollowing ? 'Removed' : 'Added'} #${channel.name} on ${sourceName}`;
+        case Source.Lens:
+            return `${isFollowing ? 'Left' : 'Joined'} #${channel.name} on ${sourceName}`;
         default:
             return `${isFollowing ? 'Unfollowed' : 'Followed'} /${channel.id} on ${sourceName}`;
     }
@@ -37,6 +39,8 @@ function getFollowErrorMessage(channel: Channel, isFollowing: boolean) {
     switch (channel.source) {
         case Source.Bsky:
             return `Failed to ${isFollowing ? 'remove' : 'add'} #${channel.name} on ${sourceName}`;
+        case Source.Lens:
+            return `Failed to ${isFollowing ? 'leave' : 'join'} #${channel.name} on ${sourceName}`;
         default:
             return `Failed to ${isFollowing ? 'unfollow' : 'follow'} /${channel.id} on ${sourceName}`;
     }
