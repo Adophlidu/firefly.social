@@ -2,7 +2,8 @@
 
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { first } from 'lodash-es';
+import React, { useEffect } from 'react';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import {
@@ -30,7 +31,7 @@ export default function NotificationPage() {
         setupFirebaseFcmConnection({ force: true, showUi: true });
     }, []);
 
-    const globalSwitch = data?.find((x) => x.platform === NotificationPlatform.All)?.value;
+    const globalSwitch = first(data)?.list?.find((x) => x.platform === NotificationPlatform.All)?.value;
 
     return (
         <Section>
@@ -48,26 +49,39 @@ export default function NotificationPage() {
                     {!data && !isLoading && !isRefetching ? (
                         <NoResultsFallback />
                     ) : (
-                        data?.map(({ children, ...rest }) => (
-                            <div key={rest.pushType} className="rounded-lg border border-line px-3 py-2">
-                                <NotificationConfigItem
-                                    key={rest.pushType}
-                                    {...rest}
-                                    disabled={rest.platform !== NotificationPlatform.All && !globalSwitch}
-                                />
-                                {children?.length ? (
-                                    <div className="mt-4 border-t border-line pt-2">
-                                        {children?.map(({ children, ...subConfig }) => (
-                                            <NotificationChildConfigItem
-                                                key={subConfig.pushType}
-                                                {...subConfig}
-                                                disabled={!rest.value || !globalSwitch}
+                        data?.map(({ list, groupName }) =>
+                            !list.length ? null : (
+                                <div
+                                    key={groupName}
+                                    className="group space-y-4 rounded-lg border border-line px-3 py-2"
+                                >
+                                    {list.map(({ children, ...rest }) => (
+                                        <React.Fragment key={rest.pushType}>
+                                            <NotificationConfigItem
+                                                key={`${rest.pushType}-self`}
+                                                {...rest}
+                                                disabled={rest.platform !== NotificationPlatform.All && !globalSwitch}
+                                                className="border-b border-line pb-4 last:border-b-0 last:pb-0"
                                             />
-                                        ))}
-                                    </div>
-                                ) : null}
-                            </div>
-                        ))
+                                            {children?.length ? (
+                                                <div
+                                                    className="border-b border-line pb-4 last:border-b-0 last:pb-0"
+                                                    key={`${rest.pushType}-children`}
+                                                >
+                                                    {children?.map(({ children, ...subConfig }) => (
+                                                        <NotificationChildConfigItem
+                                                            key={subConfig.pushType}
+                                                            {...subConfig}
+                                                            disabled={!rest.value || !globalSwitch}
+                                                        />
+                                                    ))}
+                                                </div>
+                                            ) : null}
+                                        </React.Fragment>
+                                    ))}
+                                </div>
+                            ),
+                        )
                     )}
                 </div>
             </div>

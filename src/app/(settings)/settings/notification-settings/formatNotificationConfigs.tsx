@@ -7,7 +7,6 @@ import {
     type NotificationConfigsResponse,
     NotificationPlatform,
     NotificationPushType,
-    NotificationTitle,
 } from '@/providers/types/Firefly.js';
 
 type NotificationData = Required<NotificationConfigsResponse>['data'];
@@ -32,64 +31,62 @@ function getDescription(config: ConfigItem) {
     return config.title;
 }
 
-function isSameConfig(config: ConfigItem, otherConfig: ConfigItem) {
-    return config.platform === otherConfig.platform && config.push_type === otherConfig.push_type;
+function toNotificationConfig(data: ConfigItem): NotificationConfig {
+    return {
+        label: data.title,
+        description: getDescription(data),
+        platform: data.platform,
+        pushType: data.push_type,
+        value: data.state,
+    };
 }
 
-export function formatNotificationConfigs(data: NotificationData): NotificationConfig[] {
-    const configs = [
+export function formatNotificationConfigs(data: NotificationData): Array<{
+    groupName: string;
+    list: NotificationConfig[];
+}> {
+    return [
         {
-            label: <Trans>Push notifications</Trans>,
-            description: <Trans>Turn on notifications to never miss important alerts.</Trans>,
-            platform: NotificationPlatform.All,
-            pushType: NotificationPushType.All,
-            type: NotificationTitle.NotificationsMode,
-            value: data.push_switch === true,
+            groupName: 'global',
+            list: [
+                {
+                    label: <Trans>Push notifications</Trans>,
+                    description: <Trans>Turn on notifications to never miss important alerts.</Trans>,
+                    platform: NotificationPlatform.All,
+                    pushType: NotificationPushType.All,
+                    value: data.push_switch === true,
+                },
+            ],
         },
-        ...data.list.reduce<NotificationConfig[]>((acc, { title, list }) => {
-            const parentConfig = list.length <= 1 ? list[0] : list.find((x) => !!x.sub_type?.length);
-            if (parentConfig) {
+        ...data.list.map(({ title, list }) => {
+            const sortedList = list.slice().sort((a) => (a.sub_type?.length ? -1 : 1));
+            const visited = new Set<NotificationPushType>();
+            const groupList = sortedList.reduce<NotificationConfig[]>((acc, config) => {
+                if (visited.has(config.push_type)) return acc;
+                visited.add(config.push_type);
+
                 acc.push({
-                    label: title,
-                    description: getDescription(parentConfig),
-                    platform: parentConfig.platform,
-                    pushType: parentConfig.push_type,
-                    value: parentConfig.state,
+                    ...toNotificationConfig(config),
                     children: compact(
-                        (parentConfig.sub_type || []).map((subType) => {
-                            const subConfig = list.find((x) => x.push_type === subType);
-                            return subConfig
-                                ? {
-                                      label: subConfig.title,
-                                      description: getDescription(subConfig),
-                                      platform: subConfig.platform,
-                                      pushType: subConfig.push_type,
-                                      value: subConfig.state,
-                                  }
-                                : null;
+                        (config.sub_type || []).map((sub) => {
+                            if (visited.has(sub)) return null;
+                            visited.add(sub);
+
+                            const subConfig = sortedList.find((c) => c.push_type === sub);
+                            if (!subConfig) return null;
+
+                            return toNotificationConfig(subConfig);
                         }),
                     ),
                 });
-            }
 
-            list.forEach((config) => {
-                if (
-                    !parentConfig ||
-                    (!isSameConfig(config, parentConfig) && !parentConfig.sub_type?.includes(config.push_type))
-                ) {
-                    acc.push({
-                        label: config.title,
-                        description: getDescription(config),
-                        platform: config.platform,
-                        pushType: config.push_type,
-                        value: config.state,
-                    });
-                }
-            });
+                return acc;
+            }, []);
 
-            return acc;
-        }, []),
+            return {
+                groupName: title,
+                list: groupList,
+            };
+        }),
     ];
-
-    return configs;
 }

@@ -19,6 +19,7 @@ export interface NotificationConfigItemProps {
     pushType: NotificationPushType;
     unsupported?: boolean;
     disabled?: boolean;
+    className?: string;
 }
 
 function useToggleNotificationConfig({
@@ -42,11 +43,23 @@ function useToggleNotificationConfig({
     }, [value, platform, pushType, unsupported]);
 }
 
-export function NotificationConfigItem({ label, description, disabled, ...rest }: NotificationConfigItemProps) {
+export function NotificationConfigItem({
+    label,
+    description,
+    disabled,
+    className,
+    ...rest
+}: NotificationConfigItemProps) {
     const [{ loading }, onSwitch] = useToggleNotificationConfig(rest);
 
     return (
-        <div className={classNames('flex items-center gap-2', disabled ? 'cursor-not-allowed opacity-50' : '')}>
+        <div
+            className={classNames(
+                'flex items-center gap-2',
+                className,
+                disabled ? 'cursor-not-allowed opacity-50' : '',
+            )}
+        >
             <div className="min-w-0 flex-1 truncate">
                 <p className="text-base font-bold text-main">{label}</p>
                 <p className="text-lightSecond mt-1 text-medium">{description}</p>
@@ -80,7 +93,7 @@ export function NotificationChildConfigItem({ label, description, disabled, ...r
         <ClickableButton
             disabled={loading || disabled}
             onClick={onSwitch}
-            className="flex w-full items-start gap-2 border-b border-line py-2 text-left last:border-none"
+            className="flex w-full items-start gap-2 border-b border-line py-2 text-left last:border-none last:pb-0"
         >
             <Tooltip
                 content={rest.unsupported ? t`Seems like this feature is not supported!` : ''}
