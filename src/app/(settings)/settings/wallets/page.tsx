@@ -5,8 +5,7 @@ import { delay } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 
 import { AddWalletButton } from '@/app/(settings)/components/AddWalletButton.js';
-import { Headline } from '@/app/(settings)/components/Headline.js';
-import { Section } from '@/app/(settings)/components/Section.js';
+import { SettingsSection } from '@/app/(settings)/components/Section.js';
 import { WalletGroup } from '@/app/(settings)/components/WalletGroup.js';
 import EvmIcon from '@/assets/evm.svg';
 import SolanaIcon from '@/assets/solana.svg';
@@ -33,10 +32,7 @@ export default function Wallets() {
     });
 
     return (
-        <Section className="max-h-screen overflow-y-auto">
-            <Headline>
-                <Trans>Connected wallets</Trans>
-            </Headline>
+        <SettingsSection title={<Trans>Connected wallets</Trans>}>
             {!isLogin ? (
                 <NotLoginFallback source={Source.Posts} />
             ) : (
@@ -79,6 +75,6 @@ export default function Wallets() {
                     ) : null}
                 </>
             )}
-        </Section>
+        </SettingsSection>
     );
 }

@@ -5,12 +5,11 @@ import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 import React, { useEffect } from 'react';
 
-import { Headline } from '@/app/(settings)/components/Headline.js';
 import {
     NotificationChildConfigItem,
     NotificationConfigItem,
 } from '@/app/(settings)/components/NotificationConfigItem.js';
-import { Section } from '@/app/(settings)/components/Section.js';
+import { SettingsSection } from '@/app/(settings)/components/Section.js';
 import { formatNotificationConfigs } from '@/app/(settings)/settings/notification-settings/formatNotificationConfigs.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
@@ -34,11 +33,7 @@ export default function NotificationPage() {
     const globalSwitch = first(data)?.list?.find((x) => x.platform === NotificationPlatform.All)?.value;
 
     return (
-        <Section>
-            <Headline>
-                <Trans>Notifications</Trans>
-            </Headline>
-
+        <SettingsSection title={<Trans>Notifications</Trans>}>
             <div className="relative w-full">
                 {isLoading || isRefetching ? (
                     <div className="absolute inset-0 flex justify-center bg-primaryBottom/50 pt-32">
@@ -85,6 +80,6 @@ export default function NotificationPage() {
                     )}
                 </div>
             </div>
-        </Section>
+        </SettingsSection>
     );
 }

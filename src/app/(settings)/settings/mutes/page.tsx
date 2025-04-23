@@ -2,6 +2,7 @@
 
 import { Trans } from '@lingui/react/macro';
 
+import { SettingsSection } from '@/app/(settings)/components/Section.js';
 import { TextLink } from '@/app/(settings)/components/TextLink.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useMuteMenuList } from '@/hooks/useMuteMenuList.js';
@@ -10,11 +11,8 @@ export default function Page() {
     const menus = useMuteMenuList();
 
     return (
-        <div className="p-6 md:min-w-[280px]">
-            <div className="hidden pb-6 text-[20px] font-bold leading-[24px] text-lightMain md:block">
-                <Trans>Muted contents</Trans>
-            </div>
-            <div>
+        <SettingsSection title={<Trans>Muted contents</Trans>}>
+            <div className="w-full">
                 {menus.map((menu) => (
                     <TextLink
                         key={`${menu.source}-${menu.type}`}
@@ -23,6 +21,6 @@ export default function Page() {
                     />
                 ))}
             </div>
-        </div>
+        </SettingsSection>
     );
 }

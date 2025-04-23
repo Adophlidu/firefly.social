@@ -6,7 +6,7 @@ import ComebackIcon from '@/assets/comeback.svg';
 import { MutedChannels } from '@/components/Channel/MutedChannels.js';
 import { Loading } from '@/components/Loading.js';
 import { MutedProfiles } from '@/components/Profile/MutedProfiles.js';
-import { MuteType, Source } from '@/constants/enum.js';
+import { MuteType, PageRoute, Source } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 
@@ -33,11 +33,11 @@ function MutedContent({ type, source }: { type: MuteType; source: Source }) {
 }
 
 export function MutedListPage({ name, type, source }: MutedListProps) {
-    const comeback = useComeBack();
+    const comeback = useComeBack(PageRoute.SettingsMutes);
 
     return (
-        <div className="flex h-[calc(100vh_-_54px)] flex-col p-6 md:h-screen md:min-w-[280px] md:flex-1">
-            <div className="hidden pb-6 text-[20px] font-bold leading-[24px] text-lightMain md:flex md:items-center md:gap-6">
+        <div className="flex h-screen flex-1 flex-col p-6">
+            <div className="flex items-center gap-6 pb-6 text-[20px] font-bold leading-[24px] text-lightMain">
                 <ComebackIcon className="cursor-pointer" width={24} height={24} onClick={comeback} />
                 {name}
             </div>

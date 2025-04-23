@@ -1,9 +1,29 @@
-import type { HTMLProps } from 'react';
+import type { HTMLProps, ReactNode } from 'react';
 
+import { PageHeader } from '@/app/(settings)/components/PageHeader.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useIsLarge } from '#src/hooks/useMediaQuery.js';
 
 interface SectionProps extends HTMLProps<HTMLDivElement> {}
 
 export function Section({ className, children }: SectionProps) {
     return <div className={classNames('flex w-full flex-col items-center gap-6 p-6', className)}>{children}</div>;
+}
+
+interface SettingsSectionProps extends Omit<HTMLProps<HTMLDivElement>, 'title'> {
+    title: ReactNode;
+    enableBack?: boolean;
+}
+
+export function SettingsSection({ className, title, enableBack, children }: SettingsSectionProps) {
+    const isLarge = useIsLarge('max');
+
+    return (
+        <div className={classNames('w-full px-6 pb-6', className)}>
+            <PageHeader enableBack={enableBack || isLarge} hideHeadInMobile={false}>
+                {title}
+            </PageHeader>
+            <div className="mt-3 flex w-full flex-col items-center gap-6">{children}</div>
+        </div>
+    );
 }

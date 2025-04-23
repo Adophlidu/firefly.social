@@ -52,6 +52,7 @@ export enum PageRoute {
     Channel = '/channel/:id/:type',
     Event = '/event/:name',
     SettingConnected = '/settings/connected',
+    SettingsMutes = '/settings/mutes',
 }
 
 export enum Source {

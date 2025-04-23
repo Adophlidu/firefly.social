@@ -6,9 +6,8 @@ import { isServer } from '@tanstack/react-query';
 import { useMediaQuery } from 'usehooks-ts';
 
 import { changeCookies } from '@/actions/changeCookies.js';
-import { Headline } from '@/app/(settings)/components/Headline.js';
 import { OptionButton } from '@/app/(settings)/components/OptionButton.js';
-import { Section } from '@/app/(settings)/components/Section.js';
+import { SettingsSection } from '@/app/(settings)/components/Section.js';
 import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
 import { Locale, SiteCookies, type ThemeMode } from '@/constants/enum.js';
 import { useCookie, useLocale } from '@/helpers/getCookies.js';
@@ -23,11 +22,7 @@ export default function General() {
     const rootClass = useCookie(SiteCookies.FireflyRootClass);
 
     return (
-        <Section>
-            <Headline>
-                <Trans>General</Trans>
-            </Headline>
-
+        <SettingsSection title={<Trans>General</Trans>}>
             <Subtitle>
                 <Trans>Display</Trans>
             </Subtitle>
@@ -86,6 +81,6 @@ export default function General() {
                     />
                 ))}
             </div>
-        </Section>
+        </SettingsSection>
     );
 }

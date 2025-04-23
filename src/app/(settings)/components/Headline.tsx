@@ -2,11 +2,19 @@ import type { HTMLProps } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
 
-interface HeadlineProps extends HTMLProps<HTMLDivElement> {}
+interface HeadlineProps extends HTMLProps<HTMLDivElement> {
+    hideInMobile?: boolean;
+}
 
-export function Headline({ className, children }: HeadlineProps) {
+export function Headline({ className, hideInMobile = true, children }: HeadlineProps) {
     return (
-        <div className={classNames('hidden w-full items-center justify-between gap-6 lg:flex', className)}>
+        <div
+            className={classNames(
+                'w-full items-center justify-between gap-6',
+                hideInMobile ? 'hidden lg:flex' : 'flex',
+                className,
+            )}
+        >
             <span className="text-[20px] font-bold leading-[24px] text-main">{children}</span>
         </div>
     );

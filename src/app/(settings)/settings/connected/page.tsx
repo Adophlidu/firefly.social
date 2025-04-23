@@ -4,8 +4,7 @@ import { Trans } from '@lingui/react/macro';
 
 import { AccountCards } from '@/app/(settings)/components/AccountCard.js';
 import { FireflyAccountCard } from '@/app/(settings)/components/FireflyAccountCard.js';
-import { Headline } from '@/app/(settings)/components/Headline.js';
-import { Section } from '@/app/(settings)/components/Section.js';
+import { SettingsSection } from '@/app/(settings)/components/Section.js';
 import { ThirdPartAccounts } from '@/app/(settings)/components/ThirdPartAccounts.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
@@ -18,11 +17,7 @@ export default function Connected() {
     const isLogin = useIsLoginFirefly();
 
     return (
-        <Section>
-            <Headline>
-                <Trans>Connected accounts</Trans>
-            </Headline>
-
+        <SettingsSection title={<Trans>Connected accounts</Trans>}>
             {!isLogin ? (
                 <NotLoginFallback source={Source.Posts} />
             ) : (
@@ -49,6 +44,6 @@ export default function Connected() {
                     </div>
                 </>
             )}
-        </Section>
+        </SettingsSection>
     );
 }
