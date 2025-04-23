@@ -1,5 +1,4 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -29,11 +28,10 @@ async function getProfilesWithFixedTotal(
 }
 
 export async function getSuggestedFollowsInCard(source: SocialSource) {
-    if (source === Source.Twitter) return [];
     const provider = resolveSocialMediaProvider(source);
     const currentProfile = getCurrentProfile(source);
     const result = await getProfilesWithFixedTotal(
-        provider.getSuggestedFollows,
+        provider.getSuggestedFollows.bind(provider),
         (oldData, newData) =>
             [
                 ...oldData,
@@ -53,10 +51,9 @@ export async function getSuggestedFollowsInCard(source: SocialSource) {
 }
 
 export async function getSuggestedFollowsInPage(source: SocialSource, indicator?: PageIndicator) {
-    if (source === Source.Twitter) return createPageable<Profile>(EMPTY_LIST, createIndicator(undefined));
     const provider = resolveSocialMediaProvider(source);
     return getProfilesWithFixedTotal(
-        provider.getSuggestedFollows,
+        provider.getSuggestedFollows.bind(provider),
         (oldData, newData) => [...oldData, ...newData],
         1,
         indicator,

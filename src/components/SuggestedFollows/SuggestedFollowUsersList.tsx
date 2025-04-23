@@ -1,6 +1,7 @@
 'use client';
 
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { uniqBy } from 'lodash-es';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
@@ -30,7 +31,11 @@ export function SuggestedFollowUsersList({ source }: Props) {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => (lastPage as Pageable<Profile, PageIndicator>)?.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((page) => page?.data ?? []),
+        select: (data) =>
+            uniqBy(
+                data.pages.flatMap((page) => page?.data ?? []),
+                (x) => x.profileId,
+            ),
     });
 
     return (

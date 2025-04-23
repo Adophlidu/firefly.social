@@ -25,9 +25,16 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { WithNitter } from '@/decorators/WithNitter.js';
 import { formatTweetsPage } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile, formatTwitterProfilePage } from '@/helpers/formatTwitterProfile.js';
+import { formatTwitterProfileFromX3Pro } from '@/helpers/formatTwitterProfileFromX3Pro.js';
 import { getTwitterProfileHandleFromUrl } from '@/helpers/getTwitterProfileHandleFromUrl.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import {
+    createIndicator,
+    createNextIndicator,
+    createPageable,
+    type Pageable,
+    type PageIndicator,
+} from '@/helpers/pageable.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
@@ -54,6 +61,7 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { X3ProKolListLabel, X3ProOrderType, X3ProProvider } from '@/providers/x3pro/index.js';
 import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
 import type { ResponseJSON } from '@/types/index.js';
 
@@ -148,8 +156,25 @@ export class TwitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
+    async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        const pageNo = indicator?.id ? parseInt(indicator.id, 10) : 1;
+        const res = await X3ProProvider.getKolList(X3ProKolListLabel.Web3, X3ProOrderType.Follower, {
+            pageNo: isNaN(pageNo) ? 1 : pageNo,
+        });
+        const data = res.list.map((x) => formatTwitterProfileFromX3Pro(x));
+        const nextIndicator = res.hasNextPage ? createNextIndicator(indicator, `${res.nextPage}`) : undefined;
+        if (twitterSessionHolder.session) {
+            const profiles = await this.getProfilesByIds(data.map((x) => x.profileId));
+            return createPageable(
+                data.map((x) => {
+                    const profile = profiles.find(({ profileId }) => profileId === x.profileId);
+                    return profile ? profile : x;
+                }),
+                createIndicator(indicator),
+                nextIndicator,
+            );
+        }
+        return createPageable(data, createIndicator(indicator), nextIndicator);
     }
 
     discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

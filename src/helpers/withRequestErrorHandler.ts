@@ -13,10 +13,10 @@ function handleZodErrorMessage(error: ZodError) {
     );
 }
 
-export function withRequestErrorHandler(options?: { throwError?: boolean }) {
+export function withRequestErrorHandler<P>(options?: { throwError?: boolean }) {
     const { throwError = false } = options ?? {};
-    return (handler: (request: NextRequest, context?: NextRequestContext) => Promise<Response>) => {
-        return async (request: NextRequest, context?: NextRequestContext) => {
+    return (handler: (request: NextRequest, context?: NextRequestContext<P>) => Promise<Response>) => {
+        return async (request: NextRequest, context?: NextRequestContext<P>) => {
             try {
                 return await handler(request, context);
             } catch (error) {

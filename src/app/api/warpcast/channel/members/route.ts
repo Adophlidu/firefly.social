@@ -1,3 +1,4 @@
+import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
@@ -17,7 +18,7 @@ const Schema = z.object({
     fid: z.string().optional(),
 });
 
-export const GET = compose(withRequestErrorHandler(), async (request) => {
+export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     const { channelId, fid, limit, cursor } = getSearchParamsFromRequestWithZodObject(request, Schema);
 
     const response = await fetchJSON<ChannelMembersResponse>(

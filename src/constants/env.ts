@@ -38,6 +38,8 @@ const InternalEnvSchema = z.object({
     S3_ACCESS_KEY_ID: z.string(),
     S3_ACCESS_KEY_SECRET: z.string(),
     S3_HOST: z.string(),
+
+    X3_PRO_API_TOKEN: z.string(),
 });
 
 const ExternalEnvSchema = z.object({

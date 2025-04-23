@@ -1,3 +1,5 @@
+import type { NextRequest } from 'next/server.js';
+
 import { KeyType } from '@/constants/enum.js';
 import { MalformedError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
@@ -7,6 +9,7 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { NitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
 import { convertTwitterIdToHandle } from '@/services/convertTwitterIdToHandle.js';
 import { getTwitterProfileByOG } from '@/services/getTwitterProfileByOG.js';
+import type { NextRequestContext } from '#src/types/index.js';
 
 const getTwitterAvatarById = memoizeWithRedis(
     async (twitterId: string) => {
@@ -22,7 +25,9 @@ const getTwitterAvatarById = memoizeWithRedis(
     },
 );
 
-export const GET = compose(withRequestErrorHandler(), async (request, context) => {
+type Handler = (request: NextRequest, context?: NextRequestContext<{ userId: string }>) => Promise<Response>;
+
+export const GET = compose<Handler>(withRequestErrorHandler(), async (request, context) => {
     const twitterId = (await context?.params)?.userId;
     if (!twitterId) throw new MalformedError('userId not found');
     const pfp = await getTwitterAvatarById(twitterId);

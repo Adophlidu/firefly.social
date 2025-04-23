@@ -162,8 +162,13 @@ export type SocialNotificationSource = Source.Farcaster | Source.Lens | Source.B
 export type DiscoverSource = Source.Posts | Source.NFTs | Source.Article | Source.DAOs;
 export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.DAOs | Source.NFTs | Source.Bsky;
 export type FollowingSource = DiscoverSource | Source.Polymarket | Source.Swap;
-export type ExploreSource = Source.Farcaster | Source.Lens | Source.Bsky | TrendingType;
-export type ExploreSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Bsky | TrendingType;
+export type ExploreSource = Source.Farcaster | Source.Lens | Source.Bsky | Source.Twitter | TrendingType;
+export type ExploreSourceInURL =
+    | SourceInURL.Farcaster
+    | SourceInURL.Lens
+    | SourceInURL.Bsky
+    | SourceInURL.Twitter
+    | TrendingType;
 export type NotificationSource = Source.Notifications | Source.Farcaster | Source.Lens | Source.Bsky;
 export type NotificationSourceInURL =
     | SourceInURL.Notifications
