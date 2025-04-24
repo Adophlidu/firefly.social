@@ -6,7 +6,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
-import { FireflyEndpointProvider } from '#src/providers/firefly/Endpoint.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 /**
  * Learn more: https://docs.farcaster.xyz/learn/architecture/contracts

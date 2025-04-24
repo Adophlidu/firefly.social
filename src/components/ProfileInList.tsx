@@ -1,4 +1,4 @@
-import { Plural } from '@lingui/react/macro';
+import { Plural, Trans } from '@lingui/react/macro';
 import { isUndefined } from 'lodash-es';
 import type { Components } from 'react-markdown';
 
@@ -12,6 +12,7 @@ import { FollowCategory, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isBadProfile } from '@/helpers/isBadProfile.js';
 import { isCurrentProfile } from '@/helpers/isCurrentProfile.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -42,6 +43,24 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
 
     const { source, profileId } = profile;
     const followerCount = profile.followerCount || 0;
+
+    if (isBadProfile(profile)) {
+        return (
+            <div className="flex-start flex cursor-not-allowed gap-3 overflow-auto border-b border-secondaryLine p-3 hover:bg-bg dark:border-line">
+                <SocialSourceIcon size={isMedium ? 40 : 44} className="rounded-full border" source={profile.source} />
+                <div className="flex min-w-0 flex-grow flex-col justify-center">
+                    <span className="truncate text-lg font-bold leading-6">
+                        <Trans>Undefined user</Trans>
+                    </span>
+                    {profile.profileId ? (
+                        <span className="self-start text-[15px] leading-[22px] text-secondary">
+                            ID: {profile.profileId}
+                        </span>
+                    ) : null}
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="flex-start flex gap-3 overflow-auto border-b border-secondaryLine p-3 hover:bg-bg dark:border-line">

@@ -2,7 +2,7 @@ import type { HTMLProps, ReactNode } from 'react';
 
 import { PageHeader } from '@/app/(settings)/components/PageHeader.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useIsLarge } from '#src/hooks/useMediaQuery.js';
+import { useIsLarge } from '@/hooks/useMediaQuery.js';
 
 interface SectionProps extends HTMLProps<HTMLDivElement> {}
 

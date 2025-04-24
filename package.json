@@ -5,7 +5,6 @@
     "private": true,
     "packageManager": "pnpm@8.15.8",
     "imports": {
-        "#src/*": "./src/*",
         "#masknet/web3-shared-evm": "./src/mask_pkgs/web3-shared/evm/index.ts",
         "#masknet/web3-shared-solana": "./src/mask_pkgs/web3-shared/solana/index.ts",
         "#masknet/web3-constants/*": "./src/mask_pkgs/web3-constants/*",

@@ -2224,6 +2224,9 @@ msgstr ""
 msgid "Details"
 msgstr "詳細資訊"
 
+msgid "Undefined user"
+msgstr ""
+
 msgid "Unmute {handleOrEnsOrAddress}"
 msgstr ""
 

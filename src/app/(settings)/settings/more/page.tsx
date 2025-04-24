@@ -4,6 +4,7 @@ import { Trans } from '@lingui/react/macro';
 
 import { DocumentCard } from '@/app/(settings)/components/DocumentCard.js';
 import { LinkCard } from '@/app/(settings)/components/LinkCard.js';
+import { SettingsSection } from '@/app/(settings)/components/Section.js';
 import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
 import DiscordIcon from '@/assets/discord.svg';
 import DocumentsIcon from '@/assets/documents.svg';
@@ -12,7 +13,6 @@ import SecurityIcon from '@/assets/security.svg';
 import TelegramIcon from '@/assets/telegram.svg';
 import { XIcon } from '@/components/XIcon.js';
 import { FIREFLY_TELEGRAM_URL } from '@/constants/index.js';
-import { SettingsSection } from '#src/app/(settings)/components/Section.js';
 
 function SmallXIcon() {
     return (

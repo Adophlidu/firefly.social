@@ -2219,6 +2219,9 @@ msgstr "Search token"
 msgid "Details"
 msgstr "Details"
 
+msgid "Undefined user"
+msgstr "Undefined user"
+
 msgid "Unmute {handleOrEnsOrAddress}"
 msgstr "Unmute {handleOrEnsOrAddress}"
 

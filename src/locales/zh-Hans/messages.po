@@ -2224,6 +2224,9 @@ msgstr "搜索代币"
 msgid "Details"
 msgstr "详情"
 
+msgid "Undefined user"
+msgstr ""
+
 msgid "Unmute {handleOrEnsOrAddress}"
 msgstr "取消隐藏 {handleOrEnsOrAddress}"
 

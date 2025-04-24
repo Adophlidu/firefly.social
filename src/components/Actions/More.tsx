@@ -23,6 +23,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { ENABLED_BOOKMARK_SOURCES } from '@/constants/index.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { resolvePostEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -32,7 +33,6 @@ import { useReportPost } from '@/hooks/useReportPost.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
-import { resolvePostEngagementUrl } from '#src/helpers/resolveEngagementUrl.js';
 
 interface MoreProps {
     source: SocialSource;

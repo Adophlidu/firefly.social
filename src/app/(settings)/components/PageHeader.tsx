@@ -5,8 +5,8 @@ import type { PropsWithChildren } from 'react';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import ComebackIcon from '@/assets/comeback.svg';
 import { PageRoute } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
 import { useComeBack } from '@/hooks/useComeback.js';
-import { classNames } from '#src/helpers/classNames.js';
 
 type PageHeaderProps = PropsWithChildren<{
     enableBack?: boolean;

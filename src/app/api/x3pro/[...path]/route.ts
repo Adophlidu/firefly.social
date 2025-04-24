@@ -3,11 +3,11 @@ import urlcat from 'urlcat';
 
 import { env } from '@/constants/env.js';
 import { X3_PRO_API_URL } from '@/constants/index.js';
+import { compose } from '@/helpers/compose.js';
 import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import type { NextRequestContext } from '@/types/index.js';
-import { compose } from '#src/helpers/compose.js';
 
 interface X3ProErrorResponse {
     timestamp: string;
