@@ -89,10 +89,10 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                                 event.stopPropagation();
                                 event.preventDefault();
 
-                                if ((event.target as HTMLElement).tagName === 'A') {
-                                    const link = event.target as HTMLAnchorElement;
-                                    if (link.href) {
-                                        openWindow(link.href, '_blank', { opener: false, referrer: false });
+                                const anchorEl = (event.target as HTMLElement).closest('a');
+                                if (anchorEl) {
+                                    if (anchorEl.href) {
+                                        openWindow(anchorEl.href, '_blank', { opener: false, referrer: false });
                                         return;
                                     }
                                 }
