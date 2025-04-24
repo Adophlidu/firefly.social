@@ -262,6 +262,9 @@ msgstr "Malicious mining activities found."
 msgid "Collecting"
 msgstr "Collecting"
 
+msgid "Open"
+msgstr "Open"
+
 msgid "You have exceeded the maximum number of attempts. Please try again later."
 msgstr "You have exceeded the maximum number of attempts. Please try again later."
 

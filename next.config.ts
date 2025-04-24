@@ -273,6 +273,14 @@ const config: NextConfig = {
 
         return config;
     },
+    async rewrites() {
+        return [
+            {
+                source: '/particle-recovery/:path*',
+                destination: `https://firefly-particle-recovery.vercel.app/particle-recovery/:path*`,
+            },
+        ];
+    },
     turbopack: {
         rules: {
             '*.svg': {

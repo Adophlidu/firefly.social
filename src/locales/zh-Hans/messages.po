@@ -267,6 +267,9 @@ msgstr "发现恶意挖矿行为。"
 msgid "Collecting"
 msgstr "铸造中"
 
+msgid "Open"
+msgstr ""
+
 msgid "You have exceeded the maximum number of attempts. Please try again later."
 msgstr "你已超过最大尝试次数，请稍后再试。"
 

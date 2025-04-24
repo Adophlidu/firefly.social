@@ -477,6 +477,7 @@ export interface WalletProfile {
     blocked?: boolean;
     hacked?: boolean;
     isDefault?: boolean;
+    dataSource?: string;
 }
 
 export type WalletRelationResponse = Response<{

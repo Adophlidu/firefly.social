@@ -262,6 +262,9 @@ msgstr ""
 msgid "Collecting"
 msgstr ""
 
+msgid "Open"
+msgstr ""
+
 msgid "You have exceeded the maximum number of attempts. Please try again later."
 msgstr ""
 

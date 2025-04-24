@@ -1,8 +1,14 @@
 'use client';
+import { Trans } from '@lingui/react/macro';
+import urlcat from 'urlcat';
+
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { HackedButton } from '@/components/Profile/HackedButton.js';
 import { WalletMoreAction } from '@/components/Profile/WalletMoreAction.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
 import { Source } from '@/constants/enum.js';
+import { SITE_URL } from '@/constants/index.js';
+import { openWindow } from '@/helpers/openWindow.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
@@ -11,6 +17,18 @@ export function WalletActions({ profile }: { profile: WalletProfile }) {
     const isMyWallets = useIsMyRelatedProfile(Source.Wallet, profile.address);
     const isMedium = useIsMedium();
 
+    if (isMyWallets && profile.dataSource === 'particle') {
+        return (
+            <ClickableButton
+                onClick={() => {
+                    openWindow(urlcat(SITE_URL, '/particle-recovery'));
+                }}
+                className="ml-auto mr-1 flex h-8 min-w-[100px] items-center justify-center rounded-lg bg-highlight px-2 text-medium font-semibold text-primaryBottom transition-all hover:opacity-80 dark:text-main"
+            >
+                <Trans>Open</Trans>
+            </ClickableButton>
+        );
+    }
     if (isMyWallets || !isMedium) return null;
 
     if (profile.hacked) return <HackedButton className="ml-auto" />;
