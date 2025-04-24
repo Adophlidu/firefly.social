@@ -6,33 +6,23 @@ import { StatusCodes } from 'http-status-codes';
 import { compact } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
-import type { Hex } from 'viem';
 import { polygon } from 'viem/chains';
-import { useAccount, useBalance } from 'wagmi';
+import { useAccount } from 'wagmi';
 
 import LinkIcon from '@/assets/link.svg';
-import MirrorLargeIcon from '@/assets/mirror-large.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
-import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { Tooltip } from '@/components/Tooltip.js';
-import { config } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { LENS_CHAIN_ID } from '@/constants/index.js';
-import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { formatAddressEthereum } from '@/helpers/formatAddress.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getTimeLeft } from '@/helpers/formatTimestamp.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
+import { getWalletClientForLensChain } from '@/helpers/getWalletClientForLensChain.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { useMirror } from '@/hooks/useMirror.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
+import { useTokenBalanceInPostCollect } from '@/hooks/useTokenBalanceInPostCollect.js';
 import { EVMExplorerResolver } from '@/mask/index.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -56,7 +46,6 @@ interface PostCollectProps {
 
 export function PostCollect({ post, onClose }: PostCollectProps) {
     const account = useAccount();
-    const currentProfile = useCurrentProfile(Source.Lens);
     const collectModule = post.collectModule;
     const timeLeft = collectModule?.endsAt ? formatTimeLeft(collectModule?.endsAt) : undefined;
 
@@ -65,9 +54,6 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
         : false;
 
     const isTimeout = collectModule?.endsAt ? dayjs(collectModule?.endsAt).isBefore(dayjs()) : false;
-
-    const verifiedAssetAddress =
-        !!collectModule?.assetAddress && !isSameEthereumAddress(collectModule.assetAddress, ETH_ZERO_ADDRESS);
 
     const [followLoading, toggleFollow] = useToggleFollow(post.author);
 
@@ -84,15 +70,12 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
     const isLogin = useIsLogin(post.source);
 
-    const allowed = true;
+    const { balance, isLoading: queryBalanceLoading } = useTokenBalanceInPostCollect(
+        post.source,
+        collectModule?.assetAddress,
+    );
 
-    const { data: balanceData, isLoading: queryBalanceLoading } = useBalance({
-        address: account.address,
-        token: verifiedAssetAddress ? (collectModule?.assetAddress as Hex) : undefined,
-    });
-
-    const hasEnoughBalance =
-        balanceData?.value && collectModule?.amount ? parseFloat(balanceData.formatted) >= collectModule.amount : true;
+    const hasEnoughBalance = collectModule?.amount ? (balance || 0) >= collectModule.amount : true;
 
     const [{ loading: collectLoading }, handleCollect] = useAsyncFn(async () => {
         try {
@@ -109,8 +92,6 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             throw error;
         }
     }, [account.address, collectModule, post, onClose]);
-
-    const [{ loading: mirrorLoading }, handleMirror] = useMirror(post);
 
     const action = useMemo(() => {
         const contractExploreUrl = collectModule?.contract.address
@@ -163,10 +144,6 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             return <Trans>Insufficient Balance</Trans>;
         }
 
-        if (!allowed) {
-            return <Trans>Allow Collect Module</Trans>;
-        }
-
         if (collectModule?.amount && collectModule.currency) {
             return (
                 <Trans>
@@ -185,28 +162,18 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
         isLogin,
         isSoldOut,
         isTimeout,
-        allowed,
         hasEnoughBalance,
         profile?.viewerContext?.following,
     ]);
 
     const [{ loading: clickLoading }, handleClick] = useAsyncFn(async () => {
         if (!isLogin) {
-            if (post.source === Source.Lens) {
-                getWalletClientRequired(config);
-            }
             LoginModalRef.open({ source: post.source });
             return;
         }
 
-        if (
-            currentProfile?.ownedBy?.address &&
-            !isSameEthereumAddress(currentProfile?.ownedBy?.address, account.address)
-        ) {
-            enqueueErrorMessage(
-                t`The current connected wallet does not match, Please switch to ${formatAddressEthereum(currentProfile.ownedBy.address, 4)}`,
-            );
-            return;
+        if (post.source === Source.Lens) {
+            await getWalletClientForLensChain();
         }
 
         if (collectModule?.followerOnly && !profile?.viewerContext?.following) {
@@ -216,16 +183,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
         }
 
         handleCollect();
-    }, [
-        isLogin,
-        currentProfile,
-        account.address,
-        collectModule?.followerOnly,
-        profile,
-        handleCollect,
-        post.source,
-        toggleFollow,
-    ]);
+    }, [isLogin, collectModule?.followerOnly, profile, handleCollect, post.source, toggleFollow]);
 
     const loading = followLoading || collectLoading || queryBalanceLoading || queryProfileLoading || clickLoading;
 
@@ -309,22 +267,6 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                 >
                     {action}
                 </ChainGuardButton>
-
-                {collectModule?.referralFee ? (
-                    <Tooltip content={<Trans>Mirror now to get 25% referral fee!</Trans>} placement="top">
-                        <ClickableButton
-                            disabled={mirrorLoading}
-                            className="flex w-[86px] items-center justify-center gap-1 rounded-full border border-highlight py-2 text-[15px] font-bold leading-[20px] text-highlight"
-                            onClick={async () => {
-                                await handleMirror();
-                                onClose?.();
-                            }}
-                        >
-                            {!mirrorLoading ? <MirrorLargeIcon width={15} height={15} /> : <LoadingIcon size={15} />}
-                            {collectModule.referralFee}%
-                        </ClickableButton>
-                    </Tooltip>
-                ) : null}
             </div>
         </div>
     );

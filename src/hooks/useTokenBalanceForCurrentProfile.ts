@@ -1,0 +1,30 @@
+import { evmAddress } from '@lens-protocol/client';
+import { fetchAccountBalances } from '@lens-protocol/client/actions';
+import { useQuery } from '@tanstack/react-query';
+import { first } from 'lodash-es';
+
+import { Source } from '@/constants/enum.js';
+import { ensureLensResult } from '@/helpers/ensureLensResult.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+
+export function useTokenBalanceForLoggedInLensProfile(tokenAddress?: string, enabled = true) {
+    const profile = useCurrentProfile(Source.Lens);
+
+    return useQuery({
+        queryKey: ['token-balance', Source.Lens, profile?.profileId, tokenAddress],
+        enabled: !!profile?.profileId && !!tokenAddress && enabled,
+        queryFn: async () => {
+            if (!lensSessionHolder.sessionClient || !tokenAddress) return;
+
+            const balanceResult = await ensureLensResult(
+                fetchAccountBalances(lensSessionHolder.sessionClient, {
+                    tokens: [evmAddress(tokenAddress)],
+                }),
+            );
+            const balance = first(balanceResult);
+
+            return balance?.__typename === 'Erc20Amount' ? Number.parseFloat(balance.value) : 0;
+        },
+    });
+}

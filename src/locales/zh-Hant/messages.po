@@ -73,9 +73,6 @@ msgstr "串文發佈失敗"
 msgid "Connecting wallets"
 msgstr "正在連接錢包"
 
-msgid "Allow Collect Module"
-msgstr "允許收集模組"
-
 msgid "New connect with Warpcast"
 msgstr "通過 Warpcast 的新連接"
 
@@ -1388,10 +1385,6 @@ msgstr "提交錢包地址以領取 NFT 和 $ANON"
 
 msgid "<0>Bought</0><1/>"
 msgstr "<0>購買</0><1/>"
-
-#. placeholder {0}: formatAddressEthereum(currentProfile.ownedBy.address, 4)
-msgid "The current connected wallet does not match, Please switch to {0}"
-msgstr "當前連接錢包不匹配，請切換至 {0}"
 
 msgid "Mint price"
 msgstr "鑄造價格"
@@ -3640,9 +3633,6 @@ msgstr "包含白名單功能，部分地址可能無法正常交易（蜜罐風
 
 msgid "Primary account"
 msgstr "主要帳號"
-
-msgid "Mirror now to get 25% referral fee!"
-msgstr "立即鏡像賺取 25% 推薦獎勵！"
 
 msgid "Hide tokens with small balances"
 msgstr "隱藏小額代幣"

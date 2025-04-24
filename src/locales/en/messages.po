@@ -68,9 +68,6 @@ msgstr "FAILED THREAD POST"
 msgid "Connecting wallets"
 msgstr "Connecting wallets"
 
-msgid "Allow Collect Module"
-msgstr "Allow Collect Module"
-
 msgid "New connect with Warpcast"
 msgstr "New connect with Warpcast"
 
@@ -1383,10 +1380,6 @@ msgstr "Submit a wallet to receive NFT and $ANON"
 
 msgid "<0>Bought</0><1/>"
 msgstr "<0>Bought</0><1/>"
-
-#. placeholder {0}: formatAddressEthereum(currentProfile.ownedBy.address, 4)
-msgid "The current connected wallet does not match, Please switch to {0}"
-msgstr "The current connected wallet does not match, Please switch to {0}"
 
 msgid "Mint price"
 msgstr "Mint price"
@@ -3640,9 +3633,6 @@ msgstr "The whitelist function is included. Some addresses may not be able to tr
 
 msgid "Primary account"
 msgstr "Primary account"
-
-msgid "Mirror now to get 25% referral fee!"
-msgstr "Mirror now to get 25% referral fee!"
 
 msgid "Hide tokens with small balances"
 msgstr "Hide tokens with small balances"
