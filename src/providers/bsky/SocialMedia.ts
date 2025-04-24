@@ -1,6 +1,7 @@
 import { AppBskyActorProfile, AppBskyFeedDefs, moderatePost } from '@atproto/api';
 import { BlockedActorError } from '@atproto/api/dist/client/types/app/bsky/feed/getAuthorFeed.js';
 import { safeUnreachable } from '@masknet/kit';
+import { isServer } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -200,6 +201,7 @@ export class BskySocialMedia implements Provider {
         });
         const data = resolveBskyResponseData(response, 'Failed to query channel.');
         const channel = formatBskyChannel(data.view);
+        if (isServer) return channel;
 
         const profile = getCurrentProfile(Source.Bsky);
         if (profile?.profileId && includeFollowingStatus) {
