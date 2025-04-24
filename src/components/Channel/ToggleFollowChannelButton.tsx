@@ -13,6 +13,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { LoginModalRef } from '@/modals/controls.js';
+import { captureFollowChannelEvent, captureUnfollowChannelEvent } from '@/providers/telemetry/captureChannelEvent.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface ToggleFollowChannelButtonProps extends ClickableButtonProps {
@@ -87,6 +88,11 @@ export const ToggleFollowChannelButton = memo<ToggleFollowChannelButtonProps>(fu
             }
 
             enqueueSuccessMessage(getFollowSuccessMessage(channel, isFollowing));
+            if (isFollowing) {
+                captureUnfollowChannelEvent(channel);
+            } else {
+                captureFollowChannelEvent(channel);
+            }
         } catch (error) {
             enqueueErrorMessage(getFollowErrorMessage(channel, isFollowing), {
                 error,

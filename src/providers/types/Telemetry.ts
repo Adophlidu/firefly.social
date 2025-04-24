@@ -209,6 +209,14 @@ export enum EventId {
     EVENT_FOLLOWING_SWAP_CLICK = 'following_swap_click',
     EVENT_LIKE_SWAP_CLICK = 'like_trade_success',
     EVENT_SWAP_DETAIL_CLICK = 'swap_detail_click',
+
+    // channel
+    CHANNEL_FOLLOW_ON_FARCASTER_SUCCESS = 'farcaster_follow_channel_success',
+    CHANNEL_UNFOLLOW_ON_FARCASTER_SUCCESS = 'farcaster_unfollow_channel_success',
+    CHANNEL_JOIN_ON_LENS_SUCCESS = 'lens_join_group_success',
+    CHANNEL_LEAVE_ON_LENS_SUCCESS = 'lens_leave_group_success',
+    CHANNEL_ADD_ON_BSKY_SUCCESS = 'bsky_add_feed_success',
+    CHANNEL_REMOVE_ON_BSKY_SUCCESS = 'bsky_remove_feed_success',
 }
 
 export enum ExceptionId {}
