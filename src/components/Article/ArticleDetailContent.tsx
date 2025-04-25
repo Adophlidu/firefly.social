@@ -14,12 +14,13 @@ import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { Source } from '@/constants/enum.js';
-import { useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
+import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
+import { isTrustedUrl } from '@/helpers/isTrustedUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
-import { PreviewMediaModalRef } from '@/modals/controls.js';
+import { ConfirmLeavingModalRef, PreviewMediaModalRef } from '@/modals/controls.js';
 import type { Article } from '@/providers/types/Article.js';
 import { ArticlePlatform } from '@/providers/types/Article.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
@@ -32,7 +33,6 @@ interface ArticleDetailContentProps {
 export function ArticleDetailContent({ article, cover }: ArticleDetailContentProps) {
     const isDarkMode = useIsDarkMode();
 
-    const router = useRouter();
     const isMuted = useIsProfileMuted(Source.Wallet, article.author.id, article.author.isMuted);
 
     return (
@@ -85,14 +85,23 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                             })}
                             // eslint-disable-next-line react/no-danger
                             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.content) }}
-                            onClick={(event) => {
+                            onClick={async (event) => {
                                 event.stopPropagation();
                                 event.preventDefault();
 
                                 const anchorEl = (event.target as HTMLElement).closest('a');
                                 if (anchorEl) {
                                     if (anchorEl.href) {
-                                        openWindow(anchorEl.href, '_blank', { opener: false, referrer: false });
+                                        const isTrusted = isTrustedUrl(anchorEl.href);
+                                        if (!isTrusted) {
+                                            const intercepted = await interceptExternalUrl(anchorEl.href);
+                                            if (intercepted) return;
+                                            const confirmed = await ConfirmLeavingModalRef.openAndWaitForClose(
+                                                anchorEl.href,
+                                            );
+                                            if (confirmed) openWindow(anchorEl.href);
+                                        }
+
                                         return;
                                     }
                                 }

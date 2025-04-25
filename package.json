@@ -248,7 +248,8 @@
             "dayjs-twitter@0.5.0": "patches/dayjs-twitter@0.5.0.patch",
             "@reown/appkit@1.6.8": "patches/@reown__appkit@1.6.8.patch",
             "@lexical/react@0.18.0": "patches/@lexical__react@0.18.0.patch",
-            "@headlessui/react@2.1.10": "patches/@headlessui__react@2.1.10.patch"
+            "@headlessui/react@2.1.10": "patches/@headlessui__react@2.1.10.patch",
+            "@bprogress/react@1.2.6": "patches/@bprogress__react@1.2.6.patch"
         }
     }
 }

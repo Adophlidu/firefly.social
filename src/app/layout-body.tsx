@@ -20,6 +20,7 @@ export function LayoutBody({ children }: { children: React.ReactNode }) {
                     color="var(--color-firefly-brand)"
                     options={{ showSpinner: false }}
                     shallowRouting
+                    disableDifferentOrigin
                 >
                     <div className="m-auto flex w-full md:min-h-screen group-[.not-support]:md:min-h-[calc(100vh_-_38px)] lg:w-[1265px]">
                         {children}
