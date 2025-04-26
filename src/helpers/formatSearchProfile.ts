@@ -44,10 +44,12 @@ export function formatSearchProfile(
 
     const allProfile = compact(
         SORTED_PROFILE_SOURCES.map((source) => {
-            const profile =
+            const profiles =
                 source === Source.Wallet || source === Source.WalletMix
-                    ? first(identity.ens || identity.eth || identity.solana)
-                    : first(identity[resolveSocialSourceInUrl(source)]);
+                    ? identity.ens || identity.eth || identity.solana
+                    : identity[resolveSocialSourceInUrl(source)];
+
+            const profile = profiles?.find((x) => x.primary) || first(profiles);
             if (target.platform === profile?.platform) return fixProfilePlatform(target);
             return profile ? fixProfilePlatform(profile) : null;
         }),
