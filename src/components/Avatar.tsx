@@ -1,12 +1,16 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import type { ImageProps as NextImageProps } from 'next/image.js';
 import { memo, useState } from 'react';
+import urlcat from 'urlcat';
 
 import { Image as NextImage } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isDomainOrSubdomainOf } from '@/helpers/isDomainOrSubdomainOf.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
+import { NitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
 
 function resolveImgurUrl(url: string) {
     if (!URL.canParse(url)) return;
@@ -41,6 +45,31 @@ export const Avatar = memo(function Avatar({ src, size, className, ...rest }: Av
     const isNormalUrl = !!src && !src.startsWith('data:image/') && !isDomainOrSubdomainOf(src, 'warpcast.com');
     const imageSrc = hasError ? fallbackUrl : (isNormalUrl ? url : src) || src || fallbackUrl;
 
+    const { data: xFallbackAvatar } = useQuery({
+        queryKey: ['avatar', imageSrc],
+        enabled: imageSrc.includes('stamp.firefly.land'),
+        queryFn: async () => {
+            const response = await fetch(imageSrc, {
+                method: 'GET',
+                redirect: 'manual',
+                mode: 'cors',
+            });
+
+            if (response.type === 'opaqueredirect') {
+                const result = await fetchJSON<{ twitterId: string }>(
+                    urlcat('/api/twitter/getIdByAvatar', { target: imageSrc }),
+                );
+                const twitterId = result?.twitterId;
+                if (!twitterId) return null;
+
+                const profile = await NitterSocialMediaProvider.getProfileById(twitterId);
+                return profile.pfp;
+            }
+
+            return null;
+        },
+    });
+
     return (
         <NextImage
             {...rest}
@@ -53,7 +82,7 @@ export const Avatar = memo(function Avatar({ src, size, className, ...rest }: Av
                 width: size,
                 ...rest.style,
             }}
-            src={imageSrc}
+            src={xFallbackAvatar ?? imageSrc}
             width={size}
             height={size}
             alt={rest.alt}
