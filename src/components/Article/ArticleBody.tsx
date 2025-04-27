@@ -3,11 +3,10 @@
 import '@/assets/css/limo.css';
 import '@/assets/css/paragraph.css';
 
-import DOMPurify from 'dompurify';
-
 import { ArticleActions } from '@/components/Article/ArticleActions.js';
 import { ArticleAuthor } from '@/components/Article/ArticleAuthor.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { SanitizerDiv } from '@/components/DomPurify.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
@@ -82,12 +81,11 @@ export function ArticleBody({ cover, article, onClick }: Props) {
                             })}
                         >
                             {/*  The content returned by limo is html. */}
-                            <div
+                            <SanitizerDiv
                                 className={classNames('container-fluid markdown-body comment-enabled', {
                                     dark: isDarkMode,
                                 })}
-                                // eslint-disable-next-line react/no-danger
-                                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.content) }}
+                                dangerouslySetInnerHTML={{ __html: article.content }}
                             />
                         </div>
                     ) : (

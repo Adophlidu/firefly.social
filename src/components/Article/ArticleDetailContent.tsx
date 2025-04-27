@@ -4,11 +4,11 @@ import '@/assets/css/limo.css';
 import '@/assets/css/paragraph.css';
 
 import { Trans } from '@lingui/react/macro';
-import DOMPurify from 'dompurify';
 import { compact } from 'lodash-es';
 
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
 import { Comeback } from '@/components/Comeback.js';
+import { SanitizerDiv } from '@/components/DomPurify.js';
 import { Link } from '@/components/Link.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
@@ -79,12 +79,11 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                         })}
                     >
                         {/*  The content returned by limo is html. */}
-                        <div
+                        <SanitizerDiv
                             className={classNames('container-fluid markdown-body comment-enabled', {
                                 dark: isDarkMode,
                             })}
-                            // eslint-disable-next-line react/no-danger
-                            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.content) }}
+                            dangerouslySetInnerHTML={{ __html: article.content }}
                             onClick={async (event) => {
                                 event.stopPropagation();
                                 event.preventDefault();

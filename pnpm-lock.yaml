@@ -256,6 +256,9 @@ dependencies:
   firebase:
     specifier: ^11.6.0
     version: 11.6.0
+  foxact:
+    specifier: ^0.2.45
+    version: 0.2.45(react@19.0.0)
   framer-motion:
     specifier: ^11.18.2
     version: 11.18.2(react-dom@19.0.0)(react@19.0.0)
@@ -14224,6 +14227,19 @@ packages:
       mime-types: 2.1.35
     dev: true
 
+  /foxact@0.2.45(react@19.0.0):
+    resolution: {integrity: sha512-pizJ+4hlSxs+mZKjJxhcwzY1uR4/7paZGgU/NQLrzY6Q0wa8RBZvhOxzg/HzXRAcglTt2y6DlIqPn85cTNdmcg==}
+    peerDependencies:
+      react: 19.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dependencies:
+      client-only: 0.0.1
+      react: 19.0.0
+      server-only: 0.0.1
+    dev: false
+
   /fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
     dev: true
@@ -18366,6 +18382,10 @@ packages:
       randombytes: 2.1.0
     dev: true
 
+  /server-only@0.0.1:
+    resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
+    dev: false
+
   /set-blocking@2.0.0:
     resolution: {integrity: sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw==}
     dev: false
@@ -21211,6 +21231,7 @@ time:
   /eslint-plugin-unused-imports@4.1.4: '2024-09-13T10:01:24.741Z'
   /eslint@9.24.0: '2025-04-04T19:20:41.757Z'
   /firebase@11.6.0: '2025-03-31T19:03:27.852Z'
+  /foxact@0.2.45: '2025-03-19T10:32:32.395Z'
   /framer-motion@11.18.2: '2025-01-20T11:47:52.796Z'
   /fuse.js@7.1.0: '2025-02-03T00:43:03.870Z'
   /graphql-request@6.1.0: '2023-05-23T16:56:02.613Z'

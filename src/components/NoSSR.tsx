@@ -1,13 +1,20 @@
 'use client';
 
-import { useMounted } from '@/hooks/useMounted.js';
+import { noSSR } from 'foxact/no-ssr';
+import { Suspense } from 'react';
 
 interface NoSSRProps {
     children: React.ReactNode;
 }
 
+function Inner({ children }: NoSSRProps) {
+    noSSR();
+    return children;
+}
 export function NoSSR({ children }: NoSSRProps) {
-    const mounted = useMounted();
-
-    return mounted ? children : null;
+    return (
+        <Suspense>
+            <Inner>{children}</Inner>
+        </Suspense>
+    );
 }
