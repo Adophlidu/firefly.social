@@ -37,7 +37,7 @@ export function DiscoverNFTList() {
                 overscan: 2000,
             }}
             NoResultsFallbackProps={{
-                className: 'md:pt-[228px] max-md:py-20',
+                className: 'mt-20',
             }}
         />
     );

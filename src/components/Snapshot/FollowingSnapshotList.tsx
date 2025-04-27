@@ -36,7 +36,7 @@ export function FollowingSnapshotList({ walletAddresses }: { walletAddresses?: s
     });
 
     if (!profileIds.length) {
-        return <NotLoginFallback source={Source.DAOs} className="md:!pt-0" />;
+        return <NotLoginFallback source={Source.DAOs} />;
     }
 
     return (

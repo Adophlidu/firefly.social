@@ -40,7 +40,7 @@ export const FollowingArticleList = memo(function FollowingArticleList() {
                     getArticleItemContent(index, article, `${ScrollListKey.Following}:${Source.Article}`),
             }}
             NoResultsFallbackProps={{
-                className: 'md:pt-[228px] max-md:py-20',
+                className: 'mt-20',
             }}
         />
     );

@@ -70,7 +70,7 @@ export function PolymarketTimeLine({ address, isFollowing }: PolymarketTimeLineP
                 itemContent: (index, item) => getPolymarketActivityItemContent(index, item),
             }}
             NoResultsFallbackProps={{
-                className: 'md:pt-[228px] max-md:py-20',
+                className: 'mt-20',
             }}
         />
     );

@@ -3,6 +3,7 @@
 import { Checkbox, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
+import { Fragment } from 'react';
 
 import FilterIcon from '@/assets/filter.svg';
 import WalletIcon from '@/assets/wallet.svg';
@@ -173,7 +174,7 @@ export function DiscoverFilter({ tab, source }: Props) {
     return (
         <Menu>
             {({ close }) => (
-                <>
+                <Fragment key="discover-filter">
                     <MenuButton
                         className="size-6 text-placeholder outline-none"
                         onMouseEnter={(e) => e.currentTarget.click()}
@@ -197,7 +198,7 @@ export function DiscoverFilter({ tab, source }: Props) {
                             </div>
                         </div>
                     </MenuItems>
-                </>
+                </Fragment>
             )}
         </Menu>
     );

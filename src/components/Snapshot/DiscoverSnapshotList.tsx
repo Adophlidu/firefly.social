@@ -28,7 +28,7 @@ export const DiscoverSnapshotList = memo(function DiscoverSnapshotList() {
             source={Source.DAOs}
             queryResult={snapshotQueryResult}
             NoResultsFallbackProps={{
-                className: 'md:pt-[228px] max-md:py-20',
+                className: 'mt-20',
             }}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Discover}:${Source.DAOs}`,

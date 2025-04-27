@@ -76,15 +76,15 @@ export function SwapTimeline({ isFollowing, address }: SwapTimelineProps) {
             source={Source.Wallet}
             queryResult={queryResult}
             NoResultsFallbackProps={{
-                icon: isFollowing ? <SwapEmptyIcon width={134} height={144} /> : null,
+                icon: isFollowing ? <SwapEmptyIcon width={134} height={144} className="mt-3" /> : null,
                 message: isFollowing ? (
-                    <div className="mt-10 flex flex-col items-center gap-6">
+                    <div className="mt-1 flex flex-col items-center gap-6">
                         <Trans>Explore and follow accounts to see the feed</Trans>
                         <ClickableButton
                             onClick={() => {
                                 router.push(resolveExploreUrl(DEFAULT_EXPLORE_TYPE));
                             }}
-                            className="rounded-md bg-main px-2 py-1 text-primaryBottom"
+                            className="leading-12 h-12 min-w-[100px] rounded-2xl bg-main px-5 text-primaryBottom"
                         >
                             <Trans>Explore</Trans>
                         </ClickableButton>

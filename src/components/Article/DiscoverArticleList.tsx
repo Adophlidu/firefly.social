@@ -32,7 +32,7 @@ export const DiscoverArticleList = memo(function DiscoverArticleList() {
                     getArticleItemContent(index, article, `${ScrollListKey.Discover}:${Source.Article}`),
             }}
             NoResultsFallbackProps={{
-                className: 'md:pt-[228px] max-md:py-20',
+                className: 'mt-20',
             }}
         />
     );
