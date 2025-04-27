@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import FlagIcon from '@/assets/flag.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -19,7 +19,8 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
 export function ReportArticleButton({ article, ref, onReport, onClick, ...rest }: Props) {
     const mutation = useMutation({
         mutationFn: async () => {
-            return FireflyEndpointProvider.reportArticle(article);
+            await FireflyEndpointProvider.reportArticle(article);
+            enqueueSuccessMessage(t`Report submitted`);
         },
     });
     return (
