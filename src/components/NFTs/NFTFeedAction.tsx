@@ -12,11 +12,11 @@ import { TokenPrice } from '@/components/TokenPrice.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { resolveCoinGeckoTokenSymbol } from '@/helpers/resolveCoinGeckoTokenSymbol.js';
-import { type NFTActionCost, NFTFeedTransAction } from '@/providers/types/NFTs.js';
+import { TransEventType } from '@/providers/nft-scan/types.js';
+import { type NFTActionCost } from '@/providers/types/NFTs.js';
 
 export interface NFTFeedActionProps {
-    action: NFTFeedTransAction;
+    action: TransEventType;
     ownerAddress?: string;
     toAddress?: string;
     fromAddress?: string;
@@ -36,14 +36,14 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                     prefix=" ($"
                     suffix=")"
                     value={cost.value}
-                    decimals={cost.decimals}
-                    symbol={resolveCoinGeckoTokenSymbol(cost.symbol)}
+                    decimals={cost.decimals ?? 0}
+                    symbol={cost.symbol}
                 />
             </>
         ) : null;
 
         switch (action) {
-            case NFTFeedTransAction.Mint:
+            case TransEventType.Mint:
                 return (
                     <>
                         <MintIcon width={iconSize} height={iconSize} className="mb-auto mt-[3px] min-w-[18px]" />
@@ -60,7 +60,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                         </div>
                     </>
                 );
-            case NFTFeedTransAction.Transfer:
+            case TransEventType.Transfer:
                 if (isSameEthereumAddress(toAddress, ownerAddress)) {
                     return (
                         <>
@@ -103,7 +103,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                         </div>
                     </>
                 );
-            case NFTFeedTransAction.Burn:
+            case TransEventType.Burn:
                 return (
                     <>
                         <BurnIcon width={iconSize} height={iconSize} className="mb-auto mt-[3px] min-w-[18px]" />
@@ -114,7 +114,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                         </div>
                     </>
                 );
-            case NFTFeedTransAction.Trade:
+            case TransEventType.Sale:
                 if (isSameEthereumAddress(toAddress, ownerAddress)) {
                     return (
                         <>
@@ -149,7 +149,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                         </div>
                     </>
                 );
-            case NFTFeedTransAction.Poap:
+            case TransEventType.Poap:
                 return (
                     <>
                         <PoapIcon width={iconSize} height={iconSize} className="mb-auto mt-[3px] min-w-[18px]" />

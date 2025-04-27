@@ -17,7 +17,6 @@ import { TENOR_GIF_REGEXP } from '@/constants/regexp.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
-import { isSamePost } from '@/helpers/isSamePost.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
 import { type Attachment, type Post, type Profile } from '@/providers/types/SocialMedia.js';
@@ -239,7 +238,7 @@ export function formatBskyFeedPost(original: AppBskyFeedDefs.FeedViewPost | AppB
     if (AppBskyFeedDefs.isThreadViewPost(original) && AppBskyFeedDefs.isThreadViewPost(original.parent)) {
         post.type = 'Comment';
         post.commentOn = formatBskyFeedPost(original.parent);
-        post.parentPostId = PostAtUri.from(original.parent.post.uri).toId();
+        post.parentPostId = original.parent.post.cid;
         post.parentContentURI = original.parent.post.uri;
     }
     if (
@@ -250,13 +249,10 @@ export function formatBskyFeedPost(original: AppBskyFeedDefs.FeedViewPost | AppB
         post.type = 'Comment';
         post.commentOn = formatBskyPostView(original.reply.parent);
         post.root = formatBskyPostView(original.reply.root);
-        post.parentPostId = PostAtUri.from(original.reply.parent.uri).toId();
+        post.parentPostId = original.reply.parent.cid;
         post.parentContentURI = original.reply.parent.uri;
-        post.rootPostId = PostAtUri.from(original.reply.root.uri).toId();
+        post.rootPostId = original.reply.root.cid;
         post.rootContentURI = original.reply.root.uri;
-        if (isSamePost(post.commentOn, post.root)) {
-            delete post.commentOn;
-        }
     }
     if (original.reason) {
         post.type = 'Mirror';
@@ -269,7 +265,7 @@ export function formatBskyFeedPost(original: AppBskyFeedDefs.FeedViewPost | AppB
     if (AppBskyEmbedRecord.isView(original.post.embed) && AppBskyEmbedRecord.isViewRecord(original.post.embed.record)) {
         post.type = 'Quote';
         post.quoteOn = formatBskyViewRecord(original.post.embed.record);
-        post.parentPostId = post.quoteOn.postId;
+        post.parentPostId = post.quoteOn.publicationId;
         post.parentContentURI = post.quoteOn.metadata.contentURI;
         post.rootPostId = post.quoteOn.postId;
         post.rootContentURI = post.quoteOn.metadata.contentURI;

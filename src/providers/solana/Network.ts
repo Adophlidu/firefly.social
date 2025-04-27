@@ -1,6 +1,6 @@
 import { SolanaExplorerResolver } from '@/mask/index.js';
 import { getWalletAdapter, getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';
-import type { NetworkProvider as NetworkProvider } from '@/providers/types/Network.js';
+import type { NetworkProvider } from '@/providers/types/Network.js';
 import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 class Provider implements NetworkProvider<SolanaChainId> {

@@ -9,7 +9,9 @@ import stripMarkdown from 'strip-markdown';
 
 import { Code } from '@/components/Code.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
+import { DisableItalicPlugin } from '@/components/Markup/plugins/DisableItalicPlugin.js';
 import { HashTagLink } from '@/components/Markup/plugins/HashTagLink.js';
+import { MergeAdjacentTextPlugin } from '@/components/Markup/plugins/MergeAdjacentTextPlugin.js';
 import { UrlPlugin } from '@/components/Markup/plugins/UrlPlugin.js';
 import {
     CHANNEL_REGEX,
@@ -51,6 +53,8 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             // Make sure Mention plugin is before URL plugin, to avoid matching
             // mentioned ens handle as url. For example, @mask.eth should be treat
             // as a mention rather than link
+            DisableItalicPlugin,
+            MergeAdjacentTextPlugin,
             MentionPlugin,
             UrlPlugin,
             // parsing handle after url

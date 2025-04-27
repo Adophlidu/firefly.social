@@ -7,7 +7,7 @@ import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 
 export interface ActivityCellHeaderProps extends HTMLProps<HTMLDivElement> {
@@ -26,7 +26,7 @@ export function ActivityCellHeader({
     children,
     ...rest
 }: ActivityCellHeaderProps) {
-    const authorUrl = resolveProfileUrl(Source.Wallet, address);
+    const authorUrl = getProfileUrl({ source: Source.Wallet, profileId: address });
 
     return (
         <header className={classNames('flex items-start gap-3', className)} {...rest}>

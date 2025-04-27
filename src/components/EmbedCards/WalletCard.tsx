@@ -17,9 +17,9 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveNetworkIcon } from '@/helpers/resolveNetworkIcon.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useWalletRelatedProfiles } from '@/hooks/useWalletRelatedProfiles.js';
@@ -34,7 +34,11 @@ function resolveProfileUrlBySource(source: ProfilePageSource, profiles: FireflyP
     const currentSourceProfiles = profiles.filter((profile) => profile.identity.source === source);
     const profile = currentSourceProfiles.find((profile) => profile.isDefault) || currentSourceProfiles[0];
     if (!profile?.identity.id) return null;
-    return resolveProfileUrl(source, profile.identity.id);
+    return getProfileUrl({
+        source,
+        profileId: profile.identity.id,
+        handle: profile.displayName,
+    });
 }
 
 export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, domain, children, ...rest }) {
@@ -68,7 +72,7 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
     if (!walletProfile) return null;
 
     const networkIcon = networkType ? resolveNetworkIcon(networkType, isDarkMode) : null;
-    const profileUrl = resolveProfileUrl(Source.Wallet, address);
+    const profileUrl = getProfileUrl({ source: Source.Wallet, profileId: address });
 
     return (
         <>

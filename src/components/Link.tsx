@@ -13,22 +13,30 @@ type LinkProps = React.ComponentProps<typeof OriginalLink>;
 
 export function Link({ href, ref, onClick, ...rest }: LinkProps) {
     const { data: internalLink } = useInternalLink(href);
+    const isTrusted = isTrustedUrl(href);
+    const openConfirmModal = !isTrusted && !internalLink && typeof href === 'string';
 
     const onLinkClick = useCallback(
         async (event: React.MouseEvent<HTMLAnchorElement>) => {
             onClick?.(event);
-            const isTrusted = isTrustedUrl(href);
-            if (!isTrusted && !internalLink && typeof href === 'string') {
+            if (openConfirmModal) {
                 event.preventDefault();
                 const intercepted = await interceptExternalUrl(href);
                 if (intercepted) return;
-
                 const confirmed = await ConfirmLeavingModalRef.openAndWaitForClose(href);
                 if (confirmed) openWindow(href);
             }
         },
-        [internalLink, href, onClick],
+        [onClick, openConfirmModal, href],
     );
 
-    return <OriginalLink {...rest} href={internalLink || href} ref={ref} onClick={onLinkClick} />;
+    return (
+        <OriginalLink
+            {...rest}
+            href={internalLink || href}
+            data-prevent-progress={openConfirmModal}
+            ref={ref}
+            onClick={onLinkClick}
+        />
+    );
 }

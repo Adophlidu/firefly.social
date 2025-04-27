@@ -6,17 +6,18 @@ import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { useReportSpamNFT } from '@/hooks/useReportSpamNFT.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
-    collectionId: string;
+    chainId: number;
+    address: string;
 }
 
-export function NFTReportSpamButton({ collectionId, onClick, ...rest }: Props) {
+export function NFTReportSpamButton({ chainId, address, onClick, ...rest }: Props) {
     const [, reportSpamNFT] = useReportSpamNFT();
     return (
         <MenuButton
             {...rest}
             onClick={async (event) => {
                 onClick?.(event);
-                await reportSpamNFT(collectionId);
+                await reportSpamNFT(chainId, address);
             }}
         >
             <FlagIcon width={18} height={18} />

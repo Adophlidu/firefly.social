@@ -3,23 +3,17 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { SimpleHashProvider } from '@/providers/simplehash/index.js';
-import type { SimpleHash } from '@/providers/simplehash/type.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import type { EVM } from '@/providers/nft-scan/types.js';
 
 export async function createMetadataNFT(chainId: number, address: string, tokenId: string) {
-    const data = await SimpleHashProvider.getNFT(
-        address,
-        tokenId,
-        {
-            chainId,
-        },
-        true,
-    ).catch(() => null);
-    if (!data?.metadata) return createSiteMetadata({});
+    const data = await FireflyEndpointProvider.getNFTDetail(chainId, address, tokenId).catch(() => null);
+    if (!data) return createSiteMetadata({});
 
-    const title = createPageTitleOG(data.metadata.name);
-    const description = data.metadata.description;
-    const images = data.metadata.imageURL ? [data.metadata.imageURL] : [];
+    const name = data.name || `${data.collection.name} #${tokenId}`;
+    const title = createPageTitleOG(name);
+    const description = data.description;
+    const images = data.nftscan_uri || data.image_uri || data.content_uri!;
     return createSiteMetadata({
         title,
         description,
@@ -38,10 +32,10 @@ export async function createMetadataNFT(chainId: number, address: string, tokenI
     });
 }
 
-function createCollectionMetadata(data: SimpleHash.Collection) {
+function createCollectionMetadata(data: EVM.Collection) {
     const title = createPageTitleOG(data.name);
     const description = data.description;
-    const images = [data.image_url];
+    const images = [data.large_image_url || data.banner_url || data.featured_url || data.logo_url];
     const { chainId, address } = resolveCollectionChain(data);
     return createSiteMetadata({
         title,
@@ -62,14 +56,7 @@ function createCollectionMetadata(data: SimpleHash.Collection) {
 }
 
 export async function createMetadataNFTCollection(chainId: number, address: string) {
-    const data = await runInSafeAsync(() => SimpleHashProvider.getCollection(address, { chainId }));
-    if (!data) return createSiteMetadata({});
-
-    return createCollectionMetadata(data);
-}
-
-export async function createMetadataNFTCollectionById(collectionId: string) {
-    const data = await runInSafeAsync(() => SimpleHashProvider.getCollectionById(collectionId));
+    const data = await runInSafeAsync(() => FireflyEndpointProvider.getCollection(chainId, address));
     if (!data) return createSiteMetadata({});
 
     return createCollectionMetadata(data);

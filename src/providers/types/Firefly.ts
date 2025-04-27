@@ -12,12 +12,11 @@ import {
     WalletSource,
 } from '@/constants/enum.js';
 import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
-import type { SimpleHash } from '@/providers/simplehash/type.js';
+import type { ErcType, EVM } from '@/providers/nft-scan/types.js';
 import type { SnapshotChoice } from '@/providers/snapshot/type.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 import type { CoinGeckoAsset } from '@/providers/types/CoinGecko.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
-import type { NFTScan } from '@/providers/types/NFTScan.js';
 import type { ComposeType } from '@/types/compose.js';
 
 export enum EmbedMediaType {
@@ -642,15 +641,10 @@ export type BlockRelationResponse = Response<
 
 export type ReportCrossPostResponse = Response<void>;
 
-export type NFTCollectionsResponse = Response<{
-    cursor: string;
-    collections: SimpleHash.LiteCollection[];
-}>;
-
 export type NFTAsset = NonFungibleAsset<number, number> & {
     hasBookmarked?: boolean;
-    externalUrl?: string;
-    __origin__?: SimpleHash.NFT;
+    externalUrl?: string | null;
+    __origin__?: unknown;
 };
 
 export type TwitterFollowStatusResponse = Response<{
@@ -1208,7 +1202,7 @@ export type Project = {
 };
 
 export type SearchNFTResponse = Response<{
-    list: NFTScan.Collection[];
+    list: EVM.Collection[];
 }>;
 
 export type SearchableToken = {
@@ -1316,10 +1310,15 @@ export interface SetNotificationPushSwitchParams {
     }>;
 }
 
+/** With collection */
+export interface NFTDetail extends EVM.Asset {
+    collection: EVM.Collection;
+}
+
 export type LinkDigestResponse = Response<{
     link: string;
     type: string;
-    nft?: SimpleHash.NFT;
+    nft?: NFTDetail;
     lensPost?: unknown;
     farcasterPost?: unknown;
     mirror?: unknown;
@@ -1351,7 +1350,6 @@ export type SponsorMintOptions = {
     buyCount: number;
     vectorId?: number;
     color?: string;
-    contractExt?: SimpleHash.NFTContract;
     collectionId?: string;
 };
 
@@ -1532,3 +1530,71 @@ export type SwapActivityTimeline = Response<{
     result: SwapActivity[];
     cursor?: string;
 }>;
+
+export type CollectionResponse = Response<EVM.Collection>;
+export type CollectionsResponse = Response<{ collections: EVM.Collection[]; cursor: string }>;
+
+export type NFTDetailsResponse = Response<{
+    nfts: NFTDetail[];
+    cursor: string;
+}>;
+
+export interface CollectionHolder {
+    address: string;
+    value: number;
+    /** @example 10% */
+    proportion: string;
+}
+
+export type HoldersResponse = Response<CollectionHolder[]>;
+
+export type CollectionItemsResponse = Response<{
+    content: EVM.Asset[];
+    next: string;
+    total: number;
+}>;
+
+export type CollectionStatisticsResponse = Response<{
+    contract_address: string;
+    contract_name: string;
+    erc_type: ErcType;
+    logo_url: string;
+    items_total: number;
+    owners_total: number;
+    lowest_price_24h: number;
+    lowest_price_1d: number;
+    lowest_price_7d: number;
+    lowest_price_30d: number;
+    average_price_24h: number;
+    volume_24h: number;
+    sales_24h: number;
+    sales: number;
+    sales_1d: number;
+    sales_7d: number;
+    sales_30d: number;
+    highest_price: number;
+    volume_1d: number;
+    volume_7d: number;
+    volume_30d: number;
+    total_volume: number;
+    volume_change_1d: string;
+    volume_change_7d: string;
+    volume_change_30d: string;
+    market_cap: number;
+    average_price_change_1d: string;
+    average_price_change_7d: string;
+    average_price_change_30d: string;
+    floor_price: number;
+    sales_1h: number;
+    sales_6h: number;
+    volume_1h: number;
+    volume_6h: number;
+    volume_change_1h: string;
+    volume_change_6h: string;
+}>;
+
+export type NFTBookmarkContent = {
+    nft_id: `${number}.${string}.${string}`;
+    own_num: 0;
+    following_own_num: 0;
+};

@@ -10,10 +10,10 @@ import { SquareSourceIcon } from '@/components/SquareSourceIcon.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useAllProfiles } from '@/hooks/useAllProfiles.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { type FireflyIdentity, type FireflyProfile, type WalletProfile } from '@/providers/types/Firefly.js';
@@ -103,7 +103,11 @@ export function ProfileTabs({ profiles: initialProfiles, identity }: ProfileTabs
 
                     return (
                         <Link
-                            href={resolveProfileUrl(profile.identity.source, profile.identity.id)}
+                            href={getProfileUrl({
+                                source: profile.identity.source,
+                                profileId: profile.identity.id,
+                                handle: profile.displayName,
+                            })}
                             onClick={() =>
                                 startTransition(() => {
                                     useFireflyIdentityState.getState().setIdentity(profile.identity);

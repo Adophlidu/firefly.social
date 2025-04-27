@@ -75,13 +75,7 @@ export const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInn
     const renderCard = () => {
         switch (embed.type) {
             case 'address':
-                return (
-                    <AddressCard
-                        key={embed.value}
-                        className="min-h-[109px] rounded-2xl !bg-lightBg"
-                        address={embed.value}
-                    />
-                );
+                return <AddressCard key={embed.value} className="rounded-2xl !bg-lightBg" address={embed.value} />;
             case 'domain':
                 return (
                     <DomainCard

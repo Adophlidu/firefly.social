@@ -163,6 +163,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                                 type: 'quote',
                                 post,
                                 source,
+                                channel: post.channel,
                             });
                         }}
                     >

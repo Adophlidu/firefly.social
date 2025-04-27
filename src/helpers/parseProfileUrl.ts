@@ -3,12 +3,12 @@ import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isSocialProfileCategory } from '@/helpers/isSocialProfileCategory.js';
 import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
 import { isWalletProfileCategory } from '@/helpers/isWalletProfileCategory.js';
-import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import { resolveProfileSourceFromUrl, resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 
 export function parseProfileUrl(pathname: string) {
     if (!pathname.startsWith(PageRoute.Profile)) return null;
     const [, , sourceInUrl, id, category] = pathname.split('/');
-    const source = resolveSourceFromUrlNoFallback(sourceInUrl);
+    const source = resolveProfileSourceFromUrl(sourceInUrl) || resolveSourceFromUrlNoFallback(sourceInUrl);
     if (!source) return null;
     const isSocialProfile = isSocialSource(source) && isSocialProfileCategory(source, category);
     const isWalletProfile =

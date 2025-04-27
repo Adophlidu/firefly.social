@@ -85,6 +85,7 @@ const config: NextConfig = {
         scrollRestoration: true,
         serverSourceMaps: false,
         webpackBuildWorker: true,
+        webpackMemoryOptimizations: true,
         swcPlugins: [['@lingui/swc-plugin', {}]],
         serverActions: {
             bodySizeLimit: '80mb',

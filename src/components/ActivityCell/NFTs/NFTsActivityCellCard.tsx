@@ -1,6 +1,5 @@
 'use client';
 
-import { isUndefined } from 'lodash-es';
 import { memo } from 'react';
 
 import CalendarIcon from '@/assets/calendar.svg';
@@ -12,30 +11,25 @@ import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTVideo } from '@/components/NFTDetail/NFTInfoPreview.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
-import { TokenPrice } from '@/components/TokenPrice.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getFloorPrice } from '@/helpers/getFloorPrice.js';
-import { resolveCoinGeckoTokenSymbol } from '@/helpers/resolveCoinGeckoTokenSymbol.js';
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
-import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
-import type { NFTAsset } from '@/providers/types/Firefly.js';
-import { NFTFeedTransAction } from '@/providers/types/NFTs.js';
-import { EthereumChainId, type EthereumSchemaType } from '#masknet/web3-shared-evm';
+import { type EVM, TransEventType } from '@/providers/nft-scan/types.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface Props {
     address: string;
     tokenId: string;
     chainId: EthereumChainId;
-    action: NFTFeedTransAction;
+    action: TransEventType;
     ownerAddress: string;
     bookmarked?: boolean;
-    nft: NFTAsset;
+    nft: EVM.Asset;
 }
 
-const PoapTags = memo(function PoapTags({ asset }: { asset: NonFungibleAsset<EthereumChainId, EthereumSchemaType> }) {
-    const { date, position } = usePoapTraits(asset.traits || [], 'MMMDD');
+const PoapTags = memo(function PoapTags({ asset }: { asset: EVM.Asset }) {
+    const { date, position } = usePoapTraits(asset.attributes || [], 'MMMDD');
 
     return (
         <>
@@ -57,40 +51,39 @@ const PoapTags = memo(function PoapTags({ asset }: { asset: NonFungibleAsset<Eth
 
 export function NFTsActivityCellCard(props: Props) {
     const { address, tokenId, chainId, action, ownerAddress, bookmarked, nft: data } = props;
-    const metadata = data?.metadata;
-    const imageURL = metadata?.previewImageURL || metadata?.imageURL || '';
+    const imageURL = data.image_uri || data.content_uri || data.nftscan_uri!;
 
-    const isPoap = action === NFTFeedTransAction.Poap && !isUndefined(data?.metadata?.eventId);
+    const isPoap = action === TransEventType.Poap;
+    const isVideo = imageURL?.match(/\.(mp4|webm|ogg|avi|mkv)$/i);
 
     return (
         <div className="relative">
             <Link
                 href={resolveNFTUrl(chainId, address, tokenId)}
                 className="relative flex w-auto shrink-0 flex-col"
-                data-disable-progress={!!data?.metadata?.video}
+                data-disable-progress={!!isVideo}
             >
                 <div className="relative">
-                    {data?.metadata?.video ? (
+                    {isVideo ? (
                         <ClickableArea>
                             <NFTVideo
                                 className={classNames(
                                     'h-auto max-h-[500px] min-h-[150px] w-[250px] min-w-[150px] cursor-pointer rounded-t-xl bg-lightBg object-cover dark:bg-bg md:w-[300px]',
                                     {
-                                        'rounded-b-xl': !data?.collection?.floorPrices?.length,
+                                        'rounded-b-xl': true,
                                     },
                                 )}
-                                video={data?.metadata?.video}
+                                video={imageURL}
                                 imageURL={imageURL}
                             />
                         </ClickableArea>
                     ) : (
                         <NFTImage
                             src={imageURL}
-                            unoptimized={false}
                             className={classNames(
                                 'h-auto max-h-[500px] min-h-[150px] w-[250px] min-w-[150px] rounded-t-xl bg-lightBg object-cover dark:bg-bg md:w-[300px]',
                                 {
-                                    'rounded-b-xl': !data?.collection?.floorPrices?.length,
+                                    'rounded-b-xl': true,
                                 },
                             )}
                             alt="nft-card"
@@ -104,7 +97,7 @@ export function NFTsActivityCellCard(props: Props) {
                             <PoapTags asset={data} />
                         ) : (
                             <div className="truncate rounded-lg bg-black/25 p-1.5 text-sm font-bold text-white backdrop-blur-lg">
-                                {data?.metadata?.name || `#${tokenId}`}
+                                {data.name || `#${tokenId}`}
                             </div>
                         )}
                     </div>
@@ -116,19 +109,6 @@ export function NFTsActivityCellCard(props: Props) {
                         <ChainIcon className="rounded-full" chainId={chainId} size={24} />
                     </div>
                 )}
-                {data?.collection?.floorPrices?.length ? (
-                    <div className="w-full rounded-b-xl bg-lightBg p-3 text-sm font-bold dark:bg-bg">
-                        {getFloorPrice(data.collection.floorPrices)}
-                        <TokenPrice
-                            value={data.collection.floorPrices[0].value}
-                            symbol={resolveCoinGeckoTokenSymbol(data.collection.floorPrices[0].payment_token.symbol)}
-                            prefix=" ($"
-                            suffix=")"
-                            decimals={data.collection.floorPrices[0].payment_token.decimals}
-                            target="usd"
-                        />
-                    </div>
-                ) : null}
             </Link>
             <div className="absolute right-[14px] top-3">
                 <BookmarkInIcon

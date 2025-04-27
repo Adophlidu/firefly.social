@@ -15,8 +15,8 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByFireflyProfile } from '@/helpers/getStampAvatarByProfileId.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { Debank } from '@/providers/debank/index.js';
 import { OKX } from '@/providers/okx/index.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
@@ -70,7 +70,7 @@ export function WalletMixInfo({ profiles = [] }: Props) {
                     {defaultWalletProfiles.map((profile) => (
                         <Link
                             key={profile.identity.id}
-                            href={resolveProfileUrl(Source.Wallet, profile.identity.id)}
+                            href={getProfileUrl({ source: Source.Wallet, profileId: profile.identity.id })}
                             className="flex h-6 flex-row items-center space-x-1 rounded bg-primaryBottom px-2"
                         >
                             {profile.type === NetworkType.Ethereum ? (
@@ -95,7 +95,10 @@ export function WalletMixInfo({ profiles = [] }: Props) {
                                     {remaining.map((profile) => (
                                         <MenuItem key={profile.identity.id}>
                                             <Link
-                                                href={resolveProfileUrl(Source.Wallet, profile.identity.id)}
+                                                href={getProfileUrl({
+                                                    source: Source.Wallet,
+                                                    profileId: profile.identity.id,
+                                                })}
                                                 className="flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
                                             >
                                                 <Avatar

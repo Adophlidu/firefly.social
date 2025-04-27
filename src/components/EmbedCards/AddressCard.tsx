@@ -6,6 +6,7 @@ import { ContractCard } from '@/components/EmbedCards/ContractCard.js';
 import { Indicator, type IndicatorProps } from '@/components/EmbedCards/Indicator.js';
 import type { AddressCardProps } from '@/components/EmbedCards/types.js';
 import { WalletCard } from '@/components/EmbedCards/WalletCard.js';
+import { classNames } from '@/helpers/classNames.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
@@ -22,10 +23,17 @@ export const AddressCard = memo<AddressCardProps>(function AddressCard(props) {
     switch (address_type) {
         case 'eoa':
         case 'soa':
-            return <WalletCard {...props} />;
+            return <WalletCard {...props} className={classNames('min-h-[76px]', props.className)} />;
         case 'contract':
             if (detected.contract_type === 'program' || detected.contract_type === 'unknown') return null;
-            return <ContractCard contractType={detected.contract_type} chainId={+detected.chain_id} {...props} />;
+            return (
+                <ContractCard
+                    contractType={detected.contract_type}
+                    chainId={+detected.chain_id}
+                    {...props}
+                    className={classNames('min-h-[109px]', props.className)}
+                />
+            );
         default:
             safeUnreachable(address_type);
             return null;

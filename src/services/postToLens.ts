@@ -185,12 +185,16 @@ async function uploadPostMetadata(metadata: GetPostMetaData) {
     return `ar://${arweaveId}`;
 }
 
+function resolveValidChannel(channel: Channel | null) {
+    return channel && channel?.id !== HOME_CLUB.id ? channel : undefined;
+}
+
 async function publishPostForLens(
     profileId: string,
     content: string,
     images: MediaObject[],
     video: MediaObject | null,
-    channel?: Channel | null,
+    channel: Channel | null,
     restrictions?: RestrictionType[],
 ) {
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
@@ -215,7 +219,7 @@ async function publishPostForLens(
         },
         source: Source.Lens,
         restrictions,
-        channel: channel && channel?.id !== HOME_CLUB.id ? channel : undefined,
+        channel: resolveValidChannel(channel),
     });
     return publicationId;
 }
@@ -226,6 +230,7 @@ async function commentPostForLens(
     content: string,
     images: MediaObject[],
     video: MediaObject | null,
+    channel: Channel | null,
 ) {
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
 
@@ -239,7 +244,14 @@ async function commentPostForLens(
     );
 
     const contentURI = await GroveStorageProvider.uploadJson(metadata);
-    return LensSocialMediaProvider.commentPost(postId, createDummyPost(Source.Lens, contentURI.uri), profile.signless);
+    return LensSocialMediaProvider.commentPost(
+        postId,
+        {
+            ...createDummyPost(Source.Lens, contentURI.uri),
+            channel: resolveValidChannel(channel),
+        },
+        profile.signless,
+    );
 }
 
 async function quotePostForLens(
@@ -248,6 +260,7 @@ async function quotePostForLens(
     content: string,
     images: MediaObject[],
     video: MediaObject | null,
+    channel: Channel | null,
     restrictions?: RestrictionType[],
 ) {
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
@@ -267,6 +280,7 @@ async function quotePostForLens(
         {
             ...createDummyPost(Source.Lens, contentURI.uri),
             restrictions,
+            channel: resolveValidChannel(channel),
         },
         profile.signless,
     );
@@ -334,6 +348,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 readChars(newChars, 'both', Source.Lens),
                 images,
                 video,
+                channel[Source.Lens],
             );
         },
         quote(images, videos) {
@@ -345,6 +360,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 readChars(newChars, 'both', Source.Lens),
                 images,
                 video,
+                channel[Source.Lens],
                 [restriction],
             );
         },

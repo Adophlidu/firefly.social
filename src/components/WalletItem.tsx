@@ -12,9 +12,9 @@ import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -30,7 +30,7 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
     const isMuted = blocked ?? false;
     const isValidAddress = isValidAddressEthereum(address) || isValidAddressSolana(address);
 
-    const profileLink = resolveProfileUrl(Source.Wallet, address);
+    const profileLink = getProfileUrl({ source: Source.Wallet, profileId: address });
     const walletHandle = primary_ens || formatAddress(address, 10, 0);
     const avatar = ensAvatar || getStampAvatarByProfileId(Source.Wallet, address);
 

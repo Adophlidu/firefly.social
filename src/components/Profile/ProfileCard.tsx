@@ -15,7 +15,6 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
@@ -90,7 +89,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
 
                     <div className="flex gap-3 text-medium">
                         <Link
-                            href={resolveProfileUrl(profile.source, profile.profileId, FollowCategory.Following)}
+                            href={getProfileUrl(profile, FollowCategory.Following)}
                             className={classNames('gap-1 leading-[22px] hover:underline', {
                                 'pointer-events-none':
                                     profile.source !== Source.Farcaster && profile.source !== Source.Lens,

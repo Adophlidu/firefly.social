@@ -1,13 +1,9 @@
-import { first } from 'lodash-es';
-
 import { LinkDigestType, NetworkType } from '@/constants/enum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
-import { isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
-import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { SimpleHashProvider } from '@/providers/simplehash/index.js';
+import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 import { SolanaChainId } from '#masknet/web3-shared-solana';
 
@@ -111,14 +107,8 @@ export async function getNFTFromUrl(url: string) {
     const nftParams = resolveNFTData(url);
 
     if (nftParams) {
-        const chain = isValidAddressSolana(nftParams.address) ? 'solana' : resolveSimpleHashChain(nftParams.chainId);
-        const nft = !nftParams.isPoap
-            ? await SimpleHashProvider.getNFTByAddress(nftParams.address, nftParams.tokenId, chain || 'ethereum')
-            : first(
-                  await SimpleHashProvider.getNFTByIds(
-                      ['gnosis', 'ethereum'].map((chain) => `${chain}.${nftParams.address}.${nftParams.tokenId}`),
-                  ),
-              );
+        if (!NFTSCAN_CHAIN_IDS.includes(nftParams.chainId)) return;
+        const nft = await FireflyEndpointProvider.getNFTDetail(nftParams.chainId, nftParams.address, nftParams.tokenId);
         return nft;
     }
 

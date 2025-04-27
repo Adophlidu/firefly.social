@@ -10,7 +10,7 @@ import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStr
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import type { SocialSource } from '@/constants/enum.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
@@ -32,7 +32,7 @@ export function useVerifyAndClaimEVM(payload: RedPacketJSONPayload, source: Soci
     const verifyAndClaim = useCallback(async () => {
         const { data } = await recheckClaimStatus();
         if (!data?.data.canClaim) {
-            enqueueErrorMessage(t`Oops... Not all the requirements have been met`);
+            enqueueWarningMessage(t`Oops... Not all the requirements have been met`);
             return { canClaim: false };
         }
 

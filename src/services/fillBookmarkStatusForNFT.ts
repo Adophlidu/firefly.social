@@ -1,10 +1,10 @@
 import { FireflyPlatform } from '@/constants/enum.js';
 import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import type { EVM } from '@/providers/nft-scan/types.js';
 
-export async function fillBookmarkStatusForNonFungibleAssets(assets: Array<NonFungibleAsset<number, number>>) {
+export async function fillBookmarkStatusForNonFungibleAssets(assets: EVM.Asset[]) {
     const nftIds = assets.map((item) => resolveNFTIdFromAsset(item));
     if (!nftIds.length) return assets;
 

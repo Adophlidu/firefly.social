@@ -13,11 +13,12 @@ import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
+import type { EVM } from '@/providers/nft-scan/types.js';
 import { getPostIFrame } from '@/providers/og/readers/iframe.js';
-import type { SimpleHash } from '@/providers/simplehash/type.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { ActionGetResponse } from '@/providers/types/Blink.js';
+import type { NFTDetail } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
 import { getCollectionFromUrl } from '@/services/getCollectionFromUrl.js';
@@ -120,8 +121,8 @@ export interface ClassifyPostLinkResult {
     articleId?: string;
     spaceId?: string;
     snapshot?: SnapshotProposal;
-    nft?: SimpleHash.NFT;
-    collection?: SimpleHash.Collection;
+    nft?: NFTDetail;
+    collection?: EVM.Collection;
 }
 
 export async function classifyPostLink(url: string, post: Post) {
@@ -148,15 +149,15 @@ export async function classifyPostLink(url: string, post: Post) {
 
                 return { articleId };
             },
-            // nft collection
-            async () => {
-                const collection = await getCollectionFromUrl(url);
-                return collection ? { collection } : null;
-            },
             // nft
             async () => {
                 const nft = await getNFTFromUrl(url);
                 return nft ? { nft } : null;
+            },
+            // nft collection
+            async () => {
+                const collection = await getCollectionFromUrl(url);
+                return collection ? { collection } : null;
             },
             async () => {
                 // try iframe first. As we don't have to call other services if matched

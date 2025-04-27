@@ -24,9 +24,9 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useChangeSwapLikeStatus } from '@/hooks/useChangeSwapLikeStatus.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -46,7 +46,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
     });
 
     const addressName = formatAddress(activity?.owner ?? '', 4);
-    const profileUrl = resolveProfileUrl(Source.Wallet, activity?.owner);
+    const profileUrl = getProfileUrl({ source: Source.Wallet, profileId: activity?.owner });
 
     const { mutate: onLikeChange, isPending } = useChangeSwapLikeStatus(activity);
 

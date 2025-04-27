@@ -10,7 +10,9 @@ import stripMarkdown from 'strip-markdown';
 import { Code } from '@/components/Code.js';
 import type { MarkupProps } from '@/components/Markup/Markup.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
+import { DisableItalicPlugin } from '@/components/Markup/plugins/DisableItalicPlugin.js';
 import { HashTagLink } from '@/components/Markup/plugins/HashTagLink.js';
+import { MergeAdjacentTextPlugin } from '@/components/Markup/plugins/MergeAdjacentTextPlugin.js';
 import { type SocialSource } from '@/constants/enum.js';
 import {
     BIO_TWITTER_PROFILE_REGEX,
@@ -21,17 +23,21 @@ import {
 } from '@/constants/regexp.js';
 import { isChannelSupported } from '@/helpers/isChannelSupported.js';
 import { trimify } from '@/helpers/trimify.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import type { Pluggable } from '@/types/index.js';
 
 interface BioMarkupProps extends MarkupProps {
     source?: SocialSource;
+    profile?: Profile;
 }
 
-export const BioMarkup = memo<BioMarkupProps>(function BioMarkup({ children, post, source, ...rest }) {
+export const BioMarkup = memo<BioMarkupProps>(function BioMarkup({ children, post, source, profile, ...rest }) {
     const bioPlugins = useMemo<Pluggable[]>(() => {
         return compact([
             [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
             remarkBreaks,
+            DisableItalicPlugin,
+            MergeAdjacentTextPlugin,
             linkifyRegex(BIO_TWITTER_PROFILE_REGEX),
             linkifyRegex(URL_REGEX),
             linkifyRegex(MENTION_REGEX),
@@ -44,17 +50,15 @@ export const BioMarkup = memo<BioMarkupProps>(function BioMarkup({ children, pos
     const LinkComponent = useMemo(() => {
         return function Link(props: HTMLProps<HTMLAnchorElement>) {
             const matched = props.title?.startsWith('@') && props.title.endsWith('.');
-
             const title = matched ? props.title?.slice(0, -1) : props.title;
-
             return (
                 <>
-                    <MarkupLink title={title} post={post} source={source} />
+                    <MarkupLink title={title} post={post} source={source} profile={profile} />
                     {matched ? '.' : null}
                 </>
             );
         };
-    }, [post, source]);
+    }, [profile, post, source]);
 
     if (!children) return null;
 

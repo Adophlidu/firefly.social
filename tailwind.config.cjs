@@ -113,6 +113,9 @@ module.exports = {
             fontSize: {
                 medium: '0.9375rem',
             },
+            zIndex: {
+                1: '1',
+            },
         },
         // please apply the same value in src/hooks/useMediaQuery.ts
         screens: {

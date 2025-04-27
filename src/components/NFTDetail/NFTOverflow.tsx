@@ -14,7 +14,6 @@ import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 import { EVMExplorerResolver, SolanaExplorerResolver } from '@/mask/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { EthereumSchemaType } from '#masknet/web3-shared-evm';
-import { SolanaSchemaType as SolanaSchemaType } from '#masknet/web3-shared-solana';
 
 function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
     return (
@@ -94,16 +93,11 @@ const evmStandardMap: Record<number, string> = {
     [EthereumSchemaType.ERC20]: 'ERC20',
     [EthereumSchemaType.SBT]: 'SBT',
 };
-const solanaStandardMap: Record<number, string> = {
-    [SolanaSchemaType.NonFungible]: 'Metaplex',
-    [SolanaSchemaType.Native]: 'Native',
-};
 
 export function NFTOverflow(props: NFTOverflowProps) {
     const description = useMemo(() => convertDescriptionToArray(props.description), [props.description]);
     const standard = useMemo(() => {
         if (!props.schemaType) return;
-        if (isValidChainIdSolana(props.chainId)) return solanaStandardMap[props.schemaType];
         if (isValidChainIdEthereum(props.chainId)) return evmStandardMap[props.schemaType];
         return;
     }, [props.schemaType, props.chainId]);

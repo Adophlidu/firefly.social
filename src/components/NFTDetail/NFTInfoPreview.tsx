@@ -7,7 +7,6 @@ import PlayIcon from '@/assets/play.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { classNames } from '@/helpers/classNames.js';
-import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 const iconClassName = 'size-4 text-primaryBottom';
 
@@ -17,10 +16,7 @@ export function NFTVideo({
     ...props
 }: {
     imageURL: string;
-    video: {
-        properties: SimpleHash.VideoProperties;
-        url: string;
-    };
+    video: string;
 } & Pick<HTMLProps<'video'>, 'className' | 'autoPlay'>) {
     const [isStarted, setIsStarted] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -51,7 +47,7 @@ export function NFTVideo({
             ) : null}
             <video
                 playsInline
-                src={video.url}
+                src={video}
                 poster={imageURL}
                 loop
                 className="h-full w-full cursor-pointer"
@@ -77,18 +73,7 @@ export function NFTVideo({
     );
 }
 
-export function NFTInfoPreview({
-    name,
-    imageURL,
-    video,
-}: {
-    imageURL: string;
-    video?: {
-        properties: SimpleHash.VideoProperties;
-        url: string;
-    };
-    name: string;
-}) {
+export function NFTInfoPreview({ name, imageURL, video }: { imageURL: string; video?: string; name: string }) {
     return (
         <div className="relative h-full w-full max-w-[250px] overflow-hidden rounded-[20px] object-cover shadow-lightS3">
             {video ? (

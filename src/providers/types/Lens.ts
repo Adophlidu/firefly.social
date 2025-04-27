@@ -1,5 +1,8 @@
 import type {
+    AccessToken,
     FrameLensManagerSignatureResultFragment,
+    IdToken,
+    RefreshToken,
     SelfFundedTransactionRequest,
     SponsoredTransactionRequest,
     TxHash,
@@ -44,3 +47,9 @@ export type RestrictedOperationResult<E extends string> =
 export type OperationResult<O extends string, E extends string> =
     | DelegableOperationResult<O, E>
     | RestrictedOperationResult<E>;
+
+export interface LensCredentials {
+    accessToken: AccessToken;
+    refreshToken: RefreshToken;
+    idToken: IdToken;
+}

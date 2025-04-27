@@ -6,21 +6,21 @@ import { Suspense, use, useMemo } from 'react';
 import { Loading } from '@/components/Loading.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfilePageTimeline } from '@/components/Profile/ProfilePageTimeline.js';
-import { type ProfileCategory, Source, SourceInURL } from '@/constants/enum.js';
+import { type ProfileCategory, ProfileSourceInURL, Source } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import { resolveProfileSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import type { NextPageProps } from '@/types/index.js';
 
-interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: SourceInURL }> {}
+interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: ProfileSourceInURL }> {}
 
 export default function Page(props: Props) {
     const params = use(props.params);
-    const source = resolveSourceFromUrl(params.source);
-    if (!isProfilePageSource(source)) notFound();
+    const source = resolveProfileSourceFromUrl(params.source);
+    if (!source || !isProfilePageSource(source)) notFound();
 
     // Lens used handle in profile page, while timeline can only be queried using profileId, it is necessary to convert handle to profileId.
     const { data: profile = null } = useQuery({
@@ -28,7 +28,7 @@ export default function Page(props: Props) {
         queryFn: async () => {
             if (source === Source.Wallet || source === Source.WalletMix) return null;
             const provider = resolveSocialMediaProvider(source);
-            return provider.getProfileByIdOrHandle(params.id, true);
+            return provider.getProfileByHandle(params.id, true);
         },
     });
 

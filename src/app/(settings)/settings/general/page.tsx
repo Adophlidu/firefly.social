@@ -3,13 +3,14 @@
 import { Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
 import { isServer } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation.js';
 import { useMediaQuery } from 'usehooks-ts';
 
 import { changeCookies } from '@/actions/changeCookies.js';
 import { OptionButton } from '@/app/(settings)/components/OptionButton.js';
 import { SettingsSection } from '@/app/(settings)/components/Section.js';
 import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
-import { Locale, SiteCookies, type ThemeMode } from '@/constants/enum.js';
+import { Locale, PageRoute, SiteCookies, type ThemeMode } from '@/constants/enum.js';
 import { useCookie, useLocale } from '@/helpers/getCookies.js';
 import { supportedLocales } from '@/i18n/index.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
@@ -20,6 +21,7 @@ export default function General() {
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
     const locale = useLocale();
     const rootClass = useCookie(SiteCookies.FireflyRootClass);
+    const router = useRouter();
 
     return (
         <SettingsSection title={<Trans>General</Trans>}>
@@ -77,6 +79,7 @@ export default function General() {
                             const data = new FormData();
                             data.append('locale', option.value);
                             await changeCookies(data);
+                            router.push(PageRoute.Home);
                         }}
                     />
                 ))}

@@ -12,19 +12,19 @@ import { Link } from '@/components/Link.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
-import { useWalletMixAddresses } from '@/components/Profile/useWalletMixAddresses.js';
-import { Source } from '@/constants/enum.js';
-import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
+import { FireflyPlatform, Source } from '@/constants/enum.js';
+import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { createIndicator } from '@/helpers/pageable.js';
-import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { SimpleHashProvider } from '@/providers/simplehash/index.js';
-import type { NFTAsset } from '@/providers/types/Firefly.js';
-import { fillBookmarkStatusForNonFungibleAssets } from '@/services/fillBookmarkStatusForNFT.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import type { EVM } from '@/providers/nft-scan/types.js';
+import type { NFTDetail } from '@/providers/types/Firefly.js';
+import type { Poap } from '@/providers/types/NFTs.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 function GridList({ className, children, ...props }: GridListProps) {
@@ -43,7 +43,7 @@ function Owner({ address }: { address: Hex }) {
     const { data: ensName } = useEnsName({ address, chainId: EthereumChainId.Mainnet });
     return (
         <Link
-            href={resolveProfileUrl(Source.Wallet, address)}
+            href={getProfileUrl({ source: Source.Wallet, profileId: address })}
             className="absolute left-2 top-2 max-w-[100px] truncate rounded-full bg-[rgba(24,26,32,0.50)] px-2 py-1 text-[10px] font-medium leading-4 text-white backdrop-blur-md"
             onClickCapture={(e) => e.stopPropagation()}
         >
@@ -58,28 +58,29 @@ function NFTItemContent({
     ...props
 }: {
     index: number;
-    item: NFTAsset;
+    item: NFTDetail | EVM.Asset;
     isPoap?: boolean;
     isShowOwner?: boolean;
     isShowChainIcon?: boolean;
     ownerCount?: number;
 }) {
-    const nftUrl = resolveNFTUrl(item.chainId, item.id, item.tokenId || '0');
+    const nftUrl = resolveNFTUrl(item.chain_id, item.contract_address, item.token_id || '0');
+    const nftId = `${item.chain_id}.${item.contract_address}.${item.token_id}`.toLowerCase();
 
     return (
         <div className="relative">
             <Link
                 href={nftUrl}
-                key={`${index}-${item.id}-${item.tokenId}`}
+                key={`${index}-${item.contract_address}-${item.token_id}`}
                 className="flex cursor-pointer flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
             >
                 <div className="relative aspect-square h-auto w-full overflow-hidden">
-                    {props?.isShowChainIcon ? (
-                        <ChainIcon chainId={item.chainId} size={20} className="absolute left-2 top-2 size-4" />
+                    {props.isShowChainIcon ? (
+                        <ChainIcon chainId={item.chain_id} size={20} className="absolute left-2 top-2 size-4" />
                     ) : null}
-                    {props?.isPoap ? <PoapIcon className="absolute left-2 top-2 size-6" /> : null}
-                    {props?.isShowOwner && item.owner?.address ? <Owner address={item.owner.address as Hex} /> : null}
-                    {props?.ownerCount ? (
+                    {props.isPoap ? <PoapIcon className="absolute left-2 top-2 size-6" /> : null}
+                    {props.isShowOwner && item.owner ? <Owner address={item.owner as Hex} /> : null}
+                    {props.ownerCount ? (
                         <div className="absolute left-2 top-2 z-10 h-5 rounded-lg bg-primaryBottom px-1 text-xs font-bold leading-5">
                             <Trans>× {nFormatter(props.ownerCount)}</Trans>
                         </div>
@@ -87,29 +88,70 @@ function NFTItemContent({
                     <NFTImage
                         width={500}
                         height={500}
-                        unoptimized={false}
                         className="h-full w-full rounded-lg object-cover"
-                        src={item.metadata?.imageURL ?? ''}
+                        src={item.image_uri! || item.nftscan_uri!}
                         alt="nft_image"
                     />
                 </div>
                 <div className="mt-1 line-clamp-2 h-8 w-full px-1 text-center text-xs font-medium leading-4 sm:mt-2 sm:px-2 sm:py-0">
-                    {item.metadata?.name}
+                    {item.name}
                 </div>
             </Link>
-            <BookmarkInIcon
-                className="absolute right-2 top-2 z-10"
-                nftId={resolveNFTIdFromAsset(item)}
-                ownerAddress={item.owner?.address}
-                bookmarked={item.hasBookmarked}
-            />
+            <BookmarkInIcon className="absolute right-2 top-2 z-10" nftId={nftId} ownerAddress={item.owner} />
+        </div>
+    );
+}
+function PoapItemContent({
+    index,
+    item,
+    ...props
+}: {
+    index: number;
+    item: Poap;
+    isPoap?: boolean;
+    isShowOwner?: boolean;
+    isShowChainIcon?: boolean;
+    ownerCount?: number;
+}) {
+    const nftUrl = resolveNFTUrl(EthereumChainId.xDai, POAP_CONTRACT_ADDRESS, item.tokenId || '0');
+
+    return (
+        <div className="relative">
+            <Link
+                href={nftUrl}
+                key={`${index}-${item.tokenId}`}
+                className="flex cursor-pointer flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
+            >
+                <div className="relative aspect-square h-auto w-full overflow-hidden">
+                    {props.isShowChainIcon ? (
+                        <ChainIcon chainId={EthereumChainId.xDai} size={20} className="absolute left-2 top-2 size-4" />
+                    ) : null}
+                    {props.isPoap ? <PoapIcon className="absolute left-2 top-2 size-6" /> : null}
+                    {props.isShowOwner && item.owner ? <Owner address={item.owner as Hex} /> : null}
+                    {props.ownerCount ? (
+                        <div className="absolute left-2 top-2 z-10 h-5 rounded-lg bg-primaryBottom px-1 text-xs font-bold leading-5">
+                            <Trans>× {nFormatter(props.ownerCount)}</Trans>
+                        </div>
+                    ) : null}
+                    <NFTImage
+                        width={500}
+                        height={500}
+                        className="h-full w-full rounded-lg object-cover"
+                        src={item.event.image_url}
+                        alt="nft_image"
+                    />
+                </div>
+                <div className="mt-1 line-clamp-2 h-8 w-full px-1 text-center text-xs font-medium leading-4 sm:mt-2 sm:px-2 sm:py-0">
+                    {item.event.name}
+                </div>
+            </Link>
         </div>
     );
 }
 
 export function getNFTItemContent(
     index: number,
-    item: NFTAsset,
+    item: NFTDetail | EVM.Asset,
     options?: {
         isPoap?: boolean;
         isShowOwner?: boolean;
@@ -120,40 +162,55 @@ export function getNFTItemContent(
     return <NFTItemContent index={index} item={item} {...options} />;
 }
 
+export function getPoapItemContent(
+    index: number,
+    item: Poap,
+    options?: {
+        isPoap?: boolean;
+        isShowOwner?: boolean;
+        isShowChainIcon?: boolean;
+        ownerCount?: number;
+    },
+) {
+    return <PoapItemContent index={index} item={item} {...options} />;
+}
+
 export const POAPGridListComponent = {
     List: GridList,
     Item: GridItem,
 };
 
 export function POAPList({ address }: { address: string }) {
-    const addresses = useWalletMixAddresses(address);
+    // useSuspenseInfiniteQuery To satisfy GridListInPage['queryResult']
     const queryResult = useSuspenseInfiniteQuery({
         initialPageParam: '',
-        queryKey: ['poap-list', addresses],
-        async queryFn({ pageParam }) {
-            const indicator = createIndicator(
-                pageParam
-                    ? {
-                          index: 1,
-                          __type__: 'PageIndicator',
-                          id: pageParam,
-                      }
-                    : undefined,
-                pageParam,
+        getNextPageParam: () => undefined,
+        queryKey: ['poap-list', address],
+        async queryFn() {
+            const poaps = await FireflyEndpointProvider.getPOAPs(address);
+            const nftIds = poaps.map((item) =>
+                `${EthereumChainId.xDai}.${POAP_CONTRACT_ADDRESS}.${item.tokenId}`.toLowerCase(),
             );
-            const response = await SimpleHashProvider.getPOAPs(addresses, {
-                indicator,
-                chainId: EthereumChainId.xDai,
-                contractAddress: POAP_CONTRACT_ADDRESS,
-            });
-
-            return {
-                ...response,
-                data: await fillBookmarkStatusForNonFungibleAssets(response.data),
-            };
+            const bookmarkData =
+                (await runInSafeAsync(() =>
+                    FireflySocialMediaProvider.getBookmarksByIds(FireflyPlatform.NFTs, nftIds),
+                )) || [];
+            const bookmarksMap = new Map<string, boolean>(
+                bookmarkData.map((bookmark) => [bookmark.post_id.toLowerCase(), !!bookmark.has_book_marked]),
+            );
+            if (bookmarksMap.size) {
+                const list = poaps.map((item) => {
+                    const id = `${EthereumChainId.xDai}.${POAP_CONTRACT_ADDRESS}.${item.tokenId}`.toLowerCase();
+                    return {
+                        ...item,
+                        hasBookmarked: bookmarksMap.get(id),
+                    };
+                });
+                return { data: list };
+            }
+            return { data: poaps };
         },
-        getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((page) => page.data ?? EMPTY_LIST),
+        select: (data) => data.pages.flatMap((x) => x.data),
     });
 
     return (
@@ -164,7 +221,7 @@ export function POAPList({ address }: { address: string }) {
                 VirtualGridListProps={{
                     components: POAPGridListComponent,
                     itemContent: (index, item) => {
-                        return getNFTItemContent(index, item as NFTAsset, {
+                        return getPoapItemContent(index, item, {
                             isPoap: true,
                         });
                     },

@@ -15,7 +15,10 @@ function fixProfilePlatform(profile: FireflyProfile) {
             ...profile,
             platform: FireflyPlatform.Wallet,
             // for ens matched
-            platform_id: profile.resolved_address || profile.primary_address || profile.platform_id,
+            platform_id:
+                (profile.platform as unknown) === 'ens'
+                    ? profile.owner || profile.platform_id
+                    : profile.resolved_address || profile.primary_address || profile.platform_id,
         } as FireflyProfile;
     }
 

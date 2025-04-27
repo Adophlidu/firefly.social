@@ -2,12 +2,12 @@ import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { FireflyPlatform, Source } from '@/constants/enum.js';
-import { resolveNFTFeedChainId } from '@/helpers/resolveNFTFeedChainId.js';
+import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { resolveNFTId, resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
+import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
-import type { SimpleHash } from '@/providers/simplehash/type.js';
-import type { NFTAsset } from '@/providers/types/Firefly.js';
-import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
+import type { EVM } from '@/providers/nft-scan/types.js';
+import type { FollowingNFT, NFTFeedV3, Poap } from '@/providers/types/NFTs.js';
 import type { ClassType } from '@/types/index.js';
 
 const METHODS_BE_OVERRIDDEN = ['bookmarkNFT', 'unbookmarkNFT'] as const;
@@ -30,31 +30,21 @@ function createUpdater<T>(updater: (item: Draft<T>) => void) {
 }
 
 function toggleBlock(id: string, status: boolean) {
-    queryClient.setQueriesData<PageData<SimpleHash.LiteCollection>>(
-        { queryKey: ['nft-collection-list'] },
-        createUpdater<SimpleHash.LiteCollection>((collection) => {
-            collection.nftPreviews?.forEach((preview) => {
-                if (preview.nft_id.toLowerCase() === id) preview.hasBookmarked = status;
-            });
-        }),
-    );
-    queryClient.setQueriesData<PageData<NFTFeed>>(
+    queryClient.setQueriesData<PageData<NFTFeedV3>>(
         { queryKey: ['nfts', 'discover'] },
-        createUpdater<NFTFeed>((feed) => {
-            feed.trans.token_list.forEach((token) => {
-                if (resolveNFTId(resolveNFTFeedChainId(feed), feed.trans.token_address, token.id) === id) {
-                    token.bookmarked = status;
-                }
-            });
+        createUpdater<NFTFeedV3>((feed) => {
+            const feedNftId = resolveNFTId(feed.chain_id, feed.contract_address, feed.token_id);
+            if (feedNftId.toLowerCase() === id) feed.bookmarked = status;
         }),
     );
 
     const followingUpdater = createUpdater<FollowingNFT>((nftData) => {
-        nftData.actions.forEach((action) => {
-            if (action.nft && resolveNFTIdFromAsset(action.nft) === id) {
-                action.nft.hasBookmarked = status;
-            }
-        });
+        if (
+            nftData.detail &&
+            resolveNFTId(nftData.detail.chain_id, nftData.detail.contract_address, nftData.detail.token_id) === id
+        ) {
+            nftData.detail.hasBookmarked = status;
+        }
     });
     queryClient.setQueriesData<PageData<FollowingNFT>>({ queryKey: ['nfts-of'] }, followingUpdater);
     queryClient.setQueriesData<PageData<FollowingNFT>>(
@@ -62,18 +52,23 @@ function toggleBlock(id: string, status: boolean) {
         followingUpdater,
     );
 
-    const patcher = createUpdater<NFTAsset>((item) => {
+    const patcher = createUpdater<EVM.Asset>((item) => {
         if (resolveNFTIdFromAsset(item) === id) {
             item.hasBookmarked = status;
         }
     });
-    queryClient.setQueriesData<PageData<NFTAsset>>({ queryKey: ['poap-list'] }, patcher);
-    queryClient.setQueriesData<PageData<NFTAsset>>({ queryKey: ['nft-list'] }, patcher);
+    queryClient.setQueriesData<PageData<EVM.Asset>>({ queryKey: ['nft-list'] }, patcher);
+    const poapPatcher = createUpdater<Poap>((item) => {
+        if (resolveNFTId(EthereumChainId.xDai, POAP_CONTRACT_ADDRESS, item.tokenId) === id) {
+            item.hasBookmarked = status;
+        }
+    });
+    queryClient.setQueriesData<PageData<Poap>>({ queryKey: ['poap-list'] }, poapPatcher);
     queryClient.setQueryData(['has-bookmarked', FireflyPlatform.NFTs, id, true], { status });
 
     // remove bookmarked NFT from bookmarks list
     if (status === false) {
-        queryClient.setQueriesData<PageData<{ id: string; nft: SimpleHash.NFT }>>(
+        queryClient.setQueriesData<PageData<{ id: string; nft: EVM.Asset }>>(
             { queryKey: ['bookmarks', Source.NFTs] },
             (old) => {
                 if (!old) return old;

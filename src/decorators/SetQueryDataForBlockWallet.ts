@@ -8,12 +8,12 @@ import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { FireflyIdentity, PolymarketActivity, WalletProfile } from '@/providers/types/Firefly.js';
-import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
+import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';
 import type { ClassType } from '@/types/index.js';
 
 type PagesData = { pages: Array<{ data: Article[] }> };
 interface NFTPagesData {
-    pages: Array<{ data: FollowingNFT[] | NFTFeed[] }>;
+    pages: Array<{ data: FollowingNFT[] | NFTFeedV3[] }>;
 }
 
 interface WalletProfilePagesData {
@@ -60,29 +60,21 @@ function toggleBlock(address: string, status: boolean) {
             for (const page of draft.pages) {
                 if (!page.data.length) continue;
                 page.data = page.data.filter((nft) => {
-                    if ('network' in nft) {
-                        return !isSameEthereumAddress(nft.owner, address);
-                    } else {
-                        return !isSameEthereumAddress(nft.address, address);
-                    }
-                }) as FollowingNFT[] | NFTFeed[];
+                    return !isSameEthereumAddress(nft.owner, address);
+                }) as FollowingNFT[] | NFTFeedV3[];
             }
         });
     };
 
-    queryClient.setQueriesData<NFTPagesData>({ queryKey: ['nfts', 'following', Source.NFTs] }, nftsPatcher);
-    queryClient.setQueriesData<NFTPagesData>({ queryKey: ['nfts', 'discover', Source.NFTs] }, nftsPatcher);
+    queryClient.setQueriesData<NFTPagesData>({ queryKey: ['nfts', 'following'] }, nftsPatcher);
+    queryClient.setQueriesData<NFTPagesData>({ queryKey: ['nfts', 'discover'] }, nftsPatcher);
     queryClient.setQueriesData<WalletProfilePagesData>({ queryKey: ['wallets', 'muted-list'] }, (old) => {
         if (!old) return old;
         return produce(old, (draft) => {
             for (const page of draft.pages) {
                 if (!page) continue;
                 for (const profile of page.data) {
-                    if (
-                        !isSameEthereumAddress(profile.address, address) &&
-                        !isSameSolanaAddress(profile.address, address)
-                    )
-                        continue;
+                    if (!isSameEthereumAddress(profile.address, address)) continue;
                     profile.blocked = status;
                 }
             }

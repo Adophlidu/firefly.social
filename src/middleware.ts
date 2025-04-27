@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse, userAgent } from 'next/server.js';
 import urlcat from 'urlcat';
 
+import { ProfileSourceInURL, SourceInURL } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { parseOldDiscoverUrl } from '@/helpers/parseDiscoverUrl.js';
 import { parseOldEngagementUrl } from '@/helpers/parseEngagementUrl.js';
@@ -20,8 +22,7 @@ import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { resolveProfileSourceInURL } from '@/helpers/resolveSourceInUrl.js';
 
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
@@ -71,9 +72,8 @@ export async function middleware(request: NextRequest) {
     if (parsedOldProfileUrl) {
         const destination = request.nextUrl.clone();
 
-        destination.pathname = resolveProfileUrl(
-            parsedOldProfileUrl.source,
-            parsedOldProfileUrl.id,
+        destination.pathname = getProfileUrl(
+            { source: parsedOldProfileUrl.source, profileId: parsedOldProfileUrl.id, handle: parsedOldProfileUrl.id },
             parsedOldProfileUrl.category,
         );
 
@@ -88,13 +88,27 @@ export async function middleware(request: NextRequest) {
         const destination = new URL(
             urlcat(`/profile/:source/:id/relation/:category`, {
                 ...parsedProfileUrl,
-                source: resolveSourceInUrl(parsedProfileUrl.source),
+                source: resolveProfileSourceInURL(parsedProfileUrl.source),
             }),
             request.url,
         );
         return NextResponse.rewrite(destination, {
             request,
         });
+    }
+
+    /**
+     * /profile/farcaster -> /profile/far
+     * /profile/twitter -> /profile/x
+     */
+    if (pathname.startsWith('/profile/farcaster') || pathname.startsWith('/profile/twitter')) {
+        const pathArray = pathname.split('/');
+        const sourceInUrl = pathArray[2];
+        const destination = request.nextUrl.clone();
+        pathArray[2] =
+            sourceInUrl === SourceInURL.Farcaster ? ProfileSourceInURL.Farcaster : ProfileSourceInURL.Twitter;
+        destination.pathname = pathArray.join('/');
+        return NextResponse.redirect(destination);
     }
 
     const parsedOldEngagementUrl = parseOldEngagementUrl(request.nextUrl);

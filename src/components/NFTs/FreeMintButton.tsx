@@ -17,15 +17,13 @@ import { classNames } from '@/helpers/classNames.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
 import { FreeMintModalRef, WalletConnectModalRef } from '@/modals/controls.js';
-import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 interface FreeMintButtonProps extends Omit<ClickableButtonProps, 'ref'> {
     contractAddress: string;
     tokenId: string;
     chainId: number;
-    externalUrl?: string;
+    externalUrl?: string | null;
     collectionId?: string;
-    contract?: SimpleHash.NFTContract;
 }
 
 export function getMintButtonText(connected: boolean, isSupportedChain: boolean, mintStatus?: MintStatus) {
@@ -60,7 +58,6 @@ export function FreeMintButton({
     chainId,
     collectionId,
     externalUrl,
-    contract,
     className,
     ...rest
 }: FreeMintButtonProps) {
@@ -76,9 +73,8 @@ export function FreeMintButton({
             tokenId,
             chainId,
             buyCount: 1,
-            contractExt: contract,
         }),
-        [account.address, contractAddress, tokenId, chainId, contract],
+        [account.address, contractAddress, tokenId, chainId],
     );
     const { isLoading, isRefetching, data, refetch } = useSponsorMintStatus(mintTarget, isLogin);
 

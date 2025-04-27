@@ -6,7 +6,7 @@ import { type ChainContextOverrides, useChainContext } from '@/hooks/useChainCon
 import { CoinGecko } from '@/providers/coingecko/index.js';
 
 export function useNativeTokenPrice(override?: ChainContextOverrides) {
-    const { chainId: chainId } = useChainContext(override);
+    const { chainId } = useChainContext(override);
     const nativeToken = getNativeToken(override?.networkType ?? NetworkType.Ethereum, chainId);
 
     return useQuery({

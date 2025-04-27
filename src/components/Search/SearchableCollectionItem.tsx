@@ -7,15 +7,15 @@ import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
-import type { NFTScan } from '@/providers/types/NFTScan.js';
+import type { EVM } from '@/providers/nft-scan/types.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface CollectionItemProps extends HTMLProps<HTMLAnchorElement> {
-    collection: NFTScan.Collection;
+    collection: EVM.Collection;
 }
 
 export function SearchableCollectionItem({ collection, className, onClick }: CollectionItemProps) {
-    const chainId = collection.chain_id || EthereumChainId.Mainnet;
+    const chainId = collection.chain_id ? +collection.chain_id : EthereumChainId.Mainnet;
 
     return (
         <Link

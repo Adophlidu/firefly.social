@@ -15,9 +15,8 @@ import { ENABLED_FOLLOWING_LIST_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getLargeTwitterAvatar } from '@/helpers/getLargeTwitterAvatar.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useRefreshedProfile } from '@/hooks/useRefreshedProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -56,7 +55,7 @@ export function SocialProfileInfo(props: InfoProps) {
                         <div className="flex h-8 min-w-0 flex-1 items-center gap-2 md:h-6">
                             <TextOverflowTooltip content={profile.displayName} placement="top">
                                 <address className="min-w-0 truncate text-lg font-black not-italic leading-6 text-lightMain">
-                                    {profile.displayName}
+                                    {profile.displayName || '-'}
                                 </address>
                             </TextOverflowTooltip>
                             <ProfileVerifyBadge
@@ -73,13 +72,13 @@ export function SocialProfileInfo(props: InfoProps) {
                     <span className="text-medium text-secondary">@{profile.handle}</span>
                 </div>
 
-                <BioMarkup className="break-word text-medium" source={profile.source}>
+                <BioMarkup className="break-word text-medium" source={profile.source} profile={profile}>
                     {profile.bio ?? '-'}
                 </BioMarkup>
 
                 <div className="flex gap-3 text-sm leading-[22px]">
                     <Link
-                        href={resolveProfileUrl(source, resolveFireflyProfileId(profile), FollowCategory.Following)}
+                        href={getProfileUrl(profile, FollowCategory.Following)}
                         className={classNames('gap-1 hover:underline', {
                             'pointer-events-none': !ENABLED_FOLLOWING_LIST_SOURCES.includes(source),
                         })}
@@ -93,7 +92,7 @@ export function SocialProfileInfo(props: InfoProps) {
                     </Link>
 
                     <Link
-                        href={resolveProfileUrl(source, resolveFireflyProfileId(profile), FollowCategory.Followers)}
+                        href={getProfileUrl(profile, FollowCategory.Followers)}
                         className={classNames('gap-1 hover:underline', {
                             'pointer-events-none': !ENABLED_FOLLOWING_LIST_SOURCES.includes(source),
                         })}

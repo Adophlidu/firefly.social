@@ -29,10 +29,10 @@ import { env } from '@/constants/env.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByFireflyProfile } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureProfileActionEvent.js';
@@ -194,7 +194,7 @@ function TriggerButton({
     return (
         <Link
             ref={ref as Ref<HTMLAnchorElement>}
-            href={resolveProfileUrl(source, profile.identity.id)}
+            href={getProfileUrl({ source, profileId: profile.identity.id, handle: profile.displayName })}
             className={triggerClassName}
             onClick={() => {
                 captureProfileChangeAccountClick(source, identity.id);
@@ -224,8 +224,8 @@ function TopProfileMenuItem({ profile, identity }: { profile: FireflyProfile; id
 
     const href =
         isWalletProfile && env.external.NEXT_PUBLIC_WALLET_MIX === STATUS.Enabled
-            ? resolveProfileUrl(Source.WalletMix, profile.identity.id)
-            : resolveProfileUrl(source, profile.identity.id);
+            ? getProfileUrl({ source: Source.WalletMix, profileId: profile.identity.id })
+            : getProfileUrl({ source, profileId: profile.identity.id, handle: profile.displayName });
 
     const className = classNames('flex h-6 cursor-pointer flex-row items-center', {
         'pointer-events-none': !isMounted || pathname === href,
@@ -295,7 +295,7 @@ function ProfileMenuItem({ profile }: { profile: FireflyProfile }) {
     return (
         <MenuItem>
             <Link
-                href={resolveProfileUrl(source, profile.identity.id)}
+                href={getProfileUrl({ source, profileId: profile.identity.id, handle: profile.displayName })}
                 onClick={() => {
                     captureProfileChangeAccountClick(source, profile.identity.id);
                 }}
@@ -465,7 +465,7 @@ export function ProfileSourceTabs({
                 return (
                     <Menu key={source}>
                         {({ close }) => (
-                            <>
+                            <div>
                                 <TriggerButton profile={topProfile} identity={identity} menu isLast={isLast} />
                                 <MenuItems
                                     transition
@@ -521,7 +521,7 @@ export function ProfileSourceTabs({
                                         })}
                                     </div>
                                 </MenuItems>
-                            </>
+                            </div>
                         )}
                     </Menu>
                 );

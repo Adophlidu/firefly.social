@@ -305,6 +305,9 @@ msgstr "More"
 msgid "Translate post"
 msgstr "Translate post"
 
+msgid "Take me there"
+msgstr "Take me there"
+
 msgid "Transaction {hash} could not be found."
 msgstr "Transaction {hash} could not be found."
 
@@ -566,9 +569,6 @@ msgstr "Confirm to log out your Firefly account?"
 msgid "Copied"
 msgstr "Copied"
 
-msgid "Name"
-msgstr "Name"
-
 msgid "Failed to vote."
 msgstr "Failed to vote."
 
@@ -731,9 +731,6 @@ msgstr "Liked"
 
 msgid "Connect Email"
 msgstr "Connect Email"
-
-msgid "Token ID"
-msgstr "Token ID"
 
 #. placeholder {0}: chainNameMap[chains[0]]
 msgid "Only {0}"
@@ -1298,6 +1295,10 @@ msgstr "Winners"
 #. placeholder {0}: post?.author.handle
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "REPLY to<0><1>@{0}</1></0>"
+
+#. placeholder {0}: BRIAN_FARCASTER_PROFILE.handle
+msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{0}</1> on Farcaster before Oct 20, 2024"
+msgstr "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{0}</1> on Farcaster before Oct 20, 2024"
 
 msgid "Cannot choose due to account mismatch."
 msgstr "Cannot choose due to account mismatch."
@@ -2238,6 +2239,9 @@ msgstr "No external call risk found."
 msgid "Pending"
 msgstr "Pending"
 
+msgid "✨ We've moved to <0>firefly.social</0>"
+msgstr "✨ We've moved to <0>firefly.social</0>"
+
 msgid "No preview found for shared link"
 msgstr "No preview found for shared link"
 
@@ -2752,9 +2756,6 @@ msgstr "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>{2} others</2> on {3}"
 
 msgid "No phishing site."
 msgstr "No phishing site."
-
-msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
-msgstr "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 
 #. placeholder {0}: filteredProfiles[0].handle
 #. placeholder {1}: filteredProfiles[1].handle
@@ -3421,9 +3422,6 @@ msgstr "Claims"
 msgid "Failed to bookmark snapshot."
 msgstr "Failed to bookmark snapshot."
 
-msgid "Date"
-msgstr "Date"
-
 msgid "Mint Again"
 msgstr "Mint Again"
 
@@ -3619,9 +3617,6 @@ msgstr "Followed <0>@{0}</0> on X before Dec 16, 2024"
 
 msgid "Total Supply"
 msgstr "Total Supply"
-
-msgid "Collection"
-msgstr "Collection"
 
 msgid "No tax changes found for personal addresses."
 msgstr "No tax changes found for personal addresses."

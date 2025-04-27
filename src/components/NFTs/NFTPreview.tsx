@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { compact, first } from 'lodash-es';
+import { compact } from 'lodash-es';
 import React, { memo, type ReactNode } from 'react';
 import { zeroAddress } from 'viem';
 
@@ -15,27 +15,26 @@ import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatBalance } from '@/helpers/formatBalance.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
-import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
-import { resolveNFTUrl, resolveNFTUrlByCollection } from '@/helpers/resolveNFTUrl.js';
-import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
+import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
+import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useCollectionMarketInfo } from '@/hooks/useCollectionMarketInfo.js';
 import { useNFTCollection } from '@/hooks/useNFTCollection.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
-import type { SimpleHash } from '@/providers/simplehash/type.js';
+import type { EVM } from '@/providers/nft-scan/types.js';
+import type { NFTDetail } from '@/providers/types/Firefly.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface NFTPreviewProps {
-    nft: SimpleHash.NFT;
+    nft: NFTDetail;
     showTradeInfo?: boolean;
     className?: string;
 }
 
 interface BasePreviewContentProps {
-    collection: SimpleHash.Collection | null | undefined;
+    collection: EVM.Collection | null | undefined;
     tokenId?: string;
     image: string;
     footer?: {
@@ -56,10 +55,9 @@ interface BasePreviewContentProps {
 
 function BasePreviewContent(props: BasePreviewContentProps) {
     const { collection, showTradeInfo } = props;
-    const floorPrice = collection?.floor_prices[0];
-    const { data: marketInfo } = useCollectionMarketInfo(collection?.collection_id);
-    const chainId =
-        (collection?.chains[0] && resolveSimpleHashChainId(collection?.chains[0])) || EthereumChainId.Mainnet;
+    const floorPrice = collection?.floor_price;
+    const chainId = collection?.chain_id ? +collection.chain_id : EthereumChainId.Mainnet;
+    const { data: marketInfo } = useCollectionMarketInfo(chainId, collection?.contract_address);
     const footer = (
         <>
             {props.footer?.image ? (
@@ -120,14 +118,12 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                                     <Trans>Price</Trans>
                                 </div>
                                 <div className="flex items-center gap-1">
-                                    <span className="truncate text-medium font-bold text-lightMain">
-                                        {formatBalance(floorPrice.value, floorPrice.payment_token.decimals)}
-                                    </span>
+                                    <span className="truncate text-medium font-bold text-lightMain">{floorPrice}</span>
                                     <TokenIcon
                                         disableBadge
                                         chainId={chainId}
-                                        address={floorPrice.payment_token.address || zeroAddress}
-                                        icon={`https://stamp.firefly.land/logo/${chainId}/${floorPrice.payment_token.address || zeroAddress}`}
+                                        name={collection.price_symbol}
+                                        icon={`https://stamp.firefly.land/logo/${chainId}/${zeroAddress}`}
                                         size={16}
                                     />
                                 </div>
@@ -141,13 +137,13 @@ function BasePreviewContent(props: BasePreviewContentProps) {
 
                                 <div className="flex items-center gap-1">
                                     <span className="truncate text-medium font-bold text-lightMain">
-                                        {formatBalance(marketInfo?.all_time_volume, marketInfo.payment_token.decimals)}
+                                        {marketInfo.total_volume}
                                     </span>
                                     <TokenIcon
                                         disableBadge
                                         chainId={chainId}
-                                        address={marketInfo.payment_token.address || zeroAddress}
-                                        icon={`https://stamp.firefly.land/logo/${chainId}/${marketInfo.payment_token.address || zeroAddress}`}
+                                        address={zeroAddress}
+                                        icon={`https://stamp.firefly.land/logo/${chainId}/${zeroAddress}`}
                                         size={16}
                                     />
                                 </div>
@@ -173,20 +169,20 @@ function BasePreviewContent(props: BasePreviewContentProps) {
 }
 
 export const NFTPreviewer = memo(function NFTPreview({ nft, showTradeInfo, className }: NFTPreviewProps) {
-    const chainId = resolveSimpleHashChainId(nft.chain);
-    const collectionId = nft.collection.collection_id;
+    const chainId = nft.chain_id;
     const isSolanaChain = isValidChainIdSolana(chainId);
 
     const isPoap = isSameEthereumAddress(nft.contract_address, POAP_CONTRACT_ADDRESS);
-    const { date, position } = usePoapTraits(nft.extra_metadata.attributes);
+    const { date, position } = usePoapTraits(nft.attributes);
     const { data: collection } = useNFTCollection(nft.contract_address, chainId);
+    const nftId = resolveNFTId(nft.chain_id, nft.contract_address, nft.token_id);
 
     return (
         <BasePreviewContent
             className={className}
             showTradeInfo={showTradeInfo}
             collection={collection}
-            image={resolveNFTImageUrl(nft)}
+            image={nft.nftscan_uri || nft.imageURL || nft.image_uri!}
             icon={
                 isPoap ? (
                     <PoapIcon width={24} height={24} />
@@ -198,11 +194,11 @@ export const NFTPreviewer = memo(function NFTPreview({ nft, showTradeInfo, class
                 chainId ? resolveNFTUrl(chainId, nft.contract_address, isSolanaChain ? '0' : nft.token_id) : undefined
             }
             footer={
-                nft.collection?.collection_id
+                nft.collection
                     ? {
-                          image: isPoap ? undefined : nft.collection.image_url,
+                          image: isPoap ? undefined : (nft.collection.large_image_url ?? nft.nftscan_uri),
                           name: isPoap ? nft.name : nft.collection.name,
-                          link: isPoap ? undefined : collectionId ? resolveNFTUrlByCollection(collectionId) : undefined,
+                          link: nft.external_uri,
                       }
                     : undefined
             }
@@ -214,13 +210,13 @@ export const NFTPreviewer = memo(function NFTPreview({ nft, showTradeInfo, class
                       ])
                     : [nft.name || nft.collection.name]
             }
-            bookmarkProps={{ nftId: nft.nft_id, ownerAddress: first(nft.owners)?.owner_address }}
+            bookmarkProps={{ nftId, ownerAddress: nft.owner }}
         />
     );
 });
 
 interface CollectionPreviewProps {
-    collection: SimpleHash.Collection;
+    collection: EVM.Collection;
     showTradeInfo?: boolean;
     className?: string;
 }
@@ -229,16 +225,16 @@ export const CollectionPreviewer = memo(function CollectionPreviewer({
     showTradeInfo,
     className,
 }: CollectionPreviewProps) {
-    const chainId = resolveSimpleHashChainId(collection.chains[0]);
+    const chainId = +collection.chain_id;
 
     return (
         <BasePreviewContent
             className={className}
             showTradeInfo={showTradeInfo}
             collection={collection}
-            image={collection.image_url}
+            image={collection.large_image_url}
             icon={chainId ? <ChainIcon className="rounded-full" size={24} chainId={chainId} /> : undefined}
-            link={resolveNFTUrlByCollection(collection.collection_id)}
+            link={collection.website}
             footer={{
                 name: collection.name || t`Unknown Collection`,
             }}

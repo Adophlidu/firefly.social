@@ -1,21 +1,21 @@
 import { t } from '@lingui/core/macro';
 import Fuse from 'fuse.js';
-import { uniq } from 'lodash-es';
 import { memo, useCallback, useMemo, useState } from 'react';
-import { useAccount } from 'wagmi';
+import { useAccount, useChainId } from 'wagmi';
 
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { SearchContentPanel } from '@/components/Search/SearchContentPanel.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { formatCustomSimpleHashCollection } from '@/helpers/formatCustomSimpleHashCollection.js';
+import { formatCustomNFTScanCollection } from '@/helpers/formatCustomNFTScanCollection.js';
 import { useCustomNonFungibleTokens } from '@/hooks/useCustomNonFungibleTokens.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useNFTCollections } from '@/hooks/useNFTCollections.js';
 import { type Collection, CollectionItem } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
+import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 import { EthereumSchemaType } from '#masknet/web3-shared-evm';
 
-interface FungibleTokenSelectPanelProps {
+interface NonFungibleCollectionSelectPanelProps {
     onSelected?: (selected: Collection) => void;
     isSelected?: (item: Collection) => boolean;
 }
@@ -24,30 +24,27 @@ function renderCollection(collection: Collection) {
     return <CollectionItem key={collection.id} collection={collection} />;
 }
 
-export const NonFungibleCollectionSelectPanel = memo<FungibleTokenSelectPanelProps>(
+export const NonFungibleCollectionSelectPanel = memo<NonFungibleCollectionSelectPanelProps>(
     function NonFungibleCollectionSelectPanel({ onSelected, isSelected }) {
         const isMedium = useIsMedium('max');
-        const [chainId, setChainId] = useState<number>();
+        const currentChainId = useChainId();
+        const [chainId = currentChainId, setChainId] = useState<number>();
         const account = useAccount();
 
         const { data: allCollections = EMPTY_LIST, isLoading } = useNFTCollections({
             account: account.address,
+            chainId,
             schemaType: EthereumSchemaType.ERC721,
         });
-        const { data: customNonFungibleTokens = [] } = useCustomNonFungibleTokens();
+        const { data: customNonFungibleTokens = EMPTY_LIST } = useCustomNonFungibleTokens();
         const collections = useMemo(
             () =>
                 customNonFungibleTokens
-                    .map((x) => formatCustomSimpleHashCollection(x))
-                    .concat(allCollections)
+                    .map((x) => formatCustomNFTScanCollection(x, true))
+                    .concat(allCollections.map((x) => formatCustomNFTScanCollection(x, false)))
                     .filter((x) => (chainId ? x.chainId === chainId : true)),
             [allCollections, chainId, customNonFungibleTokens],
         );
-        const chainIds = useMemo(() => {
-            return uniq(allCollections.map((collection) => collection.chainId)).filter((chainId) =>
-                chains.some((x) => x.id === chainId),
-            );
-        }, [allCollections]);
 
         const getChainItem = useCallback(
             (chainId: number, isTag?: boolean) => {
@@ -92,7 +89,7 @@ export const NonFungibleCollectionSelectPanel = memo<FungibleTokenSelectPanelPro
                 placeholder={t`Search by name or symbol`}
                 filterProps={{
                     placeholder: t`All chains`,
-                    data: chainIds,
+                    data: NFTSCAN_CHAIN_IDS,
                     popoverClassName: 'w-[150px]',
                     itemRenderer: (chainId, isTag) => getChainItem(chainId, isTag),
                     isSelected: (item, current) => item === current,

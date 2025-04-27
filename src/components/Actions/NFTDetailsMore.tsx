@@ -11,15 +11,19 @@ import { DownloadImageButton } from '@/components/NFTDetail/DownloadImageButton.
 import { Tooltip } from '@/components/Tooltip.js';
 
 export interface NFTDetailsMoreProps extends HTMLProps<HTMLDivElement> {
-    collectionId?: string;
+    chainId: number;
+    address?: string;
     nftUrl?: string;
     nftImage?: string;
+    disableReport?: boolean;
 }
 
 export const NFTDetailsMore = memo<NFTDetailsMoreProps>(function NFTDetailsMore({
-    collectionId,
+    chainId,
+    address,
     nftUrl = '',
     nftImage,
+    disableReport,
     className,
 }) {
     return (
@@ -32,9 +36,9 @@ export const NFTDetailsMore = memo<NFTDetailsMoreProps>(function NFTDetailsMore(
             }
         >
             <MenuGroup>
-                {collectionId ? (
+                {address && !disableReport ? (
                     <MenuItem>
-                        {({ close }) => <NFTReportSpamButton onClick={close} collectionId={collectionId} />}
+                        {({ close }) => <NFTReportSpamButton onClick={close} chainId={chainId} address={address} />}
                     </MenuItem>
                 ) : null}
                 {nftUrl ? <MenuItem>{({ close }) => <CopyLinkButton link={nftUrl} onClick={close} />}</MenuItem> : null}

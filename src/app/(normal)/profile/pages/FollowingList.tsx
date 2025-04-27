@@ -4,7 +4,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { getFollowInList } from '@/components/FollowInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
-import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
+import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
 import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -14,11 +14,6 @@ export function FollowingList({ profileId, source }: { profileId: string; source
         queryKey: ['profiles', source, 'following', profileId],
         async queryFn({ pageParam }) {
             const provider = resolveSocialMediaProvider(source);
-            if (source === Source.Lens) {
-                const profile = await provider.getProfileByIdOrHandle(profileId);
-
-                return provider.getFollowings(profile.profileId, createIndicator(undefined, pageParam));
-            }
             return provider.getFollowings(profileId, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',

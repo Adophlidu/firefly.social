@@ -4,30 +4,17 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { NFTCollection } from '@/components/CollectionDetail/NFTCollection.js';
 import { notFound } from '@/esm/navigation.js';
-import { SimpleHashProvider } from '@/providers/simplehash/index.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 export function NFTCollectionPage({ chainId, address }: { chainId: number; address: string }) {
     const { data } = useSuspenseQuery({
         queryKey: ['nft-collection', chainId, address],
         async queryFn() {
-            return SimpleHashProvider.getCollection(address, { chainId });
+            return FireflyEndpointProvider.getCollection(chainId, address);
         },
     });
 
     if (!data) notFound();
 
     return <NFTCollection collection={data} address={address} chainId={chainId} />;
-}
-
-export function NFTCollectionPageById({ collectionId }: { collectionId: string }) {
-    const { data } = useSuspenseQuery({
-        queryKey: ['nft-collection', collectionId],
-        async queryFn() {
-            return SimpleHashProvider.getCollectionById(collectionId);
-        },
-    });
-
-    if (!data) notFound();
-
-    return <NFTCollection collection={data} />;
 }

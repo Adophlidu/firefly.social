@@ -1,6 +1,12 @@
 import type { Address } from 'viem';
 
-import { type FireflyDisplayInfo, type FollowingSource, type NFTAsset } from '@/providers/types/Firefly.js';
+import type { EVM, TransEventType } from '@/providers/nft-scan/types.js';
+import {
+    type FireflyDisplayInfo,
+    type FollowingSource,
+    type NFTAsset,
+    type NFTDetail,
+} from '@/providers/types/Firefly.js';
 
 export interface Response<T> {
     code: number;
@@ -8,49 +14,26 @@ export interface Response<T> {
     error?: string[];
 }
 
-export type DiscoverNFTResponseV2 = Response<{
-    nfts: NFTFeed[];
-    hasMore: boolean;
+export type DiscoverNFTResponseV3 = Response<{
+    result: NFTFeedV3[];
     cursor?: string;
 }>;
-
-export enum NFTFeedTransAction {
-    Mint = 'mint',
-    Transfer = 'transfer',
-    Trade = 'trade',
-    Burn = 'burn',
-    Poap = 'poap',
-}
 
 export interface NFTOwnerDisplayInfo {
     ensHandle: string | null;
     avatarUrl: string;
 }
 
-export interface NFTFeed {
-    /** User address */
-    address: Address;
-    followers_count: number | null;
-    twitter_id: string | null;
-    twitter_handle: string;
+export interface NFTFeedV3 extends EVM.Transaction {
+    chain_id: number;
+    /** address */
+    owner: string;
+    aggregate_exchange_name: string;
+    detail: EVM.Asset | null;
     displayInfo: FireflyDisplayInfo;
-    trans: {
-        id: number;
-        time: number;
-        block_id: string;
-        action: NFTFeedTransAction;
-        token_list: Array<{
-            id: string;
-            cnt: number;
-            bookmarked?: boolean;
-            nft: NFTAsset;
-        }>;
-        token_address: Address;
-        token_name: string;
-        price: number;
-    };
-    recommend_reason: string;
-    id: number;
+    followingSources: FollowingSource[];
+    /** extends at runtime */
+    bookmarked?: boolean;
 }
 
 export type GetFollowingNFTResponse = Response<{
@@ -66,21 +49,21 @@ export interface FollowingNFT {
     address_to: string;
     network: string;
     tag: string;
-    type: NFTFeedTransAction;
-    actions: FollowingNFTAction[];
+    type: TransEventType;
+    detail: NFTDetail;
     displayInfo: FireflyDisplayInfo;
     followingSources: FollowingSource[];
 }
 
 export interface NFTActionCost {
-    decimals: number;
+    decimals?: number;
     symbol: string;
     value: string;
 }
 
 export interface FollowingNFTAction {
     tag: string;
-    type: NFTFeedTransAction;
+    type: TransEventType;
     index: number;
     address_from: string;
     address_to: string;
@@ -89,3 +72,86 @@ export interface FollowingNFTAction {
     token_id: string;
     nft: NFTAsset;
 }
+
+export interface Poap {
+    event: {
+        id: number;
+        fancy_id: string;
+        name: string;
+        event_url: string;
+        image_url: string;
+        country: string;
+        city: string;
+        description: string;
+        year: number;
+        /** @example "18-Nov-2021" */
+        start_date: string;
+        /** @example "18-Nov-2021" */
+        end_date: string;
+        /** @example "18-Nov-2021" */
+        expiry_date: string;
+        supply: number;
+    };
+    tokenId: string;
+    /** owner address */
+    owner: string;
+    chain: 'xdai';
+    /** @example "2021-11-20 02:17:40" */
+    created: string;
+    /** extends at runtime */
+    hasBookmarked?: boolean;
+}
+
+export interface PoapDetail {
+    event: {
+        id: number;
+        fancy_id: string;
+        name: string;
+        event_url: string;
+        image_url: string;
+        country: string;
+        city: string;
+        description: string;
+        year: number;
+        /** @example "18-Nov-2021" */
+        start_date: string;
+        /** @example "18-Nov-2021" */
+        end_date: string;
+        /** @example "18-Nov-2021" */
+        expiry_date: string;
+    };
+    supply: {
+        total: number;
+        order: number;
+    };
+    /** address */
+    owner: string;
+    tokenId: string;
+    /** extends at runtime */
+    hasBookmarked?: boolean;
+}
+
+export type PoapResponse = Response<Poap[]>;
+
+export type NFTDetailResponse = Response<NFTDetail[]>;
+
+export type PoapDetailResponse = Response<PoapDetail>;
+
+export interface PoapHolderToken {
+    created: string;
+    migrated: string;
+    id: string;
+    owner: {
+        id: string;
+        tokensOwned: number;
+        ens: string;
+    };
+    transferCount: string;
+}
+
+export type PoapHoldersResponse = Response<{
+    limit: number;
+    offset: number;
+    total: number;
+    tokens: PoapHolderToken[];
+}>;

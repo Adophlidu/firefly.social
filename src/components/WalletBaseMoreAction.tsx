@@ -37,7 +37,6 @@ export function WalletBaseMoreAction({ ens, address, contractAddress, tokenId, c
     const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
 
     const ensOrAddress = ens || formatAddress(address, 4);
-    const collectionId = data?.collection?.id;
 
     return (
         <MoreActionMenu
@@ -71,9 +70,15 @@ export function WalletBaseMoreAction({ ens, address, contractAddress, tokenId, c
                         </MenuItem>
                     </>
                 ) : null}
-                {collectionId ? (
+                {data?.chain_id ? (
                     <MenuItem>
-                        {({ close }) => <NFTReportSpamButton onClick={close} collectionId={collectionId} />}
+                        {({ close }) => (
+                            <NFTReportSpamButton
+                                onClick={close}
+                                chainId={data.chain_id}
+                                address={data.contract_address}
+                            />
+                        )}
                     </MenuItem>
                 ) : null}
                 {isValidAddressEthereum(address) ? (

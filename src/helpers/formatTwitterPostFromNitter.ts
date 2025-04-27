@@ -11,10 +11,10 @@ import { URL_REGEX } from '@/constants/regexp.js';
 import { resolveTweetReplySettings } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
 import { formatTwitterProfileFromNitter } from '@/helpers/formatTwitterProfileFromNitter.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getTwitterNitterPicOrigUrl, getTwitterNitterPicUrl } from '@/helpers/getTwitterNitterPicUrl.js';
 import { parsePostUrl } from '@/helpers/parsePostUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Tweet } from '@/providers/types/Nitter.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
@@ -37,7 +37,14 @@ function parseTweetText(text: string) {
         }
         const parsedProfileUrl = parsePostUrl(anchorElement.href);
         if (parsedProfileUrl) {
-            anchorElement.innerHTML = urlcat(SITE_URL, resolveProfileUrl(parsedProfileUrl.source, parsedProfileUrl.id));
+            anchorElement.innerHTML = urlcat(
+                SITE_URL,
+                getProfileUrl({
+                    source: parsedProfileUrl.source,
+                    profileId: parsedProfileUrl.id,
+                    handle: parsedProfileUrl.id,
+                }),
+            );
             continue;
         }
         anchorElement.innerHTML = anchorElement.href;
@@ -154,6 +161,8 @@ export function formatTwitterPostFromNitter(
         post.metadata = post.mirrorOn.metadata;
         post.stats = post.mirrorOn.stats;
         post.parentPostId = post.mirrorOn.postId;
+        const mentions = parseTweetMentions(tweet.retweet.text);
+        if (mentions?.length) post.mentions = post.mentions ? [...post.mentions, ...mentions] : mentions;
         const retweeted = options?.tweet?.referenced_tweets?.find((tweet) => tweet.type === 'retweeted');
         if (retweeted && options?.tweet?.author_id === twitterSessionHolder.session?.profileId) post.hasMirrored = true;
     }

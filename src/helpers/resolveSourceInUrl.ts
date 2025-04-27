@@ -3,6 +3,8 @@ import {
     type ExploreSourceInURL,
     type NotificationSource,
     type NotificationSourceInURL,
+    type ProfilePageSource,
+    ProfileSourceInURL,
     type SocialSource,
     type SocialSourceInURL,
     Source,
@@ -88,6 +90,20 @@ export const resolveNotificationSource = createLookupTableResolver<NotificationS
         [SourceInURL.Farcaster]: Source.Farcaster,
         [SourceInURL.Lens]: Source.Lens,
         [SourceInURL.Bsky]: Source.Bsky,
+    },
+    (source) => {
+        throw new UnreachableError('source', source);
+    },
+);
+
+export const resolveProfileSourceInURL = createLookupTableResolver<ProfilePageSource, ProfileSourceInURL>(
+    {
+        [Source.Farcaster]: ProfileSourceInURL.Farcaster,
+        [Source.Lens]: ProfileSourceInURL.Lens,
+        [Source.Bsky]: ProfileSourceInURL.Bsky,
+        [Source.Twitter]: ProfileSourceInURL.Twitter,
+        [Source.Wallet]: ProfileSourceInURL.Wallet,
+        [Source.WalletMix]: ProfileSourceInURL.WalletMix,
     },
     (source) => {
         throw new UnreachableError('source', source);

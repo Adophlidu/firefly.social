@@ -1,37 +1,45 @@
 'use client';
 
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { compact } from 'lodash-es';
+import { compact, sortBy } from 'lodash-es';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getSingleFollowingNFTItemContent } from '@/components/NFTs/VirtualListHelper.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
-import { createIndicator } from '@/helpers/pageable.js';
+import { EMPTY_LIST } from '@/constants/index.js';
+import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
+import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 
-export function FollowingNFTList({ walletAddresses }: { walletAddresses?: string[] }) {
+export function FollowingNFTList({ walletAddress }: { walletAddress?: string }) {
     const profileIds = useCurrentProfileIds();
-    const queryKey = walletAddresses
-        ? ['nfts-of', ...walletAddresses, profileIds]
+    const queryKey = walletAddress
+        ? ['nfts-of', walletAddress, profileIds]
         : ['nfts', 'following', Source.NFTs, profileIds];
-    const queryResult = useSuspenseInfiniteQuery({
-        queryKey,
-        networkMode: 'always',
-        queryFn: async ({ pageParam }) => {
-            if (!walletAddresses && !profileIds.length) return null;
-            return FireflyEndpointProvider.getFollowingNFTs({
-                indicator: createIndicator(undefined, pageParam),
-                walletAddresses,
-            });
+    const queryResult = useMultiInfiniteQueryPageable(
+        [...queryKey, ...NFTSCAN_CHAIN_IDS],
+        NFTSCAN_CHAIN_IDS.map((chainId) => ({
+            key: chainId.toString(),
+            async queryFn({ pageParam }) {
+                const indicator = createIndicator(undefined, pageParam);
+                if (!walletAddress && !profileIds.length) {
+                    return createPageable(EMPTY_LIST, indicator);
+                }
+                return FireflyEndpointProvider.getFollowingNFTs({
+                    indicator: createIndicator(undefined, pageParam),
+                    chainId,
+                    walletAddress,
+                });
+            },
+        })),
+        (data) => {
+            return sortBy(compact(data.pages.flatMap((p) => p?.data)), (x) => -x.timestamp);
         },
-        initialPageParam: '',
-        getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
-        select: (data) => compact(data.pages.flatMap((p) => p?.data)),
-    });
+    );
 
-    if (!walletAddresses && !profileIds.length) {
+    if (!walletAddress && !profileIds.length) {
         return <NotLoginFallback source={Source.NFTs} className="md:!pt-0" />;
     }
 

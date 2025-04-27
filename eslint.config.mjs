@@ -110,6 +110,7 @@ export default defineConfig([
             'no-useless-catch': 'warn',
             'no-useless-concat': 'warn',
             'no-useless-escape': 'warn',
+            'no-useless-rename': 'warn',
             'object-shorthand': 'warn',
             'prefer-const': 'warn',
             'prefer-numeric-literals': 'warn',

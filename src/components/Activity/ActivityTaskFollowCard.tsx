@@ -11,10 +11,10 @@ import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInAc
 import { useLoginInActivity } from '@/components/Activity/hooks/useLoginInActivity.js';
 import { Link } from '@/components/Activity/Link.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 interface ButtonProps extends HTMLProps<HTMLButtonElement> {
@@ -71,7 +71,7 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: ActivityTa
         isLoading,
     } = useIsFollowInActivity(source, profileId, handle);
 
-    const profileUrl = resolveProfileUrl(source, [Source.Lens, Source.Bsky].includes(source) ? handle : profileId);
+    const profileUrl = getProfileUrl({ source, profileId, handle });
 
     return (
         <div

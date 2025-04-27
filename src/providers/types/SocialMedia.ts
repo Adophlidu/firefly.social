@@ -8,7 +8,7 @@ import {
     type SocialSource,
 } from '@/constants/enum.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
-import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import type { Session } from '@/providers/types/Session.js';
 
@@ -75,6 +75,9 @@ export interface Profile<O = unknown> {
     fullHandle: string;
     pfp: string;
     bio?: string;
+    bioContext?: {
+        mentions?: FireflyIdentity[];
+    };
     address?: string;
     followerCount: number;
     followingCount: number;

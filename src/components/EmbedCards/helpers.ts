@@ -18,15 +18,19 @@ export function isAvailableAddress(x: AddressRecord) {
 }
 
 const hosts = [
-    /firefly-mask.*-dimension-dev\.vercel\.app/,
+    /firefly\.social/,
     /firefly\.mask\.social/,
-    /(staging|canary|beta|alpha)\.social/,
+    /warpcast.com/,
+    /(staging|canary|beta|alpha)\.firefly\.social/,
+    /firefly-mask.*-dimension-dev\.vercel\.app/,
 ];
-export function isFarcasterPost(link: string) {
+export function shouldIgnoreLink(link: string) {
     const url = parseUrl(link);
     if (!url) return false;
     const match = hosts.some((re) => re.test(url.host));
     if (!match) return false;
+    const isTako = isTakoPost(link);
+    if (isTako) return true;
     return /^\/post\/farcaster\/0x[a-fA-F0-9]{40}/.test(url.pathname);
 }
 
@@ -51,8 +55,8 @@ export function extractEmbedResources(postRawContent: string | undefined, oembed
         ),
         (x) => x.toLowerCase(),
     );
-    const { ignored: ignored = [], keep = [] } = groupBy(links, (link) => {
-        return isFarcasterPost(link) || isTakoPost(link) ? 'ignored' : 'keep';
+    const { ignored = [], keep = [] } = groupBy(links, (link) => {
+        return shouldIgnoreLink(link) ? 'ignored' : 'keep';
     });
 
     const evmAddresses = postRawContent.match(EXIST_EVM_ADDRESS) || [];

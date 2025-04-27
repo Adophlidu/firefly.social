@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { useAccount } from 'wagmi';
 
-import { SimpleHashProvider } from '@/providers/simplehash/index.js';
+import { EMPTY_LIST } from '@/constants/index.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
 
 export function useCustomNonFungibleTokens() {
@@ -10,12 +11,13 @@ export function useCustomNonFungibleTokens() {
     );
     const account = useAccount();
 
-    const simpleHashCollectionIds = tokens.map((x) => x.simpleHashCollectionId);
+    const paramList = tokens.map((x) => ({ contractAddress: x.address, chainId: x.chainId }));
     return useQuery({
-        queryKey: ['custom-non-fungible-tokens', simpleHashCollectionIds, account?.address],
+        queryKey: ['custom-non-fungible-tokens', account.address, paramList],
         async queryFn() {
-            return SimpleHashProvider.getCollectionByIds(simpleHashCollectionIds);
+            if (!account.address) return EMPTY_LIST;
+            return FireflyEndpointProvider.getCollections(paramList);
         },
-        enabled: simpleHashCollectionIds.length > 0,
+        enabled: paramList.length > 0 && !!account.address,
     });
 }

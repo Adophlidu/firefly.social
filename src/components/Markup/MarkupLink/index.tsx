@@ -1,9 +1,7 @@
 'use client';
 
 import { safeUnreachable } from '@masknet/kit';
-import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
-import urlcat from 'urlcat';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { Link } from '@/components/Link.js';
@@ -22,16 +20,14 @@ import { ToggleMore } from '@/components/Markup/MarkupLink/ToggleMore.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { Source } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
 import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, FULL_ENS_REGEXP, LENS_HANDLE_REGEXP } from '@/constants/regexp.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
-import { getProfileUrl, getTwitterProfileUrl } from '@/helpers/getProfileUrl.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { isTCOLink } from '@/helpers/resolveTCOLink.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 function unpaddings(text: string) {
     const start = text.match(/(^\s)/)?.[0] || null;
@@ -40,18 +36,7 @@ function unpaddings(text: string) {
     return { start, end, trimmed };
 }
 
-export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post, source, sourceLink }) {
-    const { data: fallbackProfile } = useQuery({
-        // We only have handle in user bio.
-        enabled: !post && source === Source.Farcaster && title?.startsWith('@'),
-        queryKey: ['profile-by-handle', source, title],
-        queryFn: async () => {
-            if (!title) return null;
-            const handle = title.slice(1);
-            return FireflySocialMediaProvider.getProfileByHandle(handle);
-        },
-    });
-
+export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post, source, sourceLink, profile }) {
     if (!title) return null;
 
     if (title.startsWith('@')) {
@@ -80,9 +65,8 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
             }
 
             case Source.Farcaster: {
-                const profile = post ? post.mentions?.find((x) => [handle, title].includes(x.handle)) : fallbackProfile;
-                if (!profile) return title;
-
+                const profile = post?.mentions?.find((x) => [handle, title].includes(x.handle));
+                if (!profile) return <MentionLinkWithQueryProfile source={source} handle={handle} fallback={title} />;
                 const link = getProfileUrl(profile);
                 return (
                     <ProfileTippy
@@ -97,16 +81,23 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
             }
 
             case Source.Twitter:
-                const profile = post?.mentions?.find((x) => x.handle === title);
-                if (!profile) return <MentionLinkWithQueryProfile source={source} handle={handle} fallback={title} />;
+                const bioMention = profile?.bioContext?.mentions?.find((x) => x.id === handle);
+                const postMention = post?.mentions?.find((x) => x.handle === handle || x.handle === title);
+                if (!bioMention && !postMention) {
+                    return <MentionLinkWithQueryProfile source={source} handle={handle} fallback={title} />;
+                }
                 return (
                     <ProfileTippy
                         identity={{
-                            source: Source.Twitter,
-                            id: profile.profileId,
+                            source,
+                            id: handle,
                         }}
                     >
-                        <MentionLink handle={profile.handle} href={getProfileUrl(profile)} className="inline-block" />
+                        <MentionLink
+                            handle={handle}
+                            href={getProfileUrl(postMention ? postMention : { source, handle })}
+                            className="inline-block"
+                        />
                     </ProfileTippy>
                 );
             case Source.Bsky: {
@@ -172,14 +163,9 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
 
     if (LENS_HANDLE_REGEXP.test(title)) {
         const handle = title.replace('.lens', '');
+        const href = getProfileUrl({ source: Source.Lens, handle });
         return (
-            <Link
-                href={urlcat(SITE_URL, '/profile/lens/:handle', { handle })}
-                className="text-highlight hover:underline"
-                onClick={stopPropagation}
-                target="_blank"
-                rel="noreferrer noopener"
-            >
+            <Link href={href} className="text-highlight hover:underline" onClick={stopPropagation}>
                 {title}
             </Link>
         );
@@ -225,15 +211,9 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
     if (BIO_TWITTER_PROFILE_REGEX.test(title)) {
         const match = title.match(BIO_TWITTER_PROFILE_REGEX);
         if (!match) return title;
-        const href = getTwitterProfileUrl(match[1]);
+        const href = getProfileUrl({ source: Source.Twitter, handle: match[1] });
         return (
-            <Link
-                href={href}
-                className="text-highlight hover:underline"
-                onClick={stopPropagation}
-                target="_blank"
-                rel="noreferrer noopener"
-            >
+            <Link href={href} className="text-highlight hover:underline" onClick={stopPropagation}>
                 {title}
             </Link>
         );

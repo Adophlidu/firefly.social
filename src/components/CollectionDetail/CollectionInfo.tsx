@@ -22,25 +22,23 @@ interface CollectionInfoProps {
     ownerCount?: number;
     volume24h?: string;
     bannerImageUrl?: string;
-    imageUrl: string;
+    logoUrl: string;
     name: string;
     chainId?: EthereumChainId;
-    collectionId?: string;
     externalUrl?: string;
 }
 
 export function CollectionInfo(props: CollectionInfoProps) {
     const {
+        chainId = EthereumChainId.Mainnet,
         address,
         name,
         bannerImageUrl,
-        imageUrl,
+        logoUrl,
         nftCount,
         ownerCount,
         volume24h,
         floorPrice,
-        chainId = EthereumChainId.Mainnet,
-        collectionId,
         externalUrl,
     } = props;
     const isMedium = useIsMedium();
@@ -59,7 +57,7 @@ export function CollectionInfo(props: CollectionInfoProps) {
                     width={115}
                     height={115}
                     className="size-[115px] rounded-lg object-cover"
-                    src={imageUrl}
+                    src={logoUrl}
                     alt={name}
                 />
                 <div className="ml-2.5 flex h-[115px] min-w-0 flex-1 flex-col justify-between">
@@ -67,7 +65,7 @@ export function CollectionInfo(props: CollectionInfoProps) {
                         <TextOverflowTooltip content={name}>
                             <div className="line-clamp-2 w-full">{name}</div>
                         </TextOverflowTooltip>
-                        <CollectionMore collectionId={collectionId} externalUrl={externalUrl} />
+                        <CollectionMore chainId={chainId} address={address} externalUrl={externalUrl} />
                     </div>
                     {address ? (
                         <div className="text-normal flex items-center text-[14px] leading-[14px] text-secondary">

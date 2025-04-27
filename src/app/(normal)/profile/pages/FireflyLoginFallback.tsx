@@ -5,8 +5,8 @@ import { Trans } from '@lingui/react/macro';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { Source } from '@/constants/enum.js';
 import { redirect, useSearchParams } from '@/esm/navigation.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSocialSource } from '@/helpers/isSource.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 
@@ -19,7 +19,13 @@ export function FireflyLoginFallback() {
     if (profileAll.length > 0) {
         const profile = profileAll.find((x) => x.identity.source === source) || profileAll[0];
         if (isSocialSource(profile.identity.source)) {
-            redirect(resolveProfileUrl(profile.identity.source, profile.identity.id));
+            redirect(
+                getProfileUrl({
+                    source: profile.identity.source,
+                    profileId: profile.identity.id,
+                    handle: profile.displayName,
+                }),
+            );
         }
     }
 

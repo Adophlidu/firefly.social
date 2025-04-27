@@ -7,15 +7,15 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchableCollectionItem } from '@/components/Search/SearchableCollectionItem.js';
 import { ScrollListKey } from '@/constants/enum.js';
-import type { NFTScan } from '@/providers/types/NFTScan.js';
+import type { EVM } from '@/providers/nft-scan/types.js';
 import { searchCollections } from '@/services/searchCollections.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
-const getSearchItemContent = (collection: NFTScan.Collection) => {
+const getSearchItemContent = (collection: EVM.Collection) => {
     return <SearchableCollectionItem key={collection.contract_address} collection={collection} />;
 };
 
-function filterAndSortCollections(collections: NFTScan.Collection[], keyword: string) {
+function filterAndSortCollections(collections: EVM.Collection[], keyword: string) {
     return collections
         .filter((collection) => collection.owners_total >= 100)
         .sort((a, b) => {

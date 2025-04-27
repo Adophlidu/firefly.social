@@ -177,7 +177,7 @@ export interface NonFungibleTokenMetadata<ChainId> {
     /** Might be the format `TheName #42` */
     name: string;
     tokenId?: string;
-    symbol?: string;
+    symbol?: string | null;
     description?: string;
     /** image url */
     imageURL?: string;
@@ -237,6 +237,7 @@ export interface NonFungibleCollection<ChainId, SchemaType> {
     /** verified by provider */
     verified?: boolean;
     verifiedBy?: string[];
+    isSpam?: boolean;
     /** unix timestamp */
     createdAt?: number;
     /** source type */
@@ -358,7 +359,8 @@ export interface NonFungibleTokenEvent<ChainId, SchemaType> {
 
 export interface PriceInToken<ChainId, SchemaType> {
     amount: string;
-    token: FungibleToken<ChainId, SchemaType>;
+    token?: FungibleToken<ChainId, SchemaType>;
+    tokenSymbol?: string | null;
 }
 
 /**
@@ -390,5 +392,5 @@ export interface NonFungibleAsset<ChainId, SchemaType> extends NonFungibleToken<
     /** source type */
     source?: SourceType;
     /** token count */
-    tokenCount?: number;
+    tokenCount?: number | string;
 }

@@ -14,7 +14,6 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isBadProfile } from '@/helpers/isBadProfile.js';
 import { isCurrentProfile } from '@/helpers/isCurrentProfile.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -100,7 +99,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                                 <>
                                     <span className="mx-1 leading-[22px] text-secondary">·</span>
                                     <Link
-                                        href={resolveProfileUrl(source, profileId, FollowCategory.Followers)}
+                                        href={getProfileUrl(profile, FollowCategory.Followers)}
                                         className={classNames('gap-1 text-[15px] leading-[22px] hover:underline', {
                                             'pointer-events-none':
                                                 source !== Source.Farcaster && source !== Source.Lens,

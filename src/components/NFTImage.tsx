@@ -10,6 +10,7 @@ export const NFTImage = memo<ImageProps>(function NFTImage(props) {
             fallbackClassName="border border-secondaryLine"
             fallback={isDarkMode ? '/image/img-fallback-dark.png' : '/image/img-fallback-light.png'}
             {...props}
+            unoptimized
             alt={props.alt}
             src={props.src}
         />

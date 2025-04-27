@@ -3,16 +3,18 @@ import { useMemo } from 'react';
 
 import { parseUrl } from '@/helpers/parseUrl.js';
 import type { NonFungibleTokenTrait } from '@/mask_pkgs/web3-shared/base/index.js';
-import type { SimpleHash } from '@/providers/simplehash/type.js';
+import type { EVM as NFTScanEVM } from '@/providers/nft-scan/types.js';
 
-function findTraitValue(traits: SimpleHash.Attribute[] | NonFungibleTokenTrait[], type: string) {
-    return traits.find((trait) => {
-        const typeValue = 'trait_type' in trait ? trait.trait_type : trait.type;
+function findTraitValue(traits: NFTScanEVM.Attribute[] | NonFungibleTokenTrait[], type: string) {
+    const trait = traits.find((trait) => {
+        const typeValue = 'attribute_name' in trait ? trait.attribute_name : trait.type;
         return typeValue === type;
-    })?.value;
+    });
+    if (!trait) return;
+    return 'attribute_name' in trait ? trait.attribute_value : trait.value;
 }
 
-export function usePoapTraits(traits: SimpleHash.Attribute[] | NonFungibleTokenTrait[], dateFormat = 'MMM D, YYYY') {
+export function usePoapTraits(traits: NFTScanEVM.Attribute[] | NonFungibleTokenTrait[], dateFormat = 'MMM D, YYYY') {
     return useMemo(() => {
         const startDate = findTraitValue(traits, 'startDate');
         const endDate = findTraitValue(traits, 'endDate');

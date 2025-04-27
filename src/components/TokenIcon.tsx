@@ -31,7 +31,7 @@ export const TokenIcon = memo(function TokenIcon({
     name,
     size = 30,
     badgeSize = 12,
-    disableBadge: disableBadge = false,
+    disableBadge = false,
     className,
     ...rest
 }: TokenIconProps) {

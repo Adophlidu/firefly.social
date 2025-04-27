@@ -15,7 +15,7 @@ export const EmbedLinkCard = memo<EmbedLinkCardProps>(function EmbedLinkCard({ l
     if (isLoading || error || !data) return null;
 
     if (data.nft) return <NFTPreviewer nft={data.nft} showTradeInfo className={className} />;
-    if (data.collection)
+    if (data.collection?.contract_address)
         return <CollectionPreviewer collection={data.collection} showTradeInfo className={className} />;
     return null;
 });

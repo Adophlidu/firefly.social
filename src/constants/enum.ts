@@ -97,6 +97,15 @@ export enum SourceInURL {
     Swap = 'swap',
 }
 
+export enum ProfileSourceInURL {
+    Farcaster = 'far',
+    Lens = 'lens',
+    Twitter = 'x',
+    Bsky = 'bsky',
+    Wallet = 'wallet',
+    WalletMix = 'wallets',
+}
+
 export enum Agent {
     FarcasterFrame = 'farcaster_frame',
     FireflyApp = 'firefly_app',

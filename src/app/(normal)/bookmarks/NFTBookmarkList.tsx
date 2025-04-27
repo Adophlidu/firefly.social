@@ -18,20 +18,19 @@ import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
-import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { SimpleHash } from '@/providers/simplehash/type.js';
+import type { NFTDetail } from '@/providers/types/Firefly.js';
 
-function getNFTItemContent(id: string, nft: SimpleHash.NFT) {
-    const chainId = resolveSimpleHashChainId(nft.chain);
+function getNFTItemContent(id: string, nft: NFTDetail) {
+    const chainId = nft.chain_id;
 
     const content = (
         <>
             <div className="relative aspect-square h-auto w-full overflow-hidden">
                 <Image
-                    src={resolveNFTImageUrl(nft)}
+                    src={resolveNFTImageUrl(nft)! || nft.collection.large_image_url}
                     alt={nft.name}
                     width={500}
                     height={500}
@@ -40,7 +39,7 @@ function getNFTItemContent(id: string, nft: SimpleHash.NFT) {
                 {chainId ? <ChainIcon size={20} chainId={chainId} className="absolute left-1 top-1" /> : null}
             </div>
             <div className="mt-1 line-clamp-2 h-8 w-full px-1 text-center text-xs leading-4 sm:mt-2 sm:px-2 sm:py-0">
-                {nft.name}
+                {nft.name || nft.collection.name}
             </div>
         </>
     );

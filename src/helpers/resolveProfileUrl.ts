@@ -4,7 +4,7 @@ import { NetworkType, type ProfileCategory, type ProfilePageSource, Source } fro
 import { LOGIN_SORTED_PROFILE_TAB_TYPE, SORTED_PROFILE_TAB_TYPE, WALLET_PROFILE_TAB_TYPES } from '@/constants/index.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
-import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { resolveProfileSourceInURL } from '@/helpers/resolveSourceInUrl.js';
 
 function getDefaultProfileCategory(source: ProfilePageSource, handle?: string, isCurrentProfile = false) {
     if (source === Source.Wallet || source === Source.WalletMix) {
@@ -32,7 +32,9 @@ function resolveProfileCategory(
             : (isCurrentProfile ? LOGIN_SORTED_PROFILE_TAB_TYPE : SORTED_PROFILE_TAB_TYPE)[source];
     return supportedCategories.includes(category) ? category : getDefaultProfileCategory(source, handle);
 }
-
+/**
+ * ! Please don't use this function directly, use `getProfileUrl` instead.
+ */
 export function resolveProfileUrl(
     source: ProfilePageSource,
     handle?: string,
@@ -41,13 +43,13 @@ export function resolveProfileUrl(
 ) {
     if (!handle) {
         return urlcat(`/profile/:source`, {
-            source: resolveSourceInUrl(source),
+            source: resolveProfileSourceInURL(source),
         });
     }
 
     return urlcat(`/profile/:source/:handle/:category`, {
         handle,
-        source: resolveSourceInUrl(source),
+        source: resolveProfileSourceInURL(source),
         category: resolveProfileCategory(source, handle, category, isCurrentProfile),
     });
 }

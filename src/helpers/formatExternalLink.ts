@@ -2,11 +2,10 @@ import { safeUnreachable } from '@masknet/kit';
 
 import { ExternalSiteDomain, type SocialSource, Source } from '@/constants/enum.js';
 import { TWEET_REGEX } from '@/constants/regexp.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getUrlSiteType } from '@/helpers/interceptExternalUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { trimify } from '@/helpers/trimify.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 
 async function captureProfileUrl(url: URL, regex: RegExp, source: SocialSource) {
     const { pathname } = url;
@@ -14,11 +13,7 @@ async function captureProfileUrl(url: URL, regex: RegExp, source: SocialSource) 
     const matched = regex.exec(pathname);
     const handle = trimify(matched?.[1] ?? '');
     if (handle) {
-        const resolved =
-            source === Source.Farcaster
-                ? (await FarcasterSocialMediaProvider.getProfileByHandle(handle)).profileId
-                : handle;
-        return resolveProfileUrl(source, resolved);
+        return getProfileUrl({ source, handle });
     }
 
     return;

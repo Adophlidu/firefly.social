@@ -10,13 +10,11 @@ import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface CollectionTabsProps {
-    address: string;
     chainId?: EthereumChainId;
-    totalQuantity?: number;
-    collectionId: string;
+    address: string;
 }
 
-export function CollectionTabs({ address, chainId, totalQuantity, collectionId }: CollectionTabsProps) {
+export function CollectionTabs({ address, chainId }: CollectionTabsProps) {
     const tabs = [
         {
             label: <Trans>Items</Trans>,
@@ -43,7 +41,6 @@ export function CollectionTabs({ address, chainId, totalQuantity, collectionId }
                     {
                         items: (
                             <NFTList
-                                collectionId={collectionId}
                                 address={address}
                                 chainId={chainId}
                                 NoResultsFallbackProps={{
@@ -51,14 +48,7 @@ export function CollectionTabs({ address, chainId, totalQuantity, collectionId }
                                 }}
                             />
                         ),
-                        topCollectors: (
-                            <TopCollectors
-                                collectionId={collectionId}
-                                address={address}
-                                totalQuantity={totalQuantity}
-                                chainId={chainId}
-                            />
-                        ),
+                        topCollectors: <TopCollectors address={address} chainId={chainId} />,
                     }[currentTab]
                 }
             </Suspense>

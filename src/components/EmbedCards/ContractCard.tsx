@@ -2,11 +2,10 @@ import { safeUnreachable } from '@masknet/kit';
 import { memo } from 'react';
 
 import type { AddressCardProps } from '@/components/EmbedCards/types.js';
-import { CollectionPreviewer, NFTPreviewer } from '@/components/NFTs/NFTPreview.js';
+import { CollectionPreviewer } from '@/components/NFTs/NFTPreview.js';
 import { TokenCard } from '@/components/Token/TokenCard.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { useNFTCollection } from '@/hooks/useNFTCollection.js';
-import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import type { DetectedAddress } from '@/providers/types/Firefly.js';
 
 interface ContractCardProps extends AddressCardProps {
@@ -16,7 +15,6 @@ interface ContractCardProps extends AddressCardProps {
 export const ContractCard = memo<ContractCardProps>(function ContractCard({ contractType, chainId, ...rest }) {
     const isCollection = ['ERC721', 'ERC1155', 'nft'].includes(contractType);
     const { data: collection } = useNFTCollection(rest.address, chainId, isCollection);
-    const { data: nft } = useNFTDetail(chainId, rest.address, undefined);
 
     switch (contractType) {
         case 'ERC20':
@@ -29,7 +27,6 @@ export const ContractCard = memo<ContractCardProps>(function ContractCard({ cont
         case 'ERC721':
         case 'ERC1155':
         case 'nft':
-            if (nft?.__origin__) return <NFTPreviewer className={rest.className} nft={nft.__origin__} showTradeInfo />;
             return collection ? (
                 <CollectionPreviewer className={rest.className} collection={collection} showTradeInfo />
             ) : null;

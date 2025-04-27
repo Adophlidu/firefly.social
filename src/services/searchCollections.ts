@@ -5,7 +5,6 @@ import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { trimify } from '@/helpers/trimify.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { NFTScanProvider } from '@/providers/nft-scan/index.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 const SEARCH_CHAIN_ID_LIST = [
@@ -23,7 +22,7 @@ const searchCollectionByAddress = memoizePromise(
         const controller = new AbortController();
         return Promise.any(
             SEARCH_CHAIN_ID_LIST.map(async (chainId) => {
-                const result = await NFTScanProvider.getCollectionByAddress(address, chainId, controller.signal);
+                const result = await FireflyEndpointProvider.getCollection(chainId, address);
                 if (result) {
                     controller.abort();
                     return result;

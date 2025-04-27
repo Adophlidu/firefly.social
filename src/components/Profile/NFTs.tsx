@@ -5,18 +5,18 @@ import { useState } from 'react';
 
 import UndoSVG from '@/assets/undo.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { NFTListByCollectionId } from '@/components/CollectionDetail/NFTListByCollectionId.js';
+import { NFTListByContract } from '@/components/CollectionDetail/NFTListByContract.js';
 import { Image } from '@/components/Image.js';
 import { NFTCollectionList } from '@/components/Profile/NFTCollectionList.js';
 import { useWalletMixAddresses } from '@/components/Profile/useWalletMixAddresses.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import type { SimpleHash } from '@/providers/simplehash/type.js';
+import type { EVM } from '@/providers/nft-scan/types.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface SelectedCollection {
     chainId: EthereumChainId;
     collectionId: string;
-    collection: SimpleHash.LiteCollection;
+    collection: EVM.Collection;
 }
 
 export function NFTs({ address }: { address: string }) {
@@ -36,22 +36,22 @@ export function NFTs({ address }: { address: string }) {
                                 <UndoSVG className="size-4" />
                             </Tooltip>
                         </ClickableButton>
-                        {selectedCollection.collection.collection_details.image_url ? (
+                        {selectedCollection.collection.large_image_url ? (
                             <Image
                                 className="mr-2 size-6 rounded-full object-cover"
-                                src={selectedCollection.collection.collection_details.image_url ?? ''}
-                                alt={selectedCollection.collection.collection_details.name}
+                                src={selectedCollection.collection.large_image_url ?? ''}
+                                alt={selectedCollection.collection.name}
                                 width={24}
                                 height={24}
                             />
                         ) : null}
                         <div className="max-w-[calc(100%-32px-24px-16px)] truncate text-base font-bold leading-5">
-                            {selectedCollection.collection.collection_details.name}
+                            {selectedCollection.collection.name}
                         </div>
                     </div>
-                    <NFTListByCollectionId
-                        collectionId={selectedCollection.collectionId}
-                        owner={selectedCollection.collection.nftPreviews?.[0].owners?.[0]?.owner_address || address}
+                    <NFTListByContract
+                        contract={selectedCollection.collection.contract_address}
+                        owner={address}
                         chainId={selectedCollection.chainId}
                     />
                 </>

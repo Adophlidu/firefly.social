@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { SimpleHashProvider } from '@/providers/simplehash/index.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
-export function useCollectionMarketInfo(collectionId: string | undefined) {
+export function useCollectionMarketInfo(chainId: number | undefined, contractAddress: string | undefined) {
     return useQuery({
-        queryKey: ['collection', 'market-info', collectionId],
+        queryKey: ['collection', 'market-info', chainId, contractAddress],
         queryFn: async () => {
-            if (!collectionId) return null;
-            return SimpleHashProvider.getCollectionMarketInfo(collectionId);
+            if (!chainId || !contractAddress) return;
+            return FireflyEndpointProvider.getCollectionStatistics(chainId, contractAddress);
         },
     });
 }

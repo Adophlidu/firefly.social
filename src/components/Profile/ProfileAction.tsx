@@ -46,8 +46,9 @@ export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps 
     const isSmall = useIsSmall();
 
     const button = useMemo(() => {
-        if (isEditableProfile) return <EditProfileButton profile={profile} variant={isSmall ? 'text' : 'icon'} />;
-        const socialThemeClassName = classNames({
+        if (isEditableProfile)
+            return <EditProfileButton className="z-1" profile={profile} variant={isSmall ? 'text' : 'icon'} />;
+        const socialThemeClassName = classNames('z-1', {
             '!bg-farcasterPrimary !text-white': profile.source === Source.Farcaster,
             '!bg-lensButton !text-primaryBottom': profile.source === Source.Lens,
             '!bg-bskyPrimary !text-white': profile.source === Source.Bsky,
@@ -62,7 +63,7 @@ export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps 
                     '!w-[50px] !min-w-[50px] !max-w-[50px]': !isSmall,
                 })}
                 followButtonClassName={socialThemeClassName}
-                followingButtonClassName={classNames({
+                followingButtonClassName={classNames('z-1', {
                     '!text-farcasterPrimary': profile.source === Source.Farcaster,
                     '!text-lensButton': profile.source === Source.Lens,
                     '!text-bskyPrimary': profile.source === Source.Bsky,

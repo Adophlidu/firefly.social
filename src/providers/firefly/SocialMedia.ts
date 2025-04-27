@@ -1,11 +1,12 @@
 import { safeUnreachable } from '@masknet/kit';
-import { compact } from 'lodash-es';
+import { compact, groupBy } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForBookmarkNFT } from '@/decorators/SetQueryDataForBookmarkNFT.js';
+import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
     formatBriefChannelFromFirefly,
@@ -27,14 +28,15 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveSearchKeyword } from '@/helpers/resolveSearchKeyword.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
-import { SimpleHashProvider } from '@/providers/simplehash/index.js';
-import type { SimpleHash } from '@/providers/simplehash/type.js';
+import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import {
@@ -55,6 +57,8 @@ import {
     type FireflySnapshotActivity,
     type FriendshipResponse,
     type GetBookmarksResponse,
+    type NFTBookmarkContent,
+    type NFTDetail,
     type NotificationConfigsResponse,
     type NotificationPushSwitchResponse,
     type NotificationResponse,
@@ -103,6 +107,18 @@ async function ensureFollowersIsNotEmpty(users?: User[]) {
             following: profile?.followingCount ?? user.following,
         });
     });
+}
+
+type ParamTuple = [chainId: number, address: string, tokenId: string];
+function groupNFTParamsByChainId(nftIds: string[]) {
+    const tuples = nftIds.map((nftId) => {
+        const parts = nftId.split('.');
+        const chainId = parseInt(parts[0], 10);
+        if (!NFTSCAN_CHAIN_IDS.includes(chainId)) return null;
+        return [chainId, parts[1], parts[2]] as ParamTuple;
+    });
+
+    return groupBy(compact(tuples), (x) => x[0]);
 }
 
 @SetQueryDataForBookmarkNFT()
@@ -1189,7 +1205,7 @@ export class FireflySocialMedia implements Provider {
         Pageable<
             {
                 id: string;
-                nft: SimpleHash.NFT;
+                nft: NFTDetail;
             },
             PageIndicator
         >
@@ -1203,17 +1219,28 @@ export class FireflySocialMedia implements Provider {
             fid: profile?.profileId,
         });
 
-        const response = await fireflySessionHolder.fetch<BookmarkResponse<SimpleHash.NFT>>(url);
+        const response = await fireflySessionHolder.fetch<BookmarkResponse<NFTBookmarkContent>>(url);
         const data = resolveFireflyResponseData(response);
 
         const nftIds = data.list.map((x) => x.post_id);
-        const nfts = nftIds.length ? await SimpleHashProvider.getNFTByIds(nftIds) : [];
+        const groups = groupNFTParamsByChainId(nftIds);
+        const promises = Object.entries(groups).map(([chainId, tuples]) => {
+            return FireflyEndpointProvider.getNFTDetails(
+                +chainId,
+                tuples.map((x) => {
+                    return { contract_address: x[1], token_id: x[2] };
+                }),
+            );
+        });
+        const allNfts = await Promise.allSettled(promises);
+        const list = allNfts.flatMap((x) => (x.status === 'fulfilled' ? x.value : EMPTY_LIST));
+        const nftMap = new Map(list.map((x) => [resolveNFTIdFromAsset(x), x]));
 
         return createPageable(
             compact(
                 nftIds.map((id) => {
-                    const nft = nfts.find((x) => x.nft_id.toLowerCase() === id.toLowerCase());
-                    return nft ? { id, nft } : null;
+                    const nft = nftMap.get(id.toLowerCase());
+                    return nft ? { id, nft: adjustAssetUris(nft) } : null;
                 }),
             ),
             createIndicator(indicator),

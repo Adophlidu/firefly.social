@@ -1,4 +1,3 @@
-import { produce } from 'immer';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 import { type Address, type Hex, isHex } from 'viem';
@@ -25,6 +24,7 @@ import {
     SetQueryDataForReportAndDeleteWallet,
 } from '@/decorators/SetQueryDataForDeleteWallet.js';
 import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWallet.js';
+import { adjustAssetUris } from '@/helpers/adjustAssetUris.js';
 import { getPublicKeyInHexFromSession } from '@/helpers/ed25519.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterProfileFromSuggestedFollow } from '@/helpers/formatFarcasterProfileFromSuggestedFollow.js';
@@ -46,9 +46,7 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { resolveNFTFeedChainId } from '@/helpers/resolveNFTFeedChainId.js';
-import { resolveNFTId, resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
-import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
+import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
@@ -57,8 +55,8 @@ import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { formatSimpleHashNFT } from '@/providers/simplehash/formatSimpleHashNFT.js';
-import { SimpleHashProvider } from '@/providers/simplehash/index.js';
+import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
+import type { EVM } from '@/providers/nft-scan/types.js';
 import type { Article, ArticlePlatform } from '@/providers/types/Article.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import {
@@ -68,6 +66,10 @@ import {
     type BlockRelationResponse,
     type BlockUserResponse,
     type CollectArticleResponse,
+    type CollectionItemsResponse,
+    type CollectionResponse,
+    type CollectionsResponse,
+    type CollectionStatisticsResponse,
     type DebankTokensResponse,
     type DetectAddressResponse,
     type EmptyResponse,
@@ -85,12 +87,13 @@ import {
     type GetLensSuggestedFollowUserResponse,
     type GetSponsorMintStatusResponse,
     type HexResponse,
+    type HoldersResponse,
     type IsMutedAllResponse,
     type LinkDigestResponse,
     type LoginResponse,
     type MintBySponsorResponse,
     type MuteAllResponse,
-    type NFTCollectionsResponse,
+    type NFTDetailsResponse,
     type NFTMintingResponse,
     type PlatformIdentityKey,
     type PolymarketActivityTimeline,
@@ -115,7 +118,14 @@ import {
     type WalletsStatusResponse,
     WatchType,
 } from '@/providers/types/Firefly.js';
-import type { DiscoverNFTResponseV2, GetFollowingNFTResponse, NFTFeed } from '@/providers/types/NFTs.js';
+import type {
+    DiscoverNFTResponseV3,
+    NFTDetailResponse,
+    NFTFeedV3,
+    PoapDetailResponse,
+    PoapHoldersResponse,
+    PoapResponse,
+} from '@/providers/types/NFTs.js';
 import { convertBskyHandleToDid } from '@/services/convertBskyHandleToDid.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { muteAllSocialProfiles } from '@/services/muteAllSocialProfiles.js';
@@ -156,6 +166,13 @@ async function unblock(field: BlockFields, profileId: string): Promise<boolean> 
     throw new Error('Failed to mute user');
 }
 
+function fixCollection(collection: EVM.Collection): EVM.Collection {
+    return {
+        ...collection,
+        chain_id: +collection.chain_id,
+    };
+}
+
 @SetQueryDataForBlockWallet()
 @SetQueryDataForAddWallet()
 @SetQueryDataForDeleteWallet()
@@ -181,20 +198,16 @@ export class FireflyEndpoint {
     }
 
     /**
-     * Reports a scam NFT collection based on the provided collectionId.
-     *
-     * @param {string} collectionId - collection id from Simplehash
+     * Reports a scam NFT to NFTScan
      */
-    async reportNFT(collectionId: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/reportNFT');
+    async reportNFT(chainId: number, address: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/reportNFT', {
+            chainId,
+            contractAddress: address,
+        });
         await fireflySessionHolder.fetch(
             url,
-            {
-                method: 'POST',
-                body: JSON.stringify({
-                    collection_id: collectionId,
-                }),
-            },
+            { method: 'GET' },
             {
                 withSession: true,
             },
@@ -225,27 +238,6 @@ export class FireflyEndpoint {
         });
     }
 
-    /**
-     * Retrieve all NFT collections from the linked wallets associated with a particular user.
-     *
-     * @param params
-     * @returns
-     */
-    async getWalletsNFTCollections(params: { limit?: number; indicator?: PageIndicator; walletAddress: string }) {
-        const { indicator, walletAddress, limit } = params ?? {};
-        const url = urlcat(settings.FIREFLY_ROOT_URL, 'v2/user/walletsNftCollections', {
-            walletAddresses: walletAddress,
-            size: limit || 25,
-            cursor: indicator?.id || undefined,
-        });
-        const response = await fireflySessionHolder.fetch<NFTCollectionsResponse>(url);
-        return createPageable(
-            response.data?.collections ?? EMPTY_LIST,
-            createIndicator(indicator),
-            response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
-        );
-    }
-
     async reportFarcasterSigner(session: FarcasterSession, signal?: AbortSignal) {
         // ensure session is available
         fireflySessionHolder.assertSession('[reportFarcasterSigner] firefly session required');
@@ -263,16 +255,16 @@ export class FireflyEndpoint {
         });
     }
 
-    async getAllPlatformProfileFromFirefly(identity: FireflyIdentity, isAuthRequired: boolean) {
+    async getAllPlatformProfileFromFirefly(identity: FireflyIdentity, isAuthRequired: boolean, forceHandle = false) {
         const queryKey = resolveValue(() => {
             switch (identity.source) {
                 case Source.Lens:
-                    if (isHex(identity.id)) return 'lensProfileId';
+                    if (isHex(identity.id) && !forceHandle) return 'lensProfileId';
                     return 'lensHandle';
                 case Source.Farcaster:
-                    return 'fid';
+                    return forceHandle ? 'farcasterUsername' : 'fid';
                 case Source.Twitter:
-                    return /^\d+$/.test(identity.id) ? 'twitterId' : 'twitterHandle';
+                    return /^\d+$/.test(identity.id) && !forceHandle ? 'twitterId' : 'twitterHandle';
                 case Source.Wallet:
                 case Source.WalletMix:
                     switch (getAddressType(identity.id)) {
@@ -558,111 +550,86 @@ export class FireflyEndpoint {
         indicator?: PageIndicator;
         limit?: number;
     } = {}) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/nft', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/nft/v3', {
             size: limit,
             cursor: indicator?.id,
         });
-        const response = await fireflySessionHolder.fetchWithoutSession<DiscoverNFTResponseV2>(url, {
+        const response = await fireflySessionHolder.fetchWithoutSession<DiscoverNFTResponseV3>(url, {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
-        const nftIds = data.nfts.flatMap((feed) =>
-            feed.trans.token_list.map((x) => resolveNFTId(resolveNFTFeedChainId(feed), feed.trans.token_address, x.id)),
-        );
+        const nftIds = data.result.map((feed) => resolveNFTId(feed.chain_id, feed.contract_address, feed.token_id));
         const bookmarks = nftIds.length
             ? await runInSafeAsync(() => FireflySocialMediaProvider.getBookmarksByIds(FireflyPlatform.NFTs, nftIds))
             : [];
-        const simpleHashNFTs = await SimpleHashProvider.getNFTByIds(nftIds);
-        const nfts = compact(simpleHashNFTs.map((x) => formatSimpleHashNFT(x, true)));
+        const bookmarksMap = new Map<string, boolean>(
+            (bookmarks || []).map((x) => [x.post_id.toLowerCase(), x.has_book_marked]),
+        );
+        const feeds = bookmarksMap.size
+            ? data.result.map<NFTFeedV3>((feed) => {
+                  const id = resolveNFTId(feed.chain_id, feed.contract_address, feed.token_id);
+                  return {
+                      ...feed,
+                      bookmarked: bookmarksMap.get(id.toLowerCase()),
+                  };
+              })
+            : data.result;
         return createPageable(
-            data.nfts
-                .map<NFTFeed>((feed) => ({
-                    ...feed,
-                    trans: {
-                        ...feed.trans,
-                        token_list: feed.trans.token_list.map((token) => ({
-                            ...token,
-                            bookmarked: bookmarks?.find(
-                                (x) =>
-                                    x.post_id.toLowerCase() ===
-                                    resolveNFTId(resolveNFTFeedChainId(feed), feed.trans.token_address, token.id),
-                            )?.has_book_marked,
-                            nft: nfts.find(
-                                (x) => isSameAddress(x.address, feed.trans.token_address) && x.tokenId === token.id,
-                            )!,
-                        })),
-                    },
-                }))
-                .filter((x) => x.trans.token_list.map((t) => t.nft).filter((t) => t).length),
+            feeds.map((x) => ({ ...x, detail: x.detail ? adjustAssetUris(x.detail) : null })),
             indicator,
-            data.hasMore && data.cursor ? createIndicator(undefined, data.cursor) : undefined,
+            data.cursor ? createIndicator(undefined, data.cursor) : undefined,
         );
     }
 
     async getFollowingNFTs({
         limit = 20,
         indicator,
-        walletAddresses,
+        chainId = EthereumChainId.Mainnet,
+        walletAddress,
     }: {
         limit?: number;
         indicator?: PageIndicator;
-        walletAddresses?: string[];
-    } = {}) {
-        const url = urlcat(
-            settings.FIREFLY_ROOT_URL,
-            walletAddresses && walletAddresses.length > 0 ? '/v2/user/timeline/nft' : '/v2/timeline/nft',
-        );
-        const response = await fireflySessionHolder.fetch<GetFollowingNFTResponse>(
+        chainId?: number;
+        walletAddress?: string;
+    } = {}): Promise<Pageable<NFTFeedV3, PageIndicator>> {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, walletAddress ? '/v3/user/timeline/nft' : '/v2/timeline/nft');
+        const response = await fireflySessionHolder.fetch<DiscoverNFTResponseV3>(
             url,
             {
                 method: 'POST',
                 body: JSON.stringify({
                     size: limit,
                     cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-                    walletAddresses,
+                    chainId,
+                    walletAddress,
                 }),
             },
             {
-                withSession: !(walletAddresses && walletAddresses.length > 0),
+                withSession: !walletAddress,
             },
         );
-        const nftIds = response.data.result.flatMap((x) => {
-            return x.actions.map((action) =>
-                resolveNFTId(
-                    resolveSimpleHashChainId(x.network) || EthereumChainId.Mainnet,
-                    action.contract_address,
-                    action.token_id,
-                ),
-            );
-        });
+        const nftIds = response.data.result.map((x) =>
+            resolveNFTId(x.chain_id || EthereumChainId.Mainnet, x.contract_address, x.token_id),
+        );
         const bookmarks = nftIds.length
             ? await runInSafeAsync(() => FireflySocialMediaProvider.getBookmarksByIds(FireflyPlatform.NFTs, nftIds))
             : [];
-        const simpleHashNFTs = await SimpleHashProvider.getNFTByIds(nftIds);
-        const nfts = compact(simpleHashNFTs.map((x) => formatSimpleHashNFT(x, true)));
-        const data = response.data.result
-            .map((x) => {
-                return produce(x, (draft) => {
-                    draft.actions = draft.actions.map((action) => {
-                        const nft = nfts.find(
-                            (x) => x.tokenId === action.token_id && isSameAddress(x.address, action.contract_address),
-                        );
-                        if (nft)
-                            action.nft = {
-                                ...nft,
-                                hasBookmarked: bookmarks?.find(
-                                    (x) => x.post_id.toLowerCase() === resolveNFTIdFromAsset(nft),
-                                )?.has_book_marked,
-                            };
-                        return action;
-                    });
-                });
-            })
-            .filter((x) => compact(x.actions.map((action) => action.nft)).length);
+        const bookmarksMap = new Map<string, boolean>(
+            (bookmarks || []).map((x) => [x.post_id.toLowerCase(), x.has_book_marked]),
+        );
+        const data = bookmarksMap.size
+            ? response.data.result.map<NFTFeedV3>((x) => {
+                  const id = resolveNFTId(x.chain_id || EthereumChainId.Mainnet, x.contract_address, x.token_id);
+                  return {
+                      ...x,
+                      has_bookmarked: bookmarksMap.get(id) || false,
+                  };
+              })
+            : response.data.result;
         return createPageable(
-            data,
-            indicator,
-            response.data.cursor && data.length > 0 ? createIndicator(undefined, response.data.cursor) : undefined,
+            data.map((x) => ({ ...x, detail: x.detail ? adjustAssetUris(x.detail) : null })),
+            createIndicator(indicator),
+            response.data.cursor && data.length > 0 ? createNextIndicator(undefined, response.data.cursor) : undefined,
         );
     }
 
@@ -1043,7 +1010,7 @@ export class FireflyEndpoint {
         });
         const data = resolveFireflyResponseData(response);
 
-        return createPageable(data.list ?? EMPTY_LIST, createIndicator(undefined));
+        return createPageable((data.list || []).map(fixCollection), createIndicator(undefined));
     }
 
     async generateFarcasterSignatures(key: Hex, deadline: number, jwt: string, signal?: AbortSignal) {
@@ -1088,10 +1055,14 @@ export class FireflyEndpoint {
         });
 
         const data = resolveFireflyResponseData(response);
+        if (data.nft) {
+            data.nft = adjustAssetUris(data.nft);
+            if (data.nft.collection) data.nft.collection = fixCollection(data.nft.collection);
+        }
         return data;
     }
 
-    async getSponsorMintStatus(options: SponsorMintOptions) {
+    async getSponsorMintStatus(options: Omit<SponsorMintOptions, 'contractExt'>) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_transaction/platform/mint/status');
         const response = await fireflySessionHolder.fetch<GetSponsorMintStatusResponse>(url, {
             method: 'POST',
@@ -1290,6 +1261,159 @@ export class FireflyEndpoint {
         });
         const data = resolveFireflyResponseData(response);
         return data.signatureMessage;
+    }
+
+    async getPOAPs(wallet: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/wallet/poap', {
+            walletAddress: wallet,
+        });
+        const response = await fetchJSON<PoapResponse>(url);
+        return response.data;
+    }
+    async getPOAP(tokenId: string) {
+        // cspell:ignore tokenid
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/poap/detail_by_tokenid', {
+            tokenId,
+        });
+        const response = await fetchJSON<PoapDetailResponse>(url);
+        return response.data;
+    }
+
+    async getPoapHolders(eventId: string, indicator?: PageIndicator) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/poap/holder', {
+            eventId,
+            limit: 20,
+            offset: indicator?.id || undefined,
+        });
+        const response = await fetchJSON<PoapHoldersResponse>(url);
+        const nextOffset = response.data.tokens.length ? response.data.limit + response.data.offset : undefined;
+        return createPageable(
+            response.data.tokens,
+            indicator,
+            nextOffset ? createNextIndicator(indicator, nextOffset.toString()) : undefined,
+        );
+    }
+    async getPoapHolderCount(eventId: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/poap/holder', {
+            eventId,
+        });
+        const response = await fetchJSON<PoapHoldersResponse>(url);
+        return response.data.total;
+    }
+
+    async getNFTDetails(chainId: number, list: Array<{ contract_address: string; token_id: string }>) {
+        if (!list.length) return [];
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/detail');
+        const response = await fetchJSON<NFTDetailResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                chainId,
+                list,
+            }),
+        });
+        return response.data.map(adjustAssetUris);
+    }
+    async getNFTDetail(chainId: number, contractAddress: string, tokenId: string) {
+        const nfts = await this.getNFTDetails(chainId, [{ contract_address: contractAddress, token_id: tokenId }]);
+        return nfts[0];
+    }
+
+    async getCollection(chainId: number, contractAddress: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/collection', {
+            chainId,
+            contractAddress,
+        });
+        const response = await fetchJSON<CollectionResponse>(url);
+        return response.data ? fixCollection(response.data) : undefined;
+    }
+
+    async getCollectionItems(chainId: number, contractAddress: string, indicator?: PageIndicator) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/collection/items', {
+            chainId,
+            contractAddress,
+            cursor: indicator?.id,
+        });
+        const response = await fetchJSON<CollectionItemsResponse>(url);
+        const list = (response.data?.content || []).map(adjustAssetUris);
+        return createPageable(
+            list,
+            createIndicator(indicator),
+            response.data?.next ? createNextIndicator(indicator, response.data.next) : undefined,
+        );
+    }
+
+    async getCollectionByAddress(contractAddress: string) {
+        const signal = new AbortController();
+        const promises = NFTSCAN_CHAIN_IDS.map(async (chainId) => {
+            const result = await this.getCollection(chainId, contractAddress);
+            if (result) {
+                signal.abort();
+                return result;
+            }
+            throw new Error(`Collection not found: ${contractAddress} on ${chainId}`);
+        });
+        return Promise.any(promises);
+    }
+    async getCollections(list: Array<{ contractAddress: string; chainId: number }>) {
+        const promises = list.map(async ({ contractAddress, chainId }) => {
+            return this.getCollection(chainId, contractAddress);
+        });
+        const results = await Promise.allSettled(promises);
+        return compact(results.map((x) => (x.status === 'fulfilled' ? x.value : null))).map(fixCollection);
+    }
+
+    async getUserCollections(chainId: number, walletAddress: string, indicator?: PageIndicator) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/wallet/own/collection', {
+            chainId,
+            walletAddress,
+            cursor: indicator?.id,
+        });
+        const response = await fetchJSON<CollectionsResponse>(url);
+        return createPageable(
+            (response.data?.collections || []).map(fixCollection),
+            createIndicator(indicator),
+            response.data?.cursor ? createNextIndicator(indicator, response.data.cursor) : undefined,
+        );
+    }
+
+    async getUserCollectionNFTs(
+        walletAddress: string,
+        chainId: number,
+        contractAddress: string,
+        indicator?: PageIndicator,
+    ) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/wallet/own', {
+            walletAddress,
+            chainId,
+            contractAddress,
+            cursor: indicator?.id,
+        });
+        const response = await fetchJSON<NFTDetailsResponse>(url);
+        const list = (response.data?.nfts || []).map(adjustAssetUris);
+        return createPageable(
+            list,
+            createIndicator(indicator),
+            response.data?.cursor ? createNextIndicator(indicator, response.data.cursor) : undefined,
+        );
+    }
+
+    async getCollectionHolders(chainId: number, contractAddress: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/collection/holder', {
+            chainId,
+            contractAddress,
+            size: 100,
+        });
+        const response = await fetchJSON<HoldersResponse>(url);
+        return response.data || EMPTY_LIST;
+    }
+
+    async getCollectionStatistics(chainId: number, contractAddress: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/collection/statistics', {
+            chainId,
+            contractAddress,
+        });
+        const response = await fetchJSON<CollectionStatisticsResponse>(url);
+        return response.data;
     }
 }
 

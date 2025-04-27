@@ -26,9 +26,9 @@ import { FIREFLY_TELEGRAM_URL } from '@/constants/index.js';
 import { FIREFLY_MENTION, FIREFLY_TWITTER_PROFILE, TRUMP_TWITTER_PROFILE } from '@/constants/mentions.js';
 import type { Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { replaceObjectInStringArray } from '@/helpers/replaceObjectInStringArray.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { Level } from '@/providers/types/CZ.js';
@@ -177,7 +177,11 @@ Check your eligibility and participate here ${shareUrl}
                                 Followed{' '}
                                 <Link
                                     className="inline text-highlight"
-                                    href={resolveProfileUrl(Source.Twitter, followTrumpTwitterProfile.profileId)}
+                                    href={getProfileUrl({
+                                        source: Source.Twitter,
+                                        profileId: followTrumpTwitterProfile.profileId,
+                                        handle: followTrumpTwitterProfile.handle,
+                                    })}
                                 >
                                     @{followTrumpTwitterProfile.handle}
                                 </Link>{' '}

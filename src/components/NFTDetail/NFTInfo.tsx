@@ -3,7 +3,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { type ReactNode, useMemo } from 'react';
+import { useMemo } from 'react';
 import type { Hex } from 'viem';
 import { useEnsName } from 'wagmi';
 
@@ -24,63 +24,61 @@ import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
-import { resolveNFTUrl, resolveNFTUrlByCollection } from '@/helpers/resolveNFTUrl.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
+import { useCollectionMarketInfo } from '@/hooks/useCollectionMarketInfo.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import type { NonFungibleTokenTrait } from '@/mask_pkgs/web3-shared/base/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { SimpleHash } from '@/providers/simplehash/type.js';
+import type { EVM } from '@/providers/nft-scan/types.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface NFTInfoProps {
     ownerAddress?: string;
     contractAddress?: string;
+    disableBookmark?: boolean;
+    disableReport?: boolean;
     imageURL: string;
+    videoURL?: string;
     name: string;
     tokenId: string;
     collection?: {
         name: string;
         icon?: string;
-        id?: string;
     };
-    floorPrice?: ReactNode;
     chainId: number;
     attendance?: number;
     isPoap?: boolean;
-    video?: {
-        properties: SimpleHash.VideoProperties;
-        url: string;
-    };
-    externalUrl?: string;
-    traits: NonFungibleTokenTrait[];
-    contract?: SimpleHash.NFTContract;
+    externalUrl?: string | null;
+    traits: NonFungibleTokenTrait[] | EVM.Attribute[];
 }
 
 export function NFTInfo(props: NFTInfoProps) {
     const {
         imageURL,
+        videoURL,
         name,
         tokenId,
         collection,
         ownerAddress,
         chainId,
         contractAddress,
-        floorPrice,
+        disableBookmark,
+        disableReport,
         attendance,
         isPoap = false,
-        video,
         externalUrl,
         traits,
-        contract,
     } = props;
     const isMedium = useIsMedium();
     const { data: ensName } = useEnsName({
         chainId: EthereumChainId.Mainnet,
         address: ownerAddress as Hex,
     });
+    const { data: marketInfo } = useCollectionMarketInfo(chainId, contractAddress);
 
     const { data } = useQuery({
         queryKey: ['followings', contractAddress, tokenId],
@@ -95,12 +93,8 @@ export function NFTInfo(props: NFTInfoProps) {
     });
 
     const collectionUrl = useMemo(() => {
-        return collection?.id
-            ? resolveNFTUrlByCollection(collection.id)
-            : contractAddress
-              ? resolveNFTUrl(chainId, contractAddress)
-              : '';
-    }, [collection?.id, contractAddress, chainId]);
+        return contractAddress ? resolveNFTUrl(chainId, contractAddress) : '';
+    }, [contractAddress, chainId]);
 
     const nftUrl = useMemo(() => {
         return contractAddress ? resolveNFTUrl(chainId, contractAddress, tokenId || '0') : '';
@@ -114,8 +108,6 @@ export function NFTInfo(props: NFTInfoProps) {
             chainId={chainId}
             tokenId={tokenId}
             externalUrl={externalUrl}
-            collectionId={collection?.id}
-            contract={contract}
         />
     );
 
@@ -144,7 +136,7 @@ export function NFTInfo(props: NFTInfoProps) {
                         )}
                     </div>
                 ) : null}
-                {contractAddress ? (
+                {contractAddress && !disableBookmark ? (
                     <BookmarkInIcon
                         className="absolute right-2.5 top-2.5 z-10"
                         nftId={resolveNFTId(chainId, contractAddress, tokenId, false)}
@@ -156,7 +148,7 @@ export function NFTInfo(props: NFTInfoProps) {
                         <Trans>{nFormatter(data.count)} followings owned</Trans>
                     </div>
                 ) : null}
-                <NFTInfoPreview name={name} imageURL={imageURL} video={video} />
+                <NFTInfoPreview name={name} imageURL={imageURL} video={videoURL} />
             </div>
             <div className="flex w-full flex-1 flex-col md:w-[calc(100%-20px-230px)]">
                 <div className={classNames('flex h-full w-full flex-col', !isMedium ? 'gap-2' : 'justify-between')}>
@@ -178,7 +170,12 @@ export function NFTInfo(props: NFTInfoProps) {
                                     </div>
                                 </TextOverflowTooltip>
                             </Link>
-                            <NFTDetailsMore collectionId={collection.id} nftUrl={nftUrl} nftImage={imageURL} />
+                            <NFTDetailsMore
+                                chainId={chainId}
+                                address={contractAddress}
+                                nftUrl={nftUrl}
+                                nftImage={imageURL}
+                            />
                         </div>
                     ) : null}
                     <div className="flex w-full justify-between">
@@ -192,8 +189,14 @@ export function NFTInfo(props: NFTInfoProps) {
                                 {name}
                             </div>
                         </TextOverflowTooltip>
-                        {isPoap && collection ? (
-                            <NFTDetailsMore collectionId={collection.id} nftUrl={nftUrl} nftImage={imageURL} />
+                        {isPoap && contractAddress ? (
+                            <NFTDetailsMore
+                                chainId={chainId}
+                                address={contractAddress}
+                                nftUrl={nftUrl}
+                                nftImage={imageURL}
+                                disableReport={disableReport}
+                            />
                         ) : null}
                     </div>
                     {isPoap ? (
@@ -206,7 +209,7 @@ export function NFTInfo(props: NFTInfoProps) {
                     <div className="flex w-full gap-2">
                         {ownerAddress ? (
                             <Link
-                                href={resolveProfileUrl(Source.Wallet, ownerAddress)}
+                                href={getProfileUrl({ source: Source.Wallet, profileId: ownerAddress })}
                                 target="_blank"
                                 className="h-[68px] min-w-0 flex-1 space-y-1.5 rounded-lg bg-lightBg p-2.5 text-base"
                             >
@@ -217,14 +220,6 @@ export function NFTInfo(props: NFTInfoProps) {
                                 {ownerContent}
                             </div>
                         )}
-                        {!isPoap ? (
-                            <div className="h-[68px] flex-1 space-y-1.5 rounded-lg bg-lightBg p-2.5 text-base">
-                                <span className="text-lightSecond leading-4">
-                                    <Trans>Floor Price</Trans>
-                                </span>
-                                <span className="block truncate font-bold text-main">{floorPrice || '-'}</span>
-                            </div>
-                        ) : null}
                         {isPoap ? (
                             <div className="h-[68px] flex-1 space-y-1.5 rounded-lg bg-lightBg p-2.5 text-base">
                                 <span className="text-lightSecond leading-4">
@@ -234,7 +229,16 @@ export function NFTInfo(props: NFTInfoProps) {
                                     {attendance ? attendance.toLocaleString() : '-'}
                                 </span>
                             </div>
-                        ) : null}
+                        ) : (
+                            <div className="h-[68px] flex-1 space-y-1.5 rounded-lg bg-lightBg p-2.5 text-base">
+                                <span className="text-lightSecond leading-4">
+                                    <Trans>Floor Price</Trans>
+                                </span>
+                                <span className="block truncate font-bold text-main">
+                                    {marketInfo?.floor_price ?? '-'}
+                                </span>
+                            </div>
+                        )}
                     </div>
                     {action}
                 </div>

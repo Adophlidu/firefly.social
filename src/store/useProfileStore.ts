@@ -15,9 +15,7 @@ import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { ensureLensResult, ensureLensResultSync } from '@/helpers/ensureLensResult.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
@@ -29,6 +27,7 @@ import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { resumeLensSession } from '@/providers/lens/resumeLensSession.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
@@ -265,25 +264,9 @@ const useLensStateBase = createState(
 
             try {
                 state.__setStatus__(AsyncStatus.Pending);
-                const profileId = state.currentProfile?.profileId;
-                const sessionClient = await ensureLensResult(lensSessionHolder.sdk.resumeSession());
-                if (!sessionClient) {
-                    console.warn('[lens store] clean the local store because failed to resume the session');
+                await resumeLensSession(state.currentProfile?.profileId, () => {
                     state.clear();
-                    return;
-                }
-
-                const authenticatedUser = ensureLensResultSync(sessionClient.getAuthenticatedUser());
-                if (!profileId || !authenticatedUser || !isSameEthereumAddress(profileId, authenticatedUser.address)) {
-                    console.warn('[lens store] clean the local store because the client cannot recover properly');
-                    state.clear();
-                    return;
-                }
-
-                lensSessionHolder.setSessionClient(sessionClient);
-            } catch (error) {
-                if (error instanceof FetchError) return;
-                state.clear();
+                });
             } finally {
                 state.__setStatus__(AsyncStatus.Idle);
             }

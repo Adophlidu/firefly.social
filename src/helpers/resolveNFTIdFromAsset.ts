@@ -1,6 +1,5 @@
 import { isValidChainIdSolana } from '@/helpers/isValidChainId.js';
-import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
-import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
+import type { EVM } from '@/providers/nft-scan/types.js';
 
 export function resolveNFTId(chainId: number, address: string, tokenId: string, lowerCase = true) {
     const formattedAddress = lowerCase ? address.toLowerCase() : address;
@@ -8,10 +7,9 @@ export function resolveNFTId(chainId: number, address: string, tokenId: string, 
         return `solana.${formattedAddress}`;
     }
 
-    const chain = resolveSimpleHashChain(chainId) || 'ethereum';
-    return `${chain}.${formattedAddress}.${tokenId}`;
+    return `${chainId}.${formattedAddress}.${tokenId}`;
 }
 
-export function resolveNFTIdFromAsset(asset: NonFungibleAsset<number, number>, lowerCase?: boolean) {
-    return resolveNFTId(asset.chainId, asset.address, asset.tokenId, lowerCase);
+export function resolveNFTIdFromAsset(asset: EVM.Asset, lowerCase?: boolean) {
+    return resolveNFTId(asset.chain_id, asset.contract_address, asset.token_id, lowerCase);
 }

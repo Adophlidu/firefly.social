@@ -13,7 +13,7 @@ import { Link } from '@/components/Link.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { XIcon } from '@/components/XIcon.js';
 import { Source } from '@/constants/enum.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { CommunityUrl } from '@/providers/types/Trending.js';
@@ -48,7 +48,7 @@ export function CommunityLink({ link, iconSize = 16 }: Props) {
         queryKey: ['twitter', 'profile-by-handle', handle],
         enabled: isTwitterLogin && !!handle,
         queryFn: handle ? () => TwitterSocialMediaProvider.getProfileByHandle(handle) : skipToken,
-        select: (data) => resolveProfileUrl(Source.Twitter, data.profileId),
+        select: (data) => getProfileUrl(data),
     });
 
     const href = fireflyTwitterLink || link.link;

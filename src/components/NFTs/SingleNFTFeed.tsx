@@ -8,38 +8,30 @@ import { NFTsActivityCellCard } from '@/components/ActivityCell/NFTs/NFTsActivit
 import { Avatar } from '@/components/Avatar.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { Link } from '@/components/Link.js';
-import { type NFTFeedBodyProps } from '@/components/NFTs/NFTFeedBody.js';
 import { NFTFeedHeader } from '@/components/NFTs/NFTFeedHeader.js';
 import { Source } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
-import type { FireflyDisplayInfo, NFTAsset } from '@/providers/types/Firefly.js';
-import { type FollowingNFT } from '@/providers/types/NFTs.js';
+import { type FollowingNFT, type NFTFeedV3 } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface SingleNFTFeedProps {
-    ownerAddress: Address;
-    contractAddress: Address;
     disableAnimate?: boolean;
     listKey?: string;
     index?: number;
-    tokenList: Array<NFTFeedBodyProps['tokenList'][number] & { bookmarked?: boolean; nft: NFTAsset }>;
+    feed: NFTFeedV3;
     chainId: EthereumChainId;
-    displayInfo: FireflyDisplayInfo;
     time: number | string | Date;
     followingSources?: FollowingNFT['followingSources'];
 }
 
 export const SingleNFTFeed = memo(function SingleNFTFeed({
-    ownerAddress,
-    contractAddress,
-    tokenList,
+    feed,
     chainId,
-    displayInfo,
     disableAnimate,
     listKey,
     index,
@@ -48,13 +40,15 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
 }: SingleNFTFeedProps) {
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const router = useRouter();
-    const token = tokenList[0];
+    const tokenId = feed.detail?.token_id!;
     const nftUrl = useMemo(() => {
-        if (!token) return null;
-        return resolveNFTUrl(chainId, token.contractAddress, token.id);
-    }, [chainId, token]);
+        if (!feed.contract_address) return null;
+        return resolveNFTUrl(chainId, feed.contract_address, tokenId);
+    }, [chainId, feed, tokenId]);
 
-    const authorUrl = resolveProfileUrl(Source.Wallet, ownerAddress);
+    const ownerAddress = feed.owner as Address;
+    const displayInfo = feed.displayInfo;
+    const authorUrl = getProfileUrl({ source: Source.Wallet, profileId: ownerAddress });
 
     return (
         <motion.article
@@ -86,38 +80,36 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
                     <NFTFeedHeader
                         className="mb-2"
                         address={ownerAddress}
-                        contractAddress={contractAddress}
-                        tokenId={token.id}
+                        contractAddress={feed.contract_address as Address}
+                        tokenId={tokenId}
                         chainId={chainId}
                         ens={displayInfo.ensHandle}
                         time={time}
                     />
                     <NFTsActivityCellAction
-                        address={tokenList[0].contractAddress}
+                        address={feed.contract_address}
                         chainId={chainId}
-                        tokenId={tokenList[0].id}
-                        action={tokenList[0].action.action}
-                        toAddress={tokenList[0].action.toAddress}
-                        fromAddress={tokenList[0].action.fromAddress}
-                        ownerAddress={tokenList[0].action.ownerAddress}
-                        tokenCount={tokenList.length}
-                        nft={tokenList[0].nft}
+                        tokenId={tokenId}
+                        action={feed.event_type}
+                        toAddress={feed.receive}
+                        fromAddress={feed.send}
+                        ownerAddress={feed.owner}
+                        tokenCount={1}
+                        nft={feed.detail}
                     />
                     <div className="mt-1.5 flex w-full space-x-3 overflow-x-auto overflow-y-hidden">
-                        {tokenList.map(({ id, action, contractAddress, bookmarked, nft }) => {
-                            return (
-                                <NFTsActivityCellCard
-                                    key={`${id}-${contractAddress}-${chainId}`}
-                                    action={action.action}
-                                    address={contractAddress}
-                                    ownerAddress={ownerAddress}
-                                    chainId={chainId}
-                                    tokenId={id}
-                                    bookmarked={bookmarked}
-                                    nft={nft}
-                                />
-                            );
-                        })}
+                        {feed.detail ? (
+                            <NFTsActivityCellCard
+                                key={`${tokenId}-${feed.contract_address}-${chainId}`}
+                                action={feed.event_type}
+                                address={feed.contract_address}
+                                ownerAddress={feed.owner}
+                                chainId={chainId}
+                                tokenId={tokenId}
+                                bookmarked={feed.bookmarked}
+                                nft={feed.detail}
+                            />
+                        ) : null}
                     </div>
                 </article>
             </div>

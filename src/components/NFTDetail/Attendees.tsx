@@ -2,7 +2,6 @@
 
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { uniq } from 'lodash-es';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
 
@@ -16,10 +15,10 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { SimpleHashProvider } from '@/providers/simplehash/index.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface AttendeesProps {
@@ -31,12 +30,8 @@ export function Attendees({ eventId }: AttendeesProps) {
         queryKey: ['poap-event-owners', eventId],
         async queryFn({ pageParam }) {
             const indicator = createIndicator(undefined, pageParam);
-            const result = await SimpleHashProvider.getPoapEvent(eventId, { indicator });
-            const owners = uniq(result.data.flatMap((asset) => asset.owners.map((owner) => owner.owner_address)));
-            return {
-                ...result,
-                data: owners,
-            };
+            const result = await FireflyEndpointProvider.getPoapHolders(eventId.toString(), indicator);
+            return result;
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
@@ -53,8 +48,8 @@ export function Attendees({ eventId }: AttendeesProps) {
                 queryResult={queryResult}
                 VirtualListProps={{
                     listKey: `${ScrollListKey.TopCollectors}:${eventId}`,
-                    computeItemKey: (index, owner) => `${index}-${owner}`,
-                    itemContent: (index, owner) => getAttendeesItemContent(index, owner as Address),
+                    computeItemKey: (index, item) => `${index}-${item.owner.id}`,
+                    itemContent: (index, item) => getAttendeesItemContent(index, item.owner.id as Address),
                 }}
             />
         </div>
@@ -68,7 +63,7 @@ function AttendeesItem({ ownerAddress }: { ownerAddress: Address }) {
     return (
         <div className="flex items-center justify-between pb-3">
             <Link
-                href={resolveProfileUrl(Source.Wallet, ownerAddress)}
+                href={getProfileUrl({ source: Source.Wallet, profileId: ownerAddress })}
                 className="flex max-w-[calc(100%-110px)] items-center"
             >
                 <Image

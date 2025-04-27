@@ -10,7 +10,6 @@ import { MuteAllByProfile, MuteAllByWallet } from '@/components/Actions/MuteAllP
 import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import type { FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
@@ -65,7 +64,7 @@ export function FireflyAccountMoreButton({ profile, walletProfile, profiles = []
                         <MenuItem>
                             {({ close }) => (
                                 <CopyLinkButton
-                                    link={resolveProfileUrl(Source.Wallet, walletProfile.address)}
+                                    link={getProfileUrl({ source: Source.Wallet, profileId: walletProfile.address })}
                                     onClick={close}
                                 >
                                     <Trans>Copy link to profile</Trans>

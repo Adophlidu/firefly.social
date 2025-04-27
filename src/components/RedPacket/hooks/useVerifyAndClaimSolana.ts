@@ -5,7 +5,7 @@ import { useAsyncFn } from 'react-use';
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { NetworkType } from '@/constants/enum.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
 import { isZeroAddressSolana } from '@/helpers/isZeroAddress.js';
@@ -39,11 +39,8 @@ export function useVerifyAndClaimSolana(payload: RedPacketJSONPayload, post: Pos
         const { data } = await recheckClaimStatus();
         if (data?.data && !data.data.canClaim) {
             const hasRequirements = !!data?.data.claimStrategyStatus.length;
-            enqueueErrorMessage(
-                hasRequirements
-                    ? t`Oops... Not all the requirements have been met`
-                    : t`You are not eligible to claim this red packet`,
-            );
+            if (hasRequirements) enqueueWarningMessage(t`Oops... Not all the requirements have been met`);
+            else enqueueErrorMessage(t`You are not eligible to claim this red packet`);
             return { canClaim: false };
         }
 

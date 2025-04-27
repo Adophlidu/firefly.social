@@ -1,3 +1,4 @@
+import { DomainMigrationNotification } from '@/components/DomainMigrationNotification/index.js';
 import { IfHostname } from '@/components/IfHostname.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { Providers } from '@/components/Providers.js';
@@ -41,6 +42,7 @@ export function LayoutBody({ children }: { children: React.ReactNode }) {
                     </div>
 
                     <Modals />
+                    <DomainMigrationNotification />
                 </RouteProgressBar>
             </Providers>
             <BeforeUnload />

@@ -27,7 +27,6 @@ export interface ERC721Token {
     chainId: EthereumChainId;
     address: Address;
     name: string;
-    simpleHashCollectionId: string;
 }
 
 export type CustomToken = ERC20Token | ERC721Token;

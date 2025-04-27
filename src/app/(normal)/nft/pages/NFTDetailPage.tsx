@@ -1,80 +1,63 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-import { isUndefined } from 'lodash-es';
-
+import { PoapDetailPage } from '@/app/(normal)/nft/pages/PoapDetailPage.js';
 import { Loading } from '@/components/Loading.js';
-import { Attendees } from '@/components/NFTDetail/Attendees.js';
 import { NFTInfo } from '@/components/NFTDetail/NFTInfo.js';
 import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
 import { NFTProperties } from '@/components/NFTDetail/NFTProperties.js';
 import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
-import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
+import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { notFound } from '@/esm/navigation.js';
-import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
-import { SimpleHashProvider } from '@/providers/simplehash/index.js';
-import { EthereumSchemaType } from '#masknet/web3-shared-evm';
+import { ErcType } from '@/providers/nft-scan/types.js';
+import { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 export function NFTDetailPage({ chainId, address, tokenId }: { chainId: number; address: string; tokenId: string }) {
-    const isPoap = isSameEthereumAddress(address, POAP_CONTRACT_ADDRESS);
+    const isPoap = chainId === EthereumChainId.xDai && isSameEthereumAddress(address, POAP_CONTRACT_ADDRESS);
 
-    const { data, isLoading } = useNFTDetail(chainId, address, tokenId);
+    const { data, isLoading } = useNFTDetail(chainId, address, isPoap ? undefined : tokenId);
 
-    const { data: poapEvent } = useQuery({
-        queryKey: ['post-event', data?.metadata?.eventId],
-        async queryFn() {
-            return SimpleHashProvider.getPoapEvent(data?.metadata?.eventId!);
-        },
-        enabled: !!data?.metadata?.eventId,
-    });
+    if (isPoap) return <PoapDetailPage tokenId={tokenId} />;
 
     if (isLoading) {
         return <Loading />;
     }
 
-    if (!data?.metadata) {
+    if (!data) {
         notFound();
     }
-    const poapAttendeesCount = poapEvent?.total ?? 0;
 
     return (
         <div className="min-h-screen">
-            <NFTNavbar>{data.metadata.name}</NFTNavbar>
+            <NFTNavbar>{data.name || `${data.collection.name} #${tokenId}`}</NFTNavbar>
             <div className="space-y-4 px-4 py-3">
                 <NFTInfo
-                    imageURL={data.metadata.imageURL ?? ''}
-                    video={data.metadata?.video}
-                    name={data.metadata.name ?? ''}
-                    tokenId={data.metadata.tokenId ?? ''}
-                    ownerAddress={
-                        data.contract?.schema === EthereumSchemaType.ERC1155 ? undefined : data.owner?.address
-                    }
-                    contractAddress={address || data.contract?.address || ''}
+                    imageURL={data.image_uri!}
+                    videoURL={data.video_uri}
+                    name={data.name ?? ''}
+                    tokenId={data.token_id ?? ''}
+                    ownerAddress={data.erc_type === ErcType.ERC1155 ? undefined : data.owner}
+                    contractAddress={address || data.contract_address || ''}
                     collection={{
                         name: data.collection?.name ?? '',
-                        icon: data.collection?.iconURL ?? undefined,
-                        id: data.collection?.id,
+                        icon: data.collection.large_image_url ?? data.collection?.logo_url ?? '',
                     }}
                     isPoap={isPoap}
-                    floorPrice={getFloorPrice(data?.collection?.floorPrices)}
                     chainId={chainId}
-                    attendance={poapAttendeesCount}
-                    externalUrl={data.externalUrl}
-                    traits={data.traits ?? []}
-                    contract={data.__origin__?.contract}
+                    externalUrl={data.external_uri}
+                    traits={data.attributes ?? EMPTY_LIST}
                 />
-                {!isPoap && data.traits?.length ? <NFTProperties items={data.traits} /> : null}
+                {!isPoap && data.attributes.length ? <NFTProperties items={data.attributes} /> : null}
                 <NFTOverflow
-                    description={data.metadata.description ?? ''}
-                    tokenId={data.tokenId}
-                    contractAddress={data.contract?.address ?? ''}
-                    creator={data.creator?.address}
-                    chainId={data.chainId}
-                    schemaType={data.contract?.schema}
+                    description={data.description ?? ''}
+                    tokenId={data.token_id}
+                    contractAddress={data.contract_address ?? ''}
+                    chainId={data.chain_id}
+                    schemaType={
+                        data.erc_type === ErcType.ERC721 ? EthereumSchemaType.ERC721 : EthereumSchemaType.ERC1155
+                    }
                 />
-                {isPoap && !isUndefined(data.metadata.eventId) ? <Attendees eventId={data.metadata.eventId} /> : null}
             </div>
         </div>
     );

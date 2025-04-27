@@ -23,6 +23,10 @@ export function formatTwitterProfileStatus(statusList: UserV2['connection_status
 }
 
 export function formatTwitterProfile(data: UserV2): Profile {
+    const bio = (data.entities?.description?.urls ?? []).reduce(
+        (description, url) => description.replace(url.url, url.expanded_url),
+        data.description ?? '',
+    );
     return {
         ...createDummyProfile(Source.Twitter),
         profileId: data.id,
@@ -30,7 +34,10 @@ export function formatTwitterProfile(data: UserV2): Profile {
         handle: data.username,
         displayName: data.name,
         pfp: convertTwitterAvatar(data.profile_image_url!),
-        bio: data.description,
+        bio,
+        bioContext: {
+            mentions: data.entities?.description?.mentions?.map((x) => ({ id: x.username, source: Source.Twitter })),
+        },
         followerCount: data.public_metrics?.followers_count ?? 0,
         followingCount: data.public_metrics?.following_count ?? 0,
         verified: data.verified || false,

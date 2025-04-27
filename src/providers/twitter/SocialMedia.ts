@@ -26,6 +26,7 @@ import { WithNitter } from '@/decorators/WithNitter.js';
 import { formatTweetsPage } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile, formatTwitterProfilePage } from '@/helpers/formatTwitterProfile.js';
 import { formatTwitterProfileFromX3Pro } from '@/helpers/formatTwitterProfileFromX3Pro.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getTwitterProfileHandleFromUrl } from '@/helpers/getTwitterProfileHandleFromUrl.js';
 import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
 import {
@@ -35,7 +36,6 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import { resolveTwitterResponseData } from '@/helpers/resolveTwitterResponseData.js';
@@ -647,11 +647,8 @@ export class TwitterSocialMedia implements Provider {
             color = ProfileBadgePresetColors.TwitterGray;
         const handle = userInfo.affiliates_highlighted_label.label
             ? getTwitterProfileHandleFromUrl(userInfo.affiliates_highlighted_label.label.url.url)
-            : undefined;
-        const badgeTargetProfile = handle ? await this.getProfileByHandle(handle).catch(() => undefined) : undefined;
-        const href = badgeTargetProfile?.profileId
-            ? resolveProfileUrl(Source.Twitter, badgeTargetProfile.profileId)
-            : undefined;
+            : null;
+        const href = handle ? getProfileUrl({ handle, source: Source.Twitter }) : undefined;
         return compact([
             {
                 source: Source.Twitter,

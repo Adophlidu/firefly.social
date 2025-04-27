@@ -5,8 +5,8 @@ import { SITE_URL } from '@/constants/index.js';
 import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 
 export async function createMetadataWalletProfile(addressOrEns: string) {
@@ -24,7 +24,7 @@ export async function createMetadataWalletProfile(addressOrEns: string) {
         description,
         openGraph: {
             type: 'profile',
-            url: urlcat(SITE_URL, resolveProfileUrl(Source.Wallet, addressOrEns)),
+            url: urlcat(SITE_URL, getProfileUrl({ source: Source.Wallet, profileId: addressOrEns })),
             title,
             description,
             images,

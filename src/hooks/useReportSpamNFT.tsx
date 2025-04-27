@@ -6,24 +6,24 @@ import { useAsyncFn } from 'react-use';
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
+import type { FollowingNFT, NFTFeedV3 } from '@/providers/types/NFTs.js';
 import { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 interface PagesData {
-    pages: Array<{ data: FollowingNFT[] | NFTFeed[] }>;
+    pages: Array<{ data: FollowingNFT[] | NFTFeedV3[] }>;
 }
 
 /**
  * Filter out activities by collection id of the target NFT.
  *
- * @param {string} collectionId
+ * @param {string} address
  */
-function filterOutActivities(collectionId: string) {
+function filterOutActivities(address: string) {
     // To report an NFT collection, we need to get its collection id first.
     // Therefore, query data for the collection will exist
     const data = queryClient.getQueriesData<NonFungibleAsset<EthereumChainId, EthereumSchemaType>>({
@@ -31,7 +31,7 @@ function filterOutActivities(collectionId: string) {
     });
     const queryData = data.find(([queryKey, data]) => {
         if (queryKey.length !== 4) return false;
-        return data?.collection?.id === collectionId;
+        return isSameEthereumAddress(data?.collection?.address, address);
     });
     const nftDetail = queryData?.[1];
     if (!nftDetail) return;
@@ -46,19 +46,14 @@ function filterOutActivities(collectionId: string) {
                 page.data = page.data.filter((nft) => {
                     if ('network' in nft) {
                         const chainId = resolveSimpleHashChainId(nft.network);
-                        const action = nft.actions[0];
+                        const detail = nft.detail;
                         return (
-                            (!isSameEthereumAddress(action.contract_address, contractAddress) &&
-                                !isSameSolanaAddress(action.contract_address, contractAddress)) ||
-                            chainId !== nftChainId
+                            !isSameEthereumAddress(detail.contract_address, contractAddress) || chainId !== nftChainId
                         );
                     } else {
-                        return (
-                            !isSameEthereumAddress(nft.trans.token_address, nftDetail.address) &&
-                            !isSameSolanaAddress(nft.trans.token_address, nftDetail.address)
-                        );
+                        return !isSameEthereumAddress(nft.contract_address, nftDetail.address);
                     }
-                }) as FollowingNFT[] | NFTFeed[];
+                }) as FollowingNFT[] | NFTFeedV3[];
             }
         });
     };
@@ -68,7 +63,7 @@ function filterOutActivities(collectionId: string) {
 }
 
 export function useReportSpamNFT() {
-    return useAsyncFn(async (collectionId: string) => {
+    return useAsyncFn(async (chainId: number, address: string) => {
         const confirmed = await ConfirmModalRef.openAndWaitForClose({
             title: t`Report spam`,
             variant: 'normal',
@@ -80,9 +75,8 @@ export function useReportSpamNFT() {
         });
         if (!confirmed) return;
         try {
-            await FireflyEndpointProvider.reportNFT(collectionId);
-            filterOutActivities(collectionId);
-            await FireflyEndpointProvider.muteNFT(collectionId);
+            await FireflyEndpointProvider.reportNFT(chainId, address);
+            filterOutActivities(address);
             enqueueSuccessMessage(t`Report submitted`);
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to report spam NFT.`);

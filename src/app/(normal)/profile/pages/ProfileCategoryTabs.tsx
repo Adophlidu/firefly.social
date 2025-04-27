@@ -14,8 +14,8 @@ import {
 import { LOGIN_SORTED_PROFILE_TAB_TYPE, SORTED_PROFILE_TAB_TYPE, WALLET_PROFILE_TAB_TYPES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 
 export function ProfileCategoryTabs({
@@ -89,7 +89,7 @@ export function ProfileCategoryTabs({
                 return (
                     <div key={type} className="flex flex-col">
                         <Link
-                            href={resolveProfileUrl(source, id, type, isCurrentProfile)}
+                            href={getProfileUrl({ source, profileId: id, handle: id }, type, isCurrentProfile)}
                             replace
                             className={classNames(
                                 'flex h-[45px] items-center whitespace-nowrap px-3 font-extrabold transition-all hover:text-highlight',

@@ -7,9 +7,8 @@ import { AvatarGroup } from '@/components/AvatarGroup.js';
 import { Link } from '@/components/Link.js';
 import { FollowCategory } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { resolveFireflyMutualProfileId } from '@/helpers/resolveFireflyProfileId.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -44,10 +43,7 @@ export function Mutuals({ profile }: { profile: Profile }) {
     return enabledMutuals && mutualCount ? (
         <div className="break-word col-[1/3] mt-1 flex items-center gap-2 leading-[22px] hover:underline sm:col-[2/3]">
             <AvatarGroup profiles={mutuals.slice(0, 3)} AvatarProps={{ size: 20, className: 'border border-white' }} />
-            <Link
-                className="text-sm text-secondary"
-                href={resolveProfileUrl(source, resolveFireflyMutualProfileId(profile), FollowCategory.Mutuals)}
-            >
+            <Link className="text-sm text-secondary" href={getProfileUrl(profile, FollowCategory.Mutuals)}>
                 {mutualCount === 1 ? (
                     <Trans>Followed by {mutuals[0].displayName}</Trans>
                 ) : mutualCount === 2 ? (

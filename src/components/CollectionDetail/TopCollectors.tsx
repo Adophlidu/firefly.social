@@ -5,41 +5,28 @@ import LinkIcon from '@/assets/link-square.svg';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { TableListInPage } from '@/components/TableListInPage.js';
-import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { formatPercentage } from '@/helpers/formatPercentage.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { createIndicator } from '@/helpers/pageable.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
-import { SimpleHashProvider } from '@/providers/simplehash/index.js';
-import type { SimpleHash } from '@/providers/simplehash/type.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import type { CollectionHolder } from '@/providers/types/Firefly.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface TopCollectorsProps {
-    address: string;
     chainId?: EthereumChainId;
-    totalQuantity?: number;
-    collectionId: string;
+    address: string;
 }
 
-function getTopCollectorsItemContent(
-    index: number,
-    item: SimpleHash.TopCollector,
-    options?: {
-        totalQuantity?: number;
-    },
-) {
-    const { totalQuantity } = options || {};
-    const addressOrEns = item.owner_ens_name ? item.owner_ens_name : item.owner_address;
+function getTopCollectorsItemContent(index: number, item: CollectionHolder, isDarkMode: boolean) {
+    const addressOrEns = item.address;
     const profileLink =
-        BlockScanExplorerResolver.addressLink(EthereumChainId.Mainnet, item.owner_address) ||
-        resolveProfileUrl(Source.Wallet, item.owner_address);
+        BlockScanExplorerResolver.addressLink(EthereumChainId.Mainnet, item.address) ||
+        getProfileUrl({ source: Source.Wallet, profileId: item.address });
 
     return (
         <>
@@ -48,57 +35,44 @@ function getTopCollectorsItemContent(
                 <Link target="_blank" href={profileLink} className="flex w-full items-center">
                     <Image
                         src={getStampAvatarByProfileId(Source.Wallet, addressOrEns)}
-                        alt={item.owner_address}
+                        alt={item.address}
                         width={30}
                         height={30}
-                        className="mr-2 min-w-[30px] shrink-0 rounded-full"
+                        className="mr-2 size-[30px] shrink-0 rounded-full"
+                        fallback={isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png'}
                     />
                     <div className="flex min-w-0 items-center text-left">
-                        {item.owner_ens_name ? (
-                            <TextOverflowTooltip content={addressOrEns} placement="right">
-                                <div className="w-full truncate">{item.owner_ens_name}</div>
-                            </TextOverflowTooltip>
-                        ) : (
-                            <Tooltip content={addressOrEns} placement="top" className="!max-w-[400px]">
-                                <div className="truncate">{formatAddress(item.owner_address, 4)}</div>
-                            </Tooltip>
-                        )}
+                        <Tooltip content={addressOrEns} placement="top" className="!max-w-[400px]">
+                            <div className="truncate">{formatAddress(item.address, 4)}</div>
+                        </Tooltip>
                         <LinkIcon className="ml-1.5 size-3 shrink-0 text-secondary" />
                     </div>
                 </Link>
             </td>
-            <td
-                className={classNames('pb-2 pl-2 text-right lg:pr-2', {
-                    'lg:text-center': !!totalQuantity,
-                })}
-            >
+            <td className={'pb-2 pl-2 text-right lg:pr-2 lg:text-center'}>
                 <div className="truncate">
-                    <Tooltip content={item.distinct_nfts_owned} placement="right">
-                        <span>{nFormatter(item.distinct_nfts_owned)}</span>
+                    <Tooltip content={item.value} placement="right">
+                        <span>{nFormatter(item.value)}</span>
                     </Tooltip>
                 </div>
             </td>
-            {totalQuantity ? (
-                <td className="hidden pb-5 pl-2 text-right lg:table-cell">
-                    {formatPercentage(item.distinct_nfts_owned / totalQuantity)}
-                </td>
-            ) : null}
+            <td className="hidden pb-5 pl-2 text-right lg:table-cell">{item.proportion}</td>
         </>
     );
 }
 
 export function TopCollectors(props: TopCollectorsProps) {
-    const { address, chainId = EthereumChainId.Mainnet, collectionId, totalQuantity } = props;
+    const { address, chainId = EthereumChainId.Mainnet } = props;
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['top-collectors', address, collectionId],
-        async queryFn({ pageParam }) {
-            const indicator = createIndicator(undefined, pageParam);
-            return SimpleHashProvider.getTopCollectors(collectionId, { indicator, chainId });
+        queryKey: ['top-collectors', chainId, address],
+        async queryFn() {
+            return FireflyEndpointProvider.getCollectionHolders(chainId, address);
         },
         initialPageParam: '',
-        getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((page) => page?.data ?? EMPTY_LIST),
+        getNextPageParam: () => undefined,
+        select: (data) => data.pages.flat(),
     });
+    const isDarkMode = useIsDarkMode();
 
     return (
         <TableListInPage
@@ -118,25 +92,18 @@ export function TopCollectors(props: TopCollectorsProps) {
                             <th className="px-2 pb-2 text-left">
                                 <Trans>Address</Trans>
                             </th>
-                            <th
-                                className={classNames('w-[80px] pb-2 pl-2 text-right lg:pr-2', {
-                                    'lg:text-center': !!totalQuantity,
-                                })}
-                            >
+                            <th className={'w-[80px] pb-2 pl-2 text-right lg:pr-2 lg:text-center'}>
                                 <Trans>Owned</Trans>
                             </th>
-                            {totalQuantity ? (
-                                <th className="hidden w-[80px] whitespace-nowrap pb-2 pl-2 text-right lg:table-cell">
-                                    <Trans>%Owned</Trans>
-                                </th>
-                            ) : null}
+                            <th className="hidden w-[80px] whitespace-nowrap pb-2 pl-2 text-right lg:table-cell">
+                                <Trans>%Owned</Trans>
+                            </th>
                         </tr>
                     );
                 },
                 key: `${ScrollListKey.TopCollectors}:${address}:${chainId}`,
-                computeItemKey: (index, item) =>
-                    `${item.owner_address}-${item.owner_ens_name}-${item.owner_address}-${index}`,
-                itemContent: (index, item) => getTopCollectorsItemContent(index, item, { totalQuantity }),
+                computeItemKey: (index, item) => `${item.address}-${item.address}-${index}`,
+                itemContent: (index, item) => getTopCollectorsItemContent(index, item, isDarkMode),
             }}
             className="mt-2 w-full"
             NoResultsFallbackProps={{

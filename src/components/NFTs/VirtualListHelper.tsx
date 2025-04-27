@@ -1,14 +1,10 @@
-import { uniqBy } from 'lodash-es';
-import { parseEther } from 'viem';
-
 import { SingleNFTFeed } from '@/components/NFTs/SingleNFTFeed.js';
-import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
-import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
+import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 export function getSingleNFTFeedItemContent(
     index: number,
-    feed: NFTFeed,
+    feed: NFTFeedV3,
     chainId: EthereumChainId,
     {
         listKey,
@@ -18,71 +14,35 @@ export function getSingleNFTFeedItemContent(
 ) {
     return (
         <SingleNFTFeed
-            key={`${feed.id}-${index}`}
+            key={`${feed.hash}-${index}`}
             listKey={listKey}
             chainId={chainId}
             index={index}
-            displayInfo={feed.displayInfo}
-            tokenList={feed.trans.token_list.map(({ id, bookmarked, nft }) => ({
-                id,
-                contractAddress: feed.trans.token_address,
-                bookmarked,
-                action: {
-                    action: feed.trans.action,
-                    cost:
-                        feed.trans.price > 0
-                            ? {
-                                  value: parseEther(`${feed.trans.price}`).toString(),
-                                  symbol: 'ETH',
-                                  decimals: 18,
-                              }
-                            : undefined,
-                },
-                nft,
-            }))}
-            time={feed.trans.time * 1000}
-            contractAddress={feed.trans.token_address}
-            ownerAddress={feed.address}
+            feed={feed}
+            time={feed.timestamp}
         />
     );
 }
 
 export function getSingleFollowingNFTItemContent(
     index: number,
-    nft: FollowingNFT,
+    nft: NFTFeedV3,
     {
         listKey,
     }: {
         listKey?: string;
     } = {},
 ) {
-    const chainId = resolveSimpleHashChainId(nft.network) ?? EthereumChainId.Mainnet;
-    const ownerAddress = nft.owner || nft.followingSources?.[0]?.walletAddress || '';
+    const chainId = nft.chain_id ?? EthereumChainId.Mainnet;
+
     return (
         <SingleNFTFeed
             key={`${nft.hash}-${index}`}
             listKey={listKey}
             chainId={chainId}
             index={index}
-            ownerAddress={ownerAddress}
-            contractAddress={nft.actions[0].contract_address}
-            displayInfo={nft.displayInfo}
             followingSources={nft.followingSources}
-            tokenList={uniqBy(nft.actions, 'token_id').map(
-                ({ token_id, contract_address, address_to, address_from, cost, ...action }) => ({
-                    id: token_id,
-                    contractAddress: contract_address,
-                    nft: action.nft,
-                    bookmarked: action.nft.hasBookmarked,
-                    action: {
-                        action: nft.type,
-                        toAddress: address_to,
-                        fromAddress: address_from,
-                        ownerAddress,
-                        cost,
-                    },
-                }),
-            )}
+            feed={nft}
             time={nft.timestamp}
         />
     );

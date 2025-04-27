@@ -10,9 +10,12 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 
-export async function createMetadataProfileById(source: ProfilePageSource, profileId: string) {
+export async function createMetadataProfileById(source: ProfilePageSource, profileId: string, forceHandle = false) {
     if (source === Source.Wallet || source === Source.WalletMix) return createMetadataWalletProfile(profileId);
-    const profile = await runInSafeAsync(() => resolveSocialMediaProvider(source).getProfileByIdOrHandle(profileId));
+    const profile = await runInSafeAsync(() => {
+        const provider = resolveSocialMediaProvider(source);
+        return forceHandle ? provider.getProfileByHandle(profileId) : provider.getProfileByIdOrHandle(profileId);
+    });
 
     if (!profile) return createSiteMetadata();
 

@@ -63,7 +63,7 @@ export function GridListInPage<T = unknown, C = unknown>({
         fetchNextPage,
         isFetching,
         itemsRendered: itemsRendered.current,
-        ...(VirtualGridListProps?.context ?? EMPTY_OBJECT),
+        ...VirtualGridListProps?.context,
     };
     // force type casting to avoid type error
     const List = VirtualGridList<T, C>;

@@ -5,9 +5,10 @@ import { Trans } from '@lingui/react/macro';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { getNFTPropertyValue } from '@/helpers/getNFTPropertyValue.js';
 import type { NonFungibleTokenTrait } from '@/mask_pkgs/web3-shared/base/index.js';
+import type { EVM } from '@/providers/nft-scan/types.js';
 
 export interface NFTPropertiesProps {
-    items: NonFungibleTokenTrait[];
+    items: NonFungibleTokenTrait[] | EVM.Attribute[];
 }
 
 export function NFTProperties(props: NFTPropertiesProps) {
@@ -17,9 +18,10 @@ export function NFTProperties(props: NFTPropertiesProps) {
                 <Trans>Properties</Trans>
             </h3>
             <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
-                {props.items.map((item) => {
-                    const { type, displayType } = item;
-                    const value = getNFTPropertyValue(displayType, item.value);
+                {props.items.map((x) => {
+                    const type = 'type' in x ? x.type : x.attribute_name;
+                    const value = 'type' in x ? getNFTPropertyValue(x.displayType, x.value) : x.attribute_value;
+
                     return (
                         <div
                             key={type}

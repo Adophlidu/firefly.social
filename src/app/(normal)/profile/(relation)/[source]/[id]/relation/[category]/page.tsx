@@ -1,28 +1,12 @@
-import { FollowersList } from '@/app/(normal)/profile/pages/FollowersList.js';
-import { FollowingList } from '@/app/(normal)/profile/pages/FollowingList.js';
-import { MutualFollowersList } from '@/app/(normal)/profile/pages/MutualFollowersList.js';
-import { FollowCategory, type ProfileCategory, SourceInURL } from '@/constants/enum.js';
-import { notFound } from '@/esm/navigation/server.js';
-import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
-import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
+import { RelationContentList } from '@/app/(normal)/profile/pages/RelationContentList.js';
+import { type ProfileCategory, ProfileSourceInURL } from '@/constants/enum.js';
 import type { NextPageProps } from '@/types/index.js';
 
-interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: SourceInURL }> {}
+interface Props extends NextPageProps<{ id: string; category: ProfileCategory; source: ProfileSourceInURL }> {}
 
 export default async function Page(props: Props) {
     const params = await props.params;
-    const source = resolveSourceFromUrl(params.source);
-    const identity = resolveSpecialProfileIdentity({ source, id: params.id });
-    if (!params.category || !identity) return null;
-    switch (params.category) {
-        case FollowCategory.Following:
-            return <FollowingList profileId={identity.id} source={narrowToSocialSource(identity.source)} />;
-        case FollowCategory.Followers:
-            return <FollowersList profileId={identity.id} source={narrowToSocialSource(identity.source)} />;
-        case FollowCategory.Mutuals:
-            return <MutualFollowersList profileId={identity.id} source={narrowToSocialSource(identity.source)} />;
-        default:
-            notFound();
-    }
+    if (!params.category) return null;
+
+    return <RelationContentList category={params.category} />;
 }

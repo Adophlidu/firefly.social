@@ -26,4 +26,4 @@ jobs:
               run: pnpm install
 
             - name: Run CSpell
-              run: npx cspell "**/*"
+              run: npx cspell --no-progress "**/*"

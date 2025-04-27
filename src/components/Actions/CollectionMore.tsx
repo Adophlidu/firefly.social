@@ -15,12 +15,14 @@ import { resolveNFTUrlByCollection } from '@/helpers/resolveNFTUrl.js';
 import { ConfirmLeavingModalRef } from '@/modals/controls.js';
 
 export interface CollectionMoreProps extends HTMLProps<HTMLDivElement> {
-    collectionId?: string;
+    chainId: number;
+    address?: string;
     externalUrl?: string;
 }
 
 export const CollectionMore = memo<CollectionMoreProps>(function CollectionMore({
-    collectionId,
+    chainId,
+    address,
     externalUrl,
     className,
 }) {
@@ -34,14 +36,14 @@ export const CollectionMore = memo<CollectionMoreProps>(function CollectionMore(
             }
         >
             <MenuGroup>
-                {collectionId ? (
+                {address ? (
                     <>
                         <MenuItem>
-                            {({ close }) => <NFTReportSpamButton onClick={close} collectionId={collectionId} />}
+                            {({ close }) => <NFTReportSpamButton onClick={close} chainId={chainId} address={address} />}
                         </MenuItem>
                         <MenuItem>
                             {({ close }) => (
-                                <CopyLinkButton link={resolveNFTUrlByCollection(collectionId)} onClick={close} />
+                                <CopyLinkButton link={resolveNFTUrlByCollection(address)} onClick={close} />
                             )}
                         </MenuItem>
                     </>

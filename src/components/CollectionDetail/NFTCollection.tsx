@@ -1,42 +1,32 @@
 import { CollectionInfo } from '@/components/CollectionDetail/CollectionInfo.js';
 import { CollectionTabs } from '@/components/CollectionDetail/CollectionTabs.js';
 import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
-import { getFloorPrice } from '@/helpers/getFloorPrice.js';
-import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
-import type { SimpleHash } from '@/providers/simplehash/type.js';
+import type { EVM } from '@/providers/nft-scan/types.js';
 
 interface NFTCollectionProps {
-    collection: SimpleHash.Collection;
+    collection: EVM.Collection;
     address?: string;
-    chainId?: number;
+    chainId: number;
 }
 
 export function NFTCollection({ collection, ...rest }: NFTCollectionProps) {
-    const resolved = resolveCollectionChain(collection);
-    const address = rest.address ?? resolved.address;
-    const chainId = rest.chainId ?? resolved.chainId;
+    const address = rest.address ?? collection.contract_address;
+    const chainId = rest.chainId ?? collection.chain_id;
 
     return (
         <div className="min-h-screen">
             <NFTNavbar>{collection.name}</NFTNavbar>
             <CollectionInfo
+                chainId={chainId}
                 address={address}
                 name={collection.name}
-                bannerImageUrl={collection.banner_image_url}
-                imageUrl={collection.image_url}
-                nftCount={collection.distinct_nft_count}
-                ownerCount={collection.distinct_owner_count}
-                floorPrice={getFloorPrice(collection?.floor_prices)}
-                chainId={chainId}
-                collectionId={collection.collection_id}
-                externalUrl={collection.external_url}
+                bannerImageUrl={collection.banner_url || collection.featured_url}
+                logoUrl={collection.logo_url || collection.large_image_url}
+                nftCount={collection.amounts_total}
+                ownerCount={collection.owners_total}
+                externalUrl={collection.website}
             />
-            <CollectionTabs
-                collectionId={collection.collection_id}
-                address={address}
-                chainId={chainId}
-                totalQuantity={collection.total_quantity}
-            />
+            <CollectionTabs chainId={chainId} address={address} />
         </div>
     );
 }

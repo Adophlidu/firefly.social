@@ -1,13 +1,14 @@
-import { ApolloClient, ApolloLink, from, HttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, ApolloLink, from, fromPromise, HttpLink, InMemoryCache, toPromise } from '@apollo/client';
 import { RetryLink } from '@apollo/client/link/retry';
 import { isServer } from '@tanstack/react-query';
 
 import { Source } from '@/constants/enum.js';
 import { LENS_API_URL } from '@/constants/index.js';
-import { ensureLensResultSync } from '@/helpers/ensureLensResult.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getLensCredentialsFromStorage } from '@/helpers/getLensCredentialsFromStorage.js';
+import { parseLensAccessToken } from '@/helpers/parseLensAccessToken.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { resumeLensSession } from '@/providers/lens/resumeLensSession.js';
 
 const httpLink = new HttpLink({
     uri: LENS_API_URL,
@@ -26,14 +27,33 @@ const authLink = new ApolloLink((operation, next) => {
     const profile = getCurrentProfile(Source.Lens);
     if (!profile) return next(operation);
 
-    const credentials = runInSafe(() => ensureLensResultSync(lensSessionHolder.sessionClient.getCredentials()));
-    if (!credentials?.accessToken) return next(operation);
+    const { data: credentials } = runInSafe(() => getLensCredentialsFromStorage()) || {};
+    if (!credentials?.accessToken || !credentials?.refreshToken) return next(operation);
 
-    operation.setContext({
-        headers: { 'X-Access-Token': credentials.accessToken },
-    });
+    const tokenPayload = parseLensAccessToken(credentials.accessToken);
+    const isExpiringSoon = !!tokenPayload?.exp && Date.now() >= tokenPayload.exp * 1000 - 60 * 1000 * 2; // 2 minutes before expiration
 
-    return next(operation);
+    if (!isExpiringSoon) {
+        operation.setContext({
+            headers: { 'X-Access-Token': credentials.accessToken },
+        });
+
+        return next(operation);
+    }
+
+    return fromPromise(
+        resumeLensSession(profile.profileId)
+            .then((newToken) => {
+                if (!newToken) return toPromise(next(operation));
+
+                console.log('[Debug]: refreshed access token');
+                operation.setContext({
+                    headers: { 'X-Access-Token': newToken },
+                });
+                return toPromise(next(operation));
+            })
+            .catch(() => toPromise(next(operation))),
+    );
 });
 
 export const lensApolloClient = new ApolloClient({

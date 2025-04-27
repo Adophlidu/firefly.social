@@ -7,9 +7,9 @@ import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSocialSourceFromFireflyPlatform, resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
@@ -28,7 +28,6 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
 }) {
     const platformSource = resolveSourceFromFireflyPlatform(profile.platform);
     const source = platformSource === Source.Wallet ? Source.Wallet : narrowToSocialSource(platformSource);
-    const profileId = [Source.Lens, Source.Bsky].includes(source) ? profile.handle : profile.platform_id;
 
     const { data } = useEnsAvatar({
         name: profile.handle,
@@ -45,7 +44,7 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
     return (
         <Link
             className={classNames('flex items-center gap-x-2 border-b border-line p-3 hover:bg-bg', className)}
-            href={resolveProfileUrl(source, profileId)}
+            href={getProfileUrl({ source, profileId: profile.platform_id, handle: profile.handle })}
             onClick={onClick}
         >
             <Avatar alt={profile.handle} className="size-7 rounded-full" src={avatar} size={44} />

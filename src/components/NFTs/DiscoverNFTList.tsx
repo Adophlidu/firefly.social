@@ -6,7 +6,6 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { getSingleNFTFeedItemContent } from '@/components/NFTs/VirtualListHelper.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { resolveNFTFeedChainId } from '@/helpers/resolveNFTFeedChainId.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 export function DiscoverNFTList() {
@@ -29,9 +28,9 @@ export function DiscoverNFTList() {
             queryResult={nftQueryResult}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Discover}:${Source.NFTs}`,
-                computeItemKey: (index, nftFeed) => `${nftFeed.id}-${index}`,
+                computeItemKey: (index, nftFeed) => `${nftFeed.hash}-${index}`,
                 itemContent: (index, nftFeed) =>
-                    getSingleNFTFeedItemContent(index, nftFeed, resolveNFTFeedChainId(nftFeed), {
+                    getSingleNFTFeedItemContent(index, nftFeed, nftFeed.chain_id, {
                         listKey: `${ScrollListKey.Discover}:${Source.NFTs}`,
                     }),
                 overscan: 2000,

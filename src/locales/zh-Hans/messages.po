@@ -310,6 +310,9 @@ msgstr "更多"
 msgid "Translate post"
 msgstr "翻译帖子"
 
+msgid "Take me there"
+msgstr ""
+
 msgid "Transaction {hash} could not be found."
 msgstr "未找到该这条交易 {hash} 。"
 
@@ -571,9 +574,6 @@ msgstr "确认退出你的 Firefly 账号吗？"
 msgid "Copied"
 msgstr "已复制"
 
-msgid "Name"
-msgstr "名称"
-
 msgid "Failed to vote."
 msgstr "投票失败。"
 
@@ -736,9 +736,6 @@ msgstr "已点赞"
 
 msgid "Connect Email"
 msgstr "绑定邮箱"
-
-msgid "Token ID"
-msgstr "通证 ID"
 
 #. placeholder {0}: chainNameMap[chains[0]]
 msgid "Only {0}"
@@ -1303,6 +1300,10 @@ msgstr "红包数量"
 #. placeholder {0}: post?.author.handle
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "回复给<0><1>@{0}</1></0>"
+
+#. placeholder {0}: BRIAN_FARCASTER_PROFILE.handle
+msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{0}</1> on Farcaster before Oct 20, 2024"
+msgstr ""
 
 msgid "Cannot choose due to account mismatch."
 msgstr "账户不匹配导致选择失败。"
@@ -2243,6 +2244,9 @@ msgstr "未发现外部调用风险。"
 msgid "Pending"
 msgstr "确认中"
 
+msgid "✨ We've moved to <0>firefly.social</0>"
+msgstr ""
+
 msgid "No preview found for shared link"
 msgstr "无法预加载"
 
@@ -2757,9 +2761,6 @@ msgstr "正在回复 <0>@{0}</0> ,<1>@{1}</1> 和 <2>{2} 其他</2> on {3}"
 
 msgid "No phishing site."
 msgstr "未发现钓鱼网站。"
-
-msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
-msgstr "在 2024 年 10 月 12 日之前在 X 上关注了 <0>@{handle}</0>，或在 2024 年 10 月 20 日之前在 Farcaster 上关注了 <1>@{farcasterHandle}</1>"
 
 #. placeholder {0}: filteredProfiles[0].handle
 #. placeholder {1}: filteredProfiles[1].handle
@@ -3426,9 +3427,6 @@ msgstr "领取"
 msgid "Failed to bookmark snapshot."
 msgstr "收藏 snapshot 失败。"
 
-msgid "Date"
-msgstr "日期"
-
 msgid "Mint Again"
 msgstr "再次铸造"
 
@@ -3624,9 +3622,6 @@ msgstr "你在2024年12月16日快照中识别为 X 账号 <0>@{0}</0> 的关注
 
 msgid "Total Supply"
 msgstr "总供应量"
-
-msgid "Collection"
-msgstr "NFT 系列"
 
 msgid "No tax changes found for personal addresses."
 msgstr "未发现个人地址的税务变更。"

@@ -360,6 +360,7 @@ export class LensSocialMedia implements Provider {
                 contentUri: intro,
                 quoteOf: { post: postId },
                 rules: formatLensPostRules(draftPost.restrictions),
+                feed: draftPost.channel?.id ? evmAddress(draftPost.channel.id) : undefined,
             }),
         );
     }
@@ -387,6 +388,7 @@ export class LensSocialMedia implements Provider {
             post(lensSessionHolder.sessionClient, {
                 contentUri: comment,
                 commentOn: { post: postId },
+                feed: draftPost.channel?.id ? evmAddress(draftPost.channel.id) : undefined,
             }),
         );
     }

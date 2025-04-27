@@ -7,7 +7,7 @@ import { Link } from '@/components/Link.js';
 import { ContractTag } from '@/components/Markup/MarkupLink/ContractTag.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { Source } from '@/constants/enum.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 interface AddressTagProps extends Omit<MarkupLinkProps, 'post'> {
@@ -39,7 +39,7 @@ export const AddressTag = memo<AddressTagProps>(function AddressTag({ title, add
                             e.stopPropagation();
                         }}
                         prefetch={false}
-                        href={resolveProfileUrl(Source.Wallet, address)}
+                        href={getProfileUrl({ source: Source.Wallet, profileId: address })}
                     >
                         {title}
                     </Link>

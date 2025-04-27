@@ -77,6 +77,7 @@ export function useCommentPost(post: Post, disabled = false) {
                 type: 'reply',
                 post,
                 source,
+                channel: post.channel,
             });
         } else {
             enqueueErrorMessage(t`You cannot reply to @${author.handle} on ${resolveSourceName(source)}.`);

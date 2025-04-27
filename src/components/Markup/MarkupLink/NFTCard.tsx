@@ -33,7 +33,7 @@ export const NFTCard = memo<NFTCardProps>(function NFTCard({ chainId, contractAd
         >
             <div className="max-w-[250px] rounded-lg bg-bg">
                 <NFTImage
-                    src={nft?.metadata?.previewImageURL || nft?.metadata?.imageURL || ''}
+                    src={nft.nftscan_uri || nft.imageURL || nft.image_uri || ''}
                     width={120}
                     height={120}
                     className="aspect-square h-full w-full rounded-xl object-cover sm:mb-0 sm:w-auto"
@@ -41,9 +41,9 @@ export const NFTCard = memo<NFTCardProps>(function NFTCard({ chainId, contractAd
                     alt={contractAddress ?? ''}
                 />
                 <div className="p-2">
-                    <div className="mb-2 text-base font-bold text-main">{nft?.metadata?.name}</div>
+                    <div className="mb-2 text-base font-bold text-main">{nft.name}</div>
                     <div className="flex items-center">
-                        <div className="rounded-lg bg-primaryBottom p-2 text-xs">{nft?.collection?.name}</div>
+                        <div className="rounded-lg bg-primaryBottom p-2 text-xs">{nft.contract_name}</div>
                     </div>
                 </div>
             </div>

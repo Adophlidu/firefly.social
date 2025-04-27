@@ -18,6 +18,7 @@ export enum EthereumChainId {
     Fantom = 250,
     XLayer = 196,
     Metis = 1088,
+    Mantle = 5000,
     Zora = 7777777,
     Scroll = 534352,
 }
@@ -116,6 +117,7 @@ export enum EthereumNetworkType {
     Aurora = 'Aurora',
     Avalanche = 'Avalanche',
     Metis = 'Metis',
+    Mantle = 'Mantle',
     Optimism = 'Optimism',
     Conflux = 'Conflux',
     Astar = 'Astar',

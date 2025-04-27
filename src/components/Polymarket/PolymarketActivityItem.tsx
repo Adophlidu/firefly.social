@@ -15,9 +15,9 @@ import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { formatAmount } from '@/helpers/polymarket.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import type { PolymarketActivity } from '@/providers/types/Firefly.js';
@@ -34,7 +34,7 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
     const isMyProfile = useIsMyRelatedProfile(Source.Wallet, activity.wallet);
 
     const addressName = formatAddress(activity.wallet, 4);
-    const profileUrl = resolveProfileUrl(Source.Wallet, activity.wallet);
+    const profileUrl = getProfileUrl({ source: Source.Wallet, profileId: activity.wallet });
 
     const isLeft = activity.outcomeIndex === 0;
     const outcome = activity.conditionOutcomes[activity.outcomeIndex] || activity.outcome;

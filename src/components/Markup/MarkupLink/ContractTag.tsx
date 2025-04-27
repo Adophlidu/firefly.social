@@ -2,10 +2,9 @@ import { memo, useMemo } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { Image } from '@/esm/Image.js';
-import { resolveNFTUrl, resolveNFTUrlByCollection } from '@/helpers/resolveNFTUrl.js';
+import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useNFTCollection } from '@/hooks/useNFTCollection.js';
-import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import type { DetectedAddress } from '@/providers/types/Firefly.js';
@@ -22,18 +21,16 @@ export const ContractTag = memo<ContractTagProps>(function ContractTag({ detecte
     const chainId = +detected.chain_id;
 
     const { data: collection } = useNFTCollection(address, chainId, isCollection);
-    const { data: nft } = useNFTDetail(chainId, address);
 
     const attributes = detected?.contract_info?.attributes;
     const coingecko_coin_id = attributes?.coingecko_coin_id;
     const { data: token } = useTokenInfo(coingecko_coin_id || address, !!coingecko_coin_id);
 
     const url = useMemo(() => {
-        if (collection) return resolveNFTUrlByCollection(collection.collection_id);
-        if (nft) return resolveNFTUrl(chainId, address, nft?.id);
+        if (collection) return resolveNFTUrl(collection.chain_id, collection.contract_address);
         if (token) return resolveTokenPageUrl(address, chainId);
         return BlockScanExplorerResolver.addressLink(chainId, address);
-    }, [token, chainId, address, collection, nft]);
+    }, [token, chainId, address, collection]);
 
     if (!url) return title;
 

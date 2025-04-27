@@ -7,7 +7,7 @@ import StarIcon from '@/assets/star.svg';
 import TwitterIcon from '@/assets/x-fill.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Link } from '@/components/Link.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveWatchTypeToSource } from '@/helpers/resolveWatchTypeToSource.js';
 import { type FollowingSource, WatchType } from '@/providers/types/Firefly.js';
 
@@ -21,6 +21,9 @@ export function FeedFollowSource({ source }: { source?: FollowingSource }) {
         [WatchType.Twitter]: <TwitterIcon className="mx-2 size-4" />,
     };
 
+    const profileSource = resolveWatchTypeToSource(source.type);
+    const profileUrl = getProfileUrl({ source: profileSource, profileId: source.id, handle: source.handle });
+
     return (
         <div className="mb-3 flex items-center text-medium leading-6 text-second">
             <StarIcon className="mr-2 size-4" />
@@ -30,13 +33,7 @@ export function FeedFollowSource({ source }: { source?: FollowingSource }) {
                     {icons[source.type]}
                     {source.handle ? (
                         <ClickableArea>
-                            <Link
-                                className="hover:underline"
-                                href={resolveProfileUrl(
-                                    resolveWatchTypeToSource(source.type),
-                                    source.type === WatchType.Lens ? source.handle : source.id,
-                                )}
-                            >
+                            <Link className="hover:underline" href={profileUrl}>
                                 @{source.handle}
                             </Link>
                         </ClickableArea>

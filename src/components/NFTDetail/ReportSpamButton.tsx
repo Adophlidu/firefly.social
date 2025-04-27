@@ -6,13 +6,17 @@ import ReportSpamIcon from '@/assets/report-spam.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { useReportSpamNFT } from '@/hooks/useReportSpamNFT.js';
 
-export function ReportSpamButton(props: { collectionId: string }) {
-    const { collectionId } = props;
+type ReportSpamButtonProps = {
+    chainId: number;
+    address: string;
+};
+
+export function ReportSpamButton({ chainId, address }: ReportSpamButtonProps) {
     const [, reportSpamNFT] = useReportSpamNFT();
     return (
         <ClickableButton
             className="flex cursor-pointer select-none items-center gap-1 rounded-full border border-line bg-lightBg px-2 py-1 font-inter text-xs leading-[14px] hover:bg-primaryBottom"
-            onClick={() => reportSpamNFT(collectionId)}
+            onClick={() => reportSpamNFT(chainId, address)}
         >
             <ReportSpamIcon className="size-3" />
             <Trans>Report spam</Trans>

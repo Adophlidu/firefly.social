@@ -17,24 +17,22 @@ import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { Source } from '@/constants/enum.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
-import type { NFTAsset } from '@/providers/types/Firefly.js';
-import { NFTFeedTransAction } from '@/providers/types/NFTs.js';
-import { EthereumChainId, EthereumSchemaType } from '#masknet/web3-shared-evm';
+import { type EVM as NFTScanEVM, TransEventType } from '@/providers/nft-scan/types.js';
+import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface Props {
     chainId: EthereumChainId;
     address: string;
     tokenId: string;
-    action: NFTFeedTransAction;
+    action: TransEventType;
     tokenCount?: number;
     ownerAddress?: string;
     toAddress?: string;
     fromAddress?: string;
-    nft: NFTAsset;
+    nft: NFTScanEVM.Asset | null;
 }
 
 const tagClassName = 'flex items-center space-x-1 rounded-lg bg-bg px-2 h-6 leading-6 truncate cursor-pointer';
@@ -43,9 +41,8 @@ function NFTsActivityCellActionCollectionName({
     asset,
     chainId,
     address,
-}: { asset: NFTAsset } & Pick<Props, 'chainId' | 'address'>) {
-    if (!asset?.collection) return null;
-
+}: { asset: NFTScanEVM.Asset | null } & Pick<Props, 'chainId' | 'address'>) {
+    if (!asset) return null;
     return (
         <Link
             href={resolveNFTUrl(chainId, address)}
@@ -54,16 +51,16 @@ function NFTsActivityCellActionCollectionName({
                 e.stopPropagation();
             }}
         >
-            {asset.collection.iconURL ? (
+            {asset.imageURL ? (
                 <Image
-                    src={asset.collection.iconURL}
-                    alt={asset.collection.name}
+                    src={asset.imageURL}
+                    alt={asset.contract_name}
                     className="size-[18px] shrink-0 rounded-[6px]"
                     width={18}
                     height={18}
                 />
             ) : null}
-            <div className="truncate">{asset.collection.name}</div>
+            <div className="truncate">{asset.contract_name}</div>
         </Link>
     );
 }
@@ -72,27 +69,24 @@ function NFTsActivityCellActionPoapName({
     asset,
     chainId,
     address,
-}: { asset?: NonFungibleAsset<EthereumChainId, EthereumSchemaType> | null } & Pick<Props, 'chainId' | 'address'>) {
-    if (!asset?.metadata) return null;
+}: { asset?: NFTScanEVM.Asset | null } & Pick<Props, 'chainId' | 'address'>) {
+    if (!asset?.contract_name) return null;
 
     return (
         <Link href={resolveNFTUrl(chainId, address)} className={tagClassName}>
-            {asset.metadata.imageURL ? (
-                <Image
-                    src={asset.metadata.imageURL}
-                    alt={asset.metadata.name}
-                    className="size-[18px] shrink-0 rounded-[6px]"
-                />
+            {asset.imageURL ? (
+                <Image src={asset.imageURL} alt={asset.contract_name} className="size-[18px] shrink-0 rounded-[6px]" />
             ) : null}
-            <div className="truncate">{asset.metadata.name}</div>
+            <div className="truncate">{asset.contract_name}</div>
         </Link>
     );
 }
 
 export function NFTsActivityCellAction(props: Props) {
     const { action, toAddress, ownerAddress, fromAddress, tokenCount, nft: data } = props;
+
     switch (action) {
-        case NFTFeedTransAction.Mint:
+        case TransEventType.Mint:
             return (
                 <ActivityCellAction>
                     <Trans>
@@ -102,7 +96,7 @@ export function NFTsActivityCellAction(props: Props) {
                     </Trans>
                 </ActivityCellAction>
             );
-        case NFTFeedTransAction.Transfer:
+        case TransEventType.Transfer:
             const isAcquired = isSameEthereumAddress(toAddress, ownerAddress);
             if (isAcquired) {
                 return (
@@ -117,7 +111,7 @@ export function NFTsActivityCellAction(props: Props) {
                                 <span>from</span>
                                 <ClickableArea className="whitespace-nowrap">
                                     <Link
-                                        href={resolveProfileUrl(Source.Wallet, fromAddress)}
+                                        href={getProfileUrl({ source: Source.Wallet, profileId: fromAddress })}
                                         className="truncate text-highlight hover:underline"
                                     >
                                         {formatAddressEthereum(fromAddress, 4)}
@@ -145,7 +139,7 @@ export function NFTsActivityCellAction(props: Props) {
                             <span>to</span>
                             <ClickableArea className="whitespace-nowrap">
                                 <Link
-                                    href={resolveProfileUrl(Source.Wallet, fromAddress)}
+                                    href={getProfileUrl({ source: Source.Wallet, profileId: toAddress })}
                                     className="truncate text-highlight hover:underline"
                                 >
                                     {formatAddressEthereum(toAddress, 4)}
@@ -160,7 +154,7 @@ export function NFTsActivityCellAction(props: Props) {
                     )}
                 </ActivityCellAction>
             );
-        case NFTFeedTransAction.Burn:
+        case TransEventType.Burn:
             return (
                 <ActivityCellAction>
                     <Trans>
@@ -169,7 +163,7 @@ export function NFTsActivityCellAction(props: Props) {
                     </Trans>
                 </ActivityCellAction>
             );
-        case NFTFeedTransAction.Trade:
+        case TransEventType.Sale:
             const isBuy = isSameEthereumAddress(toAddress, ownerAddress);
             if (isBuy) {
                 return (
@@ -189,7 +183,7 @@ export function NFTsActivityCellAction(props: Props) {
                     </Trans>
                 </ActivityCellAction>
             );
-        case NFTFeedTransAction.Poap:
+        case TransEventType.Poap:
             return (
                 <ActivityCellAction>
                     <Trans>

@@ -305,6 +305,9 @@ msgstr ""
 msgid "Translate post"
 msgstr ""
 
+msgid "Take me there"
+msgstr ""
+
 msgid "Transaction {hash} could not be found."
 msgstr ""
 
@@ -566,9 +569,6 @@ msgstr ""
 msgid "Copied"
 msgstr ""
 
-msgid "Name"
-msgstr ""
-
 msgid "Failed to vote."
 msgstr ""
 
@@ -730,9 +730,6 @@ msgid "Liked"
 msgstr ""
 
 msgid "Connect Email"
-msgstr ""
-
-msgid "Token ID"
 msgstr ""
 
 #. placeholder {0}: chainNameMap[chains[0]]
@@ -1297,6 +1294,10 @@ msgstr ""
 
 #. placeholder {0}: post?.author.handle
 msgid "REPLY to<0><1>@{0}</1></0>"
+msgstr ""
+
+#. placeholder {0}: BRIAN_FARCASTER_PROFILE.handle
+msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{0}</1> on Farcaster before Oct 20, 2024"
 msgstr ""
 
 msgid "Cannot choose due to account mismatch."
@@ -2230,6 +2231,9 @@ msgstr ""
 msgid "Pending"
 msgstr ""
 
+msgid "✨ We've moved to <0>firefly.social</0>"
+msgstr ""
+
 msgid "No preview found for shared link"
 msgstr ""
 
@@ -2738,9 +2742,6 @@ msgid "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>{2} others</2> on {3}"
 msgstr ""
 
 msgid "No phishing site."
-msgstr ""
-
-msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 msgstr ""
 
 #. placeholder {0}: filteredProfiles[0].handle
@@ -3405,9 +3406,6 @@ msgstr ""
 msgid "Failed to bookmark snapshot."
 msgstr ""
 
-msgid "Date"
-msgstr ""
-
 msgid "Mint Again"
 msgstr ""
 
@@ -3602,9 +3600,6 @@ msgid "Followed <0>@{0}</0> on X before Dec 16, 2024"
 msgstr ""
 
 msgid "Total Supply"
-msgstr ""
-
-msgid "Collection"
 msgstr ""
 
 msgid "No tax changes found for personal addresses."

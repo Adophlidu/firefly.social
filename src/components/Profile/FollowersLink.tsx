@@ -5,7 +5,7 @@ import { Link } from '@/components/Link.js';
 import { FollowCategory, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface FollowersLinkProps extends HTMLProps<HTMLAnchorElement> {
@@ -15,7 +15,7 @@ interface FollowersLinkProps extends HTMLProps<HTMLAnchorElement> {
 export const FollowersLink = memo<FollowersLinkProps>(function FollowersLink({ profile, className }) {
     return (
         <Link
-            href={resolveProfileUrl(profile.source, profile.profileId, FollowCategory.Followers)}
+            href={getProfileUrl(profile, FollowCategory.Followers)}
             className={classNames('gap-1 hover:underline', className, {
                 'pointer-events-none': profile.source !== Source.Farcaster && profile.source !== Source.Lens,
             })}

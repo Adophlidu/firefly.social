@@ -24,8 +24,8 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSwapPageUrl } from '@/helpers/resolveSwapPageUrl.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
@@ -45,7 +45,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const router = useRouter();
     const addressName = formatAddress(activity.owner, 4);
-    const profileUrl = resolveProfileUrl(Source.Wallet, activity.owner);
+    const profileUrl = getProfileUrl({ source: Source.Wallet, profileId: activity.owner });
 
     const { mutate: onLikeChange, isPending } = useChangeSwapLikeStatus(activity);
 

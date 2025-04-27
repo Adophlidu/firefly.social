@@ -27,9 +27,9 @@ import {
 import { FIREFLY_MENTION, FIREFLY_TWITTER_PROFILE, PUDGY_PENGUINS_TWITTER_PROFILE } from '@/constants/mentions.js';
 import { type Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { replaceObjectInStringArray } from '@/helpers/replaceObjectInStringArray.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { type ActivityInfoResponse, ActivityStatus } from '@/providers/types/Firefly.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
@@ -215,7 +215,11 @@ Submit here ${shareUrl}
                                 Followed{' '}
                                 <Link
                                     className="inline text-highlight"
-                                    href={resolveProfileUrl(Source.Twitter, followPenguTwitterProfile.profileId)}
+                                    href={getProfileUrl({
+                                        source: Source.Twitter,
+                                        profileId: followPenguTwitterProfile.profileId,
+                                        handle: followPenguTwitterProfile.handle,
+                                    })}
                                 >
                                     @{followPenguTwitterProfile.handle}
                                 </Link>{' '}

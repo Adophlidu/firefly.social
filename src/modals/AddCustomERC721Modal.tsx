@@ -25,7 +25,7 @@ import { useNFTCollections } from '@/hooks/useNFTCollections.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { AddCustomERC20ModalOpenProps } from '@/modals/AddCustomERC20Modal.js';
-import { SimpleHashProvider } from '@/providers/simplehash/index.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { CustomTokenType, useCustomTokenStore } from '@/store/useCustomTokenStore.js';
 import { EthereumSchemaType } from '#masknet/web3-shared-evm';
 
@@ -63,13 +63,15 @@ function AddCustomERC721Content({ onClose, initialChainId }: { onClose: () => vo
         try {
             if (!account.address) return;
             const address = contractAddress as Address;
-            if (allCollections.some((x) => x.chainId === selectedChain && isSameAddress(x.address, contractAddress))) {
+            if (
+                allCollections.some(
+                    (x) => +x.chain_id === selectedChain && isSameAddress(x.contract_address, contractAddress),
+                )
+            ) {
                 onClose();
                 return;
             }
-            const collection = await SimpleHashProvider.getCollection(address, {
-                chainId: selectedChain,
-            });
+            const collection = await FireflyEndpointProvider.getCollection(selectedChain, address);
             if (!collection) {
                 enqueueWarningMessage(t`Sorry, we are not able to find this collection`);
                 return;
@@ -79,7 +81,6 @@ function AddCustomERC721Content({ onClose, initialChainId }: { onClose: () => vo
                 chainId: selectedChain,
                 address,
                 name: collection.name,
-                simpleHashCollectionId: collection.collection_id,
             });
             enqueueSuccessMessage(t`Added successfully`);
             onClose?.();

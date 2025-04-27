@@ -1,12 +1,10 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { useQuery } from '@tanstack/react-query';
 import { type HTMLProps } from 'react';
 
 import DownloadIcon from '@/assets/download-round.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
-import { LoadingIcon } from '@/components/LoadingIcon.js';
 
 interface DownloadImageButtonProps extends HTMLProps<HTMLButtonElement> {
     url: string;
@@ -14,30 +12,19 @@ interface DownloadImageButtonProps extends HTMLProps<HTMLButtonElement> {
 }
 
 export function DownloadImageButton({ url, ref, onClick }: DownloadImageButtonProps) {
-    const { data: blobUrl, isLoading } = useQuery({
-        queryKey: ['download-image', url],
-        staleTime: Infinity,
-        async queryFn() {
-            const blob = await fetch(url).then((response) => response.blob());
-            return URL.createObjectURL(blob);
-        },
-    });
-
     return (
         <MenuButton
             ref={ref}
-            disabled={isLoading}
-            className={isLoading ? 'opacity-50' : ''}
             onClick={() => {
-                if (isLoading) return;
                 const a = document.createElement('a');
-                a.href = blobUrl || url;
+                a.href = url;
+                a.target = '_blank';
                 a.download = url;
                 a.click();
                 onClick?.();
             }}
         >
-            {isLoading ? <LoadingIcon size={18} /> : <DownloadIcon width={18} height={18} />}
+            <DownloadIcon width={18} height={18} />
             <span className="font-bold leading-[22px] text-main">
                 <Trans>Download media</Trans>
             </span>

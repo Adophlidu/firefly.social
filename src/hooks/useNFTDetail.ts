@@ -1,25 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { isValidAddressSolana } from '@/helpers/isValidAddress.js';
-import { SimpleHashProvider } from '@/providers/simplehash/index.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
-export function useNFTDetail(chainId: number = EthereumChainId.Mainnet, address?: string, tokenId?: string) {
-    const isSolAddress = isValidAddressSolana(address);
-    const enabled = isSolAddress ? true : !!address && !!tokenId;
+export function useNFTDetail(
+    chainId: number = EthereumChainId.Mainnet,
+    address: string | undefined,
+    tokenId: string | undefined,
+) {
+    const isEvmAddress = isValidAddressEthereum(address);
+    const enabled = isEvmAddress && !!address && !!tokenId;
     return useQuery({
-        queryKey: ['nft-detail', address, tokenId, chainId],
         enabled,
+        queryKey: ['nft-detail', address, tokenId, chainId],
         async queryFn() {
             if (!enabled) return;
-            return SimpleHashProvider.getNFT(
-                address!,
-                tokenId,
-                {
-                    chainId,
-                },
-                true,
-            );
+            return FireflyEndpointProvider.getNFTDetail(chainId, address!, tokenId!);
         },
     });
 }

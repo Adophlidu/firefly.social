@@ -1,6 +1,7 @@
 'use client';
 
-import { delay } from '@masknet/kit';
+import { delay, getEnumAsArray } from '@masknet/kit';
+import { redirect } from 'next/navigation.js';
 import { useAsync } from 'react-use';
 
 import { changeCookies } from '@/actions/changeCookies.js';
@@ -33,7 +34,6 @@ export default function AgentPage() {
 
         const formData = new FormData();
         formData.append('agent', agent);
-        formData.append('url', returnUrl ?? PageRoute.Home);
 
         if (agent === Agent.FireflyApp) {
             const language = await fireflyBridgeProvider.request(SupportedMethod.GET_LANGUAGE, {});
@@ -42,6 +42,9 @@ export default function AgentPage() {
 
         await delay(1000);
         await changeCookies(formData);
+        const url = returnUrl ?? PageRoute.Home;
+        const isValidPageRoute = url && getEnumAsArray(PageRoute).some(({ value }) => value === url);
+        redirect(isValidPageRoute ? url : PageRoute.Home);
     }, [returnUrl]);
 
     return (
