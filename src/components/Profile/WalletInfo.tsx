@@ -30,7 +30,7 @@ import { Debank } from '@/providers/debank/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { OKX } from '@/providers/okx/index.js';
-import { type WalletProfile } from '@/providers/types/Firefly.js';
+import { RelatedWalletSource, type VerifiedSource, type WalletProfile } from '@/providers/types/Firefly.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface WalletInfoProps {
@@ -39,6 +39,32 @@ interface WalletInfoProps {
 
 export const WALLET_PROFILE_ACTION_ID = 'profile-action';
 const HIDDEN_NET_WORTH = true;
+
+function resolveVerifiedText({ source, provider }: VerifiedSource) {
+    switch (source) {
+        case RelatedWalletSource.farcaster:
+            return <Trans>Verified by Farcaster</Trans>;
+        case RelatedWalletSource.lens:
+            return <Trans>Verified by Lens</Trans>;
+        case RelatedWalletSource.firefly:
+        case RelatedWalletSource.twitter:
+            return <Trans>Verified by Firefly</Trans>;
+        case RelatedWalletSource.cyber:
+        case RelatedWalletSource.hand_writing:
+        case RelatedWalletSource.opensea:
+        case RelatedWalletSource.pfp:
+        case RelatedWalletSource.rss3:
+        case RelatedWalletSource.twitter_hexagon:
+        case RelatedWalletSource.uniswap:
+        case RelatedWalletSource.ethLeaderboard:
+        case RelatedWalletSource.other:
+        case RelatedWalletSource.particle:
+            return <Trans>Verified by {provider}</Trans>;
+        default:
+            safeUnreachable(source);
+            return <Trans>Verified by {provider}</Trans>;
+    }
+}
 
 export function WalletInfo({ profile }: WalletInfoProps) {
     const isLarge = useIsLarge();
@@ -117,7 +143,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                                                 return (
                                                     <Tooltip
                                                         key={x.source}
-                                                        content={t`Verified by ${x.provider}`}
+                                                        content={resolveVerifiedText(x)}
                                                         placement="bottom"
                                                     >
                                                         <RelatedSourceIcon source={x.source} size={iconSize} />

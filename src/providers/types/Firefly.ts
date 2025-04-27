@@ -461,7 +461,7 @@ export interface FollowingSource {
     walletAddress?: Address;
 }
 
-interface VerifiedSource {
+export interface VerifiedSource {
     source: RelatedWalletSource;
     provider: string;
     verifiedText: string;

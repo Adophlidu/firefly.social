@@ -167,6 +167,9 @@ msgstr ""
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
 msgstr ""
 
+msgid "Verified by Firefly"
+msgstr ""
+
 msgid "Equal Split"
 msgstr ""
 
@@ -894,10 +897,6 @@ msgstr ""
 msgid "<0/>Delete Firefly account"
 msgstr ""
 
-#. placeholder {0}: x.provider
-msgid "Verified by {0}"
-msgstr ""
-
 msgid "Select Account"
 msgstr ""
 
@@ -1164,6 +1163,9 @@ msgstr ""
 msgid "More Details"
 msgstr ""
 
+msgid "Verified by Lens"
+msgstr ""
+
 msgid "No proxy"
 msgstr ""
 
@@ -1298,6 +1300,9 @@ msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr ""
 
 msgid "Cannot choose due to account mismatch."
+msgstr ""
+
+msgid "Verified by {provider}"
 msgstr ""
 
 msgid "Search Filter"
@@ -1958,6 +1963,9 @@ msgid "Fully Diluted Valuation"
 msgstr ""
 
 msgid "NFT Contract"
+msgstr ""
+
+msgid "Verified by Farcaster"
 msgstr ""
 
 msgid "Phishing activities."
