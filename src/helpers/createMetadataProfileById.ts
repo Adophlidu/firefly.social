@@ -18,7 +18,7 @@ export async function createMetadataProfileById(source: ProfilePageSource, profi
 
     const images = [
         {
-            url: getStampAvatarByProfileId(source, profileId) || profile.pfp,
+            url: profile.pfp || getStampAvatarByProfileId(source, profileId),
         },
     ];
 
