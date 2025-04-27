@@ -85,7 +85,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                                 {activity.displayInfo.ensHandle ? (
                                     <span>
                                         {activity.displayInfo.ensHandle.split('.')[0]}
-                                        <span className="text-lightSecond">
+                                        <span className="text-second">
                                             .{activity.displayInfo.ensHandle.split('.')[1]}
                                         </span>
                                     </span>
@@ -94,9 +94,9 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                                 )}
                             </Link>
                         </div>
-                        <div className="text-lightSecond flex items-center gap-x-1 text-sm">
+                        <div className="flex items-center gap-x-1 text-sm text-second">
                             {activity.displayInfo.ensHandle ? (
-                                <Link href={profileUrl} className="text-lightSecond">
+                                <Link href={profileUrl} className="text-second">
                                     {addressName}
                                 </Link>
                             ) : null}
@@ -138,7 +138,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                 <div className="flex flex-col gap-4">
                     {activity.from_token?.symbol ? (
                         <div className="flex flex-col gap-2">
-                            <div className="text-lightSecond">
+                            <div className="text-second">
                                 <Trans>Sent</Trans>
                             </div>
                             <Link
@@ -154,7 +154,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                                         height={32}
                                     />
                                 ) : (
-                                    <div className="text-lightSecond flex size-8 items-center justify-center rounded-full bg-bg">
+                                    <div className="flex size-8 items-center justify-center rounded-full bg-bg text-second">
                                         {first(activity.from_token.symbol)}
                                     </div>
                                 )}
@@ -168,7 +168,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                                         ) : null}
                                     </div>
 
-                                    <div className="text-lightSecond flex items-center justify-between">
+                                    <div className="flex items-center justify-between text-second">
                                         <span className="text-xs">{activity.from_token.symbol}</span>
                                         <span>{formatTokenUSD(activity.from_token.amount_usd)}</span>
                                     </div>
@@ -178,7 +178,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                     ) : null}
                     {activity.to_token?.symbol ? (
                         <div>
-                            <div className="text-lightSecond">
+                            <div className="text-second">
                                 <Trans>Received</Trans>
                             </div>
                             <Link
@@ -194,7 +194,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                                         height={32}
                                     />
                                 ) : (
-                                    <div className="text-lightSecond flex size-8 items-center justify-center rounded-full bg-bg">
+                                    <div className="flex size-8 items-center justify-center rounded-full bg-bg text-second">
                                         {first(activity.to_token.symbol)}
                                     </div>
                                 )}
@@ -210,7 +210,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                                         ) : null}
                                     </div>
 
-                                    <div className="text-lightSecond flex items-center justify-between">
+                                    <div className="flex items-center justify-between text-second">
                                         <span className="text-xs">{activity.to_token.symbol}</span>
                                         <span>{formatTokenUSD(activity.to_token.amount_usd)}</span>
                                     </div>
@@ -220,7 +220,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                     ) : null}
 
                     <div className="mt-2 flex items-center justify-end">
-                        <div className="text-lightSecond flex items-center gap-1 text-sm">
+                        <div className="flex items-center gap-1 text-sm text-second">
                             <ClickableButton
                                 className="cursor-pointer"
                                 loading={isPending}
@@ -238,7 +238,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
 
                 <div className="mt-4 space-y-2">
                     <div className="flex items-center justify-between text-sm">
-                        <span className="text-lightSecond">
+                        <span className="text-second">
                             <Trans>Contract</Trans>
                         </span>
                         <div className="flex items-center gap-1">
@@ -258,7 +258,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                     </div>
                     {explorerLink ? (
                         <div className="flex items-center justify-between text-sm">
-                            <span className="text-lightSecond">
+                            <span className="text-second">
                                 <Trans>Transaction Hash</Trans>
                             </span>
                             <Link
@@ -272,13 +272,13 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                         </div>
                     ) : null}
                     <div className="flex items-center justify-between text-sm">
-                        <span className="text-lightSecond">
+                        <span className="text-second">
                             <Trans>Block</Trans>
                         </span>
                         <span className="text-lightMain">{activity.block_number}</span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
-                        <span className="text-lightSecond">
+                        <span className="text-second">
                             <Trans>Status</Trans>
                         </span>
                         <span
@@ -305,7 +305,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                         </span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
-                        <span className="text-lightSecond">
+                        <span className="text-second">
                             <Trans>Network</Trans>
                         </span>
                         <div className="flex items-center gap-1">
@@ -318,7 +318,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                         </div>
                     </div>
                     <div className="flex items-center justify-between text-sm">
-                        <span className="text-lightSecond">
+                        <span className="text-second">
                             <Trans>Time</Trans>
                         </span>
                         <div className="flex items-center gap-1">

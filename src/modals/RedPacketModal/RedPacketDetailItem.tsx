@@ -141,7 +141,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                 : undefined,
                         }}
                     />
-                    <div className="flex justify-between">
+                    <div className="light flex justify-between">
                         <div className="min-w-0 flex-grow">
                             <div className="flex w-full">
                                 <TextOverflowTooltip content={message} className="break-all">
@@ -156,7 +156,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                 </TextOverflowTooltip>
                             </div>
                             <div className="flex w-full text-[14px] leading-[18px]">
-                                <div className="text-lightSecond mr-1 truncate">
+                                <div className="mr-1 truncate text-second">
                                     {create_time ? <Trans>Create time:</Trans> : <Trans>Received time:</Trans>}
                                 </div>
                                 <div
@@ -180,7 +180,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
 
                             {creator || share_from ? (
                                 <div className="flex items-center text-[14px] leading-[18px]">
-                                    <div className="text-lightSecond mr-1">
+                                    <div className="mr-1 text-second">
                                         <Trans>Creator:</Trans>
                                     </div>
                                     <RedPacketAccountItem
@@ -194,7 +194,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                             ) : null}
                             {post_on?.length && isDetail ? (
                                 <div className="flex items-center text-[14px] leading-[18px]">
-                                    <div className="text-lightSecond mr-1">
+                                    <div className="mr-1 text-second">
                                         <Trans>Post on</Trans>
                                     </div>
                                     <div className="flex text-lightTextMain">
@@ -228,12 +228,12 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                         ) : null}
                     </div>
 
-                    <section className="mt-[15px] flex w-full flex-nowrap items-center justify-between">
+                    <section className="light mt-[15px] flex w-full flex-nowrap items-center justify-between">
                         {claim_numbers || total_numbers ? (
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <div className="flex items-center gap-x-[2px] text-[14px] text-lightTextMain">
                                     <Trans>
-                                        <span className="text-lightSecond">Claimed: </span>
+                                        <span className="text-second">Claimed: </span>
                                         <span className="mr-[6px]">
                                             {claim_numbers}/{total_numbers}
                                         </span>
@@ -265,7 +265,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                         {token_amounts ? (
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <div className="flex items-center gap-x-[2px] text-[14px] text-lightTextMain">
-                                    <span className="text-lightSecond">
+                                    <span className="text-second">
                                         <Trans>Received</Trans>
                                     </span>
                                     {formatBalance(token_amounts, token_decimal, {

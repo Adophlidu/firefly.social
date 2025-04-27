@@ -54,7 +54,7 @@ function ThirdPartItem({
             <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                 <span className="truncate text-base font-bold text-lightMain">{resolveSourceName(source)}</span>
                 {connected ? (
-                    <span className="text-lightSecond truncate text-medium">
+                    <span className="truncate text-medium text-second">
                         {formatThirdPartyProfileName(account.profile)}
                     </span>
                 ) : null}

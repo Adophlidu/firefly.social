@@ -20,7 +20,7 @@ export function PermissionSnackbar({ id, rejected, ref }: PermissionSnackbarProp
         <SnackbarContent ref={ref}>
             <div className="relative flex w-[343px] !items-start gap-2 rounded-2xl bg-lightBottom p-4 text-xs text-main shadow-popover dark:bg-darkBottom dark:shadow-none">
                 <CloseButton size={18} className="absolute right-3 top-3" onClick={() => closeSnackbar(id)} />
-                <div className="text-lightSecond px-1 pt-4">
+                <div className="px-1 pt-4 text-second">
                     <NotificationIcon width={24} height={24} />
                 </div>
                 <div className="min-w-0 flex-1">

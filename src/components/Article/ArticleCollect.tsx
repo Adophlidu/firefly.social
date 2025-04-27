@@ -166,7 +166,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
                 {article.author ? (
                     <div className="mt-[6px] flex items-center gap-2">
                         <Avatar src={article.author.avatar} size={20} alt={article.author.handle} />
-                        <span className="text-lightSecond text-medium leading-6">
+                        <span className="text-medium leading-6 text-second">
                             {article.author.handle ?? formatAddressEthereum(article.author.id, 4)}
                         </span>
                         {isCollected ? <CollectFillIcon width={16} height={16} className="ml-auto mr-1.5" /> : null}

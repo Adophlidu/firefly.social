@@ -63,13 +63,13 @@ export const TokenSelectorEntry = memo(function TokenSelectorEntry({ disabled = 
             <span
                 className={classNames(
                     'truncate text-center',
-                    !token ? 'text-lightSecond' : '',
+                    !token ? 'text-second' : '',
                     token ? 'w-[calc(100%_-_48px)]' : 'w-[calc(100%_-_24px)]',
                 )}
             >
                 {token ? token.symbol : t`Select token`}
             </span>
-            <ArrowDown className="text-lightSecond shrink-0" width={24} height={24} />
+            <ArrowDown className="shrink-0 text-second" width={24} height={24} />
         </ClickableButton>
     );
 });

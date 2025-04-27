@@ -113,7 +113,7 @@ export function NFTInfo(props: NFTInfoProps) {
 
     const ownerContent = (
         <>
-            <span className="text-lightSecond leading-4">
+            <span className="leading-4 text-second">
                 {isPoap ? <Trans>Collected by</Trans> : <Trans>Owned By</Trans>}
             </span>
             <TextOverflowTooltip content={ensName ?? ownerAddress}>
@@ -200,7 +200,7 @@ export function NFTInfo(props: NFTInfoProps) {
                         ) : null}
                     </div>
                     {isPoap ? (
-                        <ul className="text-lightSecond w-full space-y-1 text-medium">
+                        <ul className="w-full space-y-1 text-medium text-second">
                             <PoapTrait value={poapTraits.position} icon={LocationIcon} />
                             <PoapTrait value={poapTraits.date} icon={CalendarIcon} />
                             <PoapTrait url={poapTraits.eventURL} icon={WebsiteIcon} />
@@ -222,7 +222,7 @@ export function NFTInfo(props: NFTInfoProps) {
                         )}
                         {isPoap ? (
                             <div className="h-[68px] flex-1 space-y-1.5 rounded-lg bg-lightBg p-2.5 text-base">
-                                <span className="text-lightSecond leading-4">
+                                <span className="leading-4 text-second">
                                     <Trans>Attendance</Trans>
                                 </span>
                                 <span className="block truncate font-bold text-main">
@@ -231,7 +231,7 @@ export function NFTInfo(props: NFTInfoProps) {
                             </div>
                         ) : (
                             <div className="h-[68px] flex-1 space-y-1.5 rounded-lg bg-lightBg p-2.5 text-base">
-                                <span className="text-lightSecond leading-4">
+                                <span className="leading-4 text-second">
                                     <Trans>Floor Price</Trans>
                                 </span>
                                 <span className="block truncate font-bold text-main">

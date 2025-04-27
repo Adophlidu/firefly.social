@@ -26,7 +26,7 @@ export function VoteResult({ option, totalVotes, maxPercent }: VoteResultProps) 
                     className={classNames('mr-2 flex items-center gap-2 truncate', {
                         'text-highlight': isUserVoted,
                         'text-lightMain': !isUserVoted && isMaxPercent,
-                        'text-lightSecond': !isUserVoted && !isMaxPercent,
+                        'text-second': !isUserVoted && !isMaxPercent,
                     })}
                 >
                     <span className="overflow-hidden">{label}</span>

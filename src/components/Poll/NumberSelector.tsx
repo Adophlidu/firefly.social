@@ -46,10 +46,10 @@ export function NumberSelector({ value, label, numbers, onChange, className, dis
                                 open ? 'border-lightSecond' : '',
                             )}
                         >
-                            <div className="text-lightSecond text-left text-[13px]">{label}</div>
+                            <div className="text-left text-[13px] text-second">{label}</div>
                             <div className="mt-1 flex items-center justify-between">
                                 <span className="text-base font-bold text-lightMain md:text-lg">{value}</span>
-                                <ArrowDownIcon className={classNames('text-lightSecond', open ? 'rotate-180' : '')} />
+                                <ArrowDownIcon className={classNames('text-second', open ? 'rotate-180' : '')} />
                             </div>
                         </Popover.Button>
                         <Transition

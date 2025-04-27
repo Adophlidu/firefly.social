@@ -97,7 +97,7 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
                             <span className="truncate text-medium font-bold text-lightMain">{profile.displayName}</span>
                             <SocialSourceIcon source={profile.source} size={15} className="shrink-0" />
                         </div>
-                        <div className="text-lightSecond flex items-center gap-1 text-medium">
+                        <div className="flex items-center gap-1 text-medium text-second">
                             <span className="truncate">@{profile.handle}</span>
                             <UserIcon width={15} height={15} className="shrink-0" />
                             <span>{nFormatter(profile.followerCount)}</span>
@@ -108,7 +108,7 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
                     {profile.bio || '--'}
                 </BioMarkup>
             </div>
-            <p className="text-lightSecond mt-3 text-medium font-bold">
+            <p className="mt-3 text-medium font-bold text-second">
                 <Trans>
                     Pay
                     <span className="text-lightMain">{` ${feeAmount} $${feeSymbol} `}</span>

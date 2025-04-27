@@ -62,7 +62,7 @@ export function NotificationConfigItem({
         >
             <div className="min-w-0 flex-1 truncate">
                 <p className="text-base font-bold text-main">{label}</p>
-                <p className="text-lightSecond mt-1 text-medium">{description}</p>
+                <p className="mt-1 text-medium text-second">{description}</p>
             </div>
             <Tooltip
                 content={rest.unsupported ? t`Seems like this feature is not supported!` : ''}
@@ -105,7 +105,7 @@ export function NotificationChildConfigItem({ label, description, disabled, ...r
             </Tooltip>
             <div className="min-w-0 flex-1 truncate">
                 <p className="text-base font-bold text-main">{label}</p>
-                <p className="text-lightSecond mt-1 text-medium">{description}</p>
+                <p className="mt-1 text-medium text-second">{description}</p>
             </div>
         </ClickableButton>
     );

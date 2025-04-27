@@ -85,7 +85,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                 </div>
                 <div className="min-w-0 flex-1 overflow-hidden">
                     <div className="mb-2 flex items-center justify-between">
-                        <div className="text-lightSecond flex items-center gap-x-1 text-medium">
+                        <div className="flex items-center gap-x-1 text-medium text-second">
                             <Link
                                 href={profileUrl}
                                 className="min-w-0 truncate font-bold text-lightMain"
@@ -94,7 +94,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                 {activity.displayInfo.ensHandle ? (
                                     <span>
                                         {activity.displayInfo.ensHandle.split('.')[0]}
-                                        <span className="text-lightSecond">
+                                        <span className="text-second">
                                             .{activity.displayInfo.ensHandle.split('.')[1]}
                                         </span>
                                     </span>
@@ -166,7 +166,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                         height={32}
                                     />
                                 ) : (
-                                    <div className="text-lightSecond flex size-8 items-center justify-center rounded-full bg-bg">
+                                    <div className="flex size-8 items-center justify-center rounded-full bg-bg text-second">
                                         {first(activity.from_token?.symbol)}
                                     </div>
                                 )}
@@ -180,8 +180,8 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                         ) : null}
                                     </div>
 
-                                    <div className="text-lightSecond flex items-center justify-between">
-                                        <span className="text-lightSecond text-xs">{activity.from_token?.symbol}</span>
+                                    <div className="flex items-center justify-between text-second">
+                                        <span className="text-xs text-second">{activity.from_token?.symbol}</span>
                                         <span>{formatTokenUSD(activity.from_token?.amount_usd)}</span>
                                     </div>
                                 </div>
@@ -202,7 +202,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                         height={32}
                                     />
                                 ) : (
-                                    <div className="text-lightSecond flex size-8 items-center justify-center rounded-full bg-bg">
+                                    <div className="flex size-8 items-center justify-center rounded-full bg-bg text-second">
                                         {first(activity.to_token?.symbol)}
                                     </div>
                                 )}
@@ -218,8 +218,8 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                         ) : null}
                                     </div>
 
-                                    <div className="text-lightSecond flex items-center justify-between">
-                                        <span className="text-lightSecond text-xs">{activity.to_token?.symbol}</span>
+                                    <div className="flex items-center justify-between text-second">
+                                        <span className="text-xs text-second">{activity.to_token?.symbol}</span>
                                         <span>{formatTokenUSD(activity.to_token?.amount_usd)}</span>
                                     </div>
                                 </div>
@@ -227,7 +227,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                         ) : null}
 
                         <div className="mt-2 flex items-center justify-end">
-                            <div className="text-lightSecond flex items-center gap-1 text-sm">
+                            <div className="flex items-center gap-1 text-sm text-second">
                                 <ClickableButton
                                     className="cursor-pointer"
                                     loading={isPending}

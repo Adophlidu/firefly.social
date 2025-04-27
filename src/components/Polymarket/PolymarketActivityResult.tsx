@@ -22,7 +22,7 @@ export function PolymarketActivityResult({ activity }: ActivityResultProps) {
             >
                 <Trans>Settled as {outcome.toUpperCase()}</Trans>
             </div>
-            <div className="text-lightSecond mt-2 text-xs font-medium">${computeVolume(activity, isLeft ? 0 : 1)}</div>
+            <div className="mt-2 text-xs font-medium text-second">${computeVolume(activity, isLeft ? 0 : 1)}</div>
         </div>
     );
 }

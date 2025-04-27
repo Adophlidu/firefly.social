@@ -103,7 +103,7 @@ export const WalletSelectorEntry = memo(function WalletSelectorEntry({ disabled 
                         </div>
                         {!noMoreRecipient ? (
                             <ArrowDown
-                                className={classNames('text-lightSecond shrink-0', open ? 'rotate-180' : '')}
+                                className={classNames('shrink-0 text-second', open ? 'rotate-180' : '')}
                                 width={24}
                                 height={24}
                             />

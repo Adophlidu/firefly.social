@@ -100,13 +100,13 @@ export function LoginFirefly(props: LoginFireflyProps) {
             {IS_MOBILE_DEVICE ? (
                 <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-3">
                     <LoadingIcon />
-                    <div className="text-lightSecond mt-2 text-center text-sm leading-[16px]">
+                    <div className="mt-2 text-center text-sm leading-[16px] text-second">
                         <Trans>Please confirm the login with Firefly.</Trans>
                     </div>
                 </div>
             ) : (
                 <div className="relative flex w-full flex-col items-center gap-3">
-                    <div className="text-lightSecond text-center text-[12px] leading-[16px]">
+                    <div className="text-center text-[12px] leading-[16px] text-second">
                         <Trans>
                             Scan the QR code with the{' '}
                             <Link

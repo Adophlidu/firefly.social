@@ -39,17 +39,17 @@ export function SearchableCollectionItem({ collection, className, onClick }: Col
                     <span className="text-medium font-bold leading-[22px] text-lightMain">
                         <Trans>
                             {nFormatter(collection.items_total || 0)}
-                            <span className="text-lightSecond font-normal"> Items</span>
+                            <span className="font-normal text-second"> Items</span>
                         </Trans>
                     </span>
                     {collection.floor_price && collection.price_symbol ? (
                         <>
-                            <span className="text-lightSecond">·</span>
+                            <span className="text-second">·</span>
                             <span className="text-medium font-bold leading-[22px] text-lightMain">
                                 <Trans>
                                     {collection.floor_price}
                                     {collection.price_symbol}
-                                    <span className="text-lightSecond font-normal"> Floor</span>
+                                    <span className="font-normal text-second"> Floor</span>
                                 </Trans>
                             </span>
                         </>

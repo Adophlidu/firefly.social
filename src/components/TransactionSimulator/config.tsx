@@ -150,13 +150,13 @@ export function getStatusConfig(): StatusConfig[] {
         {
             status: SimulateStatus.Pending,
             icon: LoadingIcon,
-            className: 'bg-lightBg text-lightSecond',
+            className: 'bg-lightBg text-second',
             text: () => <Trans>Simulating</Trans>,
         },
         {
             status: SimulateStatus.Unverified,
             icon: TradeInfo,
-            className: 'bg-lightBg text-lightSecond',
+            className: 'bg-lightBg text-second',
             messages: [
                 {
                     level: SecurityMessageLevel.Info,

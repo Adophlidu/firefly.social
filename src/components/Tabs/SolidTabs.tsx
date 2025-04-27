@@ -22,7 +22,7 @@ export function SolidTabs<T = unknown>({ data, link, isSelected, itemRender, onC
                     const className = classNames(
                         'inline-flex h-8 cursor-pointer items-center rounded px-3 text-sm font-medium transition-colors hover:text-highlight',
                         {
-                            'text-lightSecond bg-transparent': !isActive,
+                            'bg-transparent text-second': !isActive,
                             'bg-lightBg text-highlight': isActive,
                         },
                     );

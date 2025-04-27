@@ -33,7 +33,7 @@ export function GiphyGifSelector({ onSelected }: GiphyGifSelectorProps) {
     const [tabType, setTabType] = useState<GiphyTabType>(GiphyTabType.Gifs);
 
     const [sizedFooter, { width }] = useSize(
-        <div className="text-lightSecond mt-2 flex items-center justify-end pb-2 pr-3 text-[13px] font-bold">
+        <div className="mt-2 flex items-center justify-end pb-2 pr-3 text-[13px] font-bold text-second">
             <Trans>Powered by</Trans>
             <Image className="ml-2" alt="GIPHY" src="/image/giphy.png" width={12} height={12} />
             <span className="text-black dark:text-white">GIPHY</span>
@@ -83,7 +83,7 @@ export function GiphyGifSelector({ onSelected }: GiphyGifSelectorProps) {
                             key={mediaTab.type}
                             className={classNames('inline-block h-7 rounded-full px-4 text-base font-bold leading-7', {
                                 'bg-lightBottom text-black': tabType === mediaTab.type,
-                                'text-lightSecond': tabType !== mediaTab.type,
+                                'text-second': tabType !== mediaTab.type,
                             })}
                         >
                             {mediaTab.label}

@@ -80,7 +80,7 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
                 <div
                     className={classNames(
                         'flex items-center',
-                        primary_ens ? 'text-lightSecond' : 'text-lg font-bold text-lightMain',
+                        primary_ens ? 'text-second' : 'text-lg font-bold text-lightMain',
                     )}
                 >
                     <Link href={profileLink} className="truncate">

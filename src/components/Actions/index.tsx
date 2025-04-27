@@ -139,7 +139,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
 
     return (
         <footer
-            className={classNames('text-lightSecond mt-2 text-xs', className, {
+            className={classNames('mt-2 text-xs text-second', className, {
                 'pl-[52px]': !noLeftPadding,
             })}
             {...rest}

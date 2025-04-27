@@ -37,7 +37,7 @@ export function CollectionItem({ collection }: CollectionProps) {
                     <span>{collection.name}</span>
                     <br />
                     {collection.ownersTotal ? (
-                        <span className="text-lightSecond text-[13px]">{t`${collection.ownersTotal} items`}</span>
+                        <span className="text-[13px] text-second">{t`${collection.ownersTotal} items`}</span>
                     ) : null}
                 </div>
             </div>

@@ -7,7 +7,7 @@ import { env } from '@/constants/env.js';
 
 export function LinkCloud() {
     return (
-        <nav className="text-lightSecond flex flex-wrap gap-x-[12px] gap-y-2 px-3 pb-5 text-xs lg:px-0">
+        <nav className="flex flex-wrap gap-x-[12px] gap-y-2 px-3 pb-5 text-xs text-second lg:px-0">
             <span className="font-bold text-gray-500">© {2025} Firefly</span>
             {compact([
                 { name: <Trans>Communities</Trans>, link: '/settings/more', self: true },

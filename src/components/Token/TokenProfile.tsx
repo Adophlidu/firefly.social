@@ -33,7 +33,7 @@ interface Props extends HTMLProps<HTMLDivElement> {
 export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children, ...rest }) {
     const chartRef = useRef<SVGSVGElement>(null);
     const router = useRouter();
-    const { data: token } = useTokenInfo(symbol);
+    const { data: token } = useTokenInfo(symbol, false);
     const { data: price } = useTokenPrice(token?.id);
     const { data: trending } = useCoinTrending(token?.id);
     const market = trending?.market;

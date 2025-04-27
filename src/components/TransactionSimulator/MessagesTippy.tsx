@@ -25,7 +25,7 @@ const textFontColorMap = {
     [SecurityMessageLevel.High]: 'text-danger',
     [SecurityMessageLevel.Medium]: 'text-commonWarn',
     [SecurityMessageLevel.Safe]: 'text-success',
-    [SecurityMessageLevel.Info]: 'text-lightSecond',
+    [SecurityMessageLevel.Info]: 'text-second',
 };
 function groupMessages(messages: StaticSecurityMessage[]) {
     return reduce<StaticSecurityMessage, Record<SecurityMessageLevel, StaticSecurityMessage[]>>(
@@ -75,7 +75,7 @@ function MessagesContent({ messages, className, ...rest }: MessagesTippyProps) {
                                         />
                                         {title}
                                     </h2>
-                                    <span className="text-lightSecond mt-1 break-all text-sm">{message}</span>
+                                    <span className="mt-1 break-all text-sm text-second">{message}</span>
                                 </li>
                             ))}
                         </menu>
