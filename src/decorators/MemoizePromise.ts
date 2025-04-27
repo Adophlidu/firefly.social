@@ -1,5 +1,23 @@
 import { bom } from '@/helpers/bom.js';
-import { memoizePromise } from '@/helpers/memoizePromise.js';
+
+function memoizePromise<T extends (...args: unknown[]) => Promise<unknown>>(
+    func: T,
+    resolver: (...args: Parameters<T>) => string,
+): T {
+    const cache = new Map<string, Promise<unknown>>();
+    const memoized = function (this: unknown, ...args: Parameters<T>) {
+        const key = resolver(...args);
+        if (cache.has(key)) {
+            return cache.get(key)!;
+        }
+        const result = func.apply(this, args);
+        cache.set(key, result);
+        result.catch(() => cache.delete(key));
+        return result;
+    };
+
+    return memoized as T;
+}
 
 export function MemoizePromise<T extends (...args: any[]) => Promise<any>>(
     resolver: (...args: Parameters<T>) => string,
@@ -13,11 +31,9 @@ export function MemoizePromise<T extends (...args: any[]) => Promise<any>>(
         const originalMethod = descriptor.value!;
         const memoizedMethod = memoizePromise(originalMethod, resolver);
 
-        Object.defineProperty(descriptor, 'value', {
-            value(...args: Parameters<T>): ReturnType<T> {
-                return memoizedMethod.apply(target, args) as ReturnType<T>;
-            },
-        });
+        descriptor.value = function (this: any, ...args: any[]) {
+            return memoizedMethod.apply(this, args);
+        } as unknown as T;
         return descriptor;
     };
 }
