@@ -46,7 +46,7 @@ export function createSiteMetadata(metadata?: Partial<Metadata>) {
             },
         ],
         alternates: {
-            canonical: './',
+            canonical: 'https://firefly.social',
         },
         ...metadata,
     } satisfies Metadata;
