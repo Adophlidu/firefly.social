@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-04-28 00:06\n"
+"PO-Revision-Date: 2025-04-28 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -173,7 +173,7 @@ msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Ful
 msgstr "<0>完全摊薄估值 (FDV) = 当前价格 x 总供应量</0><1>完全摊薄估值 (FDV) 是某种货币的全流通时基于当前市场价格的理论市值。FDV 值是理论上的，因为增加货币的流通量可能会影响其市场价格。此外，根据代币经济学、发行计划或货币供应量的锁定期，可能需要相当长的时间才能将其全部供应量释放到流通中。</1>"
 
 msgid "Verified by Firefly"
-msgstr ""
+msgstr "由 Firefly 校验"
 
 msgid "Equal Split"
 msgstr "均分金额"
@@ -790,7 +790,7 @@ msgid "Edit profile"
 msgstr "编辑个人资料"
 
 msgid "Attendees"
-msgstr "出席人数"
+msgstr "出席人员"
 
 msgid "Connected accounts"
 msgstr "已连接的账户"
@@ -1166,7 +1166,7 @@ msgid "More Details"
 msgstr "详细信息"
 
 msgid "Verified by Lens"
-msgstr ""
+msgstr "由 Lens 校验"
 
 msgid "No proxy"
 msgstr "无代理"
@@ -1309,7 +1309,7 @@ msgid "Cannot choose due to account mismatch."
 msgstr "账户不匹配导致选择失败。"
 
 msgid "Verified by {provider}"
-msgstr ""
+msgstr "由 {provider} 校验"
 
 msgid "Search Filter"
 msgstr "查询规则"
@@ -1474,7 +1474,7 @@ msgid "Your Farcaster account holds Power Badge"
 msgstr "你的 Farcaster 账户拥有 Power Badge"
 
 msgid "Scheduled post will come back soon."
-msgstr "定时发帖功能维护中。"
+msgstr "定时发帖功能维护中"
 
 msgid "Owned By"
 msgstr "属于"
@@ -1980,7 +1980,7 @@ msgid "NFT Contract"
 msgstr "NFT 合约"
 
 msgid "Verified by Farcaster"
-msgstr ""
+msgstr "由 Farcaster 校验"
 
 msgid "Phishing activities."
 msgstr "钓鱼活动。"
