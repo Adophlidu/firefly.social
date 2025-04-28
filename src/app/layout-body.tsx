@@ -6,11 +6,29 @@ import { RouteProgressBar } from '@/components/RouteProgressBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { CZ_ACTIVITY_HOSTNAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
+import { Script } from '@/esm/Script.js';
 
 const Modals = dynamic(() => import('@/modals/index.js').then((m) => m.Modals), { ssr: false });
 const BeforeUnload = dynamic(() => import('@/components/Compose/BeforeUnload.js').then((m) => m.BeforeUnload), {
     ssr: false,
 });
+
+const REMOVE_LOADING_SCRIPT = `
+    ;(function () {
+        function delay(ms) {
+            return new Promise(function (resolve) {
+                setTimeout(resolve, ms);
+            });
+        }
+
+        Promise.all([
+            Promise.race([document.fonts.ready, delay(3000)]), // max for 3000ms
+            delay(300), // min for 300ms
+        ]).finally(() => {
+            document.documentElement.classList.remove('font-loading');
+        });
+    })();
+`;
 
 export function LayoutBody({ children }: { children: React.ReactNode }) {
     return (
@@ -43,6 +61,7 @@ export function LayoutBody({ children }: { children: React.ReactNode }) {
 
                     <Modals />
                     <DomainMigrationNotification />
+                    <Script>{REMOVE_LOADING_SCRIPT}</Script>
                 </RouteProgressBar>
             </Providers>
             <BeforeUnload />
