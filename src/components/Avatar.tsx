@@ -64,7 +64,7 @@ export const Avatar = memo(function Avatar({ src, size, className, ...rest }: Av
 
             if (response.type === 'opaqueredirect') {
                 const result = await fetchJSON<{ twitterId: string }>(
-                    urlcat('/api/twitter/getIdByAvatar', { target: imageSrc }),
+                    urlcat('/api/twitter/getIdByAvatar', { target: src }),
                 );
                 const twitterId = result?.twitterId;
                 if (!twitterId) return null;
@@ -95,7 +95,7 @@ export const Avatar = memo(function Avatar({ src, size, className, ...rest }: Av
                 width: size,
                 ...rest.style,
             }}
-            src={xFallbackAvatar ?? imageSrc}
+            src={imageSrc}
             width={size}
             height={size}
             alt={rest.alt}
