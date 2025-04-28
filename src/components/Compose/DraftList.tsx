@@ -10,7 +10,6 @@ import { Link } from '@/components/Link.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import type { SocialSource } from '@/constants/enum.js';
-import { base64ToFile } from '@/helpers/base64ToFile.js';
 import { readChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -23,6 +22,7 @@ import { ConfirmModalRef } from '@/modals/controls.js';
 import { type Draft, useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { createInitPostState, useComposeStateStore } from '@/store/useComposeStore.js';
+import { MediaSource } from '@/types/compose.js';
 
 interface DraftListItemProps {
     draft: Draft;
@@ -201,7 +201,10 @@ export const DraftList = memo(function DraftList() {
                     availableSources: availableProfiles.map((x) => x.source as SocialSource),
                     images: x.images.map((image) => ({
                         ...image,
-                        file: image.base64 ? base64ToFile(image.base64, image.id) : image.file,
+                        urls: {
+                            ...image.urls,
+                            [MediaSource.Local]: URL.createObjectURL(image.file),
+                        },
                     })),
                 })),
             });

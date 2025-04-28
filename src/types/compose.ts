@@ -25,8 +25,6 @@ export interface MediaObject {
     height?: number;
     duration?: number;
     thumb?: string;
-    // For draft
-    base64?: `data:${string}`;
 }
 
 export interface VideoMetadata {

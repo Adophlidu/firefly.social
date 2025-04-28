@@ -55,7 +55,8 @@ export const Avatar = memo(function Avatar({ src, size, className, ...rest }: Av
                 ? src?.includes(FIREFLY_STAMP_DEV_URL)
                 : src?.includes(FIREFLY_STAMP_URL),
         queryFn: async () => {
-            const response = await fetch(imageSrc, {
+            if (!src) return null;
+            const response = await fetch(src, {
                 method: 'GET',
                 redirect: 'manual',
                 mode: 'cors',
@@ -94,7 +95,7 @@ export const Avatar = memo(function Avatar({ src, size, className, ...rest }: Av
                 width: size,
                 ...rest.style,
             }}
-            src={imageSrc}
+            src={xFallbackAvatar ?? imageSrc}
             width={size}
             height={size}
             alt={rest.alt}
