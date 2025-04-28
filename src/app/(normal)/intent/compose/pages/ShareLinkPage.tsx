@@ -4,7 +4,7 @@ import { compact } from 'lodash-es';
 import { useEffect } from 'react';
 
 import { FireflyPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST, SITE_URL_OFFICIAL } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
 import { CHAR_TAG } from '@/helpers/chars.js';
 import { formatSearchProfile } from '@/helpers/formatSearchProfile.js';
@@ -87,7 +87,7 @@ async function openCompose(props: ShareLinkProps, onFinished: () => void) {
         source: expectedSources,
         chars: [
             `${props.text}\n`,
-            `${props.url || 'https://firefly.social/'} via `,
+            `${props.url || SITE_URL_OFFICIAL} via `,
             query
                 ? {
                       tag: CHAR_TAG.MENTION,

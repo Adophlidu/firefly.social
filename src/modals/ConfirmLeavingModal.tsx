@@ -1,6 +1,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
+import { SITE_URL_OFFICIAL } from '@/constants/index.js';
 import { isSameOriginUrl } from '@/helpers/isSameOriginUrl.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -8,7 +9,7 @@ import { ConfirmLeavingModalRef, ConfirmModalRef } from '@/modals/controls.js';
 
 const WHITELIST: Array<string | ((url: string) => boolean)> = [
     (url) => isSameOriginUrl(url, location.origin),
-    'https://firefly.social',
+    SITE_URL_OFFICIAL,
 ];
 
 export type ConfirmLeavingModalOpenProps = string;

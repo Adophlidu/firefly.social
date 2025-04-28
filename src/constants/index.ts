@@ -45,7 +45,8 @@ export const SITE_DESCRIPTION =
 export const SITE_HOSTNAME = 'firefly.social';
 export const CZ_ACTIVITY_HOSTNAME = 'cz.firefly.social';
 
-export const SITE_URL = env.external.NEXT_PUBLIC_SITE_URL ?? 'https://firefly.social';
+export const SITE_URL_OFFICIAL = 'https://firefly.social';
+export const SITE_URL = env.external.NEXT_PUBLIC_SITE_URL ?? SITE_URL_OFFICIAL;
 export const FARCASTER_REPLY_URL = 'https://relay.farcaster.xyz';
 export const WARPCAST_ROOT_URL = 'https://api.warpcast.com';
 export const WARPCAST_ROOT_URL_V2 = 'https://api.warpcast.com/v2';

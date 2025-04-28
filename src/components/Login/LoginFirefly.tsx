@@ -9,7 +9,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { AbortError, MalformedError, TimeoutError } from '@/constants/error.js';
-import { FIREFLY_SCAN_QR_CODE_COUNTDOWN } from '@/constants/index.js';
+import { FIREFLY_SCAN_QR_CODE_COUNTDOWN, SITE_URL_OFFICIAL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
@@ -110,7 +110,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
                         <Trans>
                             Scan the QR code with the{' '}
                             <Link
-                                href="https://firefly.social/about"
+                                href={`${SITE_URL_OFFICIAL}/about`}
                                 className="font-bold hover:underline"
                                 target="_blank"
                             >

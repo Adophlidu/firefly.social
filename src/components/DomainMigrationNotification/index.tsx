@@ -3,6 +3,7 @@ import { Trans } from '@lingui/react/macro';
 import React, { memo, useState } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
+import { SITE_URL_OFFICIAL } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 
 export const DomainMigrationNotification = memo(function DomainMigrationNotification() {
@@ -19,13 +20,13 @@ export const DomainMigrationNotification = memo(function DomainMigrationNotifica
             <p className="shrink-0 whitespace-nowrap text-sm font-normal text-main">
                 <Trans>
                     ✨ We&apos;ve moved to{' '}
-                    <a className="text-highlight" href="https://firefly.social">
+                    <a className="text-highlight" href={SITE_URL_OFFICIAL}>
                         firefly.social
                     </a>
                 </Trans>
             </p>
             <a
-                href="https://firefly.social"
+                href={SITE_URL_OFFICIAL}
                 className="mr-2 shrink-0 whitespace-nowrap rounded-full bg-main px-3 py-2 text-xs font-bold text-primaryBottom no-underline"
             >
                 <Trans>Take me there</Trans>

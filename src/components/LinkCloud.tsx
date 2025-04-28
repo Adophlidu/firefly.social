@@ -4,6 +4,7 @@ import { compact } from 'lodash-es';
 import { Link } from '@/components/Link.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { SITE_URL_OFFICIAL } from '@/constants/index.js';
 
 export function LinkCloud() {
     return (
@@ -24,7 +25,7 @@ export function LinkCloud() {
                 },
                 {
                     name: <Trans>Download App</Trans>,
-                    link: 'https://firefly.social/about',
+                    link: `${SITE_URL_OFFICIAL}/about`,
                 },
                 {
                     name: <Trans>Feedback</Trans>,
@@ -32,7 +33,7 @@ export function LinkCloud() {
                 },
                 {
                     name: <Trans>About</Trans>,
-                    link: 'https://firefly.social/about',
+                    link: `${SITE_URL_OFFICIAL}/about`,
                 },
             ]).map(({ name, link, self }) => (
                 <Link

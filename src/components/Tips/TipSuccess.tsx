@@ -7,6 +7,7 @@ import { useCallback, useMemo } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
 import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';
+import { SITE_URL_OFFICIAL } from '@/constants/index.js';
 import { CHAR_TAG } from '@/helpers/chars.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
@@ -63,7 +64,7 @@ export function TipSuccess() {
                     profiles,
                 },
                 ' ! Try it now on ',
-                ' https://firefly.social/ .',
+                ` ${SITE_URL_OFFICIAL} .`,
             ],
         });
     }, [amount, token, post, currentChannel, walletName, context, mentionHandle, profiles]);

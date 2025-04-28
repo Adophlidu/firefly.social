@@ -14,6 +14,7 @@ import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollow
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
 import { Source } from '@/constants/enum.js';
+import { SITE_URL_OFFICIAL } from '@/constants/index.js';
 import {
     BARMSTRONG_MENTION,
     BRIAN_FARCASTER_PROFILE,
@@ -50,7 +51,7 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
               'If you followed ',
               // cspell: disable-next-line
               BARMSTRONG_MENTION,
-              " on X or Farcaster before Oct 20, you're eligible to claim yours at https://firefly.social/event/hlbl .\n\n",
+              ` on X or Farcaster before Oct 20, you're eligible to claim yours at ${SITE_URL_OFFICIAL}/event/hlbl .\n\n`,
               '#Base #FireflySocial',
           ]
         : [
@@ -60,7 +61,7 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
               'If you followed ',
               // cspell: disable-next-line
               BARMSTRONG_MENTION,
-              ' on X or Farcaster before Oct 20, you’re eligible to claim yours at https://firefly.social/event/hlbl .\n\n',
+              ` on X or Farcaster before Oct 20, you’re eligible to claim yours at ${SITE_URL_OFFICIAL}/event/hlbl .\n\n`,
               '#Base #FireflySocial',
           ];
     const { address } = useContext(ActivityContext);

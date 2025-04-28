@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { FileMimeType } from '@/constants/enum.js';
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, SITE_URL_OFFICIAL } from '@/constants/index.js';
 
 export function createSiteMetadata(metadata?: Partial<Metadata>) {
     return {
@@ -46,7 +46,7 @@ export function createSiteMetadata(metadata?: Partial<Metadata>) {
             },
         ],
         alternates: {
-            canonical: 'https://firefly.social',
+            canonical: SITE_URL_OFFICIAL,
         },
         ...metadata,
     } satisfies Metadata;
