@@ -74,6 +74,9 @@ export const NEYNAR_URL = env.external.NEXT_PUBLIC_NEYNAR_URL;
 export const FIREFLY_NITTER_URL = env.external.NEXT_PUBLIC_FIREFLY_NITTER_URL;
 export const X3_PRO_API_URL = 'https://x3.pro/api/api'; // duplicate /api
 export const X3_PRO_AVATAR_URL = 'https://x3-media-pro-1.oss-cn-hongkong.aliyuncs.com';
+export const CHAINBASE_API_URL = 'https://chainbase-proxy.r2d2.to';
+export const ENS_ROOT_URL = 'https://ens-reverse-lookup.r2d2.to/ens/';
+export const THE_GRAPH_API_URL = 'https://api.thegraph.com/subgraphs/name/ensdomains/ens';
 
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
 export const ADVERTISEMENT_JSON_URL_DEV = 'https://media.firefly.land/advertisement/web-dev.json';

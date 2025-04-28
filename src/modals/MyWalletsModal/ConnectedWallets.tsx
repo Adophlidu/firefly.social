@@ -4,8 +4,7 @@ import { mainnet } from '@reown/appkit/networks';
 import { compact, uniqBy } from 'lodash-es';
 import { type FunctionComponent, memo, type SVGAttributes, useEffect, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import type { Address } from 'viem';
-import { type Connector, useConnections, useEnsName, useSwitchAccount } from 'wagmi';
+import { type Connector, useConnections, useSwitchAccount } from 'wagmi';
 
 import EvmIcon from '@/assets/evm.svg';
 import PlusIcon from '@/assets/plus.svg';
@@ -21,6 +20,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
+import { useEnsNameCached } from '@/hooks/useEnsNameCached.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
 import { restoreDisconnectMethod, rewriteDisconnectMethod } from '@/modals/MyWalletsModal/rewriteDisconnectMethod.js';
 import { switchNetwork } from '@/modals/MyWalletsModal/switchNetwork.js';
@@ -53,10 +53,7 @@ function ConnectedItem({
     ...rest
 }: ConnectedItemProps) {
     const { switchAccountAsync } = useSwitchAccount();
-    const { data: ensName } = useEnsName({
-        address: address as Address,
-        query: { enabled: namespace === 'eip155' },
-    });
+    const { data: ensName } = useEnsNameCached(address, undefined, namespace === 'eip155');
 
     const Icon = IconMap[namespace] || WalletIcon;
 

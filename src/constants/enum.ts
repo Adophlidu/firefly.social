@@ -567,3 +567,7 @@ export enum SiteCookies {
     FireflyRootAPI = 'firefly_root_api',
     FireflyRootClass = 'firefly_root_class',
 }
+
+export enum NameServiceID {
+    ENS = 'ENS',
+}

@@ -2,14 +2,19 @@ import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 import { compact } from 'lodash-es';
 import { memo } from 'react';
+import { useEffectOnce } from 'react-use';
+import { mainnet } from 'viem/chains';
+import { useConnections } from 'wagmi';
 
 import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { ClickOrigin, NetworkPluginID, NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
+import { fetchEnsName } from '@/hooks/useEnsNameCached.js';
 import { MyWalletsModalRef, WalletConnectModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
@@ -28,11 +33,26 @@ const IconMap: Record<NetworkType, string | undefined> = {
 export const WalletConnectButton = memo<WalletConnectButtonProps>(function WalletConnectButton({ className, ...rest }) {
     const { ethereum, solana } = useWalletAccountAll();
     const { sidebarOpen, updateSidebarOpen } = useNavigatorState();
+    const connections = useConnections();
 
     const connectedNetworks = compact([
         ethereum.isConnected ? NetworkType.Ethereum : null,
         solana.isConnected ? NetworkType.Solana : null,
     ]);
+
+    useEffectOnce(() => {
+        if (!connections.length) return;
+
+        connections.forEach((connection) => {
+            queryClient.prefetchQuery({
+                queryKey: ['ensName', connection.accounts[0], mainnet.id],
+                queryFn: () =>
+                    fetchEnsName({
+                        address: connection.accounts[0],
+                    }),
+            });
+        });
+    });
 
     return (
         <ClickableButton
