@@ -2,6 +2,7 @@ import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { type PropsWithChildren } from 'react';
 
+import { NoSSR } from '@/components/NoSSR.js';
 import { NotificationSettings } from '@/components/Notification/NotificationSettings.js';
 import { NotificationTabs } from '@/components/Notification/NotificationTabs.js';
 import type { NotificationSourceInURL } from '@/constants/enum.js';
@@ -38,7 +39,7 @@ export default async function Layout(props: Props) {
                     <NotificationSettings source={resolveNotificationSource(source)} />
                 </div>
             </div>
-            {props.children}
+            <NoSSR>{props.children}</NoSSR>
         </div>
     );
 }

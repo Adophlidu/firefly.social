@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
@@ -19,14 +19,15 @@ export const VirtualListFooter = memo<VirtualListFooterProps>(function VirtualLi
      * Similar to the problem mentioned above, sometimes when loading has already appeared within the window,
      * it does not yet request for the next page.
      */
-    const { observe } = useInView({
+    const { observe, inView } = useInView({
         rootMargin: '0px 0px',
-        onChange: async ({ inView }) => {
-            if (inView && context?.hasNextPage && !context.isFetching) {
-                context.fetchNextPage?.();
-            }
-        },
     });
+
+    useEffect(() => {
+        if (inView && context?.hasNextPage && !context.isFetching) {
+            context.fetchNextPage?.();
+        }
+    }, [context?.isFetching, context?.hasNextPage, inView]);
 
     if (!context?.hasNextPage) {
         if (!context?.isScrollable) return null;

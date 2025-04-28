@@ -85,10 +85,10 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                 </div>
                 <div className="min-w-0 flex-1 overflow-hidden">
                     <div className="mb-2 flex items-center justify-between">
-                        <div className="flex items-center gap-x-1 text-medium text-second">
+                        <div className="flex max-w-full flex-1 items-center gap-x-1 text-medium text-second">
                             <Link
                                 href={profileUrl}
-                                className="min-w-0 truncate font-bold text-lightMain"
+                                className="min-w-0 max-w-full truncate font-bold text-lightMain"
                                 onClick={stopPropagation}
                             >
                                 {activity.displayInfo.ensHandle ? (

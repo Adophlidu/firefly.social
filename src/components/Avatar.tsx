@@ -6,6 +6,8 @@ import { memo, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 import urlcat from 'urlcat';
 
+import { STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { FIREFLY_STAMP_DEV_URL, FIREFLY_STAMP_URL } from '@/constants/index.js';
 import { Image as NextImage } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -48,7 +50,10 @@ export const Avatar = memo(function Avatar({ src, size, className, ...rest }: Av
 
     const { data: xFallbackAvatar } = useQuery({
         queryKey: ['avatar', src],
-        enabled: src?.includes(FIREFLY_STAMP_URL) || src?.includes(FIREFLY_STAMP_DEV_URL),
+        enabled:
+            env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled
+                ? src?.includes(FIREFLY_STAMP_DEV_URL)
+                : src?.includes(FIREFLY_STAMP_URL),
         queryFn: async () => {
             const response = await fetch(imageSrc, {
                 method: 'GET',
@@ -71,7 +76,7 @@ export const Avatar = memo(function Avatar({ src, size, className, ...rest }: Av
         },
     });
 
-    const imageSrc = hasError ? fallbackUrl : (isNormalUrl ? (xFallbackAvatar ?? url) : src) || src || fallbackUrl;
+    const imageSrc = hasError ? fallbackUrl : xFallbackAvatar || (isNormalUrl ? url : src) || src || fallbackUrl;
 
     useUpdateEffect(() => {
         setHasError(false);
