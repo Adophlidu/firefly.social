@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 import { NODE_ENV, STATUS, VERCEL_NEV } from '@/constants/enum.js';
-import { SITE_URL_OFFICIAL } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 
 const InternalEnvSchema = z.object({
@@ -47,7 +46,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_VERCEL_ENV: z.nativeEnum(VERCEL_NEV).default(VERCEL_NEV.Development),
 
     // urls
-    NEXT_PUBLIC_SITE_URL: z.string().default(SITE_URL_OFFICIAL),
+    NEXT_PUBLIC_SITE_URL: z.string().default('https://firefly.social'),
     NEXT_PUBLIC_FARCASTER_OPENRANK_URL: z.string().default('https://graph.cast.k3l.io'),
     NEXT_PUBLIC_LENS_OPENRANK_URL: z.string().default('https://lens-api.k3l.io'),
     NEXT_PUBLIC_SOLANA_RPC_URL: z.string().default('https://api.mainnet-beta.solana.com'),
