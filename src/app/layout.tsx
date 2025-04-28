@@ -10,6 +10,7 @@ import { Inter } from 'next/font/google';
 import { LayoutBody } from '@/app/layout-body.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { SiteCookies } from '@/constants/enum.js';
+import { IS_PRODUCTION } from '@/constants/index.js';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getCookie } from '@/helpers/getCookies.js';
@@ -43,6 +44,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 <GoogleAnalytics gaId="G-61NFDTK6LT" />
                 <meta name="theme-color" content="#ffffff" />
                 <meta name="googlebot" content="notranslate" />
+                {IS_PRODUCTION ? null : <meta name="robots" content="noindex, nofollow" />}
             </head>
             <body className={`${inter.variable} notranslate font-inter`}>
                 <ErrorBoundary>
