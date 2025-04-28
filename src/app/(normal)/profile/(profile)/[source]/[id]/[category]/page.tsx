@@ -5,6 +5,7 @@ import { Suspense, use, useMemo } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
+import { ProfileContext } from '@/components/Profile/ProfileContext.js';
 import { ProfilePageTimeline } from '@/components/Profile/ProfilePageTimeline.js';
 import { type ProfileCategory, ProfileSourceInURL, Source } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation.js';
@@ -20,6 +21,7 @@ interface Props extends NextPageProps<{ id: string; category: ProfileCategory; s
 export default function Page(props: Props) {
     const params = use(props.params);
     const source = resolveProfileSourceFromUrl(params.source);
+    const { identity: cachedIdentity } = use(ProfileContext);
     if (!source || !isProfilePageSource(source)) notFound();
 
     // Lens used handle in profile page, while timeline can only be queried using profileId, it is necessary to convert handle to profileId.
@@ -33,8 +35,8 @@ export default function Page(props: Props) {
     });
 
     const identity = useMemo(
-        () => resolveSpecialProfileIdentity({ id: profile?.profileId ?? params.id, source }),
-        [profile?.profileId, params.id, source],
+        () => resolveSpecialProfileIdentity({ id: profile?.profileId ?? cachedIdentity?.id ?? params.id, source }),
+        [profile?.profileId, params.id, source, cachedIdentity?.id],
     );
 
     const content = (
