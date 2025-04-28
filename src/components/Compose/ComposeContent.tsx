@@ -42,7 +42,7 @@ export function ComposeContent(props: ComposeContentProps) {
             {poll ? <PollCreatorCard post={props.post} readonly={cursor !== props.post.id} /> : null}
 
             {/* image */}
-            {images.length > 0 ? <ComposeImages className="flex-grow" images={images} /> : null}
+            {images.length > 0 ? <ComposeImages className="mt-2 flex-grow" images={images} /> : null}
 
             {/* video */}
             {props.post.video ? (

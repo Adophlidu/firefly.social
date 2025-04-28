@@ -10,6 +10,7 @@ import { Link } from '@/components/Link.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import type { SocialSource } from '@/constants/enum.js';
+import { base64ToFile } from '@/helpers/base64ToFile.js';
 import { readChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -198,6 +199,10 @@ export const DraftList = memo(function DraftList() {
                           }
                         : {}),
                     availableSources: availableProfiles.map((x) => x.source as SocialSource),
+                    images: x.images.map((image) => ({
+                        ...image,
+                        file: image.base64 ? base64ToFile(image.base64, image.id) : image.file,
+                    })),
                 })),
             });
             const post = draft.posts.find((x) => x.id === draft.cursor);

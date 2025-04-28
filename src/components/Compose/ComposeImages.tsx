@@ -79,14 +79,14 @@ export const ComposeImages = memo(function ComposeImages({ images, readonly = fa
                         key={index}
                         className={classNames('relative flex items-center justify-center', getClass(showSize).aspect, {
                             'max-h-[288px]': size === 2 || showSize === 4,
-                            'row-span-2 max-h-[284px]': size === 3 && index === 2,
-                            'max-h-[138px]': size === 3 && index !== 2,
+                            'row-span-2 max-h-[284px]': size === 3 && index === 1,
+                            'max-h-[138px]': size === 3 && index !== 1,
                             relative: isLast && moreImageCount > 0,
                         })}
                     >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                            className="h-full shrink-0 cursor-pointer rounded-lg object-cover"
+                            className="h-full w-full shrink-0 cursor-pointer rounded-lg object-cover"
                             loading="lazy"
                             src={formatImageUrl(uri, IMAGE_KIT_ATTACHMENT)}
                             alt={formatImageUrl(uri, IMAGE_KIT_ATTACHMENT)}

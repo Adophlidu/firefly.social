@@ -25,6 +25,7 @@ import { Modal } from '@/components/Modal.js';
 import { FileMimeType, type SocialSource } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { EMPTY_LIST, RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { blobToBase64 } from '@/helpers/blobToBase64.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
@@ -38,7 +39,7 @@ import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/helpers/rpPayl
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile, useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
-import { useIsSmall } from '@/hooks/useMediaQuery.js';
+import { useIsMedium, useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -90,6 +91,7 @@ type Props = {
 };
 
 export function ComposeModalUI({ ref }: Props) {
+    const isMedium = useIsMedium();
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
 
@@ -142,7 +144,7 @@ export function ComposeModalUI({ ref }: Props) {
 
             controller.current.renew();
             // https://github.com/DimensionDev/firefly.social/pull/1644
-            await delay(1000);
+            if (!isMedium) await delay(1000);
 
             if (!controller.current.signal?.aborted) editor.update(() => $getRoot().clear());
         },
@@ -192,12 +194,30 @@ export function ComposeModalUI({ ref }: Props) {
             });
             if (confirmed === null) return CloseAction.None;
 
+            const draftPosts = await Promise.all(
+                posts.map(async (x) => {
+                    const images = await Promise.all(
+                        x.images.map(async (image) => {
+                            const base64 = await blobToBase64(image.file);
+                            return {
+                                ...image,
+                                base64,
+                            };
+                        }),
+                    );
+                    return {
+                        ...x,
+                        images,
+                    };
+                }),
+            );
+
             if (confirmed) {
                 const draft = {
                     draftId: currentDraftId || uuid(),
                     createdAt: new Date(),
                     cursor,
-                    posts: hasError ? posts.map((x) => ({ ...x, availableSources: sources })) : posts,
+                    posts: hasError ? draftPosts.map((x) => ({ ...x, availableSources: sources })) : draftPosts,
                     type,
                     availableProfiles: compact(values(profilesAll)).filter((x) => sources.includes(x.source)),
                     scheduleTime,
