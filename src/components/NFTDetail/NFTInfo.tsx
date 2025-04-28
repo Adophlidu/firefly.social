@@ -3,7 +3,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useMemo } from 'react';
 import type { Hex } from 'viem';
 import { useEnsName } from 'wagmi';
 
@@ -92,13 +91,8 @@ export function NFTInfo(props: NFTInfoProps) {
         },
     });
 
-    const collectionUrl = useMemo(() => {
-        return contractAddress ? resolveNFTUrl(chainId, contractAddress) : '';
-    }, [contractAddress, chainId]);
-
-    const nftUrl = useMemo(() => {
-        return contractAddress ? resolveNFTUrl(chainId, contractAddress, tokenId || '0') : '';
-    }, [contractAddress, chainId, tokenId]);
+    const collectionUrl = contractAddress ? resolveNFTUrl(chainId, contractAddress) : '';
+    const nftUrl = contractAddress ? resolveNFTUrl(chainId, contractAddress, tokenId || '0') : '';
 
     const poapTraits = usePoapTraits(traits);
 

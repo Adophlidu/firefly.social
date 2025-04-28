@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import { useMemo } from 'react';
 
 import HomeSelectedIcon from '@/assets/home.selected.svg';
 import HomeIcon from '@/assets/home.svg';
@@ -24,10 +23,7 @@ export function HomeEntry({ collapsed }: HomeEntryProps) {
     const pathname = usePathname();
     const isLogin = useIsLoginDiscoverSource();
 
-    const homeUrl = useMemo(
-        () => (isLogin ? resolveFollowingUrl(DEFAULT_SOCIAL_SOURCE) : resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE)),
-        [isLogin],
-    );
+    const homeUrl = isLogin ? resolveFollowingUrl(DEFAULT_SOCIAL_SOURCE) : resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE);
 
     const isSelected =
         pathname === PageRoute.Home || !!parseDiscoverPageUrl(pathname) || !!parseFollowingPageUrl(pathname);

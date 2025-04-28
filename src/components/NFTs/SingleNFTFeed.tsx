@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import type { Address } from 'viem';
 
 import { NFTsActivityCellAction } from '@/components/ActivityCell/NFTs/NFTsActivityCellAction.js';
@@ -41,10 +41,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const router = useRouter();
     const tokenId = feed.detail?.token_id!;
-    const nftUrl = useMemo(() => {
-        if (!feed.contract_address) return null;
-        return resolveNFTUrl(chainId, feed.contract_address, tokenId);
-    }, [chainId, feed, tokenId]);
+    const nftUrl = feed.contract_address ? resolveNFTUrl(chainId, feed.contract_address, tokenId) : null;
 
     const ownerAddress = feed.owner as Address;
     const displayInfo = feed.displayInfo;

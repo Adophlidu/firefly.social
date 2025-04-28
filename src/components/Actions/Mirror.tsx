@@ -44,9 +44,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
     const isLogin = !!profile?.profileId;
     const mirrored = !!post.hasMirrored;
 
-    const canUndoMirror = useMemo(() => {
-        return post.source === Source.Lens && mirrored && post.publicationId !== post.postId;
-    }, [post.source, post.publicationId, post.postId, mirrored]);
+    const canUndoMirror = post.source === Source.Lens && mirrored && post.publicationId !== post.postId;
 
     const content = useMemo(() => {
         if (shares === 0) {

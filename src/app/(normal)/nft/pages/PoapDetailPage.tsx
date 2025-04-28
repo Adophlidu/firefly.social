@@ -21,7 +21,6 @@ export function PoapDetailPage({ tokenId }: { tokenId: string }) {
             return FireflyEndpointProvider.getPOAP(tokenId);
         },
     });
-    console.log('poap', { poap, tokenId });
     const traits: NonFungibleTokenTrait[] = useMemo(() => {
         if (!poap) return EMPTY_LIST;
         return [
