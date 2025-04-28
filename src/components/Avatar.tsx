@@ -3,8 +3,10 @@
 import { useQuery } from '@tanstack/react-query';
 import type { ImageProps as NextImageProps } from 'next/image.js';
 import { memo, useState } from 'react';
+import { useUpdateEffect } from 'react-use';
 import urlcat from 'urlcat';
 
+import { FIREFLY_STAMP_DEV_URL, FIREFLY_STAMP_URL } from '@/constants/index.js';
 import { Image as NextImage } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -43,11 +45,10 @@ export const Avatar = memo(function Avatar({ src, size, className, ...rest }: Av
     const fallbackUrl = rest.fallbackUrl ?? defaultFallbackUrl;
 
     const isNormalUrl = !!src && !src.startsWith('data:image/') && !isDomainOrSubdomainOf(src, 'warpcast.com');
-    const imageSrc = hasError ? fallbackUrl : (isNormalUrl ? url : src) || src || fallbackUrl;
 
     const { data: xFallbackAvatar } = useQuery({
-        queryKey: ['avatar', imageSrc],
-        enabled: imageSrc.includes('stamp.firefly.land'),
+        queryKey: ['avatar', src],
+        enabled: src?.includes(FIREFLY_STAMP_URL) || src?.includes(FIREFLY_STAMP_DEV_URL),
         queryFn: async () => {
             const response = await fetch(imageSrc, {
                 method: 'GET',
@@ -70,6 +71,12 @@ export const Avatar = memo(function Avatar({ src, size, className, ...rest }: Av
         },
     });
 
+    const imageSrc = hasError ? fallbackUrl : (isNormalUrl ? (xFallbackAvatar ?? url) : src) || src || fallbackUrl;
+
+    useUpdateEffect(() => {
+        setHasError(false);
+    }, [xFallbackAvatar]);
+
     return (
         <NextImage
             {...rest}
@@ -82,7 +89,7 @@ export const Avatar = memo(function Avatar({ src, size, className, ...rest }: Av
                 width: size,
                 ...rest.style,
             }}
-            src={xFallbackAvatar ?? imageSrc}
+            src={imageSrc}
             width={size}
             height={size}
             alt={rest.alt}
