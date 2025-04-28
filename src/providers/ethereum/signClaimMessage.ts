@@ -1,4 +1,4 @@
-import type { Hex } from 'viem';
+import { type Hex, hexToBytes } from 'viem';
 import { signMessage } from 'viem/accounts';
 
 import { getCurrentClaimProfile } from '@/providers/ethereum/getCurrentClaimProfile.js';
@@ -16,7 +16,7 @@ export async function signClaimMessage(context: ClaimRedPacketContext) {
     if (version <= 3) return password as string;
     if (password)
         return signMessage({
-            message: account,
+            message: { raw: hexToBytes(account as Hex) },
             privateKey: password as Hex,
         });
 
