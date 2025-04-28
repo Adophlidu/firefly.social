@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-04-27 12:01\n"
+"PO-Revision-Date: 2025-04-28 00:06\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -94,7 +94,7 @@ msgstr "图片格式 X 不支持。上传失败。"
 
 #. placeholder {0}: profile.handle
 msgid "Report @{0}"
-msgstr "报告 @{0}"
+msgstr "举报 @{0}"
 
 #. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
@@ -1492,7 +1492,7 @@ msgid "No function found that retrieves ownership"
 msgstr "没有找到检索所有权的功能"
 
 msgid "Liked this swap."
-msgstr "喜欢了这笔交易。"
+msgstr "点赞了这笔交易。"
 
 msgid "Send"
 msgstr "发送"
@@ -2747,7 +2747,7 @@ msgstr "明亮模式"
 
 #. placeholder {0}: post.source
 msgid "Failed to submit report on {0}."
-msgstr "在 {0} 上提交报告失败。"
+msgstr "在 {0} 上举报失败。"
 
 msgid "Insufficient funds"
 msgstr "金额不足"
@@ -3017,7 +3017,7 @@ msgid "The frame server failed to process the request."
 msgstr "Frame 服务器未能处理请求"
 
 msgid "Report"
-msgstr "报告"
+msgstr "举报"
 
 msgid "Cancel Repost"
 msgstr "取消转帖"
@@ -3292,7 +3292,7 @@ msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "将在 <0>{0} <1>{1}</1></0> 发送"
 
 msgid "Reported"
-msgstr "已报告"
+msgstr "已举报"
 
 msgid "Show more channels"
 msgstr "展示更多频道"
