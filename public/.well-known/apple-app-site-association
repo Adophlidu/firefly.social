@@ -14,6 +14,7 @@
                     "/article/*",
                     "/login/desktop/*",
                     "/event/*",
+                    "/wsegue/*",
                     "/*"
                 ],
                 "components": [
@@ -47,8 +48,8 @@
                         "comment": "Matches any URL with a path that starts with /event/."
                     },
                     {
-                        "/": "/wsegue",
-                        "comment": "Matches any URL with a path that equals /wsegue."
+                        "/": "/wsegue/*",
+                        "comment": "Matches any URL with a path that starts with /wsegue/."
                     }
                 ]
             }
