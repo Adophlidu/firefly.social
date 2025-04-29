@@ -38,10 +38,10 @@ export const PostBodyReplyContent = memo<PostBodyReplyContentProps>(function Pos
         <div>
             <div
                 ref={ref}
-                className={classNames('single-post line-clamp-3 w-full self-stretch break-words text-base text-main', {
+                className={classNames('single-post line-clamp-4 w-full self-stretch break-words text-base text-main', {
                     'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
                 })}
-                style={{ WebkitLineClamp: multiple * 3 }}
+                style={{ WebkitLineClamp: multiple * 4 }}
             >
                 <NakedMarkup post={post} components={overrideComponents}>
                     {liteRawContent}

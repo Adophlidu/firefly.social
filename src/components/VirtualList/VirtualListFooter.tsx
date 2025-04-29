@@ -23,11 +23,15 @@ export const VirtualListFooter = memo<VirtualListFooterProps>(function VirtualLi
         rootMargin: '0px 0px',
     });
 
+    /**
+     * Sometimes the first page data may not be enough to fill the entire screen, causing the loading icon to always be in the inView state.
+     * This prevents correctly fetching the next page, so we use effect to trigger fetching the next page.
+     */
     useEffect(() => {
         if (inView && context?.hasNextPage && !context.isFetching) {
             context.fetchNextPage?.();
         }
-    }, [context?.isFetching, context?.hasNextPage, inView]);
+    }, [context?.isFetching, context?.hasNextPage, inView, context?.fetchNextPage, context]);
 
     if (!context?.hasNextPage) {
         if (!context?.isScrollable) return null;
