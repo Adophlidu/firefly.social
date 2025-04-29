@@ -20,6 +20,7 @@ https://firefly.social/event/frensgiving
 https://firefly.social/event/elex24
 https://firefly.social/event/hlbl
 https://firefly.social/event/cz_welcome_back_airdrop
+https://firefly.social/about
+https://firefly.social/particle-recovery
 https://firefly.social/settings/general
 https://firefly.social/settings/more
-https://firefly.social/about
