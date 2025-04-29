@@ -21,12 +21,12 @@ export const ShareAction = memo(function ShareAction({ link }: ShareActionProps)
         <MoreActionMenu
             button={
                 <Tooltip content={<Trans>Share</Trans>} placement="top">
-                    <motion.button
+                    <motion.span
                         whileTap={{ scale: 0.9 }}
                         className="inline-flex size-7 items-center justify-center rounded-full text-second hover:bg-link/[0.2] hover:text-link"
                     >
                         <ShareIcon width={17} height={16} />
-                    </motion.button>
+                    </motion.span>
                 </Tooltip>
             }
         >

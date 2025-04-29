@@ -41,7 +41,7 @@ export function ExclusiveEvents() {
                     muted
                     loop={isHovering}
                     playsInline
-                    webkit-playsinline
+                    webkit-playsinline="true"
                     width={20}
                     height={20}
                     disablePictureInPicture

@@ -260,8 +260,8 @@ dependencies:
     specifier: ^0.2.45
     version: 0.2.45(react@19.0.0)
   framer-motion:
-    specifier: ^11.18.2
-    version: 11.18.2(react-dom@19.0.0)(react@19.0.0)
+    specifier: ^12.9.2
+    version: 12.9.2(react-dom@19.0.0)(react@19.0.0)
   fuse.js:
     specifier: ^7.1.0
     version: 7.1.0
@@ -14244,8 +14244,8 @@ packages:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
     dev: true
 
-  /framer-motion@11.18.2(react-dom@19.0.0)(react@19.0.0):
-    resolution: {integrity: sha512-5F5Och7wrvtLVElIpclDT0CBzMVg3dL22B64aZwHtsIY8RB4mXICLrkajK4G9R+ieSAGcgrLeae2SeUTg2pr6w==}
+  /framer-motion@12.9.2(react-dom@19.0.0)(react@19.0.0):
+    resolution: {integrity: sha512-R0O3Jdqbfwywpm45obP+8sTgafmdEcUoShQTAV+rB5pi+Y1Px/FYL5qLLRe5tPtBdN1J4jos7M+xN2VV2oEAbQ==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: 19.0.0
@@ -14258,8 +14258,8 @@ packages:
       react-dom:
         optional: true
     dependencies:
-      motion-dom: 11.18.1
-      motion-utils: 11.18.1
+      motion-dom: 12.9.1
+      motion-utils: 12.8.3
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       tslib: 2.8.1
@@ -16282,14 +16282,14 @@ packages:
   /moo@0.5.2:
     resolution: {integrity: sha512-iSAJLHYKnX41mKcJKjqvnAN9sf0LMDTXDEvFv+ffuRR9a1MIuXLjMNL6EsnDHSkKLTWNqQQ5uo61P4EbU4NU+Q==}
 
-  /motion-dom@11.18.1:
-    resolution: {integrity: sha512-g76KvA001z+atjfxczdRtw/RXOM3OMSdd1f4DL77qCTF/+avrRJiawSG4yDibEQ215sr9kpinSlX2pCTJ9zbhw==}
+  /motion-dom@12.9.1:
+    resolution: {integrity: sha512-xqXEwRLDYDTzOgXobSoWtytRtGlf7zdkRfFbrrdP7eojaGQZ5Go4OOKtgnx7uF8sAkfr1ZjMvbCJSCIT2h6fkQ==}
     dependencies:
-      motion-utils: 11.18.1
+      motion-utils: 12.8.3
     dev: false
 
-  /motion-utils@11.18.1:
-    resolution: {integrity: sha512-49Kt+HKjtbJKLtgO/LKj9Ld+6vw9BjH5d9sc40R/kVyH8GLAXgT42M2NnuPcJNuA3s9ZfZBUcwIgpmZWGEE+hA==}
+  /motion-utils@12.8.3:
+    resolution: {integrity: sha512-GYVauZEbca8/zOhEiYOY9/uJeedYQld6co/GJFKOy//0c/4lDqk0zB549sBYqqV2iMuX+uHrY1E5zd8A2L+1Lw==}
     dev: false
 
   /motion@10.16.2:
@@ -21232,7 +21232,7 @@ time:
   /eslint@9.24.0: '2025-04-04T19:20:41.757Z'
   /firebase@11.6.0: '2025-03-31T19:03:27.852Z'
   /foxact@0.2.45: '2025-03-19T10:32:32.395Z'
-  /framer-motion@11.18.2: '2025-01-20T11:47:52.796Z'
+  /framer-motion@12.9.2: '2025-04-25T14:02:32.239Z'
   /fuse.js@7.1.0: '2025-02-03T00:43:03.870Z'
   /graphql-request@6.1.0: '2023-05-23T16:56:02.613Z'
   /graphql@16.10.0: '2024-12-15T10:35:18.376Z'

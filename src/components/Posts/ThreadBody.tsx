@@ -16,7 +16,6 @@ import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
-import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -46,7 +45,6 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
     const link = getPostUrl(post);
     const muted = useIsProfileMuted(post.author.source, post.author.profileId);
 
-    const isSmall = useIsSmall('max');
     const isDetailPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
     const showAction = !post.isHidden && !muted;
 

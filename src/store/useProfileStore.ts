@@ -332,7 +332,6 @@ const useBskyStateBase = createState(
                 const did = state.currentProfile?.profileId;
                 const currentProfileSession = state.currentProfileSession;
                 if (!did || !currentProfileSession) {
-                    console.warn('[bsky store] clean the local store because did or session is missing');
                     state.clear();
                     return;
                 }
@@ -452,7 +451,6 @@ const useFireflyStateBase = createState(
                         session,
                     });
                 } else {
-                    console.warn('[firefly store] clean the local store because no session found.');
                     state.clear();
                 }
             } catch (error) {

@@ -26,7 +26,6 @@ async function runResumeTask(
 
         const { data: oldCredentials } = getLensCredentialsFromStorage() || {};
         if (!oldCredentials?.accessToken || !oldCredentials?.refreshToken) {
-            console.warn('[resume lens] clean the lens store because no credentials found in storage');
             onResumeFailure();
             return;
         }

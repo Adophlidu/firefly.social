@@ -35,9 +35,9 @@ export function LinkCloud() {
                     name: <Trans>About</Trans>,
                     link: `${SITE_URL_OFFICIAL}/about`,
                 },
-            ]).map(({ name, link, self }) => (
+            ]).map(({ name, link, self }, index) => (
                 <Link
-                    href={link}
+                    href={`${link}${index}`}
                     key={link}
                     className="font-medium outline-offset-4 hover:underline"
                     target={self ? '_self' : '_blank'}

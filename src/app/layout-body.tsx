@@ -1,6 +1,7 @@
 import { DomainMigrationNotification } from '@/components/DomainMigrationNotification/index.js';
 import { IfHostname } from '@/components/IfHostname.js';
 import { IfPathname } from '@/components/IfPathname.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
@@ -60,7 +61,9 @@ export function LayoutBody({ children }: { children: React.ReactNode }) {
                     </div>
 
                     <Modals />
-                    <DomainMigrationNotification />
+                    <NoSSR>
+                        <DomainMigrationNotification />
+                    </NoSSR>
                     <Script>{REMOVE_LOADING_SCRIPT}</Script>
                 </RouteProgressBar>
             </Providers>

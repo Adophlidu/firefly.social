@@ -21,6 +21,13 @@ interface Props extends React.HTMLProps<'div'> {
 }
 
 export function AdvertisementSwiper({ items }: Props) {
+    if (items.length === 0) return null;
+    if (items.length === 1)
+        return (
+            <div className="ff-advertisement">
+                <Advertisement ad={items[0]} />
+            </div>
+        );
     return (
         <Swiper
             className="ff-advertisement"
@@ -32,40 +39,32 @@ export function AdvertisementSwiper({ items }: Props) {
         >
             {items.map((ad, index) => (
                 <SwiperSlide key={index} className="w-96">
-                    {ad.type === AdvertisementType.Link && ad.link ? (
-                        <Link href={ad.link} target="_blank">
-                            <Image
-                                className="w-full cursor-pointer rounded-xl"
-                                alt={ad.link}
-                                src={ad.image}
-                                width={346}
-                                height={130}
-                            />
-                        </Link>
-                    ) : (
-                        <ClickableArea
-                            onClick={() => {
-                                switch (ad.function) {
-                                    case AdFunctionType.OpenScan:
-                                        LoginModalRef.open();
-                                        break;
-                                    default:
-                                        safeUnreachable(ad.function);
-                                        break;
-                                }
-                            }}
-                        >
-                            <Image
-                                className="w-full cursor-pointer"
-                                alt={ad.function}
-                                src={ad.image}
-                                width={346}
-                                height={130}
-                            />
-                        </ClickableArea>
-                    )}
+                    <Advertisement ad={ad} />
                 </SwiperSlide>
             ))}
         </Swiper>
+    );
+}
+
+function Advertisement({ ad }: { ad: Advertisement }) {
+    return ad.type === AdvertisementType.Link && ad.link ? (
+        <Link href={ad.link} target="_blank">
+            <Image className="w-full cursor-pointer rounded-xl" alt={ad.link} src={ad.image} width={346} height={130} />
+        </Link>
+    ) : (
+        <ClickableArea
+            onClick={() => {
+                switch (ad.function) {
+                    case AdFunctionType.OpenScan:
+                        LoginModalRef.open();
+                        break;
+                    default:
+                        safeUnreachable(ad.function);
+                        break;
+                }
+            }}
+        >
+            <Image className="w-full cursor-pointer" alt={ad.function} src={ad.image} width={346} height={130} />
+        </ClickableArea>
     );
 }
