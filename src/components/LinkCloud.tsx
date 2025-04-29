@@ -37,8 +37,8 @@ export function LinkCloud() {
                 },
             ]).map(({ name, link, self }, index) => (
                 <Link
-                    href={`${link}${index}`}
-                    key={link}
+                    key={`${link}${index}`}
+                    href={link}
                     className="font-medium outline-offset-4 hover:underline"
                     target={self ? '_self' : '_blank'}
                 >
