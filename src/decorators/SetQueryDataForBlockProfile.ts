@@ -1,14 +1,16 @@
 import { type Draft, produce } from 'immer';
+import { first, uniqBy } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { toProfileId } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQueryData.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
-import { type Profile, type Provider } from '@/providers/types/SocialMedia.js';
+import { type Notification, NotificationType, type Profile, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
 interface PagesData {
@@ -51,6 +53,48 @@ function setBlockStatus(source: SocialSource, profileId: string, status: boolean
         });
     });
 
+    queryClient.setQueriesData<{ pages: Array<{ data: Notification[] }> }>({ queryKey: ['notifications'] }, (old) => {
+        if (!old) return old;
+        return produce(old, (draft) => {
+            for (const page of draft.pages) {
+                if (!page) continue;
+                page.data = page.data.filter((notification) => {
+                    switch (notification.type) {
+                        case NotificationType.Comment:
+                            return notification.comment?.author.profileId !== profileId;
+                        case NotificationType.Quote:
+                            const post = [Source.Bsky, Source.Farcaster].includes(notification.source)
+                                ? notification.quote
+                                : notification.post;
+                            return post.author.profileId !== profileId;
+                        case NotificationType.Mention:
+                        case NotificationType.Act:
+                            if (!notification.post) return true;
+                            return notification.post.author;
+                        case NotificationType.Follow:
+                            if (notification.followers.length > 1) return true;
+                            const follower = first(notification.followers);
+                            if (!follower) return true;
+                            return follower.profileId !== profileId;
+                        case NotificationType.Mirror:
+                            const mirrors = uniqBy(notification.mirrors, toProfileId);
+                            if (mirrors.length > 1) return true;
+                            const reporter = first(mirrors);
+                            if (!reporter) return true;
+                            return reporter.profileId !== profileId;
+                        case NotificationType.Reaction:
+                            if (notification.reactors.length > 1) return true;
+                            const reactor = first(notification.reactors);
+                            if (!reactor) return true;
+                            return reactor.profileId !== profileId;
+                        default:
+                            return true;
+                    }
+                });
+            }
+        });
+    });
+
     patchNotificationQueryDataOnAuthor(source, (profile) => {
         if (profile.profileId === profileId) {
             profile.viewerContext = {
@@ -65,7 +109,7 @@ function setBlockStatus(source: SocialSource, profileId: string, status: boolean
     queryClient.setQueriesData<PagesData>({ queryKey: ['profiles', source, 'muted-list'] }, profilesPatcher);
     queryClient.setQueriesData<PagesData>({ queryKey: ['suggested-follows', source], type: 'active' }, profilesPatcher);
     queryClient.refetchQueries({ queryKey: ['suggested-follows-lite'] });
-    queryClient.refetchQueries({ queryKey: ['notifications'] });
+
     if (!status) queryClient.setQueryData(['profile', 'mute-all', source, profileId], status);
 }
 

@@ -690,6 +690,7 @@ export class FireflySocialMedia implements Provider {
                         notificationId,
                         type: NotificationType.Follow,
                         followers: users,
+                        timestamp,
                     };
                 case FireflyNotificationType.BeMentioned:
                     return {

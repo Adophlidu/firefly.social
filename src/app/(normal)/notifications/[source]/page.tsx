@@ -50,7 +50,9 @@ export default function Page(props: Props) {
         })),
         (data) => {
             const list = data.pages.flatMap((page) =>
-                page.data.concat().sort((a, b) => (b.timestamp ?? 0) - (a.timestamp ?? 0)),
+                page.data.concat().sort((a, b) => {
+                    return (b.timestamp ?? 0) - (a.timestamp ?? 0);
+                }),
             );
             if (!types.length) return list;
             return list.filter((x) => types.includes(x.type));
