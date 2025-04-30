@@ -67,7 +67,7 @@ export const SNAPSHOT_SCORES_URL = 'https://score.snapshot.org';
 export const SNAPSHOT_SEQ_URL = 'https://seq.snapshot.org';
 export const SNAPSHOT_RELAY_URL = 'https://relayer.snapshot.org';
 export const SNAPSHOT_IPFS_GATEWAY_URL = 'https://snapshot.4everland.link/ipfs/';
-export const SIMPLE_HASH_URL = 'https://simplehash-proxy.r2d2.to';
+export const ORB_CLUB_URL = 'https://us-central1-orbapp.cloudfunctions.net';
 export const FIREFLY_TELEGRAM_URL = 'https://t.me/fireflyapp';
 export const BSKY_VIDEO_ENDPOINT = 'https://video.bsky.app/xrpc';
 export const NEYNAR_URL = env.external.NEXT_PUBLIC_NEYNAR_URL;
@@ -268,7 +268,6 @@ export const REQUIRE_LOGIN_SOURCES: RequestedLoginSource[] =
 export const REQUIRE_LOGIN_SOURCES_IN_SEARCH: SocialSource[] =
     env.external.NEXT_PUBLIC_NITTER === STATUS.Enabled ? [Source.Bsky] : [Source.Twitter, Source.Bsky];
 export const SOCIAL_SOURCE_WITH_ADDRESS: SocialSource[] = [Source.Farcaster, Source.Lens];
-export const EMBED_CARD_SOURCE_PRIORITY = [Source.Twitter, Source.Farcaster, Source.Lens];
 export const ENABLED_TIPS_POST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 
 export const EXPLORE_TYPES: ExploreType[] = [
@@ -425,6 +424,7 @@ export const PARAGRAPH_COLLECT_FEE = 777000000000000n;
 export const PARAGRAPH_COLLECT_FEE_IN_POLYGON = 2000000000000000000n;
 
 export const THIRTY_DAYS = 1000 * 60 * 60 * 24 * 30;
+export const SEVEN_DAYS = 1000 * 60 * 60 * 24 * 7;
 
 export const MAX_SIZE_PER_CHUNK = 2 * 1024 * 1024; // 2MB
 

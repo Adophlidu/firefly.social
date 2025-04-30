@@ -277,6 +277,9 @@ dependencies:
   immer:
     specifier: 10.1.1
     version: 10.1.1
+  jwt-decode:
+    specifier: ^4.0.0
+    version: 4.0.0
   lexical:
     specifier: ^0.18.0
     version: 0.18.0
@@ -21243,6 +21246,7 @@ time:
   /image-size@1.2.1: '2025-04-02T14:30:29.710Z'
   /immer@10.1.1: '2024-04-27T20:07:26.218Z'
   /jsdom@24.1.3: '2024-08-25T10:47:12.297Z'
+  /jwt-decode@4.0.0: '2023-10-27T08:54:17.048Z'
   /lexical@0.18.0: '2024-09-26T17:26:17.141Z'
   /linkedom@0.18.9: '2025-02-07T18:10:16.130Z'
   /localforage@1.10.0: '2021-08-18T21:22:08.980Z'

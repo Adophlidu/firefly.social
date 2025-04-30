@@ -3,13 +3,13 @@ import { ProfileRelationContextProvider } from '@/app/(normal)/profile/pages/Pro
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { Title } from '@/components/Profile/Title.js';
-import { type ProfileCategory, ProfileSourceInURL, Source } from '@/constants/enum.js';
+import { type ProfileCategory, type ProfileSourceInURL, Source } from '@/constants/enum.js';
 import { REQUIRE_LOGIN_FOLLOWING_CATEGORY } from '@/constants/index.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveProfileSourceFromUrl } from '@/helpers/resolveSource.js';
+import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/index.js';
 
@@ -22,7 +22,7 @@ export default async function Layout(props: Props) {
     if (!isFollowCategory(params.category)) notFound();
 
     const id = params.id;
-    const source = resolveProfileSourceFromUrl(params.source);
+    const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isSocialSource(source) || source === Source.Twitter) notFound();
 
     const profile = await resolveSocialMediaProvider(source)

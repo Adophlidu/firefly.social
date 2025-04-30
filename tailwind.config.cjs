@@ -75,6 +75,7 @@ module.exports = {
                 bg03: 'rgb(var(--color-bg03) / <alpha-value>)',
                 lightRebrandingBg: 'rgb(var(--color-light-rebranding-bg) / <alpha-value>)',
                 lightTextMain: '#181818',
+                lightTextSecond: '#767F8D',
                 farcasterBg: 'rgb(var(--color-farcaster-bg) / <alpha-value>)',
                 lensBg: 'rgb(var(--color-lens-bg) / <alpha-value>)',
                 bskyBg: 'rgb(var(--color-bsky-bg) / <alpha-value>)',
@@ -115,6 +116,8 @@ module.exports = {
             },
             zIndex: {
                 1: '1',
+                menu: '1000',
+                modal: '1001',
             },
         },
         // please apply the same value in src/hooks/useMediaQuery.ts

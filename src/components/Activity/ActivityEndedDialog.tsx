@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
 import { Modal } from '@/components/Modal.js';
 import { PageRoute } from '@/constants/enum.js';
@@ -17,10 +17,6 @@ export function ActivityEndedDialog({ data }: Props) {
     const onClose = useCallback(() => {
         router.replace(PageRoute.Events);
     }, [router]);
-    useEffect(() => {
-        const timeoutId = setTimeout(onClose, 3000);
-        return () => clearTimeout(timeoutId);
-    }, [onClose]);
 
     return (
         <Modal open={data.status === ActivityStatus.Ended} onClose={onClose}>
@@ -38,7 +34,7 @@ export function ActivityEndedDialog({ data }: Props) {
                         className="flex h-12 w-full items-center justify-center rounded-full border border-current px-4 text-center text-base font-bold leading-8"
                         onClick={onClose}
                     >
-                        <Trans>Redirecting...</Trans>
+                        <Trans>Back to list</Trans>
                     </button>
                 </div>
             </div>

@@ -4,7 +4,7 @@ import { ProfileCategoryTabs } from '@/app/(normal)/profile/pages/ProfileCategor
 import {
     KeyType,
     type ProfileCategory,
-    ProfileSourceInURL,
+    type ProfileSourceInURL,
     SocialProfileCategory,
     type SocialSource,
     WalletProfileCategory,
@@ -15,7 +15,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isProfilePageSource } from '@/helpers/isSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
-import { resolveProfileSourceFromUrl } from '@/helpers/resolveSource.js';
+import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/index.js';
@@ -28,7 +28,7 @@ const createPageMetadata = memoizeWithRedis(createMetadataProfileById, {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const params = await props.params;
-    const source = resolveProfileSourceFromUrl(params.source);
+    const source = resolveSourceFromUrlNoFallback(params.source);
     if (source && isProfilePageSource(source)) return createPageMetadata(source, params.id, true);
     return createSiteMetadata();
 }
@@ -45,7 +45,7 @@ export default async function Layout(props: LayoutProps) {
 
     const params = await props.params;
 
-    const source = resolveProfileSourceFromUrl(params.source);
+    const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || isFollowCategory(params.category)) notFound();
 
     const identity = resolveSpecialProfileIdentity({ source, id: params.id });

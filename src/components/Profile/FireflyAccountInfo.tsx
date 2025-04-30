@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
+import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useMemo } from 'react';
 
@@ -20,15 +21,16 @@ import { WALLET_PROFILE_ACTION_ID } from '@/components/Profile/WalletInfo.js';
 import { NetworkType, PageRoute, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
+import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
-import { useFireflyProfileByIdentity } from '@/hooks/useFireflyProfileByIdentity.js';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type {
     FireflyAccountProfile,
     FireflyIdentity,
@@ -43,22 +45,19 @@ interface Props {
     walletProfile?: WalletProfile | null;
     socialProfile?: Profile | null;
     identity: FireflyIdentity;
-    profiles?: FireflyProfile[];
     profile?: FireflyAccountProfile | null;
     relatedProfile: WalletProfiles;
 }
 
-export function FireflyAccountInfo({
-    banner,
-    walletProfile,
-    socialProfile,
-    identity,
-    profiles,
-    relatedProfile,
-}: Props) {
-    const { data } = useFireflyProfileByIdentity(identity, {
+export function FireflyAccountInfo({ banner, walletProfile, socialProfile, identity, relatedProfile }: Props) {
+    const { data } = useQuery({
+        queryKey: ['firefly-profile', identity],
+        async queryFn() {
+            return FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false);
+        },
         initialData: relatedProfile,
     });
+    const profiles = formatFireflyProfilesFromWalletProfiles(data ?? relatedProfile) as FireflyProfile[];
     const { displayName, uid, avatar } = data?.account || {};
     const [buttonContainerRef, buttonContainerEntry] = useIntersectionObserver({
         threshold: 0.5,

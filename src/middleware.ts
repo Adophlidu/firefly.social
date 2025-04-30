@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse, userAgent } from 'next/server.js';
 import urlcat from 'urlcat';
 
-import { ProfileSourceInURL, SourceInURL } from '@/constants/enum.js';
+import { SourceInURL } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
@@ -98,15 +98,14 @@ export async function middleware(request: NextRequest) {
     }
 
     /**
-     * /profile/farcaster -> /profile/far
+     * /profile/far -> /profile/farcaster
      * /profile/twitter -> /profile/x
      */
-    if (pathname.startsWith('/profile/farcaster') || pathname.startsWith('/profile/twitter')) {
+    if (pathname.startsWith('/profile/far/') || pathname.startsWith('/profile/twitter/')) {
         const pathArray = pathname.split('/');
         const sourceInUrl = pathArray[2];
         const destination = request.nextUrl.clone();
-        pathArray[2] =
-            sourceInUrl === SourceInURL.Farcaster ? ProfileSourceInURL.Farcaster : ProfileSourceInURL.Twitter;
+        pathArray[2] = sourceInUrl === SourceInURL.FarcasterV2 ? SourceInURL.Farcaster : SourceInURL.TwitterV2;
         destination.pathname = pathArray.join('/');
         return NextResponse.redirect(destination);
     }

@@ -10,7 +10,7 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { REQUIRE_LOGIN_SOURCES_IN_SEARCH } from '@/constants/index.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import { createIndicator } from '@/helpers/pageable.js';
+import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
@@ -25,11 +25,15 @@ export function SearchPostContent() {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['search', searchType, searchKeyword, source, isLogin],
         queryFn: async ({ pageParam }) => {
-            if (!searchKeyword?.trim() || invalidQuery || (loginRequired && !isLogin)) return;
-            const provider = resolveSocialMediaProvider(currentSocialSource);
-            const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
+            try {
+                if (!searchKeyword?.trim() || invalidQuery || (loginRequired && !isLogin)) return;
+                const provider = resolveSocialMediaProvider(currentSocialSource);
+                const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
-            return provider.searchPosts(searchKeyword.replace(/^#/, ''), indicator);
+                return provider.searchPosts(searchKeyword.replace(/^#/, ''), indicator);
+            } catch {
+                return createPageable([], createIndicator(undefined, pageParam));
+            }
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {

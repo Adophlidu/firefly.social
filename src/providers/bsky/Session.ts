@@ -12,6 +12,7 @@ const BSKY_SESSION_PLACEHOLDER = '[BSKY_SESSION_PLACEHOLDER]';
 
 export type BskySessionPayload = AtpSessionData & {
     didDoc?: {};
+    pdsUrl?: string;
 };
 
 export class BskySession extends BaseSession implements Session {

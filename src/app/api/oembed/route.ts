@@ -21,21 +21,22 @@ export async function DELETE(request: Request) {
     return createSuccessResponseJSON(null);
 }
 
+/* cspell:ignore takocdn */
+const patterns = [
+    /opensea.io\/assets\/(0x[\dA-Fa-f]{40})\/(\d+)/,
+    /opensea.io\/assets\/(\w+)\/(0x[\dA-Fa-f]{40})\/(\d+)/,
+    /rarible.com\/token\/(0x[\dA-Fa-f]{40}):(\d+)/,
+    /zora.co\/collections\/(0x[\dA-Fa-f]{40})\/\d+$/,
+    /\/\/takocdn.xyz\//,
+];
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
 
     const link = searchParams.get('link');
     if (!link) return createErrorResponseJSON('Missing link', { status: StatusCodes.BAD_REQUEST });
 
-    if (
-        [
-            /opensea.io\/assets\/(0x[\dA-Fa-f]{40})\/(\d+)/,
-            /opensea.io\/assets\/(\w+)\/(0x[\dA-Fa-f]{40})\/(\d+)/,
-            /rarible.com\/token\/(0x[\dA-Fa-f]{40}):(\d+)/,
-            /zora.co\/collections\/(0x[\dA-Fa-f]{40})\/\d+$/,
-        ].some((x) => x.test(decodeURIComponent(link)))
-    ) {
-        // For the time being, we do not support og information capture for links in opensea. The simplehash api will be used instead.
+    if (patterns.some((x) => x.test(decodeURIComponent(link)))) {
+        // For the time being, we do not support OG information capture for OpenSea links.
         return createErrorResponseJSON(`Unsupported link = ${link}`, { status: StatusCodes.BAD_REQUEST });
     }
 

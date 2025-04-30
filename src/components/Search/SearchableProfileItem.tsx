@@ -7,8 +7,10 @@ import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialSourceFromFireflyPlatform, resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import type { Profile } from '@/providers/types/Firefly.js';
@@ -28,6 +30,10 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
 }) {
     const platformSource = resolveSourceFromFireflyPlatform(profile.platform);
     const source = platformSource === Source.Wallet ? Source.Wallet : narrowToSocialSource(platformSource);
+    const displayName =
+        platformSource === Source.Wallet && isValidAddressEthereum(profile.name)
+            ? formatAddressEthereum(profile.name, 4, 2)
+            : profile.name;
 
     const { data } = useEnsAvatar({
         name: profile.handle,
@@ -50,7 +56,7 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
             <Avatar alt={profile.handle} className="size-7 rounded-full" src={avatar} size={44} />
             <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-x-1">
-                    <span className="truncate text-lg font-bold leading-6 text-lightMain">{profile.name}</span>
+                    <span className="truncate text-lg font-bold leading-6 text-lightMain">{displayName}</span>
                     {sortedRelated.map((x) =>
                         x.platform === FireflyPlatform.Wallet ? (
                             <WalletIcon
@@ -70,7 +76,10 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
                         ),
                     )}
                 </div>
-                <div className="truncate text-medium leading-[22px] text-second">@{profile.handle}</div>
+                <div className="text-lightSecond truncate text-medium leading-[22px]">
+                    {platformSource === Source.Wallet ? '' : '@'}
+                    {profile.handle}
+                </div>
             </div>
         </Link>
     );

@@ -21,7 +21,8 @@ import { PostLinks } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { RedPacketInspector } from '@/components/RedPacket/RedPacketInspector.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { PageRoute, Source, STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { EMPTY_LIST, RP_HASH_TAG } from '@/constants/index.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -192,7 +193,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
                 </Link>
             ) : null}
 
-            {showTranslate && trimify(postContent) ? (
+            {showTranslate && env.external.NEXT_PUBLIC_POST_TRANSLATE === STATUS.Enabled && trimify(postContent) ? (
                 <ContentTranslator content={trimify(postContent)} canShowMore={canShowMore} post={post} />
             ) : null}
 

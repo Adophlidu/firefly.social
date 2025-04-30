@@ -1,9 +1,13 @@
 import { AuthenticationError, PublicClient, SessionClient } from '@lens-protocol/client';
+import { refresh } from '@lens-protocol/client/actions';
 
 import { createLensSDK, LocalStorageProvider, removeLensCredentials } from '@/helpers/createLensSDK.js';
+import { ensureLensResult } from '@/helpers/ensureLensResult.js';
+import { updateCredentialsStorage } from '@/helpers/getLensCredentialsFromStorage.js';
 import { refreshLensSession } from '@/helpers/refreshLensSession.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
+import type { LensCredentials } from '@/providers/types/Lens.js';
 
 class LensSessionHolder extends SessionHolder<LensSession> {
     private lensClientSDK: PublicClient | null = null;
@@ -42,14 +46,37 @@ class LensSessionHolder extends SessionHolder<LensSession> {
         return session;
     }
 
-    override resumeSession(session: LensSession) {
+    override async resumeSession(session: LensSession, refreshSession = false): Promise<LensCredentials | undefined> {
+        if (refreshSession && !session.refreshToken) {
+            throw new Error('No refresh token found in Lens session holder');
+        }
         if (session.refreshToken) {
             const storage = new LocalStorageProvider();
 
             // renew the sdk instance, since it could possess the old credentials
             this.lensClientSDK = createLensSDK(storage);
+            if (refreshSession) {
+                const refreshedCredentialsResult = await refresh(this.lensClientSDK, {
+                    refreshToken: session.refreshToken,
+                });
+                if (!refreshedCredentialsResult.isOk()) {
+                    throw refreshedCredentialsResult.error;
+                }
+
+                const refreshedCredentials = refreshedCredentialsResult.value;
+                if (refreshedCredentials.__typename === 'ForbiddenError') {
+                    throw new Error('Refresh token is invalid');
+                }
+                updateCredentialsStorage(refreshedCredentials);
+                const sessionClient = await ensureLensResult(this.lensClientSDK.resumeSession());
+                this.setSessionClient(sessionClient);
+
+                return refreshedCredentials;
+            }
         }
         super.resumeSession(session);
+
+        return;
     }
 
     override removeSession(): void {

@@ -14,11 +14,13 @@ import { bom } from '@/helpers/bom.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
-import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { isBskyTokenExpired } from '@/helpers/isBskyTokenExpired.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
+import { retryOnBskyWhenNetworkError } from '@/helpers/retryOnBskyWhenNetworkError.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
@@ -62,7 +64,7 @@ export interface ProfileState {
     refreshCurrentAccount: () => Promise<void>;
     updateCurrentProfile: (profile: ProfileEditable) => void;
     upgrade: () => void;
-    clear: () => void;
+    clear: (clearSession?: boolean) => void;
 }
 
 export interface ProfileStatePersisted {
@@ -209,12 +211,14 @@ function createState(
                             });
                         }
                     }),
-                clear: () =>
+                clear: (clearSession = true) =>
                     set((state) => {
                         state.status = AsyncStatus.Idle;
                         state.accounts = EMPTY_LIST;
                         state.currentProfile = null;
-                        state.currentProfileSession = null;
+                        if (clearSession) {
+                            state.currentProfileSession = null;
+                        }
                     }),
             })),
             {
@@ -331,7 +335,8 @@ const useBskyStateBase = createState(
             try {
                 const did = state.currentProfile?.profileId;
                 const currentProfileSession = state.currentProfileSession;
-                if (!did || !currentProfileSession) {
+                if (!currentProfileSession) {
+                    console.warn('[bsky store] clean the local store because did or session is missing');
                     state.clear();
                     return;
                 }
@@ -339,18 +344,54 @@ const useBskyStateBase = createState(
                 state.__setStatus__(AsyncStatus.Pending);
 
                 const bskySession = currentProfileSession as BskySession;
-                await bskySessionHolder.resumeSession(bskySession);
+                if (isBskyTokenExpired(bskySession.sessionPayload.refreshJwt, 1000 * 60 * 5)) {
+                    console.warn('[bsky store] clean the local store because refresh jwt is expired');
+                    state.clear();
+                    return;
+                }
 
-                const profile = await BskySocialMediaProvider.getProfileById(did);
-                state.updateCurrentAccount({ profile, session: bskySessionHolder.session ?? bskySession });
+                if (did && did !== bskySession.did) {
+                    console.warn('[bsky store] clean the local store because did is not matched');
+                    state.clear();
+                    return;
+                }
+
+                await bskySessionHolder.resumeSession(bskySession, false);
+
+                const profile = await retryOnBskyWhenNetworkError(3, () =>
+                    BskySocialMediaProvider.getProfileById(bskySession.did),
+                );
+                const newSession = bskySessionHolder.session ?? bskySession;
+                newSession.sessionPayload = {
+                    ...newSession.sessionPayload,
+                    ...(bskySessionHolder.agent.sessionManager.session || {}),
+                };
+
+                if (!did) {
+                    state.addAccount(
+                        {
+                            profile,
+                            session: newSession,
+                        },
+                        true,
+                    );
+                } else {
+                    state.updateCurrentAccount({ profile, session: newSession });
+                }
             } catch (error) {
                 console.error(`[bsky store] error occurs when restore profile store ${error}`);
 
                 if (error instanceof FetchError) return;
                 console.warn('[bsky store] clean the local store because of the error', error);
 
-                state.clear();
+                state.clear(false);
                 bskySessionHolder.removeSession();
+
+                if (state.currentProfileSession) {
+                    enqueueWarningMessage(
+                        t`Failed to restore your BlueSky session, you can refresh the page to try again or sign in again.`,
+                    );
+                }
             } finally {
                 state.__setStatus__(AsyncStatus.Idle);
             }

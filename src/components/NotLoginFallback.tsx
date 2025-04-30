@@ -60,7 +60,10 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
 
     return (
         <div
-            className={classNames('flex flex-grow flex-col items-center justify-center space-y-9 pt-[15vh]', className)}
+            className={classNames(
+                'flex flex-grow flex-col items-center justify-center space-y-9 pb-12 pt-[15vh]',
+                className,
+            )}
         >
             <Image
                 src={fallbackImageUrl}

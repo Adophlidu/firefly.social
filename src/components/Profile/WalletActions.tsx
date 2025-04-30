@@ -40,6 +40,7 @@ export function WalletActions({ profile }: { profile: WalletProfile }) {
                 watchButtonClassName="!bg-highlight dark:text-main"
                 watchingButtonClassName="!text-highlight"
                 address={profile.address}
+                ens={profile.primary_ens ?? undefined}
             />
             <WalletMoreAction profile={profile} />
         </>

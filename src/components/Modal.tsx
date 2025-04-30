@@ -38,7 +38,7 @@ export function Modal({
         <Transition appear show={open} as={Fragment}>
             <Dialog
                 initialFocus={ref}
-                className={classNames('relative z-40', dialogClassName)}
+                className={classNames('relative z-modal', dialogClassName)}
                 onClose={disableDialogClose ? noop : onClose}
                 disableScrollLock={disableScrollLock}
             >

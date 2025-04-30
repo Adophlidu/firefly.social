@@ -7,7 +7,6 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -43,16 +42,12 @@ function filterOutActivities(address: string) {
         return produce(old, (draft) => {
             for (const page of draft.pages) {
                 if (!page.data.length) continue;
-                page.data = page.data.filter((nft) => {
-                    if ('network' in nft) {
-                        const chainId = resolveSimpleHashChainId(nft.network);
-                        const detail = nft.detail;
-                        return (
-                            !isSameEthereumAddress(detail.contract_address, contractAddress) || chainId !== nftChainId
-                        );
-                    } else {
-                        return !isSameEthereumAddress(nft.contract_address, nftDetail.address);
-                    }
+                page.data = page.data.filter((item) => {
+                    if (!item.detail) return true;
+                    const chainId = item.detail.chain_id;
+                    return (
+                        !isSameEthereumAddress(item.detail.contract_address, contractAddress) || chainId !== nftChainId
+                    );
                 }) as FollowingNFT[] | NFTFeedV3[];
             }
         });

@@ -1,8 +1,6 @@
 import {
     FireflyPlatform,
-    type ProfilePageSource,
     type ProfileSource,
-    ProfileSourceInURL,
     type SocialSource,
     type SocialSourceInURL,
     Source,
@@ -34,6 +32,8 @@ export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
         [SourceInURL.Notifications]: Source.Notifications,
         [SourceInURL.Email]: Source.Email,
         [SourceInURL.Swap]: Source.Swap,
+        [SourceInURL.FarcasterV2]: Source.Farcaster,
+        [SourceInURL.TwitterV2]: Source.Twitter,
     },
     (sourceInUrl) => {
         throw new UnreachableError('sourceInUrl', sourceInUrl);
@@ -45,28 +45,6 @@ export const resolveSourceFromUrl = (source: SourceInURL | string) => {
         return resolveSource(source as SourceInURL);
     } catch {
         return Source.Farcaster;
-    }
-};
-
-export const resolveProfileSource = createLookupTableResolver<ProfileSourceInURL, ProfilePageSource>(
-    {
-        [ProfileSourceInURL.Farcaster]: Source.Farcaster,
-        [ProfileSourceInURL.Lens]: Source.Lens,
-        [ProfileSourceInURL.Twitter]: Source.Twitter,
-        [ProfileSourceInURL.Bsky]: Source.Bsky,
-        [ProfileSourceInURL.Wallet]: Source.Wallet,
-        [ProfileSourceInURL.WalletMix]: Source.WalletMix,
-    },
-    (sourceInUrl) => {
-        throw new UnreachableError('sourceInUrl', sourceInUrl);
-    },
-);
-
-export const resolveProfileSourceFromUrl = (source: ProfileSourceInURL | string) => {
-    try {
-        return resolveProfileSource(source as ProfileSourceInURL);
-    } catch {
-        return;
     }
 };
 

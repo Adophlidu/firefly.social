@@ -1,4 +1,3 @@
-import { URL_REGEX } from '@atproto/api';
 import { compact, groupBy, uniqBy } from 'lodash-es';
 
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -8,6 +7,7 @@ import {
     EXIST_SOLANA_ADDRESS,
     FULL_ENS_REGEXP,
     LENS_HANDLE_REGEXP,
+    URL_REGEX,
 } from '@/constants/regexp.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import type { DetectAddressResponse } from '@/providers/types/Firefly.js';
@@ -21,6 +21,7 @@ const hosts = [
     /firefly\.social/,
     /firefly\.mask\.social/,
     /warpcast.com/,
+    /snapshot\.(box|org|page)/,
     /(staging|canary|beta|alpha)\.firefly\.social/,
     /firefly-mask.*-dimension-dev\.vercel\.app/,
 ];
@@ -28,7 +29,7 @@ export function shouldIgnoreLink(link: string) {
     const url = parseUrl(link);
     if (!url) return false;
     const match = hosts.some((re) => re.test(url.host));
-    if (!match) return false;
+    if (match) return true;
     const isTako = isTakoPost(link);
     if (isTako) return true;
     return /^\/post\/farcaster\/0x[a-fA-F0-9]{40}/.test(url.pathname);
@@ -68,7 +69,7 @@ export function extractEmbedResources(postRawContent: string | undefined, oembed
         ),
     );
 
-    const domains = Array.from(postRawContent.match(ENS_REGEXP) || []);
+    const domains = uniqBy(Array.from(postRawContent.match(ENS_REGEXP) || []), (x) => x.toLowerCase());
 
     return { addresses, domains, ignoredLinks: ignored, links: keep };
 }

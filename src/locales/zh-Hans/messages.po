@@ -442,6 +442,9 @@ msgstr "使用<0>摄像头</0> 在 {count} 内<1/> 来扫描你的二维码。�
 msgid "Poll"
 msgstr "投票"
 
+msgid "Back to list"
+msgstr ""
+
 msgid "Bets"
 msgstr "Bets"
 
@@ -898,6 +901,10 @@ msgstr "黑名单功能已启用。有些地址可能无法正常交易（欺诈
 
 msgid "<0/>Delete Firefly account"
 msgstr "<0/>删除 Firefly 账号"
+
+#. placeholder {0}: x.provider
+msgid "Verified by {0}"
+msgstr ""
 
 msgid "Select Account"
 msgstr "选择账号"
@@ -1937,9 +1944,6 @@ msgstr "封面背景"
 msgid "Verified"
 msgstr "已验证"
 
-msgid "Redirecting..."
-msgstr "跳转中..."
-
 msgid "Log in with recovery phrase"
 msgstr "使用助记词登录"
 
@@ -2175,10 +2179,6 @@ msgstr "不涉及网络犯罪。"
 msgid "Articles"
 msgstr "文章"
 
-#. placeholder {0}: nFormatter(data.count)
-msgid "{0} followings owned"
-msgstr "{0} 关注拥有"
-
 msgid "Follow me"
 msgstr "关注我"
 
@@ -2225,6 +2225,9 @@ msgstr "我想隐藏这个钱包地址。"
 
 msgid "Search token"
 msgstr "搜索代币"
+
+msgid "Failed to restore your BlueSky session, you can refresh the page to try again or sign in again."
+msgstr ""
 
 msgid "Details"
 msgstr "详情"

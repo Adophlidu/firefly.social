@@ -39,7 +39,7 @@ export function ChannelInList({
     noMuteButton = true,
     dense = false,
     hideDescription = false,
-    showSourceAvatarWhenNoAvatar = false,
+    showSourceAvatarWhenNoAvatar = true,
     listKey,
     index,
     className,

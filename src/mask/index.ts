@@ -10,7 +10,6 @@
  */
 
 export { getRegisteredWeb3Networks } from '@/mask_pkgs/web3-providers/Manager/index.js';
-export type { SimpleHash } from '@/mask_pkgs/web3-providers/types/SimpleHash.js';
 export { ExplorerResolver } from '@/mask_pkgs/web3-providers/Web3/Base/apis/ExplorerResolver.js';
 export type { BaseHubOptions } from '@/mask_pkgs/web3-providers/Web3/Base/apis/HubOptions.js';
 export { EVMWeb3 } from '@/mask_pkgs/web3-providers/Web3/EVM/apis/ConnectionAPI.js';

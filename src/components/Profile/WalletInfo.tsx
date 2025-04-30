@@ -108,119 +108,133 @@ export function WalletInfo({ profile }: WalletInfoProps) {
     const iconSize = 16;
 
     return (
-        <div className="flex items-center gap-3 p-4">
-            <Avatar src={avatar} alt="avatar" size={40} className="size-10 rounded-full border border-highlight" />
-            <div className="relative flex flex-1 flex-col">
-                <div className="flex flex-col gap-2">
-                    <div className="flex min-h-8 flex-row items-center justify-between" id={WALLET_PROFILE_ACTION_ID}>
-                        <div className="flex flex-col">
-                            <div className="flex flex-row items-center">
-                                {profile.isDefault ? (
-                                    <div className="my-auto mr-1 h-6 rounded bg-highlight bg-opacity-[0.16] px-2 text-[13px] font-medium leading-6 text-highlight">
-                                        <Trans>Primary</Trans>
+        <div className="flex w-full flex-col items-start p-4">
+            <div className="flex w-full items-start gap-3">
+                <div className="flex h-[54px] w-10 items-center justify-center">
+                    <Avatar
+                        src={avatar}
+                        alt="avatar"
+                        size={40}
+                        className="size-10 rounded-full border border-highlight"
+                    />
+                </div>
+                <div className="relative flex flex-1 flex-col">
+                    <div className="flex flex-col gap-2">
+                        <div
+                            className="flex min-h-8 flex-row items-center justify-between"
+                            id={WALLET_PROFILE_ACTION_ID}
+                        >
+                            <div className="flex flex-col">
+                                <div className="flex flex-row items-center">
+                                    {profile.isDefault ? (
+                                        <div className="my-auto mr-1 h-6 rounded bg-highlight bg-opacity-[0.16] px-2 text-[13px] font-medium leading-6 text-highlight">
+                                            <Trans>Primary</Trans>
+                                        </div>
+                                    ) : null}
+                                    <div className="h-6 min-w-0 truncate text-lg font-black leading-6 text-lightMain">
+                                        {displayName}
+                                    </div>
+                                    <div
+                                        className={classNames(
+                                            'ml-1 mr-auto flex h-6 min-w-[120px] flex-row items-center gap-1.5',
+                                            {
+                                                'animate-pulse bg-bg': isLoadingWalletRelation,
+                                            },
+                                        )}
+                                    >
+                                        {!isLoadingWalletRelation ? (
+                                            <>
+                                                {networkType === NetworkType.Ethereum ? (
+                                                    <EvmIcon width={iconSize} height={iconSize} />
+                                                ) : null}
+                                                {networkType === NetworkType.Solana ? (
+                                                    <SolanaIcon width={iconSize} height={iconSize} />
+                                                ) : null}
+                                                {walletRelation?.verifiedSources.map((x) => {
+                                                    return (
+                                                        <Tooltip
+                                                            key={x.source}
+                                                            content={t`Verified by ${x.provider}`}
+                                                            placement="bottom"
+                                                        >
+                                                            <RelatedSourceIcon source={x.source} size={iconSize} />
+                                                        </Tooltip>
+                                                    );
+                                                })}
+                                                {profile.ens?.length ? (
+                                                    <InteractiveTippy
+                                                        maxWidth={304}
+                                                        className="tippy-card"
+                                                        placement="bottom"
+                                                        content={
+                                                            <div className="no-scrollbar flex max-h-[100px] flex-wrap gap-x-[15px] overflow-auto rounded-2xl border-[0.5px] border-secondaryLine bg-primaryBottom p-3">
+                                                                {profile.ens.map((ens) => {
+                                                                    return (
+                                                                        <div
+                                                                            className="flex items-center gap-[5px]"
+                                                                            key={ens}
+                                                                        >
+                                                                            <MiniEnsIcon width={16} height={16} />
+                                                                            <span className="text-[10px] font-bold leading-4 text-main">
+                                                                                {ens}
+                                                                            </span>
+                                                                        </div>
+                                                                    );
+                                                                })}
+                                                            </div>
+                                                        }
+                                                    >
+                                                        <span>
+                                                            <EnsIcon
+                                                                width={iconSize}
+                                                                height={iconSize}
+                                                                className="grayscale"
+                                                            />
+                                                        </span>
+                                                    </InteractiveTippy>
+                                                ) : null}
+                                            </>
+                                        ) : null}
+                                    </div>
+                                </div>
+                                {!HIDDEN_NET_WORTH ? (
+                                    <div className="mt-1 text-xl font-bold leading-6">
+                                        <Trans>
+                                            $ {formatPrice(totalBalance ?? 0)}{' '}
+                                            <span className="text-sm text-second">Net worth</span>
+                                        </Trans>
                                     </div>
                                 ) : null}
-                                <div className="h-6 min-w-0 truncate text-lg font-black leading-6 text-lightMain">
-                                    {displayName}
-                                </div>
-                                <div
-                                    className={classNames(
-                                        'ml-1 mr-auto flex h-6 min-w-[120px] flex-row items-center gap-1.5',
-                                        {
-                                            'animate-pulse bg-bg': isLoadingWalletRelation,
-                                        },
-                                    )}
-                                >
-                                    {!isLoadingWalletRelation ? (
-                                        <>
-                                            {networkType === NetworkType.Ethereum ? (
-                                                <EvmIcon width={iconSize} height={iconSize} />
-                                            ) : null}
-                                            {networkType === NetworkType.Solana ? (
-                                                <SolanaIcon width={iconSize} height={iconSize} />
-                                            ) : null}
-                                            {walletRelation?.verifiedSources.map((x) => {
-                                                return (
-                                                    <Tooltip
-                                                        key={x.source}
-                                                        content={resolveVerifiedText(x)}
-                                                        placement="bottom"
-                                                    >
-                                                        <RelatedSourceIcon source={x.source} size={iconSize} />
-                                                    </Tooltip>
-                                                );
-                                            })}
-                                            {profile.ens?.length ? (
-                                                <InteractiveTippy
-                                                    maxWidth={304}
-                                                    className="tippy-card"
-                                                    placement="bottom"
-                                                    content={
-                                                        <div className="no-scrollbar flex max-h-[100px] flex-wrap gap-x-[15px] overflow-auto rounded-2xl border-[0.5px] border-secondaryLine bg-primaryBottom p-3">
-                                                            {profile.ens.map((ens) => {
-                                                                return (
-                                                                    <div
-                                                                        className="flex items-center gap-[5px]"
-                                                                        key={ens}
-                                                                    >
-                                                                        <MiniEnsIcon width={16} height={16} />
-                                                                        <span className="text-[10px] font-bold leading-4 text-main">
-                                                                            {ens}
-                                                                        </span>
-                                                                    </div>
-                                                                );
-                                                            })}
-                                                        </div>
-                                                    }
-                                                >
-                                                    <span>
-                                                        <EnsIcon
-                                                            width={iconSize}
-                                                            height={iconSize}
-                                                            className="grayscale"
-                                                        />
-                                                    </span>
-                                                </InteractiveTippy>
-                                            ) : null}
-                                        </>
-                                    ) : null}
-                                </div>
                             </div>
-                            {!HIDDEN_NET_WORTH ? (
-                                <div className="mt-1 text-xl font-bold leading-6">
-                                    <Trans>
-                                        $ {formatPrice(totalBalance ?? 0)}{' '}
-                                        <span className="text-sm text-second">Net worth</span>
-                                    </Trans>
-                                </div>
-                            ) : null}
+                            <NoSSR>
+                                <WalletActions profile={profile} />
+                            </NoSSR>
                         </div>
-                        <NoSSR>
-                            <WalletActions profile={profile} />
-                        </NoSSR>
-                    </div>
 
-                    <div className="flex items-center gap-1 text-sm leading-[14px] text-secondary">
-                        {isLarge ? profile.address : formatAddress(profile.address, 4)}
-                        <NoSSR>
-                            <CopyTextButton text={profile.address} />
-                            {addressLink ? (
-                                <Link target="_blank" href={addressLink}>
-                                    <LinkIcon width={14} height={14} />
-                                </Link>
-                            ) : null}
-                        </NoSSR>
+                        <div className="flex items-center gap-1 text-sm leading-[14px] text-secondary">
+                            {isLarge ? profile.address : formatAddress(profile.address, 4)}
+                            <NoSSR>
+                                <CopyTextButton text={profile.address} />
+                                {addressLink ? (
+                                    <Link target="_blank" href={addressLink}>
+                                        <LinkIcon width={14} height={14} />
+                                    </Link>
+                                ) : null}
+                            </NoSSR>
+                        </div>
                     </div>
                 </div>
-                {profile.hacked ? (
-                    <p className="mt-3 rounded-lg bg-danger bg-opacity-[0.16] px-3 py-2 text-sm leading-[18px] text-danger">
+            </div>
+            {profile.hacked ? (
+                <div className="mt-3 md:ml-1">
+                    <p className="rounded-lg bg-danger bg-opacity-[0.16] px-3 py-2 text-sm leading-[18px] text-danger md:ml-12">
                         <Trans>
                             This wallet has been flagged as compromised. Please do not trust or interact with it. Avoid
                             any transactions or sharing of sensitive information. Stay safe!
                         </Trans>
                     </p>
-                ) : null}
-            </div>
+                </div>
+            ) : null}
         </div>
     );
 }

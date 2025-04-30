@@ -219,7 +219,9 @@ export enum EventId {
     CHANNEL_REMOVE_ON_BSKY_SUCCESS = 'bsky_remove_feed_success',
 }
 
-export enum ExceptionId {}
+export enum ExceptionId {
+    BIND_OR_RESTORE_FIREFLY_SESSION = 'bind_or_restore_firefly_session',
+}
 
 export interface Event {
     type: EventType;

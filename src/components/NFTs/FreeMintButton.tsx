@@ -14,7 +14,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { MintStatus, NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
 import { FreeMintModalRef, WalletConnectModalRef } from '@/modals/controls.js';
 
@@ -64,7 +64,7 @@ export function FreeMintButton({
     const account = useAccount();
     const currentChainId = useChainId();
     const { switchChainAsync } = useSwitchChain();
-    const isLogin = useIsLogin();
+    const isLogin = useIsLoginFirefly();
 
     const mintTarget = useMemo(
         () => ({
@@ -99,7 +99,7 @@ export function FreeMintButton({
         });
     }, [account.address, connected, mintTarget, data, currentChainId, collectionId, refetch, switchChainAsync]);
 
-    if (data?.mintStatus === MintStatus.NotSupported || !isLogin) {
+    if (data?.mintStatus === MintStatus.NotSupported || !isLogin || (!isLoading && !data)) {
         return externalUrl ? (
             <Link
                 href={externalUrl}
@@ -115,9 +115,11 @@ export function FreeMintButton({
         ) : null;
     }
 
-    const isSupportedChain = chains.some((chain) => chain.id === data?.chainId);
+    const isSupportedChain = chains.some((chain) => chain.id === chainId);
     const loading = isLoading || isRefetching || handlerLoading;
     const disabled = connected && (loading || (!!data && data?.mintStatus > 2) || !isSupportedChain);
+
+    if (isLoading) return null;
 
     return (
         <div className={classNames('flex items-center gap-3', className)}>

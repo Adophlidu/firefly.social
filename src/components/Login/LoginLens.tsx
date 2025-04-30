@@ -16,6 +16,8 @@ import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { ensureLensResultSync } from '@/helpers/ensureLensResult.js';
+import { updateCredentialsStorage } from '@/helpers/getLensCredentialsFromStorage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -50,6 +52,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
             try {
                 const { account, sessionClient } = await createAccountForProfileId(
                     currentProfile,
+                    true,
                     controller.current.signal,
                 );
 
@@ -57,10 +60,15 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                     await enableSignlessForManaged(sessionClient);
                 }
 
+                const credentials = ensureLensResultSync(sessionClient.getCredentials());
                 const done = await addAccount(account, {
                     signal: controller.current.signal,
                 });
                 if (done) {
+                    // move to local storage
+                    if (credentials) {
+                        updateCredentialsStorage(credentials);
+                    }
                     lensSessionHolder.resumeSession(account.session);
                     lensSessionHolder.setSessionClient(sessionClient);
                     enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Lens)} account is now connected.`);

@@ -1,6 +1,6 @@
 import type { SessionClient } from '@lens-protocol/client';
 
-import { THIRTY_DAYS } from '@/constants/index.js';
+import { SEVEN_DAYS } from '@/constants/index.js';
 import { ensureLensResultSync } from '@/helpers/ensureLensResult.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { LensSession } from '@/providers/lens/Session.js';
@@ -18,5 +18,5 @@ export function createLensSession(profileId: string, sessionClient: SessionClien
     const address = authenticated.address;
     const { accessToken, refreshToken } = credentials;
 
-    return new LensSession(profileId, accessToken, now, now + THIRTY_DAYS, refreshToken, address ?? ETH_ZERO_ADDRESS);
+    return new LensSession(profileId, accessToken, now, now + SEVEN_DAYS, refreshToken, address ?? ETH_ZERO_ADDRESS);
 }

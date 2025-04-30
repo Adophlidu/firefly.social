@@ -215,7 +215,15 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, isCoinId, 
                                                 height={16}
                                             />
                                         ) : null}
-                                        <Tooltip content={contracts[0].address} placement="top" touch>
+                                        <Tooltip
+                                            content={
+                                                <div className="max-w-[200px] whitespace-normal text-wrap break-words text-center">
+                                                    {contracts[0].address}
+                                                </div>
+                                            }
+                                            placement="top"
+                                            touch
+                                        >
                                             <span className="overflow-hidden text-ellipsis text-medium font-bold text-main">
                                                 {formatContractAddress(contracts[0])}
                                             </span>

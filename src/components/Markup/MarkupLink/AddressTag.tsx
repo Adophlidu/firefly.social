@@ -2,12 +2,13 @@ import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
-import { AddressSocialAvatar } from '@/components/AddressSocialAvatar/index.js';
 import { Link } from '@/components/Link.js';
 import { ContractTag } from '@/components/Markup/MarkupLink/ContractTag.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { Source } from '@/constants/enum.js';
+import { Image } from '@/esm/Image.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 interface AddressTagProps extends Omit<MarkupLinkProps, 'post'> {
@@ -28,10 +29,14 @@ export const AddressTag = memo<AddressTagProps>(function AddressTag({ title, add
         case 'soa':
             return (
                 <span className="inline-flex h-[18px] items-center gap-1">
-                    <AddressSocialAvatar
+                    <Image
                         className="inline size-[15px] shrink-0 rounded-full"
-                        address={address}
-                        size={15}
+                        unoptimized
+                        loading="lazy"
+                        src={getStampAvatarByProfileId(Source.Wallet, address)}
+                        alt=""
+                        width={15}
+                        height={15}
                     />
                     <Link
                         className="cursor-pointer text-highlight hover:underline"

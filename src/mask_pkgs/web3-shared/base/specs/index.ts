@@ -41,7 +41,6 @@ export enum SourceType {
     NFTX = 'NFTX',
     Etherscan = 'Etherscan',
     CryptoPunks = 'CryptoPunks',
-    SimpleHash = 'SimpleHash',
 
     // Rarity
     RaritySniper = 'RaritySniper',

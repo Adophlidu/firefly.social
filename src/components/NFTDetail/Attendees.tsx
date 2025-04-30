@@ -3,7 +3,6 @@
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import type { Address } from 'viem';
-import { useEnsName } from 'wagmi';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { Image } from '@/components/Image.js';
@@ -19,7 +18,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
+import type { PoapHolderToken } from '@/providers/types/NFTs.js';
 
 interface AttendeesProps {
     eventId: number;
@@ -49,16 +48,17 @@ export function Attendees({ eventId }: AttendeesProps) {
                 VirtualListProps={{
                     listKey: `${ScrollListKey.TopCollectors}:${eventId}`,
                     computeItemKey: (index, item) => `${index}-${item.owner.id}`,
-                    itemContent: (index, item) => getAttendeesItemContent(index, item.owner.id as Address),
+                    itemContent: (index, item) => getAttendeesItemContent(index, item),
                 }}
             />
         </div>
     );
 }
 
-function AttendeesItem({ ownerAddress }: { ownerAddress: Address }) {
-    const { data: ensName } = useEnsName({ address: ownerAddress, chainId: EthereumChainId.Mainnet });
-    const addressOrEns = ensName ? ensName : ownerAddress;
+function AttendeesItem({ poapHolderToken }: { poapHolderToken: PoapHolderToken }) {
+    const ownerAddress = poapHolderToken.owner.id as Address;
+    const ensName = poapHolderToken.owner.ens;
+    const addressOrEns = poapHolderToken.owner.ens ? poapHolderToken.owner.ens : poapHolderToken.owner.id;
 
     return (
         <div className="flex items-center justify-between pb-3">
@@ -86,11 +86,11 @@ function AttendeesItem({ ownerAddress }: { ownerAddress: Address }) {
                     <LinkIcon width={14} height={14} className="shrink-0 text-secondary" />
                 </div>
             </Link>
-            <WatchButton address={ownerAddress} className="h-8 leading-8" />
+            <WatchButton address={ownerAddress} ens={ensName} className="h-8 leading-8" />
         </div>
     );
 }
 
-function getAttendeesItemContent(index: number, owner: Address) {
-    return <AttendeesItem key={`${index}-${owner}`} ownerAddress={owner} />;
+function getAttendeesItemContent(index: number, poapHolderToken: PoapHolderToken) {
+    return <AttendeesItem key={`${index}-${poapHolderToken.id}`} poapHolderToken={poapHolderToken} />;
 }

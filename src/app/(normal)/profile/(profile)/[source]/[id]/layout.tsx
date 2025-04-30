@@ -7,7 +7,7 @@ import { WalletProfileProvider } from '@/components/Profile/ProfileContext.js';
 import { ProfileInfoCard } from '@/components/Profile/ProfileInfoCard.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
-import { type LoginFallbackSource, ProfileSourceInURL, Source } from '@/constants/enum.js';
+import { type LoginFallbackSource, type ProfileSourceInURL, Source } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
@@ -16,7 +16,7 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveProfileSourceFromUrl } from '@/helpers/resolveSource.js';
+import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupTwitterSessionForSSR } from '@/helpers/setupTwitterSessionForSSR.js';
@@ -47,7 +47,7 @@ export default async function Layout(props: Props) {
 
     const params = await props.params;
 
-    const source = resolveProfileSourceFromUrl(params.source);
+    const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isProfilePageSource(source)) notFound();
 
     const identityFromUrl = resolveSpecialProfileIdentity({ source, id: params.id });
@@ -93,7 +93,6 @@ export default async function Layout(props: Props) {
                 identity={identity}
                 socialProfile={socialProfile}
                 walletProfile={walletProfile}
-                profiles={profiles}
             />
             <ProfileSourceTabs profiles={profiles} identity={identity} socialProfile={socialProfile} />
             {!socialProfile && !walletProfile ? (

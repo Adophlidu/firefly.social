@@ -1,7 +1,15 @@
-import { browserTracingIntegration, feedbackIntegration, init, onLoad, setTag } from '@sentry/browser';
+import {
+    browserTracingIntegration,
+    captureException,
+    feedbackIntegration,
+    init,
+    onLoad,
+    setTag,
+} from '@sentry/browser';
 
 import { env } from '@/constants/env.js';
 import { IS_PREVIEW, IS_PRODUCTION } from '@/constants/index.js';
+import type { ExceptionId } from '@/providers/types/Telemetry.js';
 import { settings } from '@/settings/index.js';
 
 class SentryClient {
@@ -52,6 +60,20 @@ class SentryClient {
             this.initialized = true;
             console.log(`[sentry] Initialized with DSN: ${env.external.NEXT_PUBLIC_SENTRY_DSN}`);
         });
+    }
+
+    captureException(exceptionId: ExceptionId, error: unknown, tags?: Record<string, string>) {
+        try {
+            captureException(error, {
+                level: 'error',
+                tags: {
+                    exceptionId,
+                    ...tags,
+                },
+            });
+        } catch {
+            console.warn(`[sentry] failed to capture exception: ${exceptionId}`, error);
+        }
     }
 }
 

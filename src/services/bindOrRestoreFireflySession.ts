@@ -1,3 +1,4 @@
+import { sentryClient } from '@/configs/sentryClient.js';
 import {
     AuthenticationError,
     EmailAlreadyBoundError,
@@ -9,6 +10,7 @@ import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Session } from '@/providers/types/Session.js';
+import { ExceptionId } from '@/providers/types/Telemetry.js';
 import { bindFireflySession } from '@/services/bindFireflySession.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 
@@ -21,11 +23,18 @@ export async function bindOrRestoreFireflySession(session: Session, signal?: Abo
             await bindFireflySession(session, signal);
 
             // this will return the existing session
-            return fireflySessionHolder.assertSession();
+            return fireflySessionHolder.assertSession(
+                '[bindOrRestoreFireflySession] Failed to bind farcaster session with firefly.',
+            );
         } else {
             throw new AuthenticationError('[bindOrRestoreFireflySession] Firefly session is not available.');
         }
     } catch (error) {
+        sentryClient.captureException(ExceptionId.BIND_OR_RESTORE_FIREFLY_SESSION, {
+            profileId: session.profileId,
+            sessionType: session.type,
+        });
+
         // enqueue error message later
         if (error instanceof FarcasterAlreadyBoundError || error instanceof EmailAlreadyBoundError) {
             throw error;

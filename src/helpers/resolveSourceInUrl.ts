@@ -4,7 +4,7 @@ import {
     type NotificationSource,
     type NotificationSourceInURL,
     type ProfilePageSource,
-    ProfileSourceInURL,
+    type ProfileSourceInURL,
     type SocialSource,
     type SocialSourceInURL,
     Source,
@@ -98,12 +98,12 @@ export const resolveNotificationSource = createLookupTableResolver<NotificationS
 
 export const resolveProfileSourceInURL = createLookupTableResolver<ProfilePageSource, ProfileSourceInURL>(
     {
-        [Source.Farcaster]: ProfileSourceInURL.Farcaster,
-        [Source.Lens]: ProfileSourceInURL.Lens,
-        [Source.Bsky]: ProfileSourceInURL.Bsky,
-        [Source.Twitter]: ProfileSourceInURL.Twitter,
-        [Source.Wallet]: ProfileSourceInURL.Wallet,
-        [Source.WalletMix]: ProfileSourceInURL.WalletMix,
+        [Source.Farcaster]: SourceInURL.Farcaster,
+        [Source.Lens]: SourceInURL.Lens,
+        [Source.Bsky]: SourceInURL.Bsky,
+        [Source.Twitter]: SourceInURL.TwitterV2,
+        [Source.Wallet]: SourceInURL.Wallet,
+        [Source.WalletMix]: SourceInURL.WalletMix,
     },
     (source) => {
         throw new UnreachableError('source', source);

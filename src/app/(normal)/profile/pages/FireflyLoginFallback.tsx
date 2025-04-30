@@ -2,6 +2,7 @@
 
 import { Trans } from '@lingui/react/macro';
 
+import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { Source } from '@/constants/enum.js';
 import { redirect, useSearchParams } from '@/esm/navigation.js';
@@ -38,6 +39,7 @@ export function FireflyLoginFallback() {
                     </h1>
                 </div>
             </div>
+            <NavigatorBar />
             <NotLoginFallback source={Source.Posts} className="!pt-[100px]" />
         </div>
     );

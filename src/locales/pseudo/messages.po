@@ -437,6 +437,9 @@ msgstr ""
 msgid "Poll"
 msgstr ""
 
+msgid "Back to list"
+msgstr ""
+
 msgid "Bets"
 msgstr ""
 
@@ -892,6 +895,10 @@ msgid "The blacklist function is included. Some addresses may not be able to tra
 msgstr ""
 
 msgid "<0/>Delete Firefly account"
+msgstr ""
+
+#. placeholder {0}: x.provider
+msgid "Verified by {0}"
 msgstr ""
 
 msgid "Select Account"
@@ -1924,9 +1931,6 @@ msgstr ""
 msgid "Verified"
 msgstr ""
 
-msgid "Redirecting..."
-msgstr ""
-
 msgid "Log in with recovery phrase"
 msgstr ""
 
@@ -2162,10 +2166,6 @@ msgstr ""
 msgid "Articles"
 msgstr ""
 
-#. placeholder {0}: nFormatter(data.count)
-msgid "{0} followings owned"
-msgstr ""
-
 msgid "Follow me"
 msgstr ""
 
@@ -2211,6 +2211,9 @@ msgid "I want to hide this wallet address."
 msgstr ""
 
 msgid "Search token"
+msgstr ""
+
+msgid "Failed to restore your BlueSky session, you can refresh the page to try again or sign in again."
 msgstr ""
 
 msgid "Details"

@@ -539,7 +539,7 @@ export class FireflyEndpoint {
         return createPageable(
             data.list,
             indicator,
-            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+            data.cursor && data.list.length ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
         );
     }
 
@@ -592,7 +592,7 @@ export class FireflyEndpoint {
         chainId?: number;
         walletAddress?: string;
     } = {}): Promise<Pageable<NFTFeedV3, PageIndicator>> {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, walletAddress ? '/v3/user/timeline/nft' : '/v2/timeline/nft');
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/timeline/nft');
         const response = await fireflySessionHolder.fetch<DiscoverNFTResponseV3>(
             url,
             {
@@ -1302,7 +1302,7 @@ export class FireflyEndpoint {
     }
 
     async getNFTDetails(chainId: number, list: Array<{ contract_address: string; token_id: string }>) {
-        if (!list.length) return [];
+        if (!list.length || !NFTSCAN_CHAIN_IDS.includes(chainId)) return [];
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/detail');
         const response = await fetchJSON<NFTDetailResponse>(url, {
             method: 'POST',
@@ -1319,12 +1319,13 @@ export class FireflyEndpoint {
     }
 
     async getCollection(chainId: number, contractAddress: string) {
+        if (!NFTSCAN_CHAIN_IDS.includes(chainId)) return null;
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/collection', {
             chainId,
             contractAddress,
         });
         const response = await fetchJSON<CollectionResponse>(url);
-        return response.data ? fixCollection(response.data) : undefined;
+        return response.data ? fixCollection(response.data) : null;
     }
 
     async getCollectionItems(chainId: number, contractAddress: string, indicator?: PageIndicator) {
@@ -1369,10 +1370,13 @@ export class FireflyEndpoint {
             cursor: indicator?.id,
         });
         const response = await fetchJSON<CollectionsResponse>(url);
+        const collections = (response.data?.collections || []).map(fixCollection);
         return createPageable(
-            (response.data?.collections || []).map(fixCollection),
+            collections,
             createIndicator(indicator),
-            response.data?.cursor ? createNextIndicator(indicator, response.data.cursor) : undefined,
+            response.data?.cursor && collections.length
+                ? createNextIndicator(indicator, response.data.cursor)
+                : undefined,
         );
     }
 

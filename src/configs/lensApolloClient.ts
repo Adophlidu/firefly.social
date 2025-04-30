@@ -9,6 +9,8 @@ import { getLensCredentialsFromStorage } from '@/helpers/getLensCredentialsFromS
 import { parseLensAccessToken } from '@/helpers/parseLensAccessToken.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { resumeLensSession } from '@/providers/lens/resumeLensSession.js';
+import type { LensSession } from '@/providers/lens/Session.js';
+import { useLensStateStore } from '@/store/useProfileStore.js';
 
 const httpLink = new HttpLink({
     uri: LENS_API_URL,
@@ -27,7 +29,14 @@ const authLink = new ApolloLink((operation, next) => {
     const profile = getCurrentProfile(Source.Lens);
     if (!profile) return next(operation);
 
-    const { data: credentials } = runInSafe(() => getLensCredentialsFromStorage()) || {};
+    const credentials = runInSafe(() => {
+        const localCredentials = getLensCredentialsFromStorage();
+        const lensSession = useLensStateStore.getState().currentProfileSession as LensSession | null;
+        return {
+            accessToken: localCredentials?.data.accessToken || lensSession?.token,
+            refreshToken: localCredentials?.data.refreshToken || lensSession?.refreshToken,
+        };
+    });
     if (!credentials?.accessToken || !credentials?.refreshToken) return next(operation);
 
     const tokenPayload = parseLensAccessToken(credentials.accessToken);

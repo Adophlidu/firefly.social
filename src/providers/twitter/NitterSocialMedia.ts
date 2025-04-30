@@ -4,6 +4,7 @@ import type { TweetV2LookupResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { NotImplementedError } from '@/constants/error.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { tweetV2ToPost } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterPostFromNitter } from '@/helpers/formatTwitterPostFromNitter.js';
 import { formatTwitterProfileFromNitter } from '@/helpers/formatTwitterProfileFromNitter.js';
@@ -352,10 +353,13 @@ export class NitterSocialMedia implements Provider {
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const { username } = await NitterAPIProvider.convertUserIdToHandle(profileId);
-        const { timeline, pagination } = await NitterAPIProvider.getUserTimelineByHandle(username, {
-            cursor: indicator?.id,
+        const pageable = await runInSafeAsync(async () => {
+            const { timeline, pagination } = await NitterAPIProvider.getUserTimelineByHandle(username, {
+                cursor: indicator?.id,
+            });
+            return withFullStatusTweetWithPagination(timeline, pagination, indicator);
         });
-        return withFullStatusTweetWithPagination(timeline, pagination, indicator);
+        return pageable ?? createPageable(EMPTY_LIST, createIndicator(indicator));
     }
 
     async getLikedPostsByProfileId(
@@ -370,25 +374,31 @@ export class NitterSocialMedia implements Provider {
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
         const { username } = await NitterAPIProvider.convertUserIdToHandle(profileId);
-        const { timeline, pagination } = await NitterAPIProvider.getUserTimelineByHandle(username, {
-            cursor: indicator?.id,
-            tab: UserTimelineTab.WithReplies,
+        const pageable = await runInSafeAsync(async () => {
+            const { timeline, pagination } = await NitterAPIProvider.getUserTimelineByHandle(username, {
+                cursor: indicator?.id,
+                tab: UserTimelineTab.WithReplies,
+            });
+            return withReplyPostsToTimelineWithPagination(timeline, pagination, indicator);
         });
-        return withReplyPostsToTimelineWithPagination(timeline, pagination, indicator);
+        return pageable ?? createPageable(EMPTY_LIST, createIndicator(indicator));
     }
 
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const { replies, after } = await NitterAPIProvider.getTweetStatus('web', postId, {
             cursor: indicator?.id,
         });
-        const data = [...(!indicator?.id ? [...after.tweets] : []), ...replies.tweets].map((tweet) =>
-            formatTwitterPostFromNitter(tweet),
-        );
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            replies.bottom ? createNextIndicator(indicator, replies.bottom) : undefined,
-        );
+        const pageable = await runInSafeAsync(async () => {
+            const data = [...(!indicator?.id ? [...after.tweets] : []), ...replies.tweets].map((tweet) =>
+                formatTwitterPostFromNitter(tweet),
+            );
+            return createPageable(
+                data,
+                createIndicator(indicator),
+                replies.bottom ? createNextIndicator(indicator, replies.bottom) : undefined,
+            );
+        });
+        return pageable ?? createPageable(EMPTY_LIST, createIndicator(indicator));
     }
 
     async getThreadByPostId(postId: string): Promise<Post[]> {
@@ -494,12 +504,16 @@ export class NitterSocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const { username } = await NitterAPIProvider.convertUserIdToHandle(profileId);
-        const { timeline, pagination } = await NitterAPIProvider.getUserTimelineByHandle(username, {
-            cursor: indicator?.id,
-            tab: UserTimelineTab.Media,
+        const pageable = await runInSafeAsync(async () => {
+            const { username } = await NitterAPIProvider.convertUserIdToHandle(profileId);
+            const { timeline, pagination } = await NitterAPIProvider.getUserTimelineByHandle(username, {
+                cursor: indicator?.id,
+                tab: UserTimelineTab.Media,
+            });
+
+            return withFullStatusTweetWithPagination(timeline, pagination, indicator);
         });
-        return withFullStatusTweetWithPagination(timeline, pagination, indicator);
+        return pageable ?? createPageable(EMPTY_LIST, createIndicator(indicator));
     }
 }
 

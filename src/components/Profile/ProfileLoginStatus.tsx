@@ -1,11 +1,15 @@
+import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import type { HTMLProps } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
+import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { LoginModalRef } from '@/modals/controls.js';
+import type { Account } from '@/providers/types/Account.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { switchAccount } from '@/services/account.js';
 
@@ -19,6 +23,14 @@ function getButtonClassName(...rest: string[]) {
 
 export function ProfileLoginStatus({ profile, className = '' }: ProfileLoginStatusProps) {
     const { accounts, currentProfile } = useProfileStore(profile.source);
+    const [{ loading }, handleSwitch] = useAsyncFn(async (account: Account) => {
+        try {
+            await switchAccount(account);
+        } catch (error) {
+            enqueueMessageFromError(error, t`Failed to switch.`);
+            throw error;
+        }
+    }, []);
 
     // current active profile
     if (isSameProfile(profile, currentProfile)) return null;
@@ -28,7 +40,14 @@ export function ProfileLoginStatus({ profile, className = '' }: ProfileLoginStat
     // has other accounts connected
     if (relatedAccount) {
         return (
-            <ClickableButton className={getButtonClassName(className)} onClick={() => switchAccount(relatedAccount)}>
+            <ClickableButton
+                loading={loading}
+                onlyLoading
+                className={getButtonClassName(className)}
+                onClick={async () => {
+                    await handleSwitch(relatedAccount);
+                }}
+            >
                 <Trans>Switch</Trans>
             </ClickableButton>
         );

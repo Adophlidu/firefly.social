@@ -73,6 +73,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_ACTIVITY_PARTICLE: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_NITTER: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_WALLET_MIX: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_POST_TRANSLATE: z.nativeEnum(STATUS).default(STATUS.Disabled),
 
     // hubble
     NEXT_PUBLIC_NEYNAR_URL: z.string().default('https://neynar-proxy.r2d2.to'),

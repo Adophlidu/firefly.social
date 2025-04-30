@@ -123,7 +123,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
     const message = rp_msg || <Trans>Best Wishes!</Trans>;
 
     return (
-        <div className="mb-3 flex w-full flex-col rounded-lg bg-white p-0">
+        <div className="light mb-3 flex w-full flex-col rounded-lg bg-white p-0">
             <section className="flex items-center justify-between">
                 <div
                     className={`relative h-auto w-full rounded-lg bg-gradient-to-b from-blue-100 to-blue-50 p-3 max-md:p-8`}
@@ -147,7 +147,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                 <TextOverflowTooltip content={message} className="break-all">
                                     <div
                                         className={classNames(
-                                            'break-all text-[14px] font-bold text-lightTextMain',
+                                            'break-all text-[14px] font-bold text-main',
                                             isDetail ? 'text-left' : 'truncate',
                                         )}
                                     >
@@ -156,11 +156,11 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                 </TextOverflowTooltip>
                             </div>
                             <div className="flex w-full text-[14px] leading-[18px]">
-                                <div className="mr-1 truncate text-second">
+                                <div className="mr-1 truncate text-secondary">
                                     {create_time ? <Trans>Create time:</Trans> : <Trans>Received time:</Trans>}
                                 </div>
                                 <div
-                                    className={classNames('truncate text-lightTextMain', {
+                                    className={classNames('truncate text-main', {
                                         hidden: !redpacket_id,
                                     })}
                                 >
@@ -180,7 +180,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
 
                             {creator || share_from ? (
                                 <div className="flex items-center text-[14px] leading-[18px]">
-                                    <div className="mr-1 text-second">
+                                    <div className="mr-1 text-secondary">
                                         <Trans>Creator:</Trans>
                                     </div>
                                     <RedPacketAccountItem
@@ -194,10 +194,10 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                             ) : null}
                             {post_on?.length && isDetail ? (
                                 <div className="flex items-center text-[14px] leading-[18px]">
-                                    <div className="mr-1 text-second">
+                                    <div className="mr-1 text-secondary">
                                         <Trans>Post on</Trans>
                                     </div>
-                                    <div className="flex text-lightTextMain">
+                                    <div className="flex text-main">
                                         {post_on
                                             ?.sort((a, b) => {
                                                 if (a.platform === b.platform) return 0;
@@ -231,9 +231,9 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                     <section className="light mt-[15px] flex w-full flex-nowrap items-center justify-between">
                         {claim_numbers || total_numbers ? (
                             <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <div className="flex items-center gap-x-[2px] text-[14px] text-lightTextMain">
+                                <div className="flex items-center gap-x-[2px] text-[14px] text-main">
                                     <Trans>
-                                        <span className="text-second">Claimed: </span>
+                                        <span className="text-secondary">Claimed: </span>
                                         <span className="mr-[6px]">
                                             {claim_numbers}/{total_numbers}
                                         </span>
@@ -264,8 +264,8 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                         ) : null}
                         {token_amounts ? (
                             <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <div className="flex items-center gap-x-[2px] text-[14px] text-lightTextMain">
-                                    <span className="text-second">
+                                <div className="flex items-center gap-x-[2px] text-[14px] text-secondary">
+                                    <span className="text-main">
                                         <Trans>Received</Trans>
                                     </span>
                                     {formatBalance(token_amounts, token_decimal, {
@@ -288,7 +288,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                         {!isDetail ? (
                             <button
                                 className={
-                                    'z-10 flex cursor-pointer items-center justify-center bg-none p-0 text-xs font-bold text-lightTextMain'
+                                    'z-10 flex cursor-pointer items-center justify-center bg-none p-0 text-xs font-bold text-main'
                                 }
                                 onClick={() => {
                                     history.push(

@@ -89,10 +89,14 @@ export function SearchProfileContent() {
         initialPageParam: { firefly: '', twitter: '', bsky: '' },
         getNextPageParam: (lastPage) => {
             if (lastPage?.data.length === 0) return;
+
+            const { nextIndicator, twitterNextIndicator, bskyNextIndicator } = lastPage || {};
+            if (!nextIndicator && !twitterNextIndicator && !bskyNextIndicator) return;
+
             return {
-                firefly: lastPage?.nextIndicator?.id || noNextPage,
-                twitter: lastPage?.twitterNextIndicator?.id || noNextPage,
-                bsky: lastPage?.bskyNextIndicator?.id || noNextPage,
+                firefly: nextIndicator?.id || noNextPage,
+                twitter: twitterNextIndicator?.id || noNextPage,
+                bsky: bskyNextIndicator?.id || noNextPage,
             };
         },
         select(data) {

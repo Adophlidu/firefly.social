@@ -2,7 +2,7 @@ import { first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
+import { SEVEN_DAYS, SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
@@ -14,6 +14,8 @@ import { ConfirmFireflyModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { LensSession } from '@/providers/lens/Session.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import {
     captureAccountConflictEvent,
     captureAccountCreateSuccessEvent,
@@ -281,8 +283,30 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 export async function switchAccount(account: Account, signal?: AbortSignal) {
     const { state, sessionHolder } = getContext(account.profile.profileSource);
 
-    sessionHolder.resumeSession(account.session);
-    state.addAccount(account, true);
+    let session = account.session;
+    if (account.profile.profileSource === Source.Lens) {
+        const credentials = await lensSessionHolder.resumeSession(account.session as LensSession, true);
+        if (credentials) {
+            const now = Date.now();
+            session = new LensSession(
+                account.profile.profileId,
+                credentials.accessToken,
+                now,
+                now + SEVEN_DAYS,
+                credentials.refreshToken,
+                account.profile.profileId,
+            );
+        }
+    } else {
+        sessionHolder.resumeSession(account.session);
+    }
+    state.addAccount(
+        {
+            ...account,
+            session,
+        },
+        true,
+    );
 }
 
 async function removeAccount(account: Account, signal?: AbortSignal) {

@@ -8,23 +8,19 @@ import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
-import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { NFTSCAN_CHAIN_IDS } from '@/providers/nft-scan/constants.js';
 
 export function FollowingNFTList({ walletAddress }: { walletAddress?: string }) {
-    const profileIds = useCurrentProfileIds();
-    const queryKey = walletAddress
-        ? ['nfts-of', walletAddress, profileIds]
-        : ['nfts', 'following', Source.NFTs, profileIds];
+    const queryKey = walletAddress ? ['nfts-of', walletAddress] : ['nfts', 'following', Source.NFTs];
     const queryResult = useMultiInfiniteQueryPageable(
         [...queryKey, ...NFTSCAN_CHAIN_IDS],
         NFTSCAN_CHAIN_IDS.map((chainId) => ({
             key: chainId.toString(),
             async queryFn({ pageParam }) {
                 const indicator = createIndicator(undefined, pageParam);
-                if (!walletAddress && !profileIds.length) {
+                if (!walletAddress) {
                     return createPageable(EMPTY_LIST, indicator);
                 }
                 return FireflyEndpointProvider.getFollowingNFTs({
@@ -39,7 +35,7 @@ export function FollowingNFTList({ walletAddress }: { walletAddress?: string }) 
         },
     );
 
-    if (!walletAddress && !profileIds.length) {
+    if (!walletAddress) {
         return <NotLoginFallback source={Source.NFTs} className="md:!pt-0" />;
     }
 

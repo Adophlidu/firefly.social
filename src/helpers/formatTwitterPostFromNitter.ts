@@ -9,7 +9,7 @@ import { SITE_URL } from '@/constants/index.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { resolveTweetReplySettings } from '@/helpers/formatTwitterPost.js';
-import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
+import { formatTwitterProfile, formatTwitterProfileStatus } from '@/helpers/formatTwitterProfile.js';
 import { formatTwitterProfileFromNitter } from '@/helpers/formatTwitterProfileFromNitter.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getTwitterNitterPicOrigUrl, getTwitterNitterPicUrl } from '@/helpers/getTwitterNitterPicUrl.js';
@@ -161,6 +161,8 @@ export function formatTwitterPostFromNitter(
         post.metadata = post.mirrorOn.metadata;
         post.stats = post.mirrorOn.stats;
         post.parentPostId = post.mirrorOn.postId;
+        const author = options?.includes?.users?.find((user) => user.id === post.author.profileId);
+        post.author.viewerContext = formatTwitterProfileStatus(author?.connection_status);
         const mentions = parseTweetMentions(tweet.retweet.text);
         if (mentions?.length) post.mentions = post.mentions ? [...post.mentions, ...mentions] : mentions;
         const retweeted = options?.tweet?.referenced_tweets?.find((tweet) => tweet.type === 'retweeted');

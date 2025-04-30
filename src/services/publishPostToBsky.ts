@@ -5,6 +5,7 @@ import { compact, first } from 'lodash-es';
 
 import { BskyEmbedType, RestrictionType } from '@/constants/enum.js';
 import { resolveBskyEmbed } from '@/helpers/resolveBskyEmbed.js';
+import { refreshSessionAndUpdateStore } from '@/providers/bsky/refreshSessionAndUpdateStore.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -71,14 +72,9 @@ interface Options {
     disableQuote?: boolean;
 }
 
-export async function publishPostToBsky(
-    post: Post,
-    isQuote: boolean,
-    options?: Options,
-): Promise<{
-    cid: string;
-    uri: string;
-}> {
+type PublishPostFunction = (post: Post, isQuote: boolean, options?: Options) => Promise<{ cid: string; uri: string }>;
+
+const executePublish: PublishPostFunction = async (post, isQuote, options) => {
     const did = bskySessionHolder.agent.assertDid;
     const rkey = TID.next().toString();
     const uri = `at://${did}/app.bsky.feed.post/${rkey}`;
@@ -165,4 +161,27 @@ export async function publishPostToBsky(
     }
 
     return { cid: postData.cid, uri: postData.uri } as { cid: string; uri: string };
-}
+};
+
+export const publishPostToBsky: PublishPostFunction = async (post, isQuote, options) => {
+    try {
+        // ensure token valid
+        await refreshSessionAndUpdateStore();
+
+        return executePublish(post, isQuote, options);
+    } catch (error) {
+        console.error('[Bsky] posting error', error);
+
+        if (
+            error instanceof Error &&
+            'error' in error &&
+            ['ExpiredToken', 'InvalidToken'].includes(error.error as string)
+        ) {
+            await refreshSessionAndUpdateStore(true);
+
+            return executePublish(post, isQuote, options);
+        }
+
+        throw error;
+    }
+};

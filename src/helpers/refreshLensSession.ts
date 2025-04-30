@@ -1,6 +1,6 @@
 import type { SessionClient } from '@lens-protocol/client';
 
-import { THIRTY_DAYS } from '@/constants/index.js';
+import { SEVEN_DAYS } from '@/constants/index.js';
 import { ensureLensResultSync } from '@/helpers/ensureLensResult.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
 import { LensSession } from '@/providers/lens/Session.js';
@@ -23,7 +23,7 @@ export async function refreshLensSession(sdk: SessionClient) {
                   profileId,
                   accessToken,
                   now,
-                  now + THIRTY_DAYS,
+                  now + SEVEN_DAYS,
                   refreshToken,
                   walletAddress ?? ETH_ZERO_ADDRESS,
               )

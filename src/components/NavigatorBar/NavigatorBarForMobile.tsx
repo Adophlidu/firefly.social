@@ -78,7 +78,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
 
     return (
         <>
-            <header className="flex items-center gap-4 px-4 py-[7px] text-main">
+            <header className="flex w-full items-center gap-4 px-4 py-[7px] text-main">
                 {searchMode || enableFixedBack || isSearchPage ? (
                     <div className="flex size-[30px] shrink-0 justify-center">
                         <BackButton

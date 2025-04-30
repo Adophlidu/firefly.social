@@ -1,6 +1,6 @@
 import { type ChallengeRequest, evmAddress, SessionClient } from '@lens-protocol/client';
 
-import { createLensSDK, LocalStorageProvider } from '@/helpers/createLensSDK.js';
+import { createLensSDK, LocalStorageProvider, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
 import { getWalletClientForLensChain } from '@/helpers/getWalletClientForLensChain.js';
 import { createLensSession } from '@/providers/lens/createLensSession.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -23,10 +23,10 @@ export async function createAccountWithSessionClient(
     } satisfies Account;
 }
 
-export async function createAccountForProfileId(profile: Profile, signal?: AbortSignal) {
+export async function createAccountForProfileId(profile: Profile, useMemoryStorage = false, signal?: AbortSignal) {
     const walletClient = await getWalletClientForLensChain();
 
-    const storage = new LocalStorageProvider();
+    const storage = useMemoryStorage ? new MemoryStorageProvider() : new LocalStorageProvider();
     const sdk = createLensSDK(storage);
 
     const address = evmAddress(walletClient.account.address);

@@ -9,8 +9,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { AddressCard, AddressCardIndicator } from '@/components/EmbedCards/AddressCard.js';
 import { DomainCard, DomainCardIndicator } from '@/components/EmbedCards/DomainCard.js';
 import { extractEmbedResources, isAvailableAddress } from '@/components/EmbedCards/helpers.js';
-import { Indicator } from '@/components/EmbedCards/Indicator.js';
-import { EmbedLinkCard } from '@/components/EmbedCards/LinkCard.js';
+import { EmbedLinkCard, LinkCardIndicator } from '@/components/EmbedCards/LinkCard.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
@@ -77,13 +76,7 @@ export const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInn
             case 'address':
                 return <AddressCard key={embed.value} className="rounded-2xl !bg-lightBg" address={embed.value} />;
             case 'domain':
-                return (
-                    <DomainCard
-                        key={embed.value}
-                        className="min-h-[109px] rounded-2xl bg-lightBg"
-                        domain={embed.value}
-                    />
-                );
+                return <DomainCard key={embed.value} className="rounded-2xl bg-lightBg" domain={embed.value} />;
             case 'url':
                 return <EmbedLinkCard key={embed.value} className="!bg-lightBg" link={embed.value} post={post} />;
             default:
@@ -124,7 +117,16 @@ export const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInn
                                     />
                                 );
                             case 'url':
-                                return <Indicator key={item.value} active={active} onClick={handleClick} />;
+                                return (
+                                    <LinkCardIndicator
+                                        key={item.value}
+                                        link={item.value}
+                                        post={post}
+                                        active={active}
+                                        onClick={handleClick}
+                                        onAvailableUpdate={handleAvailableUpdate}
+                                    />
+                                );
                             default:
                                 safeUnreachable(item.type);
                                 return null;
@@ -161,14 +163,16 @@ export const EmbedCards = memo(function EmbedCards({ post, ...rest }: EmbedCards
             const result = classifyResults[i];
             return result?.nft || result?.collection;
         });
-        const availableDomains = domains.filter((_, i) => {
+        const lowerIgnoredLinks = ignoredLinks.map((x) => x.toLowerCase());
+        const availableDomains = domains.filter((domain, i) => {
             const result = domainResolveResults[i];
-            return result.data;
+            if (!result.data) return result.data;
+            const ignored = ignoredLinks.some((link) => link.includes(domain.toLowerCase()));
+            return !ignored;
         });
 
-        const lowerLinks = availableLinks.map((x) => x.toLowerCase());
-        const lowerIgnoredLinks = ignoredLinks.map((x) => x.toLowerCase());
         const lowerDomains = availableDomains.map((x) => x.toLowerCase());
+        const lowerLinks = availableLinks.map((x) => x.toLowerCase());
         const embeds = [
             ...addresses
                 .filter((x) => !lowerLinks.some((link) => link.includes(x.toLowerCase()))) // exclude addresses that are already in links

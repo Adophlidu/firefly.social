@@ -95,15 +95,8 @@ export enum SourceInURL {
     Posts = 'posts',
     Notifications = 'all',
     Swap = 'swap',
-}
-
-export enum ProfileSourceInURL {
-    Farcaster = 'far',
-    Lens = 'lens',
-    Twitter = 'x',
-    Bsky = 'bsky',
-    Wallet = 'wallet',
-    WalletMix = 'wallets',
+    FarcasterV2 = 'far',
+    TwitterV2 = 'x',
 }
 
 export enum Agent {
@@ -166,6 +159,12 @@ export type ProfilePageSource =
     | Source.Wallet
     | Source.WalletMix;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter | SourceInURL.Bsky;
+export type ProfileSourceInURL =
+    | SocialSourceInURL
+    | SourceInURL.Wallet
+    | SourceInURL.WalletMix
+    | SourceInURL.FarcasterV2
+    | SourceInURL.TwitterV2;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens | Source.Bsky;
 export type SocialNotificationSource = Source.Farcaster | Source.Lens | Source.Bsky;
 export type DiscoverSource = Source.Posts | Source.NFTs | Source.Article | Source.DAOs;

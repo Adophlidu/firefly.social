@@ -3,7 +3,6 @@
 import { Trans } from '@lingui/react/macro';
 import { memo, useState } from 'react';
 import type { Address } from 'viem';
-import { useEnsName } from 'wagmi';
 
 import FollowIcon from '@/assets/follow-bold.svg';
 import FollowedIcon from '@/assets/followed.svg';
@@ -26,6 +25,7 @@ enum State {
 
 interface WatchButtonProps extends Omit<ClickableButtonProps, 'children'> {
     address: Address;
+    ens?: string;
     variant?: 'text' | 'icon';
     watchButtonClassName?: ClickableButtonProps['className'];
     watchingButtonClassName?: ClickableButtonProps['className'];
@@ -34,6 +34,7 @@ interface WatchButtonProps extends Omit<ClickableButtonProps, 'children'> {
 export const WatchButton = memo(function WatchButton({
     variant = 'text',
     address,
+    ens,
     className,
     watchButtonClassName = '',
     watchingButtonClassName = '',
@@ -42,7 +43,6 @@ export const WatchButton = memo(function WatchButton({
     const isLogin = useIsLogin();
     const [seen, ref] = useEverSeen<HTMLButtonElement>();
     const [hovering, setHovering] = useState(false);
-    const { data: ens } = useEnsName({ address });
     const { data: isFollowing } = useIsFollowingWallet(address, seen);
     const identity = ens || formatAddress(address, 4);
     const mutation = useToggleWatchWallet({ handleOrEnsOrAddress: identity, address, following: !!isFollowing });

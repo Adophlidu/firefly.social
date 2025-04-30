@@ -442,6 +442,9 @@ msgstr "在 {count} 秒內使用手機<0>相機</0>掃描 QR 碼。<1/>批准現
 msgid "Poll"
 msgstr "投票"
 
+msgid "Back to list"
+msgstr ""
+
 msgid "Bets"
 msgstr "賭注"
 
@@ -898,6 +901,10 @@ msgstr "包含黑名單功能，部分地址可能無法正常交易（蜜罐風
 
 msgid "<0/>Delete Firefly account"
 msgstr "<0/>刪除 Firefly 帳戶"
+
+#. placeholder {0}: x.provider
+msgid "Verified by {0}"
+msgstr ""
 
 msgid "Select Account"
 msgstr "選擇帳戶"
@@ -1937,9 +1944,6 @@ msgstr "封面背景"
 msgid "Verified"
 msgstr "已驗證"
 
-msgid "Redirecting..."
-msgstr "重新導向中..."
-
 msgid "Log in with recovery phrase"
 msgstr "使用助記詞登入"
 
@@ -2175,10 +2179,6 @@ msgstr ""
 msgid "Articles"
 msgstr "文章"
 
-#. placeholder {0}: nFormatter(data.count)
-msgid "{0} followings owned"
-msgstr ""
-
 msgid "Follow me"
 msgstr ""
 
@@ -2224,6 +2224,9 @@ msgid "I want to hide this wallet address."
 msgstr ""
 
 msgid "Search token"
+msgstr ""
+
+msgid "Failed to restore your BlueSky session, you can refresh the page to try again or sign in again."
 msgstr ""
 
 msgid "Details"

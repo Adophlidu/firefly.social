@@ -6,6 +6,7 @@ import { memoize } from 'lodash-es';
 import { PUBLIC_SERVICE_URL } from '@/constants/bsky.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { BskySession } from '@/providers/bsky/Session.js';
+import { createBskyAgentAndResume } from '@/services/createBskyAgentAndResume.js';
 
 export const createAgentOnce = (serviceUrl: string) => {
     return new AtpAgent({
@@ -26,12 +27,15 @@ class BskySessionHolder extends SessionHolder<BskySession> {
     }
 
     override async resumeSession(session: BskySession, refreshSession = true): Promise<void> {
-        const agent =
-            this._agent && this._agent?.serviceUrl.toString() === session.serviceUrl
-                ? this._agent
-                : createAgent(session.serviceUrl);
+        const agent = await createBskyAgentAndResume(session);
+        if (this.session && agent.sessionManager.session) {
+            this.session.sessionPayload = {
+                ...this.session.sessionPayload,
+                ...agent.sessionManager.session,
+                pdsUrl: agent.sessionManager.pdsUrl?.toString(),
+            };
+        }
 
-        await agent.resumeSession(session.sessionPayload);
         if (refreshSession) {
             await agent.sessionManager.refreshSession();
 
@@ -39,6 +43,7 @@ class BskySessionHolder extends SessionHolder<BskySession> {
             session.createdAt = now;
             session.expiresAt = now;
         }
+
         super.resumeSession(session);
         this._agent = agent;
 
@@ -47,6 +52,7 @@ class BskySessionHolder extends SessionHolder<BskySession> {
             this.session.sessionPayload = {
                 ...this.session.sessionPayload,
                 ...agent.sessionManager.session,
+                pdsUrl: agent.sessionManager.pdsUrl?.toString(),
             };
         }
     }

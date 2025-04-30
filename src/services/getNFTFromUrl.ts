@@ -36,7 +36,11 @@ const NFTSCAN_EVM_DOMAINS = [
         domain: 'base.nftscan.com',
         chainId: EthereumChainId.Base,
     },
-] as const;
+    {
+        domain: 'mantle.nftscan.com',
+        chainId: EthereumChainId.Mantle,
+    },
+].filter((x) => NFTSCAN_CHAIN_IDS.includes(x.chainId));
 
 interface Rule {
     hosts: string[];

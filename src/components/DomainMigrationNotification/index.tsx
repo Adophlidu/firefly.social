@@ -1,4 +1,5 @@
 'use client';
+
 import { Trans } from '@lingui/react/macro';
 import React, { memo, useState } from 'react';
 

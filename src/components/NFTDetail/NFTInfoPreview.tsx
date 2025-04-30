@@ -75,11 +75,18 @@ export function NFTVideo({
 
 export function NFTInfoPreview({ name, imageURL, video }: { imageURL: string; video?: string; name: string }) {
     return (
-        <div className="relative h-full w-full max-w-[250px] overflow-hidden rounded-[20px] object-cover shadow-lightS3">
+        <div className="relative h-full w-full max-w-[250px] overflow-hidden rounded-[20px] border border-secondaryLine object-cover shadow-lightS3">
             {video ? (
                 <NFTVideo video={video} imageURL={imageURL} autoPlay />
             ) : (
-                <NFTImage width={230} height={230} src={imageURL} alt={name} className="h-full w-full object-cover" />
+                <NFTImage
+                    width={230}
+                    height={230}
+                    src={imageURL}
+                    alt={name}
+                    className="h-full w-full object-cover"
+                    fallbackClassName=""
+                />
             )}
         </div>
     );

@@ -2,7 +2,6 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useQuery } from '@tanstack/react-query';
 import type { Hex } from 'viem';
 import { useEnsName } from 'wagmi';
 
@@ -22,16 +21,13 @@ import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
-import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 import { useCollectionMarketInfo } from '@/hooks/useCollectionMarketInfo.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import type { NonFungibleTokenTrait } from '@/mask_pkgs/web3-shared/base/index.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
@@ -79,18 +75,6 @@ export function NFTInfo(props: NFTInfoProps) {
     });
     const { data: marketInfo } = useCollectionMarketInfo(chainId, contractAddress);
 
-    const { data } = useQuery({
-        queryKey: ['followings', contractAddress, tokenId],
-        enabled: !!contractAddress,
-        queryFn: async () => {
-            if (!contractAddress) return;
-            return FireflyEndpointProvider.getFollowingCountByNFT({
-                collectionAddress: contractAddress,
-                chainName: resolveSimpleHashChain(chainId),
-            });
-        },
-    });
-
     const collectionUrl = contractAddress ? resolveNFTUrl(chainId, contractAddress) : '';
     const nftUrl = contractAddress ? resolveNFTUrl(chainId, contractAddress, tokenId || '0') : '';
 
@@ -136,11 +120,6 @@ export function NFTInfo(props: NFTInfoProps) {
                         nftId={resolveNFTId(chainId, contractAddress, tokenId, false)}
                         ownerAddress={ownerAddress}
                     />
-                ) : null}
-                {data?.count ? (
-                    <div className="absolute bottom-2.5 left-1/2 z-10 inline-block max-w-[90%] -translate-x-1/2 truncate rounded-md bg-black/25 px-2 py-1.5 text-center text-[13px] font-bold text-lightBottom">
-                        <Trans>{nFormatter(data.count)} followings owned</Trans>
-                    </div>
                 ) : null}
                 <NFTInfoPreview name={name} imageURL={imageURL} video={videoURL} />
             </div>

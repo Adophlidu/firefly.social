@@ -6,10 +6,10 @@ import { compact, uniqBy } from 'lodash-es';
 import { ChannelInList } from '@/components/ChannelInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
-import { ScrollListKey } from '@/constants/enum.js';
+import { ScrollListKey, Source } from '@/constants/enum.js';
 import { REQUIRE_LOGIN_SOURCES_IN_SEARCH } from '@/constants/index.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import { createIndicator } from '@/helpers/pageable.js';
+import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
@@ -36,11 +36,20 @@ export function SearchChannelContent() {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['search', searchType, searchKeyword, source, isLogin],
         queryFn: async ({ pageParam }) => {
-            if (!searchKeyword || (loginRequired && !isLogin)) return;
-            const provider = resolveSocialMediaProvider(currentSocialSource);
-            const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
+            try {
+                if (!searchKeyword || (loginRequired && !isLogin)) return;
+                const provider = resolveSocialMediaProvider(currentSocialSource);
+                const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
-            return provider.searchChannels(searchKeyword.replace(/^\//, ''), indicator);
+                const channels = await provider.searchChannels(searchKeyword.replace(/^\//, ''), indicator);
+                if (!indicator?.id && currentSocialSource === Source.Lens) {
+                    channels.data.reverse();
+                }
+
+                return channels;
+            } catch {
+                return createPageable([], createIndicator(undefined, pageParam));
+            }
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {

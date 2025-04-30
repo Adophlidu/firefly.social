@@ -10,7 +10,7 @@ import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Link } from '@/components/Link.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { isValidChainIdEthereum, isValidChainIdSolana } from '@/helpers/isValidChainId.js';
-import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
+import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
 import { EVMExplorerResolver, SolanaExplorerResolver } from '@/mask/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { EthereumSchemaType } from '#masknet/web3-shared-evm';
@@ -136,7 +136,7 @@ export function NFTOverflow(props: NFTOverflowProps) {
                                     <span className="mr-1">
                                         <ChainIcon chainId={props.chainId} size={20} />
                                     </span>
-                                    <span className="capitalize">{resolveSimpleHashChain(props.chainId)}</span>
+                                    <span className="capitalize">{resolveWagmiChain(props.chainId)?.name}</span>
                                 </div>
                             }
                         />

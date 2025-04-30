@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
-import { AddressSocialAvatar } from '@/components/AddressSocialAvatar/index.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { SecurityBadge } from '@/components/EmbedCards/TokenSecurityBadge.js';
 import type { AddressCardProps } from '@/components/EmbedCards/types.js';
@@ -18,6 +17,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveNetworkIcon } from '@/helpers/resolveNetworkIcon.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
@@ -87,10 +87,14 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                 }}
             >
                 <Link className="flex-shrink-0 rounded-full ring-[3px] ring-primaryBottom" href={profileUrl}>
-                    <AddressSocialAvatar
+                    <Image
                         className="size-12 overflow-hidden rounded-full bg-bg"
-                        address={address}
-                        size={48}
+                        unoptimized
+                        loading="lazy"
+                        src={getStampAvatarByProfileId(Source.Wallet, address)}
+                        alt=""
+                        width={48}
+                        height={48}
                     />
                 </Link>
                 <div className="flex min-w-0 flex-col gap-1">
