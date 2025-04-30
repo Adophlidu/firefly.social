@@ -975,14 +975,15 @@ export class LensSocialMedia implements Provider {
         const items = compact(data)
             .map((item) => {
                 if (!item) return item;
+
                 if ('followers' in item) {
-                    item.followers = item.followers.filter((x) => !profileIdSet.has(x.profileId));
+                    item.followers = item.followers.filter((x) => !profileIdSet.has(x.profileId.toLowerCase()));
                 }
                 if ('mirrors' in item) {
-                    item.mirrors = item.mirrors.filter((x) => !profileIdSet.has(x.profileId));
+                    item.mirrors = item.mirrors.filter((x) => !profileIdSet.has(x.profileId.toLowerCase()));
                 }
                 if ('reactors' in item) {
-                    item.reactors = item.reactors.filter((x) => !profileIdSet.has(x.profileId));
+                    item.reactors = item.reactors.filter((x) => !profileIdSet.has(x.profileId.toLowerCase()));
                 }
                 return item;
             })
@@ -997,7 +998,7 @@ export class LensSocialMedia implements Provider {
                 if (
                     'comment' in item &&
                     item.comment?.author.profileId &&
-                    profileIdSet.has(item.comment.author.profileId)
+                    profileIdSet.has(item.comment.author.profileId.toLowerCase())
                 ) {
                     return false;
                 }

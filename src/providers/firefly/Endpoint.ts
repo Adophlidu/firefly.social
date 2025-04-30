@@ -636,7 +636,7 @@ export class FireflyEndpoint {
     async getBlockRelation(conditions: Array<{ snsPlatform: FireflyPlatform; snsId: string }>) {
         return fireflySessionHolder.withSession(async (session) => {
             if (!session) return [];
-            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/blockRelation');
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/muteRelation');
             const response = await fireflySessionHolder.fetch<BlockRelationResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
