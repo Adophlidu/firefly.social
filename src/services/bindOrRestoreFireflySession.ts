@@ -30,7 +30,7 @@ export async function bindOrRestoreFireflySession(session: Session, signal?: Abo
             throw new AuthenticationError('[bindOrRestoreFireflySession] Firefly session is not available.');
         }
     } catch (error) {
-        sentryClient.captureException(ExceptionId.BIND_OR_RESTORE_FIREFLY_SESSION, {
+        sentryClient.captureException(ExceptionId.BIND_OR_RESTORE_FIREFLY_SESSION, error, {
             profileId: session.profileId,
             sessionType: session.type,
         });

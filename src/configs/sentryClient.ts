@@ -62,7 +62,7 @@ class SentryClient {
         });
     }
 
-    captureException(exceptionId: ExceptionId, error: unknown, tags?: Record<string, string>) {
+    captureException(exceptionId: ExceptionId, error: unknown, tags?: Record<string, string | number>) {
         try {
             captureException(error, {
                 level: 'error',
