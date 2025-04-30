@@ -1,5 +1,6 @@
 'use client';
 
+import ActivityElex24Provider from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
 import { ActivityMobileOnly } from '@/components/Activity/ActivityMobileOnly.js';
 import { ActivityButtrflyTasks } from '@/components/Activity/ActivityTasks/ActivityButtrflyTasks.js';
 import { ActivityElex24Tasks } from '@/components/Activity/ActivityTasks/ActivityElex24Tasks.js';
@@ -20,7 +21,11 @@ export function ActivityTasks({ name, data }: Props) {
         case 'hlbl':
             return <ActivityHlblTasks data={data} />;
         case 'elex24':
-            return <ActivityElex24Tasks data={data} />;
+            return (
+                <ActivityElex24Provider>
+                    <ActivityElex24Tasks data={data} />
+                </ActivityElex24Provider>
+            );
         case 'frensgiving':
             return <ActivityFrensgivingTasks data={data} />;
         case 'pengu':
@@ -43,3 +48,5 @@ export function ActivityTasks({ name, data }: Props) {
             return null;
     }
 }
+
+export default ActivityTasks;

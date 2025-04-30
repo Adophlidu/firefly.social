@@ -45,3 +45,5 @@ export function ActivityEndedDialog({ data }: Props) {
         </Modal>
     );
 }
+
+export default ActivityEndedDialog;

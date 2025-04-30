@@ -12,3 +12,5 @@ export function ActivityNavigationBar({ children }: PropsWithChildren) {
     }
     return <ActivityDesktopNavigationBar>{children}</ActivityDesktopNavigationBar>;
 }
+
+export default ActivityNavigationBar;

@@ -1,6 +1,5 @@
-'use client';
-
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc.js';
 
 import CalendarIcon from '@/assets/activity-calendar.svg';
 import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
@@ -16,6 +15,7 @@ export function ActivityHeader({
         'title' | 'sub_title' | 'start_time' | 'end_time' | 'status' | 'banner_url' | 'cover_url' | 'description'
     >;
 }) {
+    dayjs.extend(utc);
     const timeTemplate = 'MMM DD, HH:mm';
     return (
         <div className="flex w-full flex-col">

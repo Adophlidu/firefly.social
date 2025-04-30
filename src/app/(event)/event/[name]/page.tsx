@@ -1,40 +1,28 @@
-'use client';
-
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { use } from 'react';
-
-import { ActivityElex24Provider } from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
-import { ActivityEndedDialog } from '@/components/Activity/ActivityEndedDialog.js';
 import { ActivityHeader } from '@/components/Activity/ActivityHeader.js';
-import { ActivityNavigationBar } from '@/components/Activity/ActivityNavigationBar.js';
-import { ActivityTasks } from '@/components/Activity/ActivityTasks/index.js';
+import { dynamic } from '@/esm/dynamic.js';
 import { notFound } from '@/esm/navigation.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
 import type { NextPageProps } from '@/types/index.js';
 
+const ActivityNavigationBar = dynamic(() => import('@/components/Activity/ActivityNavigationBar.js'), { ssr: false });
+const ActivityTasks = dynamic(() => import('@/components/Activity/ActivityTasks/index.js'), { ssr: false });
+const ActivityEndedDialog = dynamic(() => import('@/components/Activity/ActivityEndedDialog.js'), { ssr: false });
+
 interface Props extends NextPageProps<{ name: string }> {}
 
-export default function Page(props: Props) {
-    const { name } = use(props.params);
-
-    const { data } = useSuspenseQuery({
-        queryKey: ['activity-info', name],
-        async queryFn() {
-            return FireflyActivityProvider.getFireflyActivityInfo(name);
-        },
-    });
-
+export default async function Page(props: Props) {
+    const { name } = await props.params;
+    const data = await runInSafeAsync(() => FireflyActivityProvider.getFireflyActivityInfo(name));
     if (!data) notFound();
 
     return (
-        <ActivityElex24Provider>
-            <div className="flex min-h-[100svh] w-full flex-1 flex-col">
-                <ActivityNavigationBar>{data.title}</ActivityNavigationBar>
-                <ActivityHeader data={data} />
-                <ActivityTasks data={data} name={name} />
-                {data.status === ActivityStatus.Ended ? <ActivityEndedDialog data={data} /> : null}
-            </div>
-        </ActivityElex24Provider>
+        <div className="flex min-h-[100svh] w-full flex-1 flex-col">
+            <ActivityNavigationBar>{data.title}</ActivityNavigationBar>
+            <ActivityHeader data={data} />
+            <ActivityTasks data={data} name={name} />
+            {data.status === ActivityStatus.Ended ? <ActivityEndedDialog data={data} /> : null}
+        </div>
     );
 }
