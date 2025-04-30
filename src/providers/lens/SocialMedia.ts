@@ -56,7 +56,7 @@ import {
 import { account, type MetadataAttribute, MetadataAttributeType } from '@lens-protocol/metadata';
 import { unreachable } from '@masknet/kit';
 import { isServer } from '@tanstack/react-query';
-import { compact, first, flatMap, uniqWith } from 'lodash-es';
+import { compact, first, flatMap, uniqBy, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 
@@ -916,7 +916,10 @@ export class LensSocialMedia implements Provider {
                         source: Source.Lens,
                         notificationId: item.id,
                         type: NotificationType.Follow,
-                        followers: item.followers.map((x) => formatLensProfileV3(x.account)),
+                        followers: uniqBy(
+                            item.followers.map((x) => formatLensProfileV3(x.account)),
+                            (x) => x.profileId,
+                        ),
                     };
                 }
 

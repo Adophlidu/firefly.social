@@ -138,7 +138,7 @@ interface PostParentProps {
 
 function PostRoot({ post, isDetail, listKey, index }: PostParentProps) {
     if (post.type !== 'Comment') return null;
-    if (post.mirrors?.length) return null;
+    if (!post.mirrors?.length) return null;
     if (post.rootPostId === post.parentPostId) return null;
     if (post.root) {
         return <ThreadBody isDetail={isDetail} post={post.root} listKey={listKey} index={index} />;
@@ -159,7 +159,7 @@ function PostRoot({ post, isDetail, listKey, index }: PostParentProps) {
 
 function PostParent({ post, isDetail, listKey, index }: PostParentProps) {
     if (post.type !== 'Comment') return null;
-    if (post.mirrors?.length) return null;
+    if (!post.mirrors?.length) return null;
     if (post.commentOn) {
         return <ThreadBody isDetail={isDetail} post={post.commentOn} listKey={listKey} index={index} />;
     }
