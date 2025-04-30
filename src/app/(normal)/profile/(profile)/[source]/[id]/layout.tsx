@@ -1,3 +1,5 @@
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+
 import { NoSSR } from '@/components/NoSSR.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { FireflyAccountInfo } from '@/components/Profile/FireflyAccountInfo.js';
@@ -56,13 +58,16 @@ export default async function Layout(props: Props) {
     const profiles = formatFireflyProfilesFromWalletProfiles(relatedProfile) as FireflyProfile[];
     const identity = fixIdentity(identityFromUrl, profiles);
 
+    const queryClient = new QueryClient();
+    queryClient.setQueryData(['firefly-profile', identityFromUrl.source, identityFromUrl.id], relatedProfile);
+
     if (isRequestedLoginSource(source) && !resolveSessionHolder(source).session) {
         return (
-            <>
+            <HydrationBoundary state={dehydrate(queryClient)}>
                 <FireflyAccountInfo identity={identity} relatedProfile={relatedProfile} />
                 <ProfileSourceTabs profiles={profiles} identity={identity} />
                 <NotLoginFallback source={source as LoginFallbackSource} />
-            </>
+            </HydrationBoundary>
         );
     }
 
@@ -74,8 +79,15 @@ export default async function Layout(props: Props) {
                   .catch(() => notFound())
             : null;
 
+    if (socialProfile) {
+        queryClient.setQueryData(['profile', socialProfile.source, socialProfile.profileId], socialProfile);
+        queryClient.setQueryData(['profile', socialProfile.source, socialProfile.handle], socialProfile);
+        queryClient.setQueryData(['firefly-profile', socialProfile.source, socialProfile.profileId], relatedProfile);
+        queryClient.setQueryData(['firefly-profile', socialProfile.source, socialProfile.handle], relatedProfile);
+    }
+
     return (
-        <>
+        <HydrationBoundary state={dehydrate(queryClient)}>
             <FireflyAccountInfo
                 relatedProfile={relatedProfile}
                 identity={identity}
@@ -97,6 +109,6 @@ export default async function Layout(props: Props) {
                     <NoSSR>{props.children}</NoSSR>
                 </WalletProfileProvider>
             )}
-        </>
+        </HydrationBoundary>
     );
 }

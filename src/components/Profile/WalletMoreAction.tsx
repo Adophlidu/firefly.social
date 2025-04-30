@@ -2,7 +2,6 @@
 
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
-import { useQuery } from '@tanstack/react-query';
 import { compact, sum } from 'lodash-es';
 import { memo } from 'react';
 import type { Address } from 'viem';
@@ -19,9 +18,9 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
+import { useFireflyProfileByIdentity } from '@/hooks/useFireflyProfileByIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyIdentity, WalletProfile } from '@/providers/types/Firefly.js';
 
 interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
@@ -95,12 +94,7 @@ function MuteAllByWalletMenuItem({
     ensOrAddress?: string;
     identity: FireflyIdentity;
 }) {
-    const { data } = useQuery({
-        queryKey: ['firefly-profile', identity],
-        async queryFn() {
-            return FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false);
-        },
-    });
+    const { data } = useFireflyProfileByIdentity(identity);
     const profileCount = sum(
         compact([
             data?.twitterProfiles?.length,

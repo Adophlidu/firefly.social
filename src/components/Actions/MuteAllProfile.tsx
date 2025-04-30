@@ -11,6 +11,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Source } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { isProfilePageSource } from '@/helpers/isSource.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
@@ -27,7 +28,7 @@ interface MuteAllProfileBaseProps extends HTMLProps<'button'> {
     onClose?(): void;
 }
 
-function waitForConfirmation(handleOrEnsOrAddress: string) {
+function waitForConfirmation() {
     return ConfirmModalRef.openAndWaitForClose({
         title: t`Mute all`,
         content: (
@@ -39,22 +40,24 @@ function waitForConfirmation(handleOrEnsOrAddress: string) {
     });
 }
 
-function MuteAllProfileBase({ handleOrEnsOrAddress, identity, onClose, className }: MuteAllProfileBaseProps) {
+function MuteAllProfileBase({ identity, onClose, className }: MuteAllProfileBaseProps) {
     const isLogin = useIsLogin();
     const [{ loading }, handleMuteAll] = useAsyncFn(async () => {
         try {
             onClose?.();
-            const confirmed = await waitForConfirmation(handleOrEnsOrAddress);
+            const confirmed = await waitForConfirmation();
             if (!confirmed) return;
-
-            await FireflyEndpointProvider.muteProfileAll(identity);
+            const source = identity.source;
+            if (!isProfilePageSource(source)) return;
+            const isMutedAll = await FireflyEndpointProvider.isProfileMutedAll(source, identity.id);
+            if (!isMutedAll) await FireflyEndpointProvider.muteProfileAll(identity);
             enqueueSuccessMessage(t`All wallets and accounts are muted.`);
             captureMuteEvent(EventId.MUTE_ALL_SUCCESS, identity);
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to mute all wallets and accounts.`);
             throw error;
         }
-    }, [handleOrEnsOrAddress, identity, onClose]);
+    }, [identity, onClose]);
 
     if (!isLogin) return null;
 
