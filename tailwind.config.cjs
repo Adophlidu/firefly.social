@@ -116,8 +116,8 @@ module.exports = {
             },
             zIndex: {
                 1: '1',
-                menu: '1000',
-                modal: '1001',
+                menu: '39',
+                modal: '40',
             },
         },
         // please apply the same value in src/hooks/useMediaQuery.ts

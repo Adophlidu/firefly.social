@@ -17,7 +17,7 @@ export function MyWalletsModal({ ref }: Props) {
     const onClose = useCallback(() => dispatch?.close(), [dispatch]);
 
     return (
-        <Modal open={open} onClose={onClose} dialogClassName="!z-40">
+        <Modal open={open} onClose={onClose}>
             <div>
                 <div className="relative flex max-h-[70vh] w-[80vw] max-w-[400px] flex-col rounded-md bg-lightBottom text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:rounded-xl">
                     <h3 className="relative h-14 shrink-0 pt-safe">
