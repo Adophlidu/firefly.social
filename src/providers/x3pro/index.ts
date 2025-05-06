@@ -11,7 +11,8 @@ export const enum X3ProKolListLabel {
 
 export const enum X3ProOrderType {
     Latest = 3,
-    Follower = 2,
+    Follower = 1,
+    MonitoringRanking = 2,
 }
 
 type Response<T> =
