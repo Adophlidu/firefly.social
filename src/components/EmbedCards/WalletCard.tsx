@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
+import { Avatar } from '@/components/Avatar.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { SecurityBadge } from '@/components/EmbedCards/TokenSecurityBadge.js';
 import type { AddressCardProps } from '@/components/EmbedCards/types.js';
@@ -87,12 +88,13 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                 }}
             >
                 <Link className="flex-shrink-0 rounded-full ring-[3px] ring-primaryBottom" href={profileUrl}>
-                    <Image
+                    <Avatar
                         className="size-12 overflow-hidden rounded-full bg-bg"
                         unoptimized
                         loading="lazy"
                         src={getStampAvatarByProfileId(Source.Wallet, address)}
                         alt=""
+                        size={48}
                         width={48}
                         height={48}
                     />

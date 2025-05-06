@@ -14,7 +14,6 @@ import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isDomainOrSubdomainOf } from '@/helpers/isDomainOrSubdomainOf.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
-import { NitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
 
 function resolveImgurUrl(url: string) {
     if (!URL.canParse(url)) return;
@@ -75,8 +74,7 @@ export const Avatar = memo(function Avatar({
                 const twitterId = result?.twitterId;
                 if (!twitterId) return null;
 
-                const profile = await NitterSocialMediaProvider.getProfileById(twitterId);
-                return profile.pfp;
+                return urlcat('/api/twitter/user/:id/avatar', { id: twitterId });
             }
 
             return null;
