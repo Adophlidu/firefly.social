@@ -4066,6 +4066,9 @@ msgstr ""
 msgid "Cybercrime."
 msgstr ""
 
+msgid "This wallet is already linked to a different Firefly account."
+msgstr ""
+
 #. placeholder {0}: formatAddressEthereum(toAddress, 4)
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr ""

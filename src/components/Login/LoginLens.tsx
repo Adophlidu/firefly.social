@@ -14,8 +14,8 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { NetworkType, Source } from '@/constants/enum.js';
-import { AbortError } from '@/constants/error.js';
-import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { AbortError, FireflyAlreadyBoundError } from '@/constants/error.js';
+import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { ensureLensResultSync } from '@/helpers/ensureLensResult.js';
 import { updateCredentialsStorage } from '@/helpers/getLensCredentialsFromStorage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
@@ -78,6 +78,11 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
             } catch (error) {
                 // skip if the error is abort error
                 if (AbortError.is(error)) return;
+
+                if (error instanceof FireflyAlreadyBoundError) {
+                    enqueueWarningMessage(t`This wallet is already linked to a different Firefly account.`);
+                    return;
+                }
 
                 enqueueMessageFromError(error, t`Failed to login.`);
                 throw error;

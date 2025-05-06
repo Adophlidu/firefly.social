@@ -1,5 +1,9 @@
 'use client';
 
+import { t } from '@lingui/core/macro';
+
+import { FireflyAlreadyBoundError } from '@/constants/error.js';
+import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
@@ -21,17 +25,30 @@ export async function addTwitterAccount(payload: SessionPayload, isNew = false, 
 
     const session = TwitterSession.from(profile.profileId, payload);
 
-    await addAccount(
-        {
-            profile,
-            session,
-            fireflySession: isNew ? await bindOrRestoreFireflySession(session) : undefined,
-        },
-        {
-            skipBelongsToCheck: !isNew,
-            skipResumeFireflyAccounts: !isNew,
-            skipResumeFireflySession: !isNew,
-            signal,
-        },
-    );
+    try {
+        const fireflySession = isNew ? await bindOrRestoreFireflySession(session) : undefined;
+
+        await addAccount(
+            {
+                profile,
+                session,
+                fireflySession,
+            },
+            {
+                skipBelongsToCheck: !isNew,
+                skipResumeFireflyAccounts: !isNew,
+                skipResumeFireflySession: !isNew,
+                signal,
+            },
+        );
+    } catch (error) {
+        if (error instanceof FireflyAlreadyBoundError) {
+            enqueueWarningMessage(
+                t`The account you are trying to log in with is already linked to a different Firefly account.`,
+            );
+            return;
+        }
+
+        throw error;
+    }
 }

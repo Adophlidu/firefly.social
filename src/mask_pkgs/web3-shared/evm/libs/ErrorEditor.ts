@@ -1,6 +1,6 @@
 import { isNil } from 'lodash-es';
 
-import type { RecognizableError } from '@/constants/error.js';
+import { RecognizableError } from '@/constants/error.js';
 import type { JsonRpcResponse } from '@/types/ethereum.js';
 
 // https://www.jsonrpc.org/specification#error_object
@@ -84,9 +84,7 @@ export class ErrorEditor {
         })();
 
         if (RecognizableErrorMessage) {
-            const error = new Error(RecognizableErrorMessage) as RecognizableError;
-            error.isRecognized = true;
-            return error;
+            return new RecognizableError(RecognizableErrorMessage, true);
         }
         return new Error(this.internalError.message);
     }

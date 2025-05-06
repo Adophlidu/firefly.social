@@ -15,8 +15,8 @@ import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { FarcasterSignType, FarcasterSignType as SignType, Source } from '@/constants/enum.js';
 import {
     AbortError,
-    FarcasterAlreadyBoundError,
     FarcasterPatchSignerError,
+    FireflyAlreadyBoundError,
     NotAllowedError,
     TimeoutError,
 } from '@/constants/error.js';
@@ -65,7 +65,7 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
         LoginModalRef.close();
 
         // if the account is already bound to another account, show a warning message
-        if (error instanceof FarcasterAlreadyBoundError) {
+        if (error instanceof FireflyAlreadyBoundError) {
             enqueueWarningMessage(
                 t`The account you are trying to log in with is already linked to a different Firefly account.`,
             );

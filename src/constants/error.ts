@@ -1,6 +1,11 @@
 import { parseHTML } from 'linkedom';
 
+import type { ProfileSource } from '@/constants/enum.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+
 export class AbortError extends Error {
+    override name = 'AbortError';
+
     constructor(message = 'Aborted') {
         super(message);
     }
@@ -11,12 +16,16 @@ export class AbortError extends Error {
 }
 
 export class MalformedError extends Error {
+    override name = 'MalformedError';
+
     constructor(message?: string) {
         super(message ?? 'Malformed request');
     }
 }
 
 export class UnauthorizedError extends Error {
+    override name = 'UnauthorizedError';
+
     constructor(message?: string) {
         super(message ?? 'Unauthorized');
     }
@@ -36,6 +45,8 @@ async function getResponseText(response: Response): Promise<string> {
 }
 
 export class FetchError extends Error {
+    override name = 'FetchError';
+
     constructor(
         message: string,
         public url: string,
@@ -73,84 +84,112 @@ export class FetchError extends Error {
 }
 
 export class FarcasterPatchSignerError extends Error {
+    override name = 'FarcasterPatchSignerError';
+
     constructor(public fid: number) {
         super(`Failed to patch signer key to Farcaster session: ${fid}`);
     }
 }
 
 export class FarcasterInvalidSignerKey extends Error {
+    override name = 'FarcasterInvalidSignerKey';
+
     constructor(message?: string) {
         super(message ?? 'Invalid Farcaster signer key.');
     }
 }
 
-export class FarcasterAlreadyBoundError extends Error {
-    constructor() {
-        super('This Farcaster account has already bound to another Firefly account.');
+export class FireflyAlreadyBoundError extends Error {
+    override name = 'FireflyAlreadyBoundError';
+
+    constructor(public source: ProfileSource) {
+        super(`This ${resolveSourceName(source)} account has already bound to another Firefly account.`);
     }
 }
 
 export class ContentTypeError extends Error {
+    override name = 'ContentTypeError';
+
     constructor(message?: string) {
         super(message ?? 'Content-Type is not multipart/form-data');
     }
 }
 
 export class AuthenticationError extends Error {
+    override name = 'AuthenticationError';
+
     constructor(message?: string) {
         super(message ?? 'Failed to authenticate');
     }
 }
 
 export class UserRejectionError extends Error {
+    override name = 'UserRejectionError';
+
     constructor(message?: string) {
         super(message ?? 'User rejected.');
     }
 }
 
 export class TimeoutError extends Error {
+    override name = 'TimeoutError';
+
     constructor(message?: string) {
         super(message ?? 'Timeout.');
     }
 }
 
 export class UnreachableError extends Error {
+    override name = 'UnreachableError';
+
     constructor(label: string, value: unknown) {
         super(`Unreachable ${label} = ${value}.`);
     }
 }
 
 export class NotImplementedError extends Error {
+    override name = 'NotImplementedError';
+
     constructor(message?: string) {
         super(message ?? 'Not implemented.');
     }
 }
 
 export class NotAllowedError extends Error {
+    override name = 'NotAllowedError';
+
     constructor(message?: string) {
         super(message ?? 'Not allowed.');
     }
 }
 
 export class InvalidResultError extends Error {
+    override name = 'InvalidResultError';
+
     constructor() {
         super('Invalid result.');
     }
 }
 
 export class NotFoundError extends Error {
+    override name = 'NotFoundError';
+
     constructor(message?: string) {
         super(message ?? 'Not Found.');
     }
 }
 
 export class RPC_Error extends Error {
+    override name = 'RPC_Error';
+
     constructor(message?: string) {
         super(message ?? 'RPC Error.');
     }
 }
 
 export class SwitchChainError extends Error {
+    override name = 'SwitchChainError';
+
     constructor(chainName?: string) {
         super(
             chainName
@@ -161,6 +200,8 @@ export class SwitchChainError extends Error {
 }
 
 export class CreateScheduleError extends Error {
+    override name = 'CreateScheduleError';
+
     constructor(
         public override message: string,
         public description?: string,
@@ -170,35 +211,44 @@ export class CreateScheduleError extends Error {
 }
 
 export class SignlessRequireError extends Error {
+    override name = 'SignlessRequireError';
+
     constructor(public override message: string) {
         super(message);
     }
 }
 
 export class TransactionSimulationError extends Error {
+    override name = 'TransactionSimulationError';
+
     constructor(message?: string) {
         super(message ?? 'Transaction simulation failed.');
     }
 }
 
 export class OTPExceededMaximumLimit extends Error {
+    override name = 'OTPExceededMaximumLimit';
+
     constructor(message?: string) {
         super(message ?? 'OTP exceeded maximum limit.');
     }
 }
 
 export class LoginEmailError extends Error {
+    override name = 'LoginEmailError';
+
     constructor(message?: string) {
         super(message ?? 'The code you’ve entered is incorrect, please try again.');
     }
 }
 
-export class EmailAlreadyBoundError extends Error {
-    constructor(message?: string) {
-        super(message ?? 'This Email is already linked to another Firefly account.');
-    }
-}
+export class RecognizableError extends Error {
+    override name = 'RecognizableError';
 
-export interface RecognizableError extends Error {
-    isRecognized?: boolean;
+    constructor(
+        message?: string,
+        public isRecognized = false,
+    ) {
+        super(message ?? 'Recognizable error.');
+    }
 }

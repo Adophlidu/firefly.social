@@ -1,12 +1,8 @@
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
-import {
-    EmailAlreadyBoundError,
-    FarcasterAlreadyBoundError,
-    NotAllowedError,
-    UnreachableError,
-} from '@/constants/error.js';
+import { Source } from '@/constants/enum.js';
+import { FireflyAlreadyBoundError, NotAllowedError, UnreachableError } from '@/constants/error.js';
 import { NOT_DEPEND_SECRET } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getDidServiceHost } from '@/helpers/getDidServiceHost.js';
@@ -37,6 +33,10 @@ async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
             signal,
         },
     );
+
+    if (response.error?.some((x) => x.includes('This wallet already bound to the other account'))) {
+        throw new FireflyAlreadyBoundError(Source.Lens);
+    }
 
     const data = resolveFireflyResponseData(response);
     return data;
@@ -72,7 +72,7 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
         isRelayService &&
         response.error?.some((x) => x.includes('This farcaster already bound to the other account'))
     ) {
-        throw new FarcasterAlreadyBoundError();
+        throw new FireflyAlreadyBoundError(Source.Farcaster);
     }
 
     const data = resolveFireflyResponseData(response);
@@ -99,6 +99,10 @@ async function bindTwitterSessionToFirefly(session: TwitterSession, signal?: Abo
             signal,
         },
     );
+
+    if (response.error?.some((x) => x.includes('This Twitter already bound to the other account'))) {
+        throw new FireflyAlreadyBoundError(Source.Twitter);
+    }
 
     const data = resolveFireflyResponseData(response);
     return data;
@@ -134,6 +138,10 @@ async function bindAppleSessionToFirefly(session: ThirdPartySession, signal?: Ab
             signal,
         },
     );
+
+    if (response.error?.some((x) => 'This apple already bound to the other account')) {
+        throw new FireflyAlreadyBoundError(Source.Apple);
+    }
 
     const data = resolveFireflyResponseData(response);
     return data;
@@ -199,8 +207,8 @@ export async function bindEmailSessionToFirefly(session: ThirdPartySession, sign
 
         return data;
     } catch (error) {
-        if (error instanceof Error && error.message.includes('Email has already been taken.')) {
-            throw new EmailAlreadyBoundError();
+        if (error instanceof Error && error.message.includes('Email has already been taken')) {
+            throw new FireflyAlreadyBoundError(Source.Email);
         }
 
         throw error;

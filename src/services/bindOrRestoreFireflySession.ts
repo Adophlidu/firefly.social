@@ -1,13 +1,11 @@
 import { sentryClient } from '@/configs/sentryClient.js';
 import {
     AuthenticationError,
-    EmailAlreadyBoundError,
-    FarcasterAlreadyBoundError,
     FarcasterPatchSignerError,
+    FireflyAlreadyBoundError,
     NotAllowedError,
     NotImplementedError,
 } from '@/constants/error.js';
-import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Session } from '@/providers/types/Session.js';
@@ -41,14 +39,9 @@ export async function bindOrRestoreFireflySession(session: Session, signal?: Abo
         }
 
         // enqueue error message later
-        if (error instanceof FarcasterAlreadyBoundError || error instanceof EmailAlreadyBoundError) {
-            throw error;
-        }
+        if (error instanceof FireflyAlreadyBoundError) throw error;
 
-        if (error instanceof Error && error.message.includes('This apple already bound to the other account')) {
-            enqueueWarningMessage('This Apple account is already linked to another Firefly account.');
-            throw error;
-        }
+        if (error instanceof FarcasterPatchSignerError) throw error;
 
         // this will create a new session
         return restoreFireflySession(session, signal);

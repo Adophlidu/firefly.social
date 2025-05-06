@@ -4082,6 +4082,9 @@ msgstr "Copy frame URL"
 msgid "Cybercrime."
 msgstr "Cybercrime."
 
+msgid "This wallet is already linked to a different Firefly account."
+msgstr "This wallet is already linked to a different Firefly account."
+
 #. placeholder {0}: formatAddressEthereum(toAddress, 4)
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>Sent</0> an NFT to <1>{0}</1>"

@@ -10,9 +10,9 @@ import { ClearButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SendPasscodeButton } from '@/components/Login/SendPasscodeButton.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
-import { AbortError, EmailAlreadyBoundError } from '@/constants/error.js';
+import { AbortError, FireflyAlreadyBoundError } from '@/constants/error.js';
 import { EMAIL_REGEX } from '@/constants/regexp.js';
-import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { createAccountByPasscode } from '@/providers/email/createAccountByPasscode.js';
@@ -41,6 +41,11 @@ async function loginEmail(createAccount: () => Promise<Account>, options?: Omit<
     } catch (error) {
         // skip if the error is abort error
         if (AbortError.is(error)) return;
+
+        if (error instanceof FireflyAlreadyBoundError) {
+            enqueueWarningMessage(t`This Email is already linked to another Firefly account.`);
+            return;
+        }
 
         throw error;
     }
@@ -75,11 +80,10 @@ export function LoginEmail() {
                 signal: controller.current.signal,
             });
         } catch (error) {
-            if (error instanceof EmailAlreadyBoundError) {
-                enqueueWarningMessage(t`This Email is already linked to another Firefly account.`);
+            if (error instanceof Error) {
+                enqueueMessageFromError(error, t`Connection failed. ${error.message}`);
                 return;
             }
-            if (error instanceof Error) enqueueErrorMessage(t`Connection failed. ${error.message}`);
             throw error;
         }
     }, [controller, email, passcode, isValidEmail, isValidPasscode]);
