@@ -67,6 +67,9 @@ msgstr "断开"
 msgid "No frame found."
 msgstr "为找到 frame。"
 
+msgid "Coins"
+msgstr ""
+
 msgid "FAILED THREAD POST"
 msgstr "发送 thread 失败"
 
@@ -408,6 +411,9 @@ msgstr "热门币种"
 #. placeholder {0}: currentProfile.handle
 msgid "Log out @{0}"
 msgstr "登出 @{0}"
+
+msgid "View similar symbols"
+msgstr ""
 
 msgid "DAOs"
 msgstr "DAOs"
@@ -1504,11 +1510,6 @@ msgstr "点赞了这笔交易。"
 msgid "Send"
 msgstr "发送"
 
-#. placeholder {0}: renderShrankPrice(formatPrice(price) ?? '-')
-#. placeholder {1}: market?.price_change_percentage_24h_in_currency !== undefined ? ( <span className={isUp ? 'text-success' : 'text-fail'}> {market.price_change_percentage_24h_in_currency.toFixed(2)}% </span> ) : null
-msgid "<0>Price</0><1>${0}</1><2/>{1}"
-msgstr "<0>价格</0><1>${0}</1><2/>{1}"
-
 msgid "Collected"
 msgstr "已铸造"
 
@@ -2274,11 +2275,6 @@ msgstr "尚未开始"
 msgid "Cannot send tip to yourself"
 msgstr "不能打赏给自己"
 
-#. placeholder {0}: market?.market_cap !== undefined ? `$${formatMarketCap(market.market_cap)}` : '-'
-#. placeholder {1}: token.rank
-msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
-msgstr "<0>市值</0><1>{0}</1><2>排名 #{1}</2>"
-
 msgid "Total amount"
 msgstr "总金额"
 
@@ -2971,6 +2967,11 @@ msgstr "<0>铸造了</0> 一个 NFT 价值 {costEl}"
 msgid "Balance"
 msgstr "余额"
 
+#. placeholder {0}: market_data.price_change_percentage_24h.toFixed(2)
+#. placeholder {1}: renderShrankPrice(formatPrice(price) ?? '-')
+msgid "<0/><1>{0}%</1><2>today</2><3>${1}</3>"
+msgstr ""
+
 msgid "Suspended"
 msgstr "已暂停"
 
@@ -3488,6 +3489,9 @@ msgstr "已保存在 {0}"
 msgid "Add another option"
 msgstr "添加另一个选项"
 
+msgid "Dex"
+msgstr ""
+
 msgid "Passed"
 msgstr "已拒绝"
 
@@ -3693,9 +3697,6 @@ msgstr "转帖"
 
 msgid "The contract owner has no restrictions on anti whale."
 msgstr "合约所有者对反鲸鱼机制没有限制。"
-
-msgid "Detail"
-msgstr "详情"
 
 msgid "Exclusive Events"
 msgstr "独家活动"
@@ -4025,6 +4026,7 @@ msgid "GIF"
 msgstr "GIF"
 
 #. placeholder {0}: market_cap ? `$${formatMarketCap(market_cap)}` : '-'
+#. placeholder {1}: rank ? ( <span className="inline-flex h-[14px] items-center text-nowrap rounded bg-highlight px-1 py-0.5 text-[10px] text-white"> Rank #{rank} </span> ) : null
 #. placeholder {1}: rank ? ( <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white"> Rank #{rank} </span> ) : null
 msgid "<0>{0}</0><1>MC</1>{1}"
 msgstr "<0>{0}</0><1>市值</1>{1}"

@@ -9,9 +9,10 @@ interface Props {
     level: SecurityMessageLevel | SecurityMessageLevel[];
     security: TokenContractSecurity | AddressSecurity;
     children: ReactElement<any>;
+    interactive?: boolean;
 }
 
-export function TokenSecurityTippy({ children, level, security }: Props) {
+export function TokenSecurityTippy({ children, level, security, interactive }: Props) {
     const { message_list } = security;
     const levels = Array.isArray(level) ? level : [level];
 
@@ -23,17 +24,9 @@ export function TokenSecurityTippy({ children, level, security }: Props) {
 
     const content =
         levels.length > 1 ? (
-            <div className="rounded-lg border border-line bg-primaryBottom p-4">
+            <div className="flex flex-col gap-2 rounded-lg border border-line bg-primaryBottom p-4">
                 {Object.entries(groups).map(([level, group]) => {
-                    return (
-                        <RiskCard
-                            key={level}
-                            className="!p-0"
-                            level={group[0].level}
-                            security={security}
-                            messages={group}
-                        />
-                    );
+                    return <RiskCard key={level} level={group[0].level} security={security} messages={group} />;
                 })}
             </div>
         ) : (
@@ -41,7 +34,14 @@ export function TokenSecurityTippy({ children, level, security }: Props) {
         );
 
     return (
-        <InteractiveTippy maxWidth={350} delay={300} className="tippy-card" placement="bottom" content={content}>
+        <InteractiveTippy
+            maxWidth={350}
+            delay={300}
+            className="tippy-card !max-w-none"
+            placement="bottom"
+            content={content}
+            interactive={interactive}
+        >
             {children}
         </InteractiveTippy>
     );

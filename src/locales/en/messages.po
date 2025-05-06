@@ -62,6 +62,9 @@ msgstr "Disconnect"
 msgid "No frame found."
 msgstr "No frame found."
 
+msgid "Coins"
+msgstr "Coins"
+
 msgid "FAILED THREAD POST"
 msgstr "FAILED THREAD POST"
 
@@ -403,6 +406,9 @@ msgstr "Trending"
 #. placeholder {0}: currentProfile.handle
 msgid "Log out @{0}"
 msgstr "Log out @{0}"
+
+msgid "View similar symbols"
+msgstr "View similar symbols"
 
 msgid "DAOs"
 msgstr "DAOs"
@@ -1499,11 +1505,6 @@ msgstr "Liked this swap."
 msgid "Send"
 msgstr "Send"
 
-#. placeholder {0}: renderShrankPrice(formatPrice(price) ?? '-')
-#. placeholder {1}: market?.price_change_percentage_24h_in_currency !== undefined ? ( <span className={isUp ? 'text-success' : 'text-fail'}> {market.price_change_percentage_24h_in_currency.toFixed(2)}% </span> ) : null
-msgid "<0>Price</0><1>${0}</1><2/>{1}"
-msgstr "<0>Price</0><1>${0}</1><2/>{1}"
-
 msgid "Collected"
 msgstr "Collected"
 
@@ -2269,11 +2270,6 @@ msgstr "Not Started"
 msgid "Cannot send tip to yourself"
 msgstr "Cannot send tip to yourself"
 
-#. placeholder {0}: market?.market_cap !== undefined ? `$${formatMarketCap(market.market_cap)}` : '-'
-#. placeholder {1}: token.rank
-msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
-msgstr "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
-
 msgid "Total amount"
 msgstr "Total amount"
 
@@ -2966,6 +2962,11 @@ msgstr "<0>Minted</0> an NFT worth {costEl}"
 msgid "Balance"
 msgstr "Balance"
 
+#. placeholder {0}: market_data.price_change_percentage_24h.toFixed(2)
+#. placeholder {1}: renderShrankPrice(formatPrice(price) ?? '-')
+msgid "<0/><1>{0}%</1><2>today</2><3>${1}</3>"
+msgstr "<0/><1>{0}%</1><2>today</2><3>${1}</3>"
+
 msgid "Suspended"
 msgstr "Suspended"
 
@@ -3483,6 +3484,9 @@ msgstr "Saved on {0}"
 msgid "Add another option"
 msgstr "Add another option"
 
+msgid "Dex"
+msgstr "Dex"
+
 msgid "Passed"
 msgstr "Passed"
 
@@ -3688,9 +3692,6 @@ msgstr "Reposts"
 
 msgid "The contract owner has no restrictions on anti whale."
 msgstr "The contract owner has no restrictions on anti whale."
-
-msgid "Detail"
-msgstr "Detail"
 
 msgid "Exclusive Events"
 msgstr "Exclusive Events"
@@ -4018,6 +4019,7 @@ msgid "GIF"
 msgstr "GIF"
 
 #. placeholder {0}: market_cap ? `$${formatMarketCap(market_cap)}` : '-'
+#. placeholder {1}: rank ? ( <span className="inline-flex h-[14px] items-center text-nowrap rounded bg-highlight px-1 py-0.5 text-[10px] text-white"> Rank #{rank} </span> ) : null
 #. placeholder {1}: rank ? ( <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white"> Rank #{rank} </span> ) : null
 msgid "<0>{0}</0><1>MC</1>{1}"
 msgstr "<0>{0}</0><1>MC</1>{1}"

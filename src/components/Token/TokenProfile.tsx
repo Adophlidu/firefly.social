@@ -1,12 +1,23 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { type HTMLProps, memo, useRef } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { sortBy } from 'lodash-es';
+import { type HTMLProps, memo, useContext, useRef, useState } from 'react';
 
+import LineArrowUp from '@/assets/line-arrow-up.svg';
 import PriceArrow from '@/assets/price-arrow.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
-import { Image } from '@/components/Image.js';
-import { useRouter } from '@/esm/navigation.js';
+import { CopyTextButton } from '@/components/CopyTextButton.js';
+import { SecurityBadge } from '@/components/EmbedCards/TokenSecurityBadge.js';
+import { Link } from '@/components/Link.js';
+import { SwapModal } from '@/components/SwapModal/index.js';
+import { TokenContext } from '@/components/Token/TokenContext.js';
+import { TokenSwitcher } from '@/components/Token/TokenSwitcher.js';
+import { TokenIcon } from '@/components/TokenIcon.js';
+import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
+import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
@@ -15,15 +26,17 @@ import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import type { Dimension } from '@/hooks/useLineChart.js';
 import { usePriceLineChart } from '@/hooks/usePriceLineChart.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
-import { useTokenPrice } from '@/hooks/useTokenPrice.js';
+import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import type { SearchTokenInfo } from '@/providers/types/Firefly.js';
 
 const DIMENSION: Dimension = {
     top: 12,
     right: 0,
     bottom: 12,
     left: 0,
-    width: 317,
-    height: 100,
+    width: 170,
+    height: 50,
 };
 
 interface Props extends HTMLProps<HTMLDivElement> {
@@ -32,77 +45,183 @@ interface Props extends HTMLProps<HTMLDivElement> {
 
 export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children, ...rest }) {
     const chartRef = useRef<SVGSVGElement>(null);
-    const router = useRouter();
-    const { data: token } = useTokenInfo(symbol, false);
-    const { data: price } = useTokenPrice(token?.id);
+    const [openSwitcher, setOpenSwitcher] = useState(false);
+    const { data: tokenInfos = EMPTY_LIST } = useQuery({
+        queryKey: ['search-token', symbol],
+        queryFn: () => FireflyEndpointProvider.searchTokenInfos(symbol),
+        select: (data) => sortBy(data, (x) => -x.market_data.fully_diluted_valuation),
+    });
+    const [selectedToken = tokenInfos[0], setSelectedToken] = useState<SearchTokenInfo>();
+    const address = selectedToken?.contract_address;
+    const { data: detected } = useQuery({
+        queryKey: ['detect-address', address],
+        queryFn: () => FireflyEndpointProvider.detectAddress(address),
+        select: (data) => {
+            const tokens = data.list.filter((x) => {
+                if (x.contract_info.attributes.symbol.toLowerCase() !== symbol.toLowerCase()) return false;
+                return (
+                    (x.type === 'eth' && x.contract_type === 'ERC20') ||
+                    (x.type === 'solana' && x.contract_type === 'token')
+                );
+            });
+            return tokens[0];
+        },
+    });
+    const attributes = detected?.contract_info?.attributes;
+    const coingecko_coin_id = selectedToken?.id || attributes?.coingecko_coin_id;
+
+    const { data: token } = useTokenInfo(coingecko_coin_id || address, !!coingecko_coin_id);
     const { data: trending } = useCoinTrending(token?.id);
-    const market = trending?.market;
+    const { openTrader, setOpenTrader, setTradable } = useContext(TokenContext);
+    const tradeInfo = useTradeInfo(token);
+    setTradable(tradeInfo.tradable && detected?.type === 'eth');
 
-    const { priceStats, isPending, isUp } = useCoinPrice24hStats(token?.id);
+    const { priceStats, isPending, isUp } = useCoinPrice24hStats(coingecko_coin_id || token?.id);
 
-    usePriceLineChart(chartRef, priceStats, DIMENSION, `price-chart-${symbol}`, {
+    usePriceLineChart(chartRef, priceStats, DIMENSION, `token-card-price-chart-${address}`, {
         simple: true,
     });
+    const chainId = detected?.chain_id ? +detected.chain_id : tradeInfo.chainId;
 
-    if (!token) return null;
+    const { data: tokenSecurity } = useTokenSecurity(chainId, address);
+
+    if (!selectedToken) return null;
+    const market_data = selectedToken.market_data;
+    const price = market_data.token_price_usd;
+    const market_cap = market_data.market_cap_usd;
+    const tokenPageUrl = resolveTokenPageUrl(selectedToken.symbol, selectedToken.chain_id);
+
+    const rank = token?.rank || trending?.coin.market_cap_rank;
+
+    if (openSwitcher) {
+        return (
+            <TokenSwitcher
+                {...rest}
+                platformType={selectedToken.platform_type}
+                onClose={() => setOpenSwitcher(false)}
+                tokenInfos={tokenInfos}
+                onSelect={setSelectedToken}
+            />
+        );
+    }
+
     return (
-        <div
-            {...rest}
-            className={classNames(
-                'box-border flex w-[317px] flex-col gap-1.5 overflow-auto rounded-2xl border border-line px-6 py-3',
-                rest.className,
-            )}
-            onClick={(e) => {
-                e.stopPropagation();
-            }}
-        >
-            <div className="flex items-center gap-2.5 overflow-auto whitespace-nowrap text-second">
-                <Image
-                    className="overflow-hidden rounded-full"
-                    src={token.logoURL}
-                    alt={token.name}
-                    width={40}
-                    height={40}
-                />
-                <strong className="text-lg font-bold uppercase text-main">{token.symbol}</strong>
-                <span className="overflow-hidden text-ellipsis whitespace-nowrap font-inter text-medium font-bold">
-                    {token.name}
-                </span>
-            </div>
-            <div className="line-height-[22px] flex items-center gap-1 text-medium">
-                <Trans>
-                    <span className="text-secondary">Price</span>
-                    <strong className="font-bold">${renderShrankPrice(formatPrice(price) ?? '-')}</strong>
-                    <PriceArrow width={16} height={16} className={isUp ? 'shrink-0' : 'shrink-0 rotate-180'} />
-                    {market?.price_change_percentage_24h_in_currency !== undefined ? (
-                        <span className={isUp ? 'text-success' : 'text-fail'}>
-                            {market.price_change_percentage_24h_in_currency.toFixed(2)}%
-                        </span>
-                    ) : null}
-                </Trans>
-            </div>
-            <div className="line-height-[22px] flex items-center gap-1">
-                <Trans>
-                    <span className="text-medium text-secondary">Market Cap</span>
-                    <strong className="text-medium font-bold">
-                        {market?.market_cap !== undefined ? `$${formatMarketCap(market.market_cap)}` : '-'}
-                    </strong>
-                    <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
-                        Rank #{token.rank}
-                    </span>
-                </Trans>
-            </div>
-            <div className={classNames('h-[100px] overflow-auto', isPending ? 'animate-pulse' : null)}>
-                <svg ref={chartRef} width={267} height={100} viewBox="0 0 317 100" />
-            </div>
-            <ClickableButton
-                className="flex h-8 w-full items-center justify-center rounded-full bg-main text-medium font-semibold text-primaryBottom transition-all hover:opacity-80"
-                onClick={() => {
-                    router.push(resolveTokenPageUrl(token.id));
+        <>
+            <div
+                {...rest}
+                className={classNames(
+                    'flex cursor-default rounded-2xl border border-line bg-primaryBottom px-3 py-[7px]',
+                    rest.className,
+                )}
+                onClick={(e) => {
+                    e.stopPropagation();
                 }}
             >
-                {t`Detail`}
-            </ClickableButton>
-        </div>
+                <div className="flex flex-col gap-6">
+                    <div className="flex items-center gap-[14px] whitespace-nowrap text-second">
+                        <Link href={tokenPageUrl}>
+                            <TokenIcon
+                                icon={selectedToken.image.large || `https://stamp.firefly.land/logo/${address}`}
+                                chainId={chainId}
+                                alt={selectedToken.name}
+                                size={32}
+                            />
+                        </Link>
+                        <div className="flex flex-col">
+                            <Link
+                                className="text-base font-bold uppercase leading-4 text-main hover:underline"
+                                href={tokenPageUrl}
+                            >
+                                {selectedToken.symbol}
+                            </Link>
+                            <div className="flex items-center gap-1 leading-4">
+                                {tokenSecurity ? <SecurityBadge security={tokenSecurity} interactive={false} /> : null}
+                                <span className="max-w-28 truncate font-inter text-sm font-bold leading-4 text-third">
+                                    {formatAddress(address, 4)}
+                                </span>
+                                <CopyTextButton text={address} className="leading-4 [&_svg]:ml-0" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="line-height-[22px] flex items-center gap-1">
+                        <Trans>
+                            <strong className="text-2xl font-bold leading-[22px]">
+                                {market_cap ? `$${formatMarketCap(market_cap)}` : '-'}
+                            </strong>
+                            <span className="text-medium text-secondary" title={t`Market Cap`}>
+                                MC
+                            </span>
+                            {rank ? (
+                                <span className="inline-flex h-[14px] items-center text-nowrap rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
+                                    Rank #{rank}
+                                </span>
+                            ) : null}
+                        </Trans>
+                    </div>
+                    <div className="line-height-[22px] flex items-center gap-1 text-medium">
+                        {typeof market_data.price_change_percentage_24h === 'number' ? (
+                            <Trans>
+                                <PriceArrow
+                                    width={16}
+                                    height={16}
+                                    className={isUp ? 'shrink-0 text-success' : 'shrink-0 rotate-180 text-fail'}
+                                />
+                                <span className={isUp ? 'text-success' : 'text-fail'}>
+                                    {market_data.price_change_percentage_24h.toFixed(2)}%
+                                </span>
+                                <span className="text-medium text-secondary">today</span>
+                                <strong className="font-bold">${renderShrankPrice(formatPrice(price) ?? '-')}</strong>
+                            </Trans>
+                        ) : (
+                            <span>-</span>
+                        )}
+                    </div>
+                </div>
+                <div className="ml-auto grid grid-cols-1 grid-rows-3">
+                    {tokenInfos.length > 1 ? (
+                        <div
+                            className="row-start-1 flex cursor-pointer items-center gap-1"
+                            onClick={() => setOpenSwitcher(true)}
+                        >
+                            <div className="text-sm font-bold leading-[18px] text-main">
+                                <Trans>View similar symbols</Trans>
+                            </div>
+                            <LineArrowUp className="rotate-180" width={20} height={20} />
+                        </div>
+                    ) : null}
+                    <div
+                        className={classNames(
+                            'row-start-2 ml-auto max-h-[48px] min-w-[50px] max-w-[170px] overflow-auto',
+                            isPending ? 'animate-pulse' : null,
+                        )}
+                    >
+                        <svg
+                            ref={chartRef}
+                            key={address}
+                            width="100%"
+                            className="aspect-[180/48]"
+                            viewBox="0 0 180 48"
+                        />
+                    </div>
+                    {address ? (
+                        <div className="row-start-3 flex items-center justify-end">
+                            <SwapButton className="flex shrink-0 grow-0 flex-row-reverse !gap-1 !px-3 !py-2" />
+                        </div>
+                    ) : null}
+                </div>
+            </div>
+
+            {openTrader && tradeInfo.tradable && attributes?.address && detected?.chain_id ? (
+                <SwapModal
+                    open
+                    chainId={+detected.chain_id}
+                    chainIds={tradeInfo.supportedChainIds}
+                    address={attributes.address}
+                    onClose={() => {
+                        setOpenTrader(false);
+                    }}
+                />
+            ) : null}
+        </>
     );
 });

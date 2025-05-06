@@ -32,6 +32,11 @@ export enum EmbedMediaType {
     UNKNOWN = 'unknown',
 }
 
+export enum TokenPlatformType {
+    Cex = 'cex',
+    Dex = 'dex',
+}
+
 export interface Cast {
     fid: string;
     hash: string;
@@ -1220,6 +1225,30 @@ export type SearchTokenResponse = Response<{
     coins: SearchableToken[];
 }>;
 
+/** Results from /v2/token/search */
+export interface SearchTokenInfo extends Omit<TokenWithMarketData, 'id'> {
+    id: string | null;
+    platform_type: TokenPlatformType;
+    /** coingecko chian id */
+    chain: string;
+    chain_id: number;
+    contract_address: string;
+    web_slug: string;
+    platforms: {
+        [platform: string]: Address;
+    };
+    platform_info: Array<{
+        chain_name: string;
+        token_address: Address;
+        decimals: number;
+        swap: number;
+        chain_id: number;
+    }>;
+}
+
+/** Results from /v2/token/search */
+export type SearchTokenInfosResponse = Response<SearchTokenInfo[]>;
+
 export type GenerateFarcasterSignatureResponse = Response<{
     sponsorSignature: Hex;
     signedKeyRequestSignature: Hex;
@@ -1447,8 +1476,9 @@ export interface TokenWithMarketData {
         high_24h_usd: number;
         low_24h_usd: number;
         market_cap_usd: number;
-        price_change_percentage_24h: number;
+        price_change_percentage_24h: number | null;
         token_price_usd: number;
+        volume_usd_24h: number;
     };
     name: string;
     platforms: unknown;
