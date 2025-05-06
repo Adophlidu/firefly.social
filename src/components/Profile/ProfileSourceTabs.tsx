@@ -354,14 +354,10 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
     }
 
     return (
-        <div
-            className="no-scrollbar align-center relative flex w-full overflow-x-auto overflow-y-auto px-4 pb-2.5 pt-2"
-            ref={ref}
-            onScroll={(e) => handleButtons(e.currentTarget)}
-        >
+        <div className="align-center relative w-full px-4">
             <button
                 className={classNames(
-                    'sticky left-0 z-10 -mr-10 flex h-full -translate-x-4 transform cursor-pointer items-center pl-4 duration-100 hover:text-highlight',
+                    'absolute left-0 z-10 flex h-full transform cursor-pointer items-center pl-4 duration-100 hover:text-highlight',
                     {
                         'pointer-events-none opacity-0': hiddenLeft,
                     },
@@ -373,22 +369,27 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
                     <ArrowLeftIcon className="relative h-2 w-auto shrink-0" />
                 </span>
             </button>
-
-            {children}
             <button
                 className={classNames(
-                    'sticky right-0 z-10 -ml-10 flex h-full transform cursor-pointer items-center pl-4 duration-100 hover:text-highlight',
+                    'absolute right-0 z-10 flex h-full transform cursor-pointer items-center pr-4 duration-100 hover:text-highlight',
                     {
                         'pointer-events-none opacity-0': hiddenRight,
                     },
                 )}
                 onClick={() => onScrollTo(ScrollDirection.Right)}
             >
-                <span className="absolute left-0 top-0 h-full w-14 bg-gradient-to-r from-transparent to-primaryBottom to-55%" />
+                <span className="absolute right-0 top-0 h-full w-14 bg-gradient-to-r from-transparent to-primaryBottom to-55%" />
                 <span className="shadow-action relative flex size-5 shrink-0 items-center justify-center rounded-full border border-line bg-primaryBottom">
                     <ArrowRightIcon className="relative h-2 w-auto shrink-0" />
                 </span>
             </button>
+            <div
+                className="no-scrollbar align-center relative flex w-full overflow-x-auto overflow-y-auto pb-2.5 pt-2"
+                ref={ref}
+                onScroll={(e) => handleButtons(e.currentTarget)}
+            >
+                {children}
+            </div>
         </div>
     );
 }
