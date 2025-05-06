@@ -3,6 +3,7 @@ import {
     AuthenticationError,
     EmailAlreadyBoundError,
     FarcasterAlreadyBoundError,
+    FarcasterPatchSignerError,
     NotAllowedError,
     NotImplementedError,
 } from '@/constants/error.js';
@@ -34,6 +35,10 @@ export async function bindOrRestoreFireflySession(session: Session, signal?: Abo
             profileId: session.profileId,
             sessionType: session.type,
         });
+
+        if (error instanceof FarcasterPatchSignerError) {
+            throw error;
+        }
 
         // enqueue error message later
         if (error instanceof FarcasterAlreadyBoundError || error instanceof EmailAlreadyBoundError) {

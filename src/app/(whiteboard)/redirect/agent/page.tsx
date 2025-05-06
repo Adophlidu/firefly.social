@@ -44,6 +44,8 @@ export default function AgentPage() {
         const url = searchParams.get('url') ?? PageRoute.Home;
         const isValidPageRoute = url && getEnumAsArray(PageRoute).some(({ value }) => value === url);
         redirect(isValidPageRoute ? url : PageRoute.Home);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
