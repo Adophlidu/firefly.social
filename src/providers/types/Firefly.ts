@@ -1494,6 +1494,7 @@ export interface SwapToken {
     name: string;
     decimals: number;
     price: string;
+    address: string;
 }
 
 export type SwapActivity = {

@@ -26,6 +26,7 @@ import type { RedPacketModalOpenProps } from '@/modals/RedPacketModal/index.js';
 import type { SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';
 import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
 import type { SuperFollowModalOpenProps } from '@/modals/SuperFollowModal.js';
+import type { SwapModalOpenProps } from '@/modals/SwapModal.jsx';
 import type { TipsModalCloseProps, TipsModalOpenProps } from '@/modals/TipsModal.js';
 import type { TokenSelectorModalCloseProps, TokenSelectorModalOpenProps } from '@/modals/TokenSelectorModal.js';
 import type { TransactionSimulatorModalOpenProps } from '@/modals/TransactionSimulatorModal.js';
@@ -65,3 +66,4 @@ export const ChannelSelectModalRef = new SingletonModal<ChannelSelectModalOpenPr
 export const ClubSelectModalRef = new SingletonModal<ChannelSelectModalOpenProps, ChannelSelectModalCloseProps>();
 export const MyWalletsModalRef = new SingletonModal();
 export const EditFireflyProfileModalRef = new SingletonModal<EditFireflyProfileModalOpenProps>();
+export const SwapModalRef = new SingletonModal<SwapModalOpenProps>();

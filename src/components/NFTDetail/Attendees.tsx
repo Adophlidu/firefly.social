@@ -5,7 +5,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import type { Address } from 'viem';
 
 import LinkIcon from '@/assets/link-square.svg';
-import { Image } from '@/components/Image.js';
+import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
@@ -66,11 +66,12 @@ function AttendeesItem({ poapHolderToken }: { poapHolderToken: PoapHolderToken }
                 href={getProfileUrl({ source: Source.Wallet, profileId: ownerAddress })}
                 className="flex max-w-[calc(100%-110px)] items-center"
             >
-                <Image
+                <Avatar
                     src={getStampAvatarByProfileId(Source.Wallet, addressOrEns)}
                     alt={ownerAddress}
                     width={30}
                     height={30}
+                    size={30}
                     className="mr-2 min-w-[30px] shrink-0 rounded-full"
                 />
                 <div className="flex max-w-[calc(100%-38px)] items-center gap-1.5 text-left">

@@ -2545,6 +2545,9 @@ msgstr "立即输入用户名和密码进行登录"
 msgid "GIFs"
 msgstr "动图"
 
+msgid "Copy Trade"
+msgstr ""
+
 msgid "Loading..."
 msgstr "加载中..."
 

@@ -2540,6 +2540,9 @@ msgstr "Enter your username and password to sign in instantly"
 msgid "GIFs"
 msgstr "GIFs"
 
+msgid "Copy Trade"
+msgstr "Copy Trade"
+
 msgid "Loading..."
 msgstr "Loading..."
 

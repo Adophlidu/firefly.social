@@ -8,11 +8,19 @@ import { ClickableButton, type ClickableButtonProps } from '@/components/Clickab
 import { TokenContext } from '@/components/Token/TokenContext.js';
 import { NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { WalletConnectModalRef } from '@/modals/controls.js';
+import { SwapModalRef, WalletConnectModalRef } from '@/modals/controls.js';
+import type { SwapModalOpenProps } from '@/modals/SwapModal.js';
 
-export const SwapButton = memo(function SwapButton({ className, ...rest }: ClickableButtonProps) {
+export const SwapButton = memo(function SwapButton({
+    className,
+    tradable: tradableFromProps,
+    swapProps: swapPropsFromProps,
+    ...rest
+}: ClickableButtonProps & { tradable?: boolean; swapProps?: SwapModalOpenProps }) {
     const appKitProvider = useAppKitProvider('eip155');
-    const { setOpenTrader, tradable } = useContext(TokenContext);
+    const { tradable: tradableFromContext, swapProps: propsFromContext } = useContext(TokenContext);
+
+    const tradable = tradableFromProps ?? tradableFromContext;
 
     if (!tradable) return null;
 
@@ -28,12 +36,16 @@ export const SwapButton = memo(function SwapButton({ className, ...rest }: Click
                     WalletConnectModalRef.open({ networkType: NetworkType.Ethereum });
                     return;
                 }
-                setOpenTrader(true);
+                SwapModalRef.open(swapPropsFromProps ?? propsFromContext);
             }}
             {...rest}
         >
-            <SwapIcon width={16} height={16} />
-            {t`Swap`}
+            {rest.children ?? (
+                <>
+                    <SwapIcon width={16} height={16} />
+                    {t`Swap`}
+                </>
+            )}
         </ClickableButton>
     );
 });

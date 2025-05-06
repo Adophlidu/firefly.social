@@ -9,7 +9,6 @@ import PriceArrow from '@/assets/price-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
-import { SwapModal } from '@/components/SwapModal/index.js';
 import { TokenContext } from '@/components/Token/TokenContext.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurityBar.js';
@@ -49,10 +48,15 @@ export function TokenMarketData({ linkable, token, rank }: TokenMarketDataProps)
     const { market, contracts } = trending ?? {};
     const contract = first(contracts);
     const { data: security } = useTokenSecurity(contract?.chainId, contract?.address);
-    const { openTrader, setOpenTrader, setTradable } = useContext(TokenContext);
+    const { setTradable, setSwapProps } = useContext(TokenContext);
     const tradeInfo = useTradeInfo(token);
 
     setTradable(tradeInfo.tradable);
+    setSwapProps({
+        toToken: tradeInfo.address,
+        chainId: tradeInfo.chainId,
+        chainIds: tradeInfo.supportedChainIds?.map((x) => x.toString()),
+    });
 
     const ranges = [
         { label: t`24h`, days: 1 },
@@ -121,7 +125,18 @@ export function TokenMarketData({ linkable, token, rank }: TokenMarketDataProps)
                     </div>
                     <TokenSecurityBar security={security} />
                 </div>
-                <SwapButton className="sm:hidden md:inline-flex" />
+                <SwapButton
+                    className="sm:hidden md:inline-flex"
+                    swapProps={
+                        tradeInfo.chainId
+                            ? {
+                                  toToken: tradeInfo.address,
+                                  chainId: tradeInfo.chainId,
+                                  chainIds: tradeInfo.supportedChainIds.map((x) => x.toString()),
+                              }
+                            : undefined
+                    }
+                />
             </div>
             <div
                 className={classNames(
@@ -156,17 +171,6 @@ export function TokenMarketData({ linkable, token, rank }: TokenMarketDataProps)
                     </ClickableButton>
                 ))}
             </div>
-            {openTrader && tradeInfo.tradable ? (
-                <SwapModal
-                    open
-                    chainId={tradeInfo.chainId}
-                    chainIds={tradeInfo.supportedChainIds}
-                    address={tradeInfo.address!}
-                    onClose={() => {
-                        setOpenTrader(false);
-                    }}
-                />
-            ) : null}
         </>
     );
 }

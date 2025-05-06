@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
+import { ProviderType } from '@okxweb3/dex-widget';
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
 import { memo } from 'react';
@@ -17,6 +18,7 @@ import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
+import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { Source } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
@@ -226,7 +228,19 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                             </Link>
                         ) : null}
 
-                        <div className="mt-2 flex items-center justify-end">
+                        <div className="mt-2 flex items-center justify-between gap-2">
+                            <SwapButton
+                                className="!ml-0 flex !px-2 py-[2px] !text-[12px] !font-medium !leading-[20px]"
+                                tradable
+                                swapProps={{
+                                    chainId: activity.chain_id,
+                                    fromToken: activity.from_token?.address,
+                                    toToken: activity.to_token?.address,
+                                    providerType: activity.chain_id === 101 ? ProviderType.SOLANA : ProviderType.EVM,
+                                }}
+                            >
+                                <Trans>Copy Trade</Trans>
+                            </SwapButton>
                             <div className="flex items-center gap-1 text-sm text-second">
                                 <ClickableButton
                                     className="cursor-pointer"

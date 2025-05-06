@@ -30,6 +30,7 @@ import { RedPacketModal } from '@/modals/RedPacketModal/index.js';
 import { SchedulePostModal } from '@/modals/SchedulePostModal.js';
 import { Snackbar } from '@/modals/Snackbar.js';
 import { SuperFollowModal } from '@/modals/SuperFollowModal.js';
+import { SwapModal } from '@/modals/SwapModal.js';
 import { TipsModal } from '@/modals/TipsModal.js';
 import { TokenSelectorModal } from '@/modals/TokenSelectorModal.js';
 import { TransactionSimulatorModal } from '@/modals/TransactionSimulatorModal.js';
@@ -68,6 +69,7 @@ export const Modals = memo(function Modals() {
             <WalletConnectModal ref={controls.WalletConnectModalRef.register} />
             <MyWalletsModal ref={controls.MyWalletsModalRef.register} />
             <EditFireflyProfileModal ref={controls.EditFireflyProfileModalRef.register} />
+            <SwapModal ref={controls.SwapModalRef.register} />
         </NoSSR>
     );
 });

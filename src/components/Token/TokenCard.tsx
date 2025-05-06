@@ -8,7 +8,6 @@ import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { SecurityBadge } from '@/components/EmbedCards/TokenSecurityBadge.js';
 import type { AddressCardProps } from '@/components/EmbedCards/types.js';
 import { Link } from '@/components/Link.js';
-import { SwapModal } from '@/components/SwapModal/index.js';
 import { TokenContext } from '@/components/Token/TokenContext.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
@@ -55,7 +54,7 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
 
     const { data: token } = useTokenInfo(coingecko_coin_id || address, !!coingecko_coin_id);
     const { data: trending } = useCoinTrending(token?.id);
-    const { openTrader, setOpenTrader, setTradable } = useContext(TokenContext);
+    const { setTradable } = useContext(TokenContext);
     const tradeInfo = useTradeInfo(token);
     setTradable(tradeInfo.tradable && detected?.type === 'eth');
 
@@ -112,7 +111,18 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
                         <CopyTextButton text={address} />
                     </div>
                     {attributes?.address ? (
-                        <SwapButton className="flex shrink-0 grow-0 flex-row-reverse !gap-1 !px-3 !py-2" />
+                        <SwapButton
+                            className="flex shrink-0 grow-0 flex-row-reverse !gap-1 !px-3 !py-2"
+                            swapProps={
+                                detected?.chain_id
+                                    ? {
+                                          chainId: +detected.chain_id,
+                                          chainIds: tradeInfo.supportedChainIds?.map((x) => x.toString()),
+                                          toToken: attributes.address,
+                                      }
+                                    : undefined
+                            }
+                        />
                     ) : null}
                 </div>
                 <div className="flex">
@@ -165,18 +175,6 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
                     </div>
                 </div>
             </div>
-
-            {openTrader && tradeInfo.tradable && attributes?.address && detected?.chain_id ? (
-                <SwapModal
-                    open
-                    chainId={+detected.chain_id}
-                    chainIds={tradeInfo.supportedChainIds}
-                    address={attributes.address}
-                    onClose={() => {
-                        setOpenTrader(false);
-                    }}
-                />
-            ) : null}
         </>
     );
 });

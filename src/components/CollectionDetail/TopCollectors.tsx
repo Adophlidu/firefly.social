@@ -2,7 +2,7 @@ import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import LinkIcon from '@/assets/link-square.svg';
-import { Image } from '@/components/Image.js';
+import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { TableListInPage } from '@/components/TableListInPage.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -33,13 +33,13 @@ function getTopCollectorsItemContent(index: number, item: CollectionHolder, isDa
             <td className="pb-5 pr-2 text-left">{index + 1}</td>
             <td className="px-2 pb-5">
                 <Link target="_blank" href={profileLink} className="flex w-full items-center">
-                    <Image
+                    <Avatar
                         src={getStampAvatarByProfileId(Source.Wallet, addressOrEns)}
                         alt={item.address}
                         width={30}
                         height={30}
+                        size={30}
                         className="mr-2 size-[30px] shrink-0 rounded-full"
-                        fallback={isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png'}
                     />
                     <div className="flex min-w-0 items-center text-left">
                         <Tooltip content={addressOrEns} placement="top" className="!max-w-[400px]">

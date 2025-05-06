@@ -2532,6 +2532,9 @@ msgstr ""
 msgid "GIFs"
 msgstr ""
 
+msgid "Copy Trade"
+msgstr ""
+
 msgid "Loading..."
 msgstr ""
 
