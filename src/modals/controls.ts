@@ -26,7 +26,7 @@ import type { RedPacketModalOpenProps } from '@/modals/RedPacketModal/index.js';
 import type { SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';
 import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
 import type { SuperFollowModalOpenProps } from '@/modals/SuperFollowModal.js';
-import type { SwapModalOpenProps } from '@/modals/SwapModal.jsx';
+import type { SwapModalOpenProps } from '@/modals/SwapModal.js';
 import type { TipsModalCloseProps, TipsModalOpenProps } from '@/modals/TipsModal.js';
 import type { TokenSelectorModalCloseProps, TokenSelectorModalOpenProps } from '@/modals/TokenSelectorModal.js';
 import type { TransactionSimulatorModalOpenProps } from '@/modals/TransactionSimulatorModal.js';

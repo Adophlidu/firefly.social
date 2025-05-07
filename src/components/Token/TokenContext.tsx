@@ -3,7 +3,7 @@ import { noop } from 'lodash-es';
 import { createContext, type Dispatch, type PropsWithChildren, type SetStateAction, useMemo, useState } from 'react';
 import { mainnet } from 'viem/chains';
 
-import type { SwapModalOpenProps } from '@/modals/SwapModal.jsx';
+import type { SwapModalOpenProps } from '@/modals/SwapModal.js';
 
 interface TokenContextProps {
     tradable: boolean;
