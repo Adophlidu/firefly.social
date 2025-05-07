@@ -154,7 +154,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                                                     return (
                                                         <Tooltip
                                                             key={x.source}
-                                                            content={t`Verified by ${x.provider}`}
+                                                            content={resolveVerifiedText(x)}
                                                             placement="bottom"
                                                         >
                                                             <RelatedSourceIcon source={x.source} size={iconSize} />

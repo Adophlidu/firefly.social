@@ -908,10 +908,6 @@ msgstr "黑名单功能已启用。有些地址可能无法正常交易（欺诈
 msgid "<0/>Delete Firefly account"
 msgstr "<0/>删除 Firefly 账号"
 
-#. placeholder {0}: x.provider
-msgid "Verified by {0}"
-msgstr ""
-
 msgid "Select Account"
 msgstr "选择账号"
 

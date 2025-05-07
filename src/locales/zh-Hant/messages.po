@@ -908,10 +908,6 @@ msgstr "包含黑名單功能，部分地址可能無法正常交易（蜜罐風
 msgid "<0/>Delete Firefly account"
 msgstr "<0/>刪除 Firefly 帳戶"
 
-#. placeholder {0}: x.provider
-msgid "Verified by {0}"
-msgstr ""
-
 msgid "Select Account"
 msgstr "選擇帳戶"
 

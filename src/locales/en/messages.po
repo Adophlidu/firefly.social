@@ -903,10 +903,6 @@ msgstr "The blacklist function is included. Some addresses may not be able to tr
 msgid "<0/>Delete Firefly account"
 msgstr "<0/>Delete Firefly account"
 
-#. placeholder {0}: x.provider
-msgid "Verified by {0}"
-msgstr "Verified by {0}"
-
 msgid "Select Account"
 msgstr "Select Account"
 
