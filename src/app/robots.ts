@@ -11,6 +11,18 @@ export default function robots(): MetadataRoute.Robots {
                     userAgent: '*',
                     disallow: '/',
                 },
+                {
+                    userAgent: 'Twitterbot',
+                    allow: '/',
+                },
+                {
+                    userAgent: 'TelegramBot',
+                    allow: '/',
+                },
+                {
+                    userAgent: 'Xbot',
+                    allow: '/',
+                },
             ],
         };
     }
