@@ -9,7 +9,6 @@ import PriceArrow from '@/assets/price-arrow.svg';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { SecurityBadge } from '@/components/EmbedCards/TokenSecurityBadge.js';
 import { Link } from '@/components/Link.js';
-import { SwapModal } from '@/components/SwapModal/index.js';
 import { TokenContext } from '@/components/Token/TokenContext.js';
 import { TokenSwitcher } from '@/components/Token/TokenSwitcher.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
@@ -72,7 +71,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
 
     const { data: token } = useTokenInfo(coingecko_coin_id || address, !!coingecko_coin_id);
     const { data: trending } = useCoinTrending(token?.id);
-    const { openTrader, setOpenTrader, setTradable } = useContext(TokenContext);
+    const { setTradable } = useContext(TokenContext);
     const tradeInfo = useTradeInfo(token);
     setTradable(tradeInfo.tradable && detected?.type === 'eth');
 
@@ -106,122 +105,109 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
     }
 
     return (
-        <>
-            <div
-                {...rest}
-                className={classNames(
-                    'flex cursor-default rounded-2xl border border-line bg-primaryBottom px-3 py-[7px]',
-                    rest.className,
-                )}
-                onClick={(e) => {
-                    e.stopPropagation();
-                }}
-            >
-                <div className="flex flex-col gap-6">
-                    <div className="flex items-center gap-[14px] whitespace-nowrap text-second">
-                        <Link href={tokenPageUrl}>
-                            <TokenIcon
-                                icon={selectedToken.image.large || `https://stamp.firefly.land/logo/${address}`}
-                                chainId={chainId}
-                                alt={selectedToken.name}
-                                size={32}
-                            />
+        <div
+            {...rest}
+            className={classNames(
+                'flex cursor-default rounded-2xl border border-line bg-primaryBottom px-3 py-[7px]',
+                rest.className,
+            )}
+            onClick={(e) => {
+                e.stopPropagation();
+            }}
+        >
+            <div className="flex flex-col gap-6">
+                <div className="flex items-center gap-[14px] whitespace-nowrap text-second">
+                    <Link href={tokenPageUrl}>
+                        <TokenIcon
+                            icon={selectedToken.image.large || `https://stamp.firefly.land/logo/${address}`}
+                            chainId={chainId}
+                            alt={selectedToken.name}
+                            size={32}
+                        />
+                    </Link>
+                    <div className="flex flex-col">
+                        <Link
+                            className="text-base font-bold uppercase leading-4 text-main hover:underline"
+                            href={tokenPageUrl}
+                        >
+                            {selectedToken.symbol}
                         </Link>
-                        <div className="flex flex-col">
-                            <Link
-                                className="text-base font-bold uppercase leading-4 text-main hover:underline"
-                                href={tokenPageUrl}
-                            >
-                                {selectedToken.symbol}
-                            </Link>
-                            <div className="flex items-center gap-1 leading-4">
-                                {tokenSecurity ? <SecurityBadge security={tokenSecurity} interactive={false} /> : null}
-                                <span className="max-w-28 truncate font-inter text-sm font-bold leading-4 text-third">
-                                    {formatAddress(address, 4)}
-                                </span>
-                                <CopyTextButton text={address} className="leading-4 [&_svg]:ml-0" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="line-height-[22px] flex items-center gap-1">
-                        <Trans>
-                            <strong className="text-2xl font-bold leading-[22px]">
-                                {market_cap ? `$${formatMarketCap(market_cap)}` : '-'}
-                            </strong>
-                            <span className="text-medium text-secondary" title={t`Market Cap`}>
-                                MC
+                        <div className="flex items-center gap-1 leading-4">
+                            {tokenSecurity ? <SecurityBadge security={tokenSecurity} interactive={false} /> : null}
+                            <span className="max-w-28 truncate font-inter text-sm font-bold leading-4 text-third">
+                                {formatAddress(address, 4)}
                             </span>
-                            {rank ? (
-                                <span className="inline-flex h-[14px] items-center text-nowrap rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
-                                    Rank #{rank}
-                                </span>
-                            ) : null}
-                        </Trans>
-                    </div>
-                    <div className="line-height-[22px] flex items-center gap-1 text-medium">
-                        {typeof market_data.price_change_percentage_24h === 'number' ? (
-                            <Trans>
-                                <PriceArrow
-                                    width={16}
-                                    height={16}
-                                    className={isUp ? 'shrink-0 text-success' : 'shrink-0 rotate-180 text-fail'}
-                                />
-                                <span className={isUp ? 'text-success' : 'text-fail'}>
-                                    {market_data.price_change_percentage_24h.toFixed(2)}%
-                                </span>
-                                <span className="text-medium text-secondary">today</span>
-                                <strong className="font-bold">${renderShrankPrice(formatPrice(price) ?? '-')}</strong>
-                            </Trans>
-                        ) : (
-                            <span>-</span>
-                        )}
+                            <CopyTextButton text={address} className="leading-4 [&_svg]:ml-0" />
+                        </div>
                     </div>
                 </div>
-                <div className="ml-auto grid grid-cols-1 grid-rows-3">
-                    {tokenInfos.length > 1 ? (
-                        <div
-                            className="row-start-1 flex cursor-pointer items-center gap-1"
-                            onClick={() => setOpenSwitcher(true)}
-                        >
-                            <div className="text-sm font-bold leading-[18px] text-main">
-                                <Trans>View similar symbols</Trans>
-                            </div>
-                            <LineArrowUp className="rotate-180" width={20} height={20} />
-                        </div>
-                    ) : null}
-                    <div
-                        className={classNames(
-                            'row-start-2 ml-auto max-h-[48px] min-w-[50px] max-w-[170px] overflow-auto',
-                            isPending ? 'animate-pulse' : null,
-                        )}
-                    >
-                        <svg
-                            ref={chartRef}
-                            key={address}
-                            width="100%"
-                            className="aspect-[180/48]"
-                            viewBox="0 0 180 48"
-                        />
-                    </div>
-                    {address ? (
-                        <div className="row-start-3 flex items-center justify-end">
-                            <SwapButton className="flex shrink-0 grow-0 flex-row-reverse !gap-1 !px-3 !py-2" />
-                        </div>
-                    ) : null}
+                <div className="line-height-[22px] flex items-center gap-1">
+                    <Trans>
+                        <strong className="text-2xl font-bold leading-[22px]">
+                            {market_cap ? `$${formatMarketCap(market_cap)}` : '-'}
+                        </strong>
+                        <span className="text-medium text-secondary" title={t`Market Cap`}>
+                            MC
+                        </span>
+                        {rank ? (
+                            <span className="inline-flex h-[14px] items-center text-nowrap rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
+                                Rank #{rank}
+                            </span>
+                        ) : null}
+                    </Trans>
+                </div>
+                <div className="line-height-[22px] flex items-center gap-1 text-medium">
+                    {typeof market_data.price_change_percentage_24h === 'number' ? (
+                        <Trans>
+                            <PriceArrow
+                                width={16}
+                                height={16}
+                                className={isUp ? 'shrink-0 text-success' : 'shrink-0 rotate-180 text-fail'}
+                            />
+                            <span className={isUp ? 'text-success' : 'text-fail'}>
+                                {market_data.price_change_percentage_24h.toFixed(2)}%
+                            </span>
+                            <span className="text-medium text-secondary">today</span>
+                            <strong className="font-bold">${renderShrankPrice(formatPrice(price) ?? '-')}</strong>
+                        </Trans>
+                    ) : (
+                        <span>-</span>
+                    )}
                 </div>
             </div>
-
-            {openTrader && tradeInfo.tradable && attributes?.address && detected?.chain_id ? (
-                <SwapModal
-                    open
-                    chainId={+detected.chain_id}
-                    chainIds={tradeInfo.supportedChainIds}
-                    address={attributes.address}
-                    onClose={() => {
-                        setOpenTrader(false);
-                    }}
-                />
-            ) : null}
-        </>
+            <div className="ml-auto grid grid-cols-1 grid-rows-3">
+                {tokenInfos.length > 1 ? (
+                    <div
+                        className="row-start-1 flex cursor-pointer items-center gap-1"
+                        onClick={() => setOpenSwitcher(true)}
+                    >
+                        <div className="text-sm font-bold leading-[18px] text-main">
+                            <Trans>View similar symbols</Trans>
+                        </div>
+                        <LineArrowUp className="rotate-180" width={20} height={20} />
+                    </div>
+                ) : null}
+                <div
+                    className={classNames(
+                        'row-start-2 ml-auto max-h-[48px] min-w-[50px] max-w-[170px] overflow-auto',
+                        isPending ? 'animate-pulse' : null,
+                    )}
+                >
+                    <svg ref={chartRef} key={address} width="100%" className="aspect-[180/48]" viewBox="0 0 180 48" />
+                </div>
+                {address && detected?.chain_id ? (
+                    <div className="row-start-3 flex items-center justify-end">
+                        <SwapButton
+                            className="flex shrink-0 grow-0 flex-row-reverse !gap-1 !px-3 !py-2"
+                            swapProps={{
+                                chainId: +detected.chain_id,
+                                chainIds: tradeInfo.supportedChainIds?.map((x) => x.toString()),
+                                toToken: address,
+                            }}
+                        />
+                    </div>
+                ) : null}
+            </div>
+        </div>
     );
 });
