@@ -33,7 +33,7 @@ export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
         [SourceInURL.Email]: Source.Email,
         [SourceInURL.Swap]: Source.Swap,
         [SourceInURL.FarcasterV2]: Source.Farcaster,
-        [SourceInURL.TwitterV2]: Source.Twitter,
+        [SourceInURL.X]: Source.Twitter,
     },
     (sourceInUrl) => {
         throw new UnreachableError('sourceInUrl', sourceInUrl);
@@ -62,6 +62,7 @@ export const resolveSocialSource = createLookupTableResolver<SocialSourceInURL, 
         [SourceInURL.Lens]: Source.Lens,
         [SourceInURL.Twitter]: Source.Twitter,
         [SourceInURL.Bsky]: Source.Bsky,
+        [SourceInURL.X]: Source.Twitter,
     },
     (sourceInUrl) => {
         throw new UnreachableError('sourceInUrl', sourceInUrl);

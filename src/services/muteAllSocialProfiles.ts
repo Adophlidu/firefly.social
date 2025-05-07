@@ -3,7 +3,7 @@ import { fetchAccountsBulk } from '@lens-protocol/client/actions';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { ensureLensResult } from '@/helpers/ensureLensResult.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
-import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -17,7 +17,7 @@ export async function muteAllSocialProfiles(identity: FireflyIdentity) {
     const lensProfile = getCurrentProfile(Source.Lens);
     const bskyProfile = getCurrentProfile(Source.Bsky);
 
-    const results = [{ snsId: identity.id, snsPlatform: resolveSourceInUrl(identity.source) }];
+    const results = [{ snsId: identity.id, snsPlatform: resolveSourceInUrlForApi(identity.source) }];
     if (!twitterProfile && !lensProfile && !bskyProfile) return results;
 
     const socialProfiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false);

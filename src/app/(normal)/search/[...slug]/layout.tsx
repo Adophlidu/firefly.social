@@ -28,7 +28,7 @@ const resolveSearchTypeTitle = createLookupTableResolver<SearchType, MessageDesc
 
 const ENABLED_SINGLE_SEARCH_TYPES = [SearchType.Profiles, SearchType.NFTs, SearchType.Tokens];
 const ENABLED_DOUBLE_SEARCH_TYPES = [SearchType.Profiles, SearchType.Posts];
-const ENABLED_SOURCES = [SourceInURL.Farcaster, SourceInURL.Lens, SourceInURL.Twitter, SourceInURL.Bsky];
+const ENABLED_SOURCES = [SourceInURL.Farcaster, SourceInURL.Lens, SourceInURL.Twitter, SourceInURL.Bsky, SourceInURL.X];
 
 function checkSlug(slug: string[]) {
     if (slug.length === 1) {

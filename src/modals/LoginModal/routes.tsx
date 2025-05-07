@@ -50,7 +50,7 @@ const twitterRoute = createRoute({
     getParentRoute: () => rootRoute,
     component: TwitterView,
     pendingComponent: TwitterView,
-    path: '/twitter',
+    path: '/x',
 });
 
 const bskyRoute = createRoute({

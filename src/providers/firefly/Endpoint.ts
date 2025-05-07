@@ -48,7 +48,7 @@ import {
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
-import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
@@ -529,7 +529,7 @@ export class FireflyEndpoint {
             size,
             cursor: indicator?.id,
         });
-        const platform = platforms?.map((x) => resolveSourceInUrl(x)).join(','); // There are commas here, without escaping
+        const platform = platforms?.map((x) => resolveSourceInUrlForApi(x)).join(','); // There are commas here, without escaping
         const response = await fireflySessionHolder.fetch<SearchProfileResponse>(
             platform ? `${url}&platform=${platform}` : url,
             {

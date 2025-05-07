@@ -63,7 +63,7 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import { X3ProKolListLabel, X3ProOrderType, X3ProProvider } from '@/providers/x3pro/index.js';
 import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { PartialWith, ResponseJSON } from '@/types/index.js';
 
 @WithNitter()
 @SetQueryDataForLikePost(Source.Twitter)
@@ -562,10 +562,13 @@ export class TwitterSocialMedia implements Provider {
                 limit: 20,
                 cursor: indicator?.id,
             });
-            const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<UserV2TimelineResult>>(url);
+            const response =
+                await twitterSessionHolder.fetchWithSession<ResponseJSON<PartialWith<UserV2TimelineResult, 'data'>>>(
+                    url,
+                );
             if (!response.success) throw new Error(response.error.message);
 
-            const profiles = response.data.data.map(formatTwitterProfile);
+            const profiles = response.data.data?.map(formatTwitterProfile) || EMPTY_LIST;
             return createPageable(
                 profiles,
                 createIndicator(indicator),

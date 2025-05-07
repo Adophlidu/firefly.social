@@ -105,7 +105,7 @@ export async function middleware(request: NextRequest) {
         const pathArray = pathname.split('/');
         const sourceInUrl = pathArray[2];
         const destination = request.nextUrl.clone();
-        pathArray[2] = sourceInUrl === SourceInURL.FarcasterV2 ? SourceInURL.Farcaster : SourceInURL.TwitterV2;
+        pathArray[2] = sourceInUrl === SourceInURL.FarcasterV2 ? SourceInURL.Farcaster : SourceInURL.X;
         destination.pathname = pathArray.join('/');
         return NextResponse.redirect(destination);
     }

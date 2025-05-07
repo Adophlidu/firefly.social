@@ -30,7 +30,7 @@ import {
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveSearchKeyword } from '@/helpers/resolveSearchKeyword.js';
-import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -1039,7 +1039,7 @@ export class FireflySocialMedia implements Provider {
         await fireflySessionHolder.fetch<string>(url, {
             method: 'POST',
             body: JSON.stringify({
-                platform: resolveSourceInUrl(post.source),
+                platform: resolveSourceInUrlForApi(post.source),
                 platform_id: post.author.profileId,
                 post_type: 'text',
                 post_id: post.postId,

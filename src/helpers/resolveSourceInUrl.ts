@@ -14,7 +14,7 @@ import {
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
-export const resolveSourceInUrl = createLookupTableResolver<Source, SourceInURL>(
+export const resolveSourceInUrlForApi = createLookupTableResolver<Source, SourceInURL>(
     {
         [Source.Farcaster]: SourceInURL.Farcaster,
         [Source.Lens]: SourceInURL.Lens,
@@ -40,6 +40,15 @@ export const resolveSourceInUrl = createLookupTableResolver<Source, SourceInURL>
     },
 );
 
+export function resolveSourceInUrl(source: Source) {
+    // twitter -> x
+    if (source === Source.Twitter) {
+        return SourceInURL.X;
+    }
+
+    return resolveSourceInUrlForApi(source);
+}
+
 export const resolveSocialSourceInUrl = createLookupTableResolver<SocialSource, SocialSourceInURL>(
     {
         [Source.Farcaster]: SourceInURL.Farcaster,
@@ -57,7 +66,7 @@ export const resolveExploreSourceInURL = createLookupTableResolver<ExploreSource
         [Source.Farcaster]: SourceInURL.Farcaster,
         [Source.Lens]: SourceInURL.Lens,
         [Source.Bsky]: SourceInURL.Bsky,
-        [Source.Twitter]: SourceInURL.Twitter,
+        [Source.Twitter]: SourceInURL.X,
         [TrendingType.TopGainers]: TrendingType.TopGainers,
         [TrendingType.TopLosers]: TrendingType.TopLosers,
         [TrendingType.Trending]: TrendingType.Trending,
@@ -74,6 +83,7 @@ export const resolveExploreSource = createLookupTableResolver<ExploreSourceInURL
         [SourceInURL.Lens]: Source.Lens,
         [SourceInURL.Bsky]: Source.Bsky,
         [SourceInURL.Twitter]: Source.Twitter,
+        [SourceInURL.X]: Source.Twitter,
         [TrendingType.TopGainers]: TrendingType.TopGainers,
         [TrendingType.TopLosers]: TrendingType.TopLosers,
         [TrendingType.Trending]: TrendingType.Trending,
@@ -101,7 +111,7 @@ export const resolveProfileSourceInURL = createLookupTableResolver<ProfilePageSo
         [Source.Farcaster]: SourceInURL.Farcaster,
         [Source.Lens]: SourceInURL.Lens,
         [Source.Bsky]: SourceInURL.Bsky,
-        [Source.Twitter]: SourceInURL.TwitterV2,
+        [Source.Twitter]: SourceInURL.X,
         [Source.Wallet]: SourceInURL.Wallet,
         [Source.WalletMix]: SourceInURL.WalletMix,
     },

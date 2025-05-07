@@ -15,7 +15,7 @@ import {
     SOCIAL_DISCOVER_SOURCE,
     SORTED_SOCIAL_SOURCES,
 } from '@/constants/index.js';
-import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { resolveSourceInUrl, resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 
 export function isDiscoverSource(source: string): source is DiscoverSource {
     return (DISCOVER_SOURCES as string[]).includes(source);
@@ -40,5 +40,7 @@ export function isSocialSource(source?: Source): source is SocialSource {
 
 export function isSocialSourceInUrl(sourceInUrl?: SourceInURL): sourceInUrl is SocialSourceInURL {
     if (!sourceInUrl) return false;
-    return SORTED_SOCIAL_SOURCES.map(resolveSourceInUrl).includes(sourceInUrl);
+    return SORTED_SOCIAL_SOURCES.some(
+        (source) => resolveSourceInUrl(source) === sourceInUrl || resolveSourceInUrlForApi(source) === sourceInUrl,
+    );
 }

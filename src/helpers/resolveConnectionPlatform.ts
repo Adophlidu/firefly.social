@@ -11,6 +11,7 @@ export const resolveConnectionPlatform = createLookupTableResolver<
           | SourceInURL.Farcaster
           | SourceInURL.Lens
           | SourceInURL.Twitter
+          | SourceInURL.X
           | SourceInURL.Bsky
           | SourceInURL.Firefly
           | SourceInURL.Wallet
@@ -35,6 +36,7 @@ export const resolveConnectionPlatform = createLookupTableResolver<
         [SourceInURL.Farcaster]: ConnectionPlatform.Farcaster,
         [SourceInURL.Lens]: ConnectionPlatform.Lens,
         [SourceInURL.Twitter]: ConnectionPlatform.Twitter,
+        [SourceInURL.X]: ConnectionPlatform.Twitter,
         [SourceInURL.Bsky]: ConnectionPlatform.Bsky,
         [SourceInURL.Firefly]: ConnectionPlatform.Firefly,
         [SourceInURL.Wallet]: ConnectionPlatform.Wallet,

@@ -30,7 +30,7 @@ export function SearchPostContent() {
                 const provider = resolveSocialMediaProvider(currentSocialSource);
                 const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
-                return provider.searchPosts(searchKeyword.replace(/^#/, ''), indicator);
+                return await provider.searchPosts(searchKeyword.replace(/^#/, ''), indicator);
             } catch {
                 return createPageable([], createIndicator(undefined, pageParam));
             }

@@ -96,7 +96,7 @@ export enum SourceInURL {
     Notifications = 'all',
     Swap = 'swap',
     FarcasterV2 = 'far',
-    TwitterV2 = 'x',
+    X = 'x',
 }
 
 export enum Agent {
@@ -158,13 +158,18 @@ export type ProfilePageSource =
     | Source.Bsky
     | Source.Wallet
     | Source.WalletMix;
-export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter | SourceInURL.Bsky;
+export type SocialSourceInURL =
+    | SourceInURL.Farcaster
+    | SourceInURL.Lens
+    | SourceInURL.Twitter
+    | SourceInURL.Bsky
+    | SourceInURL.X;
 export type ProfileSourceInURL =
     | SocialSourceInURL
     | SourceInURL.Wallet
     | SourceInURL.WalletMix
     | SourceInURL.FarcasterV2
-    | SourceInURL.TwitterV2;
+    | SourceInURL.X;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens | Source.Bsky;
 export type SocialNotificationSource = Source.Farcaster | Source.Lens | Source.Bsky;
 export type DiscoverSource = Source.Posts | Source.NFTs | Source.Article | Source.DAOs;
@@ -176,6 +181,7 @@ export type ExploreSourceInURL =
     | SourceInURL.Lens
     | SourceInURL.Bsky
     | SourceInURL.Twitter
+    | SourceInURL.X
     | TrendingType;
 export type NotificationSource = Source.Notifications | Source.Farcaster | Source.Lens | Source.Bsky;
 export type NotificationSourceInURL =

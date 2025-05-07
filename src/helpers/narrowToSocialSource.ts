@@ -39,7 +39,7 @@ export const narrowToSocialSourceInURL = createLookupTableResolver<SourceInURL, 
         [SourceInURL.Wallet]: SourceInURL.Farcaster,
         [SourceInURL.WalletMix]: SourceInURL.Farcaster,
         [SourceInURL.FarcasterV2]: SourceInURL.Farcaster,
-        [SourceInURL.TwitterV2]: SourceInURL.Twitter,
+        [SourceInURL.X]: SourceInURL.Twitter,
         // default to Farcaster
         [SourceInURL.Article]: SourceInURL.Farcaster,
         [SourceInURL.NFTs]: SourceInURL.Farcaster,
