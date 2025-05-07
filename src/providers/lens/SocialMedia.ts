@@ -484,8 +484,10 @@ export class LensSocialMedia implements Provider {
         return this.getProfileByHandle(profileIdOrHandle, includeGraphStats);
     }
 
-    async getPostById(postId: string): Promise<Post> {
-        const result = await ensureLensResult(fetchPost(getClient(), { post: postId }));
+    async getPostById(postId: string, isLegacy = false): Promise<Post> {
+        const result = await ensureLensResult(
+            fetchPost(getClient(), isLegacy ? { legacyId: postId } : { post: postId }),
+        );
         if (!result) throw new Error('No post found');
 
         return formatLensPostV3(result);

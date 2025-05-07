@@ -1,21 +1,24 @@
 import { Trans } from '@lingui/react/macro';
 import type { Metadata } from 'next';
-import type React from 'react';
 
 import { PostDetailPage } from '@/app/(normal)/post/[source]/[id]/pages/DetailPage.js';
 import { Comeback } from '@/components/Comeback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
+import { KeyType, type SocialSourceInURL, Source } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { createMetadataPostById } from '@/helpers/createMetadataPostById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { isLensV2PostId } from '@/helpers/isLensV2PostId.js';
 import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupTwitterSessionForSSR } from '@/helpers/setupTwitterSessionForSSR.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import type { NextPageProps } from '@/types/index.js';
 
 export const revalidate = 60;
@@ -57,5 +60,15 @@ export default async function Page(props: Props) {
         );
     }
 
-    return <PostDetailPage id={params.id} source={source} />;
+    let postId = params.id;
+    let initialPost: Post | undefined;
+    if (source === Source.Lens && isLensV2PostId(params.id)) {
+        const post = await runInSafeAsync(() => LensSocialMediaProvider.getPostById(params.id, true));
+        if (!post) notFound();
+
+        initialPost = post;
+        postId = post.slug || post.postId;
+    }
+
+    return <PostDetailPage id={postId} source={source} post={initialPost} />;
 }
