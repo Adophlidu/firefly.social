@@ -85,10 +85,10 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                                 source={profile.source}
                             />
                         </p>
-                        <div className="flex items-center">
+                        <div className="flex items-center whitespace-nowrap">
                             {profile.handle ? (
                                 <Link
-                                    className="self-start text-[15px] leading-[22px] text-secondary"
+                                    className="self-start truncate text-[15px] leading-[22px] text-secondary"
                                     href={profileUrl}
                                     onClick={handleClickOnLink}
                                 >
