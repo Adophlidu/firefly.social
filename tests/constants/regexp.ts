@@ -2,7 +2,15 @@ import { first } from 'lodash-es';
 import { describe, expect, it } from 'vitest';
 
 import { LINK_MARK_RE } from '@/constants/linkRegExp.js';
-import { CHANNEL_REGEX, MENTION_REGEX, SYMBOL_REGEX, URL_INPUT_REGEX, URL_REGEX } from '@/constants/regexp.js';
+import {
+    CHANNEL_REGEX,
+    MENTION_REGEX,
+    SYMBOL_REGEX,
+    URL_INPUT_REGEX,
+    URL_REGEX,
+    BSKY_MENTION_REGEX,
+    LENS_MENTION_REGEX,
+} from '@/constants/regexp.js';
 
 function matchUrl(regExp: RegExp) {
     return () => {
@@ -284,6 +292,57 @@ describe('URL_SINGLE_REGEX', () => {
             'https://user:password@example.com', // User info in URL
         ].forEach((url) => {
             expect(URL_INPUT_REGEX.test(url)).toBe(false);
+        });
+    });
+});
+
+describe('BSKY_MENTION_REGEX', () => {
+    it('should match bsky mention', () => {
+        const cases = [
+            ['@alice', '@alice'],
+            ['@bob.smith', '@bob.smith'],
+            ['@charlie-123', '@charlie-123'],
+            ['@d.e-f', '@d.e-f'],
+            ['@user.name', '@user.name'],
+            ['@user-name', '@user-name'],
+            ['@user.name-123', '@user.name-123'],
+            ['@', null],
+            ['@@double', '@double'],
+            ['@with.dot.', '@with.dot.'],
+            ['@with-dash-', '@with-dash-'],
+            ['@with..dots', '@with..dots'],
+            ['@with--dash', '@with--dash'],
+        ] as const;
+        cases.forEach(([input, expected]) => {
+            const [matched] = input.match(BSKY_MENTION_REGEX) ?? [null];
+            expect(matched).toBe(expected);
+        });
+    });
+});
+
+describe('LENS_MENTION_REGEX', () => {
+    it('should match lens mention', () => {
+        const cases = [
+            ['@lens/alice', '@lens/alice'],
+            ['@lens/bob123', '@lens/bob123'],
+            ['@lens/abc_def', '@lens/abc_def'],
+            ['@lens/abc-def', '@lens/abc-def'],
+            ['@alice.lens', '@alice.lens'],
+            ['@bob123.lens', '@bob123.lens'],
+            ['@abc_def.lens', '@abc_def.lens'],
+            ['@abc-def.lens', '@abc-def.lens'],
+            ['@lens/', null],
+            ['@.lens', null],
+            ['@lens/alice.lens', '@lens/alice.lens'],
+            ['@lens/alice.lens123', '@lens/alice.lens123'],
+            ['@notlens/abc', null],
+            ['@alice', null],
+            ['alice.lens', null],
+            ['@lens', null],
+        ] as const;
+        cases.forEach(([input, expected]) => {
+            const [matched] = input.match(LENS_MENTION_REGEX) ?? [null];
+            expect(matched).toBe(expected);
         });
     });
 });

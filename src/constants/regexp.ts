@@ -9,6 +9,8 @@ export const EMAIL_REGEX =
 export const LITE_EMAIL_REGEX = /^[\w.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i;
 
 export const MENTION_REGEX = /@[^\s()@:%+~#?&=,!?']+/g;
+export const BSKY_MENTION_REGEX = /@([a-zA-Z0-9.-]+)/g;
+export const LENS_MENTION_REGEX = /@(?:lens\/[^\s/@]+|[^\s/@]+\.lens)/gi;
 
 /** Financial symbol */
 export const SYMBOL_REGEX = /(^|\s)(\$([a-zA-Z0-9]|\p{Script=Han})+)/gu;

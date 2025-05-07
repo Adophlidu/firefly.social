@@ -12,15 +12,10 @@ import type { MarkupProps } from '@/components/Markup/Markup.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
 import { DisableItalicPlugin } from '@/components/Markup/plugins/DisableItalicPlugin.js';
 import { HashTagLink } from '@/components/Markup/plugins/HashTagLink.js';
+import { MentionPlugin } from '@/components/Markup/plugins/MentionPlugin.js';
 import { MergeAdjacentTextPlugin } from '@/components/Markup/plugins/MergeAdjacentTextPlugin.js';
 import { type SocialSource } from '@/constants/enum.js';
-import {
-    BIO_TWITTER_PROFILE_REGEX,
-    CHANNEL_REGEX,
-    MENTION_REGEX,
-    SYMBOL_REGEX,
-    URL_REGEX,
-} from '@/constants/regexp.js';
+import { BIO_TWITTER_PROFILE_REGEX, CHANNEL_REGEX, SYMBOL_REGEX, URL_REGEX } from '@/constants/regexp.js';
 import { isChannelSupported } from '@/helpers/isChannelSupported.js';
 import { trimify } from '@/helpers/trimify.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -39,8 +34,8 @@ export const BioMarkup = memo<BioMarkupProps>(function BioMarkup({ children, pos
             DisableItalicPlugin,
             MergeAdjacentTextPlugin,
             linkifyRegex(BIO_TWITTER_PROFILE_REGEX),
+            MentionPlugin(source),
             linkifyRegex(URL_REGEX),
-            linkifyRegex(MENTION_REGEX),
             HashTagLink(source),
             linkifyRegex(SYMBOL_REGEX),
             isChannelSupported(source) ? linkifyRegex(CHANNEL_REGEX) : undefined,

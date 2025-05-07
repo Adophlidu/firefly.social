@@ -47,7 +47,6 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
             case Source.Lens: {
                 const handle = getLensHandleFromMentionTitle(title);
                 if (!handle) return title;
-
                 const link = getProfileUrl({
                     ...createDummyProfile(Source.Lens),
                     handle,
@@ -101,16 +100,22 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                     </ProfileTippy>
                 );
             case Source.Bsky: {
-                const profile = post?.mentions?.find((x) => x.handle === title);
-                if (!profile) return title;
+                const postMention = post?.mentions?.find((x) => x.handle === handle || x.handle === title);
+                if (!postMention) {
+                    return <MentionLinkWithQueryProfile source={source} handle={handle} fallback={title} />;
+                }
                 return (
                     <ProfileTippy
                         identity={{
                             source: Source.Bsky,
-                            id: profile.profileId,
+                            id: handle,
                         }}
                     >
-                        <MentionLink handle={profile.handle} href={getProfileUrl(profile)} className="inline-block" />
+                        <MentionLink
+                            handle={handle}
+                            href={getProfileUrl(postMention ? postMention : { source, handle })}
+                            className="inline-block"
+                        />
                     </ProfileTippy>
                 );
             }
