@@ -8,6 +8,7 @@ export async function attemptUntil<T>(
     funcs: Array<() => Promise<T> | undefined>,
     fallback: T,
     predicator: (result: Awaited<T> | undefined) => boolean = isUndefined,
+    onlyThrowWhenAllFails = false,
 ) {
     const errors: Error[] = [];
 
@@ -24,6 +25,7 @@ export async function attemptUntil<T>(
         }
     }
 
-    if (errors.length) throw new AggregateError(errors, 'At least one of the attempts fails.');
+    if (errors.length && (!onlyThrowWhenAllFails || errors.length === funcs.length))
+        throw new AggregateError(errors, 'At least one of the attempts fails.');
     return fallback;
 }

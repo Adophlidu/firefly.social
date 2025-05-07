@@ -21,6 +21,8 @@ class ENS_API implements NameServiceAPI.Provider {
         return attemptUntil(
             [ChainbaseDomain, R2D2Domain, TheGraphDomain].map((x) => () => x.reverse(EthereumChainId.Mainnet, address)),
             undefined,
+            undefined,
+            true,
         );
     }
 }
