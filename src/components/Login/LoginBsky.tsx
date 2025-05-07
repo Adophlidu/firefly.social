@@ -1,5 +1,6 @@
 /* cspell:disable */
 
+import type { ComAtprotoServerDescribeServer } from '@atproto/api';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
@@ -7,7 +8,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAsyncFn } from 'react-use';
-import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import AtIcon from '@/assets/at.svg';
@@ -21,7 +21,6 @@ import { AsyncStatus, Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -30,7 +29,7 @@ import { LoginModalRef } from '@/modals/controls.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder, createAgentOnce } from '@/providers/bsky/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
-import { HttpsUrl, HttpUrl } from '@/schemas/index.js';
+import { HttpsUrl } from '@/schemas/index.js';
 import { type AccountOptions, addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -59,28 +58,38 @@ async function loginBsky(createAccount: () => Promise<Account>, options?: Omit<A
     }
 }
 
+function createBskyFullHandle(name: string, domain: string): string {
+    const parsedName = (name || '').replace(/[.]+$/, '');
+    const parsedDomain = (domain || '').replace(/^[.]+/, '');
+
+    return `${parsedName}.${parsedDomain}`;
+}
+
+function formatBskyLoginIdentifier(
+    username: string,
+    serviceUrl: string,
+    serviceDescription?: ComAtprotoServerDescribeServer.OutputSchema,
+) {
+    if (username.includes('@') || username.includes('.')) return username;
+
+    if (serviceUrl === DEFAULT_SERVICE_URL) {
+        return createBskyFullHandle(username, '.bsky.social');
+    }
+
+    if (serviceDescription && serviceDescription.availableUserDomains.length > 0) {
+        const matched = serviceDescription.availableUserDomains.some((x) => username.endsWith(x));
+        if (!matched) {
+            username = createBskyFullHandle(username, serviceDescription.availableUserDomains[0]);
+        }
+    }
+
+    return username;
+}
+
 const schema = z.object({
     account: z.string().min(1),
     password: z.string().min(1),
     serviceUrl: z.union([HttpsUrl, z.literal('')]).optional(),
-});
-
-const serverDescriptionScheme = z.object({
-    did: z.string(),
-    availableUserDomains: z.array(z.string()),
-    inviteCodeRequired: z.boolean().optional(),
-    phoneVerificationRequired: z.boolean().optional(),
-    links: z
-        .object({
-            privacyPolicy: HttpUrl.optional(),
-            termsOfService: HttpUrl.optional(),
-        })
-        .optional(),
-    contact: z
-        .object({
-            email: z.string().optional(),
-        })
-        .optional(),
 });
 
 export function LoginBsky() {
@@ -100,6 +109,36 @@ export function LoginBsky() {
 
     const { account, password, serviceUrl } = watch();
 
+    const { data: serverDescription, isLoading } = useQuery({
+        enabled: !!serviceUrl && !editServiceUrl,
+        queryKey: ['login-bsky', serviceUrl, editServiceUrl],
+        queryFn: async ({ queryKey, signal }) => {
+            const [, url, editServiceUrl] = queryKey as [string, string, boolean];
+            if (!url || editServiceUrl) return null;
+
+            // default service url
+            if (url === DEFAULT_SERVICE_URL) return null;
+
+            const u = parseUrl(url);
+            if (!u) return null;
+
+            const parsed = HttpsUrl.safeParse(url);
+            if (!parsed.success) return null;
+
+            try {
+                const agent = createAgentOnce(url);
+                const result = await agent.com.atproto.server.describeServer(undefined, { signal });
+                return result.data;
+            } catch (error) {
+                if (AbortError.is(error)) return null;
+
+                enqueueWarningMessage(t`Sorry, the provider you entered is invalid`);
+                throw error;
+            }
+        },
+        retry: false,
+    });
+
     const [{ loading }, login] = useAsyncFn(
         async (username: string, password: string, serviceUrl?: string) => {
             controller.current.renew();
@@ -109,7 +148,11 @@ export function LoginBsky() {
                         const serviceUrl_ = serviceUrl || DEFAULT_SERVICE_URL;
                         const agent = createAgentOnce(serviceUrl_);
                         const response = await agent.login({
-                            identifier: username,
+                            identifier: formatBskyLoginIdentifier(
+                                username,
+                                serviceUrl_,
+                                serverDescription || undefined,
+                            ),
                             password,
                         });
                         if (!response.success) throw new Error(`Failed to login username = ${username}.`);
@@ -153,44 +196,12 @@ export function LoginBsky() {
                 throw error;
             }
         },
-        [controller, setFocus],
+        [controller, serverDescription, setFocus],
     );
 
-    const { data: serverDescription, isLoading } = useQuery({
-        enabled: !!serviceUrl && !editServiceUrl,
-        queryKey: ['login-bsky', serviceUrl, editServiceUrl],
-        queryFn: async ({ queryKey, signal }) => {
-            const [, url, editServiceUrl] = queryKey as [string, string, boolean];
-            if (!url) return true;
-            if (editServiceUrl) return false;
-
-            // default service url
-            if (url === DEFAULT_SERVICE_URL) return true;
-
-            const u = parseUrl(url);
-            if (!u) return false;
-
-            const parsed = HttpsUrl.safeParse(url);
-            if (!parsed.success) return false;
-
-            try {
-                const description = await fetchJSON<z.infer<typeof serverDescriptionScheme>>(
-                    urlcat(url, '/xrpc/com.atproto.server.describeServer'),
-                    {
-                        signal,
-                    },
-                );
-
-                return description;
-            } catch (error) {
-                if (AbortError.is(error)) return false;
-
-                enqueueWarningMessage(t`Sorry, the provider you entered is invalid`);
-                throw error;
-            }
-        },
-        retry: false,
-    });
+    const isValidServiceUrl =
+        !serviceUrl || serviceUrl === DEFAULT_SERVICE_URL || (!!serviceUrl && !isLoading && !!serverDescription);
+    const ServiceUrlIcon = isLoading ? LoadingIcon : GlobalIcon;
 
     return (
         <form
@@ -256,7 +267,7 @@ export function LoginBsky() {
                     ) : null}
                 </div>
                 <div className="group relative mx-0 flex h-10 flex-grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
-                    <GlobalIcon width={18} height={18} className="absolute left-3 shrink-0" />
+                    <ServiceUrlIcon width={18} height={18} className="absolute left-3 shrink-0" />
                     <input
                         disabled={loading}
                         type="text"
@@ -312,11 +323,7 @@ export function LoginBsky() {
                 <ClickableButton
                     className="flex h-[42px] w-full items-center justify-center gap-1 rounded-full border border-line bg-lightMain text-primaryBottom"
                     disabled={
-                        loading ||
-                        isLoading ||
-                        formState.isSubmitting ||
-                        !formState.isValid ||
-                        (!!serviceUrl && !serverDescription)
+                        loading || isLoading || formState.isSubmitting || !formState.isValid || !isValidServiceUrl
                     }
                     type="submit"
                 >
