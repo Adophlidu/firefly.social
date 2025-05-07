@@ -5,6 +5,7 @@ import { PostDetailPage } from '@/app/(normal)/post/[source]/[id]/pages/DetailPa
 import { Comeback } from '@/components/Comeback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { KeyType, type SocialSourceInURL, Source } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { createMetadataPostById } from '@/helpers/createMetadataPostById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
@@ -13,12 +14,13 @@ import { isRequestedLoginSource } from '@/helpers/isRequestedLoginSource.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupTwitterSessionForSSR } from '@/helpers/setupTwitterSessionForSSR.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { getThreads } from '@/services/getThreads.js';
 import type { NextPageProps } from '@/types/index.js';
 
 export const revalidate = 60;
@@ -60,15 +62,18 @@ export default async function Page(props: Props) {
         );
     }
 
-    let postId = params.id;
-    let initialPost: Post | undefined;
-    if (source === Source.Lens && isLensV2PostId(params.id)) {
-        const post = await runInSafeAsync(() => LensSocialMediaProvider.getPostById(params.id, true));
-        if (!post) notFound();
+    const provider = resolveSocialMediaProvider(source);
+    const post = await runInSafeAsync(() => {
+        if (source === Source.Lens && isLensV2PostId(params.id)) {
+            return LensSocialMediaProvider.getPostById(params.id, true);
+        }
 
-        initialPost = post;
-        postId = post.slug || post.postId;
-    }
+        return provider.getPostById(params.id);
+    });
+    if (!post) notFound();
 
-    return <PostDetailPage id={postId} source={source} post={initialPost} />;
+    const threadResult = await runInSafeAsync(() => getThreads(post, source));
+    const threads = threadResult?.data || EMPTY_LIST;
+
+    return <PostDetailPage post={post} threads={threads} />;
 }

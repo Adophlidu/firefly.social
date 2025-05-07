@@ -1,7 +1,4 @@
-'use client';
-
 import { Trans } from '@lingui/react/macro';
-import { useQuery } from '@tanstack/react-query';
 import { Suspense } from 'react';
 
 import { PostActionsWithGrid } from '@/components/Actions/index.js';
@@ -16,57 +13,16 @@ import { PostDetailEffect } from '@/components/PostDetailEffect.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { Section } from '@/components/Semantic/Section.js';
-import { type SocialSource } from '@/constants/enum.js';
-import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD } from '@/constants/index.js';
-import { notFound } from '@/esm/navigation.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
+import { MIN_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getThreads } from '@/services/getThreads.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface Props {
-    id: string;
-    source: SocialSource;
-    post?: Post;
+    post: Post;
+    threads: Post[];
 }
 
-export function PostDetailPage({ id: postId, source, post: defaultPost }: Props) {
-    if (!postId) notFound();
-
-    const isSyncing = useAsyncStatus(source);
-    const { visitedPosts } = useGlobalState();
-
-    const {
-        data: post = visitedPosts[source]?.[postId] || defaultPost,
-        isLoading,
-        isRefetching,
-    } = useQuery({
-        queryKey: [source, 'post-detail', postId, isSyncing],
-        queryFn: async () => {
-            if (isSyncing) return null;
-            const provider = resolveSocialMediaProvider(source);
-            return provider.getPostById(postId);
-        },
-    });
-
-    const {
-        data: threads,
-        isLoading: threadLoading,
-        isRefetching: threadRefetching,
-    } = useQuery({
-        queryKey: [source, 'post-thread', postId, isSyncing],
-        enabled: !!post,
-        queryFn: async () => {
-            if (!post || isSyncing) return { data: EMPTY_LIST };
-            return getThreads(post, source);
-        },
-    });
-
-    if (isSyncing || ((isLoading || isRefetching || threadLoading || threadRefetching) && !post)) return <Loading />;
-    if (!post) notFound();
-
-    const allPosts = threads?.data || EMPTY_LIST;
+export function PostDetailPage({ post, threads }: Props) {
+    const source = post.source;
 
     return (
         <article className="min-h-screen">
@@ -81,16 +37,16 @@ export function PostDetailPage({ id: postId, source, post: defaultPost }: Props)
                     <ChannelInfo channel={post.channel} source={post.source} className="border-b border-line p-3" />
                 </Section>
             ) : null}
-            {allPosts.length >= MIN_POST_SIZE_PER_THREAD ? (
+            {threads.length >= MIN_POST_SIZE_PER_THREAD ? (
                 <article className="px-4 py-3">
-                    {allPosts.map((post, index) => (
+                    {threads.map((post, index) => (
                         <ThreadBody
                             isDetail
                             post={post}
                             disableAnimate
                             showTranslate
                             key={post.postId}
-                            isLast={index === allPosts.length - 1}
+                            isLast={index === threads.length - 1}
                         />
                     ))}
                 </article>
@@ -119,19 +75,19 @@ export function PostDetailPage({ id: postId, source, post: defaultPost }: Props)
                     </Section>
                 </>
             )}
-            <Suspense fallback={<Loading />}>
-                <Section title="Post Comments">
-                    <NoSSR>
+            <Section title="Post Comments">
+                <NoSSR>
+                    <Suspense fallback={<Loading />}>
                         <CommentList
                             postId={post.postId}
                             source={source}
                             excludePostIds={
-                                allPosts.length >= MIN_POST_SIZE_PER_THREAD ? allPosts.map((x) => x.postId) : []
+                                threads.length >= MIN_POST_SIZE_PER_THREAD ? threads.map((x) => x.postId) : []
                             }
                         />
-                    </NoSSR>
-                </Section>
-            </Suspense>
+                    </Suspense>
+                </NoSSR>
+            </Section>
             <PostDetailEffect post={post} />
         </article>
     );

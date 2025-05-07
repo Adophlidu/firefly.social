@@ -6,7 +6,6 @@ import { immer } from 'zustand/middleware/immer';
 import { AsyncStatus, type SocialSource, Source, type ThirdPartySource } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentSourceFromUrl } from '@/helpers/getCurrentSourceFromUrl.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface GlobalState {
     routeChanged: boolean;
@@ -28,15 +27,11 @@ interface GlobalState {
 
     web3StateAsyncStatus: AsyncStatus;
     setWeb3StateAsyncStatus: (status: AsyncStatus) => void;
-
-    visitedPosts: Record<SocialSource, Record<string, Post>>;
-    setVisitedPosts: (source: SocialSource, postId: string, post: Post) => void;
-    getVisitedPost: (source: SocialSource, postId: string) => Post | undefined;
 }
 
 const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
     persist(
-        immer((set, get) => ({
+        immer((set) => ({
             routeChanged: false,
 
             asyncStatus: {
@@ -94,24 +89,6 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
                 set((state) => {
                     state.web3StateAsyncStatus = status;
                 });
-            },
-
-            visitedPosts: {
-                [Source.Farcaster]: {},
-                [Source.Lens]: {},
-                [Source.Twitter]: {},
-                [Source.Bsky]: {},
-            },
-            setVisitedPosts(source, postId, post) {
-                set((state) => {
-                    state.visitedPosts[source] = {
-                        ...state.visitedPosts[source],
-                        [postId]: post,
-                    };
-                });
-            },
-            getVisitedPost(source, postId) {
-                return get().visitedPosts[source]?.[postId];
             },
         })),
         {

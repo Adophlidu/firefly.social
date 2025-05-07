@@ -46,7 +46,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 }) {
     const router = useRouter();
     const pathname = usePathname();
-    const { setScrollIndex, setVisitedPosts } = useGlobalState();
+    const { setScrollIndex } = useGlobalState();
 
     const isPostPage = isRoutePathname(pathname, '/post/:source');
     const isProfilePage = isRoutePathname(pathname, '/profile/:source');
@@ -84,7 +84,6 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 if (selection && selection.toString().length !== 0) return;
                 if (!isPostPage || isComment) {
                     if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
-                    setVisitedPosts(post.source, post.postId, post);
                     router.push(postLink);
                 }
                 return;
