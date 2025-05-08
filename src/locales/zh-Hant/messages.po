@@ -460,6 +460,9 @@ msgstr "已排程"
 msgid "Pay"
 msgstr "支付"
 
+msgid "Nickname"
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(source)
 msgid "Followed @{handle} on {0}."
 msgstr "在 {0} 上關注了 @{handle}。"

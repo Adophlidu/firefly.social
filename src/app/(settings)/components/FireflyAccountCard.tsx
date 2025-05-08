@@ -10,7 +10,6 @@ import TrashIcon from '@/assets/trash.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
-import { resolveFireflyAccountFallbackName } from '@/helpers/resolveFireflyAccountFallbackName.js';
 import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
 import { useDeleteFireflyAccount } from '@/hooks/useDeleteFireflyAccount.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
@@ -22,7 +21,6 @@ export function FireflyAccountCard() {
 
     const account = data?.fireflyAccount;
     const [, deleteFireflyAccount] = useDeleteFireflyAccount();
-
     const avatar = useFireflyAccountAvatar();
 
     if (!isLoading && (error || !account)) return null;
@@ -51,7 +49,7 @@ export function FireflyAccountCard() {
                                       onClick={() => {
                                           EditFireflyProfileModalRef.open({
                                               profile: account,
-                                              fallbackDisplayName: resolveFireflyAccountFallbackName(data?.__origin__),
+                                              connections: data?.__origin__,
                                           });
                                           captureEditProfileClickEvent();
                                       }}
@@ -98,13 +96,11 @@ export function FireflyAccountCard() {
                                             <button
                                                 className="flex w-full items-center whitespace-nowrap px-3 py-1 text-base font-bold"
                                                 onClick={() => {
-                                                    close();
                                                     EditFireflyProfileModalRef.open({
                                                         profile: account,
-                                                        fallbackDisplayName: resolveFireflyAccountFallbackName(
-                                                            data?.__origin__,
-                                                        ),
+                                                        connections: data?.__origin__,
                                                     });
+                                                    close();
                                                     captureEditProfileClickEvent();
                                                 }}
                                             >

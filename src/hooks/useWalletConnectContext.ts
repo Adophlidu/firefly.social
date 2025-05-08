@@ -42,7 +42,12 @@ function createEmptyWalletConnectState(): WalletConnectState {
 }
 
 async function setupApi() {
-    await CoreApiController.prefetch();
+    await Promise.allSettled([
+        CoreApiController.fetchFeaturedWallets(),
+        CoreApiController.fetchRecommendedWallets(),
+        CoreApiController.fetchConnectorImages(),
+        CoreApiController.prefetchNetworkImages(),
+    ]);
 }
 
 function networkTypeToChainNamespace(networkType: NetworkType): ChainNamespace | null {
@@ -68,7 +73,7 @@ function useWalletConnectContext(initialState?: WalletConnectContext): WalletCon
     // subscribe events
     useEffect(() => {
         const unsubscribeInjected = CoreConnectorController.subscribeKey('connectors', (connectors) => {
-            setValue((prev) => ({ ...prev, connectors: getFilteredConnectors(connectors) }));
+            setValue((prev) => ({ ...prev, connectors }));
         });
         const unsubscribeFeatured = CoreApiController.subscribeKey('featured', (featured) => {
             setValue((prev) => ({ ...prev, featuredWallets: featured }));
@@ -98,7 +103,7 @@ function useWalletConnectContext(initialState?: WalletConnectContext): WalletCon
 
     return {
         chainState: value.chainState,
-        connectors: value.connectors,
+        connectors: getFilteredConnectors(value.connectors, value.featuredWallets),
         featuredWallets: value.featuredWallets,
 
         loading,

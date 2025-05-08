@@ -72,7 +72,7 @@ function AttendeesItem({ poapHolderToken }: { poapHolderToken: PoapHolderToken }
                     width={30}
                     height={30}
                     size={30}
-                    className="mr-2 min-w-[30px] shrink-0 rounded-full"
+                    className="mr-2 max-h-[30px] min-w-[30px] shrink-0 rounded-full"
                 />
                 <div className="flex max-w-[calc(100%-38px)] items-center gap-1.5 text-left">
                     {ensName ? (

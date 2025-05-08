@@ -39,10 +39,7 @@ type Props = {
 };
 
 export function SwapModal({ ref }: Props) {
-    // const widgetRef = useRef<HTMLDivElement>(null);
     const [widgetRef, setWidgetRef] = useState<HTMLDivElement | null>(null);
-    const appKitProvider = useAppKitProvider('eip155');
-    const provider = appKitProvider.walletProvider as EthereumProvider;
 
     const locale = useLocale();
     const [props, setProps] = useState<SwapModalOpenProps>();
@@ -51,6 +48,10 @@ export function SwapModal({ ref }: Props) {
 
     const isDark = useMediaQuery('(prefers-color-scheme: dark)');
     const theme = isDark || mode === 'dark' ? THEME.DARK : THEME.LIGHT;
+
+    const networkType = props?.providerType ?? ProviderType.EVM;
+    const appKitProvider = useAppKitProvider(networkType === ProviderType.EVM ? 'eip155' : 'solana');
+    const provider = appKitProvider.walletProvider as EthereumProvider;
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
@@ -63,7 +64,7 @@ export function SwapModal({ ref }: Props) {
     });
 
     useEffect(() => {
-        if (!widgetRef) return;
+        if (!widgetRef || !open) return;
 
         const tokenPair = {
             fromChain: props?.chainId ?? mainnet.id,
@@ -77,7 +78,7 @@ export function SwapModal({ ref }: Props) {
             lang: LangMap[locale] || 'en_us',
             theme,
             width: 400,
-            providerType: props?.providerType || ProviderType.EVM,
+            providerType: networkType,
             chainIds: props?.chainIds,
             tokenPair,
         };
@@ -93,11 +94,17 @@ export function SwapModal({ ref }: Props) {
 
         const instance = createOkxSwapWidget(widgetRef, {
             params,
-            provider,
+            // the kit provider is not supported in the widget
+            provider: networkType === ProviderType.EVM ? provider : window.solana,
             listeners,
         });
         instanceRef.current = instance;
-    }, [props, provider, locale, theme, open, widgetRef]);
+
+        return () => {
+            instanceRef.current?.destroy();
+            instanceRef.current = undefined;
+        };
+    }, [props, provider, locale, theme, open, widgetRef, networkType]);
 
     return (
         <Modal onClose={() => dispatch?.close()} open={open}>

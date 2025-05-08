@@ -42,8 +42,9 @@ export async function fetchProfileTimeline(profileId: string, indicator?: PageIn
 
     if (Array.isArray(result?.data?.value?.items)) {
         const { items, pageInfo } = result.data.value;
+        const posts = compact(await Promise.all(items.map(formatLensPostByFeedV3)));
         return createPageable(
-            compact(await Promise.all(items.map(formatLensPostByFeedV3))),
+            posts.filter((post) => !post.author.viewerContext?.blocking),
             createIndicator(indicator),
             pageInfo?.next ? createNextIndicator(indicator, pageInfo.next) : undefined,
         );

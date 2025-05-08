@@ -20,8 +20,10 @@ import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
+import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/chain.js';
 import { Source } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
+import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
@@ -228,19 +230,26 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                             </Link>
                         ) : null}
 
-                        <div className="mt-2 flex items-center justify-between gap-2">
-                            <SwapButton
-                                className="!ml-0 flex !px-2 py-[2px] !text-[12px] !font-medium !leading-[20px]"
-                                tradable
-                                swapProps={{
-                                    chainId: activity.chain_id,
-                                    fromToken: activity.from_token?.address,
-                                    toToken: activity.to_token?.address,
-                                    providerType: activity.chain_id === 101 ? ProviderType.SOLANA : ProviderType.EVM,
-                                }}
-                            >
-                                <Trans>Copy Trade</Trans>
-                            </SwapButton>
+                        <div
+                            className={classNames('mt-2 flex items-center gap-2', {
+                                'justify-between': activity.chain_id !== SOLANA_CHAIN_ID_IN_FIREFLY,
+                                'justify-end': activity.chain_id === SOLANA_CHAIN_ID_IN_FIREFLY,
+                            })}
+                        >
+                            {activity.chain_id !== SOLANA_CHAIN_ID_IN_FIREFLY ? (
+                                <SwapButton
+                                    className="!ml-0 flex !px-2 py-[2px] !text-[12px] !font-medium !leading-[20px]"
+                                    tradable
+                                    swapProps={{
+                                        chainId: activity.chain_id,
+                                        fromToken: activity.from_token?.address,
+                                        toToken: activity.to_token?.address,
+                                        providerType: ProviderType.EVM,
+                                    }}
+                                >
+                                    <Trans>Copy Trade</Trans>
+                                </SwapButton>
+                            ) : null}
                             <div className="flex items-center gap-1 text-sm text-second">
                                 <ClickableButton
                                     className="cursor-pointer"

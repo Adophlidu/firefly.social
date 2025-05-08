@@ -589,8 +589,14 @@ export class BskySocialMedia implements Provider {
             limit: size,
             cursor: indicator?.id ?? '',
         });
+
+        const actors = response.data.actors.map((x) => x.did);
+        if (!actors.length) {
+            return createPageable([], indicator);
+        }
+
         const detailedResponse = await bskySessionHolder.agent.getProfiles({
-            actors: response.data.actors.map((x) => x.did),
+            actors,
         });
         const profiles = detailedResponse.data.profiles.map(formatBskyProfile);
         return createPageable(

@@ -7,9 +7,10 @@ function isMatched(wallet: WcWallet, connector: ConnectorWithProviders) {
     );
 }
 
-export function getFilteredConnectors(connectors = CoreConnectorController.state.connectors || []) {
-    const featureWallets = CoreApiController.state.featured || [];
-
+export function getFilteredConnectors(
+    connectors = CoreConnectorController.state.connectors || [],
+    featureWallets = CoreApiController.state.featured || [],
+) {
     return connectors.filter((connector) => {
         if (connector.id === 'walletConnect') return true;
 

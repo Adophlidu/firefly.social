@@ -103,11 +103,13 @@ export function formatFireflyFarcasterProfile(profile: FireflyFarcasterProfile):
         handle: profile.username,
         fullHandle: profile.username,
         pfp: profile.pfp,
+        bio: profile.bio,
         followerCount: profile.followers,
         followingCount: profile.following,
         viewerContext: {
             following: profile.isFollowing,
             followedBy: profile.isFollowedBack,
         },
+        __original__: profile,
     };
 }

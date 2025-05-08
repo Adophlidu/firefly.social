@@ -1,12 +1,17 @@
 'use client';
 import { t } from '@lingui/core/macro';
+import { ProviderType } from '@okxweb3/dex-widget';
 import { useAppKitProvider } from '@reown/appkit/react';
-import { memo, useContext } from 'react';
+import { memo, useContext, useMemo } from 'react';
+import { switchChain } from 'wagmi/actions';
 
 import SwapIcon from '@/assets/swap.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { TokenContext } from '@/components/Token/TokenContext.js';
+import { useOkxSupportedChains } from '@/components/TokenProfile/useOkxSupportedChains.js';
+import { config } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { SwapModalRef, WalletConnectModalRef } from '@/modals/controls.js';
 import type { SwapModalOpenProps } from '@/modals/SwapModal.js';
@@ -21,12 +26,19 @@ export const SwapButton = memo<Props>(function SwapButton({
     tradable: tradableFromProps,
     swapProps: swapPropsFromProps,
     ...rest
-}) {
-    const appKitProvider = useAppKitProvider('eip155');
+}: ClickableButtonProps & { tradable?: boolean; swapProps?: SwapModalOpenProps }) {
     const { tradable: tradableFromContext, swapProps: propsFromContext } = useContext(TokenContext);
+    const { data: supportedChainIds = EMPTY_LIST } = useOkxSupportedChains();
 
+    const chainIds = useMemo(() => supportedChainIds.map((x) => x.chainId), [supportedChainIds]);
     const tradable = tradableFromProps ?? tradableFromContext;
 
+    const providerType = swapPropsFromProps?.providerType ?? propsFromContext?.providerType ?? ProviderType.EVM;
+    const chainId = swapPropsFromProps?.chainId ?? propsFromContext?.chainId;
+
+    const appKitProvider = useAppKitProvider(providerType === ProviderType.EVM ? 'eip155' : 'solana');
+
+    if (providerType === ProviderType.EVM && chainId && !chainIds.includes(chainId)) return null;
     if (!tradable) return null;
 
     return (
@@ -36,11 +48,14 @@ export const SwapButton = memo<Props>(function SwapButton({
                 className,
             )}
             disabled={!tradable}
-            onClick={() => {
+            onClick={async () => {
                 if (!appKitProvider.walletProvider) {
-                    WalletConnectModalRef.open({ networkType: NetworkType.Ethereum });
+                    WalletConnectModalRef.open({
+                        networkType: providerType === ProviderType.EVM ? NetworkType.Ethereum : NetworkType.Solana,
+                    });
                     return;
                 }
+                if (chainId && providerType === ProviderType.EVM) await switchChain(config, { chainId });
                 SwapModalRef.open(swapPropsFromProps ?? propsFromContext);
             }}
             {...rest}

@@ -82,7 +82,7 @@ export function EditFireflyProfileForm() {
                     />
                 </div>
                 <label htmlFor="display-name-input" className="mb-6 text-sm font-bold leading-[18px] text-main">
-                    <Trans>Display Name</Trans>
+                    <Trans>Nickname</Trans>
                 </label>
                 <FormInput
                     name="displayName"

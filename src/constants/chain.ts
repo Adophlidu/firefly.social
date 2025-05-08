@@ -313,3 +313,6 @@ export const DEBANK_CHAIN_TO_CHAIN_ID_MAP: Record<string, number> = {
     base: EthereumChainId.Base,
     scrl: EthereumChainId.Scroll,
 };
+
+export const SOLANA_CHAIN_ID_IN_FIREFLY = 101;
+export const SOLANA_CHAIN_ID_IN_OKX = 501;

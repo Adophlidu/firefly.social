@@ -1,6 +1,7 @@
 'use client';
 
 import { Select, Trans } from '@lingui/react/macro';
+import { ProviderType } from '@okxweb3/dex-widget';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { first } from 'lodash-es';
@@ -16,7 +17,9 @@ import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { Loading } from '@/components/Loading.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { chains } from '@/configs/wagmiClient.js';
+import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/chain.js';
 import { NetworkType, Source } from '@/constants/enum.js';
 import { notFound } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -219,8 +222,27 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                         </div>
                     ) : null}
 
-                    <div className="mt-2 flex items-center justify-end">
-                        <div className="flex items-center gap-1 text-sm text-second">
+                    <div
+                        className={classNames('mt-2 flex items-center gap-2', {
+                            'justify-between': activity.chain_id !== SOLANA_CHAIN_ID_IN_FIREFLY,
+                            'justify-end': activity.chain_id === SOLANA_CHAIN_ID_IN_FIREFLY,
+                        })}
+                    >
+                        {activity.chain_id !== SOLANA_CHAIN_ID_IN_FIREFLY ? (
+                            <SwapButton
+                                className="!ml-0 flex !px-2 py-[2px] !text-[12px] !font-medium !leading-[20px]"
+                                tradable
+                                swapProps={{
+                                    chainId: activity.chain_id,
+                                    fromToken: activity.from_token?.address,
+                                    toToken: activity.to_token?.address,
+                                    providerType: ProviderType.EVM,
+                                }}
+                            >
+                                <Trans>Copy Trade</Trans>
+                            </SwapButton>
+                        ) : null}
+                        <div className="text-lightSecond flex items-center gap-1 text-sm">
                             <ClickableButton
                                 className="cursor-pointer"
                                 loading={isPending}

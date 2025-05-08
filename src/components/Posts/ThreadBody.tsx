@@ -10,7 +10,7 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
-import { PageRoute } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
@@ -41,11 +41,18 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
     const router = useRouter();
 
     const pathname = usePathname();
+    const isDetailPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
+    const isFollowingPage = isRoutePathname(pathname, PageRoute.FollowingPosts, true);
 
     const link = getPostUrl(post);
-    const muted = useIsProfileMuted(post.author.source, post.author.profileId);
+    const muted = useIsProfileMuted(
+        post.author.source,
+        post.author.profileId,
+        post.author.viewerContext?.blocking,
+        // in following page, we already have post author blocking status on lens
+        !isFollowingPage || post.source !== Source.Lens,
+    );
 
-    const isDetailPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
     const showAction = !post.isHidden && !muted;
 
     const isSamePost = isDetailPage && link.includes(pathname);

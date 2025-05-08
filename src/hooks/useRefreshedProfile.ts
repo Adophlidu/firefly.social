@@ -9,7 +9,6 @@ export function useRefreshedProfile<T extends Profile | null | undefined>(profil
     const handleOrProfileId = resolveFireflyProfileId(profile ?? null);
     return useQuery({
         queryKey: ['profile', profile?.source, handleOrProfileId],
-        staleTime: 1000 * 60 * 5, // 5 minutes
         async queryFn() {
             try {
                 if (!profile || !handleOrProfileId) return null as T;

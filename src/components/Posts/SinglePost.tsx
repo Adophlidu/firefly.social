@@ -52,9 +52,17 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const isProfilePage = isRoutePathname(pathname, '/profile/:source');
     const isChannelPage = isRoutePathname(pathname, '/channel/:detail');
     const isBookmarkPage = isRoutePathname(pathname, PageRoute.Bookmarks);
+    const isFollowingPage = isRoutePathname(pathname, PageRoute.FollowingPosts, true);
     const postLink = getPostUrl(post);
     const muted =
-        useIsProfileMuted(post.author.source, post.author.profileId) || (!!post.channel?.blocked && !isChannelPage);
+        useIsProfileMuted(
+            post.author.source,
+            post.author.profileId,
+            post.author.viewerContext?.blocking,
+            // in following page, we already have post author blocking status on lens
+            !isFollowingPage || post.source !== Source.Lens,
+        ) ||
+        (!!post.channel?.blocked && !isChannelPage);
 
     const show = useMemo(() => {
         if (post.source === Source.Twitter) return false;

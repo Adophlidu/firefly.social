@@ -36,6 +36,7 @@ export enum Locale {
 export enum PageRoute {
     Home = '/',
     Following = '/following/:source',
+    FollowingPosts = '/following/posts',
     Discover = '/:source',
     Explore = '/explore',
     Notifications = '/notifications',

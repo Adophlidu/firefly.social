@@ -455,6 +455,9 @@ msgstr "Scheduled"
 msgid "Pay"
 msgstr "Pay"
 
+msgid "Nickname"
+msgstr "Nickname"
+
 #. placeholder {0}: resolveSourceName(source)
 msgid "Followed @{handle} on {0}."
 msgstr "Followed @{handle} on {0}."
