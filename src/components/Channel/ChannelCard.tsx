@@ -88,9 +88,11 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                         className="flex cursor-pointer items-center gap-2 text-medium text-secondary"
                     >
                         {isBsky || isLens ? (
-                            <span className="min-w-0 truncate whitespace-nowrap">
-                                <Trans>By @{channel.lead?.handle || '-'}</Trans>
-                            </span>
+                            channel.lead?.handle ? (
+                                <span className="min-w-0 truncate whitespace-nowrap">
+                                    <Trans>By @{channel.lead?.handle || '-'}</Trans>
+                                </span>
+                            ) : null
                         ) : (
                             <span className="min-w-0 truncate whitespace-nowrap">/{channel?.id}</span>
                         )}

@@ -184,6 +184,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     const sendFrom = post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
 
     const isDetailPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
+    const isChannelPage = isRoutePathname(pathname, PageRoute.Channel, true);
 
     const statisticsItems =
         !isDetailPage || isComment
@@ -191,7 +192,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                   comments,
                   likes,
                   pollVotes,
-                  !isDetailPage && showChannelTag && post.channel?.name ? (
+                  !isDetailPage && showChannelTag && post.channel?.name && !isChannelPage ? (
                       <ChannelAnchor
                           className="!inline-flex translate-y-1"
                           channel={post.channel}

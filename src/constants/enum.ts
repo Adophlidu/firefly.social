@@ -49,7 +49,7 @@ export enum PageRoute {
     Token = '/token/:symbol',
     Article = '/article/:id',
     ProfileDetail = '/profile/:source/:id',
-    Channel = '/channel/:id/:type',
+    Channel = '/channel/:source/:id/:type',
     Event = '/event/:name',
     SettingConnected = '/settings/connected',
     SettingsMutes = '/settings/mutes',

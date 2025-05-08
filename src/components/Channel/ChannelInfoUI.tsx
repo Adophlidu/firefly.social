@@ -58,14 +58,20 @@ export const ChannelInfoUI = memo<Props>(function ChannelInfoUI({
 
                     <div className="flex flex-row items-center gap-1">
                         {[Source.Lens, Source.Bsky].includes(channel.source) ? (
-                            <span className="text-medium text-secondary">
-                                <Trans>By @{channel.lead?.handle || '-'}</Trans>
-                            </span>
+                            channel.lead?.handle ? (
+                                <>
+                                    <span className="text-medium text-secondary">
+                                        <Trans>By @{channel.lead?.handle || '-'}</Trans>
+                                    </span>
+                                    <span className="leading-[22px] text-secondary">·</span>
+                                </>
+                            ) : null
                         ) : (
-                            <span className="text-medium text-secondary">/{channel.id}</span>
+                            <>
+                                <span className="text-medium text-secondary">/{channel.id}</span>
+                                <span className="leading-[22px] text-secondary">·</span>
+                            </>
                         )}
-
-                        <span className="leading-[22px] text-secondary">·</span>
 
                         <ChannelFollowerCount channel={channel} />
                     </div>

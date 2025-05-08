@@ -1,8 +1,24 @@
-import { Source } from '@/constants/enum.js';
+import { safeUnreachable } from '@masknet/kit';
+
+import { type SocialSource, Source } from '@/constants/enum.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
-export function resolveChannelName(channel: Channel, channelPrefix = true) {
-    const prefix = channel.source === Source.Lens ? '#' : '/';
+function getChannelName(source: SocialSource, name: string, channelPrefix = true) {
+    if (!channelPrefix || !name) return name;
 
-    return channel.name ? `${channelPrefix ? prefix : ''}${channel.name}` : '';
+    switch (source) {
+        case Source.Lens:
+        case Source.Bsky:
+            return `#${name}`;
+        case Source.Farcaster:
+        case Source.Twitter:
+            return `/${name}`;
+        default:
+            safeUnreachable(source);
+            return name;
+    }
+}
+
+export function resolveChannelName(channel: Channel, channelPrefix = true) {
+    return getChannelName(channel.source, channel.name, channelPrefix);
 }

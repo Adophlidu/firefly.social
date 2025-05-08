@@ -6,6 +6,7 @@ import { useState } from 'react';
 import ComeBackIcon from '@/assets/comeback.svg';
 import { ChannelInfoAction } from '@/components/Channel/ChannelInfoAction.js';
 import { NoSSR } from '@/components/NoSSR.js';
+import { resolveChannelName } from '@/helpers/resolveChannelName.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
@@ -30,7 +31,9 @@ export function Title({ channel }: TitleProps) {
         <header className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-line bg-primaryBottom pl-4 pr-3">
             <h1 className="flex min-w-0 items-center gap-7">
                 <ComeBackIcon className="shrink-0 cursor-pointer text-lightMain" onClick={comeback} />
-                <span className="min-w-0 truncate text-xl font-black text-lightMain">{channel.name ?? '-'}</span>
+                <span className="min-w-0 truncate text-xl font-black text-lightMain">
+                    {resolveChannelName(channel) || '-'}
+                </span>
             </h1>
 
             <NoSSR>{(channel && reached) || !isMedium ? <ChannelInfoAction channel={channel} /> : null}</NoSSR>
