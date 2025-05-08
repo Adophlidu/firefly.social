@@ -5,11 +5,10 @@ import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
-import { composePollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { isIpfsCID } from '@/helpers/isIpfsCID.js';
 import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
-import { isValidPollFrameUrl, resolveEmbedMediaType } from '@/helpers/resolveEmbedMediaType.js';
+import { resolveEmbedMediaType } from '@/helpers/resolveEmbedMediaType.js';
 import { type Cast, EmbedMediaType } from '@/providers/types/Firefly.js';
 import { type Attachment, type Post, type PostType, type Profile } from '@/providers/types/SocialMedia.js';
 
@@ -38,10 +37,7 @@ async function formatContent(cast: Cast): Promise<Post['metadata']['content']> {
                         .filter((x) => (x.type ? [EmbedMediaType.TEXT, EmbedMediaType.FRAME].includes(x.type) : true))
                         .map((x) => x.url),
                 ),
-            ).map((x) => {
-                if (isValidPollFrameUrl(x)) return composePollFrameUrl(x, Source.Farcaster);
-                return x;
-            }),
+            ),
         )
     ).filter((x) => isTopLevelDomain(x));
 

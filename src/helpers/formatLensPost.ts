@@ -24,8 +24,7 @@ import {
 import { formatLensPostOperations, formatLensPostStats } from '@/helpers/formatLensPostStatsAndOperations.js';
 import { formatLensProfileByMention, formatLensProfileV3 } from '@/helpers/formatLensProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
-import { composePollFrameUrl, getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
-import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
+import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { LensMetadataAttributeKey } from '@/providers/types/Lens.js';
 import type { Attachment, Post, PostType, Profile } from '@/providers/types/SocialMedia.js';
 
@@ -104,10 +103,7 @@ async function getOembedUrlsV3(metadata: TextOnlyMetadata, author: Profile): Pro
                 }
                 return acc;
             }, []) ?? [],
-        ).map((url) => {
-            if (isValidPollFrameUrl(url)) return composePollFrameUrl(url, Source.Lens);
-            return url;
-        }),
+        ),
     );
 }
 
