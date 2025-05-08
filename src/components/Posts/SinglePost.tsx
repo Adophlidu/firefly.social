@@ -10,7 +10,6 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
-import { queryClient } from '@/configs/queryClient.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -85,7 +84,6 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 if (selection && selection.toString().length !== 0) return;
                 if (!isPostPage || isComment) {
                     if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
-                    queryClient.setQueryData([post.source, 'post-detail', post.postId], post);
                     router.push(postLink);
                 }
                 return;
