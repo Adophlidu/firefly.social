@@ -4,7 +4,6 @@ import { memo } from 'react';
 import type { AddressCardProps } from '@/components/EmbedCards/types.js';
 import { CollectionPreviewer } from '@/components/NFTs/NFTPreview.js';
 import { TokenCard } from '@/components/Token/TokenCard.js';
-import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { useNFTCollection } from '@/hooks/useNFTCollection.js';
 import type { DetectedAddress } from '@/providers/types/Firefly.js';
 
@@ -19,11 +18,7 @@ export const ContractCard = memo<ContractCardProps>(function ContractCard({ cont
     switch (contractType) {
         case 'ERC20':
         case 'token':
-            return (
-                <TokenContextProvider>
-                    <TokenCard {...rest} />
-                </TokenContextProvider>
-            );
+            return <TokenCard {...rest} />;
         case 'ERC721':
         case 'ERC1155':
         case 'nft':

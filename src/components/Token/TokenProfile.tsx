@@ -2,14 +2,13 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { sortBy } from 'lodash-es';
-import { type HTMLProps, memo, useContext, useRef, useState } from 'react';
+import { type HTMLProps, memo, useRef, useState } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import PriceArrow from '@/assets/price-arrow.svg';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { SecurityBadge } from '@/components/EmbedCards/TokenSecurityBadge.js';
 import { Link } from '@/components/Link.js';
-import { TokenContext } from '@/components/Token/TokenContext.js';
 import { TokenSwitcher } from '@/components/Token/TokenSwitcher.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
@@ -71,9 +70,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
 
     const { data: token } = useTokenInfo(coingecko_coin_id || address, !!coingecko_coin_id);
     const { data: trending } = useCoinTrending(token?.id);
-    const { setTradable } = useContext(TokenContext);
     const tradeInfo = useTradeInfo(token);
-    setTradable(tradeInfo.tradable && detected?.type === 'eth');
 
     const { priceStats, isPending, isUp } = useCoinPrice24hStats(coingecko_coin_id || token?.id);
 
@@ -198,6 +195,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                 {address && detected?.chain_id ? (
                     <div className="row-start-3 flex items-center justify-end">
                         <SwapButton
+                            tradable={tradeInfo.tradable ? detected?.type === 'eth' : false}
                             className="flex shrink-0 grow-0 flex-row-reverse !gap-1 !px-3 !py-2"
                             swapProps={{
                                 chainId: +detected.chain_id,

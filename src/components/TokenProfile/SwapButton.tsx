@@ -11,12 +11,17 @@ import { classNames } from '@/helpers/classNames.js';
 import { SwapModalRef, WalletConnectModalRef } from '@/modals/controls.js';
 import type { SwapModalOpenProps } from '@/modals/SwapModal.js';
 
-export const SwapButton = memo(function SwapButton({
+interface Props extends ClickableButtonProps {
+    tradable?: boolean;
+    swapProps?: SwapModalOpenProps;
+}
+
+export const SwapButton = memo<Props>(function SwapButton({
     className,
     tradable: tradableFromProps,
     swapProps: swapPropsFromProps,
     ...rest
-}: ClickableButtonProps & { tradable?: boolean; swapProps?: SwapModalOpenProps }) {
+}) {
     const appKitProvider = useAppKitProvider('eip155');
     const { tradable: tradableFromContext, swapProps: propsFromContext } = useContext(TokenContext);
 

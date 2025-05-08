@@ -1,14 +1,13 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { memo, useContext, useRef } from 'react';
+import { memo, useRef } from 'react';
 
 import PriceArrow from '@/assets/price-arrow.svg';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { SecurityBadge } from '@/components/EmbedCards/TokenSecurityBadge.js';
 import type { AddressCardProps } from '@/components/EmbedCards/types.js';
 import { Link } from '@/components/Link.js';
-import { TokenContext } from '@/components/Token/TokenContext.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
@@ -54,9 +53,7 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
 
     const { data: token } = useTokenInfo(coingecko_coin_id || address, !!coingecko_coin_id);
     const { data: trending } = useCoinTrending(token?.id);
-    const { setTradable } = useContext(TokenContext);
     const tradeInfo = useTradeInfo(token);
-    setTradable(tradeInfo.tradable && detected?.type === 'eth');
 
     const market = trending?.market;
 
@@ -113,6 +110,7 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
                     {attributes?.address ? (
                         <SwapButton
                             className="flex shrink-0 grow-0 flex-row-reverse !gap-1 !px-3 !py-2"
+                            tradable={tradeInfo.tradable ? detected?.type === 'eth' : false}
                             swapProps={
                                 detected?.chain_id
                                     ? {

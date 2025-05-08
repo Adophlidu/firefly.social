@@ -3,13 +3,12 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { first } from 'lodash-es';
-import { useContext, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 import PriceArrow from '@/assets/price-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
-import { TokenContext } from '@/components/Token/TokenContext.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurityBar.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
@@ -48,15 +47,7 @@ export function TokenMarketData({ linkable, token, rank }: TokenMarketDataProps)
     const { market, contracts } = trending ?? {};
     const contract = first(contracts);
     const { data: security } = useTokenSecurity(contract?.chainId, contract?.address);
-    const { setTradable, setSwapProps } = useContext(TokenContext);
     const tradeInfo = useTradeInfo(token);
-
-    setTradable(tradeInfo.tradable);
-    setSwapProps({
-        toToken: tradeInfo.address,
-        chainId: tradeInfo.chainId,
-        chainIds: tradeInfo.supportedChainIds?.map((x) => x.toString()),
-    });
 
     const ranges = [
         { label: t`24h`, days: 1 },
@@ -127,6 +118,7 @@ export function TokenMarketData({ linkable, token, rank }: TokenMarketDataProps)
                 </div>
                 <SwapButton
                     className="sm:hidden md:inline-flex"
+                    tradable={tradeInfo.tradable}
                     swapProps={
                         tradeInfo.chainId
                             ? {
