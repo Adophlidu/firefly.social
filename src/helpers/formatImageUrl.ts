@@ -14,8 +14,8 @@ export function formatImageUrl(url: string, name?: string) {
     return url;
 }
 
-export function formatLensImageUrl(url: string) {
+export function formatLensImageUrl(url: string, resize = false) {
     if (!url?.trim()) return url;
 
-    return sanitizeDStorageUrl(formatGroveImage(url));
+    return sanitizeDStorageUrl(formatGroveImage(url), undefined, resize);
 }
