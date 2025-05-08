@@ -67,14 +67,15 @@ async function createMetadataForLoginRequestSource(source: RequestedLoginSource,
 }
 
 export async function createMetadataPostById(source: SocialSourceInURL, postId: string) {
-    const resolvedSource = resolveSource(source);
-    if (isRequestedLoginSource(resolvedSource)) {
-        return createMetadataForLoginRequestSource(resolvedSource, postId);
-    }
-
     const provider = resolveSocialMediaProvider(resolveSocialSource(source));
     const post = await provider.getPostById(postId).catch(() => null);
-    if (!post) return createSiteMetadata();
+    if (!post) {
+        const resolvedSource = resolveSource(source);
+        if (isRequestedLoginSource(resolvedSource)) {
+            return createMetadataForLoginRequestSource(resolvedSource, postId);
+        }
+        return createSiteMetadata();
+    }
 
     const audios = compact(
         post.metadata.content?.attachments?.map((x) => {

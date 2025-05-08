@@ -1,3 +1,5 @@
+'use client';
+
 import {
     steganographyDecodeImage as decodeImage,
     steganographyEncodeImage as encodeImage,

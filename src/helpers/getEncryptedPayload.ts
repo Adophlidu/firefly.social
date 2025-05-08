@@ -1,8 +1,8 @@
+'use client';
 import { compact, first } from 'lodash-es';
 
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
-import { steganographyDecodeImage } from '@/services/steganography.js';
 
 export type EncryptedPayload = readonly [string | Uint8Array, '1' | '2', string | null];
 
@@ -26,18 +26,24 @@ const decodeAttachment = memoizePromise(
         if (attachment.type !== 'Image') return;
         if (!attachment.uri) return;
 
-        const decoded = await steganographyDecodeImage(attachment.uri);
-        if (!decoded) return;
+        try {
+            const { steganographyDecodeImage } = await import('@/services/steganography.js');
+            const decoded = await steganographyDecodeImage(attachment.uri);
+            if (!decoded) return;
 
-        if (typeof decoded === 'string' && decoded.match(POST_DATA_REGEX)) {
-            const reDecoded = getEncryptedPayloadFromText(decoded);
-            if (reDecoded) {
-                const [decoded, version] = reDecoded;
-                return [decoded, version, attachment.uri] as EncryptedPayload;
+            if (typeof decoded === 'string' && decoded.match(POST_DATA_REGEX)) {
+                const reDecoded = getEncryptedPayloadFromText(decoded);
+                if (reDecoded) {
+                    const [decoded, version] = reDecoded;
+                    return [decoded, version, attachment.uri] as EncryptedPayload;
+                }
             }
-        }
 
-        return [decoded, '2', attachment.uri] as EncryptedPayload;
+            return [decoded, '2', attachment.uri] as EncryptedPayload;
+        } catch (error) {
+            console.error('Failed to decode attachment:', error);
+            return undefined;
+        }
     },
     (x) => x.uri,
 );

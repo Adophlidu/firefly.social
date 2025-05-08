@@ -1,4 +1,6 @@
+'use client';
 import { Trans } from '@lingui/react/macro';
+import { useQuery } from '@tanstack/react-query';
 import { Suspense } from 'react';
 
 import { PostActionsWithGrid } from '@/components/Actions/index.js';
@@ -13,16 +15,48 @@ import { PostDetailEffect } from '@/components/PostDetailEffect.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { Section } from '@/components/Semantic/Section.js';
-import { MIN_POST_SIZE_PER_THREAD } from '@/constants/index.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type SocialSource } from '@/constants/enum.js';
+import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD } from '@/constants/index.js';
+import { notFound } from '@/esm/navigation.js';
+import { getPostById } from '@/services/getPostById.js';
+import { getThreads } from '@/services/getThreads.js';
 
 interface Props {
-    post: Post;
-    threads: Post[];
+    id: string;
+    source: SocialSource;
 }
 
-export function PostDetailPage({ post, threads }: Props) {
-    const source = post.source;
+export function PostDetailPage({ id: postId, source }: Props) {
+    if (!postId) notFound();
+
+    const {
+        data: post,
+        isLoading,
+        isRefetching,
+    } = useQuery({
+        queryKey: [source, 'post-detail', postId],
+        queryFn: async () => {
+            return getPostById(source, postId);
+        },
+    });
+
+    const {
+        data: threads,
+        isLoading: threadLoading,
+        isRefetching: threadRefetching,
+    } = useQuery({
+        queryKey: [source, 'post-thread', postId],
+        enabled: !!post,
+        queryFn: async () => {
+            if (!post) return { data: EMPTY_LIST };
+            return getThreads(post, source);
+        },
+    });
+
+    if ((isLoading || isRefetching || threadLoading || threadRefetching) && !post) return <Loading />;
+    if (!post) notFound();
+
+    const allPosts = threads?.data || EMPTY_LIST;
 
     return (
         <article className="min-h-screen">
@@ -37,16 +71,16 @@ export function PostDetailPage({ post, threads }: Props) {
                     <ChannelInfo channel={post.channel} source={post.source} className="border-b border-line p-3" />
                 </Section>
             ) : null}
-            {threads.length >= MIN_POST_SIZE_PER_THREAD ? (
+            {allPosts.length >= MIN_POST_SIZE_PER_THREAD ? (
                 <article className="px-4 py-3">
-                    {threads.map((post, index) => (
+                    {allPosts.map((post, index) => (
                         <ThreadBody
                             isDetail
                             post={post}
                             disableAnimate
                             showTranslate
                             key={post.postId}
-                            isLast={index === threads.length - 1}
+                            isLast={index === allPosts.length - 1}
                         />
                     ))}
                 </article>
@@ -82,7 +116,7 @@ export function PostDetailPage({ post, threads }: Props) {
                             postId={post.postId}
                             source={source}
                             excludePostIds={
-                                threads.length >= MIN_POST_SIZE_PER_THREAD ? threads.map((x) => x.postId) : []
+                                allPosts.length >= MIN_POST_SIZE_PER_THREAD ? allPosts.map((x) => x.postId) : []
                             }
                         />
                     </Suspense>
