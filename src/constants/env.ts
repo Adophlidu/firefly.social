@@ -112,7 +112,7 @@ export const env = {
         VERSION: process.env.npm_package_version || '',
         COMMIT_HASH: process.env.COMMIT_HASH,
     },
-    internal: ((!bom.window || process.env.VITEST) && !process.env.GITHUB_ACTIONS
+    internal: ((!bom.window || process.env.VITEST) && !process.env.GITHUB_ACTIONS && !('browser' in (process as any))
         ? InternalEnvSchema.parse(process.env)
         : {}) as z.infer<typeof InternalEnvSchema>,
     external: ExternalEnvSchema.parse({

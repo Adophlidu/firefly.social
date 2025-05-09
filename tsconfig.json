@@ -22,6 +22,14 @@
             "@/*": ["./src/*"]
         }
     },
-    "include": ["src/**/*.ts", "src/**/*.tsx", "globals.d.ts", "next-auth.d.ts", ".next/types/**/*.ts"],
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "stories/**/*.ts",
+        "stories/**/*.tsx",
+        "globals.d.ts",
+        "next-auth.d.ts",
+        ".next/types/**/*.ts"
+    ],
     "exclude": ["node_modules", "src/service-workers"]
 }

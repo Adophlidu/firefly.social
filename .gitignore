@@ -48,3 +48,5 @@ firebase-messaging-sw.js
 src/locales/**/*.mjs
 src/locales/**/*.ts
 
+
+*storybook.log
