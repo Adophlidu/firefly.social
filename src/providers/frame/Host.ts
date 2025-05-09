@@ -1,9 +1,9 @@
 import type { Context, FrameHost, ReadyOptions, SetPrimaryButton } from '@farcaster/frame-host';
 
-import { SocialProfileCategory, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
+import { openProfilePageByProfileId } from '@/helpers/openProfilePageById.js';
 import { openWindow } from '@/helpers/openWindow.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { signInWithFarcaster } from '@/services/signInWithFarcaster.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { FrameV2 } from '@/types/frame.js';
@@ -62,8 +62,7 @@ export class FarcasterFrameHost implements FrameHost {
     };
 
     viewProfile: FrameHost['viewProfile'] = async (options) => {
-        const profileUrl = resolveProfileUrl(Source.Farcaster, `${options.fid}`, SocialProfileCategory.Feed);
-        openWindow(profileUrl);
+        await openProfilePageByProfileId(Source.Farcaster, `${options.fid}`);
     };
 
     viewToken: FrameHost['viewToken'] = (options) => {
