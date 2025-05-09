@@ -384,7 +384,12 @@ const useBskyStateBase = createState(
                 if (error instanceof FetchError) return;
                 console.warn('[bsky store] clean the local store because of the error', error);
 
-                state.clear(false);
+                const invalidSession =
+                    error instanceof Error &&
+                    'error' in error &&
+                    (error.error as string) === 'ExpiredToken' &&
+                    error.message === 'Token has been revoked';
+                state.clear(invalidSession);
                 bskySessionHolder.removeSession();
 
                 if (state.currentProfileSession) {
