@@ -456,7 +456,7 @@ export const BSKY_LOGIN_REQUIRED_FEEDS = [
 ];
 
 export const TOKEN_CATEGORIES: TokenCategory[] = [
-    TokenCategory.Activities,
+    TokenCategory.Transactions,
     TokenCategory.Feeds,
     TokenCategory.Overview,
 ];

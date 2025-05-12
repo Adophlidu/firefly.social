@@ -13,9 +13,12 @@ import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { Source } from '@/constants/enum.js';
+import { Source, STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
+import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
@@ -32,11 +35,21 @@ interface Props {
 export function WalletBaseMoreAction({ ens, address, contractAddress, tokenId, chainId }: Props) {
     const { data } = useNFTDetail(chainId, contractAddress, tokenId);
     const { data: isMuted } = useIsWalletMuted(address);
+    const profiles = useCurrentFireflyProfilesAll();
 
     const identity = useFireflyIdentity(Source.Wallet, address);
     const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
 
     const ensOrAddress = ens || formatAddress(address, 4);
+
+    const shouldShowTips =
+        env.external.NEXT_PUBLIC_TIPS === STATUS.Enabled &&
+        isValidAddressEthereum(address) &&
+        !profiles.some((profile) => isSameFireflyIdentity(profile.identity, identity));
+
+    if (!shouldShowTips && isMyProfile && !data?.chain_id) {
+        return null;
+    }
 
     return (
         <MoreActionMenu
@@ -81,7 +94,7 @@ export function WalletBaseMoreAction({ ens, address, contractAddress, tokenId, c
                         )}
                     </MenuItem>
                 ) : null}
-                {isValidAddressEthereum(address) ? (
+                {shouldShowTips ? (
                     <MenuItem>
                         {({ close }) => (
                             <Tips

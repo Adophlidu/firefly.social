@@ -34,7 +34,7 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
             return <Feeds address={tokenAddress} symbol={symbol} />;
         case TokenCategory.Overview:
             return <TokenOverview trending={trending} />;
-        case TokenCategory.Activities:
+        case TokenCategory.Transactions:
         default:
             return (
                 <Activities

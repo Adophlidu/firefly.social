@@ -41,7 +41,7 @@ interface Props
 const categoryUrlPatternMap: Record<TokenCategory, string> = {
     [TokenCategory.Feeds]: `/token/:symbol/feeds`,
     [TokenCategory.Overview]: '/token/:symbol/overview',
-    [TokenCategory.Activities]: `/token/:symbol/activities`,
+    [TokenCategory.Transactions]: `/token/:symbol/activities`,
 };
 function resolveCategoryUrl(category: TokenCategory, params: TokenPageSearch & { symbol: string }): string {
     return urlcat(categoryUrlPatternMap[category], params);
@@ -64,7 +64,7 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
     const token = await runInSafeAsync(() => getTokenFromCoinGecko(symbol));
 
     const labels: Record<TokenCategory, React.ReactNode> = {
-        [TokenCategory.Activities]: <Trans>Activities</Trans>,
+        [TokenCategory.Transactions]: <Trans>Activities</Trans>,
         [TokenCategory.Feeds]: <Trans>Feeds</Trans>,
         [TokenCategory.Overview]: <Trans>Overview</Trans>,
     };
@@ -73,7 +73,7 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
         notFound();
     }
     const slug = params.slug?.[0];
-    const category = slug && TOKEN_CATEGORIES.includes(slug as TokenCategory) ? slug : TokenCategory.Activities;
+    const category = slug && TOKEN_CATEGORIES.includes(slug as TokenCategory) ? slug : TokenCategory.Transactions;
 
     return (
         <TokenContextProvider>

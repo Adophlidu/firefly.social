@@ -10,11 +10,12 @@ import EyeIcon from '@/assets/eye.svg';
 import EyeCloseIcon from '@/assets/eye-close.svg';
 import PriceArrow from '@/assets/price-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { Image } from '@/components/Image.js';
+import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Link } from '@/components/Link.js';
 import { PriceChart } from '@/components/PriceChart/index.js';
 import { useWithinRangeRecords } from '@/components/PriceChart/useWithinRangeRecords.js';
 import { TokenContext } from '@/components/Token/TokenContext.js';
+import { TokenIcon } from '@/components/TokenIcon.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurityBar.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
@@ -80,20 +81,15 @@ export const TokenMarketData = memo(function TokenMarketData({
     const tradeRecords = preferences.SHOW_USER_TX_IN_CHART ? originTradeRecords : EMPTY_LIST;
     const withinRangeTradeRecords = useWithinRangeRecords(stats, tradeRecords);
 
-    const { isUp, change } = useIsPriceUp(stats);
+    const { isUp, change } = useIsPriceUp(stats, activeRecord);
     const invalidData = useMemo(() => stats.length === 0 || stats.every((item) => isZero(item.value)), [stats]);
 
     const baseInfo = (
         <>
-            <Image
-                className="overflow-hidden rounded-full"
-                src={token.logoURL}
-                alt={token.name}
-                width={24}
-                height={24}
-            />
+            <TokenIcon icon={token.logoURL} alt={token.name} size={24} chainId={contract?.chainId} />
             <strong className="ml-0.5 text-medium font-bold text-main">{token.name}</strong>
             <span className="font-inter text-medium font-bold uppercase">{token.symbol}</span>
+            {contract?.address ? <CopyTextButton className="[&_svg]:ml-0" text={contract?.address} /> : null}
         </>
     );
 
@@ -183,7 +179,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                 )}
             </div>
             {withinRangeTradeRecords.length > 1 ? (
-                <div className="no-scrollbar flex flex-nowrap justify-evenly gap-1 overflow-auto">
+                <div className="no-scrollbar flex flex-nowrap justify-start gap-1 overflow-auto">
                     {withinRangeTradeRecords.map((record, i) => {
                         return (
                             <div
@@ -228,18 +224,20 @@ export const TokenMarketData = memo(function TokenMarketData({
                         </ClickableButton>
                     ))}
                 </div>
-                <ClickableButton
-                    className="ml-auto"
-                    onClick={() => {
-                        setPreference('SHOW_USER_TX_IN_CHART', !preferences.SHOW_USER_TX_IN_CHART);
-                    }}
-                >
-                    {preferences.SHOW_USER_TX_IN_CHART ? (
-                        <EyeIcon className="size-4 text-secondary" width={16} height={16} />
-                    ) : (
-                        <EyeCloseIcon className="size-4 text-secondary" width={16} height={16} />
-                    )}
-                </ClickableButton>
+                {withinRangeTradeRecords.length ? (
+                    <ClickableButton
+                        className="ml-auto"
+                        onClick={() => {
+                            setPreference('SHOW_USER_TX_IN_CHART', !preferences.SHOW_USER_TX_IN_CHART);
+                        }}
+                    >
+                        {preferences.SHOW_USER_TX_IN_CHART ? (
+                            <EyeIcon className="size-4 text-secondary" width={16} height={16} />
+                        ) : (
+                            <EyeCloseIcon className="size-4 text-secondary" width={16} height={16} />
+                        )}
+                    </ClickableButton>
+                ) : null}
             </div>
         </div>
     );

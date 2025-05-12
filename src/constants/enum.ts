@@ -580,7 +580,7 @@ export enum NameServiceID {
 }
 
 export enum TokenCategory {
-    Activities = 'activities',
+    Transactions = 'transactions',
     Feeds = 'feeds',
     Overview = 'overview',
 }
