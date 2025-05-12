@@ -9,7 +9,6 @@ import { useAsyncFn } from 'react-use';
 import FilterIcon from '@/assets/filter.svg';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { queryClient } from '@/configs/queryClient.js';
 import { type NotificationSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveNotificationIcon } from '@/helpers/resolveNotificationIcon.js';
@@ -46,19 +45,12 @@ export function NotificationSettings({ source }: { source: NotificationSource })
                 });
                 await refetch();
             } else {
-                setEnableQualityFilter(source, state);
                 if (source === Source.Farcaster)
                     await FarcasterSocialMediaProvider.setNotificationSettings({
                         priority: state,
                     });
             }
-
-            await queryClient.refetchQueries({
-                queryKey: ['notifications', source],
-            });
-            await queryClient.invalidateQueries({
-                queryKey: ['notifications', source],
-            });
+            setEnableQualityFilter(source, state);
         },
         [source, setEnableQualityFilter, refetch],
     );
