@@ -90,6 +90,7 @@ import {
     type HoldersResponse,
     type IsMutedAllResponse,
     type LinkDigestResponse,
+    type LoginFarcasterWithWalletResponse,
     type LoginResponse,
     type MintBySponsorResponse,
     type MuteAllResponse,
@@ -1449,6 +1450,25 @@ class FireflyEndpoint {
         });
         const response = await fetchJSON<CollectionStatisticsResponse>(url);
         return response.data;
+    }
+
+    async loginFarcasterWithWallet(
+        sysAccount: string,
+        originalMessage: string,
+        signatureMessage: string,
+        isForce: boolean,
+    ) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/farcaster_account/login/fid/wallet');
+        const response = await fetchJSON<LoginFarcasterWithWalletResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                sysAccount,
+                originalMessage,
+                signatureMessage,
+                isForce,
+            }),
+        });
+        return resolveFireflyResponseData(response);
     }
 }
 

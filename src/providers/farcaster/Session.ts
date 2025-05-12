@@ -28,6 +28,7 @@ export class FarcasterSession extends BaseSession implements Session {
         public signerRequestToken?: string,
         public channelToken?: string,
         public sponsorshipSignature?: string,
+        public walletAddress?: string,
     ) {
         super(SessionType.Farcaster, profileId, token, createdAt, expiresAt);
     }
@@ -111,5 +112,10 @@ export class FarcasterSession extends BaseSession implements Session {
             !(session as FarcasterSession).signerRequestToken &&
             !(session as FarcasterSession).channelToken
         );
+    }
+
+    static isLoginByWallet(session: Session | null): session is FarcasterSession & { walletAddress: string } {
+        if (!session) return false;
+        return session.type === SessionType.Farcaster && !!(session as FarcasterSession).walletAddress;
     }
 }

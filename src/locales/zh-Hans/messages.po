@@ -254,6 +254,9 @@ msgstr "我们没察觉到有任何阻止通证售卖的代码逻辑。"
 msgid "{0} listening"
 msgstr "{0} 正在收听"
 
+msgid "<0>Connect wallet</0> to sign in<1/>if you registered your Farcaster account on Firefly"
+msgstr ""
+
 #. placeholder {0}: token.market_cap_rank
 msgid "Rank #{0}"
 msgstr "排名 #{0}"
@@ -1413,6 +1416,9 @@ msgstr "提交您的钱包以领取您的 NFT 和 $ANON"
 msgid "<0>Bought</0><1/>"
 msgstr "<0>购买</0><1/>"
 
+msgid "Sign in with recovery phrase"
+msgstr ""
+
 msgid "Mint price"
 msgstr "铸造价格"
 
@@ -1881,9 +1887,6 @@ msgstr "发布带链接的帖子"
 msgid "Rank #{tokenRank}"
 msgstr "排名 #{tokenRank}"
 
-msgid "Login with Farcaster"
-msgstr "使用 Farcaster 登录"
-
 msgid "Please connect your wallet to continue."
 msgstr "请连接您的钱包。"
 
@@ -1949,9 +1952,6 @@ msgstr "封面背景"
 
 msgid "Verified"
 msgstr "已验证"
-
-msgid "Log in with recovery phrase"
-msgstr "使用助记词登录"
 
 msgid "Connected"
 msgstr "已连接"
@@ -4077,6 +4077,9 @@ msgstr "翻译中..."
 
 msgid "Claim Basic"
 msgstr "领取基础奖励"
+
+msgid "Sign in with Farcaster"
+msgstr ""
 
 msgid "Back to home"
 msgstr "返回主页"

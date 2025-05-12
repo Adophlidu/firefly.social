@@ -5,9 +5,12 @@ import { NotAllowedError, UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Account } from '@/providers/types/Account.js';
-import { type AccountPairs, EventId } from '@/providers/types/Telemetry.js';
+import type { Session } from '@/providers/types/Session.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
+import { type AccountPairs, EventId, FarcasterLoginType } from '@/providers/types/Telemetry.js';
 import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 
 const resolveLoginEventId = createLookupTableResolver<LoginSource, EventId>(
@@ -62,9 +65,20 @@ function getAccountPairs(source: ProfileSource) {
     return getProfileState(source).accounts.map((x) => [x.profile.profileId, x.profile.handle]) as AccountPairs;
 }
 
-export function getAccountEventParameters(account: Pick<Account, 'profile' | 'origin'>) {
+function getLoginType(session?: Session | null): FarcasterLoginType | void {
+    if (!session || session?.type !== SessionType.Farcaster) return;
+    if (FarcasterSession.isSponsorship(session)) return FarcasterLoginType.NewConnect;
+    if (FarcasterSession.isLoginByWallet(session)) return FarcasterLoginType.Wallet;
+    if (FarcasterSession.isRelayService(session)) return FarcasterLoginType.Reconnect;
+    if (FarcasterSession.isGrantByPermission(session)) return FarcasterLoginType.NewConnect;
+}
+
+export function getAccountEventParameters(
+    account: Pick<Account, 'profile' | 'origin'> & Partial<Pick<Account, 'session'>>,
+) {
     const source = account.profile.profileSource;
     const accounts = getAccountPairs(source);
+    const loginType = getLoginType(account.session);
 
     switch (source) {
         case Source.Farcaster:
@@ -73,6 +87,7 @@ export function getAccountEventParameters(account: Pick<Account, 'profile' | 'or
                 farcaster_id: account.profile.profileId,
                 farcaster_handle: account.profile.handle,
                 farcaster_accounts: accounts,
+                login_type: loginType,
             };
         case Source.Lens:
             return {

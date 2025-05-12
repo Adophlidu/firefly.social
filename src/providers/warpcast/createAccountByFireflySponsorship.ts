@@ -7,20 +7,14 @@ import { FarcasterSession, FarcasterSponsorship } from '@/providers/farcaster/Se
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import { pollingSignerRequestToken } from '@/providers/warpcast/pollingSignerRequestToken.js';
-import { type SignedKeyRequestBody, signedKeyRequests } from '@/providers/warpcast/signedKeyRequests.js';
+import { signedKeyRequests } from '@/providers/warpcast/signedKeyRequests.js';
+import type { SignedBody } from '@/providers/warpcast/signin.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import type { ResponseJSON } from '@/types/index.js';
-
-interface SignedBody {
-    body: SignedKeyRequestBody;
-    timestamp: number;
-    expiresAt: number;
-}
 
 async function createSession(signal?: AbortSignal) {
     const privateKey = utils.randomPrivateKey();
     const publicKey: Hex = `0x${bytesToHex(await getPublicKey(privateKey))}`;
-
     const response = await fetchJSON<ResponseJSON<SignedBody>>('/api/firefly/sponsorship', {
         method: 'POST',
         signal,
@@ -29,7 +23,6 @@ async function createSession(signal?: AbortSignal) {
         }),
     });
     if (!response.success) throw new Error(response.error.message);
-
     const keyResponse = await signedKeyRequests(response.data.body, signal);
 
     const farcasterSession = new FarcasterSession(

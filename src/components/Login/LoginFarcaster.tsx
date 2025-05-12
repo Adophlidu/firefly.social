@@ -3,7 +3,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { Link, useRouter } from '@tanstack/react-router';
-import { useState } from 'react';
+import { type HTMLProps, useState } from 'react';
 import { useAsyncFn, useMount, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 import { UserRejectedRequestError } from 'viem';
@@ -37,6 +37,7 @@ import type { Account } from '@/providers/types/Account.js';
 import { createAccountByFireflySponsorship } from '@/providers/warpcast/createAccountByFireflySponsorship.js';
 import { createAccountByGrantPermission } from '@/providers/warpcast/createAccountByGrantPermission.js';
 import { createAccountByRelayService } from '@/providers/warpcast/createAccountByRelayService.js';
+import { createAccountByWallet } from '@/providers/warpcast/createAccountByWallet.js';
 import { type AccountOptions, addAccount } from '@/services/account.js';
 
 async function login(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
@@ -74,6 +75,45 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
 
         throw error;
     }
+}
+
+function LoginFarcasterWithWalletButton({ children, className }: HTMLProps<'a'>) {
+    const controller = useAbortController();
+    const [{ loading }, onLoginByConnectWallet] = useAsyncFn(async () => {
+        controller.current.renew();
+        try {
+            await login(() => createAccountByWallet(controller.current.signal));
+        } catch (error) {
+            enqueueMessageFromError(error, t`Failed to login.`);
+            throw error;
+        }
+    }, [controller]);
+
+    return (
+        <button
+            type="button"
+            className={classNames(
+                'relative font-bold hover:underline',
+                loading ? 'cursor-wait' : 'cursor-pointer',
+                className,
+            )}
+            onClick={onLoginByConnectWallet}
+            disabled={loading}
+        >
+            <span
+                className={classNames({
+                    'opacity-50': loading,
+                })}
+            >
+                {children}
+            </span>
+            {loading ? (
+                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+                    <LoadingIcon size={16} />
+                </span>
+            ) : null}
+        </button>
+    );
 }
 
 interface LoginFarcasterProps {
@@ -319,6 +359,13 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                             existing Farcaster signer
                                         </Link>{' '}
                                         to Firefly
+                                    </Trans>
+                                ) : signType === SignType.RelayService ? (
+                                    <Trans>
+                                        <LoginFarcasterWithWalletButton>Connect wallet</LoginFarcasterWithWalletButton>{' '}
+                                        to sign in
+                                        <br />
+                                        if you registered your Farcaster account on Firefly
                                     </Trans>
                                 ) : null}
                             </div>

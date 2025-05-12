@@ -236,6 +236,12 @@ export interface Exception {
 
 export type AccountPairs = Array<[string, string]>; // [id, handle]
 
+export const enum FarcasterLoginType {
+    Reconnect = 'Reconnect',
+    NewConnect = 'NewConnect',
+    Wallet = 'Wallet',
+}
+
 export interface FarcasterEventParameters {
     source_firefly_account_id: string;
     source_farcaster_handle: string;
@@ -635,6 +641,7 @@ export interface Events extends Record<EventId, Event> {
             firefly_account_id: string;
             is_token_sync: boolean;
             farcaster_accounts: AccountPairs;
+            login_type: FarcasterLoginType;
         };
     };
     [EventId.FARCASTER_LOG_OUT_SUCCESS]: {

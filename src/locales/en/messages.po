@@ -249,6 +249,9 @@ msgstr "We are not aware of any code that prevents the sale of tokens."
 msgid "{0} listening"
 msgstr "{0} listening"
 
+msgid "<0>Connect wallet</0> to sign in<1/>if you registered your Farcaster account on Firefly"
+msgstr "<0>Connect wallet</0> to sign in<1/>if you registered your Farcaster account on Firefly"
+
 #. placeholder {0}: token.market_cap_rank
 msgid "Rank #{0}"
 msgstr "Rank #{0}"
@@ -1408,6 +1411,9 @@ msgstr "Submit a wallet to receive NFT and $ANON"
 msgid "<0>Bought</0><1/>"
 msgstr "<0>Bought</0><1/>"
 
+msgid "Sign in with recovery phrase"
+msgstr "Sign in with recovery phrase"
+
 msgid "Mint price"
 msgstr "Mint price"
 
@@ -1876,9 +1882,6 @@ msgstr "Post with link"
 msgid "Rank #{tokenRank}"
 msgstr "Rank #{tokenRank}"
 
-msgid "Login with Farcaster"
-msgstr "Login with Farcaster"
-
 msgid "Please connect your wallet to continue."
 msgstr "Please connect your wallet to continue."
 
@@ -1944,9 +1947,6 @@ msgstr "Cover background"
 
 msgid "Verified"
 msgstr "Verified"
-
-msgid "Log in with recovery phrase"
-msgstr "Log in with recovery phrase"
 
 msgid "Connected"
 msgstr "Connected"
@@ -4070,6 +4070,9 @@ msgstr "Translating..."
 
 msgid "Claim Basic"
 msgstr "Claim Basic"
+
+msgid "Sign in with Farcaster"
+msgstr "Sign in with Farcaster"
 
 msgid "Back to home"
 msgstr "Back to home"

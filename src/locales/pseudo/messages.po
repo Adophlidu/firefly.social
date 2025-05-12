@@ -249,6 +249,9 @@ msgstr ""
 msgid "{0} listening"
 msgstr ""
 
+msgid "<0>Connect wallet</0> to sign in<1/>if you registered your Farcaster account on Firefly"
+msgstr ""
+
 #. placeholder {0}: token.market_cap_rank
 msgid "Rank #{0}"
 msgstr ""
@@ -1408,6 +1411,9 @@ msgstr ""
 msgid "<0>Bought</0><1/>"
 msgstr ""
 
+msgid "Sign in with recovery phrase"
+msgstr ""
+
 msgid "Mint price"
 msgstr ""
 
@@ -1868,9 +1874,6 @@ msgstr ""
 msgid "Rank #{tokenRank}"
 msgstr ""
 
-msgid "Login with Farcaster"
-msgstr ""
-
 msgid "Please connect your wallet to continue."
 msgstr ""
 
@@ -1935,9 +1938,6 @@ msgid "Cover background"
 msgstr ""
 
 msgid "Verified"
-msgstr ""
-
-msgid "Log in with recovery phrase"
 msgstr ""
 
 msgid "Connected"
@@ -4053,6 +4053,9 @@ msgid "Translating..."
 msgstr ""
 
 msgid "Claim Basic"
+msgstr ""
+
+msgid "Sign in with Farcaster"
 msgstr ""
 
 msgid "Back to home"

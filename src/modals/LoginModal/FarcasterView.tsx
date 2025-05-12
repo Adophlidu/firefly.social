@@ -30,9 +30,9 @@ function Title() {
         case FarcasterSignType.FireflySponsorship:
             return <Trans>New connection with Warpcast</Trans>;
         case FarcasterSignType.RelayService:
-            return <Trans>Login with Farcaster</Trans>;
+            return <Trans>Sign in with Farcaster</Trans>;
         case FarcasterSignType.RecoveryPhrase:
-            return <Trans>Log in with recovery phrase</Trans>;
+            return <Trans>Sign in with recovery phrase</Trans>;
         default:
             safeUnreachable(signType);
             return null;

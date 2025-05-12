@@ -2,35 +2,19 @@ import { getPublicKey, utils } from '@noble/ed25519';
 import { type Hex, toHex } from 'viem';
 
 import { NOT_DEPEND_SECRET } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import { pollingSignerRequestToken } from '@/providers/warpcast/pollingSignerRequestToken.js';
-import { type SignedKeyRequestBody, signedKeyRequests } from '@/providers/warpcast/signedKeyRequests.js';
+import { signedKeyRequests } from '@/providers/warpcast/signedKeyRequests.js';
+import { signin } from '@/providers/warpcast/signin.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
-import type { ResponseJSON } from '@/types/index.js';
-
-interface SignedBody {
-    body: SignedKeyRequestBody;
-    timestamp: number;
-    expiresAt: number;
-}
 
 async function createSession(signal?: AbortSignal) {
     // create key pair in client side
     const privateKey = utils.randomPrivateKey();
     const publicKey: Hex = `0x${Buffer.from(await getPublicKey(privateKey)).toString('hex')}`;
-
-    const response = await fetchJSON<ResponseJSON<SignedBody>>('/api/warpcast/signin', {
-        method: 'POST',
-        body: JSON.stringify({
-            key: publicKey,
-        }),
-        signal,
-    });
-    if (!response.success) throw new Error(response.error.message);
-
+    const response = await signin(publicKey, signal);
     const keyResponse = await signedKeyRequests(response.data.body, signal);
 
     const farcasterSession = new FarcasterSession(
