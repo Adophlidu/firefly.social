@@ -1,7 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { sortBy } from 'lodash-es';
 import { type HTMLProps, memo, useState } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
@@ -29,14 +28,14 @@ import type { SearchTokenInfo } from '@/providers/types/Firefly.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     symbol: string;
+    onTokenSelect?: (tokenInfo: SearchTokenInfo) => void;
 }
 
-export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children, ...rest }) {
+export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children, onTokenSelect, ...rest }) {
     const [openSwitcher, setOpenSwitcher] = useState(false);
     const { data: tokenInfos = EMPTY_LIST } = useQuery({
         queryKey: ['search-token', symbol],
         queryFn: () => FireflyEndpointProvider.searchTokenInfos(symbol),
-        select: (data) => sortBy(data, (x) => -x.market_data.fully_diluted_valuation),
     });
     const [selectedToken = tokenInfos[0], setSelectedToken] = useState<SearchTokenInfo>();
     const address = selectedToken?.contract_address;
@@ -87,7 +86,10 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                 platformType={selectedToken.platform_type}
                 onClose={() => setOpenSwitcher(false)}
                 tokenInfos={tokenInfos}
-                onSelect={setSelectedToken}
+                onSelect={(tokenInfo) => {
+                    onTokenSelect?.(tokenInfo);
+                    setSelectedToken(tokenInfo);
+                }}
             />
         );
     }
@@ -163,7 +165,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                     )}
                 </div>
             </div>
-            <div className="ml-auto grid grid-cols-1 grid-rows-3">
+            <div className="ml-auto grid w-[170px] grid-cols-1 grid-rows-3">
                 {tokenInfos.length > 1 ? (
                     <div
                         className="row-start-1 flex cursor-pointer items-center gap-1"

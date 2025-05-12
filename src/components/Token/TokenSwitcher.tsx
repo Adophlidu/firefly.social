@@ -46,6 +46,9 @@ export const TokenSwitcher = memo<Props>(function TokenSwitcher({
                 'flex cursor-default flex-col gap-2 rounded-2xl border border-line bg-primaryBottom px-3 py-[7px]',
                 rest.className,
             )}
+            onClick={(e) => {
+                e.stopPropagation();
+            }}
         >
             <div className="grid grid-cols-[20px_auto_20px] grid-rows-1 text-main" onClick={onClose}>
                 <div className="col-start-2 text-center text-sm font-bold leading-[18px] text-main">

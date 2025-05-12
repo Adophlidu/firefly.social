@@ -111,6 +111,7 @@
     --color-danger-bg: #fff5f6;
     --w3m-modal-width: 400px !important;
     --color-lens-button: 0 80 30; /* #00501E */
+    --z-menu: 39;
 }
 
 .sidebar-dark-logo {
@@ -890,4 +891,8 @@ body.not-support .fixed.inset-y-0 {
 
 .sidebar-nav-link:hover > span {
     background-color: var(--color-bg);
+}
+
+[data-tippy-root]:has(.symbol-tag-tippy) {
+    z-index: var(--z-menu, 39) !important;
 }

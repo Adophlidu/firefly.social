@@ -17,7 +17,14 @@ export const SimplePriceChart = memo<SimplePriceChartProps>(function SimplePrice
         <div {...rest} className={classNames('relative overflow-visible', rest.className)}>
             <ResponsiveContainer>
                 <LineChart data={records}>
-                    <Line type="monotone" dataKey="value" stroke={stroke} strokeWidth={2} dot={false} />
+                    <Line
+                        type="monotone"
+                        dataKey="value"
+                        stroke={stroke}
+                        strokeWidth={2}
+                        dot={false}
+                        animationDuration={100}
+                    />
                     <YAxis domain={YAxisDomain} hide />
                 </LineChart>
             </ResponsiveContainer>
