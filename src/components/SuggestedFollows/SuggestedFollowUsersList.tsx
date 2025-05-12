@@ -1,11 +1,14 @@
 'use client';
 
+import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
 
+import { Link } from '@/components/Link.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
-import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
+import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
+import { X3_PRO_URL } from '@/constants/index.js';
 import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -35,7 +38,7 @@ export function SuggestedFollowUsersList({ source }: Props) {
             uniqBy(
                 data.pages.flatMap((page) => page?.data ?? []),
                 (x) => x.profileId,
-            ),
+            ).filter((x) => !x.viewerContext?.following),
     });
 
     return (
@@ -47,6 +50,19 @@ export function SuggestedFollowUsersList({ source }: Props) {
                 key: `${ScrollListKey.SuggestedUsers}:${source}`,
                 computeItemKey: (index, item) => `${item.profileId}-${index}`,
                 itemContent: (index, item) => getSuggestedFollowUserInList(index, item),
+                context: {
+                    footerText:
+                        source === Source.Twitter ? (
+                            <span>
+                                <Trans>
+                                    Top 100 Web3 profiles powered by{' '}
+                                    <Link href={X3_PRO_URL} className="text-link hover:underline">
+                                        X3
+                                    </Link>
+                                </Trans>
+                            </span>
+                        ) : null,
+                },
             }}
             NoResultsFallbackProps={{
                 className: 'md:pt-[228px] max-md:py-20',

@@ -73,7 +73,8 @@ export const FIREFLY_TELEGRAM_URL = 'https://t.me/fireflyapp';
 export const BSKY_VIDEO_ENDPOINT = 'https://video.bsky.app/xrpc';
 export const NEYNAR_URL = env.external.NEXT_PUBLIC_NEYNAR_URL;
 export const FIREFLY_NITTER_URL = env.external.NEXT_PUBLIC_FIREFLY_NITTER_URL;
-export const X3_PRO_API_URL = 'https://x3.pro/api/api'; // duplicate /api
+export const X3_PRO_URL = 'https://x3.pro';
+export const X3_PRO_API_URL = `${X3_PRO_URL}/api/api`; // duplicate /api
 export const X3_PRO_AVATAR_URL = 'https://x3-media-pro-1.oss-cn-hongkong.aliyuncs.com';
 export const CHAINBASE_API_URL = 'https://chainbase-proxy.r2d2.to';
 export const ENS_ROOT_URL = 'https://ens-reverse-lookup.r2d2.to/ens/';
@@ -294,7 +295,7 @@ export const EXPLORE_SOURCES: Partial<Record<ExploreType, ExploreSource[]>> = {
 };
 
 export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource | undefined> = {
-    [ExploreType.TopProfiles]: Source.Farcaster,
+    [ExploreType.TopProfiles]: Source.Twitter,
     [ExploreType.Projects]: undefined,
     [ExploreType.CryptoTrends]: TrendingType.Trending,
     [ExploreType.TopChannels]: Source.Farcaster,

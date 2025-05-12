@@ -2508,6 +2508,9 @@ msgstr "Voting Rights: Participate in key decisions and shape the platform’s d
 msgid "Please switch to {0}"
 msgstr "Please switch to {0}"
 
+msgid "Top 100 Web3 profiles powered by <0>X3</0>"
+msgstr "Top 100 Web3 profiles powered by <0>X3</0>"
+
 msgid "Non-honeypot related address."
 msgstr "Non-honeypot related address."
 

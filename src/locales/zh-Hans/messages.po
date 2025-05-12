@@ -2513,6 +2513,9 @@ msgstr "投票权：通过社区治理参与关键决策，塑造平台的发展
 msgid "Please switch to {0}"
 msgstr "请切换到 {0}"
 
+msgid "Top 100 Web3 profiles powered by <0>X3</0>"
+msgstr ""
+
 msgid "Non-honeypot related address."
 msgstr "非钓鱼地址。"
 

@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { memo, type ReactNode, useEffect } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import { LoadingIcon } from '@/components/LoadingIcon.js';
@@ -11,6 +11,7 @@ export interface VirtualListFooterProps {
         isFetching?: boolean;
         itemsRendered: boolean;
         isScrollable?: boolean;
+        footerText?: ReactNode;
     };
 }
 export const VirtualListFooter = memo<VirtualListFooterProps>(function VirtualListFooter({ context }) {
@@ -35,7 +36,7 @@ export const VirtualListFooter = memo<VirtualListFooterProps>(function VirtualLi
 
     if (!context?.hasNextPage) {
         if (!context?.isScrollable) return null;
-        return <VirtualListFooterBottomText />;
+        return <VirtualListFooterBottomText text={context.footerText} />;
     }
 
     if (!context.itemsRendered) return null;

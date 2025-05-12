@@ -2500,6 +2500,9 @@ msgstr ""
 msgid "Please switch to {0}"
 msgstr ""
 
+msgid "Top 100 Web3 profiles powered by <0>X3</0>"
+msgstr ""
+
 msgid "Non-honeypot related address."
 msgstr ""
 
