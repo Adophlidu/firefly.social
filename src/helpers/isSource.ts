@@ -1,6 +1,7 @@
 import {
     type BookmarkSource,
     type DiscoverSource,
+    type NotificationSource,
     type ProfilePageSource,
     type SocialDiscoverSource,
     type SocialSource,
@@ -11,6 +12,7 @@ import {
 import {
     BOOKMARK_SOURCES,
     DISCOVER_SOURCES,
+    NOTIFICATION_SOURCES,
     PROFILE_PAGE_SOURCES,
     SOCIAL_DISCOVER_SOURCE,
     SORTED_SOCIAL_SOURCES,
@@ -23,6 +25,10 @@ export function isDiscoverSource(source: string): source is DiscoverSource {
 
 export function isSocialDiscoverSource(source: string): source is SocialDiscoverSource {
     return SOCIAL_DISCOVER_SOURCE.includes(source as SocialDiscoverSource);
+}
+
+export function isNotificationSource(source: string): source is NotificationSource {
+    return NOTIFICATION_SOURCES.includes(source as NotificationSource);
 }
 
 export function isBookmarkSource(source: string): source is BookmarkSource {

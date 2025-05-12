@@ -77,6 +77,7 @@ export const X3_PRO_AVATAR_URL = 'https://x3-media-pro-1.oss-cn-hongkong.aliyunc
 export const CHAINBASE_API_URL = 'https://chainbase-proxy.r2d2.to';
 export const ENS_ROOT_URL = 'https://ens-reverse-lookup.r2d2.to/ens/';
 export const THE_GRAPH_API_URL = 'https://api.thegraph.com/subgraphs/name/ensdomains/ens';
+export const TWITTER_TIMELINE_WHITELIST_JSON_URL = 'https://media.firefly.land/whitelist/twitter-timeline.json';
 
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
 export const ADVERTISEMENT_JSON_URL_DEV = 'https://media.firefly.land/advertisement/web-dev.json';
@@ -224,6 +225,7 @@ export const SORTED_MEDIA_SOURCES: MediaSource[] = [
 ];
 export const SORTED_EXPLORE_SOURCES: ExploreSource[] = [Source.Farcaster, Source.Lens];
 export const SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES = [Source.Farcaster];
+export const NOTIFICATION_SOURCES = [Source.Notifications, Source.Farcaster, Source.Lens, Source.Bsky];
 
 export const ENABLED_SCHEDULE_POST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 export const ENABLED_REPLY_SOURCES = [Source.Farcaster, Source.Lens, Source.Bsky];
@@ -251,6 +253,8 @@ export const SUPPORTED_MULTI_ACCOUNT_SOURCES: SocialSource[] = [Source.Farcaster
 export const SUPPORTED_MEDIA_CORS_SOURCES: Source[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 export const SUPPORTED_CHANNEL_SOURCES: Source[] = [Source.Farcaster, Source.Lens];
 export const SOCIAL_DISCOVER_SOURCE: SocialDiscoverSource[] = [Source.Farcaster, Source.Lens, Source.Bsky] as const;
+export const SOCIAL_DISCOVER_SOURCE_LOGIN_REQUIRED: SocialDiscoverSource[] = [Source.Twitter];
+export const SOCIAL_DISCOVER_WHITELIST_SOURCE: SocialDiscoverSource[] = [Source.Twitter];
 export const SOCIAL_NOTIFICATION_SOURCE: SocialNotificationSource[] = [Source.Farcaster, Source.Lens, Source.Bsky];
 export const DISCOVER_SOURCES: DiscoverSource[] = [Source.Posts, Source.NFTs, Source.Article, Source.DAOs] as const;
 export const FOLLOWING_SOURCES: FollowingSource[] = [

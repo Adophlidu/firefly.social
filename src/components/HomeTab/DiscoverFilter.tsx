@@ -10,10 +10,11 @@ import WalletIcon from '@/assets/wallet.svg';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type FollowingSource, HomeTab, type SocialSource, Source } from '@/constants/enum.js';
-import { SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
+import { SOCIAL_DISCOVER_SOURCE_LOGIN_REQUIRED } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useSocialDiscoverSourcesWithWhitelist } from '@/hooks/useSocialDiscoverSourcesWithWhitelist.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FollowingTimelinePlatform } from '@/providers/types/Firefly.js';
 import { useDiscoverStore } from '@/store/useDiscoverStore.js';
@@ -110,18 +111,22 @@ function PlatformItem({
 
 export function DiscoverFilter({ tab, source }: Props) {
     const { followingTimelinePlatforms, setFollowingTimelinePlatforms } = useDiscoverStore();
+    const sources = useSocialDiscoverSourcesWithWhitelist();
 
     function getMenuItems() {
         switch (source) {
             case Source.Posts:
-                return SOCIAL_DISCOVER_SOURCE.map((source) => {
+                return sources.map((source) => {
                     return (
                         <MenuItem key={source}>
                             {({ close }) => (
                                 <PlatformItem
                                     source={source}
                                     tab={tab}
-                                    loginRequest={[HomeTab.Following].includes(tab)}
+                                    loginRequest={
+                                        [HomeTab.Following].includes(tab) ||
+                                        SOCIAL_DISCOVER_SOURCE_LOGIN_REQUIRED.includes(source)
+                                    }
                                     onClose={close}
                                 />
                             )}
