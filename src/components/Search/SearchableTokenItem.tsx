@@ -47,14 +47,14 @@ export function SearchableTokenItem({ token, className, showRate = true, onClick
             {showRate ? (
                 <data
                     className={classNames(
-                        'box-border flex h-8 shrink-0 items-center justify-center gap-x-1 rounded px-1 text-medium font-bold max-md:h-[30px] max-md:w-auto max-md:min-w-[60px] max-md:px-2 max-md:py-1 max-md:text-[10px] max-md:leading-[12px]',
+                        'box-border flex h-8 shrink-0 items-center justify-center gap-x-1 rounded px-1 text-medium font-bold max-md:h-[30px] max-md:w-auto max-md:min-w-[60px] max-md:px-2 max-md:py-1 max-md:text-[12px] max-md:leading-[12px]',
                         priceChange >= 0 ? 'text-success' : 'text-danger',
                     )}
                 >
                     {priceChange !== 0 ? (
                         <PriceArrow
                             className={classNames(
-                                'size-5 max-md:h-[10px] max-md:w-[10px]',
+                                'size-5 max-md:h-[12px] max-md:w-[12px]',
                                 priceChange < 0 ? 'rotate-180' : '',
                             )}
                         />

@@ -71,9 +71,6 @@ msgstr "FAILED THREAD POST"
 msgid "Connecting wallets"
 msgstr "Connecting wallets"
 
-msgid "New connect with Warpcast"
-msgstr "New connect with Warpcast"
-
 msgid "You have been detected as a loyal Farcaster user"
 msgstr "You have been detected as a loyal Farcaster user"
 
@@ -192,9 +189,6 @@ msgstr "{followerCount, plural, one {Follower} other {Followers}}"
 
 msgid "Delete post"
 msgstr "Delete post"
-
-msgid "You can sign in to Farcaster with the following options."
-msgstr "You can sign in to Farcaster with the following options."
 
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
@@ -765,9 +759,6 @@ msgstr "Users must like, repost/quote, or comment on your post containing the Lu
 
 msgid "Save Post?"
 msgstr "Save Post?"
-
-msgid "Reconnect with Firefly"
-msgstr "Reconnect with Firefly"
 
 msgid "Explore"
 msgstr "Explore"

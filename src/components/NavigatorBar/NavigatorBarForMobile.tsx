@@ -7,6 +7,7 @@ import MagnifierIcon from '@/assets/magnifier.svg';
 import MenuIcon from '@/assets/menu.svg';
 import { BackButton } from '@/components/BackButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { HomeTabs } from '@/components/HomeTab/index.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
@@ -15,6 +16,8 @@ import { PageRoute } from '@/constants/enum.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';
+import { parseFollowingPageUrl } from '@/helpers/parseFollowingPageUrl.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
@@ -40,7 +43,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
 
     const pathname = usePathname();
     const isSearchPage = isRoutePathname(pathname, PageRoute.Search);
-
+    const isHomePage = !!parseFollowingPageUrl(pathname) || !!parseDiscoverPageUrl(pathname);
     const [searchMode, setSearchMode] = useState(isSearchPage);
     const [showRecommendation, setShowRecommendation] = useState(false);
 
@@ -137,6 +140,8 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                         <>
                             {profiles.length && title ? (
                                 <span className="text-[18px] font-bold leading-[24px]">{title}</span>
+                            ) : isHomePage ? (
+                                <HomeTabs onlyFilter buttonClass="!mx-auto" containerClass="justify-center h-[54px]" />
                             ) : (
                                 <FireflyIcon
                                     className={classNames('relative', {

@@ -69,7 +69,7 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                             {activity.displayInfo.ensHandle || addressName}
                         </Link>
                         {activity.displayInfo.ensHandle ? (
-                            <Link href={profileUrl} className="ml-2">
+                            <Link href={profileUrl} className="ml-2 max-md:hidden">
                                 {addressName}
                             </Link>
                         ) : null}

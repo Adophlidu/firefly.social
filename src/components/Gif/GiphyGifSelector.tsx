@@ -1,4 +1,5 @@
 import { SearchBar, SearchContextManager } from '@giphy/react-components';
+import { IS_SAFARI } from '@lexical/utils';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useMemo, useState } from 'react';
@@ -66,8 +67,11 @@ export function GiphyGifSelector({ onSelected }: GiphyGifSelectorProps) {
                     className={classNames('mt-2', {
                         'h-[calc(620px-56px-36px-56px-36px)]': tabType !== GiphyTabType.Emoji && !isMedium,
                         'h-[calc(620px-56px-36px-56px)]': tabType === GiphyTabType.Emoji && !isMedium,
-                        'h-[calc(100vh-56px-36px-56px-36px)]': tabType !== GiphyTabType.Emoji && isMedium,
-                        'h-[calc(100vh-56px-36px-56px)]': tabType === GiphyTabType.Emoji && isMedium,
+                        'h-[calc(100vh-56px-36px-56px-36px)]': tabType !== GiphyTabType.Emoji && isMedium && !IS_SAFARI,
+                        'h-[calc(100vh-56px-36px-56px)]': tabType === GiphyTabType.Emoji && isMedium && !IS_SAFARI,
+                        'h-[calc(100vh-56px-36px-56px-36px-54px)]':
+                            tabType !== GiphyTabType.Emoji && isMedium && IS_SAFARI,
+                        'h-[calc(100vh-56px-36px-56px-54px)]': tabType === GiphyTabType.Emoji && isMedium && IS_SAFARI,
                     })}
                 >
                     {tabType === GiphyTabType.Emoji ? (
@@ -82,7 +86,7 @@ export function GiphyGifSelector({ onSelected }: GiphyGifSelectorProps) {
                             onClick={() => setTabType(mediaTab.type)}
                             key={mediaTab.type}
                             className={classNames('inline-block h-7 rounded-full px-4 text-base font-bold leading-7', {
-                                'bg-lightBottom text-black': tabType === mediaTab.type,
+                                'bg-lightBottom text-black dark:text-white': tabType === mediaTab.type,
                                 'text-second': tabType !== mediaTab.type,
                             })}
                         >

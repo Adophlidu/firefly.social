@@ -125,22 +125,22 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                             id={WALLET_PROFILE_ACTION_ID}
                         >
                             <div className="flex flex-col">
+                                <div className="h-6 min-w-0 truncate text-lg font-black leading-6 text-lightMain md:hidden">
+                                    {displayName}
+                                </div>
                                 <div className="flex flex-row items-center">
                                     {profile.isDefault ? (
                                         <div className="my-auto mr-1 h-6 rounded bg-highlight bg-opacity-[0.16] px-2 text-[13px] font-medium leading-6 text-highlight">
                                             <Trans>Primary</Trans>
                                         </div>
                                     ) : null}
-                                    <div className="h-6 min-w-0 truncate text-lg font-black leading-6 text-lightMain">
+                                    <div className="h-6 min-w-0 truncate text-lg font-black leading-6 text-lightMain max-md:hidden">
                                         {displayName}
                                     </div>
                                     <div
-                                        className={classNames(
-                                            'ml-1 mr-auto flex h-6 min-w-[120px] flex-row items-center gap-1.5',
-                                            {
-                                                'animate-pulse bg-bg': isLoadingWalletRelation,
-                                            },
-                                        )}
+                                        className={classNames('ml-1 mr-auto flex h-6 flex-row items-center gap-1.5', {
+                                            'min-w-[120px] animate-pulse bg-bg': isLoadingWalletRelation,
+                                        })}
                                     >
                                         {!isLoadingWalletRelation ? (
                                             <>
@@ -211,8 +211,8 @@ export function WalletInfo({ profile }: WalletInfoProps) {
                             </NoSSR>
                         </div>
 
-                        <div className="flex items-center gap-1 text-sm leading-[14px] text-secondary">
-                            {isLarge ? profile.address : formatAddress(profile.address, 4)}
+                        <div className="flex items-center gap-1 text-sm leading-[14px] text-secondary max-md:break-all max-md:text-xs">
+                            {profile.address}
                             <NoSSR>
                                 <CopyTextButton text={profile.address} />
                                 {addressLink ? (

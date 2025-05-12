@@ -83,7 +83,7 @@ export const EmojiAction = memo(function EmojiAction() {
                     lazyLoadEmojis
                     previewConfig={{ showPreview: false }}
                     height={300}
-                    width={277}
+                    width="100%"
                     className="!border-none"
                     theme={isDarkMode ? Theme.DARK : Theme.LIGHT}
                     onEmojiClick={({ emoji }) => {

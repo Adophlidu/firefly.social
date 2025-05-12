@@ -1,4 +1,3 @@
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
@@ -8,7 +7,6 @@ import { useAsyncFn, useMount, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 import { UserRejectedRequestError } from 'viem';
 
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
@@ -28,7 +26,6 @@ import {
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
-import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -144,9 +141,8 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
             await login(
                 () =>
                     createAccountByGrantPermission((url) => {
-                        const device = getMobileDevice();
-                        if (device === 'unknown') setUrl(url);
-                        else location.href = url;
+                        if (IS_MOBILE_DEVICE) location.href = url;
+                        else setUrl(url);
 
                         resetCountdown();
                         startCountdown();
@@ -170,9 +166,8 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                         startCountdown();
                         setScanned(false);
 
-                        const device = getMobileDevice();
-                        if (device === 'unknown') setUrl(url);
-                        else location.href = url;
+                        if (IS_MOBILE_DEVICE) location.href = url;
+                        else setUrl(url);
                     }, controller.current.signal);
 
                     // let the user see the qr code has been scanned and display a loading icon
@@ -188,6 +183,13 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                 history.replace(`/farcaster?signType=${FarcasterSignType.FireflySponsorship}`);
                 return;
             }
+
+            if (IS_MOBILE_DEVICE) {
+                enqueueMessageFromError(error, t`Failed to login.`);
+                history.replace(`/farcaster?signType=${FarcasterSignType.FireflySponsorship}`);
+                return;
+            }
+
             enqueueMessageFromError(error, t`Failed to login.`);
             throw error;
         }
@@ -199,9 +201,8 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
             await login(
                 () =>
                     createAccountByFireflySponsorship((url) => {
-                        const device = getMobileDevice();
-                        if (device === 'unknown') setUrl(url);
-                        else location.href = url;
+                        if (IS_MOBILE_DEVICE) location.href = url;
+                        else setUrl(url);
 
                         resetCountdown();
                         startCountdown();
@@ -235,60 +236,17 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
     };
 
     useMount(() => {
+        if (IS_MOBILE_DEVICE && !signType) {
+            history.replace(`/farcaster?signType=${FarcasterSignType.RelayService}`);
+            onClick(FarcasterSignType.RelayService);
+            return;
+        }
         onClick(signType);
     });
 
     useUnmount(() => {
         if (IS_MOBILE_DEVICE) resetCountdown();
     });
-
-    // let the user select sign type on mobile devices
-    if (!signType || signType === FarcasterSignType.RecoveryPhrase) {
-        if (isMedium) return null;
-
-        const options = [
-            {
-                label: t`New connect with Warpcast`,
-                type: FarcasterSignType.FireflySponsorship,
-                developmentOnly: false,
-                isFreeOfTransactionFee: false,
-            },
-            {
-                label: t`Reconnect with Firefly`,
-                type: FarcasterSignType.RelayService,
-                developmentOnly: false,
-                isFreeOfTransactionFee: true,
-            },
-        ] as const;
-
-        return (
-            <div className="flex flex-col gap-2 rounded-[12px] p-4 md:w-[600px]">
-                <p className="pb-2 text-left text-sm">
-                    <Trans>You can sign in to Farcaster with the following options.</Trans>
-                </p>
-                {options.map(({ label, type, isFreeOfTransactionFee }) => (
-                    <ClickableButton
-                        className="flex w-full items-center rounded-lg border border-line px-3 py-4 text-main hover:bg-bg"
-                        key={type}
-                        onClick={() => {
-                            history.replace(`/farcaster?signType=${type}`);
-                            onClick(type);
-                        }}
-                    >
-                        <span className="flex flex-1 items-center">
-                            {label}
-                            {isFreeOfTransactionFee ? (
-                                <span className="ml-2 rounded-md border border-main px-1 text-xs font-bold text-main">
-                                    {t`FREE`}
-                                </span>
-                            ) : null}
-                        </span>
-                        <ArrowRightIcon width={24} height={24} className="rounded-full p-1 text-main" />
-                    </ClickableButton>
-                ))}
-            </div>
-        );
-    }
 
     return (
         <div className="box-border flex flex-col rounded-xl p-6 pt-0 md:w-[500px]">

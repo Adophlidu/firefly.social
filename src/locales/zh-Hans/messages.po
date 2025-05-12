@@ -76,9 +76,6 @@ msgstr "发送 thread 失败"
 msgid "Connecting wallets"
 msgstr "已连接的钱包"
 
-msgid "New connect with Warpcast"
-msgstr "使用 Warpcast 连接"
-
 msgid "You have been detected as a loyal Farcaster user"
 msgstr "你被检测到为 Farcaster 忠实用户"
 
@@ -197,9 +194,6 @@ msgstr "{followerCount, plural, one {关注者} other {关注者}}"
 
 msgid "Delete post"
 msgstr "删除帖子"
-
-msgid "You can sign in to Farcaster with the following options."
-msgstr "你可以使用以下方式登录 Farcaster。"
 
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
@@ -770,9 +764,6 @@ msgstr "用户必须点赞、转发/引用或评论包含幸运掉落的帖子�
 
 msgid "Save Post?"
 msgstr "保存草稿？"
-
-msgid "Reconnect with Firefly"
-msgstr "使用 Firefly 重连"
 
 msgid "Explore"
 msgstr "探索"

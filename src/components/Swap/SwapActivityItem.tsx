@@ -107,7 +107,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                 )}
                             </Link>
                             {activity.displayInfo.ensHandle ? (
-                                <Link href={profileUrl} className="ml-2" onClick={stopPropagation}>
+                                <Link href={profileUrl} className="ml-2 max-md:hidden" onClick={stopPropagation}>
                                     {addressName}
                                 </Link>
                             ) : null}

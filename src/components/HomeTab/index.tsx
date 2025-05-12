@@ -27,7 +27,15 @@ const types = {
     [HomeTab.Following]: [Source.Posts, Source.Swap, Source.Polymarket, Source.Article, Source.DAOs],
 };
 
-export function HomeTabs() {
+export function HomeTabs({
+    onlyFilter = false,
+    buttonClass,
+    containerClass,
+}: {
+    onlyFilter?: boolean;
+    buttonClass?: string;
+    containerClass?: string;
+}) {
     const pathname = usePathname();
     const { hasOpenSwap, setHasOpenSwap } = useSwapStateStore();
     const [allTabs, setAllTabs] = useState<Record<HomeTab, Source>>({
@@ -63,92 +71,99 @@ export function HomeTabs() {
 
     return (
         <div className="sticky top-[54px] z-20 flex w-full flex-col bg-primaryBottom md:top-0">
-            {!isLogin && currentTab === HomeTab.Discover ? (
-                <div className="flex h-[60px] flex-col px-4 pt-2.5">
-                    <div className="h-[50px] text-xl font-bold leading-[50px]">
-                        <Trans>Home</Trans>
+            <div className={!onlyFilter ? 'max-md:hidden' : ''}>
+                {!isLogin && currentTab === HomeTab.Discover ? (
+                    <div className={classNames('flex h-[60px] flex-col px-4 pt-2.5', containerClass)}>
+                        <div className="h-[50px] text-xl font-bold leading-[50px]">
+                            <Trans>Home</Trans>
+                        </div>
                     </div>
-                </div>
-            ) : (
-                <div className="flex h-[60px] flex-col px-4 pt-2.5">
-                    <Menu>
-                        {({ close }) => (
-                            <>
-                                <MenuButton
-                                    className="mr-auto inline-flex h-full items-center text-xl font-bold"
-                                    onMouseEnter={(e) => e.currentTarget.click()}
-                                >
-                                    {texts[currentTab]}
-                                    <ArrowDownCircleIcon width={24} height={24} className="ml-2 size-6 shrink-0" />
-                                </MenuButton>
-                                <MenuItems
-                                    onMouseLeave={() => close()}
-                                    transition
-                                    anchor="bottom start"
-                                    className="z-50 w-[128px] origin-top-left !overflow-visible text-xl font-bold outline-none transition data-[closed]:scale-95 data-[closed]:opacity-0"
-                                >
-                                    <div className="w-full -translate-y-[50px] transform pt-[50px]">
-                                        <div className="flex w-full flex-col gap-2 overflow-y-auto rounded-[8px] bg-primaryBottom py-3 shadow-messageShadow">
-                                            {getEnumAsArray(HomeTab).map(({ value: tab }) => {
-                                                const type = types[tab].includes(allTabs[tab])
-                                                    ? allTabs[tab]
-                                                    : types[tab][0];
-                                                return (
-                                                    <MenuItem key={tab}>
-                                                        <Link
-                                                            href={resolveHomeUrl(tab, type)}
-                                                            className={classNames('px-3 py-1 hover:opacity-100', {
-                                                                'opacity-60': currentTab !== tab,
-                                                            })}
-                                                        >
-                                                            {texts[tab]}
-                                                        </Link>
-                                                    </MenuItem>
-                                                );
-                                            })}
+                ) : (
+                    <div className={classNames('flex h-[60px] flex-col px-4 pt-2.5', containerClass)}>
+                        <Menu>
+                            {({ close }) => (
+                                <>
+                                    <MenuButton
+                                        className={classNames(
+                                            'mr-auto inline-flex h-full items-center text-xl font-bold',
+                                            buttonClass,
+                                        )}
+                                        onMouseEnter={(e) => e.currentTarget.click()}
+                                    >
+                                        {texts[currentTab]}
+                                        <ArrowDownCircleIcon width={24} height={24} className="ml-2 size-6 shrink-0" />
+                                    </MenuButton>
+                                    <MenuItems
+                                        onMouseLeave={() => close()}
+                                        transition
+                                        anchor="bottom start"
+                                        className="z-50 w-[128px] origin-top-left !overflow-visible text-xl font-bold outline-none transition data-[closed]:scale-95 data-[closed]:opacity-0"
+                                    >
+                                        <div className="w-full -translate-y-[50px] transform pt-[50px]">
+                                            <div className="flex w-full flex-col gap-2 overflow-y-auto rounded-[8px] bg-primaryBottom py-3 shadow-messageShadow">
+                                                {getEnumAsArray(HomeTab).map(({ value: tab }) => {
+                                                    const type = types[tab].includes(allTabs[tab])
+                                                        ? allTabs[tab]
+                                                        : types[tab][0];
+                                                    return (
+                                                        <MenuItem key={tab}>
+                                                            <Link
+                                                                href={resolveHomeUrl(tab, type)}
+                                                                className={classNames('px-3 py-1 hover:opacity-100', {
+                                                                    'opacity-60': currentTab !== tab,
+                                                                })}
+                                                            >
+                                                                {texts[tab]}
+                                                            </Link>
+                                                        </MenuItem>
+                                                    );
+                                                })}
+                                            </div>
                                         </div>
-                                    </div>
-                                </MenuItems>
-                            </>
-                        )}
-                    </Menu>
-                </div>
-            )}
-
-            <div className="flex w-full items-center justify-between px-4 pb-3">
-                <SolidTabs<Source>
-                    data={types[currentTab]}
-                    link={(x) => resolveHomeUrl(currentTab, x)}
-                    isSelected={(x) => x === source}
-                    // eslint-disable-next-line react/no-unstable-nested-components
-                    itemRender={(x) => {
-                        if (x === Source.Swap && !hasOpenSwap) {
-                            return (
-                                <span className="relative">
-                                    {resolveSourceName(x)}
-                                    <span className="absolute -right-[18px] -top-2 rounded-full bg-danger px-1 py-0.5 text-[9px] leading-[9px] text-white">
-                                        <Trans>New</Trans>
-                                    </span>
-                                </span>
-                            );
-                        }
-
-                        return resolveSourceName(x);
-                    }}
-                    onChange={(source) => {
-                        if (source === Source.Swap) {
-                            if (!hasOpenSwap) setHasOpenSwap(true);
-                            captureSwapEvent(EventId.EVENT_FOLLOWING_SWAP_CLICK);
-                        }
-                        setAllTabs((x) => ({
-                            ...x,
-                            [currentTab]: source,
-                        }));
-                    }}
-                />
-                {source === Source.Posts ? <DiscoverFilter tab={currentTab} source={source} /> : null}
-                {source === Source.Swap ? <ChainFilter /> : null}
+                                    </MenuItems>
+                                </>
+                            )}
+                        </Menu>
+                    </div>
+                )}
             </div>
+
+            {!onlyFilter ? (
+                <div className="flex w-full items-center justify-between px-4 pb-3 max-md:mt-1">
+                    <SolidTabs<Source>
+                        data={types[currentTab]}
+                        link={(x) => resolveHomeUrl(currentTab, x)}
+                        isSelected={(x) => x === source}
+                        // eslint-disable-next-line react/no-unstable-nested-components
+                        itemRender={(x) => {
+                            if (x === Source.Swap && !hasOpenSwap) {
+                                return (
+                                    <span className="relative">
+                                        {resolveSourceName(x)}
+                                        <span className="absolute -right-[18px] -top-2 rounded-full bg-danger px-1 py-0.5 text-[9px] leading-[9px] text-white">
+                                            <Trans>New</Trans>
+                                        </span>
+                                    </span>
+                                );
+                            }
+
+                            return resolveSourceName(x);
+                        }}
+                        onChange={(source) => {
+                            if (source === Source.Swap) {
+                                if (!hasOpenSwap) setHasOpenSwap(true);
+                                captureSwapEvent(EventId.EVENT_FOLLOWING_SWAP_CLICK);
+                            }
+                            setAllTabs((x) => ({
+                                ...x,
+                                [currentTab]: source,
+                            }));
+                        }}
+                    />
+                    {source === Source.Posts ? <DiscoverFilter tab={currentTab} source={source} /> : null}
+                    {source === Source.Swap ? <ChainFilter /> : null}
+                </div>
+            ) : null}
         </div>
     );
 }

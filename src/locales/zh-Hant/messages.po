@@ -76,9 +76,6 @@ msgstr "串文發佈失敗"
 msgid "Connecting wallets"
 msgstr "正在連接錢包"
 
-msgid "New connect with Warpcast"
-msgstr "通過 Warpcast 的新連接"
-
 msgid "You have been detected as a loyal Farcaster user"
 msgstr "您被檢測到為 Farcaster 忠實用戶"
 
@@ -197,9 +194,6 @@ msgstr "{followerCount, plural, one {追蹤者} other {追蹤者}}"
 
 msgid "Delete post"
 msgstr "刪除貼文"
-
-msgid "You can sign in to Farcaster with the following options."
-msgstr "您可以通過以下方式登入 Farcaster。"
 
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
@@ -770,9 +764,6 @@ msgstr "用戶需對您的幸運掉落貼文按讚、轉發/引用或留言"
 
 msgid "Save Post?"
 msgstr "儲存貼文？"
-
-msgid "Reconnect with Firefly"
-msgstr "重新連結 Firefly"
 
 msgid "Explore"
 msgstr "探索"

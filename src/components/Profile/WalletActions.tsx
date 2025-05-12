@@ -29,18 +29,19 @@ export function WalletActions({ profile }: { profile: WalletProfile }) {
             </ClickableButton>
         );
     }
-    if (isMyWallets || !isMedium) return null;
+    if (isMyWallets) return null;
 
     if (profile.hacked) return <HackedButton className="ml-auto" />;
 
     return (
         <>
             <WatchButton
-                className="ml-auto mr-1"
+                className="ml-auto mr-1 max-md:min-w-[50px]"
                 watchButtonClassName="!bg-highlight dark:text-main"
                 watchingButtonClassName="!text-highlight"
                 address={profile.address}
                 ens={profile.primary_ens ?? undefined}
+                variant={isMedium ? 'text' : 'icon'}
             />
             <WalletMoreAction profile={profile} />
         </>

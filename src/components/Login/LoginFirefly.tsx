@@ -12,7 +12,6 @@ import { AbortError, MalformedError, TimeoutError } from '@/constants/error.js';
 import { FIREFLY_SCAN_QR_CODE_COUNTDOWN, SITE_URL_OFFICIAL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { openAppSchemes } from '@/helpers/openAppSchemes.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
@@ -66,8 +65,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
                         startCountdown();
                         setScanned(false);
 
-                        const device = getMobileDevice();
-                        if (device === 'unknown') {
+                        if (!IS_MOBILE_DEVICE) {
                             setUrl(url);
                             return;
                         }

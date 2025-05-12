@@ -71,9 +71,6 @@ msgstr ""
 msgid "Connecting wallets"
 msgstr ""
 
-msgid "New connect with Warpcast"
-msgstr ""
-
 msgid "You have been detected as a loyal Farcaster user"
 msgstr ""
 
@@ -191,9 +188,6 @@ msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr ""
 
 msgid "Delete post"
-msgstr ""
-
-msgid "You can sign in to Farcaster with the following options."
 msgstr ""
 
 #. placeholder {0}: profile.handle
@@ -764,9 +758,6 @@ msgid "Users must like, repost/quote, or comment on your post containing the Luc
 msgstr ""
 
 msgid "Save Post?"
-msgstr ""
-
-msgid "Reconnect with Firefly"
 msgstr ""
 
 msgid "Explore"

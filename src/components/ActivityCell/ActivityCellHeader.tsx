@@ -39,7 +39,10 @@ export function ActivityCellHeader({
                     {displayName ? displayName : formatAddressEthereum(address, 4)}
                 </Link>
                 {displayName ? (
-                    <Link href={authorUrl} className="ml-2 block max-w-full shrink-0 truncate text-secondary">
+                    <Link
+                        href={authorUrl}
+                        className="ml-2 block max-w-full shrink-0 truncate text-secondary max-md:hidden"
+                    >
                         <address className="not-italic">{formatAddressEthereum(address, 4)}</address>
                     </Link>
                 ) : null}

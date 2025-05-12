@@ -10,7 +10,7 @@ import { TIPS_SUPPORT_NETWORKS } from '@/constants/index.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { useIsSmall } from '@/hooks/useMediaQuery.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -65,7 +65,7 @@ type Props = {
 };
 
 function TipsModalUI({ ref }: Props) {
-    const isSmall = useIsSmall('max');
+    const isMedium = useIsMedium();
     const { reset, update } = TipsContext.useContainer();
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: async ({ identity, handle, profiles, post, pureWallet = false }) => {
@@ -109,7 +109,7 @@ function TipsModalUI({ ref }: Props) {
         dispatch?.close({});
     }, [dispatch]);
 
-    if (!isSmall) {
+    if (isMedium) {
         return (
             <Modal open={open} onClose={onClose} disableScrollLock={false} disableDialogClose>
                 <div className="z-10 w-4/5 rounded-md bg-lightBottom px-3 py-6 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:w-[485px] md:rounded-xl md:px-6">
