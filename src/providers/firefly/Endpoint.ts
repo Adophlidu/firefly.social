@@ -1357,7 +1357,9 @@ class FireflyEndpoint {
             contractAddress,
         });
         const response = await fetchJSON<CollectionResponse>(url);
-        return response.data ? fixCollection(response.data) : null;
+        if (!response.data) return null;
+        if ('chain_id' in response.data && Object.keys(response).length <= 1) return null;
+        return fixCollection(response.data);
     }
 
     async getCollectionItems(chainId: number, contractAddress: string, indicator?: PageIndicator) {
