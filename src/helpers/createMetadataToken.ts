@@ -17,7 +17,7 @@ export async function createMetadataToken(symbol: string) {
             title,
             description,
             images,
-            url: resolveTokenPageUrl(token.id),
+            url: resolveTokenPageUrl({ identity: token.id, isCoinId: true }),
         },
         twitter: {
             card: 'summary',

@@ -1,6 +1,6 @@
 'use client';
 import { Trans } from '@lingui/react/macro';
-import { type HTMLProps, memo } from 'react';
+import { type HTMLProps, memo, type ReactNode } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { type LoginFallbackSource, type ProfileSource, Source } from '@/constants/enum.js';
@@ -10,7 +10,7 @@ import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.j
 import { resolveFallbackImageUrl } from '@/helpers/resolveFallbackImageUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { LoginModalRef, WalletConnectModalRef } from '@/modals/controls.js';
 
 const resolveConnectButtonClass = createLookupTableResolver<LoginFallbackSource, string>(
     {
@@ -19,6 +19,7 @@ const resolveConnectButtonClass = createLookupTableResolver<LoginFallbackSource,
         [Source.Farcaster]:
             'text-farcasterPrimary ring-farcasterPrimary hover:bg-fireflyBrand/20 hover:shadow-[0_0_16px_0_rgba(101,119,134,0.20)]',
         [Source.Twitter]: 'w-[203px] text-main ring-main hover:bg-main/20 hover:shadow-[rgba(101,119,134,0.20)]',
+        [Source.Wallet]: 'w-[203px] text-main ring-main hover:bg-main/20 hover:shadow-[rgba(101,119,134,0.20)]',
         [Source.Bsky]:
             'w-[203px] text-[#0A7AFF] ring-[#0A7AFF] hover:bg-[#1C68F333] hover:shadow-[0_0_16px_0_rgba(101,119,134,0.20)]',
         [Source.Article]:
@@ -41,9 +42,15 @@ const resolveConnectButtonClass = createLookupTableResolver<LoginFallbackSource,
 
 interface NotLoginFallbackProps extends HTMLProps<HTMLDivElement> {
     source: LoginFallbackSource;
+    message?: ReactNode;
 }
 
-export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFallback({ source, className }) {
+export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFallback({
+    source,
+    message,
+    className,
+    ...rest
+}) {
     const fallbackImageUrl = resolveFallbackImageUrl(source);
     const isNotSocialSource = [
         Source.Article,
@@ -54,12 +61,14 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
         Source.Notifications,
         Source.Swap,
     ].includes(source);
+    const isWallet = source === Source.Wallet;
 
     const asyncStatusTwitter = useAsyncStatus(Source.Twitter);
     const isTwitterConnecting = source === Source.Twitter && asyncStatusTwitter;
 
     return (
         <div
+            {...rest}
             className={classNames(
                 'flex flex-grow flex-col items-center justify-center space-y-9 pb-12 pt-[15vh]',
                 className,
@@ -72,11 +81,12 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                 alt={`${resolveSourceName(source)} login`}
             />
             <span className="leading-3.5 px-6 text-center text-base text-secondary">
-                {isNotSocialSource ? (
-                    <Trans>Login to enable all features</Trans>
-                ) : (
-                    <Trans>You need to connect your {resolveSourceName(source)} account to use this feature.</Trans>
-                )}
+                {message ??
+                    (isNotSocialSource ? (
+                        <Trans>Login to enable all features</Trans>
+                    ) : (
+                        <Trans>You need to connect your {resolveSourceName(source)} account to use this feature.</Trans>
+                    ))}
             </span>
             <ClickableButton
                 className={classNames(
@@ -85,10 +95,16 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                 )}
                 disabled={isTwitterConnecting}
                 onClick={() => {
+                    if (isWallet) {
+                        WalletConnectModalRef.open();
+                        return;
+                    }
                     LoginModalRef.open({ source: isNotSocialSource ? undefined : (source as ProfileSource) });
                 }}
             >
-                {isNotSocialSource ? (
+                {isWallet ? (
+                    <Trans>Connect Wallet</Trans>
+                ) : isNotSocialSource ? (
                     <Trans>Login</Trans>
                 ) : isTwitterConnecting ? (
                     <Trans>Connecting...</Trans>

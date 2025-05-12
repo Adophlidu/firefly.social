@@ -69,7 +69,7 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
     if (!token) return null;
     const price = attributes?.price_usd;
     const market_cap = attributes?.market_cap_usd;
-    const tokenPageUrl = resolveTokenPageUrl(token.symbol, chainId);
+    const tokenPageUrl = resolveTokenPageUrl({ identity: token.symbol, chainId });
 
     const rank = token.rank || trending?.coin.market_cap_rank;
     return (

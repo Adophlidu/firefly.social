@@ -23,7 +23,7 @@ function resolveNitterJsonResponse<T>({ data, error }: Response<T>): T {
     disabled: () => !bom?.window,
     priority: ['getUserTimelineByHandle', 'search', 'getTweetStatus'],
 })
-export class NitterAPI {
+class NitterAPI {
     @MemoizePromise((name, id, options) => `${name}-${id}-${options?.cursor}`)
     async getTweetStatus(
         name: string,

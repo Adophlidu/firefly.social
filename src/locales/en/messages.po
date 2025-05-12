@@ -302,6 +302,9 @@ msgstr "Failed to follow {handleOrEnsOrAddress} on Firefly."
 msgid "No cryptocurrency mixer found."
 msgstr "No cryptocurrency mixer found."
 
+msgid "Feeds"
+msgstr "Feeds"
+
 msgid "More"
 msgstr "More"
 
@@ -545,6 +548,9 @@ msgstr "Sign in"
 
 msgid "Signing in"
 msgstr "Signing in"
+
+msgid "Overview"
+msgstr "Overview"
 
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
@@ -1383,6 +1389,9 @@ msgstr "$ {0}"
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 msgstr "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 
+msgid "1H"
+msgstr "1H"
+
 msgid "Failed to enable signless"
 msgstr "Failed to enable signless"
 
@@ -1879,9 +1888,6 @@ msgstr "Votes"
 msgid "Bio should not exceed {maxBioSize} characters"
 msgstr "Bio should not exceed {maxBioSize} characters"
 
-msgid "1m"
-msgstr "1m"
-
 #. placeholder {0}: activity.tx_status
 msgid "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
 msgstr "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
@@ -2248,6 +2254,9 @@ msgstr "✨ We've moved to <0>firefly.social</0>"
 msgid "No preview found for shared link"
 msgstr "No preview found for shared link"
 
+msgid "Connect your wallet to unlock all features"
+msgstr "Connect your wallet to unlock all features"
+
 msgid "Suspected malicious address found."
 msgstr "Suspected malicious address found."
 
@@ -2363,9 +2372,6 @@ msgstr "Connect your wallet to claim your NFT"
 
 msgid "Reauthorize"
 msgstr "Reauthorize"
-
-msgid "24h"
-msgstr "24h"
 
 msgid "Like"
 msgstr "Like"
@@ -2670,6 +2676,9 @@ msgstr "Unfollow @{0}"
 #. placeholder {0}: resolveSourcesName(failedAt, '/')
 msgid "Your post failed to send to {0}. Click 'Retry' to attempt posting again."
 msgstr "Your post failed to send to {0}. Click 'Retry' to attempt posting again."
+
+msgid "7D"
+msgstr "7D"
 
 msgid "Not my wallet address."
 msgstr "Not my wallet address."
@@ -3476,6 +3485,9 @@ msgstr "Username or email address"
 msgid "<0>Minted</0><1/>{0}"
 msgstr "<0>Minted</0><1/>{0}"
 
+msgid "1M"
+msgstr "1M"
+
 #. placeholder {0}: dayjs(draft.createdAt).format('ddd, MMM DD, YYYY [at] h:mm A')
 msgid "Saved on {0}"
 msgstr "Saved on {0}"
@@ -3488,9 +3500,6 @@ msgstr "Dex"
 
 msgid "Passed"
 msgstr "Passed"
-
-msgid "1y"
-msgstr "1y"
 
 msgid "Unlock a premium collectible and a larger $MASK airdrop "
 msgstr "Unlock a premium collectible and a larger $MASK airdrop "
@@ -3509,6 +3518,9 @@ msgstr "Malicious mining activities."
 
 msgid "Comment or mention"
 msgstr "Comment or mention"
+
+msgid "24H"
+msgstr "24H"
 
 msgid "No codes found to suspend trading."
 msgstr "No codes found to suspend trading."
@@ -3538,6 +3550,9 @@ msgstr "Dark Mode"
 
 msgid "Article added to your Bookmarks"
 msgstr "Article added to your Bookmarks"
+
+msgid "Mine"
+msgstr "Mine"
 
 msgid "Create a Post"
 msgstr "Create a Post"
@@ -3642,6 +3657,9 @@ msgstr "Associated wallets"
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
+
+msgid "1Y"
+msgstr "1Y"
 
 msgid "Primary account"
 msgstr "Primary account"
@@ -3995,9 +4013,6 @@ msgstr "NFT contract can restrict the approval, resulting in NFT can not be trad
 
 msgid "<0>You</0> recasted"
 msgstr "<0>You</0> recasted"
-
-msgid "7d"
-msgstr "7d"
 
 msgid "Location"
 msgstr "Location"

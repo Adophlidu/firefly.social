@@ -1,0 +1,57 @@
+import type { Meta, StoryObj } from '@storybook/react';
+
+import { TokenMarketData, type TokenMarketDataProps } from '@/components/TokenProfile/TokenMarketData.js';
+import { useTokenInfo } from '@/hooks/useTokenInfo.js';
+
+interface Props extends Pick<TokenMarketDataProps, 'tradeRecords'> {
+    symbol: string;
+}
+function WrapTokenMarketData({ symbol, tradeRecords }: Props) {
+    const { data: token, isLoading } = useTokenInfo(symbol, false);
+    if (isLoading) return <div>Loading...</div>;
+
+    if (!token) return <div>token not found: {symbol}</div>;
+
+    return <TokenMarketData token={token} tradeRecords={tradeRecords} />;
+}
+
+const meta = {
+    title: 'Token/TokenMarketData',
+    component: WrapTokenMarketData,
+} satisfies Meta<typeof WrapTokenMarketData>;
+
+type Story = StoryObj<typeof meta>;
+
+export const Base: Story = {
+    args: {
+        symbol: 'mask',
+        tradeRecords: [
+            {
+                type: 'buy',
+                date: 1746850296131,
+                value: 1.1147951013430362,
+                amount: '10000000000000000000',
+                uiAmount: '10',
+                decimals: 18,
+                user: {
+                    name: 'vitalik.eth',
+                    avatar: 'https://i.pravatar.cc/100?u=vitalik.eth',
+                },
+            },
+            {
+                type: 'sell',
+                date: 1746921928998,
+                value: 1.4402451541063872,
+                amount: '10000000000000000000',
+                uiAmount: '10',
+                decimals: 18,
+                user: {
+                    name: 'vitalik.eth',
+                    avatar: 'https://i.pravatar.cc/100?u=vitalik.eth',
+                },
+            },
+        ],
+    },
+};
+
+export default meta;

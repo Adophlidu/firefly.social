@@ -145,7 +145,12 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                                 <Trans>Sent</Trans>
                             </div>
                             <Link
-                                href={resolveTokenPageUrl(activity.from_token.symbol, activity.chain_id, true)}
+                                href={resolveTokenPageUrl({
+                                    identity: activity.from_token.symbol,
+                                    chainId: activity.chain_id,
+                                    trader: activity.owner,
+                                    traderName: activity.displayInfo.ensHandle,
+                                })}
                                 className="flex items-center gap-2 rounded-lg bg-bg p-3"
                             >
                                 {activity.from_token.logo ? (
@@ -185,7 +190,12 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                                 <Trans>Received</Trans>
                             </div>
                             <Link
-                                href={resolveTokenPageUrl(activity.to_token.symbol, activity.chain_id, true)}
+                                href={resolveTokenPageUrl({
+                                    identity: activity.to_token.symbol,
+                                    chainId: activity.chain_id,
+                                    trader: activity.owner,
+                                    traderName: activity.displayInfo.ensHandle,
+                                })}
                                 className="flex items-center gap-2 rounded-lg bg-bg p-3"
                             >
                                 {activity.to_token.logo ? (

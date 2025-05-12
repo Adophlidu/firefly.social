@@ -309,7 +309,10 @@ export function RequirementsModal({
                                             <Trans>Token holder of any one below</Trans>
                                         </div>
                                         {status.payload.map((x) => {
-                                            const tokenLink = resolveTokenPageUrl(x.contractAddress, x.chainId, true);
+                                            const tokenLink = resolveTokenPageUrl({
+                                                identity: x.contractAddress,
+                                                chainId: x.chainId,
+                                            });
                                             return (
                                                 <div
                                                     key={`${x.chainId}-${x.contractAddress}`}

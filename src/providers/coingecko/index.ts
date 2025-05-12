@@ -106,6 +106,7 @@ export class CoinGecko {
         return fetchJSON<Record<string, Price>>(url);
     }
 
+    /** @deprecated use FireflyEndpoint.getTokenPriceStats */
     static async getPriceStats(coinId: string, days?: number) {
         type Stat = [number, number];
         const url = urlcat(COINGECKO_ROOT_URL, `/coins/${coinId}/market_chart`, {

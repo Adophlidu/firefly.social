@@ -167,7 +167,7 @@ function getClient() {
 @SetQueryDataForPosts
 @SetQueryDataForApprovalLensModule
 @SetQueryDataForJoinChannel(Source.Lens)
-export class LensSocialMedia implements Provider {
+class LensSocialMedia implements Provider {
     get type() {
         return SessionType.Lens;
     }
@@ -1347,4 +1347,5 @@ export class LensSocialMedia implements Provider {
     }
 }
 
+export { LensSocialMedia };
 export const LensSocialMediaProvider = new LensSocialMedia();

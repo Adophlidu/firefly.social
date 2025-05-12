@@ -76,7 +76,7 @@ import type { PartialWith, ResponseJSON } from '@/types/index.js';
 @SetQueryDataForBlockProfile(Source.Twitter)
 @SetQueryDataForActPost(Source.Twitter)
 @AddLikeStatusToTwitterPosts()
-export class TwitterSocialMedia implements Provider {
+class TwitterSocialMedia implements Provider {
     get type() {
         return SessionType.Twitter;
     }
@@ -705,4 +705,5 @@ export class TwitterSocialMedia implements Provider {
     }
 }
 
+export { TwitterSocialMedia };
 export const TwitterSocialMediaProvider = new TwitterSocialMedia();

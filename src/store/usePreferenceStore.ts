@@ -6,10 +6,12 @@ import { createSelectors } from '@/helpers/createSelector.js';
 
 interface Preferences {
     SHOW_SCHEDULE_POST_TIP: boolean;
+    SHOW_USER_TX_IN_CHART: boolean;
 }
 
 const defaultPreferences: Preferences = {
     SHOW_SCHEDULE_POST_TIP: true,
+    SHOW_USER_TX_IN_CHART: true,
 };
 
 export interface PreferencesState {

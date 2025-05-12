@@ -24,6 +24,6 @@ export function isSameSolanaAddress(
     }
 }
 
-export function isSameAddress(address?: string, otherAddress?: string): boolean {
+export function isSameAddress(address: string | undefined, otherAddress: string | undefined): boolean {
     return isSameEthereumAddress(address, otherAddress) || isSameSolanaAddress(address, otherAddress);
 }

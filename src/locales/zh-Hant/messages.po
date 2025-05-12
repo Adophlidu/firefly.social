@@ -307,6 +307,9 @@ msgstr "無法在 Firefly 上追蹤 {handleOrEnsOrAddress}。"
 msgid "No cryptocurrency mixer found."
 msgstr "未發現加密貨幣混幣器。"
 
+msgid "Feeds"
+msgstr ""
+
 msgid "More"
 msgstr "更多"
 
@@ -550,6 +553,9 @@ msgstr "登入"
 
 msgid "Signing in"
 msgstr "登入中"
+
+msgid "Overview"
+msgstr ""
 
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 msgstr "在 {count} 秒內用手機<0>相機</0>掃描 QR 碼。<1/>核准新的 Farcaster 簽名者至 Firefly。"
@@ -1388,6 +1394,9 @@ msgstr "$ {0}"
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 msgstr "未包含隱藏所有者功能。若有隱藏所有者，項目方可能具備合約控制權"
 
+msgid "1H"
+msgstr ""
+
 msgid "Failed to enable signless"
 msgstr "啟用免簽失敗"
 
@@ -1884,9 +1893,6 @@ msgstr "票數"
 msgid "Bio should not exceed {maxBioSize} characters"
 msgstr "個人簡介不得超過 {maxBioSize} 字元"
 
-msgid "1m"
-msgstr "1月"
-
 #. placeholder {0}: activity.tx_status
 msgid "{0, select, success {Success} failed {Failed} pending {Pending} other {Failed}}"
 msgstr "{0, select, success {成功} failed {失敗} pending {處理中} other {失敗}}"
@@ -2253,6 +2259,9 @@ msgstr ""
 msgid "No preview found for shared link"
 msgstr "分享的連結暫無預覽畫面"
 
+msgid "Connect your wallet to unlock all features"
+msgstr ""
+
 msgid "Suspected malicious address found."
 msgstr ""
 
@@ -2363,9 +2372,6 @@ msgstr ""
 
 msgid "Reauthorize"
 msgstr ""
-
-msgid "24h"
-msgstr "24小時"
 
 msgid "Like"
 msgstr "喜歡"
@@ -2670,6 +2676,9 @@ msgstr "取消追蹤 @{0}"
 #. placeholder {0}: resolveSourcesName(failedAt, '/')
 msgid "Your post failed to send to {0}. Click 'Retry' to attempt posting again."
 msgstr "貼文發送至 {0} 失敗，點擊「重試」再次嘗試"
+
+msgid "7D"
+msgstr ""
 
 msgid "Not my wallet address."
 msgstr "非本人錢包地址"
@@ -3476,6 +3485,9 @@ msgstr "用戶名或電子郵件"
 msgid "<0>Minted</0><1/>{0}"
 msgstr "<0>已鑄造</0><1/>{0}"
 
+msgid "1M"
+msgstr ""
+
 #. placeholder {0}: dayjs(draft.createdAt).format('ddd, MMM DD, YYYY [at] h:mm A')
 msgid "Saved on {0}"
 msgstr "保存於 {0}"
@@ -3488,9 +3500,6 @@ msgstr ""
 
 msgid "Passed"
 msgstr "已通過"
-
-msgid "1y"
-msgstr "1 年"
 
 msgid "Unlock a premium collectible and a larger $MASK airdrop "
 msgstr "解鎖高級收藏品與更多 $MASK 空投"
@@ -3509,6 +3518,9 @@ msgstr "惡意挖礦活動。"
 
 msgid "Comment or mention"
 msgstr "評論或提及"
+
+msgid "24H"
+msgstr ""
 
 msgid "No codes found to suspend trading."
 msgstr "未檢測到暫停交易代碼。"
@@ -3538,6 +3550,9 @@ msgstr "深色模式"
 
 msgid "Article added to your Bookmarks"
 msgstr "文章已加入書籤"
+
+msgid "Mine"
+msgstr ""
 
 msgid "Create a Post"
 msgstr "建立貼文"
@@ -3642,6 +3657,9 @@ msgstr "關聯錢包"
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "包含白名單功能，部分地址可能無法正常交易（蜜罐風險）。"
+
+msgid "1Y"
+msgstr ""
 
 msgid "Primary account"
 msgstr "主要帳號"
@@ -3995,9 +4013,6 @@ msgstr ""
 
 msgid "<0>You</0> recasted"
 msgstr ""
-
-msgid "7d"
-msgstr "7天"
 
 msgid "Location"
 msgstr ""

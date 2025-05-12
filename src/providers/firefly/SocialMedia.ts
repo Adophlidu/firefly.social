@@ -122,7 +122,7 @@ function groupNFTParamsByChainId(nftIds: string[]) {
 }
 
 @SetQueryDataForBookmarkNFT()
-export class FireflySocialMedia implements Provider {
+class FireflySocialMedia implements Provider {
     get type() {
         return SessionType.Farcaster;
     }
@@ -1280,4 +1280,5 @@ export class FireflySocialMedia implements Provider {
     }
 }
 
+export { FireflySocialMedia };
 export const FireflySocialMediaProvider = new FireflySocialMedia();

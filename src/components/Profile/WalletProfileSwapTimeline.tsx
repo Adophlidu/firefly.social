@@ -26,6 +26,7 @@ export function WalletProfileSwapTimeline({ address }: { address: string }) {
             return FireflyEndpointProvider.getSwapTimelineByAddress(
                 addresses,
                 EMPTY_LIST,
+                undefined,
                 createIndicator(undefined, pageParam),
             );
         },

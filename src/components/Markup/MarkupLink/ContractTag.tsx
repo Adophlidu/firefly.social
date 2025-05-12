@@ -23,14 +23,16 @@ export const ContractTag = memo<ContractTagProps>(function ContractTag({ detecte
     const { data: collection } = useNFTCollection(address, chainId, isCollection);
 
     const attributes = detected?.contract_info?.attributes;
-    const coingecko_coin_id = attributes?.coingecko_coin_id;
-    const { data: token } = useTokenInfo(coingecko_coin_id || address, !!coingecko_coin_id);
+    const coingeckoCoinId = attributes?.coingecko_coin_id;
+    const { data: token } = useTokenInfo(coingeckoCoinId || address, !!coingeckoCoinId);
 
     const url = useMemo(() => {
         if (collection) return resolveNFTUrl(collection.chain_id, collection.contract_address);
-        if (token) return resolveTokenPageUrl(address, chainId);
+        if (token) {
+            return resolveTokenPageUrl({ identity: coingeckoCoinId || address, chainId, isCoinId: !!coingeckoCoinId });
+        }
         return BlockScanExplorerResolver.addressLink(chainId, address);
-    }, [token, chainId, address, collection]);
+    }, [collection, token, coingeckoCoinId, address, chainId]);
 
     if (!url) return title;
 

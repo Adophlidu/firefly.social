@@ -1,9 +1,23 @@
 import urlcat from 'urlcat';
 
-export function resolveTokenPageUrl(symbol: string, chainId?: string | number, isSymbol?: boolean) {
-    return urlcat('/token/:symbol', {
-        symbol,
+interface Options {
+    /** symbol, address, or coingecko coin id */
+    identity: string;
+    chainId?: string | number;
+    /** if is coingecko coin id, which is more specific */
+    isCoinId?: boolean;
+    /** trader wallet address */
+    trader?: string;
+    /** to keep consistent with previous entry */
+    traderName?: string;
+}
+
+export function resolveTokenPageUrl({ identity, chainId, isCoinId, trader, traderName }: Options) {
+    return urlcat('/token/:identity', {
+        identity,
         chainId,
-        isSymbol,
+        coinId: isCoinId ? 'true' : undefined,
+        trader,
+        traderName: traderName || undefined,
     });
 }

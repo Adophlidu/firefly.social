@@ -4,7 +4,7 @@ import { trimEnd } from 'lodash-es';
 import { isLessThan, leftShift, pow10, scale10 } from '@/helpers/number.js';
 
 /** Trim ending zeros of decimals */
-function trimZero(digit: string) {
+export function trimZero(digit: string) {
     const result = digit.replaceAll(/\.([1-9]*)?0+$/g, (_, p1) => {
         return p1 ? `.${p1}` : '';
     });

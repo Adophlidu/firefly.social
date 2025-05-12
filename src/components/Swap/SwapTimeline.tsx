@@ -3,6 +3,7 @@
 import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
+import { useEffect } from 'react';
 
 import SwapEmptyIcon from '@/assets/swap-empty.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -24,7 +25,11 @@ export function getSwapActivityItemContent(index: number, activity: SwapActivity
     return <SwapActivityItem activity={activity} />;
 }
 
-type SwapTimelineProps =
+export type SwapTimelineProps = {
+    chainId?: number;
+    tokenAddress?: string;
+    onActivitiesUpdate?: (data: SwapActivity[]) => void;
+} & (
     | {
           address: string;
           isFollowing?: false;
@@ -32,32 +37,42 @@ type SwapTimelineProps =
     | {
           address?: string;
           isFollowing: true;
-      };
+      }
+);
 
-export function SwapTimeline({ isFollowing, address }: SwapTimelineProps) {
+export function SwapTimeline({
+    isFollowing,
+    address,
+    chainId: propChainId,
+    tokenAddress,
+    onActivitiesUpdate,
+}: SwapTimelineProps) {
     const isLoginFirefly = useIsLoginFirefly();
     const profileIds = useCurrentProfileIds();
     const { selectedChainId } = useSwapStateStore();
+    const chainId = propChainId || selectedChainId;
     const router = useRouter();
     const queryKey = isFollowing
-        ? ['swaps', 'following', profileIds, selectedChainId]
-        : ['swaps', 'profile', address, profileIds, selectedChainId];
+        ? ['swaps', 'following', profileIds, chainId, tokenAddress]
+        : ['swaps', 'profile', address, profileIds, chainId, tokenAddress];
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey,
         networkMode: 'always',
         queryFn: async ({ pageParam }) => {
-            if ((isFollowing && !isLoginFirefly) || (!isFollowing && !address)) return;
+            if ((isFollowing && !isLoginFirefly) || (!isFollowing && !address)) return null;
 
             if (!isFollowing && address) {
                 return FireflyEndpointProvider.getSwapTimelineByAddress(
                     address,
-                    selectedChainId ? [selectedChainId] : [],
+                    chainId ? [chainId] : [],
+                    tokenAddress,
                     createIndicator(undefined, pageParam),
                 );
             } else {
                 return FireflyEndpointProvider.getFollowingSwapTimeline(
-                    selectedChainId ? [selectedChainId] : [],
+                    chainId ? [chainId] : [],
+                    tokenAddress,
                     createIndicator(undefined, pageParam),
                 );
             }
@@ -66,6 +81,10 @@ export function SwapTimeline({ isFollowing, address }: SwapTimelineProps) {
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
         select: (data) => compact(data.pages.flatMap((p) => p?.data)),
     });
+
+    useEffect(() => {
+        onActivitiesUpdate?.(queryResult.data);
+    }, [onActivitiesUpdate, queryResult.data]);
 
     if (!isLoginFirefly && isFollowing) {
         return <NotLoginFallback source={Source.Swap} />;

@@ -87,7 +87,7 @@ async function getSinglePost(uri: string) {
 @SetQueryDataForPosts
 @SetQueryDataForJoinChannel(Source.Bsky)
 @AddBookmarkStatusForPosts(Source.Bsky)
-export class BskySocialMedia implements Provider {
+class BskySocialMedia implements Provider {
     get type() {
         return SessionType.Bsky;
     }

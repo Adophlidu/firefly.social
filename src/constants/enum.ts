@@ -198,7 +198,8 @@ export type LoginFallbackSource =
     | Source.Posts
     | Source.Notifications
     | Source.NFTs
-    | Source.Swap;
+    | Source.Swap
+    | Source.Wallet;
 
 export enum ExploreType {
     CryptoTrends = 'crypto-trends',
@@ -576,4 +577,10 @@ export enum SiteCookies {
 
 export enum NameServiceID {
     ENS = 'ENS',
+}
+
+export enum TokenCategory {
+    Activities = 'activities',
+    Feeds = 'feeds',
+    Overview = 'overview',
 }

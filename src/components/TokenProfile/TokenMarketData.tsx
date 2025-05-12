@@ -2,13 +2,19 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import dayjs from 'dayjs';
 import { first } from 'lodash-es';
-import { useMemo, useRef, useState } from 'react';
+import { type HTMLProps, memo, useContext, useMemo, useState } from 'react';
 
+import EyeIcon from '@/assets/eye.svg';
+import EyeCloseIcon from '@/assets/eye-close.svg';
 import PriceArrow from '@/assets/price-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
+import { PriceChart } from '@/components/PriceChart/index.js';
+import { useWithinRangeRecords } from '@/components/PriceChart/useWithinRangeRecords.js';
+import { TokenContext } from '@/components/Token/TokenContext.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurityBar.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
@@ -17,55 +23,65 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isZero } from '@/helpers/number.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
-import { useCoinPrice24hStats, useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
+import { useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
-import type { Dimension } from '@/hooks/useLineChart.js';
-import { usePriceLineChart } from '@/hooks/usePriceLineChart.js';
+import { useIsPriceUp } from '@/hooks/useIsPriceUp.js';
 import { useTokenPrice } from '@/hooks/useTokenPrice.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
+import { usePreferencesState } from '@/store/usePreferenceStore.js';
+import type { PriceRecord, TradeRecord } from '@/types/token.js';
 
-interface TokenMarketDataProps {
+export interface TokenMarketDataProps extends HTMLProps<HTMLDivElement> {
+    tradeRecords?: TradeRecord[];
     token: CoinGeckoToken;
     linkable?: boolean;
     rank?: number;
 }
 
-const dimension: Dimension = {
-    top: 32,
-    right: 32,
-    bottom: 32,
-    left: 32,
-    width: 543,
-    height: 175,
+const getRanges = () => {
+    return [
+        { id: '1h', label: t`1H`, days: 1 },
+        { id: '24h', label: t`24H`, days: 1 },
+        { id: '7d', label: t`7D`, days: 7 },
+        { id: '1m', label: t`1M`, days: 30 },
+        { id: '1y', label: t`1Y`, days: 365 },
+        { id: 'max', label: t`Max`, days: undefined },
+    ] as const;
 };
 
-export function TokenMarketData({ linkable, token, rank }: TokenMarketDataProps) {
-    const chartRef = useRef<SVGSVGElement>(null);
+export const TokenMarketData = memo(function TokenMarketData({
+    linkable,
+    token,
+    rank,
+    tradeRecords: originTradeRecords = EMPTY_LIST,
+    ...rest
+}: TokenMarketDataProps) {
+    const ranges = getRanges();
     const { data: price } = useTokenPrice(token.id);
     const { data: trending } = useCoinTrending(token.id);
-    const { market, contracts } = trending ?? {};
+    const { contracts } = trending ?? {};
     const contract = first(contracts);
     const { data: security } = useTokenSecurity(contract?.chainId, contract?.address);
     const tradeInfo = useTradeInfo(token);
 
-    const ranges = [
-        { label: t`24h`, days: 1 },
-        { label: t`7d`, days: 7 },
-        { label: t`1m`, days: 30 },
-        { label: t`1y`, days: 365 },
-        { label: t`Max`, days: undefined },
-    ] as const;
+    const { preferences, setPreference } = usePreferencesState();
+    const [activeRecord, setActiveRecord] = useState<PriceRecord>();
+    const [activeTradeDate, setActiveTradeDate] = useState<number>();
+    const [pendingTradeDate, setPendingTradeDate] = useState<number>();
+    const [rangeId, setRangeId] = useState<(typeof ranges)[number]['id']>();
+    const currentRange = ranges.find((x) => x.id === rangeId) || ranges[1];
 
-    const [days, setDays] = useState<number | undefined>(ranges[0].days);
-    const { data: priceStats = EMPTY_LIST, isPending } = useCoinPriceStats(token.id, days);
-    const { isUp } = useCoinPrice24hStats(token.id);
+    const { data: priceStats = EMPTY_LIST, isPending } = useCoinPriceStats(token.id, currentRange.days);
+    const stats = useMemo(
+        () => (currentRange.id === '1h' ? priceStats.slice(-12) : priceStats),
+        [currentRange.id, priceStats],
+    );
+    const tradeRecords = preferences.SHOW_USER_TX_IN_CHART ? originTradeRecords : EMPTY_LIST;
+    const withinRangeTradeRecords = useWithinRangeRecords(stats, tradeRecords);
 
-    usePriceLineChart(chartRef, priceStats, dimension, `price-chart-${token.symbol}`);
-
-    const noValidData = useMemo(() => {
-        return priceStats.length === 0 || priceStats.every((item) => isZero(item.value));
-    }, [priceStats]);
+    const { isUp, change } = useIsPriceUp(stats);
+    const invalidData = useMemo(() => stats.length === 0 || stats.every((item) => isZero(item.value)), [stats]);
 
     const baseInfo = (
         <>
@@ -84,12 +100,16 @@ export function TokenMarketData({ linkable, token, rank }: TokenMarketDataProps)
     const tokenRank = rank ?? token.rank;
 
     return (
-        <>
+        <div {...rest} className={classNames('flex flex-col gap-1.5 p-3', rest.className)}>
             <div className="flex items-start">
                 <div className="flex flex-grow flex-col gap-1.5">
                     <div className="flex items-center gap-1 text-second">
                         {linkable ? (
-                            <Link prefetch className="contents" href={resolveTokenPageUrl(token.id)}>
+                            <Link
+                                prefetch
+                                className="contents"
+                                href={resolveTokenPageUrl({ identity: token.id, isCoinId: true })}
+                            >
                                 {baseInfo}
                             </Link>
                         ) : (
@@ -101,18 +121,27 @@ export function TokenMarketData({ linkable, token, rank }: TokenMarketDataProps)
                             </span>
                         ) : null}
                     </div>
-                    <div className="line-height-[22px] flex items-center gap-1">
-                        <strong className="text-2xl font-bold">${renderShrankPrice(formatPrice(price) ?? '-')}</strong>
-                        <PriceArrow
-                            width={20}
-                            height={20}
-                            className={classNames(isUp ? 'text-success' : 'rotate-180 text-fail')}
-                        />
-                        {market?.price_change_percentage_24h_in_currency !== undefined ? (
+                    <div className="line-height-[22px] flex flex-col gap-2">
+                        <div className="text-2xl font-bold">
+                            ${renderShrankPrice(formatPrice(activeRecord?.value ?? price) ?? '-')}
+                        </div>
+                        <div className="flex items-center">
+                            <PriceArrow
+                                width={20}
+                                height={20}
+                                className={
+                                    isUp === undefined ? 'text-third' : isUp ? 'text-success' : 'rotate-180 text-fail'
+                                }
+                            />
                             <span className={isUp ? 'text-medium text-success' : 'text-medium text-fail'}>
-                                {market.price_change_percentage_24h_in_currency.toFixed(2)}%
+                                {change === undefined ? '--%' : `${change.toFixed(2)}%`}
                             </span>
-                        ) : null}
+                            {activeRecord ? (
+                                <span className="ml-2 text-sm text-secondary">
+                                    {dayjs(activeRecord.date).format('MMM DD, YYYY, hh:mm A')}
+                                </span>
+                            ) : null}
+                        </div>
                     </div>
                     <TokenSecurityBar security={security} />
                 </div>
@@ -128,7 +157,7 @@ export function TokenMarketData({ linkable, token, rank }: TokenMarketDataProps)
                               }
                             : undefined
                     }
-                />
+                >{t`Swap`}</SwapButton>
             </div>
             <div
                 className={classNames(
@@ -138,31 +167,85 @@ export function TokenMarketData({ linkable, token, rank }: TokenMarketDataProps)
             >
                 {isPending ? (
                     <div className="mx-2 h-40 flex-grow rounded-lg bg-gray-100 dark:bg-gray-800" />
-                ) : noValidData ? (
+                ) : invalidData ? (
                     <div className="mx-2 h-40 flex-grow rounded-lg">
                         <Trans>There is no data available to display</Trans>
                     </div>
                 ) : (
-                    <svg ref={chartRef} width="100%" height={175} viewBox="0 0 543 175" />
+                    <PriceChart
+                        className="size-full"
+                        records={stats}
+                        tradeRecords={withinRangeTradeRecords}
+                        activeTradeDate={pendingTradeDate ?? activeTradeDate}
+                        onHover={(payload) => setActiveRecord(payload)}
+                        onMouseLeave={() => setActiveRecord(undefined)}
+                    />
                 )}
             </div>
+            {withinRangeTradeRecords.length > 1 ? (
+                <div className="no-scrollbar flex flex-nowrap justify-evenly gap-1 overflow-auto">
+                    {withinRangeTradeRecords.map((record, i) => {
+                        return (
+                            <div
+                                key={i}
+                                className="group min-w-4 max-w-[60px] shrink-0 flex-grow cursor-pointer py-1"
+                                onClick={() => {
+                                    setActiveTradeDate((prev) => (prev === record.date ? undefined : record.date));
+                                }}
+                                onMouseEnter={() => {
+                                    setPendingTradeDate(record.date);
+                                }}
+                                onMouseLeave={() => {
+                                    setPendingTradeDate(undefined);
+                                }}
+                            >
+                                <div
+                                    className={classNames(
+                                        'h-[2px] flex-grow cursor-pointer rounded-[2px] group-hover:bg-third',
+                                        record.date === activeTradeDate ? 'bg-third' : 'bg-secondaryLine',
+                                    )}
+                                />
+                            </div>
+                        );
+                    })}
+                </div>
+            ) : null}
 
-            <div className="mt-4 flex gap-2.5 rounded-[28px] border border-line bg-input p-1 dark:bg-white/20">
-                {ranges.map((range) => (
-                    <ClickableButton
-                        className={classNames(
-                            'box-border block h-[34px] flex-grow px-3 py-2 text-sm text-main',
-                            days === range.days
-                                ? 'rounded-[18px] bg-primaryBottom font-bold shadow-[0px_2px_5px_1px_rgba(24,24,24,0.05)]'
-                                : 'bg-transparent',
-                        )}
-                        key={range.label}
-                        onClick={() => setDays(range.days)}
-                    >
-                        {range.label}
-                    </ClickableButton>
-                ))}
+            <div className="mt-4 flex gap-2.5">
+                <div className="flex gap-2">
+                    {ranges.map((range) => (
+                        <ClickableButton
+                            className={classNames(
+                                'h-6 min-w-10 rounded-lg px-2',
+                                currentRange.id === range.id
+                                    ? 'light rounded-[18px] bg-input font-bold text-main'
+                                    : 'bg-transparent text-secondary',
+                            )}
+                            key={range.label}
+                            onClick={() => setRangeId(range.id)}
+                        >
+                            {range.label}
+                        </ClickableButton>
+                    ))}
+                </div>
+                <ClickableButton
+                    className="ml-auto"
+                    onClick={() => {
+                        setPreference('SHOW_USER_TX_IN_CHART', !preferences.SHOW_USER_TX_IN_CHART);
+                    }}
+                >
+                    {preferences.SHOW_USER_TX_IN_CHART ? (
+                        <EyeIcon className="size-4 text-secondary" width={16} height={16} />
+                    ) : (
+                        <EyeCloseIcon className="size-4 text-secondary" width={16} height={16} />
+                    )}
+                </ClickableButton>
             </div>
-        </>
+        </div>
     );
-}
+});
+
+export const WrapTokenMarketData = memo(function WrapTokenMarketData(props: TokenMarketDataProps) {
+    const { tradeRecords } = useContext(TokenContext);
+    return <TokenMarketData tradeRecords={tradeRecords} {...props} />;
+});

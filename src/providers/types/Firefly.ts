@@ -1520,7 +1520,9 @@ export interface SwapToken {
     logo: string;
     symbol: string;
     amount_usd: string;
+    /** ui amount */
     amount_num: string;
+    amount_str: string;
     name: string;
     decimals: number;
     price: string;
@@ -1536,6 +1538,7 @@ export type SwapActivity = {
     router_address: string;
     dex_name: string;
     dex_logo: string;
+    /** timestamp in seconds */
     timestamp: string;
     block_number: string;
     from_token: SwapToken | null;
@@ -1629,3 +1632,10 @@ export type NFTBookmarkContent = {
     own_num: 0;
     following_own_num: 0;
 };
+
+type Stat = [number, number];
+export type TokenPriceStatsResponse = Response<{
+    market_caps: Stat[];
+    prices: Stat[];
+    total_volumes: Stat[];
+}>;

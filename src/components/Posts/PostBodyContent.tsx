@@ -101,7 +101,9 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
     const isMedium = useIsMedium('max');
 
     const pathname = usePathname();
+
     const isProfilePage = pathname === PageRoute.Profile || isRoutePathname(pathname, PageRoute.Profile);
+    const isTokenPage = /^\/token\b$/.test(pathname);
 
     const payloadFromImageAttachment = payloads?.payloadFromImageAttachment;
     const payloadImageUrl = payloadFromImageAttachment?.[2];
@@ -209,9 +211,11 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
                 </div>
             ) : null}
 
-            <ErrorBoundary message="Failed to render embeds cards.">
-                <EmbedCards post={post} />
-            </ErrorBoundary>
+            {!isTokenPage ? (
+                <ErrorBoundary message="Failed to render embeds cards.">
+                    <EmbedCards post={post} />
+                </ErrorBoundary>
+            ) : null}
             {EncryptedContent}
 
             {/* Poll */}

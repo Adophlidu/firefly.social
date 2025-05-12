@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ActionButton } from '@/components/ActionButton.js';
 
 const meta = {
-    title: 'ActionButton',
+    title: 'common/ActionButton',
     component: ActionButton,
 } satisfies Meta<typeof ActionButton>;
 

@@ -28,7 +28,7 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
                 e.stopPropagation();
             }}
             prefetch={false}
-            href={resolveTokenPageUrl(symbol, undefined, true)}
+            href={resolveTokenPageUrl({ identity: symbol })}
         >
             {title}
         </Link>

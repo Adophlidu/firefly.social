@@ -34,7 +34,7 @@ const defaultFormatTooltip = (value: number) => formatPrice(value)!;
 export function useLineChart(
     svgRef: RefObject<SVGSVGElement | null>,
     data: Array<{
-        date: Date;
+        date: number;
         value: number;
     }>,
     dimension: Dimension,
@@ -69,8 +69,8 @@ export function useLineChart(
 
         // create X axis
         const x = d3
-            .scaleTime()
-            .domain(d3.extent(data, (d) => d.date) as [Date, Date])
+            .scaleLinear()
+            .domain(d3.extent(data, (d) => d.date) as [number, number])
             .range([0, contentWidth]);
 
         // create Y axis
@@ -83,12 +83,12 @@ export function useLineChart(
             .range([contentHeight, 0]);
 
         const minPosition = {
-            x: (x(data.find((x) => x.value === min)?.date as Date) ?? 0) - 30,
+            x: (x(data.find((x) => x.value === min)?.date ?? 0) ?? 0) - 30,
             y: (y(min) ?? 0) + 24,
         };
 
         const maxPosition = {
-            x: (x(data.find((x) => x.value === max)?.date as Date) ?? 0) - 10,
+            x: (x(data.find((x) => x.value === max)?.date ?? 0) ?? 0) - 10,
             y: (y(max) ?? 0) - 16,
         };
 
@@ -287,10 +287,10 @@ export function useLineChart(
                 const index = d3
                     .bisector<
                         {
-                            date: Date;
+                            date: number;
                             value: number;
                         },
-                        Date
+                        number
                     >((d) => d.date)
                     .left(data, date, 0);
                 return { ...data[index], index };

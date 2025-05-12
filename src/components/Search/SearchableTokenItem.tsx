@@ -20,7 +20,7 @@ export function SearchableTokenItem({ token, className, showRate = true, onClick
     return (
         <Link
             className={classNames('flex items-center gap-x-2 border-b border-line p-3 hover:bg-bg', className)}
-            href={resolveTokenPageUrl(token.id)}
+            href={resolveTokenPageUrl({ identity: token.id, isCoinId: true })}
             onClick={onClick}
         >
             <Image

@@ -109,6 +109,7 @@ import {
     type SwapActivityTimeline,
     type TakoExternalHostedData,
     type TelegramLoginBotResponse,
+    type TokenPriceStatsResponse,
     type TokenWithMarketData,
     type TwitterUserInfoResponse,
     type TwitterUserV2Response,
@@ -181,7 +182,7 @@ function fixCollection(collection: EVM.Collection): EVM.Collection {
 @SetQueryDataForWatchWallet()
 @SetQueryDataForMuteAllProfiles()
 @SetQueryDataForMuteAllWallets()
-export class FireflyEndpoint {
+class FireflyEndpoint {
     async muteNFT(collectionId: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/mute/collection');
         await fireflySessionHolder.fetch(
@@ -900,6 +901,7 @@ export class FireflyEndpoint {
 
     async getFollowingSwapTimeline(
         chains: number[], // array of chain ids
+        tokenAddress?: string,
         indicator?: PageIndicator,
     ) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/timeline/swap');
@@ -908,6 +910,7 @@ export class FireflyEndpoint {
             body: JSON.stringify({
                 platformFollowing: 'all',
                 chains: chains.length ? chains.join(',') : undefined,
+                tokenAddress,
                 size: 25,
                 cursor: indicator?.id,
             }),
@@ -922,13 +925,19 @@ export class FireflyEndpoint {
         );
     }
 
-    async getSwapTimelineByAddress(address: string | string[], chains: number[], indicator?: PageIndicator) {
+    async getSwapTimelineByAddress(
+        address: string | string[],
+        chains: number[],
+        tokenAddress?: string,
+        indicator?: PageIndicator,
+    ) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/timeline/swap');
         const response = await fireflySessionHolder.fetch<SwapActivityTimeline>(url, {
             method: 'POST',
             body: JSON.stringify({
                 walletAddresses: Array.isArray(address) ? address : [address],
                 chains: chains.length ? chains.join(',') : undefined,
+                tokenAddress,
                 size: 25,
                 cursor: indicator?.id,
             }),
@@ -1012,6 +1021,18 @@ export class FireflyEndpoint {
         const data = resolveFireflyResponseData(response);
 
         return createPageable((data.list || []).map(fixCollection), createIndicator(undefined));
+    }
+
+    // The Firefly API does not support interval=5m which requires Enterprise plan.
+    async getTokenPriceStats(coingecko_id: string, days: number | undefined, interval?: 'hourly' | 'daily') {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/token/token_market_chart', {
+            coingecko_id,
+            vs_currency: 'usd',
+            days: days || 'max',
+            interval,
+        });
+        const response = await fireflySessionHolder.fetch<TokenPriceStatsResponse>(url);
+        return resolveFireflyResponseData(response);
     }
 
     async generateFarcasterSignatures(key: Hex, deadline: number, jwt: string, signal?: AbortSignal) {
@@ -1431,4 +1452,5 @@ export class FireflyEndpoint {
     }
 }
 
+export { FireflyEndpoint };
 export const FireflyEndpointProvider = new FireflyEndpoint();

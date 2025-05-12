@@ -66,13 +66,14 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
         },
     });
     const attributes = detected?.contract_info?.attributes;
-    const coingecko_coin_id = selectedToken?.id || attributes?.coingecko_coin_id;
+    const coingeckoCoinId = selectedToken?.id || attributes?.coingecko_coin_id;
+    const hasCoinId = !!coingeckoCoinId;
 
-    const { data: token } = useTokenInfo(coingecko_coin_id || address, !!coingecko_coin_id);
+    const { data: token } = useTokenInfo(coingeckoCoinId || address, hasCoinId);
     const { data: trending } = useCoinTrending(token?.id);
     const tradeInfo = useTradeInfo(token);
 
-    const { priceStats, isPending, isUp } = useCoinPrice24hStats(coingecko_coin_id || token?.id);
+    const { priceStats, isPending, isUp } = useCoinPrice24hStats(coingeckoCoinId || token?.id);
 
     usePriceLineChart(chartRef, priceStats, DIMENSION, `token-card-price-chart-${address}`, {
         simple: true,
@@ -85,7 +86,11 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
     const market_data = selectedToken.market_data;
     const price = market_data.token_price_usd;
     const market_cap = market_data.market_cap_usd;
-    const tokenPageUrl = resolveTokenPageUrl(selectedToken.symbol, selectedToken.chain_id);
+    const tokenPageUrl = resolveTokenPageUrl({
+        identity: coingeckoCoinId || selectedToken.symbol,
+        chainId: selectedToken.chain_id,
+        isCoinId: hasCoinId,
+    });
 
     const rank = token?.rank || trending?.coin.market_cap_rank;
 

@@ -3,6 +3,7 @@ import { cookies } from 'next/headers.js';
 import { use } from 'react';
 
 import { Locale, SiteCookies } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { DEFAULT_LOCALE, FIREFLY_DEV_ROOT_URL } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 
@@ -18,7 +19,8 @@ export function getClientCookies(name: SiteCookies) {
 }
 
 export async function getCookie(name: SiteCookies) {
-    if (bom.document) return getClientCookies(name);
+    if (bom.document || (env.shared.NODE_ENV === 'development' && 'browser' in (process as any)))
+        return getClientCookies(name);
     return (await cookies()).get(name)?.value;
 }
 
@@ -38,7 +40,8 @@ export function getIsDevFromCookies() {
 }
 
 export function useCookie(key: SiteCookies) {
-    if (bom.document) return getClientCookies(key);
+    if (bom.document || (env.shared.NODE_ENV === 'development' && 'browser' in (process as any)))
+        return getClientCookies(key);
     return use(cookies()).get(key)?.value ?? '';
 }
 

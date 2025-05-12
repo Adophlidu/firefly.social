@@ -8,7 +8,7 @@ import { type Dimension, useLineChart } from '@/hooks/useLineChart.js';
 export function usePriceLineChart(
     svgRef: RefObject<SVGSVGElement | null>,
     data: Array<{
-        date: Date;
+        date: number;
         value: number;
     }>,
     dimension: Dimension,

@@ -40,7 +40,7 @@
     --foreground-rgb: 0 0 0;
     --background-start-rgb: 214, 219, 220;
     --background-end-rgb: 255, 255, 255;
-    --color-main: 7 16 27;
+    --color-main: 7 16 27; /* #07101b */
     --color-main-light: 7 16 27;
     --color-link: 142 150 255;
     --color-bottom: 255 255 255;
@@ -94,23 +94,23 @@
     --plyr-range-fill-background: rgba(118, 118, 118, 1); /* #767676 */
     --plyr-audio-progress-buffered-background: rgba(207, 207, 207, 1);
     --plyr-control-icon-size: 16px;
-    --color-success: 61 194 51;
-    --color-fail: 255 53 69;
-    --color-light-warn: 255 122 85;
-    --color-light-highlight: 172 157 246;
-    --color-highlight: 76 74 169;
-    --color-common-main: 24 26 32;
-    --color-bg02: 172 172 174;
-    --color-bg03: 230 230 237;
-    --color-light-rebranding-bg: 245 245 249;
-    --color-farcaster-bg: 243 240 250;
-    --color-lens-bg: 237 247 241;
-    --color-bsky-bg: 240 247 255;
+    --color-success: 61 194 51; /* #3dc233 */
+    --color-fail: 255 53 69; /* #ff3545 */
+    --color-light-warn: 255 122 85; /* #ff7a55 */
+    --color-light-highlight: 172 157 246; /* #ac9df6 */
+    --color-highlight: 76 74 169; /* #4c4aa9 */
+    --color-common-main: 24 26 32; /* #181a20 */
+    --color-bg02: 172 172 174; /* #acacae */
+    --color-bg03: 230 230 237; /* #e6e6ed */
+    --color-light-rebranding-bg: 245 245 249; /* #f5f5f9 */
+    --color-farcaster-bg: 243 240 250; /* #f3f0fa */
+    --color-lens-bg: 237 247 241; /* #edf7f1 */
+    --color-bsky-bg: 240 247 255; /* #f0f7ff */
     --color-x-bg: var(--color-light-bg);
-    --color-wallet-bg: 243 242 255;
+    --color-wallet-bg: 243 242 255; /* #f3f2ff */
     --color-danger-bg: #fff5f6;
     --w3m-modal-width: 400px !important;
-    --color-lens-button: 0 80 30;
+    --color-lens-button: 0 80 30; /* #00501E */
 }
 
 .sidebar-dark-logo {
@@ -144,7 +144,7 @@
         --color-second: rgba(255, 255, 255, 0.78);
         --color-secondary-success: 24 195 123;
         --color-primary-pink: 255 150 142;
-        --color-danger: 255 53 69;
+        --color-danger: 255 53 69; /* #ff3545 */
         --color-warn: 255 177 0;
         --color-lens-primary: 154 227 42;
         --color-twitter-primary: 29 161 243;
@@ -326,13 +326,13 @@
     --foreground-rgb: 255 255 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
-    --color-main: 245 245 245;
+    --color-main: 245 245 245; /* #f5f5f5 */
     --color-link: 142 150 255;
     --color-bottom: 3 3 3;
     --color-dark-bottom: #181818;
     --color-third-bottom: #181818;
     --color-second: rgba(255, 255, 255, 0.78);
-    --color-secondary-success: 24 195 123;
+    --color-secondary-success: 24 195 123; /* #18c37b */
     --color-primary-pink: 255 150 142;
     --color-danger: 255 53 69;
     --color-warn: 255 177 0;
@@ -371,7 +371,7 @@
     --color-card: white;
     --color-light-warn: 255 122 85;
     --color-light-highlight: 76 74 169;
-    --color-highlight: 172 157 246;
+    --color-highlight: 172 157 246; /* #ac9df6 */
     --color-common-main: 24 26 32;
     --color-bg02: 172 172 174;
     --color-bg03: 230 230 237;
