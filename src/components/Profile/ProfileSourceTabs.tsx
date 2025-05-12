@@ -39,6 +39,8 @@ import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureP
 import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
+const PROFILE_SOURCE_TABS_CONTAINER_ID = 'profile-source-tabs-container';
+
 function SourceIcon({
     source,
     size,
@@ -123,11 +125,14 @@ function TriggerButton({
     useLayoutEffect(() => {
         if (isCurrentSource) {
             if (isLast) {
-                ref.current?.parentElement?.scrollTo({
-                    left: ref.current.parentElement?.scrollWidth ?? 1000,
-                    behavior: 'instant',
-                });
-                return;
+                const containerElement = document.getElementById(PROFILE_SOURCE_TABS_CONTAINER_ID);
+                if (containerElement) {
+                    containerElement.scrollTo({
+                        left: containerElement.scrollWidth ?? 1000,
+                        behavior: 'instant',
+                    });
+                    return;
+                }
             }
             ref.current?.scrollIntoView({ behavior: 'auto' });
         }
@@ -354,7 +359,7 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
     }
 
     return (
-        <div className="align-center relative w-full px-4">
+        <div className="align-center relative w-full px-4" id={PROFILE_SOURCE_TABS_CONTAINER_ID}>
             <button
                 className={classNames(
                     'absolute left-0 z-10 flex h-full transform cursor-pointer items-center pl-4 duration-100 hover:text-highlight',

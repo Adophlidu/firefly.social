@@ -2,14 +2,12 @@
 
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useMemo } from 'react';
+import { type Ref, useEffect, useMemo } from 'react';
 
 import SettingIcon from '@/assets/setting.svg';
-import { Avatar } from '@/components/Avatar.js';
-import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { ComeBackButton } from '@/components/Profile/ComeBackButton.js';
+import { FireflyAccountInfoUI } from '@/components/Profile/FireflyAccountInfoUI.js';
 import { FireflyAccountMoreButton } from '@/components/Profile/FireflyAccountMoreButton.js';
 import { ProfileAction } from '@/components/Profile/ProfileAction.js';
 import { ShareButton } from '@/components/Profile/ShareButton.js';
@@ -41,7 +39,6 @@ import type {
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props {
-    banner?: string;
     walletProfile?: WalletProfile | null;
     socialProfile?: Profile | null;
     identity: FireflyIdentity;
@@ -49,7 +46,7 @@ interface Props {
     relatedProfile: WalletProfiles;
 }
 
-export function FireflyAccountInfo({ banner, walletProfile, socialProfile, identity, relatedProfile }: Props) {
+export function FireflyAccountInfo({ walletProfile, socialProfile, identity, relatedProfile }: Props) {
     const { data } = useQuery({
         queryKey: ['firefly-profile', identity],
         async queryFn() {
@@ -57,24 +54,155 @@ export function FireflyAccountInfo({ banner, walletProfile, socialProfile, ident
         },
         initialData: relatedProfile,
     });
-    const profiles = formatFireflyProfilesFromWalletProfiles(data ?? relatedProfile) as FireflyProfile[];
     const { displayName, uid, avatar } = data?.account || {};
+    const noFireflyAccount = (!displayName && !avatar) || !uid;
+    const profiles = formatFireflyProfilesFromWalletProfiles(data ?? relatedProfile) as FireflyProfile[];
+
+    return (
+        <>
+            {data?.account && !noFireflyAccount ? (
+                <FireflyAccountWithTitleUI
+                    relatedProfile={relatedProfile}
+                    identity={identity}
+                    walletProfile={walletProfile}
+                    socialProfile={socialProfile}
+                    profile={data.account}
+                    profiles={profiles}
+                />
+            ) : (
+                <FallbackFireflyAccountInfo
+                    relatedProfile={relatedProfile}
+                    identity={identity}
+                    walletProfile={walletProfile}
+                    socialProfile={socialProfile}
+                    profile={data.account}
+                    profiles={profiles}
+                />
+            )}
+        </>
+    );
+}
+
+interface FireflyAccountWithTitleUIProps {
+    walletProfile?: WalletProfile | null;
+    socialProfile?: Profile | null;
+    identity: FireflyIdentity;
+    profile: FireflyAccountProfile;
+    relatedProfile: WalletProfiles;
+    profiles: FireflyProfile[];
+}
+
+function FireflyAccountWithTitleUI({
+    identity,
+    walletProfile,
+    socialProfile,
+    relatedProfile,
+    profile,
+    profiles,
+}: FireflyAccountWithTitleUIProps) {
     const [buttonContainerRef, buttonContainerEntry] = useIntersectionObserver({
         threshold: 0.5,
     });
-    const [profileActionRef, profileActionEntry] = useIntersectionObserver({
-        threshold: 0.5,
-        rootMargin: '-60px 0px 0px',
-    });
-    useEffect(() => {
-        const element = document.getElementById(PROFILE_ACTION_ID) ?? document.getElementById(WALLET_PROFILE_ACTION_ID);
-        if (element) profileActionRef(element);
-    }, [profileActionRef]);
-
     const showStickyTitle = buttonContainerEntry && !buttonContainerEntry.isIntersecting;
-    const showProfileAction = profileActionEntry && !profileActionEntry.isIntersecting;
-    const allCurrentProfiles = useCurrentProfilesAll();
+    return (
+        <>
+            <div
+                className={classNames('sticky left-0 top-0 z-40 h-0 w-full transform duration-200', {
+                    '-translate-y-[60px]': !showStickyTitle,
+                })}
+            >
+                <NavigationBar identity={identity} walletProfile={walletProfile} socialProfile={socialProfile} />
+            </div>
+            <FireflyAccountInfoUI profile={profile}>
+                <FireflyAccountInfoHeader
+                    identity={identity}
+                    walletProfile={walletProfile}
+                    socialProfile={socialProfile}
+                    relatedProfile={relatedProfile}
+                    ref={buttonContainerRef}
+                    profiles={profiles}
+                />
+            </FireflyAccountInfoUI>
+        </>
+    );
+}
 
+function FallbackFireflyAccountInfo({
+    walletProfile,
+    socialProfile,
+    identity,
+    profile,
+    relatedProfile,
+    profiles,
+}: FireflyAccountWithTitleUIProps) {
+    const allCurrentProfiles = useCurrentProfilesAll();
+    const isCurrentProfile = useMemo(() => {
+        return profiles?.some((x) =>
+            Object.values(allCurrentProfiles).some(
+                (currentProfile) =>
+                    x.identity.source === currentProfile?.source &&
+                    (x.identity.id === currentProfile.profileId || x.identity.id === currentProfile?.handle),
+            ),
+        );
+    }, [allCurrentProfiles, profiles]);
+    if (profile && isCurrentProfile) {
+        return (
+            <CurrentFireflyAccountInfoWithTitle
+                walletProfile={walletProfile}
+                socialProfile={socialProfile}
+                identity={identity}
+                profile={profile}
+                relatedProfile={relatedProfile}
+                profiles={profiles}
+            />
+        );
+    }
+    return (
+        <div className="sticky left-0 top-0 z-40 w-full">
+            <NavigationBar identity={identity} walletProfile={walletProfile} socialProfile={socialProfile} />
+        </div>
+    );
+}
+
+function CurrentFireflyAccountInfoWithTitle({
+    walletProfile,
+    socialProfile,
+    identity,
+    profile,
+    relatedProfile,
+    profiles,
+}: FireflyAccountWithTitleUIProps) {
+    const avatar = useFireflyAccountAvatar();
+    return (
+        <FireflyAccountWithTitleUI
+            walletProfile={walletProfile}
+            socialProfile={socialProfile}
+            identity={identity}
+            profile={{
+                ...profile,
+                avatar: avatar || getStampAvatarByProfileId(Source.Firefly, profile.uid) || profile.avatar,
+            }}
+            relatedProfile={relatedProfile}
+            profiles={profiles}
+        />
+    );
+}
+
+function FireflyAccountInfoHeader({
+    identity,
+    walletProfile,
+    socialProfile,
+    profiles,
+    ref,
+}: {
+    identity: FireflyIdentity;
+    walletProfile?: WalletProfile | null;
+    socialProfile?: Profile | null;
+    relatedProfile: WalletProfiles;
+    profiles: FireflyProfile[];
+    ref: Ref<HTMLDivElement>;
+}) {
+    const allCurrentProfiles = useCurrentProfilesAll();
     const isCurrentProfile = useMemo(() => {
         return profiles?.some((x) =>
             Object.values(allCurrentProfiles).some(
@@ -85,169 +213,85 @@ export function FireflyAccountInfo({ banner, walletProfile, socialProfile, ident
         );
     }, [allCurrentProfiles, profiles]);
 
-    const noFireflyAccount = (!displayName && !avatar) || !uid;
+    return (
+        <div className="relative mt-5 flex w-full px-6" ref={ref}>
+            <ComeBackButton />
+            <div className="ml-auto flex space-x-2">
+                {isCurrentProfile ? (
+                    <>
+                        <Link
+                            href={PageRoute.SettingConnected}
+                            className="inline-flex size-8 items-center justify-center rounded-lg bg-lightBg text-second active:opacity-50 md:hover:opacity-60"
+                        >
+                            <SettingIcon />
+                        </Link>
+                        {socialProfile ? <ShareButton profile={socialProfile} /> : null}
+                    </>
+                ) : null}
+                {!isCurrentProfile ? (
+                    <>
+                        {socialProfile ? (
+                            <>
+                                <TipsButton identity={identity} profiles={profiles} handle={socialProfile.handle} />
+                                <FireflyAccountMoreButton profile={socialProfile} profiles={profiles} />
+                            </>
+                        ) : null}
+                        {walletProfile ? (
+                            <>
+                                <TipsButton
+                                    identity={identity}
+                                    profiles={profiles}
+                                    handle={walletProfile.primary_ens ?? walletProfile.address}
+                                />
+                                <FireflyAccountMoreButton walletProfile={walletProfile} profiles={profiles} />
+                            </>
+                        ) : null}
+                    </>
+                ) : null}
+            </div>
+        </div>
+    );
+}
 
+function NavigationBar({
+    identity,
+    walletProfile,
+    socialProfile,
+}: {
+    identity: FireflyIdentity;
+    walletProfile?: WalletProfile | null;
+    socialProfile?: Profile | null;
+}) {
     const isLogin = useIsLogin(narrowToSocialSource(identity.source));
     const title = useMemo(() => {
         if (walletProfile) return walletProfile.primary_ens ?? formatAddressEthereum(walletProfile.address, 4);
         if (isRequestedLoginSource(identity.source) && !isLogin) return <Trans>Sign in to unlock</Trans>;
         return socialProfile?.displayName;
     }, [walletProfile, identity.source, isLogin, socialProfile?.displayName]);
-
-    const isShowFireflyAccount = (!noFireflyAccount || isCurrentProfile) && uid;
-
+    const [profileActionRef, profileActionEntry] = useIntersectionObserver({
+        threshold: 0.5,
+        rootMargin: '-60px 0px 0px',
+    });
+    useEffect(() => {
+        const element = document.getElementById(PROFILE_ACTION_ID) ?? document.getElementById(WALLET_PROFILE_ACTION_ID);
+        if (element) profileActionRef(element);
+    }, [profileActionRef]);
+    const showProfileAction = profileActionEntry && !profileActionEntry.isIntersecting;
     return (
-        <>
-            <AnimatePresence initial={false}>
-                {showStickyTitle || !isShowFireflyAccount ? (
-                    <motion.div
-                        className={classNames(
-                            'sticky left-0 top-0 z-40 w-full',
-                            !isShowFireflyAccount ? 'h-[60px]' : 'h-0',
-                        )}
-                        key="title"
-                        exit={{ y: -60 }}
-                        initial={{ y: -60 }}
-                        animate={{ y: 0 }}
-                        transition={{
-                            type: 'tween',
-                            duration: 0.2,
-                        }}
-                    >
-                        <Title title={title}>
-                            <AnimatePresence initial={false}>
-                                {showProfileAction ? (
-                                    <motion.div
-                                        className="flex flex-shrink-0 gap-2"
-                                        exit={{ y: -20, opacity: 0 }}
-                                        initial={{ y: -20, opacity: 0 }}
-                                        animate={{ y: 0, opacity: 1 }}
-                                        transition={{
-                                            type: 'tween',
-                                            duration: 0.2,
-                                        }}
-                                    >
-                                        {identity?.source === Source.Wallet && walletProfile ? (
-                                            <>
-                                                {getAddressType(identity.id) === NetworkType.Ethereum ? (
-                                                    <WalletActions profile={walletProfile} />
-                                                ) : null}
-                                            </>
-                                        ) : socialProfile ? (
-                                            <ProfileAction profile={socialProfile} />
-                                        ) : null}
-                                    </motion.div>
-                                ) : null}
-                            </AnimatePresence>
-                        </Title>
-                    </motion.div>
+        <Title title={title}>
+            <div
+                className={classNames('flex flex-shrink-0 transform gap-2 duration-200', {
+                    'pointer-events-none opacity-0': !showProfileAction,
+                })}
+            >
+                {identity?.source === Source.Wallet && walletProfile ? (
+                    getAddressType(identity.id) === NetworkType.Ethereum ? (
+                        <WalletActions profile={walletProfile} />
+                    ) : null
+                ) : socialProfile ? (
+                    <ProfileAction profile={socialProfile} />
                 ) : null}
-            </AnimatePresence>
-            {isShowFireflyAccount ? (
-                <div className="relative flex w-full flex-col items-center pt-2.5">
-                    {banner ? (
-                        <Image
-                            src={banner}
-                            alt="firefly-account-banner"
-                            width={1196}
-                            height={200}
-                            className="absolute left-0 top-0 h-[100px] w-full object-cover"
-                        />
-                    ) : avatar && !isCurrentProfile ? (
-                        <FireflyAccountBanner src={avatar} />
-                    ) : (
-                        <CurrentFireflyAccountBannerByAvatar uid={uid} />
-                    )}
-
-                    <div className="relative mt-5 flex w-full px-6" ref={buttonContainerRef}>
-                        <ComeBackButton />
-                        <div className="ml-auto flex space-x-2">
-                            {isCurrentProfile ? (
-                                <>
-                                    <Link
-                                        href={PageRoute.SettingConnected}
-                                        className="inline-flex size-8 items-center justify-center rounded-lg bg-lightBg text-second active:opacity-50 md:hover:opacity-60"
-                                    >
-                                        <SettingIcon />
-                                    </Link>
-                                    {socialProfile ? <ShareButton profile={socialProfile} /> : null}
-                                </>
-                            ) : null}
-                            {!isCurrentProfile ? (
-                                <>
-                                    {socialProfile ? (
-                                        <>
-                                            <TipsButton
-                                                identity={identity}
-                                                profiles={profiles}
-                                                handle={socialProfile.handle}
-                                            />
-                                            <FireflyAccountMoreButton profile={socialProfile} profiles={profiles} />
-                                        </>
-                                    ) : null}
-                                    {walletProfile ? (
-                                        <>
-                                            <TipsButton
-                                                identity={identity}
-                                                profiles={profiles}
-                                                handle={walletProfile.primary_ens ?? walletProfile.address}
-                                            />
-                                            <FireflyAccountMoreButton
-                                                walletProfile={walletProfile}
-                                                profiles={profiles}
-                                            />
-                                        </>
-                                    ) : null}
-                                </>
-                            ) : null}
-                        </div>
-                    </div>
-                    <div className="flex w-full flex-col items-center px-4">
-                        {isCurrentProfile && !avatar ? (
-                            <CurrentFireflyAccountAvatar uid={uid} />
-                        ) : (
-                            <Avatar
-                                size={80}
-                                alt="firefly-account"
-                                src={avatar ?? (uid ? getStampAvatarByProfileId(Source.Firefly, uid) : undefined)}
-                            />
-                        )}
-                        <div className="h-6 min-w-0 max-w-full truncate text-lg font-bold leading-6">
-                            {displayName ?? <Trans>Firefly User</Trans>}
-                        </div>
-                    </div>
-                </div>
-            ) : null}
-        </>
-    );
-}
-
-function FireflyAccountBanner({ src }: { src: string }) {
-    return (
-        <div className="absolute left-0 top-0 flex h-[100px] w-full overflow-hidden">
-            <Image
-                src={src}
-                alt="firefly-account-banner"
-                width={1196}
-                height={200}
-                className="absolute left-0 top-1/2 h-auto min-h-[100px] w-full -translate-y-1/2 transform-gpu object-cover blur-md"
-            />
-        </div>
-    );
-}
-
-function CurrentFireflyAccountBannerByAvatar({ uid }: { uid: string }) {
-    const currentAvatar = useFireflyAccountAvatar();
-    return <FireflyAccountBanner src={currentAvatar ?? getStampAvatarByProfileId(Source.Firefly, uid)} />;
-}
-
-function CurrentFireflyAccountAvatar({ uid }: { uid?: string }) {
-    const avatar = useFireflyAccountAvatar();
-    return (
-        <Avatar
-            size={80}
-            alt="firefly-account"
-            src={avatar ?? (uid ? getStampAvatarByProfileId(Source.Firefly, uid) : undefined)}
-        />
+            </div>
+        </Title>
     );
 }
