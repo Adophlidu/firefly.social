@@ -9,7 +9,8 @@ export function getResourceType(urlString: string) {
     if (!fileExtension) return;
 
     // TODO Temporary solution for https://mask.atlassian.net/browse/FW-755
-    if (['imagedelivery.net'].includes(parsedURL.hostname)) {
+    // media.tenor.com is a CDN for GIFs, but it doesn't have a file extension.
+    if (['imagedelivery.net', 'media.tenor.com'].includes(parsedURL.hostname)) {
         return 'Image';
     }
 
