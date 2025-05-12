@@ -4,6 +4,8 @@ import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { openProfilePageByProfileId } from '@/helpers/openProfilePageById.js';
 import { openWindow } from '@/helpers/openWindow.js';
+import { ComposeModalRef } from '@/modals/controls.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { signInWithFarcaster } from '@/services/signInWithFarcaster.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { FrameV2 } from '@/types/frame.js';
@@ -21,22 +23,27 @@ export class FarcasterFrameHost implements FrameHost {
     ) {}
 
     addFrame: FrameHost['addFrame'] = () => {
+        console.warn('[frame host]: addFrame');
         return Promise.resolve({});
     };
 
     close: FrameHost['close'] = () => {
+        console.warn('[frame host]: close');
         this.options?.close?.();
     };
 
     openUrl: FrameHost['openUrl'] = (url) => {
+        console.warn('[frame host]: openUrl', url);
         openWindow(url);
     };
 
     ready: FrameHost['ready'] = (options) => {
+        console.warn('[frame host]: ready');
         this.options?.ready?.(options);
     };
 
     setPrimaryButton: FrameHost['setPrimaryButton'] = (options) => {
+        console.warn('[frame host]: setPrimaryButton', options);
         this.options?.setPrimaryButton?.(options);
     };
 
@@ -54,18 +61,41 @@ export class FarcasterFrameHost implements FrameHost {
     };
 
     swap: FrameHost['swap'] = (options) => {
+        console.warn('[frame host]: swap', options);
         throw new Error('Not implemented');
     };
 
-    composeCast: FrameHost['composeCast'] = (options) => {
-        throw new Error('Not implemented');
+    // @ts-ignore
+    composeCast: FrameHost['composeCast'] = async (options) => {
+        console.warn('[frame host]: composeCast', options);
+        const result = await ComposeModalRef.openAndWaitForClose({
+            source: Source.Farcaster,
+            type: 'compose',
+            chars: options.text,
+            post: options.parent ? await FireflySocialMediaProvider.getPostById(options.parent.hash) : undefined,
+        });
+
+        if (options.close) {
+            this.close();
+            return;
+        }
+
+        if (!result) return;
+
+        return {
+            cast: {
+                hash: result.post?.postId[Source.Farcaster],
+            },
+        };
     };
 
     viewProfile: FrameHost['viewProfile'] = async (options) => {
+        console.warn('[frame host]: viewProfile', options);
         await openProfilePageByProfileId(Source.Farcaster, `${options.fid}`);
     };
 
     viewToken: FrameHost['viewToken'] = (options) => {
+        console.warn('[frame host]: viewToken', options);
         return Promise.resolve();
     };
 

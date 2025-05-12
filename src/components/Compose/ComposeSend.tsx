@@ -25,7 +25,7 @@ import { crossSchedulePost } from '@/services/crossSchedulePost.js';
 import { crossPostScheduleThread } from '@/services/crossSchedulePostThread.js';
 import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeSendProps extends HTMLProps<HTMLDivElement> {}
 
@@ -48,6 +48,9 @@ export function ComposeSend(props: ComposeSendProps) {
             if (checkPostMedias()) return;
             try {
                 controller.current.renew();
+
+                let postResult: CompositePost | undefined = undefined;
+
                 if (hasPosts) {
                     scheduleTime
                         ? await crossPostScheduleThread(scheduleTime, controller.current.signal)
@@ -59,15 +62,17 @@ export function ComposeSend(props: ComposeSendProps) {
                 } else {
                     scheduleTime
                         ? await crossSchedulePost(type, post, scheduleTime, controller.current.signal)
-                        : await crossPost(type, post, {
+                        : (postResult = await crossPost(type, post, {
                               isRetry,
                               signal: controller.current.signal,
-                          });
+                          }));
                 }
                 await delay(300);
                 // If the draft is applied and sent successfully, remove the draft.
                 if (currentDraftId) removeDraft(currentDraftId);
-                ComposeModalRef.close();
+                ComposeModalRef.close({
+                    post: postResult,
+                });
             } catch (error) {
                 if (error instanceof ConnectorNotConnectedError) return;
                 throw error;

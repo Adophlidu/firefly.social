@@ -50,7 +50,7 @@ import { EventId } from '@/providers/types/Telemetry.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -83,8 +83,9 @@ export enum CloseAction {
 }
 
 export type ComposeModalCloseProps = {
-    disableClear?: boolean;
+    post?: CompositePost;
 } | void;
+
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<ComposeModalOpenProps, ComposeModalCloseProps>>;
 };
@@ -131,8 +132,6 @@ export function ComposeModalUI({ ref }: Props) {
             if (initialPath) router.navigate({ to: initialPath });
         },
         onClose: async (props) => {
-            if (props?.disableClear) return;
-
             // wait for animation to finish
             await delay(300);
 
@@ -141,6 +140,7 @@ export function ComposeModalUI({ ref }: Props) {
             router.navigate({ to: '/' });
 
             controller.current.renew();
+
             // https://github.com/DimensionDev/firefly.social/pull/1644
             await delay(1000);
 

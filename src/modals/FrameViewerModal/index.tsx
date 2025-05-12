@@ -121,7 +121,7 @@ export function FrameViewerModal({ ref }: Props) {
                         ref={frameRef}
                         src={frame.button.action.url}
                         allow="clipboard-write 'src'"
-                        sandbox="allow-forms allow-scripts allow-same-origin"
+                        sandbox="allow-forms allow-scripts allow-popups allow-same-origin"
                         style={{
                             backgroundColor: frame.button.action.splashBackgroundColor,
                         }}
