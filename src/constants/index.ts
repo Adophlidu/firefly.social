@@ -380,15 +380,7 @@ export const ALLOWED_IMAGES_MIMES = [
 
 export const ALLOWED_COVER_MIMES = [FileMimeType.PNG, FileMimeType.JPEG] as const;
 
-export const ALLOWED_VIDEO_MIMES = [
-    FileMimeType.MP4,
-    FileMimeType.MPEG,
-    FileMimeType.MS_VIDEO,
-    FileMimeType.OGG,
-    FileMimeType.WEBM,
-    FileMimeType.GPP,
-    FileMimeType.GPP2,
-] as const;
+export const ALLOWED_VIDEO_MIMES = [FileMimeType.MP4, FileMimeType.MOV] as const;
 
 export const ALLOWED_MEDIA_MIMES = [...ALLOWED_IMAGES_MIMES, ...ALLOWED_VIDEO_MIMES] as const;
 

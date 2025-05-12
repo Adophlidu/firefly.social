@@ -7,7 +7,12 @@ import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { FileMimeType } from '@/constants/enum.js';
-import { ALLOWED_IMAGES_MIMES, GIF_MEDIA_SOURCE_CONFIG, SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
+import {
+    ALLOWED_IMAGES_MIMES,
+    ALLOWED_VIDEO_MIMES,
+    GIF_MEDIA_SOURCE_CONFIG,
+    SUPPORTED_VIDEO_SOURCES,
+} from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostGifLimits, getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
@@ -138,7 +143,7 @@ export function Media({ close }: MediaProps) {
 
                 <input
                     type="file"
-                    accept={FileMimeType.MP4}
+                    accept={ALLOWED_VIDEO_MIMES.join(', ')}
                     ref={videoInputRef}
                     className="hidden"
                     onChange={handleVideoChange}
