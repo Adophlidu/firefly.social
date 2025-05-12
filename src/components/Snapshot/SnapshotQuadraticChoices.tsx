@@ -1,5 +1,4 @@
-import { sum } from 'd3';
-import { values } from 'lodash-es';
+import { sum, values } from 'lodash-es';
 import { memo } from 'react';
 
 import { SnapshotQuadraticChoice } from '@/components/Snapshot/SnapshotQuadraticChoice.js';

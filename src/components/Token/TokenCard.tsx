@@ -1,13 +1,14 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { memo, useRef } from 'react';
+import { memo } from 'react';
 
 import PriceArrow from '@/assets/price-arrow.svg';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { SecurityBadge } from '@/components/EmbedCards/TokenSecurityBadge.js';
 import type { AddressCardProps } from '@/components/EmbedCards/types.js';
 import { Link } from '@/components/Link.js';
+import { SimplePriceChart } from '@/components/PriceChart/SimplePriceChart.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
@@ -18,23 +19,11 @@ import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useCoinPrice24hStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
-import type { Dimension } from '@/hooks/useLineChart.js';
-import { usePriceLineChart } from '@/hooks/usePriceLineChart.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
-const DIMENSION: Dimension = {
-    top: 12,
-    right: 0,
-    bottom: 12,
-    left: 0,
-    width: 180,
-    height: 48,
-};
-
 export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, children, ...rest }) {
-    const chartRef = useRef<SVGSVGElement>(null);
     const { data: detected } = useQuery({
         queryKey: ['detect-address', address],
         queryFn: () => FireflyEndpointProvider.detectAddress(address),
@@ -59,9 +48,6 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
 
     const { priceStats, isPending, isUp } = useCoinPrice24hStats(coingecko_coin_id || token?.id);
 
-    usePriceLineChart(chartRef, priceStats, DIMENSION, `token-card-price-chart-${address}`, {
-        simple: true,
-    });
     const chainId = detected?.chain_id ? +detected.chain_id : tradeInfo.chainId;
 
     const { data: tokenSecurity } = useTokenSecurity(chainId, address);
@@ -159,17 +145,11 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
                     </div>
                     <div
                         className={classNames(
-                            'ml-auto max-h-[48px] min-w-[50px] max-w-[170px] overflow-auto',
+                            'ml-auto max-h-[48px] max-w-[180px] overflow-auto',
                             isPending ? 'animate-pulse' : null,
                         )}
                     >
-                        <svg
-                            ref={chartRef}
-                            key={address}
-                            width="100%"
-                            className="aspect-[180/48]"
-                            viewBox="0 0 180 48"
-                        />
+                        <SimplePriceChart records={priceStats} className="size-full" />
                     </div>
                 </div>
             </div>

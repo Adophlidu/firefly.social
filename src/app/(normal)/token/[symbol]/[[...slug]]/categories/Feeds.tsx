@@ -15,7 +15,7 @@ interface Props extends HTMLProps<HTMLDivElement> {
 }
 
 export const Feeds = memo<Props>(function Feeds({ address, symbol, ...props }) {
-    const keywords = useMemo(() => compact([symbol, address]), [symbol, address]);
+    const keywords = useMemo(() => compact([symbol ? `$${symbol}` : null, address]), [symbol, address]);
     const params = useSearchParams();
     const paramSource = params.get('source') as SocialSource | null;
     const defaultSource = paramSource && SORTED_SOCIAL_SOURCES.includes(paramSource) ? paramSource : null;

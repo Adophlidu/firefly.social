@@ -140,7 +140,7 @@ function TradeTooltip({ x, y, trade, className, ...rest }: TradeTooltipProps) {
     );
 }
 
-interface Props extends HTMLProps<HTMLDivElement> {
+export interface PriceChartProps extends HTMLProps<HTMLDivElement> {
     records: PriceRecord[];
     tradeRecords?: TradeRecord[];
     activeTradeDate?: number;
@@ -149,7 +149,7 @@ interface Props extends HTMLProps<HTMLDivElement> {
 }
 
 const YAxisDomain = ['auto', 'auto'];
-export const PriceChart = memo<Props>(function PriceChart({
+export const PriceChart = memo<PriceChartProps>(function PriceChart({
     records,
     tradeRecords = EMPTY_LIST,
     activeTradeDate: propActiveTradeDate,

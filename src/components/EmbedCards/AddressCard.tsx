@@ -63,13 +63,13 @@ export const AddressCardIndicator = memo<AddressCardIndicatorProps>(function Add
         detected?.address_type === 'contract' &&
         (detected.contract_type === 'token' || detected.contract_type === 'ERC20');
 
-    const { data: token } = useTokenInfo(coingecko_coin_id || address, !!coingecko_coin_id, isToken);
+    const { data: token, isLoading } = useTokenInfo(coingecko_coin_id || address, !!coingecko_coin_id, isToken);
 
     const unavailable =
         !detected?.address_type ||
         detected.contract_type === 'program' ||
         detected.contract_type === 'unknown' ||
-        (isToken && !token);
+        (isToken && !token && !isLoading);
 
     useLayoutEffect(() => {
         onAvailableUpdate(data, !unavailable);

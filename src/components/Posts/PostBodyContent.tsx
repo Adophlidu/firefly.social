@@ -103,7 +103,7 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
     const pathname = usePathname();
 
     const isProfilePage = pathname === PageRoute.Profile || isRoutePathname(pathname, PageRoute.Profile);
-    const isTokenPage = /^\/token\b$/.test(pathname);
+    const isTokenPage = /^\/token\b/.test(pathname);
 
     const payloadFromImageAttachment = payloads?.payloadFromImageAttachment;
     const payloadImageUrl = payloadFromImageAttachment?.[2];
