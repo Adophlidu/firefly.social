@@ -100,26 +100,17 @@ function FireflyAccountWithTitleUI({
     profile,
     profiles,
 }: FireflyAccountWithTitleUIProps) {
-    const [buttonContainerRef, buttonContainerEntry] = useIntersectionObserver({
-        threshold: 0.5,
-    });
-    const showStickyTitle = buttonContainerEntry && !buttonContainerEntry.isIntersecting;
     return (
         <>
-            <div
-                className={classNames('sticky left-0 top-0 z-40 h-0 w-full transform duration-200', {
-                    '-translate-y-[60px]': !showStickyTitle,
-                })}
-            >
+            <div className="sticky left-0 top-0 z-40 h-0 w-full transform duration-200">
                 <NavigationBar identity={identity} walletProfile={walletProfile} socialProfile={socialProfile} />
             </div>
-            <FireflyAccountInfoUI profile={profile}>
+            <FireflyAccountInfoUI profile={profile} className="z-[41]">
                 <FireflyAccountInfoHeader
                     identity={identity}
                     walletProfile={walletProfile}
                     socialProfile={socialProfile}
                     relatedProfile={relatedProfile}
-                    ref={buttonContainerRef}
                     profiles={profiles}
                 />
             </FireflyAccountInfoUI>
@@ -200,7 +191,7 @@ function FireflyAccountInfoHeader({
     socialProfile?: Profile | null;
     relatedProfile: WalletProfiles;
     profiles: FireflyProfile[];
-    ref: Ref<HTMLDivElement>;
+    ref?: Ref<HTMLDivElement>;
 }) {
     const allCurrentProfiles = useCurrentProfilesAll();
     const isCurrentProfile = useMemo(() => {

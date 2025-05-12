@@ -1,9 +1,10 @@
 import { Trans } from '@lingui/react/macro';
-import type { PropsWithChildren } from 'react';
+import type { HTMLProps } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { Image } from '@/components/Image.js';
 import { Source } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import type { FireflyAccountProfile } from '@/providers/types/Firefly.js';
 
@@ -25,11 +26,12 @@ export function FireflyAccountInfoUI({
     profile,
     banner,
     children,
-}: PropsWithChildren<{ profile: FireflyAccountProfile; banner?: string }>) {
+    className,
+}: HTMLProps<'div'> & { profile: FireflyAccountProfile; banner?: string }) {
     const { uid, avatar, displayName } = profile;
     const avatarWithFallback = avatar || getStampAvatarByProfileId(Source.Firefly, uid);
     return (
-        <div className="relative flex w-full flex-col items-center pt-2.5">
+        <div className={classNames('relative flex w-full flex-col items-center bg-primaryBottom pt-2.5', className)}>
             {banner ? (
                 <Image
                     src={banner}
