@@ -1,9 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { LinguiClientProvider } from '@/components/LinguiClientProvider.js';
 import { i18n } from '@lingui/core';
-import { setupLocalForClient } from '@/i18n/index.js';
 import type { Preview } from '@storybook/react';
 import '../src/app/globals.css';
+import { Buffer } from 'buffer';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -15,6 +15,7 @@ const queryClient = new QueryClient({
 });
 
 i18n.activate('en');
+globalThis.Buffer = Buffer;
 export const decorators = [
     (Story) => {
         return (

@@ -1,21 +1,21 @@
 export const bom = {
     get window() {
-        return typeof window === 'undefined' ? null : window;
+        return typeof self === 'undefined' ? null : self;
     },
 
     get document() {
-        return this.window?.document ?? null;
+        return typeof document === 'undefined' ? null : document;
     },
 
     get location() {
-        return this.window?.location ?? null;
+        return typeof location === 'undefined' ? null : location;
     },
 
     get navigator() {
-        return this.window?.navigator ?? null;
+        return typeof navigator === 'undefined' ? null : navigator;
     },
 
     get localStorage() {
-        return this.window?.localStorage ?? null;
+        return typeof localStorage === 'undefined' ? null : localStorage;
     },
 };
