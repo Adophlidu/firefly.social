@@ -178,8 +178,14 @@ class TwitterSocialMedia implements Provider {
         return createPageable(data, createIndicator(indicator), nextIndicator);
     }
 
-    discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
+    async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const url = urlcat(`/api/twitter/followingTimeline`, {
+            limit: 25,
+            cursor: indicator?.id,
+        });
+        const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
+        const data = resolveTwitterResponseData(response);
+        return formatTweetsPage(data, indicator);
     }
 
     getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
@@ -310,13 +316,7 @@ class TwitterSocialMedia implements Provider {
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat(`/api/twitter/home`, {
-            limit: 25,
-            cursor: indicator?.id,
-        });
-        const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
-        const data = resolveTwitterResponseData(response);
-        return formatTweetsPage(data, indicator);
+        throw new NotImplementedError();
     }
 
     async getPostById(postId: string): Promise<Post> {

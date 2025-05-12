@@ -111,7 +111,7 @@ function PlatformItem({
 
 export function DiscoverFilter({ tab, source }: Props) {
     const { followingTimelinePlatforms, setFollowingTimelinePlatforms } = useDiscoverStore();
-    const sources = useSocialDiscoverSourcesWithWhitelist();
+    const sources = useSocialDiscoverSourcesWithWhitelist(tab);
 
     function getMenuItems() {
         switch (source) {

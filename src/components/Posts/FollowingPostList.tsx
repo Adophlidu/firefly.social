@@ -9,7 +9,7 @@ import { Loading } from '@/components/Loading.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { HomeTab, ScrollListKey, type SocialDiscoverSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST, SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { mergeThreadPostsWithoutSource } from '@/helpers/mergeThreadPosts.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -18,14 +18,16 @@ import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useDiscoverSources } from '@/hooks/useDiscoverSources.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
+import { useSocialDiscoverSourcesWithWhitelist } from '@/hooks/useSocialDiscoverSourcesWithWhitelist.js';
 
 function useIsLoginDiscoverNeed(source: SocialDiscoverSource | Source.Posts) {
     const profilesAll = useCurrentProfilesAll();
+    const sources = useSocialDiscoverSourcesWithWhitelist(HomeTab.Following);
 
     return useMemo(() => {
         if (source !== Source.Posts) return !!profilesAll[source]?.profileId;
-        return SOCIAL_DISCOVER_SOURCE.some((x) => !!profilesAll[x]?.profileId);
-    }, [source, profilesAll]);
+        return sources.some((x) => !!profilesAll[x]?.profileId);
+    }, [sources, source, profilesAll]);
 }
 
 export const FollowingPostList = memo<{

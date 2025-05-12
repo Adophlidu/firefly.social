@@ -8,10 +8,10 @@ const LOGIN_REQUEST = [HomeTab.Following];
 
 export function useDiscoverSources(tab: HomeTab) {
     const profilesAll = useCurrentProfilesAll();
-    const socialDiscoverSourcesWithWhitelist = useSocialDiscoverSourcesWithWhitelist();
+    const followingTimelineSourcesWithWhitelist = useSocialDiscoverSourcesWithWhitelist(tab);
     const sourcesByTab: Record<HomeTab, SocialDiscoverSource[]> = {
-        [HomeTab.Discover]: socialDiscoverSourcesWithWhitelist,
-        [HomeTab.Following]: SOCIAL_DISCOVER_SOURCE,
+        [HomeTab.Discover]: SOCIAL_DISCOVER_SOURCE,
+        [HomeTab.Following]: followingTimelineSourcesWithWhitelist,
     };
     const sources = sourcesByTab[tab];
     const selectedSources = useDiscoverStore((state) =>
