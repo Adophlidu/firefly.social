@@ -258,6 +258,7 @@ export const SOCIAL_DISCOVER_SOURCE: SocialDiscoverSource[] = [Source.Farcaster,
 export const SOCIAL_DISCOVER_SOURCE_LOGIN_REQUIRED: SocialDiscoverSource[] = [Source.Twitter];
 export const SOCIAL_DISCOVER_WHITELIST_SOURCE: SocialDiscoverSource[] = [Source.Twitter];
 export const SOCIAL_NOTIFICATION_SOURCE: SocialNotificationSource[] = [Source.Farcaster, Source.Lens, Source.Bsky];
+export const QUERY_MUTE_PROFILE_SOURCES = [Source.Bsky, Source.Twitter, Source.Lens];
 export const DISCOVER_SOURCES: DiscoverSource[] = [Source.Posts, Source.NFTs, Source.Article, Source.DAOs] as const;
 export const FOLLOWING_SOURCES: FollowingSource[] = [
     Source.Posts,
