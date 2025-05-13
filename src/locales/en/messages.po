@@ -478,6 +478,9 @@ msgstr "Your account is now connected."
 msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
 msgstr "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
 
+msgid "Transactions"
+msgstr "Transactions"
+
 #. placeholder {0}: profile.source
 #. placeholder {0}: post.source
 msgid "Report submitted on {0}"
@@ -1772,6 +1775,9 @@ msgstr "Search post"
 
 msgid "Eligible for Premium?"
 msgstr "Eligible for Premium?"
+
+msgid "You haven't traded this token."
+msgstr "You haven't traded this token."
 
 msgid "Set"
 msgstr "Set"
@@ -3539,6 +3545,9 @@ msgstr "<0>You</0> and {0} recasted"
 msgid "Stickers"
 msgstr "Stickers"
 
+msgid "No trade records"
+msgstr "No trade records"
+
 msgid "Dark Mode"
 msgstr "Dark Mode"
 
@@ -3872,6 +3881,9 @@ msgstr "No blackmail activities involved."
 #. placeholder {0}: error.message
 msgid "We encountered an error when try to decrypt this message: {0}"
 msgstr "We encountered an error when try to decrypt this message: {0}"
+
+msgid "No one you follow has traded this token."
+msgstr "No one you follow has traded this token."
 
 msgid "Final Step Claim Now!"
 msgstr "Final Step Claim Now!"

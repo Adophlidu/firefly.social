@@ -10,14 +10,16 @@ interface Options {
     trader?: string;
     /** to keep consistent with previous entry */
     traderName?: string;
+    address?: string;
 }
 
-export function resolveTokenPageUrl({ identity, chainId, isCoinId, trader, traderName }: Options) {
+export function resolveTokenPageUrl({ identity, chainId, address, isCoinId, trader, traderName }: Options) {
     return urlcat('/token/:identity', {
         identity,
         chainId,
         coinId: isCoinId ? 'true' : undefined,
         trader,
         traderName: traderName || undefined,
+        address,
     });
 }

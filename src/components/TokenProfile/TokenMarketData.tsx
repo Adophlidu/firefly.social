@@ -4,7 +4,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { first } from 'lodash-es';
-import { type HTMLProps, memo, useContext, useMemo, useState } from 'react';
+import { type HTMLProps, memo, useMemo, useState } from 'react';
 
 import EyeIcon from '@/assets/eye.svg';
 import EyeCloseIcon from '@/assets/eye-close.svg';
@@ -14,7 +14,6 @@ import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Link } from '@/components/Link.js';
 import { PriceChart } from '@/components/PriceChart/index.js';
 import { useWithinRangeRecords } from '@/components/PriceChart/useWithinRangeRecords.js';
-import { TokenContext } from '@/components/Token/TokenContext.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurityBar.js';
@@ -34,6 +33,7 @@ import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import type { PriceRecord, TradeRecord } from '@/types/token.js';
 
 export interface TokenMarketDataProps extends HTMLProps<HTMLDivElement> {
+    chainId?: number;
     tradeRecords?: TradeRecord[];
     token: CoinGeckoToken;
     linkable?: boolean;
@@ -52,19 +52,21 @@ const getRanges = () => {
 };
 
 export const TokenMarketData = memo(function TokenMarketData({
+    chainId,
     linkable,
     token,
     rank,
-    tradeRecords: originTradeRecords = EMPTY_LIST,
+    tradeRecords = EMPTY_LIST,
     ...rest
 }: TokenMarketDataProps) {
     const ranges = getRanges();
     const { data: price } = useTokenPrice(token.id);
     const { data: trending } = useCoinTrending(token.id);
     const { contracts } = trending ?? {};
-    const contract = first(contracts);
+    const contract = (chainId ? contracts?.find((x) => x.chainId === chainId) : null) || first(contracts);
     const { data: security } = useTokenSecurity(contract?.chainId, contract?.address);
     const tradeInfo = useTradeInfo(token);
+    const tradeChainId = chainId ?? tradeInfo.chainId;
 
     const { preferences, setPreference } = usePreferencesState();
     const [activeRecord, setActiveRecord] = useState<PriceRecord>();
@@ -78,7 +80,7 @@ export const TokenMarketData = memo(function TokenMarketData({
         () => (currentRange.id === '1h' ? priceStats.slice(-12) : priceStats),
         [currentRange.id, priceStats],
     );
-    const tradeRecords = preferences.SHOW_USER_TX_IN_CHART ? originTradeRecords : EMPTY_LIST;
+    const showUserTx = preferences.SHOW_USER_TX_IN_CHART;
     const withinRangeTradeRecords = useWithinRangeRecords(stats, tradeRecords);
 
     const { isUp, change } = useIsPriceUp(stats, activeRecord);
@@ -86,7 +88,7 @@ export const TokenMarketData = memo(function TokenMarketData({
 
     const baseInfo = (
         <>
-            <TokenIcon icon={token.logoURL} alt={token.name} size={24} chainId={contract?.chainId} />
+            <TokenIcon icon={token.logoURL} alt={token.name} size={24} chainId={chainId} />
             <strong className="ml-0.5 text-medium font-bold text-main">{token.name}</strong>
             <span className="font-inter text-medium font-bold uppercase">{token.symbol}</span>
             {contract?.address ? <CopyTextButton className="[&_svg]:ml-0" text={contract?.address} /> : null}
@@ -145,10 +147,10 @@ export const TokenMarketData = memo(function TokenMarketData({
                     className="sm:hidden md:inline-flex"
                     tradable={tradeInfo.tradable}
                     swapProps={
-                        tradeInfo.chainId
+                        tradeChainId && tradeInfo.address
                             ? {
                                   toToken: tradeInfo.address,
-                                  chainId: tradeInfo.chainId,
+                                  chainId: tradeChainId,
                                   chainIds: tradeInfo.supportedChainIds.map((x) => x.toString()),
                               }
                             : undefined
@@ -171,7 +173,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                     <PriceChart
                         className="size-full"
                         records={stats}
-                        tradeRecords={withinRangeTradeRecords}
+                        tradeRecords={showUserTx ? withinRangeTradeRecords : EMPTY_LIST}
                         activeTradeDate={pendingTradeDate ?? activeTradeDate}
                         onHover={(payload) => setActiveRecord(payload)}
                         onMouseLeave={() => setActiveRecord(undefined)}
@@ -228,10 +230,10 @@ export const TokenMarketData = memo(function TokenMarketData({
                     <ClickableButton
                         className="ml-auto"
                         onClick={() => {
-                            setPreference('SHOW_USER_TX_IN_CHART', !preferences.SHOW_USER_TX_IN_CHART);
+                            setPreference('SHOW_USER_TX_IN_CHART', !showUserTx);
                         }}
                     >
-                        {preferences.SHOW_USER_TX_IN_CHART ? (
+                        {showUserTx ? (
                             <EyeIcon className="size-4 text-secondary" width={16} height={16} />
                         ) : (
                             <EyeCloseIcon className="size-4 text-secondary" width={16} height={16} />
@@ -241,9 +243,4 @@ export const TokenMarketData = memo(function TokenMarketData({
             </div>
         </div>
     );
-});
-
-export const WrapTokenMarketData = memo(function WrapTokenMarketData(props: TokenMarketDataProps) {
-    const { tradeRecords } = useContext(TokenContext);
-    return <TokenMarketData tradeRecords={tradeRecords} {...props} />;
 });

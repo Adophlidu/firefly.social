@@ -483,6 +483,9 @@ msgstr ""
 msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
 msgstr ""
 
+msgid "Transactions"
+msgstr ""
+
 #. placeholder {0}: profile.source
 #. placeholder {0}: post.source
 msgid "Report submitted on {0}"
@@ -1776,6 +1779,9 @@ msgid "Search post"
 msgstr ""
 
 msgid "Eligible for Premium?"
+msgstr ""
+
+msgid "You haven't traded this token."
 msgstr ""
 
 msgid "Set"
@@ -3528,6 +3534,9 @@ msgstr ""
 msgid "Stickers"
 msgstr ""
 
+msgid "No trade records"
+msgstr ""
+
 msgid "Dark Mode"
 msgstr ""
 
@@ -3860,6 +3869,9 @@ msgstr ""
 
 #. placeholder {0}: error.message
 msgid "We encountered an error when try to decrypt this message: {0}"
+msgstr ""
+
+msgid "No one you follow has traded this token."
 msgstr ""
 
 msgid "Final Step Claim Now!"

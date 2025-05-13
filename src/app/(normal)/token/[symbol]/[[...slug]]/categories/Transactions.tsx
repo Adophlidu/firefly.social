@@ -21,7 +21,7 @@ interface Props extends HTMLProps<HTMLDivElement>, Pick<SwapTimelineProps, 'chai
     traderName: string | undefined;
 }
 
-export const Activities = memo<Props>(function Activities({
+export const Transactions = memo<Props>(function Transactions({
     chainId,
     tokenAddress = NATIVE_TOKEN_ADDRESS,
     trader,
@@ -104,12 +104,33 @@ export const Activities = memo<Props>(function Activities({
                 })}
             </div>
             {isFollowing ? (
-                <SwapTimeline {...timelineProps} isFollowing />
+                <SwapTimeline
+                    isFollowing
+                    {...timelineProps}
+                    NoResultsFallbackProps={{
+                        icon: null,
+                        message: <Trans>No one you follow has traded this token.</Trans>,
+                    }}
+                />
             ) : subcategory === 'trader' && trader ? (
-                <SwapTimeline {...timelineProps} address={trader} />
+                <SwapTimeline
+                    address={trader}
+                    {...timelineProps}
+                    NoResultsFallbackProps={{
+                        icon: null,
+                        message: <Trans>No trade records</Trans>,
+                    }}
+                />
             ) : subcategory === 'mine' ? (
                 account.address ? (
-                    <SwapTimeline {...timelineProps} address={account.address} />
+                    <SwapTimeline
+                        address={account.address}
+                        {...timelineProps}
+                        NoResultsFallbackProps={{
+                            icon: null,
+                            message: <Trans>You haven&apos;t traded this token.</Trans>,
+                        }}
+                    />
                 ) : (
                     <NotLoginFallback
                         source={Source.Wallet}

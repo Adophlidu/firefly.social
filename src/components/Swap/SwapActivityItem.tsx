@@ -161,6 +161,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                     chainId: activity.chain_id,
                                     trader: activity.owner,
                                     traderName: activity.displayInfo.ensHandle,
+                                    address: activity.from_token.address,
                                 })}
                                 className="flex items-center gap-2 rounded-lg bg-bg p-2"
                                 onClick={stopPropagation}
@@ -202,6 +203,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                     chainId: activity.chain_id,
                                     trader: activity.owner,
                                     traderName: activity.displayInfo.ensHandle,
+                                    address: activity.to_token.address,
                                 })}
                                 className="flex items-center gap-2 rounded-lg bg-bg p-2"
                                 onClick={stopPropagation}

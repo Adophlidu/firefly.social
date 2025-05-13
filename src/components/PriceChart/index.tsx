@@ -10,7 +10,6 @@ import {
 } from 'react';
 import { Area, AreaChart, ResponsiveContainer, Tooltip, YAxis } from 'recharts';
 
-import { useMergeRecords } from '@/components/PriceChart/useMergeRecords.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatBalance, trimZero } from '@/helpers/formatBalance.js';
@@ -158,7 +157,6 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
     ...props
 }) {
     const { isUp } = useIsPriceUp(records);
-    const mergedRecords = useMergeRecords(records, tradeRecords);
     const [activeRecord, setActiveRecord] = useState<PriceRecord>();
     const [dotMap, setDotMap] = useState<Record<string, TooltipState>>({});
 
@@ -205,12 +203,12 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
                   tooltipState.trade?.type === 'buy' ? 'rgb(var(--color-success))' : 'rgb(var(--color-danger))',
           }
         : undefined;
-    const activeItem = mergedRecords.find((x) => x.date === activeTradeDate);
+    const activeItem = records.find((x) => x.date === activeTradeDate);
     return (
         <div {...props} className={classNames('relative overflow-visible', props.className)}>
             <ResponsiveContainer width="100%" height="100%" onResize={setContainerWidth}>
                 <AreaChart
-                    data={mergedRecords}
+                    data={records}
                     onMouseMove={(e) => {
                         if (!e.activePayload?.length) return;
                         onHover?.(e.activePayload[0].payload);

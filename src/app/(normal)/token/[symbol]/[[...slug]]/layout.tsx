@@ -3,12 +3,12 @@ import { notFound } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
 import urlcat from 'urlcat';
 
+import { WrapTokenMarketData } from '@/app/(normal)/token/[symbol]/[[...slug]]/WrapTokenMarketData.js';
 import { Comeback } from '@/components/Comeback.js';
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
-import { WrapTokenMarketData } from '@/components/TokenProfile/TokenMarketData.js';
 import { TokenCategory } from '@/constants/enum.js';
 import { TOKEN_CATEGORIES } from '@/constants/index.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
@@ -27,6 +27,7 @@ export interface TokenPageSearch {
     trader?: string;
     /** to keep consistent with previous entry */
     traderName?: string;
+    address?: string;
 }
 
 interface Props
@@ -41,7 +42,7 @@ interface Props
 const categoryUrlPatternMap: Record<TokenCategory, string> = {
     [TokenCategory.Feeds]: `/token/:symbol/feeds`,
     [TokenCategory.Overview]: '/token/:symbol/overview',
-    [TokenCategory.Transactions]: `/token/:symbol/activities`,
+    [TokenCategory.Transactions]: `/token/:symbol/transactions`,
 };
 function resolveCategoryUrl(category: TokenCategory, params: TokenPageSearch & { symbol: string }): string {
     return urlcat(categoryUrlPatternMap[category], params);
@@ -64,7 +65,7 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
     const token = await runInSafeAsync(() => getTokenFromCoinGecko(symbol));
 
     const labels: Record<TokenCategory, React.ReactNode> = {
-        [TokenCategory.Transactions]: <Trans>Activities</Trans>,
+        [TokenCategory.Transactions]: <Trans>Transactions</Trans>,
         [TokenCategory.Feeds]: <Trans>Feeds</Trans>,
         [TokenCategory.Overview]: <Trans>Overview</Trans>,
     };

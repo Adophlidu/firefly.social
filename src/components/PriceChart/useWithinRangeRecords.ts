@@ -22,11 +22,7 @@ export function useWithinRangeRecords(records: PriceRecord[], tradeRecords: Trad
 
         filtered.forEach((x) => {
             const i = mergedDates.indexOf(x.date);
-            const prev = mergedDates[i - 1] || mergedDates[0];
-            const next = mergedDates[i + 1] || mergedDates[mergedDates.length - 1];
-            const prevDelta = x.date - prev;
-            const nextDelta = next - x.date;
-            x.date = prevDelta < nextDelta ? prev : next;
+            x.date = mergedDates[i - 1] || mergedDates[0];
             const record = records.find((y) => y.date === x.date);
             x.value = record?.value;
         });

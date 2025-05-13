@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 
 import SwapEmptyIcon from '@/assets/swap-empty.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { ListInPage } from '@/components/ListInPage.js';
+import { ListInPage, type ListInPageProps } from '@/components/ListInPage.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SwapActivityItem } from '@/components/Swap/SwapActivityItem.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
@@ -26,6 +26,7 @@ export function getSwapActivityItemContent(index: number, activity: SwapActivity
 }
 
 export type SwapTimelineProps = {
+    NoResultsFallbackProps?: ListInPageProps['NoResultsFallbackProps'];
     chainId?: number;
     tokenAddress?: string;
     onActivitiesUpdate?: (data: SwapActivity[]) => void;
@@ -45,6 +46,7 @@ export function SwapTimeline({
     address,
     chainId: propChainId,
     tokenAddress,
+    NoResultsFallbackProps,
     onActivitiesUpdate,
 }: SwapTimelineProps) {
     const isLoginFirefly = useIsLoginFirefly();
@@ -111,6 +113,7 @@ export function SwapTimeline({
                 ) : (
                     <Trans>No activity yet</Trans>
                 ),
+                ...NoResultsFallbackProps,
             }}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Swap}:${isFollowing ? 'following' : 'profile'}`,

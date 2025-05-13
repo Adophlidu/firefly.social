@@ -483,6 +483,9 @@ msgstr "您的帳戶已連接。"
 msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
 msgstr "<0>已售出注單</0><1>價值 ${0} 於 Polymarket</1>"
 
+msgid "Transactions"
+msgstr ""
+
 #. placeholder {0}: profile.source
 #. placeholder {0}: post.source
 msgid "Report submitted on {0}"
@@ -1777,6 +1780,9 @@ msgstr "搜尋貼文"
 
 msgid "Eligible for Premium?"
 msgstr "符合高級版資格？"
+
+msgid "You haven't traded this token."
+msgstr ""
 
 msgid "Set"
 msgstr "設定"
@@ -3539,6 +3545,9 @@ msgstr "<0>您</0>與 {0} 已轉發"
 msgid "Stickers"
 msgstr "貼圖"
 
+msgid "No trade records"
+msgstr ""
+
 msgid "Dark Mode"
 msgstr "深色模式"
 
@@ -3871,6 +3880,9 @@ msgstr ""
 
 #. placeholder {0}: error.message
 msgid "We encountered an error when try to decrypt this message: {0}"
+msgstr ""
+
+msgid "No one you follow has traded this token."
 msgstr ""
 
 msgid "Final Step Claim Now!"

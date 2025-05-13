@@ -1,9 +1,9 @@
 'use client';
 import { use } from 'react';
 
-import { Activities } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/Activities.js';
 import { Feeds } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/Feeds.js';
 import { TokenOverview } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/TokenOverview.js';
+import { Transactions } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/Transactions.js';
 import type { TokenPageSearch } from '@/app/(normal)/token/[symbol]/[[...slug]]/layout.js';
 import { TokenCategory } from '@/constants/enum.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
@@ -22,12 +22,12 @@ interface Props
 
 export default function TokenCategoryPage({ params, searchParams }: Props) {
     const { symbol, slug } = use(params);
-    const { chainId, isCoinId, trader, traderName } = use(searchParams);
+    const { chainId, isCoinId, trader, traderName, address } = use(searchParams);
     const category = slug?.[0];
     const { data: token } = useTokenInfo(symbol, isCoinId === 'true');
     const { data: trending } = useCoinTrending(token?.id);
 
-    const tokenAddress = isValidAddressEthereum(symbol) ? symbol : trending?.contracts?.[0]?.address;
+    const tokenAddress = address ?? (isValidAddressEthereum(symbol) ? symbol : trending?.contracts?.[0]?.address);
 
     switch (category) {
         case TokenCategory.Feeds:
@@ -37,8 +37,8 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
         case TokenCategory.Transactions:
         default:
             return (
-                <Activities
-                    chainId={chainId ? +chainId : undefined}
+                <Transactions
+                    chainId={chainId ? +chainId : (trending?.coin.chainId ?? trending?.contracts?.[0]?.chainId)}
                     tokenAddress={tokenAddress}
                     trader={trader}
                     traderName={traderName}
