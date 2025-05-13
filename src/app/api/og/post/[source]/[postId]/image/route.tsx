@@ -196,7 +196,7 @@ async function PostOpenGraphImage({ post }: { post: Post }) {
                 </div>
                 <div
                     style={{
-                        display: 'block',
+                        display: 'flex',
                         whiteSpace: 'pre-line',
                         wordWrap: 'break-word',
                         height: '96px',
