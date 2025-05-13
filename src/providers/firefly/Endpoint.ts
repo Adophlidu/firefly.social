@@ -1011,6 +1011,15 @@ class FireflyEndpoint {
         return resolveFireflyResponseData(response);
     }
 
+    async getTokenBySymbol(symbol: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, 'v2/token/single_token', {
+            token_symbol: symbol,
+        });
+
+        const response = await fireflySessionHolder.fetch<Response<TokenWithMarketData>>(url);
+        return resolveFireflyResponseData(response);
+    }
+
     async searchCollections(keyword: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/collectible', {
             keyword,

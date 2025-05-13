@@ -2,6 +2,7 @@ import { NetworkPluginID } from '@/constants/enum.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import { isTokenMatched } from '@/services/searchTokens.js';
 
@@ -12,7 +13,8 @@ export const getTokenFromCoinGecko = memoizePromise(
         const tokens = await getTokens();
         const token = tokens.find((x) => isTokenMatched(x, symbolOrId));
         if (!token) {
-            const marketToken = await runInSafeAsync(() => CoinGecko.getCoinInfo(symbolOrId));
+            const data = await runInSafeAsync(() => FireflyEndpointProvider.getTokenBySymbol(symbolOrId));
+            const marketToken = await runInSafeAsync(() => CoinGecko.getCoinInfo(data?.id ?? symbolOrId));
             if (marketToken && 'symbol' in marketToken) {
                 return {
                     pluginID: NetworkPluginID.PLUGIN_EVM,
