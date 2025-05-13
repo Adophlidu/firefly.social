@@ -399,26 +399,6 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
     );
 }
 
-function SingleTriggerButton({
-    identity,
-    socialProfile,
-}: {
-    identity: FireflyIdentity;
-    socialProfile?: Profile | null;
-}) {
-    return (
-        <div className="no-scrollbar align-center relative flex w-full overflow-x-auto overflow-y-auto px-4 pb-2.5 pt-2">
-            <TriggerButton
-                profile={{
-                    identity,
-                    displayName: socialProfile?.handle ?? identity.id,
-                }}
-                identity={identity}
-            />
-        </div>
-    );
-}
-
 export function ProfileSourceTabs({
     profiles,
     identity,
@@ -428,14 +408,10 @@ export function ProfileSourceTabs({
     identity: FireflyIdentity;
     socialProfile?: Profile | null;
 }) {
+    if (profiles.length <= 1) return null;
     const sources = SORTED_PROFILE_SOURCES.filter(
         (source) => profiles.filter((profile) => profile.identity.source === source).length,
     );
-
-    if (sources.length <= 0 && isSocialSource(identity.source)) {
-        return <SingleTriggerButton identity={identity} socialProfile={socialProfile} />;
-    }
-
     return (
         <ProfileSourceTabsContainer>
             {sources.map((source, i) => {
