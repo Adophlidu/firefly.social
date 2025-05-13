@@ -13,7 +13,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import type { SocialSource } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -151,7 +151,11 @@ export function AccountCards() {
                                                 />
                                             </Tooltip>
                                         )}
-                                        <ProfileAvatar profile={profile} size={36} />
+                                        <ProfileAvatar
+                                            profile={profile}
+                                            size={36}
+                                            enableDefaultAvatar={profile.source === Source.Lens}
+                                        />
                                         <ProfileName profile={profile} />
                                         {isConnected ? (
                                             <DisconnectButton account={{ profile, origin: account?.origin }} />

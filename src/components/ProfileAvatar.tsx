@@ -6,6 +6,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -38,15 +39,13 @@ export function ProfileAvatar({
     const style = useSizeStyle(size, props.style);
 
     const profileSource = profile.profileSource ?? profile.source;
+    const stampAvatar = getStampAvatarByProfileId(profileSource, profile.profileId);
+    const profileAvatar = !profile.pfp && enableDefaultAvatar && stampAvatar ? stampAvatar : profile.pfp;
 
     const content = (
         <div className="relative z-0" style={style}>
             <div className="absolute left-0 top-0 rounded-full" style={style}>
-                {!profile.pfp && enableDefaultAvatar ? (
-                    <ProfileSourceIcon size={size} source={profileSource} />
-                ) : (
-                    <Avatar src={profile.pfp} size={size} alt={profile.displayName} fallbackUrl={fallbackUrl} />
-                )}
+                <Avatar src={profileAvatar} size={size} alt={profile.displayName} fallbackUrl={fallbackUrl} />
             </div>
             {loading ? (
                 <div className="absolute left-0 top-0 z-10">
