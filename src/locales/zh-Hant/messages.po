@@ -1539,6 +1539,9 @@ msgstr "網路費用"
 msgid "Contract address found."
 msgstr "找到合約地址"
 
+msgid "Total volume"
+msgstr ""
+
 msgid "NFT added to your Bookmarks"
 msgstr "NFT 已加入書籤"
 
@@ -3719,9 +3722,6 @@ msgstr "合約持有者未設反巨鯨機制。"
 msgid "Exclusive Events"
 msgstr "獨家活動"
 
-msgid "Total Volume"
-msgstr "總交易量"
-
 msgid "Post added to your Bookmarks"
 msgstr "貼文已加入書籤"
 
@@ -4045,6 +4045,9 @@ msgid "<0>{0}</0><1>MC</1>{1}"
 msgstr ""
 
 msgid "Ethereum JSON RPC"
+msgstr ""
+
+msgid "Last sale"
 msgstr ""
 
 #. placeholder {0}: profile.handle

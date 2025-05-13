@@ -1539,6 +1539,9 @@ msgstr "网络费"
 msgid "Contract address found."
 msgstr "识别为合约地址。"
 
+msgid "Total volume"
+msgstr ""
+
 msgid "NFT added to your Bookmarks"
 msgstr "NFT 已经添加到你的收藏中"
 
@@ -3724,9 +3727,6 @@ msgstr "合约所有者对反鲸鱼机制没有限制。<<<<<<< HEAD======="
 msgid "Exclusive Events"
 msgstr "独家活动"
 
-msgid "Total Volume"
-msgstr "总交易量"
-
 msgid "Post added to your Bookmarks"
 msgstr "帖子已经添加到你的收藏中"
 
@@ -4053,6 +4053,9 @@ msgstr "<0>{0}</0><1>市值</1>{1}"
 
 msgid "Ethereum JSON RPC"
 msgstr "以太坊 JSON RPC"
+
+msgid "Last sale"
+msgstr ""
 
 #. placeholder {0}: profile.handle
 msgid "Followed @{0} on Lens"

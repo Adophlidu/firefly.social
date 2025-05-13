@@ -1534,6 +1534,9 @@ msgstr ""
 msgid "Contract address found."
 msgstr ""
 
+msgid "Total volume"
+msgstr ""
+
 msgid "NFT added to your Bookmarks"
 msgstr ""
 
@@ -3703,9 +3706,6 @@ msgstr ""
 msgid "Exclusive Events"
 msgstr ""
 
-msgid "Total Volume"
-msgstr ""
-
 msgid "Post added to your Bookmarks"
 msgstr ""
 
@@ -4029,6 +4029,9 @@ msgid "<0>{0}</0><1>MC</1>{1}"
 msgstr ""
 
 msgid "Ethereum JSON RPC"
+msgstr ""
+
+msgid "Last sale"
 msgstr ""
 
 #. placeholder {0}: profile.handle

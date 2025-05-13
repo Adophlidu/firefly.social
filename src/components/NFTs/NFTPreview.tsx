@@ -22,6 +22,7 @@ import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useCollectionMarketInfo } from '@/hooks/useCollectionMarketInfo.js';
 import { useNFTCollection } from '@/hooks/useNFTCollection.js';
+import { useNFTDetail } from '@/hooks/useNFTDetail';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import type { NFTDetail } from '@/providers/types/Firefly.js';
@@ -54,10 +55,11 @@ interface BasePreviewContentProps {
 }
 
 function BasePreviewContent(props: BasePreviewContentProps) {
-    const { collection, showTradeInfo } = props;
+    const { collection, showTradeInfo, tokenId } = props;
     const floorPrice = collection?.floor_price;
     const chainId = collection?.chain_id ? +collection.chain_id : EthereumChainId.Mainnet;
     const { data: marketInfo } = useCollectionMarketInfo(chainId, collection?.contract_address);
+    const { data: nft } = useNFTDetail(chainId, collection?.contract_address, tokenId);
     const footer = (
         <>
             {props.footer?.image ? (
@@ -100,7 +102,7 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                     </div>
                 ) : null}
             </div>
-            <div className="flex flex-col gap-[20px] p-3">
+            <div className="flex flex-col gap-2 p-3">
                 {props.footer ? (
                     props.footer.link ? (
                         <Link className="flex items-center gap-2" href={props.footer.link} onClick={stopPropagation}>
@@ -113,12 +115,12 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                 {showTradeInfo ? (
                     <div className="flex justify-between">
                         {floorPrice ? (
-                            <div className="flex flex-col justify-start gap-1">
-                                <div className="text-xs font-bold leading-6">
+                            <div className="flex flex-col justify-start">
+                                <div className="text-xs font-bold leading-[18px] text-secondary">
                                     <Trans>Price</Trans>
                                 </div>
-                                <div className="flex items-center gap-1">
-                                    <span className="truncate text-medium font-bold text-lightMain">{floorPrice}</span>
+                                <div className="flex items-center gap-1 leading-[18px]">
+                                    <span className="truncate text-medium font-bold text-secondary">{floorPrice}</span>
                                     <TokenIcon
                                         disableBadge
                                         chainId={chainId}
@@ -129,13 +131,32 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                                 </div>
                             </div>
                         ) : null}
-                        {marketInfo ? (
-                            <div className="flex flex-col items-end gap-1">
-                                <div className="text-xs font-bold leading-6">
-                                    <Trans>Total Volume</Trans>
+                        {nft?.latest_trade_price ? (
+                            <div className="flex flex-col items-end">
+                                <div className="text-xs font-bold leading-[18px] text-secondary">
+                                    <Trans>Last sale</Trans>
                                 </div>
 
-                                <div className="flex items-center gap-1">
+                                <div className="flex items-center gap-1 leading-[18px]">
+                                    <span className="truncate text-medium font-bold text-lightMain">
+                                        {nft.latest_trade_price}
+                                    </span>
+                                    <TokenIcon
+                                        disableBadge
+                                        chainId={chainId}
+                                        address={zeroAddress}
+                                        icon={`https://stamp.firefly.land/logo/${chainId}/${zeroAddress}`}
+                                        size={16}
+                                    />
+                                </div>
+                            </div>
+                        ) : !nft && marketInfo ? (
+                            <div className="flex flex-col items-end">
+                                <div className="text-xs font-bold leading-[18px] text-secondary">
+                                    <Trans>Total volume</Trans>
+                                </div>
+
+                                <div className="flex items-center gap-1 leading-[18px]">
                                     <span className="truncate text-medium font-bold text-lightMain">
                                         {marketInfo.total_volume}
                                     </span>
@@ -183,6 +204,7 @@ export const NFTPreviewer = memo(function NFTPreview({ nft, showTradeInfo, class
             showTradeInfo={showTradeInfo}
             collection={collection}
             image={nft.nftscan_uri || nft.imageURL || nft.image_uri!}
+            tokenId={nft.token_id}
             icon={
                 isPoap ? (
                     <PoapIcon width={24} height={24} />

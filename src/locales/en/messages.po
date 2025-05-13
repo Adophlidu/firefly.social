@@ -1534,6 +1534,9 @@ msgstr "Network Fee"
 msgid "Contract address found."
 msgstr "Contract address found."
 
+msgid "Total volume"
+msgstr "Total volume"
+
 msgid "NFT added to your Bookmarks"
 msgstr "NFT added to your Bookmarks"
 
@@ -3719,9 +3722,6 @@ msgstr "The contract owner has no restrictions on anti whale."
 msgid "Exclusive Events"
 msgstr "Exclusive Events"
 
-msgid "Total Volume"
-msgstr "Total Volume"
-
 msgid "Post added to your Bookmarks"
 msgstr "Post added to your Bookmarks"
 
@@ -4046,6 +4046,9 @@ msgstr "<0>{0}</0><1>MC</1>{1}"
 
 msgid "Ethereum JSON RPC"
 msgstr "Ethereum JSON RPC"
+
+msgid "Last sale"
+msgstr "Last sale"
 
 #. placeholder {0}: profile.handle
 msgid "Followed @{0} on Lens"
