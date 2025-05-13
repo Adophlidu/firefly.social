@@ -31,6 +31,8 @@ export const BaseToggleFollowButton = memo(function BaseToggleFollowButton({
         <ClickableButton
             {...rest}
             disabled={loading || rest.disabled}
+            enableDefault
+            enablePropagate
             onClick={(event) => {
                 onClick?.(event);
                 if (following && profile.canUnfollow === false) {
