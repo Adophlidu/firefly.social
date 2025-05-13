@@ -1,3 +1,4 @@
+'use client';
 import { memo, useContext } from 'react';
 
 import { TokenContext } from '@/components/Token/TokenContext.js';
