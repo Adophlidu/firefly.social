@@ -116,6 +116,8 @@ module.exports = {
             },
             zIndex: {
                 1: '1',
+                navbar: 'var(--z-navbar, 37)',
+                banner: 'var(--z-banner, 38)',
                 menu: 'var(--z-menu, 39)',
                 modal: '40',
             },

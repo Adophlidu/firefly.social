@@ -102,10 +102,10 @@ function FireflyAccountWithTitleUI({
 }: FireflyAccountWithTitleUIProps) {
     return (
         <>
-            <div className="sticky left-0 top-0 z-40 h-0 w-full transform duration-200">
+            <div className="sticky left-0 top-0 z-navbar h-0 w-full transform duration-200">
                 <NavigationBar identity={identity} walletProfile={walletProfile} socialProfile={socialProfile} />
             </div>
-            <FireflyAccountInfoUI profile={profile} className="z-[41]">
+            <FireflyAccountInfoUI profile={profile} className="z-banner">
                 <FireflyAccountInfoHeader
                     identity={identity}
                     walletProfile={walletProfile}
@@ -149,7 +149,7 @@ function FallbackFireflyAccountInfo({
         );
     }
     return (
-        <div className="sticky left-0 top-0 z-40 w-full">
+        <div className="sticky left-0 top-0 z-navbar w-full">
             <NavigationBar identity={identity} walletProfile={walletProfile} socialProfile={socialProfile} />
         </div>
     );

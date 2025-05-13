@@ -111,6 +111,8 @@
     --color-danger-bg: #fff5f6;
     --w3m-modal-width: 400px !important;
     --color-lens-button: 0 80 30; /* #00501E */
+    --z-navbar: 37;
+    --z-banner: 38;
     --z-menu: 39;
 }
 
