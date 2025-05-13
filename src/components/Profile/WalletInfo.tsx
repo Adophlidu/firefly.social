@@ -78,7 +78,7 @@ export function WalletInfo({ profile }: WalletInfoProps) {
             : null;
 
     const isMPC = isMPCWallet(profile);
-    const displayName = isMPC ? t`Firefly Wallet` : profile.primary_ens || formatAddress(profile.address, 4);
+    const displayName = isMPC ? t`Legacy Firefly wallet` : profile.primary_ens || formatAddress(profile.address, 4);
 
     const { data: walletRelation, isLoading: isLoadingWalletRelation } = useQuery({
         queryKey: ['wallet-relation', profile.address],

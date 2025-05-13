@@ -2867,6 +2867,9 @@ msgstr "在 {count} 秒内，用手机的 <0>相机</0> 扫描二维码。<1/>�
 msgid "This does not appear to be a honeypot."
 msgstr "这看起来不像是一个陷阱。"
 
+msgid "Legacy Firefly wallet"
+msgstr ""
+
 msgid "Voted successfully."
 msgstr "投票成功。"
 
@@ -3965,9 +3968,6 @@ msgstr "来自{0}"
 
 msgid "Video"
 msgstr "视频"
-
-msgid "Firefly Wallet"
-msgstr "Firefly 钱包"
 
 msgid "{hours, plural, one {1 hour left} other {{hours} hours left}}"
 msgstr "{hours, plural, one {1 小时剩余} other {{hours} 小时剩余}}"

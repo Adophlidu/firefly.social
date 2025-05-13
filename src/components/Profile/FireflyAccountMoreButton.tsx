@@ -37,7 +37,7 @@ function MuteAllByWalletProfileMenuItem({ profile }: { profile: WalletProfile })
 export function FireflyAccountMoreButton({ profile, walletProfile, profiles = [] }: Props) {
     return (
         <Menu>
-            <Menu.Button className="inline-flex size-8 items-center justify-center rounded-lg bg-lightBg text-main text-second active:opacity-50 md:hover:opacity-60">
+            <Menu.Button className="inline-flex size-8 items-center justify-center rounded-lg bg-bg text-main text-second active:opacity-50 md:hover:opacity-60">
                 <MoreIcon width={22} height={22} className="shrink-0" />
             </Menu.Button>
             <Menu.Items

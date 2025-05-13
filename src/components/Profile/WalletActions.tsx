@@ -6,8 +6,10 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { HackedButton } from '@/components/Profile/HackedButton.js';
 import { WalletMoreAction } from '@/components/Profile/WalletMoreAction.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
-import { Source } from '@/constants/enum.js';
+import { NetworkType, Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
+import { isMPCWallet } from '@/helpers/isMPCWallet.js';
+import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -17,11 +19,16 @@ export function WalletActions({ profile }: { profile: WalletProfile }) {
     const isMyWallets = useIsMyRelatedProfile(Source.Wallet, profile.address);
     const isMedium = useIsMedium();
 
-    if (isMyWallets && profile.dataSource === 'particle') {
+    if (isMyWallets && isMPCWallet(profile)) {
+        const type = isValidAddressEthereum(profile.address)
+            ? NetworkType.Ethereum
+            : isValidAddressSolana(profile.address)
+              ? NetworkType.Solana
+              : undefined;
         return (
             <ClickableButton
                 onClick={() => {
-                    openWindow(urlcat(SITE_URL, '/particle-recovery'));
+                    openWindow(urlcat(SITE_URL, '/particle-recovery', { type }));
                 }}
                 className="ml-auto mr-1 flex h-8 min-w-[100px] items-center justify-center rounded-lg bg-highlight px-2 text-medium font-semibold text-primaryBottom transition-all hover:opacity-80 dark:text-main"
             >

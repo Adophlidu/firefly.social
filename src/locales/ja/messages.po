@@ -2854,6 +2854,9 @@ msgstr ""
 msgid "This does not appear to be a honeypot."
 msgstr ""
 
+msgid "Legacy Firefly wallet"
+msgstr ""
+
 msgid "Voted successfully."
 msgstr ""
 
@@ -3948,9 +3951,6 @@ msgid "By @{0}"
 msgstr ""
 
 msgid "Video"
-msgstr ""
-
-msgid "Firefly Wallet"
 msgstr ""
 
 msgid "{hours, plural, one {1 hour left} other {{hours} hours left}}"

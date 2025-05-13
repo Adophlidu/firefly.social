@@ -28,7 +28,7 @@ export function Embed({ og }: EmbedProps) {
         <article className="mt-4 max-w-full text-sm">
             <Link
                 onClick={stopPropagation}
-                href={u}
+                href={og.url}
                 target={isSelfReference(og.url) ? '_self' : '_blank'}
                 rel="noreferrer noopener"
             >

@@ -85,7 +85,8 @@ export function Tips({
         <ClickableArea
             className={classNames('flex cursor-pointer items-center text-second md:space-x-2', className, {
                 'opacity-50': disabled,
-                'hover:text-lightWarn': !disabled && !label && !loading,
+                'md:hover:text-lightWarn': !disabled && !label && !loading,
+                'max-md:active:text-lightWarn': !disabled && !label && !loading,
                 'w-min': !label,
             })}
         >
@@ -96,7 +97,8 @@ export function Tips({
             >
                 <motion.button
                     className={classNames('inline-flex items-center', {
-                        'hover:bg-lightWarn/[.20]': !disabled && !label && !loading,
+                        'md:hover:bg-lightWarn/[.20]': !disabled && !label && !loading,
+                        'max-md:active:bg-lightWarn/[.20]': !disabled && !label && !loading,
                         'cursor-not-allowed': disabled,
                         'size-7 justify-center rounded-full': !label,
                         'w-full': !!label,

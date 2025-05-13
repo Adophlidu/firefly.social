@@ -2862,6 +2862,9 @@ msgstr "請在 {count} 秒內用手機<0>相機</0>掃描 QR 碼。<1/>免費核
 msgid "This does not appear to be a honeypot."
 msgstr "此地址未檢測到蜜罐風險。"
 
+msgid "Legacy Firefly wallet"
+msgstr ""
+
 msgid "Voted successfully."
 msgstr "已成功投票"
 
@@ -3960,9 +3963,6 @@ msgstr ""
 
 msgid "Video"
 msgstr "影片"
-
-msgid "Firefly Wallet"
-msgstr ""
 
 msgid "{hours, plural, one {1 hour left} other {{hours} hours left}}"
 msgstr ""

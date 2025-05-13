@@ -143,138 +143,148 @@ export function MainView() {
     const currentProfile = data?.fireflyAccount;
 
     return (
-        <div className="rounded-[6px] bg-primaryBottom px-6 pb-6 max-md:max-h-[calc(100vh_-_64px)] max-md:overflow-auto md:w-[400px]">
-            {isLoginFirefly && currentProfile ? (
-                <div className="mb-3 flex gap-2 rounded-lg border border-highlight p-2">
-                    <Avatar src={avatar} size={60} alt={currentProfile?.uid ?? ''} />
-                    <div className="flex flex-col items-start">
-                        {!currentProfile.avatar || !currentProfile.displayName ? (
-                            <ClickableButton
-                                className="cursor-pointer font-bold text-highlight hover:underline"
-                                onClick={() => {
-                                    EditFireflyProfileModalRef.open({
-                                        profile: currentProfile,
-                                        connections: data?.__origin__,
-                                    });
-                                }}
-                            >
-                                <Trans>Edit Profile</Trans>
-                            </ClickableButton>
-                        ) : (
-                            <span className="font-bold">{currentProfile?.displayName || 'Firefly Account'}</span>
-                        )}
-                        <span className="text-secondary">UID: {currentProfile?.uid}</span>
-                    </div>
-                </div>
-            ) : null}
-            <div className="mb-3 text-left text-[15px] font-medium leading-[15px]">
-                <Trans>Social accounts</Trans>
-            </div>
-            <div className="flex flex-col gap-2">
-                {SORTED_LOGIN_SOCIAL_SOURCES.map((source, index) => {
-                    return (
-                        <div className="overflow-hidden rounded-lg border border-secondaryLine" key={source}>
-                            <ClickableButton
-                                className={classNames('flex w-full cursor-pointer items-center justify-between p-2', {
-                                    'bg-bg': !isLoginFirefly ? index % 2 === 0 : true,
-                                    'border-b border-secondaryLine':
-                                        isLoginFirefly && profileStore[source].accounts.length > 0,
-                                })}
-                                onClick={() => onClick(source)}
-                            >
-                                <div className="flex items-center gap-2">
-                                    <ProfileSourceIcon source={source} size={20} />
-                                    <span>{resolveSourceName(source)}</span>
-                                </div>
-                                {[Source.Bsky, Source.Twitter].includes(source) && !!profilesAll[source] ? (
-                                    <SwitchIcon className="size-5" />
-                                ) : (
-                                    <PlusIcon className="size-5" />
-                                )}
-                            </ClickableButton>
-                            {profileStore[source].accounts.map((account, index) => {
-                                const isCurrent = isSameProfile(profilesAll[source], account.profile);
-                                return (
-                                    <div className="flex min-w-0 items-center justify-between p-2" key={index}>
-                                        <div className="mr-2 flex min-w-0 items-center gap-2">
-                                            <ProfileAvatar
-                                                profile={account.profile}
-                                                enableSourceIcon={false}
-                                                size={40}
-                                            />
-                                            <div className="flex min-w-0 flex-col items-start text-[14px] leading-5">
-                                                <span className="max-w-full truncate font-bold">
-                                                    {account.profile.displayName}
-                                                </span>
-                                                <span className="max-w-full truncate text-secondary">
-                                                    @{account.profile.handle}
-                                                </span>
-                                            </div>
-                                        </div>
-                                        {isCurrent ? (
-                                            <CircleCheckboxIcon className="shrink-0" checked />
-                                        ) : (
-                                            <SwitchIcon
-                                                className="size-5 cursor-pointer"
-                                                onClick={() => {
-                                                    if (switchLoading) return;
-                                                    onSwitchAccount(account);
-                                                }}
-                                            />
-                                        )}
-                                    </div>
-                                );
-                            })}
+        <div className="rounded-[6px] px-6 pb-6 max-md:max-h-[calc(100vh_-_64px)] max-md:overflow-auto md:w-[400px]">
+            <div className="no-scrollbar max-h-[492px] overflow-auto rounded-[6px] bg-primaryBottom">
+                {isLoginFirefly && currentProfile ? (
+                    <div className="mb-3 flex gap-2 rounded-lg border border-highlight p-2">
+                        <Avatar src={avatar} size={60} alt={currentProfile?.uid ?? ''} />
+                        <div className="flex flex-col items-start">
+                            {!currentProfile.avatar || !currentProfile.displayName ? (
+                                <ClickableButton
+                                    className="cursor-pointer font-bold text-highlight hover:underline"
+                                    onClick={() => {
+                                        EditFireflyProfileModalRef.open({
+                                            profile: currentProfile,
+                                            connections: data?.__origin__,
+                                        });
+                                    }}
+                                >
+                                    <Trans>Edit Profile</Trans>
+                                </ClickableButton>
+                            ) : (
+                                <span className="font-bold">{currentProfile?.displayName || 'Firefly Account'}</span>
+                            )}
+                            <span className="text-secondary">UID: {currentProfile?.uid}</span>
                         </div>
-                    );
-                })}
-            </div>
-
-            <div className="my-2 text-left text-[15px] font-medium leading-[15px]">
-                <Trans>Other accounts</Trans>
-            </div>
-            <div className="flex flex-col gap-2">
-                {SORTED_THIRD_PARTY_SOURCES_IN_URL.map((sourceInUrl, index) => {
-                    const source = resolveSource(sourceInUrl) as ThirdPartySource | Source.Email;
-                    const profile = data ? formatAccountFromConnections(sourceInUrl, data.__origin__) : null;
-                    return (
-                        <div className="overflow-hidden rounded-lg border border-secondaryLine" key={index}>
-                            <ClickableButton
-                                className={classNames('flex w-full cursor-pointer items-center justify-between p-2', {
-                                    'bg-bg': !profile || (index % 2 === 0 && !isLoginFirefly),
-                                })}
-                                onClick={() => {
-                                    if (profile) return;
-                                    if (source !== Source.Email) {
-                                        onAuthClick(source);
-                                        return;
-                                    } else {
-                                        history.replace(
-                                            urlcat('/:source', {
-                                                source: resolveSourceInUrl(source),
-                                            }),
-                                        );
-                                    }
-                                }}
-                            >
-                                {profile ? (
+                    </div>
+                ) : null}
+                <div className="mb-3 text-left text-[15px] font-medium leading-[15px]">
+                    <Trans>Social accounts</Trans>
+                </div>
+                <div className="flex flex-col gap-2">
+                    {SORTED_LOGIN_SOCIAL_SOURCES.map((source, index) => {
+                        return (
+                            <div className="overflow-hidden rounded-lg border border-secondaryLine" key={source}>
+                                <ClickableButton
+                                    className={classNames(
+                                        'flex w-full cursor-pointer items-center justify-between p-2',
+                                        {
+                                            'bg-bg': !isLoginFirefly ? index % 2 === 0 : true,
+                                            'border-b border-secondaryLine':
+                                                isLoginFirefly && profileStore[source].accounts.length > 0,
+                                        },
+                                    )}
+                                    onClick={() => onClick(source)}
+                                >
                                     <div className="flex items-center gap-2">
                                         <ProfileSourceIcon source={source} size={20} />
-                                        {formatThirdPartyProfileName(profile.profile)}
+                                        <span>{resolveSourceName(source)}</span>
                                     </div>
-                                ) : (
-                                    <>
+                                    {[Source.Bsky, Source.Twitter].includes(source) && !!profilesAll[source] ? (
+                                        <SwitchIcon className="size-5" />
+                                    ) : (
+                                        <PlusIcon className="size-5" />
+                                    )}
+                                </ClickableButton>
+                                {profileStore[source].accounts.map((account, index) => {
+                                    const isCurrent = isSameProfile(profilesAll[source], account.profile);
+                                    return (
+                                        <div className="flex min-w-0 items-center justify-between p-2" key={index}>
+                                            <div className="mr-2 flex min-w-0 items-center gap-2">
+                                                <ProfileAvatar
+                                                    profile={account.profile}
+                                                    enableSourceIcon={false}
+                                                    size={40}
+                                                />
+                                                <div className="flex min-w-0 flex-col items-start text-[14px] leading-5">
+                                                    <span className="max-w-full truncate font-bold">
+                                                        {account.profile.displayName}
+                                                    </span>
+                                                    <span className="max-w-full truncate text-secondary">
+                                                        @{account.profile.handle}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            {isCurrent ? (
+                                                <CircleCheckboxIcon className="shrink-0" checked />
+                                            ) : (
+                                                <SwitchIcon
+                                                    className="size-5 cursor-pointer"
+                                                    onClick={() => {
+                                                        if (switchLoading) return;
+                                                        onSwitchAccount(account);
+                                                    }}
+                                                />
+                                            )}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        );
+                    })}
+                </div>
+
+                <div className="my-2 text-left text-[15px] font-medium leading-[15px]">
+                    <Trans>Other accounts</Trans>
+                </div>
+                <div className="flex flex-col gap-2">
+                    {SORTED_THIRD_PARTY_SOURCES_IN_URL.map((sourceInUrl, index) => {
+                        const source = resolveSource(sourceInUrl) as ThirdPartySource | Source.Email;
+                        const profile = data ? formatAccountFromConnections(sourceInUrl, data.__origin__) : null;
+                        return (
+                            <div className="overflow-hidden rounded-lg border border-secondaryLine" key={index}>
+                                <ClickableButton
+                                    className={classNames(
+                                        'flex w-full cursor-pointer items-center justify-between p-2',
+                                        {
+                                            'bg-bg': !profile || (index % 2 === 0 && !isLoginFirefly),
+                                        },
+                                    )}
+                                    onClick={() => {
+                                        if (profile) return;
+                                        if (source !== Source.Email) {
+                                            onAuthClick(source);
+                                            return;
+                                        } else {
+                                            history.replace(
+                                                urlcat('/:source', {
+                                                    source: resolveSourceInUrl(source),
+                                                }),
+                                            );
+                                        }
+                                    }}
+                                >
+                                    {profile ? (
                                         <div className="flex items-center gap-2">
                                             <ProfileSourceIcon source={source} size={20} />
-                                            <span>{resolveSourceName(source)}</span>
+                                            {formatThirdPartyProfileName(profile.profile)}
                                         </div>
-                                        {!loading && selectedSource !== source ? <PlusIcon className="size-5" /> : null}
-                                    </>
-                                )}
-                            </ClickableButton>
-                        </div>
-                    );
-                })}
+                                    ) : (
+                                        <>
+                                            <div className="flex items-center gap-2">
+                                                <ProfileSourceIcon source={source} size={20} />
+                                                <span>{resolveSourceName(source)}</span>
+                                            </div>
+                                            {!loading && selectedSource !== source ? (
+                                                <PlusIcon className="size-5" />
+                                            ) : null}
+                                        </>
+                                    )}
+                                </ClickableButton>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
         </div>
     );

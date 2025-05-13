@@ -205,14 +205,14 @@ function FireflyAccountInfoHeader({
     }, [allCurrentProfiles, profiles]);
 
     return (
-        <div className="relative mt-5 flex w-full px-6" ref={ref}>
+        <div className="light relative mt-5 flex w-full px-6" ref={ref}>
             <ComeBackButton />
             <div className="ml-auto flex space-x-2">
                 {isCurrentProfile ? (
                     <>
                         <Link
                             href={PageRoute.SettingConnected}
-                            className="inline-flex size-8 items-center justify-center rounded-lg bg-lightBg text-second active:opacity-50 md:hover:opacity-60"
+                            className="inline-flex size-8 items-center justify-center rounded-lg bg-bg text-second active:opacity-50 md:hover:opacity-60"
                         >
                             <SettingIcon />
                         </Link>
