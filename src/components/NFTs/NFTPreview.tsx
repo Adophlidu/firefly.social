@@ -11,6 +11,7 @@ import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { PoapTrait } from '@/components/NFTDetail/PoapTrait.js';
+import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
@@ -22,7 +23,7 @@ import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useCollectionMarketInfo } from '@/hooks/useCollectionMarketInfo.js';
 import { useNFTCollection } from '@/hooks/useNFTCollection.js';
-import { useNFTDetail } from '@/hooks/useNFTDetail';
+import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import type { NFTDetail } from '@/providers/types/Firefly.js';
@@ -77,7 +78,7 @@ function BasePreviewContent(props: BasePreviewContentProps) {
     const content = (
         <>
             <div className="relative size-[300px]">
-                <Image
+                <NFTImage
                     className="h-full w-full object-cover"
                     width={300}
                     height={300}

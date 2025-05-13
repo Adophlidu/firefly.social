@@ -6,9 +6,9 @@ import { compact } from 'lodash-es';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
 
 import { GridListInPage } from '@/components/GridListInPage.js';
-import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { Source } from '@/constants/enum.js';
@@ -29,7 +29,7 @@ function getNFTItemContent(id: string, nft: NFTDetail) {
     const content = (
         <>
             <div className="relative aspect-square h-auto w-full overflow-hidden">
-                <Image
+                <NFTImage
                     src={resolveNFTImageUrl(nft)! || nft.collection.large_image_url}
                     alt={nft.name}
                     width={500}
