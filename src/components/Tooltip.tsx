@@ -29,6 +29,7 @@ export const Tooltip = memo<TooltipProps>(function Tooltip({
             duration={0}
             delay={[withDelay ? 500 : 0, 0]}
             content={<span>{content}</span>}
+            trigger="mouseenter"
             {...props}
             className={classNames('hidden !rounded-lg !text-xs !leading-6 tracking-wide sm:block', props.className)}
         >
