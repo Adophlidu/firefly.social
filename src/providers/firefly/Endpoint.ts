@@ -716,12 +716,12 @@ class FireflyEndpoint {
     }
 
     async reportAndDeleteWallet(connection: FireflyWalletConnection, reason: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/twitter/wallet/report');
+        const url = urlcat(settings.FIREFLY_ROOT_URL, 'v1/wallet/report');
 
         await fireflySessionHolder.fetch<EmptyResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
-                twitterId: connection.twitterId,
+                web3Id: connection.twitterId,
                 walletAddress: connection.address,
                 reportReason: reason,
                 sources: connection.sources.map((x) => x.source).join(','),
