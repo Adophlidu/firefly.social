@@ -5,7 +5,9 @@ import { Feeds } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/Feed
 import { TokenOverview } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/TokenOverview.js';
 import { Transactions } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/Transactions.js';
 import type { TokenPageSearch } from '@/app/(normal)/token/[symbol]/[[...slug]]/layout.js';
+import { Loading } from '@/components/Loading.js';
 import { TokenCategory } from '@/constants/enum.js';
+import { NON_SOL_ETH_COINS, TOKEN_CATEGORIES } from '@/constants/index.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
@@ -21,11 +23,18 @@ interface Props
     > {}
 
 export default function TokenCategoryPage({ params, searchParams }: Props) {
-    const { symbol, slug } = use(params);
+    const { symbol, slug: slugs } = use(params);
     const { chainId, isCoinId, trader, traderName, address } = use(searchParams);
-    const category = slug?.[0];
     const { data: token } = useTokenInfo(symbol, isCoinId === 'true');
-    const { data: trending } = useCoinTrending(token?.id);
+
+    const categories =
+        token?.id && NON_SOL_ETH_COINS.includes(token?.id)
+            ? [TokenCategory.Feeds, TokenCategory.Overview]
+            : TOKEN_CATEGORIES;
+
+    const slug = slugs?.[0];
+    const category = slug && categories.includes(slug as TokenCategory) ? slug : categories[0];
+    const { data: trending, isLoading } = useCoinTrending(token?.id);
 
     const tokenAddress = address ?? (isValidAddressEthereum(symbol) ? symbol : trending?.contracts?.[0]?.address);
 
@@ -36,6 +45,7 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
             return <TokenOverview trending={trending} />;
         case TokenCategory.Transactions:
         default:
+            if (isLoading && !tokenAddress) return <Loading />;
             return (
                 <Transactions
                     chainId={chainId ? +chainId : (trending?.coin.chainId ?? trending?.contracts?.[0]?.chainId)}

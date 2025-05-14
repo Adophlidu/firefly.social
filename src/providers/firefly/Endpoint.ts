@@ -110,6 +110,7 @@ import {
     type SwapActivityTimeline,
     type TakoExternalHostedData,
     type TelegramLoginBotResponse,
+    type TokenPriceStatsOptions,
     type TokenPriceStatsResponse,
     type TokenWithMarketData,
     type TwitterUserInfoResponse,
@@ -1002,13 +1003,17 @@ class FireflyEndpoint {
         return createPageable(data.coins ?? EMPTY_LIST, createIndicator(undefined));
     }
 
-    async getTokenByCoinId(coinId: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, 'v1/token/single_coins', {
-            coingecko_id: coinId,
-        });
+    async getSingleCoin(options: Record<string, any>) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, 'v1/token/single_coins', options);
 
         const response = await fireflySessionHolder.fetch<Response<TokenWithMarketData>>(url);
         return resolveFireflyResponseData(response);
+    }
+    async getTokenByCoinId(coinId: string, chainId?: number, address?: string) {
+        return this.getSingleCoin({ coingecko_id: coinId, chain_id: chainId, address });
+    }
+    async getTokenByAddress(chainId: number, address: string) {
+        return this.getSingleCoin({ address, chain_id: chainId });
     }
 
     async getTokenBySymbol(symbol: string) {
@@ -1033,13 +1038,11 @@ class FireflyEndpoint {
         return createPageable((data.list || []).map(fixCollection), createIndicator(undefined));
     }
 
-    // The Firefly API does not support interval=5m which requires Enterprise plan.
-    async getTokenPriceStats(coingecko_id: string, days: number | undefined, interval?: 'hourly' | 'daily') {
+    async getTokenPriceStats(options: TokenPriceStatsOptions) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/token/token_market_chart', {
-            coingecko_id,
+            ...options,
             vs_currency: 'usd',
-            days: days || 'max',
-            interval,
+            days: options.days || 'max',
         });
         const response = await fireflySessionHolder.fetch<TokenPriceStatsResponse>(url);
         return resolveFireflyResponseData(response);

@@ -19,6 +19,7 @@ import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useCoinPrice24hStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
+import { useSingleCoin } from '@/hooks/useSingleCoin.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -46,14 +47,14 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
 
     const market = trending?.market;
 
-    const { priceStats, isPending, isUp } = useCoinPrice24hStats(coingecko_coin_id || token?.id);
-
     const chainId = detected?.chain_id ? +detected.chain_id : tradeInfo.chainId;
+    const { data: coin } = useSingleCoin(token?.id, chainId, address);
+    const { priceStats, isPending, isUp } = useCoinPrice24hStats(coingecko_coin_id || token?.id, chainId, address);
 
     const { data: tokenSecurity } = useTokenSecurity(chainId, address);
 
     if (!token) return null;
-    const price = attributes?.price_usd;
+    const price = attributes?.price_usd ?? coin?.market_data.token_price_usd;
     const market_cap = attributes?.market_cap_usd;
     const tokenPageUrl = resolveTokenPageUrl({ identity: token.symbol, chainId });
 

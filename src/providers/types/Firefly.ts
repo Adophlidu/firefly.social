@@ -1652,3 +1652,10 @@ export type TokenPriceStatsResponse = Response<{
     prices: Stat[];
     total_volumes: Stat[];
 }>;
+
+export type TokenPriceStatsOptions = {
+    coingecko_coin_id?: string;
+    chain_id?: number;
+    address?: string;
+    days: number | undefined;
+};

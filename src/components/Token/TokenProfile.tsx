@@ -61,9 +61,8 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
     const { data: trending } = useCoinTrending(token?.id);
     const tradeInfo = useTradeInfo(token);
 
-    const { priceStats, isPending, isUp } = useCoinPrice24hStats(coingeckoCoinId || token?.id);
-
     const chainId = detected?.chain_id ? +detected.chain_id : tradeInfo.chainId;
+    const { priceStats, isPending, isUp } = useCoinPrice24hStats(coingeckoCoinId || token?.id, chainId, address);
 
     const { data: tokenSecurity } = useTokenSecurity(chainId, address);
 

@@ -20,10 +20,12 @@ export function useTradeInfo(token: CoinGeckoToken | undefined) {
             tradable: false,
         } as const;
 
+    const address = token?.address || firstAvailable?.address;
+
     return {
         tradable: true,
         chainId,
-        address: token?.id && CoinGecko.getChainIdByCoinId(token.id) ? zeroAddress : firstAvailable?.address,
+        address: token?.id && CoinGecko.getChainIdByCoinId(token.id) ? zeroAddress : address,
         supportedChainIds: chainIds,
     } as const;
 }

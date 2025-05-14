@@ -28,6 +28,7 @@ import {
     Source,
     SourceInURL,
     STATUS,
+    TokenCategory,
     TrendingType,
     VERCEL_NEV,
     WalletProfileCategory,
@@ -453,6 +454,12 @@ export const EDIT_PROFILE_FIELDS: Record<SocialSource, ProfileEditableField[]> =
 export const BSKY_LOGIN_REQUIRED_FEEDS = [
     'at://did:plc:z72i7hdynmk6r22z27h6tvur/app.bsky.feed.generator/with-friends',
     'at://did:plc:tenurhgjptubkk5zf5qhi3og/app.bsky.feed.generator/mutuals',
+];
+
+export const TOKEN_CATEGORIES: TokenCategory[] = [
+    TokenCategory.Transactions,
+    TokenCategory.Feeds,
+    TokenCategory.Overview,
 ];
 
 /** coingecko coin ids that are not solana or ethereum */

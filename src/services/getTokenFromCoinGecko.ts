@@ -1,4 +1,3 @@
-import { NetworkPluginID } from '@/constants/enum.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
@@ -17,7 +16,6 @@ export const getTokenFromCoinGecko = memoizePromise(
             const marketToken = await runInSafeAsync(() => CoinGecko.getCoinInfo(data?.id ?? symbolOrId));
             if (marketToken && 'symbol' in marketToken) {
                 return {
-                    pluginID: NetworkPluginID.PLUGIN_EVM,
                     id: marketToken.id,
                     symbol: marketToken.symbol,
                     name: marketToken.name,

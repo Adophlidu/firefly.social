@@ -10,10 +10,11 @@ import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { TokenCategory } from '@/constants/enum.js';
-import { NON_SOL_ETH_COINS } from '@/constants/index.js';
+import { NON_SOL_ETH_COINS, TOKEN_CATEGORIES } from '@/constants/index.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
+import type { CoinGeckoAsset, CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import { getTokenFromCoinGecko } from '@/services/getTokenFromCoinGecko.js';
 import { searchTokenByAddress } from '@/services/searchTokenByAddress.js';
 import type { NextPageProps } from '@/types/index.js';
@@ -48,7 +49,6 @@ function resolveCategoryUrl(category: TokenCategory, params: TokenPageSearch & {
     return urlcat(categoryUrlPatternMap[category], params);
 }
 
-const TOKEN_CATEGORIES: TokenCategory[] = [TokenCategory.Transactions, TokenCategory.Feeds, TokenCategory.Overview];
 export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
     await setupLocaleForSSR();
 
@@ -57,13 +57,28 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
     const search = await props.searchParams;
     const paramSymbol = decodeURIComponent(params.symbol);
     let symbol = paramSymbol;
+    let tokenAsset: CoinGeckoAsset;
     if (isValidAddressEthereum(paramSymbol)) {
-        const token = await searchTokenByAddress(paramSymbol);
-        if (token) {
-            symbol = token.attributes.symbol;
-        }
+        tokenAsset = await searchTokenByAddress(paramSymbol);
+        if (tokenAsset) symbol = tokenAsset.attributes.symbol;
     }
-    const token = await runInSafeAsync(() => getTokenFromCoinGecko(symbol));
+    const token = await runInSafeAsync(async () => {
+        const data = await getTokenFromCoinGecko(symbol);
+        if (data) return data;
+        if (tokenAsset) {
+            return {
+                id: tokenAsset.attributes.coingecko_coin_id,
+                chainId: tokenAsset.attributes.chain_id,
+                address: tokenAsset.attributes.address,
+                symbol: tokenAsset.attributes.symbol,
+                name: tokenAsset.attributes.name,
+                source: 'CoinGecko',
+                type: 'FungibleToken',
+                logoURL: tokenAsset.attributes.image_url,
+            } satisfies CoinGeckoToken;
+        }
+        return null;
+    });
 
     const labels: Record<TokenCategory, React.ReactNode> = {
         [TokenCategory.Transactions]: <Trans>Transactions</Trans>,
@@ -98,7 +113,7 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
                         <SourceTab
                             className="whitespace-nowrap text-base md:!h-[45px] md:!px-4 md:!py-[10px]"
                             key={x}
-                            href={resolveCategoryUrl(x, { ...search, symbol })}
+                            href={resolveCategoryUrl(x, { ...search, symbol: paramSymbol })}
                             isActive={x === category}
                         >
                             {labels[x]}

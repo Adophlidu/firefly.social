@@ -4,15 +4,18 @@ import type { NetworkPluginID } from '@/constants/enum.js';
 import type { Runtime } from '@/providers/types/Trending.js';
 
 export interface CoinGeckoToken {
-    pluginID: NetworkPluginID;
+    /** @deprecated Comes from Maskbook, could be incorrect for some tokens */
+    pluginID?: NetworkPluginID;
     id: string;
+    chainId?: number;
+    address?: string;
     symbol: string;
     name: string;
     source: string;
     type: 'FungibleToken';
     logoURL: string;
-    rank: number;
-    socialLinks: {
+    rank?: number;
+    socialLinks?: {
         /** url */
         website: string;
         twitter: string;
@@ -207,6 +210,8 @@ export interface CoinGeckoAsset {
         total_reserve_in_usd: string;
         volume_usd: { h24: string };
         market_cap_usd: string;
+        /** patch at runtime */
+        chain_id?: number;
     };
     relationships: {
         top_pools: {

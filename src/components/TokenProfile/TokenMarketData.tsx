@@ -3,7 +3,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
-import { first } from 'lodash-es';
+import { first, isNumber } from 'lodash-es';
 import { type HTMLProps, memo, useMemo, useState } from 'react';
 
 import EyeIcon from '@/assets/eye.svg';
@@ -26,7 +26,7 @@ import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useIsPriceUp } from '@/hooks/useIsPriceUp.js';
-import { useTokenPrice } from '@/hooks/useTokenPrice.js';
+import { useSingleCoin } from '@/hooks/useSingleCoin.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
@@ -52,7 +52,7 @@ const getRanges = () => {
 };
 
 export const TokenMarketData = memo(function TokenMarketData({
-    chainId,
+    chainId: propChainId,
     linkable,
     token,
     rank,
@@ -60,9 +60,10 @@ export const TokenMarketData = memo(function TokenMarketData({
     ...rest
 }: TokenMarketDataProps) {
     const ranges = getRanges();
-    const { data: price } = useTokenPrice(token.id);
+    const { data: coin } = useSingleCoin(token.id, token.chainId, token.address);
     const { data: trending } = useCoinTrending(token.id);
     const { contracts } = trending ?? {};
+    const chainId = token.chainId ?? propChainId;
     const contract = (chainId ? contracts?.find((x) => x.chainId === chainId) : null) || first(contracts);
     const { data: security } = useTokenSecurity(contract?.chainId, contract?.address);
     const tradeInfo = useTradeInfo(token);
@@ -75,7 +76,12 @@ export const TokenMarketData = memo(function TokenMarketData({
     const [rangeId, setRangeId] = useState<(typeof ranges)[number]['id']>();
     const currentRange = ranges.find((x) => x.id === rangeId) || ranges[1];
 
-    const { data: priceStats = EMPTY_LIST, isPending } = useCoinPriceStats(token.id, currentRange.days);
+    const { data: priceStats = EMPTY_LIST, isPending } = useCoinPriceStats(
+        token.id,
+        tradeChainId,
+        token.address ?? contract?.address,
+        currentRange.days,
+    );
     const stats = useMemo(
         () => (currentRange.id === '1h' ? priceStats.slice(-12) : priceStats),
         [currentRange.id, priceStats],
@@ -96,6 +102,8 @@ export const TokenMarketData = memo(function TokenMarketData({
     );
 
     const tokenRank = rank ?? token.rank;
+    const price = coin?.market_data?.token_price_usd;
+    const change24h = change ?? coin?.market_data?.price_change_percentage_24h;
 
     return (
         <div {...rest} className={classNames('flex flex-col gap-1.5 p-3', rest.className)}>
@@ -132,7 +140,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                                 }
                             />
                             <span className={isUp ? 'text-medium text-success' : 'text-medium text-fail'}>
-                                {change === undefined ? '--%' : `${change.toFixed(2)}%`}
+                                {isNumber(change24h) ? `${change24h.toFixed(2)}%` : '--%'}
                             </span>
                             {activeRecord ? (
                                 <span className="ml-2 text-sm text-secondary">
