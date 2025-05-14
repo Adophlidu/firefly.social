@@ -763,6 +763,9 @@ msgstr ""
 msgid "Explore"
 msgstr ""
 
+msgid "Show Less"
+msgstr ""
+
 msgid "Only up to 2 images can be chosen."
 msgstr ""
 
@@ -1511,6 +1514,9 @@ msgid "Send"
 msgstr ""
 
 msgid "Collected"
+msgstr ""
+
+msgid "<0>You</0> retruthed"
 msgstr ""
 
 msgid "Show more users"
@@ -3670,6 +3676,9 @@ msgstr ""
 msgid "News"
 msgstr ""
 
+msgid "Truth Social"
+msgstr ""
+
 msgid "Repost or Quote"
 msgstr ""
 
@@ -4062,6 +4071,10 @@ msgid "Translating..."
 msgstr ""
 
 msgid "Claim Basic"
+msgstr ""
+
+#. placeholder {0}: post.author.displayName
+msgid "<0>{0}</0> retruthed"
 msgstr ""
 
 msgid "Sign in with Farcaster"

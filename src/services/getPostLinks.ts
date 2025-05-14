@@ -23,6 +23,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
 import { getCollectionFromUrl } from '@/services/getCollectionFromUrl.js';
 import { getNFTFromUrl } from '@/services/getNFTFromUrl.js';
+import { getTruthSocialPostFromUrl } from '@/services/getTruthSocialPostFromUrl.js';
 import { settings } from '@/settings/index.js';
 import type { FireflyBlinkParserBlinkResponse } from '@/types/blink.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
@@ -123,11 +124,16 @@ export interface ClassifyPostLinkResult {
     snapshot?: SnapshotProposal;
     nft?: NFTDetail;
     collection?: EVM.Collection;
+    quote?: Post;
 }
 
 export async function classifyPostLink(url: string, post: Post) {
     return attemptUntil<ClassifyPostLinkResult | null>(
         [
+            async () => {
+                const truthSocialPost = await getTruthSocialPostFromUrl(url);
+                return truthSocialPost ? { quote: truthSocialPost } : null;
+            },
             async () => {
                 const spaceId = url.match(TWEET_SPACE_REGEX)?.[3];
                 if (!spaceId) return null;

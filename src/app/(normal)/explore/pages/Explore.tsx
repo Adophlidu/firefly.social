@@ -33,6 +33,7 @@ export function ExplorePage({ source, type }: Props) {
             }
         }
         case ExploreType.Projects:
+        case ExploreType.TruthSocial:
             return null;
         default:
             safeUnreachable(type);

@@ -80,6 +80,9 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
             }
 
             case Source.Twitter:
+                if (post?.isTruthSocial) {
+                    return <MentionLink handle={handle} href={`https://truthsocial.com/@${handle}`} />;
+                }
                 const bioMention = profile?.bioContext?.mentions?.find((x) => x.id === handle);
                 const postMention = post?.mentions?.find((x) => x.handle === handle || x.handle === title);
                 if (!bioMention && !postMention) {

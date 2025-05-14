@@ -763,6 +763,9 @@ msgstr "Save Post?"
 msgid "Explore"
 msgstr "Explore"
 
+msgid "Show Less"
+msgstr "Show Less"
+
 msgid "Only up to 2 images can be chosen."
 msgstr "Only up to 2 images can be chosen."
 
@@ -1512,6 +1515,9 @@ msgstr "Send"
 
 msgid "Collected"
 msgstr "Collected"
+
+msgid "<0>You</0> retruthed"
+msgstr "<0>You</0> retruthed"
 
 msgid "Show more users"
 msgstr "Show more users"
@@ -3686,6 +3692,9 @@ msgstr "Your post was sent to {0}"
 msgid "News"
 msgstr "News"
 
+msgid "Truth Social"
+msgstr "Truth Social"
+
 msgid "Repost or Quote"
 msgstr "Repost or Quote"
 
@@ -4079,6 +4088,10 @@ msgstr "Translating..."
 
 msgid "Claim Basic"
 msgstr "Claim Basic"
+
+#. placeholder {0}: post.author.displayName
+msgid "<0>{0}</0> retruthed"
+msgstr "<0>{0}</0> retruthed"
 
 msgid "Sign in with Farcaster"
 msgstr "Sign in with Farcaster"

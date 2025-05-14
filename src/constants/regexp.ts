@@ -75,3 +75,6 @@ export const IPFS_REGEXP =
     /ipfs:\/\/(Qm[1-9A-HJ-NP-Za-km-z]{44,}|b[2-7A-Za-z]{58,}|B[2-7A-Z]{58,}|z[1-9A-HJ-NP-Za-km-z]{48,}|F[\\dA-F]{50,})/;
 
 export const FIREFLY_DISPLAY_NAME_REGEXP = /^(?!\s*$).+/;
+
+// https://truthsocial.com/users/realDonaldTrump/statuses/114496851630865496
+export const TRUTH_SOCIAL_POST_REGEXP = /https:\/\/truthsocial\.com\/users\/([^/]+)\/statuses\/([a-zA-Z0-9_]+)/;

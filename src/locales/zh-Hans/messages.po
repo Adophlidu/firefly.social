@@ -768,6 +768,9 @@ msgstr "保存草稿？"
 msgid "Explore"
 msgstr "探索"
 
+msgid "Show Less"
+msgstr ""
+
 msgid "Only up to 2 images can be chosen."
 msgstr "至多可以选择 2 张图片。"
 
@@ -1517,6 +1520,9 @@ msgstr "发送<<<<<<< HEAD======="
 
 msgid "Collected"
 msgstr "已铸造"
+
+msgid "<0>You</0> retruthed"
+msgstr ""
 
 msgid "Show more users"
 msgstr "展示更多用户"
@@ -3691,6 +3697,9 @@ msgstr "你的帖文已发送至{0}"
 msgid "News"
 msgstr "新闻"
 
+msgid "Truth Social"
+msgstr ""
+
 msgid "Repost or Quote"
 msgstr "转发或者引用"
 
@@ -4086,6 +4095,10 @@ msgstr "翻译中..."
 
 msgid "Claim Basic"
 msgstr "领取基础奖励"
+
+#. placeholder {0}: post.author.displayName
+msgid "<0>{0}</0> retruthed"
+msgstr ""
 
 msgid "Sign in with Farcaster"
 msgstr ""

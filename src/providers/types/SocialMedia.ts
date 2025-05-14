@@ -302,6 +302,11 @@ export interface Post {
     }>;
     /** Post from tako could be incomplete, the full content is stored in embedded ipfs */
     incomplete?: boolean;
+
+    // ! Just for posts from truth-social
+    isTruthSocial?: boolean;
+    retruthed?: boolean;
+
     __original__?: unknown;
 }
 

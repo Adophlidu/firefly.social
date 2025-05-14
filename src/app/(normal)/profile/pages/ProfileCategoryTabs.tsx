@@ -9,9 +9,12 @@ import {
     type ProfilePageSource,
     SocialProfileCategory,
     Source,
+    STATUS,
     WalletProfileCategory,
 } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { LOGIN_SORTED_PROFILE_TAB_TYPE, SORTED_PROFILE_TAB_TYPE, WALLET_PROFILE_TAB_TYPES } from '@/constants/index.js';
+import { TRUMP_TWITTER_PROFILE } from '@/constants/mentions.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -78,9 +81,20 @@ export function ProfileCategoryTabs({
                 type: SocialProfileCategory.Channels,
                 title: <Trans>Channels</Trans>,
             },
-        ].filter((x) =>
-            (isCurrentProfile ? LOGIN_SORTED_PROFILE_TAB_TYPE : SORTED_PROFILE_TAB_TYPE)[source].includes(x.type),
-        );
+            {
+                type: SocialProfileCategory.TruthSocial,
+                title: <Trans>Truth Social</Trans>,
+            },
+        ].filter(({ type }) => {
+            if (
+                type === SocialProfileCategory.TruthSocial &&
+                (env.external.NEXT_PUBLIC_TRUTH_SOCIAL !== STATUS.Enabled || id !== TRUMP_TWITTER_PROFILE.handle)
+            ) {
+                return false;
+            }
+
+            return (isCurrentProfile ? LOGIN_SORTED_PROFILE_TAB_TYPE : SORTED_PROFILE_TAB_TYPE)[source].includes(type);
+        });
     }, [id, source, tabTitles, isCurrentProfile]);
 
     return (

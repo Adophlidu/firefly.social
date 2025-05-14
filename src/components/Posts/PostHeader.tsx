@@ -1,6 +1,8 @@
 import { memo } from 'react';
 
 import FireflyMonochromeIcon from '@/assets/firefly-monochrome.svg';
+import TruthSocialIcon from '@/assets/truth-social.svg';
+import VerifyIcon from '@/assets/verify.svg';
 import { MoreAction } from '@/components/Actions/More.js';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
@@ -10,6 +12,7 @@ import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
+import { PostMoreAction } from '@/components/TrumpTruthSocial/PostMoreAction.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -51,7 +54,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
     if (!identity) return null;
 
     const handle = (
-        <ProfileTippy identity={identity}>
+        <ProfileTippy identity={identity} disabled={post.isTruthSocial}>
             <Link
                 href={profileLink}
                 className="flex-shrink-0 truncate text-medium leading-5 text-secondary"
@@ -64,7 +67,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
 
     return (
         <header className={classNames('flex gap-3', isQuote ? 'items-center' : 'items-start')}>
-            <ProfileTippy identity={identity}>
+            <ProfileTippy identity={identity} disabled={post.isTruthSocial}>
                 <Link
                     href={profileLink}
                     className="z-[1]"
@@ -93,7 +96,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                 })}
             >
                 <div className="flex max-w-full flex-1 items-center overflow-hidden">
-                    <ProfileTippy identity={identity}>
+                    <ProfileTippy identity={identity} disabled={post.isTruthSocial}>
                         <Link
                             href={profileLink}
                             className="mr-1 truncate text-medium font-bold leading-5 text-main"
@@ -102,10 +105,16 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                             {author.displayName}
                         </Link>
                     </ProfileTippy>
-                    <ProfileVerifyBadge
-                        className="flex flex-shrink-0 items-center space-x-1 sm:mr-2"
-                        profile={author}
-                    />
+                    {post.isTruthSocial ? (
+                        <div className="flex flex-shrink-0 items-center space-x-1 sm:mr-2">
+                            <VerifyIcon style={{ color: '#FF4775' }} className="size-4 shrink-0" />
+                        </div>
+                    ) : (
+                        <ProfileVerifyBadge
+                            className="flex flex-shrink-0 items-center space-x-1 sm:mr-2"
+                            profile={author}
+                        />
+                    )}
                     {newLine ? null : handle}
                     {post.timestamp && (isComment || isQuote || !isDetailPage || showDate) ? (
                         <>
@@ -127,14 +136,22 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                             className="mr-1 inline shrink-0 text-second"
                         />
                     ) : null}
-                    <SocialSourceIcon mono className="shrink-0 text-second" source={post.source} size={15} />
+                    {post.isTruthSocial ? (
+                        <TruthSocialIcon width={15} height={15} className="shrink-0 text-second" />
+                    ) : (
+                        <SocialSourceIcon mono className="shrink-0 text-second" source={post.source} size={15} />
+                    )}
                 </div>
                 {newLine ? <div>{handle}</div> : null}
             </address>
             <div className="ml-auto flex items-center space-x-2 self-baseline">
                 <NoSSR>
                     {!post.isHidden && !isQuote ? (
-                        <MoreAction channel={post.channel} source={post.source} author={author} post={post} />
+                        post.isTruthSocial ? (
+                            <PostMoreAction post={post} />
+                        ) : (
+                            <MoreAction channel={post.channel} source={post.source} author={author} post={post} />
+                        )
                     ) : null}
                 </NoSSR>
             </div>

@@ -206,6 +206,7 @@ export enum ExploreType {
     Projects = 'project',
     TopProfiles = 'top-profiles',
     TopChannels = 'top-channels',
+    TruthSocial = 'truth-social',
 }
 
 export enum TrendingType {
@@ -254,6 +255,7 @@ export enum SocialProfileCategory {
     Media = 'media',
     Collected = 'collected',
     Channels = 'channels',
+    TruthSocial = 'truth-social',
 }
 
 export enum WalletProfileCategory {

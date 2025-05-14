@@ -404,7 +404,11 @@
         "fullname",
         "Gltf",
         "bprogress",
-        "webget"
+        "webget",
+        "retruthed",
+        "reblog",
+        "truthsocial",
+        "timline"
     ],
     "flagWords": [],
     "ignorePaths": [

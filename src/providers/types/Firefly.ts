@@ -1653,6 +1653,49 @@ export type TokenPriceStatsResponse = Response<{
     total_volumes: Stat[];
 }>;
 
+export interface TruthSocialPost {
+    account: {
+        id: string;
+        handle: string;
+        avatar: string;
+        display_name: string;
+    };
+    truth_id: string;
+    content: string;
+    post_time: string;
+    url: string;
+    has_reblog?: boolean;
+    media_attachments: Array<{
+        id: string;
+        url: string;
+        meta: Record<
+            'small' | 'original',
+            {
+                size: string;
+                width: number;
+                aspect: number;
+                height: number;
+            }
+        >;
+        type: 'image' | 'video';
+        blurhash: string;
+        text_url: null | string;
+        processing: 'complete';
+        remote_url: null | string;
+        description: null | string;
+        preview_url: null | string;
+        external_video_id: null | string;
+        preview_remote_url: null | string;
+    }>;
+}
+
+export type TrumpTruthSocialPostsResponse = Response<{
+    result: TruthSocialPost[];
+    cursor?: string;
+}>;
+
+export type TruthSocialPostResponse = Response<TruthSocialPost>;
+
 export type TokenPriceStatsOptions = {
     coingecko_coin_id?: string;
     chain_id?: number;

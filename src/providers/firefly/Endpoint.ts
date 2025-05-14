@@ -31,6 +31,7 @@ import { formatFarcasterProfileFromSuggestedFollow } from '@/helpers/formatFarca
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { formatLensProfileFromSuggestedFollow } from '@/helpers/formatLensProfile.js';
+import { formatPostsFromTruthSocial } from '@/helpers/formatPostsFromTruthSocial.js';
 import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
@@ -113,6 +114,8 @@ import {
     type TokenPriceStatsOptions,
     type TokenPriceStatsResponse,
     type TokenWithMarketData,
+    type TrumpTruthSocialPostsResponse,
+    type TruthSocialPostResponse,
     type TwitterUserInfoResponse,
     type TwitterUserV2Response,
     type WalletProfile,
@@ -130,6 +133,7 @@ import type {
     PoapHoldersResponse,
     PoapResponse,
 } from '@/providers/types/NFTs.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { convertBskyHandleToDid } from '@/services/convertBskyHandleToDid.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { muteAllSocialProfiles } from '@/services/muteAllSocialProfiles.js';
@@ -1484,6 +1488,33 @@ class FireflyEndpoint {
             }),
         });
         return resolveFireflyResponseData(response);
+    }
+
+    async getTrumpTruthSocialPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/truthsocial_trump_timline', {
+            size: 25,
+            cursor: indicator?.id,
+        });
+        const response = await fireflySessionHolder.fetch<TrumpTruthSocialPostsResponse>(url);
+        const posts = await Promise.all(
+            (response.data?.result || []).filter((x) => !x.has_reblog).map(formatPostsFromTruthSocial),
+        );
+
+        return createPageable(
+            posts,
+            createIndicator(indicator),
+            response.data?.cursor ? createNextIndicator(indicator, response.data.cursor) : undefined,
+        );
+    }
+
+    async getTruthSocialPostById(truthId: string): Promise<Post | null> {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/truthsocial_trump_detail', {
+            truth_id: truthId,
+        });
+        const response = await fireflySessionHolder.fetch<TruthSocialPostResponse>(url);
+        if (!response.data) return null;
+
+        return formatPostsFromTruthSocial(response.data);
     }
 }
 

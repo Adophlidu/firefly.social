@@ -29,6 +29,7 @@ export default async function Layout(props: Props) {
         [ExploreType.Projects]: <Trans>Projects</Trans>,
         [ExploreType.CryptoTrends]: <Trans>Tokens</Trans>,
         [ExploreType.TopChannels]: <Trans>Communities</Trans>,
+        [ExploreType.TruthSocial]: <Trans>Truth Social</Trans>,
     };
 
     return (

@@ -42,6 +42,25 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
     const pathname = usePathname();
     const isPostPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
 
+    if (post.isTruthSocial && post.retruthed) {
+        return (
+            <div className="mb-3 flex w-full items-center space-x-2 text-medium text-secondary">
+                <MirrorIcon width={16} height={16} className="flex-shrink-0" />
+                <Link href={getProfileUrl(post.author)} className="flex min-w-0 space-x-1">
+                    {isSameProfile(post.author, currentProfile) ? (
+                        <Trans>
+                            <strong className="mr-1">You</strong> retruthed
+                        </Trans>
+                    ) : (
+                        <Trans>
+                            <strong className="mr-1">{post.author.displayName}</strong> retruthed
+                        </Trans>
+                    )}
+                </Link>
+            </div>
+        );
+    }
+
     return (
         <ClickableArea className="w-full">
             {post.type === 'Mirror' && post.reporter && !isPostPage ? (

@@ -9,6 +9,7 @@ import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import { FrameLayout } from '@/components/Frame/Layout.js';
 import { OembedLayout } from '@/components/Oembed/index.js';
 import { Player } from '@/components/Oembed/Player.js';
+import { Quote } from '@/components/Posts/Quote.js';
 import { TweetSpace } from '@/components/Posts/TweetSpace.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
 import { type SocialSource } from '@/constants/enum.js';
@@ -77,6 +78,7 @@ export const PostLinks = memo(function PostLinks({ post, isInCompose = false }: 
                     }}
                 />
             ) : null}
+            {data.quote ? <Quote post={data.quote} /> : null}
             {data.snapshot && !isInCompose ? (
                 <SnapshotBody snapshot={data.snapshot} link={url} postId={post.postId} />
             ) : null}

@@ -8,6 +8,7 @@ import { PostHeader } from '@/components/Posts/PostHeader.js';
 import { useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
+import { openWindow } from '@/helpers/openWindow.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface QuoteProps {
@@ -29,6 +30,11 @@ export const Quote = memo<QuoteProps>(function Quote({ post, className = '', isI
 
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
+                if (post.isTruthSocial) {
+                    openWindow(post.permalink);
+                    return;
+                }
+
                 router.push(getPostUrl(post));
             }}
         >

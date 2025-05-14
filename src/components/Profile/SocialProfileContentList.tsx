@@ -9,6 +9,7 @@ import { FeedList } from '@/components/Profile/FeedList.js';
 import { LikedFeedList } from '@/components/Profile/LikedFeedList.js';
 import { MediaList } from '@/components/Profile/MediaList.js';
 import { RepliesList } from '@/components/Profile/RepliesList.js';
+import { TrumpTruthSocialPosts } from '@/components/TrumpTruthSocial/TrumpTruthSocialPosts.js';
 import { SocialProfileCategory, type SocialSource } from '@/constants/enum.js';
 
 export const SocialProfileContentList = memo(function SocialProfileContentList({
@@ -33,6 +34,8 @@ export const SocialProfileContentList = memo(function SocialProfileContentList({
             return <LikedFeedList source={source} profileId={profileId} />;
         case SocialProfileCategory.Media:
             return <MediaList source={source} profileId={profileId} />;
+        case SocialProfileCategory.TruthSocial:
+            return <TrumpTruthSocialPosts />;
         default:
             safeUnreachable(type);
             return null;

@@ -20,6 +20,7 @@ import { PostBodyReplyContent } from '@/components/Posts/PostBodyReplyContent.js
 import { PostLinks } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { RedPacketInspector } from '@/components/RedPacket/RedPacketInspector.js';
+import { TruthSocialPostMarkup } from '@/components/TrumpTruthSocial/TruthSocialPostMarkup.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { PageRoute, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -187,7 +188,11 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
             })}
             ref={mergedRef}
         >
-            <PostMarkup post={post} canShowMore={canShowMore} content={postContent} />
+            {post.isTruthSocial ? (
+                <TruthSocialPostMarkup post={post} postContent={postContent} />
+            ) : (
+                <PostMarkup post={post} canShowMore={canShowMore} content={postContent} />
+            )}
 
             {post.metadata.article ? (
                 <Link href={resolvePostArticleUrl(post)} target="_blank" onClick={(e) => e.stopPropagation()}>
@@ -203,6 +208,9 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
                 <div className="text-medium font-bold text-highlight">
                     <div
                         onClick={() => {
+                            if (post.isTruthSocial) {
+                                return;
+                            }
                             router.push(getPostUrl(post));
                         }}
                     >

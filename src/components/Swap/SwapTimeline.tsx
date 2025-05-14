@@ -10,8 +10,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ListInPage, type ListInPageProps } from '@/components/ListInPage.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SwapActivityItem } from '@/components/Swap/SwapActivityItem.js';
-import { ScrollListKey, Source } from '@/constants/enum.js';
-import { DEFAULT_EXPLORE_TYPE } from '@/constants/index.js';
+import { ExploreType, ScrollListKey, Source } from '@/constants/enum.js';
 import { useRouter } from '@/esm/navigation.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
@@ -103,7 +102,7 @@ export function SwapTimeline({
                         <Trans>Explore and follow accounts to see the feed</Trans>
                         <ClickableButton
                             onClick={() => {
-                                router.push(resolveExploreUrl(DEFAULT_EXPLORE_TYPE));
+                                router.push(resolveExploreUrl(ExploreType.TopProfiles));
                             }}
                             className="leading-12 h-12 min-w-[100px] rounded-2xl bg-main px-5 text-primaryBottom"
                         >

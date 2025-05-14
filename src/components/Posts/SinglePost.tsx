@@ -15,6 +15,7 @@ import { usePathname, useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { openWindow } from '@/helpers/openWindow.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -90,6 +91,11 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             onClick={() => {
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
+                if (post.isTruthSocial) {
+                    openWindow(post.permalink || '', '_blank');
+                    return;
+                }
+
                 if (!isPostPage || isComment) {
                     if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
                     router.push(postLink);
@@ -118,7 +124,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 isComment={isComment}
             />
             <NoSSR>
-                {showPostAction ? (
+                {showPostAction && !post.isTruthSocial ? (
                     <PostActions
                         post={post}
                         disabled={!isBookmarkPage && post.isHidden}
