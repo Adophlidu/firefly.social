@@ -221,16 +221,19 @@ export class NitterSocialMedia implements Provider {
 
     async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
-        const { users, pagination } = await NitterAPIProvider.search(q, {
-            cursor: indicator?.id,
-            type: 'users',
+        const pageable = await runInSafeAsync(async () => {
+            const { users, pagination } = await NitterAPIProvider.search(q, {
+                cursor: indicator?.id,
+                type: 'users',
+            });
+            const data = users.map((user) => formatTwitterProfileFromNitter(user));
+            return createPageable(
+                data,
+                createIndicator(indicator),
+                pagination.bottom ? createNextIndicator(indicator, pagination.bottom) : undefined,
+            );
         });
-        const data = users.map((user) => formatTwitterProfileFromNitter(user));
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            pagination.bottom ? createNextIndicator(indicator, pagination.bottom) : undefined,
-        );
+        return pageable ?? createPageable(EMPTY_LIST, createIndicator(indicator));
     }
 
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -419,10 +422,13 @@ export class NitterSocialMedia implements Provider {
     }
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const { timeline, pagination } = await NitterAPIProvider.search(q, {
-            cursor: indicator?.id,
+        const pageable = await runInSafeAsync(async () => {
+            const { timeline, pagination } = await NitterAPIProvider.search(q, {
+                cursor: indicator?.id,
+            });
+            return withReplyPostsToTimelineWithPagination(timeline, pagination, indicator);
         });
-        return withReplyPostsToTimelineWithPagination(timeline, pagination, indicator);
+        return pageable ?? createPageable(EMPTY_LIST, createIndicator(indicator));
     }
 
     async quotePost(postId: string, post: Post): Promise<{ postId: string }> {
