@@ -38,7 +38,7 @@ export function SuggestedFollowUsersList({ source }: Props) {
             uniqBy(
                 data.pages.flatMap((page) => page?.data ?? []),
                 (x) => x.profileId,
-            ).filter((x) => !x.viewerContext?.following),
+            ),
     });
 
     return (
