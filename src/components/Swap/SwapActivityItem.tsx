@@ -28,6 +28,7 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { resolveSwapPageUrl } from '@/helpers/resolveSwapPageUrl.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
@@ -81,7 +82,10 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                         <Avatar
                             alt={activity.owner}
                             className="size-10 rounded-full"
-                            src={getWalletProfileAvatar(activity.displayInfo)}
+                            src={
+                                getWalletProfileAvatar(activity.displayInfo) ??
+                                getStampAvatarByProfileId(Source.Wallet, activity.owner)
+                            }
                             size={40}
                         />
                     </Link>
@@ -94,7 +98,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                 className="min-w-0 max-w-full truncate font-bold text-lightMain"
                                 onClick={stopPropagation}
                             >
-                                {activity.displayInfo.ensHandle ? (
+                                {activity.displayInfo?.ensHandle ? (
                                     <span>
                                         {activity.displayInfo.ensHandle.split('.')[0]}
                                         <span className="text-second">
@@ -105,7 +109,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                     addressName
                                 )}
                             </Link>
-                            {activity.displayInfo.ensHandle ? (
+                            {activity.displayInfo?.ensHandle ? (
                                 <Link href={profileUrl} className="ml-2 max-md:hidden" onClick={stopPropagation}>
                                     {addressName}
                                 </Link>
@@ -121,7 +125,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                         <ClickableArea>
                             <WalletBaseMoreAction
                                 address={activity.owner as Address}
-                                ens={activity.displayInfo.ensHandle}
+                                ens={activity.displayInfo?.ensHandle}
                             />
                         </ClickableArea>
                     </div>
@@ -160,7 +164,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                     identity: activity.from_token.symbol,
                                     chainId: activity.chain_id,
                                     trader: activity.owner,
-                                    traderName: activity.displayInfo.ensHandle,
+                                    traderName: activity.displayInfo?.ensHandle,
                                     address: activity.from_token.address,
                                 })}
                                 className="flex items-center gap-2 rounded-lg bg-bg p-2"
@@ -202,7 +206,7 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                     identity: activity.to_token.symbol,
                                     chainId: activity.chain_id,
                                     trader: activity.owner,
-                                    traderName: activity.displayInfo.ensHandle,
+                                    traderName: activity.displayInfo?.ensHandle,
                                     address: activity.to_token.address,
                                 })}
                                 className="flex items-center gap-2 rounded-lg bg-bg p-2"

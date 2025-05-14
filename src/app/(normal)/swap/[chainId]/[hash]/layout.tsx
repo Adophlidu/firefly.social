@@ -33,7 +33,7 @@ export default async function SwapPageLayout(props: Props) {
                         <Trans>Transaction</Trans>
                     </span>
                 </div>
-                <WalletBaseMoreAction address={activity.owner as Address} ens={activity.displayInfo.ensHandle} />
+                <WalletBaseMoreAction address={activity.owner as Address} ens={activity.displayInfo?.ensHandle} />
             </div>
             {children}
         </>

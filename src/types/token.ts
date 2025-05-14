@@ -6,7 +6,7 @@ export interface TradeRecord {
     value: number | undefined;
     date: number;
     user: {
-        name: string;
+        name?: string;
         avatar: string;
     };
     amount: string;

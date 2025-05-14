@@ -27,6 +27,7 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatTokenAmount } from '@/helpers/formatTokenAmount.js';
 import { formatTokenUSD } from '@/helpers/formatTokenUSD.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
@@ -77,14 +78,17 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                         <Avatar
                             alt={activity.owner}
                             className="size-10 rounded-full"
-                            src={activity.displayInfo.avatarUrl}
+                            src={
+                                activity.displayInfo?.avatarUrl ??
+                                getStampAvatarByProfileId(Source.Wallet, activity.owner)
+                            }
                             size={40}
                         />
                     </Link>
                     <div className="flex flex-col">
                         <div className="flex items-center gap-x-1 text-medium">
                             <Link href={profileUrl} className="min-w-0 truncate font-bold text-lightMain">
-                                {activity.displayInfo.ensHandle ? (
+                                {activity.displayInfo?.ensHandle ? (
                                     <span>
                                         {activity.displayInfo.ensHandle.split('.')[0]}
                                         <span className="text-second">
@@ -97,7 +101,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                             </Link>
                         </div>
                         <div className="flex items-center gap-x-1 text-sm text-second">
-                            {activity.displayInfo.ensHandle ? (
+                            {activity.displayInfo?.ensHandle ? (
                                 <Link href={profileUrl} className="text-second">
                                     {addressName}
                                 </Link>
@@ -148,7 +152,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                                     identity: activity.from_token.symbol,
                                     chainId: activity.chain_id,
                                     trader: activity.owner,
-                                    traderName: activity.displayInfo.ensHandle,
+                                    traderName: activity.displayInfo?.ensHandle,
                                 })}
                                 className="flex items-center gap-2 rounded-lg bg-bg p-3"
                             >
@@ -193,7 +197,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                                     identity: activity.to_token.symbol,
                                     chainId: activity.chain_id,
                                     trader: activity.owner,
-                                    traderName: activity.displayInfo.ensHandle,
+                                    traderName: activity.displayInfo?.ensHandle,
                                 })}
                                 className="flex items-center gap-2 rounded-lg bg-bg p-3"
                             >

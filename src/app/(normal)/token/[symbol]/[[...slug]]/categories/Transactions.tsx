@@ -12,6 +12,7 @@ import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
 import { useSearchParams } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 import type { TradeRecord } from '@/types/token.js';
@@ -59,9 +60,11 @@ export const Transactions = memo<Props>(function Transactions({
                     if (!token) return null;
                     return {
                         user: {
-                            name: activity.displayInfo.ensHandle,
+                            name: activity.displayInfo?.ensHandle,
                             address: activity.owner,
-                            avatar: activity.displayInfo.avatarUrl,
+                            avatar:
+                                activity.displayInfo?.avatarUrl ??
+                                getStampAvatarByProfileId(Source.Wallet, activity.owner),
                         },
                         amount: token.amount_str,
                         uiAmount: token.amount_num,
