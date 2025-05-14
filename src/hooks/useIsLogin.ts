@@ -1,6 +1,7 @@
-import { type NotificationSource, type SocialSource, Source } from '@/constants/enum.js';
-import { SOCIAL_DISCOVER_SOURCE, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { HomeTab, type NotificationSource, type SocialSource, Source } from '@/constants/enum.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
+import { useSocialDiscoverSourcesWithWhitelist } from '@/hooks/useSocialDiscoverSourcesWithWhitelist.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 export function useIsLogin(source?: SocialSource) {
@@ -24,6 +25,7 @@ export function useIsLoginNotifications(source: NotificationSource) {
 }
 
 export function useIsLoginDiscoverSource() {
+    const sources = useSocialDiscoverSourcesWithWhitelist(HomeTab.Following);
     const profilesAll = useCurrentProfilesAll();
-    return SOCIAL_DISCOVER_SOURCE.some((source) => !!profilesAll[source]?.profileId);
+    return sources.some((source) => !!profilesAll[source]?.profileId);
 }
