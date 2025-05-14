@@ -70,7 +70,7 @@ function ContractItem({ contract, ...rest }: ContractItemProps) {
                     {formatAddressEthereum(contract.address, 4)}
                 </div>
             </div>
-            <CopyTextButton tooltipProps={{ placement: 'left' }} text={contract.address} />
+            <CopyTextButton tooltipProps={{ placement: 'left', touch: true }} text={contract.address} />
         </div>
     );
 }

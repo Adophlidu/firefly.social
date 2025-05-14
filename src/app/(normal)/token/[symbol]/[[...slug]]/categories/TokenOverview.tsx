@@ -202,7 +202,7 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ t
                                         {formatContractAddress(contracts[0])}
                                     </span>
                                 </Tooltip>
-                                <CopyTextButton text={contracts[0].address} />
+                                <CopyTextButton text={contracts[0].address} tooltipProps={{ touch: true }} />
                                 {contracts.length > 1 ? <ContractList contracts={contracts} /> : null}
                             </div>
                         }
