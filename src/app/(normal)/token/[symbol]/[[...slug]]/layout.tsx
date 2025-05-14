@@ -10,7 +10,7 @@ import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { TokenCategory } from '@/constants/enum.js';
-import { TOKEN_CATEGORIES } from '@/constants/index.js';
+import { NON_SOL_ETH_COINS } from '@/constants/index.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
@@ -48,6 +48,7 @@ function resolveCategoryUrl(category: TokenCategory, params: TokenPageSearch & {
     return urlcat(categoryUrlPatternMap[category], params);
 }
 
+const TOKEN_CATEGORIES: TokenCategory[] = [TokenCategory.Transactions, TokenCategory.Feeds, TokenCategory.Overview];
 export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
     await setupLocaleForSSR();
 
@@ -73,8 +74,11 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
     if (!token) {
         notFound();
     }
+    const categories = NON_SOL_ETH_COINS.includes(token.id)
+        ? TOKEN_CATEGORIES
+        : [TokenCategory.Feeds, TokenCategory.Overview];
     const slug = params.slug?.[0];
-    const category = slug && TOKEN_CATEGORIES.includes(slug as TokenCategory) ? slug : TokenCategory.Transactions;
+    const category = slug && categories.includes(slug as TokenCategory) ? slug : TokenCategory.Transactions;
 
     return (
         <TokenContextProvider>

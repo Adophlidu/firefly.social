@@ -28,7 +28,6 @@ import {
     Source,
     SourceInURL,
     STATUS,
-    TokenCategory,
     TrendingType,
     VERCEL_NEV,
     WalletProfileCategory,
@@ -456,8 +455,5 @@ export const BSKY_LOGIN_REQUIRED_FEEDS = [
     'at://did:plc:tenurhgjptubkk5zf5qhi3og/app.bsky.feed.generator/mutuals',
 ];
 
-export const TOKEN_CATEGORIES: TokenCategory[] = [
-    TokenCategory.Transactions,
-    TokenCategory.Feeds,
-    TokenCategory.Overview,
-];
+/** coingecko coin ids that are not solana or ethereum */
+export const NON_SOL_ETH_COINS = ['bitcoin', 'dogecoin', 'tron', 'cardano', 'sui', 'polkadot', 'litecoin'];
