@@ -1,16 +1,11 @@
-import { Trans } from '@lingui/react/macro';
 import { notFound } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
-import urlcat from 'urlcat';
 
+import { CategoryTabs, type TokenPageSearch } from '@/app/(normal)/token/[symbol]/[[...slug]]/CategoryTabs.js';
 import { WrapTokenMarketData } from '@/app/(normal)/token/[symbol]/[[...slug]]/WrapTokenMarketData.js';
 import { Comeback } from '@/components/Comeback.js';
-import { SourceTabs } from '@/components/SourceTabs/index.js';
-import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
-import { TokenCategory } from '@/constants/enum.js';
-import { NON_SOL_ETH_COINS, TOKEN_CATEGORIES } from '@/constants/index.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
@@ -18,18 +13,6 @@ import type { CoinGeckoAsset, CoinGeckoToken } from '@/providers/types/CoinGecko
 import { getTokenFromCoinGecko } from '@/services/getTokenFromCoinGecko.js';
 import { searchTokenByAddress } from '@/services/searchTokenByAddress.js';
 import type { NextPageProps } from '@/types/index.js';
-
-export interface TokenPageSearch {
-    wallet: string;
-    chainId?: string;
-    /** if is coingecko coin id, which is more specific */
-    isCoinId?: 'true';
-    /** trader wallet address */
-    trader?: string;
-    /** to keep consistent with previous entry */
-    traderName?: string;
-    address?: string;
-}
 
 interface Props
     extends NextPageProps<
@@ -40,21 +23,13 @@ interface Props
         TokenPageSearch
     > {}
 
-const categoryUrlPatternMap: Record<TokenCategory, string> = {
-    [TokenCategory.Feeds]: `/token/:symbol/feeds`,
-    [TokenCategory.Overview]: '/token/:symbol/overview',
-    [TokenCategory.Transactions]: `/token/:symbol/transactions`,
-};
-function resolveCategoryUrl(category: TokenCategory, params: TokenPageSearch & { symbol: string }): string {
-    return urlcat(categoryUrlPatternMap[category], params);
-}
-
 export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
     await setupLocaleForSSR();
 
     const { children } = props;
     const params = await props.params;
     const search = await props.searchParams;
+    console.log('search', search);
     const paramSymbol = decodeURIComponent(params.symbol);
     let symbol = paramSymbol;
     let tokenAsset: CoinGeckoAsset;
@@ -80,20 +55,10 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
         return null;
     });
 
-    const labels: Record<TokenCategory, React.ReactNode> = {
-        [TokenCategory.Transactions]: <Trans>Transactions</Trans>,
-        [TokenCategory.Feeds]: <Trans>Feeds</Trans>,
-        [TokenCategory.Overview]: <Trans>Overview</Trans>,
-    };
-
     if (!token) {
         notFound();
     }
-    const categories = NON_SOL_ETH_COINS.includes(token.id)
-        ? [TokenCategory.Feeds, TokenCategory.Overview]
-        : TOKEN_CATEGORIES;
     const slug = params.slug?.[0];
-    const category = slug && categories.includes(slug as TokenCategory) ? slug : categories[0];
 
     return (
         <TokenContextProvider>
@@ -108,18 +73,7 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
             </div>
             <div className="sticky top-[54px] z-30 bg-primaryBottom md:top-[60px]">
                 <WrapTokenMarketData className="sticky" token={token} />
-                <SourceTabs className="!z-20 md:!top-[57px]">
-                    {categories.map((x) => (
-                        <SourceTab
-                            className="whitespace-nowrap text-base md:!h-[45px] md:!px-4 md:!py-[10px]"
-                            key={x}
-                            href={resolveCategoryUrl(x, { ...search, symbol: paramSymbol })}
-                            isActive={x === category}
-                        >
-                            {labels[x]}
-                        </SourceTab>
-                    ))}
-                </SourceTabs>
+                <CategoryTabs slug={slug} tokenId={token.id} className="!z-20 md:!top-[57px]" />
             </div>
             <div className="p-3">{children}</div>
         </TokenContextProvider>

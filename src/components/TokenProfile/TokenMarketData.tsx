@@ -27,6 +27,7 @@ import { useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useIsPriceUp } from '@/hooks/useIsPriceUp.js';
 import { useSingleCoin } from '@/hooks/useSingleCoin.js';
+import { useTokenPrice } from '@/hooks/useTokenPrice.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
@@ -60,6 +61,7 @@ export const TokenMarketData = memo(function TokenMarketData({
     ...rest
 }: TokenMarketDataProps) {
     const ranges = getRanges();
+    const { data: tokenPrice } = useTokenPrice(token.id);
     const { data: coin } = useSingleCoin(token.id, token.chainId, token.address);
     const { data: trending } = useCoinTrending(token.id);
     const { contracts } = trending ?? {};
@@ -102,7 +104,7 @@ export const TokenMarketData = memo(function TokenMarketData({
     );
 
     const tokenRank = rank ?? token.rank;
-    const price = coin?.market_data?.token_price_usd;
+    const price = tokenPrice ?? coin?.market_data?.token_price_usd;
     const change24h = change ?? coin?.market_data?.price_change_percentage_24h;
 
     return (

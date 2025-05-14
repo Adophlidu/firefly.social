@@ -16,6 +16,7 @@ import {
 } from '@/constants/enum.js';
 import { OTPExceededMaximumLimit } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
 import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
 import { SetQueryDataForMuteAllProfiles } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBlockWallet, SetQueryDataForMuteAllWallets } from '@/decorators/SetQueryDataForBlockWallet.js';
@@ -38,6 +39,7 @@ import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
 import { extractIpfsCID } from '@/helpers/isIpfsCID.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
+import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
 import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
@@ -1043,8 +1045,14 @@ class FireflyEndpoint {
     }
 
     async getTokenPriceStats(options: TokenPriceStatsOptions) {
+        const params = { ...options } as TokenPriceStatsOptions;
+        if (params.coingecko_coin_id) {
+            params.address = undefined;
+        } else if (params.address && isZeroAddressEthereum(params.address)) {
+            params.address = NATIVE_TOKEN_ADDRESS;
+        }
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/token/token_market_chart', {
-            ...options,
+            ...params,
             vs_currency: 'usd',
             days: options.days || 'max',
         });

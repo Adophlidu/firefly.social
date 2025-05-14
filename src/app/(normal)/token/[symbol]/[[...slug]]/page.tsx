@@ -4,7 +4,7 @@ import { use } from 'react';
 import { Feeds } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/Feeds.js';
 import { TokenOverview } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/TokenOverview.js';
 import { Transactions } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/Transactions.js';
-import type { TokenPageSearch } from '@/app/(normal)/token/[symbol]/[[...slug]]/layout.js';
+import type { TokenPageSearch } from '@/app/(normal)/token/[symbol]/[[...slug]]/CategoryTabs.js';
 import { Loading } from '@/components/Loading.js';
 import { TokenCategory } from '@/constants/enum.js';
 import { NON_SOL_ETH_COINS, TOKEN_CATEGORIES } from '@/constants/index.js';
