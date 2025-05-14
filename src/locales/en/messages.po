@@ -552,9 +552,6 @@ msgstr "Signing in"
 msgid "Overview"
 msgstr "Overview"
 
-msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
-msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
-
 msgid "Sorry, the email you entered is invalid"
 msgstr "Sorry, the email you entered is invalid"
 
@@ -1076,9 +1073,6 @@ msgstr "Delete Firefly account?"
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "Failed to upload. Image size exceeds {0}"
 
-msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly"
-msgstr "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly"
-
 msgid "Done"
 msgstr "Done"
 
@@ -1204,6 +1198,9 @@ msgstr "Remove Choice"
 
 msgid "Update"
 msgstr "Update"
+
+msgid "Registered account not found. Please switch to another wallet and try again."
+msgstr "Registered account not found. Please switch to another wallet and try again."
 
 msgid "Domain"
 msgstr "Domain"
@@ -2373,6 +2370,9 @@ msgstr "Connect your wallet to claim your NFT"
 msgid "Reauthorize"
 msgstr "Reauthorize"
 
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer on Warpcast<2/>Connect wallet to sign in<3/>if you registered your Farcaster account on Firefly"
+msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer on Warpcast<2/>Connect wallet to sign in<3/>if you registered your Farcaster account on Firefly"
+
 msgid "Like"
 msgstr "Like"
 
@@ -2859,9 +2859,6 @@ msgstr "{0, plural, one {repost} other {reposts}}"
 msgid "Wallet submitted"
 msgstr "Wallet submitted"
 
-msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
-msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
-
 msgid "This does not appear to be a honeypot."
 msgstr "This does not appear to be a honeypot."
 
@@ -3025,6 +3022,9 @@ msgstr "Internal Server Error. Please try again later."
 
 msgid "Post could not be found."
 msgstr "Post could not be found."
+
+msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> or <2>connect wallet</2> to sign into Firefly"
+msgstr "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> or <2>connect wallet</2> to sign into Firefly"
 
 msgid "No suspected malicious behavior found."
 msgstr "No suspected malicious behavior found."
@@ -3934,6 +3934,9 @@ msgstr "{0}h: {1}m: {2}s"
 #. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES)
 msgid "Scheduled posts are only available on {0}."
 msgstr "Scheduled posts are only available on {0}."
+
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free.<2/>Already signed in before?"
+msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free.<2/>Already signed in before?"
 
 msgid "Download App"
 msgstr "Download App"

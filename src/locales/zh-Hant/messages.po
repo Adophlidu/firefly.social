@@ -557,9 +557,6 @@ msgstr "登入中"
 msgid "Overview"
 msgstr ""
 
-msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
-msgstr "在 {count} 秒內用手機<0>相機</0>掃描 QR 碼。<1/>核准新的 Farcaster 簽名者至 Firefly。"
-
 msgid "Sorry, the email you entered is invalid"
 msgstr "您輸入的電子郵件無效"
 
@@ -1081,9 +1078,6 @@ msgstr "刪除Firefly帳號？"
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "上傳失敗：圖片大小超過{0}"
 
-msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly"
-msgstr "已登入？<0/>授權<1>現有Farcaster簽名者</1>至Firefly"
-
 msgid "Done"
 msgstr "完成"
 
@@ -1209,6 +1203,9 @@ msgstr "移除選項"
 
 msgid "Update"
 msgstr "更新"
+
+msgid "Registered account not found. Please switch to another wallet and try again."
+msgstr ""
 
 msgid "Domain"
 msgstr "網域"
@@ -2373,6 +2370,9 @@ msgstr ""
 msgid "Reauthorize"
 msgstr ""
 
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer on Warpcast<2/>Connect wallet to sign in<3/>if you registered your Farcaster account on Firefly"
+msgstr ""
+
 msgid "Like"
 msgstr "喜歡"
 
@@ -2859,9 +2859,6 @@ msgstr "{0, plural, one {次轉發} other {次轉發}}"
 msgid "Wallet submitted"
 msgstr "錢包已提交"
 
-msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
-msgstr "請在 {count} 秒內用手機<0>相機</0>掃描 QR 碼。<1/>免費核准新的 Farcaster 簽名者至 Firefly。"
-
 msgid "This does not appear to be a honeypot."
 msgstr "此地址未檢測到蜜罐風險。"
 
@@ -3025,6 +3022,9 @@ msgstr "伺服器錯誤，請稍後重試。"
 
 msgid "Post could not be found."
 msgstr "找不到貼文。"
+
+msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> or <2>connect wallet</2> to sign into Firefly"
+msgstr ""
 
 msgid "No suspected malicious behavior found."
 msgstr "未檢測到可疑惡意行為。"
@@ -3933,6 +3933,9 @@ msgstr ""
 
 #. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES)
 msgid "Scheduled posts are only available on {0}."
+msgstr ""
+
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free.<2/>Already signed in before?"
 msgstr ""
 
 msgid "Download App"

@@ -81,7 +81,11 @@ function LoginFarcasterWithWalletButton({ children, className }: HTMLProps<'a'>)
         try {
             await login(() => createAccountByWallet(controller.current.signal));
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to login.`);
+            if (error instanceof Error && error.message.includes('Account does not exist')) {
+                enqueueWarningMessage(t`Registered account not found. Please switch to another wallet and try again.`);
+            } else {
+                enqueueMessageFromError(error, t`Failed to login.`);
+            }
             throw error;
         }
     }, [controller]);
@@ -270,7 +274,11 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                     <Trans>
                                         Scan the QR code with your phone’s <b className="font-bold">Camera</b> in{' '}
                                         {count}s. <br />
-                                        Approve a new Farcaster signer to Firefly.
+                                        Approve a new Farcaster signer on Warpcast
+                                        <br />
+                                        Connect wallet to sign in
+                                        <br />
+                                        if you registered your Farcaster account on Firefly
                                     </Trans>
                                 ) : signType === SignType.RelayService ? (
                                     <Trans>
@@ -283,6 +291,8 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                         Scan the QR code with your phone’s <b className="font-bold">Camera</b> in{' '}
                                         {count}s. <br />
                                         Approve a new Farcaster signer to Firefly for free.
+                                        <br />
+                                        Already signed in before?
                                     </Trans>
                                 ) : null}
                             </div>
@@ -316,7 +326,9 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                         >
                                             existing Farcaster signer
                                         </Link>{' '}
-                                        to Firefly
+                                        or{' '}
+                                        <LoginFarcasterWithWalletButton>connect wallet</LoginFarcasterWithWalletButton>{' '}
+                                        to sign into Firefly
                                     </Trans>
                                 ) : signType === SignType.RelayService ? (
                                     <Trans>
