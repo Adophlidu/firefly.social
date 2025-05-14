@@ -1168,6 +1168,7 @@ class FireflyEndpoint {
     }
 
     async detectAddress(address: string, chainId?: string) {
+        if (!address) return null;
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/detect', {
             address,
             chainId,

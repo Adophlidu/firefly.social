@@ -43,6 +43,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
         queryKey: ['detect-address', address],
         queryFn: () => FireflyEndpointProvider.detectAddress(address),
         select: (data) => {
+            if (!data) return;
             const tokens = data.list.filter((x) => {
                 if (x.contract_info.attributes.symbol.toLowerCase() !== symbol.toLowerCase()) return false;
                 return (

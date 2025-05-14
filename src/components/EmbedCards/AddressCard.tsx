@@ -15,7 +15,7 @@ export const AddressCard = memo<AddressCardProps>(function AddressCard(props) {
     const { data: detected } = useQuery({
         queryKey: ['detect-address', address],
         queryFn: () => FireflyEndpointProvider.detectAddress(address),
-        select: (data) => data.list[0],
+        select: (data) => data?.list[0],
     });
     const address_type = detected?.address_type;
     if (!address_type) return null;
@@ -54,7 +54,7 @@ export const AddressCardIndicator = memo<AddressCardIndicatorProps>(function Add
     const { data: detected } = useQuery({
         queryKey: ['detect-address', address],
         queryFn: () => FireflyEndpointProvider.detectAddress(address),
-        select: (data) => data.list[0],
+        select: (data) => data?.list[0],
     });
 
     const attributes = detected?.contract_info?.attributes;

@@ -29,6 +29,7 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
         queryKey: ['detect-address', address],
         queryFn: () => FireflyEndpointProvider.detectAddress(address),
         select: (data) => {
+            if (!data) return;
             const tokens = data.list.filter((x) => {
                 return (
                     (x.type === 'eth' && x.contract_type === 'ERC20') ||

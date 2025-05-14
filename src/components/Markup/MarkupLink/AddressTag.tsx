@@ -19,7 +19,7 @@ export const AddressTag = memo<AddressTagProps>(function AddressTag({ title, add
     const { data, isLoading } = useQuery({
         queryKey: ['detect-address', address],
         queryFn: () => FireflyEndpointProvider.detectAddress(address),
-        select: (data) => data.list[0],
+        select: (data) => data?.list[0],
     });
 
     if (!data || isLoading) return title;
