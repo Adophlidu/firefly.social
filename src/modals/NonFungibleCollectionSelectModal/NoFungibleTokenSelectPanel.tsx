@@ -28,7 +28,8 @@ export const NonFungibleCollectionSelectPanel = memo<NonFungibleCollectionSelect
     function NonFungibleCollectionSelectPanel({ onSelected, isSelected }) {
         const isMedium = useIsMedium('max');
         const currentChainId = useChainId();
-        const [chainId = currentChainId, setChainId] = useState<number>();
+        const defaultChainId = NFTSCAN_CHAIN_IDS.includes(currentChainId) ? currentChainId : NFTSCAN_CHAIN_IDS[0];
+        const [chainId = defaultChainId, setChainId] = useState<number>();
         const account = useAccount();
 
         const { data: allCollections = EMPTY_LIST, isLoading } = useNFTCollections({
