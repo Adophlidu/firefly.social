@@ -135,7 +135,11 @@ export const PostStatistics = memo<Props>(function PostStatistics({
         </data>
     ) : null;
     const mirrors = post.stats?.mirrors ? (
-        <EngagementLink post={post} type={EngagementType.Mirrors} onSetScrollIndex={onSetScrollIndex}>
+        <EngagementLink
+            post={post}
+            type={[Source.Farcaster].includes(post.source) ? EngagementType.Recasts : EngagementType.Mirrors}
+            onSetScrollIndex={onSetScrollIndex}
+        >
             <data value={post.stats.mirrors}>
                 <span className="mr-[2px] font-bold">{post.stats.mirrors}</span>
                 {{
