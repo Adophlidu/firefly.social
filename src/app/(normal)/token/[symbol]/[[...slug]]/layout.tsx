@@ -75,10 +75,10 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
         notFound();
     }
     const categories = NON_SOL_ETH_COINS.includes(token.id)
-        ? TOKEN_CATEGORIES
-        : [TokenCategory.Feeds, TokenCategory.Overview];
+        ? [TokenCategory.Feeds, TokenCategory.Overview]
+        : TOKEN_CATEGORIES;
     const slug = params.slug?.[0];
-    const category = slug && categories.includes(slug as TokenCategory) ? slug : TokenCategory.Transactions;
+    const category = slug && categories.includes(slug as TokenCategory) ? slug : categories[0];
 
     return (
         <TokenContextProvider>
@@ -94,7 +94,7 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
             <div className="sticky top-[54px] z-30 bg-primaryBottom md:top-[60px]">
                 <WrapTokenMarketData className="sticky" token={token} />
                 <SourceTabs className="!z-20 md:!top-[57px]">
-                    {TOKEN_CATEGORIES.map((x) => (
+                    {categories.map((x) => (
                         <SourceTab
                             className="whitespace-nowrap text-base md:!h-[45px] md:!px-4 md:!py-[10px]"
                             key={x}
