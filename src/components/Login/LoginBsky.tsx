@@ -154,6 +154,7 @@ export function LoginBsky() {
                                 serverDescription || undefined,
                             ),
                             password,
+                            allowTakendown: true,
                         });
                         if (!response.success) throw new Error(`Failed to login username = ${username}.`);
 
