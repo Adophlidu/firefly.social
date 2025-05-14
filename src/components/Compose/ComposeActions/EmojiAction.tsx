@@ -37,7 +37,6 @@ export const EmojiAction = memo(function EmojiAction() {
                 content={
                     <EmojiPicker
                         skinTonesDisabled
-                        lazyLoadEmojis
                         previewConfig={{ showPreview: false }}
                         height={300}
                         theme={isDarkMode ? Theme.DARK : Theme.LIGHT}
