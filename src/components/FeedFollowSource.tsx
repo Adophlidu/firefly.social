@@ -34,7 +34,7 @@ export function FeedFollowSource({ source }: { source?: FollowingSource }) {
                     {source.handle ? (
                         <ClickableArea>
                             <Link className="hover:underline" href={profileUrl}>
-                                @{source.handle}
+                                {source.handle}
                             </Link>
                         </ClickableArea>
                     ) : null}
