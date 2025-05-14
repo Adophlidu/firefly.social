@@ -1367,7 +1367,7 @@ class FireflyEndpoint {
         });
         const response = await fetchJSON<CollectionResponse>(url);
         if (!response.data) return null;
-        if ('chain_id' in response.data && Object.keys(response).length <= 1) return null;
+        if ('chain_id' in response.data && Object.keys(response.data).length <= 1) return null;
         return fixCollection(response.data);
     }
 
