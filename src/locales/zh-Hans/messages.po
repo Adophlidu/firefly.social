@@ -442,6 +442,9 @@ msgstr "取消收藏文章失败。"
 msgid "firefly.eth tipped you 100 USDC"
 msgstr "firefly.eth 打赏了你 100 USDC"
 
+msgid "Your BlueSky session has expired, please sign in again"
+msgstr ""
+
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer to Firefly."
 msgstr "使用<0>摄像头</0> 在 {count} 内<1/> 来扫描你的二维码。授权 Farcaster singer 给 Firefly。"
 

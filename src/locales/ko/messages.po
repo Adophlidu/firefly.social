@@ -442,6 +442,9 @@ msgstr ""
 msgid "firefly.eth tipped you 100 USDC"
 msgstr ""
 
+msgid "Your BlueSky session has expired, please sign in again"
+msgstr ""
+
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer to Firefly."
 msgstr ""
 

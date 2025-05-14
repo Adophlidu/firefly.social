@@ -384,17 +384,19 @@ const useBskyStateBase = createState(
                 if (error instanceof FetchError) return;
                 console.warn('[bsky store] clean the local store because of the error', error);
 
-                const invalidSession =
+                const clearSession =
                     error instanceof Error &&
                     'error' in error &&
                     (error.error as string) === 'ExpiredToken' &&
-                    error.message === 'Token has been revoked';
-                state.clear(invalidSession);
+                    ['Token has been revoked', 'Token has expired'].includes(error.message);
+                state.clear(clearSession);
                 bskySessionHolder.removeSession();
 
                 if (state.currentProfileSession) {
                     enqueueWarningMessage(
-                        t`Failed to restore your BlueSky session, you can refresh the page to try again or sign in again.`,
+                        clearSession
+                            ? t`Your BlueSky session has expired, please sign in again`
+                            : t`Failed to restore your BlueSky session, you can refresh the page to try again or sign in again.`,
                     );
                 }
             } finally {
