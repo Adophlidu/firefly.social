@@ -132,6 +132,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                             className="mt-1.5 truncate text-sm"
                             components={overrideComponents}
                             source={profile.source}
+                            profile={profile}
                         >
                             {profile.bio}
                         </BioMarkup>

@@ -2,6 +2,7 @@ import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { X3_PRO_AVATAR_URL } from '@/constants/index.js';
+import { TWITTER_MENTION_REGEX } from '@/constants/regexp.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { ProfileStatus } from '@/providers/types/SocialMedia.js';
 import type { Profile as X3ProProfile } from '@/providers/x3pro/index.js';
@@ -17,6 +18,12 @@ export function formatTwitterProfileFromX3Pro(user: X3ProProfile): Profile<X3Pro
         fullHandle: user.screenName,
         pfp: urlcat(X3_PRO_AVATAR_URL, user.avatar),
         bio: user.introduction,
+        bioContext: {
+            mentions: [...user.introduction?.matchAll(TWITTER_MENTION_REGEX)].map((x) => ({
+                source: Source.Twitter,
+                id: x[1],
+            })),
+        },
         followerCount: user.fanCount,
         followingCount: user.focusCount,
         status: ProfileStatus.Active,
