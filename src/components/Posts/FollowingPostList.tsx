@@ -67,8 +67,9 @@ export const FollowingPostList = memo<{
         },
     );
 
+    if (isLoadingTwitterWhitelist) return <Loading />;
     if (!isLogin) return <NotLoginFallback source={Source.Posts} />;
-    if (asyncStatusAll || isLoadingTwitterWhitelist) return <Loading />;
+    if (asyncStatusAll) return <Loading />;
 
     return (
         <ListInPage
