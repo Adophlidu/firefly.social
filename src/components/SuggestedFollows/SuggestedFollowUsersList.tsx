@@ -4,6 +4,7 @@ import { Trans } from '@lingui/react/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { uniqBy } from 'lodash-es';
 
+import X3ProIcon from '@/assets/x3pro.svg';
 import { Link } from '@/components/Link.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
@@ -53,14 +54,17 @@ export function SuggestedFollowUsersList({ source }: Props) {
                 context: {
                     footerText:
                         source === Source.Twitter ? (
-                            <span>
-                                <Trans>
-                                    Top 100 Web3 profiles powered by{' '}
-                                    <Link href={X3_PRO_URL} className="text-link hover:underline">
-                                        X3
-                                    </Link>
-                                </Trans>
-                            </span>
+                            <>
+                                <X3ProIcon width={18} height={18} className="mr-2.5 shrink-0" />
+                                <span>
+                                    <Trans>
+                                        Top 100 Web3 profiles powered by{' '}
+                                        <Link href={X3_PRO_URL} className="text-link hover:underline">
+                                            X3
+                                        </Link>
+                                    </Trans>
+                                </span>
+                            </>
                         ) : null,
                 },
             }}
