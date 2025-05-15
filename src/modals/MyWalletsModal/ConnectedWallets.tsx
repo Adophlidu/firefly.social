@@ -126,16 +126,18 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
 
         return uniqBy(
             compact([
-                ...connections.map((x) => ({
-                    address: x.accounts[0],
-                    namespace: 'eip155' as ChainNamespace,
-                    connected: currentConnectionId
-                        ? currentConnectionId === x.connector.uid
-                        : x.accounts.some((address) => isSameAddress(address, ethereum.address)),
-                    connector: x.connector,
-                    chainId: x.chainId,
-                    walletIcon: x.connector.icon,
-                })),
+                ...(ethereum.isConnected
+                    ? connections.map((x) => ({
+                          address: x.accounts[0],
+                          namespace: 'eip155' as ChainNamespace,
+                          connected: currentConnectionId
+                              ? currentConnectionId === x.connector.uid
+                              : x.accounts.some((address) => isSameAddress(address, ethereum.address)),
+                          connector: x.connector,
+                          chainId: x.chainId,
+                          walletIcon: x.connector.icon,
+                      }))
+                    : []),
                 solana.isConnected
                     ? {
                           address: solana.address,
