@@ -359,7 +359,7 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
     }
 
     return (
-        <div className="align-center relative w-full px-4" id={PROFILE_SOURCE_TABS_CONTAINER_ID}>
+        <div className="align-center relative w-full px-4">
             <button
                 className={classNames(
                     'absolute left-0 z-10 flex h-full transform cursor-pointer items-center pl-4 duration-100 hover:text-highlight',
@@ -392,6 +392,7 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
                 className="no-scrollbar align-center relative flex w-full overflow-x-auto overflow-y-auto pb-2.5 pt-2"
                 ref={ref}
                 onScroll={(e) => handleButtons(e.currentTarget)}
+                id={PROFILE_SOURCE_TABS_CONTAINER_ID}
             >
                 {children}
             </div>
