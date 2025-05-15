@@ -1,3 +1,4 @@
+import { isNumber } from 'lodash-es';
 import { type CSSProperties, type HTMLProps, memo, useCallback, useState } from 'react';
 import { Area, AreaChart, ResponsiveContainer, Tooltip, YAxis } from 'recharts';
 
@@ -40,18 +41,20 @@ function TradeTooltip({ x, y, trade, className, ...rest }: TradeTooltipProps) {
 export interface PriceChartProps extends HTMLProps<HTMLDivElement> {
     records: PriceRecord[];
     tradeRecords?: TradeRecord[];
-    activeTradeDate?: number;
+    activeTradeIndex?: number;
     onHover?: (payload: PriceRecord) => void;
     onMouseLeave?: () => void;
+    onDotClick?: (dotIndex: number) => void;
 }
 
 const YAxisDomain = ['auto', 'auto'];
 export const PriceChart = memo<PriceChartProps>(function PriceChart({
     records,
     tradeRecords = EMPTY_LIST,
-    activeTradeDate: propActiveTradeDate,
+    activeTradeIndex,
     onHover,
     onMouseLeave,
+    onDotClick,
     ...props
 }) {
     const { isUp } = useIsPriceUp(records);
@@ -64,9 +67,10 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
             [trade.date]: { x, y, trade },
         }));
     }, []);
-    const activeTradeDate = activeRecord?.date || propActiveTradeDate;
+    const activeDate =
+        activeRecord?.date || (isNumber(activeTradeIndex) ? tradeRecords[activeTradeIndex]?.date : undefined);
     const [hoveringTradeDate, setHoveringTradeDate] = useState<number>();
-    const dateKey = hoveringTradeDate || activeTradeDate;
+    const dateKey = hoveringTradeDate || activeDate;
     const tooltipState = dateKey ? dotMap[dateKey] : undefined;
     const WrappedDot = useCallback(
         ({ key, ...props }: CustomizedDotProps) => {
@@ -74,7 +78,8 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
                 <CustomizedDot
                     {...props}
                     key={key}
-                    activeTradeDate={activeTradeDate}
+                    activeTradeDate={activeDate}
+                    activeTradeIndex={activeTradeIndex}
                     tradeRecords={tradeRecords}
                     onAvatarHover={(trade) => {
                         setHoveringTradeDate(trade.date);
@@ -83,10 +88,11 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
                         setHoveringTradeDate(undefined);
                     }}
                     onDotUpdate={handleDotUpdate}
+                    onDotClick={onDotClick}
                 />
             );
         },
-        [activeTradeDate, tradeRecords, handleDotUpdate],
+        [activeDate, activeTradeIndex, tradeRecords, handleDotUpdate, onDotClick],
     );
 
     const [tooltipWidth, setTooltipWidth] = useState(100);
@@ -101,7 +107,6 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
                   tooltipState.trade?.type === 'buy' ? 'rgb(var(--color-success))' : 'rgb(var(--color-danger))',
           }
         : undefined;
-    const activeItem = records.find((x) => x.date === activeTradeDate);
     return (
         <div {...props} className={classNames('relative overflow-visible', props.className)}>
             <ResponsiveContainer width="100%" height="100%" onResize={setContainerWidth}>
@@ -117,12 +122,7 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
                         setActiveRecord(undefined);
                     }}
                 >
-                    <Tooltip
-                        cursor={{ strokeDasharray: '3 3' }}
-                        active={!!activeTradeDate}
-                        payload={activeItem ? [{ value: activeItem.value, payload: activeItem }] : undefined}
-                        content={() => null}
-                    />
+                    <Tooltip cursor={{ strokeDasharray: '3 3' }} content={() => null} />
                     <YAxis domain={YAxisDomain} hide />
                     <Area
                         type="monotone"

@@ -15,14 +15,12 @@ export function useWithinRangeRecords(records: PriceRecord[], tradeRecords: Trad
         const max = records[records.length - 1].date;
 
         const filtered = tradeRecords.filter((x) => x.date >= min && x.date <= max);
-        const mergedDates = sortBy(
-            [...records, ...filtered].map((x) => x.date),
-            (x) => x,
-        );
+        const merged = sortBy([...records, ...filtered.map((x) => ({ ...x, value: undefined }))], (x) => x.date);
 
         filtered.forEach((x) => {
-            const i = mergedDates.indexOf(x.date);
-            x.date = mergedDates[i - 1] || mergedDates[0];
+            const i = merged.findIndex((y) => y.date === x.date);
+            const leftHalf = merged.slice(0, i);
+            x.date = (leftHalf.findLast((x) => x.value !== undefined) || merged[0]).date;
             const record = records.find((y) => y.date === x.date);
             x.value = record?.value;
         });

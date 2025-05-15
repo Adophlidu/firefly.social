@@ -4,7 +4,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { first, isNumber } from 'lodash-es';
-import { type HTMLProps, memo, useMemo, useState } from 'react';
+import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
 
 import EyeIcon from '@/assets/eye.svg';
 import EyeCloseIcon from '@/assets/eye-close.svg';
@@ -73,8 +73,8 @@ export const TokenMarketData = memo(function TokenMarketData({
 
     const { preferences, setPreference } = usePreferencesState();
     const [activeRecord, setActiveRecord] = useState<PriceRecord>();
-    const [activeTradeDate, setActiveTradeDate] = useState<number>();
-    const [pendingTradeDate, setPendingTradeDate] = useState<number>();
+    const [activeTradeIndex, setActiveTradeIndex] = useState<number>();
+    const [pendingTradeIndex, setPendingTradeIndex] = useState<number>();
     const [rangeId, setRangeId] = useState<(typeof ranges)[number]['id']>();
     const currentRange = ranges.find((x) => x.id === rangeId) || ranges[1];
 
@@ -102,6 +102,10 @@ export const TokenMarketData = memo(function TokenMarketData({
             {contract?.address ? <CopyTextButton className="[&_svg]:ml-0" text={contract?.address} /> : null}
         </>
     );
+
+    const handleDotClick = useCallback((dotIndex: number) => {
+        setActiveTradeIndex(dotIndex);
+    }, []);
 
     const tokenRank = rank ?? token.rank;
     const price = tokenPrice ?? coin?.market_data?.token_price_usd;
@@ -184,42 +188,50 @@ export const TokenMarketData = memo(function TokenMarketData({
                         className="size-full"
                         records={stats}
                         tradeRecords={showUserTx ? withinRangeTradeRecords : EMPTY_LIST}
-                        activeTradeDate={pendingTradeDate ?? activeTradeDate}
+                        activeTradeIndex={pendingTradeIndex ?? activeTradeIndex}
                         onHover={(payload) => setActiveRecord(payload)}
                         onMouseLeave={() => setActiveRecord(undefined)}
+                        onDotClick={handleDotClick}
                     />
                 )}
             </div>
-            {showUserTx && withinRangeTradeRecords.length > 1 ? (
-                <div className="no-scrollbar flex flex-nowrap justify-start gap-1 overflow-auto">
-                    {withinRangeTradeRecords.map((record, i) => {
-                        return (
-                            <div
-                                key={i}
-                                className="group min-w-4 max-w-[60px] shrink-0 flex-grow cursor-pointer py-1"
-                                onClick={() => {
-                                    setActiveTradeDate((prev) => (prev === record.date ? undefined : record.date));
-                                }}
-                                onMouseEnter={() => {
-                                    setPendingTradeDate(record.date);
-                                }}
-                                onMouseLeave={() => {
-                                    setPendingTradeDate(undefined);
-                                }}
-                            >
+            <div className="flex h-[10px] items-center">
+                {showUserTx && withinRangeTradeRecords.length > 1 ? (
+                    <div className="no-scrollbar flex w-full flex-nowrap justify-center gap-1 overflow-auto">
+                        {withinRangeTradeRecords.map((_, i) => {
+                            const activeRecordIndex = activeRecord
+                                ? withinRangeTradeRecords.findIndex((x) => x.date === activeRecord?.date)
+                                : undefined;
+                            return (
                                 <div
-                                    className={classNames(
-                                        'h-[2px] flex-grow cursor-pointer rounded-[2px] group-hover:bg-third',
-                                        record.date === activeTradeDate ? 'bg-third' : 'bg-secondaryLine',
-                                    )}
-                                />
-                            </div>
-                        );
-                    })}
-                </div>
-            ) : null}
+                                    key={i}
+                                    className="group min-w-4 max-w-[60px] shrink-0 flex-grow cursor-pointer py-1"
+                                    onClick={() => {
+                                        setActiveTradeIndex(i);
+                                    }}
+                                    onMouseEnter={() => {
+                                        setPendingTradeIndex(i);
+                                    }}
+                                    onMouseLeave={() => {
+                                        setPendingTradeIndex(undefined);
+                                    }}
+                                >
+                                    <div
+                                        className={classNames(
+                                            'h-[2px] flex-grow cursor-pointer rounded-[2px] group-hover:bg-third group-hover:dark:bg-secondary',
+                                            activeTradeIndex === i || activeRecordIndex === i
+                                                ? 'bg-third dark:bg-secondary'
+                                                : 'bg-secondaryLine',
+                                        )}
+                                    />
+                                </div>
+                            );
+                        })}
+                    </div>
+                ) : null}
+            </div>
 
-            <div className="mt-4 flex gap-2.5">
+            <div className="flex gap-2.5">
                 <div className="flex gap-2">
                     {ranges.map((range) => (
                         <ClickableButton

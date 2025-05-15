@@ -79,7 +79,7 @@ export const Base: Story = {
         },
         records: prices,
         tradeRecords,
-        activeTradeDate: tradeRecords[0].date,
+        activeTradeIndex: 0,
     },
 };
 

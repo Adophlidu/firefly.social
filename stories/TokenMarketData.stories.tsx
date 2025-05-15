@@ -50,6 +50,18 @@ export const Base: Story = {
                     avatar: 'https://i.pravatar.cc/100?u=vitalik.eth',
                 },
             },
+            {
+                type: 'buy',
+                date: 1746921928998, // exactly the same as the previous record
+                value: 1.4402451541063872,
+                amount: '20000000000000000000',
+                uiAmount: '20',
+                decimals: 18,
+                user: {
+                    name: 'vitalik.eth',
+                    avatar: 'https://i.pravatar.cc/100?u=vitalik.eth',
+                },
+            },
         ],
     },
 };
