@@ -308,9 +308,6 @@ msgstr "More"
 msgid "Translate post"
 msgstr "Translate post"
 
-msgid "Take me there"
-msgstr "Take me there"
-
 msgid "Transaction {hash} could not be found."
 msgstr "Transaction {hash} could not be found."
 
@@ -2253,9 +2250,6 @@ msgstr "No external call risk found."
 
 msgid "Pending"
 msgstr "Pending"
-
-msgid "✨ We've moved to <0>firefly.social</0>"
-msgstr "✨ We've moved to <0>firefly.social</0>"
 
 msgid "No preview found for shared link"
 msgstr "No preview found for shared link"

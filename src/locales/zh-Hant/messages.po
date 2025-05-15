@@ -313,9 +313,6 @@ msgstr "更多"
 msgid "Translate post"
 msgstr "翻譯貼文"
 
-msgid "Take me there"
-msgstr ""
-
 msgid "Transaction {hash} could not be found."
 msgstr "找不到交易 {hash}。"
 
@@ -2257,9 +2254,6 @@ msgid "No external call risk found."
 msgstr ""
 
 msgid "Pending"
-msgstr ""
-
-msgid "✨ We've moved to <0>firefly.social</0>"
 msgstr ""
 
 msgid "No preview found for shared link"
