@@ -55,7 +55,7 @@ export function SuggestedFollowUsersList({ source }: Props) {
                     footerText:
                         source === Source.Twitter ? (
                             <>
-                                <X3ProIcon width={18} height={18} className="mr-2.5 shrink-0" />
+                                <X3ProIcon width={18} height={18} className="mr-2.5 shrink-0 text-main" />
                                 <span>
                                     <Trans>
                                         Top 100 Web3 profiles powered by{' '}
