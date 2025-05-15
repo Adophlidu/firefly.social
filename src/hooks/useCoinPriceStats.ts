@@ -16,7 +16,7 @@ export function useCoinPriceStats(
             coinId || (chainId && address)
                 ? async () => {
                       return FireflyEndpointProvider.getTokenPriceStats({
-                          coingecko_coin_id: coinId,
+                          coingecko_id: coinId,
                           chain_id: chainId,
                           address,
                           days,

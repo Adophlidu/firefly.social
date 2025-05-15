@@ -11,6 +11,7 @@ import { ListInPage, type ListInPageProps } from '@/components/ListInPage.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SwapActivityItem } from '@/components/Swap/SwapActivityItem.js';
 import { ExploreType, ScrollListKey, Source } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { useRouter } from '@/esm/navigation.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
@@ -85,6 +86,9 @@ export function SwapTimeline({
 
     useEffect(() => {
         onActivitiesUpdate?.(queryResult.data);
+        return () => {
+            onActivitiesUpdate?.(EMPTY_LIST);
+        };
     }, [onActivitiesUpdate, queryResult.data]);
 
     if (!isLoginFirefly && isFollowing) {

@@ -30,30 +30,8 @@ function resolveAvatarFallbackUrl(url: string, isDarkMode = false) {
     return isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
 }
 
-export interface AvatarProps extends Omit<NextImageProps, 'src'> {
-    size: number;
-    src?: string;
-    fallbackUrl?: string;
-}
-
-export const Avatar = memo(function Avatar({
-    src,
-    size,
-    className,
-    fallbackUrl: propsFallbackUrl,
-    ...rest
-}: AvatarProps) {
-    const isDarkMode = useIsDarkMode();
-    const [hasError, setHasError] = useState(false);
-
-    const url = [resolveAvatarFallbackUrl, resolveImgurUrl].reduce((acc, fn) => (acc ? fn(acc, isDarkMode) : acc), src);
-
-    const defaultFallbackUrl = isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
-    const fallbackUrl = propsFallbackUrl ?? defaultFallbackUrl;
-
-    const isNormalUrl = !!src && !src.startsWith('data:image/') && !isDomainOrSubdomainOf(src, 'warpcast.com');
-
-    const { data: xFallbackAvatar } = useQuery({
+export function useResolveAvatarFallbackUrl(src: string | undefined) {
+    return useQuery({
         queryKey: ['avatar', src],
         enabled:
             env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled
@@ -80,6 +58,32 @@ export const Avatar = memo(function Avatar({
             return null;
         },
     });
+}
+
+export interface AvatarProps extends Omit<NextImageProps, 'src'> {
+    size: number;
+    src?: string;
+    fallbackUrl?: string;
+}
+
+export const Avatar = memo(function Avatar({
+    src,
+    size,
+    className,
+    fallbackUrl: propsFallbackUrl,
+    ...rest
+}: AvatarProps) {
+    const isDarkMode = useIsDarkMode();
+    const [hasError, setHasError] = useState(false);
+
+    const url = [resolveAvatarFallbackUrl, resolveImgurUrl].reduce((acc, fn) => (acc ? fn(acc, isDarkMode) : acc), src);
+
+    const defaultFallbackUrl = isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
+    const fallbackUrl = propsFallbackUrl ?? defaultFallbackUrl;
+
+    const isNormalUrl = !!src && !src.startsWith('data:image/') && !isDomainOrSubdomainOf(src, 'warpcast.com');
+
+    const { data: xFallbackAvatar } = useResolveAvatarFallbackUrl(src);
 
     const imageSrc = hasError ? fallbackUrl : xFallbackAvatar || (isNormalUrl ? url : src) || src || fallbackUrl;
 

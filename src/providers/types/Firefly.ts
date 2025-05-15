@@ -1697,7 +1697,7 @@ export type TrumpTruthSocialPostsResponse = Response<{
 export type TruthSocialPostResponse = Response<TruthSocialPost>;
 
 export type TokenPriceStatsOptions = {
-    coingecko_coin_id?: string;
+    coingecko_id?: string;
     chain_id?: number;
     address?: string;
     days: number | undefined;

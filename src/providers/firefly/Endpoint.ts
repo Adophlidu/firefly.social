@@ -1046,7 +1046,7 @@ class FireflyEndpoint {
 
     async getTokenPriceStats(options: TokenPriceStatsOptions) {
         const params = { ...options } as TokenPriceStatsOptions;
-        if (params.coingecko_coin_id) {
+        if (params.coingecko_id) {
             params.address = undefined;
         } else if (params.address && isZeroAddressEthereum(params.address)) {
             params.address = NATIVE_TOKEN_ADDRESS;
