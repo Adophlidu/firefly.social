@@ -19,6 +19,7 @@ import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useDiscoverSources } from '@/hooks/useDiscoverSources.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import { useSocialDiscoverSourcesWithWhitelist } from '@/hooks/useSocialDiscoverSourcesWithWhitelist.js';
+import { useTwitterTimelineWhitelist } from '@/hooks/useTwitterTimelineWhiteList.js';
 
 function useIsLoginDiscoverNeed(source: SocialDiscoverSource | Source.Posts) {
     const profilesAll = useCurrentProfilesAll();
@@ -37,6 +38,7 @@ export const FollowingPostList = memo<{
     const profilesAll = useCurrentProfilesAll();
     const asyncStatusAll = useAsyncStatusAll();
     const sources = useDiscoverSources(HomeTab.Following);
+    const { isLoading: isLoadingTwitterWhitelist } = useTwitterTimelineWhitelist();
     const queryResult = useMultiInfiniteQueryPageable(
         ['posts', source, 'following', isLogin, asyncStatusAll, ...sources],
         sources.map((source) => ({
@@ -66,7 +68,7 @@ export const FollowingPostList = memo<{
     );
 
     if (!isLogin) return <NotLoginFallback source={Source.Posts} />;
-    if (asyncStatusAll) return <Loading />;
+    if (asyncStatusAll || isLoadingTwitterWhitelist) return <Loading />;
 
     return (
         <ListInPage

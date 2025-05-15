@@ -190,9 +190,6 @@ msgstr ""
 msgid "Delete post"
 msgstr ""
 
-msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer on Warpcast<2/>Connect wallet to sign in<3/>if you registered your Farcaster account on Firefly"
-msgstr ""
-
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr ""
@@ -907,6 +904,9 @@ msgid "The blacklist function is included. Some addresses may not be able to tra
 msgstr ""
 
 msgid "<0/>Delete Firefly account"
+msgstr ""
+
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer on Warpcast"
 msgstr ""
 
 msgid "Select Account"
@@ -2166,6 +2166,9 @@ msgstr ""
 msgid "Updated profile successfully"
 msgstr ""
 
+msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> or <2>connect wallet</2> to sign in"
+msgstr ""
+
 msgid "Token ${symbol} could not be found."
 msgstr ""
 
@@ -2358,9 +2361,6 @@ msgid "Connect your wallet to claim your NFT"
 msgstr ""
 
 msgid "Reauthorize"
-msgstr ""
-
-msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer on Warpcast<2/>Connect wallet to sign in<3/>if you registered your Farcaster account on Firefly"
 msgstr ""
 
 msgid "Like"
@@ -2849,6 +2849,9 @@ msgstr ""
 msgid "Wallet submitted"
 msgstr ""
 
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
+msgstr ""
+
 msgid "This does not appear to be a honeypot."
 msgstr ""
 
@@ -3011,9 +3014,6 @@ msgid "Internal Server Error. Please try again later."
 msgstr ""
 
 msgid "Post could not be found."
-msgstr ""
-
-msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> or <2>connect wallet</2> to sign into Firefly"
 msgstr ""
 
 msgid "No suspected malicious behavior found."
@@ -3559,6 +3559,9 @@ msgstr ""
 msgid "Minting"
 msgstr ""
 
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer on Warpcast"
+msgstr ""
+
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr ""
 
@@ -3923,9 +3926,6 @@ msgstr ""
 
 #. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES)
 msgid "Scheduled posts are only available on {0}."
-msgstr ""
-
-msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free.<2/>Already signed in before?"
 msgstr ""
 
 msgid "Download App"

@@ -195,9 +195,6 @@ msgstr "{followerCount, plural, one {关注者} other {关注者}}"
 msgid "Delete post"
 msgstr "删除帖子"
 
-msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer on Warpcast<2/>Connect wallet to sign in<3/>if you registered your Farcaster account on Firefly"
-msgstr ""
-
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr "隐藏 @{0}"
@@ -913,6 +910,9 @@ msgstr "黑名单功能已启用。有些地址可能无法正常交易（欺诈
 
 msgid "<0/>Delete Firefly account"
 msgstr "<0/>删除 Firefly 账号"
+
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer on Warpcast"
+msgstr ""
 
 msgid "Select Account"
 msgstr "选择账号"
@@ -2179,6 +2179,9 @@ msgstr "使用 Warpcast 连接"
 msgid "Updated profile successfully"
 msgstr "更新个人资料成功"
 
+msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> or <2>connect wallet</2> to sign in"
+msgstr ""
+
 msgid "Token ${symbol} could not be found."
 msgstr "未找到代币 ${symbol} 。"
 
@@ -2377,9 +2380,6 @@ msgstr "连接钱包并且领取你的 NFT"
 
 msgid "Reauthorize"
 msgstr "请重新授权"
-
-msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer on Warpcast<2/>Connect wallet to sign in<3/>if you registered your Farcaster account on Firefly"
-msgstr ""
 
 msgid "Like"
 msgstr "点赞"
@@ -2867,6 +2867,9 @@ msgstr "{0, plural, one {转帖} other {转帖}}"
 msgid "Wallet submitted"
 msgstr "已提交钱包"
 
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
+msgstr ""
+
 msgid "This does not appear to be a honeypot."
 msgstr "这看起来不像是一个陷阱。"
 
@@ -3030,9 +3033,6 @@ msgstr "内部服务错误。请稍后重试。"
 
 msgid "Post could not be found."
 msgstr "未找到相关帖子。"
-
-msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> or <2>connect wallet</2> to sign into Firefly"
-msgstr ""
 
 msgid "No suspected malicious behavior found."
 msgstr "未发现疑似恶意行为。"
@@ -3580,6 +3580,9 @@ msgstr "未验证：模拟失败，请重试。"
 msgid "Minting"
 msgstr "铸造中"
 
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer on Warpcast"
+msgstr ""
+
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "如果你授权此通证给这个网站，你可能会丢失您的资产。"
 
@@ -3945,9 +3948,6 @@ msgstr "{0}时: {1}分: {2}秒"
 #. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES)
 msgid "Scheduled posts are only available on {0}."
 msgstr "定时帖文功能仅支持于{0}。"
-
-msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free.<2/>Already signed in before?"
-msgstr ""
 
 msgid "Download App"
 msgstr "下载应用"

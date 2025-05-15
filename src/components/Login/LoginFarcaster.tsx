@@ -28,7 +28,6 @@ import {
 } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 import { createAccountByFireflySponsorship } from '@/providers/warpcast/createAccountByFireflySponsorship.js';
@@ -123,8 +122,6 @@ interface LoginFarcasterProps {
 
 export function LoginFarcaster({ signType }: LoginFarcasterProps) {
     const controller = useAbortController();
-
-    const isMedium = useIsMedium();
 
     const [url, setUrl] = useState('');
     const [scanned, setScanned] = useState(false);
@@ -275,28 +272,18 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                         Scan the QR code with your phone’s <b className="font-bold">Camera</b> in{' '}
                                         {count}s. <br />
                                         Approve a new Farcaster signer on Warpcast
-                                        <br />
-                                        Connect wallet to sign in
-                                        <br />
-                                        if you registered your Farcaster account on Firefly
                                     </Trans>
                                 ) : signType === SignType.RelayService ? (
                                     <Trans>
                                         Scan the QR code with your phone’s <b className="font-bold">Camera</b> in{' '}
                                         {count}s.
                                         <br /> Approve the existing Farcaster signer on Warpcast
-                                        <br />
-                                        Connect wallet to sign in
-                                        <br />
-                                        if you registered your Farcaster account on Firefly
                                     </Trans>
                                 ) : signType === SignType.FireflySponsorship ? (
                                     <Trans>
                                         Scan the QR code with your phone’s <b className="font-bold">Camera</b> in{' '}
                                         {count}s. <br />
                                         Approve a new Farcaster signer to Firefly for free.
-                                        <br />
-                                        Already signed in before?
                                     </Trans>
                                 ) : null}
                             </div>
@@ -332,7 +319,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                         </Link>{' '}
                                         or{' '}
                                         <LoginFarcasterWithWalletButton>connect wallet</LoginFarcasterWithWalletButton>{' '}
-                                        to sign into Firefly
+                                        to sign in
                                     </Trans>
                                 ) : signType === SignType.RelayService ? (
                                     <Trans>

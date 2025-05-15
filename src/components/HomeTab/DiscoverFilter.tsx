@@ -89,6 +89,7 @@ function PlatformItem({
                     LoginModalRef.open({
                         source,
                     });
+                    setFilteredPlatform(tab, source, true);
                     return;
                 }
                 setFilteredPlatform(tab, source, !checked);

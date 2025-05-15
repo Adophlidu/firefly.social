@@ -75,6 +75,12 @@ export function LogoutModal({ ref }: Props) {
             });
             if (!confirmed) return;
 
+            router.replace('/', {
+                disableSameURL: true,
+                showProgress: false,
+            });
+            await delay(200);
+
             const source = props?.account?.profile.source;
 
             if (source) {
@@ -84,11 +90,6 @@ export function LogoutModal({ ref }: Props) {
             }
 
             dispatch?.close();
-            await delay(300);
-            router.replace('/', {
-                disableSameURL: true,
-                showProgress: false,
-            });
         },
     });
 

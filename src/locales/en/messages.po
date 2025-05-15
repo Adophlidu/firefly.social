@@ -190,9 +190,6 @@ msgstr "{followerCount, plural, one {Follower} other {Followers}}"
 msgid "Delete post"
 msgstr "Delete post"
 
-msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer on Warpcast<2/>Connect wallet to sign in<3/>if you registered your Farcaster account on Firefly"
-msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer on Warpcast<2/>Connect wallet to sign in<3/>if you registered your Farcaster account on Firefly"
-
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr "Mute @{0}"
@@ -908,6 +905,9 @@ msgstr "The blacklist function is included. Some addresses may not be able to tr
 
 msgid "<0/>Delete Firefly account"
 msgstr "<0/>Delete Firefly account"
+
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer on Warpcast"
+msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer on Warpcast"
 
 msgid "Select Account"
 msgstr "Select Account"
@@ -2174,6 +2174,9 @@ msgstr "New connection with Warpcast"
 msgid "Updated profile successfully"
 msgstr "Updated profile successfully"
 
+msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> or <2>connect wallet</2> to sign in"
+msgstr "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> or <2>connect wallet</2> to sign in"
+
 msgid "Token ${symbol} could not be found."
 msgstr "Token ${symbol} could not be found."
 
@@ -2372,9 +2375,6 @@ msgstr "Connect your wallet to claim your NFT"
 
 msgid "Reauthorize"
 msgstr "Reauthorize"
-
-msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer on Warpcast<2/>Connect wallet to sign in<3/>if you registered your Farcaster account on Firefly"
-msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer on Warpcast<2/>Connect wallet to sign in<3/>if you registered your Farcaster account on Firefly"
 
 msgid "Like"
 msgstr "Like"
@@ -2862,6 +2862,9 @@ msgstr "{0, plural, one {repost} other {reposts}}"
 msgid "Wallet submitted"
 msgstr "Wallet submitted"
 
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
+msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
+
 msgid "This does not appear to be a honeypot."
 msgstr "This does not appear to be a honeypot."
 
@@ -3025,9 +3028,6 @@ msgstr "Internal Server Error. Please try again later."
 
 msgid "Post could not be found."
 msgstr "Post could not be found."
-
-msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> or <2>connect wallet</2> to sign into Firefly"
-msgstr "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> or <2>connect wallet</2> to sign into Firefly"
 
 msgid "No suspected malicious behavior found."
 msgstr "No suspected malicious behavior found."
@@ -3575,6 +3575,9 @@ msgstr "Unverified: Failed to simulate, <0>try again</0>"
 msgid "Minting"
 msgstr "Minting"
 
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer on Warpcast"
+msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer on Warpcast"
+
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "You may lose your assets if giving approval to the website of this token."
 
@@ -3940,9 +3943,6 @@ msgstr "{0}h: {1}m: {2}s"
 #. placeholder {0}: resolveSourcesName(ENABLED_SCHEDULE_POST_SOURCES)
 msgid "Scheduled posts are only available on {0}."
 msgstr "Scheduled posts are only available on {0}."
-
-msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free.<2/>Already signed in before?"
-msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free.<2/>Already signed in before?"
 
 msgid "Download App"
 msgstr "Download App"
