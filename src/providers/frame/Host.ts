@@ -51,6 +51,8 @@ export class FarcasterFrameHost implements FrameHost {
         const profile = useFarcasterStateStore.getState().currentProfile;
         if (!profile) throw new Error('No profile found. Please log in to Farcaster.');
 
+        console.log('DEBUG: [frame host]: signIn', options);
+
         const frame = this.options?.frame?.();
         const signature = await signInWithFarcaster(
             frame?.x_url ?? SITE_URL,

@@ -1,5 +1,5 @@
 import { idRegistryABI } from '@farcaster/core';
-import { parseUnits } from 'viem';
+import { type Address, checksumAddress, parseUnits, toHex } from 'viem';
 import { readContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
@@ -18,7 +18,7 @@ async function custodyOf(fid: string): Promise<string> {
         abi: idRegistryABI,
         address: '0x00000000fc6c5f01fc30151999387bb99a9f489b',
         functionName: 'custodyOf',
-        args: [parseUnits(fid, 10)],
+        args: [parseUnits(fid, 0)],
         chainId: EthereumChainId.Optimism,
     });
     if (!isValidAddressEthereum(address)) throw new Error(`Invalid custody address: ${address}`);
@@ -34,8 +34,8 @@ export async function signInWithFarcaster(url: string, fid: string, nonce: strin
 
     const address = await custodyOf(fid);
     const message = [
-        `${url} wants you to sign in with your Ethereum account:`,
-        `${address}`,
+        `${u.hostname} wants you to sign in with your Ethereum account:`,
+        `${checksumAddress(address as Address)}`,
         '',
         'Farcaster Auth',
         '',
@@ -45,11 +45,11 @@ export async function signInWithFarcaster(url: string, fid: string, nonce: strin
         `Nonce: ${nonce}`,
         `Issued At: ${new Date().toISOString()}`,
         'Resources:',
-        `- farcaster://fids/${fid}`,
+        `- farcaster://fid/${fid}`,
     ].join('\n');
 
     // Assume we have a BE api endpoint that can sign the message
-    const signature = await FireflyEndpointProvider.signMessageWithCustodyWallet(fid, message);
+    const signature = await FireflyEndpointProvider.signMessageWithCustodyWallet(fid, toHex(message));
 
     return {
         message,
