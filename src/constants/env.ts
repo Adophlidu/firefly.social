@@ -105,6 +105,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_FIREBASE_APP_ID: z.string().optional(),
     NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: z.string().optional(),
     NEXT_PUBLIC_FIREBASE_VAPID_KEY: z.string().optional(),
+    NEXT_PUBLIC_LENS_APP_ADDRESS: z.string().optional(),
 });
 
 export const env = {
@@ -176,5 +177,8 @@ export const env = {
         NEXT_PUBLIC_FIREBASE_APP_ID: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
         NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
         NEXT_PUBLIC_FIREBASE_VAPID_KEY: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
+
+        // lens
+        NEXT_PUBLIC_LENS_APP_ADDRESS: process.env.NEXT_PUBLIC_LENS_APP_ADDRESS,
     }),
 };

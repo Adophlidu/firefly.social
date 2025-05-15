@@ -1,5 +1,6 @@
 import { type ChallengeRequest, evmAddress, SessionClient } from '@lens-protocol/client';
 
+import { env } from '@/constants/env.js';
 import { createLensSDK, LocalStorageProvider, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
 import { getWalletClientForLensChain } from '@/helpers/getWalletClientForLensChain.js';
 import { createLensSession } from '@/providers/lens/createLensSession.js';
@@ -33,10 +34,18 @@ export async function createAccountForProfileId(profile: Profile, useMemoryStora
     const options: ChallengeRequest =
         profile.profileType === 'AccountManaged'
             ? {
-                  accountManager: { manager: address, account: evmAddress(profile.profileId) },
+                  accountManager: {
+                      manager: address,
+                      account: evmAddress(profile.profileId),
+                      app: env.external.NEXT_PUBLIC_LENS_APP_ADDRESS,
+                  },
               }
             : {
-                  accountOwner: { owner: address, account: evmAddress(profile.profileId) },
+                  accountOwner: {
+                      owner: address,
+                      account: evmAddress(profile.profileId),
+                      app: env.external.NEXT_PUBLIC_LENS_APP_ADDRESS,
+                  },
               };
     const loginRes = await sdk.login({
         signMessage: (message) => {
