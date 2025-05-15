@@ -45,11 +45,11 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
         select: (data) => {
             if (!data) return;
             const tokens = data.list.filter((x) => {
-                if (x.contract_info.attributes.symbol.toLowerCase() !== symbol.toLowerCase()) return false;
-                return (
+                const isToken =
                     (x.type === 'eth' && x.contract_type === 'ERC20') ||
-                    (x.type === 'solana' && x.contract_type === 'token')
-                );
+                    (x.type === 'solana' && x.contract_type === 'token');
+                if (!isToken) return false;
+                return x.contract_info.attributes.symbol.toLowerCase() === symbol.toLowerCase();
             });
             return tokens[0];
         },

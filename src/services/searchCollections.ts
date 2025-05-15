@@ -18,19 +18,12 @@ const SEARCH_CHAIN_ID_LIST = [
 ];
 
 const searchCollectionByAddress = memoizePromise(
-    function searchCollectionByAddress(address: string) {
-        const controller = new AbortController();
-        return Promise.any(
-            SEARCH_CHAIN_ID_LIST.map(async (chainId) => {
-                const result = await FireflyEndpointProvider.getCollection(chainId, address);
-                if (result) {
-                    controller.abort();
-                    return result;
-                }
-
-                throw new Error(`Invalid collection on ${chainId}`);
-            }),
-        );
+    async function searchCollectionByAddress(address: string) {
+        const detected = await FireflyEndpointProvider.detectCollection(address);
+        if (detected?.chain_id && !SEARCH_CHAIN_ID_LIST.includes(detected.chain_id)) {
+            return null;
+        }
+        return detected;
     },
     (address) => `nftscan-collection-${address}`,
 );

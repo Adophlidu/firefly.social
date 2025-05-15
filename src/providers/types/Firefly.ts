@@ -1430,6 +1430,7 @@ export interface DetectedAddress {
     chain_id: string;
     address_type: 'eoa' | 'soa' | 'contract';
     contract_type: 'ERC20' | 'ERC721' | 'ERC1155' | 'token' | 'nft' | 'program' | 'unknown';
+    /** To detect collection, use v1/nft/detect API instead */
     contract_info: CoinGeckoAsset;
 }
 

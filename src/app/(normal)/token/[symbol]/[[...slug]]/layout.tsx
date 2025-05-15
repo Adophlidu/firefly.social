@@ -32,7 +32,7 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
     console.log('search', search);
     const paramSymbol = decodeURIComponent(params.symbol);
     let symbol = paramSymbol;
-    let tokenAsset: CoinGeckoAsset | undefined;
+    let tokenAsset: CoinGeckoAsset | null;
     if (isValidAddressEthereum(paramSymbol)) {
         tokenAsset = await searchTokenByAddress(paramSymbol);
         if (tokenAsset) symbol = tokenAsset.attributes.symbol;

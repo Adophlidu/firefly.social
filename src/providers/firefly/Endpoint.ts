@@ -1387,6 +1387,15 @@ class FireflyEndpoint {
         return fixCollection(response.data);
     }
 
+    async detectCollection(address: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/detect', {
+            address,
+        });
+        const response = await fetchJSON<CollectionResponse>(url);
+        if (!response.data) return null;
+        return fixCollection(response.data);
+    }
+
     async getCollectionItems(chainId: number, contractAddress: string, indicator?: PageIndicator) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/nft/collection/items', {
             chainId,
