@@ -33,4 +33,7 @@ export default defineConfig({
         }),
         terser({ mangle: false }),
     ],
+    onLog: (level, log, defaultHandler) => {
+        defaultHandler(log.code === 'UNRESOLVED_IMPORT' ? 'error' : level, log);
+    },
 });
