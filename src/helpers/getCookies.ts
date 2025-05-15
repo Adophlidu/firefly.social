@@ -3,7 +3,7 @@ import { cookies } from 'next/headers.js';
 import { use } from 'react';
 
 import { Locale, SiteCookies } from '@/constants/enum.js';
-import { DEFAULT_LOCALE, FIREFLY_DEV_ROOT_URL } from '@/constants/index.js';
+import { DEFAULT_LOCALE } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 
 function resolveLocale(locale: string): Locale {
@@ -30,11 +30,6 @@ export async function getLocaleFromCookies() {
 export function getLocalFromClientCookies() {
     const locale = getClientCookies(SiteCookies.Locale);
     return locale ? resolveLocale(locale) : DEFAULT_LOCALE;
-}
-
-export function getIsDevFromCookies() {
-    const fireflyRootAPI = getClientCookies(SiteCookies.FireflyRootAPI);
-    return fireflyRootAPI === FIREFLY_DEV_ROOT_URL;
 }
 
 export function useCookie(key: SiteCookies) {
