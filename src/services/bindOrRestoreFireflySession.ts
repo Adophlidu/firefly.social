@@ -1,5 +1,6 @@
 import { sentryClient } from '@/configs/sentryClient.js';
 import {
+    AbortError,
     AuthenticationError,
     FarcasterPatchSignerError,
     FireflyAlreadyBoundError,
@@ -34,7 +35,7 @@ export async function bindOrRestoreFireflySession(session: Session, signal?: Abo
             sessionType: session.type,
         });
 
-        if (error instanceof FarcasterPatchSignerError) {
+        if (error instanceof FarcasterPatchSignerError || error instanceof AbortError) {
             throw error;
         }
 
