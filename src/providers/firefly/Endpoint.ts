@@ -1499,7 +1499,7 @@ class FireflyEndpoint {
     }
 
     async getTrumpTruthSocialPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/truthsocial_trump_timline', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/truthsocial_trump_timeline', {
             size: 25,
             cursor: indicator?.id,
         });

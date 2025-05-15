@@ -407,8 +407,7 @@
         "webget",
         "retruthed",
         "reblog",
-        "truthsocial",
-        "timline"
+        "truthsocial"
     ],
     "flagWords": [],
     "ignorePaths": [
