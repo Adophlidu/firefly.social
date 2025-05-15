@@ -3,21 +3,30 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { createSelectors } from '@/helpers/createSelector.js';
+import type { SearchTokenInfo } from '@/providers/types/Firefly.js';
+
+/** critical data to identify a coin */
+export type StoredCoinInfo = Pick<SearchTokenInfo, 'id' | 'chain' | 'contract_address'>;
 
 interface Preferences {
     SHOW_SCHEDULE_POST_TIP: boolean;
     SHOW_USER_TX_IN_CHART: boolean;
+    TOKEN_PROFILE_COIN_ID_MAP: Record<string, StoredCoinInfo>;
 }
 
 const defaultPreferences: Preferences = {
     SHOW_SCHEDULE_POST_TIP: true,
     SHOW_USER_TX_IN_CHART: true,
+    TOKEN_PROFILE_COIN_ID_MAP: {},
 };
 
 export interface PreferencesState {
     preferences: Preferences;
     getPreference<T extends keyof Preferences>(key: T): Preferences[T];
-    setPreference<T extends keyof Preferences>(key: T, value: Preferences[T]): void;
+    setPreference<T extends keyof Preferences>(
+        key: T,
+        value: Preferences[T] | ((prevValue: Preferences[T]) => Preferences[T]),
+    ): void;
     resetPreferences(): void;
 }
 
@@ -25,12 +34,12 @@ const PreferencesState = create<PreferencesState, [['zustand/persist', unknown],
     persist(
         immer<PreferencesState>((set, get) => ({
             preferences: defaultPreferences,
-            getPreference(key: keyof Preferences) {
+            getPreference(key) {
                 return get().preferences[key];
             },
-            setPreference<T extends keyof Preferences>(key: T, value: Preferences[T]) {
+            setPreference(key, value) {
                 return set((state) => {
-                    state.preferences[key] = value;
+                    state.preferences[key] = typeof value === 'function' ? value(state.preferences[key]) : value;
                 });
             },
             resetPreferences() {

@@ -1,7 +1,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { type HTMLProps, memo, useState } from 'react';
+import { type HTMLProps, memo, useMemo, useState } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import PriceArrow from '@/assets/price-arrow.svg';
@@ -18,56 +18,56 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useCoinPrice24hStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
+import { useTokenCoin } from '@/hooks/useTokenCoin.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { SearchTokenInfo } from '@/providers/types/Firefly.js';
 
 export function TokenProfileSkeleton(props: HTMLProps<HTMLDivElement>) {
     return (
         <div
             {...props}
             className={classNames(
-                'flex cursor-default flex-col gap-3 rounded-2xl border border-line bg-primaryBottom p-3',
+                'cursor-default rounded-2xl border border-line bg-primaryBottom p-3',
                 props.className,
             )}
         >
-            <div className="flex items-center">
-                <div className="size-8 rounded-full bg-bg" />
-                <div className="ml-3 flex flex-col gap-1">
-                    <div className="item-center flex gap-1">
-                        <div className="h-3 w-10 rounded bg-bg py-0.5" />
-                        <span className="size-3 rounded-full bg-bg" />
+            <div className="flex animate-pulse flex-col gap-3">
+                <div className="flex items-center">
+                    <div className="size-8 rounded-full bg-bg" />
+                    <div className="ml-3 flex flex-col gap-1">
+                        <div className="item-center flex gap-1">
+                            <div className="h-3 w-10 rounded bg-bg py-0.5" />
+                            <span className="size-3 rounded-full bg-bg" />
+                        </div>
+                        <div className="flex items-center gap-1 leading-4">
+                            <span className="h-3 w-20 bg-bg py-0.5" />
+                        </div>
                     </div>
-                    <div className="flex items-center gap-1 leading-4">
-                        <span className="h-3 w-20 bg-bg py-0.5" />
-                        <CopyTextButton text="" className="leading-4 text-third [&_svg]:ml-0" />
+                    <div className="ml-auto flex items-center justify-end gap-1 self-start">
+                        <div className="h-[18px] w-[130px] rounded bg-bg text-main" />
                     </div>
                 </div>
-                <div className="ml-auto flex items-center justify-end gap-1 self-start">
-                    <div className="h-[18px] w-[130px] bg-bg text-main" />
-                    <LineArrowUp className="rotate-180" width={20} height={20} />
+                <div className="flex items-center">
+                    <div className="line-height-[22px] flex items-center gap-1">
+                        <strong className="h-[22px] w-20 rounded bg-bg" />
+                        <span className="h-4 w-6 bg-bg text-medium text-secondary" title={t`Market Cap`} />
+                        <span className="inline-flex h-[14px] w-12 items-center text-nowrap rounded bg-bg px-1 py-0.5" />
+                    </div>
+                    <div className="ml-auto h-8 w-[170px] overflow-auto rounded bg-bg" />
                 </div>
-            </div>
-            <div className="flex items-center">
-                <div className="line-height-[22px] flex items-center gap-1">
-                    <strong className="h-[22px] w-20 rounded bg-bg" />
-                    <span className="h-4 w-6 bg-bg text-medium text-secondary" title={t`Market Cap`} />
-                    <span className="inline-flex h-[14px] w-12 items-center text-nowrap rounded bg-highlight px-1 py-0.5" />
+                <div className="flex items-center">
+                    <div className="line-height-[22px] flex h-8 items-center gap-1 text-medium">
+                        <span className="h-3 w-10 rounded bg-bg py-0.5" />
+                        <span className="h-3 w-20 rounded bg-bg py-0.5" />
+                        <span className="h-3 w-10 rounded bg-bg py-0.5" />
+                    </div>
+                    <div className="row-start-3 ml-auto flex h-8 w-[80px] items-center justify-end rounded-full bg-bg" />
                 </div>
-                <div className="ml-auto h-8 w-[170px] overflow-auto rounded bg-bg" />
-            </div>
-            <div className="flex items-center">
-                <div className="line-height-[22px] flex h-8 items-center gap-1 text-medium">
-                    <PriceArrow width={16} height={16} className="shrink-0 text-third" />
-                    <span className="h-3 w-10 rounded bg-bg py-0.5" />
-                    <span className="h-3 w-20 rounded bg-third py-0.5" />
-                    <span className="h-3 w-10 rounded bg-third py-0.5" />
-                </div>
-                <div className="row-start-3 ml-auto flex h-8 w-[80px] items-center justify-end rounded-full bg-bg" />
             </div>
         </div>
     );
@@ -75,16 +75,25 @@ export function TokenProfileSkeleton(props: HTMLProps<HTMLDivElement>) {
 
 interface Props extends HTMLProps<HTMLDivElement> {
     symbol: string;
-    onTokenSelect?: (tokenInfo: SearchTokenInfo) => void;
 }
 
-export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children, onTokenSelect, ...rest }) {
+export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children, ...rest }) {
     const [openSwitcher, setOpenSwitcher] = useState(false);
     const { data: tokenInfos = EMPTY_LIST, isLoading } = useQuery({
         queryKey: ['search-token', symbol],
         queryFn: () => FireflyEndpointProvider.searchTokenInfos(symbol),
     });
-    const [selectedToken = tokenInfos[0], setSelectedToken] = useState<SearchTokenInfo>();
+    const [coin, setCoin] = useTokenCoin(symbol);
+    const selectedToken = useMemo(() => {
+        if (!coin) return tokenInfos[0];
+
+        const matched = tokenInfos.find(
+            (x) =>
+                x.id === coin.id && x.chain === coin.chain && isSameAddress(x.contract_address, coin.contract_address),
+        );
+        return matched || tokenInfos[0];
+    }, [coin, tokenInfos]);
+
     const address = selectedToken?.contract_address;
     const { data: detected } = useQuery({
         queryKey: ['detect-address', address],
@@ -136,8 +145,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                 onClose={() => setOpenSwitcher(false)}
                 tokenInfos={tokenInfos}
                 onSelect={(tokenInfo) => {
-                    onTokenSelect?.(tokenInfo);
-                    setSelectedToken(tokenInfo);
+                    setCoin(symbol, tokenInfo);
                 }}
             />
         );
@@ -177,7 +185,9 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                         <span className="max-w-28 truncate font-inter text-[13px] font-bold leading-4 text-third">
                             {formatAddress(address, 4)}
                         </span>
-                        <CopyTextButton text={address} className="leading-4 text-third [&_svg]:ml-0" />
+                        {address ? (
+                            <CopyTextButton text={address} className="leading-4 text-third [&_svg]:ml-0" />
+                        ) : null}
                     </div>
                 </div>
                 {tokenInfos.length > 1 ? (

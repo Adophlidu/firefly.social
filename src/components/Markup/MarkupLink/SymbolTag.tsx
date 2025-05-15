@@ -9,12 +9,13 @@ import { useTippyContext } from '@/components/TippyContext/index.js';
 import { TokenProfile } from '@/components/Token/TokenProfile.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useTokenCoin } from '@/hooks/useTokenCoin.js';
 
 export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag({ title }) {
+    const [coin] = useTokenCoin(title?.slice(1));
     const [show, setShow] = useState(false);
     const isMedium = useIsMedium();
     const insideTippy = useTippyContext();
-    const [coinId, setCoinId] = useState<string | null>(null);
 
     if (!title) return null;
     const symbol = title.slice(1);
@@ -29,7 +30,11 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
                 e.stopPropagation();
             }}
             prefetch={false}
-            href={resolveTokenPageUrl({ identity: coinId || symbol, isCoinId: !!coinId })}
+            href={resolveTokenPageUrl(
+                coin?.id
+                    ? { identity: coin.id, isCoinId: true }
+                    : { identity: symbol, address: coin?.contract_address },
+            )}
         >
             {title}
         </Link>
@@ -42,14 +47,12 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
                 placement="bottom"
                 onShow={() => setShow(true)}
                 onHidden={() => setShow(false)}
+                delay={100}
                 content={
                     enabled ? (
                         <TokenProfile
                             className="w-[415px] bg-primaryBottom p-2 text-main shadow-[0_8px_20px_0_rgba(0,0,0,0.04)]"
                             symbol={symbol}
-                            onTokenSelect={(tokenInfo) => {
-                                setCoinId(tokenInfo?.id);
-                            }}
                         />
                     ) : null
                 }

@@ -17,7 +17,7 @@ export function resolveTokenPageUrl({ identity, chainId, address, isCoinId, trad
     return urlcat('/token/:identity', {
         identity,
         chainId,
-        coinId: isCoinId ? 'true' : undefined,
+        isCoinId: isCoinId ? 'true' : undefined,
         trader,
         traderName: traderName || undefined,
         address,

@@ -28,8 +28,6 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
 
     const { children } = props;
     const params = await props.params;
-    const search = await props.searchParams;
-    console.log('search', search);
     const paramSymbol = decodeURIComponent(params.symbol);
     let symbol = paramSymbol;
     let tokenAsset: CoinGeckoAsset | null;
