@@ -12,5 +12,8 @@ export const PostFragment = graphql(`
         quoteOf {
             ...ReferencedPost
         }
+        app {
+            ...App
+        }
     }
 `);
