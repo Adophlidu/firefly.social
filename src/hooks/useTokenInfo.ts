@@ -1,6 +1,5 @@
 import { useQueries, useQuery } from '@tanstack/react-query';
 
-import { NetworkPluginID } from '@/constants/enum.js';
 import { formatMarketToken } from '@/helpers/formatMarketToken.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
@@ -18,7 +17,6 @@ async function getTokenInfo({ symbolOrId, ensureId = true }: GetTokenInfoOptions
         const token = await FireflyEndpointProvider.getTokenByCoinId(symbolOrId);
         if (token)
             return {
-                pluginID: NetworkPluginID.PLUGIN_EVM,
                 id: token.id,
                 symbol: token.symbol,
                 name: token.name,

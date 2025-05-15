@@ -46,6 +46,7 @@ function sortTokensByKeyword(tokens: SearchableToken[], keyword: string) {
 export async function searchTokensByAddress(address: string): Promise<Pageable<SearchableToken, PageIndicator>> {
     try {
         const token = await searchTokenByAddress(address);
+        if (!token) return createPageable(EMPTY_LIST, createIndicator());
 
         const attributes = token.attributes;
         return createPageable(
