@@ -479,3 +479,5 @@ export const TOKEN_CATEGORIES: TokenCategory[] = [
 
 /** coingecko coin ids that are not solana or ethereum */
 export const NON_SOL_ETH_COINS = ['bitcoin', 'dogecoin', 'tron', 'cardano', 'sui', 'polkadot', 'litecoin'];
+export const COINGECKO_SOL_COIN_ID = 'solana';
+export const SWAP_SOL_NATIVE_ADDRESS = '11111111111111111111111111111111';

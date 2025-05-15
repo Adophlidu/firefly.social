@@ -7,7 +7,12 @@ import { Transactions } from '@/app/(normal)/token/[symbol]/[[...slug]]/categori
 import type { TokenPageSearch } from '@/app/(normal)/token/[symbol]/[[...slug]]/CategoryTabs.js';
 import { Loading } from '@/components/Loading.js';
 import { TokenCategory } from '@/constants/enum.js';
-import { NON_SOL_ETH_COINS, TOKEN_CATEGORIES } from '@/constants/index.js';
+import {
+    COINGECKO_SOL_COIN_ID,
+    NON_SOL_ETH_COINS,
+    SWAP_SOL_NATIVE_ADDRESS,
+    TOKEN_CATEGORIES,
+} from '@/constants/index.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
@@ -49,7 +54,7 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
             return (
                 <Transactions
                     chainId={chainId ? +chainId : (trending?.coin.chainId ?? trending?.contracts?.[0]?.chainId)}
-                    tokenAddress={tokenAddress}
+                    tokenAddress={token?.id === COINGECKO_SOL_COIN_ID ? SWAP_SOL_NATIVE_ADDRESS : tokenAddress}
                     trader={trader}
                     traderName={traderName}
                 />

@@ -1,8 +1,10 @@
-import { type HTMLProps, memo, type ReactElement, type SVGAttributes, useEffect, useMemo } from 'react';
+import { type HTMLProps, memo, type ReactElement, type SVGAttributes, useEffect, useMemo, useState } from 'react';
+import { useUpdateEffect } from 'react-use';
 
 import { useResolveAvatarFallbackUrl } from '@/components/Avatar.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import type { PriceRecord, TradeRecord } from '@/types/token.js';
 
 export interface CustomizedDotProps extends HTMLProps<SVGElement> {
@@ -18,9 +20,18 @@ export interface CustomizedDotProps extends HTMLProps<SVGElement> {
 }
 
 function UserAvatar(props: SVGAttributes<SVGImageElement>) {
-    const { data: fallbackUrl } = useResolveAvatarFallbackUrl(props.href);
-    const avatar = fallbackUrl ?? props.href;
-    return <image {...props} href={avatar} />;
+    const [failed, setFailed] = useState(false);
+    const isDarkMode = useIsDarkMode();
+    const { data: xFallbackUrl } = useResolveAvatarFallbackUrl(props.href);
+
+    const fallbackUrl = isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
+    const avatar = failed ? fallbackUrl : xFallbackUrl || props.href || fallbackUrl;
+
+    useUpdateEffect(() => {
+        setFailed(false);
+    }, [xFallbackUrl]);
+
+    return <image {...props} href={avatar} onError={() => setFailed(true)} />;
 }
 
 export const CustomizedDot = memo(function CustomizedDot({

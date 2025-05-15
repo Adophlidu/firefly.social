@@ -133,7 +133,7 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                             </div>
                         ) : null}
                         {nft?.latest_trade_price ? (
-                            <div className="flex flex-col items-end">
+                            <div className="ml-auto flex flex-col items-end">
                                 <div className="text-xs font-bold leading-[18px] text-secondary">
                                     <Trans>Last sale</Trans>
                                 </div>
@@ -142,17 +142,11 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                                     <span className="truncate text-medium font-bold text-lightMain">
                                         {nft.latest_trade_price}
                                     </span>
-                                    <TokenIcon
-                                        disableBadge
-                                        chainId={chainId}
-                                        address={zeroAddress}
-                                        icon={`https://stamp.firefly.land/logo/${chainId}/${zeroAddress}`}
-                                        size={16}
-                                    />
+                                    <TokenIcon disableBadge chainId={chainId} address={zeroAddress} size={16} />
                                 </div>
                             </div>
                         ) : !nft && marketInfo ? (
-                            <div className="flex flex-col items-end">
+                            <div className="ml-auto flex flex-col items-end">
                                 <div className="text-xs font-bold leading-[18px] text-secondary">
                                     <Trans>Total volume</Trans>
                                 </div>
@@ -161,13 +155,7 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                                     <span className="truncate text-medium font-bold text-lightMain">
                                         {marketInfo.total_volume}
                                     </span>
-                                    <TokenIcon
-                                        disableBadge
-                                        chainId={chainId}
-                                        address={zeroAddress}
-                                        icon={`https://stamp.firefly.land/logo/${chainId}/${zeroAddress}`}
-                                        size={16}
-                                    />
+                                    <TokenIcon disableBadge chainId={chainId} address={zeroAddress} size={16} />
                                 </div>
                             </div>
                         ) : null}

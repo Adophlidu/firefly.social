@@ -190,7 +190,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                     />
                 )}
             </div>
-            {withinRangeTradeRecords.length > 1 ? (
+            {showUserTx && withinRangeTradeRecords.length > 1 ? (
                 <div className="no-scrollbar flex flex-nowrap justify-start gap-1 overflow-auto">
                     {withinRangeTradeRecords.map((record, i) => {
                         return (
