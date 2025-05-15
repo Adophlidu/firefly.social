@@ -284,7 +284,11 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                     <Trans>
                                         Scan the QR code with your phone’s <b className="font-bold">Camera</b> in{' '}
                                         {count}s.
-                                        <br /> Approve the existing Farcaster signer to Firefly.
+                                        <br /> Approve the existing Farcaster signer on Warpcast
+                                        <br />
+                                        Connect wallet to sign in
+                                        <br />
+                                        if you registered your Farcaster account on Firefly
                                     </Trans>
                                 ) : signType === SignType.FireflySponsorship ? (
                                     <Trans>

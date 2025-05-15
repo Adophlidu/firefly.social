@@ -195,6 +195,9 @@ msgstr "{followerCount, plural, one {关注者} other {关注者}}"
 msgid "Delete post"
 msgstr "删除帖子"
 
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer on Warpcast<2/>Connect wallet to sign in<3/>if you registered your Farcaster account on Firefly"
+msgstr ""
+
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr "隐藏 @{0}"
@@ -441,9 +444,6 @@ msgstr "firefly.eth 打赏了你 100 USDC"
 
 msgid "Your BlueSky session has expired, please sign in again"
 msgstr ""
-
-msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer to Firefly."
-msgstr "使用<0>摄像头</0> 在 {count} 内<1/> 来扫描你的二维码。授权 Farcaster singer 给 Firefly。"
 
 msgid "Poll"
 msgstr "投票"

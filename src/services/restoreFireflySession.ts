@@ -32,7 +32,7 @@ async function restoreFireflySessionFromLens(session: LensSession, signal?: Abor
         signal,
     });
     const data = resolveFireflyResponseData(response);
-    return new FireflySession(data.accountId, data.accessToken, session, null, false, data);
+    return new FireflySession(data?.uid ?? data.accountId, data.accessToken, session, null, false, data);
 }
 
 async function restoreFireflySessionFromFarcaster(session: FarcasterSession, signal?: AbortSignal) {
@@ -63,7 +63,7 @@ async function restoreFireflySessionFromFarcaster(session: FarcasterSession, sig
     const data = resolveFireflyResponseData(json);
     if (data.fid && data.accountId && data.accessToken) {
         patchFarcasterSessionRequired(session as FarcasterSession, data.fid, data.farcaster_signer_private_key);
-        return new FireflySession(data.accountId, data.accessToken, session, null, false, data);
+        return new FireflySession(data.uid ?? data.accountId, data.accessToken, session, null, false, data);
     }
     throw new Error('[restoreFireflySession] Failed to restore firefly session.');
 }
@@ -88,7 +88,7 @@ async function restoreFireflySessionFromTwitter(session: TwitterSession, signal?
     });
 
     const data = resolveFireflyResponseData(response);
-    return new FireflySession(data.accountId, data.accessToken, session, null, false, data);
+    return new FireflySession(data.uid ?? data.accountId, data.accessToken, session, null, false, data);
 }
 
 async function restoreFireflySessionFromBsky(session: BskySession, signal?: AbortSignal) {
@@ -104,7 +104,7 @@ async function restoreFireflySessionFromBsky(session: BskySession, signal?: Abor
     });
 
     const data = resolveFireflyResponseData(response);
-    return new FireflySession(data.accountId, data.accessToken, session, null, false, data);
+    return new FireflySession(data.uid ?? data.accountId, data.accessToken, session, null, false, data);
 }
 
 async function restoreFireflySessionFromApple(session: ThirdPartySession, signal?: AbortSignal) {
@@ -118,7 +118,7 @@ async function restoreFireflySessionFromApple(session: ThirdPartySession, signal
         signal,
     });
     const data = resolveFireflyResponseData(response);
-    return new FireflySession(data.accountId, data.accessToken, session, null, false, data);
+    return new FireflySession(data.uid ?? data.accountId, data.accessToken, session, null, false, data);
 }
 
 async function restoreFireflySessionFromGoogle(session: ThirdPartySession, signal?: AbortSignal) {
@@ -132,14 +132,14 @@ async function restoreFireflySessionFromGoogle(session: ThirdPartySession, signa
     });
 
     const data = resolveFireflyResponseData(response);
-    return new FireflySession(data.accountId, data.accessToken, session, null, false, data);
+    return new FireflySession(data.uid ?? data.accountId, data.accessToken, session, null, false, data);
 }
 
 async function restoreFireflySessionFromTelegram(session: ThirdPartySession, signal?: AbortSignal) {
     if (!session.payload?.accountId || !session.payload.accessToken) throw new NotAllowedError();
 
     return new FireflySession(
-        session.payload.accountId,
+        session.payload.uid ?? session.payload.accountId,
         session.payload.accessToken,
         session,
         null,
@@ -178,7 +178,7 @@ async function restoreFireflySessionFromEmail(session: ThirdPartySession, signal
         };
     }
 
-    return new FireflySession(data.accountId, data.accessToken, session, null, false, data);
+    return new FireflySession(data.uid ?? data.accountId, data.accessToken, session, null, false, data);
 }
 
 /**

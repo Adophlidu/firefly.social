@@ -190,6 +190,9 @@ msgstr "{followerCount, plural, one {Follower} other {Followers}}"
 msgid "Delete post"
 msgstr "Delete post"
 
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer on Warpcast<2/>Connect wallet to sign in<3/>if you registered your Farcaster account on Firefly"
+msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer on Warpcast<2/>Connect wallet to sign in<3/>if you registered your Farcaster account on Firefly"
+
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr "Mute @{0}"
@@ -436,9 +439,6 @@ msgstr "firefly.eth tipped you 100 USDC"
 
 msgid "Your BlueSky session has expired, please sign in again"
 msgstr "Your BlueSky session has expired, please sign in again"
-
-msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer to Firefly."
-msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer to Firefly."
 
 msgid "Poll"
 msgstr "Poll"

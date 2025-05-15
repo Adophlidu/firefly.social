@@ -1486,7 +1486,7 @@ class FireflyEndpoint {
         isForce: boolean,
     ) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/farcaster_account/login/fid/wallet');
-        const response = await fetchJSON<LoginFarcasterWithWalletResponse>(url, {
+        const response = await fireflySessionHolder.fetch<LoginFarcasterWithWalletResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
                 sysAccount,

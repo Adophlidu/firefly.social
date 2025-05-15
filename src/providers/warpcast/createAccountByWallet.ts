@@ -36,7 +36,7 @@ export async function createAccountByWallet(signal?: AbortSignal) {
         undefined,
         account.address,
     );
-    const fireflySession = new FireflySession(res.uid, res.accessToken, null, null, false);
+    const fireflySession = new FireflySession(res.uid, res.accessToken, session, null, res.isNew, res);
     const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
     return {
         session,
