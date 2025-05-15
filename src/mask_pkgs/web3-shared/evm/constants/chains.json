@@ -1376,5 +1376,29 @@
                 "url": "https://explorer.linea.build"
             }
         ]
+    },
+    {
+        "chainId": 232,
+        "name": "Lens Chain Mainnet",
+        "type": "Lens Chain Mainnet",
+        "network": "mainnet",
+        "features": [],
+        "nativeCurrency": {
+            "chainId": 1,
+            "name": "GHO",
+            "symbol": "GHO",
+            "decimals": 18,
+            "logoURL": "https://explorer.lens.xyz/images/gho.png"
+        },
+        "defaultGasLimit": "90000",
+        "minGasLimit": "21000",
+        "infoURL": "https://lens.xyz/docs/chain/using-lens-chain",
+        "shortName": "Lens Chain Mainnet",
+        "explorers": [
+            {
+                "name": "Lens Chain Mainnet",
+                "url": "https://explorer.lens.xyz"
+            }
+        ]
     }
 ]
