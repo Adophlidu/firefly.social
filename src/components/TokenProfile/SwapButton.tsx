@@ -10,6 +10,7 @@ import { ClickableButton, type ClickableButtonProps } from '@/components/Clickab
 import { TokenContext } from '@/components/Token/TokenContext.js';
 import { useOkxSupportedChains } from '@/components/TokenProfile/useOkxSupportedChains.js';
 import { config } from '@/configs/wagmiClient.js';
+import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/chain.js';
 import { NetworkType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -33,9 +34,9 @@ export const SwapButton = memo<Props>(function SwapButton({
     const chainIds = useMemo(() => supportedChainIds.map((x) => x.chainId), [supportedChainIds]);
     const tradable = tradableFromProps ?? tradableFromContext;
 
-    const providerType = swapPropsFromProps?.providerType ?? propsFromContext?.providerType ?? ProviderType.EVM;
     const chainId = swapPropsFromProps?.chainId ?? propsFromContext?.chainId;
 
+    const providerType = chainId !== SOLANA_CHAIN_ID_IN_FIREFLY ? ProviderType.EVM : ProviderType.SOLANA;
     const appKitProvider = useAppKitProvider(providerType === ProviderType.EVM ? 'eip155' : 'solana');
 
     if (providerType === ProviderType.EVM && chainId && !chainIds.includes(chainId)) return null;

@@ -1,7 +1,6 @@
 'use client';
 
 import { Select, Trans } from '@lingui/react/macro';
-import { ProviderType } from '@okxweb3/dex-widget';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { first } from 'lodash-es';
@@ -243,7 +242,6 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                                 chainId: activity.chain_id,
                                 fromToken: activity.from_token?.address,
                                 toToken: activity.to_token?.address,
-                                providerType: ProviderType.EVM,
                             }}
                         >
                             <Trans>Copy Trade</Trans>

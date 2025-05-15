@@ -43,7 +43,7 @@ export function WalletConnectModalRoot({ ref }: Props) {
 
     return (
         <Modal open={open} onClose={() => dispatch?.close()}>
-            <div>
+            <div className="max-md:h-[100vh] max-md:w-[100vw]">
                 <RouterProvider router={walletRouter} />
             </div>
         </Modal>

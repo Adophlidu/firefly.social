@@ -25,7 +25,6 @@ export default function Page() {
         },
         select: (data) => compact(data.pages.flatMap((x) => x?.data)),
     });
-
     return (
         <div className="flex w-full flex-col">
             {fireflyBridgeProvider.supported ? (

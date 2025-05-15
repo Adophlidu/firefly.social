@@ -21,21 +21,21 @@ export const ProjectItem = memo<{ project: Project }>(function ProjectItem({
                     <div className="text-lightMain">{project_name}</div>
                     <div className="text-secondary">{token_symbol}</div>
                 </div>
-                <div className="flex items-center gap-x-1">
+                <div className="flex flex-wrap items-center gap-x-1">
                     <div className="flex items-center gap-x-1 rounded-lg bg-lightBg p-1">
                         <Rank width={16} height={16} />
                         <span className="text-xs text-highlight">{rank}</span>
                     </div>
                     {tags.map((tag, index) => (
                         <div
-                            className="flex items-center gap-x-1 rounded-lg bg-lightBg p-1 text-xs text-secondary"
+                            className="flex items-center gap-x-1 break-keep rounded-lg bg-lightBg p-1 text-xs text-secondary"
                             key={index}
                         >
                             #{tag}
                         </div>
                     ))}
                 </div>
-                <div className="line-clamp-1 text-[15px] leading-[22px]">{one_liner}</div>
+                <div className="line-clamp-2 text-[15px] leading-[22px]">{one_liner}</div>
             </div>
         </Link>
     );

@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { ProviderType } from '@okxweb3/dex-widget';
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
 import { memo } from 'react';
@@ -253,7 +252,6 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                     chainId: activity.chain_id,
                                     fromToken: activity.from_token?.address,
                                     toToken: activity.to_token?.address,
-                                    providerType: ProviderType.EVM,
                                 }}
                             >
                                 <Trans>Copy Trade</Trans>

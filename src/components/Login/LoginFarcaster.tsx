@@ -136,7 +136,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
         isIncrement: false,
     });
 
-    const [, onLoginByGrantPermission] = useAsyncFn(async () => {
+    const [{ loading: loadingByGrantPermission }, onLoginByGrantPermission] = useAsyncFn(async () => {
         controller.current.renew();
         try {
             await login(
@@ -156,7 +156,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
         }
     }, [controller, resetCountdown, startCountdown]);
 
-    const [, onLoginByRelayService] = useAsyncFn(async () => {
+    const [{ loading: loadingByRelayService }, onLoginByRelayService] = useAsyncFn(async () => {
         controller.current.renew();
 
         try {
@@ -196,7 +196,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
         }
     }, [controller, history, resetCountdown, startCountdown]);
 
-    const [, onLoginByFireflySponsorship] = useAsyncFn(async () => {
+    const [{ loading: loadingBySponsorship }, onLoginByFireflySponsorship] = useAsyncFn(async () => {
         controller.current.renew();
         try {
             await login(
@@ -237,8 +237,8 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
     };
 
     useMount(() => {
+        if (loadingByGrantPermission || loadingByRelayService || loadingBySponsorship) return;
         if (IS_MOBILE_DEVICE && !signType) {
-            history.replace(`/farcaster?signType=${FarcasterSignType.RelayService}`);
             onClick(FarcasterSignType.RelayService);
             return;
         }

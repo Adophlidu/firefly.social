@@ -1,5 +1,6 @@
 'use client';
 
+import { first } from 'lodash-es';
 import { memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import FireflyIcon from '@/assets/firefly.svg';
@@ -19,12 +20,12 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';
 import { parseFollowingPageUrl } from '@/helpers/parseFollowingPageUrl.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
 
 interface NavigatorBarForMobileProps {
-    title: string;
     /** Fix the left button as back button */
     enableFixedBack?: boolean;
     enableSearch?: boolean;
@@ -35,7 +36,6 @@ const changeBodyOverflow = (overflow: 'auto' | 'hidden') => {
 };
 
 export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
-    title,
     enableFixedBack = false,
     enableSearch = true,
 }: NavigatorBarForMobileProps) {
@@ -46,7 +46,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
     const isHomePage = !!parseFollowingPageUrl(pathname) || !!parseDiscoverPageUrl(pathname);
     const [searchMode, setSearchMode] = useState(isSearchPage);
     const [showRecommendation, setShowRecommendation] = useState(false);
-
+    const isLogin = useIsLoginFirefly();
     const profiles = useCurrentProfiles();
 
     const { searchKeyword, updateState } = useSearchStateStore();
@@ -55,6 +55,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
 
     const inputRef = useRef<HTMLInputElement>(null);
     const [inputText, setInputText] = useState(searchKeyword);
+    const [title, setTitle] = useState('');
 
     const handleInputSubmit = (state: SearchState) => {
         if (state.q) addRecord(state.q);
@@ -76,6 +77,23 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
             window.removeEventListener('touchmove', onTouchMove);
         };
     }, []);
+
+    useLayoutEffect(() => {
+        const observer = new MutationObserver(() => {
+            const title = first(document.title.split(' '));
+            if (!title) return;
+            setTitle(title);
+        });
+
+        observer.observe(document.head, {
+            childList: true,
+            characterData: true,
+            subtree: true,
+        });
+        return () => {
+            observer.disconnect();
+        };
+    }, [pathname]);
 
     const closeRecommendation = useCallback(() => setShowRecommendation(false), []);
 
@@ -140,7 +158,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                         <>
                             {profiles.length && title ? (
                                 <span className="text-[18px] font-bold leading-[24px]">{title}</span>
-                            ) : isHomePage ? (
+                            ) : isHomePage && isLogin ? (
                                 <HomeTabs onlyFilter buttonClass="!mx-auto" containerClass="justify-center h-[54px]" />
                             ) : (
                                 <FireflyIcon

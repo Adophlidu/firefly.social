@@ -22,7 +22,7 @@ export function RootView() {
     const title = contextTitle ?? <Trans>Connect Wallet</Trans>;
 
     return (
-        <div className="relative flex max-h-[70vh] w-[80vw] max-w-[400px] flex-col rounded-md bg-lightBottom text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:rounded-xl">
+        <div className="relative flex max-h-[70vh] w-[80vw] max-w-[400px] flex-col rounded-md bg-lightBottom text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom max-md:h-full max-md:max-h-[100vh] max-md:w-full max-md:max-w-[100vw] md:rounded-xl">
             <h3 className="relative h-14 shrink-0 pt-safe">
                 {isMain || isFinalView ? (
                     <CloseButton onClick={() => WalletConnectModalRef.close()} className="absolute left-4 top-4" />
@@ -40,7 +40,7 @@ export function RootView() {
             </h3>
             <div
                 className={classNames(
-                    'no-scrollbar relative min-h-0 flex-1 overflow-y-auto pt-0',
+                    'no-scrollbar relative min-h-0 flex-1 overflow-y-auto pt-0 max-md:pt-2',
                     isAllWallets ? 'p-3' : 'p-6',
                 )}
             >

@@ -63,7 +63,7 @@ export function MainView() {
     const isMyProfilePage = isMyProfile && (isPureProfilePage || isRoutePathname(pathname, PageRoute.Profile));
 
     const onClick = (source: SocialSource) => {
-        const signType = source === Source.Farcaster && isMedium ? FarcasterSignType.RelayService : undefined;
+        const signType = source === Source.Farcaster ? FarcasterSignType.RelayService : undefined;
 
         const path = urlcat('/:source', {
             source: resolveSourceInUrl(source),
