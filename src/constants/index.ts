@@ -255,8 +255,7 @@ export const ENABLED_RP_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens
 export const DEFAULT_SOCIAL_SOURCE = Source.Posts;
 export const DEFAULT_BOOKMARK_SOURCE = Source.Farcaster;
 export const DEFAULT_NOTIFICATION_SOURCE = Source.Notifications;
-export const DEFAULT_EXPLORE_TYPE =
-    env.external.NEXT_PUBLIC_TRUTH_SOCIAL === STATUS.Enabled ? ExploreType.TruthSocial : ExploreType.TopProfiles;
+export const DEFAULT_EXPLORE_TYPE = ExploreType.TopProfiles;
 export const DEFAULT_LOCALE = Locale.en;
 
 export const SUPPORTED_PREVIEW_MEDIA_TYPES: Array<Attachment['type']> = ['Image', 'AnimatedGif'];
@@ -291,8 +290,8 @@ export const ENABLED_TIPS_POST_SOURCES: SocialSource[] = [Source.Farcaster, Sour
 export const EXPLORE_TYPES: ExploreType[] =
     env.external.NEXT_PUBLIC_TRUTH_SOCIAL === STATUS.Enabled
         ? [
-              ExploreType.TruthSocial,
               ExploreType.TopProfiles,
+              ExploreType.TruthSocial,
               ExploreType.Projects,
               ExploreType.CryptoTrends,
               ExploreType.TopChannels,
