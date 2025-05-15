@@ -26,6 +26,53 @@ import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { SearchTokenInfo } from '@/providers/types/Firefly.js';
 
+export function TokenProfileSkeleton(props: HTMLProps<HTMLDivElement>) {
+    return (
+        <div
+            {...props}
+            className={classNames(
+                'flex cursor-default flex-col gap-3 rounded-2xl border border-line bg-primaryBottom p-3',
+                props.className,
+            )}
+        >
+            <div className="flex items-center">
+                <div className="size-8 rounded-full bg-bg" />
+                <div className="ml-3 flex flex-col gap-1">
+                    <div className="item-center flex gap-1">
+                        <div className="h-3 w-10 rounded bg-bg py-0.5" />
+                        <span className="size-3 rounded-full bg-bg" />
+                    </div>
+                    <div className="flex items-center gap-1 leading-4">
+                        <span className="h-3 w-20 bg-bg py-0.5" />
+                        <CopyTextButton text="" className="leading-4 text-third [&_svg]:ml-0" />
+                    </div>
+                </div>
+                <div className="ml-auto flex items-center justify-end gap-1 self-start">
+                    <div className="h-[18px] w-[130px] bg-bg text-main" />
+                    <LineArrowUp className="rotate-180" width={20} height={20} />
+                </div>
+            </div>
+            <div className="flex items-center">
+                <div className="line-height-[22px] flex items-center gap-1">
+                    <strong className="h-[22px] w-20 rounded bg-bg" />
+                    <span className="h-4 w-6 bg-bg text-medium text-secondary" title={t`Market Cap`} />
+                    <span className="inline-flex h-[14px] w-12 items-center text-nowrap rounded bg-highlight px-1 py-0.5" />
+                </div>
+                <div className="ml-auto h-8 w-[170px] overflow-auto rounded bg-bg" />
+            </div>
+            <div className="flex items-center">
+                <div className="line-height-[22px] flex h-8 items-center gap-1 text-medium">
+                    <PriceArrow width={16} height={16} className="shrink-0 text-third" />
+                    <span className="h-3 w-10 rounded bg-bg py-0.5" />
+                    <span className="h-3 w-20 rounded bg-third py-0.5" />
+                    <span className="h-3 w-10 rounded bg-third py-0.5" />
+                </div>
+                <div className="row-start-3 ml-auto flex h-8 w-[80px] items-center justify-end rounded-full bg-bg" />
+            </div>
+        </div>
+    );
+}
+
 interface Props extends HTMLProps<HTMLDivElement> {
     symbol: string;
     onTokenSelect?: (tokenInfo: SearchTokenInfo) => void;
@@ -33,7 +80,7 @@ interface Props extends HTMLProps<HTMLDivElement> {
 
 export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children, onTokenSelect, ...rest }) {
     const [openSwitcher, setOpenSwitcher] = useState(false);
-    const { data: tokenInfos = EMPTY_LIST } = useQuery({
+    const { data: tokenInfos = EMPTY_LIST, isLoading } = useQuery({
         queryKey: ['search-token', symbol],
         queryFn: () => FireflyEndpointProvider.searchTokenInfos(symbol),
     });
@@ -67,6 +114,8 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
 
     const { data: tokenSecurity } = useTokenSecurity(chainId, address);
 
+    if (isLoading) return <TokenProfileSkeleton {...rest} />;
+
     if (!selectedToken) return null;
     const market_data = selectedToken.market_data;
     const price = market_data.token_price_usd;
@@ -98,39 +147,52 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
         <div
             {...rest}
             className={classNames(
-                'flex cursor-default rounded-2xl border border-line bg-primaryBottom px-3 py-[7px]',
+                'flex cursor-default flex-col gap-3 rounded-2xl border border-line bg-primaryBottom p-3',
                 rest.className,
             )}
             onClick={(e) => {
                 e.stopPropagation();
             }}
         >
-            <div className="flex flex-col gap-6">
-                <div className="flex items-center gap-[14px] whitespace-nowrap text-second">
-                    <Link href={tokenPageUrl}>
-                        <TokenIcon
-                            icon={selectedToken.image.large || `https://stamp.firefly.land/logo/${address}`}
-                            chainId={chainId}
-                            alt={selectedToken.name}
-                            size={32}
-                        />
-                    </Link>
-                    <div className="flex flex-col">
+            <div className="flex items-center">
+                <Link href={tokenPageUrl}>
+                    <TokenIcon
+                        icon={selectedToken.image.large || `https://stamp.firefly.land/logo/${address}`}
+                        chainId={chainId}
+                        alt={selectedToken.name}
+                        size={32}
+                    />
+                </Link>
+                <div className="ml-3 flex flex-col">
+                    <div className="flex items-center gap-1">
                         <Link
                             className="text-base font-bold uppercase leading-4 text-main hover:underline"
                             href={tokenPageUrl}
                         >
                             {selectedToken.symbol}
                         </Link>
-                        <div className="flex items-center gap-1 leading-4">
-                            {tokenSecurity ? <SecurityBadge security={tokenSecurity} interactive={false} /> : null}
-                            <span className="max-w-28 truncate font-inter text-sm font-bold leading-4 text-third">
-                                {formatAddress(address, 4)}
-                            </span>
-                            <CopyTextButton text={address} className="leading-4 [&_svg]:ml-0" />
-                        </div>
+                        {tokenSecurity ? <SecurityBadge security={tokenSecurity} interactive={false} /> : null}
+                    </div>
+                    <div className="flex items-center gap-1 leading-4">
+                        <span className="max-w-28 truncate font-inter text-[13px] font-bold leading-4 text-third">
+                            {formatAddress(address, 4)}
+                        </span>
+                        <CopyTextButton text={address} className="leading-4 text-third [&_svg]:ml-0" />
                     </div>
                 </div>
+                {tokenInfos.length > 1 ? (
+                    <div
+                        className="ml-auto flex cursor-pointer items-center gap-1 self-start"
+                        onClick={() => setOpenSwitcher(true)}
+                    >
+                        <div className="text-sm font-bold leading-[18px] text-main">
+                            <Trans>View similar symbols</Trans>
+                        </div>
+                        <LineArrowUp className="rotate-180" width={20} height={20} />
+                    </div>
+                ) : null}
+            </div>
+            <div className="flex items-center">
                 <div className="line-height-[22px] flex items-center gap-1">
                     <Trans>
                         <strong className="text-2xl font-bold leading-[22px]">
@@ -146,7 +208,17 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                         ) : null}
                     </Trans>
                 </div>
-                <div className="line-height-[22px] flex items-center gap-1 text-medium">
+                <div
+                    className={classNames(
+                        'ml-auto h-10 min-w-[150px] max-w-[170px] shrink-0 flex-grow overflow-auto',
+                        isPending ? 'animate-pulse' : null,
+                    )}
+                >
+                    <SimplePriceChart records={priceStats} className="size-full" />
+                </div>
+            </div>
+            <div className="flex items-center">
+                <div className="line-height-[22px] flex h-8 items-center gap-1 text-medium">
                     {typeof market_data.price_change_percentage_24h === 'number' ? (
                         <Trans>
                             <PriceArrow
@@ -154,39 +226,20 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                                 height={16}
                                 className={isUp ? 'shrink-0 text-success' : 'shrink-0 rotate-180 text-fail'}
                             />
-                            <span className={isUp ? 'text-success' : 'text-fail'}>
+                            <span className={isUp ? 'text-xs text-success' : 'text-xs text-fail'}>
                                 {market_data.price_change_percentage_24h.toFixed(2)}%
                             </span>
                             <span className="text-medium text-secondary">today</span>
-                            <strong className="font-bold">${renderShrankPrice(formatPrice(price) ?? '-')}</strong>
+                            <strong className="text-medium font-bold">
+                                ${renderShrankPrice(formatPrice(price) ?? '-')}
+                            </strong>
                         </Trans>
                     ) : (
                         <span>-</span>
                     )}
                 </div>
-            </div>
-            <div className="ml-auto grid w-[170px] grid-cols-1 grid-rows-3">
-                {tokenInfos.length > 1 ? (
-                    <div
-                        className="row-start-1 flex cursor-pointer items-center gap-1"
-                        onClick={() => setOpenSwitcher(true)}
-                    >
-                        <div className="text-sm font-bold leading-[18px] text-main">
-                            <Trans>View similar symbols</Trans>
-                        </div>
-                        <LineArrowUp className="rotate-180" width={20} height={20} />
-                    </div>
-                ) : null}
-                <div
-                    className={classNames(
-                        'row-start-2 min-w-[50px] max-w-[170px] overflow-auto',
-                        isPending ? 'animate-pulse' : null,
-                    )}
-                >
-                    <SimplePriceChart records={priceStats} className="size-full" />
-                </div>
                 {address && detected?.chain_id ? (
-                    <div className="row-start-3 flex items-center justify-end">
+                    <div className="ml-auto flex items-center justify-end">
                         <SwapButton
                             tradable={tradeInfo.tradable ? detected?.type === 'eth' : false}
                             className="flex shrink-0 grow-0 flex-row-reverse !gap-1 !px-3 !py-2"
