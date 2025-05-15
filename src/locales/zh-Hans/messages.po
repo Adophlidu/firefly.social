@@ -1516,7 +1516,7 @@ msgid "Liked this swap."
 msgstr "点赞了这笔交易。"
 
 msgid "Send"
-msgstr "发送<<<<<<< HEAD======="
+msgstr "发送"
 
 msgid "Collected"
 msgstr "已铸造"
@@ -2284,7 +2284,7 @@ msgid "Not Started"
 msgstr "尚未开始"
 
 msgid "Cannot send tip to yourself"
-msgstr "不能打赏给自己<<<<<<< HEAD======="
+msgstr "不能打赏给自己"
 
 msgid "Total amount"
 msgstr "总金额"
@@ -3731,7 +3731,7 @@ msgid "Reposts"
 msgstr "转帖"
 
 msgid "The contract owner has no restrictions on anti whale."
-msgstr "合约所有者对反鲸鱼机制没有限制。<<<<<<< HEAD======="
+msgstr "合约所有者对反鲸鱼机制没有限制。"
 
 msgid "Exclusive Events"
 msgstr "独家活动"
