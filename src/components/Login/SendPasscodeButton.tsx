@@ -56,7 +56,7 @@ export function SendPasscodeButton({ email, disabled }: Props) {
             loading={loading}
             onClick={handleSendPasscode}
             disabled={secondsLeft > 0 || loading || disabled}
-            className="rounded-lg border border-main bg-transparent px-[22px] py-[5px] text-[13px] font-bold leading-6 text-main"
+            className="whitespace-nowrap rounded-lg border border-main bg-transparent px-[22px] py-[5px] text-[13px] font-bold leading-6 text-main"
             onlyLoading
         >
             {loading ? (
