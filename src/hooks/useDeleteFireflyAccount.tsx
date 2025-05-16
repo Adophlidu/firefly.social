@@ -2,7 +2,6 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { delay } from '@masknet/kit';
 import { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
@@ -93,13 +92,12 @@ export function useDeleteFireflyAccount() {
 
             await FireflyEndpointProvider.deleteAccount();
             enqueueSuccessMessage(t`Deleted your Firefly account`);
-            await captureAccountDeleteEvent(accountId);
-            await removeAllAccounts();
-            await delay(300);
             router.replace('/', {
                 showProgress: false,
                 disableSameURL: true,
             });
+            await captureAccountDeleteEvent(accountId);
+            await removeAllAccounts();
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to delete`);
         }

@@ -80,7 +80,11 @@ function LoginFarcasterWithWalletButton({ children, className }: HTMLProps<'a'>)
         try {
             await login(() => createAccountByWallet(controller.current.signal));
         } catch (error) {
-            if (error instanceof Error && error.message.includes('Account does not exist')) {
+            if (
+                error instanceof Error &&
+                (error.message.includes('Account does not exist') ||
+                    error.message.includes('This farcaster already bound to the other account'))
+            ) {
                 enqueueWarningMessage(t`Registered account not found. Please switch to another wallet and try again.`);
             } else {
                 enqueueMessageFromError(error, t`Failed to login.`);
