@@ -249,6 +249,7 @@ describe('SYMBOL_REGEX', () => {
 describe('URL_SINGLE_REGEX', () => {
     it('should match valid URLs', () => {
         [
+            'http://example.com',
             'https://example.com',
             'https://www.example.com',
             'https://example.com:8080',
@@ -275,7 +276,6 @@ describe('URL_SINGLE_REGEX', () => {
             ' https://example.com',
             ' https://example.com ',
             'example.com',
-            'http://example.com', // Wrong protocol
             'https://example', // Missing TLD
             'https://.com', // Invalid domain
             'https://example.com/path/to/ resource', // Space in path
