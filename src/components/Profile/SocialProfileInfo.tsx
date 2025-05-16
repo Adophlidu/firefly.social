@@ -72,7 +72,7 @@ export function SocialProfileInfo(props: InfoProps) {
                     <span className="text-medium text-secondary">@{profile.handle}</span>
                 </div>
 
-                <BioMarkup className="break-word line-clamp-2 text-medium" source={profile.source} profile={profile}>
+                <BioMarkup className="break-word text-medium" source={profile.source} profile={profile}>
                     {profile.bio ?? '-'}
                 </BioMarkup>
 
