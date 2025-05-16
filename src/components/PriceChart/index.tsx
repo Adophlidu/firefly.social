@@ -59,6 +59,8 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
 }) {
     const { isUp } = useIsPriceUp(records);
     const [activeRecord, setActiveRecord] = useState<PriceRecord>();
+    // Avatar is large enough to magnetically attract the cursor.
+    const [hoveringTrade, setHoveringTrade] = useState<TradeRecord>();
     const [dotMap, setDotMap] = useState<Record<string, TooltipState>>({});
 
     const handleDotUpdate = useCallback((x: number, y: number, date: number, trades: TradeRecord[]): void => {
@@ -67,13 +69,10 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
             [date]: { x, y, trade: trades.length === 0 ? trades[0] : undefined },
         }));
     }, []);
-    const activeDate = activeRecord?.date;
+    const activeDate = hoveringTrade?.date ?? activeRecord?.date;
     const tooltipState = useMemo(() => {
-        const trade = activeDate
-            ? tradeRecords.find((x) => x.date === activeDate)
-            : isNumber(activeTradeIndex)
-              ? tradeRecords[activeTradeIndex]
-              : null;
+        const activeTrade = isNumber(activeTradeIndex) ? tradeRecords[activeTradeIndex] : null;
+        const trade = activeDate ? tradeRecords.find((x) => x.date === activeDate) || activeTrade : activeTrade;
 
         if (!trade?.date || !dotMap[trade.date]) return;
         return {
@@ -92,6 +91,10 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
                     tradeRecords={tradeRecords}
                     onDotUpdate={handleDotUpdate}
                     onDotClick={onDotClick}
+                    onAvatarHover={setHoveringTrade}
+                    onAvatarLeave={() => {
+                        setHoveringTrade(undefined);
+                    }}
                 />
             );
         },

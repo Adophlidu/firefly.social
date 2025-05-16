@@ -1,7 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { type HTMLProps, memo, useCallback, useContext, useMemo, useState } from 'react';
-import { useAccount } from 'wagmi';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
@@ -14,8 +13,10 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 import type { TradeRecord } from '@/types/token.js';
+import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 interface Props extends HTMLProps<HTMLDivElement>, Pick<SwapTimelineProps, 'chainId' | 'tokenAddress'> {
     trader: string | undefined;
@@ -44,7 +45,8 @@ export const Transactions = memo<Props>(function Transactions({
         ];
     }, [trader, traderName]);
 
-    const account = useAccount();
+    const { ethereum, solana } = useWalletAccountAll();
+    const account = chainId === SolanaChainId.Mainnet ? solana.address : ethereum.address;
     const params = useSearchParams();
     const tab = params.get('tab') || subcategories[0].value;
     const [subcategory = tab, setSubcategory] = useState<string>();
@@ -63,7 +65,8 @@ export const Transactions = memo<Props>(function Transactions({
                             name: activity.displayInfo?.ensHandle,
                             address: activity.owner,
                             avatar:
-                                activity.displayInfo?.avatarUrl ??
+                                activity.displayInfo?.fireflyAvatarUrl ||
+                                activity.displayInfo?.avatarUrl ||
                                 getStampAvatarByProfileId(Source.Wallet, activity.owner),
                         },
                         amount: token.amount_str,
@@ -125,9 +128,9 @@ export const Transactions = memo<Props>(function Transactions({
                     }}
                 />
             ) : subcategory === 'mine' ? (
-                account.address ? (
+                account ? (
                     <SwapTimeline
-                        address={account.address}
+                        address={account}
                         {...timelineProps}
                         NoResultsFallbackProps={{
                             icon: null,
