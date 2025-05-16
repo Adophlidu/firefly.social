@@ -3737,7 +3737,7 @@ msgid "Exclusive Events"
 msgstr "独家活动"
 
 msgid "Please sign in with your custody wallet first."
-msgstr ""
+msgstr "请先使用您的托管钱包登录。"
 
 msgid "Post added to your Bookmarks"
 msgstr "帖子已经添加到你的收藏中"

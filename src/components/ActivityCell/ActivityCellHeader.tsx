@@ -30,11 +30,11 @@ export function ActivityCellHeader({
 
     return (
         <header className={classNames('flex items-start gap-3', className)} {...rest}>
-            <div className="flex flex-1 flex-grow flex-row items-center overflow-hidden text-ellipsis whitespace-nowrap text-[15px] leading-6">
+            <div className="flex flex-1 flex-grow flex-row items-center overflow-hidden text-ellipsis whitespace-nowrap text-[15px] leading-6 max-md:max-w-[calc(100%_-_56px)]">
                 <Link
                     href={authorUrl}
                     onClick={stopPropagation}
-                    className="block max-w-full truncate font-bold text-main"
+                    className="block min-w-0 max-w-full truncate font-bold text-main"
                 >
                     {displayName ? displayName : formatAddressEthereum(address, 4)}
                 </Link>
@@ -55,7 +55,7 @@ export function ActivityCellHeader({
                 {icon}
             </div>
 
-            <div className="ml-auto flex items-center space-x-2">{children}</div>
+            <div className="flex items-center space-x-2">{children}</div>
         </header>
     );
 }

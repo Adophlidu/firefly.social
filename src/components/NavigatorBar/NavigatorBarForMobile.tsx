@@ -72,8 +72,17 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
             changeBodyOverflow('auto');
         };
         window.addEventListener('touchmove', onTouchMove, { passive: false });
+
+        const onPopState = () => {
+            setTimeout(() => {
+                const currentTitle = first(document.title.split(' '));
+                if (currentTitle) setTitle(currentTitle);
+            }, 0);
+        };
+        window.addEventListener('popstate', onPopState);
         return () => {
             onTouchMove();
+            window.removeEventListener('popstate', onPopState);
             window.removeEventListener('touchmove', onTouchMove);
         };
     }, []);
@@ -97,7 +106,6 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
 
     const closeRecommendation = useCallback(() => setShowRecommendation(false), []);
 
-    console.log(isLogin, isHomePage);
     return (
         <>
             <header className="flex w-full items-center gap-4 px-4 py-[7px] text-main">

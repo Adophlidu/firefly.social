@@ -144,7 +144,7 @@ export function MainView() {
 
     return (
         <div className="rounded-[6px] px-6 pb-6 max-md:max-h-[calc(100vh_-_64px)] max-md:overflow-auto md:w-[400px]">
-            <div className="no-scrollbar max-h-[492px] overflow-auto rounded-[6px] bg-primaryBottom">
+            <div className="no-scrollbar overflow-auto rounded-[6px] bg-primaryBottom md:max-h-[492px]">
                 {isLoginFirefly && currentProfile ? (
                     <div className="mb-3 flex gap-2 rounded-lg border border-highlight p-2">
                         <Avatar src={avatar} size={60} alt={currentProfile?.uid ?? ''} />

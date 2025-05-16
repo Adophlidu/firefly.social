@@ -863,7 +863,7 @@ msgid "Sanctioned address."
 msgstr ""
 
 msgid "Claim requirements"
-msgstr ""
+msgstr "領取條件"
 
 msgid "Failed to refund red packet."
 msgstr "退款紅包失敗"
@@ -2212,7 +2212,7 @@ msgid "GIF count limit reached."
 msgstr ""
 
 msgid "Font Color"
-msgstr ""
+msgstr "字体颜色"
 
 msgid "Watching address"
 msgstr ""
@@ -2221,7 +2221,7 @@ msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr ""
 
 msgid "Unsent posts"
-msgstr ""
+msgstr "未發送的貼文"
 
 msgid "Disconnected from your Firefly account"
 msgstr ""
@@ -2287,7 +2287,7 @@ msgid "Cannot send tip to yourself"
 msgstr ""
 
 msgid "Total amount"
-msgstr ""
+msgstr "總金額"
 
 msgid "Invalid signer key"
 msgstr ""
@@ -3732,7 +3732,7 @@ msgid "Exclusive Events"
 msgstr "獨家活動"
 
 msgid "Please sign in with your custody wallet first."
-msgstr ""
+msgstr "請先使用您的託管錢包登入。"
 
 msgid "Post added to your Bookmarks"
 msgstr "貼文已加入書籤"
