@@ -18,7 +18,7 @@ export const TruthSocialPostMarkup = memo<Props>(function TruthSocialPostMarkup(
 
     return (
         <>
-            <div ref={ref} className={classNames('single-post', { 'line-clamp-5': showMore })}>
+            <div ref={ref} className={classNames({ 'line-clamp-5': showMore })}>
                 <PostMarkup post={post} canShowMore={false} content={postContent} />
             </div>
             {overflow || !showMore ? (
