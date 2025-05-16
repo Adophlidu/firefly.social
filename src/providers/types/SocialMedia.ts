@@ -726,28 +726,10 @@ export interface Provider {
     getPostsReplies: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
     /**
-     * Retrieves posts with a specific parent post ID.
-     *
-     * @param postId The ID of the parent post.
-     * @param indicator Optional PageIndicator for pagination.
-     * @returns A promise that resolves to a pageable list of Post objects.
-     */
-    getPostsByParentPostId: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
-
-    /**
      * Retrieves friendship status between the current logged user and another profile.
      * @param profileId
      */
-    getFriendship(profileId: string): Promise<Friendship | null>;
-
-    /**
-     * Retrieves reactors (users who reacted to a post) by post ID.
-     *
-     * @param postId The ID of the post.
-     * @param indicator Optional PageIndicator for pagination.
-     * @returns A promise that resolves to a pageable list of Profile objects.
-     */
-    getReactors: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile>>;
+    getFriendship: (profileId: string) => Promise<Friendship | null>;
 
     /**
      * Allows the current logged user to follow another user by specifying their profile ID.

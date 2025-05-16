@@ -4,10 +4,8 @@ import {
     AuthenticationError,
     FarcasterPatchSignerError,
     FireflyAlreadyBoundError,
-    NotAllowedError,
     NotImplementedError,
 } from '@/constants/error.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Session } from '@/providers/types/Session.js';
 import { ExceptionId } from '@/providers/types/Telemetry.js';
@@ -16,9 +14,6 @@ import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 
 export async function bindOrRestoreFireflySession(session: Session, signal?: AbortSignal) {
     try {
-        const farcasterSession = session as FarcasterSession;
-        if (FarcasterSession.isCustodyWallet(farcasterSession)) throw new NotAllowedError();
-
         if (fireflySessionHolder.session) {
             await bindFireflySession(session, signal);
 

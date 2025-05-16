@@ -93,10 +93,6 @@ class FarcasterSocialMedia implements Provider {
         return this.getProfileById(farcasterSession.profileId);
     }
 
-    getReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
     actPost(postId: string, options: unknown): Promise<void> {
         throw new NotImplementedError();
     }
@@ -165,8 +161,6 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async discoverPostsById(profileId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.discoverPostsById(profileId, indicator);
         return FireflySocialMediaProvider.discoverPostsById(profileId, indicator);
     }
 
@@ -175,8 +169,6 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const { isCustodyWallet } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.getPostsByProfileId(profileId, indicator);
         return FireflySocialMediaProvider.getPostsByProfileId(profileId, indicator);
     }
 
@@ -195,55 +187,26 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getPostById(postId: string): Promise<Post> {
-        const { isCustodyWallet } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.getPostById(postId);
         return FireflySocialMediaProvider.getPostById(postId);
     }
 
     async getProfileById(profileId: string) {
-        const { isCustodyWallet } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.getProfileById(profileId);
         return FireflySocialMediaProvider.getProfileById(profileId);
     }
 
     async getLikeReactors(postId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.getLikeReactors(postId, indicator);
         return FireflySocialMediaProvider.getLikeReactors(postId, indicator);
     }
 
     async getRepostReactors(postId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.getRepostReactors(postId, indicator);
         return FireflySocialMediaProvider.getRepostReactors(postId, indicator);
     }
 
-    async isFollowedByMe(profileId: string) {
-        return WarpcastSocialMediaProvider.isFollowedByMe(profileId);
-    }
-
-    async isFollowingMe(profileId: string) {
-        return WarpcastSocialMediaProvider.isFollowingMe(profileId);
-    }
-
-    async getPostsByParentPostId(
-        parentPostId: string,
-        indicator?: PageIndicator,
-        username?: string,
-    ): Promise<Pageable<Post, PageIndicator>> {
-        if (!username) throw new Error('Username is required.');
-        return WarpcastSocialMediaProvider.getPostsByParentPostId(parentPostId, indicator, username);
-    }
-
     async getFollowers(profileId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.getFollowers(profileId, indicator);
         return FireflySocialMediaProvider.getFollowers(profileId, indicator);
     }
 
     async getFollowings(profileId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.getFollowings(profileId, indicator);
         return FireflySocialMediaProvider.getFollowings(profileId, indicator);
     }
 
@@ -251,70 +214,62 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.getMutualFollowers(profileId, indicator);
     }
 
-    async getPostsLiked(profileId: string, indicator?: PageIndicator) {
-        return WarpcastSocialMediaProvider.getPostsLiked(profileId, indicator);
+    async getPostsLiked(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
+        throw new NotImplementedError();
     }
 
-    async getPostsReplies(profileId: string, indicator?: PageIndicator) {
-        return WarpcastSocialMediaProvider.getPostsReplies(profileId, indicator);
+    async getPostsReplies(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
+        throw new NotImplementedError();
     }
 
-    async getPostsBeMentioned(profileId: string, indicator?: PageIndicator) {
-        return WarpcastSocialMediaProvider.getPostsBeMentioned(profileId, indicator);
+    async getPostsBeMentioned(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
+        throw new NotImplementedError();
     }
 
     async publishPost(post: Post): Promise<{ postId: string }> {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.publishPost(post);
+        const { isGrantByPermission } = getFarcasterSessionType();
         if (isGrantByPermission) return HubbleSocialMediaProvider.publishPost(post);
         throw new Error('No session found.');
     }
 
     async deletePost(postId: string): Promise<boolean> {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.deletePost(postId);
+        const { isGrantByPermission } = getFarcasterSessionType();
         if (isGrantByPermission) return HubbleSocialMediaProvider.deletePost(postId);
         throw new Error('No session found.');
     }
 
     async upvotePost(postId: string, authorId?: number) {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.upvotePost(postId);
+        const { isGrantByPermission } = getFarcasterSessionType();
         if (isGrantByPermission) return HubbleSocialMediaProvider.upvotePost(postId, authorId);
         throw new Error('No session found.');
     }
 
     async unvotePost(postId: string, authorId?: number) {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.unvotePost(postId);
+        const { isGrantByPermission } = getFarcasterSessionType();
         if (isGrantByPermission) return HubbleSocialMediaProvider.unvotePost(postId, authorId);
         throw new Error('No session found.');
     }
 
     async mirrorPost(postId: string, options?: { authorId?: number }) {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.mirrorPost(postId);
+        const { isGrantByPermission } = getFarcasterSessionType();
         if (isGrantByPermission) return HubbleSocialMediaProvider.mirrorPost(postId, options);
         throw new Error('No session found.');
     }
 
     async unmirrorPost(postId: string, authorId?: number) {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.unmirrorPost(postId);
+        const { isGrantByPermission } = getFarcasterSessionType();
         if (isGrantByPermission) return HubbleSocialMediaProvider.unmirrorPost(postId, authorId);
         throw new Error('No session found.');
     }
 
     async follow(profileId: string) {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.follow(profileId);
+        const { isGrantByPermission } = getFarcasterSessionType();
         if (isGrantByPermission) return HubbleSocialMediaProvider.follow(profileId);
         throw new Error('No session found.');
     }
 
     async unfollow(profileId: string) {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.unfollow(profileId);
+        const { isGrantByPermission } = getFarcasterSessionType();
         if (isGrantByPermission) return HubbleSocialMediaProvider.unfollow(profileId);
         throw new Error('No session found.');
     }
@@ -337,8 +292,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.getNotifications(indicator);
+        const { isGrantByPermission } = getFarcasterSessionType();
         if (isGrantByPermission) return FireflySocialMediaProvider.getNotifications(indicator);
         throw new Error('No session found.');
     }
@@ -441,10 +395,6 @@ class FarcasterSocialMedia implements Provider {
         ]);
         return true;
     }
-    async findLocation(query: string) {
-        return WarpcastSocialMediaProvider.findLocation(query);
-    }
-
     async getHiddenComments(postId: string, indicator?: PageIndicator) {
         return FireflySocialMediaProvider.getHiddenComments(postId, indicator);
     }

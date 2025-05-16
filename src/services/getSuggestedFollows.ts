@@ -51,8 +51,8 @@ export async function getSuggestedFollowsInCard(source: SocialSource) {
 }
 
 export async function getSuggestedFollowsInPage(source: SocialSource, indicator?: PageIndicator) {
-    const provider = resolveSocialMediaProvider(source);
     const currentProfile = getCurrentProfile(source);
+    const provider = resolveSocialMediaProvider(source);
     return getProfilesWithFixedTotal(
         provider.getSuggestedFollows.bind(provider),
         (oldData, newData) => [

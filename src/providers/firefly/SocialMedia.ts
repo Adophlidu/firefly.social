@@ -175,14 +175,6 @@ class FireflySocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    getReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
     isFollowedByMe(profileId: string): Promise<boolean> {
         throw new NotImplementedError();
     }

@@ -5,84 +5,16 @@ export interface ErrorResponse {
     }>;
 }
 
-export interface CastsResponse extends ErrorResponse {
-    result: {
-        casts: Cast[];
-    };
-    next?: Next;
-}
-
-export interface SearchCastsResponse extends ErrorResponse {
-    result: {
-        casts: Cast[];
-    };
-    next?: Next;
-}
-
-export interface BookmarkedCastsResponse extends ErrorResponse {
-    result: {
-        bookmarks: Cast[];
-    };
-    next?: Next;
-}
-
-export interface CastResponse extends ErrorResponse {
-    result: { cast: Cast };
-}
-
-export interface FeedResponse extends ErrorResponse {
-    result: {
-        feed: Feed[];
-    };
-    next?: Next;
-}
-
 export interface UserResponse extends ErrorResponse {
     result: {
         user: Profile;
     };
 }
 
-export interface UserDetailResponse extends ErrorResponse {
-    result: {
-        user: Profile;
-    };
-}
-
-export interface UsersResponse extends ErrorResponse {
-    result: Profile[];
-    next?: Next;
-}
-
-export interface RecastersResponse extends ErrorResponse {
-    result: {
-        users: Profile[];
-    };
-    next?: Next;
-}
-
-export interface SearchUsersResponse extends ErrorResponse {
-    result: {
-        users: Profile[];
-    };
-    next?: Next;
-}
-
-export interface ReactionResponse extends ErrorResponse {
-    result: ReactionInfo;
-}
-
 export interface SuccessResponse extends ErrorResponse {
     result: {
         success: boolean;
     };
-}
-
-export interface NotificationResponse extends ErrorResponse {
-    result: {
-        notifications: Notification[];
-    };
-    next?: Next;
 }
 
 export interface SignedKeyRequestResponse extends ErrorResponse {
@@ -266,23 +198,6 @@ export interface Notification {
     content: {
         cast: Cast;
     };
-}
-
-export interface LikesResponse extends ErrorResponse {
-    result: {
-        likes: ReactionInfo[];
-    };
-    next?: Next;
-}
-
-export interface UpdateProfileResponse {
-    result: {
-        success: boolean;
-    };
-}
-
-export interface FindLocationResponse {
-    result: { predictions: Prediction[] };
 }
 
 export interface Prediction {

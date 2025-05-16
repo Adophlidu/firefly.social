@@ -377,13 +377,7 @@ class BskySocialMedia implements Provider {
     async getPostsReplies(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new NotImplementedError();
     }
-    async getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
     async getFriendship(profileId: string): Promise<Friendship | null> {
-        throw new NotImplementedError();
-    }
-    async getReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new NotImplementedError();
     }
     async follow(profileId: string): Promise<boolean> {

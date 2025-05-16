@@ -214,14 +214,6 @@ class NeynarSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getPostsByParentPostId(postId: string): Promise<Pageable<Post>> {
-        throw new NotImplementedError();
-    }
-
-    getReactors(postId: string): Promise<Pageable<Profile>> {
-        throw new NotImplementedError();
-    }
-
     follow(profileId: string): Promise<boolean> {
         throw new NotImplementedError();
     }

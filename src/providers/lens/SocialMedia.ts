@@ -299,10 +299,6 @@ class LensSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getReactors(postId: string): Promise<Pageable<Profile>> {
-        throw new NotImplementedError();
-    }
-
     blockChannel(channelId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
@@ -687,40 +683,7 @@ class LensSocialMedia implements Provider {
     }
 
     async getPostsReplies(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
-        const result = await ensureLensResult(
-            fetchPosts(getClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                filter: {
-                    metadata: null,
-                    authors: [evmAddress(profileId)],
-                    postTypes: [PostType.Comment],
-                },
-            }),
-        );
-
-        return createPageable(
-            await Promise.all(result.items.map(formatLensPostV3)),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
-    }
-
-    async getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
-        const result = await ensureLensResult(
-            fetchPostReferences(getClient(), {
-                cursor: ensureCursor(indicator),
-                pageSize: PageSize.Fifty,
-                referencedPost: postId,
-                referenceTypes: [PostReferenceType.CommentOn],
-            }),
-        );
-
-        return createPageable(
-            await Promise.all(result.items.map(formatLensPostV3)),
-            createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
-        );
+        throw new NotImplementedError();
     }
 
     async follow(profileId: string): Promise<boolean> {

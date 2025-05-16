@@ -1,16 +1,10 @@
-import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
-import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL, WARPCAST_ROOT_URL_V2 } from '@/constants/index.js';
+import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterChannelFromWarpcast } from '@/helpers/formatFarcasterChannelFromWarpcast.js';
-import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
-import { formatWarpcastProfile } from '@/helpers/formatWarpcastProfile.js';
 import { getWarpcastAuthToken } from '@/helpers/getWarpcastAuthToken.js';
-import { isNumericalProfileId } from '@/helpers/isNumericalProfileId.js';
-import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -18,9 +12,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { toFid } from '@/helpers/toFid.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
@@ -29,7 +21,6 @@ import {
     type Friendship,
     NetworkType,
     type Notification,
-    NotificationType,
     type Post,
     type Profile,
     type ProfileBadge,
@@ -37,76 +28,10 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import {
-    type BookmarkedCastsResponse,
-    type Cast,
-    type CastResponse,
-    type CastsResponse,
-    type Channel as WarpcastChannel,
-    type FeedResponse,
-    type FindLocationResponse,
-    type LikesResponse,
-    type NotificationResponse,
-    type ReactionResponse,
-    type RecastersResponse,
-    type SearchCastsResponse,
-    type SearchUsersResponse,
-    type SuccessResponse,
-    type UpdateProfileResponse,
-    type UserDetailResponse,
-    type UsersResponse,
-} from '@/providers/types/Warpcast.js';
+import { type Channel as WarpcastChannel } from '@/providers/types/Warpcast.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 class WarpcastSocialMedia implements Provider {
-    getChannelsByIds(ids: string[]): Promise<Channel[]> {
-        throw new NotImplementedError();
-    }
-
-    getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    async getChannelMembers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat('/api/warpcast/channel/members', {
-                channelId,
-                limit: 25,
-                cursor: indicator?.id,
-                fid: session?.profileId,
-            });
-            const data = await fetchJSON<ResponseJSON<{ members: Profile[]; cursor?: string }>>(url, { method: 'GET' });
-            if (!data.success) throw new Error(data.error.message);
-
-            return createPageable(
-                data.data.members,
-                createIndicator(indicator),
-                data.data.cursor ? createNextIndicator(indicator, data.data.cursor) : undefined,
-            );
-        });
-    }
-
-    async getChannelFollowers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat('/api/warpcast/channel/followers', {
-                channelId,
-                limit: 25,
-                cursor: indicator?.id,
-                fid: session?.profileId,
-            });
-            const data = await fetchJSON<ResponseJSON<{ followers: Profile[]; cursor?: string }>>(url, {
-                method: 'GET',
-            });
-            if (!data.success) throw new Error(data.error.message);
-
-            return createPageable(
-                data.data.followers,
-                createIndicator(indicator),
-                data.data.cursor ? createNextIndicator(indicator, data.data.cursor) : undefined,
-            );
-        });
-    }
-
     blockWallet(address: string, networkType?: NetworkType): Promise<boolean> {
         throw new NotImplementedError();
     }
@@ -163,10 +88,6 @@ class WarpcastSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
     getThreadByPostId(postId: string, localPost?: Post): Promise<Post[]> {
         throw new NotImplementedError();
     }
@@ -194,6 +115,54 @@ class WarpcastSocialMedia implements Provider {
             }
 
             return formattedChannel;
+        });
+    }
+
+    getChannelsByIds(ids: string[]): Promise<Channel[]> {
+        throw new NotImplementedError();
+    }
+
+    getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getChannelMembers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat('/api/warpcast/channel/members', {
+                channelId,
+                limit: 25,
+                cursor: indicator?.id,
+                fid: session?.profileId,
+            });
+            const data = await fetchJSON<ResponseJSON<{ members: Profile[]; cursor?: string }>>(url, { method: 'GET' });
+            if (!data.success) throw new Error(data.error.message);
+
+            return createPageable(
+                data.data.members,
+                createIndicator(indicator),
+                data.data.cursor ? createNextIndicator(indicator, data.data.cursor) : undefined,
+            );
+        });
+    }
+
+    async getChannelFollowers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat('/api/warpcast/channel/followers', {
+                channelId,
+                limit: 25,
+                cursor: indicator?.id,
+                fid: session?.profileId,
+            });
+            const data = await fetchJSON<ResponseJSON<{ followers: Profile[]; cursor?: string }>>(url, {
+                method: 'GET',
+            });
+            if (!data.success) throw new Error(data.error.message);
+
+            return createPageable(
+                data.data.followers,
+                createIndicator(indicator),
+                data.data.cursor ? createNextIndicator(indicator, data.data.cursor) : undefined,
+            );
         });
     }
 
@@ -262,38 +231,35 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async reportProfile(profileId: string): Promise<boolean> {
-        // TODO Mocking result for now.
-        return true;
+        throw new NotImplementedError();
     }
     async reportPost(post: Post): Promise<boolean> {
         throw new NotImplementedError();
     }
     async blockProfile(profileId: string): Promise<boolean> {
-        // TODO Mocking result for now.
-        return true;
+        throw new NotImplementedError();
     }
     async unblockProfile(profileId: string): Promise<boolean> {
-        // TODO Mocking result for now.
-        return true;
-    }
-
-    getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new NotImplementedError();
     }
 
-    blockChannel(channelId: string): Promise<boolean> {
+    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new NotImplementedError();
     }
 
-    unblockChannel(channelId: string): Promise<boolean> {
+    async blockChannel(channelId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
 
-    getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+    async unblockChannel(channelId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
 
-    getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+    async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new NotImplementedError();
     }
 
@@ -301,570 +267,116 @@ class WarpcastSocialMedia implements Provider {
         return SessionType.Farcaster;
     }
 
-    /**
-     * @deprecated
-     * Response data doesn't include viewer context
-     */
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/popular-casts-feed', {
-            limit: 10,
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-        });
-
-        const { result, next } = await farcasterSessionHolder.fetch<CastsResponse>(url, {
-            method: 'GET',
-        });
-        const data = result.casts.map(formatWarpcastPost);
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
-        );
+        throw new NotImplementedError();
     }
 
-    async discoverPostsById(profileId: string, indicator?: PageIndicator) {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/home-feed', {
-            limit: 10,
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-        });
-
-        const { result, next } = await farcasterSessionHolder.fetch<FeedResponse>(
-            url,
-            {
-                method: 'GET',
-            },
-            {
-                withSession: true,
-            },
-        );
-        const data = result.feed.map(formatWarpcastPostFromFeed);
-
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
-        );
+    async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/casts', {
-            fid: toFid(profileId),
-            limit: 10,
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-        });
-
-        const { result, next } = await farcasterSessionHolder.fetch<CastsResponse>(url);
-        const data = result.casts.map(formatWarpcastPost);
-
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
-        );
+        throw new NotImplementedError();
     }
 
     async getPostById(postId: string): Promise<Post> {
-        const castUrl = urlcat(WARPCAST_ROOT_URL_V2, '/cast', { hash: postId });
-        const {
-            result: { cast },
-        } = await farcasterSessionHolder.fetch<{ result: { cast: Cast } }>(castUrl, {
-            method: 'GET',
-        });
-
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/user-thread-casts', {
-            castHashPrefix: postId.slice(0, 10),
-            limit: 5,
-            username: cast.author.username,
-        });
-        const {
-            result: { casts },
-        } = await farcasterSessionHolder.fetch<{ result: { casts: Cast[] } }>(url, {
-            method: 'GET',
-        });
-
-        let result = casts;
-        if (casts.length > 1 && first(casts)?.castType === 'root-embed') result = casts.slice(1);
-
-        const target = result.find((x) => x.hash === postId);
-        if (!target) throw new Error('Unable to retrieve post details.');
-        const index = result.findIndex((x) => x.hash === postId);
-
-        const post = formatWarpcastPost(target);
-
-        if (index === 0) return post;
-        if (index === 1) return { ...post, commentOn: result[0] ? formatWarpcastPost(result[0]) : undefined };
-        if (index === 2)
-            return {
-                ...post,
-                root: result[0] ? formatWarpcastPost(result[0]) : undefined,
-                commentOn: result[1] ? formatWarpcastPost(result[1]) : undefined,
-            };
-
-        return post;
+        throw new NotImplementedError();
     }
 
-    getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
-        if (isNumericalProfileId(profileIdOrHandle)) {
-            return this.getProfileById(profileIdOrHandle);
-        }
-        return this.getProfileByHandle(profileIdOrHandle);
+    async getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
+        throw new NotImplementedError();
     }
 
-    async getProfileById(profileId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/user', { fid: toFid(profileId) });
-        const res = await farcasterSessionHolder.fetch<UserDetailResponse>(url);
-        const user = res.result.user;
-        return formatWarpcastProfile(user);
+    async getProfileById(profileId: string): Promise<Profile> {
+        throw new NotImplementedError();
     }
 
     async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/cast-likes', {
-            castHash: postId,
-            limit: 15,
-            cursor: indicator?.id,
-        });
-        const { result, next } = await farcasterSessionHolder.fetch<LikesResponse>(url, { method: 'GET' });
-        const data = result.likes.map((like) => formatWarpcastProfile(like.reactor));
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
-        );
+        throw new NotImplementedError();
     }
 
-    async getRepostReactors(postId: string, indicator?: PageIndicator) {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/cast-recasters', {
-            castHash: postId,
-            limit: 15,
-            cursor: indicator?.id,
-        });
-        const { result, next } = await farcasterSessionHolder.fetch<RecastersResponse>(url, { method: 'GET' });
-        const data = result.users.map(formatWarpcastProfile);
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
-        );
+    async getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
     }
 
-    async isFollowedByMe(profileId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/user', { fid: toFid(profileId) });
-        const {
-            result: { user },
-        } = await farcasterSessionHolder.fetch<UserDetailResponse>(url);
-
-        if (user.viewerContext?.following) return true;
-        else return false;
+    async isFollowedByMe(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
     }
 
-    async isFollowingMe(profileId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/user', { fid: toFid(profileId) });
-        const {
-            result: { user },
-        } = await farcasterSessionHolder.fetch<UserDetailResponse>(url);
-
-        if (user.viewerContext?.followedBy) return true;
-        else return false;
+    async isFollowingMe(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
     }
 
-    async getPostsByParentPostId(
-        parentPostId: string,
-        indicator?: PageIndicator,
-        username?: string,
-    ): Promise<Pageable<Post, PageIndicator>> {
-        if (!username) throw new Error('Username is required.');
-
-        const url = urlcat(WARPCAST_CLIENT_URL, '/v2/user-thread-casts', {
-            castHashPrefix: parentPostId,
-            limit: 10,
-            username,
-        });
-        const { result, next } = await farcasterSessionHolder.fetch<FeedResponse>(url, {
-            method: 'GET',
-        });
-        const data = result.feed.map(formatWarpcastPostFromFeed);
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
-        );
+    async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
+        throw new NotImplementedError();
     }
 
-    async getFollowers(profileId: string, indicator?: PageIndicator) {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/followers', {
-            fid: toFid(profileId),
-            limit: 10,
-            cursor: indicator?.id,
-        });
-        const { result, next } = await farcasterSessionHolder.fetch<UsersResponse>(
-            url,
-            {
-                method: 'GET',
-            },
-            {
-                withSession: true,
-            },
-        );
-        const data = result.map(formatWarpcastProfile);
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
-        );
+    async getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
+        throw new NotImplementedError();
     }
 
-    async getFollowings(profileId: string, indicator?: PageIndicator) {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/following', {
-            fid: toFid(profileId),
-            limit: 10,
-            cursor: indicator?.id,
-        });
-        const { result, next } = await farcasterSessionHolder.fetch<UsersResponse>(
-            url,
-            {
-                method: 'GET',
-            },
-            {
-                withSession: true,
-            },
-        );
-        const data = result.map(formatWarpcastProfile);
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
-        );
+    async getPostsLiked(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
+        throw new NotImplementedError();
     }
 
-    async getPostsLiked(profileId: string, indicator?: PageIndicator) {
-        const url = urlcat(WARPCAST_CLIENT_URL, '/user-liked-casts', {
-            fid: toFid(profileId),
-            limit: 25,
-            cursor: indicator?.id,
-        });
-        const { result, next } = await farcasterSessionHolder.fetch<CastsResponse>(
-            url,
-            {
-                method: 'GET',
-            },
-            {
-                withSession: true,
-            },
-        );
-        const data = result.casts.map(formatWarpcastPost);
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
-        );
+    async getPostsReplies(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
+        throw new NotImplementedError();
     }
 
-    async getPostsReplies(profileId: string, indicator?: PageIndicator) {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/casts', {
-            fid: toFid(profileId),
-            limit: 10,
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-        });
-
-        const { result, next } = await farcasterSessionHolder.fetch<FeedResponse>(
-            url,
-            {
-                method: 'GET',
-            },
-            {
-                withSession: true,
-            },
-        );
-        const data = result.feed.map(formatWarpcastPostFromFeed).filter((post) => post.type === 'Comment');
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
-        );
-    }
-
-    async getPostsBeMentioned(profileId: string, indicator?: PageIndicator) {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/mention-and-reply-notifications', {
-            limit: 25,
-            cursor: indicator?.id,
-        });
-        const { result, next } = await farcasterSessionHolder.fetch<NotificationResponse>(
-            url,
-            {
-                method: 'GET',
-            },
-            {
-                withSession: true,
-            },
-        );
-        const data = result.notifications.map((notification) => formatWarpcastPost(notification.content.cast));
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
-        );
+    async getPostsBeMentioned(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
+        throw new NotImplementedError();
     }
 
     async publishPost(post: Post): Promise<{ postId: string }> {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/casts');
-        const {
-            result: { cast },
-        } = await farcasterSessionHolder.fetch<CastResponse>(
-            url,
-            {
-                method: 'POST',
-                body: JSON.stringify({
-                    text: post.metadata.content?.content || '',
-                    embeds: post.mediaObjects?.map((v) => v.url) ?? [],
-                    parent: post.commentOn ? { hash: post.commentOn.postId } : undefined,
-                    channelKey: post.parentChannelKey,
-                }),
-            },
-            {
-                withSession: true,
-            },
-        );
-
-        return { postId: cast.hash };
+        throw new NotImplementedError();
     }
 
-    async deletePost(postId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/casts');
-        await farcasterSessionHolder.fetch<CastResponse>(
-            url,
-            {
-                method: 'DELETE',
-                body: JSON.stringify({ castHash: postId }),
-            },
-            {
-                withSession: true,
-            },
-        );
-
-        return true;
+    async deletePost(postId: string): Promise<boolean> {
+        throw new NotImplementedError();
     }
 
     async upvotePost(postId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/cast-likes');
-        const { result: reaction } = await farcasterSessionHolder.fetch<ReactionResponse>(
-            url,
-            {
-                method: 'PUT',
-                body: JSON.stringify({ castHash: postId }),
-            },
-            {
-                withSession: true,
-            },
-        );
-        if (!reaction) throw new Error(`Something went wrong`);
+        throw new NotImplementedError();
     }
 
     async unvotePost(postId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/cast-likes');
-        await farcasterSessionHolder.fetch<ReactionResponse>(
-            url,
-            {
-                method: 'DELETE',
-                body: JSON.stringify({ castHash: postId }),
-            },
-            {
-                withSession: true,
-            },
-        );
+        throw new NotImplementedError();
     }
 
     async commentPost(postId: string, post: Post): Promise<{ postId: string }> {
-        const comment = post.metadata.content?.content;
-        if (!comment) throw new Error('Comment cannot be empty.');
-
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/casts', { parent: postId });
-        const response = await farcasterSessionHolder.fetch<CastResponse>(
-            url,
-            {
-                method: 'POST',
-                body: JSON.stringify({ text: comment }),
-            },
-            {
-                withSession: true,
-            },
-        );
-        return { postId: response.result.cast.hash };
+        throw new NotImplementedError();
     }
 
-    async mirrorPost(postId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/recasts');
-        const response = await farcasterSessionHolder.fetch<{ result: { castHash: string } }>(
-            url,
-            {
-                method: 'PUT',
-                body: JSON.stringify({ castHash: postId }),
-            },
-            {
-                withSession: true,
-            },
-        );
-
-        return response.result.castHash;
+    async mirrorPost(postId: string): Promise<string> {
+        throw new NotImplementedError();
     }
 
     async unmirrorPost(postId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/recasts');
-        await farcasterSessionHolder.fetch<SuccessResponse>(
-            url,
-            {
-                method: 'DELETE',
-                body: JSON.stringify({ castHash: postId }),
-            },
-            {
-                withSession: true,
-            },
-        );
+        throw new NotImplementedError();
     }
 
-    async followProfile(profileId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/follows');
-        await farcasterSessionHolder.fetch<SuccessResponse>(
-            url,
-            {
-                method: 'PUT',
-                body: JSON.stringify({ targetFid: Number(profileId) }),
-            },
-            {
-                withSession: true,
-            },
-        );
+    async follow(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
     }
 
-    async follow(profileId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/follows');
-        const {
-            result: { success },
-        } = await farcasterSessionHolder.fetch<SuccessResponse>(
-            url,
-            {
-                method: 'PUT',
-                body: JSON.stringify({ targetFid: Number(profileId) }),
-            },
-            {
-                withSession: true,
-            },
-        );
-        if (!success) throw new Error('Follow Failed');
-        return true;
-    }
-
-    async unfollow(profileId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/follows');
-        const {
-            result: { success },
-        } = await farcasterSessionHolder.fetch<SuccessResponse>(
-            url,
-            {
-                method: 'DELETE',
-                body: JSON.stringify({ targetFid: Number(profileId) }),
-            },
-            {
-                withSession: true,
-            },
-        );
-
-        if (!success) throw new Error('Unfollow Failed');
-        return true;
+    async unfollow(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
     }
 
     async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const url = urlcat(WARPCAST_CLIENT_URL, '/search-users', {
-            q,
-            limit: 25,
-            cursor: indicator?.id,
-        });
-        const { result, next } = await farcasterSessionHolder.fetch<SearchUsersResponse>(url, {
-            method: 'GET',
-        });
-        const data = result.users.map(formatWarpcastProfile);
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
-        );
+        throw new NotImplementedError();
     }
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat(WARPCAST_CLIENT_URL, '/search-casts', {
-            // the warpcast doesn't facilitate searching using hashtags
-            q: encodeURIComponent(q.trim().replace(/^#/, '')),
-            limit: 25,
-            cursor: indicator?.id,
-        });
-        const { result, next } = await farcasterSessionHolder.fetch<SearchCastsResponse>(url, {
-            method: 'GET',
-        });
-        const data = result.casts.map(formatWarpcastPost);
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
-        );
+        throw new NotImplementedError();
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/recent-users', {
-            limit: 25,
-            cursor: indicator?.id,
-        });
-        const { result, next } = await farcasterSessionHolder.fetch<UsersResponse>(
-            url,
-            {
-                method: 'GET',
-            },
-            {
-                withSession: true,
-            },
-        );
-        const data = result.map(formatWarpcastProfile);
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
-        );
+        throw new NotImplementedError();
     }
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
-        const url = urlcat(WARPCAST_ROOT_URL_V2, '/mention-and-reply-notifications', {
-            limit: 25,
-            cursor: indicator?.id,
-        });
-        const { result, next } = await farcasterSessionHolder.fetch<NotificationResponse>(
-            url,
-            {
-                method: 'GET',
-            },
-            {
-                withSession: true,
-            },
-        );
-        const data = compact(
-            result.notifications.map<Notification | undefined>((notification) => {
-                const notificationId = `${notification.type}_${notification.id}`;
-                const post = notification.content.cast ? formatWarpcastPost(notification.content.cast) : undefined;
-                const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;
-                if (notification.type === 'cast-reply') {
-                    return {
-                        source: Source.Farcaster,
-                        notificationId,
-                        type: NotificationType.Comment,
-                        post,
-                        timestamp,
-                    };
-                }
-                return;
-            }),
-        );
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
-        );
+        throw new NotImplementedError();
     }
 
     async getNotificationSettings(): Promise<NotificationSettings> {
@@ -875,67 +387,20 @@ class WarpcastSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    /**
-     * @param {string} postId
-     * @param {'PUT' | 'DELETE'} method - PUT to bookmark, DELETE to unbookmark
-     * @returns {Promise<boolean>}
-     */
-    async baseBookmark(postId: string, method: 'PUT' | 'DELETE'): Promise<boolean> {
-        const url = urlcat(WARPCAST_CLIENT_URL, '/bookmarked-casts');
-        const { result } = await farcasterSessionHolder.fetch<SuccessResponse>(url, {
-            method,
-            body: JSON.stringify({
-                castHash: postId,
-            }),
-        });
-        return result.success;
-    }
     async bookmark(postId: string): Promise<boolean> {
-        return this.baseBookmark(postId, 'PUT');
+        throw new NotImplementedError();
     }
 
     async unbookmark(postId: string): Promise<boolean> {
-        return this.baseBookmark(postId, 'DELETE');
+        throw new NotImplementedError();
     }
 
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat(WARPCAST_CLIENT_URL, '/bookmarked-casts', {
-            limit: 25,
-            cursor: indicator?.id,
-        });
-        const { result, next } = await farcasterSessionHolder.fetch<BookmarkedCastsResponse>(url);
-        const data = result.bookmarks.map(formatWarpcastPost);
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
-        );
+        throw new NotImplementedError();
     }
 
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
-        const location = parseJSON(profile.location) ?? undefined;
-        await farcasterSessionHolder.fetch<UpdateProfileResponse>(urlcat(WARPCAST_CLIENT_URL, 'me'), {
-            method: 'PATCH',
-            body: JSON.stringify({
-                pfp: profile.pfp,
-                displayName: profile.displayName,
-                bio: profile.bio,
-                location,
-            }),
-        });
-        return true;
-    }
-
-    async findLocation(query: string) {
-        const { result } = await farcasterSessionHolder.fetch<FindLocationResponse>(
-            urlcat(WARPCAST_CLIENT_URL, 'find-location', {
-                q: query,
-            }),
-            {
-                method: 'GET',
-            },
-        );
-        return result.predictions;
+        throw new NotImplementedError();
     }
 
     async joinChannel(channel: Channel): Promise<boolean> {

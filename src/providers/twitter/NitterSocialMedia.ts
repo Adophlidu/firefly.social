@@ -171,14 +171,6 @@ export class NitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    getReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
     getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
         throw new NotImplementedError();
     }
