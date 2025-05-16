@@ -9,6 +9,7 @@ import FireflyIcon from '@/assets/logo.svg';
 import { Agent, Locale, PageRoute } from '@/constants/enum.js';
 import { useSearchParams } from '@/esm/navigation.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { SupportedMethod } from '@/types/bridge.js';
 
@@ -39,7 +40,7 @@ export default function AgentPage() {
     const searchParams = useSearchParams();
 
     useAsync(async () => {
-        await action();
+        await runInSafeAsync(async () => action());
 
         const url = searchParams.get('url') ?? PageRoute.Home;
         const isValidPageRoute = url && getEnumAsArray(PageRoute).some(({ value }) => value === url);
