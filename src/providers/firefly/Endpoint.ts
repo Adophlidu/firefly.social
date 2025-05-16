@@ -1495,15 +1495,28 @@ class FireflyEndpoint {
         isForce: boolean,
     ) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/farcaster_account/login/fid/wallet');
-        const response = await fireflySessionHolder.fetch<LoginFarcasterWithWalletResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                sysAccount,
-                originalMessage,
-                signatureMessage,
-                isForce,
-            }),
-        });
+        const body = {
+            sysAccount,
+            originalMessage,
+            signatureMessage,
+            isForce,
+        };
+        let response = await fireflySessionHolder.fetch<LoginFarcasterWithWalletResponse>(
+            url,
+            {
+                method: 'POST',
+                body: JSON.stringify(body),
+            },
+            {
+                noStrictOK: true,
+            },
+        );
+        if (response.code === 232) {
+            response = await fireflySessionHolder.fetchWithoutSession<LoginFarcasterWithWalletResponse>(url, {
+                method: 'POST',
+                body: JSON.stringify(body),
+            });
+        }
         return resolveFireflyResponseData(response);
     }
 

@@ -4206,6 +4206,9 @@ msgstr "發文分享參與過程，提案期間可變更投票"
 msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
 msgstr "如有疑問請<0>聯絡我們</0>，Firefly 保留所有權利"
 
+msgid "This farcaster already bound to the other account"
+msgstr ""
+
 msgid "Different Account Detected"
 msgstr "檢測到不同帳號"
 

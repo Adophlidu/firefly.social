@@ -4190,6 +4190,9 @@ msgstr ""
 msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
 msgstr ""
 
+msgid "This farcaster already bound to the other account"
+msgstr ""
+
 msgid "Different Account Detected"
 msgstr ""
 
