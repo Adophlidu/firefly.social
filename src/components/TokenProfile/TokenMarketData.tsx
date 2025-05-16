@@ -91,14 +91,14 @@ export const TokenMarketData = memo(function TokenMarketData({
         [currentRange.id, priceStats],
     );
     const showUserTx = preferences.SHOW_USER_TX_IN_CHART;
-    const withinRangeTradeRecords = useWithinRangeRecords(stats, tradeRecords);
+    const withinRangeTradeRecords = useWithinRangeRecords(stats, tradeRecords, currentRange.id === 'max');
 
     const { isUp, change } = useIsPriceUp(stats, activeRecord);
     const invalidData = useMemo(() => stats.length === 0 || stats.every((item) => isZero(item.value)), [stats]);
 
     const baseInfo = (
         <>
-            <TokenIcon icon={token.logoURL} alt={token.name} size={24} chainId={chainId} />
+            <TokenIcon icon={token.logoURL} alt={token.name} size={36} chainId={chainId} />
             <strong className="ml-0.5 text-medium font-bold text-main">{token.name}</strong>
             <span className="font-inter text-medium font-bold uppercase">{token.symbol}</span>
             {contract?.address ? <CopyTextButton className="[&_svg]:ml-0" text={contract?.address} /> : null}
@@ -134,6 +134,21 @@ export const TokenMarketData = memo(function TokenMarketData({
                                 <Trans>Rank #{tokenRank}</Trans>
                             </span>
                         ) : null}
+                        <SwapButton
+                            className="ml-auto sm:hidden md:inline-flex"
+                            tradable={tradeInfo.tradable}
+                            swapProps={
+                                tradeChainId && tradeInfo.address
+                                    ? {
+                                          toToken: tradeInfo.address,
+                                          chainId: tradeChainId,
+                                          chainIds: tradeInfo.supportedChainIds.map((x) => x.toString()),
+                                      }
+                                    : undefined
+                            }
+                        >
+                            {t`Swap`}
+                        </SwapButton>
                     </div>
                     <div className="line-height-[22px] flex flex-col gap-2">
                         <div className="text-2xl font-bold">
@@ -159,19 +174,6 @@ export const TokenMarketData = memo(function TokenMarketData({
                     </div>
                     <TokenSecurityBar security={security} />
                 </div>
-                <SwapButton
-                    className="sm:hidden md:inline-flex"
-                    tradable={tradeInfo.tradable}
-                    swapProps={
-                        tradeChainId && tradeInfo.address
-                            ? {
-                                  toToken: tradeInfo.address,
-                                  chainId: tradeChainId,
-                                  chainIds: tradeInfo.supportedChainIds.map((x) => x.toString()),
-                              }
-                            : undefined
-                    }
-                >{t`Swap`}</SwapButton>
             </div>
             <div
                 className={classNames(

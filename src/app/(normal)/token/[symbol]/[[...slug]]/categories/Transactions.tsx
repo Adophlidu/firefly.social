@@ -2,6 +2,7 @@ import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { type HTMLProps, memo, useCallback, useContext, useMemo, useState } from 'react';
 
+import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SwapTimeline, type SwapTimelineProps } from '@/components/Swap/SwapTimeline.js';
@@ -30,12 +31,14 @@ export const Transactions = memo<Props>(function Transactions({
     traderName,
     ...props
 }) {
+    const { ethereum, solana } = useWalletAccountAll();
+    const isMyOwnWallet = isSameAddress(trader, ethereum.address) || isSameAddress(trader, solana.address);
     const subcategories = useMemo(() => {
         const list = [
             { value: 'following', label: <Trans>Following</Trans> },
             { value: 'mine', label: <Trans>Mine</Trans> },
         ];
-        if (!trader) return list;
+        if (!trader || isMyOwnWallet) return list;
         return [
             {
                 value: 'trader',
@@ -43,16 +46,15 @@ export const Transactions = memo<Props>(function Transactions({
             },
             ...list,
         ];
-    }, [trader, traderName]);
+    }, [isMyOwnWallet, trader, traderName]);
 
-    const { ethereum, solana } = useWalletAccountAll();
     const account = chainId === SolanaChainId.Mainnet ? solana.address : ethereum.address;
     const params = useSearchParams();
-    const tab = params.get('tab') || subcategories[0].value;
+    const tab = params.get('tab') || isMyOwnWallet ? 'mine' : subcategories[0].value;
     const [subcategory = tab, setSubcategory] = useState<string>();
     const isFollowing = subcategory === 'following';
 
-    const { setTradeRecords } = useContext(TokenContext);
+    const { tradeRecords, setTradeRecords } = useContext(TokenContext);
     const handleActivitiesUpdate = useCallback(
         (data: SwapActivity[]) => {
             const records: TradeRecord[] = compact(
@@ -92,18 +94,27 @@ export const Transactions = memo<Props>(function Transactions({
         <div {...props} className={classNames('flex flex-col gap-2', props.className)}>
             <div className="flex shrink-0 gap-2">
                 {subcategories.map((x) => {
+                    const selected = x.value === subcategory;
                     return (
                         <ClickableButton
                             key={x.value}
                             className={classNames(
-                                'flex h-6 cursor-pointer list-none justify-center rounded-md px-1.5 text-xs leading-6 lg:flex-initial lg:justify-start',
-                                subcategory === x.value
-                                    ? 'bg-highlight text-white'
-                                    : 'bg-thirdMain text-second hover:text-highlight',
+                                'flex h-6 cursor-pointer list-none justify-center gap-1 rounded-md px-1.5 text-xs leading-6 lg:flex-initial lg:justify-start',
+                                selected ? 'bg-highlight text-white' : 'bg-thirdMain text-second hover:text-highlight',
                             )}
                             onClick={() => setSubcategory(x.value)}
-                            aria-current={subcategory === x.value ? 'page' : undefined}
+                            aria-current={selected ? 'page' : undefined}
                         >
+                            {x.value === 'trader' && trader ? (
+                                <Avatar
+                                    size={15}
+                                    alt={trader}
+                                    src={
+                                        tradeRecords[0]?.user?.avatar ||
+                                        getStampAvatarByProfileId(Source.Wallet, trader)
+                                    }
+                                />
+                            ) : null}
                             {x.label}
                         </ClickableButton>
                     );
@@ -118,16 +129,7 @@ export const Transactions = memo<Props>(function Transactions({
                         message: <Trans>No one you follow has traded this token.</Trans>,
                     }}
                 />
-            ) : subcategory === 'trader' && trader ? (
-                <SwapTimeline
-                    address={trader}
-                    {...timelineProps}
-                    NoResultsFallbackProps={{
-                        icon: null,
-                        message: <Trans>No trade records</Trans>,
-                    }}
-                />
-            ) : subcategory === 'mine' ? (
+            ) : subcategory === 'mine' || isMyOwnWallet ? (
                 account ? (
                     <SwapTimeline
                         address={account}
@@ -143,6 +145,15 @@ export const Transactions = memo<Props>(function Transactions({
                         message={<Trans>Connect your wallet to unlock all features</Trans>}
                     />
                 )
+            ) : subcategory === 'trader' && trader ? (
+                <SwapTimeline
+                    address={trader}
+                    {...timelineProps}
+                    NoResultsFallbackProps={{
+                        icon: null,
+                        message: <Trans>No trade records</Trans>,
+                    }}
+                />
             ) : null}
         </div>
     );

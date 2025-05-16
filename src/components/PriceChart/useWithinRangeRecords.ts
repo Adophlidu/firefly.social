@@ -8,13 +8,13 @@ import type { PriceRecord, TradeRecord } from '@/types/token.js';
  * exact date match. Aligns their dates to the nearest price record date and
  * assigns the price from that record.
  */
-export function useWithinRangeRecords(records: PriceRecord[], tradeRecords: TradeRecord[]) {
+export function useWithinRangeRecords(records: PriceRecord[], tradeRecords: TradeRecord[], skipFilter?: boolean) {
     return useMemo(() => {
         if (!tradeRecords.length || !records.length) return EMPTY_LIST;
         const min = records[0].date;
         const max = records[records.length - 1].date;
 
-        const filtered = tradeRecords.filter((x) => x.date >= min && x.date <= max);
+        const filtered = skipFilter ? tradeRecords : tradeRecords.filter((x) => x.date >= min && x.date <= max);
         const merged = sortBy([...records, ...filtered.map((x) => ({ ...x, value: undefined }))], (x) => x.date);
 
         const patched = filtered.map((x) => {
@@ -28,5 +28,5 @@ export function useWithinRangeRecords(records: PriceRecord[], tradeRecords: Trad
             };
         });
         return sortBy(patched, (x) => x.date);
-    }, [records, tradeRecords]);
+    }, [records, skipFilter, tradeRecords]);
 }

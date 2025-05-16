@@ -66,7 +66,7 @@ export const CustomizedDot = memo(function CustomizedDot({
     }, [cx, cy, matchedRecords, onDotUpdate, payload.date]);
 
     if (matchedRecords.length) {
-        const baseRadius = 10;
+        const baseRadius = 11;
         const baseSize = 2 * baseRadius;
         return (
             <g>
@@ -100,8 +100,8 @@ export const CustomizedDot = memo(function CustomizedDot({
                             cx={cx}
                             cy={cy}
                             className={classNames(
-                                'cursor-pointer transition-all duration-300 ease-in-out hover:scale-[1.2]',
-                                activeTrade === record || activeTradeDate === record.date ? 'scale-[1.2]' : null,
+                                'cursor-pointer transition-all duration-300 ease-in-out hover:scale-[1.4]',
+                                activeTrade === record || activeTradeDate === record.date ? 'scale-[1.4]' : null,
                             )}
                             style={{ transformOrigin: `${cx}px ${cy}px` }}
                             onMouseEnter={() => {
