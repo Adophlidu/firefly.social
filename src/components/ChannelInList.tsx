@@ -101,9 +101,11 @@ export function ChannelInList({
                     <div className="flex items-center gap-2 text-medium text-sm leading-[24px] text-secondary">
                         <ChannelTippy channel={channel}>
                             {isLens || isBsky ? (
-                                <p className="truncate text-[15px] leading-[22px]">
-                                    <Trans>By @{channel.lead?.handle || '-'}</Trans>
-                                </p>
+                                channel.lead?.handle ? (
+                                    <p className="truncate text-[15px] leading-[22px]">
+                                        <Trans>By @{channel.lead.handle}</Trans>
+                                    </p>
+                                ) : null
                             ) : (
                                 <p className="truncate text-[15px] leading-[22px]">/{channel.id}</p>
                             )}

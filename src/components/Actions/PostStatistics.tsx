@@ -222,7 +222,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                       <Trans>
                           Posted via{' '}
                           {isSendFromFirefly(post) ? (
-                              <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="inline" />
+                              <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" />
                           ) : null}{' '}
                           <span className="capitalize">{sendFrom}</span>
                       </Trans>
