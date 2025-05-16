@@ -68,7 +68,7 @@ export const Transactions = memo<Props>(function Transactions({
                         },
                         amount: token.amount_str,
                         uiAmount: token.amount_num,
-                        decimals: token.decimals,
+                        decimals: token.decimal,
                         date: +activity.timestamp * 1000,
                         value: token.price ? +token.price : 0,
                         type: isSell ? 'sell' : 'buy',

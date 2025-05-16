@@ -1,5 +1,5 @@
 import { isNumber } from 'lodash-es';
-import { type CSSProperties, type HTMLProps, memo, useCallback, useState } from 'react';
+import { type CSSProperties, type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
 import { Area, AreaChart, ResponsiveContainer, Tooltip, YAxis } from 'recharts';
 
 import { CustomizedDot, type CustomizedDotProps } from '@/components/PriceChart/CustomDot.js';
@@ -13,7 +13,7 @@ interface TooltipState {
     visible: boolean;
     x: number;
     y: number;
-    trade: TradeRecord;
+    trade?: TradeRecord;
 }
 
 interface TradeTooltipProps extends HTMLProps<HTMLDivElement> {
@@ -61,17 +61,26 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
     const [activeRecord, setActiveRecord] = useState<PriceRecord>();
     const [dotMap, setDotMap] = useState<Record<string, TooltipState>>({});
 
-    const handleDotUpdate = useCallback((x: number, y: number, trade: TradeRecord): void => {
+    const handleDotUpdate = useCallback((x: number, y: number, date: number, trades: TradeRecord[]): void => {
         setDotMap((map) => ({
             ...map,
-            [trade.date]: { x, y, trade },
+            [date]: { x, y, trade: trades.length === 0 ? trades[0] : undefined },
         }));
     }, []);
-    const activeDate =
-        activeRecord?.date || (isNumber(activeTradeIndex) ? tradeRecords[activeTradeIndex]?.date : undefined);
-    const [hoveringTradeDate, setHoveringTradeDate] = useState<number>();
-    const dateKey = hoveringTradeDate || activeDate;
-    const tooltipState = dateKey ? dotMap[dateKey] : undefined;
+    const activeDate = activeRecord?.date;
+    const tooltipState = useMemo(() => {
+        const trade = activeDate
+            ? tradeRecords.find((x) => x.date === activeDate)
+            : isNumber(activeTradeIndex)
+              ? tradeRecords[activeTradeIndex]
+              : null;
+
+        if (!trade?.date || !dotMap[trade.date]) return;
+        return {
+            ...dotMap[trade.date],
+            trade,
+        };
+    }, [activeDate, activeTradeIndex, dotMap, tradeRecords]);
     const WrappedDot = useCallback(
         ({ key, ...props }: CustomizedDotProps) => {
             return (
@@ -81,12 +90,6 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
                     activeTradeDate={activeDate}
                     activeTradeIndex={activeTradeIndex}
                     tradeRecords={tradeRecords}
-                    onAvatarHover={(trade) => {
-                        setHoveringTradeDate(trade.date);
-                    }}
-                    onAvatarLeave={() => {
-                        setHoveringTradeDate(undefined);
-                    }}
                     onDotUpdate={handleDotUpdate}
                     onDotClick={onDotClick}
                 />
@@ -114,8 +117,9 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
                     data={records}
                     onMouseMove={(e) => {
                         if (!e.activePayload?.length) return;
-                        onHover?.(e.activePayload[0].payload);
-                        setActiveRecord(e.activePayload[0].payload);
+                        const record = e.activePayload[0].payload;
+                        onHover?.(record);
+                        setActiveRecord(record);
                     }}
                     onMouseLeave={() => {
                         onMouseLeave?.();

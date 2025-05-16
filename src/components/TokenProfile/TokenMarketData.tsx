@@ -39,6 +39,7 @@ export interface TokenMarketDataProps extends HTMLProps<HTMLDivElement> {
     token: CoinGeckoToken;
     linkable?: boolean;
     rank?: number;
+    range?: string;
 }
 
 const getRanges = () => {
@@ -58,6 +59,7 @@ export const TokenMarketData = memo(function TokenMarketData({
     token,
     rank,
     tradeRecords = EMPTY_LIST,
+    range,
     ...rest
 }: TokenMarketDataProps) {
     const ranges = getRanges();
@@ -75,7 +77,7 @@ export const TokenMarketData = memo(function TokenMarketData({
     const [activeRecord, setActiveRecord] = useState<PriceRecord>();
     const [activeTradeIndex, setActiveTradeIndex] = useState<number>();
     const [pendingTradeIndex, setPendingTradeIndex] = useState<number>();
-    const [rangeId, setRangeId] = useState<(typeof ranges)[number]['id']>();
+    const [rangeId = range, setRangeId] = useState<(typeof ranges)[number]['id']>();
     const currentRange = ranges.find((x) => x.id === rangeId) || ranges[1];
 
     const { data: priceStats = EMPTY_LIST, isPending } = useCoinPriceStats(
@@ -197,7 +199,7 @@ export const TokenMarketData = memo(function TokenMarketData({
             </div>
             <div className="flex h-[10px] items-center">
                 {showUserTx && withinRangeTradeRecords.length > 1 ? (
-                    <div className="no-scrollbar flex w-full flex-nowrap justify-center gap-1 overflow-auto">
+                    <div className="no-scrollbar flex flex-grow flex-nowrap gap-1 overflow-auto">
                         {withinRangeTradeRecords.map((_, i) => {
                             const activeRecordIndex = activeRecord
                                 ? withinRangeTradeRecords.findIndex((x) => x.date === activeRecord?.date)
@@ -205,9 +207,9 @@ export const TokenMarketData = memo(function TokenMarketData({
                             return (
                                 <div
                                     key={i}
-                                    className="group min-w-4 max-w-[60px] shrink-0 flex-grow cursor-pointer py-1"
+                                    className="group min-w-4 max-w-[60px] shrink-0 flex-grow cursor-pointer py-1 first:ml-auto last:mr-auto"
                                     onClick={() => {
-                                        setActiveTradeIndex(i);
+                                        setActiveTradeIndex((prev) => (prev === i ? undefined : i));
                                     }}
                                     onMouseEnter={() => {
                                         setPendingTradeIndex(i);

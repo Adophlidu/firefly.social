@@ -1,4 +1,4 @@
-import { isNumber } from 'lodash-es';
+import { isNumber, sortBy } from 'lodash-es';
 import { type HTMLProps, memo, type ReactElement, type SVGAttributes, useEffect, useMemo, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 
@@ -12,13 +12,14 @@ export interface CustomizedDotProps extends HTMLProps<SVGElement> {
     active?: boolean;
     payload: PriceRecord;
     tradeRecords?: TradeRecord[];
+    /** hovering date */
     activeTradeDate?: number;
     activeTradeIndex?: number;
     cx: number;
     cy: number;
     onAvatarHover?: (trade: TradeRecord) => void;
     onAvatarLeave?: () => void;
-    onDotUpdate?: (x: number, y: number, trade: TradeRecord) => void;
+    onDotUpdate?: (x: number, y: number, date: number, trades: TradeRecord[]) => void;
     onDotClick?: (dotIndex: number) => void;
 }
 
@@ -49,27 +50,20 @@ export const CustomizedDot = memo(function CustomizedDot({
     onDotUpdate,
     onDotClick,
 }: CustomizedDotProps): ReactElement<SVGElement> {
-    const activeDate = useMemo(() => {
-        if (isNumber(activeTradeIndex) && tradeRecords) {
-            return tradeRecords[activeTradeIndex]?.date;
-        }
-        return activeTradeDate;
-    }, [activeTradeDate, activeTradeIndex, tradeRecords]);
+    const activeTrade = isNumber(activeTradeIndex) ? tradeRecords?.[activeTradeIndex] : null;
     const matchedRecords = useMemo(
-        () => tradeRecords?.filter((x) => x.date === payload.date) || EMPTY_LIST,
+        () => (tradeRecords?.length ? tradeRecords.filter((x) => x.date === payload.date) : EMPTY_LIST),
         [tradeRecords, payload.date],
     );
-
-    const hasActiveDate = !!activeDate && matchedRecords.some((x) => x.date === activeDate);
-    const record =
-        isNumber(activeTradeIndex) && tradeRecords
-            ? tradeRecords[activeTradeIndex]
-            : matchedRecords.find((x) => x.date === activeDate);
+    const sortedRecords = useMemo(() => {
+        if (!activeTrade) return matchedRecords;
+        return sortBy(matchedRecords, (x) => (x === activeTrade ? 1 : 0));
+    }, [activeTrade, matchedRecords]);
 
     useEffect(() => {
-        if (!hasActiveDate || !onDotUpdate || !record) return;
-        onDotUpdate(cx, cy, record);
-    }, [cx, cy, hasActiveDate, onDotUpdate, record]);
+        if (!matchedRecords.length) return;
+        onDotUpdate?.(cx, cy, payload.date, matchedRecords);
+    }, [cx, cy, matchedRecords, onDotUpdate, payload.date]);
 
     if (matchedRecords.length) {
         const baseRadius = 10;
@@ -78,7 +72,7 @@ export const CustomizedDot = memo(function CustomizedDot({
             <g>
                 <svg width={baseSize} height={baseSize} viewBox={`0 0 ${baseSize} ${baseSize}`}>
                     <defs>
-                        {matchedRecords.map((record, i) => {
+                        {sortedRecords.map((record, i) => {
                             return (
                                 <pattern
                                     key={`${record.date}/${i}`}
@@ -99,7 +93,7 @@ export const CustomizedDot = memo(function CustomizedDot({
                         })}
                     </defs>
                 </svg>
-                {matchedRecords.map((record, i) => {
+                {sortedRecords.map((record, i) => {
                     return (
                         <g
                             key={i}
@@ -107,7 +101,7 @@ export const CustomizedDot = memo(function CustomizedDot({
                             cy={cy}
                             className={classNames(
                                 'cursor-pointer transition-all duration-300 ease-in-out hover:scale-[1.2]',
-                                activeTradeDate === record.date ? 'scale-[1.2]' : null,
+                                activeTrade === record || activeTradeDate === record.date ? 'scale-[1.2]' : null,
                             )}
                             style={{ transformOrigin: `${cx}px ${cy}px` }}
                             onMouseEnter={() => {

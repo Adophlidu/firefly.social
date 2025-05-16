@@ -17,13 +17,16 @@ export function useWithinRangeRecords(records: PriceRecord[], tradeRecords: Trad
         const filtered = tradeRecords.filter((x) => x.date >= min && x.date <= max);
         const merged = sortBy([...records, ...filtered.map((x) => ({ ...x, value: undefined }))], (x) => x.date);
 
-        filtered.forEach((x) => {
+        const patched = filtered.map((x) => {
             const i = merged.findIndex((y) => y.date === x.date);
             const leftHalf = merged.slice(0, i);
-            x.date = (leftHalf.findLast((x) => x.value !== undefined) || merged[0]).date;
             const record = records.find((y) => y.date === x.date);
-            x.value = record?.value;
+            return {
+                ...x,
+                date: (leftHalf.findLast((x) => x.value !== undefined) || merged[0]).date,
+                value: record?.value,
+            };
         });
-        return sortBy(filtered, (x) => x.date);
+        return sortBy(patched, (x) => x.date);
     }, [records, tradeRecords]);
 }

@@ -3,16 +3,16 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TokenMarketData, type TokenMarketDataProps } from '@/components/TokenProfile/TokenMarketData.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 
-interface Props extends Pick<TokenMarketDataProps, 'tradeRecords'> {
+interface Props extends Pick<TokenMarketDataProps, 'tradeRecords' | 'range'> {
     symbol: string;
 }
-function WrapTokenMarketData({ symbol, tradeRecords }: Props) {
+function WrapTokenMarketData({ symbol, ...rest }: Props) {
     const { data: token, isLoading } = useTokenInfo(symbol, false);
     if (isLoading) return <div>Loading...</div>;
 
     if (!token) return <div>token not found: {symbol}</div>;
 
-    return <TokenMarketData token={token} tradeRecords={tradeRecords} />;
+    return <TokenMarketData token={token} {...rest} />;
 }
 
 const meta = {
@@ -25,6 +25,7 @@ type Story = StoryObj<typeof meta>;
 export const Base: Story = {
     args: {
         symbol: 'mask',
+        range: '7d',
         tradeRecords: [
             {
                 type: 'buy',
@@ -59,7 +60,7 @@ export const Base: Story = {
                 decimals: 18,
                 user: {
                     name: 'vitalik.eth',
-                    avatar: 'https://i.pravatar.cc/100?u=vitalik.eth',
+                    avatar: 'https://i.pravatar.cc/200?u=sujiyan.eth',
                 },
             },
         ],

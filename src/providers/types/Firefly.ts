@@ -1525,7 +1525,7 @@ export interface SwapToken {
     amount_num: string;
     amount_str: string;
     name: string;
-    decimals: number;
+    decimal: number;
     price: string;
     address: string;
 }
