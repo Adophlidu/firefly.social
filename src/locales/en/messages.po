@@ -3606,7 +3606,7 @@ msgstr "Your {0} account is now connected."
 msgid "Not Found"
 msgstr "Not Found"
 
-#. placeholder {0}: isSendFromFirefly(post) ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="inline" /> ) : null
+#. placeholder {0}: isSendFromFirefly(post) ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "Posted via {0} <0>{sendFrom}</0>"
 
@@ -3969,6 +3969,7 @@ msgstr "Swap"
 msgid "Collect"
 msgstr "Collect"
 
+#. placeholder {0}: channel.lead.handle
 #. placeholder {0}: channel.lead?.handle || '-'
 msgid "By @{0}"
 msgstr "By @{0}"

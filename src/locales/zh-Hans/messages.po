@@ -3611,7 +3611,7 @@ msgstr "你的 {0} 账户已连接。"
 msgid "Not Found"
 msgstr "未发现"
 
-#. placeholder {0}: isSendFromFirefly(post) ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="inline" /> ) : null
+#. placeholder {0}: isSendFromFirefly(post) ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "发布于 {0} <0>{sendFrom}</0>"
 
@@ -3974,6 +3974,7 @@ msgstr "兑换"
 msgid "Collect"
 msgstr "铸造"
 
+#. placeholder {0}: channel.lead.handle
 #. placeholder {0}: channel.lead?.handle || '-'
 msgid "By @{0}"
 msgstr "来自{0}"

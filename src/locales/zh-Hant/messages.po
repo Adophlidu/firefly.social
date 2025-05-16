@@ -3606,7 +3606,7 @@ msgstr "您的 {0} 帳號已連結"
 msgid "Not Found"
 msgstr "找不到內容"
 
-#. placeholder {0}: isSendFromFirefly(post) ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="inline" /> ) : null
+#. placeholder {0}: isSendFromFirefly(post) ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "透過 {0} <0>{sendFrom}</0> 發布"
 
@@ -3969,6 +3969,7 @@ msgstr ""
 msgid "Collect"
 msgstr "收集"
 
+#. placeholder {0}: channel.lead.handle
 #. placeholder {0}: channel.lead?.handle || '-'
 msgid "By @{0}"
 msgstr ""

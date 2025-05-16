@@ -79,7 +79,8 @@ function BasePreviewContent(props: BasePreviewContentProps) {
         <>
             <div className="relative size-[300px]">
                 <NFTImage
-                    className="h-full w-full object-cover"
+                    className="border0 h-full w-full object-cover"
+                    fallbackClassName="" // remove border of Image
                     width={300}
                     height={300}
                     src={props.image}
@@ -126,7 +127,6 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                                         disableBadge
                                         chainId={chainId}
                                         name={collection.price_symbol}
-                                        icon={`https://stamp.firefly.land/logo/${chainId}/${zeroAddress}`}
                                         size={16}
                                     />
                                 </div>
@@ -145,7 +145,7 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                                     <TokenIcon disableBadge chainId={chainId} address={zeroAddress} size={16} />
                                 </div>
                             </div>
-                        ) : !nft && marketInfo ? (
+                        ) : !nft && marketInfo?.total_volume ? (
                             <div className="ml-auto flex flex-col items-end">
                                 <div className="text-xs font-bold leading-[18px] text-secondary">
                                     <Trans>Total volume</Trans>

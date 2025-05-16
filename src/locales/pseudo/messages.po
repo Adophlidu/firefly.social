@@ -3590,7 +3590,7 @@ msgstr ""
 msgid "Not Found"
 msgstr ""
 
-#. placeholder {0}: isSendFromFirefly(post) ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="inline" /> ) : null
+#. placeholder {0}: isSendFromFirefly(post) ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="mb-1 inline" /> ) : null
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr ""
 
@@ -3953,6 +3953,7 @@ msgstr ""
 msgid "Collect"
 msgstr ""
 
+#. placeholder {0}: channel.lead.handle
 #. placeholder {0}: channel.lead?.handle || '-'
 msgid "By @{0}"
 msgstr ""
