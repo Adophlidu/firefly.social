@@ -99,7 +99,7 @@ export const Transactions = memo<Props>(function Transactions({
                         <ClickableButton
                             key={x.value}
                             className={classNames(
-                                'flex h-6 cursor-pointer list-none justify-center gap-1 rounded-md px-1.5 text-xs leading-6 lg:flex-initial lg:justify-start',
+                                'flex h-6 cursor-pointer list-none items-center justify-center gap-1 rounded-md px-1.5 text-xs leading-6 lg:flex-initial lg:justify-start',
                                 selected ? 'bg-highlight text-white' : 'bg-thirdMain text-second hover:text-highlight',
                             )}
                             onClick={() => setSubcategory(x.value)}

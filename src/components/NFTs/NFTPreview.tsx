@@ -114,7 +114,7 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                         <div className="flex items-center gap-2">{footer}</div>
                     )
                 ) : null}
-                {showTradeInfo ? (
+                {showTradeInfo && (floorPrice || nft?.latest_trade_price || marketInfo?.total_volume) ? (
                     <div className="flex justify-between">
                         {floorPrice ? (
                             <div className="flex flex-col justify-start">
@@ -122,10 +122,11 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                                     <Trans>Price</Trans>
                                 </div>
                                 <div className="flex items-center gap-1 leading-[18px]">
-                                    <span className="truncate text-medium font-bold text-secondary">{floorPrice}</span>
+                                    <span className="truncate text-medium font-bold text-lightMain">{floorPrice}</span>
                                     <TokenIcon
                                         disableBadge
                                         chainId={chainId}
+                                        address={zeroAddress}
                                         name={collection.price_symbol}
                                         size={16}
                                     />
@@ -165,12 +166,14 @@ function BasePreviewContent(props: BasePreviewContentProps) {
         </>
     );
 
+    const address = nft?.contract_address ?? collection?.contract_address;
+    const link = props.link || (address ? resolveNFTUrl(chainId, address, nft?.token_id) : null);
     return (
         <div
             className={classNames('relative w-[300px] overflow-hidden rounded-xl bg-bg text-left', props.className)}
             onClick={stopPropagation}
         >
-            {props.link ? <Link href={props.link}>{content}</Link> : content}
+            {link ? <Link href={link}>{content}</Link> : content}
             {props.bookmarkProps ? (
                 <BookmarkInIcon {...props.bookmarkProps} className="absolute right-5 top-[18px]" />
             ) : null}
