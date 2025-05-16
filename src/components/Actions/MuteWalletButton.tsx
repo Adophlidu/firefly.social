@@ -8,6 +8,7 @@ import UnmuteIcon from '@/assets/unmute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
@@ -27,11 +28,13 @@ export function MuteWalletButton({ handleOrEnsOrAddress, address, isMuted, ref, 
         mutationFn: async () => {
             if (isMuted) {
                 const result = await FireflyEndpointProvider.unblockWallet(address);
+                queryClient.setQueryData(['address-is-muted', address], false);
                 captureMuteEvent(EventId.UNMUTE_SUCCESS, address);
                 enqueueSuccessMessage(t`Unmuted ${handleOrEnsOrAddress}.`);
                 return result;
             } else {
                 const result = await FireflyEndpointProvider.blockWallet(address);
+                queryClient.setQueryData(['address-is-muted', address], true);
                 enqueueSuccessMessage(t`Muted ${handleOrEnsOrAddress}.`);
                 captureMuteEvent(EventId.MUTE_SUCCESS, address);
                 return result;

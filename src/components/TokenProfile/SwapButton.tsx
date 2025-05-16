@@ -57,7 +57,10 @@ export const SwapButton = memo<Props>(function SwapButton({
                     return;
                 }
                 if (chainId && providerType === ProviderType.EVM) await switchChain(config, { chainId });
-                SwapModalRef.open(swapPropsFromProps ?? propsFromContext);
+                SwapModalRef.open({
+                    ...(swapPropsFromProps ?? propsFromContext),
+                    providerType,
+                });
             }}
             {...rest}
         >

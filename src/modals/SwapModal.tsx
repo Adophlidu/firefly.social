@@ -14,6 +14,7 @@ import { mainnet } from 'viem/chains';
 
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
+import { SOLANA_CHAIN_ID_IN_FIREFLY, SOLANA_CHAIN_ID_IN_OKX } from '@/constants/chain.js';
 import { Locale } from '@/constants/enum.js';
 import { useLocale } from '@/helpers/getCookies.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -65,10 +66,11 @@ export function SwapModal({ ref }: Props) {
 
     useEffect(() => {
         if (!widgetRef || !open) return;
-
+        const chainId =
+            props?.chainId === SOLANA_CHAIN_ID_IN_FIREFLY ? SOLANA_CHAIN_ID_IN_OKX : (props?.chainId ?? mainnet.id);
         const tokenPair = {
-            fromChain: props?.chainId ?? mainnet.id,
-            toChain: props?.chainId ?? mainnet.id,
+            fromChain: chainId,
+            toChain: chainId,
             fromToken: props?.fromToken,
             toToken: props?.toToken,
         };
