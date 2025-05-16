@@ -14,7 +14,7 @@ import type { Profile } from '@/providers/types/Firefly.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 
-export enum CHAR_TAG {
+export const enum CHAR_TAG {
     FIREFLY_RP = 'ff_rp',
     MENTION = 'mention_tag',
     FRAME = 'frame_tag',
