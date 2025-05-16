@@ -29,9 +29,6 @@ export async function signInWithFarcaster(url: string, fid: string, nonce: strin
     const u = parseUrl(url);
     if (!u) throw new Error(`Invalid URL: ${url}`);
 
-    const checked = await FireflyEndpointProvider.checkCustodyWallet(fid);
-    if (!checked) throw new Error(`Failed to find custody wallet for fid=${fid}`);
-
     const address = await custodyOf(fid);
     const message = [
         `${u.hostname} wants you to sign in with your Ethereum account:`,

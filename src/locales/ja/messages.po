@@ -3720,6 +3720,9 @@ msgstr ""
 msgid "Exclusive Events"
 msgstr ""
 
+msgid "Please sign in with your custody wallet first."
+msgstr ""
+
 msgid "Post added to your Bookmarks"
 msgstr ""
 

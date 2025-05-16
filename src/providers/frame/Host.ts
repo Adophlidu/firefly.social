@@ -1,10 +1,14 @@
 import type { Context, FrameHost, ReadyOptions, SetPrimaryButton } from '@farcaster/frame-host';
+import { t } from '@lingui/core/macro';
 
 import { Source } from '@/constants/enum.js';
+import { NotAllowedError } from '@/constants/error.js';
 import { SITE_URL } from '@/constants/index.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { openProfilePageByProfileId } from '@/helpers/openProfilePageById.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { ComposeModalRef } from '@/modals/controls.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { signInWithFarcaster } from '@/services/signInWithFarcaster.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
@@ -54,12 +58,14 @@ export class FarcasterFrameHost implements FrameHost {
         console.log('DEBUG: [frame host]: signIn', options);
 
         const frame = this.options?.frame?.();
-        const signature = await signInWithFarcaster(
-            frame?.x_url ?? SITE_URL,
-            `${this.context.user.fid}`,
-            options.nonce,
-        );
-        return signature;
+
+        const checked = await FireflyEndpointProvider.checkCustodyWallet(`${this.context.user.fid}`);
+        if (!checked) {
+            enqueueErrorMessage(t`Please sign in with your custody wallet first.`);
+            throw new NotAllowedError('No custody wallet found.');
+        } else {
+            return signInWithFarcaster(frame?.x_url ?? SITE_URL, `${this.context.user.fid}`, options.nonce);
+        }
     };
 
     swap: FrameHost['swap'] = (options) => {
