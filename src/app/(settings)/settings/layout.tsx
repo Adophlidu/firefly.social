@@ -13,7 +13,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
                 <div className="no-scrollbar hidden shrink-0 overflow-y-auto lg:flex">
                     <SettingsList />
                 </div>
-                <div className="no-scrollbar w-full min-w-0 overflow-y-auto">{children}</div>
+                <div className="md:no-scrollbar w-full min-w-0 md:overflow-y-auto">{children}</div>
             </main>
         </>
     );

@@ -23,7 +23,9 @@ export function SettingsSection({ className, title, enableBack, children }: Sett
             <PageHeader enableBack={enableBack || isLarge} hideHeadInMobile={false}>
                 {title}
             </PageHeader>
-            <div className="mt-3 flex w-full flex-col items-center gap-6">{children}</div>
+            <div className="max-md:no-scrollbar mt-3 flex w-full flex-col items-center gap-6 max-md:max-h-[calc(100vh_-_72px)] max-md:overflow-auto">
+                {children}
+            </div>
         </div>
     );
 }
