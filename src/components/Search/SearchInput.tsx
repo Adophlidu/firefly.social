@@ -29,7 +29,7 @@ export function SearchInput({ onClear, ref, placeholder, iconClassName, ...rest 
                 )}
             />
             {!rest.value ? (
-                <span className="absolute left-0 pl-3 text-secondary sm:text-sm sm:leading-6">
+                <span className="pointer-events-none absolute left-0 pl-3 text-secondary sm:text-sm sm:leading-6">
                     {placeholder || <Trans>Search...</Trans>}
                 </span>
             ) : null}

@@ -73,7 +73,7 @@ export function FilterPopover<F>({
         <Popover as="div" className="relative">
             {({ open, close }) => (
                 <>
-                    <PopoverButton className="flex h-9 cursor-pointer items-center gap-1 rounded-lg border border-lightLineSecond px-2 text-xs text-main focus:outline-none disabled:cursor-default">
+                    <PopoverButton className="flex h-10 cursor-pointer items-center gap-1 rounded-lg border border-lightLineSecond px-2 text-xs text-main focus:outline-none disabled:cursor-default">
                         {selected ? itemRenderer?.(selected, true) : placeholder}
                         <LineArrowUp
                             className={classNames('size-3 transition-all duration-200 ease-in-out', {
@@ -147,7 +147,7 @@ export function SearchContentPanel<T, F = void>({
                 <div className="flex-1 rounded-lg !border border-transparent !bg-lightBg transition-all focus-within:border-highlight">
                     <SearchInput
                         placeholder={placeholder}
-                        className="!py-1.5 px-3"
+                        className="h-10 !py-1.5 px-3"
                         iconClassName="!text-highlight"
                         value={keyword}
                         onChange={(event) => onSearch(event.currentTarget.value)}
@@ -166,9 +166,7 @@ export function SearchContentPanel<T, F = void>({
                             <div
                                 key={listKey ? listKey(item) : i}
                                 onClick={() => onSelected?.(item)}
-                                className={classNames('cursor-pointer hover:bg-lightBg', {
-                                    'opacity-50': isSelected?.(item) ?? false,
-                                })}
+                                className="cursor-pointer hover:bg-lightBg"
                             >
                                 {itemRenderer(item)}
                             </div>

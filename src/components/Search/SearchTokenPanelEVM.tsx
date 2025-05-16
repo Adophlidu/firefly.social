@@ -84,7 +84,7 @@ export const SearchTokenPanelEVM = memo<SearchTokenPanelProps>(function SearchTo
     return (
         <SearchContentPanel<Token, number>
             isLoading={isLoading}
-            placeholder={t`Search by name or symbol`}
+            placeholder={t`Search token`}
             filterProps={{
                 placeholder: t`All chains`,
                 data: chainIds,
@@ -99,7 +99,7 @@ export const SearchTokenPanelEVM = memo<SearchTokenPanelProps>(function SearchTo
             data={data}
             itemRenderer={getTokenItem}
             onSelected={onSelected}
-            listKey={(token) => token.id}
+            listKey={(token) => `${token.id}-${token.chainId}`}
             isSelected={isSelected}
         >
             {canExpand ? (
@@ -108,11 +108,7 @@ export const SearchTokenPanelEVM = memo<SearchTokenPanelProps>(function SearchTo
                     onClick={() => setShowSmall((prev) => !prev)}
                 >
                     <span>
-                        {showSmall ? (
-                            <Trans>Hide tokens with small balances</Trans>
-                        ) : (
-                            <Trans>Show more tokens with small balances</Trans>
-                        )}
+                        {showSmall ? <Trans>Hide assets &lt; 1 USD</Trans> : <Trans>Show assets &lt; 1 USD</Trans>}
                     </span>
                     <LineArrowUp width={20} height={20} className={showSmall ? '' : 'rotate-180'} />
                 </ClickableButton>

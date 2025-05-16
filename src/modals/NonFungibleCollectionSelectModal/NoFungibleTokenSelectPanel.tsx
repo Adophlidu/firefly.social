@@ -87,7 +87,7 @@ export const NonFungibleCollectionSelectPanel = memo<NonFungibleCollectionSelect
         return (
             <SearchContentPanel<Collection, number>
                 isLoading={isLoading}
-                placeholder={t`Search by name or symbol`}
+                placeholder={t`Search collection`}
                 filterProps={{
                     placeholder: t`All chains`,
                     data: NFTSCAN_CHAIN_IDS,

@@ -109,6 +109,9 @@ msgstr "翻译失败。请稍后重试。"
 msgid "Posts"
 msgstr "帖子"
 
+msgid "Show assets < 1 USD"
+msgstr ""
+
 msgid "Metadata not frozen."
 msgstr "元数据未冻结。"
 
@@ -188,6 +191,9 @@ msgstr "请输入你的邮箱地址，我们将发送一次性验证码以确认
 #. placeholder {0}: profile.handle
 msgid "Followed @{0} on {sourceName}"
 msgstr "在 {sourceName} 上关注 @{0}"
+
+msgid "Search collection"
+msgstr ""
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {关注者} other {关注者}}"
@@ -1625,9 +1631,6 @@ msgstr "领取优质奖励"
 
 msgid "Share in a Post"
 msgstr "在帖子中分享"
-
-msgid "Search by name or symbol"
-msgstr "按名称或符号搜索"
 
 msgid "Participation Blocked"
 msgstr "禁止参与"
@@ -4224,6 +4227,9 @@ msgstr "检测到账户冲突"
 
 msgid "No connected wallet."
 msgstr "没有已连接的钱包。"
+
+msgid "Hide assets < 1 USD"
+msgstr ""
 
 msgid "Hours"
 msgstr "小时"

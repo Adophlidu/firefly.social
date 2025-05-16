@@ -104,6 +104,9 @@ msgstr "Failed to translate post. Please retry later."
 msgid "Posts"
 msgstr "Posts"
 
+msgid "Show assets < 1 USD"
+msgstr "Show assets < 1 USD"
+
 msgid "Metadata not frozen."
 msgstr "Metadata not frozen."
 
@@ -183,6 +186,9 @@ msgstr "Enter your email address below, and we’ll send a one-time passcode to 
 #. placeholder {0}: profile.handle
 msgid "Followed @{0} on {sourceName}"
 msgstr "Followed @{0} on {sourceName}"
+
+msgid "Search collection"
+msgstr "Search collection"
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {Follower} other {Followers}}"
@@ -1620,9 +1626,6 @@ msgstr "Claim Premium"
 
 msgid "Share in a Post"
 msgstr "Share in a Post"
-
-msgid "Search by name or symbol"
-msgstr "Search by name or symbol"
 
 msgid "Participation Blocked"
 msgstr "Participation Blocked"
@@ -4217,6 +4220,9 @@ msgstr "Different Account Detected"
 
 msgid "No connected wallet."
 msgstr "No connected wallet."
+
+msgid "Hide assets < 1 USD"
+msgstr "Hide assets < 1 USD"
 
 msgid "Hours"
 msgstr "Hours"

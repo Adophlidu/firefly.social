@@ -75,7 +75,7 @@ export function ChannelSelectPanel({ source, onSelect, isSelected }: ChannelSele
     return (
         <SearchContentPanel<Channel>
             isLoading={isLoading}
-            placeholder={t`Search by name or symbol`}
+            placeholder={t`Search channel`}
             showFilter={false}
             keyword={keyword}
             onSearch={setKeyword}

@@ -35,6 +35,11 @@ export function CollectionItem({ collection }: CollectionProps) {
                 />
                 <div className="text-left">
                     <span>{collection.name}</span>
+                    {collection.custom ? (
+                        <span className="ml-2.5 inline-block h-5 rounded bg-lightBg px-2 text-xs font-medium leading-5 text-second">
+                            <Trans>Added</Trans>
+                        </span>
+                    ) : null}
                     <br />
                     {collection.ownersTotal ? (
                         <span className="text-[13px] text-second">{t`${collection.ownersTotal} items`}</span>
@@ -42,13 +47,7 @@ export function CollectionItem({ collection }: CollectionProps) {
                 </div>
             </div>
             <a href={link} target="_blank" className="ml-1 inline-block" onClick={(e) => e.stopPropagation()}>
-                {collection.custom ? (
-                    <span className="text-medium font-bold text-main">
-                        <Trans>Added</Trans>
-                    </span>
-                ) : (
-                    <LinkIcon className="size-5" />
-                )}
+                <LinkIcon className="size-5" />
             </a>
         </ClickableButton>
     );

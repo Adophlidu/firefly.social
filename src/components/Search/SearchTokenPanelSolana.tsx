@@ -54,7 +54,7 @@ export const SearchTokenPanelSolana = memo<SearchSolanaTokenPanelProps>(function
     return (
         <SearchContentPanel<Token, unknown>
             isLoading={isLoading}
-            placeholder={t`Search by name or symbol`}
+            placeholder={t`Search token`}
             showFilter={false}
             keyword={keyword}
             onSearch={setKeyword}

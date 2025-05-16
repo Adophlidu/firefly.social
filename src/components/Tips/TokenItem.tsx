@@ -12,14 +12,7 @@ interface TokenItemProps {
 
 export function TokenItem({ token, disableChainIcon }: TokenItemProps) {
     const usdtValue = +multipliedBy(token.price, token.amount).toFixed(2);
-    const usd =
-        token.custom && isZero(usdtValue) ? (
-            <Trans>Added</Trans>
-        ) : Number.isNaN(usdtValue) || isZero(usdtValue) ? (
-            ''
-        ) : (
-            `$${usdtValue}`
-        );
+    const usd = Number.isNaN(usdtValue) || isZero(usdtValue) ? '' : `$${usdtValue}`;
 
     return (
         <ClickableButton
@@ -31,11 +24,19 @@ export function TokenItem({ token, disableChainIcon }: TokenItemProps) {
                 <TokenIcon disableChainIcon={disableChainIcon} token={token} />
                 <div className="text-left">
                     <span>{token.name}</span>
+                    {token.custom ? (
+                        <span className="ml-2.5 inline-block h-5 rounded bg-lightBg px-2 text-xs font-medium leading-5 text-second">
+                            <Trans>Added</Trans>
+                        </span>
+                    ) : null}
                     <br />
-                    <span className="text-[13px] text-second">{`${token.balance} ${token.symbol}`}</span>
+                    <span className="text-[13px] text-second">{token.symbol || '-'}</span>
                 </div>
             </div>
-            <span>{usd}</span>
+            <div className="flex flex-col items-end">
+                <span>{usd || '-'}</span>
+                <span className="text-[13px] text-second">{token.balance || '0'}</span>
+            </div>
         </ClickableButton>
     );
 }

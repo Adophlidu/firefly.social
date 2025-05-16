@@ -109,6 +109,9 @@ msgstr ""
 msgid "Posts"
 msgstr ""
 
+msgid "Show assets < 1 USD"
+msgstr ""
+
 msgid "Metadata not frozen."
 msgstr ""
 
@@ -187,6 +190,9 @@ msgstr ""
 
 #. placeholder {0}: profile.handle
 msgid "Followed @{0} on {sourceName}"
+msgstr ""
+
+msgid "Search collection"
 msgstr ""
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
@@ -1624,9 +1630,6 @@ msgid "Claim Premium"
 msgstr ""
 
 msgid "Share in a Post"
-msgstr ""
-
-msgid "Search by name or symbol"
 msgstr ""
 
 msgid "Participation Blocked"
@@ -4205,6 +4208,9 @@ msgid "Different Account Detected"
 msgstr ""
 
 msgid "No connected wallet."
+msgstr ""
+
+msgid "Hide assets < 1 USD"
 msgstr ""
 
 msgid "Hours"

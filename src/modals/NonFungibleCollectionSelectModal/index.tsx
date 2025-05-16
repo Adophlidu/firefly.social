@@ -5,7 +5,7 @@ import { Trans } from '@lingui/react/macro';
 import { useCallback, useState } from 'react';
 import { useChainId } from 'wagmi';
 
-import AddIcon from '@/assets/add.svg';
+import AddIcon from '@/assets/add-circle.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Modal } from '@/components/Modal.js';
@@ -76,10 +76,7 @@ export function NonFungibleCollectionSelectModal({ ref }: Props) {
                             });
                         }}
                     >
-                        <AddIcon width={20} height={20} className="size-5 shrink-0" />
-                        <span>
-                            <Trans>Add</Trans>
-                        </span>
+                        <AddIcon width={24} height={24} className="size-6 shrink-0 text-highlight" />
                     </ClickableButton>
                 </DialogTitle>
                 <div className="min-h-0 flex-1 overflow-hidden">

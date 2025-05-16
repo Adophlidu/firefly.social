@@ -109,6 +109,9 @@ msgstr "無法翻譯貼文。請稍候再嘗試"
 msgid "Posts"
 msgstr "貼文"
 
+msgid "Show assets < 1 USD"
+msgstr ""
+
 msgid "Metadata not frozen."
 msgstr "元數據未凍結。"
 
@@ -188,6 +191,9 @@ msgstr "請輸入您的電子郵件地址，我們將發送一次性驗證碼進
 #. placeholder {0}: profile.handle
 msgid "Followed @{0} on {sourceName}"
 msgstr "已在 {sourceName} 上追蹤 @{0}"
+
+msgid "Search collection"
+msgstr ""
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {追蹤者} other {追蹤者}}"
@@ -1625,9 +1631,6 @@ msgstr "領取高級版"
 
 msgid "Share in a Post"
 msgstr "在貼文中分享"
-
-msgid "Search by name or symbol"
-msgstr "按名稱或代號搜尋"
 
 msgid "Participation Blocked"
 msgstr "參與受限"
@@ -4217,6 +4220,9 @@ msgstr "檢測到不同帳號"
 
 msgid "No connected wallet."
 msgstr "未連接錢包"
+
+msgid "Hide assets < 1 USD"
+msgstr ""
 
 msgid "Hours"
 msgstr "小時"
