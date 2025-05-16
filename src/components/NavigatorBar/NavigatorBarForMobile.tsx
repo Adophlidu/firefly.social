@@ -97,6 +97,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
 
     const closeRecommendation = useCallback(() => setShowRecommendation(false), []);
 
+    console.log(isLogin, isHomePage);
     return (
         <>
             <header className="flex w-full items-center gap-4 px-4 py-[7px] text-main">
@@ -156,10 +157,10 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                         </form>
                     ) : (
                         <>
-                            {profiles.length && title ? (
-                                <span className="text-[18px] font-bold leading-[24px]">{title}</span>
-                            ) : isHomePage && isLogin ? (
+                            {isHomePage && isLogin ? (
                                 <HomeTabs onlyFilter buttonClass="!mx-auto" containerClass="justify-center h-[54px]" />
+                            ) : profiles.length && title ? (
+                                <span className="text-[18px] font-bold leading-[24px]">{title}</span>
                             ) : (
                                 <FireflyIcon
                                     className={classNames('relative', {
