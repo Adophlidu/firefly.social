@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-04-28 12:01\n"
+"PO-Revision-Date: 2025-05-16 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -119,7 +119,7 @@ msgid "Repost or quote"
 msgstr "转发或者引用"
 
 msgid "Group {id} could not be found."
-msgstr ""
+msgstr "未找到小组。"
 
 msgid "Unmute successfully."
 msgstr "取消隐藏成功。"
@@ -274,7 +274,7 @@ msgid "Collecting"
 msgstr "铸造中"
 
 msgid "Open"
-msgstr ""
+msgstr "打开"
 
 msgid "You have exceeded the maximum number of attempts. Please try again later."
 msgstr "你已超过最大尝试次数，请稍后再试。"
@@ -416,7 +416,7 @@ msgid "Log out @{0}"
 msgstr "登出 @{0}"
 
 msgid "View similar symbols"
-msgstr ""
+msgstr "查看名称相似的代币"
 
 msgid "DAOs"
 msgstr "DAOs"
@@ -487,7 +487,7 @@ msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
 msgstr "<0>出售了一个投注</0><1>在 Polymarket 上价值 ${0}</1>"
 
 msgid "Transactions"
-msgstr ""
+msgstr "交易记录"
 
 #. placeholder {0}: profile.source
 #. placeholder {0}: post.source
@@ -558,7 +558,7 @@ msgid "Signing in"
 msgstr "登录中"
 
 msgid "Overview"
-msgstr ""
+msgstr "基本信息"
 
 msgid "Sorry, the email you entered is invalid"
 msgstr "抱歉，你输入的邮箱无效"
@@ -1398,7 +1398,7 @@ msgid "The hidden owner function is not included. If there is a hidden owner, th
 msgstr "未包含隐藏所有者功能。如果存在隐藏所有者，项目所有者可能有能力控制合约。"
 
 msgid "1H"
-msgstr ""
+msgstr "1小时"
 
 msgid "Failed to enable signless"
 msgstr "未能启用无签名功能"
@@ -1549,7 +1549,7 @@ msgid "Contract address found."
 msgstr "识别为合约地址。"
 
 msgid "Total volume"
-msgstr ""
+msgstr "总交易量"
 
 msgid "NFT added to your Bookmarks"
 msgstr "NFT 已经添加到你的收藏中"
@@ -1791,7 +1791,7 @@ msgid "Eligible for Premium?"
 msgstr "符合高级版资格？"
 
 msgid "You haven't traded this token."
-msgstr ""
+msgstr "你还没有交易过这个代币呢。"
 
 msgid "Set"
 msgstr "设置"
@@ -2559,7 +2559,7 @@ msgid "GIFs"
 msgstr "动图"
 
 msgid "Copy Trade"
-msgstr ""
+msgstr "一键跟单"
 
 msgid "Loading..."
 msgstr "加载中..."
@@ -2695,7 +2695,7 @@ msgid "Your post failed to send to {0}. Click 'Retry' to attempt posting again."
 msgstr "发布到 {0} 失败。请点击\"重试\"再次发布。"
 
 msgid "7D"
-msgstr ""
+msgstr "7天"
 
 msgid "Not my wallet address."
 msgstr "不是我的钱包地址。"
@@ -3506,7 +3506,7 @@ msgid "<0>Minted</0><1/>{0}"
 msgstr "<0>铸造</0><1/>{0}"
 
 msgid "1M"
-msgstr ""
+msgstr "1月"
 
 #. placeholder {0}: dayjs(draft.createdAt).format('ddd, MMM DD, YYYY [at] h:mm A')
 msgid "Saved on {0}"
@@ -3540,7 +3540,7 @@ msgid "Comment or mention"
 msgstr "评论或提及"
 
 msgid "24H"
-msgstr ""
+msgstr "24小时"
 
 msgid "No codes found to suspend trading."
 msgstr "没有发现可以暂停交易的代码。"
@@ -3566,7 +3566,7 @@ msgid "Stickers"
 msgstr "贴纸"
 
 msgid "No trade records"
-msgstr ""
+msgstr "暂无交易记录"
 
 msgid "Dark Mode"
 msgstr "深色模式"
@@ -3575,7 +3575,7 @@ msgid "Article added to your Bookmarks"
 msgstr "文章已经添加到你的收藏中"
 
 msgid "Mine"
-msgstr ""
+msgstr "我的交易"
 
 msgid "Create a Post"
 msgstr "创建帖子"
@@ -3685,7 +3685,7 @@ msgid "The whitelist function is included. Some addresses may not be able to tra
 msgstr "白名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
 
 msgid "1Y"
-msgstr ""
+msgstr "1年"
 
 msgid "Primary account"
 msgstr "主账号"
@@ -3909,7 +3909,7 @@ msgid "We encountered an error when try to decrypt this message: {0}"
 msgstr "我们在尝试解密此消息时遇到了一个错误：{0}"
 
 msgid "No one you follow has traded this token."
-msgstr ""
+msgstr "你关注的人没有交易过这个代币哦。"
 
 msgid "Final Step Claim Now!"
 msgstr "最后一步，立即领取！"
@@ -3946,7 +3946,7 @@ msgid "<0>Burned</0> an NFT"
 msgstr "<0>销毁</0> 一个 NFT"
 
 msgid "About"
-msgstr ""
+msgstr "关于"
 
 #. placeholder {0}: timeLeft.hours
 #. placeholder {1}: timeLeft.minutes
