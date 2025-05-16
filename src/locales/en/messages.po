@@ -2186,6 +2186,9 @@ msgstr "No cybercrime found."
 msgid "Articles"
 msgstr "Articles"
 
+msgid "This Apple account is already linked to another Firefly account."
+msgstr "This Apple account is already linked to another Firefly account."
+
 msgid "Follow me"
 msgstr "Follow me"
 

@@ -467,8 +467,10 @@ const useThirdPartyStateBase = createState(
 
                 enqueueSuccessMessage(t`Your ${session.type} account is now connected`);
             } catch (error) {
-                if (error instanceof Error && error.message.includes('This apple already bound to the other account'))
+                if (error instanceof Error && error.message.includes('This apple already bound to the other account')) {
+                    enqueueWarningMessage(t`This Apple account is already linked to another Firefly account.`);
                     return;
+                }
 
                 enqueueMessageFromError(error, t`Oops... Something went wrong. Please try again`);
                 state.clear();

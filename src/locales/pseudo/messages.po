@@ -2178,6 +2178,9 @@ msgstr ""
 msgid "Articles"
 msgstr ""
 
+msgid "This Apple account is already linked to another Firefly account."
+msgstr ""
+
 msgid "Follow me"
 msgstr ""
 

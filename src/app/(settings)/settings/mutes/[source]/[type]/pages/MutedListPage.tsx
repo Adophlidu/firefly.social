@@ -37,7 +37,7 @@ export function MutedListPage({ name, type, source }: MutedListProps) {
 
     return (
         <div className="flex h-screen flex-1 flex-col p-6">
-            <div className="flex items-center gap-6 pb-6 text-[20px] font-bold leading-[24px] text-lightMain">
+            <div className="sticky top-0 z-10 flex items-center gap-6 pb-6 text-[20px] font-bold leading-[24px] text-lightMain">
                 <ComebackIcon className="cursor-pointer" width={24} height={24} onClick={comeback} />
                 {name}
             </div>
