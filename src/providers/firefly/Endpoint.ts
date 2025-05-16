@@ -547,9 +547,9 @@ class FireflyEndpoint {
         );
         const data = resolveFireflyResponseData(response);
         return createPageable(
-            data.list,
+            data.list || [],
             indicator,
-            data.cursor && data.list.length ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+            data.cursor && data.list?.length ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
         );
     }
 

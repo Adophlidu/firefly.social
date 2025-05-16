@@ -32,11 +32,8 @@ export const RedPacketAccountItem = memo(function RedPacketAccountItem({
     const isAddress_ = networkType === NetworkType.Ethereum ? isValidAddressEthereum(address) : true;
     const addressLink = isAddress_ ? getProfileUrl({ source: Source.Wallet, profileId: address }) : null;
     const profileLink =
-        shareFrom && platform && platformId && !isValidAddressEthereum(shareFrom)
-            ? resolvePlatformProfileUrl(
-                  platform,
-                  platform === FireflyRedPacketAPI.PlatformType.Lens ? shareFrom : platformId,
-              )
+        shareFrom && platform && !isValidAddressEthereum(shareFrom)
+            ? resolvePlatformProfileUrl(platform, shareFrom)
             : null;
 
     if (!address && !shareFrom) return null;

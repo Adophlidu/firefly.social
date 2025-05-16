@@ -808,7 +808,7 @@ class FireflySocialMedia implements Provider {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
-        const fids = compact(data.list.flatMap((x) => x.farcaster).map((x) => x?.platform_id));
+        const fids = compact((data.list || []).flatMap((x) => x.farcaster).map((x) => x?.platform_id));
         const result = await NeynarSocialMediaProvider.getProfilesByIds(fids);
 
         return createPageable(

@@ -306,7 +306,7 @@ export type SearchCastsResponse = Response<
 >;
 
 export type SearchProfileResponse = Response<{
-    list: Array<Record<SocialSourceInURL | 'eth' | 'solana' | 'ens', Profile[] | null>>;
+    list?: Array<Record<SocialSourceInURL | 'eth' | 'solana' | 'ens', Profile[] | null>>;
     cursor: number;
     size: number;
 }>;

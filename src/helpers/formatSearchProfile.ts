@@ -38,7 +38,7 @@ interface SearchProfile {
 }
 
 export function formatSearchProfile(
-    identity: Required<SearchProfileResponse>['data']['list'][0],
+    identity: Required<Required<SearchProfileResponse>['data']>['list'][0],
 ): SearchProfile | null {
     const target = Object.values(identity)
         .flat()
