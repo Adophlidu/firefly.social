@@ -55,7 +55,7 @@ function toggleBlock(address: string, status: boolean) {
     queryClient.setQueryData(['address-is-muted', address.toLowerCase()], status);
 
     const nftsPatcher = (old: Draft<NFTPagesData> | undefined) => {
-        if (!old) return old;
+        if (!old || !status) return old;
         return produce(old, (draft) => {
             for (const page of draft.pages) {
                 if (!page.data.length) continue;
