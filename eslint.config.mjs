@@ -26,6 +26,7 @@ export default defineConfig([
         '**/lingui.config.js',
         '**/postcss.config.cjs',
         '**/tailwind.config.cjs',
+        '.storybook',
         '*.d.ts',
         'tests',
         'eslint.config.mjs',
