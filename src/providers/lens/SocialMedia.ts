@@ -77,6 +77,7 @@ import { SetQueryDataForJoinChannel } from '@/decorators/SetQueryDataForJoinChan
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
+import { SetQueryDataForReportPost } from '@/decorators/SetQueryDataForReportPost.js';
 import { ensureLensResult, ensurePostToLensResult } from '@/helpers/ensureLensResult.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensChannelFromGroup } from '@/helpers/formatLensChannel.js';
@@ -164,9 +165,10 @@ function getClient() {
 @SetQueryDataForFollowProfile(Source.Lens)
 @SetQueryDataForSuperFollowProfile(Source.Lens)
 @SetQueryDataForActPost(Source.Lens)
+@SetQueryDataForReportPost(Source.Lens)
+@SetQueryDataForJoinChannel(Source.Lens)
 @SetQueryDataForPosts
 @SetQueryDataForApprovalLensModule
-@SetQueryDataForJoinChannel(Source.Lens)
 class LensSocialMedia implements Provider {
     get type() {
         return SessionType.Lens;

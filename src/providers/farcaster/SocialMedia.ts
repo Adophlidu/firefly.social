@@ -13,6 +13,7 @@ import { SetQueryDataForJoinChannel } from '@/decorators/SetQueryDataForJoinChan
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
+import { SetQueryDataForReportPost } from '@/decorators/SetQueryDataForReportPost.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getFarcasterSessionType } from '@/helpers/getFarcasterSessionType.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
@@ -54,6 +55,7 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 @SetQueryDataForBlockChannel(Source.Farcaster)
 @SetQueryDataForActPost(Source.Farcaster)
 @SetQueryDataForJoinChannel(Source.Farcaster)
+@SetQueryDataForReportPost(Source.Farcaster)
 @SetQueryDataForPosts
 class FarcasterSocialMedia implements Provider {
     quotePost(postId: string, post: Post, profileId?: string): Promise<{ postId: string }> {

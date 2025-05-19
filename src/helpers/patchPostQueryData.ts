@@ -1,8 +1,9 @@
 import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { SearchType, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import type { Pageable } from '@/helpers/pageable.js';
+import { updateQueryForPosts } from '@/helpers/updateQueryForPosts.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 type Patcher = (old: Draft<Post>) => void;
@@ -36,28 +37,15 @@ export function patchPostQueryData(source: Source, postId: Matcher, patcher: Pat
         });
     });
 
-    type Data = { pages: Array<{ data: Post[] }> };
-
-    const PostsPatcher = (old: Data | undefined) => {
-        if (!old?.pages) return old;
-
-        return produce(old, (draft) => {
-            for (const page of draft.pages) {
-                if (!page) continue;
-                for (const post of page.data) {
-                    for (const p of [post, post.commentOn, post.root, post.quoteOn, ...(post.threads || [])]) {
-                        if (matcher(p)) {
-                            patcher(p!);
-                        }
-                    }
+    updateQueryForPosts(source, (posts) => {
+        for (const post of posts) {
+            for (const p of [post, post.commentOn, post.root, post.quoteOn, ...(post.threads || [])]) {
+                if (matcher(p)) {
+                    patcher(p!);
                 }
             }
-        });
-    };
-
-    queryClient.setQueriesData<Data>({ queryKey: ['posts', source] }, PostsPatcher);
-    queryClient.setQueriesData<Data>({ queryKey: ['search', SearchType.Posts] }, PostsPatcher);
-    queryClient.setQueriesData<Data>({ queryKey: ['posts', Source.Posts] }, PostsPatcher);
+        }
+    });
 
     queryClient.setQueriesData<Pageable<Post, undefined>>({ queryKey: [source, 'post-thread'] }, (old) => {
         if (!old?.data?.length) return old;

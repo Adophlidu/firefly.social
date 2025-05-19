@@ -29,6 +29,7 @@ export function formatLensPostOperations(
         | 'hasLiked'
         | 'hasBookmarked'
         | 'canQuote'
+        | 'hasReported'
     >
 > {
     const canAct = actions?.some((action) => action.__typename === 'SimpleCollectAction') || false;
@@ -46,6 +47,7 @@ export function formatLensPostOperations(
             hasActed: false,
             hasLiked: false,
             hasBookmarked: false,
+            hasReported: false,
         };
     }
 
@@ -61,5 +63,6 @@ export function formatLensPostOperations(
         hasActed: operations.hasSimpleCollected,
         hasLiked: operations.hasUpvoted,
         hasBookmarked: operations.hasBookmarked,
+        hasReported: operations.hasReported,
     };
 }

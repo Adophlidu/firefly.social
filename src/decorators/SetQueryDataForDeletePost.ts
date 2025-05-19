@@ -1,21 +1,7 @@
-import { type SocialSource, Source } from '@/constants/enum.js';
-import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import { updateQueryForPosts } from '@/helpers/updateQueryForPosts.js';
+import { type SocialSource } from '@/constants/enum.js';
+import { deletePostFromQueryData } from '@/helpers/deletePostFromQueryData.js';
 import type { Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
-
-function deletePostFromQueryData(source: SocialSource, postId: string) {
-    if (source === Source.Lens) {
-        updateQueryForPosts(source, (posts) => {
-            const index = posts.findIndex((p) => p.postId === postId);
-            if (index !== -1) posts.splice(index, 1);
-        });
-    } else {
-        patchPostQueryData(source, postId, (p) => {
-            p.isHidden = true;
-        });
-    }
-}
 
 export function SetQueryDataForDeletePost(source: SocialSource) {
     return function decorator<T extends ClassType<Provider>>(target: T): T {

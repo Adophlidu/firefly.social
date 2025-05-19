@@ -215,6 +215,7 @@ export interface Post {
     hasActed?: boolean;
     hasQuoted?: boolean;
     hasBookmarked?: boolean;
+    hasReported?: boolean;
     source: SocialSource;
     isThread?: boolean;
     commentLoadable?: boolean;

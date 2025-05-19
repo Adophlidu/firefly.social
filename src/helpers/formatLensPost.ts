@@ -347,13 +347,13 @@ export function getPostLocale(metadata: PostMetadata) {
 /**
  * Remove feeds that posted by muted users.
  */
-export function filterFeedsV3(posts: AnyPost[]): AnyPost[] {
+export function filterFeedsV3(posts: AnyPost[] | readonly AnyPost[]): AnyPost[] {
     return posts.filter((x) => {
         switch (x.__typename) {
             case 'Post':
-                return !x.author.operations?.isBlockedByMe;
+                return !x.author.operations?.isBlockedByMe && !x.operations?.hasReported;
             case 'Repost':
-                return false;
+                return !x.author?.operations?.isBlockedByMe;
             default:
                 safeUnreachable(x);
                 return false;
