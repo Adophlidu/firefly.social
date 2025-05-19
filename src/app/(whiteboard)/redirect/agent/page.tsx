@@ -1,14 +1,13 @@
 'use client';
 
-import { getEnumAsArray } from '@masknet/kit';
-import { redirect } from 'next/navigation.js';
 import { useAsync } from 'react-use';
 import urlcat from 'urlcat';
 
 import FireflyIcon from '@/assets/logo.svg';
 import { Agent, PageRoute } from '@/constants/enum.js';
-import { useSearchParams } from '@/esm/navigation.js';
+import { useRouter, useSearchParams } from '@/esm/navigation.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 
@@ -25,14 +24,14 @@ const action = async () => {
 };
 
 export default function AgentPage() {
+    const router = useRouter();
     const searchParams = useSearchParams();
 
     useAsync(async () => {
         await runInSafeAsync(async () => action());
 
         const url = searchParams.get('url') ?? PageRoute.Home;
-        const isValidPageRoute = url && getEnumAsArray(PageRoute).some(({ value }) => value === url);
-        redirect(isValidPageRoute ? url : PageRoute.Home);
+        router.replace(isValidEnumValue(url, PageRoute) ? url : PageRoute.Home);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

@@ -1,13 +1,13 @@
-import { getEnumAsArray } from '@masknet/kit';
 import { cookies } from 'next/headers.js';
 import { use } from 'react';
 
 import { Locale, SiteCookies } from '@/constants/enum.js';
 import { DEFAULT_LOCALE } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
+import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
 
 function resolveLocale(locale: string): Locale {
-    return getEnumAsArray(Locale).find(({ value }) => value === locale)?.value ?? DEFAULT_LOCALE;
+    return isValidEnumValue(locale, Locale) ? (locale as Locale) : DEFAULT_LOCALE;
 }
 
 export function getClientCookies(name: SiteCookies) {

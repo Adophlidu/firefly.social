@@ -1,6 +1,5 @@
 import type { MessageDescriptor } from '@lingui/core';
 import { msg } from '@lingui/core/macro';
-import { getEnumAsArray } from '@masknet/kit';
 import { last } from 'lodash-es';
 
 import { CommunityTypeTab } from '@/components/Search/CommunityTypeTab.js';
@@ -11,6 +10,7 @@ import { notFound, redirect } from '@/esm/navigation/server.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import type { NextPageProps } from '@/types/index.js';
 
@@ -36,7 +36,7 @@ function checkSlug(slug: string[]) {
     }
 
     if (slug.length === 2 && slug[0] === SearchType.Communities) {
-        return getEnumAsArray(CommunityType).some(({ value }) => value === slug[1]);
+        return isValidEnumValue(slug[1], CommunityType);
     }
 
     if (slug.length === 2) {

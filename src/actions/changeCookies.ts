@@ -1,16 +1,16 @@
 'use server';
 
-import { getEnumAsArray } from '@masknet/kit';
 import { cookies } from 'next/headers.js';
 
 import { Agent, Locale } from '@/constants/enum.js';
+import { isValidEnumValue } from '@/helpers/isValidEnumValue.js';
 
 export async function changeCookies(formData: FormData) {
     const agent_ = formData.get('agent') as string | undefined;
     const locale_ = formData.get('locale') as string | undefined;
 
-    const isValidAgent = agent_ && getEnumAsArray(Agent).some(({ value }) => value === agent_);
-    const isValidLocale = locale_ && getEnumAsArray(Locale).some(({ value }) => value === locale_);
+    const isValidAgent = agent_ && isValidEnumValue(agent_, Agent);
+    const isValidLocale = locale_ && isValidEnumValue(locale_, Locale);
 
     const agent = isValidAgent ? agent_ : null;
     const locale = isValidLocale ? locale_ : null;
