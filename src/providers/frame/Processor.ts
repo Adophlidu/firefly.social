@@ -1,3 +1,4 @@
+/* cspell:disable */
 import { parseHTML } from 'linkedom';
 import { z } from 'zod';
 
@@ -20,6 +21,8 @@ import {
 } from '@/providers/frame/readers/metadata.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import type { FrameV1, FrameV2, LinkDigestedResponse } from '@/types/frame.js';
+
+const BLACKLISTED_HOSTS = ['t.me', 't.co', 'youtu.be', 'youtube.com', 'www.youtube.com', 'warpcast.com'];
 
 const FrameV2Schema = z.object({
     version: z.string(),
@@ -124,6 +127,9 @@ class Processor {
     digestDocumentUrl = async (documentUrl: string, signal?: AbortSignal): Promise<LinkDigestedResponse | null> => {
         const url = parseUrl(documentUrl);
         if (!url) throw new Error(`[frame] invalid document URL: ${documentUrl}`);
+
+        // Check if the URL is blacklisted
+        if (BLACKLISTED_HOSTS.some((host) => host === url.hostname)) return null;
 
         const response = await fetch(url, {
             // It must respond within 5 seconds.
