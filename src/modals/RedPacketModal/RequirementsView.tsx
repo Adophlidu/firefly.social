@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
-import { useAppKitAccount } from '@reown/appkit/react';
 import { useRouter } from '@tanstack/react-router';
 import { Fragment, useCallback, useContext, useState } from 'react';
 
@@ -10,12 +9,8 @@ import InfoIcon from '@/assets/info.svg';
 import MinusIcon from '@/assets/minus.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
-import { NetworkType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { formatDebankTokenToFungibleToken } from '@/helpers/formatToken.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import type { FungibleToken } from '@/mask_pkgs/web3-shared/base/index.js';
-import { NonFungibleTokenCollectionSelectModalRef, TokenSelectorModalRef } from '@/modals/controls.js';
+import { NonFungibleTokenCollectionSelectModalRef } from '@/modals/controls.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedPacketModal/common.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
@@ -23,13 +18,10 @@ import { RequirementType } from '@/providers/types/FireflyRedPacket.js';
 
 export function RequirementsView() {
     const { history } = useRouter();
-    const { rules, setRules, requireCollections, setRequireCollections, requireTokens, setRequireTokens, token } =
+    const { rules, setRules, requireCollections, setRequireCollections, setRequireTokens, token } =
         useContext(RedPacketContext);
     const [collectionSlots, setCollectionSlots] = useState<number[]>(() => {
         return requireCollections.length ? [] : [Date.now()];
-    });
-    const [tokenSlots, setTokenSlots] = useState<number[]>(() => {
-        return requireTokens.length ? [] : [Date.now()];
     });
 
     const disabled =
@@ -51,31 +43,6 @@ export function RequirementsView() {
         },
         [requireCollections, setRequireCollections, token.chainId],
     );
-
-    const account = useAppKitAccount();
-    const selectToken = async (slot: number, previous?: FungibleToken<number, number>) => {
-        if (!account.address) return;
-        const picked = await TokenSelectorModalRef.openAndWaitForClose({
-            address: account.address,
-            disableBackdropClose: true,
-            networkType: NetworkType.Ethereum,
-            isSelected: (item) => {
-                const token = formatDebankTokenToFungibleToken(item);
-                return requireTokens.some(({ token: t }) => {
-                    return isSameEthereumAddress(t.address, token.address) && t.chainId === item.chainId;
-                });
-            },
-        });
-        if (!picked) return;
-        if (previous) {
-            setRequireTokens((tokens) =>
-                tokens.map((x) => (x.token === previous ? { ...x, token: picked, quantity: '' } : x)),
-            );
-        } else {
-            setRequireTokens((tokens) => [...tokens, { token: picked, quantity: '' }]);
-        }
-        setTokenSlots((slots) => slots.filter((s) => s !== slot));
-    };
 
     return (
         <>
@@ -207,7 +174,6 @@ export function RequirementsView() {
                             setRules(EMPTY_LIST);
                             setRequireTokens(EMPTY_LIST);
                             setRequireCollections(EMPTY_LIST);
-                            setTokenSlots(EMPTY_LIST);
                             setCollectionSlots(EMPTY_LIST);
                         }}
                     >
@@ -217,13 +183,7 @@ export function RequirementsView() {
             </div>
             <div className="flex-grow" />
             <div className="w-full bg-lightBottom80 p-4 shadow-primary backdrop-blur-lg dark:shadow-primaryDark">
-                <ActionButton
-                    className="rounded-lg"
-                    disabled={disabled}
-                    onClick={() => {
-                        history.push('/confirm');
-                    }}
-                >
+                <ActionButton className="rounded-lg" disabled={disabled} onClick={() => history.push('/confirm')}>
                     <Trans>Next</Trans>
                 </ActionButton>
             </div>
