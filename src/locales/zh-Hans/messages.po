@@ -4219,9 +4219,6 @@ msgstr "发布一个帖子，告诉大家你已参与其中。在提案有效期
 msgid "For any inquiries, please <0>contact us</0>. All rights reserved by Firefly."
 msgstr "如有任何疑问，请<0>联系我们</0>。Firefly 保留所有权利。"
 
-msgid "This farcaster already bound to the other account"
-msgstr ""
-
 msgid "Different Account Detected"
 msgstr "检测到账户冲突"
 

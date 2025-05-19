@@ -22,7 +22,7 @@ export async function runInSafeAsync<T>(
     try {
         return await fn(signal);
     } catch (error) {
-        if (error instanceof AbortError) return;
+        if (AbortError.is(error)) return;
 
         if (!noThrow) throw error;
         console.error(`[runInSafeAsync] ${error}`);

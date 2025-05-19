@@ -14,6 +14,7 @@ import { FarcasterSignType, FarcasterSignType as SignType, Source } from '@/cons
 import {
     AbortError,
     FarcasterPatchSignerError,
+    FireflyAccountAbsentError,
     FireflyAlreadyBoundError,
     NotAllowedError,
     TimeoutError,
@@ -80,13 +81,12 @@ function LoginFarcasterWithWalletButton({ children, className }: HTMLProps<'a'>)
         try {
             await login(() => createAccountByWallet(controller.current.signal));
         } catch (error) {
-            if (error instanceof Error && error.message.includes('Account does not exist')) {
+            if (error instanceof FireflyAccountAbsentError) {
                 enqueueWarningMessage(t`Registered account not found. Please switch to another wallet and try again.`);
-            } else if (
-                error instanceof Error &&
-                error.message.includes('This farcaster already bound to the other account')
-            ) {
-                enqueueWarningMessage(t`This farcaster already bound to the other account`);
+            } else if (error instanceof FireflyAlreadyBoundError) {
+                enqueueWarningMessage(
+                    t`The account you are trying to log in with is already linked to a different Firefly account.`,
+                );
             } else {
                 enqueueMessageFromError(error, t`Failed to login.`);
             }

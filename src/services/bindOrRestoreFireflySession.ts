@@ -30,13 +30,11 @@ export async function bindOrRestoreFireflySession(session: Session, signal?: Abo
             sessionType: session.type,
         });
 
-        if (error instanceof FarcasterPatchSignerError || error instanceof AbortError) {
-            throw error;
-        }
+        // skip if the error is due to the session being aborted
+        if (AbortError.is(error)) throw error;
 
         // enqueue error message later
         if (error instanceof FireflyAlreadyBoundError) throw error;
-
         if (error instanceof FarcasterPatchSignerError) throw error;
 
         // this will create a new session

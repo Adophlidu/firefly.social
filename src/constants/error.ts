@@ -99,6 +99,13 @@ export class FarcasterInvalidSignerKey extends Error {
     }
 }
 
+export class FireflyAccountAbsentError extends Error {
+    override name = 'FireflyAccountAbsentError';
+    constructor(public source: ProfileSource) {
+        super(`This ${resolveSourceName(source)} account does not exists.`);
+    }
+}
+
 export class FireflyAlreadyBoundError extends Error {
     override name = 'FireflyAlreadyBoundError';
 
