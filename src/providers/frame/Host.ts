@@ -56,12 +56,12 @@ export class FarcasterFrameHost implements FrameHost {
 
         try {
             const frame = this.options?.frame?.();
-            const checked = await FireflyEndpointProvider.checkCustodyWallet(`${this.context.user.fid}`);
+            const checked = await FireflyEndpointProvider.checkCustodyWallet(`${this.context.client.clientFid}`);
             if (!checked) {
                 enqueueErrorMessage(t`Please sign in with your custody wallet first.`);
                 throw new NotAllowedError('No custody wallet found.');
             } else {
-                return signInWithFarcaster(frame?.x_url ?? SITE_URL, `${this.context.user.fid}`, options.nonce);
+                return signInWithFarcaster(frame?.x_url ?? SITE_URL, `${this.context.client.clientFid}`, options.nonce);
             }
         } catch (error) {
             console.log('DEBUG: [frame host]: signIn error', error);
