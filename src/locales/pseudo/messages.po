@@ -744,9 +744,6 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-msgid "Liked"
-msgstr ""
-
 msgid "Connect Email"
 msgstr ""
 
@@ -1513,9 +1510,6 @@ msgstr ""
 msgid "No function found that retrieves ownership"
 msgstr ""
 
-msgid "Liked this swap."
-msgstr ""
-
 msgid "Send"
 msgstr ""
 
@@ -1571,9 +1565,6 @@ msgid "[LuckyDrop]"
 msgstr ""
 
 msgid "Group"
-msgstr ""
-
-msgid "Unliked."
 msgstr ""
 
 #. placeholder {0}: index + 1
@@ -2651,9 +2642,6 @@ msgid "Failed to fetch profiles."
 msgstr ""
 
 msgid "Post is decrypting..."
-msgstr ""
-
-msgid "Unliked"
 msgstr ""
 
 msgid "Transaction"

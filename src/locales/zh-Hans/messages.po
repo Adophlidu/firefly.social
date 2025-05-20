@@ -749,9 +749,6 @@ msgstr "选择 NFT 系列以限制访问权限"
 msgid "Password"
 msgstr "密码"
 
-msgid "Liked"
-msgstr "已点赞"
-
 msgid "Connect Email"
 msgstr "绑定邮箱"
 
@@ -1518,9 +1515,6 @@ msgstr "不涉及虚假 KYC。"
 msgid "No function found that retrieves ownership"
 msgstr "没有找到检索所有权的功能"
 
-msgid "Liked this swap."
-msgstr "点赞了这笔交易。"
-
 msgid "Send"
 msgstr "发送"
 
@@ -1577,9 +1571,6 @@ msgstr "[红包]"
 
 msgid "Group"
 msgstr "小组"
-
-msgid "Unliked."
-msgstr "取消点赞。"
 
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
@@ -2670,9 +2661,6 @@ msgstr "未能获取个人资料。"
 
 msgid "Post is decrypting..."
 msgstr "帖子解密中..."
-
-msgid "Unliked"
-msgstr "已取消点赞"
 
 msgid "Transaction"
 msgstr "交易"

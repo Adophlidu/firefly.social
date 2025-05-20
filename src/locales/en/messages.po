@@ -744,9 +744,6 @@ msgstr "Select NFT collection to gate access"
 msgid "Password"
 msgstr "Password"
 
-msgid "Liked"
-msgstr "Liked"
-
 msgid "Connect Email"
 msgstr "Connect Email"
 
@@ -1513,9 +1510,6 @@ msgstr "No fake KYC found."
 msgid "No function found that retrieves ownership"
 msgstr "No function found that retrieves ownership"
 
-msgid "Liked this swap."
-msgstr "Liked this swap."
-
 msgid "Send"
 msgstr "Send"
 
@@ -1572,9 +1566,6 @@ msgstr "[LuckyDrop]"
 
 msgid "Group"
 msgstr "Group"
-
-msgid "Unliked."
-msgstr "Unliked."
 
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
@@ -2665,9 +2656,6 @@ msgstr "Failed to fetch profiles."
 
 msgid "Post is decrypting..."
 msgstr "Post is decrypting..."
-
-msgid "Unliked"
-msgstr "Unliked"
 
 msgid "Transaction"
 msgstr "Transaction"

@@ -7,7 +7,7 @@ import LikedIcon from '@/assets/liked.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -44,7 +44,6 @@ export const Like = memo<LikeProps>(function Like({ post, disabled = false, hidd
             await promise;
 
             capturePostActionEvent(hasLiked ? 'unlike' : 'like', post);
-            enqueueSuccessMessage(hasLiked ? t`Unliked` : t`Liked`);
             return;
         } catch (error) {
             if (isComment) {
