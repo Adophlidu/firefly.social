@@ -19,7 +19,7 @@ export function DiscoverLoginRedirect() {
         router.replace(
             isLogin ? resolveFollowingUrl(DEFAULT_SOCIAL_SOURCE) : resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE),
         );
-    }, [isLogin]);
+    }, [isLogin, router]);
 
     return null;
 }
