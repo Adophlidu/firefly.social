@@ -17,7 +17,7 @@ export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndic
     queryKey: unknown[],
     queries: Array<{
         key: string;
-        queryFn: (options: { pageParam?: string }) => Promise<T>;
+        queryFn: (options: { pageParam?: string; signal?: AbortSignal }) => Promise<T>;
         initialPageParam?: PageIndicator;
         timeout?: number; // ms
     }>,
@@ -30,6 +30,7 @@ export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndic
         async queryFn({ pageParam }) {
             const parsePageParam = parseJSON<PageParams>(pageParam) ?? {};
             const queryFns = queries.map(async (query) => {
+                const signal = query.timeout ? AbortSignal.timeout(query.timeout) : undefined;
                 const timeout = query.timeout ? delay(query.timeout).then(() => null) : null;
                 const indicator = parsePageParam[query.key];
                 if (!indicator) return null;
@@ -37,7 +38,9 @@ export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndic
                 return Promise.race(
                     compact([
                         timeout,
-                        query.queryFn({ pageParam: indicatorId }).then((result) => [{ key: query.key, result }]),
+                        query
+                            .queryFn({ pageParam: indicatorId, signal })
+                            .then((result) => [{ key: query.key, result }]),
                     ]),
                 );
             });

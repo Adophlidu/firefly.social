@@ -287,10 +287,19 @@ class BskySocialMedia implements Provider {
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
     }
-    async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const response = await bskySessionHolder.agent.getTimeline({
-            cursor: indicator?.id,
-        });
+    async discoverPostsById(
+        profileId: string,
+        indicator?: PageIndicator,
+        signal?: AbortSignal,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        const response = await bskySessionHolder.agent.getTimeline(
+            {
+                cursor: indicator?.id,
+            },
+            {
+                signal,
+            },
+        );
         const data = resolveBskyResponseData(response, 'Failed to discoverPosts');
         return createPageable(
             data.feed.map(formatBskyFeedPost),

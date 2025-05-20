@@ -43,7 +43,7 @@ export const FollowingPostList = memo<{
         ['posts', source, 'following', isLogin, asyncStatusAll, ...sources],
         sources.map((source) => ({
             key: source,
-            async queryFn({ pageParam }) {
+            async queryFn({ pageParam, signal }) {
                 const indicator = createIndicator(undefined, pageParam);
                 if (!isLogin) return createPageable(EMPTY_LIST, indicator);
                 const profile = profilesAll[source];
@@ -51,6 +51,7 @@ export const FollowingPostList = memo<{
                 return resolveSocialMediaProvider(source).discoverPostsById(
                     profile.profileId,
                     pageParam ? indicator : undefined,
+                    signal,
                 );
             },
             timeout: 10000,

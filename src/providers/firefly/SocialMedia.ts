@@ -724,7 +724,11 @@ class FireflySocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+    async discoverPostsById(
+        profileId: string,
+        indicator?: PageIndicator,
+        signal?: AbortSignal,
+    ): Promise<Pageable<Post, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/timeline/farcaster');
             const response = await fireflySessionHolder.fetch<CastsResponse>(url, {
@@ -735,6 +739,7 @@ class FireflySocialMedia implements Provider {
                     sourceFid: profileId,
                     cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
                 }),
+                signal,
             });
             const { casts, cursor } = resolveFireflyResponseData(response);
             const data = casts.map((x) => formatFarcasterPostFromFirefly(x));

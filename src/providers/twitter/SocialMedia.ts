@@ -170,10 +170,15 @@ class TwitterSocialMedia implements Provider {
         return createPageable(data, createIndicator(indicator), nextIndicator);
     }
 
-    async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+    async discoverPostsById(
+        profileId: string,
+        indicator?: PageIndicator,
+        signal?: AbortSignal,
+    ): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(`/api/twitter/followingTimeline`, {
             limit: 25,
             cursor: indicator?.id,
+            signal,
         });
         const response = await twitterSessionHolder.fetchWithSession<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
         const data = resolveTwitterResponseData(response);

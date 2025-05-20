@@ -162,8 +162,8 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.discoverPosts(indicator);
     }
 
-    async discoverPostsById(profileId: string, indicator?: PageIndicator) {
-        return FireflySocialMediaProvider.discoverPostsById(profileId, indicator);
+    async discoverPostsById(profileId: string, indicator?: PageIndicator, signal?: AbortSignal) {
+        return FireflySocialMediaProvider.discoverPostsById(profileId, indicator, signal);
     }
 
     async getCollectedPostsByProfileId(profileId: string, indicator?: PageIndicator) {

@@ -641,9 +641,10 @@ export interface Provider {
      * Retrieves recent post by a specific profile id.
      * @param profileId The ID of the profile.
      * @param indicator Optional PageIndicator for pagination.
+     * @param signal Optional AbortSignal
      * @returns A promise that resolves to a pageable list of Post objects.
      */
-    discoverPostsById: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
+    discoverPostsById: (profileId: string, indicator?: PageIndicator, signal?: AbortSignal) => Promise<Pageable<Post>>;
 
     /**
      * Retrieves posts by a specific profile ID.
