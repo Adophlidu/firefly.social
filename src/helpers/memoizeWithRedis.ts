@@ -64,7 +64,10 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
                 [fieldKey]: fieldValue,
             });
         } catch (error) {
-            // Ignore
+            console.log(
+                `[memoizeWithRedis] Error setting valued in Redis, key=${fieldKey}, value=${fieldValue}:`,
+                error,
+            );
         }
 
         return fieldValue;
@@ -85,13 +88,21 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
             return null;
         },
         set: async (fieldKey: string, value: unknown, ttl = DEFAULT_EXPIRES) => {
-            await kv.hset(key, {
-                [fieldKey]: {
-                    expiresAt: expiresWhen?.() ?? Date.now() + ttl,
-                    ttl,
-                    value,
-                },
-            });
+            try {
+                await kv.hset(key, {
+                    [fieldKey]: {
+                        expiresAt: expiresWhen?.() ?? Date.now() + ttl,
+                        ttl,
+                        value,
+                    },
+                });
+            } catch (error) {
+                console.log(
+                    `[memoizeWithRedis] Error setting valued in Redis, key=${fieldKey}, value=${value}:`,
+                    error,
+                );
+                throw error;
+            }
         },
         has: async (fieldKey: string) => (await kv.hexists(key, fieldKey)) === 1,
         delete: async (fieldKey: string) => (await kv.hdel(key, fieldKey)) === 1,
