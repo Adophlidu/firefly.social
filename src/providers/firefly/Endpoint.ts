@@ -1302,7 +1302,7 @@ class FireflyEndpoint {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/farcaster_account/checkCustodyWallet', {
             fid,
         });
-        const response = await fireflySessionHolder.fetch<Response<boolean>>(url);
+        const response = await fireflySessionHolder.fetchWithSession<Response<boolean>>(url);
         const data = resolveFireflyResponseData(response);
         return data;
     }

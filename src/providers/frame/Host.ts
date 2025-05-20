@@ -52,16 +52,10 @@ export class FarcasterFrameHost implements FrameHost {
     };
 
     signIn: FrameHost['signIn'] = async (options) => {
-        const profile = useFarcasterStateStore.getState().currentProfile;
-        if (!profile) throw new Error('No profile found. Please log in to Farcaster.');
-
         console.log('DEBUG: [frame host]: signIn', options);
 
-        const frame = this.options?.frame?.();
-
-        console.log('DEBUG: [frame host]: signIn context', this.context);
-
         try {
+            const frame = this.options?.frame?.();
             const checked = await FireflyEndpointProvider.checkCustodyWallet(`${this.context.user.fid}`);
             if (!checked) {
                 enqueueErrorMessage(t`Please sign in with your custody wallet first.`);
