@@ -1522,6 +1522,9 @@ msgstr "Send"
 msgid "Collected"
 msgstr "Collected"
 
+msgid "Encrypted choice"
+msgstr "Encrypted choice"
+
 msgid "<0>You</0> retruthed"
 msgstr "<0>You</0> retruthed"
 

@@ -1527,6 +1527,9 @@ msgstr "發送"
 msgid "Collected"
 msgstr "已收藏"
 
+msgid "Encrypted choice"
+msgstr ""
+
 msgid "<0>You</0> retruthed"
 msgstr ""
 

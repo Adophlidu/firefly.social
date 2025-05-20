@@ -1,3 +1,4 @@
+import { t } from '@lingui/core/macro';
 import { sum, values } from 'lodash-es';
 
 import type { SnapshotChoice } from '@/providers/snapshot/type.js';
@@ -36,5 +37,5 @@ export function formatSnapshotChoice(choice: SnapshotChoice, type: string, choic
             .join(', ');
     }
 
-    return;
+    return t`Encrypted choice`;
 }

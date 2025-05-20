@@ -11,7 +11,6 @@ import { ComposeModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { signInWithFarcaster } from '@/services/signInWithFarcaster.js';
-import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { FrameV2 } from '@/types/frame.js';
 
 export class FarcasterFrameHost implements FrameHost {

@@ -1522,6 +1522,9 @@ msgstr ""
 msgid "Collected"
 msgstr ""
 
+msgid "Encrypted choice"
+msgstr ""
+
 msgid "<0>You</0> retruthed"
 msgstr ""
 

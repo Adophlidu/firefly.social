@@ -193,7 +193,7 @@ export function DiscoverFilter({ tab, source }: Props) {
                         className="z-50 w-[240px] origin-top-right !overflow-visible font-normal outline-none transition data-[closed]:scale-95 data-[closed]:opacity-0"
                         onMouseLeave={() => close()}
                     >
-                        <div className="w-full -translate-y-5 transform pt-5">
+                        <div className="mt-5 w-full -translate-y-5 transform">
                             <div className="flex w-full flex-col gap-2 overflow-y-auto rounded-[8px] bg-primaryBottom p-3 shadow-messageShadow">
                                 <div className="flex w-full justify-between py-1">
                                     <span className="text-sm font-bold">

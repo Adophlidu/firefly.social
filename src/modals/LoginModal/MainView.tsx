@@ -32,7 +32,6 @@ import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useFireflyAccountAvatar } from '@/hooks/useFireflyAccountAvatar.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import { EditFireflyProfileModalRef, LoginModalRef } from '@/modals/controls.js';
@@ -44,14 +43,13 @@ import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 export function MainView() {
     const router = useRouter();
     const { history } = router;
-    const isMedium = useIsMedium();
     const [selectedSource, setSelectedSource] = useState<ThirdPartySource>();
 
     const isLoginFirefly = useIsLoginFirefly();
     const profileStore = useProfileStoreAll();
     const profilesAll = useCurrentProfilesAll();
 
-    const { data } = useAllConnectionsFormattedWithProfiles();
+    const { data, isLoading } = useAllConnectionsFormattedWithProfiles();
 
     const pathname = usePathname();
     const updateParams = useUpdateParams();
@@ -145,28 +143,40 @@ export function MainView() {
     return (
         <div className="rounded-[6px] px-6 pb-6 max-md:max-h-[calc(100vh_-_64px)] max-md:overflow-auto md:w-[400px]">
             <div className="no-scrollbar overflow-auto rounded-[6px] bg-primaryBottom md:max-h-[492px]">
-                {isLoginFirefly && currentProfile ? (
-                    <div className="mb-3 flex gap-2 rounded-lg border border-highlight p-2">
-                        <Avatar src={avatar} size={60} alt={currentProfile?.uid ?? ''} />
-                        <div className="flex flex-col items-start">
-                            {!currentProfile.avatar || !currentProfile.displayName ? (
-                                <ClickableButton
-                                    className="cursor-pointer font-bold text-highlight hover:underline"
-                                    onClick={() => {
-                                        EditFireflyProfileModalRef.open({
-                                            profile: currentProfile,
-                                            connections: data?.__origin__,
-                                        });
-                                    }}
-                                >
-                                    <Trans>Edit Profile</Trans>
-                                </ClickableButton>
-                            ) : (
-                                <span className="font-bold">{currentProfile?.displayName || 'Firefly Account'}</span>
-                            )}
-                            <span className="text-secondary">UID: {currentProfile?.uid}</span>
+                {isLoginFirefly ? (
+                    currentProfile ? (
+                        <div className="mb-3 flex gap-2 rounded-lg border border-highlight p-2">
+                            <Avatar src={avatar} size={60} alt={currentProfile?.uid ?? ''} />
+                            <div className="flex flex-col items-start">
+                                {!currentProfile.avatar || !currentProfile.displayName ? (
+                                    <ClickableButton
+                                        className="cursor-pointer font-bold text-highlight hover:underline"
+                                        onClick={() => {
+                                            EditFireflyProfileModalRef.open({
+                                                profile: currentProfile,
+                                                connections: data?.__origin__,
+                                            });
+                                        }}
+                                    >
+                                        <Trans>Edit Profile</Trans>
+                                    </ClickableButton>
+                                ) : (
+                                    <span className="font-bold">
+                                        {currentProfile?.displayName || 'Firefly Account'}
+                                    </span>
+                                )}
+                                <span className="text-secondary">UID: {currentProfile?.uid}</span>
+                            </div>
                         </div>
-                    </div>
+                    ) : isLoading ? (
+                        <div className="mb-3 flex animate-pulse items-center gap-2 rounded-lg border border-highlight p-2">
+                            <div className="h-[60px] w-[60px] rounded-full bg-bg" />
+                            <div className="flex-1 space-y-2">
+                                <div className="h-6 w-[96px] bg-bg" />
+                                <div className="h-6 w-[136] bg-bg" />
+                            </div>
+                        </div>
+                    ) : null
                 ) : null}
                 <div className="mb-3 text-left text-[15px] font-medium leading-[15px]">
                     <Trans>Social accounts</Trans>

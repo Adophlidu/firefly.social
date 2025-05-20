@@ -1527,6 +1527,9 @@ msgstr "发送"
 msgid "Collected"
 msgstr "已铸造"
 
+msgid "Encrypted choice"
+msgstr ""
+
 msgid "<0>You</0> retruthed"
 msgstr ""
 
