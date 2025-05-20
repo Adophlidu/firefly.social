@@ -275,6 +275,10 @@ const config: NextConfig = {
         return config;
     },
     turbopack: {
+        resolveAlias: {
+            // hack for https://github.com/vercel/next.js/issues/78696
+            'twitter-api-v2': './prebuilt/twitter-api-v2.js',
+        },
         rules: {
             '*.svg': {
                 loaders: [

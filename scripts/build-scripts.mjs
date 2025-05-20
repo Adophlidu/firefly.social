@@ -17,9 +17,15 @@ const buildConfigs = [
         outfile: 'public/firebase-messaging-sw.js',
         target: 'esnext',
     },
+    {
+        entryPoints: ['./node_modules/twitter-api-v2/dist/esm/index.js'],
+        outfile: 'prebuilt/twitter-api-v2.js',
+        target: 'es2020',
+        external: ['fs', 'https', 'crypto', 'zlib'],
+    },
 ];
 
-buildConfigs.forEach(({ entryPoints, outfile, target }) => {
+buildConfigs.forEach(({ entryPoints, outfile, target, external = [] }) => {
     esbuild.build({
         target,
         platform: 'browser',
@@ -30,6 +36,7 @@ buildConfigs.forEach(({ entryPoints, outfile, target }) => {
         bundle: true,
         minify: true,
         define: envDefinitions,
+        external,
     });
 
     console.log(`Service worker built to ${outfile}.`);
