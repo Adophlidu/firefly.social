@@ -1,11 +1,13 @@
 import { refresh } from '@lens-protocol/client/actions';
 
+import { sentryClient } from '@/configs/sentryClient.js';
 import { FetchError } from '@/constants/error.js';
 import { ensureLensResult, ensureLensResultSync } from '@/helpers/ensureLensResult.js';
 import { getLensCredentialsFromStorage, updateCredentialsStorage } from '@/helpers/getLensCredentialsFromStorage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { parseLensAccessToken } from '@/helpers/parseLensAccessToken.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { ExceptionId } from '@/providers/types/Telemetry.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 
 let resumeTask: Promise<string | undefined> | null = null;
@@ -20,6 +22,9 @@ async function runResumeTask(
     try {
         if (retryCount > 5) {
             console.warn('[resume lens] too many retries, clean the lens store');
+            sentryClient.captureException(ExceptionId.RESUME_LENS_SESSION, new Error('Too many retries'), {
+                profileId: currentProfileId || '',
+            });
             onResumeFailure();
             return;
         }
@@ -39,12 +44,18 @@ async function runResumeTask(
                 refreshToken: oldCredentials.refreshToken,
             });
             if (!refreshedCredentialsResult.isOk()) {
+                sentryClient.captureException(ExceptionId.RESUME_LENS_SESSION, refreshedCredentialsResult.error, {
+                    profileId: currentProfileId || '',
+                });
                 return await runResumeTask(currentProfileId, retryCount + 1, onResumeFailure);
             }
 
             const refreshedCredentials = refreshedCredentialsResult.value;
             if (refreshedCredentials.__typename === 'ForbiddenError') {
                 console.warn('[resume lens] clean the lens store because refresh token is invalid');
+                sentryClient.captureException(ExceptionId.RESUME_LENS_SESSION, new Error('ForbiddenError'), {
+                    profileId: currentProfileId || '',
+                });
                 onResumeFailure();
                 return;
             }
