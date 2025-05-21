@@ -48,7 +48,6 @@ async function runResumeTask(
                 onResumeFailure();
                 return;
             }
-
             updateCredentialsStorage(refreshedCredentials);
         }
 

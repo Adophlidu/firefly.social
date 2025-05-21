@@ -7,15 +7,12 @@ import { EthereumChainId } from '#masknet/web3-shared-evm';
 const map = new Map<number, PublicClient>();
 
 export function createWagmiPublicClient(chainId: EthereumChainId): PublicClient {
-    const chain = chains.find((x) => x.id === chainId) as Chain | undefined;
-    if (!chain) throw new Error(`Unsupported chainId = ${chainId}`);
-
     const client = map.get(chainId);
     if (client) return client;
 
-    const providerUrl = resolvePublicProviderUrl(chainId);
-    if (!providerUrl) throw new Error(`No provider url found for chain ${chainId}`);
+    const chain = chains.find((x) => x.id === chainId) as Chain | undefined;
 
+    const providerUrl = resolvePublicProviderUrl(chainId);
     const newClient = createClient({
         chain,
         transport: http(providerUrl, { batch: true }),

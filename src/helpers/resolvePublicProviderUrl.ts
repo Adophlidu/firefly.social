@@ -1,5 +1,5 @@
 import { first } from 'lodash-es';
-import { polygon } from 'viem/chains';
+import { polygon, monadTestnet } from 'viem/chains';
 
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getRPCConstant } from '#masknet/web3-shared-evm';
@@ -7,6 +7,7 @@ import { getRPCConstant } from '#masknet/web3-shared-evm';
 const resolve = createLookupTableResolver<number, string>(
     {
         [polygon.id]: 'https://polygon-rpc.com',
+        [monadTestnet.id]: 'https://testnet-rpc.monad.xyz/',
     },
     '',
 );
