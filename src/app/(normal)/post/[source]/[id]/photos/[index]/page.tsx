@@ -1,14 +1,31 @@
-import urlcat from 'urlcat';
+import { notFound } from 'next/navigation.js';
 
+import { PreviewImageModal } from '@/components/PreviewImageModal.js';
 import type { SocialSourceInURL } from '@/constants/enum.js';
-import { redirect, RedirectType } from '@/esm/navigation/server.js';
+import { EMPTY_LIST, SUPPORTED_PREVIEW_MEDIA_TYPES } from '@/constants/index.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import type { NextPageProps } from '@/types/index.js';
 
 interface Props extends NextPageProps<{ id: string; index: string; source: SocialSourceInURL }> {}
 
 export default async function Photo(props: Props) {
     const params = await props.params;
-    const { id: postId, source } = params;
+    const { id: postId, source, index } = params;
+    if (!postId) notFound();
 
-    redirect(urlcat('/post/:source/:id', { id: postId, source }), RedirectType.replace);
+    const currentSource = resolveSocialSource(source);
+    const provider = resolveSocialMediaProvider(currentSource);
+
+    const post = await provider.getPostById(postId);
+    if (!post) notFound();
+
+    const asset = post.metadata.content?.asset;
+    const attachments =
+        post.metadata.content?.attachments?.filter((x) => SUPPORTED_PREVIEW_MEDIA_TYPES.includes(x.type)) ?? EMPTY_LIST;
+
+    const assets = asset?.type === 'Image' && attachments.length === 1 ? [asset] : attachments;
+    return (
+        <PreviewImageModal postId={postId} assets={assets} source={source} index={Number.isNaN(+index) ? 0 : +index} />
+    );
 }

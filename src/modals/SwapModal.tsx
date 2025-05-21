@@ -1,13 +1,11 @@
 import {
     createOkxSwapWidget,
-    type EthereumProvider,
     OkxEvents,
     type OkxSwapWidgetHandler,
     ProviderType,
     THEME,
     TradeType,
 } from '@okxweb3/dex-widget';
-import { useAppKitProvider } from '@reown/appkit/react';
 import { useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 import { mainnet } from 'viem/chains';
@@ -51,8 +49,7 @@ export function SwapModal({ ref }: Props) {
     const theme = isDark || mode === 'dark' ? THEME.DARK : THEME.LIGHT;
 
     const networkType = props?.providerType ?? ProviderType.EVM;
-    const appKitProvider = useAppKitProvider(networkType === ProviderType.EVM ? 'eip155' : 'solana');
-    const provider = appKitProvider.walletProvider as EthereumProvider;
+    const provider = networkType === ProviderType.EVM ? window.ethereum : window.solana;
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
@@ -96,8 +93,7 @@ export function SwapModal({ ref }: Props) {
 
         const instance = createOkxSwapWidget(widgetRef, {
             params,
-            // the kit provider is not supported in the widget
-            provider: networkType === ProviderType.EVM ? provider : window.solana,
+            provider,
             listeners,
         });
         instanceRef.current = instance;

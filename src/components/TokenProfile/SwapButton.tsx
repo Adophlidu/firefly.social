@@ -1,7 +1,6 @@
 'use client';
 import { t } from '@lingui/core/macro';
 import { ProviderType } from '@okxweb3/dex-widget';
-import { useAppKitProvider } from '@reown/appkit/react';
 import { memo, useContext, useMemo } from 'react';
 import { switchChain } from 'wagmi/actions';
 
@@ -14,6 +13,7 @@ import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/chain.js';
 import { NetworkType } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { SwapModalRef, WalletConnectModalRef } from '@/modals/controls.js';
 import type { SwapModalOpenProps } from '@/modals/SwapModal.js';
 
@@ -37,7 +37,7 @@ export const SwapButton = memo<Props>(function SwapButton({
     const chainId = swapPropsFromProps?.chainId ?? propsFromContext?.chainId;
 
     const providerType = chainId !== SOLANA_CHAIN_ID_IN_FIREFLY ? ProviderType.EVM : ProviderType.SOLANA;
-    const appKitProvider = useAppKitProvider(providerType === ProviderType.EVM ? 'eip155' : 'solana');
+    const { ethereum, solana } = useWalletAccountAll();
 
     if (providerType === ProviderType.EVM && chainId && !chainIds.includes(chainId)) return null;
     if (!tradable) return null;
@@ -50,7 +50,10 @@ export const SwapButton = memo<Props>(function SwapButton({
             )}
             disabled={!tradable}
             onClick={async () => {
-                if (!appKitProvider.walletProvider) {
+                if (
+                    (providerType === ProviderType.EVM && !ethereum.isConnected) ||
+                    (providerType === ProviderType.SOLANA && !solana.isConnected)
+                ) {
                     WalletConnectModalRef.open({
                         networkType: providerType === ProviderType.EVM ? NetworkType.Ethereum : NetworkType.Solana,
                     });
