@@ -15,6 +15,18 @@ interface MemoizedFunction {
 
 const DEFAULT_EXPIRES = 7 * 24 * 60 * 60 * 1000; // a week
 
+function resolveRedisKey(key: KeyType, fieldKey: string) {
+    const sum = [...fieldKey]
+        .map((c) => {
+            const code = c.codePointAt(0);
+            return typeof code === 'number' ? code : 0;
+        })
+        .reduce((s, n) => s + n, 0);
+
+    // disperse the keys to 10 buckets
+    return `${key}:${sum % 10}`;
+}
+
 export function resolveRedisFieldKey(...args: any) {
     return [...args].join('_');
 }
@@ -39,20 +51,25 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
 ): T & MemoizedFunction {
     const memoized = async (...args: any) => {
         const fieldKey = resolver ? resolver.apply(null, args) : resolveRedisFieldKey(...args);
+        const redisKey = resolveRedisKey(key, fieldKey);
 
         try {
-            const fieldExists = await kv.hexists(key, fieldKey);
+            const fieldExists = await kv.hexists(redisKey, fieldKey);
 
             // Cache hit, return the cached value
             if (fieldExists) {
-                const fieldValue = await kv.hget<ReturnType<T>>(key, fieldKey);
+                const fieldValue = await kv.hget<ReturnType<T>>(redisKey, fieldKey);
 
                 if (!ignoreCacheWhen?.(fieldValue)) {
                     return fieldValue;
                 }
             }
         } catch (error) {
-            // Ignore
+            console.log(
+                `[memoizeWithRedis] Error getting value from Redis, key=${key}, fieldKey=${fieldKey}, redisKey=${redisKey}:`,
+                error,
+            );
+            // Ignore error
         }
 
         // Cache miss, call the original function
@@ -60,14 +77,15 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
 
         try {
             // Set the value in Redis
-            await kv.hset(key, {
+            await kv.hset(redisKey, {
                 [fieldKey]: fieldValue,
             });
         } catch (error) {
             console.log(
-                `[memoizeWithRedis] Error setting valued in Redis, key=${fieldKey}, value=${fieldValue}:`,
+                `[memoizeWithRedis] Error setting value in Redis, key=${key}, fieldKey=${fieldKey}, redisKey=${redisKey}, fieldValue=${fieldValue}:`,
                 error,
             );
+            // Ignore error
         }
 
         return fieldValue;
@@ -75,7 +93,7 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
 
     memoized.cache = {
         get: async (fieldKey: string) => {
-            const fieldValue = await kv.hget(key, fieldKey);
+            const fieldValue = await kv.hget(resolveRedisKey(key, fieldKey), fieldKey);
             const fieldValueWithTTL = fieldValue as { expiresAt: number; ttl: number; value: unknown };
 
             // field value with TTL when set
@@ -88,8 +106,9 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
             return null;
         },
         set: async (fieldKey: string, value: unknown, ttl = DEFAULT_EXPIRES) => {
+            const redisKey = resolveRedisKey(key, fieldKey);
             try {
-                await kv.hset(key, {
+                await kv.hset(redisKey, {
                     [fieldKey]: {
                         expiresAt: expiresWhen?.() ?? Date.now() + ttl,
                         ttl,
@@ -98,14 +117,14 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
                 });
             } catch (error) {
                 console.log(
-                    `[memoizeWithRedis] Error setting valued in Redis, key=${fieldKey}, value=${value}:`,
+                    `[memoizeWithRedis] Error setting value in Redis, key=${key}, fieldKey=${fieldKey}, redisKey=${redisKey}, fieldValue=${value}:`,
                     error,
                 );
                 throw error;
             }
         },
-        has: async (fieldKey: string) => (await kv.hexists(key, fieldKey)) === 1,
-        delete: async (fieldKey: string) => (await kv.hdel(key, fieldKey)) === 1,
+        has: async (fieldKey: string) => (await kv.hexists(resolveRedisKey(key, fieldKey), fieldKey)) === 1,
+        delete: async (fieldKey: string) => (await kv.hdel(resolveRedisKey(key, fieldKey), fieldKey)) === 1,
     };
 
     return memoized as unknown as T & MemoizedFunction;

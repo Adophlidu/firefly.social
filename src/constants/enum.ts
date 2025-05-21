@@ -225,6 +225,12 @@ export enum SearchType {
     Communities = 'communities',
 }
 
+/**
+ * The prefix of the redis key
+ *
+ * For example, the prefix format is `/[version]/[name]`
+ * The final redis key is alike: `/[version]/[name]:[sequence_id]`
+ */
 export enum KeyType {
     DigestOpenGraphLink = '/v2/digestOpenGraphLink',
     DigestFrameLink = '/v3/digestFrameLink',
