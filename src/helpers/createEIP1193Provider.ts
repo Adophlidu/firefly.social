@@ -18,7 +18,7 @@ export function createEIP1193Provider(request: (requestArguments: RequestArgumen
 
                 return result as T;
             } catch (error) {
-                console.error(`[eip1193 provider ${label}] error`, JSON.stringify(error));
+                console.error(`[eip1193 provider ${label}] error`, error);
                 throw error;
             }
         },

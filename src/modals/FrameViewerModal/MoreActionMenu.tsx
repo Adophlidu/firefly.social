@@ -8,20 +8,25 @@ import ReloadIcon from '@/assets/reload.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
+import { classNames } from '@/helpers/classNames.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import type { FrameV2 } from '@/types/frame.js';
 
 interface MoreActionProps {
+    className?: string;
     frame?: FrameV2;
     disabled?: boolean;
     onReload?: () => void;
 }
 
-export const MoreAction = memo(function MoreAction({ frame, disabled = false, onReload }: MoreActionProps) {
+export const MoreAction = memo(function MoreAction({ className, frame, disabled = false, onReload }: MoreActionProps) {
     const [, handleCopy] = useCopyText(frame?.x_url ?? '', { enqueueSuccessMessage: true });
 
     return (
-        <MoreActionMenu loginRequired={false} button={<MoreIcon width={24} height={24} className="text-main" />}>
+        <MoreActionMenu
+            loginRequired={false}
+            button={<MoreIcon width={24} height={24} className={classNames('text-main', className)} />}
+        >
             <MenuGroup>
                 {frame?.x_url ? (
                     <MenuItem>
