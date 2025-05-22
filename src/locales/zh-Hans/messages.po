@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-05-20 12:01\n"
+"PO-Revision-Date: 2025-05-22 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -110,7 +110,7 @@ msgid "Posts"
 msgstr "帖子"
 
 msgid "Show assets < 1 USD"
-msgstr ""
+msgstr "隐藏小于 1 美元的资产"
 
 msgid "Metadata not frozen."
 msgstr "元数据未冻结。"
@@ -193,7 +193,7 @@ msgid "Followed @{0} on {sourceName}"
 msgstr "在 {sourceName} 上关注 @{0}"
 
 msgid "Search collection"
-msgstr ""
+msgstr "查询 NFT 系列"
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {关注者} other {关注者}}"
@@ -311,7 +311,7 @@ msgid "No cryptocurrency mixer found."
 msgstr "未涉及加密货币混合器。"
 
 msgid "Feeds"
-msgstr ""
+msgstr "社交帖子"
 
 msgid "More"
 msgstr "更多"
@@ -446,7 +446,7 @@ msgid "firefly.eth tipped you 100 USDC"
 msgstr "firefly.eth 打赏了你 100 USDC"
 
 msgid "Your BlueSky session has expired, please sign in again"
-msgstr ""
+msgstr "您的 BlueSky 登录状态已失效，请重新登录。"
 
 msgid "Poll"
 msgstr "投票"
@@ -464,7 +464,7 @@ msgid "Pay"
 msgstr "付款"
 
 msgid "Nickname"
-msgstr ""
+msgstr "昵称"
 
 #. placeholder {0}: resolveSourceName(source)
 msgid "Followed @{handle} on {0}."
@@ -769,7 +769,7 @@ msgid "Explore"
 msgstr "探索"
 
 msgid "Show Less"
-msgstr ""
+msgstr "收起"
 
 msgid "Only up to 2 images can be chosen."
 msgstr "至多可以选择 2 张图片。"
@@ -915,7 +915,7 @@ msgid "<0/>Delete Firefly account"
 msgstr "<0/>删除 Firefly 账号"
 
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer on Warpcast"
-msgstr ""
+msgstr "使用<0>摄像头</0> 在 {count} 内<1/> 来扫描你的二维码。在 Warpcast 上授权 Farcaster singer。"
 
 msgid "Select Account"
 msgstr "选择账号"
@@ -1014,7 +1014,7 @@ msgid "{seconds, plural, one {1 second left} other {{seconds} seconds left}}"
 msgstr "{seconds, plural, one {1 秒剩余} other {{seconds} 秒剩余}}"
 
 msgid "Block"
-msgstr ""
+msgstr "屏蔽"
 
 msgid "Max"
 msgstr "最大"
@@ -1211,7 +1211,7 @@ msgid "Update"
 msgstr "更新"
 
 msgid "Registered account not found. Please switch to another wallet and try again."
-msgstr ""
+msgstr "账户未注册，请更换钱包重试。"
 
 msgid "Domain"
 msgstr "域名"
@@ -1414,7 +1414,7 @@ msgid "<0>Bought</0><1/>"
 msgstr "<0>购买</0><1/>"
 
 msgid "Sign in with recovery phrase"
-msgstr ""
+msgstr "使用助记词登录"
 
 msgid "Mint price"
 msgstr "铸造价格"
@@ -2189,7 +2189,7 @@ msgid "Articles"
 msgstr "文章"
 
 msgid "This Apple account is already linked to another Firefly account."
-msgstr ""
+msgstr "该邮箱已绑定其他 Apple 账号。"
 
 msgid "Follow me"
 msgstr "关注我"
@@ -2239,7 +2239,7 @@ msgid "Search token"
 msgstr "搜索代币"
 
 msgid "Failed to restore your BlueSky session, you can refresh the page to try again or sign in again."
-msgstr ""
+msgstr "无法恢复您的 BlueSky 会话，您可以刷新页面重试，或重新登录。"
 
 msgid "Details"
 msgstr "详情"
@@ -2263,7 +2263,7 @@ msgid "No preview found for shared link"
 msgstr "无法预加载"
 
 msgid "Connect your wallet to unlock all features"
-msgstr ""
+msgstr "连接钱包以解锁全部功能"
 
 msgid "Suspected malicious address found."
 msgstr "发现疑似恶意地址。"
@@ -2517,7 +2517,7 @@ msgid "Please switch to {0}"
 msgstr "请切换到 {0}"
 
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
-msgstr ""
+msgstr "Top 100 Web3 用户由<0>X3</0>提供"
 
 msgid "Non-honeypot related address."
 msgstr "非钓鱼地址。"
@@ -2865,7 +2865,7 @@ msgid "Wallet submitted"
 msgstr "已提交钱包"
 
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
-msgstr ""
+msgstr "在 {count} 秒内，用手机的 <0>相机</0> 扫描二维码。<1/>免费授权一个新的 Farcaster 签名加入 Firefly。"
 
 msgid "This does not appear to be a honeypot."
 msgstr "这看起来不像是一个陷阱。"
@@ -3755,7 +3755,7 @@ msgid "Congratulations!"
 msgstr "祝贺你！"
 
 msgid "Channel could not be found."
-msgstr ""
+msgstr "未找到频道。"
 
 msgid "Clear all requirements"
 msgstr "清除所有任务"
@@ -4065,7 +4065,7 @@ msgid "Ethereum JSON RPC"
 msgstr "以太坊 JSON RPC"
 
 msgid "Last sale"
-msgstr ""
+msgstr "最新价"
 
 #. placeholder {0}: profile.handle
 msgid "Followed @{0} on Lens"
@@ -4099,7 +4099,7 @@ msgid "<0>{0}</0> retruthed"
 msgstr ""
 
 msgid "Sign in with Farcaster"
-msgstr ""
+msgstr "使用 Farcaster 登录"
 
 msgid "Back to home"
 msgstr "返回主页"
@@ -4135,7 +4135,7 @@ msgid "Cybercrime."
 msgstr "网络犯罪。"
 
 msgid "This wallet is already linked to a different Firefly account."
-msgstr ""
+msgstr "该钱包地址已绑定其他Firefly账号。"
 
 #. placeholder {0}: formatAddressEthereum(toAddress, 4)
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
@@ -4217,7 +4217,7 @@ msgid "No connected wallet."
 msgstr "没有已连接的钱包。"
 
 msgid "Hide assets < 1 USD"
-msgstr ""
+msgstr "隐藏小于 1 美元的资产"
 
 msgid "Hours"
 msgstr "小时"
