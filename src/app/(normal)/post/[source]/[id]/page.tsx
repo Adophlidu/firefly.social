@@ -6,7 +6,6 @@ import { PostDetailPage } from '@/app/(normal)/post/[source]/[id]/pages/DetailPa
 import { Comeback } from '@/components/Comeback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { createMetadataPostById } from '@/helpers/createMetadataPostById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
@@ -62,16 +61,14 @@ export default async function Page(props: Props) {
                 </article>
             );
         }
-        notFound();
     }
-    const threadResult = await runInSafeAsync(() => getThreads(post, source));
-    const threads = threadResult?.data || EMPTY_LIST;
-    await queryClient.setQueryData([source, 'post-detail', params.id], post);
-    await queryClient.setQueryData([source, 'post-thread', params.id], threads);
+    const threadResult = post ? await runInSafeAsync(() => getThreads(post, source)) : undefined;
+    if (post) await queryClient.setQueryData([source, 'post-detail', params.id], post);
+    if (threadResult) await queryClient.setQueryData([source, 'post-thread', params.id], threadResult);
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
-            <PostDetailPage id={params.id} source={source} />
+            <PostDetailPage id={params.id} source={source} initialPost={post} initialThreads={threadResult} />
         </HydrationBoundary>
     );
 }

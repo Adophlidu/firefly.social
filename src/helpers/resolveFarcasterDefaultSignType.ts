@@ -1,0 +1,6 @@
+import { FarcasterSignType } from '@/constants/enum.js';
+
+export function resolveFarcasterDefaultSignType(count?: number) {
+    if (typeof count !== 'number') return FarcasterSignType.RelayService;
+    return (count ?? 0) > 0 ? FarcasterSignType.RelayService : FarcasterSignType.FireflySponsorship;
+}

@@ -107,7 +107,11 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                 </div>
             </div>
 
-            <BioMarkup className="mt-3 line-clamp-2 text-medium leading-[22px] text-lightMain" source={profile.source}>
+            <BioMarkup
+                className="mt-3 line-clamp-2 text-medium leading-[22px] text-lightMain"
+                source={profile.source}
+                profile={profile}
+            >
                 {profile.bio ?? '-'}
             </BioMarkup>
 

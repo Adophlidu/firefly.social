@@ -78,6 +78,16 @@ function parseTweetOembedUrls(text: string) {
     );
 }
 
+function extractDimensionsFromUrl(url: string): { width: number; height: number } | null {
+    const match = url.match(/\/(\d+)x(\d+)(?=\/|$)/);
+    if (match) {
+        const width = parseInt(match[1], 10);
+        const height = parseInt(match[2], 10);
+        return { width, height };
+    }
+    return null;
+}
+
 export function formatTwitterPostFromNitter(
     tweet: Tweet,
     options?: {
@@ -98,11 +108,15 @@ export function formatTwitterPostFromNitter(
             coverUri: getTwitterNitterPicUrl(thumb),
         })),
         ...compact([tweet.video])
-            .map<Attachment>(({ variants, thumb }) => ({
-                type: 'Video',
-                uri: last(variants)?.url!,
-                coverUri: getTwitterNitterPicUrl(thumb),
-            }))
+            .map<Attachment>(({ variants, thumb }) => {
+                const uri = last(variants)?.url!;
+                return {
+                    type: 'Video',
+                    uri,
+                    coverUri: getTwitterNitterPicUrl(thumb),
+                    ...extractDimensionsFromUrl(uri),
+                };
+            })
             .filter((x) => x.uri),
     ];
 

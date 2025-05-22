@@ -9,6 +9,7 @@ import { toHex } from 'viem';
 import { FramePage, FramePageBody, FramePageTitle } from '@/app/(whiteboard)/components/FramePage.js';
 import { GhostError } from '@/app/(whiteboard)/components/GhostError.js';
 import FireflyLogo from '@/assets/firefly.logo.svg';
+import { Image } from '@/components/Image.js';
 import { IS_IOS } from '@/constants/browser.js';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
@@ -199,7 +200,16 @@ export default function Page(props: Props) {
             <FramePageBody>
                 {!ready || loading || loadingSupported ? (
                     <div className="absolute inset-0 z-10 flex h-full w-full items-center justify-center bg-white dark:bg-black">
-                        <FireflyLogo width={80} height={80} />
+                        {frame?.button.action.splashImageUrl ? (
+                            <Image
+                                alt={frame.button.action.name}
+                                src={frame.button.action.splashImageUrl}
+                                width={80}
+                                height={80}
+                            />
+                        ) : (
+                            <FireflyLogo width={80} height={80} />
+                        )}
                     </div>
                 ) : null}
                 {frame ? (

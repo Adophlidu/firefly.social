@@ -1,6 +1,5 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { first, isNumber } from 'lodash-es';
@@ -44,12 +43,12 @@ export interface TokenMarketDataProps extends HTMLProps<HTMLDivElement> {
 
 const getRanges = () => {
     return [
-        { id: '1h', label: t`1H`, days: 1 },
-        { id: '24h', label: t`24H`, days: 1 },
-        { id: '7d', label: t`7D`, days: 7 },
-        { id: '1m', label: t`1M`, days: 30 },
-        { id: '1y', label: t`1Y`, days: 365 },
-        { id: 'max', label: t`Max`, days: undefined },
+        { id: '1h', label: <Trans>1H</Trans>, days: 1 },
+        { id: '24h', label: <Trans>24H</Trans>, days: 1 },
+        { id: '7d', label: <Trans>7D</Trans>, days: 7 },
+        { id: '1m', label: <Trans>1M</Trans>, days: 30 },
+        { id: '1y', label: <Trans>1Y</Trans>, days: 365 },
+        { id: 'max', label: <Trans>Max</Trans>, days: undefined },
     ] as const;
 };
 
@@ -147,7 +146,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                                     : undefined
                             }
                         >
-                            {t`Swap`}
+                            <Trans>Swap</Trans>
                         </SwapButton>
                     </div>
                     <div className="line-height-[22px] flex flex-col gap-2">
@@ -245,7 +244,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                                     ? 'light rounded-[18px] bg-input font-bold text-main'
                                     : 'bg-transparent text-secondary',
                             )}
-                            key={range.label}
+                            key={range.id}
                             onClick={() => setRangeId(range.id)}
                         >
                             {range.label}

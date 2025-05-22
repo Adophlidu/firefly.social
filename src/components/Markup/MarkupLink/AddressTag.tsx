@@ -1,4 +1,3 @@
-import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
@@ -23,38 +22,35 @@ export const AddressTag = memo<AddressTagProps>(function AddressTag({ title, add
     });
 
     if (!data || isLoading) return title;
-
-    switch (data.address_type) {
-        case 'eoa':
-        case 'soa':
-            return (
-                <span className="inline-flex h-[18px] items-center gap-1">
-                    <Image
-                        className="inline size-[15px] shrink-0 rounded-full"
-                        unoptimized
-                        loading="lazy"
-                        src={getStampAvatarByProfileId(Source.Wallet, address)}
-                        alt=""
-                        width={15}
-                        height={15}
-                    />
-                    <Link
-                        className="cursor-pointer text-highlight hover:underline"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                        }}
-                        prefetch={false}
-                        href={getProfileUrl({ source: Source.Wallet, profileId: address })}
-                    >
-                        {title}
-                    </Link>
-                </span>
-            );
-        case 'contract':
-            if (!data) return title;
-            return <ContractTag title={title} address={address} detected={data} />;
-        default:
-            safeUnreachable(data.address_type);
-            return title;
+    const addressType = data.address_type;
+    if (addressType === 'eoa' || addressType === 'soa' || title.endsWith('.eth')) {
+        return (
+            <span className="inline-flex h-[18px] items-center gap-1">
+                <Image
+                    className="inline size-[15px] shrink-0 rounded-full"
+                    unoptimized
+                    loading="lazy"
+                    src={getStampAvatarByProfileId(Source.Wallet, title.endsWith('.eth') ? title : address)}
+                    alt=""
+                    width={15}
+                    height={15}
+                />
+                <Link
+                    className="cursor-pointer text-highlight hover:underline"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                    }}
+                    prefetch={false}
+                    href={getProfileUrl({ source: Source.Wallet, profileId: address })}
+                >
+                    {title}
+                </Link>
+            </span>
+        );
     }
+    if (addressType === 'contract') {
+        if (!data) return title;
+        return <ContractTag title={title} address={address} detected={data} />;
+    }
+    return title;
 });

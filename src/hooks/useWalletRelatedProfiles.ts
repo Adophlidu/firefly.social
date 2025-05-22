@@ -7,8 +7,9 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 /**
  * get wallet related Firefly profiles
  */
-export function useWalletRelatedProfiles(address: string) {
+export function useWalletRelatedProfiles(address: string, enabled = true) {
     return useQuery({
+        enabled,
         queryKey: ['wallet-related-profiles', address],
         queryFn: async () => {
             return FireflyEndpointProvider.getAllPlatformProfileByIdentity(

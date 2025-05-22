@@ -5,15 +5,20 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, SocialProfileCategory, Source } from '@/constants/enum.js';
-import { createIndicator } from '@/helpers/pageable.js';
+import { createIndicator, createPageable } from '@/helpers/pageable.js';
+import { useToggleEnableTruthSocial } from '@/hooks/useToggleEnableTruthSocial.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 export function TrumpTruthSocialPosts() {
+    const { enable } = useToggleEnableTruthSocial();
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['truth-social', 'posts'],
+        queryKey: ['truth-social', 'posts', enable],
 
         queryFn: async ({ pageParam }) => {
-            const posts = await FireflyEndpointProvider.getTrumpTruthSocialPosts(createIndicator(undefined, pageParam));
+            const indicator = createIndicator(undefined, pageParam);
+            if (!enable) return createPageable([], indicator);
+
+            const posts = await FireflyEndpointProvider.getTrumpTruthSocialPosts(indicator);
             return posts;
         },
         initialPageParam: '',

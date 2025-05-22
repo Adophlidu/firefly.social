@@ -3,10 +3,10 @@
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 
+import { FeaturedToken } from '@/app/(normal)/search/[...slug]/pages/FeaturedToken.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
-import { TokenMarketData } from '@/components/TokenProfile/TokenMarketData.js';
 import { ScrollListKey } from '@/constants/enum.js';
 import { formatMarketToken } from '@/helpers/formatMarketToken.js';
 import { searchTokens, type TokenWithMarket } from '@/services/searchTokens.js';
@@ -14,9 +14,7 @@ import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 const getSearchItemContent = (token: TokenWithMarket) => {
     return token.hit ? (
-        <div className="p-3">
-            <TokenMarketData linkable token={formatMarketToken(token)} />
-        </div>
+        <FeaturedToken token={formatMarketToken(token)} />
     ) : (
         <SearchableTokenItem key={token.id} token={token} />
     );

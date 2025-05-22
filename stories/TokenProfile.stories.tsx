@@ -1,19 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { TokenProfile, TokenProfileSkeleton } from '@/components/Token/TokenProfile.js';
+import { TokenProfileCard, TokenProfileCardSkeleton } from '@/components/Token/TokenProfileCard.js';
 
 const meta = {
     title: 'Token/TokenProfile',
-    component: TokenProfile,
+    component: TokenProfileCard,
     render: (args) => {
         return (
             <div className="flex flex-col gap-4">
-                <TokenProfileSkeleton {...args} />
-                <TokenProfile {...args} />
+                <TokenProfileCardSkeleton {...args} />
+                <TokenProfileCard {...args} />
             </div>
         );
     },
-} satisfies Meta<typeof TokenProfile>;
+} satisfies Meta<typeof TokenProfileCard>;
 
 type Story = StoryObj<typeof meta>;
 export const Symbol: Story = {

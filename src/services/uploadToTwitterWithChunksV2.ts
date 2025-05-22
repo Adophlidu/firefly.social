@@ -68,7 +68,7 @@ async function uploadChunks(chunks: Blob[], mediaId: string) {
 
 export async function uploadToTwitterWithChunksV2(
     file: File,
-    chunkSize = 1 * 1024 * 1024,
+    chunkSize = 3 * 1024 * 1024,
     options?: Partial<UploadMediaV1Params>,
 ) {
     const chunks = [];

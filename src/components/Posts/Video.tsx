@@ -59,7 +59,7 @@ function VideoContent({
     const containerRef = useRef<HTMLDivElement>(null!);
     const intersection = useIntersection(containerRef, {
         rootMargin: '0px',
-        threshold: 1,
+        threshold: 0.5,
     });
     const hovered = useHover(containerRef);
 

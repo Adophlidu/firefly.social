@@ -104,7 +104,11 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
                         </div>
                     </div>
                 </div>
-                <BioMarkup className="mt-1.5 line-clamp-2 text-left text-medium text-lightMain" source={profile.source}>
+                <BioMarkup
+                    className="mt-1.5 line-clamp-2 text-left text-medium text-lightMain"
+                    source={profile.source}
+                    profile={profile}
+                >
                     {profile.bio || '--'}
                 </BioMarkup>
             </div>

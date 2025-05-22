@@ -1,7 +1,6 @@
 import {
     AccountReportReason,
     AccountsOrderBy,
-    evmAddress,
     GroupsOrderBy,
     MainContentFocus,
     ManagedAccountsVisibility,
@@ -99,6 +98,7 @@ import {
 } from '@/helpers/pageable.js';
 import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
@@ -208,7 +208,7 @@ class LensSocialMedia implements Provider {
                 pageSize: PageSize.Fifty,
                 orderBy: GroupsOrderBy.Alphabetical,
                 filter: {
-                    member: evmAddress(profileId),
+                    member: safeEvmAddress(profileId),
                 },
             }),
         );
@@ -231,7 +231,7 @@ class LensSocialMedia implements Provider {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 filter: {
-                    feeds: [{ feed: evmAddress(channelId) }],
+                    feeds: [{ feed: safeEvmAddress(channelId) }],
                     metadata: null,
                 },
             }),
@@ -282,7 +282,7 @@ class LensSocialMedia implements Provider {
             fetchGroupMembers(getClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
-                group: evmAddress(channelId),
+                group: safeEvmAddress(channelId),
             }),
         );
 
@@ -330,7 +330,7 @@ class LensSocialMedia implements Provider {
             post(lensSessionHolder.sessionClient, {
                 contentUri: draftPost.metadata.contentURI,
                 rules: formatLensPostRules(draftPost.restrictions),
-                feed: draftPost.channel?.feedId ? evmAddress(draftPost.channel.feedId) : undefined,
+                feed: draftPost.channel?.feedId ? safeEvmAddress(draftPost.channel.feedId) : undefined,
             }),
         );
     }
@@ -358,7 +358,7 @@ class LensSocialMedia implements Provider {
                 contentUri: intro,
                 quoteOf: { post: postId },
                 rules: formatLensPostRules(draftPost.restrictions),
-                feed: draftPost.channel?.id ? evmAddress(draftPost.channel.id) : undefined,
+                feed: draftPost.channel?.id ? safeEvmAddress(draftPost.channel.id) : undefined,
             }),
         );
     }
@@ -386,7 +386,7 @@ class LensSocialMedia implements Provider {
             post(lensSessionHolder.sessionClient, {
                 contentUri: comment,
                 commentOn: { post: postId },
-                feed: draftPost.channel?.id ? evmAddress(draftPost.channel.id) : undefined,
+                feed: draftPost.channel?.id ? safeEvmAddress(draftPost.channel.id) : undefined,
             }),
         );
     }
@@ -429,7 +429,7 @@ class LensSocialMedia implements Provider {
         // TODO: lastLoggedInAccount
         const profiles = await ensureLensResult(
             fetchAccountsAvailable(lensSessionHolder.sdk, {
-                managedBy: evmAddress(address),
+                managedBy: safeEvmAddress(address),
                 pageSize: PageSize.Fifty,
                 includeOwned: true,
                 hiddenFilter: ManagedAccountsVisibility.All,
@@ -445,7 +445,7 @@ class LensSocialMedia implements Provider {
         if (includeGraphStats) {
             return getAccountWithStatsById(profileId);
         }
-        const result = await ensureLensResult(fetchAccount(getClient(), { address: evmAddress(profileId) }));
+        const result = await ensureLensResult(fetchAccount(getClient(), { address: safeEvmAddress(profileId) }));
         if (!result) throw new Error('No profile found');
 
         return formatLensProfileV3(result);
@@ -455,7 +455,7 @@ class LensSocialMedia implements Provider {
         if (!ids.length) return [];
         const result = await ensureLensResult(
             fetchAccountsBulk(getClient(), {
-                addresses: ids.map(evmAddress),
+                addresses: ids.map(safeEvmAddress),
             }),
         );
         const profiles = result.map(formatLensProfileV3);
@@ -579,7 +579,7 @@ class LensSocialMedia implements Provider {
                 filter: {
                     metadata: null,
                     collectedBy: {
-                        account: evmAddress(profileId),
+                        account: safeEvmAddress(profileId),
                     },
                 },
             }),
@@ -599,7 +599,7 @@ class LensSocialMedia implements Provider {
                 pageSize: PageSize.Fifty,
                 filter: {
                     metadata: null,
-                    authors: [evmAddress(profileId)],
+                    authors: [safeEvmAddress(profileId)],
                     postTypes: [PostType.Root, PostType.Repost, PostType.Quote],
                 },
             }),
@@ -622,7 +622,7 @@ class LensSocialMedia implements Provider {
                 pageSize: PageSize.Fifty,
                 filter: {
                     metadata: null,
-                    authors: [evmAddress(profileId)],
+                    authors: [safeEvmAddress(profileId)],
                     postTypes: [PostType.Comment],
                 },
             }),
@@ -644,7 +644,7 @@ class LensSocialMedia implements Provider {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 filter: {
-                    authors: [evmAddress(profileId)],
+                    authors: [safeEvmAddress(profileId)],
                     metadata: {
                         mainContentFocus: [MainContentFocus.Image, MainContentFocus.Audio, MainContentFocus.Video],
                     },
@@ -668,7 +668,7 @@ class LensSocialMedia implements Provider {
                 pageSize: PageSize.Fifty,
                 filter: {
                     metadata: null,
-                    authors: [evmAddress(profileId)],
+                    authors: [safeEvmAddress(profileId)],
                 },
             }),
         );
@@ -685,12 +685,45 @@ class LensSocialMedia implements Provider {
     }
 
     async getPostsReplies(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
-        throw new NotImplementedError();
+        const result = await ensureLensResult(
+            fetchPosts(getClient(), {
+                cursor: ensureCursor(indicator),
+                pageSize: PageSize.Fifty,
+                filter: {
+                    metadata: null,
+                    authors: [safeEvmAddress(profileId)],
+                    postTypes: [PostType.Comment],
+                },
+            }),
+        );
+
+        return createPageable(
+            await Promise.all(result.items.map(formatLensPostV3)),
+            createIndicator(indicator),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
+    }
+
+    async getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
+        const result = await ensureLensResult(
+            fetchPostReferences(getClient(), {
+                cursor: ensureCursor(indicator),
+                pageSize: PageSize.Fifty,
+                referencedPost: postId,
+                referenceTypes: [PostReferenceType.CommentOn],
+            }),
+        );
+
+        return createPageable(
+            await Promise.all(result.items.map(formatLensPostV3)),
+            createIndicator(indicator),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
     }
 
     async follow(profileId: string): Promise<boolean> {
         const result = await ensureLensResult(
-            follow(lensSessionHolder.sessionClient, { account: evmAddress(profileId) }),
+            follow(lensSessionHolder.sessionClient, { account: safeEvmAddress(profileId) }),
         );
         await handleOperationWithLensChain(result);
         return true;
@@ -702,7 +735,7 @@ class LensSocialMedia implements Provider {
 
     async unfollow(profileId: string): Promise<boolean> {
         const result = await ensureLensResult(
-            unfollow(lensSessionHolder.sessionClient, { account: evmAddress(profileId) }),
+            unfollow(lensSessionHolder.sessionClient, { account: safeEvmAddress(profileId) }),
         );
         await handleOperationWithLensChain(result);
         return true;
@@ -713,7 +746,7 @@ class LensSocialMedia implements Provider {
             fetchFollowers(getClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
-                account: evmAddress(profileId),
+                account: safeEvmAddress(profileId),
             }),
         );
 
@@ -729,7 +762,7 @@ class LensSocialMedia implements Provider {
             fetchFollowing(getClient(), {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
-                account: evmAddress(profileId),
+                account: safeEvmAddress(profileId),
             }),
         );
 
@@ -750,7 +783,7 @@ class LensSocialMedia implements Provider {
                 cursor: ensureCursor(indicator),
                 pageSize: PageSize.Fifty,
                 observer: profile.profileId,
-                target: evmAddress(profileId),
+                target: safeEvmAddress(profileId),
             }),
         );
 
@@ -769,8 +802,8 @@ class LensSocialMedia implements Provider {
             fetchFollowStatus(getClient(), {
                 pairs: [
                     {
-                        account: evmAddress(profileId),
-                        follower: evmAddress(profile.profileId),
+                        account: safeEvmAddress(profileId),
+                        follower: safeEvmAddress(profile.profileId),
                     },
                 ],
             }),
@@ -787,8 +820,8 @@ class LensSocialMedia implements Provider {
             fetchFollowStatus(getClient(), {
                 pairs: [
                     {
-                        account: evmAddress(profile.profileId),
-                        follower: evmAddress(profileId),
+                        account: safeEvmAddress(profile.profileId),
+                        follower: safeEvmAddress(profileId),
                     },
                 ],
             }),
@@ -1014,7 +1047,7 @@ class LensSocialMedia implements Provider {
                 ? fetchAccountRecommendations(getClient(), {
                       cursor: ensureCursor(indicator),
                       pageSize: PageSize.Fifty,
-                      account: evmAddress(profile.profileId),
+                      account: safeEvmAddress(profile.profileId),
                   })
                 : fetchAccounts(getClient(), {
                       cursor: ensureCursor(indicator),
@@ -1084,7 +1117,7 @@ class LensSocialMedia implements Provider {
     }
 
     async blockProfile(profileId: string) {
-        await ensureLensResult(muteAccount(lensSessionHolder.sessionClient, { account: evmAddress(profileId) }));
+        await ensureLensResult(muteAccount(lensSessionHolder.sessionClient, { account: safeEvmAddress(profileId) }));
         await runInSafeAsync(() => FireflyEndpointProvider.blockProfileFor(FireflyPlatform.Lens, profileId));
         return true;
     }
@@ -1092,7 +1125,7 @@ class LensSocialMedia implements Provider {
     async unblockProfile(profileId: string) {
         await ensureLensResult(
             unmuteAccount(lensSessionHolder.sessionClient, {
-                account: evmAddress(profileId),
+                account: safeEvmAddress(profileId),
             }),
         );
         await runInSafeAsync(() => FireflyEndpointProvider.unblockProfileFor(FireflyPlatform.Lens, profileId));
@@ -1214,7 +1247,7 @@ class LensSocialMedia implements Provider {
     async reportProfile(profileId: string) {
         await ensureLensResult(
             reportAccount(lensSessionHolder.sessionClient, {
-                account: evmAddress(profileId),
+                account: safeEvmAddress(profileId),
                 reason: AccountReportReason.RepetitiveSpam, // TODO: user select reason
             }),
         );
@@ -1276,7 +1309,7 @@ class LensSocialMedia implements Provider {
     async joinChannel(channel: Channel): Promise<boolean> {
         const result = await ensureLensResult(
             joinLensGroup(lensSessionHolder.sessionClient, {
-                group: evmAddress(channel.id),
+                group: safeEvmAddress(channel.id),
             }),
         );
         await handleOperationWithLensChain(result);
@@ -1286,7 +1319,7 @@ class LensSocialMedia implements Provider {
     async leaveChannel(channel: Channel): Promise<boolean> {
         const result = await ensureLensResult(
             leaveLensGroup(lensSessionHolder.sessionClient, {
-                group: evmAddress(channel.id),
+                group: safeEvmAddress(channel.id),
             }),
         );
         await handleOperationWithLensChain(result);
@@ -1304,7 +1337,7 @@ class LensSocialMedia implements Provider {
     async getGroupMembersCount(groupId: string): Promise<number> {
         const result = await ensureLensResult(
             fetchGroupStats(getClient(), {
-                group: evmAddress(groupId),
+                group: safeEvmAddress(groupId),
             }),
         );
 

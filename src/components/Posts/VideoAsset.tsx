@@ -50,7 +50,7 @@ export function VideoAsset({ asset, minimal, source, autoPlay, videoClassName }:
         </div>
     ) : (
         <div
-            className="max-w-full"
+            className="max-w-full overflow-hidden rounded-lg"
             style={
                 width && height
                     ? {

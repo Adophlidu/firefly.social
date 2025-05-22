@@ -43,7 +43,7 @@ export const ProfileSlide = memo<ProfileSlideProps>(function ProfileSlide({ prof
                 {profile.source === Source.Lens ? null : (
                     <FollowersLink profile={profile} className="text-xs leading-6 text-second" />
                 )}
-                <BioMarkup className="line-clamp-2 text-xs text-lightMain" source={profile.source}>
+                <BioMarkup className="line-clamp-2 text-xs text-lightMain" source={profile.source} profile={profile}>
                     {profile.bio ?? '-'}
                 </BioMarkup>
             </div>

@@ -1,10 +1,10 @@
-import { evmAddress } from '@lens-protocol/client';
 import { fetchAccountBalances } from '@lens-protocol/client/actions';
 import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { ensureLensResult } from '@/helpers/ensureLensResult.js';
+import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 
@@ -19,7 +19,7 @@ export function useTokenBalanceForLoggedInLensProfile(tokenAddress?: string, ena
 
             const balanceResult = await ensureLensResult(
                 fetchAccountBalances(lensSessionHolder.sessionClient, {
-                    tokens: [evmAddress(tokenAddress)],
+                    tokens: [safeEvmAddress(tokenAddress)],
                 }),
             );
             const balance = first(balanceResult);

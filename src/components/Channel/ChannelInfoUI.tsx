@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo } from 'react';
-import urlcat from 'urlcat';
 
 import { Avatar } from '@/components/Avatar.js';
 import { ChannelFollowerCount } from '@/components/Channel/ChannelFollowerCount.js';
@@ -10,7 +9,6 @@ import { Link } from '@/components/Link.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
@@ -29,7 +27,7 @@ export const ChannelInfoUI = memo<Props>(function ChannelInfoUI({
     needRefetch,
     ...rest
 }) {
-    const url = urlcat(SITE_URL, getChannelUrl(channel));
+    const url = getChannelUrl(channel);
     const avatar = channel.imageUrl ? (
         <Avatar src={channel.imageUrl} alt="avatar" size={40} className="size-10 rounded-full" />
     ) : (

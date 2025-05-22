@@ -14,7 +14,7 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
-import { FarcasterSignType, PageRoute, type SocialSource, Source, type ThirdPartySource } from '@/constants/enum.js';
+import { PageRoute, type SocialSource, Source, type ThirdPartySource } from '@/constants/enum.js';
 import { SORTED_LOGIN_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES_IN_URL } from '@/constants/index.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -61,11 +61,8 @@ export function MainView() {
     const isMyProfilePage = isMyProfile && (isPureProfilePage || isRoutePathname(pathname, PageRoute.Profile));
 
     const onClick = (source: SocialSource) => {
-        const signType = source === Source.Farcaster ? FarcasterSignType.RelayService : undefined;
-
         const path = urlcat('/:source', {
             source: resolveSourceInUrl(source),
-            signType,
         });
 
         // history.back() is buggy, use .replace() instead.

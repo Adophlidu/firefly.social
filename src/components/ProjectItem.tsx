@@ -1,6 +1,5 @@
 import { memo } from 'react';
 
-import Rank from '@/assets/project-rank.svg';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import type { Project } from '@/providers/types/Firefly.js';
@@ -22,10 +21,6 @@ export const ProjectItem = memo<{ project: Project }>(function ProjectItem({
                     <div className="text-secondary">{token_symbol}</div>
                 </div>
                 <div className="flex flex-wrap items-center gap-x-1">
-                    <div className="flex items-center gap-x-1 rounded-lg bg-lightBg p-1">
-                        <Rank width={16} height={16} />
-                        <span className="text-xs text-highlight">{rank}</span>
-                    </div>
                     {tags.map((tag, index) => (
                         <div
                             className="flex items-center gap-x-1 break-keep rounded-lg bg-lightBg p-1 text-xs text-secondary"

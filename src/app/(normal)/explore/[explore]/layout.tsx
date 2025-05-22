@@ -1,8 +1,10 @@
 import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
+import { NoSSR } from '@/components/NoSSR.js';
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
+import { ToggleEnableButton } from '@/components/TrumpTruthSocial/ToggleEnableButton.js';
 import { ExploreType } from '@/constants/enum.js';
 import { EXPLORE_TYPES } from '@/constants/index.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
@@ -35,16 +37,26 @@ export default async function Layout(props: Props) {
     return (
         <>
             <SourceTabs className="!z-20 md:!top-[57px]">
-                {EXPLORE_TYPES.map((x) => (
-                    <SourceTab
-                        className="whitespace-nowrap text-base md:!h-[45px] md:!px-4 md:!py-[10px]"
-                        key={x}
-                        href={resolveExploreUrl(x)}
-                        isActive={x === explore}
-                    >
-                        {labels[x]}
-                    </SourceTab>
-                ))}
+                {EXPLORE_TYPES.map((x) =>
+                    x === ExploreType.TruthSocial ? (
+                        <NoSSR key={x}>
+                            <ToggleEnableButton
+                                isActive={x === explore}
+                                link={resolveExploreUrl(ExploreType.TruthSocial)}
+                                replaceUrl={resolveExploreUrl(ExploreType.TopProfiles)}
+                            />
+                        </NoSSR>
+                    ) : (
+                        <SourceTab
+                            className="whitespace-nowrap text-base md:!h-[45px] md:!px-4 md:!py-[10px]"
+                            key={x}
+                            href={resolveExploreUrl(x)}
+                            isActive={x === explore}
+                        >
+                            {labels[x]}
+                        </SourceTab>
+                    ),
+                )}
             </SourceTabs>
             {props.children}
         </>

@@ -2,7 +2,12 @@ import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
-import { FireflyAlreadyBoundError, NotAllowedError, UnreachableError } from '@/constants/error.js';
+import {
+    FireflyAlreadyBoundError,
+    FireflyBindTimeoutError,
+    NotAllowedError,
+    UnreachableError,
+} from '@/constants/error.js';
 import { NOT_DEPEND_SECRET } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getDidServiceHost } from '@/helpers/getDidServiceHost.js';
@@ -66,6 +71,10 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
             noStrictOK: true,
         },
     );
+
+    if (response.error?.some((x) => x.includes('Farcaster binding timed out'))) {
+        throw new FireflyBindTimeoutError(Source.Farcaster);
+    }
 
     // If the farcaster is already bound to another account, throw an error.
     if (

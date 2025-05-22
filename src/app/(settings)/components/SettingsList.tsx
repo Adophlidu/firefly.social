@@ -21,6 +21,7 @@ export function SettingsList() {
                 { name: <Trans>Connected accounts</Trans>, link: '/connected', isHidden: !isLoggedIn },
                 { name: <Trans>Muted contents</Trans>, link: '/mutes', isHidden: !muteMenuList.length },
                 { name: <Trans>Notifications</Trans>, link: '/notification-settings', isHidden: !isLoggedIn },
+                { name: <Trans>Content Preference</Trans>, link: '/preference' },
                 { name: <Trans>More</Trans>, link: '/more' },
             ].map(({ name, link, isHidden }) => {
                 return isHidden ? null : <TextLink key={link} name={name} link={`/settings${link}`} />;

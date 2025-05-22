@@ -1,5 +1,5 @@
 'use client';
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { ProviderType } from '@okxweb3/dex-widget';
 import { memo, useContext, useMemo } from 'react';
 import { switchChain } from 'wagmi/actions';
@@ -70,7 +70,7 @@ export const SwapButton = memo<Props>(function SwapButton({
             {rest.children ?? (
                 <>
                     <SwapIcon width={16} height={16} />
-                    {t`Swap`}
+                    <Trans>Swap</Trans>
                 </>
             )}
         </ClickableButton>

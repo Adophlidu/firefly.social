@@ -4,15 +4,14 @@ import { Trans } from '@lingui/react/macro';
 import { type ReactNode, useMemo } from 'react';
 
 import { Link } from '@/components/Link.js';
+import { ToggleEnableButton } from '@/components/TrumpTruthSocial/ToggleEnableButton.js';
 import {
     NetworkType,
     type ProfilePageSource,
     SocialProfileCategory,
     Source,
-    STATUS,
     WalletProfileCategory,
 } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { LOGIN_SORTED_PROFILE_TAB_TYPE, SORTED_PROFILE_TAB_TYPE, WALLET_PROFILE_TAB_TYPES } from '@/constants/index.js';
 import { TRUMP_TWITTER_PROFILE } from '@/constants/mentions.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -20,6 +19,7 @@ import { getAddressType } from '@/helpers/getAddressType.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
+import { useToggleEnableTruthSocial } from '@/hooks/useToggleEnableTruthSocial.js';
 
 export function ProfileCategoryTabs({
     source,
@@ -30,6 +30,7 @@ export function ProfileCategoryTabs({
     id: string;
     category: WalletProfileCategory | SocialProfileCategory;
 }) {
+    const { enable } = useToggleEnableTruthSocial();
     const currentProfiles = useCurrentFireflyProfilesAll();
     const isCurrentProfile = currentProfiles.some((x) => isSameFireflyIdentity(x.identity, { id, source }));
 
@@ -86,24 +87,34 @@ export function ProfileCategoryTabs({
                 title: <Trans>Truth Social</Trans>,
             },
         ].filter(({ type }) => {
-            if (
-                type === SocialProfileCategory.TruthSocial &&
-                (env.external.NEXT_PUBLIC_TRUTH_SOCIAL !== STATUS.Enabled || id !== TRUMP_TWITTER_PROFILE.handle)
-            ) {
+            if (type === SocialProfileCategory.TruthSocial && (!enable || id !== TRUMP_TWITTER_PROFILE.handle)) {
                 return false;
             }
 
             return (isCurrentProfile ? LOGIN_SORTED_PROFILE_TAB_TYPE : SORTED_PROFILE_TAB_TYPE)[source].includes(type);
         });
-    }, [id, source, tabTitles, isCurrentProfile]);
+    }, [id, source, tabTitles, isCurrentProfile, enable]);
 
     return (
         <nav className="scrollable-tab sticky top-0 z-20 -mt-[60px] flex h-[110px] gap-1.5 border-b border-lightLineSecond bg-primaryBottom px-3 pt-[60px] dark:border-line">
             {categories.map(({ type, title }) => {
-                return (
+                const profileUrl = getProfileUrl({ source, profileId: id, handle: id }, type, isCurrentProfile);
+
+                return type === SocialProfileCategory.TruthSocial ? (
+                    <ToggleEnableButton
+                        replaceUrl={getProfileUrl(
+                            { source, profileId: id, handle: id },
+                            SocialProfileCategory.Feed,
+                            isCurrentProfile,
+                        )}
+                        link={profileUrl}
+                        inProfile
+                        isActive={category === type}
+                    />
+                ) : (
                     <div key={type} className="flex flex-col">
                         <Link
-                            href={getProfileUrl({ source, profileId: id, handle: id }, type, isCurrentProfile)}
+                            href={profileUrl}
                             replace
                             className={classNames(
                                 'flex h-[45px] items-center whitespace-nowrap px-3 font-extrabold transition-all hover:text-highlight',

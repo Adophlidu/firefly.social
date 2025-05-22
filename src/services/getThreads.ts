@@ -5,7 +5,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { createIndicator, createPageable } from '@/helpers/pageable.js';
+import { createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -37,9 +37,9 @@ export async function getThreads(post: Post, source: SocialSource) {
     if (source === Source.Twitter) return getTwitterThreads(post);
     if (source === Source.Bsky) return getBskyThreads(post);
     const root = post.root ? post.root : post.commentOn ? post.commentOn : post;
-    if (!root?.stats?.comments) return createPageable<Post>(EMPTY_LIST, createIndicator());
+    if (!root?.stats?.comments) return createPageable<Post, undefined>(EMPTY_LIST, undefined);
 
-    if (!isSameProfile(root.author, post.author)) return createPageable<Post>(EMPTY_LIST, createIndicator());
+    if (!isSameProfile(root.author, post.author)) return createPageable<Post, undefined>(EMPTY_LIST, undefined);
 
     const provider = resolveSocialMediaProvider(source);
     const posts = await provider.getThreadByPostId(root.postId, isSamePost(root, post) ? post : undefined);

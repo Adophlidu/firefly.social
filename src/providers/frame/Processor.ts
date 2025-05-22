@@ -33,8 +33,11 @@ const FrameV2Schema = z.object({
             type: z.literal('launch_frame'),
             name: z.string().max(32, 'Max length of 32 characters'),
             url: z.string().max(512, 'Max 512 characters'),
-            splashImageUrl: z.string().max(512, 'Max 512 characters'),
-            splashBackgroundColor: z.string().regex(/^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i, 'Hex color code'),
+            splashImageUrl: z.string().max(512, 'Max 512 characters').default(''),
+            splashBackgroundColor: z
+                .string()
+                .regex(/^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i, 'Hex color code')
+                .default('#000000'),
         }),
     }),
 });

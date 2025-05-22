@@ -114,6 +114,13 @@ export class FireflyAlreadyBoundError extends Error {
     }
 }
 
+export class FireflyBindTimeoutError extends Error {
+    override name = 'FireflyBindTimeoutError';
+    constructor(public source: ProfileSource) {
+        super(`Bind ${resolveSourceName(source)} account to Firefly timeout.`);
+    }
+}
+
 export class ContentTypeError extends Error {
     override name = 'ContentTypeError';
 

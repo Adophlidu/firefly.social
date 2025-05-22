@@ -1,15 +1,15 @@
 import { safeUnreachable } from '@masknet/kit';
 import { memo } from 'react';
 
+import { TokenCard } from '@/components/EmbedCards/TokenCard.js';
 import type { AddressCardProps } from '@/components/EmbedCards/types.js';
 import { CollectionPreviewer } from '@/components/NFTs/NFTPreview.js';
-import { TokenCard } from '@/components/Token/TokenCard.js';
 import { useNFTCollection } from '@/hooks/useNFTCollection.js';
 import type { DetectedAddress } from '@/providers/types/Firefly.js';
 
 interface ContractCardProps extends AddressCardProps {
     chainId: number;
-    contractType: Exclude<DetectedAddress['contract_type'], 'program'>;
+    contractType: Exclude<DetectedAddress['contract_type'], 'program' | 'unknown'>;
 }
 export const ContractCard = memo<ContractCardProps>(function ContractCard({ contractType, chainId, ...rest }) {
     const isCollection = ['ERC721', 'ERC1155', 'nft'].includes(contractType);
@@ -25,8 +25,6 @@ export const ContractCard = memo<ContractCardProps>(function ContractCard({ cont
             return collection ? (
                 <CollectionPreviewer className={rest.className} collection={collection} showTradeInfo />
             ) : null;
-        case 'unknown':
-            return null;
         default:
             safeUnreachable(contractType);
             return;

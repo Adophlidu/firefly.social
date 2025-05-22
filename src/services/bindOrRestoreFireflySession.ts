@@ -4,6 +4,7 @@ import {
     AuthenticationError,
     FarcasterPatchSignerError,
     FireflyAlreadyBoundError,
+    FireflyBindTimeoutError,
     NotImplementedError,
 } from '@/constants/error.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -32,6 +33,8 @@ export async function bindOrRestoreFireflySession(session: Session, signal?: Abo
 
         // skip if the error is due to the session being aborted
         if (AbortError.is(error)) throw error;
+        if (error instanceof FarcasterPatchSignerError) throw error;
+        if (error instanceof FireflyBindTimeoutError) throw error;
 
         // enqueue error message later
         if (error instanceof FireflyAlreadyBoundError) throw error;

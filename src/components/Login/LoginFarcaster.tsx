@@ -1,7 +1,8 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { Link, useRouter } from '@tanstack/react-router';
+import { useRouter } from '@tanstack/react-router';
+import { ConnectorNotConnectedError } from '@wagmi/core';
 import { type HTMLProps, useState } from 'react';
 import { useAsyncFn, useMount, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
@@ -46,6 +47,9 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
 
         LoginModalRef.close();
     } catch (error) {
+        // ignore cancel connect wallet error
+        if (error instanceof ConnectorNotConnectedError) return;
+
         // skip if the error is abort error
         if (AbortError.is(error)) return;
 
@@ -98,7 +102,7 @@ function LoginFarcasterWithWalletButton({ children, className }: HTMLProps<'a'>)
         <button
             type="button"
             className={classNames(
-                'relative font-bold hover:underline',
+                'relative text-highlight hover:underline',
                 loading ? 'cursor-wait' : 'cursor-pointer',
                 className,
             )}
@@ -134,7 +138,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
     const router = useRouter();
     const { history } = router;
 
-    const [count, { startCountdown, resetCountdown }] = useCountdown({
+    const [count, { startCountdown, stopCountdown, resetCountdown }] = useCountdown({
         countStart: FARCASTER_REPLY_COUNTDOWN,
         intervalMs: 1000,
         countStop: 0,
@@ -145,21 +149,28 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
         controller.current.renew();
         try {
             await login(
-                () =>
-                    createAccountByGrantPermission((url) => {
-                        if (IS_MOBILE_DEVICE) location.href = url;
-                        else setUrl(url);
-
+                () => {
+                    const account = createAccountByGrantPermission((url) => {
                         resetCountdown();
                         startCountdown();
-                    }, controller.current.signal),
+                        setScanned(false);
+
+                        if (IS_MOBILE_DEVICE) location.href = url;
+                        else setUrl(url);
+                    }, controller.current.signal);
+
+                    setScanned(true);
+                    stopCountdown();
+
+                    return account;
+                },
                 { skipReportFarcasterSigner: false, signal: controller.current.signal },
             );
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to login.`);
             throw error;
         }
-    }, [controller, resetCountdown, startCountdown]);
+    }, [controller, resetCountdown, startCountdown, stopCountdown]);
 
     const [{ loading: loadingByRelayService }, onLoginByRelayService] = useAsyncFn(async () => {
         controller.current.renew();
@@ -176,8 +187,8 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                         else setUrl(url);
                     }, controller.current.signal);
 
-                    // let the user see the qr code has been scanned and display a loading icon
                     setScanned(true);
+                    stopCountdown();
 
                     return account;
                 },
@@ -185,7 +196,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
             );
         } catch (error) {
             if (error instanceof FarcasterPatchSignerError) {
-                enqueueInfoMessage(t`Signer key not found. Please approve a new one for us in Warpcast.`);
+                enqueueInfoMessage(t`Failed to reconnect. Please scan another QR code to establish a new connection.`);
                 history.replace(`/farcaster?signType=${FarcasterSignType.FireflySponsorship}`);
                 return;
             }
@@ -199,27 +210,34 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
             enqueueMessageFromError(error, t`Failed to login.`);
             throw error;
         }
-    }, [controller, history, resetCountdown, startCountdown]);
+    }, [controller, history, resetCountdown, startCountdown, stopCountdown]);
 
     const [{ loading: loadingBySponsorship }, onLoginByFireflySponsorship] = useAsyncFn(async () => {
         controller.current.renew();
         try {
             await login(
-                () =>
-                    createAccountByFireflySponsorship((url) => {
-                        if (IS_MOBILE_DEVICE) location.href = url;
-                        else setUrl(url);
-
+                async () => {
+                    const account = createAccountByFireflySponsorship((url) => {
                         resetCountdown();
                         startCountdown();
-                    }, controller.current.signal),
+                        setScanned(false);
+
+                        if (IS_MOBILE_DEVICE) location.href = url;
+                        else setUrl(url);
+                    }, controller.current.signal);
+
+                    setScanned(true);
+                    stopCountdown();
+
+                    return account;
+                },
                 { skipReportFarcasterSigner: false, signal: controller.current.signal },
             );
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to login.`);
             throw error;
         }
-    }, [controller, resetCountdown, startCountdown]);
+    }, [controller, resetCountdown, startCountdown, stopCountdown]);
 
     const onClick = (signType: FarcasterSignType | null) => {
         if (!signType) return;
@@ -274,21 +292,27 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                             <div className="text-center text-xs leading-4 text-second">
                                 {signType === SignType.GrantPermission ? (
                                     <Trans>
-                                        Scan the QR code with your phone’s <b className="font-bold">Camera</b> in{' '}
-                                        {count}s. <br />
-                                        Approve a new Farcaster signer on Warpcast
+                                        Scan this QR code to establish a new connection via Farcaster for free.
                                     </Trans>
                                 ) : signType === SignType.RelayService ? (
                                     <Trans>
-                                        Scan the QR code with your phone’s <b className="font-bold">Camera</b> in{' '}
-                                        {count}s.
-                                        <br /> Approve the existing Farcaster signer on Warpcast
+                                        Scan this QR code if you’ve used Farcaster to sign in before.
+                                        <br />
+                                        <button
+                                            onClick={() =>
+                                                history.replace(
+                                                    `/farcaster?signType=${FarcasterSignType.FireflySponsorship}`,
+                                                )
+                                            }
+                                            className="inline text-highlight hover:underline"
+                                        >
+                                            First time
+                                        </button>
+                                        ? Go here to get started.
                                     </Trans>
                                 ) : signType === SignType.FireflySponsorship ? (
                                     <Trans>
-                                        Scan the QR code with your phone’s <b className="font-bold">Camera</b> in{' '}
-                                        {count}s. <br />
-                                        Approve a new Farcaster signer to Firefly for free.
+                                        Scan this QR code to establish a new connection via Farcaster for free.
                                     </Trans>
                                 ) : null}
                             </div>
@@ -312,20 +336,12 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                             </div>
                             <div className="text-center text-xs leading-4 text-second">
                                 {signType === SignType.GrantPermission || signType === SignType.FireflySponsorship ? (
-                                    <Trans>
-                                        Already logged in?
-                                        <br />
-                                        Approve the{' '}
-                                        <Link
-                                            to={`/farcaster?signType=${SignType.RelayService}`}
-                                            className="font-bold hover:underline"
-                                        >
-                                            existing Farcaster signer
-                                        </Link>{' '}
-                                        or{' '}
-                                        <LoginFarcasterWithWalletButton>connect wallet</LoginFarcasterWithWalletButton>{' '}
-                                        to sign in
-                                    </Trans>
+                                    <button
+                                        onClick={() => history.replace(`/farcaster?signType=${SignType.RelayService}`)}
+                                        className="inline text-highlight hover:underline"
+                                    >
+                                        <Trans>Already signed in before?</Trans>
+                                    </button>
                                 ) : signType === SignType.RelayService ? (
                                     <Trans>
                                         <LoginFarcasterWithWalletButton>Connect wallet</LoginFarcasterWithWalletButton>{' '}

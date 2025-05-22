@@ -388,7 +388,7 @@ export function RequirementsModal({
                                             <Trans>
                                                 Member of{' '}
                                                 <Link
-                                                    href={`/channel/farcaster/${status.payload.farcasterChannelId}`}
+                                                    href={`/community/farcaster/${status.payload.farcasterChannelId}`}
                                                     className="truncate text-highlight"
                                                     target="_blank"
                                                 >
@@ -425,7 +425,7 @@ export function RequirementsModal({
                                             <Trans>
                                                 Member of{' '}
                                                 <Link
-                                                    href={`/channel/lens/${status.payload.lensOrbClubHandle}`}
+                                                    href={`/community/lens/${status.payload.lensOrbClubHandle}`}
                                                     className="truncate text-highlight"
                                                     target="_blank"
                                                 >

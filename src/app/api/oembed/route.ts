@@ -23,11 +23,14 @@ export async function DELETE(request: Request) {
 
 /* cspell:ignore takocdn */
 const patterns = [
-    /opensea.io\/assets\/(0x[\dA-Fa-f]{40})\/(\d+)/,
-    /opensea.io\/assets\/(\w+)\/(0x[\dA-Fa-f]{40})\/(\d+)/,
-    /rarible.com\/token\/(0x[\dA-Fa-f]{40}):(\d+)/,
-    /zora.co\/collections\/(0x[\dA-Fa-f]{40})\/\d+$/,
-    /\/\/takocdn.xyz\//,
+    /opensea\.io\/assets\/(0x[\dA-Fa-f]{40})\/(\d+)/,
+    /opensea\.io\/assets\/(\w+)\/(0x[\dA-Fa-f]{40})\/(\d+)/,
+    /rarible\.com\/token\/(0x[\dA-Fa-f]{40}):(\d+)/,
+    /zora\.co\/collections\/(0x[\dA-Fa-f]{40})\/\d+$/,
+    /\/\/takocdn\.xyz\//,
+    /\/\/lens\.xyz\//,
+    /\.?firefly\.social\//,
+    /\/\/(www\.)?youtube\.com\//,
 ];
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);

@@ -1,4 +1,3 @@
-import { evmAddress } from '@lens-protocol/client';
 import { fetchAccount } from '@lens-protocol/client/actions';
 import { useQuery } from '@tanstack/react-query';
 import { type Address, erc20Abi, formatUnits } from 'viem';
@@ -6,6 +5,7 @@ import { useAccount, useReadContract } from 'wagmi';
 
 import { Source } from '@/constants/enum.js';
 import { ensureLensResult } from '@/helpers/ensureLensResult.js';
+import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -18,7 +18,9 @@ export function useSuperFollowModule(profile: Profile | null, disabled = false) 
         enabled: profile?.source === Source.Lens && !disabled,
         queryFn: () => {
             if (!profile) return;
-            return ensureLensResult(fetchAccount(lensSessionHolder.sdk, { address: evmAddress(profile.profileId) }));
+            return ensureLensResult(
+                fetchAccount(lensSessionHolder.sdk, { address: safeEvmAddress(profile.profileId) }),
+            );
         },
     });
 

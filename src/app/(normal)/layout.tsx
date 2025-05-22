@@ -35,7 +35,7 @@ export default async function Layout({ children, modal }: { children: React.Reac
                                 flags: 'i',
                             },
                             '/profile',
-                            '/channel',
+                            '/community',
                             '/token',
                             '/nft',
                         ]}

@@ -1,5 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import { isNumber } from 'lodash-es';
 import { type HTMLProps, memo, useState } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
@@ -78,7 +79,7 @@ export const TokenSwitcher = memo<Props>(function TokenSwitcher({
             <div className="no-scrollbar flex max-h-[220px] flex-col gap-2 overflow-auto">
                 {filteredTokens.map((tokenInfo) => {
                     const market_data = tokenInfo.market_data;
-                    const isUp = market_data.price_change_percentage_24h
+                    const isUp = market_data?.price_change_percentage_24h
                         ? market_data.price_change_percentage_24h > 0
                         : null;
                     return (
@@ -109,13 +110,9 @@ export const TokenSwitcher = memo<Props>(function TokenSwitcher({
                             </div>
                             <div className="ml-auto flex flex-col items-end">
                                 <div className="text-base font-bold leading-4 text-main">
-                                    ${renderShrankPrice(formatPrice(market_data.token_price_usd) ?? '-')}
+                                    ${renderShrankPrice(formatPrice(market_data?.token_price_usd) ?? '-')}
                                 </div>
-                                {market_data.price_change_percentage_24h === null ? (
-                                    <div className="flex items-center text-[13px] font-bold uppercase leading-4 text-secondary">
-                                        <span>-</span>
-                                    </div>
-                                ) : (
+                                {isNumber(market_data?.price_change_percentage_24h) ? (
                                     <div className="flex items-center text-[13px] font-bold uppercase leading-4 text-secondary">
                                         <PriceArrow
                                             width={16}
@@ -125,6 +122,10 @@ export const TokenSwitcher = memo<Props>(function TokenSwitcher({
                                         <span className={isUp ? 'text-success' : 'text-fail'}>
                                             {market_data.price_change_percentage_24h.toFixed(2)}%
                                         </span>
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center text-[13px] font-bold uppercase leading-4 text-secondary">
+                                        <span>-</span>
                                     </div>
                                 )}
                             </div>

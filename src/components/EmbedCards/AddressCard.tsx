@@ -7,7 +7,9 @@ import { Indicator, type IndicatorProps } from '@/components/EmbedCards/Indicato
 import type { AddressCardProps } from '@/components/EmbedCards/types.js';
 import { WalletCard } from '@/components/EmbedCards/WalletCard.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useNFTCollection } from '@/hooks/useNFTCollection.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
+import { useWalletProfile } from '@/hooks/useWalletProfile.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 export const AddressCard = memo<AddressCardProps>(function AddressCard(props) {
@@ -56,20 +58,36 @@ export const AddressCardIndicator = memo<AddressCardIndicatorProps>(function Add
         queryFn: () => FireflyEndpointProvider.detectAddress(address),
         select: (data) => data?.list[0],
     });
+    const contractType = detected?.contract_type;
+    const addressType = detected?.address_type;
 
     const attributes = detected?.contract_info?.attributes;
     const coingecko_coin_id = attributes?.coingecko_coin_id;
-    const isToken =
-        detected?.address_type === 'contract' &&
-        (detected.contract_type === 'token' || detected.contract_type === 'ERC20');
 
-    const { data: token, isLoading } = useTokenInfo(coingecko_coin_id || address, !!coingecko_coin_id, isToken);
+    const isCollection = contractType ? ['ERC721', 'ERC1155', 'nft'].includes(contractType) : false;
+    const { data: collection, isPending: isLoadingCollection } = useNFTCollection(
+        address,
+        detected?.chain_id ? +detected?.chain_id : undefined,
+        isCollection,
+    );
+
+    const isToken = addressType === 'contract' && (contractType === 'token' || contractType === 'ERC20');
+    const { data: token, isPending: isLoadingToken } = useTokenInfo(
+        coingecko_coin_id || address,
+        !!coingecko_coin_id,
+        isToken,
+    );
+
+    const isWallet = addressType === 'eoa' || addressType === 'soa';
+    const { data: walletProfile, isPending: isLoadingWalletProfile } = useWalletProfile(address, isWallet);
+
+    const isUnknownContract = contractType === 'unknown' || contractType === 'program';
+    const isTokenButNotLoaded = isToken && !token && !isLoadingToken;
+    const isCollectionButNotLoaded = isCollection && !collection && !isLoadingCollection;
+    const isWalletButNotLoaded = isWallet && !walletProfile && !isLoadingWalletProfile;
 
     const unavailable =
-        !detected?.address_type ||
-        detected.contract_type === 'program' ||
-        detected.contract_type === 'unknown' ||
-        (isToken && !token && !isLoading);
+        !addressType || isUnknownContract || isTokenButNotLoaded || isCollectionButNotLoaded || isWalletButNotLoaded;
 
     useLayoutEffect(() => {
         onAvailableUpdate(data, !unavailable);

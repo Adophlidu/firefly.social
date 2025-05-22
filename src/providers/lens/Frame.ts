@@ -1,4 +1,4 @@
-import { evmAddress, postId as formatPostId } from '@lens-protocol/client';
+import { postId as formatPostId } from '@lens-protocol/client';
 import { signFrameAction } from '@lens-protocol/client/actions';
 import dayjs from 'dayjs';
 
@@ -7,6 +7,7 @@ import { FIREFLY_LENS_V3_APP } from '@/constants/index.js';
 import { ensureLensResult, ensureLensResultSync } from '@/helpers/ensureLensResult.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
+import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { Additional, Provider } from '@/providers/types/Frame.js';
 import type { FrameSignaturePacket } from '@/providers/types/Lens.js';
@@ -31,7 +32,7 @@ class FrameProvider implements Provider<FrameSignaturePacket> {
                 transactionId: ETH_ZERO_ADDRESS,
                 buttonIndex: index,
                 inputText: input ?? '',
-                account: evmAddress(currentProfile.profileId),
+                account: safeEvmAddress(currentProfile.profileId),
                 post: formatPostId(postId),
                 app: FIREFLY_LENS_V3_APP,
                 specVersion: '1.1.0',

@@ -9,7 +9,7 @@ export function useSingleCoin(coinId: string | undefined, chainId?: number, addr
         queryKey: ['coingecko', 'coin-price', coinId, chainId, address],
         queryFn: async () => {
             const result = await FireflyEndpointProvider.getSingleCoin({
-                coingecko_coin_id: coinId,
+                coingecko_id: coinId,
                 chain_id: chainId,
                 address,
             });

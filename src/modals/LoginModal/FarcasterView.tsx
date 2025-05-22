@@ -2,9 +2,13 @@ import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useLocation } from '@tanstack/react-router';
 
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
+import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
 import { FarcasterSignType } from '@/constants/enum.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { resolveFarcasterDefaultSignType } from '@/helpers/resolveFarcasterDefaultSignType.js';
+import { useAllConnectionsFormattedWithProfiles } from '@/hooks/useAllConnectionsFormattedWithProfiles.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 
 export const FarcasterViewBeforeLoad = () => {
     return {
@@ -13,22 +17,33 @@ export const FarcasterViewBeforeLoad = () => {
 };
 
 function useSignType() {
-    const isMedium = useIsMedium();
     const { signType, expectedSignType } = useLocation().search as {
         signType: FarcasterSignType | null;
         expectedSignType?: FarcasterSignType;
     };
-    return signType || expectedSignType || (isMedium ? FarcasterSignType.RelayService : null);
+    const returnSignType = signType || expectedSignType;
+    const isLoginFirefly = useIsLoginFirefly();
+    const { data: allConnectionsFormattedWithProfiles, isLoading } = useAllConnectionsFormattedWithProfiles({
+        enabled: isLoginFirefly && !returnSignType,
+    });
+    const defaultSignType = !IS_MOBILE_DEVICE
+        ? resolveFarcasterDefaultSignType(allConnectionsFormattedWithProfiles?.social.Farcaster.connected.length)
+        : null;
+
+    return {
+        signType: returnSignType || defaultSignType,
+        isLoading,
+    };
 }
 
 function Title() {
-    const signType = useSignType();
-    if (!signType) return null;
+    const { signType, isLoading } = useSignType();
+    if (!signType || isLoading) return null;
 
     switch (signType) {
         case FarcasterSignType.GrantPermission:
         case FarcasterSignType.FireflySponsorship:
-            return <Trans>New connection with Warpcast</Trans>;
+            return <Trans>New connection via Farcaster</Trans>;
         case FarcasterSignType.RelayService:
             return <Trans>Sign in with Farcaster</Trans>;
         case FarcasterSignType.RecoveryPhrase:
@@ -40,6 +55,15 @@ function Title() {
 }
 
 export function FarcasterView() {
-    const signType = useSignType();
+    const { signType, isLoading } = useSignType();
+    if (isLoading) {
+        return (
+            <div className="box-border flex flex-col rounded-xl p-6 pt-0 md:w-[500px]">
+                <div className="flex min-h-[200px] flex-col items-center justify-center">
+                    <LoadingIcon />
+                </div>
+            </div>
+        );
+    }
     return <LoginFarcaster key={`farcaster_${signType ?? 'unknown'}`} signType={signType} />;
 }

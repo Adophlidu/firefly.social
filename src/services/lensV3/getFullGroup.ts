@@ -3,7 +3,6 @@ import {
     type Account,
     AccountFragment,
     type AccountRequest,
-    evmAddress,
     type Group,
     GroupFragment,
     type GroupRequest,
@@ -15,10 +14,11 @@ import {
 import { lensApolloClient } from '@/configs/lensApolloClient.js';
 import { formatLensChannelFromGroup } from '@/helpers/formatLensChannel.js';
 import { formatLensProfileV3 } from '@/helpers/formatLensProfile.js';
+import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export async function getGroupWithMemberCount(groupId: string): Promise<Channel> {
-    const groupAddress = evmAddress(groupId);
+    const groupAddress = safeEvmAddress(groupId);
     const result = await lensApolloClient.query<
         {
             group: Group;
@@ -69,7 +69,7 @@ export async function getGroupWithMemberCount(groupId: string): Promise<Channel>
 }
 
 export async function getGroupWithOwner(groupId: string, groupOwner: string): Promise<Channel> {
-    const groupAddress = evmAddress(groupId);
+    const groupAddress = safeEvmAddress(groupId);
     const result = await lensApolloClient.query<
         {
             group: Group;
@@ -110,7 +110,7 @@ export async function getGroupWithOwner(groupId: string, groupOwner: string): Pr
                 group: groupAddress,
             },
             accountRequest: {
-                address: evmAddress(groupOwner),
+                address: safeEvmAddress(groupOwner),
             },
         },
     });

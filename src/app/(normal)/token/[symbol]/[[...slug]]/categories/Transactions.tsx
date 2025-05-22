@@ -8,15 +8,16 @@ import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SwapTimeline, type SwapTimelineProps } from '@/components/Swap/SwapTimeline.js';
 import { TokenContext } from '@/components/Token/TokenContext.js';
 import { Source } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
 import { useSearchParams } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { swapActivityToTradeRecord } from '@/helpers/swapActivityToTradeRecord.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
-import type { TradeRecord } from '@/types/token.js';
 import { SolanaChainId } from '#masknet/web3-shared-solana';
 
 interface Props extends HTMLProps<HTMLDivElement>, Pick<SwapTimelineProps, 'chainId' | 'tokenAddress'> {
@@ -56,30 +57,10 @@ export const Transactions = memo<Props>(function Transactions({
 
     const { tradeRecords, setTradeRecords } = useContext(TokenContext);
     const handleActivitiesUpdate = useCallback(
-        (data: SwapActivity[]) => {
-            const records: TradeRecord[] = compact(
-                data.map((activity) => {
-                    const isSell = isSameAddress(activity.from_token?.address, tokenAddress);
-                    const token = isSell ? activity.from_token : activity.to_token;
-                    if (!token) return null;
-                    return {
-                        user: {
-                            name: activity.displayInfo?.ensHandle,
-                            address: activity.owner,
-                            avatar:
-                                activity.displayInfo?.fireflyAvatarUrl ||
-                                activity.displayInfo?.avatarUrl ||
-                                getStampAvatarByProfileId(Source.Wallet, activity.owner),
-                        },
-                        amount: token.amount_str,
-                        uiAmount: token.amount_num,
-                        decimals: token.decimal,
-                        date: +activity.timestamp * 1000,
-                        value: token.price ? +token.price : 0,
-                        type: isSell ? 'sell' : 'buy',
-                    };
-                }),
-            );
+        (data: SwapActivity[] | undefined) => {
+            const records = data?.length
+                ? compact(data.map((activity) => swapActivityToTradeRecord(activity, tokenAddress)))
+                : EMPTY_LIST;
             setTradeRecords(records);
         },
         [setTradeRecords, tokenAddress],

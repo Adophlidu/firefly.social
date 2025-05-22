@@ -18,15 +18,19 @@ import { Section } from '@/components/Semantic/Section.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { notFound } from '@/esm/navigation.js';
+import type { Pageable } from '@/helpers/pageable.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostById } from '@/services/getPostById.js';
 import { getThreads } from '@/services/getThreads.js';
 
 interface Props {
     id: string;
     source: SocialSource;
+    initialPost?: Post;
+    initialThreads?: Pageable<Post, undefined>;
 }
 
-export function PostDetailPage({ id: postId, source }: Props) {
+export function PostDetailPage({ id: postId, source, initialPost, initialThreads }: Props) {
     if (!postId) notFound();
 
     const {
@@ -38,6 +42,7 @@ export function PostDetailPage({ id: postId, source }: Props) {
         queryFn: async () => {
             return getPostById(source, postId);
         },
+        initialData: initialPost,
     });
 
     const {
@@ -51,6 +56,7 @@ export function PostDetailPage({ id: postId, source }: Props) {
             if (!post) return { data: EMPTY_LIST };
             return getThreads(post, source);
         },
+        initialData: initialThreads,
     });
 
     if ((isLoading || isRefetching || threadLoading || threadRefetching) && !post) return <Loading />;

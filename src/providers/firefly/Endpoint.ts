@@ -911,6 +911,7 @@ class FireflyEndpoint {
         chains: number[], // array of chain ids
         tokenAddress?: string,
         indicator?: PageIndicator,
+        size = 25,
     ) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/timeline/swap');
         const response = await fireflySessionHolder.fetch<SwapActivityTimeline>(url, {
@@ -919,7 +920,7 @@ class FireflyEndpoint {
                 platformFollowing: 'all',
                 chains: chains.length ? chains.join(',') : undefined,
                 tokenAddress,
-                size: 25,
+                size,
                 cursor: indicator?.id,
             }),
         });
@@ -938,6 +939,7 @@ class FireflyEndpoint {
         chains: number[],
         tokenAddress?: string,
         indicator?: PageIndicator,
+        size = 25,
     ) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/timeline/swap');
         const response = await fireflySessionHolder.fetch<SwapActivityTimeline>(url, {
@@ -946,7 +948,7 @@ class FireflyEndpoint {
                 walletAddresses: Array.isArray(address) ? address : [address],
                 chains: chains.length ? chains.join(',') : undefined,
                 tokenAddress,
-                size: 25,
+                size,
                 cursor: indicator?.id,
             }),
         });

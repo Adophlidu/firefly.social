@@ -65,6 +65,9 @@ msgstr "No frame found."
 msgid "Coins"
 msgstr "Coins"
 
+msgid "Scan this QR code if you’ve used Farcaster to sign in before.<0/><1>First time</1>? Go here to get started."
+msgstr "Scan this QR code if you’ve used Farcaster to sign in before.<0/><1>First time</1>? Go here to get started."
+
 msgid "FAILED THREAD POST"
 msgstr "FAILED THREAD POST"
 
@@ -616,11 +619,11 @@ msgstr "Proxy contract."
 msgid "Verification unsuccessful"
 msgstr "Verification unsuccessful"
 
+msgid "Scan this QR code to establish a new connection via Farcaster for free."
+msgstr "Scan this QR code to establish a new connection via Farcaster for free."
+
 msgid "Total"
 msgstr "Total"
-
-msgid "Signer key not found. Please approve a new one for us in Warpcast."
-msgstr "Signer key not found. Please approve a new one for us in Warpcast."
 
 msgid "Trading cooldown function."
 msgstr "Trading cooldown function."
@@ -834,6 +837,10 @@ msgstr "Search"
 msgid "Perhaps the token is a honeypot."
 msgstr "Perhaps the token is a honeypot."
 
+#. placeholder {0}: renderShrankPrice(formatPrice(price) ?? '-')
+msgid "<0>today</0><1>${0}</1>"
+msgstr "<0>today</0><1>${0}</1>"
+
 msgid "Other accounts"
 msgstr "Other accounts"
 
@@ -908,9 +915,6 @@ msgstr "The blacklist function is included. Some addresses may not be able to tr
 
 msgid "<0/>Delete Firefly account"
 msgstr "<0/>Delete Firefly account"
-
-msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer on Warpcast"
-msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer on Warpcast"
 
 msgid "Select Account"
 msgstr "Select Account"
@@ -1165,6 +1169,9 @@ msgstr "Frame Validator"
 
 msgid "Repost again"
 msgstr "Repost again"
+
+msgid "New connection via Farcaster"
+msgstr "New connection via Farcaster"
 
 msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
 msgstr "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
@@ -1453,6 +1460,9 @@ msgstr "Failed to update notification settings"
 
 msgid "Reply"
 msgstr "Reply"
+
+msgid "Content Preference"
+msgstr "Content Preference"
 
 msgid "Add an existing account"
 msgstr "Add an existing account"
@@ -2128,8 +2138,14 @@ msgstr "Users"
 msgid "Primary"
 msgstr "Primary"
 
+msgid "Failed to reconnect. Please scan another QR code to establish a new connection."
+msgstr "Failed to reconnect. Please scan another QR code to establish a new connection."
+
 msgid "Cryptocurrency mixer."
 msgstr "Cryptocurrency mixer."
+
+msgid "Remove Truth Social"
+msgstr "Remove Truth Social"
 
 msgid "Joined /{name} on {sourceName}."
 msgstr "Joined /{name} on {sourceName}."
@@ -2165,14 +2181,8 @@ msgstr "Failed to disconnect"
 msgid "Post has been encrypted"
 msgstr "Post has been encrypted"
 
-msgid "New connection with Warpcast"
-msgstr "New connection with Warpcast"
-
 msgid "Updated profile successfully"
 msgstr "Updated profile successfully"
-
-msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> or <2>connect wallet</2> to sign in"
-msgstr "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> or <2>connect wallet</2> to sign in"
 
 msgid "Token ${symbol} could not be found."
 msgstr "Token ${symbol} could not be found."
@@ -2280,6 +2290,9 @@ msgstr "Not Started"
 
 msgid "Cannot send tip to yourself"
 msgstr "Cannot send tip to yourself"
+
+msgid "Already signed in before?"
+msgstr "Already signed in before?"
 
 msgid "Total amount"
 msgstr "Total amount"
@@ -2859,9 +2872,6 @@ msgstr "{0, plural, one {repost} other {reposts}}"
 msgid "Wallet submitted"
 msgstr "Wallet submitted"
 
-msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
-msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
-
 msgid "This does not appear to be a honeypot."
 msgstr "This does not appear to be a honeypot."
 
@@ -2975,11 +2985,6 @@ msgstr "<0>Minted</0> an NFT worth {costEl}"
 
 msgid "Balance"
 msgstr "Balance"
-
-#. placeholder {0}: market_data.price_change_percentage_24h.toFixed(2)
-#. placeholder {1}: renderShrankPrice(formatPrice(price) ?? '-')
-msgid "<0/><1>{0}%</1><2>today</2><3>${1}</3>"
-msgstr "<0/><1>{0}%</1><2>today</2><3>${1}</3>"
 
 msgid "Suspended"
 msgstr "Suspended"
@@ -3551,6 +3556,9 @@ msgstr "<0>You</0> and {0} recasted"
 msgid "Stickers"
 msgstr "Stickers"
 
+msgid "You can turn it back on anytime in <0>Settings > Content Preference</0>"
+msgstr "You can turn it back on anytime in <0>Settings > Content Preference</0>"
+
 msgid "No trade records"
 msgstr "No trade records"
 
@@ -3571,9 +3579,6 @@ msgstr "Unverified: Failed to simulate, <0>try again</0>"
 
 msgid "Minting"
 msgstr "Minting"
-
-msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer on Warpcast"
-msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer on Warpcast"
 
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "You may lose your assets if giving approval to the website of this token."
@@ -4267,6 +4272,9 @@ msgstr "Blink Validator"
 
 msgid "Minted"
 msgstr "Minted"
+
+msgid "Posts from Trump on Truth Social (Explore, profile)"
+msgstr "Posts from Trump on Truth Social (Explore, profile)"
 
 msgid "Golden"
 msgstr "Golden"

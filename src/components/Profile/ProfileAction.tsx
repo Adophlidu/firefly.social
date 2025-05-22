@@ -29,7 +29,6 @@ export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps 
         queryFn: async () => {
             return resolveSocialMediaProvider(initialProfile.source).getProfileByIdOrHandle(initialProfile.profileId);
         },
-        refetchOnMount: false,
     });
 
     const profile = data ?? initialProfile;

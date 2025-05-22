@@ -1,6 +1,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
+import { isNumber } from 'lodash-es';
 import { type HTMLProps, memo, useMemo, useState } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
@@ -27,7 +28,7 @@ import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
-export function TokenProfileSkeleton(props: HTMLProps<HTMLDivElement>) {
+export function TokenProfileCardSkeleton(props: HTMLProps<HTMLDivElement>) {
     return (
         <div
             {...props}
@@ -77,7 +78,7 @@ interface Props extends HTMLProps<HTMLDivElement> {
     symbol: string;
 }
 
-export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children, ...rest }) {
+export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, children, ...rest }) {
     const [openSwitcher, setOpenSwitcher] = useState(false);
     const { data: tokenInfos = EMPTY_LIST, isLoading } = useQuery({
         queryKey: ['search-token', symbol],
@@ -119,15 +120,23 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
     const tradeInfo = useTradeInfo(token);
 
     const chainId = detected?.chain_id ? +detected.chain_id : tradeInfo.chainId;
-    const { priceStats, isPending, isUp } = useCoinPrice24hStats(coingeckoCoinId || token?.id, chainId, address);
+    const {
+        priceStats,
+        isPending,
+        isUp: statsIsUp,
+    } = useCoinPrice24hStats(coingeckoCoinId || token?.id, chainId, address);
 
     const { data: tokenSecurity } = useTokenSecurity(chainId, address);
 
-    if (isLoading) return <TokenProfileSkeleton {...rest} />;
+    if (isLoading) return <TokenProfileCardSkeleton {...rest} />;
 
     if (!selectedToken) return null;
     const market_data = selectedToken.market_data;
-    const price = market_data.token_price_usd;
+    if (!market_data) return null;
+
+    const price = market_data.token_price_usd ?? trending?.market?.current_price;
+    const changePercent = market_data.price_change_percentage_24h ?? trending?.market?.price_change_percentage_24h;
+    const isUp = statsIsUp ?? (isNumber(changePercent) ? changePercent > 0 : undefined);
     const market_cap = market_data.market_cap_usd;
     const tokenPageUrl = resolveTokenPageUrl({
         identity: coingeckoCoinId || selectedToken.symbol,
@@ -221,7 +230,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                 <div
                     className={classNames(
                         'ml-auto h-10 min-w-[150px] max-w-[170px] shrink-0 flex-grow overflow-auto',
-                        isPending ? 'animate-pulse' : null,
+                        isPending ? 'animate-pulse rounded-lg bg-gray-100 dark:bg-gray-800' : null,
                     )}
                 >
                     <SimplePriceChart records={priceStats} className="size-full" />
@@ -229,24 +238,26 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
             </div>
             <div className="flex items-center">
                 <div className="line-height-[22px] flex h-8 items-center gap-1 text-medium">
-                    {typeof market_data.price_change_percentage_24h === 'number' ? (
-                        <Trans>
+                    {typeof changePercent === 'number' ? (
+                        <>
                             <PriceArrow
                                 width={16}
                                 height={16}
                                 className={isUp ? 'shrink-0 text-success' : 'shrink-0 rotate-180 text-fail'}
                             />
                             <span className={isUp ? 'text-xs text-success' : 'text-xs text-fail'}>
-                                {market_data.price_change_percentage_24h.toFixed(2)}%
+                                {changePercent.toFixed(2)}%
                             </span>
-                            <span className="text-medium text-secondary">today</span>
-                            <strong className="text-medium font-bold">
-                                ${renderShrankPrice(formatPrice(price) ?? '-')}
-                            </strong>
-                        </Trans>
+                        </>
                     ) : (
-                        <span>-</span>
+                        <span>--</span>
                     )}
+                    <Trans>
+                        <span className="text-medium text-secondary">today</span>
+                        <strong className="text-medium font-bold">
+                            ${renderShrankPrice(formatPrice(price) ?? '-')}
+                        </strong>
+                    </Trans>
                 </div>
                 {address && detected?.chain_id ? (
                     <div className="ml-auto flex items-center justify-end">

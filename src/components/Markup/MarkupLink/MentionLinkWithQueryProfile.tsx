@@ -30,6 +30,8 @@ export const MentionLinkWithQueryProfile = memo<Props>(function MentionLinkWithQ
             return resolveSocialMediaProvider(source).getProfileByIdOrHandle(handle);
         },
         enabled: !!handle,
+        retry: false,
+        staleTime: 1000 * 60 * 60,
     });
     if (!profile) return fallback;
     return (

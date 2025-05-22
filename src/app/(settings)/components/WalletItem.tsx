@@ -39,7 +39,7 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
           : WalletIcon;
 
     return (
-        <div className="inline-flex h-[63px] w-full items-center justify-start gap-2 rounded-lg border border-line bg-white bg-bottom px-3 py-2 text-medium text-lightMain backdrop-blur dark:bg-bg">
+        <div className="inline-flex h-[63px] w-full items-center justify-start gap-2 rounded-lg border border-line bg-white bg-bottom px-3 py-2 text-medium backdrop-blur dark:bg-bg">
             {!noAction ? (
                 <>
                     {isConnected ? (
@@ -66,7 +66,7 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
                                 </Trans>
                             }
                         >
-                            <InfoIcon width={20} height={20} className="size-5 shrink-0" />
+                            <InfoIcon width={20} height={20} className="size-5 shrink-0 text-second" />
                         </Tooltip>
                     ) : null}
                 </>
@@ -74,19 +74,22 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
             <Icon className="shrink-0" width={24} height={24} />
             <div className="flex min-w-0 flex-1 flex-col text-left">
                 {connection.ens?.[0] ? (
-                    <span className="flex items-center text-base font-bold">{connection.ens[0]}</span>
+                    <span className="flex items-center text-base font-bold text-main">{connection.ens[0]}</span>
                 ) : null}
                 <div
-                    className={classNames('flex items-center text-second', connection.ens?.[0] ? '' : 'font-semibold')}
+                    className={classNames(
+                        'flex items-center',
+                        connection.ens?.[0] ? 'text-second' : 'font-semibold text-main',
+                    )}
                 >
-                    <span className="flex items-center truncate text-second">
+                    <span className="flex items-center truncate">
                         {connection.platform === 'eth'
                             ? formatAddressEthereum(connection.address, 8)
                             : connection.platform === 'solana'
                               ? formatAddressSolana(connection.address, 8)
                               : connection.address}
                     </span>
-                    <CopyTextButton text={connection.address} />
+                    <CopyTextButton text={connection.address} className="text-second" />
                 </div>
             </div>
             {noAction ? null : (

@@ -7,7 +7,7 @@ import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { getSocialConnectionsWithProfile } from '@/services/getSocialConnectionsWithProfile.js';
 
-export function useAllConnectionsFormattedWithProfiles() {
+export function useAllConnectionsFormattedWithProfiles(options?: { enabled?: boolean }) {
     const profileAll = useProfileStoreAll();
     const queryKeyProfileIds = Object.entries(profileAll).flatMap(([, profile]) =>
         profile.accounts.map((x) => x.profile.profileId),
@@ -36,5 +36,6 @@ export function useAllConnectionsFormattedWithProfiles() {
                 ),
             };
         },
+        enabled: options?.enabled,
     });
 }

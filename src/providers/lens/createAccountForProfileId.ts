@@ -1,8 +1,9 @@
-import { type ChallengeRequest, evmAddress, SessionClient } from '@lens-protocol/client';
+import { type ChallengeRequest, SessionClient } from '@lens-protocol/client';
 
 import { env } from '@/constants/env.js';
 import { createLensSDK, LocalStorageProvider, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
 import { getWalletClientForLensChain } from '@/helpers/getWalletClientForLensChain.js';
+import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { createLensSession } from '@/providers/lens/createLensSession.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -30,20 +31,20 @@ export async function createAccountForProfileId(profile: Profile, useMemoryStora
     const storage = useMemoryStorage ? new MemoryStorageProvider() : new LocalStorageProvider();
     const sdk = createLensSDK(storage);
 
-    const address = evmAddress(walletClient.account.address);
+    const address = safeEvmAddress(walletClient.account.address);
     const options: ChallengeRequest =
         profile.profileType === 'AccountManaged'
             ? {
                   accountManager: {
                       manager: address,
-                      account: evmAddress(profile.profileId),
+                      account: safeEvmAddress(profile.profileId),
                       app: env.external.NEXT_PUBLIC_LENS_APP_ADDRESS,
                   },
               }
             : {
                   accountOwner: {
                       owner: address,
-                      account: evmAddress(profile.profileId),
+                      account: safeEvmAddress(profile.profileId),
                       app: env.external.NEXT_PUBLIC_LENS_APP_ADDRESS,
                   },
               };

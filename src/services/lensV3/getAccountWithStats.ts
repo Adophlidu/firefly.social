@@ -5,11 +5,11 @@ import {
     type AccountRequest,
     type AccountStats,
     type AccountStatsRequest,
-    evmAddress,
 } from '@lens-protocol/client';
 
 import { lensApolloClient } from '@/configs/lensApolloClient.js';
 import { formatLensProfileV3 } from '@/helpers/formatLensProfile.js';
+import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 async function getAccountWithStats(
@@ -68,10 +68,10 @@ async function getAccountWithStats(
 export const getAccountWithStatsById = (profileId: string) =>
     getAccountWithStats(
         {
-            address: evmAddress(profileId),
+            address: safeEvmAddress(profileId),
         },
         {
-            account: evmAddress(profileId),
+            account: safeEvmAddress(profileId),
         },
     );
 

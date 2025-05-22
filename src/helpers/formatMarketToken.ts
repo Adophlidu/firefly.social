@@ -1,7 +1,9 @@
+import { memoize } from 'lodash-es';
+
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import type { SearchableToken } from '@/providers/types/Firefly.js';
 
-export function formatMarketToken(token: SearchableToken) {
+export const formatMarketToken = memoize(function formatMarketToken(token: SearchableToken) {
     return {
         id: token.id,
         symbol: token.symbol,
@@ -16,4 +18,4 @@ export function formatMarketToken(token: SearchableToken) {
             telegram: '',
         },
     } as CoinGeckoToken;
-}
+});

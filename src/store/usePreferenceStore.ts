@@ -11,12 +11,16 @@ export type StoredCoinInfo = Pick<SearchTokenInfo, 'id' | 'chain' | 'contract_ad
 interface Preferences {
     SHOW_SCHEDULE_POST_TIP: boolean;
     SHOW_USER_TX_IN_CHART: boolean;
+    SHOW_TRUTH_SOCIAL: boolean;
+    SHOW_TRUTH_SOCIAL_ALERT: boolean;
     TOKEN_PROFILE_COIN_ID_MAP: Record<string, StoredCoinInfo>;
 }
 
 const defaultPreferences: Preferences = {
     SHOW_SCHEDULE_POST_TIP: true,
     SHOW_USER_TX_IN_CHART: true,
+    SHOW_TRUTH_SOCIAL: true,
+    SHOW_TRUTH_SOCIAL_ALERT: true,
     TOKEN_PROFILE_COIN_ID_MAP: {},
 };
 

@@ -6,7 +6,7 @@ import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { Link } from '@/components/Link.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { useTippyContext } from '@/components/TippyContext/index.js';
-import { TokenProfile } from '@/components/Token/TokenProfile.js';
+import { TokenProfileCard } from '@/components/Token/TokenProfileCard.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useTokenCoin } from '@/hooks/useTokenCoin.js';
@@ -50,7 +50,7 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
                 delay={100}
                 content={
                     enabled ? (
-                        <TokenProfile
+                        <TokenProfileCard
                             className="w-[415px] bg-primaryBottom p-2 text-main shadow-[0_8px_20px_0_rgba(0,0,0,0.04)]"
                             symbol={symbol}
                         />

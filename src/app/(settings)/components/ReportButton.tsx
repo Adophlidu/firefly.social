@@ -1,9 +1,9 @@
 import { t } from '@lingui/core/macro';
-import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
-import { waitForSelectReportReason } from '@/app/(settings)/components/waitForSelectReportReason.js';
-import { LoadingIcon } from '@/components/LoadingIcon.js';
+import { waitForDisconnectConfirmation } from '@/app/(settings)/components/waitForDisconnectConfirmation.js';
+import DisconnectIcon from '@/assets/disconnect.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
@@ -15,24 +15,25 @@ interface ReportButtonProps {
 export function ReportButton({ connection }: ReportButtonProps) {
     const [{ loading }, handleReport] = useAsyncFn(async () => {
         try {
-            const reason = await waitForSelectReportReason();
-            if (!reason) return;
+            const confirmed = await waitForDisconnectConfirmation(connection);
+            if (!confirmed) return;
+            const reason = 'Disconnect';
 
             await FireflyEndpointProvider.reportAndDeleteWallet(connection, reason);
-            enqueueSuccessMessage(t`Disconnected from your social graph`);
+            enqueueSuccessMessage(t`Disconnected from your Firefly account`);
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to disconnect`);
             throw error;
         }
     }, [connection]);
 
-    if (loading) {
-        return <LoadingIcon size={20} />;
-    }
-
     return (
-        <span className="cursor-pointer font-bold text-danger" onClick={handleReport}>
-            <Trans>Report</Trans>
-        </span>
+        <ClickableButton
+            onClick={handleReport}
+            loading={loading}
+            className="size-5 shrink-0 cursor-pointer disabled:cursor-wait"
+        >
+            <DisconnectIcon width={20} height={20} />
+        </ClickableButton>
     );
 }

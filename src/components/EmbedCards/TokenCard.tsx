@@ -55,7 +55,7 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
     const { data: tokenSecurity } = useTokenSecurity(chainId, address);
 
     if (!token) return null;
-    const price = attributes?.price_usd ?? coin?.market_data.token_price_usd;
+    const price = attributes?.price_usd ?? coin?.market_data?.token_price_usd;
     const market_cap = attributes?.market_cap_usd;
     const tokenPageUrl = resolveTokenPageUrl({ identity: token.symbol, chainId });
 

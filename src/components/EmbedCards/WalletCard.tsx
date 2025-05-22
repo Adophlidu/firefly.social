@@ -92,7 +92,7 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                         className="size-12 overflow-hidden rounded-full bg-bg"
                         unoptimized
                         loading="lazy"
-                        src={getStampAvatarByProfileId(Source.Wallet, address)}
+                        src={getStampAvatarByProfileId(Source.Wallet, walletProfile.primary_ens || address, 100)}
                         alt=""
                         size={48}
                         width={48}

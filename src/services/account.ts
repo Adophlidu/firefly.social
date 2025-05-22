@@ -269,15 +269,15 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         await resumeFireflySession(account, signal);
     }
 
-    await runInSafeAsync(async () => {
-        // report farcaster signer
+    // report farcaster signer
+    runInSafeAsync(async () => {
         if (
             !skipReportFarcasterSigner &&
             fireflySessionHolder.session &&
             account.session.type === SessionType.Farcaster
         ) {
             console.warn('[addAccount] report farcaster signer');
-            await FireflyEndpointProvider.reportFarcasterSigner(account.session as FireflySession);
+            FireflyEndpointProvider.reportFarcasterSigner(account.session as FireflySession);
         }
     });
 

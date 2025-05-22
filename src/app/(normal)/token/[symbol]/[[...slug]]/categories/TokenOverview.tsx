@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { first, isNumber } from 'lodash-es';
 import { type HTMLProps, memo, type ReactNode } from 'react';
@@ -17,7 +16,7 @@ import { getChainInfo } from '@/helpers/getChainInfo.js';
 import type { Contract, Trending } from '@/providers/types/Trending.js';
 
 interface InfoRowProps {
-    title: string;
+    title: ReactNode;
     description?: ReactNode;
     value?: string | number;
     amount?: string | number;
@@ -85,7 +84,7 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ t
             </h2>
             <div className="mt-3 flex flex-col gap-3">
                 <InfoRow
-                    title={t`Market Cap`}
+                    title={<Trans>Market Cap</Trans>}
                     description={
                         <Trans>
                             <div>Market Cap = Current Price x Circulating Supply</div>
@@ -99,7 +98,7 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ t
                     value={market?.market_cap}
                 />
                 <InfoRow
-                    title={t`Fully Diluted Valuation`}
+                    title={<Trans>Fully Diluted Valuation</Trans>}
                     description={
                         <Trans>
                             <div>Fully Diluted Valuation (FDV) = Current Price x Total Supply</div>
@@ -116,7 +115,7 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ t
                     value={market?.fully_diluted_valuation}
                 />
                 <InfoRow
-                    title={t`Market Cap / FDV`}
+                    title={<Trans>Market Cap / FDV</Trans>}
                     description={
                         <Trans>
                             <div>
@@ -132,17 +131,28 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ t
                     amount={market?.market_cap_fdv_ratio}
                 />
                 <InfoRow
-                    title={t`24 Hour Trading Vol`}
-                    description={t`A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times.`}
+                    title={<Trans>24 Hour Trading Vol</Trans>}
+                    description={
+                        <Trans>
+                            A measure of a cryptocurrency trading volume across all tracked platforms in the last 24
+                            hours. This is tracked on a rolling 24-hour basis with no open/closing times.
+                        </Trans>
+                    }
                     value={market?.total_volume}
                 />
                 <InfoRow
-                    title={t`Circulating Supply`}
-                    description={t`The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments).`}
+                    title={<Trans>Circulating Supply</Trans>}
+                    description={
+                        <Trans>
+                            The amount of coins that are circulating in the market and are tradeable by the public. It
+                            is comparable to looking at shares readily available in the market (not held & locked by
+                            insiders, governments).
+                        </Trans>
+                    }
                     amount={market?.circulating_supply}
                 />
                 <InfoRow
-                    title={t`Total Supply`}
+                    title={<Trans>Total Supply</Trans>}
                     description={
                         <Trans>
                             <div>
@@ -157,7 +167,7 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ t
                     asInfinite={!market?.total_supply}
                 />
                 <InfoRow
-                    title={t`Max Supply`}
+                    title={<Trans>Max Supply</Trans>}
                     description={
                         <Trans>
                             <div>
@@ -177,7 +187,7 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ t
             <div className="mt-3 flex flex-col gap-3">
                 {contracts?.length ? (
                     <InfoRow
-                        title={t`Contract Address`}
+                        title={<Trans>Contract Address</Trans>}
                         extra={
                             <div className="flex items-center gap-1">
                                 {chain ? (
@@ -210,7 +220,7 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ t
                 ) : null}
                 {coin?.home_urls?.length ? (
                     <InfoRow
-                        title={t`Website`}
+                        title={<Trans>Website</Trans>}
                         extra={
                             <div className="flex gap-1">
                                 {coin.home_urls.map((url) => (
@@ -229,7 +239,7 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ t
                 ) : null}
                 {coin?.community_urls?.length ? (
                     <InfoRow
-                        title={t`Community`}
+                        title={<Trans>Community</Trans>}
                         extra={
                             <div className="flex gap-2">
                                 {coin.community_urls.map((x) => (

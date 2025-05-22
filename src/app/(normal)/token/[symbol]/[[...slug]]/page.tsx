@@ -30,16 +30,17 @@ interface Props
 export default function TokenCategoryPage({ params, searchParams }: Props) {
     const { symbol, slug: slugs } = use(params);
     const { chainId, isCoinId, trader, traderName, address } = use(searchParams);
-    const { data: token } = useTokenInfo(symbol, isCoinId === 'true');
+    const { data: token, isPending: isTokenPending } = useTokenInfo(symbol, isCoinId === 'true');
+    const tokenId = token?.id;
 
     const categories =
-        token?.id && NON_SOL_ETH_COINS.includes(token?.id)
+        tokenId && NON_SOL_ETH_COINS.includes(tokenId)
             ? [TokenCategory.Feeds, TokenCategory.Overview]
             : TOKEN_CATEGORIES;
 
     const slug = slugs?.[0];
     const category = slug && categories.includes(slug as TokenCategory) ? slug : categories[0];
-    const { data: trending, isLoading } = useCoinTrending(token?.id);
+    const { data: trending, isPending } = useCoinTrending(tokenId);
 
     const tokenAddress = address ?? (isValidAddressEthereum(symbol) ? symbol : trending?.contracts?.[0]?.address);
 
@@ -50,11 +51,11 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
             return <TokenOverview trending={trending} />;
         case TokenCategory.Transactions:
         default:
-            if (isLoading && !tokenAddress) return <Loading />;
+            if ((isTokenPending || tokenId) && isPending && !tokenAddress) return <Loading />;
             return (
                 <Transactions
                     chainId={chainId ? +chainId : (trending?.coin.chainId ?? trending?.contracts?.[0]?.chainId)}
-                    tokenAddress={token?.id === COINGECKO_SOL_COIN_ID ? SWAP_SOL_NATIVE_ADDRESS : tokenAddress}
+                    tokenAddress={tokenId === COINGECKO_SOL_COIN_ID ? SWAP_SOL_NATIVE_ADDRESS : tokenAddress}
                     trader={trader}
                     traderName={traderName}
                 />

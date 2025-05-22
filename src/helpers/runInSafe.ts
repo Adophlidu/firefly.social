@@ -1,4 +1,4 @@
-import { AbortError } from '@/constants/error.js';
+import { AbortError, RecognizableError } from '@/constants/error.js';
 
 export function runInSafe<T>(fn: () => T, noThrow = true, defaultValue?: T) {
     try {
@@ -23,6 +23,7 @@ export async function runInSafeAsync<T>(
         return await fn(signal);
     } catch (error) {
         if (AbortError.is(error)) return;
+        if (error instanceof RecognizableError) return;
 
         if (!noThrow) throw error;
         console.error(`[runInSafeAsync] ${error}`);

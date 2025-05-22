@@ -2,6 +2,7 @@ import { Transition } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import React, { Fragment, memo } from 'react';
 
+import FireflyLogo from '@/assets/firefly.logo.svg';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
@@ -50,7 +51,7 @@ export const Popover = memo(function Popover({ frame, open, onClose, title, cont
                 >
                     <div className="relative z-10 max-h-[400px] w-full rounded-tl-xl rounded-tr-xl bg-darkBottom">
                         <div className="flex items-center border-b border-line p-3">
-                            {frame ? (
+                            {frame?.button.action.splashImageUrl ? (
                                 <Image
                                     className="mr-2 rounded-xl"
                                     alt={frame.button.action.name}
@@ -58,7 +59,9 @@ export const Popover = memo(function Popover({ frame, open, onClose, title, cont
                                     width={42}
                                     height={42}
                                 />
-                            ) : null}
+                            ) : (
+                                <FireflyLogo className="mr-2 rounded-xl" width={42} height={42} />
+                            )}
                             <div className="text-left">
                                 <h2 className="text-sm font-bold">{title}</h2>
                                 {u ? (

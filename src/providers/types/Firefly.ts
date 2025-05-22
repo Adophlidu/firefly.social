@@ -1472,7 +1472,7 @@ export interface TokenWithMarketData {
         homepage: string[];
         twitter_handle: string;
     };
-    market_data: {
+    market_data?: {
         fully_diluted_valuation: number;
         high_24h_usd: number;
         low_24h_usd: number;

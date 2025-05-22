@@ -1,5 +1,4 @@
 import {
-    evmAddress,
     type Paginated,
     TimelineEventItemType,
     type TimelineItem,
@@ -11,6 +10,7 @@ import { compact } from 'lodash-es';
 import { lensApolloClient } from '@/configs/lensApolloClient.js';
 import { formatLensPostByFeedV3 } from '@/helpers/formatLensPost.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
+import { safeEvmAddress } from '@/helpers/safeEvmAddress.js';
 import { ensureCursor } from '@/providers/lens/ensureCursor.js';
 
 export async function fetchProfileTimeline(profileId: string, indicator?: PageIndicator) {
@@ -33,7 +33,7 @@ export async function fetchProfileTimeline(profileId: string, indicator?: PageIn
                         TimelineEventItemType.Repost,
                     ],
                 },
-                account: evmAddress(profileId),
+                account: safeEvmAddress(profileId),
             },
         },
         errorPolicy: 'all',

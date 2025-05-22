@@ -7,8 +7,9 @@ export function patchFarcasterSessionRequired(session: FarcasterSession, fid: nu
         session.profileId = `${fid}`;
     }
     if (session.token === NOT_DEPEND_SECRET) {
-        if (token) session.token = token;
-        else throw new FarcasterPatchSignerError(fid);
+        if (!token) throw new FarcasterPatchSignerError(fid);
+
+        session.token = token;
         session.signerRequestToken = FAKE_SIGNER_REQUEST_TOKEN;
     }
     return session;

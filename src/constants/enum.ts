@@ -50,7 +50,7 @@ export enum PageRoute {
     Token = '/token/:symbol',
     Article = '/article/:id',
     ProfileDetail = '/profile/:source/:id',
-    Channel = '/channel/:source/:id/:type',
+    Channel = '/community/:source/:id/:type',
     Event = '/event/:name',
     SettingConnected = '/settings/connected',
     SettingsMutes = '/settings/mutes',
@@ -202,10 +202,10 @@ export type LoginFallbackSource =
     | Source.Wallet;
 
 export enum ExploreType {
-    CryptoTrends = 'crypto-trends',
-    Projects = 'project',
-    TopProfiles = 'top-profiles',
-    TopChannels = 'top-channels',
+    CryptoTrends = 'tokens',
+    Projects = 'projects',
+    TopProfiles = 'users',
+    TopChannels = 'communities',
     TruthSocial = 'truth-social',
 }
 
