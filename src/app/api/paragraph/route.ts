@@ -1,12 +1,12 @@
 import { StatusCodes } from 'http-status-codes';
+import type { NextRequest } from 'next/server.js';
 
 import { createErrorResponseJSON } from '@/helpers/createResponseJSON.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { ParagraphProcessor } from '@/providers/paragraph/Processor.js';
 
-export async function GET(request: Request) {
-    const { searchParams } = new URL(request.url);
-    const link = searchParams.get('link');
+export async function GET(request: NextRequest) {
+    const link = request.nextUrl.searchParams.get('link');
     if (!link) return createErrorResponseJSON('Missing link', { status: 400 });
 
     try {

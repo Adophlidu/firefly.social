@@ -1,5 +1,6 @@
 import { safeUnreachable } from '@masknet/kit';
 import { StatusCodes } from 'http-status-codes';
+import type { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { KeyType } from '@/constants/enum.js';
@@ -18,10 +19,8 @@ const digestLinkRedis = memoizeWithRedis(FrameProcessor.digestDocumentUrl, {
     ignoreCacheWhen: (result) => !result,
 });
 
-export async function GET(request: Request) {
-    const { searchParams } = new URL(request.url);
-
-    const link = searchParams.get('link');
+export async function GET(request: NextRequest) {
+    const link = request.nextUrl.searchParams.get('link');
     if (!link) return createErrorResponseJSON('Missing link', { status: StatusCodes.BAD_REQUEST });
 
     const linkDigested = await digestLinkRedis(decodeURIComponent(link), request.signal);
@@ -31,10 +30,8 @@ export async function GET(request: Request) {
     return createSuccessResponseJSON(linkDigested);
 }
 
-export async function DELETE(request: Request) {
-    const { searchParams } = new URL(request.url);
-
-    const link = searchParams.get('link');
+export async function DELETE(request: NextRequest) {
+    const link = request.nextUrl.searchParams.get('link');
     if (!link) return createErrorResponseJSON('Missing link', { status: StatusCodes.BAD_REQUEST });
 
     await digestLinkRedis.cache.delete(link);
@@ -48,14 +45,12 @@ const FrameActionSchema = z.object({
     target: z.union([HttpUrl, z.literal(null)]),
 });
 
-export async function POST(request: Request) {
-    const { searchParams } = new URL(request.url);
-
+export async function POST(request: NextRequest) {
     const parsedFrameAction = FrameActionSchema.safeParse({
-        action: searchParams.get('action'),
-        url: searchParams.get('url'),
-        target: searchParams.get('target'),
-        postUrl: searchParams.get('post-url'),
+        action: request.nextUrl.searchParams.get('action'),
+        url: request.nextUrl.searchParams.get('url'),
+        target: request.nextUrl.searchParams.get('target'),
+        postUrl: request.nextUrl.searchParams.get('post-url'),
     });
     if (!parsedFrameAction.success)
         return createErrorResponseJSON(parsedFrameAction.error.message, { status: StatusCodes.BAD_REQUEST });

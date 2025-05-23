@@ -1,11 +1,11 @@
 import { StatusCodes } from 'http-status-codes';
+import type { NextRequest } from 'next/server.js';
 
 import { createErrorResponseJSON, createResponseJSON } from '@/helpers/createResponseJSON.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 
-export async function GET(request: Request) {
-    const { searchParams } = new URL(request.url);
-    const target = searchParams.get('target');
+export async function GET(request: NextRequest) {
+    const target = request.nextUrl.searchParams.get('target');
     if (!target) return new Response('Missing target', { status: 400 });
     try {
         const response = await fetch(target, {

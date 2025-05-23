@@ -1,4 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
+import type { NextRequest } from 'next/server.js';
 
 import { KeyType } from '@/constants/enum.js';
 import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
@@ -11,10 +12,8 @@ const digestLinkRedis = memoizeWithRedis(OpenGraphProcessor.digestDocumentUrl, {
     resolver: (link) => link,
 });
 
-export async function DELETE(request: Request) {
-    const { searchParams } = new URL(request.url);
-
-    const link = searchParams.get('link');
+export async function DELETE(request: NextRequest) {
+    const link = request.nextUrl.searchParams.get('link');
     if (!link) return createErrorResponseJSON('Missing link', { status: StatusCodes.BAD_REQUEST });
 
     await digestLinkRedis.cache.delete(link);
@@ -32,10 +31,8 @@ const patterns = [
     /\.?firefly\.social\//,
     /\/\/(www\.)?youtube\.com\//,
 ];
-export async function GET(request: Request) {
-    const { searchParams } = new URL(request.url);
-
-    const link = searchParams.get('link');
+export async function GET(request: NextRequest) {
+    const link = request.nextUrl.searchParams.get('link');
     if (!link) return createErrorResponseJSON('Missing link', { status: StatusCodes.BAD_REQUEST });
 
     if (patterns.some((x) => x.test(decodeURIComponent(link)))) {

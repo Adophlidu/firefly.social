@@ -99,7 +99,4 @@ export const authOptions: AuthOptions = {
             return token;
         },
     },
-    pages: {
-        error: '/auth/error',
-    },
 };

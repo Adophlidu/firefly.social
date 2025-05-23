@@ -1,4 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
+import type { NextRequest } from 'next/server.js';
 
 import { KeyType } from '@/constants/enum.js';
 import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
@@ -22,20 +23,16 @@ const refreshThreadByPostId = once(
     },
 );
 
-export async function GET(request: Request) {
-    const { searchParams } = new URL(request.url);
-
-    const id = searchParams.get('id');
+export async function GET(request: NextRequest) {
+    const id = request.nextUrl.searchParams.get('id');
     if (!id) return createErrorResponseJSON('Missing id', { status: StatusCodes.BAD_REQUEST });
 
     const thread = await getThreadByPostId(id);
     return createSuccessResponseJSON(thread);
 }
 
-export async function PUT(request: Request) {
-    const { searchParams } = new URL(request.url);
-
-    const id = searchParams.get('id');
+export async function PUT(request: NextRequest) {
+    const id = request.nextUrl.searchParams.get('id');
     if (!id) return createErrorResponseJSON('Missing id', { status: StatusCodes.BAD_REQUEST });
 
     try {
