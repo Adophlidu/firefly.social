@@ -11,7 +11,7 @@ interface SwapState {
     setSelectedChainId: (chainId: number | null) => void;
 }
 
-export const useSwapStore = create<SwapState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
+const useSwapStore = create<SwapState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
     persist(
         immer((set) => ({
             hasOpenSwap: false,

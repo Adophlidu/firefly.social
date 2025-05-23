@@ -578,7 +578,7 @@ class FireflyEndpoint {
             : data.result;
         return createPageable(
             feeds.map((x) => ({ ...x, detail: x.detail ? adjustAssetUris(x.detail) : null })),
-            indicator,
+            createIndicator(indicator),
             data.cursor ? createIndicator(undefined, data.cursor) : undefined,
         );
     }
@@ -879,14 +879,18 @@ class FireflyEndpoint {
         );
     }
 
-    async getFollowingPolymarketTimeline(platformFollowing: SourceInURL | 'all' = 'all', indicator?: PageIndicator) {
+    async getFollowingPolymarketTimeline(
+        platformFollowing: SourceInURL | 'all' = 'all',
+        indicator?: PageIndicator,
+        size = 25,
+    ) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/timeline/polymarket');
 
         const response = await fireflySessionHolder.fetch<PolymarketActivityTimeline>(url, {
             method: 'POST',
             body: JSON.stringify({
                 platformFollowing,
-                size: 25,
+                size,
                 cursor: indicator?.id,
             }),
         });

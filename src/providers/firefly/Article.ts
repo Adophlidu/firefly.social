@@ -42,10 +42,10 @@ class FireflyArticle implements Provider {
         throw new NotImplementedError();
     }
 
-    async discoverArticles(indicator?: PageIndicator) {
+    async discoverArticles(indicator?: PageIndicator, platforms = [ArticlePlatform.Paragraph, ArticlePlatform.Mirror]) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/articles/timeline', {
             size: 20,
-            platform: [ArticlePlatform.Paragraph, ArticlePlatform.Mirror].join(','),
+            platform: platforms.join(','),
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
@@ -61,7 +61,7 @@ class FireflyArticle implements Provider {
         );
     }
 
-    async discoverArticlesByAddress(address: string | string[], indicator?: PageIndicator) {
+    async discoverArticlesByAddress(address: string | string[], indicator?: PageIndicator, platform?: ArticlePlatform) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/timeline/articles');
         const limoPlatform = Array.isArray(address)
             ? address.some((x) => isSameEthereumAddress(VITALIK_ADDRESS, x))
@@ -70,11 +70,13 @@ class FireflyArticle implements Provider {
         const response = await fireflySessionHolder.fetch<DiscoverArticlesResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
-                platform: compact([
-                    ArticlePlatform.Paragraph,
-                    ArticlePlatform.Mirror,
-                    limoPlatform ? ArticlePlatform.Limo : undefined,
-                ]).join(','),
+                platform:
+                    platform ||
+                    compact([
+                        ArticlePlatform.Paragraph,
+                        ArticlePlatform.Mirror,
+                        limoPlatform ? ArticlePlatform.Limo : undefined,
+                    ]).join(','),
                 walletAddresses: Array.isArray(address) ? address : [address],
                 size: 20,
                 cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
@@ -110,12 +112,13 @@ class FireflyArticle implements Provider {
         return formatArticleFromFirefly(article);
     }
 
-    async getFollowingArticles(indicator?: PageIndicator) {
+    async getFollowingArticles(indicator?: PageIndicator, platform?: ArticlePlatform) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/timeline/articles');
         const response = await fireflySessionHolder.fetch<GetFollowingArticlesResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
                 size: 20,
+                platform,
                 cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
             }),
         });

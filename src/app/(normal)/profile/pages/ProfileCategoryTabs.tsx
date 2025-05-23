@@ -3,7 +3,9 @@
 import { Trans } from '@lingui/react/macro';
 import { type ReactNode, useMemo } from 'react';
 
+import { ActivitiesFilter } from '@/components/HomeTab/ActivitiesFilter.js';
 import { Link } from '@/components/Link.js';
+import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { ToggleEnableButton } from '@/components/TrumpTruthSocial/ToggleEnableButton.js';
 import {
     NetworkType,
@@ -12,14 +14,21 @@ import {
     Source,
     WalletProfileCategory,
 } from '@/constants/enum.js';
-import { LOGIN_SORTED_PROFILE_TAB_TYPE, SORTED_PROFILE_TAB_TYPE, WALLET_PROFILE_TAB_TYPES } from '@/constants/index.js';
+import {
+    LOGIN_SORTED_PROFILE_TAB_TYPE,
+    SORTED_PROFILE_TAB_TYPE,
+    VITALIK_ADDRESS,
+    WALLET_PROFILE_TAB_TYPES,
+} from '@/constants/index.js';
 import { TRUMP_TWITTER_PROFILE } from '@/constants/mentions.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useToggleEnableTruthSocial } from '@/hooks/useToggleEnableTruthSocial.js';
+import { ActivitiesFilterNamespace } from '@/store/useActivitiesFilterStore.js';
 
 export function ProfileCategoryTabs({
     source,
@@ -37,12 +46,9 @@ export function ProfileCategoryTabs({
     const tabTitles: Record<WalletProfileCategory, ReactNode> = useMemo(
         () => ({
             [WalletProfileCategory.Activities]: <Trans>Activities</Trans>,
-            [WalletProfileCategory.Swap]: <Trans>Swaps</Trans>,
             [WalletProfileCategory.POAPs]: <Trans>POAPs</Trans>,
             [WalletProfileCategory.NFTs]: <Trans>NFTs</Trans>,
-            [WalletProfileCategory.Articles]: <Trans>Articles</Trans>,
-            [WalletProfileCategory.DAOs]: <Trans>DAOs</Trans>,
-            [WalletProfileCategory.Polymarket]: <Trans>Bets</Trans>,
+            [WalletProfileCategory.Transactions]: <Trans>Transactions</Trans>,
         }),
         [],
     );
@@ -95,38 +101,46 @@ export function ProfileCategoryTabs({
         });
     }, [id, source, tabTitles, isCurrentProfile, enable]);
 
-    return (
-        <nav className="scrollable-tab sticky top-0 z-20 -mt-[60px] flex h-[110px] gap-1.5 border-b border-lightLineSecond bg-primaryBottom px-3 pt-[60px] dark:border-line">
-            {categories.map(({ type, title }) => {
-                const profileUrl = getProfileUrl({ source, profileId: id, handle: id }, type, isCurrentProfile);
+    const hasLimo = source === Source.Wallet && isSameEthereumAddress(id, VITALIK_ADDRESS);
 
-                return type === SocialProfileCategory.TruthSocial ? (
-                    <ToggleEnableButton
-                        replaceUrl={getProfileUrl(
-                            { source, profileId: id, handle: id },
-                            SocialProfileCategory.Feed,
-                            isCurrentProfile,
-                        )}
-                        link={profileUrl}
-                        inProfile
-                        isActive={category === type}
-                    />
-                ) : (
-                    <div key={type} className="flex flex-col">
-                        <Link
-                            href={profileUrl}
-                            replace
-                            className={classNames(
-                                'flex h-[45px] items-center whitespace-nowrap px-3 font-extrabold transition-all hover:text-highlight',
-                                category === type ? 'text-highlight' : 'text-third',
+    return (
+        <div className="sticky top-0 z-20 -mt-[60px] flex h-[110px] items-center border-b border-lightLineSecond bg-primaryBottom px-3 pt-[60px] dark:border-line">
+            <nav className="scrollable-tab flex min-w-0 flex-1 gap-1.5">
+                {categories.map(({ type, title }) => {
+                    const profileUrl = getProfileUrl({ source, profileId: id, handle: id }, type, isCurrentProfile);
+
+                    return type === SocialProfileCategory.TruthSocial ? (
+                        <ToggleEnableButton
+                            replaceUrl={getProfileUrl(
+                                { source, profileId: id, handle: id },
+                                SocialProfileCategory.Feed,
+                                isCurrentProfile,
                             )}
-                        >
-                            {title}
-                        </Link>
-                        {category === type ? <span className="h-1 w-full bg-highlight transition-all" /> : null}
-                    </div>
-                );
-            })}
-        </nav>
+                            link={profileUrl}
+                            inProfile
+                            isActive={category === type}
+                        />
+                    ) : (
+                        <div key={type} className="flex flex-col">
+                            <Link
+                                href={profileUrl}
+                                replace
+                                className={classNames(
+                                    'flex h-[45px] items-center whitespace-nowrap px-3 font-extrabold transition-all hover:text-highlight',
+                                    category === type ? 'text-highlight' : 'text-third',
+                                )}
+                            >
+                                {title}
+                            </Link>
+                            {category === type ? <span className="h-1 w-full bg-highlight transition-all" /> : null}
+                        </div>
+                    );
+                })}
+            </nav>
+            {category === WalletProfileCategory.Activities ? (
+                <ActivitiesFilter namespace={ActivitiesFilterNamespace.Profile} hasLimo={hasLimo} />
+            ) : null}
+            {category === WalletProfileCategory.Transactions ? <ChainFilter /> : null}
+        </div>
     );
 }

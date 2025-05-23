@@ -34,6 +34,8 @@ export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
         [SourceInURL.Swap]: Source.Swap,
         [SourceInURL.FarcasterV2]: Source.Farcaster,
         [SourceInURL.X]: Source.Twitter,
+        [SourceInURL.Transactions]: Source.Transactions,
+        [SourceInURL.Activities]: Source.Activities,
     },
     (sourceInUrl) => {
         throw new UnreachableError('sourceInUrl', sourceInUrl);

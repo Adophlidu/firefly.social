@@ -6,6 +6,7 @@ import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { AbortError, InvalidResultError, NotImplementedError } from '@/constants/error.js';
 import { retry } from '@/helpers/retry.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import type { Safary } from '@/providers/types/Safary.js';
 import { type Events, EventType, Provider, ProviderFilter, VersionFilter } from '@/providers/types/Telemetry.js';
@@ -36,19 +37,20 @@ async function getSafary(signal?: AbortSignal) {
     );
 }
 
+type CaptureParameters<T extends keyof Events> = [
+    T,
+    Omit<Events[T]['parameters'], keyof ReturnType<typeof getPublicParameters>> & {
+        firefly_account_id?: string;
+    },
+    { version_filter?: VersionFilter; provider_filter?: ProviderFilter }?,
+];
+
 class Telemetry extends Provider<Events, never> {
     private latestEventId: string | null = null;
 
-    override async captureEvent<T extends keyof Events>(
-        name: T,
-        parameters: Omit<Events[T]['parameters'], keyof ReturnType<typeof getPublicParameters>> & {
-            firefly_account_id?: string;
-        },
-        {
-            version_filter = VersionFilter.Latest,
-            provider_filter = ProviderFilter.All,
-        }: { version_filter?: VersionFilter; provider_filter?: ProviderFilter } = {},
-    ): Promise<void> {
+    override async captureEvent<T extends keyof Events>(...rest: CaptureParameters<T>): Promise<void> {
+        const [name, parameters, { version_filter, provider_filter } = {}] = rest;
+
         if (env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Disabled) {
             console.log('[telemetry] event capture is disabled');
             return;
@@ -110,6 +112,10 @@ class Telemetry extends Provider<Events, never> {
         } else {
             console.info('[safary] event is filtered out:', name, parameters);
         }
+    }
+
+    async captureEventInSafe<T extends keyof Events>(...rest: CaptureParameters<T>) {
+        return runInSafeAsync(() => this.captureEvent(...rest));
     }
 
     override async captureException(): Promise<void> {

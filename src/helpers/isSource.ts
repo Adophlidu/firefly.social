@@ -1,6 +1,7 @@
 import {
     type BookmarkSource,
     type DiscoverSource,
+    type FollowingSource,
     type NotificationSource,
     type ProfilePageSource,
     type SocialDiscoverSource,
@@ -12,6 +13,7 @@ import {
 import {
     BOOKMARK_SOURCES,
     DISCOVER_SOURCES,
+    FOLLOWING_SOURCES,
     NOTIFICATION_SOURCES,
     PROFILE_PAGE_SOURCES,
     SOCIAL_DISCOVER_SOURCE,
@@ -21,6 +23,10 @@ import { resolveSourceInUrl, resolveSourceInUrlForApi } from '@/helpers/resolveS
 
 export function isDiscoverSource(source: string): source is DiscoverSource {
     return (DISCOVER_SOURCES as string[]).includes(source);
+}
+
+export function isFollowingSource(source: string): source is FollowingSource {
+    return FOLLOWING_SOURCES.includes(source as FollowingSource);
 }
 
 export function isSocialDiscoverSource(source: string): source is SocialDiscoverSource {

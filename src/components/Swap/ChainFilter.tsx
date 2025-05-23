@@ -8,7 +8,8 @@ import FilterIcon from '@/assets/filter.svg';
 import MiniFilterIcon from '@/assets/mini-filter.svg';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NetworkType } from '@/constants/enum.js';
-import { useSwapStore } from '@/store/useSwapStore.js';
+import { captureChainFilterTabEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
+import { useSwapStateStore } from '@/store/useSwapStore.js';
 
 const chainsList = [
     {
@@ -49,7 +50,7 @@ const chainsList = [
 ];
 
 export function ChainFilter() {
-    const { selectedChainId, setSelectedChainId } = useSwapStore();
+    const { selectedChainId, setSelectedChainId } = useSwapStateStore();
 
     const Icon = useMemo(() => {
         if (selectedChainId === 101) {
@@ -63,7 +64,7 @@ export function ChainFilter() {
     return (
         <Menu>
             {({ close }) => (
-                <>
+                <div>
                     <MenuButton
                         className="size-5 text-placeholder outline-none"
                         onMouseEnter={(e) => e.currentTarget.click()}
@@ -84,6 +85,7 @@ export function ChainFilter() {
                                         onClick={() => {
                                             setSelectedChainId(null);
                                             close();
+                                            captureChainFilterTabEvent('home');
                                         }}
                                     >
                                         {selectedChainId === null ? (
@@ -106,6 +108,7 @@ export function ChainFilter() {
                                             onClick={() => {
                                                 setSelectedChainId(id);
                                                 close();
+                                                captureChainFilterTabEvent('home', `${id}`, name);
                                             }}
                                         >
                                             {selectedChainId === id ? (
@@ -123,7 +126,7 @@ export function ChainFilter() {
                             </div>
                         </div>
                     </MenuItems>
-                </>
+                </div>
             )}
         </Menu>
     );

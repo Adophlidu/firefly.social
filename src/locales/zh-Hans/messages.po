@@ -421,9 +421,6 @@ msgstr "登出 @{0}"
 msgid "View similar symbols"
 msgstr "查看名称相似的代币"
 
-msgid "DAOs"
-msgstr "DAOs"
-
 msgid "MAX"
 msgstr "最大"
 
@@ -456,9 +453,6 @@ msgstr "投票"
 
 msgid "Back to list"
 msgstr ""
-
-msgid "Bets"
-msgstr "Bets"
 
 msgid "Scheduled"
 msgstr "已定时"
@@ -1201,9 +1195,6 @@ msgstr "没有可显示的数据"
 
 msgid "Follow System"
 msgstr "跟随系统"
-
-msgid "Swaps"
-msgstr "兑换"
 
 msgid "Unknown"
 msgstr "未知"
@@ -2199,9 +2190,6 @@ msgstr "未找到代币 ${symbol} 。"
 msgid "No cybercrime found."
 msgstr "不涉及网络犯罪。"
 
-msgid "Articles"
-msgstr "文章"
-
 msgid "This Apple account is already linked to another Firefly account."
 msgstr "该邮箱已绑定其他 Apple 账号。"
 
@@ -2227,9 +2215,6 @@ msgstr "GIF 数量超出最大限制。"
 
 msgid "Font Color"
 msgstr "字体颜色"
-
-msgid "Watching address"
-msgstr "关注的钱包地址"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "在 Firefly 上使用 Lucky Drop，提升你的粉丝量和互动率！"
@@ -2948,9 +2933,6 @@ msgstr "文章"
 msgid "Attendance"
 msgstr "出席"
 
-msgid "Following Farcaster"
-msgstr "Farcaster 关注用户"
-
 msgid "Show more"
 msgstr "显示更多"
 
@@ -3290,9 +3272,6 @@ msgstr "铸造帖子"
 msgid "Sorry, we are not able to find this token"
 msgstr "对不起，我们未找到此代币"
 
-msgid "Following Lens"
-msgstr "Lens 关注用户"
-
 msgid "Muting..."
 msgstr "隐藏中..."
 
@@ -3300,9 +3279,6 @@ msgstr "隐藏中..."
 #. placeholder {0}: post.stats.countOpenActions
 msgid "{0, plural, one {comment} other {comments}}"
 msgstr "{0, plural, one {评论} other {评论}}"
-
-msgid "Following X"
-msgstr "X 关注用户"
 
 msgid "<0/> Loading"
 msgstr "<0/> 加载中"
@@ -3597,9 +3573,6 @@ msgstr "铸造中"
 
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "如果你授权此通证给这个网站，你可能会丢失您的资产。"
-
-msgid "Platform filter"
-msgstr "筛选社交平台"
 
 msgid "Unfollow"
 msgstr "取消关注"

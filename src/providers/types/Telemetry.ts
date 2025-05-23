@@ -217,6 +217,11 @@ export enum EventId {
     CHANNEL_LEAVE_ON_LENS_SUCCESS = 'lens_leave_group_success',
     CHANNEL_ADD_ON_BSKY_SUCCESS = 'bsky_add_feed_success',
     CHANNEL_REMOVE_ON_BSKY_SUCCESS = 'bsky_remove_feed_success',
+
+    // filter tab
+    POSTS_FILTER_CHANGE = 'tab_social_filter_click',
+    CHAIN_FILTER_CHANGE = 'tab_chain_filter_click',
+    ACTIVITIES_FILTER_CHANGE = 'tab_platform_filter_click',
 }
 
 export enum ExceptionId {
@@ -1047,6 +1052,33 @@ export interface Events extends Record<EventId, Event> {
     [EventId.EVENT_CLAIM_PREMIUM_SUCCESS]: {
         type: EventType.Interact;
         parameters: ActivityWalletEventParameters;
+    };
+    [EventId.POSTS_FILTER_CHANGE]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            social_selected: string;
+            page_source: string;
+        };
+    };
+
+    [EventId.CHAIN_FILTER_CHANGE]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            chain_id: string;
+            chain_name: string;
+            page_source: string;
+        };
+    };
+
+    [EventId.ACTIVITIES_FILTER_CHANGE]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            platform_selected: string;
+            page_source: string;
+        };
     };
 }
 

@@ -22,6 +22,7 @@ export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndic
         timeout?: number; // ms
     }>,
     select: (data: InfiniteData<T>) => D[],
+    formatter?: (data: D[]) => D[],
 ) {
     type PageParams = Record<string, PageIndicator>;
 
@@ -60,7 +61,7 @@ export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndic
                 ),
             );
             const data = results.reduce<D[]>((acc, x) => acc.concat(x.result.data), []);
-            return createPageable<D>(data, strIndicator, strNextIndicator) as T;
+            return createPageable<D>(formatter ? formatter(data) : data, strIndicator, strNextIndicator) as T;
         },
         getNextPageParam(lastPage) {
             const next = parseJSON<PageParams>(lastPage.nextIndicator?.id);

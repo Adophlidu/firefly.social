@@ -75,6 +75,8 @@ export enum Source {
     Posts = 'Posts',
     Notifications = 'Notifications',
     Swap = 'Swap',
+    Transactions = 'Transactions',
+    Activities = 'Activities',
 }
 
 export enum SourceInURL {
@@ -98,6 +100,8 @@ export enum SourceInURL {
     Swap = 'swap',
     FarcasterV2 = 'far',
     X = 'x',
+    Transactions = 'transactions',
+    Activities = 'activities',
 }
 
 export enum Agent {
@@ -173,9 +177,9 @@ export type ProfileSourceInURL =
     | SourceInURL.X;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens | Source.Bsky | Source.Twitter;
 export type SocialNotificationSource = Source.Farcaster | Source.Lens | Source.Bsky;
-export type DiscoverSource = Source.Posts | Source.NFTs | Source.Article | Source.DAOs;
+export type DiscoverSource = Source.Posts | Source.Activities | Source.Transactions;
 export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.DAOs | Source.NFTs | Source.Bsky;
-export type FollowingSource = DiscoverSource | Source.Polymarket | Source.Swap;
+export type FollowingSource = DiscoverSource | Source.Transactions | Source.Activities;
 export type ExploreSource = Source.Farcaster | Source.Lens | Source.Bsky | Source.Twitter | TrendingType;
 export type ExploreSourceInURL =
     | SourceInURL.Farcaster
@@ -265,13 +269,10 @@ export enum SocialProfileCategory {
 }
 
 export enum WalletProfileCategory {
-    Articles = 'articles',
     POAPs = 'poaps',
     NFTs = 'nfts',
     Activities = 'activities',
-    DAOs = 'DAOs',
-    Polymarket = 'polymarket',
-    Swap = 'swap',
+    Transactions = 'transactions',
 }
 
 export enum EngagementType {
@@ -319,6 +320,8 @@ export enum ScrollListKey {
     GroupPosts = 'group-posts',
     ChannelMembers = 'channel-members',
     ChannelFollowers = 'channel-followers',
+    Transactions = 'transactions-list',
+    Activities = 'activities-list',
 }
 
 export enum FarcasterSignType {
@@ -591,4 +594,11 @@ export enum TokenCategory {
     Transactions = 'transactions',
     Feeds = 'feeds',
     Overview = 'overview',
+}
+
+export enum ActivitiesPlatform {
+    Snapshot = 'Snapshot',
+    Mirror = 'Mirror',
+    Paragraph = 'Paragraph',
+    Limo = 'Limo',
 }

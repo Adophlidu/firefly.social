@@ -155,15 +155,12 @@ export const SORTED_PROFILE_TAB_TYPE_REQUIRE_LOGIN: Record<SocialSource, SocialP
 };
 export const WALLET_PROFILE_TAB_TYPES: Record<NetworkType, WalletProfileCategory[]> = {
     [NetworkType.Ethereum]: [
-        WalletProfileCategory.Activities,
-        WalletProfileCategory.Swap,
-        WalletProfileCategory.Polymarket,
-        WalletProfileCategory.POAPs,
         WalletProfileCategory.NFTs,
-        WalletProfileCategory.Articles,
-        WalletProfileCategory.DAOs,
+        WalletProfileCategory.Transactions,
+        WalletProfileCategory.Activities,
+        WalletProfileCategory.POAPs,
     ],
-    [NetworkType.Solana]: [WalletProfileCategory.Swap],
+    [NetworkType.Solana]: [WalletProfileCategory.Transactions],
 };
 export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> = {
     [Source.Lens]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Mirrors],
@@ -271,15 +268,8 @@ export const SOCIAL_DISCOVER_SOURCE_LOGIN_REQUIRED: SocialDiscoverSource[] = [So
 export const SOCIAL_DISCOVER_WHITELIST_SOURCE: SocialDiscoverSource[] = [Source.Twitter];
 export const SOCIAL_NOTIFICATION_SOURCE: SocialNotificationSource[] = [Source.Farcaster, Source.Lens, Source.Bsky];
 export const QUERY_MUTE_PROFILE_SOURCES = [Source.Bsky, Source.Twitter, Source.Lens];
-export const DISCOVER_SOURCES: DiscoverSource[] = [Source.Posts, Source.NFTs, Source.Article, Source.DAOs] as const;
-export const FOLLOWING_SOURCES: FollowingSource[] = [
-    Source.Posts,
-    Source.Swap,
-    Source.Polymarket,
-    Source.NFTs,
-    Source.Article,
-    Source.DAOs,
-] as const;
+export const DISCOVER_SOURCES: DiscoverSource[] = [Source.Posts, Source.Transactions, Source.Activities] as const;
+export const FOLLOWING_SOURCES: FollowingSource[] = [Source.Posts, Source.Transactions, Source.Activities] as const;
 export const FOLLOWING_CATEGORY = [FollowCategory.Followers, FollowCategory.Mutuals, FollowCategory.Following] as const;
 export const REQUIRE_LOGIN_FOLLOWING_CATEGORY = [FollowCategory.Mutuals];
 export const REQUIRE_LOGIN_SOURCES: RequestedLoginSource[] =

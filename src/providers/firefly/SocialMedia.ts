@@ -55,6 +55,7 @@ import {
     type DiscoverSnapshotsResponse,
     type FireflyFarcasterProfileResponse,
     type FireflySnapshotActivity,
+    type FollowingSnapshotActivity,
     type FriendshipResponse,
     type GetBookmarksResponse,
     type NFTBookmarkContent,
@@ -1102,7 +1103,7 @@ class FireflySocialMedia implements Provider {
         const data = resolveFireflyResponseData(response);
         const proposals = await Snapshot.getProposals(data.result.map((x) => x.metadata.proposal_id));
 
-        const activities = data.result.map((x) => {
+        const activities = data.result.map<FollowingSnapshotActivity>((x) => {
             const proposal = proposals.find((p) => p.id === x.metadata.proposal_id);
 
             return {

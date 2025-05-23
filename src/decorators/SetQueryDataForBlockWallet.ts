@@ -2,7 +2,9 @@ import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
-import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
+import { isSameAddress, isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { patchActivitiesQuery } from '@/helpers/patchActivitiesQuery.js';
+import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
@@ -43,6 +45,12 @@ function toggleBlock(address: string, status: boolean) {
     };
 
     queryClient.setQueriesData<{ pages: Array<{ data: Article[] }> }>({ queryKey: ['articles'] }, patcher);
+    patchActivitiesQuery(Source.Article, (item) => {
+        if (isSameEthereumAddress(item.author.id, address)) {
+            item.author.isMuted = status;
+        }
+    });
+
     queryClient.setQueriesData<PagesData>({ queryKey: ['posts', Source.Article, 'bookmark'] }, patcher);
     queryClient.setQueriesData<Article>({ queryKey: ['article-detail'] }, (old) => {
         if (!old) return;
@@ -81,18 +89,7 @@ function toggleBlock(address: string, status: boolean) {
         });
     });
 
-    const polymarketPatcher = (old: Draft<PolymarketPagesData> | undefined) => {
-        if (!old || !status) return old;
-        return produce(old, (draft) => {
-            for (const page of draft.pages) {
-                if (!page) continue;
-                page.data = page.data.filter((activity) => {
-                    return !isSameEthereumAddress(activity.wallet, address);
-                });
-            }
-        });
-    };
-    queryClient.setQueriesData<PolymarketPagesData>({ queryKey: ['polymarket', 'following'] }, polymarketPatcher);
+    patchTransactionsQuery(Source.Polymarket, undefined, (data) => !isSameEthereumAddress(data.wallet, address));
 
     queryClient.setQueriesData<DAOPagesData>({ queryKey: ['snapshots'] }, (old) => {
         if (!old) return old;
@@ -101,16 +98,17 @@ function toggleBlock(address: string, status: boolean) {
             for (const page of draft.pages) {
                 if (!page) continue;
                 for (const activity of page.data) {
-                    if (
-                        !isSameEthereumAddress(activity.author.id, address) &&
-                        !isSameSolanaAddress(activity.author.id, address)
-                    )
-                        continue;
-
-                    activity.author.isMuted = status;
+                    if (isSameAddress(activity.author.id, address)) {
+                        activity.author.isMuted = status;
+                    }
                 }
             }
         });
+    });
+    patchActivitiesQuery(Source.DAOs, (item) => {
+        if (isSameAddress(item.author.id, address)) {
+            item.author.isMuted = status;
+        }
     });
 }
 

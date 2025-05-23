@@ -1,13 +1,14 @@
 import { first } from 'lodash-es';
 import { type CSSProperties, memo } from 'react';
 import type { Address } from 'viem';
+import { polygon } from 'viem/chains';
 
-import PolymarketIcon from '@/assets/polymarket.svg';
 import { ActivityCellPolymarketAction } from '@/components/ActivityCell/Polymarket/ActivityCellPolymarketAction.js';
 import { Avatar } from '@/components/Avatar.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
+import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { PolymarketActivityRate } from '@/components/Polymarket/PolymarketActivityRate.js';
 import { PolymarketActivityResult } from '@/components/Polymarket/PolymarketActivityResult.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
@@ -66,9 +67,9 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                 >
                     <div className="flex items-center gap-x-1 text-medium text-second">
                         <Link href={profileUrl} className="min-w-0 truncate font-bold text-lightMain">
-                            {activity.displayInfo.ensHandle || addressName}
+                            {activity.displayInfo?.ensHandle || addressName}
                         </Link>
-                        {activity.displayInfo.ensHandle ? (
+                        {activity.displayInfo?.ensHandle ? (
                             <Link href={profileUrl} className="ml-2 max-md:hidden">
                                 {addressName}
                             </Link>
@@ -78,11 +79,11 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                                 · <TimestampFormatter time={activity.timestamp * 1000} /> ·
                             </span>
                         ) : null}
-                        <PolymarketIcon width={15} height={15} className="mr-auto shrink-0" />
+                        <ChainIcon chainId={polygon.id} size={15} className="mr-auto shrink-0" />
                         {isMyProfile ? null : (
                             <WalletBaseMoreAction
                                 address={activity.wallet as Address}
-                                ens={activity.displayInfo.ensHandle}
+                                ens={activity.displayInfo?.ensHandle}
                             />
                         )}
                     </div>

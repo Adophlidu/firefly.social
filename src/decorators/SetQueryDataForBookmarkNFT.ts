@@ -3,6 +3,7 @@ import { type Draft, produce } from 'immer';
 import { queryClient } from '@/configs/queryClient.js';
 import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
+import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import { resolveNFTId, resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
@@ -51,6 +52,10 @@ function toggleBlock(id: string, status: boolean) {
         { queryKey: ['nfts', 'following', Source.NFTs] },
         followingUpdater,
     );
+    patchTransactionsQuery(Source.NFTs, (feed) => {
+        const feedNftId = resolveNFTId(feed.chain_id, feed.contract_address, feed.token_id);
+        if (feedNftId.toLowerCase() === id) feed.bookmarked = status;
+    });
 
     const patcher = createUpdater<EVM.Asset>((item) => {
         if (resolveNFTIdFromAsset(item) === id) {

@@ -416,9 +416,6 @@ msgstr "Log out @{0}"
 msgid "View similar symbols"
 msgstr "View similar symbols"
 
-msgid "DAOs"
-msgstr "DAOs"
-
 msgid "MAX"
 msgstr "MAX"
 
@@ -451,9 +448,6 @@ msgstr "Poll"
 
 msgid "Back to list"
 msgstr "Back to list"
-
-msgid "Bets"
-msgstr "Bets"
 
 msgid "Scheduled"
 msgstr "Scheduled"
@@ -1196,9 +1190,6 @@ msgstr "There is no data available to display"
 
 msgid "Follow System"
 msgstr "Follow System"
-
-msgid "Swaps"
-msgstr "Swaps"
 
 msgid "Unknown"
 msgstr "Unknown"
@@ -2194,9 +2185,6 @@ msgstr "Token ${symbol} could not be found."
 msgid "No cybercrime found."
 msgstr "No cybercrime found."
 
-msgid "Articles"
-msgstr "Articles"
-
 msgid "This Apple account is already linked to another Firefly account."
 msgstr "This Apple account is already linked to another Firefly account."
 
@@ -2222,9 +2210,6 @@ msgstr "GIF count limit reached."
 
 msgid "Font Color"
 msgstr "Font Color"
-
-msgid "Watching address"
-msgstr "Watching address"
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Grow your followers and engagement with Lucky Drop on Firefly!"
@@ -2943,9 +2928,6 @@ msgstr "Article"
 msgid "Attendance"
 msgstr "Attendance"
 
-msgid "Following Farcaster"
-msgstr "Following Farcaster"
-
 msgid "Show more"
 msgstr "Show more"
 
@@ -3285,9 +3267,6 @@ msgstr "Collect Post"
 msgid "Sorry, we are not able to find this token"
 msgstr "Sorry, we are not able to find this token"
 
-msgid "Following Lens"
-msgstr "Following Lens"
-
 msgid "Muting..."
 msgstr "Muting..."
 
@@ -3295,9 +3274,6 @@ msgstr "Muting..."
 #. placeholder {0}: post.stats.countOpenActions
 msgid "{0, plural, one {comment} other {comments}}"
 msgstr "{0, plural, one {comment} other {comments}}"
-
-msgid "Following X"
-msgstr "Following X"
 
 msgid "<0/> Loading"
 msgstr "<0/> Loading"
@@ -3592,9 +3568,6 @@ msgstr "Minting"
 
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "You may lose your assets if giving approval to the website of this token."
-
-msgid "Platform filter"
-msgstr "Platform filter"
 
 msgid "Unfollow"
 msgstr "Unfollow"

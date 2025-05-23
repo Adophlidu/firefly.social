@@ -421,9 +421,6 @@ msgstr ""
 msgid "View similar symbols"
 msgstr ""
 
-msgid "DAOs"
-msgstr ""
-
 msgid "MAX"
 msgstr ""
 
@@ -455,9 +452,6 @@ msgid "Poll"
 msgstr ""
 
 msgid "Back to list"
-msgstr ""
-
-msgid "Bets"
 msgstr ""
 
 msgid "Scheduled"
@@ -1200,9 +1194,6 @@ msgid "There is no data available to display"
 msgstr ""
 
 msgid "Follow System"
-msgstr ""
-
-msgid "Swaps"
 msgstr ""
 
 msgid "Unknown"
@@ -2191,9 +2182,6 @@ msgstr ""
 msgid "No cybercrime found."
 msgstr ""
 
-msgid "Articles"
-msgstr ""
-
 msgid "This Apple account is already linked to another Firefly account."
 msgstr ""
 
@@ -2218,9 +2206,6 @@ msgid "GIF count limit reached."
 msgstr ""
 
 msgid "Font Color"
-msgstr ""
-
-msgid "Watching address"
 msgstr ""
 
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
@@ -2935,9 +2920,6 @@ msgstr ""
 msgid "Attendance"
 msgstr ""
 
-msgid "Following Farcaster"
-msgstr ""
-
 msgid "Show more"
 msgstr ""
 
@@ -3277,18 +3259,12 @@ msgstr ""
 msgid "Sorry, we are not able to find this token"
 msgstr ""
 
-msgid "Following Lens"
-msgstr ""
-
 msgid "Muting..."
 msgstr ""
 
 #. placeholder {0}: post.stats.comments
 #. placeholder {0}: post.stats.countOpenActions
 msgid "{0, plural, one {comment} other {comments}}"
-msgstr ""
-
-msgid "Following X"
 msgstr ""
 
 msgid "<0/> Loading"
@@ -3580,9 +3556,6 @@ msgid "Minting"
 msgstr ""
 
 msgid "You may lose your assets if giving approval to the website of this token."
-msgstr ""
-
-msgid "Platform filter"
 msgstr ""
 
 msgid "Unfollow"

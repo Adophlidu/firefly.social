@@ -6,6 +6,7 @@ import { getEnumAsArray } from '@masknet/kit';
 import { useMemo, useState } from 'react';
 
 import ArrowDownCircleIcon from '@/assets/arrow-circle-down.svg';
+import { ActivitiesFilter } from '@/components/HomeTab/ActivitiesFilter.js';
 import { DiscoverFilter } from '@/components/HomeTab/DiscoverFilter.js';
 import { Link } from '@/components/Link.js';
 import { ChainFilter } from '@/components/Swap/ChainFilter.js';
@@ -20,11 +21,12 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
+import { ActivitiesFilterNamespace } from '@/store/useActivitiesFilterStore.js';
 import { useSwapStateStore } from '@/store/useSwapStore.js';
 
 const types = {
-    [HomeTab.Discover]: [Source.Posts, Source.NFTs, Source.Article, Source.DAOs],
-    [HomeTab.Following]: [Source.Posts, Source.Swap, Source.Polymarket, Source.Article, Source.DAOs],
+    [HomeTab.Discover]: [Source.Posts, Source.Transactions, Source.Activities],
+    [HomeTab.Following]: [Source.Posts, Source.Transactions, Source.Activities],
 };
 
 export function HomeTabs({
@@ -82,7 +84,7 @@ export function HomeTabs({
                     <div className={classNames('flex h-[60px] flex-col px-4 pt-2.5', containerClass)}>
                         <Menu>
                             {({ close }) => (
-                                <>
+                                <div>
                                     <MenuButton
                                         className={classNames(
                                             'mr-auto inline-flex h-full items-center text-xl font-bold',
@@ -121,7 +123,7 @@ export function HomeTabs({
                                             </div>
                                         </div>
                                     </MenuItems>
-                                </>
+                                </div>
                             )}
                         </Menu>
                     </div>
@@ -160,8 +162,11 @@ export function HomeTabs({
                             }));
                         }}
                     />
-                    {source === Source.Posts ? <DiscoverFilter tab={currentTab} source={source} /> : null}
-                    {source === Source.Swap ? <ChainFilter /> : null}
+                    {source === Source.Posts ? <DiscoverFilter tab={currentTab} /> : null}
+                    {source === Source.Transactions ? <ChainFilter /> : null}
+                    {source === Source.Activities ? (
+                        <ActivitiesFilter namespace={ActivitiesFilterNamespace.Home} />
+                    ) : null}
                 </div>
             ) : null}
         </div>

@@ -34,6 +34,8 @@ export const resolveSourceInUrlForApi = createLookupTableResolver<Source, Source
         [Source.Notifications]: SourceInURL.Notifications,
         [Source.Email]: SourceInURL.Email,
         [Source.Swap]: SourceInURL.Swap,
+        [Source.Transactions]: SourceInURL.Transactions,
+        [Source.Activities]: SourceInURL.Activities,
     },
     (source) => {
         throw new UnreachableError('source', source);

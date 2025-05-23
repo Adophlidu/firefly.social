@@ -2,6 +2,7 @@ import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
+import { patchActivitiesQuery } from '@/helpers/patchActivitiesQuery.js';
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
@@ -37,6 +38,12 @@ function toggleBookmark(source: Source, postId: string, status: boolean) {
         });
     });
 
+    patchActivitiesQuery(Source.Article, (item) => {
+        if (item.id === postId) {
+            item.hasBookmarked = status;
+        }
+    });
+
     queryClient.setQueriesData<{ pages: Array<{ data: SnapshotActivity[] } | null> }>(
         { queryKey: ['snapshots'] },
         (old) => {
@@ -51,6 +58,11 @@ function toggleBookmark(source: Source, postId: string, status: boolean) {
             });
         },
     );
+    patchActivitiesQuery(Source.DAOs, (item) => {
+        if (item.hash === postId) {
+            item.hasBookmarked = status;
+        }
+    });
 
     queryClient.setQueryData<Article>(['article-detail', postId], (old) => {
         return produce(old, (draft) => {

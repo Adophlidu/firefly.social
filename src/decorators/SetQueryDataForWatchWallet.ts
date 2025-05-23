@@ -3,6 +3,8 @@ import { type Draft, produce } from 'immer';
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { patchActivitiesQuery } from '@/helpers/patchActivitiesQuery.js';
+import { patchTransactionsQuery } from '@/helpers/patchTransactionsQuery.js';
 import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
 import type { Article } from '@/providers/types/Article.js';
 import { type PolymarketActivity, WatchType } from '@/providers/types/Firefly.js';
@@ -25,6 +27,12 @@ function toggleWatch(address: string, status: boolean) {
         });
     };
     queryClient.setQueriesData<PagesData>({ queryKey: ['articles'] }, patcher);
+    patchActivitiesQuery(Source.Article, (item) => {
+        if (isSameEthereumAddress(item.author.id, address)) {
+            item.author.isFollowing = status;
+        }
+    });
+
     queryClient.setQueriesData<PagesData>({ queryKey: ['posts', Source.Article, 'bookmark'] }, patcher);
     queryClient.setQueriesData<Article>({ queryKey: ['article-detail'] }, (old) => {
         if (!old) return;
@@ -35,25 +43,13 @@ function toggleWatch(address: string, status: boolean) {
     });
     queryClient.setQueryData(['follow-wallet', address.toLowerCase()], status);
 
-    const polymarketPatcher = (old: Draft<PolymarketPagesData> | undefined) => {
-        if (!old || status) return old;
-        return produce(old, (draft) => {
-            for (const page of draft.pages) {
-                if (!page) continue;
-                page.data = page.data.filter(({ followingSources }) => {
-                    if (
-                        followingSources?.length === 1 &&
-                        followingSources[0]?.type === WatchType.Wallet &&
-                        isSameEthereumAddress(followingSources[0].walletAddress, address)
-                    )
-                        return false;
-
-                    return true;
-                });
-            }
-        });
-    };
-    queryClient.setQueriesData<PolymarketPagesData>({ queryKey: ['polymarket', 'following'] }, polymarketPatcher);
+    patchTransactionsQuery(Source.Polymarket, undefined, ({ followingSources }) => {
+        return !(
+            followingSources?.length === 1 &&
+            followingSources[0]?.type === WatchType.Wallet &&
+            isSameEthereumAddress(followingSources[0].walletAddress, address)
+        );
+    });
 }
 
 const METHODS_BE_OVERRIDDEN = ['watchWallet', 'unwatchWallet'] as const;

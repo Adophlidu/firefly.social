@@ -13,10 +13,11 @@ import {
 } from '@/constants/enum.js';
 import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
 import type { ErcType, EVM } from '@/providers/nft-scan/types.js';
-import type { SnapshotChoice } from '@/providers/snapshot/type.js';
-import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
+import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
+import type { Article as FormattedArticle, ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 import type { CoinGeckoAsset } from '@/providers/types/CoinGecko.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
+import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
 import type { ComposeType } from '@/types/compose.js';
 
 export enum EmbedMediaType {
@@ -251,6 +252,10 @@ export type DiscoverSnapshotsResponse = Response<{
     cursor: number;
     result: FireflySnapshotActivity[];
 }>;
+
+export type FollowingSnapshotActivity = SnapshotActivity & {
+    proposal?: SnapshotProposal;
+};
 
 export interface Response<T> {
     code: number;
@@ -1653,6 +1658,38 @@ export type TokenPriceStatsResponse = Response<{
     prices: Stat[];
     total_volumes: Stat[];
 }>;
+
+export type TransactionsItem = {
+    timestamp: number;
+    id: string;
+} & (
+    | {
+          source: Source.Swap;
+          data: SwapActivity;
+      }
+    | {
+          source: Source.Polymarket;
+          data: PolymarketActivity;
+      }
+    | {
+          source: Source.NFTs;
+          data: NFTFeedV3;
+      }
+);
+
+export type ActivitiesItem = {
+    timestamp: number;
+    id: string;
+} & (
+    | {
+          source: Source.Article;
+          data: FormattedArticle;
+      }
+    | {
+          source: Source.DAOs;
+          data: FollowingSnapshotActivity;
+      }
+);
 
 export interface TruthSocialPost {
     account: {
