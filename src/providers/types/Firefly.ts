@@ -1218,6 +1218,8 @@ export type SearchNFTResponse = Response<{
 export type SearchableToken = {
     api_symbol: string;
     id: string;
+    chainId?: number;
+    address?: string;
     /** large image */
     large: string;
     market_cap_rank?: number;
@@ -1469,6 +1471,20 @@ export type TakoExternalHostedData = Response<{
     content: string;
 }>;
 
+export type GetTokenOptions = {
+    coingecko_id?: string | null;
+    network?: string;
+    chain_id?: number;
+    address?: string;
+    token_symbol?: string;
+    localization?: boolean | 'usd' | string;
+    tickers?: boolean | 1;
+    market_data?: boolean;
+    community_data?: boolean;
+    developer_data?: boolean;
+    sparkline?: boolean;
+};
+
 export interface TokenWithMarketData {
     detail_platforms: unknown;
     id: string;
@@ -1498,6 +1514,7 @@ export interface TokenWithMarketData {
     };
     symbol: string;
     web_slug: string;
+    contract_address: string;
 }
 
 export type WalletsStatusResponse = Response<
@@ -1735,7 +1752,7 @@ export type TrumpTruthSocialPostsResponse = Response<{
 export type TruthSocialPostResponse = Response<TruthSocialPost>;
 
 export type TokenPriceStatsOptions = {
-    coingecko_id?: string;
+    coingecko_id?: string | null;
     chain_id?: number;
     address?: string;
     days: number | undefined;

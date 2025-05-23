@@ -54,6 +54,8 @@ export async function searchTokensByAddress(address: string): Promise<Pageable<S
                 {
                     api_symbol: attributes.symbol,
                     id: attributes.coingecko_coin_id,
+                    chainId: token.attributes.chain_id,
+                    address: token.attributes.address,
                     large: attributes.image_url,
                     name: attributes.name,
                     symbol: attributes.symbol,

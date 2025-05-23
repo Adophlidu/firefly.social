@@ -1,4 +1,4 @@
-import { useQueries, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { formatMarketToken } from '@/helpers/formatMarketToken.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -42,15 +42,5 @@ export function useTokenInfo(symbolOrId: string, ensureId = true, enabled = true
         enabled,
         queryKey: ['token', symbolOrId, ensureId],
         queryFn: () => getTokenInfo({ symbolOrId, ensureId }),
-    });
-}
-
-export function useTokensInfo(options: GetTokenInfoOptions[]) {
-    return useQueries({
-        queries: options.map((x) => ({
-            enabled: x.enabled,
-            queryKey: ['token', x.symbolOrId, x.ensureId],
-            queryFn: () => getTokenInfo(x),
-        })),
     });
 }

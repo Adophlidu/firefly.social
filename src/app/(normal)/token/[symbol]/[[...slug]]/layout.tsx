@@ -1,3 +1,4 @@
+import { headers } from 'next/headers.js';
 import { notFound } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
 
@@ -35,8 +36,13 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
         tokenAsset = await searchTokenByAddress(paramSymbol);
         if (tokenAsset) symbol = tokenAsset.attributes.symbol;
     }
+    const rawSearch = (await headers()).get('X-SEARCH-PARAMS');
+    const search = rawSearch ? new URLSearchParams(rawSearch) : null;
     const token = await runInSafeAsync(async () => {
-        const data = await getTokenFromCoinGecko(symbol);
+        const data = await getTokenFromCoinGecko(symbol, {
+            chain_id: search?.get('chainId') ? Number(search.get('chainId')) : undefined,
+            address: search?.get('address') || undefined,
+        });
         if (data) return data;
         if (tokenAsset) {
             return {

@@ -14,8 +14,9 @@ export const searchTokenByAddress = memoizePromise(
         if (contractType !== 'ERC20' && contractType !== 'token') return null;
         if (token?.chain === 'solana') {
             token.contract_info.attributes.chain_id = SolanaChainId.Mainnet;
-            return token.contract_info;
+            return { ...token.contract_info, chain_id: SolanaChainId.Mainnet };
         }
+        token.contract_info.attributes.chain_id = +token.chain_id;
         return token.contract_info;
     },
     (address) => address,

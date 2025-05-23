@@ -79,10 +79,11 @@ export const TokenMarketData = memo(function TokenMarketData({
     const [rangeId = range, setRangeId] = useState<(typeof ranges)[number]['id']>();
     const currentRange = ranges.find((x) => x.id === rangeId) || ranges[1];
 
+    const address = token.address ?? contract?.address;
     const { data: priceStats = EMPTY_LIST, isPending } = useCoinPriceStats(
         token.id,
         tradeChainId,
-        token.address ?? contract?.address,
+        address,
         currentRange.days,
     );
     const stats = useMemo(
@@ -100,7 +101,7 @@ export const TokenMarketData = memo(function TokenMarketData({
             <TokenIcon icon={token.logoURL} alt={token.name} size={36} chainId={chainId} />
             <strong className="ml-0.5 text-medium font-bold text-main">{token.name}</strong>
             <span className="font-inter text-medium font-bold uppercase">{token.symbol}</span>
-            {contract?.address ? <CopyTextButton className="[&_svg]:ml-0" text={contract?.address} /> : null}
+            {address ? <CopyTextButton className="[&_svg]:ml-0" text={address} /> : null}
         </>
     );
 
@@ -109,8 +110,8 @@ export const TokenMarketData = memo(function TokenMarketData({
     }, []);
 
     const tokenRank = rank ?? token.rank;
-    const price = tokenPrice ?? coin?.market_data?.token_price_usd;
-    const change24h = change ?? coin?.market_data?.price_change_percentage_24h;
+    const price = tokenPrice ?? coin?.market_data?.token_price_usd ?? token.price;
+    const change24h = change ?? coin?.market_data?.price_change_percentage_24h ?? token.changePercent24h;
 
     return (
         <div {...rest} className={classNames('flex flex-col gap-1.5 p-3', rest.className)}>
@@ -121,7 +122,12 @@ export const TokenMarketData = memo(function TokenMarketData({
                             <Link
                                 prefetch
                                 className="contents"
-                                href={resolveTokenPageUrl({ identity: token.id, isCoinId: true })}
+                                href={resolveTokenPageUrl({
+                                    identity: token.id || token.address || token.symbol,
+                                    chainId,
+                                    address: token.address,
+                                    isCoinId: !!token.id,
+                                })}
                             >
                                 {baseInfo}
                             </Link>

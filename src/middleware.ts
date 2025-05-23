@@ -167,6 +167,13 @@ export async function middleware(request: NextRequest) {
         }
     }
 
+    if (pathname.startsWith('/token/')) {
+        if (request.nextUrl.searchParams.size > 0) {
+            request.headers.set('X-SEARCH-PARAMS', request.nextUrl.searchParams.toString());
+            return NextResponse.next({ request });
+        }
+    }
+
     return NextResponse.next({
         request,
     });

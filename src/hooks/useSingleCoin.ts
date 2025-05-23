@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
-export function useSingleCoin(coinId: string | undefined, chainId?: number, address?: string) {
+export function useSingleCoin(coinId: string | null | undefined, chainId?: number, address?: string) {
     const enabled = !!coinId || !!(chainId && address);
     return useQuery({
         enabled,

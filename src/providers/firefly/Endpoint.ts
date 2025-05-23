@@ -1,4 +1,4 @@
-import { compact, first } from 'lodash-es';
+import { compact, first, sortBy } from 'lodash-es';
 import urlcat from 'urlcat';
 import { type Address, type Hex, isHex } from 'viem';
 
@@ -89,6 +89,7 @@ import {
     type GetFollowingCountByNFTResponse,
     type GetLensSuggestedFollowUserResponse,
     type GetSponsorMintStatusResponse,
+    type GetTokenOptions,
     type HexResponse,
     type HoldersResponse,
     type IsMutedAllResponse,
@@ -1007,7 +1008,7 @@ class FireflyEndpoint {
         return createPageable(data.coins ?? EMPTY_LIST, createIndicator(undefined));
     }
 
-    async getSingleCoin(options: Record<string, any>) {
+    async getSingleCoin(options: GetTokenOptions) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, 'v1/token/single_coins', options);
 
         const response = await fireflySessionHolder.fetch<Response<TokenWithMarketData>>(url);
@@ -1018,15 +1019,6 @@ class FireflyEndpoint {
     }
     async getTokenByAddress(chainId: number, address: string) {
         return this.getSingleCoin({ address, chain_id: chainId });
-    }
-
-    async getTokenBySymbol(symbol: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, 'v2/token/single_token', {
-            token_symbol: symbol,
-        });
-
-        const response = await fireflySessionHolder.fetch<Response<TokenWithMarketData>>(url);
-        return resolveFireflyResponseData(response);
     }
 
     async searchCollections(keyword: string) {
@@ -1055,7 +1047,9 @@ class FireflyEndpoint {
             days: options.days || 'max',
         });
         const response = await fireflySessionHolder.fetch<TokenPriceStatsResponse>(url);
-        return resolveFireflyResponseData(response);
+        const result = resolveFireflyResponseData(response);
+        result.prices = sortBy(result.prices, (x) => x[0]);
+        return result;
     }
 
     async generateFarcasterSignatures(key: Hex, deadline: number, jwt: string, signal?: AbortSignal) {

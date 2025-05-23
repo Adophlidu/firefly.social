@@ -5,7 +5,7 @@ import { useIsPriceUp } from '@/hooks/useIsPriceUp.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 export function useCoinPriceStats(
-    coinId: string | undefined,
+    coinId: string | null | undefined,
     chainId: number | undefined,
     address: string | undefined,
     days: number | undefined,
@@ -30,7 +30,7 @@ export function useCoinPriceStats(
 }
 
 export function useCoinPrice24hStats(
-    coinId: string | undefined,
+    coinId: string | null | undefined,
     chainId: number | undefined,
     address: string | undefined,
     days: number = 1,

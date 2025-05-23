@@ -6,12 +6,14 @@ import type { Runtime } from '@/providers/types/Trending.js';
 export interface CoinGeckoToken {
     /** @deprecated Comes from Maskbook, could be incorrect for some tokens */
     pluginID?: NetworkPluginID;
-    id: string;
+    id: string | null;
     chainId?: number;
     address?: string;
     symbol: string;
     name: string;
     source: string;
+    price?: number;
+    changePercent24h?: number;
     type: 'FungibleToken';
     logoURL: string;
     rank?: number;
@@ -19,7 +21,7 @@ export interface CoinGeckoToken {
         /** url */
         website: string;
         twitter: string;
-        telegram: string;
+        telegram?: string;
     };
 }
 
@@ -197,6 +199,8 @@ export type Price = Partial<Record<CurrencyType, string>>;
 export interface CoinGeckoAsset {
     id: string;
     type: string;
+    /** patch at runtime */
+    chain_id: number;
     attributes: {
         address: string;
         name: string;

@@ -23,7 +23,7 @@ export interface TokenPageSearch {
 }
 interface Props extends HTMLProps<HTMLDivElement> {
     slug?: string;
-    tokenId: string;
+    tokenId: string | null;
 }
 
 const labels: Record<TokenCategory, React.ReactNode> = {
@@ -44,9 +44,10 @@ export const CategoryTabs = memo<Props>(function CategoryTabs({ slug, tokenId, .
     const { symbol } = useParams<{ symbol: string }>();
     const search = useSearchParams();
 
-    const categories = NON_SOL_ETH_COINS.includes(tokenId)
-        ? [TokenCategory.Feeds, TokenCategory.Overview]
-        : TOKEN_CATEGORIES;
+    const categories =
+        tokenId && NON_SOL_ETH_COINS.includes(tokenId)
+            ? [TokenCategory.Feeds, TokenCategory.Overview]
+            : TOKEN_CATEGORIES;
     const category = slug && categories.includes(slug as TokenCategory) ? slug : categories[0];
 
     return (

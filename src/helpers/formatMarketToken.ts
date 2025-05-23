@@ -6,6 +6,8 @@ import type { SearchableToken } from '@/providers/types/Firefly.js';
 export const formatMarketToken = memoize(function formatMarketToken(token: SearchableToken) {
     return {
         id: token.id,
+        chainId: token.chainId,
+        address: token.address,
         symbol: token.symbol,
         name: token.name,
         source: '',
