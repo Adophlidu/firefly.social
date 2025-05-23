@@ -32,6 +32,7 @@ const IconMap: Record<ChainNamespace, FunctionComponent<SVGAttributes<SVGElement
     solana: SolanaIcon,
     bip122: WalletIcon,
     polkadot: WalletIcon,
+    cosmos: WalletIcon,
 };
 
 interface ConnectedItemProps extends ClickableButtonProps {

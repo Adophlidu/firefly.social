@@ -39,6 +39,7 @@ const chainNameMap: Record<ChainNamespace, string> = {
     solana: 'Solana',
     polkadot: 'Polkadot',
     bip122: 'Bitcoin',
+    cosmos: 'Cosmos',
 };
 
 const WalletItem = memo<WalletItemProps>(function WalletItem({ icon, name, installed, chains, tagIcon, ...rest }) {

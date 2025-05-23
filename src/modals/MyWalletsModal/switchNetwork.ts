@@ -13,7 +13,7 @@ export async function switchNetwork(namespace: ChainNamespace, chainId?: number)
               ? solana
               : undefined;
     if (targetNetwork) {
-        // eslint-disable-next-line @typescript-eslint/await-thenable
+         
         await appkit.switchNetwork(targetNetwork);
     }
 

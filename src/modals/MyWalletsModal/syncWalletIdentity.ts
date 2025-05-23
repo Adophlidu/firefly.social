@@ -1,4 +1,5 @@
 import { AccountController } from '@reown/appkit';
+import { mainnet } from 'viem/chains';
 
 import { appkit } from '@/configs/wagmiClient.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
@@ -10,7 +11,7 @@ interface Options {
 }
 
 const fetchIdentity = memoizePromise(
-    (address: string) => appkit.fetchIdentity({ address }),
+    (address: string) => appkit.fetchIdentity({ address, caipNetworkId: `eip155:${mainnet.id}` }),
     (address) => address,
 );
 

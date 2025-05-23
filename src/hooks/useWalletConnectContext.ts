@@ -46,7 +46,7 @@ async function setupApi() {
         CoreApiController.fetchFeaturedWallets(),
         CoreApiController.fetchRecommendedWallets(),
         CoreApiController.fetchConnectorImages(),
-        CoreApiController.prefetchNetworkImages(),
+        CoreApiController.fetchNetworkImages(),
     ]);
 }
 

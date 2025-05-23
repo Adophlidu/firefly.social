@@ -12,6 +12,8 @@ import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
 import { getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';
 
+type BlinkSolanaConnection = ConstructorParameters<typeof BlinkSolanaConfig>[0];
+
 export function useActionAdapter() {
     const { adapter: evmAdapter } = useEvmWagmiAdapter({
         async onConnectWalletRequest() {
@@ -20,7 +22,7 @@ export function useActionAdapter() {
     });
     const { connection } = useAppKitConnection();
     const solanaAdapter = useMemo(() => {
-        return new BlinkSolanaConfig(connection ?? getSolanaRPCUrl(), {
+        return new BlinkSolanaConfig((connection ?? getSolanaRPCUrl()) as BlinkSolanaConnection, {
             async signMessage(data) {
                 const adapter = getWalletAdaptorConnected();
                 const text = typeof data === 'string' ? data : createSignMessageText(data);
@@ -56,7 +58,7 @@ export function useActionAdapter() {
         const isEVM = (context: BlinkExecutionContext) =>
             context.action.metadata.blockchainIds?.some((x) => x.startsWith('eip155:'));
 
-        return new BlinkSolanaConfig(connection ?? getSolanaRPCUrl(), {
+        return new BlinkSolanaConfig((connection ?? getSolanaRPCUrl()) as BlinkSolanaConnection, {
             async signMessage(data, context) {
                 if (isEVM(context)) evmAdapter.signMessage(data, context);
                 return solanaAdapter.signMessage(data, context);
