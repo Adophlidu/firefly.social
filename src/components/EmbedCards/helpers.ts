@@ -20,7 +20,8 @@ export function isAvailableAddress(x: AddressRecord) {
 const hosts = [
     /firefly\.social/,
     /firefly\.mask\.social/,
-    /warpcast.com/,
+    /warpcast\.com/,
+    /farcaster\.xyz/,
     /snapshot\.(box|org|page)/,
     /(staging|canary|beta|alpha)\.firefly\.social/,
     /firefly-mask.*-dimension-dev\.vercel\.app/,

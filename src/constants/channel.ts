@@ -27,8 +27,8 @@ export const FF_GARDEN_CHANNEL: Channel = {
     name: 'firefly-garden',
     id: 'firefly-garden',
     imageUrl: 'https://i.imgur.com/NfzIpwa.jpg',
-    url: 'https://warpcast.com/~/channel/firefly-garden',
-    parentUrl: 'https://warpcast.com/~/channel/firefly-garden',
+    url: 'https://farcaster.xyz/~/channel/firefly-garden',
+    parentUrl: 'https://farcaster.xyz/~/channel/firefly-garden',
     followerCount: 0, // the follower count is fake
     timestamp: 1703399720,
     source: Source.Farcaster,

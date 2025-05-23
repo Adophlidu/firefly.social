@@ -64,6 +64,7 @@
         "mdast",
         "merkle",
         "metas",
+        "miniapp",
         "mintable",
         "mobm",
         "momoka",
@@ -141,13 +142,13 @@
         "waitlist",
         "walletconnect",
         "warpcast",
+        "Xbot",
         "xdai",
         "xlayer",
         "youtube",
         "zerion",
         "zksync",
         "zora",
-        "Xbot",
         "zustand"
     ],
     "ignoreWords": [

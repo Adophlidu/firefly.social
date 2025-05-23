@@ -13,7 +13,6 @@ export async function switchNetwork(namespace: ChainNamespace, chainId?: number)
               ? solana
               : undefined;
     if (targetNetwork) {
-         
         await appkit.switchNetwork(targetNetwork);
     }
 

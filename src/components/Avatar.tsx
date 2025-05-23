@@ -81,7 +81,11 @@ export const Avatar = memo(function Avatar({
     const defaultFallbackUrl = isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
     const fallbackUrl = propsFallbackUrl ?? defaultFallbackUrl;
 
-    const isNormalUrl = !!src && !src.startsWith('data:image/') && !isDomainOrSubdomainOf(src, 'warpcast.com');
+    const isNormalUrl =
+        !!src &&
+        !src.startsWith('data:image/') &&
+        !isDomainOrSubdomainOf(src, 'warpcast.com') &&
+        !isDomainOrSubdomainOf(src, 'farcaster.xyz');
 
     const { data: xFallbackAvatar } = useResolveAvatarFallbackUrl(src);
 

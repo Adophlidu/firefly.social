@@ -2,7 +2,7 @@ import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
-import { WARPCAST_ROOT_URL } from '@/constants/index.js';
+import { WARPCAST_ROOT_URL_V1 } from '@/constants/index.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -18,7 +18,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
     const { channelId, fid } = getSearchParamsFromRequestWithZodObject(request, Schema);
 
     const response = await fetchJSON<{ result: { following: boolean } }>(
-        urlcat(WARPCAST_ROOT_URL, '/v1/user-channel', {
+        urlcat(WARPCAST_ROOT_URL_V1, '/user-channel', {
             fid,
             channelId,
         }),

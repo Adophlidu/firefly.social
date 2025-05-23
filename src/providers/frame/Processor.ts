@@ -6,6 +6,7 @@ import { FetchError } from '@/constants/error.js';
 import { anySignal } from '@/helpers/anySignal.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
+import { resolveWarpcastMiniappHomeUrl } from '@/helpers/resolveWarpcastMiniappHomeUrl.js';
 import {
     getAspectRatio,
     getButtons,
@@ -22,7 +23,15 @@ import {
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import type { FrameV1, FrameV2, LinkDigestedResponse } from '@/types/frame.js';
 
-const BLACKLISTED_HOSTS = ['t.me', 't.co', 'youtu.be', 'youtube.com', 'www.youtube.com', 'warpcast.com'];
+const BLACKLISTED_HOSTS = [
+    't.me',
+    't.co',
+    'youtu.be',
+    'youtube.com',
+    'www.youtube.com',
+    'warpcast.com',
+    'farcaster.xyz',
+];
 
 const FrameV2Schema = z.object({
     version: z.string(),
@@ -128,7 +137,8 @@ class Processor {
     };
 
     digestDocumentUrl = async (documentUrl: string, signal?: AbortSignal): Promise<LinkDigestedResponse | null> => {
-        const url = parseUrl(documentUrl);
+        const resolvedUrl = await resolveWarpcastMiniappHomeUrl(documentUrl, signal);
+        const url = parseUrl(resolvedUrl);
         if (!url) throw new Error(`[frame] invalid document URL: ${documentUrl}`);
 
         // Check if the URL is blacklisted
@@ -144,7 +154,7 @@ class Processor {
         }
         if (!response.headers.get('content-type')?.startsWith('text/')) return null;
 
-        return this.digestDocument(documentUrl, await response.text(), signal);
+        return this.digestDocument(resolvedUrl, await response.text(), signal);
     };
 }
 

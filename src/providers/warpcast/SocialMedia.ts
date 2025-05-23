@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { NotImplementedError } from '@/constants/error.js';
-import { WARPCAST_ROOT_URL } from '@/constants/index.js';
+import { WARPCAST_ROOT_URL_V1 } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterChannelFromWarpcast } from '@/helpers/formatFarcasterChannelFromWarpcast.js';
 import { getWarpcastAuthToken } from '@/helpers/getWarpcastAuthToken.js';
@@ -94,7 +94,7 @@ class WarpcastSocialMedia implements Provider {
 
     async getChannelById(channelId: string, includeFollowingStatus = false): Promise<Channel> {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(WARPCAST_ROOT_URL, '/v1/channel', {
+            const url = urlcat(WARPCAST_ROOT_URL_V1, '/channel', {
                 channelId,
             });
             const { result } = await farcasterSessionHolder.fetch<{ result: { channel: WarpcastChannel } }>(url);
@@ -105,7 +105,7 @@ class WarpcastSocialMedia implements Provider {
             if (session?.profileId && includeFollowingStatus) {
                 const response = await runInSafeAsync(() =>
                     farcasterSessionHolder.fetch<{ result: { following: boolean } }>(
-                        urlcat(WARPCAST_ROOT_URL, '/v1/user-channel', {
+                        urlcat(WARPCAST_ROOT_URL_V1, '/user-channel', {
                             fid: session.profileId,
                             channelId,
                         }),
