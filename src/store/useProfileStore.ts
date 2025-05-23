@@ -7,6 +7,7 @@ import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
+import { sentryClient } from '@/configs/sentryClient.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
 import { AuthenticationError, FetchError } from '@/constants/error.js';
 import { EMPTY_LIST, HIDDEN_SECRET } from '@/constants/index.js';
@@ -21,6 +22,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { retryOnBskyWhenNetworkError } from '@/helpers/retryOnBskyWhenNetworkError.js';
+import { runInSafe } from '@/helpers/runInSafe.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
@@ -40,6 +42,7 @@ import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import { type Profile, type ProfileEditable, SessionType } from '@/providers/types/SocialMedia.js';
+import { ExceptionId } from '@/providers/types/Telemetry.js';
 import type { ThirdPartySessionType } from '@/providers/types/ThirdParty.js';
 import { addAccount } from '@/services/account.js';
 import { addTwitterAccount } from '@/services/addTwitterAccount.js';
@@ -332,18 +335,18 @@ const useBskyStateBase = createState(
 
             state.upgrade();
 
-            try {
-                const did = state.currentProfile?.profileId;
-                const currentProfileSession = state.currentProfileSession;
-                if (!currentProfileSession) {
-                    console.warn('[bsky store] clean the local store because did or session is missing');
-                    state.clear();
-                    return;
-                }
+            const did = state.currentProfile?.profileId;
+            const currentProfileSession = state.currentProfileSession;
+            if (!currentProfileSession) {
+                console.warn('[bsky store] clean the local store because did or session is missing');
+                state.clear();
+                return;
+            }
+            const bskySession = currentProfileSession as BskySession;
 
+            try {
                 state.__setStatus__(AsyncStatus.Pending);
 
-                const bskySession = currentProfileSession as BskySession;
                 if (isBskyTokenExpired(bskySession.sessionPayload.refreshJwt, 1000 * 60 * 5)) {
                     console.warn('[bsky store] clean the local store because refresh jwt is expired');
                     state.clear();
@@ -399,6 +402,12 @@ const useBskyStateBase = createState(
                             : t`Failed to restore your BlueSky session, you can refresh the page to try again or sign in again.`,
                     );
                 }
+
+                sentryClient.captureException(ExceptionId.RESUME_BSKY_SESSION, error, {
+                    profileId: bskySession.did,
+                    accessTokenPayload: runInSafe(() => bskySession.sessionPayload.accessJwt.split('.')[1]) || '',
+                    refreshTokenPayload: runInSafe(() => bskySession.sessionPayload.refreshJwt.split('.')[1]) || '',
+                });
             } finally {
                 state.__setStatus__(AsyncStatus.Idle);
             }
