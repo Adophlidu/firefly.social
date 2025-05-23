@@ -26,11 +26,10 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
 
         const client = await createTwitterClientV2();
         await client.v2.post(
-            'media/upload',
+            `media/upload/${queryParams.media_id}/append`,
             {
-                command: 'APPEND',
                 media: Buffer.from(await file.arrayBuffer()),
-                ...queryParams,
+                segment_index: Number(queryParams.segment_index),
             },
             { forceBodyMode: 'form-data' },
         );

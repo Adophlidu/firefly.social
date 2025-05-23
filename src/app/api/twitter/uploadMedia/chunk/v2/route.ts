@@ -22,13 +22,7 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
         const { media_id } = getSearchParamsFromRequestWithZodObject(request, FinishUploadSchema);
 
         const client = await createTwitterClientV2();
-        const { data } = await client.v2.post<{ data: FinishUploadResponseV2 }>(
-            urlcat('media/upload', {
-                media_id,
-                command: 'FINALIZE',
-            }),
-            { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } },
-        );
+        const { data } = await client.v2.post<{ data: FinishUploadResponseV2 }>(`media/upload/${media_id}/finalize`);
 
         return createSuccessResponseJSON(data);
     },

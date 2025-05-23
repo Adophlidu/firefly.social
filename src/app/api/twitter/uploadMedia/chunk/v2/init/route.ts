@@ -1,5 +1,4 @@
 import { NextRequest } from 'next/server.js';
-import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { compose } from '@/helpers/compose.js';
@@ -24,13 +23,10 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
         const queryParams = getSearchParamsFromRequestWithZodObject(request, InitMediaSchema);
 
         const client = await createTwitterClientV2();
-        const { data } = await client.v2.post<{ data: UploadMediaResponseV2 }>(
-            urlcat('media/upload', {
-                ...queryParams,
-                command: 'INIT',
-            }),
-            { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } },
-        );
+        const { data } = await client.v2.post<{ data: UploadMediaResponseV2 }>('media/upload/initialize', {
+            ...queryParams,
+            total_bytes: Number(queryParams.total_bytes),
+        });
 
         return createSuccessResponseJSON(data);
     },
