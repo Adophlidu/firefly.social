@@ -1,31 +1,14 @@
-import { Action, ActionsRegistry, setProxyUrl } from '@dialectlabs/blinks';
-import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
-import { FrameProtocol, Source, STATUS } from '@/constants/enum.js';
+import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { TWEET_SPACE_REGEX } from '@/constants/regexp.js';
-import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { isFrameV1 } from '@/helpers/frame.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
-import type { EVM } from '@/providers/nft-scan/types.js';
-import { getPostIFrame } from '@/providers/og/readers/iframe.js';
-import { Snapshot } from '@/providers/snapshot/index.js';
-import type { SnapshotProposal } from '@/providers/snapshot/type.js';
-import type { ActionGetResponse } from '@/providers/types/Blink.js';
-import type { NFTDetail } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
-import { getCollectionFromUrl } from '@/services/getCollectionFromUrl.js';
-import { getNFTFromUrl } from '@/services/getNFTFromUrl.js';
-import { getTruthSocialPostFromUrl } from '@/services/getTruthSocialPostFromUrl.js';
-import { settings } from '@/settings/index.js';
-import type { FireflyBlinkParserBlinkResponse } from '@/types/blink.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
@@ -68,37 +51,6 @@ export async function getPostFrame(url: string): Promise<Frame | null> {
     return response.success ? response.data.frame : null;
 }
 
-export async function getPostBlinkAction(url: string): Promise<Action | null> {
-    if (env.external.NEXT_PUBLIC_BLINK !== STATUS.Enabled) return null;
-    if (!url || !isValidPostLink(url)) return null;
-    const actionUrl = (await resolveTCOLink(url)) ?? url;
-    const response = await fetchJSON<FireflyBlinkParserBlinkResponse>(
-        urlcat(settings.FIREFLY_ROOT_URL, '/v1/solana/blinks/parse'),
-        {
-            method: 'POST',
-            body: JSON.stringify({ url: actionUrl }),
-        },
-    );
-    if (!response.data) return null;
-    setProxyUrl(urlcat(location.origin, '/api/blink/proxy'));
-    const action = await Action.fetch(response.data.actionApiUrl);
-    const host = parseUrl(action.url)?.host;
-    const instance = ActionsRegistry.getInstance();
-    // @ts-ignore fix the blink registry state
-    if (instance.websitesByHost && typeof instance.websitesByHost === 'object' && host) {
-        // @ts-ignore
-        instance.websitesByHost[host] = { host, state: response.data.state };
-    }
-    // @ts-expect-error _data is private, fix the URL after proxy
-    const data = action._data as ActionGetResponse;
-    return new Proxy(action, {
-        get(target, prop, receiver) {
-            if (prop === 'icon') return data.icon;
-            return Reflect.get(target, prop, receiver);
-        },
-    });
-}
-
 export const getPostOembed = memoizePromise(
     async function getPostOembed(url: string, post?: Pick<Post, 'quoteOn'>): Promise<LinkDigested | null> {
         if (env.external.NEXT_PUBLIC_OPENGRAPH !== STATUS.Enabled) return null;
@@ -113,94 +65,6 @@ export const getPostOembed = memoizePromise(
     },
     (url, post) => `${url}${post?.quoteOn?.postId}`,
 );
-
-export interface ClassifyPostLinkResult {
-    oembed?: LinkDigested;
-    frame?: Frame;
-    action?: Action;
-    html?: string;
-    articleId?: string;
-    spaceId?: string;
-    snapshot?: SnapshotProposal;
-    nft?: NFTDetail;
-    collection?: EVM.Collection;
-    quote?: Post;
-}
-
-export async function classifyPostLink(url: string, post: Post) {
-    return attemptUntil<ClassifyPostLinkResult | null>(
-        [
-            async () => {
-                const truthSocialPost = await getTruthSocialPostFromUrl(url);
-                return truthSocialPost ? { quote: truthSocialPost } : null;
-            },
-            async () => {
-                const spaceId = url.match(TWEET_SPACE_REGEX)?.[3];
-                if (!spaceId) return null;
-                return { spaceId };
-            },
-            async () => {
-                const realUrl = (await resolveTCOLink(url)) ?? url;
-                if (!realUrl) return null;
-                const snapshot = await Snapshot.getSnapshotByLink(realUrl);
-                if (!snapshot) return null;
-                return { snapshot };
-            },
-            async () => {
-                const realUrl = (await resolveTCOLink(url)) ?? url;
-                if (!realUrl) return null;
-
-                const articleId = await getArticleIdFromUrl(realUrl);
-                if (!articleId) return null;
-
-                return { articleId };
-            },
-            // nft
-            async () => {
-                const nft = await getNFTFromUrl(url);
-                return nft ? { nft } : null;
-            },
-            // nft collection
-            async () => {
-                const collection = await getCollectionFromUrl(url);
-                return collection ? { collection } : null;
-            },
-            async () => {
-                // try iframe first. As we don't have to call other services if matched
-                const html = getPostIFrame(null, url);
-                return html ? { html } : null;
-            },
-            async () => {
-                const frame = await getPostFrame(url);
-                if (!frame) return null;
-
-                switch (post.source) {
-                    case Source.Farcaster:
-                        return { frame };
-                    case Source.Lens:
-                        return isFrameV1(frame) && frame.protocol === FrameProtocol.OpenFrame ? { frame } : null;
-                    case Source.Twitter:
-                        return null;
-                    case Source.Bsky:
-                        return null;
-                    default:
-                        safeUnreachable(post.source);
-                        return null;
-                }
-            },
-            async () => {
-                const action = await getPostBlinkAction(url);
-                return action ? { action } : null;
-            },
-            async () => {
-                const oembed = await getPostOembed(url, post);
-                return oembed ? { oembed } : null;
-            },
-        ],
-        null,
-        (x) => !x,
-    );
-}
 
 export function getPollIdFromLink(url: string) {
     if (!isValidPollFrameUrl(url)) return;

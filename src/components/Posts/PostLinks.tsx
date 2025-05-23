@@ -36,7 +36,7 @@ interface Props {
 export const PostLinks = memo(function PostLinks({ post, isInCompose = false }: Props) {
     const router = useRouter();
     const url = resolveOembedUrl(post);
-    const { isLoading, error, data } = useClassifyPostLink(url, post);
+    const { isLoading, error, data } = useClassifyPostLink(url);
 
     const { data: article } = useQuery({
         enabled: !!data?.articleId,
@@ -87,7 +87,9 @@ export const PostLinks = memo(function PostLinks({ post, isInCompose = false }: 
             ) : null}
             {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
             {data.action ? <ActionContainer action={data.action} url={url} /> : null}
-            {data.oembed ? <OembedLayout data={data.oembed} post={post} isInCompose={isInCompose} /> : null}
+            {data.oembed && !post.quoteOn ? (
+                <OembedLayout data={data.oembed} post={post} isInCompose={isInCompose} />
+            ) : null}
             {data.spaceId ? <TweetSpace spaceId={data.spaceId} /> : null}
         </>
     );

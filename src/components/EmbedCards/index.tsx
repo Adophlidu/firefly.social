@@ -78,7 +78,7 @@ export const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInn
             case 'domain':
                 return <DomainCard key={embed.value} className="rounded-2xl bg-lightBg" domain={embed.value} />;
             case 'url':
-                return <EmbedLinkCard key={embed.value} className="!bg-lightBg" link={embed.value} post={post} />;
+                return <EmbedLinkCard key={embed.value} className="!bg-lightBg" link={embed.value} />;
             default:
                 safeUnreachable(embed.type);
                 return null;
@@ -121,7 +121,6 @@ export const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInn
                                     <LinkCardIndicator
                                         key={item.value}
                                         link={item.value}
-                                        post={post}
                                         active={active}
                                         onClick={handleClick}
                                         onAvailableUpdate={handleAvailableUpdate}
@@ -152,7 +151,7 @@ export const EmbedCards = memo(function EmbedCards({ post, ...rest }: EmbedCards
         [oembedUrl, content],
     );
 
-    const classifyResults = useClassifyPostLinks(links, post);
+    const classifyResults = useClassifyPostLinks(links);
     const domainResolveResults = useResolveEnsDomains(domains);
 
     // Merge links, addresses and domains

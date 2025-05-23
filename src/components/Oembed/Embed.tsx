@@ -20,7 +20,7 @@ export function Embed({ og }: EmbedProps) {
         ? {
               width: og.image.width,
               height: og.image.height,
-              src: og.image.base64 || og.image.url,
+              src: og.image.url,
           }
         : null;
 
@@ -34,7 +34,12 @@ export function Embed({ og }: EmbedProps) {
             >
                 <div className="rounded-xl border bg-white text-main dark:border-gray-700 dark:bg-black">
                     {og.isLarge && imageProps ? (
-                        <Image className="divider aspect-2 w-full rounded-t-xl object-cover" {...imageProps} alt="" />
+                        <Image
+                            className="divider aspect-2 w-full rounded-t-xl object-cover"
+                            unoptimized
+                            {...imageProps}
+                            alt=""
+                        />
                     ) : null}
                     <div className="flex items-center">
                         {!og.isLarge ? (
@@ -49,9 +54,10 @@ export function Embed({ og }: EmbedProps) {
                             >
                                 {imageProps ? (
                                     <Image
-                                        className="rounded-l-xl border-r object-cover dark:border-gray-700"
+                                        className="dark:border-gray-70 aspect-square h-[144px] rounded-l-xl border-r object-cover"
                                         layout="fill"
                                         src={imageProps.src}
+                                        unoptimized
                                         alt=""
                                     />
                                 ) : (

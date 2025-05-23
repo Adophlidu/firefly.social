@@ -5,6 +5,7 @@ import urlcat from 'urlcat';
 
 import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { tweetV2ToPost } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterPostFromNitter } from '@/helpers/formatTwitterPostFromNitter.js';
 import { formatTwitterProfileFromNitter } from '@/helpers/formatTwitterProfileFromNitter.js';
@@ -118,6 +119,7 @@ async function withReplyPostsToTimelineWithPagination(
     );
 }
 
+@SetQueryDataForPosts
 export class NitterSocialMedia implements Provider {
     get type() {
         return SessionType.Twitter;

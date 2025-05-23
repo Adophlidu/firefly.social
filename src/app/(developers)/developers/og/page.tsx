@@ -32,16 +32,23 @@ export default function Page() {
                     method: 'DELETE',
                 },
             );
+            await fetchJSON(
+                urlcat('/api/post-link', {
+                    url,
+                }),
+                {
+                    method: 'DELETE',
+                },
+            );
+            await fetchJSON(
+                urlcat('/api/oembed', {
+                    link: url,
+                }),
+                {
+                    method: 'DELETE',
+                },
+            );
         });
-
-        await fetchJSON(
-            urlcat('/api/oembed', {
-                link: url,
-            }),
-            {
-                method: 'DELETE',
-            },
-        );
     }, [url]);
 
     return (

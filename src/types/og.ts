@@ -3,13 +3,6 @@ import type { Hex } from 'viem';
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import type { Cast } from '@/providers/types/Warpcast.js';
 
-export interface OpenGraphImage {
-    url: string;
-    base64?: `data:${string}`;
-    width?: number;
-    height?: number;
-}
-
 export interface OpenGraph {
     type: 'website';
     url: string;
@@ -49,13 +42,13 @@ export interface PostPayload {
     id: string;
     source: SocialSourceInURL;
 }
-
 export interface ImageDigested {
     url: string;
     width: number;
     height: number;
-    base64: `data:${string}`;
 }
+
+export type OpenGraphImage = ImageDigested;
 
 export interface LinkDigested {
     og: OpenGraph;

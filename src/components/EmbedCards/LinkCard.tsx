@@ -3,15 +3,13 @@ import { type HTMLProps, memo, useLayoutEffect } from 'react';
 import { Indicator, type IndicatorProps } from '@/components/EmbedCards/Indicator.js';
 import { CollectionPreviewer, NFTPreviewer } from '@/components/NFTs/NFTPreview.js';
 import { useClassifyPostLink } from '@/hooks/useClassifyPostLink.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface EmbedLinkCardProps extends HTMLProps<HTMLDivElement> {
     link: string;
-    post: Post;
 }
 
-export const EmbedLinkCard = memo<EmbedLinkCardProps>(function EmbedLinkCard({ link, post, className }) {
-    const { isLoading, error, data } = useClassifyPostLink(link, post);
+export const EmbedLinkCard = memo<EmbedLinkCardProps>(function EmbedLinkCard({ link, className }) {
+    const { isLoading, error, data } = useClassifyPostLink(link);
 
     if (isLoading || error || !data) return null;
 
@@ -21,16 +19,15 @@ export const EmbedLinkCard = memo<EmbedLinkCardProps>(function EmbedLinkCard({ l
     return null;
 });
 
-interface LinkCardIndicatorProps extends IndicatorProps, Pick<EmbedLinkCardProps, 'link' | 'post'> {
+interface LinkCardIndicatorProps extends IndicatorProps, Pick<EmbedLinkCardProps, 'link'> {
     onAvailableUpdate: (data: string, available: boolean) => void;
 }
 export const LinkCardIndicator = memo<LinkCardIndicatorProps>(function LinkCardIndicator({
     link,
-    post,
     onAvailableUpdate,
     ...rest
 }) {
-    const { isLoading, error, data } = useClassifyPostLink(link, post);
+    const { isLoading, error, data } = useClassifyPostLink(link);
 
     const available = !isLoading && !error && (!!data?.nft || !!data?.collection?.contract_address);
 

@@ -4250,9 +4250,6 @@ msgstr "按讚"
 msgid "× {0}"
 msgstr "× {0}"
 
-msgid "Blink Validator"
-msgstr "Blink 驗證器"
-
 msgid "Minted"
 msgstr "已鑄造"
 

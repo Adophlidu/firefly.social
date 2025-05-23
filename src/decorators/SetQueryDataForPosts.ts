@@ -1,6 +1,9 @@
+import { compact } from 'lodash-es';
+
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
+import { prefetchPostLinks } from '@/helpers/prefetchPostLinks.js';
 import type { Post, Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
@@ -10,6 +13,9 @@ const METHODS_BE_OVERRIDDEN = [
     'discoverPostsById',
     'getCommentsById',
     'getPostsByProfileId',
+    'getRepliesPostsByProfileId',
+    'getLikedPostsByProfileId',
+    'getMediaPostsByProfileId',
 ] as const;
 
 export function SetQueryDataForPosts<T extends ClassType<Provider>>(target: T): T {
@@ -35,7 +41,14 @@ export function SetQueryDataForPosts<T extends ClassType<Provider>>(target: T): 
                         }
                     }
                 });
-
+                await prefetchPostLinks(
+                    compact(
+                        result.data.flatMap((x) => [
+                            x.metadata.content?.oembedUrl,
+                            ...(x.metadata.content?.oembedUrls ?? []),
+                        ]),
+                    ),
+                );
                 return result;
             },
         });

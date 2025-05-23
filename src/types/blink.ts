@@ -45,9 +45,11 @@ export interface ActionComponent {
     parameter?: ActionParameter;
 }
 
-export type FireflyBlinkParserBlinkResponse = Response<{
+export interface FireflyBlinkParserBlinkResponseData {
     action: ActionGetResponse;
     actionApiUrl: string;
     actionUrl: string;
     state: ActionType;
-} | null>;
+}
+
+export type FireflyBlinkParserBlinkResponse = Response<FireflyBlinkParserBlinkResponseData | null>;

@@ -42,7 +42,6 @@ class Processor {
                     url,
                     width: img.width ?? 0,
                     height: img.height ?? 0,
-                    base64: url as `data:${string}`,
                 };
             }
 
@@ -51,16 +50,9 @@ class Processor {
                     signal,
                 });
                 if (!response.ok) return null;
-
                 const buffer = Buffer.from(await response.arrayBuffer());
                 const img = sizeOf.imageSize(buffer);
-
-                return {
-                    url,
-                    width: img.width ?? 0,
-                    height: img.height ?? 0,
-                    base64: `data:${response.headers.get('Content-Type')};base64,${buffer.toString('base64')}`,
-                };
+                return { url, width: img.width ?? 0, height: img.height ?? 0 };
             }
             return null;
         } catch (error) {
@@ -77,29 +69,50 @@ class Processor {
             signal,
         });
         if (!response.ok || (response.status >= 500 && response.status < 600)) return null;
-
         const html = await response.text();
-
         const { document } = parseHTML(html);
-
-        const imageUrl = getImageUrl(document);
-        const image = imageUrl && URL.canParse(imageUrl) ? await this.digestImageUrl(imageUrl, signal) : null;
-
         const title = getTitle(document);
-
         if (!title) return null;
+        const imageUrl = getImageUrl(document);
 
-        const og = {
+        const baseOG: OpenGraph = {
             type: 'website',
             url: documentUrl,
             favicon: urlcat('https://www.google.com/s2/favicons', { domain: documentUrl, sz: 128 }),
             title,
             description: getDescription(document),
             site: getSite(document),
-            image,
             isLarge: getIsLarge(document),
             html: getPostIFrame(getEmbedUrl(document), url.href),
             locale: null,
+            image: null,
+        };
+
+        const parsedPostUrl = parsePostUrl(documentUrl);
+        if (parsedPostUrl) {
+            return {
+                og: {
+                    ...baseOG,
+                    image:
+                        imageUrl && URL.canParse(imageUrl)
+                            ? {
+                                  url: imageUrl,
+                                  width: 1200,
+                                  height: 630,
+                              }
+                            : null,
+                },
+                payload: {
+                    type: PayloadType.Post,
+                    id: parsedPostUrl.id,
+                    source: resolveSocialSourceInUrl(parsedPostUrl.source),
+                },
+            };
+        }
+
+        const og = {
+            ...baseOG,
+            image: imageUrl && URL.canParse(imageUrl) ? await this.digestImageUrl(imageUrl, signal) : null,
         } satisfies OpenGraph;
 
         if (TWEET_REGEX.test(documentUrl)) {
@@ -151,18 +164,6 @@ class Processor {
                     type: PayloadType.Post,
                     id,
                     source: SourceInURL.Lens,
-                },
-            };
-        }
-
-        const parsedPostUrl = parsePostUrl(documentUrl);
-        if (parsedPostUrl) {
-            return {
-                og,
-                payload: {
-                    type: PayloadType.Post,
-                    id: parsedPostUrl.id,
-                    source: resolveSocialSourceInUrl(parsedPostUrl.source),
                 },
             };
         }

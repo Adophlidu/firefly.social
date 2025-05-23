@@ -4250,9 +4250,6 @@ msgstr "Likes"
 msgid "× {0}"
 msgstr "× {0}"
 
-msgid "Blink Validator"
-msgstr "Blink Validator"
-
 msgid "Minted"
 msgstr "Minted"
 

@@ -5,7 +5,9 @@ import urlcat from 'urlcat';
 import { BskyEmbedType, BskyFacetType, FileMimeType } from '@/constants/enum.js';
 import { BSKY_IMAGE_LIMITATION } from '@/constants/limitation.js';
 import { base64ToFile } from '@/helpers/base64ToFile.js';
+import { blobToBase64 } from '@/helpers/blobToBase64.js';
 import { compressImage } from '@/helpers/compressImage.js';
+import { fetchBlob } from '@/helpers/fetchBlob.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -58,7 +60,11 @@ export async function resolveBskyEmbed(post: Post, richText?: RichText) {
     const link = linkFeature?.uri && typeof linkFeature.uri === 'string' ? linkFeature.uri : undefined;
     if (link) {
         const urlData = await runInSafeAsync(() => getPostOembed(link));
-        const ogImage = urlData?.og?.image?.base64;
+        const ogImage = urlData?.og?.image?.url
+            ? await fetchBlob(urlData.og.image.url)
+                  .then((blob) => blobToBase64(blob))
+                  .catch(() => undefined)
+            : undefined;
         const compressed = ogImage
             ? await compressImage(base64ToFile(ogImage, link), {
                   ...BSKY_IMAGE_LIMITATION,
