@@ -1,4 +1,5 @@
 'use client';
+
 import { Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo, type ReactNode } from 'react';
 
@@ -62,6 +63,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
         Source.Swap,
     ].includes(source);
     const isWallet = source === Source.Wallet;
+    const isTwitter = source === Source.Twitter;
 
     const asyncStatusTwitter = useAsyncStatus(Source.Twitter);
     const isTwitterConnecting = source === Source.Twitter && asyncStatusTwitter;
@@ -84,6 +86,8 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                 {message ??
                     (isNotSocialSource ? (
                         <Trans>Login to enable all features</Trans>
+                    ) : isTwitter ? (
+                        <Trans>Your sign-in process was interrupted, please try again</Trans>
                     ) : (
                         <Trans>You need to connect your {resolveSourceName(source)} account to use this feature.</Trans>
                     ))}
@@ -104,8 +108,8 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
             >
                 {isWallet ? (
                     <Trans>Connect Wallet</Trans>
-                ) : isNotSocialSource ? (
-                    <Trans>Login</Trans>
+                ) : isNotSocialSource || isTwitter ? (
+                    <Trans>Sign In</Trans>
                 ) : isTwitterConnecting ? (
                     <Trans>Connecting...</Trans>
                 ) : (

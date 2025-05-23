@@ -334,7 +334,7 @@ export function LoginBsky() {
                             <LoadingIcon className="size-[18px] text-primaryBottom" />
                         </>
                     ) : (
-                        <Trans>Sign in</Trans>
+                        <Trans>Sign In</Trans>
                     )}
                 </ClickableButton>
             </div>

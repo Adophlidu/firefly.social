@@ -4,6 +4,7 @@ import { Trans } from '@lingui/react/macro';
 
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
+import { TimelineTitle } from '@/components/TimelineTitle.js';
 import { Source } from '@/constants/enum.js';
 import { redirect, useSearchParams } from '@/esm/navigation.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -14,8 +15,7 @@ import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.
 export function FireflyLoginFallback() {
     const profileAll = useCurrentFireflyProfilesAll();
     const searchParam = useSearchParams();
-    const rawSource = searchParam.get('source') || '';
-    const source = resolveSourceFromUrl(rawSource);
+    const source = resolveSourceFromUrl(searchParam.get('source') || '');
 
     if (profileAll.length > 0) {
         const profile = profileAll.find((x) => x.identity.source === source) || profileAll[0];
@@ -33,11 +33,7 @@ export function FireflyLoginFallback() {
     return (
         <div className="flex w-full flex-col items-center">
             <div className="sticky top-[54px] z-20 flex w-full flex-col bg-primaryBottom md:top-0">
-                <div className="flex h-[60px] w-full items-center px-4 pt-2.5 max-md:hidden">
-                    <h1 className="text-[20px] font-bold leading-6">
-                        <Trans>Profile</Trans>
-                    </h1>
-                </div>
+                <TimelineTitle title={<Trans>Profile</Trans>} />
             </div>
             <NavigatorBar />
             <NotLoginFallback source={Source.Posts} className="!pt-[100px]" />

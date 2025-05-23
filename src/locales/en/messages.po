@@ -1471,6 +1471,10 @@ msgstr "Add an existing account"
 msgid "Confirm you want to mute /{0}?"
 msgstr "Confirm you want to mute /{0}?"
 
+#. placeholder {0}: props.title
+msgid "{0}"
+msgstr "{0}"
+
 msgid "Refund"
 msgstr "Refund"
 
@@ -2329,6 +2333,9 @@ msgstr "Unknown Collection"
 
 msgid "Validate failed, please check your input."
 msgstr "Validate failed, please check your input."
+
+msgid "Your sign-in process was interrupted, please try again"
+msgstr "Your sign-in process was interrupted, please try again"
 
 msgid "Access Denied"
 msgstr "Access Denied"
@@ -3460,6 +3467,9 @@ msgstr "Collect for {0} {nativeSymbol}"
 
 msgid "Developers"
 msgstr "Developers"
+
+msgid "Sign In"
+msgstr "Sign In"
 
 msgid "Share to"
 msgstr "Share to"

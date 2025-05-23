@@ -42,7 +42,7 @@ export function ActivityLoginButton({ source }: { source: SocialSource }) {
                 })}
             >
                 <SocialSourceIcon size={18} className="mr-2 size-[18px] shrink-0" source={source} mono />
-                <Trans>Sign in</Trans>
+                <Trans>Sign In</Trans>
             </span>
         </button>
     );

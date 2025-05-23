@@ -96,7 +96,7 @@ export function PostByItem({ source, disabled = false, reason }: PostByItemProps
                             });
                         }}
                     >
-                        <Trans>Sign in</Trans>
+                        <Trans>Sign In</Trans>
                     </ClickableButton>
                 </div>
             </div>

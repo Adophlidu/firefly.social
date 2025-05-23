@@ -5,6 +5,7 @@ import { type PropsWithChildren } from 'react';
 import { NoSSR } from '@/components/NoSSR.js';
 import { NotificationSettings } from '@/components/Notification/NotificationSettings.js';
 import { NotificationTabs } from '@/components/Notification/NotificationTabs.js';
+import { TimelineTitle } from '@/components/TimelineTitle.js';
 import type { NotificationSourceInURL } from '@/constants/enum.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
@@ -29,11 +30,7 @@ export default async function Layout(props: Props) {
     return (
         <div className="flex w-full flex-col">
             <div className="sticky top-[54px] z-20 flex w-full flex-col bg-primaryBottom md:top-0">
-                <div className="flex h-[60px] w-full items-center px-4 pt-2.5 max-md:hidden">
-                    <h1 className="text-[20px] font-bold leading-6">
-                        <Trans>Notifications</Trans>
-                    </h1>
-                </div>
+                <TimelineTitle title={<Trans>Notifications</Trans>} />
                 <div className="flex items-center justify-between px-4">
                     <NotificationTabs source={resolveNotificationSource(source)} />
                     <NotificationSettings source={resolveNotificationSource(source)} />

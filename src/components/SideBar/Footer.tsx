@@ -54,7 +54,7 @@ export function Footer(props: FooterProps) {
                         ) : (
                             <>
                                 <DoubleUser className="size-5" />
-                                <Trans>Sign in</Trans>
+                                <Trans>Sign In</Trans>
                             </>
                         )}
                     </ClickableButton>

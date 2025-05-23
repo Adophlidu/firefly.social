@@ -3,6 +3,7 @@ import { Trans } from '@lingui/react/macro';
 
 import { NoSSR } from '@/components/NoSSR.js';
 import { SolidSourceTabs } from '@/components/Tabs/SolidSourceTabs.js';
+import { TimelineTitle } from '@/components/TimelineTitle.js';
 import { BOOKMARK_SOURCES } from '@/constants/index.js';
 import { notFound } from '@/esm/navigation/server.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
@@ -32,11 +33,7 @@ export default async function Layout(props: Props) {
     return (
         <div>
             <div className="sticky top-[54px] z-20 bg-primaryBottom px-4 pb-3 md:top-0">
-                <div className="flex h-[60px] w-full items-center pt-2.5 max-md:hidden">
-                    <h1 className="text-[20px] font-bold leading-6">
-                        <Trans>Bookmarks</Trans>
-                    </h1>
-                </div>
+                <TimelineTitle title={<Trans>Bookmarks</Trans>} />
                 <NoSSR>
                     <SolidSourceTabs
                         active={source}

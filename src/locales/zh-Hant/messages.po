@@ -1476,6 +1476,10 @@ msgstr "新增現有帳號"
 msgid "Confirm you want to mute /{0}?"
 msgstr "確認要靜音 /{0} 嗎？"
 
+#. placeholder {0}: props.title
+msgid "{0}"
+msgstr ""
+
 msgid "Refund"
 msgstr "退款"
 
@@ -2333,6 +2337,9 @@ msgid "Unknown Collection"
 msgstr ""
 
 msgid "Validate failed, please check your input."
+msgstr ""
+
+msgid "Your sign-in process was interrupted, please try again"
 msgstr ""
 
 msgid "Access Denied"
@@ -3460,6 +3467,9 @@ msgstr "以 {0} {nativeSymbol} 收藏"
 
 msgid "Developers"
 msgstr "開發者"
+
+msgid "Sign In"
+msgstr ""
 
 msgid "Share to"
 msgstr "分享至"
