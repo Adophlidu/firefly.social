@@ -125,7 +125,7 @@ function FallbackFireflyAccountInfo({
     profile,
     relatedProfile,
     profiles,
-}: FireflyAccountWithTitleUIProps) {
+}: Omit<FireflyAccountWithTitleUIProps, 'profile'> & { profile?: FireflyAccountProfile }) {
     const allCurrentProfiles = useCurrentProfilesAll();
     const isCurrentProfile = useMemo(() => {
         return profiles?.some((x) =>

@@ -122,6 +122,7 @@ import {
     type TwitterUserV2Response,
     type WalletProfile,
     type WalletProfileResponse,
+    type WalletProfiles,
     type WalletRelationResponse,
     type WalletsFollowStatusResponse,
     type WalletsStatusResponse,
@@ -413,25 +414,16 @@ class FireflyEndpoint {
                 withSession: isAuthRequired,
             },
         );
-        const data = resolveFireflyResponseData(response);
-        if (data.walletProfiles.length)
-            data.walletProfiles = await this.getWalletProfileWithHacked(data.walletProfiles);
-        return data;
-    }
-
-    async getAllRelatedProfiles(options?: Partial<Record<PlatformIdentityKey, string>>, isAuthRequired?: boolean) {
-        const params = await this.resolveRelatedProfileParams(options);
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile', params);
-        const response = await fireflySessionHolder.fetch<WalletProfileResponse>(
-            url,
-            {
-                method: 'GET',
-            },
-            {
-                withSession: isAuthRequired,
-            },
-        );
-        const data = resolveFireflyResponseData(response);
+        const data =
+            resolveFireflyResponseData(response) ||
+            ({
+                walletProfiles: [],
+                lensProfilesV3: [],
+                farcasterProfiles: [],
+                twitterProfiles: [],
+                solanaWalletProfiles: [],
+                bskyProfiles: [],
+            } satisfies WalletProfiles);
         if (data.walletProfiles.length)
             data.walletProfiles = await this.getWalletProfileWithHacked(data.walletProfiles);
         return data;

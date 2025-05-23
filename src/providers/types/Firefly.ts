@@ -571,7 +571,7 @@ export interface WalletProfiles {
     twitterProfiles: TwitterProfile[];
     fireflyAccountId?: string;
     bskyProfiles: BskyProfile[];
-    account: FireflyAccountProfile;
+    account?: FireflyAccountProfile;
 }
 
 export type PlatformIdentityKey =
@@ -587,7 +587,7 @@ export type PlatformIdentityKey =
     | 'bskyDid'
     | 'bskyHandle';
 
-export type WalletProfileResponse = Response<WalletProfiles>;
+export type WalletProfileResponse = Response<WalletProfiles | null>;
 
 export interface FireflyProfile {
     identity: FireflyIdentity;
