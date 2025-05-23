@@ -15,7 +15,7 @@ export function RootView() {
     const title = contextTitle ?? <Trans>Login to Firefly</Trans>;
 
     return (
-        <div className="transform rounded-[12px] bg-primaryBottom transition-all max-md:h-full">
+        <div className="flex transform flex-col rounded-[12px] bg-primaryBottom transition-all max-md:h-full">
             <div className="flex items-center justify-center gap-2 rounded-t-[12px] p-4">
                 {isMain ? (
                     <CloseButton
