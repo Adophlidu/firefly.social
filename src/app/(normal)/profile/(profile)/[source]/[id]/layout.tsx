@@ -21,8 +21,8 @@ import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileId
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupTwitterSessionForSSR } from '@/helpers/setupTwitterSessionForSSR.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
+import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
 import type { NextPageProps } from '@/types/index.js';
 
 interface Props extends NextPageProps<{ id: string; source: ProfileSourceInURL }> {}
@@ -51,9 +51,7 @@ export default async function Layout(props: Props) {
     if (!source || !isProfilePageSource(source)) notFound();
 
     const identityFromUrl = resolveSpecialProfileIdentity({ source, id: params.id });
-    const relatedProfile = await runInSafeAsync(() =>
-        FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identityFromUrl, false, true),
-    );
+    const relatedProfile = await runInSafeAsync(() => getAllRelatedProfilesWithDefault(identityFromUrl));
     if (!relatedProfile) notFound();
     const profiles = formatFireflyProfilesFromWalletProfiles(relatedProfile) as FireflyProfile[];
     const identity = fixIdentity(identityFromUrl, profiles);
