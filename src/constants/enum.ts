@@ -253,7 +253,6 @@ export enum KeyType {
     CreateMetadataChannelById = '/v2/createMetadataChannelById',
     CreateMetadataEvent = '/v2/createMetadataEvent',
 
-    ConvertBskyHandleToDid = '/v1/convertBskyHandleToDid',
     TwitterHandleToUid = 'twitterHandleToUid',
     TwitterUidToHandle = 'twitterUidToHandle',
     GetTwitterAvatarById = 'getTwitterAvatar',
