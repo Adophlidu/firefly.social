@@ -1,9 +1,9 @@
+import { nth } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { WARPCAST_CLIENT_URL_V1 } from '@/constants/index.js';
+import { MINIAPPS_ID_REGEXP } from '@/constants/regexp.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-
-const PREFIX = 'https://warpcast.com/miniapps/';
 
 interface MiniAppsResponse {
     result: {
@@ -13,15 +13,8 @@ interface MiniAppsResponse {
     };
 }
 
-function getWarpcastMiniappId(url: string) {
-    if (!url.startsWith(PREFIX)) return null;
-
-    const path = url.slice(PREFIX.length);
-    return path.split('/')[0];
-}
-
-export async function resolveWarpcastMiniappHomeUrl(url: string, signal?: AbortSignal) {
-    const id = getWarpcastMiniappId(url);
+export async function resolveFireflyMiniappHomeUrl(url: string, signal?: AbortSignal) {
+    const id = nth(url.match(MINIAPPS_ID_REGEXP) ?? [null, null], 1);
     if (!id) return url;
 
     try {

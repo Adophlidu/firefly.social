@@ -78,3 +78,6 @@ export const FIREFLY_DISPLAY_NAME_REGEXP = /^(?!\s*$).+/;
 
 // https://truthsocial.com/users/realDonaldTrump/statuses/114496851630865496
 export const TRUTH_SOCIAL_POST_REGEXP = /https:\/\/truthsocial\.com\/users\/([^/]+)\/statuses\/([a-zA-Z0-9_]+)/;
+
+export const MINIAPPS_ID_REGEXP =
+    /^https?:\/\/(?:www\.)?(?:farcaster\.xyz|warpcast\.com)\/miniapps\/([a-zA-Z0-9_-]+)\/.+/;
