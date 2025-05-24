@@ -16,7 +16,6 @@ import { ActionType } from '@/types/frame.js';
 const digestLinkRedis = memoizeWithRedis(FrameProcessor.digestDocumentUrl, {
     key: KeyType.DigestFrameLink,
     resolver: (link) => link,
-    ignoreCacheWhen: (result) => !result,
 });
 
 export async function GET(request: NextRequest) {

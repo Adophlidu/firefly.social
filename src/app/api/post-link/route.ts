@@ -11,7 +11,6 @@ import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
@@ -148,7 +147,6 @@ export async function getClassifyPostLink(url: string) {
 
 export const getClassifyPostLinkWithRedis = memoizeWithRedis(getClassifyPostLink, {
     key: KeyType.GetClassifyPostLinkWithRedis,
-    ignoreCacheWhen: (result) => !result, // not caching `null` cases
     resolver: (url) => url,
 });
 
@@ -167,7 +165,7 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
             cacheResults
                 .map((x) =>
                     x.status === 'fulfilled'
-                        ? { result: parseJSON<GetClassifyPostLinkOnActionResult>(x.value.result), url: x.value.url }
+                        ? { result: x.value.result as GetClassifyPostLinkOnActionResult, url: x.value.url }
                         : null,
                 )
                 .filter((x) => x?.result),
