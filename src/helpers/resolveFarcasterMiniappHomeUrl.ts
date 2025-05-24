@@ -13,7 +13,7 @@ interface MiniAppsResponse {
     };
 }
 
-export async function resolveFireflyMiniappHomeUrl(url: string, signal?: AbortSignal) {
+export async function resolveFarcasterMiniappHomeUrl(url: string, signal?: AbortSignal) {
     const id = nth(url.match(MINIAPPS_ID_REGEXP) ?? [null, null], 1);
     if (!id) return url;
 

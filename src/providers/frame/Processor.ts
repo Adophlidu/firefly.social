@@ -6,7 +6,7 @@ import { FetchError } from '@/constants/error.js';
 import { anySignal } from '@/helpers/anySignal.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
-import { resolveFireflyMiniappHomeUrl } from '@/helpers/resolveFireflyMiniappHomeUrl.js';
+import { resolveFarcasterMiniappHomeUrl } from '@/helpers/resolveFarcasterMiniappHomeUrl.js';
 import {
     getAspectRatio,
     getButtons,
@@ -137,7 +137,7 @@ class Processor {
     };
 
     digestDocumentUrl = async (documentUrl: string, signal?: AbortSignal): Promise<LinkDigestedResponse | null> => {
-        const resolvedUrl = await resolveFireflyMiniappHomeUrl(documentUrl, signal);
+        const resolvedUrl = await resolveFarcasterMiniappHomeUrl(documentUrl, signal);
         const url = parseUrl(resolvedUrl);
         if (!url) throw new Error(`[frame] invalid document URL: ${documentUrl}`);
 
