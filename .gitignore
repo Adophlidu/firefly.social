@@ -12,6 +12,9 @@
 /.next/
 /out/
 
+# dev only
+com.chrome.devtools.json
+
 # production
 /build
 /prebuilt
@@ -51,5 +54,3 @@ src/locales/**/*.ts
 
 
 *storybook.log
-
-/prebuilt

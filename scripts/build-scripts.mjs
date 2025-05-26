@@ -1,5 +1,7 @@
 import dotenv from 'dotenv';
 import esbuild from 'esbuild';
+import { writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
 
 dotenv.config({
     path: '.env.local',
@@ -41,3 +43,14 @@ buildConfigs.forEach(({ entryPoints, outfile, target, external = [] }) => {
 
     console.log(`Service worker built to ${outfile}.`);
 });
+
+await writeFile(
+    new URL('../public/.well-known/appspecific/com.chrome.devtools.json', import.meta.url),
+    JSON.stringify({
+        workspace: {
+            root: join(import.meta.dirname, '../'),
+            uuid: '412d882b-1031-4372-8684-c3fb8577ecab',
+        },
+    }),
+    'utf8',
+);
