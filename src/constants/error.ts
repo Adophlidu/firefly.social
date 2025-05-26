@@ -266,3 +266,11 @@ export class RecognizableError extends Error {
         super(message ?? 'Recognizable error.');
     }
 }
+
+export class BskySessionExpiredError extends Error {
+    override name = 'BskySessionExpiredError';
+
+    constructor(message?: string) {
+        super(message ?? 'Bsky session expired.');
+    }
+}

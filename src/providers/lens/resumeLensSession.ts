@@ -24,6 +24,7 @@ async function runResumeTask(
             console.warn('[resume lens] too many retries, clean the lens store');
             sentryClient.captureException(ExceptionId.RESUME_LENS_SESSION, new Error('Too many retries'), {
                 profileId: currentProfileId || '',
+                reason: 'Too many retries',
             });
             onResumeFailure();
             return;
@@ -46,6 +47,8 @@ async function runResumeTask(
             if (!refreshedCredentialsResult.isOk()) {
                 sentryClient.captureException(ExceptionId.RESUME_LENS_SESSION, refreshedCredentialsResult.error, {
                     profileId: currentProfileId || '',
+                    reason: refreshedCredentialsResult.error.message,
+                    position: 'Failed to call refresh',
                 });
                 return await runResumeTask(currentProfileId, retryCount + 1, onResumeFailure);
             }
@@ -55,6 +58,8 @@ async function runResumeTask(
                 console.warn('[resume lens] clean the lens store because refresh token is invalid');
                 sentryClient.captureException(ExceptionId.RESUME_LENS_SESSION, new Error('ForbiddenError'), {
                     profileId: currentProfileId || '',
+                    reason: refreshedCredentials.reason,
+                    position: 'ForbiddenError',
                 });
                 onResumeFailure();
                 return;

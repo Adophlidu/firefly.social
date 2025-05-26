@@ -2,6 +2,7 @@
 
 import { t } from '@lingui/core/macro';
 import type { WritableDraft } from 'immer';
+import { jwtDecode } from 'jwt-decode';
 import { getSession, signOut } from 'next-auth/react';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
@@ -9,7 +10,7 @@ import { immer } from 'zustand/middleware/immer';
 
 import { sentryClient } from '@/configs/sentryClient.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
-import { AuthenticationError, FetchError } from '@/constants/error.js';
+import { AuthenticationError, BskySessionExpiredError, FetchError } from '@/constants/error.js';
 import { EMPTY_LIST, HIDDEN_SECRET } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
@@ -387,11 +388,7 @@ const useBskyStateBase = createState(
                 if (error instanceof FetchError) return;
                 console.warn('[bsky store] clean the local store because of the error', error);
 
-                const clearSession =
-                    error instanceof Error &&
-                    'error' in error &&
-                    (error.error as string) === 'ExpiredToken' &&
-                    ['Token has been revoked', 'Token has expired'].includes(error.message);
+                const clearSession = error instanceof BskySessionExpiredError;
                 state.clear(clearSession);
                 bskySessionHolder.removeSession();
 
@@ -405,8 +402,9 @@ const useBskyStateBase = createState(
 
                 sentryClient.captureException(ExceptionId.RESUME_BSKY_SESSION, error, {
                     profileId: bskySession.did,
-                    accessTokenPayload: runInSafe(() => bskySession.sessionPayload.accessJwt.split('.')[1]) || '',
-                    refreshTokenPayload: runInSafe(() => bskySession.sessionPayload.refreshJwt.split('.')[1]) || '',
+                    now: Date.now().toString(),
+                    accessTokenExp: runInSafe(() => jwtDecode(bskySession.sessionPayload.accessJwt)?.exp) || '',
+                    refreshTokenExp: runInSafe(() => jwtDecode(bskySession.sessionPayload.refreshJwt)?.exp) || '',
                 });
             } finally {
                 state.__setStatus__(AsyncStatus.Idle);

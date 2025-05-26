@@ -36,14 +36,6 @@ class BskySessionHolder extends SessionHolder<BskySession> {
             };
         }
 
-        if (refreshSession) {
-            await agent.sessionManager.refreshSession();
-
-            const now = Date.now();
-            session.createdAt = now;
-            session.expiresAt = now;
-        }
-
         super.resumeSession(session);
         this._agent = agent;
 
