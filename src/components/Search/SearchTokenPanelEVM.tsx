@@ -60,19 +60,17 @@ export const SearchTokenPanelEVM = memo<SearchTokenPanelProps>(function SearchTo
 
     const filteredTokens: Token[] = useMemo(() => {
         const kw = keyword.toLocaleLowerCase();
-        return customTokens.concat(
-            tokens.filter((token) => {
-                return (
-                    [token.name, token.symbol, token.id].some((value) => value.toLowerCase().includes(kw)) &&
-                    (!chainId || token.chainId === chainId)
-                );
-            }),
-        );
+        return [...customTokens, ...tokens].filter((token) => {
+            return (
+                [token.name, token.symbol, token.id].some((value) => value.toLowerCase().includes(kw)) &&
+                (!chainId || token.chainId === chainId)
+            );
+        });
     }, [chainId, keyword, tokens, customTokens]);
     const canExpand = useMemo(() => {
         return (
-            filteredTokens.some((token) => isGreaterThan(token.usdValue, 1)) &&
-            filteredTokens.some((token) => isLessThan(token.usdValue, 1))
+            filteredTokens.some((token) => isGreaterThan(token.usdValue, 1) && !token.custom) &&
+            filteredTokens.some((token) => isLessThan(token.usdValue, 1) && !token.custom)
         );
     }, [filteredTokens]);
 
