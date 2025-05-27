@@ -11,7 +11,7 @@ import { NetworkType } from '@/constants/enum.js';
 import { captureChainFilterTabEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
 import { useSwapStateStore } from '@/store/useSwapStore.js';
 
-const chainsList = [
+export const chainsList = [
     {
         id: mainnet.id,
         networkType: NetworkType.Ethereum,
@@ -49,8 +49,14 @@ const chainsList = [
     },
 ];
 
-export function ChainFilter() {
-    const { selectedChainId, setSelectedChainId } = useSwapStateStore();
+interface ChainFilterProps {
+    networkType?: NetworkType;
+}
+
+export function ChainFilter({ networkType }: ChainFilterProps) {
+    const validChains = networkType ? chainsList.filter((x) => x.networkType === networkType) : chainsList;
+
+    const { selectedChainId, setSelectedChainId } = useSwapStateStore(validChains.map((x) => x.id));
 
     const Icon = useMemo(() => {
         if (selectedChainId === 101) {
@@ -101,7 +107,7 @@ export function ChainFilter() {
                                         </div>
                                     </div>
                                 </MenuItem>
-                                {chainsList.map(({ id, name, networkType }) => (
+                                {validChains.map(({ id, name, networkType }) => (
                                     <MenuItem key={id}>
                                         <div
                                             className="flex w-full cursor-pointer flex-row items-center gap-2 bg-clip-padding px-3 py-1 hover:bg-bg"

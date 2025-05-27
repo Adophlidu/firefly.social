@@ -53,9 +53,9 @@ export function ProfileCategoryTabs({
         [],
     );
 
+    const addressType = getAddressType(id);
     const categories = useMemo(() => {
         if (source === Source.Wallet || source === Source.WalletMix) {
-            const addressType = getAddressType(id);
             const tabs =
                 addressType === NetworkType.Solana
                     ? WALLET_PROFILE_TAB_TYPES.solana
@@ -99,7 +99,7 @@ export function ProfileCategoryTabs({
 
             return (isCurrentProfile ? LOGIN_SORTED_PROFILE_TAB_TYPE : SORTED_PROFILE_TAB_TYPE)[source].includes(type);
         });
-    }, [id, source, tabTitles, isCurrentProfile, enable]);
+    }, [id, source, tabTitles, isCurrentProfile, enable, addressType]);
 
     const hasLimo = source === Source.Wallet && isSameEthereumAddress(id, VITALIK_ADDRESS);
 
@@ -140,7 +140,9 @@ export function ProfileCategoryTabs({
             {category === WalletProfileCategory.Activities ? (
                 <ActivitiesFilter namespace={ActivitiesFilterNamespace.Profile} hasLimo={hasLimo} />
             ) : null}
-            {category === WalletProfileCategory.Transactions ? <ChainFilter /> : null}
+            {category === WalletProfileCategory.Transactions && addressType === NetworkType.Ethereum ? (
+                <ChainFilter networkType={addressType || undefined} />
+            ) : null}
         </div>
     );
 }

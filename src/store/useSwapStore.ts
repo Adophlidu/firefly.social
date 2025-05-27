@@ -26,4 +26,14 @@ const useSwapStore = create<SwapState, [['zustand/persist', unknown], ['zustand/
     ),
 );
 
-export const useSwapStateStore = createSelectors(useSwapStore);
+export const useSwapStateStoreBase = createSelectors(useSwapStore);
+
+export function useSwapStateStore(validChainIds?: number[]) {
+    const { selectedChainId, ...rest } = useSwapStateStoreBase();
+
+    return {
+        ...rest,
+        selectedChainId:
+            selectedChainId && validChainIds && !validChainIds.includes(selectedChainId) ? null : selectedChainId,
+    };
+}
