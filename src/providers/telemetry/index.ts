@@ -49,7 +49,8 @@ class Telemetry extends Provider<Events, never> {
     private latestEventId: string | null = null;
 
     override async captureEvent<T extends keyof Events>(...rest: CaptureParameters<T>): Promise<void> {
-        const [name, parameters, { version_filter, provider_filter } = {}] = rest;
+        const [name, parameters, { version_filter = VersionFilter.Latest, provider_filter = ProviderFilter.All } = {}] =
+            rest;
 
         if (env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Disabled) {
             console.log('[telemetry] event capture is disabled');
