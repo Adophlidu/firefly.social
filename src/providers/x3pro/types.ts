@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 export const enum X3ProKolListLabel {
     PVP = 1,
     Celebrity = 2,

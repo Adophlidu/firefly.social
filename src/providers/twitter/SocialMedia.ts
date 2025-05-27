@@ -68,6 +68,7 @@ import { X3ProKolListLabel, X3ProOrderType } from '@/providers/x3pro/types.js';
 import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
 import type { PartialWith, ResponseJSON } from '@/types/index.js';
 
+export
 @WithNitter()
 @SetQueryDataForLikePost(Source.Twitter)
 @SetQueryDataForBookmarkPost(Source.Twitter)
@@ -705,5 +706,4 @@ class TwitterSocialMedia implements Provider {
     }
 }
 
-export { TwitterSocialMedia };
 export const TwitterSocialMediaProvider = new TwitterSocialMedia();
