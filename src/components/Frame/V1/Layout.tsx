@@ -132,7 +132,7 @@ async function getNextFrame(
     }
 
     const address = getAccount(config)?.address;
-    if (address) await captureFrameActionEvent('others', address, frame);
+    await captureFrameActionEvent('others', frame, address);
 
     try {
         switch (button.action) {

@@ -5,5 +5,5 @@ export async function getCollectionFromUrl(url: string) {
     const match = url.match(EVM_ADDRESS);
     const address = match?.[0];
     if (!address) return null;
-    return FireflyEndpointProvider.getCollectionByAddress(address);
+    return FireflyEndpointProvider.detectCollection(address);
 }

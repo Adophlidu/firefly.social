@@ -12,7 +12,7 @@ import { FIREFLY_STAMP_DEV_URL, FIREFLY_STAMP_URL } from '@/constants/index.js';
 import { Image as NextImage } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { isDomainOrSubdomainOf } from '@/helpers/isDomainOrSubdomainOf.js';
+import { matchDomainSuffix } from '@/helpers/matchDomainSuffix.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
 function resolveImgurUrl(url: string) {
@@ -84,8 +84,8 @@ export const Avatar = memo(function Avatar({
     const isNormalUrl =
         !!src &&
         !src.startsWith('data:image/') &&
-        !isDomainOrSubdomainOf(src, 'warpcast.com') &&
-        !isDomainOrSubdomainOf(src, 'farcaster.xyz');
+        !matchDomainSuffix(src, 'warpcast.com') &&
+        !matchDomainSuffix(src, 'farcaster.xyz');
 
     const { data: xFallbackAvatar } = useResolveAvatarFallbackUrl(src);
 

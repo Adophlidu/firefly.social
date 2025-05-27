@@ -7,7 +7,7 @@ import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 
-export function useTradeInfo(token: CoinGeckoToken | undefined) {
+export function useTradeInfo(token: CoinGeckoToken | null | undefined) {
     const { data: trending } = useCoinTrending(token?.id);
     const { data: supportedChains = EMPTY_LIST } = useOkxSupportedChains();
     const { contracts = [] } = trending ?? {};

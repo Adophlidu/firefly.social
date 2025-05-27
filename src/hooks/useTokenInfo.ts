@@ -1,46 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { formatMarketToken } from '@/helpers/formatMarketToken.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
-import { getTokenFromCoinGecko } from '@/services/getTokenFromCoinGecko.js';
-import { searchTokens } from '@/services/searchTokens.js';
+import type { GetTokenOptions } from '@/providers/types/Firefly.js';
+import { searchToken } from '@/services/searchToken.js';
 
-export interface GetTokenInfoOptions {
-    symbolOrId: string;
-    ensureId?: boolean;
-    enabled?: boolean;
-}
-
-async function getTokenInfo({ symbolOrId, ensureId = true }: GetTokenInfoOptions) {
-    if (ensureId) {
-        const token = await FireflyEndpointProvider.getTokenByCoinId(symbolOrId);
-        if (token)
-            return {
-                id: token.id,
-                symbol: token.symbol,
-                name: token.name,
-                source: '',
-                type: 'FungibleToken',
-                logoURL: token.image.large || token.image.small || token.image.thumb,
-                socialLinks: {
-                    website: '',
-                    twitter: '',
-                    telegram: '',
-                },
-            } as CoinGeckoToken;
-    }
-
-    const tokens = await searchTokens(symbolOrId);
-    if (tokens.data[0]) return formatMarketToken(tokens.data[0]);
-
-    return getTokenFromCoinGecko(symbolOrId);
-}
-
-export function useTokenInfo(symbolOrId: string, ensureId = true, enabled = true) {
+export function useTokenInfo(options: GetTokenOptions, enabled = true) {
     return useQuery({
         enabled,
-        queryKey: ['token', symbolOrId, ensureId],
-        queryFn: () => getTokenInfo({ symbolOrId, ensureId }),
+        queryKey: ['token', options],
+        queryFn: () => searchToken(options),
     });
 }

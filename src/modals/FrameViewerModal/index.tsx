@@ -66,7 +66,7 @@ export function FrameViewerModal({ ref }: Props) {
                         await switchEthereumChain(chainId);
                         return;
                     case EthereumMethodType.ETH_SEND_TRANSACTION: {
-                        await captureFrameActionEvent('others', client.account.address, props.frame);
+                        await captureFrameActionEvent('others', props.frame, client.account.address);
                         return client.request(parameters as Parameters<typeof client.request>[0]);
                     }
                     default:

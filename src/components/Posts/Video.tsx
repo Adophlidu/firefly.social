@@ -89,7 +89,7 @@ function VideoContent({
         <Player.Container ref={containerRef} className="bg-black text-white" __scopeMedia={__scopeMedia}>
             <Player.Video
                 loop={loop}
-                className="h-full w-full object-contain"
+                className="h-full w-full rounded-md object-contain"
                 poster={poster}
                 muted={autoPlay || autoPlayInViewport}
             />

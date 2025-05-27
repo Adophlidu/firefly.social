@@ -49,10 +49,14 @@ export function resolveCurrentFireflyAccountId() {
     return resolveFireflyAccountId(identity);
 }
 
-export function resolveFireflyAccountId(identity: FireflyIdentity | null) {
+export async function resolveFireflyAccountId(identity: FireflyIdentity | null) {
     if (!identity) return;
 
-    return FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false)
-        .then((x) => x.fireflyAccountId)
-        .catch(() => undefined);
+    try {
+        const all = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false);
+        return all.fireflyAccountId;
+    } catch (error) {
+        console.error('[resolveFireflyAccountId] Error fetching Firefly account ID:', error);
+        return;
+    }
 }

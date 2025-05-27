@@ -19,7 +19,7 @@ async function captureProfileUrl(url: URL, regex: RegExp, source: SocialSource) 
     return;
 }
 
-async function formatWarpcastUrl(url: URL) {
+async function formatFarcasterUrl(url: URL) {
     return captureProfileUrl(url, /^\/([^/]+)$/u, Source.Farcaster);
 }
 
@@ -46,7 +46,8 @@ export async function formatExternalLink(link: string) {
 
     switch (siteType) {
         case ExternalSiteDomain.Warpcast:
-            return formatWarpcastUrl(parsedURL);
+        case ExternalSiteDomain.Farcaster:
+            return formatFarcasterUrl(parsedURL);
         case ExternalSiteDomain.Hey:
             return formatHeyUrl(parsedURL);
         case ExternalSiteDomain.Twitter:

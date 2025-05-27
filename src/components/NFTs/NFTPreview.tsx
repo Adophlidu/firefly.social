@@ -246,7 +246,7 @@ export const CollectionPreviewer = memo(function CollectionPreviewer({
             className={className}
             showTradeInfo={showTradeInfo}
             collection={collection}
-            image={collection.large_image_url}
+            image={collection.large_image_url ?? collection.logo_url}
             icon={chainId ? <ChainIcon className="rounded-full" size={24} chainId={chainId} /> : undefined}
             link={collection.website}
             footer={{

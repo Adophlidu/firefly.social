@@ -16,7 +16,7 @@ export const FeaturedToken = memo<FeaturedTokenProps>(function FeaturedToken({ t
     const { data: coin } = useSingleCoin(token.id);
     const profileIds = useCurrentProfileIds();
     const isLoginFirefly = useIsLoginFirefly();
-    const swap = coin?.support_swap_platform;
+    const swap = coin?.support_swap_platform[0];
     const chainId = token?.chainId ?? (swap?.chainIndex ? +swap.chainIndex : undefined);
     const tokenAddress = token.id === COINGECKO_SOL_COIN_ID ? SWAP_SOL_NATIVE_ADDRESS : swap?.tokenContractAddress;
 

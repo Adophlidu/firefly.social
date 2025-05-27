@@ -7,12 +7,10 @@ import { WrapTokenMarketData } from '@/app/(normal)/token/[symbol]/[[...slug]]/W
 import { Comeback } from '@/components/Comeback.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
-import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
+import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-import type { CoinGeckoAsset, CoinGeckoToken } from '@/providers/types/CoinGecko.js';
-import { getTokenFromCoinGecko } from '@/services/getTokenFromCoinGecko.js';
-import { searchTokenByAddress } from '@/services/searchTokenByAddress.js';
+import { searchToken } from '@/services/searchToken.js';
 import type { NextPageProps } from '@/types/index.js';
 
 interface Props
@@ -29,34 +27,19 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
 
     const { children } = props;
     const params = await props.params;
-    const paramSymbol = decodeURIComponent(params.symbol);
-    let symbol = paramSymbol;
-    let tokenAsset: CoinGeckoAsset | null;
-    if (isValidAddressEthereum(paramSymbol)) {
-        tokenAsset = await searchTokenByAddress(paramSymbol);
-        if (tokenAsset) symbol = tokenAsset.attributes.symbol;
-    }
+    const paramSymbol = decodeURIComponent(params.symbol).replace(/^\$/, '');
     const rawSearch = (await headers()).get('X-SEARCH-PARAMS');
     const search = rawSearch ? new URLSearchParams(rawSearch) : null;
+
     const token = await runInSafeAsync(async () => {
-        const data = await getTokenFromCoinGecko(symbol, {
+        const isAddress = isValidAddressEthereum(paramSymbol) || isValidAddressSolana(paramSymbol);
+        const isCoinId = search?.get('isCoinId') === 'true';
+        return searchToken({
+            token_symbol: isAddress || isCoinId ? undefined : paramSymbol,
+            coingecko_id: isCoinId ? paramSymbol : undefined,
+            address: isAddress ? paramSymbol : search?.get('address') || undefined,
             chain_id: search?.get('chainId') ? Number(search.get('chainId')) : undefined,
-            address: search?.get('address') || undefined,
         });
-        if (data) return data;
-        if (tokenAsset) {
-            return {
-                id: tokenAsset.attributes.coingecko_coin_id,
-                chainId: tokenAsset.attributes.chain_id,
-                address: tokenAsset.attributes.address,
-                symbol: tokenAsset.attributes.symbol,
-                name: tokenAsset.attributes.name,
-                source: 'CoinGecko',
-                type: 'FungibleToken',
-                logoURL: tokenAsset.attributes.image_url,
-            } satisfies CoinGeckoToken;
-        }
-        return null;
     });
 
     if (!token) {
@@ -70,7 +53,7 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
                 <div className="flex min-w-0 items-center gap-7">
                     <Comeback className="cursor-pointer text-lightMain" />
                     <span className="min-w-0 truncate text-xl font-black uppercase text-lightMain">
-                        ${token?.symbol || paramSymbol}
+                        {token?.symbol || paramSymbol}
                     </span>
                 </div>
                 <SwapButton className="ml-auto sm:inline-flex md:hidden" />

@@ -2,14 +2,14 @@ import { safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 
 import { ExternalSiteDomain, Source } from '@/constants/enum.js';
-import { isDomainOrSubdomainOf } from '@/helpers/isDomainOrSubdomainOf.js';
+import { matchDomainSuffix } from '@/helpers/matchDomainSuffix.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
 
 function parseSiteType(url: string) {
-    return Object.values(ExternalSiteDomain).find((domain) => isDomainOrSubdomainOf(url, domain));
+    return Object.values(ExternalSiteDomain).find((domain) => matchDomainSuffix(url, domain));
 }
 
 export function getUrlSiteType(url: string) {
@@ -22,7 +22,7 @@ export function getUrlSiteType(url: string) {
     return { siteType, parsedURL };
 }
 
-async function formatWarpcastUrl(parsedURL: URL) {
+async function formatFarcasterUrl(parsedURL: URL) {
     switch (parsedURL.pathname) {
         case '/~/compose': {
             const embeds = parsedURL.searchParams.get('embeds[]');
@@ -53,7 +53,8 @@ export async function interceptExternalUrl(url: string) {
 
     switch (siteType) {
         case ExternalSiteDomain.Warpcast:
-            return await formatWarpcastUrl(parsedURL);
+        case ExternalSiteDomain.Farcaster:
+            return await formatFarcasterUrl(parsedURL);
         case ExternalSiteDomain.Twitter:
         case ExternalSiteDomain.X:
         case ExternalSiteDomain.Hey:

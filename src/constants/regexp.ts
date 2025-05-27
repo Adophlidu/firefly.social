@@ -74,3 +74,6 @@ export const TRUTH_SOCIAL_POST_REGEXP = /https:\/\/truthsocial\.com\/users\/([^/
 
 export const MINIAPPS_ID_REGEXP =
     /^https?:\/\/(?:www\.)?(?:farcaster\.xyz|warpcast\.com)\/miniapps\/([a-zA-Z0-9_-]+)\/.+/;
+
+export const SPECIAL_TOKEN_SYMBOLS = ['the network state'];
+export const SPECIAL_TOKEN_SYMBOLS_REGEX = new RegExp(`\\b(${SPECIAL_TOKEN_SYMBOLS.join('|')})\\b`, 'i');

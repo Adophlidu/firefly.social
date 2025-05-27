@@ -731,7 +731,7 @@ msgid "Select NFT collection to gate access"
 msgstr "选择 NFT 系列以限制访问权限"
 
 msgid "Password"
-msgstr "密码<<<<<<< HEAD======="
+msgstr "密码"
 
 msgid "Connect Email"
 msgstr "绑定邮箱"
@@ -897,7 +897,7 @@ msgid "The blacklist function is included. Some addresses may not be able to tra
 msgstr "黑名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
 
 msgid "<0/>Delete Firefly account"
-msgstr "<0/>删除 Firefly 账号<<<<<<< HEAD"
+msgstr "<0/>删除 Firefly 账号"
 
 msgid "Select Account"
 msgstr "选择账号"
@@ -1491,7 +1491,7 @@ msgid "No fake KYC found."
 msgstr "不涉及虚假 KYC。"
 
 msgid "No function found that retrieves ownership"
-msgstr "没有找到检索所有权的功能<<<<<<< HEAD======="
+msgstr "没有找到检索所有权的功能"
 
 msgid "Send"
 msgstr "发送"
@@ -1548,7 +1548,7 @@ msgid "[LuckyDrop]"
 msgstr "[红包]"
 
 msgid "Group"
-msgstr "小组<<<<<<< HEAD======="
+msgstr "小组"
 
 #. placeholder {0}: index + 1
 msgid "Choice {0}"
@@ -1602,7 +1602,7 @@ msgid "Claim Premium"
 msgstr "领取优质奖励"
 
 msgid "Share in a Post"
-msgstr "在帖子中分享<<<<<<< HEAD======="
+msgstr "在帖子中分享"
 
 msgid "Participation Blocked"
 msgstr "禁止参与"
@@ -1919,9 +1919,6 @@ msgstr "搜索 ${symbol}"
 #. placeholder {0}: channel.name
 msgid "Failed to unmute /{0}."
 msgstr "取消隐藏失败/{0}。"
-
-msgid "Please confirm the login with Warpcast."
-msgstr "请确认使用 Warpcast 登录。"
 
 msgid "Cover background"
 msgstr "封面背景"
@@ -2635,7 +2632,7 @@ msgid "Failed to fetch profiles."
 msgstr "未能获取个人资料。"
 
 msgid "Post is decrypting..."
-msgstr "帖子解密中...<<<<<<< HEAD======="
+msgstr "帖子解密中..."
 
 msgid "Transaction"
 msgstr "交易"
@@ -2834,7 +2831,7 @@ msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {转帖} other {转帖}}"
 
 msgid "Wallet submitted"
-msgstr "已提交钱包<<<<<<< HEAD"
+msgstr "已提交钱包"
 
 msgid "This does not appear to be a honeypot."
 msgstr "这看起来不像是一个陷阱。"
@@ -4201,6 +4198,9 @@ msgstr "点赞"
 #. placeholder {0}: nFormatter(props.ownerCount)
 msgid "× {0}"
 msgstr "× {0}"
+
+msgid "Please confirm the login with Farcaster."
+msgstr ""
 
 msgid "Minted"
 msgstr "已铸造"

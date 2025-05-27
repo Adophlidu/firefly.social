@@ -3,6 +3,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
+import type { FireflySession } from '@/providers/firefly/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import {
     type BskyEventParameters,
@@ -44,8 +45,8 @@ export function getSelfProfileEventParameters(source: SocialSource) {
 }
 
 export function getProfileEventParameters(profile: Profile) {
-    const fireflyAccountId = useFireflyStateStore.getState().currentProfileSession?.profileId as string | null;
-    if (!fireflyAccountId) throw new Error('Firefly account id is missing.');
+    const fireflySession = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
+    if (!fireflySession) throw new Error('Firefly account id is missing.');
 
     const source = profile.source;
     if (!source) throw new Error(`Not source found, source = ${source}.`);
@@ -56,7 +57,7 @@ export function getProfileEventParameters(profile: Profile) {
     switch (source) {
         case Source.Farcaster:
             return {
-                source_firefly_account_id: fireflyAccountId,
+                source_firefly_account_id: fireflySession.accountIdForEvent,
                 source_farcaster_handle: selfProfile.handle,
                 source_farcaster_id: selfProfile.profileId,
                 target_farcaster_id: profile.profileId,
@@ -64,7 +65,7 @@ export function getProfileEventParameters(profile: Profile) {
             } satisfies FarcasterEventParameters;
         case Source.Lens:
             return {
-                source_firefly_account_id: fireflyAccountId,
+                source_firefly_account_id: fireflySession.accountIdForEvent,
                 source_lens_handle: selfProfile.handle,
                 source_lens_id: selfProfile.profileId,
                 target_lens_id: profile.profileId,
@@ -72,7 +73,7 @@ export function getProfileEventParameters(profile: Profile) {
             } satisfies LensEventParameters;
         case Source.Twitter:
             return {
-                source_firefly_account_id: fireflyAccountId,
+                source_firefly_account_id: fireflySession.accountIdForEvent,
                 source_x_handle: selfProfile.handle,
                 source_x_id: selfProfile.profileId,
                 target_x_id: profile.profileId,
@@ -80,7 +81,7 @@ export function getProfileEventParameters(profile: Profile) {
             } satisfies TwitterEventParameters;
         case Source.Bsky:
             return {
-                source_firefly_account_id: fireflyAccountId,
+                source_firefly_account_id: fireflySession.accountIdForEvent,
                 source_bsky_handle: selfProfile.handle,
                 source_bsky_id: selfProfile.profileId,
                 target_bsky_id: profile.profileId,

@@ -24,7 +24,10 @@ export const ContractTag = memo<ContractTagProps>(function ContractTag({ detecte
 
     const attributes = detected?.contract_info?.attributes;
     const coingeckoCoinId = attributes?.coingecko_coin_id;
-    const { data: token } = useTokenInfo(coingeckoCoinId || address, !!coingeckoCoinId);
+    const { data: token } = useTokenInfo({
+        coingecko_id: coingeckoCoinId,
+        address,
+    });
 
     const url = useMemo(() => {
         if (collection) return resolveNFTUrl(collection.chain_id, collection.contract_address);

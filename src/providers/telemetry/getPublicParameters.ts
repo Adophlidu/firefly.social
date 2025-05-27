@@ -3,6 +3,7 @@ import { getAccount } from 'wagmi/actions';
 import { config } from '@/configs/wagmiClient.js';
 import { bom } from '@/helpers/bom.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
+import type { FireflySession } from '@/providers/firefly/Session.js';
 import { getWalletAdapter } from '@/providers/solana/getWalletAdapter.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 import {
@@ -17,7 +18,11 @@ import { SolanaChainId } from '#masknet/web3-shared-solana';
 export function getPublicParameters(eventId: string, previousEventId: string | null) {
     const evmAccount = runInSafe(() => getAccount(config));
     const solanaAdaptor = runInSafe(() => getWalletAdapter());
-    const fireflyAccountId = useFireflyStateStore.getState().currentProfileSession?.profileId;
+
+    const fireflySession = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
+    const fireflyAccountId = fireflySession?.accountIdForEvent;
+
+    const developmentAPI = useDeveloperSettingsState.getState().developmentAPI;
 
     return {
         public_uuid: eventId,
@@ -41,9 +46,11 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
             ? `solana:${SolanaChainId.Mainnet}:${solanaAdaptor.publicKey.toBase58()}`
             : undefined,
 
+        // common
         public_account_id: fireflyAccountId,
-        public_use_development_api: useDeveloperSettingsState.getState().developmentAPI,
+        public_use_development_api: developmentAPI,
 
+        // firefly account id
         firefly_account_id: fireflyAccountId,
 
         // safary social login

@@ -115,7 +115,7 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
     const coingeckoCoinId = selectedToken?.id || attributes?.coingecko_coin_id;
     const hasCoinId = !!coingeckoCoinId;
 
-    const { data: token } = useTokenInfo(coingeckoCoinId || address, hasCoinId);
+    const { data: token } = useTokenInfo({ coingecko_id: coingeckoCoinId, address });
     const { data: trending } = useCoinTrending(token?.id);
     const tradeInfo = useTradeInfo(token);
 

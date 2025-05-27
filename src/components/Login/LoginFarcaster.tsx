@@ -279,7 +279,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                     {count !== 0 ? <LoadingIcon /> : null}
                     <div className="mt-2 text-center text-sm leading-[16px] text-second">
                         {count !== 0 ? (
-                            <Trans>Please confirm the login with Warpcast.</Trans>
+                            <Trans>Please confirm the login with Farcaster.</Trans>
                         ) : (
                             <Trans>The connection has timed out. Please try again later.</Trans>
                         )}

@@ -445,7 +445,31 @@ export const TOKEN_CATEGORIES: TokenCategory[] = [
 ];
 
 /** coingecko coin ids that are not solana or ethereum */
-export const NON_SOL_ETH_COINS = ['bitcoin', 'dogecoin', 'tron', 'cardano', 'sui', 'polkadot', 'litecoin'];
+export const NO_TRACING_COINS = [
+    'bitcoin',
+    'bitcoin-cash',
+    'dogecoin',
+    'tron',
+    'cardano',
+    'sui',
+    'polkadot',
+    'litecoin',
+    'stellar',
+    'ripple', // xrp
+    'hedera-hashgraph',
+    'gxchain',
+    'thala-apt',
+];
+export const TRACING_CHAINS = [
+    EthereumChainId.Mainnet,
+    EthereumChainId.Base,
+    EthereumChainId.Polygon,
+    EthereumChainId.BSC,
+    EthereumChainId.Arbitrum,
+    EthereumChainId.Optimism,
+    SolanaChainId.Mainnet,
+] as const;
+export const TRACING_CHAIN_NATIVE_COINS = ['ethereum', 'solana', 'matic', 'binancecoin', 'arbitrum'];
 export const COINGECKO_SOL_COIN_ID = 'solana';
 export const SWAP_SOL_NATIVE_ADDRESS = '11111111111111111111111111111111';
 

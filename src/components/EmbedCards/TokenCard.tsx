@@ -1,6 +1,5 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import PriceArrow from '@/assets/price-arrow.svg';
@@ -19,30 +18,17 @@ import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useCoinPrice24hStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
+import { useDetectToken } from '@/hooks/useDetectToken.js';
 import { useSingleCoin } from '@/hooks/useSingleCoin.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, children, ...rest }) {
-    const { data: detected } = useQuery({
-        queryKey: ['detect-address', address],
-        queryFn: () => FireflyEndpointProvider.detectAddress(address),
-        select: (data) => {
-            if (!data) return;
-            const tokens = data.list.filter((x) => {
-                return (
-                    (x.type === 'eth' && x.contract_type === 'ERC20') ||
-                    (x.type === 'solana' && x.contract_type === 'token')
-                );
-            });
-            return tokens[0];
-        },
-    });
+    const { data: detected } = useDetectToken(address);
     const attributes = detected?.contract_info?.attributes;
     const coingecko_coin_id = attributes?.coingecko_coin_id;
 
-    const { data: token } = useTokenInfo(coingecko_coin_id || address, !!coingecko_coin_id);
+    const { data: token } = useTokenInfo({ coingecko_id: coingecko_coin_id, address });
     const { data: trending } = useCoinTrending(token?.id);
     const tradeInfo = useTradeInfo(token);
 

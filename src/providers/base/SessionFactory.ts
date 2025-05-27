@@ -7,11 +7,7 @@ import { parseJSON } from '@/helpers/parseJSON.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import {
-    FireflySession,
-    type FireflySessionPayload,
-    type FireflySessionSignature,
-} from '@/providers/firefly/Session.js';
+import { FireflySession, FireflySessionPayload, FireflySessionSignature } from '@/providers/firefly/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
@@ -48,14 +44,6 @@ const ThirdPartySessionPayload = z.object({
 
     telegram_username: z.string().optional(),
     telegram_user_id: z.string().optional(),
-});
-
-const FireflySessionPayload = z.object({
-    isNew: z.boolean().optional(),
-
-    uid: z.string().optional(),
-    avatar: z.string().nullish().optional(),
-    displayName: z.string().nullish().optional(),
 });
 
 const BskyDidDoc = z.object({
@@ -181,7 +169,9 @@ export class SessionFactory {
                         session.profileId,
                         session.token,
                         secondPart ? SessionFactory.createSession(atob(secondPart)) : null, // parent session
-                        thirdPart ? (decodeAsciiPayload<FireflySessionSignature>(thirdPart) ?? null) : null, // signature
+                        thirdPart
+                            ? (decodeAsciiPayload<z.infer<typeof FireflySessionSignature>>(thirdPart) ?? null)
+                            : null, // signature
                         false, // @deprecated
                         {
                             ...parsed.data,

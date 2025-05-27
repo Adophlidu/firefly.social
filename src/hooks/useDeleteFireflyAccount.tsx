@@ -88,7 +88,7 @@ export function useDeleteFireflyAccount() {
         });
         if (!confirmed) return;
         try {
-            const accountId = fireflySessionHolder.sessionRequired.profileId;
+            const { accountIdForEvent } = fireflySessionHolder.sessionRequired;
 
             await FireflyEndpointProvider.deleteAccount();
             enqueueSuccessMessage(t`Deleted your Firefly account`);
@@ -96,7 +96,7 @@ export function useDeleteFireflyAccount() {
                 showProgress: false,
                 disableSameURL: true,
             });
-            await captureAccountDeleteEvent(accountId);
+            await captureAccountDeleteEvent(accountIdForEvent);
             await removeAllAccounts();
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to delete`);

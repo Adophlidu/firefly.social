@@ -13,6 +13,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getChainInfo } from '@/helpers/getChainInfo.js';
+import { useDetectToken } from '@/hooks/useDetectToken.js';
 import type { Contract, Trending } from '@/providers/types/Trending.js';
 
 interface InfoRowProps {
@@ -71,12 +72,16 @@ function formatContractAddress(contract: Contract) {
 
 interface TokenOverviewProps extends HTMLProps<HTMLDivElement> {
     trending: Trending | undefined;
+    address?: string;
 }
-export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ trending, ...rest }) {
+export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ trending, address, ...rest }) {
     const { market, coin, contracts } = trending ?? {};
     const firstContract = first(contracts);
     const chain = getChainInfo(firstContract?.runtime, firstContract?.chainId);
+    const { data: detected } = useDetectToken(address, !trending);
+    const attributes = detected?.contract_info?.attributes;
 
+    const total_supply = market?.total_supply ?? attributes?.normalized_total_supply;
     return (
         <div {...rest}>
             <h2 className="font-inter font-bold text-main">
@@ -95,7 +100,7 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ t
                             </div>
                         </Trans>
                     }
-                    value={market?.market_cap}
+                    value={market?.market_cap ?? (attributes?.market_cap_usd ? +attributes.market_cap_usd : undefined)}
                 />
                 <InfoRow
                     title={<Trans>Fully Diluted Valuation</Trans>}
@@ -112,7 +117,7 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ t
                             </div>
                         </Trans>
                     }
-                    value={market?.fully_diluted_valuation}
+                    value={market?.fully_diluted_valuation ?? (attributes?.fdv_usd ? +attributes.fdv_usd : undefined)}
                 />
                 <InfoRow
                     title={<Trans>Market Cap / FDV</Trans>}
@@ -163,8 +168,8 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ t
                             <div className="mt-2">Total Supply = Onchain supply - burned tokens</div>
                         </Trans>
                     }
-                    amount={market?.total_supply}
-                    asInfinite={!market?.total_supply}
+                    amount={total_supply}
+                    asInfinite={!total_supply}
                 />
                 <InfoRow
                     title={<Trans>Max Supply</Trans>}

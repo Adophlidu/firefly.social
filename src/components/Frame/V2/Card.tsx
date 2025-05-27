@@ -10,6 +10,7 @@ import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { FrameViewerModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
+import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { FrameV2 } from '@/types/frame.js';
@@ -71,6 +72,8 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
             });
             return;
         }
+
+        captureFrameActionEvent('click', frame);
 
         FrameViewerModalRef.open({
             ready: false,

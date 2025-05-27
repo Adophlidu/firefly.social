@@ -1915,9 +1915,6 @@ msgstr "Search ${symbol}"
 msgid "Failed to unmute /{0}."
 msgstr "Failed to unmute /{0}."
 
-msgid "Please confirm the login with Warpcast."
-msgstr "Please confirm the login with Warpcast."
-
 msgid "Cover background"
 msgstr "Cover background"
 
@@ -4194,6 +4191,9 @@ msgstr "Likes"
 #. placeholder {0}: nFormatter(props.ownerCount)
 msgid "× {0}"
 msgstr "× {0}"
+
+msgid "Please confirm the login with Farcaster."
+msgstr "Please confirm the login with Farcaster."
 
 msgid "Minted"
 msgstr "Minted"

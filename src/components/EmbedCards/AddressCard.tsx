@@ -73,8 +73,7 @@ export const AddressCardIndicator = memo<AddressCardIndicatorProps>(function Add
 
     const isToken = addressType === 'contract' && (contractType === 'token' || contractType === 'ERC20');
     const { data: token, isPending: isLoadingToken } = useTokenInfo(
-        coingecko_coin_id || address,
-        !!coingecko_coin_id,
+        { coingecko_id: coingecko_coin_id, address },
         isToken,
     );
 

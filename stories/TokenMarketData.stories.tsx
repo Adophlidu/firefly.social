@@ -7,7 +7,7 @@ interface Props extends Pick<TokenMarketDataProps, 'tradeRecords' | 'range' | 't
     symbol: string;
 }
 function WrapTokenMarketData({ symbol, ...rest }: Props) {
-    const { data: token, isLoading } = useTokenInfo(symbol, false);
+    const { data: token, isLoading } = useTokenInfo({ token_symbol: symbol });
     if (isLoading) return <div>Loading...</div>;
 
     if (!token) return <div>token not found: {symbol}</div>;

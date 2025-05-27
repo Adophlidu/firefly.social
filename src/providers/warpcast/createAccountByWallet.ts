@@ -20,25 +20,32 @@ export async function createAccount(signal?: AbortSignal) {
         message: originalMessage,
         account: account.address,
     });
-    const res = await FireflyEndpointProvider.loginFarcasterWithWallet(
+    const loginResponse = await FireflyEndpointProvider.loginFarcasterWithWallet(
         account.address,
         originalMessage,
         signatureMessage,
         true,
     );
-    const response = await signin(res.signerPublickey, signal);
-    const keyResponse = await signedKeyRequests(response.data.body, signal);
+    const signInResponse = await signin(loginResponse.signerPublickey, signal);
+    const keyResponse = await signedKeyRequests(signInResponse.data.body, signal);
     const session = new FarcasterSession(
-        res.fid,
-        res.signerPrivatekey,
-        response.data.timestamp,
-        response.data.expiresAt,
+        loginResponse.fid,
+        loginResponse.signerPrivatekey,
+        signInResponse.data.timestamp,
+        signInResponse.data.expiresAt,
         keyResponse.result.signedKeyRequest.token,
         undefined,
         undefined,
         account.address,
     );
-    const fireflySession = new FireflySession(res.uid, res.accessToken, session, null, res.isNew, res);
+    const fireflySession = new FireflySession(
+        loginResponse.uid,
+        loginResponse.accessToken,
+        session,
+        null,
+        loginResponse.isNew,
+        loginResponse,
+    );
     const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
     return {
         session,

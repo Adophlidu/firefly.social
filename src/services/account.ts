@@ -197,7 +197,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     const { state, sessionHolder } = getContext(account.profile.profileSource);
 
     const fireflySession = getFireflySession(account);
-    const currentFireflySession = getProfileState(Source.Firefly).currentProfileSession;
+    const currentFireflySession = getProfileState(Source.Firefly).currentProfileSession as FireflySession | null;
 
     // check if the account belongs to the current firefly session
     const belongsTo =
@@ -229,7 +229,11 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         });
 
         if (currentFireflySession?.profileId) {
-            captureAccountConflictEvent(currentFireflySession.profileId as string, fireflySession.profileId, confirmed);
+            captureAccountConflictEvent(
+                currentFireflySession.accountIdForEvent,
+                fireflySession.accountIdForEvent,
+                confirmed,
+            );
         }
 
         if (confirmed) {

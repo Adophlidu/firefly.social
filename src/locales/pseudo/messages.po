@@ -1907,9 +1907,6 @@ msgstr ""
 msgid "Failed to unmute /{0}."
 msgstr ""
 
-msgid "Please confirm the login with Warpcast."
-msgstr ""
-
 msgid "Cover background"
 msgstr ""
 
@@ -4177,6 +4174,9 @@ msgstr ""
 
 #. placeholder {0}: nFormatter(props.ownerCount)
 msgid "× {0}"
+msgstr "<<<<<<< HEAD======="
+
+msgid "Please confirm the login with Farcaster."
 msgstr ""
 
 msgid "Minted"

@@ -1,39 +1,57 @@
+import { z } from 'zod';
+
 import { NotAllowedError } from '@/constants/error.js';
 import { encodeAsciiPayload, encodeNoAsciiPayload } from '@/helpers/encodeSessionPayload.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
-export interface FireflySessionSignature {
-    address: string;
-    message: string;
-    signature: string;
-}
+export const FireflySessionSignature = z.object({
+    address: z.string(),
+    message: z.string(),
+    signature: z.string(),
+});
 
-export interface FireflySessionPayload {
-    // indicate a new firefly binding when it was created
-    isNew?: boolean;
+export const FireflySessionPayload = z.object({
+    /**
+     * indicate a new firefly binding when it was created
+     */
+    isNew: z.boolean().optional(),
 
-    // firefly profile
-    uid?: string;
-    avatar?: string | null;
-    displayName?: string | null;
-}
+    /**
+     * numeric user ID
+     */
+    uid: z.string().optional(),
+    /**
+     * UUID of the user
+     */
+    accountId: z.string().optional(),
+    avatar: z.string().nullish().optional(),
+    displayName: z.string().nullish().optional(),
+});
 
 export class FireflySession extends BaseSession implements Session {
     constructor(
         accountId: string,
         accessToken: string,
         public parent: Session | null,
-        public signature: FireflySessionSignature | null,
+        public signature: z.infer<typeof FireflySessionSignature> | null,
         /**
          * @deprecated
          * This field always false. Use `payload.isNew` instead
          */
         public isNew?: boolean,
-        public payload?: FireflySessionPayload,
+        public payload?: z.infer<typeof FireflySessionPayload>,
     ) {
         super(SessionType.Firefly, accountId, accessToken, 0, 0);
+    }
+
+    /**
+     * For users after this patch use accountId in UUID format for events.
+     * For legacy users use profileId in numeric format for events.
+     */
+    get accountIdForEvent() {
+        return this.payload?.accountId ?? this.profileId;
     }
 
     override serialize(): `${SessionType}:${string}:${string}:${string}` {

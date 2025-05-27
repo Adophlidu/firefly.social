@@ -6,12 +6,14 @@
  * @param domain A domain like x.com
  * @returns If url is in domain or subdomain.
  */
-export function isDomainOrSubdomainOf(url: string, domain: string) {
+export function matchDomainSuffix(url: string, domain: string) {
     if (url.startsWith('https://' + domain)) return true;
     if (!URL.canParse(url)) {
         url = 'https://' + url;
         if (!URL.canParse(url)) return false;
     }
+
     const { hostname } = new URL(url);
+
     return hostname === domain || hostname.endsWith('.' + domain);
 }

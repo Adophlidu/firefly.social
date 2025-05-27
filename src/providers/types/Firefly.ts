@@ -343,7 +343,7 @@ export type ThreadResponse = Response<{
 
 export type LoginResponse = Response<{
     accessToken: string;
-    accountId: string;
+    accountId: string; // uuid
     farcaster_signer_public_key?: string;
     farcaster_signer_private_key?: string;
     isNew: boolean;
@@ -1459,14 +1459,21 @@ export interface TokenWithMarketData {
     };
     name: string;
     platforms: unknown;
-    support_swap_platform: {
+    support_swap_platform: Array<{
         chainIndex: string;
         decimals: string;
         tokenContractAddress: string;
         tokenLogoUrl: string;
         tokenName: string;
         tokenSymbol: string;
-    };
+    }>;
+    platform_info: Array<{
+        chain_name: string;
+        token_address: string;
+        decimals: number;
+        swap: number;
+        chain_id: number;
+    }>;
     symbol: string;
     web_slug: string;
     contract_address: string;

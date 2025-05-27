@@ -12,13 +12,13 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useTokenCoin } from '@/hooks/useTokenCoin.js';
 
 export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag({ title }) {
-    const [coin] = useTokenCoin(title?.slice(1));
+    const symbol = title?.startsWith('$') ? title.slice(1) : title;
+    const [coin] = useTokenCoin(symbol);
     const [show, setShow] = useState(false);
     const isMedium = useIsMedium();
     const insideTippy = useTippyContext();
 
-    if (!title) return null;
-    const symbol = title.slice(1);
+    if (!symbol) return null;
     // $123 or $100M
     if (symbol.match(/^\d+$/) || /^\d+(k|m|b|t)$/i.test(symbol)) return title;
     const enabled = isMedium && show;

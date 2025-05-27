@@ -23,6 +23,14 @@ export interface CoinGeckoToken {
         twitter: string;
         telegram?: string;
     };
+    /** @see TokenWithMarketData['platform_info'] */
+    platform_info?: Array<{
+        chain_name: string;
+        token_address: string;
+        decimals: number;
+        swap: number;
+        chain_id: number;
+    }>;
 }
 
 export interface CoinGeckoCoinInfo {
@@ -209,6 +217,7 @@ export interface CoinGeckoAsset {
         image_url: string;
         coingecko_coin_id: string;
         total_supply: string;
+        normalized_total_supply: string;
         price_usd: string;
         fdv_usd: string;
         total_reserve_in_usd: string;

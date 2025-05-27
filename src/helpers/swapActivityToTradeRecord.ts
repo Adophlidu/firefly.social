@@ -1,5 +1,6 @@
 import { Source } from '@/constants/enum.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { getWalletProfileAvatar } from '@/helpers/getWalletProfileAvatar.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 import type { TradeRecord } from '@/types/token.js';
@@ -12,8 +13,7 @@ export function swapActivityToTradeRecord(activity: SwapActivity, tokenAddress: 
         user: {
             name: activity.displayInfo?.ensHandle,
             avatar:
-                activity.displayInfo?.fireflyAvatarUrl ||
-                activity.displayInfo?.avatarUrl ||
+                getWalletProfileAvatar(activity.displayInfo) ||
                 getStampAvatarByProfileId(Source.Wallet, activity.owner),
         },
         amount: token.amount_str,

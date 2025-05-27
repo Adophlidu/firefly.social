@@ -1029,7 +1029,7 @@ class FireflyEndpoint {
     }
 
     async getSingleCoin(options: GetTokenOptions) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, 'v1/token/single_coins', options);
+        const url = urlcat(settings.FIREFLY_ROOT_URL, 'v2/token/single_token', options);
 
         const response = await fireflySessionHolder.fetch<Response<TokenWithMarketData>>(url);
         return resolveFireflyResponseData(response);
@@ -1423,18 +1423,6 @@ class FireflyEndpoint {
         );
     }
 
-    async getCollectionByAddress(contractAddress: string) {
-        const signal = new AbortController();
-        const promises = NFTSCAN_CHAIN_IDS.map(async (chainId) => {
-            const result = await this.getCollection(chainId, contractAddress);
-            if (result) {
-                signal.abort();
-                return result;
-            }
-            throw new Error(`Collection not found: ${contractAddress} on ${chainId}`);
-        });
-        return Promise.any(promises);
-    }
     async getCollections(list: Array<{ contractAddress: string; chainId: number }>) {
         const promises = list.map(async ({ contractAddress, chainId }) => {
             return this.getCollection(chainId, contractAddress);

@@ -7,7 +7,7 @@ import urlcat from 'urlcat';
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { TokenCategory } from '@/constants/enum.js';
-import { NON_SOL_ETH_COINS, TOKEN_CATEGORIES } from '@/constants/index.js';
+import { NO_TRACING_COINS, TOKEN_CATEGORIES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 
 export interface TokenPageSearch {
@@ -45,7 +45,7 @@ export const CategoryTabs = memo<Props>(function CategoryTabs({ slug, tokenId, .
     const search = useSearchParams();
 
     const categories =
-        tokenId && NON_SOL_ETH_COINS.includes(tokenId)
+        tokenId && NO_TRACING_COINS.includes(tokenId)
             ? [TokenCategory.Feeds, TokenCategory.Overview]
             : TOKEN_CATEGORIES;
     const category = slug && categories.includes(slug as TokenCategory) ? slug : categories[0];

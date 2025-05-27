@@ -6,6 +6,7 @@ import { NOTIFICATION_PERMISSION_KEY } from '@/constants/index.js';
 import { enqueuePermissionMessage } from '@/helpers/enqueueMessage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import type { FireflySession } from '@/providers/firefly/Session.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 interface Options {
@@ -46,8 +47,8 @@ export async function setupFirebaseFcmConnection(
 ) {
     if (firebaseClient.initialized) return;
 
-    const accountId = useFireflyStateStore.getState().currentProfileSession?.profileId;
-    if (!accountId) return;
+    const fireflySession = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
+    if (!fireflySession) return;
 
     const permission = await askNotificationPermission(options);
     if (!permission) return;

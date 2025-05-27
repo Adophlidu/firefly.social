@@ -20,6 +20,7 @@ import {
     EVM_ADDRESS,
     LENS_HANDLE_REGEXP,
     SOLANA_ADDRESS,
+    SPECIAL_TOKEN_SYMBOLS_REGEX,
     SYMBOL_REGEX,
 } from '@/constants/regexp.js';
 import { isChannelSupported } from '@/helpers/isChannelSupported.js';
@@ -64,6 +65,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             isChannelSupported(source) ? linkifyRegex(CHANNEL_REGEX) : undefined,
             HashTagLink(source),
             linkifyRegex(SYMBOL_REGEX),
+            linkifyRegex(SPECIAL_TOKEN_SYMBOLS_REGEX),
             // Only apply to posts
             // These two address regexes must be last
             withinPost ? linkifyRegex(EVM_ADDRESS) : null,

@@ -177,7 +177,6 @@ async function restoreFireflySessionFromEmail(session: ThirdPartySession, signal
             accessToken: data.accessToken,
         };
     }
-
     return new FireflySession(data.uid ?? data.accountId, data.accessToken, session, null, false, data);
 }
 

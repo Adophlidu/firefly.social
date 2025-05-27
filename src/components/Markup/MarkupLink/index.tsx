@@ -20,7 +20,13 @@ import { ToggleMore } from '@/components/Markup/MarkupLink/ToggleMore.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/type.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { Source } from '@/constants/enum.js';
-import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, FULL_ENS_REGEXP, LENS_HANDLE_REGEXP } from '@/constants/regexp.js';
+import {
+    BIO_TWITTER_PROFILE_REGEX,
+    EMAIL_REGEX,
+    FULL_ENS_REGEXP,
+    LENS_HANDLE_REGEXP,
+    SPECIAL_TOKEN_SYMBOLS,
+} from '@/constants/regexp.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -154,6 +160,15 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                 {end}
             </>
         );
+    if (SPECIAL_TOKEN_SYMBOLS.includes(trimmed.toLowerCase())) {
+        return (
+            <>
+                {start}
+                <SymbolTag title={trimmed} source={source} />
+                {end}
+            </>
+        );
+    }
 
     if (isValidAddressEthereum(trimmed) || (isValidAddressSolana(trimmed) as boolean)) {
         return <AddressTag title={trimmed} address={trimmed} source={source} />;

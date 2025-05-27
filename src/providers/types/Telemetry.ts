@@ -65,6 +65,7 @@ export enum EventId {
     SHOW_BLINK_ACTION = 'show_blink_action',
 
     // frame
+    POST_FRAME_ACTION_CLICK = 'post_mini_app_click', // ✅
     POST_FRAME_ACTION_SUCCESS = 'post_frame_action_success', // ✅
 
     // article
@@ -250,6 +251,8 @@ export const enum FarcasterLoginType {
     NewConnect = 'NewConnect',
     Wallet = 'Wallet',
 }
+
+export type FrameActionType = 'click' | 'buy' | 'mint' | 'others';
 
 export interface FarcasterEventParameters {
     source_firefly_account_id: string;
@@ -618,10 +621,18 @@ export interface Events extends Record<EventId, Event> {
             free_mint: boolean;
         } & WalletEventParameters;
     };
+    [EventId.POST_FRAME_ACTION_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            frame_action: FrameActionType;
+            frame_version: string;
+            frame_url: string;
+        } & WalletEventParameters;
+    };
     [EventId.POST_FRAME_ACTION_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
-            frame_action: 'buy' | 'mint' | 'others';
+            frame_action: FrameActionType;
             frame_version: string;
             frame_url: string;
         } & WalletEventParameters;

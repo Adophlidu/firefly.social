@@ -731,7 +731,7 @@ msgid "Select NFT collection to gate access"
 msgstr "選擇 NFT 藏品作為存取條件"
 
 msgid "Password"
-msgstr "密碼<<<<<<< HEAD======="
+msgstr "密碼"
 
 msgid "Connect Email"
 msgstr "連結電子郵件"
@@ -1491,7 +1491,7 @@ msgid "No fake KYC found."
 msgstr "未發現虛假 KYC"
 
 msgid "No function found that retrieves ownership"
-msgstr "未找到所有權查詢功能<<<<<<< HEAD======="
+msgstr "未找到所有權查詢功能"
 
 msgid "Send"
 msgstr "發送"
@@ -1602,7 +1602,7 @@ msgid "Claim Premium"
 msgstr "領取高級版"
 
 msgid "Share in a Post"
-msgstr "在貼文中分享<<<<<<< HEAD======="
+msgstr "在貼文中分享"
 
 msgid "Participation Blocked"
 msgstr "參與受限"
@@ -1919,9 +1919,6 @@ msgstr "搜尋 ${symbol}"
 #. placeholder {0}: channel.name
 msgid "Failed to unmute /{0}."
 msgstr "取消靜音 /{0} 失敗"
-
-msgid "Please confirm the login with Warpcast."
-msgstr "請透過 Warpcast 確認登入"
 
 msgid "Cover background"
 msgstr "封面背景"
@@ -2630,7 +2627,7 @@ msgid "Failed to fetch profiles."
 msgstr "取得個人資料失敗"
 
 msgid "Post is decrypting..."
-msgstr "貼文解密中...<<<<<<< HEAD======="
+msgstr "貼文解密中..."
 
 msgid "Transaction"
 msgstr "交易"
@@ -4194,6 +4191,9 @@ msgstr "按讚"
 #. placeholder {0}: nFormatter(props.ownerCount)
 msgid "× {0}"
 msgstr "× {0}"
+
+msgid "Please confirm the login with Farcaster."
+msgstr ""
 
 msgid "Minted"
 msgstr "已鑄造"
