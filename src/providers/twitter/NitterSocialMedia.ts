@@ -119,8 +119,9 @@ async function withReplyPostsToTimelineWithPagination(
     );
 }
 
+export
 @SetQueryDataForPosts
-export class NitterSocialMedia implements Provider {
+class NitterSocialMedia implements Provider {
     get type() {
         return SessionType.Twitter;
     }

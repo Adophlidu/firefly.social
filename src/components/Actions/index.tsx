@@ -71,7 +71,6 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
                 source={post.source}
                 postId={post.postId}
                 post={post}
-                hiddenCount
             />
         </div>,
 
@@ -153,7 +152,6 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                         source={post.source}
                         postId={post.postId}
                         post={post}
-                        hiddenCount
                     />
                     <Like isComment={isComment} post={post} disabled={disabled} hiddenCount />
                 </div>

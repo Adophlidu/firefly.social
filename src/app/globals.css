@@ -898,3 +898,8 @@ body.not-support .fixed.inset-y-0 {
 [data-tippy-root]:has(.symbol-tag-tippy) {
     z-index: var(--z-menu, 39) !important;
 }
+
+.floating-card {
+    line-height: 1.4;
+    font-size: 14px;
+}
