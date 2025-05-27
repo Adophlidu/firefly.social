@@ -5,12 +5,17 @@ import { BlinkSolanaConfig } from '@dialectlabs/blinks-core/solana';
 import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import bs58 from 'bs58';
 import { useMemo } from 'react';
+import { useAccount } from 'wagmi';
 
 import { chains } from '@/configs/wagmiClient.js';
 import { decodeBase64 } from '@/helpers/decodeBase64.js';
 import { getSolanaRPCUrl } from '@/helpers/getSolanaRPCUrl.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
 import { getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';
+import {
+    captureBlinkActionEvent,
+    captureBlinkActionSignMessageEvent,
+} from '@/providers/telemetry/captureBlinkActionEvent.js';
 
 type BlinkSolanaConnection = ConstructorParameters<typeof BlinkSolanaConfig>[0];
 
@@ -21,6 +26,7 @@ export function useActionAdapter() {
         },
     });
     const { connection } = useAppKitConnection();
+    const account = useAccount();
     const solanaAdapter = useMemo(() => {
         return new BlinkSolanaConfig((connection ?? getSolanaRPCUrl()) as BlinkSolanaConnection, {
             async signMessage(data) {
@@ -29,6 +35,7 @@ export function useActionAdapter() {
                 const encoded = new TextEncoder().encode(text);
                 const signed = await adapter.signMessage(encoded);
                 const encodedSignature = bs58.encode(signed);
+                await captureBlinkActionSignMessageEvent(adapter.publicKey.toBase58());
                 return { signature: encodedSignature };
             },
             async signTransaction(txData) {
@@ -37,6 +44,7 @@ export function useActionAdapter() {
                     const tx = await adapter.signAndSendTransaction(
                         web3.VersionedTransaction.deserialize(decodeBase64(txData)),
                     );
+                    await captureBlinkActionEvent(adapter.publicKey.toBase58());
                     return { signature: tx };
                 } catch {
                     return { error: 'Signing failed.' };
@@ -60,11 +68,17 @@ export function useActionAdapter() {
 
         return new BlinkSolanaConfig((connection ?? getSolanaRPCUrl()) as BlinkSolanaConnection, {
             async signMessage(data, context) {
-                if (isEVM(context)) evmAdapter.signMessage(data, context);
+                if (isEVM(context)) {
+                    if (account.address) captureBlinkActionSignMessageEvent(account.address);
+                    evmAdapter.signMessage(data, context);
+                }
                 return solanaAdapter.signMessage(data, context);
             },
             async signTransaction(txData, context) {
-                if (isEVM(context)) return evmAdapter.signMessage(txData, context);
+                if (isEVM(context)) {
+                    if (account.address) captureBlinkActionEvent(account.address);
+                    return evmAdapter.signMessage(txData, context);
+                }
                 return solanaAdapter.signTransaction(txData, context);
             },
             async connect(context) {
@@ -83,5 +97,5 @@ export function useActionAdapter() {
                 ],
             },
         });
-    }, [connection, evmAdapter, solanaAdapter]);
+    }, [account.address, connection, evmAdapter, solanaAdapter]);
 }

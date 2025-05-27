@@ -61,6 +61,8 @@ export enum EventId {
 
     // blink
     POST_BLINK_ACTION_SUCCESS = 'post_blink_action_success',
+    SIGN_MESSAGE_BLINK_ACTION_SUCCESS = 'sign_message_blink_action_success',
+    SHOW_BLINK_ACTION = 'show_blink_action',
 
     // frame
     POST_FRAME_ACTION_SUCCESS = 'post_frame_action_success', // ✅
@@ -636,6 +638,18 @@ export interface Events extends Record<EventId, Event> {
         parameters: {
             blink_action: 'buy' | 'mint' | 'others';
         } & WalletEventParameters;
+    };
+    [EventId.SIGN_MESSAGE_BLINK_ACTION_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            blink_action: 'buy' | 'mint' | 'others';
+        } & WalletEventParameters;
+    };
+    [EventId.SHOW_BLINK_ACTION]: {
+        type: EventType.Interact;
+        parameters: {
+            blink_url: string;
+        };
     };
 
     // ----------------

@@ -11,3 +11,20 @@ export function captureBlinkActionEvent(address: string) {
         });
     });
 }
+
+export function captureBlinkActionSignMessageEvent(address: string) {
+    return runInSafeAsync(async () => {
+        return TelemetryProvider.captureEvent(EventId.SIGN_MESSAGE_BLINK_ACTION_SUCCESS, {
+            blink_action: 'others',
+            ...getWalletEventParameters(address),
+        });
+    });
+}
+
+export function captureBlinkAppearEvent(url: string) {
+    return runInSafeAsync(async () => {
+        return TelemetryProvider.captureEvent(EventId.SHOW_BLINK_ACTION, {
+            blink_url: url,
+        });
+    });
+}
