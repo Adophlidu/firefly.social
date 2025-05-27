@@ -584,7 +584,8 @@ export type PlatformIdentityKey =
     | 'ens'
     | 'solanaAddress'
     | 'bskyDid'
-    | 'bskyHandle';
+    | 'bskyHandle'
+    | 'uid';
 
 export type WalletProfileResponse = Response<WalletProfiles | null>;
 

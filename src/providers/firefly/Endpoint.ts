@@ -410,6 +410,9 @@ class FireflyEndpoint {
             url,
             {
                 method: 'GET',
+                next: {
+                    revalidate: 1,
+                },
             },
             {
                 withSession: isAuthRequired,

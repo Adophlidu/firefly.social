@@ -35,6 +35,7 @@ import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
+import { sortFireflyProfiles } from '@/helpers/sortFireflyProfiles.js';
 import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureProfileActionEvent.js';
 import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -419,11 +420,7 @@ export function ProfileSourceTabs({
                 const isLast = sources.length - 1 === i;
                 const currentSourceProfiles = profiles
                     .filter((profile) => profile.identity.source === source)
-                    .sort((a, b) => {
-                        const priorityA = isSameFireflyIdentity(a.identity, identity) ? 2 : a.isDefault ? 1 : 0;
-                        const priorityB = isSameFireflyIdentity(b.identity, identity) ? 2 : b.isDefault ? 1 : 0;
-                        return priorityB - priorityA;
-                    });
+                    .sort((a, b) => sortFireflyProfiles(identity, a, b));
                 const defaultProfile = currentSourceProfiles.find((x) => x.isDefault) ?? currentSourceProfiles[0];
                 const currentProfile = currentSourceProfiles.find((profile) =>
                     isSameFireflyIdentity(profile.identity, identity),
