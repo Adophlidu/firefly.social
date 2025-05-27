@@ -1,13 +1,17 @@
 'use client';
 
-import { Trans } from '@lingui/react/macro';
+import { i18n } from '@lingui/core';
+import { Plural, Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { first, isNumber } from 'lodash-es';
-import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
+import { type HTMLProps, memo, type ReactNode, useCallback, useMemo, useState } from 'react';
 
+import DexScreenerIcon from '@/assets/dex-screener.svg';
 import EyeIcon from '@/assets/eye.svg';
 import EyeCloseIcon from '@/assets/eye-close.svg';
+import GlobalIcon from '@/assets/global.svg';
 import PriceArrow from '@/assets/price-arrow.svg';
+import TwitterIcon from '@/assets/x-fill.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Link } from '@/components/Link.js';
@@ -21,6 +25,8 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isZero } from '@/helpers/number.js';
+import { resolveDexScreenerUrl } from '@/helpers/resolveDexScreenerUrl.js';
+import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
@@ -32,16 +38,7 @@ import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import type { PriceRecord, TradeRecord } from '@/types/token.js';
 
-export interface TokenMarketDataProps extends HTMLProps<HTMLDivElement> {
-    chainId?: number;
-    tradeRecords?: TradeRecord[];
-    token: CoinGeckoToken;
-    linkable?: boolean;
-    rank?: number;
-    range?: string;
-}
-
-const getRanges = () => {
+function getRanges() {
     return [
         { id: '1h', label: <Trans>1H</Trans>, days: 1 },
         { id: '24h', label: <Trans>24H</Trans>, days: 1 },
@@ -50,15 +47,33 @@ const getRanges = () => {
         { id: '1y', label: <Trans>1Y</Trans>, days: 365 },
         { id: 'max', label: <Trans>Max</Trans>, days: undefined },
     ] as const;
-};
+}
+function wrapLink(node: ReactNode, url: string, enabled: boolean) {
+    if (!enabled) return node;
+    return (
+        <Link prefetch className="contents" href={url}>
+            {node}
+        </Link>
+    );
+}
+export interface TokenMarketDataProps extends HTMLProps<HTMLDivElement> {
+    chainId?: number;
+    tradeRecords?: TradeRecord[];
+    token: CoinGeckoToken;
+    linkable?: boolean;
+    rank?: number;
+    range?: string;
+    traderCount?: number;
+}
 
 export const TokenMarketData = memo(function TokenMarketData({
     chainId: propChainId,
-    linkable,
+    linkable = false,
     token,
     rank,
     tradeRecords = EMPTY_LIST,
     range,
+    traderCount,
     ...rest
 }: TokenMarketDataProps) {
     const ranges = getRanges();
@@ -96,9 +111,9 @@ export const TokenMarketData = memo(function TokenMarketData({
     const { isUp, change } = useIsPriceUp(stats, activeRecord);
     const invalidData = useMemo(() => stats.length === 0 || stats.every((item) => isZero(item.value)), [stats]);
 
+    const icon = <TokenIcon icon={token.logoURL} alt={token.name} size={36} chainId={chainId ?? contract?.chainId} />;
     const baseInfo = (
         <>
-            <TokenIcon icon={token.logoURL} alt={token.name} size={36} chainId={chainId} />
             <strong className="ml-0.5 text-medium font-bold text-main">{token.name}</strong>
             <span className="font-inter text-medium font-bold uppercase">{token.symbol}</span>
             {address ? <CopyTextButton className="[&_svg]:ml-0" text={address} /> : null}
@@ -113,32 +128,72 @@ export const TokenMarketData = memo(function TokenMarketData({
     const price = tokenPrice ?? coin?.market_data?.token_price_usd ?? token.price;
     const change24h = change ?? coin?.market_data?.price_change_percentage_24h ?? token.changePercent24h;
 
+    const tokenPageUrl = resolveTokenPageUrl({
+        identity: token.id || address || token.symbol,
+        chainId,
+        address,
+        isCoinId: !!token.id,
+    });
+
+    const socialLinks = useMemo(() => {
+        if (!trending) return EMPTY_LIST;
+        const contract = trending.contracts?.[0];
+        return [
+            {
+                name: 'explorer',
+                url: contract?.chainId ? resolveExplorerLink(contract.chainId, contract.address, 'address') : null,
+                icon: GlobalIcon,
+            },
+            {
+                name: 'dex-screener',
+                url: contract?.chainId ? resolveDexScreenerUrl(contract.chainId, contract.address) : null,
+                icon: DexScreenerIcon,
+            },
+            {
+                label: 'twitter',
+                url: trending.coin.twitter_url,
+                icon: TwitterIcon,
+            },
+        ].filter((x) => x.url);
+    }, [trending]);
+
     return (
         <div {...rest} className={classNames('flex flex-col gap-1.5 p-3', rest.className)}>
             <div className="flex items-start">
                 <div className="flex flex-grow flex-col gap-1.5">
-                    <div className="flex items-center gap-1 text-second">
-                        {linkable ? (
-                            <Link
-                                prefetch
-                                className="contents"
-                                href={resolveTokenPageUrl({
-                                    identity: token.id || token.address || token.symbol,
-                                    chainId,
-                                    address: token.address,
-                                    isCoinId: !!token.id,
-                                })}
-                            >
-                                {baseInfo}
-                            </Link>
-                        ) : (
-                            baseInfo
-                        )}
-                        {tokenRank ? (
-                            <span className="inline-flex h-[14px] items-center whitespace-nowrap rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
-                                <Trans>Rank #{tokenRank}</Trans>
-                            </span>
-                        ) : null}
+                    <div className="flex items-center gap-4">
+                        {wrapLink(icon, tokenPageUrl, linkable)}
+                        <div className="flex flex-col gap-1">
+                            <div className="flex items-center gap-1 leading-6 text-second">
+                                {wrapLink(baseInfo, tokenPageUrl, linkable)}
+                                {tokenRank ? (
+                                    <span className="inline-flex h-[14px] items-center whitespace-nowrap rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
+                                        <Trans>Rank #{tokenRank}</Trans>
+                                    </span>
+                                ) : null}
+                                <div className="ml-1 flex items-center gap-1">
+                                    {socialLinks.map((link) => (
+                                        <Link
+                                            key={link.name}
+                                            href={link.url!}
+                                            target="_blank"
+                                            className="inline-flex size-6 items-center justify-center rounded-lg bg-input"
+                                        >
+                                            <link.icon width={16} height={16} />
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="leading-[14px] text-second">
+                                {traderCount ? (
+                                    <Plural
+                                        value={traderCount}
+                                        one={<>{i18n.number(traderCount)} person I follow has traded</>}
+                                        other={<>{i18n.number(traderCount)} people I follow have traded</>}
+                                    />
+                                ) : null}
+                            </div>
+                        </div>
                         <SwapButton
                             className="ml-auto sm:hidden md:inline-flex"
                             tradable={tradeInfo.tradable}
@@ -155,7 +210,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                             <Trans>Swap</Trans>
                         </SwapButton>
                     </div>
-                    <div className="line-height-[22px] flex flex-col gap-2">
+                    <div className="line-height-[22px] mt-6 flex flex-col gap-2">
                         <div className="text-2xl font-bold">
                             ${renderShrankPrice(formatPrice(activeRecord?.value ?? price) ?? '-')}
                         </div>

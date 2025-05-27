@@ -80,6 +80,7 @@ import {
     type FireflyProfile,
     type FireflyProfileUpdateParams,
     type FireflyWalletConnection,
+    type FollowingTraderCountResponse,
     type GenerateFarcasterSignatureResponse,
     type GenerateOTPResponse,
     type GetAllConnectionsResponse,
@@ -960,6 +961,22 @@ class FireflyEndpoint {
             createIndicator(indicator),
             data?.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
+    }
+
+    async getFollowingTraderCount(tokens: Array<{ chain_id: number; token_address: string }>) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/swap/following_count');
+        return fireflySessionHolder.withSession(async (session) => {
+            if (!session) return null;
+
+            const response = await fireflySessionHolder.fetch<FollowingTraderCountResponse>(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    list: tokens,
+                }),
+            });
+            const data = resolveFireflyResponseData(response);
+            return data;
+        });
     }
 
     async getSwapActivityByHash(hash: string, chainId: number) {

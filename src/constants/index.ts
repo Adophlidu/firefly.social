@@ -33,6 +33,8 @@ import {
     WalletProfileCategory,
 } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/types/index.js';
+import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/types.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
 import { MediaSource } from '@/types/compose.js';
 
@@ -197,6 +199,7 @@ export const SORTED_PROFILE_SOURCES: ProfilePageSource[] = [
     Source.Wallet,
 ];
 export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Bsky] as const;
+export const SORTED_TOKEN_FEEDS_SOURCES = [Source.X3Pro, Source.Twitter, Source.Farcaster, Source.Lens] as const;
 export const SORTED_LOGIN_SOCIAL_SOURCES = [Source.Twitter, Source.Farcaster, Source.Bsky, Source.Lens] as const;
 export const SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE = [
     Source.Twitter,
@@ -445,3 +448,5 @@ export const TOKEN_CATEGORIES: TokenCategory[] = [
 export const NON_SOL_ETH_COINS = ['bitcoin', 'dogecoin', 'tron', 'cardano', 'sui', 'polkadot', 'litecoin'];
 export const COINGECKO_SOL_COIN_ID = 'solana';
 export const SWAP_SOL_NATIVE_ADDRESS = '11111111111111111111111111111111';
+
+export const X3_PRO_CHAIN_IDS = [EthereumChainId.BSC, EthereumChainId.Base, SolanaChainId.Mainnet];

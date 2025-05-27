@@ -63,7 +63,8 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { X3ProKolListLabel, X3ProOrderType, X3ProProvider } from '@/providers/x3pro/index.js';
+import { X3ProProvider } from '@/providers/x3pro/index.js';
+import { X3ProKolListLabel, X3ProOrderType } from '@/providers/x3pro/types.js';
 import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
 import type { PartialWith, ResponseJSON } from '@/types/index.js';
 

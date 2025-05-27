@@ -938,6 +938,9 @@ msgstr "Transaction Hash"
 msgid "1m left"
 msgstr "1m left"
 
+msgid "Powered by <0>X3.pro</0>"
+msgstr "Powered by <0>X3.pro</0>"
+
 msgid "Connect Ethereum Wallet"
 msgstr "Connect Ethereum Wallet"
 
@@ -1688,6 +1691,9 @@ msgstr "Failed to unmute @{0} on {sourceName}."
 
 msgid "Others in the conversation"
 msgstr "Others in the conversation"
+
+msgid "Mentioned by"
+msgstr "Mentioned by"
 
 msgid "Insufficient Balance"
 msgstr "Insufficient Balance"
@@ -2467,6 +2473,11 @@ msgstr "Show More"
 msgid "Search..."
 msgstr "Search..."
 
+#. placeholder {0}: <>{i18n.number(traderCount)} person I follow has traded</>
+#. placeholder {1}: <>{i18n.number(traderCount)} people I follow have traded</>
+msgid "{traderCount, plural, one {{0}} other {{1}}}"
+msgstr "{traderCount, plural, one {{0}} other {{1}}}"
+
 msgid "Show more comments"
 msgstr "Show more comments"
 
@@ -2527,6 +2538,15 @@ msgstr "Quote"
 
 msgid "Collect Price"
 msgstr "Collect Price"
+
+#. placeholder {0}: users.length
+#. placeholder {1}: <> <strong>{theFirst.displayName}</strong> on X mentioned this CA </>
+#. placeholder {2}: <> <strong>{theFirst.displayName}</strong> and <strong>{theSecond?.displayName}</strong> on X mentioned this CA </>
+#. placeholder {3}: <> <strong>{theFirst.displayName},</strong> <strong>{theSecond?.displayName},</strong> and{' '} <strong>{theThird?.displayName}</strong> on X mentioned this CA </>
+#. placeholder {4}: <> <strong>{theFirst.displayName},</strong> <strong>{theSecond?.displayName},</strong> and{' '} <strong>{theThird?.displayName}</strong> and another KOL on X mentioned this CA </>
+#. placeholder {5}: <> <strong>{theFirst.displayName},</strong> <strong>{theSecond?.displayName},</strong>{' '} <strong>{theThird?.displayName}</strong> and {remains} other KOLs on X mentioned this CA </>
+msgid "{0, plural, =1 {{1}} =2 {{2}} =3 {{3}} =4 {{4}} other {{5}}}"
+msgstr "{0, plural, =1 {{1}} =2 {{2}} =3 {{3}} =4 {{4}} other {{5}}}"
 
 msgid "View engagements"
 msgstr "View engagements"
@@ -3151,6 +3171,10 @@ msgstr "<0>Sold</0><1/>"
 
 msgid "Show more collections"
 msgstr "Show more collections"
+
+#. placeholder {0}: user.followerCount
+msgid "{0, plural, one {<0>{count}</0> Follower} other {<1>{count}</1> Followers}}"
+msgstr "{0, plural, one {<0>{count}</0> Follower} other {<1>{count}</1> Followers}}"
 
 msgid "Everyone can reply"
 msgstr "Everyone can reply"

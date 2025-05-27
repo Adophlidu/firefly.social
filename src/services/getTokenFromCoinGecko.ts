@@ -3,13 +3,23 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
+import type { GetTokenOptions } from '@/providers/types/Firefly.js';
+import { isTokenMatched } from '@/services/searchTokens.js';
+
+const getTokens = memoizePromise(CoinGecko.getTokens, () => 'CoinGecko.getTokens');
 
 export const getTokenFromCoinGecko = memoizePromise(
-    async (symbolOrId: string, options?: Record<string, any>): Promise<CoinGeckoToken | undefined> => {
+    async (symbolOrId: string, options?: GetTokenOptions): Promise<CoinGeckoToken | undefined> => {
+        const isPrecise = !!(options?.chain_id && options?.address);
+        if (!isPrecise) {
+            const tokens = await getTokens();
+            const token = tokens.find((x) => isTokenMatched(x, symbolOrId));
+            if (token) return token;
+        }
         const data = await runInSafeAsync(() => {
             return FireflyEndpointProvider.getSingleCoin({ ...options, token_symbol: symbolOrId });
         });
-        if (options?.chain_id && options.address && data && !data.id) {
+        if (isPrecise && data && !data.id) {
             return {
                 id: data.id,
                 symbol: data.symbol,

@@ -5,7 +5,7 @@ import { X3_PRO_AVATAR_URL } from '@/constants/index.js';
 import { TWITTER_MENTION_REGEX } from '@/constants/regexp.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { ProfileStatus } from '@/providers/types/SocialMedia.js';
-import type { Profile as X3ProProfile } from '@/providers/x3pro/index.js';
+import type { Profile as X3ProProfile } from '@/providers/x3pro/types.js';
 
 export function formatTwitterProfileFromX3Pro(user: X3ProProfile): Profile<X3ProProfile> {
     const idPrefix = 'x_';

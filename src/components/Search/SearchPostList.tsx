@@ -12,12 +12,15 @@ import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
+import { X3ProProvider } from '@/providers/x3pro/index.js';
+import type { PostOrderType } from '@/providers/x3pro/types.js';
 
 interface Props {
     keyword: string | string[];
     source: Source;
     searchType: SearchType;
     emptyMessage?: ReactNode | ((keyword: string | string[]) => ReactNode);
+    orderType?: PostOrderType;
 }
 
 export const SearchPostList = memo<Props>(function SearchPostList({
@@ -25,16 +28,17 @@ export const SearchPostList = memo<Props>(function SearchPostList({
     searchType,
     source,
     emptyMessage,
+    orderType,
 }) {
     const currentSocialSource = narrowToSocialSource(source);
     const isLogin = useIsLogin(currentSocialSource);
-    const loginRequired = REQUIRE_LOGIN_SOURCES_IN_SEARCH.includes(currentSocialSource);
+    const loginRequired = source !== Source.X3Pro && REQUIRE_LOGIN_SOURCES_IN_SEARCH.includes(currentSocialSource);
     const keywordIsString = typeof searchKeyword === 'string';
     const invalidQuery = source === Source.Twitter && keywordIsString && (searchKeyword?.trim() || '').length < 2;
     const keywords = keywordIsString ? [searchKeyword] : searchKeyword;
 
     const queryResult = useMultiInfiniteQueryPageable(
-        ['search', searchType, searchKeyword, source, isLogin],
+        ['search', searchType, searchKeyword, source, orderType, isLogin],
         keywords.map((keyword) => ({
             key: keyword,
             queryFn: async ({ pageParam }) => {
@@ -42,9 +46,11 @@ export const SearchPostList = memo<Props>(function SearchPostList({
                     if (!keyword?.trim() || invalidQuery || (loginRequired && !isLogin)) {
                         return createPageable(EMPTY_LIST, createIndicator(undefined, pageParam));
                     }
-                    const provider = resolveSocialMediaProvider(currentSocialSource);
                     const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
-
+                    if (source === Source.X3Pro) {
+                        return X3ProProvider.searchPosts(keyword, indicator, orderType);
+                    }
+                    const provider = resolveSocialMediaProvider(currentSocialSource);
                     return await provider.searchPosts(keyword.replace(/^#/, ''), indicator);
                 } catch {
                     return createPageable(EMPTY_LIST, createIndicator(undefined, pageParam));
@@ -52,7 +58,7 @@ export const SearchPostList = memo<Props>(function SearchPostList({
             },
         })),
         (data) => {
-            const posts = compact(data.pages.flatMap((x) => x?.data ?? []));
+            const posts = compact(data.pages.flatMap((x) => x.data ?? []));
             return orderBy(
                 uniqBy(posts, (post) => post.postId),
                 (x) => (x.timestamp ? -x.timestamp : 0),

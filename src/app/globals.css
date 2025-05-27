@@ -145,8 +145,8 @@
         --color-dark-bottom: #181818;
         --color-third-bottom: #181818;
         --color-second: rgba(255, 255, 255, 0.78);
-        --color-secondary-success: 24 195 123;
-        --color-primary-pink: 255 150 142;
+        --color-secondary-success: 24 195 123; /* #18c37b */
+        --color-primary-pink: 255 150 142; /* #ff968e */
         --color-danger: 255 53 69; /* #ff3545 */
         --color-warn: 255 177 0;
         --color-lens-primary: 154 227 42;

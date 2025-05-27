@@ -1,5 +1,7 @@
 import urlcat from 'urlcat';
 
+import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
+
 interface Options {
     /** symbol, address, or coingecko coin id */
     identity: string;
@@ -20,6 +22,6 @@ export function resolveTokenPageUrl({ identity, chainId, address, isCoinId, trad
         isCoinId: isCoinId ? 'true' : undefined,
         trader,
         traderName: traderName || undefined,
-        address,
+        address: isValidAddressEthereum(identity) || isValidAddressSolana(identity) ? undefined : address,
     });
 }

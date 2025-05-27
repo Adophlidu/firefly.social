@@ -1535,6 +1535,8 @@ export type SwapActivityTimeline = Response<{
     cursor?: string;
 }>;
 
+export type FollowingTraderCountResponse = Response<{ total: number }>;
+
 export type CollectionResponse = Response<EVM.Collection>;
 export type CollectionsResponse = Response<{ collections: EVM.Collection[]; cursor: string }>;
 

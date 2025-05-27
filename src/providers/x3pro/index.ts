@@ -1,86 +1,18 @@
 /* cspell:disable */
+import { last } from 'lodash-es';
+
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-
-export const enum X3ProKolListLabel {
-    PVP = 1,
-    Celebrity = 2,
-    Web3 = 3,
-    Projector = 4,
-    Beauty = 5,
-}
-
-export const enum X3ProOrderType {
-    Latest = 3,
-    Follower = 1,
-    MonitoringRanking = 2,
-}
-
-type Response<T> =
-    | {
-          success: true;
-          data: T;
-      }
-    | {
-          success: false;
-          error: {
-              message: string;
-          };
-      };
-
-interface List<T> {
-    endRow: number;
-    hasNextPage: boolean;
-    hasPreviousPage: boolean;
-    isFirstPage: boolean;
-    isLastPage: boolean;
-    list: T[];
-    navigateFirstPage: number;
-    navigateLastPage: number;
-    navigatePages: number;
-    navigatepageNums: number[];
-    nextPage: number;
-    pageNum: number;
-    pageSize: number;
-    pages: number;
-    prePage: number;
-    size: number;
-    startRow: number;
-    total: number;
-}
-
-export interface Profile {
-    avatar: string;
-    bk: string;
-    ca?: string;
-    caCreateTime?: number;
-    caPostId?: string;
-    createTime: number;
-    fanCount: number;
-    focusCount: number;
-    homeDisplayUrl?: string;
-    homeRealUrl?: string;
-    id: string;
-    includeTime: number;
-    introLinks: Array<{
-        displayUrl: string;
-        realUrl: string;
-        shortUrl: string;
-    }>;
-    introduction: string;
-    introductionLang: string;
-    isFocus: boolean;
-    isMonitor: boolean;
-    label: number;
-    label2: number;
-    monitorCount: number;
-    name: string;
-    rank: number;
-    screenName: string;
-    twitterUrl: string;
-    verifyType: number;
-}
-
-export type KolList = List<Profile>;
+import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
+import { formatX3Id, formatX3ProPost, X3_PRO_AVATAR_HOST } from '@/providers/x3pro/helpers.js';
+import {
+    type KolList,
+    type PostListResponse,
+    PostOrderType,
+    type Response,
+    type TokenResult,
+    X3ProKolListLabel,
+    type X3ProOrderType,
+} from '@/providers/x3pro/types.js';
 
 function resolveX3ProResponse<T>(res: Response<T>) {
     if (res.success) return res.data;
@@ -102,6 +34,41 @@ class X3Pro {
             body: JSON.stringify({ label, orderType, pageNo, pageSize }),
         });
         return resolveX3ProResponse(res);
+    }
+    async getTokenByAddress(address: string) {
+        const res = await fetchJSON<TokenResult>('/api/x3pro/scraper/post/getTokenByAddress', {
+            method: 'POST',
+            body: JSON.stringify({ address }),
+        });
+        const token = resolveX3ProResponse(res);
+        token.mentionUsers.forEach((user) => {
+            user.avatar = `${X3_PRO_AVATAR_HOST}/${user.avatar}`;
+            user.twitterId = formatX3Id(user.id);
+        });
+
+        return token;
+    }
+    async searchPosts(address: string, indicator?: PageIndicator, orderType: PostOrderType = PostOrderType.DESC) {
+        const [lastId, lastTime] = indicator?.id ? indicator.id.split(',') : [];
+        const res = await fetchJSON<PostListResponse>('/api/x3pro/scraper/post/postFlow', {
+            method: 'POST',
+            body: JSON.stringify({
+                address,
+                orderType,
+                size: 10,
+                lastId,
+                lastTime: lastTime ? Number(lastTime) : undefined,
+                cursor: indicator?.id,
+            }),
+        });
+
+        const posts = resolveX3ProResponse(res);
+        const lastPost = last(posts);
+        return createPageable(
+            posts.map((x) => formatX3ProPost(x)),
+            createIndicator(indicator),
+            lastPost ? createNextIndicator(indicator, [lastPost.id, lastPost.createTime].join(',')) : undefined,
+        );
     }
 }
 

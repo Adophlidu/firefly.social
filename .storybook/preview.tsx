@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { LinguiClientProvider } from '@/components/LinguiClientProvider.js';
+import { WagmiProvider } from '@/components/WagmiProvider.js';
 import { i18n } from '@lingui/core';
 import type { Preview } from '@storybook/react';
 import '../src/app/globals.css';
@@ -20,9 +21,11 @@ export const decorators = [
     (Story) => {
         return (
             <LinguiClientProvider>
-                <QueryClientProvider client={queryClient}>
-                    <Story />
-                </QueryClientProvider>
+                <WagmiProvider>
+                    <QueryClientProvider client={queryClient}>
+                        <Story />
+                    </QueryClientProvider>
+                </WagmiProvider>
             </LinguiClientProvider>
         );
     },

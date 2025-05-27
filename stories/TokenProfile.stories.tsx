@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TokenProfileCard, TokenProfileCardSkeleton } from '@/components/Token/TokenProfileCard.js';
 
 const meta = {
-    title: 'Token/TokenProfile',
+    title: 'Token/TokenProfileCard',
     component: TokenProfileCard,
     render: (args) => {
         return (

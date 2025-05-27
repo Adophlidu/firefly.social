@@ -943,6 +943,9 @@ msgstr "交易哈希"
 msgid "1m left"
 msgstr "1分钟剩余"
 
+msgid "Powered by <0>X3.pro</0>"
+msgstr ""
+
 msgid "Connect Ethereum Wallet"
 msgstr "连接EVM钱包"
 
@@ -1693,6 +1696,9 @@ msgstr "在 {sourceName} 上取消隐藏 @{0} 失败。"
 
 msgid "Others in the conversation"
 msgstr "对话中的其他人"
+
+msgid "Mentioned by"
+msgstr ""
 
 msgid "Insufficient Balance"
 msgstr "余额不足"
@@ -2472,6 +2478,11 @@ msgstr "显示更多"
 msgid "Search..."
 msgstr "查找"
 
+#. placeholder {0}: <>{i18n.number(traderCount)} person I follow has traded</>
+#. placeholder {1}: <>{i18n.number(traderCount)} people I follow have traded</>
+msgid "{traderCount, plural, one {{0}} other {{1}}}"
+msgstr ""
+
 msgid "Show more comments"
 msgstr "展示更多评论"
 
@@ -2532,6 +2543,15 @@ msgstr "引用"
 
 msgid "Collect Price"
 msgstr "铸造费"
+
+#. placeholder {0}: users.length
+#. placeholder {1}: <> <strong>{theFirst.displayName}</strong> on X mentioned this CA </>
+#. placeholder {2}: <> <strong>{theFirst.displayName}</strong> and <strong>{theSecond?.displayName}</strong> on X mentioned this CA </>
+#. placeholder {3}: <> <strong>{theFirst.displayName},</strong> <strong>{theSecond?.displayName},</strong> and{' '} <strong>{theThird?.displayName}</strong> on X mentioned this CA </>
+#. placeholder {4}: <> <strong>{theFirst.displayName},</strong> <strong>{theSecond?.displayName},</strong> and{' '} <strong>{theThird?.displayName}</strong> and another KOL on X mentioned this CA </>
+#. placeholder {5}: <> <strong>{theFirst.displayName},</strong> <strong>{theSecond?.displayName},</strong>{' '} <strong>{theThird?.displayName}</strong> and {remains} other KOLs on X mentioned this CA </>
+msgid "{0, plural, =1 {{1}} =2 {{2}} =3 {{3}} =4 {{4}} other {{5}}}"
+msgstr ""
 
 msgid "View engagements"
 msgstr "查看互动"
@@ -3156,6 +3176,10 @@ msgstr "<0>出售</0><1/>"
 
 msgid "Show more collections"
 msgstr "展示更多 NFT 系列"
+
+#. placeholder {0}: user.followerCount
+msgid "{0, plural, one {<0>{count}</0> Follower} other {<1>{count}</1> Followers}}"
+msgstr ""
 
 msgid "Everyone can reply"
 msgstr "所有人可评论"

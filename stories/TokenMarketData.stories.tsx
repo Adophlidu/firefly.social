@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TokenMarketData, type TokenMarketDataProps } from '@/components/TokenProfile/TokenMarketData.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 
-interface Props extends Pick<TokenMarketDataProps, 'tradeRecords' | 'range'> {
+interface Props extends Pick<TokenMarketDataProps, 'tradeRecords' | 'range' | 'traderCount'> {
     symbol: string;
 }
 function WrapTokenMarketData({ symbol, ...rest }: Props) {
@@ -26,6 +26,7 @@ export const Base: Story = {
     args: {
         symbol: 'mask',
         range: '7d',
+        traderCount: 10,
         tradeRecords: [
             {
                 type: 'buy',

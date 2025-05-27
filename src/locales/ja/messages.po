@@ -943,6 +943,9 @@ msgstr ""
 msgid "1m left"
 msgstr ""
 
+msgid "Powered by <0>X3.pro</0>"
+msgstr ""
+
 msgid "Connect Ethereum Wallet"
 msgstr ""
 
@@ -1692,6 +1695,9 @@ msgid "Failed to unmute @{0} on {sourceName}."
 msgstr ""
 
 msgid "Others in the conversation"
+msgstr ""
+
+msgid "Mentioned by"
 msgstr ""
 
 msgid "Insufficient Balance"
@@ -2459,6 +2465,11 @@ msgstr ""
 msgid "Search..."
 msgstr ""
 
+#. placeholder {0}: <>{i18n.number(traderCount)} person I follow has traded</>
+#. placeholder {1}: <>{i18n.number(traderCount)} people I follow have traded</>
+msgid "{traderCount, plural, one {{0}} other {{1}}}"
+msgstr ""
+
 msgid "Show more comments"
 msgstr ""
 
@@ -2518,6 +2529,15 @@ msgid "Quote"
 msgstr ""
 
 msgid "Collect Price"
+msgstr ""
+
+#. placeholder {0}: users.length
+#. placeholder {1}: <> <strong>{theFirst.displayName}</strong> on X mentioned this CA </>
+#. placeholder {2}: <> <strong>{theFirst.displayName}</strong> and <strong>{theSecond?.displayName}</strong> on X mentioned this CA </>
+#. placeholder {3}: <> <strong>{theFirst.displayName},</strong> <strong>{theSecond?.displayName},</strong> and{' '} <strong>{theThird?.displayName}</strong> on X mentioned this CA </>
+#. placeholder {4}: <> <strong>{theFirst.displayName},</strong> <strong>{theSecond?.displayName},</strong> and{' '} <strong>{theThird?.displayName}</strong> and another KOL on X mentioned this CA </>
+#. placeholder {5}: <> <strong>{theFirst.displayName},</strong> <strong>{theSecond?.displayName},</strong>{' '} <strong>{theThird?.displayName}</strong> and {remains} other KOLs on X mentioned this CA </>
+msgid "{0, plural, =1 {{1}} =2 {{2}} =3 {{3}} =4 {{4}} other {{5}}}"
 msgstr ""
 
 msgid "View engagements"
@@ -3142,6 +3162,10 @@ msgid "<0>Sold</0><1/>"
 msgstr ""
 
 msgid "Show more collections"
+msgstr ""
+
+#. placeholder {0}: user.followerCount
+msgid "{0, plural, one {<0>{count}</0> Follower} other {<1>{count}</1> Followers}}"
 msgstr ""
 
 msgid "Everyone can reply"
