@@ -3,7 +3,6 @@ import { identity, memoize, pickBy } from 'lodash-es';
 import { toHex } from 'viem';
 
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
-import { isEmptyHex } from '@/mask_pkgs/web3-shared/evm/helpers/address.js';
 import { type Transaction } from '@/mask_pkgs/web3-shared/evm/types/index.js';
 
 const normalizeHex = memoize((value: string | number) => {
@@ -13,6 +12,9 @@ const normalizeHex = memoize((value: string | number) => {
     return toHex(value);
 });
 
+const isEmptyHex = (hex?: string): hex is undefined => {
+    return !hex || ['0x', '0x0'].includes(hex);
+};
 export class AccountTransaction {
     constructor(private transaction?: Transaction) {}
 

@@ -8,7 +8,6 @@ import {
 } from '@/mask_pkgs/web3-shared/base/index.js';
 import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/types/index.js';
 import CoinGecko from '#masknet/web3-constants/evm/coingecko.json' with { type: 'json' };
-import ENS from '#masknet/web3-constants/evm/ens.json' with { type: 'json' };
 import RedPacket from '#masknet/web3-constants/evm/red-packet.json' with { type: 'json' };
 import RPC from '#masknet/web3-constants/evm/rpc.json' with { type: 'json' };
 import Token from '#masknet/web3-constants/evm/token.json' with { type: 'json' };
@@ -35,5 +34,3 @@ export const getTokenConstant = transform(EthereumChainId, Token);
 
 export const getRPCConstants = transformAllFromJSON(EthereumChainId, getEnvConstants('WEB3_CONSTANTS_RPC'), RPC);
 export const getRPCConstant = transformFromJSON(EthereumChainId, getEnvConstants('WEB3_CONSTANTS_RPC'), RPC);
-
-export const getENSConstants = transformAll(EthereumChainId, ENS);

@@ -1,11 +1,8 @@
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { getENSConstants } from '@/mask_pkgs/web3-shared/evm/constants/constants.js';
 
-export function isEmptyHex(hex?: string): hex is undefined {
-    return !hex || ['0x', '0x0'].includes(hex);
-}
+const ENS_CONTRACT_ADDRESS = '0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85';
+const ENS_NAME_WRAPPER_CONTRACT_ADDRESS = '0xD4416b13d2b3a9aBae7AcD5D6C2BbDBE25686401';
 
-const { ENS_CONTRACT_ADDRESS, ENS_NAME_WRAPPER_CONTRACT_ADDRESS } = getENSConstants();
 export function isENSContractAddress(contract_address: string) {
     return isSameAddress(contract_address, ENS_CONTRACT_ADDRESS);
 }
