@@ -20,15 +20,3 @@ export function getPostsSelector(source: SocialSource) {
         );
     };
 }
-
-export function getPostsSelectorWithoutSource(
-    data: InfiniteData<Pageable<Post, PageIndicator | undefined> | undefined, string>,
-) {
-    return uniqBy(
-        data.pages.flatMap((x) => x?.data || []),
-        (post) => {
-            if (post.mirrors?.length || post.type === 'Mirror') return `${post.postId}:mirror`;
-            return post.postId;
-        },
-    );
-}

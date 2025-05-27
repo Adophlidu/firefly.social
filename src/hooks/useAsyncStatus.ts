@@ -4,13 +4,6 @@ import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 
-export function useAsyncStatusStoreAll(status = AsyncStatus.Pending) {
-    const store = useProfileStoreAll();
-    const thirdPartyStatus = useThirdPartyStateStore.use.status();
-
-    return SORTED_SOCIAL_SOURCES.some((x) => store[x].status === status) || thirdPartyStatus === status;
-}
-
 export function useAsyncStatusAll(status = AsyncStatus.Pending) {
     const store = useProfileStoreAll();
     const asyncStatus = useGlobalState.use.asyncStatus();

@@ -4,7 +4,7 @@ import { Source } from '@/constants/enum.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { type Attachment, type Post } from '@/providers/types/SocialMedia.js';
-import type { Cast, Feed } from '@/providers/types/Warpcast.js';
+import type { Cast } from '@/providers/types/Warpcast.js';
 
 function getAttachments(cast: Cast) {
     const images = cast.embeds?.images?.map<Attachment>((x) => ({ uri: x.url, type: 'Image' }));
@@ -94,15 +94,5 @@ export function formatWarpcastPost(cast: Cast): Post {
         hasMirrored: cast.viewerContext?.recast,
         canComment: true,
         __original__: cast,
-    };
-}
-
-export function formatWarpcastPostFromFeed(feed: Feed): Post {
-    const firstComment = feed.replies?.length ? first(feed.replies) : undefined;
-    const cast = firstComment ?? feed.cast;
-
-    return {
-        ...formatWarpcastPost(cast),
-        commentOn: firstComment ? formatWarpcastPost(feed.cast) : undefined,
     };
 }

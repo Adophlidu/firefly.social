@@ -34,11 +34,6 @@ export class MemoryStorageProvider implements IStorageProvider {
     }
 }
 
-export function getLensCredentials(storage: IStorageProvider) {
-    const item = storage.getItem(LENS_TOKEN_STORAGE_KEY);
-    return item as string | null;
-}
-
 export function removeLensCredentials(storage: IStorageProvider) {
     storage.removeItem(LENS_TOKEN_STORAGE_KEY);
 }

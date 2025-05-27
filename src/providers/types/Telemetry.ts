@@ -306,13 +306,6 @@ export interface WalletEventParameters {
     wallet_name: string;
 }
 
-export interface SourceWalletEventParameters {
-    firefly_account_id: string;
-    source_wallet_address: string;
-    source_wallet_type: 'evm' | 'solana' | 'unknown';
-    source_wallet_name: string;
-}
-
 export interface ActivityWalletEventParameters extends WalletEventParameters {
     activity: string;
 }

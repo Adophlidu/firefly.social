@@ -134,22 +134,3 @@ export const BookmarkInIcon = memo(function BookmarkInIcon({
         </BookmarkButton>
     );
 });
-
-export function BookmarkInMenu({ className, ref, ...rest }: BookmarkButtonProps) {
-    return (
-        <BookmarkButton
-            {...rest}
-            className={classNames('flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg', className)}
-            ref={ref}
-        >
-            {(hasBookmarked: boolean, isLoading: boolean, fetching: boolean) => (
-                <>
-                    <BookmarkButtonIcon hasBookmarked={hasBookmarked} isLoading={isLoading || fetching} />
-                    <span className="font-bold leading-[22px] text-main">
-                        {hasBookmarked ? <Trans>Remove from Bookmarks</Trans> : <Trans>Bookmark</Trans>}
-                    </span>
-                </>
-            )}
-        </BookmarkButton>
-    );
-}

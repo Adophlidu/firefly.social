@@ -22,7 +22,6 @@ import {
     type RequestedLoginSource,
     SearchType,
     type SocialDiscoverSource,
-    type SocialNotificationSource,
     SocialProfileCategory,
     type SocialSource,
     Source,
@@ -53,7 +52,6 @@ export const WARPCAST_ROOT_URL = 'https://api.warpcast.com';
 export const WARPCAST_ROOT_URL_V1 = 'https://api.warpcast.com/v1';
 export const WARPCAST_ROOT_URL_V2 = 'https://api.warpcast.com/v2';
 export const WARPCAST_CLIENT_URL_V1 = 'https://client.warpcast.com/v1';
-export const WARPCAST_CLIENT_URL_V2 = 'https://client.warpcast.com/v2';
 export const FIREFLY_ROOT_URL = 'https://api.firefly.land';
 export const FIREFLY_DEV_ROOT_URL = 'https://api-dev.firefly.land';
 export const FIREFLY_STAMP_URL = 'https://stamp.firefly.land/avatar';
@@ -70,7 +68,6 @@ export const SNAPSHOT_SCORES_URL = 'https://score.snapshot.org';
 export const SNAPSHOT_SEQ_URL = 'https://seq.snapshot.org';
 export const SNAPSHOT_RELAY_URL = 'https://relayer.snapshot.org';
 export const SNAPSHOT_IPFS_GATEWAY_URL = 'https://snapshot.4everland.link/ipfs/';
-export const ORB_CLUB_URL = 'https://us-central1-orbapp.cloudfunctions.net';
 export const FIREFLY_TELEGRAM_URL = 'https://t.me/fireflyapp';
 export const BSKY_VIDEO_ENDPOINT = 'https://video.bsky.app/xrpc';
 export const NEYNAR_URL = env.external.NEXT_PUBLIC_NEYNAR_URL;
@@ -84,20 +81,16 @@ export const THE_GRAPH_API_URL = 'https://api.thegraph.com/subgraphs/name/ensdom
 export const TWITTER_TIMELINE_WHITELIST_JSON_URL = 'https://media.firefly.land/whitelist/twitter-timeline.json';
 
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
-export const ADVERTISEMENT_JSON_URL_DEV = 'https://media.firefly.land/advertisement/web-dev.json';
 
 export const FIREFLY_APP_APP_STORE_URL = 'https://apps.apple.com/us/app/firefly-web3-nft-explorer/id1640183078';
 export const FIREFLY_APP_GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=io.dimension.firefly';
 
 export const FARCASTER_REPLY_COUNTDOWN = 50; // in seconds
-export const FIREFLY_SCAN_QR_CODE_COUNTDOWN = 5 * 60; // in seconds
 
 export const RP_HASH_TAG = '#FireflyLuckyDrop';
 
 export const HIDDEN_SECRET = '[HIDE_FROM_CLIENT]';
 export const NOT_DEPEND_SECRET = '[TO_BE_REPLACED_LATER]';
-
-export const ORB_CLUB_TAG_PREFIX = 'orbcommunities';
 
 export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory[]> = {
     [Source.Lens]: [
@@ -188,7 +181,6 @@ export const GIF_MEDIA_SOURCE_CONFIG: Record<SocialSource, MediaSource[]> = {
     [Source.Bsky]: [MediaSource.Tenor],
 };
 
-export const SORTED_HOME_SOURCES = [Source.Farcaster, Source.Lens, Source.NFTs, Source.Article] as const;
 export const PROFILE_PAGE_SOURCES = [
     Source.Farcaster,
     Source.Twitter,
@@ -219,10 +211,6 @@ export const SORTED_THIRD_PARTY_SOURCES_IN_URL = [
     SourceInURL.Apple,
     SourceInURL.Email,
 ] as const;
-export const SORTED_BOOKMARK_SOURCES =
-    env.shared.NODE_ENV === NODE_ENV.Development
-        ? [Source.Farcaster, Source.Lens, Source.Twitter, Source.Article]
-        : [Source.Farcaster, Source.Lens, Source.Article];
 export const SORTED_CHANNEL_SOURCES: SocialSource[] = [Source.Farcaster];
 export const SORTED_POLL_SOURCES: SocialSource[] = [Source.Twitter, Source.Farcaster];
 export const SORTED_MEDIA_SOURCES: MediaSource[] = [
@@ -234,7 +222,6 @@ export const SORTED_MEDIA_SOURCES: MediaSource[] = [
     MediaSource.Tenor,
     MediaSource.Local,
 ];
-export const SORTED_EXPLORE_SOURCES: ExploreSource[] = [Source.Farcaster, Source.Lens];
 export const SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES = [Source.Farcaster];
 export const NOTIFICATION_SOURCES = [Source.Notifications, Source.Farcaster, Source.Lens, Source.Bsky];
 
@@ -260,13 +247,11 @@ export const DEFAULT_LOCALE = Locale.en;
 export const SUPPORTED_PREVIEW_MEDIA_TYPES: Array<Attachment['type']> = ['Image', 'AnimatedGif'];
 export const SUPPORTED_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 export const SUPPORTED_VIDEO_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Bsky];
-export const SUPPORTED_MULTI_ACCOUNT_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 export const SUPPORTED_MEDIA_CORS_SOURCES: Source[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 export const SUPPORTED_CHANNEL_SOURCES: Source[] = [Source.Farcaster, Source.Lens];
 export const SOCIAL_DISCOVER_SOURCE: SocialDiscoverSource[] = [Source.Farcaster, Source.Lens, Source.Bsky] as const;
 export const SOCIAL_DISCOVER_SOURCE_LOGIN_REQUIRED: SocialDiscoverSource[] = [Source.Twitter];
 export const SOCIAL_DISCOVER_WHITELIST_SOURCE: SocialDiscoverSource[] = [Source.Twitter];
-export const SOCIAL_NOTIFICATION_SOURCE: SocialNotificationSource[] = [Source.Farcaster, Source.Lens, Source.Bsky];
 export const QUERY_MUTE_PROFILE_SOURCES = [Source.Bsky, Source.Twitter, Source.Lens];
 export const DISCOVER_SOURCES: DiscoverSource[] = [Source.Posts, Source.Transactions, Source.Activities] as const;
 export const FOLLOWING_SOURCES: FollowingSource[] = [Source.Posts, Source.Transactions, Source.Activities] as const;
@@ -276,8 +261,6 @@ export const REQUIRE_LOGIN_SOURCES: RequestedLoginSource[] =
     env.external.NEXT_PUBLIC_NITTER === STATUS.Enabled ? [] : [Source.Twitter];
 export const REQUIRE_LOGIN_SOURCES_IN_SEARCH: SocialSource[] =
     env.external.NEXT_PUBLIC_NITTER === STATUS.Enabled ? [Source.Bsky] : [Source.Twitter, Source.Bsky];
-export const SOCIAL_SOURCE_WITH_ADDRESS: SocialSource[] = [Source.Farcaster, Source.Lens];
-export const ENABLED_TIPS_POST_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 
 export const EXPLORE_TYPES: ExploreType[] =
     env.external.NEXT_PUBLIC_TRUTH_SOCIAL === STATUS.Enabled
@@ -349,17 +332,9 @@ export const IS_PRODUCTION = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.
 export const IS_DEVELOPMENT = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Development;
 export const IS_PREVIEW = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Preview;
 
-export const EVER_API = 'https://endpoint.4everland.co';
-
 // polls
 export const FRAME_SERVER_URL = 'https://polls.firefly.social';
 export const FRAME_DEV_SERVER_URL = 'https://polls-staging.firefly.social';
-
-// S3 bucket
-export const S3_BUCKET = {
-    HEY_MEDIA: 'hey-media',
-    FIREFLY_LENS_MEDIA: 'firefly-lens-media',
-};
 
 // HTTP Cache headers
 export const CACHE_AGE_INDEFINITE_ON_DISK = 'public, s-maxage=31536000, max-age=31536000, must-revalidate';
@@ -377,7 +352,6 @@ export const MIN_POST_SIZE_PER_THREAD = 3;
 // Contracts
 export const LENS_HUB_PROXY_ADDRESS = '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d';
 export const POAP_CONTRACT_ADDRESS = '0x22C1f6050E56d2876009903609a2cC3fEf83B415';
-export const ELEX24_NFT_CONTRACT_ADDRESS = '0x70553bBeC6F7d2C5e6E1Bc02f821F6863546D11e';
 
 export const PUDGY_PENGUINS_NFT_ADDRESS = '0xbd3531da5cf5857e7cfaa92426877b022e612cf8';
 export const LIL_PUDGY_NFT_ADDRESS = '0x524cab2ec69124574082676e6f654a18df49a048';
@@ -414,7 +388,6 @@ export const SUFFIX_NAMES: Record<FileMimeType, string> = {
     [FileMimeType.MOV]: 'mov',
 };
 
-export const SOLANA_WALLET_CACHE_KEY = 'walletName';
 export const NOTIFICATION_PERMISSION_KEY = 'notification-permission';
 
 // https://support.mirror.xyz/hc/en-us/articles/13729399363220-Platform-fees
@@ -429,7 +402,6 @@ export const PARAGRAPH_COLLECT_FEE = 777000000000000n;
 // 2 matic
 export const PARAGRAPH_COLLECT_FEE_IN_POLYGON = 2000000000000000000n;
 
-export const THIRTY_DAYS = 1000 * 60 * 60 * 24 * 30;
 export const SEVEN_DAYS = 1000 * 60 * 60 * 24 * 7;
 
 export const MAX_SIZE_PER_CHUNK = 2 * 1024 * 1024; // 2MB

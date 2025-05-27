@@ -352,11 +352,6 @@ export enum NetworkType {
     Solana = 'solana',
 }
 
-export enum CryptoUsage {
-    Encrypt = 'encrypt',
-    Decrypt = 'decrypt',
-}
-
 export enum CurrencyType {
     NATIVE = 'native',
     BTC = 'btc',
@@ -509,13 +504,6 @@ export enum LinkDigestType {
     FarcasterFrames = 'farcasterFrames',
 }
 
-export enum NFTMarketplace {
-    Opensea = 'opensea',
-    Magiceden = 'magiceden',
-    Tensor = 'tensor',
-    Trove = 'trove',
-}
-
 export enum MintStatus {
     NotSupported = 0,
     Mintable = 1,
@@ -529,13 +517,6 @@ export enum MintStatus {
 export enum HomeTab {
     Discover = 'discover',
     Following = 'following',
-}
-
-export enum SolanaWalletName {
-    Phantom = 'Phantom',
-    Particle = 'Firefly Wallet',
-    Okx = 'OKX Wallet',
-    Solflare = 'Solflare',
 }
 
 export enum BskyEmbedType {
@@ -555,16 +536,6 @@ export enum ProfileEditableField {
     Website = 'website',
     Location = 'location',
     Bio = 'Bio',
-}
-
-export enum ChainRuntime {
-    Ethereum = 'ethereum',
-    Solana = 'solana',
-}
-
-export enum GroupTabType {
-    Members = 'members',
-    Posts = 'posts',
 }
 
 export enum CommunityType {

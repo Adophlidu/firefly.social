@@ -31,8 +31,6 @@ export const HttpsUrl = z
     .url()
     .regex(/^(https:\/\/)/);
 
-export const CAIP10 = z.string().regex(/^eip155:\d+:0x[a-fA-F0-9]{40}/i);
-
 export const FileSchema = z.custom<File>((value) => {
     if (!(value instanceof File)) {
         throw new ZodError([

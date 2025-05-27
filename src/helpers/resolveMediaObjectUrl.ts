@@ -5,7 +5,6 @@ import { FileMimeType, type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { SORTED_MEDIA_SOURCES } from '@/constants/index.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import type { IPFSResponse } from '@/services/uploadToIPFS.js';
 import { type MediaObject, MediaSource, type VideoMetadata } from '@/types/compose.js';
 import type { IGif } from '@/types/giphy.js';
 import type { TwitterMediaResponse } from '@/types/twitter.js';
@@ -53,16 +52,6 @@ export function createS3MediaObject(url: string, media: MediaObject): MediaObjec
         ...media,
         urls: {
             [MediaSource.S3]: url,
-        },
-    };
-}
-
-export function createIPFSMediaObject(ipfs: IPFSResponse, media: MediaObject): MediaObject {
-    return {
-        ...media,
-        mimeType: ipfs.mimeType,
-        urls: {
-            [MediaSource.IPFS]: ipfs.uri,
         },
     };
 }

@@ -4,7 +4,6 @@ import type { EVM, TransEventType } from '@/providers/nft-scan/types.js';
 import {
     type FireflyDisplayInfo,
     type FollowingSource,
-    type NFTAsset,
     type NFTDetail,
 } from '@/providers/types/Firefly.js';
 
@@ -19,11 +18,6 @@ export type DiscoverNFTResponseV3 = Response<{
     cursor?: string;
 }>;
 
-export interface NFTOwnerDisplayInfo {
-    ensHandle: string | null;
-    avatarUrl: string;
-}
-
 export interface NFTFeedV3 extends EVM.Transaction {
     chain_id: number;
     /** address */
@@ -35,11 +29,6 @@ export interface NFTFeedV3 extends EVM.Transaction {
     /** extends at runtime */
     bookmarked?: boolean;
 }
-
-export type GetFollowingNFTResponse = Response<{
-    result: FollowingNFT[];
-    cursor: string | null;
-}>;
 
 export interface FollowingNFT {
     timestamp: string;
@@ -53,24 +42,6 @@ export interface FollowingNFT {
     detail: NFTDetail;
     displayInfo: FireflyDisplayInfo;
     followingSources: FollowingSource[];
-}
-
-export interface NFTActionCost {
-    decimals?: number;
-    symbol: string;
-    value: string;
-}
-
-export interface FollowingNFTAction {
-    tag: string;
-    type: TransEventType;
-    index: number;
-    address_from: string;
-    address_to: string;
-    cost?: NFTActionCost;
-    contract_address: Address;
-    token_id: string;
-    nft: NFTAsset;
 }
 
 export interface Poap {

@@ -414,10 +414,6 @@ msgstr ""
 msgid "Trending"
 msgstr ""
 
-#. placeholder {0}: currentProfile.handle
-msgid "Log out @{0}"
-msgstr ""
-
 msgid "View similar symbols"
 msgstr ""
 
@@ -431,9 +427,6 @@ msgid "The external call function is included. The project owner may have the ab
 msgstr ""
 
 msgid "Search in profile"
-msgstr ""
-
-msgid "Please confirm the login with Firefly."
 msgstr ""
 
 msgid "Wrong wallet"
@@ -474,9 +467,6 @@ msgid "Solana"
 msgstr ""
 
 msgid "Casts"
-msgstr ""
-
-msgid "Your account is now connected."
 msgstr ""
 
 #. placeholder {0}: formatAmount(usdcSize)
@@ -566,9 +556,6 @@ msgstr ""
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr ""
 
-msgid "<0>Sent</0> an NFT"
-msgstr ""
-
 msgid "Report post"
 msgstr ""
 
@@ -651,9 +638,6 @@ msgstr ""
 #. placeholder {1}: mutuals[1].displayName
 #. placeholder {2}: mutualCount - 2
 msgid "Followed by {0} , {1}, and {2} others you follow"
-msgstr ""
-
-msgid "Failed to leave /{name} on {sourceName}."
 msgstr ""
 
 msgid "Confirm"
@@ -878,9 +862,6 @@ msgstr ""
 msgid "Unsafe: Transaction is at risk"
 msgstr ""
 
-msgid "Calendar"
-msgstr ""
-
 msgid "Suspected malicious address."
 msgstr ""
 
@@ -960,9 +941,6 @@ msgid "Transaction Hash"
 msgstr ""
 
 msgid "1m left"
-msgstr ""
-
-msgid "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
 msgstr ""
 
 msgid "Connect Ethereum Wallet"
@@ -1106,9 +1084,6 @@ msgstr ""
 msgid "Whitelist function"
 msgstr ""
 
-msgid "Left /{name} on {sourceName}."
-msgstr ""
-
 msgid "Profile could not be found."
 msgstr ""
 
@@ -1172,9 +1147,6 @@ msgstr ""
 msgid "New connection via Farcaster"
 msgstr ""
 
-msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
-msgstr ""
-
 msgid "The token can not be bought."
 msgstr ""
 
@@ -1185,9 +1157,6 @@ msgid "Verified by Lens"
 msgstr ""
 
 msgid "No proxy"
-msgstr ""
-
-msgid "<0>Sold</0> an NFT"
 msgstr ""
 
 msgid "There is no data available to display"
@@ -1228,9 +1197,6 @@ msgid "Please enter at least 2 characters."
 msgstr ""
 
 msgid "Remove from Bookmarks"
-msgstr ""
-
-msgid "<0>Bought</0> an NFT"
 msgstr ""
 
 msgid "Active"
@@ -1483,9 +1449,6 @@ msgstr ""
 msgid "Platform fee"
 msgstr ""
 
-msgid "<0>Sold</0> an NFT worth {costEl}"
-msgstr ""
-
 #. placeholder {0}: profile.handle
 msgid "All posts from @{0} will be hidden from you"
 msgstr ""
@@ -1650,9 +1613,6 @@ msgstr ""
 msgid "Expired"
 msgstr ""
 
-msgid "Please choose issue to report this wallet:"
-msgstr ""
-
 msgid "Nickname must not contain restricted symbols"
 msgstr ""
 
@@ -1660,9 +1620,6 @@ msgid "Switch"
 msgstr ""
 
 msgid "Drafts"
-msgstr ""
-
-msgid "About Airdrop"
 msgstr ""
 
 msgid "No financial crime involved."
@@ -1924,9 +1881,6 @@ msgstr ""
 msgid "Report article"
 msgstr ""
 
-msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly"
-msgstr ""
-
 msgid "Everyone"
 msgstr ""
 
@@ -2043,9 +1997,6 @@ msgstr ""
 msgid "NFT minted successfully!"
 msgstr ""
 
-msgid "<0>Collected</0> a POAP"
-msgstr ""
-
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr ""
 
@@ -2082,9 +2033,6 @@ msgstr ""
 
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
-msgstr ""
-
-msgid "<0>Acquired</0> an NFT"
 msgstr ""
 
 msgid "NFT holder of any one below"
@@ -2137,9 +2085,6 @@ msgid "Cryptocurrency mixer."
 msgstr ""
 
 msgid "Remove Truth Social"
-msgstr ""
-
-msgid "Joined /{name} on {sourceName}."
 msgstr ""
 
 msgid "Submit a wallet to receive a collectible and $MASK airdrop"
@@ -2221,9 +2166,6 @@ msgid "Creator"
 msgstr ""
 
 msgid "Holders can not sell all of the token."
-msgstr ""
-
-msgid "I want to hide this wallet address."
 msgstr ""
 
 msgid "Search token"
@@ -2320,9 +2262,6 @@ msgid "Your sign-in process was interrupted, please try again"
 msgstr ""
 
 msgid "Access Denied"
-msgstr ""
-
-msgid "Failed to join /{name} on {sourceName}."
 msgstr ""
 
 msgid "Set as primary account"
@@ -2501,9 +2440,6 @@ msgstr ""
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr ""
 
-msgid "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
-msgstr ""
-
 #. placeholder {0}: formatAddressEthereum(address, 4)
 msgid "Please switch to {0}"
 msgstr ""
@@ -2678,9 +2614,6 @@ msgid "Your post failed to send to {0}. Click 'Retry' to attempt posting again."
 msgstr ""
 
 msgid "7D"
-msgstr ""
-
-msgid "Not my wallet address."
 msgstr ""
 
 msgid "My Wallets"
@@ -2961,9 +2894,6 @@ msgstr ""
 msgid "24H Volume"
 msgstr ""
 
-msgid "<0>Minted</0> an NFT worth {costEl}"
-msgstr ""
-
 msgid "Balance"
 msgstr ""
 
@@ -3223,9 +3153,6 @@ msgstr ""
 msgid "The contract owner has restrictions on anti whale."
 msgstr ""
 
-msgid "I don’t use anymore."
-msgstr ""
-
 msgid "Sorry, the provider you entered is invalid"
 msgstr ""
 
@@ -3277,9 +3204,6 @@ msgid "The contract owner may contain the authority to modify the transaction ta
 msgstr ""
 
 msgid "Unknown status"
-msgstr ""
-
-msgid "<0>Minted</0> an NFT for free"
 msgstr ""
 
 #. placeholder {0}: dayjs(scheduleTime).format('ddd, MMM DD, YYYY')
@@ -3372,9 +3296,6 @@ msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!
 msgstr ""
 
 msgid "App Store"
-msgstr ""
-
-msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr ""
 
 msgid "Enter Number of Winners"
@@ -3770,10 +3691,6 @@ msgstr ""
 msgid "Mask Network"
 msgstr ""
 
-#. placeholder {0}: formatAddressEthereum(fromAddress, 4)
-msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
-msgstr ""
-
 msgid "Sanctioned address found."
 msgstr ""
 
@@ -3858,9 +3775,6 @@ msgstr ""
 msgid "Final results"
 msgstr ""
 
-msgid "Suspended account"
-msgstr ""
-
 msgid "Status"
 msgstr ""
 
@@ -3903,9 +3817,6 @@ msgid "No anti_whale(Unlimited number of transactions)"
 msgstr ""
 
 msgid "Failed to collect post."
-msgstr ""
-
-msgid "<0>Burned</0> an NFT"
 msgstr ""
 
 msgid "About"
@@ -4105,10 +4016,6 @@ msgid "Cybercrime."
 msgstr ""
 
 msgid "This wallet is already linked to a different Firefly account."
-msgstr ""
-
-#. placeholder {0}: formatAddressEthereum(toAddress, 4)
-msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr ""
 
 msgid "Unmuted {handleOrEnsOrAddress}."

@@ -20,12 +20,6 @@ export interface ActionGetResponse {
     apiUrl?: string;
 }
 
-export interface ActionPostResponse {
-    transaction: string; // base64-encoded serialized transaction
-    message?: string; // the nature of the transaction response e.g. the name of an item being purchased
-    redirect?: string; // redirect URL after the transaction is successful
-}
-
 interface RegisteredAction {
     host: string;
     state: ActionType;

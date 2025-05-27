@@ -25,16 +25,6 @@ export function resolveFireflyProfileId(profile: Pick<Profile, 'handle' | 'profi
     }
 }
 
-export function resolveFireflyMutualProfileId(profile: Pick<Profile, 'handle' | 'profileId' | 'source'> | null) {
-    if (!profile) return;
-    switch (profile.source) {
-        case Source.Lens:
-            return profile.profileId;
-        default:
-            return resolveFireflyProfileId(profile);
-    }
-}
-
 export function resolveFireflyIdentity(profile: Profile | null): FireflyIdentity | null {
     if (!profile) return null;
 

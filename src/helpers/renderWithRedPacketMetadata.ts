@@ -1,5 +1,5 @@
 import type { TypedMessage } from '@masknet/typed-message';
-import { createRenderWithMetadata, createTypedMessageMetadataReader } from '@masknet/typed-message-react';
+import { createTypedMessageMetadataReader } from '@masknet/typed-message-react';
 import { Err, Ok, type Result } from 'ts-results-es';
 
 import { SOLANA_PREFIX, SolanaRedPacketMetaKey, SupportedMetaKeys } from '@/constants/rp.js';
@@ -46,4 +46,3 @@ export function RedPacketMetadataReader(
     }
     return result;
 }
-export const renderWithRedPacketMetadata = createRenderWithMetadata(RedPacketMetadataReader);

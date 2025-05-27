@@ -414,10 +414,6 @@ msgstr "該代幣可購買。"
 msgid "Trending"
 msgstr "趨勢"
 
-#. placeholder {0}: currentProfile.handle
-msgid "Log out @{0}"
-msgstr "登出 @{0}"
-
 msgid "View similar symbols"
 msgstr ""
 
@@ -432,9 +428,6 @@ msgstr "包含外部調用功能。項目所有者可能有能力控制合約。
 
 msgid "Search in profile"
 msgstr "在個人檔案中搜尋"
-
-msgid "Please confirm the login with Firefly."
-msgstr "請通過 Firefly 確認登入。"
 
 msgid "Wrong wallet"
 msgstr "錯誤的錢包"
@@ -475,9 +468,6 @@ msgstr "Solana"
 
 msgid "Casts"
 msgstr "貼文"
-
-msgid "Your account is now connected."
-msgstr "您的帳戶已連接。"
 
 #. placeholder {0}: formatAmount(usdcSize)
 msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
@@ -566,9 +556,6 @@ msgstr "未發現惡意挖礦活動"
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>已創建代幣總量扣除已銷毀代幣（退出流通）。類似股市流通股數概念。</0><1>總供應量 = 鏈上供應量 - 已焚毀代幣</1>"
 
-msgid "<0>Sent</0> an NFT"
-msgstr "<0>已傳送</0> NFT"
-
 msgid "Report post"
 msgstr "檢舉貼文"
 
@@ -652,9 +639,6 @@ msgstr "於 2025 年 1 月 18 日前在 X 追蹤 <0>@{0}</0>"
 #. placeholder {2}: mutualCount - 2
 msgid "Followed by {0} , {1}, and {2} others you follow"
 msgstr "已被您追蹤的 {0}、{1} 及其他 {2} 人追蹤"
-
-msgid "Failed to leave /{name} on {sourceName}."
-msgstr "離開 {sourceName} 的 /{name} 失敗"
 
 msgid "Confirm"
 msgstr "確認"
@@ -878,9 +862,6 @@ msgstr "主持人"
 msgid "Unsafe: Transaction is at risk"
 msgstr "危險：交易存在風險"
 
-msgid "Calendar"
-msgstr "日曆"
-
 msgid "Suspected malicious address."
 msgstr "疑似惡意地址"
 
@@ -961,9 +942,6 @@ msgstr "交易哈希"
 
 msgid "1m left"
 msgstr "剩餘1分鐘"
-
-msgid "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
-msgstr "核心資產存取：解鎖高級代幣、獨家NFT和節點，獲取更多投資機會。"
 
 msgid "Connect Ethereum Wallet"
 msgstr "連接以太坊錢包"
@@ -1106,9 +1084,6 @@ msgstr "上傳失敗：尚未支援影片格式。"
 msgid "Whitelist function"
 msgstr "白名單功能"
 
-msgid "Left /{name} on {sourceName}."
-msgstr "已離開{sourceName}的/{name}。"
-
 msgid "Profile could not be found."
 msgstr "找不到個人檔案。"
 
@@ -1172,9 +1147,6 @@ msgstr "再次轉發"
 msgid "New connection via Farcaster"
 msgstr ""
 
-msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
-msgstr "優先存取：持有者可搶先體驗未來專案、測試版和空投，並率先查看最新功能與內容。"
-
 msgid "The token can not be bought."
 msgstr "此代幣無法購買。"
 
@@ -1186,9 +1158,6 @@ msgstr ""
 
 msgid "No proxy"
 msgstr "無代理"
-
-msgid "<0>Sold</0> an NFT"
-msgstr "<0>售出</0>一個NFT"
 
 msgid "There is no data available to display"
 msgstr "暫無可顯示資料"
@@ -1229,9 +1198,6 @@ msgstr "請輸入至少2個字元。"
 
 msgid "Remove from Bookmarks"
 msgstr "從書籤移除"
-
-msgid "<0>Bought</0> an NFT"
-msgstr "<0>購買</0>一個NFT"
 
 msgid "Active"
 msgstr "活躍中"
@@ -1483,9 +1449,6 @@ msgstr "輸入金額"
 msgid "Platform fee"
 msgstr "平台費用"
 
-msgid "<0>Sold</0> an NFT worth {costEl}"
-msgstr "<0>售出</0>價值 {costEl} 的 NFT"
-
 #. placeholder {0}: profile.handle
 msgid "All posts from @{0} will be hidden from you"
 msgstr ""
@@ -1650,9 +1613,6 @@ msgstr "{0} 投票功能即將推出"
 msgid "Expired"
 msgstr "已過期"
 
-msgid "Please choose issue to report this wallet:"
-msgstr "請選擇檢舉此錢包的原因："
-
 msgid "Nickname must not contain restricted symbols"
 msgstr "暱稱不得包含限制符號"
 
@@ -1661,9 +1621,6 @@ msgstr "切換"
 
 msgid "Drafts"
 msgstr "草稿"
-
-msgid "About Airdrop"
-msgstr "關於空投"
 
 msgid "No financial crime involved."
 msgstr "未涉及金融犯罪"
@@ -1932,9 +1889,6 @@ msgstr "此文章已不可用"
 msgid "Report article"
 msgstr "檢舉文章"
 
-msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly"
-msgstr "使用 <0>Firefly 行動應用</0> 或 <1>相機應用</1> 掃描 QR 碼立即登入"
-
 msgid "Everyone"
 msgstr "所有人"
 
@@ -2051,9 +2005,6 @@ msgstr "NFT 合約無法限制授權，可能導致無法在 NFT 交易所交易
 msgid "NFT minted successfully!"
 msgstr "NFT 鑄造成功！"
 
-msgid "<0>Collected</0> a POAP"
-msgstr "<0>已收藏</0> POAP"
-
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "此操作不可逆，定時發送將被取消"
 
@@ -2091,9 +2042,6 @@ msgstr ""
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr ""
-
-msgid "<0>Acquired</0> an NFT"
-msgstr "<0>獲取了</0>一個 NFT"
 
 msgid "NFT holder of any one below"
 msgstr ""
@@ -2145,9 +2093,6 @@ msgid "Cryptocurrency mixer."
 msgstr ""
 
 msgid "Remove Truth Social"
-msgstr ""
-
-msgid "Joined /{name} on {sourceName}."
 msgstr ""
 
 msgid "Submit a wallet to receive a collectible and $MASK airdrop"
@@ -2229,9 +2174,6 @@ msgid "Creator"
 msgstr "創作者"
 
 msgid "Holders can not sell all of the token."
-msgstr ""
-
-msgid "I want to hide this wallet address."
 msgstr ""
 
 msgid "Search token"
@@ -2328,9 +2270,6 @@ msgid "Your sign-in process was interrupted, please try again"
 msgstr ""
 
 msgid "Access Denied"
-msgstr ""
-
-msgid "Failed to join /{name} on {sourceName}."
 msgstr ""
 
 msgid "Set as primary account"
@@ -2509,9 +2448,6 @@ msgstr ""
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr ""
 
-msgid "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
-msgstr ""
-
 #. placeholder {0}: formatAddressEthereum(address, 4)
 msgid "Please switch to {0}"
 msgstr "請切換至 {0}"
@@ -2687,9 +2623,6 @@ msgstr "貼文發送至 {0} 失敗，點擊「重試」再次嘗試"
 
 msgid "7D"
 msgstr ""
-
-msgid "Not my wallet address."
-msgstr "非本人錢包地址"
 
 msgid "My Wallets"
 msgstr "我的錢包"
@@ -2969,9 +2902,6 @@ msgstr "簽名類型化資料"
 msgid "24H Volume"
 msgstr "24 小時交易量"
 
-msgid "<0>Minted</0> an NFT worth {costEl}"
-msgstr "<0>鑄造</0>價值 {costEl} 的 NFT"
-
 msgid "Balance"
 msgstr "餘額"
 
@@ -3231,9 +3161,6 @@ msgstr "無符合的代幣"
 msgid "The contract owner has restrictions on anti whale."
 msgstr "合約持有者設有反巨鯨機制。"
 
-msgid "I don’t use anymore."
-msgstr "不再使用"
-
 msgid "Sorry, the provider you entered is invalid"
 msgstr "抱歉，您輸入的供應商無效"
 
@@ -3286,9 +3213,6 @@ msgstr "合約持有者可能具備修改交易稅權限，若稅率超過 49% �
 
 msgid "Unknown status"
 msgstr "未知狀態"
-
-msgid "<0>Minted</0> an NFT for free"
-msgstr "<0>免費鑄造</0> NFT"
 
 #. placeholder {0}: dayjs(scheduleTime).format('ddd, MMM DD, YYYY')
 #. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
@@ -3381,9 +3305,6 @@ msgstr "支付<0> {feeAmount} {feeSymbol} </0>追蹤以獲得專屬福利！"
 
 msgid "App Store"
 msgstr "App Store"
-
-msgid "<0>Bought</0> an NFT worth {costEl}"
-msgstr "<0>購買</0>價值 {costEl} 的 NFT"
 
 msgid "Enter Number of Winners"
 msgstr "輸入獲獎人數"
@@ -3781,10 +3702,6 @@ msgstr "影片解析度需介於 {minWidth}x{minHeight} 至 {maxWidth}x{maxHeigh
 msgid "Mask Network"
 msgstr "Mask Network"
 
-#. placeholder {0}: formatAddressEthereum(fromAddress, 4)
-msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
-msgstr "<0>自</0> <1>{0}</1> 取得 NFT"
-
 msgid "Sanctioned address found."
 msgstr "檢測到受制裁地址"
 
@@ -3869,9 +3786,6 @@ msgstr ""
 msgid "Final results"
 msgstr ""
 
-msgid "Suspended account"
-msgstr ""
-
 msgid "Status"
 msgstr ""
 
@@ -3914,9 +3828,6 @@ msgid "No anti_whale(Unlimited number of transactions)"
 msgstr ""
 
 msgid "Failed to collect post."
-msgstr ""
-
-msgid "<0>Burned</0> an NFT"
 msgstr ""
 
 msgid "About"
@@ -4117,10 +4028,6 @@ msgstr "網路犯罪"
 
 msgid "This wallet is already linked to a different Firefly account."
 msgstr ""
-
-#. placeholder {0}: formatAddressEthereum(toAddress, 4)
-msgid "<0>Sent</0> an NFT to <1>{0}</1>"
-msgstr "<0>已發送</0> NFT 至 <1>{0}</1>"
 
 msgid "Unmuted {handleOrEnsOrAddress}."
 msgstr "已取消靜音 {handleOrEnsOrAddress}"

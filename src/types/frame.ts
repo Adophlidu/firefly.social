@@ -93,18 +93,6 @@ export interface RedirectUrlResponse {
 // #endregion
 
 // #region frame v2
-export enum FrameInvocationType {
-    // Called when the app is invoked from the app launcher or any other unspecified context.
-    // Loads the `homeUrl` defined in the frame application manifest.
-    Global = 'global',
-    // Called when the frame is invoked from an embed in a feed or direct cast.
-    // Loads the `url` specified in the FrameEmbed metadata.
-    Embed = 'embed',
-    // Called when a user taps/clicks a frame notification.
-    // Loads the `targetUrl` specified in the notification payload.
-    Notification = 'notification',
-}
-
 export type TriggerConfig =
     | {
           // Type of trigger, either cast or composer. Required.

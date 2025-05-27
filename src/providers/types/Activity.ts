@@ -35,14 +35,6 @@ export interface Farcaster {
     participationBlocked?: boolean;
 }
 
-export interface BnbId {
-    lessThan4Char: boolean;
-    name: string;
-    address: string;
-    valid: boolean;
-    level: Level;
-}
-
 export interface Firefly {
     isNew: boolean;
     valid: boolean;

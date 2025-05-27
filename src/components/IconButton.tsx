@@ -5,7 +5,6 @@ import type { HTMLProps, ReactNode } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
 import CloseCircleIcon from '@/assets/close-circle.svg';
-import MoreIcon from '@/assets/more.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -53,20 +52,6 @@ export function ClearButton({ size = 24, IconProps, ...rest }: ButtonProps) {
         <IconButton size={size} tooltip={<Trans>Clear</Trans>} {...rest}>
             <CloseCircleIcon
                 {...IconProps}
-                className={classNames('text-main', IconProps?.className, {
-                    'cursor-pointer': !rest.disabled,
-                })}
-                width={size}
-                height={size}
-            />
-        </IconButton>
-    );
-}
-
-export function MoreButton({ size = 24, IconProps, ...rest }: ButtonProps) {
-    return (
-        <IconButton size={size} tooltip={<Trans>More</Trans>} {...rest}>
-            <MoreIcon
                 className={classNames('text-main', IconProps?.className, {
                     'cursor-pointer': !rest.disabled,
                 })}

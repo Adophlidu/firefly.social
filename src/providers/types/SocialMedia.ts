@@ -321,11 +321,6 @@ export interface Comment {
     hashTagsMentioned?: string[];
 }
 
-export interface Collection {
-    collectionId: string;
-    posts: Post[];
-}
-
 export interface BaseNotification {
     notificationId: string;
     source: SocialSource;

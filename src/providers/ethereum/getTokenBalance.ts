@@ -1,61 +1,9 @@
 import { type Address } from 'viem';
-import { getBalance, readContracts } from 'wagmi/actions';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { config } from '@/configs/wagmiClient.js';
-import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
-import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Token } from '@/providers/types/Transfer.js';
 import type { EthereumChainId } from '#masknet/web3-shared-evm';
-
-export async function getTokenBalance(token: Token<EthereumChainId, Address>, address: Address, chainId: number) {
-    if (isNativeToken(token)) {
-        const result = await getBalance(config, {
-            address,
-            chainId,
-        });
-        return {
-            value: result.value,
-            decimals: result.decimals,
-            symbol: result.symbol,
-        };
-    }
-
-    const abi = getTokenAbiForWagmi(token.chainId, token.id);
-    const results = await readContracts(config, {
-        contracts: [
-            {
-                address: token.id,
-                abi,
-                functionName: 'balanceOf',
-                args: [address],
-            },
-            {
-                address: token.id,
-                abi,
-                functionName: 'decimals',
-            },
-            {
-                address: token.id,
-                abi,
-                functionName: 'symbol',
-            },
-        ],
-    });
-
-    const resultWithError = results.find((d) => d.status !== 'success');
-
-    if (resultWithError) {
-        throw resultWithError.error;
-    }
-
-    return {
-        value: results[0].result ?? 0n,
-        decimals: results[1].result,
-        symbol: results[2].result,
-    };
-}
 
 export async function getDebankTokenBalance(token: Token<EthereumChainId, Address>, account: Address) {
     const tokens = await queryClient.fetchQuery({

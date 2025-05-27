@@ -22,13 +22,6 @@ export function createDummyProfile(source: SocialSource, profileSource: ProfileS
     } satisfies Profile;
 }
 
-export function createDummyProfileFromFireflyAccountId(accountId: string) {
-    return {
-        ...createDummyProfile(Source.Farcaster),
-        profileId: accountId,
-    } satisfies Profile;
-}
-
 export function createDummyProfileFromFireflySession(fireflySession: FireflySession) {
     return {
         ...createDummyProfile(Source.Farcaster),

@@ -22,7 +22,3 @@ export function isEnsSubdomain(domain: string) {
     const result = ENS_SUBDOMAIN_RE.test(ascii);
     return result;
 }
-
-export function isValidDomainSolana(domain?: string) {
-    return /.+\.sol/i.test(domain ?? '');
-}

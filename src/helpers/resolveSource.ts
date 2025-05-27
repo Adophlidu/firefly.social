@@ -5,7 +5,6 @@ import {
     type SocialSourceInURL,
     Source,
     SourceInURL,
-    WalletSource,
 } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
@@ -71,23 +70,6 @@ export const resolveSocialSource = createLookupTableResolver<SocialSourceInURL, 
     },
 );
 
-export const resolveSocialSourceFromProfileSource = createLookupTableResolver<ProfileSource, SocialSource>(
-    {
-        [Source.Farcaster]: Source.Farcaster,
-        [Source.Lens]: Source.Lens,
-        [Source.Twitter]: Source.Twitter,
-        [Source.Bsky]: Source.Bsky,
-        [Source.Firefly]: Source.Farcaster,
-        [Source.Telegram]: Source.Farcaster,
-        [Source.Apple]: Source.Farcaster,
-        [Source.Google]: Source.Farcaster,
-        [Source.Email]: Source.Farcaster,
-    },
-    (source) => {
-        throw new UnreachableError('profile source', source);
-    },
-);
-
 export const resolveSourceFromSessionType = createLookupTableResolver<SessionType, ProfileSource>(
     {
         [SessionType.Farcaster]: Source.Farcaster,
@@ -102,41 +84,6 @@ export const resolveSourceFromSessionType = createLookupTableResolver<SessionTyp
     },
     (sessionType) => {
         throw new UnreachableError('sessionType', sessionType);
-    },
-);
-
-export const resolveSocialSourceFromSessionType = createLookupTableResolver<SessionType, SocialSource>(
-    {
-        [SessionType.Farcaster]: Source.Farcaster,
-        [SessionType.Lens]: Source.Lens,
-        [SessionType.Twitter]: Source.Twitter,
-        [SessionType.Bsky]: Source.Bsky,
-        // not correct in some situations
-        [SessionType.Firefly]: Source.Farcaster,
-        [SessionType.Apple]: Source.Farcaster,
-        [SessionType.Google]: Source.Farcaster,
-        [SessionType.Telegram]: Source.Farcaster,
-        [SessionType.Email]: Source.Farcaster,
-    },
-    (sessionType) => {
-        throw new UnreachableError('sessionType', sessionType);
-    },
-);
-
-export const resolveSourceFromWalletSource = createLookupTableResolver<WalletSource, Source>(
-    {
-        [WalletSource.Farcaster]: Source.Farcaster,
-        [WalletSource.Lens]: Source.Lens,
-        [WalletSource.LensContract]: Source.Lens,
-        [WalletSource.Twitter]: Source.Twitter,
-        [WalletSource.Firefly]: Source.Firefly,
-        [WalletSource.Article]: Source.Article,
-        [WalletSource.Wallet]: Source.Wallet,
-        [WalletSource.NFTs]: Source.NFTs,
-        [WalletSource.Particle]: Source.Farcaster,
-    },
-    (walletSource) => {
-        throw new UnreachableError('WalletSource', walletSource);
     },
 );
 

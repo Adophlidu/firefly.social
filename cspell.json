@@ -23,7 +23,6 @@
         "bsky",
         "cacheable",
         "CAIP",
-        "canonicalize",
         "cashtags",
         "celo",
         "chainbase",
@@ -155,7 +154,6 @@
     ],
     "ignoreWords": [
         "DEVNET",
-        "IDBP",
         "Leaderboard",
         "Leafwatch",
         "Upvoted",
@@ -220,7 +218,6 @@
         "usehooks",
         "localforage",
         "fname",
-        "openrank",
         "imagekit",
         "giphy",
         "Gifs",

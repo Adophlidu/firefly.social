@@ -5,18 +5,6 @@ export interface ErrorResponse {
     }>;
 }
 
-export interface UserResponse extends ErrorResponse {
-    result: {
-        user: Profile;
-    };
-}
-
-export interface SuccessResponse extends ErrorResponse {
-    result: {
-        success: boolean;
-    };
-}
-
 export interface SignedKeyRequestResponse extends ErrorResponse {
     result: {
         signedKeyRequest: {
@@ -152,57 +140,6 @@ export interface ViewerContext {
 
 export interface Next {
     cursor: string;
-}
-
-export interface Profile {
-    fid: number;
-    username: string;
-    displayName: string;
-    pfp: {
-        url: string;
-        verified: boolean;
-    };
-    profile: {
-        bio: {
-            text: string;
-            mentions: unknown[];
-        };
-        location: {
-            description: string;
-            placeId: string;
-        };
-    };
-    followerCount: number;
-    followingCount: number;
-    referrerUsername: string;
-    viewerContext: {
-        following: boolean;
-        followedBy: boolean;
-        canSendDirectCasts: boolean;
-    };
-}
-
-export interface ReactionInfo {
-    type: string;
-    hash: string;
-    reactor: Profile;
-    timestamp: number;
-    castHash: string;
-}
-
-export interface Notification {
-    type: string;
-    id: string;
-    timestamp: number;
-    actor: Profile;
-    content: {
-        cast: Cast;
-    };
-}
-
-export interface Prediction {
-    placeId: string;
-    description: string;
 }
 
 export interface Channel {

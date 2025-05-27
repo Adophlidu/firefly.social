@@ -20,8 +20,3 @@ export async function getPublicKeyInHexFromSession(session: FarcasterSession) {
     const signer = new NobleEd25519Signer(toBytes(session.token));
     return getPublicKeyInHexFromSigner(signer);
 }
-
-export async function signMessageInHexFromSession(session: FarcasterSession, message: Uint8Array) {
-    const signer = new NobleEd25519Signer(toBytes(session.token));
-    return signMessageInHexFromSigner(signer, message);
-}

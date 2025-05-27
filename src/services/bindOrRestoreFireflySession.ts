@@ -5,7 +5,6 @@ import {
     FarcasterPatchSignerError,
     FireflyAlreadyBoundError,
     FireflyBindTimeoutError,
-    NotImplementedError,
 } from '@/constants/error.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Session } from '@/providers/types/Session.js';
@@ -43,8 +42,4 @@ export async function bindOrRestoreFireflySession(session: Session, signal?: Abo
         // this will create a new session
         return restoreFireflySession(session, signal);
     }
-}
-
-export async function restoreOrBindFireflySession(session: Session, signal?: AbortSignal) {
-    throw new NotImplementedError();
 }

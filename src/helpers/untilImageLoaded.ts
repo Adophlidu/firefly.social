@@ -1,6 +1,6 @@
 import { AbortError } from '@/constants/error.js';
 
-export function untilImageLoaded(img: HTMLImageElement, signal?: AbortSignal) {
+function untilImageLoaded(img: HTMLImageElement, signal?: AbortSignal) {
     return new Promise<HTMLImageElement>((resolve, reject) => {
         const onAbort = () => {
             reject(new AbortError());

@@ -1,39 +1,10 @@
 import type { SocialSourceInURL } from '@/constants/enum.js';
-import { createPageTitle, createPageTitleOG } from '@/helpers/createPageTitle.js';
+import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-
-export async function createMetadataChannel(source: SocialSourceInURL, channelId: string) {
-    if (!isSocialSourceInUrl(source)) return createSiteMetadata();
-
-    const socialSource = resolveSocialSource(source);
-    const provider = resolveSocialMediaProvider(socialSource);
-    const channel = await provider.getChannelById(channelId).catch(() => null);
-    if (!channel) return createSiteMetadata({});
-    const title = createPageTitleOG(channel.name);
-    const description = channel.description;
-    const images = [channel.imageUrl];
-    return createSiteMetadata({
-        title,
-        description,
-        openGraph: {
-            title,
-            description,
-            images,
-            type: 'profile',
-            url: resolveChannelUrl(channelId, socialSource),
-        },
-        twitter: {
-            card: 'summary',
-            title,
-            description,
-            images,
-        },
-    });
-}
 
 export async function createMetadataChannelById(source: SocialSourceInURL, channelId: string) {
     if (!isSocialSourceInUrl(source)) return createSiteMetadata();

@@ -89,10 +89,3 @@ export const TRUMP_TWITTER_PROFILE: Profile = {
     hit: true,
     score: 0.07142878,
 };
-
-export const PUDGY_PENGUINS_MENTION = {
-    tag: CHAR_TAG.MENTION,
-    visible: true,
-    content: '@pudgypenguins',
-    profiles: [PUDGY_PENGUINS_TWITTER_PROFILE],
-} satisfies MentionChars;

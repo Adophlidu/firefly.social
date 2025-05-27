@@ -63,7 +63,6 @@ export const FrameViewerModalRef = new SingletonModal<FrameViewerModalOpenProps,
 export const AddCustomERC20ModalRef = new SingletonModal<AddCustomERC20ModalOpenProps>();
 export const AddCustomERC721ModalRef = new SingletonModal<AddCustomERC721ModalOpenProps>();
 export const ChannelSelectModalRef = new SingletonModal<ChannelSelectModalOpenProps, ChannelSelectModalCloseProps>();
-export const ClubSelectModalRef = new SingletonModal<ChannelSelectModalOpenProps, ChannelSelectModalCloseProps>();
 export const MyWalletsModalRef = new SingletonModal();
 export const EditFireflyProfileModalRef = new SingletonModal<EditFireflyProfileModalOpenProps>();
 export const SwapModalRef = new SingletonModal<SwapModalOpenProps>();

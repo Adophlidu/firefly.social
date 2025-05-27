@@ -1,11 +1,3 @@
-export interface Currency {
-    id: string;
-    chainId?: number;
-    name: string;
-    symbol?: string;
-    description?: string;
-}
-
 export type CommunityType =
     | 'discord'
     | 'facebook'
@@ -123,27 +115,6 @@ export interface Market {
     average_volume_24h?: number;
     /** NFT only */
     volume_all?: number;
-}
-
-export interface Ticker {
-    logo_url: string;
-    trade_url: string;
-    market_name: string;
-    /** fungible token only */
-    base_name?: string;
-    /** fungible token only */
-    target_name?: string;
-    price?: number;
-    volume?: number;
-    score?: string;
-    updated?: Date;
-    /** NFT only */
-    volume_24h?: number;
-    /** NFT only */
-    floor_price?: number;
-    price_symbol?: string;
-    /** NFT only */
-    sales_24?: number;
 }
 
 export enum TrendingProvider {

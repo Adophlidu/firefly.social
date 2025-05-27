@@ -2,7 +2,6 @@ import { BigNumber } from 'bignumber.js';
 import { isUndefined } from 'lodash-es';
 
 export const ZERO = new BigNumber('0');
-export const ONE = new BigNumber('1');
 
 /** n === 0 */
 export function isZero(n: BigNumber.Value) {

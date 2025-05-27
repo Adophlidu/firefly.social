@@ -9,7 +9,6 @@ import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { thirdPartySessionHolder } from '@/providers/third-party/SessionHolder.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Session } from '@/providers/types/Session.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export const resolveSessionHolder = createLookupTableResolver<SocialSource, SessionHolder<Session>>(
     {
@@ -37,22 +36,5 @@ export const resolveSessionHolderFromProfileSource = createLookupTableResolver<P
     },
     (source) => {
         throw new UnreachableError('source', source);
-    },
-);
-
-export const resolveSessionHolderFromSessionType = createLookupTableResolver<SessionType, SessionHolder<Session>>(
-    {
-        [SessionType.Farcaster]: farcasterSessionHolder,
-        [SessionType.Lens]: lensSessionHolder,
-        [SessionType.Firefly]: fireflySessionHolder,
-        [SessionType.Twitter]: twitterSessionHolder,
-        [SessionType.Bsky]: bskySessionHolder,
-        [SessionType.Apple]: thirdPartySessionHolder,
-        [SessionType.Google]: thirdPartySessionHolder,
-        [SessionType.Telegram]: thirdPartySessionHolder,
-        [SessionType.Email]: thirdPartySessionHolder,
-    },
-    (sessionType) => {
-        throw new UnreachableError('sessionType', sessionType);
     },
 );

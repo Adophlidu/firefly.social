@@ -32,11 +32,6 @@ export const WARPCAST_CONVERSATIONS_REGEX = /^https:\/\/warpcast\.com\/~\/conver
 
 export const LENS_DETAIL_REGEX = /^https:\/\/hey\.xyz\/posts\/.*$/;
 
-export const MASK_SOCIAL_DETAIL_REGEX =
-    /((https:\/\/|http:\/\/)?(?:firefly\.|firefly-staging\.|firefly-canary\.)?mask\.social|\.vercel\.app)\/post\/([\w-]+)(\?.*)?$/i;
-
-export const MASK_SOCIAL_POST_PATH_REGEX = /\/post\/([\w-]+)/i;
-
 export const BIO_TWITTER_PROFILE_REGEX = /([^\s]+)\.twitter/;
 // cspell: disable-next-line
 export const TWITTER_NORMAL_AVATAR = /^https:\/\/pbs\.twimg\.com.*_normal(\.\w+)$/;
@@ -66,8 +61,6 @@ export const PARAGRAPH_ARTICLE_REGEXP = /https?:\/\/paragraph\.xyz(\/view)?\/@([
 
 export const SNAPSHOT_PROPOSAL_REGEXP = /https:\/\/snapshot\.org\/#\/.+?\/proposal\/([a-zA-Z0-9_]*)/;
 export const SNAPSHOT_NEW_PROPOSAL_REGEXP = /https:\/\/snapshot\.box\/#\/s:(.+)\/proposal\/(0x[a-fA-F0-9]{64})$/;
-
-export const TWITTER_PROFILE_REGEX = /https:\/\/(x\.com|twitter\.com)\/([a-zA-Z0-9_]*)\/?/;
 
 export const TENOR_GIF_REGEXP = /^https:\/\/media\.tenor\.com\/([^/]+)\/([^/]+)\.gif/;
 

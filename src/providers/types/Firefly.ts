@@ -360,12 +360,6 @@ export type TelegramLoginBotResponse = Response<{
     tgUrl: string;
 }>;
 
-export type MetricsDownloadResponse = Response<{
-    ciphertext: string;
-} | null>;
-
-export type MetricsUploadResponse = Response<void>;
-
 export type BindResponse = Response<{
     fid: number;
     farcaster_signer_public_key?: string;
@@ -657,10 +651,6 @@ export type NFTAsset = NonFungibleAsset<number, number> & {
     __origin__?: unknown;
 };
 
-export type TwitterFollowStatusResponse = Response<{
-    isFollowed: boolean;
-}>;
-
 export type WalletsFollowStatusResponse = Response<
     Array<{
         address: string;
@@ -668,41 +658,9 @@ export type WalletsFollowStatusResponse = Response<
     }>
 >;
 
-export interface ReportPostParams {
-    platform: FireflyPlatform;
-    platform_id: string;
-    post_type: 'text' | 'video' | 'audio' | 'image';
-    post_id: string;
-}
-
-export interface LinkInfo {
-    link: string;
-    session: string;
-}
-
-export type LinkInfoResponse = Response<LinkInfo>;
-
-export type SessionStatus =
-    | {
-          status: 'confirm';
-          accountId: string;
-          accessToken: string;
-      }
-    | {
-          status: 'cancel';
-      }
-    | {
-          status: 'expired';
-      }
-    | {
-          status: 'pending';
-      };
-
 export type EmptyResponse = Response<void>;
 
 export type HexResponse = Response<Hex>;
-
-export type SessionStatusResponse = Response<SessionStatus>;
 
 export type DebankTokensResponse = Response<{
     list: DebankToken[];
@@ -904,10 +862,6 @@ export type AllConnections = {
 };
 
 export type GetAllConnectionsResponse = Response<AllConnections>;
-
-export type MessageToSignResponse = Response<{
-    message: string;
-}>;
 
 export type ConvertM3u8Response = Response<{
     m3u8Url: string;
@@ -1525,14 +1479,6 @@ export type WalletsStatusResponse = Response<
 >;
 
 export type GenerateOTPResponse = Response<string>;
-
-export enum FollowingTimelinePlatform {
-    All = 'all',
-    Lens = 'lens',
-    Farcaster = 'farcaster',
-    Twitter = 'twitter',
-    Wallet = 'wallet',
-}
 
 export interface FireflyProfileUpdateParams {
     displayName?: string;
