@@ -47,8 +47,6 @@ const ExternalEnvSchema = z.object({
 
     // urls
     NEXT_PUBLIC_SITE_URL: z.string().default('https://firefly.social'),
-    NEXT_PUBLIC_FARCASTER_OPENRANK_URL: z.string().default('https://graph.cast.k3l.io'),
-    NEXT_PUBLIC_LENS_OPENRANK_URL: z.string().default('https://lens-api.k3l.io'),
     NEXT_PUBLIC_SOLANA_RPC_URL: z.string().default('https://api.mainnet-beta.solana.com'),
     NEXT_PUBLIC_FIREFLY_NITTER_URL: z.string().default('https://nitter.r2d2.to'),
 
@@ -122,8 +120,6 @@ export const env = {
 
         // urls
         NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
-        NEXT_PUBLIC_FARCASTER_OPENRANK_URL: process.env.NEXT_PUBLIC_FARCASTER_OPENRANK_URL,
-        NEXT_PUBLIC_LENS_OPENRANK_URL: process.env.NEXT_PUBLIC_LENS_OPENRANK_URL,
         NEXT_PUBLIC_SOLANA_RPC_URL: process.env.NEXT_PUBLIC_SOLANA_RPC_URL,
         NEXT_PUBLIC_FIREFLY_NITTER_URL: process.env.NEXT_PUBLIC_FIREFLY_NITTER_URL,
 
