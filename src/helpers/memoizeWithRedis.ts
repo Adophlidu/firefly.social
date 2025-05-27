@@ -53,10 +53,10 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
         async get(fieldKey: string) {
             const redisKey = resolveRedisKey(key, fieldKey);
             const fieldValue = await kv.hget(redisKey, fieldKey);
-            const fieldValueWithTTL = fieldValue as { expiresAt: number; ttl: number; value: unknown };
+            const fieldValueWithTTL = fieldValue as { expiresAt: number; ttl: number; value: unknown } | null;
 
             // field value with TTL when set
-            if (typeof fieldValueWithTTL.expiresAt === 'number' && typeof fieldValueWithTTL.ttl === 'number') {
+            if (typeof fieldValueWithTTL?.expiresAt === 'number' && typeof fieldValueWithTTL?.ttl === 'number') {
                 if (Date.now() >= fieldValueWithTTL.expiresAt) return null;
                 return fieldValueWithTTL.value;
             }
