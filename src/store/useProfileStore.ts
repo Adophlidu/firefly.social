@@ -24,6 +24,7 @@ import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { retryOnBskyWhenNetworkError } from '@/helpers/retryOnBskyWhenNetworkError.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
+import { getBskySessionStorage, removeBskySessionStorage } from '@/providers/bsky/createBskyAgent.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
@@ -344,6 +345,14 @@ const useBskyStateBase = createState(
                 return;
             }
             const bskySession = currentProfileSession as BskySession;
+            const sdkSession = getBskySessionStorage()?.[bskySession.did];
+            if (sdkSession?.accessJwt && sdkSession.refreshJwt) {
+                bskySession.sessionPayload = {
+                    ...bskySession.sessionPayload,
+                    accessJwt: sdkSession.accessJwt,
+                    refreshJwt: sdkSession.refreshJwt,
+                };
+            }
 
             try {
                 state.__setStatus__(AsyncStatus.Pending);
@@ -389,6 +398,10 @@ const useBskyStateBase = createState(
                 console.warn('[bsky store] clean the local store because of the error', error);
 
                 const clearSession = error instanceof BskySessionExpiredError;
+                if (clearSession) {
+                    removeBskySessionStorage(bskySession.did);
+                }
+
                 state.clear(clearSession);
                 bskySessionHolder.removeSession();
 

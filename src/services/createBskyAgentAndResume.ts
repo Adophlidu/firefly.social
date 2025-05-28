@@ -1,14 +1,15 @@
-import { AtpAgent, type AtpSessionData, ComAtprotoServerRefreshSession } from '@atproto/api';
+import { type AtpSessionData } from '@atproto/api';
 import { getPdsEndpoint, isValidDidDoc } from '@atproto/common-web';
 
 import { BskySessionExpiredError } from '@/constants/error.js';
 import { isBskyTokenExpired } from '@/helpers/isBskyTokenExpired.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { retryOnBskyWhenNetworkError } from '@/helpers/retryOnBskyWhenNetworkError.js';
+import { createBskyAgent } from '@/providers/bsky/createBskyAgent.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
 
 export async function createBskyAgentAndResume(session: BskySession) {
-    const agent = new AtpAgent({ service: session.serviceUrl });
+    const agent = createBskyAgent(session.serviceUrl);
     const pdsUrl = parseUrl(session.sessionPayload.pdsUrl || '');
     if (pdsUrl) {
         agent.sessionManager.pdsUrl = pdsUrl;
@@ -34,7 +35,7 @@ export async function createBskyAgentAndResume(session: BskySession) {
             );
         }
     } catch (e) {
-        if (!prevSession.refreshJwt) throw new BskySessionExpiredError();
+        if (!prevSession.refreshJwt) throw new BskySessionExpiredError('no refresh token found');
 
         try {
             /**
@@ -42,7 +43,8 @@ export async function createBskyAgentAndResume(session: BskySession) {
              * so we need to retry it manually to check if the refresh token is expired
              */
             const res = await retryOnBskyWhenNetworkError(2, () =>
-                agent.app._client.call('com.atproto.server.refreshSession', undefined, undefined, {
+                // @ts-ignore
+                agent.sessionManager.server.refreshSession(undefined, {
                     headers: { authorization: `Bearer ${prevSession.refreshJwt}` },
                 }),
             );
@@ -58,12 +60,15 @@ export async function createBskyAgentAndResume(session: BskySession) {
                 agent.sessionManager.pdsUrl = endpoint ? new URL(endpoint) : undefined;
             }
         } catch (err) {
-            const error = ComAtprotoServerRefreshSession.toKnownErr(err);
-            if ('error' in error && ['ExpiredToken', 'InvalidToken'].includes(error.error)) {
-                throw new BskySessionExpiredError();
+            if (
+                err instanceof Error &&
+                'error' in err &&
+                ['ExpiredToken', 'InvalidToken'].includes(err.error as string)
+            ) {
+                throw new BskySessionExpiredError(`${err.error}-${err.message}`);
             }
 
-            throw error;
+            throw err;
         }
     }
 

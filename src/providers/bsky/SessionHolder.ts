@@ -1,26 +1,13 @@
 /* cspell:disable */
 
-import { AtpAgent, type AtpSessionData, type AtpSessionEvent } from '@atproto/api';
-import { memoize } from 'lodash-es';
-
 import { PUBLIC_SERVICE_URL } from '@/constants/bsky.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
+import { createAgentOnce } from '@/providers/bsky/createBskyAgent.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { createBskyAgentAndResume } from '@/services/createBskyAgentAndResume.js';
 
-export const createAgentOnce = (serviceUrl: string) => {
-    return new AtpAgent({
-        service: serviceUrl,
-        persistSession: (evt: AtpSessionEvent, session?: AtpSessionData) => {
-            console.warn('[AtpAgent] persistSession', evt, session);
-        },
-    });
-};
-
-export const createAgent: typeof createAgentOnce = memoize(createAgentOnce);
-
 class BskySessionHolder extends SessionHolder<BskySession> {
-    private _agent = createAgent(PUBLIC_SERVICE_URL);
+    private _agent = createAgentOnce(PUBLIC_SERVICE_URL);
 
     get agent() {
         return this._agent;
