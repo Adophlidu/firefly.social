@@ -3,6 +3,7 @@ import { useLocation } from '@tanstack/react-router';
 import { useEffect } from 'react';
 import urlcat from 'urlcat';
 
+import { getNetworkTypeFromCaipAddress } from '@/helpers/getNetworkTypeFromCaipAddress.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
 import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
@@ -34,7 +35,8 @@ export function ConnectingWcView() {
         const unsubscribe = CoreChainController.subscribeKey('activeCaipAddress', (address) => {
             if (!address) return;
 
-            WalletConnectModalRef.close();
+            const networkType = getNetworkTypeFromCaipAddress(address);
+            WalletConnectModalRef.close(networkType ? { networkType } : undefined);
             captureConnectWalletEvent(EventId.CONNECT_WALLET_SUCCESS, {
                 name: location.search.name,
                 origin,

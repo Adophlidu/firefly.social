@@ -37,6 +37,9 @@ msgstr ""
 msgid "Be the first one to comment!"
 msgstr ""
 
+msgid "Select which chain to connect to your multi chain wallet"
+msgstr ""
+
 msgid "Failed to mute all wallets and accounts."
 msgstr ""
 
@@ -728,7 +731,7 @@ msgstr ""
 msgid "Connect Email"
 msgstr ""
 
-#. placeholder {0}: chainNameMap[chains[0]]
+#. placeholder {0}: resolveAppKitNetworkName(chains[0])
 msgid "Only {0}"
 msgstr ""
 
@@ -1311,6 +1314,10 @@ msgstr ""
 msgid "Try searching for something else."
 msgstr ""
 
+#. placeholder {0}: provider.chain
+msgid "No connector found for {0}"
+msgstr ""
+
 #. placeholder {0}: channel.id
 msgid "Unmute /{0}"
 msgstr ""
@@ -1856,6 +1863,10 @@ msgid "{0, select, success {Success} failed {Failed} pending {Pending} other {Fa
 msgstr ""
 
 msgid "Tip sent successfully!"
+msgstr ""
+
+#. placeholder {0}: activeConnector.name
+msgid "Select Chain for {0}"
 msgstr ""
 
 msgid "Bookmark"
@@ -2545,6 +2556,9 @@ msgid "The gas abuse function is not included. If there is a gas abuse function,
 msgstr ""
 
 msgid "Translated"
+msgstr ""
+
+msgid "Select Wallet"
 msgstr ""
 
 #. placeholder {0}: market?.price_change_percentage_24h_in_currency !== undefined ? ( <span className={isUp ? 'text-success' : 'text-fail'}> {market.price_change_percentage_24h_in_currency.toFixed(2)}% </span> ) : null

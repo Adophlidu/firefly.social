@@ -12,6 +12,7 @@ import { useConnections } from 'wagmi';
 
 import { ClickOrigin, NetworkType } from '@/constants/enum.js';
 import { getFilteredConnectors } from '@/helpers/getFilteredConnectors.js';
+import { networkTypeToChainNamespace } from '@/helpers/networkTypeToChainNamespace.js';
 import type { ChainNamespace, ConnectorWithProvider } from '@/types/index.js';
 
 interface WalletConnectState {
@@ -22,11 +23,14 @@ interface WalletConnectState {
 
 interface WalletConnectContext extends WalletConnectState {
     loading: boolean;
-    connectedId: string[];
+    connectedId: Array<{ networkType: NetworkType; id: string }>;
     chainNamespace: ChainNamespace | null;
 
     origin: ClickOrigin;
     setOrigin: (origin: ClickOrigin) => void;
+
+    customTitle: string | null;
+    setCustomTitle: (title: string | null) => void;
 
     networkType: NetworkType | null;
     setNetworkType: (networkType?: NetworkType) => void;
@@ -50,22 +54,12 @@ async function setupApi() {
     ]);
 }
 
-function networkTypeToChainNamespace(networkType: NetworkType): ChainNamespace | null {
-    switch (networkType) {
-        case NetworkType.Ethereum:
-            return 'eip155';
-        case NetworkType.Solana:
-            return 'solana';
-        default:
-            return null;
-    }
-}
-
 function useWalletConnectContext(initialState?: WalletConnectContext): WalletConnectContext {
     const connections = useConnections();
     const [value, setValue] = useState<WalletConnectState>(initialState ?? createEmptyWalletConnectState());
 
     const [origin, setOrigin] = useState<ClickOrigin>(ClickOrigin.Others);
+    const [customTitle, setCustomTitle] = useState<string | null>(null);
 
     const [loading, setLoading] = useState(true);
     const [networkType, setNetworkType] = useState<NetworkType | null>(null);
@@ -96,9 +90,10 @@ function useWalletConnectContext(initialState?: WalletConnectContext): WalletCon
         });
     }, []);
 
+    const solanaWalletName = value.chainState.get('solana')?.accountState?.connectedWalletInfo?.name;
     const connectedId = compact([
-        ...connections.map((x) => x.connector.id),
-        value.chainState.get('solana')?.accountState?.connectedWalletInfo?.name,
+        ...connections.map((x) => ({ networkType: NetworkType.Ethereum, id: x.connector.id })),
+        solanaWalletName ? { networkType: NetworkType.Solana, id: solanaWalletName } : null,
     ]);
 
     return {
@@ -112,6 +107,9 @@ function useWalletConnectContext(initialState?: WalletConnectContext): WalletCon
 
         origin,
         setOrigin,
+
+        customTitle,
+        setCustomTitle,
 
         networkType,
         setNetworkType: (networkType?: NetworkType) => setNetworkType(networkType ?? null),

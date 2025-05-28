@@ -42,6 +42,9 @@ msgstr "发现盗窃攻击。"
 msgid "Be the first one to comment!"
 msgstr "还没有人评论哦～快来抢沙发！"
 
+msgid "Select which chain to connect to your multi chain wallet"
+msgstr ""
+
 msgid "Failed to mute all wallets and accounts."
 msgstr "未能隐藏所有的钱包和账户。"
 
@@ -733,7 +736,7 @@ msgstr "密码<<<<<<< HEAD======="
 msgid "Connect Email"
 msgstr "绑定邮箱"
 
-#. placeholder {0}: chainNameMap[chains[0]]
+#. placeholder {0}: resolveAppKitNetworkName(chains[0])
 msgid "Only {0}"
 msgstr "仅支持{0}"
 
@@ -1316,6 +1319,10 @@ msgstr "删除你的账户将永久断开您关联的社交账户并移除你的
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
 
+#. placeholder {0}: provider.chain
+msgid "No connector found for {0}"
+msgstr ""
+
 #. placeholder {0}: channel.id
 msgid "Unmute /{0}"
 msgstr "取消隐藏 /{0}"
@@ -1870,6 +1877,10 @@ msgstr "{0, select, success {成功} failed {失败} pending {待处理} other {
 
 msgid "Tip sent successfully!"
 msgstr "打赏成功！"
+
+#. placeholder {0}: activeConnector.name
+msgid "Select Chain for {0}"
+msgstr ""
 
 msgid "Bookmark"
 msgstr "收藏"
@@ -2564,6 +2575,9 @@ msgstr "未包含燃气滥用功能。如果存在燃气滥用功能，项目所
 
 msgid "Translated"
 msgstr "已翻译"
+
+msgid "Select Wallet"
+msgstr ""
 
 #. placeholder {0}: market?.price_change_percentage_24h_in_currency !== undefined ? ( <span className={isUp ? 'text-success' : 'text-fail'}> {market.price_change_percentage_24h_in_currency.toFixed(2)}% </span> ) : null
 #. placeholder {1}: renderShrankPrice(formatPrice(price) ?? '-')

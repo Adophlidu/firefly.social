@@ -37,6 +37,9 @@ msgstr "Stealing attack found."
 msgid "Be the first one to comment!"
 msgstr "Be the first one to comment!"
 
+msgid "Select which chain to connect to your multi chain wallet"
+msgstr "Select which chain to connect to your multi chain wallet"
+
 msgid "Failed to mute all wallets and accounts."
 msgstr "Failed to mute all wallets and accounts."
 
@@ -728,7 +731,7 @@ msgstr "Password"
 msgid "Connect Email"
 msgstr "Connect Email"
 
-#. placeholder {0}: chainNameMap[chains[0]]
+#. placeholder {0}: resolveAppKitNetworkName(chains[0])
 msgid "Only {0}"
 msgstr "Only {0}"
 
@@ -1311,6 +1314,10 @@ msgstr "Deleting your account will permanently disconnect your linked social acc
 msgid "Try searching for something else."
 msgstr "Try searching for something else."
 
+#. placeholder {0}: provider.chain
+msgid "No connector found for {0}"
+msgstr "No connector found for {0}"
+
 #. placeholder {0}: channel.id
 msgid "Unmute /{0}"
 msgstr "Unmute /{0}"
@@ -1865,6 +1872,10 @@ msgstr "{0, select, success {Success} failed {Failed} pending {Pending} other {F
 
 msgid "Tip sent successfully!"
 msgstr "Tip sent successfully!"
+
+#. placeholder {0}: activeConnector.name
+msgid "Select Chain for {0}"
+msgstr "Select Chain for {0}"
 
 msgid "Bookmark"
 msgstr "Bookmark"
@@ -2559,6 +2570,9 @@ msgstr "The gas abuse function is not included. If there is a gas abuse function
 
 msgid "Translated"
 msgstr "Translated"
+
+msgid "Select Wallet"
+msgstr "Select Wallet"
 
 #. placeholder {0}: market?.price_change_percentage_24h_in_currency !== undefined ? ( <span className={isUp ? 'text-success' : 'text-fail'}> {market.price_change_percentage_24h_in_currency.toFixed(2)}% </span> ) : null
 #. placeholder {1}: renderShrankPrice(formatPrice(price) ?? '-')

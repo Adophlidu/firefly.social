@@ -16,7 +16,8 @@ const rootRoute = createRootRoute({
 });
 
 function MainTitle() {
-    const { networkType } = WalletConnectContext.useContainer();
+    const { networkType, customTitle } = WalletConnectContext.useContainer();
+    if (customTitle) return customTitle;
     if (!networkType) return <Trans>Connect Wallet</Trans>;
 
     switch (networkType) {

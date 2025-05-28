@@ -30,9 +30,12 @@ import type { SwapModalOpenProps } from '@/modals/SwapModal.js';
 import type { TipsModalCloseProps, TipsModalOpenProps } from '@/modals/TipsModal.js';
 import type { TokenSelectorModalCloseProps, TokenSelectorModalOpenProps } from '@/modals/TokenSelectorModal.js';
 import type { TransactionSimulatorModalOpenProps } from '@/modals/TransactionSimulatorModal.js';
-import type { WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/index.js';
+import type { WalletConnectModalCloseProps, WalletConnectModalOpenProps } from '@/modals/WalletConnectModal/index.js';
 
-export const WalletConnectModalRef = new SingletonModal<WalletConnectModalOpenProps | void>();
+export const WalletConnectModalRef = new SingletonModal<
+    WalletConnectModalOpenProps | void,
+    WalletConnectModalCloseProps | void
+>();
 export const LoginModalRef = new SingletonModal<LoginModalOpenProps | void>();
 export const LogoutModalRef = new SingletonModal<LogoutModalProps | void>();
 export const ComposeModalRef = new SingletonModal<ComposeModalOpenProps, ComposeModalCloseProps>();

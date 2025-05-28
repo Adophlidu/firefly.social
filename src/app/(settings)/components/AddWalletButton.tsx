@@ -1,29 +1,43 @@
+import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { AddWalletModalRef } from '@/modals/controls.js';
+import { useVerifyAndBindWallet } from '@/hooks/useVerifyAndBindWallet.js';
+import { AddWalletModalRef, WalletConnectModalRef } from '@/modals/controls.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface AddWalletButtonProps extends Omit<ClickableButtonProps, 'children'> {
     connections: FireflyWalletConnection[];
+    /** if true, open the wallet modal directly */
+    openWallets?: boolean;
     onSuccess?: () => void;
 }
 
 export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButton({
     disabled = false,
+    openWallets = false,
     connections,
     onSuccess,
     ref,
     ...rest
 }) {
+    const [, handleBind] = useVerifyAndBindWallet(connections);
     const [{ loading }, handleAddWallet] = useAsyncFn(async () => {
-        await AddWalletModalRef.openAndWaitForClose({
-            connections,
-        });
+        if (!openWallets) {
+            await AddWalletModalRef.openAndWaitForClose({
+                connections,
+            });
+            onSuccess?.();
+            return;
+        }
+        const selectedWallet = await WalletConnectModalRef.openAndWaitForClose({ customTitle: t`Select Wallet` });
+        if (!selectedWallet) return;
+
+        await handleBind(selectedWallet.networkType);
         onSuccess?.();
-    }, [connections, onSuccess]);
+    }, [connections, openWallets, onSuccess, handleBind]);
 
     return (
         <ClickableButton

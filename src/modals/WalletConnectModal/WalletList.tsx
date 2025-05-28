@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import {
+    type ConnectorWithProviders,
     CoreAssetController,
     CoreAssetUtil,
     CoreConnectionController,
@@ -10,14 +11,17 @@ import {
 } from '@reown/appkit';
 import { useRouter } from '@tanstack/react-router';
 import { memo, type ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
 import ScanIcon from '@/assets/scan.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { WalletChainConfig, WalletId } from '@/constants/reown.js';
+import { resolveAppKitNetworkName } from '@/helpers/resolveAppKitNetworkName.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { WalletConnectContext } from '@/hooks/useWalletConnectContext.js';
+import { checkIfConnectedAndSwitch } from '@/modals/WalletConnectModal/checkIfConnectedAndSwitch.js';
 import { selectConnector, selectWallet } from '@/modals/WalletConnectModal/selectWallet.js';
 import { uniqueWallets } from '@/modals/WalletConnectModal/uniqueWallets.js';
 import type { ChainNamespace, ConnectorWithProvider } from '@/types/index.js';
@@ -33,14 +37,6 @@ interface WalletItemProps extends ClickableButtonProps {
 interface ConnectedProps {
     connectors: ConnectorWithProvider[];
 }
-
-const chainNameMap: Record<ChainNamespace, string> = {
-    eip155: 'EVM',
-    solana: 'Solana',
-    polkadot: 'Polkadot',
-    bip122: 'Bitcoin',
-    cosmos: 'Cosmos',
-};
 
 const WalletItem = memo<WalletItemProps>(function WalletItem({ icon, name, installed, chains, tagIcon, ...rest }) {
     const isDarkMode = useIsDarkMode();
@@ -63,13 +59,13 @@ const WalletItem = memo<WalletItemProps>(function WalletItem({ icon, name, insta
                 <span className="text-main">{name || 'Unknown'}</span>
                 {!chains?.length || chainNamespace ? null : chains.length === 1 ? (
                     <span className="text-secondary">
-                        <Trans>Only {chainNameMap[chains[0]]}</Trans>
+                        <Trans>Only {resolveAppKitNetworkName(chains[0])}</Trans>
                     </span>
                 ) : (
                     <span className="text-secondary">
                         {chains
                             .sort((chain) => (chain === 'eip155' ? -1 : 1))
-                            .map((x) => chainNameMap[x])
+                            .map((x) => resolveAppKitNetworkName(x))
                             .join(' & ')}
                     </span>
                 )}
@@ -89,8 +85,17 @@ export const InjectedWallets = memo<ConnectedProps>(function InjectedWallets({ c
     const { history } = useRouter();
     const { connectedId } = WalletConnectContext.useContainer();
 
-    const validConnectors = connectors.filter((x) => x.type === 'INJECTED');
+    const [{ loading }, onWalletClick] = useAsyncFn(
+        async (connector: ConnectorWithProviders) => {
+            if (await checkIfConnectedAndSwitch(connector, connectedId)) return;
+            CoreConnectorController.setActiveConnector(connector);
+            CoreRouterController.state.data = { connector };
+            history.push(urlcat('/connecting', { name: encodeURIComponent(connector.name || '') }));
+        },
+        [connectedId, history],
+    );
 
+    const validConnectors = connectors.filter((x) => x.type === 'INJECTED');
     if (
         !validConnectors.length ||
         (validConnectors.length === 1 && validConnectors[0]?.name === 'Browser Wallet' && !CoreHelperUtil.isMobile())
@@ -105,15 +110,11 @@ export const InjectedWallets = memo<ConnectedProps>(function InjectedWallets({ c
             <WalletItem
                 key={connector.id}
                 icon={CoreAssetUtil.getConnectorImage(connector)}
-                disabled={[connector.id, connector.name].some((x) => connectedId.includes(x))}
                 name={connector.name}
                 chains={connector.chain ? [connector.chain] : []}
                 installed
-                onClick={() => {
-                    CoreConnectorController.setActiveConnector(connector);
-                    CoreRouterController.state.data = { connector };
-                    history.push(urlcat('/connecting', { name: encodeURIComponent(connector.name || '') }));
-                }}
+                disabled={loading}
+                onClick={() => onWalletClick(connector)}
             />
         );
     });
@@ -197,19 +198,25 @@ export const MultipleChainWallets = memo<ConnectedProps>(function MultipleChainW
 export const AnnouncedWallets = memo<ConnectedProps>(function AnnouncedWallets({ connectors }) {
     const { connectedId } = WalletConnectContext.useContainer();
 
+    const [{ loading }, onWalletClick] = useAsyncFn(
+        async (connector: ConnectorWithProviders) => {
+            if (await checkIfConnectedAndSwitch(connector, connectedId)) return;
+            selectConnector(connector);
+        },
+        [connectedId],
+    );
+
     const announcedConnectors = connectors.filter((connector) => connector.type === 'ANNOUNCED');
 
     return announcedConnectors.map((connector) => (
         <WalletItem
             key={connector.id}
-            disabled={[connector.id, connector.name].some((x) => connectedId.includes(x))}
             icon={CoreAssetUtil.getConnectorImage(connector)}
             name={connector.name}
             chains={connector.chain ? [connector.chain] : []}
             installed
-            onClick={() => {
-                selectConnector(connector);
-            }}
+            disabled={loading}
+            onClick={() => onWalletClick(connector)}
         />
     ));
 });

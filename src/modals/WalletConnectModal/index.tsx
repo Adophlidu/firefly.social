@@ -14,20 +14,25 @@ import { walletRouter } from '@/modals/WalletConnectModal/routes.js';
 export interface WalletConnectModalOpenProps {
     origin?: ClickOrigin;
     networkType?: NetworkType;
+    customTitle?: string;
+}
+export interface WalletConnectModalCloseProps {
+    networkType: NetworkType;
 }
 type Props = {
-    ref: React.Ref<SingletonModalRefCreator<WalletConnectModalOpenProps | void>>;
+    ref: React.Ref<SingletonModalRefCreator<WalletConnectModalOpenProps | void, WalletConnectModalCloseProps | void>>;
 };
 
 export function WalletConnectModalRoot({ ref }: Props) {
     const isDark = useIsDarkMode();
     const { setThemeMode } = useAppKitTheme();
-    const { setNetworkType, unsetNetworkType, setOrigin } = WalletConnectContext.useContainer();
+    const { setNetworkType, unsetNetworkType, setOrigin, setCustomTitle } = WalletConnectContext.useContainer();
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
             setNetworkType(props?.networkType ? props.networkType : undefined);
             setOrigin(props?.origin ?? ClickOrigin.Others);
+            setCustomTitle(props?.customTitle || null);
         },
         onClose: async () => {
             await delay(300);

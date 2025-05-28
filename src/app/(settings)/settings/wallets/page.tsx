@@ -64,6 +64,7 @@ export default function Wallets() {
                     {!isLoading ? (
                         <div className="flex w-full justify-center">
                             <AddWalletButton
+                                openWallets
                                 connections={connected}
                                 disabled={isRefetching}
                                 onSuccess={async () => {
