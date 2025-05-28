@@ -14,7 +14,7 @@ import { createPortal } from 'react-dom';
 import { useDebounce, useOnClickOutside } from 'usehooks-ts';
 
 import { Avatar } from '@/components/Avatar.js';
-import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
+import { $createMentionNode, MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
@@ -252,6 +252,8 @@ export function MentionsPlugin(): JSX.Element | null {
     const onSelectOption = useCallback(
         (selectedOption: MentionTypeaheadOption, nodeToReplace: null | TextNode, closeMenu: () => void) => {
             isUpdatingMentionTag.current = true;
+
+            MentionNode.setEditorInstance(editor);
             editor.update(
                 () => {
                     const mentionNode = $createMentionNode(selectedOption.handle, selectedOption.allProfile);

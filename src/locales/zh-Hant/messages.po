@@ -2492,6 +2492,9 @@ msgstr "顯示更多評論"
 msgid "Connect Solana Wallet"
 msgstr ""
 
+msgid "Choose or set the handles for cross at."
+msgstr ""
+
 msgid "Exclusivity"
 msgstr ""
 
@@ -2968,6 +2971,9 @@ msgstr "行動應用程式"
 
 msgid "Upload photo"
 msgstr "上傳照片"
+
+msgid "Cross at handles"
+msgstr ""
 
 msgid "Follow {handleOrEnsOrAddress}"
 msgstr "追蹤 {handleOrEnsOrAddress}"

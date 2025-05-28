@@ -903,3 +903,17 @@ body.not-support .fixed.inset-y-0 {
     line-height: 1.4;
     font-size: 14px;
 }
+
+.tippy-box[data-theme~='cross-at-tooltip'] {
+    background-color: rgb(var(--color-bottom));
+    border-radius: 12px;
+    padding: 8px;
+}
+
+.tippy-box[data-theme~='cross-at-tooltip'] > .tippy-content {
+    padding: 0;
+}
+
+.tippy-box[data-theme~='cross-at-tooltip'] .cross-at-edit-item:hover .cross-at-edit {
+    display: block;
+}

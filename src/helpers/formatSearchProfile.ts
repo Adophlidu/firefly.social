@@ -2,7 +2,10 @@ import { compact, first } from 'lodash-es';
 
 import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
+import { createDummyProfile } from '@/helpers/createDummyProfile.js';
+import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
+import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import type { Profile as FireflyProfile, SearchProfileResponse } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -32,6 +35,16 @@ function fixProfilePlatform(profile: FireflyProfile) {
     return profile;
 }
 
+export function formatFireflyProfileToProfile(profile: FireflyProfile): Profile {
+    return {
+        ...createDummyProfile(resolveSocialSourceFromFireflyPlatform(profile.platform)),
+        profileId: profile.platform_id,
+        displayName: profile.name || '',
+        handle: profile.handle || '',
+        fullHandle: profile.handle || '',
+    };
+}
+
 interface SearchProfile {
     profile: FireflyProfile;
     related: FireflyProfile[];
@@ -53,8 +66,15 @@ export function formatSearchProfile(
                     : identity[resolveSocialSourceInUrl(source)];
 
             const profile = profiles?.find((x) => x.primary) || first(profiles);
-            if (target.platform === profile?.platform) return fixProfilePlatform(target);
-            return profile ? fixProfilePlatform(profile) : null;
+            const result = target.platform === profile?.platform ? target : profile;
+            return result
+                ? fixProfilePlatform({
+                      ...result,
+                      related_profiles: isSocialSource(source)
+                          ? identity[resolveSocialSourceInUrl(source)]?.map(fixProfilePlatform)
+                          : undefined,
+                  })
+                : null;
         }),
     );
 

@@ -11,6 +11,7 @@ import type { ConfirmLeavingModalCloseProps, ConfirmLeavingModalOpenProps } from
 import type { ConfirmModalCloseResult, ConfirmModalOpenProps } from '@/modals/ConfirmModal.js';
 import type { DisconnectFireflyAccountModalProps } from '@/modals/DisconnectFireflyAccountModal.js';
 import type { DraggablePopoverProps } from '@/modals/DraggablePopover.js';
+import type { EditCrossAtModalCloseProps, EditCrossAtModalOpenProps } from '@/modals/EditCrossAtModal.js';
 import type { EditFireflyProfileModalOpenProps } from '@/modals/EditFireflyProfileModal.js';
 import type { FrameViewerModalCloseProps, FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/index.js';
 import type { FreeMintModalOpenProps } from '@/modals/FreeMintModal/index.js';
@@ -69,3 +70,4 @@ export const ChannelSelectModalRef = new SingletonModal<ChannelSelectModalOpenPr
 export const MyWalletsModalRef = new SingletonModal();
 export const EditFireflyProfileModalRef = new SingletonModal<EditFireflyProfileModalOpenProps>();
 export const SwapModalRef = new SingletonModal<SwapModalOpenProps>();
+export const EditCrossAtModalRef = new SingletonModal<EditCrossAtModalOpenProps, EditCrossAtModalCloseProps>();

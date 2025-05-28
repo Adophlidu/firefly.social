@@ -2497,6 +2497,9 @@ msgstr "展示更多评论"
 msgid "Connect Solana Wallet"
 msgstr "连接Solana钱包"
 
+msgid "Choose or set the handles for cross at."
+msgstr ""
+
 msgid "Exclusivity"
 msgstr "独特性"
 
@@ -2973,6 +2976,9 @@ msgstr "手机应用"
 
 msgid "Upload photo"
 msgstr "上传照片"
+
+msgid "Cross at handles"
+msgstr ""
 
 msgid "Follow {handleOrEnsOrAddress}"
 msgstr "关注 {handleOrEnsOrAddress}"

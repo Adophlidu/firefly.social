@@ -2492,6 +2492,9 @@ msgstr "Show more comments"
 msgid "Connect Solana Wallet"
 msgstr "Connect Solana Wallet"
 
+msgid "Choose or set the handles for cross at."
+msgstr "Choose or set the handles for cross at."
+
 msgid "Exclusivity"
 msgstr "Exclusivity"
 
@@ -2968,6 +2971,9 @@ msgstr "Mobile App"
 
 msgid "Upload photo"
 msgstr "Upload photo"
+
+msgid "Cross at handles"
+msgstr "Cross at handles"
 
 msgid "Follow {handleOrEnsOrAddress}"
 msgstr "Follow {handleOrEnsOrAddress}"

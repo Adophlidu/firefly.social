@@ -256,7 +256,11 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                             >
                                 <Trans>Copy Trade</Trans>
                             </SwapButton>
-                            <div className="flex items-center gap-1 text-sm text-second">
+                            <div
+                                className={classNames('flex items-center gap-1 text-sm text-second', {
+                                    '!text-danger': activity.is_like,
+                                })}
+                            >
                                 <ClickableButton
                                     className="cursor-pointer"
                                     loading={isPending}
