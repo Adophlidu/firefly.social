@@ -185,7 +185,7 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
                     </div>
                 ) : null}
                 {allConnections.map((connection) => {
-                    return (
+                    return connection.walletIcon ? (
                         <ConnectedItem
                             key={`${connection.address}:${connection.connector?.id}:${connection.connected}`}
                             connected={connection.connected}
@@ -195,7 +195,7 @@ export const ConnectedWallets = memo(function ConnectedWallets() {
                             chainId={connection.chainId}
                             walletIconUrl={connection.walletIcon}
                         />
-                    );
+                    ) : null;
                 })}
             </div>
         </div>
