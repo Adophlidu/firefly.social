@@ -1,4 +1,4 @@
-import type { JSX } from 'react';
+import type { HTMLProps, JSX } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -8,13 +8,12 @@ type SourceNavProps<T> = {
     source: T;
     urlResolver: (source: T) => string;
     nameResolver: (source: T) => string | JSX.Element;
-    className?: string;
-};
+} & HTMLProps<HTMLDivElement>;
 
-export function SourceNav<T>({ source, sources, urlResolver, className, nameResolver }: SourceNavProps<T>) {
+export function SourceNav<T>({ source, sources, urlResolver, className, nameResolver, ...rest }: SourceNavProps<T>) {
     if (!sources) return null;
     return (
-        <nav className={classNames('flex space-x-2 px-1.5 pb-1.5 pt-3', className)} aria-label="Tabs">
+        <nav className={classNames('flex space-x-2 px-1.5 pb-1.5 pt-3', className)} aria-label="Tabs" {...rest}>
             {sources.map((x, index) => (
                 <Link
                     key={index}
