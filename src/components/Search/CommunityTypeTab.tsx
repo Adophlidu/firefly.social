@@ -2,6 +2,7 @@
 
 import { Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
+import type { HTMLProps } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { CommunityType, SearchType } from '@/constants/enum.js';
@@ -9,13 +10,17 @@ import { classNames } from '@/helpers/classNames.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
-export function CommunityTypeTab() {
+export function CommunityTypeTab(props: HTMLProps<HTMLDivElement>) {
     const { communityType, searchKeyword, source, searchType } = useSearchStateStore();
 
     if (searchType !== SearchType.Communities) return null;
 
     return (
-        <nav className="flex gap-x-2 space-x-2 px-4 pb-1.5 pt-3" aria-label="Tabs">
+        <nav
+            {...props}
+            className={classNames('flex gap-x-2 space-x-2 px-4 pb-1.5 pt-3', props.className)}
+            aria-label="Tabs"
+        >
             {getEnumAsArray(CommunityType).map(({ value }, index) => (
                 <Link
                     key={index}

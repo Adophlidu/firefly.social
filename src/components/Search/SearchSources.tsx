@@ -2,7 +2,7 @@
 
 import { memo, useMemo } from 'react';
 
-import { SourceNav } from '@/components/SourceNav.js';
+import { SourceNav } from '@/components/SourceNav/SourceNav.js';
 import { SearchType } from '@/constants/enum.js';
 import {
     SORTED_SEARCH_TYPE,

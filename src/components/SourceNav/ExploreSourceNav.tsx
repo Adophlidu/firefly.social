@@ -1,7 +1,7 @@
 'use client';
 import { type HTMLProps, memo } from 'react';
 
-import { SourceNav } from '@/components/SourceNav.js';
+import { SourceNav } from '@/components/SourceNav/SourceNav.js';
 import { type ExploreSourceInURL, ExploreType, Source } from '@/constants/enum.js';
 import { EXPLORE_SOURCES } from '@/constants/index.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
