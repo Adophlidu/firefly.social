@@ -353,8 +353,8 @@ dependencies:
     specifier: ^14.0.0
     version: 14.0.0
   twitter-api-v2:
-    specifier: ^1.22.0
-    version: 1.22.0
+    specifier: ^1.23.2
+    version: 1.23.2
   typescript:
     specifier: 5.7.3
     version: 5.7.3
@@ -19947,8 +19947,8 @@ packages:
     resolution: {integrity: sha512-9DUOTGLOWs0pFWnh1p6NF+C3CkQ96PWmEFwhOVmT3WbecRC+68AIqpsnJXygfkFcp4aXbOp8Dwbhh/HQgvoRxA==}
     dev: false
 
-  /twitter-api-v2@1.22.0:
-    resolution: {integrity: sha512-KlcRL9vcBzjeS/PwxX33NziP+SHp9n35DOclKtpOmnNes7nNVnK7WG4pKlHfBqGrY5kAz/8J5ERS8DWkYOaiWw==}
+  /twitter-api-v2@1.23.2:
+    resolution: {integrity: sha512-m0CGXmfGwUhWBOOTVCIXIoSEXwGCQV3Es9yraCwUxaVrjJT2CQcqDrQsQTpBhtiAvVL2HS1cCEGsotNjfX9log==}
     dev: false
 
   /twitter-text@3.1.0:
@@ -21957,7 +21957,7 @@ time:
   /ts-results-es@4.2.0: '2024-05-28T09:14:13.577Z'
   /tweetnacl@1.0.3: '2020-02-10T19:49:05.829Z'
   /twemoji-parser@14.0.0: '2022-03-11T07:32:07.545Z'
-  /twitter-api-v2@1.22.0: '2025-03-24T20:48:43.954Z'
+  /twitter-api-v2@1.23.2: '2025-05-12T19:19:04.201Z'
   /twitter-text@3.1.0: '2020-03-31T18:30:37.518Z'
   /typescript@5.7.3: '2025-01-08T19:05:34.766Z'
   /unist-util-flatmap@1.0.0: '2018-07-21T19:29:06.641Z'
