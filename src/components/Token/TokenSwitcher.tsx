@@ -93,12 +93,10 @@ export const TokenSwitcher = memo<Props>(function TokenSwitcher({
                         >
                             <TokenIcon
                                 className="shrink-0"
-                                icon={
-                                    tokenInfo.image.large ||
-                                    `https://stamp.firefly.land/logo/${tokenInfo.contract_address}`
-                                }
+                                icon={tokenInfo.image.large}
                                 chainId={tokenInfo.chain_id}
                                 disableBadge={tokenInfo.platform_type === TokenPlatformType.Cex}
+                                name={tokenInfo.name}
                                 alt={tokenInfo.name}
                                 size={32}
                             />

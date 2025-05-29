@@ -62,9 +62,10 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
                     <div className="flex items-center gap-2 whitespace-nowrap text-second">
                         <Link href={tokenPageUrl}>
                             <TokenIcon
-                                icon={token.logoURL || `https://stamp.firefly.land/logo/${address}`}
+                                icon={token.logoURL}
                                 chainId={chainId}
                                 alt={token.name}
+                                name={token.name}
                                 width={30}
                                 height={30}
                             />

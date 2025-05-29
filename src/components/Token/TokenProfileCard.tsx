@@ -53,7 +53,7 @@ export function TokenProfileCardSkeleton(props: HTMLProps<HTMLDivElement>) {
                         <div className="h-[18px] w-[130px] rounded bg-bg text-main" />
                     </div>
                 </div>
-                <div className="flex items-center">
+                <div className="flex h-10 items-center">
                     <div className="line-height-[22px] flex items-center gap-1">
                         <strong className="h-[22px] w-20 rounded bg-bg" />
                         <span className="h-4 w-6 bg-bg text-medium text-secondary" title={t`Market Cap`} />
@@ -174,9 +174,10 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
             <div className="flex items-center">
                 <Link href={tokenPageUrl}>
                     <TokenIcon
-                        icon={selectedToken.image.large || `https://stamp.firefly.land/logo/${address}`}
+                        icon={selectedToken.image.large}
                         chainId={chainId}
                         alt={selectedToken.name}
+                        name={selectedToken.name}
                         size={32}
                     />
                 </Link>

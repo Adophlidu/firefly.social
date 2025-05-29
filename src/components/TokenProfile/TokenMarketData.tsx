@@ -111,7 +111,15 @@ export const TokenMarketData = memo(function TokenMarketData({
     const { isUp, change } = useIsPriceUp(stats, activeRecord);
     const invalidData = useMemo(() => stats.length === 0 || stats.every((item) => isZero(item.value)), [stats]);
 
-    const icon = <TokenIcon icon={token.logoURL} alt={token.name} size={36} chainId={chainId ?? contract?.chainId} />;
+    const icon = (
+        <TokenIcon
+            icon={token.logoURL}
+            alt={token.name}
+            name={token.name}
+            size={36}
+            chainId={chainId ?? contract?.chainId}
+        />
+    );
     const baseInfo = (
         <>
             <strong className="ml-0.5 text-medium font-bold text-main">{token.name}</strong>

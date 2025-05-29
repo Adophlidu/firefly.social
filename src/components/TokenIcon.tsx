@@ -1,3 +1,4 @@
+import { first } from 'lodash-es';
 import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
 
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
@@ -5,10 +6,9 @@ import { type NetworkType } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isZeroAddressEthereum } from '@/helpers/isZeroAddress.js';
-import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { EVMChainResolver } from '#masknet/web3-providers';
 
-interface TokenIconProps extends HTMLProps<HTMLSpanElement> {
+export interface TokenIconProps extends HTMLProps<HTMLSpanElement> {
     networkType?: NetworkType;
     chainId?: number;
     address?: string;
@@ -35,11 +35,8 @@ export const TokenIcon = memo(function TokenIcon({
     className,
     ...rest
 }: TokenIconProps) {
-    const isDarkMode = useIsDarkMode();
-
     const defaultBadgeSize = Math.max(24, Math.floor(size / 2));
     const chainSize = badgeSize || defaultBadgeSize;
-    const defaultFallbackUrl = isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
 
     const [hasError, setHasError] = useState(false);
     const onLoadError = useCallback(() => {
@@ -50,12 +47,12 @@ export const TokenIcon = memo(function TokenIcon({
         if (chainId && isZeroAddressEthereum(address)) {
             return EVMChainResolver.nativeCurrency(chainId).logoURL;
         }
-        return !icon || hasError || icon === 'missing.png' ? defaultFallbackUrl : icon;
-    }, [icon, hasError, defaultFallbackUrl, address, chainId]);
+        return icon;
+    }, [icon, address, chainId]);
 
     return (
         <span className={classNames('relative', className)} style={{ width: size, height: size }} {...rest}>
-            {tokenIcon ? (
+            {tokenIcon && !hasError ? (
                 <Image
                     unoptimized
                     className="rounded-full object-cover"
@@ -68,12 +65,17 @@ export const TokenIcon = memo(function TokenIcon({
                 />
             ) : (
                 <span
-                    className="block rounded-full bg-lightBg"
+                    className={classNames(
+                        'flex items-center justify-center rounded-full bg-bg bg-main font-semibold text-primaryBottom',
+                        size < 30 ? 'text-sm' : 'text-xl',
+                    )}
                     style={{
                         width: size,
                         height: size,
                     }}
-                />
+                >
+                    {name ? first(name) : null}
+                </span>
             )}
             {!disableBadge ? (
                 <span
