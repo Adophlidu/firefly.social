@@ -102,18 +102,22 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, ...p
                         );
                     return button;
                 })}
-                <ClickableButton
-                    className="ml-auto inline-flex size-6 items-center justify-center"
-                    onClick={() => {
-                        setPostOrderType(postOrderType === PostOrderType.DESC ? PostOrderType.ASC : PostOrderType.DESC);
-                    }}
-                >
-                    <SortAscIcon
-                        width={16}
-                        height={16}
-                        className={postOrderType === PostOrderType.DESC ? 'rotate-180' : ''}
-                    />
-                </ClickableButton>
+                {isX3Pro ? (
+                    <ClickableButton
+                        className="ml-auto inline-flex size-6 items-center justify-center"
+                        onClick={() => {
+                            setPostOrderType(
+                                postOrderType === PostOrderType.DESC ? PostOrderType.ASC : PostOrderType.DESC,
+                            );
+                        }}
+                    >
+                        <SortAscIcon
+                            width={16}
+                            height={16}
+                            className={postOrderType === PostOrderType.DESC ? 'rotate-180' : ''}
+                        />
+                    </ClickableButton>
+                ) : null}
             </div>
             {isX3Pro && x3Token ? (
                 <KolBar

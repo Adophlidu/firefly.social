@@ -1,5 +1,6 @@
 import { isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/types.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -51,7 +52,7 @@ export const searchToken = memoizePromise(
         }
         const attributes = tokenAsset?.attributes;
         const coinId = options.coingecko_id || coin?.id || attributes?.coingecko_coin_id || symbol;
-        const marketToken = coinId ? await CoinGecko.getCoinInfo(coinId) : null;
+        const marketToken = await runInSafeAsync(async () => (coinId ? await CoinGecko.getCoinInfo(coinId) : null));
 
         if (marketToken && 'symbol' in marketToken) {
             return {

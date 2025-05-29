@@ -14,6 +14,7 @@ export function formatTwitterProfileStatus(statusList: UserV2['connection_status
         switch (status) {
             case 'following':
                 return { ...acc, following: true };
+            case 'blocking':
             case 'muting':
                 return { ...acc, blocking: true };
             default:

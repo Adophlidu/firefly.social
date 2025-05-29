@@ -13,7 +13,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
 import { X3ProProvider } from '@/providers/x3pro/index.js';
-import type { PostOrderType } from '@/providers/x3pro/types.js';
+import { PostOrderType } from '@/providers/x3pro/types.js';
 
 interface Props {
     keyword: string | string[];
@@ -59,10 +59,11 @@ export const SearchPostList = memo<Props>(function SearchPostList({
         })),
         (data) => {
             const posts = compact(data.pages.flatMap((x) => x.data ?? []));
-            return orderBy(
-                uniqBy(posts, (post) => post.postId),
-                (x) => (x.timestamp ? -x.timestamp : 0),
-            );
+            const uniqPosts = uniqBy(posts, (post) => post.postId);
+            return orderBy(uniqPosts, (x) => {
+                if (!x.timestamp) return 0;
+                return orderType === PostOrderType.ASC ? x.timestamp : -x.timestamp;
+            });
         },
     );
 

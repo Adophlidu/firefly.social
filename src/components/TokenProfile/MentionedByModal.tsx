@@ -49,45 +49,45 @@ export const MentionedByModal = memo<Props>(function MentionedByModal({ users, .
                         const count = nFormatter(user.followerCount);
                         const link = resolveProfileUrl(Source.Twitter, user.handle);
                         return (
-                            <Link key={user.profileId} className="flex items-center gap-2 py-0.5" href={link}>
-                                <Avatar alt={user.handle} src={user.pfp} size={40} />
-                                <div className="flex flex-col">
-                                    <div className="flex items-center gap-1 text-medium">
-                                        <div className="font-semibold">{user.displayName}</div>
-                                        <XFillIcon className="text-second" width={16} height={16} />
+                            <div key={user.profileId} className="flex items-center gap-2 py-0.5">
+                                <Link className="flex flex-grow items-center gap-2" href={link}>
+                                    <Avatar alt={user.handle} src={user.pfp} size={40} />
+                                    <div className="flex flex-col">
+                                        <div className="flex items-center gap-1 text-medium">
+                                            <div className="font-semibold">{user.displayName}</div>
+                                            <XFillIcon className="text-second" width={16} height={16} />
+                                        </div>
+                                        <div className="flex items-center gap-1 text-medium">
+                                            <span className="text-second">@{user.handle}</span>
+                                            <span className="w-[13px] text-center text-second"> · </span>
+                                            <span className="text-second">
+                                                <Plural
+                                                    value={user.followerCount}
+                                                    one={
+                                                        <Trans>
+                                                            <strong className="font-bold text-main">{count}</strong>{' '}
+                                                            Follower
+                                                        </Trans>
+                                                    }
+                                                    other={
+                                                        <Trans>
+                                                            <strong className="font-bold text-main">{count}</strong>{' '}
+                                                            Followers
+                                                        </Trans>
+                                                    }
+                                                />
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div className="flex items-center gap-1 text-medium">
-                                        <span className="text-second">@{user.handle}</span>
-                                        <span className="w-[13px] text-center text-second"> · </span>
-                                        <span className="text-second">
-                                            <Plural
-                                                value={user.followerCount}
-                                                one={
-                                                    <Trans>
-                                                        <strong className="font-bold text-main">{count}</strong>{' '}
-                                                        Follower
-                                                    </Trans>
-                                                }
-                                                other={
-                                                    <Trans>
-                                                        <strong className="font-bold text-main">{count}</strong>{' '}
-                                                        Followers
-                                                    </Trans>
-                                                }
-                                            />
-                                        </span>
-                                    </div>
-                                </div>
+                                </Link>
                                 {isTwitterLogin ? (
                                     <FollowButton
+                                        className="ml-auto !min-w-8 !p-0"
                                         variant="icon"
                                         profile={twitterProfiles[i] || user}
-                                        className="ml-auto"
-                                        enableDefault={false}
-                                        enablePropagate={false}
                                     />
                                 ) : null}
-                            </Link>
+                            </div>
                         );
                     })}
                 </div>

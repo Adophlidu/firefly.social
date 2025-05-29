@@ -43,15 +43,21 @@ export function ToggleMutedButton({
         return loading ? t`Muting...` : t`Mute`;
     }, [isHover, isMuted, loading, variant]);
 
+    const variantClassName = {
+        text: 'min-w-[112px]',
+        icon: 'w-8 max-w-8',
+    }[variant];
+
     return (
         <ClickableButton
             ref={hoverRef}
             className={classNames(
-                'flex h-8 min-w-[112px] items-center justify-center rounded-full border-danger text-medium font-semibold transition-all',
+                'flex h-8 items-center justify-center rounded-full border-danger text-medium font-semibold transition-all',
                 buttonState === MuteLabel.Muted ? 'border' : '',
                 buttonState === MuteLabel.Unmute ? 'border border-danger border-opacity-50' : '',
                 isMuted ? 'bg-danger text-white' : 'text-danger',
                 className,
+                variantClassName,
             )}
             {...rest}
             disabled={loading}

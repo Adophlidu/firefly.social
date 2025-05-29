@@ -5,6 +5,7 @@ import { memo } from 'react';
 import CopyIcon from '@/assets/copy.svg';
 import MoreIcon from '@/assets/more.svg';
 import ReloadIcon from '@/assets/reload.svg';
+import WalletIcon from '@/assets/wallet.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
@@ -77,7 +78,7 @@ export const MoreAction = memo(function MoreAction({
                                 onSwitchWallet?.();
                             }}
                         >
-                            <ReloadIcon width={18} height={18} />
+                            <WalletIcon width={18} height={18} />
                             <span className="font-bold leading-[22px] text-main">
                                 <Trans>Switch wallet</Trans>
                             </span>

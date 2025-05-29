@@ -121,6 +121,9 @@ export class CoinGecko {
     }
 
     static getCoinInfo(coinId: string) {
+        if (coinId.trim().includes(' ')) {
+            throw new Error('Invalid coinId');
+        }
         return fetchJSON<
             | CoinGeckoCoinInfo
             | {
