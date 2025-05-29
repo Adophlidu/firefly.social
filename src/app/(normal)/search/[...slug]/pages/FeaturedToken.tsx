@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { type HTMLProps, memo } from 'react';
 
+import { useFollowingTraderCount } from '@/app/(normal)/token/[symbol]/[[...slug]]/WrapTokenMarketData.js';
 import { TokenMarketData, type TokenMarketDataProps } from '@/components/TokenProfile/TokenMarketData.js';
 import { COINGECKO_SOL_COIN_ID, EMPTY_LIST, SWAP_SOL_NATIVE_ADDRESS } from '@/constants/index.js';
 import { swapActivityToTradeRecord } from '@/helpers/swapActivityToTradeRecord.js';
@@ -37,5 +38,15 @@ export const FeaturedToken = memo<FeaturedTokenProps>(function FeaturedToken({ t
             return compact(records);
         },
     });
-    return <TokenMarketData {...props} tradeRecords={tradeRecords} token={token} linkable />;
+    const followingTraderCount = useFollowingTraderCount(token.id);
+
+    return (
+        <TokenMarketData
+            {...props}
+            tradeRecords={tradeRecords}
+            traderCount={followingTraderCount}
+            token={token}
+            linkable
+        />
+    );
 });

@@ -9,7 +9,7 @@ import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidA
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
-function useFollowingTraderCount(tokenId: string | null) {
+export function useFollowingTraderCount(tokenId: string | null) {
     const search = useSearchParams();
     const chainId = search.get('chainId') ? Number(search.get('chainId')) : undefined;
     const address = search.get('address');

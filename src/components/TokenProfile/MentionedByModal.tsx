@@ -1,5 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Plural, Trans } from '@lingui/react/macro';
+import { useQueries } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import XFillIcon from '@/assets/x-fill.svg';
@@ -12,6 +13,7 @@ import { Source } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends ModalProps {
@@ -21,6 +23,15 @@ interface Props extends ModalProps {
 export const MentionedByModal = memo<Props>(function MentionedByModal({ users, ...props }) {
     const twitterProfile = useCurrentProfile(Source.Twitter);
     const isTwitterLogin = !!twitterProfile;
+    const twitterProfiles = useQueries({
+        queries: users.map((user) => ({
+            enabled: isTwitterLogin,
+            queryKey: ['profile', Source.Twitter, user.profileId],
+            queryFn: () => TwitterSocialMediaProvider.getProfileById(user.profileId),
+        })),
+        combine: (result) => result.map((x) => x.data),
+    });
+
     return (
         <Modal {...props} enableBackdrop>
             <div className="z-1 box-border flex w-[420px] flex-col gap-6 rounded-xl bg-primaryBottom p-6">
@@ -34,7 +45,7 @@ export const MentionedByModal = memo<Props>(function MentionedByModal({ users, .
                     <div className="grow text-center text-lg font-bold leading-[22px] text-main">{t`Mentioned by`}</div>
                 </div>
                 <div className="no-scrollbar flex max-h-[293px] min-h-0 flex-grow flex-col gap-3 overflow-auto">
-                    {users.map((user) => {
+                    {users.map((user, i) => {
                         const count = nFormatter(user.followerCount);
                         const link = resolveProfileUrl(Source.Twitter, user.handle);
                         return (
@@ -68,7 +79,13 @@ export const MentionedByModal = memo<Props>(function MentionedByModal({ users, .
                                     </div>
                                 </div>
                                 {isTwitterLogin ? (
-                                    <FollowButton variant="icon" profile={user} className="ml-auto" />
+                                    <FollowButton
+                                        variant="icon"
+                                        profile={twitterProfiles[i] || user}
+                                        className="ml-auto"
+                                        enableDefault={false}
+                                        enablePropagate={false}
+                                    />
                                 ) : null}
                             </Link>
                         );

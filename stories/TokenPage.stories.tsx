@@ -17,8 +17,8 @@ const meta: Meta<Args> = {
         ];
 
         return (
-            <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2">
+            <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-1">
                     <span>select:</span>
                     <select onChange={(e) => setHost(e.target.value)}>
                         {hosts.map((host) => (
@@ -28,7 +28,7 @@ const meta: Meta<Args> = {
                         ))}
                     </select>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
                     <span>input:</span>
                     <input type="text" value={host} onChange={(e) => setHost(e.target.value)} />
                 </div>
@@ -51,9 +51,12 @@ export const TokenPage: Story = {
     args: {
         paths: [
             '/token/MASK',
+            '/token/mask-network',
+            '/token/mask-network?isCoinId=true',
             '/token/ETH',
             '/token/trump',
             '/token/official-trump?isCoinId=true',
+            '/token/official-trump',
             '/token/QR/feeds?chainId=8453&trader=0x26d46809a92ea3dacdc2965919e0b91613b39efe&address=0x2b5050f01d64fbb3e4ac44dc07f0732bfb5ecadf',
         ],
     },

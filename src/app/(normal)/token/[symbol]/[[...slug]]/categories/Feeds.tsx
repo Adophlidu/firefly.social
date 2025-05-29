@@ -2,6 +2,7 @@ import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
 import { type HTMLProps, memo, useMemo, useState } from 'react';
 
+import SortAscIcon from '@/assets/sort-asc.svg';
 import X3ProIcon from '@/assets/x3pro.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Link } from '@/components/Link.js';
@@ -17,6 +18,7 @@ import { formatTokenMentionUser } from '@/helpers/formatTokenMentionUser.js';
 import { isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useX3ProTokenInfo } from '@/hooks/token/useX3ProTokenInfo.js';
+import { PostOrderType } from '@/providers/x3pro/types.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     chainId: number | undefined;
@@ -49,6 +51,8 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, ...p
         if (isX3Pro && x3Token?.mentionUsers.length) return x3Token.mentionUsers.map(formatTokenMentionUser);
         return EMPTY_LIST;
     }, [isX3Pro, x3Token]);
+
+    const [postOrderType, setPostOrderType] = useState<PostOrderType>(PostOrderType.DESC);
 
     return (
         <div {...props} className={classNames('flex flex-col gap-2', props.className)}>
@@ -98,6 +102,18 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, ...p
                         );
                     return button;
                 })}
+                <ClickableButton
+                    className="ml-auto inline-flex size-6 items-center justify-center"
+                    onClick={() => {
+                        setPostOrderType(postOrderType === PostOrderType.DESC ? PostOrderType.ASC : PostOrderType.DESC);
+                    }}
+                >
+                    <SortAscIcon
+                        width={16}
+                        height={16}
+                        className={postOrderType === PostOrderType.DESC ? 'rotate-180' : ''}
+                    />
+                </ClickableButton>
             </div>
             {isX3Pro && x3Token ? (
                 <KolBar
@@ -108,7 +124,12 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, ...p
                     }}
                 />
             ) : null}
-            <SearchPostList keyword={keywords} searchType={SearchType.Posts} source={source} />
+            <SearchPostList
+                keyword={keywords}
+                searchType={SearchType.Posts}
+                source={source}
+                orderType={postOrderType}
+            />
             {openModal && users.length ? (
                 <MentionedByModal open onClose={() => setOpenModal(false)} users={users} />
             ) : null}

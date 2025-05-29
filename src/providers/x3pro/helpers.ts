@@ -63,10 +63,10 @@ export function formatX3ProPost(origin: X3ProPost, parent?: X3ProPost): Post {
             reactions: origin.likeCount,
         },
         source: Source.Twitter,
-        canComment: false,
+        canComment: true,
         canAct: false,
-        canMirror: false,
-        canQuote: false,
+        canMirror: true,
+        canQuote: true,
         __original__: origin,
     };
 }

@@ -50,7 +50,7 @@ export const searchToken = memoizePromise(
             };
         }
         const attributes = tokenAsset?.attributes;
-        const coinId = options.coingecko_id || attributes?.coingecko_coin_id || coin?.id;
+        const coinId = options.coingecko_id || coin?.id || attributes?.coingecko_coin_id || symbol;
         const marketToken = coinId ? await CoinGecko.getCoinInfo(coinId) : null;
 
         if (marketToken && 'symbol' in marketToken) {
@@ -69,13 +69,13 @@ export const searchToken = memoizePromise(
                     twitter: marketToken.links.twitter_screen_name,
                     telegram: marketToken.links.telegram_channel_identifier,
                 },
-                platform_info: coin.platform_info,
+                platform_info: coin?.platform_info,
             };
         }
 
         if (attributes) {
             return {
-                id: coinId,
+                id: coinId || null,
                 chainId: attributes.chain_id,
                 address: attributes.address,
                 symbol: attributes.symbol,

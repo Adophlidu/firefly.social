@@ -177,7 +177,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                                             key={link.name}
                                             href={link.url!}
                                             target="_blank"
-                                            className="inline-flex size-6 items-center justify-center rounded-lg bg-input"
+                                            className="inline-flex size-6 items-center justify-center rounded-lg bg-input dark:bg-bg"
                                         >
                                             <link.icon width={16} height={16} />
                                         </Link>

@@ -1,5 +1,6 @@
 'use client';
 
+import { isArray } from 'lodash-es';
 import { use } from 'react';
 
 import { Feeds } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/Feeds.js';
@@ -49,9 +50,9 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
     const tokenAddress = address ?? (isValidAddressEthereum(symbol) ? symbol : trending?.contracts?.[0]?.address);
 
     const isTracingChain = token?.chainId ? TRACING_CHAINS.includes(token.chainId) : true;
-    const isTracingPlatform = token?.platform_info?.length
+    const isTracingPlatform = isArray(token?.platform_info)
         ? token.platform_info.some((x) => TRACING_CHAINS.includes(x.chain_id))
-        : false;
+        : true;
     const categories =
         tokenId && (NO_TRACING_COINS.includes(tokenId) || !isTracingChain || !isTracingPlatform)
             ? [TokenCategory.Feeds, TokenCategory.Overview]

@@ -23,7 +23,10 @@ export interface CoinGeckoToken {
         twitter: string;
         telegram?: string;
     };
-    /** @see TokenWithMarketData['platform_info'] */
+    /**
+     * @see TokenWithMarketData['platform_info']
+     * Only provided by Firefly's API
+     */
     platform_info?: Array<{
         chain_name: string;
         token_address: string;
