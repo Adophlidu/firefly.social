@@ -592,6 +592,12 @@ body {
     align-items: center !important;
     flex-wrap: nowrap !important;
     border-radius: 12px !important;
+    min-width: 120px !important;
+}
+
+.SnackbarContainer-root .SnackbarItem-variantSuccess {
+    background-color: rgb(var(--color-success)) !important;
+    box-shadow: 0 6px 20px 0 rgb(var(--color-success) / 0.15) !important;
 }
 
 .SnackbarItem-action {
