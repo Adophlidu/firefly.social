@@ -121,9 +121,20 @@ export function FrameViewerModal({ ref }: Props) {
                     <div className="cursor-pointer">
                         <CloseButton onClick={() => dispatch?.close()} />
                     </div>
-                    <div className="mx-4 max-w-[280px] flex-1 text-center">
-                        <div className="font-bold">{frame.button.action.name}</div>
-                        {u ? <div className="text-faint text-xs">{u.host}</div> : null}
+                    <div className="mx-4 flex max-w-[280px] flex-1 items-center justify-center gap-2">
+                        {frame.x_manifest?.frame.iconUrl ? (
+                            <Image
+                                src={frame.x_manifest?.frame.iconUrl}
+                                alt={frame.button.title}
+                                width={24}
+                                height={24}
+                                className="rounded-md"
+                            />
+                        ) : null}
+                        <div className={frame.x_manifest?.frame.iconUrl ? 'text-left' : ''}>
+                            <div className="font-bold">{frame.button.action.name}</div>
+                            {u ? <div className="text-xs text-secondary">{u.host}</div> : null}
+                        </div>
                     </div>
                     <div>
                         <MoreAction

@@ -7,6 +7,7 @@ import { anySignal } from '@/helpers/anySignal.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveFarcasterMiniappHomeUrl } from '@/helpers/resolveFarcasterMiniappHomeUrl.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import {
     getAspectRatio,
     getButtons,
@@ -21,6 +22,7 @@ import {
     getVersion,
 } from '@/providers/frame/readers/metadata.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
+import { fetchFarcasterJson } from '@/services/fetchFarcasterJson.js';
 import type { FrameV1, FrameV2, LinkDigestedResponse } from '@/types/frame.js';
 
 const BLACKLISTED_HOSTS = [
@@ -35,7 +37,7 @@ const BLACKLISTED_HOSTS = [
 
 const FrameV2Schema = z.object({
     version: z.string(),
-    imageUrl: z.string().max(512, 'Max 512 characters'),
+    imageUrl: z.string().max(1024, 'Max 1024 characters'),
     button: z.object({
         title: z.string().max(32, 'Max length of 32 characters'),
         action: z.object({
@@ -105,9 +107,14 @@ class Processor {
         const parsed = FrameV2Schema.safeParse(payload);
         if (!parsed.success) throw new Error(parsed.error.message);
 
+        const json = await runInSafeAsync(() => fetchFarcasterJson(url, signal));
+        console.log(`[frame] farcasterJson: ${json ? 'found' : 'not found'} for ${url}.`);
+
+        // merge with farcaster.json if available
         const frame: FrameV2 = {
             x_url: url,
             x_version: 2,
+            x_manifest: json,
             ...parsed.data,
         };
         return frame;
@@ -138,6 +145,7 @@ class Processor {
 
     digestDocumentUrl = async (documentUrl: string, signal?: AbortSignal): Promise<LinkDigestedResponse | null> => {
         const resolvedUrl = await resolveFarcasterMiniappHomeUrl(documentUrl, signal);
+
         const url = parseUrl(resolvedUrl);
         if (!url) throw new Error(`[frame] invalid document URL: ${documentUrl}`);
 

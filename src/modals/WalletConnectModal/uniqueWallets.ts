@@ -29,9 +29,7 @@ function filterOutDuplicatesByIds(wallets: WcWallet[]) {
         (connector) => connector.type === 'ANNOUNCED' || connector.type === 'INJECTED',
     );
     const recent = CoreStorageUtil.getRecentWallets();
-
     const allIds = [...connectors.map((connector) => connector.explorerId), ...recent.map((wallet) => wallet.id)];
-
     return wallets.filter((wallet) => !allIds.includes(wallet?.id));
 }
 

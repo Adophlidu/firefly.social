@@ -118,40 +118,107 @@ export type TriggerConfig =
       };
 
 export interface FrameConfig {
-    // Manifest version. Required.
+    /**
+     * Must be '1'
+     */
     version: '1';
-
-    // App name. Required.
-    // Max length of 32 characters.
-    // Example: "Yoink!"
+    /**
+     * Max length 32 characters
+     */
     name: string;
-
-    // Default launch URL. Required.
-    // Max 512 characters.
-    // Example: "https://yoink.party/"
+    /**
+     * Max length 1024 characters
+     */
     homeUrl: string;
-
-    // Frame application icon URL.
-    // Max 512 characters.
-    // Image must be 200x200px and less than 1MB.
-    // Example: "https://yoink.party/img/icon.png"
+    /**
+     * Max length 1024 characters. Image must be 1024x1024px PNG, no alpha (not enforceable in TypeScript)
+     */
     iconUrl: string;
-
-    // Splash image URL.
-    // Max 512 characters.
-    // Image must be 200x200px and less than 1MB.
-    // Example: "https://yoink.party/img/splash.png"
+    /**
+     * [DEPRECATED] Max length 1024 characters. Image must be 3:2 aspect ratio (not enforceable in TypeScript)
+     */
+    imageUrl?: string;
+    /**
+     * [DEPRECATED] Max length 32 characters
+     */
+    buttonTitle?: string;
+    /**
+     * Max length 1024 characters. Must be 200x200px (not enforceable in TypeScript)
+     */
     splashImageUrl?: string;
-
-    // Hex color code.
-    // Example: "#eeeee4"
+    /**
+     * Hex color code
+     */
     splashBackgroundColor?: string;
-
-    // URL to which clients will POST events.
-    // Max 512 characters.
-    // Required if the frame application uses notifications.
-    // Example: "https://yoink.party/webhook"
+    /**
+     * Max length 1024 characters. Must be set if notifications are used (not enforceable in TypeScript)
+     */
     webhookUrl?: string;
+    /**
+     * Max 30 characters, no emojis or special characters (basic enforcement)
+     */
+    subtitle?: string;
+    /**
+     * Max 170 characters, no emojis or special characters (basic enforcement)
+     */
+    description?: string;
+    /**
+     * Max 3 screenshots. Each should be 1284x2778 portrait (not enforceable in TypeScript)
+     */
+    screenshotUrls?: string[];
+    /**
+     * Primary category
+     */
+    primaryCategory?:
+        | 'games'
+        | 'social'
+        | 'finance'
+        | 'utility'
+        | 'productivity'
+        | 'health-fitness'
+        | 'news-media'
+        | 'music'
+        | 'shopping'
+        | 'education'
+        | 'developer-tools'
+        | 'entertainment'
+        | 'art-creativity';
+    /**
+     * Max 5 tags. Each tag: Lowercase, no spaces, no special characters, no emojis, max 20 characters
+     */
+    tags?: string[];
+    /**
+     * 1200 x 630px (1.91:1) (not enforceable in TypeScript)
+     */
+    heroImageUrl?: string;
+    /**
+     * Max 30 characters
+     */
+    tagline?: string;
+    /**
+     * Max 30 characters
+     */
+    ogTitle?: string;
+    /**
+     * Max 100 characters
+     */
+    ogDescription?: string;
+    /**
+     * 1200 x 630px (1.91:1) PNG (not enforceable in TypeScript)
+     */
+    ogImageUrl?: string;
+    /**
+     * true to exclude from search results, false to include (default)
+     */
+    noindex?: boolean;
+    /**
+     * Only chains listed in chainList are supported (not enforceable in TypeScript)
+     */
+    requiredChains?: string[];
+    /**
+     * Each entry must be a path to an SDK method (not enforceable in TypeScript)
+     */
+    requiredCapabilities?: string[];
 }
 
 export interface FarcasterManifest {
@@ -170,9 +237,6 @@ export interface FarcasterManifest {
 
     // Frame configuration
     frame: FrameConfig;
-
-    // Trigger configuration
-    triggers?: TriggerConfig[];
 }
 
 /**
@@ -181,7 +245,7 @@ export interface FarcasterManifest {
 export interface FrameV2 {
     x_url: string;
     x_version: 2;
-    x_manifest?: FarcasterManifest;
+    x_manifest?: FarcasterManifest | null;
 
     // Frame spec version. Required.
     // Example: "next"
