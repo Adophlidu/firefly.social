@@ -20,11 +20,12 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
     const solanaAdaptor = runInSafe(() => getWalletAdapter());
 
     const fireflySession = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
-    const fireflyAccountId = fireflySession?.accountIdForEvent;
-
     const developmentAPI = useDeveloperSettingsState.getState().developmentAPI;
 
     return {
+        // ga best practices
+        user_id: fireflySession?.profileId, // numeric user id
+
         public_uuid: eventId,
         public_previous_uuid: previousEventId,
 
@@ -47,11 +48,11 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
             : undefined,
 
         // common
-        public_account_id: fireflyAccountId,
+        public_account_id: fireflySession?.accountIdForEvent,
         public_use_development_api: developmentAPI,
 
         // firefly account id
-        firefly_account_id: fireflyAccountId,
+        firefly_account_id: fireflySession?.accountIdForEvent,
 
         // safary social login
         twitter_username: useTwitterStateStore.getState().currentProfile?.handle,
