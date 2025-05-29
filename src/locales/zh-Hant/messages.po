@@ -2710,6 +2710,9 @@ msgstr "回覆"
 msgid "Sign"
 msgstr "簽名"
 
+msgid "Switch wallet"
+msgstr ""
+
 msgid "Available Balance"
 msgstr "可用餘額"
 

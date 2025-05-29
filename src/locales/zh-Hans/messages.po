@@ -2715,6 +2715,9 @@ msgstr "评论"
 msgid "Sign"
 msgstr "签名"
 
+msgid "Switch wallet"
+msgstr ""
+
 msgid "Available Balance"
 msgstr "可用余额"
 

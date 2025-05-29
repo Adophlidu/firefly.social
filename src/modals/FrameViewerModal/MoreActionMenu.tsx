@@ -16,6 +16,7 @@ interface MoreActionProps {
     selectable?: boolean;
     disabled?: boolean;
     onReload?: () => void;
+    onSwitchWallet?: () => void;
 }
 
 export const MoreAction = memo(function MoreAction({
@@ -23,6 +24,7 @@ export const MoreAction = memo(function MoreAction({
     selectable = true,
     disabled = false,
     onReload,
+    onSwitchWallet,
 }: MoreActionProps) {
     const [, handleCopy] = useCopyText(frame?.x_url ?? '', { enqueueSuccessMessage: true });
 
@@ -61,6 +63,23 @@ export const MoreAction = memo(function MoreAction({
                             <ReloadIcon width={18} height={18} />
                             <span className="font-bold leading-[22px] text-main">
                                 <Trans>Reload page</Trans>
+                            </span>
+                        </MenuButton>
+                    )}
+                </MenuItem>
+                <MenuItem>
+                    {({ close }) => (
+                        <MenuButton
+                            className={selectable ? '' : 'select-none'}
+                            disabled={disabled}
+                            onClick={() => {
+                                close();
+                                onSwitchWallet?.();
+                            }}
+                        >
+                            <ReloadIcon width={18} height={18} />
+                            <span className="font-bold leading-[22px] text-main">
+                                <Trans>Switch wallet</Trans>
                             </span>
                         </MenuButton>
                     )}

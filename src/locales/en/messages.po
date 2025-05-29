@@ -2710,6 +2710,9 @@ msgstr "REPLY"
 msgid "Sign"
 msgstr "Sign"
 
+msgid "Switch wallet"
+msgstr "Switch wallet"
+
 msgid "Available Balance"
 msgstr "Available Balance"
 

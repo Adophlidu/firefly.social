@@ -2702,6 +2702,9 @@ msgstr ""
 msgid "Sign"
 msgstr ""
 
+msgid "Switch wallet"
+msgstr ""
+
 msgid "Available Balance"
 msgstr ""
 
