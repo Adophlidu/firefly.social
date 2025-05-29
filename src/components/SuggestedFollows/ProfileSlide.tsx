@@ -22,7 +22,7 @@ export const ProfileSlide = memo<ProfileSlideProps>(function ProfileSlide({ prof
     if (!identity) return null;
 
     return (
-        <Link href={getProfileUrl(profile)} className="cursor-pointer">
+        <div className="relative cursor-pointer">
             <div className="h-[184px] w-[164px] rounded-2xl bg-lightBottom px-3 py-6 shadow-primary backdrop-blur dark:bg-primaryBottom">
                 <div
                     className={classNames('size-[56px] rounded-full border-2 p-0.5', {
@@ -34,19 +34,22 @@ export const ProfileSlide = memo<ProfileSlideProps>(function ProfileSlide({ prof
                 </div>
                 <div className="flex-start flex items-center truncate text-sm font-bold leading-6">
                     <ProfileTippy identity={identity}>
-                        <div className="mr-0.5 max-w-full cursor-pointer truncate text-medium text-main">
+                        <Link
+                            href={getProfileUrl(profile)}
+                            className="link-overlay mr-0.5 max-w-full cursor-pointer truncate text-medium text-main"
+                        >
                             {profile.displayName}
-                        </div>
+                        </Link>
                     </ProfileTippy>
                     <SocialSourceIcon source={profile.source} size={15} className="shrink-0" />
                 </div>
                 {profile.source === Source.Lens ? null : (
-                    <FollowersLink profile={profile} className="text-xs leading-6 text-second" />
+                    <FollowersLink profile={profile} className="relative z-1 text-xs leading-6 text-second" />
                 )}
                 <BioMarkup className="line-clamp-2 text-xs text-lightMain" source={profile.source} profile={profile}>
                     {profile.bio ?? '-'}
                 </BioMarkup>
             </div>
-        </Link>
+        </div>
     );
 });
