@@ -39,11 +39,17 @@ export const ReplyRestrictionAction = memo(function ReplyRestrictionAction({ has
         </>
     );
 
-    if (disabled) return <div className="flex gap-1 text-main focus:outline-none">{buttonContent}</div>;
+    if (disabled && restriction === RestrictionType.Everyone) return null;
+    if (disabled)
+        return (
+            <div className="flex gap-1 text-nowrap rounded-[6px] border border-secondaryLine p-2 text-main focus:outline-none">
+                {buttonContent}
+            </div>
+        );
 
     if (isMedium) {
         return (
-            <Popover as="div" className="relative">
+            <Popover as="div" className="relative text-nowrap rounded-[6px] border border-secondaryLine p-2">
                 <PopoverButton
                     className="flex cursor-pointer items-center gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                     disabled={hasError}
@@ -55,7 +61,7 @@ export const ReplyRestrictionAction = memo(function ReplyRestrictionAction({ has
         );
     }
     return (
-        <>
+        <div className="text-nowrap rounded-[6px] border border-secondaryLine p-2">
             <ClickableButton
                 className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                 onClick={() => setOpen(true)}
@@ -66,6 +72,6 @@ export const ReplyRestrictionAction = memo(function ReplyRestrictionAction({ has
             <PopoverModal open={open} onClose={() => setOpen(false)}>
                 <ReplyRestriction restriction={restriction} setRestriction={updateRestriction} />
             </PopoverModal>
-        </>
+        </div>
     );
 });

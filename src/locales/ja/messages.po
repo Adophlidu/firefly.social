@@ -637,6 +637,9 @@ msgstr ""
 msgid "Followed <0>@{0}</0> on X before Jan 18, 2025"
 msgstr ""
 
+msgid "Only people who follow you"
+msgstr ""
+
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
 #. placeholder {2}: mutualCount - 2
@@ -906,9 +909,6 @@ msgid "POST"
 msgstr ""
 
 msgid "Failed to unlike the post."
-msgstr ""
-
-msgid "Only your follower"
 msgstr ""
 
 msgid "{addressName} is already connected."

@@ -47,11 +47,7 @@ export function ComposeActions() {
                 <div className="flex items-center gap-x-1 rounded-[6px] border border-secondaryLine p-2">
                     <PlatformAction hasError={hasError} />
                 </div>
-                {showReplyScope ? (
-                    <div className="text-nowrap rounded-[6px] border border-secondaryLine p-2">
-                        <ReplyRestrictionAction hasError={hasError} />
-                    </div>
-                ) : null}
+                {showReplyScope ? <ReplyRestrictionAction hasError={hasError} /> : null}
 
                 {showFarcasterChannel ? (
                     <div className="rounded-[6px] border border-secondaryLine p-2">

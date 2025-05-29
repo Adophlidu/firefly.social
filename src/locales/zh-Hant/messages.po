@@ -637,6 +637,9 @@ msgstr "書籤"
 msgid "Followed <0>@{0}</0> on X before Jan 18, 2025"
 msgstr "於 2025 年 1 月 18 日前在 X 追蹤 <0>@{0}</0>"
 
+msgid "Only people who follow you"
+msgstr ""
+
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
 #. placeholder {2}: mutualCount - 2
@@ -907,9 +910,6 @@ msgstr "貼文"
 
 msgid "Failed to unlike the post."
 msgstr "取消貼文讚失敗"
-
-msgid "Only your follower"
-msgstr "僅限您的追蹤者"
 
 msgid "{addressName} is already connected."
 msgstr "{addressName} 已連結"

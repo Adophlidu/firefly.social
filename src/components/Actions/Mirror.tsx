@@ -203,9 +203,12 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
         >
             <ClickableButton
                 disabled={mirrorDisabled}
-                className={classNames('flex w-full cursor-pointer items-center space-x-1 md:space-x-2', {
-                    'text-secondarySuccess': mirrored,
-                })}
+                className={classNames(
+                    'flex w-full cursor-pointer items-center space-x-1 whitespace-nowrap md:space-x-2',
+                    {
+                        'text-secondarySuccess': mirrored,
+                    },
+                )}
                 onClick={() => {
                     setOpen(false);
                     handleMirror();
@@ -233,7 +236,7 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
             ) : null}
 
             <ClickableButton
-                className="flex w-full cursor-pointer items-center space-x-1 md:space-x-2"
+                className="flex w-full cursor-pointer items-center space-x-1 whitespace-nowrap md:space-x-2"
                 disabled={quoteDisabled}
                 onClick={handleQuote}
             >
