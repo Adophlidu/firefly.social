@@ -23,6 +23,7 @@ import {
 } from '@/constants/limitation.js';
 import { URL_INPUT_REGEX } from '@/constants/regexp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 import { updateProfile } from '@/services/updateProfile.js';
@@ -70,9 +71,12 @@ function FormField({ field, profile }: { field: ProfileEditableField; profile: P
                             <Trans>Website</Trans>
                         </label>
                         <FormInputContainer name="website" className="flex-1">
-                            <FormInput
+                            <FormInput<{ website: string }>
                                 name="website"
                                 options={{
+                                    setValueAs(value: string) {
+                                        return parseUrl(value)?.toString();
+                                    },
                                     pattern: {
                                         value: URL_INPUT_REGEX,
                                         message: t`Invalid website format`,
