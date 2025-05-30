@@ -17,6 +17,7 @@ import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
+import { TokenIcon } from '@/components/TokenIcon.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { Source } from '@/constants/enum.js';
@@ -169,19 +170,13 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                 className="flex items-center gap-2 rounded-lg bg-bg p-2"
                                 onClick={stopPropagation}
                             >
-                                {activity.from_token?.logo ? (
-                                    <Image
-                                        src={activity.from_token.logo}
-                                        alt={activity.from_token.symbol}
-                                        className="size-8 rounded-full"
-                                        width={32}
-                                        height={32}
-                                    />
-                                ) : (
-                                    <div className="flex size-8 items-center justify-center rounded-full bg-bg text-second">
-                                        {first(activity.from_token?.symbol)}
-                                    </div>
-                                )}
+                                <TokenIcon
+                                    icon={activity.from_token.logo}
+                                    address={activity.from_token.address}
+                                    alt={activity.from_token.symbol}
+                                    name={activity.from_token.symbol}
+                                    size={32}
+                                />
                                 <div className="flex flex-1 flex-col">
                                     <div className="flex items-center justify-between">
                                         <span className="text-sm font-medium text-lightMain">
@@ -211,19 +206,13 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                                 className="flex items-center gap-2 rounded-lg bg-bg p-2"
                                 onClick={stopPropagation}
                             >
-                                {activity.to_token?.logo ? (
-                                    <Image
-                                        src={activity.to_token.logo}
-                                        alt={activity.to_token.symbol}
-                                        className="size-8 rounded-full"
-                                        width={32}
-                                        height={32}
-                                    />
-                                ) : (
-                                    <div className="flex size-8 items-center justify-center rounded-full bg-bg text-second">
-                                        {first(activity.to_token?.symbol)}
-                                    </div>
-                                )}
+                                <TokenIcon
+                                    icon={activity.to_token.logo}
+                                    address={activity.to_token.address}
+                                    alt={activity.to_token.symbol}
+                                    name={activity.to_token.symbol}
+                                    size={32}
+                                />
                                 <div className="flex flex-1 flex-col">
                                     <div className="flex items-center justify-between">
                                         <span className="text-sm font-medium text-lightMain">
