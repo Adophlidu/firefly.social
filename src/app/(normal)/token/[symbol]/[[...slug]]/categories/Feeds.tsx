@@ -43,9 +43,11 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, ...p
     const isX3Pro = source === Source.X3Pro;
 
     const keywords = useMemo(() => {
-        if (isX3Pro) return address || [];
-        return compact([symbol ? `$${symbol}` : null, address]);
-    }, [isX3Pro, address, symbol]);
+        if (isX3Pro || !symbol) return address || [];
+        const includesSpace = symbol.trim().includes(' ');
+        if (includesSpace && [Source.Lens, Source.Bsky].includes(source)) return address || [];
+        return compact([includesSpace ? `"${symbol}"` : `$${symbol}`, address]);
+    }, [isX3Pro, address, symbol, source]);
 
     const users = useMemo(() => {
         if (isX3Pro && x3Token?.mentionUsers.length) return x3Token.mentionUsers.map(formatTokenMentionUser);
