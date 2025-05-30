@@ -71,7 +71,7 @@ export const getFollowingTransactions = createTransactionsFetcher(
 export const getForYouTransactions = createTransactionsFetcher(
     () => Promise.resolve(createPageable([] as SwapActivity[], createIndicator(undefined))),
     () => Promise.resolve(createPageable([] as PolymarketActivity[], createIndicator(undefined))),
-    (indicator) => FireflyEndpointProvider.discoverNFTs({ indicator }),
+    (indicator, chainId) => FireflyEndpointProvider.discoverNFTs({ indicator, chainId }),
 );
 
 export function getProfileTransactions(

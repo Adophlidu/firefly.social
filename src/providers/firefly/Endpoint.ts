@@ -553,12 +553,15 @@ class FireflyEndpoint {
     async discoverNFTs({
         indicator,
         limit = 20,
+        chainId,
     }: {
         indicator?: PageIndicator;
         limit?: number;
+        chainId?: number;
     } = {}) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/nft/v3', {
             size: limit,
+            chainId,
             cursor: indicator?.id,
         });
         const response = await fireflySessionHolder.fetchWithoutSession<DiscoverNFTResponseV3>(url, {
