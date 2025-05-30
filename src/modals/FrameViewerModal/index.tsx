@@ -49,6 +49,7 @@ export function FrameViewerModal({ ref }: Props) {
 
     const account = useAccount();
     const { data: client } = useQuery({
+        enabled: open,
         queryKey: ['wallet-client', account.address],
         queryFn: async () => getWalletClientRequired(config),
     });
