@@ -85,7 +85,7 @@ export default async function Layout(props: Props) {
         <div>
             <SearchTabs />
             <CommunityTypeTab className="sticky top-[98px] z-20 bg-primaryBottom md:!top-[103px]" />
-            <SearchSources />
+            <SearchSources className="sticky top-[98px] z-20 bg-primaryBottom md:!top-[103px]" />
             {props.children}
         </div>
     );

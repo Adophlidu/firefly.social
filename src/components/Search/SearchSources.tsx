@@ -9,13 +9,14 @@ import {
     SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES,
     SORTED_SOCIAL_SOURCES,
 } from '@/constants/index.js';
+import { classNames } from '@/helpers/classNames.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSearchKeyword } from '@/helpers/resolveSearchKeyword.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
-export const SearchSources = memo(function SearchSources() {
+export const SearchSources = memo(function SearchSources({ className }: { className?: string }) {
     const { searchKeyword, searchType, source: selectedSource } = useSearchStateStore();
 
     const sources = useMemo(() => {
@@ -39,7 +40,7 @@ export const SearchSources = memo(function SearchSources() {
             sources={sources}
             urlResolver={(x) => resolveSearchUrl(searchKeyword, searchType, x)}
             nameResolver={(x) => resolveSourceName(x)}
-            className="flex gap-x-2 px-4"
+            className={classNames('flex gap-x-2 px-4', className)}
         />
     );
 });
