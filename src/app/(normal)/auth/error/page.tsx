@@ -11,12 +11,7 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/index.js';
 
 function getSourceFromError(error: string): LoginFallbackSource {
-    switch (error) {
-        case 'OAuthSignin':
-            return Source.Twitter;
-        default:
-            return Source.Farcaster;
-    }
+    return Source.Twitter;
 }
 
 interface Props extends NextPageProps<never, { error: string }> {}
