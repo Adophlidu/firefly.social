@@ -72,6 +72,23 @@ export const PasswordInputPanel = memo<PasswordInputPanelProps>(function Passwor
                     onFocus={() => {
                         lastFocusedIndex.current = index;
                     }}
+                    onPaste={(e) => {
+                        if (index !== 0) return; // Only allow pasting in the first input
+
+                        e.preventDefault();
+                        const pastedData = e.clipboardData.getData('text').slice(0, METRICS_PASSWORD_LENGTH);
+                        if (!/^\d+$/.test(pastedData)) return;
+
+                        const newPassword = Array.from({ length: METRICS_PASSWORD_LENGTH }, (_, i) => {
+                            return pastedData[i] || '';
+                        });
+                        onPasswordChange(newPassword);
+
+                        const lastIndex = pastedData.length;
+                        if (lastIndex > 0 && lastIndex < METRICS_PASSWORD_LENGTH) {
+                            document.getElementById(`${SESSION_PASSWORD_INPUT_ID_PREFIX}${lastIndex}`)?.focus();
+                        }
+                    }}
                 />
             ))}
         </div>

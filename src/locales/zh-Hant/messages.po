@@ -210,6 +210,9 @@ msgstr "刪除貼文"
 msgid "Turning off Multi-device login will clear all previously encrypted login sessions. A new password is required to re-enable."
 msgstr ""
 
+msgid "Enter a new password to verify your identity."
+msgstr ""
+
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr "將 @{0} 靜音"
@@ -815,6 +818,9 @@ msgstr "無法解密 {sourceName} 的貼文"
 msgid "Edit profile"
 msgstr "編輯個人檔案"
 
+msgid "Enter your password to confirm your identity."
+msgstr ""
+
 msgid "Attendees"
 msgstr "參與者"
 
@@ -1113,6 +1119,9 @@ msgstr "搜尋用戶"
 
 msgid "Failed to upload. Video is not supported yet."
 msgstr "上傳失敗：尚未支援影片格式。"
+
+msgid "Set a 6-digit password to verify your identity for multi-device login."
+msgstr ""
 
 msgid "Whitelist function"
 msgstr "白名單功能"
@@ -3259,6 +3268,9 @@ msgstr "顯示更多收藏"
 msgid "{0, plural, one {<0>{count}</0> Follower} other {<1>{count}</1> Followers}}"
 msgstr ""
 
+msgid "Forgot your password? <0>Reset password</0>"
+msgstr ""
+
 msgid "Everyone can reply"
 msgstr "所有人皆可回覆"
 
@@ -4094,6 +4106,9 @@ msgid "Search nft"
 msgstr ""
 
 msgid "Recast"
+msgstr ""
+
+msgid "Resetting your 6-digit password will clear all previously encrypted login sessions."
 msgstr ""
 
 msgid "Translating..."

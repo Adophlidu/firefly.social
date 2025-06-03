@@ -16,17 +16,15 @@ import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef, LoginModalRef, PasswordModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
-function ToggleSyncSessionSwitch() {
-    const isLogin = useIsLoginFirefly();
-    const { data = false, isLoading } = useQuery({
-        queryKey: ['session-sync-status', isLogin],
-        enabled: isLogin,
-        queryFn: async () => {
-            const response = await FireflyEndpointProvider.getMetricsStatus();
-            return response.hasSetPasscode;
-        },
-    });
-
+function ToggleSyncSessionSwitch({
+    isLogin,
+    checked,
+    isLoading,
+}: {
+    isLogin: boolean;
+    checked: boolean;
+    isLoading: boolean;
+}) {
     const [{ loading }, onSwitch] = useAsyncFn(
         async (value: boolean) => {
             try {
@@ -75,7 +73,7 @@ function ToggleSyncSessionSwitch() {
     return (
         <Switch
             disabled={isLoading || loading}
-            checked={data}
+            checked={checked}
             onChange={onSwitch}
             className="group inline-flex h-[22px] w-11 shrink-0 items-center rounded-full bg-second transition data-[checked]:bg-highlight dark:bg-bg data-[checked]:dark:bg-highlight"
         >
@@ -87,6 +85,16 @@ function ToggleSyncSessionSwitch() {
 }
 
 export const PasswordSettings = memo(function PasswordSettings() {
+    const isLogin = useIsLoginFirefly();
+    const { data = false, isLoading } = useQuery({
+        queryKey: ['session-sync-status', isLogin],
+        enabled: isLogin,
+        queryFn: async () => {
+            const response = await FireflyEndpointProvider.getMetricsStatus();
+            return response.hasSetPasscode;
+        },
+    });
+
     return (
         <ContentCard
             label={<Trans>Multi-device login</Trans>}
@@ -95,32 +103,34 @@ export const PasswordSettings = memo(function PasswordSettings() {
                     Encrypt your login session with a 6-digit password to enable one-click login across devices.
                 </Trans>
             }
-            headerSlot={<ToggleSyncSessionSwitch />}
+            headerSlot={<ToggleSyncSessionSwitch checked={data} isLoading={isLoading} isLogin={isLogin} />}
         >
-            <div className="w-full">
-                <ClickableButton
-                    className="mt-4 flex h-6 w-full items-center justify-between text-base text-main"
-                    onClick={() => {
-                        PasswordModalRef.open({ workflow: PasswordWorkflow.Change });
-                    }}
-                >
-                    <span>
-                        <Trans>Change password</Trans>
-                    </span>
-                    <RightArrowIcon width={24} height={24} />
-                </ClickableButton>
-                <ClickableButton
-                    className="mt-4 flex h-6 w-full items-center justify-between text-base text-main"
-                    onClick={() => {
-                        PasswordModalRef.open({ workflow: PasswordWorkflow.Reset });
-                    }}
-                >
-                    <span>
-                        <Trans>Reset password</Trans>
-                    </span>
-                    <RightArrowIcon width={24} height={24} />
-                </ClickableButton>
-            </div>
+            {data ? (
+                <div className="w-full">
+                    <ClickableButton
+                        className="mt-4 flex h-6 w-full items-center justify-between text-base text-main"
+                        onClick={() => {
+                            PasswordModalRef.open({ workflow: PasswordWorkflow.Change });
+                        }}
+                    >
+                        <span>
+                            <Trans>Change password</Trans>
+                        </span>
+                        <RightArrowIcon width={24} height={24} />
+                    </ClickableButton>
+                    <ClickableButton
+                        className="mt-4 flex h-6 w-full items-center justify-between text-base text-main"
+                        onClick={() => {
+                            PasswordModalRef.open({ workflow: PasswordWorkflow.Reset });
+                        }}
+                    >
+                        <span>
+                            <Trans>Reset password</Trans>
+                        </span>
+                        <RightArrowIcon width={24} height={24} />
+                    </ClickableButton>
+                </div>
+            ) : null}
         </ContentCard>
     );
 });

@@ -70,7 +70,11 @@ async function setPassword(
                 await FireflyEndpointProvider.resetPasscode();
             }
             await FireflyEndpointProvider.setPasscode(password);
-            enqueueSuccessMessage(t`Multi-device login is now turned on and synced successfully.`);
+            enqueueSuccessMessage(
+                shouldReset
+                    ? t`Password updated successfully.`
+                    : t`Multi-device login is now turned on and synced successfully.`,
+            );
             return { step: PasswordStep.Success };
         }
         case PasswordStep.ChangePassword:

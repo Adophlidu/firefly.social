@@ -205,6 +205,9 @@ msgstr ""
 msgid "Turning off Multi-device login will clear all previously encrypted login sessions. A new password is required to re-enable."
 msgstr ""
 
+msgid "Enter a new password to verify your identity."
+msgstr ""
+
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr ""
@@ -810,6 +813,9 @@ msgstr ""
 msgid "Edit profile"
 msgstr ""
 
+msgid "Enter your password to confirm your identity."
+msgstr ""
+
 msgid "Attendees"
 msgstr ""
 
@@ -1107,6 +1113,9 @@ msgid "Search user"
 msgstr ""
 
 msgid "Failed to upload. Video is not supported yet."
+msgstr ""
+
+msgid "Set a 6-digit password to verify your identity for multi-device login."
 msgstr ""
 
 msgid "Whitelist function"
@@ -3246,6 +3255,9 @@ msgstr ""
 msgid "{0, plural, one {<0>{count}</0> Follower} other {<1>{count}</1> Followers}}"
 msgstr ""
 
+msgid "Forgot your password? <0>Reset password</0>"
+msgstr ""
+
 msgid "Everyone can reply"
 msgstr ""
 
@@ -4078,6 +4090,9 @@ msgid "Search nft"
 msgstr ""
 
 msgid "Recast"
+msgstr ""
+
+msgid "Resetting your 6-digit password will clear all previously encrypted login sessions."
 msgstr ""
 
 msgid "Translating..."

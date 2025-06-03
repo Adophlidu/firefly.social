@@ -2,7 +2,7 @@ import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import type { PasswordStep, PasswordWorkflow } from '@/constants/enum.js';
+import { PasswordStep, PasswordWorkflow } from '@/constants/enum.js';
 
 interface ModalActionsProps {
     workflow: PasswordWorkflow;
@@ -21,6 +21,16 @@ export const ModalActions = memo<ModalActionsProps>(function ModalActions({
     onConfirm,
     onCancel,
 }) {
+    const confirmText = [
+        [PasswordWorkflow.Set, [PasswordStep.SetPassword]],
+        [PasswordWorkflow.Change, [PasswordStep.ChangePassword]],
+        [PasswordWorkflow.Reset, [PasswordStep.SetPassword]],
+    ].some(([w, s]) => w === workflow && s.includes(step)) ? (
+        <Trans>Continue</Trans>
+    ) : (
+        <Trans>Confirm</Trans>
+    );
+
     return (
         <div className="flex items-center gap-2">
             <ClickableButton
@@ -36,7 +46,7 @@ export const ModalActions = memo<ModalActionsProps>(function ModalActions({
                 onClick={onConfirm}
                 className="h-10 flex-1 rounded-full bg-main text-medium font-bold leading-10 text-primaryBottom"
             >
-                <Trans>Confirm</Trans>
+                {confirmText}
             </ClickableButton>
         </div>
     );

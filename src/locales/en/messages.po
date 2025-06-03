@@ -205,6 +205,9 @@ msgstr "Delete post"
 msgid "Turning off Multi-device login will clear all previously encrypted login sessions. A new password is required to re-enable."
 msgstr "Turning off Multi-device login will clear all previously encrypted login sessions. A new password is required to re-enable."
 
+msgid "Enter a new password to verify your identity."
+msgstr "Enter a new password to verify your identity."
+
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr "Mute @{0}"
@@ -810,6 +813,9 @@ msgstr "Failed to decrypt post on {sourceName}."
 msgid "Edit profile"
 msgstr "Edit profile"
 
+msgid "Enter your password to confirm your identity."
+msgstr "Enter your password to confirm your identity."
+
 msgid "Attendees"
 msgstr "Attendees"
 
@@ -1108,6 +1114,9 @@ msgstr "Search user"
 
 msgid "Failed to upload. Video is not supported yet."
 msgstr "Failed to upload. Video is not supported yet."
+
+msgid "Set a 6-digit password to verify your identity for multi-device login."
+msgstr "Set a 6-digit password to verify your identity for multi-device login."
 
 msgid "Whitelist function"
 msgstr "Whitelist function"
@@ -3259,6 +3268,9 @@ msgstr "Show more collections"
 msgid "{0, plural, one {<0>{count}</0> Follower} other {<1>{count}</1> Followers}}"
 msgstr "{0, plural, one {<0>{count}</0> Follower} other {<1>{count}</1> Followers}}"
 
+msgid "Forgot your password? <0>Reset password</0>"
+msgstr "Forgot your password? <0>Reset password</0>"
+
 msgid "Everyone can reply"
 msgstr "Everyone can reply"
 
@@ -4095,6 +4107,9 @@ msgstr "Search nft"
 
 msgid "Recast"
 msgstr "Recast"
+
+msgid "Resetting your 6-digit password will clear all previously encrypted login sessions."
+msgstr "Resetting your 6-digit password will clear all previously encrypted login sessions."
 
 msgid "Translating..."
 msgstr "Translating..."

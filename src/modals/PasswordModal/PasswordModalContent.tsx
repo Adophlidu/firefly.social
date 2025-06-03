@@ -5,7 +5,7 @@ import { useAsyncFn } from 'react-use';
 import { CloseButton } from '@/components/IconButton.js';
 import { PasswordStep, type PasswordWorkflow, PasswordWorkflowConfig } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
-import { METRICS_PASSWORD_LENGTH } from '@/constants/index.js';
+import { METRICS_PASSWORD_LENGTH, SESSION_PASSWORD_INPUT_ID_PREFIX } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import type { PasswordModalOpenProps } from '@/modals/PasswordModal/index.js';
 import { isValidPassword } from '@/modals/PasswordModal/isValidPassword.js';
@@ -13,6 +13,7 @@ import { ModalActions } from '@/modals/PasswordModal/ModalActions.js';
 import { ModalTitle } from '@/modals/PasswordModal/ModalTitle.js';
 import { PasswordInputPanel } from '@/modals/PasswordModal/PasswordInputPanel.js';
 import { runPasswordWorkflow } from '@/modals/PasswordModal/runPasswordWorkflow.js';
+import { StepFooterDescription, StepHeaderDescription } from '@/modals/PasswordModal/StepDescription.js';
 
 function createEmptyPasswords(): Record<PasswordStep, string[]> {
     return {
@@ -42,6 +43,17 @@ export const PasswordModalContent = memo<
         [step],
     );
 
+    const changeWorkflowOrStep = useCallback((newWorkflow?: PasswordWorkflow, newStep?: PasswordStep) => {
+        if (newWorkflow) {
+            setWorkflow(newWorkflow);
+            setPasswords(createEmptyPasswords());
+            setStep(newStep || PasswordWorkflowConfig[newWorkflow][0]);
+        } else if (newStep) {
+            setStep(newStep);
+        }
+        document.getElementById(`${SESSION_PASSWORD_INPUT_ID_PREFIX}${0}`)?.focus();
+    }, []);
+
     const [{ loading }, handleNextStep] = useAsyncFn(async () => {
         try {
             const result = await runPasswordWorkflow(workflow, step, passwords);
@@ -52,19 +64,13 @@ export const PasswordModalContent = memo<
                 return;
             }
 
-            if (result.workflow) {
-                setWorkflow(result.workflow);
-                setPasswords(createEmptyPasswords());
-                setStep(result.step || PasswordWorkflowConfig[result.workflow][0]);
-            } else if (result.step) {
-                setStep(result.step);
-            }
+            changeWorkflowOrStep(result.workflow, result.step);
         } catch (error) {
             const fetchError = error instanceof FetchError ? error.errorMessage : undefined;
             enqueueErrorMessage(fetchError || t`Failed to set password.`, { error });
             throw error;
         }
-    }, [passwords, workflow, step, onClose]);
+    }, [passwords, workflow, step, onClose, changeWorkflowOrStep]);
 
     const onCancel = useCallback(() => {
         onClose();
@@ -80,7 +86,15 @@ export const PasswordModalContent = memo<
                     </span>
                 </h3>
                 <div className="mt-8 space-y-8 px-6 pb-6">
-                    <PasswordInputPanel password={passwords[step]} onPasswordChange={onPasswordChange} />
+                    <div className="space-y-4">
+                        <StepHeaderDescription workflow={workflow} step={step} />
+                        <PasswordInputPanel password={passwords[step]} onPasswordChange={onPasswordChange} />
+                        <StepFooterDescription
+                            workflow={workflow}
+                            step={step}
+                            onWorkflowChange={changeWorkflowOrStep}
+                        />
+                    </div>
                     <ModalActions
                         workflow={workflow}
                         step={step}
