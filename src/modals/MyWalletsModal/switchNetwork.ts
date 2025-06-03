@@ -12,9 +12,7 @@ export async function switchNetwork(namespace: ChainNamespace, chainId?: number)
             : namespace === 'solana'
               ? solana
               : undefined;
-    if (targetNetwork) {
-        await appkit.switchNetwork(targetNetwork);
-    }
+    if (targetNetwork) appkit.switchNetwork(targetNetwork);
 
     return targetNetwork;
 }

@@ -83,7 +83,7 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
                 });
             } catch (error) {
                 console.log(
-                    `[memoizeWithRedis] Error setting value in Redis, key=${key}, fieldKey=${fieldKey}, redisKey=${redisKey}, fieldValue=${value}`,
+                    `[memoizeWithRedis] Error setting value in Redis, key=${key}, fieldKey=${fieldKey}, redisKey=${redisKey}, fieldValue=${value as string}`,
                 );
                 throw error;
             }
