@@ -8,6 +8,9 @@ on:
             - '!released'
     workflow_dispatch:
 
+permissions:
+    contents: write # Required to push changes back to the repo
+
 jobs:
     eslint:
         runs-on: ubuntu-latest

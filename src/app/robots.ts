@@ -35,6 +35,6 @@ export default function robots(): MetadataRoute.Robots {
                 allow: '/',
             },
         ],
-        sitemap: `${SITE_URL_OFFICIAL}/sitemap.txt`,
+        sitemap: `${SITE_URL_OFFICIAL}/sitemap/index.xml`,
     };
 }
