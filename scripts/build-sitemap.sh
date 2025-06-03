@@ -56,10 +56,13 @@ mkdir -p "$(dirname "$LOG_FILE")"
 
   mkdir -p "$OUTPUT_DIR"
 
+  # --- Initialize associative array for account sitemaps ---
+  ALL_SITEMAP_URLS=()
+
   # --- Fetching handles ---
   fetch_handles() {
     local provider="$1"
-    local size=1000 # page size
+    local size=1000
     local handles=()
 
     for ((i = 1; i <= 150; i++)); do
@@ -77,7 +80,6 @@ mkdir -p "$(dirname "$LOG_FILE")"
 
       handles+=($new_handles)
 
-      # Stop early if we didn't get a full page of results
       if [ $(echo "$new_handles" | wc -l) -lt "$size" ]; then
         break
       fi
@@ -88,53 +90,42 @@ mkdir -p "$(dirname "$LOG_FILE")"
     echo "${handles[@]}"
   }
 
-
   # --- Generate per-provider sitemaps ---
   generate_account_sitemaps() {
     local provider="$1"
     local handles=("$@")
     handles=("${handles[@]:1}")
 
-    local provider_dir="${OUTPUT_DIR}/${provider}-accounts"
-    mkdir -p "$provider_dir"
-
     local total=${#handles[@]}
     local count=0
     local file_index=1
-    local index_urls=()
 
-    log_info "Generating ${provider}-accounts XML (${total} handles total)"
+    log_info "Generating ${provider}-account XML (${total} handles total)"
 
     while [ $count -lt $total ]; do
       local chunk=("${handles[@]:$count:$MAX_LINKS_PER_FILE}")
-      local file_path="${provider_dir}/${file_index}.xml"
-      local url_path="${BASE_URL}/${provider}-accounts/${file_index}.xml"
+      local file_path="${OUTPUT_DIR}/${provider}-account-${file_index}.xml"
+      local url_path="${BASE_URL}/${provider}-account-${file_index}.xml"
+
+      local sitemap_provider="$provider"
+      if [ "$provider" = "twitter" ]; then
+        sitemap_provider="x"
+      fi
 
       {
         echo '<?xml version="1.0" encoding="UTF-8"?>'
         echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
         for handle in "${chunk[@]}"; do
-          echo "  <url><loc>https://firefly.social/profile/${provider}/${handle}</loc></url>"
+          echo "  <url><loc>https://firefly.social/profile/${sitemap_provider}/${handle}</loc></url>"
         done
         echo '</urlset>'
       } > "$file_path"
 
       log_info "📄 Created: $file_path"
-      index_urls+=("$url_path")
+      ALL_SITEMAP_URLS+=("$url_path")
       ((count+=MAX_LINKS_PER_FILE))
       ((file_index++))
     done
-
-    {
-      echo '<?xml version="1.0" encoding="UTF-8"?>'
-      echo '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-      for url in "${index_urls[@]}"; do
-        echo "  <sitemap><loc>$url</loc></sitemap>"
-      done
-      echo '</sitemapindex>'
-    } > "${provider_dir}/index.xml"
-
-    log_success "✅ ${provider}-accounts/index.xml written"
   }
 
   # --- Main sitemap ---
@@ -143,15 +134,9 @@ mkdir -p "$(dirname "$LOG_FILE")"
     {
       echo '<?xml version="1.0" encoding="UTF-8"?>'
       echo '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-
-      # -- Static sitemap
       echo "  <sitemap><loc>${BASE_URL}/static.xml</loc></sitemap>"
-      for provider in "${PROVIDERS[@]}"; do
-        local sitemap_provider="$provider"
-        if [ "$provider" = "twitter" ]; then
-          sitemap_provider="x"
-        fi
-        echo "  <sitemap><loc>${BASE_URL}/${sitemap_provider}-accounts/index.xml</loc></sitemap>"
+      for url in "${ALL_SITEMAP_URLS[@]}"; do
+        echo "  <sitemap><loc>$url</loc></sitemap>"
       done
       echo '</sitemapindex>'
     } > "$index_path"
