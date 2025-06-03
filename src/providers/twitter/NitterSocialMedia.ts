@@ -17,6 +17,11 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
+import {
+    patchPostClientToFirefly,
+    patchPostsClientToFirefly,
+    patchTweetsClientToFirefly,
+} from '@/helpers/post/patchPostClientToFirefly.js';
 import { resolveTwitterResponseData } from '@/helpers/resolveTwitterResponseData.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { NitterAPIProvider } from '@/providers/twitter/Nitter.js';
@@ -60,13 +65,13 @@ async function withFullStatusTweetWithPagination(timeline: Tweet[], pagination: 
         const data = await runInSafeAsync(() => withFullStatusTimeline(timeline));
         if (data) {
             return createPageable(
-                data,
+                await patchPostsClientToFirefly(data),
                 createIndicator(indicator),
                 pagination.bottom ? createNextIndicator(indicator, pagination.bottom) : undefined,
             );
         }
     }
-    const data = timeline.map((tweet) => formatTwitterPostFromNitter(tweet));
+    const data = await patchPostsClientToFirefly(timeline.map((tweet) => formatTwitterPostFromNitter(tweet)));
     return createPageable(
         data,
         createIndicator(indicator),
@@ -83,15 +88,16 @@ async function withReplyPostsToTimeline(timeline: Tweet[]) {
             tweetIds,
         }),
     );
-    const data = resolveTwitterResponseData(response);
+    const result = resolveTwitterResponseData(response);
+    result.data = result.data ? await patchTweetsClientToFirefly(result.data) : [];
     return timeline.map((tweet) => {
-        const tweetV2 = data.data?.find((x) => x.id === tweet.id);
-        const commentTweetV2 = data.data?.find((x) => x.id === tweet.replyId);
+        const tweetV2 = result.data?.find((x) => x.id === tweet.id);
+        const commentTweetV2 = result.data?.find((x) => x.id === tweet.replyId);
         const commentOn = commentTweetV2 ? tweetV2ToPost(commentTweetV2) : undefined;
         return formatTwitterPostFromNitter(tweet, {
             base: { commentOn, commentLoadable: !commentOn },
             tweet: tweetV2,
-            includes: data.includes,
+            includes: result.includes,
         });
     });
 }
@@ -105,13 +111,15 @@ async function withReplyPostsToTimelineWithPagination(
         const data = await runInSafeAsync(() => withReplyPostsToTimeline(timeline));
         if (data) {
             return createPageable(
-                data,
+                await patchPostsClientToFirefly(data),
                 createIndicator(indicator),
                 pagination.bottom ? createNextIndicator(indicator, pagination.bottom) : undefined,
             );
         }
     }
-    const data = timeline.map((tweet) => formatTwitterPostFromNitter(tweet, { base: { commentLoadable: true } }));
+    const data = await patchPostsClientToFirefly(
+        timeline.map((tweet) => formatTwitterPostFromNitter(tweet, { base: { commentLoadable: true } })),
+    );
     return createPageable(
         data,
         createIndicator(indicator),
@@ -313,7 +321,7 @@ class NitterSocialMedia implements Provider {
         if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const { tweet, before } = await NitterAPIProvider.getTweetStatus('web', postId);
         const commentOn = before.tweets.length > 0 ? formatTwitterPostFromNitter(last(before.tweets)!) : undefined;
-        return formatTwitterPostFromNitter(tweet, { base: { commentOn } });
+        return patchPostClientToFirefly(formatTwitterPostFromNitter(tweet, { base: { commentOn } }));
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
@@ -391,7 +399,7 @@ class NitterSocialMedia implements Provider {
                 formatTwitterPostFromNitter(tweet),
             );
             return createPageable(
-                data,
+                await patchPostsClientToFirefly(data),
                 createIndicator(indicator),
                 replies.bottom ? createNextIndicator(indicator, replies.bottom) : undefined,
             );
@@ -401,11 +409,11 @@ class NitterSocialMedia implements Provider {
 
     async getThreadByPostId(postId: string): Promise<Post[]> {
         const { tweet, before, after } = await NitterAPIProvider.getTweetStatus('web', postId);
-        return [
+        return patchPostsClientToFirefly([
             ...before.tweets.map((x) => formatTwitterPostFromNitter(x)),
             formatTwitterPostFromNitter(tweet),
             ...after.tweets.map((x) => formatTwitterPostFromNitter(x)),
-        ];
+        ]);
     }
 
     async upvotePost(postId: string): Promise<void> {
@@ -494,7 +502,7 @@ class NitterSocialMedia implements Provider {
         if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const { username } = await NitterAPIProvider.convertUserIdToHandle(profileId);
         const { pinned } = await NitterAPIProvider.getProfileByHandle(username);
-        return formatTwitterPostFromNitter(pinned);
+        return patchPostClientToFirefly(formatTwitterPostFromNitter(pinned));
     }
 
     async decryptPost(post: Post): Promise<Post> {

@@ -1,4 +1,5 @@
 // cspell:ignore logreport getpoststate getpostliststate postid
+import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
 import { KeyType } from '@/constants/enum.js';
@@ -23,10 +24,14 @@ async function _getPostsState(post_ids: string[]) {
     return res.data;
 }
 
-export const getPostState = memoizeWithRedis(_getPostState, {
-    key: KeyType.PostState,
-});
+export const getPostState = isServer
+    ? memoizeWithRedis(_getPostState, {
+          key: KeyType.PostState,
+      })
+    : _getPostState;
 
-export const getPostsState = memoizeWithRedis(_getPostsState, {
-    key: KeyType.PostState,
-});
+export const getPostsState = isServer
+    ? memoizeWithRedis(_getPostsState, {
+          key: KeyType.PostState,
+      })
+    : _getPostsState;
