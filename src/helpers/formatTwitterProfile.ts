@@ -23,7 +23,7 @@ export function formatTwitterProfileStatus(statusList: UserV2['connection_status
     }, {});
 }
 
-export function formatTwitterProfile(data: UserV2): Profile {
+export function formatTwitterProfile(data: UserV2): Profile<UserV2> {
     const bio = (data.entities?.description?.urls ?? []).reduce(
         (description, url) => description.replace(url.url, url.expanded_url),
         data.description ?? '',
@@ -45,6 +45,7 @@ export function formatTwitterProfile(data: UserV2): Profile {
         viewerContext: formatTwitterProfileStatus(data.connection_status),
         website: data.url,
         location: data.location,
+        __original__: data,
     };
 }
 

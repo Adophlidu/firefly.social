@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/react/macro';
+import { useQueries } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { type HTMLProps, memo, useMemo, useState } from 'react';
 
@@ -18,6 +19,10 @@ import { formatTokenMentionUser } from '@/helpers/formatTokenMentionUser.js';
 import { isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useX3ProTokenInfo } from '@/hooks/token/useX3ProTokenInfo.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import type { UserV2 } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { PostOrderType } from '@/providers/x3pro/types.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
@@ -48,11 +53,35 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, ...p
         if (includesSpace && [Source.Lens, Source.Bsky].includes(source)) return address || [];
         return compact([includesSpace ? `"${symbol}"` : `$${symbol}`, address]);
     }, [isX3Pro, address, symbol, source]);
+    const mentionUsers = x3Token?.mentionUsers || EMPTY_LIST;
+
+    const twitterProfile = useCurrentProfile(Source.Twitter);
+    const isTwitterLogin = !!twitterProfile;
+    const { profiles: twitterProfiles, isFetching } = useQueries({
+        queries: mentionUsers.map((user) => ({
+            enabled: isTwitterLogin,
+            queryKey: ['profile', Source.Twitter, user.twitterId],
+            queryFn: () => TwitterSocialMediaProvider.getProfileById(user.twitterId),
+        })),
+        combine: (result) => {
+            const profiles = result.map((x) => x.data);
+            const isFetching = result.some((x) => x.isFetching);
+            return { profiles, isFetching };
+        },
+    });
 
     const users = useMemo(() => {
-        if (isX3Pro && x3Token?.mentionUsers.length) return x3Token.mentionUsers.map(formatTokenMentionUser);
+        if (isFetching) return EMPTY_LIST;
+        if (isX3Pro && mentionUsers.length)
+            return mentionUsers
+                .filter((_, i) => {
+                    const profile = twitterProfiles[i] as Profile<UserV2> | undefined;
+                    const connection_status = profile?.__original__?.connection_status;
+                    return !(connection_status?.includes('blocking') || connection_status?.includes('muting'));
+                })
+                .map(formatTokenMentionUser);
         return EMPTY_LIST;
-    }, [isX3Pro, x3Token]);
+    }, [isFetching, isX3Pro, mentionUsers, twitterProfiles]);
 
     const [postOrderType, setPostOrderType] = useState<PostOrderType>(PostOrderType.DESC);
 
@@ -121,7 +150,7 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, ...p
                     </ClickableButton>
                 ) : null}
             </div>
-            {isX3Pro && x3Token ? (
+            {isX3Pro && x3Token && !isFetching ? (
                 <KolBar
                     users={users}
                     total={x3Token.mentionUserCount}
