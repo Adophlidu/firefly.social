@@ -97,6 +97,7 @@ import {
     type LinkDigestResponse,
     type LoginFarcasterWithWalletResponse,
     type LoginResponse,
+    type MetricsStatusResponse,
     type MintBySponsorResponse,
     type MuteAllResponse,
     type NFTDetailsResponse,
@@ -140,6 +141,7 @@ import type {
 } from '@/providers/types/NFTs.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { convertBskyHandleToDid } from '@/services/convertBskyHandleToDid.js';
+import { encryptPasscode } from '@/services/crypto.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { muteAllSocialProfiles } from '@/services/muteAllSocialProfiles.js';
 import { settings } from '@/settings/index.js';
@@ -1548,6 +1550,55 @@ class FireflyEndpoint {
         if (!response.data) return null;
 
         return formatPostsFromTruthSocial(response.data);
+    }
+
+    async setPasscode(passcode: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/metrics/set-passcode');
+
+        await fireflySessionHolder.fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({ passcode: encryptPasscode(passcode) }),
+        });
+    }
+
+    async checkPasscode(passcode: string, noStrictOK?: boolean) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/metrics/check-passcode');
+
+        return await fireflySessionHolder.fetch<Response<{}>>(
+            url,
+            {
+                method: 'POST',
+                body: JSON.stringify({ passcode: encryptPasscode(passcode) }),
+            },
+            { noStrictOK },
+        );
+    }
+
+    async updatePasscode(oldPasscode: string, newPasscode: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/metrics/update-passcode');
+
+        await fireflySessionHolder.fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                oldPasscode: encryptPasscode(oldPasscode),
+                newPasscode: encryptPasscode(newPasscode),
+            }),
+        });
+    }
+
+    async resetPasscode() {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/metrics/reset-passcode');
+
+        await fireflySessionHolder.fetch(url, {
+            method: 'POST',
+        });
+    }
+
+    async getMetricsStatus() {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/metrics/check-login-metrics');
+        const response = await fireflySessionHolder.fetch<MetricsStatusResponse>(url);
+
+        return resolveFireflyResponseData(response);
     }
 }
 

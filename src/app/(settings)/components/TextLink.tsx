@@ -10,15 +10,20 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 interface TextLinkProps {
     name: ReactNode;
     link: `/${string}`;
+    relatedLinks?: Array<`/${string}`>;
 }
 
-export function TextLink({ name, link }: TextLinkProps) {
+export function TextLink({ name, link, relatedLinks }: TextLinkProps) {
     const pathname = usePathname();
+
+    const matched =
+        isRoutePathname(pathname, link) ||
+        !!relatedLinks?.some((relatedLink) => isRoutePathname(pathname, relatedLink));
 
     return (
         <Link
             className={`mb-6 flex items-center justify-between border-b border-line pb-1 text-[18px] leading-[24px] text-main hover:font-bold ${
-                isRoutePathname(pathname, link) ? 'font-bold' : 'font-normal'
+                matched ? 'font-bold' : 'font-normal'
             }`}
             key={link}
             href={link}

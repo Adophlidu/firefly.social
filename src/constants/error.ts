@@ -1,6 +1,7 @@
 import { parseHTML } from 'linkedom';
 
 import type { ProfileSource } from '@/constants/enum.js';
+import { parseJSON } from '@/helpers/parseJSON.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 export class AbortError extends Error {
@@ -80,6 +81,15 @@ export class FetchError extends Error {
             response.statusText,
             text,
         );
+    }
+
+    get errorMessage() {
+        const parsed = parseJSON<{ error?: string[] | string }>(this.text);
+        if (parsed?.error) {
+            return Array.isArray(parsed.error) ? parsed.error.join(', ') : parsed.error;
+        }
+
+        return;
     }
 }
 

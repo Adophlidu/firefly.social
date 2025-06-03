@@ -202,6 +202,9 @@ msgstr "{followerCount, plural, one {Follower} other {Followers}}"
 msgid "Delete post"
 msgstr "Delete post"
 
+msgid "Turning off Multi-device login will clear all previously encrypted login sessions. A new password is required to re-enable."
+msgstr "Turning off Multi-device login will clear all previously encrypted login sessions. A new password is required to re-enable."
+
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr "Mute @{0}"
@@ -295,8 +298,14 @@ msgstr "Claimed successfully."
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 
+msgid "Password Verification"
+msgstr "Password Verification"
+
 msgid "This token is a gas abuser."
 msgstr "This token is a gas abuser."
+
+msgid "Failed to disable Multi-device login. Please try again later."
+msgstr "Failed to disable Multi-device login. Please try again later."
 
 #. placeholder {0}: snapshot.title
 msgid "🙌 Just voted “{choice}” on “{0}”"
@@ -345,6 +354,12 @@ msgstr "Metadata frozen."
 msgid "Sorry, the username or password you entered is incorrect"
 msgstr "Sorry, the username or password you entered is incorrect"
 
+msgid "Turn off"
+msgstr "Turn off"
+
+msgid "Set Password"
+msgstr "Set Password"
+
 msgid "Joined"
 msgstr "Joined"
 
@@ -391,6 +406,9 @@ msgstr "Add Collection"
 msgid "Location should not exceed {maxLocationSize} characters"
 msgstr "Location should not exceed {maxLocationSize} characters"
 
+msgid "Invalid password. Please ensure it is a 6-digit number."
+msgstr "Invalid password. Please ensure it is a 6-digit number."
+
 msgid "Potential risk of external call."
 msgstr "Potential risk of external call."
 
@@ -402,6 +420,9 @@ msgstr "Post engagements"
 
 msgid "No financial crime found."
 msgstr "No financial crime found."
+
+msgid "Manage the accounts, wallets, and communities that you’ve muted."
+msgstr "Manage the accounts, wallets, and communities that you’ve muted."
 
 msgid "Muted {handleOrEnsOrAddress}."
 msgstr "Muted {handleOrEnsOrAddress}."
@@ -747,6 +768,9 @@ msgstr "Users must like, repost/quote, or comment on your post containing the Lu
 msgid "Save Post?"
 msgstr "Save Post?"
 
+msgid "Failed to set password."
+msgstr "Failed to set password."
+
 msgid "Explore"
 msgstr "Explore"
 
@@ -871,6 +895,9 @@ msgstr "Honeypot related address found."
 
 msgid "All rights reserved by Firefly. For any inquiries, please <0>contact us.</0>"
 msgstr "All rights reserved by Firefly. For any inquiries, please <0>contact us.</0>"
+
+msgid "Failed to enable Multi-device login. Please try again later."
+msgstr "Failed to enable Multi-device login. Please try again later."
 
 #. placeholder {0}: session.type
 msgid "Your {0} account is now connected"
@@ -1226,6 +1253,9 @@ msgstr "Anti_whale(Limited number of transactions)"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 
+msgid "The passwords you entered don’t match. Please try again."
+msgstr "The passwords you entered don’t match. Please try again."
+
 msgid "One-time passcode sent to you"
 msgstr "One-time passcode sent to you"
 
@@ -1259,6 +1289,9 @@ msgstr "Failed to show more."
 msgid "Sign in to unlock"
 msgstr "Sign in to unlock"
 
+msgid "Privacy and security"
+msgstr "Privacy and security"
+
 msgid "Log in with your X account to view"
 msgstr "Log in with your X account to view"
 
@@ -1290,6 +1323,9 @@ msgstr "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{0}</
 
 msgid "Cannot choose due to account mismatch."
 msgstr "Cannot choose due to account mismatch."
+
+msgid "Change password"
+msgstr "Change password"
 
 msgid "Verified by {provider}"
 msgstr "Verified by {provider}"
@@ -1514,6 +1550,9 @@ msgstr "Failed to create image payload."
 
 msgid "Network Fee"
 msgstr "Network Fee"
+
+msgid "Reset Password"
+msgstr "Reset Password"
 
 msgid "Contract address found."
 msgstr "Contract address found."
@@ -1985,6 +2024,9 @@ msgstr "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 
+msgid "The password you entered is incorrect. Please try again."
+msgstr "The password you entered is incorrect. Please try again."
+
 msgid "Mute"
 msgstr "Mute"
 
@@ -2010,6 +2052,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>colle
 
 msgid "NFT contract cant restrict the approval, resulting in NFT can not be traded on the NFT DEX."
 msgstr "NFT contract cant restrict the approval, resulting in NFT can not be traded on the NFT DEX."
+
+msgid "Reset password"
+msgstr "Reset password"
 
 msgid "NFT minted successfully!"
 msgstr "NFT minted successfully!"
@@ -2236,6 +2281,9 @@ msgstr "Not Started"
 msgid "Cannot send tip to yourself"
 msgstr "Cannot send tip to yourself"
 
+msgid "{remainTryTimes} more incorrect password attempts will clear all your encrypted login sessions."
+msgstr "{remainTryTimes} more incorrect password attempts will clear all your encrypted login sessions."
+
 msgid "Already signed in before?"
 msgstr "Already signed in before?"
 
@@ -2302,6 +2350,9 @@ msgstr "This profile doesn't enable super follow"
 msgid "The page could not be found."
 msgstr "The page could not be found."
 
+msgid "Change Password"
+msgstr "Change Password"
+
 msgid "No matching channel"
 msgstr "No matching channel"
 
@@ -2361,6 +2412,9 @@ msgstr "Super Follow"
 
 msgid "Cryptocurrency mixer found."
 msgstr "Cryptocurrency mixer found."
+
+msgid "Encrypt your login session with a 6-digit password to enable one-click login across devices."
+msgstr "Encrypt your login session with a 6-digit password to enable one-click login across devices."
 
 #. placeholder {0}: getRpMaxShares(networkType)
 msgid "At most {0} recipients"
@@ -2491,6 +2545,9 @@ msgstr "Show more comments"
 
 msgid "Connect Solana Wallet"
 msgstr "Connect Solana Wallet"
+
+msgid "Unexpected step for verifying password: {step}."
+msgstr "Unexpected step for verifying password: {step}."
 
 msgid "Choose or set the handles for cross at."
 msgstr "Choose or set the handles for cross at."
@@ -2678,6 +2735,9 @@ msgstr "Network cost"
 
 msgid "Failed to update profile."
 msgstr "Failed to update profile."
+
+msgid "Password cannot be a sequence or repeated digits. Please try again."
+msgstr "Password cannot be a sequence or repeated digits. Please try again."
 
 msgid "Paragraph"
 msgstr "Paragraph"
@@ -3100,6 +3160,9 @@ msgstr "Non-contract address found."
 
 msgid "Home"
 msgstr "Home"
+
+msgid "Re-enter Password"
+msgstr "Re-enter Password"
 
 msgid "Confirm to disconnect this account from Firefly’s social graph?"
 msgstr "Confirm to disconnect this account from Firefly’s social graph?"
@@ -3566,6 +3629,9 @@ msgstr "The contract owner has no restrictions on personal slippage."
 msgid "Number of winners"
 msgstr "Number of winners"
 
+msgid "Multi-device login is now turned on and synced successfully."
+msgstr "Multi-device login is now turned on and synced successfully."
+
 #. placeholder {0}: profile.handle
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "Unmuted @{0} on {sourceName}."
@@ -3935,6 +4001,9 @@ msgstr "FREE"
 msgid "Unmuted {walletHandle}."
 msgstr "Unmuted {walletHandle}."
 
+msgid "Password updated successfully."
+msgstr "Password updated successfully."
+
 msgid "Ignore the warnings to continue"
 msgstr "Ignore the warnings to continue"
 
@@ -3963,6 +4032,9 @@ msgstr "Snapshot removed from your Bookmarks"
 
 msgid "Max Supply"
 msgstr "Max Supply"
+
+msgid "Unexpected step for setting password: {step}."
+msgstr "Unexpected step for setting password: {step}."
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
 msgstr "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
@@ -4212,3 +4284,6 @@ msgstr "Posts from Trump on Truth Social (Explore, profile)"
 
 msgid "Golden"
 msgstr "Golden"
+
+msgid "Multi-device login"
+msgstr "Multi-device login"

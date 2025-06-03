@@ -22,6 +22,7 @@ import type {
     NonFungibleCollectionSelectModalCloseProps,
     NonFungibleCollectionSelectModalOpenProps,
 } from '@/modals/NonFungibleCollectionSelectModal/index.js';
+import type { PasswordModalOpenProps } from '@/modals/PasswordModal/index.js';
 import type { PreviewMediaModalOpenProps } from '@/modals/PreviewMediaModal.js';
 import type { RedPacketModalOpenProps } from '@/modals/RedPacketModal/index.js';
 import type { SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';
@@ -70,4 +71,5 @@ export const ChannelSelectModalRef = new SingletonModal<ChannelSelectModalOpenPr
 export const MyWalletsModalRef = new SingletonModal();
 export const EditFireflyProfileModalRef = new SingletonModal<EditFireflyProfileModalOpenProps>();
 export const SwapModalRef = new SingletonModal<SwapModalOpenProps>();
+export const PasswordModalRef = new SingletonModal<PasswordModalOpenProps, boolean | void>();
 export const EditCrossAtModalRef = new SingletonModal<EditCrossAtModalOpenProps, EditCrossAtModalCloseProps>();

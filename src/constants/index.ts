@@ -410,6 +410,8 @@ export const SEVEN_DAYS = 1000 * 60 * 60 * 24 * 7;
 
 export const MAX_SIZE_PER_CHUNK = 2 * 1024 * 1024; // 2MB
 
+export const METRICS_PASSWORD_LENGTH = 6;
+
 export const VITALIK_ADDRESS = '0xd8da6bf26964af9d7eed9e03e53415d37aa96045';
 
 export const MIRROR_OLD_FACTOR_ADDRESSES = [
@@ -475,3 +477,5 @@ export const COINGECKO_SOL_COIN_ID = 'solana';
 export const SWAP_SOL_NATIVE_ADDRESS = '11111111111111111111111111111111';
 
 export const X3_PRO_CHAIN_IDS = [EthereumChainId.BSC, EthereumChainId.Base, SolanaChainId.Mainnet];
+
+export const SESSION_PASSWORD_INPUT_ID_PREFIX = 'session-password-input-';

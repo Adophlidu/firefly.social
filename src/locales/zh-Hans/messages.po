@@ -207,6 +207,9 @@ msgstr "{followerCount, plural, one {关注者} other {关注者}}"
 msgid "Delete post"
 msgstr "删除帖子"
 
+msgid "Turning off Multi-device login will clear all previously encrypted login sessions. A new password is required to re-enable."
+msgstr ""
+
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr "隐藏 @{0}"
@@ -300,8 +303,14 @@ msgstr "领取成功。"
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市场中可发行股票的最大数量相当。</0><1>最大供应量 = 理论最大值</1>"
 
+msgid "Password Verification"
+msgstr ""
+
 msgid "This token is a gas abuser."
 msgstr "该通证是一个燃料滥用者。"
+
+msgid "Failed to disable Multi-device login. Please try again later."
+msgstr ""
 
 #. placeholder {0}: snapshot.title
 msgid "🙌 Just voted “{choice}” on “{0}”"
@@ -350,6 +359,12 @@ msgstr "元数据已冻结。"
 msgid "Sorry, the username or password you entered is incorrect"
 msgstr "抱歉，你输入的用户名或密码不正确"
 
+msgid "Turn off"
+msgstr ""
+
+msgid "Set Password"
+msgstr ""
+
 msgid "Joined"
 msgstr "已加入"
 
@@ -396,6 +411,9 @@ msgstr "添加 NFT 系列"
 msgid "Location should not exceed {maxLocationSize} characters"
 msgstr "地址不可以超过 {maxLocationSize} 个字"
 
+msgid "Invalid password. Please ensure it is a 6-digit number."
+msgstr ""
+
 msgid "Potential risk of external call."
 msgstr "存在外部调用的潜在风险。"
 
@@ -407,6 +425,9 @@ msgstr "查看互动"
 
 msgid "No financial crime found."
 msgstr "未识别到金融犯罪。"
+
+msgid "Manage the accounts, wallets, and communities that you’ve muted."
+msgstr ""
 
 msgid "Muted {handleOrEnsOrAddress}."
 msgstr "隐藏 {handleOrEnsOrAddress}"
@@ -752,6 +773,9 @@ msgstr "用户必须点赞、转发/引用或评论包含幸运掉落的帖子�
 msgid "Save Post?"
 msgstr "保存草稿？"
 
+msgid "Failed to set password."
+msgstr ""
+
 msgid "Explore"
 msgstr "探索"
 
@@ -876,6 +900,9 @@ msgstr "可能是钓鱼地址。"
 
 msgid "All rights reserved by Firefly. For any inquiries, please <0>contact us.</0>"
 msgstr "Firefly版权所有。若有任何疑问，请<0>联系我们。</0>"
+
+msgid "Failed to enable Multi-device login. Please try again later."
+msgstr ""
 
 #. placeholder {0}: session.type
 msgid "Your {0} account is now connected"
@@ -1231,6 +1258,9 @@ msgstr "反鲸鱼（有限的交易次数）"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {repost} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>点赞了你的 </4><5>{1, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</5>"
 
+msgid "The passwords you entered don’t match. Please try again."
+msgstr ""
+
 msgid "One-time passcode sent to you"
 msgstr "一次性验证码已发送给你"
 
@@ -1264,6 +1294,9 @@ msgstr "无法展示更多内容。"
 msgid "Sign in to unlock"
 msgstr "登录解锁"
 
+msgid "Privacy and security"
+msgstr ""
+
 msgid "Log in with your X account to view"
 msgstr "使用你的X账户登录以查看"
 
@@ -1295,6 +1328,9 @@ msgstr ""
 
 msgid "Cannot choose due to account mismatch."
 msgstr "账户不匹配导致选择失败。"
+
+msgid "Change password"
+msgstr ""
 
 msgid "Verified by {provider}"
 msgstr "由 {provider} 校验"
@@ -1519,6 +1555,9 @@ msgstr "创建图片内容失败"
 
 msgid "Network Fee"
 msgstr "网络费"
+
+msgid "Reset Password"
+msgstr ""
 
 msgid "Contract address found."
 msgstr "识别为合约地址。"
@@ -1990,6 +2029,9 @@ msgstr "{riskyFactors, plural, one {# 风险条目} other {# 风险条目}}"
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr "包含自毁功能。项目所有者可能有能力销毁合约。"
 
+msgid "The password you entered is incorrect. Please try again."
+msgstr ""
+
 msgid "Mute"
 msgstr "屏蔽"
 
@@ -2015,6 +2057,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>收�
 
 msgid "NFT contract cant restrict the approval, resulting in NFT can not be traded on the NFT DEX."
 msgstr "NFT 合约无法限制授权，导致NFT无法在NFT去中心化交易所（DEX）上交易。"
+
+msgid "Reset password"
+msgstr ""
 
 msgid "NFT minted successfully!"
 msgstr "NFT 铸造成功！"
@@ -2241,6 +2286,9 @@ msgstr "尚未开始"
 msgid "Cannot send tip to yourself"
 msgstr "不能打赏给自己"
 
+msgid "{remainTryTimes} more incorrect password attempts will clear all your encrypted login sessions."
+msgstr ""
+
 msgid "Already signed in before?"
 msgstr ""
 
@@ -2307,6 +2355,9 @@ msgstr "用户未开放超级关注。"
 msgid "The page could not be found."
 msgstr "找不到该页面。"
 
+msgid "Change Password"
+msgstr ""
+
 msgid "No matching channel"
 msgstr "没有匹配到频道"
 
@@ -2366,6 +2417,9 @@ msgstr "超级关注"
 
 msgid "Cryptocurrency mixer found."
 msgstr "发现加密货币混合器。"
+
+msgid "Encrypt your login session with a 6-digit password to enable one-click login across devices."
+msgstr ""
 
 #. placeholder {0}: getRpMaxShares(networkType)
 msgid "At most {0} recipients"
@@ -2496,6 +2550,9 @@ msgstr "展示更多评论"
 
 msgid "Connect Solana Wallet"
 msgstr "连接Solana钱包"
+
+msgid "Unexpected step for verifying password: {step}."
+msgstr ""
 
 msgid "Choose or set the handles for cross at."
 msgstr ""
@@ -2683,6 +2740,9 @@ msgstr "网络费用"
 
 msgid "Failed to update profile."
 msgstr "更新个人资料失败。"
+
+msgid "Password cannot be a sequence or repeated digits. Please try again."
+msgstr ""
 
 msgid "Paragraph"
 msgstr "Paragraph"
@@ -3105,6 +3165,9 @@ msgstr "发现非合约地址。"
 
 msgid "Home"
 msgstr "首页"
+
+msgid "Re-enter Password"
+msgstr ""
 
 msgid "Confirm to disconnect this account from Firefly’s social graph?"
 msgstr "确认将此账户从 Firefly 的社交图谱中断开连接吗？"
@@ -3571,6 +3634,9 @@ msgstr "合约所有者对个人滑点没有限制。"
 msgid "Number of winners"
 msgstr "获奖人数"
 
+msgid "Multi-device login is now turned on and synced successfully."
+msgstr ""
+
 #. placeholder {0}: profile.handle
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上已取消对 @{0} 的隐藏。"
@@ -3940,6 +4006,9 @@ msgstr "免费"
 msgid "Unmuted {walletHandle}."
 msgstr "取消屏蔽 {walletHandle}。"
 
+msgid "Password updated successfully."
+msgstr ""
+
 msgid "Ignore the warnings to continue"
 msgstr "忽略警告以继续"
 
@@ -3968,6 +4037,9 @@ msgstr "投票已经从你的收藏中移除"
 
 msgid "Max Supply"
 msgstr "最大供应量"
+
+msgid "Unexpected step for setting password: {step}."
+msgstr ""
 
 msgid "If you have multiple Firefly accounts created with different social logins, deleting this account will help you consolidate your social accounts into one. However, if you're trying to access a different Firefly wallet linked to another social account, consider switching accounts instead of deleting."
 msgstr ""
@@ -4219,3 +4291,6 @@ msgstr ""
 
 msgid "Golden"
 msgstr "金色的"
+
+msgid "Multi-device login"
+msgstr ""

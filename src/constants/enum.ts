@@ -575,3 +575,29 @@ export enum ActivitiesPlatform {
     Paragraph = 'Paragraph',
     Limo = 'Limo',
 }
+
+export enum PasswordStep {
+    SetPassword = 'set_password',
+    ConfirmPassword = 'confirm_password',
+    ChangePassword = 'change_password',
+    Success = 'success',
+}
+
+export enum PasswordWorkflow {
+    Set = 'set',
+    Verify = 'verify',
+    Change = 'change',
+    Reset = 'reset',
+}
+
+export const PasswordWorkflowConfig: Record<PasswordWorkflow, PasswordStep[]> = {
+    [PasswordWorkflow.Set]: [PasswordStep.SetPassword, PasswordStep.ConfirmPassword, PasswordStep.Success],
+    [PasswordWorkflow.Verify]: [PasswordStep.SetPassword, PasswordStep.Success],
+    [PasswordWorkflow.Change]: [
+        PasswordStep.SetPassword,
+        PasswordStep.ChangePassword,
+        PasswordStep.ConfirmPassword,
+        PasswordStep.Success,
+    ],
+    [PasswordWorkflow.Reset]: [PasswordStep.SetPassword, PasswordStep.ConfirmPassword, PasswordStep.Success],
+};

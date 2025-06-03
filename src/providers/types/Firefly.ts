@@ -1715,3 +1715,10 @@ export type TokenPriceStatsOptions = {
     address?: string;
     days: number | undefined;
 };
+
+export type MetricsStatusResponse = Response<{
+    metricsCount: number;
+    remainTryCount: number;
+    retryTimes: number;
+    hasSetPasscode?: boolean;
+}>;
