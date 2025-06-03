@@ -816,17 +816,25 @@ class FireflySocialMedia implements Provider {
         );
     }
 
-    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+    async searchPosts(
+        q: string,
+        indicator?: PageIndicator,
+        fullMatch?: boolean,
+    ): Promise<Pageable<Post, PageIndicator>> {
         const { handle, content } = resolveSearchKeyword(q);
         return farcasterSessionHolder.withSession(async (session) => {
             const page = indicator?.id || '1';
-            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/search', {
-                keyword: content,
-                fidHandle: handle,
-                limit: 25,
-                sourceFid: session?.profileId,
-                page,
-            });
+            const url = urlcat(
+                settings.FIREFLY_ROOT_URL,
+                fullMatch ? '/v2/farcaster-hub/cast/searchfull' : '/v2/farcaster-hub/cast/search',
+                {
+                    keyword: content,
+                    fidHandle: handle,
+                    limit: 25,
+                    sourceFid: session?.profileId,
+                    page,
+                },
+            );
             const response = await fireflySessionHolder.fetch<SearchCastsResponse>(url);
             const data = resolveFireflyResponseData(response);
             const casts = Array.isArray(data) ? data : data.casts;

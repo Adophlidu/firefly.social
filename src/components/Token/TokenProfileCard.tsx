@@ -141,6 +141,7 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
     const tokenPageUrl = resolveTokenPageUrl({
         identity: coingeckoCoinId || selectedToken.symbol,
         chainId: selectedToken.chain_id,
+        address: coingeckoCoinId ? undefined : selectedToken.contract_address,
         isCoinId: hasCoinId,
     });
 

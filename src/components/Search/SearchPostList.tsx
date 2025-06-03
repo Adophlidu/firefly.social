@@ -51,7 +51,7 @@ export const SearchPostList = memo<Props>(function SearchPostList({
                         return X3ProProvider.searchPosts(keyword, indicator, orderType);
                     }
                     const provider = resolveSocialMediaProvider(currentSocialSource);
-                    return await provider.searchPosts(keyword.replace(/^#/, ''), indicator);
+                    return await provider.searchPosts(keyword.replace(/^#/, ''), indicator, keyword.includes(' '));
                 } catch {
                     return createPageable(EMPTY_LIST, createIndicator(undefined, pageParam));
                 }

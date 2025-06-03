@@ -820,7 +820,7 @@ export interface Provider {
      * @param indicator
      * @returns
      */
-    searchPosts: (q: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
+    searchPosts: (q: string, indicator?: PageIndicator, fullMatch?: boolean) => Promise<Pageable<Post>>;
 
     /**
      * Search channels.

@@ -280,8 +280,12 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.searchProfiles(q, indicator);
     }
 
-    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        return FireflySocialMediaProvider.searchPosts(q, indicator);
+    async searchPosts(
+        q: string,
+        indicator?: PageIndicator,
+        fullMatch?: boolean,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        return FireflySocialMediaProvider.searchPosts(q, indicator, fullMatch);
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
