@@ -1,9 +1,10 @@
 import { t } from '@lingui/core/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { memo, useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { CloseButton } from '@/components/IconButton.js';
-import { PasswordStep, type PasswordWorkflow, PasswordWorkflowConfig } from '@/constants/enum.js';
+import { PasswordStep, PasswordWorkflow, PasswordWorkflowConfig } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { METRICS_PASSWORD_LENGTH, SESSION_PASSWORD_INPUT_ID_PREFIX } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -14,6 +15,11 @@ import { ModalTitle } from '@/modals/PasswordModal/ModalTitle.js';
 import { PasswordInputPanel } from '@/modals/PasswordModal/PasswordInputPanel.js';
 import { runPasswordWorkflow } from '@/modals/PasswordModal/runPasswordWorkflow.js';
 import { StepFooterDescription, StepHeaderDescription } from '@/modals/PasswordModal/StepDescription.js';
+import {
+    captureChangePasscodeEvent,
+    captureResetPasscodeEvent,
+    captureSetPasscodeEvent,
+} from '@/providers/telemetry/capturePasscodeEvent.js';
 
 function createEmptyPasswords(): Record<PasswordStep, string[]> {
     return {
@@ -22,6 +28,22 @@ function createEmptyPasswords(): Record<PasswordStep, string[]> {
         [PasswordStep.SetPassword]: Array(METRICS_PASSWORD_LENGTH).fill(''),
         [PasswordStep.Success]: Array(METRICS_PASSWORD_LENGTH).fill(''),
     };
+}
+
+async function captureEvent(workflow: PasswordWorkflow) {
+    switch (workflow) {
+        case PasswordWorkflow.Set:
+            return captureSetPasscodeEvent();
+        case PasswordWorkflow.Change:
+            return captureChangePasscodeEvent();
+        case PasswordWorkflow.Reset:
+            return captureResetPasscodeEvent();
+        case PasswordWorkflow.Verify:
+            return;
+        default:
+            safeUnreachable(workflow);
+            return;
+    }
 }
 
 export const PasswordModalContent = memo<
@@ -61,6 +83,7 @@ export const PasswordModalContent = memo<
 
             if (result.step === PasswordStep.Success) {
                 onClose(true);
+                captureEvent(workflow);
                 return;
             }
 

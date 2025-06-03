@@ -35,6 +35,12 @@ export enum EventId {
     ACCOUNT_CONFLICT = 'account_conflict', // ✅
     ACCOUNT_DELETE_SUCCESS = 'account_delete_success', // ✅
 
+    // passcode(sync token)
+    PASSCODE_SET_SUCCESS = 'account_multi_device_on',
+    PASSCODE_REMOVE_SUCCESS = 'account_multi_device_off',
+    PASSCODE_CHANGE_SUCCESS = 'account_sync_password_change_success',
+    PASSCODE_RESET_SUCCESS = 'account_sync_password_reset_success',
+
     // compose dialog
     COMPOSE_CROSS_POST_SEND_SUCCESS = 'cross_post_send_success', // ✅
     COMPOSE_SCHEDULED_POST_CREATE_SUCCESS = 'scheduled_post_create_success', // ✅
