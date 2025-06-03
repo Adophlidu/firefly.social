@@ -1722,3 +1722,12 @@ export type MetricsStatusResponse = Response<{
     retryTimes: number;
     hasSetPasscode?: boolean;
 }>;
+
+type PostStateEntry = {
+    post_id: string;
+    state: boolean;
+};
+
+export type PostState = Response<PostStateEntry>;
+
+export type PostListState = Response<PostStateEntry[]>;

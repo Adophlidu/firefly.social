@@ -5,6 +5,7 @@ import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/helpers/createTwitterErrorResponse.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
+import { patchTweetsClientToFirefly } from '@/helpers/post/patchPostClientToFirefly.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
 import { Pageable } from '@/schemas/index.js';
@@ -16,7 +17,7 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
         const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);
 
         const client = await createTwitterClientV2();
-        const { data, errors } = await client.v2.bookmarks({
+        const { data: result, errors } = await client.v2.bookmarks({
             max_results: queryParams.limit || 25,
             pagination_token: queryParams.cursor || undefined,
         });
@@ -25,6 +26,7 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
             return createTwitterErrorResponseJSON(errors);
         }
 
-        return createSuccessResponseJSON(data);
+        result.data = await patchTweetsClientToFirefly(result.data);
+        return createSuccessResponseJSON(result);
     },
 );

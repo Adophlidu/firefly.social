@@ -9,6 +9,7 @@ import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/helpers/createTwitterErrorResponse.js';
 import { tweetV2ToPost } from '@/helpers/formatTwitterPost.js';
+import { patchPostClientToFirefly } from '@/helpers/post/patchPostClientToFirefly.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
@@ -67,13 +68,15 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
             }
         }
 
-        const post = tweetV2ToPost(data, includes);
+        const post = await patchPostClientToFirefly(tweetV2ToPost(data, includes));
         const quoteOn = post.quoteOn;
         if (post.type === 'Quote' && quoteOn) {
             const quoteTarget = await runInSafeAsync(() =>
                 client.v2.singleTweet(quoteOn.postId, { ...TWITTER_TIMELINE_OPTIONS }),
             );
-            post.quoteOn = quoteTarget?.data ? tweetV2ToPost(quoteTarget.data, quoteTarget.includes) : quoteOn;
+            post.quoteOn = await patchPostClientToFirefly(
+                quoteTarget?.data ? tweetV2ToPost(quoteTarget.data, quoteTarget.includes) : quoteOn,
+            );
         }
 
         return createSuccessResponseJSON(post);

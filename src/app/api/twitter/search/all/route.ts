@@ -6,6 +6,7 @@ import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { createAppOnlyTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
+import { patchTweetsClientToFirefly } from '@/helpers/post/patchPostClientToFirefly.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
 import type { NextRequestContext } from '@/types/index.js';
@@ -39,13 +40,14 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         const queryParams = getSearchParamsFromRequestWithZodObject(request, SearchPageable);
 
         const client = await createAppOnlyTwitterClientV2();
-        const { data, errors } = await client.v2.searchAll(removeUnknownOperator(queryParams.query), {
+        const { data: result, errors } = await client.v2.searchAll(removeUnknownOperator(queryParams.query), {
             ...TWITTER_TIMELINE_OPTIONS,
             next_token: queryParams.cursor ? queryParams.cursor : undefined,
             max_results: queryParams.limit,
         });
         if (errors?.length) console.error('[twitter] v2.search', errors);
 
-        return createSuccessResponseJSON(data);
+        result.data = await patchTweetsClientToFirefly(result.data);
+        return createSuccessResponseJSON(result);
     },
 );

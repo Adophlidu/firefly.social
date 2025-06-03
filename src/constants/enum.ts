@@ -257,6 +257,8 @@ export enum KeyType {
     TwitterHandleToUid = 'twitterHandleToUid',
     TwitterUidToHandle = 'twitterUidToHandle',
     GetTwitterAvatarById = 'getTwitterAvatar',
+
+    PostState = '/v1/post-state',
 }
 
 export enum SocialProfileCategory {

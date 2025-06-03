@@ -6,6 +6,7 @@ import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
+import { patchTweetsClientToFirefly } from '@/helpers/post/patchPostClientToFirefly.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
 import { Pageable } from '@/schemas/index.js';
@@ -21,7 +22,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);
 
         const client = await createTwitterClientV2();
-        const { data, errors } = await client.v2.userTimeline(userId, {
+        const { data: result, errors } = await client.v2.userTimeline(userId, {
             ...TWITTER_TIMELINE_OPTIONS,
             exclude: ['retweets'],
             pagination_token: queryParams.cursor ? queryParams.cursor : undefined,
@@ -29,6 +30,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         });
         if (errors?.length) console.error('[twitter] v2.userTimeline', errors);
 
-        return createSuccessResponseJSON(data);
+        result.data = await patchTweetsClientToFirefly(result.data);
+        return createSuccessResponseJSON(result);
     },
 );

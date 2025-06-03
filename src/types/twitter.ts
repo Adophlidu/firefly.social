@@ -55,3 +55,13 @@ export interface GetUploadStatusResponseV2 {
         error?: { message: string };
     };
 }
+
+declare module 'twitter-api-v2' {
+    interface TweetV2 {
+        /** patched by our own API. */
+        sendFrom?: {
+            displayName?: string;
+            name?: string;
+        };
+    }
+}
