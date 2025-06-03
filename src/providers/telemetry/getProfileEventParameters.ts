@@ -57,33 +57,33 @@ export function getProfileEventParameters(profile: Profile) {
     switch (source) {
         case Source.Farcaster:
             return {
-                source_firefly_account_id: fireflySession.accountIdForEvent,
-                source_farcaster_handle: selfProfile.handle,
-                source_farcaster_id: selfProfile.profileId,
+                firefly_account_id: fireflySession.accountIdForEvent,
+                farcaster_handle: selfProfile.handle,
+                farcaster_id: selfProfile.profileId,
                 target_farcaster_id: profile.profileId,
                 target_farcaster_handle: profile.handle,
             } satisfies FarcasterEventParameters;
         case Source.Lens:
             return {
-                source_firefly_account_id: fireflySession.accountIdForEvent,
-                source_lens_handle: selfProfile.handle,
-                source_lens_id: selfProfile.profileId,
+                firefly_account_id: fireflySession.accountIdForEvent,
+                lens_handle: selfProfile.handle,
+                lens_id: selfProfile.profileId,
                 target_lens_id: profile.profileId,
                 target_lens_handle: profile.handle,
             } satisfies LensEventParameters;
         case Source.Twitter:
             return {
-                source_firefly_account_id: fireflySession.accountIdForEvent,
-                source_x_handle: selfProfile.handle,
-                source_x_id: selfProfile.profileId,
+                firefly_account_id: fireflySession.accountIdForEvent,
+                x_handle: selfProfile.handle,
+                x_id: selfProfile.profileId,
                 target_x_id: profile.profileId,
                 target_x_handle: profile.handle,
             } satisfies TwitterEventParameters;
         case Source.Bsky:
             return {
-                source_firefly_account_id: fireflySession.accountIdForEvent,
-                source_bsky_handle: selfProfile.handle,
-                source_bsky_id: selfProfile.profileId,
+                firefly_account_id: fireflySession.accountIdForEvent,
+                bsky_handle: selfProfile.handle,
+                bsky_id: selfProfile.profileId,
                 target_bsky_id: profile.profileId,
                 target_bsky_handle: profile.handle,
             } satisfies BskyEventParameters;

@@ -76,7 +76,7 @@ export enum EventId {
     SNAPSHOT_VOTE_SUCCESS = 'snapshot_vote_success', // ✅
 
     // mint
-    MINT_NFT_SUCCESS = 'mint_nft_success', // ✅
+    MINT_NFT_SUCCESS = 'NFT_mint_success', // ✅
 
     // profile
     PROFILE_EDIT_CLICK = 'account_edit_profile_click', // ✅
@@ -89,12 +89,12 @@ export enum EventId {
     CONNECT_WALLET_SUCCESS_RABBY = 'rabby_connect_wallet_success', // ✅
     CONNECT_WALLET_SUCCESS_WALLET_CONNECT = 'walletconnect_connect_wallet_success', // ✅
     CONNECT_WALLET_SUCCESS_COINBASE = 'coinbase_connect_wallet_success', // ✅
-    CONNECT_WALLET_SUCCESS_PARTICLE = 'particle_generate_wallet_success', // ✅
     CONNECT_WALLET_SUCCESS_BINANCE = 'binancewallet_connect_wallet_success', // ✅
     CONNECT_WALLET_SUCCESS_OKX = 'okxwallet_connect_wallet_success', // ✅
     CONNECT_WALLET_SUCCESS_ZERION = 'zerion_connect_wallet_success', // ✅
     CONNECT_WALLET_SUCCESS_RAINBOW = 'rainbow_connect_wallet_success', // ✅
     CONNECT_WALLET_SUCCESS_PHANTOM = 'phantom_connect_wallet_success', // ✅
+    CONNECT_WALLET_SUCCESS_SOLFLARE = 'solflare_connect_wallet_success', // ✅
 
     // farcaster
     FARCASTER_LOG_IN_SUCCESS = 'farcaster_log_in_success', // ✅
@@ -176,8 +176,8 @@ export enum EventId {
     BSKY_PROFILE_SUPER_FOLLOW_SUCCESS = 'bsky_superfollow_success', // ✅
 
     // wallet
-    WALLET_FOLLOW_SUCCESS = 'follow_wallet_success',
-    WALLET_UNFOLLOW_SUCCESS = 'unfollow_wallet_success',
+    WALLET_FOLLOW_SUCCESS = 'wallet_follow_success',
+    WALLET_UNFOLLOW_SUCCESS = 'wallet_unfollow_success',
 
     // apple
     APPLE_ACCOUNT_LOG_IN_SUCCESS = 'apple_log_in_success',
@@ -211,16 +211,18 @@ export enum EventId {
 
     // swap
     EVENT_FOLLOWING_SWAP_CLICK = 'following_swap_click',
-    EVENT_LIKE_SWAP_CLICK = 'like_trade_success',
+    EVENT_LIKE_SWAP_CLICK = 'trade_like_success',
     EVENT_SWAP_DETAIL_CLICK = 'swap_detail_click',
+    EVENT_SWAP_COPY_SUCCESS = 'swap_copy_success',
 
     // channel
     CHANNEL_FOLLOW_ON_FARCASTER_SUCCESS = 'farcaster_follow_channel_success',
     CHANNEL_UNFOLLOW_ON_FARCASTER_SUCCESS = 'farcaster_unfollow_channel_success',
-    CHANNEL_JOIN_ON_LENS_SUCCESS = 'lens_join_group_success',
-    CHANNEL_LEAVE_ON_LENS_SUCCESS = 'lens_leave_group_success',
-    CHANNEL_ADD_ON_BSKY_SUCCESS = 'bsky_add_feed_success',
-    CHANNEL_REMOVE_ON_BSKY_SUCCESS = 'bsky_remove_feed_success',
+    CHANNEL_JOIN_ON_LENS_SUCCESS = 'lens_group_join_success',
+    CHANNEL_LEAVE_ON_LENS_SUCCESS = 'lens_group_leave_success',
+    CHANNEL_ADD_ON_BSKY_SUCCESS = 'bsky_feed_add_success',
+    CHANNEL_REMOVE_ON_BSKY_SUCCESS = 'bsky_feed_remove_success',
+    FARCASTER_CHANNEL_JOIN_SUCCESS = 'farcaster_channel_join_success',
 
     // filter tab
     POSTS_FILTER_CHANGE = 'tab_social_filter_click',
@@ -256,9 +258,9 @@ export const enum FarcasterLoginType {
 export type FrameActionType = 'click' | 'buy' | 'mint' | 'others';
 
 export interface FarcasterEventParameters {
-    source_firefly_account_id: string;
-    source_farcaster_handle: string;
-    source_farcaster_id: string;
+    firefly_account_id: string;
+    farcaster_handle: string;
+    farcaster_id: string;
     target_farcaster_id?: string;
     target_farcaster_handle?: string;
 }
@@ -268,9 +270,9 @@ export interface FarcasterPostEventParameters extends FarcasterEventParameters {
 }
 
 export interface LensEventParameters {
-    source_firefly_account_id: string;
-    source_lens_id: string;
-    source_lens_handle: string;
+    firefly_account_id: string;
+    lens_id: string;
+    lens_handle: string;
     target_lens_id: string;
     target_lens_handle: string;
 }
@@ -280,9 +282,9 @@ export interface LensPostEventParameters extends LensEventParameters {
 }
 
 export interface TwitterEventParameters {
-    source_firefly_account_id: string;
-    source_x_id: string;
-    source_x_handle: string;
+    firefly_account_id: string;
+    x_id: string;
+    x_handle: string;
     target_x_id: string;
     target_x_handle: string;
 }
@@ -292,9 +294,9 @@ export interface TwitterPostEventParameters extends TwitterEventParameters {
 }
 
 export interface BskyEventParameters {
-    source_firefly_account_id: string;
-    source_bsky_id: string;
-    source_bsky_handle: string;
+    firefly_account_id: string;
+    bsky_id: string;
+    bsky_handle: string;
     target_bsky_id: string;
     target_bsky_handle: string;
 }
@@ -303,8 +305,13 @@ export interface BskyPostEventParameters extends BskyEventParameters {
     target_bsky_post_id: string;
 }
 
-export interface WalletEventParameters {
+export interface WalletEventBaseParameters {
     firefly_account_id: string;
+    wallet_type?: 'evm' | 'solana' | 'unknown';
+    wallet_address?: string;
+    wallet_app_name?: string;
+}
+export interface WalletEventParameters extends Exclude<WalletEventBaseParameters, 'wallet_type'> {
     wallet_type: 'evm' | 'solana' | 'unknown';
     wallet_address: string;
     wallet_name: string;
@@ -473,11 +480,11 @@ export interface Events extends Record<EventId, Event> {
     };
     [EventId.CONNECT_WALLET_SUCCESS_METAMASK]: {
         type: EventType.Interact;
-        parameters: ConnectWalletEventParameters;
+        parameters: WalletEventBaseParameters;
     };
     [EventId.CONNECT_WALLET_SUCCESS_RABBY]: {
         type: EventType.Interact;
-        parameters: ConnectWalletEventParameters;
+        parameters: WalletEventBaseParameters;
     };
     [EventId.CONNECT_WALLET_SUCCESS_WALLET_CONNECT]: {
         type: EventType.Interact;
@@ -485,15 +492,11 @@ export interface Events extends Record<EventId, Event> {
     };
     [EventId.CONNECT_WALLET_SUCCESS_COINBASE]: {
         type: EventType.Interact;
-        parameters: ConnectWalletEventParameters;
-    };
-    [EventId.CONNECT_WALLET_SUCCESS_PARTICLE]: {
-        type: EventType.Interact;
-        parameters: ConnectWalletEventParameters;
+        parameters: WalletEventBaseParameters;
     };
     [EventId.CONNECT_WALLET_SUCCESS_BINANCE]: {
         type: EventType.Interact;
-        parameters: ConnectWalletEventParameters;
+        parameters: WalletEventBaseParameters;
     };
     [EventId.CONNECT_WALLET_SUCCESS_OKX]: {
         type: EventType.Interact;
@@ -501,15 +504,15 @@ export interface Events extends Record<EventId, Event> {
     };
     [EventId.CONNECT_WALLET_SUCCESS_ZERION]: {
         type: EventType.Interact;
-        parameters: ConnectWalletEventParameters;
+        parameters: WalletEventBaseParameters;
     };
     [EventId.CONNECT_WALLET_SUCCESS_RAINBOW]: {
         type: EventType.Interact;
-        parameters: ConnectWalletEventParameters;
+        parameters: WalletEventBaseParameters;
     };
     [EventId.CONNECT_WALLET_SUCCESS_PHANTOM]: {
         type: EventType.Interact;
-        parameters: ConnectWalletEventParameters;
+        parameters: WalletEventBaseParameters;
     };
 
     [EventId.COMPOSE_CROSS_POST_SEND_SUCCESS]: {

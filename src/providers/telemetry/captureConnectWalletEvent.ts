@@ -1,7 +1,9 @@
 import { ClickOrigin } from '@/constants/enum.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import type { FireflySession } from '@/providers/firefly/Session.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import { EventId } from '@/providers/types/Telemetry.js';
+import { EventId, type WalletEventBaseParameters } from '@/providers/types/Telemetry.js';
+import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 function resolveEventId(name_: string) {
     const name = name_.toLowerCase();
@@ -16,28 +18,29 @@ function resolveEventId(name_: string) {
     if (name.includes('rainbow')) return EventId.CONNECT_WALLET_SUCCESS_RAINBOW;
     if (name.includes('coinbase')) return EventId.CONNECT_WALLET_SUCCESS_COINBASE;
     if (name.includes('phantom')) return EventId.CONNECT_WALLET_SUCCESS_PHANTOM;
-    if (name.includes('firefly')) return EventId.CONNECT_WALLET_SUCCESS_PARTICLE;
 
     return EventId.CONNECT_WALLET_SUCCESS;
 }
 
 export function captureConnectWalletEvent(
     eventId: EventId.CONNECT_WALLET_SUCCESS,
-    options?: {
-        origin?: ClickOrigin;
-        name?: string;
-        address?: string;
-        connect_time?: number;
+    options: {
+        origin: ClickOrigin | undefined;
+        name: string | undefined;
+        address: string | undefined;
+        connect_time: number | undefined;
         connect_success_time?: number;
     },
 ) {
     return runInSafeAsync(async () => {
         const evmAddress = options?.address?.startsWith('eip155') ? options?.address.split(':')[2] : undefined;
         const solanaAddress = options?.address?.startsWith('solana') ? options?.address.split(':')[1] : undefined;
+        const wallet_address = evmAddress || solanaAddress || '0x0';
+        const wallet_type = evmAddress ? 'evm' : solanaAddress ? 'solana' : 'unknown';
         const event = {
             click_location: options?.origin ?? ClickOrigin.Others,
-            wallet_address: evmAddress || solanaAddress || '0x0',
-            wallet_type: evmAddress ? 'evm' : solanaAddress ? 'solana' : 'unknown',
+            wallet_address,
+            wallet_type,
             wallet_name: options?.name ?? 'unknown',
             click_time: options?.connect_time ?? 0,
             connect_success_time: options?.connect_success_time ?? 0,
@@ -49,5 +52,32 @@ export function captureConnectWalletEvent(
 
         TelemetryProvider.captureEvent(EventId.CONNECT_WALLET_SUCCESS, event);
         TelemetryProvider.captureEvent(resolveEventId(options?.name ?? ''), event);
+
+        const fireflySession = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
+        const fireflyAccountId = fireflySession?.accountIdForEvent;
+        if (!fireflyAccountId) return;
+        const eventMap = {
+            'Binance Wallet': EventId.CONNECT_WALLET_SUCCESS_BINANCE,
+            'OKX Wallet': EventId.CONNECT_WALLET_SUCCESS_OKX,
+            CoinBase: EventId.CONNECT_WALLET_SUCCESS_COINBASE,
+            Metamask: EventId.CONNECT_WALLET_SUCCESS_METAMASK,
+            Phantom: EventId.CONNECT_WALLET_SUCCESS_PHANTOM,
+            Rabby: EventId.CONNECT_WALLET_SUCCESS_RABBY,
+            Rainbow: EventId.CONNECT_WALLET_SUCCESS_RAINBOW,
+            Zerion: EventId.CONNECT_WALLET_SUCCESS_ZERION,
+            WalletConnect: EventId.CONNECT_WALLET_SUCCESS_WALLET_CONNECT,
+            Solflare: EventId.CONNECT_WALLET_SUCCESS_SOLFLARE,
+        } as const;
+        const eventId = eventMap[options.name as keyof typeof eventMap];
+        if (!eventId) return;
+
+        const parameters: WalletEventBaseParameters = {
+            firefly_account_id: fireflyAccountId,
+            wallet_type,
+            wallet_address,
+            wallet_app_name:
+                eventId === EventId.CONNECT_WALLET_SUCCESS_WALLET_CONNECT ? (options?.name ?? 'unknown') : undefined,
+        };
+        TelemetryProvider.captureEvent(eventId, parameters);
     });
 }
