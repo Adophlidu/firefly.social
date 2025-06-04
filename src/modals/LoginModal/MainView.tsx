@@ -1,3 +1,6 @@
+'use client';
+
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay, safeUnreachable } from '@masknet/kit';
@@ -7,7 +10,12 @@ import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
+import EditIcon from '@/assets/edit.svg';
+import FireflyAvatar from '@/assets/firefly.round.svg';
+import LogoutIcon from '@/assets/log-out.svg';
+import MoreIcon from '@/assets/more-fill.svg';
 import PlusIcon from '@/assets/plus.svg';
+import ScanIcon from '@/assets/scan.svg';
 import SwitchIcon from '@/assets/switch.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
@@ -34,11 +42,143 @@ import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
-import { EditFireflyProfileModalRef, LoginModalRef } from '@/modals/controls.js';
+import {
+    EditFireflyProfileModalRef,
+    LoginModalRef,
+    LogoutModalRef,
+    SignInWithFireflyAppModalRef,
+} from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import type { Account } from '@/providers/types/Account.js';
+import type { AllConnections, FireflyAccountProfile } from '@/providers/types/Firefly.js';
 import { switchAccount } from '@/services/account.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
+
+function FireflyAccountLoadingSkeleton() {
+    return (
+        <div className="flex h-[76px] animate-pulse items-center gap-2 rounded-lg px-2">
+            <div className="size-[60px] shrink-0 rounded-full bg-bg" />
+            <div className="flex h-[60px] flex-col items-start justify-center">
+                <div className="mb-2 h-3 w-[80px] rounded-lg bg-bg" />
+                <div className="h-3 w-[120px] rounded-lg bg-bg" />
+            </div>
+        </div>
+    );
+}
+
+function FireflyAccount({ profile, connections }: { profile?: FireflyAccountProfile; connections?: AllConnections }) {
+    const avatar = useFireflyAccountAvatar();
+    if (!profile) return null;
+    return (
+        <div className="flex h-[76px] items-center gap-2 rounded-lg border border-highlight px-2">
+            <Avatar src={avatar} size={60} alt={profile.uid ?? ''} />
+            <div className="mr-auto flex h-[60px] flex-col items-start justify-center text-sm">
+                {!profile.avatar || !profile.displayName ? (
+                    <ClickableButton
+                        className="h-5 cursor-pointer text-sm font-bold leading-5 text-highlight hover:underline"
+                        onClick={() => {
+                            EditFireflyProfileModalRef.open({
+                                profile,
+                                connections,
+                            });
+                        }}
+                    >
+                        <Trans>Edit Profile</Trans>
+                    </ClickableButton>
+                ) : (
+                    <span className="h-5 font-bold leading-5">{profile?.displayName || 'Firefly Account'}</span>
+                )}
+                <span className="h-5 leading-5 text-secondary">UID: {profile?.uid}</span>
+            </div>
+            <Menu>
+                <MenuButton className="flex size-5 items-center justify-center rounded-lg">
+                    <MoreIcon className="size-5 shrink-0" />
+                </MenuButton>
+                <MenuItems
+                    transition
+                    anchor="bottom end"
+                    className="z-50 w-[186px] origin-top-right rounded-lg bg-primaryBottom py-3 font-normal shadow-messageShadow outline-none transition data-[closed]:scale-95 data-[closed]:opacity-0"
+                >
+                    <MenuItem>
+                        {({ close }) => (
+                            <button
+                                className="flex w-full items-center whitespace-nowrap px-3 py-1 text-base font-bold"
+                                onClick={() => {
+                                    EditFireflyProfileModalRef.open({
+                                        profile,
+                                        connections,
+                                    });
+                                    LoginModalRef.close();
+                                    close();
+                                    captureEditProfileClickEvent();
+                                }}
+                            >
+                                <EditIcon className="mr-2 size-[18px]" />
+                                <Trans>Edit profile</Trans>
+                            </button>
+                        )}
+                    </MenuItem>
+                    <MenuItem>
+                        {({ close }) => (
+                            <button
+                                className="flex w-full items-center whitespace-nowrap px-3 py-1 text-base font-bold"
+                                onClick={() => {
+                                    close();
+                                    LoginModalRef.close();
+                                    SignInWithFireflyAppModalRef.open();
+                                }}
+                            >
+                                <ScanIcon className="mr-2 size-[18px]" />
+                                <Trans>Mobile QR login</Trans>
+                            </button>
+                        )}
+                    </MenuItem>
+                    <MenuItem>
+                        {({ close }) => (
+                            <button
+                                className="flex w-full items-center whitespace-nowrap px-3 py-1 text-base font-bold text-danger"
+                                onClick={() => {
+                                    close();
+                                    LoginModalRef.close();
+                                    LogoutModalRef.open();
+                                }}
+                            >
+                                <LogoutIcon className="mr-2 size-[18px]" />
+                                <Trans>Log out</Trans>
+                            </button>
+                        )}
+                    </MenuItem>
+                </MenuItems>
+            </Menu>
+        </div>
+    );
+}
+
+function FireflyLoginButton() {
+    return (
+        <div className="flex h-[56px] items-center gap-2 rounded-lg border border-highlight bg-bg px-2 text-left text-sm text-main">
+            <FireflyAvatar className="size-[40px] shrink-0" width={40} height={40} />
+            <div className="flex h-[40px] min-w-0 flex-1 flex-col items-start justify-center">
+                <div className="mb-2 h-5 w-full truncate leading-5">
+                    <Trans>Firefly Mobile</Trans>
+                </div>
+                <div className="h-5 w-full truncate leading-5 text-second">
+                    <Trans>Scan QR code to access your account</Trans>
+                </div>
+            </div>
+            <button
+                className="ml-auto size-5 shrink-0 cursor-pointer"
+                onClick={() => {
+                    LoginModalRef.close();
+                    SignInWithFireflyAppModalRef.open();
+                }}
+            >
+                <ScanIcon width={20} height={20} />
+            </button>
+        </div>
+    );
+}
 
 export function MainView() {
     const router = useRouter();
@@ -133,49 +273,19 @@ export function MainView() {
         [identity.id, identity.source, isMyProfilePage, isPureProfilePage, updateParams],
     );
 
-    const avatar = useFireflyAccountAvatar();
-
-    const currentProfile = data?.fireflyAccount;
-
     return (
         <div className="rounded-[6px] px-6 pb-6 max-md:max-h-[calc(100vh_-_64px)] max-md:overflow-auto md:w-[400px]">
             <div className="no-scrollbar overflow-auto rounded-[6px] bg-primaryBottom md:max-h-[492px]">
                 {isLoginFirefly ? (
-                    currentProfile ? (
-                        <div className="mb-3 flex gap-2 rounded-lg border border-highlight p-2">
-                            <Avatar src={avatar} size={60} alt={currentProfile?.uid ?? ''} />
-                            <div className="flex flex-col items-start">
-                                {!currentProfile.avatar || !currentProfile.displayName ? (
-                                    <ClickableButton
-                                        className="cursor-pointer font-bold text-highlight hover:underline"
-                                        onClick={() => {
-                                            EditFireflyProfileModalRef.open({
-                                                profile: currentProfile,
-                                                connections: data?.__origin__,
-                                            });
-                                        }}
-                                    >
-                                        <Trans>Edit Profile</Trans>
-                                    </ClickableButton>
-                                ) : (
-                                    <span className="font-bold">
-                                        {currentProfile?.displayName || 'Firefly Account'}
-                                    </span>
-                                )}
-                                <span className="text-secondary">UID: {currentProfile?.uid}</span>
-                            </div>
-                        </div>
-                    ) : isLoading ? (
-                        <div className="mb-3 flex animate-pulse items-center gap-2 rounded-lg border border-highlight p-2">
-                            <div className="h-[60px] w-[60px] rounded-full bg-bg" />
-                            <div className="flex-1 space-y-2">
-                                <div className="h-6 w-[96px] bg-bg" />
-                                <div className="h-6 w-[136] bg-bg" />
-                            </div>
-                        </div>
-                    ) : null
-                ) : null}
-                <div className="mb-3 text-left text-[15px] font-medium leading-[15px]">
+                    isLoading ? (
+                        <FireflyAccountLoadingSkeleton />
+                    ) : (
+                        <FireflyAccount profile={data?.fireflyAccount ?? undefined} connections={data?.__origin__} />
+                    )
+                ) : (
+                    <FireflyLoginButton />
+                )}
+                <div className="my-2 text-left text-[15px] font-medium leading-[15px]">
                     <Trans>Social accounts</Trans>
                 </div>
                 <div className="flex flex-col gap-2">

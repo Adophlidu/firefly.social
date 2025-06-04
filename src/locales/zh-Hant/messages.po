@@ -423,6 +423,9 @@ msgstr "存在外部調用風險。"
 msgid "FAILED POST"
 msgstr "發文失敗"
 
+msgid "Decryption failed."
+msgstr ""
+
 msgid "Post engagements"
 msgstr "貼文互動"
 
@@ -821,6 +824,9 @@ msgstr "編輯個人檔案"
 msgid "Enter your password to confirm your identity."
 msgstr ""
 
+msgid "The encrypted data not found."
+msgstr ""
+
 msgid "Attendees"
 msgstr "參與者"
 
@@ -1064,11 +1070,17 @@ msgstr "未找到Lens個人檔案。<0/>請切換其他錢包。"
 msgid "Drop type"
 msgstr "空投類型"
 
+msgid "Scan the QR code with the <0>Firefly mobile app</0><1/>or <2>Camera app</2> to sign in instantly"
+msgstr ""
+
 msgid "The contract owner has no restrictions on trading cooldown."
 msgstr "合約擁有者未設定交易冷卻限制。"
 
 msgid "Connect Wallet"
 msgstr "連結錢包"
+
+msgid "Sign In With Firefly App Modal"
+msgstr ""
 
 msgid "Review Transaction"
 msgstr "檢視交易"
@@ -1153,6 +1165,9 @@ msgstr "地址"
 
 msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
 msgstr "取消追蹤Firefly上的{handleOrEnsOrAddress}失敗。"
+
+msgid "Mobile QR login"
+msgstr ""
 
 msgid "Bio"
 msgstr "個人簡介"
@@ -2346,6 +2361,9 @@ msgstr ""
 msgid "Set as primary account"
 msgstr ""
 
+msgid "Firefly Mobile"
+msgstr ""
+
 msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
 msgstr ""
 
@@ -2654,6 +2672,9 @@ msgstr ""
 msgid "Failed to bookmark post."
 msgstr "書籤標記失敗。"
 
+msgid "Login session expired."
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 #. placeholder {0}: resolveSourceName(Source.Lens)
 #. placeholder {0}: resolveSourceName(Source.Twitter)
@@ -2905,6 +2926,9 @@ msgstr "錢包已提交"
 
 msgid "This does not appear to be a honeypot."
 msgstr "此地址未檢測到蜜罐風險。"
+
+msgid "Your Firefly Account is now connected"
+msgstr ""
 
 msgid "Legacy Firefly wallet"
 msgstr ""
@@ -3384,6 +3408,9 @@ msgstr "選擇網路"
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr "請選擇一個 EVM 錢包與一個 Solana 錢包以使用 Firefly 鏈上功能。"
 
+msgid "Scan QR code to access your account"
+msgstr ""
+
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
 #. placeholder {2}: mutuals[2].displayName
@@ -3602,6 +3629,9 @@ msgstr "建立貼文"
 
 msgid "Unverified: Failed to simulate, <0>try again</0>"
 msgstr "未驗證：模擬失敗，<0>請重試</0>"
+
+msgid "Please confirm login in the app"
+msgstr ""
 
 msgid "Minting"
 msgstr "鑄造中"

@@ -418,6 +418,9 @@ msgstr ""
 msgid "FAILED POST"
 msgstr ""
 
+msgid "Decryption failed."
+msgstr ""
+
 msgid "Post engagements"
 msgstr ""
 
@@ -816,6 +819,9 @@ msgstr ""
 msgid "Enter your password to confirm your identity."
 msgstr ""
 
+msgid "The encrypted data not found."
+msgstr ""
+
 msgid "Attendees"
 msgstr ""
 
@@ -1059,10 +1065,16 @@ msgstr ""
 msgid "Drop type"
 msgstr ""
 
+msgid "Scan the QR code with the <0>Firefly mobile app</0><1/>or <2>Camera app</2> to sign in instantly"
+msgstr ""
+
 msgid "The contract owner has no restrictions on trading cooldown."
 msgstr ""
 
 msgid "Connect Wallet"
+msgstr ""
+
+msgid "Sign In With Firefly App Modal"
 msgstr ""
 
 msgid "Review Transaction"
@@ -1147,6 +1159,9 @@ msgid "Address"
 msgstr ""
 
 msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
+msgstr ""
+
+msgid "Mobile QR login"
 msgstr ""
 
 msgid "Bio"
@@ -2333,6 +2348,9 @@ msgstr ""
 msgid "Set as primary account"
 msgstr ""
 
+msgid "Firefly Mobile"
+msgstr ""
+
 msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
 msgstr ""
 
@@ -2641,6 +2659,9 @@ msgstr ""
 msgid "Failed to bookmark post."
 msgstr ""
 
+msgid "Login session expired."
+msgstr ""
+
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 #. placeholder {0}: resolveSourceName(Source.Lens)
 #. placeholder {0}: resolveSourceName(Source.Twitter)
@@ -2891,6 +2912,9 @@ msgid "Wallet submitted"
 msgstr ""
 
 msgid "This does not appear to be a honeypot."
+msgstr ""
+
+msgid "Your Firefly Account is now connected"
 msgstr ""
 
 msgid "Legacy Firefly wallet"
@@ -3371,6 +3395,9 @@ msgstr ""
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr ""
 
+msgid "Scan QR code to access your account"
+msgstr ""
+
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
 #. placeholder {2}: mutuals[2].displayName
@@ -3585,6 +3612,9 @@ msgid "Create a Post"
 msgstr ""
 
 msgid "Unverified: Failed to simulate, <0>try again</0>"
+msgstr ""
+
+msgid "Please confirm login in the app"
 msgstr ""
 
 msgid "Minting"
@@ -4270,7 +4300,7 @@ msgstr ""
 
 #. placeholder {0}: nFormatter(props.ownerCount)
 msgid "× {0}"
-msgstr "<<<<<<< HEAD======="
+msgstr ""
 
 msgid "Please confirm the login with Farcaster."
 msgstr ""

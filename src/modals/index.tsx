@@ -30,6 +30,7 @@ import { PasswordModal } from '@/modals/PasswordModal/index.js';
 import { PreviewMediaModal } from '@/modals/PreviewMediaModal.js';
 import { RedPacketModal } from '@/modals/RedPacketModal/index.js';
 import { SchedulePostModal } from '@/modals/SchedulePostModal.js';
+import { SignInWithFireflyAppModal } from '@/modals/SignInWithFireflyAppModal.js';
 import { Snackbar } from '@/modals/Snackbar.js';
 import { SuperFollowModal } from '@/modals/SuperFollowModal.js';
 import { SwapModal } from '@/modals/SwapModal.js';
@@ -72,6 +73,7 @@ export const Modals = memo(function Modals() {
             <MyWalletsModal ref={controls.MyWalletsModalRef.register} />
             <EditFireflyProfileModal ref={controls.EditFireflyProfileModalRef.register} />
             <SwapModal ref={controls.SwapModalRef.register} />
+            <SignInWithFireflyAppModal ref={controls.SignInWithFireflyAppModalRef.register} />
             <PasswordModal ref={controls.PasswordModalRef.register} />
             <EditCrossAtModal ref={controls.EditCrossAtModalRef.register} />
         </NoSSR>

@@ -418,6 +418,9 @@ msgstr "Potential risk of external call."
 msgid "FAILED POST"
 msgstr "FAILED POST"
 
+msgid "Decryption failed."
+msgstr "Decryption failed."
+
 msgid "Post engagements"
 msgstr "Post engagements"
 
@@ -816,6 +819,9 @@ msgstr "Edit profile"
 msgid "Enter your password to confirm your identity."
 msgstr "Enter your password to confirm your identity."
 
+msgid "The encrypted data not found."
+msgstr "The encrypted data not found."
+
 msgid "Attendees"
 msgstr "Attendees"
 
@@ -1059,11 +1065,17 @@ msgstr "No Lens profile found.<0/>Please change to another wallet."
 msgid "Drop type"
 msgstr "Drop type"
 
+msgid "Scan the QR code with the <0>Firefly mobile app</0><1/>or <2>Camera app</2> to sign in instantly"
+msgstr "Scan the QR code with the <0>Firefly mobile app</0><1/>or <2>Camera app</2> to sign in instantly"
+
 msgid "The contract owner has no restrictions on trading cooldown."
 msgstr "The contract owner has no restrictions on trading cooldown."
 
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
+
+msgid "Sign In With Firefly App Modal"
+msgstr "Sign In With Firefly App Modal"
 
 msgid "Review Transaction"
 msgstr "Review Transaction"
@@ -1148,6 +1160,9 @@ msgstr "Address"
 
 msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
 msgstr "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
+
+msgid "Mobile QR login"
+msgstr "Mobile QR login"
 
 msgid "Bio"
 msgstr "Bio"
@@ -2341,6 +2356,9 @@ msgstr "Access Denied"
 msgid "Set as primary account"
 msgstr "Set as primary account"
 
+msgid "Firefly Mobile"
+msgstr "Firefly Mobile"
+
 msgid "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
 msgstr "<0>The proportion of current market capitalization compares to market capitalization when meeting max supply.</0><1>The closer the Mkt Cap/FDV to 1, the closer the current market capitalization to its fully diluted valuation and vice versa.</1>"
 
@@ -2654,6 +2672,9 @@ msgstr "Price"
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
 
+msgid "Login session expired."
+msgstr "Login session expired."
+
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 #. placeholder {0}: resolveSourceName(Source.Lens)
 #. placeholder {0}: resolveSourceName(Source.Twitter)
@@ -2905,6 +2926,9 @@ msgstr "Wallet submitted"
 
 msgid "This does not appear to be a honeypot."
 msgstr "This does not appear to be a honeypot."
+
+msgid "Your Firefly Account is now connected"
+msgstr "Your Firefly Account is now connected"
 
 msgid "Legacy Firefly wallet"
 msgstr "Legacy Firefly wallet"
@@ -3384,6 +3408,9 @@ msgstr "Select Network"
 msgid "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 msgstr "Please select one EVM wallet and one Solana wallet for onchain features in Firefly."
 
+msgid "Scan QR code to access your account"
+msgstr "Scan QR code to access your account"
+
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
 #. placeholder {2}: mutuals[2].displayName
@@ -3602,6 +3629,9 @@ msgstr "Create a Post"
 
 msgid "Unverified: Failed to simulate, <0>try again</0>"
 msgstr "Unverified: Failed to simulate, <0>try again</0>"
+
+msgid "Please confirm login in the app"
+msgstr "Please confirm login in the app"
 
 msgid "Minting"
 msgstr "Minting"

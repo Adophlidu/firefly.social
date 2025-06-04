@@ -8,6 +8,7 @@ import { EstimateGasExecutionError, UserRejectedRequestError } from 'viem';
 import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
 import { FarcasterInvalidSignerKey, FetchError, UserRejectionError } from '@/constants/error.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
+import { DecryptionFailed } from '@/services/loginWithAppScan.js';
 
 type SolanaError = {
     code: number;
@@ -85,6 +86,10 @@ export function getErrorMessageFromError(error: unknown, fallback?: string): Sna
                 message={<Trans>The user canceled the operation.</Trans>}
             />
         );
+    }
+
+    if (error instanceof DecryptionFailed) {
+        return error.message;
     }
 
     return fallback;

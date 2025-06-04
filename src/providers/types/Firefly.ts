@@ -1716,6 +1716,30 @@ export type TokenPriceStatsOptions = {
     days: number | undefined;
 };
 
+export type DesktopLinkInfoResponse = Response<{
+    link: string;
+    session: string;
+    expiresAt: string;
+}>;
+
+export const enum DesktopLinkInfoStatus {
+    Expired = 'expired',
+    Pending = 'pending',
+    Confirm = 'confirm',
+    Cancel = 'cancel',
+}
+
+export type DesktopLinkInfoStatusData =
+    | {
+          status: Exclude<DesktopLinkInfoStatus, DesktopLinkInfoStatus.Confirm>;
+      }
+    | {
+          status: DesktopLinkInfoStatus.Confirm;
+          encryptedData: string;
+      };
+
+export type DesktopLinkInfoStatusResponse = Response<DesktopLinkInfoStatusData>;
+
 export type MetricsStatusResponse = Response<{
     metricsCount: number;
     remainTryCount: number;

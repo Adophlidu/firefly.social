@@ -293,6 +293,61 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     return true;
 }
 
+export async function addAccounts(fireflySession: FireflySession, accounts: Account[], options?: AccountOptions) {
+    const {
+        setAsCurrent = true,
+        skipBelongsToCheck = false,
+        skipResumeFireflyAccounts = false,
+        skipResumeFireflySession = false,
+        skipReportFarcasterSigner = true,
+        signal,
+    } = options ?? {};
+    if (!accounts.length) return false;
+
+    if (!skipResumeFireflyAccounts) {
+        const currentFireflySession = getProfileState(Source.Firefly).currentProfileSession;
+        const belongsTo =
+            skipBelongsToCheck || fireflySession || currentFireflySession || !hasAnySocialProfile()
+                ? true
+                : isSameSession(fireflySession, currentFireflySession);
+        if (!belongsTo) {
+            const confirmed = await ConfirmFireflyModalRef.openAndWaitForClose({
+                account: accounts[0]!,
+            });
+            if (!confirmed) return false;
+        }
+        await updateState(accounts, {
+            setAsCurrent,
+            overwrite: false,
+        });
+    }
+
+    // resume firefly session
+    if (!skipResumeFireflySession && accounts[0]) {
+        console.warn('[addAccount] resume firefly session');
+        await resumeFireflySession(accounts[0]!, signal);
+    }
+
+    // report farcaster signer
+    if (!skipReportFarcasterSigner) {
+        runInSafeAsync(async () => {
+            for (const account of accounts) {
+                if (fireflySessionHolder.session && account.session.type === SessionType.Farcaster) {
+                    await FireflyEndpointProvider.reportFarcasterSigner(account.session as FireflySession);
+                }
+            }
+        });
+    }
+
+    accounts.forEach((account) => {
+        captureActivityLoginEvent(account);
+        captureAccountLoginEvent(account);
+    });
+    if (fireflySession?.payload?.isNew) captureAccountCreateSuccessEvent(accounts[0]);
+
+    return true;
+}
+
 export async function switchAccount(account: Account, signal?: AbortSignal) {
     const { state, sessionHolder } = getContext(account.profile.profileSource);
 

@@ -74,6 +74,8 @@ import {
     type CollectionsResponse,
     type CollectionStatisticsResponse,
     type DebankTokensResponse,
+    type DesktopLinkInfoResponse,
+    type DesktopLinkInfoStatusResponse,
     type DetectAddressResponse,
     type EmptyResponse,
     type FireflyIdentity,
@@ -752,6 +754,14 @@ class FireflyEndpoint {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection');
         const response = await fireflySessionHolder.fetch<GetAllConnectionsResponse>(url, {
             method: 'GET',
+        });
+        return resolveFireflyResponseData(response);
+    }
+
+    async getAllConnectionsFromAuthToken(authToken: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection');
+        const response = await fetchJSON<GetAllConnectionsResponse>(url, {
+            headers: { Authorization: `Bearer ${authToken}` },
         });
         return resolveFireflyResponseData(response);
     }
@@ -1550,6 +1560,21 @@ class FireflyEndpoint {
         if (!response.data) return null;
 
         return formatPostsFromTruthSocial(response.data);
+    }
+
+    async getDesktopLinkInfo() {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/desktop/linkInfo');
+        const response = await fetchJSON<DesktopLinkInfoResponse>(url);
+        return resolveFireflyResponseData(response);
+    }
+
+    async getDesktopStatus(session: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/desktop/statusV2');
+        const response = await fetchJSON<DesktopLinkInfoStatusResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({ session }),
+        });
+        return resolveFireflyResponseData(response);
     }
 
     async setPasscode(passcode: string) {

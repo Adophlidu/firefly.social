@@ -71,5 +71,6 @@ export const ChannelSelectModalRef = new SingletonModal<ChannelSelectModalOpenPr
 export const MyWalletsModalRef = new SingletonModal();
 export const EditFireflyProfileModalRef = new SingletonModal<EditFireflyProfileModalOpenProps>();
 export const SwapModalRef = new SingletonModal<SwapModalOpenProps>();
+export const SignInWithFireflyAppModalRef = new SingletonModal();
 export const PasswordModalRef = new SingletonModal<PasswordModalOpenProps, boolean | void>();
 export const EditCrossAtModalRef = new SingletonModal<EditCrossAtModalOpenProps, EditCrossAtModalCloseProps>();

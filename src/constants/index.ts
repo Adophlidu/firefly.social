@@ -94,6 +94,8 @@ export const RP_HASH_TAG = '#FireflyLuckyDrop';
 export const HIDDEN_SECRET = '[HIDE_FROM_CLIENT]';
 export const NOT_DEPEND_SECRET = '[TO_BE_REPLACED_LATER]';
 
+export const ORB_CLUB_TAG_PREFIX = 'orbcommunities';
+
 export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory[]> = {
     [Source.Lens]: [
         SocialProfileCategory.Feed,
