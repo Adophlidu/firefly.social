@@ -3,6 +3,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
+import dayjs from 'dayjs';
 import { memo, type Ref, useState } from 'react';
 import QRCode from 'react-qr-code';
 import { useInterval, useMount } from 'react-use';
@@ -36,7 +37,7 @@ function generateOTP() {
     return number.toString().padStart(6, '0');
 }
 
-function useExpires(expiresAt: string, enabled = true) {
+function useExpires(expiresAt?: string, enabled = true) {
     const [isExpired, setIsExpired] = useState(false);
     useInterval(
         () => {
@@ -126,7 +127,7 @@ function Content({
         onCancel,
     });
 
-    const isExpired = useExpires(enabled, linkInfoData?.expiresAt);
+    const isExpired = useExpires(linkInfoData?.expiresAt, enabled);
 
     const schemaURL = linkInfoData
         ? urlcat('firefly://account/scan/desktop-login', {
