@@ -8,6 +8,7 @@ import { parseJson } from '@/helpers/parseJson.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveFarcasterMiniappHomeUrl } from '@/helpers/resolveFarcasterMiniappHomeUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { getNextVersion } from '@/providers/frame/readers/getNextVersion.js';
 import {
     getAspectRatio,
     getButtons,
@@ -123,7 +124,7 @@ class Processor {
     digestDocument = async (url: string, html: string, signal?: AbortSignal): Promise<LinkDigestedResponse | null> => {
         const { document } = parseHTML(html);
 
-        const version = getVersion(document);
+        const version = getVersion(document) || getNextVersion(url, document);
         if (!version) throw new Error(`Version not found: ${url}`);
 
         // v2
@@ -153,8 +154,8 @@ class Processor {
         if (BLACKLISTED_HOSTS.some((host) => host === url.hostname)) return null;
 
         const response = await fetch(url, {
-            // It must respond within 5 seconds.
-            signal: anySignal(signal ?? null, AbortSignal.timeout(5000)),
+            // It must respond within 30 seconds.
+            signal: anySignal(signal ?? null, AbortSignal.timeout(30 * 1000)),
         });
         if (!response.ok || (response.status >= 500 && response.status < 600)) {
             const fetchError = await FetchError.from(url, response);

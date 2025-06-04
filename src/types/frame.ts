@@ -119,9 +119,9 @@ export type TriggerConfig =
 
 export interface FrameConfig {
     /**
-     * Must be '1'
+     * In spec it must be '1', but we allow any string for flexibility
      */
-    version: '1';
+    version: string;
     /**
      * Max length 32 characters
      */

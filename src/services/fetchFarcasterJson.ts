@@ -29,9 +29,9 @@ export const AccountAssociationSchema = z.object({
  */
 export const FrameSchema = z.object({
     /**
-     * Must be '1'
+     * In spec it must be '1', but we allow any string for flexibility
      */
-    version: z.literal('1'),
+    version: z.string(),
     /**
      * Max length 32 characters
      */
