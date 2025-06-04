@@ -26,7 +26,7 @@ export async function runInSafeAsync<T>(
         if (error instanceof RecognizableError) return;
 
         if (!noThrow) throw error;
-        console.error(`[runInSafeAsync] ${error}`);
+        console.error(`[runInSafeAsync] ${(error as Error).message}`, error);
         return;
     }
 }

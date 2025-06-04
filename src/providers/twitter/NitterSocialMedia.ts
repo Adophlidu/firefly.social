@@ -320,7 +320,9 @@ class NitterSocialMedia implements Provider {
     async getPostById(postId: string): Promise<Post> {
         if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const { tweet, before } = await NitterAPIProvider.getTweetStatus('web', postId);
-        const commentOn = before.tweets.length > 0 ? formatTwitterPostFromNitter(last(before.tweets)!) : undefined;
+        const commentOn = await patchPostClientToFirefly(
+            before.tweets.length > 0 ? formatTwitterPostFromNitter(last(before.tweets)!) : undefined,
+        );
         return patchPostClientToFirefly(formatTwitterPostFromNitter(tweet, { base: { commentOn } }));
     }
 

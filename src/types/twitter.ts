@@ -58,7 +58,7 @@ export interface GetUploadStatusResponseV2 {
 
 declare module 'twitter-api-v2' {
     interface TweetV2 {
-        /** patched by our own API. */
+        /** patched Post['sendFrom'] to TweetV2 by our own API. */
         sendFrom?: {
             displayName?: string;
             name?: string;
