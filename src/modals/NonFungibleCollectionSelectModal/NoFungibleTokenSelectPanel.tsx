@@ -102,7 +102,7 @@ export const NonFungibleCollectionSelectPanel = memo<NonFungibleCollectionSelect
                 data={filteredCollections}
                 itemRenderer={renderCollection}
                 onSelected={onSelected}
-                listKey={(token) => `${token.chainId}/${token.address}`}
+                listKey={(token) => `${token.chainId}/${token.address}/${token.custom}`}
                 isSelected={isSelected}
             />
         );
