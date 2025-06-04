@@ -464,6 +464,7 @@ export const NO_TRACING_COINS = [
     'cardano',
     'sui',
     'polkadot',
+    'hyperliquid',
     'litecoin',
     'stellar',
     'ripple', // xrp

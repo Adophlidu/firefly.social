@@ -7,15 +7,14 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
     users: Profile[];
-    total?: number;
 }
 
-export const KolBar = memo<Props>(function KolBar({ users, total, ...rest }) {
+export const KolBar = memo<Props>(function KolBar({ users, ...rest }) {
     const [theFirst, theSecond, theThird] = users || [];
 
     if (!users.length) return null;
 
-    const remains = Math.max(users.length, total || 0) - 3;
+    const remains = users.length - 3;
 
     return (
         <div

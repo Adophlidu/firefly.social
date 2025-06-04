@@ -56,31 +56,30 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, ...p
 
     const twitterProfile = useCurrentProfile(Source.Twitter);
     const isTwitterLogin = !!twitterProfile;
-    const { profiles: twitterProfiles, isFetching } = useQueries({
+    const twitterProfiles = useQueries({
         queries: mentionUsers.map((user) => ({
             enabled: isTwitterLogin,
             queryKey: ['profile', Source.Twitter, user.twitterId],
             queryFn: () => TwitterSocialMediaProvider.getProfileById(user.twitterId),
         })),
         combine: (result) => {
-            const profiles = result.map((x) => x.data);
-            const isFetching = result.some((x) => x.isFetching);
-            return { profiles, isFetching };
+            return result.map((x) => x.data);
         },
     });
 
     const users = useMemo(() => {
-        if (isFetching) return EMPTY_LIST;
         if (isX3Pro && mentionUsers.length)
             return mentionUsers
-                .filter((_, i) => {
-                    const profile = twitterProfiles[i] as Profile<UserV2> | undefined;
+                .filter((user) => {
+                    const profile = twitterProfiles.find((x) => x?.profileId === user.twitterId) as
+                        | Profile<UserV2>
+                        | undefined;
                     const connection_status = profile?.__original__?.connection_status;
                     return !(connection_status?.includes('blocking') || connection_status?.includes('muting'));
                 })
                 .map(formatTokenMentionUser);
         return EMPTY_LIST;
-    }, [isFetching, isX3Pro, mentionUsers, twitterProfiles]);
+    }, [isX3Pro, mentionUsers, twitterProfiles]);
 
     const postOrderType: PostOrderType | undefined = params.get('order') ? Number(params.get('order')) : undefined;
     const isDesc = postOrderType === PostOrderType.DESC || !postOrderType;
@@ -150,10 +149,9 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, ...p
                     </Link>
                 ) : null}
             </div>
-            {isX3Pro && x3Token && !isFetching ? (
+            {isX3Pro && x3Token ? (
                 <KolBar
                     users={users}
-                    total={x3Token.mentionUserCount}
                     onClick={() => {
                         setOpenModal(true);
                     }}
