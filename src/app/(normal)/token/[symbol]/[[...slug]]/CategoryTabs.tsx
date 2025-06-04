@@ -8,7 +8,6 @@ import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { TokenCategory } from '@/constants/enum.js';
 import { NO_TRACING_COINS, TOKEN_CATEGORIES } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 
 export interface TokenPageSearch {
     wallet: string;
@@ -51,7 +50,7 @@ export const CategoryTabs = memo<Props>(function CategoryTabs({ slug, tokenId, .
     const category = slug && categories.includes(slug as TokenCategory) ? slug : categories[0];
 
     return (
-        <SourceTabs {...rest} className={classNames('!z-20 md:!top-[57px]', rest.className)}>
+        <SourceTabs {...rest}>
             {categories.map((x) => (
                 <SourceTab
                     className="whitespace-nowrap text-base md:!h-[45px] md:!px-4 md:!py-[10px]"
