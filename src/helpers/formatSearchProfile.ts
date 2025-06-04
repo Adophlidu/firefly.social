@@ -91,8 +91,16 @@ function isProfileExist(identity: FireflyProfile, profile: Profile) {
 }
 
 export function composeSearchProfiles(identities: SearchProfile[], ...rest: Profile[][]): SearchProfile[] {
+    const allProfiles = rest.flat();
+
     return compact([
-        ...identities,
+        ...identities.map((identity) => {
+            if (identity.profile.platform === FireflyPlatform.Twitter) {
+                const matched = allProfiles.find((x) => isProfileExist(identity.profile, x));
+                identity.profile.name = matched?.displayName || identity.profile.name;
+            }
+            return identity;
+        }),
         ...rest.flatMap((profiles) => {
             return profiles.map((x) => {
                 const platform = x.source === Source.Bsky ? FireflyPlatform.Bsky : resolveFireflyPlatform(x.source);
