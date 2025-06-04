@@ -9,6 +9,7 @@ import {
     S3ConvertStatus,
     type SocialSourceInURL,
     type Source,
+    SourceInURL,
     WalletSource,
 } from '@/constants/enum.js';
 import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
@@ -1746,6 +1747,56 @@ export type MetricsStatusResponse = Response<{
     retryTimes: number;
     hasSetPasscode?: boolean;
 }>;
+
+export interface MetricsMetaInfo {
+    platform: Exclude<SocialSourceInURL, SourceInURL.Bsky> | 'bluesky';
+    profileId: string;
+    profileHandle: string;
+    loginTime: string;
+    name: string;
+    avatar: string;
+}
+
+export interface CommonMetricsData {
+    platform: Exclude<SocialSourceInURL, SourceInURL.Bsky> | 'bluesky';
+    profile_id: string;
+    login_time: string;
+}
+
+export type FarcasterMetricsData = CommonMetricsData & {
+    signer_private_key: string;
+    signer_public_key: string;
+    fid: number;
+};
+
+export type TwitterMetricsData = CommonMetricsData & {
+    client_id: string;
+    access_token: string;
+    access_token_secret: string;
+    consumer_key: string;
+    consumer_secret: string;
+    cookie: string;
+};
+
+export type LensMetricsData = CommonMetricsData & {
+    token: string;
+    refresh_token: string;
+    identity_token: string;
+    address: string;
+};
+
+export type BskyMetricsData = CommonMetricsData & {
+    access_jwt: string;
+    refresh_jwt: string;
+    handle: string;
+    server_host: string;
+    did: string;
+};
+
+export interface MetricsItemToUpload {
+    ciphertext: string;
+    metaInfo: MetricsMetaInfo;
+}
 
 type PostStateEntry = {
     post_id: string;

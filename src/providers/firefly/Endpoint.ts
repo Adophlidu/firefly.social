@@ -99,6 +99,7 @@ import {
     type LinkDigestResponse,
     type LoginFarcasterWithWalletResponse,
     type LoginResponse,
+    type MetricsItemToUpload,
     type MetricsStatusResponse,
     type MintBySponsorResponse,
     type MuteAllResponse,
@@ -1622,6 +1623,21 @@ class FireflyEndpoint {
     async getMetricsStatus() {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/metrics/check-login-metrics');
         const response = await fireflySessionHolder.fetch<MetricsStatusResponse>(url);
+
+        return resolveFireflyResponseData(response);
+    }
+
+    async uploadMetrics(passcode: string, metrics: MetricsItemToUpload[]) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/metrics/upload');
+
+        const response = await fireflySessionHolder.fetch<Response<{}>>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                metrics,
+                passcode: encryptPasscode(passcode),
+                client_os: 'web',
+            }),
+        });
 
         return resolveFireflyResponseData(response);
     }

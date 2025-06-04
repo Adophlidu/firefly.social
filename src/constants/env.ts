@@ -107,6 +107,7 @@ const ExternalEnvSchema = z.object({
 
     NEXT_PUBLIC_PASSCODE_PUBLIC_KEY: z.string().default('invalid_passcode_public_key'),
     NEXT_PUBLIC_PASSCODE_PUBLIC_KEY_STAGING: z.string().default('invalid_passcode_public_key_staging'),
+    NEXT_PUBLIC_PASSCODE_IV: z.string().default('invalid_passcode_iv'),
 });
 
 export const env = {
@@ -182,5 +183,6 @@ export const env = {
 
         NEXT_PUBLIC_PASSCODE_PUBLIC_KEY: process.env.NEXT_PUBLIC_PASSCODE_PUBLIC_KEY,
         NEXT_PUBLIC_PASSCODE_PUBLIC_KEY_STAGING: process.env.NEXT_PUBLIC_PASSCODE_PUBLIC_KEY_STAGING,
+        NEXT_PUBLIC_PASSCODE_IV: process.env.NEXT_PUBLIC_PASSCODE_IV,
     }),
 };
