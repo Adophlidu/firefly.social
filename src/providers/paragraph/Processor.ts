@@ -3,7 +3,7 @@ import { first, isEmpty } from 'lodash-es';
 
 import { FetchError } from '@/constants/error.js';
 import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
+import { parseJson } from '@/helpers/parseJson.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import type { ParagraphChain } from '@/providers/paragraph/type.js';
 
@@ -67,7 +67,7 @@ class Processor {
         const { document } = parseHTML(html);
 
         const dataScript = document.getElementById('__NEXT_DATA__');
-        const data = dataScript?.innerText ? parseJSON<State>(dataScript.innerText) : undefined;
+        const data = dataScript?.innerText ? parseJson<State>(dataScript.innerText) : undefined;
 
         if (isEmpty(data?.props.pageProps.collectible)) {
             const target = first(data?.props.pageProps.initialState.notes.allNotes);

@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { FetchError } from '@/constants/error.js';
 import { anySignal } from '@/helpers/anySignal.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
+import { parseJson } from '@/helpers/parseJson.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveFarcasterMiniappHomeUrl } from '@/helpers/resolveFarcasterMiniappHomeUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -103,7 +103,7 @@ class Processor {
     };
 
     digestDocumentV2 = async (url: string, version: string, signal?: AbortSignal): Promise<FrameV2 | null> => {
-        const payload = parseJSON<FrameV2>(version);
+        const payload = parseJson<FrameV2>(version);
         const parsed = FrameV2Schema.safeParse(payload);
         if (!parsed.success) throw new Error(parsed.error.message);
 

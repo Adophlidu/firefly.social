@@ -8,7 +8,7 @@ import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/cr
 import { getFrameErrorMessage } from '@/helpers/getFrameErrorMessage.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
+import { parseJson } from '@/helpers/parseJson.js';
 import { FrameProcessor } from '@/providers/frame/Processor.js';
 import { HttpUrl } from '@/schemas/index.js';
 import { ActionType } from '@/types/frame.js';
@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     const { action, url, target, postUrl } = parsedFrameAction.data;
 
     const packet = await request.clone().text();
-    const parsedPacket = parseJSON<{ untrustedData: { transactionId?: string } }>(packet);
+    const parsedPacket = parseJson<{ untrustedData: { transactionId?: string } }>(packet);
     const response = await fetch(
         // if transactionId exists, then we post upon postUrl stead of target
         parsedPacket?.untrustedData.transactionId ? postUrl || target || url : target || postUrl || url,

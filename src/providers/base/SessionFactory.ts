@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import { UnreachableError } from '@/constants/error.js';
 import { decodeAsciiPayload, decodeNoAsciiPayload } from '@/helpers/encodeSessionPayload.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
+import { parseJson } from '@/helpers/parseJson.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -100,7 +100,7 @@ export class SessionFactory {
         // for firefly session, the fifth part is the payload in base64 encoded
         const fifthPart = fragments[5] ?? '';
 
-        const session = parseJSON<{
+        const session = parseJson<{
             type: SessionType;
             profileId: string;
             token: string;

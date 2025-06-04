@@ -6,7 +6,7 @@ import { MalformedError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
+import { parseJson } from '@/helpers/parseJson.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
 
@@ -30,7 +30,7 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
         if (!file) throw new MalformedError('file not found');
 
         const options = (
-            formData.get('options') ? parseJSON(formData.get('options') as string) : null
+            formData.get('options') ? parseJson(formData.get('options') as string) : null
         ) as Partial<UploadMediaV1Params> | null;
         const parsedOptions = options ? UploadSchema.safeParse(options) : undefined;
         if (parsedOptions && !parsedOptions.success) throw new Error(parsedOptions.error.message);

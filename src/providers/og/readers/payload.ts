@@ -1,6 +1,6 @@
 import type { Hex } from 'viem';
 
-import { parseJSON } from '@/helpers/parseJSON.js';
+import { parseJson } from '@/helpers/parseJson.js';
 import type { Cast } from '@/providers/types/Warpcast.js';
 import { type FarcasterPayload, type MirrorPayload, PayloadType } from '@/types/og.js';
 
@@ -29,7 +29,7 @@ interface Payload {
 
 export function getMirrorPayload(document: Document): MirrorPayload | null {
     const dataScript = document.getElementById('__NEXT_DATA__');
-    const data = dataScript?.innerText ? parseJSON<Payload>(dataScript.innerText) : undefined;
+    const data = dataScript?.innerText ? parseJson<Payload>(dataScript.innerText) : undefined;
     if (!data) return null;
 
     const address = data?.props?.pageProps?.publicationLayoutProject?.address;
@@ -54,7 +54,7 @@ export function getMirrorPayload(document: Document): MirrorPayload | null {
 export function getFarcasterPayload(document: Document): FarcasterPayload | null {
     const dataScript = document.getElementById('__NEXT_DATA__');
     const data = dataScript?.innerText
-        ? parseJSON<{
+        ? parseJson<{
               props: {
                   pageProps: {
                       focusedCast: Cast;

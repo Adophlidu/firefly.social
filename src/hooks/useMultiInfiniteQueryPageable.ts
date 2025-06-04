@@ -9,7 +9,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
+import { parseJson } from '@/helpers/parseJson.js';
 
 const INITIAL_PARAM = 'INITIAL_PARAM';
 
@@ -29,7 +29,7 @@ export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndic
     return useSuspenseInfiniteQuery({
         queryKey,
         async queryFn({ pageParam }) {
-            const parsePageParam = parseJSON<PageParams>(pageParam) ?? {};
+            const parsePageParam = parseJson<PageParams>(pageParam) ?? {};
             const queryFns = queries.map(async (query) => {
                 const signal = query.timeout ? AbortSignal.timeout(query.timeout) : undefined;
                 const timeout = query.timeout ? delay(query.timeout).then(() => null) : null;
@@ -64,7 +64,7 @@ export function useMultiInfiniteQueryPageable<D, T extends Pageable<D, PageIndic
             return createPageable<D>(formatter ? formatter(data) : data, strIndicator, strNextIndicator) as T;
         },
         getNextPageParam(lastPage) {
-            const next = parseJSON<PageParams>(lastPage.nextIndicator?.id);
+            const next = parseJson<PageParams>(lastPage.nextIndicator?.id);
             if (!next) return;
             if (compact(Object.values(next)).length <= 0) return;
             return JSON.stringify(next);

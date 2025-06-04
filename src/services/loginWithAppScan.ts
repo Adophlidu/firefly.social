@@ -8,7 +8,7 @@ import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
 import { type SocialSource, SourceInURL } from '@/constants/enum.js';
 import { decryptAppScanLoginEncryptedData } from '@/helpers/decryptAppScanLoginEncryptedData.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
+import { parseJson } from '@/helpers/parseJson.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -70,7 +70,7 @@ export async function loginWithAppScan(data: DesktopLinkInfoStatusData, otp: str
     if (!data.encryptedData) throw new DecryptionFailed(t`The encrypted data not found.`);
     const authData = await runInSafeAsync(async () => {
         const decryptedData = await decryptAppScanLoginEncryptedData(data.encryptedData, otp);
-        return parseJSON<AuthDataFromApp>(decryptedData);
+        return parseJson<AuthDataFromApp>(decryptedData);
     });
     if (!authData) throw new DecryptionFailed(t`Decryption failed.`);
     return resumeSessions(authData);

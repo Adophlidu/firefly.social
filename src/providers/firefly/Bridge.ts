@@ -2,7 +2,7 @@ import { timeout } from '@masknet/kit';
 import { uniqueId } from 'lodash-es';
 
 import { bom } from '@/helpers/bom.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
+import { parseJson } from '@/helpers/parseJson.js';
 import {
     type EventPayload,
     type RequestArguments,
@@ -57,7 +57,7 @@ class FireflyBridgeProvider {
             bom.window,
             'callJsMethod',
             <T extends SupportedMethod | SupportedEvent>(eventOrMethod: T, id: string, payload: string) => {
-                const parsed = parseJSON<Payload>(payload);
+                const parsed = parseJson<Payload>(payload);
                 if (!parsed) throw new Error(`[bridge] failed to parse response: ${payload}`);
 
                 if (this.callbacks.has(id)) {

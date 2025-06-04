@@ -1,11 +1,11 @@
-import { parseJSON } from '@/helpers/parseJSON.js';
+import { parseJson } from '@/helpers/parseJson.js';
 
 export function encodeAsciiPayload(payload: unknown) {
     return btoa(JSON.stringify(payload));
 }
 
 export function decodeAsciiPayload<T>(payload: string) {
-    return parseJSON<T>(atob(payload));
+    return parseJson<T>(atob(payload));
 }
 
 export function encodeNoAsciiPayload(payload: unknown) {
@@ -13,5 +13,5 @@ export function encodeNoAsciiPayload(payload: unknown) {
 }
 
 export function decodeNoAsciiPayload<T>(payload: string) {
-    return parseJSON<T>(decodeURIComponent(escape(atob(payload))));
+    return parseJson<T>(decodeURIComponent(escape(atob(payload))));
 }

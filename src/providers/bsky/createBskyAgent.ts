@@ -2,7 +2,7 @@ import { AtpAgent, type AtpSessionData, type AtpSessionEvent } from '@atproto/ap
 import { memoize } from 'lodash-es';
 
 import { bom } from '@/helpers/bom.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
+import { parseJson } from '@/helpers/parseJson.js';
 
 const BSKY_SESSION_STORAGE_KEY = 'bsky-session-sdk-hosted';
 
@@ -12,7 +12,7 @@ export function getBskySessionStorage() {
     const sessionData = bom.localStorage.getItem(BSKY_SESSION_STORAGE_KEY);
     if (!sessionData) return null;
 
-    const parsedData = parseJSON<
+    const parsedData = parseJson<
         Record<
             string,
             {

@@ -18,7 +18,7 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { appkit } from '@/configs/wagmiClient.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
+import { parseJson } from '@/helpers/parseJson.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useEnsNameCached } from '@/hooks/useEnsNameCached.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
@@ -102,7 +102,7 @@ function getWagmiCurrentConnectionId() {
     const storage = localStorage.getItem('wagmi.store');
     if (!storage) return;
 
-    const wagmiStore = parseJSON<{ state: { current: string } }>(storage);
+    const wagmiStore = parseJson<{ state: { current: string } }>(storage);
 
     return wagmiStore?.state?.current;
 }

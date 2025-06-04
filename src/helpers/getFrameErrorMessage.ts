@@ -1,7 +1,7 @@
-import { parseJSON } from '@/helpers/parseJSON.js';
+import { parseJson } from '@/helpers/parseJson.js';
 
 export function getFrameErrorMessage(error: string) {
-    const parsed = parseJSON(error as string);
+    const parsed = parseJson(error as string);
     if (!parsed) return error;
 
     const errorIsMessage = parsed as { error: string } | undefined;

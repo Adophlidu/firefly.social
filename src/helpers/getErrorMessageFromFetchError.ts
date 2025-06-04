@@ -2,10 +2,10 @@ import { t } from '@lingui/core/macro';
 import { StatusCodes } from 'http-status-codes';
 
 import type { FetchError } from '@/constants/error.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
+import { parseJson } from '@/helpers/parseJson.js';
 
 export function getErrorMessageFromFetchError(error: FetchError): string {
-    const parsedResponse = parseJSON<{
+    const parsedResponse = parseJson<{
         success: boolean;
         error: {
             code: number;

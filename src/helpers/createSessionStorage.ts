@@ -2,7 +2,7 @@ import { z } from 'zod';
 import type { PersistStorage } from 'zustand/middleware';
 
 import { AsyncStatus } from '@/constants/enum.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
+import { parseJson } from '@/helpers/parseJson.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
@@ -48,7 +48,7 @@ export function createSessionStorage(): PersistStorage<SessionState> {
             const raw = localStorage.getItem(name);
             if (!raw) return null;
 
-            const parsedState = parseJSON<State>(raw);
+            const parsedState = parseJson<State>(raw);
             if (!parsedState) return null;
 
             const output = STATE_SCHEMA.safeParse({

@@ -1,7 +1,7 @@
 import { parseHTML } from 'linkedom';
 
 import type { ProfileSource } from '@/constants/enum.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
+import { parseJson } from '@/helpers/parseJson.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 export class AbortError extends Error {
@@ -84,7 +84,7 @@ export class FetchError extends Error {
     }
 
     get errorMessage() {
-        const parsed = parseJSON<{ error?: string[] | string }>(this.text);
+        const parsed = parseJson<{ error?: string[] | string }>(this.text);
         if (parsed?.error) {
             return Array.isArray(parsed.error) ? parsed.error.join(', ') : parsed.error;
         }

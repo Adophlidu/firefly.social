@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { LENS_TOKEN_STORAGE_KEY } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
+import { parseJson } from '@/helpers/parseJson.js';
 import type { LensCredentials } from '@/providers/types/Lens.js';
 
 const Schema = z.object({
@@ -26,7 +26,7 @@ export function getLensCredentialsFromStorage() {
     const tokenData = localStorage.getItem(LENS_TOKEN_STORAGE_KEY);
     if (!tokenData) return null;
 
-    const credentials = parseJSON<z.infer<typeof Schema>>(tokenData);
+    const credentials = parseJson<z.infer<typeof Schema>>(tokenData);
     if (!credentials) return null;
 
     const parsedCredentials = Schema.safeParse(credentials);
