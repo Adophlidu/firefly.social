@@ -7,20 +7,11 @@ const MATCH_IPFS_DATA_RE = /ipfs\/(data:[\w,/;]+)$/;
 const MATCH_IPFS_CID_RE = new RegExp(`(${MATCH_IPFS_CID_RAW})`);
 const MATCH_IPFS_CID_AT_STARTS_RE = new RegExp(`^https://(?:${MATCH_IPFS_CID_RAW})`);
 const MATCH_IPFS_CID_AND_PATHNAME_RE = new RegExp(`(?:${MATCH_IPFS_CID_RAW})\\/?.*`);
-const MATCH_LOCAL_RESOURCE_URL_RE = /^(data|blob:|\w+-extension:\/\/|<svg\s)/;
 const CORS_HOST = 'https://cors-next.r2d2.to';
 const IPFS_GATEWAY_HOST = 'https://ipfs.io';
 
 export function isIPFS_Resource(str: string) {
     return MATCH_IPFS_CID_RE.test(str);
-}
-
-export function isArweaveResource(str: string) {
-    return str.startsWith('ar:');
-}
-
-export function isLocaleResource(url: string) {
-    return MATCH_LOCAL_RESOURCE_URL_RE.test(url);
 }
 
 export function resolveLocalURL(url: string) {
@@ -99,17 +90,4 @@ export function resolveIPFS_URL(cidOrURL: string | undefined): string | undefine
     }
 
     return cidOrURL;
-}
-
-export function resolveArweaveURL<T extends string | undefined>(url: T) {
-    if (!url) return url;
-    if (url.startsWith('https://')) return url;
-    return urlcat('https://arweave.net/:str', { str: url });
-}
-
-export function resolveResourceURL<T extends string | undefined>(url: T) {
-    if (!url) return url;
-    if (isLocaleResource(url)) return resolveLocalURL(url);
-    if (isArweaveResource(url)) return resolveArweaveURL(url);
-    return resolveIPFS_URL(url);
 }

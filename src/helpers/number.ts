@@ -19,10 +19,9 @@ export function isGreaterThan(a: BigNumber.Value, b: BigNumber.Value) {
 }
 
 /** a >= b */
-function isGreaterThanOrEqualTo(a: BigNumber.Value, b: BigNumber.Value) {
+export function isGreaterThanOrEqualTo(a: BigNumber.Value, b: BigNumber.Value) {
     return new BigNumber(a).isGreaterThanOrEqualTo(b);
 }
-export { isGreaterThanOrEqualTo, isGreaterThanOrEqualTo as isGte };
 
 /** a < b */
 export function isLessThan(a: BigNumber.Value, b: BigNumber.Value) {
@@ -69,11 +68,6 @@ export function leftShift(n: BigNumber.Value, m: number | undefined | null) {
 /** a / b */
 export function dividedBy(a: BigNumber.Value, b: BigNumber.Value) {
     return new BigNumber(a).dividedBy(b);
-}
-
-/** new BigNumber(n).toNumber() */
-export function toNumber(value?: BigNumber.Value, fallback = 0) {
-    return new BigNumber(value ?? fallback).toNumber();
 }
 
 export function toFixed(value: BigNumber.Value | undefined): string;

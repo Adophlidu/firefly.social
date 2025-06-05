@@ -703,6 +703,10 @@ msgstr ""
 msgid "Report submitted"
 msgstr ""
 
+#. placeholder {0}: post.stats.quotes
+msgid "{0, plural, one {quote} other {quotes}}"
+msgstr ""
+
 msgid "No hidden owner."
 msgstr ""
 
@@ -844,9 +848,6 @@ msgstr ""
 msgid "Video duration limit reached."
 msgstr ""
 
-msgid "{viewCount, plural, one {view} others {views}}"
-msgstr ""
-
 msgid "Limo"
 msgstr ""
 
@@ -908,9 +909,6 @@ msgid "Host"
 msgstr ""
 
 msgid "Unsafe: Transaction is at risk"
-msgstr ""
-
-msgid "{attentionFactors, plural, one {# Attention item} others {# Attention items}}"
 msgstr ""
 
 msgid "Suspected malicious address."
@@ -1646,10 +1644,6 @@ msgstr ""
 msgid "Your draft was saved."
 msgstr ""
 
-#. placeholder {0}: post.stats.quotes
-msgid "{0, plural, one {quote} others {quotes}}"
-msgstr ""
-
 msgid "Verify and Claim"
 msgstr ""
 
@@ -1875,6 +1869,9 @@ msgstr ""
 msgid "Disconnected from your social graph"
 msgstr ""
 
+msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
+msgstr ""
+
 msgid "Hide more comments"
 msgstr ""
 
@@ -1968,11 +1965,6 @@ msgstr ""
 msgid "This article is no longer available"
 msgstr ""
 
-#. placeholder {0}: post.stats.comments
-#. placeholder {0}: post.stats.countOpenActions
-msgid "{0, plural, one {comment} others {comments}}"
-msgstr ""
-
 msgid "Report article"
 msgstr ""
 
@@ -2052,6 +2044,9 @@ msgid "Requirements"
 msgstr ""
 
 msgid "*This event is only available on the mobile app. Download Firefly now!"
+msgstr ""
+
+msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr ""
 
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
@@ -2301,9 +2296,6 @@ msgid "Suspected malicious address found."
 msgstr ""
 
 msgid "Contract source code not verified"
-msgstr ""
-
-msgid "{riskyFactors, plural, one {# Risky item} others {# Risky items}}"
 msgstr ""
 
 msgid "NFT removed from your Bookmarks"
@@ -3359,6 +3351,11 @@ msgstr ""
 msgid "Muting..."
 msgstr ""
 
+#. placeholder {0}: post.stats.comments
+#. placeholder {0}: post.stats.countOpenActions
+msgid "{0, plural, one {comment} other {comments}}"
+msgstr ""
+
 msgid "<0/> Loading"
 msgstr ""
 
@@ -3536,6 +3533,9 @@ msgstr ""
 
 #. placeholder {0}: formatBalance(x.amount, x.decimals)
 msgid "no less than {0}"
+msgstr ""
+
+msgid "{viewCount, plural, one {view} other {views}}"
 msgstr ""
 
 msgid "Only people you follow"

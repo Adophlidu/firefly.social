@@ -22,7 +22,7 @@ export const TokenSecurityBar = memo<TokenCardProps>(function TokenSecurityBar({
                     <div className="flex flex-row items-center gap-1 rounded bg-[#FF35451A] px-2 py-1">
                         <DangerIcon width={16} height={16} className="shrink-0" />
                         <span className="text-[12px] text-[#FF3545]">
-                            <Plural value={riskyFactors} one="# Risky item" others="# Risky items" />
+                            <Plural value={riskyFactors} one="# Risky item" other="# Risky items" />
                         </span>
                     </div>
                 </TokenSecurityTippy>
@@ -32,7 +32,7 @@ export const TokenSecurityBar = memo<TokenCardProps>(function TokenSecurityBar({
                     <div className="flex cursor-pointer flex-row items-center gap-1 rounded bg-[#FFB1001A] px-2 py-1">
                         <WarningIcon width={16} height={16} className="shrink-0" />
                         <span className="text-[12px] text-[#FFB100]">
-                            <Plural value={attentionFactors} one="# Attention item" others="# Attention items" />
+                            <Plural value={attentionFactors} one="# Attention item" other="# Attention items" />
                         </span>
                     </div>
                 </TokenSecurityTippy>

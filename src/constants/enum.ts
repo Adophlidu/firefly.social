@@ -177,7 +177,6 @@ export type ProfileSourceInURL =
     | SourceInURL.FarcasterV2
     | SourceInURL.X;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens | Source.Bsky | Source.Twitter;
-export type SocialNotificationSource = Source.Farcaster | Source.Lens | Source.Bsky;
 export type DiscoverSource = Source.Posts | Source.Activities | Source.Transactions;
 export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.DAOs | Source.NFTs | Source.Bsky;
 export type FollowingSource = DiscoverSource | Source.Transactions | Source.Activities;

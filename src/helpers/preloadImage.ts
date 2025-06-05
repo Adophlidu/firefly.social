@@ -1,6 +1,6 @@
 import { skipToken, useQuery } from '@tanstack/react-query';
 
-export async function preloadImage(imageUrl: string) {
+async function preloadImage(imageUrl: string) {
     const image = new Image();
     image.src = imageUrl;
     await new Promise((resolve) => {

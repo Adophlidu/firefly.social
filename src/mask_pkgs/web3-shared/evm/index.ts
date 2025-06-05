@@ -1,6 +1,5 @@
 export * from './constants/constants.js';
 export * from './constants/descriptors.js';
-export * from './constants/tokens.js';
 export * from './helpers/abiCoder.js';
 export * from './helpers/address.js';
 export * from './helpers/createContract.js';

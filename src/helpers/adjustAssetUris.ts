@@ -2,6 +2,7 @@ import { resolveIPFS_URL } from '@/mask_pkgs/web3-shared/base/index.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 
 const isArweave = (url: string | undefined) => (url ? url.startsWith('ar://') : false);
+
 export function adjustAssetUris<T extends EVM.Asset>(asset: T): T {
     return {
         ...asset,

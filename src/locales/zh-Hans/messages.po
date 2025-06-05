@@ -708,6 +708,10 @@ msgstr "请在参与前阅读此<0>免责声明</0>。如有任何疑问，请<1
 msgid "Report submitted"
 msgstr "举报已经提交"
 
+#. placeholder {0}: post.stats.quotes
+msgid "{0, plural, one {quote} other {quotes}}"
+msgstr ""
+
 msgid "No hidden owner."
 msgstr "未被隐藏的所有者。"
 
@@ -849,9 +853,6 @@ msgstr "发送中"
 msgid "Video duration limit reached."
 msgstr "视频尺寸超出最大限制。"
 
-msgid "{viewCount, plural, one {view} others {views}}"
-msgstr ""
-
 msgid "Limo"
 msgstr "Limo"
 
@@ -914,9 +915,6 @@ msgstr "主持人"
 
 msgid "Unsafe: Transaction is at risk"
 msgstr "不安全：交易存在风险"
-
-msgid "{attentionFactors, plural, one {# Attention item} others {# Attention items}}"
-msgstr ""
 
 msgid "Suspected malicious address."
 msgstr "发现疑似恶意地址。"
@@ -1651,10 +1649,6 @@ msgstr "没有投票权"
 msgid "Your draft was saved."
 msgstr "草稿已被保存"
 
-#. placeholder {0}: post.stats.quotes
-msgid "{0, plural, one {quote} others {quotes}}"
-msgstr ""
-
 msgid "Verify and Claim"
 msgstr "校验并且领取"
 
@@ -1883,6 +1877,9 @@ msgstr ""
 msgid "Disconnected from your social graph"
 msgstr "从你的社交图谱中断开"
 
+msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
+msgstr ""
+
 msgid "Hide more comments"
 msgstr "隐藏更多的评论"
 
@@ -1981,11 +1978,6 @@ msgstr "帖子已被删除"
 msgid "This article is no longer available"
 msgstr "文章已不存在"
 
-#. placeholder {0}: post.stats.comments
-#. placeholder {0}: post.stats.countOpenActions
-msgid "{0, plural, one {comment} others {comments}}"
-msgstr ""
-
 msgid "Report article"
 msgstr "举报文章"
 
@@ -2066,6 +2058,9 @@ msgstr "条件"
 
 msgid "*This event is only available on the mobile app. Download Firefly now!"
 msgstr "*此活动仅在移动应用程序上提供。立即下载 Firefly！"
+
+msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
+msgstr ""
 
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr "包含自毁功能。项目所有者可能有能力销毁合约。"
@@ -2315,9 +2310,6 @@ msgstr "发现疑似恶意地址。"
 
 msgid "Contract source code not verified"
 msgstr "合约源代码未验证"
-
-msgid "{riskyFactors, plural, one {# Risky item} others {# Risky items}}"
-msgstr ""
 
 msgid "NFT removed from your Bookmarks"
 msgstr "NFT 已经从你的收藏中移除"
@@ -3377,6 +3369,11 @@ msgstr "对不起，我们未找到此代币"
 msgid "Muting..."
 msgstr "隐藏中..."
 
+#. placeholder {0}: post.stats.comments
+#. placeholder {0}: post.stats.countOpenActions
+msgid "{0, plural, one {comment} other {comments}}"
+msgstr ""
+
 msgid "<0/> Loading"
 msgstr "<0/> 加载中"
 
@@ -3558,6 +3555,9 @@ msgstr "Solana 钱包"
 #. placeholder {0}: formatBalance(x.amount, x.decimals)
 msgid "no less than {0}"
 msgstr "不少于 {0}"
+
+msgid "{viewCount, plural, one {view} other {views}}"
+msgstr ""
 
 msgid "Only people you follow"
 msgstr "只有你关注的人"

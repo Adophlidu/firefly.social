@@ -94,8 +94,6 @@ export const RP_HASH_TAG = '#FireflyLuckyDrop';
 export const HIDDEN_SECRET = '[HIDE_FROM_CLIENT]';
 export const NOT_DEPEND_SECRET = '[TO_BE_REPLACED_LATER]';
 
-export const ORB_CLUB_TAG_PREFIX = 'orbcommunities';
-
 export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory[]> = {
     [Source.Lens]: [
         SocialProfileCategory.Feed,
@@ -481,7 +479,6 @@ export const TRACING_CHAINS = [
     EthereumChainId.Optimism,
     SolanaChainId.Mainnet,
 ] as const;
-export const TRACING_CHAIN_NATIVE_COINS = ['ethereum', 'solana', 'matic', 'binancecoin', 'arbitrum'];
 export const COINGECKO_SOL_COIN_ID = 'solana';
 export const SWAP_SOL_NATIVE_ADDRESS = '11111111111111111111111111111111';
 

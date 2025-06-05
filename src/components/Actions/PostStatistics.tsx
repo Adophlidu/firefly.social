@@ -125,7 +125,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
             })}
         >
             <span className="mr-[2px] font-bold">{nFormatter(post.stats.comments)}</span>
-            <Plural value={post.stats.comments} one="comment" others="comments" />
+            <Plural value={post.stats.comments} one="comment" other="comments" />
         </data>
     ) : null;
     const likes = post.stats?.reactions ? (
@@ -139,7 +139,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     const collects = post.stats?.countOpenActions ? (
         <data value={post.stats.countOpenActions}>
             <span className="mr-[2px] font-bold">{post.stats.countOpenActions}</span>
-            <Plural value={post.stats.countOpenActions} one="comment" others="comments" />
+            <Plural value={post.stats.countOpenActions} one="comment" other="comments" />
         </data>
     ) : null;
     const mirrors = post.stats?.mirrors ? (
@@ -163,14 +163,14 @@ export const PostStatistics = memo<Props>(function PostStatistics({
         <EngagementLink post={post} type={EngagementType.Quotes} onSetScrollIndex={onSetScrollIndex}>
             <data value={post.stats.quotes}>
                 <span className="mr-[2px] font-bold">{post.stats.quotes}</span>
-                <Plural value={post.stats.quotes} one="quote" others="quotes" />
+                <Plural value={post.stats.quotes} one="quote" other="quotes" />
             </data>
         </EngagementLink>
     ) : null;
     const views = viewCount ? (
         <data value={viewCount}>
             <span className="mr-[2px] font-bold">{viewCount}</span>
-            <Plural value={viewCount} one="view" others="views" />
+            <Plural value={viewCount} one="view" other="views" />
         </data>
     ) : null;
     const pollVotes = post.poll ? <PollVotes poll={post.poll} /> : null;

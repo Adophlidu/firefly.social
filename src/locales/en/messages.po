@@ -703,6 +703,10 @@ msgstr "Read this <0>disclaimer</0> before participation. For any inquiries, ple
 msgid "Report submitted"
 msgstr "Report submitted"
 
+#. placeholder {0}: post.stats.quotes
+msgid "{0, plural, one {quote} other {quotes}}"
+msgstr "{0, plural, one {quote} other {quotes}}"
+
 msgid "No hidden owner."
 msgstr "No hidden owner."
 
@@ -844,9 +848,6 @@ msgstr "Sending"
 msgid "Video duration limit reached."
 msgstr "Video duration limit reached."
 
-msgid "{viewCount, plural, one {view} others {views}}"
-msgstr "{viewCount, plural, one {view} others {views}}"
-
 msgid "Limo"
 msgstr "Limo"
 
@@ -909,9 +910,6 @@ msgstr "Host"
 
 msgid "Unsafe: Transaction is at risk"
 msgstr "Unsafe: Transaction is at risk"
-
-msgid "{attentionFactors, plural, one {# Attention item} others {# Attention items}}"
-msgstr "{attentionFactors, plural, one {# Attention item} others {# Attention items}}"
 
 msgid "Suspected malicious address."
 msgstr "Suspected malicious address."
@@ -1646,10 +1644,6 @@ msgstr "No voting power"
 msgid "Your draft was saved."
 msgstr "Your draft was saved."
 
-#. placeholder {0}: post.stats.quotes
-msgid "{0, plural, one {quote} others {quotes}}"
-msgstr "{0, plural, one {quote} others {quotes}}"
-
 msgid "Verify and Claim"
 msgstr "Verify and Claim"
 
@@ -1878,6 +1872,9 @@ msgstr ""
 msgid "Disconnected from your social graph"
 msgstr "Disconnected from your social graph"
 
+msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
+msgstr "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
+
 msgid "Hide more comments"
 msgstr "Hide more comments"
 
@@ -1976,11 +1973,6 @@ msgstr "Post has been deleted"
 msgid "This article is no longer available"
 msgstr "This article is no longer available"
 
-#. placeholder {0}: post.stats.comments
-#. placeholder {0}: post.stats.countOpenActions
-msgid "{0, plural, one {comment} others {comments}}"
-msgstr "{0, plural, one {comment} others {comments}}"
-
 msgid "Report article"
 msgstr "Report article"
 
@@ -2061,6 +2053,9 @@ msgstr "Requirements"
 
 msgid "*This event is only available on the mobile app. Download Firefly now!"
 msgstr "*This event is only available on the mobile app. Download Firefly now!"
+
+msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
+msgstr "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr "The self-destruct function is included. The project owner may have the ability to destroy the contract."
@@ -2310,9 +2305,6 @@ msgstr "Suspected malicious address found."
 
 msgid "Contract source code not verified"
 msgstr "Contract source code not verified"
-
-msgid "{riskyFactors, plural, one {# Risky item} others {# Risky items}}"
-msgstr "{riskyFactors, plural, one {# Risky item} others {# Risky items}}"
 
 msgid "NFT removed from your Bookmarks"
 msgstr "NFT removed from your Bookmarks"
@@ -3372,6 +3364,11 @@ msgstr "Sorry, we are not able to find this token"
 msgid "Muting..."
 msgstr "Muting..."
 
+#. placeholder {0}: post.stats.comments
+#. placeholder {0}: post.stats.countOpenActions
+msgid "{0, plural, one {comment} other {comments}}"
+msgstr "{0, plural, one {comment} other {comments}}"
+
 msgid "<0/> Loading"
 msgstr "<0/> Loading"
 
@@ -3553,6 +3550,9 @@ msgstr "Solana wallets"
 #. placeholder {0}: formatBalance(x.amount, x.decimals)
 msgid "no less than {0}"
 msgstr "no less than {0}"
+
+msgid "{viewCount, plural, one {view} other {views}}"
+msgstr "{viewCount, plural, one {view} other {views}}"
 
 msgid "Only people you follow"
 msgstr "Only people you follow"
