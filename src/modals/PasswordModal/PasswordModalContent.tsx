@@ -20,6 +20,7 @@ import {
     captureResetPasscodeEvent,
     captureSetPasscodeEvent,
 } from '@/providers/telemetry/capturePasscodeEvent.js';
+import { useTokenPasswordStore } from '@/store/useTokenPasswordStore.js';
 
 function createEmptyPasswords(): Record<PasswordStep, string[]> {
     return {
@@ -55,6 +56,8 @@ export const PasswordModalContent = memo<
     const [step, setStep] = useState<PasswordStep>(PasswordWorkflowConfig[initialWorkflow][0]);
     const [passwords, setPasswords] = useState<Record<PasswordStep, string[]>>(createEmptyPasswords());
 
+    const { setPassword } = useTokenPasswordStore();
+
     const onPasswordChange = useCallback(
         (password: string[]) => {
             setPasswords((prev) => ({
@@ -83,6 +86,10 @@ export const PasswordModalContent = memo<
 
             if (result.step === PasswordStep.Success) {
                 captureEvent(workflow);
+                if ([PasswordWorkflow.Set, PasswordWorkflow.Change, PasswordWorkflow.Reset].includes(workflow)) {
+                    const password = passwords[step].join('');
+                    setPassword(password);
+                }
                 onClose(true);
                 return;
             }
@@ -93,7 +100,7 @@ export const PasswordModalContent = memo<
             enqueueErrorMessage(fetchError || t`Failed to set password.`, { error });
             throw error;
         }
-    }, [passwords, workflow, step, onClose, changeWorkflowOrStep]);
+    }, [passwords, workflow, step, onClose, changeWorkflowOrStep, setPassword]);
 
     const onCancel = useCallback(() => {
         onClose();
