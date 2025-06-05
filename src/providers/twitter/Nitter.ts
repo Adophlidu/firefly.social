@@ -75,7 +75,6 @@ class NitterAPI {
         return resolveNitterJsonResponse(res);
     }
 
-    @MemoizePromise((handle, options) => `${handle}-${options?.tab}-${options?.cursor}`)
     async getUserTimelineByHandle(
         handle: string,
         options?: {
