@@ -182,7 +182,8 @@ class BskySocialMedia implements Provider {
         return formatBskyProfile(data);
     }
     async getProfileByHandle(handle: string): Promise<Profile> {
-        return this.getProfileById(handle);
+        const didResponse = await bskySessionHolder.agent.resolveHandle({ handle });
+        return this.getProfileById(didResponse?.data?.did || handle);
     }
     async getProfileByIdOrHandle(profileIdOrHandle: string): Promise<Profile> {
         return this.getProfileById(profileIdOrHandle);

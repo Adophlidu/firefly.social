@@ -4,9 +4,10 @@ import { memo, type ReactNode } from 'react';
 
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
-import { type SocialSource } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 
 interface Props extends Omit<LinkProps, 'href'> {
     handle: string;
@@ -26,7 +27,15 @@ export const MentionLinkWithQueryProfile = memo<Props>(function MentionLinkWithQ
 }) {
     const { data: profile } = useQuery({
         queryKey: ['profile', source, handle],
-        queryFn() {
+        async queryFn() {
+            if (source === Source.Bsky) {
+                const didResponse = await bskySessionHolder.agent.resolveHandle({ handle });
+                const did = didResponse?.data?.did;
+                if (!did) return null;
+
+                return { source: Source.Bsky, profileId: did, handle } as const;
+            }
+
             return resolveSocialMediaProvider(source).getProfileByIdOrHandle(handle);
         },
         enabled: !!handle,
