@@ -63,7 +63,9 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
 
     switch (category) {
         case TokenCategory.Feeds:
-            return <Feeds chainId={chainId} address={tokenAddress} symbol={token?.symbol ?? symbol} />;
+            return (
+                <Feeds chainId={chainId} address={tokenAddress} symbol={token?.symbol ?? symbol} name={token?.name} />
+            );
         case TokenCategory.Overview:
             return <TokenOverview trending={trending} address={address} />;
         case TokenCategory.Transactions:

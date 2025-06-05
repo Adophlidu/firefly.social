@@ -124,7 +124,9 @@ export const TokenMarketData = memo(function TokenMarketData({
         <>
             <strong className="ml-0.5 text-medium font-bold text-main">{token.name}</strong>
             <span className="font-inter text-medium font-bold uppercase">{token.symbol}</span>
-            {address ? <CopyTextButton className="[&_svg]:ml-0" text={address} /> : null}
+            {address ? (
+                <CopyTextButton className="[&_svg]:ml-0" text={address} tooltipProps={{ placement: 'bottom' }} />
+            ) : null}
         </>
     );
 

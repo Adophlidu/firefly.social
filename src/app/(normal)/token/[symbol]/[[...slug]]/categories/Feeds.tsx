@@ -28,9 +28,10 @@ interface Props extends HTMLProps<HTMLDivElement> {
     chainId: number | undefined;
     address?: string;
     symbol: string;
+    name?: string;
 }
 
-export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, ...props }) {
+export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name, ...props }) {
     const params = useSearchParams();
     const paramSource = params.get('source') as SocialSource | null;
     const defaultSource = paramSource && SORTED_SOCIAL_SOURCES.includes(paramSource) ? paramSource : null;
@@ -47,11 +48,12 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, ...p
     const isX3Pro = source === Source.X3Pro;
 
     const keywords = useMemo(() => {
-        if (isX3Pro || !symbol) return address || [];
-        const includesSpace = symbol.trim().includes(' ');
+        const text = symbol === '[invalid]' ? name : symbol;
+        if (isX3Pro || !text) return address || [];
+        const includesSpace = text.trim().includes(' ');
         if (includesSpace && [Source.Lens, Source.Bsky].includes(source)) return address || [];
-        return compact([includesSpace ? `"${symbol}"` : `$${symbol}`, address]);
-    }, [isX3Pro, address, symbol, source]);
+        return compact([includesSpace ? `"${text}"` : `$${symbol}`, address]);
+    }, [isX3Pro, address, symbol, name, source]);
     const mentionUsers = x3Token?.mentionUsers || EMPTY_LIST;
 
     const twitterProfile = useCurrentProfile(Source.Twitter);
