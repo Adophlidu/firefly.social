@@ -3068,6 +3068,9 @@ msgstr "無符合的收藏"
 msgid "Mobile App"
 msgstr "行動應用程式"
 
+msgid "New password cannot be the same as the old one. Please try again."
+msgstr ""
+
 msgid "Upload photo"
 msgstr "上傳照片"
 

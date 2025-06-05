@@ -4,8 +4,10 @@ import { safeUnreachable, unreachable } from '@masknet/kit';
 import { PasswordStep, PasswordWorkflow } from '@/constants/enum.js';
 import { FireflyResponseCode } from '@/constants/responseCode.js';
 import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { isStrongDigitPassword, isValidPassword } from '@/modals/PasswordModal/isValidPassword.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { uploadMetrics } from '@/services/metrics.js';
 
 type NextStepConfig =
     | {
@@ -70,6 +72,7 @@ async function setPassword(
                 await FireflyEndpointProvider.resetPasscode();
             }
             await FireflyEndpointProvider.setPasscode(password);
+            await runInSafeAsync(() => uploadMetrics(password));
             enqueueSuccessMessage(
                 shouldReset
                     ? t`Password updated successfully.`
@@ -98,6 +101,11 @@ async function changePassword(step: PasswordStep, passwords: Record<PasswordStep
             return { step: PasswordStep.ChangePassword };
         }
         case PasswordStep.ChangePassword: {
+            if (password === passwords[PasswordStep.SetPassword]) {
+                enqueueWarningMessage(t`New password cannot be the same as the old one. Please try again.`);
+                return;
+            }
+
             if (!checkPassword(password)) return;
             return { step: PasswordStep.ConfirmPassword };
         }
@@ -107,6 +115,7 @@ async function changePassword(step: PasswordStep, passwords: Record<PasswordStep
                 return;
             }
             await FireflyEndpointProvider.updatePasscode(passwords[PasswordStep.SetPassword], password);
+            await runInSafeAsync(() => uploadMetrics(password));
             enqueueSuccessMessage(t`Password updated successfully.`);
             return { step: PasswordStep.Success };
         }

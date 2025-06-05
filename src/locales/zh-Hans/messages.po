@@ -3073,6 +3073,9 @@ msgstr "未找到匹配项"
 msgid "Mobile App"
 msgstr "手机应用"
 
+msgid "New password cannot be the same as the old one. Please try again."
+msgstr ""
+
 msgid "Upload photo"
 msgstr "上传照片"
 

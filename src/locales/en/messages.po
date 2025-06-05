@@ -3068,6 +3068,9 @@ msgstr "No matching collection"
 msgid "Mobile App"
 msgstr "Mobile App"
 
+msgid "New password cannot be the same as the old one. Please try again."
+msgstr "New password cannot be the same as the old one. Please try again."
+
 msgid "Upload photo"
 msgstr "Upload photo"
 

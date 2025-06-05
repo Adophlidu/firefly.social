@@ -3055,6 +3055,9 @@ msgstr ""
 msgid "Mobile App"
 msgstr ""
 
+msgid "New password cannot be the same as the old one. Please try again."
+msgstr ""
+
 msgid "Upload photo"
 msgstr ""
 
