@@ -64,7 +64,7 @@ export const PasswordInputPanel = memo<PasswordInputPanelProps>(function Passwor
                     autoCapitalize="none"
                     spellCheck="false"
                     type="password"
-                    className="h-11 w-11 rounded-2xl border border-lightLineSecond bg-input text-center text-base font-medium text-main outline-none placeholder:text-transparent focus:border-highlight"
+                    className="h-11 w-11 rounded-2xl border border-lightLineSecond bg-input text-center text-base font-medium text-main outline-none placeholder:text-transparent focus:border-highlight dark:bg-lightBg"
                     maxLength={1}
                     value={password[index]}
                     onChange={(e) => onInputChange(e, index)}
