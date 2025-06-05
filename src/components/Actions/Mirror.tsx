@@ -198,7 +198,7 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
         <div
             ref={old ? undefined : refs.setFloating}
             style={old ? undefined : floatingStyles}
-            className="floating-card z-[5] mt-1 space-y-2 rounded-2xl bg-primaryBottom px-4 py-2 text-main shadow-messageShadow hover:text-main"
+            className="floating-card z-20 mt-1 space-y-2 rounded-2xl bg-primaryBottom px-4 py-2 text-main shadow-messageShadow hover:text-main"
             {...getFloatingProps()}
         >
             <ClickableButton
