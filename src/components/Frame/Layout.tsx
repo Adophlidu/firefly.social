@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 
 import { FrameLayout as FrameLayoutV1 } from '@/components/Frame/V1/Layout.js';
 import { FrameLayout as FrameLayoutV2 } from '@/components/Frame/V2/Layout.js';
+import { Oembed } from '@/components/Oembed/index.js';
 import { FrameProtocol, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { isFrameV1, isFrameV2 } from '@/helpers/frame.js';
@@ -20,12 +21,12 @@ export function FrameLayout({ frame, post, children }: FrameLayoutProps) {
         case Source.Farcaster:
             break;
         case Source.Lens:
-            if (!(isFrameV1(frame) && frame.protocol === FrameProtocol.OpenFrame)) return null;
+            if (!(isFrameV1(frame) && frame.protocol === FrameProtocol.OpenFrame)) return <Oembed post={post} />;
             break;
         case Source.Twitter:
-            return null;
+            return <Oembed post={post} />;
         case Source.Bsky:
-            return null;
+            return <Oembed post={post} />;
         default:
             safeUnreachable(post.source);
             break;
