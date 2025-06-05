@@ -1,15 +1,19 @@
+import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { type HTMLProps, memo } from 'react';
 import urlcat from 'urlcat';
 
+import SendIcon from '@/assets/send.svg';
 import ShareIcon from '@/assets/share.svg';
-import { ClickableArea } from '@/components/ClickableArea.js';
+import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
+import { MenuButton } from '@/components/Actions/MenuButton.js';
+import { MenuGroup } from '@/components/MenuGroup.js';
+import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SITE_URL } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
-import { useCopyText } from '@/hooks/useCopyText.js';
+import { ComposeModalRef } from '@/modals/controls.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -19,34 +23,45 @@ interface ShareProps extends HTMLProps<HTMLDivElement> {
 }
 export const Share = memo<ShareProps>(function Collect({ className, post, disabled = false }) {
     const url = urlcat(SITE_URL, getPostUrl(post));
-    const [, handleCopy] = useCopyText(url);
 
     return (
-        <ClickableArea
-            className={classNames(
-                'flex flex-auto items-center space-x-2 self-auto justify-self-auto text-second',
-                className,
-                {
-                    'opacity-50': disabled,
-                },
-            )}
+        <MoreActionMenu
+            loginRequired={false}
+            disabled={disabled}
+            buttonClassName="!text-second"
+            button={
+                <Tooltip content={<Trans>Share</Trans>} placement="top" disabled={disabled}>
+                    <motion.button
+                        disabled={disabled}
+                        onClick={() => capturePostActionEvent('share', post)}
+                        whileTap={{ scale: 0.9 }}
+                        className="inline-flex size-7 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link disabled:opacity-60"
+                    >
+                        <ShareIcon width={17} height={16} />
+                    </motion.button>
+                </Tooltip>
+            }
         >
-            <Tooltip content={<Trans>Share</Trans>} placement="top" disabled={disabled}>
-                <motion.button
-                    disabled={disabled}
-                    onClick={(event) => {
-                        event.preventDefault();
-                        event.stopPropagation();
-
-                        if (!disabled) handleCopy();
-                        capturePostActionEvent('share', post);
-                    }}
-                    whileTap={{ scale: 0.9 }}
-                    className="inline-flex size-7 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link"
-                >
-                    <ShareIcon width={17} height={16} />
-                </motion.button>
-            </Tooltip>
-        </ClickableArea>
+            <MenuGroup>
+                <MenuItem>
+                    {({ close }) => (
+                        <MenuButton
+                            onClick={() => {
+                                ComposeModalRef.open({
+                                    chars: url,
+                                });
+                                close();
+                            }}
+                        >
+                            <SendIcon width={18} height={18} />
+                            <span className="font-bold leading-[22px] text-main">
+                                <Trans>Post with link</Trans>
+                            </span>
+                        </MenuButton>
+                    )}
+                </MenuItem>
+                <MenuItem>{({ close }) => <CopyLinkButton link={url || ''} onClick={close} />}</MenuItem>
+            </MenuGroup>
+        </MoreActionMenu>
     );
 });
