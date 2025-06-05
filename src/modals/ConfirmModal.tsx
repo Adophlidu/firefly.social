@@ -12,7 +12,7 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
 export interface ConfirmModalOpenProps {
-    title?: string;
+    title?: React.ReactNode;
     content: React.ReactNode;
     resetSize?: boolean;
     contentClass?: string;

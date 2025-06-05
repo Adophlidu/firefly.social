@@ -11,10 +11,11 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { PasswordWorkflow } from '@/constants/enum.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef, LoginModalRef, PasswordModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { captureRemovePasscodeEvent } from '@/providers/telemetry/capturePasscodeEvent.js';
 
 function ToggleSyncSessionSwitch({
     isLogin,
@@ -41,9 +42,10 @@ function ToggleSyncSessionSwitch({
                 }
 
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                    title: t`Turn off`,
+                    title: <Trans>Turn off</Trans>,
                     variant: 'normal',
                     enableCancelButton: true,
+                    modalStyle: { width: 400, maxWidth: '90vw' },
                     content: (
                         <div className="text-main">
                             <Trans>
@@ -57,6 +59,8 @@ function ToggleSyncSessionSwitch({
 
                 await FireflyEndpointProvider.resetPasscode();
                 queryClient.setQueryData(['session-sync-status', isLogin], false);
+                enqueueSuccessMessage(t`Multi-device login is now turned off and all previously sessions are cleared.`);
+                captureRemovePasscodeEvent();
             } catch (error) {
                 enqueueErrorMessage(
                     value
