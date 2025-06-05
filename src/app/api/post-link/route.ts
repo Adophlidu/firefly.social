@@ -10,6 +10,7 @@ import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isBlinkBlocklist } from '@/helpers/isBlinkBlocklist.js';
+import { isBlinkWhitelist } from '@/helpers/isBlinkWhitelist.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
@@ -122,12 +123,12 @@ export async function getClassifyPostLink(url: string) {
             async () => {
                 if (env.external.NEXT_PUBLIC_BLINK !== STATUS.Enabled) return null;
                 if (!url || !isValidPostLink(url) || isBlinkBlocklist(url)) return null;
-                const actionUrl = (await resolveTCOLink(url)) ?? url;
+                if (!(await isBlinkWhitelist(url))) return null;
                 const response = await fetchJSON<FireflyBlinkParserBlinkResponse>(
                     urlcat(settings.FIREFLY_ROOT_URL, '/v1/solana/blinks/parse'),
                     {
                         method: 'POST',
-                        body: JSON.stringify({ url: actionUrl }),
+                        body: JSON.stringify({ url }),
                     },
                 );
                 if (!response.data) return null;

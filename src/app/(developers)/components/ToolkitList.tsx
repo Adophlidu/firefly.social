@@ -17,7 +17,6 @@ export function ToolkitList() {
                 { name: 'Firefly Bridge', link: '/bridge' },
                 { name: 'Ethereum JSON RPC', link: '/ethereum' },
                 { name: 'Session Validator', link: '/session' },
-                { name: 'Blink Validator', link: '/blink' },
                 { name: 'Frame Validator', link: '/frame' },
                 { name: 'OpenGraph Validator', link: '/og' },
                 { name: 'LinkDigest Validator', link: '/digestLink' },

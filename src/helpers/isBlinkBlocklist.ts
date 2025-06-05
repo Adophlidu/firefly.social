@@ -26,6 +26,14 @@ const blockedHostSet = new Set([
     'bsky.app',
     'docs.google.com',
     'apps.apple.com',
+    'jup.ag',
+    'okx.com',
+    'www.okx.com',
+    'binance.com',
+    'www.binance.com',
+    'www.bybit.com',
+    'bybit.com',
+    'notion.so',
 ]);
 
 const regexList = [/.bsky.social$/, /.twitter$/, /.eth$/];
