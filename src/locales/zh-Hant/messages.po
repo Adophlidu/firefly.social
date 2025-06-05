@@ -266,6 +266,9 @@ msgstr "我們未發現任何阻止代幣銷售的代碼。"
 msgid "{0} listening"
 msgstr "{0} 人正在收聽"
 
+msgid "Post Link Validator"
+msgstr ""
+
 msgid "<0>Connect wallet</0> to sign in<1/>if you registered your Farcaster account on Firefly"
 msgstr ""
 

@@ -266,6 +266,9 @@ msgstr ""
 msgid "{0} listening"
 msgstr ""
 
+msgid "Post Link Validator"
+msgstr ""
+
 msgid "<0>Connect wallet</0> to sign in<1/>if you registered your Farcaster account on Firefly"
 msgstr ""
 

@@ -266,6 +266,9 @@ msgstr "我们没察觉到有任何阻止通证售卖的代码逻辑。"
 msgid "{0} listening"
 msgstr "{0} 正在收听"
 
+msgid "Post Link Validator"
+msgstr ""
+
 msgid "<0>Connect wallet</0> to sign in<1/>if you registered your Farcaster account on Firefly"
 msgstr ""
 
