@@ -217,18 +217,17 @@ export enum EventId {
 
     // swap
     EVENT_FOLLOWING_SWAP_CLICK = 'following_swap_click',
-    EVENT_LIKE_SWAP_CLICK = 'trade_like_success',
+    EVENT_LIKE_SWAP_CLICK = 'swap_like_success',
     EVENT_SWAP_DETAIL_CLICK = 'swap_detail_click',
     EVENT_SWAP_COPY_SUCCESS = 'swap_copy_success',
 
     // channel
-    CHANNEL_FOLLOW_ON_FARCASTER_SUCCESS = 'farcaster_follow_channel_success',
-    CHANNEL_UNFOLLOW_ON_FARCASTER_SUCCESS = 'farcaster_unfollow_channel_success',
+    FARCASTER_CHANNEL_JOIN_SUCCESS = 'farcaster_channel_join_success',
+    FARCASTER_CHANNEL_LEAVE_SUCCESS = 'farcaster_channel_leave_success',
     CHANNEL_JOIN_ON_LENS_SUCCESS = 'lens_group_join_success',
     CHANNEL_LEAVE_ON_LENS_SUCCESS = 'lens_group_leave_success',
     CHANNEL_ADD_ON_BSKY_SUCCESS = 'bsky_feed_add_success',
     CHANNEL_REMOVE_ON_BSKY_SUCCESS = 'bsky_feed_remove_success',
-    FARCASTER_CHANNEL_JOIN_SUCCESS = 'farcaster_channel_join_success',
 
     // filter tab
     POSTS_FILTER_CHANGE = 'tab_social_filter_click',

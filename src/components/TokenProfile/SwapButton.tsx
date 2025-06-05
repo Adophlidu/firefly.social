@@ -16,6 +16,8 @@ import { classNames } from '@/helpers/classNames.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { SwapModalRef, WalletConnectModalRef } from '@/modals/controls.js';
 import type { SwapModalOpenProps } from '@/modals/SwapModal.js';
+import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 
 interface Props extends ClickableButtonProps {
     tradable?: boolean;
@@ -60,6 +62,7 @@ export const SwapButton = memo<Props>(function SwapButton({
                     return;
                 }
                 if (chainId && providerType === ProviderType.EVM) await switchChain(config, { chainId });
+                captureSwapEvent(EventId.EVENT_SWAP_COPY_SUCCESS);
                 SwapModalRef.open({
                     ...(swapPropsFromProps ?? propsFromContext),
                     providerType,

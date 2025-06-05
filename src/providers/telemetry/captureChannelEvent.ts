@@ -11,9 +11,7 @@ function getEventId(source: SocialSource, type: 'follow' | 'unfollow') {
     const isFollow = type === 'follow';
     switch (source) {
         case Source.Farcaster:
-            return isFollow
-                ? EventId.CHANNEL_FOLLOW_ON_FARCASTER_SUCCESS
-                : EventId.CHANNEL_UNFOLLOW_ON_FARCASTER_SUCCESS;
+            return isFollow ? EventId.FARCASTER_CHANNEL_JOIN_SUCCESS : EventId.FARCASTER_CHANNEL_LEAVE_SUCCESS;
         case Source.Lens:
             return isFollow ? EventId.CHANNEL_JOIN_ON_LENS_SUCCESS : EventId.CHANNEL_LEAVE_ON_LENS_SUCCESS;
         case Source.Bsky:

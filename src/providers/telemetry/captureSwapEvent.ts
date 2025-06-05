@@ -5,7 +5,11 @@ import type { EventId } from '@/providers/types/Telemetry.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 export function captureSwapEvent(
-    eventId: EventId.EVENT_FOLLOWING_SWAP_CLICK | EventId.EVENT_LIKE_SWAP_CLICK | EventId.EVENT_SWAP_DETAIL_CLICK,
+    eventId:
+        | EventId.EVENT_FOLLOWING_SWAP_CLICK
+        | EventId.EVENT_LIKE_SWAP_CLICK
+        | EventId.EVENT_SWAP_DETAIL_CLICK
+        | EventId.EVENT_SWAP_COPY_SUCCESS,
 ) {
     return runInSafeAsync(async () => {
         const fireflySession = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
