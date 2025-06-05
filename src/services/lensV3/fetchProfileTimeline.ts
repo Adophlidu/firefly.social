@@ -27,11 +27,7 @@ export async function fetchProfileTimeline(profileId: string, indicator?: PageIn
             request: {
                 cursor: ensureCursor(indicator),
                 filter: {
-                    eventType: [
-                        TimelineEventItemType.Post,
-                        TimelineEventItemType.Comment,
-                        TimelineEventItemType.Repost,
-                    ],
+                    eventType: [TimelineEventItemType.Post, TimelineEventItemType.Quote, TimelineEventItemType.Repost],
                 },
                 account: safeEvmAddress(profileId),
             },

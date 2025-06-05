@@ -561,7 +561,7 @@ export async function formatLensPostV3(result: AnyPost): Promise<Post> {
 
 export async function formatLensPostByFeedV3(result: TimelineItem): Promise<Post | null> {
     const firstComment = result.comments.length ? first(result.comments) : undefined;
-    const basePost = firstComment || result.primary;
+    const basePost = result.primary;
     if (basePost.author.operations?.isBlockedByMe) return null;
     const post = await formatLensPostV3(basePost);
     const mirrors = result.reposts.map((x) => formatLensProfileV3(x.author));
@@ -573,7 +573,7 @@ export async function formatLensPostByFeedV3(result: TimelineItem): Promise<Post
         comments,
         mirrors,
         reactions,
-        commentOn: firstComment ? await formatLensPostV3(result.primary) : undefined,
+        commentOn: basePost.commentOn ? await formatLensPostV3(basePost.commentOn) : undefined,
         root:
             firstComment && result.primary.commentOn
                 ? await formatLensPostV3(result.primary.commentOn as AnyPost)
