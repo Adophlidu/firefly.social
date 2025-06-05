@@ -86,7 +86,7 @@ export function getProfileTransactions(
             FireflyEndpointProvider.getSwapTimelineByAddress(addresses, chainId ? [chainId] : [], undefined, indicator),
         (indicator) => FireflyEndpointProvider.getProfilePolymarketTimeline(addresses, 'all', indicator),
         (indicator, chainId) =>
-            FireflyEndpointProvider.getNFTsByAddress({
+            FireflyEndpointProvider.getFollowingNFTs({
                 indicator,
                 chainId,
                 walletAddress: address,

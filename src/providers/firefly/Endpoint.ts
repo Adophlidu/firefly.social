@@ -149,7 +149,6 @@ import { encryptPasscode } from '@/services/crypto.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { muteAllSocialProfiles } from '@/services/muteAllSocialProfiles.js';
 import { settings } from '@/settings/index.js';
-import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 function resolveDebankChain(debankChain: string) {
     const chain = DEBANK_CHAINS.find((chain) => chain.id === debankChain);
@@ -597,31 +596,10 @@ class FireflyEndpoint {
         );
     }
 
-    async getNFTsByAddress({
-        indicator,
-        chainId,
-        walletAddress,
-    }: {
-        indicator?: PageIndicator;
-        chainId?: number;
-        walletAddress: string;
-    }): Promise<Pageable<NFTFeedV3, PageIndicator>> {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/timeline/nft/all');
-        const response = await fireflySessionHolder.fetch<DiscoverNFTResponseV3>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-                chainId,
-                walletAddress,
-            }),
-        });
-        return formatNFTsTimelineResponse(response, indicator);
-    }
-
     async getFollowingNFTs({
         limit = 20,
         indicator,
-        chainId = EthereumChainId.Mainnet,
+        chainId,
         walletAddress,
     }: {
         limit?: number;
