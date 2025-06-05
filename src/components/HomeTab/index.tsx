@@ -11,7 +11,7 @@ import { DiscoverFilter } from '@/components/HomeTab/DiscoverFilter.js';
 import { Link } from '@/components/Link.js';
 import { ChainFilter } from '@/components/Swap/ChainFilter.js';
 import { SolidTabs } from '@/components/Tabs/SolidTabs.js';
-import { HomeTab, Source } from '@/constants/enum.js';
+import { HomeTab, NetworkType, Source } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { parseDiscoverPageUrl } from '@/helpers/parseDiscoverPageUrl.js';
@@ -39,7 +39,7 @@ export function HomeTabs({
     containerClass?: string;
 }) {
     const pathname = usePathname();
-    const { hasOpenSwap, setHasOpenSwap } = useSwapStateStore();
+    const { hasOpenSwap, setHasOpenSwap } = useSwapStateStore(NetworkType.Ethereum);
     const [allTabs, setAllTabs] = useState<Record<HomeTab, Source>>({
         [HomeTab.Discover]: types[HomeTab.Discover][0],
         [HomeTab.Following]: types[HomeTab.Following][0],
@@ -163,7 +163,7 @@ export function HomeTabs({
                         }}
                     />
                     {source === Source.Posts ? <DiscoverFilter tab={currentTab} /> : null}
-                    {source === Source.Transactions ? <ChainFilter /> : null}
+                    {source === Source.Transactions ? <ChainFilter networkType={NetworkType.Ethereum} /> : null}
                     {source === Source.Activities ? (
                         <ActivitiesFilter namespace={ActivitiesFilterNamespace.Home} />
                     ) : null}

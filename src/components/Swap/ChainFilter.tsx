@@ -1,7 +1,6 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
-import { arbitrum, base, bsc, mainnet, optimism, polygon } from 'viem/chains';
 
 import CheckIcon from '@/assets/check.svg';
 import FilterIcon from '@/assets/filter.svg';
@@ -11,52 +10,12 @@ import { NetworkType } from '@/constants/enum.js';
 import { captureChainFilterTabEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
 import { useSwapStateStore } from '@/store/useSwapStore.js';
 
-export const chainsList = [
-    {
-        id: mainnet.id,
-        networkType: NetworkType.Ethereum,
-        name: mainnet.name,
-    },
-    {
-        id: 101,
-        networkType: NetworkType.Solana,
-        name: 'Solana',
-    },
-    {
-        id: bsc.id,
-        networkType: NetworkType.Ethereum,
-        name: bsc.name,
-    },
-    {
-        id: base.id,
-        networkType: NetworkType.Ethereum,
-        name: base.name,
-    },
-    {
-        id: arbitrum.id,
-        networkType: NetworkType.Ethereum,
-        name: arbitrum.name,
-    },
-    {
-        id: optimism.id,
-        networkType: NetworkType.Ethereum,
-        name: optimism.name,
-    },
-    {
-        id: polygon.id,
-        networkType: NetworkType.Ethereum,
-        name: polygon.name,
-    },
-];
-
 interface ChainFilterProps {
     networkType?: NetworkType;
 }
 
 export function ChainFilter({ networkType }: ChainFilterProps) {
-    const validChains = networkType ? chainsList.filter((x) => x.networkType === networkType) : chainsList;
-
-    const { selectedChainId, setSelectedChainId } = useSwapStateStore(validChains.map((x) => x.id));
+    const { selectedChainId, validChains, setSelectedChainId } = useSwapStateStore(networkType);
 
     const Icon = useMemo(() => {
         if (selectedChainId === 101) {

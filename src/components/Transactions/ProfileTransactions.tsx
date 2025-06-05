@@ -2,7 +2,6 @@
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { useWalletMixAddresses } from '@/components/Profile/useWalletMixAddresses.js';
-import { chainsList } from '@/components/Swap/ChainFilter.js';
 import { getProfileTransactions } from '@/components/Transactions/getTransactions.js';
 import { getTransactionsItemContent } from '@/components/Transactions/getTransactionsItemContent.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
@@ -17,8 +16,7 @@ interface ProfileTransactionsProps {
 }
 
 export function ProfileTransactions({ address }: ProfileTransactionsProps) {
-    const validChains = chainsList.filter((x) => x.networkType === getAddressType(address));
-    const { selectedChainId } = useSwapStateStore(validChains.map((x) => x.id));
+    const { selectedChainId } = useSwapStateStore(getAddressType(address));
     const addresses = useWalletMixAddresses(address);
 
     const queryResult = useMultiInfiniteQueryPageable<TransactionsItem, Pageable<TransactionsItem, PageIndicator>>(
