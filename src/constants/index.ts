@@ -45,7 +45,6 @@ export const SITE_NAME = 'Firefly ✨ Everything App for Web3 Natives';
 export const SITE_DESCRIPTION =
     'Firefly is a Web3 social app by Mask Network. Explore timelines from X, Farcaster, Lens & Bluesky, and track trends in DeFi, MEME, NFTs, and more.';
 export const SITE_HOSTNAME = 'firefly.social';
-export const CZ_ACTIVITY_HOSTNAME = 'cz.firefly.social';
 
 export const SITE_URL_OFFICIAL = 'https://firefly.social';
 export const SITE_URL = env.external.NEXT_PUBLIC_SITE_URL ?? SITE_URL_OFFICIAL;

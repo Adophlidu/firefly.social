@@ -2,7 +2,6 @@ import { NextRequest, NextResponse, userAgent } from 'next/server.js';
 import urlcat from 'urlcat';
 
 import { SourceInURL } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { parseOldDiscoverUrl } from '@/helpers/parseDiscoverUrl.js';
@@ -27,10 +26,6 @@ import { resolveProfileSourceInURL } from '@/helpers/resolveSourceInUrl.js';
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
     request.headers.set('X-URL', request.url);
-
-    if (request.nextUrl.host === 'cz.firefly.social' && pathname === '/') {
-        return NextResponse.redirect(urlcat(SITE_URL, '/event/cz_welcome_back_airdrop'));
-    }
 
     const parsedOldDiscoverUrl = parseOldDiscoverUrl(request.nextUrl);
     if (parsedOldDiscoverUrl) {

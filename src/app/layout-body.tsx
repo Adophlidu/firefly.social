@@ -1,9 +1,7 @@
-import { IfHostname } from '@/components/IfHostname.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
-import { CZ_ACTIVITY_HOSTNAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { Script } from '@/esm/Script.js';
 
@@ -42,20 +40,11 @@ export function LayoutBody({ children }: { children: React.ReactNode }) {
                 >
                     <div className="m-auto flex w-full md:min-h-screen group-[.not-support]:md:min-h-[calc(100vh_-_38px)] lg:w-[1265px]">
                         {children}
-                        <IfHostname isNotOneOf={[CZ_ACTIVITY_HOSTNAME]}>
-                            <IfPathname
-                                isNotOneOf={[
-                                    '/login/desktop',
-                                    '/activity/cz',
-                                    '/event',
-                                    '/events',
-                                    '/frame',
-                                    '/redirect',
-                                ]}
-                            >
-                                <SideBar />
-                            </IfPathname>
-                        </IfHostname>
+                        <IfPathname
+                            isNotOneOf={['/login/desktop', '/activity/cz', '/event', '/events', '/frame', '/redirect']}
+                        >
+                            <SideBar />
+                        </IfPathname>
                     </div>
 
                     <Modals />
