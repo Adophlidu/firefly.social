@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import React, { useState } from 'react';
 
@@ -20,8 +19,8 @@ export interface ConfirmModalOpenProps {
     modalClass?: string;
     modalStyle?: React.CSSProperties;
     confirmButtonClass?: string;
-    confirmButtonText?: string;
-    cancelButtonText?: string;
+    confirmButtonText?: React.ReactNode;
+    cancelButtonText?: React.ReactNode;
     enableConfirmButton?: boolean;
     enableCancelButton?: boolean;
     enableCloseButton?: boolean;
@@ -93,7 +92,7 @@ export function ConfirmModal({ ref }: Props) {
                         </TextOverflowTooltip>
                     ) : (
                         <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
-                            {props.title ? props.title : <Trans>Confirmation</Trans>}
+                            {props.title || <Trans>Confirmation</Trans>}
                         </div>
                     )}
 
@@ -115,7 +114,7 @@ export function ConfirmModal({ ref }: Props) {
                                         dispatch?.close(false);
                                     }}
                                 >
-                                    {props.cancelButtonText || t`Cancel`}
+                                    {props.cancelButtonText || <Trans>Cancel</Trans>}
                                 </ClickableButton>
                             ) : null}
                             {props.enableConfirmButton ? (
@@ -134,7 +133,7 @@ export function ConfirmModal({ ref }: Props) {
                                         dispatch?.close(true);
                                     }}
                                 >
-                                    {props.confirmButtonText || t`Confirm`}
+                                    {props.confirmButtonText || <Trans>Confirm</Trans>}
                                 </ClickableButton>
                             ) : null}
                         </div>

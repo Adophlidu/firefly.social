@@ -1,18 +1,21 @@
 import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { memo, useCallback } from 'react';
-import { useAsyncFn } from 'react-use';
+import { useAsync, useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { NetworkType } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { isZero } from '@/helpers/number.js';
 import { resolveCurrentFireflyAccountId, resolveFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
+import { trimify } from '@/helpers/trimify.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
-import { useTipsValidation } from '@/hooks/useTipsValidation.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
 import { captureTipsSendEvent } from '@/providers/telemetry/captureTipsSendEvent.js';
 import { reportTokenTips, UploadTokenTipsToken } from '@/services/reportTokenTips.js';
@@ -24,7 +27,40 @@ interface SendTipsButtonProps {
 
 const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ connected, onConnect }) {
     const { token, recipient, amount, update, identity } = TipsContext.useContainer();
-    const { value, loading: isValidating, error } = useTipsValidation();
+
+    const {
+        value,
+        loading: isValidating,
+        error,
+    } = useAsync(async () => {
+        if (!recipient || !token || !trimify(amount) || isZero(trimify(amount))) {
+            return { label: <Trans>Send</Trans>, disabled: true };
+        }
+
+        const transfer = resolveTransferProvider(recipient.networkType);
+        const network = resolveNetworkProvider(recipient.networkType);
+
+        if (isSameEthereumAddress(recipient.address, await network.getAccount())) {
+            return { label: <Trans>Cannot send tip to yourself</Trans>, disabled: true };
+        }
+
+        const isBalanceValid = await transfer.validateBalance({
+            to: recipient.address,
+            token,
+            amount,
+        });
+        if (!isBalanceValid) {
+            return { label: <Trans>Insufficient Balance</Trans>, disabled: true };
+        }
+
+        const isGasValid = await transfer.validateGas({
+            to: recipient.address,
+            token,
+            amount,
+        });
+        if (isGasValid) return { label: <Trans>Send</Trans>, disabled: false };
+        return { label: <Trans>Insufficient Gas</Trans>, disabled: true };
+    }, [recipient, token, amount]);
 
     const [{ loading: isSending }, handleSendTips] = useAsyncFn(async () => {
         if (!connected) {
@@ -102,13 +138,15 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             loading={isSending || isValidating}
             onlyLoading={isValidating}
         >
-            {!connected
-                ? t`Connect Wallet`
-                : isSending
-                  ? t`Sending`
-                  : error
-                    ? t`Validate failed, please check your input.`
-                    : value?.label}
+            {!connected ? (
+                <Trans>Connect Wallet</Trans>
+            ) : isSending ? (
+                <Trans>Sending</Trans>
+            ) : error ? (
+                <Trans>Validate failed, please check your input.</Trans>
+            ) : (
+                value?.label
+            )}
         </ClickableButton>
     );
 });

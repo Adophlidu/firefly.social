@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
 import PollIcon from '@/assets/poll.svg';
@@ -23,21 +23,23 @@ export const PollButton = memo(function PollButton() {
     return (
         <Tooltip
             content={
-                !isPollSupported && invalidSources.length > 0
-                    ? invalidSources.includes(Source.Lens)
-                        ? t`Poll for Lens will come back soon.`
-                        : t`Poll for ${resolveSourcesName(invalidSources)} is coming soon.`
-                    : t`Poll`
+                !isPollSupported && invalidSources.length > 0 ? (
+                    invalidSources.includes(Source.Lens) ? (
+                        <Trans>Poll for Lens will come back soon.</Trans>
+                    ) : (
+                        <Trans>Poll for ${resolveSourcesName(invalidSources)} is coming soon.</Trans>
+                    )
+                ) : (
+                    <Trans>Poll</Trans>
+                )
             }
             placement="top"
             disabled={!isPollSupported ? false : hasConflictContent}
         >
             <ClickableButton
                 className={classNames('leading-4 text-main', disabled ? 'cursor-not-allowed opacity-50' : '')}
-                onClick={() => {
-                    if (disabled) return;
-                    createPoll();
-                }}
+                disabled={disabled}
+                onClick={() => createPoll()}
             >
                 <PollIcon width={24} height={24} />
             </ClickableButton>

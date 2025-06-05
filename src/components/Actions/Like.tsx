@@ -1,4 +1,5 @@
 import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { memo, useCallback } from 'react';
 
@@ -69,7 +70,11 @@ export const Like = memo<LikeProps>(function Like({ post, disabled = false, hidd
                 handleClick();
             }}
         >
-            <Tooltip content={hasLiked ? t`Unlike` : t`Like`} placement="top" disabled={disabled}>
+            <Tooltip
+                content={hasLiked ? <Trans>Unlike</Trans> : <Trans>Like</Trans>}
+                placement="top"
+                disabled={disabled}
+            >
                 <motion.button
                     disabled={disabled}
                     whileTap={{ scale: 0.9 }}

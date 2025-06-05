@@ -3,7 +3,6 @@ import { useAsyncFn } from 'react-use';
 import type { Address, Hex } from 'viem';
 import { sendTransaction, waitForTransactionReceipt } from 'wagmi/actions';
 
-import { getMintButtonText } from '@/components/NFTs/FreeMintButton.js';
 import { config } from '@/configs/wagmiClient.js';
 import { MintStatus } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
@@ -28,9 +27,7 @@ export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: num
                 return;
             }
             if (![MintStatus.Mintable, MintStatus.MintAgain].includes(mintStatus)) {
-                enqueueWarningMessage(
-                    t`So sorry, we cant mint this NFT with the current status: ${getMintButtonText(true, true, mintStatus)}`,
-                );
+                enqueueWarningMessage(t`So sorry, we cant mint this NFT. Please try again later.`);
                 return;
             }
 

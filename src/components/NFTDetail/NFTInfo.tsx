@@ -1,6 +1,5 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import type { Hex } from 'viem';
 import { useEnsName } from 'wagmi';
@@ -139,7 +138,7 @@ export function NFTInfo(props: NFTInfoProps) {
                                 ) : null}
                                 <TextOverflowTooltip content={collection.name}>
                                     <div className="max-w-[calc(100%-20px-16px-8px-8px)] truncate">
-                                        {collection.name || t`Unknown Collection`}
+                                        {collection.name || <Trans>Unknown Collection</Trans>}
                                     </div>
                                 </TextOverflowTooltip>
                             </Link>

@@ -60,13 +60,13 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
             if (!task.uuid) return;
 
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                title: t`Delete`,
+                title: <Trans>Delete</Trans>,
                 content: (
                     <div className="text-fourMain">
                         <Trans>This can’t be undone, and the scheduled send will be canceled.</Trans>
                     </div>
                 ),
-                confirmButtonText: t`Confirm`,
+                confirmButtonText: <Trans>Confirm</Trans>,
                 enableCancelButton: true,
             });
             if (!confirmed) return;
@@ -101,7 +101,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
                 {removeLoading ? (
                     <LoadingIcon size={20} className="cursor-pointer text-secondary" />
                 ) : (
-                    <Tooltip content={t`Delete`}>
+                    <Tooltip content={<Trans>Delete</Trans>}>
                         <Trash className="size-5 cursor-pointer text-secondary" onClick={handleRemove} />
                     </Tooltip>
                 )}

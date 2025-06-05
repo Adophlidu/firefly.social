@@ -33,10 +33,10 @@ function formatTimeLeft(endTime: string) {
     const timeLeft = getTimeLeft(endTime);
     if (!timeLeft) return;
     const { days, hours, minutes, seconds } = timeLeft;
-    if (days >= 1) return t`${days}d left`;
-    if (hours >= 1) return t`${hours}h left`;
-    if (minutes >= 1) return t`${minutes}m left`;
-    return t`1m left`;
+    if (days >= 1) return <Trans>${days}d left</Trans>;
+    if (hours >= 1) return <Trans>${hours}h left</Trans>;
+    if (minutes >= 1) return <Trans>${minutes}m left</Trans>;
+    return <Trans>1m left</Trans>;
 }
 
 interface PostCollectProps {
@@ -239,7 +239,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
                 <div className="flex flex-col items-center">
                     <div className="font-bold text-main">
-                        {collectModule?.followerOnly ? t`Followers` : t`Everyone`}
+                        {collectModule?.followerOnly ? <Trans>Followers</Trans> : <Trans>Everyone</Trans>}
                     </div>
                     <div className="text-second">
                         <Trans>Exclusivity</Trans>
@@ -247,9 +247,11 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                 </div>
                 <div className="flex flex-col items-center">
                     <div className="font-bold text-main">
-                        {collectModule?.amount && collectModule.currency
-                            ? `${collectModule.amount} $${collectModule.currency}`
-                            : t`Free`}
+                        {collectModule?.amount && collectModule.currency ? (
+                            `${collectModule.amount} $${collectModule.currency}`
+                        ) : (
+                            <Trans>Free</Trans>
+                        )}
                     </div>
                     <div className="text-second">
                         <Trans>Cost</Trans>

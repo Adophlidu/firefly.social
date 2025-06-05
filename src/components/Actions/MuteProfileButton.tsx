@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import MuteIcon from '@/assets/mute.svg';
@@ -26,7 +25,7 @@ export function MuteProfileButton({ profile, ref, onConfirm, onToggle, onClick, 
                 onClick?.(event);
                 if (!muted) {
                     const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                        title: t`Mute @${profile.handle}`,
+                        title: <Trans>Mute @{profile.handle}</Trans>,
                         variant: 'normal',
                         content: (
                             <div className="text-main">

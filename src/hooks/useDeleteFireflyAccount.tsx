@@ -43,7 +43,7 @@ export function useDeleteFireflyAccount() {
     const router = useRouter();
     return useAsyncFn(async () => {
         const confirmed = await ConfirmModalRef.openAndWaitForClose({
-            title: t`Delete Firefly account?`,
+            title: <Trans>Delete Firefly account?</Trans>,
             variant: 'danger',
             enableConfirmButton: false,
             contentClass: 'text-main text-left text-medium',

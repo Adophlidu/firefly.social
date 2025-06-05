@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
 import { uniqBy } from 'lodash-es';
@@ -71,7 +70,7 @@ export function TipSuccess() {
 
     return (
         <>
-            <TipsModalHeader title={t`Tip transaction completed!`} />
+            <TipsModalHeader title={<Trans>Tip transaction completed!</Trans>} />
             <div>
                 <div className="md:px-6">
                     <p>

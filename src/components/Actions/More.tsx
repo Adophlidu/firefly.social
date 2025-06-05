@@ -1,5 +1,4 @@
 import { MenuItem } from '@headlessui/react';
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
 
@@ -62,15 +61,18 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
             ) : (
                 <FollowUserIcon width={18} height={18} />
             );
-            const label = showSuperFollow
-                ? t`Super Follow`
-                : isFollowing
-                  ? t`Unfollow @${author.handle}`
-                  : t`Follow @${author.handle}`;
             return (
                 <>
                     {icon}
-                    <span className="font-bold leading-[22px] text-main">{label}</span>
+                    <span className="font-bold leading-[22px] text-main">
+                        {showSuperFollow ? (
+                            <Trans>Super Follow</Trans>
+                        ) : isFollowing ? (
+                            <Trans>Unfollow @{author.handle}</Trans>
+                        ) : (
+                            <Trans>Follow @{author.handle}`</Trans>
+                        )}
+                    </span>
                 </>
             );
         },

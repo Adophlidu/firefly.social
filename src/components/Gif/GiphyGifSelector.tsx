@@ -22,10 +22,10 @@ interface GiphyGifSelectorProps {
 
 function getGiphyMediaTabs() {
     return [
-        { type: GiphyTabType.Gifs, label: t`GIFs` },
-        { type: GiphyTabType.Stickers, label: t`Stickers` },
-        { type: GiphyTabType.Text, label: t`Text` },
-        { type: GiphyTabType.Emoji, label: t`Emoji` },
+        { type: GiphyTabType.Gifs, label: <Trans>GIFs</Trans> },
+        { type: GiphyTabType.Stickers, label: <Trans>Stickers</Trans> },
+        { type: GiphyTabType.Text, label: <Trans>Text</Trans> },
+        { type: GiphyTabType.Emoji, label: <Trans>Emoji</Trans> },
     ];
 }
 

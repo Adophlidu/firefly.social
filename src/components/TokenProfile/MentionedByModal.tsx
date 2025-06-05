@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Plural, Trans } from '@lingui/react/macro';
 import { useQueries } from '@tanstack/react-query';
 import { memo } from 'react';
@@ -42,7 +41,9 @@ export const MentionedByModal = memo<Props>(function MentionedByModal({ users, .
                         }}
                     />
 
-                    <div className="grow text-center text-lg font-bold leading-[22px] text-main">{t`Mentioned by`}</div>
+                    <div className="grow text-center text-lg font-bold leading-[22px] text-main">
+                        <Trans>Mentioned by</Trans>
+                    </div>
                 </div>
                 <div className="no-scrollbar flex max-h-[293px] min-h-0 flex-grow flex-col gap-3 overflow-auto">
                     {users.map((user, i) => {

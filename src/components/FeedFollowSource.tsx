@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import type { ReactNode } from 'react';
 
 import FarcasterIcon from '@/assets/farcaster-fill.svg';
@@ -29,7 +29,7 @@ export function FeedFollowSource({ source }: { source?: FollowingSource }) {
             <StarIcon className="mr-2 size-4" />
             {[WatchType.Farcaster, WatchType.Lens, WatchType.Twitter].includes(source.type) ? (
                 <>
-                    {t`Following`}
+                    <Trans>Following</Trans>
                     {icons[source.type]}
                     {source.handle ? (
                         <ClickableArea>
@@ -39,9 +39,9 @@ export function FeedFollowSource({ source }: { source?: FollowingSource }) {
                         </ClickableArea>
                     ) : null}
                 </>
-            ) : (
-                <>{WatchType.Wallet === source.type ? t`Address on Watching Lists` : null}</>
-            )}
+            ) : WatchType.Wallet === source.type ? (
+                <Trans>Address on Watching Lists</Trans>
+            ) : null}
         </div>
     );
 }

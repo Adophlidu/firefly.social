@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useMemo } from 'react';
 
@@ -19,20 +19,20 @@ export function SnapshotStatus({ status, className }: Props) {
     const title = useMemo(() => {
         switch (status) {
             case SnapshotState.Active:
-                return t`Active`;
+                return <Trans>Active</Trans>;
             case SnapshotState.Pending:
-                return t`Pending`;
+                return <Trans>Pending</Trans>;
             case SnapshotState.Passed:
-                return t`Passed`;
+                return <Trans>Passed</Trans>;
             case SnapshotState.Rejected:
-                return t`Rejected`;
+                return <Trans>Rejected</Trans>;
             case SnapshotState.Executed:
-                return t`Executed`;
+                return <Trans>Executed</Trans>;
             case SnapshotState.Closed:
-                return t`Closed`;
+                return <Trans>Closed</Trans>;
             default:
                 safeUnreachable(status);
-                return '';
+                return null;
         }
     }, [status]);
     return (

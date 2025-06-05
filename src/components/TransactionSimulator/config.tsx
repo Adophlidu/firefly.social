@@ -22,7 +22,7 @@ import type { AssetChange, SimulateResponse, SimulationOptions } from '@/provide
 import { CHAIN_DESCRIPTORS } from '#masknet/web3-shared-evm';
 
 interface PanelConfig {
-    title: string;
+    title: React.ReactNode;
     modules: SimulateType[];
     content: (
         props: SimulationOptions,
@@ -66,28 +66,28 @@ function formatPayOrReceive(simulation: SimulateResponse['data'], field: 'to' | 
 export function getPanelConfig(): PanelConfig[] {
     return [
         {
-            title: t`Pay`,
+            title: <Trans>Pay</Trans>,
             icon: SendIcon,
             showLoading: true,
             modules: [SimulateType.Swap],
             content: (_, simulation) => formatPayOrReceive(simulation, 'from'),
         },
         {
-            title: t`Receive`,
+            title: <Trans>Receive</Trans>,
             icon: ReceiveIcon,
             showLoading: true,
             modules: [SimulateType.Swap, SimulateType.Receive],
             content: (_, simulation) => formatPayOrReceive(simulation, 'to'),
         },
         {
-            title: t`Send`,
+            title: <Trans>Send</Trans>,
             icon: SendIcon,
             showLoading: true,
             modules: [SimulateType.Send],
             content: (_, simulation) => formatPayOrReceive(simulation, 'from'),
         },
         {
-            title: t`Approve`,
+            title: <Trans>Approve</Trans>,
             showLoading: true,
             modules: [SimulateType.Approve],
             content: (_, simulation) => {
@@ -98,18 +98,18 @@ export function getPanelConfig(): PanelConfig[] {
             },
         },
         {
-            title: t`Signature Request`,
+            title: <Trans>Signature Request</Trans>,
             modules: [SimulateType.Signature],
-            content: (_, simulation) => t`Sign Typed Data`,
+            content: (_, simulation) => <Trans>Sign Typed Data</Trans>,
         },
         {
-            title: t`Network Fee`,
+            title: <Trans>Network Fee</Trans>,
             showLoading: true,
             modules: [SimulateType.Swap, SimulateType.Send, SimulateType.Approve, SimulateType.Receive],
             content: (_, simulation) => (simulation?.fee ? `${simulation.fee.value} ${simulation.fee.symbol}` : null),
         },
         {
-            title: t`Domain`,
+            title: <Trans>Domain</Trans>,
             modules: [
                 SimulateType.Swap,
                 SimulateType.Send,
@@ -121,7 +121,7 @@ export function getPanelConfig(): PanelConfig[] {
             content: (props) => parseUrl(props.url || '')?.host,
         },
         {
-            title: t`Chain`,
+            title: <Trans>Chain</Trans>,
             modules: [
                 SimulateType.Swap,
                 SimulateType.Send,
@@ -198,7 +198,7 @@ export function getStatusConfig(): StatusConfig[] {
             status: SimulateStatus.Error,
             icon: TradeInfo,
             className: 'bg-danger/20 text-danger',
-            text: (message: string) => (message ? t`Error: ${message}` : ''),
+            text: (message: string) => (message ? <Trans>Error: {message}</Trans> : ''),
         },
     ];
 }

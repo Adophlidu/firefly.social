@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import LinkIcon from '@/assets/link-square.svg';
@@ -42,7 +41,9 @@ export function CollectionItem({ collection }: CollectionProps) {
                     ) : null}
                     <br />
                     {collection.ownersTotal ? (
-                        <span className="text-[13px] text-second">{t`${collection.ownersTotal} items`}</span>
+                        <span className="text-[13px] text-second">
+                            <Trans>{collection.ownersTotal} items</Trans>
+                        </span>
                     ) : null}
                 </div>
             </div>

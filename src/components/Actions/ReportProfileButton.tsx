@@ -37,7 +37,7 @@ export function ReportProfileButton({ profile, ref, onConfirm, onClick, ...rest 
             onClick={async (event) => {
                 onClick?.(event);
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                    title: t`Report @${profile.handle}`,
+                    title: <Trans>Report @{profile.handle}</Trans>,
                     content: (
                         <div className="text-main">
                             <Trans>Are you sure you want to report this user?</Trans>

@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useMemo, useRef } from 'react';
 import { useHover } from 'usehooks-ts';
 
@@ -37,10 +37,10 @@ export function ToggleMutedButton({
             return <MuteIcon className="size-4 flex-shrink-0" />;
         }
         if (isMuted) {
-            if (loading) return t`Unmuting...`;
-            return isHover ? t`Unmute` : t`Muted`;
+            if (loading) return <Trans>Unmuting...</Trans>;
+            return isHover ? <Trans>Unmute</Trans> : <Trans>Muted</Trans>;
         }
-        return loading ? t`Muting...` : t`Mute`;
+        return loading ? <Trans>Muting...</Trans> : <Trans>Mute</Trans>;
     }, [isHover, isMuted, loading, variant]);
 
     const variantClassName = {

@@ -12,7 +12,7 @@ export function sharePostAfterClaimed(post: Post, amount: string, symbol?: strin
     const postUrl = urlcat(SITE_URL, getPostUrl(post));
 
     ConfirmModalRef.open({
-        title: t`Lucky Drop`,
+        title: <Trans>Lucky Drop</Trans>,
         content: (
             <div className="flex h-[276px] w-[388px] flex-col items-center max-md:w-auto">
                 <CircleSuccessIcon width={90} height={90} />
@@ -35,7 +35,7 @@ export function sharePostAfterClaimed(post: Post, amount: string, symbol?: strin
         modalStyle: { width: 420, height: 420, maxWidth: '80%', maxHeight: '80%' },
         enableConfirmButton: true,
         variant: 'normal',
-        confirmButtonText: t`Share`,
+        confirmButtonText: <Trans>Share</Trans>,
         onConfirm: () => {
             ComposeModalRef.open({
                 type: 'compose',

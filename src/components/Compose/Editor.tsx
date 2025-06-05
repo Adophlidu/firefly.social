@@ -6,7 +6,6 @@ import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPl
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin.js';
 import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin.js';
 import { $dfs } from '@lexical/utils';
-import { t } from '@lingui/core/macro';
 import { Select, Trans } from '@lingui/react/macro';
 import type { EditorState } from 'lexical';
 import { compact, debounce } from 'lodash-es';
@@ -118,15 +117,23 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
                         <Select
                             value={type}
                             _compose={
-                                post.poll
-                                    ? t`Ask a question`
-                                    : index === 0
-                                      ? t`What's happening...`
-                                      : t`Add another post...`
+                                post.poll ? (
+                                    <Trans>Ask a question</Trans>
+                                ) : index === 0 ? (
+                                    <Trans>What&apos;s happening...</Trans>
+                                ) : (
+                                    <Trans>Add another post...</Trans>
+                                )
                             }
                             _quote="Add a comment"
                             _reply="Post your reply"
-                            other={index === 0 ? t`What's happening...` : t`Add another post...`}
+                            other={
+                                index === 0 ? (
+                                    <Trans>What&apos;s happening...</Trans>
+                                ) : (
+                                    <Trans>Add another post...</Trans>
+                                )
+                            }
                         />
                     </div>
                 }

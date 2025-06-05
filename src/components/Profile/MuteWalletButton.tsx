@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useMutation } from '@tanstack/react-query';
 import { memo, useState } from 'react';
 
@@ -35,7 +35,15 @@ export const ToggleMuteWalletButton = memo(function ToggleMuteWalletButton({
     });
     const loading = mutation.isPending;
 
-    const buttonText = isMuted ? (hovering && !loading ? t`Unmute` : t`Muted`) : t`Mute`;
+    const buttonText = isMuted ? (
+        hovering && !loading ? (
+            <Trans>Unmute</Trans>
+        ) : (
+            <Trans>Muted</Trans>
+        )
+    ) : (
+        <Trans>Mute</Trans>
+    );
     const buttonState = isMuted ? (hovering && !loading ? State.Unmute : State.Muted) : State.Mute;
 
     return (

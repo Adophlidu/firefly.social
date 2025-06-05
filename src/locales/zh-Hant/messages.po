@@ -27,9 +27,6 @@ msgstr "登入失敗。"
 msgid "Projects"
 msgstr "專案"
 
-msgid "{days, plural, one {1 day left} other {{days} days left}}"
-msgstr "{days, plural, one {剩餘 1 天} other {剩餘 {days} 天}}"
-
 msgid "Do you want to retry with the full or remaining content?"
 msgstr "您想用全部內容還是剩餘內容重試？"
 
@@ -143,7 +140,6 @@ msgstr "發送小費"
 msgid "Your post was sent to {0}."
 msgstr "您的貼文已發送至 {0}。"
 
-#. placeholder {0}: channel.name
 #. placeholder {0}: channel.id
 msgid "Mute /{0}"
 msgstr "將 /{0} 靜音"
@@ -167,7 +163,7 @@ msgid "Communities"
 msgstr "社群"
 
 msgid "{shares, plural, one {Repost or Quote} other {Reposts or Quotes}}"
-msgstr "{shares, plural, one {轉發或引用} other {轉發或引用}}"
+msgstr ""
 
 msgid "Ask a question"
 msgstr "提問"
@@ -318,6 +314,9 @@ msgstr "此代幣存在 Gas 濫用問題。"
 msgid "Failed to disable Multi-device login. Please try again later."
 msgstr ""
 
+msgid "{hours, plural, one {# hour left} other {# hours left}}"
+msgstr ""
+
 #. placeholder {0}: snapshot.title
 msgid "🙌 Just voted “{choice}” on “{0}”"
 msgstr "🙌 剛在「{0}」投了「{choice}」"
@@ -426,6 +425,10 @@ msgstr "存在外部調用風險。"
 msgid "FAILED POST"
 msgstr "發文失敗"
 
+#. placeholder {0}: channel.name
+msgid "Mute /${0}"
+msgstr ""
+
 msgid "Decryption failed."
 msgstr ""
 
@@ -527,6 +530,9 @@ msgstr "建立自訂主題失敗。"
 #. placeholder {1}: token.symbol
 msgid "The minimum amount for each share is {0} {1}"
 msgstr "每份最低金額為 {0} {1}"
+
+msgid "${days}d left"
+msgstr ""
 
 msgid "Trending Channels"
 msgstr "熱門頻道"
@@ -702,10 +708,6 @@ msgstr "參與前請詳閱<0>免責聲明</0>。如有疑問請<1>聯絡我們</
 msgid "Report submitted"
 msgstr "檢舉已提交"
 
-#. placeholder {0}: post.stats.quotes
-msgid "{0, plural, one {quote} other {quotes}}"
-msgstr "{0, plural, one {引用} other {引用}}"
-
 msgid "No hidden owner."
 msgstr "無隱藏所有者。"
 
@@ -847,8 +849,14 @@ msgstr "傳送中"
 msgid "Video duration limit reached."
 msgstr "影片長度超過限制"
 
+msgid "{viewCount, plural, one {view} others {views}}"
+msgstr ""
+
 msgid "Limo"
 msgstr "Limo"
+
+msgid "${minutes}m left"
+msgstr ""
 
 msgid "Functions with retrievable ownership"
 msgstr "具所有權檢索功能"
@@ -907,6 +915,9 @@ msgstr "主持人"
 msgid "Unsafe: Transaction is at risk"
 msgstr "危險：交易存在風險"
 
+msgid "{attentionFactors, plural, one {# Attention item} others {# Attention items}}"
+msgstr ""
+
 msgid "Suspected malicious address."
 msgstr "疑似惡意地址"
 
@@ -955,9 +966,6 @@ msgstr "取消貼文讚失敗"
 
 msgid "{addressName} is already connected."
 msgstr "{addressName} 已連結"
-
-msgid "{minutes, plural, one {1 minute left} other {{minutes} minutes left}}"
-msgstr "{minutes, plural, one {剩餘 1 分鐘} other {剩餘 {minutes} 分鐘}}"
 
 msgid "No Airdrop Scam"
 msgstr "無空投詐騙"
@@ -1033,9 +1041,6 @@ msgstr "<0>下注</0><1>價值${0}於Polymarket</1>"
 
 msgid "The event has ended, but you can explore others in Exclusive Events."
 msgstr "活動已結束，您可探索其他專屬活動。"
-
-msgid "{seconds, plural, one {1 second left} other {{seconds} seconds left}}"
-msgstr "{seconds, plural, one {剩餘1秒} other {剩餘{seconds}秒}}"
 
 msgid "Block"
 msgstr "區塊"
@@ -1207,6 +1212,10 @@ msgstr "再次轉發"
 msgid "New connection via Farcaster"
 msgstr ""
 
+#. placeholder {0}: author.handle
+msgid "Follow @{0}`"
+msgstr ""
+
 msgid "The token can not be bought."
 msgstr "此代幣無法購買。"
 
@@ -1303,6 +1312,9 @@ msgstr "未發現釣魚網站"
 msgid "Log out"
 msgstr "登出"
 
+msgid "${hours}h left"
+msgstr ""
+
 msgid "Oops... Not all the requirements have been met"
 msgstr "哎呀...尚未滿足所有要求"
 
@@ -1381,6 +1393,9 @@ msgstr "刪除帳號將永久解除社群帳號連結並移除 Firefly 錢包"
 
 msgid "Try searching for something else."
 msgstr "請嘗試其他搜尋關鍵字"
+
+msgid "Follow for ${feeAmount} $${feeSymbol}"
+msgstr ""
 
 #. placeholder {0}: provider.chain
 msgid "No connector found for {0}"
@@ -1636,6 +1651,10 @@ msgstr "無投票權"
 msgid "Your draft was saved."
 msgstr "草稿已儲存"
 
+#. placeholder {0}: post.stats.quotes
+msgid "{0, plural, one {quote} others {quotes}}"
+msgstr ""
+
 msgid "Verify and Claim"
 msgstr "驗證並領取"
 
@@ -1681,10 +1700,6 @@ msgstr "禁止訪問，請檢查權限"
 
 msgid "No mint function"
 msgstr "無鑄造功能"
-
-#. placeholder {0}: resolveSourcesName(invalidSources)
-msgid "Poll for {0} is coming soon."
-msgstr "{0} 投票功能即將推出"
 
 msgid "Expired"
 msgstr "已過期"
@@ -1868,9 +1883,6 @@ msgstr ""
 msgid "Disconnected from your social graph"
 msgstr "已從社交圖譜斷開"
 
-msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
-msgstr "{attentionFactors, plural, one {# 項關注} other {# 項關注}}"
-
 msgid "Hide more comments"
 msgstr "隱藏更多留言"
 
@@ -1969,6 +1981,11 @@ msgstr "貼文已刪除"
 msgid "This article is no longer available"
 msgstr "此文章已不可用"
 
+#. placeholder {0}: post.stats.comments
+#. placeholder {0}: post.stats.countOpenActions
+msgid "{0, plural, one {comment} others {comments}}"
+msgstr ""
+
 msgid "Report article"
 msgstr "檢舉文章"
 
@@ -2049,9 +2066,6 @@ msgstr "要求"
 
 msgid "*This event is only available on the mobile app. Download Firefly now!"
 msgstr "*此活動僅限行動應用參與，立即下載 Firefly"
-
-msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
-msgstr "{riskyFactors, plural, one {# 項風險} other {# 項風險}}"
 
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr "包含自毀功能，項目方可能具備合約銷毀權限"
@@ -2218,6 +2232,10 @@ msgstr ""
 msgid "Token ${symbol} could not be found."
 msgstr ""
 
+#. placeholder {0}: resolveSourcesName(invalidSources)
+msgid "Poll for ${0} is coming soon."
+msgstr ""
+
 msgid "No cybercrime found."
 msgstr ""
 
@@ -2298,6 +2316,9 @@ msgstr ""
 msgid "Contract source code not verified"
 msgstr ""
 
+msgid "{riskyFactors, plural, one {# Risky item} others {# Risky items}}"
+msgstr ""
+
 msgid "NFT removed from your Bookmarks"
 msgstr ""
 
@@ -2332,9 +2353,6 @@ msgid "Unverified"
 msgstr ""
 
 msgid "👀 Firefly notifications are off. "
-msgstr ""
-
-msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr ""
 
 msgid "Farcaster"
@@ -2546,10 +2564,6 @@ msgstr ""
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr ""
 
-#. placeholder {0}: formatAddressEthereum(address, 4)
-msgid "Please switch to {0}"
-msgstr "請切換至 {0}"
-
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
 msgstr ""
 
@@ -2758,7 +2772,7 @@ msgid "Upload to S3"
 msgstr "上傳至 S3"
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
-msgstr "{shares, plural, one {轉發或引用} other {次轉發或引用}}"
+msgstr ""
 
 msgid "Website is a phishing site."
 msgstr "該網站為釣魚網站"
@@ -2778,8 +2792,8 @@ msgstr "段落"
 msgid "Mute {handleOrEnsOrAddress}"
 msgstr "靜音 {handleOrEnsOrAddress}"
 
-#. placeholder {0}: post.poll ? t`Ask a question` : index === 0 ? t`What's happening...` : t`Add another post...`
-#. placeholder {1}: index === 0 ? t`What's happening...` : t`Add another post...`
+#. placeholder {0}: post.poll ? ( <Trans>Ask a question</Trans> ) : index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
+#. placeholder {1}: index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
 msgstr "{type, select, compose {{0}} quote {新增留言} reply {發佈回覆} other {{1}}}"
 
@@ -2855,6 +2869,12 @@ msgstr "免費收藏"
 
 msgid "Delete"
 msgstr "刪除"
+
+msgid "So sorry, we cant mint this NFT. Please try again later."
+msgstr ""
+
+msgid "{minutes, plural, one {# minute left} other {# minutes left}}"
+msgstr ""
 
 #. placeholder {0}: channel.id
 msgid "All posts from /{0} will be hidden from you"
@@ -3101,6 +3121,9 @@ msgstr "檢舉"
 msgid "Cancel Repost"
 msgstr "取消轉發"
 
+msgid "{days, plural, one {# day left} other {# days left}}"
+msgstr ""
+
 msgid "No cybercrime involved."
 msgstr "未涉及網路犯罪。"
 
@@ -3304,6 +3327,9 @@ msgstr ""
 msgid "Everyone can reply"
 msgstr "所有人皆可回覆"
 
+msgid "{seconds, plural, one {# second left} other {# seconds left}}"
+msgstr ""
+
 msgid "No matching token"
 msgstr "無符合的代幣"
 
@@ -3345,11 +3371,6 @@ msgstr "抱歉，找不到此代幣"
 
 msgid "Muting..."
 msgstr "靜音中..."
-
-#. placeholder {0}: post.stats.comments
-#. placeholder {0}: post.stats.countOpenActions
-msgid "{0, plural, one {comment} other {comments}}"
-msgstr ""
 
 msgid "<0/> Loading"
 msgstr "<0/> 載入中"
@@ -3468,9 +3489,6 @@ msgstr "新增"
 msgid "Failed to upload. Gif size exceeds {0}"
 msgstr "GIF 大小超過 {0} 上傳失敗"
 
-msgid "{days}d left"
-msgstr "剩餘 {days} 天"
-
 msgid "Money laundering found."
 msgstr "檢測到洗錢行為。"
 
@@ -3535,9 +3553,6 @@ msgstr "Solana 錢包"
 #. placeholder {0}: formatBalance(x.amount, x.decimals)
 msgid "no less than {0}"
 msgstr "不少於 {0}"
-
-msgid "{viewCount, plural, one {view} other {views}}"
-msgstr "{viewCount, plural, one {次查看} other {次查看}}"
 
 msgid "Only people you follow"
 msgstr "僅限追蹤者"
@@ -3674,6 +3689,10 @@ msgstr "透過 {0} <0>{sendFrom}</0> 發布"
 msgid "The contract owner has no restrictions on personal slippage."
 msgstr "合約持有者未設定個人滑點限制。"
 
+#. placeholder {0}: formatAddressEthereum(address, 4)
+msgid "Please switch to ${0}"
+msgstr ""
+
 msgid "Number of winners"
 msgstr "獲獎人數"
 
@@ -3701,9 +3720,6 @@ msgstr "發送打賞失敗"
 
 msgid "Connecting Wallet"
 msgstr "錢包連線中"
-
-msgid "{minutes}m left"
-msgstr "剩餘 {minutes} 分鐘"
 
 msgid "Neutral"
 msgstr "中立"
@@ -3873,10 +3889,6 @@ msgstr "貼文已發送"
 msgid "Remove"
 msgstr "移除"
 
-#. placeholder {0}: author.handle
-msgid "Follow @{0}"
-msgstr "追蹤 @{0}"
-
 msgid "Cancel Recast"
 msgstr "取消轉發"
 
@@ -3921,9 +3933,6 @@ msgid "<0/> and <1>{0} others</1>"
 msgstr ""
 
 msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
-msgstr ""
-
-msgid "{hours}h left"
 msgstr ""
 
 msgid "Events"
@@ -4007,10 +4016,6 @@ msgstr ""
 msgid "Download App"
 msgstr "下載應用程式"
 
-#. placeholder {0}: getMintButtonText(true, true, mintStatus)
-msgid "So sorry, we cant mint this NFT with the current status: {0}"
-msgstr ""
-
 msgid "Profile"
 msgstr "個人資料"
 
@@ -4033,9 +4038,6 @@ msgstr ""
 
 msgid "Video"
 msgstr "影片"
-
-msgid "{hours, plural, one {1 hour left} other {{hours} hours left}}"
-msgstr ""
 
 msgid "Language"
 msgstr "語言"

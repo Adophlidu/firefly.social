@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
@@ -31,7 +31,7 @@ export const Bookmark = memo<BookmarkProps>(function Bookmark({
     tooltip = true,
     onClick,
 }) {
-    const content = hasBookmarked ? t`Remove from Bookmarks` : t`Bookmark`;
+    const content = hasBookmarked ? <Trans>Remove from Bookmarks</Trans> : <Trans>Bookmark</Trans>;
 
     return (
         <ClickableArea

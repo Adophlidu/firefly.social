@@ -53,7 +53,7 @@ export function MuteWalletButton({ handleOrEnsOrAddress, address, isMuted, ref, 
                 }
                 if (!isMuted) {
                     const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                        title: t`Mute ${handleOrEnsOrAddress}`,
+                        title: <Trans>Mute {handleOrEnsOrAddress}</Trans>,
                         variant: 'normal',
                         content: (
                             <div className="text-main">

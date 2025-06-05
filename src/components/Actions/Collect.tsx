@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
@@ -34,7 +34,11 @@ export const Collect = memo<CollectProps>(function Collect({
                 'opacity-50': disabled,
             })}
         >
-            <Tooltip content={collected ? t`Collected` : t`Collect`} placement="top" disabled={disabled}>
+            <Tooltip
+                content={collected ? <Trans>Collected</Trans> : <Trans>Collect</Trans>}
+                placement="top"
+                disabled={disabled}
+            >
                 <motion.button
                     className="inline-flex size-7 items-center justify-center rounded-full hover:bg-collected/[.20]"
                     whileTap={{ scale: 0.9 }}

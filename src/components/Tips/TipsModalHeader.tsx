@@ -1,5 +1,5 @@
 import { Dialog } from '@headlessui/react';
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
@@ -10,7 +10,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 
 interface TipsModalHeaderProps {
-    title?: string;
+    title?: React.ReactNode;
     back?: boolean;
 }
 
@@ -22,7 +22,7 @@ export function TipsModalHeader({ title, back = false }: TipsModalHeaderProps) {
         <Dialog.Title as="h3" className="relative mb-6 flex shrink-0 justify-center text-center pt-safe">
             <span className="absolute left-0 top-1/2 -translate-y-1/2 text-fourMain">
                 {back ? (
-                    <Tooltip placement="top" content={t`Back`}>
+                    <Tooltip placement="top" content={<Trans>Back</Trans>}>
                         <ClickableButton onClick={() => router.navigate({ to: TipsRoutePath.TIPS, replace: true })}>
                             <LeftArrowIcon width={24} height={24} />
                         </ClickableButton>
@@ -32,7 +32,7 @@ export function TipsModalHeader({ title, back = false }: TipsModalHeaderProps) {
                 ) : null}
             </span>
             <span className="max-w-full truncate text-lg font-bold leading-[22px] sm:max-w-[calc(100%-70px)]">
-                {title || t`Tips`}
+                {title || <Trans>Tips</Trans>}
             </span>
         </Dialog.Title>
     );

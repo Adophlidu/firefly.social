@@ -91,15 +91,15 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
 
                     if (hasError && draft.posts.length > 1) {
                         ConfirmModalRef.open({
-                            title: t`Resend full or remaining?`,
+                            title: <Trans>Resend full or remaining?</Trans>,
                             content: (
                                 <div className="text-main">
                                     <Trans>Do you want to retry with the full or remaining content?</Trans>
                                 </div>
                             ),
                             enableCancelButton: true,
-                            cancelButtonText: t`Full`,
-                            confirmButtonText: t`Remaining`,
+                            cancelButtonText: <Trans>Full</Trans>,
+                            confirmButtonText: <Trans>Remaining</Trans>,
                             variant: 'normal',
                             onConfirm: () => {
                                 handleApply(draft);
@@ -150,13 +150,13 @@ export const DraftList = memo(function DraftList() {
     const handleRemove = useCallback(
         async (id: string) => {
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                title: t`Delete`,
+                title: <Trans>Delete</Trans>,
                 content: (
                     <div className="text-fourMain">
                         <Trans>This can’t be undone and you’ll lose your draft.</Trans>
                     </div>
                 ),
-                confirmButtonText: t`Confirm`,
+                confirmButtonText: <Trans>Confirm</Trans>,
                 enableCancelButton: true,
             });
 

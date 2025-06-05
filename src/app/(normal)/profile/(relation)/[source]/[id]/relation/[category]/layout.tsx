@@ -1,3 +1,5 @@
+import { Trans } from '@lingui/react/macro';
+
 import { FollowPageLayout } from '@/app/(normal)/profile/pages/FollowPageLayout.js';
 import { ProfileRelationContextProvider } from '@/app/(normal)/profile/pages/ProfileRelationContextProvider.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
@@ -30,7 +32,13 @@ export default async function Layout(props: Props) {
         .catch(() => null);
     if (!profile) notFound();
 
-    const displayName = profile.displayName ? profile.displayName : profile.handle ? `@${profile.handle}` : `Unknown`;
+    const displayName = profile.displayName ? (
+        profile.displayName
+    ) : profile.handle ? (
+        `@${profile.handle}`
+    ) : (
+        <Trans>Unknown</Trans>
+    );
 
     return (
         <>

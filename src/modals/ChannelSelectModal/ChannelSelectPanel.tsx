@@ -31,7 +31,9 @@ const renderChannel = (channel: Channel) => {
                 <div className="text-left">
                     <span>{channel.name}</span>
                     <br />
-                    <span className="text-[13px] text-second">{t`${channel.followerCount} items`}</span>
+                    <span className="text-[13px] text-second">
+                        <Trans>{channel.followerCount} items</Trans>
+                    </span>
                 </div>
             </div>
             {channel.url ? (

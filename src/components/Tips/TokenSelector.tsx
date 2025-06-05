@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { memo, useCallback } from 'react';
 import { useAsync } from 'react-use';
 
@@ -34,7 +34,7 @@ export const TokenSelector = memo(function TokenSelector() {
 
     return (
         <>
-            <TipsModalHeader back title={t`Select Token`} />
+            <TipsModalHeader back title={<Trans>Select Token</Trans>} />
             {address ? (
                 <div className="h-[50vh] md:h-[526px]">
                     <SearchTokenPanelEVM address={address} onSelected={onTokenSelected} isSelected={isSelected} />
@@ -67,7 +67,7 @@ export const TokenSelectorEntry = memo(function TokenSelectorEntry({ disabled = 
                     token ? 'w-[calc(100%_-_48px)]' : 'w-[calc(100%_-_24px)]',
                 )}
             >
-                {token ? token.symbol : t`Select token`}
+                {token ? token.symbol : <Trans>Select token</Trans>}
             </span>
             <ArrowDown className="shrink-0 text-second" width={24} height={24} />
         </ClickableButton>

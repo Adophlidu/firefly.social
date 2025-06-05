@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
@@ -8,10 +8,10 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 interface BackButtonProps extends ClickableButtonProps {
     size?: number;
-    tooltip?: string;
+    tooltip?: React.ReactNode;
 }
 
-export function BackButton({ size = 24, tooltip = t`Back`, ref, ...rest }: BackButtonProps) {
+export function BackButton({ size = 24, tooltip = <Trans>Back</Trans>, ref, ...rest }: BackButtonProps) {
     const isMedium = useIsMedium();
 
     const button = (

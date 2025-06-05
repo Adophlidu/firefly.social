@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
@@ -26,7 +26,7 @@ export const Comment = memo<CommentProps>(function Comment({ post, disabled = fa
             <Tooltip
                 disabled={buttonDisabled}
                 placement="top"
-                content={count && count > 0 ? t`${humanize(count)} Comments` : t`Comment`}
+                content={count && count > 0 ? <Trans>{humanize(count)} Comments</Trans> : <Trans>Comment</Trans>}
             >
                 <motion.button
                     disabled={buttonDisabled}

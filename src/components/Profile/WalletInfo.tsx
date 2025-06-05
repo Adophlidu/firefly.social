@@ -1,6 +1,5 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
@@ -78,7 +77,11 @@ export function WalletInfo({ profile }: WalletInfoProps) {
             : null;
 
     const isMPC = isMPCWallet(profile);
-    const displayName = isMPC ? t`Legacy Firefly wallet` : profile.primary_ens || formatAddress(profile.address, 4);
+    const displayName = isMPC ? (
+        <Trans>Legacy Firefly wallet</Trans>
+    ) : (
+        profile.primary_ens || formatAddress(profile.address, 4)
+    );
 
     const { data: walletRelation, isLoading: isLoadingWalletRelation } = useQuery({
         queryKey: ['wallet-relation', profile.address],

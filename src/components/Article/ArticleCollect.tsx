@@ -128,13 +128,17 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
         collectParams?.mintStatus === MintStatus.Minted || collectParams?.mintStatus === MintStatus.MintAgain;
 
     const buttonText = useMemo(() => {
-        if (collectLoading) return t`Collecting`;
-        if (isSoldOut) return t`Sold Out`;
-        if (isCollected) return t`Collected`;
-        if (isFree) return t`Collect`;
-        if (insufficientBalance && !isFree) return t`Insufficient Balance`;
-        if (!collectParams?.mintPrice || isZero(collectParams.mintPrice)) return t`Collect`;
-        return t`Collect for ${collectParams.mintPrice} ${nativeSymbol}`;
+        if (collectLoading) return <Trans>Collecting</Trans>;
+        if (isSoldOut) return <Trans>Sold Out</Trans>;
+        if (isCollected) return <Trans>Collected</Trans>;
+        if (isFree) return <Trans>Collect</Trans>;
+        if (insufficientBalance && !isFree) return <Trans>Insufficient Balance</Trans>;
+        if (!collectParams?.mintPrice || isZero(collectParams.mintPrice)) return <Trans>Collect</Trans>;
+        return (
+            <Trans>
+                Collect for {collectParams.mintPrice} {nativeSymbol}
+            </Trans>
+        );
     }, [nativeSymbol, collectParams?.mintPrice, insufficientBalance, isFree, isSoldOut, isCollected, collectLoading]);
 
     if (!paramsLoading && (!collectParams || collectParams.chainId === 0)) {

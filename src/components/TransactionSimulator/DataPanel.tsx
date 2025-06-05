@@ -18,9 +18,9 @@ export function DataPanel({ type, data, simulation, loading = false }: DataPanel
 
     return (
         <menu>
-            {filteredConfig.map(({ title, icon: Icon, showLoading, content }) => {
+            {filteredConfig.map(({ title, icon: Icon, showLoading, content }, index) => {
                 return loading && showLoading ? null : (
-                    <li className="mb-3.5 flex items-center justify-between gap-2 text-[13px] leading-6" key={title}>
+                    <li className="mb-3.5 flex items-center justify-between gap-2 text-[13px] leading-6" key={index}>
                         <span className="contents text-second">
                             {Icon ? <Icon width={16} height={16} /> : null}
                             <span>{title}</span>

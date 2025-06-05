@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { BigNumber } from 'bignumber.js';
 import { type ChangeEvent, memo, useCallback, useMemo } from 'react';
@@ -117,7 +116,7 @@ export const MintButton = memo<MintButtonProps>(function MintButton({
                 className="h-8 flex-1 rounded-full bg-main text-center text-sm font-bold !leading-8 text-lightBottom dark:text-darkBottom"
             >
                 {loading ? (
-                    t`Minting`
+                    <Trans>Minting</Trans>
                 ) : !mintParams.gasStatus && !hasBalance ? (
                     <Trans>Insufficient Balance</Trans>
                 ) : (

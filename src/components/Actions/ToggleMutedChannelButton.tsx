@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { produce } from 'immer';
 import { memo } from 'react';
@@ -41,7 +40,7 @@ export const ToggleMutedChannelButton = memo(function ToggleMutedChannelButton({
     const onToggle = async () => {
         if (!isMuted) {
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                title: t`Mute /${channel.name}`,
+                title: <Trans>Mute /${channel.name}</Trans>,
                 content: (
                     <div className="text-main">
                         <Trans>Confirm you want to mute /{channel.name}?</Trans>

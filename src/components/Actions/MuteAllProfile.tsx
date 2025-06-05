@@ -30,7 +30,7 @@ interface MuteAllProfileBaseProps extends HTMLProps<'button'> {
 
 function waitForConfirmation() {
     return ConfirmModalRef.openAndWaitForClose({
-        title: t`Mute all`,
+        title: <Trans>Mute all</Trans>,
         content: (
             <p className="text-lightMain">
                 <Trans>All posts and activities from this user will be hidden from you</Trans>

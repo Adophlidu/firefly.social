@@ -1,6 +1,5 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -27,28 +26,24 @@ interface FreeMintButtonProps extends Omit<ClickableButtonProps, 'ref'> {
 }
 
 export function getMintButtonText(connected: boolean, isSupportedChain: boolean, mintStatus?: MintStatus) {
-    if (!connected) {
-        return t`Connect Wallet`;
-    }
-    if (!isSupportedChain) {
-        return t`Unsupported Chain`;
-    }
+    if (!connected) return <Trans>Connect Wallet</Trans>;
+    if (!isSupportedChain) return <Trans>Unsupported Chain</Trans>;
 
     switch (mintStatus) {
         case MintStatus.Mintable:
-            return t`Mint`;
+            return <Trans>Mint</Trans>;
         case MintStatus.MintAgain:
-            return t`Mint Again`;
+            return <Trans>Mint Again</Trans>;
         case MintStatus.NotStarted:
-            return t`Not Started`;
+            return <Trans>Not Started</Trans>;
         case MintStatus.Ended:
-            return t`Mint Ended`;
+            return <Trans>Mint Ended</Trans>;
         case MintStatus.Minted:
-            return t`Minted`;
+            return <Trans>Minted</Trans>;
         case MintStatus.SoldOut:
-            return t`Sold Out`;
+            return <Trans>Sold Out</Trans>;
         default:
-            return t`Unknown status`;
+            return <Trans>Unknown status</Trans>;
     }
 }
 

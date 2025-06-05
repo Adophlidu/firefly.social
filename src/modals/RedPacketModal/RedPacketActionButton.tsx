@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 
 import { ActionButton } from '@/components/ActionButton.js';
 import { useRefundCallback } from '@/components/RedPacket/hooks/useRefundCallback.js';
@@ -16,12 +16,12 @@ interface Props {
 
 export function RedPacketActionButton({ rpid, redpacketStatus, chainId, networkType }: Props) {
     const statusToTransMap = {
-        [FireflyRedPacketAPI.RedPacketStatus.Send]: t`Send`,
-        [FireflyRedPacketAPI.RedPacketStatus.Expired]: t`Expired`,
-        [FireflyRedPacketAPI.RedPacketStatus.Empty]: t`Empty`,
-        [FireflyRedPacketAPI.RedPacketStatus.Refund]: t`Refunded`,
-        [FireflyRedPacketAPI.RedPacketStatus.View]: t`View`,
-        [FireflyRedPacketAPI.RedPacketStatus.Refunding]: t`Refund`,
+        [FireflyRedPacketAPI.RedPacketStatus.Send]: <Trans>Send</Trans>,
+        [FireflyRedPacketAPI.RedPacketStatus.Expired]: <Trans>Expired</Trans>,
+        [FireflyRedPacketAPI.RedPacketStatus.Empty]: <Trans>Empty</Trans>,
+        [FireflyRedPacketAPI.RedPacketStatus.Refund]: <Trans>Refunded</Trans>,
+        [FireflyRedPacketAPI.RedPacketStatus.View]: <Trans>View</Trans>,
+        [FireflyRedPacketAPI.RedPacketStatus.Refunding]: <Trans>Refund</Trans>,
     };
 
     const [{ loading: refundLoading }, refund] = useRefundCallback(rpid, { chainId, networkType });

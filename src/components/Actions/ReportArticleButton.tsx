@@ -29,7 +29,7 @@ export function ReportArticleButton({ article, ref, onReport, onClick, ...rest }
             onClick={async (event) => {
                 onClick?.(event);
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                    title: t`Report article`,
+                    title: <Trans>Report article</Trans>,
                     content: (
                         <div className="text-main">
                             <Trans>Are you sure you want to report this article?</Trans>

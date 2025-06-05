@@ -1,6 +1,5 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 import { compact } from 'lodash-es';
@@ -33,7 +32,7 @@ export function LogoutModal({ ref }: Props) {
             );
 
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                title: t`Log out`,
+                title: <Trans>Log out</Trans>,
                 contentClass: 'px-0 !pt-0',
                 confirmButtonClass: 'mx-6',
                 content: (

@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 import { useHover } from 'react-use';
 
@@ -10,17 +10,17 @@ import { classNames } from '@/helpers/classNames.js';
 interface ToggleJoinButtonProps extends ClickableButtonProps {
     joined: boolean;
     variant?: 'text' | 'icon';
-    joinLabel?: string;
-    joinedLabel?: string;
-    leaveLabel?: string;
+    joinLabel?: React.ReactNode;
+    joinedLabel?: React.ReactNode;
+    leaveLabel?: React.ReactNode;
 }
 
 export const ToggleJoinButton = memo<ToggleJoinButtonProps>(function ToggleJoinButton({
     joined,
     variant = 'text',
-    joinLabel = t`Join`,
-    leaveLabel = t`Leave`,
-    joinedLabel = t`Joined`,
+    joinLabel = <Trans>Join</Trans>,
+    leaveLabel = <Trans>Leave</Trans>,
+    joinedLabel = <Trans>Joined</Trans>,
     className,
     ...rest
 }) {

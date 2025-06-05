@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
@@ -24,7 +23,7 @@ export const ToggleMutedProfileButton = memo(function ToggleMutedProfileButton({
     const onToggle = async () => {
         if (!isMuted) {
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                title: t`Mute @${profile.handle}`,
+                title: <Trans>Mute @{profile.handle}</Trans>,
                 content: (
                     <div className="text-main">
                         <Trans>Confirm you want to mute @{profile.handle}?</Trans>

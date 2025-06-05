@@ -22,9 +22,6 @@ msgstr ""
 msgid "Projects"
 msgstr ""
 
-msgid "{days, plural, one {1 day left} other {{days} days left}}"
-msgstr ""
-
 msgid "Do you want to retry with the full or remaining content?"
 msgstr ""
 
@@ -138,7 +135,6 @@ msgstr ""
 msgid "Your post was sent to {0}."
 msgstr ""
 
-#. placeholder {0}: channel.name
 #. placeholder {0}: channel.id
 msgid "Mute /{0}"
 msgstr ""
@@ -313,6 +309,9 @@ msgstr ""
 msgid "Failed to disable Multi-device login. Please try again later."
 msgstr ""
 
+msgid "{hours, plural, one {# hour left} other {# hours left}}"
+msgstr ""
+
 #. placeholder {0}: snapshot.title
 msgid "🙌 Just voted “{choice}” on “{0}”"
 msgstr ""
@@ -421,6 +420,10 @@ msgstr ""
 msgid "FAILED POST"
 msgstr ""
 
+#. placeholder {0}: channel.name
+msgid "Mute /${0}"
+msgstr ""
+
 msgid "Decryption failed."
 msgstr ""
 
@@ -521,6 +524,9 @@ msgstr ""
 #. placeholder {0}: formatBalance(1, token.decimals)
 #. placeholder {1}: token.symbol
 msgid "The minimum amount for each share is {0} {1}"
+msgstr ""
+
+msgid "${days}d left"
 msgstr ""
 
 msgid "Trending Channels"
@@ -697,10 +703,6 @@ msgstr ""
 msgid "Report submitted"
 msgstr ""
 
-#. placeholder {0}: post.stats.quotes
-msgid "{0, plural, one {quote} other {quotes}}"
-msgstr ""
-
 msgid "No hidden owner."
 msgstr ""
 
@@ -842,7 +844,13 @@ msgstr ""
 msgid "Video duration limit reached."
 msgstr ""
 
+msgid "{viewCount, plural, one {view} others {views}}"
+msgstr ""
+
 msgid "Limo"
+msgstr ""
+
+msgid "${minutes}m left"
 msgstr ""
 
 msgid "Functions with retrievable ownership"
@@ -902,6 +910,9 @@ msgstr ""
 msgid "Unsafe: Transaction is at risk"
 msgstr ""
 
+msgid "{attentionFactors, plural, one {# Attention item} others {# Attention items}}"
+msgstr ""
+
 msgid "Suspected malicious address."
 msgstr ""
 
@@ -949,9 +960,6 @@ msgid "Failed to unlike the post."
 msgstr ""
 
 msgid "{addressName} is already connected."
-msgstr ""
-
-msgid "{minutes, plural, one {1 minute left} other {{minutes} minutes left}}"
 msgstr ""
 
 msgid "No Airdrop Scam"
@@ -1027,9 +1035,6 @@ msgid "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
 msgstr ""
 
 msgid "The event has ended, but you can explore others in Exclusive Events."
-msgstr ""
-
-msgid "{seconds, plural, one {1 second left} other {{seconds} seconds left}}"
 msgstr ""
 
 msgid "Block"
@@ -1202,6 +1207,10 @@ msgstr ""
 msgid "New connection via Farcaster"
 msgstr ""
 
+#. placeholder {0}: author.handle
+msgid "Follow @{0}`"
+msgstr ""
+
 msgid "The token can not be bought."
 msgstr ""
 
@@ -1298,6 +1307,9 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
+msgid "${hours}h left"
+msgstr ""
+
 msgid "Oops... Not all the requirements have been met"
 msgstr ""
 
@@ -1375,6 +1387,9 @@ msgid "Deleting your account will permanently disconnect your linked social acco
 msgstr ""
 
 msgid "Try searching for something else."
+msgstr ""
+
+msgid "Follow for ${feeAmount} $${feeSymbol}"
 msgstr ""
 
 #. placeholder {0}: provider.chain
@@ -1631,6 +1646,10 @@ msgstr ""
 msgid "Your draft was saved."
 msgstr ""
 
+#. placeholder {0}: post.stats.quotes
+msgid "{0, plural, one {quote} others {quotes}}"
+msgstr ""
+
 msgid "Verify and Claim"
 msgstr ""
 
@@ -1675,10 +1694,6 @@ msgid "Forbidden. Please check your permissions."
 msgstr ""
 
 msgid "No mint function"
-msgstr ""
-
-#. placeholder {0}: resolveSourcesName(invalidSources)
-msgid "Poll for {0} is coming soon."
 msgstr ""
 
 msgid "Expired"
@@ -1860,9 +1875,6 @@ msgstr ""
 msgid "Disconnected from your social graph"
 msgstr ""
 
-msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
-msgstr ""
-
 msgid "Hide more comments"
 msgstr ""
 
@@ -1956,6 +1968,11 @@ msgstr ""
 msgid "This article is no longer available"
 msgstr ""
 
+#. placeholder {0}: post.stats.comments
+#. placeholder {0}: post.stats.countOpenActions
+msgid "{0, plural, one {comment} others {comments}}"
+msgstr ""
+
 msgid "Report article"
 msgstr ""
 
@@ -2035,9 +2052,6 @@ msgid "Requirements"
 msgstr ""
 
 msgid "*This event is only available on the mobile app. Download Firefly now!"
-msgstr ""
-
-msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr ""
 
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
@@ -2205,6 +2219,10 @@ msgstr ""
 msgid "Token ${symbol} could not be found."
 msgstr ""
 
+#. placeholder {0}: resolveSourcesName(invalidSources)
+msgid "Poll for ${0} is coming soon."
+msgstr ""
+
 msgid "No cybercrime found."
 msgstr ""
 
@@ -2285,6 +2303,9 @@ msgstr ""
 msgid "Contract source code not verified"
 msgstr ""
 
+msgid "{riskyFactors, plural, one {# Risky item} others {# Risky items}}"
+msgstr ""
+
 msgid "NFT removed from your Bookmarks"
 msgstr ""
 
@@ -2319,9 +2340,6 @@ msgid "Unverified"
 msgstr ""
 
 msgid "👀 Firefly notifications are off. "
-msgstr ""
-
-msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr ""
 
 msgid "Farcaster"
@@ -2531,10 +2549,6 @@ msgid "No results for \"{keyword}\""
 msgstr ""
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
-msgstr ""
-
-#. placeholder {0}: formatAddressEthereum(address, 4)
-msgid "Please switch to {0}"
 msgstr ""
 
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
@@ -2765,8 +2779,8 @@ msgstr ""
 msgid "Mute {handleOrEnsOrAddress}"
 msgstr ""
 
-#. placeholder {0}: post.poll ? t`Ask a question` : index === 0 ? t`What's happening...` : t`Add another post...`
-#. placeholder {1}: index === 0 ? t`What's happening...` : t`Add another post...`
+#. placeholder {0}: post.poll ? ( <Trans>Ask a question</Trans> ) : index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
+#. placeholder {1}: index === 0 ? ( <Trans>What&apos;s happening...</Trans> ) : ( <Trans>Add another post...</Trans> )
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
 msgstr ""
 
@@ -2841,6 +2855,12 @@ msgid "Free Collect"
 msgstr ""
 
 msgid "Delete"
+msgstr ""
+
+msgid "So sorry, we cant mint this NFT. Please try again later."
+msgstr ""
+
+msgid "{minutes, plural, one {# minute left} other {# minutes left}}"
 msgstr ""
 
 #. placeholder {0}: channel.id
@@ -3088,6 +3108,9 @@ msgstr ""
 msgid "Cancel Repost"
 msgstr ""
 
+msgid "{days, plural, one {# day left} other {# days left}}"
+msgstr ""
+
 msgid "No cybercrime involved."
 msgstr ""
 
@@ -3291,6 +3314,9 @@ msgstr ""
 msgid "Everyone can reply"
 msgstr ""
 
+msgid "{seconds, plural, one {# second left} other {# seconds left}}"
+msgstr ""
+
 msgid "No matching token"
 msgstr ""
 
@@ -3331,11 +3357,6 @@ msgid "Sorry, we are not able to find this token"
 msgstr ""
 
 msgid "Muting..."
-msgstr ""
-
-#. placeholder {0}: post.stats.comments
-#. placeholder {0}: post.stats.countOpenActions
-msgid "{0, plural, one {comment} other {comments}}"
 msgstr ""
 
 msgid "<0/> Loading"
@@ -3455,9 +3476,6 @@ msgstr ""
 msgid "Failed to upload. Gif size exceeds {0}"
 msgstr ""
 
-msgid "{days}d left"
-msgstr ""
-
 msgid "Money laundering found."
 msgstr ""
 
@@ -3518,9 +3536,6 @@ msgstr ""
 
 #. placeholder {0}: formatBalance(x.amount, x.decimals)
 msgid "no less than {0}"
-msgstr ""
-
-msgid "{viewCount, plural, one {view} other {views}}"
 msgstr ""
 
 msgid "Only people you follow"
@@ -3658,6 +3673,10 @@ msgstr ""
 msgid "The contract owner has no restrictions on personal slippage."
 msgstr ""
 
+#. placeholder {0}: formatAddressEthereum(address, 4)
+msgid "Please switch to ${0}"
+msgstr ""
+
 msgid "Number of winners"
 msgstr ""
 
@@ -3684,9 +3703,6 @@ msgid "Failed to send tip."
 msgstr ""
 
 msgid "Connecting Wallet"
-msgstr ""
-
-msgid "{minutes}m left"
 msgstr ""
 
 msgid "Neutral"
@@ -3857,10 +3873,6 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#. placeholder {0}: author.handle
-msgid "Follow @{0}"
-msgstr ""
-
 msgid "Cancel Recast"
 msgstr ""
 
@@ -3905,9 +3917,6 @@ msgid "<0/> and <1>{0} others</1>"
 msgstr ""
 
 msgid "Confirm to disconnect this wallet and its associated account from Firefly?"
-msgstr ""
-
-msgid "{hours}h left"
 msgstr ""
 
 msgid "Events"
@@ -3991,10 +4000,6 @@ msgstr ""
 msgid "Download App"
 msgstr ""
 
-#. placeholder {0}: getMintButtonText(true, true, mintStatus)
-msgid "So sorry, we cant mint this NFT with the current status: {0}"
-msgstr ""
-
 msgid "Profile"
 msgstr ""
 
@@ -4016,9 +4021,6 @@ msgid "By @{0}"
 msgstr ""
 
 msgid "Video"
-msgstr ""
-
-msgid "{hours, plural, one {1 hour left} other {{hours} hours left}}"
 msgstr ""
 
 msgid "Language"

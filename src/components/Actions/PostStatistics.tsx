@@ -1,6 +1,5 @@
 'use client';
 
-import { plural, t } from '@lingui/core/macro';
 import { Plural, Trans } from '@lingui/react/macro';
 import dayjs from 'dayjs';
 import { compact, sumBy } from 'lodash-es';
@@ -14,7 +13,7 @@ import { EngagementType, PageRoute, Source } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { getPollTimeLeft } from '@/helpers/getPollTimeLeft.js';
+import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import { resolvePostEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
@@ -60,15 +59,28 @@ function EngagementLink({
     );
 }
 
+function getPollTimeLeft(endDatetime: string) {
+    const timeLeft = getTimeLeft(endDatetime);
+    if (!timeLeft) return <Trans>Final results</Trans>;
+
+    const { days, hours, minutes, seconds } = timeLeft;
+
+    if (days >= 1) return <Plural value={days} one="# day left" other="# days left" />;
+    if (hours >= 1) return <Plural value={hours} one="# hour left" other="# hours left" />;
+    if (minutes >= 1) return <Plural value={minutes} one="# minute left" other="# minutes left" />;
+    if (seconds >= 1) return <Plural value={seconds} one="# second left" other="# seconds left" />;
+    return <Trans>Final results</Trans>;
+}
+
 function PollVotes({ poll }: { poll: Poll }) {
     const { timeLeft, totalVotes } = useMemo(
         () => ({
             timeLeft:
-                poll.votingStatus === 'closed' || (poll.endDatetime && dayjs(poll.endDatetime).isBefore(new Date()))
-                    ? t`Final results`
-                    : poll.endDatetime
-                      ? getPollTimeLeft(poll.endDatetime)
-                      : '',
+                poll.votingStatus === 'closed' || (poll.endDatetime && dayjs(poll.endDatetime).isBefore(new Date())) ? (
+                    <Trans>Final results</Trans>
+                ) : poll.endDatetime ? (
+                    getPollTimeLeft(poll.endDatetime)
+                ) : null,
             totalVotes: sumBy(poll.options, (option) => option.votes ?? 0),
         }),
         [poll.votingStatus, poll.endDatetime, poll.options],
@@ -79,7 +91,12 @@ function PollVotes({ poll }: { poll: Poll }) {
             <data value={totalVotes}>
                 <Plural value={totalVotes} one={`${totalVotes} Vote`} other={`${totalVotes} Votes`} />
             </data>
-            {timeLeft ? <data value={poll.endDatetime}>{` · ${timeLeft}`}</data> : ''}
+            {timeLeft ? (
+                <data value={poll.endDatetime}>
+                    {' · '}
+                    {timeLeft}
+                </data>
+            ) : null}
         </>
     );
 }
@@ -108,30 +125,21 @@ export const PostStatistics = memo<Props>(function PostStatistics({
             })}
         >
             <span className="mr-[2px] font-bold">{nFormatter(post.stats.comments)}</span>
-            {plural(post.stats.comments, {
-                one: 'comment',
-                other: 'comments',
-            })}
+            <Plural value={post.stats.comments} one="comment" others="comments" />
         </data>
     ) : null;
     const likes = post.stats?.reactions ? (
         <EngagementLink post={post} type={EngagementType.Likes} onSetScrollIndex={onSetScrollIndex}>
             <data value={post.stats.reactions}>
                 <span className="mr-[2px] font-bold">{nFormatter(post.stats.reactions)}</span>
-                {plural(post.stats.reactions, {
-                    one: 'like',
-                    other: 'likes',
-                })}
+                <Plural value={post.stats.reactions} one="like" other="likes" />
             </data>
         </EngagementLink>
     ) : null;
     const collects = post.stats?.countOpenActions ? (
         <data value={post.stats.countOpenActions}>
             <span className="mr-[2px] font-bold">{post.stats.countOpenActions}</span>
-            {plural(post.stats.countOpenActions, {
-                one: 'comment',
-                other: 'comments',
-            })}
+            <Plural value={post.stats.countOpenActions} one="comment" others="comments" />
         </data>
     ) : null;
     const mirrors = post.stats?.mirrors ? (
@@ -143,22 +151,10 @@ export const PostStatistics = memo<Props>(function PostStatistics({
             <data value={post.stats.mirrors}>
                 <span className="mr-[2px] font-bold">{post.stats.mirrors}</span>
                 {{
-                    [Source.Farcaster]: plural(post.stats.mirrors, {
-                        one: 'recast',
-                        other: 'recasts',
-                    }),
-                    [Source.Lens]: plural(post.stats.mirrors, {
-                        one: 'repost',
-                        other: 'reposts',
-                    }),
-                    [Source.Twitter]: plural(post.stats.mirrors, {
-                        one: 'repost',
-                        other: 'reposts',
-                    }),
-                    [Source.Bsky]: plural(post.stats.mirrors, {
-                        one: 'repost',
-                        other: 'reposts',
-                    }),
+                    [Source.Farcaster]: <Plural value={post.stats.mirrors} one="recast" other="recasts" />,
+                    [Source.Lens]: <Plural value={post.stats.mirrors} one="repost" other="reposts" />,
+                    [Source.Twitter]: <Plural value={post.stats.mirrors} one="repost" other="reposts" />,
+                    [Source.Bsky]: <Plural value={post.stats.mirrors} one="repost" other="reposts" />,
                 }[post.source] ?? null}
             </data>
         </EngagementLink>
@@ -167,20 +163,14 @@ export const PostStatistics = memo<Props>(function PostStatistics({
         <EngagementLink post={post} type={EngagementType.Quotes} onSetScrollIndex={onSetScrollIndex}>
             <data value={post.stats.quotes}>
                 <span className="mr-[2px] font-bold">{post.stats.quotes}</span>
-                {plural(post.stats.quotes, {
-                    one: 'quote',
-                    other: 'quotes',
-                })}
+                <Plural value={post.stats.quotes} one="quote" others="quotes" />
             </data>
         </EngagementLink>
     ) : null;
     const views = viewCount ? (
         <data value={viewCount}>
             <span className="mr-[2px] font-bold">{viewCount}</span>
-            {plural(viewCount, {
-                one: 'view',
-                other: 'views',
-            })}
+            <Plural value={viewCount} one="view" others="views" />
         </data>
     ) : null;
     const pollVotes = post.poll ? <PollVotes poll={post.poll} /> : null;

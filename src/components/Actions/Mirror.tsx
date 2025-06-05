@@ -1,8 +1,7 @@
 'use client';
 
 import { autoUpdate, flip, offset, shift, useDismiss, useFloating, useInteractions } from '@floating-ui/react';
-import { plural, t } from '@lingui/core/macro';
-import { Trans } from '@lingui/react/macro';
+import { Plural, Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { memo, useMemo, useState } from 'react';
@@ -108,6 +107,38 @@ interface MirrorUIProps {
     old: boolean;
 }
 
+function getTooltipContent(source: SocialSource, shares: number) {
+    if (shares === 0) {
+        switch (source) {
+            case Source.Lens:
+                return <Trans>Repost or Quote</Trans>;
+            case Source.Farcaster:
+                return <Trans>Recast or Quote</Trans>;
+            case Source.Twitter:
+                return <Trans>Repost</Trans>;
+            case Source.Bsky:
+                return <Trans>Repost</Trans>;
+            default:
+                safeUnreachable(source);
+                return null;
+        }
+    }
+
+    switch (source) {
+        case Source.Lens:
+            return <Plural value={shares} one="Repost or Quote" other="Reposts or Quotes" />;
+        case Source.Farcaster:
+            return <Plural value={shares} one="Recast or Quote" other="Recasts or Quotes" />;
+        case Source.Twitter:
+            return <Trans>Repost</Trans>;
+        case Source.Bsky:
+            return <Trans>Repost</Trans>;
+        default:
+            safeUnreachable(source);
+            return null;
+    }
+}
+
 export const MirrorUI = memo<MirrorUIProps>(function Mirror({
     open,
     setOpen,
@@ -125,57 +156,19 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
     source,
     old,
 }) {
-    const content = useMemo(() => {
-        if (shares === 0) {
-            switch (source) {
-                case Source.Lens:
-                    return t`Repost or Quote`;
-                case Source.Farcaster:
-                    return t`Recast or Quote`;
-                case Source.Twitter:
-                    return t`Repost`;
-                case Source.Bsky:
-                    return t`Repost`;
-                default:
-                    safeUnreachable(source);
-                    return '';
-            }
-        }
-
-        switch (source) {
-            case Source.Lens:
-                return plural(shares, {
-                    one: 'Repost or Quote',
-                    other: 'Reposts or Quotes',
-                });
-            case Source.Farcaster:
-                return plural(shares, {
-                    one: 'Recast or Quote',
-                    other: 'Recasts or Quotes',
-                });
-            case Source.Twitter:
-                return t`Repost`;
-            case Source.Bsky:
-                return t`Repost`;
-            default:
-                safeUnreachable(source);
-                return '';
-        }
-    }, [source, shares]);
-
     const mirrorActionText = useMemo(() => {
         switch (source) {
             case Source.Lens:
-                return mirrored ? t`Repost again` : t`Repost`;
+                return mirrored ? <Trans>Repost again</Trans> : <Trans>Repost</Trans>;
             case Source.Farcaster:
-                return mirrored ? t`Cancel Recast` : t`Recast`;
+                return mirrored ? <Trans>Cancel Recast</Trans> : <Trans>Recast</Trans>;
             case Source.Twitter:
-                return mirrored ? t`Cancel Retweet` : t`Retweet`;
+                return mirrored ? <Trans>Cancel Retweet</Trans> : <Trans>Retweet</Trans>;
             case Source.Bsky:
-                return mirrored ? t`Cancel Repost` : t`Repost`;
+                return mirrored ? <Trans>Cancel Repost</Trans> : <Trans>Repost</Trans>;
             default:
                 safeUnreachable(source);
-                return '';
+                return null;
         }
     }, [source, mirrored]);
 
@@ -185,7 +178,7 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
         placement: 'top',
         whileElementsMounted: autoUpdate,
         middleware: [offset({ mainAxis: 7, crossAxis: -30 }), shift(), flip()],
-        onOpenChange(nextOpen) {
+        onOpenChange(nextOpen: boolean) {
             setOpen(nextOpen);
         },
     });
@@ -266,7 +259,12 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
             <Tooltip
                 disabled={disabled || open || mirrorLoading || allDisabled}
                 placement="top"
-                content={shares ? `${humanize(shares)} ${content}` : content}
+                content={
+                    <>
+                        {shares ? humanize(shares) : null}
+                        {getTooltipContent(source, shares)}
+                    </>
+                }
             >
                 <span className="inline-flex size-7 items-center justify-center rounded-full hover:bg-secondarySuccess/[.20]">
                     {mirrorLoading ? (

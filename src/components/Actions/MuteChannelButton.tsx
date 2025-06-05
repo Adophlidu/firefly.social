@@ -23,7 +23,7 @@ export function MuteChannelButton({ channel, ref, onToggle, onClick, ...rest }: 
                 onClick?.(event);
                 const confirmed = !muted
                     ? await ConfirmModalRef.openAndWaitForClose({
-                          title: muted ? t`Unmute /${channel.id}` : t`Mute /${channel.id}`,
+                          title: muted ? <Trans>Unmute /{channel.id}</Trans> : <Trans>Mute /{channel.id}</Trans>,
                           content: (
                               <div className="text-main">
                                   <Trans>All posts from /{channel.id} will be hidden from you</Trans>
@@ -45,7 +45,7 @@ export function MuteChannelButton({ channel, ref, onToggle, onClick, ...rest }: 
         >
             <MuteIcon width={18} height={18} />
             <span className="font-bold leading-[22px] text-main">
-                {muted ? t`Unmute /${channel.id}` : t`Mute /${channel.id}`}
+                {muted ? <Trans>Unmute /{channel.id}</Trans> : <Trans>Mute /{channel.id}</Trans>}
             </span>
         </MenuButton>
     );

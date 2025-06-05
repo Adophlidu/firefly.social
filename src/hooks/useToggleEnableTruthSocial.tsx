@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useIsMutating, useMutation } from '@tanstack/react-query';
 
@@ -18,7 +17,7 @@ export function useToggleEnableTruthSocial(showAlert = false) {
         mutationFn: async () => {
             if (showAlert && preferences.SHOW_TRUTH_SOCIAL_ALERT) {
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                    title: t`Remove Truth Social`,
+                    title: <Trans>Remove Truth Social</Trans>,
                     variant: 'normal',
                     content: (
                         <div className="text-main">

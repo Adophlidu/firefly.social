@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import { WalletItem } from '@/app/(settings)/components/WalletItem.js';
@@ -23,7 +22,7 @@ export async function waitForDisconnectConfirmation(connection: FireflyWalletCon
     const profiles = await getRelatedProfiles(connection);
 
     return await ConfirmModalRef.openAndWaitForClose({
-        title: t`Disconnect`,
+        title: <Trans>Disconnect</Trans>,
         content: (
             <div className="-mb-2.5 -mt-4">
                 <p className="mb-3 text-[13px] text-lightMain">

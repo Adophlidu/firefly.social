@@ -1,5 +1,6 @@
 import { Checkbox, Switch } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useAsyncFn } from 'react-use';
 
 import { toggleSwitchNotificationConfig } from '@/app/(settings)/settings/notification-settings/toggleSwitchNotificationConfig.js';
@@ -65,7 +66,7 @@ export function NotificationConfigItem({
                 <p className="mt-1 text-medium text-second">{description}</p>
             </div>
             <Tooltip
-                content={rest.unsupported ? t`Seems like this feature is not supported!` : ''}
+                content={rest.unsupported ? <Trans>Seems like this feature is not supported!</Trans> : null}
                 disabled={!rest.unsupported}
             >
                 <Switch
@@ -96,7 +97,7 @@ export function NotificationChildConfigItem({ label, description, disabled, ...r
             className="flex w-full items-start gap-2 border-b border-line py-2 text-left last:border-none last:pb-0"
         >
             <Tooltip
-                content={rest.unsupported ? t`Seems like this feature is not supported!` : ''}
+                content={rest.unsupported ? <Trans>Seems like this feature is not supported!</Trans> : null}
                 disabled={!rest.unsupported}
             >
                 <Checkbox aria-readonly checked={rest.value} className="mt-[3px]">

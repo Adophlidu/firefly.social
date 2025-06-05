@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
 import { useQueries } from '@tanstack/react-query';
@@ -128,11 +127,11 @@ export function RequirementsModal({
     onVerifyAndClaim,
 }: RequirementsModalProps) {
     const TitleMap = {
-        like: t`Like`,
-        repost: t`Repost`,
-        quote: t`Repost`,
-        comment: t`Comment`,
-        collect: t`NFT holder`,
+        like: <Trans>Like</Trans>,
+        repost: <Trans>Repost</Trans>,
+        quote: <Trans>Repost</Trans>,
+        comment: <Trans>Comment</Trans>,
+        collect: <Trans>NFT holder</Trans>,
     };
 
     const requirements = useMemo(() => {

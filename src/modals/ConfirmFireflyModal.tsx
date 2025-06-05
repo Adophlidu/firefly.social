@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -29,7 +28,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                 : null;
 
             ConfirmModalRef.open({
-                title: t`Different Account Detected`,
+                title: <Trans>Different Account Detected</Trans>,
                 content: (
                     <div>
                         <p className="mb-2 mt-[-8px] text-medium font-medium leading-normal text-second">

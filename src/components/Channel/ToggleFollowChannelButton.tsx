@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -108,9 +108,9 @@ export const ToggleFollowChannelButton = memo<ToggleFollowChannelButtonProps>(fu
             {...rest}
             loading={loading || isLoading}
             joined={!!channel.isMember}
-            joinLabel={isBsky ? t`Add` : isLens ? t`Join` : t`Follow`}
-            joinedLabel={isBsky ? t`Added` : isLens ? t`Joined` : t`Following`}
-            leaveLabel={isBsky ? t`Remove` : isLens ? t`Leave` : t`Unfollow`}
+            joinLabel={isBsky ? <Trans>Add</Trans> : isLens ? <Trans>Join</Trans> : <Trans>Follow</Trans>}
+            joinedLabel={isBsky ? <Trans>Added</Trans> : isLens ? <Trans>Joined</Trans> : <Trans>Following</Trans>}
+            leaveLabel={isBsky ? <Trans>Remove</Trans> : isLens ? <Trans>Leave</Trans> : <Trans>Unfollow</Trans>}
             onClick={toggleFollow}
         />
     );

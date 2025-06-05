@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
 
 import UndoSVG from '@/assets/undo.svg';
@@ -32,7 +32,7 @@ export function NFTs({ address }: { address: string }) {
                             className="mr-2 rounded-full bg-lightBg p-2"
                             onClick={() => setSelectedCollection(null)}
                         >
-                            <Tooltip content={t`Back`}>
+                            <Tooltip content={<Trans>Back</Trans>}>
                                 <UndoSVG className="size-4" />
                             </Tooltip>
                         </ClickableButton>

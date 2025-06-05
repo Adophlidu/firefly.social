@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { memo, useCallback, useState } from 'react';
 
 import FollowIcon from '@/assets/follow-bold.svg';
@@ -54,8 +54,14 @@ export const FollowButton = memo(function FollowButton({
         (showSuperFollow: boolean, loading: boolean) => {
             if (loading) return <LoadingIcon size={16} />;
             if (variant === 'text') {
-                if (isFollowing) return hovering && !loading ? t`Unfollow` : t`Following`;
-                return showSuperFollow ? t`Super Follow` : isFollowedBy ? t`Follow Back` : t`Follow`;
+                if (isFollowing) return hovering && !loading ? <Trans>Unfollow</Trans> : <Trans>Following</Trans>;
+                return showSuperFollow ? (
+                    <Trans>Super Follow</Trans>
+                ) : isFollowedBy ? (
+                    <Trans>Follow Back</Trans>
+                ) : (
+                    <Trans>Follow</Trans>
+                );
             }
             if (isFollowing) return <FollowedIcon className="size-4 flex-shrink-0" />;
             if (isFollowedBy) return <MutualFollowIcon className="size-4 flex-shrink-0" />;

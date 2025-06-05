@@ -1,6 +1,5 @@
 'use client';
 
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { type ReactNode, useMemo } from 'react';
@@ -121,16 +120,19 @@ export function NFTOverflow(props: NFTOverflowProps) {
                 <div className="space-y-4">
                     {standard ? (
                         <DetailsGroup
-                            field={t`NFT Standard`}
+                            field={<Trans>NFT Standard</Trans>}
                             value={<div className="flex items-center">{standard}</div>}
                         />
                     ) : null}
                     {props.tokenId ? (
-                        <DetailsGroup field={t`NFT ID`} value={<span className="break-all">#{props.tokenId}</span>} />
+                        <DetailsGroup
+                            field={<Trans>NFT ID</Trans>}
+                            value={<span className="break-all">#{props.tokenId}</span>}
+                        />
                     ) : null}
                     {props.chainId ? (
                         <DetailsGroup
-                            field={t`Blockchain`}
+                            field={<Trans>Blockchain</Trans>}
                             value={
                                 <div className="flex items-center">
                                     <span className="mr-1">
@@ -143,7 +145,7 @@ export function NFTOverflow(props: NFTOverflowProps) {
                     ) : null}
                     {props.contractAddress ? (
                         <DetailsGroup
-                            field={t`NFT Contract`}
+                            field={<Trans>NFT Contract</Trans>}
                             value={
                                 <ExplorerLink address={props.contractAddress} type="address" chainId={props.chainId} />
                             }
@@ -151,7 +153,7 @@ export function NFTOverflow(props: NFTOverflowProps) {
                     ) : null}
                     {props.creator ? (
                         <DetailsGroup
-                            field={t`Creator`}
+                            field={<Trans>Creator</Trans>}
                             value={
                                 <ExplorerLink
                                     useBlockScan
@@ -164,11 +166,13 @@ export function NFTOverflow(props: NFTOverflowProps) {
                     ) : null}
                     {props.mintingTxnHash ? (
                         <DetailsGroup
-                            field={t`Minting Txn Hash`}
+                            field={<Trans>Minting Txn Hash</Trans>}
                             value={<ExplorerLink address={props.mintingTxnHash} type="tx" chainId={props.chainId} />}
                         />
                     ) : null}
-                    {props.mintingDate ? <DetailsGroup field={t`Minting Date`} value={props.mintingDate} /> : null}
+                    {props.mintingDate ? (
+                        <DetailsGroup field={<Trans>Minting Date</Trans>} value={props.mintingDate} />
+                    ) : null}
                 </div>
             </div>
         </div>

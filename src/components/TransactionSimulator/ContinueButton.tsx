@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useMemo } from 'react';
 import { useAccount } from 'wagmi';
 
@@ -18,14 +18,9 @@ export function ContinueButton({ status, className, onClick, ref, ...rest }: Con
     const isUnSafe = status === SimulateStatus.Unsafe;
 
     const buttonLabel = useMemo(() => {
-        if (isUnConnected) {
-            return t`Connect Wallet`;
-        }
-        if (isUnSafe) {
-            return t`Ignore the warnings to continue`;
-        }
-
-        return t`Continue`;
+        if (isUnConnected) return <Trans>Connect Wallet</Trans>;
+        if (isUnSafe) return <Trans>Ignore the warnings to continue</Trans>;
+        return <Trans>Continue</Trans>;
     }, [isUnConnected, isUnSafe]);
 
     return (

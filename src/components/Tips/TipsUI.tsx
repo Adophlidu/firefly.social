@@ -54,17 +54,21 @@ export const TipsUI = memo(function TipsUI() {
         update((prev) => ({ ...prev, amount: balance }));
     }, [amount, recipient, token, update]);
 
-    const tipTitle = recipient
-        ? pureWallet
-            ? t`Send a tip`
-            : t`Send a tip to @${handle || recipient.displayName}`
-        : '';
-
     const actionDisabled = isSending || !isConnected;
 
     return (
         <>
-            <TipsModalHeader title={tipTitle} />
+            <TipsModalHeader
+                title={
+                    recipient ? (
+                        pureWallet ? (
+                            <Trans>Send a tip</Trans>
+                        ) : (
+                            <Trans>Send a tip to @{handle || recipient.displayName}</Trans>
+                        )
+                    ) : null
+                }
+            />
             <div className="font-bold">
                 <WalletSelectorEntry disabled={isSending} />
                 <div className="mt-3 flex gap-x-3">

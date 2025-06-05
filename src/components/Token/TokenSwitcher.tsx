@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { isNumber } from 'lodash-es';
 import { type HTMLProps, memo, useState } from 'react';
@@ -26,11 +25,11 @@ export const TokenSwitcher = memo<Props>(function TokenSwitcher({
 }) {
     const tabs = [
         {
-            label: t`Coins`,
+            label: <Trans>Coins</Trans>,
             platformType: TokenPlatformType.Cex,
         },
         {
-            label: t`Dex`,
+            label: <Trans>Dex</Trans>,
             platformType: TokenPlatformType.Dex,
         },
     ];

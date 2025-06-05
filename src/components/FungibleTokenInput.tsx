@@ -107,7 +107,9 @@ export const FungibleTokenInput = memo<FungibleTokenInputProps>(function Fungibl
     return (
         <div className="rounded-xl border border-transparent bg-bg px-3 py-[10px] focus-within:border-highlight focus-within:bg-primaryBottom">
             <div className="flex items-center justify-end gap-x-1 text-[13px] leading-[18px]">
-                <label className="text-secondary">{isNativeToken ? t`Available Balance` : t`Balance`}</label>
+                <label className="text-secondary">
+                    {isNativeToken ? <Trans>Available Balance</Trans> : <Trans>Balance</Trans>}
+                </label>
                 <span className="font-bold text-main">{formatBalance(balance, token?.decimals) ?? '0'}</span>
                 <div
                     className="cursor-pointer rounded-full bg-highlight px-[6px] py-[2px] text-[10px] font-bold leading-[14px] text-white"

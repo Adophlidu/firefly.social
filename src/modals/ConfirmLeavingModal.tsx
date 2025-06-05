@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import { SITE_URL_OFFICIAL } from '@/constants/index.js';
@@ -32,7 +31,7 @@ export function ConfirmLeavingModal({ ref }: Props) {
             }
 
             ConfirmModalRef.open({
-                title: t`Leaving Firefly`,
+                title: <Trans>Leaving Firefly</Trans>,
                 content: (
                     <div className="text-main">
                         <Trans>

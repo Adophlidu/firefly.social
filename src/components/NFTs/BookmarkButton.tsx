@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
@@ -62,7 +61,7 @@ export function BookmarkButton({
                 const confirmed = hasBookmarked
                     ? await ConfirmModalRef.openAndWaitForClose({
                           resetSize: true,
-                          title: t`Remove from bookmarks`,
+                          title: <Trans>Remove from bookmarks</Trans>,
                           modalStyle: { width: 400, maxWidth: '90vw' },
                           content: (
                               <div className="text-main">
@@ -82,7 +81,10 @@ export function BookmarkButton({
     );
 
     return tooltip ? (
-        <Tooltip placement="top" content={hasBookmarked ? t`Remove from Bookmarks` : t`Bookmark`}>
+        <Tooltip
+            placement="top"
+            content={hasBookmarked ? <Trans>Remove from Bookmarks</Trans> : <Trans>Bookmark</Trans>}
+        >
             {content}
         </Tooltip>
     ) : (

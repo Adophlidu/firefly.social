@@ -173,7 +173,7 @@ function TriggerButton({
               },
     );
 
-    const displayName = source === Source.Wallet ? handle : handle ? `@${handle}` : '';
+    const displayName = source === Source.Wallet ? handle : handle ? `@${handle}` : null;
 
     if (menu) {
         const isNotWalletMixIdentity =

@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 
 import { readChars } from '@/helpers/chars.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -19,11 +19,13 @@ export function Placeholder(props: PlaceholderProps) {
                 content
             ) : (
                 <span className="text-secondary">
-                    {props.post.poll
-                        ? t`Ask a question`
-                        : index === 0
-                          ? t`What's happening...`
-                          : t`Add another post...`}
+                    {props.post.poll ? (
+                        <Trans>Ask a question</Trans>
+                    ) : index === 0 ? (
+                        <Trans>What&apos;s happening...</Trans>
+                    ) : (
+                        <Trans>Add another post...</Trans>
+                    )}
                 </span>
             )}
         </div>

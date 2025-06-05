@@ -55,11 +55,11 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
 
     const tabs = [
         {
-            label: t`Proposal`,
+            label: <Trans>Proposal</Trans>,
             value: 'proposal',
         },
         {
-            label: t`Votes`,
+            label: <Trans>Votes</Trans>,
             value: 'votes',
         },
     ] as const;
@@ -267,7 +267,7 @@ function SnapshotVote({ link, postId, snapshot }: Props) {
             if (!result) return;
 
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                title: t`Your vote is in!`,
+                title: <Trans>Your vote is in!</Trans>,
                 content: (
                     <div className="mb-2 text-center text-[15px] leading-[18px] text-secondary">
                         <Trans>
@@ -280,7 +280,7 @@ function SnapshotVote({ link, postId, snapshot }: Props) {
                 modalClass: '!max-w-[388px] !w-[388px]',
                 variant: 'secondary',
                 enableConfirmButton: true,
-                confirmButtonText: t`Create a Post`,
+                confirmButtonText: <Trans>Create a Post</Trans>,
             });
 
             if (confirmed) {

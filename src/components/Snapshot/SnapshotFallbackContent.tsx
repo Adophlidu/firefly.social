@@ -1,6 +1,5 @@
 import { Tab } from '@headlessui/react';
 import { IS_APPLE, IS_SAFARI } from '@lexical/utils';
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import ActiveIcon from '@/assets/snapshot-active.svg';
@@ -11,11 +10,11 @@ import { classNames } from '@/helpers/classNames.js';
 export function SnapshotFallbackContent({ title, body }: { title: string; body: string }) {
     const tabs = [
         {
-            label: t`Proposal`,
+            label: <Trans>Proposal</Trans>,
             value: 'proposal',
         },
         {
-            label: t`Votes`,
+            label: <Trans>Votes</Trans>,
             value: 'votes',
         },
     ] as const;

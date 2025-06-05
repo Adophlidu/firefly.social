@@ -174,7 +174,7 @@ export function ComposeModalUI({ ref }: Props) {
 
             const sources = hasError ? errorsSource : availableSources;
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                title: hasError ? t`Save failed post?` : t`Save Post?`,
+                title: hasError ? <Trans>Save failed post?</Trans> : <Trans>Save Post?</Trans>,
                 content: (
                     <div className="text-[15px] text-main md:text-base">
                         {hasError ? (
@@ -186,8 +186,8 @@ export function ComposeModalUI({ ref }: Props) {
                 ),
                 enableCloseButton: !isSmall,
                 enableCancelButton: true,
-                cancelButtonText: t`Discard`,
-                confirmButtonText: t`Save`,
+                cancelButtonText: <Trans>Discard</Trans>,
+                confirmButtonText: <Trans>Save</Trans>,
                 variant: 'normal',
             });
             if (confirmed === null) return CloseAction.None;

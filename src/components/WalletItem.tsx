@@ -49,7 +49,7 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
         }
         if (!isMuted) {
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                title: t`Mute ${walletHandle}`,
+                title: <Trans>Mute {walletHandle}</Trans>,
                 variant: 'normal',
                 content: (
                     <div className="text-main">

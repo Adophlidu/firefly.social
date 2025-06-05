@@ -60,7 +60,7 @@ function filterOutActivities(address: string) {
 export function useReportSpamNFT() {
     return useAsyncFn(async (chainId: number, address: string) => {
         const confirmed = await ConfirmModalRef.openAndWaitForClose({
-            title: t`Report spam`,
+            title: <Trans>Report spam</Trans>,
             variant: 'normal',
             content: (
                 <div className="text-main">

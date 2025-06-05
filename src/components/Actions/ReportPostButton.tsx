@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 
 import FlagIcon from '@/assets/flag.svg';
@@ -19,7 +18,7 @@ export function ReportPostButton({ post, ref, onReport, onClick, ...rest }: Prop
             onClick={async (event) => {
                 onClick?.(event);
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                    title: t`Report post`,
+                    title: <Trans>Report post</Trans>,
                     content: (
                         <div className="text-main">
                             <Trans>Are you sure you want to report this post?</Trans>

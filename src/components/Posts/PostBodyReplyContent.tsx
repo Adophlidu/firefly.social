@@ -1,4 +1,3 @@
-import { t } from '@lingui/core/macro';
 import { Select, Trans } from '@lingui/react/macro';
 import { type HTMLProps, memo, useEffect, useState } from 'react';
 
@@ -66,7 +65,11 @@ export const PostBodyReplyContent = memo<PostBodyReplyContentProps>(function Pos
                         other=""
                     />
                 ) : null}
-                {post.quoteOn ? <span>{t`[Quote]`}</span> : null}
+                {post.quoteOn ? (
+                    <span>
+                        <Trans>[Quote]</Trans>
+                    </span>
+                ) : null}
             </div>
         </div>
     );

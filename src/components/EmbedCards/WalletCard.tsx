@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
@@ -111,7 +111,7 @@ export const WalletCard = memo<AddressCardProps>(function WalletCard({ address, 
                             />
                         ) : null}
                         <Link href={profileUrl} className="text-lg font-bold leading-6 text-main hover:underline">
-                            {walletProfile.primary_ens || t`Wallet`}
+                            {walletProfile.primary_ens || <Trans>Wallet</Trans>}
                         </Link>
                         {walletSecurity ? <SecurityBadge security={walletSecurity} /> : null}
                     </div>
