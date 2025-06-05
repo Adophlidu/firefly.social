@@ -40,7 +40,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <html className={`font-loading ${rootClass}`}>
             <head>
                 <Script src="/js/polyfills/base.js" strategy="beforeInteractive" />
-                <Script src="/js/safary.js" defer />
+                {IS_PRODUCTION ? <Script src="/js/safary.js" defer /> : null}
                 <Script
                     src="/js/cookie3.analytics.js"
                     integrity="sha384-ihnQ09PGDbDPthGB3QoQ2Heg2RwQIDyWkHkqxMzq91RPeP8OmydAZbQLgAakAOfI"
