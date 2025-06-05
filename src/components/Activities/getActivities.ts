@@ -10,12 +10,16 @@ import type { ActivitiesItem, FollowingSnapshotActivity } from '@/providers/type
 
 function createActivitiesFetcher(
     fetchArticles: (indicator?: PageIndicator, platform?: ArticlePlatform) => Promise<Pageable<Article, PageIndicator>>,
-    fetchSnapshots: (indicator?: PageIndicator) => Promise<Pageable<FollowingSnapshotActivity, PageIndicator>>,
+    fetchSnapshots: (
+        address?: string,
+        indicator?: PageIndicator,
+    ) => Promise<Pageable<FollowingSnapshotActivity, PageIndicator>>,
 ) {
     return async function fetchActivities(
         source: ActivitiesItem['source'],
         pageParam?: string,
         platform?: ActivitiesPlatform,
+        connectedAddress?: string,
     ) {
         switch (source) {
             case Source.Article: {
@@ -42,7 +46,7 @@ function createActivitiesFetcher(
                     return createPageable([], createIndicator(undefined, pageParam));
                 }
 
-                const result = await fetchSnapshots(createIndicator(undefined, pageParam));
+                const result = await fetchSnapshots(connectedAddress, createIndicator(undefined, pageParam));
                 return {
                     ...result,
                     data: result.data.map((item) => ({
@@ -62,12 +66,12 @@ function createActivitiesFetcher(
 
 export const getFollowingActivities = createActivitiesFetcher(
     (indicator, platform) => FireflyArticleProvider.getFollowingArticles(indicator, platform),
-    (indicator) => FireflySocialMediaProvider.getFollowingSnapshotActivity({ indicator }),
+    (address, indicator) => FireflySocialMediaProvider.getFollowingSnapshotActivity({ address, indicator }),
 );
 
 export const getForYouActivities = createActivitiesFetcher(
     (indicator, platform) => FireflyArticleProvider.discoverArticles(indicator, platform ? [platform] : undefined),
-    (indicator) => FireflySocialMediaProvider.discoverSnapshotActivity(indicator),
+    (address, indicator) => FireflySocialMediaProvider.discoverSnapshotActivity(address, indicator),
 );
 
 export function getProfileActivities(
@@ -75,13 +79,15 @@ export function getProfileActivities(
     addresses: string[],
     pageParam?: string,
     platform?: ActivitiesPlatform,
+    connectedAddress?: string,
 ) {
     return createActivitiesFetcher(
         (indicator, platform) => FireflyArticleProvider.discoverArticlesByAddress(addresses, indicator, platform),
-        (indicator) =>
+        (address, indicator) =>
             FireflySocialMediaProvider.getFollowingSnapshotActivity({
+                address,
                 indicator,
                 walletAddresses: addresses,
             }),
-    )(source, pageParam, platform);
+    )(source, pageParam, platform, connectedAddress);
 }

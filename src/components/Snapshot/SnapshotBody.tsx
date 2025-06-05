@@ -2,9 +2,8 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { produce } from 'immer';
-import { isArray, isEqual, isNumber, isObject, isUndefined, sum, values } from 'lodash-es';
-import { useCallback, useMemo, useState } from 'react';
+import { isArray, isEqual, isNumber, isObject, isUndefined, last, sum, values } from 'lodash-es';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 import type { Hex } from 'viem';
@@ -46,19 +45,8 @@ interface Props {
 }
 
 export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
-    const { choices, type, state, scores, symbol, scores_total, votes, space, author } = snapshot;
-
+    const { choices, state, scores, symbol, scores_total, votes, space, author } = snapshot;
     const [currentTabIndex, setCurrentTabIndex] = useState(0);
-    const [selectedChoices = snapshot.currentUserChoice, setSelectedChoices] = useState<SnapshotChoice | undefined>(
-        snapshot.currentUserChoice,
-    );
-
-    const isVoted =
-        !isUndefined(selectedChoices) &&
-        !isUndefined(snapshot.currentUserChoice) &&
-        isEqual(snapshot.currentUserChoice, selectedChoices);
-
-    const account = useAccount();
 
     const authorUrl = urlcat('/profile/:address', {
         address: snapshot.author,
@@ -76,153 +64,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
         },
     ] as const;
 
-    const { data: vp, isLoading: queryVpLoading } = useQuery({
-        queryKey: [
-            'snapshot',
-            account.address,
-            snapshot.network,
-            snapshot.strategies,
-            snapshot.snapshot,
-            snapshot.space.id,
-        ],
-        queryFn: async () => {
-            if (!account.address) return 0;
-            const { vp } = await Snapshot.getVotePower(
-                account.address,
-                snapshot.network,
-                snapshot.strategies,
-                snapshot.snapshot,
-                snapshot.space.id,
-                false,
-            );
-
-            return vp;
-        },
-    });
-
     const ensHandle = useEnsName({ address: author as Hex });
-
-    const isPending = state === SnapshotState.Pending;
-    const isNotEnoughVp = vp === 0 && !queryVpLoading;
-
-    const disabled = useMemo(() => {
-        if (!selectedChoices || (isArray(selectedChoices) && !selectedChoices?.length) || isNotEnoughVp) return true;
-
-        if (type === 'approval' && isArray(selectedChoices) && !selectedChoices.length) return true;
-
-        if (
-            (type === 'quadratic' || type === 'weighted') &&
-            isObject(selectedChoices) &&
-            sum(values(selectedChoices)) === 0
-        )
-            return true;
-
-        if (type === 'ranked-choice' && isArray(selectedChoices) && selectedChoices.length !== choices.length)
-            return true;
-
-        return false;
-    }, [type, selectedChoices, choices, isNotEnoughVp]);
-
-    const [, handleVote] = useAsyncFn(async () => {
-        try {
-            if (!account.address || disabled || !selectedChoices) return;
-
-            const result = await Snapshot.vote({
-                from: account.address,
-                space: snapshot.space.id,
-                proposal: snapshot.id,
-                type: snapshot.type,
-                choice: selectedChoices,
-                privacy: snapshot.privacy,
-                app: 'snapshot',
-                reason: '',
-            });
-
-            if (!result) return;
-
-            const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                title: t`Your vote is in!`,
-                content: (
-                    <div className="mb-2 text-center text-[15px] leading-[18px] text-secondary">
-                        <Trans>
-                            Create a post to tell everyone about your participation. Votes can be changed while the
-                            proposal is active.
-                        </Trans>
-                    </div>
-                ),
-                contentClass: 'pt-0',
-                modalClass: '!max-w-[388px] !w-[388px]',
-                variant: 'secondary',
-                enableConfirmButton: true,
-                confirmButtonText: t`Create a Post`,
-            });
-
-            if (confirmed) {
-                const choice = formatSnapshotChoice(selectedChoices, type, choices);
-                ComposeModalRef.open({
-                    type: 'compose',
-                    chars: [
-                        choice
-                            ? t`🙌 Just voted “${choice}” on “${snapshot.title}”`
-                            : t`🙌 Just voted on “${snapshot.title}”`,
-                        `\n\n${snapshot.link}`,
-                    ],
-                });
-            }
-
-            if (link && postId) {
-                queryClient.refetchQueries({
-                    queryKey: ['post-embed', link, postId],
-                });
-            }
-            queryClient.setQueriesData<{
-                pages: Array<{ data: SnapshotActivity[] }>;
-            }>(
-                {
-                    queryKey: ['snapshots', account.address],
-                },
-                (old) => {
-                    if (!old) return old;
-
-                    return produce(old, (draft) => {
-                        draft.pages.forEach((page) => {
-                            page.data.forEach((oldData) => {
-                                if (oldData.proposal_id === activity?.proposal_id && oldData.proposal) {
-                                    oldData.proposal.currentUserChoice = selectedChoices;
-                                }
-                            });
-                        });
-                    });
-                },
-            );
-
-            captureSnapshotVoteEvent(account.address);
-        } catch (error) {
-            enqueueMessageFromError(error, t`Failed to vote.`);
-            throw error;
-        }
-    }, [
-        account.address,
-        disabled,
-        selectedChoices,
-        snapshot.space.id,
-        snapshot.id,
-        snapshot.type,
-        snapshot.privacy,
-        snapshot.title,
-        snapshot.link,
-        link,
-        postId,
-        type,
-        choices,
-        activity?.proposal_id,
-    ]);
-
-    const handleChange = useCallback((value?: SnapshotChoice) => {
-        if (!isUndefined(value)) {
-            setSelectedChoices(value);
-        }
-    }, []);
 
     return (
         <div className="link-preview">
@@ -329,76 +171,213 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                         </TabPanels>
                     </TabGroup>
                 </div>
-                {state === SnapshotState.Active || state === SnapshotState.Pending ? (
-                    <>
-                        {type === 'single-choice' || type === 'basic' ? (
-                            <SnapshotSingleChoices
-                                value={
-                                    !isUndefined(selectedChoices) && isNumber(selectedChoices)
-                                        ? selectedChoices
-                                        : undefined
-                                }
-                                choices={choices}
-                                disabled={isPending}
-                                onChange={handleChange}
-                            />
-                        ) : null}
-                        {type === 'approval' ? (
-                            <SnapshotApprovalChoices
-                                value={
-                                    !isUndefined(selectedChoices) && isArray(selectedChoices)
-                                        ? selectedChoices
-                                        : undefined
-                                }
-                                choices={snapshot.choices}
-                                disabled={isPending}
-                                onChange={handleChange}
-                            />
-                        ) : null}
-                        {type === 'quadratic' || type === 'weighted' ? (
-                            <SnapshotQuadraticChoices
-                                value={
-                                    !isUndefined(selectedChoices) &&
-                                    !isArray(selectedChoices) &&
-                                    isObject(selectedChoices)
-                                        ? selectedChoices
-                                        : undefined
-                                }
-                                choices={choices}
-                                disabled={isPending}
-                                onChange={handleChange}
-                            />
-                        ) : null}
-                        {type === 'ranked-choice' ? (
-                            <SnapshotRankChoices
-                                value={
-                                    !isUndefined(selectedChoices) && isArray(selectedChoices)
-                                        ? selectedChoices
-                                        : undefined
-                                }
-                                choices={choices}
-                                disabled={isPending}
-                                onChange={handleChange}
-                            />
-                        ) : null}
-                        <ChainGuardButton
-                            className="w-full"
-                            variant={isVoted || isNotEnoughVp ? 'secondary' : 'primary'}
-                            disabled={disabled || isVoted}
-                            loading={queryVpLoading}
-                            onClick={handleVote}
-                        >
-                            {isVoted ? (
-                                <Trans>Voted</Trans>
-                            ) : isNotEnoughVp ? (
-                                <Trans>No voting power</Trans>
-                            ) : (
-                                <Trans>Vote</Trans>
-                            )}
-                        </ChainGuardButton>
-                    </>
-                ) : null}
+                <SnapshotVote link={link} postId={postId} activity={activity} snapshot={snapshot} />
             </ClickableArea>
         </div>
+    );
+}
+
+function SnapshotVote({ link, postId, snapshot }: Props) {
+    const { choices, type, state } = snapshot;
+    const [selectedChoices, setSelectedChoices] = useState<SnapshotChoice | undefined>();
+    const account = useAccount();
+    const { data: currentUserChoice, isLoading: isLoadingCurrentUserChoice } = useQuery({
+        queryKey: ['snapshot-votes', snapshot.id, account.address],
+        async queryFn() {
+            if (!account.address) return;
+            const votes = await Snapshot.pathQueryVoteResultsByVoter([snapshot.id], account.address);
+            const target = last(votes.data);
+            if (!target) return;
+            return target.choice;
+        },
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+        refetchOnReconnect: false,
+        initialData: snapshot.currentUserChoice,
+        enabled: !!account.address,
+    });
+
+    const isVoted =
+        !isUndefined(selectedChoices) && !isUndefined(currentUserChoice) && isEqual(currentUserChoice, selectedChoices);
+
+    const { data: vp, isLoading: queryVpLoading } = useQuery({
+        queryKey: [
+            'snapshot',
+            account.address,
+            snapshot.network,
+            snapshot.strategies,
+            snapshot.snapshot,
+            snapshot.space.id,
+        ],
+        queryFn: async () => {
+            if (!account.address) return 0;
+            const { vp } = await Snapshot.getVotePower(
+                account.address,
+                snapshot.network,
+                snapshot.strategies,
+                snapshot.snapshot,
+                snapshot.space.id,
+                false,
+            );
+
+            return vp;
+        },
+    });
+
+    useEffect(() => {
+        if (currentUserChoice) setSelectedChoices(currentUserChoice);
+    }, [currentUserChoice]);
+
+    const isPending = state === SnapshotState.Pending;
+    const isNotEnoughVp = vp === 0 && !queryVpLoading;
+
+    const disabled = useMemo(() => {
+        if (!selectedChoices || (isArray(selectedChoices) && !selectedChoices?.length) || isNotEnoughVp) return true;
+
+        if (type === 'approval' && isArray(selectedChoices) && !selectedChoices.length) return true;
+
+        if (
+            (type === 'quadratic' || type === 'weighted') &&
+            isObject(selectedChoices) &&
+            sum(values(selectedChoices)) === 0
+        )
+            return true;
+
+        if (type === 'ranked-choice' && isArray(selectedChoices) && selectedChoices.length !== choices.length)
+            return true;
+
+        return false;
+    }, [type, selectedChoices, choices, isNotEnoughVp]);
+
+    const [{ loading: isVoting }, handleVote] = useAsyncFn(async () => {
+        try {
+            if (!account.address || disabled || !selectedChoices) return;
+
+            const result = await Snapshot.vote({
+                from: account.address,
+                space: snapshot.space.id,
+                proposal: snapshot.id,
+                type: snapshot.type,
+                choice: selectedChoices,
+                privacy: snapshot.privacy,
+                app: 'snapshot',
+                reason: '',
+            });
+
+            if (!result) return;
+
+            const confirmed = await ConfirmModalRef.openAndWaitForClose({
+                title: t`Your vote is in!`,
+                content: (
+                    <div className="mb-2 text-center text-[15px] leading-[18px] text-secondary">
+                        <Trans>
+                            Create a post to tell everyone about your participation. Votes can be changed while the
+                            proposal is active.
+                        </Trans>
+                    </div>
+                ),
+                contentClass: 'pt-0',
+                modalClass: '!max-w-[388px] !w-[388px]',
+                variant: 'secondary',
+                enableConfirmButton: true,
+                confirmButtonText: t`Create a Post`,
+            });
+
+            if (confirmed) {
+                const choice = formatSnapshotChoice(selectedChoices, type, choices);
+                ComposeModalRef.open({
+                    type: 'compose',
+                    chars: [
+                        choice
+                            ? t`🙌 Just voted “${choice}” on “${snapshot.title}”`
+                            : t`🙌 Just voted on “${snapshot.title}”`,
+                        `\n\n${snapshot.link}`,
+                    ],
+                });
+            }
+
+            if (link && postId) {
+                queryClient.refetchQueries({
+                    queryKey: ['post-embed', link, postId],
+                });
+            }
+            queryClient.setQueriesData({ queryKey: ['snapshot-votes', snapshot.id, account.address] }, selectedChoices);
+            captureSnapshotVoteEvent(account.address);
+        } catch (error) {
+            enqueueMessageFromError(error, t`Failed to vote.`);
+            throw error;
+        }
+    }, [
+        account.address,
+        disabled,
+        selectedChoices,
+        snapshot.space.id,
+        snapshot.id,
+        snapshot.type,
+        snapshot.privacy,
+        snapshot.title,
+        snapshot.link,
+        link,
+        postId,
+        type,
+        choices,
+    ]);
+
+    const handleChange = useCallback((value?: SnapshotChoice) => {
+        if (!isUndefined(value)) {
+            setSelectedChoices(value);
+        }
+    }, []);
+
+    if (state !== SnapshotState.Active && state !== SnapshotState.Pending) return null;
+
+    return (
+        <>
+            {type === 'single-choice' || type === 'basic' ? (
+                <SnapshotSingleChoices
+                    value={!isUndefined(selectedChoices) && isNumber(selectedChoices) ? selectedChoices : undefined}
+                    choices={choices}
+                    disabled={isPending}
+                    onChange={handleChange}
+                />
+            ) : null}
+            {type === 'approval' ? (
+                <SnapshotApprovalChoices
+                    value={!isUndefined(selectedChoices) && isArray(selectedChoices) ? selectedChoices : undefined}
+                    choices={snapshot.choices}
+                    disabled={isPending}
+                    onChange={handleChange}
+                />
+            ) : null}
+            {type === 'quadratic' || type === 'weighted' ? (
+                <SnapshotQuadraticChoices
+                    value={
+                        !isUndefined(selectedChoices) && !isArray(selectedChoices) && isObject(selectedChoices)
+                            ? selectedChoices
+                            : undefined
+                    }
+                    choices={choices}
+                    disabled={isPending}
+                    onChange={handleChange}
+                />
+            ) : null}
+            {type === 'ranked-choice' ? (
+                <SnapshotRankChoices
+                    value={!isUndefined(selectedChoices) && isArray(selectedChoices) ? selectedChoices : undefined}
+                    choices={choices}
+                    disabled={isPending}
+                    onChange={handleChange}
+                />
+            ) : null}
+            <ChainGuardButton
+                className="w-full"
+                variant={isVoted || isNotEnoughVp ? 'secondary' : 'primary'}
+                disabled={disabled || isVoted}
+                loading={queryVpLoading || isLoadingCurrentUserChoice || isVoting}
+                onClick={handleVote}
+            >
+                {isVoted ? <Trans>Voted</Trans> : isNotEnoughVp ? <Trans>No voting power</Trans> : <Trans>Vote</Trans>}
+            </ChainGuardButton>
+        </>
     );
 }

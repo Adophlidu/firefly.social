@@ -15,19 +15,18 @@ import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { FrameProcessor } from '@/providers/frame/Processor.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import { getPostIFrame } from '@/providers/og/readers/iframe.js';
-import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { NFTDetail } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
 import { getCollectionFromUrl } from '@/services/getCollectionFromUrl.js';
 import { getNFTFromUrl } from '@/services/getNFTFromUrl.js';
+import { getSnapshotByLink } from '@/services/getSnapshotByLink.js';
 import { getTruthSocialPostFromUrl } from '@/services/getTruthSocialPostFromUrl.js';
 import { settings } from '@/settings/index.js';
 import type { FireflyBlinkParserBlinkResponse, FireflyBlinkParserBlinkResponseData } from '@/types/blink.js';
@@ -86,16 +85,12 @@ export async function getClassifyPostLink(url: string) {
                 return { spaceId };
             },
             async () => {
-                const realUrl = (await resolveTCOLink(url)) ?? url;
-                if (!realUrl) return null;
-                const snapshot = await Snapshot.getSnapshotByLink(realUrl);
+                const snapshot = await getSnapshotByLink(url);
                 if (!snapshot) return null;
                 return { snapshot };
             },
             async () => {
-                const realUrl = (await resolveTCOLink(url)) ?? url;
-                if (!realUrl) return null;
-                const articleId = await getArticleIdFromUrl(realUrl);
+                const articleId = await getArticleIdFromUrl(url);
                 if (!articleId) return null;
                 return { articleId };
             },

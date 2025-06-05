@@ -1,16 +1,15 @@
 import { last, omit } from 'lodash-es';
-import { getAccount } from 'wagmi/actions';
+import type { Address } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
 import { SnapshotState } from '@/constants/enum.js';
 import { SNAPSHOT_GRAPHQL_URL, SNAPSHOT_RELAY_URL, SNAPSHOT_SCORES_URL, SNAPSHOT_SEQ_URL } from '@/constants/index.js';
-import { SNAPSHOT_NEW_PROPOSAL_REGEXP, SNAPSHOT_PROPOSAL_REGEXP } from '@/constants/regexp.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { plus } from '@/helpers/number.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
-import { ProposalQuery, ProposalsQuery, UsersQuery, VotesQuery } from '@/providers/snapshot/query.js';
+import { ProposalsQuery, UsersQuery, VotesQuery } from '@/providers/snapshot/query.js';
 import {
     type SnapshotChoice,
     type SnapshotProposal,
@@ -25,6 +24,7 @@ import {
     voteStringTypes,
     voteTypes,
 } from '@/providers/snapshot/type.js';
+import { getSnapshotByLink } from '@/services/getSnapshotByLink.js';
 
 const NAME = 'snapshot';
 const VERSION = '0.1.4';
@@ -45,34 +45,14 @@ export class Snapshot {
         return proposal.state;
     }
 
-    static async getSnapshotByLink(link: string): Promise<SnapshotProposal | undefined> {
-        if (!SNAPSHOT_PROPOSAL_REGEXP.test(link) && !SNAPSHOT_NEW_PROPOSAL_REGEXP.test(link)) return;
-        const match = link.match(SNAPSHOT_PROPOSAL_REGEXP);
-        const newMatch = link.match(SNAPSHOT_NEW_PROPOSAL_REGEXP);
-        const id = match ? match[1] : newMatch ? newMatch[2] : null;
-        if (!id) return;
-
-        const response = await fetchJSON<{ data: { proposal: SnapshotProposal } }>(SNAPSHOT_GRAPHQL_URL, {
-            method: 'POST',
-            body: JSON.stringify({
-                ...ProposalQuery,
-                variables: {
-                    id,
-                },
-            }),
-        });
-
-        if (!response.data.proposal) return;
-
-        const account = getAccount(config);
-
+    static async deserializeSnapshotProposal(snapshotProposal: SnapshotProposal, address: string) {
         const proposal = {
-            ...response.data.proposal,
-            state: Snapshot.getProposalState(response.data.proposal),
+            ...snapshotProposal,
+            state: Snapshot.getProposalState(snapshotProposal),
         };
-        if (!account.address) return proposal;
+        if (!address) return proposal;
 
-        const votes = await Snapshot.pathQueryVoteResultsByVoter([response.data.proposal.id], account.address);
+        const votes = await Snapshot.pathQueryVoteResultsByVoter([snapshotProposal.id], address);
 
         const target = last(votes.data);
         if (!target) return proposal;
@@ -83,7 +63,13 @@ export class Snapshot {
         };
     }
 
-    static async getProposals(ids: string[]) {
+    static async getSnapshotByLink(link: string, address: Address): Promise<SnapshotProposal | undefined> {
+        const proposal = await getSnapshotByLink(link);
+        if (!proposal) return;
+        return Snapshot.deserializeSnapshotProposal(proposal, address);
+    }
+
+    static async getProposals(ids: string[], address?: string) {
         const response = await fetchJSON<{ data: { proposals: SnapshotProposal[] } }>(SNAPSHOT_GRAPHQL_URL, {
             method: 'POST',
             body: JSON.stringify({
@@ -97,11 +83,9 @@ export class Snapshot {
 
         if (!response.data.proposals) return [];
 
-        const account = getAccount(config);
+        if (!address) return response.data.proposals;
 
-        if (!account.address) return response.data.proposals;
-
-        const votes = await Snapshot.pathQueryVoteResultsByVoter(ids, account.address);
+        const votes = await Snapshot.pathQueryVoteResultsByVoter(ids, address);
 
         const proposals = response.data.proposals.map((proposal) => {
             const target = votes.data.find((vote) => vote.proposal.id === proposal.id);

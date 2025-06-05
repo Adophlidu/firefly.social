@@ -21,7 +21,10 @@ export function SnapshotBookmarkList() {
         queryKey: ['snapshots', account.address, Source.DAOs, 'bookmark', profileIds],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return null;
-            const result = await FireflySocialMediaProvider.getSnapshotBookmarks(createIndicator(undefined, pageParam));
+            const result = await FireflySocialMediaProvider.getSnapshotBookmarks(
+                account.address,
+                createIndicator(undefined, pageParam),
+            );
             return result;
         },
         initialPageParam: '',
