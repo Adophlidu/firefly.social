@@ -32,6 +32,7 @@ import { formatFarcasterProfileFromSuggestedFollow } from '@/helpers/formatFarca
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { formatLensProfileFromSuggestedFollow } from '@/helpers/formatLensProfile.js';
+import { formatNFTsTimelineResponse } from '@/helpers/formatNFTsTimelineResponse.js';
 import { formatPostsFromTruthSocial } from '@/helpers/formatPostsFromTruthSocial.js';
 import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
@@ -596,6 +597,27 @@ class FireflyEndpoint {
         );
     }
 
+    async getNFTsByAddress({
+        indicator,
+        chainId,
+        walletAddress,
+    }: {
+        indicator?: PageIndicator;
+        chainId?: number;
+        walletAddress: string;
+    }): Promise<Pageable<NFTFeedV3, PageIndicator>> {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/timeline/nft/all');
+        const response = await fireflySessionHolder.fetch<DiscoverNFTResponseV3>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                chainId,
+                walletAddress,
+            }),
+        });
+        return formatNFTsTimelineResponse(response, indicator);
+    }
+
     async getFollowingNFTs({
         limit = 20,
         indicator,
@@ -623,29 +645,8 @@ class FireflyEndpoint {
                 withSession: !walletAddress,
             },
         );
-        const nftIds = response.data.result.map((x) =>
-            resolveNFTId(x.chain_id || EthereumChainId.Mainnet, x.contract_address, x.token_id),
-        );
-        const bookmarks = nftIds.length
-            ? await runInSafeAsync(() => FireflySocialMediaProvider.getBookmarksByIds(FireflyPlatform.NFTs, nftIds))
-            : [];
-        const bookmarksMap = new Map<string, boolean>(
-            (bookmarks || []).map((x) => [x.post_id.toLowerCase(), x.has_book_marked]),
-        );
-        const data = bookmarksMap.size
-            ? response.data.result.map<NFTFeedV3>((x) => {
-                  const id = resolveNFTId(x.chain_id || EthereumChainId.Mainnet, x.contract_address, x.token_id);
-                  return {
-                      ...x,
-                      has_bookmarked: bookmarksMap.get(id) || false,
-                  };
-              })
-            : response.data.result;
-        return createPageable(
-            data.map((x) => ({ ...x, detail: x.detail ? adjustAssetUris(x.detail) : null })),
-            createIndicator(indicator),
-            response.data.cursor && data.length > 0 ? createNextIndicator(undefined, response.data.cursor) : undefined,
-        );
+
+        return formatNFTsTimelineResponse(response, indicator);
     }
 
     async getBlockRelation(conditions: Array<{ snsPlatform: FireflyPlatform; snsId: string }>) {
