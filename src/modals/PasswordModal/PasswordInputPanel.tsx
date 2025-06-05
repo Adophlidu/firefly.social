@@ -14,7 +14,7 @@ export const PasswordInputPanel = memo<PasswordInputPanelProps>(function Passwor
 }) {
     const firstInputRef = useRef<HTMLInputElement>(null);
     const wrapperRef = useRef<HTMLDivElement>(null);
-    const lastFocusedIndex = useRef<number>(-1);
+    const deletePressTimer = useRef<NodeJS.Timeout | null>(null);
     const hasFocused = useRef(false);
 
     const onInputChange = useCallback(
@@ -46,8 +46,7 @@ export const PasswordInputPanel = memo<PasswordInputPanelProps>(function Passwor
     useEffect(() => {
         if (isValidPassword(password)) {
             // blur the last focused input
-            const lastFocusedInput = wrapperRef.current?.querySelectorAll('input')[lastFocusedIndex.current];
-            lastFocusedInput?.blur();
+            document.getElementById(`${SESSION_PASSWORD_INPUT_ID_PREFIX}${METRICS_PASSWORD_LENGTH - 1}`)?.blur();
         }
     }, [password]);
 
@@ -69,8 +68,24 @@ export const PasswordInputPanel = memo<PasswordInputPanelProps>(function Passwor
                     maxLength={1}
                     value={password[index]}
                     onChange={(e) => onInputChange(e, index)}
-                    onFocus={() => {
-                        lastFocusedIndex.current = index;
+                    onKeyDown={(e) => {
+                        if ((e.key === 'Backspace' || e.key === 'Delete') && index > 0) {
+                            if (deletePressTimer.current) {
+                                return;
+                            }
+                            deletePressTimer.current = setTimeout(() => {
+                                const newPassword = [...password].map((p, i) => (i <= index ? '' : p));
+                                onPasswordChange(newPassword);
+                                document.getElementById(`${SESSION_PASSWORD_INPUT_ID_PREFIX}0`)?.focus();
+                                deletePressTimer.current = null;
+                            }, 700);
+                        }
+                    }}
+                    onKeyUp={() => {
+                        if (deletePressTimer.current) {
+                            clearTimeout(deletePressTimer.current);
+                            deletePressTimer.current = null;
+                        }
                     }}
                     onPaste={(e) => {
                         if (index !== 0) return; // Only allow pasting in the first input
