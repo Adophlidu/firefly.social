@@ -15,13 +15,20 @@ interface Options {
     address?: string;
 }
 
+/**
+ * A token can be uniquely identified by either:
+ * - A CoinGecko ID (for tokens listed on CoinGecko)
+ * - A combination of chain ID and contract address (for other tokens)
+ *
+ * Only symbol could be ambiguous
+ */
 export function resolveTokenPageUrl({ identity, chainId, address, isCoinId, trader, traderName }: Options) {
     return urlcat('/token/:identity', {
         identity,
-        chainId,
         isCoinId: isCoinId ? 'true' : undefined,
+        chainId,
+        address: isValidAddressEthereum(identity) || isValidAddressSolana(identity) ? undefined : address,
         trader,
         traderName: traderName || undefined,
-        address: isValidAddressEthereum(identity) || isValidAddressSolana(identity) ? undefined : address,
     });
 }

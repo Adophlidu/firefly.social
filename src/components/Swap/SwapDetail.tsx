@@ -152,6 +152,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                                     chainId: activity.chain_id,
                                     trader: activity.owner,
                                     traderName: activity.displayInfo?.ensHandle,
+                                    address: activity.from_token.address,
                                 })}
                                 className="flex items-center gap-2 rounded-lg bg-bg p-3"
                             >
@@ -197,6 +198,7 @@ export const SwapDetail = memo<SwapDetailProps>(function SwapDetail({ hash, chai
                                     chainId: activity.chain_id,
                                     trader: activity.owner,
                                     traderName: activity.displayInfo?.ensHandle,
+                                    address: activity.to_token.address,
                                 })}
                                 className="flex items-center gap-2 rounded-lg bg-bg p-3"
                             >
