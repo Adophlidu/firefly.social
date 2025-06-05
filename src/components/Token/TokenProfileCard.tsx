@@ -2,7 +2,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { isNumber } from 'lodash-es';
-import { type HTMLProps, memo, useMemo, useState } from 'react';
+import { type HTMLProps, memo, useEffect, useMemo, useState } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import PriceArrow from '@/assets/price-arrow.svg';
@@ -27,6 +27,7 @@ import { useTokenCoin } from '@/hooks/useTokenCoin.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import type { SearchTokenInfo } from '@/providers/types/Firefly.js';
 
 export function TokenProfileCardSkeleton(props: HTMLProps<HTMLDivElement>) {
     return (
@@ -76,9 +77,10 @@ export function TokenProfileCardSkeleton(props: HTMLProps<HTMLDivElement>) {
 
 interface Props extends HTMLProps<HTMLDivElement> {
     symbol: string;
+    onTokenChange?: (token: SearchTokenInfo) => void;
 }
 
-export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, children, ...rest }) {
+export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, children, onTokenChange, ...rest }) {
     const [openSwitcher, setOpenSwitcher] = useState(false);
     const { data: tokenInfos = EMPTY_LIST, isLoading } = useQuery({
         queryKey: ['search-token', symbol],
@@ -94,6 +96,10 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
         );
         return matched || tokenInfos[0];
     }, [coin, tokenInfos]);
+
+    useEffect(() => {
+        onTokenChange?.(selectedToken);
+    }, [selectedToken, onTokenChange]);
 
     const address = selectedToken?.contract_address;
     const { data: detected } = useQuery({
