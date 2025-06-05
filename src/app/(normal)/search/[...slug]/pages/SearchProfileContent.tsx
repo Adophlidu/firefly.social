@@ -7,7 +7,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchableProfileItem } from '@/components/Search/SearchableProfileItem.js';
 import { ScrollListKey } from '@/constants/enum.js';
-import { composeSearchProfiles, formatSearchProfile } from '@/helpers/formatSearchProfile.js';
+import { composeSearchProfiles, formatSearchProfile, sortSearchProfiles } from '@/helpers/formatSearchProfile.js';
 import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -46,7 +46,7 @@ export function SearchProfileContent() {
             const data =
                 pageParam.firefly !== noNextPage
                     ? await FireflyEndpointProvider.searchIdentity(searchKeyword, {
-                          size: 25,
+                          size: 10,
                           indicator: fireflyIndicator,
                       })
                     : createPageable([], createIndicator());
@@ -54,18 +54,25 @@ export function SearchProfileContent() {
             const trimmed = searchKeyword.trim().replace(/^@/, '');
             const twitterProfiles =
                 pageParam.twitter !== noNextPage && trimmed
-                    ? await runInSafeAsync(() => TwitterSocialMediaProvider.searchProfiles(trimmed, twitterIndicator))
+                    ? await runInSafeAsync(() =>
+                          TwitterSocialMediaProvider.searchProfiles(trimmed, twitterIndicator, 7),
+                      )
                     : undefined;
 
             const bskyProfiles =
                 pageParam.bsky !== noNextPage
-                    ? await runInSafeAsync(() => BskySocialMediaProvider.searchProfiles(searchKeyword, bskyIndicator))
+                    ? await runInSafeAsync(() =>
+                          BskySocialMediaProvider.searchProfiles(searchKeyword, bskyIndicator, 3),
+                      )
                     : undefined;
 
-            const socialProfiles = composeSearchProfiles(
-                compact(data.data.map(formatSearchProfile)),
-                twitterProfiles?.data || [],
-                bskyProfiles?.data || [],
+            const socialProfiles = sortSearchProfiles(
+                composeSearchProfiles(
+                    compact(data.data.map(formatSearchProfile)),
+                    twitterProfiles?.data || [],
+                    bskyProfiles?.data || [],
+                ),
+                searchKeyword,
             );
 
             const walletProfile = !socialProfiles.length ? await searchWalletAddress(searchKeyword) : undefined;

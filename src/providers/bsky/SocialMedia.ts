@@ -609,10 +609,10 @@ class BskySocialMedia implements Provider {
             response.data.cursor ? createNextIndicator(indicator, response.data.cursor) : undefined,
         );
     }
-    async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+    async searchProfiles(q: string, indicator?: PageIndicator, limit = 25): Promise<Pageable<Profile, PageIndicator>> {
         const response = await bskySessionHolder.agent.searchActors({
             q,
-            limit: 25,
+            limit,
             cursor: indicator?.id,
         });
         const data = resolveBskyResponseData(response, `Failed to search profiles by query = ${q}.`);

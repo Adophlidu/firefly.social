@@ -48,6 +48,7 @@ export function formatFireflyProfileToProfile(profile: FireflyProfile): Profile 
 interface SearchProfile {
     profile: FireflyProfile;
     related: FireflyProfile[];
+    isSpecial?: boolean;
 }
 
 export function formatSearchProfile(
@@ -81,6 +82,7 @@ export function formatSearchProfile(
     return {
         profile: fixProfilePlatform(target),
         related: allProfile,
+        isSpecial: target.special,
     };
 }
 
@@ -125,4 +127,38 @@ export function composeSearchProfiles(identities: SearchProfile[], ...rest: Prof
             });
         }),
     ]);
+}
+
+function isEqualString(a: string, b: string) {
+    return a.toLowerCase() === b.toLowerCase();
+}
+
+export function sortSearchProfiles(data: SearchProfile[], keyword: string) {
+    const specials: SearchProfile[] = [];
+    const handleMatched: SearchProfile[] = [];
+    const nameMatched: SearchProfile[] = [];
+    const others: SearchProfile[] = [];
+
+    data.forEach((item) => {
+        if (item.isSpecial) {
+            specials.push(item);
+        } else if (isEqualString(item.profile.handle, keyword)) {
+            handleMatched.push(item);
+        } else if (isEqualString(item.profile.name, keyword)) {
+            nameMatched.push(item);
+        } else {
+            others.push(item);
+        }
+    });
+
+    return [
+        ...specials,
+        ...handleMatched,
+        ...nameMatched,
+        ...others.sort((a, b) => {
+            const aHandle = a.profile.handle.toLowerCase();
+            const bHandle = b.profile.handle.toLowerCase();
+            return aHandle.localeCompare(bHandle);
+        }),
+    ];
 }

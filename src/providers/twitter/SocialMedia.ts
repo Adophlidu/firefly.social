@@ -201,11 +201,11 @@ class TwitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+    searchProfiles(q: string, indicator?: PageIndicator, limit = 25): Promise<Pageable<Profile, PageIndicator>> {
         return twitterSessionHolder.withSession(async (session) => {
             if (!session) return createPageable([] as Profile[], createIndicator(indicator));
             const url = urlcat(`/api/twitter/user/search`, {
-                limit: 25,
+                limit,
                 cursor: indicator?.id,
                 query: q,
             });

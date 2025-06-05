@@ -114,6 +114,7 @@ export interface Profile {
     primary_address?: string;
     // related social profiles
     related_profiles?: Profile[];
+    special?: boolean;
 }
 
 export interface UsersData {
