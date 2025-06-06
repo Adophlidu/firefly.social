@@ -71,6 +71,7 @@ export function formatSearchProfile(
             return result
                 ? fixProfilePlatform({
                       ...result,
+                      special: profiles?.some((x) => x.special) || false,
                       related_profiles: isSocialSource(source)
                           ? identity[resolveSocialSourceInUrl(source)]?.map(fixProfilePlatform)
                           : undefined,
@@ -82,7 +83,7 @@ export function formatSearchProfile(
     return {
         profile: fixProfilePlatform(target),
         related: allProfile,
-        isSpecial: target.special,
+        isSpecial: target.special || allProfile.some((x) => x.special),
     };
 }
 
@@ -104,7 +105,7 @@ export function composeSearchProfiles(identities: SearchProfile[], ...rest: Prof
             return identity;
         }),
         ...rest.flatMap((profiles) => {
-            return profiles.map((x) => {
+            return profiles.map((x, i) => {
                 const platform = x.source === Source.Bsky ? FireflyPlatform.Bsky : resolveFireflyPlatform(x.source);
                 const existed = identities.some(({ profile, related }) => {
                     return (
@@ -123,7 +124,8 @@ export function composeSearchProfiles(identities: SearchProfile[], ...rest: Prof
                     score: 0,
                     avatar: x.pfp,
                 };
-                return { profile: matched, related: [matched] };
+                // The first result from other apis is considered special
+                return { profile: matched, related: [matched], isSpecial: i === 0 };
             });
         }),
     ]);
