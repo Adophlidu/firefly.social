@@ -99,7 +99,7 @@ export function FrameViewerModal({ ref }: Props) {
                     timeout: true,
                 };
             });
-        }, 1000 * 10); // 3 minutes timeout
+        }, 1000 * 60 * 3); // 3 minutes timeout
 
         return () => {
             result?.cleanup();
