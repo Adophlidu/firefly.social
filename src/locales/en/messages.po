@@ -3470,6 +3470,9 @@ msgstr "Firefly"
 msgid "Invalid website format"
 msgstr "Invalid website format"
 
+msgid "Something went wrong. Please try again later."
+msgstr "Something went wrong. Please try again later."
+
 msgid "Select Group"
 msgstr "Select Group"
 

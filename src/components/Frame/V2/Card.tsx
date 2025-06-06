@@ -56,6 +56,7 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
             ready: (options) =>
                 FrameViewerModalRef.open({
                     ready: true,
+                    timeout: false,
                     frame,
                     frameHost,
                 }),
@@ -77,6 +78,7 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
 
         FrameViewerModalRef.open({
             ready: false,
+            timeout: false,
             frame,
             frameHost,
         });

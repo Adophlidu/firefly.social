@@ -1,4 +1,5 @@
 import { exposeToIframe } from '@farcaster/frame-host';
+import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -26,10 +27,12 @@ import { EthereumMethodType } from '#masknet/web3-shared-evm';
 
 export type FrameViewerModalOpenProps = {
     ready: boolean;
+    timeout: boolean;
     frame: FrameV2;
     frameHost: FrameV2Host;
 };
 export type FrameViewerModalCloseProps = void;
+
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<FrameViewerModalOpenProps>>;
 };
@@ -88,20 +91,29 @@ export function FrameViewerModal({ ref }: Props) {
             frameOrigin: '*',
         });
 
+        const timer = setTimeout(() => {
+            setProps((prev) => {
+                if (!prev || prev.ready || prev.timeout) return prev;
+                return {
+                    ...prev,
+                    timeout: true,
+                };
+            });
+        }, 1000 * 10); // 3 minutes timeout
+
         return () => {
             result?.cleanup();
+            clearTimeout(timer);
         };
     }, [props, client, account.address]);
 
     const [{ loading: reloading }, onReload] = useAsyncFn(async () => {
         if (!props) return;
 
-        const modalProps = props;
-
         setProps(null);
         await delay(1000);
         setProps({
-            ...modalProps,
+            ...props,
             ready: false,
         });
     }, [props]);
@@ -156,7 +168,13 @@ export function FrameViewerModal({ ref }: Props) {
                         backgroundColor: frame.button.action.splashBackgroundColor,
                     }}
                 />
-                {!props.ready ? (
+                {props.timeout ? (
+                    <div className="absolute inset-0 top-[60px] flex items-center justify-center bg-primaryBottom">
+                        <p className="text-sm">
+                            <Trans>Something went wrong. Please try again later.</Trans>
+                        </p>
+                    </div>
+                ) : !props.ready ? (
                     <div
                         className="absolute inset-0 top-[60px] flex items-center justify-center"
                         style={{
