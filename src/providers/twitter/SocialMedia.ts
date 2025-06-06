@@ -13,6 +13,7 @@ import urlcat from 'urlcat';
 import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { TWITTER_PROFILE_SEARCH_REGEXP } from '@/constants/regexp.js';
 import { AddLikeStatusToTwitterPosts } from '@/decorators/AddLikeStatusToTwitterPosts.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
@@ -203,7 +204,8 @@ class TwitterSocialMedia implements Provider {
 
     searchProfiles(q: string, indicator?: PageIndicator, limit = 25): Promise<Pageable<Profile, PageIndicator>> {
         return twitterSessionHolder.withSession(async (session) => {
-            if (!session) return createPageable([] as Profile[], createIndicator(indicator));
+            if (!session || !TWITTER_PROFILE_SEARCH_REGEXP.test(q))
+                return createPageable([] as Profile[], createIndicator(indicator));
             const url = urlcat(`/api/twitter/user/search`, {
                 limit,
                 cursor: indicator?.id,

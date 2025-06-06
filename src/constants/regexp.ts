@@ -77,3 +77,6 @@ export const MINIAPPS_ID_REGEXP =
 
 export const SPECIAL_TOKEN_SYMBOLS = ['the network state'];
 export const SPECIAL_TOKEN_SYMBOLS_REGEX = new RegExp(`\\b(${SPECIAL_TOKEN_SYMBOLS.join('|')})\\b`, 'i');
+
+// From x api error message: "The `query` query parameter value [x] does not match ^[A-Za-z0-9_' ]{1,50}$ (code: undefined)"
+export const TWITTER_PROFILE_SEARCH_REGEXP = /^[A-Za-z0-9_' ]{1,50}$/;

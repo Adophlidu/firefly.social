@@ -91,15 +91,18 @@ export function FrameViewerModal({ ref }: Props) {
             frameOrigin: '*',
         });
 
-        const timer = setTimeout(() => {
-            setProps((prev) => {
-                if (!prev || prev.ready || prev.timeout) return prev;
-                return {
-                    ...prev,
-                    timeout: true,
-                };
-            });
-        }, 1000 * 60 * 3); // 3 minutes timeout
+        const timer = setTimeout(
+            () => {
+                setProps((prev) => {
+                    if (!prev || prev.ready || prev.timeout) return prev;
+                    return {
+                        ...prev,
+                        timeout: true,
+                    };
+                });
+            },
+            1000 * 60 * 3,
+        ); // 3 minutes timeout
 
         return () => {
             result?.cleanup();
