@@ -1208,10 +1208,6 @@ msgstr "Repost again"
 msgid "New connection via Farcaster"
 msgstr "New connection via Farcaster"
 
-#. placeholder {0}: author.handle
-msgid "Follow @{0}`"
-msgstr "Follow @{0}`"
-
 msgid "The token can not be bought."
 msgstr "The token can not be bought."
 
@@ -3895,6 +3891,10 @@ msgstr "Your post was sent"
 msgid "Remove"
 msgstr "Remove"
 
+#. placeholder {0}: author.handle
+msgid "Follow @{0}"
+msgstr "Follow @{0}"
+
 msgid "Cancel Recast"
 msgstr "Cancel Recast"
 
@@ -3946,9 +3946,6 @@ msgstr "Events"
 
 msgid "Quote posts disabled"
 msgstr "Quote posts disabled"
-
-msgid "Unblock"
-msgstr "Unblock"
 
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 #. placeholder {0}: resolveSourceName(Source.Lens)

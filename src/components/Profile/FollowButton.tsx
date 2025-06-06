@@ -72,7 +72,10 @@ export const FollowButton = memo(function FollowButton({
         },
         [hovering, isFollowing, isFollowedBy, variant],
     );
-    if (profile.source === Source.Twitter && (profile.__original__ as UserV2).connection_status?.includes('blocking')) {
+    if (
+        profile.source === Source.Twitter &&
+        (profile.__original__ as UserV2)?.connection_status?.includes('blocking')
+    ) {
         return (
             <TwitterBlockButton
                 isBlocked

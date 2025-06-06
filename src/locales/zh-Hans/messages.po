@@ -1213,10 +1213,6 @@ msgstr "再次转帖"
 msgid "New connection via Farcaster"
 msgstr ""
 
-#. placeholder {0}: author.handle
-msgid "Follow @{0}`"
-msgstr ""
-
 msgid "The token can not be bought."
 msgstr "该代币无法购买。"
 
@@ -3900,6 +3896,10 @@ msgstr "你的帖文已发送"
 msgid "Remove"
 msgstr "移除"
 
+#. placeholder {0}: author.handle
+msgid "Follow @{0}"
+msgstr ""
+
 msgid "Cancel Recast"
 msgstr "取消转帖"
 
@@ -3951,9 +3951,6 @@ msgstr "活动"
 
 msgid "Quote posts disabled"
 msgstr "不可转发"
-
-msgid "Unblock"
-msgstr ""
 
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 #. placeholder {0}: resolveSourceName(Source.Lens)

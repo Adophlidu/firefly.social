@@ -70,7 +70,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                         ) : isFollowing ? (
                             <Trans>Unfollow @{author.handle}</Trans>
                         ) : (
-                            <Trans>Follow @{author.handle}`</Trans>
+                            <Trans>Follow @{author.handle}</Trans>
                         )}
                     </span>
                 </>
