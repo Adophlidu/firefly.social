@@ -1,22 +1,19 @@
 'use client';
 
 import { t } from '@lingui/core/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 
-import { DEFAULT_SERVICE_URL } from '@/constants/bsky.js';
-import { type SocialSource, SourceInURL } from '@/constants/enum.js';
-import { decryptAppScanLoginEncryptedData } from '@/helpers/decryptAppScanLoginEncryptedData.js';
-import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
-import { parseJson } from '@/helpers/parseJson.js';
+import { decryptAppScanLoginEncryptedData } from '@/actions/decryptAppScanLoginEncryptedData.js';
+import { type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
+import { resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import { DesktopLinkInfoStatus, type DesktopLinkInfoStatusData } from '@/providers/types/Firefly.js';
@@ -62,71 +59,26 @@ export interface SocialAccountBsky {
 }
 
 type SocialAccount = SocialAccountTwitter | SocialAccountFarcaster | SourceAccountLens | SocialAccountBsky;
+type SocialSession = FarcasterSession | LensSession | TwitterSession | BskySession;
 
 export class DecryptionFailed extends Error {}
 
-export async function loginWithAppScan(data: DesktopLinkInfoStatusData, otp: string) {
+export async function loginWithAppScan(
+    data: DesktopLinkInfoStatusData,
+    otp: string,
+    options?: {
+        onBeforeAddAccounts?: () => void | Promise<void>;
+    },
+) {
     if (data.status !== DesktopLinkInfoStatus.Confirm) throw new DecryptionFailed(t`The encrypted data not found.`);
     if (!data.encryptedData) throw new DecryptionFailed(t`The encrypted data not found.`);
-    const authData = await runInSafeAsync(async () => {
-        const decryptedData = await decryptAppScanLoginEncryptedData(data.encryptedData, otp);
-        return parseJson<AuthDataFromApp>(decryptedData);
-    });
-    if (!authData) throw new DecryptionFailed(t`Decryption failed.`);
-    return resumeSessions(authData);
-}
-
-async function resumeSessions(authData: AuthDataFromApp) {
-    const allConnectionsFromAuthToken = await FireflyEndpointProvider.getAllConnectionsFromAuthToken(
-        authData.firefly_account_token,
-    );
-    const fireflyProfile = formatFireflyAccountProfileFromFireflyConnections(allConnectionsFromAuthToken.account);
-    if (!fireflyProfile) throw new DecryptionFailed(`The firefly account not found.`);
-    const fireflySession = new FireflySession(fireflyProfile.uid, authData.firefly_account_token, null, null, false, {
-        ...fireflyProfile,
-        isNew: false,
-    });
-    const sessions: Array<FarcasterSession | LensSession | TwitterSession | BskySession> = compact(
-        authData.social_accounts.map((account) => {
-            const source = account.type;
-            switch (source) {
-                case SourceInURL.Farcaster:
-                    return new FarcasterSession(account.user_id, account.token, 0, 0);
-                case SourceInURL.Lens:
-                    return new LensSession(
-                        account.user_id,
-                        account.accessToken,
-                        0,
-                        0,
-                        account.refreshToken,
-                        account.user_id,
-                    );
-                case SourceInURL.Bsky:
-                    return new BskySession(account.user_id, 0, 0, DEFAULT_SERVICE_URL, {
-                        active: true,
-                        did: account.user_id,
-                        handle: account.handle,
-                        accessJwt: account.accessJwt,
-                        refreshJwt: account.refreshJwt,
-                    });
-                case SourceInURL.X:
-                    return new TwitterSession(account.user_id, account.accessToken, 0, 0, {
-                        clientId: account.user_id,
-                        accessToken: account.accessToken,
-                        accessTokenSecret: account.accessTokenSecret,
-                        consumerKey: account.consumerKey,
-                        consumerSecret: account.consumerKeySecret,
-                    });
-                default:
-                    safeUnreachable(source);
-                    return null;
-            }
-        }),
-    );
+    const res = await decryptAppScanLoginEncryptedData(data.encryptedData, otp);
+    if ('error' in res) throw new DecryptionFailed(res.error);
+    const fireflySession = SessionFactory.createSession<FireflySession>(res.fireflySession);
+    const sessions = res.sessions.map((session) => SessionFactory.createSession<SocialSession>(session));
     const promises = sessions.map(async (session) => {
-        const profile = await resolveSocialMediaProvider(
-            resolveSourceFromSessionType(session.type) as SocialSource,
-        ).getProfileById(session.profileId);
+        const source = resolveSourceFromSessionType(session.type) as SocialSource;
+        const profile = await resolveSocialMediaProvider(source).getProfileById(session.profileId);
         return {
             origin: 'sync',
             profile,
@@ -136,5 +88,15 @@ async function resumeSessions(authData: AuthDataFromApp) {
     });
     const settled = await Promise.allSettled(promises);
     const accounts = compact(settled.map((x) => (x.status === 'fulfilled' ? x.value : null)));
-    await addAccounts(fireflySession, accounts);
+    await options?.onBeforeAddAccounts?.();
+    await addAccounts(fireflySession, accounts, {
+        async setAsCurrent(account) {
+            if (account.profile.source === Source.Lens) {
+                await lensSessionHolder?.resumeSession(account.session as LensSession, true);
+                return;
+            }
+            const sessionHolder = resolveSessionHolderFromProfileSource(account.profile.source);
+            sessionHolder?.resumeSession(account.session);
+        },
+    });
 }

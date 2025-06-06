@@ -430,9 +430,6 @@ msgstr "FAILED POST"
 msgid "Mute /${0}"
 msgstr "Mute /${0}"
 
-msgid "Decryption failed."
-msgstr "Decryption failed."
-
 msgid "Post engagements"
 msgstr "Post engagements"
 

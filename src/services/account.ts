@@ -375,7 +375,7 @@ export async function addAccounts(fireflySession: FireflySession, accounts: Acco
         }
 
         const belongsTo =
-            skipBelongsToCheck || fireflySession || currentFireflySession || !hasAnySocialProfile()
+            skipBelongsToCheck || !fireflySession || !currentFireflySession || !hasAnySocialProfile()
                 ? true
                 : isSameSession(fireflySession, currentFireflySession);
         if (!belongsTo) {
@@ -405,7 +405,7 @@ export async function addAccounts(fireflySession: FireflySession, accounts: Acco
 
         await updateState(accounts, {
             setAsCurrent,
-            overwrite: false,
+            overwrite: !belongsTo,
         });
     }
 

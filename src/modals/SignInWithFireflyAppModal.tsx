@@ -2,7 +2,7 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { memo, type Ref, useState } from 'react';
 import QRCode from 'react-qr-code';
@@ -39,14 +39,14 @@ function generateOTP() {
 
 function useExpires(expiresAt?: string, enabled = true) {
     const [isExpired, setIsExpired] = useState(false);
+
     useInterval(
         () => {
-            const expired = dayjs().isAfter(dayjs(expiresAt));
-            if (!expired) return;
-            setIsExpired(true);
+            setIsExpired(dayjs().isAfter(dayjs(expiresAt)));
         },
         enabled && expiresAt ? 1000 : null,
     );
+
     return isExpired;
 }
 
@@ -59,14 +59,7 @@ export const SignInWithFireflyAppModal = memo(function SignInWithFireflyAppModal
             <div className="transform rounded-[12px] bg-primaryBottom text-second transition-all max-md:h-full md:w-[500px]">
                 <Header onClose={onClose} />
                 <div className="flex w-full flex-col items-center space-y-3 px-6 pb-6 text-xs">
-                    <Content
-                        enabled={open}
-                        onSuccess={() => {
-                            enqueueSuccessMessage(t`Your Firefly Account is now connected`);
-                            onClose();
-                        }}
-                        onCancel={() => onClose()}
-                    />
+                    <Content enabled={open} onClose={onClose} />
                 </div>
             </div>
         </Modal>
@@ -85,15 +78,7 @@ function Header({ onClose }: { onClose: () => void }) {
     );
 }
 
-function Content({
-    enabled,
-    onSuccess,
-    onCancel,
-}: {
-    enabled: boolean;
-    onSuccess?: () => void;
-    onCancel?: () => void;
-}) {
+function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void }) {
     const { data: otp } = useQuery({
         queryKey: ['sign-in-with-firefly-app-otp'],
         queryFn() {
@@ -121,10 +106,22 @@ function Content({
         refetchOnMount: true,
     });
 
+    const queryClient = useQueryClient();
+
     const { loading: isLogging } = usePollingAppScanLogin(otp, linkInfoData?.session, {
         enabled,
-        onSuccess,
-        onCancel,
+        onBeforeAddAccounts: onClose,
+        onSuccess() {
+            enqueueSuccessMessage(t`Your Firefly Account is now connected`);
+            queryClient.removeQueries({ queryKey: ['desktop-link-info-session'] });
+            queryClient.removeQueries({ queryKey: ['sign-in-with-firefly-app-otp'] });
+            onClose?.();
+        },
+        onCancel() {
+            queryClient.removeQueries({ queryKey: ['desktop-link-info-session'] });
+            queryClient.removeQueries({ queryKey: ['sign-in-with-firefly-app-otp'] });
+            onClose?.();
+        },
     });
 
     const isExpired = useExpires(linkInfoData?.expiresAt, enabled);

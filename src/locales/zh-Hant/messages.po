@@ -435,9 +435,6 @@ msgstr "發文失敗"
 msgid "Mute /${0}"
 msgstr ""
 
-msgid "Decryption failed."
-msgstr ""
-
 msgid "Post engagements"
 msgstr "貼文互動"
 

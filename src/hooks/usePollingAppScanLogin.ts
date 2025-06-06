@@ -16,6 +16,7 @@ export function usePollingAppScanLogin(
     session?: string,
     options?: {
         enabled?: boolean;
+        onBeforeAddAccounts?: () => void;
         onSuccess?: () => void;
         onFailure?: (error: unknown) => void;
         onCancel?: () => void;
@@ -23,6 +24,7 @@ export function usePollingAppScanLogin(
     },
 ) {
     const enabled = options?.enabled ?? true;
+    const onBeforeAddAccounts = options?.onBeforeAddAccounts;
     const onSuccess = options?.onSuccess;
     const onFailure = options?.onFailure;
     const onCancel = options?.onCancel;
@@ -40,14 +42,14 @@ export function usePollingAppScanLogin(
     const [{ loading }, login] = useAsyncFn(async () => {
         if (!enabled || data?.status !== DesktopLinkInfoStatus.Confirm || !otp || !data?.encryptedData) return;
         try {
-            await loginWithAppScan(data, otp);
+            await loginWithAppScan(data, otp, { onBeforeAddAccounts });
             onSuccess?.();
         } catch (error) {
             enqueueErrorMessage(getErrorMessageFromError(error, t`Failed to login.`));
             onFailure?.(error);
             throw error;
         }
-    }, [enabled, data, otp, onSuccess, onFailure]);
+    }, [enabled, data, otp, onBeforeAddAccounts, onSuccess, onFailure]);
 
     useEffect(() => {
         if (!enabled || !data) return;
