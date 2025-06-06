@@ -129,36 +129,39 @@ export function composeSearchProfiles(identities: SearchProfile[], ...rest: Prof
     ]);
 }
 
-function isEqualString(a: string, b: string) {
-    return a.toLowerCase() === b.toLowerCase();
+function computePriority(searchProfile: SearchProfile, keyword: string) {
+    const {
+        profile: { handle, name },
+        isSpecial,
+    } = searchProfile;
+
+    const lowerKeyword = keyword.toLowerCase();
+    const lowerHandle = handle.toLowerCase();
+    const lowerName = name.toLowerCase();
+    const wordReg = new RegExp(`\\b${lowerKeyword}\\b`, 'i');
+
+    if (isSpecial) {
+        return 0;
+    } else if (handle === keyword) {
+        return 1;
+    } else if (lowerHandle === lowerKeyword) {
+        return 2;
+    } else if (lowerName === lowerKeyword) {
+        return 3;
+    } else if (wordReg.test(lowerHandle) || wordReg.test(lowerName)) {
+        return 4;
+    } else if (lowerHandle.includes(lowerKeyword) || lowerName.includes(lowerKeyword)) {
+        return 5;
+    } else {
+        return Infinity; // lowest priority
+    }
 }
 
 export function sortSearchProfiles(data: SearchProfile[], keyword: string) {
-    const specials: SearchProfile[] = [];
-    const handleMatched: SearchProfile[] = [];
-    const nameMatched: SearchProfile[] = [];
-    const others: SearchProfile[] = [];
+    if (!keyword) return data;
 
-    data.forEach((item) => {
-        if (item.isSpecial) {
-            specials.push(item);
-        } else if (isEqualString(item.profile.handle, keyword)) {
-            handleMatched.push(item);
-        } else if (isEqualString(item.profile.name, keyword)) {
-            nameMatched.push(item);
-        } else {
-            others.push(item);
-        }
-    });
-
-    return [
-        ...specials,
-        ...handleMatched,
-        ...nameMatched,
-        ...others.sort((a, b) => {
-            const aHandle = a.profile.handle.toLowerCase();
-            const bHandle = b.profile.handle.toLowerCase();
-            return aHandle.localeCompare(bHandle);
-        }),
-    ];
+    return data
+        .map((item) => ({ data: item, priority: computePriority(item, keyword) }))
+        .sort((a, b) => a.priority - b.priority)
+        .map((item) => item.data);
 }
