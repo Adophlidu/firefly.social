@@ -1018,9 +1018,6 @@ msgstr "条目"
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制。"
 
-msgid "Multi-device login is now turned off and all previously sessions are cleared"
-msgstr ""
-
 msgid "Minting Txn Hash"
 msgstr "铸造交易哈希中"
 

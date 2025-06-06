@@ -1,10 +1,12 @@
 import { t } from '@lingui/core/macro';
 import { safeUnreachable, unreachable } from '@masknet/kit';
 
+import { queryClient } from '@/configs/queryClient.js';
 import { PasswordStep, PasswordWorkflow } from '@/constants/enum.js';
 import { FireflyResponseCode } from '@/constants/responseCode.js';
 import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { PasswordModalRef } from '@/modals/controls.js';
 import { isStrongDigitPassword, isValidPassword } from '@/modals/PasswordModal/isValidPassword.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { mergeMetrics, uploadMetrics } from '@/services/metrics.js';
@@ -33,21 +35,26 @@ export async function verifyPasscodeOnServer(password: string): Promise<boolean>
     const response = await FireflyEndpointProvider.checkPasscode(password, true);
     if (response.code === FireflyResponseCode.SUCCESS) return true;
 
-    if (response.code === FireflyResponseCode.PASSCODE_INCORRECT) {
-        enqueueWarningMessage(t`The password you entered is incorrect. Please try again.`);
-        return false;
-    } else if (response.code === FireflyResponseCode.PASSCODE_INCORRECT_TOO_MANY_TIMES) {
+    if (
+        [FireflyResponseCode.PASSCODE_INCORRECT, FireflyResponseCode.PASSCODE_INCORRECT_TOO_MANY_TIMES].includes(
+            response.code,
+        )
+    ) {
         const data = response.data || {};
         if ('remainTryTimes' in data && 'retryTimes' in data) {
             const remainTryTimes = data.remainTryTimes as number;
-
-            if (remainTryTimes === 0) {
-                enqueueErrorMessage(t`Multi-device login is now turned off and all previously sessions are cleared`);
-            } else {
-                enqueueWarningMessage(
-                    t`${remainTryTimes} more incorrect password attempts will clear all your encrypted login sessions.`,
-                );
+            const retryTimes = data.retryTimes as number;
+            if (remainTryTimes <= 0) {
+                enqueueErrorMessage(t`Multi-device login is now turned off and all previously sessions are cleared.`);
+                PasswordModalRef.close();
+                queryClient.setQueryData(['session-sync-status', true], false);
+                return false;
             }
+            enqueueWarningMessage(
+                retryTimes === 1
+                    ? t`The password you entered is incorrect. Please try again.`
+                    : t`${remainTryTimes} more incorrect password attempts will clear all your encrypted login sessions.`,
+            );
             return false;
         }
     }

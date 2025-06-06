@@ -1013,9 +1013,6 @@ msgstr "Items"
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "Failed to upload. More than {maxImageCount} images."
 
-msgid "Multi-device login is now turned off and all previously sessions are cleared"
-msgstr "Multi-device login is now turned off and all previously sessions are cleared"
-
 msgid "Minting Txn Hash"
 msgstr "Minting Txn Hash"
 

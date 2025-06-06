@@ -25,7 +25,7 @@ export const PasswordInputPanel = memo<PasswordInputPanelProps>(function Passwor
             newPassword[index] = /^\d+$/.test(value) ? value.slice(0, 1) : '';
             onPasswordChange(newPassword);
 
-            if (!value?.trim()) return;
+            if (!newPassword[index]?.trim()) return;
 
             if (selectionStart === 1 && index < METRICS_PASSWORD_LENGTH - 1) {
                 document.getElementById(`${SESSION_PASSWORD_INPUT_ID_PREFIX}${index + 1}`)?.focus();
