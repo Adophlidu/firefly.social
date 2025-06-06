@@ -9,6 +9,10 @@ import type { ComposeModalCloseProps, ComposeModalOpenProps } from '@/modals/Com
 import type { ConfirmFireflyModalCloseProps, ConfirmFireflyModalOpenProps } from '@/modals/ConfirmFireflyModal.js';
 import type { ConfirmLeavingModalCloseProps, ConfirmLeavingModalOpenProps } from '@/modals/ConfirmLeavingModal.js';
 import type { ConfirmModalCloseResult, ConfirmModalOpenProps } from '@/modals/ConfirmModal.js';
+import type {
+    ConfirmSyncSessionModalCloseProps,
+    ConfirmSyncSessionModalOpenProps,
+} from '@/modals/ConfirmSyncSessionModal.js';
 import type { DisconnectFireflyAccountModalProps } from '@/modals/DisconnectFireflyAccountModal.js';
 import type { DraggablePopoverProps } from '@/modals/DraggablePopover.js';
 import type { EditCrossAtModalCloseProps, EditCrossAtModalOpenProps } from '@/modals/EditCrossAtModal.js';
@@ -74,3 +78,7 @@ export const SwapModalRef = new SingletonModal<SwapModalOpenProps>();
 export const SignInWithFireflyAppModalRef = new SingletonModal();
 export const PasswordModalRef = new SingletonModal<PasswordModalOpenProps, boolean | void>();
 export const EditCrossAtModalRef = new SingletonModal<EditCrossAtModalOpenProps, EditCrossAtModalCloseProps>();
+export const ConfirmSyncSessionModalRef = new SingletonModal<
+    ConfirmSyncSessionModalOpenProps,
+    ConfirmSyncSessionModalCloseProps
+>();

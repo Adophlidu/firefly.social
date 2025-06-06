@@ -25,6 +25,7 @@ export const ModalActions = memo<ModalActionsProps>(function ModalActions({
         [PasswordWorkflow.Set, [PasswordStep.SetPassword]],
         [PasswordWorkflow.Change, [PasswordStep.ChangePassword]],
         [PasswordWorkflow.Reset, [PasswordStep.SetPassword]],
+        [PasswordWorkflow.Verify, [PasswordStep.VerifyPassword]],
     ].some(([w, s]) => w === workflow && s.includes(step)) ? (
         <Trans>Continue</Trans>
     ) : (

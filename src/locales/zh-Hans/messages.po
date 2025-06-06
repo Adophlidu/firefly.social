@@ -226,6 +226,9 @@ msgstr "选择代币"
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
 
+msgid "Multi-device login sessions synced successfully."
+msgstr ""
+
 msgid "Money laundering."
 msgstr "洗钱。"
 
@@ -611,6 +614,9 @@ msgstr "代币"
 
 msgid "Search {id}"
 msgstr "搜索 {id}"
+
+msgid "Skip"
+msgstr ""
 
 msgid "Confirm to log out your Firefly account?"
 msgstr "确认退出你的 Firefly 账号吗？"
@@ -1011,6 +1017,9 @@ msgstr "条目"
 
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制。"
+
+msgid "Multi-device login is now turned off and all previously sessions are cleared"
+msgstr ""
 
 msgid "Minting Txn Hash"
 msgstr "铸造交易哈希中"
@@ -2149,6 +2158,9 @@ msgstr "确认断开此账户及相关钱包与 Firefly 社交图谱的连接吗
 msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
 msgstr "在 Firefly 上取消关注 @{handleOrEnsOrAddress}"
 
+msgid "Enter your password to verify your identity."
+msgstr ""
+
 msgid "Post your reply"
 msgstr "发送你的回复"
 
@@ -3234,6 +3246,9 @@ msgstr "没有过量铸造。"
 msgid "No money laundering found."
 msgstr "不涉及洗钱。"
 
+msgid "Accounts Connected"
+msgstr ""
+
 msgid "Failed to claim token"
 msgstr "领取代币失败"
 
@@ -3396,11 +3411,17 @@ msgstr "已举报"
 msgid "Show more channels"
 msgstr "展示更多频道"
 
+msgid "Something went wrong."
+msgstr ""
+
 msgid "Snapshot added to your Bookmarks"
 msgstr "Snapshot 已经添加到你的收藏中"
 
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "无法继续。请允许 Lens Manager 执行操作，而无需对每笔交易进行签名。"
+
+msgid "We've detected logins available for sync."
+msgstr ""
 
 msgid "Contract"
 msgstr "合约"

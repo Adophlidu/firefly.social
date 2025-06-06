@@ -100,6 +100,8 @@ import {
     type LinkDigestResponse,
     type LoginFarcasterWithWalletResponse,
     type LoginResponse,
+    type MetricsDownloadMetaInfoResponse,
+    type MetricsDownloadResponse,
     type MetricsItemToUpload,
     type MetricsStatusResponse,
     type MintBySponsorResponse,
@@ -1617,6 +1619,35 @@ class FireflyEndpoint {
                 client_os: 'web',
             }),
         });
+
+        return resolveFireflyResponseData(response);
+    }
+
+    async deleteMetrics(passcode: string, identity: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/metrics/delete');
+        const response = await fireflySessionHolder.fetch<Response<{}>>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                passcode: encryptPasscode(passcode),
+                metaInfoIds: [identity],
+            }),
+        });
+
+        return resolveFireflyResponseData(response);
+    }
+
+    async downloadMetaInfo() {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/metrics/download-meta-info');
+        const response = await fireflySessionHolder.fetch<MetricsDownloadMetaInfoResponse>(url);
+
+        return resolveFireflyResponseData(response);
+    }
+
+    async downloadMetrics(passcode: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/metrics/download', {
+            passcode: encryptPasscode(passcode),
+        });
+        const response = await fireflySessionHolder.fetch<MetricsDownloadResponse>(url);
 
         return resolveFireflyResponseData(response);
     }

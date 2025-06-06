@@ -582,6 +582,7 @@ export enum PasswordStep {
     ConfirmPassword = 'confirm_password',
     ChangePassword = 'change_password',
     Success = 'success',
+    VerifyPassword = 'verify_password',
 }
 
 export enum PasswordWorkflow {
@@ -593,7 +594,7 @@ export enum PasswordWorkflow {
 
 export const PasswordWorkflowConfig: Record<PasswordWorkflow, PasswordStep[]> = {
     [PasswordWorkflow.Set]: [PasswordStep.SetPassword, PasswordStep.ConfirmPassword, PasswordStep.Success],
-    [PasswordWorkflow.Verify]: [PasswordStep.SetPassword, PasswordStep.Success],
+    [PasswordWorkflow.Verify]: [PasswordStep.VerifyPassword, PasswordStep.Success],
     [PasswordWorkflow.Change]: [
         PasswordStep.SetPassword,
         PasswordStep.ChangePassword,

@@ -1749,6 +1749,22 @@ export type MetricsStatusResponse = Response<{
     hasSetPasscode?: boolean;
 }>;
 
+export type MetricsDownloadResponse = Response<{
+    remainTryCount: number;
+    metrics: Array<{
+        identity: string;
+        ciphertext: string;
+        metaInfo: MetricsMetaInfo;
+    }>;
+}>;
+
+export type MetricsDownloadMetaInfoResponse = Response<{
+    metrics: Array<{
+        identity: string;
+        metaInfo: MetricsMetaInfo;
+    }>;
+}>;
+
 export interface MetricsMetaInfo {
     platform: Exclude<SocialSourceInURL, SourceInURL.Bsky> | 'bluesky';
     profileId: string;

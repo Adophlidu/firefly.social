@@ -50,6 +50,8 @@ export const ModalTitle = memo(function ModalTitle({ workflow, step }: ModalTitl
             return <SetPasswordTitle workflow={workflow} />;
         case PasswordStep.ChangePassword:
             return <ChangePasswordTitle workflow={workflow} />;
+        case PasswordStep.VerifyPassword:
+            return <Trans>Password Verification</Trans>;
         case PasswordStep.Success:
             return null;
         default:

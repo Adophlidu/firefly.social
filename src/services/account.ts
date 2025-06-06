@@ -2,16 +2,24 @@ import { first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
+import { PasswordWorkflow, type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import { SEVEN_DAYS, SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
+import { FireflyResponseCode } from '@/constants/responseCode.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
+import { getAllProfiles } from '@/helpers/getAllProfiles.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSessionHolder, resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { ConfirmFireflyModalRef, LoginModalRef } from '@/modals/controls.js';
+import {
+    ConfirmFireflyModalRef,
+    ConfirmSyncSessionModalRef,
+    LoginModalRef,
+    PasswordModalRef,
+} from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -31,9 +39,11 @@ import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { getTwitterTimelineWhitelist } from '@/services/getTwitterTimelineWhitelist.js';
+import { downloadAccounts, uploadMetrics } from '@/services/metrics.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { useFireflyStateStore, useThirdPartyStateStore } from '@/store/useProfileStore.js';
+import { useTokenPasswordStore } from '@/store/useTokenPasswordStore.js';
 
 function getContext(source: ProfileSource) {
     return {
@@ -180,6 +190,8 @@ export interface AccountOptions {
     skipResumeFireflySession?: boolean;
     // skip reporting farcaster signer, default: true
     skipReportFarcasterSigner?: boolean;
+    // skip verify password check, default: false
+    skipVerifyPasswordCheck?: boolean;
     // early return signal
     signal?: AbortSignal;
 }
@@ -191,6 +203,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         skipResumeFireflyAccounts = false,
         skipResumeFireflySession = false,
         skipReportFarcasterSigner = true,
+        skipVerifyPasswordCheck = false,
         signal,
     } = options ?? {};
 
@@ -273,6 +286,48 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         await resumeFireflySession(account, signal);
     }
 
+    const syncStatus = await FireflyEndpointProvider.getMetricsStatus();
+
+    if (!skipResumeFireflyAccounts && fireflySession && syncStatus.hasSetPasscode) {
+        const remoteProfiles = await downloadAccounts();
+
+        const localProfiles = getAllProfiles();
+
+        const profilesToSync = remoteProfiles.filter(
+            (remoteProfile) => !localProfiles.some((localProfile) => isSameProfile(localProfile, remoteProfile)),
+        );
+
+        const profilesToUpload = localProfiles.filter(
+            (localProfile) => !remoteProfiles.some((remoteProfile) => isSameProfile(localProfile, remoteProfile)),
+        );
+
+        if (profilesToSync.length > 0) {
+            LoginModalRef.close();
+            const confirmed = await ConfirmSyncSessionModalRef.openAndWaitForClose({
+                profiles: remoteProfiles,
+            });
+
+            if (confirmed && !skipVerifyPasswordCheck) {
+                await PasswordModalRef.openAndWaitForClose({
+                    workflow: PasswordWorkflow.Verify,
+                });
+            }
+        } else if (profilesToUpload.length > 0) {
+            const passcode = useTokenPasswordStore.getState().password;
+
+            if (passcode) {
+                const result = await FireflyEndpointProvider.checkPasscode(passcode, true);
+                if (result.code === FireflyResponseCode.SUCCESS) {
+                    await uploadMetrics(passcode);
+                }
+            } else {
+                await PasswordModalRef.openAndWaitForClose({
+                    workflow: PasswordWorkflow.Verify,
+                });
+            }
+        }
+    }
+
     // report farcaster signer
     runInSafeAsync(async () => {
         if (
@@ -306,6 +361,19 @@ export async function addAccounts(fireflySession: FireflySession, accounts: Acco
 
     if (!skipResumeFireflyAccounts) {
         const currentFireflySession = getProfileState(Source.Firefly).currentProfileSession;
+
+        if (!currentFireflySession) {
+            const confirmed = await ConfirmSyncSessionModalRef.openAndWaitForClose({
+                profiles: accounts.map((x) => x.profile),
+            });
+
+            if (confirmed) {
+                await updateState(accounts, {
+                    setAsCurrent,
+                });
+            }
+        }
+
         const belongsTo =
             skipBelongsToCheck || fireflySession || currentFireflySession || !hasAnySocialProfile()
                 ? true
@@ -316,6 +384,25 @@ export async function addAccounts(fireflySession: FireflySession, accounts: Acco
             });
             if (!confirmed) return false;
         }
+
+        const allProfiles = getAllProfiles();
+        const profilesToSync = accounts.filter(
+            (account) => !allProfiles.some((profile) => isSameProfile(account.profile, profile)),
+        );
+
+        if (profilesToSync.length > 0) {
+            const confirmed = await ConfirmSyncSessionModalRef.openAndWaitForClose({
+                profiles: profilesToSync.map((x) => x.profile),
+            });
+
+            if (confirmed) {
+                await updateState(accounts, {
+                    setAsCurrent,
+                    overwrite: false,
+                });
+            }
+        }
+
         await updateState(accounts, {
             setAsCurrent,
             overwrite: false,
@@ -394,6 +481,17 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
         state.removeAccount(account);
     }
 
+    runInSafeAsync(async () => {
+        const passcode = useTokenPasswordStore.getState().password;
+        const result = passcode ? await FireflyEndpointProvider.checkPasscode(passcode, true) : null;
+
+        if (result?.code === FireflyResponseCode.SUCCESS && passcode) {
+            await FireflyEndpointProvider.deleteMetrics(
+                passcode,
+                `${account.profile.source === Source.Bsky ? 'bluesky' : resolveSourceInUrl(account.profile.source)}:${account.profile.profileId}`,
+            );
+        }
+    });
     runInSafeAsync(async () => {
         if (TwitterSession.isNextAuth(account.session)) {
             await signOut({

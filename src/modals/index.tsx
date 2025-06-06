@@ -13,6 +13,7 @@ import { ComposeModal } from '@/modals/ComposeModal.js';
 import { ConfirmFireflyModal } from '@/modals/ConfirmFireflyModal.js';
 import { ConfirmLeavingModal } from '@/modals/ConfirmLeavingModal.js';
 import { ConfirmModal } from '@/modals/ConfirmModal.js';
+import { ConfirmSyncSessionModal } from '@/modals/ConfirmSyncSessionModal.js';
 import * as controls from '@/modals/controls.js';
 import { DisconnectFireflyAccountModal } from '@/modals/DisconnectFireflyAccountModal.js';
 import { DraggablePopover } from '@/modals/DraggablePopover.js';
@@ -76,6 +77,7 @@ export const Modals = memo(function Modals() {
             <SignInWithFireflyAppModal ref={controls.SignInWithFireflyAppModalRef.register} />
             <PasswordModal ref={controls.PasswordModalRef.register} />
             <EditCrossAtModal ref={controls.EditCrossAtModalRef.register} />
+            <ConfirmSyncSessionModal ref={controls.ConfirmSyncSessionModalRef.register} />
         </NoSSR>
     );
 });

@@ -221,6 +221,9 @@ msgstr "Select token"
 msgid "The post you quoted/replied has already deleted"
 msgstr "The post you quoted/replied has already deleted"
 
+msgid "Multi-device login sessions synced successfully."
+msgstr "Multi-device login sessions synced successfully."
+
 msgid "Money laundering."
 msgstr "Money laundering."
 
@@ -606,6 +609,9 @@ msgstr "Tokens"
 
 msgid "Search {id}"
 msgstr "Search {id}"
+
+msgid "Skip"
+msgstr "Skip"
 
 msgid "Confirm to log out your Firefly account?"
 msgstr "Confirm to log out your Firefly account?"
@@ -1006,6 +1012,9 @@ msgstr "Items"
 
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "Failed to upload. More than {maxImageCount} images."
+
+msgid "Multi-device login is now turned off and all previously sessions are cleared"
+msgstr "Multi-device login is now turned off and all previously sessions are cleared"
 
 msgid "Minting Txn Hash"
 msgstr "Minting Txn Hash"
@@ -2144,6 +2153,9 @@ msgstr "Confirm to disconnect this account and related wallets from Firefly’s 
 msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
 msgstr "Unfollowed {handleOrEnsOrAddress} on Firefly"
 
+msgid "Enter your password to verify your identity."
+msgstr "Enter your password to verify your identity."
+
 msgid "Post your reply"
 msgstr "Post your reply"
 
@@ -3229,6 +3241,9 @@ msgstr "No oversupply minting."
 msgid "No money laundering found."
 msgstr "No money laundering found."
 
+msgid "Accounts Connected"
+msgstr "Accounts Connected"
+
 msgid "Failed to claim token"
 msgstr "Failed to claim token"
 
@@ -3391,11 +3406,17 @@ msgstr "Reported"
 msgid "Show more channels"
 msgstr "Show more channels"
 
+msgid "Something went wrong."
+msgstr "Something went wrong."
+
 msgid "Snapshot added to your Bookmarks"
 msgstr "Snapshot added to your Bookmarks"
 
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
+
+msgid "We've detected logins available for sync."
+msgstr "We've detected logins available for sync."
 
 msgid "Contract"
 msgstr "Contract"

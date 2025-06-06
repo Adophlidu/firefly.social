@@ -28,6 +28,7 @@ function createEmptyPasswords(): Record<PasswordStep, string[]> {
         [PasswordStep.ConfirmPassword]: Array(METRICS_PASSWORD_LENGTH).fill(''),
         [PasswordStep.SetPassword]: Array(METRICS_PASSWORD_LENGTH).fill(''),
         [PasswordStep.Success]: Array(METRICS_PASSWORD_LENGTH).fill(''),
+        [PasswordStep.VerifyPassword]: Array(METRICS_PASSWORD_LENGTH).fill(''),
     };
 }
 
@@ -54,6 +55,7 @@ export const PasswordModalContent = memo<
 >(function PasswordModalContent({ workflow: initialWorkflow, onClose }) {
     const [workflow, setWorkflow] = useState<PasswordWorkflow>(initialWorkflow);
     const [step, setStep] = useState<PasswordStep>(PasswordWorkflowConfig[initialWorkflow][0]);
+
     const [passwords, setPasswords] = useState<Record<PasswordStep, string[]>>(createEmptyPasswords());
 
     const { setPassword } = useTokenPasswordStore();
@@ -86,10 +88,7 @@ export const PasswordModalContent = memo<
 
             if (result.step === PasswordStep.Success) {
                 captureEvent(workflow);
-                if ([PasswordWorkflow.Set, PasswordWorkflow.Change, PasswordWorkflow.Reset].includes(workflow)) {
-                    const password = passwords[step].join('');
-                    setPassword(password);
-                }
+                setPassword(passwords[step].join(''));
                 onClose(true);
                 return;
             }

@@ -226,6 +226,9 @@ msgstr ""
 msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
+msgid "Multi-device login sessions synced successfully."
+msgstr ""
+
 msgid "Money laundering."
 msgstr ""
 
@@ -610,6 +613,9 @@ msgid "Tokens"
 msgstr ""
 
 msgid "Search {id}"
+msgstr ""
+
+msgid "Skip"
 msgstr ""
 
 msgid "Confirm to log out your Firefly account?"
@@ -1010,6 +1016,9 @@ msgid "Items"
 msgstr ""
 
 msgid "Failed to upload. More than {maxImageCount} images."
+msgstr ""
+
+msgid "Multi-device login is now turned off and all previously sessions are cleared"
 msgstr ""
 
 msgid "Minting Txn Hash"
@@ -2141,6 +2150,9 @@ msgstr ""
 msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
 msgstr ""
 
+msgid "Enter your password to verify your identity."
+msgstr ""
+
 msgid "Post your reply"
 msgstr ""
 
@@ -3221,6 +3233,9 @@ msgstr ""
 msgid "No money laundering found."
 msgstr ""
 
+msgid "Accounts Connected"
+msgstr ""
+
 msgid "Failed to claim token"
 msgstr ""
 
@@ -3383,10 +3398,16 @@ msgstr ""
 msgid "Show more channels"
 msgstr ""
 
+msgid "Something went wrong."
+msgstr ""
+
 msgid "Snapshot added to your Bookmarks"
 msgstr ""
 
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
+msgstr ""
+
+msgid "We've detected logins available for sync."
 msgstr ""
 
 msgid "Contract"

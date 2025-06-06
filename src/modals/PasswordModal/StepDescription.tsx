@@ -17,6 +17,9 @@ export const StepHeaderDescription = memo<StepDescriptionProps>(function StepDes
         [`${PasswordWorkflow.Set}-${PasswordStep.SetPassword}`]: (
             <Trans>Set a 6-digit password to verify your identity for multi-device login.</Trans>
         ),
+        [`${PasswordWorkflow.Verify}-${PasswordStep.VerifyPassword}`]: (
+            <Trans>Enter your password to verify your identity.</Trans>
+        ),
         [`${PasswordWorkflow.Change}-${PasswordStep.SetPassword}`]: (
             <Trans>Enter your password to confirm your identity.</Trans>
         ),
@@ -37,20 +40,22 @@ export const StepFooterDescription = memo<StepDescriptionProps>(function StepDes
     step,
     onWorkflowChange,
 }) {
+    const forgetPasswordDescription = (
+        <Trans>
+            Forgot your password?{' '}
+            <ClickableButton
+                className="text-highlight"
+                onClick={() => {
+                    onWorkflowChange?.(PasswordWorkflow.Reset);
+                }}
+            >
+                Reset password
+            </ClickableButton>
+        </Trans>
+    );
     const descriptions: StepDescriptions = {
-        [`${PasswordWorkflow.Change}-${PasswordStep.SetPassword}`]: (
-            <Trans>
-                Forgot your password?{' '}
-                <ClickableButton
-                    className="text-highlight"
-                    onClick={() => {
-                        onWorkflowChange?.(PasswordWorkflow.Reset);
-                    }}
-                >
-                    Reset password
-                </ClickableButton>
-            </Trans>
-        ),
+        [`${PasswordWorkflow.Change}-${PasswordStep.SetPassword}`]: forgetPasswordDescription,
+        [`${PasswordWorkflow.Verify}-${PasswordStep.VerifyPassword}`]: forgetPasswordDescription,
     };
     const description = descriptions[`${workflow}-${step}`];
 

@@ -226,6 +226,9 @@ msgstr "選擇代幣"
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回覆的貼文已經被刪除"
 
+msgid "Multi-device login sessions synced successfully."
+msgstr ""
+
 msgid "Money laundering."
 msgstr "洗錢活動。"
 
@@ -611,6 +614,9 @@ msgstr "代幣"
 
 msgid "Search {id}"
 msgstr "搜尋 {id}"
+
+msgid "Skip"
+msgstr ""
 
 msgid "Confirm to log out your Firefly account?"
 msgstr "確認登出 Firefly 帳戶？"
@@ -1011,6 +1017,9 @@ msgstr "項目"
 
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上傳失敗，超過 {maxImageCount} 張圖片"
+
+msgid "Multi-device login is now turned off and all previously sessions are cleared"
+msgstr ""
 
 msgid "Minting Txn Hash"
 msgstr "鑄造交易哈希"
@@ -2149,6 +2158,9 @@ msgstr ""
 msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
 msgstr ""
 
+msgid "Enter your password to verify your identity."
+msgstr ""
+
 msgid "Post your reply"
 msgstr ""
 
@@ -3229,6 +3241,9 @@ msgstr "無超額鑄造機制。"
 msgid "No money laundering found."
 msgstr "未檢測到洗錢行為。"
 
+msgid "Accounts Connected"
+msgstr ""
+
 msgid "Failed to claim token"
 msgstr "領取代幣失敗"
 
@@ -3391,11 +3406,17 @@ msgstr "已檢舉"
 msgid "Show more channels"
 msgstr "顯示更多頻道"
 
+msgid "Something went wrong."
+msgstr ""
+
 msgid "Snapshot added to your Bookmarks"
 msgstr "快照已加入書籤"
 
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "操作中斷，請啟用 Lens Manager 以無需逐筆簽名交易。"
+
+msgid "We've detected logins available for sync."
+msgstr ""
 
 msgid "Contract"
 msgstr "合約"

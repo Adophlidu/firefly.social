@@ -3,11 +3,11 @@ import { safeUnreachable, unreachable } from '@masknet/kit';
 
 import { PasswordStep, PasswordWorkflow } from '@/constants/enum.js';
 import { FireflyResponseCode } from '@/constants/responseCode.js';
-import { enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { isStrongDigitPassword, isValidPassword } from '@/modals/PasswordModal/isValidPassword.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { uploadMetrics } from '@/services/metrics.js';
+import { mergeMetrics, uploadMetrics } from '@/services/metrics.js';
 
 type NextStepConfig =
     | {
@@ -29,20 +29,25 @@ function checkPassword(password: string) {
     return true;
 }
 
-async function verifyPasscodeOnServer(password: string): Promise<boolean> {
+export async function verifyPasscodeOnServer(password: string): Promise<boolean> {
     const response = await FireflyEndpointProvider.checkPasscode(password, true);
     if (response.code === FireflyResponseCode.SUCCESS) return true;
 
     if (response.code === FireflyResponseCode.PASSCODE_INCORRECT) {
+        enqueueWarningMessage(t`The password you entered is incorrect. Please try again.`);
+        return false;
+    } else if (response.code === FireflyResponseCode.PASSCODE_INCORRECT_TOO_MANY_TIMES) {
         const data = response.data || {};
         if ('remainTryTimes' in data && 'retryTimes' in data) {
             const remainTryTimes = data.remainTryTimes as number;
-            const retryTimes = data.retryTimes as number;
-            enqueueWarningMessage(
-                retryTimes === 1
-                    ? t`The password you entered is incorrect. Please try again.`
-                    : t`${remainTryTimes} more incorrect password attempts will clear all your encrypted login sessions.`,
-            );
+
+            if (remainTryTimes === 0) {
+                enqueueErrorMessage(t`Multi-device login is now turned off and all previously sessions are cleared`);
+            } else {
+                enqueueWarningMessage(
+                    t`${remainTryTimes} more incorrect password attempts will clear all your encrypted login sessions.`,
+                );
+            }
             return false;
         }
     }
@@ -81,6 +86,7 @@ async function setPassword(
             return { step: PasswordStep.Success };
         }
         case PasswordStep.ChangePassword:
+        case PasswordStep.VerifyPassword:
             enqueueWarningMessage(t`Unexpected step for setting password: ${step}.`);
             return;
         case PasswordStep.Success:
@@ -119,6 +125,7 @@ async function changePassword(step: PasswordStep, passwords: Record<PasswordStep
             enqueueSuccessMessage(t`Password updated successfully.`);
             return { step: PasswordStep.Success };
         }
+        case PasswordStep.VerifyPassword:
         case PasswordStep.Success:
             return;
         default:
@@ -129,12 +136,14 @@ async function changePassword(step: PasswordStep, passwords: Record<PasswordStep
 
 async function verifyPassword(step: PasswordStep, passwords: Record<PasswordStep, string>): Promise<NextStepConfig> {
     switch (step) {
-        case PasswordStep.SetPassword: {
-            if (!(await verifyPasscodeOnServer(passwords[step]))) return;
+        case PasswordStep.VerifyPassword: {
+            await mergeMetrics(passwords[step]);
+            enqueueSuccessMessage(t`Multi-device login sessions synced successfully.`);
             return { step: PasswordStep.Success };
         }
         case PasswordStep.Success:
             return;
+        case PasswordStep.SetPassword:
         case PasswordStep.ChangePassword:
         case PasswordStep.ConfirmPassword:
             enqueueWarningMessage(t`Unexpected step for verifying password: ${step}.`);

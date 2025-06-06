@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
+import CloudIcon from '@/assets/cloud.svg';
 import EditIcon from '@/assets/edit.svg';
 import FireflyAvatar from '@/assets/firefly.round.svg';
 import LogoutIcon from '@/assets/log-out.svg';
@@ -20,9 +21,10 @@ import SwitchIcon from '@/assets/switch.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
-import { PageRoute, type SocialSource, Source, type ThirdPartySource } from '@/constants/enum.js';
+import { PageRoute, PasswordWorkflow, type SocialSource, Source, type ThirdPartySource } from '@/constants/enum.js';
 import { SORTED_LOGIN_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES_IN_URL } from '@/constants/index.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -46,6 +48,7 @@ import {
     EditFireflyProfileModalRef,
     LoginModalRef,
     LogoutModalRef,
+    PasswordModalRef,
     SignInWithFireflyAppModalRef,
 } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -69,6 +72,19 @@ function FireflyAccountLoadingSkeleton() {
 
 function FireflyAccount({ profile, connections }: { profile?: FireflyAccountProfile; connections?: AllConnections }) {
     const avatar = useFireflyAccountAvatar();
+
+    const [{ loading: queryMetricsStatusLoading }, queryMetricsStatus] = useAsyncFn(async () => {
+        try {
+            const result = await FireflyEndpointProvider.getMetricsStatus();
+            PasswordModalRef.open({
+                workflow: !result.hasSetPasscode ? PasswordWorkflow.Set : PasswordWorkflow.Verify,
+            });
+        } catch (error) {
+            enqueueMessageFromError(error, t`Something went wrong.`);
+            throw error;
+        }
+    }, []);
+
     if (!profile) return null;
     return (
         <div className="flex h-[76px] items-center gap-2 rounded-lg border border-highlight px-2">
@@ -131,6 +147,26 @@ function FireflyAccount({ profile, connections }: { profile?: FireflyAccountProf
                             >
                                 <ScanIcon className="mr-2 size-[18px]" />
                                 <Trans>Mobile QR login</Trans>
+                            </button>
+                        )}
+                    </MenuItem>
+                    <MenuItem>
+                        {({ close }) => (
+                            <button
+                                className="flex w-full items-center gap-2 whitespace-nowrap px-3 py-1 text-base font-bold"
+                                onClick={async () => {
+                                    if (queryMetricsStatusLoading) return;
+                                    await queryMetricsStatus();
+                                    close();
+                                    return;
+                                }}
+                            >
+                                {queryMetricsStatusLoading ? (
+                                    <LoadingIcon size={18} className="flex-1" />
+                                ) : (
+                                    <CloudIcon className="size-[18px] min-w-[18px] flex-1" />
+                                )}
+                                <Trans>Multi-device login</Trans>
                             </button>
                         )}
                     </MenuItem>
