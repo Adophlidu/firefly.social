@@ -1,6 +1,7 @@
 'use client';
 
 import { autoUpdate, flip, offset, shift, useDismiss, useFloating, useInteractions } from '@floating-ui/react';
+import { Portal } from '@headlessui/react';
 import { Plural, Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
@@ -176,6 +177,7 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
     const { refs, floatingStyles, context } = useFloating<HTMLDivElement>({
         open,
         placement: 'top',
+        strategy: 'absolute',
         whileElementsMounted: autoUpdate,
         middleware: [offset({ mainAxis: 7, crossAxis: -30 }), shift(), flip()],
         onOpenChange(nextOpen: boolean) {
@@ -188,57 +190,59 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
     const { getReferenceProps, getFloatingProps } = useInteractions([dismiss]);
 
     const floating = (
-        <div
-            ref={old ? undefined : refs.setFloating}
-            style={old ? undefined : floatingStyles}
-            className="floating-card z-20 mt-1 space-y-2 rounded-2xl bg-primaryBottom px-4 py-2 text-main shadow-messageShadow hover:text-main"
-            {...getFloatingProps()}
-        >
-            <ClickableButton
-                disabled={mirrorDisabled}
-                className={classNames(
-                    'flex w-full cursor-pointer items-center space-x-1 whitespace-nowrap md:space-x-2',
-                    {
-                        'text-secondarySuccess': mirrored,
-                    },
-                )}
-                onClick={() => {
-                    setOpen(false);
-                    handleMirror();
-                }}
+        <Portal>
+            <div
+                ref={old ? undefined : refs.setFloating}
+                style={old ? undefined : floatingStyles}
+                className="floating-card z-10 mt-1 space-y-2 rounded-2xl bg-primaryBottom px-4 py-2 text-main shadow-messageShadow hover:text-main"
+                {...getFloatingProps()}
             >
-                <MirrorLargeIcon width={18} height={18} />
-                <span className="font-medium">
-                    {mirrorDisabled ? <Trans>Mirror disabled</Trans> : mirrorActionText}
-                </span>
-            </ClickableButton>
-
-            {canUndoMirror ? (
-                <div
-                    className="flex w-full cursor-pointer items-center space-x-1 text-danger md:space-x-2"
+                <ClickableButton
+                    disabled={mirrorDisabled}
+                    className={classNames(
+                        'flex w-full cursor-pointer items-center space-x-1 whitespace-nowrap md:space-x-2',
+                        {
+                            'text-secondarySuccess': mirrored,
+                        },
+                    )}
                     onClick={() => {
                         setOpen(false);
-                        handleMirror(true);
+                        handleMirror();
                     }}
                 >
                     <MirrorLargeIcon width={18} height={18} />
                     <span className="font-medium">
-                        <Trans>Undo repost</Trans>
+                        {mirrorDisabled ? <Trans>Mirror disabled</Trans> : mirrorActionText}
                     </span>
-                </div>
-            ) : null}
+                </ClickableButton>
 
-            <ClickableButton
-                className="flex w-full cursor-pointer items-center space-x-1 whitespace-nowrap md:space-x-2"
-                disabled={quoteDisabled}
-                onClick={handleQuote}
-            >
-                <QuoteDownIcon width={17} height={17} />
-                <span className="font-medium">
-                    {quoteDisabled ? <Trans>Quote posts disabled</Trans> : <Trans>Quote post</Trans>}
-                </span>
-            </ClickableButton>
-        </div>
+                {canUndoMirror ? (
+                    <div
+                        className="flex w-full cursor-pointer items-center space-x-1 text-danger md:space-x-2"
+                        onClick={() => {
+                            setOpen(false);
+                            handleMirror(true);
+                        }}
+                    >
+                        <MirrorLargeIcon width={18} height={18} />
+                        <span className="font-medium">
+                            <Trans>Undo repost</Trans>
+                        </span>
+                    </div>
+                ) : null}
+
+                <ClickableButton
+                    className="flex w-full cursor-pointer items-center space-x-1 whitespace-nowrap md:space-x-2"
+                    disabled={quoteDisabled}
+                    onClick={handleQuote}
+                >
+                    <QuoteDownIcon width={17} height={17} />
+                    <span className="font-medium">
+                        {quoteDisabled ? <Trans>Quote posts disabled</Trans> : <Trans>Quote post</Trans>}
+                    </span>
+                </ClickableButton>
+            </div>
+        </Portal>
     );
     const children = (
         <motion.button
