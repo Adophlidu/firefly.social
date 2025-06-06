@@ -383,6 +383,9 @@ msgstr ""
 msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 msgstr ""
 
+msgid "Blocked"
+msgstr ""
+
 msgid "It is related account retrieved from connected wallets. Please sign in to set as primary account."
 msgstr ""
 
@@ -3923,6 +3926,9 @@ msgid "Events"
 msgstr ""
 
 msgid "Quote posts disabled"
+msgstr ""
+
+msgid "Unblock"
 msgstr ""
 
 #. placeholder {0}: resolveSourceName(Source.Farcaster)

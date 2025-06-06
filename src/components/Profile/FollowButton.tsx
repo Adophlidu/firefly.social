@@ -2,14 +2,17 @@
 
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback, useState } from 'react';
+import type { UserV2 } from 'twitter-api-v2';
 
 import FollowIcon from '@/assets/follow-bold.svg';
 import FollowedIcon from '@/assets/followed.svg';
 import MutualFollowIcon from '@/assets/mutual-follow.svg';
 import { ToggleMutedProfileButton } from '@/components/Actions/ToggleMutedProfileButton.js';
+import { TwitterBlockButton } from '@/components/Actions/TwitterBlockButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { BaseToggleFollowButton } from '@/components/Profile/BaseToggleFollowButton.js';
+import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -69,6 +72,16 @@ export const FollowButton = memo(function FollowButton({
         },
         [hovering, isFollowing, isFollowedBy, variant],
     );
+    if (profile.source === Source.Twitter && (profile.__original__ as UserV2).connection_status?.includes('blocking')) {
+        return (
+            <TwitterBlockButton
+                isBlocked
+                variant={variant}
+                className={classNames(className, 'rounded-lg px-5')}
+                {...rest}
+            />
+        );
+    }
 
     if (hasMutedButton && muted) {
         return (

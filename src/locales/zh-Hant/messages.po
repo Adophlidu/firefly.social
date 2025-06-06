@@ -388,6 +388,9 @@ msgstr "加入我們的 Discord 社群"
 msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 msgstr "未包含外部調用功能。若存在此功能，項目所有者可能有能力控制合約。"
 
+msgid "Blocked"
+msgstr ""
+
 msgid "It is related account retrieved from connected wallets. Please sign in to set as primary account."
 msgstr "此為從連接錢包檢索到的關聯帳戶，請登入設為主要帳戶。"
 
@@ -3939,6 +3942,9 @@ msgid "Events"
 msgstr ""
 
 msgid "Quote posts disabled"
+msgstr ""
+
+msgid "Unblock"
 msgstr ""
 
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
