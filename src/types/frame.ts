@@ -1,7 +1,5 @@
 /* cspell:disable */
 
-import type { FrameHost } from '@farcaster/frame-host';
-
 import type { FrameProtocol } from '@/constants/enum.js';
 
 // #region frame v1
@@ -291,8 +289,6 @@ export interface FrameV2 {
         };
     };
 }
-
-export type FrameV2Host = Omit<FrameHost, 'ethProviderRequestV2'>;
 // #endregion
 
 export type Frame = FrameV1 | FrameV2;

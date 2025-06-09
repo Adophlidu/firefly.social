@@ -1828,6 +1828,9 @@ msgstr ""
 msgid "Search post"
 msgstr ""
 
+msgid "Failed to switch chain"
+msgstr ""
+
 msgid "Eligible for Premium?"
 msgstr ""
 

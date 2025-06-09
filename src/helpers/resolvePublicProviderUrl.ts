@@ -4,12 +4,12 @@ import { monadTestnet, polygon } from 'viem/chains';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getRPCConstant } from '#masknet/web3-shared-evm';
 
-const resolve = createLookupTableResolver<number, string>(
+const resolve = createLookupTableResolver<number, string | null>(
     {
         [polygon.id]: 'https://polygon-rpc.com',
         [monadTestnet.id]: 'https://testnet-rpc.monad.xyz/',
     },
-    '',
+    null,
 );
 
 export function resolvePublicProviderUrl(chainId: number) {

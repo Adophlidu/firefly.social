@@ -1,4 +1,5 @@
-import { exposeToIframe } from '@farcaster/frame-host';
+import { exposeToIframe, type FrameHost } from '@farcaster/frame-host';
+import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
@@ -13,6 +14,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { NetworkType } from '@/constants/enum.js';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
+import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
@@ -22,14 +24,14 @@ import { WalletConnectModalRef } from '@/modals/controls.js';
 import { Modals } from '@/modals/FrameViewerModal/modals.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
-import { type FrameV2, type FrameV2Host } from '@/types/frame.js';
+import type { FrameV2 } from '@/types/frame.js';
 import { EthereumMethodType } from '#masknet/web3-shared-evm';
 
 export type FrameViewerModalOpenProps = {
     ready: boolean;
     timeout: boolean;
     frame: FrameV2;
-    frameHost: FrameV2Host;
+    frameHost: FrameHost;
 };
 export type FrameViewerModalCloseProps = void;
 
@@ -75,9 +77,14 @@ export function FrameViewerModal({ ref }: Props) {
                     case EthereumMethodType.ETH_REQUEST_ACCOUNTS:
                         return [account.address];
                     case EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN:
-                        const chain = params[0] as { chainId: string };
-                        const chainId = Number.parseInt(chain.chainId, 16);
-                        await switchEthereumChain(chainId);
+                        try {
+                            const chain = params[0] as { chainId: string };
+                            const chainId = Number.parseInt(chain.chainId, 16);
+                            await switchEthereumChain(chainId);
+                        } catch (error) {
+                            enqueueMessageFromError(error, t`Failed to switch chain`);
+                            throw error;
+                        }
                         return;
                     case EthereumMethodType.ETH_SEND_TRANSACTION: {
                         await captureFrameActionEvent('others', props.frame, account.address);

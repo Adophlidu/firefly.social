@@ -1828,6 +1828,9 @@ msgstr "This token is not issued by its declared team. Some scams will create a 
 msgid "Search post"
 msgstr "Search post"
 
+msgid "Failed to switch chain"
+msgstr "Failed to switch chain"
+
 msgid "Eligible for Premium?"
 msgstr "Eligible for Premium?"
 

@@ -60,7 +60,7 @@ export default function Page(props: Props) {
             },
         };
 
-        console.warn('[frame client] context', JSON.stringify(context));
+        console.log('[frame client] context', JSON.stringify(context));
 
         const frame = {
             ...result.frame.content,
@@ -71,14 +71,14 @@ export default function Page(props: Props) {
         const frameHost = new FarcasterFrameHost(context, {
             frame: () => result.frame.content,
             ready: (options?: Partial<ReadyOptions>) => {
-                console.warn('[frame client] ready', JSON.stringify(options));
+                console.log('[frame client] ready', JSON.stringify(options));
 
                 if (options) fireflyBridgeProvider.request(SupportedMethod.SET_FRAME_READY_OPTIONS, options);
                 setReady(true);
             },
             close: () => fireflyBridgeProvider.request(SupportedMethod.CLOSE, {}),
             setPrimaryButton: (options) => {
-                console.warn('[frame client] setPrimaryButton', JSON.stringify(options));
+                console.log('[frame client] setPrimaryButton', JSON.stringify(options));
                 fireflyBridgeProvider.request(SupportedMethod.SET_PRIMARY_BUTTON, options);
             },
         });
@@ -154,7 +154,6 @@ export default function Page(props: Props) {
                         return hash;
                     }
                     default: {
-                        const client = await createWagmiLimitedClient();
                         return client.request(requestArguments as Parameters<typeof client.request>[0]);
                     }
                 }

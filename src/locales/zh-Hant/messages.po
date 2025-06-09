@@ -1833,6 +1833,9 @@ msgstr "此代幣非聲明團隊發行，可能是同名詐騙代幣"
 msgid "Search post"
 msgstr "搜尋貼文"
 
+msgid "Failed to switch chain"
+msgstr ""
+
 msgid "Eligible for Premium?"
 msgstr "符合高級版資格？"
 

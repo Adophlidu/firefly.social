@@ -28,9 +28,11 @@ export async function getWalletClientRequired(
     }
 
     const client = await getWalletClient(config, clientParameters);
-    if (clientParameters?.chainId && clientParameters.chainId !== (await client.getChainId())) {
+    if (!clientParameters?.chainId) return client;
+
+    if (clientParameters.chainId !== (await client.getChainId())) {
         await switchEthereumChain(clientParameters.chainId);
-        if (clientParameters?.chainId !== (await client.getChainId())) {
+        if (clientParameters.chainId !== (await client.getChainId())) {
             const chainName = chains.find((x) => x.id === clientParameters?.chainId)?.name;
             if (chainName) throw new SwitchChainError(chainName);
             else throw new SwitchChainError();

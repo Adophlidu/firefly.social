@@ -10,11 +10,11 @@ export function createEIP1193Provider(request: (requestArguments: RequestArgumen
             try {
                 const requestArguments = parameters as RequestArguments;
 
-                console.warn(`[eip1193 provider ${label}] request`, JSON.stringify(requestArguments));
+                console.log(`[eip1193 provider ${label}] request`, JSON.stringify(requestArguments));
 
                 const result = await request(requestArguments);
 
-                console.warn(`[eip1193 provider ${label}] result`, result);
+                console.log(`[eip1193 provider ${label}] result`, result);
 
                 return result as T;
             } catch (error) {

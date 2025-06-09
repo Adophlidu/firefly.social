@@ -1833,6 +1833,9 @@ msgstr "此通证不是由其声明的团队发布的。某些骗子将创建一
 msgid "Search post"
 msgstr "搜索帖子"
 
+msgid "Failed to switch chain"
+msgstr ""
+
 msgid "Eligible for Premium?"
 msgstr "符合高级版资格？"
 

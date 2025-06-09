@@ -15,7 +15,7 @@ export function createWagmiPublicClient(chainId: EthereumChainId): PublicClient 
     const providerUrl = resolvePublicProviderUrl(chainId);
     const newClient = createClient({
         chain,
-        transport: http(providerUrl, { batch: true }),
+        transport: http(providerUrl || undefined, { batch: true }),
     });
     map.set(chainId, newClient);
     return newClient;
