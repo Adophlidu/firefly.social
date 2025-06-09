@@ -15,6 +15,7 @@ import { useDebounce, useOnClickOutside } from 'usehooks-ts';
 
 import { Avatar } from '@/components/Avatar.js';
 import { $createMentionNode, MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
@@ -182,7 +183,7 @@ export function MentionsPlugin(): JSX.Element | null {
 
     const debounceQuery = useDebounce(queryString, 1000);
 
-    const { data } = useQuery({
+    const { data, isLoading } = useQuery({
         enabled: !!debounceQuery,
         queryKey: ['searchProfiles', availableSources, debounceQuery, profileIds.join('_')],
         queryFn: async () => {
@@ -290,29 +291,35 @@ export function MentionsPlugin(): JSX.Element | null {
         <LexicalTypeaheadMenuPlugin<MentionTypeaheadOption>
             anchorClassName="z-50"
             menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) => {
-                return anchorElementRef.current && options.length && open
+                return anchorElementRef.current && open && (options.length > 0 || isLoading)
                     ? createPortal(
                           <div
                               ref={ref}
                               className="bg-brand sticky z-50 mt-2 w-[300px] min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900"
                           >
-                              <menu className="no-scrollbar max-h-[260px] overflow-auto">
-                                  {options.map((option, i: number) => (
-                                      <MentionsTypeaheadMenuItem
-                                          index={i}
-                                          isSelected={selectedIndex === i}
-                                          key={option.profileId}
-                                          onClick={() => {
-                                              setHighlightedIndex(i);
-                                              selectOptionAndCleanUp(option);
-                                          }}
-                                          onMouseEnter={() => {
-                                              setHighlightedIndex(i);
-                                          }}
-                                          option={option}
-                                      />
-                                  ))}
-                              </menu>
+                              {isLoading ? (
+                                  <div className="flex h-[260px] min-h-[260px] items-center justify-center">
+                                      <LoadingIcon />
+                                  </div>
+                              ) : (
+                                  <menu className="no-scrollbar max-h-[260px] overflow-auto">
+                                      {options.map((option, i: number) => (
+                                          <MentionsTypeaheadMenuItem
+                                              index={i}
+                                              isSelected={selectedIndex === i}
+                                              key={option.profileId}
+                                              onClick={() => {
+                                                  setHighlightedIndex(i);
+                                                  selectOptionAndCleanUp(option);
+                                              }}
+                                              onMouseEnter={() => {
+                                                  setHighlightedIndex(i);
+                                              }}
+                                              option={option}
+                                          />
+                                      ))}
+                                  </menu>
+                              )}
                           </div>,
                           anchorElementRef.current,
                       )
