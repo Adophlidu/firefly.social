@@ -457,6 +457,7 @@ export const TOKEN_CATEGORIES: TokenCategory[] = [
 export const NO_TRACING_COINS = [
     'bitcoin',
     'bitcoin-cash',
+    'bittensor',
     'dogecoin',
     'tron',
     'cardano',

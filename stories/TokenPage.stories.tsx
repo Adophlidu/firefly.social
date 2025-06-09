@@ -58,6 +58,8 @@ export const TokenPage: Story = {
             '/token/official-trump?isCoinId=true',
             '/token/official-trump',
             '/token/QR/feeds?chainId=8453&trader=0x26d46809a92ea3dacdc2965919e0b91613b39efe&address=0x2b5050f01d64fbb3e4ac44dc07f0732bfb5ecadf',
+            '/token/bittensor?isCoinId=true',
+            '/token/bittensor',
         ],
     },
 };
