@@ -24,7 +24,7 @@ const meta = {
 
 type Story = StoryObj<Args>;
 
-export const KolBarStory: Story = {
+export const Modal: Story = {
     args: {
         open: true,
         users: [

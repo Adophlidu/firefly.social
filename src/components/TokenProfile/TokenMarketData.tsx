@@ -26,7 +26,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isZero } from '@/helpers/number.js';
 import { resolveDexScreenerUrl } from '@/helpers/resolveDexScreenerUrl.js';
-import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
+import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
@@ -58,6 +58,7 @@ function wrapLink(node: ReactNode, url: string, enabled: boolean) {
 }
 export interface TokenMarketDataProps extends HTMLProps<HTMLDivElement> {
     chainId?: number;
+    address?: string;
     tradeRecords?: TradeRecord[];
     token: CoinGeckoToken;
     linkable?: boolean;
@@ -68,6 +69,7 @@ export interface TokenMarketDataProps extends HTMLProps<HTMLDivElement> {
 
 export const TokenMarketData = memo(function TokenMarketData({
     chainId: propChainId,
+    address: propAddress,
     linkable = false,
     token,
     rank,
@@ -81,11 +83,13 @@ export const TokenMarketData = memo(function TokenMarketData({
     const { data: coin } = useSingleCoin(token.id, token.chainId, token.address);
     const { data: trending } = useCoinTrending(token.id);
     const { contracts } = trending ?? {};
-    const chainId = token.chainId ?? propChainId;
-    const contract = (chainId ? contracts?.find((x) => x.chainId === chainId) : null) || first(contracts);
-    const { data: security } = useTokenSecurity(contract?.chainId, contract?.address);
+    const firstContract = first(contracts);
+    const chainId = propChainId || token.chainId || firstContract?.chainId;
+    const contract = (chainId ? contracts?.find((x) => x.chainId === chainId) : null) || firstContract;
+    const address = propAddress ?? token.address ?? contract?.address;
+    const { data: security } = useTokenSecurity(chainId, address);
     const tradeInfo = useTradeInfo(token);
-    const tradeChainId = chainId ?? tradeInfo.chainId;
+    const tradeChainId = chainId || tradeInfo.chainId;
 
     const { preferences, setPreference } = usePreferencesState();
     const [activeRecord, setActiveRecord] = useState<PriceRecord>();
@@ -94,7 +98,6 @@ export const TokenMarketData = memo(function TokenMarketData({
     const [rangeId = range, setRangeId] = useState<(typeof ranges)[number]['id']>();
     const currentRange = ranges.find((x) => x.id === rangeId) || ranges[1];
 
-    const address = token.address ?? contract?.address;
     const { data: priceStats = EMPTY_LIST, isPending } = useCoinPriceStats(
         token.id,
         tradeChainId,
@@ -111,15 +114,7 @@ export const TokenMarketData = memo(function TokenMarketData({
     const { isUp, change } = useIsPriceUp(stats, activeRecord);
     const invalidData = useMemo(() => stats.length === 0 || stats.every((item) => isZero(item.value)), [stats]);
 
-    const icon = (
-        <TokenIcon
-            icon={token.logoURL}
-            alt={token.name}
-            name={token.name}
-            size={36}
-            chainId={chainId ?? contract?.chainId}
-        />
-    );
+    const icon = <TokenIcon icon={token.logoURL} alt={token.name} name={token.name} size={36} chainId={chainId} />;
     const baseInfo = (
         <>
             <strong className="ml-0.5 text-medium font-bold text-main">{token.name}</strong>
@@ -145,27 +140,27 @@ export const TokenMarketData = memo(function TokenMarketData({
         isCoinId: !!token.id,
     });
 
+    const twitter_url = trending?.coin.twitter_url;
     const socialLinks = useMemo(() => {
-        if (!trending) return EMPTY_LIST;
-        const contract = trending.contracts?.[0];
+        if (!chainId || !address) return EMPTY_LIST;
         return [
             {
                 name: 'explorer',
-                url: contract?.chainId ? resolveExplorerLink(contract.chainId, contract.address, 'address') : null,
+                url: chainId ? resolveAddressLink(chainId, address) : null,
                 icon: GlobalIcon,
             },
             {
                 name: 'dex-screener',
-                url: contract?.chainId ? resolveDexScreenerUrl(contract.chainId, contract.address) : null,
+                url: chainId ? resolveDexScreenerUrl(chainId, address) : null,
                 icon: DexScreenerIcon,
             },
             {
                 label: 'twitter',
-                url: trending.coin.twitter_url,
+                url: twitter_url,
                 icon: TwitterIcon,
             },
         ].filter((x) => x.url);
-    }, [trending]);
+    }, [address, chainId, twitter_url]);
 
     return (
         <div {...rest} className={classNames('flex flex-col gap-1.5 p-3', rest.className)}>

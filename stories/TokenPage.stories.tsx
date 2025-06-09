@@ -60,6 +60,8 @@ export const TokenPage: Story = {
             '/token/QR/feeds?chainId=8453&trader=0x26d46809a92ea3dacdc2965919e0b91613b39efe&address=0x2b5050f01d64fbb3e4ac44dc07f0732bfb5ecadf',
             '/token/bittensor?isCoinId=true',
             '/token/bittensor',
+            '/token/VIRTUAL?chainId=8453&address=0x0b3e328455c4059eeb9e3f84b5543f74e24e7e1b',
+            '/token/VIRTUAL?chainId=101&address=3iQL8BFS2vE7mww4ehAqQHAsbmRNCrPxizWAT2Zfyr9y',
         ],
     },
 };

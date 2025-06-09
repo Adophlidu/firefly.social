@@ -58,7 +58,7 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
                 </div>
                 <SwapButton className="ml-auto sm:inline-flex md:hidden" />
             </div>
-            <WrapTokenMarketData className="sticky" token={token} />
+            <WrapTokenMarketData className="sticky" token={token} address={search?.get('address') || undefined} />
             <CategoryTabs slug={slug} tokenId={token.id} className="sticky top-[54px] !z-30 md:top-[60px]" />
             <div className="p-3">{children}</div>
         </TokenContextProvider>

@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { first, isNumber } from 'lodash-es';
-import { type HTMLProps, memo, type ReactNode } from 'react';
+import { type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
 import QuestionIcon from '@/assets/question.svg';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
@@ -9,6 +9,7 @@ import { Link } from '@/components/Link.js';
 import { CommunityLink } from '@/components/TokenProfile/CommunityLink.js';
 import { ContractList } from '@/components/TokenProfile/ContractList.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
@@ -75,11 +76,27 @@ interface TokenOverviewProps extends HTMLProps<HTMLDivElement> {
     address?: string;
 }
 export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ trending, address, ...rest }) {
-    const { market, coin, contracts } = trending ?? {};
-    const firstContract = first(contracts);
-    const chain = getChainInfo(firstContract?.runtime, firstContract?.chainId);
+    const { market, coin } = trending ?? {};
     const { data: detected } = useDetectToken(address, !trending);
     const attributes = detected?.contract_info?.attributes;
+
+    const contracts = useMemo(() => {
+        if (trending?.contracts) {
+            return trending.contracts;
+        }
+        if (detected) {
+            return [
+                {
+                    runtime: detected.chain,
+                    chainId: +detected.chain_id,
+                    address: detected.contract_info.attributes.address,
+                } as Contract,
+            ];
+        }
+        return EMPTY_LIST;
+    }, [detected, trending?.contracts]);
+    const firstContract = first(contracts);
+    const chain = getChainInfo(firstContract?.runtime, firstContract?.chainId);
 
     const total_supply = market?.total_supply ?? attributes?.normalized_total_supply;
     return (

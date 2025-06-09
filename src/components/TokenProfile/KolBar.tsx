@@ -20,7 +20,7 @@ export const KolBar = memo<Props>(function KolBar({ users, ...rest }) {
         <div
             {...rest}
             className={classNames(
-                'flex cursor-pointer items-center gap-2 rounded-lg bg-input px-[6px] py-[5px] text-medium text-main dark:bg-bg',
+                'flex cursor-pointer items-center gap-2 rounded-lg bg-lightBg px-[6px] py-[5px] text-medium text-main dark:bg-bg',
                 rest.className,
             )}
         >
