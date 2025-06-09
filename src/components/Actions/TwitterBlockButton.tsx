@@ -1,16 +1,9 @@
 import { t } from '@lingui/core/macro';
 import { useRef } from 'react';
-import { useHover } from 'usehooks-ts';
 
 import BlockIcon from '@/assets/block.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
-
-enum BlockLabel {
-    Block = 'Block',
-    Unblock = 'Unblock',
-    Blocked = 'Blocked',
-}
 
 interface TwitterBlockButtonProps extends Omit<ClickableButtonProps, 'children'> {
     isBlocked: boolean;
@@ -19,8 +12,6 @@ interface TwitterBlockButtonProps extends Omit<ClickableButtonProps, 'children'>
 
 export function TwitterBlockButton({ isBlocked, className, variant = 'text', ref, ...rest }: TwitterBlockButtonProps) {
     const hoverRef = useRef<HTMLButtonElement>(null!);
-    const isHover = useHover(hoverRef);
-    const buttonState = isHover ? BlockLabel.Unblock : BlockLabel.Blocked;
 
     const variantClassName = {
         text: 'min-w-[112px]',
@@ -31,15 +22,12 @@ export function TwitterBlockButton({ isBlocked, className, variant = 'text', ref
         <ClickableButton
             ref={hoverRef}
             className={classNames(
-                'flex h-8 items-center justify-center rounded-full border-danger text-medium font-semibold transition-all',
-                buttonState === BlockLabel.Blocked ? 'border' : '',
-                buttonState === BlockLabel.Unblock ? 'border border-danger border-opacity-50' : '',
+                'flex h-8 items-center justify-center rounded-full border border-danger text-medium font-semibold transition-all hover:cursor-default',
                 isBlocked ? 'bg-danger text-white' : 'text-danger',
                 className,
                 variantClassName,
             )}
             {...rest}
-            disabled
         >
             {variant === 'text' ? t`Blocked` : <BlockIcon className="size-4 flex-shrink-0" />}
         </ClickableButton>
