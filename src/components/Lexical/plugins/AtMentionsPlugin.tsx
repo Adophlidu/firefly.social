@@ -20,7 +20,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { FireflyPlatform, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { composeSearchProfiles, formatSearchProfile } from '@/helpers/formatSearchProfile.js';
+import { composeSearchProfiles, formatSearchProfile, sortSearchProfiles } from '@/helpers/formatSearchProfile.js';
 import { getSafeMentionQueryText } from '@/helpers/getMentionOriginalText.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
@@ -45,7 +45,7 @@ const VALID_CHARS = `[^${TRIGGERS}${PUNC}\\s]`;
 const VALID_JOINS = `(?:\\.[ |$]| |[${PUNC}]|)`;
 const LENGTH_LIMIT = 32;
 const ALIAS_LENGTH_LIMIT = 50;
-const SUGGESTION_LIST_LENGTH_LIMIT = 10;
+const SUGGESTION_LIST_LENGTH_LIMIT = 90;
 
 const AtSignMentionsRegex = new RegExp(
     `(^|\\s|\\()([${TRIGGERS}]((?:${VALID_CHARS}${VALID_JOINS}){0,${LENGTH_LIMIT}}))$`,
@@ -189,20 +189,24 @@ export function MentionsPlugin(): JSX.Element | null {
             if (!debounceQuery) return;
             const data = await FireflyEndpointProvider.searchIdentity(debounceQuery, {
                 platforms: availableSources,
+                size: 50,
             });
             const bskyProfiles = availableSources.includes(Source.Bsky)
-                ? await BskySocialMediaProvider.searchProfiles(debounceQuery)
+                ? await BskySocialMediaProvider.searchProfiles(debounceQuery, undefined, 10)
                 : undefined;
 
             const twitterProfiles = availableSources.includes(Source.Twitter)
-                ? await TwitterSocialMediaProvider.searchProfiles(debounceQuery)
+                ? await TwitterSocialMediaProvider.searchProfiles(debounceQuery, undefined, 30)
                 : undefined;
 
             if (!data?.data && !bskyProfiles?.data && !twitterProfiles) return EMPTY_LIST;
-            return composeSearchProfiles(
-                compact(data.data.map(formatSearchProfile)),
-                twitterProfiles?.data || EMPTY_LIST,
-                bskyProfiles?.data || EMPTY_LIST,
+            return sortSearchProfiles(
+                composeSearchProfiles(
+                    compact(data.data.map(formatSearchProfile)),
+                    twitterProfiles?.data || EMPTY_LIST,
+                    bskyProfiles?.data || EMPTY_LIST,
+                ),
+                debounceQuery,
             );
         },
     });
