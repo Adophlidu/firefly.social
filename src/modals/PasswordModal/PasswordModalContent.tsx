@@ -6,7 +6,7 @@ import { useAsyncFn } from 'react-use';
 import { CloseButton } from '@/components/IconButton.js';
 import { PasswordStep, PasswordWorkflow, PasswordWorkflowConfig } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
-import { METRICS_PASSWORD_LENGTH, SESSION_PASSWORD_INPUT_ID_PREFIX } from '@/constants/index.js';
+import { SESSION_PASSWORD_INPUT_ID } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import type { PasswordModalOpenProps } from '@/modals/PasswordModal/index.js';
 import { isValidPassword } from '@/modals/PasswordModal/isValidPassword.js';
@@ -22,13 +22,13 @@ import {
 } from '@/providers/telemetry/capturePasscodeEvent.js';
 import { useTokenPasswordStore } from '@/store/useTokenPasswordStore.js';
 
-function createEmptyPasswords(): Record<PasswordStep, string[]> {
+function createEmptyPasswords(): Record<PasswordStep, string> {
     return {
-        [PasswordStep.ChangePassword]: Array(METRICS_PASSWORD_LENGTH).fill(''),
-        [PasswordStep.ConfirmPassword]: Array(METRICS_PASSWORD_LENGTH).fill(''),
-        [PasswordStep.SetPassword]: Array(METRICS_PASSWORD_LENGTH).fill(''),
-        [PasswordStep.Success]: Array(METRICS_PASSWORD_LENGTH).fill(''),
-        [PasswordStep.VerifyPassword]: Array(METRICS_PASSWORD_LENGTH).fill(''),
+        [PasswordStep.ChangePassword]: '',
+        [PasswordStep.ConfirmPassword]: '',
+        [PasswordStep.SetPassword]: '',
+        [PasswordStep.Success]: '',
+        [PasswordStep.VerifyPassword]: '',
     };
 }
 
@@ -56,12 +56,12 @@ export const PasswordModalContent = memo<
     const [workflow, setWorkflow] = useState<PasswordWorkflow>(initialWorkflow);
     const [step, setStep] = useState<PasswordStep>(PasswordWorkflowConfig[initialWorkflow][0]);
 
-    const [passwords, setPasswords] = useState<Record<PasswordStep, string[]>>(createEmptyPasswords());
+    const [passwords, setPasswords] = useState<Record<PasswordStep, string>>(createEmptyPasswords());
 
     const { setPassword } = useTokenPasswordStore();
 
     const onPasswordChange = useCallback(
-        (password: string[]) => {
+        (password: string) => {
             setPasswords((prev) => ({
                 ...prev,
                 [step]: password,
@@ -78,7 +78,7 @@ export const PasswordModalContent = memo<
         } else if (newStep) {
             setStep(newStep);
         }
-        document.getElementById(`${SESSION_PASSWORD_INPUT_ID_PREFIX}${0}`)?.focus();
+        document.getElementById(SESSION_PASSWORD_INPUT_ID)?.focus();
     }, []);
 
     const [{ loading }, handleNextStep] = useAsyncFn(async () => {
@@ -88,7 +88,7 @@ export const PasswordModalContent = memo<
 
             if (result.step === PasswordStep.Success) {
                 captureEvent(workflow);
-                setPassword(passwords[step].join(''));
+                setPassword(passwords[step]);
                 onClose(true);
                 return;
             }

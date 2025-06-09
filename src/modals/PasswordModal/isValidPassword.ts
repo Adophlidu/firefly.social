@@ -1,5 +1,5 @@
-export function isValidPassword(password: string[]) {
-    return password.length === 6 && password.every((char) => char.length === 1 && /^\d$/.test(char));
+export function isValidPassword(password: string) {
+    return /^\d{6}$/.test(password);
 }
 
 function isSequentialDigits(password: string) {

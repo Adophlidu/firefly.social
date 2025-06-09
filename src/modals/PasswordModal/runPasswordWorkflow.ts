@@ -19,7 +19,7 @@ type NextStepConfig =
     | undefined;
 
 function checkPassword(password: string) {
-    if (!isValidPassword(password.split(''))) {
+    if (!isValidPassword(password)) {
         enqueueWarningMessage(t`Invalid password. Please ensure it is a 6-digit number.`);
         return false;
     }
@@ -168,21 +168,17 @@ async function resetPassword(step: PasswordStep, passwords: Record<PasswordStep,
 export async function runPasswordWorkflow(
     workflow: PasswordWorkflow,
     step: PasswordStep,
-    passwords: Record<PasswordStep, string[]>,
+    passwords: Record<PasswordStep, string>,
 ): Promise<NextStepConfig> {
-    const passwordRecord = Object.fromEntries(
-        Object.entries(passwords).map(([key, value]) => [key, value.join('')]),
-    ) as Record<PasswordStep, string>;
-
     switch (workflow) {
         case PasswordWorkflow.Set:
-            return await setPassword(step, passwordRecord);
+            return await setPassword(step, passwords);
         case PasswordWorkflow.Change:
-            return await changePassword(step, passwordRecord);
+            return await changePassword(step, passwords);
         case PasswordWorkflow.Verify:
-            return await verifyPassword(step, passwordRecord);
+            return await verifyPassword(step, passwords);
         case PasswordWorkflow.Reset:
-            return await resetPassword(step, passwordRecord);
+            return await resetPassword(step, passwords);
         default:
             unreachable(workflow);
     }
