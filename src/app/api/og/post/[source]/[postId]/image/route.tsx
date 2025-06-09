@@ -114,6 +114,10 @@ async function AttachmentImage({ src }: { src: string }) {
 
 async function PostOpenGraphImage({ post }: { post: Post }) {
     const src = resolveAttachmentsSrc(post.metadata.content?.asset);
+    const content = (post.metadata.content?.content ?? '')
+        .split('\n')
+        .map((x) => x.trim())
+        .join('\n');
 
     return (
         <div
@@ -209,7 +213,7 @@ async function PostOpenGraphImage({ post }: { post: Post }) {
                         lineClamp: 3,
                     }}
                 >
-                    {post.metadata.content?.content ?? ''}
+                    {content}
                 </div>
             </div>
         </div>
