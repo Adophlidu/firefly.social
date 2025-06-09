@@ -35,7 +35,10 @@ export function usePollingAppScanLogin(
             if (!session) return;
             return FireflyEndpointProvider.getDesktopStatus(session);
         },
-        refetchInterval: 1000 * 5,
+        refetchInterval(query) {
+            if (query.state.data?.status === DesktopLinkInfoStatus.Expired) return false;
+            return 1000 * 5;
+        },
         enabled: !!session,
     });
     const isLoadingRef = useRef(false);
