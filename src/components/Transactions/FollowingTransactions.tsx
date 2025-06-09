@@ -6,7 +6,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { getFollowingTransactions } from '@/components/Transactions/getTransactions.js';
 import { getTransactionsItemContent } from '@/components/Transactions/getTransactionsItemContent.js';
-import { NetworkType, ScrollListKey, Source } from '@/constants/enum.js';
+import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
@@ -36,7 +36,7 @@ export function FollowingTransactions() {
     const profileIds = useCurrentProfileIds();
     const asyncStatusAll = useAsyncStatusAll();
 
-    const { selectedChainId } = useSwapStateStore(NetworkType.Ethereum);
+    const { selectedChainId } = useSwapStateStore();
 
     const queryResult = useMultiInfiniteQueryPageable<TransactionsItem, Pageable<TransactionsItem, PageIndicator>>(
         ['transactions', 'following', asyncStatusAll, selectedChainId, profileIds],

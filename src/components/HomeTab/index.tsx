@@ -163,7 +163,11 @@ export function HomeTabs({
                         }}
                     />
                     {source === Source.Posts ? <DiscoverFilter tab={currentTab} /> : null}
-                    {source === Source.Transactions ? <ChainFilter networkType={NetworkType.Ethereum} /> : null}
+                    {source === Source.Transactions ? (
+                        <ChainFilter
+                            networkType={currentTab === HomeTab.Following ? undefined : NetworkType.Ethereum}
+                        />
+                    ) : null}
                     {source === Source.Activities ? (
                         <ActivitiesFilter namespace={ActivitiesFilterNamespace.Home} />
                     ) : null}
