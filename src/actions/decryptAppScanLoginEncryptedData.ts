@@ -11,7 +11,7 @@ import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/for
 import { parseJson } from '@/helpers/parseJson.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { BskySession } from '@/providers/bsky/Session.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
@@ -74,7 +74,7 @@ export async function decryptAppScanLoginEncryptedData(
             const source = account.type;
             switch (source) {
                 case SourceInURL.Farcaster:
-                    return new FarcasterSession(account.user_id, account.token, 0, 0);
+                    return new FarcasterSession(account.user_id, `0x${account.token}`, 0, 0, FAKE_SIGNER_REQUEST_TOKEN);
                 case SourceInURL.Lens:
                     return new LensSession(
                         account.user_id,
