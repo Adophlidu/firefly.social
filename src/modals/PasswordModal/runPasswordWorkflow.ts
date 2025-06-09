@@ -144,9 +144,12 @@ async function changePassword(step: PasswordStep, passwords: Record<PasswordStep
 async function verifyPassword(step: PasswordStep, passwords: Record<PasswordStep, string>): Promise<NextStepConfig> {
     switch (step) {
         case PasswordStep.VerifyPassword: {
-            await mergeMetrics(passwords[step]);
-            enqueueSuccessMessage(t`Multi-device login sessions synced successfully.`);
-            return { step: PasswordStep.Success };
+            const result = await mergeMetrics(passwords[step]);
+            if (result) {
+                enqueueSuccessMessage(t`Multi-device login sessions synced successfully.`);
+                return { step: PasswordStep.Success };
+            }
+            return;
         }
         case PasswordStep.Success:
             return;

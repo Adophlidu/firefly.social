@@ -186,7 +186,7 @@ export async function downloadAccounts() {
  * @param passcode
  */
 export async function mergeMetrics(passcode: string) {
-    if (!(await verifyPasscodeOnServer(passcode))) return;
+    if (!(await verifyPasscodeOnServer(passcode))) return false;
 
     const localMetrics = await getLocalMetrics(passcode);
 
@@ -329,4 +329,6 @@ export async function mergeMetrics(passcode: string) {
                 safeUnreachable(source);
         }
     }
+
+    return true;
 }

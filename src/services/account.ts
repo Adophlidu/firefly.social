@@ -304,7 +304,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         if (profilesToSync.length > 0) {
             LoginModalRef.close();
             const confirmed = await ConfirmSyncSessionModalRef.openAndWaitForClose({
-                profiles: remoteProfiles,
+                profiles: remoteProfiles.filter((x) => !isSameProfile(x, account.profile)),
             });
 
             if (confirmed && !skipVerifyPasswordCheck) {
