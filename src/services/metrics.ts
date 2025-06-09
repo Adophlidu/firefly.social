@@ -1,4 +1,3 @@
-'use client';
 import { NobleEd25519Signer } from '@farcaster/core';
 import { safeUnreachable } from '@masknet/kit';
 import webCrypto from 'crypto';
@@ -37,18 +36,11 @@ import type {
     TwitterMetricsData,
 } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { encryptMetricsData } from '@/services/encryptMetricsData.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 function sha256(message: string) {
     return webCrypto.createHash('sha256').update(message, 'utf8').digest('hex');
-}
-
-export function encryptMetricsData(text: string, key: string, iv: string) {
-    const cipher = webCrypto.createCipheriv('aes-256-cbc', Buffer.from(key, 'hex'), Buffer.from(iv, 'hex'));
-    let encrypted = cipher.update(text, 'utf-8', 'hex');
-    encrypted += cipher.final('hex');
-
-    return encrypted;
 }
 
 function encryptCipherText(passcode: string, text: string) {

@@ -12,7 +12,7 @@ import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchPara
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
 import type { TwitterMetricsData } from '@/providers/types/Firefly.js';
-import { encryptMetricsData } from '@/services/metrics.js';
+import { encryptMetricsData } from '@/services/encryptMetricsData.js';
 
 const SearchPageable = z.object({
     profileId: z.string(),
