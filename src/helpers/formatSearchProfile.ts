@@ -20,7 +20,7 @@ function fixProfilePlatform(profile: FireflyProfile) {
             // for ens matched
             platform_id:
                 (profile.platform as unknown) === 'ens'
-                    ? profile.owner || profile.primary_address || profile.resolved_address || profile.platform_id
+                    ? profile.primary_address || profile.resolved_address || profile.owner || profile.platform_id
                     : profile.resolved_address || profile.primary_address || profile.platform_id,
         } as FireflyProfile;
     }
