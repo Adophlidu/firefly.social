@@ -43,7 +43,7 @@ export const SuggestProfileList = memo<SuggestProfileListProps>(function Suggest
             const bskyProfiles = (bskyProfilesRes?.data || []).slice(0, 1);
 
             return composeSearchProfiles(
-                compact(result.data.map(formatSearchProfile)).slice(
+                compact(result.data.map((x) => formatSearchProfile(x, query))).slice(
                     0,
                     MAX_RECOMMEND_PROFILE_SIZE - xProfiles.length - bskyProfiles.length,
                 ),

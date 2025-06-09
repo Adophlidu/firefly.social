@@ -58,7 +58,7 @@ async function searchIdentities(query: string) {
     const data = await FireflyEndpointProvider.searchIdentity(query);
     if (!data.data.length) return [];
 
-    return compact(data.data.map(formatSearchProfile));
+    return compact(data.data.map((x) => formatSearchProfile(x)));
 }
 
 async function openCompose(props: ShareLinkProps, onFinished: () => void) {

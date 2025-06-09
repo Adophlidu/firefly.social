@@ -68,7 +68,7 @@ export function SearchProfileContent() {
 
             const socialProfiles = sortSearchProfiles(
                 composeSearchProfiles(
-                    compact(data.data.map(formatSearchProfile)),
+                    compact(data.data.map((x) => formatSearchProfile(x, searchKeyword))),
                     twitterProfiles?.data || [],
                     bskyProfiles?.data || [],
                 ),

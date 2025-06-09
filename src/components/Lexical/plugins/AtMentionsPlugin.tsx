@@ -203,7 +203,7 @@ export function MentionsPlugin(): JSX.Element | null {
             if (!data?.data && !bskyProfiles?.data && !twitterProfiles) return EMPTY_LIST;
             return sortSearchProfiles(
                 composeSearchProfiles(
-                    compact(data.data.map(formatSearchProfile)),
+                    compact(data.data.map((x) => formatSearchProfile(x, debounceQuery))),
                     twitterProfiles?.data || EMPTY_LIST,
                     bskyProfiles?.data || EMPTY_LIST,
                 ),

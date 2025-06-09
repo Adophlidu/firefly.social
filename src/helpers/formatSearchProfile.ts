@@ -51,8 +51,17 @@ interface SearchProfile {
     isSpecial?: boolean;
 }
 
+function isSpecialSearchProfile({ profile, related, isSpecial }: SearchProfile, keyword?: string) {
+    if (isSpecial || profile.special || related.some((x) => x.special)) return true;
+
+    if (profile.handle === keyword) return true;
+
+    return false;
+}
+
 export function formatSearchProfile(
     identity: Required<Required<SearchProfileResponse>['data']>['list'][0],
+    keyword?: string,
 ): SearchProfile | null {
     const target = Object.values(identity)
         .flat()
@@ -83,7 +92,7 @@ export function formatSearchProfile(
     return {
         profile: fixProfilePlatform(target),
         related: allProfile,
-        isSpecial: target.special || allProfile.some((x) => x.special),
+        isSpecial: isSpecialSearchProfile({ profile: target, related: allProfile }),
     };
 }
 
