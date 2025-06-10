@@ -36,7 +36,7 @@ patchedDependencies:
     hash: 3hauhekaezdxvp5v64wgmncyga
     path: patches/@reown__appkit@1.7.6.patch
   dayjs-twitter@0.5.0:
-    hash: 3tjtunpncvdv4s34umzp7pmbr4
+    hash: cuhyqcffld3lmtt6xlopmlcac4
     path: patches/dayjs-twitter@0.5.0.patch
   react-use@17.5.1:
     hash: jdgfodh3ixpexpgf3fwrwvcmtq
@@ -234,7 +234,7 @@ dependencies:
     version: 1.11.13
   dayjs-twitter:
     specifier: ^0.5.0
-    version: 0.5.0(patch_hash=3tjtunpncvdv4s34umzp7pmbr4)
+    version: 0.5.0(patch_hash=cuhyqcffld3lmtt6xlopmlcac4)
   dompurify:
     specifier: ^3.2.5
     version: 3.2.5
@@ -13094,7 +13094,7 @@ packages:
     resolution: {integrity: sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==}
     dev: true
 
-  /dayjs-twitter@0.5.0(patch_hash=3tjtunpncvdv4s34umzp7pmbr4):
+  /dayjs-twitter@0.5.0(patch_hash=cuhyqcffld3lmtt6xlopmlcac4):
     resolution: {integrity: sha512-SZ7qEUISstBLUXdlGAbLrwr6zfRM9kaCfbq4uVTerM/HXzuHiiGzzUqAJVhxt+3tf69E+ocmQdP6YYpOINv05w==}
     dependencies:
       duration-js: 4.0.0
