@@ -45,6 +45,7 @@ function ToggleSyncSessionSwitch({
                     title: <Trans>Turn off</Trans>,
                     variant: 'normal',
                     enableCancelButton: true,
+                    enableCloseButton: false,
                     modalStyle: { width: 400, maxWidth: '90vw' },
                     content: (
                         <div className="text-main">

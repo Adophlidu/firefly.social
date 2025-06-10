@@ -3,7 +3,6 @@ import { safeUnreachable } from '@masknet/kit';
 import { memo, useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import { CloseButton } from '@/components/IconButton.js';
 import { PasswordStep, PasswordWorkflow, PasswordWorkflowConfig } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { SESSION_PASSWORD_INPUT_ID } from '@/constants/index.js';
@@ -109,7 +108,6 @@ export const PasswordModalContent = memo<
         <div>
             <div className="relative flex max-h-[70vh] w-[80vw] max-w-[400px] flex-col rounded-md bg-lightBottom text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:rounded-xl">
                 <h3 className="relative h-14 shrink-0 pt-safe">
-                    <CloseButton onClick={onCancel} className="absolute left-4 top-4" />
                     <span className="flex h-full w-full items-center justify-center text-lg font-bold text-main">
                         <ModalTitle workflow={workflow} step={step} />
                     </span>
