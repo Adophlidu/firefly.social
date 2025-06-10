@@ -4,8 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import { UserRejectionError } from '@/constants/error.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { useCallbackRef } from '@/hooks/useCallbackRef.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -17,7 +16,6 @@ export function usePollingAppScanLogin(
     session?: string,
     options?: {
         enabled?: boolean;
-        onBeforeAddAccounts?: () => void;
         onSuccess?: () => void;
         onFailure?: (error: unknown) => void;
         onCancel?: () => void;
@@ -25,7 +23,6 @@ export function usePollingAppScanLogin(
     },
 ) {
     const enabled = options?.enabled ?? true;
-    const onBeforeAddAccountsRef = useCallbackRef(options?.onBeforeAddAccounts);
     const onSuccessRef = useCallbackRef(options?.onSuccess);
     const onFailureRef = useCallbackRef(options?.onFailure);
     const onCancelRef = useCallbackRef(options?.onCancel);
@@ -48,7 +45,7 @@ export function usePollingAppScanLogin(
         async (data: DesktopLinkInfoStatusData, otp: string) => {
             if (data?.status !== DesktopLinkInfoStatus.Confirm || !otp || !data?.encryptedData) return;
             try {
-                await loginWithAppScan(data, otp, { onBeforeAddAccounts: () => onBeforeAddAccountsRef.current?.() });
+                await loginWithAppScan(data, otp);
                 onSuccessRef.current?.();
             } catch (error) {
                 enqueueErrorMessage(getErrorMessageFromError(error, t`Failed to login.`));
@@ -68,11 +65,11 @@ export function usePollingAppScanLogin(
                 if (data?.encryptedData && otp) login(data, otp);
                 return;
             case DesktopLinkInfoStatus.Cancel:
-                enqueueErrorMessage(getErrorMessageFromError(new UserRejectionError()));
+                enqueueWarningMessage(t`Mobile QR login is interrupted. Please try again.`);
                 onCancelRef.current?.();
                 return;
             case DesktopLinkInfoStatus.Expired:
-                enqueueErrorMessage(t`Login session expired.`);
+                enqueueWarningMessage(t`Login session expired.`);
                 onExpiredRef.current?.();
                 return;
             case DesktopLinkInfoStatus.Pending:

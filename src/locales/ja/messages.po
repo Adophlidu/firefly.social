@@ -1094,6 +1094,9 @@ msgstr ""
 msgid "Sign In With Firefly App Modal"
 msgstr ""
 
+msgid "Mobile QR login is interrupted. Please try again."
+msgstr ""
+
 msgid "Review Transaction"
 msgstr ""
 

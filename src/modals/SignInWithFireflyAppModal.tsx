@@ -3,10 +3,9 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import dayjs from 'dayjs';
-import { memo, type Ref, useEffect, useState } from 'react';
+import { memo, type Ref, useCallback, useEffect, useState } from 'react';
 import QRCode from 'react-qr-code';
-import { useInterval, useMount } from 'react-use';
+import { useMount } from 'react-use';
 import urlcat from 'urlcat';
 
 import ReloadIcon from '@/assets/reload.svg';
@@ -37,26 +36,14 @@ function generateOTP() {
     return number.toString().padStart(6, '0');
 }
 
-function useExpires(expiresAt?: string, enabled = true) {
-    const [isExpired, setIsExpired] = useState(false);
-
-    useInterval(
-        () => {
-            setIsExpired(dayjs().isAfter(dayjs(expiresAt)));
-        },
-        enabled && expiresAt ? 1000 : null,
-    );
-
-    useEffect(() => {
-        if (enabled && expiresAt) setIsExpired(dayjs().isAfter(dayjs(expiresAt)));
-    }, [expiresAt, enabled]);
-
-    return isExpired;
-}
-
 export const SignInWithFireflyAppModal = memo(function SignInWithFireflyAppModal({ ref }: Props) {
     const [open, dispatch] = useSingletonModal(ref);
-    const onClose = () => dispatch?.close();
+    const queryClient = useQueryClient();
+    const onClose = useCallback(async () => {
+        queryClient.removeQueries({ queryKey: ['desktop-link-info-session'] });
+        queryClient.removeQueries({ queryKey: ['sign-in-with-firefly-app-otp'] });
+        dispatch?.close();
+    }, [dispatch, queryClient]);
 
     return (
         <Modal onClose={onClose} open={open}>
@@ -83,7 +70,7 @@ function Header({ onClose }: { onClose: () => void }) {
 }
 
 function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void }) {
-    const { data: otp } = useQuery({
+    const { data: otp, refetch: refetchOTP } = useQuery({
         queryKey: ['sign-in-with-firefly-app-otp'],
         queryFn() {
             return generateOTP();
@@ -110,25 +97,22 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
         refetchOnMount: true,
     });
 
-    const queryClient = useQueryClient();
+    const [isInvalid, setIsInvalid] = useState(false);
+    useEffect(() => {
+        if (linkInfoData?.session) setIsInvalid(false);
+    }, [linkInfoData?.session]);
 
     const { loading: isLogging } = usePollingAppScanLogin(otp, linkInfoData?.session, {
         enabled,
-        onBeforeAddAccounts: onClose,
         onSuccess() {
             enqueueSuccessMessage(t`Your Firefly Account is now connected`);
-            queryClient.removeQueries({ queryKey: ['desktop-link-info-session'] });
-            queryClient.removeQueries({ queryKey: ['sign-in-with-firefly-app-otp'] });
             onClose?.();
         },
-        onCancel() {
-            queryClient.removeQueries({ queryKey: ['desktop-link-info-session'] });
-            queryClient.removeQueries({ queryKey: ['sign-in-with-firefly-app-otp'] });
-            onClose?.();
+        onCancel: onClose,
+        onExpired() {
+            setIsInvalid(true);
         },
     });
-
-    const isExpired = useExpires(linkInfoData?.expiresAt, enabled);
 
     const schemaURL = linkInfoData
         ? urlcat('firefly://account/scan/desktop-login', {
@@ -144,6 +128,8 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
                   : {}),
           })
         : null;
+
+    const loading = isLoading || isRefetching || isLogging;
 
     return (
         <>
@@ -173,22 +159,26 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
                     </p>
                     <div
                         className="relative flex size-[270px] items-center justify-center rounded-2xl bg-white shadow-primary"
-                        onClick={() => refetchDesktopLinkInfo()}
+                        onClick={async () => {
+                            await refetchDesktopLinkInfo();
+                            await refetchOTP();
+                            setIsInvalid(false);
+                        }}
                     >
-                        {schemaURL ? (
+                        {!loading && schemaURL ? (
                             <QRCode
                                 value={schemaURL}
                                 size={246}
                                 className={classNames({
-                                    'blur-md': isExpired,
+                                    'blur-md': isInvalid,
                                 })}
                             />
                         ) : null}
-                        {isLoading || isRefetching || isLogging ? (
+                        {loading ? (
                             <div className="absolute inset-0 flex flex-col items-center justify-center text-black">
                                 <LoadingIcon />
                             </div>
-                        ) : isExpired ? (
+                        ) : isInvalid ? (
                             <ReloadIcon className="absolute inset-0 m-auto text-white" width={80} height={80} />
                         ) : null}
                     </div>

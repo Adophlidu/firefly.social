@@ -63,13 +63,7 @@ type SocialSession = FarcasterSession | LensSession | TwitterSession | BskySessi
 
 export class DecryptionFailed extends Error {}
 
-export async function loginWithAppScan(
-    data: DesktopLinkInfoStatusData,
-    otp: string,
-    options?: {
-        onBeforeAddAccounts?: () => void | Promise<void>;
-    },
-) {
+export async function loginWithAppScan(data: DesktopLinkInfoStatusData, otp: string) {
     if (data.status !== DesktopLinkInfoStatus.Confirm) throw new DecryptionFailed(t`The encrypted data not found.`);
     if (!data.encryptedData) throw new DecryptionFailed(t`The encrypted data not found.`);
     const res = await decryptAppScanLoginEncryptedData(data.encryptedData, otp);
@@ -88,7 +82,6 @@ export async function loginWithAppScan(
     });
     const settled = await Promise.allSettled(promises);
     const accounts = compact(settled.map((x) => (x.status === 'fulfilled' ? x.value : null)));
-    await options?.onBeforeAddAccounts?.();
     await addAccounts(fireflySession, accounts, {
         async setAsCurrent(account) {
             if (account.profile.source === Source.Lens) {

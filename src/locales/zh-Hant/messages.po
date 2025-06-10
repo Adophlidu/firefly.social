@@ -1094,6 +1094,9 @@ msgstr "連結錢包"
 msgid "Sign In With Firefly App Modal"
 msgstr ""
 
+msgid "Mobile QR login is interrupted. Please try again."
+msgstr ""
+
 msgid "Review Transaction"
 msgstr "檢視交易"
 

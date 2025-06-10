@@ -1089,6 +1089,9 @@ msgstr "Connect Wallet"
 msgid "Sign In With Firefly App Modal"
 msgstr "Sign In With Firefly App Modal"
 
+msgid "Mobile QR login is interrupted. Please try again."
+msgstr "Mobile QR login is interrupted. Please try again."
+
 msgid "Review Transaction"
 msgstr "Review Transaction"
 
