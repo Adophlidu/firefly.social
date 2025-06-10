@@ -13,16 +13,17 @@ import { getPublicKeyInHexFromSigner } from '@/helpers/ed25519.js';
 import { getAllAccounts } from '@/helpers/getAllProfiles.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
+import { resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveTwitterResponseData } from '@/helpers/resolveTwitterResponseData.js';
 import { verifyPasscodeOnServer } from '@/modals/PasswordModal/runPasswordWorkflow.js';
 import { BskySession } from '@/providers/bsky/Session.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -237,7 +238,7 @@ export async function mergeMetrics(passcode: string) {
         const decryptedData = JSON.parse(decryptCipherText(passcode, ciphertext)) as CommonMetricsData;
         const now = Date.now();
         const profileState = getProfileState(source);
-
+        const sessionHolder = resolveSessionHolderFromProfileSource(source);
         const profile = {
             ...createDummyProfile(source),
             profileId,
@@ -274,13 +275,19 @@ export async function mergeMetrics(passcode: string) {
 
             case Source.Farcaster: {
                 const data = decryptedData as FarcasterMetricsData;
-                const session = new FarcasterSession(profileId, data.signer_private_key, now, now);
+                const session = new FarcasterSession(
+                    profileId,
+                    data.signer_private_key,
+                    now,
+                    now,
+                    FAKE_SIGNER_REQUEST_TOKEN,
+                );
                 const account = {
                     profile,
                     session,
                 };
                 if (!currentProfile) {
-                    farcasterSessionHolder.resumeSession(session);
+                    sessionHolder.resumeSession(session);
                 }
 
                 profileState.addAccount(account, !currentProfile);
@@ -297,6 +304,8 @@ export async function mergeMetrics(passcode: string) {
                     consumerKey: data.consumer_key,
                     consumerSecret: data.consumer_secret,
                 });
+                sessionHolder.resumeSession(session);
+                await TwitterAuthProvider.login();
                 profileState.addAccount(
                     {
                         profile,
@@ -316,6 +325,7 @@ export async function mergeMetrics(passcode: string) {
                     refreshJwt: data.refresh_jwt,
                     active: true,
                 });
+                sessionHolder.resumeSession(session);
                 profileState.addAccount(
                     {
                         profile,
