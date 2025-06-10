@@ -365,6 +365,9 @@ msgstr ""
 msgid "Turn off"
 msgstr ""
 
+msgid "An unknown error occurred."
+msgstr ""
+
 msgid "Set Password"
 msgstr ""
 
@@ -864,6 +867,9 @@ msgid "Functions with retrievable ownership"
 msgstr ""
 
 msgid "No proxy contract."
+msgstr ""
+
+msgid "Failed to reset password."
 msgstr ""
 
 msgid "Connecting"
@@ -1479,6 +1485,9 @@ msgid "Cost"
 msgstr ""
 
 msgid "Insufficient Gas"
+msgstr ""
+
+msgid "Failed to change password."
 msgstr ""
 
 msgid "Blacklist function"
@@ -3524,6 +3533,9 @@ msgid "Claims"
 msgstr ""
 
 msgid "Failed to bookmark snapshot."
+msgstr ""
+
+msgid "Failed to verify password."
 msgstr ""
 
 msgid "Mint Again"

@@ -365,6 +365,9 @@ msgstr "Sorry, the username or password you entered is incorrect"
 msgid "Turn off"
 msgstr "Turn off"
 
+msgid "An unknown error occurred."
+msgstr "An unknown error occurred."
+
 msgid "Set Password"
 msgstr "Set Password"
 
@@ -865,6 +868,9 @@ msgstr "Functions with retrievable ownership"
 
 msgid "No proxy contract."
 msgstr "No proxy contract."
+
+msgid "Failed to reset password."
+msgstr "Failed to reset password."
 
 msgid "Connecting"
 msgstr "Connecting"
@@ -1480,6 +1486,9 @@ msgstr "Cost"
 
 msgid "Insufficient Gas"
 msgstr "Insufficient Gas"
+
+msgid "Failed to change password."
+msgstr "Failed to change password."
 
 msgid "Blacklist function"
 msgstr "Blacklist function"
@@ -3541,6 +3550,9 @@ msgstr "Claims"
 
 msgid "Failed to bookmark snapshot."
 msgstr "Failed to bookmark snapshot."
+
+msgid "Failed to verify password."
+msgstr "Failed to verify password."
 
 msgid "Mint Again"
 msgstr "Mint Again"

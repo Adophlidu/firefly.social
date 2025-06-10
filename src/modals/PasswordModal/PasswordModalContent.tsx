@@ -47,6 +47,22 @@ async function captureEvent(workflow: PasswordWorkflow) {
     }
 }
 
+function getDefaultErrorMessage(workflow: PasswordWorkflow): string {
+    switch (workflow) {
+        case PasswordWorkflow.Set:
+            return t`Failed to set password.`;
+        case PasswordWorkflow.Change:
+            return t`Failed to change password.`;
+        case PasswordWorkflow.Reset:
+            return t`Failed to reset password.`;
+        case PasswordWorkflow.Verify:
+            return t`Failed to verify password.`;
+        default:
+            safeUnreachable(workflow);
+            return t`An unknown error occurred.`;
+    }
+}
+
 export const PasswordModalContent = memo<
     PasswordModalOpenProps & {
         onClose: (success?: boolean) => void;
@@ -95,7 +111,7 @@ export const PasswordModalContent = memo<
             changeWorkflowOrStep(result.workflow, result.step);
         } catch (error) {
             const fetchError = error instanceof FetchError ? error.errorMessage : undefined;
-            enqueueErrorMessage(fetchError || t`Failed to set password.`, { error });
+            enqueueErrorMessage(fetchError || getDefaultErrorMessage(workflow), { error });
             throw error;
         }
     }, [passwords, workflow, step, onClose, changeWorkflowOrStep, setPassword]);

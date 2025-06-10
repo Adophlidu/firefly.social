@@ -370,6 +370,9 @@ msgstr "抱歉，您輸入的用戶名或密碼不正確"
 msgid "Turn off"
 msgstr ""
 
+msgid "An unknown error occurred."
+msgstr ""
+
 msgid "Set Password"
 msgstr ""
 
@@ -870,6 +873,9 @@ msgstr "具所有權檢索功能"
 
 msgid "No proxy contract."
 msgstr "無代理合約"
+
+msgid "Failed to reset password."
+msgstr ""
 
 msgid "Connecting"
 msgstr "連線中"
@@ -1485,6 +1491,9 @@ msgstr "成本"
 
 msgid "Insufficient Gas"
 msgstr "Gas 不足"
+
+msgid "Failed to change password."
+msgstr ""
 
 msgid "Blacklist function"
 msgstr "黑名單功能"
@@ -3541,6 +3550,9 @@ msgstr "領取記錄"
 
 msgid "Failed to bookmark snapshot."
 msgstr "書籤快照失敗"
+
+msgid "Failed to verify password."
+msgstr ""
 
 msgid "Mint Again"
 msgstr "再次鑄造"
