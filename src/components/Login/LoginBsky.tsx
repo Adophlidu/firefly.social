@@ -24,6 +24,7 @@ import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage }
 import { formatBskyProfile } from '@/helpers/formatBskyProfile.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { retryOnBskyWhenNetworkError } from '@/helpers/retryOnBskyWhenNetworkError.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { createBskyAgent } from '@/providers/bsky/createBskyAgent.js';
@@ -159,13 +160,15 @@ export function LoginBsky() {
                         });
                         if (!response.success) throw new Error(`Failed to login username = ${username}.`);
 
-                        const profileResponse = await agent.getProfile(
-                            {
-                                actor: response.data.did,
-                            },
-                            {
-                                signal: controller.current.signal,
-                            },
+                        const profileResponse = await retryOnBskyWhenNetworkError(2, () =>
+                            agent.getProfile(
+                                {
+                                    actor: response.data.did,
+                                },
+                                {
+                                    signal: controller.current.signal,
+                                },
+                            ),
                         );
                         if (!profileResponse.success)
                             throw new Error(`Failed to get profile id = ${response.data.did}.`);
