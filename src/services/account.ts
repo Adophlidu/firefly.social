@@ -297,6 +297,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         isSocialSource(account.profile.source)
     ) {
         const remoteAccounts = await downloadAccounts();
+        // TODO: remove this after support multiple x and bsky accounts
         const remoteProfiles = remoteAccounts
             .filter((x) => {
                 const sourceInUrl = x.metaInfo.platform === 'bluesky' ? SourceInURL.Bsky : x.metaInfo.platform;

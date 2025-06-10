@@ -74,7 +74,13 @@ export async function decryptAppScanLoginEncryptedData(
             const source = account.type;
             switch (source) {
                 case SourceInURL.Farcaster:
-                    return new FarcasterSession(account.user_id, `0x${account.token}`, 0, 0, FAKE_SIGNER_REQUEST_TOKEN);
+                    return new FarcasterSession(
+                        account.user_id,
+                        account.token.startsWith('0x') ? account.token : `0x${account.token}`,
+                        0,
+                        0,
+                        FAKE_SIGNER_REQUEST_TOKEN,
+                    );
                 case SourceInURL.Lens:
                     return new LensSession(
                         account.user_id,

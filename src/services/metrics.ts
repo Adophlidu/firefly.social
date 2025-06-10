@@ -290,6 +290,7 @@ export async function mergeMetrics(passcode: string) {
 
                 break;
             }
+            // TODO: remove this after support multiple x and bsky accounts
             case Source.Twitter: {
                 if (currentProfile) break;
                 const payloadResponse = await fetchJSON<ResponseJSON<SessionPayload>>(
