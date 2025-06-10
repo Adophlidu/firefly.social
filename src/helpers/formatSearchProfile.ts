@@ -92,7 +92,7 @@ export function formatSearchProfile(
     return {
         profile: fixProfilePlatform(target),
         related: allProfile,
-        isSpecial: isSpecialSearchProfile({ profile: target, related: allProfile }),
+        isSpecial: isSpecialSearchProfile({ profile: target, related: allProfile }, keyword),
     };
 }
 
