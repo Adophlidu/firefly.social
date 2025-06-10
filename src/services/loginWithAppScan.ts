@@ -82,7 +82,7 @@ export async function loginWithAppScan(data: DesktopLinkInfoStatusData, otp: str
     });
     const settled = await Promise.allSettled(promises);
     const accounts = compact(settled.map((x) => (x.status === 'fulfilled' ? x.value : null)));
-    await addAccounts(fireflySession, accounts, {
+    return await addAccounts(fireflySession, accounts, {
         async setAsCurrent(account) {
             if (account.profile.source === Source.Lens) {
                 await lensSessionHolder?.resumeSession(account.session as LensSession, true);

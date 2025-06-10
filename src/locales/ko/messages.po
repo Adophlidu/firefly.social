@@ -682,6 +682,9 @@ msgstr ""
 msgid "Followed <0>@{0}</0> on X before Jan 18, 2025"
 msgstr ""
 
+msgid "This QR code is no longer valid. Please scan a new one to continue."
+msgstr ""
+
 msgid "Only people who follow you"
 msgstr ""
 
@@ -2523,6 +2526,9 @@ msgstr ""
 msgid "Unable to read image."
 msgstr ""
 
+msgid "Signing in..."
+msgstr ""
+
 msgid "Failed to claim red packet"
 msgstr ""
 
@@ -2691,9 +2697,6 @@ msgid "Price"
 msgstr ""
 
 msgid "Failed to bookmark post."
-msgstr ""
-
-msgid "Login session expired."
 msgstr ""
 
 #. placeholder {0}: resolveSourceName(Source.Farcaster)

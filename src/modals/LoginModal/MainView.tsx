@@ -218,7 +218,7 @@ function FireflyLoginButton() {
         <div className="flex h-[56px] items-center gap-2 rounded-lg border border-highlight bg-bg px-2 text-left text-sm text-main">
             <FireflyAvatar className="size-[40px] shrink-0" width={40} height={40} />
             <div className="flex h-[40px] min-w-0 flex-1 flex-col items-start justify-center">
-                <div className="mb-2 h-5 w-full truncate leading-5">
+                <div className="h-5 w-full truncate leading-5">
                     <Trans>Firefly Mobile</Trans>
                 </div>
                 <div className="h-5 w-full truncate leading-5 text-second">

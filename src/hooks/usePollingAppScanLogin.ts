@@ -45,8 +45,9 @@ export function usePollingAppScanLogin(
         async (data: DesktopLinkInfoStatusData, otp: string) => {
             if (data?.status !== DesktopLinkInfoStatus.Confirm || !otp || !data?.encryptedData) return;
             try {
-                await loginWithAppScan(data, otp);
-                onSuccessRef.current?.();
+                const isSigned = await loginWithAppScan(data, otp);
+                if (isSigned) onSuccessRef.current?.();
+                else onCancelRef.current?.();
             } catch (error) {
                 enqueueErrorMessage(getErrorMessageFromError(error, t`Failed to login.`));
                 onFailureRef.current?.(error);
@@ -69,7 +70,7 @@ export function usePollingAppScanLogin(
                 onCancelRef.current?.();
                 return;
             case DesktopLinkInfoStatus.Expired:
-                enqueueWarningMessage(t`Login session expired.`);
+                enqueueWarningMessage(t`This QR code is no longer valid. Please scan a new one to continue.`);
                 onExpiredRef.current?.();
                 return;
             case DesktopLinkInfoStatus.Pending:

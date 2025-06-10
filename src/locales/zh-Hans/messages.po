@@ -682,6 +682,9 @@ msgstr "收藏"
 msgid "Followed <0>@{0}</0> on X before Jan 18, 2025"
 msgstr "你在2024年12月18日快照中识别为 X 账号 <0>@{0}</0> 的关注者"
 
+msgid "This QR code is no longer valid. Please scan a new one to continue."
+msgstr ""
+
 msgid "Only people who follow you"
 msgstr ""
 
@@ -2536,6 +2539,9 @@ msgstr "下载媒体"
 msgid "Unable to read image."
 msgstr "获取图片失败。"
 
+msgid "Signing in..."
+msgstr ""
+
 msgid "Failed to claim red packet"
 msgstr "领取红包失败"
 
@@ -2705,9 +2711,6 @@ msgstr "价格"
 
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
-
-msgid "Login session expired."
-msgstr ""
 
 #. placeholder {0}: resolveSourceName(Source.Farcaster)
 #. placeholder {0}: resolveSourceName(Source.Lens)

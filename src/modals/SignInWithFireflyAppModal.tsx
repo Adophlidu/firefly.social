@@ -102,7 +102,7 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
         if (linkInfoData?.session) setIsInvalid(false);
     }, [linkInfoData?.session]);
 
-    const { loading: isLogging } = usePollingAppScanLogin(otp, linkInfoData?.session, {
+    const { loading: isSigning } = usePollingAppScanLogin(otp, linkInfoData?.session, {
         enabled,
         onSuccess() {
             enqueueSuccessMessage(t`Your Firefly Account is now connected`);
@@ -129,7 +129,7 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
           })
         : null;
 
-    const loading = isLoading || isRefetching || isLogging;
+    const loading = isLoading || isRefetching || isSigning;
 
     return (
         <>
@@ -175,7 +175,12 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
                             />
                         ) : null}
                         {loading ? (
-                            <div className="absolute inset-0 flex flex-col items-center justify-center text-black">
+                            <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-xs text-black">
+                                {isSigning ? (
+                                    <span className="mb-2">
+                                        <Trans>Signing in...</Trans>
+                                    </span>
+                                ) : null}
                                 <LoadingIcon />
                             </div>
                         ) : isInvalid ? (
