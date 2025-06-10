@@ -83,6 +83,7 @@ export const PasswordInputPanel = memo<PasswordInputPanelProps>(function Passwor
             />
             {Array.from({ length: METRICS_PASSWORD_LENGTH }, (_, index) => (
                 <span
+                    key={index}
                     onClick={() => {
                         if (!inputRef.current) return;
 
