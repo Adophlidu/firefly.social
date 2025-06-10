@@ -18,12 +18,12 @@ import { resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionH
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveTwitterResponseData } from '@/helpers/resolveTwitterResponseData.js';
-import { verifyPasscodeOnServer } from '@/modals/PasswordModal/runPasswordWorkflow.js';
 import { BskySession } from '@/providers/bsky/Session.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { captureAccountLoginEvent } from '@/providers/telemetry/captureAccountEvent.js';
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { type SessionPayload } from '@/providers/twitter/SessionPayload.js';
@@ -180,8 +180,6 @@ export async function downloadAccounts() {
  * @param passcode
  */
 export async function mergeMetrics(passcode: string) {
-    if (!(await verifyPasscodeOnServer(passcode))) return false;
-
     const localMetrics = await getLocalMetrics(passcode);
 
     const validLocalMetrics = compact(localMetrics);
@@ -258,6 +256,7 @@ export async function mergeMetrics(passcode: string) {
                 const account = {
                     profile,
                     session,
+                    origin: 'sync',
                 } satisfies Account;
 
                 if (!currentProfile) {
@@ -265,7 +264,7 @@ export async function mergeMetrics(passcode: string) {
                 }
 
                 profileState.addAccount(account, !currentProfile);
-
+                captureAccountLoginEvent(account);
                 break;
             }
 
@@ -281,10 +280,12 @@ export async function mergeMetrics(passcode: string) {
                 const account = {
                     profile,
                     session,
-                };
+                    origin: 'sync',
+                } satisfies Account;
                 if (!currentProfile) {
                     sessionHolder.resumeSession(session);
                 }
+                captureAccountLoginEvent(account);
 
                 profileState.addAccount(account, !currentProfile);
 
@@ -309,14 +310,13 @@ export async function mergeMetrics(passcode: string) {
 
                 sessionHolder.resumeSession(session);
                 await TwitterAuthProvider.login();
-
-                profileState.addAccount(
-                    {
-                        profile,
-                        session,
-                    },
-                    true,
-                );
+                const account = {
+                    profile,
+                    session,
+                    origin: 'sync',
+                } satisfies Account;
+                profileState.addAccount(account, true);
+                captureAccountLoginEvent(account);
                 break;
             }
             case Source.Bsky: {
@@ -330,19 +330,18 @@ export async function mergeMetrics(passcode: string) {
                     active: true,
                 });
                 sessionHolder.resumeSession(session);
-                profileState.addAccount(
-                    {
-                        profile,
-                        session,
-                    },
-                    true,
-                );
+                const account = {
+                    profile,
+                    session,
+                    origin: 'sync',
+                } satisfies Account;
+                profileState.addAccount(account, true);
+                captureAccountLoginEvent(account);
                 break;
             }
             default:
                 safeUnreachable(source);
         }
     }
-
     return true;
 }

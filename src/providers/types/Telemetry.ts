@@ -41,6 +41,14 @@ export enum EventId {
     PASSCODE_CHANGE_SUCCESS = 'account_sync_password_change_success',
     PASSCODE_RESET_SUCCESS = 'account_sync_password_reset_success',
 
+    // sync token
+    TOKEN_SYNC_USE_YES = 'token_sync_use_yes',
+    TOKEN_SYNC_USE_NO = 'token_sync_use_no',
+    ACCOUNT_CONFLICT_USE_YES = 'account_conflict_use_yes',
+    ACCOUNT_CONFLICT_USE_NO = 'account_conflict_use_no',
+    MOBILE_QR_LOGIN_CLICK = 'mobile_qr_login_click',
+    MULTI_DEVICE_LOGIN_CLICK = 'multi_device_login_click',
+
     // compose dialog
     COMPOSE_CROSS_POST_SEND_SUCCESS = 'cross_post_send_success', // ✅
     COMPOSE_SCHEDULED_POST_CREATE_SUCCESS = 'scheduled_post_create_success', // ✅

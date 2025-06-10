@@ -4,6 +4,7 @@ import { t } from '@lingui/core/macro';
 import { compact } from 'lodash-es';
 
 import { decryptAppScanLoginEncryptedData } from '@/actions/decryptAppScanLoginEncryptedData.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -82,7 +83,7 @@ export async function loginWithAppScan(data: DesktopLinkInfoStatusData, otp: str
     });
     const settled = await Promise.allSettled(promises);
     const accounts = compact(settled.map((x) => (x.status === 'fulfilled' ? x.value : null)));
-    return await addAccounts(fireflySession, accounts, {
+    const result = await addAccounts(fireflySession, accounts, {
         async setAsCurrent(account) {
             if (account.profile.source === Source.Lens) {
                 await lensSessionHolder?.resumeSession(account.session as LensSession, true);
@@ -92,4 +93,11 @@ export async function loginWithAppScan(data: DesktopLinkInfoStatusData, otp: str
             sessionHolder?.resumeSession(account.session);
         },
     });
+
+    if (result) {
+        await queryClient.refetchQueries({ queryKey: ['all-profiles'] });
+        await queryClient.refetchQueries({ queryKey: ['my-wallet-connections'] });
+    }
+
+    return result;
 }

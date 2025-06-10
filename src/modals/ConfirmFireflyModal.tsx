@@ -9,6 +9,10 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConfirmFireflyModalRef, ConfirmModalRef } from '@/modals/controls.js';
+import {
+    captureAccountConflictNoEvent,
+    captureAccountConflictYesEvent,
+} from '@/providers/telemetry/captureSyncTokenEvent.js';
 import type { Account } from '@/providers/types/Account.js';
 
 export interface ConfirmFireflyModalOpenProps {
@@ -62,6 +66,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                                 onClick={() => {
                                     ConfirmModalRef.close(false);
                                     ConfirmFireflyModalRef.close(false);
+                                    captureAccountConflictNoEvent();
                                 }}
                             >
                                 <Trans>Cancel</Trans>
@@ -71,6 +76,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                                 onClick={() => {
                                     ConfirmModalRef.close(true);
                                     ConfirmFireflyModalRef.close(true);
+                                    captureAccountConflictYesEvent();
                                 }}
                             >
                                 <Trans>Continue</Trans>

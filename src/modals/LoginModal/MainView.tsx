@@ -53,9 +53,14 @@ import {
 } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
+import {
+    captureMobileQrLoginClickEvent,
+    captureMultiDeviceLoginClickEvent,
+} from '@/providers/telemetry/captureSyncTokenEvent.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { AllConnections, FireflyAccountProfile } from '@/providers/types/Firefly.js';
-import { switchAccount } from '@/services/account.js';
+import { switchAccount, verifyAndGetPassword } from '@/services/account.js';
+import { mergeMetrics } from '@/services/metrics.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 function FireflyAccountLoadingSkeleton() {
@@ -90,10 +95,19 @@ function FireflyAccount({
 
     const [{ loading: queryMetricsStatusLoading }, queryMetricsStatus] = useAsyncFn(async () => {
         try {
-            const result = await FireflyEndpointProvider.getMetricsStatus();
-            PasswordModalRef.open({
-                workflow: !result.hasSetPasscode ? PasswordWorkflow.Set : PasswordWorkflow.Verify,
-            });
+            const status = await FireflyEndpointProvider.getMetricsStatus();
+            if (status.hasSetPasscode) {
+                const password = await verifyAndGetPassword(true);
+                if (password) {
+                    const result = mergeMetrics(password);
+                    if (!result) return;
+                    enqueueSuccessMessage(t`Multi-device login sessions synced successfully.`);
+                }
+            } else {
+                const result = await PasswordModalRef.openAndWaitForClose({
+                    workflow: PasswordWorkflow.Set,
+                });
+            }
         } catch (error) {
             enqueueMessageFromError(error, t`Something went wrong.`);
             throw error;
@@ -161,6 +175,7 @@ function FireflyAccount({
                                             onClick={() => {
                                                 close();
                                                 LoginModalRef.close();
+                                                captureMobileQrLoginClickEvent();
                                                 SignInWithFireflyAppModalRef.open();
                                             }}
                                         >
@@ -175,6 +190,7 @@ function FireflyAccount({
                                             className="flex w-full items-center gap-2 whitespace-nowrap px-3 py-1 text-base font-bold"
                                             onClick={async () => {
                                                 if (queryMetricsStatusLoading) return;
+                                                captureMultiDeviceLoginClickEvent();
                                                 await queryMetricsStatus();
                                                 close();
                                                 return;
@@ -229,6 +245,7 @@ function FireflyLoginButton() {
                 className="ml-auto size-5 shrink-0 cursor-pointer"
                 onClick={() => {
                     LoginModalRef.close();
+                    captureMobileQrLoginClickEvent();
                     SignInWithFireflyAppModalRef.open();
                 }}
             >

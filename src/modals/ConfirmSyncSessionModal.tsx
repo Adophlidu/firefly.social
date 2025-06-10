@@ -8,6 +8,7 @@ import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { captureTokenSyncNoEvent, captureTokenSyncYesEvent } from '@/providers/telemetry/captureSyncTokenEvent.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface ConfirmSyncSessionModalOpenProps {
@@ -77,6 +78,7 @@ export function ConfirmSyncSessionModal({ ref }: Props) {
                     <ClickableButton
                         className="box-border flex h-10 flex-1 items-center justify-center rounded-full border border-main text-medium font-bold text-main"
                         onClick={() => {
+                            captureTokenSyncNoEvent();
                             dispatch?.close(false);
                         }}
                     >
@@ -85,6 +87,7 @@ export function ConfirmSyncSessionModal({ ref }: Props) {
                     <ClickableButton
                         className="box-border flex h-10 flex-1 items-center justify-center rounded-full bg-main text-medium font-bold text-primaryBottom"
                         onClick={() => {
+                            captureTokenSyncYesEvent();
                             dispatch?.close(true);
                         }}
                     >

@@ -9,7 +9,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { PasswordModalRef } from '@/modals/controls.js';
 import { isStrongDigitPassword, isValidPassword } from '@/modals/PasswordModal/isValidPassword.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { mergeMetrics, uploadMetrics } from '@/services/metrics.js';
+import { uploadMetrics } from '@/services/metrics.js';
 
 type NextStepConfig =
     | {
@@ -144,12 +144,8 @@ async function changePassword(step: PasswordStep, passwords: Record<PasswordStep
 async function verifyPassword(step: PasswordStep, passwords: Record<PasswordStep, string>): Promise<NextStepConfig> {
     switch (step) {
         case PasswordStep.VerifyPassword: {
-            const result = await mergeMetrics(passwords[step]);
-            if (result) {
-                enqueueSuccessMessage(t`Multi-device login sessions synced successfully.`);
-                return { step: PasswordStep.Success };
-            }
-            return;
+            if (!(await verifyPasscodeOnServer(passwords[step]))) return;
+            return { step: PasswordStep.Success };
         }
         case PasswordStep.Success:
             return;

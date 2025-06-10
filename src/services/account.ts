@@ -41,7 +41,7 @@ import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 import { getTwitterTimelineWhitelist } from '@/services/getTwitterTimelineWhitelist.js';
-import { downloadAccounts, uploadMetrics } from '@/services/metrics.js';
+import { downloadAccounts, mergeMetrics, uploadMetrics } from '@/services/metrics.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { useFireflyStateStore, useThirdPartyStateStore } from '@/store/useProfileStore.js';
@@ -192,8 +192,6 @@ export interface AccountOptions {
     skipResumeFireflySession?: boolean;
     // skip reporting farcaster signer, default: true
     skipReportFarcasterSigner?: boolean;
-    // skip verify password check, default: false
-    skipVerifyPasswordCheck?: boolean;
     // early return signal
     signal?: AbortSignal;
 }
@@ -205,7 +203,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         skipResumeFireflyAccounts = false,
         skipResumeFireflySession = false,
         skipReportFarcasterSigner = true,
-        skipVerifyPasswordCheck = false,
+
         signal,
     } = options ?? {};
 
@@ -288,6 +286,21 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         await resumeFireflySession(account, signal);
     }
 
+    // report farcaster signer
+    runInSafeAsync(async () => {
+        if (
+            !skipReportFarcasterSigner &&
+            fireflySessionHolder.session &&
+            account.session.type === SessionType.Farcaster
+        ) {
+            console.warn('[addAccount] report farcaster signer');
+            FireflyEndpointProvider.reportFarcasterSigner(account.session as FireflySession);
+        }
+    });
+
+    captureAccountLoginEvent(account);
+    if (account.fireflySession?.payload?.isNew) captureAccountCreateSuccessEvent(account);
+
     const syncStatus = await FireflyEndpointProvider.getMetricsStatus();
 
     if (
@@ -348,44 +361,33 @@ export async function addAccount(account: Account, options?: AccountOptions) {
                 profiles: profilesToSync.filter((x) => !isSameProfile(x, account.profile)),
             });
 
-            if (confirmed && !skipVerifyPasswordCheck) {
-                await PasswordModalRef.openAndWaitForClose({
-                    workflow: PasswordWorkflow.Verify,
-                });
+            if (confirmed) {
+                const password = await verifyAndGetPassword(true);
+                if (password) await mergeMetrics(password);
             }
         } else if (profilesToUpload.length > 0) {
-            const passcode = useTokenPasswordStore.getState().password;
-
-            if (passcode) {
-                const result = await FireflyEndpointProvider.checkPasscode(passcode, true);
-                if (result.code === FireflyResponseCode.SUCCESS) {
-                    await uploadMetrics(passcode);
-                }
-            } else {
-                await PasswordModalRef.openAndWaitForClose({
-                    workflow: PasswordWorkflow.Verify,
-                });
-            }
+            const passcode = await verifyAndGetPassword();
+            if (passcode) uploadMetrics(passcode);
         }
     }
 
-    // report farcaster signer
-    runInSafeAsync(async () => {
-        if (
-            !skipReportFarcasterSigner &&
-            fireflySessionHolder.session &&
-            account.session.type === SessionType.Farcaster
-        ) {
-            console.warn('[addAccount] report farcaster signer');
-            FireflyEndpointProvider.reportFarcasterSigner(account.session as FireflySession);
-        }
-    });
-
-    captureAccountLoginEvent(account);
-    if (account.fireflySession?.payload?.isNew) captureAccountCreateSuccessEvent(account);
-
     // account has been added to the store
     return true;
+}
+
+export async function verifyAndGetPassword(skipCheck = false) {
+    const localPassword = useTokenPasswordStore.getState().password;
+    if (localPassword && !skipCheck) {
+        const result = await FireflyEndpointProvider.checkPasscode(localPassword, true);
+        if (result?.code === FireflyResponseCode.SUCCESS) {
+            return localPassword;
+        }
+    }
+    const result = await PasswordModalRef.openAndWaitForClose({
+        workflow: PasswordWorkflow.Verify,
+    });
+    if (!result) return null;
+    return useTokenPasswordStore.getState().password;
 }
 
 export async function addAccounts(fireflySession: FireflySession, accounts: Account[], options?: AccountOptions) {
@@ -400,7 +402,7 @@ export async function addAccounts(fireflySession: FireflySession, accounts: Acco
     if (!accounts.length) return false;
 
     if (!skipResumeFireflyAccounts) {
-        const currentFireflySession = getProfileState(Source.Firefly).currentProfileSession;
+        const currentFireflySession = getProfileState(Source.Firefly).currentProfileSession as FireflySession | null;
 
         if (!currentFireflySession) {
             const confirmed = await ConfirmSyncSessionModalRef.openAndWaitForClose({
@@ -422,7 +424,18 @@ export async function addAccounts(fireflySession: FireflySession, accounts: Acco
             const confirmed = await ConfirmFireflyModalRef.openAndWaitForClose({
                 account: accounts[0]!,
             });
+            if (currentFireflySession?.profileId) {
+                captureAccountConflictEvent(
+                    currentFireflySession.accountIdForEvent,
+                    fireflySession.accountIdForEvent,
+                    confirmed,
+                );
+            }
             if (!confirmed) return false;
+            await updateState(accounts, {
+                setAsCurrent,
+                overwrite: !belongsTo,
+            });
         }
 
         const allProfiles = getAllProfiles();
@@ -431,16 +444,10 @@ export async function addAccounts(fireflySession: FireflySession, accounts: Acco
         );
 
         if (profilesToSync.length > 0) {
-            const confirmed = await ConfirmSyncSessionModalRef.openAndWaitForClose({
-                profiles: profilesToSync.map((x) => x.profile),
+            await updateState(profilesToSync, {
+                setAsCurrent,
+                overwrite: false,
             });
-
-            if (confirmed) {
-                await updateState(accounts, {
-                    setAsCurrent,
-                    overwrite: false,
-                });
-            }
         }
 
         await updateState(accounts, {
@@ -520,17 +527,13 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
         state.removeAccount(account);
     }
 
-    runInSafeAsync(async () => {
-        const passcode = useTokenPasswordStore.getState().password;
-        const result = passcode ? await FireflyEndpointProvider.checkPasscode(passcode, true) : null;
-
-        if (result?.code === FireflyResponseCode.SUCCESS && passcode) {
-            await FireflyEndpointProvider.deleteMetrics(
-                passcode,
-                `${account.profile.source === Source.Bsky ? 'bluesky' : resolveSourceInUrl(account.profile.source)}:${account.profile.profileId}`,
-            );
-        }
-    });
+    const passcode = await verifyAndGetPassword();
+    if (passcode) {
+        await FireflyEndpointProvider.deleteMetrics(
+            passcode,
+            `${account.profile.source === Source.Bsky ? 'bluesky' : resolveSourceInUrl(account.profile.source)}:${account.profile.profileId}`,
+        );
+    }
     runInSafeAsync(async () => {
         if (TwitterSession.isNextAuth(account.session)) {
             await signOut({
