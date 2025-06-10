@@ -1,7 +1,7 @@
 'use client';
 
 import { getEnumAsArray } from '@masknet/kit';
-import { redirect } from 'next/navigation.js';
+import { useRouter } from 'next/navigation.js';
 import { useAsync } from 'react-use';
 
 import { changeCookies } from '@/actions/changeCookies.js';
@@ -19,6 +19,7 @@ const action = async () => {
 
 export default function AgentPage() {
     const searchParams = useSearchParams();
+    const router = useRouter();
 
     useAsync(async () => {
         await action();
@@ -27,7 +28,7 @@ export default function AgentPage() {
         const isValidPageRoute = url && getEnumAsArray(PageRoute).some(({ value }) => value === url);
 
         try {
-            redirect(isValidPageRoute ? url : PageRoute.Home);
+            router.replace(isValidPageRoute ? url : PageRoute.Home);
         } catch (error) {
             console.error('Redirect error:', error);
             // Ignore the error and continue
