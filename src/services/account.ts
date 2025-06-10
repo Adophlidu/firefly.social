@@ -32,7 +32,6 @@ import {
     captureAccountLogoutAllEvent,
     captureAccountLogoutEvent,
 } from '@/providers/telemetry/captureAccountEvent.js';
-import { captureActivityLoginEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
@@ -341,7 +340,6 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     });
 
     captureAccountLoginEvent(account);
-    captureActivityLoginEvent(account);
     if (account.fireflySession?.payload?.isNew) captureAccountCreateSuccessEvent(account);
 
     // account has been added to the store
@@ -427,7 +425,6 @@ export async function addAccounts(fireflySession: FireflySession, accounts: Acco
     }
 
     accounts.forEach((account) => {
-        captureActivityLoginEvent(account);
         captureAccountLoginEvent(account);
     });
     if (fireflySession?.payload?.isNew) captureAccountCreateSuccessEvent(accounts[0]);
