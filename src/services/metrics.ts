@@ -10,6 +10,7 @@ import { env } from '@/constants/env.js';
 import { SEVEN_DAYS } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getPublicKeyInHexFromSigner } from '@/helpers/ed25519.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getAllAccounts } from '@/helpers/getAllProfiles.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
@@ -25,7 +26,6 @@ import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
-import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
 import type {
     BskyMetricsData,
@@ -109,13 +109,17 @@ async function getMetricsDataToUpload(account: Account, passcode: string) {
             } satisfies FarcasterMetricsData;
         }
         case Source.Twitter: {
-            const twitterSession = await twitterSessionHolder.fetch<ResponseJSON<string>>(
+            const twitterSession = account.session as TwitterSession;
+            const encodedMetricsData = await fetchJSON<ResponseJSON<string>>(
                 urlcat('/api/twitter/encrypt-session', {
                     profileId: account.profile.profileId,
                     encryptKey: sha256(passcode),
                 }),
+                {
+                    headers: TwitterSession.payloadToHeaders(twitterSession.payload),
+                },
             );
-            return resolveTwitterResponseData(twitterSession);
+            return resolveTwitterResponseData(encodedMetricsData);
         }
         default:
             safeUnreachable(account.profile.source);
