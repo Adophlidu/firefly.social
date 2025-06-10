@@ -1,4 +1,4 @@
-import { type ChangeEvent, memo, useCallback, useEffect, useRef } from 'react';
+import { type ChangeEvent, memo, useCallback, useEffect, useRef, useState } from 'react';
 
 import { METRICS_PASSWORD_LENGTH, SESSION_PASSWORD_INPUT_ID } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -14,6 +14,7 @@ export const PasswordInputPanel = memo<PasswordInputPanelProps>(function Passwor
 }) {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+    const [isFocused, setIsFocused] = useState(false);
 
     const onInputChange = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
@@ -31,8 +32,39 @@ export const PasswordInputPanel = memo<PasswordInputPanelProps>(function Passwor
     );
 
     useEffect(() => {
-        inputRef.current?.focus();
-    }, []);
+        const handleKeyDown = (event: KeyboardEvent) => {
+            const isNumberKey = /^[0-9]$/.test(event.key);
+            if (isNumberKey && inputRef.current && !isFocused) {
+                event.preventDefault();
+
+                const currentValue = inputRef.current.value;
+                const newValue = currentValue + event.key;
+
+                if (newValue.length <= METRICS_PASSWORD_LENGTH) {
+                    inputRef.current.value = newValue;
+                    onInputChange({ target: { value: newValue } } as ChangeEvent<HTMLInputElement>);
+                }
+
+                inputRef.current.focus();
+            }
+
+            if (event.key === 'Backspace' && inputRef.current && !isFocused) {
+                event.preventDefault();
+
+                const currentValue = inputRef.current.value;
+                const newValue = currentValue.slice(0, -1);
+
+                inputRef.current.value = newValue;
+                onInputChange({ target: { value: newValue } } as ChangeEvent<HTMLInputElement>);
+
+                inputRef.current.focus();
+            }
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [isFocused, onInputChange]);
 
     return (
         <div className="relative flex items-center" style={{ justifyContent: 'space-around' }} ref={wrapperRef}>
@@ -43,6 +75,11 @@ export const PasswordInputPanel = memo<PasswordInputPanelProps>(function Passwor
                 ref={inputRef}
                 value={password}
                 onChange={onInputChange}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+                onKeyDown={(event) => {
+                    event.stopPropagation();
+                }}
             />
             {Array.from({ length: METRICS_PASSWORD_LENGTH }, (_, index) => (
                 <span
