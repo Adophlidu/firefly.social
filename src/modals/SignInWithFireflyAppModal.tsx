@@ -4,7 +4,7 @@ import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { memo, type Ref, useState } from 'react';
+import { memo, type Ref, useEffect, useState } from 'react';
 import QRCode from 'react-qr-code';
 import { useInterval, useMount } from 'react-use';
 import urlcat from 'urlcat';
@@ -46,6 +46,10 @@ function useExpires(expiresAt?: string, enabled = true) {
         },
         enabled && expiresAt ? 1000 : null,
     );
+
+    useEffect(() => {
+        if (enabled && expiresAt) setIsExpired(dayjs().isAfter(dayjs(expiresAt)));
+    }, [expiresAt, enabled]);
 
     return isExpired;
 }

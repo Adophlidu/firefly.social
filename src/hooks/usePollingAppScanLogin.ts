@@ -1,12 +1,13 @@
 import { t } from '@lingui/core/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { UserRejectionError } from '@/constants/error.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { useCallbackRef } from '@/hooks/useCallbackRef.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { DesktopLinkInfoStatus, type DesktopLinkInfoStatusData } from '@/providers/types/Firefly.js';
 import { loginWithAppScan } from '@/services/loginWithAppScan.js';
@@ -24,11 +25,12 @@ export function usePollingAppScanLogin(
     },
 ) {
     const enabled = options?.enabled ?? true;
-    const onBeforeAddAccounts = options?.onBeforeAddAccounts;
-    const onSuccess = options?.onSuccess;
-    const onFailure = options?.onFailure;
-    const onCancel = options?.onCancel;
-    const onExpired = options?.onExpired;
+    const onBeforeAddAccountsRef = useCallbackRef(options?.onBeforeAddAccounts);
+    const onSuccessRef = useCallbackRef(options?.onSuccess);
+    const onFailureRef = useCallbackRef(options?.onFailure);
+    const onCancelRef = useCallbackRef(options?.onCancel);
+    const onExpiredRef = useCallbackRef(options?.onExpired);
+
     const { data } = useQuery({
         queryKey: ['desktop-session-status', session],
         queryFn() {
@@ -41,25 +43,21 @@ export function usePollingAppScanLogin(
         },
         enabled: !!session,
     });
-    const isLoadingRef = useRef(false);
 
     const [{ loading }, login] = useAsyncFn(
         async (data: DesktopLinkInfoStatusData, otp: string) => {
             if (data?.status !== DesktopLinkInfoStatus.Confirm || !otp || !data?.encryptedData) return;
-            if (isLoadingRef.current) return;
             try {
-                isLoadingRef.current = true;
-                await loginWithAppScan(data, otp, { onBeforeAddAccounts });
-                onSuccess?.();
+                await loginWithAppScan(data, otp, { onBeforeAddAccounts: () => onBeforeAddAccountsRef.current?.() });
+                onSuccessRef.current?.();
             } catch (error) {
                 enqueueErrorMessage(getErrorMessageFromError(error, t`Failed to login.`));
-                onFailure?.(error);
+                onFailureRef.current?.(error);
                 throw error;
-            } finally {
-                isLoadingRef.current = false;
             }
         },
-        [onBeforeAddAccounts, onSuccess, onFailure],
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [],
     );
 
     useEffect(() => {
@@ -71,18 +69,19 @@ export function usePollingAppScanLogin(
                 return;
             case DesktopLinkInfoStatus.Cancel:
                 enqueueErrorMessage(getErrorMessageFromError(new UserRejectionError()));
-                onCancel?.();
+                onCancelRef.current?.();
                 return;
             case DesktopLinkInfoStatus.Expired:
                 enqueueErrorMessage(t`Login session expired.`);
-                onExpired?.();
+                onExpiredRef.current?.();
                 return;
             case DesktopLinkInfoStatus.Pending:
                 break;
             default:
                 safeUnreachable(status);
         }
-    }, [enabled, login, otp, onCancel, onExpired, data]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [enabled, login, otp, data]);
 
     return { loading };
 }
