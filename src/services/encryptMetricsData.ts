@@ -7,3 +7,10 @@ export function encryptMetricsData(text: string, key: string, iv: string) {
 
     return encrypted;
 }
+
+export function decryptMetricsData(text: string, key: string, iv: string) {
+    const decipher = webCrypto.createDecipheriv('aes-256-cbc', Buffer.from(key, 'hex'), Buffer.from(iv, 'hex'));
+    let decrypted = decipher.update(text, 'hex', 'utf-8');
+    decrypted += decipher.final('utf-8');
+    return decrypted;
+}

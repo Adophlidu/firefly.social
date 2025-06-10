@@ -26,6 +26,7 @@ import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
+import { type SessionPayload } from '@/providers/twitter/SessionPayload.js';
 import type { Account } from '@/providers/types/Account.js';
 import type {
     BskyMetricsData,
@@ -34,7 +35,6 @@ import type {
     LensMetricsData,
     MetricsItemToUpload,
     MetricsMetaInfo,
-    TwitterMetricsData,
 } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { encryptMetricsData } from '@/services/encryptMetricsData.js';
@@ -172,18 +172,7 @@ export async function uploadMetrics(passcode: string) {
 export async function downloadAccounts() {
     const response = await FireflyEndpointProvider.downloadMetaInfo();
 
-    return response.metrics.map(({ metaInfo }) => {
-        const sourceInUrl = metaInfo.platform === 'bluesky' ? SourceInURL.Bsky : metaInfo.platform;
-        const source = resolveSocialSource(sourceInUrl);
-
-        return {
-            ...createDummyProfile(source),
-            profileId: metaInfo.profileId,
-            handle: metaInfo.profileHandle,
-            displayName: metaInfo.name,
-            pfp: metaInfo.avatar,
-        } satisfies Profile;
-    });
+    return response.metrics;
 }
 
 /**
@@ -239,7 +228,10 @@ export async function mergeMetrics(passcode: string) {
         if (!source) continue;
         const currentProfile = getCurrentProfile(source);
 
-        const decryptedData = JSON.parse(decryptCipherText(passcode, ciphertext)) as CommonMetricsData;
+        const decryptedData =
+            source !== Source.Twitter
+                ? (JSON.parse(decryptCipherText(passcode, ciphertext)) as CommonMetricsData)
+                : null;
         const now = Date.now();
         const profileState = getProfileState(source);
         const sessionHolder = resolveSessionHolderFromProfileSource(source);
@@ -300,16 +292,23 @@ export async function mergeMetrics(passcode: string) {
             }
             case Source.Twitter: {
                 if (currentProfile) break;
-                const data = decryptedData as TwitterMetricsData;
-                const session = new TwitterSession(profileId, data.access_token, now, now, {
-                    clientId: data.client_id,
-                    accessToken: data.access_token,
-                    accessTokenSecret: data.access_token_secret,
-                    consumerKey: data.consumer_key,
-                    consumerSecret: data.consumer_secret,
-                });
+                const payloadResponse = await fetchJSON<ResponseJSON<SessionPayload>>(
+                    urlcat('/api/twitter/decrypt-session', {
+                        ciphertext,
+                        encryptKey: sha256(passcode),
+                    }),
+                );
+
+                if (!payloadResponse.success) {
+                    throw new Error(payloadResponse.error.message);
+                }
+
+                const payload = payloadResponse.data;
+                const session = new TwitterSession(profileId, '', now, now, payload);
+
                 sessionHolder.resumeSession(session);
                 await TwitterAuthProvider.login();
+
                 profileState.addAccount(
                     {
                         profile,

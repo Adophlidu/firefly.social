@@ -2,16 +2,19 @@ import { first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { PasswordWorkflow, type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
+import { PasswordWorkflow, type ProfileSource, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { SEVEN_DAYS, SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
 import { FireflyResponseCode } from '@/constants/responseCode.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getAllProfiles } from '@/helpers/getAllProfiles.js';
+import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
+import { isSocialSource } from '@/helpers/isSource.js';
 import { resolveSessionHolder, resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
+import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import {
@@ -36,7 +39,7 @@ import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Account } from '@/providers/types/Account.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
+import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 import { getTwitterTimelineWhitelist } from '@/services/getTwitterTimelineWhitelist.js';
 import { downloadAccounts, uploadMetrics } from '@/services/metrics.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
@@ -287,8 +290,46 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
     const syncStatus = await FireflyEndpointProvider.getMetricsStatus();
 
-    if (!skipResumeFireflyAccounts && fireflySession && syncStatus.hasSetPasscode) {
-        const remoteProfiles = await downloadAccounts();
+    if (
+        !skipResumeFireflyAccounts &&
+        fireflySession &&
+        syncStatus.hasSetPasscode &&
+        isSocialSource(account.profile.source)
+    ) {
+        const remoteAccounts = await downloadAccounts();
+        const remoteProfiles = remoteAccounts
+            .filter((x) => {
+                const sourceInUrl = x.metaInfo.platform === 'bluesky' ? SourceInURL.Bsky : x.metaInfo.platform;
+                const source = resolveSocialSource(sourceInUrl);
+
+                if (source === Source.Twitter || source === Source.Bsky) {
+                    const currentProfile = getCurrentProfile(source);
+
+                    if (currentProfile) return false;
+
+                    const isLatest = remoteAccounts.every(
+                        (metric) =>
+                            metric.metaInfo.platform !== x.metaInfo.platform ||
+                            metric.metaInfo.profileId !== x.metaInfo.profileId ||
+                            Number(metric.metaInfo.loginTime) <= Number(x.metaInfo.loginTime),
+                    );
+                    return isLatest;
+                }
+
+                return true;
+            })
+            .map(({ metaInfo }) => {
+                const sourceInUrl = metaInfo.platform === 'bluesky' ? SourceInURL.Bsky : metaInfo.platform;
+                const source = resolveSocialSource(sourceInUrl);
+
+                return {
+                    ...createDummyProfile(source),
+                    profileId: metaInfo.profileId,
+                    handle: metaInfo.profileHandle,
+                    displayName: metaInfo.name,
+                    pfp: metaInfo.avatar,
+                } satisfies Profile;
+            });
 
         const localProfiles = getAllProfiles();
 
@@ -303,7 +344,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         if (profilesToSync.length > 0) {
             LoginModalRef.close();
             const confirmed = await ConfirmSyncSessionModalRef.openAndWaitForClose({
-                profiles: remoteProfiles.filter((x) => !isSameProfile(x, account.profile)),
+                profiles: profilesToSync.filter((x) => !isSameProfile(x, account.profile)),
             });
 
             if (confirmed && !skipVerifyPasswordCheck) {

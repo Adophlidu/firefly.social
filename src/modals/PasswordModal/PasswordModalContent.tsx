@@ -99,7 +99,10 @@ export const PasswordModalContent = memo<
     const [{ loading }, handleNextStep] = useAsyncFn(async () => {
         try {
             const result = await runPasswordWorkflow(workflow, step, passwords);
-            if (!result) return;
+            if (!result) {
+                setPasswords(createEmptyPasswords());
+                return;
+            }
 
             if (result.step === PasswordStep.Success) {
                 captureEvent(workflow);
