@@ -51,7 +51,7 @@ export async function verifyPasscodeOnServer(password: string): Promise<boolean>
                 return false;
             }
             enqueueWarningMessage(
-                retryTimes === 1
+                remainTryTimes > 2
                     ? t`The password you entered is incorrect. Please try again.`
                     : t`${remainTryTimes} more incorrect password attempts will clear all your encrypted login sessions.`,
             );
