@@ -75,7 +75,9 @@ export function SearchProfileContent() {
                 searchKeyword,
             );
 
-            const walletProfile = !socialProfiles.length ? await searchWalletAddress(searchKeyword) : undefined;
+            const isFirstPage = !pageParam.firefly && !pageParam.twitter && !pageParam.bsky;
+            const walletProfile =
+                !socialProfiles.length && isFirstPage ? await searchWalletAddress(searchKeyword) : undefined;
 
             return {
                 ...data,
