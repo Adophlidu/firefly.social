@@ -303,12 +303,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
     const syncStatus = await FireflyEndpointProvider.getMetricsStatus();
 
-    if (
-        !skipResumeFireflyAccounts &&
-        fireflySession &&
-        syncStatus.hasSetPasscode &&
-        isSocialSource(account.profile.source)
-    ) {
+    if (!skipResumeFireflyAccounts && fireflySession && syncStatus.hasSetPasscode) {
         const remoteAccounts = await downloadAccounts();
         // TODO: remove this after support multiple x and bsky accounts
         const remoteProfiles = remoteAccounts
@@ -320,11 +315,14 @@ export async function addAccount(account: Account, options?: AccountOptions) {
                     const currentProfile = getCurrentProfile(source);
                     if (currentProfile) return false;
 
-                    const isLatest = remoteAccounts.every(
-                        (metric) =>
-                            metric.metaInfo.platform !== x.metaInfo.platform ||
-                            Number(metric.metaInfo.loginTime) <= Number(x.metaInfo.loginTime),
-                    );
+                    const isLatest = remoteAccounts.every((account) => {
+                        if (
+                            account.metaInfo.platform !== x.metaInfo.platform ||
+                            account.metaInfo.profileId === x.metaInfo.profileId
+                        )
+                            return true;
+                        return Number(account.metaInfo.loginTime) <= Number(x.metaInfo.loginTime);
+                    });
                     return isLatest;
                 }
 

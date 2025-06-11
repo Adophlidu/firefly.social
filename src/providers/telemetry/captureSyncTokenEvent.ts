@@ -26,24 +26,26 @@ export async function captureTokenSyncNoEvent() {
     });
 }
 
-export async function captureAccountConflictYesEvent() {
+export async function captureAccountConflictYesEvent(conflict_firefly_account_id: string) {
     return runInSafeAsync(async () => {
         const fireflySession = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
         if (!fireflySession) return;
 
         return TelemetryProvider.captureEvent(EventId.ACCOUNT_CONFLICT_USE_YES, {
             firefly_account_id: `${fireflySession.accountIdForEvent}`,
+            conflict_firefly_account_id,
         });
     });
 }
 
-export async function captureAccountConflictNoEvent() {
+export async function captureAccountConflictNoEvent(conflict_firefly_account_id: string) {
     return runInSafeAsync(async () => {
         const fireflySession = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
         if (!fireflySession) return;
 
         return TelemetryProvider.captureEvent(EventId.ACCOUNT_CONFLICT_USE_NO, {
             firefly_account_id: `${fireflySession.accountIdForEvent}`,
+            conflict_firefly_account_id,
         });
     });
 }

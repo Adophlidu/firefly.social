@@ -80,6 +80,11 @@ export const PasswordInputPanel = memo<PasswordInputPanelProps>(function Passwor
                 onKeyDown={(event) => {
                     event.stopPropagation();
                 }}
+                onKeyUp={(event) => {
+                    if (event.key === 'Enter') {
+                        onPasswordChange(password);
+                    }
+                }}
             />
             {Array.from({ length: METRICS_PASSWORD_LENGTH }, (_, index) => (
                 <span

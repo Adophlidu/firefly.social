@@ -4,6 +4,7 @@ import { immer } from 'zustand/middleware/immer';
 
 import { createSelectors } from '@/helpers/createSelector.js';
 import { parseJson } from '@/helpers/parseJson.js';
+import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { decryptPassword, encryptPassword } from '@/services/tokenPassword.js';
 
 interface TokenPasswordState {
@@ -16,6 +17,12 @@ interface State {
         password: string | null;
     };
     version: number;
+}
+
+interface FireflyState {
+    state: {
+        currentProfileSession: string | null;
+    };
 }
 
 const useTokenPasswordStoreBase = create<
@@ -40,11 +47,19 @@ const useTokenPasswordStoreBase = create<
                     const parsedState = parseJson<State>(raw);
                     if (!parsedState) return null;
 
+                    const fireflyState = parseJson<FireflyState>(localStorage.getItem('firefly-state'));
+                    const accountId = fireflyState?.state?.currentProfileSession
+                        ? SessionFactory.createSession(fireflyState.state.currentProfileSession)?.profileId
+                        : null;
+                    if (!accountId) return parsedState;
+
                     return {
                         ...parsedState,
                         state: {
                             ...parsedState.state,
-                            password: parsedState.state.password ? decryptPassword(parsedState.state.password) : null,
+                            password: parsedState.state.password
+                                ? decryptPassword(parsedState.state.password, String(accountId))
+                                : null,
                         },
                     };
                 },

@@ -487,6 +487,21 @@ export interface Events extends Record<EventId, Event> {
         };
     };
 
+    [EventId.ACCOUNT_CONFLICT_USE_YES]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            conflict_firefly_account_id: string;
+        };
+    };
+    [EventId.ACCOUNT_CONFLICT_USE_NO]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            conflict_firefly_account_id: string;
+        };
+    };
+
     [EventId.CONNECT_WALLET_SUCCESS]: {
         type: EventType.Interact;
         parameters: ConnectWalletEventParameters;

@@ -66,7 +66,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                                 onClick={() => {
                                     ConfirmModalRef.close(false);
                                     ConfirmFireflyModalRef.close(false);
-                                    captureAccountConflictNoEvent();
+                                    captureAccountConflictNoEvent(account.fireflySession?.accountIdForEvent ?? '');
                                 }}
                             >
                                 <Trans>Cancel</Trans>
@@ -76,7 +76,7 @@ export function ConfirmFireflyModal({ ref }: Props) {
                                 onClick={() => {
                                     ConfirmModalRef.close(true);
                                     ConfirmFireflyModalRef.close(true);
-                                    captureAccountConflictYesEvent();
+                                    captureAccountConflictYesEvent(account.fireflySession?.accountIdForEvent ?? '');
                                 }}
                             >
                                 <Trans>Continue</Trans>

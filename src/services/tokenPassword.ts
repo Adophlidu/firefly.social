@@ -23,14 +23,10 @@ export function encryptPassword(password: string) {
     }
 }
 
-export function decryptPassword(encryptedData: string): string | null {
+export function decryptPassword(encryptedData: string, accountId: string): string | null {
     try {
         const [ivString, encrypted] = encryptedData.split(':');
         if (!ivString || !encrypted) return null;
-
-        const fireflySession = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
-        const accountId = fireflySession?.profileId;
-        if (!accountId) return null;
 
         const iv = Buffer.from(ivString, 'hex');
         const key = webCrypto.createHash('sha256').update(accountId).digest();
@@ -40,7 +36,7 @@ export function decryptPassword(encryptedData: string): string | null {
         decrypted += decipher.final('utf8');
 
         return decrypted;
-    } catch {
+    } catch (error) {
         return null;
     }
 }

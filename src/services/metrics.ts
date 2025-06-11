@@ -183,9 +183,7 @@ export async function mergeMetrics(passcode: string) {
     const localMetrics = await getLocalMetrics(passcode);
 
     const validLocalMetrics = compact(localMetrics);
-    if (!validLocalMetrics.length) {
-        throw new Error('No valid local metrics data.');
-    }
+
     const remoteMetricsResponse = await FireflyEndpointProvider.downloadMetrics(passcode);
     const remoteMetrics = remoteMetricsResponse.metrics.map(({ identity, ...metric }) => metric);
 
