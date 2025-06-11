@@ -6,11 +6,13 @@ import { classNames } from '@/helpers/classNames.js';
 interface PasswordInputPanelProps {
     password: string;
     onPasswordChange: (password: string) => void;
+    onConfirm: () => void;
 }
 
 export const PasswordInputPanel = memo<PasswordInputPanelProps>(function PasswordInputPanel({
     password,
     onPasswordChange,
+    onConfirm,
 }) {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -82,7 +84,7 @@ export const PasswordInputPanel = memo<PasswordInputPanelProps>(function Passwor
                 }}
                 onKeyUp={(event) => {
                     if (event.key === 'Enter') {
-                        onPasswordChange(password);
+                        onConfirm();
                     }
                 }}
             />

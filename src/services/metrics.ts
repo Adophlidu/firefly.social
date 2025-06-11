@@ -270,7 +270,7 @@ export async function mergeMetrics(passcode: string) {
                 const data = decryptedData as FarcasterMetricsData;
                 const session = new FarcasterSession(
                     profileId,
-                    data.signer_private_key,
+                    data.signer_private_key.startsWith('0x') ? data.signer_private_key : `0x${data.signer_private_key}`,
                     now,
                     now,
                     FAKE_SIGNER_REQUEST_TOKEN,

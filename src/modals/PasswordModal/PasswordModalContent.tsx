@@ -134,7 +134,11 @@ export const PasswordModalContent = memo<
                 <div className="mt-8 space-y-8 px-6 pb-6">
                     <div className="space-y-4">
                         <StepHeaderDescription workflow={workflow} step={step} />
-                        <PasswordInputPanel password={passwords[step]} onPasswordChange={onPasswordChange} />
+                        <PasswordInputPanel
+                            password={passwords[step]}
+                            onPasswordChange={onPasswordChange}
+                            onConfirm={handleNextStep}
+                        />
                         <StepFooterDescription
                             workflow={workflow}
                             step={step}
