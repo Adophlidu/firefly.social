@@ -11,7 +11,7 @@ import { KolBar } from '@/components/TokenProfile/KolBar.js';
 import { MentionedByModal } from '@/components/TokenProfile/MentionedByModal.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SearchType, type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST, SORTED_SOCIAL_SOURCES, SORTED_TOKEN_FEEDS_SOURCES, X3_PRO_CHAIN_IDS } from '@/constants/index.js';
+import { EMPTY_LIST, SORTED_TOKEN_FEEDS_SOURCES, X3_PRO_CHAIN_IDS } from '@/constants/index.js';
 import { usePathname, useSearchParams } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatTokenMentionUser } from '@/helpers/formatTokenMentionUser.js';
@@ -51,7 +51,7 @@ function useMergeX3KolProfiles(mentionUsers: TokenMentionUser[], postProfiles: P
 export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name, ...props }) {
     const params = useSearchParams();
     const paramSource = params.get('source') as SocialSource | null;
-    const defaultSource = paramSource && SORTED_SOCIAL_SOURCES.includes(paramSource) ? paramSource : null;
+    const defaultSource = paramSource && SORTED_TOKEN_FEEDS_SOURCES.includes(paramSource) ? paramSource : null;
     const pathname = usePathname();
 
     const [openModal, setOpenModal] = useState(false);
@@ -115,7 +115,7 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
                                     ? 'bg-highlight text-white'
                                     : 'bg-thirdMain text-second hover:text-highlight',
                             )}
-                            href={`/token/${symbol}/feeds?${createQueryString(x)}`}
+                            href={`${pathname}?${createQueryString(x)}`}
                             aria-current={source === x ? 'page' : undefined}
                         >
                             {x === Source.X3Pro ? (

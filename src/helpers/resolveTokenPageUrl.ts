@@ -26,8 +26,8 @@ export function resolveTokenPageUrl({ identity, chainId, address, isCoinId, trad
     return urlcat('/token/:identity', {
         identity,
         isCoinId: isCoinId ? 'true' : undefined,
-        chainId,
-        address: isValidAddressEthereum(identity) || isValidAddressSolana(identity) ? undefined : address,
+        chainId: isCoinId ? undefined : chainId,
+        address: isCoinId || isValidAddressEthereum(identity) || isValidAddressSolana(identity) ? undefined : address,
         trader,
         traderName: traderName || undefined,
     });
