@@ -61,7 +61,7 @@ export interface InteractiveTippyProps {
     interactive?: TippyProps['interactive'];
     old?: boolean;
 }
-export const InteractiveTippy = memo<InteractiveTippyProps>(function InteractiveTippy({ old, ...rest }) {
+export const InteractiveTippy = memo<InteractiveTippyProps>(function InteractiveTippy({ old = true, ...rest }) {
     if (!old) return <NewTooltip {...rest} />;
     return (
         <Tippy
