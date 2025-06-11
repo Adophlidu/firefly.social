@@ -318,13 +318,11 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
                 if (source === Source.Twitter || source === Source.Bsky) {
                     const currentProfile = getCurrentProfile(source);
-
                     if (currentProfile) return false;
 
                     const isLatest = remoteAccounts.every(
                         (metric) =>
                             metric.metaInfo.platform !== x.metaInfo.platform ||
-                            metric.metaInfo.profileId !== x.metaInfo.profileId ||
                             Number(metric.metaInfo.loginTime) <= Number(x.metaInfo.loginTime),
                     );
                     return isLatest;
