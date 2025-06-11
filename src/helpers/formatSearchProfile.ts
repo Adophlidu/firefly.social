@@ -109,7 +109,9 @@ export function composeSearchProfiles(identities: SearchProfile[], ...rest: Prof
         ...identities.map((identity) => {
             if (identity.profile.platform === FireflyPlatform.Twitter) {
                 const matched = allProfiles.find((x) => isProfileExist(identity.profile, x));
+                // our backend doesn't have twitter profile's name and avatar
                 identity.profile.name = matched?.displayName || identity.profile.name;
+                identity.profile.avatar = matched?.pfp || identity.profile.avatar;
             }
             return identity;
         }),
