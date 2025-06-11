@@ -1,7 +1,7 @@
 /* cspell:disable */
 
-import { FireflyPlatform } from '@/constants/enum.js';
-import { CHAR_TAG, type MentionChars } from '@/helpers/chars.js';
+import { CHAR_TAG, FireflyPlatform } from '@/constants/enum.js';
+import { type MentionChars } from '@/helpers/chars.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
 export const FIREFLY_TWITTER_PROFILE: Profile = {
@@ -32,7 +32,7 @@ export const FIREFLY_LENS_PROFILE: Profile = {
 };
 
 export const FIREFLY_MENTION = {
-    tag: CHAR_TAG?.MENTION,
+    tag: CHAR_TAG.MENTION,
     visible: true,
     content: `@thefireflyapp`,
     profiles: [FIREFLY_TWITTER_PROFILE, FIREFLY_FARCASTER_PROFILE, FIREFLY_LENS_PROFILE],

@@ -1,4 +1,4 @@
-import type { FunctionComponent, ReactNode, SVGAttributes } from 'react';
+import type { ComponentType, ReactNode, SVGProps } from 'react';
 
 import LinkIcon from '@/assets/link.svg';
 import { Link } from '@/components/Link.js';
@@ -6,7 +6,7 @@ import { Link } from '@/components/Link.js';
 interface LinkCardProps {
     title: ReactNode;
     link: string;
-    logo: FunctionComponent<SVGAttributes<SVGElement>>;
+    logo: ComponentType<SVGProps<SVGSVGElement>>;
 }
 
 export function LinkCard({ title, link, logo: Icon }: LinkCardProps) {

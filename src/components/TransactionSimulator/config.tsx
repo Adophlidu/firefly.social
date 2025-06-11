@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import type { FunctionComponent, JSX, SVGAttributes } from 'react';
+import type { ComponentType, JSX, SVGProps } from 'react';
 import { fromHex, isHex } from 'viem';
 import { getAccount } from 'wagmi/actions';
 
@@ -28,13 +28,13 @@ interface PanelConfig {
         props: SimulationOptions,
         simulation?: SimulateResponse['data'],
     ) => JSX.Element | string | number | undefined | null;
-    icon?: FunctionComponent<SVGAttributes<SVGElement>>;
+    icon?: ComponentType<SVGProps<SVGSVGElement>>;
     showLoading?: boolean;
 }
 
 interface StatusConfig {
     status: SimulateStatus;
-    icon: FunctionComponent<SVGAttributes<SVGElement>>;
+    icon: ComponentType<SVGProps<SVGSVGElement>>;
     className: string;
     iconClassName?: string;
     messages?: StaticSecurityMessage[];

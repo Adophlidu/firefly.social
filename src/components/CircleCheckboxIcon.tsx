@@ -4,7 +4,7 @@ import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
 import RadioYesIcon from '@/assets/radio.yes.svg';
 import { classNames } from '@/helpers/classNames.js';
 
-interface Props extends SVGProps<SVGAElement> {
+interface Props extends SVGProps<SVGSVGElement> {
     size?: number;
     checked: boolean;
 }

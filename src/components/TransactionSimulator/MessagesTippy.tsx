@@ -93,8 +93,8 @@ export function MessagesTippy({ messages, ...rest }: PropsWithChildren<MessagesT
 
     return (
         <InteractiveTippy
-            appendTo={'parent'}
-            maxWidth={'100%'}
+            appendTo="parent"
+            maxWidth="100%"
             offset={[-9, 0]}
             className="tippy-card"
             placement="top-start"

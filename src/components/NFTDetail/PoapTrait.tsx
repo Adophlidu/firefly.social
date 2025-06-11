@@ -1,4 +1,4 @@
-import type { FunctionComponent, SVGAttributes } from 'react';
+import type { ComponentType, SVGProps } from 'react';
 import React from 'react';
 
 import { Link } from '@/components/Link.js';
@@ -7,7 +7,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 interface PoapTraitProps {
     value?: string;
     url?: URL;
-    icon: FunctionComponent<SVGAttributes<SVGElement>>;
+    icon: ComponentType<SVGProps<SVGSVGElement>>;
     noWrap?: boolean;
 }
 

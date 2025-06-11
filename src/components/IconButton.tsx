@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import type { HTMLProps, ReactNode } from 'react';
+import type { ReactNode, SVGProps } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
 import CloseCircleIcon from '@/assets/close-circle.svg';
@@ -29,7 +29,7 @@ function IconButton({ size = 24, tooltip, children, ref, ...props }: IconButtonP
 }
 
 interface ButtonProps extends Omit<IconButtonProps, 'children'> {
-    IconProps?: HTMLProps<SVGElement>;
+    IconProps?: SVGProps<SVGSVGElement>;
 }
 
 export function CloseButton({ size = 24, IconProps, ...rest }: ButtonProps) {

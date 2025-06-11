@@ -25,6 +25,7 @@ export const DatePicker = memo<DatePickerProps>(function DatePicker({
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <InteractiveTippy
                 visible={visible}
+                onOpenChange={setVisible}
                 onClickOutside={() => setVisible(false)}
                 delay={0}
                 content={

@@ -6,6 +6,7 @@ import { Plural, Trans } from '@lingui/react/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { memo, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 import MirrorIcon from '@/assets/mirror.svg';
 import MirrorLargeIcon from '@/assets/mirror-large.svg';
@@ -250,7 +251,6 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
             whileTap={{ scale: 0.9 }}
             aria-label="Repost"
             disabled={allDisabled}
-            onClick={onClick}
             className={classNames(
                 'relative flex w-min items-center text-second hover:text-secondarySuccess md:space-x-2',
                 !!disabled || allDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
@@ -258,7 +258,7 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
                     'text-secondarySuccess': mirrored,
                 },
             )}
-            {...getReferenceProps()}
+            {...getReferenceProps({ onClick })}
         >
             <Tooltip
                 disabled={disabled || open || mirrorLoading || allDisabled}
@@ -302,7 +302,7 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
         </Tippy>
     ) : (
         <>
-            {open ? floating : null}
+            {open ? createPortal(floating, document.body) : null}
             {children}
         </>
     );

@@ -145,12 +145,7 @@ const MentionsTypeaheadMenuItem = memo<MentionsTypeaheadMenuItemProps>(function 
                     <div className="flex items-center">
                         {option.allProfile.map((profile, index, self) => {
                             return profile.platform === FireflyPlatform.Wallet ? null : (
-                                <Tooltip
-                                    appendTo={() => document.body}
-                                    placement="top"
-                                    content={`@${profile.handle}`}
-                                    key={profile.platform_id}
-                                >
+                                <Tooltip placement="top" content={`@${profile.handle}`} key={profile.platform_id}>
                                     <span>
                                         <SocialSourceIcon
                                             className={classNames('inline-flex items-center', {

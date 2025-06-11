@@ -9,10 +9,9 @@ interface Props {
     level: SecurityMessageLevel | SecurityMessageLevel[];
     security: TokenContractSecurity | AddressSecurity;
     children: ReactElement<any>;
-    interactive?: boolean;
 }
 
-export function TokenSecurityTippy({ children, level, security, interactive }: Props) {
+export function TokenSecurityTippy({ children, level, security }: Props) {
     const { message_list } = security;
     const levels = Array.isArray(level) ? level : [level];
 
@@ -40,7 +39,7 @@ export function TokenSecurityTippy({ children, level, security, interactive }: P
             className="tippy-card !max-w-none"
             placement="bottom"
             content={content}
-            interactive={interactive}
+            interactive={false}
         >
             {children}
         </InteractiveTippy>
