@@ -15,7 +15,6 @@ import { EMPTY_LIST, SORTED_SOCIAL_SOURCES, SORTED_TOKEN_FEEDS_SOURCES, X3_PRO_C
 import { usePathname, useSearchParams } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatTokenMentionUser } from '@/helpers/formatTokenMentionUser.js';
-import { isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useX3ProTokenInfo } from '@/hooks/token/useX3ProTokenInfo.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -58,12 +57,7 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
     const [openModal, setOpenModal] = useState(false);
     const { data: x3Token } = useX3ProTokenInfo(address, chainId ? X3_PRO_CHAIN_IDS.includes(chainId) : true);
 
-    const enabledX3 = !!x3Token || isValidAddressSolana(address);
-    const sources = useMemo(() => {
-        return enabledX3 ? SORTED_TOKEN_FEEDS_SOURCES : SORTED_TOKEN_FEEDS_SOURCES.filter((x) => x !== Source.X3Pro);
-    }, [enabledX3]);
-
-    const source = defaultSource || sources[0];
+    const source = defaultSource || SORTED_TOKEN_FEEDS_SOURCES[0];
     const isX3Pro = source === Source.X3Pro;
 
     const keywords = useMemo(() => {
@@ -109,7 +103,7 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
     return (
         <div {...props} className={classNames('flex flex-col gap-2', props.className)}>
             <div className="flex shrink-0 gap-2">
-                {sources.map((x) => {
+                {SORTED_TOKEN_FEEDS_SOURCES.map((x) => {
                     const isX3Pro = x === Source.X3Pro;
                     const button = (
                         <Link
@@ -167,6 +161,7 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
             {isX3Pro && x3Token ? (
                 <KolBar
                     users={users}
+                    total={x3Token.mentionUserCount}
                     onClick={() => {
                         setOpenModal(true);
                     }}

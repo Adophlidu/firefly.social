@@ -1390,7 +1390,7 @@ export interface DetectedAddress {
     address_type: 'eoa' | 'soa' | 'contract';
     contract_type: 'ERC20' | 'ERC721' | 'ERC1155' | 'token' | 'nft' | 'program' | 'unknown';
     /** To detect collection, use v1/nft/detect API instead */
-    contract_info: CoinGeckoAsset;
+    contract_info?: CoinGeckoAsset;
 }
 
 export type DetectAddressResponse = Response<{

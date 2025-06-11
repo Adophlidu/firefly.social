@@ -8,7 +8,7 @@ export const searchTokenByAddress = memoizePromise(
     async function searchTokenByAddress(address: string) {
         const detected = await FireflyEndpointProvider.detectAddress(address);
         const token = detected?.list.find((x) => x.address_type === 'contract');
-        if (!token) return null;
+        if (!token?.contract_info) return null;
 
         const contractType = token?.contract_type;
         if (contractType !== 'ERC20' && contractType !== 'token') return null;

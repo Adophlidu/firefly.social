@@ -112,7 +112,7 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
                     (x.type === 'eth' && x.contract_type === 'ERC20') ||
                     (x.type === 'solana' && x.contract_type === 'token');
                 if (!isToken) return false;
-                return x.contract_info.attributes.symbol.toLowerCase() === symbol.toLowerCase();
+                return x.contract_info?.attributes.symbol.toLowerCase() === symbol.toLowerCase();
             });
             return tokens[0];
         },

@@ -84,7 +84,7 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ t
         if (trending?.contracts) {
             return trending.contracts;
         }
-        if (detected) {
+        if (detected?.contract_info) {
             return [
                 {
                     runtime: detected.chain,

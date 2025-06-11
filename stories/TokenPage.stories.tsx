@@ -53,6 +53,7 @@ export const TokenPage: Story = {
             '/token/MASK',
             '/token/mask-network',
             '/token/mask-network?isCoinId=true',
+            '/token/MASK?chainId=137&address=0x2b9e7ccdf0f4e5b24757c1e1a80e311e34cb10c7&trader=0xa1faa2220b9ca5150ac3e13b216a5a83b715434f',
             '/token/ETH',
             '/token/trump',
             '/token/official-trump?isCoinId=true',
