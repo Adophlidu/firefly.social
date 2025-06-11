@@ -30,7 +30,7 @@ interface TextOverflowTooltipProps {
 }
 
 export const TextOverflowTooltip = memo(function TextOverflowTooltip(props: TextOverflowTooltipProps) {
-    const { children, className, old, open, ...rest } = props;
+    const { children, className, old = true, open, ...rest } = props;
     const [overflow, ref] = useDetectOverflow();
     if (!old) return <NewTooltip {...props} />;
     return (

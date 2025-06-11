@@ -28,7 +28,6 @@ export const EmojiAction = memo(function EmojiAction() {
 
     return (
         <EmojiActionUI
-            old={false}
             isMedium={isMedium}
             isDarkMode={isDarkMode}
             open={open}
@@ -58,14 +57,14 @@ interface EmojiActionUIProps {
     onEmojiClick: PickerProps['onEmojiClick'];
     open: boolean;
     setOpen: (open: boolean) => void;
-    old: boolean;
+    old?: boolean;
 }
 
 export const EmojiActionUI = memo(function EmojiAction(props: EmojiActionUIProps) {
     const isMedium = props.isMedium;
     const isDarkMode = props.isDarkMode;
 
-    const { open, setOpen, old } = props;
+    const { open, setOpen, old = true } = props;
     const { refs, floatingStyles, context } = useFloating({
         open,
         onOpenChange: setOpen,
