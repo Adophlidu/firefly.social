@@ -1095,9 +1095,6 @@ msgstr "The contract owner has no restrictions on trading cooldown."
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
-msgid "Sign In With Firefly App Modal"
-msgstr "Sign In With Firefly App Modal"
-
 msgid "Mobile QR login is interrupted. Please try again."
 msgstr "Mobile QR login is interrupted. Please try again."
 
@@ -3553,6 +3550,9 @@ msgstr "Claims"
 
 msgid "Failed to bookmark snapshot."
 msgstr "Failed to bookmark snapshot."
+
+msgid "Sign in with Firefly App"
+msgstr "Sign in with Firefly App"
 
 msgid "Failed to verify password."
 msgstr "Failed to verify password."

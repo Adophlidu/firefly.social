@@ -231,27 +231,27 @@ function FireflyAccount({
 
 function FireflyLoginButton() {
     return (
-        <div className="flex h-[56px] items-center gap-2 rounded-lg border border-highlight bg-bg px-2 text-left text-sm text-main">
+        <button
+            className="flex h-[56px] items-center gap-2 rounded-lg border border-highlight bg-bg px-2 text-left text-sm text-main"
+            onClick={() => {
+                LoginModalRef.close();
+                captureMobileQrLoginClickEvent();
+                SignInWithFireflyAppModalRef.open();
+            }}
+        >
             <FireflyAvatar className="size-[40px] shrink-0" width={40} height={40} />
-            <div className="flex h-[40px] min-w-0 flex-1 flex-col items-start justify-center">
-                <div className="h-5 w-full truncate leading-5">
+            <span className="flex h-[40px] min-w-0 flex-1 flex-col items-start justify-center">
+                <span className="h-5 w-full truncate leading-5">
                     <Trans>Firefly Mobile</Trans>
-                </div>
-                <div className="h-5 w-full truncate leading-5 text-second">
+                </span>
+                <span className="h-5 w-full truncate leading-5 text-second">
                     <Trans>Scan QR code to access your account</Trans>
-                </div>
-            </div>
-            <button
-                className="ml-auto size-5 shrink-0 cursor-pointer"
-                onClick={() => {
-                    LoginModalRef.close();
-                    captureMobileQrLoginClickEvent();
-                    SignInWithFireflyAppModalRef.open();
-                }}
-            >
+                </span>
+            </span>
+            <span className="ml-auto size-5 shrink-0 cursor-pointer">
                 <ScanIcon width={20} height={20} />
-            </button>
-        </div>
+            </span>
+        </button>
     );
 }
 

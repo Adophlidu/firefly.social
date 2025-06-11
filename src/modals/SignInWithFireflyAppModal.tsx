@@ -62,7 +62,7 @@ function Header({ onClose }: { onClose: () => void }) {
         <div className="flex items-center justify-center gap-2 rounded-t-[12px] p-4">
             <CloseButton onClick={() => onClose()} />
             <h3 className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
-                <Trans>Sign In With Firefly App Modal</Trans>
+                <Trans>Sign in with Firefly App</Trans>
             </h3>
             <div className="relative h-6 w-6" />
         </div>
