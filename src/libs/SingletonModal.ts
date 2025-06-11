@@ -1,7 +1,4 @@
-import { delay } from '@masknet/kit';
 import { Emitter } from '@servie/events';
-
-import { defer, type DeferTuple } from '@/helpers/defer.js';
 
 export type SingletonModalRefCreator<OpenProps = void, CloseProps = void> = (
     onOpen: (props: OpenProps) => void,
@@ -128,70 +125,5 @@ export class SingletonModal<
         this.open = typeof methods.open === 'function' ? methods.open : this.open;
         this.close = typeof methods.close === 'function' ? methods.close : this.close;
         this.abort = typeof methods.abort === 'function' ? methods.abort : this.abort;
-    }
-}
-
-export class SingletonModalQueued<OpenProps = void, CloseProps = void> extends SingletonModal<OpenProps, CloseProps> {
-    private opened = false;
-    private tasks: Array<{
-        props: OpenProps;
-        defer?: DeferTuple<CloseProps, Error>;
-    }> = [];
-
-    constructor() {
-        super();
-
-        this.emitter.on('open', () => {
-            this.opened = true;
-        });
-        this.emitter.on('close', () => {
-            this.opened = false;
-            this.cleanup();
-        });
-        this.emitter.on('abort', () => {
-            this.opened = false;
-            this.cleanup();
-        });
-    }
-
-    override open(props: OpenProps) {
-        if (!this.opened) {
-            super.open(props);
-            return;
-        }
-
-        this.tasks.push({
-            props,
-        });
-    }
-
-    override close(props: CloseProps) {
-        if (!this.opened) return;
-
-        super.close(props);
-    }
-
-    override openAndWaitForClose(props: OpenProps) {
-        if (!this.opened) return super.openAndWaitForClose(props);
-
-        const d = defer<CloseProps, Error>();
-        this.tasks.push({
-            props,
-            defer: d,
-        });
-        return d[0];
-    }
-
-    private async cleanup() {
-        if (this.opened || !this.tasks.length) return;
-
-        await delay(300);
-
-        const { props, defer } = this.tasks.shift()!;
-
-        this.open(props);
-        if (!defer) return;
-        this.onClose = (props) => defer[1](props);
-        this.onAbort = (error) => defer[2](error);
     }
 }

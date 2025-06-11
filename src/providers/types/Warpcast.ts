@@ -30,14 +30,6 @@ export interface Recast {
     recastHash: string;
     username: string;
 }
-export interface Feed {
-    cast: Cast;
-    id: string;
-    timestamp: number;
-    otherParticipants: Author[];
-    replies?: Cast[];
-    recasts?: Recast[];
-}
 
 export interface Cast {
     hash: string;

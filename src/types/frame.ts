@@ -91,30 +91,6 @@ export interface RedirectUrlResponse {
 // #endregion
 
 // #region frame v2
-export type TriggerConfig =
-    | {
-          // Type of trigger, either cast or composer. Required.
-          type: 'cast';
-
-          // Unique ID. Required. Reported to the frame.
-          // Example: "yoink-score"
-          id: string;
-
-          // Handler URL. Required.
-          // Example: "https://yoink.party/triggers/cast"
-          url: string;
-
-          // Name override. Optional, defaults to FrameConfig.name
-          // Example: "View Yoink Score"
-          name?: string;
-      }
-    | {
-          type: 'composer';
-          id: string;
-          url: string;
-          name?: string;
-      };
-
 export interface FrameConfig {
     /**
      * In spec it must be '1', but we allow any string for flexibility

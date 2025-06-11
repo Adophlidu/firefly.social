@@ -12,7 +12,6 @@ import {
     SourceInURL,
     WalletSource,
 } from '@/constants/enum.js';
-import type { NonFungibleAsset } from '@/mask_pkgs/web3-shared/base/index.js';
 import type { ErcType, EVM } from '@/providers/nft-scan/types.js';
 import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { Article as FormattedArticle, ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
@@ -649,12 +648,6 @@ export type BlockRelationResponse = Response<
 >;
 
 export type ReportCrossPostResponse = Response<void>;
-
-export type NFTAsset = NonFungibleAsset<number, number> & {
-    hasBookmarked?: boolean;
-    externalUrl?: string | null;
-    __origin__?: unknown;
-};
 
 export type WalletsFollowStatusResponse = Response<
     Array<{

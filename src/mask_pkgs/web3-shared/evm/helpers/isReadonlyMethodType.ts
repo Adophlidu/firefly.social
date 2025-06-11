@@ -1,6 +1,6 @@
 import { EthereumMethodType } from '@/mask_pkgs/web3-shared/evm/types/index.js';
 
-export const readonlyMethodType = [
+const READONLY_METHOD_TYPE = [
     EthereumMethodType.NET_VERSION,
     EthereumMethodType.ETH_BLOCK_NUMBER,
     EthereumMethodType.ETH_CALL,
@@ -28,7 +28,7 @@ export const readonlyMethodType = [
     EthereumMethodType.ETH_NEW_PENDING_TRANSACTION_FILTER,
     EthereumMethodType.ETH_SYNCING,
 ] as const;
-Object.freeze(readonlyMethodType);
+
 export function isReadonlyMethodType(type: EthereumMethodType) {
-    return (readonlyMethodType as readonly EthereumMethodType[]).includes(type);
+    return (READONLY_METHOD_TYPE as readonly EthereumMethodType[]).includes(type);
 }
