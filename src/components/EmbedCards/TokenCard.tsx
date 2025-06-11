@@ -23,7 +23,7 @@ import { useSingleCoin } from '@/hooks/useSingleCoin.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
 
-export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, children, ...rest }) {
+export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ...rest }) {
     const { data: detected } = useDetectToken(address);
     const attributes = detected?.contract_info?.attributes;
     const coingecko_coin_id = attributes?.coingecko_coin_id;
@@ -100,20 +100,22 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ch
                 </div>
                 <div className="flex">
                     <div className="flex flex-col gap-1">
-                        <div className="line-height-[22px] flex items-center gap-1">
-                            <Trans>
-                                <strong className="text-2xl font-bold leading-[22px]">
-                                    {market_cap ? `$${formatMarketCap(market_cap)}` : '-'}
-                                </strong>
-                                <span className="text-medium text-secondary" title={t`Market Cap`}>
-                                    MC
-                                </span>
-                                {rank ? (
-                                    <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
-                                        Rank #{rank}
+                        <div className="line-height-[22px] flex min-h-[22px] items-center gap-1">
+                            {market_cap ? (
+                                <Trans>
+                                    <strong className="text-2xl font-bold leading-[22px]">
+                                        {market_cap ? `$${formatMarketCap(market_cap)}` : '-'}
+                                    </strong>
+                                    <span className="text-medium text-secondary" title={t`Market Cap`}>
+                                        MC
                                     </span>
-                                ) : null}
-                            </Trans>
+                                    {rank ? (
+                                        <span className="inline-flex h-[14px] items-center rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
+                                            Rank #{rank}
+                                        </span>
+                                    ) : null}
+                                </Trans>
+                            ) : null}
                         </div>
                         <div className="line-height-[22px] flex items-center gap-1 text-medium">
                             <Trans>
