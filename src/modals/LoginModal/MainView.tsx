@@ -99,12 +99,10 @@ function FireflyAccount({
             if (status.hasSetPasscode) {
                 const password = await verifyAndGetPassword(true);
                 if (password) {
-                    const result = mergeMetrics(password);
-                    if (!result) return;
-                    enqueueSuccessMessage(t`Multi-device login sessions synced successfully.`);
+                    await mergeMetrics(password);
                 }
             } else {
-                const result = await PasswordModalRef.openAndWaitForClose({
+                await PasswordModalRef.openAndWaitForClose({
                     workflow: PasswordWorkflow.Set,
                 });
             }

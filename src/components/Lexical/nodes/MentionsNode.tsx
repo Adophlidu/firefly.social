@@ -78,15 +78,15 @@ export class MentionNode extends TextNode {
                         .map(({ platform, handle, platform_id }) => {
                             return (
                                 <span
-                                    className="cross-at-edit-item flex min-w-[192px] cursor-pointer items-center justify-between p-2 hover:bg-secondaryBottom"
+                                    className="cross-at-edit-item flex w-[192px] cursor-pointer items-center justify-between p-2 hover:bg-secondaryBottom"
                                     key={platform_id}
                                 >
-                                    <span className="flex items-center gap-[6px]">
+                                    <span className="flex max-w-[75%] items-center gap-[6px] overflow-hidden">
                                         <SocialSourceIcon
                                             source={resolveSocialSourceFromFireflyPlatform(platform)}
                                             size={16}
                                         />
-                                        <span className="text-sm leading-[18px] text-main">{handle}</span>
+                                        <span className="truncate text-sm leading-[18px] text-main">{handle}</span>
                                     </span>
 
                                     <EditProfileIcon className="cross-at-edit hidden size-4" />
@@ -123,6 +123,7 @@ export class MentionNode extends TextNode {
                     (target.classList.contains('cross-at-edit-item') || target.classList.contains('cross-at-edit')) &&
                     this.__profiles
                 ) {
+                    tooltip.hide();
                     const result = await EditCrossAtModalRef.openAndWaitForClose({
                         profiles: this.__profiles.filter((x) => x.platform !== FireflyPlatform.Wallet),
                     });

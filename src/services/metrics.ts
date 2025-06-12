@@ -1,4 +1,5 @@
 import { NobleEd25519Signer } from '@farcaster/core';
+import { t } from '@lingui/core/macro';
 import { safeUnreachable } from '@masknet/kit';
 import webCrypto from 'crypto';
 import { compact } from 'lodash-es';
@@ -10,6 +11,7 @@ import { env } from '@/constants/env.js';
 import { SEVEN_DAYS } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getPublicKeyInHexFromSigner } from '@/helpers/ed25519.js';
+import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getAllAccounts } from '@/helpers/getAllProfiles.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
@@ -341,5 +343,5 @@ export async function mergeMetrics(passcode: string) {
                 safeUnreachable(source);
         }
     }
-    return true;
+    enqueueSuccessMessage(t`Multi-device login sessions synced successfully.`);
 }

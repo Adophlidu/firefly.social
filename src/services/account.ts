@@ -303,71 +303,81 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     const syncStatus = await FireflyEndpointProvider.getMetricsStatus();
 
     if (!skipResumeFireflyAccounts && fireflySession && syncStatus.hasSetPasscode) {
-        const remoteAccounts = await downloadAccounts();
-        // TODO: remove this after support multiple x and bsky accounts
-        const remoteProfiles = remoteAccounts
-            .filter((x) => {
-                const sourceInUrl = x.metaInfo.platform === 'bluesky' ? SourceInURL.Bsky : x.metaInfo.platform;
-                const source = resolveSocialSource(sourceInUrl);
-
-                if (source === Source.Twitter || source === Source.Bsky) {
-                    const currentProfile = getCurrentProfile(source);
-                    if (currentProfile) return false;
-
-                    const isLatest = remoteAccounts.every((account) => {
-                        if (
-                            account.metaInfo.platform !== x.metaInfo.platform ||
-                            account.metaInfo.profileId === x.metaInfo.profileId
-                        )
-                            return true;
-                        return Number(account.metaInfo.loginTime) <= Number(x.metaInfo.loginTime);
-                    });
-                    return isLatest;
-                }
-
-                return true;
-            })
-            .map(({ metaInfo }) => {
-                const sourceInUrl = metaInfo.platform === 'bluesky' ? SourceInURL.Bsky : metaInfo.platform;
-                const source = resolveSocialSource(sourceInUrl);
-
-                return {
-                    ...createDummyProfile(source),
-                    profileId: metaInfo.profileId,
-                    handle: metaInfo.profileHandle,
-                    displayName: metaInfo.name,
-                    pfp: metaInfo.avatar,
-                } satisfies Profile;
-            });
-
-        const localProfiles = getAllProfiles();
-
-        const profilesToSync = remoteProfiles.filter(
-            (remoteProfile) => !localProfiles.some((localProfile) => isSameProfile(localProfile, remoteProfile)),
-        );
-
-        const profilesToUpload = localProfiles.filter(
-            (localProfile) => !remoteProfiles.some((remoteProfile) => isSameProfile(localProfile, remoteProfile)),
-        );
-
-        if (profilesToSync.length > 0) {
-            LoginModalRef.close();
-            const confirmed = await ConfirmSyncSessionModalRef.openAndWaitForClose({
-                profiles: profilesToSync.filter((x) => !isSameProfile(x, account.profile)),
-            });
-
-            if (confirmed) {
-                const password = await verifyAndGetPassword(true);
-                if (password) await mergeMetrics(password);
-            }
-        } else if (profilesToUpload.length > 0) {
-            const passcode = await verifyAndGetPassword();
-            if (passcode) uploadMetrics(passcode);
-        }
+        // No need to wait
+        syncMetrics(account);
     }
 
     // account has been added to the store
     return true;
+}
+
+export async function syncMetrics(account: Account) {
+    const remoteAccounts = await downloadAccounts();
+    // TODO: remove this after support multiple x and bsky accounts
+    const remoteProfiles = remoteAccounts
+        .filter((x) => {
+            const sourceInUrl = x.metaInfo.platform === 'bluesky' ? SourceInURL.Bsky : x.metaInfo.platform;
+            const source = resolveSocialSource(sourceInUrl);
+
+            if (source === Source.Twitter || source === Source.Bsky) {
+                const currentProfile = getCurrentProfile(source);
+                if (currentProfile) return false;
+
+                const isLatest = remoteAccounts.every((account) => {
+                    if (
+                        account.metaInfo.platform !== x.metaInfo.platform ||
+                        account.metaInfo.profileId === x.metaInfo.profileId
+                    )
+                        return true;
+                    return Number(account.metaInfo.loginTime) <= Number(x.metaInfo.loginTime);
+                });
+                return isLatest;
+            }
+
+            return true;
+        })
+        .map(({ metaInfo }) => {
+            const sourceInUrl = metaInfo.platform === 'bluesky' ? SourceInURL.Bsky : metaInfo.platform;
+            const source = resolveSocialSource(sourceInUrl);
+
+            return {
+                ...createDummyProfile(source),
+                profileId: metaInfo.profileId,
+                handle: metaInfo.profileHandle,
+                displayName: metaInfo.name,
+                pfp: metaInfo.avatar,
+            } satisfies Profile;
+        });
+
+    const localProfiles = getAllProfiles();
+
+    const profilesToSync = remoteProfiles.filter(
+        (remoteProfile) => !localProfiles.some((localProfile) => isSameProfile(localProfile, remoteProfile)),
+    );
+
+    const profilesToUpload = localProfiles.filter((localProfile) => {
+        return (
+            localProfile.source !== Source.Bsky ||
+            !remoteProfiles.some((remoteProfile) => isSameProfile(localProfile, remoteProfile))
+        );
+    });
+
+    if (profilesToSync.length > 0) {
+        LoginModalRef.close();
+        const confirmed = await ConfirmSyncSessionModalRef.openAndWaitForClose({
+            profiles: profilesToSync.filter((x) => !isSameProfile(x, account.profile)),
+        });
+
+        if (confirmed) {
+            const password = await verifyAndGetPassword(true);
+            if (password) mergeMetrics(password);
+        }
+    } else if (profilesToUpload.length > 0) {
+        const passcode = await verifyAndGetPassword();
+        if (passcode) uploadMetrics(passcode);
+    }
+
+    return;
 }
 
 export async function verifyAndGetPassword(skipCheck = false) {
