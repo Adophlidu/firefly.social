@@ -53,6 +53,7 @@ export const WARPCAST_ROOT_URL = 'https://api.warpcast.com';
 export const WARPCAST_ROOT_URL_V1 = 'https://api.warpcast.com/v1';
 export const WARPCAST_ROOT_URL_V2 = 'https://api.warpcast.com/v2';
 export const WARPCAST_CLIENT_URL_V1 = 'https://client.warpcast.com/v1';
+export const WARPCAST_CLIENT_URL_V2 = 'https://client.warpcast.com/v2';
 export const FIREFLY_ROOT_URL = 'https://api.firefly.land';
 export const FIREFLY_DEV_ROOT_URL = 'https://api-dev.firefly.land';
 export const FIREFLY_STAMP_URL = 'https://stamp.firefly.land/avatar';

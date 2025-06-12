@@ -3849,9 +3849,6 @@ msgstr "The contract owner has no restrictions on anti whale."
 msgid "Exclusive Events"
 msgstr "Exclusive Events"
 
-msgid "Please sign in with your custody wallet first."
-msgstr "Please sign in with your custody wallet first."
-
 msgid "Post added to your Bookmarks"
 msgstr "Post added to your Bookmarks"
 

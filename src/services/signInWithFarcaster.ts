@@ -1,14 +1,19 @@
 import { idRegistryABI } from '@farcaster/core';
+import urlcat from 'urlcat';
 import { type Address, checksumAddress, parseUnits, toHex } from 'viem';
 import { readContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
+import { WARPCAST_CLIENT_URL_V1 } from '@/constants/index.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
+import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { pollingRemoteSiwfToken } from '@/providers/warpcast/pollingRemoteSiwfToken.js';
 
 /**
+ * Returns the custody address of a Farcaster ID.
  * Learn more: https://docs.farcaster.xyz/learn/architecture/contracts
  * @param fid - Farcaster ID
  * @returns
@@ -25,7 +30,7 @@ async function custodyOf(fid: string): Promise<string> {
     return address;
 }
 
-export async function signInWithFarcaster(url: string, fid: string, nonce: string) {
+async function createSiwfMessage(url: string, fid: string, nonce: string) {
     const u = parseUrl(url);
     if (!u) throw new Error(`Invalid URL: ${url}`);
 
@@ -45,9 +50,52 @@ export async function signInWithFarcaster(url: string, fid: string, nonce: strin
         `- farcaster://fid/${fid}`,
     ].join('\n');
 
+    return message;
+}
+
+export async function signInWithFarcaster(url: string, fid: string, nonce: string) {
+    const u = parseUrl(url);
+    if (!u) throw new Error(`Invalid URL: ${url}`);
+
+    const message = await createSiwfMessage(url, fid, nonce);
+
+    console.log('DEBUG: [signInWithFarcaster]: message', {
+        url,
+        fid,
+        nonce,
+        message,
+    });
+
     // Assume we have a BE api endpoint that can sign the message
     const signature = await FireflyEndpointProvider.signMessageWithCustodyWallet(fid, toHex(message));
 
+    return {
+        message,
+        signature,
+    };
+}
+
+export async function signInWithWarpcast(url: string, fid: string, nonce: string) {
+    const u = parseUrl(url);
+    if (!u) throw new Error(`Invalid URL: ${url}`);
+
+    const message = await createSiwfMessage(url, fid, nonce);
+
+    // Assume we have a BE api endpoint that can sign the message
+    const siwf = await farcasterSessionHolder.fetch<{
+        result: {
+            token: string;
+        };
+    }>(urlcat(WARPCAST_CLIENT_URL_V1, '/remote-siwf'), {
+        method: 'POST',
+        body: JSON.stringify({
+            type: 'frame',
+            domain: u.hostname,
+            message,
+        }),
+    });
+
+    const signature = await pollingRemoteSiwfToken(siwf.result.token);
     return {
         message,
         signature,

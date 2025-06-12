@@ -3849,9 +3849,6 @@ msgstr "合約持有者未設反巨鯨機制。"
 msgid "Exclusive Events"
 msgstr "獨家活動"
 
-msgid "Please sign in with your custody wallet first."
-msgstr "請先使用您的託管錢包登入。"
-
 msgid "Post added to your Bookmarks"
 msgstr "貼文已加入書籤"
 

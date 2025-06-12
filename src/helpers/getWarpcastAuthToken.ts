@@ -16,22 +16,18 @@ export async function getWarpcastAuthToken() {
     const publicKey = await getPublicKeyInHexFromSigner(signer);
     const fid = Number.parseInt(profileId, 10);
 
+    const payload = { exp: Math.floor(Date.now() / 1000) + 300 }; // 5 minutes
+    const encodedPayload = bufferToBase64Url(Buffer.from(JSON.stringify(payload)));
+
     const header = {
         fid,
         type: 'app_key',
         key: publicKey,
     };
     const encodedHeader = bufferToBase64Url(Buffer.from(JSON.stringify(header)));
-
-    const payload = { exp: Math.floor(Date.now() / 1000) + 300 }; // 5 minutes
-    const encodedPayload = bufferToBase64Url(Buffer.from(JSON.stringify(payload)));
-
     const signatureResult = await signer.signMessageHash(Buffer.from(`${encodedHeader}.${encodedPayload}`, 'utf-8'));
-    if (signatureResult.isErr()) {
-        throw new Error('Failed to sign message');
-    }
+    if (signatureResult.isErr()) throw new Error('Failed to sign message');
 
     const encodedSignature = bufferToBase64Url(Buffer.from(signatureResult.value));
-
     return [encodedHeader, encodedPayload, encodedSignature].join('.');
 }
