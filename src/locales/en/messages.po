@@ -1518,9 +1518,6 @@ msgstr "Failed to update notification settings"
 msgid "Reply"
 msgstr "Reply"
 
-msgid "Content Preference"
-msgstr "Content Preference"
-
 msgid "Add an existing account"
 msgstr "Add an existing account"
 
@@ -2870,6 +2867,9 @@ msgstr "No phishing site."
 msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
 msgstr "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
 
+msgid "Content preference"
+msgstr "Content preference"
+
 msgid "Connect your wallet to follow"
 msgstr "Connect your wallet to follow"
 
@@ -3668,9 +3668,6 @@ msgstr "<0>You</0> and {0} recasted"
 msgid "Stickers"
 msgstr "Stickers"
 
-msgid "You can turn it back on anytime in <0>Settings > Content Preference</0>"
-msgstr "You can turn it back on anytime in <0>Settings > Content Preference</0>"
-
 msgid "No trade records"
 msgstr "No trade records"
 
@@ -4347,6 +4344,9 @@ msgstr "Replying to <0>@{0}</0> on {1}"
 
 msgid "Fake KYC found."
 msgstr "Fake KYC found."
+
+msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
+msgstr "You can turn it back on anytime in <0>Settings > Content preference</0>"
 
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"

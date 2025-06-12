@@ -11,7 +11,7 @@ export default function PreferencePage() {
     const { enable, mutation, isMutating } = useToggleEnableTruthSocial();
 
     return (
-        <SettingsSection title={<Trans>Content Preference</Trans>}>
+        <SettingsSection title={<Trans>Content preference</Trans>}>
             <div className="relative w-full">
                 <div className="flex items-center gap-2 rounded-lg border border-line px-3 py-2">
                     <div className="min-w-0 flex-1 truncate">

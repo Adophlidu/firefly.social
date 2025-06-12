@@ -125,13 +125,13 @@ export const PasswordModalContent = memo<
 
     return (
         <div>
-            <div className="relative flex max-h-[70vh] w-[80vw] max-w-[400px] flex-col rounded-md bg-lightBottom text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:rounded-xl">
-                <h3 className="relative h-14 shrink-0 pt-safe">
-                    <span className="flex h-full w-full items-center justify-center text-lg font-bold text-main">
+            <div className="relative flex w-full flex-col rounded-md bg-lightBottom p-6 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:rounded-xl">
+                <h3 className="flex shrink-0 items-center justify-center">
+                    <span className="text-lg font-bold text-main">
                         <ModalTitle workflow={workflow} step={step} />
                     </span>
                 </h3>
-                <div className="mt-8 space-y-8 px-6 pb-6">
+                <div className="mt-8 space-y-8">
                     <div className="space-y-4">
                         <StepHeaderDescription workflow={workflow} step={step} />
                         <PasswordInputPanel

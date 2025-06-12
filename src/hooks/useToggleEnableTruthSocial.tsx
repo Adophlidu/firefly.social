@@ -24,7 +24,7 @@ export function useToggleEnableTruthSocial(showAlert = false) {
                             <Trans>
                                 You can turn it back on anytime in{' '}
                                 <Link className="text-highlight" href={'/settings/preference'}>
-                                    Settings &gt; Content Preference
+                                    Settings &gt; Content preference
                                 </Link>
                             </Trans>
                         </div>

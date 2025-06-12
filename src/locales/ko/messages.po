@@ -1523,9 +1523,6 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-msgid "Content Preference"
-msgstr ""
-
 msgid "Add an existing account"
 msgstr ""
 
@@ -2862,6 +2859,9 @@ msgstr ""
 msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
 msgstr ""
 
+msgid "Content preference"
+msgstr ""
+
 msgid "Connect your wallet to follow"
 msgstr ""
 
@@ -3657,9 +3657,6 @@ msgstr ""
 msgid "Stickers"
 msgstr ""
 
-msgid "You can turn it back on anytime in <0>Settings > Content Preference</0>"
-msgstr ""
-
 msgid "No trade records"
 msgstr ""
 
@@ -4335,6 +4332,9 @@ msgid "Replying to <0>@{0}</0> on {1}"
 msgstr ""
 
 msgid "Fake KYC found."
+msgstr ""
+
+msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
 msgstr ""
 
 #. placeholder {0}: post.stats.reactions

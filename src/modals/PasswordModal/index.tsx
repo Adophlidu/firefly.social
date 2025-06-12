@@ -1,7 +1,9 @@
 import { useCallback, useState } from 'react';
 
 import { Modal } from '@/components/Modal.js';
+import { Popover } from '@/components/Popover.js';
 import type { PasswordWorkflow } from '@/constants/enum.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { PasswordModalContent } from '@/modals/PasswordModal/PasswordModalContent.js';
@@ -15,6 +17,7 @@ type Props = {
 };
 
 export function PasswordModal({ ref }: Props) {
+    const isMedium = useIsMedium();
     const [props, setProps] = useState<PasswordModalOpenProps>();
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
@@ -25,11 +28,21 @@ export function PasswordModal({ ref }: Props) {
 
     if (!props) return null;
 
+    if (isMedium) {
+        return (
+            <Modal open={open} onClose={onClose}>
+                <div className="max-h-[70vh] w-[80vw] max-w-[400px]">
+                    <PasswordModalContent {...props} onClose={onClose} />
+                </div>
+            </Modal>
+        );
+    }
+
     return (
-        <Modal open={open} onClose={onClose}>
+        <Popover open={open} onClose={onClose} dialogPanelClassName="!p-0">
             <div>
                 <PasswordModalContent {...props} onClose={onClose} />
             </div>
-        </Modal>
+        </Popover>
     );
 }

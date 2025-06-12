@@ -1523,9 +1523,6 @@ msgstr "更新通知設定失敗"
 msgid "Reply"
 msgstr "回覆"
 
-msgid "Content Preference"
-msgstr ""
-
 msgid "Add an existing account"
 msgstr "新增現有帳號"
 
@@ -2870,6 +2867,9 @@ msgstr "無釣魚網站"
 msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
 msgstr ""
 
+msgid "Content preference"
+msgstr ""
+
 msgid "Connect your wallet to follow"
 msgstr "連接錢包以追蹤"
 
@@ -3668,9 +3668,6 @@ msgstr "<0>您</0>與 {0} 已轉發"
 msgid "Stickers"
 msgstr "貼圖"
 
-msgid "You can turn it back on anytime in <0>Settings > Content Preference</0>"
-msgstr ""
-
 msgid "No trade records"
 msgstr ""
 
@@ -4347,6 +4344,9 @@ msgstr "回覆 <0>@{0}</0> 於 {1}"
 
 msgid "Fake KYC found."
 msgstr "檢測到偽造 KYC"
+
+msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
+msgstr ""
 
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
