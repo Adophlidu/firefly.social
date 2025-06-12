@@ -41,8 +41,22 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
                 type: 'cast_embed',
                 embed: resolvePostUrl(post.source, post.postId),
                 cast: {
-                    fid: Number.parseInt(post.author.profileId, 10),
+                    author: {
+                        fid: Number.parseInt(post.author.profileId, 10),
+                        username: post.author.handle,
+                        displayName: post.author.displayName,
+                        pfpUrl: post.author.pfp,
+                    },
                     hash: post.postId,
+                    parentFid: post.parentAuthor?.profileId as number | undefined,
+                    parentHash: post.parentPostId,
+                    text: post.metadata.content?.content ?? '',
+                    embeds: post.metadata.content?.oembedUrls ?? [],
+                    channelKey: post.parentChannelKey,
+                    timestamp: post.timestamp,
+                    mentions: post.mentions?.map((mention) => ({
+                        fid: Number.parseInt(mention.profileId, 10),
+                    })),
                 },
             },
             client: {

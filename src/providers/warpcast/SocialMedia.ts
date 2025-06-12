@@ -4,7 +4,7 @@ import { NotImplementedError } from '@/constants/error.js';
 import { WARPCAST_ROOT_URL_V1 } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterChannelFromWarpcast } from '@/helpers/formatFarcasterChannelFromWarpcast.js';
-import { getWarpcastAuthToken } from '@/helpers/getWarpcastAuthToken.js';
+import { getFarcasterAuthToken } from '@/helpers/getFarcasterAuthToken.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -407,7 +407,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async joinChannel(channel: Channel): Promise<boolean> {
-        const authToken = await getWarpcastAuthToken();
+        const authToken = await getFarcasterAuthToken();
         const url = urlcat('/api/warpcast/channel/follow', {
             channelId: channel.id,
         });
@@ -422,7 +422,7 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async leaveChannel(channel: Channel): Promise<boolean> {
-        const authToken = await getWarpcastAuthToken();
+        const authToken = await getFarcasterAuthToken();
         const url = urlcat('/api/warpcast/channel/follow', {
             channelId: channel.id,
         });

@@ -1088,9 +1088,7 @@ class FireflyEndpoint {
         const response = await fetchJSON<TelegramLoginBotResponse>(
             urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/get/telegram/bot/url', { os: 'web' }),
         );
-
         const data = resolveFireflyResponseData(response);
-
         return data.url;
     }
 

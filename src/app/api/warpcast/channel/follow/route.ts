@@ -16,9 +16,7 @@ const Schema = z.object({
 export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     const { channelId } = getSearchParamsFromRequestWithZodObject(request, Schema);
     const token = request.headers.get('X-Token');
-    if (!token) {
-        throw new Error('Missing warpcast token');
-    }
+    if (!token) throw new Error('Missing farcaster token');
 
     await fetchJSON(urlcat(WARPCAST_ROOT_URL, '/fc/channel-follows'), {
         method: 'POST',
@@ -37,9 +35,7 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
 export const DELETE = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     const { channelId } = getSearchParamsFromRequestWithZodObject(request, Schema);
     const token = request.headers.get('X-Token');
-    if (!token) {
-        throw new Error('Missing warpcast token');
-    }
+    if (!token) throw new Error('Missing farcaster token');
 
     await fetchJSON(urlcat(WARPCAST_ROOT_URL, '/fc/channel-follows'), {
         method: 'DELETE',

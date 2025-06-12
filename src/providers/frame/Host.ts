@@ -1,13 +1,14 @@
 import type { Context, FrameHost, ReadyOptions, SetPrimaryButton } from '@farcaster/frame-host';
 
 import { Source } from '@/constants/enum.js';
+import { NotImplementedError } from '@/constants/error.js';
 import { SITE_URL } from '@/constants/index.js';
 import { openProfilePageByProfileId } from '@/helpers/openProfilePageById.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { signInWithFarcaster, signInWithWarpcast } from '@/services/signInWithFarcaster.js';
+import { signInWithFarcaster, signInWithRelay } from '@/services/signInWithFarcaster.js';
 import type { FrameV2 } from '@/types/frame.js';
 
 export class FarcasterFrameHost implements FrameHost {
@@ -52,11 +53,17 @@ export class FarcasterFrameHost implements FrameHost {
 
         try {
             const frame = this.options?.frame?.();
+            if (!frame) throw new Error('Frame is not available');
+
             const checked = await FireflyEndpointProvider.checkCustodyWallet(`${this.context.client.clientFid}`);
             if (!checked) {
-                return signInWithWarpcast(frame?.x_url ?? SITE_URL, `${this.context.user.fid}`, options.nonce);
+                return await signInWithRelay(frame, frame?.x_url ?? SITE_URL, options.nonce);
             } else {
-                return signInWithFarcaster(frame?.x_url ?? SITE_URL, `${this.context.client.clientFid}`, options.nonce);
+                return await signInWithFarcaster(
+                    frame?.x_url ?? SITE_URL,
+                    `${this.context.client.clientFid}`,
+                    options.nonce,
+                );
             }
         } catch (error) {
             console.log('DEBUG: [frame host]: signIn error', error);
@@ -64,9 +71,19 @@ export class FarcasterFrameHost implements FrameHost {
         }
     };
 
-    swap: FrameHost['swap'] = (options) => {
-        console.warn('[frame host]: swap', options);
-        throw new Error('Not implemented');
+    sendToken: FrameHost['sendToken'] = async (options) => {
+        console.warn('[frame host]: sendToken', options);
+        throw new NotImplementedError();
+    };
+
+    swapToken: FrameHost['swapToken'] = async (options) => {
+        console.warn('[frame host]: swapToken', options);
+        throw new NotImplementedError();
+    };
+
+    viewCast: FrameHost['viewCast'] = async (options) => {
+        console.warn('[frame host]: viewCast', options);
+        throw new NotImplementedError();
     };
 
     // @ts-ignore
@@ -84,7 +101,10 @@ export class FarcasterFrameHost implements FrameHost {
             return;
         }
 
-        if (!result) return;
+        if (!result)
+            return {
+                cast: null,
+            };
 
         return {
             cast: {
@@ -103,15 +123,47 @@ export class FarcasterFrameHost implements FrameHost {
         return Promise.resolve();
     };
 
-    ethProviderRequest: FrameHost['ethProviderRequest'] = () => {
-        throw new Error('Not implemented');
+    ethProviderRequest: FrameHost['ethProviderRequest'] = (payload) => {
+        console.warn('[frame host]: ethProviderRequest', payload);
+        throw new NotImplementedError();
     };
 
-    ethProviderRequestV2: FrameHost['ethProviderRequestV2'] = () => {
-        throw new Error('Not implemented');
+    ethProviderRequestV2: FrameHost['ethProviderRequestV2'] = (payload) => {
+        console.warn('[frame host]: ethProviderRequestV2', payload);
+        throw new NotImplementedError();
     };
 
     eip6963RequestProvider: FrameHost['eip6963RequestProvider'] = () => {
-        throw new Error('Not implemented');
+        throw new NotImplementedError();
+    };
+
+    impactOccurred: FrameHost['impactOccurred'] = () => {
+        console.warn('[frame host]: impactOccurred');
+        throw new NotImplementedError();
+    };
+
+    notificationOccurred: FrameHost['notificationOccurred'] = () => {
+        console.warn('[frame host]: notificationOccurred');
+        throw new NotImplementedError();
+    };
+
+    selectionChanged: FrameHost['selectionChanged'] = () => {
+        console.warn('[frame host]: selectionChanged');
+        throw new NotImplementedError();
+    };
+
+    getCapabilities: FrameHost['getCapabilities'] = () => {
+        console.warn('[frame host]: getCapabilities');
+        throw new NotImplementedError();
+    };
+
+    getChains: FrameHost['getChains'] = () => {
+        console.warn('[frame host]: getChains');
+        throw new NotImplementedError();
+    };
+
+    updateBackState: FrameHost['updateBackState'] = () => {
+        console.warn('[frame host]: updateBackState');
+        throw new NotImplementedError();
     };
 }

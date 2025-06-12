@@ -9,7 +9,7 @@ function bufferToBase64Url(buffer: Buffer) {
     return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/[=]+$/, '');
 }
 
-export async function getWarpcastAuthToken() {
+export async function getFarcasterAuthToken() {
     const { token, profileId } = farcasterSessionHolder.sessionRequired;
 
     const signer = new NobleEd25519Signer(toBytes(token));

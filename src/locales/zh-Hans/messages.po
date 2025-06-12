@@ -601,6 +601,9 @@ msgstr "未发现恶意挖矿活动。"
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>已创建的通证数量减去已销毁（从流通中移除）的通证数量。它相当于股票市场上的流通股。</0><1>总供应量 = 链上供应量 - 已销毁的通证</1>"
 
+msgid "Confirm to sign in"
+msgstr ""
+
 msgid "Report post"
 msgstr "举报帖子"
 
@@ -2449,6 +2452,9 @@ msgstr "连接钱包并且领取你的 NFT"
 
 msgid "Reauthorize"
 msgstr "请重新授权"
+
+msgid "Scan this QR code and tap “Approve” on your Farcaster mobile app to start using your wallet on web."
+msgstr ""
 
 msgid "Like"
 msgstr "点赞"

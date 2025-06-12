@@ -596,6 +596,9 @@ msgstr ""
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr ""
 
+msgid "Confirm to sign in"
+msgstr ""
+
 msgid "Report post"
 msgstr ""
 
@@ -2430,6 +2433,9 @@ msgid "Connect your wallet to claim your NFT"
 msgstr ""
 
 msgid "Reauthorize"
+msgstr ""
+
+msgid "Scan this QR code and tap “Approve” on your Farcaster mobile app to start using your wallet on web."
 msgstr ""
 
 msgid "Like"

@@ -83,8 +83,8 @@ dependencies:
     specifier: ^0.16.3
     version: 0.16.3(typescript@5.7.3)(zod@3.24.2)
   '@farcaster/frame-host':
-    specifier: ^0.0.32
-    version: 0.0.32(react@19.0.0)(typescript@5.7.3)(zod@3.24.2)
+    specifier: ^0.0.53
+    version: 0.0.53(react@19.0.0)(typescript@5.7.3)(zod@3.24.2)
   '@floating-ui/react':
     specifier: ^0.27.9
     version: 0.27.9(react-dom@19.0.0)(react@19.0.0)
@@ -4108,25 +4108,32 @@ packages:
       - zod
     dev: false
 
-  /@farcaster/frame-core@0.0.31(typescript@5.7.3):
-    resolution: {integrity: sha512-sZHG4Jt9aXqzdod+WksNtIKGgSuxBxJ2i3Fx1uAzeK29L1W/Osfsp3ZCpilEOjNHB9iRTqtGH7VKp3CPf312hA==}
+  /@farcaster/frame-core@0.1.10(typescript@5.7.3):
+    resolution: {integrity: sha512-4PG0mHrk5VmDtt/HH+vs3xDaWY/KVdZLUxlFetkD/szn1NNtHUxM43vCUE/qgulmlV53x8GPBbkwHzcA7Dmpuw==}
     dependencies:
+      '@solana/web3.js': 1.98.2(typescript@5.7.3)
       ox: 0.4.4(typescript@5.7.3)(zod@3.24.2)
       zod: 3.24.2
     transitivePeerDependencies:
+      - bufferutil
+      - encoding
       - typescript
+      - utf-8-validate
     dev: false
 
-  /@farcaster/frame-host@0.0.32(react@19.0.0)(typescript@5.7.3)(zod@3.24.2):
-    resolution: {integrity: sha512-zFsirXjHRKoPR6JvB2eFYve5mvxCm8DErr2ax2q6Dr5I/Nc9YhHTa8Tl0nIVYwyFLW2q1Clgy0/BytFdI7IImA==}
+  /@farcaster/frame-host@0.0.53(react@19.0.0)(typescript@5.7.3)(zod@3.24.2):
+    resolution: {integrity: sha512-ZODcBNnh51M/0uDCrOdMjqsVlWcmLbZpxohyFYZjJWXvagCZ+0OIVqyszVNcyUadQMcR/4zPHF52GNyLBM6vPw==}
     peerDependencies:
       react: 19.0.0
     dependencies:
-      '@farcaster/frame-core': 0.0.31(typescript@5.7.3)
+      '@farcaster/frame-core': 0.1.10(typescript@5.7.3)
       ox: 0.4.4(typescript@5.7.3)(zod@3.24.2)
       react: 19.0.0
     transitivePeerDependencies:
+      - bufferutil
+      - encoding
       - typescript
+      - utf-8-validate
       - zod
     dev: false
 
@@ -17243,8 +17250,8 @@ packages:
         optional: true
     dependencies:
       '@adraffy/ens-normalize': 1.11.0
-      '@noble/curves': 1.8.1
-      '@noble/hashes': 1.7.1
+      '@noble/curves': 1.8.2
+      '@noble/hashes': 1.7.2
       '@scure/bip32': 1.6.2
       '@scure/bip39': 1.5.4
       abitype: 1.0.8(typescript@5.7.3)(zod@3.24.2)
@@ -17263,7 +17270,7 @@ packages:
         optional: true
     dependencies:
       '@adraffy/ens-normalize': 1.11.0
-      '@noble/curves': 1.8.1
+      '@noble/curves': 1.8.2
       '@noble/hashes': 1.7.2
       '@scure/bip32': 1.6.2
       '@scure/bip39': 1.5.4
@@ -21808,7 +21815,7 @@ time:
   /@emotion/react@11.14.0: '2024-12-09T08:43:27.996Z'
   /@emotion/styled@11.14.0: '2024-12-09T08:43:28.080Z'
   /@farcaster/core@0.16.3: '2025-04-29T22:36:02.736Z'
-  /@farcaster/frame-host@0.0.32: '2025-04-07T02:04:08.266Z'
+  /@farcaster/frame-host@0.0.53: '2025-06-11T15:24:17.715Z'
   /@floating-ui/react@0.27.9: '2025-05-26T03:31:17.104Z'
   /@giphy/js-fetch-api@5.6.0: '2024-05-28T16:39:28.633Z'
   /@giphy/react-components@9.8.0: '2024-11-05T16:50:07.282Z'

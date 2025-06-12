@@ -596,6 +596,9 @@ msgstr "No malicious mining activities found."
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 
+msgid "Confirm to sign in"
+msgstr "Confirm to sign in"
+
 msgid "Report post"
 msgstr "Report post"
 
@@ -2444,6 +2447,9 @@ msgstr "Connect your wallet to claim your NFT"
 
 msgid "Reauthorize"
 msgstr "Reauthorize"
+
+msgid "Scan this QR code and tap “Approve” on your Farcaster mobile app to start using your wallet on web."
+msgstr "Scan this QR code and tap “Approve” on your Farcaster mobile app to start using your wallet on web."
 
 msgid "Like"
 msgstr "Like"
