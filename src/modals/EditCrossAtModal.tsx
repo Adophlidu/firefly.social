@@ -75,12 +75,17 @@ export function EditCrossAtModal({ ref }: Props) {
                             <div key={source} className="flex items-center gap-3">
                                 <SocialSourceIcon source={source} size={18} className="size-[18px]" />
                                 <div className="relative flex w-full items-center gap-2 rounded-md border border-line bg-transparent p-2 text-xl font-medium text-main outline-none transition duration-150 focus-within:border-lightHighlight">
+                                    <span className="text-second">@</span>
                                     <input
                                         className="w-full border-none bg-transparent p-0 leading-[18px] outline-none focus:border-none"
                                         style={{ boxShadow: 'none' }}
                                         value={handles[source] ?? ''}
+                                        pattern="[a-zA-Z0-9_]+"
                                         onChange={(e) => {
-                                            setHandles((h) => ({ ...h, [source]: e.target.value }));
+                                            const value = e.target.value;
+                                            if (/^[a-zA-Z0-9_]*$/.test(value)) {
+                                                setHandles((h) => ({ ...h, [source]: value }));
+                                            }
                                         }}
                                     />
                                     {profile.related_profiles?.length && profile.related_profiles.length > 1 ? (

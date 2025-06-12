@@ -155,6 +155,12 @@ export class MentionNode extends TextNode {
             tooltipElement.addEventListener('mouseleave', () => {
                 tooltip.hide();
             });
+
+            MentionNode.__editor?.registerUpdateListener(({ editorState }) => {
+                editorState.read(() => {
+                    tooltip.hide();
+                });
+            });
         }
     };
 

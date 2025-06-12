@@ -207,15 +207,25 @@ export async function mergeMetrics(passcode: string) {
     await FireflyEndpointProvider.uploadMetrics(passcode, compact(mergedMetrics));
 
     for (const info of remoteMetrics) {
+        if (
+            validLocalMetrics.some(
+                (x) =>
+                    x.metaInfo.profileId === info.metaInfo.profileId && x.metaInfo.platform === info.metaInfo.platform,
+            )
+        ) {
+            continue;
+        }
+
         const { platform, loginTime } = info.metaInfo;
 
         if (platform === 'bluesky' || platform === 'x') {
-            const isLatest = remoteMetrics.every(
-                (metric) =>
-                    metric.metaInfo.platform !== platform ||
-                    metric.metaInfo.profileId !== info.metaInfo.profileId ||
-                    Number(metric.metaInfo.loginTime) <= Number(loginTime),
-            );
+            const isLatest = remoteMetrics.every((metric) => {
+                if (metric.metaInfo.platform !== platform || metric.metaInfo.profileId === info.metaInfo.profileId) {
+                    return true;
+                }
+
+                return Number(metric.metaInfo.loginTime) <= Number(loginTime);
+            });
             if (!isLatest) continue;
         }
 
