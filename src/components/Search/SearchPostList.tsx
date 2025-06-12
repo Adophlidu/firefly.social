@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { compact, isFunction, isUndefined, orderBy, uniqBy } from 'lodash-es';
+import { compact, isFunction, uniqBy } from 'lodash-es';
 import { memo, type ReactNode } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
@@ -59,17 +59,13 @@ export const SearchPostList = memo<Props>(function SearchPostList({
         })),
         (data) => {
             const posts = compact(data.pages.flatMap((x) => x.data ?? []));
-            const uniqPosts = uniqBy(posts, (post) => post.postId);
-            if (isUndefined(orderType)) return uniqPosts;
-            return orderBy(uniqPosts, (x) => {
-                if (!x.timestamp) return 0;
-                return orderType === PostOrderType.ASC ? x.timestamp : -x.timestamp;
-            });
+            return uniqBy(posts, (post) => post.postId);
         },
     );
 
-    const listKey = `${ScrollListKey.Search}:${searchType}:${keywords.join(',')}:${source}`;
+    const listKey = `${ScrollListKey.Search}:${searchType}:${keywords.join(',')}:${source}:${orderType}`;
 
+    const keepMutedSpace = source === Source.X3Pro || source === Source.Twitter;
     return (
         <ListInPage
             loginRequired={loginRequired}
@@ -78,8 +74,8 @@ export const SearchPostList = memo<Props>(function SearchPostList({
             queryResult={queryResult}
             VirtualListProps={{
                 listKey,
-                computeItemKey: (index, post) => `${post.postId}_${index}`,
-                itemContent: (index, post) => getPostItemContent(index, post, listKey),
+                computeItemKey: (index, post) => `${post.postId}-${orderType}-${index}`,
+                itemContent: (index, post) => getPostItemContent(index, post, listKey, { keepMutedSpace }),
             }}
             NoResultsFallbackProps={{
                 message: isFunction(emptyMessage)

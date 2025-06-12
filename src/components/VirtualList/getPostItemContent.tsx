@@ -5,7 +5,7 @@ export function getPostItemContent(index: number, post: Post, listKey?: string, 
     return (
         <SinglePost
             post={post}
-            key={`${post.publicationId}-${post.postId}-${index}`}
+            key={`${post.publicationId}-${post.postId}`}
             showMore
             listKey={listKey}
             index={index}

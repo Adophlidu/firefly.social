@@ -31,6 +31,7 @@ export interface SinglePostProps extends HTMLProps<HTMLDivElement> {
     showTranslate?: boolean;
     showChannelTag?: boolean;
     header?: ReactNode;
+    keepMutedSpace?: boolean;
 }
 export const SinglePost = memo<SinglePostProps>(function SinglePost({
     post,
@@ -44,6 +45,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     index,
     className,
     header,
+    keepMutedSpace,
 }) {
     const router = useRouter();
     const pathname = usePathname();
@@ -72,7 +74,8 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
         return true;
     }, [post, isPostPage]);
 
-    if (!isProfilePage && !isDetail && muted) return null;
+    if (!isProfilePage && !isDetail && muted)
+        return keepMutedSpace ? <div className="pointer-events-none -mt-[1px] h-[1px]" /> : null;
 
     const showPostAction = !isDetail && (isProfilePage || !post.isHidden || !muted);
 
