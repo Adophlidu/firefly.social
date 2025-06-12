@@ -7,6 +7,7 @@ import { GridListInPage } from '@/components/GridListInPage.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { POAPGridListComponent } from '@/components/Profile/POAPList.js';
+import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
@@ -43,6 +44,11 @@ function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
                     src={collection.large_image_url || collection.logo_url}
                     alt="nft_image"
                 />
+                {collection.items_total > 1 ? (
+                    <span className="absolute bottom-1 right-1 h-5 rounded-lg bg-bg px-1 text-[10px] font-bold leading-5 text-main drop-shadow-lg">
+                        {`x ${nFormatter(collection.items_total)}`}
+                    </span>
+                ) : null}
             </div>
             <div className="mt-1 line-clamp-2 h-8 w-full px-1 text-center text-xs font-medium leading-4 sm:mt-2 sm:px-2 sm:py-0">
                 {collection.name}
