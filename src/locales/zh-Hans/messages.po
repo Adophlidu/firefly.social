@@ -2088,6 +2088,9 @@ msgstr "屏蔽"
 msgid "Confirm to log out this account?"
 msgstr "确认退出该账户吗？"
 
+msgid "No posts found for this token."
+msgstr ""
+
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr "衡量过去 24 小时内所有平台上加密货币交易量的指标。该指标以 24 小时为单位进行连续跟踪，没有开盘/收盘时间。"
 
@@ -3167,6 +3170,9 @@ msgstr "成功创建红包"
 
 msgid "Financial crime found."
 msgstr "识别为金融犯罪。"
+
+msgid "Feeds for tokens on this chain will be available soon."
+msgstr ""
 
 msgid "No stealing attack found."
 msgstr "未涉及盗窃攻击。"

@@ -50,7 +50,8 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
     const tokenAddress =
         address ?? (isValidAddressEthereum(symbol) ? symbol : trending?.contracts?.[0]?.address) ?? token?.address;
 
-    const isTracingChain = token?.chainId ? TRACING_CHAINS.includes(token.chainId) : true;
+    const updatedChainId = token?.chainId ?? chainId ?? trending?.coin.chainId ?? trending?.contracts?.[0]?.chainId;
+    const isTracingChain = updatedChainId ? TRACING_CHAINS.includes(updatedChainId) : true;
     const isTracingPlatform = isArray(token?.platform_info)
         ? token.platform_info.some((x) => TRACING_CHAINS.includes(x.chain_id))
         : true;
@@ -66,7 +67,12 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
         case TokenCategory.Feeds:
             if ((isTokenPending || tokenId) && !tokenAddress) return <Loading />;
             return (
-                <Feeds chainId={chainId} address={tokenAddress} symbol={token?.symbol ?? symbol} name={token?.name} />
+                <Feeds
+                    chainId={updatedChainId}
+                    address={tokenAddress}
+                    symbol={token?.symbol ?? symbol}
+                    name={token?.name}
+                />
             );
         case TokenCategory.Overview:
             return <TokenOverview trending={trending} address={address} />;
@@ -75,7 +81,7 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
             if ((isTokenPending || tokenId) && isPending && !tokenAddress) return <Loading />;
             return (
                 <Transactions
-                    chainId={chainId || (trending?.coin.chainId ?? trending?.contracts?.[0]?.chainId)}
+                    chainId={updatedChainId}
                     tokenAddress={tokenId === COINGECKO_SOL_COIN_ID ? SWAP_SOL_NATIVE_ADDRESS : tokenAddress}
                     trader={trader}
                     traderName={traderName}

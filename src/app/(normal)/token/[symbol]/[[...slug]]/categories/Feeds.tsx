@@ -55,9 +55,9 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
     const pathname = usePathname();
 
     const [openModal, setOpenModal] = useState(false);
-    const enabledX3 = chainId ? X3_PRO_CHAIN_IDS.includes(chainId) : true;
-    const { data: x3Token } = useX3ProTokenInfo(address, enabledX3);
-    const { data: x3TokenMention } = useX3ProTokenMention(address, enabledX3);
+    const supportedX3 = chainId ? X3_PRO_CHAIN_IDS.includes(chainId) : true;
+    const { data: x3Token } = useX3ProTokenInfo(address, supportedX3);
+    const { data: x3TokenMention } = useX3ProTokenMention(address, supportedX3);
 
     const source = defaultSource || SORTED_TOKEN_FEEDS_SOURCES[0];
     const isX3Pro = source === Source.X3Pro;
@@ -172,6 +172,15 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
                 searchType={SearchType.Posts}
                 source={source}
                 orderType={postOrderType}
+                emptyMessage={
+                    isX3Pro ? (
+                        supportedX3 ? (
+                            <Trans>No posts found for this token.</Trans>
+                        ) : (
+                            <Trans>Feeds for tokens on this chain will be available soon.</Trans>
+                        )
+                    ) : undefined
+                }
             />
             {openModal && users.length ? (
                 <MentionedByModal open onClose={() => setOpenModal(false)} users={users} />

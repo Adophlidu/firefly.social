@@ -2083,6 +2083,9 @@ msgstr "Mute"
 msgid "Confirm to log out this account?"
 msgstr "Confirm to log out this account?"
 
+msgid "No posts found for this token."
+msgstr "No posts found for this token."
+
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 
@@ -3162,6 +3165,9 @@ msgstr "Lucky drop created successfully"
 
 msgid "Financial crime found."
 msgstr "Financial crime found."
+
+msgid "Feeds for tokens on this chain will be available soon."
+msgstr "Feeds for tokens on this chain will be available soon."
 
 msgid "No stealing attack found."
 msgstr "No stealing attack found."
