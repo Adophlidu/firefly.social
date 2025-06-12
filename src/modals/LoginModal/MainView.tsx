@@ -230,7 +230,7 @@ function FireflyAccount({
 function FireflyLoginButton() {
     return (
         <button
-            className="flex h-[56px] items-center gap-2 rounded-lg border border-highlight bg-bg px-2 text-left text-sm text-main"
+            className="flex h-[56px] w-full items-center gap-2 rounded-lg border border-highlight bg-bg px-2 text-left text-sm text-main"
             onClick={() => {
                 LoginModalRef.close();
                 captureMobileQrLoginClickEvent();
