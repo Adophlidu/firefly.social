@@ -5,12 +5,12 @@ import { compact, values } from 'lodash-es';
 import { type HTMLProps, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import LoadingIcon from '@/assets/loading.svg';
 import SendIcon from '@/assets/send.svg';
 import Send2Icon from '@/assets/send2.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { AddThread } from '@/components/Compose/ComposeActions/AddThread.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -105,7 +105,7 @@ export function ComposeSend(props: ComposeSendProps) {
                     onClick={() => handlePost(!!hasError)}
                 >
                     {loading ? (
-                        <LoadingIcon className="text-main" />
+                        <LoadingIcon size={24} className="text-main" />
                     ) : (
                         <Send2Icon
                             className={classNames('text-tabLine', {
