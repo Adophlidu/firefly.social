@@ -427,6 +427,7 @@ class NitterSocialMedia implements Provider {
     }
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const pageable = await runInSafeAsync(async () => {
             const { timeline, pagination } = await NitterAPIProvider.search(q, {
                 cursor: indicator?.id,
