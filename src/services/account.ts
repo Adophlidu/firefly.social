@@ -401,15 +401,9 @@ export async function addAccounts(fireflySession: FireflySession, accounts: Acco
         const currentFireflySession = getProfileState(Source.Firefly).currentProfileSession as FireflySession | null;
 
         if (!currentFireflySession) {
-            const confirmed = await ConfirmSyncSessionModalRef.openAndWaitForClose({
-                profiles: accounts.map((x) => x.profile),
+            await updateState(accounts, {
+                setAsCurrent,
             });
-
-            if (confirmed) {
-                await updateState(accounts, {
-                    setAsCurrent,
-                });
-            }
         }
 
         const belongsTo =
