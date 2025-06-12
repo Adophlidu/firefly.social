@@ -2,7 +2,6 @@ import { safeUnreachable } from '@masknet/kit';
 import { polygon } from 'viem/chains';
 
 import { Source } from '@/constants/enum.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { PolymarketActivity, SwapActivity, TransactionsItem } from '@/providers/types/Firefly.js';
@@ -86,18 +85,12 @@ export function getProfileTransactions(
         (indicator, chainId) =>
             FireflyEndpointProvider.getSwapTimelineByAddress(addresses, chainId ? [chainId] : [], undefined, indicator),
         (indicator) => FireflyEndpointProvider.getProfilePolymarketTimeline(addresses, 'all', indicator),
-        async (indicator, chainId) => {
-            const result = await FireflyEndpointProvider.getFollowingNFTs({
+        (indicator, chainId) =>
+            FireflyEndpointProvider.getFollowingNFTs({
                 indicator,
                 chainId,
                 walletAddress: address,
-            });
-            return {
-                ...result,
-                // filter acquired
-                data: result.data.filter((item) => !isSameEthereumAddress(item.owner, item.receive)),
-            };
-        },
+            }),
     );
 
     return fetcher(source, pageParam, chainId);
