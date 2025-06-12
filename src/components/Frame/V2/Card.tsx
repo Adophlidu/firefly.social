@@ -89,7 +89,12 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
             <div className="flex flex-col overflow-hidden rounded-xl">
                 <Image
                     className="h-auto w-full"
-                    style={{ backgroundColor: frame.button.action.splashBackgroundColor }}
+                    style={{
+                        backgroundColor: frame.button.action.splashBackgroundColor,
+                        aspectRatio: '1.5 / 1',
+                        objectFit: 'cover',
+                        objectPosition: 'center center',
+                    }}
                     width={530}
                     height={350}
                     src={frame.imageUrl}
