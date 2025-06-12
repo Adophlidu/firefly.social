@@ -23,6 +23,7 @@ interface NFTCollectionItemProps {
 
 function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
     const chainId = +collection.chain_id;
+    const ownedTotal = collection.assets_total || 0;
 
     return (
         <div
@@ -44,9 +45,9 @@ function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
                     src={collection.large_image_url || collection.logo_url}
                     alt="nft_image"
                 />
-                {collection.items_total > 1 ? (
+                {ownedTotal > 1 ? (
                     <span className="absolute bottom-1 right-1 h-5 rounded-lg bg-bg px-1 text-[10px] font-bold leading-5 text-main drop-shadow-lg">
-                        {`x ${nFormatter(collection.items_total)}`}
+                        {`x ${nFormatter(ownedTotal)}`}
                     </span>
                 ) : null}
             </div>

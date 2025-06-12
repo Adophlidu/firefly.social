@@ -118,6 +118,7 @@ export namespace EVM {
         items_total: number;
         amounts_total: number;
         owners_total: number;
+        assets_total?: number;
         opensea_floor_price: number;
         opensea_slug: string;
         floor_price: number;
