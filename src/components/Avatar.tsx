@@ -3,7 +3,6 @@
 import { useQuery } from '@tanstack/react-query';
 import type { ImageProps as NextImageProps } from 'next/image.js';
 import { memo, useState } from 'react';
-import { useUpdateEffect } from 'react-use';
 import urlcat from 'urlcat';
 
 import { STATUS } from '@/constants/enum.js';
@@ -74,7 +73,7 @@ export const Avatar = memo(function Avatar({
     ...rest
 }: AvatarProps) {
     const isDarkMode = useIsDarkMode();
-    const [hasError, setHasError] = useState(false);
+    const [errorMap, setErrorMap] = useState<Record<string, boolean>>({});
 
     const url = [resolveAvatarFallbackUrl, resolveImgurUrl].reduce((acc, fn) => (acc ? fn(acc, isDarkMode) : acc), src);
 
@@ -89,11 +88,8 @@ export const Avatar = memo(function Avatar({
 
     const { data: xFallbackAvatar } = useResolveAvatarFallbackUrl(src);
 
-    const imageSrc = hasError ? fallbackUrl : xFallbackAvatar || (isNormalUrl ? url : src) || src || fallbackUrl;
-
-    useUpdateEffect(() => {
-        setHasError(false);
-    }, [xFallbackAvatar]);
+    const preferredSrc = xFallbackAvatar || (isNormalUrl ? url : src) || src || fallbackUrl;
+    const imageSrc = errorMap[preferredSrc] ? fallbackUrl : preferredSrc;
 
     return (
         <NextImage
@@ -111,7 +107,7 @@ export const Avatar = memo(function Avatar({
             width={size}
             height={size}
             alt={rest.alt}
-            onError={() => setHasError(true)}
+            onError={() => setErrorMap((map) => ({ ...map, [imageSrc]: true }))}
         />
     );
 });
