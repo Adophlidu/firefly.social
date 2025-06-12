@@ -2,7 +2,9 @@
 
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import { delay } from '@masknet/kit';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation.js';
 import { memo, type Ref, useCallback, useEffect, useState } from 'react';
 import QRCode from 'react-qr-code';
 import { useMount } from 'react-use';
@@ -40,9 +42,10 @@ export const SignInWithFireflyAppModal = memo(function SignInWithFireflyAppModal
     const [open, dispatch] = useSingletonModal(ref);
     const queryClient = useQueryClient();
     const onClose = useCallback(async () => {
+        dispatch?.close();
+        await delay(300);
         queryClient.removeQueries({ queryKey: ['desktop-link-info-session'] });
         queryClient.removeQueries({ queryKey: ['sign-in-with-firefly-app-otp'] });
-        dispatch?.close();
     }, [dispatch, queryClient]);
 
     return (
@@ -118,14 +121,6 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
         ? urlcat('firefly://account/scan/desktop-login', {
               session: linkInfoData.session,
               otp,
-              ...(IS_MOBILE_DEVICE
-                  ? {
-                        callback_url: urlcat(bom.location?.origin ?? SITE_URL, '/redirect/login/scan/:session/:otp', {
-                            session: linkInfoData.session,
-                            otp,
-                        }),
-                    }
-                  : {}),
           })
         : null;
 
@@ -134,8 +129,8 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
     return (
         <>
             {IS_MOBILE_DEVICE ? (
-                schemaURL ? (
-                    <SchemaLink url={schemaURL} />
+                schemaURL && linkInfoData && otp ? (
+                    <SchemaLink url={schemaURL} session={linkInfoData.session} otp={otp} />
                 ) : (
                     <div className="align-center flex h-[270px] flex-col items-center justify-center">
                         <LoadingIcon />
@@ -191,18 +186,25 @@ function Content({ enabled, onClose }: { enabled: boolean; onClose?: () => void 
             )}
             <div className="align-center flex w-full flex-col justify-center">
                 <div className="leading-6">Ensure the pair code matches</div>
-                <div className="text-lg font-bold leading-6">{otp}</div>
+                <div className="h-6 text-lg font-bold leading-6">{otp}</div>
             </div>
         </>
     );
 }
 
-function SchemaLink({ url }: { url: string }) {
+function SchemaLink({ url, session, otp }: { url: string; otp: string; session: string }) {
+    const router = useRouter();
     useMount(async () => {
         await openAppSchemes({
             [DeviceType.IOS]: url,
             [DeviceType.Android]: url,
         });
+        router.replace(
+            urlcat(bom.location?.origin ?? SITE_URL, '/redirect/login/scan/:session/:otp', {
+                session,
+                otp,
+            }),
+        );
     });
     return (
         <div className="align-center flex h-[270px] flex-col items-center justify-center text-center">
