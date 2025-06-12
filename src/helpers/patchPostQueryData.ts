@@ -1,7 +1,7 @@
 import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { SearchType, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import type { Pageable } from '@/helpers/pageable.js';
 import { updateQueryForPosts } from '@/helpers/updateQueryForPosts.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -27,17 +27,6 @@ export function patchPostQueryData(source: Source, postId: Matcher, patcher: Pat
     });
 
     queryClient.setQueriesData<Post>({ queryKey: [source, 'post-detail'] }, (old) => {
-        if (!old) return old;
-        return produce(old, (draft) => {
-            for (const p of [draft, draft.root, draft.commentOn]) {
-                if (matcher(p)) {
-                    patcher(p!);
-                }
-            }
-        });
-    });
-
-    queryClient.setQueriesData<Post>({ queryKey: ['search', SearchType.Posts, source] }, (old) => {
         if (!old) return old;
         return produce(old, (draft) => {
             for (const p of [draft, draft.root, draft.commentOn]) {

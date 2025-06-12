@@ -1,5 +1,6 @@
 'use client';
 import { Trans } from '@lingui/react/macro';
+import { isArray } from 'lodash-es';
 import { useParams, useSearchParams } from 'next/navigation.js';
 import { type HTMLProps, memo } from 'react';
 import urlcat from 'urlcat';
@@ -7,7 +8,8 @@ import urlcat from 'urlcat';
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { TokenCategory } from '@/constants/enum.js';
-import { NO_TRACING_COINS, TOKEN_CATEGORIES } from '@/constants/index.js';
+import { NO_TRACING_COINS, TOKEN_CATEGORIES, TRACING_CHAINS } from '@/constants/index.js';
+import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 
 export interface TokenPageSearch {
     wallet: string;
@@ -22,7 +24,7 @@ export interface TokenPageSearch {
 }
 interface Props extends HTMLProps<HTMLDivElement> {
     slug?: string;
-    tokenId: string | null;
+    token: CoinGeckoToken;
 }
 
 const labels: Record<TokenCategory, React.ReactNode> = {
@@ -39,12 +41,18 @@ const categoryUrlPatternMap: Record<TokenCategory, string> = {
 function resolveCategoryUrl(category: TokenCategory, params: TokenPageSearch & { symbol: string }): string {
     return urlcat(categoryUrlPatternMap[category], params);
 }
-export const CategoryTabs = memo<Props>(function CategoryTabs({ slug, tokenId, ...rest }) {
+export const CategoryTabs = memo<Props>(function CategoryTabs({ slug, token, ...rest }) {
     const { symbol } = useParams<{ symbol: string }>();
     const search = useSearchParams();
 
+    const tokenId = token.id;
+    const isTracingChain = token?.chainId ? TRACING_CHAINS.includes(token.chainId) : true;
+    const isTracingPlatform = isArray(token?.platform_info)
+        ? token.platform_info.some((x) => TRACING_CHAINS.includes(x.chain_id))
+        : true;
+
     const categories =
-        tokenId && NO_TRACING_COINS.includes(tokenId)
+        tokenId && (NO_TRACING_COINS.includes(tokenId) || !isTracingChain || !isTracingPlatform)
             ? [TokenCategory.Feeds, TokenCategory.Overview]
             : TOKEN_CATEGORIES;
     const category = slug && categories.includes(slug as TokenCategory) ? slug : categories[0];

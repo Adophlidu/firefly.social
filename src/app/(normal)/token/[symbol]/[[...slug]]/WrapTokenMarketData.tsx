@@ -50,6 +50,11 @@ export const WrapTokenMarketData = memo(function WrapTokenMarketData(props: Toke
     const followingTraderCount = useFollowingTraderCount(props.token.id);
 
     return (
-        <TokenMarketData tradeRecords={tradeRecords} chainId={chainId} traderCount={followingTraderCount} {...props} />
+        <TokenMarketData
+            tradeRecords={tradeRecords}
+            chainId={chainId || props.token.chainId}
+            traderCount={followingTraderCount}
+            {...props}
+        />
     );
 });

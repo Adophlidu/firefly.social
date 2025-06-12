@@ -11,7 +11,6 @@ import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useTokenCoin } from '@/hooks/useTokenCoin.js';
-import type { SearchTokenInfo } from '@/providers/types/Firefly.js';
 
 export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag({ title }) {
     const symbol = title?.startsWith('$') ? title.slice(1) : title;
@@ -19,16 +18,9 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
     const [show, setShow] = useState(false);
     const isMedium = useIsMedium();
     const insideTippy = useTippyContext();
-    const [selectedToken, setSelectedToken] = useState<SearchTokenInfo>();
 
     const tokenPageUrl = useMemo(() => {
         if (coin?.id) return resolveTokenPageUrl({ identity: coin.id, isCoinId: true });
-        if (selectedToken)
-            return resolveTokenPageUrl({
-                identity: selectedToken.symbol,
-                chainId: selectedToken.chain_id,
-                address: selectedToken.contract_address,
-            });
         if (coin)
             return resolveTokenPageUrl({
                 identity: symbol || coin.contract_address,
@@ -36,7 +28,7 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
                 address: coin.contract_address,
             });
         return resolveTokenPageUrl({ identity: symbol || '' });
-    }, [coin, selectedToken, symbol]);
+    }, [coin, symbol]);
 
     if (!symbol) return null;
     // $123 or $100M
@@ -70,7 +62,6 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
                         <TokenProfileCard
                             className="w-[415px] bg-primaryBottom p-2 text-main shadow-[0_8px_20px_0_rgba(0,0,0,0.04)]"
                             symbol={symbol}
-                            onTokenChange={setSelectedToken}
                         />
                     ) : null
                 }

@@ -11,13 +11,16 @@ interface ChainIconProps extends HTMLProps<HTMLImageElement> {
     networkType?: NetworkType;
     chainId: number;
     size?: number;
+    allowEmpty?: boolean;
 }
 
-export function ChainIcon({ chainId, size = 22, className, networkType }: ChainIconProps) {
+export function ChainIcon({ chainId, size = 22, className, networkType, allowEmpty }: ChainIconProps) {
     const networkDescriptor =
         isValidChainIdSolana(chainId) || networkType === NetworkType.Solana
             ? getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, chainId)
             : getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chainId);
+
+    if (!networkDescriptor?.icon && allowEmpty) return null;
 
     return (
         <Image

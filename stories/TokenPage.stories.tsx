@@ -63,6 +63,7 @@ export const TokenPage: Story = {
             '/token/bittensor',
             '/token/VIRTUAL?chainId=8453&address=0x0b3e328455c4059eeb9e3f84b5543f74e24e7e1b',
             '/token/VIRTUAL?chainId=101&address=3iQL8BFS2vE7mww4ehAqQHAsbmRNCrPxizWAT2Zfyr9y',
+            '/token/LIBERTY',
         ],
     },
 };

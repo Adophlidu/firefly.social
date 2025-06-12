@@ -47,7 +47,8 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
     const tokenId = token?.id;
     const { data: trending, isPending } = useCoinTrending(tokenId);
 
-    const tokenAddress = address ?? (isValidAddressEthereum(symbol) ? symbol : trending?.contracts?.[0]?.address);
+    const tokenAddress =
+        address ?? (isValidAddressEthereum(symbol) ? symbol : trending?.contracts?.[0]?.address) ?? token?.address;
 
     const isTracingChain = token?.chainId ? TRACING_CHAINS.includes(token.chainId) : true;
     const isTracingPlatform = isArray(token?.platform_info)

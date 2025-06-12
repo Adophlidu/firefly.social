@@ -1,3 +1,4 @@
+import { queryClient } from '@/configs/queryClient.js';
 import { isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -5,7 +6,7 @@ import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/types.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { CoinGeckoAsset, CoinGeckoToken } from '@/providers/types/CoinGecko.js';
-import type { GetTokenOptions } from '@/providers/types/Firefly.js';
+import type { GetTokenOptions, SearchTokenInfo } from '@/providers/types/Firefly.js';
 import { searchTokenByAddress } from '@/services/searchTokenByAddress.js';
 import { isTokenMatched } from '@/services/searchTokens.js';
 
@@ -14,6 +15,7 @@ const getTokens = memoizePromise(CoinGecko.getTokens, () => 'CoinGecko.getTokens
 export const searchToken = memoizePromise(
     async function searchToken(options: GetTokenOptions): Promise<CoinGeckoToken | null> {
         let tokenAsset: CoinGeckoAsset | null = null;
+        let searchTokenInfo: SearchTokenInfo | null | undefined = null;
         if (options.address) {
             tokenAsset = await searchTokenByAddress(options.address);
         }
@@ -25,17 +27,26 @@ export const searchToken = memoizePromise(
             const tokens = await getTokens();
             const token = tokens.find((x) => isTokenMatched(x, symbol));
             if (token) return token;
+            const searchTokenInfos = await queryClient.fetchQuery({
+                queryKey: ['search-token', symbol],
+                queryFn: () => FireflyEndpointProvider.searchTokenInfos(symbol),
+            });
+            searchTokenInfo = searchTokenInfos?.[0];
         }
 
-        const coin = await FireflyEndpointProvider.getSingleCoin({
+        const updatedOptions = {
             ...options,
-            chain_id: chainId,
-        });
+            chain_id: searchTokenInfo ? searchTokenInfo.chain_id : chainId,
+            address: searchTokenInfo ? searchTokenInfo.contract_address : options.address,
+        };
+        const coin = await FireflyEndpointProvider.getSingleCoin(updatedOptions);
+        const isRuntimePrecise = !!(updatedOptions.chain_id && updatedOptions.address);
 
-        if (isPrecise && coin && !coin.id) {
+        if (isRuntimePrecise && coin && !coin.id) {
             return {
                 id: coin.id,
                 symbol: coin.symbol,
+                chainId: updatedOptions.chain_id,
                 address: coin.contract_address,
                 name: coin.name,
                 price: coin.market_data?.token_price_usd,

@@ -95,7 +95,7 @@ export const TokenIcon = memo(function TokenIcon({
                             alt="chain"
                         />
                     ) : chainId ? (
-                        <ChainIcon size={badgeSize} networkType={networkType} chainId={chainId} />
+                        <ChainIcon size={badgeSize} networkType={networkType} chainId={chainId} allowEmpty />
                     ) : null}
                 </span>
             ) : null}
