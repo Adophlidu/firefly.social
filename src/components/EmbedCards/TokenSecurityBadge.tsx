@@ -8,9 +8,10 @@ import { type AddressSecurity, SecurityMessageLevel, type TokenContractSecurity 
 
 interface SecurityBadgeProps {
     security?: TokenContractSecurity | AddressSecurity;
+    interactive?: boolean;
 }
 
-export const SecurityBadge = memo<SecurityBadgeProps>(function SecurityBadge({ security }) {
+export const SecurityBadge = memo<SecurityBadgeProps>(function SecurityBadge({ security, interactive }) {
     if (!security) return null;
 
     const { warn_item_quantity: attentionFactors = 0, risk_item_quantity: riskyFactors = 0 } = security;
@@ -22,7 +23,7 @@ export const SecurityBadge = memo<SecurityBadgeProps>(function SecurityBadge({ s
     ]);
 
     return (
-        <TokenSecurityTippy security={security} level={levels}>
+        <TokenSecurityTippy security={security} level={levels} interactive={interactive}>
             <div className="flex items-center">
                 {riskyFactors ? (
                     <DangerIcon width={16} height={16} className="shrink-0" />

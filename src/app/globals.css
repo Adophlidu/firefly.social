@@ -612,8 +612,7 @@ body {
     background: none !important;
 }
 
-.account-settings .tippy-content,
-.account-settings .floating-content {
+.account-settings .tippy-content {
     padding: 0;
 }
 
@@ -635,8 +634,7 @@ body {
     pointer-events: visible;
 }
 
-.tippy-card,
-.floating-card {
+.tippy-card {
     background: none !important;
 }
 
@@ -903,8 +901,7 @@ body.not-support .fixed.inset-y-0 {
     background-color: var(--color-bg);
 }
 
-[data-tippy-root]:has(.symbol-tag-tippy),
-[data-floating-root]:has(.symbol-tag-floating) {
+[data-tippy-root]:has(.symbol-tag-tippy) {
     z-index: var(--z-menu, 39) !important;
 }
 
@@ -925,25 +922,4 @@ body.not-support .fixed.inset-y-0 {
 
 .tippy-box[data-theme~='cross-at-tooltip'] .cross-at-edit-item:hover .cross-at-edit {
     display: block;
-}
-
-[data-floating-root] {
-    max-width: calc(100vw - 10px);
-}
-.floating-box {
-    position: relative;
-    background-color: #333;
-    color: #fff;
-    border-radius: 4px;
-    font-size: 14px;
-    line-height: 1.4;
-    white-space: normal;
-    outline: 0;
-    transition-property: transform, visibility, opacity;
-    max-width: 350px;
-}
-.floating-content {
-    position: relative;
-    padding: 5px 9px;
-    z-index: 1;
 }

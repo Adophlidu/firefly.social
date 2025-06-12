@@ -15,7 +15,7 @@ export const REQUIREMENT_TITLE_MAP: Record<RequirementType, React.ReactNode> = {
     [RequirementType.NFTHolder]: <Trans>NFT holder</Trans>,
 };
 
-export const REQUIREMENT_ICON_MAP: Record<RequirementType, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
+export const REQUIREMENT_ICON_MAP: Record<RequirementType, React.FunctionComponent<React.SVGAttributes<SVGElement>>> = {
     [RequirementType.Follow]: AddUser,
     [RequirementType.Like]: Like,
     [RequirementType.Repost]: Repost,

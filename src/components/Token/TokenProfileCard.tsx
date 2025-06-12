@@ -190,7 +190,7 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
                         >
                             {selectedToken.symbol}
                         </Link>
-                        {tokenSecurity ? <SecurityBadge security={tokenSecurity} /> : null}
+                        {tokenSecurity ? <SecurityBadge security={tokenSecurity} interactive={false} /> : null}
                     </div>
                     <div className="flex items-center gap-1 leading-4">
                         <span className="max-w-28 truncate font-inter text-[13px] font-bold leading-4 text-third">

@@ -3,7 +3,7 @@
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { type ComponentType, type SVGProps, useMemo } from 'react';
+import { type FunctionComponent, type SVGAttributes, useMemo } from 'react';
 
 import { ThirdPartConnectButton } from '@/app/(settings)/components/ThirdPartConnectButton.js';
 import { ThirdPartDisconnectButton } from '@/app/(settings)/components/ThirdPartDisconnectButton.js';
@@ -25,7 +25,7 @@ import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 
 interface ThirdPartItemProps {
     source: ThirdPartySource | Source.Email;
-    icon: ComponentType<SVGProps<SVGSVGElement>>;
+    icon: FunctionComponent<SVGAttributes<SVGElement>>;
     iconWidth: number;
     iconHeight: number;
     iconClassName?: string;

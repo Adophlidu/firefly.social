@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { TokenIcon, type TokenIconProps } from '@/components/TokenIcon.js';
 
@@ -8,7 +8,7 @@ interface Args {
 
 const meta = {
     title: 'Token/TokenIcon',
-    component: TokenIcon as any,
+    component: TokenIcon,
     render: ({ tokens }) => {
         return (
             <div className="flex flex-col items-center gap-4">

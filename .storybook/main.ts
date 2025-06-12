@@ -1,12 +1,11 @@
-import type { StorybookConfig } from '@storybook/nextjs-vite';
-import { fileURLToPath } from 'node:url';
+import type { StorybookConfig } from '@storybook/experimental-nextjs-vite';
 import svgr from 'vite-plugin-svgr';
 
 const config: StorybookConfig = {
     stories: ['../stories/**/*.mdx', '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-    addons: ['@storybook/addon-docs'],
+    addons: ['@storybook/addon-essentials'],
     framework: {
-        name: '@storybook/nextjs-vite',
+        name: '@storybook/experimental-nextjs-vite',
         options: {},
     },
     staticDirs: ['../public'],
@@ -14,9 +13,6 @@ const config: StorybookConfig = {
         experimentalRSC: true,
     },
     async viteFinal(config) {
-        config.resolve.alias = {
-            '@': fileURLToPath(new URL('../src', import.meta.url)),
-        };
         config.plugins.forEach((plugin) => {
             if (Array.isArray(plugin)) {
                 plugin.forEach((p) => {

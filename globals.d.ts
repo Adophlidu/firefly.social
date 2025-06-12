@@ -40,7 +40,7 @@ declare module 'remark-linkify-regex' {
 }
 
 declare module '*.svg' {
-    const content: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+    const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
     export default content;
 }
 

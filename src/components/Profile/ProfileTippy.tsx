@@ -1,15 +1,16 @@
 'use client';
 
+import type { TippyProps } from '@tippyjs/react';
 import { memo, useState } from 'react';
 
-import { InteractiveTippy, type InteractiveTippyProps } from '@/components/InteractiveTippy.js';
+import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { ProfileCard } from '@/components/Profile/ProfileCard.js';
 import { TippyContext, useTippyContext } from '@/components/TippyContext/index.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-interface ProfileTippyProps extends InteractiveTippyProps {
+interface ProfileTippyProps extends TippyProps {
     className?: string;
     profile?: Profile;
     identity: FireflyIdentity;
@@ -28,7 +29,6 @@ export const ProfileTippy = memo<ProfileTippyProps>(function ProfileTippy({ iden
                 maxWidth={350}
                 className="tippy-card"
                 placement="bottom"
-                onOpenChange={setEnabled}
                 onTrigger={() => {
                     setEnabled(true);
                 }}

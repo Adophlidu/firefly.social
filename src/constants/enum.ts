@@ -4,13 +4,6 @@ export enum NODE_ENV {
     Test = 'test',
 }
 
-export enum CHAR_TAG {
-    FIREFLY_RP = 'ff_rp',
-    MENTION = 'mention_tag',
-    FRAME = 'frame_tag',
-    PROMOTE_LINK = 'promote_link',
-}
-
 export enum VERCEL_NEV {
     Production = 'production',
     Preview = 'preview',

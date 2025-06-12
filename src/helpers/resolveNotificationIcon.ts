@@ -1,4 +1,4 @@
-import { type ComponentType, type SVGProps } from 'react';
+import { type FunctionComponent, type SVGAttributes } from 'react';
 
 import CollectIcon from '@/assets/collect-large.svg';
 import FollowIcon from '@/assets/follow.svg';
@@ -10,7 +10,7 @@ import { NotificationType } from '@/providers/types/SocialMedia.js';
 
 export const resolveNotificationIcon = createLookupTableResolver<
     NotificationType,
-    ComponentType<SVGProps<SVGSVGElement>> | null
+    FunctionComponent<SVGAttributes<SVGElement>> | null
 >(
     {
         [NotificationType.Reaction]: LikeIcon,

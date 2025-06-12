@@ -70,6 +70,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, di
     };
     return (
         <MirrorUI
+            old={false}
             open={open}
             setOpen={setOpen}
             shares={shares}
@@ -105,7 +106,7 @@ interface MirrorUIProps {
     handleMirror: (unmirror?: boolean) => void;
     handleQuote: () => void;
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-    old?: boolean;
+    old: boolean;
 }
 
 function getTooltipContent(source: SocialSource, shares: number) {
@@ -155,7 +156,7 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
     quoteDisabled,
     shares,
     source,
-    old = true,
+    old,
 }) {
     const mirrorActionText = useMemo(() => {
         switch (source) {

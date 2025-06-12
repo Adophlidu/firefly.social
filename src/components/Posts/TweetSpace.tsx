@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { type ComponentType, memo, type ReactNode, type SVGProps } from 'react';
+import { type FunctionComponent, memo, type ReactNode, type SVGAttributes } from 'react';
 
 import CalendarIcon from '@/assets/calendar.svg';
 import EmptyStatusIcon from '@/assets/empty-status.svg';
@@ -21,7 +21,7 @@ import { LoginModalRef } from '@/modals/controls.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 
 interface Tag {
-    icon?: ComponentType<SVGProps<SVGSVGElement>>;
+    icon?: FunctionComponent<SVGAttributes<SVGElement>>;
     label: ReactNode;
 }
 

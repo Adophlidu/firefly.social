@@ -1,9 +1,9 @@
-import type { SVGProps } from 'react';
+import type { HTMLProps } from 'react';
 
 import Loading from '@/assets/loading.svg';
 import { classNames } from '@/helpers/classNames.js';
 
-interface LoadingIconProps extends SVGProps<SVGSVGElement> {
+interface LoadingIconProps extends HTMLProps<SVGElement> {
     size?: number;
     animate?: boolean;
 }

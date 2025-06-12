@@ -22,7 +22,6 @@ export const ChannelTippy = memo<ChannelTippyProps>(function ChannelTippy({ chan
             maxWidth={350}
             className="tippy-card"
             placement="bottom-end"
-            onOpenChange={setEnabled}
             onTrigger={() => {
                 setEnabled(true);
             }}

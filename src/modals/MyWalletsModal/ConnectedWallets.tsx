@@ -2,7 +2,7 @@ import { Trans } from '@lingui/react/macro';
 import { CoreChainController } from '@reown/appkit';
 import { mainnet } from '@reown/appkit/networks';
 import { compact, uniqBy } from 'lodash-es';
-import { type ComponentType, memo, type SVGProps, useEffect, useMemo, useState } from 'react';
+import { type FunctionComponent, memo, type SVGAttributes, useEffect, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { type Connector, useConnections, useSwitchAccount } from 'wagmi';
 
@@ -27,7 +27,7 @@ import { switchNetwork } from '@/modals/MyWalletsModal/switchNetwork.js';
 import { syncWalletIdentity } from '@/modals/MyWalletsModal/syncWalletIdentity.js';
 import type { ChainNamespace } from '@/types/index.js';
 
-const IconMap: Record<ChainNamespace, ComponentType<SVGProps<SVGSVGElement>>> = {
+const IconMap: Record<ChainNamespace, FunctionComponent<SVGAttributes<SVGElement>>> = {
     eip155: EvmIcon,
     solana: SolanaIcon,
     bip122: WalletIcon,

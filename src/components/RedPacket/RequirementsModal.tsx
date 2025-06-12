@@ -94,7 +94,10 @@ function ResultIcon({ result }: { result: boolean }) {
     );
 }
 
-const IconMap: Record<FireflyRedPacketAPI.PostReactionKind, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
+const IconMap: Record<
+    FireflyRedPacketAPI.PostReactionKind,
+    React.FunctionComponent<React.SVGAttributes<SVGElement>>
+> = {
     like: Like,
     repost: Repost,
     quote: Repost,

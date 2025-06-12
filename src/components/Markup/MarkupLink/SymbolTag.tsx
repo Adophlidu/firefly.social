@@ -53,7 +53,6 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
             <InteractiveTippy
                 className="tippy-card symbol-tag-tippy"
                 placement="bottom"
-                onOpenChange={setShow}
                 onShow={() => setShow(true)}
                 onHidden={() => setShow(false)}
                 delay={100}

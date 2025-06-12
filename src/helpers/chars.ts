@@ -3,7 +3,6 @@ import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { CHAR_TAG } from '@/constants/enum.js';
 import { type RP_HASH_TAG } from '@/constants/index.js';
 import { MAX_CHAR_SIZE_PER_POST, MAX_CHAR_SIZE_VERIFY_PER_POST } from '@/constants/limitation.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
@@ -15,7 +14,12 @@ import type { Profile } from '@/providers/types/Firefly.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 
-export { CHAR_TAG } from '@/constants/enum.js';
+export const enum CHAR_TAG {
+    FIREFLY_RP = 'ff_rp',
+    MENTION = 'mention_tag',
+    FRAME = 'frame_tag',
+    PROMOTE_LINK = 'promote_link',
+}
 
 interface Segment {
     // tag is used to identify the type of content
