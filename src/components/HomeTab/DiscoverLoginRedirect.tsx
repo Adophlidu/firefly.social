@@ -18,6 +18,10 @@ export function DiscoverLoginRedirect() {
         prevLoginRef.current = isLogin;
         router.replace(
             isLogin ? resolveFollowingUrl(DEFAULT_SOCIAL_SOURCE) : resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE),
+            {
+                showProgress: false,
+                disableSameURL: true,
+            },
         );
     }, [isLogin, router]);
 
