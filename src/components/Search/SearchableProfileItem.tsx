@@ -1,11 +1,12 @@
-import { type HTMLProps, memo } from 'react';
+import { first } from 'lodash-es';
+import { type HTMLProps,memo } from 'react';
 import { useEnsAvatar } from 'wagmi';
 
 import WalletIcon from '@/assets/wallet-circle.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { FireflyPlatform, Source } from '@/constants/enum.js';
+import { FireflyPlatform, type ProfilePageSource,Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -21,6 +22,30 @@ interface CrossProfileItemProps extends HTMLProps<HTMLAnchorElement> {
     autoQueryEnsAvatar?: boolean;
 }
 
+function fireflyPlatformToSource<T extends Source[]>(platform: FireflyPlatform, keepSources: T) {
+    const platformSource = resolveSourceFromFireflyPlatform(platform);
+    if (keepSources.includes(platformSource)) {
+        return platformSource as T[number];
+    }
+
+    return narrowToSocialSource(platformSource);
+}
+
+function getProfileUrlWithAccount(profile: Profile, related: Profile[], source: ProfilePageSource | Source.Firefly) {
+    if (source === Source.Firefly) {
+        const firstRelated = first(related);
+        if (!firstRelated) return '';
+
+        return getProfileUrl({
+            source: fireflyPlatformToSource(firstRelated.platform, [Source.Wallet]),
+            profileId: firstRelated.platform_id,
+            handle: firstRelated.handle,
+        });
+    }
+
+    return getProfileUrl({ source, profileId: profile.platform_id, handle: profile.handle });
+}
+
 export const SearchableProfileItem = memo<CrossProfileItemProps>(function SearchableProfileItem({
     profile,
     related,
@@ -28,10 +53,9 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
     autoQueryEnsAvatar = false,
     onClick,
 }) {
-    const platformSource = resolveSourceFromFireflyPlatform(profile.platform);
-    const source = platformSource === Source.Wallet ? Source.Wallet : narrowToSocialSource(platformSource);
+    const source = fireflyPlatformToSource(profile.platform, [Source.Wallet, Source.Firefly]);
     const displayName =
-        platformSource === Source.Wallet && isValidAddressEthereum(profile.name)
+        source === Source.Wallet && isValidAddressEthereum(profile.name)
             ? formatAddressEthereum(profile.name, 4, 2)
             : profile.name;
 
@@ -42,7 +66,14 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
             enabled: autoQueryEnsAvatar && source === Source.Wallet && !!profile.handle,
         },
     });
-    const avatar = profile.avatar || data || getStampAvatarByProfileId(source, profile.platform_id);
+    // TODO: Stamp doesn't support firefly account, so we use the first related profile's avatar
+    const avatar =
+        source === Source.Firefly
+            ? getStampAvatarByProfileId(
+                  fireflyPlatformToSource(related[0].platform, [Source.Wallet]),
+                  related[0].platform_id,
+              )
+            : profile.avatar || data || getStampAvatarByProfileId(source, profile.platform_id);
 
     // keep the matched profile at the first place
     const sortedRelated = related.sort((a, b) => (a.platform === profile.platform ? -1 : 1));
@@ -50,7 +81,7 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
     return (
         <Link
             className={classNames('flex items-center gap-x-2 border-b border-line p-3 hover:bg-bg', className)}
-            href={getProfileUrl({ source, profileId: profile.platform_id, handle: profile.handle })}
+            href={getProfileUrlWithAccount(profile, related, source)}
             onClick={onClick}
         >
             <Avatar alt={profile.handle} className="size-7 rounded-full" src={avatar} size={44} />
@@ -77,7 +108,7 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
                     )}
                 </div>
                 <div className="text-lightSecond truncate text-medium leading-[22px]">
-                    {platformSource === Source.Wallet ? '' : '@'}
+                    {source === Source.Wallet ? '' : '@'}
                     {profile.handle}
                 </div>
             </div>

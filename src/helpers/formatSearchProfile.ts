@@ -10,7 +10,13 @@ import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import type { Profile as FireflyProfile, SearchProfileResponse } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-const validPlatforms = [FireflyPlatform.Farcaster, FireflyPlatform.Lens, FireflyPlatform.Twitter, FireflyPlatform.Bsky];
+const validPlatforms = [
+    FireflyPlatform.Farcaster,
+    FireflyPlatform.Lens,
+    FireflyPlatform.Twitter,
+    FireflyPlatform.Bsky,
+    FireflyPlatform.Firefly,
+];
 
 function fixProfilePlatform(profile: FireflyProfile) {
     if (!validPlatforms.includes(profile.platform)) {
@@ -59,13 +65,37 @@ function isSpecialSearchProfile({ profile, related, isSpecial }: SearchProfile, 
     return false;
 }
 
+function getMatchedProfile(
+    identity: Required<Required<SearchProfileResponse>['data']>['list'][0],
+): FireflyProfile | null {
+    const socialMatched = [
+        identity.farcaster,
+        identity.lens,
+        identity.twitter,
+        identity.bsky,
+        identity.ens,
+        identity.eth,
+        identity.solana,
+    ]
+        .flat()
+        .find((x) => x?.hit);
+
+    if (socialMatched) return socialMatched;
+
+    const accountMatched = identity.account?.find((x) => x?.hit) || null;
+    if (!accountMatched) return null;
+
+    return {
+        ...accountMatched,
+        platform: FireflyPlatform.Firefly,
+    };
+}
+
 export function formatSearchProfile(
     identity: Required<Required<SearchProfileResponse>['data']>['list'][0],
     keyword?: string,
 ): SearchProfile | null {
-    const target = Object.values(identity)
-        .flat()
-        .find((x) => x?.hit);
+    const target = getMatchedProfile(identity);
     if (!target) return null;
 
     const allProfile = compact(
@@ -88,6 +118,8 @@ export function formatSearchProfile(
                 : null;
         }),
     );
+
+    if (target.platform === FireflyPlatform.Firefly && !allProfile.length) return null;
 
     return {
         profile: fixProfilePlatform(target),
