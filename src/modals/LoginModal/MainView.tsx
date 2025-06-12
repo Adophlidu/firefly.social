@@ -407,6 +407,7 @@ export function MainView() {
                                                     profile={account.profile}
                                                     enableSourceIcon={false}
                                                     size={40}
+                                                    enableDefaultAvatar
                                                 />
                                                 <div className="flex min-w-0 flex-col items-start text-[14px] leading-5">
                                                     <span className="max-w-full truncate font-bold">

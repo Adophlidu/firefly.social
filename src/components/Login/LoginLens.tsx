@@ -112,6 +112,9 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                                         profile={profile}
                                         selected={isSameProfile(currentProfile, profile)}
                                         onSelect={setSelectedProfile}
+                                        profileAvatarProps={{
+                                            enableDefaultAvatar: true,
+                                        }}
                                     />
                                 ))}
                             </div>
