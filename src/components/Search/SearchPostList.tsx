@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { compact, isFunction, orderBy, uniqBy } from 'lodash-es';
+import { compact, isFunction, isUndefined, orderBy, uniqBy } from 'lodash-es';
 import { memo, type ReactNode } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
@@ -41,7 +41,6 @@ export const SearchPostList = memo<Props>(function SearchPostList({
         ['search', searchType, source, searchKeyword, orderType, isLogin],
         keywords.map((keyword) => ({
             key: keyword,
-            enabled: !!keyword,
             queryFn: async ({ pageParam }) => {
                 try {
                     if (!keyword?.trim() || invalidQuery || (loginRequired && !isLogin)) {
@@ -61,6 +60,7 @@ export const SearchPostList = memo<Props>(function SearchPostList({
         (data) => {
             const posts = compact(data.pages.flatMap((x) => x.data ?? []));
             const uniqPosts = uniqBy(posts, (post) => post.postId);
+            if (isUndefined(orderType)) return uniqPosts;
             return orderBy(uniqPosts, (x) => {
                 if (!x.timestamp) return 0;
                 return orderType === PostOrderType.ASC ? x.timestamp : -x.timestamp;

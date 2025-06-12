@@ -42,14 +42,17 @@ interface MoreProps {
     post?: Post;
 }
 
-export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, post, channel }) {
+export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: propAuthor, post, channel }) {
     const [seen, ref] = useEverSeen<HTMLButtonElement>();
     const currentProfile = useCurrentProfile(source);
 
-    const isMyPost = isSameProfile(author, currentProfile);
-    const isMyProfile = useIsMyRelatedProfile(source, resolveFireflyProfileId(author) ?? '');
+    const isMyPost = isSameProfile(propAuthor, currentProfile);
+    const isMyProfile = useIsMyRelatedProfile(source, resolveFireflyProfileId(propAuthor) ?? '');
     // profile in x3pro (also tweet) doesn't have viewerContext status
-    const { data: refreshedAuthor } = useRefreshedProfile(author, !isMyProfile && seen && source === Source.Twitter);
+    const needToRefreshAuthor =
+        !isMyProfile && seen && source === Source.Twitter && propAuthor?.viewerContext?.following === undefined;
+    const { data: refreshedAuthor } = useRefreshedProfile(propAuthor, needToRefreshAuthor);
+    const author = refreshedAuthor ?? propAuthor;
 
     const isFollowing = !!refreshedAuthor?.viewerContext?.following;
 
