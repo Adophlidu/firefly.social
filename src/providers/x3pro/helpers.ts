@@ -25,9 +25,7 @@ function formatX3Profile(user: X3ProProfile): Profile {
         bio: user.introduction,
         followerCount: user.fanCount,
         followingCount: user.focusCount,
-        viewerContext: {
-            following: user.isFocus,
-        },
+        viewerContext: {},
         isPowerUser: false,
     };
 }

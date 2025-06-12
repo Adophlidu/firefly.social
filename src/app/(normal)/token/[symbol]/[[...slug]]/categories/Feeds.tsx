@@ -44,6 +44,7 @@ function useMergeX3KolProfiles(mentionUsers: TokenMentionUser[], enabled: boolea
             return result.map((x) => x.data);
         },
     });
+
     return twitterProfiles;
 }
 

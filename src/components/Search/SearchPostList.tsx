@@ -41,6 +41,7 @@ export const SearchPostList = memo<Props>(function SearchPostList({
         ['search', searchType, source, searchKeyword, orderType, isLogin],
         keywords.map((keyword) => ({
             key: keyword,
+            enabled: !!keyword,
             queryFn: async ({ pageParam }) => {
                 try {
                     if (!keyword?.trim() || invalidQuery || (loginRequired && !isLogin)) {

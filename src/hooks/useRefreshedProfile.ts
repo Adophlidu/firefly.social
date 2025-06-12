@@ -5,9 +5,13 @@ import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export function useRefreshedProfile<T extends Profile | null | undefined>(profile?: T): UseQueryResult<T> {
+export function useRefreshedProfile<T extends Profile | null | undefined>(
+    profile?: T,
+    enabled = true,
+): UseQueryResult<T> {
     const handleOrProfileId = resolveFireflyProfileId(profile ?? null);
     return useQuery({
+        enabled,
         queryKey: ['profile', profile?.source, handleOrProfileId],
         async queryFn() {
             try {

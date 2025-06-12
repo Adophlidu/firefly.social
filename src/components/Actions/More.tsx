@@ -27,7 +27,9 @@ import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
+import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
+import { useRefreshedProfile } from '@/hooks/useRefreshedProfile.js';
 import { useReportPost } from '@/hooks/useReportPost.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
@@ -41,11 +43,15 @@ interface MoreProps {
 }
 
 export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, post, channel }) {
+    const [seen, ref] = useEverSeen<HTMLButtonElement>();
     const currentProfile = useCurrentProfile(source);
 
     const isMyPost = isSameProfile(author, currentProfile);
     const isMyProfile = useIsMyRelatedProfile(source, resolveFireflyProfileId(author) ?? '');
-    const isFollowing = !!author.viewerContext?.following;
+    // profile in x3pro (also tweet) doesn't have viewerContext status
+    const { data: refreshedAuthor } = useRefreshedProfile(author, !isMyProfile && seen && source === Source.Twitter);
+
+    const isFollowing = !!refreshedAuthor?.viewerContext?.following;
 
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
     const [, reportPost] = useReportPost();
@@ -130,6 +136,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                             className="flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
                                             onClick={close}
                                             profile={author}
+                                            ref={ref}
                                         >
                                             {followButtonLabelRender}
                                         </BaseToggleFollowButton>

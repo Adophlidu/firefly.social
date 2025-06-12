@@ -8,7 +8,7 @@ import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
 import { type Notification, type Profile, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
-function setFollowStatus(source: Source, profileId: string, status: boolean) {
+export function setFollowStatus(source: Source, profileId: string, status: boolean) {
     const matcher: Matcher = (post) => post?.author.profileId === profileId;
     const patcher = (old: Draft<Profile>, status: boolean) => {
         old.viewerContext = {
