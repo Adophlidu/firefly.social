@@ -6,6 +6,7 @@ import { createIndicator, createNextIndicator, createPageable, type PageIndicato
 import { formatX3Id, formatX3ProPost, X3_PRO_AVATAR_HOST } from '@/providers/x3pro/helpers.js';
 import {
     type KolList,
+    type MentionUsersRespone,
     type PostListResponse,
     PostOrderType,
     type Response,
@@ -47,6 +48,20 @@ class X3Pro {
         });
 
         return token;
+    }
+    async getTokenMention(address: string) {
+        const res = await fetchJSON<MentionUsersRespone>('/api/x3pro/external/getMentionByCa', {
+            method: 'POST',
+            body: JSON.stringify({ address }),
+        });
+        const mention = resolveX3ProResponse(res);
+        mention.mentionUsers.forEach((user) => {
+            if (!user.avatar.match(/^https?:\/\//)) {
+                user.avatar = `${X3_PRO_AVATAR_HOST}/${user.avatar}`;
+            }
+            user.twitterId = formatX3Id(user.id);
+        });
+        return mention;
     }
     async searchPosts(address: string, indicator?: PageIndicator, orderType: PostOrderType = PostOrderType.DESC) {
         const [lastId, lastTime] = indicator?.id ? indicator.id.split(',') : [];

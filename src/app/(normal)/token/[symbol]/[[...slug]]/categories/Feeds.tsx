@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { useQueries } from '@tanstack/react-query';
-import { compact, uniqBy } from 'lodash-es';
+import { compact } from 'lodash-es';
 import { type HTMLProps, memo, useMemo, useState } from 'react';
 
 import SortAscIcon from '@/assets/sort-asc.svg';
@@ -17,10 +17,11 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatTokenMentionUser } from '@/helpers/formatTokenMentionUser.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useX3ProTokenInfo } from '@/hooks/token/useX3ProTokenInfo.js';
+import { useX3ProTokenMention } from '@/hooks/token/useX3ProTokenMention.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { UserV2 } from '@/providers/types/Firefly.js';
-import type { Post, Profile } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { PostOrderType, type TokenMentionUser } from '@/providers/x3pro/types.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
@@ -30,10 +31,8 @@ interface Props extends HTMLProps<HTMLDivElement> {
     name?: string;
 }
 
-function useMergeX3KolProfiles(mentionUsers: TokenMentionUser[], postProfiles: Profile[], enabled: boolean) {
-    const twitterIds = useMemo(() => {
-        return [...mentionUsers.map((x) => x.twitterId), ...postProfiles.map((x) => x.profileId)];
-    }, [mentionUsers, postProfiles]);
+function useMergeX3KolProfiles(mentionUsers: TokenMentionUser[], enabled: boolean) {
+    const twitterIds = mentionUsers.map((x) => x.twitterId);
 
     const twitterProfiles = useQueries({
         queries: twitterIds.map((twitterId) => ({
@@ -55,7 +54,9 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
     const pathname = usePathname();
 
     const [openModal, setOpenModal] = useState(false);
-    const { data: x3Token } = useX3ProTokenInfo(address, chainId ? X3_PRO_CHAIN_IDS.includes(chainId) : true);
+    const enabledX3 = chainId ? X3_PRO_CHAIN_IDS.includes(chainId) : true;
+    const { data: x3Token } = useX3ProTokenInfo(address, enabledX3);
+    const { data: x3TokenMention } = useX3ProTokenMention(address, enabledX3);
 
     const source = defaultSource || SORTED_TOKEN_FEEDS_SOURCES[0];
     const isX3Pro = source === Source.X3Pro;
@@ -67,19 +68,17 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
         if (includesSpace && [Source.Lens, Source.Bsky].includes(source)) return address || [];
         return compact([includesSpace ? `"${text}"` : `$${symbol}`, address]);
     }, [isX3Pro, address, symbol, name, source]);
-    const mentionUsers = x3Token?.mentionUsers || EMPTY_LIST;
+    const mentionUsers = x3TokenMention?.mentionUsers || EMPTY_LIST;
 
     const twitterProfile = useCurrentProfile(Source.Twitter);
     const isTwitterLogin = !!twitterProfile;
 
-    const [x3Posts, setX3Posts] = useState<Post[]>(EMPTY_LIST);
-    const x3PostProfiles = useMemo(() => x3Posts.map((x) => x.author), [x3Posts]);
-    const twitterProfiles = useMergeX3KolProfiles(mentionUsers, x3PostProfiles, isTwitterLogin && isX3Pro);
+    const twitterProfiles = useMergeX3KolProfiles(mentionUsers, isTwitterLogin && isX3Pro);
 
     const users = useMemo(() => {
         if (isX3Pro && mentionUsers.length) {
             const mentionedProfiles = mentionUsers.map(formatTokenMentionUser);
-            return uniqBy([...mentionedProfiles, ...x3PostProfiles], (x) => x.profileId).filter((user) => {
+            return mentionedProfiles.filter((user) => {
                 const profile = twitterProfiles.find((x) => x?.profileId === user.profileId) as
                     | Profile<UserV2>
                     | undefined;
@@ -88,7 +87,7 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
             });
         }
         return EMPTY_LIST;
-    }, [isX3Pro, mentionUsers, twitterProfiles, x3PostProfiles]);
+    }, [isX3Pro, mentionUsers, twitterProfiles]);
 
     const postOrderType: PostOrderType | undefined = params.get('order') ? Number(params.get('order')) : undefined;
     const isDesc = postOrderType === PostOrderType.DESC || !postOrderType;
@@ -172,10 +171,6 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
                 searchType={SearchType.Posts}
                 source={source}
                 orderType={postOrderType}
-                onPostsChange={(posts) => {
-                    if (!isX3Pro) return;
-                    setX3Posts(posts);
-                }}
             />
             {openModal && users.length ? (
                 <MentionedByModal open onClose={() => setOpenModal(false)} users={users} />

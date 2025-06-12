@@ -129,11 +129,13 @@ export enum PostOrderType {
 export interface TokenMentionUser {
     avatar: string;
     fanCount: number;
+    /** `x_${twitterId}`*/
     id: string;
     /** patched at runtime, remove `x_` from id */
     twitterId: string;
     name: string;
     post: null;
+    /** the post user mentioined at */
     postUrl: null;
     /** Twitter handle */
     screenName: string;
@@ -170,3 +172,11 @@ export interface Token {
 }
 
 export type TokenResult = Response<Token>;
+
+export type MentionUsersRespone = Response<{
+    caUrl: string;
+    mentionUserCount: number;
+    mentionUsers: TokenMentionUser[];
+    narrate: string;
+    narrateEn: string;
+}>;

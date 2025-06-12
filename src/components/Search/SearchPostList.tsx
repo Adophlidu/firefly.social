@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { compact, isFunction, orderBy, uniqBy } from 'lodash-es';
-import { memo, type ReactNode, useEffect } from 'react';
+import { memo, type ReactNode } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
@@ -12,7 +12,6 @@ import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
 import { X3ProProvider } from '@/providers/x3pro/index.js';
 import { PostOrderType } from '@/providers/x3pro/types.js';
 
@@ -22,7 +21,6 @@ interface Props {
     searchType: SearchType;
     emptyMessage?: ReactNode | ((keyword: string | string[]) => ReactNode);
     orderType?: PostOrderType;
-    onPostsChange?: (posts: Post[]) => void;
 }
 
 export const SearchPostList = memo<Props>(function SearchPostList({
@@ -31,7 +29,6 @@ export const SearchPostList = memo<Props>(function SearchPostList({
     source,
     emptyMessage,
     orderType,
-    onPostsChange,
 }) {
     const currentSocialSource = narrowToSocialSource(source);
     const isLogin = useIsLogin(currentSocialSource);
@@ -69,10 +66,6 @@ export const SearchPostList = memo<Props>(function SearchPostList({
             });
         },
     );
-
-    useEffect(() => {
-        onPostsChange?.(queryResult.data);
-    }, [onPostsChange, queryResult.data]);
 
     const listKey = `${ScrollListKey.Search}:${searchType}:${keywords.join(',')}:${source}`;
 
