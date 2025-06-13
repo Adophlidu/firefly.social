@@ -197,9 +197,11 @@ function FireflyAccount({
                                             {queryMetricsStatusLoading ? (
                                                 <LoadingIcon size={18} className="flex-1" />
                                             ) : (
-                                                <CloudIcon className="size-[18px] min-w-[18px] flex-1" />
+                                                <CloudIcon className="size-[18px] max-w-[18px]" />
                                             )}
-                                            <Trans>Multi-device login</Trans>
+                                            <span className="flex-1 text-left">
+                                                <Trans>Multi-device login</Trans>
+                                            </span>
                                         </button>
                                     )}
                                 </MenuItem>

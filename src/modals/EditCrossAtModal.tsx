@@ -124,7 +124,7 @@ export function EditCrossAtModal({ ref }: Props) {
                                                                         enableDefaultAvatar
                                                                     />
                                                                     <div className="flex flex-col gap-1">
-                                                                        <div className="text-[15px] font-medium leading-[16px] text-main">
+                                                                        <div className="text-left text-[15px] font-medium leading-[16px] text-main">
                                                                             {item.name}
                                                                         </div>
                                                                         <div className="text-left text-sm text-second">
