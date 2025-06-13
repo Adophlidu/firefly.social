@@ -4,20 +4,22 @@ import ReloadIcon from '@/assets/reload.svg';
 import { classNames } from '@/helpers/classNames.js';
 
 interface Props {
+    size?: number;
+    iconSize?: number;
     url: string;
     scanned: boolean;
     countdown: number;
 }
 
 export function ScannableQRCode(props: Props) {
-    const { url, scanned, countdown } = props;
+    const { url, size = 238, iconSize = 80, scanned, countdown } = props;
     return (
         <div className="relative flex items-center justify-center">
             <div className={classNames('rounded-2xl bg-white p-4', countdown === 0 || scanned ? 'blur-md' : '')}>
-                <QRCode value={url} size={238} />
+                <QRCode value={url} size={size} />
             </div>
             {countdown === 0 ? (
-                <ReloadIcon className="absolute inset-0 m-auto text-white" width={80} height={80} />
+                <ReloadIcon className="absolute inset-0 m-auto text-white" width={iconSize} height={iconSize} />
             ) : null}
         </div>
     );

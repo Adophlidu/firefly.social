@@ -590,9 +590,6 @@ msgstr ""
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr ""
 
-msgid "Confirm to sign in"
-msgstr ""
-
 msgid "Report post"
 msgstr ""
 
@@ -3848,6 +3845,10 @@ msgstr ""
 msgid "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
 msgstr ""
 
+#. placeholder {0}: scannedProfile?.displayName
+msgid "The scanned profile <0><1/><2>{0}</2></0> does not match your current profile. Please retry the correct Farcaster account."
+msgstr ""
+
 msgid "Unmute"
 msgstr ""
 
@@ -4285,6 +4286,9 @@ msgid "Post"
 msgstr ""
 
 msgid "Creator:"
+msgstr ""
+
+msgid "Something went wrong, please try again."
 msgstr ""
 
 msgid "Following"

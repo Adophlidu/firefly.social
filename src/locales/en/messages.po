@@ -590,9 +590,6 @@ msgstr "No malicious mining activities found."
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 
-msgid "Confirm to sign in"
-msgstr "Confirm to sign in"
-
 msgid "Report post"
 msgstr "Report post"
 
@@ -3864,6 +3861,10 @@ msgstr "Preview"
 msgid "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
 msgstr "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
 
+#. placeholder {0}: scannedProfile?.displayName
+msgid "The scanned profile <0><1/><2>{0}</2></0> does not match your current profile. Please retry the correct Farcaster account."
+msgstr "The scanned profile <0><1/><2>{0}</2></0> does not match your current profile. Please retry the correct Farcaster account."
+
 msgid "Unmute"
 msgstr "Unmute"
 
@@ -4302,6 +4303,9 @@ msgstr "Post"
 
 msgid "Creator:"
 msgstr "Creator:"
+
+msgid "Something went wrong, please try again."
+msgstr "Something went wrong, please try again."
 
 msgid "Following"
 msgstr "Following"

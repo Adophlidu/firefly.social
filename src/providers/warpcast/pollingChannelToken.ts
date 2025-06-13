@@ -38,23 +38,25 @@ interface ChannelCompleteResponse extends ChannelStatusResponse {
 }
 
 export async function pollingChannelToken(token: string, signal?: AbortSignal) {
-    const query = async () => {
-        const signed = await fetchJSON<ChannelPendingResponse | ChannelCompleteResponse>(
-            urlcat(FARCASTER_REPLY_URL, '/v1/channel/status'),
-            {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${token}`,
+    const result = await retry(
+        async () => {
+            const signed = await fetchJSON<ChannelPendingResponse | ChannelCompleteResponse>(
+                urlcat(FARCASTER_REPLY_URL, '/v1/channel/status'),
+                {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                    signal,
                 },
-            },
-        );
-        if (signed.state === 'pending') throw new InvalidResultError();
-        return signed;
-    };
-
-    const result = await retry(query, {
-        times: Number.POSITIVE_INFINITY,
-        signal,
-    });
+            );
+            if (signed.state === 'pending') throw new InvalidResultError();
+            return signed;
+        },
+        {
+            times: Number.POSITIVE_INFINITY,
+            signal,
+        },
+    );
     return result;
 }

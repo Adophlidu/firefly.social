@@ -4,7 +4,7 @@ import { type Address, checksumAddress, parseUnits, toHex } from 'viem';
 import { readContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
-import { FARCASTER_REPLY_URL, SITE_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
+import { SITE_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getFarcasterAuthToken } from '@/helpers/getFarcasterAuthToken.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
@@ -12,7 +12,6 @@ import { parseUrl } from '@/helpers/parseUrl.js';
 import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
 import { RelayConfirmationPopoverRef } from '@/modals/FrameViewerModal/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { pollingChannelToken } from '@/providers/warpcast/pollingChannelToken.js';
 import { pollingRemoteSiwfToken } from '@/providers/warpcast/pollingRemoteSiwfToken.js';
 import type { FrameV2 } from '@/types/frame.js';
 
@@ -120,34 +119,13 @@ export async function signInWithRelay(frame: FrameV2, fid: string, nonce: string
     const u = parseUrl(url);
     if (!u) throw new Error(`Invalid URL: ${url}`);
 
-    // Assume we have a BE api endpoint that can sign the message
-    const { url: schemaUrl, channelToken } = await fetchJSON<{
-        url: string;
-        channelToken: string;
-    }>(urlcat(FARCASTER_REPLY_URL, '/v1/channel'), {
-        method: 'POST',
-        body: JSON.stringify({
-            siweUri: url,
-            domain: u.hostname,
-            nonce,
-        }),
-    });
-
-    RelayConfirmationPopoverRef.open({
-        schemaUrl,
+    const signed = await RelayConfirmationPopoverRef.openAndWaitForClose({
+        siweUri: url,
+        nonce,
+        domain: u.hostname,
         frame,
     });
+    if (!signed) throw new Error('Failed to sign with relay server.');
 
-    const signed = await pollingChannelToken(channelToken);
-    console.log('DEBUG: signInWithRelay signature', frame, signed);
-
-    if (`${signed.fid}` === fid) {
-        RelayConfirmationPopoverRef.close();
-    }
-
-    return {
-        message: signed.message,
-        signature: signed.signature,
-        authMethod: 'custody',
-    } as const;
+    return signed;
 }
