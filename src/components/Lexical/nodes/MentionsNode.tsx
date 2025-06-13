@@ -28,7 +28,6 @@ export class MentionNode extends TextNode {
     private __elementListeners: {
         mouseenter?: (e: MouseEvent) => void;
         click?: (e: MouseEvent) => void;
-        mouseleave?: (e: MouseEvent) => void;
     } = {};
     private __tooltipListeners: {
         click?: (e: MouseEvent) => void;
@@ -64,10 +63,6 @@ export class MentionNode extends TextNode {
         if (this.__elementListeners.click) {
             element.removeEventListener('click', this.__elementListeners.click);
         }
-        if (this.__elementListeners.mouseleave) {
-            element.removeEventListener('mouseleave', this.__elementListeners.mouseleave);
-        }
-
         if (this.__tooltipListeners.click) {
             tooltipElement.removeEventListener('click', this.__tooltipListeners.click);
         }
@@ -208,7 +203,6 @@ export class MentionNode extends TextNode {
             this.__elementListeners = {
                 mouseenter: showTooltip,
                 click: showTooltip,
-                mouseleave: hideTooltip,
             };
 
             this.__tooltipListeners = {
@@ -218,7 +212,6 @@ export class MentionNode extends TextNode {
 
             element.addEventListener('mouseenter', showTooltip);
             element.addEventListener('click', showTooltip);
-            element.addEventListener('mouseleave', hideTooltip);
             tooltipElement.addEventListener('click', handleTooltipClick);
             tooltipElement.addEventListener('mouseleave', hideTooltip);
 
