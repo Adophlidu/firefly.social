@@ -181,7 +181,7 @@ export async function downloadAccounts() {
  * merge local metrics with remote metrics
  * @param passcode
  */
-export async function mergeMetrics(passcode: string) {
+export async function mergeMetrics(passcode: string, enqueueMessage = true) {
     const localMetrics = await getLocalMetrics(passcode);
 
     const validLocalMetrics = compact(localMetrics);
@@ -353,5 +353,8 @@ export async function mergeMetrics(passcode: string) {
                 safeUnreachable(source);
         }
     }
-    enqueueSuccessMessage(t`Multi-device login sessions synced successfully.`);
+
+    if (enqueueMessage) {
+        enqueueSuccessMessage(t`Multi-device login sessions synced successfully.`);
+    }
 }

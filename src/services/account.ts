@@ -380,7 +380,7 @@ export async function syncMetrics(account: Account) {
     return;
 }
 
-export async function verifyAndGetPassword(skipCheck = false) {
+export async function verifyAndGetPassword(skipCheck = false, autoUploadMetrics = true) {
     const localPassword = useTokenPasswordStore.getState().password;
     if (localPassword && !skipCheck) {
         const result = await FireflyEndpointProvider.checkPasscode(localPassword, true);
@@ -390,6 +390,7 @@ export async function verifyAndGetPassword(skipCheck = false) {
     }
     const result = await PasswordModalRef.openAndWaitForClose({
         workflow: PasswordWorkflow.Verify,
+        autoUploadMetrics,
     });
     if (!result) return null;
     return useTokenPasswordStore.getState().password;

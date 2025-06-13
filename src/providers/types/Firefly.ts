@@ -14,7 +14,7 @@ import {
 } from '@/constants/enum.js';
 import type { ErcType, EVM } from '@/providers/nft-scan/types.js';
 import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
-import type { Article as FormattedArticle,ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
+import type { Article as FormattedArticle, ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 import type { CoinGeckoAsset } from '@/providers/types/CoinGecko.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import type { NFTFeedV3 } from '@/providers/types/NFTs.js';

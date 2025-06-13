@@ -67,7 +67,7 @@ export const PasswordModalContent = memo<
     PasswordModalOpenProps & {
         onClose: (success?: boolean) => void;
     }
->(function PasswordModalContent({ workflow: initialWorkflow, onClose }) {
+>(function PasswordModalContent({ workflow: initialWorkflow, autoUploadMetrics, onClose }) {
     const [workflow, setWorkflow] = useState<PasswordWorkflow>(initialWorkflow);
     const [step, setStep] = useState<PasswordStep>(PasswordWorkflowConfig[initialWorkflow][0]);
 
@@ -98,9 +98,12 @@ export const PasswordModalContent = memo<
 
     const [{ loading }, handleNextStep] = useAsyncFn(async () => {
         try {
-            const result = await runPasswordWorkflow(workflow, step, passwords);
+            const result = await runPasswordWorkflow(workflow, step, passwords, autoUploadMetrics);
             if (!result) {
-                setPasswords(createEmptyPasswords());
+                setPasswords((prev) => ({
+                    ...prev,
+                    [step]: '',
+                }));
                 return;
             }
 
@@ -117,7 +120,7 @@ export const PasswordModalContent = memo<
             enqueueErrorMessage(fetchError || getDefaultErrorMessage(workflow), { error });
             throw error;
         }
-    }, [passwords, workflow, step, onClose, changeWorkflowOrStep, setPassword]);
+    }, [passwords, workflow, step, autoUploadMetrics, onClose, changeWorkflowOrStep, setPassword]);
 
     const onCancel = useCallback(() => {
         onClose();

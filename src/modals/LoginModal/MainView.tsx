@@ -97,7 +97,7 @@ function FireflyAccount({
         try {
             const status = await FireflyEndpointProvider.getMetricsStatus();
             if (status.hasSetPasscode) {
-                const password = await verifyAndGetPassword(true);
+                const password = await verifyAndGetPassword(true, false);
                 if (password) {
                     await mergeMetrics(password);
                 }

@@ -10,6 +10,7 @@ import { PasswordModalContent } from '@/modals/PasswordModal/PasswordModalConten
 
 export interface PasswordModalOpenProps {
     workflow: PasswordWorkflow;
+    autoUploadMetrics?: boolean;
 }
 
 type Props = {

@@ -9,7 +9,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { PasswordModalRef } from '@/modals/controls.js';
 import { isStrongDigitPassword, isValidPassword } from '@/modals/PasswordModal/isValidPassword.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { uploadMetrics } from '@/services/metrics.js';
+import { mergeMetrics, uploadMetrics } from '@/services/metrics.js';
 
 type NextStepConfig =
     | {
@@ -43,7 +43,6 @@ export async function verifyPasscodeOnServer(password: string): Promise<boolean>
         const data = response.data || {};
         if ('remainTryTimes' in data && 'retryTimes' in data) {
             const remainTryTimes = data.remainTryTimes as number;
-            const retryTimes = data.retryTimes as number;
             if (remainTryTimes <= 0) {
                 enqueueErrorMessage(t`Multi-device login is now turned off and all previously sessions are cleared.`);
                 PasswordModalRef.close();
@@ -67,6 +66,7 @@ async function setPassword(
     step: PasswordStep,
     passwords: Record<PasswordStep, string>,
     shouldReset = false,
+    autoUploadMetrics = true,
 ): Promise<NextStepConfig> {
     const password = passwords[step];
 
@@ -84,7 +84,9 @@ async function setPassword(
                 await FireflyEndpointProvider.resetPasscode();
             }
             await FireflyEndpointProvider.setPasscode(password);
-            await runInSafeAsync(() => uploadMetrics(password));
+            if (autoUploadMetrics) {
+                await runInSafeAsync(() => uploadMetrics(password));
+            }
             enqueueSuccessMessage(
                 shouldReset
                     ? t`Password updated successfully.`
@@ -104,7 +106,11 @@ async function setPassword(
     }
 }
 
-async function changePassword(step: PasswordStep, passwords: Record<PasswordStep, string>): Promise<NextStepConfig> {
+async function changePassword(
+    step: PasswordStep,
+    passwords: Record<PasswordStep, string>,
+    autoUploadMetrics = true,
+): Promise<NextStepConfig> {
     const password = passwords[step];
 
     switch (step) {
@@ -128,7 +134,9 @@ async function changePassword(step: PasswordStep, passwords: Record<PasswordStep
                 return;
             }
             await FireflyEndpointProvider.updatePasscode(passwords[PasswordStep.SetPassword], password);
-            await runInSafeAsync(() => uploadMetrics(password));
+            if (autoUploadMetrics) {
+                await runInSafeAsync(() => mergeMetrics(password, false));
+            }
             enqueueSuccessMessage(t`Password updated successfully.`);
             return { step: PasswordStep.Success };
         }
@@ -160,24 +168,29 @@ async function verifyPassword(step: PasswordStep, passwords: Record<PasswordStep
     }
 }
 
-async function resetPassword(step: PasswordStep, passwords: Record<PasswordStep, string>): Promise<NextStepConfig> {
-    return setPassword(step, passwords, true);
+async function resetPassword(
+    step: PasswordStep,
+    passwords: Record<PasswordStep, string>,
+    autoUploadMetrics = true,
+): Promise<NextStepConfig> {
+    return setPassword(step, passwords, true, autoUploadMetrics);
 }
 
 export async function runPasswordWorkflow(
     workflow: PasswordWorkflow,
     step: PasswordStep,
     passwords: Record<PasswordStep, string>,
+    autoUploadMetrics = true,
 ): Promise<NextStepConfig> {
     switch (workflow) {
         case PasswordWorkflow.Set:
-            return await setPassword(step, passwords);
+            return await setPassword(step, passwords, false, autoUploadMetrics);
         case PasswordWorkflow.Change:
-            return await changePassword(step, passwords);
+            return await changePassword(step, passwords, autoUploadMetrics);
         case PasswordWorkflow.Verify:
             return await verifyPassword(step, passwords);
         case PasswordWorkflow.Reset:
-            return await resetPassword(step, passwords);
+            return await resetPassword(step, passwords, autoUploadMetrics);
         default:
             unreachable(workflow);
     }
