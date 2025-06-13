@@ -8,27 +8,28 @@ import { QUERY_MUTE_PROFILE_SOURCES } from '@/constants/index.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyPlatform } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useIsLogin, useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function useIsProfileMuted(source: Source, profileId: string, blocking?: boolean, enabled = true) {
+    const isLoginFirefly = useIsLoginFirefly();
     const isLogin = useIsLogin(narrowToSocialSource(source));
-    const enabledQuery = !!source && !!profileId && isLogin && enabled;
+    const enabledQuery = !!source && !!profileId && enabled;
     const enabledQueryProfile = QUERY_MUTE_PROFILE_SOURCES.includes(source);
     const { data: profileBlocking = false } = useQuery({
         queryKey: ['profile', source, profileId],
         queryFn() {
             return resolveSocialMediaProvider(source as SocialSource).getProfileById(profileId);
         },
-        enabled: enabledQuery && enabledQueryProfile,
+        enabled: enabledQuery && enabledQueryProfile && isLogin,
         select(profile) {
             return !!profile.viewerContext?.blocking;
         },
         staleTime: 600_000,
     });
     const { data = false } = useQuery({
-        enabled: enabledQuery && !enabledQueryProfile,
+        enabled: enabledQuery && !enabledQueryProfile && isLoginFirefly,
         queryKey: ['profile-is-muted', source, profileId, enabledQueryProfile],
         staleTime: 600_000,
         queryFn: async () => {
