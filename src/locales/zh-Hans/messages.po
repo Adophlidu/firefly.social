@@ -1829,6 +1829,9 @@ msgstr "由 {displayName} 使用 Firefly 发送"
 msgid "Only people you mention"
 msgstr "只有你提及的人"
 
+msgid "Scan this QR code and tap “Approve” on your Farcaster mobile app to start using your public profile."
+msgstr ""
+
 #. placeholder {0}: space.participant_count?.toLocaleString()
 msgid "{0} turned in"
 msgstr "{0} 提交了"
@@ -2452,9 +2455,6 @@ msgstr "连接钱包并且领取你的 NFT"
 
 msgid "Reauthorize"
 msgstr "请重新授权"
-
-msgid "Scan this QR code and tap “Approve” on your Farcaster mobile app to start using your wallet on web."
-msgstr ""
 
 msgid "Like"
 msgstr "点赞"

@@ -1824,6 +1824,9 @@ msgstr ""
 msgid "Only people you mention"
 msgstr ""
 
+msgid "Scan this QR code and tap “Approve” on your Farcaster mobile app to start using your public profile."
+msgstr ""
+
 #. placeholder {0}: space.participant_count?.toLocaleString()
 msgid "{0} turned in"
 msgstr ""
@@ -2433,9 +2436,6 @@ msgid "Connect your wallet to claim your NFT"
 msgstr ""
 
 msgid "Reauthorize"
-msgstr ""
-
-msgid "Scan this QR code and tap “Approve” on your Farcaster mobile app to start using your wallet on web."
 msgstr ""
 
 msgid "Like"

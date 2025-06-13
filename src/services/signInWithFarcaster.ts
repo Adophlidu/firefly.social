@@ -4,7 +4,7 @@ import { type Address, checksumAddress, parseUnits, toHex } from 'viem';
 import { readContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
-import { FARCASTER_REPLY_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
+import { FARCASTER_REPLY_URL, SITE_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getFarcasterAuthToken } from '@/helpers/getFarcasterAuthToken.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
@@ -57,7 +57,9 @@ async function createSiwfMessage(url: string, fid: string, nonce: string) {
     return message;
 }
 
-export async function signInWithFarcaster(url: string, fid: string, nonce: string) {
+export async function signInWithFarcaster(frame: FrameV2, fid: string, nonce: string) {
+    const url = frame.x_url || SITE_URL;
+
     const u = parseUrl(url);
     if (!u) throw new Error(`Invalid URL: ${url}`);
 
@@ -73,7 +75,9 @@ export async function signInWithFarcaster(url: string, fid: string, nonce: strin
     } as const;
 }
 
-export async function signInWithRemoteFarcaster(url: string, fid: string, nonce: string) {
+export async function signInWithRemoteFarcaster(frame: FrameV2, fid: string, nonce: string) {
+    const url = frame.x_url || SITE_URL;
+
     const u = parseUrl(url);
     if (!u) throw new Error(`Invalid URL: ${url}`);
 
@@ -110,7 +114,9 @@ export async function signInWithRemoteFarcaster(url: string, fid: string, nonce:
     } as const;
 }
 
-export async function signInWithRelay(frame: FrameV2, url: string, nonce: string) {
+export async function signInWithRelay(frame: FrameV2, fid: string, nonce: string) {
+    const url = frame.x_url || SITE_URL;
+
     const u = parseUrl(url);
     if (!u) throw new Error(`Invalid URL: ${url}`);
 
@@ -133,9 +139,11 @@ export async function signInWithRelay(frame: FrameV2, url: string, nonce: string
     });
 
     const signed = await pollingChannelToken(channelToken);
-    console.log('DEBUG: signInWithRelay signature', signed);
+    console.log('DEBUG: signInWithRelay signature', frame, signed);
 
-    RelayConfirmationPopoverRef.close();
+    if (`${signed.fid}` === fid) {
+        RelayConfirmationPopoverRef.close();
+    }
 
     return {
         message: signed.message,

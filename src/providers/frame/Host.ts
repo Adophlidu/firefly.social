@@ -2,7 +2,6 @@ import type { Context, FrameHost, ReadyOptions, SetPrimaryButton } from '@farcas
 
 import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
-import { SITE_URL } from '@/constants/index.js';
 import { openProfilePageByProfileId } from '@/helpers/openProfilePageById.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { ComposeModalRef } from '@/modals/controls.js';
@@ -57,13 +56,9 @@ export class FarcasterFrameHost implements FrameHost {
 
             const checked = await FireflyEndpointProvider.checkCustodyWallet(`${this.context.client.clientFid}`);
             if (!checked) {
-                return await signInWithRelay(frame, frame?.x_url ?? SITE_URL, options.nonce);
+                return await signInWithRelay(frame, `${this.context.client.clientFid}`, options.nonce);
             } else {
-                return await signInWithFarcaster(
-                    frame?.x_url ?? SITE_URL,
-                    `${this.context.client.clientFid}`,
-                    options.nonce,
-                );
+                return await signInWithFarcaster(frame, `${this.context.client.clientFid}`, options.nonce);
             }
         } catch (error) {
             console.log('DEBUG: [frame host]: signIn error', error);
