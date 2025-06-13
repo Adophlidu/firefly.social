@@ -3,14 +3,14 @@ import { describe, expect, it } from 'vitest';
 
 import { LINK_MARK_RE } from '@/constants/linkRegExp.js';
 import {
+    BSKY_MENTION_REGEX,
     CHANNEL_REGEX,
+    LENS_MENTION_REGEX,
     MENTION_REGEX,
+    MINIAPPS_ID_REGEXP,
     SYMBOL_REGEX,
     URL_INPUT_REGEX,
     URL_REGEX,
-    BSKY_MENTION_REGEX,
-    LENS_MENTION_REGEX,
-    MINIAPPS_ID_REGEXP,
 } from '@/constants/regexp.js';
 
 function matchUrl(regExp: RegExp) {
@@ -268,7 +268,7 @@ describe('URL_SINGLE_REGEX', () => {
             'https://example.com/path/to/resource?query=param&key=value&key2=value2', // Multiple query parameters
             'https://example.com/path/to/resource#fragment?query=param', // Fragment before query
         ].forEach((url) => {
-            expect(URL_INPUT_REGEX.test(url)).toBe(true);
+            expect(URL_INPUT_REGEX.test(url), `url: ${url}`).toBe(true);
         });
     });
 

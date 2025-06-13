@@ -1,0 +1,35 @@
+import type { Meta, StoryObj } from '@storybook/react';
+
+import { BioMarkup } from '@/components/Markup/BioMarkup.js';
+
+type Args = {
+    bios: string[];
+};
+
+const meta = {
+    title: 'common/BioMarkup',
+    component: BioMarkup,
+    render: ({ bios }) => {
+        return (
+            <div className="flex flex-col gap-2">
+                {bios.map((bio) => (
+                    <div key={bio} className="flex flex-col gap-2 border p-2">
+                        <blockquote className="text-gray text-sm italic text-second">{bio}</blockquote>
+                        <BioMarkup key={bio}>{bio}</BioMarkup>
+                    </div>
+                ))}
+            </div>
+        );
+    },
+} satisfies Meta<Args>;
+
+export const Base: StoryObj<typeof meta> = {
+    args: {
+        bios: [
+            'アパレル👗@mistreass カラコン🩷@majetteofficial公式ファンクラブ🎀⇨https://t.co/yLnVMfuyBtお仕事依頼はこちら💌⇨yuamikami.management@gmail.com', // tco link right before email
+            'https://t.co/yLnVMfuyBt', // tco link
+        ],
+    },
+};
+
+export default meta;

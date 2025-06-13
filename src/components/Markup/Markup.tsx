@@ -22,6 +22,7 @@ import {
     SOLANA_ADDRESS,
     SPECIAL_TOKEN_SYMBOLS_REGEX,
     SYMBOL_REGEX,
+    TCO_URL_REGEX,
 } from '@/constants/regexp.js';
 import { isChannelSupported } from '@/helpers/isChannelSupported.js';
 import { trimify } from '@/helpers/trimify.js';
@@ -50,6 +51,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
         return compact([
             [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'list', 'listItem'] }],
             remarkBreaks,
+            linkifyRegex(TCO_URL_REGEX), // Make sure tco url is before email which is more aggressive
             linkifyRegex(EMAIL_REGEX),
             // Make sure Mention plugin is before URL plugin, to avoid matching
             // mentioned ens handle as url. For example, @mask.eth should be treat

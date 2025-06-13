@@ -4,7 +4,7 @@ import { memoizePromise } from '@/helpers/memoizePromise.js';
 const cache = new Map<string, string>();
 
 export function isTCOLink(u: string) {
-    return u.startsWith('https://t.co/');
+    return u.startsWith('https://t.co/') && u !== 'https://t.co/';
 }
 
 async function resolver(u: string): Promise<string | null> {

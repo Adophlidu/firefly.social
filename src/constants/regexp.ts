@@ -1,3 +1,4 @@
+export const TCO_URL_REGEX = /(https?:\/\/)?t\.co\/[a-zA-Z0-9]+/g;
 export const URL_REGEX =
     /((https?:\/\/)?[a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}(:[0-9]{1,5})?([/?][^ \n,)>]*)?)/gi;
 

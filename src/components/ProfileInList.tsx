@@ -41,7 +41,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
 
     const profileUrl = getProfileUrl(profile);
 
-    const { source, profileId } = profile;
+    const { source } = profile;
     const followerCount = profile.followerCount || 0;
 
     if (isBadProfile(profile)) {

@@ -15,7 +15,14 @@ import { HashTagLink } from '@/components/Markup/plugins/HashTagLink.js';
 import { MentionPlugin } from '@/components/Markup/plugins/MentionPlugin.js';
 import { MergeAdjacentTextPlugin } from '@/components/Markup/plugins/MergeAdjacentTextPlugin.js';
 import { type SocialSource } from '@/constants/enum.js';
-import { BIO_TWITTER_PROFILE_REGEX, CHANNEL_REGEX, EMAIL_REGEX, SYMBOL_REGEX, URL_REGEX } from '@/constants/regexp.js';
+import {
+    BIO_TWITTER_PROFILE_REGEX,
+    CHANNEL_REGEX,
+    EMAIL_REGEX,
+    SYMBOL_REGEX,
+    TCO_URL_REGEX,
+    URL_REGEX,
+} from '@/constants/regexp.js';
 import { isChannelSupported } from '@/helpers/isChannelSupported.js';
 import { trimify } from '@/helpers/trimify.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -33,6 +40,7 @@ export const BioMarkup = memo<BioMarkupProps>(function BioMarkup({ children, pos
             remarkBreaks,
             DisableItalicPlugin,
             MergeAdjacentTextPlugin,
+            linkifyRegex(TCO_URL_REGEX), // Make sure tco url is before email which is more aggressive
             linkifyRegex(EMAIL_REGEX),
             linkifyRegex(BIO_TWITTER_PROFILE_REGEX),
             MentionPlugin(source),
