@@ -85,7 +85,7 @@ export const SnapshotMoreAction = memo<MoreProps>(function SnapshotMoreAction({ 
                             }}
                         >
                             {data.hasBookmarked ? (
-                                <BookmarkActiveIcon width={18} height={18} className="text-lightMain" />
+                                <BookmarkActiveIcon width={18} height={18} className="text-warn" />
                             ) : (
                                 <BookmarkIcon width={18} height={18} />
                             )}

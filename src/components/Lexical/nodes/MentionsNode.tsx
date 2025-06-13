@@ -9,7 +9,7 @@ import {
 } from 'lexical';
 import { compact, first } from 'lodash-es';
 import { renderToStaticMarkup } from 'react-dom/server';
-import tippy from 'tippy.js';
+import tippy, { type Instance as TippyInstance } from 'tippy.js';
 
 import EditProfileIcon from '@/assets/edit-profile.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
@@ -20,8 +20,20 @@ import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.
 import { EditCrossAtModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
+let activeTooltip: TippyInstance | null = null;
+
 export class MentionNode extends TextNode {
     __profiles?: Profile[];
+    private __tooltip: TippyInstance | null = null;
+    private __elementListeners: {
+        mouseenter?: (e: MouseEvent) => void;
+        click?: (e: MouseEvent) => void;
+        mouseleave?: (e: MouseEvent) => void;
+    } = {};
+    private __tooltipListeners: {
+        click?: (e: MouseEvent) => void;
+        mouseleave?: (e: MouseEvent) => void;
+    } = {};
 
     static __editor: LexicalEditor | null = null;
     static override getType(): string {
@@ -40,9 +52,37 @@ export class MentionNode extends TextNode {
         if (profiles) this.__profiles = profiles;
     }
 
+    private cleanup = (element: HTMLElement, tooltipElement: HTMLElement) => {
+        if (this.__tooltip) {
+            this.__tooltip.destroy();
+            this.__tooltip = null;
+        }
+
+        if (this.__elementListeners.mouseenter) {
+            element.removeEventListener('mouseenter', this.__elementListeners.mouseenter);
+        }
+        if (this.__elementListeners.click) {
+            element.removeEventListener('click', this.__elementListeners.click);
+        }
+        if (this.__elementListeners.mouseleave) {
+            element.removeEventListener('mouseleave', this.__elementListeners.mouseleave);
+        }
+
+        if (this.__tooltipListeners.click) {
+            tooltipElement.removeEventListener('click', this.__tooltipListeners.click);
+        }
+        if (this.__tooltipListeners.mouseleave) {
+            tooltipElement.removeEventListener('mouseleave', this.__tooltipListeners.mouseleave);
+        }
+
+        this.__elementListeners = {};
+        this.__tooltipListeners = {};
+    };
+
     private renderMentionNodeUI = (element: HTMLElement) => {
         if (this.__profiles) {
             const sources = document.createElement('div');
+            const tooltipElement = document.createElement('div');
 
             const html = renderToStaticMarkup(
                 <>
@@ -69,7 +109,6 @@ export class MentionNode extends TextNode {
                 'inline-flex items-center gap-2 py-1 pl-1 pr-[6px] rounded-full border border-secondaryLine text-highlight leading-4 bg-white dark:bg-black cursor-pointer',
             );
             element.insertBefore(sources, element.firstChild);
-            const tooltipElement = document.createElement('div');
 
             const tooltipContent = renderToStaticMarkup(
                 <>
@@ -89,7 +128,7 @@ export class MentionNode extends TextNode {
                                         <span className="truncate text-sm leading-[18px] text-main">{handle}</span>
                                     </span>
 
-                                    <EditProfileIcon className="cross-at-edit hidden size-4" />
+                                    <EditProfileIcon className="cross-at-edit hidden size-4 text-main" />
                                 </span>
                             );
                         })}
@@ -108,22 +147,33 @@ export class MentionNode extends TextNode {
                 arrow: false,
                 theme: 'cross-at-tooltip',
             });
+            this.__tooltip = tooltip;
 
-            element.addEventListener('mouseenter', () => {
+            const showTooltip = () => {
+                if (activeTooltip && activeTooltip !== tooltip) {
+                    activeTooltip.hide();
+                }
                 tooltip.show();
-            });
+                activeTooltip = tooltip;
+            };
 
-            element.addEventListener('click', () => {
-                tooltip.show();
-            });
+            const hideTooltip = () => {
+                tooltip.hide();
+                if (activeTooltip === tooltip) {
+                    activeTooltip = null;
+                }
+            };
 
-            tooltipElement.addEventListener('click', async (e) => {
+            const handleTooltipClick = async (e: MouseEvent) => {
                 const target = e.target as HTMLElement;
                 if (
                     (target.classList.contains('cross-at-edit-item') || target.classList.contains('cross-at-edit')) &&
                     this.__profiles
                 ) {
                     tooltip.hide();
+                    if (activeTooltip === tooltip) {
+                        activeTooltip = null;
+                    }
                     const result = await EditCrossAtModalRef.openAndWaitForClose({
                         profiles: this.__profiles.filter((x) => x.platform !== FireflyPlatform.Wallet),
                     });
@@ -150,16 +200,33 @@ export class MentionNode extends TextNode {
                     }
                 }
                 tooltip.hide();
-            });
+                if (activeTooltip === tooltip) {
+                    activeTooltip = null;
+                }
+            };
 
-            tooltipElement.addEventListener('mouseleave', () => {
+            this.__elementListeners = {
+                mouseenter: showTooltip,
+                click: showTooltip,
+                mouseleave: hideTooltip,
+            };
+
+            this.__tooltipListeners = {
+                click: handleTooltipClick,
+                mouseleave: hideTooltip,
+            };
+
+            element.addEventListener('mouseenter', showTooltip);
+            element.addEventListener('click', showTooltip);
+            element.addEventListener('mouseleave', hideTooltip);
+            tooltipElement.addEventListener('click', handleTooltipClick);
+            tooltipElement.addEventListener('mouseleave', hideTooltip);
+
+            MentionNode.__editor?.registerUpdateListener(() => {
                 tooltip.hide();
-            });
-
-            MentionNode.__editor?.registerUpdateListener(({ editorState }) => {
-                editorState.read(() => {
-                    tooltip.hide();
-                });
+                if (activeTooltip === tooltip) {
+                    activeTooltip = null;
+                }
             });
         }
     };
@@ -199,6 +266,19 @@ export class MentionNode extends TextNode {
 
     override isTextEntity(): true {
         return true;
+    }
+
+    override isSimpleText(): boolean {
+        return false;
+    }
+
+    override remove() {
+        if (this.__tooltip) {
+            const element = this.__tooltip.reference as HTMLElement;
+            const tooltipElement = this.__tooltip.popper as HTMLElement;
+            this.cleanup(element, tooltipElement);
+        }
+        super.remove();
     }
 }
 

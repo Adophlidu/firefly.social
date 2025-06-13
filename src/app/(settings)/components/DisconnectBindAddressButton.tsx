@@ -2,7 +2,10 @@ import { t } from '@lingui/core/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useAsyncFn } from 'react-use';
 
-import { waitForDisconnectConfirmation } from '@/app/(settings)/components/waitForDisconnectConfirmation.js';
+import {
+    getRelatedProfiles,
+    waitForDisconnectConfirmation,
+} from '@/app/(settings)/components/waitForDisconnectConfirmation.js';
 import DisconnectIcon from '@/assets/disconnect.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { WalletSource } from '@/constants/enum.js';
@@ -11,6 +14,7 @@ import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } f
 import { resolveConnectionPlatform } from '@/helpers/resolveConnectionPlatform.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { type FireflyWalletConnection } from '@/providers/types/Firefly.js';
+import { removeAccountsByProfiles } from '@/services/account.js';
 
 interface DisconnectBindAddressButtonProps {
     connection: FireflyWalletConnection;
@@ -40,6 +44,9 @@ export function DisconnectBindAddressButton({ connection }: DisconnectBindAddres
                 connection.address,
                 resolveConnectionPlatform(connection.platform),
             );
+
+            const profiles = await getRelatedProfiles(connection);
+            if (profiles.length) await removeAccountsByProfiles(profiles);
             enqueueSuccessMessage(t`Disconnected from your Firefly account`);
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to disconnect`);

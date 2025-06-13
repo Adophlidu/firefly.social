@@ -43,11 +43,11 @@ export function HashTagLink(source?: SocialSource) {
             case Source.Bsky:
             case Source.Lens:
             case Source.Farcaster:
-                return /#(?!\d+$)([\p{L}\p{N}_-]+)/gu;
+                return /#(?![0-9]+$)(?=.*[a-zA-Z])[\p{L}\p{N}_-]+/gu;
             case Source.Twitter:
-                return /(^|\s)#(?!\d+$)([\p{L}\p{N}_]+)/gu;
+                return /(^|\s)#(?![0-9]+$)(?=.*[a-zA-Z])[\p{L}\p{N}_]+/gu;
             default:
-                return /#(?!\d+$)([\p{L}\p{N}_-]+)/gu;
+                return /#(?![0-9]+$)(?=.*[a-zA-Z])[\p{L}\p{N}_-]+/gu;
         }
     });
     return () => {

@@ -8,7 +8,7 @@ import { ConfirmModalRef } from '@/modals/controls.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
 
-async function getRelatedProfiles({ identities }: FireflyWalletConnection) {
+export async function getRelatedProfiles({ identities }: FireflyWalletConnection) {
     if (!identities.length) return [];
     const lensIds = identities.filter((x) => x.source === Source.Lens).map((x) => x.id);
     const farcasterIds = identities.filter((x) => x.source === Source.Farcaster).map((x) => x.id);

@@ -40,7 +40,7 @@ export default function Page(props: Props) {
     );
 
     const content = (
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<Loading className="!min-h-[unset] flex-1 py-2" />}>
             <ProfilePageTimeline category={params.category} identity={identity} />
         </Suspense>
     );

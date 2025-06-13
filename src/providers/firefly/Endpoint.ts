@@ -1621,13 +1621,13 @@ class FireflyEndpoint {
         return resolveFireflyResponseData(response);
     }
 
-    async deleteMetrics(passcode: string, identity: string) {
+    async deleteMetrics(passcode: string, identities: string[]) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/metrics/delete');
         const response = await fireflySessionHolder.fetch<Response<{}>>(url, {
             method: 'POST',
             body: JSON.stringify({
                 passcode: encryptPasscode(passcode),
-                metaInfoIds: [identity],
+                metaInfoIds: identities,
             }),
         });
 

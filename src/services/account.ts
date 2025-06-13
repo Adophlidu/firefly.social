@@ -528,10 +528,9 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
 
     const passcode = await verifyAndGetPassword();
     if (passcode) {
-        await FireflyEndpointProvider.deleteMetrics(
-            passcode,
+        await FireflyEndpointProvider.deleteMetrics(passcode, [
             `${account.profile.source === Source.Bsky ? 'bluesky' : resolveSourceInUrl(account.profile.source)}:${account.profile.profileId}`,
-        );
+        ]);
     }
     runInSafeAsync(async () => {
         if (TwitterSession.isNextAuth(account.session)) {
@@ -542,6 +541,51 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
         }
     });
     captureAccountLogoutEvent(account);
+}
+
+export async function removeAccountsByProfiles(profiles: Profile[], signal?: AbortSignal) {
+    for (const profile of profiles) {
+        const { state, sessionHolder } = getContext(profile.profileSource);
+        const account = state.accounts.find((x) => isSameProfile(x.profile, profile));
+
+        if (!account) continue;
+
+        if (isSameProfile(state.currentProfile, profile)) {
+            const nextAccount = state.accounts.find((x) => !isSameAccount(account, x));
+            if (nextAccount) {
+                await switchAccount(nextAccount, signal);
+                state.removeAccount(account);
+            } else {
+                state.removeAccount(account);
+                sessionHolder.removeSession();
+            }
+        } else {
+            state.removeAccount(account);
+        }
+
+        runInSafeAsync(async () => {
+            if (TwitterSession.isNextAuth(account.session)) {
+                await signOut({
+                    redirect: false,
+                });
+                twitterSessionHolder.removeSession();
+            }
+        });
+
+        captureAccountLogoutEvent(account);
+    }
+
+    const passcode = await verifyAndGetPassword();
+    if (passcode) {
+        await FireflyEndpointProvider.deleteMetrics(
+            passcode,
+            profiles.map(
+                (x) => `${x.source === Source.Bsky ? 'bluesky' : resolveSourceInUrl(x.source)}:${x.profileId}`,
+            ),
+        );
+    }
+
+    await removeFireflyAccountIfNeeded();
 }
 
 export async function removeAccountByProfileId(source: ProfileSource, profileId: string) {

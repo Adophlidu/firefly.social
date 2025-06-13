@@ -1,6 +1,7 @@
 import type { HTMLProps } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { Link } from '@/components/Link.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
@@ -47,9 +48,9 @@ export function ProfileCell({ profile, source, className, ref, ...rest }: Props)
                         <p className="truncate">@{profile.handle}</p>
                     </div>
                 </div>
-                <div>
+                <ClickableArea>
                     <FollowButton profile={profile} variant="icon" hasMutedButton={false} />
-                </div>
+                </ClickableArea>
             </div>
         </Link>
     );
