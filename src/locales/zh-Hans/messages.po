@@ -151,7 +151,7 @@ msgid "Failed to collect article."
 msgstr "收集文章失败。"
 
 msgid "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
-msgstr "<0>通过参与，你确认您已满18岁，并且居住在允许此类促销活动的法域内。此促销活动在法律禁止的地方无效。</0><1>参与或获胜无需购买或付款，且此类行为不会影响您获胜的机会。获胜者将通过透明的过程随机选出。参赛作品必须在2025年1月23日之前提交。</1><2>参与者有责任确保遵守适用的法律。我们不对因参与而产生的任何损失承担责任。通过参与，您在法律允许的最大范围内解除我们的一切责任。</2>"
+msgstr "<0>通过参与，你确认您已满 18 岁，并且居住在允许此类促销活动的法域内。此促销活动在法律禁止的地方无效。</0><1>参与或获胜无需购买或付款，且此类行为不会影响您获胜的机会。获胜者将通过透明的过程随机选出。参赛作品必须在2025年1月23日之前提交。</1><2>参与者有责任确保遵守适用的法律。我们不对因参与而产生的任何损失承担责任。通过参与，您在法律允许的最大范围内解除我们的一切责任。</2>"
 
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr "稍等！满足以下任一条件以解锁优质 NFT："
@@ -477,9 +477,6 @@ msgstr "取消收藏文章失败。"
 msgid "firefly.eth tipped you 100 USDC"
 msgstr "firefly.eth 打赏了你 100 USDC"
 
-msgid "Your BlueSky session has expired, please sign in again"
-msgstr "您的 BlueSky 登录状态已失效，请重新登录。"
-
 msgid "Poll"
 msgstr "投票"
 
@@ -654,7 +651,7 @@ msgid "Verification unsuccessful"
 msgstr "验证不成功"
 
 msgid "Scan this QR code to establish a new connection via Farcaster for free."
-msgstr "扫描二维码免费建立新的Farcaster连接。"
+msgstr "扫描二维码免费建立新的 Farcaster 连接。"
 
 msgid "Total"
 msgstr "总额"
@@ -1013,7 +1010,7 @@ msgid "Powered by <0>X3.pro</0>"
 msgstr "技术支持：<0>X3.pro</0>"
 
 msgid "Connect Ethereum Wallet"
-msgstr "连接EVM钱包"
+msgstr "连接 EVM 钱包"
 
 msgid "<0/>EVM wallets"
 msgstr "<0/>EVM 钱包"
@@ -1482,6 +1479,9 @@ msgstr "铸造价格"
 
 msgid "Top Gainers"
 msgstr "涨幅最大"
+
+msgid "Your Bluesky session has expired, please sign in again"
+msgstr "您的 Bluesky 登录状态已失效，请重新登录。"
 
 msgid "Follow @fireflyappcn on X"
 msgstr "在 X 上关注 @fireflyappcn"
@@ -2046,7 +2046,7 @@ msgid "Swapped"
 msgstr "已兑换"
 
 msgid "This Email is already linked to another Firefly account."
-msgstr "该邮箱已绑定其他Firefly账号。"
+msgstr "该邮箱已绑定其他 Firefly 账号。"
 
 msgid "Fully Diluted Valuation"
 msgstr "完全稀释估值"
@@ -2078,6 +2078,9 @@ msgstr "*此活动仅在移动应用程序上提供。立即下载 Firefly！"
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# 高风险项} other {# 高风险项}}"
+
+msgid "Failed to restore your Bluesky session, you can refresh the page to try again or sign in again."
+msgstr "无法恢复您的 Bluesky 会话，您可以刷新页面重试，或重新登录。"
 
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr "包含自毁功能。项目所有者可能有能力销毁合约。"
@@ -2301,9 +2304,6 @@ msgstr "持有者无法出售所有代币。"
 msgid "Search token"
 msgstr "搜索代币"
 
-msgid "Failed to restore your BlueSky session, you can refresh the page to try again or sign in again."
-msgstr "无法恢复您的 BlueSky 会话，您可以刷新页面重试，或重新登录。"
-
 msgid "Details"
 msgstr "详情"
 
@@ -2482,7 +2482,7 @@ msgid "Cryptocurrency mixer found."
 msgstr "发现加密货币混合器。"
 
 msgid "Encrypt your login session with a 6-digit password to enable one-click login across devices."
-msgstr "请设置6位数字密码加密您的登录授权，以启用跨设备一键登录。"
+msgstr "请设置 6 位数字密码加密您的登录授权，以启用跨设备一键登录。"
 
 #. placeholder {0}: getRpMaxShares(networkType)
 msgid "At most {0} recipients"

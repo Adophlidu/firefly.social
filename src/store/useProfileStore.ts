@@ -408,8 +408,8 @@ const useBskyStateBase = createState(
                 if (state.currentProfileSession) {
                     enqueueWarningMessage(
                         clearSession
-                            ? t`Your BlueSky session has expired, please sign in again`
-                            : t`Failed to restore your BlueSky session, you can refresh the page to try again or sign in again.`,
+                            ? t`Your Bluesky session has expired, please sign in again`
+                            : t`Failed to restore your Bluesky session, you can refresh the page to try again or sign in again.`,
                     );
                 }
 

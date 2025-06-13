@@ -472,9 +472,6 @@ msgstr ""
 msgid "firefly.eth tipped you 100 USDC"
 msgstr ""
 
-msgid "Your BlueSky session has expired, please sign in again"
-msgstr ""
-
 msgid "Poll"
 msgstr ""
 
@@ -1478,6 +1475,9 @@ msgstr ""
 msgid "Top Gainers"
 msgstr ""
 
+msgid "Your Bluesky session has expired, please sign in again"
+msgstr ""
+
 msgid "Follow @fireflyappcn on X"
 msgstr ""
 
@@ -2066,6 +2066,9 @@ msgstr ""
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr ""
 
+msgid "Failed to restore your Bluesky session, you can refresh the page to try again or sign in again."
+msgstr ""
+
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr ""
 
@@ -2286,9 +2289,6 @@ msgid "Holders can not sell all of the token."
 msgstr ""
 
 msgid "Search token"
-msgstr ""
-
-msgid "Failed to restore your BlueSky session, you can refresh the page to try again or sign in again."
 msgstr ""
 
 msgid "Details"

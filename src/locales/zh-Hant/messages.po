@@ -151,7 +151,7 @@ msgid "Failed to collect article."
 msgstr "無法收集文章。"
 
 msgid "<0>By participating, you confirm that you are at least 18 years old and reside in a jurisdiction where such promotions are lawful. This promotion is void where prohibited by law.</0><1>No purchase or payment is required to enter or win, and such actions will not affect your chances of winning. Winners will be selected randomly through a transparent process. Entries must be submitted by January 23, 2025.</1><2>Participants are responsible for ensuring compliance with applicable laws. We disclaim liability for any losses arising from participation. By participating, you release us from all liability to the fullest extent permitted by law.</2>"
-msgstr "<0>參與即表示您確認年滿18歲且居住於允許此類推廣活動的司法管轄區。在法律禁止的地區本活動無效。</0><1>無需購買或付款即可參與或獲勝，此類行為不會影響獲獎機會。獲勝者將通過透明流程隨機選出。參與需在2025年1月23日前提交。</1><2>參與者需自行確保符合當地法律規定。我們對參與引起的任何損失不承擔責任。參與即表示您在法律允許的最大範圍內免除我們的一切責任。</2>"
+msgstr "<0>參與即表示您確認年滿 18 歲且居住於允許此類推廣活動的司法管轄區。在法律禁止的地區本活動無效。</0><1>無需購買或付款即可參與或獲勝，此類行為不會影響獲獎機會。獲勝者將通過透明流程隨機選出。參與需在 2025 年 1 月 23 日前提交。</1><2>參與者需自行確保符合當地法律規定。我們對參與引起的任何損失不承擔責任。參與即表示您在法律允許的最大範圍內免除我們的一切責任。</2>"
 
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr "請稍候！滿足以下任一條件即可解鎖高級收藏品："
@@ -172,7 +172,7 @@ msgid "Please be cautious when connecting your wallet, as malicious websites may
 msgstr "連結錢包時請保持警惕，惡意網站可能會試圖存取您的資金。"
 
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
-msgstr "<0>完全稀釋估值 (FDV) = 當前價格 × 總供應量</0><1>完全稀釋估值是基於當前市價，假設代幣全部流通時的理論市值。由於增加流通量可能影響價格，FDV僅為理論值。實際釋放全部供應可能需要較長時間，具體取決於代幣經濟模型、釋放計劃或鎖定期安排。</1>"
+msgstr "<0>完全稀釋估值 (FDV) = 當前價格 × 總供應量</0><1>完全稀釋估值是基於當前市價，假設代幣全部流通時的理論市值。由於增加流通量可能影響價格，FDV 僅為理論值。實際釋放全部供應可能需要較長時間，具體取決於代幣經濟模型、釋放計劃或鎖定期安排。</1>"
 
 msgid "Verified by Firefly"
 msgstr ""
@@ -414,7 +414,7 @@ msgid "Change Wallet"
 msgstr "更換錢包"
 
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
-msgstr "超過10%可能視為高稅率，50%以上可能導致無法交易。"
+msgstr "超過 10% 可能視為高稅率，50% 以上可能導致無法交易。"
 
 msgid "Add Collection"
 msgstr "新增收藏"
@@ -423,7 +423,7 @@ msgid "Location should not exceed {maxLocationSize} characters"
 msgstr "位置不得超過 {maxLocationSize} 個字符"
 
 msgid "Invalid password. Please ensure it is a 6-digit number."
-msgstr "密碼無效，請輸入6位數字密碼。"
+msgstr "密碼無效，請輸入 6 位數字密碼。"
 
 msgid "Potential risk of external call."
 msgstr "存在外部調用風險。"
@@ -476,9 +476,6 @@ msgstr "取消文章書籤失敗。"
 
 msgid "firefly.eth tipped you 100 USDC"
 msgstr "firefly.eth 向您打賞了 100 USDC"
-
-msgid "Your BlueSky session has expired, please sign in again"
-msgstr "您的BlueSky登入狀態已失效，請重新登入"
 
 msgid "Poll"
 msgstr "投票"
@@ -654,7 +651,7 @@ msgid "Verification unsuccessful"
 msgstr "驗證失敗"
 
 msgid "Scan this QR code to establish a new connection via Farcaster for free."
-msgstr "掃描QR碼免費建立新的Farcaster連接。"
+msgstr "掃描QR碼免費建立新的 Farcaster 連接。"
 
 msgid "Total"
 msgstr "總計"
@@ -1001,13 +998,13 @@ msgid "Add another post..."
 msgstr "新增其他貼文..."
 
 msgid "Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly."
-msgstr "無法斷開連接。請至少保留1個帳戶或錢包地址連接，以維持您在Firefly的沉浸式體驗。"
+msgstr "無法斷開連接。請至少保留 1 個帳戶或錢包地址連接，以維持您在 Firefly 的沉浸式體驗。"
 
 msgid "Transaction Hash"
 msgstr "交易哈希"
 
 msgid "1m left"
-msgstr "剩餘1分鐘"
+msgstr "剩餘 1 分鐘"
 
 msgid "Powered by <0>X3.pro</0>"
 msgstr ""
@@ -1016,7 +1013,7 @@ msgid "Connect Ethereum Wallet"
 msgstr "連接以太坊錢包"
 
 msgid "<0/>EVM wallets"
-msgstr "<0/>EVM錢包"
+msgstr "<0/>EVM 錢包"
 
 msgid "Items"
 msgstr "項目"
@@ -1028,7 +1025,7 @@ msgid "Minting Txn Hash"
 msgstr "鑄造交易哈希"
 
 msgid "Enter your nickname on Firefly"
-msgstr "輸入您在Firefly的暱稱"
+msgstr "輸入您在 Firefly 的暱稱"
 
 msgid "Anti whale can not be modified."
 msgstr "反巨鯨機制無法修改。"
@@ -1050,7 +1047,7 @@ msgstr "收藏文章失敗。"
 
 #. placeholder {0}: formatAmount(usdcSize)
 msgid "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
-msgstr "<0>下注</0><1>價值${0}於Polymarket</1>"
+msgstr "<0>下注</0><1>價值${0}於 Polymarket</1>"
 
 msgid "The event has ended, but you can explore others in Exclusive Events."
 msgstr "活動已結束，您可探索其他專屬活動。"
@@ -1077,7 +1074,7 @@ msgid "Owners"
 msgstr "持有者"
 
 msgid "OpenGraph Validator"
-msgstr "OpenGraph驗證器"
+msgstr "OpenGraph 驗證器"
 
 msgid "Phishing activities found."
 msgstr "發現釣魚活動。"
@@ -1086,7 +1083,7 @@ msgid "LinkDigest Validator"
 msgstr "鏈結摘要驗證器"
 
 msgid "No Lens profile found.<0/>Please change to another wallet."
-msgstr "未找到Lens個人檔案。<0/>請切換其他錢包。"
+msgstr "未找到 Lens 個人檔案。<0/>請切換其他錢包。"
 
 msgid "Drop type"
 msgstr "空投類型"
@@ -1126,7 +1123,7 @@ msgid "Failed to upload. Not a valid image type"
 msgstr "上傳失敗：非有效圖片格式。"
 
 msgid "Delete Firefly account?"
-msgstr "刪除Firefly帳號？"
+msgstr "刪除 Firefly 帳號？"
 
 #. placeholder {0}: formatFileSize(maxImageSize)
 msgid "Failed to upload. Image size exceeds {0}"
@@ -1142,7 +1139,7 @@ msgid "Market Cap / FDV"
 msgstr "市值/完全稀釋估值"
 
 msgid "Failed to un-bookmark NFT."
-msgstr "取消NFT書籤失敗。"
+msgstr "取消 NFT 書籤失敗。"
 
 msgid "Confirmation"
 msgstr "確認"
@@ -1154,7 +1151,7 @@ msgid "Failed to upload. Video is not supported yet."
 msgstr "上傳失敗：尚未支援影片格式。"
 
 msgid "Set a 6-digit password to verify your identity for multi-device login."
-msgstr "請設定6位數字密碼用於跨裝置登入認證。"
+msgstr "請設定 6 位數字密碼用於跨裝置登入認證。"
 
 msgid "Whitelist function"
 msgstr "白名單功能"
@@ -1185,7 +1182,7 @@ msgid "Address"
 msgstr "地址"
 
 msgid "Failed to unfollow {handleOrEnsOrAddress} on Firefly."
-msgstr "取消追蹤Firefly上的{handleOrEnsOrAddress}失敗。"
+msgstr "取消追蹤 Firefly 上的 {handleOrEnsOrAddress} 失敗。"
 
 msgid "Mobile QR login"
 msgstr ""
@@ -1205,10 +1202,10 @@ msgstr "此功能似乎未獲支援！"
 
 #. placeholder {0}: resolveSourcesName(invalidSources)
 msgid "Lucky drop for {0} is coming soon."
-msgstr "{0}的幸運空投即將來臨。"
+msgstr "{0} 的幸運空投即將來臨。"
 
 msgid "No fake KYC involved."
-msgstr "未涉及虛假KYC。"
+msgstr "未涉及虛假 KYC。"
 
 msgid "Session Validator"
 msgstr "工作階段驗證器"
@@ -1263,7 +1260,7 @@ msgstr "網域"
 
 #. placeholder {0}: profile.handle
 msgid "Failed to follow @{0} on Lens"
-msgstr "追蹤Lens上的@{0}失敗"
+msgstr "追蹤 Lens 上的 @{0}失敗"
 
 msgid "Check Eligibility"
 msgstr "檢查資格"
@@ -1272,7 +1269,7 @@ msgid "You might like"
 msgstr "您可能會喜歡"
 
 msgid "Please enter at least 2 characters."
-msgstr "請輸入至少2個字元。"
+msgstr "請輸入至少 2 個字元。"
 
 msgid "Remove from Bookmarks"
 msgstr "從書籤移除"
@@ -1284,7 +1281,7 @@ msgid "Owner can't change balance"
 msgstr "擁有者無法修改餘額"
 
 msgid "Join our Telegram"
-msgstr "加入我們的Telegram"
+msgstr "加入我們的 Telegram"
 
 msgid "Non-contract address."
 msgstr "非合約地址。"
@@ -1483,6 +1480,9 @@ msgstr "鑄造價格"
 msgid "Top Gainers"
 msgstr "漲幅榜"
 
+msgid "Your Bluesky session has expired, please sign in again"
+msgstr "您的 Bluesky 登入狀態已失效，請重新登入"
+
 msgid "Follow @fireflyappcn on X"
 msgstr "在 X 追蹤 @fireflyappcn"
 
@@ -1645,7 +1645,7 @@ msgid "Choice {0}"
 msgstr "選項 {0}"
 
 msgid "Posted on the following apps since August 1, 2024, and new Firefly users only:"
-msgstr "限 2024年8月1日後使用以下應用發文的新 Firefly 用戶："
+msgstr "限 2024 年 8 月 1 日後使用以下應用發文的新 Firefly 用戶："
 
 msgid "More details"
 msgstr "更多詳情"
@@ -2079,6 +2079,9 @@ msgstr "*此活動僅限行動應用參與，立即下載 Firefly"
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# 高風險項} other {# 高風險項}}"
 
+msgid "Failed to restore your Bluesky session, you can refresh the page to try again or sign in again."
+msgstr ""
+
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr "包含自毀功能，項目方可能具備合約銷毀權限"
 
@@ -2095,7 +2098,7 @@ msgid "No posts found for this token."
 msgstr "找不到此币种的相关貼文。"
 
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
-msgstr "24小時交易量為全網追蹤平台統計數據，採滾動24小時計算"
+msgstr "24 小時交易量為全網追蹤平台統計數據，採滾動 24 小時計算"
 
 msgid "Failed to recast."
 msgstr "轉發失敗"
@@ -2211,7 +2214,7 @@ msgid "Cryptocurrency mixer."
 msgstr ""
 
 msgid "Remove Truth Social"
-msgstr "移除Truth Social"
+msgstr "移除 Truth Social"
 
 msgid "Submit a wallet to receive a collectible and $MASK airdrop"
 msgstr ""
@@ -2299,9 +2302,6 @@ msgid "Holders can not sell all of the token."
 msgstr ""
 
 msgid "Search token"
-msgstr ""
-
-msgid "Failed to restore your BlueSky session, you can refresh the page to try again or sign in again."
 msgstr ""
 
 msgid "Details"
@@ -2477,7 +2477,7 @@ msgid "Cryptocurrency mixer found."
 msgstr ""
 
 msgid "Encrypt your login session with a 6-digit password to enable one-click login across devices."
-msgstr "請設定6位數字密碼加密您的登入授權，以啟用跨裝置一鍵登入。"
+msgstr "請設定 6 位數字密碼加密您的登入授權，以啟用跨裝置一鍵登入。"
 
 #. placeholder {0}: getRpMaxShares(networkType)
 msgid "At most {0} recipients"
@@ -4195,7 +4195,7 @@ msgid "Recast"
 msgstr ""
 
 msgid "Resetting your 6-digit password will clear all previously encrypted login sessions."
-msgstr "重設6位數字密碼將清除所有已加密的登入授權。"
+msgstr "重設 6 位數字密碼將清除所有已加密的登入授權。"
 
 msgid "Translating..."
 msgstr "正在翻譯"
