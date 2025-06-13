@@ -9,7 +9,7 @@ interface LoadingProps extends HTMLProps<HTMLDivElement> {}
 
 export function Loading({ className }: LoadingProps) {
     return (
-        <div className={classNames('flex min-h-[500px] items-center justify-center', className)}>
+        <div className={classNames('flex min-h-[500px] items-center justify-center', className)} data-page-loading>
             <LoadingIcon />
         </div>
     );

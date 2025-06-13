@@ -247,9 +247,9 @@ export const TokenMarketData = memo(function TokenMarketData({
                 )}
             >
                 {isPending ? (
-                    <div className="mx-2 h-40 flex-grow rounded-lg bg-gray-100 dark:bg-gray-800" />
+                    <div className="mx-2 h-full flex-grow rounded-lg bg-gray-100 dark:bg-gray-800" />
                 ) : invalidData ? (
-                    <div className="mx-2 h-40 flex-grow rounded-lg">
+                    <div className="mx-2 h-full flex-grow rounded-lg">
                         <Trans>There is no data available to display</Trans>
                     </div>
                 ) : (

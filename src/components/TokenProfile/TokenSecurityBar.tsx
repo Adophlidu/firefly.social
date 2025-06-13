@@ -15,6 +15,8 @@ export const TokenSecurityBar = memo<TokenCardProps>(function TokenSecurityBar({
 
     const { warn_item_quantity: attentionFactors = 0, risk_item_quantity: riskyFactors = 0 } = security;
 
+    if (!riskyFactors && !attentionFactors) return null;
+
     return (
         <div className="flex flex-row items-center gap-1">
             {riskyFactors ? (

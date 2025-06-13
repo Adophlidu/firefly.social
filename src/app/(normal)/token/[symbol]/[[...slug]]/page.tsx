@@ -7,7 +7,7 @@ import { Feeds } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/Feed
 import { TokenOverview } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/TokenOverview.js';
 import { Transactions } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/Transactions.js';
 import type { TokenPageSearch } from '@/app/(normal)/token/[symbol]/[[...slug]]/CategoryTabs.js';
-import { Loading } from '@/components/Loading.js';
+import TokenPageLoading from '@/app/(normal)/token/[symbol]/[[...slug]]/loading.js';
 import { TokenCategory } from '@/constants/enum.js';
 import {
     COINGECKO_SOL_COIN_ID,
@@ -65,7 +65,7 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
 
     switch (category) {
         case TokenCategory.Feeds:
-            if ((isTokenPending || tokenId) && !tokenAddress) return <Loading />;
+            if ((isTokenPending || tokenId) && !tokenAddress) return <TokenPageLoading />;
             return (
                 <Feeds
                     chainId={updatedChainId}
@@ -78,7 +78,7 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
             return <TokenOverview trending={trending} address={address} />;
         case TokenCategory.Transactions:
         default:
-            if ((isTokenPending || tokenId) && isPending && !tokenAddress) return <Loading />;
+            if ((isTokenPending || tokenId) && isPending && !tokenAddress) return <TokenPageLoading />;
             return (
                 <Transactions
                     chainId={updatedChainId}

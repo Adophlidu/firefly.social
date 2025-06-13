@@ -60,7 +60,7 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
             </div>
             <WrapTokenMarketData className="sticky" token={token} address={search?.get('address') || undefined} />
             <CategoryTabs slug={slug} token={token} className="sticky top-[54px] !z-30 md:top-[60px]" />
-            <div className="p-3">{children}</div>
+            <div className="flex flex-grow flex-col p-3">{children}</div>
         </TokenContextProvider>
     );
 }
