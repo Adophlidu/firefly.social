@@ -1,5 +1,4 @@
 import { StatusCodes } from 'http-status-codes';
-import { cookies } from 'next/headers.js';
 import { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
@@ -30,7 +29,6 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
             return createErrorResponseJSON('Twitter session not found', { status: StatusCodes.UNAUTHORIZED });
         }
 
-        const tokenFromCookie = (await cookies()).get('twitterToken');
         const twitterMetricsData: TwitterMetricsData = {
             platform: SourceInURL.Twitter,
             profile_id: queryParams.profileId,
@@ -40,7 +38,6 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
             access_token_secret: payload.accessTokenSecret,
             consumer_key: payload.consumerKey,
             consumer_secret: payload.consumerSecret,
-            cookie: tokenFromCookie?.value || '',
         };
 
         const encryptData = encryptMetricsData(

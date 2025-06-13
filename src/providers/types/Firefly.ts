@@ -1785,7 +1785,6 @@ export type TwitterMetricsData = CommonMetricsData & {
     access_token_secret: string;
     consumer_key: string;
     consumer_secret: string;
-    cookie: string;
 };
 
 export type LensMetricsData = CommonMetricsData & {
