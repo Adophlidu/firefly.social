@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-06-11 12:01\n"
+"PO-Revision-Date: 2025-06-13 08:52\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -71,7 +71,7 @@ msgid "Coins"
 msgstr ""
 
 msgid "Scan this QR code if you’ve used Farcaster to sign in before.<0/><1>First time</1>? Go here to get started."
-msgstr ""
+msgstr "如果曾使用过 Farcaster 登录，请扫描此二维码。<0/><1>首次登录</1>？点击此处开始。"
 
 msgid "FAILED THREAD POST"
 msgstr "发送 thread 失败"
@@ -204,10 +204,10 @@ msgid "Delete post"
 msgstr "删除帖子"
 
 msgid "Turning off Multi-device login will clear all previously encrypted login sessions. A new password is required to re-enable."
-msgstr ""
+msgstr "关闭多设备登录功能将清除所有已加密的登录授权。重新启用需设置新密码。"
 
 msgid "Enter a new password to verify your identity."
-msgstr ""
+msgstr "请输入新密码以验证身份。"
 
 #. placeholder {0}: profile.handle
 msgid "Mute @{0}"
@@ -227,7 +227,7 @@ msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
 
 msgid "Multi-device login sessions synced successfully."
-msgstr ""
+msgstr "多设备登录状态已同步完成。"
 
 msgid "Money laundering."
 msgstr "洗钱。"
@@ -266,10 +266,10 @@ msgid "{0} listening"
 msgstr "{0} 正在收听"
 
 msgid "Post Link Validator"
-msgstr ""
+msgstr "帖子链接验证工具"
 
 msgid "<0>Connect wallet</0> to sign in<1/>if you registered your Farcaster account on Firefly"
-msgstr ""
+msgstr "若您通过 Firefly 注册了 Farcaster 账户，请<0>连接钱包</0>登录<1/>"
 
 #. placeholder {0}: token.market_cap_rank
 msgid "Rank #{0}"
@@ -300,7 +300,7 @@ msgid "{count}s"
 msgstr "{count}秒"
 
 msgid "Channel details"
-msgstr "频道明细"
+msgstr "圈子详情"
 
 msgid "Claimed successfully."
 msgstr "领取成功。"
@@ -315,10 +315,10 @@ msgid "This token is a gas abuser."
 msgstr "该通证是一个燃料滥用者。"
 
 msgid "Failed to disable Multi-device login. Please try again later."
-msgstr ""
+msgstr "无法关闭多设备登录功能，请稍后重试。"
 
 msgid "{hours, plural, one {# hour left} other {# hours left}}"
-msgstr ""
+msgstr "{hours, plural, one {剩余 # 小时} other {剩余 # 小时}}"
 
 #. placeholder {0}: snapshot.title
 msgid "🙌 Just voted “{choice}” on “{0}”"
@@ -371,7 +371,7 @@ msgid "Turn off"
 msgstr "关闭"
 
 msgid "An unknown error occurred."
-msgstr ""
+msgstr "抱歉，系统出了点问题。"
 
 msgid "Set Password"
 msgstr "设置密码"
@@ -426,7 +426,7 @@ msgid "Location should not exceed {maxLocationSize} characters"
 msgstr "地址不可以超过 {maxLocationSize} 个字"
 
 msgid "Invalid password. Please ensure it is a 6-digit number."
-msgstr ""
+msgstr "密码无效，请输入6位数字密码。"
 
 msgid "Potential risk of external call."
 msgstr "存在外部调用的潜在风险。"
@@ -445,7 +445,7 @@ msgid "No financial crime found."
 msgstr "未识别到金融犯罪。"
 
 msgid "Manage the accounts, wallets, and communities that you’ve muted."
-msgstr ""
+msgstr "管理您已屏蔽的账户、钱包和圈子。"
 
 msgid "Muted {handleOrEnsOrAddress}."
 msgstr "隐藏 {handleOrEnsOrAddress}"
@@ -538,7 +538,7 @@ msgid "The minimum amount for each share is {0} {1}"
 msgstr "每个份额的最小金额为 {0} {1}"
 
 msgid "${days}d left"
-msgstr ""
+msgstr "剩余 ${days} 天"
 
 msgid "Trending Channels"
 msgstr "流行频道"
@@ -602,7 +602,7 @@ msgid "<0>The amount of coins that have already been created, minus any coins th
 msgstr "<0>已创建的通证数量减去已销毁（从流通中移除）的通证数量。它相当于股票市场上的流通股。</0><1>总供应量 = 链上供应量 - 已销毁的通证</1>"
 
 msgid "Confirm to sign in"
-msgstr ""
+msgstr "登录确认"
 
 msgid "Report post"
 msgstr "举报帖子"
@@ -657,7 +657,7 @@ msgid "Verification unsuccessful"
 msgstr "验证不成功"
 
 msgid "Scan this QR code to establish a new connection via Farcaster for free."
-msgstr ""
+msgstr "扫描二维码免费建立新的Farcaster连接。"
 
 msgid "Total"
 msgstr "总额"
@@ -686,10 +686,10 @@ msgid "Followed <0>@{0}</0> on X before Jan 18, 2025"
 msgstr "你在2024年12月18日快照中识别为 X 账号 <0>@{0}</0> 的关注者"
 
 msgid "This QR code is no longer valid. Please scan a new one to continue."
-msgstr ""
+msgstr "该二维码已失效，请刷新后重试。"
 
 msgid "Only people who follow you"
-msgstr ""
+msgstr "仅限关注您的人"
 
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
@@ -725,7 +725,7 @@ msgstr "举报已经提交"
 
 #. placeholder {0}: post.stats.quotes
 msgid "{0, plural, one {quote} other {quotes}}"
-msgstr ""
+msgstr "{0, plural, one {引用} other {引用}}"
 
 msgid "No hidden owner."
 msgstr "未被隐藏的所有者。"
@@ -804,7 +804,7 @@ msgid "Save Post?"
 msgstr "保存草稿？"
 
 msgid "Failed to set password."
-msgstr ""
+msgstr "密码设置失败。"
 
 msgid "Explore"
 msgstr "探索"
@@ -846,10 +846,10 @@ msgid "Edit profile"
 msgstr "编辑个人资料"
 
 msgid "Enter your password to confirm your identity."
-msgstr ""
+msgstr "请输入密码以验证您的身份。"
 
 msgid "The encrypted data not found."
-msgstr ""
+msgstr "未找到加密数据。"
 
 msgid "Attendees"
 msgstr "出席人员"
@@ -872,7 +872,7 @@ msgid "Limo"
 msgstr "Limo"
 
 msgid "${minutes}m left"
-msgstr ""
+msgstr "${minutes} 分钟剩余"
 
 msgid "Functions with retrievable ownership"
 msgstr "具有可检索所有权的功能"
@@ -881,7 +881,7 @@ msgid "No proxy contract."
 msgstr "没有代理合约。"
 
 msgid "Failed to reset password."
-msgstr ""
+msgstr "密码重置失败。"
 
 msgid "Connecting"
 msgstr "连接中"
@@ -944,7 +944,7 @@ msgid "All rights reserved by Firefly. For any inquiries, please <0>contact us.<
 msgstr "Firefly版权所有。若有任何疑问，请<0>联系我们。</0>"
 
 msgid "Failed to enable Multi-device login. Please try again later."
-msgstr ""
+msgstr "无法开启多设备登录功能，请稍后重试。"
 
 #. placeholder {0}: session.type
 msgid "Your {0} account is now connected"
@@ -1013,7 +1013,7 @@ msgid "1m left"
 msgstr "1分钟剩余"
 
 msgid "Powered by <0>X3.pro</0>"
-msgstr ""
+msgstr "技术支持：<0>X3.pro</0>"
 
 msgid "Connect Ethereum Wallet"
 msgstr "连接EVM钱包"
@@ -1095,7 +1095,7 @@ msgid "Drop type"
 msgstr "红包类型"
 
 msgid "Scan the QR code with the <0>Firefly mobile app</0><1/>or <2>Camera app</2> to sign in instantly"
-msgstr ""
+msgstr "使用 <0>Firefly 移动应用</0> 或 <1>相机应用</1> 扫描二维码即可即时登录。"
 
 msgid "The contract owner has no restrictions on trading cooldown."
 msgstr "合约拥有者在交易冷却期上没有限制。"
@@ -1157,7 +1157,7 @@ msgid "Failed to upload. Video is not supported yet."
 msgstr "视频还未支持上传。"
 
 msgid "Set a 6-digit password to verify your identity for multi-device login."
-msgstr ""
+msgstr "请设置6位数字密码用于跨设备登录认证。"
 
 msgid "Whitelist function"
 msgstr "白名单功能"
@@ -1849,7 +1849,7 @@ msgid "Search post"
 msgstr "搜索帖子"
 
 msgid "Failed to switch chain"
-msgstr ""
+msgstr "链切换失败"
 
 msgid "Eligible for Premium?"
 msgstr "符合高级版资格？"
@@ -1898,7 +1898,7 @@ msgid "Disconnected from your social graph"
 msgstr "从你的社交图谱中断开"
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
-msgstr ""
+msgstr "{attentionFactors, plural, one {# 中风险项} other {# 中风险项}}"
 
 msgid "Hide more comments"
 msgstr "隐藏更多的评论"
@@ -1975,7 +1975,7 @@ msgstr "打赏成功！"
 
 #. placeholder {0}: activeConnector.name
 msgid "Select Chain for {0}"
-msgstr ""
+msgstr "为{0}选择链"
 
 msgid "Bookmark"
 msgstr "收藏"
@@ -2080,13 +2080,13 @@ msgid "*This event is only available on the mobile app. Download Firefly now!"
 msgstr "*此活动仅在移动应用程序上提供。立即下载 Firefly！"
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
-msgstr ""
+msgstr "{riskyFactors, plural, one {# 高风险项} other {# 高风险项}}"
 
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr "包含自毁功能。项目所有者可能有能力销毁合约。"
 
 msgid "The password you entered is incorrect. Please try again."
-msgstr ""
+msgstr "您输入的密码不正确，请重试。"
 
 msgid "Mute"
 msgstr "屏蔽"
@@ -2095,7 +2095,7 @@ msgid "Confirm to log out this account?"
 msgstr "确认退出该账户吗？"
 
 msgid "No posts found for this token."
-msgstr ""
+msgstr "未找到该币种的相关贴子。"
 
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr "衡量过去 24 小时内所有平台上加密货币交易量的指标。该指标以 24 小时为单位进行连续跟踪，没有开盘/收盘时间。"
@@ -2174,7 +2174,7 @@ msgid "Unfollowed {handleOrEnsOrAddress} on Firefly"
 msgstr "在 Firefly 上取消关注 @{handleOrEnsOrAddress}"
 
 msgid "Enter your password to verify your identity."
-msgstr ""
+msgstr "请输入密码以验证您的身份。"
 
 msgid "Post your reply"
 msgstr "发送你的回复"
@@ -2191,7 +2191,7 @@ msgstr "所有者可以为每个指定地址设置不同的税率。"
 
 #. placeholder {0}: mentionHandle || recipient?.displayName
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
-msgstr "在帖子中标记 {0}，让他们知道你已经向他们的钱包发打赏了一笔小费。"
+msgstr "在帖子中标记 {0}，让他知道你已向他的钱包打赏了一笔链上小费。"
 
 #. placeholder {0}: nFormatter(collection.items_total || 0)
 msgid "{0}<0> Items</0>"
@@ -2205,16 +2205,16 @@ msgid "Users"
 msgstr "用户"
 
 msgid "Primary"
-msgstr ""
+msgstr "主要"
 
 msgid "Failed to reconnect. Please scan another QR code to establish a new connection."
-msgstr ""
+msgstr "重连失败，请重新扫描二维码建立连接。"
 
 msgid "Cryptocurrency mixer."
 msgstr "加密货币混合器。"
 
 msgid "Remove Truth Social"
-msgstr ""
+msgstr "移除Truth Social"
 
 msgid "Submit a wallet to receive a collectible and $MASK airdrop"
 msgstr "提交钱包地址，领取收藏品和 $MASK 空投"
@@ -2255,7 +2255,7 @@ msgstr "未找到代币 ${symbol} 。"
 
 #. placeholder {0}: resolveSourcesName(invalidSources)
 msgid "Poll for ${0} is coming soon."
-msgstr ""
+msgstr "${0}投票即將回歸。"
 
 msgid "No cybercrime found."
 msgstr "不涉及网络犯罪。"
@@ -2311,7 +2311,7 @@ msgid "Details"
 msgstr "详情"
 
 msgid "Undefined user"
-msgstr ""
+msgstr "未定义用户"
 
 msgid "Unmute {handleOrEnsOrAddress}"
 msgstr "取消隐藏 {handleOrEnsOrAddress}"
@@ -2353,10 +2353,10 @@ msgid "Cannot send tip to yourself"
 msgstr "不能打赏给自己"
 
 msgid "{remainTryTimes} more incorrect password attempts will clear all your encrypted login sessions."
-msgstr ""
+msgstr "剩余{remainTryTimes}次尝试机会，失败将触发安全重置。"
 
 msgid "Already signed in before?"
-msgstr ""
+msgstr "曾成功登录？"
 
 msgid "Total amount"
 msgstr "总金额"
@@ -2392,7 +2392,7 @@ msgid "Validate failed, please check your input."
 msgstr "验证失败，请检查你的输入。"
 
 msgid "Your sign-in process was interrupted, please try again"
-msgstr ""
+msgstr "您的登录流程已中断，请重试"
 
 msgid "Access Denied"
 msgstr "反问被拒绝"
@@ -2422,7 +2422,7 @@ msgid "The page could not be found."
 msgstr "找不到该页面。"
 
 msgid "Change Password"
-msgstr ""
+msgstr "修改密码"
 
 msgid "No matching channel"
 msgstr "没有匹配到频道"
@@ -2485,7 +2485,7 @@ msgid "Cryptocurrency mixer found."
 msgstr "发现加密货币混合器。"
 
 msgid "Encrypt your login session with a 6-digit password to enable one-click login across devices."
-msgstr ""
+msgstr "请设置6位数字密码加密您的登录授权，以启用跨设备一键登录。"
 
 #. placeholder {0}: getRpMaxShares(networkType)
 msgid "At most {0} recipients"
@@ -2543,7 +2543,7 @@ msgid "Unable to read image."
 msgstr "获取图片失败。"
 
 msgid "Signing in..."
-msgstr ""
+msgstr "登录中..."
 
 msgid "Failed to claim red packet"
 msgstr "领取红包失败"
@@ -2885,7 +2885,7 @@ msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
 msgstr "正在回复<0>@{0}</0> 和 <1>@{1}</1> on {2}"
 
 msgid "Content preference"
-msgstr ""
+msgstr "内容偏好"
 
 msgid "Connect your wallet to follow"
 msgstr "连接钱包并关注"
@@ -3100,7 +3100,7 @@ msgid "Full"
 msgstr "完整的"
 
 msgid "Powered by"
-msgstr "技术支持来自"
+msgstr "技术支持："
 
 msgid "Stay in the loop with Firefly!"
 msgstr "Firefly 最新动态不错过!"
@@ -3181,7 +3181,7 @@ msgid "Financial crime found."
 msgstr "识别为金融犯罪。"
 
 msgid "Feeds for tokens on this chain will be available soon."
-msgstr ""
+msgstr "暂不支持该链代币的帖子搜索。"
 
 msgid "No stealing attack found."
 msgstr "未涉及盗窃攻击。"
@@ -3752,7 +3752,7 @@ msgid "Number of winners"
 msgstr "获奖人数"
 
 msgid "Multi-device login is now turned on and synced successfully."
-msgstr ""
+msgstr "多设备登录功能开启，登录状态已同步完成。"
 
 #. placeholder {0}: profile.handle
 msgid "Unmuted @{0} on {sourceName}."
@@ -4042,7 +4042,7 @@ msgid "No phishing activities involved."
 msgstr "未发现钓鱼活动。"
 
 msgid "Multi-device login is now turned off and all previously sessions are cleared."
-msgstr ""
+msgstr "多设备登录功能已关闭，将清除所有已加密的登录授权。"
 
 msgid "The metadata of this NFT is stored in IPFS, AR, generated by contract, or another decentralized way."
 msgstr "该 NFT 的元数据存储在 IPFS、AR、合约生成或其他去中心化方式中。"
@@ -4166,7 +4166,7 @@ msgid "Error: {message}"
 msgstr "错误: {message}"
 
 msgid "Your assets on Base Chain are worth over US$10,000"
-msgstr "你在 Base Chain 上的资产超过 10,000 美元"
+msgstr "您在 Base Chain 上的资产价值超过 10,000 美元"
 
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr "这不是空投欺诈。许多欺诈通过空投吸引用户。"
@@ -4208,7 +4208,7 @@ msgid "Recast"
 msgstr "转发"
 
 msgid "Resetting your 6-digit password will clear all previously encrypted login sessions."
-msgstr ""
+msgstr "重置6位数字密码将清除所有已加密的登录授权。"
 
 msgid "Translating..."
 msgstr "翻译中..."
@@ -4403,4 +4403,4 @@ msgid "Golden"
 msgstr "金色的"
 
 msgid "Multi-device login"
-msgstr "多端登录"
+msgstr "多设备登录"
