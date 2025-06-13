@@ -15,31 +15,34 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 export function useIsProfileMuted(source: Source, profileId: string, blocking?: boolean, enabled = true) {
     const isLoginFirefly = useIsLoginFirefly();
     const isLogin = useIsLogin(narrowToSocialSource(source));
-    const enabledQuery = !!source && !!profileId && enabled;
-    const enabledQueryProfile = QUERY_MUTE_PROFILE_SOURCES.includes(source);
-    const { data: profileBlocking = false } = useQuery({
-        queryKey: ['profile', source, profileId],
+
+    const validParameters = !!source && !!profileId && enabled;
+    const queryStatusFromFirefly = validParameters && !QUERY_MUTE_PROFILE_SOURCES.includes(source) && isLoginFirefly;
+    const queryStatusFromSocial = validParameters && QUERY_MUTE_PROFILE_SOURCES.includes(source) && isLogin;
+
+    const { data: profile } = useQuery({
+        enabled: queryStatusFromSocial,
+        queryKey: ['profile', source, profileId, isLogin],
+        staleTime: 600_000,
         queryFn() {
             return resolveSocialMediaProvider(source as SocialSource).getProfileById(profileId);
         },
-        enabled: enabledQuery && enabledQueryProfile && isLogin,
-        select(profile) {
-            return !!profile.viewerContext?.blocking;
-        },
-        staleTime: 600_000,
     });
-    const { data = false } = useQuery({
-        enabled: enabledQuery && !enabledQueryProfile && isLoginFirefly,
-        queryKey: ['profile-is-muted', source, profileId, enabledQueryProfile],
+    const { data } = useQuery({
+        enabled: queryStatusFromFirefly,
+        queryKey: ['profile-is-muted', source, profileId, isLoginFirefly],
         staleTime: 600_000,
         queryFn: async () => {
             const platform = resolveFireflyPlatform(source);
             if (!platform) return undefined;
-            if (enabledQueryProfile) return undefined;
             return FireflyEndpointProvider.isProfileMuted(platform, profileId);
         },
     });
-    return data || !!blocking || profileBlocking;
+
+    if (queryStatusFromFirefly) return data ?? false;
+    if (queryStatusFromSocial) return profile?.viewerContext?.blocking ?? false;
+
+    return blocking ?? false;
 }
 
 export function isProfileMuted(profile: Profile) {

@@ -92,5 +92,18 @@ export async function muteAllSocialProfiles(identity: FireflyIdentity) {
         );
     }
 
+    const wallets = socialProfiles.filter((profile) => profile.identity.source === Source.Wallet);
+    if (wallets.length) {
+        await runInSafeAsync(() =>
+            Promise.allSettled(wallets.map((profile) => FireflyEndpointProvider.blockWallet(profile.identity.id))),
+        );
+        results.push(
+            ...wallets.map((profile) => ({
+                snsId: profile.identity.id,
+                snsPlatform: SourceInURL.Wallet,
+            })),
+        );
+    }
+
     return results;
 }
