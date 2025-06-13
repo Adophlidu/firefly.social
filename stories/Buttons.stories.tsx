@@ -1,19 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { TwitterBlockButton } from '@/components/Actions/TwitterBlockButton.js';
+import { TwitterFollowButton } from '@/components/Actions/TwitterFollowButton.jsx';
 
 const meta = {
-    title: 'common/TwitterBlockButton',
-    component: TwitterBlockButton,
-} satisfies Meta<typeof TwitterBlockButton>;
+    title: 'common/TwitterFollowButton',
+    component: TwitterFollowButton,
+} satisfies Meta<typeof TwitterFollowButton>;
 
-export const Base: StoryObj<typeof TwitterBlockButton> = {
+export const Base: StoryObj<typeof TwitterFollowButton> = {
     args: {
-        isBlocked: true,
+        isPending: true,
     },
 };
 
-export const Icon: StoryObj<typeof TwitterBlockButton> = {
+export const Icon: StoryObj<typeof TwitterFollowButton> = {
     args: {
         variant: 'icon',
     },

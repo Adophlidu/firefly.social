@@ -89,6 +89,10 @@ export interface Profile<O = unknown> {
         following?: boolean;
         followedBy?: boolean;
         blocking?: boolean;
+        /** like Twitter's muted status */
+        fullBlocking?: boolean;
+        /** like Twitter's follow request sent */
+        followPending?: boolean;
     };
     ownedBy?: {
         networkType: NetworkType;

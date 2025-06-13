@@ -2781,6 +2781,9 @@ msgstr ""
 msgid "Upload to S3"
 msgstr ""
 
+msgid "Follow Pending"
+msgstr ""
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 

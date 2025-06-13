@@ -2,13 +2,12 @@
 
 import { Trans } from '@lingui/react/macro';
 import { memo, useCallback, useState } from 'react';
-import type { UserV2 } from 'twitter-api-v2';
 
 import FollowIcon from '@/assets/follow-bold.svg';
 import FollowedIcon from '@/assets/followed.svg';
 import MutualFollowIcon from '@/assets/mutual-follow.svg';
 import { ToggleMutedProfileButton } from '@/components/Actions/ToggleMutedProfileButton.js';
-import { TwitterBlockButton } from '@/components/Actions/TwitterBlockButton.js';
+import { TwitterFollowButton } from '@/components/Actions/TwitterFollowButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { BaseToggleFollowButton } from '@/components/Profile/BaseToggleFollowButton.js';
@@ -22,6 +21,7 @@ enum State {
     Follow = 'Follow',
     Unfollow = 'Unfollow',
     Following = 'Following',
+    FollowPending = 'FollowPending',
 }
 
 interface FollowButtonProps extends Omit<ClickableButtonProps, 'children'> {
@@ -52,6 +52,7 @@ export const FollowButton = memo(function FollowButton({
 
     const isFollowing = !!profile.viewerContext?.following;
     const isFollowedBy = !!profile.viewerContext?.followedBy;
+    const isPending = !!profile.viewerContext?.followPending;
 
     const buttonLabelRender = useCallback(
         (showSuperFollow: boolean, loading: boolean) => {
@@ -74,11 +75,12 @@ export const FollowButton = memo(function FollowButton({
     );
     if (
         profile.source === Source.Twitter &&
-        (profile.__original__ as UserV2)?.connection_status?.includes('blocking')
+        (profile.viewerContext?.fullBlocking || profile.viewerContext?.followPending)
     ) {
         return (
-            <TwitterBlockButton
-                isBlocked
+            <TwitterFollowButton
+                isBlocked={profile.viewerContext?.fullBlocking}
+                isPending={profile.viewerContext?.followPending}
                 variant={variant}
                 className={classNames(className, 'rounded-lg px-5')}
                 {...rest}
@@ -102,7 +104,14 @@ export const FollowButton = memo(function FollowButton({
         text: 'min-w-[112px] box-border px-5 whitespace-nowrap',
         icon: 'w-8 max-w-8',
     }[variant];
-    const buttonState = isFollowing ? (hovering && isMedium ? State.Unfollow : State.Following) : State.Follow;
+
+    const buttonState = isPending
+        ? State.FollowPending
+        : isFollowing
+          ? hovering && isMedium
+              ? State.Unfollow
+              : State.Following
+          : State.Follow;
 
     return (
         <BaseToggleFollowButton
@@ -118,6 +127,7 @@ export const FollowButton = memo(function FollowButton({
                         buttonState === State.Unfollow,
                     [followButtonClassName]: buttonState === State.Follow,
                     [followingButtonClassName]: buttonState === State.Following,
+                    'border border-opacity-50 bg-opacity-20 text-main': buttonState === State.FollowPending,
                 },
             )}
             {...rest}

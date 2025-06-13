@@ -2794,6 +2794,9 @@ msgstr "请切换到与此操作一致的钱包。"
 msgid "Upload to S3"
 msgstr "上传到 S3"
 
+msgid "Follow Pending"
+msgstr ""
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 

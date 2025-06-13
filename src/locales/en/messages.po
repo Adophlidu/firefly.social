@@ -2789,6 +2789,9 @@ msgstr "Please switch to the wallet consistent with this action"
 msgid "Upload to S3"
 msgstr "Upload to S3"
 
+msgid "Follow Pending"
+msgstr "Follow Pending"
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 

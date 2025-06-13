@@ -5,6 +5,7 @@ import { memo, useCallback } from 'react';
 import EngagementIcon from '@/assets/engagement.svg';
 import FollowUserIcon from '@/assets/follow-user.svg';
 import MoreIcon from '@/assets/more.svg';
+import TimerIcon from '@/assets/timer.svg';
 import TrashIcon from '@/assets/trash.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
@@ -54,7 +55,8 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
     const { data: refreshedAuthor } = useRefreshedProfile(propAuthor, needToRefreshAuthor);
     const author = refreshedAuthor ?? propAuthor;
 
-    const isFollowing = !!refreshedAuthor?.viewerContext?.following;
+    const isFollowing = !!author?.viewerContext?.following;
+    const isPending = !!author?.viewerContext?.followPending;
 
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
     const [, reportPost] = useReportPost();
@@ -65,6 +67,8 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
         (showSuperFollow: boolean, loading: boolean) => {
             const icon = loading ? (
                 <LoadingIcon size={18} />
+            ) : isPending ? (
+                <TimerIcon width={18} height={18} />
             ) : isFollowing ? (
                 <UnFollowUserIcon width={18} height={18} />
             ) : (
@@ -76,6 +80,8 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
                     <span className="font-bold leading-[22px] text-main">
                         {showSuperFollow ? (
                             <Trans>Super Follow</Trans>
+                        ) : isPending ? (
+                            <Trans>Follow Pending</Trans>
                         ) : isFollowing ? (
                             <Trans>Unfollow @{author.handle}</Trans>
                         ) : (
@@ -85,7 +91,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
                 </>
             );
         },
-        [isFollowing, author.handle],
+        [isPending, isFollowing, author.handle],
     );
 
     // all menu items are hidden
