@@ -98,9 +98,6 @@ msgstr "Report @{0}"
 msgid "Sell Tax: {0}%"
 msgstr "Sell Tax: {0}%"
 
-msgid "Retweet"
-msgstr "Retweet"
-
 msgid "Failed to translate post. Please retry later."
 msgstr "Failed to translate post. Please retry later."
 
@@ -3221,9 +3218,6 @@ msgstr "No available wallet."
 
 msgid "Added"
 msgstr "Added"
-
-msgid "Cancel Retweet"
-msgstr "Cancel Retweet"
 
 msgid "No phishing activities found."
 msgstr "No phishing activities found."

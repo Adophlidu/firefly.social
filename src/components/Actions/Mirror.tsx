@@ -165,7 +165,7 @@ export const MirrorUI = memo<MirrorUIProps>(function Mirror({
             case Source.Farcaster:
                 return mirrored ? <Trans>Cancel Recast</Trans> : <Trans>Recast</Trans>;
             case Source.Twitter:
-                return mirrored ? <Trans>Cancel Retweet</Trans> : <Trans>Retweet</Trans>;
+                return mirrored ? <Trans>Cancel Repost</Trans> : <Trans>Repost</Trans>;
             case Source.Bsky:
                 return mirrored ? <Trans>Cancel Repost</Trans> : <Trans>Repost</Trans>;
             default:

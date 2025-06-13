@@ -103,9 +103,6 @@ msgstr "檢舉 @{0}"
 msgid "Sell Tax: {0}%"
 msgstr "賣出稅率: {0}%"
 
-msgid "Retweet"
-msgstr "轉推"
-
 msgid "Failed to translate post. Please retry later."
 msgstr "無法翻譯貼文。請稍候再嘗試"
 
@@ -1139,7 +1136,7 @@ msgid "Done"
 msgstr "完成"
 
 msgid "Recasts"
-msgstr "轉推"
+msgstr "轉發"
 
 msgid "Market Cap / FDV"
 msgstr "市值/完全稀釋估值"
@@ -3221,9 +3218,6 @@ msgstr "沒有可用的錢包。"
 
 msgid "Added"
 msgstr "已新增"
-
-msgid "Cancel Retweet"
-msgstr "取消轉推"
 
 msgid "No phishing activities found."
 msgstr "未檢測到釣魚活動。"

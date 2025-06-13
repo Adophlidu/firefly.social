@@ -103,9 +103,6 @@ msgstr "举报 @{0}"
 msgid "Sell Tax: {0}%"
 msgstr "售卖税率: {0}%"
 
-msgid "Retweet"
-msgstr "转帖"
-
 msgid "Failed to translate post. Please retry later."
 msgstr "翻译失败。请稍后重试。"
 
@@ -3226,9 +3223,6 @@ msgstr "没有可用的钱包。"
 
 msgid "Added"
 msgstr "已添加"
-
-msgid "Cancel Retweet"
-msgstr "取消转帖"
 
 msgid "No phishing activities found."
 msgstr "未发现钓鱼活动。"
