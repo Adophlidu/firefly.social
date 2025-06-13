@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-06-13 08:52\n"
+"PO-Revision-Date: 2025-06-13 15:43\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1004,7 +1004,7 @@ msgid "1m left"
 msgstr "剩餘 1 分鐘"
 
 msgid "Powered by <0>X3.pro</0>"
-msgstr ""
+msgstr "技術支援：<0>X3.pro</0>"
 
 msgid "Connect Ethereum Wallet"
 msgstr "連接以太坊錢包"
@@ -2520,7 +2520,7 @@ msgid "Posted to Lens on Buttrfly since August 1, 2024"
 msgstr ""
 
 msgid "Powered by Tenderly and GoPlus"
-msgstr ""
+msgstr "技術支援：Tenderly & GoPlus"
 
 msgid "Publications"
 msgstr "發表"
@@ -2580,7 +2580,7 @@ msgid "If this function exists, it is possible for the project owner to regain o
 msgstr ""
 
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
-msgstr ""
+msgstr "權威 Top 100 榜單｜數據來源：<0>X3</0>"
 
 msgid "Non-honeypot related address."
 msgstr ""
@@ -3263,7 +3263,7 @@ msgid "Failed to claim token"
 msgstr "領取代幣失敗"
 
 msgid "Top 40 Projects powered by Rootdata"
-msgstr "Rootdata 評選 Top 40 專案"
+msgstr "權威 Top 40 榜單｜數據來源：Rootdata"
 
 msgid "Disclaimer"
 msgstr "免責聲明"

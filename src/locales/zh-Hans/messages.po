@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-06-13 08:52\n"
+"PO-Revision-Date: 2025-06-13 15:43\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -2525,7 +2525,7 @@ msgid "Posted to Lens on Buttrfly since August 1, 2024"
 msgstr "2024 年 8 月 1 日后，在 Buttrfly 上发布过 Lens 内容"
 
 msgid "Powered by Tenderly and GoPlus"
-msgstr "Powered by Tenderly and GoPlus"
+msgstr "技术支持：Tenderly & GoPlus"
 
 msgid "Publications"
 msgstr "帖子"
@@ -2585,7 +2585,7 @@ msgid "If this function exists, it is possible for the project owner to regain o
 msgstr "如果存在此功能，项目所有者即使在放弃后也可以重新获得所有权。"
 
 msgid "Top 100 Web3 profiles powered by <0>X3</0>"
-msgstr "Top 100 Web3 用户由<0>X3</0>提供"
+msgstr "权威 Top 100 榜单｜数据来源：<0>X3</0>"
 
 msgid "Non-honeypot related address."
 msgstr "非钓鱼地址。"
@@ -3268,7 +3268,7 @@ msgid "Failed to claim token"
 msgstr "领取代币失败"
 
 msgid "Top 40 Projects powered by Rootdata"
-msgstr "由 Rootdata 提供支持的前 40 个项目"
+msgstr "权威 Top 40 榜单｜数据来源：Rootdata"
 
 msgid "Disclaimer"
 msgstr "免责声明"
