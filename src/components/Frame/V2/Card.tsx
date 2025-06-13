@@ -6,12 +6,13 @@ import { FootnoteLink } from '@/components/FootnoteLink.js';
 import { Image } from '@/components/Image.js';
 import { Source } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/index.js';
+import { useRouter } from '@/esm/navigation.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { FrameViewerModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import type { Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { FrameV2 } from '@/types/frame.js';
 
@@ -21,6 +22,7 @@ interface CardProps {
 }
 
 export const Card = memo<CardProps>(function Card({ post, frame }) {
+    const router = useRouter();
     const [primaryButton, setPrimaryButton] = useState<Parameters<SetPrimaryButton>[0] | null>(null);
 
     const [frameHost] = useState(() => {
@@ -76,6 +78,9 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
                 }),
             close: () => FrameViewerModalRef.close(),
             setPrimaryButton,
+            viewProfileInSite: (profile: Profile) => {
+                router.push(`/profile/farcaster/${profile.handle}/feed`);
+            },
         });
     });
 

@@ -1,12 +1,16 @@
 import type { Context, FrameHost, ReadyOptions, SetPrimaryButton } from '@farcaster/frame-host';
+import { t } from '@lingui/core/macro';
 
 import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
-import { openProfilePageByProfileId } from '@/helpers/openProfilePageById.js';
+import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { getProfileById } from '@/helpers/getProfileById.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { signInWithFarcaster, signInWithRelay } from '@/services/signInWithFarcaster.js';
 import type { FrameV2 } from '@/types/frame.js';
 
@@ -19,6 +23,7 @@ export class FarcasterFrameHost implements FrameHost {
             ready?: (options?: Partial<ReadyOptions>) => void;
             close?: () => void;
             setPrimaryButton?: SetPrimaryButton;
+            viewProfileInSite?: (profile: Profile) => void;
         },
     ) {}
 
@@ -110,7 +115,18 @@ export class FarcasterFrameHost implements FrameHost {
 
     viewProfile: FrameHost['viewProfile'] = async (options) => {
         console.warn('[frame host]: viewProfile', options);
-        await openProfilePageByProfileId(Source.Farcaster, `${options.fid}`);
+
+        const profile = await getProfileById(Source.Farcaster, `${options.fid}`);
+        if (!profile) {
+            enqueueWarningMessage(t`No profile found`);
+            return;
+        }
+
+        if (this.options?.viewProfileInSite) {
+            this.options?.viewProfileInSite?.(profile);
+        } else {
+            openWindow(getProfileUrl(profile));
+        }
     };
 
     viewToken: FrameHost['viewToken'] = (options) => {
