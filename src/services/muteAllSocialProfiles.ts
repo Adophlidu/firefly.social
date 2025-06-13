@@ -6,6 +6,7 @@ import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { resolveSourceInUrlForApi } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -72,6 +73,21 @@ export async function muteAllSocialProfiles(identity: FireflyIdentity) {
             ...bskyProfiles.map((profile) => ({
                 snsId: profile.identity.id,
                 snsPlatform: SourceInURL.Bsky,
+            })),
+        );
+    }
+
+    const farcasterProfiles = socialProfiles.filter((profile) => profile.identity.source === Source.Farcaster);
+    if (farcasterProfiles.length) {
+        await runInSafeAsync(() =>
+            Promise.allSettled(
+                farcasterProfiles.map((profile) => FarcasterSocialMediaProvider.blockProfile(profile.identity.id)),
+            ),
+        );
+        results.push(
+            ...farcasterProfiles.map((profile) => ({
+                snsId: profile.identity.id,
+                snsPlatform: SourceInURL.Farcaster,
             })),
         );
     }
