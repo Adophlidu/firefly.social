@@ -114,6 +114,9 @@ export function NFTBookmarkList() {
                     return getNFTItemContent(item.id, item.nft);
                 },
             }}
+            NoResultsFallbackProps={{
+                className: 'mt-20',
+            }}
         />
     );
 }

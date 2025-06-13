@@ -41,7 +41,7 @@ export function SnapshotBookmarkList() {
             queryResult={query}
             loginRequired
             NoResultsFallbackProps={{
-                className: 'md:pt-[228px] max-md:py-20',
+                className: 'mt-20',
             }}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Following}:${Source.DAOs}`,
