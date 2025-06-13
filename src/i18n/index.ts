@@ -43,7 +43,7 @@ function resolveLocale(locale: Locale) {
     return locale;
 }
 
-function setupAndActiveI18n(locale_: Locale) {
+export function setupAndActiveI18n(locale_: Locale) {
     const locale = resolveLocale(locale_);
 
     // on the client side, we need to setup the global i18n instance

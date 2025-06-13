@@ -4,6 +4,7 @@ import { Trans } from '@lingui/react/macro';
 import { getEnumAsArray } from '@masknet/kit';
 import { isServer } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation.js';
+import { useEffect, useRef } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
 import { changeCookies } from '@/actions/changeCookies.js';
@@ -22,6 +23,14 @@ export default function General() {
     const locale = useLocale();
     const rootClass = useCookie(SiteCookies.FireflyRootClass);
     const router = useRouter();
+
+    const leaveRef = useRef(false);
+    useEffect(() => {
+        leaveRef.current = false;
+        return () => {
+            leaveRef.current = true;
+        };
+    }, []);
 
     return (
         <SettingsSection title={<Trans>General</Trans>}>
@@ -79,7 +88,7 @@ export default function General() {
                             const data = new FormData();
                             data.append('locale', option.value);
                             await changeCookies(data);
-                            router.push(PageRoute.Home);
+                            if (!leaveRef.current) router.push(PageRoute.Home);
                         }}
                     />
                 ))}
