@@ -5,6 +5,7 @@ import { IMAGE_KIT_AVATAR } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { formatGroveImage } from '@/helpers/formatGroveImage.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import type { LensV3Profile } from '@/providers/types/Firefly.js';
 import { NetworkType, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
@@ -43,7 +44,7 @@ export function formatLensProfileV3(result: Account): Profile {
         displayName: result.metadata?.name || result.username?.localName || '',
         handle: (result.username?.localName || result.metadata?.name) ?? '',
         fullHandle: result.username?.value || '',
-        pfp: getAvatar(result),
+        pfp: getAvatar(result) || getStampAvatarByProfileId(Source.Lens, result.address),
         bio: result.metadata?.bio ?? undefined,
         address: result.address ?? undefined,
         followerCount: 0,

@@ -12,7 +12,6 @@ import { FollowCategory, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isBadProfile } from '@/helpers/isBadProfile.js';
 import { isCurrentProfile } from '@/helpers/isCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -67,7 +66,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
             <Link onClick={handleClickOnLink} className="shrink-0" href={profileUrl}>
                 <Avatar
                     className="rounded-full border"
-                    src={getStampAvatarByProfileId(profile.source, profile.profileId)}
+                    src={profile.pfp}
                     size={isMedium ? 40 : 44}
                     alt={profile.displayName}
                 />
