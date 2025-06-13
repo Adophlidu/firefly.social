@@ -78,7 +78,10 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
                 }),
             close: () => FrameViewerModalRef.close(),
             setPrimaryButton,
-            viewProfileInSite: (profile: Profile) => {
+            viewCast: (hash: string) => {
+                router.push(`/post/farcaster/${hash}`);
+            },
+            viewProfile: (profile: Profile) => {
                 router.push(`/profile/farcaster/${profile.handle}/feed`);
             },
         });

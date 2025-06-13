@@ -1,8 +1,10 @@
 import type { Context, FrameHost, ReadyOptions, SetPrimaryButton } from '@farcaster/frame-host';
 import { t } from '@lingui/core/macro';
+import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { SITE_URL } from '@/constants/index.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileById } from '@/helpers/getProfileById.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -23,7 +25,8 @@ export class FarcasterFrameHost implements FrameHost {
             ready?: (options?: Partial<ReadyOptions>) => void;
             close?: () => void;
             setPrimaryButton?: SetPrimaryButton;
-            viewProfileInSite?: (profile: Profile) => void;
+            viewCast?: (hash: string) => void;
+            viewProfile?: (profile: Profile) => void;
         },
     ) {}
 
@@ -83,7 +86,14 @@ export class FarcasterFrameHost implements FrameHost {
 
     viewCast: FrameHost['viewCast'] = async (options) => {
         console.warn('[frame host]: viewCast', options);
-        throw new NotImplementedError();
+
+        const u = `/post/farcaster/${options.hash}`;
+
+        if (this.options?.viewCast) {
+            this.options.viewCast(options.hash);
+        } else {
+            openWindow(urlcat(SITE_URL, u));
+        }
     };
 
     // @ts-ignore
@@ -122,8 +132,8 @@ export class FarcasterFrameHost implements FrameHost {
             return;
         }
 
-        if (this.options?.viewProfileInSite) {
-            this.options?.viewProfileInSite?.(profile);
+        if (this.options?.viewProfile) {
+            this.options?.viewProfile?.(profile);
         } else {
             openWindow(getProfileUrl(profile));
         }
