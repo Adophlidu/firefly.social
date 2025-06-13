@@ -207,6 +207,7 @@ export const DraftList = memo(function DraftList() {
                         },
                     })),
                 })),
+                currentDraftId: draft.draftId,
             });
             const post = draft.posts.find((x) => x.id === draft.cursor);
             if (post) {
