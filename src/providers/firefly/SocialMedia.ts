@@ -58,6 +58,7 @@ import {
     type FollowingSnapshotActivity,
     type FriendshipResponse,
     type GetBookmarksResponse,
+    type MutualFollowersResponse,
     type NFTBookmarkContent,
     type NFTDetail,
     type NotificationConfigsResponse,
@@ -480,22 +481,26 @@ class FireflySocialMedia implements Provider {
     }
     async getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
+            const size = 20;
             const params = omitEmptyParams({
                 fid: profileId,
-                size: 20,
+                size,
                 cursor: indicator?.id,
                 sourceFid: session?.profileId,
             });
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/followersmutual', params);
-            const response = await fireflySessionHolder.fetch<UsersResponse>(url, {
+            const response = await fireflySessionHolder.fetch<MutualFollowersResponse>(url, {
                 method: 'GET',
             });
-            const { list, next_cursor, total } = resolveFireflyResponseData(response);
+
+            const { list, total } = resolveFireflyResponseData(response);
+            const currentCursor = parseInt(params.cursor || '0', 10);
+            const next_cursor = total > currentCursor + size ? currentCursor + size : undefined;
 
             return createPageable(
                 await ensureFollowersIsNotEmpty(list),
                 createIndicator(indicator),
-                next_cursor ? createNextIndicator(indicator, next_cursor) : undefined,
+                next_cursor ? createNextIndicator(indicator, `${next_cursor}`) : undefined,
                 total,
             );
         });
