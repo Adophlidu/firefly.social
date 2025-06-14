@@ -30,9 +30,9 @@ export const SearchPostList = memo<Props>(function SearchPostList({
     emptyMessage,
     orderType,
 }) {
-    const currentSocialSource = narrowToSocialSource(source);
-    const isLogin = useIsLogin(currentSocialSource);
-    const loginRequired = source !== Source.X3Pro && REQUIRE_LOGIN_SOURCES_IN_SEARCH.includes(currentSocialSource);
+    const socialSource = narrowToSocialSource(source);
+    const isLogin = useIsLogin(socialSource);
+    const loginRequired = source !== Source.X3Pro && REQUIRE_LOGIN_SOURCES_IN_SEARCH.includes(socialSource);
     const keywordIsString = typeof searchKeyword === 'string';
     const invalidQuery = source === Source.Twitter && keywordIsString && (searchKeyword?.trim() || '').length < 2;
     const keywords = keywordIsString ? [searchKeyword] : searchKeyword;
@@ -50,7 +50,7 @@ export const SearchPostList = memo<Props>(function SearchPostList({
                     if (source === Source.X3Pro) {
                         return X3ProProvider.searchPosts(keyword, indicator, orderType);
                     }
-                    const provider = resolveSocialMediaProvider(currentSocialSource);
+                    const provider = resolveSocialMediaProvider(socialSource);
                     return await provider.searchPosts(keyword.replace(/^#/, ''), indicator, keyword.includes(' '));
                 } catch {
                     return createPageable(EMPTY_LIST, createIndicator(undefined, pageParam));

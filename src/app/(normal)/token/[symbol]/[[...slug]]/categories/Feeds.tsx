@@ -1,11 +1,13 @@
 import { Trans } from '@lingui/react/macro';
 import { useQueries } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
+import type { ReadonlyURLSearchParams } from 'next/navigation.js';
 import { type HTMLProps, memo, useMemo, useState } from 'react';
 
 import SortAscIcon from '@/assets/sort-asc.svg';
 import X3ProIcon from '@/assets/x3pro.svg';
 import { Link } from '@/components/Link.js';
+import { Empty } from '@/components/Search/Empty.js';
 import { SearchPostList } from '@/components/Search/SearchPostList.js';
 import { KolBar } from '@/components/TokenProfile/KolBar.js';
 import { MentionedByModal } from '@/components/TokenProfile/MentionedByModal.js';
@@ -48,6 +50,13 @@ function useMergeX3KolProfiles(mentionUsers: TokenMentionUser[], enabled: boolea
     return twitterProfiles;
 }
 
+function resolveTab(pathname: string, params: ReadonlyURLSearchParams, source: string, postOrderType?: PostOrderType) {
+    const newParams = new URLSearchParams(params);
+    newParams.set('source', source);
+    if (postOrderType) newParams.set('order', postOrderType.toString());
+    return `${pathname}?${newParams.toString()}`;
+}
+
 export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name, ...props }) {
     const params = useSearchParams();
     const paramSource = params.get('source') as SocialSource | null;
@@ -67,7 +76,8 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
         if (isX3Pro || !text) return address || [];
         const includesSpace = text.trim().includes(' ');
         if (includesSpace && [Source.Lens, Source.Bsky].includes(source)) return address || [];
-        return compact([includesSpace ? `"${text}"` : `$${symbol}`, address]);
+        // Only search by name for twitter
+        return compact([includesSpace ? `"${text}"` : `$${symbol}`, source === Source.Twitter ? null : address]);
     }, [isX3Pro, address, symbol, name, source]);
     const mentionUsers = x3TokenMention?.mentionUsers || EMPTY_LIST;
 
@@ -93,18 +103,11 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
     const postOrderType: PostOrderType | undefined = params.get('order') ? Number(params.get('order')) : undefined;
     const isDesc = postOrderType === PostOrderType.DESC || !postOrderType;
 
-    const createQueryString = (source: string, postOrderType?: PostOrderType) => {
-        const newParams = new URLSearchParams(params);
-        newParams.set('source', source);
-        if (postOrderType) newParams.set('order', postOrderType.toString());
-        return newParams.toString();
-    };
-
     return (
         <div {...props} className={classNames('flex flex-col gap-2', props.className)}>
             <div className="flex shrink-0 gap-2">
                 {SORTED_TOKEN_FEEDS_SOURCES.map((x) => {
-                    const isX3Pro = x === Source.X3Pro;
+                    const isX3ProTab = x === Source.X3Pro;
                     const button = (
                         <Link
                             replace
@@ -115,7 +118,7 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
                                     ? 'bg-highlight text-white'
                                     : 'bg-thirdMain text-second hover:text-highlight',
                             )}
-                            href={`${pathname}?${createQueryString(x)}`}
+                            href={resolveTab(pathname, params, x)}
                             aria-current={source === x ? 'page' : undefined}
                         >
                             {x === Source.X3Pro ? (
@@ -127,7 +130,7 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
                             )}
                         </Link>
                     );
-                    if (isX3Pro)
+                    if (isX3ProTab)
                         return (
                             <Tooltip
                                 key={x}
@@ -152,7 +155,12 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
                 {isX3Pro ? (
                     <Link
                         className="ml-auto inline-flex size-6 items-center justify-center"
-                        href={`${pathname}?${createQueryString(Source.X3Pro, isDesc ? PostOrderType.ASC : PostOrderType.DESC)}`}
+                        href={resolveTab(
+                            pathname,
+                            params,
+                            Source.X3Pro,
+                            isDesc ? PostOrderType.ASC : PostOrderType.DESC,
+                        )}
                     >
                         <SortAscIcon width={16} height={16} className={isDesc ? 'rotate-180' : ''} />
                     </Link>
@@ -179,7 +187,9 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
                         ) : (
                             <Trans>Feeds for tokens on this chain will be available soon.</Trans>
                         )
-                    ) : undefined
+                    ) : (
+                        <Empty keyword={keywords[0]} message="" />
+                    )
                 }
             />
             {openModal && users.length ? (
