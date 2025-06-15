@@ -1,12 +1,11 @@
 'use client';
 import { Trans } from '@lingui/react/macro';
 import { ProviderType } from '@okxweb3/dex-widget';
-import { memo, useContext, useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { switchChain } from 'wagmi/actions';
 
 import SwapIcon from '@/assets/swap.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { TokenContext } from '@/components/Token/TokenContext.js';
 import { useOkxSupportedChains } from '@/components/TokenProfile/useOkxSupportedChains.js';
 import { config } from '@/configs/wagmiClient.js';
 import { SOLANA_CHAIN_ID_IN_FIREFLY } from '@/constants/chain.js';
@@ -26,17 +25,15 @@ interface Props extends ClickableButtonProps {
 
 export const SwapButton = memo<Props>(function SwapButton({
     className,
-    tradable: tradableFromProps,
+    tradable,
     swapProps: swapPropsFromProps,
     ...rest
 }: ClickableButtonProps & { tradable?: boolean; swapProps?: SwapModalOpenProps }) {
-    const { tradable: tradableFromContext, swapProps: propsFromContext } = useContext(TokenContext);
     const { data: supportedChainIds = EMPTY_LIST } = useOkxSupportedChains();
 
     const chainIds = useMemo(() => supportedChainIds.map((x) => x.chainId), [supportedChainIds]);
-    const tradable = tradableFromProps ?? tradableFromContext;
 
-    const chainId = swapPropsFromProps?.chainId ?? propsFromContext?.chainId;
+    const chainId = swapPropsFromProps?.chainId;
 
     const providerType = chainId !== SOLANA_CHAIN_ID_IN_FIREFLY ? ProviderType.EVM : ProviderType.SOLANA;
     const { ethereum, solana } = useWalletAccountAll();
@@ -64,7 +61,7 @@ export const SwapButton = memo<Props>(function SwapButton({
                 if (chainId && providerType === ProviderType.EVM) await switchChain(config, { chainId });
                 captureSwapEvent(EventId.EVENT_SWAP_COPY_SUCCESS);
                 SwapModalRef.open({
-                    ...(swapPropsFromProps ?? propsFromContext),
+                    ...swapPropsFromProps,
                     providerType,
                 });
             }}
