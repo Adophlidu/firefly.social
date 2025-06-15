@@ -6,10 +6,14 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 class TwitterAuth implements Provider<SessionPayload> {
-    async login(): Promise<SessionPayload | null> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<SessionPayload>>('/api/twitter/login', {
-            method: 'POST',
-        });
+    async login(noSession = false): Promise<SessionPayload | null> {
+        const response = noSession
+            ? await twitterSessionHolder.fetchWithoutSession<ResponseJSON<SessionPayload>>('/api/twitter/login', {
+                  method: 'POST',
+              })
+            : await twitterSessionHolder.fetch<ResponseJSON<SessionPayload>>('/api/twitter/login', {
+                  method: 'POST',
+              });
         if (!response.success) return null;
         return response.data;
     }

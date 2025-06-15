@@ -1,6 +1,7 @@
 'use client';
 
 import { t } from '@lingui/core/macro';
+import dayjs from 'dayjs';
 import type { WritableDraft } from 'immer';
 import { jwtDecode } from 'jwt-decode';
 import { getSession, signOut } from 'next-auth/react';
@@ -23,7 +24,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { retryOnBskyWhenNetworkError } from '@/helpers/retryOnBskyWhenNetworkError.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
+import { runInSafe, runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getBskySessionStorage, removeBskySessionStorage } from '@/providers/bsky/createBskyAgent.js';
 import type { BskySession } from '@/providers/bsky/Session.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
@@ -77,6 +78,21 @@ export interface ProfileStatePersisted {
     accounts: Account[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
+}
+
+interface TwitterNextSession {
+    expires: string;
+    token: {
+        createdAt: number;
+        expiresAt: number;
+    };
+    type: SessionType.Twitter;
+    user?: {
+        email: string;
+        id: string;
+        image: string;
+        name: string;
+    };
 }
 
 function createState(
@@ -300,11 +316,19 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
+                const nextSession = (await runInSafeAsync(() => getSession())) as TwitterNextSession | null;
+                const idFromSession = nextSession?.type === SessionType.Twitter ? nextSession?.user?.id : undefined;
+                const createdAt = dayjs((nextSession?.token.createdAt || 0) * 1000);
+                const isNewLogin =
+                    !!idFromSession &&
+                    !state.accounts.some((x) => x.session.profileId === idFromSession) &&
+                    dayjs().diff(createdAt, 'minute') < 5;
+
                 // resume the session if it exists
-                if (session) twitterSessionHolder.resumeSession(session);
+                if (session && !isNewLogin) twitterSessionHolder.resumeSession(session);
 
                 // no remote session found
-                const sessionPayload = await TwitterAuthProvider.login();
+                const sessionPayload = await TwitterAuthProvider.login(isNewLogin);
                 if (!sessionPayload) {
                     state.clear();
                     twitterSessionHolder.removeSession();
@@ -313,7 +337,8 @@ const useTwitterStateBase = createState(
 
                 // show indicator if the session is from the server
                 state.__setStatus__(AsyncStatus.Pending);
-                await addTwitterAccount(sessionPayload, !session);
+                await addTwitterAccount(sessionPayload, !session || isNewLogin);
+                twitterSessionHolder.resumeSession(TwitterSession.from(sessionPayload.clientId, sessionPayload));
             } catch (error) {
                 if (error instanceof FetchError) return;
                 if (error instanceof AuthenticationError) await signOut({ redirect: false });

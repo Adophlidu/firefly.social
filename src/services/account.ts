@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@masknet/kit';
 import { first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
@@ -22,6 +23,9 @@ import {
     LoginModalRef,
     PasswordModalRef,
 } from '@/modals/controls.js';
+import { getBskySessionStorage } from '@/providers/bsky/createBskyAgent.js';
+import { BskySession } from '@/providers/bsky/Session.js';
+import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -482,24 +486,78 @@ export async function addAccounts(fireflySession: FireflySession, accounts: Acco
 }
 
 export async function switchAccount(account: Account, signal?: AbortSignal) {
-    const { state, sessionHolder } = getContext(account.profile.profileSource);
+    const profileSource = account.profile.profileSource;
+    const { state, sessionHolder } = getContext(profileSource);
 
     let session = account.session;
-    if (account.profile.profileSource === Source.Lens) {
-        const credentials = await lensSessionHolder.resumeSession(account.session as LensSession, true);
-        if (credentials) {
-            const now = Date.now();
-            session = new LensSession(
-                account.profile.profileId,
-                credentials.accessToken,
-                now,
-                now + SEVEN_DAYS,
-                credentials.refreshToken,
-                account.profile.profileId,
-            );
+
+    switch (profileSource) {
+        case Source.Lens: {
+            const credentials = await lensSessionHolder.resumeSession(account.session as LensSession, true);
+            if (credentials) {
+                const now = Date.now();
+                session = new LensSession(
+                    account.profile.profileId,
+                    credentials.accessToken,
+                    now,
+                    now + SEVEN_DAYS,
+                    credentials.refreshToken,
+                    account.profile.profileId,
+                );
+            }
+            break;
         }
-    } else {
-        sessionHolder.resumeSession(account.session);
+        case Source.Bsky: {
+            const bskySession = session as BskySession;
+            const sdkSession = getBskySessionStorage()?.[bskySession.did];
+            if (sdkSession?.accessJwt && sdkSession.refreshJwt) {
+                bskySession.sessionPayload = {
+                    ...bskySession.sessionPayload,
+                    accessJwt: sdkSession.accessJwt,
+                    refreshJwt: sdkSession.refreshJwt,
+                    did: bskySession.did,
+                };
+            }
+
+            await bskySessionHolder.resumeSession(bskySession, false);
+
+            const now = Date.now();
+            session = new BskySession(bskySession.did, now, now, bskySession.serviceUrl, {
+                ...(bskySessionHolder.agent.sessionManager.session || bskySession.sessionPayload),
+            });
+            break;
+        }
+        case Source.Twitter: {
+            const nextSession = session as TwitterSession;
+            const prevSession = twitterSessionHolder.session;
+
+            try {
+                twitterSessionHolder.resumeSession(nextSession);
+                const sessionPayload = await TwitterAuthProvider.login();
+                if (!sessionPayload) {
+                    throw new Error('Failed to login Twitter');
+                }
+            } catch (error) {
+                if (prevSession) {
+                    twitterSessionHolder.resumeSession(prevSession);
+                    await runInSafeAsync(() => TwitterAuthProvider.login());
+                }
+
+                throw error;
+            }
+
+            break;
+        }
+        case Source.Farcaster:
+        case Source.Telegram:
+        case Source.Google:
+        case Source.Apple:
+        case Source.Firefly:
+        case Source.Email:
+            sessionHolder.resumeSession(account.session);
+            break;
+        default:
+            safeUnreachable(profileSource);
     }
     state.addAccount(
         {

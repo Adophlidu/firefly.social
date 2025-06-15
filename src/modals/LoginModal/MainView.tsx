@@ -312,6 +312,7 @@ export function MainView() {
         async (account: Account) => {
             try {
                 const source = account.profile.source;
+
                 if (!account.session) {
                     await delay(300);
                     LoginModalRef.open({
@@ -392,11 +393,7 @@ export function MainView() {
                                         <ProfileSourceIcon source={source} size={20} />
                                         <span>{resolveSourceName(source)}</span>
                                     </div>
-                                    {[Source.Bsky, Source.Twitter].includes(source) && !!profilesAll[source] ? (
-                                        <SwitchIcon className="size-5" />
-                                    ) : (
-                                        <PlusIcon className="size-5" />
-                                    )}
+                                    <PlusIcon className="size-5" />
                                 </ClickableButton>
                                 {profileStore[source].accounts.map((account, index) => {
                                     const isCurrent = isSameProfile(profilesAll[source], account.profile);
@@ -421,13 +418,15 @@ export function MainView() {
                                             {isCurrent ? (
                                                 <CircleCheckboxIcon className="shrink-0" checked />
                                             ) : (
-                                                <SwitchIcon
-                                                    className="size-5 cursor-pointer"
+                                                <ClickableButton
+                                                    className="size-5"
+                                                    loading={switchLoading}
                                                     onClick={() => {
-                                                        if (switchLoading) return;
                                                         onSwitchAccount(account);
                                                     }}
-                                                />
+                                                >
+                                                    <SwitchIcon className="size-5" />
+                                                </ClickableButton>
                                             )}
                                         </div>
                                     );
