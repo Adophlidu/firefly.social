@@ -35,6 +35,12 @@ export class MentionNode extends TextNode {
     } = {};
 
     static __editor: LexicalEditor | null = null;
+    static __isDarkMode: boolean = false;
+
+    static setIsDarkMode(isDark: boolean) {
+        this.__isDarkMode = isDark;
+    }
+
     static override getType(): string {
         return 'mention';
     }
@@ -117,6 +123,8 @@ export class MentionNode extends TextNode {
                                 >
                                     <span className="flex max-w-[75%] items-center gap-[6px] overflow-hidden">
                                         <SocialSourceIcon
+                                            square
+                                            isDark={MentionNode.__isDarkMode}
                                             source={resolveSocialSourceFromFireflyPlatform(platform)}
                                             size={16}
                                         />
@@ -140,6 +148,7 @@ export class MentionNode extends TextNode {
                 content: tooltipElement,
                 appendTo: document.body,
                 arrow: false,
+                placement: 'bottom',
                 theme: 'cross-at-tooltip',
             });
             this.__tooltip = tooltip;
@@ -161,10 +170,7 @@ export class MentionNode extends TextNode {
 
             const handleTooltipClick = async (e: MouseEvent) => {
                 const target = e.target as HTMLElement;
-                if (
-                    (target.classList.contains('cross-at-edit-item') || target.classList.contains('cross-at-edit')) &&
-                    this.__profiles
-                ) {
+                if (target.classList.contains('cross-at-edit-item') && this.__profiles) {
                     tooltip.hide();
                     if (activeTooltip === tooltip) {
                         activeTooltip = null;

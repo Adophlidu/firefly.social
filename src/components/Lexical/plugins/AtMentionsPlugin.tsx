@@ -27,6 +27,7 @@ import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.j
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
@@ -170,6 +171,7 @@ const MentionsTypeaheadMenuItem = memo<MentionsTypeaheadMenuItemProps>(function 
     );
 });
 export function MentionsPlugin(): JSX.Element | null {
+    const isDarkMode = useIsDarkMode();
     const ref = useRef<HTMLDivElement>(null!);
     const [open, setOpen] = useState(false);
     const profileIds = useCurrentProfileIds();
@@ -259,6 +261,7 @@ export function MentionsPlugin(): JSX.Element | null {
             isUpdatingMentionTag.current = true;
 
             MentionNode.setEditorInstance(editor);
+            MentionNode.setIsDarkMode(isDarkMode);
             editor.update(
                 () => {
                     const mentionNode = $createMentionNode(selectedOption.handle, selectedOption.allProfile);
@@ -280,7 +283,7 @@ export function MentionsPlugin(): JSX.Element | null {
                 },
             );
         },
-        [editor],
+        [editor, isDarkMode],
     );
 
     useOnClickOutside(ref, () => {

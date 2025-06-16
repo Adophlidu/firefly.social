@@ -2,12 +2,18 @@ import type { SVGProps } from 'react';
 
 import XIconDark from '@/assets/x-circle-dark.svg';
 import XIconLight from '@/assets/x-circle-light.svg';
+import XSquareDarkIcon from '@/assets/x-square-dark.svg';
+import XSquareLightIcon from '@/assets/x-square-light.svg';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
-interface XIconProps extends SVGProps<SVGSVGElement> {}
+interface XIconProps extends SVGProps<SVGSVGElement> {
+    square?: boolean;
+    isDark?: boolean;
+}
 
 export function XIcon(props: XIconProps) {
-    const isDark = useIsDarkMode();
-
-    return isDark ? <XIconDark {...props} /> : <XIconLight {...props} />;
+    const isDarkMode = useIsDarkMode();
+    const isDark = props.isDark ?? isDarkMode;
+    const Icon = props.square ? (isDark ? XSquareDarkIcon : XSquareLightIcon) : isDark ? XIconDark : XIconLight;
+    return <Icon {...props} />;
 }

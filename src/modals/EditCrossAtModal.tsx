@@ -1,6 +1,7 @@
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { Fragment, useState } from 'react';
+import { isEqual } from 'lodash-es';
+import { Fragment, useMemo, useRef, useState } from 'react';
 
 import ArrowDown from '@/assets/arrow-line-down.svg';
 import { ActionButton } from '@/components/ActionButton.js';
@@ -29,21 +30,30 @@ type Props = {
 };
 
 export function EditCrossAtModal({ ref }: Props) {
+    const initialHandles = useRef<Record<SocialSource, string>>({} as Record<SocialSource, string>);
     const [profiles, setProfiles] = useState<Profile[]>(EMPTY_LIST);
     const [handles, setHandles] = useState<Record<SocialSource, string>>({} as Record<SocialSource, string>);
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
             setProfiles(props.profiles);
             const nextHandles = {} as Record<SocialSource, string>;
-            props.profiles.forEach((profile) => {
-                nextHandles[resolveSocialSourceFromFireflyPlatform(profile.platform)] = profile.handle;
+            SORTED_CROSS_AT_SOCIAL_SOURCES.forEach((source) => {
+                const profile = props.profiles.find(
+                    (x) => resolveSocialSourceFromFireflyPlatform(x.platform) === source,
+                );
+                nextHandles[source] = profile?.handle ?? '';
             });
+            initialHandles.current = nextHandles;
             setHandles(nextHandles);
         },
         onClose: (result) => {
             return result ?? profiles;
         },
     });
+
+    const isEdited = useMemo(() => {
+        return !isEqual(initialHandles.current, handles);
+    }, [handles]);
 
     return (
         <Modal onClose={() => dispatch?.close()} open={open}>
@@ -70,7 +80,7 @@ export function EditCrossAtModal({ ref }: Props) {
                         const profile = profiles.find(
                             (x) => resolveSocialSourceFromFireflyPlatform(x.platform) === source,
                         );
-                        if (!profile) return null;
+
                         return (
                             <div key={source} className="flex items-center gap-3">
                                 <SocialSourceIcon source={source} size={18} className="size-[18px]" />
@@ -88,7 +98,7 @@ export function EditCrossAtModal({ ref }: Props) {
                                             }
                                         }}
                                     />
-                                    {profile.related_profiles?.length && profile.related_profiles.length > 1 ? (
+                                    {profile?.related_profiles?.length && profile.related_profiles.length > 1 ? (
                                         <Popover className="relative">
                                             {({ open, close }) => (
                                                 <>
@@ -159,6 +169,7 @@ export function EditCrossAtModal({ ref }: Props) {
                             captureComposeCrossAtEvent(EventId.COMPOSE_CROSS_AT_EDIT_SUCCESS);
                             dispatch?.close(newProfiles);
                         }}
+                        disabled={!isEdited}
                     >
                         Save
                     </ActionButton>
