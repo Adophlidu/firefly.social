@@ -27,7 +27,8 @@ interface EmbedCardsInnerProps extends HTMLProps<HTMLDivElement> {
     post: Post;
     embeds: EmbedEntry[];
 }
-export const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInner({ embeds, post, ...rest }) {
+
+const EmbedCardsInner = memo<EmbedCardsInnerProps>(function EmbedCardsInner({ embeds, post, ...rest }) {
     const addresses = embeds.filter((x) => x.type === 'address');
     const addressQueries = useQueries({
         queries: addresses.map(({ value: address }) => ({

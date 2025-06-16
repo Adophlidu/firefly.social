@@ -18,5 +18,3 @@ export function ActivityElex24Provider({ children }: PropsWithChildren) {
     const ctxValue = useMemo(() => ({ vote, setVote }), [vote]);
     return <ActivityElex24Context.Provider value={ctxValue}>{children}</ActivityElex24Context.Provider>;
 }
-
-export default ActivityElex24Provider;

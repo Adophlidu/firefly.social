@@ -9,7 +9,7 @@ import CloseIcon from '@/assets/close.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 
-export interface ErrorReportSnackbarProps {
+interface ErrorReportSnackbarProps {
     id: number | string;
     detail?: string | React.ReactNode;
     message: SnackbarMessage;

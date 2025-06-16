@@ -3,7 +3,7 @@ import { type FieldPath, type FieldValues, type RegisterOptions, useFormContext,
 
 import { classNames } from '@/helpers/classNames.js';
 
-export interface TextareaProps<
+interface TextareaProps<
     TFieldValues extends FieldValues = FieldValues,
     TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > extends HTMLProps<HTMLTextAreaElement> {

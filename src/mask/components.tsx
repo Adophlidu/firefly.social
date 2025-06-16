@@ -1,4 +1,4 @@
-export interface LoadingBaseProps extends React.HTMLProps<SVGSVGElement> {}
+interface LoadingBaseProps extends React.HTMLProps<SVGSVGElement> {}
 
 export function LoadingBase(props: LoadingBaseProps) {
     return (

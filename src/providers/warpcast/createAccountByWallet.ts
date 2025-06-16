@@ -13,7 +13,7 @@ import type { Account } from '@/providers/types/Account.js';
 import { signedKeyRequests } from '@/providers/warpcast/signedKeyRequests.js';
 import { signin } from '@/providers/warpcast/signin.js';
 
-export async function createAccount(signal?: AbortSignal) {
+async function createAccount(signal?: AbortSignal) {
     const { account } = await getWalletClientRequired(config);
     const originalMessage = `firefly sign message ${dayjs().unix()}`;
     const signatureMessage = await signMessage(config, {

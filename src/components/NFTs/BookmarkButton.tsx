@@ -1,7 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { memo } from 'react';
 
-import BookmarkActiveIcon from '@/assets/bookmark.selected.svg';
 import BookmarkIcon from '@/assets/bookmark.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
@@ -24,7 +23,7 @@ interface BookmarkButtonProps extends Omit<ClickableButtonProps, 'children'> {
     onClick?: () => void;
 }
 
-export function BookmarkButton({
+function BookmarkButton({
     children,
     nftId,
     ownerAddress = '',
@@ -89,16 +88,6 @@ export function BookmarkButton({
         </Tooltip>
     ) : (
         content
-    );
-}
-
-function BookmarkButtonIcon({ hasBookmarked, isLoading }: { hasBookmarked: boolean; isLoading: boolean }) {
-    return isLoading ? (
-        <LoadingIcon size={20} />
-    ) : hasBookmarked ? (
-        <BookmarkActiveIcon width={20} height={20} className="text-warn" />
-    ) : (
-        <BookmarkIcon width={20} height={20} />
     );
 }
 

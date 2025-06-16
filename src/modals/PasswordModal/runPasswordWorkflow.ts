@@ -31,7 +31,7 @@ function checkPassword(password: string) {
     return true;
 }
 
-export async function verifyPasscodeOnServer(password: string): Promise<boolean> {
+async function verifyPasscodeOnServer(password: string): Promise<boolean> {
     const response = await FireflyEndpointProvider.checkPasscode(password, true);
     if (response.code === FireflyResponseCode.SUCCESS) return true;
 

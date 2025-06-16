@@ -18,10 +18,11 @@ export const DomainCard = memo<DomainCardProps>(function DomainCard({ domain, ..
     return <WalletCard address={address} domain={domain} {...rest} />;
 });
 
-export interface DomainCardIndicatorProps extends IndicatorProps, Pick<DomainCardProps, 'domain'> {
+interface DomainCardIndicatorProps extends IndicatorProps, Pick<DomainCardProps, 'domain'> {
     data: string;
     onAvailableUpdate: (data: string, available: boolean) => void;
 }
+
 export const DomainCardIndicator = memo<DomainCardIndicatorProps>(function DomainCardIndicator({
     domain,
     data,

@@ -10,7 +10,7 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { DownloadImageButton } from '@/components/NFTDetail/DownloadImageButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 
-export interface NFTDetailsMoreProps extends HTMLProps<HTMLDivElement> {
+interface NFTDetailsMoreProps extends HTMLProps<HTMLDivElement> {
     chainId: number;
     address?: string;
     nftUrl?: string;

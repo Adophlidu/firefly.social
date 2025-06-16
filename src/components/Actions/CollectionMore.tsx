@@ -14,7 +14,7 @@ import { openWindow } from '@/helpers/openWindow.js';
 import { resolveNFTUrlByCollection } from '@/helpers/resolveNFTUrl.js';
 import { ConfirmLeavingModalRef } from '@/modals/controls.js';
 
-export interface CollectionMoreProps extends HTMLProps<HTMLDivElement> {
+interface CollectionMoreProps extends HTMLProps<HTMLDivElement> {
     chainId: number;
     address?: string;
     externalUrl?: string;

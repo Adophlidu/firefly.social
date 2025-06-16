@@ -13,7 +13,7 @@ export function getActivityListItem(index: number, data: TypeActivityListItem) {
     return <ActivityListItem data={data} index={index} />;
 }
 
-export function ActivityListItem({ data }: { data: TypeActivityListItem; index?: number }) {
+function ActivityListItem({ data }: { data: TypeActivityListItem; index?: number }) {
     const timeTemplate = 'MMM DD, HH:mm';
     return (
         <Link

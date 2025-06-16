@@ -4,7 +4,7 @@ import { WagmiProvider as WagmiProviderSDK } from 'wagmi';
 
 import { config } from '@/configs/wagmiClient.js';
 
-export interface WagmiProviderProps {
+interface WagmiProviderProps {
     children: React.ReactNode;
 }
 

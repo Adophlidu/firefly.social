@@ -8,6 +8,51 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { isValidDomainEthereum } from '@/helpers/isValidDomain.js';
 
+function formatAccountName(account?: string) {
+    if (!account) return account;
+    if (isValidAddressEthereum(account) || isValidAddressSolana(account)) return formatAddress(account, 4);
+    if (isValidDomainEthereum(account)) return account;
+    return `@${account}`;
+}
+
+function ShareAccountsPopoverItem({
+    icon,
+    name,
+    onClick,
+    disabled = false,
+}: {
+    icon: ReactNode;
+    name: string;
+    onClick: (name: string) => void;
+    disabled?: boolean;
+}) {
+    const { data: ensName } = useEnsName({
+        address: name as `0x${string}`,
+        query: {
+            enabled: isValidAddressEthereum(name),
+        },
+    });
+
+    return (
+        <ClickableArea
+            className={classNames('shrink-0', {
+                'cursor-pointer': !disabled,
+                'opacity-40': disabled,
+            })}
+            onClick={() => {
+                onClick(name);
+            }}
+        >
+            <div className="box-content flex h-12 items-center justify-between px-3 hover:bg-bg">
+                <div className="flex items-center gap-2 text-main">
+                    {icon}
+                    <span className="font-bold text-main">{formatAccountName(ensName ?? name)}</span>
+                </div>
+            </div>
+        </ClickableArea>
+    );
+}
+
 interface ShareAccountsPopoverProps extends PropsWithChildren {
     accounts: Array<{ icon: ReactNode; name: string }>;
     onSelect: (name: string) => void;
@@ -62,50 +107,5 @@ export function ShareAccountsPopover({ accounts, children, onSelect, className, 
                 </>
             )}
         </Popover>
-    );
-}
-
-function formatAccountName(account?: string) {
-    if (!account) return account;
-    if (isValidAddressEthereum(account) || isValidAddressSolana(account)) return formatAddress(account, 4);
-    if (isValidDomainEthereum(account)) return account;
-    return `@${account}`;
-}
-
-export function ShareAccountsPopoverItem({
-    icon,
-    name,
-    onClick,
-    disabled = false,
-}: {
-    icon: ReactNode;
-    name: string;
-    onClick: (name: string) => void;
-    disabled?: boolean;
-}) {
-    const { data: ensName } = useEnsName({
-        address: name as `0x${string}`,
-        query: {
-            enabled: isValidAddressEthereum(name),
-        },
-    });
-
-    return (
-        <ClickableArea
-            className={classNames('shrink-0', {
-                'cursor-pointer': !disabled,
-                'opacity-40': disabled,
-            })}
-            onClick={() => {
-                onClick(name);
-            }}
-        >
-            <div className="box-content flex h-12 items-center justify-between px-3 hover:bg-bg">
-                <div className="flex items-center gap-2 text-main">
-                    {icon}
-                    <span className="font-bold text-main">{formatAccountName(ensName ?? name)}</span>
-                </div>
-            </div>
-        </ClickableArea>
     );
 }

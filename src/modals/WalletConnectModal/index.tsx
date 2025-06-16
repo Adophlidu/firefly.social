@@ -23,7 +23,7 @@ type Props = {
     ref: React.Ref<SingletonModalRefCreator<WalletConnectModalOpenProps | void, WalletConnectModalCloseProps | void>>;
 };
 
-export function WalletConnectModalRoot({ ref }: Props) {
+function WalletConnectModalRoot({ ref }: Props) {
     const isDark = useIsDarkMode();
     const { setThemeMode } = useAppKitTheme();
     const { setNetworkType, unsetNetworkType, setOrigin, setCustomTitle } = WalletConnectContext.useContainer();

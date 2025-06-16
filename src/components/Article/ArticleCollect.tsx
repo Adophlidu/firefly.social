@@ -29,7 +29,7 @@ import { ParagraphAPI } from '@/providers/paragraph/index.js';
 import { captureArticleCollectEvent } from '@/providers/telemetry/captureArticleCollectEvent.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
-export interface ArticleCollectProps {
+interface ArticleCollectProps {
     article: Article;
 }
 

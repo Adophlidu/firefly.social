@@ -1377,9 +1377,6 @@ msgstr ""
 msgid "Verified by {provider}"
 msgstr ""
 
-msgid "Search Filter"
-msgstr "進階搜尋"
-
 msgid "Resend full or remaining?"
 msgstr "重新發送全部或剩餘？"
 
@@ -2521,9 +2518,6 @@ msgstr ""
 
 msgid "Powered by Tenderly and GoPlus"
 msgstr "技術支援：Tenderly & GoPlus"
-
-msgid "Publications"
-msgstr "發表"
 
 msgid "Download media"
 msgstr ""

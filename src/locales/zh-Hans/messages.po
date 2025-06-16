@@ -1377,9 +1377,6 @@ msgstr "修改密码"
 msgid "Verified by {provider}"
 msgstr "由 {provider} 校验"
 
-msgid "Search Filter"
-msgstr "查询规则"
-
 msgid "Resend full or remaining?"
 msgstr "重新完整发送或者发送剩余部分？"
 
@@ -2526,9 +2523,6 @@ msgstr "2024 年 8 月 1 日后，在 Buttrfly 上发布过 Lens 内容"
 
 msgid "Powered by Tenderly and GoPlus"
 msgstr "技术支持：Tenderly & GoPlus"
-
-msgid "Publications"
-msgstr "帖子"
 
 msgid "Download media"
 msgstr "下载媒体"

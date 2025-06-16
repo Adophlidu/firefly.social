@@ -1,7 +1,4 @@
-import { keyBy, mapValues } from 'lodash-es';
-
 import { TokenType } from '@/constants/enum.js';
-import type { Constants } from '@/mask_pkgs/web3-shared/base/helpers/types.js';
 import { type FungibleToken } from '@/mask_pkgs/web3-shared/base/specs/index.js';
 
 export function createFungibleToken<ChainId, SchemaType>(
@@ -23,37 +20,5 @@ export function createFungibleToken<ChainId, SchemaType>(
         symbol,
         decimals,
         logoURL,
-    };
-}
-
-export function createFungibleTokensFromConstants<T extends Constants<string>, ChainId extends number, SchemaType>(
-    chainIds: Array<{
-        key: string;
-        value: ChainId;
-    }>,
-    schema: SchemaType,
-    constants: T,
-) {
-    return (
-        key: keyof T,
-        name: string | ((chainId: ChainId) => string),
-        symbol: string | ((chainId: ChainId) => string),
-        decimals: number | ((chainId: ChainId) => number),
-    ) => {
-        const chainIdGroup = keyBy(chainIds, 'value');
-        return mapValues(chainIdGroup, ({ key: chainName, value: chainId }) => {
-            function evaluator<R extends string | number>(f: ((chainId: ChainId) => R) | R): R {
-                return typeof f === 'function' ? f(chainId) : f;
-            }
-
-            return createFungibleToken<ChainId, SchemaType>(
-                chainId,
-                schema,
-                constants[key][chainName as 'Mainnet'] ?? '',
-                evaluator(name),
-                evaluator(symbol),
-                evaluator(decimals),
-            );
-        });
     };
 }

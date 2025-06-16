@@ -17,15 +17,7 @@ import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
 import { FreeMintModalRef, WalletConnectModalRef } from '@/modals/controls.js';
 
-interface FreeMintButtonProps extends Omit<ClickableButtonProps, 'ref'> {
-    contractAddress: string;
-    tokenId: string;
-    chainId: number;
-    externalUrl?: string | null;
-    collectionId?: string;
-}
-
-export function getMintButtonText(connected: boolean, isSupportedChain: boolean, mintStatus?: MintStatus) {
+function getMintButtonText(connected: boolean, isSupportedChain: boolean, mintStatus?: MintStatus) {
     if (!connected) return <Trans>Connect Wallet</Trans>;
     if (!isSupportedChain) return <Trans>Unsupported Chain</Trans>;
 
@@ -45,6 +37,14 @@ export function getMintButtonText(connected: boolean, isSupportedChain: boolean,
         default:
             return <Trans>Unknown status</Trans>;
     }
+}
+
+interface FreeMintButtonProps extends Omit<ClickableButtonProps, 'ref'> {
+    contractAddress: string;
+    tokenId: string;
+    chainId: number;
+    externalUrl?: string | null;
+    collectionId?: string;
 }
 
 export function FreeMintButton({

@@ -1,6 +1,6 @@
 'use client';
 
-import ActivityElex24Provider from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
+import { ActivityElex24Provider } from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
 import { ActivityMobileOnly } from '@/components/Activity/ActivityMobileOnly.js';
 import { ActivityButtrflyTasks } from '@/components/Activity/ActivityTasks/ActivityButtrflyTasks.js';
 import { ActivityElex24Tasks } from '@/components/Activity/ActivityTasks/ActivityElex24Tasks.js';

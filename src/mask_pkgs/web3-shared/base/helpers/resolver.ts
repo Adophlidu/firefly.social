@@ -10,15 +10,6 @@ const MATCH_IPFS_CID_AND_PATHNAME_RE = new RegExp(`(?:${MATCH_IPFS_CID_RAW})\\/?
 const CORS_HOST = 'https://cors-next.r2d2.to';
 const IPFS_GATEWAY_HOST = 'https://ipfs.io';
 
-export function isIPFS_Resource(str: string) {
-    return MATCH_IPFS_CID_RE.test(str);
-}
-
-export function resolveLocalURL(url: string) {
-    if (url.startsWith('<svg ')) return `data:image/svg+xml;base64,${btoa(url)}`;
-    return url;
-}
-
 /**
  * Remove query from IPFS url, as it is not needed
  * and will increase requests sometimes.
@@ -26,12 +17,12 @@ export function resolveLocalURL(url: string) {
  * are set to two different NFTs, but according to the same CID,
  * they are exactly the same.
  */
-export function trimQuery(url: string) {
+function trimQuery(url: string) {
     const indexOf = url.indexOf('?');
     return url.slice(0, Math.max(0, indexOf === -1 ? url.length : indexOf));
 }
 
-export function resolveIPFS_CID(str: string) {
+function resolveIPFS_CID(str: string) {
     return str.match(MATCH_IPFS_CID_RE)?.[1];
 }
 
@@ -54,7 +45,7 @@ export function resolveIPFS_URL(cidOrURL: string | undefined): string | undefine
     }
 
     // a ipfs hash fragment
-    if (isIPFS_Resource(cidOrURL)) {
+    if (MATCH_IPFS_CID_RE.test(cidOrURL)) {
         // starts with a cid
         if (MATCH_IPFS_CID_AT_STARTS_RE.test(cidOrURL)) {
             try {

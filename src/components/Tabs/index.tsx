@@ -48,7 +48,7 @@ export function Tabs<T = string>(props: TabsProps<T>) {
     );
 }
 
-export interface TabProps extends HTMLProps<HTMLLIElement> {
+interface TabProps extends HTMLProps<HTMLLIElement> {
     value: string;
     disabled?: boolean;
 }

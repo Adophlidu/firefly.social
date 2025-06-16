@@ -21,7 +21,8 @@ const trimify = (value: string): string => value.replace(/\n\n\s*\n/g, '\n\n').t
 function Ol(props: DetailedHTMLProps<OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>) {
     return <ol {...props} style={{ counterReset: `list-counter ${props.start ? props.start - 1 : ''}` }} />;
 }
-export const Markup = memo<MarkupProps>(function Markup({ children, post, ...rest }) {
+
+const Markup = memo<MarkupProps>(function Markup({ children, post, ...rest }) {
     const plugins = useMemo<Pluggable[]>(() => {
         if (!post?.mentions?.length)
             return compact([
@@ -67,6 +68,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
 
 // Render without tags, but leave <br/> and <p/> to keep paragraphs
 const allowedElements = ['br', 'p', 'a'];
+
 export function NakedMarkup(props: MarkupProps) {
     return <Markup {...props} allowedElements={allowedElements} unwrapDisallowed />;
 }

@@ -90,7 +90,7 @@ type Props = {
     ref: React.Ref<SingletonModalRefCreator<ComposeModalOpenProps, ComposeModalCloseProps>>;
 };
 
-export function ComposeModalUI({ ref }: Props) {
+function ComposeModalUI({ ref }: Props) {
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
 

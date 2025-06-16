@@ -7,7 +7,7 @@ import { getNFTPropertyValue } from '@/helpers/getNFTPropertyValue.js';
 import type { NonFungibleTokenTrait } from '@/mask_pkgs/web3-shared/base/index.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 
-export interface NFTPropertiesProps {
+interface NFTPropertiesProps {
     items: NonFungibleTokenTrait[] | EVM.Attribute[];
 }
 

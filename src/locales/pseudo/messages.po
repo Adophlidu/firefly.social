@@ -1372,9 +1372,6 @@ msgstr ""
 msgid "Verified by {provider}"
 msgstr ""
 
-msgid "Search Filter"
-msgstr ""
-
 msgid "Resend full or remaining?"
 msgstr ""
 
@@ -2507,9 +2504,6 @@ msgid "Posted to Lens on Buttrfly since August 1, 2024"
 msgstr ""
 
 msgid "Powered by Tenderly and GoPlus"
-msgstr ""
-
-msgid "Publications"
 msgstr ""
 
 msgid "Download media"

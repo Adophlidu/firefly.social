@@ -118,7 +118,7 @@ interface RedPacketContextValue {
     setNetworkType: Dispatch<SetStateAction<NetworkType>>;
 }
 
-export const initialRedPacketContextValue: RedPacketContextValue = {
+const initialRedPacketContextValue: RedPacketContextValue = {
     networkType: NetworkType.Ethereum,
     message: '',
     shares: RED_PACKET_DEFAULT_SHARES,

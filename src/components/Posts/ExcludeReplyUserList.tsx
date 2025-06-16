@@ -55,7 +55,7 @@ interface ExcludeReplyUserListProps {
     onClickProfile?: (profile: Profile, checked: boolean) => void;
 }
 
-export function ExcludeReplyUserList({ post, profiles, excluded = [], onClickProfile }: ExcludeReplyUserListProps) {
+function ExcludeReplyUserList({ post, profiles, excluded = [], onClickProfile }: ExcludeReplyUserListProps) {
     const otherProfiles = profiles.filter((profile) => !isSameProfile(profile, post.author));
     return (
         <div className="flex flex-col gap-2">

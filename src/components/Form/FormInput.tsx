@@ -3,7 +3,7 @@ import { type FieldPath, type FieldValues, type RegisterOptions, useFormContext,
 
 import { classNames } from '@/helpers/classNames.js';
 
-export function inputClassName({
+function inputClassName({
     error,
     className,
 }: {
@@ -17,7 +17,7 @@ export function inputClassName({
     );
 }
 
-export interface InputProps<
+interface InputProps<
     TFieldValues extends FieldValues = FieldValues,
     TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > extends HTMLProps<HTMLInputElement> {

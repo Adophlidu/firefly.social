@@ -18,7 +18,7 @@ import { TokenSelectorModalRef } from '@/modals/controls.js';
 const MIN_AMOUNT_LENGTH = 1;
 const MAX_AMOUNT_LENGTH = 79;
 
-export interface FungibleTokenInputProps {
+interface FungibleTokenInputProps {
     token?: FungibleToken<number, number>;
     placeholder?: string;
     onTokenChange: (token: FungibleToken<number, number>) => void;

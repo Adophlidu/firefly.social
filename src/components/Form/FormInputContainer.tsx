@@ -4,7 +4,7 @@ import { type FieldPath, type FieldValues, useFormContext, useWatch } from 'reac
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { classNames } from '@/helpers/classNames.js';
 
-export interface FormInputContainerProps<
+interface FormInputContainerProps<
     TFieldValues extends FieldValues = FieldValues,
     TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > extends HTMLProps<HTMLDivElement> {

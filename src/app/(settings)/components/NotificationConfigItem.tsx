@@ -12,7 +12,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import type { NotificationPlatform, NotificationPushType } from '@/providers/types/Firefly.js';
 
-export interface NotificationConfigItemProps {
+interface NotificationConfigItemProps {
     label: React.ReactNode;
     description: React.ReactNode;
     value: boolean;

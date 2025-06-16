@@ -28,7 +28,7 @@ function ErrorBoundaryComponent() {
 }
 
 // TODO: these plugins slow down the editor
-export const EditorPlugins = memo(function EditorPlugins() {
+const EditorPlugins = memo(function EditorPlugins() {
     return (
         <>
             <LexicalAutoLinkPlugin />

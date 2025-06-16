@@ -8,7 +8,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export interface EditProfileButtonProps extends Omit<ClickableButtonProps, 'children'> {
+interface EditProfileButtonProps extends Omit<ClickableButtonProps, 'children'> {
     variant?: 'text' | 'icon';
     profile: Profile;
 }
