@@ -32,6 +32,7 @@ import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueu
 import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
 import { formatThirdPartyProfileName } from '@/helpers/formatThirdPartyProfileName.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
@@ -260,6 +261,7 @@ export function MainView() {
     const { history } = router;
     const [selectedSource, setSelectedSource] = useState<ThirdPartySource>();
     const [isOpenFireflyAccountMenu, setIsOpenFireflyAccountMenu] = useState(false);
+    const [selectedAccount, setSelectedAccount] = useState<Account | null>(null);
 
     const isLoginFirefly = useIsLoginFirefly();
     const profileStore = useProfileStoreAll();
@@ -387,6 +389,7 @@ export function MainView() {
                                                 isLoginFirefly && profileStore[source].accounts.length > 0,
                                         },
                                     )}
+                                    disabled={switchLoading}
                                     onClick={() => onClick(source)}
                                 >
                                     <div className="flex items-center gap-2">
@@ -420,8 +423,12 @@ export function MainView() {
                                             ) : (
                                                 <ClickableButton
                                                     className="size-5"
-                                                    loading={switchLoading}
+                                                    disabled={switchLoading}
+                                                    loading={
+                                                        switchLoading ? isSameAccount(selectedAccount, account) : false
+                                                    }
                                                     onClick={() => {
+                                                        setSelectedAccount(account);
                                                         onSwitchAccount(account);
                                                     }}
                                                 >
