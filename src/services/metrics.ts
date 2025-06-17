@@ -301,9 +301,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
 
                 break;
             }
-            // TODO: remove this after support multiple x and bsky accounts
             case Source.Twitter: {
-                if (currentProfile) break;
                 const payloadResponse = await fetchJSON<ResponseJSON<SessionPayload>>(
                     urlcat('/api/twitter/decrypt-session', {
                         ciphertext,
@@ -318,8 +316,10 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                 const payload = payloadResponse.data;
                 const session = new TwitterSession(profileId, '', now, now, payload);
 
-                sessionHolder.resumeSession(session);
-                await TwitterAuthProvider.login();
+                if (!currentProfile) {
+                    sessionHolder.resumeSession(session);
+                    await TwitterAuthProvider.login();
+                }
                 const account = {
                     profile,
                     session,
@@ -330,7 +330,6 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                 break;
             }
             case Source.Bsky: {
-                if (currentProfile) break;
                 const data = decryptedData as BskyMetricsData;
                 const session = new BskySession(profileId, now, now, data.server_host, {
                     did: data.did,
@@ -339,7 +338,9 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                     refreshJwt: data.refresh_jwt,
                     active: true,
                 });
-                sessionHolder.resumeSession(session);
+                if (!currentProfile) {
+                    sessionHolder.resumeSession(session);
+                }
                 const account = {
                     profile,
                     session,

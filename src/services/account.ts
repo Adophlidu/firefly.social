@@ -8,7 +8,6 @@ import { SEVEN_DAYS, SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@
 import { FireflyResponseCode } from '@/constants/responseCode.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getAllProfiles } from '@/helpers/getAllProfiles.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -317,41 +316,18 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
 export async function syncMetrics(account: Account) {
     const remoteAccounts = await downloadAccounts();
-    // TODO: remove this after support multiple x and bsky accounts
-    const remoteProfiles = remoteAccounts
-        .filter((x) => {
-            const sourceInUrl = x.metaInfo.platform === 'bluesky' ? SourceInURL.Bsky : x.metaInfo.platform;
-            const source = resolveSocialSource(sourceInUrl);
+    const remoteProfiles = remoteAccounts.map(({ metaInfo }) => {
+        const sourceInUrl = metaInfo.platform === 'bluesky' ? SourceInURL.Bsky : metaInfo.platform;
+        const source = resolveSocialSource(sourceInUrl);
 
-            if (source === Source.Twitter || source === Source.Bsky) {
-                const currentProfile = getCurrentProfile(source);
-                if (currentProfile) return false;
-
-                const isLatest = remoteAccounts.every((account) => {
-                    if (
-                        account.metaInfo.platform !== x.metaInfo.platform ||
-                        account.metaInfo.profileId === x.metaInfo.profileId
-                    )
-                        return true;
-                    return Number(account.metaInfo.loginTime) <= Number(x.metaInfo.loginTime);
-                });
-                return isLatest;
-            }
-
-            return true;
-        })
-        .map(({ metaInfo }) => {
-            const sourceInUrl = metaInfo.platform === 'bluesky' ? SourceInURL.Bsky : metaInfo.platform;
-            const source = resolveSocialSource(sourceInUrl);
-
-            return {
-                ...createDummyProfile(source),
-                profileId: metaInfo.profileId,
-                handle: metaInfo.profileHandle,
-                displayName: metaInfo.name,
-                pfp: metaInfo.avatar,
-            } satisfies Profile;
-        });
+        return {
+            ...createDummyProfile(source),
+            profileId: metaInfo.profileId,
+            handle: metaInfo.profileHandle,
+            displayName: metaInfo.name,
+            pfp: metaInfo.avatar,
+        } satisfies Profile;
+    });
 
     const localProfiles = getAllProfiles();
 
