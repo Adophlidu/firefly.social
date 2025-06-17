@@ -1,4 +1,8 @@
+import { type Address, pad } from 'viem';
+
+import { NotAllowedError } from '@/constants/error.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import type { SignedKeyRequestBody } from '@/providers/warpcast/createSignedKey.js';
 import type { ResponseJSON } from '@/types/index.js';
 
@@ -14,7 +18,7 @@ export interface SignedBody {
  * @param signal
  * @returns
  */
-export async function createSignedKeyPayload(key: string, signal?: AbortSignal) {
+export async function createSignedKeyPayloadWithPublicKey(key: string, signal?: AbortSignal) {
     const response = await fetchJSON<ResponseJSON<SignedBody>>('/api/warpcast/signin', {
         method: 'POST',
         body: JSON.stringify({
@@ -23,7 +27,7 @@ export async function createSignedKeyPayload(key: string, signal?: AbortSignal) 
         signal,
     });
     if (!response.success) throw new Error(response.error.message);
-    return response;
+    return response.data;
 }
 
 /**
@@ -41,5 +45,23 @@ export async function createSignedKeyPayloadWithSponsorship(key: string, signal?
         }),
     });
     if (!response.success) throw new Error(response.error.message);
-    return response;
+    return response.data;
+}
+
+/**
+ * Learn more: https://warpcast.notion.site/Public-Auth-Address-Implementation-Guide-1fc6a6c0c10180a9b2a7f24c71143eae
+ * @param address
+ * @param fid
+ * @param signal
+ * @returns
+ */
+export async function createSignedKeyPayloadWithAuthAddress(address: string, fid: number, signal?: AbortSignal) {
+    if (!isValidAddressEthereum(address)) throw new NotAllowedError('Invalid Ethereum address');
+
+    const payload = await createSignedKeyPayloadWithPublicKey(pad(address as Address, { size: 32 }), signal);
+    return {
+        ...payload,
+        requestFid: fid,
+        keyType: 'auth-address',
+    };
 }

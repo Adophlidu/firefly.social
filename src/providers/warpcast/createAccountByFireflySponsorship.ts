@@ -14,17 +14,17 @@ async function createSession(signal?: AbortSignal) {
     const privateKey = utils.randomPrivateKey();
     const publicKey: Hex = `0x${bytesToHex(await getPublicKey(privateKey))}`;
     const payload = await createSignedKeyPayloadWithSponsorship(publicKey);
-    const key = await createSignedKey(payload.data.body, signal);
+    const key = await createSignedKey(payload.body, signal);
 
     const farcasterSession = new FarcasterSession(
         `${key.result.signedKeyRequest.requestFid}`,
         toHex(privateKey),
-        payload.data.timestamp,
-        payload.data.expiresAt,
+        payload.timestamp,
+        payload.expiresAt,
         // the signer request token is one-time use
         key.result.signedKeyRequest.token,
         undefined,
-        `${FarcasterSponsorship.Firefly}-${payload.data.body.sponsorship?.signature ?? '0x'}`,
+        `${FarcasterSponsorship.Firefly}-${payload.body.sponsorship?.signature ?? '0x'}`,
     );
 
     return {

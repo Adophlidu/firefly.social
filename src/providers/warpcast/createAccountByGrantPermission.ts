@@ -6,7 +6,7 @@ import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import { createSignedKey } from '@/providers/warpcast/createSignedKey.js';
-import { createSignedKeyPayload } from '@/providers/warpcast/createSignedKeyPayload.js';
+import { createSignedKeyPayloadWithPublicKey } from '@/providers/warpcast/createSignedKeyPayload.js';
 import { pollingSignerRequestToken } from '@/providers/warpcast/pollingSignerRequestToken.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 
@@ -14,15 +14,15 @@ async function createSession(signal?: AbortSignal) {
     // create key pair in client side
     const privateKey = utils.randomPrivateKey();
     const publicKey: Hex = `0x${Buffer.from(await getPublicKey(privateKey)).toString('hex')}`;
-    const payload = await createSignedKeyPayload(publicKey, signal);
-    const key = await createSignedKey(payload.data.body, signal);
+    const payload = await createSignedKeyPayloadWithPublicKey(publicKey, signal);
+    const key = await createSignedKey(payload.body, signal);
 
     const farcasterSession = new FarcasterSession(
         // we don't posses the fid until the key request was signed
         NOT_DEPEND_SECRET,
         toHex(privateKey),
-        payload.data.timestamp,
-        payload.data.expiresAt,
+        payload.timestamp,
+        payload.expiresAt,
         // the signer request token is one-time use
         key.result.signedKeyRequest.token,
     );

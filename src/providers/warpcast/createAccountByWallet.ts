@@ -11,7 +11,7 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import { createSignedKey } from '@/providers/warpcast/createSignedKey.js';
-import { createSignedKeyPayload } from '@/providers/warpcast/createSignedKeyPayload.js';
+import { createSignedKeyPayloadWithPublicKey } from '@/providers/warpcast/createSignedKeyPayload.js';
 
 async function createAccount(signal?: AbortSignal) {
     const { account } = await getWalletClientRequired(config);
@@ -26,13 +26,13 @@ async function createAccount(signal?: AbortSignal) {
         signatureMessage,
         true,
     );
-    const payload = await createSignedKeyPayload(loginResponse.signerPublickey, signal);
-    const key = await createSignedKey(payload.data.body, signal);
+    const payload = await createSignedKeyPayloadWithPublicKey(loginResponse.signerPublickey, signal);
+    const key = await createSignedKey(payload.body, signal);
     const session = new FarcasterSession(
         loginResponse.fid,
         loginResponse.signerPrivatekey,
-        payload.data.timestamp,
-        payload.data.expiresAt,
+        payload.timestamp,
+        payload.expiresAt,
         key.result.signedKeyRequest.token,
         undefined,
         undefined,
