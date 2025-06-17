@@ -195,6 +195,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                 {contracts.length > 1 ? <ArrowDownIcon width={14} height={14} className="text-second" /> : null}
             </div>
         ) : null;
+
     const icon = (
         <TokenIcon
             icon={token.logoURL}
@@ -203,6 +204,7 @@ export const TokenMarketData = memo(function TokenMarketData({
             size={36}
             chainId={chainId}
             disableBadge={!!contractSelect}
+            coingeckoChain={contract?.runtime}
         />
     );
 
@@ -210,7 +212,7 @@ export const TokenMarketData = memo(function TokenMarketData({
         <div {...rest} className={classNames('flex flex-col gap-1.5 p-3', rest.className)}>
             <div className="flex items-start">
                 <div className="flex flex-grow flex-col gap-1.5">
-                    <div className="flex items-center gap-4">
+                    <div className="flex h-[42px] items-center gap-4">
                         {wrapLink(icon, tokenPageUrl, linkable)}
                         <div className="flex flex-col gap-1">
                             <div className="flex items-center gap-1 leading-6 text-second">

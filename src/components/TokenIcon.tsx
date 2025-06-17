@@ -13,6 +13,7 @@ export interface TokenIconProps extends HTMLProps<HTMLSpanElement> {
     chainId?: number;
     address?: string;
     name?: string;
+    coingeckoChain?: string;
     /** icon url */
     icon?: string;
     /** badge icon url */
@@ -25,6 +26,7 @@ export interface TokenIconProps extends HTMLProps<HTMLSpanElement> {
 export const TokenIcon = memo(function TokenIcon({
     networkType,
     chainId,
+    coingeckoChain,
     address,
     icon,
     badgeIcon,
@@ -94,8 +96,14 @@ export const TokenIcon = memo(function TokenIcon({
                             style={{ width: chainSize, height: chainSize }}
                             alt="chain"
                         />
-                    ) : chainId ? (
-                        <ChainIcon size={badgeSize} networkType={networkType} chainId={chainId} allowEmpty />
+                    ) : chainId || coingeckoChain ? (
+                        <ChainIcon
+                            size={badgeSize}
+                            networkType={networkType}
+                            chainId={chainId}
+                            coingeckoChain={coingeckoChain}
+                            allowEmpty
+                        />
                     ) : null}
                 </span>
             ) : null}

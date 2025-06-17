@@ -2,8 +2,9 @@ import { Trans } from '@lingui/react/macro';
 import { useQueries } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import type { ReadonlyURLSearchParams } from 'next/navigation.js';
-import { type HTMLProps, memo, useMemo, useState } from 'react';
+import { type HTMLProps, memo, Suspense, useMemo, useState, useTransition } from 'react';
 
+import TokenPageLoading from '@/app/(normal)/token/[symbol]/[[...slug]]/loading.js';
 import SortAscIcon from '@/assets/sort-asc.svg';
 import X3ProIcon from '@/assets/x3pro.svg';
 import { Link } from '@/components/Link.js';
@@ -14,7 +15,7 @@ import { MentionedByModal } from '@/components/TokenProfile/MentionedByModal.js'
 import { Tooltip } from '@/components/Tooltip.js';
 import { SearchType, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_TOKEN_FEEDS_SOURCES, X3_PRO_CHAIN_IDS } from '@/constants/index.js';
-import { usePathname, useSearchParams } from '@/esm/navigation.js';
+import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatTokenMentionUser } from '@/helpers/formatTokenMentionUser.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -69,7 +70,9 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
     const { data: x3Token } = useX3ProTokenInfo(address, supportedX3);
     const { data: x3TokenMention } = useX3ProTokenMention(address, supportedX3);
 
-    const source = defaultSource || SORTED_TOKEN_FEEDS_SOURCES[0];
+    const [isPending, startTransition] = useTransition();
+    const [pendingSource, setPendingSource] = useState<Source>();
+    const source = (isPending && pendingSource) || defaultSource || SORTED_TOKEN_FEEDS_SOURCES[0];
     const isX3Pro = source === Source.X3Pro;
 
     const keywords = useMemo(() => {
@@ -104,14 +107,15 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
     const postOrderType: PostOrderType | undefined = params.get('order') ? Number(params.get('order')) : undefined;
     const isDesc = postOrderType === PostOrderType.DESC || !postOrderType;
 
+    const router = useRouter();
+
     return (
-        <div {...props} className={classNames('flex flex-col gap-2', props.className)}>
+        <div {...props} className={classNames('flex flex-grow flex-col gap-2', props.className)}>
             <div className="flex shrink-0 gap-2">
                 {SORTED_TOKEN_FEEDS_SOURCES.map((x) => {
                     const isX3ProTab = x === Source.X3Pro;
                     const button = (
                         <Link
-                            replace
                             key={x}
                             className={classNames(
                                 'flex h-6 min-w-10 cursor-pointer list-none items-center justify-center rounded-md px-1.5 text-xs leading-6',
@@ -120,6 +124,13 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
                                     : 'bg-thirdMain text-second hover:text-highlight',
                             )}
                             href={resolveTab(pathname, params, x)}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setPendingSource(x);
+                                startTransition(() => {
+                                    router.push(resolveTab(pathname, params, x));
+                                });
+                            }}
                             aria-current={source === x ? 'page' : undefined}
                         >
                             {x === Source.X3Pro ? (
@@ -176,23 +187,32 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
                     }}
                 />
             ) : null}
-            <SearchPostList
-                keyword={keywords}
-                searchType={SearchType.Posts}
-                source={source}
-                orderType={postOrderType}
-                emptyMessage={
-                    isX3Pro ? (
-                        supportedX3 ? (
-                            <Trans>No posts found for this token.</Trans>
-                        ) : (
-                            <Trans>Feeds for tokens on this chain will be available soon.</Trans>
-                        )
-                    ) : (
-                        <Empty keyword={keywords[0]} message="" />
-                    )
+            <Suspense
+                fallback={
+                    <div className="flex flex-grow flex-col">
+                        <TokenPageLoading />
+                    </div>
                 }
-            />
+            >
+                <SearchPostList
+                    keyword={keywords}
+                    searchType={SearchType.Posts}
+                    source={source}
+                    orderType={postOrderType}
+                    loading={<TokenPageLoading />}
+                    emptyMessage={
+                        isX3Pro ? (
+                            supportedX3 ? (
+                                <Trans>No posts found for this token.</Trans>
+                            ) : (
+                                <Trans>Feeds for tokens on this chain will be available soon.</Trans>
+                            )
+                        ) : (
+                            <Empty keyword={keywords[0]} message="" />
+                        )
+                    }
+                />
+            </Suspense>
             {openModal && users.length ? (
                 <MentionedByModal open onClose={() => setOpenModal(false)} users={users} />
             ) : null}

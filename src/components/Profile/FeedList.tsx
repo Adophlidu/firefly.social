@@ -20,8 +20,22 @@ interface FeedListProps {
 export function FeedList({ profileId, source }: FeedListProps) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
+    const isLogin = source === Source.Twitter;
+    const { data: profile } = useSuspenseQuery({
+        queryKey: ['profile', source, profileId, isLogin],
+        queryFn:
+            source === Source.Twitter
+                ? async () => {
+                      const provider = resolveSocialMediaProvider(source);
+                      const profile = await provider.getProfileById(profileId);
+                      return provider.getProfileByHandle(profile.handle);
+                  }
+                : skipToken,
+    });
+    const isProtected = profile?.protected;
+
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['posts', source, 'posts-of', profileId],
+        queryKey: ['posts', source, 'posts-of', profileId, isLogin],
 
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable<Post>(EMPTY_LIST, createIndicator());
@@ -42,19 +56,6 @@ export function FeedList({ profileId, source }: FeedListProps) {
         },
         select: getPostsSelector(source),
     });
-
-    const { data: profile } = useSuspenseQuery({
-        queryKey: ['profile', source, profileId],
-        queryFn:
-            source === Source.Twitter
-                ? async () => {
-                      const provider = resolveSocialMediaProvider(source);
-                      const profile = await provider.getProfileById(profileId);
-                      return provider.getProfileByHandle(profile.handle);
-                  }
-                : skipToken,
-    });
-    const isProtected = profile?.protected;
 
     return (
         <ListInPage

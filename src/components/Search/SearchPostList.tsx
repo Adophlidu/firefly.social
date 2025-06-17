@@ -21,6 +21,7 @@ interface Props {
     searchType: SearchType;
     emptyMessage?: ReactNode | ((keyword: string | string[]) => ReactNode);
     orderType?: PostOrderType;
+    loading?: ReactNode;
 }
 
 export const SearchPostList = memo<Props>(function SearchPostList({
@@ -29,6 +30,7 @@ export const SearchPostList = memo<Props>(function SearchPostList({
     source,
     emptyMessage,
     orderType,
+    loading,
 }) {
     const socialSource = narrowToSocialSource(source);
     const isLogin = useIsLogin(socialSource);
@@ -66,6 +68,11 @@ export const SearchPostList = memo<Props>(function SearchPostList({
     const listKey = `${ScrollListKey.Search}:${searchType}:${keywords.join(',')}:${source}:${orderType}`;
 
     const keepMutedSpace = source === Source.X3Pro || source === Source.Twitter;
+
+    if (queryResult.isPending && !queryResult.data) {
+        return loading;
+    }
+
     return (
         <ListInPage
             loginRequired={loginRequired}

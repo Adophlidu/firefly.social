@@ -21,6 +21,7 @@ export interface TokenPageSearch {
     /** to keep consistent with previous entry */
     traderName?: string;
     address?: string;
+    source?: string;
 }
 interface Props extends HTMLProps<HTMLDivElement> {
     slug?: string;
