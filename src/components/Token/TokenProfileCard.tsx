@@ -196,9 +196,7 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
                         <span className="max-w-28 truncate font-inter text-[13px] font-bold leading-4 text-third">
                             {formatAddress(address, 4)}
                         </span>
-                        {address ? (
-                            <CopyTextButton text={address} className="leading-4 text-third [&_svg]:ml-0" />
-                        ) : null}
+                        {address ? <CopyTextButton text={address} className="leading-4 text-third" /> : null}
                     </div>
                 </div>
                 {tokenInfos.length > 1 ? (

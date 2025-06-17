@@ -78,7 +78,7 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
                 ) : null}
                 <div
                     className={classNames(
-                        'flex items-center',
+                        'flex items-center gap-1',
                         connection.ens?.[0] ? 'text-second' : 'font-semibold text-main',
                     )}
                 >

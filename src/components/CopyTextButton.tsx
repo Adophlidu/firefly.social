@@ -26,7 +26,7 @@ export function CopyTextButton({ text, tooltipProps, size = 12, onClick, ...rest
             {...tooltipProps}
         >
             <button {...rest} type="button" onClick={handleCopy}>
-                <CopyIcon width={size} height={size} className="ml-1" />
+                <CopyIcon width={size} height={size} />
             </button>
         </Tooltip>
     );

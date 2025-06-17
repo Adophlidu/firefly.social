@@ -46,12 +46,10 @@ function ExplorerLink(props: { address: string; type: 'address' | 'tx'; chainId?
 
     if (!href) return <span className="break-all">{address}</span>;
     return (
-        <span className="break-all">
+        <span className="inline-flex gap-1 break-all">
             {address}
-            <span className="ml-1">
-                <CopyTextButton size={14} text={address} />
-            </span>
-            <a href={href} target="_blank" className="ml-1 inline-block">
+            <CopyTextButton size={14} text={address} />
+            <a href={href} target="_blank" className="inline-block">
                 <LinkIcon width={14} height={14} />
             </a>
         </span>

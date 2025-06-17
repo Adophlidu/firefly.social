@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TokenCard } from '@/components/EmbedCards/TokenCard.js';
 
 const meta = {
-    title: 'Token/TokenCard',
+    title: 'Token/EmbedCards/TokenCard',
     component: TokenCard,
     render: (args) => {
         return (

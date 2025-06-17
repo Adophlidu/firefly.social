@@ -79,7 +79,7 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
                 ) : null}
                 <div
                     className={classNames(
-                        'flex items-center',
+                        'flex items-center gap-1',
                         primary_ens ? 'text-second' : 'text-lg font-bold text-lightMain',
                     )}
                 >
