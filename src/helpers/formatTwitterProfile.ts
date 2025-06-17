@@ -45,7 +45,7 @@ export function formatTwitterProfile(data: UserV2): Profile<UserV2> {
         followerCount: data.public_metrics?.followers_count ?? 0,
         followingCount: data.public_metrics?.following_count ?? 0,
         verified: data.verified || false,
-        protected: data.protected || !!viewerContext?.followPending,
+        protected: data.protected || viewerContext?.followPending === true,
         viewerContext,
         website: data.url,
         location: data.location,

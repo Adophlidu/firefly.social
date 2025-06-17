@@ -41,6 +41,7 @@ export const TWITTER_USER_OPTIONS: Partial<UsersV2Params> = {
         'verified',
         'verified_type',
         'entities',
+        'protected',
     ],
 };
 
