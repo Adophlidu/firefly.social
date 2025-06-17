@@ -15,7 +15,7 @@ import { AuthenticationError, BskySessionExpiredError, FetchError } from '@/cons
 import { EMPTY_LIST, HIDDEN_SECRET } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
-import { createSelectors } from '@/helpers/createSelector.js';
+import { createSelectors, type CustomSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isBskyTokenExpired } from '@/helpers/isBskyTokenExpired.js';
@@ -556,9 +556,13 @@ const useFireflyStateBase = createState(
     },
 );
 
-export const useLensStateStore = createSelectors(useLensStateBase);
-export const useFarcasterStateStore = createSelectors(useFarcasterStateBase);
-export const useTwitterStateStore = createSelectors(useTwitterStateBase);
-export const useBskyStateStore = createSelectors(useBskyStateBase);
-export const useThirdPartyStateStore = createSelectors(useThirdPartyStateBase);
-export const useFireflyStateStore = createSelectors(useFireflyStateBase);
+const customSelectors: CustomSelectors<ProfileState> = {
+    currentProfile: (state) => (state.status === AsyncStatus.Pending ? null : state.currentProfile),
+};
+
+export const useLensStateStore = createSelectors(useLensStateBase, customSelectors);
+export const useFarcasterStateStore = createSelectors(useFarcasterStateBase, customSelectors);
+export const useTwitterStateStore = createSelectors(useTwitterStateBase, customSelectors);
+export const useBskyStateStore = createSelectors(useBskyStateBase, customSelectors);
+export const useThirdPartyStateStore = createSelectors(useThirdPartyStateBase, customSelectors);
+export const useFireflyStateStore = createSelectors(useFireflyStateBase, customSelectors);

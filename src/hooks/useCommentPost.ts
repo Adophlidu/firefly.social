@@ -19,7 +19,7 @@ export function useCommentPost(post: Post, disabled = false) {
     const isLogin = !!profile?.profileId;
 
     const { data: authorProfile = null } = useQuery({
-        queryKey: ['profile', source, author.profileId],
+        queryKey: ['profile', source, author.profileId, isLogin],
         staleTime: 1000 * 60 * 1, // 1 minute
         queryFn: async () => {
             const provider = resolveSocialMediaProvider(source);

@@ -57,8 +57,9 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
     const [followLoading, toggleFollow] = useToggleFollow(post.author);
 
+    const isLogin = useIsLogin(post.source);
     const { data: profile = null, isLoading: queryProfileLoading } = useQuery({
-        queryKey: ['profile', post.source, post.author.profileId],
+        queryKey: ['profile', post.source, post.author.profileId, isLogin],
         queryFn: async () => {
             return resolveSocialMediaProvider(post.source).getProfileByIdOrHandle(post.author.handle);
         },
@@ -67,8 +68,6 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             return failureCount <= 3;
         },
     });
-
-    const isLogin = useIsLogin(post.source);
 
     const { balance, isLoading: queryBalanceLoading } = useTokenBalanceInPostCollect(
         post.source,

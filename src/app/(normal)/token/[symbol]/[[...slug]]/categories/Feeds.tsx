@@ -39,7 +39,7 @@ function useMergeX3KolProfiles(mentionUsers: TokenMentionUser[], enabled: boolea
     const twitterProfiles = useQueries({
         queries: twitterIds.map((twitterId) => ({
             enabled,
-            queryKey: ['profile', Source.Twitter, twitterId],
+            queryKey: ['profile', Source.Twitter, twitterId, true],
             queryFn: () => TwitterSocialMediaProvider.getProfileById(twitterId),
         })),
         combine: (result) => {

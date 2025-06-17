@@ -30,15 +30,17 @@ export function SetQueryDataForPosts<T extends ClassType<Provider>>(target: T): 
                 result.data.forEach((post) => {
                     queryClient.setQueryData([post.source, 'post-detail', post.postId], post);
                     if (post.source !== Source.Farcaster) {
-                        const profileIdQueryKey = ['profile', post.source, post.author.profileId];
-                        const handleQueryKey = ['profile', post.source, post.author.handle];
-
-                        if (!queryClient.getQueryData(profileIdQueryKey)) {
-                            queryClient.setQueryData(profileIdQueryKey, post.author);
+                        const queryKeyGroups = [];
+                        for (const identity of [post.author.profileId, post.author.handle]) {
+                            queryKeyGroups.push(['profile', post.source, identity]);
+                            queryKeyGroups.push(['profile', post.source, identity, true]);
+                            queryKeyGroups.push(['profile', post.source, identity, false]);
                         }
-                        if (!queryClient.getQueryData(handleQueryKey)) {
-                            queryClient.setQueryData(handleQueryKey, post.author);
-                        }
+                        queryKeyGroups.forEach((queryKey) => {
+                            if (!queryClient.getQueryData(queryKey)) {
+                                queryClient.setQueryData(queryKey, post.author);
+                            }
+                        });
                     }
                 });
                 await prefetchPostLinks(

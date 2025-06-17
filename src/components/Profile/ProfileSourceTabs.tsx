@@ -33,9 +33,11 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByFireflyProfile } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isProfilePageSource, isSocialSource } from '@/helpers/isSource.js';
+import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { sortFireflyProfiles } from '@/helpers/sortFireflyProfiles.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureProfileActionEvent.js';
 import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -139,8 +141,9 @@ function TriggerButton({
         }
     }, [isLast, isCurrentSource]);
 
+    const isLogin = useIsLogin(narrowToSocialSource(source));
     const { data } = useQuery({
-        queryKey: ['profile', source, identity.id],
+        queryKey: ['profile', source, identity.id, isLogin],
         queryFn: () => {
             if (!isSocialSource(source)) return;
             return resolveSocialMediaProvider(source).getProfileByIdOrHandle(identity.id);

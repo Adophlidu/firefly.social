@@ -11,7 +11,7 @@ import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { Source } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -20,12 +20,11 @@ interface Props extends ModalProps {
 }
 
 export const MentionedByModal = memo<Props>(function MentionedByModal({ users, ...props }) {
-    const twitterProfile = useCurrentProfile(Source.Twitter);
-    const isTwitterLogin = !!twitterProfile;
+    const isTwitterLogin = useIsLogin(Source.Twitter);
     const twitterProfiles = useQueries({
         queries: users.map((user) => ({
             enabled: isTwitterLogin,
-            queryKey: ['profile', Source.Twitter, user.profileId],
+            queryKey: ['profile', Source.Twitter, user.profileId, isTwitterLogin],
             queryFn: () => TwitterSocialMediaProvider.getProfileById(user.profileId),
         })),
         combine: (result) => result.map((x) => x.data),
