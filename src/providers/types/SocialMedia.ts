@@ -84,6 +84,8 @@ export interface Profile<O = unknown> {
     status: ProfileStatus;
     tags?: Tag[];
     verified: boolean;
+    /** Twitter only */
+    protected?: boolean;
     signless?: boolean;
     viewerContext?: {
         following?: boolean;

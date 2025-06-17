@@ -34,11 +34,17 @@ export function useToggleFollow(profile: Profile) {
                 const result = following
                     ? await provider.unfollow(profile.profileId)
                     : await provider.follow(profile.profileId);
-                enqueueSuccessMessage(
-                    following
-                        ? t`Unfollowed @${profile.handle} on ${sourceName}`
-                        : t`Followed @${profile.handle} on ${sourceName}`,
-                );
+                if (profile.protected && !following) {
+                    enqueueSuccessMessage(
+                        t`A follow request has been sent to @${profile.handle} and is pending their approval.`,
+                    );
+                } else {
+                    enqueueSuccessMessage(
+                        following
+                            ? t`Unfollowed @${profile.handle} on ${sourceName}`
+                            : t`Followed @${profile.handle} on ${sourceName}`,
+                    );
+                }
                 captureProfileActionEvent(following ? 'unfollow' : 'follow', profile);
                 return result;
             } catch (error) {

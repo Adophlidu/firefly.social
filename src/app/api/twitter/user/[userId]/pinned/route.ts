@@ -42,6 +42,10 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         });
 
         if (errors?.length) console.error('[twitter] v2.singleTweet (pinned tweet)', errors);
+        if (!data) {
+            console.error('[twitter] v2.singleTweet (pinned tweet) no data', user.data.pinned_tweet_id);
+            throw new NotFoundError();
+        }
 
         return createSuccessResponseJSON(tweetV2ToPost(data, includes));
     },

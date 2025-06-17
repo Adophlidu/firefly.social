@@ -1,6 +1,7 @@
 'use client';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { skipToken, useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 
+import ProtectedIcon from '@/assets/protected.svg';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
@@ -42,6 +43,19 @@ export function FeedList({ profileId, source }: FeedListProps) {
         select: getPostsSelector(source),
     });
 
+    const { data: profile } = useSuspenseQuery({
+        queryKey: ['profile', source, profileId],
+        queryFn:
+            source === Source.Twitter
+                ? async () => {
+                      const provider = resolveSocialMediaProvider(source);
+                      const profile = await provider.getProfileById(profileId);
+                      return provider.getProfileByHandle(profile.handle);
+                  }
+                : skipToken,
+    });
+    const isProtected = profile?.protected;
+
     return (
         <ListInPage
             source={source}
@@ -54,6 +68,17 @@ export function FeedList({ profileId, source }: FeedListProps) {
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',
+                icon: isProtected ? <ProtectedIcon width={190} height={50} className="text-third" /> : undefined,
+                message: isProtected ? (
+                    <div className="flex flex-col">
+                        <div className="mt-[42px] text-lg text-second">These posts are protected</div>
+                        <div className="mt-6 text-base text-second">
+                            Only approved followers can see these posts.
+                            <br />
+                            To request access, click Follow.
+                        </div>
+                    </div>
+                ) : undefined,
             }}
         />
     );

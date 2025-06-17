@@ -370,6 +370,10 @@ msgstr ""
 msgid "An unknown error occurred."
 msgstr ""
 
+#. placeholder {0}: profile.handle
+msgid "A follow request has been sent to @{0} and is pending their approval."
+msgstr ""
+
 msgid "Set Password"
 msgstr ""
 

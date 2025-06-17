@@ -2,7 +2,7 @@ import { t } from '@lingui/core/macro';
 import { useRef } from 'react';
 
 import BlockIcon from '@/assets/block.svg';
-import TimerIcon from '@/assets/timer.svg';
+import PendingIcon from '@/assets/pending.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 
@@ -24,13 +24,13 @@ export function TwitterFollowButton({
 
     const variantClassName = {
         text: 'min-w-[112px]',
-        icon: 'size-8 shrink-0',
+        icon: 'size-8 shrink-0 !border-transparent',
     }[variant];
 
     if (!isBlocked && !isPending) return null;
 
     const BlockLabel = variant === 'text' ? t`Blocked` : <BlockIcon className="size-4 flex-shrink-0" />;
-    const PendingLabel = variant === 'text' ? t`Pending` : <TimerIcon className="size-4 flex-shrink-0" />;
+    const PendingLabel = variant === 'text' ? t`Pending` : <PendingIcon className="size-4 flex-shrink-0" />;
     return (
         <ClickableButton
             ref={hoverRef}

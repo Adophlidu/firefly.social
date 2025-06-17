@@ -365,6 +365,10 @@ msgstr "Turn off"
 msgid "An unknown error occurred."
 msgstr "An unknown error occurred."
 
+#. placeholder {0}: profile.handle
+msgid "A follow request has been sent to @{0} and is pending their approval."
+msgstr "A follow request has been sent to @{0} and is pending their approval."
+
 msgid "Set Password"
 msgstr "Set Password"
 

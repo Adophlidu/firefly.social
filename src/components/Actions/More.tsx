@@ -5,7 +5,7 @@ import { memo, useCallback } from 'react';
 import EngagementIcon from '@/assets/engagement.svg';
 import FollowUserIcon from '@/assets/follow-user.svg';
 import MoreIcon from '@/assets/more.svg';
-import TimerIcon from '@/assets/timer.svg';
+import PendingIcon from '@/assets/pending.svg';
 import TrashIcon from '@/assets/trash.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
@@ -68,7 +68,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
             const icon = loading ? (
                 <LoadingIcon size={18} />
             ) : isPending ? (
-                <TimerIcon width={18} height={18} />
+                <PendingIcon width={18} height={18} />
             ) : isFollowing ? (
                 <UnFollowUserIcon width={18} height={18} />
             ) : (

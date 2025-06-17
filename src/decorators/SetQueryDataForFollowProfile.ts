@@ -10,26 +10,38 @@ import type { ClassType } from '@/types/index.js';
 
 export function setFollowStatus(source: Source, profileId: string, status: boolean) {
     const matcher: Matcher = (post) => post?.author.profileId === profileId;
+    const resolveViewerContextField = (
+        profile: Profile,
+        nextStatus: boolean,
+    ): Extract<keyof NonNullable<Profile['viewerContext']>, 'following' | 'followPending'> => {
+        if (profile.protected && nextStatus) {
+            return 'followPending';
+        }
+        return 'following';
+    };
     const patcher = (old: Draft<Profile>, status: boolean) => {
+        const field = resolveViewerContextField(old, status);
         old.viewerContext = {
             ...old.viewerContext,
-            following: status,
+            [field]: status,
         };
     };
     patchPostQueryData(source, matcher, (draft) => {
         if (draft.author.profileId !== profileId) return;
+        const field = resolveViewerContextField(draft.author, status);
         draft.author.viewerContext = {
             ...draft.author.viewerContext,
-            following: status,
+            [field]: status,
         };
     });
 
     queryClient.setQueriesData<Profile>({ queryKey: ['profile', source] }, (old) => {
         if (!old || old.profileId !== profileId) return old;
         return produce(old, (draft) => {
+            const field = resolveViewerContextField(old, status);
             draft.viewerContext = {
                 ...draft.viewerContext,
-                following: status,
+                [field]: status,
             };
         });
     });

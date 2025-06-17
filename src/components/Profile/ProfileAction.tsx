@@ -26,10 +26,12 @@ interface ProfileActionProps {
 
 export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps }: ProfileActionProps) {
     const isLogin = useIsLogin(initialProfile.source);
+    const profileId = initialProfile.profileId;
     const { data } = useQuery({
         queryKey: ['profile', initialProfile.source, initialProfile.profileId, isLogin],
+        initialData: initialProfile,
         queryFn: async () => {
-            return resolveSocialMediaProvider(initialProfile.source).getProfileByIdOrHandle(initialProfile.profileId);
+            return resolveSocialMediaProvider(initialProfile.source).getProfileByIdOrHandle(profileId);
         },
     });
 

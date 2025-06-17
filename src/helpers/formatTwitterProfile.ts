@@ -30,6 +30,7 @@ export function formatTwitterProfile(data: UserV2): Profile<UserV2> {
         (description, url) => description.replace(url.url, url.expanded_url),
         data.description ?? '',
     );
+    const viewerContext = formatTwitterProfileStatus(data.connection_status);
     return {
         ...createDummyProfile(Source.Twitter),
         profileId: data.id,
@@ -44,7 +45,8 @@ export function formatTwitterProfile(data: UserV2): Profile<UserV2> {
         followerCount: data.public_metrics?.followers_count ?? 0,
         followingCount: data.public_metrics?.following_count ?? 0,
         verified: data.verified || false,
-        viewerContext: formatTwitterProfileStatus(data.connection_status),
+        protected: data.protected || !!viewerContext?.followPending,
+        viewerContext,
         website: data.url,
         location: data.location,
         __original__: data,

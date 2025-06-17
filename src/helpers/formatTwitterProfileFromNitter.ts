@@ -76,6 +76,7 @@ export function formatTwitterProfileFromNitter(user: User): Profile {
         followerCount: user.followers,
         followingCount: user.following,
         verified: user.verifiedType !== UserVerifiedType.None,
+        protected: user.protected,
         website: user.website,
         location: user.location,
     };

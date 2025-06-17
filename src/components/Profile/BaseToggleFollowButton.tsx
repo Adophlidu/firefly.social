@@ -1,11 +1,13 @@
 import { memo, useMemo } from 'react';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { AsyncStatus, Source } from '@/constants/enum.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { useTwitterStateStore } from '@/store/useProfileStore.js';
 
 interface BaseToggleFollowButtonProps extends Omit<ClickableButtonProps, 'children'> {
     profile: Profile;
@@ -23,16 +25,18 @@ export const BaseToggleFollowButton = memo(function BaseToggleFollowButton({
     const isLogin = useIsLogin(profile.source);
 
     const following = !!profile.viewerContext?.following;
-    const showSuperFollow = false;
+    const isMyTwitterProfilePending = useTwitterStateStore((state) => state.status === AsyncStatus.Pending);
 
-    const buttonLabel = useMemo(() => children(showSuperFollow, loading), [showSuperFollow, loading, children]);
+    const showSuperFollow = false;
+    const showLoading = loading || (profile.source === Source.Twitter && isMyTwitterProfilePending);
+    const buttonLabel = useMemo(() => children(showSuperFollow, showLoading), [children, showSuperFollow, showLoading]);
 
     return (
         <ClickableButton
             enableDefault
             enablePropagate
             {...rest}
-            disabled={loading || rest.disabled}
+            disabled={showLoading || rest.disabled}
             onClick={(event) => {
                 onClick?.(event);
                 if (following && profile.canUnfollow === false) {

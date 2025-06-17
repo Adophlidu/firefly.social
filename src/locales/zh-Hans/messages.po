@@ -370,6 +370,10 @@ msgstr "关闭"
 msgid "An unknown error occurred."
 msgstr "抱歉，系统出了点问题。"
 
+#. placeholder {0}: profile.handle
+msgid "A follow request has been sent to @{0} and is pending their approval."
+msgstr ""
+
 msgid "Set Password"
 msgstr "设置密码"
 
