@@ -9,6 +9,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
@@ -20,7 +21,7 @@ interface FeedListProps {
 export function FeedList({ profileId, source }: FeedListProps) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
-    const isLogin = source === Source.Twitter;
+    const isLogin = useIsLogin(source);
     const { data: profile } = useSuspenseQuery({
         queryKey: ['profile', source, profileId, isLogin],
         queryFn:
@@ -33,15 +34,21 @@ export function FeedList({ profileId, source }: FeedListProps) {
                 : skipToken,
     });
     const isProtected = profile?.protected;
+    // Twitter API might returns incomplete data, so only force it when the user protects his account
+    const forceTwitterOfficial = isProtected && isLogin;
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['posts', source, 'posts-of', profileId, isLogin],
+        queryKey: ['posts', source, 'posts-of', profileId, forceTwitterOfficial],
 
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable<Post>(EMPTY_LIST, createIndicator());
 
             const provider = resolveSocialMediaProvider(source);
-            const posts = await provider.getPostsByProfileId(profileId, createIndicator(undefined, pageParam));
+            const pageIndicator = createIndicator(undefined, pageParam);
+            if (forceTwitterOfficial) {
+                pageIndicator.source = 'twitter';
+            }
+            const posts = await provider.getPostsByProfileId(profileId, pageIndicator);
 
             if (source === Source.Lens) {
                 const ids = posts.data.map((x) => x.postId);

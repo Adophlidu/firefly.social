@@ -68,6 +68,12 @@ import { X3ProKolListLabel, X3ProOrderType } from '@/providers/x3pro/types.js';
 import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
 import type { PartialWith, ResponseJSON } from '@/types/index.js';
 
+declare module '@/types/common.js' {
+    interface DataSourceRegister {
+        twitter: string;
+    }
+}
+
 export
 @WithNitter()
 @SetQueryDataForLikePost(Source.Twitter)
