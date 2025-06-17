@@ -1819,6 +1819,10 @@ msgstr ""
 msgid "Only people you mention"
 msgstr ""
 
+#. placeholder {0}: scannedProfile?.displayName
+msgid "The scanned profile <0><1/><2>{0}</2></0> does not match your current profile. Please retry with the correct Farcaster account."
+msgstr ""
+
 msgid "Scan this QR code and tap “Approve” on your Farcaster mobile app to start using your public profile."
 msgstr ""
 
@@ -3844,10 +3848,6 @@ msgid "Preview"
 msgstr ""
 
 msgid "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
-msgstr ""
-
-#. placeholder {0}: scannedProfile?.displayName
-msgid "The scanned profile <0><1/><2>{0}</2></0> does not match your current profile. Please retry the correct Farcaster account."
 msgstr ""
 
 msgid "Unmute"

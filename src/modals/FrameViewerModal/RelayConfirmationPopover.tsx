@@ -170,7 +170,7 @@ export function RelayConfirmationPopover({ ref }: Props) {
                                         <strong>{scannedProfile?.displayName}</strong>
                                     </div>
                                 }{' '}
-                                does not match your current profile. Please retry the correct Farcaster account.
+                                does not match your current profile. Please retry with the correct Farcaster account.
                             </Trans>
                         ) : (
                             <Trans>

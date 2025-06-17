@@ -1824,6 +1824,10 @@ msgstr "由 {displayName} 使用 Firefly 发送"
 msgid "Only people you mention"
 msgstr "只有你提及的人"
 
+#. placeholder {0}: scannedProfile?.displayName
+msgid "The scanned profile <0><1/><2>{0}</2></0> does not match your current profile. Please retry with the correct Farcaster account."
+msgstr ""
+
 msgid "Scan this QR code and tap “Approve” on your Farcaster mobile app to start using your public profile."
 msgstr ""
 
@@ -3866,10 +3870,6 @@ msgstr "预览"
 
 msgid "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
 msgstr "你持有<0>2024年总统选举</0> NFT 并投票给特朗普。"
-
-#. placeholder {0}: scannedProfile?.displayName
-msgid "The scanned profile <0><1/><2>{0}</2></0> does not match your current profile. Please retry the correct Farcaster account."
-msgstr ""
 
 msgid "Unmute"
 msgstr "取消隐藏"
