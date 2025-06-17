@@ -38,6 +38,7 @@ const handler = (method: string) =>
         const body = await request.json();
         const res = await fetchJSON<X3ProResponse | X3ProErrorResponse>(url, {
             method,
+            next: path === '/x3pro/scraper/kol/kolPage' ? { revalidate: 3600 } : undefined,
             headers: {
                 authorization: env.internal.X3_PRO_API_TOKEN,
             },
