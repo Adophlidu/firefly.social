@@ -1,4 +1,5 @@
 import { unreachable } from '@masknet/kit';
+import { compact } from 'lodash-es';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -33,9 +34,9 @@ export async function getSocialConnectionsWithProfile(source: SocialSource, soci
         case Source.Twitter:
         case Source.Bsky: {
             const connections = [...social[source].connected, ...social[source].unconnected];
-            const ids = connections.map((x) => x.id);
+            const ids = compact(connections.map((x) => x.id));
             if (!ids.length) return EMPTY_LIST;
-            const profiles = await resolveSocialMediaProvider(source).getProfilesByIds(connections.map((x) => x.id));
+            const profiles = await resolveSocialMediaProvider(source).getProfilesByIds(ids);
             return profiles
                 .map((profile) => ({
                     profile,
