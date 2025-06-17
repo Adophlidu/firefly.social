@@ -2,42 +2,33 @@ import { getPublicKey, utils } from '@noble/ed25519';
 import { bytesToHex } from '@noble/hashes/utils';
 import { type Hex, toHex } from 'viem';
 
-import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { FarcasterSession, FarcasterSponsorship } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
+import { createSignedKey } from '@/providers/warpcast/createSignedKey.js';
+import { createSignedKeyPayloadWithSponsorship } from '@/providers/warpcast/createSignedKeyPayload.js';
 import { pollingSignerRequestToken } from '@/providers/warpcast/pollingSignerRequestToken.js';
-import { signedKeyRequests } from '@/providers/warpcast/signedKeyRequests.js';
-import type { SignedBody } from '@/providers/warpcast/signin.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
-import type { ResponseJSON } from '@/types/index.js';
 
 async function createSession(signal?: AbortSignal) {
     const privateKey = utils.randomPrivateKey();
     const publicKey: Hex = `0x${bytesToHex(await getPublicKey(privateKey))}`;
-    const response = await fetchJSON<ResponseJSON<SignedBody>>('/api/firefly/sponsorship', {
-        method: 'POST',
-        signal,
-        body: JSON.stringify({
-            key: publicKey,
-        }),
-    });
-    if (!response.success) throw new Error(response.error.message);
-    const keyResponse = await signedKeyRequests(response.data.body, signal);
+    const payload = await createSignedKeyPayloadWithSponsorship(publicKey);
+    const key = await createSignedKey(payload.data.body, signal);
 
     const farcasterSession = new FarcasterSession(
-        `${keyResponse.result.signedKeyRequest.requestFid}`,
+        `${key.result.signedKeyRequest.requestFid}`,
         toHex(privateKey),
-        response.data.timestamp,
-        response.data.expiresAt,
+        payload.data.timestamp,
+        payload.data.expiresAt,
         // the signer request token is one-time use
-        keyResponse.result.signedKeyRequest.token,
+        key.result.signedKeyRequest.token,
         undefined,
-        `${FarcasterSponsorship.Firefly}-${response.data.body.sponsorship?.signature ?? '0x'}`,
+        `${FarcasterSponsorship.Firefly}-${payload.data.body.sponsorship?.signature ?? '0x'}`,
     );
 
     return {
-        deeplink: keyResponse.result.signedKeyRequest.deeplinkUrl,
+        deeplink: key.result.signedKeyRequest.deeplinkUrl,
         session: farcasterSession,
     };
 }

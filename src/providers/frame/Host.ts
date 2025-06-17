@@ -13,7 +13,8 @@ import { ComposeModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { signInWithFarcaster, signInWithRelay } from '@/services/signInWithFarcaster.js';
+import { signInWithFarcaster } from '@/providers/warpcast/signInWithFarcaster.js';
+import { signInWithRelay } from '@/providers/warpcast/signInWithRelay.js';
 import type { FrameV2 } from '@/types/frame.js';
 
 export class FarcasterFrameHost implements FrameHost {

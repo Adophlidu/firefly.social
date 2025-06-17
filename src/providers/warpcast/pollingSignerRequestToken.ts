@@ -8,6 +8,7 @@ import type { ResponseJSON } from '@/types/index.js';
 export async function pollingSignerRequestToken(token: string, signal?: AbortSignal) {
     const query = async () => {
         const signed = await fetchJSON<ResponseJSON<SignedKeyRequestResponse>>(
+            // CORS issue workaround: use a proxy or server-side function to handle the request
             urlcat('/api/warpcast/signed-key', {
                 token,
             }),

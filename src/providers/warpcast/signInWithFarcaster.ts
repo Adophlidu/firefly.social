@@ -10,7 +10,6 @@ import { getFarcasterAuthToken } from '@/helpers/getFarcasterAuthToken.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/index.js';
-import { RelayConfirmationPopoverRef } from '@/modals/FrameViewerModal/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { pollingRemoteSiwfToken } from '@/providers/warpcast/pollingRemoteSiwfToken.js';
 import type { FrameV2 } from '@/types/frame.js';
@@ -111,21 +110,4 @@ export async function signInWithRemoteFarcaster(frame: FrameV2, fid: string, non
         signature,
         authMethod: 'custody',
     } as const;
-}
-
-export async function signInWithRelay(frame: FrameV2, fid: string, nonce: string) {
-    const url = frame.x_url || SITE_URL;
-
-    const u = parseUrl(url);
-    if (!u) throw new Error(`Invalid URL: ${url}`);
-
-    const signed = await RelayConfirmationPopoverRef.openAndWaitForClose({
-        siweUri: url,
-        nonce,
-        domain: u.hostname,
-        frame,
-    });
-    if (!signed) throw new Error('Failed to sign with relay server.');
-
-    return signed;
 }

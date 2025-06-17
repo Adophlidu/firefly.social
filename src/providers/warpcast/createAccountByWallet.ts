@@ -10,8 +10,8 @@ import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import type { Account } from '@/providers/types/Account.js';
-import { signedKeyRequests } from '@/providers/warpcast/signedKeyRequests.js';
-import { signin } from '@/providers/warpcast/signin.js';
+import { createSignedKey } from '@/providers/warpcast/createSignedKey.js';
+import { createSignedKeyPayload } from '@/providers/warpcast/createSignedKeyPayload.js';
 
 async function createAccount(signal?: AbortSignal) {
     const { account } = await getWalletClientRequired(config);
@@ -26,14 +26,14 @@ async function createAccount(signal?: AbortSignal) {
         signatureMessage,
         true,
     );
-    const signInResponse = await signin(loginResponse.signerPublickey, signal);
-    const keyResponse = await signedKeyRequests(signInResponse.data.body, signal);
+    const payload = await createSignedKeyPayload(loginResponse.signerPublickey, signal);
+    const key = await createSignedKey(payload.data.body, signal);
     const session = new FarcasterSession(
         loginResponse.fid,
         loginResponse.signerPrivatekey,
-        signInResponse.data.timestamp,
-        signInResponse.data.expiresAt,
-        keyResponse.result.signedKeyRequest.token,
+        payload.data.timestamp,
+        payload.data.expiresAt,
+        key.result.signedKeyRequest.token,
         undefined,
         undefined,
         account.address,

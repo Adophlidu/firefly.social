@@ -5,30 +5,30 @@ import { NOT_DEPEND_SECRET } from '@/constants/index.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
+import { createSignedKey } from '@/providers/warpcast/createSignedKey.js';
+import { createSignedKeyPayload } from '@/providers/warpcast/createSignedKeyPayload.js';
 import { pollingSignerRequestToken } from '@/providers/warpcast/pollingSignerRequestToken.js';
-import { signedKeyRequests } from '@/providers/warpcast/signedKeyRequests.js';
-import { signin } from '@/providers/warpcast/signin.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 
 async function createSession(signal?: AbortSignal) {
     // create key pair in client side
     const privateKey = utils.randomPrivateKey();
     const publicKey: Hex = `0x${Buffer.from(await getPublicKey(privateKey)).toString('hex')}`;
-    const response = await signin(publicKey, signal);
-    const keyResponse = await signedKeyRequests(response.data.body, signal);
+    const payload = await createSignedKeyPayload(publicKey, signal);
+    const key = await createSignedKey(payload.data.body, signal);
 
     const farcasterSession = new FarcasterSession(
         // we don't posses the fid until the key request was signed
         NOT_DEPEND_SECRET,
         toHex(privateKey),
-        response.data.timestamp,
-        response.data.expiresAt,
+        payload.data.timestamp,
+        payload.data.expiresAt,
         // the signer request token is one-time use
-        keyResponse.result.signedKeyRequest.token,
+        key.result.signedKeyRequest.token,
     );
 
     return {
-        deeplink: keyResponse.result.signedKeyRequest.deeplinkUrl,
+        deeplink: key.result.signedKeyRequest.deeplinkUrl,
         session: farcasterSession,
     };
 }
