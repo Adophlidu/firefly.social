@@ -236,7 +236,6 @@ export const SwapActivityItem = memo<SwapActivityItemProps>(function SwapActivit
                         <div className={classNames('mt-2 flex items-center justify-between gap-2')}>
                             <SwapButton
                                 className="!ml-0 flex !px-2 py-[2px] !text-[12px] !font-medium !leading-[20px]"
-                                tradable
                                 swapProps={{
                                     chainId: activity.chain_id,
                                     fromToken: activity.from_token?.address,

@@ -82,10 +82,9 @@ export const TokenCard = memo<AddressCardProps>(function TokenCard({ address, ..
                         </span>
                         <CopyTextButton text={address} />
                     </div>
-                    {attributes?.address ? (
+                    {attributes?.address && tradeInfo.tradable && detected?.type === 'eth' ? (
                         <SwapButton
                             className="flex shrink-0 grow-0 flex-row-reverse !gap-1 !px-3 !py-2"
-                            tradable={tradeInfo.tradable ? detected?.type === 'eth' : false}
                             swapProps={
                                 detected?.chain_id
                                     ? {

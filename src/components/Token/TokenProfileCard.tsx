@@ -259,10 +259,9 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
                         </strong>
                     </Trans>
                 </div>
-                {address && detected?.chain_id ? (
+                {address && detected?.chain_id && tradeInfo.tradable && detected?.type === 'eth' ? (
                     <div className="ml-auto flex items-center justify-end">
                         <SwapButton
-                            tradable={tradeInfo.tradable ? detected?.type === 'eth' : false}
                             className="flex shrink-0 grow-0 flex-row-reverse !gap-1 !px-3 !py-2"
                             swapProps={{
                                 chainId: +detected.chain_id,

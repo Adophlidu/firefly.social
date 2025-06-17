@@ -197,21 +197,22 @@ export const TokenMarketData = memo(function TokenMarketData({
                                 ) : null}
                             </div>
                         </div>
-                        <SwapButton
-                            className="ml-auto sm:hidden md:inline-flex"
-                            tradable={tradeInfo.tradable}
-                            swapProps={
-                                tradeChainId && tradeInfo.address
-                                    ? {
-                                          toToken: tradeInfo.address,
-                                          chainId: tradeChainId,
-                                          chainIds: tradeInfo.supportedChainIds.map((x) => x.toString()),
-                                      }
-                                    : undefined
-                            }
-                        >
-                            <Trans>Swap</Trans>
-                        </SwapButton>
+                        {tradeInfo.tradable ? (
+                            <SwapButton
+                                className="ml-auto sm:hidden md:inline-flex"
+                                swapProps={
+                                    tradeChainId && tradeInfo.address
+                                        ? {
+                                              toToken: tradeInfo.address,
+                                              chainId: tradeChainId,
+                                              chainIds: tradeInfo.supportedChainIds.map((x) => x.toString()),
+                                          }
+                                        : undefined
+                                }
+                            >
+                                <Trans>Swap</Trans>
+                            </SwapButton>
+                        ) : null}
                     </div>
                     <div className="line-height-[22px] mt-6 flex flex-col gap-2">
                         <div className="text-2xl font-bold">

@@ -19,16 +19,14 @@ import { captureSwapEvent } from '@/providers/telemetry/captureSwapEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 interface Props extends ClickableButtonProps {
-    tradable?: boolean;
     swapProps?: SwapModalOpenProps;
 }
 
 export const SwapButton = memo<Props>(function SwapButton({
     className,
-    tradable,
     swapProps: swapPropsFromProps,
     ...rest
-}: ClickableButtonProps & { tradable?: boolean; swapProps?: SwapModalOpenProps }) {
+}: ClickableButtonProps & { swapProps?: SwapModalOpenProps }) {
     const { data: supportedChainIds = EMPTY_LIST } = useOkxSupportedChains();
 
     const chainIds = useMemo(() => supportedChainIds.map((x) => x.chainId), [supportedChainIds]);
@@ -39,7 +37,6 @@ export const SwapButton = memo<Props>(function SwapButton({
     const { ethereum, solana } = useWalletAccountAll();
 
     if (providerType === ProviderType.EVM && chainId && !chainIds.includes(chainId)) return null;
-    if (!tradable) return null;
 
     return (
         <ClickableButton
@@ -47,7 +44,6 @@ export const SwapButton = memo<Props>(function SwapButton({
                 'ml-auto gap-[10px] rounded-full bg-main px-5 py-2 text-[15px] leading-4 text-primaryBottom',
                 className,
             )}
-            disabled={!tradable}
             onClick={async () => {
                 if (
                     (providerType === ProviderType.EVM && !ethereum.isConnected) ||
