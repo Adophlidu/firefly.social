@@ -170,7 +170,7 @@ export class MentionNode extends TextNode {
 
             const handleTooltipClick = async (e: MouseEvent) => {
                 const target = e.target as HTMLElement;
-                if (target.classList.contains('cross-at-edit-item') && this.__profiles) {
+                if (this.__profiles) {
                     tooltip.hide();
                     if (activeTooltip === tooltip) {
                         activeTooltip = null;

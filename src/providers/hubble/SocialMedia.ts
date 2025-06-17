@@ -8,6 +8,7 @@ import { z } from 'zod';
 
 import { FarcasterInvalidSignerKey, NotImplementedError } from '@/constants/error.js';
 import { NEYNAR_URL } from '@/constants/index.js';
+import { URL_REGEX } from '@/constants/regexp.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { farcasterPostIdToHash } from '@/helpers/farcasterPostIdToHash.js';
 import { fetchNeynarJSON } from '@/helpers/fetchNeynar.js';
@@ -378,6 +379,11 @@ class HubbleSocialMedia implements Provider {
 
     async publishPost(post: Post): Promise<{ postId: string }> {
         const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
+
+        const urls = post.metadata.content?.content?.match(URL_REGEX) || [];
+        const mediaUrls = post.mediaObjects?.map((v) => ({ url: v.url })) ?? [];
+        const contentUrls = urls.map((url) => ({ url }));
+
         const { messageJson } = await encodeMessageData(
             () => {
                 const data: {
@@ -386,7 +392,7 @@ class HubbleSocialMedia implements Provider {
                     castAddBody: {
                         ...result,
                         embedsDeprecated: [],
-                        embeds: post.mediaObjects?.map((v) => ({ url: v.url })) ?? [],
+                        embeds: [...mediaUrls, ...contentUrls].slice(0, 2),
                         parentCastId: undefined,
                         parentUrl: undefined,
                     },

@@ -90,10 +90,10 @@ export function EditCrossAtModal({ ref }: Props) {
                                         className="w-full border-none bg-transparent p-0 leading-[18px] outline-none focus:border-none"
                                         style={{ boxShadow: 'none' }}
                                         value={handles[source] ?? ''}
-                                        pattern="[a-zA-Z0-9_]+"
+                                        pattern="[a-zA-Z0-9_.]+"
                                         onChange={(e) => {
                                             const value = e.target.value;
-                                            if (/^[a-zA-Z0-9_]*$/.test(value)) {
+                                            if (/^[a-zA-Z0-9_.]*$/.test(value)) {
                                                 setHandles((h) => ({ ...h, [source]: value }));
                                             }
                                         }}

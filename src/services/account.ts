@@ -362,6 +362,8 @@ export async function syncMetrics(account: Account) {
 
 export async function verifyAndGetPassword(skipCheck = false, autoUploadMetrics = true) {
     const localPassword = useTokenPasswordStore.getState().password;
+    const status = await FireflyEndpointProvider.getMetricsStatus();
+    if (!status.hasSetPasscode) return null;
     if (localPassword && !skipCheck) {
         const result = await FireflyEndpointProvider.checkPasscode(localPassword, true);
         if (result?.code === FireflyResponseCode.SUCCESS) {
@@ -563,9 +565,24 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
 
     const passcode = await verifyAndGetPassword();
     if (passcode) {
-        await FireflyEndpointProvider.deleteMetrics(passcode, [
-            `${account.profile.source === Source.Bsky ? 'bluesky' : resolveSourceInUrl(account.profile.source)}:${account.profile.profileId}`,
-        ]);
+        const remoteAccounts = await downloadAccounts();
+        const remoteProfiles = remoteAccounts.map(({ metaInfo }) => {
+            const sourceInUrl = metaInfo.platform === 'bluesky' ? SourceInURL.Bsky : metaInfo.platform;
+            const source = resolveSocialSource(sourceInUrl);
+
+            return {
+                ...createDummyProfile(source),
+                profileId: metaInfo.profileId,
+                handle: metaInfo.profileHandle,
+                displayName: metaInfo.name,
+                pfp: metaInfo.avatar,
+            } satisfies Profile;
+        });
+        if (remoteProfiles.some((x) => isSameProfile(x, account.profile))) {
+            await FireflyEndpointProvider.deleteMetrics(passcode, [
+                `${account.profile.source === Source.Bsky ? 'bluesky' : resolveSourceInUrl(account.profile.source)}:${account.profile.profileId}`,
+            ]);
+        }
     }
     runInSafeAsync(async () => {
         if (TwitterSession.isNextAuth(account.session)) {
