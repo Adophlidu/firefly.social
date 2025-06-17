@@ -55,7 +55,7 @@ export const SwapButton = memo<Props>(function SwapButton({
                     return;
                 }
                 if (chainId && providerType === ProviderType.EVM) await switchChain(config, { chainId });
-                captureSwapEvent(EventId.EVENT_SWAP_COPY_SUCCESS);
+                captureSwapEvent(EventId.EVENT_SWAP_COPY_TRADE_CLICK);
                 SwapModalRef.open({
                     ...swapPropsFromProps,
                     providerType,

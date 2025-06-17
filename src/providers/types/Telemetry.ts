@@ -227,7 +227,7 @@ export enum EventId {
     EVENT_FOLLOWING_SWAP_CLICK = 'following_swap_click',
     EVENT_LIKE_SWAP_CLICK = 'swap_like_success',
     EVENT_SWAP_DETAIL_CLICK = 'swap_detail_click',
-    EVENT_SWAP_COPY_SUCCESS = 'swap_copy_success',
+    EVENT_SWAP_COPY_TRADE_CLICK = 'swap_copy_trade_click',
 
     // channel
     FARCASTER_CHANNEL_JOIN_SUCCESS = 'farcaster_channel_join_success',

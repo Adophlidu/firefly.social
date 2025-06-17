@@ -9,7 +9,7 @@ export function captureSwapEvent(
         | EventId.EVENT_FOLLOWING_SWAP_CLICK
         | EventId.EVENT_LIKE_SWAP_CLICK
         | EventId.EVENT_SWAP_DETAIL_CLICK
-        | EventId.EVENT_SWAP_COPY_SUCCESS,
+        | EventId.EVENT_SWAP_COPY_TRADE_CLICK,
 ) {
     return runInSafeAsync(async () => {
         const fireflySession = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
