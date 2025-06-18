@@ -249,13 +249,13 @@ export enum KeyType {
     CreateMetadataSwap = '/v2/createMetadataSwap',
     CreateMetadataPostById = '/v2/createPageMetadataById',
     CreateMetadataArticleById = '/v2/createMetadataArticleById',
-    CreateMetadataProfileById = '/v2/createMetadataProfileById',
+    CreateMetadataProfileById = '/v3/createMetadataProfileById',
     CreateMetadataChannelById = '/v2/createMetadataChannelById',
     CreateMetadataEvent = '/v2/createMetadataEvent',
 
     TwitterHandleToUid = 'twitterHandleToUid',
     TwitterUidToHandle = 'twitterUidToHandle',
-    GetTwitterAvatarById = 'getTwitterAvatar',
+    GetTwitterAvatarById = '/v2/getTwitterAvatar',
 
     PostState = '/v2/post-state',
 }

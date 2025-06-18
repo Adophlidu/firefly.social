@@ -7,6 +7,7 @@ import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 
 export async function createMetadataProfileById(source: ProfilePageSource, profileId: string, forceHandle = false) {
@@ -20,8 +21,8 @@ export async function createMetadataProfileById(source: ProfilePageSource, profi
 
     const images = [
         {
-            url: urlcat(SITE_URL, 'api/og/:source/:id/image', {
-                source,
+            url: urlcat(SITE_URL, 'api/og/profile/:source/:id/image', {
+                source: resolveSourceInUrl(source),
                 id: profileId,
             }),
         },

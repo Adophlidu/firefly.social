@@ -5,6 +5,7 @@ import { SITE_DESCRIPTION, SITE_URL } from '@/constants/index.js';
 import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getFireflyProfileURL } from '@/helpers/getFireflyProfileURL.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
@@ -15,8 +16,8 @@ export async function createMetadataProfileByFireflyUid(uid: string) {
 
     const images = [
         {
-            url: urlcat(SITE_URL, 'api/og/:source/:id/image', {
-                source: Source.Firefly,
+            url: urlcat(SITE_URL, 'api/og/profile/:source/:id/image', {
+                source: resolveSourceInUrl(Source.Firefly),
                 id: uid,
             }),
         },

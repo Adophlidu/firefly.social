@@ -6,14 +6,14 @@ import { compose } from '@/helpers/compose.js';
 import { createRedirectResponse } from '@/helpers/createRedirectResponse.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
+import { NitterAPIProvider } from '@/providers/twitter/Nitter.js';
 import { NitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
-import { convertTwitterIdToHandle } from '@/services/convertTwitterIdToHandle.js';
 import { getTwitterProfileByOG } from '@/services/getTwitterProfileByOG.js';
 import type { NextRequestContext } from '@/types/index.js';
 
 const getTwitterAvatarById = memoizeWithRedis(
     async (twitterId: string) => {
-        const username = await convertTwitterIdToHandle(twitterId);
+        const { username } = await NitterAPIProvider.convertUserIdToHandle(twitterId);
         if (!username) throw new MalformedError('username not found');
         const profile = await getTwitterProfileByOG(username);
         if (profile?.pfp) return profile.pfp;
