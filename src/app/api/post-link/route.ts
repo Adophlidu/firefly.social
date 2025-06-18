@@ -23,6 +23,7 @@ import { getPostIFrame } from '@/providers/og/readers/iframe.js';
 import type { SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { NFTDetail } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { digestBskyPostLink } from '@/services/digestBskyPostLink.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
 import { getCollectionFromUrl } from '@/services/getCollectionFromUrl.js';
 import { getNFTFromUrl } from '@/services/getNFTFromUrl.js';
@@ -78,6 +79,10 @@ export async function getClassifyPostLink(url: string) {
             async () => {
                 const truthSocialPost = await getTruthSocialPostFromUrl(url);
                 return truthSocialPost ? { quote: truthSocialPost } : null;
+            },
+            async () => {
+                const bskyPost = await digestBskyPostLink(url);
+                return bskyPost ? { quote: bskyPost } : null;
             },
             async () => {
                 const spaceId = url.match(TWEET_SPACE_REGEX)?.[3];

@@ -8,8 +8,10 @@ import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CollectionPreviewer, NFTPreviewer } from '@/components/NFTs/NFTPreview.js';
+import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
+import { digestBskyPostLink } from '@/services/digestBskyPostLink.js';
 import { getCollectionFromUrl } from '@/services/getCollectionFromUrl.js';
 import { getNFTFromUrl } from '@/services/getNFTFromUrl.js';
 
@@ -18,6 +20,15 @@ export default function Page() {
 
     const [{ error, loading, value }, onSubmit] = useAsyncFn(async () => {
         if (!isValidUrl(url)) throw new Error('Invalid URL');
+
+        const bskyPost = await digestBskyPostLink(url);
+        if (bskyPost) {
+            return {
+                post: bskyPost,
+                collection: undefined,
+                nft: undefined,
+            };
+        }
 
         const collection = await getCollectionFromUrl(url);
 
@@ -40,7 +51,7 @@ export default function Page() {
                     type="text"
                     autoComplete="off"
                     spellCheck="false"
-                    placeholder="Your URL"
+                    placeholder="NFT, Collection, or Post URL"
                     onChange={(e) => setUrl(e.target.value)}
                 />
                 <ClickableButton
@@ -62,6 +73,7 @@ export default function Page() {
             <div className="w-full max-w-[500px]">
                 {value?.nft ? <NFTPreviewer nft={value.nft} /> : null}
                 {value?.collection ? <CollectionPreviewer collection={value.collection} /> : null}
+                {value?.post ? <SinglePost post={value.post} /> : null}
             </div>
             {error ? <div className="w-full">{error.message}</div> : null}
         </Section>
