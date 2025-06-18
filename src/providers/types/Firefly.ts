@@ -1780,7 +1780,7 @@ export type MetricsDownloadMetaInfoResponse = Response<{
 }>;
 
 export interface MetricsMetaInfo {
-    platform: Exclude<SocialSourceInURL, SourceInURL.Bsky> | 'bluesky';
+    platform: Exclude<SocialSourceInURL, SourceInURL.Bsky>;
     profileId: string;
     profileHandle: string;
     loginTime: string;
@@ -1789,7 +1789,7 @@ export interface MetricsMetaInfo {
 }
 
 export interface CommonMetricsData {
-    platform: Exclude<SocialSourceInURL, SourceInURL.Bsky> | 'bluesky';
+    platform: Exclude<SocialSourceInURL, SourceInURL.Bsky>;
     profile_id: string;
     login_time: string;
 }

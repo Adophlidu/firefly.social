@@ -3,7 +3,7 @@ import { first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { PasswordWorkflow, type ProfileSource, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
+import { PasswordWorkflow, type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import { SEVEN_DAYS, SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
 import { FireflyResponseCode } from '@/constants/responseCode.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
@@ -14,7 +14,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSessionHolder, resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import {
     ConfirmFireflyModalRef,
@@ -317,8 +317,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 export async function syncMetrics(account: Account) {
     const remoteAccounts = await downloadAccounts();
     const remoteProfiles = remoteAccounts.map(({ metaInfo }) => {
-        const sourceInUrl = metaInfo.platform === 'bluesky' ? SourceInURL.Bsky : metaInfo.platform;
-        const source = resolveSocialSource(sourceInUrl);
+        const source = resolveSocialSource(metaInfo.platform);
 
         return {
             ...createDummyProfile(source),
@@ -567,8 +566,7 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
     if (passcode) {
         const remoteAccounts = await downloadAccounts();
         const remoteProfiles = remoteAccounts.map(({ metaInfo }) => {
-            const sourceInUrl = metaInfo.platform === 'bluesky' ? SourceInURL.Bsky : metaInfo.platform;
-            const source = resolveSocialSource(sourceInUrl);
+            const source = resolveSocialSource(metaInfo.platform);
 
             return {
                 ...createDummyProfile(source),
@@ -580,7 +578,7 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
         });
         if (remoteProfiles.some((x) => isSameProfile(x, account.profile))) {
             await FireflyEndpointProvider.deleteMetrics(passcode, [
-                `${account.profile.source === Source.Bsky ? 'bluesky' : resolveSourceInUrl(account.profile.source)}:${account.profile.profileId}`,
+                `${resolveSocialSourceInUrl(account.profile.source)}:${account.profile.profileId}`,
             ]);
         }
     }
@@ -631,9 +629,7 @@ export async function removeAccountsByProfiles(profiles: Profile[], signal?: Abo
     if (passcode) {
         await FireflyEndpointProvider.deleteMetrics(
             passcode,
-            profiles.map(
-                (x) => `${x.source === Source.Bsky ? 'bluesky' : resolveSourceInUrl(x.source)}:${x.profileId}`,
-            ),
+            profiles.map((x) => `${resolveSocialSourceInUrl(x.source)}:${x.profileId}`),
         );
     }
 

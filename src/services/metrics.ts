@@ -20,7 +20,6 @@ import { resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionH
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveTwitterResponseData } from '@/helpers/resolveTwitterResponseData.js';
-import { BskySession } from '@/providers/bsky/Session.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { LensSession } from '@/providers/lens/Session.js';
@@ -31,7 +30,6 @@ import { TwitterSession } from '@/providers/twitter/Session.js';
 import { type SessionPayload } from '@/providers/twitter/SessionPayload.js';
 import type { Account } from '@/providers/types/Account.js';
 import type {
-    BskyMetricsData,
     CommonMetricsData,
     FarcasterMetricsData,
     LensMetricsData,
@@ -65,9 +63,11 @@ function decryptCipherText(passcode: string, text: string) {
 }
 
 async function getMetricsDataToUpload(account: Account, passcode: string) {
-    const platform = (
-        account.profile.source === Source.Bsky ? 'bluesky' : resolveSocialSourceInUrl(account.profile.source)
-    ) as MetricsMetaInfo['platform'];
+    const platform = resolveSocialSourceInUrl(account.profile.source);
+    if (platform === SourceInURL.Bsky) {
+        return null;
+    }
+
     const commonData: CommonMetricsData = {
         platform,
         profile_id: account.profile.profileId,
@@ -84,18 +84,6 @@ async function getMetricsDataToUpload(account: Account, passcode: string) {
                 identity_token: session.token,
                 address: account.profile.profileId,
             } satisfies LensMetricsData;
-        }
-        case Source.Bsky: {
-            const session = account.session as BskySession;
-
-            return {
-                ...commonData,
-                access_jwt: session.sessionPayload.accessJwt,
-                refresh_jwt: session.sessionPayload.refreshJwt,
-                did: session.sessionPayload.did,
-                server_host: session.serviceUrl,
-                handle: account.profile.handle,
-            } satisfies BskyMetricsData;
         }
         case Source.Farcaster: {
             const session = account.session as FarcasterSession;
@@ -123,6 +111,8 @@ async function getMetricsDataToUpload(account: Account, passcode: string) {
             );
             return resolveTwitterResponseData(encodedMetricsData);
         }
+        case Source.Bsky:
+            return null;
         default:
             safeUnreachable(account.profile.source);
             return null;
@@ -134,9 +124,11 @@ async function getLocalMetrics(passcode: string) {
 
     return await Promise.all(
         allAccounts.map(async (account) => {
-            const platform = (
-                account.profile.source === Source.Bsky ? 'bluesky' : resolveSocialSourceInUrl(account.profile.source)
-            ) as MetricsMetaInfo['platform'];
+            if (account.profile.source === Source.Bsky) {
+                return null;
+            }
+
+            const platform = resolveSocialSourceInUrl(account.profile.source) as MetricsMetaInfo['platform'];
             const metricsData = await getMetricsDataToUpload(account, passcode);
             if (!metricsData) return null;
 
@@ -218,7 +210,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
 
         const { platform, loginTime } = info.metaInfo;
 
-        if (platform === 'bluesky' || platform === 'x') {
+        if (platform === 'x') {
             const isLatest = remoteMetrics.every((metric) => {
                 if (metric.metaInfo.platform !== platform || metric.metaInfo.profileId === info.metaInfo.profileId) {
                     return true;
@@ -231,8 +223,8 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
 
         const { ciphertext, metaInfo } = info;
         const { profileId, profileHandle, name, avatar } = metaInfo;
-        const sourceInUrl = platform === 'bluesky' ? SourceInURL.Bsky : platform;
-        const source = resolveSocialSource(sourceInUrl);
+
+        const source = resolveSocialSource(platform);
         if (!source) continue;
         const currentProfile = getCurrentProfile(source);
 
@@ -329,27 +321,8 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
                 captureAccountLoginEvent(account);
                 break;
             }
-            case Source.Bsky: {
-                const data = decryptedData as BskyMetricsData;
-                const session = new BskySession(profileId, now, now, data.server_host, {
-                    did: data.did,
-                    handle: data.handle,
-                    accessJwt: data.access_jwt,
-                    refreshJwt: data.refresh_jwt,
-                    active: true,
-                });
-                if (!currentProfile) {
-                    sessionHolder.resumeSession(session);
-                }
-                const account = {
-                    profile,
-                    session,
-                    origin: 'sync',
-                } satisfies Account;
-                profileState.addAccount(account, true);
-                captureAccountLoginEvent(account);
+            case Source.Bsky:
                 break;
-            }
             default:
                 safeUnreachable(source);
         }

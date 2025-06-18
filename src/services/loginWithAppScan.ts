@@ -18,6 +18,7 @@ import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import { DesktopLinkInfoStatus, type DesktopLinkInfoStatusData } from '@/providers/types/Firefly.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import { addAccounts } from '@/services/account.js';
 
 export interface AuthDataFromApp {
@@ -72,6 +73,7 @@ export async function loginWithAppScan(data: DesktopLinkInfoStatusData, otp: str
     const fireflySession = SessionFactory.createSession<FireflySession>(res.fireflySession);
     const sessions = res.sessions.map((session) => SessionFactory.createSession<SocialSession>(session));
     const promises = sessions.map(async (session) => {
+        if (session.type === SessionType.Bsky) return null;
         const source = resolveSourceFromSessionType(session.type) as SocialSource;
         const profile = await resolveSocialMediaProvider(source).getProfileById(session.profileId);
         return {
