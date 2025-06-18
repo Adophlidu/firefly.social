@@ -391,7 +391,7 @@ export type BindResponse = Response<{
 }>;
 
 export type ChannelResponse = Response<{
-    channel: ChannelBrief;
+    channel: ChannelBrief | null;
     blocked: boolean;
 }>;
 

@@ -244,6 +244,9 @@ class FireflySocialMedia implements Provider {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
+        if (!data.channel) {
+            throw new NotFoundError(`Channel with handle ${channelHandle} not found.`);
+        }
 
         return formatBriefChannelFromFirefly(data.channel, data.blocked);
     }
