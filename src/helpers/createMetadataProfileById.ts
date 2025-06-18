@@ -6,7 +6,6 @@ import { createMetadataWalletProfile } from '@/helpers/createMetadataWalletProfi
 import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 
@@ -21,7 +20,10 @@ export async function createMetadataProfileById(source: ProfilePageSource, profi
 
     const images = [
         {
-            url: profile.pfp || getStampAvatarByProfileId(source, profileId),
+            url: urlcat(SITE_URL, 'api/og/:source/:id/image', {
+                source,
+                id: profileId,
+            }),
         },
     ];
 
@@ -39,7 +41,7 @@ export async function createMetadataProfileById(source: ProfilePageSource, profi
             images,
         },
         twitter: {
-            card: 'summary',
+            card: 'summary_large_image',
             title,
             description,
             images,

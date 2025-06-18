@@ -6,7 +6,6 @@ import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 
 export async function createMetadataWalletProfile(addressOrEns: string) {
@@ -17,7 +16,12 @@ export async function createMetadataWalletProfile(addressOrEns: string) {
         ? createPageTitleOG(walletProfile.primary_ens)
         : createPageTitleOG(`${formatAddress(walletProfile.address, 4)}`);
     const description = walletProfile.address;
-    const images = [getStampAvatarByProfileId(Source.Wallet, addressOrEns)];
+    const images = [
+        urlcat(SITE_URL, 'api/og/:source/:id/image', {
+            source: Source.Wallet,
+            id: addressOrEns,
+        }),
+    ];
 
     return createSiteMetadata({
         title,
@@ -30,7 +34,7 @@ export async function createMetadataWalletProfile(addressOrEns: string) {
             images,
         },
         twitter: {
-            card: 'summary',
+            card: 'summary_large_image',
             title,
             description,
             images,

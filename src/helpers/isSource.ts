@@ -56,3 +56,7 @@ export function isSocialSourceInUrl(sourceInUrl?: SourceInURL): sourceInUrl is S
         (source) => resolveSourceInUrl(source) === sourceInUrl || resolveSourceInUrlForApi(source) === sourceInUrl,
     );
 }
+
+export function isWalletSource(source: string): source is Source.Wallet | Source.WalletMix {
+    return [Source.Wallet, Source.WalletMix].includes(source as Source.Wallet | Source.WalletMix);
+}

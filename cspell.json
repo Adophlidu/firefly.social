@@ -408,7 +408,9 @@
         "webget",
         "retruthed",
         "reblog",
-        "truthsocial"
+        "truthsocial",
+        "Tickerbit",
+        "napi"
     ],
     "flagWords": [],
     "ignorePaths": [
