@@ -30,6 +30,7 @@ import { getPublicKeyInHexFromSession } from '@/helpers/ed25519.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterProfileFromSuggestedFollow } from '@/helpers/formatFarcasterProfileFromSuggestedFollow.js';
 import { formatFireflyAccountProfileFromFireflyConnections } from '@/helpers/formatFireflyAccountProfileFromFireflyConnections.js';
+import { formatFireflyConnections } from '@/helpers/formatFireflyConnections.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { formatLensProfileFromSuggestedFollow } from '@/helpers/formatLensProfile.js';
 import { formatNFTsTimelineResponse } from '@/helpers/formatNFTsTimelineResponse.js';
@@ -737,7 +738,7 @@ class FireflyEndpoint {
         const response = await fireflySessionHolder.fetch<GetAllConnectionsResponse>(url, {
             method: 'GET',
         });
-        return resolveFireflyResponseData(response);
+        return formatFireflyConnections(response);
     }
 
     async getAllConnectionsFromAuthToken(authToken: string) {
@@ -745,7 +746,7 @@ class FireflyEndpoint {
         const response = await fetchJSON<GetAllConnectionsResponse>(url, {
             headers: { Authorization: `Bearer ${authToken}` },
         });
-        return resolveFireflyResponseData(response);
+        return formatFireflyConnections(response);
     }
 
     async getAllConnectionsFormatted() {

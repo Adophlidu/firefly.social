@@ -772,6 +772,12 @@ export interface TwitterConnection {
     platform: 'twitter';
 }
 
+interface TwitterConnectionDisconnected {
+    address: string;
+    isDefault: boolean;
+    twitters: TwitterConnection[];
+}
+
 export interface BskyConnection {
     connected: boolean;
     id: string;
@@ -842,7 +848,7 @@ export interface FireflyConnection {
     displayName?: string;
 }
 
-export type AllConnections = {
+interface FireflyBaseConnections {
     account: FireflyConnection[];
     farcaster: Record<'connected' | 'unconnected', FarcasterConnection[]>;
     lens: Record<
@@ -852,7 +858,6 @@ export type AllConnections = {
             lens: LensConnection[];
         }>
     >;
-    twitter: Record<'connected' | 'unconnected', TwitterConnection[]>;
     bsky: Record<'connected' | 'unconnected', BskyConnection[]>;
     wallet: Record<
         'connected' | 'unconnected' | 'connectedEVM' | 'connectedSolana' | 'unconnectedSolana' | 'unconnectedEVM',
@@ -862,9 +867,20 @@ export type AllConnections = {
     telegram: Record<'connected' | 'unconnected', TelegramConnection[]>;
     apple: Record<'connected' | 'unconnected', AppleConnection[]>;
     email: Record<'connected' | 'unconnected', EmailConnection[]>;
+}
+
+export type AllConnections = FireflyBaseConnections & {
+    twitter: Record<'connected' | 'unconnected', TwitterConnection[]>;
 };
 
-export type GetAllConnectionsResponse = Response<AllConnections>;
+export type GetAllConnectionsResponse = Response<
+    FireflyBaseConnections & {
+        twitter: {
+            connected: TwitterConnection[];
+            unconnected: TwitterConnectionDisconnected[];
+        };
+    }
+>;
 
 export type ConvertM3u8Response = Response<{
     m3u8Url: string;

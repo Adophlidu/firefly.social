@@ -7,6 +7,7 @@ import { env } from '@/constants/env.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { formatFireflyConnections } from '@/helpers/formatFireflyConnections.js';
 import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import {
     createIndicator,
@@ -144,7 +145,7 @@ class FireflyActivity implements Provider {
         const response = await fireflySessionHolder.fetchWithSession<GetAllConnectionsResponse>(url, {
             method: 'GET',
         });
-        const connections = resolveFireflyResponseData(response);
+        const connections = formatFireflyConnections(response);
         if (env.external.NEXT_PUBLIC_ACTIVITY_PARTICLE === STATUS.Disabled) {
             connections.wallet.connected = connections.wallet.connected.filter(
                 (x) => x.source !== WalletSource.Particle,
