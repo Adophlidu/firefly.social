@@ -26,9 +26,10 @@ import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type ProfilePageSource, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
+import { SORTED_PROFILE_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByFireflyProfile } from '@/helpers/getStampAvatarByProfileId.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
@@ -37,10 +38,12 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { sortFireflyProfiles } from '@/helpers/sortFireflyProfiles.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfile, useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
+import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureProfileActionEvent.js';
 import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfilesWithDefault.js';
 
 const PROFILE_SOURCE_TABS_CONTAINER_ID = 'profile-source-tabs-container';
 
@@ -405,7 +408,7 @@ function ProfileSourceTabsContainer({ children }: PropsWithChildren) {
 }
 
 export function ProfileSourceTabs({
-    profiles,
+    profiles: initialProfiles,
     identity,
     socialProfile,
 }: {
@@ -413,6 +416,30 @@ export function ProfileSourceTabs({
     identity: FireflyIdentity;
     socialProfile?: Profile | null;
 }) {
+    const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
+    const profilesAll = useCurrentProfilesAll();
+    const profileIds = SORTED_SOCIAL_SOURCES.map((x) => profilesAll[x]?.profileId);
+
+    const { data } = useQuery({
+        queryKey: ['logged-in-firefly-profiles', profileIds],
+        enabled: !!socialProfile && isMyProfile,
+        queryFn: async () => {
+            try {
+                if (!socialProfile) return null;
+
+                const relatedProfiles = await getAllRelatedProfilesWithDefault({
+                    source: socialProfile.source,
+                    id: socialProfile.handle,
+                });
+                return formatFireflyProfilesFromWalletProfiles(relatedProfiles) as FireflyProfile[];
+            } catch {
+                return null;
+            }
+        },
+    });
+
+    const profiles = data || initialProfiles;
+
     if (profiles.length <= 1) return null;
     const sources = SORTED_PROFILE_SOURCES.filter(
         (source) => profiles.filter((profile) => profile.identity.source === source).length,
