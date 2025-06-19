@@ -1,6 +1,6 @@
-import { MenuItem, MenuItems } from '@headlessui/react';
+import { MenuItem, MenuItems, type MenuItemsProps } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { type HTMLProps, memo } from 'react';
+import { type HTMLProps, memo, type PropsWithChildren } from 'react';
 
 import DotsIcon from '@/assets/dots.svg';
 import QuestionIcon from '@/assets/question.svg';
@@ -14,33 +14,49 @@ import { getChainInfo } from '@/helpers/getChainInfo.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import type { Contract, Trending } from '@/providers/types/Trending.js';
 
-interface Props {
+interface Props extends PropsWithChildren {
     contracts: NonNullable<Trending['contracts']>;
+    onSelect?: (contract: Contract) => void;
+    menuAnchor?: MenuItemsProps['anchor'];
 }
 
-export const ContractList = memo<Props>(function ContractList({ contracts }) {
+export const ContractList = memo<Props>(function ContractList({
+    contracts,
+    onSelect,
+    menuAnchor = 'top end',
+    children,
+}) {
     return (
         <MoreActionMenu
             loginRequired={false}
             button={
-                <Tooltip content={<Trans>More</Trans>} placement="top">
-                    <DotsIcon className="text-secondary" width={16} height={16} />
-                </Tooltip>
+                children ?? (
+                    <Tooltip content={<Trans>More</Trans>} placement="top">
+                        <DotsIcon className="text-secondary" width={16} height={16} />
+                    </Tooltip>
+                )
             }
         >
             <MenuItems
                 className="backdrop-filter-[blur(8px)] z-[1000] flex max-h-[225px] w-max flex-col gap-2 overflow-auto rounded-2xl border border-line bg-primaryBottom p-3 text-base text-main shadow-[0_0_20px_0_rgba(34,49,71,0.05)]"
                 data-hide-scrollbar
                 onClick={stopEvent}
-                anchor="top end"
+                anchor={menuAnchor}
             >
                 {contracts.map((contract, index) => (
                     <MenuItem key={contract.address}>
                         {({ close }) => (
                             <ContractItem
-                                className={index < contracts.length - 1 ? 'border-b border-line' : ''}
+                                className={
+                                    index < contracts.length - 1
+                                        ? 'cursor-pointer border-b border-line'
+                                        : 'cursor-pointer'
+                                }
                                 contract={contract}
-                                onClick={close}
+                                onClick={() => {
+                                    onSelect?.(contract);
+                                    close();
+                                }}
                             />
                         )}
                     </MenuItem>

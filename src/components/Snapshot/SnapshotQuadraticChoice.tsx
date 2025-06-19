@@ -45,7 +45,7 @@ export const SnapshotQuadraticChoice = memo<SnapshotQuadraticChoiceProps>(functi
                 >
                     <div
                         className={classNames('flex size-6 items-center justify-center rounded-full', {
-                            'bg-bg02 opacity-40': !quantity,
+                            'bg-[#acacae] opacity-40': !quantity,
                             'bg-lightHighlight bg-opacity-20': !!quantity,
                         })}
                         onClick={() => {
@@ -58,7 +58,7 @@ export const SnapshotQuadraticChoice = memo<SnapshotQuadraticChoiceProps>(functi
                     <span className="font-bold">{quantity}</span>
                     <div
                         className={classNames('flex size-6 items-center justify-center rounded-full', {
-                            'bg-bg02': !quantity,
+                            'bg-[#acacae]': !quantity,
                             'bg-lightHighlight bg-opacity-20': !!quantity,
                         })}
                         onClick={() => {

@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import { first, isNumber } from 'lodash-es';
 import { type HTMLProps, memo, type ReactNode, useCallback, useMemo, useState } from 'react';
 
+import ArrowDownIcon from '@/assets/arrow-line-down.svg';
 import DexScreenerIcon from '@/assets/dex-screener.svg';
 import EyeIcon from '@/assets/eye.svg';
 import EyeCloseIcon from '@/assets/eye-close.svg';
@@ -15,16 +16,20 @@ import TwitterIcon from '@/assets/x-fill.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Link } from '@/components/Link.js';
+import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { PriceChart } from '@/components/PriceChart/index.js';
 import { useWithinRangeRecords } from '@/components/PriceChart/useWithinRangeRecords.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
+import { ContractList } from '@/components/TokenProfile/ContractList.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
 import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurityBar.js';
 import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isZero } from '@/helpers/number.js';
+import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
 import { resolveDexScreenerUrl } from '@/helpers/resolveDexScreenerUrl.js';
 import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
@@ -65,6 +70,7 @@ export interface TokenMarketDataProps extends HTMLProps<HTMLDivElement> {
     rank?: number;
     range?: string;
     traderCount?: number;
+    onContractChange?: (chainId: number | undefined, address: string) => void;
 }
 
 export const TokenMarketData = memo(function TokenMarketData({
@@ -76,13 +82,14 @@ export const TokenMarketData = memo(function TokenMarketData({
     tradeRecords = EMPTY_LIST,
     range,
     traderCount,
+    onContractChange,
     ...rest
 }: TokenMarketDataProps) {
     const ranges = getRanges();
     const { data: tokenPrice } = useTokenPrice(token.id);
     const { data: coin } = useSingleCoin(token.id, token.chainId, token.address);
-    const { data: trending } = useCoinTrending(token.id);
-    const { contracts } = trending ?? {};
+    const { data: trending, isPending: isTrendingPending } = useCoinTrending(token.id);
+    const contracts = trending?.contracts ?? EMPTY_LIST;
     const firstContract = first(contracts);
     const chainId = propChainId || token.chainId || firstContract?.chainId;
     const contract = (chainId ? contracts?.find((x) => x.chainId === chainId) : null) || firstContract;
@@ -114,7 +121,6 @@ export const TokenMarketData = memo(function TokenMarketData({
     const { isUp, change } = useIsPriceUp(stats, activeRecord);
     const invalidData = useMemo(() => stats.length === 0 || stats.every((item) => isZero(item.value)), [stats]);
 
-    const icon = <TokenIcon icon={token.logoURL} alt={token.name} name={token.name} size={36} chainId={chainId} />;
     const baseInfo = (
         <>
             <strong className="ml-0.5 text-medium font-bold text-main">{token.name}</strong>
@@ -159,6 +165,25 @@ export const TokenMarketData = memo(function TokenMarketData({
             },
         ].filter((x) => x.url);
     }, [address, chainId, twitter_url]);
+
+    const contractSelect =
+        chainId && address ? (
+            <div className="mt-0.5 inline-flex h-[30px] w-auto items-center gap-1 self-start rounded-full border border-line bg-bg02 px-2">
+                <ChainIcon size={14} chainId={chainId} />
+                {address ? formatAddress(address, 4) : null}
+                {contracts.length > 1 ? <ArrowDownIcon width={14} height={14} /> : null}
+            </div>
+        ) : null;
+    const icon = (
+        <TokenIcon
+            icon={token.logoURL}
+            alt={token.name}
+            name={token.name}
+            size={36}
+            chainId={chainId}
+            disableBadge={!!contractSelect}
+        />
+    );
 
     return (
         <div {...rest} className={classNames('flex flex-col gap-1.5 p-3', rest.className)}>
@@ -214,7 +239,24 @@ export const TokenMarketData = memo(function TokenMarketData({
                             </SwapButton>
                         ) : null}
                     </div>
-                    <div className="line-height-[22px] mt-6 flex flex-col gap-2">
+                    {isTrendingPending ? (
+                        <div className="ml-[52px] mt-0.5 h-[30px] w-[122px] rounded-full bg-bg02" />
+                    ) : !contractSelect ? null : contracts.length === 1 ? (
+                        <div className="ml-[52px]">{contractSelect}</div>
+                    ) : (
+                        <div className="ml-[52px]">
+                            <ContractList
+                                contracts={contracts ?? EMPTY_LIST}
+                                onSelect={(contract) => {
+                                    onContractChange?.(resolveCoinGeckoChainId(contract.runtime), contract.address);
+                                }}
+                                menuAnchor="bottom"
+                            >
+                                {contractSelect}
+                            </ContractList>
+                        </div>
+                    )}
+                    <div className="line-height-[22px] mt-[18px] flex flex-col gap-2">
                         <div className="text-2xl font-bold">
                             ${renderShrankPrice(formatPrice(activeRecord?.value ?? price) ?? '-')}
                         </div>

@@ -4,7 +4,7 @@ import { memo, useContext, useMemo } from 'react';
 
 import { TokenContext } from '@/components/Token/TokenContext.js';
 import { TokenMarketData, type TokenMarketDataProps } from '@/components/TokenProfile/TokenMarketData.js';
-import { useSearchParams } from '@/esm/navigation.js';
+import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -43,6 +43,8 @@ export function useFollowingTraderCount(tokenId: string | null) {
 }
 
 export const WrapTokenMarketData = memo(function WrapTokenMarketData(props: TokenMarketDataProps) {
+    const router = useRouter();
+    const pathname = usePathname();
     const search = useSearchParams();
     const chainId = search.get('chainId') ? Number(search.get('chainId')) : undefined;
     const { tradeRecords } = useContext(TokenContext);
@@ -55,6 +57,16 @@ export const WrapTokenMarketData = memo(function WrapTokenMarketData(props: Toke
             chainId={chainId || props.token.chainId}
             traderCount={followingTraderCount}
             {...props}
+            onContractChange={(chainId, address) => {
+                const params = new URLSearchParams(search);
+                if (chainId) {
+                    params.set('chainId', String(chainId));
+                } else {
+                    params.delete('chainId');
+                }
+                params.set('address', address);
+                router.replace(`${pathname}?${params.toString()}`);
+            }}
         />
     );
 });
