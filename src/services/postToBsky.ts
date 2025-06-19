@@ -104,7 +104,7 @@ export async function postToBsky(
                         {
                             ...media,
                             file,
-                            mimeType: file.type,
+                            mimeType: media.mimeType === FileMimeType.GIF ? FileMimeType.GIF : file.type,
                         },
                         data.blob,
                         width,
