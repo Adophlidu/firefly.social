@@ -27,13 +27,14 @@ export interface RelayConfirmationPopoverOpenProps {
     siweUri: string;
     domain: string;
     nonce: string;
+    acceptAuthAddress?: boolean;
     frame: FrameV2;
 }
 
 export type RelayConfirmationPopoverCloseProps = {
     message: string;
     signature: string;
-    authMethod: 'custody';
+    authMethod: 'custody' | 'authAddress';
 } | null;
 
 type Props = {
@@ -75,6 +76,7 @@ export function RelayConfirmationPopover({ ref }: Props) {
                     nonce: props.nonce,
                     domain: props.domain,
                     siweUri: props.siweUri,
+                    acceptAuthAddress: props.acceptAuthAddress,
                 }),
             });
 

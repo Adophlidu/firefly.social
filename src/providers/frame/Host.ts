@@ -63,12 +63,14 @@ export class FarcasterFrameHost implements FrameHost {
             const frame = this.options?.frame?.();
             if (!frame) throw new Error('Frame is not available');
 
-            const checked = await FireflyEndpointProvider.checkCustodyWallet(`${this.context.client.clientFid}`);
-            if (!checked) {
-                return await signInWithRelay(frame, `${this.context.client.clientFid}`, options.nonce);
-            } else {
-                return await signInWithFarcaster(frame, `${this.context.client.clientFid}`, options.nonce);
-            }
+            const fid = `${this.context.client.clientFid}`;
+
+            // sign in with custody wallet
+            const checked = await FireflyEndpointProvider.checkCustodyWallet(fid);
+            if (checked) return await signInWithFarcaster(frame, fid, options);
+
+            // sign in with relay server
+            return await signInWithRelay(frame, options);
         } catch (error) {
             console.log('DEBUG: [frame host]: signIn error', error);
             throw error;

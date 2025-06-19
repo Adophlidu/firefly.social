@@ -17,18 +17,18 @@ async function createSession(signal?: AbortSignal) {
     const key = await createSignedKey(payload.body, signal);
 
     const farcasterSession = new FarcasterSession(
-        `${key.result.signedKeyRequest.requestFid}`,
+        `${key.requestFid}`,
         toHex(privateKey),
         payload.timestamp,
         payload.expiresAt,
         // the signer request token is one-time use
-        key.result.signedKeyRequest.token,
+        key.token,
         undefined,
         `${FarcasterSponsorship.Firefly}-${payload.body.sponsorship?.signature ?? '0x'}`,
     );
 
     return {
-        deeplink: key.result.signedKeyRequest.deeplinkUrl,
+        deeplink: key.deeplinkUrl,
         session: farcasterSession,
     };
 }

@@ -1,4 +1,5 @@
 import { idRegistryABI } from '@farcaster/core';
+import type { SignInOptions } from '@farcaster/frame-host';
 import urlcat from 'urlcat';
 import { type Address, checksumAddress, parseUnits, toHex } from 'viem';
 import { readContract } from 'wagmi/actions';
@@ -55,13 +56,13 @@ async function createSiwfMessage(url: string, fid: string, nonce: string) {
     return message;
 }
 
-export async function signInWithFarcaster(frame: FrameV2, fid: string, nonce: string) {
+export async function signInWithFarcaster(frame: FrameV2, fid: string, options: SignInOptions) {
     const url = frame.x_url || SITE_URL;
 
     const u = parseUrl(url);
     if (!u) throw new Error(`Invalid URL: ${url}`);
 
-    const message = await createSiwfMessage(url, fid, nonce);
+    const message = await createSiwfMessage(url, fid, options.nonce);
 
     // Assume we have a BE api endpoint that can sign the message
     const signature = await FireflyEndpointProvider.signMessageWithCustodyWallet(fid, toHex(message));
@@ -73,6 +74,14 @@ export async function signInWithFarcaster(frame: FrameV2, fid: string, nonce: st
     } as const;
 }
 
+/**
+ * Sign with the official Farcaster endpoint.
+ * However, this requires a Farcaster token.
+ * @param frame
+ * @param fid
+ * @param nonce
+ * @returns
+ */
 export async function signInWithRemoteFarcaster(frame: FrameV2, fid: string, nonce: string) {
     const url = frame.x_url || SITE_URL;
 

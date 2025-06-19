@@ -33,7 +33,7 @@ async function createAccount(signal?: AbortSignal) {
         loginResponse.signerPrivatekey,
         payload.timestamp,
         payload.expiresAt,
-        key.result.signedKeyRequest.token,
+        key.token,
         undefined,
         undefined,
         account.address,

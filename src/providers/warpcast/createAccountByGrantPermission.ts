@@ -24,11 +24,11 @@ async function createSession(signal?: AbortSignal) {
         payload.timestamp,
         payload.expiresAt,
         // the signer request token is one-time use
-        key.result.signedKeyRequest.token,
+        key.token,
     );
 
     return {
-        deeplink: key.result.signedKeyRequest.deeplinkUrl,
+        deeplink: key.deeplinkUrl,
         session: farcasterSession,
     };
 }
