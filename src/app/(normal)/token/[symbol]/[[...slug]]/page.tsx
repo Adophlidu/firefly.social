@@ -75,7 +75,7 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
                 />
             );
         case TokenCategory.Overview:
-            return <TokenOverview trending={trending} address={address} />;
+            return <TokenOverview trending={trending} chainId={updatedChainId} address={address} />;
         case TokenCategory.Transactions:
         default:
             if ((isTokenPending || tokenId) && isPending && !tokenAddress) return <TokenPageLoading />;

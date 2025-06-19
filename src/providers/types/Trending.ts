@@ -52,6 +52,7 @@ export type Runtime =
     | 'ethereum'
     | 'algorand'
     | 'arbitrum-one'
+    | 'binance-smart-chain'
     | 'avalanche'
     | 'base'
     | 'celo'

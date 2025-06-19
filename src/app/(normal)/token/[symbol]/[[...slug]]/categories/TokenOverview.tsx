@@ -14,6 +14,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { getChainInfo } from '@/helpers/getChainInfo.js';
+import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
 import { useDetectToken } from '@/hooks/useDetectToken.js';
 import type { Contract, Trending } from '@/providers/types/Trending.js';
 
@@ -73,9 +74,10 @@ function formatContractAddress(contract: Contract) {
 
 interface TokenOverviewProps extends HTMLProps<HTMLDivElement> {
     trending: Trending | undefined;
+    chainId?: number;
     address?: string;
 }
-export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ trending, address, ...rest }) {
+export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ trending, chainId, address, ...rest }) {
     const { market, coin } = trending ?? {};
     const { data: detected } = useDetectToken(address, !trending);
     const attributes = detected?.contract_info?.attributes;
@@ -95,8 +97,10 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ t
         }
         return EMPTY_LIST;
     }, [detected, trending?.contracts]);
-    const firstContract = first(contracts);
-    const chain = getChainInfo(firstContract?.runtime, firstContract?.chainId);
+    const contract =
+        contracts.find((x) => x.chainId === chainId || resolveCoinGeckoChainId(x.runtime) === chainId) ||
+        first(contracts);
+    const chain = getChainInfo(contract?.runtime, contract?.chainId);
 
     const total_supply = market?.total_supply ?? attributes?.normalized_total_supply;
     return (

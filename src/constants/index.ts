@@ -36,6 +36,7 @@ import { env } from '@/constants/env.js';
 import { EthereumChainId } from '@/mask_pkgs/web3-shared/evm/types/index.js';
 import { SolanaChainId } from '@/mask_pkgs/web3-shared/solana/types.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
+import type { Runtime } from '@/providers/types/Trending.js';
 import { MediaSource } from '@/types/compose.js';
 
 export const EMPTY_LIST = Object.freeze([]) as never[];
@@ -475,6 +476,16 @@ export const TRACING_CHAINS = [
     EthereumChainId.Arbitrum,
     EthereumChainId.Optimism,
     SolanaChainId.Mainnet,
+] as const;
+/** TRACING_CHAINS to coingecko chain runtime ids */
+export const TRACING_RUNTIME_LIST: Runtime[] = [
+    'ethereum',
+    'base',
+    'polygon-pos',
+    'binance-smart-chain',
+    'arbitrum-one',
+    'optimistic-ethereum',
+    'solana',
 ] as const;
 export const COINGECKO_SOL_COIN_ID = 'solana';
 export const SWAP_SOL_NATIVE_ADDRESS = '11111111111111111111111111111111';
