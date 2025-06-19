@@ -7,6 +7,7 @@ import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { parseOldDiscoverUrl } from '@/helpers/parseDiscoverUrl.js';
 import { parseOldEngagementUrl } from '@/helpers/parseEngagementUrl.js';
 import { parseOldBookmarkUrl } from '@/helpers/parseOldBookmarkUrl.js';
+import { parseOldExploreUrl } from '@/helpers/parseOldExploreUrl.js';
 import { parseOldFollowingUrl } from '@/helpers/parseOldFollowingUrl.js';
 import { parseOldNftUrl } from '@/helpers/parseOldNftUrl.js';
 import { parseOldNotification } from '@/helpers/parseOldNotification.js';
@@ -91,7 +92,12 @@ export async function middleware(request: NextRequest) {
             request,
         });
     }
-
+    const parsedOldExploreUrl = parseOldExploreUrl(request.nextUrl);
+    if (parsedOldExploreUrl) {
+        const destination = request.nextUrl.clone();
+        destination.pathname = resolveExploreUrl(parsedOldExploreUrl.type, parsedOldExploreUrl.source);
+        return NextResponse.redirect(destination);
+    }
     /**
      * /profile/far -> /profile/farcaster
      * /profile/twitter -> /profile/x

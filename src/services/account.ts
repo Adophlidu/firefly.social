@@ -356,8 +356,7 @@ export async function syncMetrics(account: Account) {
             const password = await verifyAndGetPassword(true);
             if (password) mergeMetrics(password);
         }
-    }
-    if (profilesToUpload.length > 0) {
+    } else if (profilesToUpload.length > 0) {
         const passcode = await verifyAndGetPassword();
         if (passcode) uploadMetrics(passcode);
     }
