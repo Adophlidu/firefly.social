@@ -35,11 +35,12 @@ interface Props extends HTMLProps<HTMLDivElement> {
 
 function useMergeX3KolProfiles(mentionUsers: TokenMentionUser[], enabled: boolean) {
     const twitterIds = mentionUsers.map((x) => x.twitterId);
+    const myTwitterProfile = useCurrentProfile(Source.Twitter);
 
     const twitterProfiles = useQueries({
         queries: twitterIds.map((twitterId) => ({
             enabled,
-            queryKey: ['profile', Source.Twitter, twitterId, true],
+            queryKey: ['profile', Source.Twitter, twitterId, myTwitterProfile?.profileId],
             queryFn: () => TwitterSocialMediaProvider.getProfileById(twitterId),
         })),
         combine: (result) => {

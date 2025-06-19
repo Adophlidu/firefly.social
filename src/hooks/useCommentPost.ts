@@ -15,11 +15,11 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 export function useCommentPost(post: Post, disabled = false) {
     const { source, author, restrictions, mentions } = post;
 
-    const profile = useCurrentProfile(source);
-    const isLogin = !!profile?.profileId;
+    const myProfile = useCurrentProfile(source);
+    const isLogin = !!myProfile?.profileId;
 
     const { data: authorProfile = null } = useQuery({
-        queryKey: ['profile', source, author.profileId, isLogin],
+        queryKey: ['profile', source, author.profileId, myProfile?.profileId],
         staleTime: 1000 * 60 * 1, // 1 minute
         queryFn: async () => {
             const provider = resolveSocialMediaProvider(source);
@@ -32,16 +32,16 @@ export function useCommentPost(post: Post, disabled = false) {
         if (disabled) return true;
         if ('canComment' in post) return !post.canComment;
         if (restrictions) {
-            if (isSameProfile(author, profile)) return false;
+            if (isSameProfile(author, myProfile)) return false;
             let isDisabled = true;
             for (const restriction of restrictions) {
                 switch (restriction) {
                     case RestrictionType.Nobody:
-                        return !isSameProfile(profile, author);
+                        return !isSameProfile(myProfile, author);
                     case RestrictionType.Everyone:
                         return false;
                     case RestrictionType.MentionedProfiles:
-                        if (mentions?.some((x) => isSameProfile(x, profile))) isDisabled = false;
+                        if (mentions?.some((x) => isSameProfile(x, myProfile))) isDisabled = false;
                         break;
                     case RestrictionType.YouFollower:
                         if (authorProfile?.viewerContext?.following) isDisabled = false;
@@ -60,7 +60,7 @@ export function useCommentPost(post: Post, disabled = false) {
         disabled,
         post,
         restrictions,
-        profile,
+        myProfile,
         author,
         mentions,
         authorProfile?.viewerContext?.following,

@@ -11,7 +11,7 @@ import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { Source } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -20,11 +20,12 @@ interface Props extends ModalProps {
 }
 
 export const MentionedByModal = memo<Props>(function MentionedByModal({ users, ...props }) {
-    const isTwitterLogin = useIsLogin(Source.Twitter);
+    const myTwitterProfile = useCurrentProfile(Source.Twitter);
+    const isTwitterLogin = !!myTwitterProfile;
     const twitterProfiles = useQueries({
         queries: users.map((user) => ({
             enabled: isTwitterLogin,
-            queryKey: ['profile', Source.Twitter, user.profileId, isTwitterLogin],
+            queryKey: ['profile', Source.Twitter, user.profileId, myTwitterProfile?.profileId],
             queryFn: () => TwitterSocialMediaProvider.getProfileById(user.profileId),
         })),
         combine: (result) => result.map((x) => x.data),
@@ -80,7 +81,7 @@ export const MentionedByModal = memo<Props>(function MentionedByModal({ users, .
                                         </div>
                                     </div>
                                 </Link>
-                                {isTwitterLogin ? (
+                                {myTwitterProfile ? (
                                     <FollowButton
                                         className="ml-auto !min-w-8 !p-0"
                                         variant="icon"

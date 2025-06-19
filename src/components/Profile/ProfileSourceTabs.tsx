@@ -37,7 +37,7 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { sortFireflyProfiles } from '@/helpers/sortFireflyProfiles.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureProfileActionEvent.js';
 import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -141,9 +141,9 @@ function TriggerButton({
         }
     }, [isLast, isCurrentSource]);
 
-    const isLogin = useIsLogin(narrowToSocialSource(source));
+    const myProfile = useCurrentProfile(narrowToSocialSource(source));
     const { data } = useQuery({
-        queryKey: ['profile', source, identity.id, isLogin],
+        queryKey: ['profile', source, identity.id, myProfile?.profileId],
         queryFn: () => {
             if (!isSocialSource(source)) return;
             return resolveSocialMediaProvider(source).getProfileByIdOrHandle(identity.id);

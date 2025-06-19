@@ -15,7 +15,6 @@ import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -25,10 +24,10 @@ interface ProfileActionProps {
 }
 
 export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps }: ProfileActionProps) {
-    const isLogin = useIsLogin(initialProfile.source);
+    const currentProfile = useCurrentProfile(initialProfile.source);
     const profileId = initialProfile.profileId;
     const { data } = useQuery({
-        queryKey: ['profile', initialProfile.source, initialProfile.profileId, isLogin],
+        queryKey: ['profile', initialProfile.source, initialProfile.profileId, currentProfile?.profileId],
         initialData: initialProfile,
         queryFn: async () => {
             return resolveSocialMediaProvider(initialProfile.source).getProfileByIdOrHandle(profileId);

@@ -20,6 +20,7 @@ import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueu
 import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 import { getWalletClientForLensChain } from '@/helpers/getWalletClientForLensChain.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { useTokenBalanceInPostCollect } from '@/hooks/useTokenBalanceInPostCollect.js';
@@ -58,8 +59,9 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
     const [followLoading, toggleFollow] = useToggleFollow(post.author);
 
     const isLogin = useIsLogin(post.source);
+    const myProfile = useCurrentProfile(post.source);
     const { data: profile = null, isLoading: queryProfileLoading } = useQuery({
-        queryKey: ['profile', post.source, post.author.profileId, isLogin],
+        queryKey: ['profile', post.source, post.author.profileId, myProfile?.profileId],
         queryFn: async () => {
             return resolveSocialMediaProvider(post.source).getProfileByIdOrHandle(post.author.handle);
         },

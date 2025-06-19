@@ -7,7 +7,7 @@ import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { bskySessionHolder } from '@/providers/bsky/SessionHolder.js';
 
 interface Props extends Omit<LinkProps, 'href'> {
@@ -26,9 +26,9 @@ export const MentionLinkWithQueryProfile = memo<Props>(function MentionLinkWithQ
     fallback = null,
     ...rest
 }) {
-    const isLogin = useIsLogin(source);
+    const myProfile = useCurrentProfile(source);
     const { data: profile } = useQuery({
-        queryKey: ['profile', source, handle, isLogin],
+        queryKey: ['profile', source, handle, myProfile?.profileId],
         async queryFn() {
             if (source === Source.Bsky) {
                 const didResponse = await bskySessionHolder.agent.resolveHandle({ handle });

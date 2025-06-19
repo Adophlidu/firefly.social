@@ -17,7 +17,6 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -29,9 +28,9 @@ interface ProfileCardProps {
 export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identity, defaultProfile }) {
     const { id, source } = identity;
 
-    const isLogin = useIsLogin(narrowToSocialSource(source));
+    const myProfile = useCurrentProfile(narrowToSocialSource(source));
     const { data: profile, isLoading } = useQuery({
-        queryKey: ['profile', source, id, isLogin],
+        queryKey: ['profile', source, id, myProfile?.profileId],
         staleTime: 1000 * 60 * 5, // 5 minutes
         queryFn: async () => {
             if (!id || !source) return;
@@ -40,7 +39,6 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
         },
         initialData: defaultProfile,
     });
-    const myProfile = useCurrentProfile(narrowToSocialSource(source));
 
     if (isLoading) {
         return (
