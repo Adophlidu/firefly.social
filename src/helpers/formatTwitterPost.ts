@@ -113,8 +113,10 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         const hasReplied = repliedTweet?.referenced_tweets?.find((tweet) => tweet.type === 'replied_to');
         if (!hasReplied) {
             ret.root = tweetV2ToPost(repliedTweet, includes);
+            ret.rootPostId = ret.root.postId;
         } else if (endCommentOn) {
             ret.root = endCommentOn;
+            ret.rootPostId = endCommentOn.postId;
         }
         if (isSamePost(ret.root, ret.commentOn)) {
             delete ret.root;

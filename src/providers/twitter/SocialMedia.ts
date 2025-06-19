@@ -43,7 +43,6 @@ import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRes
 import { resolveTwitterResponseData } from '@/helpers/resolveTwitterResponseData.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { NitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import {
@@ -323,9 +322,6 @@ class TwitterSocialMedia implements Provider {
     }
 
     async getPostById(postId: string): Promise<Post> {
-        if (isServer || !twitterSessionHolder.session) {
-            return NitterSocialMediaProvider.getPostById(postId);
-        }
         const response = await twitterSessionHolder.fetch<ResponseJSON<Post>>(`/api/twitter/${postId}`);
         const data = resolveTwitterResponseData(response);
         return data;
