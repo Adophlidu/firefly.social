@@ -1,5 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
-import { first } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -316,17 +316,22 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
 export async function syncMetrics(account: Account) {
     const remoteAccounts = await downloadAccounts();
-    const remoteProfiles = remoteAccounts.map(({ metaInfo }) => {
-        const source = resolveSocialSource(metaInfo.platform);
+    const remoteProfiles = compact(
+        remoteAccounts.map(({ metaInfo }) => {
+            if (metaInfo.platform === 'bluesky') {
+                return null;
+            }
+            const source = resolveSocialSource(metaInfo.platform);
 
-        return {
-            ...createDummyProfile(source),
-            profileId: metaInfo.profileId,
-            handle: metaInfo.profileHandle,
-            displayName: metaInfo.name,
-            pfp: metaInfo.avatar,
-        } satisfies Profile;
-    });
+            return {
+                ...createDummyProfile(source),
+                profileId: metaInfo.profileId,
+                handle: metaInfo.profileHandle,
+                displayName: metaInfo.name,
+                pfp: metaInfo.avatar,
+            } satisfies Profile;
+        }),
+    );
 
     const localProfiles = getAllProfiles();
 
@@ -351,7 +356,8 @@ export async function syncMetrics(account: Account) {
             const password = await verifyAndGetPassword(true);
             if (password) mergeMetrics(password);
         }
-    } else if (profilesToUpload.length > 0) {
+    }
+    if (profilesToUpload.length > 0) {
         const passcode = await verifyAndGetPassword();
         if (passcode) uploadMetrics(passcode);
     }
@@ -565,17 +571,22 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
     const passcode = await verifyAndGetPassword();
     if (passcode) {
         const remoteAccounts = await downloadAccounts();
-        const remoteProfiles = remoteAccounts.map(({ metaInfo }) => {
-            const source = resolveSocialSource(metaInfo.platform);
+        const remoteProfiles = compact(
+            remoteAccounts.map(({ metaInfo }) => {
+                if (metaInfo.platform === 'bluesky') {
+                    return null;
+                }
+                const source = resolveSocialSource(metaInfo.platform);
 
-            return {
-                ...createDummyProfile(source),
-                profileId: metaInfo.profileId,
-                handle: metaInfo.profileHandle,
-                displayName: metaInfo.name,
-                pfp: metaInfo.avatar,
-            } satisfies Profile;
-        });
+                return {
+                    ...createDummyProfile(source),
+                    profileId: metaInfo.profileId,
+                    handle: metaInfo.profileHandle,
+                    displayName: metaInfo.name,
+                    pfp: metaInfo.avatar,
+                } satisfies Profile;
+            }),
+        );
         if (remoteProfiles.some((x) => isSameProfile(x, account.profile))) {
             await FireflyEndpointProvider.deleteMetrics(passcode, [
                 `${resolveSocialSourceInUrl(account.profile.source)}:${account.profile.profileId}`,

@@ -200,6 +200,7 @@ export async function mergeMetrics(passcode: string, enqueueMessage = true) {
 
     for (const info of remoteMetrics) {
         if (
+            info.metaInfo.platform === 'bluesky' ||
             validLocalMetrics.some(
                 (x) =>
                     x.metaInfo.profileId === info.metaInfo.profileId && x.metaInfo.platform === info.metaInfo.platform,
