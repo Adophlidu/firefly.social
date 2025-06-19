@@ -302,6 +302,7 @@ class NitterSocialMedia implements Provider {
     }
 
     async getProfilesByIds(ids: string[]): Promise<Profile[]> {
+        if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const profilesSettledResult = await Promise.allSettled(ids.map((id) => this.getProfileById(id)));
         return compact(profilesSettledResult.map((x) => (x.status === 'fulfilled' ? x.value : null)));
     }
