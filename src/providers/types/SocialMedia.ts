@@ -523,7 +523,7 @@ export interface Provider {
     /**
      * @params ids Array of profile id
      */
-    getProfilesByIds?: (ids: string[]) => Promise<Profile[]>;
+    getProfilesByIds: (ids: string[]) => Promise<Profile[]>;
 
     /**
      * @params ids Array of channel id

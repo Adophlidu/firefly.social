@@ -19,6 +19,7 @@ const METHODS_BE_OVERRIDDEN = [
     'searchPosts',
     'searchProfiles',
     'getMediaPostsByProfileId',
+    'getProfilesByIds',
 ] as const;
 
 export function WithNitter() {

@@ -1,5 +1,5 @@
 import { isServer } from '@tanstack/react-query';
-import { last, uniq } from 'lodash-es';
+import { compact, last, uniq } from 'lodash-es';
 import type { TweetV2LookupResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
@@ -302,7 +302,8 @@ class NitterSocialMedia implements Provider {
     }
 
     async getProfilesByIds(ids: string[]): Promise<Profile[]> {
-        throw new NotImplementedError();
+        const profilesSettledResult = await Promise.allSettled(ids.map((id) => this.getProfileById(id)));
+        return compact(profilesSettledResult.map((x) => (x.status === 'fulfilled' ? x.value : null)));
     }
 
     async follow(profileId: string): Promise<boolean> {
