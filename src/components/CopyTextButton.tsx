@@ -9,13 +9,41 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 
 interface Props extends HTMLProps<HTMLButtonElement> {
+    notification?: 'tooltip' | 'toast';
     text: string;
     tooltipProps?: Partial<TippyProps>;
     size?: number;
 }
 
-export function CopyTextButton({ text, tooltipProps, size = 12, onClick, ...rest }: Props) {
+export function CopyTextButton({ text, tooltipProps, size = 12, notification, ...rest }: Props) {
     const [copied, handleCopy] = useCopyText(text, { enqueueSuccessMessage: false });
+    const showToast = notification === 'toast';
+    const button = (
+        <button
+            {...rest}
+            type="button"
+            onClick={(e) => {
+                rest.onClick?.(e);
+                if (showToast) {
+                    handleCopy(undefined, {
+                        enqueueSuccessMessage: true,
+                        messageOptions: {
+                            anchorOrigin: {
+                                vertical: 'top',
+                                horizontal: 'center',
+                            },
+                        },
+                    });
+                } else {
+                    handleCopy();
+                }
+            }}
+        >
+            <CopyIcon width={size} height={size} />
+        </button>
+    );
+
+    if (showToast) return button;
 
     return (
         <Tooltip
@@ -25,9 +53,7 @@ export function CopyTextButton({ text, tooltipProps, size = 12, onClick, ...rest
             interactive
             {...tooltipProps}
         >
-            <button {...rest} type="button" onClick={handleCopy}>
-                <CopyIcon width={size} height={size} />
-            </button>
+            {button}
         </Tooltip>
     );
 }

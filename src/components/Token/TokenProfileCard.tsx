@@ -1,7 +1,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { isNumber } from 'lodash-es';
+import { isNumber, uniq } from 'lodash-es';
 import { type HTMLProps, memo, useMemo, useState } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
@@ -94,6 +94,7 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
         );
         return matched || tokenInfos[0];
     }, [coin, tokenInfos]);
+    const chainCount = uniq(tokenInfos.map((x) => x.chain_id)).length;
 
     const address = selectedToken?.contract_address;
     const { data: detected } = useQuery({
@@ -180,6 +181,7 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
                         alt={selectedToken.name}
                         name={selectedToken.name}
                         size={32}
+                        disableBadge={chainCount > 1}
                     />
                 </Link>
                 <div className="ml-3 flex flex-col">
@@ -192,12 +194,14 @@ export const TokenProfileCard = memo<Props>(function TokenProfileCard({ symbol, 
                         </Link>
                         {tokenSecurity ? <SecurityBadge security={tokenSecurity} interactive={false} /> : null}
                     </div>
-                    <div className="flex items-center gap-1 leading-4">
-                        <span className="max-w-28 truncate font-inter text-[13px] font-bold leading-4 text-third">
-                            {formatAddress(address, 4)}
-                        </span>
-                        {address ? <CopyTextButton text={address} className="leading-4 text-third" /> : null}
-                    </div>
+                    {chainCount === 1 ? (
+                        <div className="flex items-center gap-1 leading-4">
+                            <span className="max-w-28 truncate font-inter text-[13px] font-bold leading-4 text-third">
+                                {formatAddress(address, 4)}
+                            </span>
+                            {address ? <CopyTextButton text={address} className="leading-4 text-third" /> : null}
+                        </div>
+                    ) : null}
                 </div>
                 {tokenInfos.length > 1 ? (
                     <div

@@ -47,11 +47,10 @@ export const ContractList = memo<Props>(function ContractList({
                     <MenuItem key={contract.address}>
                         {({ close }) => (
                             <ContractItem
-                                className={
-                                    index < contracts.length - 1
-                                        ? 'cursor-pointer border-b border-line'
-                                        : 'cursor-pointer'
-                                }
+                                className={classNames({
+                                    'border-b border-line': index < contracts.length - 1,
+                                    'cursor-pointer': !!onSelect,
+                                })}
                                 contract={contract}
                                 onClick={() => {
                                     onSelect?.(contract);
@@ -86,7 +85,13 @@ function ContractItem({ contract, ...rest }: ContractItemProps) {
                     {formatAddressEthereum(contract.address, 4)}
                 </div>
             </div>
-            <CopyTextButton tooltipProps={{ placement: 'left', touch: true }} text={contract.address} />
+            <CopyTextButton
+                notification="toast"
+                text={contract.address}
+                onClick={(e) => {
+                    e.stopPropagation();
+                }}
+            />
         </div>
     );
 }

@@ -35,6 +35,7 @@ import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { useCoinPriceStats } from '@/hooks/useCoinPriceStats.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
+import { useCopyText } from '@/hooks/useCopyText.js';
 import { useIsPriceUp } from '@/hooks/useIsPriceUp.js';
 import { useSingleCoin } from '@/hooks/useSingleCoin.js';
 import { useTokenPrice } from '@/hooks/useTokenPrice.js';
@@ -166,12 +167,13 @@ export const TokenMarketData = memo(function TokenMarketData({
         ].filter((x) => x.url);
     }, [address, chainId, twitter_url]);
 
+    const [, handleCopy] = useCopyText('');
     const contractSelect =
         chainId && address ? (
-            <div className="mt-0.5 inline-flex h-[30px] w-auto items-center gap-1 self-start rounded-full border border-line bg-bg02 px-2">
+            <div className="mt-0.5 inline-flex h-[30px] w-auto items-center gap-1 rounded-full border border-lightLineSecond bg-bg02 px-2 text-sm text-main">
                 <ChainIcon size={14} chainId={chainId} />
                 {address ? formatAddress(address, 4) : null}
-                {contracts.length > 1 ? <ArrowDownIcon width={14} height={14} /> : null}
+                {contracts.length > 1 ? <ArrowDownIcon width={14} height={14} className="text-second" /> : null}
             </div>
         ) : null;
     const icon = (
@@ -240,22 +242,35 @@ export const TokenMarketData = memo(function TokenMarketData({
                         ) : null}
                     </div>
                     {isTrendingPending ? (
-                        <div className="ml-[52px] mt-0.5 h-[30px] w-[122px] rounded-full bg-bg02" />
-                    ) : !contractSelect ? null : contracts.length === 1 ? (
-                        <div className="ml-[52px]">{contractSelect}</div>
-                    ) : (
-                        <div className="ml-[52px]">
-                            <ContractList
-                                contracts={contracts ?? EMPTY_LIST}
-                                onSelect={(contract) => {
-                                    onContractChange?.(resolveCoinGeckoChainId(contract.runtime), contract.address);
-                                }}
-                                menuAnchor="bottom"
-                            >
-                                {contractSelect}
-                            </ContractList>
+                        <div className="ml-[52px] mt-0.5 h-[30px] w-[122px] self-start rounded-full bg-bg02" />
+                    ) : contractSelect ? (
+                        <div
+                            className="ml-[52px] self-start"
+                            onClick={() => {
+                                if (contracts.length === 1) handleCopy(address);
+                            }}
+                        >
+                            {contracts.length === 1 ? (
+                                contractSelect
+                            ) : (
+                                <ContractList
+                                    contracts={contracts ?? EMPTY_LIST}
+                                    onSelect={(contract) => {
+                                        handleCopy(contract.address, {
+                                            enqueueSuccessMessage: true,
+                                            messageOptions: {
+                                                anchorOrigin: { vertical: 'top', horizontal: 'center' },
+                                            },
+                                        });
+                                        onContractChange?.(resolveCoinGeckoChainId(contract.runtime), contract.address);
+                                    }}
+                                    menuAnchor="bottom"
+                                >
+                                    {contractSelect}
+                                </ContractList>
+                            )}
                         </div>
-                    )}
+                    ) : null}
                     <div className="line-height-[22px] mt-[18px] flex flex-col gap-2">
                         <div className="text-2xl font-bold">
                             ${renderShrankPrice(formatPrice(activeRecord?.value ?? price) ?? '-')}

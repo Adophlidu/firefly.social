@@ -79,7 +79,7 @@ export function WarnSnackbar({ id, detail, message, ref }: ErrorReportSnackbarPr
                             </div>
                             <ClickableButton
                                 className="ml-auto inline-flex cursor-pointer items-center text-white"
-                                onClick={handleCopy}
+                                onClick={() => handleCopy()}
                             >
                                 {copied ? (
                                     <ClipboardDocumentCheckIcon className="mr-1 size-3" />

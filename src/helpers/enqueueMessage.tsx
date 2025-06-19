@@ -11,7 +11,7 @@ import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { getErrorMessageFromError, getWarningMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { SnackbarRef } from '@/modals/controls.js';
 
-interface MessageOptions extends OptionsObject {
+export interface MessageOptions extends OptionsObject {
     version?: string;
     environment?: NODE_ENV;
 }

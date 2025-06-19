@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 
 import { TokenMarketData, type TokenMarketDataProps } from '@/components/TokenProfile/TokenMarketData.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
@@ -8,11 +9,24 @@ interface Props extends Pick<TokenMarketDataProps, 'tradeRecords' | 'range' | 't
 }
 function WrapTokenMarketData({ symbol, ...rest }: Props) {
     const { data: token, isLoading } = useTokenInfo({ token_symbol: symbol });
+    const [chainId, setChainId] = useState<number | undefined>();
+    const [address, setAddress] = useState<string>();
     if (isLoading) return <div>Loading...</div>;
 
     if (!token) return <div>token not found: {symbol}</div>;
 
-    return <TokenMarketData token={token} {...rest} />;
+    return (
+        <TokenMarketData
+            token={token}
+            {...rest}
+            chainId={chainId}
+            address={address}
+            onContractChange={(chainId, address) => {
+                setChainId(chainId);
+                setAddress(address);
+            }}
+        />
+    );
 }
 
 const meta = {

@@ -14,7 +14,7 @@ export function ShareButton({ profile }: { profile: Profile }) {
     return (
         <ClickableButton
             className="inline-flex size-8 items-center justify-center rounded-lg bg-lightBg text-second active:opacity-50 md:hover:opacity-60"
-            onClick={handleCopy}
+            onClick={() => handleCopy()}
         >
             <ShareIcon />
         </ClickableButton>
