@@ -21,5 +21,5 @@ export async function createPageTitleSSR(
 }
 
 export function createPageTitleOG(title: string) {
-    return `${title} in Firefly`;
+    return `View ${title} on Firefly`;
 }
