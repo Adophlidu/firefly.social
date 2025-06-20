@@ -1,5 +1,10 @@
+import { NoSSR } from '@/components/NoSSR.js';
 import { FollowingTransactions } from '@/components/Transactions/FollowingTransactions.js';
 
 export default function TransactionsPage() {
-    return <FollowingTransactions />;
+    return (
+        <NoSSR>
+            <FollowingTransactions />
+        </NoSSR>
+    );
 }
