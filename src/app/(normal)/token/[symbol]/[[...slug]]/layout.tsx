@@ -1,13 +1,17 @@
 import { headers } from 'next/headers.js';
 import { notFound } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
+import { z } from 'zod';
 
 import { CategoryTabs, type TokenPageSearch } from '@/app/(normal)/token/[symbol]/[[...slug]]/CategoryTabs.js';
 import { WrapTokenMarketData } from '@/app/(normal)/token/[symbol]/[[...slug]]/WrapTokenMarketData.js';
 import { Comeback } from '@/components/Comeback.js';
 import { TokenContextProvider } from '@/components/Token/TokenContext.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
+import { KeyType } from '@/constants/enum.js';
+import { createMetadataToken } from '@/helpers/createMetadataToken.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
+import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { searchToken } from '@/services/searchToken.js';
@@ -21,6 +25,26 @@ interface Props
         },
         TokenPageSearch
     > {}
+
+const createPageMetadata = memoizeWithRedis(createMetadataToken, {
+    key: KeyType.CreateMetadataToken,
+});
+
+export async function generateMetadata(props: Props) {
+    const params = await props.params;
+    const searchParams = await props.searchParams;
+    const options = z
+        .object({
+            address: z.string().optional(),
+            isCoinId: z
+                .string()
+                .optional()
+                .transform((val) => (val === 'true' ? true : undefined)),
+            chainId: z.coerce.number().int().optional(),
+        })
+        .safeParse(searchParams).data;
+    return createPageMetadata(params.symbol, options);
+}
 
 export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
     await setupLocaleForSSR();
