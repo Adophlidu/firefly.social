@@ -2403,9 +2403,6 @@ msgstr "<0>The proportion of current market capitalization compares to market ca
 msgid "Minting Date"
 msgstr "Minting Date"
 
-msgid "Unsupported Chain"
-msgstr "Unsupported Chain"
-
 msgid "Failed to create red packet"
 msgstr "Failed to create red packet"
 

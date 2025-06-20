@@ -2408,9 +2408,6 @@ msgstr "<0>当前市值与满足最大供应量时的市值之比。</0><1>Mkt C
 msgid "Minting Date"
 msgstr "铸造日期"
 
-msgid "Unsupported Chain"
-msgstr "未支持的链"
-
 msgid "Failed to create red packet"
 msgstr "创建红包失败"
 

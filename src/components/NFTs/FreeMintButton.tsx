@@ -16,11 +16,10 @@ import { classNames } from '@/helpers/classNames.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
 import { FreeMintModalRef, WalletConnectModalRef } from '@/modals/controls.js';
+import { captureNFTMintClickEvent, captureNFTViewWebsiteClickEvent } from '@/providers/telemetry/captureClickEvent.js';
+import type { SponsorMintOptions } from '@/providers/types/Firefly.js';
 
-function getMintButtonText(connected: boolean, isSupportedChain: boolean, mintStatus?: MintStatus) {
-    if (!connected) return <Trans>Connect Wallet</Trans>;
-    if (!isSupportedChain) return <Trans>Unsupported Chain</Trans>;
-
+function getMintButtonText(mintStatus?: MintStatus) {
     switch (mintStatus) {
         case MintStatus.Mintable:
             return <Trans>Mint</Trans>;
@@ -61,7 +60,7 @@ export function FreeMintButton({
     const { switchChainAsync } = useSwitchChain();
     const isLogin = useIsLoginFirefly();
 
-    const mintTarget = useMemo(
+    const mintTarget: SponsorMintOptions = useMemo(
         () => ({
             walletAddress: account.address || '',
             contractAddress: contractAddress || '',
@@ -80,6 +79,7 @@ export function FreeMintButton({
             return;
         }
         if (!data) return;
+        await captureNFTMintClickEvent(data.chainId, contractAddress);
         if (currentChainId !== data.chainId) {
             await switchChainAsync({ chainId: data.chainId });
         }
@@ -92,7 +92,17 @@ export function FreeMintButton({
             mintParams: data,
             onSuccess: refetch,
         });
-    }, [account.address, connected, mintTarget, data, currentChainId, collectionId, refetch, switchChainAsync]);
+    }, [
+        connected,
+        data,
+        contractAddress,
+        currentChainId,
+        mintTarget,
+        collectionId,
+        account.address,
+        refetch,
+        switchChainAsync,
+    ]);
 
     if (data?.mintStatus === MintStatus.NotSupported || !isLogin || (!isLoading && !data)) {
         return externalUrl ? (
@@ -103,6 +113,9 @@ export function FreeMintButton({
                     'flex h-8 items-center justify-center gap-1.5 rounded-full border border-main text-sm font-bold text-main',
                     className,
                 )}
+                onClick={() => {
+                    captureNFTViewWebsiteClickEvent(chainId, contractAddress);
+                }}
             >
                 <WebsiteIcon width={20} height={20} />
                 <Trans>View on Website</Trans>
@@ -112,20 +125,22 @@ export function FreeMintButton({
 
     const isSupportedChain = chains.some((chain) => chain.id === chainId);
     const loading = isLoading || isRefetching || handlerLoading;
-    const disabled = connected && (loading || (!!data && data?.mintStatus > 2) || !isSupportedChain);
+    const disabled = connected && (loading || (data && data.mintStatus > 2) || !isSupportedChain);
 
     if (isLoading) return null;
 
     return (
         <div className={classNames('flex items-center gap-3', className)}>
-            <ClickableButton
-                {...rest}
-                className="flex h-8 flex-1 items-center justify-center rounded-full bg-main px-5 text-sm font-bold text-lightBottom dark:text-darkBottom"
-                disabled={disabled}
-                onClick={handleClick}
-            >
-                {loading ? <LoadingIcon size={20} /> : getMintButtonText(connected, isSupportedChain, data?.mintStatus)}
-            </ClickableButton>
+            {connected && isSupportedChain ? (
+                <ClickableButton
+                    {...rest}
+                    className="flex h-8 flex-1 items-center justify-center rounded-full bg-main px-5 text-sm font-bold text-lightBottom dark:text-darkBottom"
+                    disabled={disabled}
+                    onClick={handleClick}
+                >
+                    {loading ? <LoadingIcon size={20} /> : getMintButtonText(data?.mintStatus)}
+                </ClickableButton>
+            ) : null}
             {externalUrl ? (
                 <Link
                     href={externalUrl}

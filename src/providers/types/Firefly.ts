@@ -1351,7 +1351,6 @@ export type GetBookmarksResponse = Response<{
 }>;
 
 export type SponsorMintOptions = {
-    platformType?: string;
     walletAddress: string;
     contractAddress: string;
     tokenId: string;

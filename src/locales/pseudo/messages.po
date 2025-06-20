@@ -2395,9 +2395,6 @@ msgstr ""
 msgid "Minting Date"
 msgstr ""
 
-msgid "Unsupported Chain"
-msgstr ""
-
 msgid "Failed to create red packet"
 msgstr ""
 

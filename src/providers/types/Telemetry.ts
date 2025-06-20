@@ -90,7 +90,9 @@ export enum EventId {
     SNAPSHOT_VOTE_SUCCESS = 'snapshot_vote_success', // ✅
 
     // mint
-    MINT_NFT_SUCCESS = 'NFT_mint_success', // ✅
+    MINT_NFT_SUCCESS = 'nft_mint_success', // ✅
+    NFT_MINT_CLICK = 'nft_mint_click',
+    NFT_VIEW_WEBSITE_CLICK = 'nft_view_website_click',
 
     // profile
     PROFILE_EDIT_CLICK = 'account_edit_profile_click', // ✅
@@ -645,6 +647,22 @@ export interface Events extends Record<EventId, Event> {
             free_mint: boolean;
             nft_ca: string;
         } & WalletEventParameters;
+    };
+    [EventId.NFT_MINT_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            chain_id: number;
+            nft_ca: string;
+        };
+    };
+    [EventId.NFT_VIEW_WEBSITE_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            chain_id: number;
+            nft_ca: string;
+        };
     };
     [EventId.ARTICLE_COLLECT_SUCCESS]: {
         type: EventType.Interact;

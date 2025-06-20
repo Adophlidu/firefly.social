@@ -2408,9 +2408,6 @@ msgstr ""
 msgid "Minting Date"
 msgstr "鑄造日期"
 
-msgid "Unsupported Chain"
-msgstr "未支持的鏈"
-
 msgid "Failed to create red packet"
 msgstr ""
 
