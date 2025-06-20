@@ -1,3 +1,6 @@
+import { headers } from 'next/headers.js';
+import { userAgentFromString } from 'next/server.js';
+
 import { RedirectProfilePage } from '@/app/(normal)/profile/pages/RedirectProfilePage.js';
 import { RedirectWithFireflyUID } from '@/app/(normal)/profile/pages/RedirectWithFireflyUID.js';
 import { KeyType } from '@/constants/enum.js';
@@ -26,6 +29,9 @@ interface Props extends NextPageProps<{ source: string }> {}
 
 export default async function Page(props: Props) {
     const params = await props.params;
+    const headersList = await headers();
+    const { isBot } = userAgentFromString(headersList.get('user-agent') || '');
+    if (isBot) return null;
     if (isUID(params.source)) {
         return <RedirectWithFireflyUID uid={params.source} />;
     }

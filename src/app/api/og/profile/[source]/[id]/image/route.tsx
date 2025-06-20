@@ -113,7 +113,7 @@ async function ProfileOpenGraphImage({ avatar, displayName, sources, source }: P
             <Image
                 src={OGBackgroundSVG}
                 alt="og-background"
-                style={{ position: 'absolute', top: 0, left: 0, width: '1200px', height: '630px' }}
+                style={{ position: 'absolute', top: 0, left: 0, width: '1200px', height: '630px', objectFit: 'cover' }}
                 width={1200}
                 height={630}
             />
@@ -143,6 +143,7 @@ async function ProfileOpenGraphImage({ avatar, displayName, sources, source }: P
                             width: `${OG_AVATAR_SIZE}px`,
                             height: `${OG_AVATAR_SIZE}px`,
                             borderRadius: '200px',
+                            objectFit: 'cover',
                         }}
                         width={OG_AVATAR_SIZE}
                         height={OG_AVATAR_SIZE}
@@ -154,6 +155,7 @@ async function ProfileOpenGraphImage({ avatar, displayName, sources, source }: P
                             width={56}
                             height={56}
                             style={{
+                                backgroundColor: '#fff',
                                 position: 'absolute',
                                 bottom: '4px',
                                 right: '12px',

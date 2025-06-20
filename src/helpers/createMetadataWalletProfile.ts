@@ -6,6 +6,7 @@ import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 
 export async function createMetadataWalletProfile(addressOrEns: string) {
@@ -17,8 +18,8 @@ export async function createMetadataWalletProfile(addressOrEns: string) {
         : createPageTitleOG(`${formatAddress(walletProfile.address, 4)}`);
     const description = walletProfile.address;
     const images = [
-        urlcat(SITE_URL, 'api/og/:source/:id/image', {
-            source: Source.Wallet,
+        urlcat(SITE_URL, 'api/og/profile/:source/:id/image', {
+            source: resolveSourceInUrl(Source.Wallet),
             id: addressOrEns,
         }),
     ];
