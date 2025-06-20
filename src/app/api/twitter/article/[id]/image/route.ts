@@ -11,8 +11,8 @@ import { getImageUrl } from '@/providers/og/readers/metadata.js';
 import type { NextRequestContext } from '@/types/index.js';
 
 export const GET = compose(
-    withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
+    withRequestErrorHandler({ throwError: true }),
     async (request: NextRequest, context?: NextRequestContext) => {
         const articleId = (await context?.params)?.id;
         if (!articleId) throw new MalformedError('articleId not found');

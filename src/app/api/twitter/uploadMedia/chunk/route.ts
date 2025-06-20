@@ -17,8 +17,8 @@ const FinishUploadSchema = z.object({
 
 // Finish upload
 export const POST = compose<(request: NextRequest) => Promise<Response>>(
-    withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
+    withRequestErrorHandler({ throwError: true }),
     async (request) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, FinishUploadSchema);
 
@@ -33,8 +33,8 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
 
 // Get upload status
 export const GET = compose<(request: NextRequest) => Promise<Response>>(
-    withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
+    withRequestErrorHandler({ throwError: true }),
     async (request) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, FinishUploadSchema);
 

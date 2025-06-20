@@ -10,8 +10,8 @@ import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErro
 import type { NextRequestContext } from '@/types/index.js';
 
 export const PUT = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
-    withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
+    withRequestErrorHandler({ throwError: true }),
     async (request, context) => {
         const tweetId = (await context?.params)?.tweetId;
         if (!tweetId) throw new MalformedError('tweetId not found');
@@ -29,8 +29,8 @@ export const PUT = compose<(request: NextRequest, context?: NextRequestContext) 
 );
 
 export const DELETE = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
-    withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
+    withRequestErrorHandler({ throwError: true }),
     async (request, context) => {
         const tweetId = (await context?.params)?.tweetId;
         if (!tweetId) throw new MalformedError('tweetId not found');

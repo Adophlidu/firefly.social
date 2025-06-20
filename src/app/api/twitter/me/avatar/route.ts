@@ -16,8 +16,8 @@ const FormDataSchema = z.object({
 });
 
 export const PUT = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
-    withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
+    withRequestErrorHandler({ throwError: true }),
     async (request) => {
         const client = await createTwitterClientV2();
         const formData = await request.formData().catch((error) => {

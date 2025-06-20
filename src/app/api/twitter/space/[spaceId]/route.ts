@@ -10,8 +10,8 @@ import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErro
 import type { NextRequestContext } from '@/types/index.js';
 
 export const GET = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
-    withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
+    withRequestErrorHandler({ throwError: true }),
     async (request, context) => {
         const spaceId = (await context?.params)?.spaceId;
         if (!spaceId) throw new MalformedError('spaceId not found');

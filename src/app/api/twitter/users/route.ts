@@ -14,8 +14,8 @@ const BodySchema = z.object({
 });
 
 export const POST = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
-    withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
+    withRequestErrorHandler({ throwError: true }),
     async (request: NextRequest) => {
         const parsedBody = BodySchema.safeParse(await request.json());
         if (!parsedBody.success) throw new Error(parsedBody.error.message);

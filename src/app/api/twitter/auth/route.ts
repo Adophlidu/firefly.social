@@ -10,8 +10,8 @@ import { encrypt } from '@/services/crypto.js';
 import type { NextRequestContext } from '@/types/index.js';
 
 export const POST = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
-    withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
+    withRequestErrorHandler({ throwError: true }),
     async (request) => {
         const payload = await createTwitterSessionBeforeLogin(request);
         if (!payload) throw new UnauthorizedError();

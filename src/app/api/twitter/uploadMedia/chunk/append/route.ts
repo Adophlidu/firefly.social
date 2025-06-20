@@ -17,8 +17,8 @@ const AppendMediaSchema = z.object({
 });
 
 export const POST = compose<(request: NextRequest) => Promise<Response>>(
-    withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
+    withRequestErrorHandler({ throwError: true }),
     async (request) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, AppendMediaSchema);
 

@@ -10,8 +10,8 @@ import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErro
 import type { NextRequestContext } from '@/types/index.js';
 
 export const POST = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
-    withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
+    withRequestErrorHandler({ throwError: true }),
     async (request, context) => {
         const postId = (await context?.params)?.postId;
         if (!postId) throw new MalformedError('postId not found');

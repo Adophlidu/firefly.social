@@ -12,28 +12,20 @@ import type { NextRequestContext } from '@/types/index.js';
 
 type RequestFn = (request: NextRequest, context?: NextRequestContext) => Promise<Response>;
 
-export const GET = compose<RequestFn>(
-    withRequestErrorHandler({ throwError: true }),
-    withTwitterRequestErrorHandler,
-    async (request) => {
-        const client = await createTwitterClientV2();
-        const { data, errors } = await client.v2.me();
-        if (errors?.length) {
-            console.error('[twitter] v2.me', errors);
-            return createTwitterErrorResponseJSON(errors);
-        }
+export const GET = compose<RequestFn>(withTwitterRequestErrorHandler, withRequestErrorHandler(), async (request) => {
+    const client = await createTwitterClientV2();
+    const { data, errors } = await client.v2.me();
+    if (errors?.length) {
+        console.error('[twitter] v2.me', errors);
+        return createTwitterErrorResponseJSON(errors);
+    }
 
-        return createSuccessResponseJSON(data);
-    },
-);
+    return createSuccessResponseJSON(data);
+});
 
-export const PUT = compose<RequestFn>(
-    withRequestErrorHandler({ throwError: true }),
-    withTwitterRequestErrorHandler,
-    async (request) => {
-        const params = await getJsonBodyFromRequestWithZodObject(request, TwitterEditProfile);
-        const client = await createTwitterClientV2();
-        await client.v1.updateAccountProfile(params);
-        return createSuccessResponseJSON(null);
-    },
-);
+export const PUT = compose<RequestFn>(withTwitterRequestErrorHandler, withRequestErrorHandler(), async (request) => {
+    const params = await getJsonBodyFromRequestWithZodObject(request, TwitterEditProfile);
+    const client = await createTwitterClientV2();
+    await client.v1.updateAccountProfile(params);
+    return createSuccessResponseJSON(null);
+});

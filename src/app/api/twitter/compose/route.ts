@@ -78,8 +78,8 @@ async function composeTweet(rawTweet: unknown) {
 }
 
 export const POST = compose<(request: NextRequest) => Promise<Response>>(
-    withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
+    withRequestErrorHandler({ throwError: true }),
     async (request) => {
         const client = await createTwitterClientV2();
         const tweet = await composeTweet(await request.json());

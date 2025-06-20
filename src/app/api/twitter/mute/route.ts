@@ -10,8 +10,8 @@ import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErro
 import { Pageable } from '@/schemas/index.js';
 
 export const GET = compose<(request: NextRequest) => Promise<Response>>(
-    withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
+    withRequestErrorHandler({ throwError: true }),
     async (request: NextRequest) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, Pageable);
 

@@ -22,8 +22,8 @@ const UploadSchema = z
     .optional();
 
 export const POST = compose<(request: NextRequest) => Promise<Response>>(
-    withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
+    withRequestErrorHandler({ throwError: true }),
     async (request) => {
         const formData = await request.formData();
         const file = formData.get('file') as File | null;

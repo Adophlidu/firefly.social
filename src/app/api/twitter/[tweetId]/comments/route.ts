@@ -13,8 +13,8 @@ import { Pageable } from '@/schemas/index.js';
 import type { NextRequestContext } from '@/types/index.js';
 
 export const GET = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
-    withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
+    withRequestErrorHandler({ throwError: true }),
     async (request, context) => {
         const tweetId = (await context?.params)?.tweetId;
         if (!tweetId) throw new MalformedError('tweetId not found');

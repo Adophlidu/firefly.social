@@ -9,8 +9,8 @@ import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErro
 import { TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
 
 export const POST = compose<(request: NextRequest) => Promise<Response>>(
-    withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
+    withRequestErrorHandler({ throwError: true }),
     async (request) => {
         const payload = await createTwitterSessionBeforeLogin(request);
         if (!payload) return createSuccessResponseJSON(null);

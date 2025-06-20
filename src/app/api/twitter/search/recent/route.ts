@@ -24,8 +24,8 @@ const SearchPageable = z.object({
 });
 
 export const GET = compose<(request: NextRequest, context?: NextRequestContext) => Promise<Response>>(
-    withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
+    withRequestErrorHandler({ throwError: true }),
     async (request) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, SearchPageable);
 
