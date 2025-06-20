@@ -1,7 +1,7 @@
 'use client';
 import { Trans } from '@lingui/react/macro';
 import { isArray } from 'lodash-es';
-import { useParams, useSearchParams } from 'next/navigation.js';
+import { ReadonlyURLSearchParams, useParams, useSearchParams } from 'next/navigation.js';
 import { type HTMLProps, memo } from 'react';
 import urlcat from 'urlcat';
 
@@ -39,8 +39,9 @@ const categoryUrlPatternMap: Record<TokenCategory, string> = {
     [TokenCategory.Overview]: '/token/:symbol/overview',
     [TokenCategory.Transactions]: `/token/:symbol/transactions`,
 };
-function resolveCategoryUrl(category: TokenCategory, params: TokenPageSearch & { symbol: string }): string {
-    return urlcat(categoryUrlPatternMap[category], params);
+
+function resolveTab(category: TokenCategory, params: ReadonlyURLSearchParams, symbol: string) {
+    return urlcat(categoryUrlPatternMap[category], { ...Object.fromEntries(params.entries()), symbol });
 }
 export const CategoryTabs = memo<Props>(function CategoryTabs({ slug, token, ...rest }) {
     const { symbol } = useParams<{ symbol: string }>();
@@ -64,15 +65,7 @@ export const CategoryTabs = memo<Props>(function CategoryTabs({ slug, token, ...
                 <SourceTab
                     className="whitespace-nowrap text-base md:!h-[45px] md:!px-4 md:!py-[10px]"
                     key={x}
-                    href={resolveCategoryUrl(x, {
-                        wallet: search.get('wallet')!,
-                        chainId: search.get('chainId') || undefined,
-                        isCoinId: (search.get('isCoinId') as 'true') || undefined,
-                        trader: search.get('trader') || undefined,
-                        traderName: search.get('traderName') || undefined,
-                        address: search.get('address') || undefined,
-                        symbol,
-                    })}
+                    href={resolveTab(x, search, symbol)}
                     isActive={x === category}
                 >
                     {labels[x]}

@@ -3,6 +3,8 @@ export interface PriceRecord {
     value: number;
 }
 export interface TradeRecord {
+    chainId: number;
+    hash: string;
     value: number | undefined;
     date: number;
     user: {

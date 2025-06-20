@@ -10,6 +10,8 @@ export function swapActivityToTradeRecord(activity: SwapActivity, tokenAddress: 
     const token = isSell ? activity.from_token : activity.to_token;
     if (!token) return null;
     return {
+        chainId: activity.chain_id,
+        hash: activity.hash,
         user: {
             name: activity.displayInfo?.ensHandle,
             avatar:

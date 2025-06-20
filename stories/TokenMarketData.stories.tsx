@@ -43,6 +43,8 @@ export const Base: Story = {
         traderCount: 10,
         tradeRecords: [
             {
+                chainId: 1,
+                hash: '1',
                 type: 'buy',
                 date: 1746850296131,
                 value: 1.1147951013430362,
@@ -55,6 +57,8 @@ export const Base: Story = {
                 },
             },
             {
+                chainId: 1,
+                hash: '2',
                 type: 'sell',
                 date: 1746921928998,
                 value: 1.4402451541063872,
@@ -67,6 +71,8 @@ export const Base: Story = {
                 },
             },
             {
+                chainId: 1,
+                hash: '3',
                 type: 'buy',
                 date: 1746921928998, // exactly the same as the previous record
                 value: 1.4402451541063872,

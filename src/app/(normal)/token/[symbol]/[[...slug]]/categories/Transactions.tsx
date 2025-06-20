@@ -1,16 +1,18 @@
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
-import { type HTMLProps, memo, useCallback, useContext, useMemo, useState } from 'react';
+import type { ReadonlyURLSearchParams } from 'next/navigation.js';
+import { type HTMLProps, memo, Suspense, useCallback, useContext, useMemo, useState, useTransition } from 'react';
 
+import TokenPageLoading from '@/app/(normal)/token/[symbol]/[[...slug]]/loading.js';
 import { Avatar } from '@/components/Avatar.js';
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SwapTimeline, type SwapTimelineProps } from '@/components/Swap/SwapTimeline.js';
 import { TokenContext } from '@/components/Token/TokenContext.js';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
-import { useSearchParams } from '@/esm/navigation.js';
+import { Link } from '@/esm/Link.js';
+import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
@@ -19,6 +21,16 @@ import { swapActivityToTradeRecord } from '@/helpers/swapActivityToTradeRecord.j
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import type { SwapActivity } from '@/providers/types/Firefly.js';
 import { SolanaChainId } from '#masknet/web3-shared-solana';
+
+function resolveTab(pathname: string, params: ReadonlyURLSearchParams, category: string) {
+    const newParams = new URLSearchParams(params);
+    newParams.set('tx', category);
+    if (category !== 'trader' && newParams.has('trader')) {
+        newParams.delete('trader');
+        newParams.delete('traderName');
+    }
+    return `${pathname}?${newParams.toString()}`;
+}
 
 interface Props extends HTMLProps<HTMLDivElement>, Pick<SwapTimelineProps, 'chainId' | 'tokenAddress'> {
     trader: string | undefined;
@@ -48,11 +60,15 @@ export const Transactions = memo<Props>(function Transactions({
             ...list,
         ];
     }, [isMyOwnWallet, trader, traderName]);
+    const [isPending, startTransition] = useTransition();
+    const router = useRouter();
 
     const account = chainId === SolanaChainId.Mainnet ? solana.address : ethereum.address;
+    const pathname = usePathname();
     const params = useSearchParams();
-    const tab = params.get('tab') || isMyOwnWallet ? 'mine' : subcategories[0].value;
-    const [subcategory = tab, setSubcategory] = useState<string>();
+    const [pendingCategory, setPendingCategory] = useState<string>();
+    const subcategory =
+        (isPending && pendingCategory) || (isMyOwnWallet ? 'mine' : params.get('tx') || subcategories[0].value);
     const isFollowing = subcategory === 'following';
 
     const { tradeRecords, setTradeRecords } = useContext(TokenContext);
@@ -72,18 +88,25 @@ export const Transactions = memo<Props>(function Transactions({
     };
 
     return (
-        <div {...props} className={classNames('flex flex-col gap-2', props.className)}>
+        <div {...props} className={classNames('flex flex-grow flex-col gap-2', props.className)}>
             <div className="flex shrink-0 gap-2">
                 {subcategories.map((x) => {
                     const selected = x.value === subcategory;
                     return (
-                        <ClickableButton
+                        <Link
                             key={x.value}
                             className={classNames(
                                 'flex h-6 cursor-pointer list-none items-center justify-center gap-1 rounded-md px-1.5 text-xs leading-6 lg:flex-initial lg:justify-start',
                                 selected ? 'bg-highlight text-white' : 'bg-thirdMain text-second hover:text-highlight',
                             )}
-                            onClick={() => setSubcategory(x.value)}
+                            href={resolveTab(pathname, params, x.value)}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setPendingCategory(x.value);
+                                startTransition(() => {
+                                    router.replace(resolveTab(pathname, params, x.value));
+                                });
+                            }}
                             aria-current={selected ? 'page' : undefined}
                         >
                             {x.value === 'trader' && trader ? (
@@ -97,45 +120,53 @@ export const Transactions = memo<Props>(function Transactions({
                                 />
                             ) : null}
                             {x.label}
-                        </ClickableButton>
+                        </Link>
                     );
                 })}
             </div>
-            {isFollowing ? (
-                <SwapTimeline
-                    isFollowing
-                    {...timelineProps}
-                    NoResultsFallbackProps={{
-                        icon: null,
-                        message: <Trans>No one you follow has traded this token.</Trans>,
-                    }}
-                />
-            ) : subcategory === 'mine' || isMyOwnWallet ? (
-                account ? (
+            <Suspense
+                fallback={
+                    <div className="flex flex-grow flex-col">
+                        <TokenPageLoading />
+                    </div>
+                }
+            >
+                {isFollowing ? (
                     <SwapTimeline
-                        address={account}
+                        isFollowing
                         {...timelineProps}
                         NoResultsFallbackProps={{
                             icon: null,
-                            message: <Trans>You haven&apos;t traded this token.</Trans>,
+                            message: <Trans>No one you follow has traded this token.</Trans>,
                         }}
                     />
-                ) : (
-                    <NotLoginFallback
-                        source={Source.Wallet}
-                        message={<Trans>Connect your wallet to unlock all features</Trans>}
+                ) : subcategory === 'mine' || isMyOwnWallet ? (
+                    account ? (
+                        <SwapTimeline
+                            address={account}
+                            {...timelineProps}
+                            NoResultsFallbackProps={{
+                                icon: null,
+                                message: <Trans>You haven&apos;t traded this token.</Trans>,
+                            }}
+                        />
+                    ) : (
+                        <NotLoginFallback
+                            source={Source.Wallet}
+                            message={<Trans>Connect your wallet to unlock all features</Trans>}
+                        />
+                    )
+                ) : subcategory === 'trader' && trader ? (
+                    <SwapTimeline
+                        address={trader}
+                        {...timelineProps}
+                        NoResultsFallbackProps={{
+                            icon: null,
+                            message: <Trans>No trade records</Trans>,
+                        }}
                     />
-                )
-            ) : subcategory === 'trader' && trader ? (
-                <SwapTimeline
-                    address={trader}
-                    {...timelineProps}
-                    NoResultsFallbackProps={{
-                        icon: null,
-                        message: <Trans>No trade records</Trans>,
-                    }}
-                />
-            ) : null}
+                ) : null}
+            </Suspense>
         </div>
     );
 });

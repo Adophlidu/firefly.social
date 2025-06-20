@@ -71,9 +71,12 @@ export interface TokenMarketDataProps extends HTMLProps<HTMLDivElement> {
     token: CoinGeckoToken;
     linkable?: boolean;
     rank?: number;
-    range?: string;
+    range?: string | null;
     traderCount?: number;
+    activeTradeHash?: string | null;
     onContractChange?: (chainId: number | undefined, address: string) => void;
+    onRangeChange?: (range: string) => void;
+    onTradeSelect?: (chainId: number, tradeHash: string) => void;
 }
 
 const copyOptions = {
@@ -91,7 +94,10 @@ export const TokenMarketData = memo(function TokenMarketData({
     tradeRecords = EMPTY_LIST,
     range,
     traderCount,
+    activeTradeHash,
     onContractChange,
+    onRangeChange,
+    onTradeSelect,
     ...rest
 }: TokenMarketDataProps) {
     const ranges = getRanges();
@@ -120,7 +126,6 @@ export const TokenMarketData = memo(function TokenMarketData({
 
     const { preferences, setPreference } = usePreferencesState();
     const [activeRecord, setActiveRecord] = useState<PriceRecord>();
-    const [activeTradeIndex, setActiveTradeIndex] = useState<number>();
     const [pendingTradeIndex, setPendingTradeIndex] = useState<number>();
     const [rangeId = range, setRangeId] = useState<(typeof ranges)[number]['id']>();
     const currentRange = ranges.find((x) => x.id === rangeId) || ranges[1];
@@ -137,6 +142,10 @@ export const TokenMarketData = memo(function TokenMarketData({
     );
     const showUserTx = preferences.SHOW_USER_TX_IN_CHART;
     const withinRangeTradeRecords = useWithinRangeRecords(stats, tradeRecords, currentRange.id === 'max');
+    const [
+        activeTradeIndex = withinRangeTradeRecords.findIndex((x) => x.hash === activeTradeHash),
+        setActiveTradeIndex,
+    ] = useState<number>();
 
     const { isUp, change } = useIsPriceUp(stats, activeRecord);
     const invalidData = useMemo(() => stats.length === 0 || stats.every((item) => isZero(item.value)), [stats]);
@@ -149,9 +158,14 @@ export const TokenMarketData = memo(function TokenMarketData({
         </>
     );
 
-    const handleDotClick = useCallback((dotIndex: number) => {
-        setActiveTradeIndex(dotIndex);
-    }, []);
+    const handleDotClick = useCallback(
+        (dotIndex: number) => {
+            setActiveTradeIndex(dotIndex);
+            const trade = withinRangeTradeRecords[dotIndex];
+            onTradeSelect?.(trade.chainId, trade.hash);
+        },
+        [onTradeSelect, withinRangeTradeRecords],
+    );
 
     const tokenRank = rank ?? token.rank;
     const price = tokenPrice ?? coin?.market_data?.token_price_usd ?? token.price;
@@ -383,7 +397,10 @@ export const TokenMarketData = memo(function TokenMarketData({
                                     : 'bg-transparent text-secondary',
                             )}
                             key={range.id}
-                            onClick={() => setRangeId(range.id)}
+                            onClick={() => {
+                                setRangeId(range.id);
+                                onRangeChange?.(range.id);
+                            }}
                         >
                             {range.label}
                         </ClickableButton>

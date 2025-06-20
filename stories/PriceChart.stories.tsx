@@ -34,6 +34,8 @@ const prices: PriceRecord[] = [
 
 const tradeRecords: TradeRecord[] = [
     {
+        chainId: 1,
+        hash: '1',
         type: 'buy',
         date: 1746517567601,
         value: 1.1147951013430362,
@@ -46,6 +48,8 @@ const tradeRecords: TradeRecord[] = [
         },
     },
     {
+        chainId: 1,
+        hash: '2',
         type: 'sell',
         date: 1746519712726,
         value: 1.0989220185301953,
@@ -58,6 +62,8 @@ const tradeRecords: TradeRecord[] = [
         },
     },
     {
+        chainId: 1,
+        hash: '3',
         type: 'buy',
         date: 1746520266920,
         value: 1.1147951013430362,

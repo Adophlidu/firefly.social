@@ -7,7 +7,6 @@ import { type HTMLProps, memo, Suspense, useMemo, useState, useTransition } from
 import TokenPageLoading from '@/app/(normal)/token/[symbol]/[[...slug]]/loading.js';
 import SortAscIcon from '@/assets/sort-asc.svg';
 import X3ProIcon from '@/assets/x3pro.svg';
-import { Link } from '@/components/Link.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchPostList } from '@/components/Search/SearchPostList.js';
 import { KolBar } from '@/components/TokenProfile/KolBar.js';
@@ -15,6 +14,7 @@ import { MentionedByModal } from '@/components/TokenProfile/MentionedByModal.js'
 import { Tooltip } from '@/components/Tooltip.js';
 import { SearchType, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_TOKEN_FEEDS_SOURCES, X3_PRO_CHAIN_IDS } from '@/constants/index.js';
+import { Link } from '@/esm/Link.js';
 import { usePathname, useRouter, useSearchParams } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatTokenMentionUser } from '@/helpers/formatTokenMentionUser.js';

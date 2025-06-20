@@ -56,7 +56,8 @@ export const WrapTokenMarketData = memo(function WrapTokenMarketData(props: Toke
             tradeRecords={tradeRecords}
             chainId={chainId || props.token.chainId}
             traderCount={followingTraderCount}
-            {...props}
+            range={search.get('range')}
+            activeTradeHash={search.get('trade')}
             onContractChange={(chainId, address) => {
                 const params = new URLSearchParams(search);
                 if (chainId) {
@@ -67,6 +68,18 @@ export const WrapTokenMarketData = memo(function WrapTokenMarketData(props: Toke
                 params.set('address', address);
                 router.replace(`${pathname}?${params.toString()}`);
             }}
+            onRangeChange={(range) => {
+                const params = new URLSearchParams(search);
+                params.set('range', range);
+                router.replace(`${pathname}?${params.toString()}`);
+            }}
+            onTradeSelect={(chainId, hash) => {
+                const params = new URLSearchParams(search);
+                params.set('trade', hash);
+                history.replaceState(Object.fromEntries(params.entries()), '', `${pathname}?${params.toString()}`);
+                router.push(`/swap/${chainId}/${hash}`);
+            }}
+            {...props}
         />
     );
 });

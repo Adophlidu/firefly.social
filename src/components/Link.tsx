@@ -11,6 +11,9 @@ import { ConfirmLeavingModalRef } from '@/modals/controls.js';
 
 type LinkProps = React.ComponentProps<typeof OriginalLink>;
 
+/**
+ * Would show a confirmation modal if the link is external and not trusted
+ */
 export function Link({ href, ref, onClick, ...rest }: LinkProps) {
     const { data: internalLink } = useInternalLink(href);
     const isTrusted = isTrustedUrl(href);
