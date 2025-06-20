@@ -7,7 +7,7 @@ import {
     useBasicTypeaheadTriggerMatch,
 } from '@lexical/react/LexicalTypeaheadMenuPlugin.js';
 import { useQuery } from '@tanstack/react-query';
-import { type TextNode } from 'lexical';
+import { $getSelection, $isRangeSelection, type TextNode } from 'lexical';
 import { compact } from 'lodash-es';
 import { type JSX, memo, useCallback, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -260,7 +260,6 @@ export function MentionsPlugin(): JSX.Element | null {
         (selectedOption: MentionTypeaheadOption, nodeToReplace: null | TextNode, closeMenu: () => void) => {
             isUpdatingMentionTag.current = true;
 
-            MentionNode.setEditorInstance(editor);
             MentionNode.setIsDarkMode(isDarkMode);
             editor.update(
                 () => {
@@ -270,7 +269,11 @@ export function MentionsPlugin(): JSX.Element | null {
                     } else if (nodeToReplace) {
                         nodeToReplace.replace(mentionNode);
                     }
-                    mentionNode.select().insertText(' ');
+                    const selection = $getSelection();
+                    if ($isRangeSelection(selection)) {
+                        selection.insertText(' ');
+                    }
+
                     closeMenu();
                     setOpen(false);
                 },

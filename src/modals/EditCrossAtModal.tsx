@@ -1,6 +1,6 @@
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import { isEqual } from 'lodash-es';
+import { compact, isEqual, values } from 'lodash-es';
 import { Fragment, useMemo, useRef, useState } from 'react';
 
 import ArrowDown from '@/assets/arrow-line-down.svg';
@@ -10,9 +10,11 @@ import { Modal } from '@/components/Modal.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import type { SocialSource } from '@/constants/enum.js';
-import { EMPTY_LIST, SORTED_CROSS_AT_SOCIAL_SOURCES } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { formatFireflyProfileToProfile } from '@/helpers/formatSearchProfile.js';
+import { resolveFireflyPlatformFromSocialSource } from '@/helpers/resolveFireflyPlatform.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
+import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { captureComposeCrossAtEvent } from '@/providers/telemetry/captureComposeEvent.js';
@@ -30,6 +32,7 @@ type Props = {
 };
 
 export function EditCrossAtModal({ ref }: Props) {
+    const post = useCompositePost();
     const initialHandles = useRef<Record<SocialSource, string>>({} as Record<SocialSource, string>);
     const [profiles, setProfiles] = useState<Profile[]>(EMPTY_LIST);
     const [handles, setHandles] = useState<Record<SocialSource, string>>({} as Record<SocialSource, string>);
@@ -37,7 +40,7 @@ export function EditCrossAtModal({ ref }: Props) {
         onOpen: (props) => {
             setProfiles(props.profiles);
             const nextHandles = {} as Record<SocialSource, string>;
-            SORTED_CROSS_AT_SOCIAL_SOURCES.forEach((source) => {
+            post.availableSources.forEach((source) => {
                 const profile = props.profiles.find(
                     (x) => resolveSocialSourceFromFireflyPlatform(x.platform) === source,
                 );
@@ -52,6 +55,7 @@ export function EditCrossAtModal({ ref }: Props) {
     });
 
     const isEdited = useMemo(() => {
+        if (values(handles).every((x) => x === '')) return false;
         return !isEqual(initialHandles.current, handles);
     }, [handles]);
 
@@ -76,16 +80,16 @@ export function EditCrossAtModal({ ref }: Props) {
                 </div>
 
                 <div className="flex flex-col gap-3 px-4 pb-6">
-                    {SORTED_CROSS_AT_SOCIAL_SOURCES.map((source) => {
+                    {post.availableSources.map((source) => {
                         const profile = profiles.find(
                             (x) => resolveSocialSourceFromFireflyPlatform(x.platform) === source,
                         );
 
                         return (
                             <div key={source} className="flex items-center gap-3">
-                                <SocialSourceIcon source={source} size={18} className="size-[18px]" />
-                                <div className="relative flex w-full items-center gap-2 rounded-md border border-line bg-transparent p-2 text-xl font-medium text-main outline-none transition duration-150 focus-within:border-lightHighlight">
-                                    <span className="text-second">@</span>
+                                <SocialSourceIcon square source={source} size={18} className="size-[18px]" />
+                                <div className="relative flex w-full items-center rounded-md border border-line bg-transparent p-2 text-xl font-medium text-main outline-none transition duration-150 focus-within:border-lightHighlight">
+                                    <span className="text-[14px] leading-[18px] text-main">@</span>
                                     <input
                                         className="w-full border-none bg-transparent p-0 leading-[18px] outline-none focus:border-none"
                                         style={{ boxShadow: 'none' }}
@@ -99,11 +103,11 @@ export function EditCrossAtModal({ ref }: Props) {
                                         }}
                                     />
                                     {profile?.related_profiles?.length && profile.related_profiles.length > 1 ? (
-                                        <Popover className="relative">
+                                        <Popover className="relative leading-[18px]">
                                             {({ open, close }) => (
                                                 <>
                                                     <PopoverButton className="outline-none">
-                                                        <ArrowDown className="size-4 cursor-pointer text-2xl text-second" />
+                                                        <ArrowDown className="size-4 cursor-pointer text-second" />
                                                     </PopoverButton>
                                                     <Transition
                                                         as={Fragment}
@@ -157,15 +161,28 @@ export function EditCrossAtModal({ ref }: Props) {
 
                 <div className="flex justify-center px-6 pb-6">
                     <ActionButton
-                        className="w-full rounded-full py-3 text-lg font-semibold"
+                        className="w-full rounded-full py-[11px] text-lg font-semibold leading-[18px]"
                         onClick={() => {
-                            const newProfiles = profiles.map((profile) => {
-                                const source = resolveSocialSourceFromFireflyPlatform(profile.platform);
-                                return {
-                                    ...profile,
-                                    handle: handles[source] ?? profile.handle,
-                                };
-                            });
+                            const newProfiles = compact(
+                                post.availableSources.map((source) => {
+                                    const profile = profiles.find((x) => {
+                                        resolveSocialSourceFromFireflyPlatform(x.platform) === source;
+                                    });
+
+                                    if (handles[source]) {
+                                        if (profile) return { ...profile, handle: handles[source] };
+                                        return {
+                                            platform: resolveFireflyPlatformFromSocialSource(source),
+                                            handle: handles[source],
+                                            platform_id: '',
+                                            name: '',
+                                            hit: false,
+                                            score: 0,
+                                        };
+                                    }
+                                    return profile;
+                                }),
+                            );
                             captureComposeCrossAtEvent(EventId.COMPOSE_CROSS_AT_EDIT_SUCCESS);
                             dispatch?.close(newProfiles);
                         }}

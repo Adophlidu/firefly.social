@@ -9,7 +9,7 @@ import { $dfs } from '@lexical/utils';
 import { Select, Trans } from '@lingui/react/macro';
 import type { EditorState } from 'lexical';
 import { compact, debounce } from 'lodash-es';
-import { memo, useMemo, useTransition } from 'react';
+import { memo, type PropsWithChildren, useMemo, useTransition } from 'react';
 import { useDebounce } from 'react-use';
 
 import { $isMentionNode, MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
@@ -19,12 +19,8 @@ import { CHAR_TAG, type Chars, type ComplexChars, writeChars } from '@/helpers/c
 import { classNames } from '@/helpers/classNames.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
-function ErrorBoundaryComponent() {
-    return (
-        <div>
-            <Trans>Something went wrong. Please try again.</Trans>
-        </div>
-    );
+function ErrorBoundaryComponent(props: PropsWithChildren) {
+    return <>{props.children}</>;
 }
 
 // TODO: these plugins slow down the editor
