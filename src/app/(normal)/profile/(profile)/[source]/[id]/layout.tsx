@@ -82,6 +82,13 @@ export default async function Layout(props: Props) {
         queryClient.setQueryData(['profile', socialProfile.source, socialProfile.handle], socialProfile);
         queryClient.setQueryData(['firefly-profile', socialProfile.source, socialProfile.profileId], relatedProfile);
         queryClient.setQueryData(['firefly-profile', socialProfile.source, socialProfile.handle], relatedProfile);
+
+        if (profiles.length) {
+            queryClient.setQueryData(
+                ['logged-in-firefly-profiles', socialProfile?.source, socialProfile?.handle],
+                profiles,
+            );
+        }
     }
 
     return (

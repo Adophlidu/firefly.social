@@ -26,7 +26,7 @@ import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type ProfilePageSource, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { SORTED_PROFILE_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { usePathname } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
@@ -38,7 +38,7 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { sortFireflyProfiles } from '@/helpers/sortFireflyProfiles.js';
-import { useCurrentProfile, useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureProfileActionEvent.js';
 import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
@@ -417,16 +417,13 @@ export function ProfileSourceTabs({
     socialProfile?: Profile | null;
 }) {
     const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
-    const profilesAll = useCurrentProfilesAll();
-    const profileIds = SORTED_SOCIAL_SOURCES.map((x) => profilesAll[x]?.profileId);
 
-    const { data } = useQuery({
-        queryKey: ['logged-in-firefly-profiles', profileIds],
+    const { data = initialProfiles } = useQuery({
+        queryKey: ['logged-in-firefly-profiles', socialProfile?.source, socialProfile?.handle],
         enabled: !!socialProfile && isMyProfile,
         queryFn: async () => {
             try {
                 if (!socialProfile) return null;
-
                 const relatedProfiles = await getAllRelatedProfilesWithDefault({
                     source: socialProfile.source,
                     id: socialProfile.handle,
@@ -436,6 +433,7 @@ export function ProfileSourceTabs({
                 return null;
             }
         },
+        initialData: initialProfiles,
     });
 
     const profiles = data || initialProfiles;
