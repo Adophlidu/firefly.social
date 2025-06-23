@@ -166,21 +166,20 @@ export function EditCrossAtModal({ ref }: Props) {
                             const newProfiles = compact(
                                 post.availableSources.map((source) => {
                                     const profile = profiles.find((x) => {
-                                        resolveSocialSourceFromFireflyPlatform(x.platform) === source;
+                                        return resolveSocialSourceFromFireflyPlatform(x.platform) === source;
                                     });
 
-                                    if (handles[source]) {
-                                        if (profile) return { ...profile, handle: handles[source] };
-                                        return {
-                                            platform: resolveFireflyPlatformFromSocialSource(source),
-                                            handle: handles[source],
-                                            platform_id: '',
-                                            name: '',
-                                            hit: false,
-                                            score: 0,
-                                        };
-                                    }
-                                    return profile;
+                                    const handle = handles[source];
+
+                                    if (profile) return { ...profile, handle: handle || profile.handle };
+                                    return {
+                                        platform: resolveFireflyPlatformFromSocialSource(source),
+                                        handle,
+                                        platform_id: '',
+                                        name: '',
+                                        hit: false,
+                                        score: 0,
+                                    };
                                 }),
                             );
                             captureComposeCrossAtEvent(EventId.COMPOSE_CROSS_AT_EDIT_SUCCESS);

@@ -1,4 +1,4 @@
-import { $convertToMarkdownString, TEXT_FORMAT_TRANSFORMERS } from '@lexical/markdown';
+import { TEXT_FORMAT_TRANSFORMERS } from '@lexical/markdown';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable.js';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin.js';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin.js';
@@ -7,7 +7,7 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin.js';
 import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin.js';
 import { $dfs } from '@lexical/utils';
 import { Select, Trans } from '@lingui/react/macro';
-import type { EditorState } from 'lexical';
+import { $getRoot, $isElementNode, $isLineBreakNode, $isTextNode, type EditorState, type LexicalNode } from 'lexical';
 import { compact, debounce } from 'lodash-es';
 import { memo, type PropsWithChildren, useMemo, useTransition } from 'react';
 import { useDebounce } from 'react-use';
@@ -18,6 +18,38 @@ import { LexicalAutoLinkPlugin } from '@/components/Lexical/plugins/AutoLinkPlug
 import { CHAR_TAG, type Chars, type ComplexChars, writeChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+
+function extractTextFromNode(node: LexicalNode): string {
+    if ($isMentionNode(node)) {
+        return node.__text;
+    }
+
+    if ($isTextNode(node)) {
+        return node.getTextContent();
+    }
+
+    if ($isLineBreakNode(node)) {
+        return '\n';
+    }
+
+    if ($isElementNode(node)) {
+        let text = '';
+        const children = node.getChildren();
+
+        for (const child of children) {
+            text += extractTextFromNode(child);
+        }
+
+        const nodeType = node.getType();
+        if (nodeType === 'paragraph' || nodeType === 'heading' || nodeType === 'listitem') {
+            text += '\n';
+        }
+
+        return text;
+    }
+
+    return node.getTextContent() || '';
+}
 
 function ErrorBoundaryComponent(props: PropsWithChildren) {
     return <>{props.children}</>;
@@ -60,7 +92,14 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
         () =>
             debounce((editorState: EditorState) => {
                 editorState.read(async () => {
-                    const markdown = $convertToMarkdownString(TEXT_FORMAT_TRANSFORMERS);
+                    let markdown = '';
+                    const root = $getRoot();
+                    const children = root.getChildren();
+
+                    for (const child of children) {
+                        markdown += extractTextFromNode(child);
+                    }
+
                     const allNodes = $dfs();
                     const mentionNodes = allNodes
                         .filter((x) => $isMentionNode(x.node))
