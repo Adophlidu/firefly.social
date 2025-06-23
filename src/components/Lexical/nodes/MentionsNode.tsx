@@ -6,7 +6,7 @@ import {
     type NodeKey,
     type SerializedLexicalNode,
 } from 'lexical';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 import { MentionsMenu } from '@/components/MentionsMenu.js';
 import type { Profile } from '@/providers/types/Firefly.js';
@@ -16,7 +16,7 @@ export interface SerializedMentionNode extends SerializedLexicalNode {
     profiles?: Profile[];
 }
 
-export class MentionNode extends DecoratorNode<React.ReactNode> {
+export class MentionNode extends DecoratorNode<ReactNode> {
     static __isDarkMode: boolean = false;
 
     static setIsDarkMode(isDark: boolean) {

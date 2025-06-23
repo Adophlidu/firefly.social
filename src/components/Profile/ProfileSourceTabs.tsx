@@ -38,7 +38,7 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { sortFireflyProfiles } from '@/helpers/sortFireflyProfiles.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { captureProfileChangeAccountClick } from '@/providers/telemetry/captureProfileActionEvent.js';
 import type { FireflyIdentity, FireflyProfile, WalletProfile } from '@/providers/types/Firefly.js';
