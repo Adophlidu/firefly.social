@@ -34,28 +34,26 @@ export function MentionsMenu({ editor, text, isDarkMode, onEdit, ...props }: Men
 
     const [, handleEdit] = useAsyncFn(
         async (close: () => void) => {
-            async () => {
-                const result = await EditCrossAtModalRef.openAndWaitForClose({
-                    profiles: profiles.filter((x) => x.platform !== FireflyPlatform.Wallet),
+            const result = await EditCrossAtModalRef.openAndWaitForClose({
+                profiles: profiles.filter((x) => x.platform !== FireflyPlatform.Wallet),
+            });
+            if (result && editor) {
+                editor.update(() => {
+                    const handles = compact(
+                        SORTED_CROSS_AT_SOCIAL_SOURCES.map((source) => {
+                            const profile = result.find(
+                                (x) => resolveSocialSourceFromFireflyPlatform(x.platform) === source,
+                            );
+                            if (!profile) return;
+                            return profile.handle;
+                        }),
+                    );
+                    const targetHandle = first(handles);
+                    const newText = (!targetHandle?.startsWith('@') ? `@${targetHandle}` : targetHandle) || text;
+                    onEdit(newText, result);
                 });
-                if (result && editor) {
-                    editor.update(() => {
-                        const handles = compact(
-                            SORTED_CROSS_AT_SOCIAL_SOURCES.map((source) => {
-                                const profile = result.find(
-                                    (x) => resolveSocialSourceFromFireflyPlatform(x.platform) === source,
-                                );
-                                if (!profile) return;
-                                return profile.handle;
-                            }),
-                        );
-                        const targetHandle = first(handles);
-                        const newText = (!targetHandle?.startsWith('@') ? `@${targetHandle}` : targetHandle) || text;
-                        onEdit(newText, result);
-                    });
-                }
-                close();
-            };
+            }
+            close();
         },
         [editor, onEdit, profiles, text],
     );

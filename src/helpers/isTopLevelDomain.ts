@@ -1,5 +1,7 @@
 /* cspell:disable */
 
+import { first, last } from 'lodash-es';
+
 import { parseUrl } from '@/helpers/parseUrl.js';
 
 const TLD_DOMAIN = [
@@ -1598,7 +1600,10 @@ const TLD_DOMAIN = [
 
 export function isTopLevelDomain(url: URL | string) {
     const u = typeof url === 'string' ? parseUrl(url) : url;
-    const domain = u?.hostname.split('.').pop()?.toLocaleLowerCase();
+    const segments = u?.hostname.split('.');
+    const domain = last(segments)?.toLocaleLowerCase();
+
+    if (first(segments) === 'www' && segments?.length === 2) return false;
 
     if (domain === 'eth') {
         if (u?.pathname !== '/') {
