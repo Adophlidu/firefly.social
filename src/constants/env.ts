@@ -145,6 +145,7 @@ export const env = {
         NEXT_PUBLIC_NITTER: process.env.NEXT_PUBLIC_NITTER,
         NEXT_PUBLIC_WALLET_MIX: process.env.NEXT_PUBLIC_WALLET_MIX,
         NEXT_PUBLIC_TRUTH_SOCIAL: process.env.NEXT_PUBLIC_TRUTH_SOCIAL,
+        NEXT_PUBLIC_POST_TRANSLATE: process.env.NEXT_PUBLIC_POST_TRANSLATE,
 
         // hubble
         NEXT_PUBLIC_NEYNAR_URL: process.env.NEXT_PUBLIC_NEYNAR_URL,
