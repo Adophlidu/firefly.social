@@ -5,6 +5,7 @@ import { Trans } from '@lingui/react/macro';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useMounted } from '@/hooks/useMounted.js';
@@ -17,11 +18,12 @@ interface PostProps {
 export function Post({ collapsed = false }: PostProps) {
     const mounted = useMounted();
     const isLogin = useIsLogin();
+    const isSyncing = useAsyncStatusAll();
     const currentChannel = useCurrentVisitingChannel();
 
     if (!mounted) return null;
 
-    return isLogin ? (
+    return isLogin && !isSyncing ? (
         collapsed ? (
             <li className="text-center">
                 <Tooltip content={<Trans>Post</Trans>} placement="right">
