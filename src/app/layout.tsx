@@ -6,6 +6,7 @@ import '@dialectlabs/blinks/index.css';
 import { GoogleAnalytics } from '@next/third-parties/google';
 // @ts-ignore skip
 import { Inter } from 'next/font/google';
+import { headers } from 'next/headers.js';
 
 import { LayoutBody } from '@/app/layout-body.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
@@ -35,12 +36,21 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     await setupLocaleForSSR();
 
     const rootClass = await getCookie(SiteCookies.FireflyRootClass);
+    const requestHeaders = await headers();
+
+    const VERCEL_REGION = [
+        `var VERCEL_IP_TIMEZONE = ${JSON.stringify(requestHeaders.get('x-vercel-ip-timezone'))};`,
+        `var VERCEL_IP_CITY = ${JSON.stringify(requestHeaders.get('x-vercel-ip-city'))};`,
+        `var VERCEL_IP_COUNTRY = ${JSON.stringify(requestHeaders.get('x-vercel-ip-country'))};`,
+        `var VERCEL_IP_REGION = ${JSON.stringify(requestHeaders.get('x-vercel-ip-country-region'))};`,
+    ];
 
     return (
         <html className={`font-loading ${rootClass}`}>
             <head>
                 <Script src="/js/polyfills/base.js" strategy="beforeInteractive" />
                 {IS_PRODUCTION ? <Script src="/js/safary.js" defer /> : null}
+                <Script>{VERCEL_REGION.join('\n')}</Script>
                 <Script
                     src="/js/cookie3.analytics.js"
                     integrity="sha384-ihnQ09PGDbDPthGB3QoQ2Heg2RwQIDyWkHkqxMzq91RPeP8OmydAZbQLgAakAOfI"

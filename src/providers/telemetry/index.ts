@@ -67,12 +67,12 @@ class Telemetry extends Provider<Events, never> {
             return;
         }
 
-        const publicParameters = getPublicParameters(uuid(), this.latestEventId);
         const formattedParameters = Object.fromEntries(
             Object.entries(parameters).map(([key, value]) => formatParameter(key, value)),
         );
 
         // update the latest event id
+        const publicParameters = getPublicParameters(uuid(), this.latestEventId);
         this.latestEventId = publicParameters.public_uuid;
 
         const event = {

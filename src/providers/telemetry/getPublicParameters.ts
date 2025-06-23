@@ -47,9 +47,15 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
             ? `solana:${SolanaChainId.Mainnet}:${solanaAdaptor.publicKey.toBase58()}`
             : undefined,
 
-        // common
+        // firefly session
         public_account_id: fireflySession?.accountIdForEvent,
         public_use_development_api: developmentAPI,
+
+        // vercel region
+        public_ip_timezone: bom.window?.VERCEL_IP_TIMEZONE,
+        public_ip_city: bom.window?.VERCEL_IP_CITY,
+        public_ip_country: bom.window?.VERCEL_IP_COUNTRY,
+        public_ip_region: bom.window?.VERCEL_IP_REGION,
 
         // firefly account id
         firefly_account_id: fireflySession?.accountIdForEvent,

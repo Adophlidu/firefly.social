@@ -35,20 +35,20 @@ const getFireflyWalletProfile = memoizePromise(
 
 export async function captureActivityEvent<E extends EventId>(
     eventId: E,
-    params: Omit<Events[E]['parameters'], 'firefly_account_id' | 'activity'> & {
+    parameters: Omit<Events[E]['parameters'], 'firefly_account_id' | 'activity'> & {
         firefly_account_id?: string;
     },
 ) {
-    if (!params.firefly_account_id) delete params.firefly_account_id; // filter undefined or null
+    if (!parameters.firefly_account_id) delete parameters.firefly_account_id; // filter undefined or null
 
     if (fireflyBridgeProvider.supported) {
         const response = await getFireflyWalletProfile();
-        if (response?.fireflyAccountId) params.firefly_account_id = response.fireflyAccountId;
+        if (response?.fireflyAccountId) parameters.firefly_account_id = response.fireflyAccountId;
     }
 
     const url = parseUrl(window.location.href);
     const referralCode = url?.searchParams.get('r');
-    const referralParams =
+    const referralParameters =
         [
             EventId.EVENT_CONNECT_WALLET_SUCCESS,
             EventId.EVENT_CHANGE_WALLET_SUCCESS,
@@ -62,17 +62,11 @@ export async function captureActivityEvent<E extends EventId>(
               }
             : {};
 
-    return runInSafeAsync(() => {
-        return TelemetryProvider.captureEvent(
-            eventId,
-            {
-                ...referralParams,
-                ...getPublicParameters(eventId, null),
-                ...params,
-            } as Events[E]['parameters'],
-            {},
-        );
-    });
+    return TelemetryProvider.captureEventInSafe(eventId, {
+        ...referralParameters,
+        ...getPublicParameters(eventId, null),
+        ...parameters,
+    } as Events[E]['parameters']);
 }
 
 export async function captureActivityClaimEvent(address: string, isPremium: boolean) {
