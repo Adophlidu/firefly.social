@@ -76,7 +76,7 @@ export interface TokenMarketDataProps extends HTMLProps<HTMLDivElement> {
     activeTradeHash?: string | null;
     onContractChange?: (chainId: number | undefined, address: string) => void;
     onRangeChange?: (range: string) => void;
-    onTradeSelect?: (chainId: number, tradeHash: string) => void;
+    onTradeSelect?: (tradeHash: string) => void;
 }
 
 const copyOptions = {
@@ -94,7 +94,7 @@ export const TokenMarketData = memo(function TokenMarketData({
     tradeRecords = EMPTY_LIST,
     range,
     traderCount,
-    activeTradeHash,
+    activeTradeHash: propTradeHash,
     onContractChange,
     onRangeChange,
     onTradeSelect,
@@ -126,7 +126,7 @@ export const TokenMarketData = memo(function TokenMarketData({
 
     const { preferences, setPreference } = usePreferencesState();
     const [activeRecord, setActiveRecord] = useState<PriceRecord>();
-    const [pendingTradeIndex, setPendingTradeIndex] = useState<number>();
+    const [pendingTradeHash, setPendingTradeHash] = useState<string>();
     const [rangeId = range, setRangeId] = useState<(typeof ranges)[number]['id']>();
     const currentRange = ranges.find((x) => x.id === rangeId) || ranges[1];
 
@@ -142,10 +142,7 @@ export const TokenMarketData = memo(function TokenMarketData({
     );
     const showUserTx = preferences.SHOW_USER_TX_IN_CHART;
     const withinRangeTradeRecords = useWithinRangeRecords(stats, tradeRecords, currentRange.id === 'max');
-    const [
-        activeTradeIndex = withinRangeTradeRecords.findIndex((x) => x.hash === activeTradeHash),
-        setActiveTradeIndex,
-    ] = useState<number>();
+    const [activeTradeHash = propTradeHash, setActiveTradeHash] = useState<string>();
 
     const { isUp, change } = useIsPriceUp(stats, activeRecord);
     const invalidData = useMemo(() => stats.length === 0 || stats.every((item) => isZero(item.value)), [stats]);
@@ -159,12 +156,11 @@ export const TokenMarketData = memo(function TokenMarketData({
     );
 
     const handleDotClick = useCallback(
-        (dotIndex: number) => {
-            setActiveTradeIndex(dotIndex);
-            const trade = withinRangeTradeRecords[dotIndex];
-            onTradeSelect?.(trade.chainId, trade.hash);
+        (tradeHash: string) => {
+            setActiveTradeHash(tradeHash);
+            onTradeSelect?.(tradeHash);
         },
-        [onTradeSelect, withinRangeTradeRecords],
+        [onTradeSelect],
     );
 
     const tokenRank = rank ?? token.rank;
@@ -328,7 +324,7 @@ export const TokenMarketData = memo(function TokenMarketData({
             </div>
             <div
                 className={classNames(
-                    'flex h-[175px] items-center justify-center overflow-auto',
+                    'no-scrollbar flex h-[175px] items-center justify-center overflow-auto',
                     isPending ? 'animate-pulse' : null,
                 )}
             >
@@ -343,7 +339,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                         className="size-full"
                         records={stats}
                         tradeRecords={showUserTx ? withinRangeTradeRecords : EMPTY_LIST}
-                        activeTradeIndex={pendingTradeIndex ?? activeTradeIndex}
+                        activeTradeHash={pendingTradeHash ?? propTradeHash}
                         onHover={(payload) => setActiveRecord(payload)}
                         onMouseLeave={() => setActiveRecord(undefined)}
                         onDotClick={handleDotClick}
@@ -353,7 +349,7 @@ export const TokenMarketData = memo(function TokenMarketData({
             <div className="flex h-[10px] items-center">
                 {showUserTx && withinRangeTradeRecords.length > 1 ? (
                     <div className="no-scrollbar flex flex-grow flex-nowrap gap-1 overflow-auto">
-                        {withinRangeTradeRecords.map((_, i) => {
+                        {withinRangeTradeRecords.map((trade, i) => {
                             const activeRecordIndex = activeRecord
                                 ? withinRangeTradeRecords.findIndex((x) => x.date === activeRecord?.date)
                                 : undefined;
@@ -362,19 +358,19 @@ export const TokenMarketData = memo(function TokenMarketData({
                                     key={i}
                                     className="group min-w-4 max-w-[60px] shrink-0 flex-grow cursor-pointer py-1 first:ml-auto last:mr-auto"
                                     onClick={() => {
-                                        setActiveTradeIndex((prev) => (prev === i ? undefined : i));
+                                        setActiveTradeHash(trade.hash);
                                     }}
                                     onMouseEnter={() => {
-                                        setPendingTradeIndex(i);
+                                        setPendingTradeHash(trade.hash);
                                     }}
                                     onMouseLeave={() => {
-                                        setPendingTradeIndex(undefined);
+                                        setPendingTradeHash(undefined);
                                     }}
                                 >
                                     <div
                                         className={classNames(
                                             'h-[2px] flex-grow cursor-pointer rounded-[2px] group-hover:bg-third group-hover:dark:bg-secondary',
-                                            activeTradeIndex === i || activeRecordIndex === i
+                                            activeTradeHash === trade.hash || activeRecordIndex === i
                                                 ? 'bg-third dark:bg-secondary'
                                                 : 'bg-secondaryLine',
                                         )}

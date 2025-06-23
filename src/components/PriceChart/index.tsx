@@ -1,20 +1,19 @@
-import { isNumber } from 'lodash-es';
-import { type CSSProperties, type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
-import { Area, AreaChart, ResponsiveContainer, Tooltip, YAxis } from 'recharts';
+import { type CSSProperties, type HTMLProps, memo, useMemo, useState } from 'react';
+import { Area, AreaChart, Customized, ResponsiveContainer, Tooltip, YAxis } from 'recharts';
+import type { AxisDomain } from 'recharts/types/util/types.js';
 
-import { CustomizedDot, type CustomizedDotProps } from '@/components/PriceChart/CustomDot.js';
+import { PriceChartHeight, SafePadding } from '@/components/PriceChart/config.js';
+import {
+    type TooltipState,
+    TraderLayer,
+    TraderLayerContext,
+    type TraderLayerOptions,
+} from '@/components/PriceChart/TraderLayer.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatBalance, trimZero } from '@/helpers/formatBalance.js';
 import { useIsPriceUp } from '@/hooks/useIsPriceUp.js';
 import type { PriceRecord, TradeRecord } from '@/types/token.js';
-
-interface TooltipState {
-    visible: boolean;
-    x: number;
-    y: number;
-    trade?: TradeRecord;
-}
 
 interface TradeTooltipProps extends HTMLProps<HTMLDivElement> {
     x: number;
@@ -41,18 +40,21 @@ function TradeTooltip({ x, y, trade, className, ...rest }: TradeTooltipProps) {
 interface PriceChartProps extends HTMLProps<HTMLDivElement> {
     records: PriceRecord[];
     tradeRecords?: TradeRecord[];
-    activeTradeIndex?: number;
+    activeTradeHash?: string | null;
     onHover?: (payload: PriceRecord) => void;
     onMouseLeave?: () => void;
-    onDotClick?: (dotIndex: number) => void;
+    onDotClick?: TraderLayerOptions['onDotClick'];
 }
 
-const YAxisDomain = ['auto', 'auto'];
+const YAxisDomain: AxisDomain = ([dataMin, dataMax]) => {
+    const padding = (dataMax - dataMin) * (SafePadding / PriceChartHeight);
+    return [dataMin - padding, dataMax];
+};
 
 export const PriceChart = memo<PriceChartProps>(function PriceChart({
     records,
     tradeRecords = EMPTY_LIST,
-    activeTradeIndex,
+    activeTradeHash,
     onHover,
     onMouseLeave,
     onDotClick,
@@ -64,15 +66,9 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
     const [hoveringTrade, setHoveringTrade] = useState<TradeRecord>();
     const [dotMap, setDotMap] = useState<Record<string, TooltipState>>({});
 
-    const handleDotUpdate = useCallback((x: number, y: number, date: number, trades: TradeRecord[]): void => {
-        setDotMap((map) => ({
-            ...map,
-            [date]: { x, y, trade: trades.length === 0 ? trades[0] : undefined },
-        }));
-    }, []);
     const activeDate = hoveringTrade?.date ?? activeRecord?.date;
     const tooltipState = useMemo(() => {
-        const activeTrade = isNumber(activeTradeIndex) ? tradeRecords[activeTradeIndex] : null;
+        const activeTrade = activeTradeHash ? tradeRecords.find((x) => x.hash === activeTradeHash) : null;
         const trade = activeDate ? tradeRecords.find((x) => x.date === activeDate) || activeTrade : activeTrade;
 
         if (!trade?.date || !dotMap[trade.date]) return;
@@ -80,27 +76,21 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
             ...dotMap[trade.date],
             trade,
         };
-    }, [activeDate, activeTradeIndex, dotMap, tradeRecords]);
-    const WrappedDot = useCallback(
-        ({ key, ...props }: CustomizedDotProps) => {
-            return (
-                <CustomizedDot
-                    {...props}
-                    key={key}
-                    activeTradeDate={activeDate}
-                    activeTradeIndex={activeTradeIndex}
-                    tradeRecords={tradeRecords}
-                    onDotUpdate={handleDotUpdate}
-                    onDotClick={onDotClick}
-                    onAvatarHover={setHoveringTrade}
-                    onAvatarLeave={() => {
-                        setHoveringTrade(undefined);
-                    }}
-                />
-            );
-        },
-        [activeDate, activeTradeIndex, tradeRecords, handleDotUpdate, onDotClick],
-    );
+    }, [activeDate, activeTradeHash, dotMap, tradeRecords]);
+
+    const traderLayerValue: TraderLayerOptions = useMemo(() => {
+        return {
+            tradeRecords,
+            activeTradeDate: activeDate,
+            activeTradeHash,
+            onAvatarHover: setHoveringTrade,
+            onAvatarLeave: () => {
+                setHoveringTrade(undefined);
+            },
+            onDotClick,
+            onDotMapUpdate: setDotMap,
+        };
+    }, [tradeRecords, activeDate, activeTradeHash, onDotClick]);
 
     const [tooltipWidth, setTooltipWidth] = useState(100);
     const [containerWidth, setContainerWidth] = useState(560);
@@ -108,7 +98,7 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
 
     const tooltipStyle: CSSProperties | undefined = tooltipState
         ? {
-              left: `${isOverflow ? tooltipState.x - 20 - tooltipWidth : tooltipState.x + 20}px`,
+              left: `${isOverflow ? Math.min(tooltipState.x, containerWidth - SafePadding) - 20 - tooltipWidth : Math.max(tooltipState.x, SafePadding) + 20}px`,
               top: `${tooltipState.y - 10}px`,
               backgroundColor:
                   tooltipState.trade?.type === 'buy' ? 'rgb(var(--color-success))' : 'rgb(var(--color-danger))',
@@ -116,35 +106,38 @@ export const PriceChart = memo<PriceChartProps>(function PriceChart({
         : undefined;
     return (
         <div {...props} className={classNames('relative overflow-visible', props.className)}>
-            <ResponsiveContainer width="100%" height="100%" onResize={setContainerWidth}>
-                <AreaChart
-                    data={records}
-                    onMouseMove={(e) => {
-                        if (!e.activePayload?.length) return;
-                        const record = e.activePayload[0].payload;
-                        onHover?.(record);
-                        setActiveRecord(record);
-                    }}
-                    onMouseLeave={() => {
-                        onMouseLeave?.();
-                        setActiveRecord(undefined);
-                    }}
-                >
-                    <Tooltip cursor={{ strokeDasharray: '3 3' }} content={() => null} />
-                    <YAxis domain={YAxisDomain} hide />
-                    <Area
-                        type="monotone"
-                        dataKey="value"
-                        baseValue="dataMin"
-                        stroke={isUp ? 'rgb(var(--color-success))' : 'rgb(var(--color-danger))'}
-                        strokeWidth={2}
-                        fill={isUp ? 'rgb(var(--color-success)/0.1)' : 'rgb(var(--color-danger)/0.1)'}
-                        name="Price"
-                        dot={WrappedDot}
-                        activeDot={false}
-                    />
-                </AreaChart>
-            </ResponsiveContainer>
+            <TraderLayerContext value={traderLayerValue}>
+                <ResponsiveContainer width="100%" height="100%" onResize={setContainerWidth}>
+                    <AreaChart
+                        data={records}
+                        onMouseMove={(e) => {
+                            if (!e.activePayload?.length) return;
+                            const record = e.activePayload[0].payload;
+                            onHover?.(record);
+                            setActiveRecord(record);
+                        }}
+                        onMouseLeave={() => {
+                            onMouseLeave?.();
+                            setActiveRecord(undefined);
+                        }}
+                        margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+                    >
+                        <Tooltip cursor={{ strokeDasharray: '3 3' }} content={() => null} />
+                        <YAxis domain={YAxisDomain} hide />
+                        <Area
+                            type="monotone"
+                            dataKey="value"
+                            baseValue="dataMin"
+                            stroke={isUp ? 'rgb(var(--color-success))' : 'rgb(var(--color-danger))'}
+                            strokeWidth={2}
+                            fill={isUp ? 'rgb(var(--color-success)/0.1)' : 'rgb(var(--color-danger)/0.1)'}
+                            name="Price"
+                            activeDot={false}
+                        />
+                        <Customized component={TraderLayer} />
+                    </AreaChart>
+                </ResponsiveContainer>
+            </TraderLayerContext>
             {tooltipState ? (
                 <TradeTooltip
                     ref={(el) => {

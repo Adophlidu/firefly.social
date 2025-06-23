@@ -73,7 +73,9 @@ export const WrapTokenMarketData = memo(function WrapTokenMarketData(props: Toke
                 params.set('range', range);
                 router.replace(`${pathname}?${params.toString()}`);
             }}
-            onTradeSelect={(chainId, hash) => {
+            onTradeSelect={(hash) => {
+                const chainId = tradeRecords.find((x) => x.hash === hash)?.chainId;
+                if (!chainId) return;
                 const params = new URLSearchParams(search);
                 params.set('trade', hash);
                 history.replaceState(Object.fromEntries(params.entries()), '', `${pathname}?${params.toString()}`);

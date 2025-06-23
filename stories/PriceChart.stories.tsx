@@ -34,8 +34,23 @@ const prices: PriceRecord[] = [
 
 const tradeRecords: TradeRecord[] = [
     {
+        // left edge
         chainId: 1,
         hash: '1',
+        type: 'sell',
+        date: 1746515165170,
+        value: 1.1169423072281808,
+        amount: '10000000000000000000',
+        uiAmount: '10',
+        decimals: 18,
+        user: {
+            name: 'vitalik.eth',
+            avatar: 'https://i.pravatar.cc/100?u=vitalik.eth',
+        },
+    },
+    {
+        chainId: 1,
+        hash: '2',
         type: 'buy',
         date: 1746517567601,
         value: 1.1147951013430362,
@@ -49,7 +64,7 @@ const tradeRecords: TradeRecord[] = [
     },
     {
         chainId: 1,
-        hash: '2',
+        hash: '3',
         type: 'sell',
         date: 1746519712726,
         value: 1.0989220185301953,
@@ -63,10 +78,39 @@ const tradeRecords: TradeRecord[] = [
     },
     {
         chainId: 1,
-        hash: '3',
+        hash: '4',
+        type: 'sell',
+        date: 1746519966747,
+        value: 1.1147951013430362,
+        amount: '10000000000000000000',
+        uiAmount: '10',
+        decimals: 18,
+        user: {
+            name: 'vitalik.eth',
+            avatar: 'https://i.pravatar.cc/100?u=suji.eth',
+        },
+    },
+    {
+        chainId: 1,
+        hash: '5',
         type: 'buy',
         date: 1746520266920,
         value: 1.1147951013430362,
+        amount: '10000000000000000000',
+        uiAmount: '10',
+        decimals: 18,
+        user: {
+            name: 'vitalik.eth',
+            avatar: 'https://i.pravatar.cc/100?u=suji.eth',
+        },
+    },
+    {
+        // right edge
+        chainId: 1,
+        hash: '6',
+        type: 'buy',
+        date: 1746520563731,
+        value: 1.0989933967313907,
         amount: '10000000000000000000',
         uiAmount: '10',
         decimals: 18,
@@ -85,7 +129,7 @@ export const Base: Story = {
         },
         records: prices,
         tradeRecords,
-        activeTradeIndex: 0,
+        activeTradeHash: '2',
     },
 };
 

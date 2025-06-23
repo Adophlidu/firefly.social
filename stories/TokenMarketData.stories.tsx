@@ -11,8 +11,9 @@ function WrapTokenMarketData({ symbol, ...rest }: Props) {
     const { data: token, isLoading } = useTokenInfo({ token_symbol: symbol });
     const [chainId, setChainId] = useState<number | undefined>();
     const [address, setAddress] = useState<string>();
-    if (isLoading) return <div>Loading...</div>;
+    const [tradeHash, setTradeHash] = useState<string>();
 
+    if (isLoading) return <div>Loading...</div>;
     if (!token) return <div>token not found: {symbol}</div>;
 
     return (
@@ -25,6 +26,8 @@ function WrapTokenMarketData({ symbol, ...rest }: Props) {
                 setChainId(chainId);
                 setAddress(address);
             }}
+            activeTradeHash={tradeHash}
+            onTradeSelect={setTradeHash}
         />
     );
 }
@@ -39,7 +42,7 @@ type Story = StoryObj<typeof meta>;
 export const Base: Story = {
     args: {
         symbol: 'mask',
-        range: '7d',
+        range: '1m',
         traderCount: 10,
         tradeRecords: [
             {
