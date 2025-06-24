@@ -1,7 +1,8 @@
 import { Trans } from '@lingui/react/macro';
+import { type ReactNode } from 'react';
 
 interface TimelineTitleProps {
-    title: React.ReactNode;
+    title: ReactNode;
 }
 
 export function TimelineTitle(props: TimelineTitleProps) {

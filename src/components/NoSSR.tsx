@@ -1,10 +1,10 @@
 'use client';
 
 import { noSSR } from 'foxact/no-ssr';
-import { Suspense } from 'react';
+import { type ReactNode, Suspense } from 'react';
 
 interface NoSSRProps {
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
 function Inner({ children }: NoSSRProps) {

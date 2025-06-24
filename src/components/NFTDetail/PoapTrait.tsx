@@ -1,5 +1,4 @@
-import type { FunctionComponent, SVGAttributes } from 'react';
-import React from 'react';
+import { Fragment, type FunctionComponent, type SVGAttributes } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -22,7 +21,7 @@ export function PoapTrait({ value, url, icon, noWrap = false }: PoapTraitProps) 
         </>
     );
 
-    const Wrapper = noWrap ? React.Fragment : 'li';
+    const Wrapper = noWrap ? Fragment : 'li';
 
     return (
         <Wrapper>

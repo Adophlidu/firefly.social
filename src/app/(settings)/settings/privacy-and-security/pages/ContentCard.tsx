@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
 
@@ -8,9 +8,9 @@ export function ContentCard({
     headerSlot,
     children,
 }: PropsWithChildren<{
-    label: React.ReactNode;
-    description: React.ReactNode;
-    headerSlot?: React.ReactNode;
+    label: ReactNode;
+    description: ReactNode;
+    headerSlot?: ReactNode;
 }>) {
     return (
         <section className="rounded-lg border border-line px-3 py-2 text-main">

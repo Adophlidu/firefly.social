@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { useWindowSize } from 'react-use';
 import { VirtuosoGrid, type VirtuosoGridProps } from 'react-virtuoso';
 

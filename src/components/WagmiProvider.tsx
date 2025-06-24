@@ -1,11 +1,12 @@
 'use client';
 
+import { type ReactNode } from 'react';
 import { WagmiProvider as WagmiProviderSDK } from 'wagmi';
 
 import { config } from '@/configs/wagmiClient.js';
 
 interface WagmiProviderProps {
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
 export function WagmiProvider(props: WagmiProviderProps) {

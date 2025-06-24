@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 import { IfPathname } from '@/components/IfPathname.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
@@ -27,7 +29,7 @@ const REMOVE_LOADING_SCRIPT = `
     })();
 `;
 
-export function LayoutBody({ children }: { children: React.ReactNode }) {
+export function LayoutBody({ children }: { children: ReactNode }) {
     return (
         <>
             <Providers>

@@ -5,7 +5,7 @@ import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation.js';
-import { memo, type Ref, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import QRCode from 'react-qr-code';
 import { useMount } from 'react-use';
 import urlcat from 'urlcat';
@@ -28,7 +28,7 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { DeviceType } from '@/types/device.js';
 
 interface Props {
-    ref: Ref<SingletonModalRefCreator>;
+    ref: React.Ref<SingletonModalRefCreator>;
 }
 
 function generateOTP() {

@@ -1,6 +1,6 @@
 import { Transition } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
-import React, { Fragment, memo } from 'react';
+import { Fragment, memo, type ReactNode } from 'react';
 
 import FireflyLogo from '@/assets/firefly.logo.svg';
 import { Image } from '@/components/Image.js';
@@ -12,8 +12,8 @@ interface PopoverProps {
     open: boolean;
     onClose: () => void;
     frame?: FrameV2;
-    title?: React.ReactNode;
-    content?: React.ReactNode;
+    title?: ReactNode;
+    content?: ReactNode;
 }
 
 export const Popover = memo(function Popover({ frame, open, onClose, title, content }: PopoverProps) {

@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { useState } from 'react';
+import { type ReactNode, useState } from 'react';
 
 import { TransactionSimulator } from '@/components/TransactionSimulator/SimulatorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -11,7 +11,7 @@ import type { FrameV2 } from '@/types/frame.js';
 
 export interface TransactionSimulationPopoverProps {
     frame?: FrameV2;
-    content?: React.ReactNode;
+    content?: ReactNode;
 }
 type Props = {
     ref: React.Ref<SingletonModalRefCreator<TransactionSimulationPopoverProps, boolean>>;

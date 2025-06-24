@@ -1,6 +1,7 @@
 import { Dialog } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
+import { type ReactNode } from 'react';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -10,7 +11,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 
 interface TipsModalHeaderProps {
-    title?: React.ReactNode;
+    title?: ReactNode;
     back?: boolean;
 }
 

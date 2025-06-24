@@ -1,6 +1,8 @@
+import { type ReactNode } from 'react';
+
 interface SnackbarErrorMessage {
-    title: React.ReactNode;
-    message: React.ReactNode;
+    title: ReactNode;
+    message: ReactNode;
 }
 
 export function SnackbarErrorMessage(props: SnackbarErrorMessage) {

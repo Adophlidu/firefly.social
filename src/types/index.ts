@@ -1,6 +1,5 @@
 import type { ConnectorControllerState } from '@reown/appkit';
-import type { PropsWithChildren } from 'react';
-import type React from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 
 import { ServerErrorCodes } from '@/helpers/createResponseJSON.js';
@@ -47,7 +46,7 @@ export type LiteralUnion<U, T = U extends string ? string : U extends number ? n
 export interface NextPageProps<Params = never, SearchParams = never> extends PropsWithChildren {
     params: Params extends never ? never : Promise<Params>;
     searchParams: SearchParams extends never ? never : Promise<SearchParams>;
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
 export type PartialRequired<T, RequiredKeys extends keyof T> = Omit<T, RequiredKeys> & Pick<Required<T>, RequiredKeys>;

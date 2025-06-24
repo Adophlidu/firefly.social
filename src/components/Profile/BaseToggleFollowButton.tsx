@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import { memo, type ReactNode, useMemo } from 'react';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
@@ -11,7 +11,7 @@ import { useTwitterStateStore } from '@/store/useProfileStore.js';
 
 interface BaseToggleFollowButtonProps extends Omit<ClickableButtonProps, 'children'> {
     profile: Profile;
-    children: (isSuperFollow: boolean, loading: boolean) => React.ReactNode;
+    children: (isSuperFollow: boolean, loading: boolean) => ReactNode;
 }
 
 export const BaseToggleFollowButton = memo(function BaseToggleFollowButton({

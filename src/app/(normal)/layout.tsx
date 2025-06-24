@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react';
+
 import { Advertisement } from '@/components/Advertisement/index.js';
 import { CalendarContent } from '@/components/Calendar/CalendarContent.js';
 import { SuggestedChannels } from '@/components/Channel/SuggestedChannels.js';
@@ -13,7 +15,7 @@ import { WithinDiscover } from '@/components/WithinDiscover.js';
 import { PageRoute } from '@/constants/enum.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 
-export default async function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
+export default async function Layout({ children, modal }: { children: ReactNode; modal: ReactNode }) {
     await setupLocaleForSSR();
 
     return (

@@ -2,7 +2,7 @@
 import { Trans } from '@lingui/react/macro';
 import { isArray } from 'lodash-es';
 import { ReadonlyURLSearchParams, useParams, useSearchParams } from 'next/navigation.js';
-import { type HTMLProps, memo } from 'react';
+import { type HTMLProps, memo, type ReactNode } from 'react';
 import urlcat from 'urlcat';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
@@ -28,7 +28,7 @@ interface Props extends HTMLProps<HTMLDivElement> {
     token: CoinGeckoToken;
 }
 
-const labels: Record<TokenCategory, React.ReactNode> = {
+const labels: Record<TokenCategory, ReactNode> = {
     [TokenCategory.Transactions]: <Trans>Transactions</Trans>,
     [TokenCategory.Feeds]: <Trans>Feeds</Trans>,
     [TokenCategory.Overview]: <Trans>Overview</Trans>,

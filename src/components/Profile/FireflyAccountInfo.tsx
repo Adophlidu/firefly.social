@@ -2,7 +2,7 @@
 
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
-import { type Ref, useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import SettingIcon from '@/assets/setting.svg';
 import { Link } from '@/components/Link.js';
@@ -191,7 +191,7 @@ function FireflyAccountInfoHeader({
     socialProfile?: Profile | null;
     relatedProfile: WalletProfiles;
     profiles: FireflyProfile[];
-    ref?: Ref<HTMLDivElement>;
+    ref?: React.Ref<HTMLDivElement>;
 }) {
     const allCurrentProfiles = useCurrentProfilesAll();
     const isCurrentProfile = useMemo(() => {

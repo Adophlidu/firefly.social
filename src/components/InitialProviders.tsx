@@ -3,7 +3,7 @@
 import { useActionsRegistryInterval } from '@dialectlabs/blinks';
 import { isServer } from '@tanstack/react-query';
 import { SnackbarProvider } from 'notistack';
-import { memo, useEffect, useLayoutEffect, useRef } from 'react';
+import { memo, type ReactNode, useEffect, useLayoutEffect, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
 import { v4 as uuid } from 'uuid';
 
@@ -19,7 +19,7 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
-export const InitialProviders = memo(function Providers(props: { children: React.ReactNode }) {
+export const InitialProviders = memo(function Providers(props: { children: ReactNode }) {
     useActionsRegistryInterval();
 
     const isDarkMode = useIsDarkMode();

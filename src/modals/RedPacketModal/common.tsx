@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/react/macro';
+import { type ReactNode } from 'react';
 
 import AddUser from '@/assets/add-user.svg';
 import Comment from '@/assets/comment-rp.svg';
@@ -7,7 +8,7 @@ import NFTHolder from '@/assets/nft.svg';
 import Repost from '@/assets/repost.svg';
 import { RequirementType } from '@/providers/types/FireflyRedPacket.js';
 
-export const REQUIREMENT_TITLE_MAP: Record<RequirementType, React.ReactNode> = {
+export const REQUIREMENT_TITLE_MAP: Record<RequirementType, ReactNode> = {
     [RequirementType.Follow]: <Trans>Follow me</Trans>,
     [RequirementType.Like]: <Trans>Like</Trans>,
     [RequirementType.Repost]: <Trans>Repost</Trans>,

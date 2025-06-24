@@ -47,7 +47,7 @@ export class MentionNode extends DecoratorNode<ReactNode> {
     override getTextContent(): string {
         return this.__text;
     }
-    override decorate(editor: LexicalEditor): React.ReactNode {
+    override decorate(editor: LexicalEditor): ReactNode {
         return (
             <MentionsMenu
                 editor={editor}

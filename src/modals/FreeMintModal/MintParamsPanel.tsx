@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
-import React, { type HTMLProps, memo } from 'react';
+import { type HTMLProps, memo, type ReactNode } from 'react';
 
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { chains } from '@/configs/wagmiClient.js';
@@ -17,7 +17,7 @@ interface MintParamsPanelProps extends HTMLProps<HTMLUListElement> {
     mintCount: number;
     gasFee: BigNumber.Value;
     isLoading?: boolean;
-    priceLabel?: React.ReactNode;
+    priceLabel?: ReactNode;
 }
 
 function renderPrice(price: BigNumber.Value, decimals = 18, symbol?: string) {

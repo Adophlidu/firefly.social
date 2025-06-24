@@ -1,5 +1,5 @@
 import { Menu, MenuButton, type MenuProps, Transition } from '@headlessui/react';
-import { Fragment, type MouseEvent } from 'react';
+import { Fragment, type MouseEvent, type ReactNode } from 'react';
 
 import { type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -9,8 +9,8 @@ import { LoginModalRef } from '@/modals/controls.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 interface MoreActionMenuProps extends MenuProps<'div'> {
-    button: React.ReactNode;
-    children: React.ReactNode;
+    button: ReactNode;
+    children: ReactNode;
     source?: SocialSource;
     className?: string;
     buttonClassName?: string;

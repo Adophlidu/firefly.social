@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react';
+
 import { Link } from '@/components/Link.js';
 import { PageRoute } from '@/constants/enum.js';
 import { usePathname } from '@/esm/navigation.js';
@@ -11,7 +13,7 @@ interface WithPreviewLinkProps {
     post: Post;
     index: number;
     disablePreview?: boolean;
-    children: React.ReactNode;
+    children: ReactNode;
     useModal?: boolean;
     prefetch?: boolean;
 }

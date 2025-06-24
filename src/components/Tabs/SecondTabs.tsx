@@ -1,11 +1,11 @@
-import type React from 'react';
+import type { ReactNode } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 
 interface SecondTabsProps<T extends keyof any> {
     items: Array<{
-        title: React.ReactNode;
+        title: ReactNode;
         link: string;
         value: T;
     }>;

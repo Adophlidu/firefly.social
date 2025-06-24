@@ -1,4 +1,5 @@
 import { msg } from '@lingui/core/macro';
+import { type ReactNode } from 'react';
 
 import { SuggestedChannels } from '@/components/Channel/SuggestedChannels.js';
 import { IfPathname } from '@/components/IfPathname.js';
@@ -19,7 +20,7 @@ export async function generateMetadata() {
     });
 }
 
-export default async function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({ children }: { children: ReactNode }) {
     await setupLocaleForSSR();
 
     const agent = await setupAgentForSSR(PageRoute.Events);

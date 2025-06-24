@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/react/macro';
+import { type ReactNode } from 'react';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
@@ -8,7 +9,7 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 interface BackButtonProps extends ClickableButtonProps {
     size?: number;
-    tooltip?: React.ReactNode;
+    tooltip?: ReactNode;
 }
 
 export function BackButton({ size = 24, tooltip = <Trans>Back</Trans>, ref, ...rest }: BackButtonProps) {

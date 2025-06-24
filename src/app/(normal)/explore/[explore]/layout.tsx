@@ -1,5 +1,6 @@
 import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import { type ReactNode } from 'react';
 
 import { NoSSR } from '@/components/NoSSR.js';
 import { SourceTabs } from '@/components/SourceTabs/index.js';
@@ -26,7 +27,7 @@ export default async function Layout(props: Props) {
 
     const { explore } = await props.params;
 
-    const labels: Record<ExploreType, React.ReactNode> = {
+    const labels: Record<ExploreType, ReactNode> = {
         [ExploreType.TopProfiles]: <Trans>Users</Trans>,
         [ExploreType.Projects]: <Trans>Projects</Trans>,
         [ExploreType.CryptoTrends]: <Trans>Tokens</Trans>,

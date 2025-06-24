@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import React, { useState } from 'react';
+import { type CSSProperties, type ReactNode, type Ref, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
@@ -11,16 +11,16 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
 export interface ConfirmModalOpenProps {
-    title?: React.ReactNode;
-    content: React.ReactNode;
+    title?: ReactNode;
+    content: ReactNode;
     resetSize?: boolean;
     contentClass?: string;
-    contentStyle?: React.CSSProperties;
+    contentStyle?: CSSProperties;
     modalClass?: string;
-    modalStyle?: React.CSSProperties;
+    modalStyle?: CSSProperties;
     confirmButtonClass?: string;
-    confirmButtonText?: React.ReactNode;
-    cancelButtonText?: React.ReactNode;
+    confirmButtonText?: ReactNode;
+    cancelButtonText?: ReactNode;
     enableConfirmButton?: boolean;
     enableCancelButton?: boolean;
     enableCloseButton?: boolean;
@@ -34,7 +34,7 @@ export interface ConfirmModalOpenProps {
 /** Dismissing dialog returns null */
 export type ConfirmModalCloseResult = boolean | null;
 type Props = {
-    ref: React.Ref<SingletonModalRefCreator<ConfirmModalOpenProps, ConfirmModalCloseResult>>;
+    ref: Ref<SingletonModalRefCreator<ConfirmModalOpenProps, ConfirmModalCloseResult>>;
 };
 
 export function ConfirmModal({ ref }: Props) {

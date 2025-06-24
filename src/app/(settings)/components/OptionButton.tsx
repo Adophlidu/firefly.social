@@ -1,12 +1,12 @@
 'use client';
 
-import React, { type HTMLProps } from 'react';
+import { type HTMLProps, type ReactNode } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 
 interface OptionButtonProps extends Omit<HTMLProps<HTMLButtonElement>, 'label'> {
-    label: React.ReactNode;
+    label: ReactNode;
     darkMode?: boolean;
     selected: boolean;
 }

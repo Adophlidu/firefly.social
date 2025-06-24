@@ -1,6 +1,7 @@
 import { Checkbox, Switch } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
+import { type ReactNode } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { toggleSwitchNotificationConfig } from '@/app/(settings)/settings/notification-settings/toggleSwitchNotificationConfig.js';
@@ -13,8 +14,8 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import type { NotificationPlatform, NotificationPushType } from '@/providers/types/Firefly.js';
 
 interface NotificationConfigItemProps {
-    label: React.ReactNode;
-    description: React.ReactNode;
+    label: ReactNode;
+    description: ReactNode;
     value: boolean;
     platform: NotificationPlatform;
     pushType: NotificationPushType;

@@ -3,7 +3,7 @@
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
-import React, { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 
 import {
     NotificationChildConfigItem,
@@ -51,7 +51,7 @@ export default function NotificationPage() {
                                     className="group space-y-4 rounded-lg border border-line px-3 py-2"
                                 >
                                     {list.map(({ children, ...rest }) => (
-                                        <React.Fragment key={rest.pushType}>
+                                        <Fragment key={rest.pushType}>
                                             <NotificationConfigItem
                                                 key={`${rest.pushType}-self`}
                                                 {...rest}
@@ -72,7 +72,7 @@ export default function NotificationPage() {
                                                     ))}
                                                 </div>
                                             ) : null}
-                                        </React.Fragment>
+                                        </Fragment>
                                     ))}
                                 </div>
                             ),

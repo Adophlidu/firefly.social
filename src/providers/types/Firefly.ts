@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type { Address, Hex } from 'viem';
 
 import {
@@ -1302,8 +1303,8 @@ export enum NotificationTitle {
 }
 
 export interface NotificationConfig {
-    label: React.ReactNode;
-    description: React.ReactNode;
+    label: ReactNode;
+    description: ReactNode;
     platform: NotificationPlatform;
     pushType: NotificationPushType;
     value: boolean;

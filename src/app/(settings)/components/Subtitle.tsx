@@ -1,7 +1,9 @@
+import { type ReactNode } from 'react';
+
 import { classNames } from '@/helpers/classNames.js';
 
 interface SubtitleProps extends React.HTMLAttributes<HTMLDivElement> {
-    children?: React.ReactNode;
+    children?: ReactNode;
 }
 
 export function Subtitle({ className, children }: SubtitleProps) {

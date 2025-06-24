@@ -1,5 +1,6 @@
 import type { MessageDescriptor } from '@lingui/core';
 import { msg } from '@lingui/core/macro';
+import { type ReactNode } from 'react';
 
 import { MuteType, Source, SourceInURL } from '@/constants/enum.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
@@ -35,7 +36,7 @@ export async function generateMetadata(props: Props) {
     });
 }
 
-export default async function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({ children }: { children: ReactNode }) {
     await setupLocaleForSSR();
     return <>{children}</>;
 }

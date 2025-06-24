@@ -1,12 +1,13 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
+import { type ReactNode } from 'react';
 
 import { TextLink } from '@/app/(settings)/components/TextLink.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 
 interface SettingLink {
-    name: React.ReactNode;
+    name: ReactNode;
     link: `/${string}`;
     isHidden?: boolean;
     relatedLinks?: Array<`/${string}`>;

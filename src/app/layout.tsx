@@ -7,6 +7,7 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 // @ts-ignore skip
 import { Inter } from 'next/font/google';
 import { headers } from 'next/headers.js';
+import type { ReactNode } from 'react';
 
 import { LayoutBody } from '@/app/layout-body.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
@@ -32,7 +33,7 @@ export const viewport = {
     userScalable: false,
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
     await setupLocaleForSSR();
 
     const rootClass = await getCookie(SiteCookies.FireflyRootClass);

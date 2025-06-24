@@ -1,12 +1,12 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
+import { Fragment, type ReactNode } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
 import { useDisableScrollPassive } from '@/hooks/useDisableScrollPassive.js';
 
 interface PopoverProps {
     open: boolean;
-    children?: React.ReactNode;
+    children?: ReactNode;
     onClose?: () => void;
     enableBackdrop?: boolean;
     enableOverflow?: boolean;

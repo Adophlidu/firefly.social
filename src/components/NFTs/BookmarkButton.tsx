@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { memo } from 'react';
+import { memo, type ReactNode } from 'react';
 
 import BookmarkIcon from '@/assets/bookmark.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
@@ -19,7 +19,7 @@ interface BookmarkButtonProps extends Omit<ClickableButtonProps, 'children'> {
     bookmarked?: boolean;
     tooltip?: boolean;
     strict?: boolean;
-    children?: (hasBookmarked: boolean, isLoading: boolean, fetching: boolean) => React.ReactNode;
+    children?: (hasBookmarked: boolean, isLoading: boolean, fetching: boolean) => ReactNode;
     onClick?: () => void;
 }
 

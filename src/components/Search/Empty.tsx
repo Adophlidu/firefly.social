@@ -1,8 +1,9 @@
 import { Trans } from '@lingui/react/macro';
+import { type ReactNode } from 'react';
 
 interface EmptyProps {
     keyword: string;
-    message?: React.ReactNode;
+    message?: ReactNode;
 }
 
 export function Empty({ keyword, message }: EmptyProps) {

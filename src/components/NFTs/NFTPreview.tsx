@@ -1,7 +1,7 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { compact } from 'lodash-es';
-import React, { memo, type ReactNode } from 'react';
+import { Fragment, memo, type ReactNode } from 'react';
 import { zeroAddress } from 'viem';
 
 import CalendarIcon from '@/assets/calendar-small.svg';
@@ -94,12 +94,12 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                 {props.tags.length ? (
                     <div className="absolute inset-x-3.5 bottom-2.5 space-y-1">
                         {props.tags.map((tag, index) => (
-                            <React.Fragment key={index}>
+                            <Fragment key={index}>
                                 <span className="inline-block rounded-md bg-black/25 p-1.5 text-xs font-bold text-white backdrop-blur-[3px]">
                                     {tag}
                                 </span>
                                 <br />
-                            </React.Fragment>
+                            </Fragment>
                         ))}
                     </div>
                 ) : null}

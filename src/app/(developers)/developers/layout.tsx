@@ -1,4 +1,5 @@
 import { msg } from '@lingui/core/macro';
+import type { ReactNode } from 'react';
 
 import { ToolkitList } from '@/app/(developers)/components/ToolkitList.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
@@ -11,7 +12,7 @@ export async function generateMetadata() {
     });
 }
 
-export default async function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({ children }: { children: ReactNode }) {
     return (
         <>
             {/* desktop */}

@@ -1,4 +1,4 @@
-import React, { type HTMLProps, memo } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
 

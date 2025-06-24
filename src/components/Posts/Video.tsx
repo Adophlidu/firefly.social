@@ -10,7 +10,17 @@ import {
 import { getSrc } from '@livepeer/react/external';
 import * as Player from '@livepeer/react/player';
 import { type MediaScopedProps, type PlayerProps, useMediaContext } from '@livepeer/react/player';
-import { type HTMLProps, memo, type MouseEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+    type HTMLProps,
+    memo,
+    type MouseEvent,
+    type ReactNode,
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from 'react';
 import { useIntersection } from 'react-use';
 import { useHover } from 'usehooks-ts';
 import { useStore } from 'zustand';
@@ -36,7 +46,7 @@ function VideoContent({
     loop?: boolean;
     poster?: string;
     autoPlay?: boolean;
-    children?: React.ReactNode;
+    children?: ReactNode;
     autoPlayInViewport?: boolean;
 }>) {
     const context = useMediaContext('CustomPlayTime', __scopeMedia);

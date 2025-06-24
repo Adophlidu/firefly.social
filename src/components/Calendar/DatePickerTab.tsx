@@ -1,5 +1,5 @@
 import { eachDayOfInterval, endOfWeek, startOfWeek } from 'date-fns';
-import React, { useMemo, useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { useClickAway } from 'react-use';
 
 import CalendarIcon from '@/assets/calendar.svg';

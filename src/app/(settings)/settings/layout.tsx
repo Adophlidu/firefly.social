@@ -1,8 +1,10 @@
+import { type ReactNode } from 'react';
+
 import { SettingsHeader } from '@/app/(settings)/components/SettingsHeader.js';
 import { SettingsList } from '@/app/(settings)/components/SettingsList.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 
-export default async function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({ children }: { children: ReactNode }) {
     await setupLocaleForSSR();
 
     return (

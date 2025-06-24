@@ -1,5 +1,7 @@
+import { type ReactNode } from 'react';
+
 interface CoverContainerProps {
-    children: React.ReactNode;
+    children: ReactNode;
     ContainerStyle?: React.CSSProperties;
 }
 

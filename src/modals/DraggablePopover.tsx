@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { type ReactNode, useRef, useState } from 'react';
 
 import { Popover } from '@/components/Popover.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -8,7 +8,7 @@ import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
 export interface DraggablePopoverProps {
     backdrop?: boolean;
-    content?: React.ReactNode;
+    content?: ReactNode;
     enableOverflow?: boolean;
     onClose?: () => void;
 }

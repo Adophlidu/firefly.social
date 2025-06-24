@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro';
-import { memo } from 'react';
+import { memo, type ReactNode } from 'react';
 import { useHover } from 'react-use';
 
 import FollowIcon from '@/assets/follow-bold.svg';
@@ -10,9 +10,9 @@ import { classNames } from '@/helpers/classNames.js';
 interface ToggleJoinButtonProps extends ClickableButtonProps {
     joined: boolean;
     variant?: 'text' | 'icon';
-    joinLabel?: React.ReactNode;
-    joinedLabel?: React.ReactNode;
-    leaveLabel?: React.ReactNode;
+    joinLabel?: ReactNode;
+    joinedLabel?: ReactNode;
+    leaveLabel?: ReactNode;
 }
 
 export const ToggleJoinButton = memo<ToggleJoinButtonProps>(function ToggleJoinButton({

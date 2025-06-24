@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro';
 import { reduce } from 'lodash-es';
-import type React from 'react';
 import type { HTMLProps, PropsWithChildren } from 'react';
 import { useSize } from 'react-use';
 

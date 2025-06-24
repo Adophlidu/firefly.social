@@ -1,5 +1,5 @@
 import { msg } from '@lingui/core/macro';
-import type React from 'react';
+import type { ReactNode } from 'react';
 
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
@@ -11,7 +11,7 @@ export async function generateMetadata() {
     });
 }
 
-export default async function DetailLayout({ children }: { children: React.ReactNode }) {
+export default async function DetailLayout({ children }: { children: ReactNode }) {
     await setupLocaleForSSR();
     return <>{children}</>;
 }

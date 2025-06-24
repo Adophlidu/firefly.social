@@ -1,13 +1,13 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { noop } from 'lodash-es';
-import React, { Fragment, useRef } from 'react';
+import { Fragment, type ReactNode, useRef } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
 
 export interface ModalProps {
     open: boolean;
     onClose: () => void;
-    children?: React.ReactNode;
+    children?: ReactNode;
     enableBackdrop?: boolean;
     disableScrollLock?: boolean;
     /**

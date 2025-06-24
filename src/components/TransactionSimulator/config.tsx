@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import type { FunctionComponent, JSX, SVGAttributes } from 'react';
+import type { FunctionComponent, JSX, ReactNode, SVGAttributes } from 'react';
 import { fromHex, isHex } from 'viem';
 import { getAccount } from 'wagmi/actions';
 
@@ -22,7 +22,7 @@ import type { AssetChange, SimulateResponse, SimulationOptions } from '@/provide
 import { CHAIN_DESCRIPTORS } from '#masknet/web3-shared-evm';
 
 interface PanelConfig {
-    title: React.ReactNode;
+    title: ReactNode;
     modules: SimulateType[];
     content: (
         props: SimulationOptions,
