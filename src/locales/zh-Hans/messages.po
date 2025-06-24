@@ -290,6 +290,9 @@ msgstr "打开"
 msgid "You have exceeded the maximum number of attempts. Please try again later."
 msgstr "你已超过最大尝试次数，请稍后再试。"
 
+msgid "FDV"
+msgstr ""
+
 msgid "Functions that can suspend trading"
 msgstr "可以暂停交易的功能"
 
@@ -648,6 +651,9 @@ msgstr "取消转发"
 msgid "Proxy contract."
 msgstr "代理合约。"
 
+msgid "Liquidity"
+msgstr ""
+
 msgid "Verification unsuccessful"
 msgstr "验证不成功"
 
@@ -929,6 +935,10 @@ msgstr "主持人"
 msgid "Unsafe: Transaction is at risk"
 msgstr "不安全：交易存在风险"
 
+#. placeholder {0}: Math.floor(span / DAY_SPAN)
+msgid "{0, plural, one {# day} other {# days}}"
+msgstr ""
+
 msgid "Suspected malicious address."
 msgstr "发现疑似恶意地址。"
 
@@ -1049,6 +1059,9 @@ msgstr "收藏文章失败。"
 #. placeholder {0}: formatAmount(usdcSize)
 msgid "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
 msgstr "<0>进行一个投注</0><1>在 Polymarket 上价值 ${0}</1>"
+
+msgid "Holders"
+msgstr ""
 
 msgid "The event has ended, but you can explore others in Exclusive Events."
 msgstr "活动已结束，但你可以在独家活动中探索其他活动。"
@@ -1375,6 +1388,9 @@ msgstr ""
 msgid "Cannot choose due to account mismatch."
 msgstr "账户不匹配导致选择失败。"
 
+msgid "In some cases, you can also find a more detailed breakdown of holders in the explorer page."
+msgstr ""
+
 msgid "Change password"
 msgstr "修改密码"
 
@@ -1578,6 +1594,9 @@ msgstr "不涉及虚假 KYC。"
 msgid "No function found that retrieves ownership"
 msgstr "没有找到检索所有权的功能"
 
+msgid "Market Cap is sourced from CoinGecko and includes token issued on other blockchain."
+msgstr ""
+
 msgid "Send"
 msgstr "发送"
 
@@ -1707,6 +1726,10 @@ msgstr "没有铸造功能"
 msgid "Expired"
 msgstr "已过期"
 
+#. placeholder {0}: Math.floor(span / HOUR_SPAN)
+msgid "{0, plural, one {# hour} other {# hours}}"
+msgstr ""
+
 msgid "Nickname must not contain restricted symbols"
 msgstr "昵称含违禁字符"
 
@@ -1743,6 +1766,9 @@ msgstr "发现暗网交易。"
 #. placeholder {0}: humanize(count)
 msgid "{0} Comments"
 msgstr "{0} 评论"
+
+msgid "Assuming circulating supply = total supply (includes locked, excludes burned)"
+msgstr ""
 
 msgid "Schedule Post"
 msgstr "定时任务"
@@ -1911,6 +1937,9 @@ msgstr "登录失败。"
 msgid "Network"
 msgstr "网络"
 
+msgid "Just now"
+msgstr ""
+
 msgid "Failed to mint NFT."
 msgstr "铸造 NFT 失败。"
 
@@ -1991,6 +2020,10 @@ msgstr "流通总量"
 msgid "Failed to switch."
 msgstr "切换失败。"
 
+#. placeholder {0}: Math.floor(span / MINUTE_SPAN)
+msgid "{0, plural, one {# minute} other {# minutes}}"
+msgstr ""
+
 msgid "Post has been deleted"
 msgstr "帖子已被删除"
 
@@ -2002,6 +2035,10 @@ msgstr "举报文章"
 
 msgid "Everyone"
 msgstr "任何人"
+
+#. placeholder {0}: Math.floor(span / MONTH_SPAN)
+msgid "{0, plural, one {# month} other {# months}}"
+msgstr ""
 
 msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "此通证由其宣称的团队发行。一些骗局会创建同名的知名通证来骗取用户的资产。"
@@ -2101,6 +2138,9 @@ msgstr "未找到该币种的相关贴子。"
 
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr "衡量过去 24 小时内所有平台上加密货币交易量的指标。该指标以 24 小时为单位进行连续跟踪，没有开盘/收盘时间。"
+
+msgid "Age"
+msgstr ""
 
 msgid "Failed to recast."
 msgstr "转帖失败。"
@@ -3155,6 +3195,9 @@ msgstr "你领取了{amount} {symbol}。"
 msgid "Sent"
 msgstr "发送"
 
+msgid "Token could not be found."
+msgstr ""
+
 msgid "Casts + Replies"
 msgstr "帖子+回复"
 
@@ -3433,6 +3476,10 @@ msgstr ""
 
 msgid "Snapshot added to your Bookmarks"
 msgstr "Snapshot 已经添加到你的收藏中"
+
+#. placeholder {0}: Math.floor(span / YEAR_SPAN)
+msgid "{0, plural, one {# year} other {# years}}"
+msgstr ""
 
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "无法继续。请允许 Lens Manager 执行操作，而无需对每笔交易进行签名。"
@@ -3826,6 +3873,9 @@ msgstr "Truth Social"
 msgid "Repost or Quote"
 msgstr "转发或者引用"
 
+msgid "Ca"
+msgstr ""
+
 msgid "NFT ID"
 msgstr "NFT ID"
 
@@ -3834,6 +3884,9 @@ msgstr "使用 Bluesky 登录"
 
 msgid "Failed to send tip. Please try again later."
 msgstr "打赏失败，请稍后重试。"
+
+msgid "24h Vol"
+msgstr ""
 
 msgid "Enable now"
 msgstr "立即启用"

@@ -79,6 +79,7 @@ import {
     type DesktopLinkInfoResponse,
     type DesktopLinkInfoStatusResponse,
     type DetectAddressResponse,
+    type DexCoinDetailResponse,
     type EmptyResponse,
     type FireflyIdentity,
     type FireflyProfile,
@@ -1207,6 +1208,14 @@ class FireflyEndpoint {
         return resolveFireflyResponseData(response);
     }
 
+    async getDexCoinDetail(chainId: number, address: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/dex/coin/detail', {
+            chainId,
+            address,
+        });
+        const response = await fireflySessionHolder.fetch<DexCoinDetailResponse>(url);
+        return resolveFireflyResponseData(response);
+    }
     async getTakoExternalHostedData(ipfs: string) {
         const cid = extractIpfsCID(ipfs);
         const url = urlcat(settings.FIREFLY_ROOT_URL, `v2/farcaster-hub/ipfs/${cid}`);

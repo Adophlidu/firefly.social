@@ -1229,6 +1229,38 @@ export interface SearchTokenInfo extends Omit<TokenWithMarketData, 'id'> {
 /** Results from /v2/token/search */
 export type SearchTokenInfosResponse = Response<SearchTokenInfo[]>;
 
+export interface DexCoinDetail {
+    symbol: string;
+    name: string;
+    decimals: number;
+    contract_address: string;
+    chain_id: string;
+    pool_address: string;
+    pool_created_at: string;
+    holders: number;
+    liquidity: string;
+    image: {
+        thumb: string;
+        small: string;
+        large: string;
+    };
+    links: {
+        homepage: string[];
+        twitter_handle: string;
+        discord_url: string;
+        telegram_handle: string;
+    };
+    market_data: {
+        token_price_usd: string;
+        price_change_percentage_24h: string;
+        market_cap_usd: string;
+        fdv_usd: string;
+        volume_usd_24h: string;
+    };
+}
+
+export type DexCoinDetailResponse = Response<DexCoinDetail>;
+
 export type GenerateFarcasterSignatureResponse = Response<{
     sponsorSignature: Hex;
     signedKeyRequestSignature: Hex;

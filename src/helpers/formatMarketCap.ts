@@ -1,5 +1,7 @@
 import { BigNumber } from 'bignumber.js';
 
+import { rightShift } from '@/helpers/number.js';
+
 function abbreviationForZero(str: string, zeroCount: number) {
     if (zeroCount <= 1) return str;
     return str.replace(`${new Array(zeroCount).fill('0').join('')}`, `0{${zeroCount}}`);
@@ -10,27 +12,30 @@ export function removeTrailingZeros(str: string) {
     return result === '0' ? '0' : result;
 }
 
-export function formatMarketCap(amount: BigNumber.Value, digits = 2) {
+export function formatMarketCap(amount: BigNumber.Value, digits = 2, symbol = '', bounded = true) {
     let bigNumber = new BigNumber(amount);
     const isNegative = bigNumber.isNegative();
     const prefix = isNegative ? '-' : '';
-    bigNumber = bigNumber.abs();
+
+    if (bounded && bigNumber.gt(rightShift(1, 15))) return `>${symbol}999T`;
+
+    const leading = `${symbol}${prefix}`;
     if (bigNumber.isGreaterThanOrEqualTo(1000)) {
-        const suffixes = ['', 'K', 'M', 'B', 'T', 'P'];
+        const suffixes = ['', 'K', 'M', 'B', 'T', 'P', 'E', 'Z', 'Y', 'R', 'Q'];
         let suffixIndex = 0;
         while (bigNumber.isGreaterThanOrEqualTo(1000) && suffixIndex < suffixes.length - 1) {
             bigNumber = bigNumber.dividedBy(1000);
             suffixIndex += 1;
         }
-        return prefix + parseFloat(bigNumber.toFixed(digits)) + (suffixes[suffixIndex] ?? '');
+        return leading + parseFloat(bigNumber.toFixed(digits)) + (suffixes[suffixIndex] ?? '');
     }
     if (bigNumber.isLessThan(1)) {
         const zeroCount = bigNumber.toFormat().substring(2).match(/^0+/)?.[0].length ?? 0;
         const format = bigNumber.toFormat(zeroCount + digits, 1);
         if (format.length >= 10) {
-            return prefix + abbreviationForZero(removeTrailingZeros(format), zeroCount);
+            return leading + abbreviationForZero(removeTrailingZeros(format), zeroCount);
         }
-        return prefix + removeTrailingZeros(format);
+        return leading + removeTrailingZeros(format);
     }
-    return prefix + removeTrailingZeros(bigNumber.toFormat(digits));
+    return leading + removeTrailingZeros(bigNumber.toFormat(digits));
 }

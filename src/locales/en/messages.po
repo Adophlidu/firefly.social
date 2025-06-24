@@ -285,6 +285,9 @@ msgstr "Open"
 msgid "You have exceeded the maximum number of attempts. Please try again later."
 msgstr "You have exceeded the maximum number of attempts. Please try again later."
 
+msgid "FDV"
+msgstr "FDV"
+
 msgid "Functions that can suspend trading"
 msgstr "Functions that can suspend trading"
 
@@ -643,6 +646,9 @@ msgstr "Undo repost"
 msgid "Proxy contract."
 msgstr "Proxy contract."
 
+msgid "Liquidity"
+msgstr "Liquidity"
+
 msgid "Verification unsuccessful"
 msgstr "Verification unsuccessful"
 
@@ -924,6 +930,10 @@ msgstr "Host"
 msgid "Unsafe: Transaction is at risk"
 msgstr "Unsafe: Transaction is at risk"
 
+#. placeholder {0}: Math.floor(span / DAY_SPAN)
+msgid "{0, plural, one {# day} other {# days}}"
+msgstr "{0, plural, one {# day} other {# days}}"
+
 msgid "Suspected malicious address."
 msgstr "Suspected malicious address."
 
@@ -1044,6 +1054,9 @@ msgstr "Failed to bookmark article."
 #. placeholder {0}: formatAmount(usdcSize)
 msgid "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
 msgstr "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
+
+msgid "Holders"
+msgstr "Holders"
 
 msgid "The event has ended, but you can explore others in Exclusive Events."
 msgstr "The event has ended, but you can explore others in Exclusive Events."
@@ -1370,6 +1383,9 @@ msgstr "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{0}</
 msgid "Cannot choose due to account mismatch."
 msgstr "Cannot choose due to account mismatch."
 
+msgid "In some cases, you can also find a more detailed breakdown of holders in the explorer page."
+msgstr "In some cases, you can also find a more detailed breakdown of holders in the explorer page."
+
 msgid "Change password"
 msgstr "Change password"
 
@@ -1573,6 +1589,9 @@ msgstr "No fake KYC found."
 msgid "No function found that retrieves ownership"
 msgstr "No function found that retrieves ownership"
 
+msgid "Market Cap is sourced from CoinGecko and includes token issued on other blockchain."
+msgstr "Market Cap is sourced from CoinGecko and includes token issued on other blockchain."
+
 msgid "Send"
 msgstr "Send"
 
@@ -1702,6 +1721,10 @@ msgstr "No mint function"
 msgid "Expired"
 msgstr "Expired"
 
+#. placeholder {0}: Math.floor(span / HOUR_SPAN)
+msgid "{0, plural, one {# hour} other {# hours}}"
+msgstr "{0, plural, one {# hour} other {# hours}}"
+
 msgid "Nickname must not contain restricted symbols"
 msgstr "Nickname must not contain restricted symbols"
 
@@ -1738,6 +1761,9 @@ msgstr "Darkweb transactions found."
 #. placeholder {0}: humanize(count)
 msgid "{0} Comments"
 msgstr "{0} Comments"
+
+msgid "Assuming circulating supply = total supply (includes locked, excludes burned)"
+msgstr "Assuming circulating supply = total supply (includes locked, excludes burned)"
 
 msgid "Schedule Post"
 msgstr "Schedule Post"
@@ -1906,6 +1932,9 @@ msgstr "Failed to login."
 msgid "Network"
 msgstr "Network"
 
+msgid "Just now"
+msgstr "Just now"
+
 msgid "Failed to mint NFT."
 msgstr "Failed to mint NFT."
 
@@ -1986,6 +2015,10 @@ msgstr "Circulating Supply"
 msgid "Failed to switch."
 msgstr "Failed to switch."
 
+#. placeholder {0}: Math.floor(span / MINUTE_SPAN)
+msgid "{0, plural, one {# minute} other {# minutes}}"
+msgstr "{0, plural, one {# minute} other {# minutes}}"
+
 msgid "Post has been deleted"
 msgstr "Post has been deleted"
 
@@ -1997,6 +2030,10 @@ msgstr "Report article"
 
 msgid "Everyone"
 msgstr "Everyone"
+
+#. placeholder {0}: Math.floor(span / MONTH_SPAN)
+msgid "{0, plural, one {# month} other {# months}}"
+msgstr "{0, plural, one {# month} other {# months}}"
 
 msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
@@ -2096,6 +2133,9 @@ msgstr "No posts found for this token."
 
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
+
+msgid "Age"
+msgstr "Age"
 
 msgid "Failed to recast."
 msgstr "Failed to recast."
@@ -3150,6 +3190,9 @@ msgstr "Your claimed {amount} {symbol}."
 msgid "Sent"
 msgstr "Sent"
 
+msgid "Token could not be found."
+msgstr "Token could not be found."
+
 msgid "Casts + Replies"
 msgstr "Casts + Replies"
 
@@ -3428,6 +3471,10 @@ msgstr "Something went wrong."
 
 msgid "Snapshot added to your Bookmarks"
 msgstr "Snapshot added to your Bookmarks"
+
+#. placeholder {0}: Math.floor(span / YEAR_SPAN)
+msgid "{0, plural, one {# year} other {# years}}"
+msgstr "{0, plural, one {# year} other {# years}}"
 
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
@@ -3821,6 +3868,9 @@ msgstr "Truth Social"
 msgid "Repost or Quote"
 msgstr "Repost or Quote"
 
+msgid "Ca"
+msgstr "Ca"
+
 msgid "NFT ID"
 msgstr "NFT ID"
 
@@ -3829,6 +3879,9 @@ msgstr "Sign in with Bluesky"
 
 msgid "Failed to send tip. Please try again later."
 msgstr "Failed to send tip. Please try again later."
+
+msgid "24h Vol"
+msgstr "24h Vol"
 
 msgid "Enable now"
 msgstr "Enable now"

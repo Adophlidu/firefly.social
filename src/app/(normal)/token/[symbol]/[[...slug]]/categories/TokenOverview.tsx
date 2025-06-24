@@ -1,22 +1,33 @@
 import { Trans } from '@lingui/react/macro';
+import { useQuery } from '@tanstack/react-query';
 import { first, isNumber } from 'lodash-es';
 import { type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
+import LinkIcon from '@/assets/link-square.svg';
 import QuestionIcon from '@/assets/question.svg';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
+import { Loading } from '@/components/Loading.js';
+import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import NotFound from '@/components/NotFound.js';
 import { CommunityLink } from '@/components/TokenProfile/CommunityLink.js';
 import { ContractList } from '@/components/TokenProfile/ContractList.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatAddressEthereum } from '@/helpers/formatAddress.js';
+import { formatAddress, formatAddressEthereum } from '@/helpers/formatAddress.js';
+import { formatAge } from '@/helpers/formatAge.js';
+import { formatMarketCap } from '@/helpers/formatMarketCap.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
+import { formatDate } from '@/helpers/formatTimestamp.js';
 import { getChainInfo } from '@/helpers/getChainInfo.js';
 import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
+import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
+import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useDetectToken } from '@/hooks/useDetectToken.js';
-import type { Contract, Trending } from '@/providers/types/Trending.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import type { CommunityUrl, Contract } from '@/providers/types/Trending.js';
 
 interface InfoRowProps {
     title: ReactNode;
@@ -72,12 +83,13 @@ function formatContractAddress(contract: Contract) {
     return `${contract.address.slice(0, 6)}...${contract.address.slice(-4)}`;
 }
 
-interface TokenOverviewProps extends HTMLProps<HTMLDivElement> {
-    trending: Trending | undefined;
+export interface TokenOverviewProps extends HTMLProps<HTMLDivElement> {
+    coinId: string | null | undefined;
     chainId?: number;
     address?: string;
 }
-export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ trending, chainId, address, ...rest }) {
+export const Overview = memo<TokenOverviewProps>(function TokenOverview({ coinId, chainId, address, ...rest }) {
+    const { data: trending, isLoading } = useCoinTrending(coinId);
     const { market, coin } = trending ?? {};
     const { data: detected } = useDetectToken(address, !trending);
     const attributes = detected?.contract_info?.attributes;
@@ -103,6 +115,11 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ t
     const chain = getChainInfo(contract?.runtime, contract?.chainId);
 
     const total_supply = market?.total_supply ?? attributes?.normalized_total_supply;
+
+    if (!coinId && !isLoading && chainId && address) {
+        return <DexCoinOverview chainId={chainId} address={address} {...rest} />;
+    }
+
     return (
         <div {...rest}>
             <h2 className="font-inter font-bold text-main">
@@ -211,7 +228,7 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ t
                 <Trans>Info</Trans>
             </h2>
             <div className="mt-3 flex flex-col gap-3">
-                {contracts?.length ? (
+                {contracts.length ? (
                     <InfoRow
                         title={<Trans>Contract Address</Trans>}
                         extra={
@@ -269,6 +286,197 @@ export const TokenOverview = memo<TokenOverviewProps>(function TokenOverview({ t
                         extra={
                             <div className="flex gap-2">
                                 {coin.community_urls.map((x) => (
+                                    <CommunityLink key={x.link} link={x} />
+                                ))}
+                            </div>
+                        }
+                    />
+                ) : null}
+            </div>
+        </div>
+    );
+});
+
+interface DexCoinOverviewProps extends HTMLProps<HTMLDivElement> {
+    chainId: number;
+    address: string;
+}
+export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOverview({ chainId, address, ...rest }) {
+    const { data: detail, isLoading } = useQuery({
+        queryKey: ['dex-coin-detail', chainId, address],
+        queryFn: () => FireflyEndpointProvider.getDexCoinDetail(chainId, address),
+    });
+
+    if (!detail) {
+        return (
+            <div {...rest} className={classNames('flex justify-center', rest.className)}>
+                {isLoading ? <Loading /> : <NotFound text={<Trans>Token could not be found.</Trans>} />}
+            </div>
+        );
+    }
+
+    const marketCap = detail.market_data.market_cap_usd;
+    const liquidity = detail.liquidity;
+    const fdv = detail.market_data.fdv_usd;
+    const tradeVol24h = detail.market_data.volume_usd_24h;
+    const holders = detail.holders;
+    const createAt = detail.pool_created_at;
+    const links = detail.links;
+    const communityUrls: CommunityUrl[] = links
+        ? ([
+              {
+                  type: 'twitter',
+                  link: links.twitter_handle ? `https://x.com/${links.twitter_handle}` : null,
+              },
+              {
+                  type: 'discord',
+                  link: links.discord_url,
+              },
+              {
+                  type: 'telegram',
+                  link: links.telegram_handle ? `https://t.me/${links.telegram_handle}` : null,
+              },
+          ].filter((x) => x.link) as CommunityUrl[])
+        : [];
+
+    return (
+        <div {...rest}>
+            <div className="grid grid-cols-3 gap-3">
+                <Tooltip
+                    placement="top"
+                    content={
+                        <div className="w-[260px]">
+                            {marketCap === null ? (
+                                <Trans>
+                                    Assuming circulating supply = total supply (includes locked, excludes burned)
+                                </Trans>
+                            ) : (
+                                <Trans>
+                                    Market Cap is sourced from CoinGecko and includes token issued on other blockchain.
+                                </Trans>
+                            )}
+                        </div>
+                    }
+                >
+                    <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
+                        <p className="font-inter text-lg font-bold leading-6 text-main">
+                            {marketCap ? formatMarketCap(marketCap, 2, '$') : fdv ? formatMarketCap(fdv, 2, '$') : '-'}
+                        </p>
+                        <h3 className="font-inter text-medium leading-[18px] text-second underline">
+                            <Trans>Market Cap</Trans>
+                        </h3>
+                    </div>
+                </Tooltip>
+                <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
+                    <p className="font-inter text-lg font-bold leading-6 text-main">
+                        {liquidity ? formatMarketCap(liquidity, 2, '$') : '-'}
+                    </p>
+                    <h3 className="font-inter text-medium leading-[18px] text-second">
+                        <Trans>Liquidity</Trans>
+                    </h3>
+                </div>
+                <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
+                    <p className="font-inter text-lg font-bold leading-6 text-main">
+                        {fdv ? formatMarketCap(fdv, 2, '$') : '-'}
+                    </p>
+                    <h3 className="font-inter text-medium leading-[18px] text-second">
+                        <Trans>FDV</Trans>
+                    </h3>
+                </div>
+                <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
+                    <p className="font-inter text-lg font-bold leading-6 text-main">
+                        {tradeVol24h ? formatMarketCap(tradeVol24h, 2, '$') : '-'}
+                    </p>
+                    <h3 className="font-inter text-medium leading-[18px] text-second">
+                        <Trans>24h Vol</Trans>
+                    </h3>
+                </div>
+                <Tooltip
+                    interactive
+                    content={
+                        <div className="w-[260px]">
+                            <Trans>
+                                In some cases, you can also find a more detailed breakdown of holders in the explorer
+                                page.
+                            </Trans>
+                            <Link href={resolveAddressLink(chainId, address) || ''}>
+                                <LinkIcon width={14} height={14} className="inline-block text-second" />
+                            </Link>
+                        </div>
+                    }
+                    placement="top"
+                >
+                    <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
+                        <p className="font-inter text-lg font-bold leading-6 text-main">
+                            {holders ? formatMarketCap(holders, 2) : '-'}
+                        </p>
+                        <h3 className="font-inter text-medium leading-[18px] text-second underline">
+                            <Trans>Holders</Trans>
+                        </h3>
+                    </div>
+                </Tooltip>
+                <Tooltip
+                    content={createAt ? formatDate(new Date(createAt), 'MMM d, yyyy, hh:mm a') : null}
+                    placement="top"
+                >
+                    <div className="flex flex-col gap-1 rounded-xl bg-lightBg p-4">
+                        <p className="font-inter text-lg font-bold leading-6 text-main">
+                            {createAt ? formatAge(createAt) : '-'}
+                        </p>
+                        <h3 className="font-inter text-medium leading-[18px] text-second underline">
+                            <Trans>Age</Trans>
+                        </h3>
+                    </div>
+                </Tooltip>
+            </div>
+            <div className="mt-3 flex flex-col gap-3">
+                <InfoRow
+                    title={<Trans>Ca</Trans>}
+                    extra={
+                        <div className="flex items-center gap-1">
+                            <ChainIcon chainId={chainId} className="flex-shrink-0" width={16} height={16} />
+                            <Tooltip
+                                content={
+                                    <div className="max-w-[200px] whitespace-normal text-wrap break-words text-center">
+                                        {address}
+                                    </div>
+                                }
+                                placement="top"
+                                touch
+                            >
+                                <span className="overflow-hidden text-ellipsis text-medium font-bold text-main">
+                                    {formatAddress(address, 4)}
+                                </span>
+                            </Tooltip>
+                            <CopyTextButton notification="toast" text={address} />
+                        </div>
+                    }
+                />
+                {detail.links.homepage.length ? (
+                    <InfoRow
+                        title={<Trans>Website</Trans>}
+                        extra={
+                            <div className="flex gap-1">
+                                {detail.links.homepage.map((url) => (
+                                    <Link
+                                        key={url}
+                                        href={url}
+                                        target="_blank"
+                                        className="text-[#8E96FF] hover:underline"
+                                    >
+                                        {getHost(url)}
+                                    </Link>
+                                ))}
+                            </div>
+                        }
+                    />
+                ) : null}
+                {communityUrls.length ? (
+                    <InfoRow
+                        title={<Trans>Community</Trans>}
+                        extra={
+                            <div className="flex gap-2">
+                                {communityUrls.map((x) => (
                                     <CommunityLink key={x.link} link={x} />
                                 ))}
                             </div>
