@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { TwitterFollowButton } from '@/components/Actions/TwitterFollowButton.jsx';
+import { TwitterFollowButton } from '@/components/Actions/TwitterFollowButton.js';
 
 const meta = {
     title: 'common/TwitterFollowButton',
