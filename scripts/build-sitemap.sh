@@ -52,7 +52,7 @@ mkdir -p "$(dirname "$LOG_FILE")"
   API_BASE="https://api-dev.firefly.land/v1/recommendation/get_hot_account"
   OUTPUT_DIR="./public/sitemap"
   MAX_LINKS_PER_FILE=10000
-  PROVIDERS=("lens" "farcaster" "twitter" "bsky")
+  PROVIDERS=("farcaster" "twitter")
 
   mkdir -p "$OUTPUT_DIR"
 
