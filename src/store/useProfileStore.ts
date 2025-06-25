@@ -506,6 +506,7 @@ const useThirdPartyStateBase = createState(
                         skipBelongsToCheck: !foundNewSessionFromServer,
                         skipResumeFireflyAccounts: !foundNewSessionFromServer,
                         skipResumeFireflySession: !foundNewSessionFromServer,
+                        skipSyncAccounts: true,
                     },
                 );
                 if (!result) return;

@@ -194,6 +194,8 @@ export interface AccountOptions {
     skipResumeFireflySession?: boolean;
     // skip reporting farcaster signer, default: true
     skipReportFarcasterSigner?: boolean;
+    // skip syncing accounts, default: false
+    skipSyncAccounts?: boolean;
     // early return signal
     signal?: AbortSignal;
 }
@@ -205,7 +207,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         skipResumeFireflyAccounts = false,
         skipResumeFireflySession = false,
         skipReportFarcasterSigner = true,
-
+        skipSyncAccounts = false,
         signal,
     } = options ?? {};
 
@@ -305,7 +307,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
     const syncStatus = await FireflyEndpointProvider.getMetricsStatus();
 
-    if (!skipResumeFireflyAccounts && fireflySession && syncStatus.hasSetPasscode) {
+    if (!skipSyncAccounts && fireflySession && syncStatus.hasSetPasscode) {
         // No need to wait
         syncMetrics(account);
     }
