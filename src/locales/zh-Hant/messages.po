@@ -571,9 +571,6 @@ msgstr "合約擁有者設有個人滑點限制。"
 msgid "Anti whale can be modified."
 msgstr "鯨魚限制機制可被修改。"
 
-msgid "NFT Standard"
-msgstr "NFT 標準"
-
 #. placeholder {0}: first(post.mirrors)?.displayName
 msgid "<0>{0}</0> reposted"
 msgstr "<0>{0}</0> 轉發了"
@@ -2089,9 +2086,6 @@ msgstr "此電子郵件已連結其他 Firefly 帳號"
 
 msgid "Fully Diluted Valuation"
 msgstr "完全稀釋估值"
-
-msgid "NFT Contract"
-msgstr "NFT 合約"
 
 msgid "Verified by Farcaster"
 msgstr ""

@@ -571,9 +571,6 @@ msgstr ""
 msgid "Anti whale can be modified."
 msgstr ""
 
-msgid "NFT Standard"
-msgstr ""
-
 #. placeholder {0}: first(post.mirrors)?.displayName
 msgid "<0>{0}</0> reposted"
 msgstr ""
@@ -2080,9 +2077,6 @@ msgid "This Email is already linked to another Firefly account."
 msgstr ""
 
 msgid "Fully Diluted Valuation"
-msgstr ""
-
-msgid "NFT Contract"
 msgstr ""
 
 msgid "Verified by Farcaster"

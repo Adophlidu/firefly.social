@@ -16,8 +16,8 @@ import { EthereumSchemaType } from '#masknet/web3-shared-evm';
 
 function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
     return (
-        <div className="flex w-full gap-[30px] text-base font-normal leading-6">
-            <div className="w-[144px] min-w-[144px] whitespace-nowrap text-secondary">{props.field}:</div>
+        <div className="flex w-full gap-4 text-base font-normal leading-6">
+            <div className="w-[100px] min-w-[100px] whitespace-nowrap text-secondary">{props.field}:</div>
             <div className="flex-1 text-base">{props.value}</div>
         </div>
     );
@@ -46,7 +46,7 @@ function ExplorerLink(props: { address: string; type: 'address' | 'tx'; chainId?
 
     if (!href) return <span className="break-all">{address}</span>;
     return (
-        <span className="inline-flex gap-1 break-all">
+        <span className="inline-flex items-center gap-1 break-all">
             {address}
             <CopyTextButton size={14} text={address} />
             <a href={href} target="_blank" className="inline-block">
@@ -115,10 +115,10 @@ export function NFTOverflow(props: NFTOverflowProps) {
                 <h3 className="text-xl font-bold leading-6">
                     <Trans>Details</Trans>
                 </h3>
-                <div className="space-y-4">
+                <div className="flex flex-col gap-4">
                     {standard ? (
                         <DetailsGroup
-                            field={<Trans>NFT Standard</Trans>}
+                            field={<Trans>Standard</Trans>}
                             value={<div className="flex items-center">{standard}</div>}
                         />
                     ) : null}
@@ -132,10 +132,8 @@ export function NFTOverflow(props: NFTOverflowProps) {
                         <DetailsGroup
                             field={<Trans>Blockchain</Trans>}
                             value={
-                                <div className="flex items-center">
-                                    <span className="mr-1">
-                                        <ChainIcon chainId={props.chainId} size={20} />
-                                    </span>
+                                <div className="flex items-center gap-1">
+                                    <ChainIcon chainId={props.chainId} size={20} />
                                     <span className="capitalize">{resolveWagmiChain(props.chainId)?.name}</span>
                                 </div>
                             }
@@ -143,7 +141,7 @@ export function NFTOverflow(props: NFTOverflowProps) {
                     ) : null}
                     {props.contractAddress ? (
                         <DetailsGroup
-                            field={<Trans>NFT Contract</Trans>}
+                            field={<Trans>Contract</Trans>}
                             value={
                                 <ExplorerLink address={props.contractAddress} type="address" chainId={props.chainId} />
                             }

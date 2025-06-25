@@ -566,9 +566,6 @@ msgstr "The contract owner has restrictions on personal slippage."
 msgid "Anti whale can be modified."
 msgstr "Anti whale can be modified."
 
-msgid "NFT Standard"
-msgstr "NFT Standard"
-
 #. placeholder {0}: first(post.mirrors)?.displayName
 msgid "<0>{0}</0> reposted"
 msgstr "<0>{0}</0> reposted"
@@ -2084,9 +2081,6 @@ msgstr "This Email is already linked to another Firefly account."
 
 msgid "Fully Diluted Valuation"
 msgstr "Fully Diluted Valuation"
-
-msgid "NFT Contract"
-msgstr "NFT Contract"
 
 msgid "Verified by Farcaster"
 msgstr "Verified by Farcaster"
