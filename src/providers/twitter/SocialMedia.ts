@@ -24,7 +24,6 @@ import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollow
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
-import { WithNitter } from '@/decorators/WithNitter.js';
 import { formatTweetsPage } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile, formatTwitterProfilePage } from '@/helpers/formatTwitterProfile.js';
 import { formatTwitterProfileFromX3Pro } from '@/helpers/formatTwitterProfileFromX3Pro.js';
@@ -68,14 +67,7 @@ import { X3ProKolListLabel, X3ProOrderType } from '@/providers/x3pro/types.js';
 import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
 import type { PartialWith, ResponseJSON } from '@/types/index.js';
 
-declare module '@/types/common.js' {
-    interface DataSourceRegister {
-        twitter: string;
-    }
-}
-
 export
-@WithNitter()
 @SetQueryDataForLikePost(Source.Twitter)
 @SetQueryDataForBookmarkPost(Source.Twitter)
 @SetQueryDataForMirrorPost(Source.Twitter)

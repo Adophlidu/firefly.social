@@ -1,5 +1,3 @@
-import type { DataSource } from '@/types/common.js';
-
 const $Pageable = 'Pageable' as const;
 const $PageIndicator = 'PageIndicator' as const;
 
@@ -18,8 +16,6 @@ export interface Pageable<Item, Indicator = unknown> {
 }
 
 export interface PageIndicator {
-    /** specify the source of the data */
-    source?: DataSource;
     /** force use createIndicator */
     __type__: typeof $PageIndicator;
 

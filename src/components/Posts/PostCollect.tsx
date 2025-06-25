@@ -33,7 +33,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 function formatTimeLeft(endTime: string) {
     const timeLeft = getTimeLeft(endTime);
     if (!timeLeft) return;
-    const { days, hours, minutes, seconds } = timeLeft;
+    const { days, hours, minutes } = timeLeft;
     if (days >= 1) return <Trans>${days}d left</Trans>;
     if (hours >= 1) return <Trans>${hours}h left</Trans>;
     if (minutes >= 1) return <Trans>${minutes}m left</Trans>;

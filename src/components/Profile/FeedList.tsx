@@ -43,11 +43,10 @@ export function FeedList({ profileId, source }: FeedListProps) {
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable<Post>(EMPTY_LIST, createIndicator());
 
-            const provider = resolveSocialMediaProvider(source);
+            const provider = resolveSocialMediaProvider(source, {
+                [Source.Twitter]: forceTwitterOfficial ? 'twitter' : undefined,
+            });
             const pageIndicator = createIndicator(undefined, pageParam);
-            if (forceTwitterOfficial) {
-                pageIndicator.source = 'twitter';
-            }
             const posts = await provider.getPostsByProfileId(profileId, pageIndicator);
 
             if (source === Source.Lens) {

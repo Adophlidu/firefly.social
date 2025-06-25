@@ -127,12 +127,6 @@ async function withReplyPostsToTimelineWithPagination(
     );
 }
 
-declare module '@/types/common.js' {
-    interface DataSourceRegister {
-        nitter: string;
-    }
-}
-
 export
 @SetQueryDataForPosts
 class NitterSocialMedia implements Provider {
@@ -368,8 +362,7 @@ class NitterSocialMedia implements Provider {
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        if ((!isServer && twitterSessionHolder.session) || indicator?.source === 'twitter')
-            throw new NotImplementedError();
+        if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const { username } = await NitterAPIProvider.convertUserIdToHandle(profileId);
         const pageable = await runInSafeAsync(async () => {
             const { timeline, pagination } = await NitterAPIProvider.getUserTimelineByHandle(username, {
@@ -391,8 +384,7 @@ class NitterSocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        if ((!isServer && twitterSessionHolder.session) || indicator?.source === 'twitter')
-            throw new NotImplementedError();
+        if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const { username } = await NitterAPIProvider.convertUserIdToHandle(profileId);
         const pageable = await runInSafeAsync(async () => {
             const { timeline, pagination } = await NitterAPIProvider.getUserTimelineByHandle(username, {
@@ -405,8 +397,7 @@ class NitterSocialMedia implements Provider {
     }
 
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        if ((!isServer && twitterSessionHolder.session) || indicator?.source === 'twitter')
-            throw new NotImplementedError();
+        if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const { replies, after } = await NitterAPIProvider.getTweetStatus('web', postId, {
             cursor: indicator?.id,
         });
@@ -441,8 +432,7 @@ class NitterSocialMedia implements Provider {
     }
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        if ((!isServer && twitterSessionHolder.session) || indicator?.source === 'twitter')
-            throw new NotImplementedError();
+        if (!isServer && twitterSessionHolder.session) throw new NotImplementedError();
         const pageable = await runInSafeAsync(async () => {
             const { timeline, pagination } = await NitterAPIProvider.search(q, {
                 cursor: indicator?.id,
