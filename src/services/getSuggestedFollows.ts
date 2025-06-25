@@ -28,7 +28,7 @@ async function getProfilesWithFixedTotal(
 }
 
 export async function getSuggestedFollowsInCard(source: SocialSource) {
-    const provider = resolveSocialMediaProvider(source);
+    const provider = resolveSocialMediaProvider(source, { [Source.Twitter]: 'twitter' });
     const currentProfile = getCurrentProfile(source);
     const result = await getProfilesWithFixedTotal(
         provider.getSuggestedFollows.bind(provider),
