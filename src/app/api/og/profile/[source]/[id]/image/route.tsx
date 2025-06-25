@@ -217,13 +217,10 @@ function walletProfilesToSources(profiles?: WalletProfiles) {
 }
 
 function walletProfilesToAvatar(profiles: WalletProfiles) {
-    if (!profiles.account?.avatar?.includes('stamp.firefly.land')) {
-        if (!profiles.account?.avatar) {
-            return profiles.account?.uid
-                ? getStampAvatarByProfileId(Source.Firefly, profiles.account.uid, OG_AVATAR_SIZE * 2)
-                : undefined;
+    if (profiles.account?.avatar) {
+        if (!profiles.account?.avatar?.includes('stamp.firefly.land')) {
+            return profiles.account?.avatar;
         }
-        return profiles.account?.avatar;
     }
     const avatars = compact(
         SORTED_SOCIAL_ACCOUNT_AVATAR_SOURCE.flatMap((source) => {
@@ -243,7 +240,7 @@ function walletProfilesToAvatar(profiles: WalletProfiles) {
         }),
     ).map(({ source, id }) => getStampAvatarByProfileId(source, id, OG_AVATAR_SIZE * 2));
     const socialAvatar = first(avatars);
-    if (!socialAvatar && profiles.account.uid)
+    if (!socialAvatar && profiles.account?.uid)
         return getStampAvatarByProfileId(Source.Firefly, profiles.account.uid, OG_AVATAR_SIZE * 2);
     return socialAvatar;
 }
