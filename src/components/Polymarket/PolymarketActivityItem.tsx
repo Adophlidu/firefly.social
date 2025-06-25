@@ -5,10 +5,10 @@ import { polygon } from 'viem/chains';
 
 import { ActivityCellPolymarketAction } from '@/components/ActivityCell/Polymarket/ActivityCellPolymarketAction.js';
 import { Avatar } from '@/components/Avatar.js';
+import { ChainIcon } from '@/components/ChainIcon.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
-import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { PolymarketActivityRate } from '@/components/Polymarket/PolymarketActivityRate.js';
 import { PolymarketActivityResult } from '@/components/Polymarket/PolymarketActivityResult.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';

@@ -5,11 +5,11 @@ import { type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
 import QuestionIcon from '@/assets/question.svg';
+import { ChainIcon } from '@/components/ChainIcon.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { Loading } from '@/components/Loading.js';
-import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import NotFound from '@/components/NotFound.js';
 import { CommunityLink } from '@/components/TokenProfile/CommunityLink.js';
 import { ContractList } from '@/components/TokenProfile/ContractList.js';

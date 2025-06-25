@@ -5,9 +5,9 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
 
+import { ChainIcon } from '@/components/ChainIcon.js';
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { Link } from '@/components/Link.js';
-import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';

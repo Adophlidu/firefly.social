@@ -11,8 +11,8 @@ import { useAccount } from 'wagmi';
 
 import CloseIcon from '@/assets/close.svg';
 import { ActionButton } from '@/components/ActionButton.js';
+import { ChainIcon } from '@/components/ChainIcon.js';
 import { Modal } from '@/components/Modal.js';
-import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { FilterPopover } from '@/components/Search/SearchContentPanel.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { chains } from '@/configs/wagmiClient.js';

@@ -8,9 +8,9 @@ import { useAsync } from 'react-use';
 import urlcat from 'urlcat';
 import type { Address } from 'viem';
 
+import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Loading } from '@/components/Loading.js';
-import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { AmountProgressText } from '@/components/RedPacket/AmountProgressText.js';
 import { formatSenderName } from '@/components/RedPacket/helpers.js';
 import { useAvailabilityComputed } from '@/components/RedPacket/hooks/useAvailabilityComputed.js';

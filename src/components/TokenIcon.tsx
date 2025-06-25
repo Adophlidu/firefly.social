@@ -1,7 +1,7 @@
 import { first } from 'lodash-es';
 import { type HTMLProps, memo, useCallback, useMemo, useState } from 'react';
 
-import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { ChainIcon } from '@/components/ChainIcon.js';
 import { type NetworkType } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';

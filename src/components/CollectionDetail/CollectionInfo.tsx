@@ -4,9 +4,9 @@ import { Trans } from '@lingui/react/macro';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { CollectionMore } from '@/components/Actions/CollectionMore.js';
+import { ChainIcon } from '@/components/ChainIcon.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
-import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { formatAddress } from '@/helpers/formatAddress.js';

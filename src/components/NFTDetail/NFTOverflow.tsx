@@ -5,9 +5,9 @@ import { safeUnreachable } from '@masknet/kit';
 import { type ReactNode, useMemo } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
+import { ChainIcon } from '@/components/ChainIcon.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Link } from '@/components/Link.js';
-import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { isValidChainIdEthereum, isValidChainIdSolana } from '@/helpers/isValidChainId.js';
 import { resolveWagmiChain } from '@/helpers/resolveWagmiChain.js';
 import { EVMExplorerResolver, SolanaExplorerResolver } from '@/mask/index.js';

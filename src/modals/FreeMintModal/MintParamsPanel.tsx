@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { type HTMLProps, memo, type ReactNode } from 'react';
 
-import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { ChainIcon } from '@/components/ChainIcon.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';

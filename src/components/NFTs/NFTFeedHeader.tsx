@@ -1,7 +1,7 @@
 import type { Address } from 'viem';
 
 import { ActivityCellHeader, type ActivityCellHeaderProps } from '@/components/ActivityCell/ActivityCellHeader.js';
-import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { ChainIcon } from '@/components/ChainIcon.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 
 interface NFTFeedHeaderProps extends Omit<ActivityCellHeaderProps, 'icon' | 'displayName'> {

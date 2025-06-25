@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import CheckIcon from '@/assets/check.svg';
 import FilterIcon from '@/assets/filter.svg';
 import MiniFilterIcon from '@/assets/mini-filter.svg';
-import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { ChainIcon } from '@/components/ChainIcon.js';
 import { NetworkType } from '@/constants/enum.js';
 import { captureChainFilterTabEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
 import { useSwapStateStore } from '@/store/useSwapStore.js';

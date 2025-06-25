@@ -1,9 +1,9 @@
 import { Trans } from '@lingui/react/macro';
 import type { HTMLProps } from 'react';
 
+import { ChainIcon } from '@/components/ChainIcon.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
-import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';

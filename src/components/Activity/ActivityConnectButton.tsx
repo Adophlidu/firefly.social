@@ -11,8 +11,8 @@ import { useActivityBindAddress } from '@/components/Activity/hooks/useActivityB
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
 import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInActivity.js';
+import { ChainIcon } from '@/components/ChainIcon.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
-import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';

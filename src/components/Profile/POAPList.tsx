@@ -7,9 +7,9 @@ import type { Hex } from 'viem';
 import { useEnsName } from 'wagmi';
 
 import PoapIcon from '@/assets/poap.svg';
+import { ChainIcon } from '@/components/ChainIcon.js';
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { Link } from '@/components/Link.js';
-import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { FireflyPlatform, Source } from '@/constants/enum.js';

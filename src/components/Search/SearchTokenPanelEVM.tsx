@@ -4,8 +4,8 @@ import { uniq } from 'lodash-es';
 import { memo, useCallback, useMemo, useState } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
+import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { SearchContentPanel } from '@/components/Search/SearchContentPanel.js';
 import { TokenItem } from '@/components/Tips/TokenItem.js';
 import { chains } from '@/configs/wagmiClient.js';

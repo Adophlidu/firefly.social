@@ -3,7 +3,7 @@ import Fuse from 'fuse.js';
 import { memo, useCallback, useMemo, useState } from 'react';
 import { useAccount, useChainId } from 'wagmi';
 
-import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { ChainIcon } from '@/components/ChainIcon.js';
 import { SearchContentPanel } from '@/components/Search/SearchContentPanel.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { EMPTY_LIST } from '@/constants/index.js';

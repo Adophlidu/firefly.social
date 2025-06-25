@@ -3,8 +3,8 @@
 import { uniqBy } from 'lodash-es';
 import { useMemo } from 'react';
 
+import { ChainIcon } from '@/components/ChainIcon.js';
 import { GridListInPage } from '@/components/GridListInPage.js';
-import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
