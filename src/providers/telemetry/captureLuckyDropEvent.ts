@@ -33,7 +33,7 @@ function getLuckyDropParametersFromPayload(payload: RedPacketJSONPayload) {
 
 export function captureLuckyDropEvent(
     action: 'create' | 'claim' | 'refund',
-    options?: {
+    options: {
         payload?: RedPacketJSONPayload;
         metadata?: RedPacketMetadata;
         claimer?: string;
@@ -43,7 +43,7 @@ export function captureLuckyDropEvent(
     return runInSafeAsync(async () => {
         switch (action) {
             case 'create':
-                if (!options?.metadata) throw new Error('metadata is required');
+                if (!options.metadata) throw new Error('metadata is required');
                 await TelemetryProvider.captureEvent(EventId.LUCKY_DROP_CREATE_SUCCESS, {
                     ...getLuckyDropParametersFromMetadata(options.metadata),
                     ...getWalletEventParameters(options.metadata.sender.address),
@@ -51,7 +51,7 @@ export function captureLuckyDropEvent(
                 });
                 return;
             case 'claim':
-                if (!options?.payload || !options.claimer) throw new Error('payload and claimer is required');
+                if (!options.payload || !options.claimer) throw new Error('payload and claimer is required');
                 await TelemetryProvider.captureEvent(EventId.LUCKY_DROP_CLAIM_SUCCESS, {
                     ...getLuckyDropParametersFromPayload(options.payload),
                     ...getWalletEventParameters(options.claimer),
@@ -59,7 +59,7 @@ export function captureLuckyDropEvent(
                 });
                 return;
             case 'refund':
-                if (!options?.claimer) throw new Error('claimer is required');
+                if (!options.claimer) throw new Error('claimer is required');
                 await TelemetryProvider.captureEvent(EventId.LUCKY_DROP_REFUND_SUCCESS, {
                     ...getWalletEventParameters(options.claimer),
                 });

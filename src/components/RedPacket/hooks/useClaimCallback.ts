@@ -21,15 +21,14 @@ export function useClaimCallback(
     });
 
     return useAsyncFn(async () => {
+        captureLuckyDropEvent('claim', {
+            claimer: account,
+            payload,
+        });
         const hash = await RedPacketProvider.claimRedPacket({
             contextChainId,
             account,
             source,
-            payload,
-        });
-
-        captureLuckyDropEvent('claim', {
-            claimer: account,
             payload,
         });
 

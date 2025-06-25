@@ -73,52 +73,52 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             const { chainId, id } = token;
             const transfer = resolveTransferProvider(recipient.networkType);
             const network = resolveNetworkProvider(recipient.networkType);
-            const hash = await transfer.transfer({
-                to: recipient.address,
-                token,
+            const chainName = resolveWagmiChain(token.chainId)?.name || token.chain;
+            transfer
+                .transfer({
+                    to: recipient.address,
+                    token,
+                    amount,
+                })
+                .then((hash) => {
+                    const hashUrl = network.getTransactionUrl(chainId, hash) ?? network.getAddressUrl(chainId, id);
+                    if (hashUrl) {
+                        update((prev) => ({ ...prev, hash: hashUrl }));
+                    }
+
+                    reportTokenTips({
+                        from_account_id: fromAccountId,
+                        to_account_id: toAccountId,
+                        from_address: account,
+                        to_address: recipient.address,
+                        chain_id: `${token.chainId}`,
+                        chain_name: chainName,
+                        amount,
+                        token_symbol: token.symbol,
+                        token_icon: token.logo_url,
+                        token_address: token.id,
+                        token_type: transfer.isNativeToken(token)
+                            ? UploadTokenTipsToken.NativeToken
+                            : UploadTokenTipsToken.ERC20,
+                        tip_memos: '',
+                        tx_hash: hash,
+                    });
+                });
+            const [account, fromAccountId, toAccountId] = await Promise.all([
+                network.getAccount(),
+                resolveCurrentFireflyAccountId(),
+                resolveFireflyAccountId(identity),
+            ]);
+            captureTipsSendEvent({
+                wallet_address: account,
+                target_wallet_address: recipient.address,
+                target_firefly_account_id: toAccountId ?? '',
                 amount,
+                currency: token.symbol,
+                amount_usd: token.usdValue,
+                chain_id: token.chainId,
+                chain_name: chainName,
             });
-            const hashUrl = network.getTransactionUrl(chainId, hash) ?? network.getAddressUrl(chainId, id);
-            if (hashUrl) {
-                update((prev) => ({ ...prev, hash: hashUrl }));
-            }
-
-            {
-                const [account, fromAccountId, toAccountId] = await Promise.all([
-                    network.getAccount(),
-                    resolveCurrentFireflyAccountId(),
-                    resolveFireflyAccountId(identity),
-                ]);
-
-                const chainName = resolveWagmiChain(token.chainId)?.name || token.chain;
-                reportTokenTips({
-                    from_account_id: fromAccountId,
-                    to_account_id: toAccountId,
-                    from_address: account,
-                    to_address: recipient.address,
-                    chain_id: `${token.chainId}`,
-                    chain_name: chainName,
-                    amount,
-                    token_symbol: token.symbol,
-                    token_icon: token.logo_url,
-                    token_address: token.id,
-                    token_type: transfer.isNativeToken(token)
-                        ? UploadTokenTipsToken.NativeToken
-                        : UploadTokenTipsToken.ERC20,
-                    tip_memos: '',
-                    tx_hash: hash,
-                });
-                captureTipsSendEvent({
-                    wallet_address: account,
-                    target_wallet_address: recipient.address,
-                    target_firefly_account_id: toAccountId ?? '',
-                    amount,
-                    currency: token.symbol,
-                    amount_usd: token.usdValue,
-                    chain_id: token.chainId,
-                    chain_name: chainName,
-                });
-            }
 
             enqueueSuccessMessage(t`Tip sent successfully!`);
             router.navigate({ to: TipsRoutePath.SUCCESS });

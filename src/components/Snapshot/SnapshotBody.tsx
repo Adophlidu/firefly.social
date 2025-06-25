@@ -253,6 +253,7 @@ function SnapshotVote({ link, postId, snapshot }: Props) {
         try {
             if (!account.address || disabled || !selectedChoices) return;
 
+            captureSnapshotVoteEvent(account.address);
             const result = await Snapshot.vote({
                 from: account.address,
                 space: snapshot.space.id,
@@ -302,7 +303,6 @@ function SnapshotVote({ link, postId, snapshot }: Props) {
                 });
             }
             queryClient.setQueriesData({ queryKey: ['snapshot-votes', snapshot.id, account.address] }, selectedChoices);
-            captureSnapshotVoteEvent(account.address);
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to vote.`);
             throw error;

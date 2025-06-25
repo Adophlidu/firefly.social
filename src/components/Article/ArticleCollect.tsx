@@ -80,6 +80,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
                 }
             }
             if (!isFree || !hasBalance) {
+                if (account.address) captureArticleCollectEvent(article.id, account.address, isFree);
                 const confirmation = await sendTransaction(config, {
                     to: collectParams.txData.to as `0x${string}`,
                     value: BigInt(collectParams.txData.value),
@@ -89,8 +90,6 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
                 if (!confirmation) return;
                 hash = confirmation;
             }
-
-            if (hash && account.address) captureArticleCollectEvent(article.id, account.address, isFree);
 
             if (article.platform === ArticlePlatform.Paragraph) {
                 const metadata = await FireflyEndpointProvider.getArticleMetadata(article.id, hash);
