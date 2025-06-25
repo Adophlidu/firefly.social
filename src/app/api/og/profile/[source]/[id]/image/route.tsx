@@ -169,8 +169,8 @@ async function ProfileOpenGraphImage({ avatar, displayName, sources, source }: P
                         textOverflow: 'ellipsis',
                         fontFamily: OG_FONT_FAMILY,
                         width: '750px',
-                        paddingTop: '24px',
-                        paddingBottom: '8px',
+                        paddingTop: '16px',
+                        paddingBottom: '16px',
                     }}
                 >
                     {displayName}
