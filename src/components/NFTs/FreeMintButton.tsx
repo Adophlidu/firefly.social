@@ -13,7 +13,6 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { MintStatus, NetworkType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
 import { FreeMintModalRef, WalletConnectModalRef } from '@/modals/controls.js';
 import { captureNFTMintClickEvent, captureNFTViewWebsiteClickEvent } from '@/providers/telemetry/captureClickEvent.js';
@@ -58,7 +57,6 @@ export function FreeMintButton({
     const account = useAccount();
     const currentChainId = useChainId();
     const { switchChainAsync } = useSwitchChain();
-    const isLogin = useIsLoginFirefly();
 
     const mintTarget: SponsorMintOptions = useMemo(
         () => ({
@@ -70,7 +68,7 @@ export function FreeMintButton({
         }),
         [account.address, contractAddress, tokenId, chainId],
     );
-    const { isLoading, isRefetching, data, refetch } = useSponsorMintStatus(mintTarget, isLogin);
+    const { isLoading, isRefetching, data, refetch } = useSponsorMintStatus(mintTarget);
 
     const connected = !!account.address;
     const [{ loading: handlerLoading }, handleClick] = useAsyncFn(async () => {
@@ -104,7 +102,7 @@ export function FreeMintButton({
         switchChainAsync,
     ]);
 
-    if (data?.mintStatus === MintStatus.NotSupported || !isLogin || (!isLoading && !data)) {
+    if (data?.mintStatus === MintStatus.NotSupported || (!isLoading && !data)) {
         return externalUrl ? (
             <Link
                 href={externalUrl}
@@ -131,7 +129,7 @@ export function FreeMintButton({
 
     return (
         <div className={classNames('flex items-center gap-3', className)}>
-            {connected && isSupportedChain ? (
+            {isSupportedChain ? (
                 <ClickableButton
                     {...rest}
                     className="flex h-8 flex-1 items-center justify-center rounded-full bg-main px-5 text-sm font-bold text-lightBottom dark:text-darkBottom"
