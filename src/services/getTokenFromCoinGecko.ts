@@ -8,6 +8,9 @@ import { isTokenMatched } from '@/services/searchTokens.js';
 
 const getTokens = memoizePromise(CoinGecko.getTokens, () => 'CoinGecko.getTokens');
 
+/**
+ * @deprecated use searchToken() instead
+ */
 export const getTokenFromCoinGecko = memoizePromise(
     async (symbolOrId: string, options?: GetTokenOptions): Promise<CoinGeckoToken | undefined> => {
         const isPrecise = !!(options?.chain_id && options?.address);
@@ -27,7 +30,6 @@ export const getTokenFromCoinGecko = memoizePromise(
                 name: data.name,
                 price: data.market_data?.token_price_usd,
                 changePercent24h: data.market_data?.price_change_percentage_24h ?? undefined,
-                source: 'CoinGecko',
                 type: 'FungibleToken',
                 logoURL: data.image.large,
                 socialLinks: {
@@ -44,7 +46,6 @@ export const getTokenFromCoinGecko = memoizePromise(
                 address: marketToken.contract_address,
                 name: marketToken.name,
                 price: marketToken.market_data?.current_price?.usd,
-                source: 'CoinGecko',
                 type: 'FungibleToken',
                 logoURL: marketToken.image.large,
                 rank: marketToken.market_cap_rank,

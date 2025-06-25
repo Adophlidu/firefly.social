@@ -1,17 +1,13 @@
 import type { Address } from 'viem';
 
-import type { NetworkPluginID } from '@/constants/enum.js';
 import type { Runtime } from '@/providers/types/Trending.js';
 
 export interface CoinGeckoToken {
-    /** @deprecated Comes from Maskbook, could be incorrect for some tokens */
-    pluginID?: NetworkPluginID;
     id: string | null;
     chainId?: number;
     address?: string;
     symbol: string;
     name: string;
-    source: string;
     price?: number;
     changePercent24h?: number;
     type: 'FungibleToken';

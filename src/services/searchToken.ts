@@ -51,7 +51,6 @@ export const searchToken = memoizePromise(
                 name: coin.name,
                 price: coin.market_data?.token_price_usd,
                 changePercent24h: coin.market_data?.price_change_percentage_24h ?? undefined,
-                source: 'CoinGecko',
                 type: 'FungibleToken',
                 logoURL: coin.image.large,
                 socialLinks: {
@@ -72,7 +71,6 @@ export const searchToken = memoizePromise(
                 address: marketToken.contract_address,
                 name: marketToken.name,
                 price: marketToken.market_data?.current_price?.usd,
-                source: 'CoinGecko',
                 type: 'FungibleToken',
                 logoURL: marketToken.image.large,
                 rank: marketToken.market_cap_rank,
@@ -92,7 +90,6 @@ export const searchToken = memoizePromise(
                 address: attributes.address,
                 symbol: attributes.symbol,
                 name: attributes.name,
-                source: 'CoinGecko',
                 type: 'FungibleToken',
                 logoURL: attributes.image_url,
             };
