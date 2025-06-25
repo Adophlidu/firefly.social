@@ -1,6 +1,7 @@
 import urlcat from 'urlcat';
 
 import { SITE_URL } from '@/constants/index.js';
+import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -28,7 +29,8 @@ export async function createMetadataToken(
     });
     if (!token) return createSiteMetadata(pathname);
 
-    const title = `View ${token.symbol} on Firefly`;
+    if (!token) return createSiteMetadata();
+    const title = createPageTitleOG(`$${token.symbol.toString()}`);
     const description = token.name;
     const ogImage = token.logoURL;
 
