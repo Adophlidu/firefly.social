@@ -13,8 +13,6 @@ interface ImpressionsState {
     fetchAndStoreViews: (ids: string[]) => Promise<void>;
 }
 
-const STATS_URL = '/api/publication-views';
-
 const useImpressionsBase = create<ImpressionsState>((set) => ({
     publicationViews: EMPTY_LIST,
     fetchAndStoreViews: async (ids) => {

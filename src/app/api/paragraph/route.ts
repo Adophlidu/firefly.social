@@ -11,14 +11,11 @@ export async function GET(request: NextRequest) {
 
     try {
         const result = await ParagraphProcessor.digestDocumentUrl(link, request.signal);
+        if (result) return result;
 
-        if (!result) {
-            return createErrorResponseJSON(`Unable to digest paragraph link = ${link}`, {
-                status: StatusCodes.BAD_GATEWAY,
-            });
-        }
-
-        return result;
+        return createErrorResponseJSON(`Unable to digest paragraph link = ${link}`, {
+            status: StatusCodes.BAD_GATEWAY,
+        });
     } catch (error) {
         return createErrorResponseJSON(getGatewayErrorMessage(error), {
             status: StatusCodes.BAD_GATEWAY,
