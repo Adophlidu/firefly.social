@@ -4,13 +4,14 @@ import type { FireflyAccountProfile, FireflyConnection } from '@/providers/types
 
 export function formatFireflyAccountProfileFromFireflyConnections(
     fireflyConnections: FireflyConnection[],
+    useDefaultAvatar = true,
 ): FireflyAccountProfile | null {
     const connection = fireflyConnections.find((x) => x.connected && x.uid);
     if (!connection) return null;
     const uid = connection.uid!;
     return {
         displayName: connection?.displayName ?? null,
-        avatar: connection?.avatar ?? getStampAvatarByProfileId(Source.Firefly, uid),
+        avatar: connection?.avatar ?? (useDefaultAvatar ? getStampAvatarByProfileId(Source.Firefly, uid) : null),
         uid,
     };
 }

@@ -4,8 +4,6 @@ import '@/app/globals.css';
 import '@dialectlabs/blinks/index.css';
 
 import { GoogleAnalytics } from '@next/third-parties/google';
-// @ts-ignore skip
-import { Inter } from 'next/font/google';
 import { headers } from 'next/headers.js';
 import type { ReactNode } from 'react';
 
@@ -14,15 +12,10 @@ import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { SiteCookies } from '@/constants/enum.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
 import { Script } from '@/esm/Script.js';
+import { inter } from '@/fonts/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getCookie } from '@/helpers/getCookies.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
-
-const inter = Inter({
-    subsets: ['latin'],
-    display: 'swap',
-    variable: '--font-inter',
-});
 
 export const metadata = createSiteMetadata();
 

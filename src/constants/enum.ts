@@ -54,6 +54,7 @@ export enum PageRoute {
     Event = '/event/:name',
     SettingConnected = '/settings/connected',
     SettingsMutes = '/settings/mutes',
+    Signup = '/signup',
 }
 
 export enum Source {
@@ -603,3 +604,10 @@ export const PasswordWorkflowConfig: Record<PasswordWorkflow, PasswordStep[]> = 
     ],
     [PasswordWorkflow.Reset]: [PasswordStep.SetPassword, PasswordStep.ConfirmPassword, PasswordStep.Success],
 };
+
+export enum SignupStep {
+    Welcome = 'welcome',
+    LoginSocialPlatform = 'login_social_platform',
+    CreateAccountForm = 'create_account_form',
+    Success = 'success',
+}

@@ -1,7 +1,7 @@
 import { resolveMediaObjectUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { type MediaObject, MediaSource } from '@/types/compose.js';
 
-async function downloadUrl(url: string, name: string) {
+export async function downloadUrl(url: string, name: string) {
     const blob = await fetch(url).then((res) => res.blob());
     return new File([blob], name, { type: blob.type });
 }

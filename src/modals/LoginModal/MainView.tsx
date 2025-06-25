@@ -4,7 +4,7 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay, safeUnreachable } from '@masknet/kit';
-import { useRouter } from '@tanstack/react-router';
+import { rootRouteId, useMatch, useRouter } from '@tanstack/react-router';
 import { signIn } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -52,6 +52,7 @@ import {
     PasswordModalRef,
     SignInWithFireflyAppModalRef,
 } from '@/modals/controls.js';
+import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { captureEditProfileClickEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import {
@@ -275,8 +276,13 @@ export function MainView() {
 
     const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
 
+    const { context } = useMatch({ from: rootRouteId }) as {
+        context: { props?: LoginModalOpenProps };
+    };
+
     const isPureProfilePage = pathname === PageRoute.Profile;
     const isMyProfilePage = isMyProfile && (isPureProfilePage || isRoutePathname(pathname, PageRoute.Profile));
+    const hideSocialLogin = context?.props?.options?.hideSocialLogin;
 
     const onClick = (source: SocialSource) => {
         const path = urlcat('/:source', {
@@ -360,92 +366,104 @@ export function MainView() {
                     isOpenFireflyAccountMenu ? 'overflow-hidden' : 'overflow-auto',
                 )}
             >
-                {isLoginFirefly ? (
-                    isLoading ? (
-                        <FireflyAccountLoadingSkeleton />
-                    ) : (
-                        <FireflyAccount
-                            profile={data?.fireflyAccount ?? undefined}
-                            connections={data?.__origin__}
-                            onChangeMenuOpenStatus={setIsOpenFireflyAccountMenu}
-                        />
-                    )
-                ) : (
-                    <FireflyLoginButton />
-                )}
-                <div className="my-2 text-left text-[15px] font-medium leading-[15px]">
-                    <Trans>Social accounts</Trans>
-                </div>
-                <div className="flex flex-col gap-2">
-                    {SORTED_LOGIN_SOCIAL_SOURCES.map((source, index) => {
-                        return (
-                            <div className="overflow-hidden rounded-lg border border-secondaryLine" key={source}>
-                                <ClickableButton
-                                    className={classNames(
-                                        'flex w-full cursor-pointer items-center justify-between p-2',
-                                        {
-                                            'bg-bg': !isLoginFirefly ? index % 2 === 0 : true,
-                                            'border-b border-secondaryLine':
-                                                isLoginFirefly && profileStore[source].accounts.length > 0,
-                                        },
-                                    )}
-                                    disabled={switchLoading}
-                                    onClick={() => onClick(source)}
-                                >
-                                    <div className="flex items-center gap-2">
-                                        <ProfileSourceIcon source={source} size={20} />
-                                        <span>{resolveSourceName(source)}</span>
-                                    </div>
-                                    <PlusIcon className="size-5" />
-                                </ClickableButton>
-                                {profileStore[source].accounts.map((account, index) => {
-                                    const isCurrent = isSameProfile(profilesAll[source], account.profile);
-                                    return (
-                                        <div className="flex min-w-0 items-center justify-between p-2" key={index}>
-                                            <div className="mr-2 flex min-w-0 items-center gap-2">
-                                                <ProfileAvatar
-                                                    profile={account.profile}
-                                                    enableSourceIcon={false}
-                                                    size={40}
-                                                    enableDefaultAvatar
-                                                />
-                                                <div className="flex min-w-0 flex-col items-start text-[14px] leading-5">
-                                                    <span className="max-w-full truncate font-bold">
-                                                        {account.profile.displayName}
-                                                    </span>
-                                                    <span className="max-w-full truncate text-secondary">
-                                                        @{account.profile.handle}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            {isCurrent ? (
-                                                <CircleCheckboxIcon className="shrink-0" checked />
-                                            ) : (
-                                                <ClickableButton
-                                                    className="size-5"
-                                                    disabled={switchLoading}
-                                                    loading={
-                                                        switchLoading ? isSameAccount(selectedAccount, account) : false
-                                                    }
-                                                    onClick={() => {
-                                                        setSelectedAccount(account);
-                                                        onSwitchAccount(account);
-                                                    }}
-                                                >
-                                                    <SwitchIcon className="size-5" />
-                                                </ClickableButton>
+                {hideSocialLogin ? null : (
+                    <>
+                        {isLoginFirefly ? (
+                            isLoading ? (
+                                <FireflyAccountLoadingSkeleton />
+                            ) : (
+                                <FireflyAccount
+                                    profile={data?.fireflyAccount ?? undefined}
+                                    connections={data?.__origin__}
+                                    onChangeMenuOpenStatus={setIsOpenFireflyAccountMenu}
+                                />
+                            )
+                        ) : (
+                            <FireflyLoginButton />
+                        )}
+                        <div className="my-2 text-left text-[15px] font-medium leading-[15px]">
+                            <Trans>Social accounts</Trans>
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            {SORTED_LOGIN_SOCIAL_SOURCES.map((source, index) => {
+                                return (
+                                    <div
+                                        className="overflow-hidden rounded-lg border border-secondaryLine"
+                                        key={source}
+                                    >
+                                        <ClickableButton
+                                            className={classNames(
+                                                'flex w-full cursor-pointer items-center justify-between p-2',
+                                                {
+                                                    'bg-bg': !isLoginFirefly ? index % 2 === 0 : true,
+                                                    'border-b border-secondaryLine':
+                                                        isLoginFirefly && profileStore[source].accounts.length > 0,
+                                                },
                                             )}
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        );
-                    })}
-                </div>
+                                            disabled={switchLoading}
+                                            onClick={() => onClick(source)}
+                                        >
+                                            <div className="flex items-center gap-2">
+                                                <ProfileSourceIcon source={source} size={20} />
+                                                <span>{resolveSourceName(source)}</span>
+                                            </div>
+                                            <PlusIcon className="size-5" />
+                                        </ClickableButton>
+                                        {profileStore[source].accounts.map((account, index) => {
+                                            const isCurrent = isSameProfile(profilesAll[source], account.profile);
+                                            return (
+                                                <div
+                                                    className="flex min-w-0 items-center justify-between p-2"
+                                                    key={index}
+                                                >
+                                                    <div className="mr-2 flex min-w-0 items-center gap-2">
+                                                        <ProfileAvatar
+                                                            profile={account.profile}
+                                                            enableSourceIcon={false}
+                                                            size={40}
+                                                            enableDefaultAvatar
+                                                        />
+                                                        <div className="flex min-w-0 flex-col items-start text-[14px] leading-5">
+                                                            <span className="max-w-full truncate font-bold">
+                                                                {account.profile.displayName}
+                                                            </span>
+                                                            <span className="max-w-full truncate text-secondary">
+                                                                @{account.profile.handle}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    {isCurrent ? (
+                                                        <CircleCheckboxIcon className="shrink-0" checked />
+                                                    ) : (
+                                                        <ClickableButton
+                                                            className="size-5"
+                                                            disabled={switchLoading}
+                                                            loading={
+                                                                switchLoading
+                                                                    ? isSameAccount(selectedAccount, account)
+                                                                    : false
+                                                            }
+                                                            onClick={() => {
+                                                                setSelectedAccount(account);
+                                                                onSwitchAccount(account);
+                                                            }}
+                                                        >
+                                                            <SwitchIcon className="size-5" />
+                                                        </ClickableButton>
+                                                    )}
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                );
+                            })}
+                        </div>
 
-                <div className="my-2 text-left text-[15px] font-medium leading-[15px]">
-                    <Trans>Other accounts</Trans>
-                </div>
+                        <div className="my-2 text-left text-[15px] font-medium leading-[15px]">
+                            <Trans>Other accounts</Trans>
+                        </div>
+                    </>
+                )}
                 <div className="flex flex-col gap-2">
                     {SORTED_THIRD_PARTY_SOURCES_IN_URL.map((sourceInUrl, index) => {
                         const source = resolveSource(sourceInUrl) as ThirdPartySource | Source.Email;

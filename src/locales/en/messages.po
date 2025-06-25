@@ -16,6 +16,9 @@ msgstr ""
 msgid "The gas abuse function is included. The project owner may have the ability to control the contract."
 msgstr "The gas abuse function is included. The project owner may have the ability to control the contract."
 
+msgid "Failed to create firefly account, please try again."
+msgstr "Failed to create firefly account, please try again."
+
 msgid "Failed to sign in."
 msgstr "Failed to sign in."
 
@@ -239,6 +242,9 @@ msgstr "Blackmail activities found."
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 
+msgid "Generating"
+msgstr "Generating"
+
 #. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
 msgid "GIF source not supported. Supported sources: {0}."
 msgstr "GIF source not supported. Supported sources: {0}."
@@ -460,6 +466,9 @@ msgstr "View similar symbols"
 
 msgid "MAX"
 msgstr "MAX"
+
+msgid "Scan with your phone, or connect instantly via social."
+msgstr "Scan with your phone, or connect instantly via social."
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr "You can save the failed parts of posts and send them later from your Drafts."
@@ -1345,6 +1354,9 @@ msgstr "Sign in to unlock"
 msgid "Privacy and security"
 msgstr "Privacy and security"
 
+msgid "Create your Firefly Profile"
+msgstr "Create your Firefly Profile"
+
 msgid "Log in with your X account to view"
 msgstr "Log in with your X account to view"
 
@@ -1519,6 +1531,9 @@ msgstr "Voted"
 
 msgid "Lucky Drop"
 msgstr "Lucky Drop"
+
+msgid "Bad login state, please try to login again."
+msgstr "Bad login state, please try to login again."
 
 msgid "Failed to update notification settings"
 msgstr "Failed to update notification settings"
@@ -1778,8 +1793,14 @@ msgstr "Sold Out"
 msgid "Proxy contract"
 msgstr "Proxy contract"
 
+msgid "One Firefly account manages all your social accounts"
+msgstr "One Firefly account manages all your social accounts"
+
 msgid "Posted to Farcaster on <0>Supercast</0>"
 msgstr "Posted to Farcaster on <0>Supercast</0>"
+
+msgid "Your gateway to a personalized social experience."
+msgstr "Your gateway to a personalized social experience."
 
 msgid "Total amount shared among all winners"
 msgstr "Total amount shared among all winners"
@@ -1789,6 +1810,9 @@ msgstr "Leave"
 
 msgid "Enter number of winners"
 msgstr "Enter number of winners"
+
+msgid "Cross-post to multiple platforms, track friends' trades, uncover alpha in social posts"
+msgstr "Cross-post to multiple platforms, track friends' trades, uncover alpha in social posts"
 
 msgid "Resend"
 msgstr "Resend"
@@ -1896,6 +1920,9 @@ msgstr "Others"
 msgid "Muted wallets"
 msgstr "Muted wallets"
 
+msgid "Everything app for Web3 natives"
+msgstr "Everything app for Web3 natives"
+
 msgid "All wallets and accounts are muted."
 msgstr "All wallets and accounts are muted."
 
@@ -1928,6 +1955,9 @@ msgstr "Network"
 
 msgid "Just now"
 msgstr "Just now"
+
+msgid "Your Firefly Identity is now active."
+msgstr "Your Firefly Identity is now active."
 
 msgid "Failed to mint NFT."
 msgstr "Failed to mint NFT."
@@ -2506,6 +2536,9 @@ msgstr "Super Follow"
 msgid "Cryptocurrency mixer found."
 msgstr "Cryptocurrency mixer found."
 
+msgid "Pick a way to sign in"
+msgstr "Pick a way to sign in"
+
 msgid "Encrypt your login session with a 6-digit password to enable one-click login across devices."
 msgstr "Encrypt your login session with a 6-digit password to enable one-click login across devices."
 
@@ -2692,6 +2725,9 @@ msgstr "Polls are only available on {0}."
 
 msgid "Quote"
 msgstr "Quote"
+
+msgid "Create your Firefly profile"
+msgstr "Create your Firefly profile"
 
 msgid "Collect Price"
 msgstr "Collect Price"
@@ -3931,6 +3967,9 @@ msgstr "Claim Requirements"
 msgid "Oversupply minting."
 msgstr "Oversupply minting."
 
+msgid "Failed to read avatar file, please try again."
+msgstr "Failed to read avatar file, please try again."
+
 msgid "*Note: Each NFT can only be used once."
 msgstr "*Note: Each NFT can only be used once."
 
@@ -4062,6 +4101,9 @@ msgstr "Final Step Claim Now!"
 
 msgid "Verify"
 msgstr "Verify"
+
+msgid "Explore now"
+msgstr "Explore now"
 
 msgid "Hidden owner."
 msgstr "Hidden owner."
@@ -4378,6 +4420,9 @@ msgstr "Hours"
 
 msgid "Post decrypted successfully!"
 msgstr "Post decrypted successfully!"
+
+msgid "Let’s go!"
+msgstr "Let’s go!"
 
 msgid "Logging out will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that your Firefly account remains logged in."
 msgstr "Logging out will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that your Firefly account remains logged in."

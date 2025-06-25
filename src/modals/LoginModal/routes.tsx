@@ -4,6 +4,7 @@ import { createRootRoute, createRoute } from '@tanstack/react-router';
 import { BskyView, BskyViewBeforeLoad } from '@/modals/LoginModal/BskyView.js';
 import { EmailView, EmailViewBeforeLoad } from '@/modals/LoginModal/EmailView.js';
 import { FarcasterView, FarcasterViewBeforeLoad } from '@/modals/LoginModal/FarcasterView.js';
+import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
 import { LensView, LensViewBeforeLoad } from '@/modals/LoginModal/LensView.js';
 import { MainView } from '@/modals/LoginModal/MainView.js';
 import { RootView } from '@/modals/LoginModal/RootView.js';
@@ -19,13 +20,17 @@ const mainRoute = createRoute({
     path: '/main',
     beforeLoad: (ctx) => {
         const isLogin = 'isLogin' in ctx.search ? ctx.search.isLogin : false;
-        if (isLogin) {
+        const context = ctx.context as { props?: LoginModalOpenProps } | undefined;
+        const hideSocialLogin = context?.props?.options?.hideSocialLogin;
+
+        if (!isLogin || hideSocialLogin) {
             return {
-                title: <Trans>My Accounts</Trans>,
+                title: <Trans>Sign in</Trans>,
             };
         }
+
         return {
-            title: <Trans>Sign in</Trans>,
+            title: <Trans>My Accounts</Trans>,
         };
     },
 });

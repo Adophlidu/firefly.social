@@ -83,3 +83,45 @@ namespace React {
 type LiteralUnion<U, T = U extends string ? string : U extends number ? number : never> = U | (T & Nothing);
 
 type HexString = `0x${string}`;
+
+declare module 'next/font/local' {
+    type CssVariable = `--${string}`;
+    type Display = 'auto' | 'block' | 'swap' | 'fallback' | 'optional';
+    type NextFont = {
+        className: string;
+        style: {
+            fontFamily: string;
+            fontWeight?: number;
+            fontStyle?: string;
+        };
+    };
+    type NextFontWithVariable = NextFont & {
+        variable: string;
+    };
+    type LocalFont<T extends CssVariable | undefined = undefined> = {
+        src:
+            | string
+            | Array<{
+                  path: string;
+                  weight?: string;
+                  style?: string;
+              }>;
+        display?: Display;
+        weight?: string;
+        style?: string;
+        adjustFontFallback?: 'Arial' | 'Times New Roman' | false;
+        fallback?: string[];
+        preload?: boolean;
+        variable?: T;
+        declarations?: Array<{
+            prop: string;
+            value: string;
+        }>;
+    };
+
+    function localFont<T extends CssVariable | undefined = undefined>(
+        options: LocalFont<T>,
+    ): T extends undefined ? NextFont : NextFontWithVariable;
+
+    export default localFont;
+}

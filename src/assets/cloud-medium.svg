@@ -1,0 +1,65 @@
+<svg width="425" height="96" viewBox="0 0 425 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_53101_82350)">
+<path d="M120.135 88H40.1351V96H120.135V88Z" fill="var(--cloud-main-color)"/>
+<path d="M72.1351 80H48.1351V88H72.1351V80Z" fill="currentColor"/>
+<path d="M64.1351 72H56.1351V80H64.1351V72Z" fill="currentColor"/>
+<path d="M136.135 56H64.1351V64H136.135V56Z" fill="currentColor"/>
+<path d="M88.1351 64H56.1351V72H88.1351V64Z" fill="currentColor"/>
+<path d="M32.1351 88H0.135132V96H32.1351V88Z" fill="currentColor"/>
+<path d="M40.1351 72H32.1351V80H40.1351V72Z" fill="currentColor"/>
+<path d="M96.1351 48H72.1351V56H96.1351V48Z" fill="currentColor"/>
+<path d="M120.135 32H88.1351V40H120.135V32Z" fill="currentColor"/>
+<path d="M96.1351 40H80.1351V48H96.1351V40Z" fill="current"/>
+<path d="M152.135 16H104.135V24H152.135V16Z" fill="currentColor"/>
+<path d="M112.135 24H80.1351V32H112.135V24Z" fill="currentColor"/>
+<path d="M144.135 8H128.135V16H144.135V8Z" fill="currentColor"/>
+<path d="M152.135 0H144.135V8H152.135V0Z" fill="currentColor"/>
+<path d="M176.135 8H152.135V16H176.135V8Z" fill="currentColor"/>
+<path d="M192.135 0H176.135V8H192.135V0Z" fill="currentColor"/>
+<path d="M216.135 8H192.135V16H216.135V8Z" fill="currentColor"/>
+<path d="M232.135 16H200.135V24H232.135V16Z" fill="currentColor"/>
+<path d="M264.135 24H208.135V32H264.135V24Z" fill="currentColor"/>
+<path d="M256.135 40H224.135V48H256.135V40Z" fill="currentColor"/>
+<path d="M280.135 32H248.135V40H280.135V32Z" fill="currentColor"/>
+<path d="M304.135 56H248.135V64H304.135V56Z" fill="currentColor"/>
+<path d="M272.135 48H232.135V56H272.135V48Z" fill="var(--cloud-main-color)"/>
+<path d="M320.135 72H296.135V80H320.135V72Z" fill="var(--cloud-main-color)"/>
+<path d="M312.135 64H304.135V72H312.135V64Z" fill="currentColor"/>
+<path d="M352.135 48H328.135V56H352.135V48Z" fill="currentColor"/>
+<path d="M336.135 56H320.135V64H336.135V56Z" fill="currentColor"/>
+<path d="M328.135 64H320.135V72H328.135V64Z" fill="currentColor"/>
+<path d="M368.135 40H352.135V48H368.135V40Z" fill="currentColor"/>
+<path d="M376.135 48H360.135V56H376.135V48Z" fill="currentColor"/>
+<path d="M392.135 72H376.135V80H392.135V72Z" fill="currentColor"/>
+<path d="M392.135 56H376.135V64H392.135V56Z" fill="currentColor"/>
+<path d="M408.135 64H384.135V72H408.135V64Z" fill="var(--cloud-main-color)"/>
+<path d="M408.135 88H392.135V96H408.135V88Z" fill="currentColor"/>
+<path d="M400.135 80H384.135V88H400.135V80Z" fill="var(--cloud-main-color)"/>
+<path d="M424.135 88H416.135V96H424.135V88Z" fill="currentColor"/>
+<path d="M360.135 88H128.135V96H360.135V88Z" fill="var(--cloud-main-color)"/>
+<path d="M392.135 88H360.135V96H392.135V88Z" fill="currentColor"/>
+<path d="M384.135 80H72.1351V88H384.135V80Z" fill="white"/>
+<path d="M376.135 72H320.135V80H376.135V72Z" fill="white"/>
+<path d="M392.135 64H328.135V72H392.135V64Z" fill="white"/>
+<path d="M384.135 56H336.135V64H384.135V56Z" fill="white"/>
+<path d="M360.135 48H352.135V56H360.135V48Z" fill="white"/>
+<path d="M296.135 72H64.1351V80H296.135V72Z" fill="white"/>
+<path d="M304.135 64H88.1351V72H304.135V64Z" fill="white"/>
+<path d="M248.135 56H136.135V64H248.135V56Z" fill="white"/>
+<path d="M232.135 48H96.1351V56H232.135V48Z" fill="white"/>
+<path d="M224.135 40H96.1351V48H224.135V40Z" fill="white"/>
+<path d="M248.135 32H120.135V40H248.135V32Z" fill="white"/>
+<path d="M208.135 24H112.135V32H208.135V24Z" fill="white"/>
+<path d="M200.135 16H152.135V24H200.135V16Z" fill="white"/>
+<path d="M192.135 8H176.135V16H192.135V8Z" fill="white"/>
+<path d="M152.135 8H144.135V16H152.135V8Z" fill="white"/>
+<path d="M240.135 64H224.135V72H240.135V64Z" fill="var(--cloud-main-color)"/>
+<path d="M184.135 80H176.135V88H184.135V80Z" fill="var(--cloud-main-color)"/>
+<path d="M352.135 72H344.135V80H352.135V72Z" fill="var(--cloud-main-color)"/>
+</g>
+<defs>
+<clipPath id="clip0_53101_82350">
+<rect width="424" height="96" fill="white" transform="translate(0.135132)"/>
+</clipPath>
+</defs>
+</svg>

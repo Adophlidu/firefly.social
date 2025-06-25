@@ -82,3 +82,4 @@ export const ConfirmSyncSessionModalRef = new SingletonModal<
     ConfirmSyncSessionModalOpenProps,
     ConfirmSyncSessionModalCloseProps
 >();
+export const CreateFireflyAccountGuideModalRef = new SingletonModal<void, void>();

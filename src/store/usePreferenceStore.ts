@@ -14,6 +14,7 @@ interface Preferences {
     SHOW_TRUTH_SOCIAL: boolean;
     SHOW_TRUTH_SOCIAL_ALERT: boolean;
     TOKEN_PROFILE_COIN_ID_MAP: Record<string, StoredCoinInfo>;
+    FIREFLY_ACCOUNT_CHECKED_MAP: Record<string, boolean>;
 }
 
 const defaultPreferences: Preferences = {
@@ -22,6 +23,7 @@ const defaultPreferences: Preferences = {
     SHOW_TRUTH_SOCIAL: true,
     SHOW_TRUTH_SOCIAL_ALERT: true,
     TOKEN_PROFILE_COIN_ID_MAP: {},
+    FIREFLY_ACCOUNT_CHECKED_MAP: {},
 };
 
 export interface PreferencesState {

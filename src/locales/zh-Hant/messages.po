@@ -21,6 +21,9 @@ msgstr ""
 msgid "The gas abuse function is included. The project owner may have the ability to control the contract."
 msgstr "包含 Gas 濫用功能。項目所有者可能有能力控制合約。"
 
+msgid "Failed to create firefly account, please try again."
+msgstr ""
+
 msgid "Failed to sign in."
 msgstr "登入失敗。"
 
@@ -244,6 +247,9 @@ msgstr "發現勒索活動。"
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>市值 = 當前價格 × 流通供應量</0><1>指加密貨幣流通供應的總市場價值，類似於股票市場中流通股（非內部或政府鎖定股）的市值計算。</1>"
 
+msgid "Generating"
+msgstr ""
+
 #. placeholder {0}: GIF_MEDIA_SOURCE_CONFIG[source].join(', ')
 msgid "GIF source not supported. Supported sources: {0}."
 msgstr "不支援的 GIF 來源。支援來源：{0}。"
@@ -465,6 +471,9 @@ msgstr ""
 
 msgid "MAX"
 msgstr "最大"
+
+msgid "Scan with your phone, or connect instantly via social."
+msgstr ""
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr "您可以保存發送失敗的貼文部分，稍後從草稿箱發送。"
@@ -1350,6 +1359,9 @@ msgstr "登入以解鎖"
 msgid "Privacy and security"
 msgstr ""
 
+msgid "Create your Firefly Profile"
+msgstr ""
+
 msgid "Log in with your X account to view"
 msgstr "使用 X 帳號登入以查看"
 
@@ -1524,6 +1536,9 @@ msgstr "已投票"
 
 msgid "Lucky Drop"
 msgstr "幸運紅包"
+
+msgid "Bad login state, please try to login again."
+msgstr ""
 
 msgid "Failed to update notification settings"
 msgstr "更新通知設定失敗"
@@ -1783,8 +1798,14 @@ msgstr "已售罄"
 msgid "Proxy contract"
 msgstr "代理合約"
 
+msgid "One Firefly account manages all your social accounts"
+msgstr ""
+
 msgid "Posted to Farcaster on <0>Supercast</0>"
 msgstr "透過 <0>Supercast</0> 發佈至 Farcaster"
+
+msgid "Your gateway to a personalized social experience."
+msgstr ""
 
 msgid "Total amount shared among all winners"
 msgstr "總金額由所有獲獎者共享"
@@ -1794,6 +1815,9 @@ msgstr "離開"
 
 msgid "Enter number of winners"
 msgstr "輸入獲獎人數"
+
+msgid "Cross-post to multiple platforms, track friends' trades, uncover alpha in social posts"
+msgstr ""
 
 msgid "Resend"
 msgstr "重新發送"
@@ -1901,6 +1925,9 @@ msgstr "其他"
 msgid "Muted wallets"
 msgstr "已靜音錢包"
 
+msgid "Everything app for Web3 natives"
+msgstr ""
+
 msgid "All wallets and accounts are muted."
 msgstr "所有錢包和帳號已靜音"
 
@@ -1932,6 +1959,9 @@ msgid "Network"
 msgstr "網路"
 
 msgid "Just now"
+msgstr ""
+
+msgid "Your Firefly Identity is now active."
 msgstr ""
 
 msgid "Failed to mint NFT."
@@ -2506,6 +2536,9 @@ msgstr ""
 msgid "Cryptocurrency mixer found."
 msgstr ""
 
+msgid "Pick a way to sign in"
+msgstr ""
+
 msgid "Encrypt your login session with a 6-digit password to enable one-click login across devices."
 msgstr "請設定 6 位數字密碼加密您的登入授權，以啟用跨裝置一鍵登入。"
 
@@ -2692,6 +2725,9 @@ msgstr ""
 
 msgid "Quote"
 msgstr "引用"
+
+msgid "Create your Firefly profile"
+msgstr ""
 
 msgid "Collect Price"
 msgstr ""
@@ -3931,6 +3967,9 @@ msgstr "領取條件"
 msgid "Oversupply minting."
 msgstr "超額鑄造中"
 
+msgid "Failed to read avatar file, please try again."
+msgstr ""
+
 msgid "*Note: Each NFT can only be used once."
 msgstr "*註：每個 NFT 僅限使用一次"
 
@@ -4061,6 +4100,9 @@ msgid "Final Step Claim Now!"
 msgstr ""
 
 msgid "Verify"
+msgstr ""
+
+msgid "Explore now"
 msgstr ""
 
 msgid "Hidden owner."
@@ -4378,6 +4420,9 @@ msgstr "小時"
 
 msgid "Post decrypted successfully!"
 msgstr "貼文解密成功！"
+
+msgid "Let’s go!"
+msgstr ""
 
 msgid "Logging out will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that your Firefly account remains logged in."
 msgstr "登出將導致排程貼文失敗，請保持登入狀態以確保正常發送"

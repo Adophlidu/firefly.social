@@ -492,3 +492,4 @@ export const SWAP_SOL_NATIVE_ADDRESS = '11111111111111111111111111111111';
 export const X3_PRO_CHAIN_IDS = [EthereumChainId.BSC, EthereumChainId.Base, SolanaChainId.Mainnet];
 
 export const SESSION_PASSWORD_INPUT_ID = 'session-password-input';
+export const SIGNUP_AUDIO_ID = 'signup-audio';

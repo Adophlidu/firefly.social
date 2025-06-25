@@ -1,5 +1,5 @@
 import { createMemoryHistory, createRouter, RouterProvider } from '@tanstack/react-router';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import urlcat from 'urlcat';
 
 import { Modal } from '@/components/Modal.js';
@@ -49,6 +49,8 @@ export interface LoginModalOpenProps {
         expectedProfile?: string;
         /** open the farcaster login modal with the specified sign type */
         expectedSignType?: FarcasterSignType;
+        /** only keep google/tg/apple/email */
+        hideSocialLogin?: boolean;
     };
 }
 type Props = {
@@ -59,9 +61,11 @@ export function LoginModal({ ref }: Props) {
     const isMedium = useIsMedium();
     const routerRef = useRef(createLoginRouter());
     const isLoginFirefly = useIsLoginFirefly();
+    const [props, setProps] = useState<LoginModalOpenProps | null>(null);
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
+            setProps(props || null);
             if (props?.source) {
                 const initialEntries = ['/main', urlcat(`/${resolveSourceInUrl(props.source)}`, props.options ?? {})];
                 routerRef.current = createLoginRouter({
@@ -73,9 +77,12 @@ export function LoginModal({ ref }: Props) {
                 routerRef.current.history.replace(urlcat('/main', { isLogin: isLoginFirefly }));
             }
         },
+        onClose: () => {
+            setProps(null);
+        },
     });
 
-    const Router = <RouterProvider router={routerRef.current} />;
+    const Router = <RouterProvider router={routerRef.current} context={{ props }} />;
 
     return (
         <Modal open={open} onClose={() => dispatch?.close()} enableBackdrop={isMedium}>

@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 
+import { FireflyAccountChecker } from '@/components/FireflyAccountChecker.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
@@ -40,16 +41,28 @@ export function LayoutBody({ children }: { children: ReactNode }) {
                     shallowRouting
                     disableDifferentOrigin
                 >
-                    <div className="m-auto flex w-full md:min-h-screen group-[.not-support]:md:min-h-[calc(100vh_-_38px)] lg:w-[1265px]">
-                        {children}
-                        <IfPathname
-                            isNotOneOf={['/login/desktop', '/activity/cz', '/event', '/events', '/frame', '/redirect']}
-                        >
-                            <SideBar />
-                        </IfPathname>
-                    </div>
+                    <IfPathname isOneOf={['/signup']}>{children}</IfPathname>
+                    <IfPathname isNotOneOf={['/signup']}>
+                        <div className="m-auto flex w-full md:min-h-screen group-[.not-support]:md:min-h-[calc(100vh_-_38px)] lg:w-[1265px]">
+                            {children}
+                            <IfPathname
+                                isNotOneOf={[
+                                    '/login/desktop',
+                                    '/activity/cz',
+                                    '/event',
+                                    '/events',
+                                    '/frame',
+                                    '/redirect',
+                                    '/signup',
+                                ]}
+                            >
+                                <SideBar />
+                            </IfPathname>
+                        </div>
+                    </IfPathname>
 
                     <Modals />
+                    <FireflyAccountChecker />
                     <Script>{REMOVE_LOADING_SCRIPT}</Script>
                 </RouteProgressBar>
             </Providers>

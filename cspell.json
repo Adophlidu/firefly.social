@@ -434,7 +434,9 @@
         "src/abis",
         "src/idls",
         "src/types/sol-rp.ts",
-        "stories"
+        "stories",
+        "src/fonts/bedStead/**",
+        "src/fonts/levelUp/**"
     ],
     "overrides": []
 }

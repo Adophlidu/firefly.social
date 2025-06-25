@@ -1,0 +1,177 @@
+import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
+import { delay } from '@masknet/kit';
+import { motion } from 'framer-motion';
+import { compact, first } from 'lodash-es';
+import { useCallback, useMemo, useState } from 'react';
+import { useAsyncFn } from 'react-use';
+import { v4 as uuid } from 'uuid';
+
+import { type AvatarConfig, AvatarSelector } from '@/app/(whiteboard)/components/Signup/AvatarSelector.js';
+import { Card } from '@/app/(whiteboard)/components/Signup/Card.js';
+import { LoadingBar } from '@/app/(whiteboard)/components/Signup/LoadingBar.js';
+import { LoggedInSources } from '@/app/(whiteboard)/components/Signup/LoggedInSources.js';
+import { ShadowInAndOut } from '@/app/(whiteboard)/components/Signup/ShadowInAndOut.js';
+import { SquareButton } from '@/app/(whiteboard)/components/Signup/SquareButton.js';
+import { playSignupAudio } from '@/app/(whiteboard)/signup/pages/audio.js';
+import ShadowLeftArrow from '@/assets/left-arrow-shadow.svg';
+import { SignupStep, Source } from '@/constants/enum.js';
+import { FIREFLY_DISPLAY_NAME_REGEXP } from '@/constants/regexp.js';
+import { downloadUrl } from '@/helpers/downloadMediaObjects.js';
+import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { trimify } from '@/helpers/trimify.js';
+import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { uploadToS3 } from '@/services/uploadToS3.js';
+
+interface AccountFormProps {
+    changeStep: (step: SignupStep, params?: Record<string, string>) => void;
+}
+
+function checkNickname(nickname: string) {
+    if (!nickname) return null;
+
+    if (nickname.length < 1) {
+        return <Trans>Display Name should not be blank</Trans>;
+    }
+
+    if (nickname.length > 20) {
+        return <Trans>Display Name should not exceed 20 characters</Trans>;
+    }
+
+    if (!FIREFLY_DISPLAY_NAME_REGEXP.test(nickname)) {
+        return <Trans>Nickname must not contain restricted symbols</Trans>;
+    }
+
+    return null;
+}
+
+export function AccountForm({ changeStep }: AccountFormProps) {
+    const profilesAll = useCurrentProfilesAll();
+    const availableProfiles = useMemo(
+        () =>
+            compact(
+                ([Source.Twitter, Source.Farcaster, Source.Lens, Source.Bsky] as const).map((source) => {
+                    const profile = profilesAll[source];
+                    return profile?.displayName && profile.pfp ? profile : null;
+                }),
+            ),
+        [profilesAll],
+    );
+
+    const firstAvailableProfile = first(availableProfiles);
+    const [nickname, setNickname] = useState(firstAvailableProfile?.displayName || '');
+    const [avatar, setAvatar] = useState<AvatarConfig>({
+        url: firstAvailableProfile?.pfp || getStampAvatarByProfileId(Source.Firefly, uuid()),
+        file: null,
+        type: firstAvailableProfile?.pfp ? 'pfp' : 'random',
+    });
+
+    const onAvatarChange = useCallback((newConfig: AvatarConfig, name?: string) => {
+        setAvatar(() => ({
+            ...newConfig,
+            file: newConfig.type !== 'custom' ? null : newConfig.file,
+        }));
+
+        if (name) {
+            setNickname(name);
+        }
+    }, []);
+
+    const [{ loading }, setNicknameAndAvatar] = useAsyncFn(async () => {
+        try {
+            let avatarFile = avatar.type === 'custom' ? avatar.file : null;
+            if (avatar.type !== 'custom') {
+                avatarFile = await downloadUrl(avatar.url, `firefly-avatar-${uuid()}.png`);
+            }
+            if (!avatarFile) {
+                enqueueErrorMessage(t`Failed to read avatar file, please try again.`);
+                return;
+            }
+
+            const s3Url = await uploadToS3(avatarFile);
+            await FireflyEndpointProvider.updateProfile({
+                displayName: nickname,
+                avatar: s3Url,
+            });
+            changeStep(SignupStep.Success, { nickname: encodeURIComponent(nickname) });
+
+            await delay(500);
+            playSignupAudio();
+        } catch (error) {
+            enqueueMessageFromError(error, t`Failed to create firefly account, please try again.`);
+            throw error;
+        }
+    }, [avatar, nickname, changeStep]);
+
+    const nicknameError = useMemo(() => checkNickname(nickname), [nickname]);
+    const canGoNext =
+        !!trimify(nickname) && (avatar.type === 'custom' ? !!avatar.file : !!avatar.url) && !nicknameError;
+
+    return (
+        <ShadowInAndOut className="absolute inset-0 z-1 flex items-center justify-center">
+            <Card>
+                {loading ? (
+                    <div className="absolute inset-0 z-10 flex items-center justify-center">
+                        <LoadingBar />
+                    </div>
+                ) : (
+                    <div className="no-scrollbar flex h-full flex-col justify-between overflow-y-auto p-3 pt-0 md:p-12 md:pt-0">
+                        <div className="w-full">
+                            <div className="sticky top-0 z-1 flex items-center gap-4 bg-white pt-3 md:pt-12">
+                                <motion.button
+                                    whileTap={{ scale: 0.8 }}
+                                    onClick={() => changeStep(SignupStep.LoginSocialPlatform)}
+                                >
+                                    <ShadowLeftArrow width={24} height={24} />
+                                </motion.button>
+                                <LoggedInSources />
+                            </div>
+                            <div className="mt-6 text-center">
+                                <h1 className="text-2xl font-semibold text-[#171717]">
+                                    <Trans>Create your Firefly profile</Trans>
+                                </h1>
+                                <p className="mt-2 text-sm font-medium text-[#6b6b6b]">
+                                    <Trans>Your gateway to a personalized social experience.</Trans>
+                                </p>
+                            </div>
+                            <AvatarSelector
+                                avatar={avatar.url}
+                                avatarType={avatar.type}
+                                profiles={availableProfiles}
+                                onChange={onAvatarChange}
+                            />
+                            <div className="mt-6">
+                                <label htmlFor="firefly-nickname" className="text-sm font-medium text-[#171717]">
+                                    <Trans>Nickname</Trans>
+                                </label>
+                                <br />
+                                <input
+                                    id="firefly-nickname"
+                                    value={nickname}
+                                    className="mt-2 h-12 w-full rounded-lg border-none text-center text-[#171717] outline-none focus:border-none focus:outline-none"
+                                    style={{
+                                        backgroundColor: 'rgba(124, 127, 163, 0.08)',
+                                    }}
+                                    placeholder={t`Enter your nickname on Firefly`}
+                                    onChange={(e) => setNickname(trimify(e.target.value))}
+                                />
+                                {nicknameError ? (
+                                    <p className="text-center text-xs font-medium text-danger">{nicknameError}</p>
+                                ) : null}
+                            </div>
+                        </div>
+                        <div className="mt-6 w-full text-center md:mt-0">
+                            <SquareButton disabled={!canGoNext} onClick={setNicknameAndAvatar}>
+                                <span className="text-base font-medium">
+                                    <Trans>Done</Trans>
+                                </span>
+                            </SquareButton>
+                        </div>
+                    </div>
+                )}
+            </Card>
+        </ShadowInAndOut>
+    );
+}
