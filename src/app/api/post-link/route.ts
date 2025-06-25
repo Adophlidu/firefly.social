@@ -43,10 +43,6 @@ function isValidPostLink(url: string, enableFilter = false) {
     // such as ens domains
     if (isValidDomainEthereum(url)) return false;
 
-    // file extension
-    // The ipfs link can sometimes be domain/pathname?fileName=xxx.jpg.
-    if (/\.\w{1,6}$/i.test(parsed.pathname)) return false;
-
     // ignore hosts
     if (
         enableFilter &&
