@@ -50,12 +50,12 @@ export default function More() {
                 {[
                     {
                         title: <Trans>Follow @thefireflyapp on X</Trans>,
-                        link: 'https://x.com/intent/user?screen_name=thefireflyapp',
+                        link: '/profile/x/thefireflyapp/feed',
                         logo: SmallXIcon,
                     },
                     {
                         title: <Trans>Follow @fireflyappcn on X</Trans>,
-                        link: 'https://x.com/intent/user?screen_name=fireflyappcn',
+                        link: '/profile/x/fireflyappcn/feed',
                         logo: SmallXIcon,
                     },
                     {
@@ -76,7 +76,7 @@ export default function More() {
                 {[
                     {
                         title: <Trans>Follow @realMaskNetwork on X</Trans>,
-                        link: 'https://x.com/intent/user?screen_name=realMaskNetwork',
+                        link: '/profile/x/realMaskNetwork/feed',
                         logo: SmallXIcon,
                     },
                     {
