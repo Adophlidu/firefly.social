@@ -1009,9 +1009,6 @@ msgstr ""
 msgid "1m left"
 msgstr ""
 
-msgid "Powered by <0>X3.pro</0>"
-msgstr ""
-
 msgid "Connect Ethereum Wallet"
 msgstr ""
 
@@ -2894,6 +2891,9 @@ msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
 msgstr ""
 
 msgid "Content preference"
+msgstr ""
+
+msgid "Now only supporting Solana and BSC tokens. Powered by <0>X3.pro</0>"
 msgstr ""
 
 msgid "Connect your wallet to follow"

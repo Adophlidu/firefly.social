@@ -1014,9 +1014,6 @@ msgstr "交易哈希"
 msgid "1m left"
 msgstr "1分钟剩余"
 
-msgid "Powered by <0>X3.pro</0>"
-msgstr "技术支持：<0>X3.pro</0>"
-
 msgid "Connect Ethereum Wallet"
 msgstr "连接 EVM 钱包"
 
@@ -2913,6 +2910,9 @@ msgstr "正在回复<0>@{0}</0> 和 <1>@{1}</1> on {2}"
 
 msgid "Content preference"
 msgstr "内容偏好"
+
+msgid "Now only supporting Solana and BSC tokens. Powered by <0>X3.pro</0>"
+msgstr ""
 
 msgid "Connect your wallet to follow"
 msgstr "连接钱包并关注"

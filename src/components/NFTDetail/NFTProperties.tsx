@@ -17,7 +17,7 @@ export function NFTProperties(props: NFTPropertiesProps) {
             <h3 className="text-xl font-bold leading-6">
                 <Trans>Properties</Trans>
             </h3>
-            <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
                 {props.items.map((x) => {
                     const type = 'type' in x ? x.type : x.attribute_name;
                     const value = 'type' in x ? getNFTPropertyValue(x.displayType, x.value) : x.attribute_value;

@@ -65,7 +65,7 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
 
     switch (category) {
         case TokenCategory.Feeds:
-            if ((isTokenPending || tokenId) && !tokenAddress) return <TokenPageLoading />;
+            if (isTokenPending && !tokenAddress) return <TokenPageLoading />;
             return (
                 <Feeds
                     chainId={updatedChainId}

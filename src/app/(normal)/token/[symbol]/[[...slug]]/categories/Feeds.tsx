@@ -62,7 +62,6 @@ function resolveTab(pathname: string, params: ReadonlyURLSearchParams, source: s
 export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name, ...props }) {
     const params = useSearchParams();
     const paramSource = params.get('source') as SocialSource | null;
-    const defaultSource = paramSource && SORTED_TOKEN_FEEDS_SOURCES.includes(paramSource) ? paramSource : null;
     const pathname = usePathname();
 
     const [openModal, setOpenModal] = useState(false);
@@ -72,7 +71,11 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
 
     const [isPending, startTransition] = useTransition();
     const [pendingSource, setPendingSource] = useState<Source>();
-    const source = (isPending && pendingSource) || defaultSource || SORTED_TOKEN_FEEDS_SOURCES[0];
+    const sources = supportedX3
+        ? SORTED_TOKEN_FEEDS_SOURCES
+        : SORTED_TOKEN_FEEDS_SOURCES.filter((x) => x !== Source.X3Pro);
+    const defaultSource = paramSource && sources.includes(paramSource) ? paramSource : null;
+    const source = (isPending && pendingSource) || defaultSource || sources[0];
     const isX3Pro = source === Source.X3Pro;
 
     const keywords = useMemo(() => {
@@ -112,7 +115,7 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
     return (
         <div {...props} className={classNames('flex flex-grow flex-col gap-2', props.className)}>
             <div className="flex shrink-0 gap-2">
-                {SORTED_TOKEN_FEEDS_SOURCES.map((x) => {
+                {sources.map((x) => {
                     const isX3ProTab = x === Source.X3Pro;
                     const button = (
                         <Link
@@ -151,7 +154,7 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
                                 content={
                                     <div className="text-sm">
                                         <Trans>
-                                            Powered by{' '}
+                                            Now only supporting Solana and BSC tokens. Powered by{' '}
                                             <Link className="text-link hover:underline" href="https://x3.pro">
                                                 X3.pro
                                             </Link>
