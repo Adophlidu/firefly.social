@@ -24,8 +24,8 @@ export function resolveSocialMediaProvider(source: SocialSource, options?: Optio
         case Source.Farcaster:
             return FarcasterSocialMediaProvider;
         case Source.Twitter:
-            if (isServer || !twitterSessionHolder.session || options?.[Source.Twitter] === 'nitter')
-                return NitterSocialMediaProvider;
+            const forceTwitter = options?.[Source.Twitter] === 'twitter';
+            if (!forceTwitter && (isServer || !twitterSessionHolder.session)) return NitterSocialMediaProvider;
             return TwitterSocialMediaProvider;
         case Source.Bsky:
             return BskySocialMediaProvider;

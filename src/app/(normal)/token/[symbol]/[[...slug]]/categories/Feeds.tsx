@@ -66,7 +66,7 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
     const pathname = usePathname();
 
     const [openModal, setOpenModal] = useState(false);
-    const supportedX3 = chainId ? X3_PRO_CHAIN_IDS.includes(chainId) : true;
+    const supportedX3 = chainId ? X3_PRO_CHAIN_IDS.includes(chainId) : false;
     const { data: x3Token } = useX3ProTokenInfo(address, supportedX3);
     const { data: x3TokenMention } = useX3ProTokenMention(address, supportedX3);
 
