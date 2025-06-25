@@ -1,5 +1,5 @@
 import type { SocialSourceInURL } from '@/constants/enum.js';
-import { createPageTitle } from '@/helpers/createPageTitle.js';
+import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isSocialSourceInUrl } from '@/helpers/isSource.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
@@ -20,7 +20,7 @@ export async function createMetadataChannelById(pathname: string, source: Social
         },
     ];
 
-    const title = createPageTitle(`${channel.name} (/${channel.id})`);
+    const title = createPageTitleOG(channel.name);
     const description = channel.description ?? '';
 
     return createSiteMetadata(pathname, {
