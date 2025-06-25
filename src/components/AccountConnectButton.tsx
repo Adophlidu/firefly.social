@@ -3,6 +3,7 @@ import { memo } from 'react';
 
 import DoubleUser from '@/assets/double-user.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useAsyncStatusAll, useSyncingSources } from '@/hooks/useAsyncStatus.js';
@@ -31,18 +32,22 @@ export const AccountConnectButton = memo<Props>(function AccountConnectButton({ 
             ) : (
                 <>
                     <Trans>My Accounts</Trans>
-                    <div className="flex items-center">
-                        {syncingSources.map((source, index, self) => {
-                            return (
-                                <ProfileSourceIcon
-                                    key={index}
-                                    source={source}
-                                    className={index > 0 && self.length > 1 ? '-ml-2' : undefined}
-                                    style={{ zIndex: self.length - index }}
-                                />
-                            );
-                        })}
-                    </div>
+                    {isLoading ? (
+                        <LoadingIcon size={20} />
+                    ) : (
+                        <div className="flex items-center">
+                            {syncingSources.map((source, index, self) => {
+                                return (
+                                    <ProfileSourceIcon
+                                        key={index}
+                                        source={source}
+                                        className={index > 0 && self.length > 1 ? '-ml-2' : undefined}
+                                        style={{ zIndex: self.length - index }}
+                                    />
+                                );
+                            })}
+                        </div>
+                    )}
                 </>
             )}
         </ClickableButton>
