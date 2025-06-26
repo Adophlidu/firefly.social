@@ -147,6 +147,7 @@ export enum EventId {
     LENS_POST_SHARE_SUCCESS = 'lens_post_share_success', // ✅
     LENS_POST_BOOKMARK_SUCCESS = 'lens_post_bookmark_success', // ✅
     LENS_POST_UNBOOKMARK_SUCCESS = 'lens_post_unbookmark_success', // ✅
+    LENS_POST_COLLECT_SUCCESS = 'lens_post_collect_success', // ✅
     LENS_PROFILE_FOLLOW_SUCCESS = 'lens_follow_success', // ✅
     LENS_PROFILE_UNFOLLOW_SUCCESS = 'lens_unfollow_success', // ✅
     LENS_PROFILE_SUPER_FOLLOW_SUCCESS = 'lens_superfollow_success', // ✅
@@ -230,6 +231,7 @@ export enum EventId {
     EVENT_LIKE_SWAP_CLICK = 'swap_like_success',
     EVENT_SWAP_DETAIL_CLICK = 'swap_detail_click',
     EVENT_SWAP_COPY_TRADE_CLICK = 'swap_copy_trade_click',
+    EVENT_SWAP_SUCCESS = 'swap_success',
 
     // channel
     FARCASTER_CHANNEL_JOIN_SUCCESS = 'farcaster_channel_join_success',
@@ -870,6 +872,10 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: LensPostEventParameters;
     };
+    [EventId.LENS_POST_COLLECT_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: LensPostEventParameters;
+    };
     [EventId.LENS_PROFILE_FOLLOW_SUCCESS]: {
         type: EventType.Interact;
         parameters: LensEventParameters;
@@ -1146,6 +1152,24 @@ export interface Events extends Record<EventId, Event> {
             firefly_account_id: string;
             platform_selected: string;
             page_source: string;
+        };
+    };
+
+    // ----------------
+    // swap
+    // ----------------
+    [EventId.EVENT_SWAP_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            wallet_address: string;
+            amount?: string;
+            currency?: string;
+            amount_usd?: string;
+            chain_id?: number;
+            chain_name?: string;
+            wallet_type: string;
+            wallet_name?: string;
+            time: string;
         };
     };
 }

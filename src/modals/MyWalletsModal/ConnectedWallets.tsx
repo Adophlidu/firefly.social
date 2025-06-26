@@ -17,8 +17,8 @@ import { Image } from '@/components/Image.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { appkit } from '@/configs/wagmiClient.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { getWagmiCurrentConnectionId } from '@/helpers/getWagmiCurrentConnectionId.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { parseJson } from '@/helpers/parseJson.js';
 import { useWalletAccountAll } from '@/hooks/useAccountByNetwork.js';
 import { useEnsNameCached } from '@/hooks/useEnsNameCached.js';
 import { WalletConnectModalRef } from '@/modals/controls.js';
@@ -96,15 +96,6 @@ function ConnectedItem({
             )}
         </ClickableButton>
     );
-}
-
-function getWagmiCurrentConnectionId() {
-    const storage = localStorage.getItem('wagmi.store');
-    if (!storage) return;
-
-    const wagmiStore = parseJson<{ state: { current: string } }>(storage);
-
-    return wagmiStore?.state?.current;
 }
 
 export const ConnectedWallets = memo(function ConnectedWallets() {

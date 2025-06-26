@@ -47,7 +47,7 @@ const resolvePostActionEventIds = createLookupTableResolver<SocialSource, Record
             undo_repost: EventId.LENS_POST_UNDO_REPOST_SUCCESS,
             bookmark: EventId.LENS_POST_BOOKMARK_SUCCESS,
             unbookmark: EventId.LENS_POST_UNBOOKMARK_SUCCESS,
-            collect: null,
+            collect: EventId.LENS_POST_COLLECT_SUCCESS,
         },
         [Source.Twitter]: {
             like: EventId.X_POST_LIKE_SUCCESS,
@@ -86,6 +86,7 @@ export function capturePostActionEvent(
     post: Post,
     options?: {
         collectWalletAddress?: string;
+        freeToCollect?: boolean;
     },
 ) {
     return runInSafeAsync(async () => {
@@ -96,7 +97,10 @@ export function capturePostActionEvent(
         return TelemetryProvider.captureEvent(eventId, {
             ...(action === 'delete' ? getSelfPostEventParameters(post) : getPostEventParameters(post)),
             ...(action === 'collect' && options?.collectWalletAddress
-                ? getWalletEventParameters(options.collectWalletAddress)
+                ? {
+                      ...getWalletEventParameters(options.collectWalletAddress),
+                      free_collect: options.freeToCollect ?? false,
+                  }
                 : {}),
         });
     });

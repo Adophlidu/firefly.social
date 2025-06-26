@@ -76,6 +76,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
         collectModule?.assetAddress,
     );
 
+    const freeToCollect = !collectModule?.amount;
     const hasEnoughBalance = collectModule?.amount ? (balance || 0) >= collectModule.amount : true;
 
     const [{ loading: collectLoading }, handleCollect] = useAsyncFn(async () => {
@@ -86,13 +87,14 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             enqueueSuccessMessage(t`Post collected successfully!`);
             capturePostActionEvent('collect', post, {
                 collectWalletAddress: account.address,
+                freeToCollect,
             });
             onClose?.();
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to collect post.`);
             throw error;
         }
-    }, [account.address, collectModule, post, onClose]);
+    }, [collectModule, post, account.address, freeToCollect, onClose]);
 
     const action = useMemo(() => {
         const contractExploreUrl = collectModule?.contract.address
