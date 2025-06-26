@@ -6,14 +6,15 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useAsyncStatusAll, useSyncingSources } from '@/hooks/useAsyncStatus.js';
+import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
+import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
 
 interface Props {
     onClick: () => void;
 }
 
 export const AccountConnectButton = memo<Props>(function AccountConnectButton({ onClick }) {
-    const syncingSources = useSyncingSources();
+    const profiles = useCurrentProfiles();
     const isLoading = useAsyncStatusAll();
 
     return (
@@ -24,7 +25,7 @@ export const AccountConnectButton = memo<Props>(function AccountConnectButton({ 
                 'flex h-10 min-w-[120px] items-center gap-3 whitespace-nowrap rounded-lg bg-lightBg px-4 text-lg leading-6 text-main',
             )}
         >
-            {!syncingSources.length ? (
+            {!profiles.length ? (
                 <>
                     <DoubleUser />
                     <Trans>My Accounts</Trans>
@@ -36,11 +37,11 @@ export const AccountConnectButton = memo<Props>(function AccountConnectButton({ 
                         <LoadingIcon size={20} />
                     ) : (
                         <div className="flex items-center">
-                            {syncingSources.map((source, index, self) => {
+                            {profiles.map((profile, index, self) => {
                                 return (
                                     <ProfileSourceIcon
                                         key={index}
-                                        source={source}
+                                        source={profile.source}
                                         className={index > 0 && self.length > 1 ? '-ml-2' : undefined}
                                         style={{ zIndex: self.length - index }}
                                     />

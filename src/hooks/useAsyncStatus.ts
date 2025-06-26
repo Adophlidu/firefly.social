@@ -20,11 +20,3 @@ export function useAsyncStatus(source: SocialSource, status = AsyncStatus.Pendin
 
     return store[source].status === status || asyncStatus[source] === status;
 }
-
-export function useSyncingSources() {
-    const store = useProfileStoreAll();
-
-    return SORTED_SOCIAL_SOURCES.filter((source) => {
-        return !!store[source].currentProfile || store[source].status === AsyncStatus.Pending;
-    });
-}
