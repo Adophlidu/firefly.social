@@ -216,9 +216,9 @@ export function LoginBsky() {
             })}
         >
             <div className="flex w-[300px] flex-col gap-5 max-md:w-full">
-                <h1 className="whitespace-nowrap text-xs text-second max-md:whitespace-normal">
+                <h2 className="whitespace-nowrap text-xs text-second max-md:whitespace-normal">
                     <Trans>Enter your username and password to sign in instantly</Trans>
-                </h1>
+                </h2>
 
                 <div className="group relative mx-0 flex h-10 flex-grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
                     <AtIcon width={18} height={18} className="absolute left-3 shrink-0" />

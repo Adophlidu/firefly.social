@@ -32,13 +32,13 @@ export function SnapshotFallbackContent({ title, body }: { title: string; body: 
                         <Trans>Not Found</Trans>
                     </span>
                 </div>
-                <h1
+                <h3
                     className={classNames('line-clamp-2 text-left text-[18px] font-bold leading-[20px]', {
                         'max-h-[40px]': IS_SAFARI && IS_APPLE,
                     })}
                 >
                     {title}
-                </h1>
+                </h3>
 
                 <Tab.Group selectedIndex={0}>
                     <Tab.List className="flex w-full rounded-t-xl bg-none">

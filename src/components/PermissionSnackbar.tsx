@@ -24,9 +24,9 @@ export function PermissionSnackbar({ id, rejected, ref }: PermissionSnackbarProp
                     <NotificationIcon width={24} height={24} />
                 </div>
                 <div className="min-w-0 flex-1">
-                    <h1 className="text-sm font-bold">
+                    <p className="text-sm font-bold">
                         <Trans>Stay in the loop with Firefly!</Trans>
-                    </h1>
+                    </p>
                     {!rejected ? (
                         <>
                             <p className="mt-2 text-sm">

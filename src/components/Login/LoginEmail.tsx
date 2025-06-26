@@ -90,11 +90,11 @@ export function LoginEmail() {
 
     return (
         <form className="box-border flex w-[452px] flex-col items-center gap-[20px] px-6 pb-6 max-md:w-full">
-            <h1 className="text-center text-xs text-second">
+            <h2 className="text-center text-xs text-second">
                 <Trans>
                     Enter your email address below, and we’ll send a one-time passcode to confirm your address
                 </Trans>
-            </h1>
+            </h2>
             <div className="flex w-[300px] flex-col gap-5 max-md:w-full">
                 <div className="group relative mx-0 flex h-10 flex-grow items-center overflow-hidden rounded-xl bg-lightBg text-main ring-highlight focus-within:bg-bottom focus-within:ring-1">
                     <EmailIcon width={18} height={18} className="absolute left-3 shrink-0" />

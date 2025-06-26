@@ -81,14 +81,18 @@ export function SuggestedFollowsCard() {
 
     return (
         <section>
-            <AsideTitle className="flex items-center justify-between">
-                <span className="text-xl">
-                    <Trans>You might like</Trans>
-                </span>
-                <Link href={showMoreUrl} className="text-[15px] text-highlight">
-                    <Trans>More</Trans>
-                </Link>
-            </AsideTitle>
+            <AsideTitle
+                caption={
+                    <span className="text-xl">
+                        <Trans>You might like</Trans>
+                    </span>
+                }
+                more={
+                    <Link href={showMoreUrl} className="text-[15px] text-highlight">
+                        <Trans>More</Trans>
+                    </Link>
+                }
+            />
             <div className="rounded-xl bg-bg">
                 <Swiper
                     initialSlide={suggestedFollows.length > 2 ? 1 : 0}

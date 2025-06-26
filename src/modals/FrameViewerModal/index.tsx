@@ -155,7 +155,7 @@ export function FrameViewerModal({ ref }: Props) {
                             />
                         ) : null}
                         <div className={frame.x_manifest?.frame.iconUrl ? 'text-left' : ''}>
-                            <h1 className="font-bold">{frame.x_manifest?.frame.name || frame.button.action.name}</h1>
+                            <h2 className="font-bold">{frame.x_manifest?.frame.name || frame.button.action.name}</h2>
                             {u ? <div className="text-xs text-secondary">{u.host}</div> : null}
                         </div>
                     </div>

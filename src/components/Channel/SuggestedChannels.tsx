@@ -42,17 +42,21 @@ export function SuggestedChannels() {
 
     return (
         <section>
-            <AsideTitle className="flex items-center justify-between">
-                <span className="text-xl">
-                    <Trans>Trending Channels</Trans>
-                </span>
-                <Link
-                    className="text-medium text-highlight"
-                    href={resolveExploreUrl(ExploreType.TopChannels, Source.Farcaster)}
-                >
-                    <Trans>More</Trans>
-                </Link>
-            </AsideTitle>
+            <AsideTitle
+                caption={
+                    <span className="text-xl">
+                        <Trans>Trending Channels</Trans>
+                    </span>
+                }
+                more={
+                    <Link
+                        className="text-medium text-highlight"
+                        href={resolveExploreUrl(ExploreType.TopChannels, Source.Farcaster)}
+                    >
+                        <Trans>More</Trans>
+                    </Link>
+                }
+            />
             <div className="flex flex-wrap gap-2.5 rounded-xl bg-lightBg p-3">
                 {data.map((channel) => (
                     <SuggestedChannelItem key={channel.id} channel={channel} />

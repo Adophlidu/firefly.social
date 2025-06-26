@@ -19,9 +19,9 @@ export function CreateFireflyAccountGuideModal({ ref }: Props) {
             <div>
                 <div className="no-scrollbar relative max-h-[70vh] w-[90vw] max-w-[512px] space-y-10 overflow-y-auto rounded-md bg-lightBottom p-8 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:overflow-y-visible md:rounded-3xl">
                     <div>
-                        <h1 className="text-2xl font-bold !leading-[29px] text-main">
+                        <h2 className="text-2xl font-bold !leading-[29px] text-main">
                             <Trans>Create your Firefly Profile</Trans>
-                        </h1>
+                        </h2>
                         <p className="mt-2 text-lg tracking-tight text-second">
                             <Trans>One Firefly account manages all your social accounts</Trans>
                         </p>

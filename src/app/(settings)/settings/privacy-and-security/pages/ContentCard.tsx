@@ -21,7 +21,7 @@ export function ContentCard({
                 )}
             >
                 <div>
-                    <h1 className="text-base font-bold">{label}</h1>
+                    <h2 className="text-base font-bold">{label}</h2>
                     <p className="mt-1 text-medium text-second">{description}</p>
                 </div>
                 {headerSlot}

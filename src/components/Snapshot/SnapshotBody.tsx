@@ -70,13 +70,13 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
         <div className="link-preview">
             <ClickableArea className="relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-line bg-bg p-3 text-left text-commonMain">
                 <SnapshotStatus status={state} className="self-start" />
-                <h1
+                <h3
                     className={classNames('line-clamp-2 text-left text-[20px] font-bold leading-[22px]', {
                         'max-h-[40px]': IS_SAFARI && IS_APPLE,
                     })}
                 >
                     {snapshot.title}
-                </h1>
+                </h3>
                 <div>
                     <div className="flex items-center gap-2 max-md:flex md:hidden">
                         <Link href={authorUrl} className="z-[1]">
