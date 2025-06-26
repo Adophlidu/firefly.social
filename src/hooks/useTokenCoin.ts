@@ -6,7 +6,7 @@ import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
 export function useTokenCoin(symbol: string | undefined) {
     const { preferences, setPreference } = usePreferencesState();
-    const coin = symbol ? preferences.TOKEN_PROFILE_COIN_ID_MAP?.[symbol.toLowerCase()] : undefined;
+    const coin = symbol ? preferences.TOKEN_PROFILE_COIN_ID_MAP[symbol.toLowerCase()] : undefined;
     const setCoin = useCallback(
         (key: string, coin: Pick<SearchTokenInfo, 'id' | 'chain' | 'contract_address'>) => {
             setPreference('TOKEN_PROFILE_COIN_ID_MAP', (map) => ({

@@ -26,6 +26,8 @@ const defaultPreferences: Preferences = {
     FIREFLY_ACCOUNT_CHECKED_MAP: {},
 };
 
+const STORE_VERSION = 1;
+
 export interface PreferencesState {
     preferences: Preferences;
     getPreference<T extends keyof Preferences>(key: T): Preferences[T];
@@ -56,7 +58,22 @@ const PreferencesState = create<PreferencesState, [['zustand/persist', unknown],
         })),
         {
             name: 'firefly-preferences',
+            version: STORE_VERSION,
             storage: createJSONStorage(() => localStorage),
+            migrate: (persistedState, version) => {
+                if (version !== STORE_VERSION) {
+                    const oldState = persistedState as Partial<PreferencesState> | undefined;
+                    const oldPreferences = oldState?.preferences;
+                    return {
+                        preferences: {
+                            ...oldPreferences,
+                            TOKEN_PROFILE_COIN_ID_MAP: oldPreferences?.TOKEN_PROFILE_COIN_ID_MAP || {},
+                            FIREFLY_ACCOUNT_CHECKED_MAP: oldPreferences?.FIREFLY_ACCOUNT_CHECKED_MAP || {},
+                        } as Preferences, // Reset to default preferences if version mismatch
+                    };
+                }
+                return persistedState;
+            },
         },
     ),
 );
