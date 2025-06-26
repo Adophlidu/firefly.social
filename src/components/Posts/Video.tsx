@@ -119,90 +119,94 @@ function VideoContent({
                 children
             ) : (
                 <>
-                    <Player.Controls
-                        autoHide={3000}
-                        className="flex flex-col-reverse gap-1 px-1 py-2"
-                        onClick={onControlsClick}
-                    >
-                        <div className="flex justify-between gap-5 px-3">
-                            <div className="flex flex-1 items-center gap-[10px]">
-                                <Player.PlayPauseTrigger className="size-[25px]" onClick={onControlsClick}>
-                                    <Player.PlayingIndicator asChild matcher={false}>
-                                        <PlayIcon />
-                                    </Player.PlayingIndicator>
-                                    <Player.PlayingIndicator asChild>
-                                        <PauseIcon />
-                                    </Player.PlayingIndicator>
-                                </Player.PlayPauseTrigger>
-                                <Player.MuteTrigger className="size-[25px]" onClick={onControlsClick}>
-                                    <Player.VolumeIndicator asChild matcher={false}>
-                                        <MuteIcon />
-                                    </Player.VolumeIndicator>
-                                    <Player.VolumeIndicator asChild matcher>
-                                        <UnmuteIcon />
-                                    </Player.VolumeIndicator>
-                                </Player.MuteTrigger>
+                    <Player.Controls autoHide={3000} className="flex flex-col-reverse gap-1" onClick={onControlsClick}>
+                        <div
+                            className="space-y-1 px-1 py-2"
+                            style={{
+                                background:
+                                    'linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%)',
+                            }}
+                        >
+                            <div className="flex justify-between gap-5 px-3">
+                                <div className="flex flex-1 items-center gap-[10px]">
+                                    <Player.PlayPauseTrigger className="size-[25px]" onClick={onControlsClick}>
+                                        <Player.PlayingIndicator asChild matcher={false}>
+                                            <PlayIcon />
+                                        </Player.PlayingIndicator>
+                                        <Player.PlayingIndicator asChild>
+                                            <PauseIcon />
+                                        </Player.PlayingIndicator>
+                                    </Player.PlayPauseTrigger>
+                                    <Player.MuteTrigger className="size-[25px]" onClick={onControlsClick}>
+                                        <Player.VolumeIndicator asChild matcher={false}>
+                                            <MuteIcon />
+                                        </Player.VolumeIndicator>
+                                        <Player.VolumeIndicator asChild matcher>
+                                            <UnmuteIcon />
+                                        </Player.VolumeIndicator>
+                                    </Player.MuteTrigger>
 
-                                <Player.Volume
-                                    onClick={onControlsClick}
-                                    style={{
-                                        position: 'relative',
-                                        display: 'flex',
-                                        flexGrow: 1,
-                                        height: 25,
-                                        alignItems: 'center',
-                                        maxWidth: 120,
-                                        touchAction: 'none',
-                                        userSelect: 'none',
-                                    }}
-                                >
-                                    <Player.Track
+                                    <Player.Volume
+                                        onClick={onControlsClick}
                                         style={{
-                                            backgroundColor: 'rgba(255, 255, 255, 0.7)',
                                             position: 'relative',
+                                            display: 'flex',
                                             flexGrow: 1,
-                                            borderRadius: 9999,
-                                            height: '2px',
+                                            height: 25,
+                                            alignItems: 'center',
+                                            maxWidth: 120,
+                                            touchAction: 'none',
+                                            userSelect: 'none',
                                         }}
                                     >
-                                        <Player.Range
+                                        <Player.Track
                                             style={{
-                                                position: 'absolute',
+                                                backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                                                position: 'relative',
+                                                flexGrow: 1,
+                                                borderRadius: 9999,
+                                                height: '2px',
+                                            }}
+                                        >
+                                            <Player.Range
+                                                style={{
+                                                    position: 'absolute',
+                                                    backgroundColor: 'white',
+                                                    borderRadius: 9999,
+                                                    height: '100%',
+                                                }}
+                                            />
+                                        </Player.Track>
+                                        <Player.Thumb
+                                            style={{
+                                                display: 'block',
+                                                width: 12,
+                                                height: 12,
                                                 backgroundColor: 'white',
                                                 borderRadius: 9999,
-                                                height: '100%',
                                             }}
                                         />
-                                    </Player.Track>
-                                    <Player.Thumb
-                                        style={{
-                                            display: 'block',
-                                            width: 12,
-                                            height: 12,
-                                            backgroundColor: 'white',
-                                            borderRadius: 9999,
-                                        }}
-                                    />
-                                </Player.Volume>
+                                    </Player.Volume>
 
-                                <Player.Time />
+                                    <Player.Time />
+                                </div>
+                                <Player.FullscreenTrigger className="size-[25px]">
+                                    <Player.FullscreenIndicator asChild matcher={false}>
+                                        <EnterFullscreenIcon />
+                                    </Player.FullscreenIndicator>
+                                    <Player.FullscreenIndicator asChild>
+                                        <ExitFullscreenIcon />
+                                    </Player.FullscreenIndicator>
+                                </Player.FullscreenTrigger>
                             </div>
-                            <Player.FullscreenTrigger className="size-[25px]">
-                                <Player.FullscreenIndicator asChild matcher={false}>
-                                    <EnterFullscreenIcon />
-                                </Player.FullscreenIndicator>
-                                <Player.FullscreenIndicator asChild>
-                                    <ExitFullscreenIcon />
-                                </Player.FullscreenIndicator>
-                            </Player.FullscreenTrigger>
+                            <Player.Seek className="relative flex h-5 touch-none select-none items-center">
+                                <Player.Track className="relative h-[2px] flex-grow rounded-full bg-white bg-opacity-70">
+                                    <Player.SeekBuffer className="absolute h-full rounded-full bg-white bg-opacity-50" />
+                                    <Player.Range className="absolute h-full rounded-full bg-white" />
+                                </Player.Track>
+                                <Player.Thumb className="block size-3 rounded-full bg-white" />
+                            </Player.Seek>
                         </div>
-                        <Player.Seek className="relative flex h-5 touch-none select-none items-center">
-                            <Player.Track className="relative h-[2px] flex-grow rounded-full bg-white bg-opacity-70">
-                                <Player.SeekBuffer className="absolute h-full rounded-full bg-white bg-opacity-50" />
-                                <Player.Range className="absolute h-full rounded-full bg-white" />
-                            </Player.Track>
-                            <Player.Thumb className="block size-3 rounded-full bg-white" />
-                        </Player.Seek>
                     </Player.Controls>
                 </>
             )}
