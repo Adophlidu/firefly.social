@@ -1,36 +1,29 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { Ranger, useRanger } from '@tanstack/react-ranger';
 import { useRouter } from '@tanstack/react-router';
-import { Fragment, useRef, useState } from 'react';
-import AvatarEditor from 'react-avatar-editor';
+import { useCallback } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { BaseNotFound } from '@/components/BaseNotFound.js';
-import { ClickableButton } from '@/components/ClickableButton.js';
-import { FileMimeType } from '@/constants/enum.js';
+import { ImageEditorContent } from '@/components/ImageEditorContent.js';
 
 export function EditProfileAvatarEditor({ name }: { name: string }) {
     const { history } = useRouter();
+    const { setValue } = useFormContext();
+
     const pfp = (history.location.state as { pfp?: FileList }).pfp;
     const file = pfp?.[0];
 
-    const editorRef = useRef<AvatarEditor>(null);
+    const onSave = useCallback(
+        (blob: Blob) => {
+            if (!blob || !file) return;
+            setValue(name, new File([blob], 'pfp.png', { type: blob.type }), { shouldDirty: true });
+            history.replace('/');
+        },
+        [file, history, name, setValue],
+    );
 
-    const rangerRef = useRef<HTMLDivElement>(null);
-    const [values, setValues] = useState<readonly number[]>([1]);
-    const rangerInstance = useRanger<HTMLDivElement>({
-        getRangerElement: () => rangerRef.current,
-        values,
-        min: 1,
-        max: 10,
-        stepSize: 0.01,
-        onChange: (instance: Ranger<HTMLDivElement>) => setValues(instance.sortedValues),
-        onDrag: (instance: Ranger<HTMLDivElement>) => setValues(instance.sortedValues),
-    });
-
-    const { setValue } = useFormContext();
     if (!file) {
         return (
             <BaseNotFound className="py-12">
@@ -41,65 +34,5 @@ export function EditProfileAvatarEditor({ name }: { name: string }) {
         );
     }
 
-    const onConfirm = () => {
-        editorRef.current?.getImageScaledToCanvas().toBlob((blob) => {
-            if (!blob || !file) return;
-            setValue(name, new File([blob], 'pfp.png', { type: blob.type }), { shouldDirty: true });
-            history.replace('/');
-        }, FileMimeType.PNG);
-    };
-
-    return (
-        <div className="flex w-full flex-1 flex-col">
-            <div className="flex w-full flex-col space-y-5 p-4">
-                <AvatarEditor
-                    className="!h-auto !w-full rounded-lg"
-                    ref={editorRef}
-                    image={file!}
-                    width={300}
-                    height={300}
-                    scale={values[0]}
-                />
-                <div ref={rangerRef} className="relative h-1.5 w-full rounded-2xl bg-bg">
-                    {rangerInstance
-                        .handles()
-                        .map(({ value, onKeyDownHandler, onMouseDownHandler, onTouchStart }, i) => (
-                            <Fragment key={i}>
-                                <div className="relative h-full w-full overflow-hidden rounded-2xl">
-                                    <div
-                                        className="h-full w-full origin-left bg-highlight"
-                                        style={{
-                                            transform: `scaleX(${rangerInstance.getPercentageForValue(value) / 100})`,
-                                        }}
-                                    />
-                                </div>
-                                <button
-                                    onKeyDown={onKeyDownHandler}
-                                    onMouseDown={onMouseDownHandler}
-                                    onTouchStart={onTouchStart}
-                                    role="slider"
-                                    aria-valuemin={rangerInstance.options.min}
-                                    aria-valuemax={rangerInstance.options.max}
-                                    aria-valuenow={value}
-                                    className="willChange-[left] absolute left-0 top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-highlight shadow-messageShadow"
-                                    style={{
-                                        left: `${rangerInstance.getPercentageForValue(value)}%`,
-                                    }}
-                                />
-                            </Fragment>
-                        ))}
-                </div>
-            </div>
-            <div className="mt-auto flex w-full p-4 shadow-accountCardShadowLight">
-                <ClickableButton
-                    enableDefault
-                    enablePropagate
-                    className="flex h-10 w-full items-center justify-center rounded-lg bg-main text-medium font-bold leading-10 text-primaryBottom"
-                    onClick={onConfirm}
-                >
-                    <Trans>Confirm</Trans>
-                </ClickableButton>
-            </div>
-        </div>
-    );
+    return <ImageEditorContent image={file} onSave={onSave} />;
 }
