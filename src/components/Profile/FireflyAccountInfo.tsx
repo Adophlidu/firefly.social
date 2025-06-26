@@ -18,7 +18,7 @@ import { WalletActions } from '@/components/Profile/WalletActions.js';
 import { WALLET_PROFILE_ACTION_ID } from '@/components/Profile/WalletInfo.js';
 import { NetworkType, PageRoute, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatAddressEthereum } from '@/helpers/formatAddress.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
@@ -255,7 +255,7 @@ function NavigationBar({
 }) {
     const isLogin = useIsLogin(narrowToSocialSource(identity.source));
     const title = useMemo(() => {
-        if (walletProfile) return walletProfile.primary_ens ?? formatAddressEthereum(walletProfile.address, 4);
+        if (walletProfile) return walletProfile.primary_ens ?? formatAddress(walletProfile.address, 4);
         if (isRequestedLoginSource(identity.source) && !isLogin) return <Trans>Sign in to unlock</Trans>;
         return socialProfile?.displayName;
     }, [walletProfile, identity.source, isLogin, socialProfile?.displayName]);

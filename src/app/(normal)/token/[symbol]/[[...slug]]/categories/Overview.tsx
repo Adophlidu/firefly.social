@@ -17,9 +17,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link as OriginalLink } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatAddress, formatAddressEthereum } from '@/helpers/formatAddress.js';
-import { formatAge } from '@/helpers/formatAge.js';
-import { formatMarketCap } from '@/helpers/formatMarketCap.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
 import { formatDate } from '@/helpers/formatTimestamp.js';
 import { getChainInfo } from '@/helpers/getChainInfo.js';
@@ -78,10 +76,6 @@ function getHost(url: string) {
     } catch {
         return url;
     }
-}
-function formatContractAddress(contract: Contract) {
-    if (contract.runtime === 'ethereum') formatAddressEthereum(contract.address, 4);
-    return `${contract.address.slice(0, 6)}...${contract.address.slice(-4)}`;
 }
 
 export interface TokenOverviewProps extends HTMLProps<HTMLDivElement> {
@@ -252,8 +246,8 @@ export const Overview = memo<TokenOverviewProps>(function Overview({ coinId, cha
                                     placement="top"
                                     touch
                                 >
-                                    <span className="overflow-hidden text-ellipsis text-medium font-bold text-main">
-                                        {formatContractAddress(contracts[0])}
+                                    <span className="truncate text-medium font-bold text-main">
+                                        {formatAddress(contracts[0].address, 4)}
                                     </span>
                                 </Tooltip>
                                 <CopyTextButton notification="toast" text={contracts[0].address} />
