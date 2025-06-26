@@ -152,10 +152,8 @@ export function ComposeSend(props: ComposeSendProps) {
                 <ClickableButton
                     disabled={disabled}
                     className={classNames(
-                        'relative flex items-center justify-center gap-1 overflow-hidden rounded-full bg-black px-3 py-2 text-medium font-bold leading-[18px] text-white dark:bg-white dark:text-black',
-                        {
-                            'bg-commonDanger': !!hasError,
-                        },
+                        'relative flex items-center justify-center gap-1 overflow-hidden rounded-full px-3 py-2 text-medium font-bold leading-[18px]',
+                        hasError ? 'bg-commonDanger text-white' : 'bg-black text-white dark:bg-white dark:text-black',
                     )}
                     onClick={() => {
                         handlePost(!!hasError);
@@ -172,14 +170,14 @@ export function ComposeSend(props: ComposeSendProps) {
                     ) : null}
                     {loading ? (
                         <>
-                            <LoadingIcon width={16} height={16} className="animate-spin" />
+                            <LoadingIcon size={16} className="animate-spin" />
                             <span>
                                 <Trans>Posting...</Trans>
                             </span>
                         </>
                     ) : hasError ? (
                         <>
-                            <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
+                            <SendIcon width={18} height={18} className="mr-1" />
                             <span>
                                 <Trans>Retry</Trans>
                             </span>
