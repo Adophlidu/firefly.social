@@ -16,7 +16,6 @@ import FarcasterSVG from '@/assets/farcaster-fill.svg?url';
 import ColoredFireflySVG from '@/assets/firefly-circle2.svg?url';
 import ColoredLensSVG from '@/assets/lens.svg?url';
 import LensSVG from '@/assets/lens-fill.svg?url';
-import OGBackgroundSVG from '@/assets/profile-og-background.svg?url';
 import ColoredSolanaSVG from '@/assets/solana-circle.svg?url';
 import WalletSVG from '@/assets/wallet3.svg?url';
 import ColoredTwitterSVG from '@/assets/x-circle-light.svg?url';
@@ -41,8 +40,9 @@ import { getAllRelatedProfilesWithDefault } from '@/services/getAllRelatedProfil
 import type { NextRequestContext } from '@/types/index.js';
 
 const OG_FALLBACK_AVATAR = urlcat(SITE_URL, '/image/firefly-light-avatar.png');
+const OG_BACKGROUND = urlcat(SITE_URL, '/image/profile-og-background.png');
 const OG_AVATAR_SIZE = 284;
-const OG_FONT_FAMILY = 'Tickerbit';
+const OG_FONT_FAMILY = 'Bedstead';
 
 function resolveSourceIcon(source: ProfilePageSource) {
     return {
@@ -95,7 +95,7 @@ async function ProfileOpenGraphImage({ avatar, displayName, sources, source }: P
             }}
         >
             <Image
-                src={OGBackgroundSVG}
+                src={OG_BACKGROUND}
                 alt="og-background"
                 style={{ position: 'absolute', top: 0, left: 0, width: '1200px', height: '630px', objectFit: 'cover' }}
                 width={1200}
@@ -258,7 +258,7 @@ async function createProfileOpenGraphImageResponse({
         fonts: [
             {
                 name: OG_FONT_FAMILY,
-                data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Tickerbit-Regular.otf')),
+                data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Bedstead-Bold.otf')),
                 style: 'normal',
             },
         ],
