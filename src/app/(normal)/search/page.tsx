@@ -7,13 +7,14 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import type { NextPageProps } from '@/types/index.js';
 
-export async function generateMetadata() {
-    return createSiteMetadata({
+interface Props extends NextPageProps<{}, { type: SearchType; q: string }> {}
+
+export async function generateMetadata(props: Props) {
+    const searchParams = await props.searchParams;
+    return createSiteMetadata(`/search?${new URLSearchParams(searchParams).toString()}`, {
         title: await createPageTitleSSR(msg`Search`),
     });
 }
-
-interface Props extends NextPageProps<{}, { type: SearchType; q: string }> {}
 
 export default async function Page(props: Props) {
     const searchParams = await props.searchParams;

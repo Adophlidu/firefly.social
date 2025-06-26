@@ -14,7 +14,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export async function generateMetadata() {
-    return createSiteMetadata({
+    return createSiteMetadata('/not-found', {
         title: await createPageTitleSSR(msg`Page not found`),
     });
 }

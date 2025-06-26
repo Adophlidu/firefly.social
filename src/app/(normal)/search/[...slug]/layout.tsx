@@ -61,12 +61,12 @@ export async function generateMetadata(props: Props) {
     const { slug } = await props.params;
 
     if (!checkSlug(slug)) {
-        return createSiteMetadata({
+        return createSiteMetadata('/search', {
             title: await createPageTitleSSR(msg`Search`),
         });
     }
 
-    return createSiteMetadata({
+    return createSiteMetadata(`/search/${slug.join('/')}`, {
         title: await createPageTitleSSR(resolveSearchTypeTitle(last(slug) as SearchType)),
     });
 }

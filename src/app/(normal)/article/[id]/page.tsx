@@ -14,13 +14,13 @@ const createPageMetadata = memoizeWithRedis(createMetadataArticleById, {
 interface Props extends NextPageProps<{ id: string }> {}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-    const params = await props.params;
-    return createPageMetadata(params.id);
+    const { id } = await props.params;
+    return createPageMetadata(`/article/${id}`, id);
 }
 
 export default async function Page(props: Props) {
     await setupLocaleForSSR();
 
-    const param = await props.params;
-    return <ArticleDetailPage id={param.id} />;
+    const { id } = await props.params;
+    return <ArticleDetailPage id={id} />;
 }

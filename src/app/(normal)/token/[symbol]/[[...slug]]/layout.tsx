@@ -43,7 +43,11 @@ export async function generateMetadata(props: Props) {
             chainId: z.coerce.number().int().optional(),
         })
         .safeParse(searchParams).data;
-    return createPageMetadata(params.symbol, options);
+    return createPageMetadata(
+        params.slug ? `/token/${params.symbol}/${params.slug.join('/')}` : `/token/${params.symbol}`,
+        params.symbol,
+        options,
+    );
 }
 
 export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
@@ -66,9 +70,7 @@ export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
         });
     });
 
-    if (!token) {
-        notFound();
-    }
+    if (!token) notFound();
     const slug = params.slug?.[0];
 
     return (

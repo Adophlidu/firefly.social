@@ -17,7 +17,7 @@ function getSourceFromError(error: string): LoginFallbackSource {
 interface Props extends NextPageProps<never, { error: string }> {}
 
 export async function generateMetadata() {
-    return createSiteMetadata({
+    return createSiteMetadata('/auth/error', {
         title: await createPageTitleSSR(msg`Something went wrong`),
     });
 }

@@ -21,8 +21,10 @@ interface Props extends NextPageProps<{ source: SocialSourceInURL }, { source: S
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const searchParams = await props.searchParams;
     const params = await props.params;
-    if (isSocialSourceInUrl(searchParams.source)) return createPageMetadata(searchParams.source, params.source);
-    return createSiteMetadata();
+    const pathname = `/post/${params.source}?${new URLSearchParams(searchParams).toString()}`;
+    if (isSocialSourceInUrl(searchParams.source))
+        return createPageMetadata(pathname, searchParams.source, params.source);
+    return createSiteMetadata(pathname);
 }
 
 export default async function Page(props: Props) {

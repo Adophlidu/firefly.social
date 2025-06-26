@@ -28,12 +28,9 @@ const createPageMetadata = memoizeWithRedis(createMetadataPostById, {
 interface Props extends NextPageProps<{ id: string; source: SocialSourceInURL }> {}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-    const params = await props.params;
-
-    if (isSocialSourceInUrl(params.source)) {
-        return createPageMetadata(params.source, params.id);
-    }
-    return createSiteMetadata();
+    const { source, id } = await props.params;
+    if (isSocialSourceInUrl(source)) return createPageMetadata(`/post/${source}/${id}`, source, id);
+    return createSiteMetadata(`/post/${source}/${id}`);
 }
 
 export default async function Page(props: Props) {

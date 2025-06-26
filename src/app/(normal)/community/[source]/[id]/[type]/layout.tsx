@@ -18,8 +18,8 @@ interface Props
     extends NextPageProps<
         {
             id: string;
-            source: SocialSourceInURL;
-            type: ChannelTabType;
+            source?: SocialSourceInURL;
+            type?: ChannelTabType;
         },
         {
             source: SocialSourceInURL;
@@ -27,22 +27,22 @@ interface Props
     > {}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-    const params = await props.params;
-    return createPageMetadata(params.source || SourceInURL.Farcaster, params.id);
+    const { source = SourceInURL.Farcaster, id, type = ChannelTabType.Posts } = await props.params;
+    return createPageMetadata(`/community/${source}/${id}/${type}`, source, id);
 }
 
 export default async function Layout(props: Props) {
     await setupLocaleForSSR();
 
-    const params = await props.params;
-    const source = resolveSocialSource(params.source);
+    const { source = SourceInURL.Farcaster, id, type = ChannelTabType.Posts } = await props.params;
+    const resolvedSource = resolveSocialSource(source);
 
-    const validTypes = CHANNEL_TAB_TYPE[source];
-    if (!validTypes.includes(params.type)) notFound();
+    const validTypes = CHANNEL_TAB_TYPE[resolvedSource];
+    if (!validTypes.includes(type)) notFound();
 
     return (
         <>
-            <ChannelTabs channelId={params.id} source={source} currentTab={params.type} />
+            <ChannelTabs channelId={id} source={resolvedSource} currentTab={type} />
             {props.children}
         </>
     );

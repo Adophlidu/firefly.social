@@ -5,7 +5,7 @@ import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
 export async function generateMetadata() {
-    return createSiteMetadata({
+    return createSiteMetadata('/developers/ethereum', {
         title: await createPageTitleSSR(msg`Ethereum JSON RPC`),
     });
 }

@@ -16,7 +16,7 @@ import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { extractTwitterProfileByOpengraphTitle } from '@/services/getTwitterProfileByOG.js';
 
-async function createMetadataForTwitter(postId: string) {
+async function createMetadataForTwitter(pathname: string, postId: string) {
     const timeout = AbortSignal.timeout(60_000);
     const ogResult = await runInSafeAsync(() =>
         OpenGraphProcessor.digestDocumentUrl(`https://x.com/realMaskNetwork/status/${postId}`, timeout),
@@ -34,7 +34,7 @@ async function createMetadataForTwitter(postId: string) {
             postId,
         });
 
-        return createSiteMetadata({
+        return createSiteMetadata(pathname, {
             title,
             description,
             openGraph: {
@@ -53,28 +53,28 @@ async function createMetadataForTwitter(postId: string) {
         });
     }
 
-    return createSiteMetadata();
+    return createSiteMetadata(pathname);
 }
 
-async function createMetadataForLoginRequestSource(source: RequestedLoginSource, postId: string) {
+async function createMetadataForLoginRequestSource(pathname: string, source: RequestedLoginSource, postId: string) {
     switch (source) {
         case Source.Twitter:
-            return createMetadataForTwitter(postId);
+            return createMetadataForTwitter(pathname, postId);
         default:
             safeUnreachable(source);
-            return createSiteMetadata();
+            return createSiteMetadata(pathname);
     }
 }
 
-export async function createMetadataPostById(source: SocialSourceInURL, postId: string) {
+export async function createMetadataPostById(pathname: string, source: SocialSourceInURL, postId: string) {
     const provider = resolveSocialMediaProvider(resolveSocialSource(source));
     const post = await provider.getPostById(postId).catch(() => null);
     if (!post) {
         const resolvedSource = resolveSource(source);
         if (isRequestedLoginSource(resolvedSource)) {
-            return createMetadataForLoginRequestSource(resolvedSource, postId);
+            return createMetadataForLoginRequestSource(pathname, resolvedSource, postId);
         }
-        return createSiteMetadata();
+        return createSiteMetadata(pathname);
     }
 
     const audios = compact(
@@ -102,7 +102,7 @@ export async function createMetadataPostById(source: SocialSourceInURL, postId: 
           })
         : SITE_NAME;
 
-    return createSiteMetadata({
+    return createSiteMetadata(pathname, {
         title,
         description: post.metadata.content?.content ?? '',
         openGraph: {

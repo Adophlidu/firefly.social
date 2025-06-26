@@ -6,13 +6,13 @@ import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 
-export async function createMetadataChannelById(source: SocialSourceInURL, channelId: string) {
-    if (!isSocialSourceInUrl(source)) return createSiteMetadata();
+export async function createMetadataChannelById(pathname: string, source: SocialSourceInURL, channelId: string) {
+    if (!isSocialSourceInUrl(source)) return createSiteMetadata(pathname);
 
     const socialSource = resolveSocialSource(source);
     const provider = resolveSocialMediaProvider(socialSource);
     const channel = await provider.getChannelById(channelId);
-    if (!channel) return createSiteMetadata();
+    if (!channel) return createSiteMetadata(pathname);
 
     const images = [
         {
@@ -23,7 +23,7 @@ export async function createMetadataChannelById(source: SocialSourceInURL, chann
     const title = createPageTitle(`${channel.name} (/${channel.id})`);
     const description = channel.description ?? '';
 
-    return createSiteMetadata({
+    return createSiteMetadata(pathname, {
         title,
         openGraph: {
             type: 'website',

@@ -27,10 +27,11 @@ const createPageMetadata = memoizeWithRedis(createMetadataProfileById, {
 });
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-    const params = await props.params;
-    const source = resolveSourceFromUrlNoFallback(params.source);
-    if (source && isProfilePageSource(source)) return createPageMetadata(source, params.id, true);
-    return createSiteMetadata();
+    const { source, id, category } = await props.params;
+    const resolvedSource = resolveSourceFromUrlNoFallback(source);
+    if (resolvedSource && isProfilePageSource(resolvedSource))
+        return createPageMetadata(`/profile/${resolvedSource}/${id}/${category}`, resolvedSource, id, true);
+    return createSiteMetadata(`/profile/${resolvedSource}/${id}/${category}`);
 }
 
 interface LayoutProps
@@ -43,16 +44,16 @@ interface LayoutProps
 export default async function Layout(props: LayoutProps) {
     await setupLocaleForSSR();
 
-    const params = await props.params;
+    const { source, category, id } = await props.params;
 
-    const source = resolveSourceFromUrlNoFallback(params.source);
-    if (!source || isFollowCategory(params.category)) notFound();
+    const resolvedSource = resolveSourceFromUrlNoFallback(source);
+    if (!resolvedSource || isFollowCategory(category)) notFound();
 
-    const identity = resolveSpecialProfileIdentity({ source, id: params.id });
+    const identity = resolveSpecialProfileIdentity({ source: resolvedSource, id });
 
     return (
         <>
-            <ProfileCategoryTabs category={params.category} source={identity.source as SocialSource} id={identity.id} />
+            <ProfileCategoryTabs category={category} source={identity.source as SocialSource} id={identity.id} />
             {props.children}
         </>
     );

@@ -19,28 +19,30 @@ function isNFTDetailPage(chainIdOrCollectionId: string, addressOrTokenId: string
 }
 
 export async function generateMetadata(props: Props) {
-    const params = await props.params;
-    const { addressOrTokenId, chainIdOrCollectionId } = params;
+    const { addressOrTokenId, chainIdOrCollectionId } = await props.params;
 
     const chainId = parseChainId(chainIdOrCollectionId);
     if (isNFTDetailPage(chainIdOrCollectionId, addressOrTokenId) && chainId) {
         const collection = await runInSafeAsync(() => FireflyEndpointProvider.getCollection(chainId, addressOrTokenId));
         if (collection) {
             const { contract_address: address, chain_id: chainId } = collection;
-            return createMetadataNFT(+chainId, address, addressOrTokenId);
+            return createMetadataNFT(
+                `/nft/${chainId}/${address}/${addressOrTokenId}`,
+                +chainId,
+                address,
+                addressOrTokenId,
+            );
         }
     }
-    if (chainId) return createMetadataNFTCollection(chainId, addressOrTokenId);
-    return createSiteMetadata();
+    if (chainId) return createMetadataNFTCollection(`/nft/${chainId}/${addressOrTokenId}`, chainId, addressOrTokenId);
+
+    return createSiteMetadata(`/nft/${chainIdOrCollectionId}/${addressOrTokenId}`);
 }
 
 export default async function Page(props: Props) {
-    const params = await props.params;
-    const { addressOrTokenId, chainIdOrCollectionId } = params;
+    const { addressOrTokenId, chainIdOrCollectionId } = await props.params;
 
-    if (chainIdOrCollectionId === 'solana') {
-        notFound();
-    }
+    if (chainIdOrCollectionId === 'solana') notFound();
     const chainId = parseChainId(chainIdOrCollectionId);
     if (!chainId) notFound();
 

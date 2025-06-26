@@ -5,7 +5,7 @@ import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
 export async function generateMetadata() {
-    return createSiteMetadata({
+    return createSiteMetadata('/developers/post-link', {
         title: await createPageTitleSSR(msg`Post Link Validator`),
     });
 }

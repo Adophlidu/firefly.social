@@ -31,7 +31,7 @@ interface Props
 export async function generateMetadata(props: Props) {
     const { source, type } = await props.params;
 
-    return createSiteMetadata({
+    return createSiteMetadata(`/settings/mutes/${source}/${type}`, {
         title: await createPageTitleSSR(resolveMuteTitle(`${source}_${type}`)),
     });
 }

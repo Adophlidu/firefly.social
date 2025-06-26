@@ -10,14 +10,20 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 
-export async function createMetadataProfileById(source: ProfilePageSource, profileId: string, forceHandle = false) {
-    if (source === Source.Wallet || source === Source.WalletMix) return createMetadataWalletProfile(profileId);
+export async function createMetadataProfileById(
+    pathname: string,
+    source: ProfilePageSource,
+    profileId: string,
+    forceHandle = false,
+) {
+    if (source === Source.Wallet || source === Source.WalletMix)
+        return createMetadataWalletProfile(pathname, profileId);
+
     const profile = await runInSafeAsync(() => {
         const provider = resolveSocialMediaProvider(source);
         return forceHandle ? provider.getProfileByHandle(profileId) : provider.getProfileByIdOrHandle(profileId);
     });
-
-    if (!profile) return createSiteMetadata();
+    if (!profile) return createSiteMetadata(pathname);
 
     const images = [
         {
@@ -31,7 +37,7 @@ export async function createMetadataProfileById(source: ProfilePageSource, profi
     const title = createPageTitleOG(`@${profile.handle}`);
     const description = profile.bio ?? SITE_DESCRIPTION;
 
-    return createSiteMetadata({
+    return createSiteMetadata(pathname, {
         title,
         description,
         openGraph: {

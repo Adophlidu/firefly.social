@@ -31,29 +31,27 @@ interface Props
     > {}
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-    const params = await props.params;
-    return createPageMetadata(params.source || SourceInURL.Farcaster, params.id);
+    const { source = SourceInURL.Farcaster, id } = await props.params;
+    return createPageMetadata(`/community/${source}/${id}`, source, id);
 }
 
 export default async function Page(props: Props) {
     await setupLocaleForSSR();
 
-    const params = await props.params;
-    const source = resolveSocialSource(params.source);
+    const { source, id, type } = await props.params;
+    const resolvedSource = resolveSocialSource(source);
 
-    if (source === Source.Lens && !isValidAddressEthereum(params.id)) {
-        notFound();
-    }
+    if (resolvedSource === Source.Lens && !isValidAddressEthereum(id)) notFound();
 
-    const provider = resolveSocialMediaProvider(source);
-    const channel = await runInSafeAsync(() => provider.getChannelById(params.id));
+    const provider = resolveSocialMediaProvider(resolvedSource);
+    const channel = await runInSafeAsync(() => provider.getChannelById(id));
 
     if (!channel) notFound();
 
     return (
         <NoSSR>
             <ChannelProvider channel={channel}>
-                <ChannelContentList type={params.type} channel={channel} />
+                <ChannelContentList type={type} channel={channel} />
             </ChannelProvider>
         </NoSSR>
     );

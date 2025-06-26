@@ -9,9 +9,9 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 
-export async function createMetadataWalletProfile(addressOrEns: string) {
+export async function createMetadataWalletProfile(pathname: string, addressOrEns: string) {
     const walletProfile = await getWalletProfileByAddressOrEns(addressOrEns, false);
-    if (!walletProfile) return createSiteMetadata();
+    if (!walletProfile) return createSiteMetadata(pathname);
 
     const title = walletProfile.primary_ens
         ? createPageTitleOG(walletProfile.primary_ens)
@@ -24,7 +24,7 @@ export async function createMetadataWalletProfile(addressOrEns: string) {
         }),
     ];
 
-    return createSiteMetadata({
+    return createSiteMetadata(pathname, {
         title,
         description,
         openGraph: {

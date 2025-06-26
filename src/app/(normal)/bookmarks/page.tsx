@@ -7,7 +7,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 
 export async function generateMetadata() {
-    return createSiteMetadata({
+    return createSiteMetadata('/bookmarks', {
         title: await createPageTitleSSR(msg`Bookmarks`),
     });
 }

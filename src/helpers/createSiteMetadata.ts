@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
+import urlcat from 'urlcat';
 
 import { FileMimeType } from '@/constants/enum.js';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, SITE_URL_OFFICIAL } from '@/constants/index.js';
 
-export function createSiteMetadata(metadata?: Partial<Metadata>) {
+export function createSiteMetadata(pathname: string, metadata?: Partial<Metadata>) {
     return {
         metadataBase: new URL(SITE_URL),
         title: metadata?.title ?? SITE_NAME,
@@ -46,7 +47,7 @@ export function createSiteMetadata(metadata?: Partial<Metadata>) {
             },
         ],
         alternates: {
-            canonical: SITE_URL_OFFICIAL,
+            canonical: urlcat(SITE_URL_OFFICIAL, pathname),
         },
         ...metadata,
     } satisfies Metadata;

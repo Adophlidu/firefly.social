@@ -18,24 +18,22 @@ const createPageMetadata = memoizeWithRedis(createMetadataProfileByFireflyUid, {
 });
 
 export async function generateMetadata(props: Props) {
-    const params = await props.params;
-    if (isUID(params.source)) {
-        return createPageMetadata(params.source);
-    }
-    return createSiteMetadata();
+    const { source } = await props.params;
+    if (isUID(source)) return createPageMetadata(`/profile/${source}`, source);
+    return createSiteMetadata(`/profile/${source}`);
 }
 
 interface Props extends NextPageProps<{ source: string }> {}
 
 export default async function Page(props: Props) {
-    const params = await props.params;
+    const { source } = await props.params;
     const headersList = await headers();
     const { isBot } = userAgentFromString(headersList.get('user-agent') || '');
     if (isBot) return null;
-    if (isUID(params.source)) {
-        return <RedirectWithFireflyUID uid={params.source} />;
+    if (isUID(source)) {
+        return <RedirectWithFireflyUID uid={source} />;
     }
-    const source = resolveSourceFromUrlNoFallback(params.source);
-    if (!source || !isSocialSource(source)) notFound();
-    return <RedirectProfilePage source={source} />;
+    const resolvedSource = resolveSourceFromUrlNoFallback(source);
+    if (!resolvedSource || !isSocialSource(resolvedSource)) notFound();
+    return <RedirectProfilePage source={resolvedSource} />;
 }

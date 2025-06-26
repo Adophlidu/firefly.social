@@ -7,13 +7,14 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/index.js';
 
-export async function generateMetadata() {
-    return createSiteMetadata({
+interface Props extends NextPageProps<{ source: ExploreSourceInURL; explore: ExploreType }> {}
+
+export async function generateMetadata(props: Props) {
+    const { explore, source } = await props.params;
+    return createSiteMetadata(`/explore/${explore}/${source}`, {
         title: await createPageTitleSSR(msg`Explore`),
     });
 }
-
-interface Props extends NextPageProps<{ source: ExploreSourceInURL; explore: ExploreType }> {}
 
 export default async function Layout(props: Props) {
     await setupLocaleForSSR();

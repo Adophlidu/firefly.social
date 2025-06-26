@@ -13,11 +13,16 @@ interface Props
     }> {}
 
 export async function generateMetadata(props: Props) {
-    const params = await props.params;
-    const { addressOrTokenId, tokenId, chainIdOrCollectionId } = params;
+    const { addressOrTokenId, tokenId, chainIdOrCollectionId } = await props.params;
     const chainId = parseChainId(chainIdOrCollectionId);
-    if (chainId) return createMetadataNFT(chainId, addressOrTokenId, tokenId);
-    return createSiteMetadata();
+    if (chainId)
+        return createMetadataNFT(
+            `/nft/${chainIdOrCollectionId}/${addressOrTokenId}/${tokenId}`,
+            chainId,
+            addressOrTokenId,
+            tokenId,
+        );
+    return createSiteMetadata(`/nft/${chainIdOrCollectionId}/${addressOrTokenId}/${tokenId}`);
 }
 
 export default async function Page(props: Props) {

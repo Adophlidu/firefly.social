@@ -6,15 +6,15 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 
-export async function createMetadataNFT(chainId: number, address: string, tokenId: string) {
+export async function createMetadataNFT(pathname: string, chainId: number, address: string, tokenId: string) {
     const data = await FireflyEndpointProvider.getNFTDetail(chainId, address, tokenId).catch(() => null);
-    if (!data) return createSiteMetadata({});
+    if (!data) return createSiteMetadata(pathname);
 
     const name = data.name || `${data.collection.name} #${tokenId}`;
     const title = createPageTitleOG(name);
     const description = data.description;
     const images = data.nftscan_uri || data.image_uri || data.content_uri!;
-    return createSiteMetadata({
+    return createSiteMetadata(pathname, {
         title,
         description,
         openGraph: {
@@ -32,12 +32,12 @@ export async function createMetadataNFT(chainId: number, address: string, tokenI
     });
 }
 
-function createCollectionMetadata(data: EVM.Collection) {
+function createCollectionMetadata(pathname: string, data: EVM.Collection) {
     const title = createPageTitleOG(data.name);
     const description = data.description;
     const images = [data.large_image_url || data.banner_url || data.featured_url || data.logo_url];
     const { chainId, address } = resolveCollectionChain(data);
-    return createSiteMetadata({
+    return createSiteMetadata(pathname, {
         title,
         description,
         openGraph: {
@@ -55,9 +55,9 @@ function createCollectionMetadata(data: EVM.Collection) {
     });
 }
 
-export async function createMetadataNFTCollection(chainId: number, address: string) {
+export async function createMetadataNFTCollection(pathname: string, chainId: number, address: string) {
     const data = await runInSafeAsync(() => FireflyEndpointProvider.getCollection(chainId, address));
-    if (!data) return createSiteMetadata({});
+    if (!data) return createSiteMetadata(pathname);
 
-    return createCollectionMetadata(data);
+    return createCollectionMetadata(pathname, data);
 }

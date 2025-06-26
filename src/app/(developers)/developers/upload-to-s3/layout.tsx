@@ -5,8 +5,8 @@ import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
 export async function generateMetadata() {
-    return createSiteMetadata({
-        title: await createPageTitleSSR(msg`LinkDigest Validator`),
+    return createSiteMetadata('/developers/upload-to-s3', {
+        title: await createPageTitleSSR(msg`Upload to S3`),
     });
 }
 

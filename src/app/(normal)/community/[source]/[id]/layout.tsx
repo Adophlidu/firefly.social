@@ -23,18 +23,18 @@ const createPageMetadata = memoizeWithRedis(createMetadataChannelById, {
 });
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-    const params = await props.params;
-    return createPageMetadata(params.source || SourceInURL.Farcaster, params.id);
+    const { source = SourceInURL.Farcaster, id } = await props.params;
+    return createPageMetadata(`/community/${source}/${id}`, source, id);
 }
 
 export default async function Page(props: Props) {
     await setupLocaleForSSR();
 
-    const params = await props.params;
-    const source = resolveSocialSource(params.source);
-    const provider = resolveSocialMediaProvider(source);
-    const channel = await runInSafeAsync(() => provider.getChannelById(params.id));
+    const { source, id } = await props.params;
+    const resolvedSource = resolveSocialSource(source);
 
+    const provider = resolveSocialMediaProvider(resolvedSource);
+    const channel = await runInSafeAsync(() => provider.getChannelById(id));
     if (!channel) notFound();
 
     return (

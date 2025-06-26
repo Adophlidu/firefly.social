@@ -4,13 +4,14 @@ import { SITE_URL } from '@/constants/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 
-export async function createMetadataEventDetailPage(eventName: string) {
+export async function createMetadataEventDetailPage(pathname: string, eventName: string) {
     const info = await FireflyActivityProvider.getFireflyActivityInfo(eventName).catch(() => null);
-    if (!info) return createSiteMetadata();
+    if (!info) return createSiteMetadata(pathname);
     const title = info.title;
     const description = info.description;
     const images = [info.open_graph_url];
-    return createSiteMetadata({
+
+    return createSiteMetadata(pathname, {
         title,
         description,
         openGraph: {

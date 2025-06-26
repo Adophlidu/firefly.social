@@ -9,10 +9,9 @@ import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
-export async function createMetadataProfileByFireflyUid(uid: string) {
+export async function createMetadataProfileByFireflyUid(pathname: string, uid: string) {
     const relatedProfile = await runInSafeAsync(() => FireflyEndpointProvider.getAllRelatedProfileInfo({ uid }));
-    if (!relatedProfile?.account) return createSiteMetadata();
-    const account = relatedProfile.account;
+    if (!relatedProfile?.account) return createSiteMetadata(pathname);
 
     const images = [
         {
@@ -23,10 +22,10 @@ export async function createMetadataProfileByFireflyUid(uid: string) {
         },
     ];
 
-    const title = createPageTitleOG(`${account.displayName || 'Firefly User'}`);
+    const title = createPageTitleOG(`${relatedProfile.account.displayName || 'Firefly User'}`);
     const description = SITE_DESCRIPTION;
 
-    return createSiteMetadata({
+    return createSiteMetadata(pathname, {
         title,
         description,
         openGraph: {

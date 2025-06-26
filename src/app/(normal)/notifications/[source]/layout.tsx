@@ -12,14 +12,16 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveNotificationSource } from '@/helpers/resolveSourceInUrl.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 
-export async function generateMetadata() {
-    return createSiteMetadata({
-        title: await createPageTitleSSR(msg`Notifications`),
-    });
-}
-
 interface Props extends PropsWithChildren {
     params: Promise<{ source: NotificationSourceInURL }>;
+}
+
+export async function generateMetadata(props: Props) {
+    const { source } = await props.params;
+
+    return createSiteMetadata(`/notifications/${source}`, {
+        title: await createPageTitleSSR(msg`Notifications`),
+    });
 }
 
 export default async function Layout(props: Props) {

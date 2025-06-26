@@ -17,16 +17,16 @@ const createPageMetadata = memoizeWithRedis(createMetadataProfileById, {
 type Props = NextPageProps<{ source: ProfileSourceInURL; id: string }>;
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-    const params = await props.params;
-    const source = resolveSourceFromUrlNoFallback(params.source);
-    if (source && isProfilePageSource(source)) return createPageMetadata(source, params.id, true);
-    return createSiteMetadata();
+    const { source, id } = await props.params;
+    const resolvedSource = resolveSourceFromUrlNoFallback(source);
+    if (resolvedSource && isProfilePageSource(resolvedSource))
+        return createPageMetadata(`/profile/${resolvedSource}/${id}`, resolvedSource, id, true);
+    return createSiteMetadata(`/profile/${resolvedSource}/${id}`);
 }
 
 export default async function Page(props: Props) {
-    const params = await props.params;
-    const id = params.id;
-    const source = resolveSourceFromUrlNoFallback(params.source);
-    if (!source || !isProfilePageSource(source)) notFound();
-    redirect(getProfileUrl({ source, profileId: id, handle: id }), RedirectType.replace);
+    const { source, id } = await props.params;
+    const resolvedSource = resolveSourceFromUrlNoFallback(source);
+    if (!resolvedSource || !isProfilePageSource(resolvedSource)) notFound();
+    redirect(getProfileUrl({ source: resolvedSource, profileId: id, handle: id }), RedirectType.replace);
 }

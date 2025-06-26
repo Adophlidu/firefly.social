@@ -14,13 +14,15 @@ import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/index.js';
 
-export async function generateMetadata() {
-    return createSiteMetadata({
+interface Props extends NextPageProps<{ source: string }> {}
+
+export async function generateMetadata(props: Props) {
+    const { source } = await props.params;
+
+    return createSiteMetadata(`/bookmarks/${source}`, {
         title: await createPageTitleSSR(msg`Bookmarks`),
     });
 }
-
-interface Props extends NextPageProps<{ source: string }> {}
 
 export default async function Layout(props: Props) {
     await setupLocaleForSSR();
@@ -30,6 +32,7 @@ export default async function Layout(props: Props) {
 
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isBookmarkSource(source)) notFound();
+
     return (
         <div>
             <div className="sticky top-[54px] z-20 bg-primaryBottom px-4 pb-3 md:top-0">

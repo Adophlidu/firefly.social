@@ -11,8 +11,8 @@ const createPageMetadata = memoizeWithRedis(createMetadataSwap, {
 interface Props extends NextPageProps<{ hash: string; chainId: string }> {}
 
 export async function generateMetadata(props: Props) {
-    const params = await props.params;
-    return createPageMetadata(params.hash, Number(params.chainId));
+    const { hash, chainId } = await props.params;
+    return createPageMetadata(`/swap/${chainId}/${hash}`, hash, Number(chainId));
 }
 
 export default async function SwapPage(props: Props) {

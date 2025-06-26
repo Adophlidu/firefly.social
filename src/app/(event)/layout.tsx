@@ -15,7 +15,7 @@ import { setupAgentForSSR } from '@/helpers/setupAgentForSSR.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export async function generateMetadata() {
-    return createSiteMetadata({
+    return createSiteMetadata('/events', {
         title: await createPageTitleSSR(msg`Exclusive Events`),
     });
 }

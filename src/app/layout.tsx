@@ -17,7 +17,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getCookie } from '@/helpers/getCookies.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 
-export const metadata = createSiteMetadata();
+export const metadata = createSiteMetadata('/');
 
 export const viewport = {
     width: 'device-width',

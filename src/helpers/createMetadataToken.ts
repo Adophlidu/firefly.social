@@ -7,6 +7,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { searchToken } from '@/services/searchToken.js';
 
 export async function createMetadataToken(
+    pathname: string,
     symbol: string,
     options?: {
         chainId?: number;
@@ -15,24 +16,23 @@ export async function createMetadataToken(
     },
 ) {
     const { chainId, address, isCoinId } = options || {};
-    const paramSymbol = symbol;
 
     const token = await runInSafeAsync(async () => {
-        const isAddress = isValidAddressEthereum(paramSymbol) || isValidAddressSolana(paramSymbol);
+        const isAddress = isValidAddressEthereum(symbol) || isValidAddressSolana(symbol);
         return searchToken({
-            token_symbol: isAddress || isCoinId ? undefined : paramSymbol,
-            coingecko_id: isCoinId ? paramSymbol : undefined,
-            address: isAddress ? paramSymbol : address || undefined,
+            token_symbol: isAddress || isCoinId ? undefined : symbol,
+            coingecko_id: isCoinId ? symbol : undefined,
+            address: isAddress ? symbol : address || undefined,
             chain_id: chainId,
         });
     });
+    if (!token) return createSiteMetadata(pathname);
 
-    if (!token) return createSiteMetadata();
     const title = `View ${token.symbol} on Firefly`;
     const description = token.name;
     const ogImage = token.logoURL;
 
-    return createSiteMetadata({
+    return createSiteMetadata(pathname, {
         title,
         description,
         openGraph: {

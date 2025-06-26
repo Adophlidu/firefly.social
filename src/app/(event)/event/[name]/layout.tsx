@@ -5,22 +5,22 @@ import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import type { NextPageProps } from '@/types/index.js';
 
+interface Props extends NextPageProps<{ name: string }> {}
+
 const createPageMetadata = memoizeWithRedis(createMetadataEventDetailPage, {
     key: KeyType.CreateMetadataEvent,
 });
 
-interface Props extends NextPageProps<{ name: string }> {}
-
 export async function generateMetadata(props: Props) {
-    const params = await props.params;
-    return createPageMetadata(params.name);
+    const { name } = await props.params;
+    return createPageMetadata(`/event/${name}`, name);
 }
 
 export default async function Layout(props: Props) {
     await setupLocaleForSSR();
 
     const { children } = props;
-    const params = await props.params;
 
-    return <ActivityProvider name={params.name}>{children}</ActivityProvider>;
+    const { name } = await props.params;
+    return <ActivityProvider name={name}>{children}</ActivityProvider>;
 }
