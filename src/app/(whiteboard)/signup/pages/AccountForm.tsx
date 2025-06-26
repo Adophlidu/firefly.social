@@ -17,6 +17,7 @@ import { playSignupAudio } from '@/app/(whiteboard)/signup/pages/audio.js';
 import ShadowLeftArrow from '@/assets/left-arrow-shadow.svg';
 import { SignupStep, Source } from '@/constants/enum.js';
 import { FIREFLY_DISPLAY_NAME_REGEXP } from '@/constants/regexp.js';
+import { classNames } from '@/helpers/classNames.js';
 import { downloadUrl } from '@/helpers/downloadMediaObjects.js';
 import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
@@ -100,12 +101,13 @@ export function AccountForm({ changeStep }: AccountFormProps) {
             await delay(500);
             playSignupAudio();
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to create firefly account, please try again.`);
+            enqueueMessageFromError(error, t`Failed to create Firefly profile.`);
             throw error;
         }
     }, [avatar, nickname, changeStep]);
 
     const nicknameError = useMemo(() => checkNickname(nickname), [nickname]);
+    const isValidNickname = !!nickname && !nicknameError;
     const canGoNext =
         !!trimify(nickname) && (avatar.type === 'custom' ? !!avatar.file : !!avatar.url) && !nicknameError;
 
@@ -150,19 +152,31 @@ export function AccountForm({ changeStep }: AccountFormProps) {
                                 <input
                                     id="firefly-nickname"
                                     value={nickname}
-                                    className="mt-2 h-12 w-full rounded-lg border-none text-center text-[#171717] outline-none focus:border-none focus:outline-none"
+                                    className={classNames(
+                                        'mt-2 h-12 w-full rounded-lg border border-transparent text-center text-[#171717] outline-0 focus:outline-0 focus:ring-0',
+                                        !nickname ? 'focus:border-danger' : 'focus:border-highlight',
+                                    )}
                                     style={{
                                         backgroundColor: 'rgba(124, 127, 163, 0.08)',
                                     }}
                                     placeholder={t`Enter your nickname on Firefly`}
                                     onChange={(e) => setNickname(trimify(e.target.value))}
+                                    minLength={1}
+                                    maxLength={20}
+                                    autoComplete="off"
+                                    spellCheck="false"
                                 />
-                                {nicknameError ? (
-                                    <p className="text-center text-xs font-medium text-danger">{nicknameError}</p>
-                                ) : null}
+                                <p
+                                    className={classNames(
+                                        'mt-2 h-4 text-center text-xs font-medium',
+                                        isValidNickname ? 'text-success' : 'text-danger',
+                                    )}
+                                >
+                                    {isValidNickname ? <Trans>Available</Trans> : nicknameError}
+                                </p>
                             </div>
                         </div>
-                        <div className="mt-6 w-full text-center md:mt-0">
+                        <div className="mt-2 w-full text-center md:mt-0">
                             <SquareButton disabled={!canGoNext} onClick={setNicknameAndAvatar}>
                                 <span className="text-base font-medium">
                                     <Trans>Done</Trans>

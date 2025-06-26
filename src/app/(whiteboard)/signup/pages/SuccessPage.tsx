@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/react/macro';
+import urlcat from 'urlcat';
 
 import { LoggedInSources } from '@/app/(whiteboard)/components/Signup/LoggedInSources.js';
 import { MusicTogglePlay } from '@/app/(whiteboard)/components/Signup/MusicTogglePlay.js';
@@ -7,15 +8,20 @@ import { SquareButton } from '@/app/(whiteboard)/components/Signup/SquareButton.
 import { toggleSignupAudio } from '@/app/(whiteboard)/signup/pages/audio.js';
 import FireflyCard from '@/assets/firefly-card.svg';
 import { PageRoute } from '@/constants/enum.js';
+import { SITE_URL } from '@/constants/index.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { useSearchParams } from '@/esm/navigation.js';
 import { levelUp } from '@/fonts/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { ComposeModalRef } from '@/modals/controls.js';
+import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 export function SuccessPage() {
     const searchParams = useSearchParams();
+    const { currentProfileSession } = useFireflyStateStore();
+
     const nickname = searchParams.get('nickname') || '';
+    const accountId = currentProfileSession?.profileId;
 
     return (
         <ShadowInAndOut className="no-scrollbar absolute inset-0 z-1 flex flex-col items-center justify-center gap-5 p-6 pt-20 sm:gap-[6.875%] md:flex-row md:pt-6">
@@ -40,25 +46,28 @@ export function SuccessPage() {
                         <Trans>Explore now</Trans>
                     </span>
                 </SquareButton>
-                <SquareButton
-                    colorMode="light"
-                    className="mt-6"
-                    onClick={() => {
-                        ComposeModalRef.open({
-                            type: 'compose',
-                            chars: [
-                                'Player 1 has entered the social game 🕹️ Create your Firefly account now! Join the Web3-native social experience. ',
-                                FIREFLY_MENTION,
-                                ' #Web3social',
-                            ],
-                        });
-                    }}
-                >
-                    <span className="text-base font-medium text-[#171717]">
-                        <Trans>Share to</Trans>
-                    </span>
-                    <LoggedInSources />
-                </SquareButton>
+                {accountId ? (
+                    <SquareButton
+                        colorMode="light"
+                        className="mt-6"
+                        onClick={() => {
+                            ComposeModalRef.open({
+                                type: 'compose',
+                                chars: [
+                                    'Player 1 has entered the social game 🕹️ Create your Firefly account now! Join the Web3-native social experience. ',
+                                    FIREFLY_MENTION,
+                                    ' #Web3social\r\n',
+                                    urlcat(SITE_URL, '/profile/:accountId', { accountId }),
+                                ],
+                            });
+                        }}
+                    >
+                        <span className="text-base font-medium text-[#171717]">
+                            <Trans>Share to</Trans>
+                        </span>
+                        <LoggedInSources />
+                    </SquareButton>
+                ) : null}
             </div>
         </ShadowInAndOut>
     );

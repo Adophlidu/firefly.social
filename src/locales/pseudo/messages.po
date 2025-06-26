@@ -16,9 +16,6 @@ msgstr ""
 msgid "The gas abuse function is included. The project owner may have the ability to control the contract."
 msgstr ""
 
-msgid "Failed to create firefly account, please try again."
-msgstr ""
-
 msgid "Failed to sign in."
 msgstr ""
 
@@ -2207,6 +2204,9 @@ msgstr ""
 msgid "NFT owner cant bypass the maximum amount of minting specified in the contract, and continue to mint NFTs beyond this limit."
 msgstr ""
 
+msgid "Failed to create Firefly profile."
+msgstr ""
+
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr ""
@@ -2942,6 +2942,9 @@ msgid "Free Collect"
 msgstr ""
 
 msgid "Delete"
+msgstr ""
+
+msgid "Available"
 msgstr ""
 
 msgid "So sorry, we cant mint this NFT. Please try again later."
