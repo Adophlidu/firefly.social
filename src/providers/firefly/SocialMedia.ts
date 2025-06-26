@@ -1,5 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
-import { compact, groupBy } from 'lodash-es';
+import { compact, groupBy, isEmpty } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
@@ -1003,7 +1003,7 @@ class FireflySocialMedia implements Provider {
             const posts = compact(
                 await Promise.all(
                     response.data?.list.map(async (x) => {
-                        if (!x.post_content) return null;
+                        if (!x.post_content || isEmpty(x.post_content)) return null;
                         const formatted = await formatFarcasterPostFromFirefly(x.post_content);
                         if (!formatted) return null;
                         return {
