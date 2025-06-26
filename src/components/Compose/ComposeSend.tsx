@@ -152,7 +152,7 @@ export function ComposeSend(props: ComposeSendProps) {
                 <ClickableButton
                     disabled={disabled}
                     className={classNames(
-                        'relative flex items-center justify-center gap-1 overflow-hidden rounded-full px-3 py-2 text-medium font-bold leading-[18px]',
+                        'relative flex min-w-[100px] items-center justify-center gap-1 overflow-hidden rounded-full px-1 py-2 text-medium font-bold leading-[18px]',
                         hasError ? 'bg-commonDanger text-white' : 'bg-black text-white dark:bg-white dark:text-black',
                     )}
                     onClick={() => {
