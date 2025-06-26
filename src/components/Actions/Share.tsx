@@ -21,7 +21,7 @@ interface ShareProps extends HTMLProps<HTMLDivElement> {
     post: Post;
     disabled?: boolean;
 }
-export const Share = memo<ShareProps>(function Collect({ className, post, disabled = false }) {
+export const Share = memo<ShareProps>(function Share({ className, post, disabled = false }) {
     const url = urlcat(SITE_URL, getPostUrl(post));
 
     return (
@@ -31,14 +31,13 @@ export const Share = memo<ShareProps>(function Collect({ className, post, disabl
             buttonClassName="!text-second"
             button={
                 <Tooltip content={<Trans>Share</Trans>} placement="top" disabled={disabled}>
-                    <motion.button
-                        disabled={disabled}
+                    <motion.div
                         onClick={() => capturePostActionEvent('share', post)}
                         whileTap={{ scale: 0.9 }}
                         className="inline-flex size-7 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link disabled:opacity-60"
                     >
                         <ShareIcon width={17} height={16} />
-                    </motion.button>
+                    </motion.div>
                 </Tooltip>
             }
         >

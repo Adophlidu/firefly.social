@@ -1,5 +1,5 @@
 'use client';
-import { skipToken, useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 
 import ProtectedIcon from '@/assets/protected.svg';
 import { ListInPage } from '@/components/ListInPage.js';
@@ -24,14 +24,11 @@ export function FeedList({ profileId, source }: FeedListProps) {
     const isLogin = useIsLogin(source);
     const { data: profile } = useSuspenseQuery({
         queryKey: ['profile', source, profileId, isLogin],
-        queryFn:
-            source === Source.Twitter
-                ? async () => {
-                      const provider = resolveSocialMediaProvider(source);
-                      const profile = await provider.getProfileById(profileId);
-                      return provider.getProfileByHandle(profile.handle);
-                  }
-                : skipToken,
+        queryFn: async () => {
+            const provider = resolveSocialMediaProvider(source);
+            const profile = await provider.getProfileById(profileId);
+            return provider.getProfileByHandle(profile.handle);
+        },
     });
     const isProtected = profile?.protected;
     // Twitter API might returns incomplete data, so only force it when the user protects his account
