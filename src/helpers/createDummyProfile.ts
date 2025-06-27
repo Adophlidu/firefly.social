@@ -39,18 +39,7 @@ export function createDummyProfileFromThirdPartySession(
 ) {
     switch (forSource) {
         case Source.Telegram:
-            if (!session.payload?.telegram_user_id || !session.payload?.telegram_username) {
-                throw new Error('Invalid telegram session');
-            }
-
-            return {
-                ...createDummyProfile(Source.Farcaster, Source.Telegram),
-                profileId: session.payload.telegram_user_id,
-                handle: session.payload.telegram_username,
-                displayName: session.payload.telegram_username,
-                fullHandle: session.payload.telegram_username,
-                pfp: session.payload.avatar ?? '',
-            } satisfies Profile;
+            return createDummyProfile(Source.Farcaster, Source.Telegram);
         case Source.Email:
             if (!session.payload?.accountId || !session.payload?.email) {
                 throw new Error('Invalid email session');

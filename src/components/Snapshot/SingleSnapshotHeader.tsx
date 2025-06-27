@@ -41,7 +41,7 @@ export const SingleSnapshotHeader = memo<SingleSnapshotHeaderProps>(function Sin
                 displayName={data.author.handle || ens}
                 address={data.author.id}
                 time={data.timestamp}
-                icon={<SnapshotIcon width={15} height={15} />}
+                icon={<SnapshotIcon width={16} height={16} />}
             >
                 <SnapshotMoreAction data={data} />
             </ActivityCellHeader>

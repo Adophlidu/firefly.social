@@ -15,7 +15,6 @@ import { useRouter } from '@/esm/navigation.js';
 import { createDummyProfileFromThirdPartySession } from '@/helpers/createDummyProfile.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { addAccount } from '@/services/account.js';
@@ -41,16 +40,12 @@ export default function Page(props: Props) {
     useAsync(async () => {
         if (os === 'web' && token) {
             try {
-                const data = await FireflyEndpointProvider.loginTelegram(token);
-                if (!data.telegram_user_id || !data.telegram_username) return;
-
                 const session = new ThirdPartySession(
                     SessionType.Telegram,
-                    data.telegram_user_id,
+                    '',
                     token,
                     Date.now(),
                     dayjs(Date.now()).add(1, 'y').unix(),
-                    data,
                 );
 
                 const accounts = useThirdPartyStateStore.getState().accounts;
@@ -71,6 +66,7 @@ export default function Page(props: Props) {
                         skipBelongsToCheck: !foundNewSessionFromServer,
                         skipResumeFireflyAccounts: !foundNewSessionFromServer,
                         skipResumeFireflySession: !foundNewSessionFromServer,
+                        skipSyncAccounts: !foundNewSessionFromServer,
                     },
                 );
 
