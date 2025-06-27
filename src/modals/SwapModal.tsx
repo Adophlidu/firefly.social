@@ -81,6 +81,12 @@ export function SwapModal({ ref }: Props) {
     });
 
     useEffect(() => {
+        if (!instanceRef.current) return;
+
+        instanceRef.current.updateParams({ theme });
+    }, [theme]);
+
+    useEffect(() => {
         if (!widgetRef || !open) return;
         const chainId =
             props?.chainId === SOLANA_CHAIN_ID_IN_FIREFLY ? SOLANA_CHAIN_ID_IN_OKX : (props?.chainId ?? mainnet.id);
