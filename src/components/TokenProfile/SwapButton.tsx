@@ -1,7 +1,9 @@
 'use client';
+
 import { Trans } from '@lingui/react/macro';
 import { ProviderType } from '@okxweb3/dex-widget';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
+import { useAsyncFn } from 'react-use';
 import { switchChain } from 'wagmi/actions';
 
 import SwapIcon from '@/assets/swap.svg';
@@ -28,14 +30,30 @@ export const SwapButton = memo<Props>(function SwapButton({
     ...rest
 }: ClickableButtonProps & { swapProps?: SwapModalOpenProps }) {
     const { data: supportedChainIds = EMPTY_LIST } = useOkxSupportedChains();
-
-    const chainIds = useMemo(() => supportedChainIds.map((x) => x.chainId), [supportedChainIds]);
-
-    const chainId = swapPropsFromProps?.chainId;
-
-    const providerType = chainId !== SOLANA_CHAIN_ID_IN_FIREFLY ? ProviderType.EVM : ProviderType.SOLANA;
     const { ethereum, solana } = useWalletAccountAll();
 
+    const chainId = swapPropsFromProps?.chainId;
+    const providerType = chainId !== SOLANA_CHAIN_ID_IN_FIREFLY ? ProviderType.EVM : ProviderType.SOLANA;
+
+    const [{ loading }, handleClick] = useAsyncFn(async () => {
+        if (
+            (providerType === ProviderType.EVM && !ethereum.isConnected) ||
+            (providerType === ProviderType.SOLANA && !solana.isConnected)
+        ) {
+            WalletConnectModalRef.open({
+                networkType: providerType === ProviderType.EVM ? NetworkType.Ethereum : NetworkType.Solana,
+            });
+            return;
+        }
+        if (chainId && providerType === ProviderType.EVM) await switchChain(config, { chainId });
+        captureSwapEvent(EventId.EVENT_SWAP_COPY_TRADE_CLICK);
+        SwapModalRef.open({
+            ...swapPropsFromProps,
+            providerType,
+        });
+    }, [chainId, providerType, ethereum.isConnected, solana.isConnected, swapPropsFromProps]);
+
+    const chainIds = supportedChainIds.map((x) => x.chainId);
     if (providerType === ProviderType.EVM && chainId && !chainIds.includes(chainId)) return null;
 
     return (
@@ -44,23 +62,8 @@ export const SwapButton = memo<Props>(function SwapButton({
                 'ml-auto gap-[10px] rounded-full bg-main px-5 py-2 text-[15px] leading-4 text-primaryBottom',
                 className,
             )}
-            onClick={async () => {
-                if (
-                    (providerType === ProviderType.EVM && !ethereum.isConnected) ||
-                    (providerType === ProviderType.SOLANA && !solana.isConnected)
-                ) {
-                    WalletConnectModalRef.open({
-                        networkType: providerType === ProviderType.EVM ? NetworkType.Ethereum : NetworkType.Solana,
-                    });
-                    return;
-                }
-                if (chainId && providerType === ProviderType.EVM) await switchChain(config, { chainId });
-                captureSwapEvent(EventId.EVENT_SWAP_COPY_TRADE_CLICK);
-                SwapModalRef.open({
-                    ...swapPropsFromProps,
-                    providerType,
-                });
-            }}
+            disabled={loading}
+            onClick={handleClick}
             {...rest}
         >
             {rest.children ?? (
