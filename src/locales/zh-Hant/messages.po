@@ -858,6 +858,9 @@ msgstr "未找到加密數據。"
 msgid "Attendees"
 msgstr "參與者"
 
+msgid "New Connect"
+msgstr ""
+
 msgid "Connected accounts"
 msgstr "已連結帳戶"
 
@@ -3196,6 +3199,9 @@ msgstr "伺服器錯誤，請稍後重試。"
 msgid "Post could not be found."
 msgstr "找不到貼文。"
 
+msgid "Reconnect"
+msgstr ""
+
 msgid "No suspected malicious behavior found."
 msgstr "未檢測到可疑惡意行為。"
 
@@ -3589,6 +3595,9 @@ msgstr ""
 
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr "支付<0> {feeAmount} {feeSymbol} </0>追蹤以獲得專屬福利！"
+
+msgid "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
+msgstr ""
 
 msgid "App Store"
 msgstr "App Store"

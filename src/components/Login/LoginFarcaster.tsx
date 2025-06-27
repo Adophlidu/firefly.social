@@ -8,6 +8,7 @@ import { useAsyncFn, useMount, useUnmount } from 'react-use';
 import { useCountdown } from 'usehooks-ts';
 import { UserRejectedRequestError } from 'viem';
 
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/browser.js';
@@ -30,7 +31,7 @@ import {
 } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { DraggablePopoverRef, LoginModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 import { createAccountByFireflySponsorship } from '@/providers/warpcast/createAccountByFireflySponsorship.js';
 import { createAccountByGrantPermission } from '@/providers/warpcast/createAccountByGrantPermission.js';
@@ -262,8 +263,42 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
     useMount(() => {
         if (loadingByGrantPermission || loadingByRelayService || loadingBySponsorship) return;
         if (IS_MOBILE_DEVICE && !signType) {
-            onClick(FarcasterSignType.RelayService);
-            return;
+            DraggablePopoverRef.open({
+                content: (
+                    <div className="p-6">
+                        <div className="text-center text-[18px] font-bold leading-[22px] text-main">
+                            <Trans>Sign in with Farcaster</Trans>
+                        </div>
+                        <div className="mt-8 text-center text-[14px] leading-[16px] text-second">
+                            <Trans>
+                                Reconnect if you’ve used Farcaster to sign in before.
+                                <br />
+                                First time? New connect to get started.
+                            </Trans>
+                        </div>
+                        <div className="mt-8 flex gap-4">
+                            <ClickableButton
+                                onClick={() => {
+                                    onClick(FarcasterSignType.FireflySponsorship);
+                                    DraggablePopoverRef.close();
+                                }}
+                                className="flex flex-1 items-center justify-center rounded-full border border-lightMain py-2 font-bold text-fourMain"
+                            >
+                                <Trans>New Connect</Trans>
+                            </ClickableButton>
+                            <ClickableButton
+                                onClick={() => {
+                                    onClick(FarcasterSignType.RelayService);
+                                    DraggablePopoverRef.close();
+                                }}
+                                className="font-bol flex flex-1 items-center justify-center rounded-full bg-main py-2 text-primaryBottom"
+                            >
+                                <Trans>Reconnect</Trans>
+                            </ClickableButton>
+                        </div>
+                    </div>
+                ),
+            });
         }
         onClick(signType);
     });

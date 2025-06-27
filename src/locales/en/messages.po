@@ -853,6 +853,9 @@ msgstr "The encrypted data not found."
 msgid "Attendees"
 msgstr "Attendees"
 
+msgid "New Connect"
+msgstr "New Connect"
+
 msgid "Connected accounts"
 msgstr "Connected accounts"
 
@@ -3196,6 +3199,9 @@ msgstr "Internal Server Error. Please try again later."
 msgid "Post could not be found."
 msgstr "Post could not be found."
 
+msgid "Reconnect"
+msgstr "Reconnect"
+
 msgid "No suspected malicious behavior found."
 msgstr "No suspected malicious behavior found."
 
@@ -3589,6 +3595,9 @@ msgstr "Select Group"
 
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
+
+msgid "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
+msgstr "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
 
 msgid "App Store"
 msgstr "App Store"

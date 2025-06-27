@@ -853,6 +853,9 @@ msgstr ""
 msgid "Attendees"
 msgstr ""
 
+msgid "New Connect"
+msgstr ""
+
 msgid "Connected accounts"
 msgstr ""
 
@@ -3183,6 +3186,9 @@ msgstr ""
 msgid "Post could not be found."
 msgstr ""
 
+msgid "Reconnect"
+msgstr ""
+
 msgid "No suspected malicious behavior found."
 msgstr ""
 
@@ -3575,6 +3581,9 @@ msgid "Select Group"
 msgstr ""
 
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
+msgstr ""
+
+msgid "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
 msgstr ""
 
 msgid "App Store"

@@ -858,6 +858,9 @@ msgstr "未找到加密数据。"
 msgid "Attendees"
 msgstr "出席人员"
 
+msgid "New Connect"
+msgstr ""
+
 msgid "Connected accounts"
 msgstr "已连接的账户"
 
@@ -3201,6 +3204,9 @@ msgstr "内部服务错误。请稍后重试。"
 msgid "Post could not be found."
 msgstr "未找到相关帖子。"
 
+msgid "Reconnect"
+msgstr ""
+
 msgid "No suspected malicious behavior found."
 msgstr "未发现疑似恶意行为。"
 
@@ -3594,6 +3600,9 @@ msgstr ""
 
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr "支付<0>{feeAmount} ${feeSymbol}</0>以关注并获得一些精彩的福利！"
+
+msgid "Reconnect if you’ve used Farcaster to sign in before.<0/>First time? New connect to get started."
+msgstr ""
 
 msgid "App Store"
 msgstr "苹果商店"
