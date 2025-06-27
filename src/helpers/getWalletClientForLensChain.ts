@@ -6,9 +6,6 @@ import { LENS_CHAIN_ID } from '@/constants/index.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 
 export async function getWalletClientForLensChain() {
-    return (await getWalletClientRequired(config, { chainId: LENS_CHAIN_ID })) as WalletClient<
-        Transport,
-        chains.LensChain,
-        Account
-    >;
+    const client = await getWalletClientRequired(config, { chainId: LENS_CHAIN_ID });
+    return client as WalletClient<Transport, chains.LensChain, Account>;
 }

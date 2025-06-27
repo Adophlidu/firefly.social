@@ -2,10 +2,9 @@ import { exposeToIframe, type FrameHost } from '@farcaster/frame-host';
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { delay } from '@masknet/kit';
-import { useQuery } from '@tanstack/react-query';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import { useAccount } from 'wagmi';
+import { useAccount, useChainId } from 'wagmi';
 
 import { CloseButton } from '@/components/IconButton.js';
 import { Image } from '@/components/Image.js';
@@ -53,18 +52,13 @@ export function FrameViewerModal({ ref }: Props) {
     });
 
     const account = useAccount();
-    const { data: client } = useQuery({
-        enabled: open,
-        queryKey: ['wallet-client', account.address],
-        queryFn: async () => getWalletClientRequired(config),
-    });
+    const chainId = useChainId();
 
     useEffect(() => {
         if (!frameRef.current) return;
 
         // frame host is required
         if (!props?.frameHost) return;
-        if (!client) return;
 
         const result = exposeToIframe({
             debug: IS_DEVELOPMENT,
@@ -73,9 +67,11 @@ export function FrameViewerModal({ ref }: Props) {
             ethProvider: createEIP1193Provider(async (parameters) => {
                 const { method, params } = parameters;
 
+                const client = await getWalletClientRequired(config);
+
                 switch (method) {
                     case EthereumMethodType.ETH_REQUEST_ACCOUNTS:
-                        return [account.address];
+                        return [client.account.address];
                     case EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN:
                         try {
                             const chain = params[0] as { chainId: string };
@@ -87,7 +83,7 @@ export function FrameViewerModal({ ref }: Props) {
                         }
                         return;
                     case EthereumMethodType.ETH_SEND_TRANSACTION: {
-                        await captureFrameActionEvent('others', props.frame, account.address);
+                        await captureFrameActionEvent('others', props.frame, client.account.address);
                         return client.request(parameters as Parameters<typeof client.request>[0]);
                     }
                     default:
@@ -115,7 +111,13 @@ export function FrameViewerModal({ ref }: Props) {
             result?.cleanup();
             clearTimeout(timer);
         };
-    }, [props, client, account.address]);
+    }, [
+        props?.frameHost,
+        // refresh the provider after account changed
+        account,
+        // refresh the provider after chain id changed
+        chainId,
+    ]);
 
     const [{ loading: reloading }, onReload] = useAsyncFn(async () => {
         if (!props) return;
