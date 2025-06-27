@@ -50,6 +50,10 @@ export default function Page(props: Props) {
         if (IS_IOS) await waitForWebviewDidLoadEvent();
 
         const result = await fireflyBridgeProvider.request(SupportedMethod.GET_FRAME_CONTEXT, {});
+        if (!result.user) throw new Error('No user found in frame context');
+
+        console.log('[frame client] context', JSON.stringify(result));
+
         const context = {
             user: result.user,
             location: result.location,
@@ -59,8 +63,6 @@ export default function Page(props: Props) {
                 ...result.client,
             },
         };
-
-        console.log('[frame client] context', JSON.stringify(context));
 
         const frame = {
             ...result.frame.content,
