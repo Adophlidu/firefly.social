@@ -15,7 +15,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 
 interface SuggestProfileListProps {
     query: string;
@@ -35,7 +35,7 @@ export const SuggestProfileList = memo<SuggestProfileListProps>(function Suggest
             const trimmed = query.trim().replace(/^@/, '');
             const xProfilesRes =
                 isTwitterLogin && trimmed
-                    ? await runInSafeAsync(() => TwitterSocialMediaProvider.searchProfiles(trimmed))
+                    ? await runInSafeAsync(() => TwitterSocialMediaProxy.searchProfiles(trimmed))
                     : undefined;
             const bskyProfilesRes = await runInSafeAsync(() => BskySocialMediaProvider.searchProfiles(query));
 

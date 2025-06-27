@@ -218,8 +218,6 @@ export class Snapshot {
 
         if (isShutter) types = isType2 ? voteString2Types : voteStringTypes;
 
-        const walletClient = await getWalletClientRequired(config);
-
         const message = omit(payload, 'privacy', 'type');
 
         const messageData = {
@@ -234,6 +232,7 @@ export class Snapshot {
             metadata: message.metadata ?? '{}',
         };
 
+        const walletClient = await getWalletClientRequired(config);
         const signedTypedData = await walletClient.signTypedData({
             domain: {
                 name: NAME,

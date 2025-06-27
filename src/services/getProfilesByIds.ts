@@ -2,7 +2,7 @@ import { SourceInURL } from '@/constants/enum.js';
 import { NotImplementedError, UnreachableError } from '@/constants/error.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 
 export async function getProfilesByIds(source: SourceInURL, ids: string[]) {
     switch (source) {
@@ -11,7 +11,7 @@ export async function getProfilesByIds(source: SourceInURL, ids: string[]) {
         case SourceInURL.Lens:
             return await LensSocialMediaProvider.getProfilesByIds(ids);
         case SourceInURL.Twitter:
-            return await TwitterSocialMediaProvider.getProfilesByIds(ids);
+            return await TwitterSocialMediaProxy.getProfilesByIds(ids);
         case SourceInURL.Firefly:
         case SourceInURL.Article:
         case SourceInURL.Wallet:

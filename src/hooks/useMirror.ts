@@ -9,7 +9,7 @@ import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useMirror(post: Post) {
@@ -39,8 +39,8 @@ export function useMirror(post: Post) {
                     }
                     case Source.Twitter: {
                         const result = await (hasMirrored
-                            ? TwitterSocialMediaProvider.unmirrorPost(postId)
-                            : TwitterSocialMediaProvider.mirrorPost(postId));
+                            ? TwitterSocialMediaProxy.unmirrorPost(postId)
+                            : TwitterSocialMediaProxy.mirrorPost(postId));
                         enqueueSuccessMessage(hasMirrored ? t`Cancel repost successfully` : t`Reposted`);
                         return result;
                     }

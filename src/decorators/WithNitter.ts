@@ -2,7 +2,7 @@ import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { NitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
-import type { TwitterSocialMedia } from '@/providers/twitter/SocialMedia.js';
+import type { OfficialSocialMedia } from '@/providers/twitter/OfficialSocialMedia.js';
 import type { Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
@@ -25,9 +25,9 @@ const METHODS_BE_OVERRIDDEN = [
 export function WithNitter() {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
-            const method = target.prototype[key] as TwitterSocialMedia[K];
+            const method = target.prototype[key] as OfficialSocialMedia[K];
             Object.defineProperty(target.prototype, key, {
-                value: async (...args: Parameters<TwitterSocialMedia[K]>) => {
+                value: async (...args: Parameters<OfficialSocialMedia[K]>) => {
                     type Method = (...args: Parameters<Provider[K]>) => ReturnType<Provider[K]>;
                     const originMethod = method as unknown as Method;
                     try {

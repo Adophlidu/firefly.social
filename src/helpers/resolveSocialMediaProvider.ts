@@ -1,14 +1,11 @@
 import { safeUnreachable } from '@masknet/kit';
-import { isServer } from '@tanstack/react-query';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { NitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
-import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import { NitterSocialMediaProxy, TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 
 interface Options {
     /**
@@ -24,9 +21,17 @@ export function resolveSocialMediaProvider(source: SocialSource, options?: Optio
         case Source.Farcaster:
             return FarcasterSocialMediaProvider;
         case Source.Twitter:
-            const forceTwitter = options?.[Source.Twitter] === 'twitter';
-            if (!forceTwitter && (isServer || !twitterSessionHolder.session)) return NitterSocialMediaProvider;
-            return TwitterSocialMediaProvider;
+            const preferred = options?.[Source.Twitter] ?? 'twitter';
+
+            switch (preferred) {
+                case 'nitter':
+                    return NitterSocialMediaProxy;
+                case 'twitter':
+                    return TwitterSocialMediaProxy;
+                default:
+                    safeUnreachable(preferred);
+                    return TwitterSocialMediaProxy;
+            }
         case Source.Bsky:
             return BskySocialMediaProvider;
         default:

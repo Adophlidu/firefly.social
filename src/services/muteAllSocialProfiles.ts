@@ -10,7 +10,7 @@ import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 
 export async function muteAllSocialProfiles(identity: FireflyIdentity) {
@@ -27,7 +27,7 @@ export async function muteAllSocialProfiles(identity: FireflyIdentity) {
         const twitterProfiles = socialProfiles.filter((profile) => profile.identity.source === Source.Twitter);
         await runInSafeAsync(() =>
             Promise.allSettled(
-                twitterProfiles.map((profile) => TwitterSocialMediaProvider.blockProfile(profile.identity.id)),
+                twitterProfiles.map((profile) => TwitterSocialMediaProxy.blockProfile(profile.identity.id)),
             ),
         );
         results.push(

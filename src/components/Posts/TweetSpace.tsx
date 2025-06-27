@@ -18,7 +18,7 @@ import { isTomorrow } from '@/helpers/isTomorrow.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 
 interface Tag {
     icon?: FunctionComponent<SVGAttributes<SVGElement>>;
@@ -35,7 +35,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
         enabled: isLogin,
         queryKey: ['twitter-space', spaceId],
         queryFn() {
-            return TwitterSocialMediaProvider.getSpace(spaceId);
+            return TwitterSocialMediaProxy.getSpace(spaceId);
         },
     });
     const space = data?.data;

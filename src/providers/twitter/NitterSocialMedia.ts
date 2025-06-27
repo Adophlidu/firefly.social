@@ -271,11 +271,11 @@ class NitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async getChannelMembers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+    getChannelMembers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new NotImplementedError();
     }
 
-    async getChannelFollowers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+    getChannelFollowers(channelId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new NotImplementedError();
     }
 
@@ -293,11 +293,11 @@ class NitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async unmirrorPost(postId: string, authorId?: number | undefined): Promise<void> {
+    unmirrorPost(postId: string, authorId?: number | undefined): Promise<void> {
         throw new NotImplementedError();
     }
 
-    async mirrorPost(postId: string): Promise<string> {
+    mirrorPost(postId: string): Promise<string> {
         throw new NotImplementedError();
     }
 
@@ -307,15 +307,15 @@ class NitterSocialMedia implements Provider {
         return compact(profilesSettledResult.map((x) => (x.status === 'fulfilled' ? x.value : null)));
     }
 
-    async follow(profileId: string): Promise<boolean> {
+    follow(profileId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
 
-    async unfollow(profileId: string): Promise<boolean> {
+    unfollow(profileId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
 
-    async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+    discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new NotImplementedError();
     }
 
@@ -373,10 +373,7 @@ class NitterSocialMedia implements Provider {
         return pageable ?? createPageable(EMPTY_LIST, createIndicator(indicator));
     }
 
-    async getLikedPostsByProfileId(
-        profileId: string,
-        indicator?: PageIndicator,
-    ): Promise<Pageable<Post, PageIndicator>> {
+    getLikedPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new NotImplementedError();
     }
 
@@ -423,11 +420,11 @@ class NitterSocialMedia implements Provider {
         ]);
     }
 
-    async upvotePost(postId: string): Promise<void> {
+    upvotePost(postId: string): Promise<void> {
         throw new NotImplementedError();
     }
 
-    async unvotePost(postId: string): Promise<void> {
+    unvotePost(postId: string): Promise<void> {
         throw new NotImplementedError();
     }
 
@@ -455,54 +452,50 @@ class NitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async deletePost(tweetId: string): Promise<boolean> {
+    deletePost(tweetId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
-    async blockProfile(profileId: string): Promise<boolean> {
+    blockProfile(profileId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
-    async unblockProfile(profileId: string): Promise<boolean> {
+    unblockProfile(profileId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
-    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    async bookmark(tweetId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-    async unbookmark(tweetId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-    async reportProfile(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-    async reportPost(post: Post): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-    async uploadProfileAvatar(file: File) {
-        throw new NotImplementedError();
-    }
-    async updateProfile(profile: ProfileEditable): Promise<boolean> {
+    getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new NotImplementedError();
     }
 
-    async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
+    bookmark(tweetId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+    unbookmark(tweetId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+    getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+    reportProfile(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+    reportPost(post: Post): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+    uploadProfileAvatar(file: File): Promise<string> {
+        throw new NotImplementedError();
+    }
+    updateProfile(profile: ProfileEditable): Promise<boolean> {
         throw new NotImplementedError();
     }
 
-    async getSpace(id: string) {
+    getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
         throw new NotImplementedError();
     }
 
-    async joinChannel(channel: Channel): Promise<boolean> {
+    joinChannel(channel: Channel): Promise<boolean> {
         throw new NotImplementedError();
     }
 
-    async leaveChannel(channel: Channel): Promise<boolean> {
+    leaveChannel(channel: Channel): Promise<boolean> {
         throw new NotImplementedError();
     }
 
@@ -513,7 +506,7 @@ class NitterSocialMedia implements Provider {
         return patchPostClientToFirefly(formatTwitterPostFromNitter(pinned));
     }
 
-    async decryptPost(post: Post): Promise<Post> {
+    decryptPost(post: Post): Promise<Post> {
         throw new NotImplementedError();
     }
 

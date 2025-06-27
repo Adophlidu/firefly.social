@@ -113,6 +113,7 @@ export function FrameViewerModal({ ref }: Props) {
         };
     }, [
         props?.frameHost,
+        props?.frame,
         // refresh the provider after account changed
         account,
         // refresh the provider after chain id changed

@@ -30,7 +30,7 @@ import { useCurrentProfileIds } from '@/hooks/useCurrentProfile.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
 const PUNCTUATION = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
@@ -199,7 +199,7 @@ export function MentionsPlugin(): JSX.Element | null {
                 : undefined;
 
             const twitterProfiles = availableSources.includes(Source.Twitter)
-                ? await TwitterSocialMediaProvider.searchProfiles(debounceQuery, undefined, 30)
+                ? await TwitterSocialMediaProxy.searchProfiles(debounceQuery, undefined, 30)
                 : undefined;
 
             if (!data?.data && !bskyProfiles?.data && !twitterProfiles) return EMPTY_LIST;

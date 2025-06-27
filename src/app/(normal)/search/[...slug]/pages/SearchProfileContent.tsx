@@ -13,7 +13,7 @@ import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
 import { searchWalletAddress } from '@/services/searchWalletAddress.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
@@ -54,9 +54,7 @@ export function SearchProfileContent() {
             const trimmed = searchKeyword.trim().replace(/^@/, '');
             const twitterProfiles =
                 pageParam.twitter !== noNextPage && trimmed
-                    ? await runInSafeAsync(() =>
-                          TwitterSocialMediaProvider.searchProfiles(trimmed, twitterIndicator, 7),
-                      )
+                    ? await runInSafeAsync(() => TwitterSocialMediaProxy.searchProfiles(trimmed, twitterIndicator, 7))
                     : undefined;
 
             const bskyProfiles =

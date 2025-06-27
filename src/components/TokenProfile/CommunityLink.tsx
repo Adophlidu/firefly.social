@@ -15,7 +15,7 @@ import { XIcon } from '@/components/XIcon.js';
 import { Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { CommunityUrl } from '@/providers/types/Trending.js';
 
 interface Props {
@@ -47,7 +47,7 @@ export function CommunityLink({ link, iconSize = 16 }: Props) {
     const { data: fireflyTwitterLink } = useQuery({
         queryKey: ['twitter', 'profile-by-handle', handle],
         enabled: isTwitterLogin && !!handle,
-        queryFn: handle ? () => TwitterSocialMediaProvider.getProfileByHandle(handle) : skipToken,
+        queryFn: handle ? () => TwitterSocialMediaProxy.getProfileByHandle(handle) : skipToken,
         select: (data) => getProfileUrl(data),
     });
 

@@ -6,7 +6,7 @@ import { UnreachableError } from '@/constants/error.js';
 import { mergeMediaObjects } from '@/helpers/mergeMediaObjects.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { PostAtUri } from '@/providers/bsky/AtUri.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType, MediaObject } from '@/types/compose.js';
@@ -78,7 +78,7 @@ export function createPostTo(source: SocialSource, options: Options) {
         }));
 
         if (source === Source.Twitter && postId && post.poll) {
-            const tweet = await runInSafeAsync(() => TwitterSocialMediaProvider.getPostById(postId));
+            const tweet = await runInSafeAsync(() => TwitterSocialMediaProxy.getPostById(postId));
             if (tweet?.poll?.id) updateTwitterPollId(tweet.poll.id);
         }
 

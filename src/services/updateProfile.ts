@@ -9,7 +9,7 @@ import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.j
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
 import {
     useBskyStateStore,
@@ -53,7 +53,7 @@ export async function updateProfile(profile: Profile, profileEditable: ProfileEd
             await LensSocialMediaProvider.updateProfile(profileEditable);
             break;
         case Source.Twitter:
-            await TwitterSocialMediaProvider.updateProfile(profileEditable);
+            await TwitterSocialMediaProxy.updateProfile(profileEditable);
             break;
         case Source.Bsky:
             await BskySocialMediaProvider.updateProfile(pickProfileDiff(profile, profileEditable));

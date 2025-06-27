@@ -9,7 +9,7 @@ import { createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { BskySocialMediaProvider } from '@/providers/bsky/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 function refreshThreadByPostId(postId: string) {
@@ -24,7 +24,7 @@ function refreshThreadByPostId(postId: string) {
 }
 
 async function getTwitterThreads(post: Post) {
-    const posts = await TwitterSocialMediaProvider.getThreadByPostId(post.postId);
+    const posts = await TwitterSocialMediaProxy.getThreadByPostId(post.postId);
     return createPageable(posts, undefined);
 }
 
