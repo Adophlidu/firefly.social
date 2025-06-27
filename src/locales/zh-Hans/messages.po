@@ -3135,9 +3135,6 @@ msgstr "收到"
 msgid "Translated from {contentLanguage}"
 msgstr "翻译自 {contentLanguage}"
 
-msgid "POAPs"
-msgstr "POAPs"
-
 msgid "Follow @realMaskNetwork on X"
 msgstr "在 X 上关注 @realMaskNetwork"
 

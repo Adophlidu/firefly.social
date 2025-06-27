@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/react/macro';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
 import type { Hex } from 'viem';
 import { useEnsName } from 'wagmi';
@@ -12,16 +11,14 @@ import { GridListInPage } from '@/components/GridListInPage.js';
 import { Link } from '@/components/Link.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
-import { FireflyPlatform, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveNFTUrl } from '@/helpers/resolveNFTUrl.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { usePoapsByWallet } from '@/hooks/nft/usePoapsByWallet.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import type { NFTDetail } from '@/providers/types/Firefly.js';
 import type { Poap } from '@/providers/types/NFTs.js';
@@ -129,8 +126,8 @@ function PoapItemContent({
                     {props.isPoap ? <PoapIcon className="absolute left-2 top-2 size-6" /> : null}
                     {props.isShowOwner && item.owner ? <Owner address={item.owner as Hex} /> : null}
                     {props.ownerCount ? (
-                        <div className="absolute left-2 top-2 z-10 h-5 rounded-lg bg-primaryBottom px-1 text-xs font-bold leading-5">
-                            <Trans>× {nFormatter(props.ownerCount)}</Trans>
+                        <div className="light absolute left-2 top-2 z-10 h-5 rounded-lg bg-primaryBottom px-1 text-xs font-bold leading-5">
+                            × {nFormatter(props.ownerCount)}
                         </div>
                     ) : null}
                     <NFTImage
@@ -181,37 +178,7 @@ export const POAPGridListComponent = {
 };
 
 export function POAPList({ address }: { address: string }) {
-    // useSuspenseInfiniteQuery To satisfy GridListInPage['queryResult']
-    const queryResult = useSuspenseInfiniteQuery({
-        initialPageParam: '',
-        getNextPageParam: () => undefined,
-        queryKey: ['poap-list', address],
-        async queryFn() {
-            const poaps = await FireflyEndpointProvider.getPOAPs(address);
-            const nftIds = poaps.map((item) =>
-                `${EthereumChainId.xDai}.${POAP_CONTRACT_ADDRESS}.${item.tokenId}`.toLowerCase(),
-            );
-            const bookmarkData =
-                (await runInSafeAsync(() =>
-                    FireflySocialMediaProvider.getBookmarksByIds(FireflyPlatform.NFTs, nftIds),
-                )) || [];
-            const bookmarksMap = new Map<string, boolean>(
-                bookmarkData.map((bookmark) => [bookmark.post_id.toLowerCase(), !!bookmark.has_book_marked]),
-            );
-            if (bookmarksMap.size) {
-                const list = poaps.map((item) => {
-                    const id = `${EthereumChainId.xDai}.${POAP_CONTRACT_ADDRESS}.${item.tokenId}`.toLowerCase();
-                    return {
-                        ...item,
-                        hasBookmarked: bookmarksMap.get(id),
-                    };
-                });
-                return { data: list };
-            }
-            return { data: poaps };
-        },
-        select: (data) => data.pages.flatMap((x) => x.data),
-    });
+    const queryResult = usePoapsByWallet(address);
 
     return (
         <div className="px-3">

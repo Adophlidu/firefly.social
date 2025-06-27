@@ -95,14 +95,14 @@ export namespace EVM {
         name: string;
         symbol: string;
         description: string;
-        website: string;
-        email: string;
-        twitter: string;
-        discord: string;
-        telegram: string;
-        github: string;
-        instagram: string;
-        medium: string;
+        website?: string;
+        email?: string;
+        twitter?: string;
+        discord?: string;
+        telegram?: string;
+        github?: string;
+        instagram?: string;
+        medium?: string;
         logo_url: string;
         banner_url: string;
         featured_url: string;
@@ -127,6 +127,11 @@ export namespace EVM {
         /** extended by Firefly API */
         chain_id: number;
     }
+
+    export type CollectionBasics = Pick<
+        Collection,
+        'chain_id' | 'contract_address' | 'name' | 'large_image_url' | 'logo_url' | 'assets_total'
+    >;
 
     export interface Transaction {
         amount: string;

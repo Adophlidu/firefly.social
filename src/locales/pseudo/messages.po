@@ -3117,9 +3117,6 @@ msgstr ""
 msgid "Translated from {contentLanguage}"
 msgstr ""
 
-msgid "POAPs"
-msgstr ""
-
 msgid "Follow @realMaskNetwork on X"
 msgstr ""
 

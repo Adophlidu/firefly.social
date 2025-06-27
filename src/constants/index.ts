@@ -155,7 +155,6 @@ export const WALLET_PROFILE_TAB_TYPES: Record<NetworkType, WalletProfileCategory
         WalletProfileCategory.NFTs,
         WalletProfileCategory.Transactions,
         WalletProfileCategory.Activities,
-        WalletProfileCategory.POAPs,
     ],
     [NetworkType.Solana]: [WalletProfileCategory.Transactions],
 };

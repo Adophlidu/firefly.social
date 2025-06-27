@@ -1,0 +1,28 @@
+import type { Meta, StoryObj } from '@storybook/react';
+
+import { NFTs } from '@/components/Profile/NFTs.js';
+
+const meta = {
+    title: 'Profile/NFTs',
+    component: NFTs,
+    render: (args) => {
+        return (
+            <div style={{ width: 591 }}>
+                <NFTs {...args} />
+            </div>
+        );
+    },
+} satisfies Meta<typeof NFTs>;
+
+type Story = StoryObj<typeof meta>;
+
+export const NFTList: Story = {
+    args: {
+        address: '0x7cbba07e31dc7b12bb69a1209c5b11a8ac50acf5',
+    },
+    parameters: {
+        layout: 'center',
+    },
+};
+
+export default meta;

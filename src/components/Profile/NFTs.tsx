@@ -8,15 +8,18 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { NFTListByContract } from '@/components/CollectionDetail/NFTListByContract.js';
 import { Image } from '@/components/Image.js';
 import { NFTCollectionList } from '@/components/Profile/NFTCollectionList.js';
+import { POAPList } from '@/components/Profile/POAPList.js';
 import { useWalletMixAddresses } from '@/components/Profile/useWalletMixAddresses.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import type { EVM } from '@/providers/nft-scan/types.js';
 import { EthereumChainId } from '#masknet/web3-shared-evm';
 
 interface SelectedCollection {
     chainId: EthereumChainId;
     collectionId: string;
-    collection: EVM.Collection;
+    collection: EVM.CollectionBasics;
 }
 
 export function NFTs({ address }: { address: string }) {
@@ -49,15 +52,20 @@ export function NFTs({ address }: { address: string }) {
                             {selectedCollection.collection.name}
                         </div>
                     </div>
-                    <NFTListByContract
-                        contract={selectedCollection.collection.contract_address}
-                        owner={address}
-                        chainId={selectedCollection.chainId}
-                    />
+                    {isSameAddress(selectedCollection.collection.contract_address, POAP_CONTRACT_ADDRESS) ? (
+                        <POAPList address={address} />
+                    ) : (
+                        <NFTListByContract
+                            contract={selectedCollection.collection.contract_address}
+                            owner={address}
+                            chainId={selectedCollection.chainId}
+                        />
+                    )}
                 </>
             ) : (
                 <NFTCollectionList
                     addresses={addresses}
+                    address={address}
                     onClickCollection={(chainId, collectionId, collection) => {
                         setSelectedCollection({ chainId, collectionId, collection });
                     }}

@@ -272,7 +272,6 @@ export enum SocialProfileCategory {
 }
 
 export enum WalletProfileCategory {
-    POAPs = 'poaps',
     NFTs = 'nfts',
     Activities = 'activities',
     Transactions = 'transactions',

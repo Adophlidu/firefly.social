@@ -46,7 +46,6 @@ export function ProfileCategoryTabs({
     const tabTitles: Record<WalletProfileCategory, ReactNode> = useMemo(
         () => ({
             [WalletProfileCategory.Activities]: <Trans>Activities</Trans>,
-            [WalletProfileCategory.POAPs]: <Trans>POAPs</Trans>,
             [WalletProfileCategory.NFTs]: <Trans>NFTs</Trans>,
             [WalletProfileCategory.Transactions]: <Trans>Transactions</Trans>,
         }),
