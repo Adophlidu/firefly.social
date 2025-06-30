@@ -12,6 +12,7 @@ import { Image as NextImage } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { matchDomainSuffix } from '@/helpers/matchDomainSuffix.js';
+import { useDefaultFireflyAvatar } from '@/hooks/useDefaultFireflyAvatar.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
 function resolveImgurUrl(url: string) {
@@ -73,11 +74,11 @@ export const Avatar = memo(function Avatar({
     ...rest
 }: AvatarProps) {
     const isDarkMode = useIsDarkMode();
+    const defaultFallbackUrl = useDefaultFireflyAvatar();
     const [errorMap, setErrorMap] = useState<Record<string, boolean>>({});
 
     const url = [resolveAvatarFallbackUrl, resolveImgurUrl].reduce((acc, fn) => (acc ? fn(acc, isDarkMode) : acc), src);
 
-    const defaultFallbackUrl = isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
     const fallbackUrl = propsFallbackUrl ?? defaultFallbackUrl;
 
     const isNormalUrl =

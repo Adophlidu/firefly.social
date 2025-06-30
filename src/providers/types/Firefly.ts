@@ -11,6 +11,7 @@ import {
     type SocialSourceInURL,
     type Source,
     SourceInURL,
+    TipsNotificationType,
     WalletSource,
 } from '@/constants/enum.js';
 import type { ErcType, EVM } from '@/providers/nft-scan/types.js';
@@ -19,6 +20,7 @@ import type { Article as FormattedArticle, ArticlePlatform, ArticleType } from '
 import type { CoinGeckoAsset } from '@/providers/types/CoinGecko.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import type { NFTFeedV3 } from '@/providers/types/NFTs.js';
+import { NotificationType as SocialNotificationType } from '@/providers/types/SocialMedia.js';
 import type { ComposeType } from '@/types/compose.js';
 
 export enum EmbedMediaType {
@@ -1868,3 +1870,85 @@ type PostStateEntry = {
 export type PostState = Response<PostStateEntry>;
 
 export type PostListState = Response<PostStateEntry[]>;
+
+interface TipsNotificationAccountInfo {
+    avatar: string | null;
+    createdAt: string;
+    createdPlatform: 'maskx';
+    deletedAt: string | null;
+    displayName: string | null;
+    id: string;
+    lastLoginAt: string;
+    privyUserid: string | null;
+    status: 'active';
+    updatedAt: string;
+    _id: number;
+}
+
+export interface TipsNotificationData {
+    notification_type: TipsNotificationType;
+    tx_hash: string;
+    timestamp: string;
+    from_account_info?: TipsNotificationAccountInfo;
+    to_account_info?: TipsNotificationAccountInfo;
+    liker_account_info?: TipsNotificationAccountInfo;
+    amount: string;
+    token_symbol: string;
+    token_icon: string;
+    chain_id: number;
+    has_liked: boolean;
+    token_address: string;
+    fromAddress: string;
+    toAddress: string;
+    tokenPrice: string;
+    tokenName: string;
+}
+
+export type TipsNotification = {
+    source: Source.Firefly;
+    type: SocialNotificationType.Tips;
+    data: TipsNotificationData;
+    timestamp: number;
+    notificationId: string;
+};
+
+export type TipsNotificationsResponse = Response<{
+    data: TipsNotificationData[];
+    pagination: {
+        total: number;
+        page: number;
+        limit: number;
+        totalPages: number;
+    };
+}>;
+
+export interface TipsAccountInfo {
+    firefly_uid: string;
+    firefly_uuid: string;
+    firefly_avatar: string;
+    firefly_name: string;
+}
+
+export interface TipsDetail {
+    status: 'success';
+    notification_type: TipsNotificationType;
+    chain_id: number;
+    tx_hash: string;
+    height: number;
+    timestamp: number;
+    from_address: string;
+    to_address: string;
+    amount: string;
+    token_price: string;
+    token_symbol: string;
+    token_name: string;
+    token_icon: string;
+    token_address: string;
+    token_type: string;
+    tips_memos: string;
+    has_liked: boolean;
+    from_account?: TipsAccountInfo;
+    to_account?: TipsAccountInfo;
+}
+
+export type TipsDetailResponse = Response<TipsDetail>;

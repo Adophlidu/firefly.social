@@ -8,7 +8,7 @@ import { type Notification, NotificationType, type Post, type Profile } from '@/
 
 type Patcher = (old: Draft<Notification>) => void;
 
-function patchNotificationQueryData(source: Source, patcher: Patcher) {
+export function patchNotificationQueryData(source: Source, patcher: Patcher) {
     queryClient.setQueriesData<{ pages: Array<{ data: Notification[] }> }>({ queryKey: ['notifications'] }, (old) => {
         if (!old) return old;
 
@@ -44,6 +44,7 @@ export function patchNotificationQueryDataOnPost(source: Source, patcher: PostPa
             case NotificationType.Follow:
             case NotificationType.Mirror:
             case NotificationType.Reaction:
+            case NotificationType.Tips:
                 break;
             default:
                 safeUnreachable(type);
@@ -80,6 +81,9 @@ export function patchNotificationQueryDataOnAuthor(source: Source, patcher: Prof
                 break;
             case NotificationType.Reaction:
                 target = first(notification.reactors);
+                break;
+            case NotificationType.Tips:
+                target = undefined; // TODO: get author
                 break;
             default:
                 safeUnreachable(type);

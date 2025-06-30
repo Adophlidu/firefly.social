@@ -5,6 +5,7 @@ import FollowIcon from '@/assets/follow.svg';
 import LikeIcon from '@/assets/like-large.svg';
 import MessagesIcon from '@/assets/message2.svg';
 import MirrorIcon from '@/assets/mirror-large.svg';
+import TipsIcon from '@/assets/tips.svg';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { NotificationType } from '@/providers/types/SocialMedia.js';
 
@@ -20,6 +21,7 @@ export const resolveNotificationIcon = createLookupTableResolver<
         [NotificationType.Quote]: MirrorIcon,
         [NotificationType.Follow]: FollowIcon,
         [NotificationType.Mention]: MessagesIcon,
+        [NotificationType.Tips]: TipsIcon,
     },
     null,
 );

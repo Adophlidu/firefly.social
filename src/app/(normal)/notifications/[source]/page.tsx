@@ -5,6 +5,7 @@ import { use } from 'react';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Loading } from '@/components/Loading.js';
 import { NotificationItem } from '@/components/Notification/NotificationItem.js';
+import { TipsNotificationItem } from '@/components/Notification/TipsNotificationItem.js';
 import { type NotificationSource, ScrollListKey, Source, SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST, SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
@@ -14,11 +15,16 @@ import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentProfilesAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginNotifications } from '@/hooks/useIsLogin.js';
 import { useMultiInfiniteQueryPageable } from '@/hooks/useMultiInfiniteQueryPageable.js';
-import { type Notification as NotificationObject } from '@/providers/types/SocialMedia.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { type Notification as NotificationObject, NotificationType } from '@/providers/types/SocialMedia.js';
 import { useNotificationStateStore } from '@/store/useNotificationStore.js';
 import type { NextPageProps } from '@/types/index.js';
 
 const getNotificationItemContent = (index: number, notification: NotificationObject) => {
+    if (notification.type === NotificationType.Tips) {
+        return <TipsNotificationItem key={notification.notificationId} data={notification.data} />;
+    }
+
     return <NotificationItem key={notification.notificationId} notification={notification} />;
 };
 
@@ -37,17 +43,24 @@ export default function Page(props: Props) {
 
     const queryResult = useMultiInfiniteQueryPageable(
         ['notifications', source, isLogin, enableQualityFilter, asyncStatusAll],
-        SOCIAL_DISCOVER_SOURCE.filter((x) => {
-            if (source === Source.Notifications) return !!profilesAll[x];
-            return x === source;
-        }).map((x) => ({
-            key: x,
-            queryFn: async ({ pageParam }) => {
-                const indicator = createIndicator(undefined, pageParam);
-                if (!isLogin) return createPageable(EMPTY_LIST, indicator);
-                return resolveSocialMediaProvider(x).getNotifications(indicator, enableQualityFilter);
-            },
-        })),
+        ([...SOCIAL_DISCOVER_SOURCE, NotificationType.Tips] as const)
+            .filter((x) => {
+                if (source === Source.Notifications) return x === NotificationType.Tips ? isLogin : !!profilesAll[x];
+                return x === source;
+            })
+            .map((x) => ({
+                key: x,
+                queryFn: async ({ pageParam }) => {
+                    const indicator = createIndicator(undefined, pageParam);
+                    if (!isLogin) return createPageable(EMPTY_LIST, indicator);
+
+                    if (x === NotificationType.Tips) {
+                        return FireflyEndpointProvider.getTipsNotifications(indicator);
+                    }
+
+                    return resolveSocialMediaProvider(x).getNotifications(indicator, enableQualityFilter);
+                },
+            })),
         (data) => {
             const list = data.pages.flatMap((page) =>
                 page.data.concat().sort((a, b) => {

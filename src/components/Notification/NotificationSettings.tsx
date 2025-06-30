@@ -3,6 +3,7 @@
 import { Popover, PopoverButton, PopoverPanel, Switch } from '@headlessui/react';
 import { Trans } from '@lingui/react/macro';
 import { useQuery } from '@tanstack/react-query';
+import { compact } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -83,14 +84,21 @@ export function NotificationSettings({ source }: { source: NotificationSource })
 
         return [Source.Farcaster, Source.Bsky].includes(source)
             ? baseTypes
-            : [
+            : compact([
                   ...baseTypes,
                   {
                       Icon: resolveNotificationIcon(NotificationType.Act),
                       text: <Trans>Collect</Trans>,
                       types: [NotificationType.Act],
                   },
-              ];
+                  source === Source.Notifications
+                      ? {
+                            Icon: resolveNotificationIcon(NotificationType.Tips),
+                            text: <Trans>Tip</Trans>,
+                            types: [NotificationType.Tips],
+                        }
+                      : null,
+              ]);
     }, [source]);
 
     return (

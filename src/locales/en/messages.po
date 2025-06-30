@@ -859,6 +859,9 @@ msgstr "New Connect"
 msgid "Connected accounts"
 msgstr "Connected accounts"
 
+msgid "Failed to load image."
+msgstr "Failed to load image."
+
 #. placeholder {0}: space.name
 #. placeholder {1}: ensHandle.data || formatAddressEthereum(snapshot.author, 4)
 msgid "<0>{0}</0> by <1>{1}</1>"
@@ -1457,6 +1460,13 @@ msgstr "You cannot reply to @{0} on {1}."
 msgid "Are you sure you want to report this collection?"
 msgstr "Are you sure you want to report this collection?"
 
+#. placeholder {0}: fromAccountInfo?.link ? ( <Link onClick={stopPropagation} className="font-bold hover:underline" href={fromAccountInfo.link} > {fromAccountInfo?.displayName || '-'} </Link> ) : ( <span className="font-bold">{fromAccountInfo?.displayName || '-'}</span> )
+#. placeholder {1}: data.amount
+#. placeholder {2}: data.token_symbol
+#. placeholder {3}: getChainName(data.chain_id)
+msgid "{0} tipped you <0>{1} ${2}</0> on <1>{3}</1>"
+msgstr "{0} tipped you <0>{1} ${2}</0> on <1>{3}</1>"
+
 msgid "Failed to send."
 msgstr "Failed to send."
 
@@ -1570,6 +1580,9 @@ msgstr "Platform fee"
 #. placeholder {0}: profile.handle
 msgid "All posts from @{0} will be hidden from you"
 msgstr "All posts from @{0} will be hidden from you"
+
+msgid "<0><1/><2>Received a tip</2></0><3>from</3>{targetAccount}"
+msgstr "<0><1/><2>Received a tip</2></0><3>from</3>{targetAccount}"
 
 msgid "Your email address"
 msgstr "Your email address"
@@ -1736,6 +1749,9 @@ msgstr "Expired"
 #. placeholder {0}: Math.floor(span / HOUR_SPAN)
 msgid "{0, plural, one {# hour} other {# hours}}"
 msgstr "{0, plural, one {# hour} other {# hours}}"
+
+msgid "Tip {hash} could not be found."
+msgstr "Tip {hash} could not be found."
 
 msgid "Nickname must not contain restricted symbols"
 msgstr "Nickname must not contain restricted symbols"
@@ -3017,6 +3033,9 @@ msgstr "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}
 msgid "Failed to repost."
 msgstr "Failed to repost."
 
+msgid "Download image"
+msgstr "Download image"
+
 msgid "Sorry, today's free collect quota has been reached."
 msgstr "Sorry, today's free collect quota has been reached."
 
@@ -3056,6 +3075,9 @@ msgstr "Installed"
 
 msgid "Primary wallet"
 msgstr "Primary wallet"
+
+msgid "<0><1/><2>Sent a tip</2></0><3>to</3>{targetAccount}"
+msgstr "<0><1/><2>Sent a tip</2></0><3>to</3>{targetAccount}"
 
 #. placeholder {0}: profile.handle
 msgid "Muted @{0} on {sourceName}."
@@ -3623,6 +3645,9 @@ msgstr ""
 "\n"
 "Claim here {shareUrl}"
 
+msgid "Share image"
+msgstr "Share image"
+
 msgid "Download Wallet"
 msgstr "Download Wallet"
 
@@ -3697,6 +3722,10 @@ msgstr "Username or email address"
 #. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null
 msgid "<0>Minted</0><1/>{0}"
 msgstr "<0>Minted</0><1/>{0}"
+
+#. placeholder {0}: fromAccountInfo?.link ? ( <Link onClick={stopPropagation} className="font-bold hover:underline" href={fromAccountInfo.link} > {fromAccountInfo?.displayName || '-'} </Link> ) : ( <span className="font-bold">{fromAccountInfo?.displayName || '-'}</span> )
+msgid "{0} liked your <0>tip</0>"
+msgstr "{0} liked your <0>tip</0>"
 
 msgid "1M"
 msgstr "1M"
@@ -3950,6 +3979,9 @@ msgstr "Preview"
 
 msgid "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
 msgstr "You are holder of <0>Presidential Election 2024</0> NFT and voted Trump"
+
+msgid "Tip"
+msgstr "Tip"
 
 msgid "Unmute"
 msgstr "Unmute"
@@ -4493,3 +4525,6 @@ msgstr "Golden"
 
 msgid "Multi-device login"
 msgstr "Multi-device login"
+
+msgid "Success"
+msgstr "Success"

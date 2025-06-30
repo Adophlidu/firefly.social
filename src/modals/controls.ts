@@ -30,6 +30,7 @@ import type { PasswordModalOpenProps } from '@/modals/PasswordModal/index.js';
 import type { PreviewMediaModalOpenProps } from '@/modals/PreviewMediaModal.js';
 import type { RedPacketModalOpenProps } from '@/modals/RedPacketModal/index.js';
 import type { SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';
+import type { ShareImageModalOpenProps } from '@/modals/ShareImageModal.js';
 import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
 import type { SuperFollowModalOpenProps } from '@/modals/SuperFollowModal.js';
 import type { SwapModalOpenProps } from '@/modals/SwapModal.js';
@@ -83,3 +84,4 @@ export const ConfirmSyncSessionModalRef = new SingletonModal<
     ConfirmSyncSessionModalCloseProps
 >();
 export const CreateFireflyAccountGuideModalRef = new SingletonModal<void, void>();
+export const ShareImageModalRef = new SingletonModal<ShareImageModalOpenProps, void>();

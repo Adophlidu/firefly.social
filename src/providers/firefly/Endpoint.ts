@@ -7,12 +7,14 @@ import { DEBANK_CHAIN_TO_CHAIN_ID_MAP, DEBANK_CHAINS } from '@/constants/chain.j
 import {
     ConnectionPlatform,
     FireflyPlatform,
+    LikeRecordType,
     Locale,
     NetworkType,
     type ProfilePageSource,
     type SocialSource,
     Source,
     SourceInURL,
+    TipsNotificationType,
 } from '@/constants/enum.js';
 import { OTPExceededMaximumLimit } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -124,6 +126,9 @@ import {
     type SwapActivityTimeline,
     type TakoExternalHostedData,
     type TelegramLoginBotResponse,
+    type TipsDetailResponse,
+    type TipsNotification,
+    type TipsNotificationsResponse,
     type TokenPriceStatsOptions,
     type TokenPriceStatsResponse,
     type TokenWithMarketData,
@@ -147,7 +152,7 @@ import type {
     PoapHoldersResponse,
     PoapResponse,
 } from '@/providers/types/NFTs.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { NotificationType, type Post } from '@/providers/types/SocialMedia.js';
 import { convertBskyHandleToDid } from '@/services/convertBskyHandleToDid.js';
 import { encryptPasscode } from '@/services/crypto.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
@@ -999,7 +1004,7 @@ class FireflyEndpoint {
         return result;
     }
 
-    async likeCreate(like_type: string, platform_id: string, like_id: string, like_owner_id: string) {
+    async likeCreate(like_type: LikeRecordType, platform_id: string, like_id: string, like_owner_id: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/like/create');
         await fireflySessionHolder.fetch<EmptyResponse>(url, {
             method: 'POST',
@@ -1658,6 +1663,41 @@ class FireflyEndpoint {
         const response = await fireflySessionHolder.fetch<MetricsDownloadResponse>(url);
 
         return resolveFireflyResponseData(response);
+    }
+
+    async getTipsNotifications(indicator?: PageIndicator) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/token_tips/notifications', {
+            page: !indicator?.id || indicator.id === '0' ? 1 : indicator?.id,
+            limit: 20,
+        });
+        const response = await fireflySessionHolder.fetch<TipsNotificationsResponse>(url);
+        const data = resolveFireflyResponseData(response);
+
+        return createPageable(
+            (data?.data || EMPTY_LIST).map<TipsNotification>((x) => ({
+                source: Source.Firefly,
+                type: NotificationType.Tips,
+                data: x,
+                timestamp: new Date(x.timestamp).getTime(),
+                notificationId: `${x.tx_hash}-${x.notification_type}-${x.liker_account_info?.id}`,
+            })),
+            createIndicator(indicator),
+            data?.pagination?.page < data?.pagination?.totalPages
+                ? createNextIndicator(indicator, `${data.pagination.page + 1}`)
+                : undefined,
+        );
+    }
+
+    async getTipsTransactionDetail(txHash: string, type: TipsNotificationType) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/token_tips/detail', {
+            tx_hash: txHash,
+            source: type,
+        });
+        const response = await fireflySessionHolder.fetch<TipsDetailResponse>(url);
+        const data = resolveFireflyResponseData(response);
+        if (!data) throw new Error('Tips notification not found');
+
+        return data;
     }
 }
 

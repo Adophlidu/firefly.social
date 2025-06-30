@@ -8,7 +8,12 @@ import {
     type SocialSource,
 } from '@/constants/enum.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
-import type { FireflyIdentity, NotificationSettings, WalletProfile } from '@/providers/types/Firefly.js';
+import type {
+    FireflyIdentity,
+    NotificationSettings,
+    TipsNotification,
+    WalletProfile,
+} from '@/providers/types/Firefly.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import type { Session } from '@/providers/types/Session.js';
 
@@ -41,6 +46,7 @@ export enum NotificationType {
     Follow = 'follow',
     Mention = 'mention',
     Act = 'act',
+    Tips = 'tips',
 }
 
 export enum ProfileStatus {
@@ -381,7 +387,8 @@ export type Notification =
     | CommentNotification
     | FollowNotification
     | MentionNotification
-    | ActedNotification;
+    | ActedNotification
+    | TipsNotification;
 
 export interface Channel<T = unknown> {
     source: SocialSource;

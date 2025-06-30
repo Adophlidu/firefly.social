@@ -610,3 +610,18 @@ export enum SignupStep {
     CreateAccountForm = 'create_account_form',
     Success = 'success',
 }
+
+export enum TipsNotificationType {
+    Tip = 'tip',
+    Like = 'like',
+}
+
+export enum TipsDetailViewType {
+    Sender = 'sender',
+    Receiver = 'receiver',
+}
+
+export enum LikeRecordType {
+    Swap = 'swap',
+    Tips = 'token_tips',
+}

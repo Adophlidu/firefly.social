@@ -19,6 +19,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
+import { useEnsNameCached } from '@/hooks/useEnsNameCached.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
@@ -30,9 +31,19 @@ interface Props {
     tokenId?: string;
     chainId?: number;
     ens?: string;
+    showTips?: boolean;
+    autoQueryEns?: boolean;
 }
 
-export function WalletBaseMoreAction({ ens, address, contractAddress, tokenId, chainId }: Props) {
+export function WalletBaseMoreAction({
+    ens: originalEns,
+    address,
+    contractAddress,
+    tokenId,
+    chainId,
+    showTips = true,
+    autoQueryEns = false,
+}: Props) {
     const { data } = useNFTDetail(chainId, contractAddress, tokenId);
     const { data: isMuted } = useIsWalletMuted(address);
     const profiles = useCurrentFireflyProfilesAll();
@@ -40,10 +51,14 @@ export function WalletBaseMoreAction({ ens, address, contractAddress, tokenId, c
     const identity = useFireflyIdentity(Source.Wallet, address);
     const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
 
+    const { data: ensFromQuery } = useEnsNameCached(address, undefined, autoQueryEns);
+
+    const ens = originalEns || ensFromQuery;
     const ensOrAddress = ens || formatAddress(address, 4);
 
     const shouldShowTips =
         env.external.NEXT_PUBLIC_TIPS === STATUS.Enabled &&
+        showTips &&
         isValidAddressEthereum(address) &&
         !profiles.some((profile) => isSameFireflyIdentity(profile.identity, identity));
 

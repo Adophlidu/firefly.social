@@ -23,10 +23,11 @@ import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { toProfileId } from '@/helpers/isSameProfile.js';
 import { resolveNotificationIcon } from '@/helpers/resolveNotificationIcon.js';
 import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
+import type { TipsNotification } from '@/providers/types/Firefly.js';
 import { type Notification, NotificationType } from '@/providers/types/SocialMedia.js';
 
 interface NotificationItemProps {
-    notification: Notification;
+    notification: Exclude<Notification, TipsNotification>;
 }
 
 export const NotificationItem = memo<NotificationItemProps>(function NotificationItem({ notification }) {
