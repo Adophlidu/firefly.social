@@ -1,5 +1,5 @@
 import { sortBy } from 'lodash-es';
-import { createContext, useContext, useLayoutEffect, useMemo, useRef } from 'react';
+import { createContext, type CSSProperties, useContext, useLayoutEffect, useMemo, useRef } from 'react';
 
 import { AvatarRadius, SafePadding } from '@/components/PriceChart/config.js';
 import { TraderAvatar } from '@/components/PriceChart/TraderAvatar.js';
@@ -116,15 +116,17 @@ export function TraderLayer(props: any) {
                         className={classNames(
                             'cursor-pointer transition-all duration-300 ease-in-out hover:scale-[1.4]',
                             pinned ? 'scale-[1.4]' : null,
-                            {
-                                'scale-[1.4]': pinned,
-                                'hover:translate-x-4': reachedLeftEdge,
-                                'translate-x-4': reachedLeftEdge && pinned,
-                                'hover:-translate-x-4': reachedRightEdge,
-                                '-translate-x-4': reachedRightEdge && pinned,
-                            },
                         )}
-                        style={{ transformOrigin: `${cx}px ${cy}px` }}
+                        style={
+                            {
+                                transformOrigin: `${cx}px ${cy}px`,
+                                '--tw-translate-x': reachedLeftEdge
+                                    ? `${SafePadding - cx}px`
+                                    : reachedRightEdge
+                                      ? `-${cx - xAxis.width + SafePadding}px`
+                                      : undefined,
+                            } as CSSProperties
+                        }
                         onMouseEnter={() => {
                             onAvatarHover?.(record);
                         }}

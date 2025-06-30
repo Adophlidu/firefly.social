@@ -264,14 +264,15 @@ export const Overview = memo<TokenOverviewProps>(function TokenOverview({ coinId
                 {coin?.home_urls?.length ? (
                     <InfoRow
                         title={<Trans>Website</Trans>}
+                        className="!items-start"
                         extra={
-                            <div className="flex gap-1">
+                            <div className="flex flex-col justify-end gap-1">
                                 {coin.home_urls.map((url) => (
                                     <Link
                                         key={url}
                                         href={url}
                                         target="_blank"
-                                        className="text-highlight hover:underline"
+                                        className="text-right text-highlight hover:underline"
                                     >
                                         {getHost(url)}
                                     </Link>

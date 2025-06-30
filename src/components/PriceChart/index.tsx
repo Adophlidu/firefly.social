@@ -48,7 +48,7 @@ interface PriceChartProps extends HTMLProps<HTMLDivElement> {
 
 const YAxisDomain: AxisDomain = ([dataMin, dataMax]) => {
     const padding = (dataMax - dataMin) * (SafePadding / PriceChartHeight);
-    return [dataMin - padding, dataMax];
+    return [dataMin - padding, dataMax + padding];
 };
 
 export const PriceChart = memo<PriceChartProps>(function PriceChart({
