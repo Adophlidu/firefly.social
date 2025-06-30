@@ -67,21 +67,21 @@ class Telemetry extends Provider<Events, never> {
             return;
         }
 
-        const formattedParameters = Object.fromEntries(
-            Object.entries(parameters).map(([key, value]) => formatParameter(key, value)),
-        );
-
         // update the latest event id
         const publicParameters = getPublicParameters(uuid(), this.latestEventId);
         this.latestEventId = publicParameters.public_uuid;
 
+        const formattedParameters = Object.fromEntries(
+            Object.entries({
+                ...publicParameters,
+                ...parameters,
+            }).map(([key, value]) => formatParameter(key, value)),
+        );
+
         const event = {
             eventType: name,
             eventName: name.replaceAll(/_/g, ' '),
-            parameters: {
-                ...publicParameters,
-                ...formattedParameters,
-            } as unknown as Events[T]['parameters'],
+            parameters: formattedParameters as unknown as Events[T]['parameters'],
         };
 
         if (provider_filter === ProviderFilter.All || provider_filter === ProviderFilter.GA) {
