@@ -15,10 +15,10 @@ import PriceArrow from '@/assets/price-arrow.svg';
 import TwitterIcon from '@/assets/x-fill.svg';
 import { ChainIcon } from '@/components/ChainIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Link } from '@/components/Link.js';
 import { PriceChart } from '@/components/PriceChart/index.js';
 import { useWithinRangeRecords } from '@/components/PriceChart/useWithinRangeRecords.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { TokenIcon } from '@/components/TokenIcon.js';
 import { ContractList } from '@/components/TokenProfile/ContractList.js';
 import { SwapButton } from '@/components/TokenProfile/SwapButton.js';
@@ -149,9 +149,10 @@ export const TokenMarketData = memo(function TokenMarketData({
 
     const baseInfo = (
         <>
-            <strong className="ml-0.5 text-medium font-bold text-main">{token.name}</strong>
+            <TextOverflowTooltip content={token.name} placement="top">
+                <strong className="ml-0.5 min-w-0 truncate text-medium font-bold text-main">{token.name}</strong>
+            </TextOverflowTooltip>
             <span className="font-inter text-medium font-bold uppercase">{token.symbol}</span>
-            {address ? <CopyTextButton text={address} tooltipProps={{ placement: 'bottom' }} /> : null}
         </>
     );
 
@@ -221,11 +222,11 @@ export const TokenMarketData = memo(function TokenMarketData({
     return (
         <div {...rest} className={classNames('flex flex-col gap-1.5 p-3', rest.className)}>
             <div className="flex items-start">
-                <div className="flex flex-grow flex-col gap-1.5">
-                    <div className="flex h-[42px] items-center gap-4">
+                <div className="flex min-w-0 flex-grow flex-col gap-1.5">
+                    <div className="flex h-[42px] min-w-0 items-center gap-4">
                         {wrapLink(icon, tokenPageUrl, linkable)}
-                        <div className="flex flex-col gap-1">
-                            <div className="flex items-center gap-1 leading-6 text-second">
+                        <div className="flex min-w-0 flex-col gap-1">
+                            <div className="flex min-w-0 items-center gap-1 leading-6 text-second">
                                 {wrapLink(baseInfo, tokenPageUrl, linkable)}
                                 {tokenRank ? (
                                     <span className="inline-flex h-[14px] items-center whitespace-nowrap rounded bg-highlight px-1 py-0.5 text-[10px] text-white">
