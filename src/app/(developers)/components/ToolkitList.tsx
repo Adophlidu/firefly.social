@@ -19,7 +19,8 @@ export function ToolkitList() {
                 { name: 'Session Validator', link: '/session' },
                 { name: 'Frame Validator', link: '/frame' },
                 { name: 'OpenGraph Validator', link: '/og' },
-                { name: 'LinkDigest Validator', link: '/digestLink' },
+                { name: 'LinkDigest Validator', link: '/digest-link' },
+                { name: 'PostLink Validator', link: '/post-link' },
             ].map(({ name, link }) => (
                 <Link
                     className={`mb-6 flex items-center justify-between border-b border-line pb-1 text-[18px] leading-[24px] text-main hover:font-bold ${
