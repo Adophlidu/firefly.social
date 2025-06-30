@@ -340,7 +340,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                         className="size-full"
                         records={stats}
                         tradeRecords={showUserTx ? withinRangeTradeRecords : EMPTY_LIST}
-                        activeTradeHash={pendingTradeHash ?? propTradeHash}
+                        activeTradeHash={pendingTradeHash ?? activeTradeHash ?? propTradeHash}
                         onHover={(payload) => setActiveRecord(payload)}
                         onMouseLeave={() => setActiveRecord(undefined)}
                         onDotClick={handleDotClick}
@@ -359,7 +359,7 @@ export const TokenMarketData = memo(function TokenMarketData({
                                     key={i}
                                     className="group min-w-4 max-w-[60px] shrink-0 flex-grow cursor-pointer py-1 first:ml-auto last:mr-auto"
                                     onClick={() => {
-                                        setActiveTradeHash(trade.hash);
+                                        setActiveTradeHash((hash) => (trade.hash === hash ? undefined : trade.hash));
                                     }}
                                     onMouseEnter={() => {
                                         setPendingTradeHash(trade.hash);

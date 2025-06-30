@@ -78,11 +78,11 @@ export function TraderLayer(props: any) {
         <g>
             <svg width={AvatarSize} height={AvatarSize} viewBox={`0 0 ${AvatarSize} ${AvatarSize}`}>
                 <defs>
-                    {sortedRecords.map((record, i) => {
+                    {sortedRecords.map((record) => {
                         return (
                             <pattern
-                                key={`${record.date}/${i}`}
-                                id={`avatar-${record.date}/${i}`}
+                                key={record.hash}
+                                id={`avatar-${record.hash}`}
                                 patternUnits="objectBoundingBox"
                                 height={AvatarSize}
                                 width={AvatarSize}
@@ -99,7 +99,7 @@ export function TraderLayer(props: any) {
                     })}
                 </defs>
             </svg>
-            {sortedRecords.map((record, i) => {
+            {sortedRecords.map((record) => {
                 const offset = tradeRecords.findIndex((x) => x === record);
                 const index = data.findIndex((x) => x.date === record.date);
 
@@ -141,7 +141,7 @@ export function TraderLayer(props: any) {
                             r={AvatarRadius - 1} // to avoid clipping the stroke
                             stroke={record.type === 'buy' ? 'rgb(var(--color-success))' : 'rgb(var(--color-danger))'}
                             strokeWidth={2}
-                            fill={`url(#avatar-${record.date}/${i})`}
+                            fill={`url(#avatar-${record.hash})`}
                         />
                     </g>
                 );

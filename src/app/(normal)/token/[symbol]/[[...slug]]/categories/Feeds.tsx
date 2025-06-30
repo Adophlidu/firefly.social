@@ -131,7 +131,7 @@ export const Feeds = memo<Props>(function Feeds({ chainId, address, symbol, name
                                 e.preventDefault();
                                 setPendingSource(x);
                                 startTransition(() => {
-                                    router.push(resolveTab(pathname, params, x));
+                                    router.replace(resolveTab(pathname, params, x), { showProgress: false });
                                 });
                             }}
                             aria-current={source === x ? 'page' : undefined}

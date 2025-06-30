@@ -104,7 +104,7 @@ export const Transactions = memo<Props>(function Transactions({
                                 e.preventDefault();
                                 setPendingCategory(x.value);
                                 startTransition(() => {
-                                    router.replace(resolveTab(pathname, params, x.value));
+                                    router.replace(resolveTab(pathname, params, x.value), { showProgress: false });
                                 });
                             }}
                             aria-current={selected ? 'page' : undefined}
