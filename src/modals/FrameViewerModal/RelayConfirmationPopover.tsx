@@ -165,19 +165,13 @@ export function RelayConfirmationPopover({ ref }: Props) {
                     <div className="mt-3 px-6 text-xs">
                         {scannedProfile ? (
                             <Trans>
-                                The scanned profile{' '}
-                                {
-                                    <div className="inline-flex items-center gap-1">
-                                        <ProfileAvatar size={12} profile={scannedProfile} enableSourceIcon={false} />
-                                        <strong>{scannedProfile?.displayName}</strong>
-                                    </div>
-                                }{' '}
-                                does not match your current profile. Please retry with the correct Farcaster account.
+                                You&apos;re trying to connect a different account than the one currently active on
+                                Firefly. Please try again.
                             </Trans>
                         ) : (
                             <Trans>
-                                Scan this QR code and tap &ldquo;Approve&rdquo; on your Farcaster mobile app to start
-                                using your public profile.
+                                Scan this QR code and confirm on your Farcaster mobile app to start using your public
+                                profile.
                             </Trans>
                         )}
                     </div>

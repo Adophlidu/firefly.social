@@ -1382,6 +1382,9 @@ msgstr ""
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr ""
 
+msgid "Scan this QR code and confirm on your Farcaster mobile app to start using your public profile."
+msgstr ""
+
 #. placeholder {0}: BRIAN_FARCASTER_PROFILE.handle
 msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{0}</1> on Farcaster before Oct 20, 2024"
 msgstr ""
@@ -1861,13 +1864,6 @@ msgid "Posted by {displayName} via Firefly"
 msgstr ""
 
 msgid "Only people you mention"
-msgstr ""
-
-#. placeholder {0}: scannedProfile?.displayName
-msgid "The scanned profile <0><1/><2>{0}</2></0> does not match your current profile. Please retry with the correct Farcaster account."
-msgstr ""
-
-msgid "Scan this QR code and tap “Approve” on your Farcaster mobile app to start using your public profile."
 msgstr ""
 
 #. placeholder {0}: space.participant_count?.toLocaleString()
@@ -4421,6 +4417,9 @@ msgid "Logging out will cause scheduled posts to fail. To ensure that posts are 
 msgstr ""
 
 msgid "Failed to create schedule post."
+msgstr ""
+
+msgid "You're trying to connect a different account than the one currently active on Firefly. Please try again."
 msgstr ""
 
 #. placeholder {0}: first(post.mirrors)?.displayName
