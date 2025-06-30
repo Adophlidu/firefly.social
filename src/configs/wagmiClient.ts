@@ -9,6 +9,7 @@ import {
     aurora,
     avalanche,
     base,
+    baseSepolia,
     bsc,
     confluxESpace,
     fantom,
@@ -29,6 +30,7 @@ import {
     aurora as wagmiAurora,
     avalanche as wagmiAvalanche,
     base as wagmiBase,
+    baseSepolia as wagmiBaseSepolia,
     bsc as wagmiBsc,
     confluxESpace as wagmiConfluxESpace,
     fantom as wagmiFantom,
@@ -52,6 +54,7 @@ import { WalletId } from '@/constants/reown.js';
 export const networks = [
     mainnet,
     base,
+    baseSepolia,
     bsc,
     polygon,
     optimism,
@@ -73,6 +76,7 @@ export const networks = [
 export const chains = [
     wagmiMainnet,
     wagmiBase,
+    wagmiBaseSepolia,
     wagmiBsc,
     wagmiPolygon,
     wagmiOptimism,
