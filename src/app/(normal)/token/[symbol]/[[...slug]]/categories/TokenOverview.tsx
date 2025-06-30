@@ -29,7 +29,7 @@ import { useDetectToken } from '@/hooks/useDetectToken.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { CommunityUrl, Contract } from '@/providers/types/Trending.js';
 
-interface InfoRowProps {
+interface InfoRowProps extends Omit<HTMLProps<HTMLDivElement>, 'title'> {
     title: ReactNode;
     description?: ReactNode;
     value?: string | number;
@@ -42,9 +42,9 @@ function renderZero(value?: string) {
     return !value || value.replace('$', '') === '0' ? '-' : value;
 }
 
-function InfoRow({ title, description, amount, asInfinite, value, extra }: InfoRowProps) {
+function InfoRow({ title, description, amount, asInfinite, value, extra, className, ...rest }: InfoRowProps) {
     return (
-        <div className="flex items-center text-medium">
+        <div className={classNames('flex items-center text-medium', className)} {...rest}>
             <span className="text-second">{title}</span>
             {description ? (
                 <Tooltip placement="top" content={description} touch>
@@ -455,14 +455,15 @@ export const DexCoinOverview = memo<DexCoinOverviewProps>(function DexCoinOvervi
                 {detail.links.homepage.length ? (
                     <InfoRow
                         title={<Trans>Website</Trans>}
+                        className="!items-start"
                         extra={
-                            <div className="flex gap-1">
+                            <div className="flex flex-col justify-end gap-1">
                                 {detail.links.homepage.map((url) => (
                                     <Link
                                         key={url}
                                         href={url}
                                         target="_blank"
-                                        className="text-[#8E96FF] hover:underline"
+                                        className="text-right text-[#8E96FF] hover:underline"
                                     >
                                         {getHost(url)}
                                     </Link>

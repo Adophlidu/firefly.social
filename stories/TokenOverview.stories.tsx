@@ -26,8 +26,8 @@ type Story = StoryObj<typeof meta>;
 export const Base: Story = {
     args: {
         coinId: '',
-        chainId: 56,
-        address: '0x5caef24098a04d65780ae7a54ad2bfa0548a4d28',
+        chainId: 8453,
+        address: '0x2efac0a597a37050aafcf4bec627249d533dd9f8',
     },
     parameters: {
         layout: 'centered',
