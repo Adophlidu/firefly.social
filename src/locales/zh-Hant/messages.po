@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-06-13 15:43\n"
+"PO-Revision-Date: 2025-06-28 00:06\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1360,7 +1360,7 @@ msgid "Privacy and security"
 msgstr ""
 
 msgid "Create your Firefly Profile"
-msgstr ""
+msgstr "建立 Firefly 個人檔案"
 
 msgid "Log in with your X account to view"
 msgstr "使用 X 帳號登入以查看"
@@ -1395,7 +1395,7 @@ msgid "Cannot choose due to account mismatch."
 msgstr "因帳戶不匹配無法選擇"
 
 msgid "In some cases, you can also find a more detailed breakdown of holders in the explorer page."
-msgstr ""
+msgstr "您也可以在區塊鏈瀏覽器頁面找到更詳細的持幣者分析。"
 
 msgid "Change password"
 msgstr ""
@@ -1604,7 +1604,7 @@ msgid "No function found that retrieves ownership"
 msgstr "未找到所有權查詢功能"
 
 msgid "Market Cap is sourced from CoinGecko and includes token issued on other blockchain."
-msgstr ""
+msgstr "市值數據來自 CoinGecko，包含該代幣在其他區塊鏈上的發行量。"
 
 msgid "Send"
 msgstr "發送"
@@ -1777,7 +1777,7 @@ msgid "{0} Comments"
 msgstr "{0} 則留言"
 
 msgid "Assuming circulating supply = total supply (includes locked, excludes burned)"
-msgstr ""
+msgstr "假設流通量 = 總量（含鎖定部分，不含銷毀部分）"
 
 msgid "Schedule Post"
 msgstr "定時貼文"
@@ -1799,13 +1799,13 @@ msgid "Proxy contract"
 msgstr "代理合約"
 
 msgid "One Firefly account manages all your social accounts"
-msgstr ""
+msgstr "一個 Firefly 帳戶即可管理所有社交帳號"
 
 msgid "Posted to Farcaster on <0>Supercast</0>"
 msgstr "透過 <0>Supercast</0> 發佈至 Farcaster"
 
 msgid "Your gateway to a personalized social experience."
-msgstr ""
+msgstr "通往個人化社交體驗的入口。"
 
 msgid "Total amount shared among all winners"
 msgstr "總金額由所有獲獎者共享"
@@ -1817,7 +1817,7 @@ msgid "Enter number of winners"
 msgstr "輸入獲獎人數"
 
 msgid "Cross-post to multiple platforms, track friends' trades, uncover alpha in social posts"
-msgstr ""
+msgstr "支援跨平台一鍵發文，聚合好友交易動態，挖掘社交數據中的交易機會"
 
 msgid "Resend"
 msgstr "重新發送"
@@ -1926,7 +1926,7 @@ msgid "Muted wallets"
 msgstr "已靜音錢包"
 
 msgid "Everything app for Web3 natives"
-msgstr ""
+msgstr "Web3 原住民的萬能應用"
 
 msgid "All wallets and accounts are muted."
 msgstr "所有錢包和帳號已靜音"
@@ -1962,7 +1962,7 @@ msgid "Just now"
 msgstr ""
 
 msgid "Your Firefly Identity is now active."
-msgstr ""
+msgstr "你的 Firefly 身份已啟用"
 
 msgid "Failed to mint NFT."
 msgstr "鑄造 NFT 失敗"
@@ -2161,7 +2161,7 @@ msgid "A measure of a cryptocurrency trading volume across all tracked platforms
 msgstr "24 小時交易量為全網追蹤平台統計數據，採滾動 24 小時計算"
 
 msgid "Age"
-msgstr ""
+msgstr "發行時長"
 
 msgid "Failed to recast."
 msgstr "轉發失敗"
@@ -2221,7 +2221,7 @@ msgid "NFT owner cant bypass the maximum amount of minting specified in the cont
 msgstr ""
 
 msgid "Failed to create Firefly profile."
-msgstr ""
+msgstr "Firefly 個人檔案建立失敗"
 
 #. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
@@ -2540,7 +2540,7 @@ msgid "Cryptocurrency mixer found."
 msgstr ""
 
 msgid "Pick a way to sign in"
-msgstr ""
+msgstr "選擇登入方式"
 
 msgid "Encrypt your login session with a 6-digit password to enable one-click login across devices."
 msgstr "請設定 6 位數字密碼加密您的登入授權，以啟用跨裝置一鍵登入。"
@@ -2730,7 +2730,7 @@ msgid "Quote"
 msgstr "引用"
 
 msgid "Create your Firefly profile"
-msgstr ""
+msgstr "建立你的 Firefly 個人檔案"
 
 msgid "Collect Price"
 msgstr ""
@@ -2853,7 +2853,7 @@ msgid "Upload to S3"
 msgstr "上傳至 S3"
 
 msgid "Follow Pending"
-msgstr ""
+msgstr "等待關注請求通過"
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {轉發或引用} other {次轉發或引用}}"
@@ -2868,7 +2868,7 @@ msgid "Failed to update profile."
 msgstr "更新個人資料失敗"
 
 msgid "Password cannot be a sequence or repeated digits. Please try again."
-msgstr ""
+msgstr "密碼不能是連續或重複的數字。請重試。"
 
 msgid "Paragraph"
 msgstr "段落"
@@ -2946,7 +2946,7 @@ msgid "Content preference"
 msgstr "內容偏好"
 
 msgid "Now only supporting Solana and BSC tokens. Powered by <0>X3.pro</0>"
-msgstr ""
+msgstr "目前僅支援 Solana 和 BSC 代幣。由 <0>X3.pro</0> 提供技術支援"
 
 msgid "Connect your wallet to follow"
 msgstr "連接錢包以追蹤"
@@ -2961,7 +2961,7 @@ msgid "Delete"
 msgstr "刪除"
 
 msgid "Available"
-msgstr ""
+msgstr "該暱稱可用！"
 
 msgid "So sorry, we cant mint this NFT. Please try again later."
 msgstr ""
@@ -3044,7 +3044,7 @@ msgid "This does not appear to be a honeypot."
 msgstr "此地址未檢測到蜜罐風險。"
 
 msgid "Your Firefly Account is now connected"
-msgstr ""
+msgstr "你的 Firefly 帳號已連接"
 
 msgid "Legacy Firefly wallet"
 msgstr ""
@@ -3227,7 +3227,7 @@ msgid "Sent"
 msgstr "已發送"
 
 msgid "Token could not be found."
-msgstr ""
+msgstr "未找到該代幣"
 
 msgid "Casts + Replies"
 msgstr "貼文 + 回覆"
@@ -3503,7 +3503,7 @@ msgid "Show more channels"
 msgstr "顯示更多頻道"
 
 msgid "Something went wrong."
-msgstr ""
+msgstr "哎呀，出問題了。"
 
 msgid "Snapshot added to your Bookmarks"
 msgstr "快照已加入書籤"
@@ -3553,7 +3553,7 @@ msgid "Please select one EVM wallet and one Solana wallet for onchain features i
 msgstr "請選擇一個 EVM 錢包與一個 Solana 錢包以使用 Firefly 鏈上功能。"
 
 msgid "Scan QR code to access your account"
-msgstr ""
+msgstr "掃碼登入帳號"
 
 #. placeholder {0}: mutuals[0].displayName
 #. placeholder {1}: mutuals[1].displayName
@@ -3588,7 +3588,7 @@ msgid "Invalid website format"
 msgstr "網站格式無效"
 
 msgid "Something went wrong. Please try again later."
-msgstr ""
+msgstr "哎呀，出問題了，請稍後重試"
 
 msgid "Select Group"
 msgstr ""
@@ -3646,10 +3646,10 @@ msgid "Failed to bookmark snapshot."
 msgstr "書籤快照失敗"
 
 msgid "Sign in with Firefly App"
-msgstr ""
+msgstr "使用 Firefly App 登入"
 
 msgid "Failed to verify password."
-msgstr ""
+msgstr "密碼驗證失敗"
 
 msgid "Mint Again"
 msgstr "再次鑄造"
@@ -3713,7 +3713,7 @@ msgid "Add another option"
 msgstr "新增選項"
 
 msgid "Dex"
-msgstr ""
+msgstr "去中心化代幣"
 
 msgid "Passed"
 msgstr "已通過"
@@ -3908,7 +3908,7 @@ msgid "Repost or Quote"
 msgstr "轉發或引用"
 
 msgid "Ca"
-msgstr ""
+msgstr "合約"
 
 msgid "NFT ID"
 msgstr "NFT ID"
@@ -3920,7 +3920,7 @@ msgid "Failed to send tip. Please try again later."
 msgstr "打賞發送失敗，請稍後重試"
 
 msgid "24h Vol"
-msgstr ""
+msgstr "24 小時交易量"
 
 msgid "Enable now"
 msgstr "立即啟用"
@@ -3977,7 +3977,7 @@ msgid "Oversupply minting."
 msgstr "超額鑄造中"
 
 msgid "Failed to read avatar file, please try again."
-msgstr ""
+msgstr "頭像讀取失敗，請重試"
 
 msgid "*Note: Each NFT can only be used once."
 msgstr "*註：每個 NFT 僅限使用一次"
@@ -4112,7 +4112,7 @@ msgid "Verify"
 msgstr ""
 
 msgid "Explore now"
-msgstr ""
+msgstr "開始探索"
 
 msgid "Hidden owner."
 msgstr ""
@@ -4401,7 +4401,7 @@ msgid "Creator:"
 msgstr "創作者："
 
 msgid "Something went wrong, please try again."
-msgstr ""
+msgstr "哎呀... 發生錯誤，請重試。"
 
 msgid "Following"
 msgstr "追蹤中"
@@ -4431,7 +4431,7 @@ msgid "Post decrypted successfully!"
 msgstr "貼文解密成功！"
 
 msgid "Let’s go!"
-msgstr ""
+msgstr "立即開始"
 
 msgid "Logging out will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that your Firefly account remains logged in."
 msgstr "登出將導致排程貼文失敗，請保持登入狀態以確保正常發送"
@@ -4458,7 +4458,7 @@ msgid "Fake KYC found."
 msgstr "檢測到偽造 KYC"
 
 msgid "You can turn it back on anytime in <0>Settings > Content preference</0>"
-msgstr ""
+msgstr "可在 <0>設定 > 內容偏好</0> 隨時重新開啟"
 
 #. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
@@ -4487,7 +4487,7 @@ msgid "Minted"
 msgstr "已鑄造"
 
 msgid "Posts from Trump on Truth Social (Explore, profile)"
-msgstr ""
+msgstr "來自特朗普的 Truth Social 貼文（探索、個人主頁）"
 
 msgid "Golden"
 msgstr "黃金版"
