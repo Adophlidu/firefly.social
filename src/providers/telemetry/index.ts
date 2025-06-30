@@ -86,6 +86,8 @@ class Telemetry extends Provider<Events, never> {
 
         if (provider_filter === ProviderFilter.All || provider_filter === ProviderFilter.GA) {
             try {
+                console.info('[ga] capture event:', event.eventType, event.parameters);
+
                 sendGAEvent('event', event.eventType, {
                     ...event.parameters,
                     debug_mode:

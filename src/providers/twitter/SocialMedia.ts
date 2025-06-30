@@ -1,8 +1,6 @@
 import { NitterSocialMediaProvider } from '@/providers/twitter/NitterSocialMedia.js';
 import { OfficialSocialMedia, OfficialSocialMediaProvider } from '@/providers/twitter/OfficialSocialMedia.js';
 
-type F = (...args: any[]) => any;
-
 function createProxy<T>(providers: Array<Partial<T>>): T {
     return new Proxy(
         {},
