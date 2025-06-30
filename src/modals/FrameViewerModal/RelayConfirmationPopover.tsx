@@ -19,6 +19,7 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { Popover } from '@/modals/FrameViewerModal/Popover.js';
+import { captureFrameSignInEvent } from '@/providers/telemetry/captureFrameSignInEvent.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { pollingChannelToken } from '@/providers/warpcast/pollingChannelToken.js';
 import type { FrameV2 } from '@/types/frame.js';
@@ -52,11 +53,6 @@ export function RelayConfirmationPopover({ ref }: Props) {
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen(props) {
             setProps(props);
-
-            // const u = parseUrl(props.schemaUrl);
-            // if (IS_MOBILE_DEVICE && u?.hostname === 'farcaster.xyz') {
-            //     location.href = props.schemaUrl;
-            // }
         },
     });
     const { isLoading, isRefetching, isError, data, refetch } = useQuery({
@@ -91,10 +87,13 @@ export function RelayConfirmationPopover({ ref }: Props) {
     useQuery({
         queryKey: ['farcaster-relay-sign', data?.channelToken],
         queryFn: async () => {
+            if (!props) return;
             if (!data?.channelToken) return;
 
             const signed = await pollingChannelToken(data.channelToken, controller.current.signal);
             const currentProfile = getCurrentProfile(Source.Farcaster);
+
+            captureFrameSignInEvent('siwf', props.frame);
 
             if (currentProfile && `${signed.fid}` === currentProfile.profileId) {
                 dispatch?.close({
@@ -113,7 +112,7 @@ export function RelayConfirmationPopover({ ref }: Props) {
                 setScannedProfile(profile);
             }
         },
-        enabled: !!data?.channelToken,
+        enabled: !!data?.channelToken && !!props,
     });
 
     return (

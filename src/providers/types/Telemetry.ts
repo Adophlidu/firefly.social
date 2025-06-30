@@ -83,6 +83,10 @@ export enum EventId {
     POST_FRAME_ACTION_CLICK = 'post_mini_app_click', // ✅
     POST_FRAME_ACTION_SUCCESS = 'post_frame_action_success', // ✅
 
+    // miniapps
+    MINI_APP_FIREFLY_SIGN_IN_SUCCESS = 'mini_app_ff_sign_in_success',
+    MINI_APP_FARCASTER_SIGN_IN_SUCCESS = 'mini_app_far_sign_in_success',
+
     // article
     ARTICLE_COLLECT_SUCCESS = 'article_collect_success', // ✅
 
@@ -688,6 +692,22 @@ export interface Events extends Record<EventId, Event> {
             frame_version: string;
             frame_url: string;
         } & WalletEventParameters;
+    };
+    [EventId.MINI_APP_FIREFLY_SIGN_IN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            frame_version: string;
+            frame_url: string;
+            mini_app_name: string;
+        };
+    };
+    [EventId.MINI_APP_FARCASTER_SIGN_IN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            frame_version: string;
+            frame_url: string;
+            mini_app_name: string;
+        };
     };
     [EventId.POST_BLINK_ACTION_SUCCESS]: {
         type: EventType.Interact;
