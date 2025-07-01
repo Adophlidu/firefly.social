@@ -17,7 +17,7 @@ export function CreateFireflyAccountGuideModal({ ref }: Props) {
     return (
         <Modal disableBackdropClose open={open} onClose={() => dispatch?.close()}>
             <div>
-                <div className="no-scrollbar relative max-h-[70vh] w-[90vw] max-w-[512px] space-y-10 overflow-y-auto rounded-md bg-lightBottom p-8 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:overflow-y-visible md:rounded-3xl">
+                <div className="no-scrollbar relative max-h-[75vh] w-[90vw] max-w-[512px] space-y-10 overflow-y-auto rounded-md bg-lightBottom p-8 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:rounded-3xl">
                     <div>
                         <h2 className="text-2xl font-bold !leading-[29px] text-main">
                             <Trans>Create your Firefly Profile</Trans>

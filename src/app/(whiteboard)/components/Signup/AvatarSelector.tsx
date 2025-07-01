@@ -142,13 +142,14 @@ export const AvatarSelector = memo<AvatarSelectorProps>(function AvatarSelector(
     return (
         <div>
             <div className="mt-12 flex justify-center">
-                <div className="relative h-32 w-32 rounded-full bg-black">
+                <div className="relative h-32 w-32 overflow-hidden rounded-full bg-black">
                     <ImageWithLoading
                         alt="avatar"
                         src={avatar}
                         width={128}
                         height={128}
-                        className="h-full w-full rounded-full object-cover"
+                        wrapperClassName="h-32 w-32"
+                        className="rounded-full object-cover"
                     />
                     {avatarType === 'pfp' ? (
                         profiles.length > 1 ? (
