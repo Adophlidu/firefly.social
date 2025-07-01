@@ -104,18 +104,19 @@ export const TokenMarketData = memo(function TokenMarketData({
     const { data: tokenPrice } = useTokenPrice(token.id);
     const { data: coin } = useSingleCoin(token.id, token.chainId, token.address);
     const { data: trending, isPending: isTrendingPending } = useCoinTrending(token.id);
+    const runtimeAddress = propAddress || token.address;
     const contracts = useMemo(() => {
         if (trending?.contracts) return trending.contracts.filter((x) => TRACING_RUNTIME_LIST.includes(x.runtime));
-        if (propChainId && propAddress)
+        if (propChainId && runtimeAddress)
             return [
                 {
                     runtime: resolveCoinGeckoChain(propChainId),
                     chainId: propChainId,
-                    address: propAddress,
+                    address: runtimeAddress,
                 } as Contract,
             ];
         return EMPTY_LIST;
-    }, [propAddress, propChainId, trending?.contracts]);
+    }, [propChainId, runtimeAddress, trending?.contracts]);
     const firstContract = first(contracts);
     const chainId = propChainId || token.chainId || firstContract?.chainId;
     const contract = (chainId ? contracts?.find((x) => x.chainId === chainId) : null) || firstContract;
