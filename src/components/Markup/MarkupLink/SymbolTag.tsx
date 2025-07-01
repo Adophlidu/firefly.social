@@ -51,11 +51,12 @@ export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag(
     if (isMedium && !insideTippy) {
         return (
             <InteractiveTippy
-                className="tippy-card symbol-tag-tippy"
+                className="tippy-card symbol-tag-tippy !max-w-[415px]"
                 placement="bottom"
                 onShow={() => setShow(true)}
                 onHidden={() => setShow(false)}
                 delay={100}
+                offset={[0, 0]}
                 content={
                     enabled ? (
                         <TokenProfileCard
