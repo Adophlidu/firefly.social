@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { useRef } from 'react';
 
 import BlockIcon from '@/assets/block.svg';
@@ -29,8 +29,8 @@ export function TwitterFollowButton({
 
     if (!isBlocked && !isPending) return null;
 
-    const BlockLabel = variant === 'text' ? t`Blocked` : <BlockIcon className="size-4 flex-shrink-0" />;
-    const PendingLabel = variant === 'text' ? t`Pending` : <PendingIcon className="size-4 flex-shrink-0" />;
+    const BlockLabel = variant === 'text' ? <Trans>Blocked</Trans> : <BlockIcon className="size-4 flex-shrink-0" />;
+    const PendingLabel = variant === 'text' ? <Trans>Pending</Trans> : <PendingIcon className="size-4 flex-shrink-0" />;
     return (
         <ClickableButton
             ref={hoverRef}
