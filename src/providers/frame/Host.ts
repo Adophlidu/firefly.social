@@ -5,6 +5,7 @@ import urlcat from 'urlcat';
 import { Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { SITE_URL } from '@/constants/index.js';
+import { createDummyChannel } from '@/helpers/createDummyChannel.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileById } from '@/helpers/getProfileById.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -106,6 +107,8 @@ export class FarcasterFrameHost implements FrameHost {
             source: Source.Farcaster,
             type: 'compose',
             chars: options.text,
+            embeds: options.embeds,
+            channel: options.channelKey ? createDummyChannel(Source.Farcaster, options.channelKey) : undefined,
             post: options.parent ? await FireflySocialMediaProvider.getPostById(options.parent.hash) : undefined,
         });
 

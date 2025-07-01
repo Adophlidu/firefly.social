@@ -69,6 +69,7 @@ const initialConfig = {
 export interface ComposeModalOpenProps {
     type?: ComposeType;
     chars?: Chars;
+    embeds?: string[];
     source?: SocialSource | SocialSource[];
     post?: Post | null;
     typedMessage?: TypedMessageTextV1 | null;
@@ -102,7 +103,8 @@ function ComposeModalUI({ ref }: Props) {
 
     const {
         posts,
-        insertImage,
+        addUrl,
+        addImage,
         updateType,
         updateAvailableSources,
         updateParentPost,
@@ -118,7 +120,7 @@ function ComposeModalUI({ ref }: Props) {
 
     const setEditorContent = useSetEditorContent();
     const [open, dispatch] = useSingletonModal(ref, {
-        onOpen: ({ type, source, typedMessage, post, chars, channel, initialPath }) => {
+        onOpen: ({ type, source, typedMessage, post, chars, channel, embeds, initialPath }) => {
             controller.current.abort();
             updateType(type || 'compose');
             updateAvailableSources(source ? (Array.isArray(source) ? source : [source]) : getCurrentAvailableSources());
@@ -130,6 +132,7 @@ function ComposeModalUI({ ref }: Props) {
             }
             if (channel) updateChannel(channel);
             if (initialPath) router.navigate({ to: initialPath });
+            embeds?.forEach((embedUrl) => addUrl(embedUrl));
         },
         onClose: async (props) => {
             // wait for animation to finish
@@ -276,10 +279,7 @@ function ComposeModalUI({ ref }: Props) {
 
             updateChars(chars);
             setEditorContent(chars);
-            insertImage(
-                createLocalMediaObject(new File([secretImage], 'image.png', { type: FileMimeType.PNG }), true),
-                0,
-            );
+            addImage(createLocalMediaObject(new File([secretImage], 'image.png', { type: FileMimeType.PNG }), true), 0);
             updateTypedMessage(updateRpEncrypted(typedMessage));
         } catch (error) {
             enqueueMessageFromError(error, t`Failed to create image payload.`);
@@ -293,7 +293,7 @@ function ComposeModalUI({ ref }: Props) {
         promoteLink,
         updateChars,
         setEditorContent,
-        insertImage,
+        addImage,
         updateTypedMessage,
     ]);
 

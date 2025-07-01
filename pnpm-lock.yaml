@@ -83,8 +83,8 @@ dependencies:
     specifier: ^0.16.3
     version: 0.16.3(typescript@5.7.3)(zod@3.24.2)
   '@farcaster/frame-host':
-    specifier: ^0.0.53
-    version: 0.0.53(react@19.0.0)(typescript@5.7.3)(zod@3.24.2)
+    specifier: ^0.0.54
+    version: 0.0.54(react@19.0.0)(typescript@5.7.3)(zod@3.24.2)
   '@floating-ui/react':
     specifier: ^0.27.9
     version: 0.27.9(react-dom@19.0.0)(react@19.0.0)
@@ -4108,8 +4108,8 @@ packages:
       - zod
     dev: false
 
-  /@farcaster/frame-core@0.1.10(typescript@5.7.3):
-    resolution: {integrity: sha512-4PG0mHrk5VmDtt/HH+vs3xDaWY/KVdZLUxlFetkD/szn1NNtHUxM43vCUE/qgulmlV53x8GPBbkwHzcA7Dmpuw==}
+  /@farcaster/frame-core@0.2.0(typescript@5.7.3):
+    resolution: {integrity: sha512-HNxg7A4p5W/HqMMs6CKKJXbhHFpLYrlcOGlvc9k9tRiGBSo8JjAZhyjVUfaXqSIvN0ItCGBVmtB0ULzpktMpTA==}
     dependencies:
       '@solana/web3.js': 1.98.2(typescript@5.7.3)
       ox: 0.4.4(typescript@5.7.3)(zod@3.24.2)
@@ -4121,12 +4121,12 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@farcaster/frame-host@0.0.53(react@19.0.0)(typescript@5.7.3)(zod@3.24.2):
-    resolution: {integrity: sha512-ZODcBNnh51M/0uDCrOdMjqsVlWcmLbZpxohyFYZjJWXvagCZ+0OIVqyszVNcyUadQMcR/4zPHF52GNyLBM6vPw==}
+  /@farcaster/frame-host@0.0.54(react@19.0.0)(typescript@5.7.3)(zod@3.24.2):
+    resolution: {integrity: sha512-mg4dfE+kzc9oq6dxH3YLfi8ofxUZJqVg3Fz1RPKYc5MtVSBXYG0aR2BH0nukFn3ISgIo14u6nzt7O2587EC5Mw==}
     peerDependencies:
       react: 19.0.0
     dependencies:
-      '@farcaster/frame-core': 0.1.10(typescript@5.7.3)
+      '@farcaster/frame-core': 0.2.0(typescript@5.7.3)
       ox: 0.4.4(typescript@5.7.3)(zod@3.24.2)
       react: 19.0.0
     transitivePeerDependencies:
@@ -21815,7 +21815,7 @@ time:
   /@emotion/react@11.14.0: '2024-12-09T08:43:27.996Z'
   /@emotion/styled@11.14.0: '2024-12-09T08:43:28.080Z'
   /@farcaster/core@0.16.3: '2025-04-29T22:36:02.736Z'
-  /@farcaster/frame-host@0.0.53: '2025-06-11T15:24:17.715Z'
+  /@farcaster/frame-host@0.0.54: '2025-06-17T16:24:26.968Z'
   /@floating-ui/react@0.27.9: '2025-05-26T03:31:17.104Z'
   /@giphy/js-fetch-api@5.6.0: '2024-05-28T16:39:28.633Z'
   /@giphy/react-components@9.8.0: '2024-11-05T16:50:07.282Z'

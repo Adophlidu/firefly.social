@@ -22,7 +22,7 @@ import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
 
 export async function postToFarcaster(type: ComposeType, compositePost: CompositePost, signal?: AbortSignal) {
-    const { chars, parentPost, images, video, frames, openGraphs, postId, channel, poll } = compositePost;
+    const { chars, parentPost, urls, images, video, frames, openGraphs, postId, channel, poll } = compositePost;
 
     const farcasterPostId = postId.Farcaster;
     const farcasterParentPost = parentPost.Farcaster;
@@ -71,6 +71,9 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                     ...videos.map((media) => ({
                         url: resolveVideoUrl(Source.Farcaster, media),
                         mimeType: media.mimeType,
+                    })),
+                    ...urls.map((url) => ({
+                        url,
                     })),
                 ],
                 (x) => x.url.toLowerCase(),

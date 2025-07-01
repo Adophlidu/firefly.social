@@ -53,14 +53,16 @@ export interface CompositePost {
     postError: Record<SocialSource, Error | null>;
 
     // shared properties
+    chars: Chars;
     restriction: RestrictionType;
     availableSources: SocialSource[];
     channel: Record<SocialSource, Channel | null>;
-
-    chars: Chars;
     typedMessage: TypedMessageTextV1 | null;
+
+    // media objects
     video: MediaObject | null;
     images: MediaObject[];
+    urls: string[];
     poll: CompositePoll | null;
     rpPayload: RedPacketPayload | null;
     // parsed frames from urls in chars
@@ -120,8 +122,8 @@ interface ComposeState extends ComposeBaseState {
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null, cursor?: Cursor) => void;
     updateVideo: (video: MediaObject | null, cursor?: Cursor) => void;
     updateImages: (imagesOrUpdater: SetStateAction<MediaObject[]>, cursor?: Cursor) => void;
-    addImage: (image: MediaObject, cursor?: Cursor) => void;
-    insertImage: (image: MediaObject, index: number, cursor?: Cursor) => void;
+    addUrl: (url: string | URL, cursor?: Cursor) => void;
+    addImage: (image: MediaObject, index: number, cursor?: Cursor) => void;
     removeImage: (image: MediaObject, cursor?: Cursor) => void;
     addFrame: (frame: Frame, cursor?: Cursor) => void;
     removeFrame: (frame: Frame, cursor?: Cursor) => void;
@@ -162,6 +164,7 @@ export function createInitSinglePostState(cursor: Cursor): CompositePost {
         restriction: RestrictionType.Everyone,
         chars: '',
         typedMessage: null,
+        urls: EMPTY_LIST,
         images: EMPTY_LIST,
         frames: EMPTY_LIST,
         openGraphs: EMPTY_LIST,
@@ -399,7 +402,22 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     cursor,
                 ),
             ),
-        insertImage: (image, index: number, cursor) =>
+        addUrl: (url, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => {
+                        const urls = Array.isArray(post.urls) ? post.urls : [];
+                        if (urls.includes(url)) return post; // avoid duplicate urls
+                        return {
+                            ...post,
+                            urls: [...urls, url],
+                        };
+                    },
+                    cursor,
+                ),
+            ),
+        addImage: (image, index: number, cursor) =>
             set((state) =>
                 next(
                     state,
@@ -411,17 +429,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                             images,
                         };
                     },
-                    cursor,
-                ),
-            ),
-        addImage: (image, cursor) =>
-            set((state) =>
-                next(
-                    state,
-                    (post) => ({
-                        ...post,
-                        images: [...post.images, image],
-                    }),
                     cursor,
                 ),
             ),

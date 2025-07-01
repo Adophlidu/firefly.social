@@ -6,8 +6,10 @@ import urlcat from 'urlcat';
 import { toHex } from 'viem';
 import { z } from 'zod';
 
+import { Source } from '@/constants/enum.js';
 import { FarcasterInvalidSignerKey, NotImplementedError } from '@/constants/error.js';
 import { NEYNAR_URL } from '@/constants/index.js';
+import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { farcasterPostIdToHash } from '@/helpers/farcasterPostIdToHash.js';
@@ -392,7 +394,7 @@ class HubbleSocialMedia implements Provider {
                     castAddBody: {
                         ...result,
                         embedsDeprecated: [],
-                        embeds: [...mediaUrls, ...contentUrls].slice(0, 2),
+                        embeds: [...mediaUrls, ...contentUrls].slice(0, MAX_IMAGE_SIZE_PER_POST[Source.Farcaster]),
                         parentCastId: undefined,
                         parentUrl: undefined,
                     },

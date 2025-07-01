@@ -1,35 +1,15 @@
 import { Source } from '@/constants/enum.js';
+import { createDummyChannel } from '@/helpers/createDummyChannel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
-export const HOME_CHANNEL: Channel = {
-    name: 'Home',
-    id: 'home', // the channel id is fake
-    imageUrl: '',
-    url: '',
-    parentUrl: '',
-    followerCount: 0,
-    timestamp: 0,
-    source: Source.Farcaster,
-};
+export const HOME_CHANNEL: Channel = createDummyChannel(Source.Farcaster, 'home' /* fake id */, 'Home');
 
-export const HOME_CLUB: Channel = {
-    name: 'Home',
-    id: 'home', // the channel id is fake
-    imageUrl: '',
-    url: '',
-    parentUrl: '',
-    followerCount: 0,
-    timestamp: 0,
-    source: Source.Lens,
-};
+export const HOME_CLUB: Channel = createDummyChannel(Source.Lens, 'home' /* fake id */, 'Home');
 
 export const FF_GARDEN_CHANNEL: Channel = {
-    name: 'firefly-garden',
-    id: 'firefly-garden',
+    ...createDummyChannel(Source.Farcaster, 'firefly-garden'),
     imageUrl: 'https://i.imgur.com/NfzIpwa.jpg',
     url: 'https://farcaster.xyz/~/channel/firefly-garden',
     parentUrl: 'https://farcaster.xyz/~/channel/firefly-garden',
-    followerCount: 0, // the follower count is fake
     timestamp: 1703399720,
-    source: Source.Farcaster,
 };
