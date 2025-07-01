@@ -1,6 +1,5 @@
 'use client';
 
-import { Trans } from '@lingui/react/macro';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
 import type { Hex } from 'viem';
 import { useEnsName } from 'wagmi';
@@ -79,7 +78,7 @@ function NFTItemContent({
                     {props.isShowOwner && item.owner ? <Owner address={item.owner as Hex} /> : null}
                     {props.ownerCount ? (
                         <div className="absolute left-2 top-2 z-10 h-5 rounded-lg bg-primaryBottom px-1 text-xs font-bold leading-5">
-                            <Trans>× {nFormatter(props.ownerCount)}</Trans>
+                            × {nFormatter(props.ownerCount)}
                         </div>
                     ) : null}
                     <NFTImage

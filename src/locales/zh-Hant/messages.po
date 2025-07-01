@@ -1475,10 +1475,6 @@ msgstr "發送失敗"
 msgid "Channel"
 msgstr "頻道"
 
-#. placeholder {0}: formatPrice(totalBalance ?? 0)
-msgid "$ {0}"
-msgstr "$ {0}"
-
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 msgstr "未包含隱藏所有者功能。若有隱藏所有者，項目方可能具備合約控制權"
 
@@ -1562,10 +1558,6 @@ msgstr "新增現有帳號"
 #. placeholder {0}: channel.name
 msgid "Confirm you want to mute /{0}?"
 msgstr "確認要靜音 /{0} 嗎？"
-
-#. placeholder {0}: props.title
-msgid "{0}"
-msgstr ""
 
 msgid "Refund"
 msgstr "退款"
@@ -4497,10 +4489,6 @@ msgstr "確定要檢舉此用戶？"
 
 msgid "Likes"
 msgstr "按讚"
-
-#. placeholder {0}: nFormatter(props.ownerCount)
-msgid "× {0}"
-msgstr "× {0}"
 
 msgid "Please confirm the login with Farcaster."
 msgstr ""

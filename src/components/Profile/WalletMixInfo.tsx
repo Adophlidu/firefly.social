@@ -128,7 +128,7 @@ export function WalletMixInfo({ profiles = [] }: Props) {
                     'w-[120px] animate-pulse bg-main/25': isLoading,
                 })}
             >
-                {isLoading ? null : <Trans>$ {formatPrice(totalBalance ?? 0)}</Trans>}
+                {isLoading ? null : `$ ${formatPrice(totalBalance ?? 0)}`}
             </div>
         </div>
     );

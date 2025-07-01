@@ -1470,10 +1470,6 @@ msgstr "Failed to send."
 msgid "Channel"
 msgstr "Channel"
 
-#. placeholder {0}: formatPrice(totalBalance ?? 0)
-msgid "$ {0}"
-msgstr "$ {0}"
-
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 msgstr "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 
@@ -1557,10 +1553,6 @@ msgstr "Add an existing account"
 #. placeholder {0}: channel.name
 msgid "Confirm you want to mute /{0}?"
 msgstr "Confirm you want to mute /{0}?"
-
-#. placeholder {0}: props.title
-msgid "{0}"
-msgstr "{0}"
 
 msgid "Refund"
 msgstr "Refund"
@@ -4497,10 +4489,6 @@ msgstr "Are you sure you want to report this user?"
 
 msgid "Likes"
 msgstr "Likes"
-
-#. placeholder {0}: nFormatter(props.ownerCount)
-msgid "× {0}"
-msgstr "× {0}"
 
 msgid "Please confirm the login with Farcaster."
 msgstr "Please confirm the login with Farcaster."
