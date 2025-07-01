@@ -273,9 +273,6 @@ msgstr "Rank #{0}"
 msgid "Mute {walletHandle}"
 msgstr "Mute {walletHandle}"
 
-msgid "Searching channel"
-msgstr "Searching channel"
-
 msgid "Malicious mining activities found."
 msgstr "Malicious mining activities found."
 
@@ -2491,9 +2488,6 @@ msgstr "The page could not be found."
 msgid "Change Password"
 msgstr "Change Password"
 
-msgid "No matching channel"
-msgstr "No matching channel"
-
 #. placeholder {0}: failedAt.length
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
@@ -3516,9 +3510,6 @@ msgstr "Will send on <0>{0} at <1>{1}</1></0>"
 
 msgid "Reported"
 msgstr "Reported"
-
-msgid "Show more channels"
-msgstr "Show more channels"
 
 msgid "Something went wrong."
 msgstr "Something went wrong."

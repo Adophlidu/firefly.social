@@ -278,9 +278,6 @@ msgstr "排名 #{0}"
 msgid "Mute {walletHandle}"
 msgstr "隐藏 {walletHandle}"
 
-msgid "Searching channel"
-msgstr "查询频道中"
-
 msgid "Malicious mining activities found."
 msgstr "发现恶意挖矿行为。"
 
@@ -2496,9 +2493,6 @@ msgstr "找不到该页面。"
 msgid "Change Password"
 msgstr "修改密码"
 
-msgid "No matching channel"
-msgstr "没有匹配到频道"
-
 #. placeholder {0}: failedAt.length
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {由于某些错误你的帖子在 {firstPlatform} 发布失败。请点击重试。} two {由于某些错误你的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {你的帖子发布失败。请点击重试。}}"
@@ -3521,9 +3515,6 @@ msgstr "将在 <0>{0} <1>{1}</1></0> 发送"
 
 msgid "Reported"
 msgstr "已举报"
-
-msgid "Show more channels"
-msgstr "展示更多频道"
 
 msgid "Something went wrong."
 msgstr "哎呀，出问题了。"

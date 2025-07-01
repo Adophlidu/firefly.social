@@ -278,9 +278,6 @@ msgstr ""
 msgid "Mute {walletHandle}"
 msgstr ""
 
-msgid "Searching channel"
-msgstr ""
-
 msgid "Malicious mining activities found."
 msgstr ""
 
@@ -2488,9 +2485,6 @@ msgstr ""
 msgid "Change Password"
 msgstr ""
 
-msgid "No matching channel"
-msgstr ""
-
 #. placeholder {0}: failedAt.length
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
@@ -3507,9 +3501,6 @@ msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr ""
 
 msgid "Reported"
-msgstr ""
-
-msgid "Show more channels"
 msgstr ""
 
 msgid "Something went wrong."

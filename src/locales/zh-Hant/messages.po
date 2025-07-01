@@ -278,9 +278,6 @@ msgstr "排名 #{0}"
 msgid "Mute {walletHandle}"
 msgstr "靜音 {walletHandle}"
 
-msgid "Searching channel"
-msgstr "搜尋頻道"
-
 msgid "Malicious mining activities found."
 msgstr "發現惡意挖礦活動。"
 
@@ -2496,9 +2493,6 @@ msgstr "無法找到頁面"
 msgid "Change Password"
 msgstr "變更密碼"
 
-msgid "No matching channel"
-msgstr "未找到對應的頻道"
-
 #. placeholder {0}: failedAt.length
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
@@ -3516,9 +3510,6 @@ msgstr "將於 <0>{0} <1>{1}</1></0> 發送"
 
 msgid "Reported"
 msgstr "已檢舉"
-
-msgid "Show more channels"
-msgstr "顯示更多頻道"
 
 msgid "Something went wrong."
 msgstr "哎呀，出問題了。"

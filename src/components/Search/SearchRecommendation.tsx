@@ -7,7 +7,6 @@ import SearchIcon from '@/assets/search.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ClearButton } from '@/components/IconButton.js';
 import { Link } from '@/components/Link.js';
-import { SuggestChannelList } from '@/components/Search/SuggestChannelList.js';
 import { SuggestCollectionList } from '@/components/Search/SuggestCollectionList.js';
 import { SuggestProfileList } from '@/components/Search/SuggestProfileList.js';
 import { SuggestTokenList } from '@/components/Search/SuggestTokenList.js';
@@ -83,10 +82,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                         {!isSymbol ? <SuggestCollectionList query={debouncedKeyword} onSelect={onSelect} /> : null}
                     </>
                 ) : (
-                    <>
-                        <SuggestChannelList query={debouncedKeyword} onSelect={onSelect} />
-                        <SuggestProfileList query={debouncedKeyword} onSelect={onSelect} />
-                    </>
+                    <SuggestProfileList query={debouncedKeyword} onSelect={onSelect} />
                 )}
             </div>
         );
