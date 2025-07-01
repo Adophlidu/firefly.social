@@ -73,7 +73,7 @@ export default async function Layout(props: Props) {
     const socialProfile =
         identityFromUrl.id && !walletProfile
             ? await resolveSocialMediaProvider(narrowToSocialSource(identity.source))
-                  .getProfileByHandle(identityFromUrl.id)
+                  .getProfileByHandle(identityFromUrl.id, true)
                   .catch(() => notFound())
             : null;
 

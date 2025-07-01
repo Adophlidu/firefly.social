@@ -25,6 +25,9 @@ export function FeedList({ profileId, source }: FeedListProps) {
     const { data: profile } = useSuspenseQuery({
         queryKey: ['profile', source, profileId, isLogin],
         queryFn: async () => {
+            // Querying protected flag for Twitter
+            if (source !== Source.Twitter) return null;
+
             const provider = resolveSocialMediaProvider(source);
             const profile = await provider.getProfileById(profileId);
             return provider.getProfileByHandle(profile.handle);

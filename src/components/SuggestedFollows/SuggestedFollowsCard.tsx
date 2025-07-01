@@ -13,9 +13,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { AsideTitle } from '@/components/AsideTitle.js';
 import { Link } from '@/components/Link.js';
 import { ProfileSlide } from '@/components/SuggestedFollows/ProfileSlide.js';
-import { ExploreType, Source } from '@/constants/enum.js';
+import { ExploreType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { isSocialDiscoverSource } from '@/helpers/isSource.js';
+import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { mergeLists } from '@/helpers/mergeLists.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -25,6 +26,13 @@ import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { getSuggestedFollowsInCard } from '@/services/getSuggestedFollows.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useBskyStateStore } from '@/store/useProfileStore.js';
+
+const getSuggestedFollowersCached = memoizePromise(
+    async (source: SocialSource, syncing: boolean, profileId?: string) => {
+        return getSuggestedFollowsInCard(source);
+    },
+    (source, syncing, profileId) => `${source}-${profileId}-${syncing}`,
+);
 
 export function SuggestedFollowsCard() {
     const isLarge = useIsLarge('min');
@@ -41,9 +49,14 @@ export function SuggestedFollowsCard() {
             bskySession,
         ],
         staleTime: 1000 * 60 * 2,
+        enabled: !asyncStatusAll,
         queryFn: async () => {
             const suggestedProfiles = await Promise.allSettled(
-                SORTED_SOCIAL_SOURCES.map((source) => runInSafeAsync(() => getSuggestedFollowsInCard(source))),
+                SORTED_SOCIAL_SOURCES.map((source) =>
+                    runInSafeAsync(() =>
+                        getSuggestedFollowersCached(source, asyncStatusAll, profileAll[source]?.profileId),
+                    ),
+                ),
             );
             return mergeLists(...compact(suggestedProfiles.map((x) => (x.status === 'fulfilled' ? x.value : []))));
         },
