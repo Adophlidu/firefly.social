@@ -24,7 +24,7 @@ import { TruthSocialPostMarkup } from '@/components/TrumpTruthSocial/TruthSocial
 import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
 import { PageRoute, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { EMPTY_LIST, RP_HASH_TAG } from '@/constants/index.js';
+import { EMPTY_LIST, MIN_CHAR_LENGTH_TO_TRANSLATE, RP_HASH_TAG } from '@/constants/index.js';
 import { usePathname, useRouter } from '@/esm/navigation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
@@ -200,7 +200,9 @@ export function PostBodyContent({ ref, ...props }: PostBodyContentProps) {
                 </Link>
             ) : null}
 
-            {showTranslate && env.external.NEXT_PUBLIC_POST_TRANSLATE === STATUS.Enabled && trimify(postContent) ? (
+            {showTranslate &&
+            env.external.NEXT_PUBLIC_POST_TRANSLATE === STATUS.Enabled &&
+            trimify(postContent)?.length > MIN_CHAR_LENGTH_TO_TRANSLATE ? (
                 <ContentTranslator content={trimify(postContent)} canShowMore={canShowMore} post={post} />
             ) : null}
 

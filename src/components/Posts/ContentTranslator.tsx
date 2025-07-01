@@ -8,10 +8,12 @@ import { PostMarkup } from '@/components/Markup/PostMarkup.js';
 import { NUMBER_STRING_REGEX } from '@/constants/regexp.js';
 import { getTargetLanguage } from '@/helpers/getBrowserLanguage.js';
 import { getLangNameFromLocal } from '@/helpers/getLangNameFromLocal.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { detectLanguage, Language, translateLanguage } from '@/services/translate.js';
+import { detectLanguage } from '@/services/detectLanguage.js';
+import { Language, translateLanguage } from '@/services/translate.js';
 
 function isValidContentToTranslate(content: string) {
     NUMBER_STRING_REGEX.lastIndex = 0;
@@ -38,7 +40,7 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
     const isLoginFirefly = useIsLoginFirefly();
 
     const [_, handleDetect] = useAsyncFn(async () => {
-        const originalLanguage = await detectLanguage(content);
+        const originalLanguage = (await runInSafeAsync(() => detectLanguage(content))) || null;
         setTranslationConfig({
             original: originalLanguage,
             target: await getTargetLanguage(originalLanguage),
@@ -46,9 +48,11 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
     }, [content]);
 
     const [{ value: data, loading, error }, handleTranslate] = useAsyncFn(async () => {
-        const { translations } = await translateLanguage(translationConfig.target!, content);
+        const { translations, detectedLanguage } = await translateLanguage(translationConfig.target!, content);
+        const originalLanguage = detectedLanguage || translationConfig.original;
+
         return {
-            contentLanguage: getLangNameFromLocal(translationConfig.original!),
+            contentLanguage: originalLanguage ? getLangNameFromLocal(originalLanguage) : undefined,
             translatedText: first(translations)?.text,
         };
     }, [content, translationConfig]);

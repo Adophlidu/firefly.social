@@ -103,6 +103,7 @@
         "firebase": "^11.6.0",
         "foxact": "^0.2.45",
         "framer-motion": "^12.9.2",
+        "franc": "^6.2.0",
         "fuse.js": "^7.1.0",
         "http-status-codes": "^2.3.0",
         "image-size": "^1.2.1",

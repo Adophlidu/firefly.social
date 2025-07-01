@@ -350,6 +350,7 @@ export const MAX_RECOMMEND_PROFILE_SIZE = 5;
 
 // POST
 export const MAX_FRAME_SIZE_PER_POST = 1;
+export const MIN_CHAR_LENGTH_TO_TRANSLATE = 3;
 
 export const MAX_POST_SIZE_PER_THREAD = env.shared.NODE_ENV === NODE_ENV.Development ? 10 : 25;
 export const MIN_POST_SIZE_PER_THREAD = 3;
