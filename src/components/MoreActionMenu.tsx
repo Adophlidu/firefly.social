@@ -3,9 +3,9 @@ import { Fragment, type MouseEvent, type ReactNode } from 'react';
 
 import { type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 interface MoreActionMenuProps extends MenuProps<'div'> {
@@ -45,7 +45,7 @@ export function MoreActionMenu({
                     event.stopPropagation();
                     if (!isLogin && loginRequired) {
                         event.preventDefault();
-                        LoginModalRef.open({ source });
+                        openLoginModal({ source });
                         return;
                     }
                 }}

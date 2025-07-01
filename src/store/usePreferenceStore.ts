@@ -29,7 +29,9 @@ const defaultPreferences: Preferences = {
 const STORE_VERSION = 1;
 
 export interface PreferencesState {
+    rehydrating: boolean;
     preferences: Preferences;
+    setHasHydrated(): void;
     getPreference<T extends keyof Preferences>(key: T): Preferences[T];
     setPreference<T extends keyof Preferences>(
         key: T,
@@ -41,7 +43,13 @@ export interface PreferencesState {
 const PreferencesState = create<PreferencesState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
     persist(
         immer<PreferencesState>((set, get) => ({
+            rehydrating: true,
             preferences: defaultPreferences,
+            setHasHydrated() {
+                return set((state) => {
+                    state.rehydrating = false;
+                });
+            },
             getPreference(key) {
                 return get().preferences[key];
             },
@@ -73,6 +81,9 @@ const PreferencesState = create<PreferencesState, [['zustand/persist', unknown],
                     };
                 }
                 return persistedState;
+            },
+            onRehydrateStorage: () => (state) => {
+                state?.setHasHydrated();
             },
         },
     ),

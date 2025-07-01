@@ -12,10 +12,10 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { HomeTab, type SocialSource } from '@/constants/enum.js';
 import { SOCIAL_DISCOVER_SOURCE_LOGIN_REQUIRED } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useSocialDiscoverSourcesWithWhitelist } from '@/hooks/useSocialDiscoverSourcesWithWhitelist.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import { capturePostPlatformFilterTabEvent } from '@/providers/telemetry/captureFilterTabEvent.js';
 import { useDiscoverStore } from '@/store/useDiscoverStore.js';
 
@@ -49,7 +49,7 @@ function PlatformItem({
             onClick={() => {
                 onClose?.();
                 if (loginRequest && !isLogin) {
-                    LoginModalRef.open({
+                    openLoginModal({
                         source,
                     });
                     return;

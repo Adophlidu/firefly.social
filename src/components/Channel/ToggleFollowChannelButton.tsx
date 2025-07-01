@@ -9,10 +9,10 @@ import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { ToggleJoinButton } from '@/components/ToggleJoinButton.js';
 import { Source } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import { captureFollowChannelEvent, captureUnfollowChannelEvent } from '@/providers/telemetry/captureChannelEvent.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
@@ -76,7 +76,7 @@ export const ToggleFollowChannelButton = memo<ToggleFollowChannelButtonProps>(fu
 
     const [{ loading }, toggleFollow] = useAsyncFn(async () => {
         if (!profile?.profileId) {
-            LoginModalRef.open({ source: channel.source });
+            openLoginModal({ source: channel.source });
             return;
         }
 

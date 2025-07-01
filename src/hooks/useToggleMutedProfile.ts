@@ -2,11 +2,11 @@ import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -19,7 +19,7 @@ export function useToggleMutedProfile(operator: Profile | null) {
     return useAsyncFn(
         async (profile: Profile, overrideMuted?: boolean) => {
             if (!isLogin) {
-                LoginModalRef.open({ source: profile.source });
+                openLoginModal({ source: profile.source });
                 return false;
             }
             const muted = overrideMuted ?? isProfileMuted(profile);

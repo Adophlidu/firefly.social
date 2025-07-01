@@ -9,10 +9,11 @@ import { useRouter } from '@/esm/navigation.js';
 import { CHAR_TAG } from '@/helpers/chars.js';
 import { formatSearchProfile } from '@/helpers/formatSearchProfile.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
@@ -70,7 +71,7 @@ async function openCompose(props: ShareLinkProps, onFinished: () => void) {
 
     const isLogin = Object.values(currentProfiles).some((x) => !!x?.profileId);
     if (!isLogin) {
-        LoginModalRef.open(
+        openLoginModal(
             matchedIdentity
                 ? { source: resolveSocialSourceFromFireflyPlatform(matchedIdentity.profile.platform) }
                 : undefined,

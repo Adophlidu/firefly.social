@@ -10,9 +10,9 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -32,7 +32,7 @@ export const Like = memo<LikeProps>(function Like({ post, disabled = false, hidd
         if (!postId) return null;
 
         if (!isLogin) {
-            LoginModalRef.open({ source });
+            openLoginModal({ source });
             return;
         }
 

@@ -10,8 +10,9 @@ import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -48,7 +49,7 @@ export function MuteWalletButton({ handleOrEnsOrAddress, address, isMuted, ref, 
                 onClick?.(event);
 
                 if (!isLogin) {
-                    LoginModalRef.open();
+                    openLoginModal();
                     return;
                 }
                 if (!isMuted) {

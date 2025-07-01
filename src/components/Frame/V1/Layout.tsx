@@ -19,10 +19,11 @@ import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { isValidAddressEthereum } from '@/helpers/isValidAddress.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
-import { ConfirmLeavingModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ConfirmLeavingModalRef } from '@/modals/controls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import { captureFrameActionEvent } from '@/providers/telemetry/captureFrameActionEvent.js';
@@ -281,7 +282,7 @@ export const FrameLayout = memo<FrameLayoutProps>(function FrameLayout({ childre
             if (!frame) return;
 
             if (![ActionType.Link, ActionType.Mint].includes(button.action) && !getCurrentProfile(source)) {
-                LoginModalRef.open({
+                openLoginModal({
                     source,
                 });
                 return;

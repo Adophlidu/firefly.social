@@ -19,9 +19,10 @@ import { Tippy } from '@/esm/Tippy.js';
 import { classNames } from '@/helpers/classNames.js';
 import { humanize } from '@/helpers/formatCommentCounts.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useMirror } from '@/hooks/useMirror.js';
-import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface MirrorProps {
@@ -52,7 +53,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, di
         if (allDisabled) return;
 
         if (!isLogin && !loading) {
-            LoginModalRef.open({ source: post.source });
+            openLoginModal({ source: post.source });
             return;
         }
         setOpen(true);

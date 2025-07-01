@@ -15,9 +15,9 @@ import { Source } from '@/constants/enum.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
 import { isToday } from '@/helpers/isToday.js';
 import { isTomorrow } from '@/helpers/isTomorrow.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import { TwitterSocialMediaProxy } from '@/providers/twitter/SocialMedia.js';
 
 interface Tag {
@@ -48,7 +48,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
                 </p>
                 <ClickableArea
                     className="rounded-full bg-[rgba(24,26,32,0.5)] px-3 py-2 text-sm leading-[18px]"
-                    onClick={() => LoginModalRef.open()}
+                    onClick={() => openLoginModal()}
                 >
                     <Trans>Login</Trans>
                 </ClickableArea>

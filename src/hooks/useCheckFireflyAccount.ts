@@ -8,7 +8,7 @@ import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 export function useCheckFireflyAccount() {
     const isSyncing = useAsyncStatusAll();
-    const { preferences, setPreference } = usePreferencesState();
+    const { preferences, rehydrating, setPreference } = usePreferencesState();
     const { currentProfileSession } = useFireflyStateStore();
 
     const accountId = currentProfileSession?.profileId;
@@ -38,6 +38,6 @@ export function useCheckFireflyAccount() {
 
     return {
         hasFireflyAccount: hasChecked ? true : (data ?? false),
-        isLoading: hasChecked ? false : isLoading || isSyncing,
+        isLoading: hasChecked ? false : isLoading || isSyncing || rehydrating,
     };
 }

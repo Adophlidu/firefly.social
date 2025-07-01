@@ -34,6 +34,7 @@ import { formatThirdPartyProfileName } from '@/helpers/formatThirdPartyProfileNa
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
@@ -323,7 +324,7 @@ export function MainView() {
 
                 if (!account.session) {
                     await delay(300);
-                    LoginModalRef.open({
+                    openLoginModal({
                         source,
                         options: { expectedProfile: account.profile.profileId },
                     });

@@ -7,8 +7,8 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { switchAccount } from '@/services/account.js';
@@ -58,7 +58,7 @@ export function ProfileLoginStatus({ profile, className = '' }: ProfileLoginStat
         <ClickableButton
             className={getButtonClassName(className)}
             onClick={() =>
-                LoginModalRef.open({
+                openLoginModal({
                     source: profile.source,
                     options: {
                         expectedProfile: profile.profileId,

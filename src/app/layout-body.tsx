@@ -5,6 +5,8 @@ import { IfPathname } from '@/components/IfPathname.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
+import { STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { Script } from '@/esm/Script.js';
 
@@ -62,7 +64,7 @@ export function LayoutBody({ children }: { children: ReactNode }) {
                     </IfPathname>
 
                     <Modals />
-                    <FireflyAccountChecker />
+                    {env.external.NEXT_PUBLIC_FORCE_SIGNUP === STATUS.Enabled ? <FireflyAccountChecker /> : null}
                     <Script>{REMOVE_LOADING_SCRIPT}</Script>
                 </RouteProgressBar>
             </Providers>

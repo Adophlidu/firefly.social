@@ -9,10 +9,10 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { WalletConnectButton } from '@/components/WalletConnectButton.js';
 import { classNames } from '@/helpers/classNames.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useIsLogin, useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useMounted } from '@/hooks/useMounted.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 interface FooterProps {}
@@ -34,7 +34,7 @@ export function Footer(props: FooterProps) {
                         onClick={async () => {
                             useNavigatorState.getState().updateSidebarOpen(false);
                             await delay(300);
-                            LoginModalRef.open();
+                            openLoginModal();
                         }}
                     />
                 </>
@@ -46,7 +46,7 @@ export function Footer(props: FooterProps) {
                         onClick={async () => {
                             useNavigatorState.getState().updateSidebarOpen(false);
                             await delay(300);
-                            LoginModalRef.open();
+                            openLoginModal();
                         }}
                     >
                         {isLoading ? (

@@ -5,8 +5,8 @@ import AddIcon from '@/assets/add-small.svg';
 import MenuIcon from '@/assets/menu-white.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import type { SocialSource } from '@/constants/enum.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { LoginModalRef } from '@/modals/controls.js';
 
 interface LoginButtonProps {
     source: SocialSource | 'other';
@@ -20,11 +20,11 @@ export function LoginButton({ source }: LoginButtonProps) {
             style={{ backgroundColor: 'rgba(124, 127, 163, 0.06)' }}
             onClick={() => {
                 if (source === 'other') {
-                    LoginModalRef.open({ options: { hideSocialLogin: true } });
+                    openLoginModal({ options: { hideSocialLogin: true } });
                     return;
                 }
 
-                LoginModalRef.open({ source });
+                openLoginModal({ source });
             }}
         >
             {source === 'other' ? (

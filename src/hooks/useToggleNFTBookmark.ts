@@ -7,8 +7,8 @@ import { usePathname } from '@/esm/navigation.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { ETH_ZERO_ADDRESS } from '@/helpers/isZeroAddress.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 export function useToggleNFTBookmark(options: { owner: string; nftId: string; strict?: boolean }) {
@@ -23,7 +23,7 @@ export function useToggleNFTBookmark(options: { owner: string; nftId: string; st
         mutationKey,
         mutationFn: async (hasBookmarked: boolean) => {
             if (!isLogin) {
-                LoginModalRef.open();
+                openLoginModal();
                 return;
             }
 

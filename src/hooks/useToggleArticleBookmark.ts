@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -12,7 +12,7 @@ export function useToggleArticleBookmark() {
     return useMutation({
         mutationFn: async (article: Article) => {
             if (!fireflySessionHolder.session) {
-                LoginModalRef.open();
+                openLoginModal();
                 return;
             }
             const { hasBookmarked } = article;

@@ -6,10 +6,11 @@ import { useCallback, useMemo } from 'react';
 import { RestrictionType } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useCommentPost(post: Post, disabled = false) {
@@ -69,7 +70,7 @@ export function useCommentPost(post: Post, disabled = false) {
 
     const handleClick = useCallback(async () => {
         if (!isLogin) {
-            LoginModalRef.open({ source });
+            openLoginModal({ source });
             return;
         }
         if (!commentDisabled) {

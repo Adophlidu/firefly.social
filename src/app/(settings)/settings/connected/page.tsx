@@ -10,8 +10,8 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { LoginModalRef } from '@/modals/controls.js';
 
 export default function Connected() {
     const isLogin = useIsLoginFirefly();
@@ -32,7 +32,7 @@ export default function Connected() {
                         <ClickableButton
                             className="inline-flex h-10 w-full flex-col items-center justify-center md:w-[200px]"
                             onClick={() => {
-                                LoginModalRef.open();
+                                openLoginModal();
                             }}
                         >
                             <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl border border-current py-[11px] text-main">

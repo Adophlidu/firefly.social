@@ -13,7 +13,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { AdFunctionType, AdvertisementType } from '@/constants/enum.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import type { Advertisement } from '@/types/advertisement.js';
 
 interface Props extends React.HTMLProps<'div'> {
@@ -56,7 +56,7 @@ function Advertisement({ ad }: { ad: Advertisement }) {
             onClick={() => {
                 switch (ad.function) {
                     case AdFunctionType.OpenScan:
-                        LoginModalRef.open();
+                        openLoginModal();
                         break;
                     default:
                         safeUnreachable(ad.function);

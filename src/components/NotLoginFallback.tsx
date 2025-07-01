@@ -8,10 +8,11 @@ import { type LoginFallbackSource, type ProfileSource, Source } from '@/constant
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveFallbackImageUrl } from '@/helpers/resolveFallbackImageUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
-import { LoginModalRef, WalletConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/controls.js';
 
 const resolveConnectButtonClass = createLookupTableResolver<LoginFallbackSource, string>(
     {
@@ -103,7 +104,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                         WalletConnectModalRef.open();
                         return;
                     }
-                    LoginModalRef.open({ source: isNotSocialSource ? undefined : (source as ProfileSource) });
+                    openLoginModal({ source: isNotSocialSource ? undefined : (source as ProfileSource) });
                 }}
             >
                 {isWallet ? (

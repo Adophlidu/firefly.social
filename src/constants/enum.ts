@@ -38,6 +38,7 @@ export enum PageRoute {
     Following = '/following/:source',
     FollowingPosts = '/following/posts',
     Discover = '/:source',
+    DiscoverPosts = '/posts',
     Explore = '/explore',
     Notifications = '/notifications',
     Profile = '/profile',

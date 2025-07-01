@@ -12,8 +12,9 @@ import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { PasswordWorkflow } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { ConfirmModalRef, LoginModalRef, PasswordModalRef } from '@/modals/controls.js';
+import { ConfirmModalRef, PasswordModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { captureRemovePasscodeEvent } from '@/providers/telemetry/capturePasscodeEvent.js';
 
@@ -30,7 +31,7 @@ function ToggleSyncSessionSwitch({
         async (value: boolean) => {
             try {
                 if (!isLogin) {
-                    LoginModalRef.open();
+                    openLoginModal();
                     return;
                 }
                 if (value) {

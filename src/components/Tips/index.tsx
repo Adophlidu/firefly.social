@@ -13,9 +13,10 @@ import { env } from '@/constants/env.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
-import { LoginModalRef, TipsModalRef } from '@/modals/controls.js';
+import { TipsModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -51,7 +52,7 @@ export function Tips({
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         try {
             if (!isLogin) {
-                LoginModalRef.open({ source: post?.source });
+                openLoginModal({ source: post?.source });
                 return;
             }
             const relatedProfiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(

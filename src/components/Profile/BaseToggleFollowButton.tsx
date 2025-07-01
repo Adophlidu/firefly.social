@@ -3,9 +3,9 @@ import { memo, type ReactNode, useMemo } from 'react';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
 
@@ -48,7 +48,7 @@ export const BaseToggleFollowButton = memo(function BaseToggleFollowButton({
                     return;
                 }
                 if (!isLogin) {
-                    LoginModalRef.open({ source: profile.source });
+                    openLoginModal({ source: profile.source });
                     return;
                 }
                 toggleFollow.mutate();

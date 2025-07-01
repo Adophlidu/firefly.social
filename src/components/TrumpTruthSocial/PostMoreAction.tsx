@@ -11,10 +11,11 @@ import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SITE_URL_OFFICIAL } from '@/constants/index.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps {
@@ -58,7 +59,7 @@ export const PostMoreAction = memo<MoreProps>(function PostMoreAction({ post }) 
                             onClick={() => {
                                 close();
                                 if (!isLogin) {
-                                    LoginModalRef.open();
+                                    openLoginModal();
                                     return;
                                 }
                                 ComposeModalRef.open({

@@ -10,11 +10,12 @@ import { SITE_URL_OFFICIAL } from '@/constants/index.js';
 import { CHAR_TAG } from '@/helpers/chars.js';
 import { formatAddressEthereum } from '@/helpers/formatAddress.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
-import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/controls.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
 export function TipSuccess() {
@@ -43,7 +44,7 @@ export function TipSuccess() {
                 : profiles.some((profile) => resolveSocialSourceFromFireflyPlatform(profile.platform) === source),
         );
         if (!expectedSources.length) {
-            LoginModalRef.open({
+            openLoginModal({
                 source: post ? post.source : resolveSocialSourceFromFireflyPlatform(profiles[0].platform),
             });
             return;

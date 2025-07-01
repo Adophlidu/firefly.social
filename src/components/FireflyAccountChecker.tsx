@@ -1,8 +1,12 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { PageRoute } from '@/constants/enum.js';
-import { redirect, RedirectType, usePathname } from '@/esm/navigation.js';
+import { usePathname } from '@/esm/navigation.js';
+import { bom } from '@/helpers/bom.js';
+import { isPathnameForceRedirect } from '@/helpers/openLoginModal.js';
 import { useCheckFireflyAccount } from '@/hooks/useCheckFireflyAccount.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfile.js';
 import { CreateFireflyAccountGuideModalRef } from '@/modals/controls.js';
@@ -13,10 +17,23 @@ export function FireflyAccountChecker() {
     const profiles = useCurrentProfiles();
     const { accounts } = useThirdPartyStateStore();
     const pathname = usePathname();
+    const isForceRedirect = isPathnameForceRedirect(pathname);
 
-    if (pathname === PageRoute.Signup) return null;
+    useEffect(() => {
+        if (!bom?.location) return;
+        if (pathname === PageRoute.Signup) return;
+        if (hasFireflyAccount || isLoading) return;
+        if (!isForceRedirect) return;
 
-    if (isLoading) {
+        if (profiles.length || accounts.length) {
+            CreateFireflyAccountGuideModalRef.open();
+            return;
+        }
+
+        bom.location.href = PageRoute.Signup;
+    }, [pathname, accounts.length, hasFireflyAccount, isLoading, profiles.length]);
+
+    if ((!hasFireflyAccount || isLoading) && isForceRedirect) {
         return (
             <div className="fixed inset-0 z-[999] flex items-center justify-center bg-primaryBottom">
                 <LoadingIcon />
@@ -24,12 +41,5 @@ export function FireflyAccountChecker() {
         );
     }
 
-    if (hasFireflyAccount) return null;
-
-    if (!profiles.length && !accounts.length) {
-        CreateFireflyAccountGuideModalRef.open();
-        return null;
-    }
-
-    redirect(PageRoute.Signup, RedirectType.replace);
+    return null;
 }

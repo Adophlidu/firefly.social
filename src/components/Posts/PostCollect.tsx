@@ -19,13 +19,13 @@ import { LENS_CHAIN_ID } from '@/constants/index.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 import { getWalletClientForLensChain } from '@/helpers/getWalletClientForLensChain.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { useTokenBalanceInPostCollect } from '@/hooks/useTokenBalanceInPostCollect.js';
 import { EVMExplorerResolver } from '@/mask/index.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -171,7 +171,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
     const [{ loading: clickLoading }, handleClick] = useAsyncFn(async () => {
         if (!isLogin) {
-            LoginModalRef.open({ source: post.source });
+            openLoginModal({ source: post.source });
             return;
         }
 

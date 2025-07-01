@@ -4,9 +4,9 @@ import { useAsyncFn } from 'react-use';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolvePollProvider } from '@/helpers/resolvePollProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import type { PollOption } from '@/providers/types/Poll.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -23,7 +23,7 @@ export function VoteButton({ option, post, frameUrl }: VoteButtonProps) {
     const [{ loading }, handleVote] = useAsyncFn(async () => {
         try {
             if (!isLogin) {
-                LoginModalRef.open({ source: post.source });
+                openLoginModal({ source: post.source });
                 return;
             }
             if (!pollId) throw new Error('Poll ID not found');

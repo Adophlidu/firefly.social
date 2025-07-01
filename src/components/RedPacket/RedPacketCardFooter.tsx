@@ -9,11 +9,12 @@ import { ActionButton } from '@/components/ActionButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkType } from '@/constants/enum.js';
 import { getNetworkTypeFromRpPayload } from '@/helpers/getNetworkTypeFromRpPayload.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
-import { LoginModalRef, WalletConnectModalRef } from '@/modals/controls.js';
+import { WalletConnectModalRef } from '@/modals/controls.js';
 import type { RedPacketJSONPayload } from '@/providers/types/FireflyRedPacket.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -90,7 +91,7 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
     if (!currentProfile)
         return (
             <div className="light">
-                <ActionButton className="w-full" onClick={() => LoginModalRef.open({ source: post.source })}>
+                <ActionButton className="w-full" onClick={() => openLoginModal({ source: post.source })}>
                     <Trans>Connect to {resolveSourceName(post.source)}</Trans>
                 </ActionButton>
             </div>

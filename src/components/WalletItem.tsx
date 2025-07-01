@@ -15,8 +15,9 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isValidAddressEthereum, isValidAddressSolana } from '@/helpers/isValidAddress.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
@@ -44,7 +45,7 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
 
     const [{ loading }, onToggle] = useAsyncFn(async () => {
         if (!isLogin) {
-            LoginModalRef.open();
+            openLoginModal();
             return;
         }
         if (!isMuted) {

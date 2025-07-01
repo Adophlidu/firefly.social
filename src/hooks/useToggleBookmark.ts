@@ -3,9 +3,9 @@ import { useMutation } from '@tanstack/react-query';
 
 import { BookmarkType, type SocialSource } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -15,7 +15,7 @@ export function useToggleBookmark(source: SocialSource) {
         mutationFn: async (post: Post) => {
             const { hasBookmarked, postId } = post;
             if (!isLogin) {
-                LoginModalRef.open({ source: post.source });
+                openLoginModal({ source: post.source });
                 return;
             }
             try {
