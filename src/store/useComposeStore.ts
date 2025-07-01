@@ -122,7 +122,7 @@ interface ComposeState extends ComposeBaseState {
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null, cursor?: Cursor) => void;
     updateVideo: (video: MediaObject | null, cursor?: Cursor) => void;
     updateImages: (imagesOrUpdater: SetStateAction<MediaObject[]>, cursor?: Cursor) => void;
-    addUrl: (url: string | URL, cursor?: Cursor) => void;
+    addUrl: (url: string, cursor?: Cursor) => void;
     addImage: (image: MediaObject, index: number, cursor?: Cursor) => void;
     removeImage: (image: MediaObject, cursor?: Cursor) => void;
     addFrame: (frame: Frame, cursor?: Cursor) => void;
