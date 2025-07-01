@@ -8,6 +8,7 @@ import { parseJson } from '@/helpers/parseJson.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveFarcasterMiniappHomeUrl } from '@/helpers/resolveFarcasterMiniappHomeUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { BUILT_IN_FRAMES } from '@/providers/frame/frames/index.js';
 import { getNextVersion } from '@/providers/frame/readers/getNextVersion.js';
 import {
     getAspectRatio,
@@ -25,16 +26,6 @@ import {
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import { fetchFarcasterJson } from '@/services/fetchFarcasterJson.js';
 import type { FrameV1, FrameV2, LinkDigestedResponse } from '@/types/frame.js';
-
-const BLACKLISTED_HOSTS = [
-    't.me',
-    't.co',
-    'youtu.be',
-    'youtube.com',
-    'www.youtube.com',
-    'warpcast.com',
-    'farcaster.xyz',
-];
 
 const FrameV2Schema = z.object({
     version: z.string(),
@@ -54,8 +45,22 @@ const FrameV2Schema = z.object({
     }),
 });
 
+const BLACKLISTED_HOSTS = [
+    't.me',
+    't.co',
+    'youtu.be',
+    'youtube.com',
+    'www.youtube.com',
+    'warpcast.com',
+    'farcaster.xyz',
+];
+
 class Processor {
-    digestDocumentV1 = async (url: string, document: Document, signal?: AbortSignal): Promise<FrameV1 | null> => {
+    private digestDocumentV1 = async (
+        url: string,
+        document: Document,
+        signal?: AbortSignal,
+    ): Promise<FrameV1 | null> => {
         const imageUrl = getImageUrl(document);
         const imageAlt = getImageAlt(document);
         const digestedImage = imageUrl ? await OpenGraphProcessor.digestImageUrl(imageUrl, signal) : null;
@@ -103,7 +108,7 @@ class Processor {
         return frame;
     };
 
-    digestDocumentV2 = async (url: string, version: string, signal?: AbortSignal): Promise<FrameV2 | null> => {
+    private digestDocumentV2 = async (url: string, version: string, signal?: AbortSignal): Promise<FrameV2 | null> => {
         const payload = parseJson<FrameV2>(version);
         const parsed = FrameV2Schema.safeParse(payload);
         if (!parsed.success) throw new Error(parsed.error.message);
@@ -145,6 +150,21 @@ class Processor {
     };
 
     digestDocumentUrl = async (documentUrl: string, signal?: AbortSignal): Promise<LinkDigestedResponse | null> => {
+        // built-in frames
+        const frames = BUILT_IN_FRAMES as Array<[string[], FrameV2]>;
+        for (const [urls, frame] of frames) {
+            if (urls.includes(documentUrl)) {
+                console.log(`[frame] built-in frame found: ${documentUrl}`);
+                return {
+                    frame: {
+                        ...frame,
+                        x_url: documentUrl,
+                        x_version: 2,
+                    },
+                };
+            }
+        }
+
         const resolvedUrl = await resolveFarcasterMiniappHomeUrl(documentUrl, signal);
 
         const url = parseUrl(resolvedUrl);
