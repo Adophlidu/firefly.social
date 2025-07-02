@@ -88,7 +88,7 @@ export interface TokenOverviewProps extends HTMLProps<HTMLDivElement> {
     chainId?: number;
     address?: string;
 }
-export const Overview = memo<TokenOverviewProps>(function TokenOverview({ coinId, chainId, address, ...rest }) {
+export const Overview = memo<TokenOverviewProps>(function Overview({ coinId, chainId, address, ...rest }) {
     const { data: trending, isLoading } = useCoinTrending(coinId);
     const { market, coin } = trending ?? {};
     const { data: detected } = useDetectToken(address, !trending);

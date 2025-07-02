@@ -4,7 +4,7 @@ import { isArray } from 'lodash-es';
 import { use } from 'react';
 
 import { Feeds } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/Feeds.js';
-import { Overview } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/TokenOverview.js';
+import { Overview } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/Overview.js';
 import { Transactions } from '@/app/(normal)/token/[symbol]/[[...slug]]/categories/Transactions.js';
 import type { TokenPageSearch } from '@/app/(normal)/token/[symbol]/[[...slug]]/CategoryTabs.js';
 import TokenPageLoading from '@/app/(normal)/token/[symbol]/[[...slug]]/loading.js';
@@ -75,6 +75,7 @@ export default function TokenCategoryPage({ params, searchParams }: Props) {
                 />
             );
         case TokenCategory.Overview:
+            if (isTokenPending) return <TokenPageLoading />;
             return <Overview coinId={tokenId} chainId={updatedChainId} address={address} />;
         case TokenCategory.Transactions:
         default:

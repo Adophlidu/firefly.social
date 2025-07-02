@@ -61,8 +61,11 @@ export const searchToken = memoizePromise(
             };
         }
         const attributes = tokenAsset?.attributes;
-        const coinId = options.coingecko_id || coin?.id || attributes?.coingecko_coin_id || symbol;
-        const marketToken = await runInSafeAsync(async () => (coinId ? await CoinGecko.getCoinInfo(coinId) : null));
+        const coinId = options.coingecko_id || coin?.id || attributes?.coingecko_coin_id;
+        const marketToken = await runInSafeAsync(async () => {
+            const possibleCoinId = coinId || symbol;
+            return possibleCoinId ? await CoinGecko.getCoinInfo(possibleCoinId) : null;
+        });
 
         if (marketToken && 'symbol' in marketToken) {
             return {
