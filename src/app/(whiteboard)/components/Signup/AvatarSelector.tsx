@@ -142,13 +142,13 @@ export const AvatarSelector = memo<AvatarSelectorProps>(function AvatarSelector(
     return (
         <div>
             <div className="mt-12 flex justify-center">
-                <div className="relative h-32 w-32 overflow-hidden rounded-full bg-black">
+                <div className="relative h-32 w-32 rounded-full bg-black">
                     <ImageWithLoading
                         alt="avatar"
                         src={avatar}
                         width={128}
                         height={128}
-                        wrapperClassName="h-32 w-32"
+                        wrapperClassName="h-32 w-32 overflow-hidden"
                         className="rounded-full object-cover"
                     />
                     {avatarType === 'pfp' ? (
@@ -187,7 +187,7 @@ export const AvatarSelector = memo<AvatarSelectorProps>(function AvatarSelector(
                                 src={avatarType === 'random' && selected ? avatar : item.url}
                                 width={64}
                                 height={64}
-                                className="h-full w-full"
+                                className="h-full w-full object-cover"
                             />
                         </ClickableButton>
                     );
@@ -214,7 +214,7 @@ export const AvatarSelector = memo<AvatarSelectorProps>(function AvatarSelector(
                             src={customSelected ? avatar : customAvatar?.url || ''}
                             width={64}
                             height={64}
-                            className="h-full w-full"
+                            className="h-full w-full object-cover"
                         />
                     ) : (
                         <AddIcon width={24} height={24} />
