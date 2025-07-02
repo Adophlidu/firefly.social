@@ -9,6 +9,7 @@ export function playSignupAudio() {
     audio.loop = true;
     audio.muted = false; // Ensure audio is not muted
     audio.currentTime = 0; // Reset to the beginning
+    audio.volume = 0.5; // Set volume to a reasonable level
     audio.play().catch((error) => {
         console.error('Failed to play signup audio:', error);
     });

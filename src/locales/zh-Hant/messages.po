@@ -3899,6 +3899,9 @@ msgstr "主要帳號"
 msgid "Hide tokens with small balances"
 msgstr "隱藏小額代幣"
 
+msgid "Welcome back to Firefly!"
+msgstr ""
+
 msgid "Proposal"
 msgstr "提案"
 

@@ -3888,6 +3888,9 @@ msgstr ""
 msgid "Hide tokens with small balances"
 msgstr ""
 
+msgid "Welcome back to Firefly!"
+msgstr ""
+
 msgid "Proposal"
 msgstr ""
 

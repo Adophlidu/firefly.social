@@ -21,6 +21,7 @@ export function SuccessPage() {
     const { currentProfileSession } = useFireflyStateStore();
 
     const nickname = searchParams.get('nickname') || '';
+    const isBack = searchParams.get('isBack') === '1';
     const accountId = currentProfileSession?.profileId;
 
     return (
@@ -34,7 +35,11 @@ export function SuccessPage() {
                     </h1>
                 ) : null}
                 <p className="text-lg font-bold text-white">
-                    <Trans>Your Firefly Identity is now active.</Trans>
+                    {isBack ? (
+                        <Trans>Welcome back to Firefly!</Trans>
+                    ) : (
+                        <Trans>Your Firefly Identity is now active.</Trans>
+                    )}
                 </p>
                 <SquareButton
                     className="mt-6 sm:mt-12"
@@ -54,7 +59,7 @@ export function SuccessPage() {
                             ComposeModalRef.open({
                                 type: 'compose',
                                 chars: [
-                                    'Player 1 has entered the social game 🕹️ Create your Firefly account now! Join the Web3-native social experience. ',
+                                    'Create your Firefly account now! Join the Web3-native social experience. ',
                                     FIREFLY_MENTION,
                                     ' #Web3social\r\n',
                                     urlcat(SITE_URL, '/profile/:accountId', { accountId }),

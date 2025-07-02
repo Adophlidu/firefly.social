@@ -17,8 +17,8 @@ export function useCheckFireflyAccount() {
     const { data, isLoading } = useQuery({
         queryKey: ['check-firefly-account', accountId],
         queryFn: async () => {
-            if (hasChecked) return true;
-            if (!accountId) return false;
+            if (hasChecked) return { hasFireflyAccount: true };
+            if (!accountId) return { hasFireflyAccount: false };
 
             const connections = await FireflyEndpointProvider.getAllConnections();
             const fireflyAccount = formatFireflyAccountProfileFromFireflyConnections(connections.account, false);
@@ -30,14 +30,18 @@ export function useCheckFireflyAccount() {
                 }));
             }
 
-            return hasFireflyAccount;
+            return {
+                hasFireflyAccount,
+                displayName: fireflyAccount?.displayName,
+            };
         },
         staleTime: 1000 * 60 * 30, // 30 minutes
         enabled: !!accountId && !hasChecked,
     });
 
     return {
-        hasFireflyAccount: hasChecked ? true : (data ?? false),
+        hasFireflyAccount: hasChecked ? true : (data?.hasFireflyAccount ?? false),
         isLoading: hasChecked ? false : isLoading || isSyncing || rehydrating,
+        displayName: data?.displayName,
     };
 }

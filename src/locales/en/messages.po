@@ -3899,6 +3899,9 @@ msgstr "Primary account"
 msgid "Hide tokens with small balances"
 msgstr "Hide tokens with small balances"
 
+msgid "Welcome back to Firefly!"
+msgstr "Welcome back to Firefly!"
+
 msgid "Proposal"
 msgstr "Proposal"
 
