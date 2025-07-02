@@ -31,7 +31,7 @@ export function FireflyAccountChecker() {
         }
 
         bom.location.href = PageRoute.Signup;
-    }, [pathname, accounts.length, hasFireflyAccount, isLoading, profiles.length]);
+    }, [pathname, accounts.length, hasFireflyAccount, isLoading, profiles.length, isForceRedirect]);
 
     if ((!hasFireflyAccount || isLoading) && isForceRedirect) {
         return (
