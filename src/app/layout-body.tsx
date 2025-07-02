@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react';
 
-import { FireflyAccountChecker } from '@/components/FireflyAccountChecker.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
@@ -14,6 +13,12 @@ const Modals = dynamic(() => import('@/modals/index.js').then((m) => m.Modals), 
 const BeforeUnload = dynamic(() => import('@/components/Compose/BeforeUnload.js').then((m) => m.BeforeUnload), {
     ssr: false,
 });
+const FireflyAccountChecker = dynamic(
+    () => import('@/components/FireflyAccountChecker.js').then((m) => m.FireflyAccountChecker),
+    {
+        ssr: false,
+    },
+);
 
 const REMOVE_LOADING_SCRIPT = `
     ;(function () {
