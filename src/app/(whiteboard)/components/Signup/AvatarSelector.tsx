@@ -187,6 +187,7 @@ export const AvatarSelector = memo<AvatarSelectorProps>(function AvatarSelector(
                                 src={avatarType === 'random' && selected ? avatar : item.url}
                                 width={64}
                                 height={64}
+                                wrapperClassName="h-full w-full overflow-hidden"
                                 className="h-full w-full object-cover"
                             />
                         </ClickableButton>
