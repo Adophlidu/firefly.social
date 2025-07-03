@@ -11,6 +11,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import js from '@eslint/js';
 import { FlatCompat } from '@eslint/eslintrc';
+import renameJsx from './scripts/eslint-plugin-rename-jsx.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -36,6 +37,8 @@ export default defineConfig([
         'public',
         'scripts',
         'setups',
+        '.next/**',
+        '*.svg',
     ]),
     {
         extends: compat.extends('next/core-web-vitals'),
@@ -47,6 +50,7 @@ export default defineConfig([
             'simple-import-sort': simpleImportSort,
             '@typescript-eslint': typescriptEslintEslintPlugin,
             'unused-imports': unusedImports,
+            'rename-jsx': renameJsx,
         },
 
         languageOptions: {
@@ -62,6 +66,7 @@ export default defineConfig([
         },
 
         rules: {
+            'rename-jsx/rename-jsx-import': 'warn',
             'default-case-last': 'error',
             eqeqeq: 'error',
             'import/no-empty-named-blocks': 'warn',
