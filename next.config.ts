@@ -139,7 +139,7 @@ const config: NextConfig = {
             },
             {
                 protocol: 'https',
-                hostname: 'media.firefly.land',
+                hostname: '*.firefly.land',
             },
             {
                 hostname: 'imagedelivery.net',
