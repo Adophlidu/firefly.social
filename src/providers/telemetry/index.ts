@@ -16,7 +16,7 @@ function formatParameter(key: string, value: unknown): [string, unknown] {
     if (typeof value === 'boolean') {
         return [key, value === true ? 'Y' : 'N'];
     } else if (isHex(value)) {
-        return [key, `hex:${value}`];
+        return [key, `hex:${value.toString()}`];
     } else {
         return [key, value];
     }
