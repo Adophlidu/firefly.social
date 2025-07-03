@@ -126,6 +126,7 @@ export function FrameViewerModal({ ref }: Props) {
             endpointRef.current = null;
         };
     }, [
+        props?.frame,
         props?.frameHost,
         props?.frame,
         // refresh the provider after account changed
@@ -157,6 +158,8 @@ export function FrameViewerModal({ ref }: Props) {
     return (
         <Modal disableDialogClose open={open} onClose={() => dispatch?.close()}>
             <div className="relative flex h-[755px] w-[424px] flex-col overflow-hidden rounded-xl">
+                <Modals />
+
                 <div className="flex h-[60px] flex-1 items-center justify-between bg-lightBg px-4 py-3 text-black dark:bg-fireflyBrand dark:text-white">
                     <div className="cursor-pointer">
                         <CloseButton onClick={() => dispatch?.close()} />
@@ -216,8 +219,6 @@ export function FrameViewerModal({ ref }: Props) {
                         />
                     </div>
                 ) : null}
-
-                <Modals />
             </div>
         </Modal>
     );
