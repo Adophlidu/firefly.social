@@ -41,9 +41,13 @@ export default function Page(props: Props) {
 
     const { types, enableQualityFilter } = typesState[source];
 
+    const querySources =
+        source === Source.Notifications && types.length === 1 && types[0] === NotificationType.Tips
+            ? ([NotificationType.Tips] as const)
+            : ([...SOCIAL_DISCOVER_SOURCE, NotificationType.Tips] as const);
     const queryResult = useMultiInfiniteQueryPageable(
         ['notifications', source, isLogin, enableQualityFilter, asyncStatusAll],
-        ([...SOCIAL_DISCOVER_SOURCE, NotificationType.Tips] as const)
+        querySources
             .filter((x) => {
                 if (source === Source.Notifications) return x === NotificationType.Tips ? isLogin : !!profilesAll[x];
                 return x === source;

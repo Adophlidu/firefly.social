@@ -1,11 +1,15 @@
+import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { useState } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { LoadingIcon } from '@/components/LoadingIcon.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
+import { downloadImage } from '@/helpers/downloadImage.js';
+import { enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -34,6 +38,18 @@ export function ShareImageModal({ ref }: Props) {
             setProps(undefined);
         },
     });
+
+    const [{ loading: isDownloading }, handleDownload] = useAsyncFn(async () => {
+        try {
+            if (!props?.imageUrl) {
+                throw new Error('Image URL is not provided');
+            }
+            await downloadImage(props.imageUrl, 'firefly_tip_share.png');
+        } catch (error) {
+            enqueueInfoMessage(t`Failed to download image. Please try again later.`);
+            throw error;
+        }
+    }, [props?.imageUrl]);
 
     if (!props?.imageUrl) return null;
 
@@ -84,14 +100,9 @@ export function ShareImageModal({ ref }: Props) {
             </div>
             <ClickableButton
                 disabled={loading || hasError}
+                loading={isDownloading}
                 className="h-10 w-full rounded-lg bg-main text-center text-medium font-bold text-primaryBottom"
-                onClick={() => {
-                    const a = document.createElement('a');
-                    a.href = props.imageUrl;
-                    a.target = '_blank';
-                    a.download = 'firefly_tip_share.png';
-                    a.click();
-                }}
+                onClick={handleDownload}
             >
                 <Trans>Download image</Trans>
             </ClickableButton>
