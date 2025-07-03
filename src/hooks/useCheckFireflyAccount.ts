@@ -33,6 +33,7 @@ export function useCheckFireflyAccount() {
             return {
                 hasFireflyAccount,
                 displayName: fireflyAccount?.displayName,
+                avatar: fireflyAccount?.avatar,
             };
         },
         staleTime: 1000 * 60 * 30, // 30 minutes
@@ -43,5 +44,6 @@ export function useCheckFireflyAccount() {
         hasFireflyAccount: hasChecked ? true : (data?.hasFireflyAccount ?? false),
         isLoading: hasChecked ? false : isLoading || isSyncing || rehydrating,
         displayName: data?.displayName,
+        avatar: data?.avatar,
     };
 }

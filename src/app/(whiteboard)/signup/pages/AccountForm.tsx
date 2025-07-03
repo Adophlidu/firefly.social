@@ -96,7 +96,10 @@ export function AccountForm({ changeStep }: AccountFormProps) {
                 displayName: nickname,
                 avatar: s3Url,
             });
-            changeStep(SignupStep.Success, { nickname: encodeURIComponent(nickname) });
+            changeStep(SignupStep.Success, {
+                nickname: encodeURIComponent(nickname),
+                avatar: encodeURIComponent(s3Url),
+            });
 
             await delay(500);
             playSignupAudio();

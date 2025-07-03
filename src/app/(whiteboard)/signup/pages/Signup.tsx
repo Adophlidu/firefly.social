@@ -51,7 +51,7 @@ interface SignupProps {
 
 export function Signup({ initialStep }: SignupProps) {
     const [step, setStep] = useState<SignupStep>(initialStep || SignupStep.Welcome);
-    const { hasFireflyAccount, isLoading, displayName } = useCheckFireflyAccount();
+    const { hasFireflyAccount, isLoading, displayName, avatar } = useCheckFireflyAccount();
     const { setPreference } = usePreferencesState();
     const { currentProfileSession } = useFireflyStateStore();
     const hasFinished = useRef<boolean>(false);
@@ -94,7 +94,11 @@ export function Signup({ initialStep }: SignupProps) {
 
     if (hasFireflyAccount && !hasFinished.current) {
         if (displayName) {
-            changeStep(SignupStep.Success, { nickname: encodeURIComponent(displayName), isBack: '1' });
+            changeStep(SignupStep.Success, {
+                nickname: encodeURIComponent(displayName),
+                avatar: avatar ? encodeURIComponent(avatar) : '',
+                isBack: '1',
+            });
             return null;
         }
         redirect(PageRoute.FollowingPosts, RedirectType.replace);
