@@ -165,7 +165,6 @@ export function AccountForm({ changeStep }: AccountFormProps) {
                                     placeholder={t`Enter your nickname on Firefly`}
                                     onChange={(e) => setNickname(trimify(e.target.value))}
                                     minLength={1}
-                                    maxLength={20}
                                     autoComplete="off"
                                     spellCheck="false"
                                 />
