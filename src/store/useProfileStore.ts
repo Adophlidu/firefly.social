@@ -105,7 +105,7 @@ function createState(
     return create<ProfileState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
         persist(
             immer<ProfileState>((set, get) => ({
-                status: AsyncStatus.Idle,
+                status: AsyncStatus.Pending,
                 accounts: EMPTY_LIST,
                 currentProfile: null,
                 currentProfileSession: null,
@@ -267,9 +267,13 @@ const useFarcasterStateBase = createState(
 
             state.upgrade();
 
-            if (state.currentProfileSession) {
-                const farcasterSession = state.currentProfileSession as FarcasterSession;
-                farcasterSessionHolder.resumeSession(farcasterSession);
+            try {
+                if (state.currentProfileSession) {
+                    const farcasterSession = state.currentProfileSession as FarcasterSession;
+                    farcasterSessionHolder.resumeSession(farcasterSession);
+                }
+            } finally {
+                state.__setStatus__(AsyncStatus.Idle);
             }
         },
     },
@@ -337,6 +341,17 @@ const useTwitterStateBase = createState(
 
                 // show indicator if the session is from the server
                 state.__setStatus__(AsyncStatus.Pending);
+                if (!session || !isNewLogin)
+                    sentryClient.captureException(
+                        ExceptionId.RESUME_TWITTER_SESSION,
+                        new Error('resume twitter session'),
+                        {
+                            profileId: state.currentProfile?.profileId || '',
+                            isNewLogin: isNewLogin.toString(),
+                            idFromSession: idFromSession || '',
+                            createdAt: nextSession?.token.createdAt || '',
+                        },
+                    );
                 await addTwitterAccount(sessionPayload, !session || isNewLogin);
                 twitterSessionHolder.resumeSession(TwitterSession.from(sessionPayload.clientId, sessionPayload));
             } catch (error) {
@@ -367,6 +382,7 @@ const useBskyStateBase = createState(
             if (!currentProfileSession) {
                 console.warn('[bsky store] clean the local store because did or session is missing');
                 state.clear();
+                state.__setStatus__(AsyncStatus.Idle);
                 return;
             }
             const bskySession = currentProfileSession as BskySession;
@@ -550,6 +566,7 @@ const useFireflyStateBase = createState(
                     state.clear();
                 }
             } catch (error) {
+                state.__setStatus__(AsyncStatus.Idle);
                 if (error instanceof FetchError) return;
                 state.clear();
             }

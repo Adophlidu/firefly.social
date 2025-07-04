@@ -171,15 +171,16 @@ export function EditCrossAtModal({ ref }: Props) {
 
                                     const handle = handles[source];
 
-                                    if (profile) return { ...profile, handle: handle || profile.handle };
-                                    return {
-                                        platform: resolveFireflyPlatformFromSocialSource(source),
-                                        handle,
-                                        platform_id: '',
-                                        name: '',
-                                        hit: false,
-                                        score: 0,
-                                    };
+                                    return profile
+                                        ? { ...profile, handle }
+                                        : {
+                                              platform: resolveFireflyPlatformFromSocialSource(source),
+                                              handle,
+                                              platform_id: '',
+                                              name: '',
+                                              hit: false,
+                                              score: 0,
+                                          };
                                 }),
                             );
                             captureComposeCrossAtEvent(EventId.COMPOSE_CROSS_AT_EDIT_SUCCESS);

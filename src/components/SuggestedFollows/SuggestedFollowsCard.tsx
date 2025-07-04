@@ -29,10 +29,10 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useBskyStateStore } from '@/store/useProfileStore.js';
 
 const getSuggestedFollowersCached = memoizePromise(
-    async (source: SocialSource, syncing: boolean, profileId?: string) => {
+    async (source: SocialSource, profileId?: string) => {
         return getSuggestedFollowsInCard(source);
     },
-    (source, syncing, profileId) => `${source}-${profileId}-${syncing}`,
+    (source, profileId) => `${source}-${profileId}`,
 );
 
 export function SuggestedFollowsCard() {
@@ -44,15 +44,18 @@ export function SuggestedFollowsCard() {
 
     const commonKeys = [...SORTED_SOCIAL_SOURCES.map((x) => profileAll[x]?.profileId), asyncStatusAll, bskySession];
     const { data: suggestedFollows, isLoading } = useQuery({
-        queryKey: ['suggested-follows-lite', ...commonKeys],
-        staleTime: 1000 * 60 * 2,
+        queryKey: [
+            'suggested-follows-lite',
+            ...SORTED_SOCIAL_SOURCES.map((x) => profileAll[x]?.profileId),
+            asyncStatusAll,
+            bskySession,
+        ],
+        staleTime: 1000 * 60 * 30, // 30 minutes
         enabled: !asyncStatusAll,
         queryFn: async () => {
             const suggestedProfiles = await Promise.allSettled(
                 SORTED_SOCIAL_SOURCES.map((source) =>
-                    runInSafeAsync(() =>
-                        getSuggestedFollowersCached(source, asyncStatusAll, profileAll[source]?.profileId),
-                    ),
+                    runInSafeAsync(() => getSuggestedFollowersCached(source, profileAll[source]?.profileId)),
                 ),
             );
             return mergeLists(...compact(suggestedProfiles.map((x) => (x.status === 'fulfilled' ? x.value : []))));

@@ -23,7 +23,7 @@ export function FeedList({ profileId, source }: FeedListProps) {
 
     const isLogin = useIsLogin(source);
     const { data: profile } = useSuspenseQuery({
-        queryKey: ['profile', source, profileId, isLogin],
+        queryKey: ['profile-protected', source, profileId, isLogin],
         queryFn: async () => {
             // Querying protected flag for Twitter
             if (source !== Source.Twitter) return null;

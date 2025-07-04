@@ -1,6 +1,7 @@
 import { t } from '@lingui/core/macro';
 import { useAsyncFn } from 'react-use';
 
+import type { SocialSource } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -14,8 +15,9 @@ import { EventId } from '@/providers/types/Telemetry.js';
 /**
  * Mute and unmute a profile
  */
-export function useToggleMutedProfile(operator: Profile | null) {
-    const isLogin = useIsLogin(operator?.source);
+export function useToggleMutedProfile(source: SocialSource) {
+    const isLogin = useIsLogin(source);
+
     return useAsyncFn(
         async (profile: Profile, overrideMuted?: boolean) => {
             if (!isLogin) {

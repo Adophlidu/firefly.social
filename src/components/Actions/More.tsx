@@ -60,7 +60,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author: 
 
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
     const [, reportPost] = useReportPost();
-    const [, toggleMutedProfile] = useToggleMutedProfile(currentProfile);
+    const [, toggleMutedProfile] = useToggleMutedProfile(source);
     const [, toggleMutedChannel] = useToggleMutedChannel();
 
     const followButtonLabelRender = useCallback(

@@ -30,7 +30,7 @@ export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps 
         queryKey: ['profile', initialProfile.source, initialProfile.profileId, currentProfile?.profileId],
         initialData: initialProfile,
         queryFn: async () => {
-            return resolveSocialMediaProvider(initialProfile.source).getProfileByIdOrHandle(profileId);
+            return resolveSocialMediaProvider(initialProfile.source).getProfileById(profileId);
         },
     });
 

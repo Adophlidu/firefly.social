@@ -70,8 +70,9 @@ export function MentionsMenu({ editor, text, isDarkMode, onEdit, ...props }: Men
                         onMouseEnter={(e) => e.currentTarget.click()}
                     >
                         <span className="flex items-center -space-x-1">
-                            {profiles.map(({ platform, handle, platform_id }, index) =>
-                                platform === FireflyPlatform.Wallet ? null : (
+                            {profiles.map(({ platform, handle, platform_id }, index) => {
+                                if (!handle) return null;
+                                return platform === FireflyPlatform.Wallet ? null : (
                                     <span
                                         title={`@${handle}`}
                                         className={classNames('inline-flex items-center', {
@@ -84,8 +85,8 @@ export function MentionsMenu({ editor, text, isDarkMode, onEdit, ...props }: Men
                                             size={16}
                                         />
                                     </span>
-                                ),
-                            )}
+                                );
+                            })}
                         </span>
                         <span className="text-highlight">{text}</span>
                     </MenuButton>
@@ -97,7 +98,7 @@ export function MentionsMenu({ editor, text, isDarkMode, onEdit, ...props }: Men
                         <div className="w-full pt-2">
                             <div className="flex w-full flex-col gap-2 overflow-y-auto rounded-[8px] bg-primaryBottom px-2 py-3 shadow-messageShadow">
                                 {profiles
-                                    .filter((x) => x.platform !== FireflyPlatform.Wallet)
+                                    .filter((x) => x.platform !== FireflyPlatform.Wallet && !!x.handle)
                                     .map(({ platform, handle, platform_id }) => {
                                         return (
                                             <MenuItem key={platform_id}>

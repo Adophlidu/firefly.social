@@ -411,22 +411,22 @@ export function ProfileSourceTabs({
     profiles: initialProfiles,
     identity,
     socialProfile,
+    identityFromUrl,
 }: {
     profiles: FireflyProfile[];
     identity: FireflyIdentity;
+    identityFromUrl: FireflyIdentity;
     socialProfile?: Profile | null;
 }) {
     const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
-
     const { data = initialProfiles } = useQuery({
-        queryKey: ['logged-in-firefly-profiles', socialProfile?.source, socialProfile?.handle],
-        enabled: !!socialProfile && isMyProfile,
+        queryKey: ['logged-in-firefly-profiles', identityFromUrl.source, identityFromUrl.id],
+        enabled: isMyProfile,
         queryFn: async () => {
             try {
-                if (!socialProfile) return null;
                 const relatedProfiles = await getAllRelatedProfilesWithDefault({
-                    source: socialProfile.source,
-                    id: socialProfile.handle,
+                    source: identityFromUrl.source as ProfilePageSource,
+                    id: identityFromUrl.id,
                 });
                 return formatFireflyProfilesFromWalletProfiles(relatedProfiles) as FireflyProfile[];
             } catch {

@@ -41,7 +41,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
 }) {
     const currentProfile = useCurrentProfile(profile.source);
     const profiles = useCurrentFireflyProfilesAll();
-    const [, toggleMutedProfile] = useToggleMutedProfile(currentProfile);
+    const [, toggleMutedProfile] = useToggleMutedProfile(profile.source);
     const router = useRouter();
 
     const identity = {

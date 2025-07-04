@@ -99,9 +99,13 @@ export function readChars(chars: Chars, strategy: 'both' | 'visible' | 'invisibl
                         const target = x.profiles.find(
                             (profile) => source === resolveSourceFromFireflyPlatform(profile.platform),
                         );
+                        const hit = x.profiles.find((profile) => !!profile.hit);
+
                         return target?.handle
                             ? `${source === Source.Lens ? '@lens/' : '@'}${target.handle}`
-                            : x.content;
+                            : hit?.handle
+                              ? `@${hit.handle}`
+                              : x.content;
                     }
                     return x.content;
                 case CHAR_TAG.FRAME:

@@ -3,7 +3,6 @@ import { memo } from 'react';
 
 import { ToggleMutedButton } from '@/components/Actions/ToggleMutedButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -17,8 +16,7 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
 export const ToggleMutedProfileButton = memo(function ToggleMutedProfileButton({ profile, muted, ...rest }: Props) {
     const isMuted = muted ?? profile.viewerContext?.blocking ?? true;
 
-    const currentProfile = useCurrentProfile(profile.source);
-    const [{ loading }, toggleMuted] = useToggleMutedProfile(currentProfile);
+    const [{ loading }, toggleMuted] = useToggleMutedProfile(profile.source);
 
     const onToggle = async () => {
         if (!isMuted) {
