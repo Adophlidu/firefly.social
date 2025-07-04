@@ -20,6 +20,7 @@ export function FireflyAccountChecker() {
     const { accounts } = useThirdPartyStateStore();
     const pathname = usePathname();
     const isForceRedirect = isPathnameForceRedirect(pathname);
+    const hasLoggedIn = profiles.length > 0 || accounts.length > 0;
 
     useEffect(() => {
         if (!bom?.location) return;
@@ -27,15 +28,15 @@ export function FireflyAccountChecker() {
         if (hasFireflyAccount || isLoading) return;
         if (!isForceRedirect) return;
 
-        if (profiles.length || accounts.length) {
+        if (hasLoggedIn) {
             CreateFireflyAccountGuideModalRef.open();
             return;
         }
 
         bom.location.href = PageRoute.Signup;
-    }, [pathname, accounts.length, hasFireflyAccount, isLoading, profiles.length, isForceRedirect]);
+    }, [pathname, hasFireflyAccount, isLoading, isForceRedirect, hasLoggedIn]);
 
-    if (((!hasFireflyAccount || isLoading) && isForceRedirect) || isSyncing) {
+    if ((((!hasFireflyAccount && !hasLoggedIn) || isLoading) && isForceRedirect) || isSyncing) {
         return (
             <div className="fixed inset-0 z-[999] flex items-center justify-center bg-primaryBottom">
                 <FireflyLoadingIndicator />
