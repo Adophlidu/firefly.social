@@ -1,16 +1,14 @@
 import { Trans } from '@lingui/react/macro';
 import urlcat from 'urlcat';
 
+import { GamePlayer } from '@/app/(whiteboard)/components/Signup/GamePlayer.js';
 import { LoggedInSources } from '@/app/(whiteboard)/components/Signup/LoggedInSources.js';
 import { MusicTogglePlay } from '@/app/(whiteboard)/components/Signup/MusicTogglePlay.js';
 import { ShadowInAndOut } from '@/app/(whiteboard)/components/Signup/ShadowInAndOut.js';
 import { SquareButton } from '@/app/(whiteboard)/components/Signup/SquareButton.js';
-import { toggleSignupAudio } from '@/app/(whiteboard)/signup/pages/audio.js';
-import FireflyCard from '@/assets/firefly-card.svg';
 import { PageRoute } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
-import { Image } from '@/esm/Image.js';
 import { useSearchParams } from '@/esm/navigation.js';
 import { levelUp } from '@/fonts/index.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -29,20 +27,7 @@ export function SuccessPage() {
     return (
         <ShadowInAndOut className="no-scrollbar absolute inset-0 z-1 flex flex-col items-center justify-center gap-5 p-6 pt-20 sm:gap-[6.875%] md:flex-row md:pt-6">
             <MusicTogglePlay />
-            <div className="relative w-fit">
-                <FireflyCard className="h-auto w-[80vw] max-w-[385px] cursor-pointer" onClick={toggleSignupAudio} />
-                {avatar ? (
-                    <div className="absolute left-[29.08%] top-[16.15%] aspect-square w-[35.41%]">
-                        <Image
-                            src={decodeURIComponent(avatar)}
-                            alt={`Avatar for ${nickname}`}
-                            width={136}
-                            height={136}
-                            className="h-full w-full rounded-sm object-cover"
-                        />
-                    </div>
-                ) : null}
-            </div>
+            <GamePlayer avatar={avatar ? decodeURIComponent(avatar) : ''} />
             <div className="flex flex-col">
                 {nickname ? (
                     <h1 className={classNames('text-[32px] text-white', levelUp.className)}>
