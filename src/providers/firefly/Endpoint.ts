@@ -201,6 +201,7 @@ function fixCollection(collection: EVM.Collection): EVM.Collection {
         chain_id: +collection.chain_id,
     };
 }
+const DAY_RANGES = [1, 7, 30, 365, undefined];
 
 @SetQueryDataForBlockWallet()
 @SetQueryDataForAddWallet()
@@ -1060,7 +1061,7 @@ class FireflyEndpoint {
         return createPageable((data.list || []).map(fixCollection), createIndicator(undefined));
     }
 
-    async getTokenPriceStats(options: TokenPriceStatsOptions) {
+    async getTokenPriceStats(options: TokenPriceStatsOptions): Promise<NonNullable<TokenPriceStatsResponse['data']>> {
         const params = { ...options } as TokenPriceStatsOptions;
         if (params.coingecko_id) {
             params.address = undefined;
@@ -1074,6 +1075,13 @@ class FireflyEndpoint {
         });
         const response = await fireflySessionHolder.fetch<TokenPriceStatsResponse>(url);
         const result = resolveFireflyResponseData(response);
+        const dayIndex = DAY_RANGES.indexOf(options.days);
+        if (result.prices.length < 2 && dayIndex > 0) {
+            return this.getTokenPriceStats({
+                ...options,
+                days: DAY_RANGES[dayIndex - 1],
+            });
+        }
         result.prices = sortBy(result.prices, (x) => x[0]);
         return result;
     }
